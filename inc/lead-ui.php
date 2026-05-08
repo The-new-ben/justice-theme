@@ -1,0 +1,54 @@
+<?php
+/**
+ * Lead form UI helpers for theme.
+ *
+ * @package JusticeTheme
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+/**
+ * Get theme contact option.
+ *
+ * @param string $key     Option key.
+ * @param string $default Default.
+ * @return string
+ */
+function justice_theme_option( $key, $default = '' ) {
+	return get_theme_mod( $key, $default );
+}
+
+/**
+ * Register Customizer settings.
+ *
+ * @param WP_Customize_Manager $wp_customize Manager.
+ */
+function justice_theme_customize_register( $wp_customize ) {
+	$wp_customize->add_section( 'justice_contact', array(
+		'title'    => __( 'Contact Information', 'justice-theme' ),
+		'priority' => 30,
+	) );
+
+	$wp_customize->add_setting( 'justice_phone', array(
+		'default'           => '03-6161535',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'justice_phone', array(
+		'label'   => __( 'Phone Number', 'justice-theme' ),
+		'section' => 'justice_contact',
+		'type'    => 'text',
+	) );
+
+	$wp_customize->add_setting( 'justice_email', array(
+		'default'           => 'info@jus-tice.co.il',
+		'sanitize_callback' => 'sanitize_email',
+	) );
+	$wp_customize->add_control( 'justice_email', array(
+		'label'   => __( 'Email', 'justice-theme' ),
+		'section' => 'justice_contact',
+		'type'    => 'email',
+	) );
+}
+add_action( 'customize_register', 'justice_theme_customize_register' );

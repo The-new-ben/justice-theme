@@ -1,0 +1,35 @@
+<?php
+/**
+ * Justice Theme functions.
+ *
+ * @package JusticeTheme
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+define( 'JUSTICE_THEME_VERSION', '1.0.0' );
+define( 'JUSTICE_THEME_DIR', get_template_directory() );
+define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
+
+$justice_theme_files = array(
+	'inc/setup.php',
+	'inc/enqueue.php',
+	'inc/template-tags.php',
+	'inc/breadcrumbs.php',
+	'inc/schema.php',
+	'inc/seo.php',
+	'inc/accessibility.php',
+	'inc/related-content.php',
+	'inc/lead-ui.php',
+	'inc/cleanup.php',
+);
+
+foreach ( $justice_theme_files as $justice_theme_file ) {
+	$justice_theme_path = JUSTICE_THEME_DIR . '/' . $justice_theme_file;
+
+	if ( file_exists( $justice_theme_path ) ) {
+		require_once $justice_theme_path;
+	}
+}

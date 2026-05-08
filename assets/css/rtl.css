@@ -1,0 +1,1 @@
+body{direction:rtl;text-align:right}.primary-navigation .menu,.site-header__secondary-nav .menu,.breadcrumbs__list,.hero__quick-links,.term-list{padding-right:0}.article-card__read-more::after{content:" \2190"}.breadcrumbs__item+.breadcrumbs__item::before{transform:scaleX(-1)}.entry-content blockquote{border-inline-start:4px solid var(--color-gold-500);border-inline-end:0}

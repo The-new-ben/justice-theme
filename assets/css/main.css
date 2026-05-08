@@ -124,9 +124,46 @@
 /* Smooth heading underlines for entry content */
 .entry-content h2::after { content: ''; display: block; width: 50px; height: 3px; background: var(--color-gold-500); margin-top: .5rem; border-radius: 999px; }
 
-/* Button primary variant */
+/* Button variants */
 .button--primary { background: var(--color-gold-500); color: var(--color-navy-950); box-shadow: 0 12px 24px rgba(201,162,74,.24); }
 .button--primary:hover { background: var(--color-gold-400); color: var(--color-navy-950); }
+.button--outline-light { background: transparent; color: #fff; border: 2px solid rgba(255,255,255,.3); }
+.button--outline-light:hover { border-color: var(--color-gold-500); color: var(--color-gold-500); }
+
+/* Hero actions — dual CTA buttons */
+.hero__actions { display: flex; gap: 1rem; margin-top: 1.5rem; flex-wrap: wrap; }
+
+/* Lawyer CTA section */
+.lawyer-cta { background: linear-gradient(135deg, var(--color-navy-950), var(--color-navy-800)); color: #fff; }
+.lawyer-cta__inner { display: grid; gap: 2.5rem; }
+.lawyer-cta__content .section-header__eyebrow { color: var(--color-gold-500); }
+.lawyer-cta__content h2 { color: #fff; font-size: clamp(1.6rem, 3vw, 2.2rem); margin: 0 0 .8rem; }
+.lawyer-cta__content > p { color: rgba(255,255,255,.75); font-size: 1.05rem; max-width: 680px; line-height: 1.7; margin: 0; }
+.lawyer-cta__features { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.lawyer-cta__feature { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: var(--radius-lg); padding: 1.5rem; text-align: center; transition: border-color 200ms ease, background 200ms ease; }
+.lawyer-cta__feature:hover { border-color: var(--color-gold-500); background: rgba(255,255,255,.1); }
+.lawyer-cta__icon { font-size: 2rem; display: block; margin-bottom: .8rem; }
+.lawyer-cta__feature h3 { color: #fff; margin: 0 0 .4rem; font-size: 1.1rem; }
+.lawyer-cta__feature p { color: rgba(255,255,255,.6); font-size: .9rem; margin: 0; line-height: 1.5; }
+.lawyer-cta__actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+/* Newsletter section */
+.newsletter { background: var(--color-cream); text-align: center; }
+.newsletter__inner { max-width: 640px; margin-inline: auto; }
+.newsletter h2 { color: var(--color-navy-950); margin: 0 0 .5rem; font-size: clamp(1.4rem, 3vw, 1.8rem); }
+.newsletter__content > p { color: var(--color-muted); margin: 0 0 1.5rem; font-size: 1rem; line-height: 1.6; }
+.newsletter__form { display: flex; gap: .5rem; }
+.newsletter__form input { flex: 1; padding: .8rem 1rem; border: 1px solid var(--color-border); border-radius: 999px; font: inherit; }
+.newsletter__form input:focus { outline: 2px solid var(--color-gold-500); outline-offset: 1px; border-color: var(--color-gold-500); }
+.newsletter__disclaimer { color: var(--color-muted); font-size: .82rem; margin-top: .8rem; }
+
+/* Mobile overrides for new sections */
+@media (max-width: 640px) {
+  .hero__actions { flex-direction: column; align-items: stretch; }
+  .lawyer-cta__features { grid-template-columns: 1fr; }
+  .newsletter__form { flex-direction: column; }
+  .lawyer-cta__actions { flex-direction: column; align-items: stretch; }
+}
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }

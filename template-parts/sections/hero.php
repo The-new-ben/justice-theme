@@ -1,6 +1,6 @@
 <?php
 /**
- * Homepage hero section.
+ * Homepage hero section — strategic portal messaging.
  *
  * @package JusticeTheme
  */
@@ -14,27 +14,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="container hero__grid">
 		<div class="hero__content">
 			<p class="hero__eyebrow">
-				<?php esc_html_e( 'פורטל מידע משפטי', 'justice-theme' ); ?>
+				<?php esc_html_e( 'הפורטל המשפטי המוביל בישראל', 'justice-theme' ); ?>
 			</p>
 
 			<h1 class="hero__title">
-				<?php esc_html_e( 'מידע משפטי ברור, מדריכים מקצועיים וחיבור לעורכי דין מתאימים', 'justice-theme' ); ?>
+				<?php esc_html_e( 'מידע משפטי מקצועי, חיבור לעורכי דין ופתרונות משפטיים', 'justice-theme' ); ?>
 			</h1>
 
 			<p class="hero__description">
-				<?php esc_html_e( 'Jus-Tice מרכז מאמרים משפטיים, מדריכים ותחומי משפט כדי לעזור לכם להבין את הזכויות שלכם ולמצוא את הכיוון המשפטי הנכון.', 'justice-theme' ); ?>
+				<?php esc_html_e( 'מאמרים משפטיים, מדריכים מקצועיים, חיפוש עורכי דין לפי תחום ומיקום — והפנייה חכמה לייצוג המשפטי המתאים.', 'justice-theme' ); ?>
 			</p>
 
 			<form class="hero-search" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>">
 				<label class="screen-reader-text" for="hero-search-input">
-					<?php esc_html_e( 'חיפוש מדריכים משפטיים', 'justice-theme' ); ?>
+					<?php esc_html_e( 'חיפוש משפטי', 'justice-theme' ); ?>
 				</label>
 
 				<input
 					id="hero-search-input"
 					type="search"
 					name="s"
-					placeholder="<?php echo esc_attr__( 'חיפוש גירושין, דיני תעבורה, מקרקעין, ירושה...', 'justice-theme' ); ?>"
+					placeholder="<?php echo esc_attr__( 'מה הבעיה המשפטית שלך?', 'justice-theme' ); ?>"
 					value="<?php echo esc_attr( get_search_query() ); ?>"
 				>
 
@@ -42,6 +42,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<?php esc_html_e( 'חיפוש', 'justice-theme' ); ?>
 				</button>
 			</form>
+
+			<div class="hero__actions">
+				<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" class="button button--gold">
+					<?php esc_html_e( 'מצאו עורך דין', 'justice-theme' ); ?>
+				</a>
+				<a href="<?php echo esc_url( get_post_type_archive_link( 'articles' ) ); ?>" class="button button--outline-light">
+					<?php esc_html_e( 'מדריכים משפטיים', 'justice-theme' ); ?>
+				</a>
+			</div>
 		</div>
 
 		<div class="hero__panel" aria-label="<?php esc_attr_e( 'תחומי משפט נפוצים', 'justice-theme' ); ?>">
@@ -72,4 +81,3 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</div>
 	</div>
 </section>
-

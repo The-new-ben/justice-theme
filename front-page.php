@@ -20,6 +20,10 @@ get_header();
 
 <?php get_template_part( 'template-parts/sections/trust-section' ); ?>
 
+<?php get_template_part( 'template-parts/sections/lawyer-cta' ); ?>
+
+<?php get_template_part( 'template-parts/sections/newsletter' ); ?>
+
 <?php get_template_part( 'template-parts/sections/cta-section' ); ?>
 
 <?php

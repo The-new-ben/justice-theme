@@ -15,6 +15,56 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0544705733' );
 ?>
 
 <footer class="site-footer" role="contentinfo">
+
+	<?php
+	// Dense internal linking — practice areas + cities (SEO authority, like Justia/din.co.il)
+	$footer_terms = get_terms( array(
+		'taxonomy'   => 'practice-areas',
+		'hide_empty' => true,
+		'orderby'    => 'count',
+		'order'      => 'DESC',
+		'number'     => 20,
+	) );
+
+	$footer_cities = array(
+		array( 'name' => 'תל אביב', 'slug' => 'tel-aviv' ),
+		array( 'name' => 'ירושלים', 'slug' => 'jerusalem' ),
+		array( 'name' => 'חיפה', 'slug' => 'haifa' ),
+		array( 'name' => 'ראשון לציון', 'slug' => 'rishon-lezion' ),
+		array( 'name' => 'פתח תקווה', 'slug' => 'petah-tikva' ),
+		array( 'name' => 'אשדוד', 'slug' => 'ashdod' ),
+		array( 'name' => 'נתניה', 'slug' => 'netanya' ),
+		array( 'name' => 'באר שבע', 'slug' => 'beer-sheva' ),
+		array( 'name' => 'רמת גן', 'slug' => 'ramat-gan' ),
+		array( 'name' => 'הרצליה', 'slug' => 'herzliya' ),
+		array( 'name' => 'כפר סבא', 'slug' => 'kfar-saba' ),
+		array( 'name' => 'מודיעין', 'slug' => 'modiin' ),
+	);
+	?>
+
+	<?php if ( ! empty( $footer_terms ) && ! is_wp_error( $footer_terms ) ) : ?>
+	<div class="site-footer__links-bar">
+		<div class="container">
+			<div class="footer-links-section">
+				<h2><?php esc_html_e( 'תחומי משפט', 'justice-theme' ); ?></h2>
+				<ul class="footer-links-grid">
+					<?php foreach ( $footer_terms as $ft ) : ?>
+						<li><a href="<?php echo esc_url( get_term_link( $ft ) ); ?>"><?php echo esc_html( 'עורך דין ' . $ft->name ); ?></a></li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+			<div class="footer-links-section">
+				<h2><?php esc_html_e( 'עורכי דין לפי עיר', 'justice-theme' ); ?></h2>
+				<ul class="footer-links-grid">
+					<?php foreach ( $footer_cities as $fc ) : ?>
+						<li><a href="<?php echo esc_url( home_url( '/lawyers/?city=' . $fc['slug'] ) ); ?>"><?php echo esc_html( 'עורכי דין ב' . $fc['name'] ); ?></a></li>
+					<?php endforeach; ?>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<?php endif; ?>
+
 	<div class="container site-footer__grid">
 		<section class="site-footer__section site-footer__about">
 			<h2><?php echo esc_html( get_bloginfo( 'name' ) ); ?></h2>

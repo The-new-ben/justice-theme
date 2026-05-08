@@ -222,6 +222,20 @@
   .lawyer-cta__actions { flex-direction: column; align-items: stretch; }
 }
 
+/* Footer internal linking bar — SEO authority (Justia/din.co.il pattern) */
+.site-footer__links-bar { border-bottom: 1px solid rgba(255,255,255,.08); padding-block: 2rem; }
+.footer-links-section { margin-bottom: 1.5rem; }
+.footer-links-section:last-child { margin-bottom: 0; }
+.footer-links-section h2 { color: var(--color-gold-500); font-size: .85rem; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 .8rem; }
+.footer-links-grid { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .4rem .8rem; }
+.footer-links-grid a { color: rgba(255,255,255,.55); font-size: .82rem; text-decoration: none; white-space: nowrap; transition: color 160ms ease; }
+.footer-links-grid a:hover { color: var(--color-gold-400); }
+
+@media (max-width: 640px) {
+  .footer-links-grid { gap: .3rem .6rem; }
+  .footer-links-grid a { font-size: .78rem; }
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
 

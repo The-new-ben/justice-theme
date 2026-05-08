@@ -85,7 +85,7 @@ function justice_theme_document_title( $title_parts ) {
 		}
 	}
 
-	if ( is_post_type_archive( 'lawyer' ) ) {
+	if ( is_post_type_archive( 'justice_lawyer' ) ) {
 		$city_slug = isset( $_GET['city'] ) ? sanitize_text_field( $_GET['city'] ) : '';
 		$area_slug = isset( $_GET['area'] ) ? sanitize_text_field( $_GET['area'] ) : '';
 		if ( $city_slug ) {
@@ -105,7 +105,7 @@ function justice_theme_document_title( $title_parts ) {
 		$title_parts['tagline'] = '';
 	}
 
-	if ( is_singular( 'lawyer' ) ) {
+	if ( is_singular( 'justice_lawyer' ) ) {
 		$areas = get_the_terms( get_the_ID(), 'practice-areas' );
 		$cities = get_the_terms( get_the_ID(), 'city' );
 		$suffix = '';

@@ -2,8 +2,10 @@
 /**
  * Lawyer archive — directory listing page.
  *
- * URL: /lawyers/ (or /lawyers/?city=tel-aviv&area=family-law)
- * SEO target: "עורכי דין", "עורכי דין בתל אביב", etc.
+ * Template: archive-justice_lawyer.php
+ * URL: /lawyers/ (rewrite slug)
+ * Filters: /lawyers/?city=tel-aviv&area=family-law
+ * SEO target: "עורכי דין", "עורכי דין בתל אביב"
  *
  * @package JusticeTheme
  */
@@ -16,17 +18,29 @@ $filter_area = isset( $_GET['area'] ) ? sanitize_text_field( $_GET['area'] ) : '
 
 // Build query
 $args = array(
-	'post_type'      => 'lawyer',
+	'post_type'      => 'justice_lawyer',
 	'posts_per_page' => 24,
 	'paged'          => get_query_var( 'paged' ) ? get_query_var( 'paged' ) : 1,
-	'orderby'        => 'meta_value',
-	'meta_key'       => '_justice_featured',
+	'meta_query'     => array(
+		'relation' => 'OR',
+		array(
+			'key'     => 'priority_score',
+			'compare' => 'EXISTS',
+		),
+		array(
+			'key'     => 'priority_score',
+			'compare' => 'NOT EXISTS',
+		),
+	),
+	'orderby'        => 'meta_value_num',
+	'meta_key'       => 'priority_score',
 	'order'          => 'DESC',
 );
 
 // City filter
+$tax_query = array();
 if ( $filter_city ) {
-	$args['tax_query'][] = array(
+	$tax_query[] = array(
 		'taxonomy' => 'city',
 		'field'    => 'slug',
 		'terms'    => $filter_city,
@@ -35,41 +49,47 @@ if ( $filter_city ) {
 
 // Practice area filter
 if ( $filter_area ) {
-	$args['tax_query'][] = array(
+	$tax_query[] = array(
 		'taxonomy' => 'practice-areas',
 		'field'    => 'slug',
 		'terms'    => $filter_area,
 	);
 }
 
-if ( count( $args['tax_query'] ?? array() ) > 1 ) {
-	$args['tax_query']['relation'] = 'AND';
+if ( count( $tax_query ) > 1 ) {
+	$tax_query['relation'] = 'AND';
+}
+if ( ! empty( $tax_query ) ) {
+	$args['tax_query'] = $tax_query;
 }
 
 $lawyers = new WP_Query( $args );
 
 // Dynamic H1 based on filters
-$page_title = __( 'מדריך עורכי דין בישראל', 'justice-theme' );
+$page_title = 'מדריך עורכי דין בישראל';
+$page_desc  = 'חיפוש עורכי דין מומחים לפי תחום משפטי ומיקום.';
+
 if ( $filter_city ) {
 	$city_term = get_term_by( 'slug', $filter_city, 'city' );
-	if ( $city_term ) {
-		$page_title = sprintf( __( 'עורכי דין ב%s', 'justice-theme' ), $city_term->name );
-	}
 }
 if ( $filter_area ) {
 	$area_term = get_term_by( 'slug', $filter_area, 'practice-areas' );
-	if ( $area_term ) {
-		if ( $filter_city && $city_term ) {
-			$page_title = sprintf( __( 'עורך דין %s ב%s', 'justice-theme' ), $area_term->name, $city_term->name );
-		} else {
-			$page_title = sprintf( __( 'עורך דין %s', 'justice-theme' ), $area_term->name );
-		}
-	}
+}
+
+if ( ! empty( $city_term ) && ! empty( $area_term ) ) {
+	$page_title = sprintf( 'עורך דין %s ב%s', $area_term->name, $city_term->name );
+	$page_desc  = sprintf( 'מצאו עורך דין %s ב%s — פרופילים מקצועיים, השוואה ופנייה ישירה.', $area_term->name, $city_term->name );
+} elseif ( ! empty( $city_term ) ) {
+	$page_title = sprintf( 'עורכי דין ב%s', $city_term->name );
+	$page_desc  = sprintf( 'כל עורכי הדין ב%s — חיפוש לפי תחום התמחות, פנייה ישירה ופרופילים מקצועיים.', $city_term->name );
+} elseif ( ! empty( $area_term ) ) {
+	$page_title = sprintf( 'עורך דין %s', $area_term->name );
+	$page_desc  = sprintf( 'מצאו עורך דין %s מומחה — השוואת פרופילים ופנייה ישירה.', $area_term->name );
 }
 
 // Get all cities and practice areas for filters
 $all_cities = get_terms( array( 'taxonomy' => 'city', 'hide_empty' => false, 'orderby' => 'name' ) );
-$all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => true, 'orderby' => 'count', 'order' => 'DESC', 'number' => 20 ) );
+$all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => true, 'orderby' => 'count', 'order' => 'DESC', 'number' => 30 ) );
 ?>
 
 <main id="primary" class="site-main">
@@ -79,16 +99,16 @@ $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => 
 
 			<header class="section-header">
 				<h1 id="directory-heading"><?php echo esc_html( $page_title ); ?></h1>
-				<p><?php esc_html_e( 'חיפוש עורכי דין מומחים לפי תחום משפטי ומיקום. כל עורכי הדין המופיעים הם בעלי רישיון פעיל של לשכת עורכי הדין בישראל.', 'justice-theme' ); ?></p>
+				<p><?php echo esc_html( $page_desc ); ?></p>
 			</header>
 
 			<!-- Filter bar -->
-			<form class="directory-filters" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'lawyer' ) ); ?>">
+			<form class="directory-filters" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ); ?>">
 				<div class="directory-filters__fields">
 					<div class="directory-filters__field">
-						<label for="filter-area"><?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?></label>
+						<label for="filter-area">תחום משפטי</label>
 						<select id="filter-area" name="area">
-							<option value=""><?php esc_html_e( 'כל התחומים', 'justice-theme' ); ?></option>
+							<option value="">כל התחומים</option>
 							<?php if ( ! empty( $all_areas ) && ! is_wp_error( $all_areas ) ) : ?>
 								<?php foreach ( $all_areas as $at ) : ?>
 									<option value="<?php echo esc_attr( $at->slug ); ?>" <?php selected( $filter_area, $at->slug ); ?>>
@@ -100,9 +120,9 @@ $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => 
 					</div>
 
 					<div class="directory-filters__field">
-						<label for="filter-city"><?php esc_html_e( 'עיר', 'justice-theme' ); ?></label>
+						<label for="filter-city">עיר</label>
 						<select id="filter-city" name="city">
-							<option value=""><?php esc_html_e( 'כל הערים', 'justice-theme' ); ?></option>
+							<option value="">כל הערים</option>
 							<?php if ( ! empty( $all_cities ) && ! is_wp_error( $all_cities ) ) : ?>
 								<?php foreach ( $all_cities as $ct ) : ?>
 									<option value="<?php echo esc_attr( $ct->slug ); ?>" <?php selected( $filter_city, $ct->slug ); ?>>
@@ -114,7 +134,7 @@ $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => 
 					</div>
 
 					<div class="directory-filters__action">
-						<button type="submit" class="button button--gold"><?php esc_html_e( 'חיפוש', 'justice-theme' ); ?></button>
+						<button type="submit" class="button button--gold">חיפוש</button>
 					</div>
 				</div>
 			</form>
@@ -135,8 +155,8 @@ $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => 
 					'format'    => '?paged=%#%',
 					'current'   => max( 1, get_query_var( 'paged' ) ),
 					'total'     => $lawyers->max_num_pages,
-					'prev_text' => '→ ' . __( 'הקודם', 'justice-theme' ),
-					'next_text' => __( 'הבא', 'justice-theme' ) . ' ←',
+					'prev_text' => '→ הקודם',
+					'next_text' => 'הבא ←',
 				) );
 				echo '</nav>';
 				?>
@@ -144,11 +164,11 @@ $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => 
 			<?php else : ?>
 				<div class="directory-empty">
 					<div class="directory-empty__icon">⚖️</div>
-					<h2><?php esc_html_e( 'מדריך עורכי הדין בבנייה', 'justice-theme' ); ?></h2>
-					<p><?php esc_html_e( 'אנו בונים את מדריך עורכי הדין המקיף ביותר בישראל. בקרוב כאן יופיעו פרופילים של עורכי דין מומחים לפי תחום ומיקום.', 'justice-theme' ); ?></p>
+					<h2>מדריך עורכי הדין בבנייה</h2>
+					<p>אנו בונים את מדריך עורכי הדין המקיף ביותר בישראל. בקרוב כאן יופיעו פרופילים של עורכי דין מומחים לפי תחום ומיקום.</p>
 					<div class="directory-empty__cta">
-						<a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" class="button button--gold"><?php esc_html_e( 'עורכי דין — הרשמו למדריך', 'justice-theme' ); ?></a>
-						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="button button--outline"><?php esc_html_e( 'חזרה לעמוד הראשי', 'justice-theme' ); ?></a>
+						<a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" class="button button--gold">עורכי דין — הרשמו למדריך</a>
+						<a href="<?php echo esc_url( home_url( '/' ) ); ?>" class="button button--outline">חזרה לעמוד הראשי</a>
 					</div>
 				</div>
 			<?php endif; ?>

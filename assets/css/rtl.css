@@ -1,1 +1,97 @@
-body{direction:rtl;text-align:right}.primary-navigation .menu,.site-header__secondary-nav .menu,.breadcrumbs__list,.hero__quick-links,.term-list{padding-right:0}.article-card__read-more::after{content:" \2190"}.breadcrumbs__item+.breadcrumbs__item::before{transform:scaleX(-1)}.entry-content blockquote{border-inline-start:4px solid var(--color-gold-500);border-inline-end:0}
+/* Justice Theme — RTL overrides for Hebrew */
+body {
+  direction: rtl;
+  text-align: right;
+}
+
+/* Reset list padding for RTL */
+.primary-navigation .menu,
+.site-header__secondary-nav .menu,
+.breadcrumbs__list,
+.hero__quick-links,
+.term-list,
+.cluster-links {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+/* Read-more arrow direction */
+.article-card__read-more::after {
+  content: " \2190";
+}
+
+/* Breadcrumb chevron flip */
+.breadcrumbs__item + .breadcrumbs__item::before {
+  transform: scaleX(-1);
+}
+
+/* Blockquote border side */
+.entry-content blockquote {
+  border-inline-start: 4px solid var(--color-gold-500);
+  border-inline-end: 0;
+}
+
+/* Footer grid — order fix for RTL reading */
+.site-footer__grid {
+  direction: rtl;
+}
+
+/* Sidebar layout — sidebar goes to the left in RTL */
+.single-article__layout {
+  direction: rtl;
+}
+.single-article__sidebar {
+  order: 0;
+}
+
+/* Hero search input text alignment */
+.hero-search input {
+  text-align: right;
+}
+
+/* Forms — labels and inputs align right */
+.lead-form label,
+.lead-form input,
+.lead-form select,
+.lead-form textarea {
+  text-align: right;
+}
+
+/* Legal search form input */
+.legal-search-form input {
+  text-align: right;
+}
+
+/* EEAT box border adjustment for RTL */
+.single-article__eeat-box {
+  border-right: 4px solid var(--color-gold-500);
+  border-left: 0;
+}
+
+/* Cluster arrow indicator — flip for RTL */
+.cluster-links li::before {
+  content: '\2192';
+}
+
+/* Practice area card — icon centering in RTL */
+.pillar-card {
+  text-align: center;
+}
+
+/* Navigation dropdowns */
+.primary-navigation .sub-menu {
+  right: 0;
+  left: auto;
+}
+
+/* Sticky box position in RTL context */
+.sticky-box {
+  text-align: right;
+}
+
+/* Mobile menu — full width */
+@media (max-width: 640px) {
+  .hero-search {
+    text-align: right;
+  }
+}

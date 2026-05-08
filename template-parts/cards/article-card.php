@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Article card.
  *
@@ -18,7 +18,7 @@ $post_id = get_the_ID();
 			<?php the_post_thumbnail( 'justice-card', array( 'loading' => 'lazy' ) ); ?>
 		<?php else : ?>
 			<div class="article-card__placeholder" aria-hidden="true">
-				<span><?php esc_html_e( 'Legal guide', 'justice-theme' ); ?></span>
+				<span><?php esc_html_e( 'מדריך משפטי', 'justice-theme' ); ?></span>
 			</div>
 		<?php endif; ?>
 	</a>

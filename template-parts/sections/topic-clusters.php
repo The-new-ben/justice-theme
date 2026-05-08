@@ -17,9 +17,13 @@ $topics = [
 ];
 ?>
 
-<section class="topic-clusters section-padding">
+<section class="topic-clusters section">
 	<div class="container">
-		<h2 class="section-title text-center"><?php esc_html_e( 'מדריכים משפטיים לפי נושאים', 'justice-theme' ); ?></h2>
+		<div class="section-header">
+			<p class="section-header__eyebrow"><?php esc_html_e( 'מדריכים לפי נושא', 'justice-theme' ); ?></p>
+			<h2><?php esc_html_e( 'מדריכים משפטיים לפי תחום', 'justice-theme' ); ?></h2>
+			<p><?php esc_html_e( 'מדריכים מעשיים שיעזרו לכם להבין את הזכויות שלכם ולנווט את המערכת המשפטית.', 'justice-theme' ); ?></p>
+		</div>
 		
 		<div class="clusters-grid">
 			<?php foreach ( $topics as $topic ) : ?>
@@ -31,10 +35,23 @@ $topics = [
 					</h3>
 					
 					<?php
+					// Try practice-areas taxonomy first
 					$args = array(
-						'post_type'      => 'post', // Assuming converted to post
+						'post_type'      => array( 'articles', 'post' ),
 						'posts_per_page' => 4,
-						'category_name'  => $topic['slug'],
+						'tax_query'      => array(
+							'relation' => 'OR',
+							array(
+								'taxonomy' => 'practice-areas',
+								'field'    => 'slug',
+								'terms'    => $topic['slug'],
+							),
+							array(
+								'taxonomy' => 'category',
+								'field'    => 'slug',
+								'terms'    => $topic['slug'],
+							),
+						),
 					);
 					
 					$q = new WP_Query( $args );

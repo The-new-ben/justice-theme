@@ -85,6 +85,39 @@ function justice_theme_document_title( $title_parts ) {
 		}
 	}
 
+	if ( is_post_type_archive( 'lawyer' ) ) {
+		$city_slug = isset( $_GET['city'] ) ? sanitize_text_field( $_GET['city'] ) : '';
+		$area_slug = isset( $_GET['area'] ) ? sanitize_text_field( $_GET['area'] ) : '';
+		if ( $city_slug ) {
+			$city_t = get_term_by( 'slug', $city_slug, 'city' );
+			if ( $area_slug ) {
+				$area_t = get_term_by( 'slug', $area_slug, 'practice-areas' );
+				$title_parts['title'] = 'עורך דין ' . ( $area_t ? $area_t->name : '' ) . ' ב' . ( $city_t ? $city_t->name : '' ) . ' | Jus-Tice';
+			} else {
+				$title_parts['title'] = 'עורכי דין ב' . ( $city_t ? $city_t->name : '' ) . ' | מדריך עורכי דין';
+			}
+		} elseif ( $area_slug ) {
+			$area_t = get_term_by( 'slug', $area_slug, 'practice-areas' );
+			$title_parts['title'] = 'עורך דין ' . ( $area_t ? $area_t->name : '' ) . ' | מצאו עורך דין מומחה';
+		} else {
+			$title_parts['title'] = 'מדריך עורכי דין בישראל | Jus-Tice';
+		}
+		$title_parts['tagline'] = '';
+	}
+
+	if ( is_singular( 'lawyer' ) ) {
+		$areas = get_the_terms( get_the_ID(), 'practice-areas' );
+		$cities = get_the_terms( get_the_ID(), 'city' );
+		$suffix = '';
+		if ( ! empty( $areas ) && ! is_wp_error( $areas ) ) {
+			$suffix .= ' | ' . $areas[0]->name;
+		}
+		if ( ! empty( $cities ) && ! is_wp_error( $cities ) ) {
+			$suffix .= ' ב' . $cities[0]->name;
+		}
+		$title_parts['title'] = get_the_title() . $suffix;
+	}
+
 	return $title_parts;
 }
 add_filter( 'document_title_parts', 'justice_theme_document_title' );

@@ -63,3 +63,62 @@ function justice_theme_include_articles_in_search( $query ) {
 }
 add_action( 'pre_get_posts', 'justice_theme_include_articles_in_search' );
 
+/**
+ * Override document title for SEO.
+ *
+ * The homepage title MUST contain "עורכי דין" — this is the #1 money keyword.
+ * Every competitor (din.co.il, PsakDin, LawReviews) front-loads this term.
+ *
+ * @param array $title_parts Title parts.
+ * @return array
+ */
+function justice_theme_document_title( $title_parts ) {
+	if ( is_front_page() ) {
+		$title_parts['title'] = 'עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ';
+		$title_parts['tagline'] = '';
+	}
+
+	if ( is_tax( 'practice-areas' ) ) {
+		$term = get_queried_object();
+		if ( $term ) {
+			$title_parts['title'] = 'עורך דין ' . $term->name . ' | מדריך, מאמרים ועורכי דין מומחים';
+		}
+	}
+
+	return $title_parts;
+}
+add_filter( 'document_title_parts', 'justice_theme_document_title' );
+
+/**
+ * Output meta description and OG tags.
+ */
+function justice_theme_meta_head() {
+	if ( is_front_page() ) {
+		$desc = 'מחפשים עורך דין? פורטל Jus-Tice — מדריך עורכי דין מומחים בישראל לפי תחום ומיקום. מאמרים משפטיים, מדריכים מקצועיים, ופנייה חכמה לייצוג המשפטי המתאים.';
+		echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
+		echo '<meta property="og:title" content="עורכי דין בישראל | Jus-Tice — פורטל משפטי">' . "\n";
+		echo '<meta property="og:description" content="' . esc_attr( $desc ) . '">' . "\n";
+		echo '<meta property="og:type" content="website">' . "\n";
+		echo '<meta property="og:url" content="' . esc_url( home_url( '/' ) ) . '">' . "\n";
+		echo '<meta property="og:locale" content="he_IL">' . "\n";
+		echo '<meta property="og:site_name" content="Jus-Tice">' . "\n";
+	} elseif ( is_singular() ) {
+		$post_desc = get_the_excerpt();
+		if ( $post_desc ) {
+			$post_desc = wp_trim_words( $post_desc, 25, '...' );
+			echo '<meta name="description" content="' . esc_attr( $post_desc ) . '">' . "\n";
+			echo '<meta property="og:title" content="' . esc_attr( get_the_title() ) . ' | Jus-Tice">' . "\n";
+			echo '<meta property="og:description" content="' . esc_attr( $post_desc ) . '">' . "\n";
+			echo '<meta property="og:type" content="article">' . "\n";
+		}
+	} elseif ( is_tax( 'practice-areas' ) ) {
+		$term = get_queried_object();
+		if ( $term ) {
+			$tax_desc = 'מצאו עורך דין ' . $term->name . ' — רשימת עורכי דין מומחים, מאמרים מקצועיים ומדריכים בתחום ' . $term->name . ' בישראל.';
+			echo '<meta name="description" content="' . esc_attr( $tax_desc ) . '">' . "\n";
+		}
+	}
+}
+add_action( 'wp_head', 'justice_theme_meta_head', 1 );
+
+

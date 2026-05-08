@@ -156,10 +156,67 @@
 .newsletter__form input { flex: 1; padding: .8rem 1rem; border: 1px solid var(--color-border); border-radius: 999px; font: inherit; }
 .newsletter__form input:focus { outline: 2px solid var(--color-gold-500); outline-offset: 1px; border-color: var(--color-gold-500); }
 .newsletter__disclaimer { color: var(--color-muted); font-size: .82rem; margin-top: .8rem; }
+/* Hero structured search — competitive pattern (din.co.il / Justia) */
+.hero-search__filters { display: flex; gap: .5rem; }
+.hero-search__field { flex: 1; }
+.hero-search__field select { width: 100%; padding: .8rem 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font: inherit; font-size: .95rem; background: #fff; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23667085' stroke-width='2'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: left 12px center; cursor: pointer; }
+.hero-search__actions { display: flex; gap: .5rem; margin-top: .5rem; }
+.hero-search__actions input { flex: 1; }
+.hero__stats { display: flex; gap: 2rem; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,.12); }
+.hero__stat { font-size: .9rem; color: rgba(255,255,255,.6); }
+.hero__stat strong { display: block; font-size: 1.4rem; color: var(--color-gold-500); font-weight: 800; }
+.hero__panel-cta { display: block; margin-top: 1rem; text-align: center; color: var(--color-gold-400); font-weight: 700; text-decoration: none; font-size: .9rem; }
+.hero__panel-cta:hover { color: #fff; }
 
-/* Mobile overrides for new sections */
+/* Cities grid */
+.cities-grid__list { display: grid; grid-template-columns: repeat(4, 1fr); gap: .8rem; }
+.city-card { display: flex; justify-content: space-between; align-items: center; padding: 1rem 1.2rem; background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-md); text-decoration: none; color: var(--color-navy-950); font-weight: 600; font-size: .95rem; transition: border-color 200ms ease, transform 160ms ease, box-shadow 200ms ease; }
+.city-card:hover { border-color: var(--color-gold-500); transform: translateY(-2px); box-shadow: var(--shadow-card); color: var(--color-navy-950); }
+.city-card__arrow { color: var(--color-gold-500); font-size: 1.1rem; transition: transform 200ms ease; }
+.city-card:hover .city-card__arrow { transform: translateX(-4px); }
+
+/* Featured lawyers */
+.lawyers-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.featured-lawyers__coming { background: linear-gradient(135deg, var(--color-cream), #fff); border: 2px dashed var(--color-border); border-radius: var(--radius-lg); padding: 3rem 2rem; text-align: center; }
+.featured-lawyers__message { max-width: 520px; margin: 0 auto; }
+.featured-lawyers__icon { font-size: 3rem; margin: 0 0 1rem; }
+.featured-lawyers__message h3 { color: var(--color-navy-950); margin: 0 0 .5rem; }
+.featured-lawyers__message > p { color: var(--color-muted); margin: 0 0 1.5rem; line-height: 1.6; }
+
+/* Ask a lawyer */
+.ask-lawyer { background: var(--color-cream); }
+.ask-lawyer__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+.ask-lawyer__content .section-header__eyebrow { color: var(--color-gold-500); }
+.ask-lawyer__content h2 { color: var(--color-navy-950); margin: 0 0 .8rem; font-size: clamp(1.4rem, 3vw, 2rem); }
+.ask-lawyer__content > p { color: var(--color-muted); line-height: 1.7; margin: 0; }
+.ask-lawyer__form { background: #fff; padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-soft); }
+.ask-lawyer__fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.ask-lawyer__field--full { grid-column: 1 / -1; }
+.ask-lawyer__field label { display: block; font-weight: 600; margin-bottom: .3rem; font-size: .9rem; color: var(--color-navy-950); }
+.ask-lawyer__field input, .ask-lawyer__field textarea { width: 100%; padding: .7rem .9rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font: inherit; font-size: .95rem; }
+.ask-lawyer__field input:focus, .ask-lawyer__field textarea:focus { outline: 2px solid var(--color-gold-500); outline-offset: 1px; border-color: var(--color-gold-500); }
+.ask-lawyer__consent { margin-bottom: 1rem; font-size: .85rem; color: var(--color-muted); }
+.ask-lawyer__consent input[type="checkbox"] { margin-inline-end: .4rem; }
+.ask-lawyer__disclaimer { color: var(--color-muted); font-size: .78rem; margin-top: .8rem; line-height: 1.5; }
+
+/* Section center variant */
+.section-header--center { text-align: center; margin-inline: auto; }
+
+/* Mobile overrides */
+@media (max-width: 960px) {
+  .cities-grid__list { grid-template-columns: repeat(3, 1fr); }
+  .lawyers-grid { grid-template-columns: repeat(2, 1fr); }
+  .ask-lawyer__inner { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 640px) {
+  .hero-search__filters { flex-direction: column; }
+  .hero-search__actions { flex-direction: column; }
+  .hero__stats { flex-direction: column; gap: 1rem; }
   .hero__actions { flex-direction: column; align-items: stretch; }
+  .cities-grid__list { grid-template-columns: repeat(2, 1fr); }
+  .lawyers-grid { grid-template-columns: 1fr; }
+  .ask-lawyer__fields { grid-template-columns: 1fr; }
   .lawyer-cta__features { grid-template-columns: 1fr; }
   .newsletter__form { flex-direction: column; }
   .lawyer-cta__actions { flex-direction: column; align-items: stretch; }
@@ -167,3 +224,4 @@
 
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+

@@ -40,11 +40,15 @@ if ( is_wp_error( $term_link ) ) {
 
 		<span class="practice-area-card__count">
 			<?php
-			printf(
+			$count = absint( $term->count );
+			if ( $count === 0 ) {
+				esc_html_e( 'בקרוב', 'justice-theme' );
+			} elseif ( $count === 1 ) {
+				echo esc_html( '1 ' . __( 'מדריך', 'justice-theme' ) );
+			} else {
 				/* translators: %d: number of articles. */
-				esc_html( _n( '%d guide', '%d guides', absint( $term->count ), 'justice-theme' ) ),
-				absint( $term->count )
-			);
+				printf( esc_html__( '%d מדריכים', 'justice-theme' ), $count );
+			}
 			?>
 		</span>
 	</a>

@@ -11,6 +11,12 @@ while ( have_posts() ) :
 	the_post();
 	?>
 
+	<?php
+	if ( function_exists( 'justice_theme_breadcrumbs' ) ) {
+		justice_theme_breadcrumbs();
+	}
+	?>
+
 	<article <?php post_class( 'single-article' ); ?>>
 		<header class="single-article__header">
 			<div class="container container--narrow">

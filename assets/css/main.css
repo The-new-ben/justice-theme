@@ -35,3 +35,98 @@
 .single-article__lead-cta p { margin: 0 0 1.5rem 0; font-size: 1.1rem; }
 .single-article__lead-cta .button { background: var(--color-gold-500); color: var(--color-navy-900); display: inline-block; padding: 0.75rem 2rem; border-radius: 4px; font-weight: bold; text-decoration: none; transition: background 0.2s; }
 .single-article__lead-cta .button:hover { background: var(--color-gold-400); }
+
+/* ──────────────────────────────────────────
+   PREMIUM POLISH — Micro-animations & effects
+   ────────────────────────────────────────── */
+
+/* Scroll-reveal fade-in */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.section { animation: fadeInUp 0.6s ease-out both; }
+
+/* Practice area card — gradient left border on hover */
+.practice-area-card { position: relative; transition: transform 160ms ease, box-shadow 160ms ease, border-color 200ms ease; }
+.practice-area-card::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 4px;
+  background: linear-gradient(180deg, var(--color-gold-500), var(--color-navy-800));
+  border-radius: 999px 0 0 999px;
+  opacity: 0;
+  transition: opacity 200ms ease;
+}
+.practice-area-card:hover::before { opacity: 1; }
+.practice-area-card:hover { border-color: var(--color-gold-500); }
+
+/* Practice area icon — gentle pulse on hover */
+.practice-area-card:hover .practice-area-card__icon {
+  background: linear-gradient(135deg, var(--color-cream), rgba(201,162,74,.15));
+  transform: scale(1.08);
+  transition: transform 200ms ease, background 200ms ease;
+}
+
+/* Pillar card — glassmorphism hover */
+.pillar-card { transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease, background 200ms ease; }
+.pillar-card:hover { background: linear-gradient(135deg, #fff, var(--color-cream)); border-color: var(--color-gold-500); }
+.pillar-card .pillar-icon { transition: transform 250ms ease; }
+.pillar-card:hover .pillar-icon { transform: scale(1.15); }
+
+/* Article card — image zoom + gradient overlay */
+.article-card__media { position: relative; }
+.article-card__media::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(7,21,47,.35));
+  opacity: 0;
+  transition: opacity 300ms ease;
+  pointer-events: none;
+}
+.article-card:hover .article-card__media::after { opacity: 1; }
+
+/* Placeholder gradient */
+.article-card__placeholder { background: linear-gradient(135deg, var(--color-navy-950) 0%, var(--color-navy-800) 40%, rgba(201,162,74,.25) 100%); }
+
+/* Trust counter — number glow */
+.trust-section__number { text-shadow: 0 0 30px rgba(201,162,74,.3); }
+
+/* CTA section — subtle radial glow */
+.cta-section { background: radial-gradient(ellipse at 50% 0%, rgba(201,162,74,.12) 0%, transparent 60%), linear-gradient(135deg, var(--color-navy-900), var(--color-navy-800)); }
+
+/* Hero — parallax-like depth layers */
+.hero { background: radial-gradient(circle at 80% 80%, rgba(201,162,74,.08), transparent 40%), radial-gradient(circle at 20% 10%, rgba(201,162,74,.2), transparent 30%), linear-gradient(135deg, var(--color-navy-950), var(--color-navy-800)); }
+
+/* Hero panel — subtle glow border */
+.hero__panel { transition: border-color 300ms ease, box-shadow 300ms ease; }
+.hero__panel:hover { border-color: rgba(201,162,74,.3); box-shadow: 0 0 40px rgba(201,162,74,.08); }
+
+/* Quick links — arrow slide on hover */
+.hero__quick-links a { transition: background 160ms ease, padding-inline-start 200ms ease; }
+.hero__quick-links a:hover { padding-inline-start: 1.2rem; }
+
+/* Cluster card — lift + gold accent */
+.cluster-card { transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease; }
+.cluster-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-card); border-color: var(--color-gold-500); }
+
+/* WhatsApp floating button */
+.whatsapp-float { position: fixed; bottom: 1.5rem; inset-inline-end: 1.5rem; z-index: 90; display: inline-flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 999px; background: #25D366; color: #fff; font-size: 1.6rem; text-decoration: none; box-shadow: 0 8px 24px rgba(37,211,102,.35); transition: transform 200ms ease, box-shadow 200ms ease; }
+.whatsapp-float:hover { transform: scale(1.1); box-shadow: 0 12px 32px rgba(37,211,102,.45); color: #fff; }
+.whatsapp-float svg { width: 28px; height: 28px; fill: currentColor; }
+
+/* Focus-visible — premium gold ring */
+:focus-visible { outline: 2px solid var(--color-gold-500); outline-offset: 2px; }
+
+/* Smooth heading underlines for entry content */
+.entry-content h2::after { content: ''; display: block; width: 50px; height: 3px; background: var(--color-gold-500); margin-top: .5rem; border-radius: 999px; }
+
+/* Button primary variant */
+.button--primary { background: var(--color-gold-500); color: var(--color-navy-950); box-shadow: 0 12px 24px rgba(201,162,74,.24); }
+.button--primary:hover { background: var(--color-gold-400); color: var(--color-navy-950); }
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }

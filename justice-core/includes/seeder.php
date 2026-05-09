@@ -43,14 +43,14 @@ function uje_maybe_auto_seed(): void {
 	$lawyers = array(
 		array( 'heb' => '׳¢׳•"׳“ ׳׳׳™׳” ׳¨׳•׳˜׳ ׳‘׳¨׳’',  'firm' => '׳׳©׳¨׳“ ׳¨׳•׳˜׳ ׳‘׳¨׳’ ג€” ׳“׳™׳ ׳™ ׳׳©׳₪׳—׳”',   'area' => 'family-law',     'area_heb' => '׳“׳™׳ ׳™ ׳׳©׳₪׳—׳”',  'city' => 'tel-aviv',      'phone' => '03-5551234', 'whatsapp' => '0545551234', 'years' => 18, 'priority' => 100, 'bio' => '׳׳•׳׳—׳™׳× ׳‘׳“׳™׳ ׳™ ׳׳©׳₪׳—׳”, ׳’׳™׳¨׳•׳©׳™׳ ׳•׳׳©׳׳•׳¨׳× ׳™׳׳“׳™׳. ׳׳¢׳ 18 ׳©׳ ׳•׳× ׳ ׳™׳¡׳™׳•׳.' ),
 		array( 'heb' => '׳¢׳•"׳“ ׳“׳•׳“ ׳›׳”׳',        'firm' => '׳›׳”׳ ג€” ׳”׳’׳ ׳” ׳₪׳׳™׳׳™׳×',           'area' => 'criminal-law',   'area_heb' => '׳׳©׳₪׳˜ ׳₪׳׳™׳׳™',  'city' => 'jerusalem',     'phone' => '02-5559876', 'whatsapp' => '0505559876', 'years' => 22, 'priority' => 95,  'bio' => '׳¢׳•׳¨׳ ׳“׳™׳ ׳₪׳׳™׳׳™ ׳‘׳›׳™׳¨, ׳׳•׳׳—׳” ׳‘׳¢׳‘׳™׳¨׳•׳× ׳¦׳•׳•׳׳¨׳•׳ ׳׳‘׳ ׳•׳”׳•׳ ׳׳”.' ),
-		array( 'heb' => '׳¢׳•"׳“ ׳©׳¨׳” ׳׳•׳™',        'firm' => '׳׳•׳™ ׳ ׳“׳"׳ ׳•׳׳§׳¨׳§׳¢׳™׳',          'area' => 'real-estate',    'area_heb' => '׳׳§׳¨׳§׳¢׳™׳',     'city' => 'haifa',         'phone' => '04-5553456', 'whatsapp' => '0525553456', 'years' => 15, 'priority' => 90,  'bio' => '׳׳×׳׳—׳” ׳‘׳¢׳¡׳§׳׳•׳× ׳ ׳“׳"׳, ׳׳™׳§׳•׳™׳™ ׳‘׳ ׳™׳™׳” ׳•׳¨׳™׳©׳•׳ ׳˜׳׳‘׳•.' ),
+		array( 'heb' => '׳¢׳•"׳“ ׳©׳¨׳” ׳׳•׳™',        'firm' => '׳׳•׳™ ׳ ׳“׳"׳ ׳•׳׳§׳¨׳§׳¢׳™׳',          'area' => 'real-estate-law','area_heb' => '׳׳§׳¨׳§׳¢׳™׳',     'city' => 'haifa',         'phone' => '04-5553456', 'whatsapp' => '0525553456', 'years' => 15, 'priority' => 90,  'bio' => '׳׳×׳׳—׳” ׳‘׳¢׳¡׳§׳׳•׳× ׳ ׳“׳"׳, ׳׳™׳§׳•׳™׳™ ׳‘׳ ׳™׳™׳” ׳•׳¨׳™׳©׳•׳ ׳˜׳׳‘׳•.' ),
 		array( 'heb' => '׳¢׳•"׳“ ׳™׳•׳¡׳™ ׳׳–׳¨׳—׳™',     'firm' => '׳׳–׳¨׳—׳™ ג€” ׳“׳™׳ ׳™ ׳¢׳‘׳•׳“׳”',          'area' => 'labor-law',      'area_heb' => '׳“׳™׳ ׳™ ׳¢׳‘׳•׳“׳”',  'city' => 'tel-aviv',      'phone' => '03-5557890', 'whatsapp' => '0545557890', 'years' => 12, 'priority' => 85,  'bio' => '׳׳•׳׳—׳” ׳‘׳–׳›׳•׳™׳•׳× ׳¢׳•׳‘׳“׳™׳, ׳₪׳™׳˜׳•׳¨׳™׳ ׳©׳׳ ׳›׳“׳™׳ ׳•׳₪׳ ׳¡׳™׳”.' ),
 		array( 'heb' => '׳¢׳•"׳“ ׳ ׳•׳¢׳” ׳©׳₪׳™׳¨׳',     'firm' => '׳©׳₪׳™׳¨׳ ג€” ׳’׳™׳©׳•׳¨ ׳•׳׳©׳₪׳—׳”',        'area' => 'family-law',     'area_heb' => '׳“׳™׳ ׳™ ׳׳©׳₪׳—׳”',  'city' => 'ramat-gan',     'phone' => '03-5552345', 'whatsapp' => '0535552345', 'years' => 10, 'priority' => 80,  'bio' => '׳¢׳•׳¨׳›׳× ׳“׳™׳ ׳׳¢׳ ׳™׳™׳ ׳™ ׳׳©׳₪׳—׳” ׳¢׳ ׳“׳’׳© ׳¢׳ ׳’׳™׳©׳•׳¨.' ),
 		array( 'heb' => '׳¢׳•"׳“ ׳׳‘׳™ ׳‘׳-׳“׳•׳“',    'firm' => '׳‘׳-׳“׳•׳“ ג€” ׳×׳¢׳‘׳•׳¨׳”',             'area' => 'traffic-law',    'area_heb' => '׳“׳™׳ ׳™ ׳×׳¢׳‘׳•׳¨׳”', 'city' => 'beer-sheva',    'phone' => '08-5556789', 'whatsapp' => '0505556789', 'years' => 8,  'priority' => 75,  'bio' => '׳׳×׳׳—׳” ׳‘׳‘׳™׳˜׳•׳ ׳“׳•׳—׳•׳× ׳×׳ ׳•׳¢׳” ׳•׳¢׳‘׳™׳¨׳•׳× ׳ ׳”׳™׳’׳”.' ),
-		array( 'heb' => '׳¢׳•"׳“ ׳×׳׳¨ ׳’׳•׳׳“׳©׳˜׳™׳™׳', 'firm' => '׳’׳•׳׳“׳©׳˜׳™׳™׳ ג€” ׳¦׳•׳•׳׳•׳× ׳•׳™׳¨׳•׳©׳•׳×',  'area' => 'inheritance',    'area_heb' => '׳“׳™׳ ׳™ ׳™׳¨׳•׳©׳”',  'city' => 'herzliya',      'phone' => '09-5551122', 'whatsapp' => '0545551122', 'years' => 20, 'priority' => 88,  'bio' => '׳׳•׳׳—׳™׳× ׳‘׳¦׳•׳•׳׳•׳×, ׳™׳¨׳•׳©׳•׳× ׳•׳ ׳™׳”׳•׳ ׳¢׳™׳–׳‘׳•׳.' ),
+		array( 'heb' => '׳¢׳•"׳“ ׳×׳׳¨ ׳’׳•׳׳“׳©׳˜׳™׳™׳', 'firm' => '׳’׳•׳׳“׳©׳˜׳™׳™׳ ג€” ׳¦׳•׳•׳׳•׳× ׳•׳™׳¨׳•׳©׳•׳×',  'area' => 'inheritance-law','area_heb' => '׳“׳™׳ ׳™ ׳™׳¨׳•׳©׳”',  'city' => 'herzliya',      'phone' => '09-5551122', 'whatsapp' => '0545551122', 'years' => 20, 'priority' => 88,  'bio' => '׳׳•׳׳—׳™׳× ׳‘׳¦׳•׳•׳׳•׳×, ׳™׳¨׳•׳©׳•׳× ׳•׳ ׳™׳”׳•׳ ׳¢׳™׳–׳‘׳•׳.' ),
 		array( 'heb' => '׳¢׳•"׳“ ׳׳©׳” ׳₪׳¨׳¥',        'firm' => '׳₪׳¨׳¥ ג€” ׳”׳’׳ ׳” ׳₪׳׳™׳׳™׳×',           'area' => 'criminal-law',   'area_heb' => '׳׳©׳₪׳˜ ׳₪׳׳™׳׳™',  'city' => 'petah-tikva',   'phone' => '03-5553344', 'whatsapp' => '0535553344', 'years' => 25, 'priority' => 92,  'bio' => '׳¢׳•׳¨׳ ׳“׳™׳ ׳₪׳׳™׳׳™ ׳•׳×׳™׳§, ׳™׳™׳¦׳•׳’ ׳‘׳›׳ ׳”׳¢׳¨׳›׳׳•׳×.' ),
 		array( 'heb' => '׳¢׳•"׳“ ׳׳™׳׳× ׳׳‘׳¨׳”׳',     'firm' => '׳׳‘׳¨׳”׳ ג€” ׳׳©׳₪׳˜ ׳׳¡׳—׳¨׳™',          'area' => 'commercial-law', 'area_heb' => '׳׳©׳₪׳˜ ׳׳¡׳—׳¨׳™', 'city' => 'netanya',       'phone' => '09-5555566', 'whatsapp' => '0545555566', 'years' => 14, 'priority' => 82,  'bio' => '׳׳×׳׳—׳” ׳‘׳“׳™׳ ׳™ ׳—׳‘׳¨׳•׳×, ׳—׳•׳–׳™׳ ׳׳¡׳—׳¨׳™׳™׳ ׳•׳׳™׳˜׳™׳’׳¦׳™׳” ׳׳–׳¨׳—׳™׳×.' ),
-		array( 'heb' => '׳¢׳•"׳“ ׳׳™׳×׳ ׳›׳¥',        'firm' => '׳›׳¥ ג€” ׳ ׳–׳™׳§׳™׳ ׳•׳₪׳™׳¦׳•׳™׳™׳',        'area' => 'tort-law',       'area_heb' => '׳“׳™׳ ׳™ ׳ ׳–׳™׳§׳™׳', 'city' => 'rishon-lezion', 'phone' => '03-5557788', 'whatsapp' => '0535557788', 'years' => 16, 'priority' => 86,  'bio' => '׳׳•׳׳—׳” ׳‘׳×׳‘׳™׳¢׳•׳× ׳ ׳–׳™׳§׳™׳, ׳×׳׳•׳ ׳•׳× ׳¢׳‘׳•׳“׳” ׳•׳¨׳©׳׳ ׳•׳× ׳¨׳₪׳•׳׳™׳×.' ),
+		array( 'heb' => '׳¢׳•"׳“ ׳׳™׳×׳ ׳›׳¥',        'firm' => '׳›׳¥ ג€” ׳ ׳–׳™׳§׳™׳ ׳•׳₪׳™׳¦׳•׳™׳™׳',        'area' => 'torts',          'area_heb' => '׳“׳™׳ ׳™ ׳ ׳–׳™׳§׳™׳', 'city' => 'rishon-lezion', 'phone' => '03-5557788', 'whatsapp' => '0535557788', 'years' => 16, 'priority' => 86,  'bio' => '׳׳•׳׳—׳” ׳‘׳×׳‘׳™׳¢׳•׳× ׳ ׳–׳™׳§׳™׳, ׳×׳׳•׳ ׳•׳× ׳¢׳‘׳•׳“׳” ׳•׳¨׳©׳׳ ׳•׳× ׳¨׳₪׳•׳׳™׳×.' ),
 	);
 
 	foreach ( $lawyers as $l ) {
@@ -101,10 +101,14 @@ function uje_maybe_auto_seed(): void {
 			'years_experience'    => $l['years'],
 			'priority_score'      => $l['priority'],
 			'plan_type'           => 'free',
+			'subscription_status' => 'inactive',
 			'source_type'         => 'seed',
 			'profile_status'      => 'draft',
-			'license_status'      => 'active',
+			'license_status'      => 'unknown',
 			'verification_status' => 'unverified',
+			'featured_on_front'   => '0',
+			'lead_routing_enabled'=> '0',
+			'source_url'          => 'SEED_DATA',
 			'internal_notes'      => 'Seed profile for testing only. Not verified and not approved for public endorsement.',
 		);
 		foreach ( $meta as $k => $v ) {
@@ -169,7 +173,7 @@ function uje_seed_lawyer_profile( array $row ): int|WP_Error {
 		'subscription_status' => 'inactive',
 		'lead_routing_enabled'=> '0',
 		'source_type'         => 'seed',
-		'license_status'      => 'active',
+		'license_status'      => 'unknown',
 	);
 
 	foreach ( $meta_fields as $key => $value ) {

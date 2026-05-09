@@ -75,9 +75,11 @@ wp term create practice-areas "הגירה ואזרחות" --slug=immigration --d
 ```
 
 ### ACTION-007: Create Seed Lawyer Profiles (10 draft profiles)
-**Status:** Needs WP-CLI + meta field setup  
+**Status:** COMPLETED in code - live seeding / cleanup pending admin verification
+**Implementation:** Existing seeders in `justice-core/`, `ultra-justice-engine/`, and `ultra-justice/` create 10 draft `justice_lawyer` profiles. Safety was hardened so generated profiles remain unverified, inactive, not featured, not lead-routed, and marked as seed/testing data.
 **Rules:** All profiles DRAFT/PRIVATE. Not "verified". Source documented. No false endorsement.  
-**See:** `lawyer-seed.csv` template (to be created)
+**See:** `project-control/lawyer-seed.csv` template/data file.
+**Still needed live:** verify active plugin path, visit `/wp-admin/` after Upress pull if seeding is desired, then draft/unpublish any existing public demo lawyers. Maya Rotenberg remains the only client intended for homepage featuring.
 
 ### ACTION-008: Publish 5 Pillar Articles
 **Status:** Content task  

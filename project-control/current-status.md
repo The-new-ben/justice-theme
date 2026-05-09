@@ -49,6 +49,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Owner CRM overview added at `Justice CRM` in WordPress admin for leads and LegalTech requests.
 - Core practice-area term seeder added for the 10 main legal areas with Hebrew names and English slugs.
 - Bundled `assets/images/logo.png` now renders as header/footer fallback when no custom logo is configured.
+- Lawyer seeders hardened across all plugin candidates: demo profiles use canonical practice-area slugs where available, remain draft/unverified/inactive, are not homepage-featured, are not lead-routed, and are marked `SEED_DATA`.
 - Added first LegalTech product layer in code: CMS-backed legal tools, private tool requests, homepage gateway, archive/single templates, and starter tools for AI intake, demand letter, family agreement, and real-estate contract review.
 - Added `project-control/legaltech-platform-roadmap.md` to document the broader document automation, AI console, lawyer-review and passive-income product plan.
 
@@ -74,12 +75,14 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Justice CRM admin overview is NOT VERIFIED live.
 - Practice-area term seeding is NOT VERIFIED live; it runs after Upress pull and an admin dashboard visit, if the taxonomy is active.
 - Header/footer logo fallback is NOT VERIFIED live after this pass.
+- Hardened lawyer seeding is NOT VERIFIED live; it requires Upress pull and the active plugin/admin seeder path.
 
 ## STILL BROKEN / RISK
 - Repo still contains duplicate plugin-like folders: `ultra-justice/`, `ultra-justice-engine/`, and new `justice-core/`.
 - Do not delete the legacy plugin folders until live active plugin path is verified; otherwise GitHub sync could remove the currently active plugin and break CPTs.
 - Live lawyer cards show city slugs such as `tel-aviv` in the public extract, which means terms or assigned values may not be user-facing Hebrew in every place.
 - Live archive still exposes multiple demo lawyers publicly; this must be cleaned or moved to draft/private from WP admin/API after active plugin and content ownership are verified.
+- Existing public demo lawyers on live may predate the hardened seeder and require manual/API cleanup after backup.
 - Existing live Hebrew slugs need a controlled English-slug migration with 301 redirects; repo changes prevent future seed slugs but do not automatically fix already-published URLs unless an approved migration runs.
 - Live homepage extract shows "Content is protected !!", likely from a content-protection/accessibility/plugin layer; source and impact are NOT VERIFIED.
 - Spam source remains NOT VERIFIED. Homepage may be hiding spam by querying only `articles`, but database cleanup is still required.

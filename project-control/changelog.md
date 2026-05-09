@@ -118,6 +118,7 @@
 **[HIGH] Made demo seeding safer**
 - Files: `justice-core/includes/seeder.php`, `ultra-justice-engine/includes/seeder.php`, `ultra-justice/includes/seeder.php`
 - Future seeded lawyer profiles are draft, free-plan, unverified, and marked internally as testing-only.
+- Hardened the seeder again so test profiles are inactive, not lead-routed, not featured on the homepage, use `SEED_DATA` as source marker, and align several seed practice slugs with the canonical taxonomy seed (`real-estate-law`, `inheritance-law`, `torts`).
 
 **[MEDIUM] Fixed lawyer archive invalid markup**
 - File: `archive-justice_lawyer.php`

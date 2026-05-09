@@ -43,14 +43,14 @@ function uje_maybe_auto_seed(): void {
 	$lawyers = array(
 		array( 'heb' => 'עו"ד מאיה רוטנברג',  'firm' => 'משרד רוטנברג — דיני משפחה',   'area' => 'family-law',     'area_heb' => 'דיני משפחה',  'city' => 'tel-aviv',      'phone' => '03-5551234', 'whatsapp' => '0545551234', 'years' => 18, 'priority' => 100, 'bio' => 'מומחית בדיני משפחה, גירושין ומשמורת ילדים. מעל 18 שנות ניסיון.' ),
 		array( 'heb' => 'עו"ד דוד כהן',        'firm' => 'כהן — הגנה פלילית',           'area' => 'criminal-law',   'area_heb' => 'משפט פלילי',  'city' => 'jerusalem',     'phone' => '02-5559876', 'whatsapp' => '0505559876', 'years' => 22, 'priority' => 95,  'bio' => 'עורך דין פלילי בכיר, מומחה בעבירות צווארון לבן והונאה.' ),
-		array( 'heb' => 'עו"ד שרה לוי',        'firm' => 'לוי נדל"ן ומקרקעין',          'area' => 'real-estate',    'area_heb' => 'מקרקעין',     'city' => 'haifa',         'phone' => '04-5553456', 'whatsapp' => '0525553456', 'years' => 15, 'priority' => 90,  'bio' => 'מתמחה בעסקאות נדל"ן, ליקויי בנייה ורישום טאבו.' ),
+		array( 'heb' => 'עו"ד שרה לוי',        'firm' => 'לוי נדל"ן ומקרקעין',          'area' => 'real-estate-law','area_heb' => 'מקרקעין',     'city' => 'haifa',         'phone' => '04-5553456', 'whatsapp' => '0525553456', 'years' => 15, 'priority' => 90,  'bio' => 'מתמחה בעסקאות נדל"ן, ליקויי בנייה ורישום טאבו.' ),
 		array( 'heb' => 'עו"ד יוסי מזרחי',     'firm' => 'מזרחי — דיני עבודה',          'area' => 'labor-law',      'area_heb' => 'דיני עבודה',  'city' => 'tel-aviv',      'phone' => '03-5557890', 'whatsapp' => '0545557890', 'years' => 12, 'priority' => 85,  'bio' => 'מומחה בזכויות עובדים, פיטורים שלא כדין ופנסיה.' ),
 		array( 'heb' => 'עו"ד נועה שפירא',     'firm' => 'שפירא — גישור ומשפחה',        'area' => 'family-law',     'area_heb' => 'דיני משפחה',  'city' => 'ramat-gan',     'phone' => '03-5552345', 'whatsapp' => '0535552345', 'years' => 10, 'priority' => 80,  'bio' => 'עורכת דין לענייני משפחה עם דגש על גישור.' ),
 		array( 'heb' => 'עו"ד אבי בן-דוד',    'firm' => 'בן-דוד — תעבורה',             'area' => 'traffic-law',    'area_heb' => 'דיני תעבורה', 'city' => 'beer-sheva',    'phone' => '08-5556789', 'whatsapp' => '0505556789', 'years' => 8,  'priority' => 75,  'bio' => 'מתמחה בביטול דוחות תנועה ועבירות נהיגה.' ),
-		array( 'heb' => 'עו"ד תמר גולדשטיין', 'firm' => 'גולדשטיין — צוואות וירושות',  'area' => 'inheritance',    'area_heb' => 'דיני ירושה',  'city' => 'herzliya',      'phone' => '09-5551122', 'whatsapp' => '0545551122', 'years' => 20, 'priority' => 88,  'bio' => 'מומחית בצוואות, ירושות וניהול עיזבון.' ),
+		array( 'heb' => 'עו"ד תמר גולדשטיין', 'firm' => 'גולדשטיין — צוואות וירושות',  'area' => 'inheritance-law','area_heb' => 'דיני ירושה',  'city' => 'herzliya',      'phone' => '09-5551122', 'whatsapp' => '0545551122', 'years' => 20, 'priority' => 88,  'bio' => 'מומחית בצוואות, ירושות וניהול עיזבון.' ),
 		array( 'heb' => 'עו"ד משה פרץ',        'firm' => 'פרץ — הגנה פלילית',           'area' => 'criminal-law',   'area_heb' => 'משפט פלילי',  'city' => 'petah-tikva',   'phone' => '03-5553344', 'whatsapp' => '0535553344', 'years' => 25, 'priority' => 92,  'bio' => 'עורך דין פלילי ותיק, ייצוג בכל הערכאות.' ),
 		array( 'heb' => 'עו"ד ליאת אברהם',     'firm' => 'אברהם — משפט מסחרי',          'area' => 'commercial-law', 'area_heb' => 'משפט מסחרי', 'city' => 'netanya',       'phone' => '09-5555566', 'whatsapp' => '0545555566', 'years' => 14, 'priority' => 82,  'bio' => 'מתמחה בדיני חברות, חוזים מסחריים וליטיגציה אזרחית.' ),
-		array( 'heb' => 'עו"ד איתן כץ',        'firm' => 'כץ — נזיקין ופיצויים',        'area' => 'tort-law',       'area_heb' => 'דיני נזיקין', 'city' => 'rishon-lezion', 'phone' => '03-5557788', 'whatsapp' => '0535557788', 'years' => 16, 'priority' => 86,  'bio' => 'מומחה בתביעות נזיקין, תאונות עבודה ורשלנות רפואית.' ),
+		array( 'heb' => 'עו"ד איתן כץ',        'firm' => 'כץ — נזיקין ופיצויים',        'area' => 'torts',          'area_heb' => 'דיני נזיקין', 'city' => 'rishon-lezion', 'phone' => '03-5557788', 'whatsapp' => '0535557788', 'years' => 16, 'priority' => 86,  'bio' => 'מומחה בתביעות נזיקין, תאונות עבודה ורשלנות רפואית.' ),
 	);
 
 	foreach ( $lawyers as $l ) {
@@ -101,10 +101,14 @@ function uje_maybe_auto_seed(): void {
 			'years_experience'    => $l['years'],
 			'priority_score'      => $l['priority'],
 			'plan_type'           => 'free',
+			'subscription_status' => 'inactive',
 			'source_type'         => 'seed',
 			'profile_status'      => 'draft',
-			'license_status'      => 'active',
+			'license_status'      => 'unknown',
 			'verification_status' => 'unverified',
+			'featured_on_front'   => '0',
+			'lead_routing_enabled'=> '0',
+			'source_url'          => 'SEED_DATA',
 			'internal_notes'      => 'Seed profile for testing only. Not verified and not approved for public endorsement.',
 		);
 		foreach ( $meta as $k => $v ) {
@@ -169,7 +173,7 @@ function uje_seed_lawyer_profile( array $row ): int|WP_Error {
 		'subscription_status' => 'inactive',
 		'lead_routing_enabled'=> '0',
 		'source_type'         => 'seed',
-		'license_status'      => 'active',
+		'license_status'      => 'unknown',
 	);
 
 	foreach ( $meta_fields as $key => $value ) {

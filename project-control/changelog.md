@@ -34,6 +34,10 @@
 - Documented the divorce pillar and five supporting pages as separate search intents.
 - Added internal links from pillar to support pages, support pages to Maya Rotenberg, and cannibalization rules for mediation/agreement/support/custody/property topics.
 
+**[MEDIUM] Added family-law drafts to inventory**
+- Files: `project-control/content-inventory.csv`, `project-control/title-audit.csv`
+- Added the first six repo-maintained family-law drafts with word counts, intent, duplicate-risk notes, and import/review actions.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

@@ -61,6 +61,18 @@ function uje_register_lawyer_meta() {
 		'firm_name'              => 'string',
 		'bar_number'             => 'string',
 		'bio_short'              => 'string',
+		'profile_headline'       => 'string',
+		'profile_subheadline'    => 'string',
+		'profile_approach_title' => 'string',
+		'profile_approach'       => 'string',
+		'profile_services'       => 'string',
+		'profile_process'        => 'string',
+		'profile_credentials'    => 'string',
+		'profile_media_urls'     => 'string',
+		'profile_faqs'           => 'string',
+		'profile_testimonials'   => 'string',
+		'profile_cta_title'      => 'string',
+		'profile_cta_text'       => 'string',
 
 		// Professional
 		'languages'              => 'string',
@@ -193,6 +205,7 @@ add_filter( 'manage_edit-justice_lawyer_sortable_columns', 'uje_lawyer_sortable_
  */
 function uje_lawyer_meta_boxes() {
 	add_meta_box( 'justice_lawyer_identity', '׳–׳”׳•׳× ׳¢׳•׳¨׳ ׳”׳“׳™׳', 'uje_lawyer_identity_box', 'justice_lawyer', 'normal', 'high' );
+	add_meta_box( 'justice_lawyer_minisite', 'Lawyer mini-site content', 'uje_lawyer_minisite_box', 'justice_lawyer', 'normal', 'high' );
 	add_meta_box( 'justice_lawyer_contact', '׳₪׳¨׳˜׳™ ׳”׳×׳§׳©׳¨׳•׳×', 'uje_lawyer_contact_box', 'justice_lawyer', 'normal', 'default' );
 	add_meta_box( 'justice_lawyer_commercial', '׳׳¡׳—׳¨׳™ ׳•׳׳ ׳”׳׳™', 'uje_lawyer_commercial_box', 'justice_lawyer', 'side', 'default' );
 }
@@ -213,6 +226,27 @@ function uje_lawyer_identity_box( $post ) {
 		array( 'key' => 'courts',              'label' => '׳‘׳×׳™ ׳׳©׳₪׳˜',             'type' => 'text' ),
 		array( 'key' => 'license_status',      'label' => '׳¡׳˜׳˜׳•׳¡ ׳¨׳™׳©׳™׳•׳',         'type' => 'select', 'options' => array( 'active' => '׳₪׳¢׳™׳', 'inactive' => '׳׳ ׳₪׳¢׳™׳', 'suspended' => '׳׳•׳©׳¢׳”' ) ),
 		array( 'key' => 'verification_status', 'label' => '׳¡׳˜׳˜׳•׳¡ ׳׳™׳׳•׳×',          'type' => 'select', 'options' => array( 'unverified' => '׳׳ ׳׳׳•׳׳×', 'pending' => '׳‘׳‘׳“׳™׳§׳”', 'verified' => '׳׳׳•׳׳×' ) ),
+	);
+	uje_render_meta_fields( $post, $fields );
+}
+
+/**
+ * Mini-site content meta box.
+ */
+function uje_lawyer_minisite_box( $post ) {
+	$fields = array(
+		array( 'key' => 'profile_headline',       'label' => 'Hero headline',              'type' => 'text' ),
+		array( 'key' => 'profile_subheadline',    'label' => 'Hero subheadline',           'type' => 'textarea' ),
+		array( 'key' => 'profile_approach_title', 'label' => 'Approach section title',     'type' => 'text' ),
+		array( 'key' => 'profile_approach',       'label' => 'Approach body',              'type' => 'textarea' ),
+		array( 'key' => 'profile_services',       'label' => 'Services: title | text',     'type' => 'textarea' ),
+		array( 'key' => 'profile_process',        'label' => 'Process: step | text',       'type' => 'textarea' ),
+		array( 'key' => 'profile_credentials',    'label' => 'Credentials: title | text',  'type' => 'textarea' ),
+		array( 'key' => 'profile_media_urls',     'label' => 'Media: title | url | note',  'type' => 'textarea' ),
+		array( 'key' => 'profile_faqs',           'label' => 'FAQ: question | answer',     'type' => 'textarea' ),
+		array( 'key' => 'profile_testimonials',   'label' => 'Testimonials: quote | name', 'type' => 'textarea' ),
+		array( 'key' => 'profile_cta_title',      'label' => 'Final CTA title',            'type' => 'text' ),
+		array( 'key' => 'profile_cta_text',       'label' => 'Final CTA text',             'type' => 'textarea' ),
 	);
 	uje_render_meta_fields( $post, $fields );
 }
@@ -306,6 +340,7 @@ function uje_save_lawyer_meta( $post_id ) {
 
 	$text_fields = array(
 		'lawyer_full_name', 'firm_name', 'bar_number', 'bio_short',
+		'profile_headline', 'profile_approach_title', 'profile_cta_title',
 		'languages', 'courts', 'license_status', 'verification_status',
 		'phone', 'email', 'whatsapp', 'website', 'office_address',
 		'profile_video_url', 'linkedin_url', 'facebook_url', 'instagram_url', 'youtube_url',
@@ -316,6 +351,17 @@ function uje_save_lawyer_meta( $post_id ) {
 	foreach ( $text_fields as $field ) {
 		if ( isset( $_POST[ $field ] ) ) {
 			update_post_meta( $post_id, $field, sanitize_text_field( $_POST[ $field ] ) );
+		}
+	}
+
+	$textarea_fields = array(
+		'profile_subheadline', 'profile_approach', 'profile_services',
+		'profile_process', 'profile_credentials', 'profile_media_urls',
+		'profile_faqs', 'profile_testimonials', 'profile_cta_text',
+	);
+	foreach ( $textarea_fields as $field ) {
+		if ( isset( $_POST[ $field ] ) ) {
+			update_post_meta( $post_id, $field, sanitize_textarea_field( $_POST[ $field ] ) );
 		}
 	}
 

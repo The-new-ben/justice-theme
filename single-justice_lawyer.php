@@ -2,44 +2,75 @@
 /**
  * Single lawyer mini-site profile.
  *
+ * This template is CMS-driven: every rich section reads from justice_lawyer
+ * fields first, and only shows a section when real content exists.
+ *
  * @package JusticeTheme
  */
 
 get_header();
 
-$lawyer_id       = get_the_ID();
-$firm            = get_post_meta( $lawyer_id, 'firm_name', true );
-$bar_num         = get_post_meta( $lawyer_id, 'bar_number', true );
-$phone           = get_post_meta( $lawyer_id, 'phone', true );
-$email           = get_post_meta( $lawyer_id, 'email', true );
-$website         = get_post_meta( $lawyer_id, 'website', true );
-$whatsapp        = get_post_meta( $lawyer_id, 'whatsapp', true );
-$languages       = get_post_meta( $lawyer_id, 'languages', true );
-$experience      = get_post_meta( $lawyer_id, 'years_experience', true );
-$license         = get_post_meta( $lawyer_id, 'license_status', true );
-$plan            = get_post_meta( $lawyer_id, 'plan_type', true );
-$bio_short       = get_post_meta( $lawyer_id, 'bio_short', true );
-$address         = get_post_meta( $lawyer_id, 'office_address', true );
-$verified        = get_post_meta( $lawyer_id, 'verification_status', true );
-$routing         = get_post_meta( $lawyer_id, 'lead_routing_enabled', true );
-$video_url       = get_post_meta( $lawyer_id, 'profile_video_url', true );
-$linkedin_url    = get_post_meta( $lawyer_id, 'linkedin_url', true );
-$facebook_url    = get_post_meta( $lawyer_id, 'facebook_url', true );
-$instagram_url   = get_post_meta( $lawyer_id, 'instagram_url', true );
-$youtube_url     = get_post_meta( $lawyer_id, 'youtube_url', true );
-$review_count    = (int) get_post_meta( $lawyer_id, 'review_count', true );
-$average_rating  = (float) get_post_meta( $lawyer_id, 'average_rating', true );
-$cities          = get_the_terms( $lawyer_id, 'city' );
-$areas           = get_the_terms( $lawyer_id, 'practice-areas' );
-$is_paid         = in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
-$is_verified     = 'verified' === $verified;
-$primary_area    = ( ! empty( $areas ) && ! is_wp_error( $areas ) ) ? $areas[0] : null;
-$primary_city    = ( ! empty( $cities ) && ! is_wp_error( $cities ) ) ? $cities[0] : null;
-$phone_link      = $phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ) : '';
-$whatsapp_digits = $whatsapp ? preg_replace( '/[^0-9]/', '', $whatsapp ) : '';
-$whatsapp_link   = $whatsapp_digits ? 'https://wa.me/972' . ltrim( $whatsapp_digits, '0' ) : '';
+$lawyer_id = get_the_ID();
 
-$views = (int) get_post_meta( $lawyer_id, 'profile_views', true );
+$meta = static function ( $key, $default = '' ) use ( $lawyer_id ) {
+	$value = get_post_meta( $lawyer_id, $key, true );
+	return '' !== $value && null !== $value ? $value : $default;
+};
+
+$parse_rows = static function ( $raw ) {
+	$rows = array_filter( array_map( 'trim', preg_split( '/\r\n|\r|\n/', (string) $raw ) ) );
+	return array_map(
+		static function ( $row ) {
+			return array_map( 'trim', explode( '|', $row ) );
+		},
+		$rows
+	);
+};
+
+$firm              = $meta( 'firm_name' );
+$bar_num           = $meta( 'bar_number' );
+$phone             = $meta( 'phone' );
+$email             = $meta( 'email' );
+$website           = $meta( 'website' );
+$whatsapp          = $meta( 'whatsapp' );
+$languages         = $meta( 'languages' );
+$experience        = $meta( 'years_experience' );
+$license           = $meta( 'license_status' );
+$plan              = $meta( 'plan_type' );
+$bio_short         = $meta( 'bio_short' );
+$address           = $meta( 'office_address' );
+$verified          = $meta( 'verification_status' );
+$routing           = $meta( 'lead_routing_enabled' );
+$video_url         = $meta( 'profile_video_url' );
+$linkedin_url      = $meta( 'linkedin_url' );
+$facebook_url      = $meta( 'facebook_url' );
+$instagram_url     = $meta( 'instagram_url' );
+$youtube_url       = $meta( 'youtube_url' );
+$profile_headline  = $meta( 'profile_headline', get_the_title() );
+$profile_subtitle  = $meta( 'profile_subheadline', $bio_short );
+$approach_title    = $meta( 'profile_approach_title', 'איך מתנהל הליווי המשפטי' );
+$approach          = $meta( 'profile_approach' );
+$services          = $parse_rows( $meta( 'profile_services' ) );
+$process_steps     = $parse_rows( $meta( 'profile_process' ) );
+$credentials       = $parse_rows( $meta( 'profile_credentials' ) );
+$media_items       = $parse_rows( $meta( 'profile_media_urls' ) );
+$faqs              = $parse_rows( $meta( 'profile_faqs' ) );
+$testimonials      = $parse_rows( $meta( 'profile_testimonials' ) );
+$cta_title         = $meta( 'profile_cta_title' );
+$cta_text          = $meta( 'profile_cta_text' );
+$review_count      = (int) $meta( 'review_count', 0 );
+$average_rating    = (float) $meta( 'average_rating', 0 );
+$cities            = get_the_terms( $lawyer_id, 'city' );
+$areas             = get_the_terms( $lawyer_id, 'practice-areas' );
+$is_paid           = in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
+$is_verified       = 'verified' === $verified;
+$primary_area      = ( ! empty( $areas ) && ! is_wp_error( $areas ) ) ? $areas[0] : null;
+$primary_city      = ( ! empty( $cities ) && ! is_wp_error( $cities ) ) ? $cities[0] : null;
+$phone_link        = $phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ) : '';
+$whatsapp_digits   = $whatsapp ? preg_replace( '/[^0-9]/', '', $whatsapp ) : '';
+$whatsapp_link     = $whatsapp_digits ? 'https://wa.me/972' . ltrim( $whatsapp_digits, '0' ) : '';
+
+$views = (int) $meta( 'profile_views', 0 );
 update_post_meta( $lawyer_id, 'profile_views', $views + 1 );
 
 $social_links = array_filter(
@@ -52,21 +83,24 @@ $social_links = array_filter(
 	)
 );
 
-$related_articles = new WP_Query(
-	array(
-		'post_type'           => 'articles',
-		'post_status'         => 'publish',
-		'posts_per_page'      => 3,
-		'ignore_sticky_posts' => true,
-		'tax_query'           => $primary_area ? array(
-			array(
-				'taxonomy' => 'practice-areas',
-				'field'    => 'term_id',
-				'terms'    => $primary_area->term_id,
-			),
-		) : array(),
-	)
+$related_articles_args = array(
+	'post_type'           => 'articles',
+	'post_status'         => 'publish',
+	'posts_per_page'      => 4,
+	'ignore_sticky_posts' => true,
 );
+
+if ( $primary_area ) {
+	$related_articles_args['tax_query'] = array(
+		array(
+			'taxonomy' => 'practice-areas',
+			'field'    => 'term_id',
+			'terms'    => $primary_area->term_id,
+		),
+	);
+}
+
+$related_articles = new WP_Query( $related_articles_args );
 ?>
 
 <article class="lawyer-mini-site" itemscope itemtype="https://schema.org/Attorney">
@@ -83,19 +117,19 @@ $related_articles = new WP_Query(
 					<?php endif; ?>
 				</div>
 
-				<h1 itemprop="name"><?php the_title(); ?></h1>
+				<h1 itemprop="name"><?php echo esc_html( $profile_headline ); ?></h1>
 
 				<?php if ( $firm ) : ?>
 					<p class="lawyer-mini-hero__firm" itemprop="worksFor"><?php echo esc_html( $firm ); ?></p>
 				<?php endif; ?>
 
-				<?php if ( $bio_short ) : ?>
-					<p class="lawyer-mini-hero__summary"><?php echo esc_html( $bio_short ); ?></p>
+				<?php if ( $profile_subtitle ) : ?>
+					<p class="lawyer-mini-hero__summary"><?php echo esc_html( $profile_subtitle ); ?></p>
 				<?php endif; ?>
 
 				<div class="lawyer-mini-hero__actions">
 					<?php if ( $phone_link ) : ?>
-						<a class="button button--primary" href="<?php echo esc_url( $phone_link ); ?>" itemprop="telephone">שיחה לעורך הדין</a>
+						<a class="button button--primary" href="<?php echo esc_url( $phone_link ); ?>" itemprop="telephone">שיחה לעורכת הדין</a>
 					<?php endif; ?>
 					<?php if ( $whatsapp_link ) : ?>
 						<a class="button button--ghost" href="<?php echo esc_url( $whatsapp_link ); ?>" target="_blank" rel="noopener">WhatsApp</a>
@@ -104,7 +138,7 @@ $related_articles = new WP_Query(
 				</div>
 			</div>
 
-			<aside class="lawyer-mini-hero__panel" aria-label="פרטי עורך הדין">
+			<aside class="lawyer-mini-hero__panel" aria-label="פרטי עורכת הדין">
 				<div class="lawyer-mini-hero__photo">
 					<?php if ( has_post_thumbnail() ) : ?>
 						<?php the_post_thumbnail( 'large', array( 'itemprop' => 'image' ) ); ?>
@@ -131,11 +165,11 @@ $related_articles = new WP_Query(
 	<section class="section lawyer-mini-proof">
 		<div class="container lawyer-mini-proof__grid">
 			<div class="lawyer-mini-proof__item">
-				<strong><?php echo $experience ? esc_html( $experience ) : '—'; ?></strong>
+				<strong><?php echo $experience ? esc_html( $experience ) : '-'; ?></strong>
 				<span>שנות ניסיון</span>
 			</div>
 			<div class="lawyer-mini-proof__item">
-				<strong><?php echo $bar_num ? esc_html( $bar_num ) : '—'; ?></strong>
+				<strong><?php echo $bar_num ? esc_html( $bar_num ) : '-'; ?></strong>
 				<span>מספר רישיון</span>
 			</div>
 			<div class="lawyer-mini-proof__item">
@@ -144,7 +178,7 @@ $related_articles = new WP_Query(
 			</div>
 			<div class="lawyer-mini-proof__item">
 				<strong><?php echo ( $review_count > 0 && $average_rating > 0 ) ? esc_html( number_format_i18n( $average_rating, 1 ) ) : 'בקרוב'; ?></strong>
-				<span>ביקורות לקוחות</span>
+				<span>ביקורות מאושרות</span>
 			</div>
 		</div>
 	</section>
@@ -153,11 +187,49 @@ $related_articles = new WP_Query(
 		<div class="container lawyer-mini-body__grid">
 			<main class="lawyer-mini-body__main">
 				<section class="lawyer-mini-panel">
-					<h2>על עורך הדין</h2>
+					<h2>על עורכת הדין</h2>
 					<div class="entry-content" itemprop="description">
 						<?php the_content(); ?>
 					</div>
 				</section>
+
+				<?php if ( $approach || ! empty( $process_steps ) ) : ?>
+					<section class="lawyer-mini-panel lawyer-mini-editorial">
+						<h2><?php echo esc_html( $approach_title ); ?></h2>
+						<?php if ( $approach ) : ?>
+							<div class="entry-content"><?php echo wp_kses_post( wpautop( $approach ) ); ?></div>
+						<?php endif; ?>
+						<?php if ( ! empty( $process_steps ) ) : ?>
+							<div class="lawyer-mini-steps">
+								<?php foreach ( $process_steps as $index => $row ) : ?>
+									<div class="lawyer-mini-step">
+										<span><?php echo esc_html( $index + 1 ); ?></span>
+										<strong><?php echo esc_html( $row[0] ?? '' ); ?></strong>
+										<?php if ( ! empty( $row[1] ) ) : ?>
+											<p><?php echo esc_html( $row[1] ); ?></p>
+										<?php endif; ?>
+									</div>
+								<?php endforeach; ?>
+							</div>
+						<?php endif; ?>
+					</section>
+				<?php endif; ?>
+
+				<?php if ( ! empty( $services ) ) : ?>
+					<section class="lawyer-mini-panel">
+						<h2>שירותים משפטיים מרכזיים</h2>
+						<div class="lawyer-mini-service-grid">
+							<?php foreach ( $services as $row ) : ?>
+								<article class="lawyer-mini-service">
+									<strong><?php echo esc_html( $row[0] ?? '' ); ?></strong>
+									<?php if ( ! empty( $row[1] ) ) : ?>
+										<p><?php echo esc_html( $row[1] ); ?></p>
+									<?php endif; ?>
+								</article>
+							<?php endforeach; ?>
+						</div>
+					</section>
+				<?php endif; ?>
 
 				<?php if ( $video_url ) : ?>
 					<section class="lawyer-mini-panel lawyer-mini-video">
@@ -193,18 +265,72 @@ $related_articles = new WP_Query(
 						</div>
 						<?php wp_reset_postdata(); ?>
 					<?php else : ?>
-						<p class="lawyer-mini-muted">כאן יוצגו מאמרים חתומים, מדריכים ועדכונים מקצועיים של עורך הדין לאחר חיבור התוכן במערכת.</p>
+						<p class="lawyer-mini-muted">כאן יוצגו מאמרים חתומים, מדריכים ועדכונים מקצועיים של עורכת הדין לאחר חיבור התוכן במערכת.</p>
 					<?php endif; ?>
 				</section>
+
+				<?php if ( ! empty( $media_items ) ) : ?>
+					<section class="lawyer-mini-panel">
+						<h2>וידאו, הופעות ועדכונים</h2>
+						<div class="lawyer-mini-media-list">
+							<?php foreach ( $media_items as $row ) : ?>
+								<a class="lawyer-mini-media-item" href="<?php echo esc_url( $row[1] ?? $row[0] ?? '' ); ?>" target="_blank" rel="noopener">
+									<strong><?php echo esc_html( $row[0] ?? '' ); ?></strong>
+									<?php if ( ! empty( $row[2] ) ) : ?>
+										<span><?php echo esc_html( $row[2] ); ?></span>
+									<?php endif; ?>
+								</a>
+							<?php endforeach; ?>
+						</div>
+					</section>
+				<?php endif; ?>
 
 				<section class="lawyer-mini-panel">
 					<h2>ביקורות והמלצות</h2>
 					<?php if ( $review_count > 0 && $average_rating > 0 ) : ?>
-						<p class="lawyer-mini-rating"><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?> מתוך 5 על בסיס <?php echo esc_html( number_format_i18n( $review_count ) ); ?> ביקורות.</p>
+						<p class="lawyer-mini-rating"><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?> מתוך 5 על בסיס <?php echo esc_html( number_format_i18n( $review_count ) ); ?> ביקורות מאושרות.</p>
 					<?php else : ?>
 						<p class="lawyer-mini-muted">ביקורות לקוחות יוצגו רק לאחר אימות, בקרה ואישור פרסום.</p>
 					<?php endif; ?>
+					<?php if ( ! empty( $testimonials ) ) : ?>
+						<div class="lawyer-mini-testimonials">
+							<?php foreach ( $testimonials as $row ) : ?>
+								<figure>
+									<blockquote><?php echo esc_html( $row[0] ?? '' ); ?></blockquote>
+									<?php if ( ! empty( $row[1] ) ) : ?>
+										<figcaption><?php echo esc_html( $row[1] ); ?></figcaption>
+									<?php endif; ?>
+								</figure>
+							<?php endforeach; ?>
+						</div>
+					<?php endif; ?>
 				</section>
+
+				<?php if ( ! empty( $faqs ) ) : ?>
+					<section class="lawyer-mini-panel">
+						<h2>שאלות נפוצות</h2>
+						<div class="lawyer-mini-faqs">
+							<?php foreach ( $faqs as $row ) : ?>
+								<details>
+									<summary><?php echo esc_html( $row[0] ?? '' ); ?></summary>
+									<?php if ( ! empty( $row[1] ) ) : ?>
+										<p><?php echo esc_html( $row[1] ); ?></p>
+									<?php endif; ?>
+								</details>
+							<?php endforeach; ?>
+						</div>
+					</section>
+				<?php endif; ?>
+
+				<?php if ( $cta_title || $cta_text ) : ?>
+					<section class="lawyer-mini-panel lawyer-mini-final-cta">
+						<h2><?php echo esc_html( $cta_title ?: 'רוצים לבדוק את הצעד הבא?' ); ?></h2>
+						<?php if ( $cta_text ) : ?>
+							<p><?php echo esc_html( $cta_text ); ?></p>
+						<?php endif; ?>
+						<a class="button button--primary" href="#lawyer-inquiry">השארת פרטים</a>
+					</section>
+				<?php endif; ?>
 			</main>
 
 			<aside class="lawyer-mini-body__aside">
@@ -258,6 +384,22 @@ $related_articles = new WP_Query(
 						<?php endif; ?>
 					</dl>
 				</section>
+
+				<?php if ( ! empty( $credentials ) ) : ?>
+					<section class="lawyer-mini-sidebox">
+						<h2>הסמכות וניסיון</h2>
+						<ul class="lawyer-mini-credential-list">
+							<?php foreach ( $credentials as $row ) : ?>
+								<li>
+									<strong><?php echo esc_html( $row[0] ?? '' ); ?></strong>
+									<?php if ( ! empty( $row[1] ) ) : ?>
+										<span><?php echo esc_html( $row[1] ); ?></span>
+									<?php endif; ?>
+								</li>
+							<?php endforeach; ?>
+						</ul>
+					</section>
+				<?php endif; ?>
 
 				<?php if ( ! empty( $social_links ) ) : ?>
 					<section class="lawyer-mini-sidebox">

@@ -31,6 +31,9 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Homepage featured lawyer section now has a fallback lookup for live posts still using the Hebrew title while slug migration is pending.
 - Seeder now assigns `advocate-maya-rotenberg` to the Maya Rotenberg seed/profile and generates English-only slugs for future seed profiles.
 - Admin lawyer meta boxes now expose video URL, social URLs, homepage feature flag, approved review count, and approved average rating.
+- Lawyer mini-site now reads additional CMS fields for headline, subheadline, approach, services, process, credentials, media links, FAQs, testimonials and final CTA.
+- Homepage templates now include an editable WordPress page-content band through `template-parts/sections/home-page-content.php`, with a basic spam keyword guard.
+- Self-serve/passive-income platform direction documented in `project-control/self-serve-lawyer-platform-plan.md`.
 - Breadcrumbs fixed in repo: generic single posts no longer render breadcrumbs twice, and lawyer/article/archive breadcrumb hierarchy is explicit.
 - English-only URL/slug migration is documented as a planned project, not a blind bulk rename.
 
@@ -45,6 +48,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Live `/lawyers/advocate-maya-rotenberg/` currently redirects to the homepage, indicating the live slug is not migrated yet.
 - GSC property visibility, sitemap status, and performance data are NOT VERIFIED.
 - The new homepage lawyer section was not visible before adding `page-home.php` because the live page assignment uses `page-template-page-home`.
+- The lawyer dashboard, self-registration, billing, AI console and approval workflows are still NOT BUILT.
 
 ## STILL BROKEN / RISK
 - Repo still contains duplicate plugin-like folders: `ultra-justice/`, `ultra-justice-engine/`, and new `justice-core/`.

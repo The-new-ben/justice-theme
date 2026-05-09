@@ -12,6 +12,20 @@
 
 ### FIXES
 
+**[HIGH] Added CMS-wired lawyer mini-site fields**
+- Files: `single-justice_lawyer.php`, `justice-core/includes/cpt-lawyers.php`, `ultra-justice-engine/includes/cpt-lawyers.php`, `ultra-justice/includes/cpt-lawyers.php`, `assets/css/premium-pass-3.css`
+- The lawyer mini-site now reads editable CMS fields for hero text, approach, services, process, credentials, media links, FAQs, testimonials and final CTA.
+- Sections only render when real CMS content exists.
+
+**[HIGH] Added editable homepage content band**
+- Files: `template-parts/sections/home-page-content.php`, `page-home.php`, `front-page.php`
+- The WordPress homepage editor can now control a safe content section inside the homepage template.
+- A basic casino/gambling keyword guard prevents known spam categories from rendering in that band.
+
+**[HIGH] Documented zero-founder-effort platform model**
+- File: `project-control/self-serve-lawyer-platform-plan.md`
+- Added the self-serve lawyer signup, AI console, billing, profile builder, content approval and compliant outreach strategy.
+
 **[CRITICAL] Added the live homepage template path**
 - File: `page-home.php`
 - Live HTML showed body class `page-template-page-home`, meaning WordPress is using the page template `page-home.php`.

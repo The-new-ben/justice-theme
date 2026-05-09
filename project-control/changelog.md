@@ -38,6 +38,12 @@
 - Files: `project-control/content-inventory.csv`, `project-control/title-audit.csv`
 - Added the first six repo-maintained family-law drafts with word counts, intent, duplicate-risk notes, and import/review actions.
 
+**[HIGH] Expanded divorce-lawyer pillar draft**
+- Files: `content-drafts/divorce-lawyer-pillar-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/task-board.csv`, `project-control/current-status.md`
+- Expanded the flagship `/divorce-lawyer/` draft from about 1,963 words to about 3,670 words.
+- Added decision-path segmentation, process timeline, document checklist, common mistakes, lawyer-comparison guidance, Jus-Tice funnel logic, CMS module plan, and official-source anchors.
+- Status remains NOT VERIFIED for legal accuracy and not ready to publish.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

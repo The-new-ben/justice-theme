@@ -29,6 +29,11 @@
 - Imports long-form drafts into the `articles` CPT as draft-only posts.
 - Blocks automatic refresh of already-published articles and marks imports as requiring legal review.
 
+**[HIGH] Locked first family-law cluster architecture**
+- Files: `project-control/family-law-content-cluster-map.md`, `project-control/internal-link-opportunities.csv`, `project-control/cannibalization-map.csv`
+- Documented the divorce pillar and five supporting pages as separate search intents.
+- Added internal links from pillar to support pages, support pages to Maya Rotenberg, and cannibalization rules for mediation/agreement/support/custody/property topics.
+
 ### DOCUMENTED
 
 **[HIGH] Corrected content production standard**

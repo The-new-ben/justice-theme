@@ -23,7 +23,7 @@ function justice_theme_breadcrumbs() {
 		return;
 	}
 	?>
-	<nav class="breadcrumbs" aria-label="<?php esc_attr_e( 'Breadcrumbs', 'justice-theme' ); ?>">
+	<nav class="breadcrumbs" aria-label="<?php esc_attr_e( 'שביל ניווט', 'justice-theme' ); ?>">
 		<ol class="container breadcrumbs__list">
 			<?php foreach ( $items as $index => $item ) : ?>
 				<li class="breadcrumbs__item">
@@ -97,7 +97,7 @@ function justice_theme_get_breadcrumb_items() {
 		$items[] = array(
 			'name' => sprintf(
 				/* translators: %s: search query. */
-				__( 'Search results for: %s', 'justice-theme' ),
+				__( 'תוצאות חיפוש: %s', 'justice-theme' ),
 				get_search_query()
 			),
 			'url'  => '',

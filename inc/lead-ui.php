@@ -27,7 +27,7 @@ function justice_theme_option( $key, $default = '' ) {
  */
 function justice_theme_customize_register( $wp_customize ) {
 	$wp_customize->add_section( 'justice_contact', array(
-		'title'    => __( 'Contact Information', 'justice-theme' ),
+		'title'    => __( 'פרטי יצירת קשר', 'justice-theme' ),
 		'priority' => 30,
 	) );
 
@@ -36,7 +36,7 @@ function justice_theme_customize_register( $wp_customize ) {
 		'sanitize_callback' => 'sanitize_text_field',
 	) );
 	$wp_customize->add_control( 'justice_phone', array(
-		'label'   => __( 'Phone Number', 'justice-theme' ),
+		'label'   => __( 'מספר טלפון', 'justice-theme' ),
 		'section' => 'justice_contact',
 		'type'    => 'text',
 	) );
@@ -46,7 +46,7 @@ function justice_theme_customize_register( $wp_customize ) {
 		'sanitize_callback' => 'sanitize_email',
 	) );
 	$wp_customize->add_control( 'justice_email', array(
-		'label'   => __( 'Email', 'justice-theme' ),
+		'label'   => __( 'דואר אלקטרוני', 'justice-theme' ),
 		'section' => 'justice_contact',
 		'type'    => 'email',
 	) );

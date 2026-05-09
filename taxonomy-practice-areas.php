@@ -13,7 +13,7 @@ $term = get_queried_object();
 <section class="taxonomy-header">
 	<div class="container container--narrow">
 		<p class="taxonomy-header__eyebrow">
-			<?php esc_html_e( 'Practice area', 'justice-theme' ); ?>
+			<?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?>
 		</p>
 
 		<h1><?php single_term_title(); ?></h1>
@@ -25,7 +25,7 @@ $term = get_queried_object();
 		<?php endif; ?>
 
 		<a class="button button--gold" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">
-			<?php esc_html_e( 'Get legal direction', 'justice-theme' ); ?>
+			<?php esc_html_e( 'מצאו עורך דין בתחום זה', 'justice-theme' ); ?>
 		</a>
 	</div>
 </section>
@@ -46,8 +46,8 @@ $term = get_queried_object();
 				<?php
 				the_posts_pagination( array(
 					'mid_size'  => 2,
-					'prev_text' => esc_html__( 'Previous', 'justice-theme' ),
-					'next_text' => esc_html__( 'Next', 'justice-theme' ),
+					'prev_text' => esc_html__( '→ הקודם', 'justice-theme' ),
+					'next_text' => esc_html__( 'הבא ←', 'justice-theme' ),
 				) );
 				?>
 			</div>

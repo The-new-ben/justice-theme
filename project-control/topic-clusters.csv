@@ -1,0 +1,11 @@
+cluster_id,cluster_name,pillar_keyword,pillar_url,pillar_status,supporting_topics,target_search_volume,priority,notes
+cluster-geirushin,גירושין ומשפחה,עורך דין גירושין,/lawyers/?area=geirushin,PLANNED,"גירושין בהסכמה | גישור גירושין | מזונות ילדים | משמורת ילדים | חלוקת רכוש | הסכם ממון | בקשה ליישוב סכסוך | כתובה",HIGH,Primary money cluster — highest search volume
+cluster-plili,משפט פלילי,עורך דין פלילי,/lawyers/?area=criminal,PLANNED,"עורך דין חקירות | עצור זכויות | ערעור פלילי | ביצוע עבירות | עונשים פליליים | עסקת טיעון",HIGH,High urgency — leads convert quickly
+cluster-truva,תעבורה,עורך דין תעבורה,/lawyers/?area=traffic,PLANNED,"ביטול דוח | עבירות נהיגה | השעיית רישיון | תאונת דרכים | נהיגה בשכרות | נהיגה ללא רישיון",HIGH,High volume + clear lead intent
+cluster-mekarkein,מקרקעין ונדלן,עורך דין מקרקעין,/lawyers/?area=real-estate,PLANNED,"רישום טאבו | ליקויי בנייה | עסקת קנייה ומכירה | שכירות | פינוי שוכר | מיסוי מקרקעין",HIGH,High ticket — lawyers pay more
+cluster-avoda,דיני עבודה,עורך דין עבודה,/lawyers/?area=labor,PLANNED,"פיטורים שלא כדין | פיצויי פיטורין | הסכם עבודה | הטרדה מינית | זכויות עובד | ביטוח לאומי",HIGH,Evergreen — high search volume year-round
+cluster-irsha,ירושה וצוואות,עורך דין ירושה,/lawyers/?area=inheritance,PLANNED,"צוואה | ניהול עיזבון | ירושה על פי דין | התנגדות לצוואה | אפוטרופוס | הסכם ירושה",MEDIUM,Seasonal spikes around death/illness events
+cluster-nezakin,נזיקין,עורך דין נזיקין,/lawyers/?area=torts,PLANNED,"תאונות עבודה | נזקי גוף | רשלנות | פיצויים | ביטוח תאונות",MEDIUM,Often overlaps with traffic — differentiate clearly
+cluster-rashlnut,רשלנות רפואית,עורך דין רשלנות רפואית,/lawyers/?area=medical-malpractice,PLANNED,"שגיאת רופא | פגיעה בלידה | תביעה נגד קופת חולים | פיצוי רשלנות",MEDIUM,High value — complex cases
+cluster-bitlumi,ביטוח לאומי,עורך דין ביטוח לאומי,/lawyers/?area=national-insurance,PLANNED,"קצבת נכות | דחיית תביעה | ועדה רפואית | קצבת זקנה | תאונת עבודה",HIGH,Volume + underserved — less competition
+cluster-hit,הגירה ואזרחות,עורך דין הגירה,/lawyers/?area=immigration,PLANNED,"אשרת עבודה | אזרחות ישראלית | איחוד משפחות | גירוש מהארץ | מהגרי עבודה",MEDIUM,Niche but high urgency

@@ -13,8 +13,9 @@
 get_header();
 
 // Get filter params
-$filter_city = isset( $_GET['city'] ) ? sanitize_text_field( $_GET['city'] ) : '';
-$filter_area = isset( $_GET['area'] ) ? sanitize_text_field( $_GET['area'] ) : '';
+$filter_city    = isset( $_GET['city'] )    ? sanitize_text_field( wp_unslash( $_GET['city'] ) )    : '';
+$filter_area    = isset( $_GET['area'] )    ? sanitize_text_field( wp_unslash( $_GET['area'] ) )    : '';
+$filter_keyword = isset( $_GET['keyword'] ) ? sanitize_text_field( wp_unslash( $_GET['keyword'] ) ) : '';
 
 // Build query
 $args = array(
@@ -36,6 +37,11 @@ $args = array(
 	'meta_key'       => 'priority_score',
 	'order'          => 'DESC',
 );
+
+// Keyword search across lawyer name and firm
+if ( $filter_keyword ) {
+	$args['s'] = $filter_keyword;
+}
 
 // City filter
 $tax_query = array();
@@ -92,9 +98,7 @@ $all_cities = get_terms( array( 'taxonomy' => 'city', 'hide_empty' => false, 'or
 $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => true, 'orderby' => 'count', 'order' => 'DESC', 'number' => 30 ) );
 ?>
 
-<main id="primary" class="site-main">
-
-	<section class="lawyer-directory section" aria-labelledby="directory-heading">
+<section class="lawyer-directory section" aria-labelledby="directory-heading">
 		<div class="container">
 
 			<header class="section-header">
@@ -106,9 +110,9 @@ $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => 
 			<form class="directory-filters" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ); ?>">
 				<div class="directory-filters__fields">
 					<div class="directory-filters__field">
-						<label for="filter-area">תחום משפטי</label>
+						<label for="filter-area"><?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?></label>
 						<select id="filter-area" name="area">
-							<option value="">כל התחומים</option>
+							<option value=""><?php esc_html_e( 'כל התחומים', 'justice-theme' ); ?></option>
 							<?php if ( ! empty( $all_areas ) && ! is_wp_error( $all_areas ) ) : ?>
 								<?php foreach ( $all_areas as $at ) : ?>
 									<option value="<?php echo esc_attr( $at->slug ); ?>" <?php selected( $filter_area, $at->slug ); ?>>
@@ -120,9 +124,9 @@ $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => 
 					</div>
 
 					<div class="directory-filters__field">
-						<label for="filter-city">עיר</label>
+						<label for="filter-city"><?php esc_html_e( 'עיר', 'justice-theme' ); ?></label>
 						<select id="filter-city" name="city">
-							<option value="">כל הערים</option>
+							<option value=""><?php esc_html_e( 'כל הערים', 'justice-theme' ); ?></option>
 							<?php if ( ! empty( $all_cities ) && ! is_wp_error( $all_cities ) ) : ?>
 								<?php foreach ( $all_cities as $ct ) : ?>
 									<option value="<?php echo esc_attr( $ct->slug ); ?>" <?php selected( $filter_city, $ct->slug ); ?>>
@@ -133,8 +137,13 @@ $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => 
 						</select>
 					</div>
 
+					<div class="directory-filters__field">
+						<label for="filter-keyword"><?php esc_html_e( 'שם עורך דין', 'justice-theme' ); ?></label>
+						<input type="text" id="filter-keyword" name="keyword" value="<?php echo esc_attr( $filter_keyword ); ?>" placeholder="<?php esc_attr_e( 'חיפוש לפי שם...', 'justice-theme' ); ?>">
+					</div>
+
 					<div class="directory-filters__action">
-						<button type="submit" class="button button--gold">חיפוש</button>
+						<button type="submit" class="button button--gold"><?php esc_html_e( 'חיפוש', 'justice-theme' ); ?></button>
 					</div>
 				</div>
 			</form>
@@ -163,7 +172,7 @@ $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => 
 
 			<?php else : ?>
 				<div class="directory-empty">
-					<div class="directory-empty__icon">⚖️</div>
+					<div class="directory-empty__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40"><circle cx="24" cy="16" r="8"/><path d="M8 42c0-8.8 7.2-16 16-16s16 7.2 16 16"/></svg></div>
 					<h2>מדריך עורכי הדין בבנייה</h2>
 					<p>אנו בונים את מדריך עורכי הדין המקיף ביותר בישראל. בקרוב כאן יופיעו פרופילים של עורכי דין מומחים לפי תחום ומיקום.</p>
 					<div class="directory-empty__cta">

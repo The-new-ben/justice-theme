@@ -35,7 +35,7 @@ while ( have_posts() ) :
 						<?php
 						printf(
 							/* translators: %s: modified date. */
-							esc_html__( 'Updated: %s', 'justice-theme' ),
+							esc_html__( 'עודכן: %s', 'justice-theme' ),
 							esc_html( get_the_modified_date() )
 						);
 						?>
@@ -47,8 +47,8 @@ while ( have_posts() ) :
 		<div class="container single-article__layout">
 			<aside class="single-article__sidebar" role="complementary">
 				<div class="sticky-box">
-					<h2><?php esc_html_e( 'Need legal help?', 'justice-theme' ); ?></h2>
-					<p><?php esc_html_e( 'Send a short inquiry and we will help route it to the relevant field.', 'justice-theme' ); ?></p>
+					<h2><?php esc_html_e( 'צריכים עזרה משפטית?', 'justice-theme' ); ?></h2>
+					<p><?php esc_html_e( 'שלחו פנייה קצרה ונסייע להפנות אתכם לתחום הרלוונטי.', 'justice-theme' ); ?></p>
 					<a class="button button--gold" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">
 						<?php esc_html_e( 'שליחת פנייה', 'justice-theme' ); ?>
 					</a>
@@ -67,9 +67,9 @@ while ( have_posts() ) :
 				</div>
 
 				<section class="editorial-note">
-					<h2><?php esc_html_e( 'Editorial note', 'justice-theme' ); ?></h2>
+					<h2><?php esc_html_e( 'הערת מערכת', 'justice-theme' ); ?></h2>
 					<p>
-						<?php esc_html_e( 'This guide is intended as general legal information. It does not replace individual legal advice from a qualified lawyer.', 'justice-theme' ); ?>
+						<?php esc_html_e( 'מדריך זה נועד לספק מידע משפטי כללי בלבד. אינו מהווה תחליף לייעוץ משפטי אישי מעורך דין מוסמך.', 'justice-theme' ); ?>
 					</p>
 				</section>
 			</div>

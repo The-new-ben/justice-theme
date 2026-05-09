@@ -41,6 +41,11 @@
 - New lawyer submissions now send an admin email notification.
 - Added a `Lawyer Onboarding` admin page that lists pending self-registration drafts and links directly to review/edit.
 
+**[HIGH] Added owner CRM overview**
+- Files: `inc/lead-crm.php`, `functions.php`
+- Adds a `Justice CRM` admin page with lead status cards, recent legal leads, and recent LegalTech requests.
+- Provides direct links to open lead/request records for follow-up.
+
 ### URL STRATEGY
 
 **[HIGH] Confirmed final English-slug strategy**

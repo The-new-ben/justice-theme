@@ -15,6 +15,12 @@
 - Template supports Hebrew pillar content with English slug pages, lawyer cards, supporting topic links, related article cards, LegalTech CTA, and lead form.
 - Does not create or publish pages by itself.
 
+**[HIGH] Added CMS controls and draft seeding for legal pillars**
+- Files: `inc/pillar-pages.php`, `functions.php`
+- Adds editable page fields for pillar keyword, cluster, summary, practice-area slug, LegalTech CTA URL, and supporting topic links.
+- Seeds draft pages for `/divorce-lawyer/`, `/criminal-lawyer/`, `/real-estate-lawyer/`, and `/medical-malpractice-lawyer/` on admin visit.
+- Drafts are not public until reviewed and published.
+
 ### URL STRATEGY
 
 **[HIGH] Confirmed final English-slug strategy**

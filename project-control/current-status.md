@@ -40,6 +40,8 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Strategic goals file created at `project-control/strategic-goals.md`.
 - Hebrew-slug audit file created at `project-control/url-hebrew-audit.csv`.
 - SEO goal files updated around English-slug pillar architecture: `topic-clusters.csv`, `internal-link-opportunities.csv`, `cannibalization-map.csv`, `keyword-serp-plan.md`, `serp-research-log.csv`, and `title-audit.csv`.
+- Legal pillar CMS controls added in `inc/pillar-pages.php`.
+- Draft seeding added for the first pillar pages: `/divorce-lawyer/`, `/criminal-lawyer/`, `/real-estate-lawyer/`, and `/medical-malpractice-lawyer/`.
 - Added first LegalTech product layer in code: CMS-backed legal tools, private tool requests, homepage gateway, archive/single templates, and starter tools for AI intake, demand letter, family agreement, and real-estate contract review.
 - Added `project-control/legaltech-platform-roadmap.md` to document the broader document automation, AI console, lawyer-review and passive-income product plan.
 
@@ -58,6 +60,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Live `/legal-tools/` is NOT VERIFIED until GitHub/Upress sync is pulled and WordPress rewrites/cache are refreshed.
 - Starter LegalTech tool posts are NOT VERIFIED on live; seeding runs on an admin dashboard visit after plugin code is active.
 - SERP research is PARTIAL. Initial web sampling was recorded, but manual top-10 capture, People Also Ask, autocomplete, and GSC data are still NOT VERIFIED.
+- Legal pillar draft pages are NOT VERIFIED on live; they seed only after Upress pulls the commit and an admin dashboard visit runs.
 
 ## STILL BROKEN / RISK
 - Repo still contains duplicate plugin-like folders: `ultra-justice/`, `ultra-justice-engine/`, and new `justice-core/`.
@@ -77,4 +80,4 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 6. Verify `/legal-tools/`, `/legal-tools/ai-intake/`, and one test LegalTech request in admin.
 7. Commit only repo-safe changes; do not create ZIPs.
 8. Export live URL/slug inventory before changing any Hebrew slugs; fill `url-migration-map.csv`, then create approved 301 redirects for every changed URL.
-9. Build the first pillar implementation path for `/divorce-lawyer/` and connect it to Maya Rotenberg, family-law content, and LegalTech tools.
+9. Pull latest in Upress and visit `/wp-admin/` once to seed draft pillar pages, then review/publish `/divorce-lawyer/` first.

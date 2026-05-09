@@ -24,6 +24,7 @@ $justice_theme_files = array(
 	'inc/accessibility.php',
 	'inc/related-content.php',
 	'inc/lead-ui.php',
+	'inc/pillar-pages.php',
 	'inc/cleanup.php',
 	'inc/live-migrations.php',
 );

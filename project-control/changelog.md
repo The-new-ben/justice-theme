@@ -39,6 +39,11 @@
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.
 - Confirmed dummy logo text is not present.
 
+**[MEDIUM] Cleaned search/archive navigation labels**
+- Files: `search.php`, `archive-articles.php`, `archive-justice_lawyer.php`
+- Converted remaining search and pagination UI labels to clean Hebrew.
+- Removed mojibake arrow strings from archive pagination.
+
 ### DOCUMENTED
 
 **[HIGH] Corrected content production standard**

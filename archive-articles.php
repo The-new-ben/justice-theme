@@ -63,8 +63,8 @@ get_header();
 					<?php
 					the_posts_pagination( array(
 						'mid_size'  => 2,
-						'prev_text' => esc_html__( '→ הקודם', 'justice-theme' ),
-						'next_text' => esc_html__( 'הבא ←', 'justice-theme' ),
+						'prev_text' => esc_html__( 'הקודם', 'justice-theme' ),
+						'next_text' => esc_html__( 'הבא', 'justice-theme' ),
 					) );
 					?>
 				</div>

@@ -164,8 +164,8 @@ $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => 
 					'format'    => '?paged=%#%',
 					'current'   => max( 1, get_query_var( 'paged' ) ),
 					'total'     => $lawyers->max_num_pages,
-					'prev_text' => '→ הקודם',
-					'next_text' => 'הבא ←',
+					'prev_text' => 'הקודם',
+					'next_text' => 'הבא',
 				) );
 				echo '</nav>';
 				?>

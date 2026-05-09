@@ -16,7 +16,7 @@ global $wp_query;
 			<?php
 			printf(
 				/* translators: %s: search query. */
-				esc_html__( 'Search results for: %s', 'justice-theme' ),
+				esc_html__( 'תוצאות חיפוש עבור: %s', 'justice-theme' ),
 				'<span>' . esc_html( get_search_query() ) . '</span>'
 			);
 			?>
@@ -42,8 +42,8 @@ global $wp_query;
 				<?php
 				the_posts_pagination( array(
 					'mid_size'  => 2,
-					'prev_text' => esc_html__( 'Previous', 'justice-theme' ),
-					'next_text' => esc_html__( 'Next', 'justice-theme' ),
+					'prev_text' => esc_html__( 'הקודם', 'justice-theme' ),
+					'next_text' => esc_html__( 'הבא', 'justice-theme' ),
 				) );
 				?>
 			</div>

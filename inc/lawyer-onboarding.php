@@ -71,6 +71,7 @@ function justice_theme_handle_lawyer_registration(): void {
 		'subscription_status'  => 'pending',
 		'verification_status'  => 'pending',
 		'profile_status'       => 'pending',
+		'claimed_by_user_id'   => is_user_logged_in() ? get_current_user_id() : 0,
 		'source_type'          => 'registration',
 		'lead_routing_enabled' => false,
 		'internal_notes'       => 'Self-registration submission. Review license, identity, content, ethics and commercial plan before publishing.',

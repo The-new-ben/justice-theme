@@ -47,6 +47,13 @@
 - New lawyer submissions now send an admin email notification.
 - Added a `Lawyer Onboarding` admin page that lists pending self-registration drafts and links directly to review/edit.
 
+**[HIGH] Added front-end lawyer dashboard MVP**
+- Files: `page-lawyer-dashboard.php`, `inc/lawyer-dashboard.php`, `inc/lawyer-onboarding.php`, `functions.php`, `assets/css/premium-pass-3.css`
+- Adds `/lawyer-dashboard/` as a login-gated personal area for linked lawyers.
+- Shows linked profiles, profile completeness, plan/subscription/verification status, assigned leads, and mini-site improvement tasks.
+- New self-registration submissions now store `claimed_by_user_id` when the lawyer is logged in.
+- Editing, payment and AI Console remain planned modules, not live promises.
+
 **[HIGH] Added owner CRM overview**
 - Files: `inc/lead-crm.php`, `functions.php`
 - Adds a `Justice CRM` admin page with lead status cards, recent legal leads, and recent LegalTech requests.

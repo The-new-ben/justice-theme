@@ -28,6 +28,7 @@ $justice_theme_files = array(
 	'inc/pillar-pages.php',
 	'inc/pillar-article-seed.php',
 	'inc/lawyer-onboarding.php',
+	'inc/lawyer-dashboard.php',
 	'inc/taxonomy-seed.php',
 	'inc/cleanup.php',
 	'inc/live-migrations.php',

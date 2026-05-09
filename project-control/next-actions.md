@@ -36,6 +36,7 @@
 ## HIGH PRIORITY (After CRITICAL is resolved)
 
 ### ACTION-004: Fix Hero Search Form
+**Status:** COMPLETED in code - live verification pending
 **File:** `template-parts/sections/hero.php`  
 **Issue:** Form action points to `home_url('/')`, GET params `practice_area` and `city` don't filter lawyers  
 **Fix:** Change form action to `get_post_type_archive_link('justice_lawyer')` and change param names to `area` and `city` (matching the archive template filter)
@@ -56,7 +57,8 @@
 **Spec:** Max height 44px, white text/graphic (shows on dark navy header)
 
 ### ACTION-006: Create 10 Practice Area Taxonomy Terms
-**Status:** Needs WP-CLI or wp-admin  
+**Status:** COMPLETED in code - live seeding pending admin visit
+**Implementation:** `inc/taxonomy-seed.php` creates/updates the 10 core terms on `/wp-admin/` load when `practice-areas` taxonomy exists.
 **Command:**
 ```bash
 wp term create practice-areas "דיני משפחה" --slug=family-law --description="ייעוץ וייצוג בתחום הגירושין, הילדים, הירושות ודיני המשפחה"

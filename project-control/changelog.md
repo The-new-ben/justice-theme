@@ -46,6 +46,11 @@
 - Adds a `Justice CRM` admin page with lead status cards, recent legal leads, and recent LegalTech requests.
 - Provides direct links to open lead/request records for follow-up.
 
+**[HIGH] Added core practice-area term seeder**
+- Files: `inc/taxonomy-seed.php`, `functions.php`, `project-control/next-actions.md`
+- Seeds 10 core Hebrew practice-area terms with clean English slugs such as `family-law`, `criminal-law`, `real-estate-law`, and `medical-malpractice`.
+- Runs only in admin and only when `practice-areas` taxonomy exists.
+
 ### URL STRATEGY
 
 **[HIGH] Confirmed final English-slug strategy**

@@ -74,6 +74,13 @@
 - Real output is blocked until Search Console service-account access and GitHub secrets are configured.
 - Local smoke test without secrets generated placeholder CSVs marked blocked, confirming the script does not fabricate GSC data.
 
+**[HIGH] Added city-practice SEO architecture**
+- Files: `inc/taxonomy-seed.php`, `inc/city-practice-pages.php`, `page-city-practice.php`, `assets/css/premium-pass-3.css`, `project-control/city-practice-strategy.md`
+- Adds admin-only seeding for 20 core Israeli city terms with English slugs.
+- Adds five draft city-practice landing pages with English slugs.
+- Adds a dedicated template that connects city/practice content to filtered lawyer listings.
+- Pages are intentionally drafts to avoid thin doorway publishing.
+
 **[HIGH] Added owner CRM overview**
 - Files: `inc/lead-crm.php`, `functions.php`
 - Adds a `Justice CRM` admin page with lead status cards, recent legal leads, and recent LegalTech requests.

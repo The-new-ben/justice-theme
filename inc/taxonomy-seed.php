@@ -50,3 +50,45 @@ function justice_theme_seed_core_practice_terms(): void {
 	update_option( 'justice_core_practice_terms_seeded_v1', 1, false );
 }
 add_action( 'admin_init', 'justice_theme_seed_core_practice_terms' );
+
+function justice_theme_seed_core_city_terms(): void {
+	if ( ! current_user_can( 'manage_options' ) || get_option( 'justice_core_city_terms_seeded_v1' ) ) {
+		return;
+	}
+
+	if ( ! taxonomy_exists( 'city' ) ) {
+		return;
+	}
+
+	$cities = array(
+		'tel-aviv'      => 'תל אביב',
+		'jerusalem'     => 'ירושלים',
+		'haifa'         => 'חיפה',
+		'rishon-lezion' => 'ראשון לציון',
+		'petah-tikva'   => 'פתח תקווה',
+		'ashdod'        => 'אשדוד',
+		'netanya'       => 'נתניה',
+		'beer-sheva'    => 'באר שבע',
+		'holon'         => 'חולון',
+		'bnei-brak'     => 'בני ברק',
+		'ramat-gan'     => 'רמת גן',
+		'ashkelon'      => 'אשקלון',
+		'rehovot'       => 'רחובות',
+		'bat-yam'       => 'בת ים',
+		'herzliya'      => 'הרצליה',
+		'kfar-saba'     => 'כפר סבא',
+		'modiin'        => 'מודיעין',
+		'nazareth'      => 'נצרת',
+		'lod'           => 'לוד',
+		'ramla'         => 'רמלה',
+	);
+
+	foreach ( $cities as $slug => $name ) {
+		if ( ! get_term_by( 'slug', $slug, 'city' ) ) {
+			wp_insert_term( $name, 'city', array( 'slug' => $slug ) );
+		}
+	}
+
+	update_option( 'justice_core_city_terms_seeded_v1', 1, false );
+}
+add_action( 'admin_init', 'justice_theme_seed_core_city_terms' );

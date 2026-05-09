@@ -22,62 +22,50 @@ $cities      = get_the_terms( $lawyer_id, 'city' );
 $areas       = get_the_terms( $lawyer_id, 'practice-areas' );
 ?>
 
-<article class="lawyer-card <?php echo $is_paid ? 'lawyer-card--promoted' : ''; ?>" id="lawyer-<?php echo esc_attr( $lawyer_id ); ?>">
-	<?php if ( $is_paid ) : ?>
-		<span class="lawyer-card__badge"><?php esc_html_e( 'פרופיל ממומן', 'justice-theme' ); ?></span>
-	<?php endif; ?>
-
-	<a href="<?php the_permalink(); ?>" class="lawyer-card__link">
-		<div class="lawyer-card__avatar">
-			<?php if ( has_post_thumbnail() ) : ?>
-				<?php the_post_thumbnail( 'thumbnail', array( 'class' => 'lawyer-card__photo' ) ); ?>
-			<?php else : ?>
-				<div class="lawyer-card__placeholder-avatar" aria-hidden="true">
-					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" width="40" height="40" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-				</div>
-			<?php endif; ?>
-		</div>
-
-		<div class="lawyer-card__info">
-			<h3 class="lawyer-card__name"><?php the_title(); ?></h3>
-
-			<?php if ( $firm ) : ?>
-				<p class="lawyer-card__firm"><?php echo esc_html( $firm ); ?></p>
-			<?php endif; ?>
-
-			<?php if ( ! empty( $areas ) && ! is_wp_error( $areas ) ) : ?>
-				<p class="lawyer-card__areas">
-					<?php echo esc_html( implode( ', ', wp_list_pluck( array_slice( $areas, 0, 3 ), 'name' ) ) ); ?>
-				</p>
-			<?php endif; ?>
-
-			<div class="lawyer-card__meta">
-				<?php if ( ! empty( $cities ) && ! is_wp_error( $cities ) ) : ?>
-					<span class="lawyer-card__city">
-						<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" width="11" height="11" aria-hidden="true"><path fill-rule="evenodd" d="M8 1.5a4.5 4.5 0 100 9 4.5 4.5 0 000-9zM2 6a6 6 0 1110.174 4.31c-.203.196-.431.374-.66.536L8 14.5l-3.514-3.654a7.526 7.526 0 01-.66-.536A5.973 5.973 0 012 6zm6 1a1 1 0 100-2 1 1 0 000 2z" clip-rule="evenodd"/></svg>
-						<?php echo esc_html( $cities[0]->name ); ?>
-					</span>
-				<?php endif; ?>
-
-				<?php if ( $experience ) : ?>
-					<span class="lawyer-card__exp">
-						<?php
-						printf(
-							esc_html__( '%d שנות ניסיון', 'justice-theme' ),
-							absint( $experience )
-						);
-						?>
-					</span>
-				<?php endif; ?>
+<article class="lawyer-card premium-card">
+	<a class="lawyer-card__media" href="<?php the_permalink(); ?>">
+		<?php if ( has_post_thumbnail() ) : ?>
+			<?php the_post_thumbnail( 'medium', array( 'loading' => 'lazy' ) ); ?>
+		<?php else : ?>
+			<div class="lawyer-card__placeholder" aria-hidden="true">
+				<span><?php echo esc_html( mb_substr( get_the_title(), 0, 1 ) ); ?></span>
 			</div>
-		</div>
+		<?php endif; ?>
 	</a>
 
-	<?php if ( $phone ) : ?>
+	<div class="lawyer-card__body">
+		<div class="lawyer-card__top">
+			<h3 class="lawyer-card__name">
+				<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+			</h3>
+
+			<?php if ( ! empty( $cities ) && ! is_wp_error( $cities ) ) : ?>
+				<span class="lawyer-card__city">
+					<?php echo esc_html( $cities[0]->name ); ?>
+				</span>
+			<?php endif; ?>
+		</div>
+
+		<?php if ( $firm ) : ?>
+			<p class="lawyer-card__firm">
+				<?php echo esc_html( $firm ); ?>
+			</p>
+		<?php endif; ?>
+
+		<?php if ( ! empty( $areas ) && ! is_wp_error( $areas ) ) : ?>
+			<p class="lawyer-card__areas">
+				<?php echo esc_html( implode( ', ', wp_list_pluck( array_slice( $areas, 0, 3 ), 'name' ) ) ); ?>
+			</p>
+		<?php endif; ?>
+
 		<div class="lawyer-card__actions">
-			<a href="<?php echo esc_url( 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ) ); ?>" class="button button--gold lawyer-card__cta">
-				<?php esc_html_e( 'חייגו עכשיו', 'justice-theme' ); ?>
+			<a class="button button--primary" href="<?php the_permalink(); ?>">
+				צפייה בפרופיל
+			</a>
+
+			<a class="button button--outline" href="<?php echo esc_url( add_query_arg( 'lawyer_id', get_the_ID(), home_url( '/contact/' ) ) ); ?>" style="border-color: var(--color-primary); color: var(--color-primary);">
+				שליחת פנייה
 			</a>
 		</div>
-	<?php endif; ?>
+	</div>
 </article>

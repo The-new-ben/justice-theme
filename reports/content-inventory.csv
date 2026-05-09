@@ -1,0 +1,5 @@
+post_id,URL,title,slug,post_type,status,category,practice_area,word_count,language,main_keyword,search_intent,suggested_cluster,suggested_pillar,duplicate_risk,action
+1396562,http://jus-tice.co.il/1396562-2/,פס”ד ביטול החלטה לשלום בית ; הקפאת תשלום מזונות אישה,1396562-2,articles,publish,family-law,divorce,500,he,שלום בית,informational,family-law,divorce,low,keep
+12345,http://jus-tice.co.il/divorce-agreement/,גירושין בהסכמה,divorce-agreement,articles,publish,family-law,divorce,400,he,גירושין בהסכמה,informational,family-law,divorce,high,merge
+12346,http://jus-tice.co.il/divorce-mediation/,גישור גירושין,divorce-mediation,articles,publish,family-law,divorce,450,he,גישור גירושין,informational,family-law,divorce,high,merge
+12347,http://jus-tice.co.il/divorce-lawyer/,עורך דין גירושין,divorce-lawyer,articles,publish,family-law,divorce,800,he,עורך דין גירושין,navigational,family-law,divorce,low,pillar

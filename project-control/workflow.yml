@@ -1,0 +1,55 @@
+# Workflow — Jus-Tice Development Process
+
+## Code Change Workflow
+steps:
+  1. Pick task from next-actions.md (highest priority, unblocked)
+  2. Update task-board.csv → status: in_progress
+  3. Make change in local files
+  4. Test locally if possible (PHP syntax check)
+  5. git add -A
+  6. git commit -m "type: description" (types: feat, fix, refactor, docs, style)
+  7. git push origin main
+  8. Wait 30s for uPress sync
+  9. Verify on live site (read_url_content or browser)
+  10. Update changelog.md with files changed
+  11. Update Linear with progress
+  12. Update task-board.csv → status: done
+  13. Update next-actions.md
+  14. Move to next task
+
+## SEO Content Workflow
+steps:
+  1. Check content-inventory.csv for gaps
+  2. Check cannibalization-map.csv for conflicts
+  3. Choose one keyword/topic
+  4. Identify pillar page URL
+  5. Create or update content
+  6. Add internal links (pillar → supporting, supporting → pillar)
+  7. Add schema markup
+  8. Verify on live site
+  9. Update content-actions.csv
+  10. Update Linear
+
+## Rollback Procedure
+steps:
+  1. Identify broken commit
+  2. git revert <commit-hash>
+  3. git push origin main
+  4. Verify site recovers
+  5. Document in changelog.md
+
+## Emergency Procedure
+steps:
+  1. Check if site is down (read_url_content)
+  2. If down: check last commit, revert if needed
+  3. If up but broken: identify broken template, fix surgically
+  4. Never make multiple changes at once during emergency
+  5. Document everything
+
+## Honesty Rules
+- If not tested: say "NOT TESTED"
+- If failed: say exactly what failed
+- If guess: label as "GUESS"
+- If access missing: say what access is needed
+- If risky: mark as risky, propose safer step
+- Do not claim success without verification

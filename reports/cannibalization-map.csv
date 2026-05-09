@@ -1,0 +1,4 @@
+topic,pillar_url,supporting_urls,cannibalization_risk,action_plan
+גירושין,http://jus-tice.co.il/family-law/divorce/,"http://jus-tice.co.il/divorce-agreement/, http://jus-tice.co.il/divorce-mediation/",High,Merge supporting articles into pillar or set canonical to pillar
+משמורת ילדים,http://jus-tice.co.il/family-law/custody/,"http://jus-tice.co.il/child-custody-laws/, http://jus-tice.co.il/joint-custody/",Medium,Keep as supporting but ensure strict internal linking to pillar
+משפט פלילי,http://jus-tice.co.il/criminal-law/,"http://jus-tice.co.il/criminal-lawyer/, http://jus-tice.co.il/white-collar/",High,Redirect criminal-lawyer to criminal-law pillar

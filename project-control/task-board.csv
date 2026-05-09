@@ -1,0 +1,26 @@
+id,priority,status,task,assignee,milestone,depends_on,notes
+1,P0,DONE,Verify active theme/plugins/CPTs,agent,M0 Verify,,See current-status.md
+2,P0,DONE,Rename CPT to justice_lawyer,agent,M3 Directory,,v2.0.0 of plugin
+3,P0,DONE,Rename templates to justice_lawyer,agent,M3 Directory,,archive-justice_lawyer.php + single-justice_lawyer.php
+4,P0,DONE,Build Lead CPT (justice_lead),agent,M4 CRM,,8-status workflow
+5,P0,DONE,Create 10 seed lawyer profiles,agent,M3 Directory,,All draft/fictional
+6,P0,DONE,Build seeder function + REST endpoint,agent,M3 Directory,,POST /justice-core/v1/seed-lawyers
+7,P0,DONE,REST health endpoint,agent,M0 Verify,,GET /justice-core/v1/health
+8,P0,BLOCKED,Upload plugin v2.0.zip to server,user,M0 Verify,,justice-core-v2.0.zip ready at c:\Users\pro\justice\
+9,P0,BLOCKED,Deactivate+reactivate plugin on server,user,M0 Verify,8,Flush rewrite rules + seed cities
+10,P0,BLOCKED,Trigger seed via REST,user,M3 Directory,9,POST to /justice-core/v1/seed-lawyers
+11,P1,TODO,Verify 10 lawyer drafts in admin,agent,M3 Directory,10,Confirm profiles + taxonomy terms
+12,P1,TODO,Update lawyer card template (premium design),agent,M3 Directory,11,No emoji. No English labels. Premium.
+13,P1,TODO,Fix homepage hero design,agent,M1 Design,,Weak hero. Needs premium treatment.
+14,P1,TODO,Remove emoji icons from all UI,agent,M1 Design,,Replace with SVG or CSS shapes
+15,P1,TODO,Remove English labels from visible UI,agent,M1 Design,,All Hebrew. No mixed language.
+16,P1,TODO,Build lawyer registration page,agent,M5 Registration,,Self-service onboarding wizard
+17,P1,TODO,Build payment plan structure,agent,M6 Payments,,WooCommerce Subscriptions
+18,P2,TODO,Content inventory export,agent,M2 SEO,,REST API CSV export
+19,P2,TODO,Duplicate title checker,agent,M2 SEO,,SQL inspection
+20,P2,TODO,Category cleanup report,agent,M2 SEO,,
+21,P2,TODO,Internal link opportunities,agent,M2 SEO,,
+22,P2,TODO,Improve single article layout,agent,M1 Design,,
+23,P2,TODO,Improve category/taxonomy pages,agent,M1 Design,,
+24,P2,TODO,Mobile responsiveness audit,agent,M1 Design,,
+25,P3,TODO,GSC integration,agent,M2 SEO,,Need API access

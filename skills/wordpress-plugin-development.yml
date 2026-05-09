@@ -1,0 +1,422 @@
+skill:
+  name: WordPress Plugin Development
+  version: 1.0.0
+  description: >
+    Complete knowledge for building, packaging, naming, deploying, and
+    verifying WordPress plugins — including conflict avoidance, REST tools,
+    and safe ZIP creation for shared hosting environments.
+  author: Jus-Tice Engineering
+  updated: 2026-05-09
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 1 — FOLDER & FILE NAMING
+# ═══════════════════════════════════════════════════════════════════════════════
+naming:
+  rules:
+    - Use lowercase letters, numbers, and hyphens only.
+    - The plugin folder name must be globally unique — not just on your server.
+    - The main PHP file must have the SAME name as the folder.
+    - Never use version numbers in the folder name.
+
+  examples:
+    correct:
+      folder: justice-portal
+      main_file: justice-portal/justice-portal.php
+      zip: justice-portal.zip
+
+    wrong:
+      - folder: justice-portal-v4        # version in folder = conflict risk on update
+      - folder: Justice Portal            # uppercase + spaces = broken
+      - main_file: justice-portal/main.php  # file name must match folder name
+      - main_file: justice-portal/index.php # WordPress won't find it
+
+  conflict_avoidance:
+    problem: >
+      If a plugin named justice-core already exists on the server and you upload
+      a ZIP that also extracts to justice-core/, WordPress renames the folder
+      to justice-core-1/. The main file ends up at justice-core-1/justice-core/
+      justice-core.php — doubly nested. WordPress cannot load it. Error:
+      "The plugin file does not exist."
+    solution: >
+      Give the plugin a slug that has NEVER been installed on the server.
+      Example: justice-portal, jus-tice-engine, portal-justice-core.
+      This way WordPress extracts to a fresh directory and activates cleanly.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 2 — REQUIRED FILE HEADER
+# ═══════════════════════════════════════════════════════════════════════════════
+plugin_header:
+  required_fields:
+    - "Plugin Name"   # unique display name shown in /wp-admin/plugins.php
+  recommended_fields:
+    - "Plugin URI"
+    - "Description"   # max 140 chars
+    - "Version"       # semver: MAJOR.MINOR.PATCH
+    - "Author"
+    - "Author URI"
+    - "Text Domain"   # must match folder name
+    - "Domain Path"
+    - "Requires at least"  # minimum WP version
+    - "Requires PHP"       # minimum PHP version
+
+  example: |
+    <?php
+    /**
+     * Plugin Name: Justice Portal
+     * Plugin URI: https://jus-tice.co.il
+     * Description: Core engine for Jus-Tice legal portal.
+     * Version: 1.0.0
+     * Author: Jus-Tice
+     * Author URI: https://jus-tice.co.il
+     * Text Domain: justice-portal
+     * Domain Path: /languages
+     * Requires at least: 6.4
+     * Requires PHP: 8.0
+     */
+
+    if ( ! defined( 'ABSPATH' ) ) {
+        exit; // REQUIRED on every PHP file — blocks direct URL access
+    }
+
+  critical_rules:
+    - Plugin Name must be UNIQUE. Two active plugins with the same name = fatal error.
+    - Version must increment on every update so WordPress detects a change.
+    - Text Domain must match the folder slug exactly for translations.
+    - ABSPATH check must be the FIRST code after the header on every file.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 3 — REQUIRED FOLDER STRUCTURE
+# ═══════════════════════════════════════════════════════════════════════════════
+folder_structure:
+  minimal_valid: |
+    justice-portal/
+    └── justice-portal.php   ← REQUIRED (same name as folder)
+
+  recommended: |
+    justice-portal/
+    ├── justice-portal.php   ← Main file with plugin header
+    ├── readme.txt           ← Required for WordPress.org submission
+    ├── uninstall.php        ← Cleanup on delete (optional but good practice)
+    ├── includes/
+    │   ├── cpt-lawyers.php
+    │   ├── cpt-leads.php
+    │   ├── taxonomy-areas.php
+    │   ├── rest-health.php
+    │   ├── rest-content-tools.php
+    │   ├── rest-db-tools.php
+    │   ├── lead-submissions.php
+    │   ├── seeder.php
+    │   ├── admin-pages.php
+    │   ├── logger.php
+    │   └── security.php
+    ├── assets/
+    │   ├── css/admin.css
+    │   └── js/admin.js
+    └── languages/
+
+  include_loading_pattern: |
+    // Safe include loader in main plugin file:
+    $files = array(
+        'includes/security.php',
+        'includes/logger.php',
+        'includes/cpt-lawyers.php',
+    );
+    foreach ( $files as $file ) {
+        $path = plugin_dir_path( __FILE__ ) . $file;
+        if ( file_exists( $path ) ) {
+            require_once $path;
+        } else {
+            error_log( "[MyPlugin] Missing: {$path}" );
+        }
+    }
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 4 — ZIP PACKAGING
+# ═══════════════════════════════════════════════════════════════════════════════
+zip_packaging:
+  correct_structure: |
+    justice-portal.zip
+    └── justice-portal/
+        ├── justice-portal.php
+        └── includes/
+
+  wrong_structures:
+    double_nested: |
+      justice-portal.zip
+      └── justice-portal/        ← outer (WordPress extracts this)
+          └── justice-portal/    ← inner (WordPress CANNOT find main file)
+              └── justice-portal.php
+
+    files_at_root: |
+      justice-portal.zip
+      ├── justice-portal.php     ← WordPress cannot install — no folder
+      └── includes/
+
+    version_in_folder: |
+      justice-portal.zip
+      └── justice-portal-v4/     ← Installs as NEW plugin, not update
+          └── justice-portal.php
+
+  powershell_command: |
+    # CORRECT way to ZIP a plugin for WordPress in PowerShell:
+    $src = "C:\dev\justice-portal"       # The plugin folder
+    $out = "C:\dev\justice-portal.zip"   # Output ZIP name
+
+    # Remove old ZIP
+    if (Test-Path $out) { Remove-Item $out -Force }
+
+    # Compress — PowerShell includes the folder name automatically
+    Compress-Archive -Path $src -DestinationPath $out -Force
+
+    # Verify structure (MUST show justice-portal\justice-portal.php)
+    Add-Type -AssemblyName System.IO.Compression.FileSystem
+    $z = [System.IO.Compression.ZipFile]::OpenRead($out)
+    $z.Entries | ForEach-Object { Write-Host $_.FullName }
+    $z.Dispose()
+
+  verification: |
+    # After creating ZIP, open it and verify:
+    # You should see EXACTLY:
+    #
+    #   justice-portal\
+    #   justice-portal\justice-portal.php    ← must exist
+    #   justice-portal\includes\
+    #   justice-portal\includes\*.php
+    #
+    # If you see TWO nested folders → ZIP is broken → rebuild
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 5 — ACTIVATION / DEACTIVATION
+# ═══════════════════════════════════════════════════════════════════════════════
+activation:
+  hooks: |
+    register_activation_hook( __FILE__, 'my_plugin_activate' );
+    function my_plugin_activate(): void {
+        // Register CPTs/taxonomies before flushing permalinks
+        if ( function_exists( 'my_register_cpt' ) ) {
+            my_register_cpt();
+        }
+        flush_rewrite_rules(); // ALWAYS flush on activation
+    }
+
+    register_deactivation_hook( __FILE__, 'my_plugin_deactivate' );
+    function my_plugin_deactivate(): void {
+        flush_rewrite_rules(); // ALWAYS flush on deactivation
+    }
+
+  safe_upload_workflow:
+    - step: 1
+      action: Deactivate ALL old versions of the plugin in /wp-admin/plugins.php
+      reason: Two plugins defining the same function names = PHP fatal error
+    - step: 2
+      action: Upload new ZIP via /wp-admin/update.php?action=upload-plugin
+      reason: Clean install path
+    - step: 3
+      action: >
+        If prompted "Replace current with uploaded" — click it.
+        If the plugin slug is DIFFERENT (new name) — just click Activate.
+      reason: Replace only works when folder names match
+    - step: 4
+      action: Visit /wp-admin/ once to trigger admin_init hooks (seeder etc.)
+    - step: 5
+      action: Verify via REST GET /wp-json/your-plugin/v1/health
+
+  common_errors:
+    "The plugin file does not exist":
+      cause: >
+        WordPress renamed the folder (e.g. justice-core-1) because justice-core
+        already exists. The extracted path becomes justice-core-1/justice-core/
+        justice-portal.php — doubly nested. WordPress cannot find the main file.
+      fix: Use a UNIQUE folder name that does not exist on the server.
+
+    "Another version of this plugin is already active":
+      cause: Two plugins define the same PHP function name.
+      fix: Deactivate the old plugin before activating the new one.
+
+    "Plugin could not be activated because it triggered a fatal error":
+      cause: PHP syntax error or missing include file.
+      fix: Run php -l on all PHP files before packaging the ZIP.
+
+    "Headers already sent":
+      cause: Whitespace or output before <?php in a plugin file.
+      fix: Ensure every PHP file starts exactly with <?php and no BOM.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 6 — CPT REGISTRATION
+# ═══════════════════════════════════════════════════════════════════════════════
+custom_post_types:
+  pattern: |
+    // Always hook to 'init'. Never call register_post_type() directly.
+    add_action( 'init', 'my_plugin_register_lawyers_cpt' );
+
+    function my_plugin_register_lawyers_cpt(): void {
+        register_post_type( 'justice_lawyer', array(
+            'labels'          => array(
+                'name'          => 'עורכי דין',
+                'singular_name' => 'עורך דין',
+            ),
+            'public'          => true,
+            'has_archive'     => true,
+            'rewrite'         => array( 'slug' => 'lawyers', 'with_front' => false ),
+            'menu_icon'       => 'dashicons-businessperson',
+            'supports'        => array( 'title', 'editor', 'thumbnail', 'excerpt', 'custom-fields' ),
+            'show_in_rest'    => true,
+        ) );
+    }
+
+  conflict_rule: >
+    Only ONE plugin may call register_post_type() for any given CPT slug.
+    If two plugins register 'justice_lawyer', WordPress silently uses the first
+    one and ignores the second — or throws a fatal error on activation.
+    Solution: deactivate all duplicate plugins before activating the new one.
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 7 — REST API TOOLS (ADMIN ONLY)
+# ═══════════════════════════════════════════════════════════════════════════════
+rest_api:
+  namespace: your-plugin/v1
+  auth_requirement: current_user_can( 'manage_options' )
+
+  pattern: |
+    add_action( 'rest_api_init', function (): void {
+        register_rest_route( 'justice-portal/v1', '/health', array(
+            'methods'             => 'GET',
+            'callback'            => 'jp_health_callback',
+            'permission_callback' => function (): bool {
+                return current_user_can( 'manage_options' );
+            },
+        ) );
+    } );
+
+    function jp_health_callback(): WP_REST_Response {
+        return new WP_REST_Response( array(
+            'ok'      => true,
+            'version' => JUSTICE_PORTAL_VERSION,
+            'time'    => current_time( 'mysql' ),
+        ) );
+    }
+
+  security_rules:
+    - ALWAYS use permission_callback — never use __return_true on sensitive routes
+    - NEVER execute arbitrary PHP from a REST route
+    - NEVER run raw UPDATE/DELETE SQL from a REST route
+    - ALWAYS sanitize inputs: sanitize_text_field, absint, sanitize_key
+    - ALWAYS escape outputs: esc_html, esc_attr, esc_url
+    - Log every write action to wp_options for audit trail
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 8 — VALIDATION CHECKLIST (run before every upload)
+# ═══════════════════════════════════════════════════════════════════════════════
+pre_upload_checklist:
+  plugin:
+    - "[ ] Folder name is unique — not already on server"
+    - "[ ] Main file name matches folder name (justice-portal/justice-portal.php)"
+    - "[ ] Plugin Name header is present and unique"
+    - "[ ] Version number incremented"
+    - "[ ] ABSPATH check on every PHP file"
+    - "[ ] PHP syntax: php -l *.php passes"
+    - "[ ] ZIP opens to: folder/main-file.php (not double-nested)"
+    - "[ ] No old plugin with same CPT/function names is active on server"
+
+  theme:
+    - "[ ] style.css exists with Theme Name header"
+    - "[ ] index.php exists"
+    - "[ ] functions.php exists"
+    - "[ ] No 'Template:' line in style.css (unless child theme)"
+    - "[ ] ZIP opens to: justice-theme/style.css"
+
+  after_upload:
+    - "[ ] GET /wp-json/justice-portal/v1/health returns ok: true"
+    - "[ ] /lawyers/ URL returns 200"
+    - "[ ] No PHP errors in browser console or wp-content/debug.log"
+    - "[ ] Active theme name matches expected theme"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 9 — POWERSHELL BUILD SCRIPT TEMPLATE
+# ═══════════════════════════════════════════════════════════════════════════════
+build_script:
+  description: Run .\build.ps1 from the repo root before every upload
+  location: C:\Users\pro\justice\build.ps1
+  validates:
+    - Plugin folder structure
+    - Theme folder structure
+    - PHP syntax (if php.exe in PATH)
+    - ZIP internal path
+    - Duplicate plugin warning
+  produces:
+    - justice-portal.zip  # Ready to upload to wp-admin
+    - justice-theme.zip   # Ready to upload to wp-admin
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 10 — FUNCTION NAMING CONVENTIONS
+# ═══════════════════════════════════════════════════════════════════════════════
+function_naming:
+  rule: >
+    All functions, constants, classes, and global variables must be prefixed
+    with a unique string matching your plugin slug (with underscores).
+  prefix: justice_portal_
+  examples:
+    correct:
+      - justice_portal_activate()
+      - justice_portal_register_cpt()
+      - JUSTICE_PORTAL_VERSION
+      - class Justice_Portal_Admin
+    wrong:
+      - activate()        # too generic — conflicts with other plugins
+      - register_cpt()    # no prefix — conflicts guaranteed
+      - VERSION           # conflicts with almost everything
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 11 — VERSIONING STRATEGY
+# ═══════════════════════════════════════════════════════════════════════════════
+versioning:
+  format: MAJOR.MINOR.PATCH  # semantic versioning
+  rules:
+    - Increment PATCH for bug fixes (1.0.0 → 1.0.1)
+    - Increment MINOR for new features (1.0.0 → 1.1.0)
+    - Increment MAJOR for breaking changes (1.0.0 → 2.0.0)
+    - NEVER reuse a version number already deployed to the server
+    - Update Version in both the plugin header AND the VERSION constant
+  location:
+    header: "Version: 1.0.0"
+    constant: "define( 'JUSTICE_PORTAL_VERSION', '1.0.0' );"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# RULE 12 — WHAT TO NEVER DO
+# ═══════════════════════════════════════════════════════════════════════════════
+never_do:
+  - Upload a ZIP without verifying its internal structure first
+  - Keep two versions of the same plugin active simultaneously
+  - Use version numbers in the plugin folder name (justice-portal-v4/)
+  - Name the main PHP file anything other than the folder name
+  - Create arbitrary PHP execution REST endpoints
+  - Run UPDATE/DELETE SQL without explicit user approval
+  - Claim a plugin is "working" without calling the health REST endpoint
+  - Forget to flush_rewrite_rules() on activation and deactivation
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# QUICK REFERENCE — MOST COMMON ERRORS
+# ═══════════════════════════════════════════════════════════════════════════════
+quick_reference:
+  errors:
+    "קובץ התוסף לא קיים / Plugin file does not exist":
+      meaning: WordPress extracted ZIP to wrong/nested path
+      fix: Rename plugin slug to something unique, rebuild ZIP
+
+    "חסר קובץ style.css בתבנית / Missing style.css":
+      meaning: Theme ZIP has wrong structure or style.css has no Theme Name
+      fix: Verify ZIP opens to justice-theme/style.css immediately
+
+    "Plugin activated but site crashed":
+      meaning: PHP fatal error — check wp-content/debug.log
+      fix: Run php -l on all files, check for duplicate function names
+
+    "Archive title shows Archives: Lawyers":
+      meaning: WordPress default archive title not overridden
+      fix: |
+        add_filter( 'get_the_archive_title', function( $title ) {
+            if ( is_post_type_archive( 'justice_lawyer' ) ) {
+                return 'אינדקס עורכי דין בישראל';
+            }
+            return $title;
+        });

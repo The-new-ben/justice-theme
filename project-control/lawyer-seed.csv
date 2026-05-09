@@ -1,0 +1,11 @@
+name,firm_name,city,practice_areas,phone,email,website,source_url,profile_status,verification_status,notes
+"עו״ד ישראל כהן","משרד כהן ושות׳","תל אביב","דיני משפחה,גירושין","","","","","draft","unverified","Seed profile for internal testing only. Not a real client."
+"עו״ד שרה לוי","משרד לוי עורכי דין","ירושלים","משפט פלילי,צווארון לבן","","","","","draft","unverified","Seed profile for internal testing only. Not a real client."
+"עו״ד דוד מזרחי","מזרחי ושות׳ עורכי דין","חיפה","מקרקעין,ליקויי בנייה","","","","","draft","unverified","Seed profile for internal testing only. Not a real client."
+"עו״ד רחל אברהם","משרד אברהם","ראשון לציון","דיני עבודה,פיטורים","","","","","draft","unverified","Seed profile for internal testing only. Not a real client."
+"עו״ד משה בן-ארי","בן-ארי עורכי דין","באר שבע","דיני תעבורה,תאונות דרכים","","","","","draft","unverified","Seed profile for internal testing only. Not a real client."
+"עו״ד נועה גולדשטיין","גולדשטיין משרד עורכי דין","תל אביב","דיני נזיקין,רשלנות רפואית","","","","","draft","unverified","Seed profile for internal testing only. Not a real client."
+"עו״ד יוסף חדאד","חדאד ושות׳","נצרת","ביטוח,תביעות ביטוח","","","","","draft","unverified","Seed profile for internal testing only. Not a real client."
+"עו״ד מיכל שפירא","שפירא עורכת דין","פתח תקווה","ירושה,צוואות","","","","","draft","unverified","Seed profile for internal testing only. Not a real client."
+"עו״ד אורי דניאל","דניאל ושות׳ עורכי דין","רמת גן","משפט מסחרי,חברות","","","","","draft","unverified","Seed profile for internal testing only. Not a real client."
+"עו״ד הילה פרץ","משרד פרץ לדיני סייבר","הרצליה","סייבר,הגנת פרטיות","","","","","draft","unverified","Seed profile for internal testing only. Not a real client."

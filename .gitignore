@@ -1,0 +1,25 @@
+# Build artifacts
+*.zip
+
+# Environment / credentials
+.env*
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Temp files
+rename.php
+wpjson-dump.txt
+justice-installer.php
+
+# IDE
+.vscode/
+.idea/
+
+# Legacy plugin folders (do not push to repo)
+justice-core/
+justice-core-v3/
+justice-portal/
+justice-theme/
+

@@ -1,0 +1,218 @@
+# build.ps1 — Justice Portal Build & Validation Script
+# Usage: .\build.ps1
+# Run from: C:\Users\pro\justice\
+
+Set-StrictMode -Version Latest
+$ErrorActionPreference = 'Stop'
+
+$Root        = $PSScriptRoot
+$PluginSrc   = Join-Path $Root "jus-tice-engine"
+$ThemeSrc    = Join-Path $Root "jus-tice-ui"
+$PluginZip   = Join-Path $Root "jus-tice-engine.zip"
+$ThemeZip    = Join-Path $Root "jus-tice-ui.zip"
+$Errors      = @()
+
+
+Write-Host ""
+Write-Host "=== Justice Portal Build Script ===" -ForegroundColor Cyan
+Write-Host "Root: $Root"
+Write-Host ""
+
+# ─── 1. Validate Plugin Structure ───────────────────────────────────────────
+
+Write-Host "--- Validating Plugin Structure ---" -ForegroundColor Yellow
+
+$PluginMain = Join-Path $PluginSrc "jus-tice-engine.php"
+if (-not (Test-Path $PluginMain)) {
+    $Errors += "MISSING: jus-tice-engine.php"
+} else {
+    $header = Get-Content $PluginMain -Raw
+    if ($header -notmatch "Plugin Name:") { $Errors += "MISSING: Plugin Name header in jus-tice-engine.php" }
+    if ($header -notmatch "Version:") { $Errors += "MISSING: Version in jus-tice-engine.php" }
+    $versionMatch = [regex]::Match($header, "Version:\s*(\S+)")
+    if ($versionMatch.Success) {
+        Write-Host "  Plugin Version: $($versionMatch.Groups[1].Value)" -ForegroundColor Green
+    }
+}
+
+$RequiredIncludes = @(
+    "includes/security.php",
+    "includes/logger.php",
+    "includes/cpt-articles.php",
+    "includes/cpt-lawyers.php",
+    "includes/taxonomy-practice-areas.php",
+    "includes/taxonomy-city.php",
+    "includes/lead-submissions.php",
+    "includes/seeder.php",
+    "includes/rest-health.php",
+    "includes/rest-content-tools.php",
+    "includes/rest-db-tools.php",
+    "includes/admin-pages.php"
+)
+
+foreach ($inc in $RequiredIncludes) {
+    $path = Join-Path $PluginSrc $inc
+    if (-not (Test-Path $path)) {
+        $Errors += "MISSING INCLUDE: jus-tice-engine/$inc"
+    } else {
+        Write-Host "  OK: $inc" -ForegroundColor Green
+    }
+}
+
+# ─── 2. Validate Theme Structure ────────────────────────────────────────────
+
+Write-Host ""
+Write-Host "--- Validating Theme Structure ---" -ForegroundColor Yellow
+
+$RequiredThemeFiles = @("style.css", "index.php", "functions.php", "header.php", "footer.php")
+foreach ($f in $RequiredThemeFiles) {
+    $path = Join-Path $ThemeSrc $f
+    if (-not (Test-Path $path)) {
+        $Errors += "MISSING THEME FILE: justice-theme/$f"
+    } else {
+        Write-Host "  OK: $f" -ForegroundColor Green
+    }
+}
+
+$StyleCSS = Join-Path $ThemeSrc "style.css"
+if (Test-Path $StyleCSS) {
+    $css = Get-Content $StyleCSS -Raw
+    if ($css -notmatch "Theme Name:") { $Errors += "MISSING: Theme Name header in style.css" }
+    if ($css -match "Template:") { $Errors += "WARNING: style.css contains Template: - this makes it a child theme! Remove unless intentional." }
+
+    $vMatch = [regex]::Match($css, "Version:\s*(\S+)")
+    if ($vMatch.Success) {
+        Write-Host "  Theme Version: $($vMatch.Groups[1].Value)" -ForegroundColor Green
+    }
+}
+
+# ─── 3. PHP Syntax Check ────────────────────────────────────────────────────
+
+Write-Host ""
+Write-Host "--- PHP Syntax Check ---" -ForegroundColor Yellow
+
+$phpExe = "php"
+try {
+    $phpVersion = & $phpExe -v 2>&1 | Select-Object -First 1
+    Write-Host "  PHP: $phpVersion" -ForegroundColor Gray
+    
+    $phpFiles = Get-ChildItem -Path $PluginSrc -Filter "*.php" -Recurse
+    $phpFiles += Get-ChildItem -Path $ThemeSrc -Filter "*.php" -Recurse
+    
+    foreach ($phpFile in $phpFiles) {
+        $result = & $phpExe -l $phpFile.FullName 2>&1
+        if ($result -notmatch "No syntax errors") {
+            $Errors += "PHP SYNTAX ERROR: $($phpFile.FullName): $result"
+        }
+    }
+    Write-Host "  PHP syntax: checked $($phpFiles.Count) files" -ForegroundColor Green
+} catch {
+    Write-Host "  WARNING: PHP not found in PATH. Skipping syntax check." -ForegroundColor Yellow
+}
+
+# ─── 4. Check for justice-core-v3 conflict ──────────────────────────────────
+
+Write-Host ""
+Write-Host "--- Checking for Duplicate Plugin Conflict ---" -ForegroundColor Yellow
+
+$V3Dir = Join-Path $Root "justice-core-v3"
+if (Test-Path $V3Dir) {
+    Write-Host "  WARNING: justice-core-v3/ folder exists locally." -ForegroundColor Red
+    Write-Host "           This is the conflicting monolith plugin." -ForegroundColor Red
+    Write-Host "           On the live server, deactivate justice-core-v3 before uploading v4." -ForegroundColor Red
+}
+
+# ─── 5. Stop on errors ──────────────────────────────────────────────────────
+
+Write-Host ""
+if ($Errors.Count -gt 0) {
+    Write-Host "=== BUILD FAILED ===" -ForegroundColor Red
+    foreach ($err in $Errors) {
+        Write-Host "  ERROR: $err" -ForegroundColor Red
+    }
+    exit 1
+}
+
+Write-Host "=== All validations passed ===" -ForegroundColor Green
+
+# ─── 6. Create Plugin ZIP ───────────────────────────────────────────────────
+
+Write-Host ""
+Write-Host "--- Creating Plugin ZIP ---" -ForegroundColor Yellow
+
+if (Test-Path $PluginZip) { Remove-Item $PluginZip -Force }
+
+Compress-Archive -Path $PluginSrc -DestinationPath $PluginZip -Force
+
+# Verify ZIP contents
+Add-Type -AssemblyName System.IO.Compression.FileSystem
+$zip = [System.IO.Compression.ZipFile]::OpenRead($PluginZip)
+$allEntries = $zip.Entries | ForEach-Object { $_.FullName }
+$hasMain = $allEntries | Where-Object { $_ -match "jus-tice-engine[/\\]jus-tice-engine\.php" }
+$zip.Dispose()
+
+Write-Host "  ZIP top entries:" -ForegroundColor Gray
+$allEntries | Select-Object -First 5 | ForEach-Object { Write-Host "    $_" -ForegroundColor Gray }
+
+if (-not $hasMain) {
+    Write-Host "  ERROR: ZIP does not contain jus-tice-engine/jus-tice-engine.php" -ForegroundColor Red
+    exit 1
+}
+
+$sizeMB = [math]::Round((Get-Item $PluginZip).Length / 1MB, 2)
+Write-Host "  Plugin ZIP: $PluginZip ($sizeMB MB)" -ForegroundColor Green
+
+# ─── 7. Create Theme ZIP ────────────────────────────────────────────────────
+
+Write-Host ""
+Write-Host "--- Creating Theme ZIP ---" -ForegroundColor Yellow
+
+if (Test-Path $ThemeZip) { Remove-Item $ThemeZip -Force }
+
+# Copy to temp to strip git
+$TempRoot = Join-Path $env:TEMP "justice-build-temp"
+if (Test-Path $TempRoot) { Remove-Item $TempRoot -Recurse -Force }
+New-Item -ItemType Directory -Path $TempRoot | Out-Null
+
+$TempTheme = Join-Path $TempRoot "jus-tice-ui"
+Copy-Item -Path $ThemeSrc -Destination $TempTheme -Recurse -Force
+
+# Remove .git if present
+$GitDir = Join-Path $TempTheme ".git"
+if (Test-Path $GitDir) { Remove-Item $GitDir -Recurse -Force }
+
+Compress-Archive -Path $TempTheme -DestinationPath $ThemeZip -Force
+Remove-Item $TempRoot -Recurse -Force
+
+
+# Rename internal folder to justice-theme if it got named justice-theme-build
+# Verify ZIP structure
+$zip2 = [System.IO.Compression.ZipFile]::OpenRead($ThemeZip)
+$entries = $zip2.Entries | Select-Object -First 5 | ForEach-Object { $_.FullName }
+$zip2.Dispose()
+
+Write-Host "  Theme ZIP entries (first 5):" -ForegroundColor Gray
+foreach ($e in $entries) { Write-Host "    $e" -ForegroundColor Gray }
+
+$themeZipSizeMB = [math]::Round((Get-Item $ThemeZip).Length / 1MB, 2)
+Write-Host "  Theme ZIP: $ThemeZip ($themeZipSizeMB MB)" -ForegroundColor Green
+
+# ─── 8. Summary ─────────────────────────────────────────────────────────────
+
+Write-Host ""
+Write-Host "=== BUILD COMPLETE ===" -ForegroundColor Cyan
+Write-Host ""
+Write-Host "Upload order:"
+Write-Host "  1. PLUGIN: $PluginZip"
+Write-Host "     → https://jus-tice.co.il/wp-admin/update.php?action=upload-plugin"
+Write-Host "     → Select 'Replace current with uploaded' if prompted"
+Write-Host "     → Activate"
+Write-Host ""
+Write-Host "  2. THEME: $ThemeZip"  
+Write-Host "     → https://jus-tice.co.il/wp-admin/update.php?action=upload-theme"
+Write-Host "     → Select 'Replace current with uploaded' if prompted"
+Write-Host "     → Activate"
+Write-Host ""
+Write-Host "After upload, verify:"
+Write-Host "  GET https://jus-tice.co.il/wp-json/justice-core/v1/health"
+Write-Host ""

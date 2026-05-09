@@ -1,0 +1,2 @@
+query,page,device,country,clicks,impressions,ctr,position,status
+,,,,,,,,BLOCKED: missing GSC_CLIENT_EMAIL or GSC_PRIVATE_KEY secrets

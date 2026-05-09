@@ -67,6 +67,13 @@
 - The CRM now displays the detected area when available.
 - This is an operational routing layer only; it does not provide legal advice and still requires human review.
 
+**[HIGH] Added GSC weekly report automation scaffold**
+- Files: `.github/workflows/gsc-weekly-report.yml`, `tools/gsc_weekly_report.py`, `project-control/gsc-weekly-report-automation.md`
+- Workflow runs manually or weekly and uploads GSC opportunity CSVs as artifacts.
+- Reports cover opportunities, low CTR, positions 5-20 and cannibalization candidates.
+- Real output is blocked until Search Console service-account access and GitHub secrets are configured.
+- Local smoke test without secrets generated placeholder CSVs marked blocked, confirming the script does not fabricate GSC data.
+
 **[HIGH] Added owner CRM overview**
 - Files: `inc/lead-crm.php`, `functions.php`
 - Adds a `Justice CRM` admin page with lead status cards, recent legal leads, and recent LegalTech requests.

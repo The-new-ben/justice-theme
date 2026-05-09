@@ -14,68 +14,73 @@ $justice_email    = justice_theme_option( 'justice_email', 'info@jus-tice.co.il'
 $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0544705733' );
 ?>
 
-<footer class="site-footer" role="contentinfo" style="background: var(--color-primary); color: #fff; padding-block: 4rem 2rem;">
-	<div class="container site-footer__grid" style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem;">
+<footer class="site-footer" role="contentinfo" style="background: var(--jt-primary-deep); color: #fff; padding-top: 5rem; padding-bottom: 2rem; border-top: 4px solid var(--jt-accent);">
+	<div class="container site-footer__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 4rem; margin-bottom: 4rem;">
 		
-		<section class="site-footer__section site-footer__about">
-			<div class="footer-logo" style="margin-bottom: 1.5rem;">
+		<section class="site-footer__section site-footer__about" style="grid-column: span 2;">
+			<div class="footer-logo" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
 				<?php if ( has_custom_logo() ) : ?>
-					<?php the_custom_logo(); ?>
+					<?php echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'style' => 'max-width: 180px; height: auto;' ) ); ?>
 				<?php else : ?>
-					<div style="font-size: 2rem; font-weight: 900; color: #fff; line-height: 1.1;">Jus-Tice</div>
-					<div style="font-size: 1rem; color: var(--color-accent); font-weight: 700;">פורטל משפטי חכם</div>
+					<div style="font-size: 2.2rem; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -0.5px;">Jus-Tice<span style="color: var(--jt-accent);">.</span></div>
 				<?php endif; ?>
 			</div>
-			<p style="color: rgba(255,255,255,0.7); line-height: 1.6;">
-				<?php esc_html_e( 'פורטל מידע משפטי מתקדם שנבנה כדי לעזור לכם להבין נושאים משפטיים, לקרוא פסקי דין, וליצור קשר עם עורכי הדין המובילים בישראל.', 'justice-theme' ); ?>
+			<p style="color: rgba(255,255,255,0.65); line-height: 1.7; font-size: 1.05rem; max-width: 400px; margin-bottom: 2rem;">
+				<?php esc_html_e( 'פורטל משפטי מתקדם המציע מידע מקצועי, פסקי דין, וחיבור ישיר לעורכי הדין המובילים בישראל, הכל בממשק אחד.', 'justice-theme' ); ?>
 			</p>
 			
-			<div class="footer-contact" style="margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.5rem; font-weight: 600;">
+			<div class="footer-contact" style="display: flex; gap: 1.5rem; font-weight: 600;">
 				<?php if ( $justice_phone ) : ?>
-					<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $justice_phone ) ); ?>" style="color: #fff;"><span style="color: var(--color-accent); margin-inline-end: 8px;">☎</span><?php echo esc_html( $justice_phone ); ?></a>
+					<a href="tel:<?php echo esc_attr( preg_replace( '/[^0-9+]/', '', $justice_phone ) ); ?>" style="display: flex; align-items: center; gap: 8px; color: #fff; background: rgba(255,255,255,0.05); padding: 0.6rem 1.2rem; border-radius: 50px; transition: all 0.3s ease;">
+						<span style="color: var(--jt-accent); font-size: 1.2rem;">✆</span> <span style="direction: ltr;"><?php echo esc_html( $justice_phone ); ?></span>
+					</a>
 				<?php endif; ?>
 				<?php if ( $justice_email ) : ?>
-					<a href="mailto:<?php echo esc_attr( $justice_email ); ?>" style="color: #fff;"><span style="color: var(--color-accent); margin-inline-end: 8px;">✉</span><?php echo esc_html( $justice_email ); ?></a>
+					<a href="mailto:<?php echo esc_attr( $justice_email ); ?>" style="display: flex; align-items: center; gap: 8px; color: #fff; background: rgba(255,255,255,0.05); padding: 0.6rem 1.2rem; border-radius: 50px; transition: all 0.3s ease;">
+						<span style="color: var(--jt-accent); font-size: 1.2rem;">✉</span> <?php echo esc_html( $justice_email ); ?>
+					</a>
 				<?php endif; ?>
 			</div>
 		</section>
 
 		<section class="site-footer__section">
-			<h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 1.2rem; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;"><?php esc_html_e( 'תחומי משפט', 'justice-theme' ); ?></h2>
-			<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.6rem;">
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=family-law' ) ); ?>" style="color: rgba(255,255,255,0.7);">משפחה וגירושין</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=criminal-law' ) ); ?>" style="color: rgba(255,255,255,0.7);">פלילי</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=real-estate' ) ); ?>" style="color: rgba(255,255,255,0.7);">מקרקעין</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=torts' ) ); ?>" style="color: rgba(255,255,255,0.7);">נזיקין</a></li>
+			<h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 700; position: relative; padding-bottom: 0.8rem;">
+				<?php esc_html_e( 'תחומי התמחות', 'justice-theme' ); ?>
+				<span style="position: absolute; bottom: 0; right: 0; width: 40px; height: 3px; background: var(--jt-accent); border-radius: 2px;"></span>
+			</h3>
+			<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.8rem;">
+				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=family-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">משפחה וגירושין</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=criminal-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">משפט פלילי</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=real-estate' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מקרקעין ונדל"ן</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=torts' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">נזיקין ותאונות</a></li>
 			</ul>
 		</section>
 
 		<section class="site-footer__section">
-			<h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 1.2rem; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;"><?php esc_html_e( 'מידע שימושי', 'justice-theme' ); ?></h2>
-			<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.6rem;">
-				<li><a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>" style="color: rgba(255,255,255,0.7);">מאמרים ומדריכים</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" style="color: rgba(255,255,255,0.7);">חיפוש עורכי דין</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="color: rgba(255,255,255,0.7);">יצירת קשר</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/join/' ) ); ?>" style="color: var(--color-accent); font-weight: 700;">הצטרפות עורכי דין</a></li>
-			</ul>
-		</section>
-
-		<section class="site-footer__section">
-			<h2 style="color: #fff; font-size: 1.2rem; margin-bottom: 1.2rem; border-bottom: 2px solid rgba(255,255,255,0.1); padding-bottom: 0.5rem;"><?php esc_html_e( 'תנאים ופרטיות', 'justice-theme' ); ?></h2>
-			<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.6rem;">
-				<li><a href="<?php echo esc_url( home_url( '/terms/' ) ); ?>" style="color: rgba(255,255,255,0.7);">תנאי שימוש</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>" style="color: rgba(255,255,255,0.7);">מדיניות פרטיות</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/accessibility/' ) ); ?>" style="color: rgba(255,255,255,0.7);">הצהרת נגישות</a></li>
+			<h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 700; position: relative; padding-bottom: 0.8rem;">
+				<?php esc_html_e( 'ניווט מהיר', 'justice-theme' ); ?>
+				<span style="position: absolute; bottom: 0; right: 0; width: 40px; height: 3px; background: var(--jt-accent); border-radius: 2px;"></span>
+			</h3>
+			<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.8rem;">
+				<li><a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מאגר מאמרים</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">אינדקס עורכי דין</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">התייעצות משפטית</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/join/' ) ); ?>" style="color: var(--jt-accent); font-weight: 700; text-decoration: none;">הצטרפות עורכי דין &larr;</a></li>
 			</ul>
 		</section>
 	</div>
 
-	<div class="container" style="border-top: 1px solid rgba(255,255,255,0.1); margin-top: 3rem; padding-top: 1.5rem; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-		<p style="color: rgba(255,255,255,0.5); font-size: 0.9rem; margin: 0;">
-			&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>. <?php esc_html_e( 'כל הזכויות שמורות.', 'justice-theme' ); ?>
+	<div class="container" style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem;">
+		<div style="display: flex; gap: 1.5rem; margin-bottom: 1rem;">
+			<a href="<?php echo esc_url( home_url( '/terms/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">תנאי שימוש</a>
+			<a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">מדיניות פרטיות</a>
+			<a href="<?php echo esc_url( home_url( '/accessibility/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">הצהרת נגישות</a>
+		</div>
+		<p style="color: rgba(255,255,255,0.4); font-size: 0.85rem; max-width: 800px; line-height: 1.6; margin: 0;">
+			<?php esc_html_e( 'המידע המופיע באתר Jus-Tice הינו מידע כללי בלבד ואינו מהווה ייעוץ משפטי מכל סוג שהוא. קבלת החלטות על סמך המידע באתר היא באחריות המשתמש בלבד. בכל מקרה של סוגיה משפטית, יש להתייעץ עם עורך דין מוסמך.', 'justice-theme' ); ?>
 		</p>
-		<p style="color: rgba(255,255,255,0.3); font-size: 0.8rem; margin: 0; max-width: 600px; text-align: left;">
-			<?php esc_html_e( 'המידע המופיע באתר זה הוא מידע כללי בלבד ואינו מהווה ייעוץ משפטי. בחירת עורך דין והסתמכות על המידע באחריות המשתמש בלבד.', 'justice-theme' ); ?>
+		<p style="color: rgba(255,255,255,0.3); font-size: 0.85rem; margin-top: 1rem;">
+			&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?>. <?php esc_html_e( 'כל הזכויות שמורות.', 'justice-theme' ); ?>
 		</p>
 	</div>
 </footer>

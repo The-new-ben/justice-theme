@@ -25,6 +25,7 @@
 - Added the first supporting family-law draft at `content-drafts/consensual-divorce-supporting-he.md`.
 - Added the second supporting family-law draft at `content-drafts/divorce-mediation-supporting-he.md`.
 - Added the third supporting family-law draft at `content-drafts/child-support-supporting-he.md`.
+- Added the fourth supporting family-law draft at `content-drafts/child-custody-supporting-he.md`.
 - Updated visual QA with live homepage screenshots and findings.
 
 ### NOT VERIFIED

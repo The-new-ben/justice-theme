@@ -23,7 +23,7 @@ rules:
   - id: preflight_checklist
     rule: Verify PHP lint, slug uniqueness, route health endpoint, and ZIP folder shape before upload.
   - id: packaging
-    rule: Build a flat ZIP that extracts into one top-level plugin folder only and confirm archive paths before release.
+    rule: Build a flat ZIP that extracts into one top-level plugin folder only. CRITICAL: Use 'tar -a -c -f' instead of PowerShell's 'Compress-Archive' to guarantee cross-platform forward-slash ('/') paths in the ZIP index.
   - id: versioning
     rule: Use semantic versioning, increment for every release, and never reuse a shipped version number.
 forbidden:

@@ -1,6 +1,88 @@
 # Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-09 - Session: repo-sync stabilization
+
+### DEPLOYMENT MODEL
+
+**[VERIFIED] Switched to repo-sync workflow**
+- User clarified that the theme syncs through GitHub to live WordPress.
+- No ZIP/theme package workflow should be used unless explicitly requested.
+- Failed zero-byte package artifact from the interrupted attempt was removed before this session continued.
+
+### FIXES
+
+**[HIGH] Corrected lawyer taxonomy ownership in plugin code**
+- Files: `ultra-justice-engine/includes/taxonomy-city.php`, `ultra-justice-engine/includes/taxonomy-practice-areas.php`, `ultra-justice/includes/taxonomy-city.php`, `ultra-justice/includes/taxonomy-practice-areas.php`
+- `city` taxonomy now attaches to `justice_lawyer`.
+- `practice-areas` taxonomy now attaches to `articles`, `justice_lawyer`, and `post`.
+
+**[HIGH] Made demo seeding safer**
+- Files: `justice-core/includes/seeder.php`, `ultra-justice-engine/includes/seeder.php`, `ultra-justice/includes/seeder.php`
+- Future seeded lawyer profiles are draft, free-plan, unverified, and marked internally as testing-only.
+
+**[MEDIUM] Fixed lawyer archive invalid markup**
+- File: `archive-justice_lawyer.php`
+- Removed duplicate `</main>`; `footer.php` owns closing the main element.
+
+**[LOW] Fixed one remaining English lead-form label**
+- File: `template-parts/forms/lead-form.php`
+- Changed "Short description" to Hebrew.
+
+**[HIGH] Fixed breadcrumb duplication and hierarchy**
+- Files: `single.php`, `inc/breadcrumbs.php`
+- `single.php` no longer prints a second breadcrumb trail after `header.php`.
+- Breadcrumbs now explicitly support article archive, article singles, lawyer archive, lawyer singles, and practice-area taxonomy pages.
+
+**[HIGH] Documented English-only slug policy**
+- Files: `project-control/url-slug-migration-plan.md`, `project-control/url-slug-map.csv`
+- Rule added: visible Hebrew content stays Hebrew, but public slugs/URLs must be English ASCII only.
+- Migration is blocked until live URL inventory and redirect mapping exist.
+
+**[HIGH] Built richer lawyer mini-site template**
+- Files: `single-justice_lawyer.php`, `assets/css/premium-pass-3.css`
+- Added profile hero, premium visual layer, CTAs, proof blocks, video support, practice areas, related article area, review placeholder, social links, and lead form.
+- Reviews and verification badges are conservative: no fake ratings or false "top lawyer" claims.
+
+**[HIGH] Upgraded homepage lawyer card and featured section**
+- Files: `template-parts/cards/lawyer-card.php`, `template-parts/sections/featured-lawyers.php`, `assets/css/premium-pass-3.css`
+- Homepage only targets Maya Rotenberg as the verified client.
+- Added fallback lookup by Hebrew title because the live site currently still has a Hebrew slug.
+- Card now presents richer profile value while avoiding unverified ranking claims.
+
+**[HIGH] Added lawyer mini-site admin fields**
+- Files: `justice-core/includes/cpt-lawyers.php`, `ultra-justice-engine/includes/cpt-lawyers.php`, `ultra-justice/includes/cpt-lawyers.php`
+- Admin can now enter profile video URL, social URLs, homepage feature flag, approved review count, and approved average rating.
+
+**[HIGH] Prevented future seeded Hebrew lawyer slugs**
+- Files: `justice-core/includes/seeder.php`, `ultra-justice-engine/includes/seeder.php`, `ultra-justice/includes/seeder.php`
+- Maya seed/profile is assigned `advocate-maya-rotenberg`.
+- Other future seed profiles receive generated English-only slugs.
+
+**[VERIFIED LIVE] Browser observations**
+- Home page responds and no obvious casino/gambling terms appeared in DOM snapshot.
+- `/lawyers/` responds and includes Maya Rotenberg plus multiple demo lawyers.
+- `/lawyers/advocate-maya-rotenberg/` redirects to homepage at the time of verification, so the live slug migration is still NOT VERIFIED / STILL BROKEN.
+
+### ARCHITECTURE / DOCS
+
+**[IN PROGRESS] Added canonical Justice Core candidate**
+- Folder: `justice-core/`
+- Purpose: source candidate for the documented canonical plugin path `justice-core/justice-core.php`.
+- NOT VERIFIED live. Legacy plugin folders remain until active live plugin path is known.
+
+**[VERIFIED] Added missing project-control files**
+- Added current status, decisions, blockers, risks, competitor element analysis, CMS/menu/logo/media audits, lawyer-system audit, visual QA trackers, spam candidates template, category audit template, and package-validation note.
+
+### VERIFICATION
+
+**NOT VERIFIED**
+- PHP lint: PHP CLI is unavailable in this local environment.
+- Live plugin activation path.
+- Live WP/PHP versions.
+- Live debug log.
+- Browser/mobile visual QA.
+
 ---
 
 ## 2026-05-09 — Session: claude/justice-website-review-aovSK

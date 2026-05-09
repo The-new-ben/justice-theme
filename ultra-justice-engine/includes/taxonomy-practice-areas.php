@@ -13,7 +13,7 @@ function uje_register_practice_areas_taxonomy() {
 		'menu_name'         => __( 'Practice Areas', 'ultra-justice-engine' ),
 	);
 
-	register_taxonomy( 'practice-areas', array( 'articles', 'post' ), array(
+	register_taxonomy( 'practice-areas', array( 'articles', 'justice_lawyer', 'post' ), array(
 		'hierarchical'      => true,
 		'labels'            => $labels,
 		'show_ui'           => true,

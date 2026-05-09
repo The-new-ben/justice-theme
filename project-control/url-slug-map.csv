@@ -1,0 +1,3 @@
+id,type,old_url,old_slug,new_slug,new_url,title,redirect_required,status,verified
+TEMPLATE,,,,,,,,PLANNED,NOT VERIFIED
+LAWYER-MAYA,justice_lawyer,,advocate-maya-rotenberg,advocate-maya-rotenberg,/lawyers/advocate-maya-rotenberg/,עו"ד מאיה רוטנברג,NO if already current,KEEP,USER VERIFIED SLUG

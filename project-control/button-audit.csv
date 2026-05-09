@@ -1,0 +1,5 @@
+page,button_text,target,expected_behavior,status,notes
+/,מצאו עורך דין,/lawyers/,Open lawyer directory,PARTIALLY VERIFIED,Public HTML link exists
+/,עיינו במדריכים,/articles/,Open articles archive,PARTIALLY VERIFIED,Public HTML link exists
+/lawyers/,צפייה בפרופיל,lawyer permalink,Open lawyer profile,PARTIALLY VERIFIED,Public HTML links exist
+/lawyers/,שליחת פנייה,/contact/?lawyer_id=ID,Open/contact lead flow,NOT VERIFIED,Needs click/form test

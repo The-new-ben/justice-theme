@@ -12,7 +12,7 @@ $term = get_queried_object();
 
 	<section class="taxonomy-hero glass-panel">
 		<div class="container">
-			<p class="section-eyebrow taxonomy-hero .section-eyebrow">
+			<p class="section-eyebrow taxonomy-hero__eyebrow">
 				תחום משפטי
 			</p>
 			<?php

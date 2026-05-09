@@ -1,0 +1,4 @@
+term_id,taxonomy,name,slug,count,parent,commercial_intent,duplicate_risk,quality_issue,action,verification_status
+TEMPLATE,practice-areas,,,,,,,,"Populate from live WP terms",AUDIT,NOT VERIFIED
+OBSERVED-LIVE,practice-areas,"פסקי דין חשובים",unknown,unknown,,LOW,HIGH,"Looks like article/category topic rather than lawyer directory practice area",REVIEW,PARTIALLY VERIFIED
+OBSERVED-LIVE,practice-areas,"פורטוגל",unknown,unknown,,LOW,HIGH,"May be immigration/niche topic; not a primary legal directory area",MERGE/REWRITE LATER,PARTIALLY VERIFIED

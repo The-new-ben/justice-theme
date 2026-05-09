@@ -1,0 +1,143 @@
+﻿<?php
+/**
+ * Justice Core Health REST endpoint.
+ *
+ * Provides system state verification at /wp-json/justice-core/v1/health
+ * Admin-only access.
+ *
+ * @package JusticeCore
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+function uje_register_health_route() {
+	$admin_only = function () {
+		return current_user_can( 'manage_options' );
+	};
+
+	register_rest_route( 'justice-core/v1', '/health', array(
+		'methods'             => 'GET',
+		'callback'            => 'uje_health_callback',
+		'permission_callback' => $admin_only,
+	) );
+
+	register_rest_route( 'justice-core/v1', '/site-state', array(
+		'methods'             => 'GET',
+		'callback'            => 'uje_site_state_callback',
+		'permission_callback' => $admin_only,
+	) );
+
+	register_rest_route( 'justice-core/v1', '/theme-state', array(
+		'methods'             => 'GET',
+		'callback'            => 'uje_theme_state_callback',
+		'permission_callback' => $admin_only,
+	) );
+
+	register_rest_route( 'justice-core/v1', '/plugin-registry', array(
+		'methods'             => 'GET',
+		'callback'            => 'uje_plugin_registry_callback',
+		'permission_callback' => $admin_only,
+	) );
+}
+add_action( 'rest_api_init', 'uje_register_health_route' );
+
+function uje_health_callback() {
+	$theme = wp_get_theme();
+
+	// Check CPTs
+	$cpt_check = array(
+		'justice_lawyer' => post_type_exists( 'justice_lawyer' ),
+		'justice_lead'   => post_type_exists( 'justice_lead' ),
+		'articles'       => post_type_exists( 'articles' ),
+	);
+
+	// Check taxonomies
+	$tax_check = array(
+		'practice-areas' => taxonomy_exists( 'practice-areas' ),
+		'city'           => taxonomy_exists( 'city' ),
+	);
+
+	// Count content
+	$counts = array(
+		'lawyers' => wp_count_posts( 'justice_lawyer' ),
+		'leads'   => wp_count_posts( 'justice_lead' ),
+		'articles' => wp_count_posts( 'articles' ),
+		'posts'   => wp_count_posts( 'post' ),
+	);
+
+	return array(
+		'ok'              => true,
+		'plugin_version'  => UJE_VERSION,
+		'theme'           => $theme->get( 'Name' ),
+		'theme_version'   => $theme->get( 'Version' ),
+		'cpt_registered'  => $cpt_check,
+		'tax_registered'  => $tax_check,
+		'content_counts'  => $counts,
+		'time'            => current_time( 'mysql' ),
+		'php_version'     => PHP_VERSION,
+		'wp_version'      => get_bloginfo( 'version' ),
+	);
+}
+
+function uje_theme_state_callback() {
+	$theme = wp_get_theme();
+	$active_plugins = get_option( 'active_plugins', array() );
+
+	return array(
+		'theme_name'       => $theme->get( 'Name' ),
+		'theme_slug'       => $theme->get_stylesheet(),
+		'theme_version'    => $theme->get( 'Version' ),
+		'theme_directory'  => $theme->get_stylesheet_directory(),
+		'active_plugins'   => $active_plugins,
+		'permalink_struct' => get_option( 'permalink_structure' ),
+		'time'             => current_time( 'mysql' ),
+	);
+}
+
+function uje_site_state_callback() {
+	return array(
+		'ok'              => true,
+		'health'          => uje_health_callback(),
+		'theme_state'     => uje_theme_state_callback(),
+		'post_types'      => array(
+			'articles'       => post_type_exists( 'articles' ),
+			'justice_lawyer' => post_type_exists( 'justice_lawyer' ),
+			'justice_lead'   => post_type_exists( 'justice_lead' ),
+		),
+		'taxonomies'      => array(
+			'practice-areas' => taxonomy_exists( 'practice-areas' ),
+			'city'           => taxonomy_exists( 'city' ),
+		),
+		'verification'    => array(
+			'live_access' => 'VERIFIED only when called inside authenticated wp-admin context.',
+			'changed'     => false,
+		),
+	);
+}
+
+function uje_plugin_registry_callback() {
+	if ( ! function_exists( 'get_plugins' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/plugin.php';
+	}
+
+	$plugins = array();
+	foreach ( get_plugins() as $file => $data ) {
+		$is_justice = false !== stripos( $file, 'justice' ) || false !== stripos( $data['Name'], 'justice' );
+		$plugins[]  = array(
+			'file'       => $file,
+			'name'       => $data['Name'],
+			'version'    => $data['Version'],
+			'active'     => is_plugin_active( $file ),
+			'is_justice' => $is_justice,
+			'risk'       => $is_justice && 'justice-core/justice-core.php' !== $file ? 'POSSIBLE_DUPLICATE_JUSTICE_PLUGIN' : 'ok',
+		);
+	}
+
+	return array(
+		'ok'      => true,
+		'plugins' => $plugins,
+		'message' => 'Inspection only. No plugin state was changed.',
+	);
+}

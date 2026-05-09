@@ -1,6 +1,6 @@
-<?php
+﻿<?php
 /**
- * Justice Lawyer CPT — paid directory system.
+ * Justice Lawyer CPT ג€” paid directory system.
  *
  * CPT slug: justice_lawyer
  * Archive: /lawyers/
@@ -16,20 +16,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Register justice_lawyer CPT.
  */
-function uj_register_lawyer_cpt() {
+function uje_register_lawyer_cpt() {
 	$labels = array(
-		'name'               => 'עורכי דין',
-		'singular_name'      => 'עורך דין',
-		'menu_name'          => 'עורכי דין',
-		'add_new'            => 'הוסף עורך דין',
-		'add_new_item'       => 'הוסף עורך דין חדש',
-		'edit_item'          => 'ערוך פרופיל עורך דין',
-		'new_item'           => 'עורך דין חדש',
-		'view_item'          => 'צפה בפרופיל',
-		'search_items'       => 'חפש עורכי דין',
-		'not_found'          => 'לא נמצאו עורכי דין',
-		'not_found_in_trash' => 'לא נמצאו עורכי דין בפח',
-		'all_items'          => 'כל עורכי הדין',
+		'name'               => '׳¢׳•׳¨׳›׳™ ׳“׳™׳',
+		'singular_name'      => '׳¢׳•׳¨׳ ׳“׳™׳',
+		'menu_name'          => '׳¢׳•׳¨׳›׳™ ׳“׳™׳',
+		'add_new'            => '׳”׳•׳¡׳£ ׳¢׳•׳¨׳ ׳“׳™׳',
+		'add_new_item'       => '׳”׳•׳¡׳£ ׳¢׳•׳¨׳ ׳“׳™׳ ׳—׳“׳©',
+		'edit_item'          => '׳¢׳¨׳•׳ ׳₪׳¨׳•׳₪׳™׳ ׳¢׳•׳¨׳ ׳“׳™׳',
+		'new_item'           => '׳¢׳•׳¨׳ ׳“׳™׳ ׳—׳“׳©',
+		'view_item'          => '׳¦׳₪׳” ׳‘׳₪׳¨׳•׳₪׳™׳',
+		'search_items'       => '׳—׳₪׳© ׳¢׳•׳¨׳›׳™ ׳“׳™׳',
+		'not_found'          => '׳׳ ׳ ׳׳¦׳׳• ׳¢׳•׳¨׳›׳™ ׳“׳™׳',
+		'not_found_in_trash' => '׳׳ ׳ ׳׳¦׳׳• ׳¢׳•׳¨׳›׳™ ׳“׳™׳ ׳‘׳₪׳—',
+		'all_items'          => '׳›׳ ׳¢׳•׳¨׳›׳™ ׳”׳“׳™׳',
 	);
 
 	register_post_type( 'justice_lawyer', array(
@@ -49,12 +49,12 @@ function uj_register_lawyer_cpt() {
 		'taxonomies'          => array( 'practice-areas', 'city' ),
 	) );
 }
-add_action( 'init', 'uj_register_lawyer_cpt' );
+add_action( 'init', 'uje_register_lawyer_cpt' );
 
 /**
  * Register all lawyer meta fields.
  */
-function uj_register_lawyer_meta() {
+function uje_register_lawyer_meta() {
 	$fields = array(
 		// Identity
 		'lawyer_full_name'       => 'string',
@@ -116,49 +116,49 @@ function uj_register_lawyer_meta() {
 		) );
 	}
 }
-add_action( 'init', 'uj_register_lawyer_meta' );
+add_action( 'init', 'uje_register_lawyer_meta' );
 
 /**
  * Admin columns for lawyer listing.
  */
-function uj_lawyer_admin_columns( $columns ) {
+function uje_lawyer_admin_columns( $columns ) {
 	$new = array();
 	foreach ( $columns as $key => $label ) {
 		$new[ $key ] = $label;
 		if ( 'title' === $key ) {
-			$new['lawyer_plan']     = 'חבילה';
-			$new['lawyer_city']     = 'עיר';
-			$new['lawyer_status']   = 'סטטוס';
-			$new['lawyer_views']    = 'צפיות';
-			$new['lawyer_leads']    = 'לידים';
-			$new['lawyer_verified'] = 'אימות';
+			$new['lawyer_plan']     = '׳—׳‘׳™׳׳”';
+			$new['lawyer_city']     = '׳¢׳™׳¨';
+			$new['lawyer_status']   = '׳¡׳˜׳˜׳•׳¡';
+			$new['lawyer_views']    = '׳¦׳₪׳™׳•׳×';
+			$new['lawyer_leads']    = '׳׳™׳“׳™׳';
+			$new['lawyer_verified'] = '׳׳™׳׳•׳×';
 		}
 	}
 	unset( $new['date'] );
 	return $new;
 }
-add_filter( 'manage_justice_lawyer_posts_columns', 'uj_lawyer_admin_columns' );
+add_filter( 'manage_justice_lawyer_posts_columns', 'uje_lawyer_admin_columns' );
 
 /**
  * Populate admin columns.
  */
-function uj_lawyer_column_content( $column, $post_id ) {
+function uje_lawyer_column_content( $column, $post_id ) {
 	switch ( $column ) {
 		case 'lawyer_plan':
 			$plan  = get_post_meta( $post_id, 'plan_type', true );
-			$plans = array( 'free' => 'חינם', 'pro' => 'פרו', 'featured' => 'מוצג', 'lead_partner' => 'שותף לידים', 'full_service' => 'שירות מלא' );
-			echo esc_html( isset( $plans[ $plan ] ) ? $plans[ $plan ] : '—' );
+			$plans = array( 'free' => '׳—׳™׳ ׳', 'pro' => '׳₪׳¨׳•', 'featured' => '׳׳•׳¦׳’', 'lead_partner' => '׳©׳•׳×׳£ ׳׳™׳“׳™׳', 'full_service' => '׳©׳™׳¨׳•׳× ׳׳׳' );
+			echo esc_html( isset( $plans[ $plan ] ) ? $plans[ $plan ] : 'ג€”' );
 			break;
 
 		case 'lawyer_city':
 			$terms = get_the_terms( $post_id, 'city' );
-			echo $terms && ! is_wp_error( $terms ) ? esc_html( implode( ', ', wp_list_pluck( $terms, 'name' ) ) ) : '—';
+			echo $terms && ! is_wp_error( $terms ) ? esc_html( implode( ', ', wp_list_pluck( $terms, 'name' ) ) ) : 'ג€”';
 			break;
 
 		case 'lawyer_status':
 			$status = get_post_meta( $post_id, 'profile_status', true );
-			$labels = array( 'draft' => 'טיוטה', 'imported' => 'יובא', 'pending' => 'ממתין', 'active' => 'פעיל', 'suspended' => 'מושעה' );
-			echo esc_html( isset( $labels[ $status ] ) ? $labels[ $status ] : $status ?: '—' );
+			$labels = array( 'draft' => '׳˜׳™׳•׳˜׳”', 'imported' => '׳™׳•׳‘׳', 'pending' => '׳׳׳×׳™׳', 'active' => '׳₪׳¢׳™׳', 'suspended' => '׳׳•׳©׳¢׳”' );
+			echo esc_html( isset( $labels[ $status ] ) ? $labels[ $status ] : ( $status ?: 'ג€”' ) );
 			break;
 
 		case 'lawyer_views':
@@ -171,94 +171,94 @@ function uj_lawyer_column_content( $column, $post_id ) {
 
 		case 'lawyer_verified':
 			$v = get_post_meta( $post_id, 'verification_status', true );
-			$icons = array( 'verified' => '✓', 'unverified' => '—', 'pending' => '...' );
-			echo esc_html( isset( $icons[ $v ] ) ? $icons[ $v ] : '—' );
+			$icons = array( 'verified' => 'ג“', 'unverified' => 'ג€”', 'pending' => '...' );
+			echo esc_html( isset( $icons[ $v ] ) ? $icons[ $v ] : 'ג€”' );
 			break;
 	}
 }
-add_action( 'manage_justice_lawyer_posts_custom_column', 'uj_lawyer_column_content', 10, 2 );
+add_action( 'manage_justice_lawyer_posts_custom_column', 'uje_lawyer_column_content', 10, 2 );
 
 /**
  * Sortable columns.
  */
-function uj_lawyer_sortable_columns( $columns ) {
+function uje_lawyer_sortable_columns( $columns ) {
 	$columns['lawyer_views'] = 'profile_views';
 	$columns['lawyer_leads'] = 'leads_received';
 	return $columns;
 }
-add_filter( 'manage_edit-justice_lawyer_sortable_columns', 'uj_lawyer_sortable_columns' );
+add_filter( 'manage_edit-justice_lawyer_sortable_columns', 'uje_lawyer_sortable_columns' );
 
 /**
  * Meta box for lawyer details.
  */
-function uj_lawyer_meta_boxes() {
-	add_meta_box( 'justice_lawyer_identity', 'זהות עורך הדין', 'uj_lawyer_identity_box', 'justice_lawyer', 'normal', 'high' );
-	add_meta_box( 'justice_lawyer_contact', 'פרטי התקשרות', 'uj_lawyer_contact_box', 'justice_lawyer', 'normal', 'default' );
-	add_meta_box( 'justice_lawyer_commercial', 'מסחרי ומנהלי', 'uj_lawyer_commercial_box', 'justice_lawyer', 'side', 'default' );
+function uje_lawyer_meta_boxes() {
+	add_meta_box( 'justice_lawyer_identity', '׳–׳”׳•׳× ׳¢׳•׳¨׳ ׳”׳“׳™׳', 'uje_lawyer_identity_box', 'justice_lawyer', 'normal', 'high' );
+	add_meta_box( 'justice_lawyer_contact', '׳₪׳¨׳˜׳™ ׳”׳×׳§׳©׳¨׳•׳×', 'uje_lawyer_contact_box', 'justice_lawyer', 'normal', 'default' );
+	add_meta_box( 'justice_lawyer_commercial', '׳׳¡׳—׳¨׳™ ׳•׳׳ ׳”׳׳™', 'uje_lawyer_commercial_box', 'justice_lawyer', 'side', 'default' );
 }
-add_action( 'add_meta_boxes', 'uj_lawyer_meta_boxes' );
+add_action( 'add_meta_boxes', 'uje_lawyer_meta_boxes' );
 
 /**
  * Identity meta box.
  */
-function uj_lawyer_identity_box( $post ) {
+function uje_lawyer_identity_box( $post ) {
 	wp_nonce_field( 'justice_lawyer_meta', 'justice_lawyer_nonce' );
 	$fields = array(
-		array( 'key' => 'lawyer_full_name',    'label' => 'שם מלא',              'type' => 'text' ),
-		array( 'key' => 'firm_name',           'label' => 'שם המשרד',            'type' => 'text' ),
-		array( 'key' => 'bar_number',          'label' => 'מספר רישיון',          'type' => 'text' ),
-		array( 'key' => 'bio_short',           'label' => 'תיאור קצר',           'type' => 'textarea' ),
-		array( 'key' => 'languages',           'label' => 'שפות',                'type' => 'text' ),
-		array( 'key' => 'years_experience',    'label' => 'שנות ניסיון',          'type' => 'number' ),
-		array( 'key' => 'courts',              'label' => 'בתי משפט',             'type' => 'text' ),
-		array( 'key' => 'license_status',      'label' => 'סטטוס רישיון',         'type' => 'select', 'options' => array( 'active' => 'פעיל', 'inactive' => 'לא פעיל', 'suspended' => 'מושעה' ) ),
-		array( 'key' => 'verification_status', 'label' => 'סטטוס אימות',          'type' => 'select', 'options' => array( 'unverified' => 'לא מאומת', 'pending' => 'בבדיקה', 'verified' => 'מאומת' ) ),
+		array( 'key' => 'lawyer_full_name',    'label' => '׳©׳ ׳׳׳',              'type' => 'text' ),
+		array( 'key' => 'firm_name',           'label' => '׳©׳ ׳”׳׳©׳¨׳“',            'type' => 'text' ),
+		array( 'key' => 'bar_number',          'label' => '׳׳¡׳₪׳¨ ׳¨׳™׳©׳™׳•׳',          'type' => 'text' ),
+		array( 'key' => 'bio_short',           'label' => '׳×׳™׳׳•׳¨ ׳§׳¦׳¨',           'type' => 'textarea' ),
+		array( 'key' => 'languages',           'label' => '׳©׳₪׳•׳×',                'type' => 'text' ),
+		array( 'key' => 'years_experience',    'label' => '׳©׳ ׳•׳× ׳ ׳™׳¡׳™׳•׳',          'type' => 'number' ),
+		array( 'key' => 'courts',              'label' => '׳‘׳×׳™ ׳׳©׳₪׳˜',             'type' => 'text' ),
+		array( 'key' => 'license_status',      'label' => '׳¡׳˜׳˜׳•׳¡ ׳¨׳™׳©׳™׳•׳',         'type' => 'select', 'options' => array( 'active' => '׳₪׳¢׳™׳', 'inactive' => '׳׳ ׳₪׳¢׳™׳', 'suspended' => '׳׳•׳©׳¢׳”' ) ),
+		array( 'key' => 'verification_status', 'label' => '׳¡׳˜׳˜׳•׳¡ ׳׳™׳׳•׳×',          'type' => 'select', 'options' => array( 'unverified' => '׳׳ ׳׳׳•׳׳×', 'pending' => '׳‘׳‘׳“׳™׳§׳”', 'verified' => '׳׳׳•׳׳×' ) ),
 	);
-	uj_render_meta_fields( $post, $fields );
+	uje_render_meta_fields( $post, $fields );
 }
 
 /**
  * Contact meta box.
  */
-function uj_lawyer_contact_box( $post ) {
+function uje_lawyer_contact_box( $post ) {
 	$fields = array(
-		array( 'key' => 'phone',          'label' => 'טלפון',           'type' => 'tel' ),
-		array( 'key' => 'email',          'label' => 'אימייל',          'type' => 'email' ),
-		array( 'key' => 'whatsapp',       'label' => 'וואטסאפ',         'type' => 'tel' ),
-		array( 'key' => 'website',        'label' => 'אתר',             'type' => 'url' ),
-		array( 'key' => 'office_address', 'label' => 'כתובת משרד',      'type' => 'text' ),
+		array( 'key' => 'phone',          'label' => '׳˜׳׳₪׳•׳',           'type' => 'tel' ),
+		array( 'key' => 'email',          'label' => '׳׳™׳׳™׳™׳',          'type' => 'email' ),
+		array( 'key' => 'whatsapp',       'label' => '׳•׳•׳׳˜׳¡׳׳₪',         'type' => 'tel' ),
+		array( 'key' => 'website',        'label' => '׳׳×׳¨',             'type' => 'url' ),
+		array( 'key' => 'office_address', 'label' => '׳›׳×׳•׳‘׳× ׳׳©׳¨׳“',      'type' => 'text' ),
 		array( 'key' => 'profile_video_url', 'label' => 'Profile video URL', 'type' => 'url' ),
 		array( 'key' => 'linkedin_url',   'label' => 'LinkedIn URL',       'type' => 'url' ),
 		array( 'key' => 'facebook_url',   'label' => 'Facebook URL',       'type' => 'url' ),
 		array( 'key' => 'instagram_url',  'label' => 'Instagram URL',      'type' => 'url' ),
 		array( 'key' => 'youtube_url',    'label' => 'YouTube URL',        'type' => 'url' ),
 	);
-	uj_render_meta_fields( $post, $fields );
+	uje_render_meta_fields( $post, $fields );
 }
 
 /**
  * Commercial meta box.
  */
-function uj_lawyer_commercial_box( $post ) {
+function uje_lawyer_commercial_box( $post ) {
 	$fields = array(
-		array( 'key' => 'plan_type',           'label' => 'חבילה',            'type' => 'select', 'options' => array( 'free' => 'חינם', 'pro' => 'פרו', 'featured' => 'מוצג', 'lead_partner' => 'שותף לידים', 'full_service' => 'שירות מלא' ) ),
-		array( 'key' => 'subscription_status', 'label' => 'סטטוס מנוי',       'type' => 'select', 'options' => array( 'inactive' => 'לא פעיל', 'active' => 'פעיל', 'expired' => 'פג תוקף', 'cancelled' => 'בוטל' ) ),
-		array( 'key' => 'lead_routing_enabled','label' => 'ניתוב לידים',      'type' => 'checkbox' ),
+		array( 'key' => 'plan_type',           'label' => '׳—׳‘׳™׳׳”',            'type' => 'select', 'options' => array( 'free' => '׳—׳™׳ ׳', 'pro' => '׳₪׳¨׳•', 'featured' => '׳׳•׳¦׳’', 'lead_partner' => '׳©׳•׳×׳£ ׳׳™׳“׳™׳', 'full_service' => '׳©׳™׳¨׳•׳× ׳׳׳' ) ),
+		array( 'key' => 'subscription_status', 'label' => '׳¡׳˜׳˜׳•׳¡ ׳׳ ׳•׳™',       'type' => 'select', 'options' => array( 'inactive' => '׳׳ ׳₪׳¢׳™׳', 'active' => '׳₪׳¢׳™׳', 'expired' => '׳₪׳’ ׳×׳•׳§׳£', 'cancelled' => '׳‘׳•׳˜׳' ) ),
+		array( 'key' => 'lead_routing_enabled','label' => '׳ ׳™׳×׳•׳‘ ׳׳™׳“׳™׳',      'type' => 'checkbox' ),
 		array( 'key' => 'featured_on_front',   'label' => 'הצגה בעמוד הבית',       'type' => 'checkbox' ),
 		array( 'key' => 'review_count',        'label' => 'מספר ביקורות מאושרות',  'type' => 'number' ),
 		array( 'key' => 'average_rating',      'label' => 'דירוג ממוצע מאושר',     'type' => 'number', 'step' => '0.1', 'min' => '0', 'max' => '5' ),
-		array( 'key' => 'profile_status',      'label' => 'סטטוס פרופיל',     'type' => 'select', 'options' => array( 'draft' => 'טיוטה', 'imported' => 'יובא', 'pending' => 'ממתין לאישור', 'active' => 'פעיל', 'suspended' => 'מושעה' ) ),
-		array( 'key' => 'source_url',          'label' => 'מקור',             'type' => 'url' ),
-		array( 'key' => 'source_type',         'label' => 'סוג מקור',          'type' => 'select', 'options' => array( 'manual' => 'ידני', 'import' => 'ייבוא', 'registration' => 'הרשמה', 'seed' => 'זרע לבדיקה' ) ),
-		array( 'key' => 'internal_notes',      'label' => 'הערות פנימיות',     'type' => 'textarea' ),
+		array( 'key' => 'profile_status',      'label' => '׳¡׳˜׳˜׳•׳¡ ׳₪׳¨׳•׳₪׳™׳',     'type' => 'select', 'options' => array( 'draft' => '׳˜׳™׳•׳˜׳”', 'imported' => '׳™׳•׳‘׳', 'pending' => '׳׳׳×׳™׳ ׳׳׳™׳©׳•׳¨', 'active' => '׳₪׳¢׳™׳', 'suspended' => '׳׳•׳©׳¢׳”' ) ),
+		array( 'key' => 'source_url',          'label' => '׳׳§׳•׳¨',             'type' => 'url' ),
+		array( 'key' => 'source_type',         'label' => '׳¡׳•׳’ ׳׳§׳•׳¨',          'type' => 'select', 'options' => array( 'manual' => '׳™׳“׳ ׳™', 'import' => '׳™׳™׳‘׳•׳', 'registration' => '׳”׳¨׳©׳׳”', 'seed' => '׳–׳¨׳¢ ׳׳‘׳“׳™׳§׳”' ) ),
+		array( 'key' => 'internal_notes',      'label' => '׳”׳¢׳¨׳•׳× ׳₪׳ ׳™׳׳™׳•׳×',     'type' => 'textarea' ),
 	);
-	uj_render_meta_fields( $post, $fields );
+	uje_render_meta_fields( $post, $fields );
 }
 
 /**
  * Generic meta field renderer.
  */
-function uj_render_meta_fields( $post, $fields ) {
+function uje_render_meta_fields( $post, $fields ) {
 	echo '<table class="form-table" style="margin:0;">';
 	foreach ( $fields as $f ) {
 		$value = get_post_meta( $post->ID, $f['key'], true );
@@ -266,7 +266,7 @@ function uj_render_meta_fields( $post, $fields ) {
 
 		if ( 'select' === $f['type'] ) {
 			echo '<select id="' . esc_attr( $f['key'] ) . '" name="' . esc_attr( $f['key'] ) . '" style="min-width:160px;">';
-			echo '<option value="">—</option>';
+			echo '<option value="">ג€”</option>';
 			foreach ( $f['options'] as $v => $l ) {
 				echo '<option value="' . esc_attr( $v ) . '" ' . selected( $value, $v, false ) . '>' . esc_html( $l ) . '</option>';
 			}
@@ -293,7 +293,7 @@ function uj_render_meta_fields( $post, $fields ) {
 /**
  * Save lawyer meta.
  */
-function uj_save_lawyer_meta( $post_id ) {
+function uje_save_lawyer_meta( $post_id ) {
 	if ( ! isset( $_POST['justice_lawyer_nonce'] ) || ! wp_verify_nonce( $_POST['justice_lawyer_nonce'], 'justice_lawyer_meta' ) ) {
 		return;
 	}
@@ -333,5 +333,4 @@ function uj_save_lawyer_meta( $post_id ) {
 	update_post_meta( $post_id, 'lead_routing_enabled', isset( $_POST['lead_routing_enabled'] ) ? '1' : '0' );
 	update_post_meta( $post_id, 'featured_on_front', isset( $_POST['featured_on_front'] ) ? '1' : '0' );
 }
-add_action( 'save_post_justice_lawyer', 'uj_save_lawyer_meta' );
-
+add_action( 'save_post_justice_lawyer', 'uje_save_lawyer_meta' );

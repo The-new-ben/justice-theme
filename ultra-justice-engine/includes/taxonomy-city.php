@@ -41,7 +41,7 @@ function uje_register_city_taxonomy() {
 		),
 	);
 
-	register_taxonomy( 'city', array( 'lawyer' ), $args );
+	register_taxonomy( 'city', array( 'justice_lawyer' ), $args );
 }
 add_action( 'init', 'uje_register_city_taxonomy', 9 );
 

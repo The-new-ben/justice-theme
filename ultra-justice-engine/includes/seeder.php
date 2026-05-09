@@ -65,6 +65,12 @@ function uje_maybe_auto_seed(): void {
 		if ( ! empty( $existing ) ) {
 			// Update missing meta on existing
 			$id = $existing[0];
+			if ( 100 === (int) $l['priority'] && 'advocate-maya-rotenberg' !== get_post_field( 'post_name', $id ) ) {
+				wp_update_post( array(
+					'ID'        => $id,
+					'post_name' => 'advocate-maya-rotenberg',
+				) );
+			}
 			if ( ! get_post_meta( $id, 'priority_score', true ) ) {
 				update_post_meta( $id, 'priority_score', $l['priority'] );
 				update_post_meta( $id, 'firm_name',      $l['firm'] );
@@ -76,8 +82,9 @@ function uje_maybe_auto_seed(): void {
 		$post_id = wp_insert_post( array(
 			'post_type'    => 'justice_lawyer',
 			'post_title'   => $l['heb'],
+			'post_name'    => 100 === (int) $l['priority'] ? 'advocate-maya-rotenberg' : 'seed-lawyer-' . sanitize_title( $l['area'] ) . '-' . absint( $l['priority'] ),
 			'post_content' => $l['bio'],
-			'post_status'  => 'publish',
+			'post_status'  => 'draft',
 			'post_excerpt' => $l['bio'],
 		) );
 
@@ -93,11 +100,12 @@ function uje_maybe_auto_seed(): void {
 			'whatsapp'            => $l['whatsapp'],
 			'years_experience'    => $l['years'],
 			'priority_score'      => $l['priority'],
-			'plan_type'           => 'pro',
+			'plan_type'           => 'free',
 			'source_type'         => 'seed',
-			'profile_status'      => 'active',
+			'profile_status'      => 'draft',
 			'license_status'      => 'active',
-			'verification_status' => 'verified',
+			'verification_status' => 'unverified',
+			'internal_notes'      => 'Seed profile for testing only. Not verified and not approved for public endorsement.',
 		);
 		foreach ( $meta as $k => $v ) {
 			update_post_meta( $post_id, $k, $v );
@@ -140,6 +148,7 @@ function uje_seed_lawyer_profile( array $row ): int|WP_Error {
 		'post_type'    => 'justice_lawyer',
 		'post_status'  => 'draft',
 		'post_title'   => sanitize_text_field( $row['name'] ),
+		'post_name'    => ! empty( $row['slug'] ) ? sanitize_title( $row['slug'] ) : 'lawyer-' . time(),
 		'post_excerpt' => sanitize_text_field( $row['firm_name'] ?? '' ),
 	) );
 

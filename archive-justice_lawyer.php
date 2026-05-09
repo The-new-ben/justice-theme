@@ -187,6 +187,4 @@ $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => 
 		</div>
 	</section>
 
-</main>
-
 <?php get_footer(); ?>

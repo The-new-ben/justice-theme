@@ -59,8 +59,12 @@ function justice_theme_get_breadcrumb_items() {
 	);
 
 	if ( is_singular( 'articles' ) ) {
-		$terms = get_the_terms( get_the_ID(), 'practice-areas' );
+		$items[] = array(
+			'name' => __( 'מאמרים משפטיים', 'justice-theme' ),
+			'url'  => get_post_type_archive_link( 'articles' ),
+		);
 
+		$terms = get_the_terms( get_the_ID(), 'practice-areas' );
 		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
 			$term    = array_shift( $terms );
 			$items[] = array(
@@ -77,11 +81,40 @@ function justice_theme_get_breadcrumb_items() {
 		return $items;
 	}
 
+	if ( is_singular( 'justice_lawyer' ) ) {
+		$items[] = array(
+			'name' => __( 'עורכי דין', 'justice-theme' ),
+			'url'  => get_post_type_archive_link( 'justice_lawyer' ),
+		);
+
+		$areas = get_the_terms( get_the_ID(), 'practice-areas' );
+		if ( ! empty( $areas ) && ! is_wp_error( $areas ) ) {
+			$area    = array_shift( $areas );
+			$items[] = array(
+				'name' => $area->name,
+				'url'  => add_query_arg( 'area', $area->slug, get_post_type_archive_link( 'justice_lawyer' ) ),
+			);
+		}
+
+		$items[] = array(
+			'name' => get_the_title(),
+			'url'  => '',
+		);
+
+		return $items;
+	}
+
 	if ( is_tax( 'practice-areas' ) ) {
+		$items[] = array(
+			'name' => __( 'תחומי משפט', 'justice-theme' ),
+			'url'  => get_post_type_archive_link( 'justice_lawyer' ),
+		);
+
 		$items[] = array(
 			'name' => single_term_title( '', false ),
 			'url'  => '',
 		);
+
 		return $items;
 	}
 
@@ -90,6 +123,16 @@ function justice_theme_get_breadcrumb_items() {
 			'name' => __( 'מאמרים משפטיים', 'justice-theme' ),
 			'url'  => '',
 		);
+
+		return $items;
+	}
+
+	if ( is_post_type_archive( 'justice_lawyer' ) ) {
+		$items[] = array(
+			'name' => __( 'עורכי דין', 'justice-theme' ),
+			'url'  => '',
+		);
+
 		return $items;
 	}
 
@@ -102,6 +145,7 @@ function justice_theme_get_breadcrumb_items() {
 			),
 			'url'  => '',
 		);
+
 		return $items;
 	}
 
@@ -110,6 +154,7 @@ function justice_theme_get_breadcrumb_items() {
 			'name' => __( 'העמוד לא נמצא', 'justice-theme' ),
 			'url'  => '',
 		);
+
 		return $items;
 	}
 
@@ -118,6 +163,7 @@ function justice_theme_get_breadcrumb_items() {
 			'name' => get_the_title(),
 			'url'  => '',
 		);
+
 		return $items;
 	}
 
@@ -130,4 +176,3 @@ function justice_theme_get_breadcrumb_items() {
 
 	return $items;
 }
-

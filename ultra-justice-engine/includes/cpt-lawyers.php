@@ -75,6 +75,11 @@ function uje_register_lawyer_meta() {
 		'whatsapp'               => 'string',
 		'website'                => 'string',
 		'office_address'         => 'string',
+		'profile_video_url'      => 'string',
+		'linkedin_url'           => 'string',
+		'facebook_url'           => 'string',
+		'instagram_url'          => 'string',
+		'youtube_url'            => 'string',
 
 		// Commercial
 		'plan_type'              => 'string',
@@ -83,11 +88,14 @@ function uje_register_lawyer_meta() {
 		'priority_score'         => 'integer',
 		'lead_routing_enabled'   => 'boolean',
 		'monthly_lead_limit'     => 'integer',
+		'featured_on_front'      => 'boolean',
 
 		// Analytics
 		'profile_views'          => 'integer',
 		'leads_received'         => 'integer',
 		'leads_accepted'         => 'integer',
+		'review_count'           => 'integer',
+		'average_rating'         => 'number',
 
 		// Admin
 		'source_url'             => 'string',
@@ -219,6 +227,11 @@ function uje_lawyer_contact_box( $post ) {
 		array( 'key' => 'whatsapp',       'label' => 'וואטסאפ',         'type' => 'tel' ),
 		array( 'key' => 'website',        'label' => 'אתר',             'type' => 'url' ),
 		array( 'key' => 'office_address', 'label' => 'כתובת משרד',      'type' => 'text' ),
+		array( 'key' => 'profile_video_url', 'label' => 'Profile video URL', 'type' => 'url' ),
+		array( 'key' => 'linkedin_url',   'label' => 'LinkedIn URL',       'type' => 'url' ),
+		array( 'key' => 'facebook_url',   'label' => 'Facebook URL',       'type' => 'url' ),
+		array( 'key' => 'instagram_url',  'label' => 'Instagram URL',      'type' => 'url' ),
+		array( 'key' => 'youtube_url',    'label' => 'YouTube URL',        'type' => 'url' ),
 	);
 	uje_render_meta_fields( $post, $fields );
 }
@@ -231,6 +244,9 @@ function uje_lawyer_commercial_box( $post ) {
 		array( 'key' => 'plan_type',           'label' => 'חבילה',            'type' => 'select', 'options' => array( 'free' => 'חינם', 'pro' => 'פרו', 'featured' => 'מוצג', 'lead_partner' => 'שותף לידים', 'full_service' => 'שירות מלא' ) ),
 		array( 'key' => 'subscription_status', 'label' => 'סטטוס מנוי',       'type' => 'select', 'options' => array( 'inactive' => 'לא פעיל', 'active' => 'פעיל', 'expired' => 'פג תוקף', 'cancelled' => 'בוטל' ) ),
 		array( 'key' => 'lead_routing_enabled','label' => 'ניתוב לידים',      'type' => 'checkbox' ),
+		array( 'key' => 'featured_on_front',   'label' => 'הצגה בעמוד הבית',       'type' => 'checkbox' ),
+		array( 'key' => 'review_count',        'label' => 'מספר ביקורות מאושרות',  'type' => 'number' ),
+		array( 'key' => 'average_rating',      'label' => 'דירוג ממוצע מאושר',     'type' => 'number', 'step' => '0.1', 'min' => '0', 'max' => '5' ),
 		array( 'key' => 'profile_status',      'label' => 'סטטוס פרופיל',     'type' => 'select', 'options' => array( 'draft' => 'טיוטה', 'imported' => 'יובא', 'pending' => 'ממתין לאישור', 'active' => 'פעיל', 'suspended' => 'מושעה' ) ),
 		array( 'key' => 'source_url',          'label' => 'מקור',             'type' => 'url' ),
 		array( 'key' => 'source_type',         'label' => 'סוג מקור',          'type' => 'select', 'options' => array( 'manual' => 'ידני', 'import' => 'ייבוא', 'registration' => 'הרשמה', 'seed' => 'זרע לבדיקה' ) ),
@@ -260,7 +276,13 @@ function uje_render_meta_fields( $post, $fields ) {
 		} elseif ( 'checkbox' === $f['type'] ) {
 			echo '<label><input type="checkbox" id="' . esc_attr( $f['key'] ) . '" name="' . esc_attr( $f['key'] ) . '" value="1" ' . checked( $value, '1', false ) . '> ' . esc_html( $f['label'] ) . '</label>';
 		} else {
-			echo '<input type="' . esc_attr( $f['type'] ) . '" id="' . esc_attr( $f['key'] ) . '" name="' . esc_attr( $f['key'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text">';
+			$attrs = '';
+			foreach ( array( 'step', 'min', 'max' ) as $attr ) {
+				if ( isset( $f[ $attr ] ) ) {
+					$attrs .= ' ' . $attr . '="' . esc_attr( $f[ $attr ] ) . '"';
+				}
+			}
+			echo '<input type="' . esc_attr( $f['type'] ) . '" id="' . esc_attr( $f['key'] ) . '" name="' . esc_attr( $f['key'] ) . '" value="' . esc_attr( $value ) . '" class="regular-text"' . $attrs . '>';
 		}
 
 		echo '</td></tr>';
@@ -286,6 +308,7 @@ function uje_save_lawyer_meta( $post_id ) {
 		'lawyer_full_name', 'firm_name', 'bar_number', 'bio_short',
 		'languages', 'courts', 'license_status', 'verification_status',
 		'phone', 'email', 'whatsapp', 'website', 'office_address',
+		'profile_video_url', 'linkedin_url', 'facebook_url', 'instagram_url', 'youtube_url',
 		'plan_type', 'subscription_status', 'featured_until',
 		'source_url', 'source_type', 'profile_status', 'internal_notes',
 	);
@@ -296,13 +319,18 @@ function uje_save_lawyer_meta( $post_id ) {
 		}
 	}
 
-	$int_fields = array( 'years_experience', 'priority_score', 'monthly_lead_limit' );
+	$int_fields = array( 'years_experience', 'priority_score', 'monthly_lead_limit', 'review_count' );
 	foreach ( $int_fields as $field ) {
 		if ( isset( $_POST[ $field ] ) ) {
 			update_post_meta( $post_id, $field, absint( $_POST[ $field ] ) );
 		}
 	}
 
+	if ( isset( $_POST['average_rating'] ) ) {
+		update_post_meta( $post_id, 'average_rating', min( 5, max( 0, (float) $_POST['average_rating'] ) ) );
+	}
+
 	update_post_meta( $post_id, 'lead_routing_enabled', isset( $_POST['lead_routing_enabled'] ) ? '1' : '0' );
+	update_post_meta( $post_id, 'featured_on_front', isset( $_POST['featured_on_front'] ) ? '1' : '0' );
 }
 add_action( 'save_post_justice_lawyer', 'uje_save_lawyer_meta' );

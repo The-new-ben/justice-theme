@@ -40,7 +40,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</p>
 
 		<p class="lead-form__field lead-form__field--full">
-			<label for="lead-message"><?php esc_html_e( 'Short description', 'justice-theme' ); ?></label>
+			<label for="lead-message"><?php esc_html_e( 'תיאור קצר', 'justice-theme' ); ?></label>
 			<textarea id="lead-message" name="lead_message" rows="5" required></textarea>
 		</p>
 	</div>

@@ -107,6 +107,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Second supporting family-law draft now exists at `content-drafts/divorce-mediation-supporting-he.md`, but it is NOT legal-reviewed and not ready to publish.
 - Third supporting family-law draft now exists at `content-drafts/child-support-supporting-he.md`, but it is NOT legal-reviewed and not ready to publish.
 - Fourth supporting family-law draft now exists at `content-drafts/child-custody-supporting-he.md`, but it is NOT legal-reviewed and not ready to publish.
+- Fifth supporting family-law draft now exists at `content-drafts/divorce-property-division-supporting-he.md`, but it is NOT legal-reviewed and not ready to publish.
 - Existing live Hebrew slugs need a controlled English-slug migration with 301 redirects; repo changes prevent future seed slugs but do not automatically fix already-published URLs unless an approved migration runs.
 - Live homepage extract shows "Content is protected !!", likely from a content-protection/accessibility/plugin layer; source and impact are NOT VERIFIED.
 - Spam source remains NOT VERIFIED. Homepage may be hiding spam by querying only `articles`, but database cleanup is still required.

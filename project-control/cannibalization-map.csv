@@ -1,7 +1,11 @@
-cluster,keyword,pillar_url,pillar_title,competing_url,competing_title,overlap_risk,action
-NOTE: Populate by pulling GSC data. Multiple pages ranking for same query = cannibalization risk.
-NOTE: GSC Query: compare pages ranking for same keywords in positions 1-20
-cluster-geirushin,גירושין בהסכמה,/articles/geirushin-haskhama/,גירושין בהסכמה — המדריך המלא,/articles/geirushin-bhaskhama-2/,גירושין בהסכמה — מה שצריך לדעת,HIGH — identical intent,MERGE into pillar
-cluster-geirushin,עורך דין גירושין,/lawyers/?area=geirushin,מדריך עורכי דין גירושין,/articles/orech-din-geirushin/,איך לבחור עורך דין גירושין,MEDIUM — different intent,KEEP BOTH — differentiate intent
-cluster-pli,עורך דין פלילי,/lawyers/?area=criminal,מדריך עורכי דין פליליים,/articles/orech-din-plili/,עורך דין פלילי — כל מה שצריך לדעת,MEDIUM,KEEP BOTH — mark canonical
-cluster-traboda,עורך דין תעבורה,/lawyers/?area=traffic,עורכי דין תעבורה,/articles/bitur-doach-teuvra/,ביטול דוח תנועה — מדריך,LOW — different intent,KEEP BOTH
+cluster,keyword,primary_url,primary_title,secondary_url,secondary_title,overlap_risk,recommended_action,status,notes
+family-law,עורך דין גירושין,/divorce-lawyer/,עורך דין גירושין,/family-lawyer/,עורך דין לענייני משפחה,MEDIUM,KEEP_DISTINCT,PLANNED,"Divorce page targets divorce hiring; family page targets broader family-law."
+family-law,עורך דין גירושין,/divorce-lawyer/,עורך דין גירושין,/lawyers/?area=family-law,עורכי דין משפחה וגירושין,MEDIUM,DIFFERENTIATE,PLANNED,"Pillar should explain and convert; directory filter should list profiles."
+family-law,גירושין בהסכמה,/consensual-divorce/,גירושין בהסכמה,/divorce-lawyer/,עורך דין גירושין,LOW,SUPPORT_PILLAR,PLANNED,"Supporting informational intent."
+criminal-law,עורך דין פלילי,/criminal-lawyer/,עורך דין פלילי,/police-investigation/,חקירה במשטרה,LOW,SUPPORT_PILLAR,PLANNED,"Urgent supporting topic should link back."
+traffic-law,תאונת דרכים,/car-accident-lawyer/,עורך דין תאונות דרכים,/traffic-lawyer/,עורך דין תעבורה,MEDIUM,DIFFERENTIATE,PLANNED,"Car accident compensation vs traffic offense defense."
+real-estate-law,עורך דין מקרקעין,/real-estate-lawyer/,עורך דין מקרקעין,/buying-apartment/,קניית דירה,LOW,SUPPORT_PILLAR,PLANNED,"Buying apartment is supporting transaction guide."
+real-estate-law,חוזה מכר,/real-estate-purchase-agreement/,חוזה מכר,/real-estate-lawyer/,עורך דין מקרקעין,LOW,SUPPORT_PILLAR,PLANNED,"Contract article supports lawyer page and LegalTech tool."
+medical-malpractice,רשלנות רפואית,/medical-malpractice-lawyer/,עורך דין רשלנות רפואית,/pregnancy-malpractice/,רשלנות רפואית בהריון,LOW,SUPPORT_PILLAR,PLANNED,"Specific medical area supports broad pillar."
+personal-injury,תאונת עבודה,/work-accident-lawyer/,עורך דין תאונת עבודה,/national-insurance-lawyer/,עורך דין ביטוח לאומי,MEDIUM,CROSS_LINK_WITH_CLEAR_INTENT,PLANNED,"Work accident may involve employer tort, insurance and national insurance."
+inheritance-law,צוואה,/will/,צוואה,/inheritance-lawyer/,עורך דין ירושה,LOW,SUPPORT_PILLAR,PLANNED,"Informational document topic supports commercial inheritance page."

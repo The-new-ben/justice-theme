@@ -3,6 +3,18 @@
 
 ## 2026-05-09 - Session: repo-sync stabilization
 
+### SEO GOALS
+
+**[HIGH] Rebuilt topic clusters around English pillar URLs**
+- Files: `project-control/topic-clusters.csv`, `project-control/internal-link-opportunities.csv`, `project-control/cannibalization-map.csv`, `project-control/keyword-serp-plan.md`, `project-control/serp-research-log.csv`, `project-control/title-audit.csv`
+- Pillars now use clean English slugs such as `/divorce-lawyer/`, `/criminal-lawyer/`, `/real-estate-lawyer/`, and `/medical-malpractice-lawyer/`.
+- Added first SERP research log and mapped supporting content, lawyer filters, and LegalTech CTAs.
+
+**[HIGH] Added reusable legal pillar page template**
+- Files: `page-legal-pillar.php`, `assets/css/premium-pass-3.css`
+- Template supports Hebrew pillar content with English slug pages, lawyer cards, supporting topic links, related article cards, LegalTech CTA, and lead form.
+- Does not create or publish pages by itself.
+
 ### URL STRATEGY
 
 **[HIGH] Confirmed final English-slug strategy**

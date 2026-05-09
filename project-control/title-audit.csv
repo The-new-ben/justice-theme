@@ -1,0 +1,9 @@
+url,current_title,proposed_title,primary_keyword,duplicate_title_risk,status,notes
+/divorce-lawyer/,,עורך דין גירושין - מדריך לבחירה, עלויות ותהליך,עורך דין גירושין,LOW,PLANNED,"New pillar title. Keep distinct from family-lawyer."
+/family-lawyer/,,עורך דין לענייני משפחה - מדריך, תחומים ופנייה לעורך דין,עורך דין לענייני משפחה,MEDIUM,PLANNED,"Needs differentiation from divorce-lawyer."
+/criminal-lawyer/,,עורך דין פלילי - מה עושים לפני חקירה או כתב אישום,עורך דין פלילי,LOW,PLANNED,"Urgency and process angle."
+/real-estate-lawyer/,,עורך דין מקרקעין - ליווי בעסקאות נדל״ן, חוזים וטאבו,עורך דין מקרקעין,LOW,PLANNED,"High-value transaction intent."
+/medical-malpractice-lawyer/,,עורך דין רשלנות רפואית - בדיקת עילת תביעה ופיצויים,עורך דין רשלנות רפואית,LOW,PLANNED,"YMYL page must include disclaimer and sources."
+/personal-injury-lawyer/,,עורך דין נזיקין - פיצויים, נזקי גוף ותביעות,עורך דין נזיקין,LOW,PLANNED,"Differentiate from car accident and work accident."
+/traffic-lawyer/,,עורך דין תעבורה - דוחות, שלילה ונהיגה בשכרות,עורך דין תעבורה,LOW,PLANNED,"Defense/traffic intent."
+/car-accident-lawyer/,,עורך דין תאונות דרכים - פיצויים וליווי לאחר תאונה,עורך דין תאונות דרכים,MEDIUM,PLANNED,"Avoid cannibalizing traffic-lawyer."

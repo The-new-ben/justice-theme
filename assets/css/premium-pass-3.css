@@ -1414,3 +1414,128 @@
     width: 100%;
   }
 }
+
+.legal-pillar-hero {
+  background:
+    linear-gradient(135deg, rgba(7,21,47,0.98), rgba(39,46,70,0.94)),
+    radial-gradient(circle at 18% 20%, rgba(197,164,92,0.24), transparent 34%);
+  color: #fff;
+}
+
+.legal-pillar-hero__grid,
+.legal-pillar-body__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.legal-pillar-hero h1,
+.legal-pillar-hero p {
+  color: #fff;
+}
+
+.legal-pillar-hero p {
+  max-width: 760px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.8;
+}
+
+.legal-pillar-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.2rem;
+}
+
+.legal-pillar-hero__panel,
+.legal-pillar-sidebar,
+.legal-pillar-topic-box {
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  background: #fff;
+  padding: 1.2rem;
+  box-shadow: var(--jt-shadow);
+}
+
+.legal-pillar-hero__panel {
+  border-color: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  backdrop-filter: blur(14px);
+}
+
+.legal-pillar-hero__panel strong {
+  display: block;
+  color: #e8c97a;
+  font-size: 1.05rem;
+  font-weight: 900;
+}
+
+.legal-pillar-hero__panel ul {
+  display: grid;
+  gap: 0.65rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legal-pillar-hero__panel li {
+  border-top: 1px solid rgba(255,255,255,0.14);
+  padding-top: 0.65rem;
+  color: rgba(255,255,255,0.84);
+}
+
+.legal-pillar-content {
+  min-width: 0;
+}
+
+.legal-pillar-sidebar {
+  position: sticky;
+  top: 110px;
+}
+
+.legal-pillar-topic-box {
+  margin-top: 1.5rem;
+}
+
+.legal-pillar-topic-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.legal-pillar-topic-grid a {
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  padding: 0.8rem;
+  color: var(--jt-primary-deep);
+  text-decoration: none;
+  font-weight: 900;
+  background: #fbfaf7;
+}
+
+.legal-pillar-topic-grid a:hover {
+  border-color: var(--jt-gold);
+}
+
+@media (max-width: 900px) {
+  .legal-pillar-hero__grid,
+  .legal-pillar-body__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .legal-pillar-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 560px) {
+  .legal-pillar-topic-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .legal-pillar-hero__actions .button {
+    width: 100%;
+  }
+}

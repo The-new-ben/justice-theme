@@ -153,3 +153,20 @@ wp term create practice-areas "הגירה ואזרחות" --slug=immigration --d
 7. Update `changelog.md`
 8. Update status here
 9. Pick next task
+
+---
+
+## 2026-05-09 CORRECTIONS FROM OWNER FEEDBACK
+
+### LOGO
+**Status:** FIXED IN REPO / LIVE NOT VERIFIED
+- The visible fallback must not use `assets/images/logo.png` because that file is a dummy placeholder.
+- Header and footer now render a Jus-Tice code wordmark with a blinking red dot when no WordPress custom logo is configured.
+- If the old final logo exists in the media library, use it later through WordPress Site Identity; until then the code wordmark is the safer fallback.
+
+### CONTENT DEPTH
+**Status:** ACTIVE PRIORITY
+- The current seeded article starters are scaffolds only.
+- Production target is 5,000-word-class pillar/supporting articles, not short SEO pages.
+- Each major article must be built from SERP reverse engineering: intent, competing page types, related questions, price/process/risk sections, internal links, related lawyer mini-site blocks, sources, author/reviewer, and legal disclaimer.
+- First full production candidate: `/divorce-lawyer/` and the connected Maya Rotenberg mini-site/content cluster.

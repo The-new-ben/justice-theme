@@ -22,8 +22,10 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0544705733' );
 				<?php if ( has_custom_logo() ) : ?>
 					<?php echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'style' => 'max-width: 180px; height: auto; filter: brightness(10);' ) ); ?>
 				<?php else : ?>
-					<a class="brand-lockup brand-lockup--image brand-lockup--footer" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Jus-Tice" style="color: #fff;">
-						<img class="brand-lockup__logo" src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/logo.png' ); ?>" alt="<?php esc_attr_e( 'Jus-Tice Logo', 'justice-theme' ); ?>" loading="lazy">
+					<a class="brand-lockup brand-lockup--justice brand-lockup--footer" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Jus-Tice" style="color: #fff;">
+						<span class="brand-lockup__wordmark" aria-hidden="true">
+							<span>Jus</span><span class="brand-lockup__red-dot"></span><span>Tice</span>
+						</span>
 						<span class="brand-lockup__text">
 							<span class="brand-lockup__name" style="color: #fff;">Jus-Tice</span>
 							<span class="brand-lockup__tagline" style="color: rgba(255,255,255,0.6);">פורטל משפטי חכם</span>

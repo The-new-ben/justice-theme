@@ -38,8 +38,10 @@ $justice_phone = justice_theme_option( 'justice_phone', '03-6161535' );
 				<?php if ( has_custom_logo() ) : ?>
 					<?php the_custom_logo(); ?>
 				<?php else : ?>
-					<a class="brand-lockup brand-lockup--image" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Jus-Tice">
-						<img class="brand-lockup__logo" src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/logo.png' ); ?>" alt="<?php esc_attr_e( 'Jus-Tice Logo', 'justice-theme' ); ?>" loading="eager">
+					<a class="brand-lockup brand-lockup--justice" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Jus-Tice">
+						<span class="brand-lockup__wordmark" aria-hidden="true">
+							<span>Jus</span><span class="brand-lockup__red-dot"></span><span>Tice</span>
+						</span>
 						<span class="brand-lockup__text">
 							<span class="brand-lockup__name">Jus-Tice</span>
 							<span class="brand-lockup__tagline">פורטל משפטי חכם</span>

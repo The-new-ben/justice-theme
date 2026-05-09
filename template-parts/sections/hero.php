@@ -141,6 +141,20 @@ $israel_cities = array(
 		</div>
 
 		<div class="hero__panel" aria-label="<?php esc_attr_e( 'תחומי משפט נפוצים', 'justice-theme' ); ?>">
+			<div class="hero__visual" aria-hidden="true">
+				<div class="hero__visual-card hero__visual-card--main">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+				<div class="hero__visual-card hero__visual-card--case">
+					<strong>Jus-Tice</strong>
+					<span></span>
+					<span></span>
+				</div>
+				<div class="hero__visual-node hero__visual-node--red"></div>
+				<div class="hero__visual-node hero__visual-node--gold"></div>
+			</div>
 			<h2><?php esc_html_e( 'תחומי משפט נפוצים', 'justice-theme' ); ?></h2>
 
 			<?php

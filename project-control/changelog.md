@@ -1,6 +1,27 @@
 # Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-09 - Session: logo fallback and content depth correction
+
+### FIXED
+
+**[HIGH] Removed dummy logo fallback from visible brand**
+- Files: `template-parts/layout/site-header.php`, `template-parts/layout/site-footer.php`, `assets/css/premium-pass-3.css`
+- Header/footer no longer render the dummy `assets/images/logo.png` when no WordPress custom logo is configured.
+- Added a Jus-Tice wordmark fallback with a blinking red dot, matching the requested old-identity direction.
+
+### DOCUMENTED
+
+**[HIGH] Corrected content production standard**
+- Files: `project-control/pillar-content-production-system.md`, `project-control/article-briefs-5000-word.csv`, `project-control/logo-audit.md`, `project-control/current-status.md`, `project-control/next-actions.md`
+- Current seeded article starters are now explicitly marked as scaffolds only.
+- Production direction is 5,000-word-class, SERP-driven, reviewed legal content connected to Maya Rotenberg, internal links, lead forms, tools, and pillar/supporting architecture.
+
+### NOT VERIFIED
+
+- PHP lint could not run locally because PHP is not available in this shell.
+- Live rendering is not verified until GitHub/Upress pulls the repo and cache is refreshed.
+
 ## 2026-05-09 - Session: repo-sync stabilization
 
 ### SEO GOALS

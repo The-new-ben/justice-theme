@@ -12,6 +12,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Google Search Console URL opened to the public/about screen; `jus-tice.co.il` property access was NOT VERIFIED in this browser check.
 - Local theme has required WordPress files: `style.css`, `index.php`, `functions.php`, `header.php`, `footer.php`.
 - `assets/images/logo.png` exists in repo.
+- `assets/images/logo.png` is a dummy placeholder, not a usable final brand asset.
 - Hero search form in local repo submits to the `justice_lawyer` archive with `area`, `city`, and `keyword` params.
 - `latest-articles.php` no longer needs regular `post` content for homepage article feed in the intended architecture.
 
@@ -49,7 +50,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer registration now sends an admin email and adds a WordPress admin review queue at `Lawyer Onboarding`.
 - Owner CRM overview added at `Justice CRM` in WordPress admin for leads and LegalTech requests.
 - Core practice-area term seeder added for the 10 main legal areas with Hebrew names and English slugs.
-- Bundled `assets/images/logo.png` now renders as header/footer fallback when no custom logo is configured.
+- Header/footer fallback no longer renders the dummy bundled logo. It now renders a Jus-Tice wordmark with a red blinking dot when no WordPress custom logo is configured.
 - Lawyer seeders hardened across all plugin candidates: demo profiles use canonical practice-area slugs where available, remain draft/unverified/inactive, are not homepage-featured, are not lead-routed, and are marked `SEED_DATA`.
 - Added first LegalTech product layer in code: CMS-backed legal tools, private tool requests, homepage gateway, archive/single templates, and starter tools for AI intake, demand letter, family agreement, and real-estate contract review.
 - Added `project-control/legaltech-platform-roadmap.md` to document the broader document automation, AI console, lawyer-review and passive-income product plan.
@@ -78,6 +79,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - SERP research is PARTIAL. Initial web sampling was recorded, but manual top-10 capture, People Also Ask, autocomplete, and GSC data are still NOT VERIFIED.
 - Legal pillar draft pages are NOT VERIFIED on live; they seed only after Upress pulls the commit and an admin dashboard visit runs.
 - Draft SEO article starters are NOT VERIFIED live; they seed only after Upress pulls the commit, the `articles` CPT exists, and an admin dashboard visit runs.
+- Current draft SEO article starters are NOT enough for publication. User direction is 5,000-word-class pillar/supporting articles built from SERP reverse engineering, intent mapping, FAQs, related lawyers, and internal links.
 - Practice-area hub rendering is NOT VERIFIED on live after this pass.
 - Lawyer registration page and submission handler are NOT VERIFIED live until latest code is pulled and `/wp-admin/` runs the page seeder.
 - Lawyer dashboard page is NOT VERIFIED live; it seeds `/lawyer-dashboard/` after Upress pull and an admin dashboard visit.
@@ -98,7 +100,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Live lawyer cards show city slugs such as `tel-aviv` in the public extract, which means terms or assigned values may not be user-facing Hebrew in every place.
 - Live archive still exposes multiple demo lawyers publicly; this must be cleaned or moved to draft/private from WP admin/API after active plugin and content ownership are verified.
 - Existing public demo lawyers on live may predate the hardened seeder and require manual/API cleanup after backup.
-- The 5 article starters are not publication-ready; they are scaffolds for controlled content production, not finished legal articles.
+- The 5 article starters are not publication-ready; they are scaffolds only. Production target is long-form, source-backed, reviewed legal content, not short SEO stubs.
 - Existing live Hebrew slugs need a controlled English-slug migration with 301 redirects; repo changes prevent future seed slugs but do not automatically fix already-published URLs unless an approved migration runs.
 - Live homepage extract shows "Content is protected !!", likely from a content-protection/accessibility/plugin layer; source and impact are NOT VERIFIED.
 - Spam source remains NOT VERIFIED. Homepage may be hiding spam by querying only `articles`, but database cleanup is still required.
@@ -107,9 +109,9 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 1. Verify the exact GitHub sync target and active plugin path.
 2. Decide whether `justice-core/` will replace `ultra-justice-engine/` on live or whether the legacy active folder must be renamed in a controlled migration.
 3. Use admin/API access to set Maya Rotenberg's live slug to `advocate-maya-rotenberg` and draft/unpublish demo lawyers after backup.
-4. Run PHP lint on changed files.
+4. Run PHP lint on changed files when PHP is available locally or on server.
 5. Pull latest repo in Upress and visit `/wp-admin/` once to trigger LegalTech starter tool seeding.
 6. Verify `/legal-tools/`, `/legal-tools/ai-intake/`, and one test LegalTech request in admin.
 7. Commit only repo-safe changes; do not create ZIPs.
 8. Export live URL/slug inventory before changing any Hebrew slugs; fill `url-migration-map.csv`, then create approved 301 redirects for every changed URL.
-9. Pull latest in Upress and visit `/wp-admin/` once to seed draft pillar pages, then review/publish `/divorce-lawyer/` first.
+9. Pull latest in Upress and visit `/wp-admin/` once to seed draft pillar pages, then expand/review/publish `/divorce-lawyer/` first as the first 5,000-word-class pillar.

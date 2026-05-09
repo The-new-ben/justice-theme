@@ -22,7 +22,7 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0544705733' );
 				<?php if ( has_custom_logo() ) : ?>
 					<?php echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'style' => 'max-width: 180px; height: auto;' ) ); ?>
 				<?php else : ?>
-					<div style="font-size: 2.2rem; font-weight: 800; color: #fff; line-height: 1; letter-spacing: -0.5px;">Jus-Tice<span style="color: var(--jt-accent);">.</span></div>
+					<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.png' ); ?>" alt="Jus-Tice Logo" style="max-width: 180px; height: auto;" />
 				<?php endif; ?>
 			</div>
 			<p style="color: rgba(255,255,255,0.65); line-height: 1.7; font-size: 1.05rem; max-width: 400px; margin-bottom: 2rem;">

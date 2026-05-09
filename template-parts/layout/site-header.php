@@ -76,13 +76,59 @@ $justice_phone = justice_theme_option( 'justice_phone', '03-6161535' );
 
 /**
  * Fallback menu when no menu is assigned.
+ * Shows a full premium navigation — auto-pulled from taxonomy where possible.
  */
 function justice_theme_fallback_menu() {
+	// Pull top practice-area terms dynamically for dropdown
+	$practice_terms = get_terms( array(
+		'taxonomy'   => 'practice-areas',
+		'hide_empty' => false,
+		'number'     => 10,
+		'orderby'    => 'count',
+		'order'      => 'DESC',
+	) );
 	?>
 	<ul id="primary-menu" class="menu">
-		<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>"><?php esc_html_e( 'עמוד הבית', 'justice-theme' ); ?></a></li>
-		<li><a href="<?php echo esc_url( get_post_type_archive_link( 'articles' ) ); ?>"><?php esc_html_e( 'מאמרים משפטיים', 'justice-theme' ); ?></a></li>
+		<li class="menu-item"><a href="<?php echo esc_url( home_url( '/' ) ); ?>">עמוד הבית</a></li>
+
+		<li class="menu-item menu-item-has-children">
+			<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>">עורכי דין</a>
+		</li>
+
+		<li class="menu-item menu-item-has-children">
+			<a href="#">תחומי משפט</a>
+			<?php if ( ! empty( $practice_terms ) && ! is_wp_error( $practice_terms ) ) : ?>
+			<ul class="sub-menu">
+				<?php foreach ( $practice_terms as $term ) : ?>
+				<li class="menu-item">
+					<a href="<?php echo esc_url( get_term_link( $term ) ); ?>">
+						<?php echo esc_html( $term->name ); ?>
+					</a>
+				</li>
+				<?php endforeach; ?>
+			</ul>
+			<?php else : ?>
+			<ul class="sub-menu">
+				<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=family' ) ); ?>">משפחה וגירושין</a></li>
+				<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=criminal' ) ); ?>">משפט פלילי</a></li>
+				<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=real-estate' ) ); ?>">מקרקעין ונדל"ן</a></li>
+				<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=labor' ) ); ?>">דיני עבודה</a></li>
+				<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=torts' ) ); ?>">נזיקין ותאונות</a></li>
+				<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=traffic' ) ); ?>">תעבורה</a></li>
+				<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=inheritance' ) ); ?>">ירושה וצוואות</a></li>
+				<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=taxes' ) ); ?>">מיסים</a></li>
+			</ul>
+			<?php endif; ?>
+		</li>
+
+		<li class="menu-item"><a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>">מאמרים משפטיים</a></li>
+
+		<li class="menu-item"><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>">ייעוץ משפטי</a></li>
+
+		<li class="menu-item menu-item--cta"><a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>">מצאו עורך דין</a></li>
 	</ul>
 	<?php
 }
+
+
 

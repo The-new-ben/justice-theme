@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Articles archive.
  *
@@ -14,7 +14,7 @@ get_header();
 			<?php esc_html_e( 'ספריית מאמרים משפטיים', 'justice-theme' ); ?>
 		</p>
 
-		<h1><?php post_type_archive_title(); ?></h1>
+		<h1><?php esc_html_e( 'ספריית מאמרים משפטיים', 'justice-theme' ); ?></h1>
 
 		<p>
 			<?php esc_html_e( 'מדריכים משפטיים, הסברים מעשיים ומידע לפי תחום משפטי.', 'justice-theme' ); ?>

@@ -12,6 +12,12 @@
 
 ### FIXES
 
+**[CRITICAL] Added the live homepage template path**
+- File: `page-home.php`
+- Live HTML showed body class `page-template-page-home`, meaning WordPress is using the page template `page-home.php`.
+- The repo previously had `front-page.php` but not `page-home.php`, so homepage changes could miss the actual live template assignment.
+- `page-home.php` now loads the same premium homepage sections, including `featured-lawyers`.
+
 **[HIGH] Corrected lawyer taxonomy ownership in plugin code**
 - Files: `ultra-justice-engine/includes/taxonomy-city.php`, `ultra-justice-engine/includes/taxonomy-practice-areas.php`, `ultra-justice/includes/taxonomy-city.php`, `ultra-justice/includes/taxonomy-practice-areas.php`
 - `city` taxonomy now attaches to `justice_lawyer`.

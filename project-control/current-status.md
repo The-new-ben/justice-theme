@@ -16,6 +16,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - `latest-articles.php` no longer needs regular `post` content for homepage article feed in the intended architecture.
 
 ## FIXED IN THIS PASS
+- Added tracked `page-home.php` because the live homepage is assigned to the `page-home.php` page template, not only `front-page.php`.
 - Removed failed package artifacts from the previous interrupted ZIP attempt.
 - Added a canonical source candidate at `justice-core/justice-core.php` for repo review.
 - Fixed taxonomy ownership in legacy plugin folders: `city` now attaches to `justice_lawyer`; `practice-areas` now attaches to `articles`, `justice_lawyer`, and `post`.
@@ -43,6 +44,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Live homepage does not yet show Maya Rotenberg at the time of browser verification.
 - Live `/lawyers/advocate-maya-rotenberg/` currently redirects to the homepage, indicating the live slug is not migrated yet.
 - GSC property visibility, sitemap status, and performance data are NOT VERIFIED.
+- The new homepage lawyer section was not visible before adding `page-home.php` because the live page assignment uses `page-template-page-home`.
 
 ## STILL BROKEN / RISK
 - Repo still contains duplicate plugin-like folders: `ultra-justice/`, `ultra-justice-engine/`, and new `justice-core/`.

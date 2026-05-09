@@ -62,17 +62,7 @@ foreach ($inc in $RequiredIncludes) {
 # ─── 2. Validate Theme Structure ────────────────────────────────────────────
 
 Write-Host ""
-Write-Host "--- Validating Theme Structure ---" -ForegroundColor Yellow
-
-$RequiredThemeFiles = @("style.css", "index.php", "functions.php", "header.php", "footer.php")
-foreach ($f in $RequiredThemeFiles) {
-    $path = Join-Path $ThemeSrc $f
-    if (-not (Test-Path $path)) {
-        $Errors += "MISSING THEME FILE: justice-theme/$f"
-    } else {
-        Write-Host "  OK: $f" -ForegroundColor Green
-    }
-}
+Write-Host "--- Validating Theme Structure --- (REMOVED - Theme is deployed via Upress Git Sync)" -ForegroundColor Yellow
 
 $StyleCSS = Join-Path $ThemeSrc "style.css"
 if (Test-Path $StyleCSS) {
@@ -162,57 +152,18 @@ if (-not $hasMain) {
 $sizeMB = [math]::Round((Get-Item $PluginZip).Length / 1MB, 2)
 Write-Host "  Plugin ZIP: $PluginZip ($sizeMB MB)" -ForegroundColor Green
 
-# ─── 7. Create Theme ZIP ────────────────────────────────────────────────────
 
-Write-Host ""
-Write-Host "--- Creating Theme ZIP ---" -ForegroundColor Yellow
-
-if (Test-Path $ThemeZip) { Remove-Item $ThemeZip -Force }
-
-# Copy to temp to strip git
-$TempRoot = Join-Path $env:TEMP "justice-build-temp"
-if (Test-Path $TempRoot) { Remove-Item $TempRoot -Recurse -Force }
-New-Item -ItemType Directory -Path $TempRoot | Out-Null
-
-$TempTheme = Join-Path $TempRoot "jus-tice-ui"
-Copy-Item -Path $ThemeSrc -Destination $TempTheme -Recurse -Force
-
-# Remove .git if present
-$GitDir = Join-Path $TempTheme ".git"
-if (Test-Path $GitDir) { Remove-Item $GitDir -Recurse -Force }
-
-Compress-Archive -Path $TempTheme -DestinationPath $ThemeZip -Force
-Remove-Item $TempRoot -Recurse -Force
-
-
-# Rename internal folder to justice-theme if it got named justice-theme-build
-# Verify ZIP structure
-$zip2 = [System.IO.Compression.ZipFile]::OpenRead($ThemeZip)
-$entries = $zip2.Entries | Select-Object -First 5 | ForEach-Object { $_.FullName }
-$zip2.Dispose()
-
-Write-Host "  Theme ZIP entries (first 5):" -ForegroundColor Gray
-foreach ($e in $entries) { Write-Host "    $e" -ForegroundColor Gray }
-
-$themeZipSizeMB = [math]::Round((Get-Item $ThemeZip).Length / 1MB, 2)
-Write-Host "  Theme ZIP: $ThemeZip ($themeZipSizeMB MB)" -ForegroundColor Green
-
-# ─── 8. Summary ─────────────────────────────────────────────────────────────
+# ─── 7. Print Instructions ──────────────────────────────────────────────────
 
 Write-Host ""
 Write-Host "=== BUILD COMPLETE ===" -ForegroundColor Cyan
 Write-Host ""
-Write-Host "Upload order:"
-Write-Host "  1. PLUGIN: $PluginZip"
-Write-Host "     → https://jus-tice.co.il/wp-admin/update.php?action=upload-plugin"
-Write-Host "     → Select 'Replace current with uploaded' if prompted"
-Write-Host "     → Activate"
+Write-Host "Upload instructions:" -ForegroundColor Yellow
+Write-Host "  PLUGIN: $PluginZip" -ForegroundColor Gray
+Write-Host "     1. https://jus-tice.co.il/wp-admin/update.php?action=upload-plugin"
+Write-Host "     2. Select 'Replace current with uploaded' if prompted"
+Write-Host "     3. Activate"
 Write-Host ""
-Write-Host "  2. THEME: $ThemeZip"  
-Write-Host "     → https://jus-tice.co.il/wp-admin/update.php?action=upload-theme"
-Write-Host "     → Select 'Replace current with uploaded' if prompted"
-Write-Host "     → Activate"
-Write-Host ""
-Write-Host "After upload, verify:"
-Write-Host "  GET https://jus-tice.co.il/wp-json/justice-core/v1/health"
+Write-Host "After upload, verify:" -ForegroundColor Yellow
+Write-Host "  GET https://jus-tice.co.il/wp-json/jus-tice-engine/v1/health" -ForegroundColor Gray
 Write-Host ""

@@ -3,11 +3,11 @@
  * Justice Core — REST Content Tools
  *
  * Routes:
- *   GET /wp-json/jus-tice-engine/v1/content/lawyers
- *   GET /wp-json/jus-tice-engine/v1/content/posts
- *   GET /wp-json/jus-tice-engine/v1/content/leads
- *   POST /wp-json/jus-tice-engine/v1/content/update-meta
- *   POST /wp-json/jus-tice-engine/v1/content/trash-post
+ *   GET /wp-json/ultra-justice/v1/content/lawyers
+ *   GET /wp-json/ultra-justice/v1/content/posts
+ *   GET /wp-json/ultra-justice/v1/content/leads
+ *   POST /wp-json/ultra-justice/v1/content/update-meta
+ *   POST /wp-json/ultra-justice/v1/content/trash-post
  *
  * All routes: admin-only.
  * All writes: logged.
@@ -19,17 +19,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'rest_api_init', 'jte_register_content_routes' );
+add_action( 'rest_api_init', 'uj_register_content_routes' );
 
-function jte_register_content_routes(): void {
+function uj_register_content_routes(): void {
 	$admin_only = function () {
 		return current_user_can( 'manage_options' );
 	};
 
 	// Read routes
-	register_rest_route( 'jus-tice-engine/v1', '/content/lawyers', array(
+	register_rest_route( 'ultra-justice/v1', '/content/lawyers', array(
 		'methods'             => 'GET',
-		'callback'            => 'jte_content_lawyers',
+		'callback'            => 'uj_content_lawyers',
 		'permission_callback' => $admin_only,
 		'args'                => array(
 			'per_page' => array( 'type' => 'integer', 'default' => 50, 'minimum' => 1, 'maximum' => 200 ),
@@ -37,9 +37,9 @@ function jte_register_content_routes(): void {
 		),
 	) );
 
-	register_rest_route( 'jus-tice-engine/v1', '/content/posts', array(
+	register_rest_route( 'ultra-justice/v1', '/content/posts', array(
 		'methods'             => 'GET',
-		'callback'            => 'jte_content_posts',
+		'callback'            => 'uj_content_posts',
 		'permission_callback' => $admin_only,
 		'args'                => array(
 			'per_page' => array( 'type' => 'integer', 'default' => 50, 'minimum' => 1, 'maximum' => 200 ),
@@ -48,16 +48,16 @@ function jte_register_content_routes(): void {
 		),
 	) );
 
-	register_rest_route( 'jus-tice-engine/v1', '/content/leads', array(
+	register_rest_route( 'ultra-justice/v1', '/content/leads', array(
 		'methods'             => 'GET',
-		'callback'            => 'jte_content_leads',
+		'callback'            => 'uj_content_leads',
 		'permission_callback' => $admin_only,
 	) );
 
 	// Write routes
-	register_rest_route( 'jus-tice-engine/v1', '/content/update-meta', array(
+	register_rest_route( 'ultra-justice/v1', '/content/update-meta', array(
 		'methods'             => 'POST',
-		'callback'            => 'jte_update_meta',
+		'callback'            => 'uj_update_meta',
 		'permission_callback' => $admin_only,
 		'args'                => array(
 			'post_id'  => array( 'type' => 'integer', 'required' => true ),
@@ -66,9 +66,9 @@ function jte_register_content_routes(): void {
 		),
 	) );
 
-	register_rest_route( 'jus-tice-engine/v1', '/content/trash-post', array(
+	register_rest_route( 'ultra-justice/v1', '/content/trash-post', array(
 		'methods'             => 'POST',
-		'callback'            => 'jte_trash_post',
+		'callback'            => 'uj_trash_post',
 		'permission_callback' => $admin_only,
 		'args'                => array(
 			'post_id' => array( 'type' => 'integer', 'required' => true ),
@@ -77,7 +77,7 @@ function jte_register_content_routes(): void {
 	) );
 }
 
-function jte_content_lawyers( WP_REST_Request $request ): WP_REST_Response {
+function uj_content_lawyers( WP_REST_Request $request ): WP_REST_Response {
 	$query = new WP_Query( array(
 		'post_type'      => 'justice_lawyer',
 		'post_status'    => 'publish',
@@ -114,7 +114,7 @@ function jte_content_lawyers( WP_REST_Request $request ): WP_REST_Response {
 	) );
 }
 
-function jte_content_posts( WP_REST_Request $request ): WP_REST_Response {
+function uj_content_posts( WP_REST_Request $request ): WP_REST_Response {
 	$status = sanitize_text_field( $request->get_param( 'status' ) );
 	$allowed_statuses = array( 'publish', 'draft', 'private', 'any', 'trash' );
 	if ( ! in_array( $status, $allowed_statuses, true ) ) {
@@ -154,7 +154,7 @@ function jte_content_posts( WP_REST_Request $request ): WP_REST_Response {
 	) );
 }
 
-function jte_content_leads( WP_REST_Request $request ): WP_REST_Response {
+function uj_content_leads( WP_REST_Request $request ): WP_REST_Response {
 	$query = new WP_Query( array(
 		'post_type'      => 'justice_lead',
 		'post_status'    => 'publish',
@@ -187,7 +187,7 @@ function jte_content_leads( WP_REST_Request $request ): WP_REST_Response {
 /**
  * Update a single post meta field (logged write).
  */
-function jte_update_meta( WP_REST_Request $request ): WP_REST_Response {
+function uj_update_meta( WP_REST_Request $request ): WP_REST_Response {
 	$post_id  = absint( $request->get_param( 'post_id' ) );
 	$meta_key = sanitize_key( $request->get_param( 'meta_key' ) );
 	$meta_val = sanitize_text_field( $request->get_param( 'meta_val' ) );
@@ -215,7 +215,7 @@ function jte_update_meta( WP_REST_Request $request ): WP_REST_Response {
 	$old_val = get_post_meta( $post_id, $meta_key, true );
 	update_post_meta( $post_id, $meta_key, $meta_val );
 
-	jte_log( 'update_meta', "Updated {$meta_key} on post #{$post_id}", array(
+	uj_log( 'update_meta', "Updated {$meta_key} on post #{$post_id}", array(
 		'post_id'  => $post_id,
 		'meta_key' => $meta_key,
 		'old_val'  => $old_val,
@@ -234,7 +234,7 @@ function jte_update_meta( WP_REST_Request $request ): WP_REST_Response {
 /**
  * Move a post to trash (logged write). Does NOT permanently delete.
  */
-function jte_trash_post( WP_REST_Request $request ): WP_REST_Response {
+function uj_trash_post( WP_REST_Request $request ): WP_REST_Response {
 	$post_id = absint( $request->get_param( 'post_id' ) );
 	$reason  = sanitize_text_field( $request->get_param( 'reason' ) );
 
@@ -253,7 +253,7 @@ function jte_trash_post( WP_REST_Request $request ): WP_REST_Response {
 		return new WP_REST_Response( array( 'ok' => false, 'error' => 'wp_trash_post failed.' ), 500 );
 	}
 
-	jte_log( 'trash_post', "Trashed post #{$post_id}: {$post->post_title}", array(
+	uj_log( 'trash_post', "Trashed post #{$post_id}: {$post->post_title}", array(
 		'post_id' => $post_id,
 		'title'   => $post->post_title,
 		'type'    => $post->post_type,
@@ -267,3 +267,4 @@ function jte_trash_post( WP_REST_Request $request ): WP_REST_Response {
 		'message' => 'Post moved to trash. Use WP Admin to restore or permanently delete.',
 	) );
 }
+

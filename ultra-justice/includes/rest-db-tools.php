@@ -3,11 +3,11 @@
  * Justice Core — REST DB Inspection Tools
  *
  * Routes:
- *   GET /wp-json/jus-tice-engine/v1/reports/spam
- *   GET /wp-json/jus-tice-engine/v1/reports/duplicates
- *   GET /wp-json/jus-tice-engine/v1/reports/users
- *   GET /wp-json/jus-tice-engine/v1/reports/cron
- *   GET /wp-json/jus-tice-engine/v1/reports/options-suspect
+ *   GET /wp-json/ultra-justice/v1/reports/spam
+ *   GET /wp-json/ultra-justice/v1/reports/duplicates
+ *   GET /wp-json/ultra-justice/v1/reports/users
+ *   GET /wp-json/ultra-justice/v1/reports/cron
+ *   GET /wp-json/ultra-justice/v1/reports/options-suspect
  *
  * All routes: admin-only. SELECT inspection only. No write.
  *
@@ -18,25 +18,25 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-add_action( 'rest_api_init', 'jte_register_db_routes' );
+add_action( 'rest_api_init', 'uj_register_db_routes' );
 
-function jte_register_db_routes(): void {
+function uj_register_db_routes(): void {
 	$admin_only = function () {
 		return current_user_can( 'manage_options' );
 	};
 
 	$routes = array(
-		'/reports/spam'            => 'jte_report_spam',
-		'/reports/duplicates'      => 'jte_report_duplicates',
-		'/reports/users'           => 'jte_report_users',
-		'/reports/cron'            => 'jte_report_cron',
-		'/reports/options-suspect' => 'jte_report_options',
-		'/reports/plugins'         => 'jte_report_plugins',
-		'/reports/log'             => 'jte_report_log',
+		'/reports/spam'            => 'uj_report_spam',
+		'/reports/duplicates'      => 'uj_report_duplicates',
+		'/reports/users'           => 'uj_report_users',
+		'/reports/cron'            => 'uj_report_cron',
+		'/reports/options-suspect' => 'uj_report_options',
+		'/reports/plugins'         => 'uj_report_plugins',
+		'/reports/log'             => 'uj_report_log',
 	);
 
 	foreach ( $routes as $path => $callback ) {
-		register_rest_route( 'jus-tice-engine/v1', $path, array(
+		register_rest_route( 'ultra-justice/v1', $path, array(
 			'methods'             => 'GET',
 			'callback'            => $callback,
 			'permission_callback' => $admin_only,
@@ -47,7 +47,7 @@ function jte_register_db_routes(): void {
 /**
  * Find casino/gambling/gaming content in posts and pages.
  */
-function jte_report_spam(): WP_REST_Response {
+function uj_report_spam(): WP_REST_Response {
 	global $wpdb;
 
 	$terms = array( 'casino', 'gambling', 'gaming', 'slot', 'poker', 'bet ', 'betting', 'wager', 'lottery', 'jackpot', 'blackjack' );
@@ -105,7 +105,7 @@ function jte_report_spam(): WP_REST_Response {
 /**
  * Find duplicate post titles.
  */
-function jte_report_duplicates(): WP_REST_Response {
+function uj_report_duplicates(): WP_REST_Response {
 	global $wpdb;
 
 	$rows = $wpdb->get_results(
@@ -132,7 +132,7 @@ function jte_report_duplicates(): WP_REST_Response {
 /**
  * List all WordPress users.
  */
-function jte_report_users(): WP_REST_Response {
+function uj_report_users(): WP_REST_Response {
 	global $wpdb;
 
 	$rows = $wpdb->get_results(
@@ -159,7 +159,7 @@ function jte_report_users(): WP_REST_Response {
 /**
  * Inspect WP cron jobs — look for suspicious scheduled tasks.
  */
-function jte_report_cron(): WP_REST_Response {
+function uj_report_cron(): WP_REST_Response {
 	$cron  = _get_cron_array();
 	$items = array();
 
@@ -204,7 +204,7 @@ function jte_report_cron(): WP_REST_Response {
 /**
  * Inspect suspicious wp_options entries.
  */
-function jte_report_options(): WP_REST_Response {
+function uj_report_options(): WP_REST_Response {
 	global $wpdb;
 
 	$rows = $wpdb->get_results(
@@ -233,7 +233,7 @@ function jte_report_options(): WP_REST_Response {
 /**
  * List active and inactive plugins with their status.
  */
-function jte_report_plugins(): WP_REST_Response {
+function uj_report_plugins(): WP_REST_Response {
 	if ( ! function_exists( 'get_plugins' ) ) {
 		require_once ABSPATH . 'wp-admin/includes/plugin.php';
 	}
@@ -266,8 +266,8 @@ function jte_report_plugins(): WP_REST_Response {
 /**
  * Read the internal log.
  */
-function jte_report_log(): WP_REST_Response {
-	$log = get_option( 'jte_log', array() );
+function uj_report_log(): WP_REST_Response {
+	$log = get_option( 'uj_log', array() );
 
 	return new WP_REST_Response( array(
 		'ok'    => true,
@@ -275,3 +275,4 @@ function jte_report_log(): WP_REST_Response {
 		'rows'  => array_reverse( $log ),
 	) );
 }
+

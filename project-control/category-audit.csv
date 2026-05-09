@@ -1,0 +1,11 @@
+id,name,slug,parent,count,length,problem,recommended_name,recommended_parent,action
+1,עורכי דין דיני משפחה וגירושין,family-law,0,12,30,Too long for cards,משפחה וגירושין,0,RENAME
+2,עורכי דין פליליים,criminal-law,0,8,17,Too long,פלילי,0,RENAME
+3,עורכי דין דיני תעבורה,traffic-law,0,15,21,Too long,תעבורה,0,RENAME
+4,עורכי דין מקרקעין ונדל"ן,real-estate,0,20,24,Too long,מקרקעין,0,RENAME
+5,עורכי דין נזיקין ותאונות,torts,0,10,25,Too long,נזיקין,0,RENAME
+6,עורכי דין דיני עבודה,labor-law,0,18,20,Too long,עבודה,0,RENAME
+7,עורכי דין צוואות וירושות,wills-estates,0,14,25,Too long,ירושה וצוואות,0,RENAME
+8,עורכי דין רשלנות רפואית,medical-malpractice,0,9,23,Too long,רשלנות רפואית,0,RENAME
+9,עורכי דין מיסים,taxes,0,5,15,Too long,מיסים,0,RENAME
+10,עורכי דין סייבר ופרטיות,cyber-privacy,0,3,23,Too long,סייבר ופרטיות,0,RENAME

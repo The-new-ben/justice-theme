@@ -1,0 +1,9 @@
+url,page_type,status,notes
+/,Homepage,Pending,
+/articles/,Articles Archive,Pending,
+/article/sample,Single Article,Pending,
+/practice-areas/sample,Category Page,Pending,
+/lawyers/,Lawyer Archive,Pending,
+/lawyer/sample,Lawyer Profile,Pending,
+/?s=test,Search Page,Pending,
+/404,404 Page,Pending,

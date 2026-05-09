@@ -157,6 +157,7 @@ CRITICAL: Do NOT include `Template: some-theme` unless this is intentionally a c
 | justice-core-v3/ | Single monolith file, conflicted with active justice-core/ v2 which registers same functions |
 | justice-theme-v2.zip | Correct ZIP structure, but may have had .git folder inflating size |
 | Multiple zip versions | ZIP folder name didn't match expected plugin slug on server |
+| ultra-justice-engine.zip | Used PowerShell `Compress-Archive` which embeds Windows backslashes (`\`) into the ZIP index. Linux servers (Upress) extract this as a flat list of strangely named files (e.g., `ultra-justice-engine\includes\admin-pages.php`) instead of real directories. **Fix: Use `tar -a -c -f` on Windows to guarantee forward slashes (`/`).** |
 
 ---
 

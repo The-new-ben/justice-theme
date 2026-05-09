@@ -170,3 +170,4 @@ wp term create practice-areas "הגירה ואזרחות" --slug=immigration --d
 - Production target is 5,000-word-class pillar/supporting articles, not short SEO pages.
 - Each major article must be built from SERP reverse engineering: intent, competing page types, related questions, price/process/risk sections, internal links, related lawyer mini-site blocks, sources, author/reviewer, and legal disclaimer.
 - First full production candidate: `/divorce-lawyer/` and the connected Maya Rotenberg mini-site/content cluster.
+- Repo drafts can now be imported into the CMS from `Tools > Jus-Tice Content Drafts`. Imports are draft-only and require legal/editorial review before publication.

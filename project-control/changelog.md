@@ -23,6 +23,12 @@
 - Corrected fallback practice-area query slugs to canonical English slugs.
 - Added stronger premium header/nav styling.
 
+**[HIGH] Added CMS importer for repo content drafts**
+- Files: `inc/content-draft-importer.php`, `functions.php`
+- Adds `Tools > Jus-Tice Content Drafts` for admin-only importing of `content-drafts/*.md`.
+- Imports long-form drafts into the `articles` CPT as draft-only posts.
+- Blocks automatic refresh of already-published articles and marks imports as requiring legal review.
+
 ### DOCUMENTED
 
 **[HIGH] Corrected content production standard**

@@ -28,6 +28,7 @@ $justice_theme_files = array(
 	'inc/lead-classifier.php',
 	'inc/pillar-pages.php',
 	'inc/pillar-article-seed.php',
+	'inc/content-draft-importer.php',
 	'inc/lawyer-onboarding.php',
 	'inc/lawyer-dashboard.php',
 	'inc/lawyer-plans.php',

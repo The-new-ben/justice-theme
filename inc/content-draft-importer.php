@@ -1,0 +1,287 @@
+<?php
+/**
+ * Admin-only importer for repo-maintained long-form content drafts.
+ *
+ * @package JusticeTheme
+ */
+
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+}
+
+add_action( 'admin_menu', 'justice_theme_register_content_draft_importer' );
+add_action( 'admin_init', 'justice_theme_handle_content_draft_import' );
+
+function justice_theme_register_content_draft_importer(): void {
+	add_management_page(
+		__( 'Jus-Tice Content Drafts', 'justice-theme' ),
+		__( 'Jus-Tice Content Drafts', 'justice-theme' ),
+		'manage_options',
+		'justice-content-drafts',
+		'justice_theme_render_content_draft_importer'
+	);
+}
+
+function justice_theme_render_content_draft_importer(): void {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		return;
+	}
+
+	$drafts = justice_theme_get_repo_content_drafts();
+	?>
+	<div class="wrap">
+		<h1><?php esc_html_e( 'Jus-Tice Content Drafts', 'justice-theme' ); ?></h1>
+		<p><?php esc_html_e( 'Import long-form repo drafts into the articles CMS as draft-only posts. Existing non-imported content is never overwritten.', 'justice-theme' ); ?></p>
+
+		<?php if ( ! post_type_exists( 'articles' ) ) : ?>
+			<div class="notice notice-warning"><p><?php esc_html_e( 'The articles post type is not active, so imports are blocked.', 'justice-theme' ); ?></p></div>
+		<?php endif; ?>
+
+		<table class="widefat striped">
+			<thead>
+				<tr>
+					<th><?php esc_html_e( 'File', 'justice-theme' ); ?></th>
+					<th><?php esc_html_e( 'Slug', 'justice-theme' ); ?></th>
+					<th><?php esc_html_e( 'Title', 'justice-theme' ); ?></th>
+					<th><?php esc_html_e( 'CMS Status', 'justice-theme' ); ?></th>
+					<th><?php esc_html_e( 'Action', 'justice-theme' ); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ( $drafts as $draft ) : ?>
+					<?php
+					$existing = get_page_by_path( $draft['slug'], OBJECT, 'articles' );
+					$status   = $existing ? get_post_status( $existing ) : __( 'Not imported', 'justice-theme' );
+					$url      = wp_nonce_url(
+						add_query_arg(
+							array(
+								'action' => 'justice_import_content_draft',
+								'file'   => rawurlencode( $draft['file'] ),
+							),
+							admin_url( 'tools.php?page=justice-content-drafts' )
+						),
+						'justice_import_content_draft_' . $draft['file']
+					);
+					?>
+					<tr>
+						<td><code><?php echo esc_html( $draft['file'] ); ?></code></td>
+						<td><code><?php echo esc_html( $draft['slug'] ); ?></code></td>
+						<td><?php echo esc_html( $draft['title'] ); ?></td>
+						<td><?php echo esc_html( $status ); ?></td>
+						<td>
+							<?php if ( post_type_exists( 'articles' ) ) : ?>
+								<a class="button" href="<?php echo esc_url( $url ); ?>"><?php esc_html_e( 'Import / refresh draft', 'justice-theme' ); ?></a>
+							<?php else : ?>
+								<span><?php esc_html_e( 'Blocked', 'justice-theme' ); ?></span>
+							<?php endif; ?>
+						</td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
+	<?php
+}
+
+function justice_theme_handle_content_draft_import(): void {
+	if (
+		! is_admin()
+		|| ! current_user_can( 'manage_options' )
+		|| empty( $_GET['action'] )
+		|| 'justice_import_content_draft' !== $_GET['action']
+		|| empty( $_GET['file'] )
+	) {
+		return;
+	}
+
+	$file = sanitize_file_name( wp_unslash( $_GET['file'] ) );
+	check_admin_referer( 'justice_import_content_draft_' . $file );
+
+	$result = justice_theme_import_repo_content_draft( $file );
+	$args   = array(
+		'page'                    => 'justice-content-drafts',
+		'justice_import_result'   => $result['status'],
+		'justice_import_message'  => rawurlencode( $result['message'] ),
+	);
+
+	wp_safe_redirect( add_query_arg( $args, admin_url( 'tools.php' ) ) );
+	exit;
+}
+
+function justice_theme_get_repo_content_drafts(): array {
+	$dir = JUSTICE_THEME_DIR . '/content-drafts';
+
+	if ( ! is_dir( $dir ) ) {
+		return array();
+	}
+
+	$drafts = array();
+	foreach ( glob( $dir . '/*.md' ) ?: array() as $path ) {
+		$raw = file_get_contents( $path );
+		if ( false === $raw ) {
+			continue;
+		}
+
+		$drafts[] = array(
+			'file'  => basename( $path ),
+			'slug'  => justice_theme_extract_content_draft_slug( $raw, basename( $path, '.md' ) ),
+			'title' => justice_theme_extract_content_draft_title( $raw ),
+		);
+	}
+
+	usort(
+		$drafts,
+		static function ( $a, $b ) {
+			return strcmp( $a['slug'], $b['slug'] );
+		}
+	);
+
+	return $drafts;
+}
+
+function justice_theme_import_repo_content_draft( string $file ): array {
+	if ( ! post_type_exists( 'articles' ) ) {
+		return array( 'status' => 'blocked', 'message' => 'articles post type is not active.' );
+	}
+
+	$path = JUSTICE_THEME_DIR . '/content-drafts/' . sanitize_file_name( $file );
+	if ( ! is_readable( $path ) ) {
+		return array( 'status' => 'failed', 'message' => 'Draft file was not found.' );
+	}
+
+	$raw = file_get_contents( $path );
+	if ( false === $raw ) {
+		return array( 'status' => 'failed', 'message' => 'Draft file could not be read.' );
+	}
+
+	$slug  = justice_theme_extract_content_draft_slug( $raw, basename( $file, '.md' ) );
+	$title = justice_theme_extract_content_draft_title( $raw );
+	$html  = justice_theme_markdown_draft_to_html( $raw );
+
+	$existing = get_page_by_path( $slug, OBJECT, 'articles' );
+	if ( $existing ) {
+		$source_file = get_post_meta( $existing->ID, 'repo_content_draft_file', true );
+		if ( $source_file && $source_file !== $file ) {
+			return array( 'status' => 'blocked', 'message' => 'Existing article is linked to a different repo draft.' );
+		}
+
+		if ( 'draft' !== get_post_status( $existing ) ) {
+			return array( 'status' => 'blocked', 'message' => 'Existing article is not draft; manual review required before refresh.' );
+		}
+
+		$post_id = wp_update_post( array(
+			'ID'           => $existing->ID,
+			'post_title'   => $title,
+			'post_content' => $html,
+			'post_status'  => 'draft',
+		), true );
+	} else {
+		$post_id = wp_insert_post( array(
+			'post_type'    => 'articles',
+			'post_status'  => 'draft',
+			'post_name'    => $slug,
+			'post_title'   => $title,
+			'post_content' => $html,
+		), true );
+	}
+
+	if ( is_wp_error( $post_id ) ) {
+		return array( 'status' => 'failed', 'message' => $post_id->get_error_message() );
+	}
+
+	update_post_meta( $post_id, 'content_status', 'production_draft_from_repo' );
+	update_post_meta( $post_id, 'repo_content_draft_file', $file );
+	update_post_meta( $post_id, 'needs_legal_review', '1' );
+	update_post_meta( $post_id, 'source_note', 'Imported from repo content-drafts. Draft only; legal/editorial review required before publication.' );
+
+	return array( 'status' => 'success', 'message' => 'Draft imported as article ID ' . (int) $post_id . '.' );
+}
+
+function justice_theme_extract_content_draft_slug( string $raw, string $fallback ): string {
+	if ( preg_match( '/^Slug target:\s*`?\/?([^`\/\r\n]+)\/?`?/mi', $raw, $matches ) ) {
+		return sanitize_title( $matches[1] );
+	}
+
+	return sanitize_title( $fallback );
+}
+
+function justice_theme_extract_content_draft_title( string $raw ): string {
+	if ( preg_match( '/^#\s+(.+)$/m', $raw, $matches ) ) {
+		return wp_strip_all_tags( trim( $matches[1] ) );
+	}
+
+	return __( 'Untitled legal draft', 'justice-theme' );
+}
+
+function justice_theme_markdown_draft_to_html( string $raw ): string {
+	$raw   = preg_replace( '/^Slug target:.*$/mi', '', $raw );
+	$raw   = preg_replace( '/^Status:.*$/mi', '', $raw );
+	$raw   = preg_replace( '/^Target length:.*$/mi', '', $raw );
+	$raw   = preg_replace( '/^Connected .*$/mi', '', $raw );
+	$raw   = preg_replace( '/^Cluster:.*$/mi', '', $raw );
+	$raw   = preg_replace( '/^Primary keyword:.*$/mi', '', $raw );
+	$raw   = preg_replace( '/^Secondary keywords:.*$/mi', '', $raw );
+	$lines = preg_split( '/\r\n|\r|\n/', trim( $raw ) );
+	$html  = '';
+	$list  = false;
+
+	foreach ( $lines as $line ) {
+		$line = trim( $line );
+		if ( '' === $line ) {
+			if ( $list ) {
+				$html .= "</ul>\n";
+				$list  = false;
+			}
+			continue;
+		}
+
+		if ( preg_match( '/^###\s+(.+)$/', $line, $matches ) ) {
+			if ( $list ) {
+				$html .= "</ul>\n";
+				$list  = false;
+			}
+			$html .= '<h3>' . esc_html( $matches[1] ) . "</h3>\n";
+			continue;
+		}
+
+		if ( preg_match( '/^##\s+(.+)$/', $line, $matches ) ) {
+			if ( $list ) {
+				$html .= "</ul>\n";
+				$list  = false;
+			}
+			$html .= '<h2>' . esc_html( $matches[1] ) . "</h2>\n";
+			continue;
+		}
+
+		if ( preg_match( '/^#\s+(.+)$/', $line, $matches ) ) {
+			if ( $list ) {
+				$html .= "</ul>\n";
+				$list  = false;
+			}
+			$html .= '<h1>' . esc_html( $matches[1] ) . "</h1>\n";
+			continue;
+		}
+
+		if ( 0 === strpos( $line, '- ' ) ) {
+			if ( ! $list ) {
+				$html .= "<ul>\n";
+				$list  = true;
+			}
+			$html .= '<li>' . esc_html( substr( $line, 2 ) ) . "</li>\n";
+			continue;
+		}
+
+		if ( $list ) {
+			$html .= "</ul>\n";
+			$list  = false;
+		}
+
+		$html .= '<p>' . esc_html( $line ) . "</p>\n";
+	}
+
+	if ( $list ) {
+		$html .= "</ul>\n";
+	}
+
+	return wp_kses_post( $html );
+}

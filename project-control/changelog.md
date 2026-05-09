@@ -61,6 +61,11 @@
 - Files: `template-parts/layout/site-header.php`, `template-parts/layout/site-footer.php`, `assets/css/premium-pass-3.css`, `project-control/logo-audit.md`
 - If no WordPress custom logo is configured, the theme now renders `assets/images/logo.png` instead of only a text lockup.
 
+**[MEDIUM] Re-verified lawyer archive filter i18n**
+- File: `archive-justice_lawyer.php`
+- ACTION-012 is already satisfied in the repo: filter labels, options, placeholder and submit button are escaped and translation-ready.
+- Live rendering still needs post-sync visual verification.
+
 ### URL STRATEGY
 
 **[HIGH] Confirmed final English-slug strategy**

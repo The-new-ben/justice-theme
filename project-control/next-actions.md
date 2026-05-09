@@ -99,22 +99,26 @@ wp term create practice-areas "הגירה ואזרחות" --slug=immigration --d
 ## MEDIUM PRIORITY
 
 ### ACTION-009: Install Yoast SEO / RankMath
+**Status:** BLOCKED in repo-only mode - requires wp-admin plugin install decision and live activation
 - Generates XML sitemap automatically
 - Adds canonical tags to all pages
 - Adds `og:image` for social sharing
 - Do NOT install both
 
 ### ACTION-010: Configure Customizer Contact Info
+**Status:** BLOCKED in repo-only mode - requires live Customizer/admin access
 - Set `justice_phone` — appears in header CTA and footer
 - Set `justice_email` — appears in footer
 - Set `justice_whatsapp` — appears in float button and lawyer profiles
 
 ### ACTION-011: Connect Google Search Console
+**Status:** BLOCKED - requires verified Google account/property access
 - Verify domain ownership
 - Submit sitemap: `https://jus-tice.co.il/sitemap_index.xml`
 - Set preferred country: Israel
 
 ### ACTION-012: Fix i18n in archive-justice_lawyer.php
+**Status:** COMPLETED in code
 **File:** `archive-justice_lawyer.php`  
 **Issue:** Filter labels use raw Hebrew strings not wrapped in `esc_html_e()`  
 **Lines to fix:**

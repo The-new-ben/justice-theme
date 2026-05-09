@@ -27,6 +27,7 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - GOOD: Lead/LegalTech sections exist and the page has more business depth than a basic blog.
 - GOOD: After the live pull recheck, article placeholders are visually richer and the hero has a visible legal-tech layer.
 - STILL BROKEN: Header navigation remains too thin for the final product and needs a stronger primary menu/mega-menu.
+- FIXED IN REPO / LIVE NOT VERIFIED: Header fallback menu labels were cleaned to readable Hebrew, canonical practice-area filter slugs were corrected, LegalTech and lawyer-registration links were added, and header styling was strengthened.
 
 ## Public HTML Checks
 - VERIFIED: homepage loads.

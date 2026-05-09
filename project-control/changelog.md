@@ -16,6 +16,13 @@
 - Replaced the flat gray article image placeholder with a more premium legal-document visual treatment.
 - Removed decorative broken/emoji-like date and reading-time symbols from article card metadata.
 
+**[MEDIUM] Strengthened fallback navigation**
+- Files: `template-parts/layout/site-header.php`, `assets/css/premium-pass-3.css`
+- Replaced mojibake fallback labels with readable Hebrew labels.
+- Added LegalTech and lawyer-registration links to the fallback primary menu.
+- Corrected fallback practice-area query slugs to canonical English slugs.
+- Added stronger premium header/nav styling.
+
 ### DOCUMENTED
 
 **[HIGH] Corrected content production standard**

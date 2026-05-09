@@ -39,8 +39,7 @@ $justice_phone = justice_theme_option( 'justice_phone', '03-6161535' );
 					<?php the_custom_logo(); ?>
 				<?php else : ?>
 					<a class="site-branding__link" href="<?php echo esc_url( home_url( '/' ) ); ?>">
-						<span class="site-branding__name"><?php bloginfo( 'name' ); ?></span>
-						<span class="site-branding__description"><?php bloginfo( 'description' ); ?></span>
+						<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.png' ); ?>" alt="<?php bloginfo( 'name' ); ?> Logo" />
 					</a>
 				<?php endif; ?>
 			</div>

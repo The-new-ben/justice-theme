@@ -1,4 +1,4 @@
-# Changelog — Jus-Tice.co.il
+﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
 ## 2026-05-09 - Session: logo fallback and content depth correction
@@ -40,8 +40,9 @@
 
 **[HIGH] Expanded divorce-lawyer pillar draft**
 - Files: `content-drafts/divorce-lawyer-pillar-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/task-board.csv`, `project-control/current-status.md`
-- Expanded the flagship `/divorce-lawyer/` draft from about 1,963 words to about 3,670 words.
+- Expanded the flagship `/divorce-lawyer/` draft from about 1,963 words to about 5,067 words across two sequential passes.
 - Added decision-path segmentation, process timeline, document checklist, common mistakes, lawyer-comparison guidance, Jus-Tice funnel logic, CMS module plan, and official-source anchors.
+- Added rabbinical/ketubah, agreement, common-law separation, children, complex-assets, urgent-relief, lawyer content monetization, and expanded FAQ sections.
 - Status remains NOT VERIFIED for legal accuracy and not ready to publish.
 
 **[MEDIUM] Rechecked live header**

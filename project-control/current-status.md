@@ -1,4 +1,4 @@
-# Current Status - Jus-Tice.co.il
+﻿# Current Status - Jus-Tice.co.il
 Date: 2026-05-09
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
@@ -102,7 +102,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Live archive still exposes multiple demo lawyers publicly; this must be cleaned or moved to draft/private from WP admin/API after active plugin and content ownership are verified.
 - Existing public demo lawyers on live may predate the hardened seeder and require manual/API cleanup after backup.
 - The 5 article starters are not publication-ready; they are scaffolds only. Production target is long-form, source-backed, reviewed legal content, not short SEO stubs.
-- First long-form divorce pillar production draft now exists in repo at `content-drafts/divorce-lawyer-pillar-he.md` and was expanded to about 3,670 words with a decision map, process timeline, document checklist, common mistakes, lawyer-comparison guidance, CMS module plan and official-source anchors. It is still NOT legal-reviewed and not ready to publish.
+- First long-form divorce pillar production draft now exists in repo at `content-drafts/divorce-lawyer-pillar-he.md` and was expanded to about 5,067 words with a decision map, process timeline, document checklist, common mistakes, rabbinical/ketubah notes, agreement/common-law/children/assets/urgent-relief sections, lawyer-comparison guidance, FAQ, CMS module plan and official-source anchors. It is still NOT legal-reviewed and not ready to publish.
 - First supporting family-law draft now exists at `content-drafts/consensual-divorce-supporting-he.md`, but it is NOT legal-reviewed and not ready to publish.
 - Second supporting family-law draft now exists at `content-drafts/divorce-mediation-supporting-he.md`, but it is NOT legal-reviewed and not ready to publish.
 - Third supporting family-law draft now exists at `content-drafts/child-support-supporting-he.md`, but it is NOT legal-reviewed and not ready to publish.

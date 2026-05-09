@@ -32,6 +32,10 @@
 - Submitted lawyers become draft `justice_lawyer` profiles with `pending` verification/status and `source_type=registration`.
 - No lawyer profile is auto-published.
 
+**[HIGH] Documented lawyer onboarding workflow**
+- File: `project-control/lawyer-onboarding-workflow.md`
+- Defines review, verification, publishing, paid-plan and anti-fake-claim rules for incoming lawyer submissions.
+
 ### URL STRATEGY
 
 **[HIGH] Confirmed final English-slug strategy**

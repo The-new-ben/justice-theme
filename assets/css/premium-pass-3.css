@@ -1617,3 +1617,159 @@
     width: 100%;
   }
 }
+
+.lawyer-registration-hero {
+  background:
+    linear-gradient(135deg, rgba(7,21,47,0.98), rgba(39,46,70,0.94)),
+    radial-gradient(circle at 18% 20%, rgba(197,164,92,0.24), transparent 34%);
+  color: #fff;
+}
+
+.lawyer-registration-hero__grid,
+.lawyer-registration__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+  gap: 1.25rem;
+  align-items: start;
+}
+
+.lawyer-registration-hero h1,
+.lawyer-registration-hero p {
+  color: #fff;
+}
+
+.lawyer-registration-hero p {
+  max-width: 760px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.8;
+}
+
+.lawyer-registration-hero__panel,
+.lawyer-registration__content,
+.lawyer-registration__side {
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  background: #fff;
+  padding: 1.2rem;
+  box-shadow: var(--jt-shadow);
+}
+
+.lawyer-registration-hero__panel {
+  border-color: rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  backdrop-filter: blur(14px);
+}
+
+.lawyer-registration-hero__panel strong {
+  display: block;
+  color: #e8c97a;
+  font-weight: 900;
+}
+
+.lawyer-registration-hero__panel ul,
+.lawyer-registration__side ul {
+  display: grid;
+  gap: 0.65rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lawyer-registration-hero__panel li {
+  border-top: 1px solid rgba(255,255,255,0.14);
+  padding-top: 0.65rem;
+  color: rgba(255,255,255,0.84);
+}
+
+.lawyer-registration__side {
+  position: sticky;
+  top: 110px;
+}
+
+.lawyer-registration__side li {
+  border-bottom: 1px solid var(--jt-border);
+  padding-bottom: 0.65rem;
+  color: var(--jt-muted);
+  line-height: 1.65;
+}
+
+.lawyer-registration__side li:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.lawyer-registration-form,
+.lawyer-registration-form__grid {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.lawyer-registration-form__grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.lawyer-registration-form label {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--jt-muted);
+  font-weight: 800;
+}
+
+.lawyer-registration-form input,
+.lawyer-registration-form select,
+.lawyer-registration-form textarea {
+  width: 100%;
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  padding: 0.82rem;
+  font: inherit;
+}
+
+.lawyer-registration-form__full {
+  grid-column: 1 / -1;
+}
+
+.lawyer-registration-form__consent {
+  grid-template-columns: auto 1fr;
+  align-items: start;
+  font-size: 0.9rem;
+}
+
+.lawyer-registration-form__consent input {
+  width: auto;
+  margin-top: 0.25rem;
+}
+
+.lawyer-registration-form__trap {
+  position: absolute;
+  left: -9999px;
+  opacity: 0;
+}
+
+.lawyer-registration__error {
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  padding: 0.85rem;
+  background: #fff1f1;
+  color: #8a1f1f;
+  font-weight: 900;
+}
+
+@media (max-width: 900px) {
+  .lawyer-registration-hero__grid,
+  .lawyer-registration__grid,
+  .lawyer-registration-form__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .lawyer-registration__side {
+    position: static;
+  }
+}
+
+@media (max-width: 560px) {
+  .lawyer-registration-form .button {
+    width: 100%;
+  }
+}

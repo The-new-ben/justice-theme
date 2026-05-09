@@ -26,6 +26,12 @@
 - Practice pages now show a stronger hero, related lawyer cards, article cards, LegalTech tools, and sibling practice links.
 - This moves category pages toward SEO/commercial hubs instead of thin article archives.
 
+**[CRITICAL] Added lawyer self-registration funnel**
+- Files: `page-lawyer-registration.php`, `inc/lawyer-onboarding.php`, `functions.php`, `assets/css/premium-pass-3.css`
+- `/lawyer-registration/` can be seeded as a public page after admin visit.
+- Submitted lawyers become draft `justice_lawyer` profiles with `pending` verification/status and `source_type=registration`.
+- No lawyer profile is auto-published.
+
 ### URL STRATEGY
 
 **[HIGH] Confirmed final English-slug strategy**

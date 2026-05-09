@@ -1,0 +1,139 @@
+<?php
+/**
+ * Template Name: Lawyer Registration
+ *
+ * @package JusticeTheme
+ */
+
+get_header();
+
+$practice_terms = taxonomy_exists( 'practice-areas' )
+	? get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => false ) )
+	: array();
+?>
+
+<section class="lawyer-registration-hero section">
+	<div class="container lawyer-registration-hero__grid">
+		<div>
+			<p class="section-header__eyebrow"><?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?></p>
+			<h1><?php esc_html_e( 'בנו נוכחות דיגיטלית שמייצרת פניות, אמון ותוכן מקצועי', 'justice-theme' ); ?></h1>
+			<p><?php esc_html_e( 'Jus-Tice נבנית כפלטפורמה לעורכי דין: מיני-סייט מקצועי, תוכן חתום על שמכם, פניות מסודרות, כלים משפטיים ויכולת לגדול למסלולי פרסום ולידים.', 'justice-theme' ); ?></p>
+		</div>
+		<aside class="lawyer-registration-hero__panel">
+			<strong><?php esc_html_e( 'מה מקבלים בהמשך הדרך?', 'justice-theme' ); ?></strong>
+			<ul>
+				<li><?php esc_html_e( 'פרופיל עורך דין עשיר עם תחומי עיסוק, מדיה ותוכן.', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'אפשרות למאמרים, מדריכים וכלים דיגיטליים סביב התחום שלכם.', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'תשתית עתידית ללידים, סטטוס פניות ומסלולי תשלום.', 'justice-theme' ); ?></li>
+			</ul>
+		</aside>
+	</div>
+</section>
+
+<section class="lawyer-registration section">
+	<div class="container lawyer-registration__grid">
+		<div class="lawyer-registration__content">
+			<h2><?php esc_html_e( 'הרשמה ראשונית', 'justice-theme' ); ?></h2>
+			<p><?php esc_html_e( 'הפרופיל לא מתפרסם אוטומטית. לאחר שליחה הוא נכנס לבדיקה, אימות ועריכה לפני עלייה לאתר.', 'justice-theme' ); ?></p>
+
+			<?php if ( isset( $_GET['registration'] ) && 'sent' === $_GET['registration'] ) : ?>
+				<div class="legaltool-request__notice"><?php esc_html_e( 'הטופס התקבל. הפרופיל ייבדק לפני פרסום.', 'justice-theme' ); ?></div>
+			<?php elseif ( isset( $_GET['registration'] ) && 'blocked' === $_GET['registration'] ) : ?>
+				<div class="lawyer-registration__error"><?php esc_html_e( 'מערכת פרופילי עורכי הדין אינה פעילה כרגע. נסו שוב מאוחר יותר.', 'justice-theme' ); ?></div>
+			<?php elseif ( isset( $_GET['registration'] ) ) : ?>
+				<div class="lawyer-registration__error"><?php esc_html_e( 'חסרים פרטים או שהשליחה נכשלה. בדקו את הטופס ונסו שוב.', 'justice-theme' ); ?></div>
+			<?php endif; ?>
+
+			<form class="lawyer-registration-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<input type="hidden" name="action" value="justice_lawyer_registration">
+				<?php wp_nonce_field( 'justice_lawyer_registration', 'justice_lawyer_registration_nonce' ); ?>
+				<p class="lawyer-registration-form__trap">
+					<label>Website <input type="text" name="website_url_confirm" tabindex="-1" autocomplete="off"></label>
+				</p>
+
+				<div class="lawyer-registration-form__grid">
+					<label>
+						<span><?php esc_html_e( 'שם מלא', 'justice-theme' ); ?></span>
+						<input type="text" name="lawyer_full_name" required autocomplete="name">
+					</label>
+					<label>
+						<span><?php esc_html_e( 'שם משרד', 'justice-theme' ); ?></span>
+						<input type="text" name="firm_name">
+					</label>
+					<label>
+						<span><?php esc_html_e( 'מספר רישיון', 'justice-theme' ); ?></span>
+						<input type="text" name="bar_number">
+					</label>
+					<label>
+						<span><?php esc_html_e( 'תחום עיקרי', 'justice-theme' ); ?></span>
+						<select name="practice_area">
+							<option value=""><?php esc_html_e( 'בחרו תחום', 'justice-theme' ); ?></option>
+							<?php if ( ! empty( $practice_terms ) && ! is_wp_error( $practice_terms ) ) : ?>
+								<?php foreach ( $practice_terms as $term ) : ?>
+									<option value="<?php echo esc_attr( $term->slug ); ?>"><?php echo esc_html( $term->name ); ?></option>
+								<?php endforeach; ?>
+							<?php endif; ?>
+						</select>
+					</label>
+					<label>
+						<span><?php esc_html_e( 'טלפון', 'justice-theme' ); ?></span>
+						<input type="tel" name="phone" required autocomplete="tel">
+					</label>
+					<label>
+						<span><?php esc_html_e( 'אימייל', 'justice-theme' ); ?></span>
+						<input type="email" name="email" required autocomplete="email">
+					</label>
+					<label>
+						<span>WhatsApp</span>
+						<input type="tel" name="whatsapp">
+					</label>
+					<label>
+						<span><?php esc_html_e( 'אתר קיים', 'justice-theme' ); ?></span>
+						<input type="url" name="website" placeholder="https://">
+					</label>
+					<label>
+						<span><?php esc_html_e( 'ערים/אזורי שירות', 'justice-theme' ); ?></span>
+						<input type="text" name="cities_served" placeholder="<?php esc_attr_e( 'תל אביב, רמת גן, ירושלים', 'justice-theme' ); ?>">
+					</label>
+					<label>
+						<span><?php esc_html_e( 'שפות', 'justice-theme' ); ?></span>
+						<input type="text" name="languages" placeholder="<?php esc_attr_e( 'עברית, אנגלית', 'justice-theme' ); ?>">
+					</label>
+					<label>
+						<span><?php esc_html_e( 'מסלול שמעניין אותך', 'justice-theme' ); ?></span>
+						<select name="plan_interest">
+							<option value="free"><?php esc_html_e( 'פרופיל בסיסי', 'justice-theme' ); ?></option>
+							<option value="pro"><?php esc_html_e( 'מיני-סייט מקצועי', 'justice-theme' ); ?></option>
+							<option value="featured"><?php esc_html_e( 'חשיפה מוגברת', 'justice-theme' ); ?></option>
+							<option value="lead_partner"><?php esc_html_e( 'שיתוף לידים', 'justice-theme' ); ?></option>
+							<option value="full_service"><?php esc_html_e( 'שירות מלא', 'justice-theme' ); ?></option>
+						</select>
+					</label>
+					<label class="lawyer-registration-form__full">
+						<span><?php esc_html_e( 'תיאור קצר', 'justice-theme' ); ?></span>
+						<textarea name="bio_short" rows="5" placeholder="<?php esc_attr_e( 'ספרו בקצרה על תחומי העיסוק, ניסיון, קהל יעד ומה תרצו להציג בפרופיל.', 'justice-theme' ); ?>"></textarea>
+					</label>
+				</div>
+
+				<label class="lawyer-registration-form__consent">
+					<input type="checkbox" name="consent" value="1" required>
+					<span><?php esc_html_e( 'אני מאשר/ת יצירת פרופיל טיוטה ובדיקת הפרטים לפני פרסום. ברור לי שהפרופיל לא יפורסם אוטומטית.', 'justice-theme' ); ?></span>
+				</label>
+
+				<button class="button button--gold" type="submit"><?php esc_html_e( 'שליחת פרטים לבדיקה', 'justice-theme' ); ?></button>
+			</form>
+		</div>
+
+		<aside class="lawyer-registration__side">
+			<h2><?php esc_html_e( 'למה זה חשוב לעורך דין?', 'justice-theme' ); ?></h2>
+			<ul>
+				<li><?php esc_html_e( 'עמוד פרופיל עשיר יותר מכרטיס רגיל.', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'חיבור למאמרים ותחומי מומחיות.', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'אפשרות עתידית לקבל פניות מסודרות לפי תחום ועיר.', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'תשתית לתוכן, וידאו, ביקורות מאושרות וכלים משפטיים.', 'justice-theme' ); ?></li>
+			</ul>
+		</aside>
+	</div>
+</section>
+
+<?php get_footer(); ?>

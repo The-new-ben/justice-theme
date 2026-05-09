@@ -16,6 +16,13 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - FIXED IN REPO: Wordmark direction was corrected with `direction: ltr` and `unicode-bidi: isolate` because the live RTL page displayed the fallback as `Tice dot Jus` instead of `Jus dot Tice`.
 - VERIFIED: New screenshots captured at `project-control/visual-evidence/homepage-after-pull-desktop.png` and `project-control/visual-evidence/homepage-after-pull-mobile.png`.
 
+## 2026-05-10 Header Recheck
+- VERIFIED: Live homepage returned HTTP 200.
+- VERIFIED: `brand-lockup--justice` is present live.
+- VERIFIED: Public HTML includes `/legal-tools/` and `/lawyer-registration/` links.
+- VERIFIED: Dummy logo text is not present.
+- NOT VERIFIED: Admin-only content draft importer cannot be verified from public homepage HTML, as expected.
+
 ## Visual Findings
 - STILL BROKEN: Header still looks too thin for a premium legal portal.
 - STILL BROKEN: The logo appears too small and does not show the new blinking red dot fallback yet, indicating the live site likely has not pulled the latest commit or cache is stale.

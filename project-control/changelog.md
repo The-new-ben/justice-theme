@@ -34,6 +34,11 @@
 - Documented the divorce pillar and five supporting pages as separate search intents.
 - Added internal links from pillar to support pages, support pages to Maya Rotenberg, and cannibalization rules for mediation/agreement/support/custody/property topics.
 
+**[MEDIUM] Rechecked live header**
+- Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
+- Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.
+- Confirmed dummy logo text is not present.
+
 ### DOCUMENTED
 
 **[HIGH] Corrected content production standard**

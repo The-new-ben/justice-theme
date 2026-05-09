@@ -36,3 +36,20 @@ Risk:
 Status: ACTIVE
 
 Seed/demo lawyer profiles must not be marked as verified or described as partners unless actually verified. Paid/sponsored status must be clearly labeled.
+
+## DECISION-005 - URL Language Strategy
+Status: FINAL
+
+The site is Hebrew-first in content and UI, but URLs/slugs must be short, clean English.
+
+Reason:
+- English slugs are easier to read, share, type, maintain, debug, redirect, track, and integrate with SEO tools.
+- Hebrew remains the language of page titles, H1s, menus, breadcrumbs labels, article content, lawyer profiles, and visible UI.
+
+Implementation:
+- Map all current URLs first.
+- Convert Hebrew slugs to short English slugs.
+- Keep clean existing English slugs.
+- Avoid duplicates and messy `-2` / `-3` suffixes.
+- Use 301 redirects only after approval and traffic-risk review.
+- Update internal links, breadcrumbs, canonicals, and sitemap after migration.

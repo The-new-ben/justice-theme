@@ -3,6 +3,15 @@
 
 ## 2026-05-09 - Session: repo-sync stabilization
 
+### URL STRATEGY
+
+**[HIGH] Confirmed final English-slug strategy**
+- Files: `project-control/decisions.md`, `project-control/url-strategy.md`, `project-control/slug-normalization-rules.md`, `project-control/url-migration-map.csv`, `project-control/url-slug-migration-plan.md`, `project-control/current-status.md`
+- Final decision: Hebrew content and UI, short clean English slugs.
+- Added initial migration map with major legal pillar/supporting URLs and the known live Maya Hebrew slug issue.
+- Added `project-control/strategic-goals.md` and `project-control/url-hebrew-audit.csv`.
+- No redirects or live URL changes were executed.
+
 ### LEGALTECH PLATFORM
 
 **[HIGH] Added first LegalTech tools and intake foundation**

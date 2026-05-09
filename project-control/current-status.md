@@ -35,7 +35,10 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Homepage templates now include an editable WordPress page-content band through `template-parts/sections/home-page-content.php`, with a basic spam keyword guard.
 - Self-serve/passive-income platform direction documented in `project-control/self-serve-lawyer-platform-plan.md`.
 - Breadcrumbs fixed in repo: generic single posts no longer render breadcrumbs twice, and lawyer/article/archive breadcrumb hierarchy is explicit.
-- English-only URL/slug migration is documented as a planned project, not a blind bulk rename.
+- Final URL decision documented: Hebrew content/UI with short clean English slugs only.
+- URL strategy files created/updated: `url-strategy.md`, `slug-normalization-rules.md`, `url-migration-map.csv`, and legacy `url-slug-migration-plan.md`.
+- Strategic goals file created at `project-control/strategic-goals.md`.
+- Hebrew-slug audit file created at `project-control/url-hebrew-audit.csv`.
 - Added first LegalTech product layer in code: CMS-backed legal tools, private tool requests, homepage gateway, archive/single templates, and starter tools for AI intake, demand letter, family agreement, and real-estate contract review.
 - Added `project-control/legaltech-platform-roadmap.md` to document the broader document automation, AI console, lawyer-review and passive-income product plan.
 
@@ -59,7 +62,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Do not delete the legacy plugin folders until live active plugin path is verified; otherwise GitHub sync could remove the currently active plugin and break CPTs.
 - Live lawyer cards show city slugs such as `tel-aviv` in the public extract, which means terms or assigned values may not be user-facing Hebrew in every place.
 - Live archive still exposes multiple demo lawyers publicly; this must be cleaned or moved to draft/private from WP admin/API after active plugin and content ownership are verified.
-- Existing live Hebrew slugs need a controlled 301 migration; repo changes prevent future seed slugs but do not automatically fix already-published URLs unless the seeder/admin migration is run.
+- Existing live Hebrew slugs need a controlled English-slug migration with 301 redirects; repo changes prevent future seed slugs but do not automatically fix already-published URLs unless an approved migration runs.
 - Live homepage extract shows "Content is protected !!", likely from a content-protection/accessibility/plugin layer; source and impact are NOT VERIFIED.
 - Spam source remains NOT VERIFIED. Homepage may be hiding spam by querying only `articles`, but database cleanup is still required.
 
@@ -71,4 +74,4 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 5. Pull latest repo in Upress and visit `/wp-admin/` once to trigger LegalTech starter tool seeding.
 6. Verify `/legal-tools/`, `/legal-tools/ai-intake/`, and one test LegalTech request in admin.
 7. Commit only repo-safe changes; do not create ZIPs.
-8. Export live URL/slug inventory before changing any Hebrew slugs; create redirects for every changed URL.
+8. Export live URL/slug inventory before changing any Hebrew slugs; fill `url-migration-map.csv`, then create approved 301 redirects for every changed URL.

@@ -1,0 +1,3 @@
+url,page_type,current_title,current_slug,issue,recommended_slug,traffic_risk,status,notes
+"/lawyers/%D7%A2%D7%95%D7%93-%D7%9E%D7%90%D7%99%D7%94-%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92/","justice_lawyer","עו״ד מאיה רוטנברג","עוד-מאיה-רוטנברג","HEBREW_SLUG","advocate-maya-rotenberg","UNKNOWN","MAPPED_NOT_EXECUTED","Known from prior live check; requires admin/API verification before changing."
+"UNKNOWN_LIVE_INVENTORY","mixed","Unknown","Unknown","NEEDS_EXPORT","TBD","UNKNOWN","BLOCKED","Full live URL inventory requires wp-admin/API/GSC access."

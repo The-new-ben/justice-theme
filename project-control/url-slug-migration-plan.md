@@ -4,7 +4,7 @@ Status: PLANNED - do not run blindly
 
 ## Rule
 
-All public URLs and slugs must be English / ASCII only.
+All public URLs and slugs must be short, clean English / ASCII only.
 
 Hebrew is correct for:
 - page titles
@@ -65,11 +65,13 @@ Hebrew is not allowed for:
 
 ## Required Mapping File
 
-Create `project-control/url-slug-map.csv` with:
+Canonical migration file is now `project-control/url-migration-map.csv` with:
 
 ```
-id,type,old_url,old_slug,new_slug,new_url,title,redirect_required,status,verified
+old_url,new_url,page_type,current_title,primary_keyword,search_intent,cluster,traffic_risk,redirect_required,status,notes
 ```
+
+Legacy helper file `project-control/url-slug-map.csv` can remain for old notes, but new URL work should use `url-migration-map.csv`.
 
 ## Suggested Slug Standards
 

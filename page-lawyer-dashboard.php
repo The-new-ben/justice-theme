@@ -127,7 +127,7 @@ $lead_count = $leads ? (int) $leads->found_posts : 0;
 							</dl>
 							<div class="lawyer-dashboard-profile__actions">
 								<a class="button button--outline" href="<?php echo esc_url( $profile_url ); ?>"><?php esc_html_e( 'צפייה בפרופיל', 'justice-theme' ); ?></a>
-								<a class="button button--gold" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'בקשת עדכון', 'justice-theme' ); ?></a>
+								<a class="button button--gold" href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>"><?php esc_html_e( 'שדרוג מסלול', 'justice-theme' ); ?></a>
 							</div>
 						</article>
 					<?php endwhile; wp_reset_postdata(); ?>

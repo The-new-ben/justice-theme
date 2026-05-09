@@ -1999,3 +1999,135 @@
     display: grid;
   }
 }
+
+.lawyer-plans-hero {
+  background:
+    linear-gradient(135deg, rgba(7,21,47,0.98), rgba(39,46,70,0.94)),
+    radial-gradient(circle at 20% 10%, rgba(197,164,92,0.26), transparent 34%);
+  color: #fff;
+}
+
+.lawyer-plans-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 380px);
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.lawyer-plans-hero h1,
+.lawyer-plans-hero p {
+  color: #fff;
+}
+
+.lawyer-plans-hero p {
+  max-width: 780px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.8;
+}
+
+.lawyer-plans-hero aside,
+.lawyer-plans__notice {
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.1);
+  padding: 1.1rem;
+  backdrop-filter: blur(14px);
+}
+
+.lawyer-plans-hero aside strong {
+  display: block;
+  color: #e8c97a;
+  font-weight: 900;
+}
+
+.lawyer-plans {
+  background: #fbfaf7;
+}
+
+.lawyer-plans__grid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.lawyer-plan-card {
+  display: flex;
+  min-height: 100%;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  background: #fff;
+  padding: 1rem;
+  box-shadow: var(--jt-shadow);
+}
+
+.lawyer-plan-card__top span {
+  display: inline-flex;
+  border-radius: 999px;
+  background: #f6f3ec;
+  color: var(--jt-accent);
+  padding: 0.25rem 0.65rem;
+  font-size: 0.8rem;
+  font-weight: 900;
+}
+
+.lawyer-plan-card h2 {
+  margin: 0.8rem 0 0.45rem;
+  color: var(--jt-primary-deep);
+  font-size: 1.22rem;
+}
+
+.lawyer-plan-card strong {
+  display: block;
+  color: var(--jt-primary);
+  font-weight: 900;
+}
+
+.lawyer-plan-card p,
+.lawyer-plan-card li {
+  color: var(--jt-muted);
+  line-height: 1.65;
+}
+
+.lawyer-plan-card ul {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.lawyer-plan-card li {
+  border-top: 1px solid var(--jt-border);
+  padding-top: 0.5rem;
+}
+
+.lawyer-plans__notice {
+  margin-top: 1rem;
+  border-color: var(--jt-border);
+  background: #fff;
+}
+
+.lawyer-plans__notice h2 {
+  color: var(--jt-primary-deep);
+}
+
+.lawyer-plans__notice p {
+  color: var(--jt-muted);
+  line-height: 1.75;
+}
+
+@media (max-width: 1180px) {
+  .lawyer-plans__grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .lawyer-plans-hero__grid,
+  .lawyer-plans__grid {
+    grid-template-columns: 1fr;
+  }
+}

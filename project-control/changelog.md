@@ -54,6 +54,13 @@
 - New self-registration submissions now store `claimed_by_user_id` when the lawyer is logged in.
 - Editing, payment and AI Console remain planned modules, not live promises.
 
+**[HIGH] Added safe lawyer plans and WooCommerce mapping layer**
+- Files: `page-lawyer-plans.php`, `inc/lawyer-plans.php`, `page-lawyer-dashboard.php`, `functions.php`, `assets/css/premium-pass-3.css`, `project-control/payment-subscription-architecture.md`
+- Adds `/lawyer-plans/` with the five commercial plan types already used by lawyer profile metadata.
+- Adds helper logic to route to WooCommerce checkout only when WooCommerce exists and a product ID is mapped.
+- Falls back to lawyer registration with plan interest when live billing is not configured.
+- Documents why payments stay disabled until product, gateway, tax/invoice and lawyer-advertising compliance checks are complete.
+
 **[HIGH] Added owner CRM overview**
 - Files: `inc/lead-crm.php`, `functions.php`
 - Adds a `Justice CRM` admin page with lead status cards, recent legal leads, and recent LegalTech requests.

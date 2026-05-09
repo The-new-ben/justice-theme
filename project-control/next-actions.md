@@ -135,7 +135,7 @@ wp term create practice-areas "הגירה ואזרחות" --slug=immigration --d
 
 - ACTION-013: Build lawyer self-registration page — COMPLETED in theme; live verification pending
 - ACTION-014: Build lawyer dashboard — PARTIAL: front-end dashboard MVP added; live verification and self-edit/payment modules still planned
-- ACTION-015: Integrate WooCommerce for plan subscriptions
+- ACTION-015: Integrate WooCommerce for plan subscriptions — PARTIAL: plan page and product-ID mapping hooks added; live WooCommerce install/product setup still blocked
 - ACTION-016: Build lead intake AI classification
 - ACTION-017: Build GSC weekly report automation
 - ACTION-018: Build city taxonomy + city × practice area pages

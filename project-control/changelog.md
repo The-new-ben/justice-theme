@@ -24,6 +24,7 @@
 - Added the first long-form production draft at `content-drafts/divorce-lawyer-pillar-he.md`.
 - Added the first supporting family-law draft at `content-drafts/consensual-divorce-supporting-he.md`.
 - Added the second supporting family-law draft at `content-drafts/divorce-mediation-supporting-he.md`.
+- Added the third supporting family-law draft at `content-drafts/child-support-supporting-he.md`.
 - Updated visual QA with live homepage screenshots and findings.
 
 ### NOT VERIFIED

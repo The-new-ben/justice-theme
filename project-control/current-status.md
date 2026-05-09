@@ -67,6 +67,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - The new homepage lawyer section was not visible before adding `page-home.php` because the live page assignment uses `page-template-page-home`.
 - Lawyer self-registration and a front-end lawyer dashboard MVP are built in code. Billing, AI console, self-edit workflow and full approval automation are still NOT BUILT.
 - Lawyer plan presentation and WooCommerce product-ID mapping helpers are built in code. Live billing is NOT enabled and remains blocked pending WooCommerce setup, product IDs, gateway testing and legal/ethical review.
+- Rule-based lead intake classification is built in code. Leads now receive detected area, detected urgency, summary and routing notes on save.
 - Live `/legal-tools/` is NOT VERIFIED until GitHub/Upress sync is pulled and WordPress rewrites/cache are refreshed.
 - Starter LegalTech tool posts are NOT VERIFIED on live; seeding runs on an admin dashboard visit after plugin code is active.
 - SERP research is PARTIAL. Initial web sampling was recorded, but manual top-10 capture, People Also Ask, autocomplete, and GSC data are still NOT VERIFIED.
@@ -76,6 +77,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer registration page and submission handler are NOT VERIFIED live until latest code is pulled and `/wp-admin/` runs the page seeder.
 - Lawyer dashboard page is NOT VERIFIED live; it seeds `/lawyer-dashboard/` after Upress pull and an admin dashboard visit.
 - Lawyer plans page is NOT VERIFIED live; it seeds `/lawyer-plans/` after Upress pull and an admin dashboard visit.
+- Lead classification is NOT VERIFIED live; it requires a test lead after Upress pull and active `justice_lead` CPT.
 - Lawyer onboarding admin queue and email notification are NOT VERIFIED live.
 - Justice CRM admin overview is NOT VERIFIED live.
 - Practice-area term seeding is NOT VERIFIED live; it runs after Upress pull and an admin dashboard visit, if the taxonomy is active.

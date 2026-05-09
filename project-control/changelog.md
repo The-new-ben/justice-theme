@@ -61,6 +61,12 @@
 - Falls back to lawyer registration with plan interest when live billing is not configured.
 - Documents why payments stay disabled until product, gateway, tax/invoice and lawyer-advertising compliance checks are complete.
 
+**[HIGH] Added rule-based lead intake classification**
+- Files: `inc/lead-classifier.php`, `inc/lead-crm.php`, `functions.php`, `project-control/lead-ai-classification.md`
+- New and edited `justice_lead` records receive detected legal area, urgency, summary and routing notes.
+- The CRM now displays the detected area when available.
+- This is an operational routing layer only; it does not provide legal advice and still requires human review.
+
 **[HIGH] Added owner CRM overview**
 - Files: `inc/lead-crm.php`, `functions.php`
 - Adds a `Justice CRM` admin page with lead status cards, recent legal leads, and recent LegalTech requests.

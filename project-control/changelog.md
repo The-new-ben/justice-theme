@@ -86,6 +86,10 @@
 - Form now collects email, city/area, urgency and consent in addition to name, phone, legal area and message.
 - These fields already map to the lead CPT handler and rule-based classifier.
 
+**[MEDIUM] Connected lawyer monetization pages to footer**
+- File: `template-parts/layout/site-footer.php`
+- Footer no longer points lawyer joining to `/join/`; it points to `/lawyer-registration/`, `/lawyer-plans/`, and `/lawyer-dashboard/`.
+
 **[HIGH] Added owner CRM overview**
 - Files: `inc/lead-crm.php`, `functions.php`
 - Adds a `Justice CRM` admin page with lead status cards, recent legal leads, and recent LegalTech requests.

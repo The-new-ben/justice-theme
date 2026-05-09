@@ -72,6 +72,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - GSC report script smoke test ran locally without secrets and safely generated BLOCKED placeholder CSVs instead of fake data.
 - City-practice architecture is built in code: core city seeder, city-practice template and five draft English-slug city/practice pages.
 - Public lead form upgraded to collect email, city/area, urgency and consent so CRM/AI classification receives usable routing data.
+- Lawyer monetization pages are linked from footer: registration, plans and dashboard.
 - Live `/legal-tools/` is NOT VERIFIED until GitHub/Upress sync is pulled and WordPress rewrites/cache are refreshed.
 - Starter LegalTech tool posts are NOT VERIFIED on live; seeding runs on an admin dashboard visit after plugin code is active.
 - SERP research is PARTIAL. Initial web sampling was recorded, but manual top-10 capture, People Also Ask, autocomplete, and GSC data are still NOT VERIFIED.

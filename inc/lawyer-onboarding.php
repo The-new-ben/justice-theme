@@ -88,11 +88,34 @@ function justice_theme_handle_lawyer_registration(): void {
 		uje_log( 'lawyer_registration', 'New lawyer registration draft: ' . $name );
 	}
 
+	justice_theme_notify_lawyer_registration( $post_id, $meta );
+
 	wp_safe_redirect( add_query_arg( 'registration', 'sent', home_url( '/lawyer-registration/' ) ) );
 	exit;
 }
 add_action( 'admin_post_justice_lawyer_registration', 'justice_theme_handle_lawyer_registration' );
 add_action( 'admin_post_nopriv_justice_lawyer_registration', 'justice_theme_handle_lawyer_registration' );
+
+function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): void {
+	$admin_email = get_option( 'admin_email' );
+
+	if ( ! $admin_email || ! is_email( $admin_email ) ) {
+		return;
+	}
+
+	$subject = 'New lawyer registration pending review';
+	$message = sprintf(
+		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\n\nReview: %s",
+		$meta['lawyer_full_name'] ?: '-',
+		$meta['firm_name'] ?: '-',
+		$meta['phone'] ?: '-',
+		$meta['email'] ?: '-',
+		$meta['plan_type'] ?: '-',
+		admin_url( 'post.php?post=' . $post_id . '&action=edit' )
+	);
+
+	wp_mail( $admin_email, $subject, $message );
+}
 
 function justice_theme_seed_lawyer_registration_page(): void {
 	if ( ! current_user_can( 'manage_options' ) || get_option( 'justice_lawyer_registration_page_seeded_v1' ) ) {
@@ -118,3 +141,92 @@ function justice_theme_seed_lawyer_registration_page(): void {
 	update_option( 'justice_lawyer_registration_page_seeded_v1', 1, false );
 }
 add_action( 'admin_init', 'justice_theme_seed_lawyer_registration_page' );
+
+function justice_theme_lawyer_onboarding_admin_menu(): void {
+	add_menu_page(
+		'Lawyer Onboarding',
+		'Lawyer Onboarding',
+		'edit_pages',
+		'justice-lawyer-onboarding',
+		'justice_theme_render_lawyer_onboarding_admin_page',
+		'dashicons-businessperson',
+		26
+	);
+}
+add_action( 'admin_menu', 'justice_theme_lawyer_onboarding_admin_menu' );
+
+function justice_theme_render_lawyer_onboarding_admin_page(): void {
+	if ( ! current_user_can( 'edit_pages' ) ) {
+		wp_die( esc_html__( 'You do not have permission to access this page.', 'justice-theme' ) );
+	}
+
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		?>
+		<div class="wrap">
+			<h1>Lawyer Onboarding</h1>
+			<p><strong>BLOCKED:</strong> `justice_lawyer` post type is not active. Verify the Justice plugin.</p>
+		</div>
+		<?php
+		return;
+	}
+
+	$pending = new WP_Query( array(
+		'post_type'      => 'justice_lawyer',
+		'post_status'    => array( 'draft', 'pending', 'private' ),
+		'posts_per_page' => 50,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'meta_query'     => array(
+			array(
+				'key'   => 'source_type',
+				'value' => 'registration',
+			),
+		),
+	) );
+	?>
+	<div class="wrap">
+		<h1>Lawyer Onboarding</h1>
+		<p>Pending lawyer self-registration submissions. Review identity, license, claims, practice areas and commercial plan before publishing.</p>
+
+		<?php if ( $pending->have_posts() ) : ?>
+			<table class="widefat striped">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Firm</th>
+						<th>Phone</th>
+						<th>Email</th>
+						<th>Plan</th>
+						<th>Status</th>
+						<th>Submitted</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php while ( $pending->have_posts() ) : $pending->the_post(); ?>
+						<?php
+						$post_id = get_the_ID();
+						$status  = get_post_meta( $post_id, 'profile_status', true ) ?: get_post_status( $post_id );
+						?>
+						<tr>
+							<td><strong><?php echo esc_html( get_the_title() ); ?></strong></td>
+							<td><?php echo esc_html( get_post_meta( $post_id, 'firm_name', true ) ?: '-' ); ?></td>
+							<td><?php echo esc_html( get_post_meta( $post_id, 'phone', true ) ?: '-' ); ?></td>
+							<td><?php echo esc_html( get_post_meta( $post_id, 'email', true ) ?: '-' ); ?></td>
+							<td><?php echo esc_html( get_post_meta( $post_id, 'plan_type', true ) ?: '-' ); ?></td>
+							<td><?php echo esc_html( $status ); ?></td>
+							<td><?php echo esc_html( get_the_date() ); ?></td>
+							<td><a class="button button-primary" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Review</a></td>
+						</tr>
+					<?php endwhile; ?>
+				</tbody>
+			</table>
+			<?php wp_reset_postdata(); ?>
+		<?php else : ?>
+			<div class="notice notice-info inline">
+				<p>No pending lawyer self-registration drafts found.</p>
+			</div>
+		<?php endif; ?>
+	</div>
+	<?php
+}

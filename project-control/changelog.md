@@ -36,6 +36,11 @@
 - File: `project-control/lawyer-onboarding-workflow.md`
 - Defines review, verification, publishing, paid-plan and anti-fake-claim rules for incoming lawyer submissions.
 
+**[HIGH] Added pending-lawyer admin review queue**
+- File: `inc/lawyer-onboarding.php`
+- New lawyer submissions now send an admin email notification.
+- Added a `Lawyer Onboarding` admin page that lists pending self-registration drafts and links directly to review/edit.
+
 ### URL STRATEGY
 
 **[HIGH] Confirmed final English-slug strategy**

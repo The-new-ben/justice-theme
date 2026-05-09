@@ -45,6 +45,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Practice-area taxonomy pages upgraded into richer hubs with lawyer cards, article cards, LegalTech tools, and related practice links.
 - Lawyer self-registration funnel added. `/lawyer-registration/` can collect lawyer details and create draft/pending `justice_lawyer` profiles for review.
 - Lawyer onboarding review workflow documented in `project-control/lawyer-onboarding-workflow.md`.
+- Lawyer registration now sends an admin email and adds a WordPress admin review queue at `Lawyer Onboarding`.
 - Added first LegalTech product layer in code: CMS-backed legal tools, private tool requests, homepage gateway, archive/single templates, and starter tools for AI intake, demand letter, family agreement, and real-estate contract review.
 - Added `project-control/legaltech-platform-roadmap.md` to document the broader document automation, AI console, lawyer-review and passive-income product plan.
 
@@ -66,6 +67,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Legal pillar draft pages are NOT VERIFIED on live; they seed only after Upress pulls the commit and an admin dashboard visit runs.
 - Practice-area hub rendering is NOT VERIFIED on live after this pass.
 - Lawyer registration page and submission handler are NOT VERIFIED live until latest code is pulled and `/wp-admin/` runs the page seeder.
+- Lawyer onboarding admin queue and email notification are NOT VERIFIED live.
 
 ## STILL BROKEN / RISK
 - Repo still contains duplicate plugin-like folders: `ultra-justice/`, `ultra-justice-engine/`, and new `justice-core/`.

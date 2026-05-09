@@ -121,8 +121,8 @@ wp term create practice-areas "הגירה ואזרחות" --slug=immigration --d
 
 ## LOW PRIORITY (Phase 2)
 
-- ACTION-013: Build lawyer self-registration page
-- ACTION-014: Build lawyer dashboard
+- ACTION-013: Build lawyer self-registration page — COMPLETED in theme; live verification pending
+- ACTION-014: Build lawyer dashboard — PARTIAL: pending registration admin queue built; full lawyer dashboard still planned
 - ACTION-015: Integrate WooCommerce for plan subscriptions
 - ACTION-016: Build lead intake AI classification
 - ACTION-017: Build GSC weekly report automation

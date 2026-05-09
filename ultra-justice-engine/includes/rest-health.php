@@ -2,7 +2,7 @@
 /**
  * Justice Core Health REST endpoint.
  *
- * Provides system state verification at /wp-json/jus-tice-engine/v1/health
+ * Provides system state verification at /wp-json/ultra-justice-engine/v1/health
  * Admin-only access.
  *
  * @package JusticeCore
@@ -12,26 +12,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-function jte_register_health_route() {
-	register_rest_route( 'jus-tice-engine/v1', '/health', array(
+function uje_register_health_route() {
+	register_rest_route( 'ultra-justice-engine/v1', '/health', array(
 		'methods'             => 'GET',
-		'callback'            => 'jte_health_callback',
+		'callback'            => 'uje_health_callback',
 		'permission_callback' => function () {
 			return current_user_can( 'manage_options' );
 		},
 	) );
 
-	register_rest_route( 'jus-tice-engine/v1', '/theme-state', array(
+	register_rest_route( 'ultra-justice-engine/v1', '/theme-state', array(
 		'methods'             => 'GET',
-		'callback'            => 'jte_theme_state_callback',
+		'callback'            => 'uje_theme_state_callback',
 		'permission_callback' => function () {
 			return current_user_can( 'manage_options' );
 		},
 	) );
 }
-add_action( 'rest_api_init', 'jte_register_health_route' );
+add_action( 'rest_api_init', 'uje_register_health_route' );
 
-function jte_health_callback() {
+function uje_health_callback() {
 	$theme = wp_get_theme();
 
 	// Check CPTs
@@ -57,7 +57,7 @@ function jte_health_callback() {
 
 	return array(
 		'ok'              => true,
-		'plugin_version'  => JTE_VERSION,
+		'plugin_version'  => UJE_VERSION,
 		'theme'           => $theme->get( 'Name' ),
 		'theme_version'   => $theme->get( 'Version' ),
 		'cpt_registered'  => $cpt_check,
@@ -69,7 +69,7 @@ function jte_health_callback() {
 	);
 }
 
-function jte_theme_state_callback() {
+function uje_theme_state_callback() {
 	$theme = wp_get_theme();
 	$active_plugins = get_option( 'active_plugins', array() );
 

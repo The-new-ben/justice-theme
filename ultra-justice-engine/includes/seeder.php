@@ -3,10 +3,10 @@
  * Justice Core — Lawyer Seeder (v4)
  *
  * Two modes:
- * 1. Admin-init auto-seed: creates 10 demo lawyers once (jte_seeded_v4 flag).
+ * 1. Admin-init auto-seed: creates 10 demo lawyers once (uje_seeded_v4 flag).
  * 2. CSV seeder via REST POST /seed-lawyers — reads project-control/lawyer-seed.csv.
  *
- * REST: POST /wp-json/jus-tice-engine/v1/seed-lawyers (admin only)
+ * REST: POST /wp-json/ultra-justice-engine/v1/seed-lawyers (admin only)
  *
  * @package JusticeCore
  */
@@ -17,10 +17,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // ─── Auto-seed on admin_init (runs once) ────────────────────────────────────
 
-add_action( 'admin_init', 'jte_maybe_auto_seed' );
+add_action( 'admin_init', 'uje_maybe_auto_seed' );
 
-function jte_maybe_auto_seed(): void {
-	if ( get_option( 'jte_seeded_v4' ) ) {
+function uje_maybe_auto_seed(): void {
+	if ( get_option( 'uje_seeded_v4' ) ) {
 		return;
 	}
 	if ( ! current_user_can( 'manage_options' ) ) {
@@ -117,13 +117,13 @@ function jte_maybe_auto_seed(): void {
 		wp_set_object_terms( $post_id, $l['area'], 'practice-areas' );
 	}
 
-	update_option( 'jte_seeded_v4', true );
-	jte_log( 'seeder', 'Auto-seeded 10 lawyer profiles (v4).' );
+	update_option( 'uje_seeded_v4', true );
+	uje_log( 'seeder', 'Auto-seeded 10 lawyer profiles (v4).' );
 }
 
 // ─── CSV Seeder (from project-control/lawyer-seed.csv) ───────────────────────
 
-function jte_seed_lawyer_profile( array $row ): int|WP_Error {
+function uje_seed_lawyer_profile( array $row ): int|WP_Error {
 	$existing = get_posts( array(
 		'post_type'      => 'justice_lawyer',
 		'title'          => $row['name'],
@@ -181,10 +181,10 @@ function jte_seed_lawyer_profile( array $row ): int|WP_Error {
 	return $post_id;
 }
 
-function jte_run_seed(): array {
-	$csv_path = JTE_DIR . '../project-control/lawyer-seed.csv';
+function uje_run_seed(): array {
+	$csv_path = UJE_DIR . '../project-control/lawyer-seed.csv';
 	if ( ! file_exists( $csv_path ) ) {
-		$csv_path = JTE_DIR . 'data/lawyer-seed.csv';
+		$csv_path = UJE_DIR . 'data/lawyer-seed.csv';
 	}
 	if ( ! file_exists( $csv_path ) ) {
 		return array( 'error' => 'CSV file not found: ' . $csv_path );
@@ -204,7 +204,7 @@ function jte_run_seed(): array {
 			continue;
 		}
 		$row    = array_combine( $headers, $data );
-		$result = jte_seed_lawyer_profile( $row );
+		$result = uje_seed_lawyer_profile( $row );
 
 		if ( is_wp_error( $result ) ) {
 			$results['errors']++;
@@ -216,16 +216,16 @@ function jte_run_seed(): array {
 	}
 
 	fclose( $handle );
-	jte_log( 'seeder_csv', 'CSV seed completed.', $results );
+	uje_log( 'seeder_csv', 'CSV seed completed.', $results );
 	return $results;
 }
 
 // REST endpoint for manual seeding
 add_action( 'rest_api_init', function () {
-	register_rest_route( 'jus-tice-engine/v1', '/seed-lawyers', array(
+	register_rest_route( 'ultra-justice-engine/v1', '/seed-lawyers', array(
 		'methods'             => 'POST',
 		'callback'            => function () {
-			return new WP_REST_Response( jte_run_seed(), 200 );
+			return new WP_REST_Response( uje_run_seed(), 200 );
 		},
 		'permission_callback' => function () {
 			return current_user_can( 'manage_options' );
@@ -233,11 +233,11 @@ add_action( 'rest_api_init', function () {
 	) );
 
 	// Reset seed flag (forces re-seed)
-	register_rest_route( 'jus-tice-engine/v1', '/seed-reset', array(
+	register_rest_route( 'ultra-justice-engine/v1', '/seed-reset', array(
 		'methods'             => 'POST',
 		'callback'            => function () {
-			delete_option( 'jte_seeded_v4' );
-			jte_log( 'seeder_reset', 'Seed flag cleared. Will re-seed on next admin_init.' );
+			delete_option( 'uje_seeded_v4' );
+			uje_log( 'seeder_reset', 'Seed flag cleared. Will re-seed on next admin_init.' );
 			return new WP_REST_Response( array( 'ok' => true, 'message' => 'Seed flag cleared.' ), 200 );
 		},
 		'permission_callback' => function () {

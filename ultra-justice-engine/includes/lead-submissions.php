@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Register justice_lead CPT (admin-only).
  */
-function jte_register_lead_cpt() {
+function uje_register_lead_cpt() {
 	register_post_type( 'justice_lead', array(
 		'labels' => array(
 			'name'               => 'לידים',
@@ -36,12 +36,12 @@ function jte_register_lead_cpt() {
 		'capability_type'     => 'post',
 	) );
 }
-add_action( 'init', 'jte_register_lead_cpt' );
+add_action( 'init', 'uje_register_lead_cpt' );
 
 /**
  * Register lead meta fields.
  */
-function jte_register_lead_meta() {
+function uje_register_lead_meta() {
 	$fields = array(
 		'visitor_name'         => 'string',
 		'visitor_phone'        => 'string',
@@ -67,14 +67,14 @@ function jte_register_lead_meta() {
 		) );
 	}
 }
-add_action( 'init', 'jte_register_lead_meta' );
+add_action( 'init', 'uje_register_lead_meta' );
 
 /**
  * Handle lead form submission.
  */
-function jte_handle_lead() {
+function uje_handle_lead() {
 	if ( empty( $_POST['justice_lead_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lead_nonce'] ) ), 'justice_submit_lead' ) ) {
-		wp_die( esc_html__( 'Security check failed.', 'jus-tice-engine' ) );
+		wp_die( esc_html__( 'Security check failed.', 'ultra-justice-engine' ) );
 	}
 
 	$name    = isset( $_POST['lead_name'] ) ? sanitize_text_field( wp_unslash( $_POST['lead_name'] ) ) : '';
@@ -131,13 +131,13 @@ function jte_handle_lead() {
 	wp_safe_redirect( add_query_arg( 'lead', 'success', wp_get_referer() ?: home_url( '/' ) ) );
 	exit;
 }
-add_action( 'admin_post_justice_submit_lead', 'jte_handle_lead' );
-add_action( 'admin_post_nopriv_justice_submit_lead', 'jte_handle_lead' );
+add_action( 'admin_post_justice_submit_lead', 'uje_handle_lead' );
+add_action( 'admin_post_nopriv_justice_submit_lead', 'uje_handle_lead' );
 
 /**
  * Admin columns for leads.
  */
-function jte_lead_admin_columns( $columns ) {
+function uje_lead_admin_columns( $columns ) {
 	return array(
 		'cb'          => $columns['cb'],
 		'title'       => $columns['title'],
@@ -148,12 +148,12 @@ function jte_lead_admin_columns( $columns ) {
 		'lead_date'   => 'תאריך',
 	);
 }
-add_filter( 'manage_justice_lead_posts_columns', 'jte_lead_admin_columns' );
+add_filter( 'manage_justice_lead_posts_columns', 'uje_lead_admin_columns' );
 
 /**
  * Populate lead columns.
  */
-function jte_lead_column_content( $column, $post_id ) {
+function uje_lead_column_content( $column, $post_id ) {
 	switch ( $column ) {
 		case 'lead_phone':
 			$phone = get_post_meta( $post_id, 'visitor_phone', true );
@@ -168,24 +168,24 @@ function jte_lead_column_content( $column, $post_id ) {
 		case 'lead_status':
 			$status = get_post_meta( $post_id, 'lead_status', true );
 			$labels = array( 'new' => 'חדש', 'qualified' => 'מוסמך', 'assigned' => 'שויך', 'contacted' => 'נוצר קשר', 'accepted' => 'התקבל', 'rejected' => 'נדחה', 'converted' => 'הומר', 'closed' => 'סגור' );
-			echo esc_html( isset( $labels[ $status ] ) ? $labels[ $status ] : $status ?: '—' );
+			echo esc_html( isset( $labels[ $status ] ) ? $labels[ $status ] : ( $status ?: '—' ) );
 			break;
 		case 'lead_date':
 			echo esc_html( get_the_date( 'd/m/Y H:i', $post_id ) );
 			break;
 	}
 }
-add_action( 'manage_justice_lead_posts_custom_column', 'jte_lead_column_content', 10, 2 );
+add_action( 'manage_justice_lead_posts_custom_column', 'uje_lead_column_content', 10, 2 );
 
 /**
  * Lead detail meta box.
  */
-function jte_lead_meta_boxes() {
-	add_meta_box( 'justice_lead_details', 'פרטי הליד', 'jte_lead_details_box', 'justice_lead', 'normal', 'high' );
+function uje_lead_meta_boxes() {
+	add_meta_box( 'justice_lead_details', 'פרטי הליד', 'uje_lead_details_box', 'justice_lead', 'normal', 'high' );
 }
-add_action( 'add_meta_boxes', 'jte_lead_meta_boxes' );
+add_action( 'add_meta_boxes', 'uje_lead_meta_boxes' );
 
-function jte_lead_details_box( $post ) {
+function uje_lead_details_box( $post ) {
 	wp_nonce_field( 'justice_lead_status', 'justice_lead_status_nonce' );
 
 	$read_fields = array(
@@ -230,7 +230,7 @@ function jte_lead_details_box( $post ) {
 	echo '</table>';
 }
 
-function jte_save_lead_status( $post_id ) {
+function uje_save_lead_status( $post_id ) {
 	if ( ! isset( $_POST['justice_lead_status_nonce'] ) || ! wp_verify_nonce( $_POST['justice_lead_status_nonce'], 'justice_lead_status' ) ) {
 		return;
 	}
@@ -241,4 +241,4 @@ function jte_save_lead_status( $post_id ) {
 		update_post_meta( $post_id, 'lead_status', sanitize_text_field( $_POST['lead_status'] ) );
 	}
 }
-add_action( 'save_post_justice_lead', 'jte_save_lead_status' );
+add_action( 'save_post_justice_lead', 'uje_save_lead_status' );

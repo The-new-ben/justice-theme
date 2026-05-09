@@ -1,12 +1,12 @@
 <?php
 /**
- * Plugin Name: Jus-Tice Engine
+ * Plugin Name: Ultra Justice Engine
  * Plugin URI: https://jus-tice.co.il
  * Description: Core engine for the Jus-Tice legal portal — lawyer directory, lead CRM, articles CPT, practice areas & city taxonomies, REST inspection tools, and premium seeder.
  * Version: 1.0.0
  * Author: Jus-Tice
  * Author URI: https://jus-tice.co.il
- * Text Domain: jus-tice-engine
+ * Text Domain: ultra-justice-engine
  * Domain Path: /languages
  * Requires at least: 6.4
  * Requires PHP: 8.0
@@ -18,12 +18,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // ─── Constants ──────────────────────────────────────────────────────────────
-define( 'JTE_VERSION', '1.0.0' );
-define( 'JTE_DIR',     plugin_dir_path( __FILE__ ) );
-define( 'JTE_URL',     plugin_dir_url( __FILE__ ) );
+define( 'UJE_VERSION', '1.0.0' );
+define( 'UJE_DIR',     plugin_dir_path( __FILE__ ) );
+define( 'UJE_URL',     plugin_dir_url( __FILE__ ) );
 
 // ─── Load Modules ───────────────────────────────────────────────────────────
-$jte_includes = array(
+$uje_includes = array(
 	'includes/security.php',
 	'includes/logger.php',
 	'includes/cpt-articles.php',
@@ -38,24 +38,24 @@ $jte_includes = array(
 	'includes/admin-pages.php',
 );
 
-foreach ( $jte_includes as $file ) {
-	$path = JTE_DIR . $file;
+foreach ( $uje_includes as $file ) {
+	$path = UJE_DIR . $file;
 	if ( file_exists( $path ) ) {
 		require_once $path;
 	} else {
-		error_log( "[Jus-Tice Engine] Missing include: {$path}" );
+		error_log( "[Ultra Justice Engine] Missing include: {$path}" );
 	}
 }
 
 // ─── Activation Hook ────────────────────────────────────────────────────────
-register_activation_hook( __FILE__, 'jte_activate' );
-function jte_activate(): void {
+register_activation_hook( __FILE__, 'uje_activate' );
+function uje_activate(): void {
 	$fns = array(
-		'jte_register_articles_cpt',
-		'jte_register_lawyer_cpt',
-		'jte_register_lead_cpt',
-		'jte_register_practice_areas_taxonomy',
-		'jte_register_city_taxonomy',
+		'uje_register_articles_cpt',
+		'uje_register_lawyer_cpt',
+		'uje_register_lead_cpt',
+		'uje_register_practice_areas_taxonomy',
+		'uje_register_city_taxonomy',
 	);
 	foreach ( $fns as $fn ) {
 		if ( function_exists( $fn ) ) {
@@ -64,14 +64,14 @@ function jte_activate(): void {
 	}
 	flush_rewrite_rules();
 
-	if ( function_exists( 'jte_log' ) ) {
-		jte_log( 'activated', 'Jus-Tice Engine v1.0.0 activated.' );
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'activated', 'Ultra Justice Engine v1.0.0 activated.' );
 	}
 }
 
 // ─── Deactivation Hook ──────────────────────────────────────────────────────
-register_deactivation_hook( __FILE__, 'jte_deactivate' );
-function jte_deactivate(): void {
+register_deactivation_hook( __FILE__, 'uje_deactivate' );
+function uje_deactivate(): void {
 	flush_rewrite_rules();
 }
 

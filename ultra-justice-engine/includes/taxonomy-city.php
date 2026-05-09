@@ -15,7 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Register the `city` taxonomy.
  */
-function jte_register_city_taxonomy() {
+function uje_register_city_taxonomy() {
 	$labels = array(
 		'name'              => 'ערים',
 		'singular_name'     => 'עיר',
@@ -43,12 +43,12 @@ function jte_register_city_taxonomy() {
 
 	register_taxonomy( 'city', array( 'lawyer' ), $args );
 }
-add_action( 'init', 'jte_register_city_taxonomy', 9 );
+add_action( 'init', 'uje_register_city_taxonomy', 9 );
 
 /**
  * Pre-populate default Israeli cities on plugin activation.
  */
-function jte_seed_cities() {
+function uje_seed_cities() {
 	$cities = array(
 		'tel-aviv'      => 'תל אביב',
 		'jerusalem'     => 'ירושלים',

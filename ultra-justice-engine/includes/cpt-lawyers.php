@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 /**
  * Register justice_lawyer CPT.
  */
-function jte_register_lawyer_cpt() {
+function uje_register_lawyer_cpt() {
 	$labels = array(
 		'name'               => 'עורכי דין',
 		'singular_name'      => 'עורך דין',
@@ -49,12 +49,12 @@ function jte_register_lawyer_cpt() {
 		'taxonomies'          => array( 'practice-areas', 'city' ),
 	) );
 }
-add_action( 'init', 'jte_register_lawyer_cpt' );
+add_action( 'init', 'uje_register_lawyer_cpt' );
 
 /**
  * Register all lawyer meta fields.
  */
-function jte_register_lawyer_meta() {
+function uje_register_lawyer_meta() {
 	$fields = array(
 		// Identity
 		'lawyer_full_name'       => 'string',
@@ -108,12 +108,12 @@ function jte_register_lawyer_meta() {
 		) );
 	}
 }
-add_action( 'init', 'jte_register_lawyer_meta' );
+add_action( 'init', 'uje_register_lawyer_meta' );
 
 /**
  * Admin columns for lawyer listing.
  */
-function jte_lawyer_admin_columns( $columns ) {
+function uje_lawyer_admin_columns( $columns ) {
 	$new = array();
 	foreach ( $columns as $key => $label ) {
 		$new[ $key ] = $label;
@@ -129,12 +129,12 @@ function jte_lawyer_admin_columns( $columns ) {
 	unset( $new['date'] );
 	return $new;
 }
-add_filter( 'manage_justice_lawyer_posts_columns', 'jte_lawyer_admin_columns' );
+add_filter( 'manage_justice_lawyer_posts_columns', 'uje_lawyer_admin_columns' );
 
 /**
  * Populate admin columns.
  */
-function jte_lawyer_column_content( $column, $post_id ) {
+function uje_lawyer_column_content( $column, $post_id ) {
 	switch ( $column ) {
 		case 'lawyer_plan':
 			$plan  = get_post_meta( $post_id, 'plan_type', true );
@@ -150,7 +150,7 @@ function jte_lawyer_column_content( $column, $post_id ) {
 		case 'lawyer_status':
 			$status = get_post_meta( $post_id, 'profile_status', true );
 			$labels = array( 'draft' => 'טיוטה', 'imported' => 'יובא', 'pending' => 'ממתין', 'active' => 'פעיל', 'suspended' => 'מושעה' );
-			echo esc_html( isset( $labels[ $status ] ) ? $labels[ $status ] : $status ?: '—' );
+			echo esc_html( isset( $labels[ $status ] ) ? $labels[ $status ] : ( $status ?: '—' ) );
 			break;
 
 		case 'lawyer_views':
@@ -163,37 +163,37 @@ function jte_lawyer_column_content( $column, $post_id ) {
 
 		case 'lawyer_verified':
 			$v = get_post_meta( $post_id, 'verification_status', true );
-			$icons = array( 'verified' => '✓', 'unverified' => '—', 'pending' => '⏳' );
+			$icons = array( 'verified' => '✓', 'unverified' => '—', 'pending' => '...' );
 			echo esc_html( isset( $icons[ $v ] ) ? $icons[ $v ] : '—' );
 			break;
 	}
 }
-add_action( 'manage_justice_lawyer_posts_custom_column', 'jte_lawyer_column_content', 10, 2 );
+add_action( 'manage_justice_lawyer_posts_custom_column', 'uje_lawyer_column_content', 10, 2 );
 
 /**
  * Sortable columns.
  */
-function jte_lawyer_sortable_columns( $columns ) {
+function uje_lawyer_sortable_columns( $columns ) {
 	$columns['lawyer_views'] = 'profile_views';
 	$columns['lawyer_leads'] = 'leads_received';
 	return $columns;
 }
-add_filter( 'manage_edit-justice_lawyer_sortable_columns', 'jte_lawyer_sortable_columns' );
+add_filter( 'manage_edit-justice_lawyer_sortable_columns', 'uje_lawyer_sortable_columns' );
 
 /**
  * Meta box for lawyer details.
  */
-function jte_lawyer_meta_boxes() {
-	add_meta_box( 'justice_lawyer_identity', 'זהות עורך הדין', 'jte_lawyer_identity_box', 'justice_lawyer', 'normal', 'high' );
-	add_meta_box( 'justice_lawyer_contact', 'פרטי התקשרות', 'jte_lawyer_contact_box', 'justice_lawyer', 'normal', 'default' );
-	add_meta_box( 'justice_lawyer_commercial', 'מסחרי ומנהלי', 'jte_lawyer_commercial_box', 'justice_lawyer', 'side', 'default' );
+function uje_lawyer_meta_boxes() {
+	add_meta_box( 'justice_lawyer_identity', 'זהות עורך הדין', 'uje_lawyer_identity_box', 'justice_lawyer', 'normal', 'high' );
+	add_meta_box( 'justice_lawyer_contact', 'פרטי התקשרות', 'uje_lawyer_contact_box', 'justice_lawyer', 'normal', 'default' );
+	add_meta_box( 'justice_lawyer_commercial', 'מסחרי ומנהלי', 'uje_lawyer_commercial_box', 'justice_lawyer', 'side', 'default' );
 }
-add_action( 'add_meta_boxes', 'jte_lawyer_meta_boxes' );
+add_action( 'add_meta_boxes', 'uje_lawyer_meta_boxes' );
 
 /**
  * Identity meta box.
  */
-function jte_lawyer_identity_box( $post ) {
+function uje_lawyer_identity_box( $post ) {
 	wp_nonce_field( 'justice_lawyer_meta', 'justice_lawyer_nonce' );
 	$fields = array(
 		array( 'key' => 'lawyer_full_name',    'label' => 'שם מלא',              'type' => 'text' ),
@@ -206,13 +206,13 @@ function jte_lawyer_identity_box( $post ) {
 		array( 'key' => 'license_status',      'label' => 'סטטוס רישיון',         'type' => 'select', 'options' => array( 'active' => 'פעיל', 'inactive' => 'לא פעיל', 'suspended' => 'מושעה' ) ),
 		array( 'key' => 'verification_status', 'label' => 'סטטוס אימות',          'type' => 'select', 'options' => array( 'unverified' => 'לא מאומת', 'pending' => 'בבדיקה', 'verified' => 'מאומת' ) ),
 	);
-	jte_render_meta_fields( $post, $fields );
+	uje_render_meta_fields( $post, $fields );
 }
 
 /**
  * Contact meta box.
  */
-function jte_lawyer_contact_box( $post ) {
+function uje_lawyer_contact_box( $post ) {
 	$fields = array(
 		array( 'key' => 'phone',          'label' => 'טלפון',           'type' => 'tel' ),
 		array( 'key' => 'email',          'label' => 'אימייל',          'type' => 'email' ),
@@ -220,13 +220,13 @@ function jte_lawyer_contact_box( $post ) {
 		array( 'key' => 'website',        'label' => 'אתר',             'type' => 'url' ),
 		array( 'key' => 'office_address', 'label' => 'כתובת משרד',      'type' => 'text' ),
 	);
-	jte_render_meta_fields( $post, $fields );
+	uje_render_meta_fields( $post, $fields );
 }
 
 /**
  * Commercial meta box.
  */
-function jte_lawyer_commercial_box( $post ) {
+function uje_lawyer_commercial_box( $post ) {
 	$fields = array(
 		array( 'key' => 'plan_type',           'label' => 'חבילה',            'type' => 'select', 'options' => array( 'free' => 'חינם', 'pro' => 'פרו', 'featured' => 'מוצג', 'lead_partner' => 'שותף לידים', 'full_service' => 'שירות מלא' ) ),
 		array( 'key' => 'subscription_status', 'label' => 'סטטוס מנוי',       'type' => 'select', 'options' => array( 'inactive' => 'לא פעיל', 'active' => 'פעיל', 'expired' => 'פג תוקף', 'cancelled' => 'בוטל' ) ),
@@ -236,13 +236,13 @@ function jte_lawyer_commercial_box( $post ) {
 		array( 'key' => 'source_type',         'label' => 'סוג מקור',          'type' => 'select', 'options' => array( 'manual' => 'ידני', 'import' => 'ייבוא', 'registration' => 'הרשמה', 'seed' => 'זרע לבדיקה' ) ),
 		array( 'key' => 'internal_notes',      'label' => 'הערות פנימיות',     'type' => 'textarea' ),
 	);
-	jte_render_meta_fields( $post, $fields );
+	uje_render_meta_fields( $post, $fields );
 }
 
 /**
  * Generic meta field renderer.
  */
-function jte_render_meta_fields( $post, $fields ) {
+function uje_render_meta_fields( $post, $fields ) {
 	echo '<table class="form-table" style="margin:0;">';
 	foreach ( $fields as $f ) {
 		$value = get_post_meta( $post->ID, $f['key'], true );
@@ -271,7 +271,7 @@ function jte_render_meta_fields( $post, $fields ) {
 /**
  * Save lawyer meta.
  */
-function jte_save_lawyer_meta( $post_id ) {
+function uje_save_lawyer_meta( $post_id ) {
 	if ( ! isset( $_POST['justice_lawyer_nonce'] ) || ! wp_verify_nonce( $_POST['justice_lawyer_nonce'], 'justice_lawyer_meta' ) ) {
 		return;
 	}
@@ -305,4 +305,4 @@ function jte_save_lawyer_meta( $post_id ) {
 
 	update_post_meta( $post_id, 'lead_routing_enabled', isset( $_POST['lead_routing_enabled'] ) ? '1' : '0' );
 }
-add_action( 'save_post_justice_lawyer', 'jte_save_lawyer_meta' );
+add_action( 'save_post_justice_lawyer', 'uje_save_lawyer_meta' );

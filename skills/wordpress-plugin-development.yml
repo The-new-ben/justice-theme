@@ -1,0 +1,37 @@
+name: wordpress-plugin-development
+version: 1.0.0
+purpose: Create collision-safe, production-ready WordPress plugins with consistent packaging and release hygiene.
+rules:
+  - id: slug_naming
+    rule: Use a globally unique lowercase slug and keep plugin folder and main PHP filename identical to that slug.
+  - id: header_integrity
+    rule: Keep a complete plugin header with unique Plugin Name, Text Domain, Version, Requires at least, and Requires PHP.
+  - id: structure
+    rule: Package as plugin-slug/plugin-slug.php with includes in a dedicated includes directory.
+  - id: namespace_prefix
+    rule: Prefix every function, hook callback, option key, nonce action, and constant with a short unique prefix derived from the slug.
+  - id: activation
+    rule: Register activation and deactivation hooks, register CPT and taxonomies before flushing rewrites, and never flush on every request.
+  - id: cpt_ownership
+    rule: Register each CPT and taxonomy in exactly one place and attach registration to init.
+  - id: rest_security
+    rule: Protect REST routes with permission_callback, sanitize all input, validate keys with explicit allowlists, and log privileged actions.
+  - id: database_safety
+    rule: Use $wpdb->prepare for dynamic SQL and avoid destructive operations without capability checks and intent confirmation.
+  - id: seed_policy
+    rule: Seed demo content as draft and unverified by default, never publish sample entities automatically.
+  - id: preflight_checklist
+    rule: Verify PHP lint, slug uniqueness, route health endpoint, and ZIP folder shape before upload.
+  - id: packaging
+    rule: Build a flat ZIP that extracts into one top-level plugin folder only and confirm archive paths before release.
+  - id: versioning
+    rule: Use semantic versioning, increment for every release, and never reuse a shipped version number.
+forbidden:
+  - Reusing an old plugin slug from previous deployments.
+  - Shipping duplicate function names that can collide with legacy plugins.
+  - Auto-publishing seeded records in production.
+  - Exposing write REST routes without capability checks.
+  - Trusting raw request parameters without sanitization.
+  - Flushing rewrite rules on normal page loads.
+  - Uploading ZIP archives with nested plugin folders.
+  - Releasing without lint and route health verification.

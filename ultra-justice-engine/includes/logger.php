@@ -12,10 +12,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Append a log entry to jte_log option.
+ * Append a log entry to uje_log option.
  */
-function jte_log( string $action, string $message, array $context = array() ): void {
-	$log = get_option( 'jte_log', array() );
+function uje_log( string $action, string $message, array $context = array() ): void {
+	$log = get_option( 'uje_log', array() );
 
 	$log[] = array(
 		'time'    => current_time( 'mysql' ),
@@ -30,5 +30,5 @@ function jte_log( string $action, string $message, array $context = array() ): v
 		$log = array_slice( $log, -200 );
 	}
 
-	update_option( 'jte_log', $log, false );
+	update_option( 'uje_log', $log, false );
 }

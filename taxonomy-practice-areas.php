@@ -10,27 +10,26 @@ get_header();
 $term = get_queried_object();
 ?>
 
-	<section class="taxonomy-header premium-card" style="background: linear-gradient(135deg, var(--color-primary-deep), var(--color-primary)); color: #fff; padding: 4rem 0 3rem; margin-bottom: 3rem; text-align: center;">
-		<div class="container container--narrow" style="max-width: 800px; margin: 0 auto;">
-			<p class="taxonomy-header__eyebrow" style="display: inline-block; margin-bottom: 1rem; font-size: 0.9rem; background: rgba(255,255,255,0.1); color: var(--color-accent); padding: 0.4rem 1rem; border-radius: 50px; font-weight: 700;">
-				<?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?>
+	<section class="taxonomy-hero glass-panel" style="margin: 40px auto; max-width: 900px; padding: 3rem 2rem; text-align: center;">
+		<div class="container">
+			<p class="section-eyebrow" style="color: var(--color-accent); font-weight: 700; font-size: 0.95rem; margin-bottom: 1rem;">
+				תחום משפטי
 			</p>
-
 			<?php
 			$clean_name = str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ', 'ותאונות' ), array( '', '', '', '' ), single_term_title( '', false ) );
 			?>
-			<h1 style="font-size: clamp(2.2rem, 5vw, 3.5rem); margin-bottom: 1.5rem; line-height: 1.2;">
+			<h1 style="color: var(--color-primary-deep); font-size: 2.8rem; margin-bottom: 1.5rem;">
 				<?php echo esc_html( trim( $clean_name ) ); ?>
 			</h1>
-
+			
 			<?php if ( ! empty( $term->description ) ) : ?>
-				<div class="taxonomy-header__description" style="color: rgba(255,255,255,0.8); font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;">
+				<div class="taxonomy-description" style="color: var(--color-text); font-size: 1.15rem; line-height: 1.6; margin-bottom: 2rem;">
 					<?php echo wp_kses_post( wpautop( $term->description ) ); ?>
 				</div>
 			<?php endif; ?>
-
-			<a class="button button--gold" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="background: var(--color-accent); border-color: var(--color-accent); color: #fff;">
-				<?php esc_html_e( 'מצאו עורך דין בתחום זה', 'justice-theme' ); ?>
+			
+			<a class="button button--primary" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="font-size: 1.1rem; padding: 1rem 2rem;">
+				קבלת הכוונה משפטית
 			</a>
 		</div>
 	</section>

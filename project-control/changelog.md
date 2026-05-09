@@ -3,6 +3,23 @@
 
 ## 2026-05-09 - Session: repo-sync stabilization
 
+### LEGALTECH PLATFORM
+
+**[HIGH] Added first LegalTech tools and intake foundation**
+- Files: `template-parts/sections/legaltech-tools.php`, `archive-justice_legal_tool.php`, `single-justice_legal_tool.php`, `assets/css/premium-pass-3.css`
+- Homepage now has a product-style LegalTech gateway for AI intake, documents, lawyer review and real-estate contract review.
+- Public `/legal-tools/` archive and individual tool pages now have dedicated templates with intake CTAs.
+
+**[HIGH] Added CMS content types for legal tools and tool requests**
+- Files: `justice-core/includes/cpt-legal-tools.php`, `ultra-justice-engine/includes/cpt-legal-tools.php`, `ultra-justice/includes/cpt-legal-tools.php`
+- Added public `justice_legal_tool` posts and private `justice_legal_request` admin records.
+- Added starter seeding for four MVP tools after admin login.
+- Added a basic form handler that stores LegalTech requests in WordPress admin.
+
+**[HIGH] Documented broader LegalTech monetization roadmap**
+- File: `project-control/legaltech-platform-roadmap.md`
+- Captures the move beyond pure lawyers into document automation, legal simulation, real-estate workflows, lawyer-in-the-loop review, and self-serve paid products.
+
 ### DEPLOYMENT MODEL
 
 **[VERIFIED] Switched to repo-sync workflow**

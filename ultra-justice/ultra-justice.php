@@ -31,6 +31,7 @@ $uj_includes = array(
 	'includes/taxonomy-practice-areas.php',
 	'includes/taxonomy-city.php',
 	'includes/lead-submissions.php',
+	'includes/cpt-legal-tools.php',
 	'includes/seeder.php',
 	'includes/rest-health.php',
 	'includes/rest-content-tools.php',
@@ -54,6 +55,8 @@ function uj_activate(): void {
 		'uj_register_articles_cpt',
 		'uj_register_lawyer_cpt',
 		'uj_register_lead_cpt',
+		'uj_register_legal_tool_cpt',
+		'uj_register_legal_request_cpt',
 		'uj_register_practice_areas_taxonomy',
 		'uj_register_city_taxonomy',
 	);

@@ -36,6 +36,8 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Self-serve/passive-income platform direction documented in `project-control/self-serve-lawyer-platform-plan.md`.
 - Breadcrumbs fixed in repo: generic single posts no longer render breadcrumbs twice, and lawyer/article/archive breadcrumb hierarchy is explicit.
 - English-only URL/slug migration is documented as a planned project, not a blind bulk rename.
+- Added first LegalTech product layer in code: CMS-backed legal tools, private tool requests, homepage gateway, archive/single templates, and starter tools for AI intake, demand letter, family agreement, and real-estate contract review.
+- Added `project-control/legaltech-platform-roadmap.md` to document the broader document automation, AI console, lawyer-review and passive-income product plan.
 
 ## NOT VERIFIED
 - Active live plugin path and name.
@@ -49,6 +51,8 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - GSC property visibility, sitemap status, and performance data are NOT VERIFIED.
 - The new homepage lawyer section was not visible before adding `page-home.php` because the live page assignment uses `page-template-page-home`.
 - The lawyer dashboard, self-registration, billing, AI console and approval workflows are still NOT BUILT.
+- Live `/legal-tools/` is NOT VERIFIED until GitHub/Upress sync is pulled and WordPress rewrites/cache are refreshed.
+- Starter LegalTech tool posts are NOT VERIFIED on live; seeding runs on an admin dashboard visit after plugin code is active.
 
 ## STILL BROKEN / RISK
 - Repo still contains duplicate plugin-like folders: `ultra-justice/`, `ultra-justice-engine/`, and new `justice-core/`.
@@ -64,5 +68,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 2. Decide whether `justice-core/` will replace `ultra-justice-engine/` on live or whether the legacy active folder must be renamed in a controlled migration.
 3. Use admin/API access to set Maya Rotenberg's live slug to `advocate-maya-rotenberg` and draft/unpublish demo lawyers after backup.
 4. Run PHP lint on changed files.
-5. Commit only repo-safe changes; do not create ZIPs.
-6. Export live URL/slug inventory before changing any Hebrew slugs; create redirects for every changed URL.
+5. Pull latest repo in Upress and visit `/wp-admin/` once to trigger LegalTech starter tool seeding.
+6. Verify `/legal-tools/`, `/legal-tools/ai-intake/`, and one test LegalTech request in admin.
+7. Commit only repo-safe changes; do not create ZIPs.
+8. Export live URL/slug inventory before changing any Hebrew slugs; create redirects for every changed URL.

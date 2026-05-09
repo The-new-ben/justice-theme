@@ -31,6 +31,7 @@ $uje_includes = array(
 	'includes/taxonomy-practice-areas.php',
 	'includes/taxonomy-city.php',
 	'includes/lead-submissions.php',
+	'includes/cpt-legal-tools.php',
 	'includes/seeder.php',
 	'includes/rest-health.php',
 	'includes/rest-content-tools.php',
@@ -54,6 +55,8 @@ function uje_activate(): void {
 		'uje_register_articles_cpt',
 		'uje_register_lawyer_cpt',
 		'uje_register_lead_cpt',
+		'uje_register_legal_tool_cpt',
+		'uje_register_legal_request_cpt',
 		'uje_register_practice_areas_taxonomy',
 		'uje_register_city_taxonomy',
 	);

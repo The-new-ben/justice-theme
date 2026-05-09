@@ -81,6 +81,11 @@
 - Adds a dedicated template that connects city/practice content to filtered lawyer listings.
 - Pages are intentionally drafts to avoid thin doorway publishing.
 
+**[HIGH] Upgraded public lead form for CRM routing**
+- Files: `template-parts/forms/lead-form.php`, `assets/css/premium-pass-3.css`
+- Form now collects email, city/area, urgency and consent in addition to name, phone, legal area and message.
+- These fields already map to the lead CPT handler and rule-based classifier.
+
 **[HIGH] Added owner CRM overview**
 - Files: `inc/lead-crm.php`, `functions.php`
 - Adds a `Justice CRM` admin page with lead status cards, recent legal leads, and recent LegalTech requests.

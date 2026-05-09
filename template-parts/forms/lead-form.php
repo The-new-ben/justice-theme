@@ -26,6 +26,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 		</p>
 
 		<p class="lead-form__field">
+			<label for="lead-email"><?php esc_html_e( 'אימייל', 'justice-theme' ); ?></label>
+			<input id="lead-email" type="email" name="lead_email" autocomplete="email">
+		</p>
+
+		<p class="lead-form__field">
 			<label for="lead-area"><?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?></label>
 			<select id="lead-area" name="lead_area" required>
 				<option value=""><?php esc_html_e( 'בחרו תחום משפטי', 'justice-theme' ); ?></option>
@@ -39,11 +44,30 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</select>
 		</p>
 
+		<p class="lead-form__field">
+			<label for="lead-city"><?php esc_html_e( 'עיר / אזור', 'justice-theme' ); ?></label>
+			<input id="lead-city" type="text" name="lead_city" autocomplete="address-level2">
+		</p>
+
+		<p class="lead-form__field">
+			<label for="lead-urgency"><?php esc_html_e( 'דחיפות', 'justice-theme' ); ?></label>
+			<select id="lead-urgency" name="lead_urgency">
+				<option value="normal"><?php esc_html_e( 'רגיל', 'justice-theme' ); ?></option>
+				<option value="high"><?php esc_html_e( 'דחוף', 'justice-theme' ); ?></option>
+				<option value="low"><?php esc_html_e( 'התייעצות ראשונית', 'justice-theme' ); ?></option>
+			</select>
+		</p>
+
 		<p class="lead-form__field lead-form__field--full">
 			<label for="lead-message"><?php esc_html_e( 'תיאור קצר', 'justice-theme' ); ?></label>
 			<textarea id="lead-message" name="lead_message" rows="5" required></textarea>
 		</p>
 	</div>
+
+	<label class="lead-form__consent">
+		<input type="checkbox" name="lead_consent" value="1" required>
+		<span><?php esc_html_e( 'אני מאשר/ת יצירת קשר לצורך טיפול בפנייה. ידוע לי שהמידע אינו ייעוץ משפטי ואינו יוצר יחסי עורך דין-לקוח.', 'justice-theme' ); ?></span>
+	</label>
 
 	<button class="button button--gold" type="submit">
 		<?php esc_html_e( 'שליחת פנייה', 'justice-theme' ); ?>

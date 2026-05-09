@@ -71,6 +71,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - GSC weekly report automation scaffold is built: GitHub Action plus Python report generator for opportunities, low CTR, positions 5-20 and cannibalization CSVs.
 - GSC report script smoke test ran locally without secrets and safely generated BLOCKED placeholder CSVs instead of fake data.
 - City-practice architecture is built in code: core city seeder, city-practice template and five draft English-slug city/practice pages.
+- Public lead form upgraded to collect email, city/area, urgency and consent so CRM/AI classification receives usable routing data.
 - Live `/legal-tools/` is NOT VERIFIED until GitHub/Upress sync is pulled and WordPress rewrites/cache are refreshed.
 - Starter LegalTech tool posts are NOT VERIFIED on live; seeding runs on an admin dashboard visit after plugin code is active.
 - SERP research is PARTIAL. Initial web sampling was recorded, but manual top-10 capture, People Also Ask, autocomplete, and GSC data are still NOT VERIFIED.
@@ -83,6 +84,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lead classification is NOT VERIFIED live; it requires a test lead after Upress pull and active `justice_lead` CPT.
 - GSC automation is NOT VERIFIED; it requires GitHub secrets and Search Console service-account access.
 - City terms and draft city-practice pages are NOT VERIFIED live; they require Upress pull and admin dashboard visit.
+- Upgraded lead form is NOT VERIFIED live after Upress pull.
 - Lawyer onboarding admin queue and email notification are NOT VERIFIED live.
 - Justice CRM admin overview is NOT VERIFIED live.
 - Practice-area term seeding is NOT VERIFIED live; it runs after Upress pull and an admin dashboard visit, if the taxonomy is active.

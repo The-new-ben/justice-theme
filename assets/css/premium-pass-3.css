@@ -1773,3 +1773,35 @@
     width: 100%;
   }
 }
+
+.brand-lockup--image {
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.brand-lockup__logo {
+  display: block;
+  width: auto;
+  max-width: 54px;
+  max-height: 54px;
+  object-fit: contain;
+}
+
+.brand-lockup--footer .brand-lockup__logo {
+  max-width: 58px;
+  max-height: 58px;
+  filter: brightness(1.08);
+}
+
+@media (max-width: 700px) {
+  .brand-lockup__logo {
+    max-width: 42px;
+    max-height: 42px;
+  }
+
+  .brand-lockup--image .brand-lockup__tagline {
+    display: none;
+  }
+}

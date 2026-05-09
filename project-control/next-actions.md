@@ -52,6 +52,7 @@
 ```
 
 ### ACTION-005: Upload Professional Logo
+**Repo status:** PARTIAL - bundled fallback logo is now wired in header/footer; live Customizer upload is still optional.
 **Status:** Design task — needs SVG or PNG  
 **File:** WP Customizer → Site Identity → Logo  
 **Spec:** Max height 44px, white text/graphic (shows on dark navy header)

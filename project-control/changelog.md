@@ -51,6 +51,10 @@
 - Seeds 10 core Hebrew practice-area terms with clean English slugs such as `family-law`, `criminal-law`, `real-estate-law`, and `medical-malpractice`.
 - Runs only in admin and only when `practice-areas` taxonomy exists.
 
+**[MEDIUM] Wired bundled logo as header/footer fallback**
+- Files: `template-parts/layout/site-header.php`, `template-parts/layout/site-footer.php`, `assets/css/premium-pass-3.css`, `project-control/logo-audit.md`
+- If no WordPress custom logo is configured, the theme now renders `assets/images/logo.png` instead of only a text lockup.
+
 ### URL STRATEGY
 
 **[HIGH] Confirmed final English-slug strategy**

@@ -48,6 +48,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer registration now sends an admin email and adds a WordPress admin review queue at `Lawyer Onboarding`.
 - Owner CRM overview added at `Justice CRM` in WordPress admin for leads and LegalTech requests.
 - Core practice-area term seeder added for the 10 main legal areas with Hebrew names and English slugs.
+- Bundled `assets/images/logo.png` now renders as header/footer fallback when no custom logo is configured.
 - Added first LegalTech product layer in code: CMS-backed legal tools, private tool requests, homepage gateway, archive/single templates, and starter tools for AI intake, demand letter, family agreement, and real-estate contract review.
 - Added `project-control/legaltech-platform-roadmap.md` to document the broader document automation, AI console, lawyer-review and passive-income product plan.
 
@@ -72,6 +73,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer onboarding admin queue and email notification are NOT VERIFIED live.
 - Justice CRM admin overview is NOT VERIFIED live.
 - Practice-area term seeding is NOT VERIFIED live; it runs after Upress pull and an admin dashboard visit, if the taxonomy is active.
+- Header/footer logo fallback is NOT VERIFIED live after this pass.
 
 ## STILL BROKEN / RISK
 - Repo still contains duplicate plugin-like folders: `ultra-justice/`, `ultra-justice-engine/`, and new `justice-core/`.

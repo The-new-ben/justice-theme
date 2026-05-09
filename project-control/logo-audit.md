@@ -5,6 +5,7 @@ Date: 2026-05-09
 - Repo contains `assets/images/logo.png`.
 - Theme header uses `the_custom_logo()` when a logo is configured.
 - Theme footer uses the custom logo when configured, otherwise a text lockup.
+- Repo fallback now renders `assets/images/logo.png` in header and footer when no custom logo is configured.
 - Live homepage public HTML includes `Image: Jus-Tice Logo` near the footer, suggesting a logo asset exists live.
 
 ## NOT VERIFIED
@@ -14,6 +15,5 @@ Date: 2026-05-09
 - Whether logo contrast and sizing are correct on mobile.
 
 ## Recommended Repo Action
-- Keep the text lockup as fallback.
-- Add docs and styling so `assets/images/logo.png` can be used as the default fallback only if no custom logo is set.
+- Verify live header/footer logo after GitHub/Upress pull.
 - Do not claim the final brand identity is restored until the old logo source is verified.

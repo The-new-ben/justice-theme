@@ -1,0 +1,26 @@
+id,title,status,priority,owner,category,files_changed,acceptance_criteria,verification_status,next_step,notes
+T001,Fix duplicate main tag in single-justice_lawyer.php,COMPLETED,CRITICAL,Claude,bug-fix,single-justice_lawyer.php,Only one main tag exists on lawyer profile page,VERIFIED in code,—,Fixed 2026-05-09
+T002,Fix duplicate main tag in archive-justice_lawyer.php,COMPLETED,CRITICAL,Claude,bug-fix,archive-justice_lawyer.php,Only one main tag exists on lawyer archive page,VERIFIED in code,—,Fixed 2026-05-09
+T003,Fix lawyer meta key mismatch in lawyer-card.php,COMPLETED,HIGH,Claude,bug-fix,template-parts/cards/lawyer-card.php,Lawyer cards display firm/phone/experience data correctly,VERIFIED in code,—,Fixed 2026-05-09
+T004,Fix is_paid plan names in lawyer-card.php,COMPLETED,HIGH,Claude,bug-fix,template-parts/cards/lawyer-card.php,Paid badge shows for pro/featured/lead_partner/full_service plans,VERIFIED in code,—,Fixed 2026-05-09
+T005,Fix CPT name in featured-lawyers.php,COMPLETED,HIGH,Claude,bug-fix,template-parts/sections/featured-lawyers.php,Featured lawyers section queries justice_lawyer CPT,VERIFIED in code,—,Fixed 2026-05-09
+T006,Add missing CSS custom properties,COMPLETED,MEDIUM,Claude,css,assets/css/main.css,navy-100/400/600 variables defined and render correctly,VERIFIED in code,—,Fixed 2026-05-09
+T007,Convert English strings to Hebrew in single-articles.php,COMPLETED,HIGH,Claude,i18n,single-articles.php,No English text visible on article pages,VERIFIED in code,—,Fixed 2026-05-09
+T008,Convert English strings in archive-articles.php,COMPLETED,HIGH,Claude,i18n,archive-articles.php,All text Hebrew,VERIFIED in code,—,Fixed 2026-05-09
+T009,Convert English strings in taxonomy-practice-areas.php,COMPLETED,HIGH,Claude,i18n,taxonomy-practice-areas.php,All text Hebrew,VERIFIED in code,—,Fixed 2026-05-09
+T010,Fix reading time to Hebrew in template-tags.php,COMPLETED,HIGH,Claude,i18n,inc/template-tags.php,Reading time shows in Hebrew,VERIFIED in code,—,Fixed 2026-05-09
+T011,Fix breadcrumbs i18n,COMPLETED,MEDIUM,Claude,i18n,inc/breadcrumbs.php,Breadcrumb aria-label and search string in Hebrew,VERIFIED in code,—,Fixed 2026-05-09
+T012,Replace emoji pillar icons with SVG,COMPLETED,MEDIUM,Claude,design,template-parts/sections/featured-pillars.php + main.css,Professional SVG icons replace emoji in pillar cards,VERIFIED in code,—,Fixed 2026-05-09
+T013,Replace emoji lawyer placeholder with SVG,COMPLETED,MEDIUM,Claude,design,template-parts/cards/lawyer-card.php,SVG person icon replaces emoji in lawyer cards,VERIFIED in code,—,Fixed 2026-05-09
+T014,Fix hero search form action and params,COMPLETED,HIGH,Claude,ux,template-parts/sections/hero.php,Search form POSTs to /lawyers/ with correct area/city/keyword params,VERIFIED in code,—,Fixed 2026-05-09
+T015,Add keyword filter to lawyer archive,COMPLETED,MEDIUM,Claude,ux,archive-justice_lawyer.php,Lawyer search supports keyword input,VERIFIED in code,—,Fixed 2026-05-09
+T016,Identify and stop casino/spam content on homepage,PENDING,CRITICAL,Owner/Dev,security,latest-articles.php + live DB,Homepage shows no casino/gambling/spam content,NOT VERIFIED,Run WP-CLI spam audit (see spam-investigation.md),Requires live site access
+T017,Verify one canonical Justice Core plugin is active,PENDING,CRITICAL,Dev,plugin,n/a,wp plugin list shows exactly one Justice plugin,NOT VERIFIED,wp plugin list + wp post-type list,Requires server access
+T018,Verify CPTs are registered correctly,PENDING,CRITICAL,Dev,plugin,n/a,articles + justice_lawyer CPTs return posts + show in WP admin,NOT VERIFIED,wp post-type list,Requires server access
+T019,Create 10 practice area taxonomy terms,PENDING,HIGH,Content,content,n/a,10 Hebrew practice area terms exist in DB,NOT VERIFIED,wp term create practice-areas (see next-actions.md),Requires server access
+T020,Publish 5 pillar articles,PENDING,HIGH,Content,content,n/a,5 Hebrew pillar articles published with 1500+ words each,NOT VERIFIED,Create via wp-admin or WP-CLI,Requires content writing
+T021,Create 10 seed lawyer profiles,PENDING,HIGH,Dev/Content,content,n/a,10 draft lawyer profiles exist (not published/not verified),NOT VERIFIED,Use lawyer-seed.csv as reference,Requires server access
+T022,Upload professional logo,PENDING,HIGH,Design,design,n/a,Logo appears in header replacing text fallback,NOT VERIFIED,WP Customizer → Site Identity,Requires design asset
+T023,Install and configure Yoast SEO or RankMath,PENDING,HIGH,Dev,plugin,n/a,XML sitemap live at /sitemap_index.xml,NOT VERIFIED,Install via wp-admin,Requires server access
+T024,Connect Google Search Console,PENDING,CRITICAL,Owner,seo,n/a,Domain verified in GSC + sitemap submitted,NOT VERIFIED,console.search.google.com,Requires Google account access
+T025,Build Justice Core plugin with REST health route,PENDING,HIGH,Dev,plugin,justice-core/,/wp-json/justice-core/v1/health returns 200 with site info,NOT VERIFIED,See plugin-registry.md for structure,New plugin development required

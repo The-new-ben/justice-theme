@@ -35,9 +35,7 @@ $views = (int) get_post_meta( $lawyer_id, 'profile_views', true );
 update_post_meta( $lawyer_id, 'profile_views', $views + 1 );
 ?>
 
-<main id="primary" class="site-main">
-
-	<article class="lawyer-profile section" itemscope itemtype="https://schema.org/Attorney">
+<article class="lawyer-profile section" itemscope itemtype="https://schema.org/Attorney">
 		<div class="container">
 
 			<?php if ( $is_paid ) : ?>
@@ -219,7 +217,5 @@ update_post_meta( $lawyer_id, 'profile_views', $views + 1 );
 
 		</div>
 	</article>
-
-</main>
 
 <?php get_footer(); ?>

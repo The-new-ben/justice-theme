@@ -23,7 +23,7 @@ function justice_theme_reading_time( $post_id = 0 ) {
 
 	return sprintf(
 		/* translators: %d: minutes. */
-		_n( '%d min read', '%d min read', $minutes, 'justice-theme' ),
+		_n( '%d דקת קריאה', '%d דקות קריאה', $minutes, 'justice-theme' ),
 		$minutes
 	);
 }

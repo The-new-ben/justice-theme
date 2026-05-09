@@ -1,0 +1,10 @@
+id,type,url,title,slug,status,language,word_count,categories,practice_area,top_keyword,secondary_keywords,search_intent,cluster,pillar_candidate,duplicate_title_risk,duplicate_topic_risk,action
+TEMPLATE,—,—,—,—,—,—,—,—,—,—,—,—,—,—,—,—,—
+NOTE: Populate this file by running via WP-CLI or REST API. See commands below.
+NOTE: WP-CLI command to generate: wp post list --post_type=articles,post,page,justice_lawyer --post_status=publish,draft --fields=ID,post_type,post_title,post_name,post_status --format=csv > raw-inventory.csv
+NOTE: Then enrich with: word_count (manual or SEMrush), practice_area (from taxonomy), top_keyword (from GSC), cluster (manual assignment)
+EXAMPLE1,articles,/articles/geirushin-haskhama/,גירושין בהסכמה — המדריך המלא,geirushin-haskhama,publish,he,2400,דיני משפחה,גירושין,גירושין בהסכמה,"ייצוג בגירושין,עלות גירושין בהסכמה",Informational/Commercial,cluster-geirushin,YES,LOW,LOW,KEEP AS PILLAR
+EXAMPLE2,articles,/articles/mishmoret-yeladim/,משמורת ילדים — זכויות והליכים,mishmoret-yeladim,publish,he,1800,דיני משפחה,גירושין,משמורת ילדים,"חלוקת משמורת,בקשת משמורת",Informational,cluster-geirushin,NO,LOW,LOW,SUPPORT PILLAR
+EXAMPLE3,articles,/articles/divrei-av/,מזונות ילדים כמה משלמים,divrei-av,publish,he,1500,דיני משפחה,גירושין,מזונות ילדים,"מזונות זמניים,חישוב מזונות",Informational,cluster-geirushin,NO,LOW,MEDIUM,SUPPORT PILLAR
+EXAMPLE4,justice_lawyer,/lawyers/sara-cohen/,שרה כהן — עורכת דין משפחה תל אביב,sara-cohen,draft,he,800,דיני משפחה,גירושין,עורך דין גירושין תל אביב,,Commercial,—,NO,LOW,LOW,KEEP
+SPAM1,post,/casino-online-israel/,Best Casino Israel 2025,casino-online-israel,publish,en,300,Uncategorized,,casino israel online,,Spam,—,NO,LOW,LOW,DELETE ONLY AFTER APPROVAL

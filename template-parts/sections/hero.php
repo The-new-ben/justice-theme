@@ -58,13 +58,13 @@ $israel_cities = array(
 				<?php esc_html_e( 'מדריך עורכי דין בישראל: חיפוש לפי תחום משפטי ואזור, מאמרים מקצועיים, מדריכים משפטיים, והפנייה חכמה לייצוג המתאים.', 'justice-theme' ); ?>
 			</p>
 
-			<form class="hero-search" role="search" method="get" action="<?php echo esc_url( home_url( '/' ) ); ?>" id="hero-search-form">
+			<form class="hero-search" role="search" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ); ?>" id="hero-search-form">
 				<div class="hero-search__filters">
 					<div class="hero-search__field">
 						<label class="screen-reader-text" for="hero-practice-area">
 							<?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?>
 						</label>
-						<select id="hero-practice-area" name="practice_area">
+						<select id="hero-practice-area" name="area">
 							<option value=""><?php esc_html_e( 'בחרו תחום משפטי', 'justice-theme' ); ?></option>
 							<?php
 							if ( ! empty( $practice_terms ) && ! is_wp_error( $practice_terms ) ) :
@@ -99,9 +99,9 @@ $israel_cities = array(
 					<input
 						id="hero-search-input"
 						type="search"
-						name="s"
-						placeholder="<?php echo esc_attr__( 'או הקלידו חיפוש חופשי...', 'justice-theme' ); ?>"
-						value="<?php echo esc_attr( get_search_query() ); ?>"
+						name="keyword"
+						placeholder="<?php echo esc_attr__( 'שם עורך דין, עיר או התמחות...', 'justice-theme' ); ?>"
+						value=""
 					>
 					<button type="submit" class="button button--gold">
 						<?php esc_html_e( 'חיפוש', 'justice-theme' ); ?>

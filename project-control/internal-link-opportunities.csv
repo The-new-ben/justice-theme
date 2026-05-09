@@ -1,0 +1,8 @@
+source_url,source_title,target_url,target_title,anchor_text,opportunity_type,priority,status
+/articles/geirushin-haskhama/,גירושין בהסכמה,/lawyers/?area=geirushin,עורכי דין גירושין,מצאו עורך דין גירושין,Article → Directory,HIGH,PENDING
+/articles/mishmoret-yeladim/,משמורת ילדים,/articles/geirushin-haskhama/,גירושין בהסכמה,הליך הגירושין הכולל,Supporting → Pillar,HIGH,PENDING
+/lawyers/?area=geirushin,עורכי דין גירושין,/articles/geirushin-haskhama/,גירושין בהסכמה — המדריך,המדריך המלא לגירושין,Directory → Content,MEDIUM,PENDING
+/articles/orech-din-plili/,עורך דין פלילי,/lawyers/?area=criminal,עורכי דין פליליים,מצאו עורך דין פלילי,Article → Directory,HIGH,PENDING
+/practice-areas/family-law/,דיני משפחה,/articles/geirushin-haskhama/,גירושין בהסכמה,גירושין בהסכמה,Taxonomy → Pillar,HIGH,PENDING
+NOTE: Run after content inventory is complete. Identify every article that does NOT have a link to the relevant lawyer directory page.
+NOTE: Tool: Screaming Frog or custom REST route /justice-core/v1/internal-link-opportunities

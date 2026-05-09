@@ -12,8 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Check if lawyer CPT exists and has entries
-$has_lawyers = post_type_exists( 'lawyer' ) && wp_count_posts( 'lawyer' )->publish > 0;
+// Check if justice_lawyer CPT exists and has published entries
+$has_lawyers = post_type_exists( 'justice_lawyer' ) && wp_count_posts( 'justice_lawyer' )->publish > 0;
 ?>
 
 <section class="featured-lawyers section" id="featured-lawyers">
@@ -31,11 +31,13 @@ $has_lawyers = post_type_exists( 'lawyer' ) && wp_count_posts( 'lawyer' )->publi
 		<?php if ( $has_lawyers ) : ?>
 			<?php
 			$lawyers_query = new WP_Query( array(
-				'post_type'      => 'lawyer',
+				'post_type'      => 'justice_lawyer',
 				'posts_per_page' => 4,
-				'meta_key'       => '_justice_featured',
-				'meta_value'     => '1',
-				'orderby'        => 'rand',
+				'meta_key'       => 'featured_until',
+				'meta_value'     => current_time( 'Y-m-d' ),
+				'meta_compare'   => '>=',
+				'orderby'        => 'meta_value',
+				'order'          => 'DESC',
 			) );
 
 			if ( $lawyers_query->have_posts() ) :
@@ -55,7 +57,7 @@ $has_lawyers = post_type_exists( 'lawyer' ) && wp_count_posts( 'lawyer' )->publi
 			<!-- Placeholder state until lawyers register -->
 			<div class="featured-lawyers__coming">
 				<div class="featured-lawyers__message">
-					<p class="featured-lawyers__icon" aria-hidden="true">⚖️</p>
+					<div class="featured-lawyers__icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5" width="48" height="48"><circle cx="24" cy="14" r="8"/><path d="M8 40c0-8.8 7.2-16 16-16s16 7.2 16 16"/></svg></div>
 					<h3><?php esc_html_e( 'מדריך עורכי הדין בבנייה', 'justice-theme' ); ?></h3>
 					<p><?php esc_html_e( 'בקרוב תוכלו לחפש ולמצוא עורכי דין מומחים לפי תחום, עיר וניסיון. עורכי דין — הצטרפו עכשיו והיו מהראשונים במדריך.', 'justice-theme' ); ?></p>
 					<a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" class="button button--gold">

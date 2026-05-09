@@ -11,13 +11,13 @@ get_header();
 <section class="archive-header">
 	<div class="container">
 		<p class="archive-header__eyebrow">
-			<?php esc_html_e( 'Legal library', 'justice-theme' ); ?>
+			<?php esc_html_e( 'ספריית מאמרים משפטיים', 'justice-theme' ); ?>
 		</p>
 
 		<h1><?php post_type_archive_title(); ?></h1>
 
 		<p>
-			<?php esc_html_e( 'Browse legal guides, explanations, and practical information by topic.', 'justice-theme' ); ?>
+			<?php esc_html_e( 'מדריכים משפטיים, הסברים מעשיים ומידע לפי תחום משפטי.', 'justice-theme' ); ?>
 		</p>
 	</div>
 </section>
@@ -63,8 +63,8 @@ get_header();
 					<?php
 					the_posts_pagination( array(
 						'mid_size'  => 2,
-						'prev_text' => esc_html__( 'Previous', 'justice-theme' ),
-						'next_text' => esc_html__( 'Next', 'justice-theme' ),
+						'prev_text' => esc_html__( '→ הקודם', 'justice-theme' ),
+						'next_text' => esc_html__( 'הבא ←', 'justice-theme' ),
 					) );
 					?>
 				</div>

@@ -1,0 +1,7 @@
+cluster,keyword,pillar_url,pillar_title,competing_url,competing_title,overlap_risk,action
+NOTE: Populate by pulling GSC data. Multiple pages ranking for same query = cannibalization risk.
+NOTE: GSC Query: compare pages ranking for same keywords in positions 1-20
+cluster-geirushin,גירושין בהסכמה,/articles/geirushin-haskhama/,גירושין בהסכמה — המדריך המלא,/articles/geirushin-bhaskhama-2/,גירושין בהסכמה — מה שצריך לדעת,HIGH — identical intent,MERGE into pillar
+cluster-geirushin,עורך דין גירושין,/lawyers/?area=geirushin,מדריך עורכי דין גירושין,/articles/orech-din-geirushin/,איך לבחור עורך דין גירושין,MEDIUM — different intent,KEEP BOTH — differentiate intent
+cluster-pli,עורך דין פלילי,/lawyers/?area=criminal,מדריך עורכי דין פליליים,/articles/orech-din-plili/,עורך דין פלילי — כל מה שצריך לדעת,MEDIUM,KEEP BOTH — mark canonical
+cluster-traboda,עורך דין תעבורה,/lawyers/?area=traffic,עורכי דין תעבורה,/articles/bitur-doach-teuvra/,ביטול דוח תנועה — מדריך,LOW — different intent,KEEP BOTH

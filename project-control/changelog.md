@@ -22,6 +22,7 @@
 - Current seeded article starters are now explicitly marked as scaffolds only.
 - Production direction is 5,000-word-class, SERP-driven, reviewed legal content connected to Maya Rotenberg, internal links, lead forms, tools, and pillar/supporting architecture.
 - Added the first long-form production draft at `content-drafts/divorce-lawyer-pillar-he.md`.
+- Added the first supporting family-law draft at `content-drafts/consensual-divorce-supporting-he.md`.
 - Updated visual QA with live homepage screenshots and findings.
 
 ### NOT VERIFIED

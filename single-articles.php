@@ -13,25 +13,27 @@ while ( have_posts() ) :
 	$primary_term = justice_theme_get_primary_practice_area();
 	?>
 
-	<article <?php post_class( 'single-article premium-card' ); ?> style="background: #fff; padding-bottom: 4rem;">
-		<header class="single-article__header" style="background: linear-gradient(135deg, var(--color-primary-deep), var(--color-primary)); color: #fff; padding: 4rem 0 3rem; margin-bottom: 3rem;">
-			<div class="container container--narrow" style="max-width: 800px; margin: 0 auto; text-align: center;">
+	<article <?php post_class( 'single-article premium-card' ); ?> style="background: var(--jt-surface); border: none; box-shadow: none;">
+		<header class="single-article__header glass-panel" style="max-width: 900px; margin: 40px auto 3rem; padding: 3rem 2rem; text-align: center; border-radius: var(--jt-radius-lg);">
+			<div class="container container--narrow">
 				<?php if ( $primary_term ) : 
 					$clean_name = str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ', 'ותאונות' ), array( '', '', '', '' ), $primary_term->name );
 				?>
-					<a class="single-article__term" href="<?php echo esc_url( get_term_link( $primary_term ) ); ?>" style="display: inline-block; margin-bottom: 1rem; font-size: 0.9rem; background: rgba(255,255,255,0.1); color: #fff; padding: 0.4rem 1rem; border-radius: 50px; font-weight: 700;">
+					<a class="single-article__term" href="<?php echo esc_url( get_term_link( $primary_term ) ); ?>" style="display: inline-block; margin-bottom: 1.2rem; font-size: 0.95rem; background: rgba(95, 126, 168, 0.1); color: var(--jt-accent); padding: 0.4rem 1.2rem; border-radius: 50px; font-weight: 800; text-decoration: none;">
 						<?php echo esc_html( trim( $clean_name ) ); ?>
 					</a>
 				<?php endif; ?>
 
-				<h1 class="single-article__title" style="font-size: clamp(2.2rem, 5vw, 3.5rem); margin-bottom: 1.5rem; line-height: 1.2;"><?php the_title(); ?></h1>
+				<h1 class="single-article__title" style="font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 1.5rem; line-height: 1.25; color: var(--jt-primary-deep); letter-spacing: -0.5px;">
+					<?php the_title(); ?>
+				</h1>
 
-				<div class="single-article__meta" style="display: flex; justify-content: center; gap: 1.5rem; color: rgba(255,255,255,0.7); font-size: 0.95rem;">
+				<div class="single-article__meta" style="display: flex; justify-content: center; gap: 1.5rem; color: var(--jt-muted); font-size: 0.95rem; font-weight: 600;">
 					<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>">
-						🗓 <?php echo esc_html( get_the_date() ); ?>
+						<span style="color: var(--jt-accent); font-size: 1.1rem; vertical-align: middle;">🗓</span> <?php echo esc_html( get_the_date() ); ?>
 					</time>
 
-					<span>⏱ <?php echo esc_html( justice_theme_reading_time() ); ?></span>
+					<span><span style="color: var(--jt-accent); font-size: 1.1rem; vertical-align: middle;">⏱</span> <?php echo esc_html( justice_theme_reading_time() ); ?></span>
 
 					<span>
 						<?php
@@ -46,7 +48,7 @@ while ( have_posts() ) :
 			</div>
 		</header>
 
-		<div class="container single-article__layout" style="display: grid; grid-template-columns: 1fr 300px; gap: 4rem; max-width: 1100px; margin: 0 auto;">
+		<div class="container single-article__layout" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; max-width: 1100px; margin: 0 auto; grid-template-columns: 1fr 300px;">
 			
 			<div class="single-article__main">
 				<?php if ( has_post_thumbnail() ) : ?>

@@ -21,6 +21,11 @@
 - Seeds draft pages for `/divorce-lawyer/`, `/criminal-lawyer/`, `/real-estate-lawyer/`, and `/medical-malpractice-lawyer/` on admin visit.
 - Drafts are not public until reviewed and published.
 
+**[HIGH] Upgraded practice-area archives into hub pages**
+- Files: `taxonomy-practice-areas.php`, `assets/css/premium-pass-3.css`
+- Practice pages now show a stronger hero, related lawyer cards, article cards, LegalTech tools, and sibling practice links.
+- This moves category pages toward SEO/commercial hubs instead of thin article archives.
+
 ### URL STRATEGY
 
 **[HIGH] Confirmed final English-slug strategy**

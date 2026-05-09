@@ -7,57 +7,177 @@
 
 get_header();
 
-$term = get_queried_object();
+$term       = get_queried_object();
+$term_name  = $term instanceof WP_Term ? $term->name : single_term_title( '', false );
+$term_slug  = $term instanceof WP_Term ? $term->slug : '';
+$term_desc  = $term instanceof WP_Term ? $term->description : '';
+$clean_name = trim( str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ' ), '', $term_name ) );
+
+$lawyers = null;
+if ( post_type_exists( 'justice_lawyer' ) && $term_slug ) {
+	$lawyers = new WP_Query( array(
+		'post_type'      => 'justice_lawyer',
+		'post_status'    => 'publish',
+		'posts_per_page' => 3,
+		'orderby'        => 'meta_value_num',
+		'meta_key'       => 'priority_score',
+		'order'          => 'DESC',
+		'tax_query'      => array(
+			array(
+				'taxonomy' => 'practice-areas',
+				'field'    => 'slug',
+				'terms'    => $term_slug,
+			),
+		),
+	) );
+}
+
+$tools = null;
+if ( post_type_exists( 'justice_legal_tool' ) ) {
+	$tools = new WP_Query( array(
+		'post_type'      => 'justice_legal_tool',
+		'post_status'    => 'publish',
+		'posts_per_page' => 3,
+		'orderby'        => 'menu_order',
+		'order'          => 'ASC',
+	) );
+}
+
+$related_terms = get_terms( array(
+	'taxonomy'   => 'practice-areas',
+	'hide_empty' => false,
+	'exclude'    => $term instanceof WP_Term ? array( $term->term_id ) : array(),
+	'number'     => 8,
+) );
 ?>
 
-	<section class="taxonomy-hero glass-panel">
-		<div class="container">
-			<p class="section-eyebrow taxonomy-hero__eyebrow">
-				תחום משפטי
-			</p>
-			<?php
-			$clean_name = str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ', 'ותאונות' ), array( '', '', '', '' ), single_term_title( '', false ) );
-			?>
-			<h1><?php echo esc_html( trim( $clean_name ) ); ?></h1>
-
-			<?php if ( ! empty( $term->description ) ) : ?>
-				<div class="taxonomy-description" style="color: var(--color-text); font-size: 1.1rem; line-height: 1.7; max-width: 680px; margin: 0 auto 2rem;">
-					<?php echo wp_kses_post( wpautop( $term->description ) ); ?>
-				</div>
-			<?php endif; ?>
-
-			<a class="button button--primary" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="font-size: 1.05rem; padding: 0.9rem 2rem;">
-				קבלת הכוונה משפטית
-			</a>
-		</div>
-	</section>
-
-	<section class="taxonomy-content section">
-		<div class="container">
-			<?php if ( have_posts() ) : ?>
-				<div class="article-grid">
-					<?php
-					while ( have_posts() ) :
-						the_post();
-						get_template_part( 'template-parts/cards/article-card' );
-					endwhile;
-					?>
-				</div>
-
-				<div class="pagination" style="margin-top: 3rem; text-align: center;">
-					<?php
-					the_posts_pagination( array(
-						'mid_size'  => 2,
-						'prev_text' => esc_html__( '→ הקודם', 'justice-theme' ),
-						'next_text' => esc_html__( 'הבא ←', 'justice-theme' ),
-					) );
-					?>
+<section class="practice-hub-hero section">
+	<div class="container practice-hub-hero__grid">
+		<div>
+			<p class="section-header__eyebrow"><?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?></p>
+			<h1><?php echo esc_html( $clean_name ?: $term_name ); ?></h1>
+			<?php if ( $term_desc ) : ?>
+				<div class="practice-hub-hero__description">
+					<?php echo wp_kses_post( wpautop( $term_desc ) ); ?>
 				</div>
 			<?php else : ?>
-				<?php get_template_part( 'template-parts/content/content-none' ); ?>
+				<p><?php echo esc_html( sprintf( 'מרכז מידע, עורכי דין וכלים דיגיטליים בתחום %s. העמוד נועד לעזור להבין את הבעיה, לקרוא מדריכים רלוונטיים ולהשאיר פנייה מסודרת.', $clean_name ?: $term_name ) ); ?></p>
 			<?php endif; ?>
+			<div class="practice-hub-hero__actions">
+				<a class="button button--gold" href="#practice-lawyers"><?php esc_html_e( 'עורכי דין בתחום', 'justice-theme' ); ?></a>
+				<a class="button button--ghost" href="#practice-guides"><?php esc_html_e( 'מדריכים משפטיים', 'justice-theme' ); ?></a>
+			</div>
+		</div>
+
+		<aside class="practice-hub-hero__panel">
+			<strong><?php esc_html_e( 'מה אפשר לעשות כאן?', 'justice-theme' ); ?></strong>
+			<ul>
+				<li><?php esc_html_e( 'להבין את התחום והשלבים הראשונים.', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'למצוא מדריכים קשורים לפי צורך.', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'לעבור לעורך דין או לכלי דיגיטלי מתאים.', 'justice-theme' ); ?></li>
+			</ul>
+		</aside>
+	</div>
+</section>
+
+<?php if ( $lawyers && $lawyers->have_posts() ) : ?>
+	<section class="practice-hub-lawyers section" id="practice-lawyers">
+		<div class="container">
+			<div class="section-header section-header--split">
+				<div>
+					<p class="section-header__eyebrow"><?php esc_html_e( 'עורכי דין', 'justice-theme' ); ?></p>
+					<h2><?php echo esc_html( sprintf( 'עורכי דין בתחום %s', $clean_name ?: $term_name ) ); ?></h2>
+				</div>
+				<a class="button button--primary" href="<?php echo esc_url( add_query_arg( 'area', $term_slug, get_post_type_archive_link( 'justice_lawyer' ) ) ); ?>"><?php esc_html_e( 'כל הפרופילים', 'justice-theme' ); ?></a>
+			</div>
+			<div class="lawyers-grid">
+				<?php while ( $lawyers->have_posts() ) : $lawyers->the_post(); ?>
+					<?php get_template_part( 'template-parts/cards/lawyer-card' ); ?>
+				<?php endwhile; ?>
+			</div>
 		</div>
 	</section>
+	<?php wp_reset_postdata(); ?>
+<?php endif; ?>
+
+<section class="practice-hub-content section" id="practice-guides">
+	<div class="container">
+		<div class="section-header section-header--split">
+			<div>
+				<p class="section-header__eyebrow"><?php esc_html_e( 'מדריכים', 'justice-theme' ); ?></p>
+				<h2><?php esc_html_e( 'מדריכים ומאמרים בתחום', 'justice-theme' ); ?></h2>
+			</div>
+			<a class="button button--ghost" href="<?php echo esc_url( get_post_type_archive_link( 'articles' ) ); ?>"><?php esc_html_e( 'כל המאמרים', 'justice-theme' ); ?></a>
+		</div>
+
+		<?php if ( have_posts() ) : ?>
+			<div class="article-grid">
+				<?php while ( have_posts() ) : the_post(); ?>
+					<?php get_template_part( 'template-parts/cards/article-card' ); ?>
+				<?php endwhile; ?>
+			</div>
+
+			<div class="pagination">
+				<?php
+				the_posts_pagination( array(
+					'mid_size'  => 2,
+					'prev_text' => esc_html__( 'הקודם', 'justice-theme' ),
+					'next_text' => esc_html__( 'הבא', 'justice-theme' ),
+				) );
+				?>
+			</div>
+		<?php else : ?>
+			<div class="directory-empty">
+				<h2><?php esc_html_e( 'המדריכים בתחום הזה בהכנה', 'justice-theme' ); ?></h2>
+				<p><?php esc_html_e( 'העמוד כבר מחובר למערכת התחומים, וברגע שמדריכים ישויכו לתחום הם יופיעו כאן.', 'justice-theme' ); ?></p>
+			</div>
+		<?php endif; ?>
+	</div>
+</section>
+
+<?php if ( $tools && $tools->have_posts() ) : ?>
+	<section class="practice-hub-tools section">
+		<div class="container">
+			<div class="section-header">
+				<p class="section-header__eyebrow">LegalTech</p>
+				<h2><?php esc_html_e( 'כלים דיגיטליים שיכולים לעזור לפני פנייה', 'justice-theme' ); ?></h2>
+			</div>
+			<div class="legaltools-grid">
+				<?php while ( $tools->have_posts() ) : $tools->the_post(); ?>
+					<?php
+					$tool_type = get_post_meta( get_the_ID(), 'tool_type', true );
+					$price     = get_post_meta( get_the_ID(), 'starting_price', true );
+					?>
+					<article class="legaltool-card">
+						<a href="<?php the_permalink(); ?>" class="legaltool-card__link">
+							<span><?php echo esc_html( $tool_type ?: 'LegalTech' ); ?></span>
+							<h3><?php the_title(); ?></h3>
+							<p><?php echo esc_html( get_the_excerpt() ?: wp_trim_words( wp_strip_all_tags( get_the_content() ), 22 ) ); ?></p>
+							<?php if ( $price ) : ?><strong><?php echo esc_html( $price ); ?></strong><?php endif; ?>
+						</a>
+					</article>
+				<?php endwhile; ?>
+			</div>
+		</div>
+	</section>
+	<?php wp_reset_postdata(); ?>
+<?php endif; ?>
+
+<?php if ( ! empty( $related_terms ) && ! is_wp_error( $related_terms ) ) : ?>
+	<section class="practice-hub-related section">
+		<div class="container">
+			<div class="section-header">
+				<p class="section-header__eyebrow"><?php esc_html_e( 'תחומים נוספים', 'justice-theme' ); ?></p>
+				<h2><?php esc_html_e( 'אולי רלוונטי גם', 'justice-theme' ); ?></h2>
+			</div>
+			<div class="practice-areas-grid">
+				<?php foreach ( $related_terms as $related_term ) : ?>
+					<?php get_template_part( 'template-parts/cards/practice-area-card', null, array( 'term' => $related_term ) ); ?>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</section>
+<?php endif; ?>
 
 <?php
 get_footer();

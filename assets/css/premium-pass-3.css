@@ -1539,3 +1539,81 @@
     width: 100%;
   }
 }
+
+.practice-hub-hero {
+  background:
+    linear-gradient(135deg, rgba(7,21,47,0.96), rgba(39,46,70,0.92)),
+    radial-gradient(circle at 16% 18%, rgba(197,164,92,0.22), transparent 34%);
+  color: #fff;
+}
+
+.practice-hub-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 360px);
+  gap: 1.25rem;
+  align-items: center;
+}
+
+.practice-hub-hero h1,
+.practice-hub-hero p {
+  color: #fff;
+}
+
+.practice-hub-hero p,
+.practice-hub-hero__description {
+  max-width: 760px;
+  color: rgba(255,255,255,0.78);
+  line-height: 1.8;
+}
+
+.practice-hub-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+  margin-top: 1.2rem;
+}
+
+.practice-hub-hero__panel {
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.1);
+  padding: 1.2rem;
+  box-shadow: 0 26px 70px rgba(0,0,0,0.18);
+  backdrop-filter: blur(14px);
+}
+
+.practice-hub-hero__panel strong {
+  display: block;
+  color: #e8c97a;
+  font-weight: 900;
+}
+
+.practice-hub-hero__panel ul {
+  display: grid;
+  gap: 0.65rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.practice-hub-hero__panel li {
+  border-top: 1px solid rgba(255,255,255,0.14);
+  padding-top: 0.65rem;
+  color: rgba(255,255,255,0.84);
+}
+
+.practice-hub-tools {
+  background: #fbfaf7;
+}
+
+@media (max-width: 900px) {
+  .practice-hub-hero__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .practice-hub-hero__actions .button {
+    width: 100%;
+  }
+}

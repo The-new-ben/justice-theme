@@ -82,7 +82,7 @@ wp term create practice-areas "הגירה ואזרחות" --slug=immigration --d
 **Still needed live:** verify active plugin path, visit `/wp-admin/` after Upress pull if seeding is desired, then draft/unpublish any existing public demo lawyers. Maya Rotenberg remains the only client intended for homepage featuring.
 
 ### ACTION-008: Publish 5 Pillar Articles
-**Status:** Content task  
+**Status:** PARTIAL in code - 5 draft article starters seed after admin visit; publishing still pending legal/editorial review
 **Required for:** SEO foundation, homepage not showing empty state  
 **Titles (minimum viable):**
 1. "עורך דין גירושין — מדריך מלא לבחירה, עלויות, הליך"
@@ -92,6 +92,9 @@ wp term create practice-areas "הגירה ואזרחות" --slug=immigration --d
 5. "עורך דין דיני עבודה — מדריך לעובד ולמעסיק"
 
 ---
+
+**Implementation:** `inc/pillar-article-seed.php` seeds draft-only `articles` records with English slugs, Hebrew starter text, practice-area assignment, pillar URL metadata, and `needs_legal_review = 1`.
+**Still needed:** expand each draft to publication quality, add real sources, assign author/reviewer, verify no cannibalization with page pillars, then publish manually after review.
 
 ## MEDIUM PRIORITY
 

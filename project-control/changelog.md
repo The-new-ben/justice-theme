@@ -21,6 +21,12 @@
 - Seeds draft pages for `/divorce-lawyer/`, `/criminal-lawyer/`, `/real-estate-lawyer/`, and `/medical-malpractice-lawyer/` on admin visit.
 - Drafts are not public until reviewed and published.
 
+**[HIGH] Added draft-only starter seeding for first five SEO articles**
+- Files: `inc/pillar-article-seed.php`, `functions.php`
+- Seeds draft `articles` records for divorce, criminal, traffic, real-estate and labor-law guide starters when the `articles` CPT is active.
+- Each draft uses an English slug, Hebrew starter content, practice-area assignment, target pillar URL metadata, and `needs_legal_review = 1`.
+- These are scaffolds only; they must be expanded, sourced and reviewed before publication.
+
 **[HIGH] Upgraded practice-area archives into hub pages**
 - Files: `taxonomy-practice-areas.php`, `assets/css/premium-pass-3.css`
 - Practice pages now show a stronger hero, related lawyer cards, article cards, LegalTech tools, and sibling practice links.

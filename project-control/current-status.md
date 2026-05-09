@@ -42,6 +42,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - SEO goal files updated around English-slug pillar architecture: `topic-clusters.csv`, `internal-link-opportunities.csv`, `cannibalization-map.csv`, `keyword-serp-plan.md`, `serp-research-log.csv`, and `title-audit.csv`.
 - Legal pillar CMS controls added in `inc/pillar-pages.php`.
 - Draft seeding added for the first pillar pages: `/divorce-lawyer/`, `/criminal-lawyer/`, `/real-estate-lawyer/`, and `/medical-malpractice-lawyer/`.
+- Draft seeding added for the first 5 SEO article starters: divorce, criminal, traffic, real estate, and labor law. These are intentionally draft-only and marked for legal/editorial review.
 - Practice-area taxonomy pages upgraded into richer hubs with lawyer cards, article cards, LegalTech tools, and related practice links.
 - Lawyer self-registration funnel added. `/lawyer-registration/` can collect lawyer details and create draft/pending `justice_lawyer` profiles for review.
 - Lawyer onboarding review workflow documented in `project-control/lawyer-onboarding-workflow.md`.
@@ -69,6 +70,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Starter LegalTech tool posts are NOT VERIFIED on live; seeding runs on an admin dashboard visit after plugin code is active.
 - SERP research is PARTIAL. Initial web sampling was recorded, but manual top-10 capture, People Also Ask, autocomplete, and GSC data are still NOT VERIFIED.
 - Legal pillar draft pages are NOT VERIFIED on live; they seed only after Upress pulls the commit and an admin dashboard visit runs.
+- Draft SEO article starters are NOT VERIFIED live; they seed only after Upress pulls the commit, the `articles` CPT exists, and an admin dashboard visit runs.
 - Practice-area hub rendering is NOT VERIFIED on live after this pass.
 - Lawyer registration page and submission handler are NOT VERIFIED live until latest code is pulled and `/wp-admin/` runs the page seeder.
 - Lawyer onboarding admin queue and email notification are NOT VERIFIED live.
@@ -83,6 +85,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Live lawyer cards show city slugs such as `tel-aviv` in the public extract, which means terms or assigned values may not be user-facing Hebrew in every place.
 - Live archive still exposes multiple demo lawyers publicly; this must be cleaned or moved to draft/private from WP admin/API after active plugin and content ownership are verified.
 - Existing public demo lawyers on live may predate the hardened seeder and require manual/API cleanup after backup.
+- The 5 article starters are not publication-ready; they are scaffolds for controlled content production, not finished legal articles.
 - Existing live Hebrew slugs need a controlled English-slug migration with 301 redirects; repo changes prevent future seed slugs but do not automatically fix already-published URLs unless an approved migration runs.
 - Live homepage extract shows "Content is protected !!", likely from a content-protection/accessibility/plugin layer; source and impact are NOT VERIFIED.
 - Spam source remains NOT VERIFIED. Homepage may be hiding spam by querying only `articles`, but database cleanup is still required.

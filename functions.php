@@ -26,6 +26,7 @@ $justice_theme_files = array(
 	'inc/lead-ui.php',
 	'inc/lead-crm.php',
 	'inc/pillar-pages.php',
+	'inc/pillar-article-seed.php',
 	'inc/lawyer-onboarding.php',
 	'inc/taxonomy-seed.php',
 	'inc/cleanup.php',

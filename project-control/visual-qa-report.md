@@ -10,6 +10,12 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - NOT VERIFIED: Upress/GitHub pull status.
 - BLOCKED: Authenticated Upress pull could not be completed through the public web fetch context.
 
+## 2026-05-10 Live Pull Recheck
+- VERIFIED: Live homepage returned HTTP 200.
+- VERIFIED: Latest repo visual layer is live: `brand-lockup--justice`, `hero__visual`, and `article-card__placeholder--legal` were found in public HTML.
+- FIXED IN REPO: Wordmark direction was corrected with `direction: ltr` and `unicode-bidi: isolate` because the live RTL page displayed the fallback as `Tice dot Jus` instead of `Jus dot Tice`.
+- VERIFIED: New screenshots captured at `project-control/visual-evidence/homepage-after-pull-desktop.png` and `project-control/visual-evidence/homepage-after-pull-mobile.png`.
+
 ## Visual Findings
 - STILL BROKEN: Header still looks too thin for a premium legal portal.
 - STILL BROKEN: The logo appears too small and does not show the new blinking red dot fallback yet, indicating the live site likely has not pulled the latest commit or cache is stale.
@@ -19,6 +25,8 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - FIXED IN REPO / NOT LIVE VERIFIED: Header/footer dummy fallback was replaced with the code wordmark and blinking red dot.
 - GOOD: Maya Rotenberg appears as the only featured lawyer card on the screenshot.
 - GOOD: Lead/LegalTech sections exist and the page has more business depth than a basic blog.
+- GOOD: After the live pull recheck, article placeholders are visually richer and the hero has a visible legal-tech layer.
+- STILL BROKEN: Header navigation remains too thin for the final product and needs a stronger primary menu/mega-menu.
 
 ## Public HTML Checks
 - VERIFIED: homepage loads.

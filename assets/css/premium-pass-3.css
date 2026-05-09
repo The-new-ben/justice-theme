@@ -2280,6 +2280,8 @@
   align-items: center;
   gap: 0.12rem;
   white-space: nowrap;
+  direction: ltr;
+  unicode-bidi: isolate;
   color: var(--jt-primary-deep);
   font-family: Georgia, "Times New Roman", serif;
   font-size: clamp(1.72rem, 2.4vw, 2.45rem);

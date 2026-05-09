@@ -93,7 +93,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Practice-area term seeding is NOT VERIFIED live; it runs after Upress pull and an admin dashboard visit, if the taxonomy is active.
 - Header/footer logo fallback is NOT VERIFIED live after this pass.
 - Hardened lawyer seeding is NOT VERIFIED live; it requires Upress pull and the active plugin/admin seeder path.
-- Live visual screenshot check ran on 2026-05-09. Homepage returned 200, but the latest repo wordmark (`brand-lockup--justice`) was NOT present live, so Upress pull/cache is still not verified.
+- Live visual screenshot check ran again on 2026-05-10. Homepage returned 200 and latest repo markers (`brand-lockup--justice`, `hero__visual`, `article-card__placeholder--legal`) are present live, so GitHub/Upress sync is now VERIFIED for the latest theme changes.
 
 ## STILL BROKEN / RISK
 - Repo still contains duplicate plugin-like folders: `ultra-justice/`, `ultra-justice-engine/`, and new `justice-core/`.
@@ -111,6 +111,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Existing live Hebrew slugs need a controlled English-slug migration with 301 redirects; repo changes prevent future seed slugs but do not automatically fix already-published URLs unless an approved migration runs.
 - Live homepage extract shows "Content is protected !!", likely from a content-protection/accessibility/plugin layer; source and impact are NOT VERIFIED.
 - Spam source remains NOT VERIFIED. Homepage may be hiding spam by querying only `articles`, but database cleanup is still required.
+- Live visual recheck found fallback wordmark order reversed on RTL (`Tice dot Jus`). FIXED IN REPO with LTR isolation; live verification pending next Upress pull.
 
 ## NEXT BEST ACTION
 1. Verify the exact GitHub sync target and active plugin path.

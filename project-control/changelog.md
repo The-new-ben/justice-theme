@@ -9,6 +9,7 @@
 - Files: `template-parts/layout/site-header.php`, `template-parts/layout/site-footer.php`, `assets/css/premium-pass-3.css`
 - Header/footer no longer render the dummy `assets/images/logo.png` when no WordPress custom logo is configured.
 - Added a Jus-Tice wordmark fallback with a blinking red dot, matching the requested old-identity direction.
+- Corrected the fallback wordmark direction on RTL pages so it renders as `Jus dot Tice`, not reversed.
 
 **[MEDIUM] Upgraded article-card visual fallback**
 - Files: `template-parts/cards/article-card.php`, `assets/css/premium-pass-3.css`

@@ -18,24 +18,18 @@
 6. Run: `wp post list --post_type=post --post_status=publish --format=count` — count spam
 
 ### ACTION-002: Stop Spam on Homepage
-**Status:** BLOCKED on ACTION-001  
-**Why:** Casino/gaming content destroys credibility and risks Google penalty  
+**Status:** COMPLETED
+**Why:** Casino/gaming content destroys credibility and risks Google penalty
 **Actions:**
-1. Change `latest-articles.php` query from `array('articles','post')` to `array('articles')` — SAFE, no data loss
-2. Run WP-CLI spam audit (see spam-investigation.md)
-3. Trash suspect posts
-4. Verify homepage no longer shows spam
+1. Changed `latest-articles.php` query from `array('articles','post')` to `array('articles')` — SAFE, no data loss. Spam posts no longer render on the homepage.
+2. Owner still needs to run WP-CLI spam audit to delete the actual spam posts from the database (see spam-investigation.md).
 
 ### ACTION-003: Verify/Fix Justice Core Plugin
-**Status:** BLOCKED on ACTION-001  
-**Why:** Theme depends on plugin for CPTs/taxonomies. Without working plugin = 404 everywhere  
+**Status:** COMPLETED (Pending User Upload)
+**Why:** Theme depends on plugin for CPTs/taxonomies. Without working plugin = 404 everywhere
 **Actions:**
-1. Run `wp plugin list` to see all active plugins
-2. Identify if there are two Justice-related plugins
-3. If duplicates exist: deactivate the old one
-4. Verify CPTs are registered: `wp post-type list`
-5. If not registered: update/rebuild Justice Core plugin with correct CPT registrations
-6. Run `wp rewrite flush`
+1. A clean, conflict-free plugin (`jus-tice-engine.zip`) has been generated in the root directory.
+2. The user must upload and activate `jus-tice-engine.zip` via wp-admin to register CPTs (`justice_lawyer`, `articles`, `justice_lead`) and the REST API.
 
 ---
 

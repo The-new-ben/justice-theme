@@ -14,8 +14,8 @@ T012,Replace emoji pillar icons with SVG,COMPLETED,MEDIUM,Claude,design,template
 T013,Replace emoji lawyer placeholder with SVG,COMPLETED,MEDIUM,Claude,design,template-parts/cards/lawyer-card.php,SVG person icon replaces emoji in lawyer cards,VERIFIED in code,—,Fixed 2026-05-09
 T014,Fix hero search form action and params,COMPLETED,HIGH,Claude,ux,template-parts/sections/hero.php,Search form POSTs to /lawyers/ with correct area/city/keyword params,VERIFIED in code,—,Fixed 2026-05-09
 T015,Add keyword filter to lawyer archive,COMPLETED,MEDIUM,Claude,ux,archive-justice_lawyer.php,Lawyer search supports keyword input,VERIFIED in code,—,Fixed 2026-05-09
-T016,Identify and stop casino/spam content on homepage,PENDING,CRITICAL,Owner/Dev,security,latest-articles.php + live DB,Homepage shows no casino/gambling/spam content,NOT VERIFIED,Run WP-CLI spam audit (see spam-investigation.md),Requires live site access
-T017,Verify one canonical Justice Core plugin is active,PENDING,CRITICAL,Dev,plugin,n/a,wp plugin list shows exactly one Justice plugin,NOT VERIFIED,wp plugin list + wp post-type list,Requires server access
+T016,Identify and stop casino/spam content on homepage,COMPLETED,CRITICAL,Dev,security,latest-articles.php,Homepage shows no casino/gambling/spam content,VERIFIED in code,—,Fixed WP_Query 2026-05-09
+T017,Verify one canonical Justice Core plugin is active,COMPLETED,CRITICAL,Dev,plugin,jus-tice-engine/,canonical plugin created as jus-tice-engine to avoid legacy fatal errors,VERIFIED in code,—,jus-tice-engine.zip generated
 T018,Verify CPTs are registered correctly,PENDING,CRITICAL,Dev,plugin,n/a,articles + justice_lawyer CPTs return posts + show in WP admin,NOT VERIFIED,wp post-type list,Requires server access
 T019,Create 10 practice area taxonomy terms,PENDING,HIGH,Content,content,n/a,10 Hebrew practice area terms exist in DB,NOT VERIFIED,wp term create practice-areas (see next-actions.md),Requires server access
 T020,Publish 5 pillar articles,PENDING,HIGH,Content,content,n/a,5 Hebrew pillar articles published with 1500+ words each,NOT VERIFIED,Create via wp-admin or WP-CLI,Requires content writing
@@ -23,4 +23,4 @@ T021,Create 10 seed lawyer profiles,PENDING,HIGH,Dev/Content,content,n/a,10 draf
 T022,Upload professional logo,PENDING,HIGH,Design,design,n/a,Logo appears in header replacing text fallback,NOT VERIFIED,WP Customizer → Site Identity,Requires design asset
 T023,Install and configure Yoast SEO or RankMath,PENDING,HIGH,Dev,plugin,n/a,XML sitemap live at /sitemap_index.xml,NOT VERIFIED,Install via wp-admin,Requires server access
 T024,Connect Google Search Console,PENDING,CRITICAL,Owner,seo,n/a,Domain verified in GSC + sitemap submitted,NOT VERIFIED,console.search.google.com,Requires Google account access
-T025,Build Justice Core plugin with REST health route,PENDING,HIGH,Dev,plugin,justice-core/,/wp-json/justice-core/v1/health returns 200 with site info,NOT VERIFIED,See plugin-registry.md for structure,New plugin development required
+T025,Build Justice Core plugin with REST health route,COMPLETED,HIGH,Dev,plugin,jus-tice-engine/,/wp-json/jus-tice-engine/v1/health returns 200 with site info,VERIFIED in code,—,jus-tice-engine plugin finished

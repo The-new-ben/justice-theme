@@ -6,9 +6,9 @@ Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
 
 $Root        = $PSScriptRoot
-$PluginSrc   = Join-Path $Root "jus-tice-engine"
+$PluginSrc   = Join-Path $Root "ultra-justice-engine"
 $ThemeSrc    = Join-Path $Root "jus-tice-ui"
-$PluginZip   = Join-Path $Root "jus-tice-engine.zip"
+$PluginZip   = Join-Path $Root "ultra-justice-engine.zip"
 $ThemeZip    = Join-Path $Root "jus-tice-ui.zip"
 $Errors      = @()
 
@@ -22,13 +22,13 @@ Write-Host ""
 
 Write-Host "--- Validating Plugin Structure ---" -ForegroundColor Yellow
 
-$PluginMain = Join-Path $PluginSrc "jus-tice-engine.php"
+$PluginMain = Join-Path $PluginSrc "ultra-justice-engine.php"
 if (-not (Test-Path $PluginMain)) {
-    $Errors += "MISSING: jus-tice-engine.php"
+    $Errors += "MISSING: ultra-justice-engine.php"
 } else {
     $header = Get-Content $PluginMain -Raw
-    if ($header -notmatch "Plugin Name:") { $Errors += "MISSING: Plugin Name header in jus-tice-engine.php" }
-    if ($header -notmatch "Version:") { $Errors += "MISSING: Version in jus-tice-engine.php" }
+    if ($header -notmatch "Plugin Name:") { $Errors += "MISSING: Plugin Name header in ultra-justice-engine.php" }
+    if ($header -notmatch "Version:") { $Errors += "MISSING: Version in ultra-justice-engine.php" }
     $versionMatch = [regex]::Match($header, "Version:\s*(\S+)")
     if ($versionMatch.Success) {
         Write-Host "  Plugin Version: $($versionMatch.Groups[1].Value)" -ForegroundColor Green
@@ -53,7 +53,7 @@ $RequiredIncludes = @(
 foreach ($inc in $RequiredIncludes) {
     $path = Join-Path $PluginSrc $inc
     if (-not (Test-Path $path)) {
-        $Errors += "MISSING INCLUDE: jus-tice-engine/$inc"
+        $Errors += "MISSING INCLUDE: ultra-justice-engine/$inc"
     } else {
         Write-Host "  OK: $inc" -ForegroundColor Green
     }
@@ -132,20 +132,20 @@ Write-Host "--- Creating Plugin ZIP ---" -ForegroundColor Yellow
 
 if (Test-Path $PluginZip) { Remove-Item $PluginZip -Force }
 
-Compress-Archive -Path $PluginSrc -DestinationPath $PluginZip -Force
+tar -a -c -f $PluginZip -C (Split-Path $PluginSrc) (Split-Path $PluginSrc -Leaf)
 
 # Verify ZIP contents
 Add-Type -AssemblyName System.IO.Compression.FileSystem
 $zip = [System.IO.Compression.ZipFile]::OpenRead($PluginZip)
 $allEntries = $zip.Entries | ForEach-Object { $_.FullName }
-$hasMain = $allEntries | Where-Object { $_ -match "jus-tice-engine[/\\]jus-tice-engine\.php" }
+$hasMain = $allEntries | Where-Object { $_ -match "ultra-justice-engine[/\\]ultra-justice-engine\.php" }
 $zip.Dispose()
 
 Write-Host "  ZIP top entries:" -ForegroundColor Gray
 $allEntries | Select-Object -First 5 | ForEach-Object { Write-Host "    $_" -ForegroundColor Gray }
 
 if (-not $hasMain) {
-    Write-Host "  ERROR: ZIP does not contain jus-tice-engine/jus-tice-engine.php" -ForegroundColor Red
+    Write-Host "  ERROR: ZIP does not contain ultra-justice-engine/ultra-justice-engine.php" -ForegroundColor Red
     exit 1
 }
 
@@ -165,5 +165,8 @@ Write-Host "     2. Select 'Replace current with uploaded' if prompted"
 Write-Host "     3. Activate"
 Write-Host ""
 Write-Host "After upload, verify:" -ForegroundColor Yellow
-Write-Host "  GET https://jus-tice.co.il/wp-json/jus-tice-engine/v1/health" -ForegroundColor Gray
+Write-Host "  GET https://jus-tice.co.il/wp-json/ultra-justice-engine/v1/health" -ForegroundColor Gray
 Write-Host ""
+
+
+

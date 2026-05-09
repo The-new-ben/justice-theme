@@ -50,6 +50,12 @@
 - Mapped sensitive sections to official gov.il/Kol Zchut source candidates or explicit legal-review blockers.
 - Updated the draft header to `PRODUCTION_DRAFT_V3_5000_WORD_CLASS`.
 
+**[HIGH] Expanded consensual-divorce supporting draft**
+- Files: `content-drafts/consensual-divorce-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
+- Expanded `/consensual-divorce/` from about 1,208 words to about 2,075 words.
+- Added agreement-quality checks, agreement structure, workflow, common mistakes and a LegalTech readiness-tool concept tied to lawyer mini-sites.
+- Status remains NOT VERIFIED for legal accuracy and not ready to publish.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

@@ -18,11 +18,17 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0544705733' );
 	<div class="container site-footer__grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 4rem; margin-bottom: 4rem;">
 		
 		<section class="site-footer__section site-footer__about" style="grid-column: span 2;">
-			<div class="footer-logo" style="margin-bottom: 1.5rem; display: flex; align-items: center; gap: 10px;">
+			<div class="footer-logo" style="margin-bottom: 1.5rem;">
 				<?php if ( has_custom_logo() ) : ?>
-					<?php echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'style' => 'max-width: 180px; height: auto;' ) ); ?>
+					<?php echo wp_get_attachment_image( get_theme_mod( 'custom_logo' ), 'full', false, array( 'style' => 'max-width: 180px; height: auto; filter: brightness(10);' ) ); ?>
 				<?php else : ?>
-					<img src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.png' ); ?>" alt="Jus-Tice Logo" style="max-width: 180px; height: auto;" />
+					<a class="brand-lockup" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Jus-Tice" style="color: #fff;">
+						<span class="brand-lockup__mark" aria-hidden="true">J</span>
+						<span class="brand-lockup__text">
+							<span class="brand-lockup__name" style="color: #fff;">Jus-Tice</span>
+							<span class="brand-lockup__tagline" style="color: rgba(255,255,255,0.6);">פורטל משפטי חכם</span>
+						</span>
+					</a>
 				<?php endif; ?>
 			</div>
 			<p style="color: rgba(255,255,255,0.65); line-height: 1.7; font-size: 1.05rem; max-width: 400px; margin-bottom: 2rem;">

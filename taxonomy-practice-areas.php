@@ -10,25 +10,23 @@ get_header();
 $term = get_queried_object();
 ?>
 
-	<section class="taxonomy-hero glass-panel" style="margin: 40px auto; max-width: 900px; padding: 3rem 2rem; text-align: center;">
+	<section class="taxonomy-hero glass-panel">
 		<div class="container">
-			<p class="section-eyebrow" style="color: var(--color-accent); font-weight: 700; font-size: 0.95rem; margin-bottom: 1rem;">
+			<p class="section-eyebrow taxonomy-hero .section-eyebrow">
 				תחום משפטי
 			</p>
 			<?php
 			$clean_name = str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ', 'ותאונות' ), array( '', '', '', '' ), single_term_title( '', false ) );
 			?>
-			<h1 style="color: var(--color-primary-deep); font-size: 2.8rem; margin-bottom: 1.5rem;">
-				<?php echo esc_html( trim( $clean_name ) ); ?>
-			</h1>
-			
+			<h1><?php echo esc_html( trim( $clean_name ) ); ?></h1>
+
 			<?php if ( ! empty( $term->description ) ) : ?>
-				<div class="taxonomy-description" style="color: var(--color-text); font-size: 1.15rem; line-height: 1.6; margin-bottom: 2rem;">
+				<div class="taxonomy-description" style="color: var(--color-text); font-size: 1.1rem; line-height: 1.7; max-width: 680px; margin: 0 auto 2rem;">
 					<?php echo wp_kses_post( wpautop( $term->description ) ); ?>
 				</div>
 			<?php endif; ?>
-			
-			<a class="button button--primary" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="font-size: 1.1rem; padding: 1rem 2rem;">
+
+			<a class="button button--primary" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="font-size: 1.05rem; padding: 0.9rem 2rem;">
 				קבלת הכוונה משפטית
 			</a>
 		</div>

@@ -25,9 +25,16 @@ function justice_theme_enqueue_assets() {
 	);
 
 	wp_enqueue_style(
+		'justice-premium-2',
+		JUSTICE_THEME_URI . '/assets/css/premium-pass-2.css',
+		array( 'justice-main' ),
+		'2.0.0'
+	);
+
+	wp_enqueue_style(
 		'justice-components',
 		JUSTICE_THEME_URI . '/assets/css/components.css',
-		array( 'justice-main' ),
+		array( 'justice-premium-2' ),
 		JUSTICE_THEME_VERSION
 	);
 

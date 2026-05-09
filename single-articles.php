@@ -48,7 +48,7 @@ while ( have_posts() ) :
 			</div>
 		</header>
 
-		<div class="container single-article__layout" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 4rem; max-width: 1100px; margin: 0 auto; grid-template-columns: 1fr 300px;">
+		<div class="container single-article__layout">
 			
 			<div class="single-article__main">
 				<?php if ( has_post_thumbnail() ) : ?>
@@ -57,7 +57,7 @@ while ( have_posts() ) :
 					</figure>
 				<?php endif; ?>
 
-				<div class="single-article__content entry-content" style="font-size: 1.1rem; line-height: 1.8; color: var(--color-text);">
+				<div class="single-article__content entry-content">
 					<?php the_content(); ?>
 				</div>
 

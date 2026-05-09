@@ -10,17 +10,25 @@
 - Header/footer no longer render the dummy `assets/images/logo.png` when no WordPress custom logo is configured.
 - Added a Jus-Tice wordmark fallback with a blinking red dot, matching the requested old-identity direction.
 
+**[MEDIUM] Upgraded article-card visual fallback**
+- Files: `template-parts/cards/article-card.php`, `assets/css/premium-pass-3.css`
+- Replaced the flat gray article image placeholder with a more premium legal-document visual treatment.
+- Removed decorative broken/emoji-like date and reading-time symbols from article card metadata.
+
 ### DOCUMENTED
 
 **[HIGH] Corrected content production standard**
 - Files: `project-control/pillar-content-production-system.md`, `project-control/article-briefs-5000-word.csv`, `project-control/logo-audit.md`, `project-control/current-status.md`, `project-control/next-actions.md`
 - Current seeded article starters are now explicitly marked as scaffolds only.
 - Production direction is 5,000-word-class, SERP-driven, reviewed legal content connected to Maya Rotenberg, internal links, lead forms, tools, and pillar/supporting architecture.
+- Added the first long-form production draft at `content-drafts/divorce-lawyer-pillar-he.md`.
+- Updated visual QA with live homepage screenshots and findings.
 
 ### NOT VERIFIED
 
 - PHP lint could not run locally because PHP is not available in this shell.
 - Live rendering is not verified until GitHub/Upress pulls the repo and cache is refreshed.
+- Live screenshot shows the latest repo wordmark is not present yet, so Upress pull/cache remains unverified.
 
 ## 2026-05-09 - Session: repo-sync stabilization
 

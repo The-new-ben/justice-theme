@@ -1,0 +1,11 @@
+{
+  "status": 200,
+  "url": "https://jus-tice.co.il/",
+  "dummyLogo": false,
+  "codeWordmark": false,
+  "mayaMention": false,
+  "screenshots": [
+    "project-control/visual-evidence/homepage-desktop.png",
+    "project-control/visual-evidence/homepage-mobile.png"
+  ]
+}

@@ -17,8 +17,11 @@ $post_id = get_the_ID();
 		<?php if ( has_post_thumbnail() ) : ?>
 			<?php the_post_thumbnail( 'justice-card', array( 'loading' => 'lazy', 'style' => 'width: 100%; height: 100%; object-fit: cover;' ) ); ?>
 		<?php else : ?>
-			<div class="article-card__placeholder" aria-hidden="true" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, rgba(16,38,74,0.05), rgba(95,126,168,0.15)); color: var(--color-primary); font-weight: 800; font-size: 1.5rem;">
-				<span><?php esc_html_e( 'מדריך משפטי', 'justice-theme' ); ?></span>
+			<div class="article-card__placeholder article-card__placeholder--legal" aria-hidden="true">
+				<span class="article-card__placeholder-label"><?php esc_html_e( 'מדריך משפטי', 'justice-theme' ); ?></span>
+				<span class="article-card__placeholder-line article-card__placeholder-line--wide"></span>
+				<span class="article-card__placeholder-line"></span>
+				<span class="article-card__placeholder-dot"></span>
 			</div>
 		<?php endif; ?>
 	</a>
@@ -28,8 +31,12 @@ $post_id = get_the_ID();
 		$terms = get_the_terms( $post_id, 'practice-areas' );
 
 		if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) :
-			$term = array_shift( $terms );
-			$clean_name = str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ', 'ותאונות' ), array( '', '', '', '' ), $term->name );
+			$term       = array_shift( $terms );
+			$clean_name = str_replace(
+				array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ', 'ותאונות' ),
+				array( '', '', '', '' ),
+				$term->name
+			);
 			?>
 			<a class="article-card__term" href="<?php echo esc_url( get_term_link( $term ) ); ?>" style="display: inline-block; margin-bottom: 0.8rem; font-size: 0.8rem; background: rgba(82, 114, 178, 0.1); color: var(--color-accent); padding: 0.3rem 0.8rem; border-radius: 50px; font-weight: 700;">
 				<?php echo esc_html( trim( $clean_name ) ); ?>
@@ -44,9 +51,9 @@ $post_id = get_the_ID();
 
 		<div class="article-card__meta" style="margin-bottom: 1rem; font-size: 0.85rem; color: var(--color-muted); display: flex; gap: 1rem;">
 			<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>">
-				🗓 <?php echo esc_html( get_the_date() ); ?>
+				<?php echo esc_html( get_the_date() ); ?>
 			</time>
-			<span>⏱ <?php echo esc_html( justice_theme_reading_time( $post_id ) ); ?></span>
+			<span><?php echo esc_html( justice_theme_reading_time( $post_id ) ); ?></span>
 		</div>
 
 		<p class="article-card__excerpt" style="color: rgba(16, 24, 40, 0.7); font-size: 0.95rem; margin-bottom: 1.5rem; line-height: 1.5; flex-grow: 1;">
@@ -54,8 +61,7 @@ $post_id = get_the_ID();
 		</p>
 
 		<a class="article-card__read-more" href="<?php the_permalink(); ?>" style="color: var(--color-primary); font-weight: 700; text-decoration: none; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 1rem; margin-top: auto; display: block;">
-			<?php esc_html_e( 'קראו מדריך ←', 'justice-theme' ); ?>
+			<?php esc_html_e( 'קראו מדריך', 'justice-theme' ); ?>
 		</a>
 	</div>
 </article>
-

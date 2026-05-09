@@ -93,6 +93,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Practice-area term seeding is NOT VERIFIED live; it runs after Upress pull and an admin dashboard visit, if the taxonomy is active.
 - Header/footer logo fallback is NOT VERIFIED live after this pass.
 - Hardened lawyer seeding is NOT VERIFIED live; it requires Upress pull and the active plugin/admin seeder path.
+- Live visual screenshot check ran on 2026-05-09. Homepage returned 200, but the latest repo wordmark (`brand-lockup--justice`) was NOT present live, so Upress pull/cache is still not verified.
 
 ## STILL BROKEN / RISK
 - Repo still contains duplicate plugin-like folders: `ultra-justice/`, `ultra-justice-engine/`, and new `justice-core/`.
@@ -101,6 +102,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Live archive still exposes multiple demo lawyers publicly; this must be cleaned or moved to draft/private from WP admin/API after active plugin and content ownership are verified.
 - Existing public demo lawyers on live may predate the hardened seeder and require manual/API cleanup after backup.
 - The 5 article starters are not publication-ready; they are scaffolds only. Production target is long-form, source-backed, reviewed legal content, not short SEO stubs.
+- First long-form divorce pillar production draft now exists in repo at `content-drafts/divorce-lawyer-pillar-he.md`, but it is NOT legal-reviewed and not ready to publish.
 - Existing live Hebrew slugs need a controlled English-slug migration with 301 redirects; repo changes prevent future seed slugs but do not automatically fix already-published URLs unless an approved migration runs.
 - Live homepage extract shows "Content is protected !!", likely from a content-protection/accessibility/plugin layer; source and impact are NOT VERIFIED.
 - Spam source remains NOT VERIFIED. Homepage may be hiding spam by querying only `articles`, but database cleanup is still required.
@@ -115,3 +117,4 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 7. Commit only repo-safe changes; do not create ZIPs.
 8. Export live URL/slug inventory before changing any Hebrew slugs; fill `url-migration-map.csv`, then create approved 301 redirects for every changed URL.
 9. Pull latest in Upress and visit `/wp-admin/` once to seed draft pillar pages, then expand/review/publish `/divorce-lawyer/` first as the first 5,000-word-class pillar.
+10. Verify live homepage after Upress pull; expected signs are the blinking red-dot Jus-Tice fallback, richer hero visual layer, and upgraded article-card placeholders.

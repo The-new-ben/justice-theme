@@ -25,6 +25,7 @@ $justice_theme_files = array(
 	'inc/related-content.php',
 	'inc/lead-ui.php',
 	'inc/cleanup.php',
+	'inc/live-migrations.php',
 );
 
 foreach ( $justice_theme_files as $justice_theme_file ) {

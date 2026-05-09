@@ -1,12 +1,12 @@
 # עורך דין גירושין: מדריך עומק לבחירה נכונה, תהליך, עלויות, ילדים ורכוש
 
-Slug target: `/divorce-lawyer/`  
-Status: PRODUCTION_DRAFT_V1  
-Target length: 5,000+ words after legal/editorial expansion  
-Connected lawyer: `advocate-maya-rotenberg`  
-Cluster: `family-law`  
-Primary keyword: עורך דין גירושין  
-Secondary keywords: עורך דין לענייני משפחה, עורך דין גירושין מחיר, גירושין בהסכמה, גישור גירושין, מזונות ילדים, משמורת ילדים, חלוקת רכוש בגירושין, בקשה ליישוב סכסוך, הסכם גירושין  
+Slug target: `/divorce-lawyer/`
+Status: PRODUCTION_DRAFT_V3_5000_WORD_CLASS
+Target length: 5,000+ words reached; still requires legal/editorial/source review
+Connected lawyer: `advocate-maya-rotenberg`
+Cluster: `family-law`
+Primary keyword: עורך דין גירושין
+Secondary keywords: עורך דין לענייני משפחה, עורך דין גירושין מחיר, גירושין בהסכמה, גישור גירושין, מזונות ילדים, משמורת ילדים, חלוקת רכוש בגירושין, בקשה ליישוב סכסוך, הסכם גירושין
 
 ## הערת מערכת לפני פרסום
 
@@ -514,7 +514,7 @@ Secondary keywords: עורך דין לענייני משפחה, עורך דין �
 ## סטטוס לפני פרסום
 
 - NOT VERIFIED: דיוק משפטי.
-- NOT VERIFIED: מקורות משפטיים רשמיים.
+- PARTIAL: מקורות משפטיים רשמיים זוהו, אך עדיין צריך לשייך URL מדויק לכל טענה רגישה לפני פרסום.
 - NOT VERIFIED: התאמה מלאה ל-GSC.
 - NOT VERIFIED: בדיקת קניבליזציה מול מאמרים קיימים באתר.
 - READY NEXT: בדיקה משפטית, השלמת מקורות עם URL מדויק לכל טענה רגישה, עריכת כותרות/מטא, הטמעה ב-CMS כטיוטה, וחיבור בלוקים דינמיים.

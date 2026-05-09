@@ -45,6 +45,11 @@
 - Added rabbinical/ketubah, agreement, common-law separation, children, complex-assets, urgent-relief, lawyer content monetization, and expanded FAQ sections.
 - Status remains NOT VERIFIED for legal accuracy and not ready to publish.
 
+**[HIGH] Added divorce pillar source audit**
+- Files: `project-control/divorce-pillar-source-audit.csv`, `content-drafts/divorce-lawyer-pillar-he.md`, `project-control/current-status.md`, `project-control/task-board.csv`
+- Mapped sensitive sections to official gov.il/Kol Zchut source candidates or explicit legal-review blockers.
+- Updated the draft header to `PRODUCTION_DRAFT_V3_5000_WORD_CLASS`.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

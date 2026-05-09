@@ -163,8 +163,8 @@ function jte_lawyer_column_content( $column, $post_id ) {
 
 		case 'lawyer_verified':
 			$v = get_post_meta( $post_id, 'verification_status', true );
-			$icons = array( 'verified' => '✓', 'unverified' => '—', 'pending' => '⏳' );
-			echo esc_html( isset( $icons[ $v ] ) ? $icons[ $v ] : '—' );
+			$labels = array( 'verified' => '✓', 'unverified' => '—', 'pending' => '...' );
+			echo esc_html( isset( $labels[ $v ] ) ? $labels[ $v ] : '—' );
 			break;
 	}
 }

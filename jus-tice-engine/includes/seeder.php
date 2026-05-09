@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'admin_init', 'jte_maybe_auto_seed' );
 
 function jte_maybe_auto_seed(): void {
-	if ( get_option( 'jte_seeded_v4' ) ) {
+	if ( get_option( 'jte_seeded_v5' ) ) {
 		return;
 	}
 	if ( ! current_user_can( 'manage_options' ) ) {
@@ -77,7 +77,7 @@ function jte_maybe_auto_seed(): void {
 			'post_type'    => 'justice_lawyer',
 			'post_title'   => $l['heb'],
 			'post_content' => $l['bio'],
-			'post_status'  => 'publish',
+			'post_status'  => 'draft',
 			'post_excerpt' => $l['bio'],
 		) );
 
@@ -97,7 +97,7 @@ function jte_maybe_auto_seed(): void {
 			'source_type'         => 'seed',
 			'profile_status'      => 'active',
 			'license_status'      => 'active',
-			'verification_status' => 'verified',
+			'verification_status' => 'unverified',
 		);
 		foreach ( $meta as $k => $v ) {
 			update_post_meta( $post_id, $k, $v );
@@ -117,8 +117,8 @@ function jte_maybe_auto_seed(): void {
 		wp_set_object_terms( $post_id, $l['area'], 'practice-areas' );
 	}
 
-	update_option( 'jte_seeded_v4', true );
-	jte_log( 'seeder', 'Auto-seeded 10 lawyer profiles (v4).' );
+	update_option( 'jte_seeded_v5', true );
+	jte_log( 'seeder', 'Auto-seeded 10 lawyer profiles (v5) as drafts.' );
 }
 
 // ─── CSV Seeder (from project-control/lawyer-seed.csv) ───────────────────────
@@ -236,7 +236,7 @@ add_action( 'rest_api_init', function () {
 	register_rest_route( 'jus-tice-engine/v1', '/seed-reset', array(
 		'methods'             => 'POST',
 		'callback'            => function () {
-			delete_option( 'jte_seeded_v4' );
+			delete_option( 'jte_seeded_v5' );
 			jte_log( 'seeder_reset', 'Seed flag cleared. Will re-seed on next admin_init.' );
 			return new WP_REST_Response( array( 'ok' => true, 'message' => 'Seed flag cleared.' ), 200 );
 		},

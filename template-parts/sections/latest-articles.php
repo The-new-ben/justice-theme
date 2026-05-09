@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $latest_articles = new WP_Query( array(
-	'post_type'           => array( 'articles', 'post' ),
+	'post_type'           => array( 'articles' ),
 	'post_status'         => 'publish',
 	'posts_per_page'      => 6,
 	'ignore_sticky_posts' => true,

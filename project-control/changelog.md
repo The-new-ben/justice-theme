@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Lead lawyer routing metadata
+
+- FIXED IN CODE: Lead handlers now save `assigned_lawyer_id` from lawyer mini-site inquiry forms into `justice_lead` metadata.
+- FIXED IN CODE: Lead handlers now persist `source_keyword` when provided, so future search/SEO attribution can travel with the lead.
+- FIXED IN CODE: The lead admin detail box now shows the assigned lawyer as an editable profile link when the lead was submitted from a lawyer mini-site.
+- HARDENED: UTM fields and lead-status saves now unslash before sanitization, and lead-status saves now check edit permission.
+- SCOPE: Patched all three plugin-like folders (`justice-core`, `ultra-justice-engine`, `ultra-justice`) because the active live plugin path is still not fully verified.
+- VERIFIED: PHP lint passed locally for 127 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull and a controlled test submission from Maya Rotenberg's mini-site.
+
 ## 2026-05-10 - Lead form spam guard
 
 - FIXED IN CODE: Added `inc/lead-spam-guard.php` with a honeypot and timing guard that runs before the lead plugin handler.

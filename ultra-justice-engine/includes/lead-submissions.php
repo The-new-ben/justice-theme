@@ -85,6 +85,8 @@ function uje_handle_lead() {
 	$message = isset( $_POST['lead_message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['lead_message'] ) ) : '';
 	$urgency = isset( $_POST['lead_urgency'] ) ? sanitize_text_field( wp_unslash( $_POST['lead_urgency'] ) ) : 'normal';
 	$consent = isset( $_POST['lead_consent'] ) ? true : false;
+	$assigned_lawyer_id = isset( $_POST['assigned_lawyer_id'] ) ? absint( $_POST['assigned_lawyer_id'] ) : 0;
+	$source_keyword     = isset( $_POST['source_keyword'] ) ? sanitize_text_field( wp_unslash( $_POST['source_keyword'] ) ) : '';
 
 	if ( empty( $name ) || empty( $phone ) ) {
 		wp_safe_redirect( add_query_arg( 'lead', 'missing', wp_get_referer() ?: home_url( '/' ) ) );
@@ -99,16 +101,18 @@ function uje_handle_lead() {
 
 	if ( $lead_id && ! is_wp_error( $lead_id ) ) {
 		$meta = array(
-			'visitor_name'  => $name,
-			'visitor_phone' => $phone,
-			'visitor_email' => $email,
-			'legal_area'    => $area,
-			'city'          => $city,
-			'message'       => $message,
-			'urgency'       => $urgency,
-			'lead_status'   => 'new',
-			'consent'       => $consent ? '1' : '0',
-			'source_url'    => wp_get_referer(),
+			'visitor_name'        => $name,
+			'visitor_phone'       => $phone,
+			'visitor_email'       => $email,
+			'legal_area'          => $area,
+			'city'                => $city,
+			'message'             => $message,
+			'urgency'             => $urgency,
+			'lead_status'         => 'new',
+			'consent'             => $consent ? '1' : '0',
+			'source_url'          => wp_get_referer(),
+			'source_keyword'      => $source_keyword,
+			'assigned_lawyer_id' => $assigned_lawyer_id,
 		);
 
 		foreach ( $meta as $key => $value ) {
@@ -118,7 +122,7 @@ function uje_handle_lead() {
 		// UTM tracking
 		foreach ( array( 'utm_source', 'utm_campaign', 'utm_medium' ) as $utm ) {
 			if ( isset( $_POST[ $utm ] ) ) {
-				update_post_meta( $lead_id, $utm, sanitize_text_field( $_POST[ $utm ] ) );
+				update_post_meta( $lead_id, $utm, sanitize_text_field( wp_unslash( $_POST[ $utm ] ) ) );
 			}
 		}
 	}
@@ -189,17 +193,19 @@ function uje_lead_details_box( $post ) {
 	wp_nonce_field( 'justice_lead_status', 'justice_lead_status_nonce' );
 
 	$read_fields = array(
-		'visitor_name'  => 'שם',
-		'visitor_phone' => 'טלפון',
-		'visitor_email' => 'אימייל',
-		'legal_area'    => 'תחום משפטי',
-		'city'          => 'עיר',
-		'urgency'       => 'דחיפות',
-		'message'       => 'הודעה',
-		'source_url'    => 'מקור',
-		'utm_source'    => 'UTM Source',
-		'utm_campaign'  => 'UTM Campaign',
-		'consent'       => 'הסכמה',
+		'visitor_name'        => 'שם',
+		'visitor_phone'       => 'טלפון',
+		'visitor_email'       => 'אימייל',
+		'legal_area'          => 'תחום משפטי',
+		'city'                => 'עיר',
+		'urgency'             => 'דחיפות',
+		'message'             => 'הודעה',
+		'source_url'          => 'מקור',
+		'source_keyword'      => 'מילת מקור',
+		'assigned_lawyer_id' => 'עורך דין משויך',
+		'utm_source'          => 'UTM Source',
+		'utm_campaign'        => 'UTM Campaign',
+		'consent'             => 'הסכמה',
 	);
 
 	echo '<table class="form-table" style="margin:0;">';
@@ -213,6 +219,14 @@ function uje_lead_details_box( $post ) {
 			echo ' | <a href="https://wa.me/972' . esc_attr( ltrim( preg_replace( '/[^0-9]/', '', $value ), '0' ) ) . '" target="_blank">WhatsApp</a>';
 		} elseif ( 'message' === $key ) {
 			echo '<div style="background:#f9f9f9;padding:10px;border-radius:4px;white-space:pre-wrap;">' . esc_html( $value ) . '</div>';
+		} elseif ( 'assigned_lawyer_id' === $key && $value ) {
+			$lawyer_title = get_the_title( (int) $value );
+			$edit_link    = get_edit_post_link( (int) $value );
+			if ( $lawyer_title && $edit_link ) {
+				echo '<a href="' . esc_url( $edit_link ) . '">' . esc_html( $lawyer_title ) . '</a>';
+			} else {
+				echo esc_html( $value );
+			}
 		} else {
 			echo esc_html( $value ?: '—' );
 		}
@@ -231,14 +245,18 @@ function uje_lead_details_box( $post ) {
 }
 
 function uje_save_lead_status( $post_id ) {
-	if ( ! isset( $_POST['justice_lead_status_nonce'] ) || ! wp_verify_nonce( $_POST['justice_lead_status_nonce'], 'justice_lead_status' ) ) {
+	$nonce = isset( $_POST['justice_lead_status_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_lead_status_nonce'] ) ) : '';
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'justice_lead_status' ) ) {
+		return;
+	}
+	if ( ! current_user_can( 'edit_post', $post_id ) ) {
 		return;
 	}
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
 		return;
 	}
 	if ( isset( $_POST['lead_status'] ) ) {
-		update_post_meta( $post_id, 'lead_status', sanitize_text_field( $_POST['lead_status'] ) );
+		update_post_meta( $post_id, 'lead_status', sanitize_text_field( wp_unslash( $_POST['lead_status'] ) ) );
 	}
 }
 add_action( 'save_post_justice_lead', 'uje_save_lead_status' );

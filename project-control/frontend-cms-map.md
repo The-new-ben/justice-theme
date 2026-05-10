@@ -35,7 +35,7 @@ Date: 2026-05-09
 | Lawyer cards | `template-parts/cards/lawyer-card.php` | `justice_lawyer` CPT/meta/taxonomies | YES | Demo data still public live | Draft demo lawyers; verify Maya slug |
 | Article cards | `template-parts/cards/article-card.php` | `articles` CPT/post fields | YES | Missing source/author/reviewer for many old posts | Add editorial metadata fields |
 | Breadcrumbs | `inc/breadcrumbs.php` + CSS | WP query hierarchy | NO | Visual polish needed live | Recheck after deploy |
-| Lead form | `ask-lawyer.php`, lead handlers | `admin-post.php`, `justice_lead` CPT/meta | PARTIAL | Live wiring not verified | Submit test lead after deploy |
+| Lead form | `ask-lawyer.php`, `template-parts/forms/lead-form.php`, `single-justice_lawyer.php`, plugin lead handlers | `admin-post.php`, `justice_lead` CPT/meta, `assigned_lawyer_id`, `source_keyword`, UTM fields | PARTIAL | Live routing not verified | Submit test lead after deploy and confirm assigned lawyer/meta in CRM |
 | Footer brand block | `site-footer.php` | Custom logo + Customizer contact | PARTIAL | Description hardcoded | Later expose via Customizer |
 | Lawyer profile fields | `single-justice_lawyer.php`, `inc/live-migrations.php` | lawyer CPT meta | YES | Photo/video/social/reviews not complete for live profiles | Maya rich text fields now bootstrap if empty; review contact/photo/license in wp-admin |
 | Lawyer mini-site engagement module | `single-justice_lawyer.php` | lead form route, connected articles query, video/media meta, approved review meta | PARTIAL | Text is template-controlled; data modules depend on CMS fields | Keep as product-value module; add owner/lawyer editable copy later if needed |

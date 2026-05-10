@@ -3,6 +3,12 @@ Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
 ## LATEST CODE STATUS - 2026-05-10
+- FIXED IN CODE: Lawyer mini-site inquiry leads now persist `assigned_lawyer_id` and `source_keyword` in the lead CRM metadata.
+- FIXED IN CODE: The lead admin detail box can show the assigned lawyer as a profile edit link, which makes Maya/lawyer mini-site inquiries traceable inside CRM.
+- HARDENED: UTM values and lead-status saves now use `wp_unslash()` before sanitization, and lead-status saves require `edit_post` permission.
+- SCOPE: Applied the same lead-routing patch to `justice-core`, `ultra-justice-engine`, and `ultra-justice` because the active live plugin folder is still not definitively verified.
+- VERIFIED: PHP lint passed locally for 127 PHP files after the lead-routing patch.
+- NOT VERIFIED LIVE: requires uPress pull and one controlled lead submission from a lawyer mini-site.
 - FIXED IN CODE: Added a lightweight anti-spam guard for public legal lead forms. Shared lead forms, homepage ask-lawyer and lawyer mini-site inquiry now include a hidden honeypot and timestamp field.
 - SAFETY: The guard runs before the plugin lead handler; filled honeypot or impossible timing is blocked without creating a CRM lead, while missing timestamp remains allowed for old cached forms.
 - VERIFIED: PHP lint passed locally for 127 PHP files after the lead spam guard.

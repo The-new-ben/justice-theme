@@ -3,6 +3,13 @@
 Date: 2026-05-10  
 Status: REVIEW PLAN - no code changes executed
 
+## 2026-05-11 Live Inner-Page Verification
+- LIVE VERIFIED: marker `2026-05-11-mobile-inner-qa-v1` is public after uPress Git pull.
+- LIVE VERIFIED: mobile screenshots were captured at 390px for article, articles archive, lawyer directory and family practice page.
+- FIXED: sampled inner pages no longer report horizontal overflow.
+- FIXED: duplicate theme WhatsApp float is hidden on sampled non-home mobile pages; one compact third-party contact button remains.
+- EVIDENCE: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-live.json`.
+
 ## Principle
 
 Mobile is not a secondary polish pass. For Google and for users, mobile must contain the same important content, headings, links, structured data and metadata as desktop.

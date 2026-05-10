@@ -2,6 +2,18 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST LIVE STATUS - 2026-05-11 01:10 Asia/Jerusalem
+- LIVE VERIFIED: owner pressed uPress Git pull and the public site now serves deployment marker `2026-05-11-mobile-inner-qa-v1` on homepage and `/family-law/`.
+- LIVE VERIFIED: public `premium-pass-3.css` contains the inner-page mobile overflow/contact-control fix.
+- VISUAL VERIFIED: fresh live mobile screenshots were captured for `/find-lawyer-how-to-find-good-attorney/`, `/articles/`, `/lawyers/`, and `/family-law/` without injected CSS.
+- EVIDENCE: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-live.json` and `project-control/visual-evidence/mobile-inner-*-2026-05-11-live.png`.
+- FIXED / LIVE VERIFIED: all four sampled mobile pages report `scrollWidth = 390`, `clientWidth = 390`, `overflowX = false`.
+- FIXED / LIVE VERIFIED: duplicate theme `.whatsapp-float` is hidden on sampled inner mobile pages; one compact third-party WhatsApp button remains.
+- VERIFIED: article page still exposes `data-related-mode="semantic"`.
+- BLOCKED FOR AUTONOMOUS PULL: the direct uPress file-manager URL still redirects this Codex browser session to the uPress login screen. A persistent authenticated uPress session, SSH/WP-CLI access, or an approved secured deploy webhook is needed for Codex to pull without owner action.
+- CREATED: `project-control/deployment-access-plan.md`.
+- SAFETY: no public content, URLs, redirects, sitemap settings, robots rules, CRM records, database rows or wp-admin settings were changed.
+
 ## LATEST WORK STATUS - 2026-05-10 23:32 Asia/Jerusalem
 - BLOCKED: the provided uPress file-manager URL opened to the uPress login screen in the in-app browser, so authenticated file-manager inspection is not available yet.
 - CODE FIXED: related article selection now uses semantic priority instead of broad/latest fallback.

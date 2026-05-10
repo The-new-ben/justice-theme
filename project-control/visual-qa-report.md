@@ -173,4 +173,8 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - VISUAL VERIFIED BY LIVE CSS SIMULATION: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-final-css.json`.
 - VISUAL EVIDENCE AFTER CSS SIMULATION: `mobile-inner-article-2026-05-11-final-css.png`, `mobile-inner-articles-2026-05-11-final-css.png`, `mobile-inner-lawyers-2026-05-11-final-css.png`, `mobile-inner-practice-family-2026-05-11-final-css.png`.
 - VERIFIED AFTER CSS SIMULATION: all four sampled mobile pages report no horizontal overflow and no duplicate WhatsApp controls.
-- NOT LIVE VERIFIED AFTER CODE FIX: requires uPress pull/cache clear and a fresh public screenshot pass for marker `2026-05-11-mobile-inner-qa-v1`.
+- LIVE VERIFIED AFTER CODE FIX: after uPress pull/cache clear, homepage and `/family-law/` serve marker `2026-05-11-mobile-inner-qa-v1`, and public CSS contains the inner-page mobile fix.
+- EVIDENCE LIVE: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-live.json`.
+- VISUAL EVIDENCE LIVE: `mobile-inner-article-2026-05-11-live.png`, `mobile-inner-articles-2026-05-11-live.png`, `mobile-inner-lawyers-2026-05-11-live.png`, `mobile-inner-practice-family-2026-05-11-live.png`.
+- LIVE VERIFIED: `/find-lawyer-how-to-find-good-attorney/`, `/articles/`, `/lawyers/`, and `/family-law/` all report `scrollWidth = 390`, `clientWidth = 390`, and `overflowX = false` at 390px mobile width.
+- LIVE VERIFIED: duplicate theme `.whatsapp-float` is hidden on sampled inner pages, while one compact third-party WhatsApp button remains available.

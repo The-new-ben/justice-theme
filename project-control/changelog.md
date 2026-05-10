@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Live inner mobile QA and deployment access plan
+
+- LIVE VERIFIED: uPress Git pull is public; homepage and `/family-law/` serve marker `2026-05-11-mobile-inner-qa-v1`.
+- LIVE VERIFIED: public `premium-pass-3.css` contains the inner-page mobile fix.
+- CREATED: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-live.json`.
+- CREATED: live mobile screenshots for article, articles archive, lawyer directory and family practice page.
+- UPDATED: `project-control/current-status.md`, `visual-qa-report.md`, `mobile-first-template-review.md`, `accessibility-review.md`, `customer-facing-qa.md`, and `task-board.csv`.
+- CREATED: `project-control/deployment-access-plan.md` with safe future pull paths: persistent authenticated uPress session, SSH/WP-CLI, or approved secured webhook.
+- SAFETY: no public content, URLs, redirects, sitemap settings, robots rules, CRM records, database rows or wp-admin settings were changed.
+
 ## 2026-05-10 - Semantic related-content selection
 
 - BLOCKED: provided uPress file-manager URL opened to the uPress login screen in the in-app browser.

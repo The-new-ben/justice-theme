@@ -3,6 +3,13 @@
 Date: 2026-05-10  
 Status: REVIEW PLAN - no accessibility code changes executed
 
+## 2026-05-11 Live Floating-Control Accessibility Check
+- LIVE VERIFIED: after uPress pull, sampled inner mobile pages use marker `2026-05-11-mobile-inner-qa-v1`.
+- FIXED: duplicate theme WhatsApp control is hidden on sampled non-home mobile pages, reducing repeated/fixed contact targets.
+- LIVE VERIFIED: one compact third-party WhatsApp button remains available.
+- PARTIAL: Pojo accessibility toolbar still exists and is intentionally positioned off-canvas until opened; deeper keyboard/screen-reader review remains pending.
+- EVIDENCE: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-live.json`.
+
 ## Goal
 
 The legal portal must be usable by people who navigate with keyboard, screen readers, mobile touch and high-contrast needs. Accessibility also supports trust and conversion.

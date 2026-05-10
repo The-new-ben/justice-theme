@@ -1,0 +1,599 @@
+{
+  "generatedAt": "2026-05-10T22:02:58.992Z",
+  "viewport": "390x844 mobile",
+  "status": "LIVE VERIFIED",
+  "results": [
+    {
+      "key": "article",
+      "expectedUrl": "https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/",
+      "screenshot": "C:\\Users\\janana\\jutice-theme\\project-control\\visual-evidence\\mobile-inner-article-2026-05-11-live.png",
+      "title": "איך למצוא עורך דין מומלץ? כיצד לבחור עו\"ד טוב | Jus-Tice.co.il",
+      "marker": "2026-05-11-mobile-inner-qa-v1",
+      "url": "https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/",
+      "innerWidth": 390,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "bodyScrollWidth": 390,
+      "overflowX": false,
+      "overflowing": [
+        {
+          "tag": "nav",
+          "className": "pojo-a11y-toolbar-right",
+          "left": 390,
+          "right": 570,
+          "width": 180
+        },
+        {
+          "tag": "div",
+          "className": "pojo-a11y-toolbar-overlay",
+          "left": 390,
+          "right": 570,
+          "width": 180
+        },
+        {
+          "tag": "div",
+          "className": "pojo-a11y-toolbar-inner",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "p",
+          "className": "pojo-a11y-toolbar-title",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "ul",
+          "className": "pojo-a11y-toolbar-items pojo-a11y-tools",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "li",
+          "className": "pojo-a11y-toolbar-item",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "a",
+          "className": "pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-plus",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "span",
+          "className": "pojo-a11y-toolbar-icon",
+          "left": 538,
+          "right": 557,
+          "width": 19
+        },
+        {
+          "tag": "svg",
+          "className": "",
+          "left": 538,
+          "right": 557,
+          "width": 19
+        },
+        {
+          "tag": "path",
+          "className": "",
+          "left": 544,
+          "right": 556,
+          "width": 12
+        },
+        {
+          "tag": "span",
+          "className": "pojo-a11y-toolbar-text",
+          "left": 482,
+          "right": 538,
+          "width": 56
+        },
+        {
+          "tag": "li",
+          "className": "pojo-a11y-toolbar-item",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        }
+      ],
+      "themeWhatsappFloat": [
+        {
+          "selector": ".whatsapp-float",
+          "display": "none",
+          "visibility": "visible",
+          "opacity": "1",
+          "position": "fixed",
+          "width": 0,
+          "height": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "visible": false
+        }
+      ],
+      "injectedWhatsappButton": [
+        {
+          "selector": "a.whatsapp-button",
+          "display": "flex",
+          "visibility": "visible",
+          "opacity": "1",
+          "position": "fixed",
+          "width": 54,
+          "height": 54,
+          "left": 322,
+          "right": 376,
+          "top": 772,
+          "bottom": 826,
+          "visible": true
+        }
+      ],
+      "pojoToolbar": [
+        {
+          "selector": "#pojo-a11y-toolbar",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "position": "fixed",
+          "width": 180,
+          "height": 300,
+          "left": 390,
+          "right": 570,
+          "top": 220,
+          "bottom": 520,
+          "visible": true
+        }
+      ],
+      "relatedMode": "semantic"
+    },
+    {
+      "key": "articles",
+      "expectedUrl": "https://jus-tice.co.il/articles/",
+      "screenshot": "C:\\Users\\janana\\jutice-theme\\project-control\\visual-evidence\\mobile-inner-articles-2026-05-11-live.png",
+      "title": "מאמרים משפטיים לפי הבעיה שלכם | Jus-Tice",
+      "marker": "2026-05-11-mobile-inner-qa-v1",
+      "url": "https://jus-tice.co.il/articles/",
+      "innerWidth": 390,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "bodyScrollWidth": 390,
+      "overflowX": false,
+      "overflowing": [
+        {
+          "tag": "nav",
+          "className": "pojo-a11y-toolbar-right",
+          "left": 390,
+          "right": 570,
+          "width": 180
+        },
+        {
+          "tag": "div",
+          "className": "pojo-a11y-toolbar-overlay",
+          "left": 390,
+          "right": 570,
+          "width": 180
+        },
+        {
+          "tag": "div",
+          "className": "pojo-a11y-toolbar-inner",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "p",
+          "className": "pojo-a11y-toolbar-title",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "ul",
+          "className": "pojo-a11y-toolbar-items pojo-a11y-tools",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "li",
+          "className": "pojo-a11y-toolbar-item",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "a",
+          "className": "pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-plus",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "span",
+          "className": "pojo-a11y-toolbar-icon",
+          "left": 538,
+          "right": 557,
+          "width": 19
+        },
+        {
+          "tag": "svg",
+          "className": "",
+          "left": 538,
+          "right": 557,
+          "width": 19
+        },
+        {
+          "tag": "path",
+          "className": "",
+          "left": 544,
+          "right": 556,
+          "width": 12
+        },
+        {
+          "tag": "span",
+          "className": "pojo-a11y-toolbar-text",
+          "left": 482,
+          "right": 538,
+          "width": 56
+        },
+        {
+          "tag": "li",
+          "className": "pojo-a11y-toolbar-item",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        }
+      ],
+      "themeWhatsappFloat": [
+        {
+          "selector": ".whatsapp-float",
+          "display": "none",
+          "visibility": "visible",
+          "opacity": "1",
+          "position": "fixed",
+          "width": 0,
+          "height": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "visible": false
+        }
+      ],
+      "injectedWhatsappButton": [
+        {
+          "selector": "a.whatsapp-button",
+          "display": "flex",
+          "visibility": "visible",
+          "opacity": "1",
+          "position": "fixed",
+          "width": 54,
+          "height": 54,
+          "left": 322,
+          "right": 376,
+          "top": 772,
+          "bottom": 826,
+          "visible": true
+        }
+      ],
+      "pojoToolbar": [
+        {
+          "selector": "#pojo-a11y-toolbar",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "position": "fixed",
+          "width": 180,
+          "height": 300,
+          "left": 390,
+          "right": 570,
+          "top": 220,
+          "bottom": 520,
+          "visible": true
+        }
+      ],
+      "relatedMode": ""
+    },
+    {
+      "key": "lawyers",
+      "expectedUrl": "https://jus-tice.co.il/lawyers/",
+      "screenshot": "C:\\Users\\janana\\jutice-theme\\project-control\\visual-evidence\\mobile-inner-lawyers-2026-05-11-live.png",
+      "title": "מדריך עורכי דין בישראל | Jus-Tice",
+      "marker": "2026-05-11-mobile-inner-qa-v1",
+      "url": "https://jus-tice.co.il/lawyers/",
+      "innerWidth": 390,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "bodyScrollWidth": 390,
+      "overflowX": false,
+      "overflowing": [
+        {
+          "tag": "nav",
+          "className": "pojo-a11y-toolbar-right",
+          "left": 390,
+          "right": 570,
+          "width": 180
+        },
+        {
+          "tag": "div",
+          "className": "pojo-a11y-toolbar-overlay",
+          "left": 390,
+          "right": 570,
+          "width": 180
+        },
+        {
+          "tag": "div",
+          "className": "pojo-a11y-toolbar-inner",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "p",
+          "className": "pojo-a11y-toolbar-title",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "ul",
+          "className": "pojo-a11y-toolbar-items pojo-a11y-tools",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "li",
+          "className": "pojo-a11y-toolbar-item",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "a",
+          "className": "pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-plus",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "span",
+          "className": "pojo-a11y-toolbar-icon",
+          "left": 538,
+          "right": 557,
+          "width": 19
+        },
+        {
+          "tag": "svg",
+          "className": "",
+          "left": 538,
+          "right": 557,
+          "width": 19
+        },
+        {
+          "tag": "path",
+          "className": "",
+          "left": 544,
+          "right": 556,
+          "width": 12
+        },
+        {
+          "tag": "span",
+          "className": "pojo-a11y-toolbar-text",
+          "left": 482,
+          "right": 538,
+          "width": 56
+        },
+        {
+          "tag": "li",
+          "className": "pojo-a11y-toolbar-item",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        }
+      ],
+      "themeWhatsappFloat": [
+        {
+          "selector": ".whatsapp-float",
+          "display": "none",
+          "visibility": "visible",
+          "opacity": "1",
+          "position": "fixed",
+          "width": 0,
+          "height": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "visible": false
+        }
+      ],
+      "injectedWhatsappButton": [
+        {
+          "selector": "a.whatsapp-button",
+          "display": "flex",
+          "visibility": "visible",
+          "opacity": "1",
+          "position": "fixed",
+          "width": 54,
+          "height": 54,
+          "left": 322,
+          "right": 376,
+          "top": 772,
+          "bottom": 826,
+          "visible": true
+        }
+      ],
+      "pojoToolbar": [
+        {
+          "selector": "#pojo-a11y-toolbar",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "position": "fixed",
+          "width": 180,
+          "height": 300,
+          "left": 390,
+          "right": 570,
+          "top": 220,
+          "bottom": 520,
+          "visible": true
+        }
+      ],
+      "relatedMode": ""
+    },
+    {
+      "key": "practice-family",
+      "expectedUrl": "https://jus-tice.co.il/family-law/",
+      "screenshot": "C:\\Users\\janana\\jutice-theme\\project-control\\visual-evidence\\mobile-inner-practice-family-2026-05-11-live.png",
+      "title": "עורך דין דיני משפחה | מדריך, מאמרים ועורכי דין",
+      "marker": "2026-05-11-mobile-inner-qa-v1",
+      "url": "https://jus-tice.co.il/family-law/",
+      "innerWidth": 390,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "bodyScrollWidth": 390,
+      "overflowX": false,
+      "overflowing": [
+        {
+          "tag": "nav",
+          "className": "pojo-a11y-toolbar-right",
+          "left": 390,
+          "right": 570,
+          "width": 180
+        },
+        {
+          "tag": "div",
+          "className": "pojo-a11y-toolbar-overlay",
+          "left": 390,
+          "right": 570,
+          "width": 180
+        },
+        {
+          "tag": "div",
+          "className": "pojo-a11y-toolbar-inner",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "p",
+          "className": "pojo-a11y-toolbar-title",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "ul",
+          "className": "pojo-a11y-toolbar-items pojo-a11y-tools",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "li",
+          "className": "pojo-a11y-toolbar-item",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "a",
+          "className": "pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-plus",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        },
+        {
+          "tag": "span",
+          "className": "pojo-a11y-toolbar-icon",
+          "left": 538,
+          "right": 557,
+          "width": 19
+        },
+        {
+          "tag": "svg",
+          "className": "",
+          "left": 538,
+          "right": 557,
+          "width": 19
+        },
+        {
+          "tag": "path",
+          "className": "",
+          "left": 544,
+          "right": 556,
+          "width": 12
+        },
+        {
+          "tag": "span",
+          "className": "pojo-a11y-toolbar-text",
+          "left": 482,
+          "right": 538,
+          "width": 56
+        },
+        {
+          "tag": "li",
+          "className": "pojo-a11y-toolbar-item",
+          "left": 391,
+          "right": 569,
+          "width": 178
+        }
+      ],
+      "themeWhatsappFloat": [
+        {
+          "selector": ".whatsapp-float",
+          "display": "none",
+          "visibility": "visible",
+          "opacity": "1",
+          "position": "fixed",
+          "width": 0,
+          "height": 0,
+          "left": 0,
+          "right": 0,
+          "top": 0,
+          "bottom": 0,
+          "visible": false
+        }
+      ],
+      "injectedWhatsappButton": [
+        {
+          "selector": "a.whatsapp-button",
+          "display": "flex",
+          "visibility": "visible",
+          "opacity": "1",
+          "position": "fixed",
+          "width": 54,
+          "height": 54,
+          "left": 322,
+          "right": 376,
+          "top": 772,
+          "bottom": 826,
+          "visible": true
+        }
+      ],
+      "pojoToolbar": [
+        {
+          "selector": "#pojo-a11y-toolbar",
+          "display": "block",
+          "visibility": "visible",
+          "opacity": "1",
+          "position": "fixed",
+          "width": 180,
+          "height": 300,
+          "left": 390,
+          "right": 570,
+          "top": 220,
+          "bottom": 520,
+          "visible": true
+        }
+      ],
+      "relatedMode": ""
+    }
+  ]
+}

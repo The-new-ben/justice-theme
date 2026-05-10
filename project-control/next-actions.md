@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-DEPLOY-001: Make Codex-operated uPress pulls reliable
+**Status:** PLAN CREATED - access still blocked unless session is authenticated
+**Why:** Owner wants Codex to pull Git through uPress without manual intervention every time.
+**Actions:**
+1. DONE: created `project-control/deployment-access-plan.md`.
+2. LIVE VERIFIED: owner-triggered uPress pull deployed marker `2026-05-11-mobile-inner-qa-v1`.
+3. BLOCKED: direct uPress file-manager URL still opens the login screen in this Codex browser session.
+4. RECOMMENDED SHORT TERM: owner logs into uPress once in the Codex browser with remember-me, then Codex can use the right-panel Git pull button.
+5. RECOMMENDED DURABLE: request SSH/WP-CLI deployment access if uPress plan supports it.
+6. FUTURE: secured deploy webhook only after explicit approval and security review; do not add a public `pull.php`.
+
 ### ACTION-BRAND-001: Logo + Favicon + Search Branding
 **Status:** PARTIAL LIVE VERIFIED - wp-admin/search-result verification pending
 **Why:** Browser tabs, mobile bookmarks and Google search results need a stable, professional icon and final brand state.

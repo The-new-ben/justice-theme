@@ -1,6 +1,13 @@
 # Customer-Facing QA
 Date: 2026-05-10
 
+## 2026-05-11 Inner Mobile QA Update
+- LIVE VERIFIED: latest uPress pull is public with marker `2026-05-11-mobile-inner-qa-v1`.
+- VISUAL VERIFIED: article, articles archive, lawyer directory and family practice page were captured on 390px mobile without injected CSS.
+- FIXED: sampled pages no longer have horizontal overflow.
+- FIXED: duplicate theme WhatsApp float no longer appears on sampled inner mobile pages; one compact third-party contact button remains.
+- PROOF: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-live.json` and `project-control/visual-evidence/mobile-inner-*-2026-05-11-live.png`.
+
 ## Homepage
 - URL: https://jus-tice.co.il/
 - Proof: `project-control/visual-evidence/customer-home-desktop.png`, `customer-home-mobile.png`

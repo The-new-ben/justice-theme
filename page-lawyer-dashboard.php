@@ -67,6 +67,30 @@ $leads = ( post_type_exists( 'justice_lead' ) && $profile_ids )
 	: null;
 
 $lead_count = $leads ? (int) $leads->found_posts : 0;
+
+$content_requests = ( post_type_exists( 'articles' ) && $profile_ids )
+	? new WP_Query( array(
+		'post_type'      => 'articles',
+		'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+		'posts_per_page' => 8,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'meta_query'     => array(
+			'relation' => 'AND',
+			array(
+				'key'   => 'content_status',
+				'value' => 'lawyer_requested_draft',
+			),
+			array(
+				'key'     => 'requested_by_lawyer_id',
+				'value'   => $profile_ids,
+				'compare' => 'IN',
+			),
+		),
+	) )
+	: null;
+
+$content_request_count = $content_requests ? (int) $content_requests->found_posts : 0;
 ?>
 
 <section class="lawyer-dashboard section">
@@ -88,6 +112,10 @@ $lead_count = $leads ? (int) $leads->found_posts : 0;
 			</div>
 		<?php else : ?>
 			<div class="lawyer-dashboard__summary">
+				<div>
+					<strong><?php echo esc_html( (string) $content_request_count ); ?></strong>
+					<span><?php esc_html_e( 'בקשות תוכן', 'justice-theme' ); ?></span>
+				</div>
 				<div>
 					<strong><?php echo esc_html( (string) count( $profile_ids ) ); ?></strong>
 					<span><?php esc_html_e( 'פרופילים מקושרים', 'justice-theme' ); ?></span>
@@ -153,6 +181,36 @@ $lead_count = $leads ? (int) $leads->found_posts : 0;
 						</div>
 					<?php else : ?>
 						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'אין עדיין לידים משויכים לפרופיל הזה.', 'justice-theme' ); ?></p>
+					<?php endif; ?>
+
+					<h2><?php esc_html_e( 'בקשות תוכן ומאמרים', 'justice-theme' ); ?></h2>
+					<?php if ( $content_requests && $content_requests->have_posts() ) : ?>
+						<div class="lawyer-dashboard-content-list">
+							<?php while ( $content_requests->have_posts() ) : $content_requests->the_post(); ?>
+								<?php
+								$request_id    = get_the_ID();
+								$request_state = get_post_status( $request_id );
+								$needs_legal   = (string) get_post_meta( $request_id, 'needs_legal_review', true );
+								$needs_source  = (string) get_post_meta( $request_id, 'needs_browser_source_verification', true );
+								$intent        = (string) get_post_meta( $request_id, 'lawyer_content_intent', true );
+								$audience      = (string) get_post_meta( $request_id, 'lawyer_content_audience', true );
+								?>
+								<article>
+									<div>
+										<strong><?php the_title(); ?></strong>
+										<?php if ( '' !== $intent || '' !== $audience ) : ?>
+											<p><?php echo esc_html( trim( $intent . ' ' . $audience ) ); ?></p>
+										<?php endif; ?>
+									</div>
+									<span><?php echo esc_html( $request_state ); ?></span>
+									<span><?php echo '1' === $needs_legal ? esc_html__( 'בדיקה משפטית', 'justice-theme' ) : esc_html__( 'עבר בדיקה משפטית', 'justice-theme' ); ?></span>
+									<span><?php echo '1' === $needs_source ? esc_html__( 'בדיקת מקורות', 'justice-theme' ) : esc_html__( 'מקורות נבדקו', 'justice-theme' ); ?></span>
+									<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+								</article>
+							<?php endwhile; wp_reset_postdata(); ?>
+						</div>
+					<?php else : ?>
+						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'אין עדיין בקשות תוכן לפרופיל הזה. אפשר לשלוח רעיון למאמר חתום דרך הטופס הבא.', 'justice-theme' ); ?></p>
 					<?php endif; ?>
 
 					<section class="lawyer-dashboard-content-request">

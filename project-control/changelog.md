@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[HIGH] Added lawyer-facing content request status queue**
+- Files: `page-lawyer-dashboard.php`, `assets/css/premium-pass-3.css`, `project-control/lawyer-onboarding-workflow.md`
+- Lawyer dashboard now shows a count and read-only list of the lawyer's submitted article/content requests.
+- Each request shows publication state plus legal-review and source-review gates, so lawyers can see that signed content is moving through a controlled editorial pipeline.
+- VERIFIED in repo. LIVE NOT VERIFIED until a claimed lawyer account views `/lawyer-dashboard/` after a content request exists.
+
 **[HIGH] Surfaced lawyer content requests in article admin**
 - Files: `inc/content-draft-importer.php`, `inc/lawyer-dashboard.php`, `project-control/lawyer-onboarding-workflow.md`
 - Added a `Content Origin` column to the `articles` admin list so lawyer-requested drafts are visible beside repo-imported drafts.

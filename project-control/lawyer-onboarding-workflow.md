@@ -93,6 +93,7 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
 - No content request is published automatically.
 - Owner receives an email with the topic, lawyer, intent, audience and edit link.
 - The `articles` admin list includes a Content Origin column that identifies lawyer-requested drafts and links back to the requesting lawyer profile.
+- The lawyer dashboard now shows a read-only queue of submitted content requests with draft/publish state and the legal/source review gates.
 
 ## NOT VERIFIED
 

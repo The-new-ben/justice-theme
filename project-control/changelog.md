@@ -9,6 +9,7 @@
 - LIVE VERIFIED: sampled article pages did not expose unsafe internal markers in the public body.
 - PARTIAL QUALITY: sampled general/criminal/real-estate related cards still include off-intent items; metadata/manual related URL cleanup is required before customer-ready status.
 - CREATED: `project-control/visual-evidence/related-content-live-qa-2026-05-11.json` and related-content screenshot evidence.
+- BLOCKED: autonomous uPress pull remains unavailable because the Codex browser session is not authenticated and browser automation cannot safely fill the uPress login form.
 - SAFETY: no public article body, URL, redirect, sitemap, robots, CRM record, wp-admin setting or database row was changed.
 
 ## 2026-05-11 - Live inner mobile QA and deployment access plan

@@ -9,6 +9,8 @@ Give Codex a reliable way to deploy GitHub changes to the live uPress WordPress 
 - LIVE VERIFIED: live `premium-pass-3.css` contains the inner-page mobile fix.
 - BLOCKED FOR AUTONOMOUS PULL: the direct uPress file-manager URL still redirects this Codex browser session to the uPress login screen.
 - BLOCKED FOR AUTONOMOUS LOGIN: the in-app browser could not reliably type into the uPress email/password fields. Do not treat this as working access.
+- 2026-05-11 RECHECK: direct file-manager URL still opens the uPress login screen, not the authenticated file manager.
+- 2026-05-11 RECHECK: a controlled login attempt was stopped because the browser automation layer cannot safely fill the uPress email input and blocks JavaScript URL workarounds. Do not bypass this browser safety policy.
 
 ## Known uPress Git Method
 uPress documents Git management through the file manager: open the file manager and use Manage GIT to clone or pull a repository in the current directory.
@@ -16,7 +18,7 @@ uPress documents Git management through the file manager: open the file manager 
 Source: https://support.upress.io/advanced/manage-git-via-file-manager/
 
 ## Option A - Persistent Authenticated uPress Browser Session
-Status: AVAILABLE AFTER OWNER LOGS IN ONCE
+Status: AVAILABLE AFTER OWNER LOGS IN ONCE / NOT CURRENTLY ACTIVE
 
 How it works:
 1. Owner opens the uPress file-manager URL in the Codex browser session.
@@ -28,6 +30,8 @@ How it works:
 Risk: Medium. It depends on browser session cookies and can expire.
 
 Recommendation: use as the short-term operating method.
+
+Current blocker: the Codex browser session is not logged in. The owner needs to complete one manual uPress login in the Codex browser and leave the session authenticated; after that Codex can attempt the right-panel Git pull button.
 
 ## Option B - SSH / WP-CLI Access
 Status: NEEDS PASSWORD / SERVER ACCESS
@@ -76,6 +80,7 @@ Recommendation: ask uPress support whether the file-manager Git pull action has 
 - SHORT TERM: owner keeps a uPress browser session authenticated, then Codex can use the right-panel Git pull button.
 - MEDIUM TERM: request SSH/WP-CLI deployment access if available.
 - FUTURE: consider a secured deploy webhook only after explicit approval.
+- DO NOT: add an unsecured public pull endpoint or attempt browser-security workarounds for the uPress login form.
 
 ## Verification After Every Pull
 1. Check homepage marker.

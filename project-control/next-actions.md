@@ -16,6 +16,7 @@
 4. RECOMMENDED SHORT TERM: owner logs into uPress once in the Codex browser with remember-me, then Codex can use the right-panel Git pull button.
 5. RECOMMENDED DURABLE: request SSH/WP-CLI deployment access if uPress plan supports it.
 6. FUTURE: secured deploy webhook only after explicit approval and security review; do not add a public `pull.php`.
+7. RECHECKED 2026-05-11: controlled autonomous login attempt is still BLOCKED by browser form-fill limitations/security policy; do not bypass this with unsafe workarounds.
 
 ### ACTION-BRAND-001: Logo + Favicon + Search Branding
 **Status:** PARTIAL LIVE VERIFIED - wp-admin/search-result verification pending

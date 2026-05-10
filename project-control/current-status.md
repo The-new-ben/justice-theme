@@ -9,6 +9,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - LIVE RELATED QA: sampled general, family, criminal and real-estate article pages show `data-related-mode="semantic"` and no unsafe internal markers.
 - PARTIAL QUALITY: related cards are still not customer-ready across all clusters. General/criminal samples still surface off-intent cards such as AI-for-law-firms, business-license and Australia lawyers; real-estate also surfaces Cyprus pricing. Manual related URLs, `content_cluster`, and practice-area metadata cleanup are required.
 - NOT LIVE VERIFIED AFTER FIX: deployment marker is now `2026-05-11-public-article-note-guard-v1`; uPress pull/cache clear is required before public verification of this exact guard.
+- BLOCKED FOR AUTONOMOUS DEPLOY: uPress file-manager still redirects this Codex browser session to login, and browser automation cannot safely fill the uPress login form. Owner must either log in once in the Codex browser and keep the session authenticated, or provide SSH/WP-CLI/deploy-hook access.
 - SAFETY: no article body, URL, redirect, sitemap, robots, wp-admin setting, CRM record or database row was changed.
 
 ## LATEST LIVE STATUS - 2026-05-11 01:10 Asia/Jerusalem

@@ -4,6 +4,8 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 
 ## VERIFIED
 - Repo is available at `C:\Users\janana\jutice-theme` and tracks `origin/main`.
+- Live public recheck on 2026-05-10 11:48 Asia/Jerusalem returned HTTP 200 for the homepage and `/lawyers/?area=family-law`.
+- Live public recheck VERIFIED that canonical tags and the header topic strip are present on the public homepage.
 - PHP 8.3 is installed locally through Winget and can be run directly from the Winget package path in this session.
 - PHP lint passed locally for 120 PHP files after fixing two legacy `ultra-justice` syntax issues.
 - `tools/php-lint.ps1` is now available as the repeatable repo PHP syntax check and passes locally for 120 PHP files.
@@ -46,6 +48,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Legacy `ultra-justice` PHP 8 syntax errors in admin column fallback expressions are fixed in repo.
 - Added a reusable PHP lint helper at `tools/php-lint.ps1`, replacing the one-off manual PHP path check with a repeatable local verification command.
 - Header now includes a premium topic strip under the main navigation with Hebrew labels and English slug targets for core legal routes and AI intake.
+- Latest repo commit `e511c00` is pushed to `origin/main`, but live public HTML does not yet show every fix from that commit.
 
 ## FIXED IN THIS PASS
 - Added tracked `page-home.php` because the live homepage is assigned to the `page-home.php` page template, not only `front-page.php`.
@@ -141,6 +144,9 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Live visual screenshot check ran again on 2026-05-10. Homepage returned 200 and latest repo markers (`brand-lockup--justice`, `hero__visual`, `article-card__placeholder--legal`) are present live, so GitHub/Upress sync is now VERIFIED for the latest theme changes.
 
 ## STILL BROKEN / RISK
+- NOT VERIFIED LIVE: Homepage ask-lawyer form still did not expose `admin-post.php` or `justice_submit_lead` in the public HTML check, so the newest lead-form wiring from `e511c00` has not been confirmed live.
+- NOT VERIFIED LIVE: `/lawyers/?area=family-law` returned 200 and canonical output, but did not expose `noindex` in the public HTML check, so the newest filtered-directory robots hardening from `e511c00` has not been confirmed live.
+- BLOCKED: Upress/GitHub pull/cache state is not directly verified from the repo-only workflow; live may need another Upress pull or cache refresh before these latest theme changes appear publicly.
 - Repo still contains duplicate plugin-like folders: `ultra-justice/`, `ultra-justice-engine/`, and new `justice-core/`.
 - Do not delete the legacy plugin folders until live active plugin path is verified; otherwise GitHub sync could remove the currently active plugin and break CPTs.
 - Do not merge `origin/claude/justice-website-review-aovSK` wholesale; it deletes newer `main` work and must only be used as a reviewed patch source.

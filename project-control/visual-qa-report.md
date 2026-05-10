@@ -32,6 +32,14 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - VERIFIED: Red-dot Jus-Tice wordmark is visible in desktop/mobile screenshots.
 - VERIFIED: Topic strip is visible in desktop/mobile screenshots.
 
+## 2026-05-10 Lead/SEO Live Recheck
+- VERIFIED: Live homepage returned HTTP 200.
+- VERIFIED: Live `/lawyers/?area=family-law` returned HTTP 200.
+- VERIFIED: Canonical tags are present in public HTML.
+- NOT VERIFIED: Homepage public HTML did not show `admin-post.php` or `justice_submit_lead`, so the ask-lawyer form wiring from commit `e511c00` is not yet verified live.
+- NOT VERIFIED: Filtered lawyer-directory URL did not show `noindex`, so the filter robots hardening from commit `e511c00` is not yet verified live.
+- BLOCKED: This appears to require Upress pull/cache verification or direct WordPress theme-file inspection.
+
 ## Visual Findings
 - STILL BROKEN: Header main navigation above the topic strip still feels sparse on desktop.
 - FIXED: The fallback Jus-Tice logo and red dot are visible live.

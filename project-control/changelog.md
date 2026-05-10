@@ -714,3 +714,10 @@
 - `project-control/demo-readiness.md` — demo prerequisites checklist
 - `project-control/next-actions.md` — prioritized action list for next sessions
 - `project-control/changelog.md` — this file
+
+## 2026-05-10 Lead/SEO Live Recheck
+- VERIFIED: Public homepage and `/lawyers/?area=family-law` returned HTTP 200.
+- VERIFIED: Canonical output is present live.
+- NOT VERIFIED: The public homepage did not show the `admin-post.php`/`justice_submit_lead` ask-lawyer wiring from commit `e511c00`.
+- NOT VERIFIED: The filtered lawyer directory did not show `noindex`, so robots hardening from commit `e511c00` is not confirmed live.
+- BLOCKED: Latest repo changes may still need Upress pull/cache refresh or direct WordPress file inspection.

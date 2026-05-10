@@ -51,8 +51,9 @@ Date: 2026-05-10
 - Proof: `project-control/visual-evidence/customer-404-desktop.png`
 - LIVE VERIFIED: fake URL returned homepage with HTTP 200, not a true 404.
 - FIXED IN CODE: 404 template copy is Hebrew/customer-friendly.
+- CODE FIXED: `inc/routing-guards.php` now detects non-root URLs being served as the front page and forces a real 404 response/template.
 - BLOCKED: real issue likely routing/permalink/plugin/server and requires wp-admin/uPress investigation.
-- Status: STILL BROKEN live.
+- Status: CODE FIXED / NOT VERIFIED LIVE after latest routing guard.
 
 ## Footer / Mobile
 - Proof: mobile homepage and article screenshots.

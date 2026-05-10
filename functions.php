@@ -19,6 +19,7 @@ $justice_theme_files = array(
 	'inc/menu-seed.php',
 	'inc/template-tags.php',
 	'inc/breadcrumbs.php',
+	'inc/routing-guards.php',
 	'inc/schema.php',
 	'inc/seo.php',
 	'inc/accessibility.php',

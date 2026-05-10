@@ -774,3 +774,11 @@
 - FIXED IN CODE: Added a lawyer mini-site engagement module for inquiry, signed content, media/video and verified reviews without fake claims.
 - VERIFIED: PHP lint passed locally for 122 PHP files.
 - NOT VERIFIED LIVE: Maya redirect-loop guard and mini-site engagement module require uPress pull/cache refresh.
+
+## 2026-05-10 Unknown URL 404 Routing Guard
+- LIVE VERIFIED BROKEN: `/not-a-real-page-justice-qa/` redirects to the homepage and returns HTTP 200 after redirect.
+- FIXED IN CODE: Added `inc/routing-guards.php`.
+- The guard only fires when WordPress is about to serve the front page for a non-root URL path.
+- The guard removes canonical redirect for that request, marks the query as 404, sends a 404 status and uses the theme 404 template.
+- VERIFIED: PHP lint passed locally for 123 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and a public recheck of the fake URL.

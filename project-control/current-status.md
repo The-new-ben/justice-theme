@@ -72,6 +72,9 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - VERIFIED locally: PHP lint passed for 122 PHP files after adding the reusable practice landing helper/template.
 - PARTIAL LIVE: `/family-law/` now shows the practice intent layer, but the separate generic `practice-landing` page fallback marker is not visible; route ownership still needs wp-admin/permalink review.
 - Lawyer mini-site template now includes an engagement module explaining structured inquiry, signed content, video/media and verified reviews without inventing ratings or claims.
+- CODE FIXED: added `inc/routing-guards.php` to turn suspicious "unknown URL served as homepage" requests into real 404 responses before WordPress canonical redirect can send them to the homepage.
+- VERIFIED locally: PHP lint passed for 123 PHP files after adding the routing guard.
+- NOT VERIFIED live: fake URL `/not-a-real-page-justice-qa/` must be rechecked after uPress pull/cache refresh; currently live still redirects that path to the homepage.
 - Maya bootstrap can attach `family-law` and a city term only where safe, and adds an internal note for admin review.
 - Homepage hero copy is now more direct: it speaks to users who need a lawyer or legal direction, not only generic portal language.
 - Primary navigation now has a code safety layer that appends missing customer-critical links when the assigned WordPress menu is too thin.

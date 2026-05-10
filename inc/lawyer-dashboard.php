@@ -94,10 +94,31 @@ function justice_theme_handle_lawyer_content_request(): void {
 		uje_log( 'lawyer_content_request', 'New lawyer content request draft: ' . $topic );
 	}
 
+	justice_theme_notify_lawyer_content_request( $article_id, $lawyer_id, $topic, $intent, $audience );
+
 	wp_safe_redirect( add_query_arg( 'content_request', 'sent', home_url( '/lawyer-dashboard/' ) ) );
 	exit;
 }
 add_action( 'admin_post_justice_lawyer_content_request', 'justice_theme_handle_lawyer_content_request' );
+
+function justice_theme_notify_lawyer_content_request( int $article_id, int $lawyer_id, string $topic, string $intent, string $audience ): void {
+	$admin_email = get_option( 'admin_email' );
+
+	if ( ! $admin_email || ! is_email( $admin_email ) ) {
+		return;
+	}
+
+	$message = sprintf(
+		"New lawyer content request created as an article draft.\n\nTopic: %s\nLawyer: %s\nIntent: %s\nAudience: %s\n\nReview draft: %s",
+		$topic,
+		get_the_title( $lawyer_id ),
+		$intent ?: '-',
+		$audience ?: '-',
+		admin_url( 'post.php?post=' . $article_id . '&action=edit' )
+	);
+
+	wp_mail( $admin_email, 'New lawyer content request draft', $message );
+}
 
 function justice_theme_lawyer_dashboard_profile_completeness( int $post_id ): int {
 	$fields = array(

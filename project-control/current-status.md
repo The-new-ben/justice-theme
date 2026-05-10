@@ -27,6 +27,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer registration city field now suggests core city names so lawyers are more likely to enter values the taxonomy mapper can recognize.
 - Lawyer registration has fallback primary-practice options with canonical English slugs if `practice-areas` terms are not available yet.
 - Lawyer dashboard now includes a draft-only content request flow for logged-in lawyers with claimed profiles.
+- Lawyer content request drafts are now visible in the Articles admin list through a `Content Origin` column and trigger an owner notification email.
 
 ## FIXED IN THIS PASS
 - Added tracked `page-home.php` because the live homepage is assigned to the `page-home.php` page template, not only `front-page.php`.
@@ -79,6 +80,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer registration form now includes a city datalist for the seeded/core cities while still allowing multiple free-text areas.
 - Lawyer registration primary-area select no longer depends entirely on live taxonomy seeding; it can show canonical fallback options during setup.
 - Lawyer content requests create draft `articles` records connected to the lawyer slug and marked for legal/source review before publication.
+- Articles admin review columns now distinguish repo drafts from lawyer-requested drafts and show the connected/requesting lawyer context.
 
 ## NOT VERIFIED
 - Active live plugin path and name.

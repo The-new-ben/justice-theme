@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[HIGH] Surfaced lawyer content requests in article admin**
+- Files: `inc/content-draft-importer.php`, `inc/lawyer-dashboard.php`, `project-control/lawyer-onboarding-workflow.md`
+- Added a `Content Origin` column to the `articles` admin list so lawyer-requested drafts are visible beside repo-imported drafts.
+- Lawyer content request submissions now email the owner with topic, lawyer, intent, audience and edit link.
+- VERIFIED in repo. LIVE NOT VERIFIED until a content request is submitted and checked in wp-admin.
+
 **[HIGH] Added lawyer dashboard content request MVP**
 - Files: `page-lawyer-dashboard.php`, `inc/lawyer-dashboard.php`, `project-control/lawyer-onboarding-workflow.md`
 - Logged-in lawyers with claimed profiles can submit article/content ideas from the dashboard.

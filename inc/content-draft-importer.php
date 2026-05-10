@@ -32,6 +32,7 @@ function justice_theme_add_article_review_columns( array $columns ): array {
 
 		if ( 'title' === $key ) {
 			$updated['justice_repo_draft']    = __( 'Repo Draft', 'justice-theme' );
+			$updated['justice_content_origin'] = __( 'Content Origin', 'justice-theme' );
 			$updated['justice_review_gates'] = __( 'Review Gates', 'justice-theme' );
 			$updated['justice_words']        = __( 'Words', 'justice-theme' );
 		}
@@ -54,6 +55,34 @@ function justice_theme_render_article_review_columns( string $column, int $post_
 		if ( '' !== $status ) {
 			echo '<br><small>' . esc_html( $status ) . '</small>';
 		}
+		return;
+	}
+
+	if ( 'justice_content_origin' === $column ) {
+		$content_status = (string) get_post_meta( $post_id, 'content_status', true );
+		$lawyer_id      = (int) get_post_meta( $post_id, 'requested_by_lawyer_id', true );
+		$lawyer_slug    = (string) get_post_meta( $post_id, 'connected_lawyer_slug', true );
+		$intent         = (string) get_post_meta( $post_id, 'lawyer_content_intent', true );
+
+		if ( 'lawyer_requested_draft' === $content_status ) {
+			echo '<strong>' . esc_html__( 'Lawyer request', 'justice-theme' ) . '</strong>';
+			if ( $lawyer_id ) {
+				echo '<br><a href="' . esc_url( get_edit_post_link( $lawyer_id, '' ) ) . '">' . esc_html( get_the_title( $lawyer_id ) ) . '</a>';
+			} elseif ( '' !== $lawyer_slug ) {
+				echo '<br><code>' . esc_html( $lawyer_slug ) . '</code>';
+			}
+			if ( '' !== $intent ) {
+				echo '<br><small>' . esc_html( $intent ) . '</small>';
+			}
+			return;
+		}
+
+		if ( '' !== $content_status ) {
+			echo '<code>' . esc_html( $content_status ) . '</code>';
+			return;
+		}
+
+		echo '&mdash;';
 		return;
 	}
 

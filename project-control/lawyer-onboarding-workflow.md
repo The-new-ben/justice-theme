@@ -91,6 +91,8 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
   - `needs_legal_review = 1`
   - `needs_browser_source_verification = 1`
 - No content request is published automatically.
+- Owner receives an email with the topic, lawyer, intent, audience and edit link.
+- The `articles` admin list includes a Content Origin column that identifies lawyer-requested drafts and links back to the requesting lawyer profile.
 
 ## NOT VERIFIED
 

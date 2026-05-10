@@ -104,6 +104,12 @@ $lead_count = $leads ? (int) $leads->found_posts : 0;
 
 			<div class="lawyer-dashboard__grid">
 				<div class="lawyer-dashboard__main">
+					<?php if ( isset( $_GET['content_request'] ) && 'sent' === $_GET['content_request'] ) : ?>
+						<div class="legaltool-request__notice"><?php esc_html_e( 'בקשת התוכן התקבלה כטיוטה ותיבדק לפני כל פרסום.', 'justice-theme' ); ?></div>
+					<?php elseif ( isset( $_GET['content_request'] ) ) : ?>
+						<div class="lawyer-registration__error"><?php esc_html_e( 'בקשת התוכן לא נשלחה. בדקו שנבחר פרופיל ושנושא המאמר מולא.', 'justice-theme' ); ?></div>
+					<?php endif; ?>
+
 					<h2><?php esc_html_e( 'הפרופילים שלי', 'justice-theme' ); ?></h2>
 					<?php while ( $profiles->have_posts() ) : $profiles->the_post(); ?>
 						<?php
@@ -148,6 +154,36 @@ $lead_count = $leads ? (int) $leads->found_posts : 0;
 					<?php else : ?>
 						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'אין עדיין לידים משויכים לפרופיל הזה.', 'justice-theme' ); ?></p>
 					<?php endif; ?>
+
+					<section class="lawyer-dashboard-content-request">
+						<h2><?php esc_html_e( 'בקשת מאמר חתום', 'justice-theme' ); ?></h2>
+						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'שלחו רעיון למאמר או מדריך. הבקשה נשמרת כטיוטה בלבד ותעבור עריכה, בדיקת מקורות ובדיקה משפטית לפני פרסום.', 'justice-theme' ); ?></p>
+						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">
+							<input type="hidden" name="action" value="justice_lawyer_content_request">
+							<?php wp_nonce_field( 'justice_lawyer_content_request', 'justice_lawyer_content_request_nonce' ); ?>
+
+							<label for="content-profile"><?php esc_html_e( 'פרופיל מחובר', 'justice-theme' ); ?></label>
+							<select id="content-profile" name="lawyer_profile_id" required>
+								<?php foreach ( $profile_ids as $profile_id ) : ?>
+									<option value="<?php echo esc_attr( $profile_id ); ?>"><?php echo esc_html( get_the_title( $profile_id ) ); ?></option>
+								<?php endforeach; ?>
+							</select>
+
+							<label for="content-topic"><?php esc_html_e( 'נושא המאמר', 'justice-theme' ); ?></label>
+							<input id="content-topic" type="text" name="content_topic" required placeholder="<?php esc_attr_e( 'לדוגמה: איך מתכוננים להסכם גירושין בהסכמה', 'justice-theme' ); ?>">
+
+							<label for="content-intent"><?php esc_html_e( 'מטרת התוכן', 'justice-theme' ); ?></label>
+							<input id="content-intent" type="text" name="content_intent" placeholder="<?php esc_attr_e( 'מידע ללקוחות, שאלות נפוצות, חיזוק תחום מומחיות, הכנה לפגישה', 'justice-theme' ); ?>">
+
+							<label for="content-audience"><?php esc_html_e( 'קהל יעד', 'justice-theme' ); ?></label>
+							<input id="content-audience" type="text" name="content_audience" placeholder="<?php esc_attr_e( 'לדוגמה: הורים לפני פרידה, בעלי דירות, חשודים לפני חקירה', 'justice-theme' ); ?>">
+
+							<label for="content-notes"><?php esc_html_e( 'נקודות שחשוב לכלול', 'justice-theme' ); ?></label>
+							<textarea id="content-notes" name="content_notes" rows="4"></textarea>
+
+							<button type="submit" class="button button--gold"><?php esc_html_e( 'שליחת בקשת תוכן', 'justice-theme' ); ?></button>
+						</form>
+					</section>
 				</div>
 
 				<aside class="lawyer-dashboard__side">

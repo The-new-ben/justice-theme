@@ -75,6 +75,23 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
 7. Add lead inbox and lead status tracking.
 8. Add content request flow where lawyers can request articles under their name.
 
+## Content Request MVP
+
+## FIXED
+- Logged-in lawyers with a claimed profile can submit a content request from `/lawyer-dashboard/`.
+- The request creates an `articles` draft only.
+- Draft metadata includes:
+  - `content_status = lawyer_requested_draft`
+  - `requested_by_lawyer_id`
+  - `requested_by_user_id`
+  - `connected_lawyer_slug`
+  - `lawyer_content_intent`
+  - `lawyer_content_audience`
+  - `lawyer_content_notes`
+  - `needs_legal_review = 1`
+  - `needs_browser_source_verification = 1`
+- No content request is published automatically.
+
 ## NOT VERIFIED
 
 - Live page creation after admin visit.

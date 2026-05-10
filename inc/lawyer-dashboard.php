@@ -34,6 +34,71 @@ function justice_theme_seed_lawyer_dashboard_page(): void {
 }
 add_action( 'admin_init', 'justice_theme_seed_lawyer_dashboard_page' );
 
+function justice_theme_handle_lawyer_content_request(): void {
+	if ( ! is_user_logged_in() || ! isset( $_POST['justice_lawyer_content_request_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_content_request_nonce'] ) ), 'justice_lawyer_content_request' ) ) {
+		wp_safe_redirect( add_query_arg( 'content_request', 'failed', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	if ( ! post_type_exists( 'articles' ) || ! post_type_exists( 'justice_lawyer' ) ) {
+		wp_safe_redirect( add_query_arg( 'content_request', 'blocked', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$user_id    = get_current_user_id();
+	$lawyer_id  = isset( $_POST['lawyer_profile_id'] ) ? absint( $_POST['lawyer_profile_id'] ) : 0;
+	$topic      = isset( $_POST['content_topic'] ) ? sanitize_text_field( wp_unslash( $_POST['content_topic'] ) ) : '';
+	$intent     = isset( $_POST['content_intent'] ) ? sanitize_text_field( wp_unslash( $_POST['content_intent'] ) ) : '';
+	$audience   = isset( $_POST['content_audience'] ) ? sanitize_text_field( wp_unslash( $_POST['content_audience'] ) ) : '';
+	$notes      = isset( $_POST['content_notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['content_notes'] ) ) : '';
+	$profile_ok = $lawyer_id && (string) $user_id === (string) get_post_meta( $lawyer_id, 'claimed_by_user_id', true );
+
+	if ( ! $profile_ok || ! $topic ) {
+		wp_safe_redirect( add_query_arg( 'content_request', 'missing', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$body = sprintf(
+		"Lawyer content request.\n\nTopic: %s\nIntent: %s\nAudience: %s\nNotes:\n%s\n\nStatus: DRAFT ONLY. Requires editorial, legal and source review before publication.",
+		$topic,
+		$intent ?: '-',
+		$audience ?: '-',
+		$notes ?: '-'
+	);
+
+	$article_id = wp_insert_post( array(
+		'post_type'    => 'articles',
+		'post_status'  => 'draft',
+		'post_title'   => $topic,
+		'post_content' => wpautop( esc_html( $body ) ),
+		'post_author'  => $user_id,
+	) );
+
+	if ( ! $article_id || is_wp_error( $article_id ) ) {
+		wp_safe_redirect( add_query_arg( 'content_request', 'failed', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	update_post_meta( $article_id, 'content_status', 'lawyer_requested_draft' );
+	update_post_meta( $article_id, 'requested_by_lawyer_id', (string) $lawyer_id );
+	update_post_meta( $article_id, 'requested_by_user_id', (string) $user_id );
+	update_post_meta( $article_id, 'connected_lawyer_slug', get_post_field( 'post_name', $lawyer_id ) );
+	update_post_meta( $article_id, 'lawyer_content_intent', $intent );
+	update_post_meta( $article_id, 'lawyer_content_audience', $audience );
+	update_post_meta( $article_id, 'lawyer_content_notes', $notes );
+	update_post_meta( $article_id, 'needs_legal_review', '1' );
+	update_post_meta( $article_id, 'needs_browser_source_verification', '1' );
+	update_post_meta( $article_id, 'source_note', 'Requested from lawyer dashboard. Draft only; editorial/legal/source review required.' );
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_content_request', 'New lawyer content request draft: ' . $topic );
+	}
+
+	wp_safe_redirect( add_query_arg( 'content_request', 'sent', home_url( '/lawyer-dashboard/' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_lawyer_content_request', 'justice_theme_handle_lawyer_content_request' );
+
 function justice_theme_lawyer_dashboard_profile_completeness( int $post_id ): int {
 	$fields = array(
 		'lawyer_full_name',

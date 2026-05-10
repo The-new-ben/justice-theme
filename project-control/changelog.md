@@ -5,6 +5,13 @@
 
 ### FIXED
 
+**[HIGH] Added lawyer dashboard content request MVP**
+- Files: `page-lawyer-dashboard.php`, `inc/lawyer-dashboard.php`, `project-control/lawyer-onboarding-workflow.md`
+- Logged-in lawyers with claimed profiles can submit article/content ideas from the dashboard.
+- Requests create draft-only `articles` records connected to the lawyer profile and marked for legal/source review.
+- This starts the self-serve “content under my name” product path without auto-publishing anything.
+- VERIFIED in repo. LIVE NOT VERIFIED until a logged-in lawyer account submits a test request.
+
 **[MEDIUM] Added practice-area fallback options to lawyer registration**
 - Files: `page-lawyer-registration.php`, `project-control/lawyer-onboarding-workflow.md`
 - If `practice-areas` terms are unavailable, the registration form now still shows canonical primary-area options using English slugs.

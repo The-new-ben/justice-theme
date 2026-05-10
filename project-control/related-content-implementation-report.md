@@ -3,16 +3,17 @@ Date: 2026-05-10
 
 ## Status
 
-- CODE FIXED: semantic related-content selection is implemented in `inc/related-content.php`.
+- CODE FIXED V2: semantic related-content selection is implemented in `inc/related-content.php`, with a cluster gate for taxonomy fallback.
 - VERIFIED: PHP lint passed for 127 PHP files.
 - LIVE VERIFIED PARTIAL: public article `/find-lawyer-how-to-find-good-attorney/` exposes `data-related-mode="semantic"` after uPress pull/cache clear.
-- NOT VERIFIED: visual relevance still needs checks across one family-law, one criminal-law and one real-estate article.
+- CODE FIXED / NOT LIVE VERIFIED: V2 should reduce off-intent fallback cards found on general, criminal and real-estate samples; deployment and repeat visual QA are still required.
 
 ## What Changed
 
 - Manual editorial URLs now have first priority through `manual_related_urls`, `related_urls`, and `parent_pillar_url` article metadata.
 - Articles with the same `content_cluster` are selected before taxonomy fallback.
 - Shared `practice-areas` taxonomy is used only after manual and cluster matches.
+- Shared `practice-areas` fallback now requires a matching inferred editorial cluster when the source page has enough slug/meta/title signals.
 - Global latest-post fallback was removed from single-article related cards.
 - If no semantic related article exists, the public page shows a relevant practice-area link instead of unrelated cards.
 
@@ -30,5 +31,5 @@ Related articles are part of the SEO and user journey. A visitor reading about a
 
 1. Fill CMS metadata for priority articles: `manual_related_urls`, `parent_pillar_url`, `content_cluster`.
 2. Use `project-control/related-content-map.csv` as the editorial source for family, criminal, real estate, malpractice, traffic and inheritance clusters.
-3. Visually verify one family article, one criminal article and one real-estate article.
+3. After uPress pull/cache clear, repeat live visual QA for one general lawyer-selection article, one family article, one criminal article and one real-estate article.
 4. Add GA4 event tracking for related-article clicks later.

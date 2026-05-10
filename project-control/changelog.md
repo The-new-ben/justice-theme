@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Related content cluster gate V2
+
+- CODE FIXED: taxonomy fallback related cards now pass through an inferred cluster gate before rendering.
+- CODE FIXED: cluster aliases are normalized so `family-law`, `family_divorce`, `criminal`, `criminal_law`, `real_estate_law`, and similar values map consistently.
+- CODE FIXED: when explicit CMS cluster metadata is absent, cluster inference uses slug, title, primary keyword, search intent and practice-area terms.
+- EXPECTED IMPACT: criminal/general/real-estate pages should no longer fill related cards with AI/business/international items just because they share a broad taxonomy term.
+- VERIFIED: `inc/related-content.php` passed syntax check and `git diff --check` passed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and repeat related-content visual QA with marker `2026-05-11-related-cluster-gate-v1`.
+- SAFETY: no public content, URL, redirect, sitemap, robots, CRM record, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Public article-note guard and related-content live QA
 
 - CODE FIXED: public article templates no longer render internal review/source-audit/draft-status panels to anonymous visitors; those blocks are now editor-only.

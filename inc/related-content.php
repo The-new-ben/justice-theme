@@ -150,6 +150,132 @@ function justice_theme_related_query_ids( array $args ): array {
 }
 
 /**
+ * Normalize content-cluster aliases into a stable editorial group.
+ *
+ * @param string $cluster Raw cluster value.
+ * @return string
+ */
+function justice_theme_related_normalize_cluster( string $cluster ): string {
+	$cluster = str_replace( '-', '_', sanitize_key( $cluster ) );
+
+	$aliases = array(
+		'family_law'          => 'family_divorce',
+		'divorce'             => 'family_divorce',
+		'criminal'            => 'criminal_law',
+		'criminal_defense'    => 'criminal_law',
+		'real_estate_law'     => 'real_estate',
+		'property_law'        => 'real_estate',
+		'malpractice'         => 'medical_malpractice',
+		'medical_negligence'  => 'medical_malpractice',
+		'torts'               => 'personal_injury',
+		'damages'             => 'personal_injury',
+		'traffic'             => 'traffic_law',
+		'labor_law'           => 'employment_law',
+		'work_law'            => 'employment_law',
+		'wills'               => 'inheritance_wills',
+		'inheritance'         => 'inheritance_wills',
+		'lawyer_finder'       => 'lawyer_selection',
+		'legaltech'           => 'legal_tech_business',
+		'legal_tech'          => 'legal_tech_business',
+		'business'            => 'business_commercial',
+		'commercial_law'      => 'business_commercial',
+		'international_law'   => 'international',
+	);
+
+	return $aliases[ $cluster ] ?? $cluster;
+}
+
+/**
+ * Build a compact text fingerprint for cluster inference.
+ *
+ * @param int $post_id Post ID.
+ * @return string
+ */
+function justice_theme_related_context_text( int $post_id ): string {
+	$parts = array(
+		get_post_field( 'post_name', $post_id ),
+		get_the_title( $post_id ),
+		get_post_meta( $post_id, 'content_cluster', true ),
+		get_post_meta( $post_id, 'primary_keyword', true ),
+		get_post_meta( $post_id, 'secondary_keywords', true ),
+		get_post_meta( $post_id, 'search_intent', true ),
+	);
+
+	$terms = get_the_terms( $post_id, 'practice-areas' );
+	if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {
+		foreach ( $terms as $term ) {
+			$parts[] = $term->slug;
+			$parts[] = $term->name;
+		}
+	}
+
+	return strtolower( remove_accents( wp_strip_all_tags( implode( ' ', array_filter( array_map( 'strval', $parts ) ) ) ) ) );
+}
+
+/**
+ * Infer an editorial cluster when explicit metadata is absent.
+ *
+ * @param int $post_id Post ID.
+ * @return string
+ */
+function justice_theme_related_infer_cluster( int $post_id ): string {
+	$cluster = justice_theme_related_normalize_cluster( (string) get_post_meta( $post_id, 'content_cluster', true ) );
+	if ( $cluster ) {
+		return $cluster;
+	}
+
+	$text  = justice_theme_related_context_text( $post_id );
+	$rules = array(
+		'legal_tech_business' => array( 'ai-for-law-firms', 'legal-tech', 'legaltech', 'ai-intake', 'law-firms' ),
+		'business_commercial' => array( 'business-license', 'company', 'commercial', 'business' ),
+		'international'       => array( 'australia', 'cyprus', 'foreign', 'international' ),
+		'family_divorce'      => array( 'divorce', 'family-law', 'family_law', 'child-support', 'child-custody', 'custody', 'mediation', 'rabbinical', 'alimony', 'mutual-divorce' ),
+		'criminal_law'        => array( 'criminal', 'drug-offenses', 'police-investigation', 'indictment', 'pretrial-detention', 'sex-offenses', 'white-collar', 'arrest' ),
+		'real_estate'         => array( 'real-estate', 'property', 'apartment', 'rent-agreement', 'purchase-agreement', 'sale-agreement', 'land-registry', 'construction-defects', 'urban-renewal' ),
+		'medical_malpractice' => array( 'medical-malpractice', 'malpractice', 'birth-malpractice', 'pregnancy-malpractice', 'diagnosis-malpractice', 'surgery-malpractice' ),
+		'personal_injury'     => array( 'personal-injury', 'car-accident', 'work-accident', 'accident', 'national-insurance', 'injury', 'tort' ),
+		'traffic_law'         => array( 'traffic-law', 'traffic-lawyer', 'drunk-driving', 'license-suspension', 'speeding' ),
+		'employment_law'      => array( 'employment', 'labor-law', 'work-rights', 'dismissal' ),
+		'inheritance_wills'   => array( 'inheritance', 'will-contest', 'probate', 'estate', 'wills' ),
+		'lawyer_selection'    => array( 'find-lawyer', 'good-attorney', 'how-to-find', 'recommended-lawyer' ),
+	);
+
+	foreach ( $rules as $rule_cluster => $tokens ) {
+		foreach ( $tokens as $token ) {
+			if ( false !== strpos( $text, $token ) ) {
+				return $rule_cluster;
+			}
+		}
+	}
+
+	return '';
+}
+
+/**
+ * Keep taxonomy fallback related cards inside the inferred editorial cluster.
+ *
+ * @param int[] $candidate_ids Candidate post IDs.
+ * @param int   $source_id Current post ID.
+ * @return int[]
+ */
+function justice_theme_related_filter_cluster_candidates( array $candidate_ids, int $source_id ): array {
+	$source_cluster = justice_theme_related_infer_cluster( $source_id );
+
+	if ( ! $source_cluster ) {
+		return $candidate_ids;
+	}
+
+	return array_values(
+		array_filter(
+			$candidate_ids,
+			static function ( int $candidate_id ) use ( $source_cluster ): bool {
+				return $source_cluster === justice_theme_related_infer_cluster( $candidate_id );
+			}
+		)
+	);
+}
+
+/**
  * Collect semantic related articles.
  *
  * Priority:
@@ -206,18 +332,22 @@ function justice_theme_get_related_article_ids( int $post_id, int $limit = 3 ): 
 	$term_ids = wp_list_pluck( $terms, 'term_id' );
 	$ids      = justice_theme_related_merge_ids(
 		$ids,
-		justice_theme_related_query_ids(
-			array(
-				'post_type'    => $post_types,
-				'post__not_in' => array_merge( array( $post_id ), $ids ),
-				'tax_query'   => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
-					array(
-						'taxonomy' => 'practice-areas',
-						'field'    => 'term_id',
-						'terms'    => $term_ids,
+		justice_theme_related_filter_cluster_candidates(
+			justice_theme_related_query_ids(
+				array(
+					'post_type'      => $post_types,
+					'post__not_in'   => array_merge( array( $post_id ), $ids ),
+					'posts_per_page' => 18,
+					'tax_query'      => array( // phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query
+						array(
+							'taxonomy' => 'practice-areas',
+							'field'    => 'term_id',
+							'terms'    => $term_ids,
+						),
 					),
-				),
-			)
+				)
+			),
+			$post_id
 		),
 		$post_id,
 		$limit

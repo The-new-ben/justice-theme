@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 02:05 Asia/Jerusalem
+- CODE FIXED: related article taxonomy fallback now has a cluster-sanity gate in `inc/related-content.php`.
+- CODE FIXED: when explicit `content_cluster` metadata is absent, the related-content system infers a conservative editorial cluster from slug/title/meta/practice-area signals before accepting taxonomy fallback cards.
+- CODE FIXED: off-intent fallback patterns such as AI-for-law-firms, business-license, Australia lawyers and Cyprus pricing should no longer be accepted under criminal/general/real-estate pages unless they match the source cluster.
+- VERIFIED: `inc/related-content.php` passed PHP syntax check and `git diff --check` passed.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-related-cluster-gate-v1`; requires uPress pull/cache clear and repeat QA on general, criminal, family and real-estate article samples.
+- SAFETY: no article body, URL, redirect, sitemap, robots, wp-admin setting, CRM record or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 01:35 Asia/Jerusalem
 - CODE FIXED: article templates no longer expose internal review/status panels to anonymous public visitors. The `NOT VERIFIED` / source-audit / draft word-count/status blocks in `single-articles.php` are now editor-only via `current_user_can( 'edit_post', get_the_ID() )`.
 - VERIFIED: PHP lint passed for 127 PHP files after the article-note guard.

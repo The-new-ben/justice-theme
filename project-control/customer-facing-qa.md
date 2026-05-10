@@ -41,6 +41,7 @@ Date: 2026-05-10
 - LIVE VERIFIED PARTIAL 2026-05-11: related-content mode is live on sampled article pages and no unsafe internal markers appeared in the sampled public body. Proof: `project-control/visual-evidence/related-content-live-qa-2026-05-11.json`.
 - STILL WEAK: general/criminal/real-estate related cards still include off-intent recommendations, so this is not yet customer-ready from an editorial/SEO perspective.
 - CODE FIXED / NOT LIVE VERIFIED: internal article review/status panels are now editor-only and hidden from anonymous public visitors when those meta fields exist.
+- CODE FIXED V2 / NOT LIVE VERIFIED: related taxonomy fallback now rejects cards that do not match the inferred source cluster, so weak general/criminal/real-estate related cards should be reduced after deployment.
 - Status: NEEDS LIVE VERIFICATION.
 
 ## Practice/Pillar Page

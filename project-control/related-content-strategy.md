@@ -91,6 +91,15 @@ Status: PARTIAL LIVE VERIFIED. No public content, URL, redirect, sitemap, robots
 - NEXT: populate `manual_related_urls`, `content_cluster`, `parent_pillar_url` and correct `practice-areas` terms for priority articles before calling related content customer-ready.
 - NEXT: add a cluster mismatch QA rule that flags related cards whose URL/topic does not match the source page cluster.
 
+## 2026-05-11 Cluster Gate V2
+
+- CODE FIXED: taxonomy fallback now passes through a conservative cluster gate before cards are accepted.
+- CODE FIXED: the gate normalizes common cluster aliases (`family-law`/`family_divorce`, `criminal`/`criminal_law`, `real_estate_law`/`real_estate`, etc.).
+- CODE FIXED: when explicit CMS cluster metadata is missing, the template infers an editorial cluster from slug, title, primary keyword, search intent and practice-area terms.
+- EXPECTED IMPACT: generic/shared taxonomy terms should no longer connect a criminal guide to AI-for-law-firms, business-license or Australia-lawyer cards.
+- EXPECTED IMPACT: real-estate pages should stop accepting international/Cyprus-style cards unless the source page is also international.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and repeat of the 2026-05-11 related-content sample.
+
 ## 2026-05-10 Implementation Notes
 
 - CODE FIXED: `inc/related-content.php` now collects related cards through a semantic ladder:

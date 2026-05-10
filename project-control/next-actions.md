@@ -47,7 +47,7 @@
 6. NOT LIVE VERIFIED: deployed public CSS still needs post-pull verification.
 
 ### ACTION-CONTENT-001: Semantic Related Articles
-**Status:** PARTIAL LIVE VERIFIED - quality cleanup needed
+**Status:** CODE FIXED V2 - deployment and live QA pending
 **Why:** Related articles should support the reader's next legal step and the SEO cluster, not show random latest or unrelated legacy posts.
 **Actions:**
 1. DONE: replaced single-article related selection with manual URLs, same `content_cluster`, then same `practice-areas`.
@@ -57,9 +57,11 @@
 5. LIVE VERIFIED: representative live article pages now expose `data-related-mode="semantic"` and no public unsafe internal markers in the sampled body.
 6. PARTIAL QUALITY: general/criminal samples still surface off-intent cards (`ai-for-law-firms`, `business-license`, `australia-lawyers`), and the real-estate sample includes a weak Cyprus pricing match.
 7. CODE FIXED: internal article review/status blocks are now editor-only so public visitors do not see internal QA/source-audit status when meta fields exist.
-8. NEXT: fill `manual_related_urls`/`parent_pillar_url` metadata for priority clusters from `related-content-map.csv`.
-9. NEXT: add a QA flag for related cards whose URL/topic does not match the page cluster.
-10. NOT LIVE VERIFIED AFTER GUARD FIX: requires uPress pull/cache clear and article-page source check for marker `2026-05-11-public-article-note-guard-v1`.
+8. CODE FIXED V2: taxonomy fallback now applies an inferred cluster gate so broad/shared practice terms cannot pull obviously off-topic cards.
+9. NEXT: deploy/pull marker `2026-05-11-related-cluster-gate-v1`, then repeat live QA on general, criminal, family and real-estate article samples.
+10. NEXT: fill `manual_related_urls`/`parent_pillar_url` metadata for priority clusters from `related-content-map.csv`.
+11. NEXT: add a QA flag for related cards whose URL/topic does not match the page cluster.
+12. NOT LIVE VERIFIED AFTER V2: requires uPress pull/cache clear and article-page source check for marker `2026-05-11-related-cluster-gate-v1`.
 
 ### ACTION-SEO-001: Open GSC Indexing Drilldowns
 **Status:** COMPLETED - first sample pass

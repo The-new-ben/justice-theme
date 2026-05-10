@@ -296,6 +296,61 @@ function justice_theme_canonical_url() {
 add_action( 'wp_head', 'justice_theme_canonical_url', 5 );
 
 /**
+ * Resolve the canonical public URL for language alternate tags.
+ *
+ * @return string
+ */
+function justice_theme_hreflang_url(): string {
+	if ( is_admin() || is_404() || is_search() || justice_theme_is_lawyer_directory_filter_state() ) {
+		return '';
+	}
+
+	if ( is_singular() ) {
+		return (string) get_permalink();
+	}
+
+	if ( is_front_page() ) {
+		return home_url( '/' );
+	}
+
+	if ( is_post_type_archive( 'justice_lawyer' ) ) {
+		return justice_theme_lawyer_archive_canonical_url();
+	}
+
+	if ( is_post_type_archive( 'articles' ) ) {
+		$archive = get_post_type_archive_link( 'articles' );
+
+		return $archive ? (string) $archive : '';
+	}
+
+	if ( is_tax() || is_category() || is_tag() ) {
+		$term = get_queried_object();
+		if ( $term && ! is_wp_error( $term ) ) {
+			$link = get_term_link( $term );
+
+			return is_wp_error( $link ) ? '' : (string) $link;
+		}
+	}
+
+	return '';
+}
+
+/**
+ * Declare the Hebrew-first language target for public canonical URLs.
+ */
+function justice_theme_hreflang_alternates(): void {
+	$url = justice_theme_hreflang_url();
+
+	if ( ! $url ) {
+		return;
+	}
+
+	echo '<link rel="alternate" hreflang="he" href="' . esc_url( $url ) . '">' . "\n";
+	echo '<link rel="alternate" hreflang="x-default" href="' . esc_url( $url ) . '">' . "\n";
+}
+add_action( 'wp_head', 'justice_theme_hreflang_alternates', 6 );
+
+/**
  * Noindex thin search/filter states while preserving link discovery.
  *
  * @param array $robots Robots directives.

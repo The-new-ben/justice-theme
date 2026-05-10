@@ -2,6 +2,13 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST CODE STATUS - 2026-05-10
+- FIXED IN CODE: Public canonical pages now emit Hebrew-first alternate tags: `hreflang="he"` and `hreflang="x-default"`.
+- SAFETY: Search pages, 404 pages and filtered lawyer-directory URLs are skipped because they are not primary public landing pages.
+- VERIFIED: PHP lint passed locally for 125 PHP files after the hreflang change.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and public HTML recheck.
+- BLOCKED LIVE: the deployment checker still needs to prove that live WordPress is serving the newest GitHub `main` code before any family-law cleanup, lawyer trust gate or hreflang work can be called live.
+
 ## VERIFIED
 - Repo is available at `C:\Users\janana\jutice-theme` and tracks `origin/main`.
 - Claude/Opus review is now converted into an explicit response file at `project-control/claude-opus-review-response.md`.

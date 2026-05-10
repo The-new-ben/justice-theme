@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Hebrew hreflang alternates
+
+- FIXED IN CODE: Public canonical pages now emit `hreflang="he"` and `hreflang="x-default"` alternate tags from `inc/seo.php`.
+- SAFETY: Search pages, 404s and filtered lawyer-directory states are skipped so thin/noindex URLs do not get language alternates.
+- VERIFIED: PHP lint passed locally for 125 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and public HTML recheck.
+
 ## 2026-05-10 - Session: CMS wiring hardening
 
 ### EDITORIAL IMPROVEMENT MODE

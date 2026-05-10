@@ -68,3 +68,43 @@ Date: 2026-05-10
 - What looks weak: primary menu contents are not yet verified open; topic strip shows only part of the legal area list.
 - FIXED IN CODE: primary menu augmentation should make the opened menu more useful after deploy.
 - Status: NEEDS LIVE VERIFICATION.
+
+## 2026-05-10 Integrated SEO / Design Visual Pass
+
+Proof bundle:
+- Data: `project-control/visual-evidence/integrated-visual-qa-2026-05-10.json`
+- Homepage: `integrated-home-desktop-2026-05-10.png`, `integrated-home-mobile-2026-05-10.png`
+- Articles archive: `integrated-articles-desktop-2026-05-10.png`, `integrated-articles-mobile-2026-05-10.png`
+- Article sample: `integrated-article-rabbinical-agreement-desktop-2026-05-10.png`, `integrated-article-rabbinical-agreement-mobile-2026-05-10.png`
+- Lawyer directory: `integrated-lawyers-desktop-2026-05-10.png`, `integrated-lawyers-mobile-2026-05-10.png`
+- Sample lawyer profile URL: `integrated-lawyer-profile-sample-desktop-2026-05-10.png`, `integrated-lawyer-profile-sample-mobile-2026-05-10.png`
+- Practice page: `integrated-practice-family-desktop-2026-05-10.png`, `integrated-practice-family-mobile-2026-05-10.png`
+- Search: `integrated-search-divorce-desktop-2026-05-10.png`, `integrated-search-divorce-mobile-2026-05-10.png`
+- 404 test: `integrated-not-found-desktop-2026-05-10.png`, `integrated-not-found-mobile-2026-05-10.png`
+
+LIVE VERIFIED:
+- Homepage, `/articles/`, `/rabbinical-agreement-approval/`, `/lawyers/`, `/family-law/` and search loaded with HTTP 200.
+- Homepage is visually much more premium than the original blog-like state: red-dot logo, topic strip, dark hero, guided search and visible lead/WhatsApp CTAs.
+- Homepage public HTML has crawlable links to `/lawyers/`, `/divorce-lawyer/`, `/criminal-lawyer/`, `/real-estate-lawyer/`, `/medical-malpractice-lawyer/`, `/lawyer-registration/` and `/legal-tools/`.
+- Breadcrumbs render on archive, article, search, lawyer directory and practice pages.
+- No visible internal project notes were seen in the sampled first viewports.
+
+FIXED IN CODE:
+- `inc/seo.php` now shares one contextual title helper across WordPress and common SEO plugin title filters, so archive/search pages should stop leaking English titles after deployment.
+- Targeted title issues: `Articles Archive`, `עורכי דין Archive`, `You searched for`.
+
+STILL LOOKS BAD / NEEDS WORK:
+- Homepage DOM did not expose approved target links for `/personal-injury-lawyer/`, `/traffic-lawyer/`, `/employment-lawyer/` or `/inheritance-lawyer/` in this pass.
+- `/articles/` title is still `Articles Archive | Jus-Tice.co.il` live until the code fix is deployed.
+- `/lawyers/` title is still `עורכי דין Archive | Jus-Tice.co.il` live until the code fix is deployed.
+- Search title is still `You searched for גירושין | Jus-Tice.co.il` live until the code fix is deployed.
+- Sample lawyer profile Hebrew URL returned homepage-style content with status 200 and canonical homepage; this is not a real profile experience and remains a routing/content-status risk.
+- Fake 404 URL returned/finalized as homepage with status 200; this remains a serious routing/404 risk until live routing guard/server/plugin behavior is verified.
+- `/practice-areas/family-law/` redirects/finalizes to `http://jus-tice.co.il/family-law/`; canonical also uses `http`. HTTPS/canonical consistency needs review before migration.
+- Mobile floating WhatsApp/lead CTA and accessibility widget overlap content on article/search/practice pages.
+- Search form UI on mobile looks like a plain browser form and does not match the premium portal style.
+
+Status:
+- VISUAL VERIFIED for screenshots.
+- CODE FIXED for archive/search title leaks.
+- NOT CUSTOMER-READY for lawyer profile routing, 404 routing, mobile overlays and incomplete homepage pillar links.

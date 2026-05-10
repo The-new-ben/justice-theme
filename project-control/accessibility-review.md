@@ -48,3 +48,21 @@ After each visual QA pass, record:
 ## Current Decision
 
 Accessibility review is now a launch gate, not a post-launch nice-to-have.
+
+## 2026-05-10 Visual Accessibility Findings
+
+VISUAL VERIFIED:
+- Logo and hamburger are visible on mobile.
+- Breadcrumbs are visible on article/archive/search/practice pages.
+- The accessibility launcher is visible.
+
+RISK / NEEDS FIX:
+- Accessibility launcher overlaps article/practice/search content in the first viewport.
+- WhatsApp and green lead CTA overlap lower content and can obscure article/search cards on mobile.
+- Search form fields/buttons on mobile appear as plain controls; labels/spacing need review for tap targets and accessible names.
+- Topic-strip pills are horizontally constrained on mobile; verify keyboard/scroll access.
+- Hamburger menu contents and focus behavior were not opened/tested in this pass.
+
+Status:
+- VISUAL VERIFIED / PARTIAL.
+- Keyboard and screen-reader checks remain NOT VERIFIED.

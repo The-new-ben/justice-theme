@@ -399,6 +399,14 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - CREATED: `project-control/analytics-monitoring-plan.md` and `project-control/integrated-launch-checklist.md`.
 - UPDATED: `project-control/ga4-event-plan.csv` with `generate_lead`, `lawyer_signup_start` and `related_article_click`.
 - STATUS: CODE/DOC FIXED in repo; NOT LIVE EXECUTED. No URLs, redirects, sitemap settings, robots rules, public content or payments were changed.
+- VISUAL VERIFIED: integrated desktop/mobile screenshots captured for homepage, articles archive, one article, lawyer directory, sample lawyer profile URL, family practice page, search and 404 test at `project-control/visual-evidence/integrated-*-2026-05-10.png`.
+- LIVE VERIFIED WEAK: `/articles/`, `/lawyers/` and search still show English/default title leaks (`Articles Archive`, `Archive`, `You searched for`) in live HTML during this pass.
+- FIXED IN CODE: `inc/seo.php` now uses contextual Hebrew SEO titles through WordPress title parts and common SEO-plugin title filters.
+- LIVE VERIFIED BROKEN: sample Hebrew lawyer profile URL renders homepage-style content with status 200 and homepage canonical; not a real mini-site/profile experience.
+- LIVE VERIFIED BROKEN: fake 404 URL finalizes as homepage with status 200.
+- LIVE VERIFIED RISK: `/practice-areas/family-law/` finalizes to `http://jus-tice.co.il/family-law/`, so HTTPS/canonical consistency needs review.
+- LIVE VERIFIED MOBILE RISK: sticky WhatsApp/lead CTA and accessibility button overlap important content on several mobile views.
+- NOT VERIFIED: PHP syntax lint for the latest `inc/seo.php` title fix because PHP is not installed in this local session.
 
 ## NEXT BEST ACTION
 1. Verify the exact GitHub sync target and active plugin path.

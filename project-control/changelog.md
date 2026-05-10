@@ -1140,3 +1140,15 @@
 - UPDATED: `project-control/homepage-seo-strategy.md`, `project-control/content-architecture-decisions.md`, `project-control/daily-gsc-monitoring.md`, `project-control/sitemap-strategy.md`, `project-control/ga4-event-plan.csv`, `project-control/current-status.md`, `project-control/next-actions.md` and `project-control/task-board.csv`.
 - ACCEPTED: content architecture decisions must now include design/template structure, related links, mobile, accessibility, schema, sitemap and analytics before any controlled launch batch.
 - SAFETY: no public content, URLs, redirects, sitemap settings, robots rules, payments or live CMS settings were changed.
+
+## 2026-05-10 Integrated Visual QA And Title Cleanup
+- VERIFIED: Desktop and mobile visual QA captured for homepage, articles archive, one article, lawyer directory, sample lawyer profile URL, family practice page, search and 404 test.
+- CREATED: `project-control/visual-evidence/integrated-visual-qa-2026-05-10.json`.
+- CREATED: `project-control/visual-evidence/integrated-*-2026-05-10.png` screenshot set.
+- UPDATED: `project-control/customer-facing-qa.md`, `mobile-first-template-review.md`, `accessibility-review.md`, `homepage-seo-design-alignment.md`, `visual-qa-report.md`, `current-status.md`, and `task-board.csv`.
+- FIXED IN CODE: `inc/seo.php` now builds contextual Hebrew titles for homepage, articles archive, lawyers archive/page, search, practice-area taxonomy and lawyer profiles, and applies them through WordPress, Yoast, RankMath and AIOSEO title filters.
+- UPDATED: `functions.php` deployment marker to `2026-05-10-contextual-title-v1` for live cache/pull verification.
+- LIVE VERIFIED WEAK: live titles still showed `Articles Archive`, `עורכי דין Archive`, and `You searched for` before deployment of the code fix.
+- LIVE VERIFIED BROKEN: sample lawyer-profile Hebrew URL and fake 404 URL both returned homepage-style content with status 200.
+- NOT VERIFIED: PHP lint for the new title helper because local PHP is not installed.
+- SAFETY: no public content, URLs, redirects, sitemap settings, robots rules, payments or live CMS settings were changed.

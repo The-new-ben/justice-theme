@@ -220,5 +220,7 @@ Next safe batch before any URL/content migration:
 4. Confirm accessibility risks in `project-control/accessibility-review.md`.
 5. Use `project-control/related-content-map.csv` to drive the first semantic related-content implementation plan.
 6. Use `project-control/integrated-launch-checklist.md` before approving any batch that touches content, design, URLs, sitemap or redirects.
+7. Deploy/pull the title cleanup in `inc/seo.php`, then recheck `/articles/`, `/lawyers/` and search titles for Hebrew output.
+8. Recheck the live 404/routing guard and sample lawyer profile route, because both still returned homepage-style content with status 200 in the integrated visual QA pass.
 
 **Do not execute yet:** URL changes, redirects, content deletions, public rewrites, payments, index/noindex changes.

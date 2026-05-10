@@ -72,3 +72,27 @@ Before changing live content:
 Source notes:
 - Google mobile-first guidance says mobile pages should contain equivalent primary content and headings to desktop pages.
 - Google link guidance prefers crawlable `<a href>` links for internal discovery.
+
+## 2026-05-10 Live Alignment Check
+
+Evidence:
+- `project-control/visual-evidence/integrated-home-desktop-2026-05-10.png`
+- `project-control/visual-evidence/integrated-home-mobile-2026-05-10.png`
+- `project-control/visual-evidence/integrated-visual-qa-2026-05-10.json`
+
+LIVE VERIFIED:
+- Homepage renders as a legal portal entry, not a plain blog.
+- H1 is public-facing and user-oriented.
+- Search/guided-entry component is visible.
+- Primary CTA and lead/WhatsApp CTA are visible.
+- Topic strip and homepage links include `/lawyers/`, `/divorce-lawyer/`, `/criminal-lawyer/`, `/real-estate-lawyer/`, `/medical-malpractice-lawyer/`, `/lawyer-registration/` and `/legal-tools/`.
+
+GAPS:
+- Missing or not detected in homepage links: `/personal-injury-lawyer/`, `/traffic-lawyer/`, `/employment-lawyer/`, `/inheritance-lawyer/`.
+- Mobile first viewport is visually impressive but the sticky WhatsApp/lead CTA competes with the guided search area.
+- Title still appeared live as a recommendation-heavy legacy title during this pass; `inc/seo.php` now has a code fix to override archive/search/plugin title leaks and homepage contextual title after deployment.
+
+Status:
+- VISUAL VERIFIED for current homepage.
+- PARTIAL CUSTOMER-READY.
+- Next safe action is no-URL-change homepage link/template refinement after deployment verification.

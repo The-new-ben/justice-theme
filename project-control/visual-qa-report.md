@@ -76,3 +76,18 @@ Status: PARTIAL VISUAL QA COMPLETED.
 
 ## Next
 - Run desktop and mobile browser QA after repo changes are ready.
+
+## 2026-05-10 Integrated Visual QA Pass
+- VERIFIED: Desktop and mobile screenshots captured for homepage, articles archive, one article, lawyer directory, sample lawyer profile URL, family practice page, search and 404 test.
+- EVIDENCE JSON: `project-control/visual-evidence/integrated-visual-qa-2026-05-10.json`.
+- EVIDENCE PNGS: `project-control/visual-evidence/integrated-*-2026-05-10.png`.
+- LIVE VERIFIED GOOD: homepage has a strong legal portal first impression, visible red-dot Jus-Tice identity, topic strip, hero visual, guided search and lead CTA.
+- LIVE VERIFIED GOOD: article and archive pages use Hebrew H1s and breadcrumbs.
+- LIVE VERIFIED WEAK: `/articles/` title is still `Articles Archive | Jus-Tice.co.il`.
+- LIVE VERIFIED WEAK: `/lawyers/` title is still `עורכי דין Archive | Jus-Tice.co.il`.
+- LIVE VERIFIED WEAK: search title is still `You searched for גירושין | Jus-Tice.co.il`.
+- CODE FIXED: `inc/seo.php` now adds contextual Hebrew titles through core and common SEO-plugin title filters; live verification pending deployment.
+- LIVE VERIFIED BROKEN: sample lawyer profile Hebrew URL returns homepage-style content with status 200 and homepage canonical.
+- LIVE VERIFIED BROKEN: fake 404 URL returns/finalizes as homepage with status 200.
+- LIVE VERIFIED RISK: `/practice-areas/family-law/` finalizes to `http://jus-tice.co.il/family-law/`, so HTTPS/canonical consistency needs review.
+- LIVE VERIFIED MOBILE RISK: WhatsApp/lead CTA and accessibility button overlap content on several mobile pages.

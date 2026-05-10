@@ -68,6 +68,80 @@ function justice_theme_include_articles_in_search( $query ) {
 add_action( 'pre_get_posts', 'justice_theme_include_articles_in_search' );
 
 /**
+ * Build the public-facing SEO title for the current request.
+ *
+ * Shared by WordPress core title parts and common SEO plugin filters so archive
+ * and search pages do not leak English defaults such as "Archive" or
+ * "You searched for".
+ *
+ * @return string
+ */
+function justice_theme_contextual_seo_title(): string {
+	if ( is_front_page() ) {
+		return 'עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ';
+	}
+
+	if ( is_post_type_archive( 'articles' ) || is_page( 'articles' ) ) {
+		return 'מאמרים משפטיים לפי הבעיה שלכם | Jus-Tice';
+	}
+
+	if ( is_search() ) {
+		$query = trim( get_search_query() );
+
+		return $query
+			? sprintf( 'תוצאות חיפוש עבור: %s | Jus-Tice', $query )
+			: 'חיפוש באתר | Jus-Tice';
+	}
+
+	if ( is_post_type_archive( 'justice_lawyer' ) || is_page( 'lawyers' ) ) {
+		$city_slug = isset( $_GET['city'] ) ? sanitize_text_field( wp_unslash( $_GET['city'] ) ) : '';
+		$area_slug = isset( $_GET['area'] ) ? sanitize_text_field( wp_unslash( $_GET['area'] ) ) : '';
+
+		if ( $city_slug ) {
+			$city_t = get_term_by( 'slug', $city_slug, 'city' );
+			if ( $area_slug ) {
+				$area_t = get_term_by( 'slug', $area_slug, 'practice-areas' );
+
+				return 'עורך דין ' . ( $area_t ? $area_t->name : '' ) . ' ב' . ( $city_t ? $city_t->name : '' ) . ' | Jus-Tice';
+			}
+
+			return 'עורכי דין ב' . ( $city_t ? $city_t->name : '' ) . ' | Jus-Tice';
+		}
+
+		if ( $area_slug ) {
+			$area_t = get_term_by( 'slug', $area_slug, 'practice-areas' );
+
+			return 'עורך דין ' . ( $area_t ? $area_t->name : '' ) . ' | מצאו עורך דין מתאים';
+		}
+
+		return 'מדריך עורכי דין בישראל | Jus-Tice';
+	}
+
+	if ( is_tax( 'practice-areas' ) ) {
+		$term = get_queried_object();
+		if ( $term ) {
+			return 'עורך דין ' . $term->name . ' | מדריך, מאמרים ועורכי דין';
+		}
+	}
+
+	if ( is_singular( 'justice_lawyer' ) ) {
+		$areas = get_the_terms( get_the_ID(), 'practice-areas' );
+		$cities = get_the_terms( get_the_ID(), 'city' );
+		$suffix = '';
+		if ( ! empty( $areas ) && ! is_wp_error( $areas ) ) {
+			$suffix .= ' | ' . $areas[0]->name;
+		}
+		if ( ! empty( $cities ) && ! is_wp_error( $cities ) ) {
+			$suffix .= ' ב' . $cities[0]->name;
+		}
+
+		return get_the_title() . $suffix;
+	}
+
+	return '';
+}
+
+/**
  * Override document title for SEO.
  *
  * The homepage title MUST contain "עורכי דין" — this is the #1 money keyword.
@@ -82,7 +156,19 @@ function justice_theme_document_title( $title_parts ) {
 		if ( $custom_title ) {
 			$title_parts['title']   = wp_strip_all_tags( $custom_title );
 			$title_parts['tagline'] = '';
+			$title_parts['site']    = '';
+
+			return $title_parts;
 		}
+	}
+
+	$contextual_title = justice_theme_contextual_seo_title();
+	if ( $contextual_title ) {
+		$title_parts['title']   = $contextual_title;
+		$title_parts['tagline'] = '';
+		$title_parts['site']    = '';
+
+		return $title_parts;
 	}
 
 	if ( is_front_page() ) {
@@ -146,6 +232,11 @@ function justice_theme_filter_plugin_seo_title( $title ) {
 		if ( $custom_title ) {
 			return wp_strip_all_tags( $custom_title );
 		}
+	}
+
+	$contextual_title = justice_theme_contextual_seo_title();
+	if ( $contextual_title ) {
+		return wp_strip_all_tags( $contextual_title );
 	}
 
 	return $title;

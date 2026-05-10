@@ -15,7 +15,7 @@ $pillars = array(
 		'title' => 'עורך דין גירושין',
 		'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M12 3v18M3 9l4-4 5 5M21 9l-4-4-5 5"/><circle cx="7" cy="18" r="3"/><circle cx="17" cy="18" r="3"/><path d="M4 18h6M14 18h6"/></svg>',
 		'desc'  => 'ייעוץ משפטי בהליכי גירושין, חלוקת רכוש ומשמורת ילדים',
-		'link'  => home_url( '/family-law/divorce/' ),
+		'link'  => home_url( '/divorce-lawyer/' ),
 	),
 	array(
 		'title' => 'עורך דין פלילי',
@@ -45,7 +45,7 @@ $pillars = array(
 		'title' => 'עורך דין ירושה',
 		'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8L14 2z"/><path d="M14 2v6h6M9 12h6M9 16h4"/></svg>',
 		'desc'  => 'צוואות, ירושות, ניהול עיזבון והתנגדויות לצוואה',
-		'link'  => home_url( '/family-law/inheritance/' ),
+		'link'  => home_url( '/inheritance/' ),
 	),
 );
 ?>

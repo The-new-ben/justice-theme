@@ -9,12 +9,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$topics = [
-	[ 'title' => 'דיני משפחה', 'slug' => 'family-law' ],
-	[ 'title' => 'משפט פלילי', 'slug' => 'criminal-law' ],
-	[ 'title' => 'מקרקעין', 'slug' => 'real-estate-law' ],
-	[ 'title' => 'תעבורה', 'slug' => 'traffic-law' ],
-];
+$topics = array(
+	array(
+		'title' => 'דיני משפחה',
+		'slug'  => 'family-law',
+		'links' => array(
+			array( 'label' => 'עורך דין גירושין', 'url' => '/divorce-lawyer/' ),
+			array( 'label' => 'גירושין בהסכמה', 'url' => '/consensual-divorce/' ),
+			array( 'label' => 'גישור גירושין', 'url' => '/divorce-mediation/' ),
+			array( 'label' => 'מזונות ילדים', 'url' => '/child-support/' ),
+			array( 'label' => 'משמורת ילדים', 'url' => '/child-custody/' ),
+			array( 'label' => 'חלוקת רכוש בגירושין', 'url' => '/divorce-property-division/' ),
+			array( 'label' => 'יישוב סכסוך במשפחה', 'url' => '/family-dispute-resolution/' ),
+		),
+	),
+	array( 'title' => 'משפט פלילי', 'slug' => 'criminal-law', 'links' => array() ),
+	array( 'title' => 'מקרקעין', 'slug' => 'real-estate-law', 'links' => array() ),
+	array( 'title' => 'תעבורה', 'slug' => 'traffic-law', 'links' => array() ),
+);
 ?>
 
 <section class="topic-clusters section">
@@ -35,7 +47,21 @@ $topics = [
 					</h3>
 					
 					<?php
-					// Try practice-areas taxonomy first
+					$static_links = is_array( $topic['links'] ?? null ) ? $topic['links'] : array();
+
+					if ( ! empty( $static_links ) ) :
+						echo '<ul class="cluster-links">';
+						foreach ( $static_links as $link ) {
+							$label = $link['label'] ?? '';
+							$url   = $link['url'] ?? '';
+							if ( '' === $label || '' === $url ) {
+								continue;
+							}
+							echo '<li><a href="' . esc_url( home_url( $url ) ) . '">' . esc_html( $label ) . '</a></li>';
+						}
+						echo '</ul>';
+					else :
+					// Try practice-areas taxonomy first.
 					$args = array(
 						'post_type'      => array( 'articles', 'post' ),
 						'posts_per_page' => 4,
@@ -65,6 +91,7 @@ $topics = [
 						wp_reset_postdata();
 					else:
 						echo '<p class="cluster-empty">' . esc_html__( 'בקרוב יעלו מדריכים בנושא זה.', 'justice-theme' ) . '</p>';
+					endif;
 					endif;
 					?>
 					<a class="cluster-more" href="<?php echo esc_url( home_url( '/' . $topic['slug'] . '/' ) ); ?>">

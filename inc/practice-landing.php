@@ -32,6 +32,7 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 				array( 'label' => 'מזונות ילדים', 'url' => '/child-support/' ),
 				array( 'label' => 'משמורת וזמני שהות', 'url' => '/child-custody/' ),
 				array( 'label' => 'חלוקת רכוש בגירושין', 'url' => '/divorce-property-division/' ),
+				array( 'label' => 'יישוב סכסוך במשפחה', 'url' => '/family-dispute-resolution/' ),
 			),
 		),
 		'criminal-law'        => array(

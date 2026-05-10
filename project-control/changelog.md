@@ -13,6 +13,13 @@
 - Existing root page content is backed up into post meta before replacement.
 - CODE FIXED. LIVE NOT VERIFIED until uPress pulls the commit and the URLs are opened.
 
+**[MEDIUM] Added visible discovery links for published family-law cluster**
+- Files: `template-parts/sections/topic-clusters.php`, `template-parts/sections/featured-pillars.php`, `inc/practice-landing.php`
+- Homepage topic clusters now expose the seven family-law publication URLs directly instead of waiting for article CPT queries.
+- Featured pillar card now points to `/divorce-lawyer/` instead of the old `/family-law/divorce/` path.
+- The `/family-law/` practice hub now includes `/family-dispute-resolution/` in its supporting-topic map.
+- CODE FIXED. LIVE NOT VERIFIED until uPress pulls the commit.
+
 ### FIXED
 
 **[HIGH] Reviewed Claude branch without destructive merge**

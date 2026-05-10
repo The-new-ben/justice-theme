@@ -81,6 +81,12 @@ These URLs exist as the working family-law cluster. The immediate task is public
 - All seven family-law URLs still expose internal markers publicly.
 - The runtime guard is pushed to GitHub, but public HTML has not changed yet, so live WordPress is not running the latest pushed theme code or is serving an older cache layer.
 
+## LIVE DEPLOYMENT MARKER RECHECK - 2026-05-10 AFTER COMMIT 9dd41aa
+- Result: LIVE WORDPRESS IS NOT SERVING THE LATEST PUSHED THEME CODE.
+- Homepage check: `justice-deployment-marker` absent.
+- `/divorce-lawyer/` check: `justice-deployment-marker` absent and internal markers still present.
+- Meaning: before judging the v5 runtime guard, uPress must pull the latest GitHub commit and WordPress/cache must serve the updated theme files.
+
 ## LIVE RECHECK - 2026-05-10 AFTER COMMIT d5824ed
 - Result: STILL NEEDS uPress PULL / CACHE REFRESH / HOOK EXECUTION.
 - All seven family-law URLs still expose internal markers publicly.

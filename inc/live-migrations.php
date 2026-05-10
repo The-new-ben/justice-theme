@@ -191,3 +191,78 @@ function justice_theme_bootstrap_maya_rotenberg_minisite(): void {
 	update_option( 'justice_theme_maya_minisite_bootstrapped_v1', time(), false );
 }
 add_action( 'init', 'justice_theme_bootstrap_maya_rotenberg_minisite', 35 );
+
+/**
+ * Add public-source transparency to the Maya Rotenberg mini-site.
+ *
+ * This is a separate migration from the main mini-site bootstrap so it can run
+ * on already-bootstrapped live installs. It stores source references in editable
+ * profile meta and does not add unreviewed awards, ratings, reviews or case claims.
+ */
+function justice_theme_bootstrap_maya_rotenberg_public_sources(): void {
+	if ( get_option( 'justice_theme_maya_public_sources_bootstrapped_v1' ) ) {
+		return;
+	}
+
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		return;
+	}
+
+	$profile = get_page_by_path( 'advocate-maya-rotenberg', OBJECT, 'justice_lawyer' );
+
+	if ( ! $profile instanceof WP_Post ) {
+		$candidates = get_posts(
+			array(
+				'post_type'      => 'justice_lawyer',
+				'post_status'    => 'any',
+				's'              => 'מאיה רוטנברג',
+				'posts_per_page' => 5,
+			)
+		);
+
+		foreach ( $candidates as $candidate ) {
+			if ( false !== mb_strpos( $candidate->post_title, 'מאיה' ) && false !== mb_strpos( $candidate->post_title, 'רוטנברג' ) ) {
+				$profile = $candidate;
+				break;
+			}
+		}
+	}
+
+	if ( ! $profile instanceof WP_Post ) {
+		return;
+	}
+
+	$post_id = (int) $profile->ID;
+
+	$set_if_empty = static function ( string $key, string $value ) use ( $post_id ): void {
+		if ( '' === (string) get_post_meta( $post_id, $key, true ) ) {
+			update_post_meta( $post_id, $key, $value );
+		}
+	};
+
+	$official_site = 'https://rotenberglaw.co.il/';
+
+	$set_if_empty( 'website', $official_site );
+	$set_if_empty( 'source_url', $official_site );
+	$set_if_empty(
+		'profile_source_summary',
+		'המידע בפרופיל נשען על מקורות ציבוריים ועל שדות CMS הניתנים לעריכה. לפני שימוש מסחרי רחב, מומלץ לאשר את פרטי ההתקשרות, התמונה, הווידאו והנוסח הסופי מול בעלת הפרופיל.'
+	);
+	$set_if_empty(
+		'profile_public_sources',
+		"אתר המשרד הרשמי | https://rotenberglaw.co.il/ | מקור ציבורי ראשי לתיאור המשרד ותחומי הפעילות.\nעמוד אודות רשמי | https://rotenberglaw.co.il/about | מקור ציבורי לרקע מקצועי, תחומי עיסוק וניסיון כללי.\nDun's 100 | https://www.duns100.co.il/%D7%9E%D7%90%D7%99%D7%94_%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92_%D7%9E%D7%A9%D7%A8%D7%93_%D7%A2%D7%95%D7%A8%D7%9B%D7%99_%D7%93%D7%99%D7%9F | פרופיל עסקי ציבורי למשרד.\nפסקדין | https://www.psakdin.co.il/Lawyers/2183 | כרטיס ציבורי במדריך עורכי דין ישראלי.\nEasy | https://easy.co.il/en/page/26164262 | כרטיס עסק ציבורי עם מיקום ותיאור כללי.\nמן העיתונות | https://rotenberglaw.co.il/press-release | עמוד מדיה רשמי של המשרד."
+	);
+	$set_if_empty(
+		'profile_media_urls',
+		"אתר המשרד הרשמי | https://rotenberglaw.co.il/ | מקור להרחבת הפרופיל ולעיון בתכני המשרד.\nמן העיתונות | https://rotenberglaw.co.il/press-release | הופעות ואזכורים ציבוריים כפי שמפורסמים באתר המשרד."
+	);
+
+	$notes = (string) get_post_meta( $post_id, 'internal_notes', true );
+	if ( false === strpos( $notes, 'MAYA_PUBLIC_SOURCES_BOOTSTRAP_V1' ) ) {
+		$notes = trim( $notes . "\n" . gmdate( 'Y-m-d H:i:s' ) . ' MAYA_PUBLIC_SOURCES_BOOTSTRAP_V1: Added public source references and official website only where empty; owner must verify contact details/photo/video before marketing.' );
+		update_post_meta( $post_id, 'internal_notes', $notes );
+	}
+
+	update_option( 'justice_theme_maya_public_sources_bootstrapped_v1', time(), false );
+}
+add_action( 'init', 'justice_theme_bootstrap_maya_rotenberg_public_sources', 36 );

@@ -1013,7 +1013,8 @@
 
 .lawyer-mini-media-list,
 .lawyer-mini-faqs,
-.lawyer-mini-credential-list {
+.lawyer-mini-credential-list,
+.lawyer-mini-source-list {
   display: grid;
   gap: 0.75rem;
   margin: 1rem 0 0;
@@ -1031,6 +1032,35 @@
 .lawyer-mini-credential-list span {
   color: var(--jt-muted);
   font-size: 0.9rem;
+}
+
+.lawyer-mini-sources p {
+  margin: 0;
+  color: var(--jt-muted);
+  line-height: 1.65;
+}
+
+.lawyer-mini-source-list a {
+  display: grid;
+  gap: 0.25rem;
+  padding: 0.85rem;
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  background: #fbfaf7;
+  color: var(--jt-primary-deep);
+  text-decoration: none;
+}
+
+.lawyer-mini-source-list a:hover,
+.lawyer-mini-source-list a:focus-visible {
+  border-color: rgba(156, 31, 47, 0.38);
+  box-shadow: 0 12px 28px rgba(9, 29, 64, 0.08);
+}
+
+.lawyer-mini-source-list span {
+  color: var(--jt-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
 }
 
 .lawyer-mini-testimonials figure {

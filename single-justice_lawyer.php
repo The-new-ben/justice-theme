@@ -54,6 +54,8 @@ $services          = $parse_rows( $meta( 'profile_services' ) );
 $process_steps     = $parse_rows( $meta( 'profile_process' ) );
 $credentials       = $parse_rows( $meta( 'profile_credentials' ) );
 $media_items       = $parse_rows( $meta( 'profile_media_urls' ) );
+$public_sources    = $parse_rows( $meta( 'profile_public_sources' ) );
+$source_summary    = $meta( 'profile_source_summary' );
 $faqs              = $parse_rows( $meta( 'profile_faqs' ) );
 $testimonials      = $parse_rows( $meta( 'profile_testimonials' ) );
 $cta_title         = $meta( 'profile_cta_title' );
@@ -472,6 +474,34 @@ $has_media_module     = $video_url || ! empty( $media_items );
 								</li>
 							<?php endforeach; ?>
 						</ul>
+					</section>
+				<?php endif; ?>
+
+				<?php if ( $source_summary || ! empty( $public_sources ) ) : ?>
+					<section class="lawyer-mini-sidebox lawyer-mini-sources">
+						<h2>מקורות ציבוריים</h2>
+						<?php if ( $source_summary ) : ?>
+							<p><?php echo esc_html( $source_summary ); ?></p>
+						<?php endif; ?>
+						<?php if ( ! empty( $public_sources ) ) : ?>
+							<div class="lawyer-mini-source-list">
+								<?php foreach ( $public_sources as $row ) : ?>
+									<?php
+									$source_label = $row[0] ?? '';
+									$source_url   = $row[1] ?? '';
+									$source_note  = $row[2] ?? '';
+									?>
+									<?php if ( $source_label && $source_url ) : ?>
+										<a href="<?php echo esc_url( $source_url ); ?>" target="_blank" rel="noopener">
+											<strong><?php echo esc_html( $source_label ); ?></strong>
+											<?php if ( $source_note ) : ?>
+												<span><?php echo esc_html( $source_note ); ?></span>
+											<?php endif; ?>
+										</a>
+									<?php endif; ?>
+								<?php endforeach; ?>
+							</div>
+						<?php endif; ?>
 					</section>
 				<?php endif; ?>
 

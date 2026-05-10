@@ -891,3 +891,11 @@
 - The guard removes canonical redirect for that request, marks the query as 404, sends a 404 status and uses the theme 404 template.
 - VERIFIED: PHP lint passed locally for 123 PHP files.
 - NOT VERIFIED LIVE: requires uPress pull/cache refresh and a public recheck of the fake URL.
+
+## 2026-05-10 Maya Public Source Layer
+- FIXED IN CODE: Maya Rotenberg lawyer mini-site can now display a public-facing source/reference sidebox from CMS meta.
+- FIXED IN CODE: Added a separate source-only live migration that fills Maya source fields only when empty and can run after the original mini-site bootstrap.
+- DOCUMENTED: `project-control/maya-rotenberg-public-source-audit.md` records the official site, about page, Dun's 100, Psakdin, Easy and press-page sources.
+- SAFETY: no phone, WhatsApp, email, photo, awards, ratings, reviews, bar number or case-achievement claims are auto-filled.
+- VERIFIED: PHP lint passed locally for 125 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and wp-admin/lawyer review.

@@ -27,6 +27,12 @@ Make the one verified lawyer profile, Advocate Maya Rotenberg, feel like a serio
 - `featured_on_front` only if empty
 - `lead_routing_enabled` only if empty
 
+## Public Source Layer
+- CODE FIXED: `single-justice_lawyer.php` can now display a public-facing source/reference sidebox when `profile_public_sources` or `profile_source_summary` exists.
+- CODE FIXED: `inc/live-migrations.php` now has a separate Maya public-source bootstrap that can run even if the first mini-site bootstrap already ran.
+- SOURCE FOUND: official firm site, official about page, Dun's 100, Psakdin, Easy and official press-page references are documented in `project-control/maya-rotenberg-public-source-audit.md`.
+- SAFETY: the source bootstrap does not set phone, WhatsApp, email, photo, awards, ratings, reviews, bar number or case-achievement claims.
+
 ## Taxonomy Alignment
 - Adds `family-law` practice area to Maya if the taxonomy exists.
 - Adds `tel-aviv` city only if Maya has no city term yet.
@@ -38,6 +44,7 @@ Make the one verified lawyer profile, Advocate Maya Rotenberg, feel like a serio
 - FIXED IN CODE: the theme-side Hebrew-to-English Maya redirect is disabled by default behind the `justice_theme_enable_maya_slug_redirect` filter, so deployment should stop the loop.
 - STILL NEEDS ADMIN: remove/update the Permalink Manager custom redirect/permalink for Maya so the canonical English slug `/lawyers/advocate-maya-rotenberg/` can be final.
 - NOT VERIFIED LIVE: mini-site engagement module requires uPress pull/cache refresh.
+- NOT VERIFIED LIVE: public-source sidebox requires uPress pull/cache refresh and a profile render after deployment.
 
 ## Next Admin Review
 After deployment, open Maya's lawyer profile in wp-admin and review:

@@ -35,6 +35,11 @@ function justice_theme_handle_lawyer_registration(): void {
 	$languages  = isset( $_POST['languages'] ) ? sanitize_text_field( wp_unslash( $_POST['languages'] ) ) : '';
 	$cities     = isset( $_POST['cities_served'] ) ? sanitize_text_field( wp_unslash( $_POST['cities_served'] ) ) : '';
 	$bio        = isset( $_POST['bio_short'] ) ? sanitize_textarea_field( wp_unslash( $_POST['bio_short'] ) ) : '';
+	$headline   = isset( $_POST['profile_headline'] ) ? sanitize_text_field( wp_unslash( $_POST['profile_headline'] ) ) : '';
+	$services   = isset( $_POST['profile_services'] ) ? sanitize_textarea_field( wp_unslash( $_POST['profile_services'] ) ) : '';
+	$process    = isset( $_POST['profile_process'] ) ? sanitize_textarea_field( wp_unslash( $_POST['profile_process'] ) ) : '';
+	$video_url  = isset( $_POST['profile_video_url'] ) ? esc_url_raw( wp_unslash( $_POST['profile_video_url'] ) ) : '';
+	$faqs       = isset( $_POST['profile_faqs'] ) ? sanitize_textarea_field( wp_unslash( $_POST['profile_faqs'] ) ) : '';
 	$area       = isset( $_POST['practice_area'] ) ? sanitize_key( wp_unslash( $_POST['practice_area'] ) ) : '';
 	$plan       = isset( $_POST['plan_interest'] ) ? sanitize_key( wp_unslash( $_POST['plan_interest'] ) ) : 'free';
 
@@ -67,6 +72,12 @@ function justice_theme_handle_lawyer_registration(): void {
 		'languages'            => $languages,
 		'cities_served'        => $cities,
 		'bio_short'            => $bio,
+		'profile_headline'     => $headline,
+		'profile_subheadline'  => $bio,
+		'profile_services'     => $services,
+		'profile_process'      => $process,
+		'profile_video_url'    => $video_url,
+		'profile_faqs'         => $faqs,
 		'plan_type'            => in_array( $plan, array( 'free', 'pro', 'featured', 'lead_partner', 'full_service' ), true ) ? $plan : 'free',
 		'subscription_status'  => 'pending',
 		'verification_status'  => 'pending',

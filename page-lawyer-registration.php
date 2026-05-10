@@ -113,6 +113,26 @@ $practice_terms = taxonomy_exists( 'practice-areas' )
 						<span><?php esc_html_e( 'תיאור קצר', 'justice-theme' ); ?></span>
 						<textarea name="bio_short" rows="5" placeholder="<?php esc_attr_e( 'ספרו בקצרה על תחומי העיסוק, ניסיון, קהל יעד ומה תרצו להציג בפרופיל.', 'justice-theme' ); ?>"></textarea>
 					</label>
+					<label class="lawyer-registration-form__full">
+						<span><?php esc_html_e( 'כותרת שיווקית לפרופיל', 'justice-theme' ); ?></span>
+						<input type="text" name="profile_headline" placeholder="<?php esc_attr_e( 'לדוגמה: ליווי אישי בהליכי גירושין, הסכמות וזמני שהות', 'justice-theme' ); ?>">
+					</label>
+					<label class="lawyer-registration-form__full">
+						<span><?php esc_html_e( 'שירותים מרכזיים למיני-סייט', 'justice-theme' ); ?></span>
+						<textarea name="profile_services" rows="4" placeholder="<?php esc_attr_e( 'כל שורה: שם השירות | הסבר קצר. לדוגמה: גירושין בהסכמה | בניית הסכם מאוזן לפני אישור בית משפט', 'justice-theme' ); ?>"></textarea>
+					</label>
+					<label class="lawyer-registration-form__full">
+						<span><?php esc_html_e( 'איך נראה תהליך העבודה איתכם?', 'justice-theme' ); ?></span>
+						<textarea name="profile_process" rows="4" placeholder="<?php esc_attr_e( 'כל שורה: שלב | מה קורה בשלב הזה. לדוגמה: שיחת אבחון | מיפוי מצב, מטרות ומסמכים חסרים', 'justice-theme' ); ?>"></textarea>
+					</label>
+					<label>
+						<span><?php esc_html_e( 'קישור לווידאו היכרות', 'justice-theme' ); ?></span>
+						<input type="url" name="profile_video_url" placeholder="https://">
+					</label>
+					<label class="lawyer-registration-form__full">
+						<span><?php esc_html_e( 'שאלות נפוצות שתרצו לענות עליהן', 'justice-theme' ); ?></span>
+						<textarea name="profile_faqs" rows="4" placeholder="<?php esc_attr_e( 'כל שורה: שאלה | תשובה קצרה. כל תשובה תיבדק לפני פרסום.', 'justice-theme' ); ?>"></textarea>
+					</label>
 				</div>
 
 				<label class="lawyer-registration-form__consent">

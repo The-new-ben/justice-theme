@@ -21,6 +21,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer mini-sites now prefer CMS-connected articles via `connected_lawyer_slug` before falling back to practice-area articles, so Maya can become a proper signed content hub once drafts are reviewed and published.
 - Seeded WordPress menu practice-area links now use canonical lawyer-directory filter slugs such as `family-law`, `criminal-law`, `real-estate-law`, `labor-law`, and `traffic-law`.
 - Lawyer archive filters now normalize legacy incoming area values such as `family`, `criminal`, `real-estate`, `labor`, and `traffic` to their canonical slugs before querying.
+- Lawyer self-registration now collects richer mini-site fields: profile headline, services, process steps, video URL and FAQ ideas.
 
 ## FIXED IN THIS PASS
 - Added tracked `page-home.php` because the live homepage is assigned to the `page-home.php` page template, not only `front-page.php`.
@@ -67,6 +68,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Maya/lawyer mini-site article feed now queries published articles explicitly connected to the lawyer by `connected_lawyer_slug`, including a temporary backtick-tolerant match for any drafts imported before metadata normalization.
 - Menu seeding and repair now normalize stale filter URLs like `/lawyers/?area=family` to `/lawyers/?area=family-law` without rebuilding the full menu.
 - Lawyer archive query handling now accepts old short area filter values and converts them to canonical values, protecting users and crawlers that hit older links.
+- Lawyer onboarding handler now stores mini-site inputs as draft metadata for admin review instead of forcing the owner to gather that information manually later.
 
 ## NOT VERIFIED
 - Active live plugin path and name.

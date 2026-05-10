@@ -18,6 +18,12 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
   - `profile_status = pending`
   - `source_type = registration`
   - `subscription_status = pending`
+- Registration now collects mini-site content inputs:
+  - `profile_headline`
+  - `profile_services`
+  - `profile_process`
+  - `profile_video_url`
+  - `profile_faqs`
 - No profile is published automatically.
 
 ## Review Workflow
@@ -29,6 +35,9 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
 5. Check whether public claims are factual and conservative.
 6. Add/edit practice areas and city terms.
 7. Improve the mini-site fields if the lawyer paid or qualifies for a richer profile.
+   - Review headline for accuracy and no exaggerated claims.
+   - Convert services/process/FAQ answers into polished public sections.
+   - Check video/social/media links before publishing.
 8. Set commercial plan:
    - free
    - pro

@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[HIGH] Expanded lawyer self-registration into mini-site intake**
+- Files: `page-lawyer-registration.php`, `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
+- Public lawyer registration now asks for profile headline, key services, work process, video URL and FAQ ideas.
+- Submitted values are stored as draft `justice_lawyer` mini-site metadata for admin review, not auto-published.
+- VERIFIED in repo. LIVE NOT VERIFIED until Upress pulls the commit and a test registration is submitted.
+
 **[MEDIUM] Normalized legacy lawyer archive area filters**
 - Files: `archive-justice_lawyer.php`
 - The `/lawyers/` archive now converts old short area values such as `family`, `criminal`, `real-estate`, `labor`, and `traffic` into canonical slugs before building the taxonomy query.

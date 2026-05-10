@@ -50,5 +50,16 @@ function justice_theme_customize_register( $wp_customize ) {
 		'section' => 'justice_contact',
 		'type'    => 'email',
 	) );
+
+	$wp_customize->add_setting( 'justice_whatsapp', array(
+		'default'           => '0544705733',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'justice_whatsapp', array(
+		'label'       => __( 'וואטסאפ', 'justice-theme' ),
+		'description' => __( 'מספר לוואטסאפ הצף והפוטר. הזינו ספרות בלבד או מספר ישראלי רגיל.', 'justice-theme' ),
+		'section'     => 'justice_contact',
+		'type'        => 'text',
+	) );
 }
 add_action( 'customize_register', 'justice_theme_customize_register' );

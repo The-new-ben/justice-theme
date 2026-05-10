@@ -5,6 +5,30 @@
 
 ### FIXED
 
+**[HIGH] Reviewed Claude branch without destructive merge**
+- File: `project-control/branch-review-claude-aovsk.md`
+- VERIFIED: `origin/claude/justice-website-review-aovSK` exists at remote tip `8e965ff`.
+- RISK: Whole-branch merge would delete newer `main` work including long-form drafts, LegalTech templates, onboarding/dashboard pages, GSC tooling, visual evidence and many project-control files.
+- Decision: use it only as a patch source.
+
+**[HIGH] Wired ask-lawyer section into lead handler**
+- File: `template-parts/sections/ask-lawyer.php`
+- The form now posts to `admin-post.php` with `action=justice_submit_lead`, proper nonce and canonical lead field names.
+- VERIFIED: PHP lint passed locally for 120 PHP files.
+
+**[MEDIUM] Added SEO canonical/noindex and lawyer schema hardening**
+- Files: `inc/seo.php`, `inc/schema.php`
+- Added non-singular canonical tags for homepage/archive/tax/search contexts.
+- Added `noindex,follow` for search and lawyer-directory filter URLs.
+- Added conservative `Attorney` schema for lawyer mini-sites without fake ratings/reviews.
+- VERIFIED: PHP lint passed locally for 120 PHP files.
+
+**[MEDIUM] Hardened lawyer profile counters and contact settings**
+- Files: `single-justice_lawyer.php`, `inc/lead-ui.php`
+- Profile view counts now skip logged-in users, admin contexts, ajax/cron/feed and common bots/previews.
+- `justice_whatsapp` is now editable in the Customizer instead of being only a footer default.
+- VERIFIED: PHP lint passed locally for 120 PHP files.
+
 **[HIGH] Added family-dispute-resolution supporting draft**
 - Files: `content-drafts/family-dispute-resolution-supporting-he.md`, `project-control/family-dispute-resolution-source-audit.csv`
 - Added a Hebrew draft for `/family-dispute-resolution/` covering the pre-lawsuit family dispute process, preparation, urgent-risk warnings, relation to divorce agreements, FAQ, Maya/pillar linking plan and LegalTech intake concept.

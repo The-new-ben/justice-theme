@@ -154,4 +154,56 @@ function justice_theme_meta_head() {
 }
 add_action( 'wp_head', 'justice_theme_meta_head', 1 );
 
+/**
+ * Output one canonical URL for public templates that WordPress core does not cover well.
+ */
+function justice_theme_canonical_url() {
+	if ( is_admin() || is_404() ) {
+		return;
+	}
+
+	$canonical = '';
+
+	if ( is_singular() ) {
+		return;
+	} elseif ( is_front_page() ) {
+		$canonical = home_url( '/' );
+	} elseif ( is_post_type_archive( 'justice_lawyer' ) ) {
+		$canonical = get_post_type_archive_link( 'justice_lawyer' );
+	} elseif ( is_post_type_archive( 'articles' ) ) {
+		$canonical = get_post_type_archive_link( 'articles' );
+	} elseif ( is_tax() || is_category() || is_tag() ) {
+		$term = get_queried_object();
+		if ( $term && ! is_wp_error( $term ) ) {
+			$canonical = get_term_link( $term );
+		}
+	} elseif ( is_search() ) {
+		$canonical = home_url( '/' );
+	}
+
+	if ( $canonical && ! is_wp_error( $canonical ) ) {
+		echo '<link rel="canonical" href="' . esc_url( $canonical ) . '">' . "\n";
+	}
+}
+add_action( 'wp_head', 'justice_theme_canonical_url', 5 );
+
+/**
+ * Noindex thin search/filter states while preserving link discovery.
+ *
+ * @param array $robots Robots directives.
+ * @return array
+ */
+function justice_theme_filter_robots( $robots ) {
+	$has_directory_filter = is_post_type_archive( 'justice_lawyer' )
+		&& array_intersect( array( 'area', 'city', 'keyword' ), array_keys( $_GET ) );
+
+	if ( is_search() || $has_directory_filter ) {
+		$robots['noindex'] = true;
+		$robots['follow']  = true;
+	}
+
+	return $robots;
+}
+add_filter( 'wp_robots', 'justice_theme_filter_robots' );
+
 

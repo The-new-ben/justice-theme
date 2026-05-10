@@ -143,6 +143,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 ## STILL BROKEN / RISK
 - Repo still contains duplicate plugin-like folders: `ultra-justice/`, `ultra-justice-engine/`, and new `justice-core/`.
 - Do not delete the legacy plugin folders until live active plugin path is verified; otherwise GitHub sync could remove the currently active plugin and break CPTs.
+- Do not merge `origin/claude/justice-website-review-aovSK` wholesale; it deletes newer `main` work and must only be used as a reviewed patch source.
 - Live lawyer cards show city slugs such as `tel-aviv` in the public extract, which means terms or assigned values may not be user-facing Hebrew in every place.
 - Live archive still exposes multiple demo lawyers publicly; this must be cleaned or moved to draft/private from WP admin/API after active plugin and content ownership are verified.
 - Existing public demo lawyers on live may predate the hardened seeder and require manual/API cleanup after backup.
@@ -177,6 +178,12 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Seventh family-law supporting draft now exists at `content-drafts/family-dispute-resolution-supporting-he.md` for `/family-dispute-resolution/`, with a source audit at `project-control/family-dispute-resolution-source-audit.csv`.
 - Family-dispute-resolution draft is intentionally NOT publication-ready: it is now 3,521 words, but still needs legal review, browser source verification, and cannibalization review against existing live Jus-Tice URLs.
 - Cannibalization note created at `project-control/family-dispute-resolution-cannibalization-note.md`; existing live URLs `/request-for-family-dispute-settlements` and `/is-a-law-for-the-settlement-of-family-disputes-successful/` are marked as merge/redirect review candidates, with traffic risk UNKNOWN until GSC data is checked.
+- Reviewed `origin/claude/justice-website-review-aovSK` and documented it at `project-control/branch-review-claude-aovsk.md`.
+- FIXED: Homepage ask-lawyer section now posts to the existing `justice_submit_lead` admin-post handler instead of `action="#"`.
+- FIXED: Footer WhatsApp number is now configurable through the WordPress Customizer via `justice_whatsapp`.
+- FIXED: Non-singular canonical URLs and `noindex,follow` for search/filter states are implemented in `inc/seo.php`.
+- FIXED: Lawyer mini-site pages now output conservative `Attorney` JSON-LD without fake ratings or unverified claims.
+- FIXED: Lawyer profile view counting now skips logged-in/admin/feed/ajax/cron/bot/preview traffic.
 
 ## NEXT BEST ACTION
 1. Verify the exact GitHub sync target and active plugin path.

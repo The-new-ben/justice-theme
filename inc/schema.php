@@ -107,3 +107,81 @@ function justice_theme_website_schema() {
 }
 add_action( 'wp_head', 'justice_theme_website_schema', 20 );
 
+/**
+ * Attorney schema for lawyer mini-site pages.
+ */
+function justice_theme_lawyer_schema() {
+	if ( ! is_singular( 'justice_lawyer' ) ) {
+		return;
+	}
+
+	$post_id = get_the_ID();
+	$phone   = get_post_meta( $post_id, 'phone', true );
+	$email   = get_post_meta( $post_id, 'email', true );
+	$website = get_post_meta( $post_id, 'website', true );
+	$firm    = get_post_meta( $post_id, 'firm_name', true );
+	$address = get_post_meta( $post_id, 'office_address', true );
+	$areas   = get_the_terms( $post_id, 'practice-areas' );
+	$cities  = get_the_terms( $post_id, 'city' );
+
+	$schema = array(
+		'@context' => 'https://schema.org',
+		'@type'    => 'Attorney',
+		'name'     => wp_strip_all_tags( get_the_title( $post_id ) ),
+		'url'      => esc_url_raw( get_permalink( $post_id ) ),
+	);
+
+	if ( $firm ) {
+		$schema['worksFor'] = array(
+			'@type' => 'LegalService',
+			'name'  => wp_strip_all_tags( $firm ),
+		);
+	}
+
+	if ( $phone ) {
+		$schema['telephone'] = wp_strip_all_tags( $phone );
+	}
+
+	if ( $email && is_email( $email ) ) {
+		$schema['email'] = sanitize_email( $email );
+	}
+
+	if ( $website ) {
+		$schema['sameAs'] = array( esc_url_raw( $website ) );
+	}
+
+	if ( $address ) {
+		$schema['address'] = array(
+			'@type'          => 'PostalAddress',
+			'streetAddress'  => wp_strip_all_tags( $address ),
+			'addressCountry' => 'IL',
+		);
+	}
+
+	if ( ! empty( $areas ) && ! is_wp_error( $areas ) ) {
+		$schema['knowsAbout'] = array_values( wp_list_pluck( $areas, 'name' ) );
+	}
+
+	if ( ! empty( $cities ) && ! is_wp_error( $cities ) ) {
+		$schema['areaServed'] = array_map(
+			static function ( $city ) {
+				return array(
+					'@type' => 'City',
+					'name'  => $city->name,
+				);
+			},
+			array_values( $cities )
+		);
+	}
+
+	if ( has_post_thumbnail( $post_id ) ) {
+		$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'full' );
+		if ( ! empty( $image[0] ) ) {
+			$schema['image'] = esc_url_raw( $image[0] );
+		}
+	}
+
+	justice_theme_print_schema( $schema );
+}
+add_action( 'wp_head', 'justice_theme_lawyer_schema', 20 );
+

@@ -71,7 +71,17 @@ $whatsapp_digits   = $whatsapp ? preg_replace( '/[^0-9]/', '', $whatsapp ) : '';
 $whatsapp_link     = $whatsapp_digits ? 'https://wa.me/972' . ltrim( $whatsapp_digits, '0' ) : '';
 
 $views = (int) $meta( 'profile_views', 0 );
-update_post_meta( $lawyer_id, 'profile_views', $views + 1 );
+$user_agent = isset( $_SERVER['HTTP_USER_AGENT'] ) ? strtolower( sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) ) : '';
+$is_countable_view = ! is_admin()
+	&& ! is_user_logged_in()
+	&& ! wp_doing_ajax()
+	&& ! wp_doing_cron()
+	&& ! is_feed()
+	&& ! preg_match( '/bot|crawl|spider|slurp|facebookexternalhit|whatsapp|telegram|preview|monitor|uptime/i', $user_agent );
+
+if ( $is_countable_view ) {
+	update_post_meta( $lawyer_id, 'profile_views', $views + 1 );
+}
 
 $social_links = array_filter(
 	array(

@@ -1,0 +1,10 @@
+old_url,new_url,redirect_type,notes
+/category/דיני-משפחה/,/family-law/,301,Pillar page redirection
+/practice-areas/משפט-פלילי/,/criminal-law/,301,Pillar page redirection
+/lawyers/?area=family-law,/family-law/lawyers/,301,Move to silo architecture
+/lawyers/שם-עורך-הדין/,/lawyers/israel-cohen/,301,Example lawyer profile redirect
+/articles/איך-מתגרשים-נכון/,/family-law/how-to-divorce-correctly/,301,Example article redirect
+/?city=תל-אביב,/lawyers/tel-aviv/,301,Example city filter redirect
+/צור-קשר/,/contact/,301,Core page
+/אודות/,/about/,301,Core page
+/הצטרפות-עורכי-דין/,/lawyer-registration/,301,Core page

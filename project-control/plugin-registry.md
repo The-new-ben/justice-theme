@@ -93,3 +93,14 @@ Expected response:
   }
 }
 ```
+
+---
+
+## * AUDIT V2 REMARKS — 2026-05-10 14:01 IST
+
+> Cross-ref: `project-control/deep-dive-audit-v2.md`
+
+* **REST API PUBLIC READ VERIFIED.** `/wp-json/wp/v2/types` returns 20 registered post types. `/wp-json/wp/v2/posts` returns `[]` (empty). `/wp-json/wp/v2/taxonomies` returns 8 taxonomies.
+* **7 LEGACY CPTs CONFIRMED ACTIVE:** labor_law, small_claims, corona_virus, supreme_court, tort, goverment-gazette (note typo!), yada_wiki. These expose REST endpoints and create unnecessary API surface area. **Must be deregistered in justice-core.**
+* **DUPLICATE PLUGIN RISK UNCLEAR:** Cannot confirm whether justice-core-v3 is still active alongside justice-core without authenticated access. Original concern from this doc **STILL VALID**.
+* **`city` taxonomy applies to BOTH `lawyer` (old) AND `justice_lawyer` (new)** — old CPT slug still referenced in taxonomy registration, indicating legacy data persists.

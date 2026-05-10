@@ -10,3 +10,16 @@
 | R006 | GSC integration delayed indefinitely | SEO strategy based on guesses, not data | Medium | Prepare integration code; push user for credentials | dev |
 | R007 | Demo expectations exceed what's buildable in time | Stakeholder disappointment | Medium | Set clear demo-readiness checklist; show roadmap for future phases | dev |
 | R008 | Mobile UX broken on key pages | Loss of 60%+ traffic (mobile-first Israel) | High | Prioritize mobile audit before demo | dev |
+
+---
+
+## * AUDIT V2 ADDITIONS — 2026-05-10 14:01 IST
+
+> Cross-ref: `project-control/deep-dive-audit-v2.md`
+
+| ID | Risk | Impact | Probability | Mitigation | Owner |
+|---|---|---|---|---|---|
+| R009 | Fictional lawyers presented as real profiles | Legal liability if users contact fake numbers; brand credibility destroyed | High | Unpublish seed data or add explicit "DEMO" markers immediately | dev + owner |
+| R010 | Taxonomy fragmentation (35+ overlapping terms) | SEO keyword cannibalization across multiple thin pages | High | Create merge map; consolidate to 15-20 canonical terms with 301 redirects | dev |
+| R011 | 7 legacy CPTs indexed by search engines | Orphaned content pages ranking for irrelevant queries; crawl budget waste | Medium | Deregister CPTs; noindex existing pages; 301 redirect to articles | dev |
+| R012 | Mixed http/https internal links | Browser mixed-content warnings; redirect overhead on every click | Medium | Global find-replace http:// → https:// in templates and DB | dev |

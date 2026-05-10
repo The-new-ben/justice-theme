@@ -1,0 +1,24 @@
+item,status,value,problem,recommended_fix,verified
+PHP version,UNKNOWN,unknown — cannot read directly from theme code,Need to check wp-admin or server info,Check uPress dashboard or WP_DEBUG log,no
+WordPress version,UNKNOWN,unknown — no direct access,Need admin access to check,Log into WP admin > Dashboard > At a Glance,no
+Active theme,VERIFIED,justice-theme 1.0.0,None,—,yes
+Custom logo,NOT SET,No custom logo uploaded in Customizer,Site shows brand-lockup fallback — needs real logo,Upload SVG or PNG to Appearance > Customize > Site Identity,no
+Articles CPT,VERIFIED,archive-articles.php + single-articles.php exist,Archive title was English "Articles",Fixed with Hebrew title in archive-articles.php,yes
+Lawyer CPT,VERIFIED,archive-justice_lawyer.php + single-justice_lawyer.php exist,No published lawyers in CMS,Add demo or real lawyer posts via WP admin,no
+Practice-areas taxonomy,VERIFIED,51 terms confirmed from hero stats counter,—,—,yes
+City taxonomy,INFERRED,20 cities confirmed from hero stats,Need to verify taxonomy name,Check WP admin > Lawyers > Cities,no
+Primary menu,BROKEN,Only 2 items: עמוד הבית + אינדקס עורכי דין,Menu too thin,Fixed fallback to 6 items + dropdown; also build real menu in WP admin,yes (fallback)
+Navigation dropdown,FIXED,Fallback menu now includes תחומי משפט dropdown with 10 practice-area terms,—,JS accordion for mobile also added,yes
+Featured lawyers section,FIXED,Now shows demo cards when no lawyers exist; shows any published lawyer when they do,Previously only showed lawyers with featured_until meta,—,yes
+Archive title (articles),FIXED,Was English 'Articles' — now Hebrew 'ספריית מאמרים משפטיים',—,Fixed in archive-articles.php,yes
+Hero section,IMPROVED,Added radial gradient depth + dot grid pattern,Needs real image background for premium feel,Add hero background image via CSS or theme option,partial
+Hero stats,VERIFIED,1209 articles / 51 topics / 20 cities showing,—,—,yes
+Article cards,UNKNOWN,article-card.php not yet visually verified,Need browser QA,Screenshot the articles archive,no
+Lawyer cards,IMPROVED,Demo cards with initials placeholder show when no lawyers exist,No real lawyer photos,Demo system in place; real photos needed when lawyers register,yes
+Practice area cards,VISUAL ONLY,Icons showing as empty boxes,No SVG icons mapped to terms,Add icon meta field to taxonomy or use emoji map,no
+Footer,VERIFIED,brand-lockup + contact links + nav columns + red top border,—,—,yes
+Mobile header,VERIFIED,brand-lockup visible + hamburger toggle,Mobile nav accordion added for dropdown items,—,yes
+WhatsApp float,VERIFIED,Fixed WhatsApp button bottom-left,—,—,yes
+REST API,UNKNOWN,Not verified,Check https://jus-tice.co.il/wp-json/wp/v2/types,—,no
+Permalink structure,UNKNOWN,Not verified,Check WP admin > Settings > Permalinks,Should be Post name,no
+Menus in admin,NOT DONE,No menus assigned except partial primary,Admin must create and assign menus,Log in to WP admin > Appearance > Menus,no

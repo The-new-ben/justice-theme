@@ -137,3 +137,13 @@ DO NOT DELETE anything before reviewing the reports.
 ## Verification Status
 
 NOT VERIFIED — investigation not yet run on live server.
+
+---
+
+## * AUDIT V2 REMARKS — 2026-05-10 14:01 IST
+
+> Cross-ref: `project-control/deep-dive-audit-v2.md`
+
+* **HYPOTHESIS #1 PARTIALLY CONFIRMED:** REST API confirms `/wp-json/wp/v2/posts` returns `[]` — ZERO standard posts. All legitimate content is in the `articles` CPT. The homepage query appears to pull from `articles`, NOT `post`. If casino spam was in `post` type, it would NOT appear on the current homepage.
+* **7 LEGACY CPTs FOUND:** labor_law, small_claims, corona_virus, supreme_court, tort, goverment-gazette, yada_wiki. Content inside these CPTs is orphaned — not visible through current theme templates but may be indexed by Google. **These are potential spam vectors if any contain casino content.**
+* **INVESTIGATION STILL NEEDS:** Authenticated REST access or DB query to check content inside legacy CPTs. Cannot verify spam post contents without admin access.

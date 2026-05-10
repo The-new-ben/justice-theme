@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Live verification after branding pull
+
+- LIVE VERIFIED: homepage source now contains deployment marker `2026-05-10-branding-v1`.
+- LIVE VERIFIED: theme version `1.0.2` is present publicly.
+- LIVE VERIFIED: theme fallback icon files return HTTP 200.
+- LIVE VERIFIED: WordPress/media/plugin icon tags remain active; theme fallback tags are correctly suppressed while WordPress has a Site Icon.
+- VISUAL VERIFIED: captured `homepage-branding-post-pull-desktop-2026-05-10.png` and `homepage-branding-post-pull-mobile-2026-05-10.png`.
+- VISUAL VERIFIED PARTIAL: theme WhatsApp float is improved on mobile.
+- FOUND: third-party green chat/lead bubble still overlaps lower mobile hero cards.
+- NOT VERIFIED: wp-admin Site Icon/Custom Logo selected assets and Google search-result favicon refresh.
+
 ## 2026-05-10 - Logo favicon search branding task
 
 - CODE FIXED: added `project-control/favicon-logo-task.md`.

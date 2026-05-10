@@ -7,7 +7,7 @@
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
 ### ACTION-BRAND-001: Logo + Favicon + Search Branding
-**Status:** CODE FIXED - live/admin verification pending
+**Status:** PARTIAL LIVE VERIFIED - wp-admin/search-result verification pending
 **Why:** Browser tabs, mobile bookmarks and Google search results need a stable, professional icon and final brand state.
 **Actions:**
 1. DONE: Inspected owner-provided old logo asset.
@@ -16,8 +16,20 @@
 4. DONE: Updated SVG favicon and theme fallback tags while preserving WordPress Site Icon priority.
 5. DONE: Added `project-control/favicon-logo-task.md`.
 6. VERIFIED: live currently outputs favicon tags and sampled live icon URLs return HTTP 200.
-7. NEXT: owner/uPress pulls latest code, cache is cleared, then verify source marker `2026-05-10-branding-v1`, browser tab, mobile header, footer logo and wp-admin Site Icon.
-8. NOT LIVE VERIFIED AFTER FIX: final deployed favicon/search-branding state.
+7. DONE: owner/uPress pull verified; public source now shows marker `2026-05-10-branding-v1`.
+8. DONE: theme fallback icon assets return HTTP 200.
+9. DONE: desktop/mobile screenshots captured after deployment.
+10. VERIFIED: WordPress/media/plugin favicon tags are still active, so fallback tags are correctly suppressed while WordPress Site Icon exists.
+11. NEXT: verify wp-admin Site Icon selected media item and clean up duplicate icon/plugin outputs if owner approves.
+12. NOT VERIFIED: final browser tab/mobile bookmark appearance and Google search-result favicon refresh.
+
+### ACTION-UX-002: Third-Party Mobile Chat Bubble Collision
+**Status:** NEXT - live issue confirmed
+**Why:** Post-pull mobile screenshot shows the green third-party chat/lead bubble still covering lower hero cards even after the theme WhatsApp float was improved.
+**Actions:**
+1. DONE: confirmed in `homepage-branding-post-pull-mobile-2026-05-10.png`.
+2. NEXT: identify exact live widget selector/iframe and move it or hide it on first viewport without breaking chat/lead capture.
+3. NOT FIXED: no code change executed for the third-party bubble yet.
 
 ### ACTION-SEO-001: Open GSC Indexing Drilldowns
 **Status:** COMPLETED - first sample pass

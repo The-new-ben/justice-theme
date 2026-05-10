@@ -128,3 +128,16 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - CODE FIXED: `#pojo-a11y-toolbar` gets a mobile top-side position and constrained overlay height instead of floating across the middle of content.
 - VERIFIED: `git diff --check` passed.
 - NOT LIVE VERIFIED: requires uPress pull/cache refresh and fresh mobile screenshots after deployment.
+
+## 2026-05-10 Branding Pull Verification
+
+- LIVE VERIFIED: homepage now serves marker `2026-05-10-branding-v1`.
+- LIVE VERIFIED: theme fallback icon assets return HTTP 200.
+- LIVE VERIFIED: WordPress/media/plugin icon tags remain active, and theme fallback tags are not duplicated while the WordPress Site Icon exists.
+- VISUAL VERIFIED: screenshots captured:
+  - `project-control/visual-evidence/homepage-branding-post-pull-desktop-2026-05-10.png`
+  - `project-control/visual-evidence/homepage-branding-post-pull-mobile-2026-05-10.png`
+- VISUAL VERIFIED GOOD: header logo remains visible and slightly more compact on mobile and desktop.
+- VISUAL VERIFIED PARTIAL: theme WhatsApp float is smaller/raised after the pull.
+- STILL LOOKS BAD: third-party green chat/lead bubble still overlaps lower mobile hero cards and should be handled in the next UX pass.
+- NOT VERIFIED: wp-admin Site Icon/Custom Logo selected media items and Google search-result favicon refresh.

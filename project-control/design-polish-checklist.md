@@ -36,3 +36,11 @@ Status: ACTIVE LAUNCH CHECKLIST
 - NOT LIVE VERIFIED: final Google result favicon refresh.
 - NEXT: after final icon is selected, request homepage recrawl in GSC.
 
+## 2026-05-10 Post-Pull Verification
+
+- LIVE VERIFIED: `2026-05-10-branding-v1` marker is public.
+- LIVE VERIFIED: fallback theme icon assets return HTTP 200.
+- LIVE VERIFIED: header logo is visible on desktop and mobile.
+- PARTIAL: theme WhatsApp float is improved, but third-party green chat/lead bubble still overlaps lower mobile hero cards.
+- NOT VERIFIED: wp-admin Custom Logo and Site Icon selected media items.
+- NEXT: verify/admin-clean favicon outputs and fix third-party mobile chat bubble placement.

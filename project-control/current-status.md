@@ -2,6 +2,17 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST LIVE STATUS - 2026-05-10 23:25 Asia/Jerusalem
+- LIVE VERIFIED: owner uPress pull is public; homepage now serves deployment marker `2026-05-10-branding-v1`.
+- LIVE VERIFIED: theme version `1.0.2` assets are visible in public source.
+- LIVE VERIFIED: repo fallback brand/icon files are crawlable and return HTTP 200: `favicon.svg`, `favicon.ico`, `favicon-512.png`, `apple-touch-icon.png`, `site-icon-512.png`, and `logo.png`.
+- LIVE VERIFIED: WordPress/media/plugin favicon tags are still the active source output, so the theme fallback correctly does not print duplicate fallback tags while `has_site_icon()` is true.
+- VISUAL VERIFIED: fresh screenshots captured at `project-control/visual-evidence/homepage-branding-post-pull-desktop-2026-05-10.png` and `project-control/visual-evidence/homepage-branding-post-pull-mobile-2026-05-10.png`.
+- VISUAL VERIFIED: mobile/desktop header logo remains visible after the branding pull.
+- PARTIAL FIX: the theme WhatsApp float is smaller/raised on mobile after the pull.
+- STILL LOOKS BAD: the third-party green chat/lead bubble still overlaps lower mobile hero cards; this is separate from the theme WhatsApp float.
+- NOT VERIFIED: wp-admin Site Icon selected media item and final Google search-result favicon refresh.
+
 ## LATEST WORK STATUS - 2026-05-10 23:05 Asia/Jerusalem
 - CODE FIXED: logo/favicon/search-branding task added and documented in `project-control/favicon-logo-task.md` and `project-control/design-polish-checklist.md`.
 - VERIFIED: owner-provided Downloads logo PNG was inspected; full image is 1781x1654 and is not square, so it is not directly suitable as a Site Icon without crop/export.

@@ -104,3 +104,21 @@ Repo fallback assets now exist:
 4. If Site Icon is not approved, upload/select `assets/images/site-icon-512.png`.
 5. Recheck homepage desktop/mobile header and browser tab.
 6. Recheck Google Search Console URL inspection for homepage after final icon is selected.
+
+## 2026-05-10 Post-uPress Pull Verification
+
+- LIVE VERIFIED: homepage source now contains deployment marker `2026-05-10-branding-v1`.
+- LIVE VERIFIED: source no longer contains the old deployment marker.
+- LIVE VERIFIED: theme asset version `1.0.2` is present.
+- LIVE VERIFIED: theme fallback icon files are crawlable:
+  - `https://jus-tice.co.il/wp-content/themes/justice-theme/assets/images/favicon.svg` - 200
+  - `https://jus-tice.co.il/wp-content/themes/justice-theme/assets/images/favicon.ico` - 200
+  - `https://jus-tice.co.il/wp-content/themes/justice-theme/assets/images/favicon-512.png` - 200
+  - `https://jus-tice.co.il/wp-content/themes/justice-theme/assets/images/apple-touch-icon.png` - 200
+  - `https://jus-tice.co.il/wp-content/themes/justice-theme/assets/images/site-icon-512.png` - 200
+  - `https://jus-tice.co.il/wp-content/themes/justice-theme/assets/images/logo.png` - 200
+- LIVE VERIFIED: WordPress/media/plugin icon tags remain the active public icon output, so the theme fallback does not emit duplicate fallback tags while WordPress reports an existing Site Icon.
+- VISUAL VERIFIED: screenshots captured:
+  - `project-control/visual-evidence/homepage-branding-post-pull-desktop-2026-05-10.png`
+  - `project-control/visual-evidence/homepage-branding-post-pull-mobile-2026-05-10.png`
+- STILL NEEDS ADMIN REVIEW: wp-admin Site Icon selected media item, Custom Logo selected media item, and whether duplicate favicon plugin outputs should be simplified.

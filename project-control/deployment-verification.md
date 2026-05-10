@@ -6,6 +6,15 @@ Date: 2026-05-10
 
 VERIFIED: GitHub `main` is ahead of the live WordPress theme output.
 
+Latest recheck after commit `a90bf4b`:
+
+- Local PHP: VERIFIED with PHP 8.5.6; full repo lint passes for 127 PHP files.
+- `/articles/` live deployment marker: VERIFIED still serving `2026-05-10-runtime-guard-v5`, not the newer `2026-05-10-contextual-title-v1`.
+- `/articles/` title/OG output: NOT FIXED LIVE; still shows `Articles Archive | Jus-Tice.co.il`.
+- Fake URL `/not-a-real-page-justice-qa/`: LIVE VERIFIED as a `301` redirect to `https://jus-tice.co.il`, before the theme can serve a real 404.
+- Sample lawyer URL `/lawyers/עוד-איתן-כץ/`: LIVE VERIFIED as `200 OK`, but rendered with old deployment marker and HTTP canonical/OG URL signals in the sampled HTML.
+- Interpretation: the contextual-title fix is CODE FIXED and PHP VERIFIED locally, but NOT VERIFIED LIVE. The fake-404-to-homepage behavior appears to be a server/cache/SEO routing rule, not only a theme-template issue.
+
 Latest recheck after commit `2c418b4`:
 
 - Homepage PHP marker: NOT VERIFIED.

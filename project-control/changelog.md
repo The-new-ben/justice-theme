@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Local PHP 8.5.6 install and live deployment recheck
+
+- VERIFIED: installed owner-provided PHP ZIP locally to `C:\Users\janana\tools\php-8.5.6\php.exe`.
+- VERIFIED: PHP CLI reports PHP 8.5.6 and full repo PHP lint passes for 127 PHP files.
+- FIXED: `tools/php-lint.ps1` now discovers the local user-tools PHP install before older Winget fallback paths.
+- CREATED: `project-control/php-local-setup.md`.
+- LIVE RECHECK: `/articles/` still serves old deployment marker `2026-05-10-runtime-guard-v5` and old `Articles Archive | Jus-Tice.co.il` title, so commit `a90bf4b` is not live yet or is blocked by cache/sync.
+- LIVE RECHECK: fake URL `/not-a-real-page-justice-qa/` returns a 301 redirect to the homepage; this is a routing/404 blocker requiring uPress/wp-admin/server/cache review.
+- LIVE RECHECK: sample Hebrew lawyer profile URL returns 200 but still emits old marker and HTTP canonical/OG signals in sampled HTML.
+- SAFETY: no public URLs, redirects, content bodies, sitemap, robots rules or CMS records were changed.
+
 ## 2026-05-10 - Pretrial-detention supporting draft
 
 ## 2026-05-10 - Continuous GSC/GA4 SEO intelligence baseline

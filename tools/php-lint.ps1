@@ -10,6 +10,24 @@ function Resolve-PhpExecutable {
         return $command.Source
     }
 
+    $userToolsPhp = Join-Path $env:USERPROFILE "tools\php-8.5.6\php.exe"
+    if (Test-Path -LiteralPath $userToolsPhp) {
+        return $userToolsPhp
+    }
+
+    $userToolsRoot = Join-Path $env:USERPROFILE "tools"
+    if (Test-Path -LiteralPath $userToolsRoot) {
+        $candidate = Get-ChildItem -LiteralPath $userToolsRoot -Directory -Filter "php-*" -ErrorAction SilentlyContinue |
+            Sort-Object Name -Descending |
+            ForEach-Object { Join-Path $_.FullName "php.exe" } |
+            Where-Object { Test-Path -LiteralPath $_ } |
+            Select-Object -First 1
+
+        if ($candidate) {
+            return $candidate
+        }
+    }
+
     $wingetPhp = Join-Path $env:LOCALAPPDATA "Microsoft\WinGet\Packages\PHP.PHP.8.3_Microsoft.Winget.Source_8wekyb3d8bbwe\php.exe"
     if (Test-Path -LiteralPath $wingetPhp) {
         return $wingetPhp

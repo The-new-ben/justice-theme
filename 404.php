@@ -13,7 +13,7 @@ get_header();
 		<h1><?php esc_html_e( 'העמוד לא נמצא', 'justice-theme' ); ?></h1>
 
 		<p>
-			<?php esc_html_e( 'The page you requested could not be found. You can search the legal library or browse by practice area.', 'justice-theme' ); ?>
+			<?php esc_html_e( 'העמוד שחיפשתם לא נמצא. אפשר לחפש במאגר המשפטי, לעבור למדריכי תחומי המשפט או לחזור לעמוד הבית.', 'justice-theme' ); ?>
 		</p>
 
 		<?php get_template_part( 'template-parts/forms/search-form-legal' ); ?>

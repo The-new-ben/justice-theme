@@ -51,11 +51,11 @@ $israel_cities = array(
 	<div class="container hero__grid">
 		<div class="hero__content">
 			<h1 class="hero__title">
-				<?php esc_html_e( 'הפורטל המשפטי שמחבר בין מידע, עורכי דין ופתרונות משפטיים', 'justice-theme' ); ?>
+				<?php esc_html_e( 'צריכים עורך דין או הכוונה משפטית? התחילו כאן', 'justice-theme' ); ?>
 			</h1>
 
 			<p class="hero__description">
-				<?php esc_html_e( 'מאמרים משפטיים, מדריכים מקצועיים וחיפוש עורכי דין לפי תחום, מיקום ודחיפות.', 'justice-theme' ); ?>
+				<?php esc_html_e( 'Jus-Tice מרכז מדריכים משפטיים, חיפוש עורכי דין, שאלות ראשוניות וכלים חכמים כדי לעזור לכם להבין את הבעיה, להתכונן נכון ולפנות לגורם המתאים.', 'justice-theme' ); ?>
 			</p>
 
 			<form class="hero-search" role="search" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ); ?>" id="hero-search-form">
@@ -111,10 +111,10 @@ $israel_cities = array(
 
 			<div class="hero__ctas" style="margin-top: 1.5rem; display: flex; gap: 1rem;">
 				<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" class="button button--primary">
-					<?php esc_html_e( 'מצאו עורך דין', 'justice-theme' ); ?>
+					<?php esc_html_e( 'מצאו עורך דין מתאים', 'justice-theme' ); ?>
 				</a>
 				<a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>" class="button button--outline" style="border-color: rgba(255,255,255,0.4); color: #fff;">
-					<?php esc_html_e( 'עיינו במדריכים', 'justice-theme' ); ?>
+					<?php esc_html_e( 'קראו מדריכים לפי הבעיה', 'justice-theme' ); ?>
 				</a>
 			</div>
 

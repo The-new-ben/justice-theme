@@ -70,6 +70,21 @@ while ( have_posts() ) :
 			</div>
 		</header>
 
+		<section class="article-intent-panel" aria-label="<?php esc_attr_e( 'מה חשוב להבין לפני קריאת המדריך', 'justice-theme' ); ?>">
+			<div class="article-intent-panel__item">
+				<strong><?php esc_html_e( 'מה הבעיה עכשיו?', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'התחילו מהעובדות, הדחיפות והמסמכים שיש בידיכם. מדריך טוב צריך לעזור להבין את המצב לפני שיחה עם עורך דין.', 'justice-theme' ); ?></span>
+			</div>
+			<div class="article-intent-panel__item">
+				<strong><?php esc_html_e( 'מתי פונים לעורך דין?', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'כאשר יש סיכון כספי, משפחתי, פלילי, חוזי או מועד קרוב, אל תסתפקו בקריאה כללית. קבלו בדיקה מקצועית מותאמת.', 'justice-theme' ); ?></span>
+			</div>
+			<div class="article-intent-panel__item">
+				<strong><?php esc_html_e( 'איך Jus-Tice עוזר?', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'אנחנו מחברים בין מדריכים, תחומי משפט, עורכי דין וטופסי פנייה כדי להפוך חיפוש מבולבל למסלול פעולה ברור יותר.', 'justice-theme' ); ?></span>
+			</div>
+		</section>
+
 		<div class="container single-article__layout">
 			
 			<div class="single-article__main">

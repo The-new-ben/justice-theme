@@ -721,3 +721,12 @@
 - NOT VERIFIED: The public homepage did not show the `admin-post.php`/`justice_submit_lead` ask-lawyer wiring from commit `e511c00`.
 - NOT VERIFIED: The filtered lawyer directory did not show `noindex`, so robots hardening from commit `e511c00` is not confirmed live.
 - BLOCKED: Latest repo changes may still need Upress pull/cache refresh or direct WordPress file inspection.
+
+## 2026-05-10 Customer-Facing Claude/Opus Response Pass
+- CREATED: `project-control/claude-opus-review-response.md`.
+- CREATED: `project-control/logo-and-favicon-status.md`, `menu-live-status.md`, `breadcrumbs-fix-report.md`, `customer-facing-qa.md`, `gsc-connection-plan.md`, `user-intent-language-analysis.md`.
+- UPDATED: `project-control/frontend-cms-map.md` with detailed CMS wiring status for visible components.
+- VERIFIED LIVE: homepage, articles archive, single article, lawyer archive, divorce pillar and fake 404 URL were checked with public screenshots.
+- FIXED IN CODE: fallback favicon, stronger homepage/article/archive copy, primary-menu augmentation, breadcrumb CSS/RTL, article intent panel, safer lawyer-card sponsored badge logic and common city-label cleanup.
+- VERIFIED: PHP lint passed locally for 120 PHP files.
+- STILL BROKEN LIVE: fake 404 URL returns the homepage with HTTP 200; requires wp-admin/uPress routing investigation.

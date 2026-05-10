@@ -206,4 +206,18 @@ function justice_theme_filter_robots( $robots ) {
 }
 add_filter( 'wp_robots', 'justice_theme_filter_robots' );
 
+/**
+ * Provide a temporary branded site icon until a final media-library favicon is set.
+ *
+ * WordPress outputs the real Site Icon automatically when it exists, so this
+ * fallback only covers the current missing-brand state.
+ */
+function justice_theme_fallback_site_icon(): void {
+	if ( has_site_icon() ) {
+		return;
+	}
+
+	echo '<link rel="icon" href="' . esc_url( JUSTICE_THEME_URI . '/assets/images/favicon.svg' ) . '" type="image/svg+xml">' . "\n";
+}
+add_action( 'wp_head', 'justice_theme_fallback_site_icon', 2 );
 

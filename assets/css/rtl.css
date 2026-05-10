@@ -11,6 +11,7 @@ body {
 .hero__quick-links,
 .term-list,
 .cluster-links {
+  list-style: none;
   padding-right: 0;
   padding-left: 0;
 }
@@ -22,7 +23,7 @@ body {
 
 /* Breadcrumb chevron flip */
 .breadcrumbs__item + .breadcrumbs__item::before {
-  transform: scaleX(-1);
+  transform: none;
 }
 
 /* Blockquote border side */

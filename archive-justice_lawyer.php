@@ -85,7 +85,7 @@ $lawyers = new WP_Query( $args );
 
 // Dynamic H1 based on filters
 $page_title = 'מדריך עורכי דין בישראל';
-$page_desc  = 'חיפוש עורכי דין מומחים לפי תחום משפטי ומיקום.';
+$page_desc  = 'השוו בין פרופילים, תחומי התמחות, אזורי שירות ודרכי פנייה. הנתונים מוצגים בזהירות, בלי הבטחות דירוג או המלצות שאינן מאומתות.';
 
 if ( $filter_city ) {
 	$city_term = get_term_by( 'slug', $filter_city, 'city' );
@@ -96,13 +96,13 @@ if ( $filter_area ) {
 
 if ( ! empty( $city_term ) && ! empty( $area_term ) ) {
 	$page_title = sprintf( 'עורך דין %s ב%s', $area_term->name, $city_term->name );
-	$page_desc  = sprintf( 'מצאו עורך דין %s ב%s — פרופילים מקצועיים, השוואה ופנייה ישירה.', $area_term->name, $city_term->name );
+	$page_desc  = sprintf( 'מצאו עורך דין %s ב%s — פרופילים מקצועיים, תחומי עיסוק, פרטי קשר ופנייה מסודרת.', $area_term->name, $city_term->name );
 } elseif ( ! empty( $city_term ) ) {
 	$page_title = sprintf( 'עורכי דין ב%s', $city_term->name );
 	$page_desc  = sprintf( 'כל עורכי הדין ב%s — חיפוש לפי תחום התמחות, פנייה ישירה ופרופילים מקצועיים.', $city_term->name );
 } elseif ( ! empty( $area_term ) ) {
 	$page_title = sprintf( 'עורך דין %s', $area_term->name );
-	$page_desc  = sprintf( 'מצאו עורך דין %s מומחה — השוואת פרופילים ופנייה ישירה.', $area_term->name );
+	$page_desc  = sprintf( 'מצאו עורך דין %s — התחילו מהתחום, קראו את פרטי הפרופיל והשאירו פנייה רק אחרי שהנתונים מתאימים לצורך שלכם.', $area_term->name );
 }
 
 // Get all cities and practice areas for filters

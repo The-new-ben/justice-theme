@@ -221,3 +221,78 @@ function justice_theme_repair_seeded_menu_area_urls(): void {
 	update_option( 'justice_menu_area_urls_repaired_v1', time(), false );
 }
 add_action( 'admin_init', 'justice_theme_repair_seeded_menu_area_urls' );
+
+/**
+ * Keep the public primary navigation commercially useful even when wp-admin has
+ * an incomplete assigned menu. This does not replace the CMS menu; it only adds
+ * missing portal-critical links until the menu is fixed in wp-admin.
+ *
+ * @param string $items Menu HTML.
+ * @param object $args  Menu arguments.
+ * @return string
+ */
+function justice_theme_append_customer_primary_menu_items( string $items, $args ): string {
+	if ( empty( $args->theme_location ) || 'primary' !== $args->theme_location ) {
+		return $items;
+	}
+
+	$required = array(
+		array(
+			'needle' => '/lawyers/',
+			'html'   => '<li class="menu-item"><a href="' . esc_url( home_url( '/lawyers/' ) ) . '">עורכי דין</a></li>',
+		),
+		array(
+			'needle' => 'practice-areas-menu',
+			'html'   => justice_theme_primary_practice_menu_html(),
+		),
+		array(
+			'needle' => '/articles/',
+			'html'   => '<li class="menu-item"><a href="' . esc_url( home_url( '/articles/' ) ) . '">מאמרים משפטיים</a></li>',
+		),
+		array(
+			'needle' => '#ask-lawyer',
+			'html'   => '<li class="menu-item"><a href="' . esc_url( home_url( '/#ask-lawyer' ) ) . '">שאלות ותשובות</a></li>',
+		),
+		array(
+			'needle' => '/lawyer-registration/',
+			'html'   => '<li class="menu-item"><a href="' . esc_url( home_url( '/lawyer-registration/' ) ) . '">הצטרפות עורכי דין</a></li>',
+		),
+	);
+
+	foreach ( $required as $item ) {
+		if ( false === strpos( $items, $item['needle'] ) ) {
+			$items .= $item['html'];
+		}
+	}
+
+	return $items;
+}
+add_filter( 'wp_nav_menu_items', 'justice_theme_append_customer_primary_menu_items', 20, 2 );
+
+/**
+ * Build the hard minimum practice-area dropdown requested for customer-facing nav.
+ *
+ * @return string
+ */
+function justice_theme_primary_practice_menu_html(): string {
+	$areas = array(
+		'משפחה וגירושין'  => '/lawyers/?area=family-law',
+		'פלילי'           => '/lawyers/?area=criminal-law',
+		'תעבורה'          => '/lawyers/?area=traffic-law',
+		'מקרקעין'         => '/lawyers/?area=real-estate-law',
+		'נזיקין'          => '/lawyers/?area=torts',
+		'עבודה'           => '/lawyers/?area=labor-law',
+		'ירושה וצוואות'   => '/lawyers/?area=inheritance',
+		'רשלנות רפואית'  => '/lawyers/?area=medical-malpractice',
+		'מיסים'           => '/lawyers/?area=tax-law',
+		'סייבר ופרטיות'  => '/lawyers/?area=cyber-privacy',
+	);
+
+	$html = '<li class="menu-item menu-item-has-children practice-areas-menu"><a href="' . esc_url( home_url( '/lawyers/' ) ) . '">תחומי משפט</a><ul class="sub-menu">';
+	foreach ( $areas as $label => $path ) {
+		$html .= '<li class="menu-item"><a href="' . esc_url( home_url( $path ) ) . '">' . esc_html( $label ) . '</a></li>';
+	}
+	$html .= '</ul></li>';
+
+	return $html;
+}

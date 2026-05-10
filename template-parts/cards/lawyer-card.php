@@ -9,6 +9,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! function_exists( 'justice_theme_lawyer_card_public_city_label' ) ) {
+	/**
+	 * Convert setup slugs/demo terms into visitor-facing Hebrew where possible.
+	 */
+	function justice_theme_lawyer_card_public_city_label( string $name, string $slug = '' ): string {
+		$map = array(
+			'tel-aviv'      => 'תל אביב',
+			'jerusalem'     => 'ירושלים',
+			'haifa'         => 'חיפה',
+			'petah-tikva'   => 'פתח תקווה',
+			'ramat-gan'     => 'רמת גן',
+			'beer-sheva'    => 'באר שבע',
+			'rishon-lezion' => 'ראשון לציון',
+			'netanya'       => 'נתניה',
+			'ashdod'        => 'אשדוד',
+			'holon'         => 'חולון',
+		);
+
+		$key = $slug ?: sanitize_title( $name );
+		if ( isset( $map[ $key ] ) ) {
+			return $map[ $key ];
+		}
+
+		return preg_match( '/^[a-z0-9-]+$/i', $name ) ? ucwords( str_replace( '-', ' ', $name ) ) : $name;
+	}
+}
+
 $lawyer_id       = get_the_ID();
 $firm            = get_post_meta( $lawyer_id, 'firm_name', true );
 $phone           = get_post_meta( $lawyer_id, 'phone', true );
@@ -17,13 +44,17 @@ $experience      = get_post_meta( $lawyer_id, 'years_experience', true );
 $languages       = get_post_meta( $lawyer_id, 'languages', true );
 $bio_short       = get_post_meta( $lawyer_id, 'bio_short', true );
 $plan            = get_post_meta( $lawyer_id, 'plan_type', true );
+$subscription    = get_post_meta( $lawyer_id, 'subscription_status', true );
 $verified        = get_post_meta( $lawyer_id, 'verification_status', true );
+$source_type     = get_post_meta( $lawyer_id, 'source_type', true );
+$internal_notes  = get_post_meta( $lawyer_id, 'internal_notes', true );
 $review_count    = (int) get_post_meta( $lawyer_id, 'review_count', true );
 $average_rating  = (float) get_post_meta( $lawyer_id, 'average_rating', true );
-$is_paid         = in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
+$is_seed_data    = 'seed' === $source_type || false !== stripos( (string) $internal_notes, 'SEED_DATA' );
+$is_paid         = ! $is_seed_data && 'active' === $subscription && in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
 $cities          = get_the_terms( $lawyer_id, 'city' );
 $areas           = get_the_terms( $lawyer_id, 'practice-areas' );
-$city_name       = ( $cities && ! is_wp_error( $cities ) ) ? $cities[0]->name : '';
+$city_name       = ( $cities && ! is_wp_error( $cities ) ) ? justice_theme_lawyer_card_public_city_label( $cities[0]->name, $cities[0]->slug ) : '';
 $area_names      = ( $areas && ! is_wp_error( $areas ) ) ? wp_list_pluck( array_slice( $areas, 0, 3 ), 'name' ) : array();
 $phone_link      = $phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ) : '';
 $whatsapp_digits = $whatsapp ? preg_replace( '/[^0-9]/', '', $whatsapp ) : '';
@@ -80,9 +111,9 @@ $whatsapp_link   = $whatsapp_digits ? 'https://wa.me/972' . ltrim( $whatsapp_dig
 		</div>
 
 		<div class="lawyer-card__actions">
-			<a class="button button--primary" href="<?php the_permalink(); ?>">צפייה במיני-סייט</a>
+			<a class="button button--primary" href="<?php the_permalink(); ?>">צפייה בפרופיל</a>
 			<?php if ( $whatsapp_link ) : ?>
-				<a class="button button--ghost" href="<?php echo esc_url( $whatsapp_link ); ?>" target="_blank" rel="noopener">WhatsApp</a>
+				<a class="button button--ghost" href="<?php echo esc_url( $whatsapp_link ); ?>" target="_blank" rel="noopener">וואטסאפ</a>
 			<?php elseif ( $phone_link ) : ?>
 				<a class="button button--ghost" href="<?php echo esc_url( $phone_link ); ?>">שיחה</a>
 			<?php else : ?>

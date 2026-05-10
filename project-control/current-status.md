@@ -4,6 +4,9 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 
 ## VERIFIED
 - Repo is available at `C:\Users\janana\jutice-theme` and tracks `origin/main`.
+- Claude/Opus review is now converted into an explicit response file at `project-control/claude-opus-review-response.md`.
+- Customer-facing screenshots were captured for homepage, articles archive, single article, lawyer archive, divorce pillar and a fake 404 URL under `project-control/visual-evidence/`.
+- PHP lint passed locally for 120 PHP files after the customer-facing code pass.
 - Live public recheck on 2026-05-10 11:48 Asia/Jerusalem returned HTTP 200 for the homepage and `/lawyers/?area=family-law`.
 - Live public recheck VERIFIED that canonical tags and the header topic strip are present on the public homepage.
 - PHP 8.3 is installed locally through Winget and can be run directly from the Winget package path in this session.
@@ -15,6 +18,8 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Live profile links currently use Hebrew URL slugs; example observed: `/lawyers/%D7%A2%D7%95%D7%93-%D7%9E%D7%90%D7%99%D7%94-%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92/`.
 - Live homepage DOM snapshot did not show obvious casino/gambling terms in this check.
 - Google Search Console URL opened to the public/about screen; `jus-tice.co.il` property access was NOT VERIFIED in this browser check.
+- Public wp-admin check redirects to `wp-login.php`, so authenticated admin work is BLOCKED from the current repo shell session unless an authenticated browser/connector is available.
+- Public uPress filemanager URL redirects to login/session flow, so direct uPress pull/filemanager work is BLOCKED from the current repo shell session.
 - Local theme has required WordPress files: `style.css`, `index.php`, `functions.php`, `header.php`, `footer.php`.
 - `assets/images/logo.png` exists in repo.
 - `assets/images/logo.png` is a dummy placeholder, not a usable final brand asset.
@@ -51,6 +56,15 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Latest repo commit `e511c00` is pushed to `origin/main`, but live public HTML does not yet show every fix from that commit.
 
 ## FIXED IN THIS PASS
+- Homepage hero copy is now more direct: it speaks to users who need a lawyer or legal direction, not only generic portal language.
+- Primary navigation now has a code safety layer that appends missing customer-critical links when the assigned WordPress menu is too thin.
+- Added a temporary SVG favicon fallback when WordPress Site Icon is not configured.
+- Breadcrumbs now have premium CSS/RTL treatment instead of visible ordered-list numbering.
+- Single article pages now show a short intent panel before the body: problem, lawyer threshold, and how Jus-Tice helps.
+- Article archive copy now frames guides by user problem and anti-cannibalization.
+- Lawyer cards no longer show a sponsored badge unless the profile has an active paid subscription and is not seed/demo data.
+- Common city slugs in lawyer cards are mapped to Hebrew display labels where possible.
+- 404 template copy is now Hebrew and user-friendly, although live routing still needs investigation.
 - Added tracked `page-home.php` because the live homepage is assigned to the `page-home.php` page template, not only `front-page.php`.
 - Removed failed package artifacts from the previous interrupted ZIP attempt.
 - Added a canonical source candidate at `justice-core/justice-core.php` for repo review.
@@ -144,6 +158,9 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Live visual screenshot check ran again on 2026-05-10. Homepage returned 200 and latest repo markers (`brand-lockup--justice`, `hero__visual`, `article-card__placeholder--legal`) are present live, so GitHub/Upress sync is now VERIFIED for the latest theme changes.
 
 ## STILL BROKEN / RISK
+- LIVE VERIFIED STILL BROKEN: a fake URL (`/not-a-real-page-justice-qa/`) returned the homepage with HTTP 200 instead of a real 404; likely needs permalink/plugin/server inspection.
+- LIVE VERIFIED STILL WEAK: desktop primary menu currently shows only a thin assigned menu; code now mitigates this, but wp-admin menu assignment is still required for a clean permanent fix.
+- NEEDS LIVE VERIFICATION: breadcrumb CSS, menu augmentation, favicon fallback, article intent panel and lawyer-card badge/city cleanup after Upress pulls this pass.
 - NOT VERIFIED LIVE: Homepage ask-lawyer form still did not expose `admin-post.php` or `justice_submit_lead` in the public HTML check, so the newest lead-form wiring from `e511c00` has not been confirmed live.
 - NOT VERIFIED LIVE: `/lawyers/?area=family-law` returned 200 and canonical output, but did not expose `noindex` in the public HTML check, so the newest filtered-directory robots hardening from `e511c00` has not been confirmed live.
 - BLOCKED: Upress/GitHub pull/cache state is not directly verified from the repo-only workflow; live may need another Upress pull or cache refresh before these latest theme changes appear publicly.

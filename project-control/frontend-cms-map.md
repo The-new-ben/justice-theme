@@ -19,3 +19,27 @@ Date: 2026-05-09
 - City values should render Hebrew names, not slugs.
 - Footer should use menu locations or term queries where possible rather than hardcoded links.
 - Practice area terms need cleanup; live extract shows noisy/non-commercial terms.
+
+## 2026-05-10 Customer-Facing CMS Wiring Detail
+
+| Component | File path | Data source | Editable in wp-admin | Missing CMS connection | Required field / next action |
+|---|---|---|---|---|---|
+| Header logo | `template-parts/layout/site-header.php` | WordPress Custom Logo, fallback code lockup | YES | Old logo not found from repo | Verify Media Library and Site Identity |
+| Favicon/site icon | `inc/seo.php`, `assets/images/favicon.svg` | WordPress Site Icon, fallback SVG | YES | Final icon not uploaded | Upload final icon or keep fallback TEMPORARY |
+| Primary menu | `site-header.php`, `inc/menu-seed.php` | WP `primary` menu plus code augmentation | YES | Live assigned menu is too thin | Assign full menu in wp-admin |
+| Mobile menu | `navigation.js`, WP menu | Same primary/mobile menu | YES | Open-state content not visually verified | Test hamburger after deploy |
+| Footer menu | `site-footer.php` | Mostly hardcoded links + Customizer contact | PARTIAL | Not fully menu-location controlled | Move footer quick links to WP menu later |
+| Hero title/subtitle | `template-parts/sections/hero.php` | Hardcoded copy | NO | Needs page/customizer field | Later expose via front-page fields |
+| Hero CTAs | `hero.php` | Hardcoded URLs | NO | Needs CMS selection | Later expose via front-page fields |
+| Practice cards | section/card templates | `practice-areas` taxonomy | YES | Taxonomy needs cleanup | Audit noisy terms and descriptions |
+| Lawyer cards | `template-parts/cards/lawyer-card.php` | `justice_lawyer` CPT/meta/taxonomies | YES | Demo data still public live | Draft demo lawyers; verify Maya slug |
+| Article cards | `template-parts/cards/article-card.php` | `articles` CPT/post fields | YES | Missing source/author/reviewer for many old posts | Add editorial metadata fields |
+| Breadcrumbs | `inc/breadcrumbs.php` + CSS | WP query hierarchy | NO | Visual polish needed live | Recheck after deploy |
+| Lead form | `ask-lawyer.php`, lead handlers | `admin-post.php`, `justice_lead` CPT/meta | PARTIAL | Live wiring not verified | Submit test lead after deploy |
+| Footer brand block | `site-footer.php` | Custom logo + Customizer contact | PARTIAL | Description hardcoded | Later expose via Customizer |
+| Lawyer profile fields | `single-justice_lawyer.php` | lawyer CPT meta | YES | Photo/video/social/reviews not complete for live profiles | Fill Maya profile in wp-admin |
+| Article author/reviewer | `single-articles.php` | WP author + review meta | PARTIAL | Reviewer/person authority incomplete | Add visible reviewer fields |
+| Category intro text | `taxonomy-practice-areas.php` | Taxonomy description fallback | YES | Many terms likely empty | Add Hebrew descriptions per priority area |
+| Homepage sections | `front-page.php`, `page-home.php` | Mixed CPT/taxonomy/hardcoded/page content | PARTIAL | Hero/value copy not editable | Add ACF/customizer/front-page fields later |
+| SEO title/meta | `inc/seo.php` | Query context + excerpt | PARTIAL | No SEO plugin/GSC feedback loop | Connect GSC and decide SEO plugin |
+| Schema fields | `inc/schema.php` | Site/lawyer/article data | PARTIAL | Lawyer schema needs live profile validation | Validate Maya profile schema |

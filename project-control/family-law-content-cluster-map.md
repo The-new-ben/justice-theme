@@ -5,6 +5,18 @@ Date: 2026-05-10
 - The first family-law repo draft set exists under `content-drafts/`.
 - The cluster is built around one commercial pillar URL and five supporting URLs.
 - Maya Rotenberg is the only verified lawyer/client to connect to this cluster.
+- All six first-cluster drafts are now long-form repo drafts.
+- All six first-cluster drafts have source-audit files.
+
+## Cluster Readiness Snapshot
+| URL | Words | Draft Status | Source Audit | Publication Status |
+|---|---:|---|---|---|
+| `/divorce-lawyer/` | 5,080 | DRAFT_5000_WORD_CLASS | `divorce-pillar-source-audit.csv` | BLOCKED: legal review + browser source verification |
+| `/consensual-divorce/` | 3,515 | DRAFT_3500_WORD_CLASS | `consensual-divorce-source-audit.csv` | BLOCKED: legal review + browser source verification |
+| `/divorce-mediation/` | 3,522 | DRAFT_3500_WORD_CLASS | `divorce-mediation-source-audit.csv` | BLOCKED: legal review + browser source verification |
+| `/child-support/` | 5,019 | DRAFT_5000_WORD_CLASS_SOURCE_AUDITED | `child-support-source-audit.csv` | BLOCKED: legal review + browser source verification |
+| `/child-custody/` | 4,575 | DRAFT_4500_WORD_CLASS_SOURCE_AUDITED | `child-custody-source-audit.csv` | BLOCKED: legal review + browser source verification |
+| `/divorce-property-division/` | 4,553 | DRAFT_4500_WORD_CLASS_SOURCE_AUDITED | `property-division-source-audit.csv` | BLOCKED: legal review + browser source verification |
 
 ## Primary Pillar
 - URL: `/divorce-lawyer/`
@@ -47,6 +59,22 @@ Do not publish until:
 - No duplicate H1/title exists.
 - Maya profile block pulls from CMS and does not make unverified claims.
 - Lead form/source tracking works.
+
+## Import Order
+1. Import `/divorce-lawyer/` as draft only.
+2. Import `/consensual-divorce/` as draft only.
+3. Import `/divorce-mediation/` as draft only.
+4. Import `/child-support/` as draft only.
+5. Import `/child-custody/` as draft only.
+6. Import `/divorce-property-division/` as draft only.
+
+## BLOCKED Before Publication
+- NOT VERIFIED: Maya/legal review of all six drafts.
+- NOT VERIFIED: browser verification for gov.il sources that block scripted checks.
+- NOT VERIFIED: live CMS import via `Tools > Jus-Tice Content Drafts`.
+- NOT VERIFIED: live internal links and breadcrumbs after import.
+- NOT VERIFIED: live Maya Rotenberg profile slug `/lawyers/advocate-maya-rotenberg/`.
+- NOT VERIFIED: GSC data for traffic-risk and cannibalization.
 
 ## Next Drafts After This Cluster
 - `/family-dispute-resolution/`

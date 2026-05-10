@@ -124,6 +124,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Family-law cluster map now exists at `project-control/family-law-content-cluster-map.md`, with anti-cannibalization roles and internal-link rules for the divorce pillar and first five supporting drafts.
 - Content inventory and title audit now include the first six repo-maintained family-law drafts with word counts, status, intent, duplicate-risk notes, and review/import actions.
 - Divorce pillar source audit now exists at `project-control/divorce-pillar-source-audit.csv`. It maps official/legal-reference sources to sensitive sections and keeps unresolved legal claims blocked from publication. Kol Zchut source URLs were direct-check verified where possible; gov.il direct checks returned 403 and remain browser/source-review items.
+- Family-law publication readiness file now exists at `project-control/family-law-publication-readiness.csv`; all six first-cluster drafts are mapped with word counts, source-audit files, CMS module requirements, blockers and import order.
 
 ## NEXT BEST ACTION
 1. Verify the exact GitHub sync target and active plugin path.
@@ -134,6 +135,6 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 6. Verify `/legal-tools/`, `/legal-tools/ai-intake/`, and one test LegalTech request in admin.
 7. Commit only repo-safe changes; do not create ZIPs.
 8. Export live URL/slug inventory before changing any Hebrew slugs; fill `url-migration-map.csv`, then create approved 301 redirects for every changed URL.
-9. Run lawyer/legal review and browser source verification for `/child-support/`, then import as draft only through the admin content-draft importer.
-10. Pull latest in Upress and visit `/wp-admin/` once to seed draft pillar pages, then expand/review/publish `/divorce-lawyer/` first as the first 5,000-word-class pillar.
+9. Run lawyer/legal review and browser source verification for the six family-law drafts listed in `project-control/family-law-publication-readiness.csv`, then import as draft only through the admin content-draft importer.
+10. Pull latest in Upress and visit `/wp-admin/` once to seed/import draft pillar pages; publish `/divorce-lawyer/` first only after review gates pass.
 11. Verify live homepage after Upress pull; expected signs are the blinking red-dot Jus-Tice fallback, richer hero visual layer, and upgraded article-card placeholders.

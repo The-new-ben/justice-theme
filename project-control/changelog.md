@@ -105,6 +105,12 @@
 - Mapped resource balancing, excluded assets, pension division, tax guidance, family-dispute procedure, interim relief, rupture date, premarital home, intent to share, agreements, inheritances/gifts, business/options, debts and hidden-assets warnings to source candidates or legal-review blockers.
 - Kol Zchut source candidates returned HTTP 200; gov.il source candidates were search-verified but require browser verification because scripted checks returned 403.
 
+**[HIGH] Added family-law publication readiness tracking**
+- Files: `project-control/family-law-content-cluster-map.md`, `project-control/family-law-publication-readiness.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
+- Updated the family-law cluster map with current word counts, source-audit files, publication blockers and draft-only import order.
+- Added a CSV readiness tracker for all six first-cluster drafts, including CMS module requirements and exact next actions.
+- Status remains BLOCKED for publication until legal review, browser source verification and live CMS draft import are completed.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

@@ -3,6 +3,10 @@ Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
 ## LATEST CODE STATUS - 2026-05-10
+- FIXED IN CODE: Added a lightweight anti-spam guard for public legal lead forms. Shared lead forms, homepage ask-lawyer and lawyer mini-site inquiry now include a hidden honeypot and timestamp field.
+- SAFETY: The guard runs before the plugin lead handler; filled honeypot or impossible timing is blocked without creating a CRM lead, while missing timestamp remains allowed for old cached forms.
+- VERIFIED: PHP lint passed locally for 127 PHP files after the lead spam guard.
+- NOT VERIFIED LIVE: requires uPress pull and a controlled test lead submission.
 - FIXED IN CODE: Added a global publication safety gate for public posts/pages/articles. It blocks publish/future saves if internal markers like `NOT VERIFIED`, `project-control/`, `Source audit:`, `GSC`, `CMS`, `CRM`, slug metadata, keyword metadata, or owner/team notes remain in the body.
 - SAFETY: Draft/private editing remains allowed so internal notes can be preserved in draft-only editorial notes.
 - VERIFIED: PHP lint passed locally for 126 PHP files after the publication safety gate.

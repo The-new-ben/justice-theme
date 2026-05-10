@@ -25,6 +25,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<input type="hidden" name="lead_area" value="general">
 			<input type="hidden" name="lead_urgency" value="normal">
 			<?php wp_nonce_field( 'justice_submit_lead', 'justice_lead_nonce' ); ?>
+			<?php justice_theme_render_lead_spam_fields(); ?>
 			<div class="ask-lawyer__fields">
 				<div class="ask-lawyer__field">
 					<label for="ask-name"><?php esc_html_e( 'שם', 'justice-theme' ); ?></label>

@@ -12,7 +12,7 @@ Date: 2026-05-09
 | Featured lawyers | `template-parts/sections/featured-lawyers.php` | `justice_lawyer` posts | VERIFIED code |
 | Lawyer cards | `template-parts/cards/lawyer-card.php` | lawyer meta + taxonomies | VERIFIED code |
 | Latest articles | `template-parts/sections/latest-articles.php` | `articles` CPT intended | NEEDS FINAL CHECK |
-| Lead form | `template-parts/forms/lead-form.php` | `admin-post.php` -> plugin handler | VERIFIED code |
+| Lead form | `template-parts/forms/lead-form.php` + `inc/lead-spam-guard.php` | `admin-post.php` -> plugin handler with theme-level honeypot/timing guard | VERIFIED code |
 | Footer links | `template-parts/layout/site-footer.php` | Mostly hardcoded links + customizer contact | VERIFIED code |
 
 ## Gaps

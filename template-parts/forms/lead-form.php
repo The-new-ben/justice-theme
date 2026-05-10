@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 <form class="lead-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 	<input type="hidden" name="action" value="justice_submit_lead">
 	<?php wp_nonce_field( 'justice_submit_lead', 'justice_lead_nonce' ); ?>
+	<?php justice_theme_render_lead_spam_fields(); ?>
 
 	<div class="lead-form__grid">
 		<p class="lead-form__field">

@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Lead form spam guard
+
+- FIXED IN CODE: Added `inc/lead-spam-guard.php` with a honeypot and timing guard that runs before the lead plugin handler.
+- FIXED IN CODE: Shared lead form, homepage ask-lawyer form and lawyer mini-site inquiry form now include the hidden anti-spam fields.
+- SAFETY: Missing timing field is allowed for compatibility with older cached forms; filled honeypot or impossible timing is blocked and redirected without creating a lead.
+- VERIFIED: PHP lint passed locally for 127 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull and a controlled test lead submission.
+
 ## 2026-05-10 - Public publication safety gate
 
 - FIXED IN CODE: Added `inc/publication-safety.php`, a hard gate that blocks `publish`/`future` saves for public posts/pages/articles when internal project markers are still present.

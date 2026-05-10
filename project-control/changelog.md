@@ -85,8 +85,8 @@
 
 **[HIGH] Expanded child-custody supporting draft**
 - Files: `content-drafts/child-custody-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
-- Expanded `/child-custody/` from about 1,222 words to about 2,888 words.
-- Added parenting schedule models, holidays, logistics, parent communication rules, risk situations, professional factors, relocation/school-change issues, CRM intake fields, LegalTech parenting-plan concept, common mistakes and anti-cannibalization links.
+- Expanded `/child-custody/` from about 1,222 words to about 4,008 words across two sequential passes.
+- Added parenting schedule models, holidays, logistics, parent communication rules, risk situations, professional factors, relocation/school-change issues, age bands, temporary-vs-permanent arrangement cautions, breach/enforcement cautions, proof/evidence guidance, urgent situations, CRM intake fields, LegalTech parenting-plan concept, Maya mini-site modules, CMS layout, common mistakes and anti-cannibalization links.
 - Status remains NOT VERIFIED for legal accuracy and not ready to publish.
 
 **[MEDIUM] Rechecked live header**

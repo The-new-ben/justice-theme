@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Session: CMS wiring hardening
+
+### FIXED
+
+**[HIGH] Hardened article connected-lawyer lookup**
+- Files: `inc/template-tags.php`, `single-articles.php`
+- Added `justice_theme_get_connected_lawyer_by_slug()` for article templates and future CMS blocks.
+- The resolver first uses the canonical English slug, then safely falls back to known Maya Rotenberg legacy Hebrew slug/title lookup while the live URL migration is still pending.
+- Article pages now avoid dropping to the generic contact sidebar when imported family-law drafts point to `advocate-maya-rotenberg` but live data has not fully migrated yet.
+- VERIFIED in repo. LIVE NOT VERIFIED until Upress pulls the commit and an imported article draft is previewed.
+
 ## 2026-05-09 - Session: logo fallback and content depth correction
 
 ### FIXED

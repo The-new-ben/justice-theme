@@ -19,8 +19,8 @@ while ( have_posts() ) :
 	$draft_word_count  = (int) get_post_meta( get_the_ID(), 'repo_content_draft_word_count', true );
 	$repo_draft_status = (string) get_post_meta( get_the_ID(), 'repo_content_draft_status', true );
 
-	if ( $connected_slug && post_type_exists( 'justice_lawyer' ) ) {
-		$connected_lawyer = get_page_by_path( $connected_slug, OBJECT, 'justice_lawyer' );
+	if ( $connected_slug && function_exists( 'justice_theme_get_connected_lawyer_by_slug' ) ) {
+		$connected_lawyer = justice_theme_get_connected_lawyer_by_slug( $connected_slug );
 	}
 	?>
 

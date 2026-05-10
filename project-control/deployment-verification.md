@@ -20,6 +20,13 @@ Latest recheck after commit `23e3807`:
 - All seven family-law URLs still expose internal markers publicly.
 - Interpretation: the lawyer-directory guidance/filter improvements are pushed to GitHub, but live WordPress is still not serving the newest `main` code.
 
+Latest recheck after commit `ae8726b`:
+
+- Homepage PHP marker: NOT VERIFIED.
+- Static theme marker at `/wp-content/themes/justice-theme/deployment-marker.txt`: NOT VERIFIED.
+- All seven family-law URLs still expose internal markers publicly.
+- Interpretation: canonical menu/filter slug cleanup is pushed to GitHub, but live WordPress is still not serving the newest `main` code.
+
 Evidence from `tools/check-live-deployment.ps1` after commit `542aeef`:
 
 - Homepage PHP marker: NOT VERIFIED.

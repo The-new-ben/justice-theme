@@ -9,7 +9,7 @@
 - HARDENED: UTM fields and lead-status saves now unslash before sanitization, and lead-status saves now check edit permission.
 - SCOPE: Patched all three plugin-like folders (`justice-core`, `ultra-justice-engine`, `ultra-justice`) because the active live plugin path is still not fully verified.
 - VERIFIED: PHP lint passed locally for 127 PHP files.
-- NOT VERIFIED LIVE: requires uPress pull and a controlled test submission from Maya Rotenberg's mini-site.
+- NOT VERIFIED LIVE: post-push checker after commit `31a0026` still shows homepage PHP marker absent, static theme marker absent, and family-law pages dirty. Requires uPress pull and a controlled test submission from Maya Rotenberg's mini-site.
 
 ## 2026-05-10 - Lead form spam guard
 

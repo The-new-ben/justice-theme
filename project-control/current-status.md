@@ -9,6 +9,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - SCOPE: Applied the same lead-routing patch to `justice-core`, `ultra-justice-engine`, and `ultra-justice` because the active live plugin folder is still not definitively verified.
 - VERIFIED: PHP lint passed locally for 127 PHP files after the lead-routing patch.
 - NOT VERIFIED LIVE: requires uPress pull and one controlled lead submission from a lawyer mini-site.
+- LIVE RECHECK AFTER PUSH `31a0026`: deployment marker remains absent and family-law pages remain dirty. Lead routing is pushed, but not live-verified.
 - FIXED IN CODE: Added a lightweight anti-spam guard for public legal lead forms. Shared lead forms, homepage ask-lawyer and lawyer mini-site inquiry now include a hidden honeypot and timestamp field.
 - SAFETY: The guard runs before the plugin lead handler; filled honeypot or impossible timing is blocked without creating a CRM lead, while missing timestamp remains allowed for old cached forms.
 - VERIFIED: PHP lint passed locally for 127 PHP files after the lead spam guard.

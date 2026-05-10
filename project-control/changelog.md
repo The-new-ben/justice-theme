@@ -96,8 +96,8 @@
 
 **[HIGH] Expanded divorce-property-division supporting draft**
 - Files: `content-drafts/divorce-property-division-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
-- Expanded `/divorce-property-division/` from about 1,068 words to about 3,801 words across two sequential passes.
-- Added asset map, rupture-date caution, prenuptial agreement review, premarital-home issues, inheritance/gifts, pension documentation, business/company/self-employed issues, tech options, family-vs-personal debts, hidden-asset warning signs, asset table, staged workflow, expert roles, home-sale alternatives, common mistakes, urgency detection, CRM intake fields, lawyer monetization modules, anti-cannibalization boundaries, LegalTech property-map concept and CMS structure.
+- Expanded `/divorce-property-division/` from about 1,068 words to about 4,500 words across three sequential passes.
+- Added asset map, rupture-date caution, prenuptial agreement review, premarital-home issues, inheritance/gifts, pension documentation, business/company/self-employed issues, tech options, family-vs-personal debts, hidden-asset warning signs, asset table, staged workflow, expert roles, home-sale alternatives, common mistakes, urgency detection, CRM intake fields, lawyer monetization modules, decision paths, publication gates, follow-up cluster plan, anti-cannibalization boundaries, LegalTech property-map concept and CMS structure.
 - Status remains NOT VERIFIED for legal/financial accuracy and not ready to publish.
 
 **[MEDIUM] Rechecked live header**

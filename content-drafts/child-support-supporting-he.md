@@ -1,7 +1,7 @@
 # מזונות ילדים: איך בודקים צרכים, הכנסות, זמני שהות וסיכונים לפני הסכם או תביעה
 
 Slug target: `/child-support/`  
-Status: PRODUCTION_DRAFT_V4_4500_WORD_CLASS
+Status: PRODUCTION_DRAFT_V4_4500_WORD_CLASS_SOURCE_AUDITED
 Target length: 4,500-6,000 words after legal/editorial/source review
 Connected pillar: `/divorce-lawyer/`  
 Connected lawyer: `advocate-maya-rotenberg`  
@@ -598,7 +598,12 @@ Secondary keywords: חישוב מזונות, מזונות במשמורת משו�
 
 ## מקורות ראשוניים
 
+- Source audit: `project-control/child-support-source-audit.csv`
+- הרשות השופטת: הרצאת פרטים בתיק מזונות - https://www.gov.il/he/service/lecture-on-food-claims
 - הרשות השופטת: בקשה ליישוב סכסוך במשפחה - https://www.gov.il/he/service/asking_for_family_dispute_settlements
+- ביטוח לאומי: מזונות - https://www.btl.gov.il/benefits/Alimony/Pages/default.aspx
+- ביטוח לאומי: בקשה לתשלום דמי מזונות - https://www.gov.il/he/service/child_support_application
+- כל זכות: תביעה לשינוי סכום מזונות ילדים - https://www.kolzchut.org.il/he/תביעה_לשינוי_סכום_מזונות_ילדים
 - מסמך ממשלתי: תביעת מזונות - https://www.gov.il/BlobFolder/policy/types-of-procedures/he/ClaimForChildWomanSupport.pdf
 - מקורות SERP סביב בע"מ 919/15, מחשבוני מזונות, מזונות במשמורת משותפת ומאמרי עורכי דין בתחום.
 - מקורות רלוונטיים מאתר Rotenberg Law הופיעו בתוצאות החיפוש ויש לבדוק שימוש זהיר ומאושר, משום שמאיה היא הלקוחה המאומתת והאתר שלה עשוי לשמש מקור/חומר רק לאחר אישור.
@@ -619,4 +624,4 @@ Secondary keywords: חישוב מזונות, מזונות במשמורת משו�
 - NOT VERIFIED: התאמה לפסיקה עדכנית.
 - NOT VERIFIED: GSC data.
 - NOT VERIFIED: בדיקת קניבליזציה מול תכני מזונות קיימים באתר.
-- READY NEXT: source audit, בדיקה משפטית, וחיבור ל-CMS כטיוטה בלבד.
+- READY NEXT: בדיקה משפטית, בדיקת מקורות ידנית בדפדפן, וחיבור ל-CMS כטיוטה בלבד.

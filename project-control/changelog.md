@@ -74,9 +74,14 @@
 
 **[HIGH] Expanded child-support supporting draft**
 - Files: `content-drafts/child-support-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
-- Expanded `/child-support/` from about 1,179 words to about 4,979 words across multiple sequential passes.
+- Expanded `/child-support/` from about 1,179 words to about 5,019 words across multiple sequential passes.
 - Added no-fake-calculator policy, intake model, medor, exceptional expenses, time-sharing, variable-income, agreement-clause, temporary-support, age-band, proof/evidence, modification, unmarried-parent, anti-cannibalization, cautious examples, FAQ, enforcement-caution, CMS-structure, CRM-routing, decision-path and LegalTech-tool guardrail sections.
 - Status remains NOT VERIFIED for legal accuracy and not ready to publish.
+
+**[HIGH] Added child-support source audit**
+- Files: `project-control/child-support-source-audit.csv`, `content-drafts/child-support-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
+- Mapped child-support procedure, National Insurance payment/collection rules, change-of-support guidance, 919/15, calculator policy, medor, age-band and time-sharing claims to source candidates or legal-review blockers.
+- Direct checks returned 200 for tested BTL/Kol Zchut URLs; gov.il service URLs returned 403 in scripted checks and require browser verification.
 
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Lawyer directory guidance and filters
+
+- FIXED IN CODE: Lawyer archive now shows a stronger public guidance layer explaining how visitors should choose a lawyer without fake ranking or guarantee language.
+- FIXED IN CODE: Directory filter dropdowns now include canonical fallback practice areas and cities even when live taxonomy data is sparse or fragmented.
+- FIXED IN CODE: Active filters now appear as chips with a clear-filters action, and the page shows a count of public-approved profiles.
+- FIXED IN CODE: Added a directory-level general inquiry CTA for users who do not know which lawyer/category fits.
+- VERIFIED: PHP lint passed locally for 125 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and visual recheck of `/lawyers/`.
+
 ## 2026-05-10 - Hebrew hreflang alternates
 
 - FIXED IN CODE: Public canonical pages now emit `hreflang="he"` and `hreflang="x-default"` alternate tags from `inc/seo.php`.

@@ -8,6 +8,7 @@ Date: 2026-05-10
 - Proposed slug: `/criminal-lawyer/`
 - Page type: pillar article / commercial-informational guide
 - Cluster: `criminal-law`
+- Repo draft length: 5,037 words after the 2026-05-10 expansion pass.
 
 ## Existing Overlap Found
 
@@ -37,7 +38,7 @@ Recommended sequence:
 
 ## Status
 
-- Current draft: repo-only.
+- Current draft: repo-only, 5,037-word-class public-facing Hebrew draft.
 - Live publication: not approved.
 - GSC traffic risk: UNKNOWN.
 - Legal review: required before import/publish.

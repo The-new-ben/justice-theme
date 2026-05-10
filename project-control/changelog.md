@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Criminal-law pillar 5,000-word expansion
+
+- EXPANDED: `content-drafts/criminal-lawyer-pillar-he.md` from about 4,110 words to 5,037 words.
+- CONTENT: Added public-facing sections for practical hearing preparation, the difference between pre-investigation advice/lawyer accompaniment/full case representation, action paths by procedural stage, first-consultation questions, and expanded FAQ.
+- CLEANUP: Reworded the criminal cluster section so it reads as visitor guidance instead of internal editorial planning.
+- SOURCE AUDIT: Corrected the investigation/youth source-audit split so adult consultation-right wording remains legal-review gated while youth-specific Kol Zchut material is tracked separately.
+- UPDATED: content inventory and 5,000-word article brief now mark the draft as `DRAFT_V2_5000_WORD_CLASS_SOURCE_AUDITED`.
+- SAFETY: No live publication, redirect or CMS import was performed.
+- VERIFIED: local word count is 5,037 words and the public-body marker scan found no internal project notes.
+- NOT VERIFIED: legal review, browser source verification, GSC traffic-risk scoring and old-content merge comparison remain required before CMS import/publication.
+
 ## 2026-05-10 - Criminal-law pillar draft
 
 - CREATED: `content-drafts/criminal-lawyer-pillar-he.md`, a Hebrew public-facing draft for `/criminal-lawyer/`.

@@ -15,6 +15,10 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - LIVE VERIFIED BLOCKER: `/sitemap.xml`, `/wp-sitemap.xml`, and `/post-sitemap.xml` redirect to the homepage instead of returning XML.
 - LIVE VERIFIED BLOCKER: active child sitemaps list many `http://` URLs: page sitemap 10/11 HTTP, articles sitemap 1 has 238/252 HTTP, articles sitemap 2 has 217/217 HTTP, and practice-area sitemap has 34/48 HTTP.
 - DOCUMENTED: sitemap evidence is recorded in `project-control/sitemap-live-verification.csv`, `project-control/sitemap-strategy.md`, and `project-control/robots-htaccess-review.md`.
+- CREATED: first no-URL-change remediation batch at `project-control/no-url-change-remediation-batch-001.md` and `project-control/no-url-change-remediation-batch-001.csv`.
+- DOCUMENTED: media/document policy, legacy CPT migration review, and divorce mediation merge review now exist in `project-control/media-document-policy.md`, `project-control/legacy-cpt-migration-review.md`, and `project-control/divorce-mediation-merge-review.md`.
+- VERIFIED: `/divorce-mediation-basics/` already exists and overlaps `/divorce-mediation/`; no duplicate publication or redirect is approved.
+- DECISION: next safe unblocked task is a no-URL-change homepage/directory SEO batch, not article publication or URL migration.
 
 ## LATEST CONTENT AUDIT STATUS - 2026-05-10
 - VERIFIED: GSC/GA4 continuous SEO intelligence baseline was expanded beyond keyword filters into Page indexing, Sitemaps, Core Web Vitals, HTTPS, Links overview, GA4 acquisition, GA4 events, and GA4 pages/screens.

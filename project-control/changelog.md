@@ -22,6 +22,18 @@
 - DECISION: URL migration remains blocked until sitemap generator settings/base URL are corrected and GSC is submitted the real active sitemap URL.
 - SAFETY: no sitemap settings, redirects, robots rules, public URLs, content bodies, or CMS records were changed.
 
+## 2026-05-10 - No-URL-change remediation batch 001
+
+- CREATED: `project-control/no-url-change-remediation-batch-001.md`.
+- CREATED: `project-control/no-url-change-remediation-batch-001.csv`.
+- CREATED: `project-control/media-document-policy.md`.
+- CREATED: `project-control/legacy-cpt-migration-review.md`.
+- CREATED: `project-control/divorce-mediation-merge-review.md`.
+- VERIFIED: `/divorce-mediation-basics/` exists as a 1,045-word duplicate-risk page and overlaps `/divorce-mediation/`.
+- VERIFIED: `/family-mediation-updated-trends/` is a much deeper 20,334-word mediation/trends asset that should be reviewed before merging or redirecting mediation content.
+- DECISION: media files, legacy CPT URLs, divorce mediation duplicates and high-risk old Hebrew URLs are review/merge candidates, not delete/redirect candidates.
+- SAFETY: no public content, URLs, redirects, noindex rules, sitemap settings or CMS records were changed.
+
 ## 2026-05-10 - Pretrial-detention supporting draft
 
 ## 2026-05-10 - Continuous GSC/GA4 SEO intelligence baseline

@@ -16,7 +16,8 @@
 4. DONE: Opened examples for "Alternate page with proper canonical tag" and "Not found (404)".
 5. DONE: Recorded examples in `project-control/gsc-indexing-review.csv`.
 6. DONE: classified sampled examples into media URL, legacy CPT, taxonomy/archive, redirect source, weak content, content candidate and technical issue in `project-control/gsc-indexing-example-classification.csv`.
-7. NEXT: create a no-URL-change remediation batch from the classified examples: media policy, legacy CPT comparison, and `/divorce-mediation-basics` merge review.
+7. DONE: created a no-URL-change remediation batch from the classified examples: media policy, legacy CPT comparison, and `/divorce-mediation-basics` merge review.
+8. NEXT: prepare the first no-URL-change homepage + directory SEO batch from GSC evidence and live visual QA.
 
 ### ACTION-SEO-002: Verify Sitemap And HTTPS Migration Blockers
 **Status:** PARTIAL - public endpoint verification completed; wp-admin/uPress settings still blocked
@@ -31,7 +32,7 @@
 7. UPDATED: `project-control/sitemap-strategy.md` and `project-control/robots-htaccess-review.md`.
 
 ### ACTION-SEO-003: No-URL-Change Homepage + Directory SEO Batch
-**Status:** QUEUED
+**Status:** NEXT
 **Why:** GSC shows broad `עורך דין` / `עורכי דין` intent is scattered. This can be improved before URL migration.
 **Actions:**
 1. Export/verify current homepage and `/lawyers/` title/H1/meta.

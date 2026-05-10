@@ -94,8 +94,29 @@ Second pass findings:
 Second pass evidence:
 - Screenshot: `project-control/visual-evidence/gsc-pass-2-traffic-law-2026-05-10.png`
 
+## Page-To-Query Pass
+
+Completed in third browser pass:
+- `https://jus-tice.co.il/real-estate-lawyer-cost-2025/`
+- `https://jus-tice.co.il/wp-content/uploads/2022/06/06102016_1.pdf`
+- `https://jus-tice.co.il/wp-content/uploads/2023/03/ATTORNEY-LIST-December-2017-1.pdf`
+- `https://jus-tice.co.il/wp-content/uploads/2023/05/Italy_List_of_English-speaking_lawyers.pdf`
+
+Page-to-query findings:
+- `/real-estate-lawyer-cost-2025/`: 2 clicks, 3.85K impressions, 0.1% CTR, average position 50.1. Queries are mostly sale/purchase apartment lawyer cost/payment intent, so this should become a strong support page for `/real-estate-lawyer/`, not the main pillar.
+- `06102016_1.pdf`: 99 clicks, 928 impressions, 10.7% CTR, average position 8.1. This is a real high-traffic media URL around Israel Securities Authority/personnel/contact queries. Do not remove during media cleanup.
+- `ATTORNEY-LIST-December-2017-1.pdf`: 19 clicks, 1.39K impressions, 1.4% CTR, average position 13.5. Search intent is foreign/Greece lawyer list, not core Israeli legal marketplace.
+- `Italy_List_of_English-speaking_lawyers.pdf`: 9 clicks, 1.35K impressions, 0.7% CTR, average position 11.1. Search intent is Italy/foreign lawyer list, not core Israeli legal marketplace.
+
+Page-to-query limitations:
+- Root homepage page filtering via direct browser URL behaved like broad property data, so it is not used as homepage-only proof.
+- One Hebrew article URL from the malpractice query-to-page pass did not return reliable page-filter data through direct URL filtering; retry via visible UI controls or API/export later.
+
+Page-to-query evidence:
+- Screenshot: `project-control/visual-evidence/gsc-page-query-pdf-06102016-2026-05-10.png`
+- CSV: `project-control/gsc-page-query-review.csv`
+
 Run the next same process for:
-- page-to-query check for `/`, `/real-estate-lawyer-cost-2025/`, malpractice fee article and the high-impression PDFs
 - `קניית דירה`
 - `חוזה מכר`
 - `רשלנות רפואית בלידה`

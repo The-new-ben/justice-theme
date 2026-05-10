@@ -1065,3 +1065,13 @@
 - FOUND: the malpractice Pages tab exposed a narrow fee article as the visible URL, so this cluster needs deeper export/manual review before URL decisions.
 - FOUND: `עורך דין נזיקין` and `עורך דין תעבורה` have low current volume in the checked filter, but both show weak-primary-page signals.
 - SAFETY: no content was rewritten, no pages were published, no URLs changed and no redirects were created.
+
+## 2026-05-10 GSC Page-To-Query Pass 1
+- CREATED: `project-control/gsc-page-query-review.csv`.
+- UPDATED: `project-control/gsc-browser-workflow.md` and `project-control/gsc-content-priorities.csv` with page-level findings.
+- SAVED EVIDENCE: `project-control/visual-evidence/gsc-page-query-pdf-06102016-2026-05-10.png`.
+- VERIFIED: `/real-estate-lawyer-cost-2025/` has 2 clicks, 3.85K impressions, 0.1% CTR and average position 50.1. Queries are mostly sale/purchase apartment lawyer cost/payment intent.
+- VERIFIED: `06102016_1.pdf` has 99 clicks, 928 impressions, 10.7% CTR and average position 8.1. It ranks for Israel Securities Authority/personnel/contact queries and must not be removed blindly.
+- VERIFIED: foreign-lawyer list PDFs for Greece and Italy have 1.39K and 1.35K impressions. They may be strategically off-focus, but they are real traffic assets and require owner/SEO review before noindex/delete/redirect decisions.
+- PARTIAL: direct page filtering for the root homepage behaved like broad property data, and direct filtering for one Hebrew malpractice article URL did not return reliable data. These require UI/manual/API recheck later.
+- SAFETY: no public content, URLs, redirects, sitemap settings or robots rules were changed.

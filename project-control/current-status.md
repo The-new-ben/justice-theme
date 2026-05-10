@@ -14,6 +14,8 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - FOUND FROM GSC: clean pillar URLs do not yet own the competitive criminal/family terms; Google is mostly seeing old Hebrew slugs, uploaded documents, homepage and scattered legacy pages.
 - FOUND FROM GSC: `עורך דין מקרקעין` has 153 impressions at average position 15.8, mostly landing on the homepage; this is a strong candidate for a controlled `/real-estate-lawyer/` pillar/internal-linking batch after inventory review.
 - FOUND FROM GSC: `עורך דין רשלנות רפואית` has 1.34K impressions, mainly birth/pregnancy/c-section variants, but the visible page mapping points to a narrow fee article; this needs a malpractice pillar plus deeper export/manual review before migration.
+- VERIFIED: page-to-query browser pass found `/real-estate-lawyer-cost-2025/` has 2 clicks, 3.85K impressions, 0.1% CTR and average position 50.1; it should support a future `/real-estate-lawyer/` pillar.
+- VERIFIED: high-traffic media URLs include `06102016_1.pdf` with 99 clicks / 928 impressions / 10.7% CTR / position 8.1, plus foreign-lawyer list PDFs for Greece and Italy with 1.39K and 1.35K impressions. These must not be deleted during cleanup without review.
 - BLOCKED: GSC API/download export, database/phpMyAdmin, wp-admin menu export and uPress server settings remain unavailable from this session without separate credentials/tooling.
 - DECISION: no URL changes, redirects, deletes, noindex actions, sitemap edits or content overwrites will happen until the maps are reviewed and approved.
 - RISK: `sitemap.xml` and `wp-sitemap.xml` returned homepage-like HTML in public shell checks, so sitemap generation must be verified/fixed before any migration.

@@ -7,6 +7,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - FIXED IN CODE: Existing WordPress menu repair is bumped to `justice_menu_area_urls_repaired_v2` so stale `torts`/`inheritance` menu items can be repaired even if the older v1 hook already ran.
 - VERIFIED: PHP lint passed locally for 125 PHP files after the menu slug cleanup.
 - NOT VERIFIED LIVE: requires uPress pull/cache refresh and menu repair hook execution.
+- LIVE RECHECK AFTER PUSH `3fdae22`: deployment marker remains absent and family-law pages remain dirty. Menu repair versioning is pushed, but not live-verified.
 - LIVE RECHECK AFTER PUSH `ae8726b`: deployment marker remains absent and family-law pages remain dirty. Canonical filter cleanup is pushed, but not live-verified.
 - FIXED IN CODE: Lawyer directory now has customer-facing guidance cards, canonical fallback filter options, active-filter chips, public-approved profile count, and a general inquiry CTA.
 - VERIFIED: PHP lint passed locally for 125 PHP files after the lawyer-directory changes.

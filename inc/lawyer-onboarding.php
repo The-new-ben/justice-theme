@@ -342,6 +342,10 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 				'key'   => 'pending_profile_review',
 				'value' => '1',
 			),
+			array(
+				'key'   => 'pending_content_review',
+				'value' => '1',
+			),
 		),
 	) );
 	?>
@@ -365,6 +369,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						<th>Plan</th>
 						<th>Mini-site Content</th>
 						<th>Pending Update</th>
+						<th>Content Request</th>
 						<th>Recent Notes</th>
 						<th>Status</th>
 						<th>Submitted</th>
@@ -377,6 +382,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$post_id = get_the_ID();
 						$status  = get_post_meta( $post_id, 'profile_status', true ) ?: get_post_status( $post_id );
 						$has_pending_update = '1' === (string) get_post_meta( $post_id, 'pending_profile_review', true );
+						$has_pending_content = '1' === (string) get_post_meta( $post_id, 'pending_content_review', true );
+						$content_article_id = (int) get_post_meta( $post_id, 'latest_content_request_article_id', true );
+						$content_topic      = (string) get_post_meta( $post_id, 'latest_content_request_topic', true );
 						$mini_fields = array(
 							'Headline' => get_post_meta( $post_id, 'profile_headline', true ),
 							'Services' => get_post_meta( $post_id, 'profile_services', true ),
@@ -417,6 +425,17 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 											<p style="margin:0 0 6px;"><strong><?php echo esc_html( $label ); ?>:</strong> <?php echo esc_html( wp_html_excerpt( (string) $value, 120, '...' ) ); ?></p>
 										<?php endif; ?>
 									<?php endforeach; ?>
+								<?php else : ?>
+									-
+								<?php endif; ?>
+							</td>
+							<td>
+								<?php if ( $has_pending_content ) : ?>
+									<span style="display:inline-block;margin:0 0 4px 4px;padding:2px 7px;border-radius:999px;background:#e7f0ff;color:#16427a;font-size:12px;">Pending content review</span>
+									<p style="margin:0 0 6px;"><?php echo esc_html( $content_topic ?: '-' ); ?></p>
+									<?php if ( $content_article_id ) : ?>
+										<a href="<?php echo esc_url( get_edit_post_link( $content_article_id, '' ) ); ?>">Review draft</a>
+									<?php endif; ?>
 								<?php else : ?>
 									-
 								<?php endif; ?>

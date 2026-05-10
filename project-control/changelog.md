@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[HIGH] Surfaced pending lawyer content requests in onboarding queue**
+- Files: `inc/lawyer-dashboard.php`, `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
+- Lawyer content requests now flag the lawyer profile with `pending_content_review`, latest article id, topic and submitted timestamp.
+- Lawyer Onboarding now includes profiles with pending content requests and shows a `Content Request` column with a review-draft link.
+- VERIFIED in repo. LIVE NOT VERIFIED until a content request is submitted after Upress pull.
+
 **[MEDIUM] Added audit notes for lawyer content requests**
 - Files: `inc/lawyer-dashboard.php`, `project-control/lawyer-onboarding-workflow.md`
 - Lawyer content request submissions now append a timestamped entry to the requesting lawyer profile `internal_notes` field.

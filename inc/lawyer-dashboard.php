@@ -92,6 +92,10 @@ function justice_theme_handle_lawyer_content_request(): void {
 	update_post_meta( $article_id, 'primary_keyword', $topic );
 
 	justice_theme_connect_content_request_to_lawyer_taxonomy( $article_id, $lawyer_id );
+	update_post_meta( $lawyer_id, 'pending_content_review', '1' );
+	update_post_meta( $lawyer_id, 'latest_content_request_article_id', (string) $article_id );
+	update_post_meta( $lawyer_id, 'latest_content_request_topic', $topic );
+	update_post_meta( $lawyer_id, 'latest_content_request_submitted_at', current_time( 'mysql' ) );
 	if ( function_exists( 'justice_theme_append_lawyer_internal_note' ) ) {
 		justice_theme_append_lawyer_internal_note( $lawyer_id, 'Lawyer requested signed content draft: ' . $topic );
 	}

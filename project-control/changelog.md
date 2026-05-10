@@ -729,4 +729,5 @@
 - VERIFIED LIVE: homepage, articles archive, single article, lawyer archive, divorce pillar and fake 404 URL were checked with public screenshots.
 - FIXED IN CODE: fallback favicon, stronger homepage/article/archive copy, primary-menu augmentation, breadcrumb CSS/RTL, article intent panel, safer lawyer-card sponsored badge logic and common city-label cleanup.
 - VERIFIED: PHP lint passed locally for 120 PHP files.
+- NOT LIVE YET: post-push public recheck did not find the new hero copy, fallback favicon, appended-menu marker or article intent panel. uPress pull/cache verification is required.
 - STILL BROKEN LIVE: fake 404 URL returns the homepage with HTTP 200; requires wp-admin/uPress routing investigation.

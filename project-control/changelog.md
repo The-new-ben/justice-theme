@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[HIGH] Repaired seeded menu lawyer-directory filter URLs**
+- Files: `inc/menu-seed.php`
+- Future menu seeding now uses canonical practice-area slugs for lawyer directory filters.
+- Added a narrow admin repair pass for existing menus that only replaces known stale URLs such as `/lawyers/?area=family` with `/lawyers/?area=family-law`.
+- VERIFIED in repo. LIVE NOT VERIFIED until Upress pulls the commit and wp-admin runs once.
+
 **[HIGH] Wired lawyer mini-sites to connected article metadata**
 - Files: `single-justice_lawyer.php`
 - Lawyer mini-site article feeds now prefer published `articles` records whose `connected_lawyer_slug` matches the lawyer profile slug.

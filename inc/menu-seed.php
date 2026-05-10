@@ -96,12 +96,12 @@ function justice_theme_seed_primary_menu() {
 
 	// ── Sub-items under תחומי משפט ──────────────────────────
 	$practice_area_children = array(
-		array( 'title' => 'משפחה וגירושין', 'url' => home_url( '/lawyers/?area=family' ), 'order' => 4 ),
-		array( 'title' => 'משפט פלילי',       'url' => home_url( '/lawyers/?area=criminal' ), 'order' => 5 ),
-		array( 'title' => 'מקרקעין ונדל"ן',   'url' => home_url( '/lawyers/?area=real-estate' ), 'order' => 6 ),
-		array( 'title' => 'דיני עבודה',        'url' => home_url( '/lawyers/?area=labor' ), 'order' => 7 ),
+		array( 'title' => 'משפחה וגירושין', 'url' => home_url( '/lawyers/?area=family-law' ), 'order' => 4 ),
+		array( 'title' => 'משפט פלילי',       'url' => home_url( '/lawyers/?area=criminal-law' ), 'order' => 5 ),
+		array( 'title' => 'מקרקעין ונדל"ן',   'url' => home_url( '/lawyers/?area=real-estate-law' ), 'order' => 6 ),
+		array( 'title' => 'דיני עבודה',        'url' => home_url( '/lawyers/?area=labor-law' ), 'order' => 7 ),
 		array( 'title' => 'נזיקין ותאונות',    'url' => home_url( '/lawyers/?area=torts' ), 'order' => 8 ),
-		array( 'title' => 'תעבורה',             'url' => home_url( '/lawyers/?area=traffic' ), 'order' => 9 ),
+		array( 'title' => 'תעבורה',             'url' => home_url( '/lawyers/?area=traffic-law' ), 'order' => 9 ),
 	);
 
 	// Try to get real practice-area terms instead of static URLs
@@ -174,3 +174,50 @@ function justice_theme_seed_primary_menu() {
 	update_option( 'justice_menu_seeded_v3', true );
 }
 add_action( 'init', 'justice_theme_seed_primary_menu' );
+
+/**
+ * Repair known stale practice-area filter URLs in already-seeded menus.
+ */
+function justice_theme_repair_seeded_menu_area_urls(): void {
+	if ( get_option( 'justice_menu_area_urls_repaired_v1' ) ) {
+		return;
+	}
+
+	$replacements = array(
+		home_url( '/lawyers/?area=family' )      => home_url( '/lawyers/?area=family-law' ),
+		home_url( '/lawyers/?area=criminal' )    => home_url( '/lawyers/?area=criminal-law' ),
+		home_url( '/lawyers/?area=real-estate' ) => home_url( '/lawyers/?area=real-estate-law' ),
+		home_url( '/lawyers/?area=labor' )       => home_url( '/lawyers/?area=labor-law' ),
+		home_url( '/lawyers/?area=traffic' )     => home_url( '/lawyers/?area=traffic-law' ),
+	);
+
+	$menus = wp_get_nav_menus();
+	foreach ( $menus as $menu ) {
+		$items = wp_get_nav_menu_items( $menu->term_id );
+		if ( empty( $items ) || is_wp_error( $items ) ) {
+			continue;
+		}
+
+		foreach ( $items as $item ) {
+			if ( empty( $item->url ) || ! isset( $replacements[ $item->url ] ) ) {
+				continue;
+			}
+
+			wp_update_nav_menu_item(
+				$menu->term_id,
+				$item->ID,
+				array(
+					'menu-item-title'     => $item->title,
+					'menu-item-url'       => $replacements[ $item->url ],
+					'menu-item-status'    => 'publish',
+					'menu-item-type'      => 'custom',
+					'menu-item-parent-id' => (int) $item->menu_item_parent,
+					'menu-item-position'  => (int) $item->menu_order,
+				)
+			);
+		}
+	}
+
+	update_option( 'justice_menu_area_urls_repaired_v1', time(), false );
+}
+add_action( 'admin_init', 'justice_theme_repair_seeded_menu_area_urls' );

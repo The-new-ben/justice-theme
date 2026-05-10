@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[HIGH] Added reusable PHP lint helper**
+- File: `tools/php-lint.ps1`
+- Result: VERIFIED locally - PHP lint passed for 120 PHP files.
+- Why it matters: PHP is now installed locally, and future PHP edits can be checked with one repeatable repo command instead of a manual Winget path workaround.
+- Remaining gap: live server PHP version remains NOT VERIFIED.
+
 **[HIGH] Installed local PHP and cleared full repo PHP lint**
 - Files: `ultra-justice/includes/cpt-lawyers.php`, `ultra-justice/includes/lead-submissions.php`
 - Installed PHP 8.3 locally through Winget for command-line syntax checks.

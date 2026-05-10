@@ -5,6 +5,12 @@
 
 ### EDITORIAL IMPROVEMENT MODE
 
+**[MEDIUM] Improved public article conversion for repaired pages**
+- Files: `inc/content-draft-importer.php`, `inc/live-content-publication.php`
+- Public article conversion now turns repo-style internal URL references like `/child-support/` into actual internal links.
+- The public sanitizer now strips more owner/team planning language, including cannibalization instructions, CMS/CRM/GSC/LegalTech notes, mini-site planning notes and "this page should link" implementation notes.
+- CODE FIXED. LIVE NOT VERIFIED until uPress pulls and the seven family-law URLs are checked again.
+
 **[HIGH] Switched family-law cluster from cleanup/removal to editorial repair**
 - Files: `inc/live-content-publication.php`, `inc/content-draft-importer.php`, `project-control/publication-workflow.md`, `project-control/publication-cannibalization-check.csv`, `project-control/publication-review-family-law-cluster.md`, `project-control/live-content-publication-status.md`, `project-control/editorial-repair-runbook.md`
 - Removed the uncommitted front-end route block before it was pushed.

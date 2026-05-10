@@ -517,7 +517,7 @@ function justice_theme_markdown_draft_to_html( string $raw ): string {
 				$html .= "<ul>\n";
 				$list  = true;
 			}
-			$html .= '<li>' . esc_html( substr( $line, 2 ) ) . "</li>\n";
+			$html .= '<li>' . justice_theme_markdown_inline_to_html( substr( $line, 2 ) ) . "</li>\n";
 			continue;
 		}
 
@@ -526,11 +526,31 @@ function justice_theme_markdown_draft_to_html( string $raw ): string {
 			$list  = false;
 		}
 
-		$html .= '<p>' . esc_html( $line ) . "</p>\n";
+		$html .= '<p>' . justice_theme_markdown_inline_to_html( $line ) . "</p>\n";
 	}
 
 	if ( $list ) {
 		$html .= "</ul>\n";
+	}
+
+	return wp_kses_post( $html );
+}
+
+function justice_theme_markdown_inline_to_html( string $text ): string {
+	$parts = preg_split( '/(`\/[^`]+`)/u', $text, -1, PREG_SPLIT_DELIM_CAPTURE );
+	if ( false === $parts ) {
+		return esc_html( $text );
+	}
+
+	$html = '';
+	foreach ( $parts as $part ) {
+		if ( preg_match( '/^`(\/[^`]+)`$/u', $part, $matches ) ) {
+			$path  = '/' . trim( $matches[1], '/' ) . '/';
+			$html .= '<a href="' . esc_url( home_url( $path ) ) . '">' . esc_html( $path ) . '</a>';
+			continue;
+		}
+
+		$html .= esc_html( $part );
 	}
 
 	return wp_kses_post( $html );

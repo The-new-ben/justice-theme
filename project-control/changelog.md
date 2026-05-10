@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Mobile floating action collision fix
+
+- LIVE VERIFIED BEFORE FIX: mobile screenshot shows the Pojo accessibility launcher and fixed WhatsApp/lead controls competing with customer-facing content.
+- VISUAL EVIDENCE: `project-control/visual-evidence/mobile-floating-actions-before-2026-05-10.png`.
+- CODE FIXED: mobile WhatsApp float is smaller, raised above the bottom CTA zone, and uses a lower mobile z-index.
+- CODE FIXED: mobile body gets bottom safe-space padding to reduce footer/form obstruction from fixed controls.
+- CODE FIXED: Pojo accessibility toolbar is moved out of the middle of the first mobile viewport and its overlay height is capped.
+- VERIFIED: `git diff --check` passed.
+- SAFETY: no URLs, redirects, content bodies, sitemap rules, robots rules, admin settings, leads or CMS records were changed.
+- NOT LIVE VERIFIED: requires uPress pull/cache refresh and mobile visual recheck.
+
 ## 2026-05-10 - Live verification of fallback and intake fixes
 
 - LIVE VERIFIED: homepage topic strip traffic link now renders as `/lawyers/?area=traffic-law`.

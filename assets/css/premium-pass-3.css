@@ -3248,10 +3248,39 @@
     max-width: 66vw;
   }
 
+  body {
+    padding-bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px));
+  }
+
   .whatsapp-float {
-    width: 52px !important;
-    height: 52px !important;
-    bottom: 86px !important;
+    width: 48px !important;
+    height: 48px !important;
+    left: max(14px, env(safe-area-inset-left, 0px)) !important;
+    bottom: calc(126px + env(safe-area-inset-bottom, 0px)) !important;
+    z-index: 850 !important;
+    box-shadow: 0 10px 24px rgba(7, 21, 47, 0.18) !important;
+  }
+
+  .whatsapp-float svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  #pojo-a11y-toolbar {
+    top: 154px !important;
+    bottom: auto !important;
+    z-index: 860 !important;
+  }
+
+  #pojo-a11y-toolbar .pojo-a11y-toolbar-toggle a {
+    width: 44px !important;
+    height: 44px !important;
+    font-size: 26px !important;
+  }
+
+  #pojo-a11y-toolbar .pojo-a11y-toolbar-overlay {
+    max-height: calc(100vh - 120px);
+    overflow-y: auto;
   }
 
   .justice-public-cluster > div {

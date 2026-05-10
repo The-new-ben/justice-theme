@@ -66,3 +66,12 @@ RISK / NEEDS FIX:
 Status:
 - VISUAL VERIFIED / PARTIAL.
 - Keyboard and screen-reader checks remain NOT VERIFIED.
+
+## 2026-05-10 Mobile Floating Control Repair
+
+- LIVE VERIFIED BEFORE FIX: `project-control/visual-evidence/mobile-floating-actions-before-2026-05-10.png` shows the accessibility launcher over customer-facing hero content.
+- CODE FIXED: the Pojo accessibility toolbar is repositioned on mobile and its overlay is capped to the viewport height.
+- CODE FIXED: the theme WhatsApp button is smaller, raised above the bottom CTA zone, and no longer uses the highest stacking layer on mobile.
+- CODE FIXED: mobile bottom safe-space padding was added so fixed controls are less likely to cover footer/form content.
+- VERIFIED: CSS diff passed `git diff --check`.
+- NOT LIVE VERIFIED: needs uPress pull/cache clear and mobile screenshot recheck.

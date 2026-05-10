@@ -78,10 +78,23 @@
 **Why:** The public form is now live, but a real end-to-end lead must be checked in the admin CRM before the lead funnel is called operational.
 **Actions:**
 1. Submit a clearly marked test lead from `/#ask-lawyer`.
-2. Verify a `justice_lead` record is created.
-3. Verify legal area, city, urgency, source keyword and consent are saved.
-4. Verify no duplicate email/CRM side effects.
-5. Delete or mark the test lead internally after verification.
+2. Confirm the lead appears in the CRM/admin list with source, area, city/region, urgency and test-note metadata.
+3. Verify a `justice_lead` record is created.
+4. Verify legal area, city, urgency, source keyword and consent are saved.
+5. Verify no duplicate email/CRM side effects.
+6. Delete or mark the test lead internally after verification.
+
+### ACTION-UX-001: Mobile Floating Action Collision
+**Status:** CODE FIXED - live verification pending
+**Why:** Mobile screenshots show the accessibility launcher and floating WhatsApp/lead controls covering important first-viewport and lower-page content.
+**Actions:**
+1. DONE: Captured before screenshot at `project-control/visual-evidence/mobile-floating-actions-before-2026-05-10.png`.
+2. DONE: Reduced and raised the theme WhatsApp float on mobile.
+3. DONE: Added mobile bottom safe space so fixed controls do not sit directly on footer/form content.
+4. DONE: Moved the Pojo accessibility toolbar away from the middle of the mobile hero and limited the open overlay height.
+5. VERIFIED: `git diff --check` passed.
+6. NEXT: owner/uPress pulls latest code, cache is cleared, then capture fresh mobile homepage/article/directory screenshots.
+7. NOT LIVE VERIFIED: current public site still shows the pre-fix layout until deployment.
 
 ---
 

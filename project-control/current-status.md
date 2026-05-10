@@ -2,6 +2,15 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-10 22:48 Asia/Jerusalem
+- LIVE VERIFIED BEFORE FIX: mobile homepage screenshot shows the Pojo accessibility tab overlapping the hero area and the theme WhatsApp button competing with the lower mobile lead/chat CTA.
+- VISUAL EVIDENCE: `project-control/visual-evidence/mobile-floating-actions-before-2026-05-10.png`.
+- CODE FIXED: mobile CSS now reserves bottom safe space, reduces the theme WhatsApp float from 52px to 48px, raises it above the lower CTA zone, and lowers its stacking priority.
+- CODE FIXED: mobile CSS now moves the Pojo accessibility toolbar from the middle of the first viewport to a predictable top-side position and caps the overlay height.
+- VERIFIED: `git diff --check` passed after the CSS change.
+- SAFETY: no public URLs, redirects, content bodies, sitemap rules, robots rules, wp-admin settings, lead submissions or CMS/database records were changed.
+- NOT LIVE VERIFIED: requires uPress pull/cache refresh and a fresh mobile screenshot after deployment.
+
 ## LATEST LIVE STATUS - 2026-05-10 22:35 Asia/Jerusalem
 - LIVE VERIFIED: follow-up fallback patch is now public.
 - LIVE VERIFIED: homepage topic strip traffic link now renders as `https://jus-tice.co.il/lawyers/?area=traffic-law` instead of the homepage-redirecting `/traffic-law/`.

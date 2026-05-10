@@ -67,7 +67,9 @@ Date: 2026-05-10
 - LIVE VERIFIED: WhatsApp floating buttons are visible.
 - What looks weak: mobile WhatsApp can overlap lower CTA controls.
 - FIXED IN CODE: mobile `.whatsapp-float` offset raised.
-- Status: NEEDS LIVE VERIFICATION.
+- 2026-05-10 UPDATE: captured `project-control/visual-evidence/mobile-floating-actions-before-2026-05-10.png`; the screenshot confirms the accessibility tab and floating lead/WhatsApp controls are too aggressive on mobile.
+- CODE FIXED: mobile CSS now reduces and raises the WhatsApp float, adds bottom safe-space padding, and moves the Pojo accessibility toolbar away from the middle of the first viewport.
+- Status: CODE FIXED / NOT LIVE VERIFIED.
 
 ## Mobile Menu
 - Proof: `customer-home-mobile.png`

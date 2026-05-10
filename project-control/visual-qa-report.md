@@ -118,3 +118,13 @@ Status: PARTIAL VISUAL QA COMPLETED.
   - `project-control/visual-evidence/ask-lawyer-enriched-desktop-2026-05-10.png`
   - `project-control/visual-evidence/ask-lawyer-enriched-mobile-2026-05-10.png`
 - NOT VERIFIED: actual CRM lead record creation still requires a controlled test with wp-admin/CRM review.
+
+## 2026-05-10 Mobile Floating Action Fix
+
+- LIVE VERIFIED BEFORE FIX: mobile homepage screenshot shows the Pojo accessibility tab sitting across the hero area and the theme WhatsApp button competing with the lower mobile lead/chat CTA.
+- VISUAL EVIDENCE BEFORE FIX: `project-control/visual-evidence/mobile-floating-actions-before-2026-05-10.png`.
+- CODE FIXED: `.whatsapp-float` is smaller on mobile, raised above the bottom CTA zone, and given a lower z-index than before.
+- CODE FIXED: mobile body gets bottom safe-space padding so fixed controls are less likely to cover footer/form content.
+- CODE FIXED: `#pojo-a11y-toolbar` gets a mobile top-side position and constrained overlay height instead of floating across the middle of content.
+- VERIFIED: `git diff --check` passed.
+- NOT LIVE VERIFIED: requires uPress pull/cache refresh and fresh mobile screenshots after deployment.

@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Pretrial-detention supporting draft
+
+- CREATED: `content-drafts/pretrial-detention-supporting-he.md`, a Hebrew public-facing supporting draft for `/pretrial-detention/`.
+- CONTENT: Draft is 3,500 words and covers מעצר ימים, hearing flow, judicial considerations, חלופת מעצר, supervisors, release conditions, family action steps, common mistakes, youth arrests, communication with detainee, after-release workflow, condition-change requests, appeal considerations, work/family impact, release-plan checklist, FAQ and internal links.
+- CREATED: `project-control/pretrial-detention-source-audit.csv` with Kol Zchut/gov.il source candidates and legal-review blockers.
+- CREATED: `project-control/pretrial-detention-cannibalization-note.md` mapping overlap with existing Jus-Tice arrest/procedure pages.
+- UPDATED: content inventory, publication cannibalization check and 5,000-word article brief with draft-only status.
+- SAFETY: No live publication, redirect or CMS import was performed.
+- VERIFIED: local word count is 3,500 words and the public-body marker scan found no internal project notes.
+- NOT VERIFIED: legal review, browser source verification, GSC traffic-risk scoring and old-content merge comparison remain required before CMS import/publication.
+
 ## 2026-05-10 - Police-investigation supporting draft
 
 - CREATED: `content-drafts/police-investigation-supporting-he.md`, a Hebrew public-facing supporting draft for `/police-investigation/`.

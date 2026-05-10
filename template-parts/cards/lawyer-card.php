@@ -28,6 +28,23 @@ if ( ! function_exists( 'justice_theme_lawyer_card_public_city_label' ) ) {
 		);
 
 		$key = $slug ?: sanitize_title( $name );
+		$map = array_merge(
+			$map,
+			array(
+				'tel-aviv'      => 'תל אביב',
+				'jerusalem'     => 'ירושלים',
+				'haifa'         => 'חיפה',
+				'petah-tikva'   => 'פתח תקווה',
+				'ramat-gan'     => 'רמת גן',
+				'beer-sheva'    => 'באר שבע',
+				'rishon-lezion' => 'ראשון לציון',
+				'netanya'       => 'נתניה',
+				'ashdod'        => 'אשדוד',
+				'holon'         => 'חולון',
+				'herzliya'      => 'הרצליה',
+			)
+		);
+
 		if ( isset( $map[ $key ] ) ) {
 			return $map[ $key ];
 		}

@@ -82,6 +82,19 @@ if ( ! empty( $tax_query ) ) {
 }
 
 $lawyers = new WP_Query( $args );
+$public_lawyer_posts = array();
+
+if ( $lawyers->have_posts() ) {
+	foreach ( $lawyers->posts as $lawyer_post ) {
+		if (
+			$lawyer_post instanceof WP_Post
+			&& function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+			&& justice_theme_lawyer_profile_is_public_approved( (int) $lawyer_post->ID )
+		) {
+			$public_lawyer_posts[] = $lawyer_post;
+		}
+	}
+}
 
 // Dynamic H1 based on filters
 $page_title = 'מדריך עורכי דין בישראל';
@@ -160,11 +173,12 @@ $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => 
 				</div>
 			</form>
 
-			<?php if ( $lawyers->have_posts() ) : ?>
+			<?php if ( ! empty( $public_lawyer_posts ) ) : ?>
 				<div class="lawyers-grid">
-					<?php while ( $lawyers->have_posts() ) : $lawyers->the_post(); ?>
+					<?php foreach ( $public_lawyer_posts as $lawyer_post ) : ?>
+						<?php setup_postdata( $lawyer_post ); ?>
 						<?php get_template_part( 'template-parts/cards/lawyer-card' ); ?>
-					<?php endwhile; ?>
+					<?php endforeach; ?>
 				</div>
 
 				<?php

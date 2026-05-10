@@ -24,6 +24,10 @@ function justice_theme_archive_title( $title ) {
 		$title = __( 'מאמרים משפטיים', 'justice-theme' );
 	}
 
+	if ( is_post_type_archive( 'justice_lawyer' ) ) {
+		$title = __( 'מדריך עורכי דין בישראל', 'justice-theme' );
+	}
+
 	return $title;
 }
 add_filter( 'get_the_archive_title', 'justice_theme_archive_title' );
@@ -183,6 +187,14 @@ function justice_theme_meta_head() {
 		echo '<meta property="og:url" content="' . esc_url( home_url( '/' ) ) . '">' . "\n";
 		echo '<meta property="og:locale" content="he_IL">' . "\n";
 		echo '<meta property="og:site_name" content="Jus-Tice">' . "\n";
+	} elseif ( is_post_type_archive( 'justice_lawyer' ) || is_page( 'lawyers' ) ) {
+		$directory_desc = 'מדריך עורכי הדין של Jus-Tice מציג פרופילים מאושרים בלבד, לפי תחום משפטי, עיר, ניסיון, שפות ודרכי פנייה. אין דירוג או המלצה ללא בסיס מאומת.';
+		echo '<meta name="description" content="' . esc_attr( $directory_desc ) . '">' . "\n";
+		echo '<meta property="og:title" content="מדריך עורכי דין בישראל | Jus-Tice">' . "\n";
+		echo '<meta property="og:description" content="' . esc_attr( $directory_desc ) . '">' . "\n";
+		echo '<meta property="og:type" content="website">' . "\n";
+		echo '<meta property="og:url" content="' . esc_url( justice_theme_lawyer_archive_canonical_url() ) . '">' . "\n";
+		echo '<meta property="og:locale" content="he_IL">' . "\n";
 	} elseif ( is_singular() ) {
 		$post_desc = get_post_meta( get_the_ID(), 'seo_description', true );
 		if ( ! $post_desc ) {

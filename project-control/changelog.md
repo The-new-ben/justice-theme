@@ -899,3 +899,13 @@
 - SAFETY: no phone, WhatsApp, email, photo, awards, ratings, reviews, bar number or case-achievement claims are auto-filled.
 - VERIFIED: PHP lint passed locally for 125 PHP files.
 - NOT VERIFIED LIVE: requires uPress pull/cache refresh and wp-admin/lawyer review.
+
+## 2026-05-10 Deep-Dive Audit V2 Trust Gate
+- DOCUMENTED: `project-control/deep-dive-audit-v2-response.md` classifies the V2 audit findings and next actions.
+- FIXED IN CODE: Added `justice_theme_lawyer_profile_is_public_approved()` as a conservative public visibility gate for lawyer profiles.
+- FIXED IN CODE: Lawyer archive now renders only public-approved profiles, preventing old seed/demo/testing profiles from appearing as real customer-facing listings.
+- FIXED IN CODE: Single lawyer pages now return a 404 for unapproved/demo profiles while still allowing admins with edit permission to inspect them.
+- FIXED IN CODE: Lawyer directory has explicit Hebrew meta description and OG tags to avoid "Archive" leaking into social/search previews.
+- FIXED IN CODE: Lawyer-card city fallback maps `herzliya` to `הרצליה`.
+- VERIFIED: PHP lint passed locally for 125 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and public recheck of `/lawyers/` and one old demo profile URL.

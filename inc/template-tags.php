@@ -108,6 +108,66 @@ function justice_theme_get_connected_lawyer_by_slug( string $slug ): ?WP_Post {
 }
 
 /**
+ * Check whether a lawyer profile is approved for public directory/profile output.
+ *
+ * This deliberately favors safety: historical seed/demo profiles may already
+ * be published on live, so public templates should require an approval signal.
+ *
+ * @param int $post_id Lawyer post ID.
+ * @return bool
+ */
+function justice_theme_lawyer_profile_is_public_approved( int $post_id = 0 ): bool {
+	$post_id = $post_id ?: get_the_ID();
+
+	if ( ! $post_id || 'justice_lawyer' !== get_post_type( $post_id ) || 'publish' !== get_post_status( $post_id ) ) {
+		return false;
+	}
+
+	$slug  = (string) get_post_field( 'post_name', $post_id );
+	$title = get_the_title( $post_id );
+
+	if (
+		'advocate-maya-rotenberg' === $slug
+		|| (
+			false !== mb_strpos( $title, 'מאיה' )
+			&& false !== mb_strpos( $title, 'רוטנברג' )
+		)
+	) {
+		return true;
+	}
+
+	$source_type    = strtolower( (string) get_post_meta( $post_id, 'source_type', true ) );
+	$source_url     = strtolower( (string) get_post_meta( $post_id, 'source_url', true ) );
+	$profile_status = strtolower( (string) get_post_meta( $post_id, 'profile_status', true ) );
+	$verification   = strtolower( (string) get_post_meta( $post_id, 'verification_status', true ) );
+	$subscription   = strtolower( (string) get_post_meta( $post_id, 'subscription_status', true ) );
+	$notes          = strtolower( (string) get_post_meta( $post_id, 'internal_notes', true ) );
+
+	$seed_haystack = implode( ' ', array( $source_type, $source_url, $profile_status, $notes ) );
+	$is_seed_like  = false !== strpos( $seed_haystack, 'seed' )
+		|| false !== strpos( $seed_haystack, 'demo' )
+		|| false !== strpos( $seed_haystack, 'test data' )
+		|| false !== strpos( $seed_haystack, 'testing only' )
+		|| false !== strpos( $seed_haystack, 'not real' )
+		|| false !== strpos( $seed_haystack, 'fictional' )
+		|| false !== strpos( $seed_haystack, 'fake' );
+
+	if ( $is_seed_like ) {
+		return false;
+	}
+
+	if ( in_array( $profile_status, array( 'approved', 'public', 'published', 'active', 'verified' ), true ) ) {
+		return true;
+	}
+
+	if ( 'active' === $subscription ) {
+		return true;
+	}
+
+	return 'verified' === $verification && '' !== $source_type && 'seed' !== $source_type;
+}
+
+/**
  * Safe excerpt with word limit.
  *
  * @param int $post_id   Post ID.

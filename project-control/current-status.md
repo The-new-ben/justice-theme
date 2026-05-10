@@ -56,6 +56,13 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Latest repo commit `e511c00` is pushed to `origin/main`, but live public HTML does not yet show every fix from that commit.
 
 ## FIXED IN THIS PASS
+- CODE FIXED: added a conservative public approval gate for lawyer profiles so old seed/demo/testing lawyer records are no longer rendered as real public listings.
+- CODE FIXED: lawyer archive now filters rendered cards through the approval gate; single lawyer pages return 404 for unapproved public profiles while admins can still inspect them.
+- CODE FIXED: lawyer directory now outputs explicit Hebrew meta/OG tags, preventing generic "Archive" wording from leaking into previews.
+- CODE FIXED: lawyer-card city display now maps `herzliya` to `הרצליה`.
+- DOCUMENTED: `project-control/deep-dive-audit-v2-response.md` records the accepted/partial/blocker status for the V2 audit.
+- VERIFIED locally: PHP lint passed for 125 PHP files after the lawyer trust gate.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and a public `/lawyers/` recheck.
 - CODE FIXED: Maya Rotenberg mini-site now has a CMS-driven public-source sidebox so the profile can show reviewable public references instead of unsupported claims.
 - CODE FIXED: a separate Maya public-source migration fills only empty source fields and the official website/source URL; it does not auto-fill phone, WhatsApp, email, photo, awards, ratings, reviews, bar number or case-achievement claims.
 - DOCUMENTED: `project-control/maya-rotenberg-public-source-audit.md` records public sources used for the source layer: official firm site, official about page, Dun's 100, Psakdin, Easy and official press page.

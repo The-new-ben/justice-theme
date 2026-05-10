@@ -8,6 +8,19 @@
  * @package JusticeTheme
  */
 
+if (
+	function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+	&& ! justice_theme_lawyer_profile_is_public_approved( get_the_ID() )
+	&& ! current_user_can( 'edit_post', get_the_ID() )
+) {
+	global $wp_query;
+	$wp_query->set_404();
+	status_header( 404 );
+	nocache_headers();
+	include get_404_template();
+	exit;
+}
+
 get_header();
 
 $lawyer_id = get_the_ID();

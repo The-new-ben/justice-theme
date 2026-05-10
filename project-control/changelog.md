@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Police-investigation supporting draft
+
+- CREATED: `content-drafts/police-investigation-supporting-he.md`, a Hebrew public-facing supporting draft for `/police-investigation/`.
+- CONTENT: Draft is 3,500 words and covers police summons, witness/suspect distinction, consultation before investigation, conduct inside the investigation room, silence/self-incrimination cautions, escalation to custody or conditions, youth investigations, non-police authorities, digital searches, family guidance, first-contact script, FAQ and internal links.
+- CREATED: `project-control/police-investigation-source-audit.csv` with source candidates and legal-review blockers.
+- CREATED: `project-control/police-investigation-cannibalization-note.md` mapping overlap with existing Jus-Tice criminal prosecution/arrest pages.
+- UPDATED: content inventory, publication cannibalization check and 5,000-word article brief with draft-only status.
+- SAFETY: No live publication, redirect or CMS import was performed.
+- VERIFIED: local word count is 3,500 words and the public-body marker scan found no internal project notes.
+- NOT VERIFIED: legal review, browser source verification, GSC traffic-risk scoring and old-content merge comparison remain required before CMS import/publication.
+
 ## 2026-05-10 - Criminal-law pillar 5,000-word expansion
 
 - EXPANDED: `content-drafts/criminal-lawyer-pillar-he.md` from about 4,110 words to 5,037 words.

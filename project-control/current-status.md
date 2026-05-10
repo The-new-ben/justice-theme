@@ -4,6 +4,10 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 
 ## LATEST CODE STATUS - 2026-05-10
 - EXPANDED IN REPO: Criminal-law pillar draft at `content-drafts/criminal-lawyer-pillar-he.md` for `/criminal-lawyer/`, now 5,037 words and in 5,000-word-class draft status.
+- CREATED IN REPO: Police-investigation supporting draft at `content-drafts/police-investigation-supporting-he.md` for `/police-investigation/`, now 3,500 words and connected back to the criminal-law pillar.
+- DOCUMENTED: Police-investigation source audit and cannibalization note exist at `project-control/police-investigation-source-audit.csv` and `project-control/police-investigation-cannibalization-note.md`.
+- SAFETY: `/police-investigation/` is draft-only. Existing criminal prosecution/arrest pages must be compared before any publication or redirect.
+- VERIFIED: Word-count and internal-marker scan were run locally for the police-investigation draft; the public body has no internal project markers.
 - DOCUMENTED: Criminal source audit and cannibalization note exist at `project-control/criminal-lawyer-source-audit.csv` and `project-control/criminal-lawyer-cannibalization-note.md`.
 - SAFETY: `/criminal-lawyer/` is draft-only. Existing live pages such as `/criminal-prosecutions/` and the Hebrew arrests-law slug must be compared before any publication or redirect.
 - VERIFIED: Word-count and internal-marker scan were run locally after expansion; the public body has no internal project markers. The draft still needs old-content comparison plus legal/source/GSC review before CMS import or publication.

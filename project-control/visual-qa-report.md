@@ -2,6 +2,12 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Search And 404 Visual Polish
+- CODE FIXED: shared legal search form styling was upgraded in `assets/css/main.css` for desktop/mobile, including card chrome, focus states, and full-width mobile buttons.
+- CODE FIXED: search headers now keep query text readable and accent-highlighted without layout breakage.
+- CODE FIXED: no-results and 404 states now render as polished customer-facing cards; `404.php` inline styles were replaced with reusable classes.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear, then desktop/mobile screenshots for a normal search, a no-results search, and a real 404 route.
+
 ## 2026-05-11 Related Content Live QA
 - LIVE VERIFIED: sampled public article pages render related content in semantic mode.
 - VERIFIED: public sampled bodies did not show internal markers such as `NOT VERIFIED`, source-audit labels or developer/owner notes.

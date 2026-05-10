@@ -290,6 +290,25 @@ h1, h2, h3, h4, h5, h6 { color: var(--color-heading); font-weight: 800; margin-t
 .archive-header, .taxonomy-header, .search-header { background: var(--color-primary); color: #fff; padding-block: clamp(3rem, 6vw, 5rem); text-align: center; }
 .archive-header h1, .taxonomy-header h1, .search-header h1 { color: #fff; margin: 0 0 1rem; font-size: clamp(2.2rem, 4vw, 3rem); }
 .archive-header p, .taxonomy-header p { color: rgba(255,255,255,0.8); margin: 0 auto; max-width: 600px; font-size: 1.1rem; line-height: 1.6; }
+.search-header { position: relative; overflow: hidden; }
+.search-header::after { content: ""; position: absolute; inset-inline: 12%; bottom: 0; height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.38), transparent); }
+.search-header .container { position: relative; z-index: 1; }
+.search-header h1 span { color: var(--color-accent); display: inline-block; max-width: 100%; overflow-wrap: anywhere; }
+.search-header .legal-search-form { margin-top: 1.5rem; }
+.legal-search-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 0.7rem; align-items: stretch; max-width: 720px; margin-inline: auto; padding: 0.45rem; background: #fff; border: 1px solid rgba(7, 21, 47, 0.08); border-radius: var(--radius-md); box-shadow: 0 18px 50px rgba(7, 21, 47, 0.14); }
+.legal-search-form input[type="search"] { min-width: 0; width: 100%; min-height: 3.3rem; border: 0; background: #f7f8fb; color: var(--color-heading); border-radius: calc(var(--radius-md) - 4px); padding: 0 1rem; font: inherit; font-size: 1rem; }
+.legal-search-form input[type="search"]::placeholder { color: var(--color-text-muted); }
+.legal-search-form input[type="search"]:focus { outline: 2px solid rgba(178, 58, 72, 0.22); background: #fff; }
+.legal-search-form button { min-height: 3.3rem; border: 0; border-radius: calc(var(--radius-md) - 4px); padding: 0 1.35rem; background: var(--color-accent); color: #fff; font: inherit; font-weight: 800; cursor: pointer; white-space: nowrap; transition: background 160ms ease, transform 160ms ease; }
+.legal-search-form button:hover, .legal-search-form button:focus-visible { background: var(--color-primary); transform: translateY(-1px); }
+.content-none { max-width: 760px; margin: 0 auto; padding: clamp(2rem, 5vw, 3rem); background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-md); box-shadow: var(--shadow-soft); text-align: center; }
+.content-none h2 { margin: 0 0 0.8rem; color: var(--color-heading); font-size: clamp(1.5rem, 3vw, 2rem); }
+.content-none p { margin: 0 auto 1.6rem; max-width: 560px; color: var(--color-text); line-height: 1.7; }
+.error-404 { background: linear-gradient(180deg, #fff, var(--color-bg-alt)); }
+.error-404__panel { text-align: center; padding: clamp(2.5rem, 6vw, 4rem) clamp(1.25rem, 4vw, 3rem); background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-md); box-shadow: var(--shadow-soft); }
+.error-404__panel h1 { margin: 0 0 0.85rem; color: var(--color-heading); font-size: clamp(2rem, 5vw, 3.2rem); }
+.error-404__panel p { margin: 0 auto 1.6rem; max-width: 620px; color: var(--color-text); line-height: 1.8; font-size: 1.05rem; }
+.error-404__home { margin-top: 1.4rem; }
 .archive-layout { display: grid; grid-template-columns: 260px 1fr; gap: 3rem; margin-top: 3rem; }
 .archive-sidebar h2 { font-size: 1.2rem; color: var(--color-heading); margin: 0 0 1.2rem; padding-bottom: 0.6rem; border-bottom: 2px solid var(--color-border); }
 .term-list { list-style: none; padding: 0; margin: 0; }
@@ -395,6 +414,8 @@ h1, h2, h3, h4, h5, h6 { color: var(--color-heading); font-weight: 800; margin-t
 }
 @media (max-width: 768px) {
   .article-grid, .practice-areas-grid, .pillars-grid, .clusters-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .legal-search-form { grid-template-columns: 1fr; padding: 0.55rem; }
+  .legal-search-form button { width: 100%; }
   .lawyer-cta__features { grid-template-columns: 1fr; }
   .ask-lawyer__fields { grid-template-columns: 1fr; }
   .newsletter__form { flex-direction: column; }

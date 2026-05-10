@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Search and 404 visual polish
+
+- CODE FIXED: shared public legal search forms now use polished responsive styling with clear focus states and mobile stacking.
+- CODE FIXED: search headers now highlight the searched term with theme accent styling, and no-results states render as clean cards instead of plain content blocks.
+- CODE FIXED: 404 panel layout moved from inline styles into reusable theme classes for a more consistent customer-facing page.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and public desktop/mobile QA with marker `2026-05-11-search-404-polish-v1`.
+- SAFETY: no content body, URL, redirect, sitemap, robots, CRM record, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Public search label map
 
 - CODE FIXED: search result cards now use a theme-side Hebrew post-type label map rather than raw plugin labels.

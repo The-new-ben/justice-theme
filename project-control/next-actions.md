@@ -48,6 +48,18 @@
 7. DONE V2: search result cards now use `justice_theme_public_post_type_label()` so public cards remain Hebrew even if a legacy plugin label is English.
 8. NEXT V2: pull/deploy marker `2026-05-11-public-label-map-v1`, then verify a public search page does not show English content-type labels.
 
+### ACTION-UX-003: Search and 404 premium state polish
+**Status:** CODE FIXED - live visual verification pending
+**Why:** Public search, no-results, and 404 pages are customer-facing legal-portal states and should not look like plain browser/default WordPress output.
+**Actions:**
+1. DONE: shared legal search form now has premium responsive styling, focus states, and mobile stacking.
+2. DONE: search header now visually highlights the query and keeps long Hebrew/English terms from breaking layout.
+3. DONE: no-results content now renders as a clear card with consistent spacing.
+4. DONE: 404 template no longer relies on inline styles; the panel and CTA use reusable theme classes.
+5. VERIFIED: changed PHP file passed syntax check; CSS diff passed whitespace/conflict checks.
+6. NEXT: pull/deploy marker `2026-05-11-search-404-polish-v1`, then verify public search, no-results, and a true 404 on desktop/mobile.
+7. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-BRAND-001: Logo + Favicon + Search Branding
 **Status:** PARTIAL LIVE VERIFIED - wp-admin/search-result verification pending
 **Why:** Browser tabs, mobile bookmarks and Google search results need a stable, professional icon and final brand state.

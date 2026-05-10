@@ -9,7 +9,7 @@ get_header();
 ?>
 
 <section class="error-404 section">
-	<div class="container container--narrow" style="text-align:center;">
+	<div class="container container--narrow error-404__panel">
 		<h1><?php esc_html_e( 'העמוד לא נמצא', 'justice-theme' ); ?></h1>
 
 		<p>
@@ -18,7 +18,7 @@ get_header();
 
 		<?php get_template_part( 'template-parts/forms/search-form-legal' ); ?>
 
-		<a class="button button--gold" href="<?php echo esc_url( home_url( '/' ) ); ?>" style="margin-top:2rem;">
+		<a class="button button--gold error-404__home" href="<?php echo esc_url( home_url( '/' ) ); ?>">
 			<?php esc_html_e( 'חזרה לעמוד הבית', 'justice-theme' ); ?>
 		</a>
 	</div>

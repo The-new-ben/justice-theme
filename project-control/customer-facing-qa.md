@@ -76,6 +76,7 @@ Date: 2026-05-10
 - FIXED IN CODE: 404 template copy is Hebrew/customer-friendly.
 - VERIFIED IN CODE: 404 no longer has the English body copy called out in the audit; remaining 404 risk is routing/server behavior.
 - CODE FIXED: `inc/routing-guards.php` now detects non-root URLs being served as the front page and forces a real 404 response/template.
+- CODE FIXED / NOT LIVE VERIFIED: 404 panel and embedded search form now use premium card/form styling instead of inline/plain layout.
 - BLOCKED: real issue likely routing/permalink/plugin/server and requires wp-admin/uPress investigation.
 - Status: CODE FIXED / NOT VERIFIED LIVE after latest routing guard.
 
@@ -139,7 +140,7 @@ STILL LOOKS BAD / NEEDS WORK:
 - Fake 404 URL returned/finalized as homepage with status 200; this remains a serious routing/404 risk until live routing guard/server/plugin behavior is verified.
 - `/practice-areas/family-law/` redirects/finalizes to `http://jus-tice.co.il/family-law/`; canonical also uses `http`. HTTPS/canonical consistency needs review before migration.
 - Mobile floating WhatsApp/lead CTA and accessibility widget overlap content on article/search/practice pages.
-- Search form UI on mobile looks like a plain browser form and does not match the premium portal style.
+- CODE FIXED / NOT LIVE VERIFIED: search form UI on mobile now has theme-level responsive styling and should no longer look like a plain browser form after deployment.
 
 Status:
 - VISUAL VERIFIED for screenshots.

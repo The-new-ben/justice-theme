@@ -2,6 +2,13 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 03:40 Asia/Jerusalem
+- CODE FIXED: shared public legal search forms now have premium responsive styling instead of plain browser-form presentation.
+- CODE FIXED: the public search header, no-results state, and 404 search panel now use consistent card spacing, focus states, mobile stacking, and Hebrew visitor-facing hierarchy.
+- CODE FIXED: `404.php` no longer uses inline layout styles for the 404 panel/home CTA; styling now lives in reusable theme CSS.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-search-404-polish-v1`; requires uPress pull/cache clear and live desktop/mobile QA for search, no-results, and a true 404 URL.
+- SAFETY: no content body, URL, redirect, sitemap, robots, wp-admin setting, lead/CRM record or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 03:27 Asia/Jerusalem
 - CODE FIXED: search result cards now use a theme-side Hebrew public post-type label map instead of trusting raw plugin labels.
 - CODE FIXED: mapped public labels include `מאמר משפטי`, `מאמר`, `עמוד מידע`, `פרופיל עורך דין`, `כלי משפטי`, with a safe Hebrew fallback `תוכן משפטי`.

@@ -746,3 +746,13 @@
 - FIXED IN CODE: Added responsive styling for the new practice hub cards and CTA in `assets/css/premium-pass-3.css`.
 - VERIFIED: PHP lint passed locally for 120 PHP files.
 - NOT VERIFIED LIVE: requires uPress pull/cache refresh and a public visual check of one active practice-area taxonomy URL.
+
+## 2026-05-10 Live Deployment Recheck and Filter SEO Hardening
+- LIVE VERIFIED: homepage hero copy from the customer-facing pass is visible publicly.
+- LIVE VERIFIED: the single-article `article-intent-panel` is visible publicly.
+- STILL BROKEN LIVE: `/practice-areas/family-law/` redirects to `/family-law/` and does not expose the new practice intent/CTA sections.
+- STILL BROKEN LIVE: `/lawyers/?area=family-law` still exposes `index` in robots output.
+- FIXED IN CODE: `inc/seo.php` now detects filtered lawyer-directory states even when live WordPress serves `/lawyers/` through a page-style route.
+- FIXED IN CODE: added common SEO-plugin robots/canonical filters plus a fallback noindex meta tag for filtered lawyer-directory URLs.
+- VERIFIED: PHP lint passed locally for 120 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and a recheck of `/lawyers/?area=family-law`.

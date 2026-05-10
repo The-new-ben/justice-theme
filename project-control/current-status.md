@@ -62,7 +62,10 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Practice-area CTAs now link to the filtered lawyer directory with canonical English area slugs where available, plus the homepage lead form.
 - Practice-area visual styling added in `assets/css/premium-pass-3.css` for desktop/mobile cards and CTA panel.
 - VERIFIED locally: PHP lint passed for 120 PHP files after the practice-area landing-page pass.
-- NOT VERIFIED live: this requires the next Upress pull/cache refresh and a public check of at least one `practice-areas` taxonomy URL.
+- LIVE RECHECK: homepage hero copy and article intent panel are now visible publicly, so part of the customer-facing theme pass is live.
+- LIVE RECHECK: `/practice-areas/family-law/` redirects to `/family-law/` and does not show the new `practice-hub-intent` / `practice-hub-cta` sections; taxonomy/page routing still needs admin/permalink review.
+- LIVE RECHECK: `/lawyers/?area=family-law` still outputs `index` in robots on the public site; code is now hardened for page-route directory filters and common SEO-plugin canonical/robots filters.
+- NOT VERIFIED live: the hardened filter-state noindex/canonical fix requires the next Upress pull/cache refresh.
 - Maya bootstrap can attach `family-law` and a city term only where safe, and adds an internal note for admin review.
 - Homepage hero copy is now more direct: it speaks to users who need a lawyer or legal direction, not only generic portal language.
 - Primary navigation now has a code safety layer that appends missing customer-critical links when the assigned WordPress menu is too thin.

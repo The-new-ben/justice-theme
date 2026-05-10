@@ -31,6 +31,7 @@ Date: 2026-05-10
 - LIVE VERIFIED: currently visually resembles homepage/hero layer, not yet a complete polished legal landing page in the captured first viewport.
 - What looks weak: needs clearer pillar content, FAQ, related lawyer, related articles and lead CTA after first fold.
 - FIXED IN CODE: practice-area taxonomy pages now include an intent layer, preparation guidance and a lead/lawyer-directory CTA. This improves taxonomy practice hubs; separate static pillar pages still need content import/review.
+- LIVE RECHECK: `https://jus-tice.co.il/practice-areas/family-law/` redirects to `http://jus-tice.co.il/family-law/` and does not expose the new taxonomy intent/CTA sections. This is likely a routing/permalink/page-vs-taxonomy conflict that needs wp-admin/uPress review.
 - Status: PARTIAL.
 
 ## Lawyer Archive

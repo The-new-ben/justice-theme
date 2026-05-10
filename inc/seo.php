@@ -155,6 +155,38 @@ function justice_theme_meta_head() {
 add_action( 'wp_head', 'justice_theme_meta_head', 1 );
 
 /**
+ * Get the canonical lawyer-directory URL.
+ *
+ * @return string
+ */
+function justice_theme_lawyer_archive_canonical_url(): string {
+	$archive = get_post_type_archive_link( 'justice_lawyer' );
+
+	return $archive ? $archive : home_url( '/lawyers/' );
+}
+
+/**
+ * Detect filtered lawyer-directory states even when the live site serves the
+ * directory through a page route instead of a pure post-type archive query.
+ *
+ * @return bool
+ */
+function justice_theme_is_lawyer_directory_filter_state(): bool {
+	$filter_keys = array( 'area', 'city', 'keyword' );
+	$has_filter  = (bool) array_intersect( $filter_keys, array_keys( $_GET ) );
+
+	if ( ! $has_filter ) {
+		return false;
+	}
+
+	$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
+
+	return is_post_type_archive( 'justice_lawyer' )
+		|| is_page( 'lawyers' )
+		|| false !== strpos( $request_uri, '/lawyers/' );
+}
+
+/**
  * Output one canonical URL for public templates that WordPress core does not cover well.
  */
 function justice_theme_canonical_url() {
@@ -168,8 +200,10 @@ function justice_theme_canonical_url() {
 		return;
 	} elseif ( is_front_page() ) {
 		$canonical = home_url( '/' );
+	} elseif ( justice_theme_is_lawyer_directory_filter_state() ) {
+		$canonical = justice_theme_lawyer_archive_canonical_url();
 	} elseif ( is_post_type_archive( 'justice_lawyer' ) ) {
-		$canonical = get_post_type_archive_link( 'justice_lawyer' );
+		$canonical = justice_theme_lawyer_archive_canonical_url();
 	} elseif ( is_post_type_archive( 'articles' ) ) {
 		$canonical = get_post_type_archive_link( 'articles' );
 	} elseif ( is_tax() || is_category() || is_tag() ) {
@@ -194,10 +228,7 @@ add_action( 'wp_head', 'justice_theme_canonical_url', 5 );
  * @return array
  */
 function justice_theme_filter_robots( $robots ) {
-	$has_directory_filter = is_post_type_archive( 'justice_lawyer' )
-		&& array_intersect( array( 'area', 'city', 'keyword' ), array_keys( $_GET ) );
-
-	if ( is_search() || $has_directory_filter ) {
+	if ( is_search() || justice_theme_is_lawyer_directory_filter_state() ) {
 		$robots['noindex'] = true;
 		$robots['follow']  = true;
 	}
@@ -205,6 +236,68 @@ function justice_theme_filter_robots( $robots ) {
 	return $robots;
 }
 add_filter( 'wp_robots', 'justice_theme_filter_robots' );
+
+/**
+ * Keep common SEO plugins aligned with the filtered-directory rule.
+ *
+ * @param string $robots Robots directive string.
+ * @return string
+ */
+function justice_theme_filter_yoast_robots( $robots ) {
+	if ( justice_theme_is_lawyer_directory_filter_state() ) {
+		return 'noindex, follow';
+	}
+
+	return $robots;
+}
+add_filter( 'wpseo_robots', 'justice_theme_filter_yoast_robots' );
+
+/**
+ * Keep Rank Math robots output aligned with the filtered-directory rule.
+ *
+ * @param array $robots Robots directives.
+ * @return array
+ */
+function justice_theme_filter_rank_math_robots( $robots ) {
+	if ( justice_theme_is_lawyer_directory_filter_state() ) {
+		unset( $robots['index'] );
+		$robots['noindex'] = 'noindex';
+		$robots['follow']  = 'follow';
+	}
+
+	return $robots;
+}
+add_filter( 'rank_math/frontend/robots', 'justice_theme_filter_rank_math_robots' );
+
+/**
+ * Override SEO-plugin canonical output for filtered lawyer-directory states.
+ *
+ * @param string $canonical Canonical URL.
+ * @return string
+ */
+function justice_theme_filter_directory_canonical( $canonical ) {
+	if ( justice_theme_is_lawyer_directory_filter_state() ) {
+		return justice_theme_lawyer_archive_canonical_url();
+	}
+
+	return $canonical;
+}
+add_filter( 'wpseo_canonical', 'justice_theme_filter_directory_canonical' );
+add_filter( 'rank_math/frontend/canonical', 'justice_theme_filter_directory_canonical' );
+add_filter( 'aioseo_canonical_url', 'justice_theme_filter_directory_canonical' );
+
+/**
+ * Fallback robots tag for unknown SEO stacks. This makes filtered directory
+ * states visibly noindex even when another plugin does not use WordPress robots.
+ */
+function justice_theme_filter_directory_robots_meta(): void {
+	if ( ! justice_theme_is_lawyer_directory_filter_state() ) {
+		return;
+	}
+
+	echo '<meta name="robots" content="noindex,follow" data-justice-theme="filtered-directory">' . "\n";
+}
+add_action( 'wp_head', 'justice_theme_filter_directory_robots_meta', 0 );
 
 /**
  * Provide a temporary branded site icon until a final media-library favicon is set.
@@ -220,4 +313,3 @@ function justice_theme_fallback_site_icon(): void {
 	echo '<link rel="icon" href="' . esc_url( JUSTICE_THEME_URI . '/assets/images/favicon.svg' ) . '" type="image/svg+xml">' . "\n";
 }
 add_action( 'wp_head', 'justice_theme_fallback_site_icon', 2 );
-

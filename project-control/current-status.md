@@ -64,6 +64,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - DOCUMENTED: `publication-cannibalization-check.csv` now marks the seven family-law URLs as `APPROVED_FOR_EDITORIAL_REPAIR`, meaning clean existing live pages now while merge/redirect decisions remain pending.
 - LIVE RECHECK AFTER PUSH `d3ff1d6`: all seven family-law URLs still returned HTTP 200 with internal-note markers. This means uPress/live cache has not yet applied the editorial repair commit, or WordPress has not executed the repair hook yet.
 - CODE FIXED: public article conversion now changes backticked internal URL references into real internal links and strips more internal SEO/CMS/CRM/GSC/LegalTech planning paragraphs before repair/import.
+- CODE FIXED: bumped the family-law editorial repair version to `v2` so WordPress reruns the stricter repair after uPress pulls the latest commit.
 - EDITORIAL SAFETY: family-law auto-publication remains paused as a creation mechanism, but existing live pages are now treated as content to repair and enrich rather than remove.
 - LIVE VERIFIED: the seven family-law URLs were live and contained internal markers in the earlier public check; the current repo fix is to clean those pages in place on the next pull.
 - CODE FIXED: the previous draft/restore cleanup routine is disabled by default and replaced by editorial repair for existing pages.

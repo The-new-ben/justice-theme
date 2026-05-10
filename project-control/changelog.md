@@ -9,6 +9,7 @@
 - Files: `inc/content-draft-importer.php`, `inc/live-content-publication.php`
 - Public article conversion now turns repo-style internal URL references like `/child-support/` into actual internal links.
 - The public sanitizer now strips more owner/team planning language, including cannibalization instructions, CMS/CRM/GSC/LegalTech notes, mini-site planning notes and "this page should link" implementation notes.
+- The family-law editorial repair version is bumped to v2 so live WordPress reruns the stricter cleanup after the next uPress pull.
 - CODE FIXED. LIVE NOT VERIFIED until uPress pulls and the seven family-law URLs are checked again.
 
 **[HIGH] Switched family-law cluster from cleanup/removal to editorial repair**

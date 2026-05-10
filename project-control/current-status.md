@@ -2,6 +2,13 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 03:27 Asia/Jerusalem
+- CODE FIXED: search result cards now use a theme-side Hebrew public post-type label map instead of trusting raw plugin labels.
+- CODE FIXED: mapped public labels include `מאמר משפטי`, `מאמר`, `עמוד מידע`, `פרופיל עורך דין`, `כלי משפטי`, with a safe Hebrew fallback `תוכן משפטי`.
+- CODE FIXED: this protects the public search UI even if a legacy plugin registration or cached CPT label still exposes English labels.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-public-label-map-v1`; requires uPress pull/cache clear and live search-page QA.
+- SAFETY: no content body, URL, redirect, sitemap, robots, wp-admin setting, lead/CRM record or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 03:14 Asia/Jerusalem
 - CODE FIXED: Articles CPT labels in both plugin trees now use Hebrew public/admin labels (`מאמרים משפטיים`, `מאמר משפטי`) instead of English `Articles` / `Article`.
 - CODE FIXED: practice-area taxonomy labels in both plugin trees now use Hebrew labels (`תחומי משפט`, `תחום משפט`) instead of English `Practice Areas`.

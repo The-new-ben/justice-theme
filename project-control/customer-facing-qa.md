@@ -127,6 +127,7 @@ LIVE VERIFIED:
 FIXED IN CODE:
 - `inc/seo.php` now shares one contextual title helper across WordPress and common SEO plugin title filters, so archive/search pages should stop leaking English titles after deployment.
 - CODE FIXED / NOT LIVE VERIFIED: Articles CPT and practice-area taxonomy labels are now Hebrew in both plugin trees, preventing `Article` / `Practice Areas` label leakage on search/result surfaces after deployment.
+- CODE FIXED / NOT LIVE VERIFIED: search result cards now use a theme-side Hebrew public label map, so public cards do not depend on raw plugin CPT labels.
 - Targeted title issues: `Articles Archive`, `עורכי דין Archive`, `You searched for`.
 
 STILL LOOKS BAD / NEEDS WORK:

@@ -325,6 +325,38 @@ function justice_theme_lawyer_public_whatsapp_link( string $whatsapp ): string {
 }
 
 /**
+ * Return a Hebrew public label for post types shown on visitor-facing cards.
+ *
+ * This avoids leaking raw plugin labels such as "Article" into Hebrew search
+ * results if a legacy plugin copy or cached registration is active.
+ *
+ * @param string $post_type Post type slug.
+ * @return string
+ */
+function justice_theme_public_post_type_label( string $post_type ): string {
+	$labels = array(
+		'articles'       => __( 'מאמר משפטי', 'justice-theme' ),
+		'post'           => __( 'מאמר', 'justice-theme' ),
+		'page'           => __( 'עמוד מידע', 'justice-theme' ),
+		'justice_lawyer' => __( 'פרופיל עורך דין', 'justice-theme' ),
+		'legal_tool'     => __( 'כלי משפטי', 'justice-theme' ),
+	);
+
+	if ( isset( $labels[ $post_type ] ) ) {
+		return $labels[ $post_type ];
+	}
+
+	$post_type_obj = get_post_type_object( $post_type );
+	$label         = $post_type_obj ? (string) $post_type_obj->labels->singular_name : '';
+
+	if ( '' === $label || preg_match( '/^[A-Za-z0-9 _-]+$/', $label ) ) {
+		return __( 'תוכן משפטי', 'justice-theme' );
+	}
+
+	return $label;
+}
+
+/**
  * Safe excerpt with word limit.
  *
  * @param int $post_id   Post ID.

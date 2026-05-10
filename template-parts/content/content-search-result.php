@@ -9,8 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$post_type_obj = get_post_type_object( get_post_type() );
-$type_label    = $post_type_obj ? $post_type_obj->labels->singular_name : '';
+$type_label = function_exists( 'justice_theme_public_post_type_label' )
+	? justice_theme_public_post_type_label( get_post_type() )
+	: '';
 ?>
 
 <article <?php post_class( 'article-card' ); ?>>

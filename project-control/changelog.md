@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Public search label map
+
+- CODE FIXED: search result cards now use a theme-side Hebrew post-type label map rather than raw plugin labels.
+- CODE FIXED: visitor-facing labels map to `מאמר משפטי`, `מאמר`, `עמוד מידע`, `פרופיל עורך דין`, `כלי משפטי`, or fallback `תוכן משפטי`.
+- EXPECTED IMPACT: public search cards should stay Hebrew even if a legacy plugin copy or cached CPT registration exposes an English singular label.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and public search-page QA with marker `2026-05-11-public-label-map-v1`.
+- SAFETY: no content body, URL, redirect, sitemap, robots, CRM record, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Hebrew CPT and taxonomy labels
 
 - CODE FIXED: `articles` CPT labels now use Hebrew in both plugin trees, so search result cards should show `מאמר משפטי` instead of `Article`.

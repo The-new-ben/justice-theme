@@ -35,6 +35,7 @@
 
 ### ACTION-I18N-001: Remove English labels from public Hebrew surfaces
 **Status:** CODE FIXED - live deployment/verification pending
+**Latest V2:** CODE FIXED - public search cards now use a theme-side Hebrew label map; live deployment/verification pending.
 **Why:** Hebrew visitors should not see English `Article`, `Articles`, `Practice Areas`, `Previous`, `Next`, or similar system labels on search/archive/404 pages.
 **Actions:**
 1. VERIFIED IN CODE: `404.php` body and CTA are Hebrew.
@@ -43,6 +44,9 @@
 4. DONE: `practice-areas` taxonomy labels are Hebrew in both plugin trees.
 5. NEXT: pull/deploy marker `2026-05-11-hebrew-cpt-labels-v1`, then verify `/ ?s=גירושין` or a similar public search page does not show English content-type labels.
 6. NOT LIVE VERIFIED: no public deployment yet.
+
+7. DONE V2: search result cards now use `justice_theme_public_post_type_label()` so public cards remain Hebrew even if a legacy plugin label is English.
+8. NEXT V2: pull/deploy marker `2026-05-11-public-label-map-v1`, then verify a public search page does not show English content-type labels.
 
 ### ACTION-BRAND-001: Logo + Favicon + Search Branding
 **Status:** PARTIAL LIVE VERIFIED - wp-admin/search-result verification pending

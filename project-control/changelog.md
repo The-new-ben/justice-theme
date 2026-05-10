@@ -11,6 +11,7 @@
 - The guard is scoped only to the approved family-law English slugs and only runs when internal markers are detected.
 - The family-law repair version is bumped to v5 so normal migration repair reruns as well.
 - VERIFIED locally: PHP lint passed for 124 PHP files and the seven-draft public-marker scan still passes.
+- LIVE RECHECK after push `d374407`: public pages still expose internal markers, so the runtime guard is pushed but not live/executed yet.
 - CODE FIXED. LIVE NOT VERIFIED until uPress pulls and at least one affected page is opened.
 
 **[HIGH] Added cache purge after family-law editorial repair**

@@ -76,6 +76,11 @@ These URLs exist as the working family-law cluster. The immediate task is public
 - This remains narrowly scoped: it does not create pages, does not delete pages, and does not run on unrelated content.
 - Required proof: after uPress pulls, open one affected page and confirm the public body no longer contains internal markers.
 
+## LIVE RECHECK - 2026-05-10 AFTER COMMIT d374407
+- Result: STILL NEEDS uPress PULL / CACHE REFRESH / HOOK EXECUTION.
+- All seven family-law URLs still expose internal markers publicly.
+- The runtime guard is pushed to GitHub, but public HTML has not changed yet, so live WordPress is not running the latest pushed theme code or is serving an older cache layer.
+
 ## LIVE RECHECK - 2026-05-10 AFTER COMMIT d5824ed
 - Result: STILL NEEDS uPress PULL / CACHE REFRESH / HOOK EXECUTION.
 - All seven family-law URLs still expose internal markers publicly.

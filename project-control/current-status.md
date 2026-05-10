@@ -69,6 +69,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - CODE FIXED: extracted internal sections are still preserved in the draft-only `Internal Editorial Notes — Family Law Cluster` page.
 - VERIFIED locally: PHP lint passed for 124 PHP files after the v3 family-law repair hardening.
 - VERIFIED locally: all seven family-law draft files scan clean after the v3 public-content cleanup function is applied.
+- LIVE RECHECK after push `cd9b123`: all seven family-law URLs still expose internal markers publicly, so uPress/live WordPress has not yet pulled/executed the v3 repair or cache is still serving the previous page bodies.
 - EDITORIAL SAFETY: family-law auto-publication remains paused as a creation mechanism, but existing live pages are now treated as content to repair and enrich rather than remove.
 - LIVE VERIFIED: the seven family-law URLs were live and contained internal markers in the earlier public check; the current repo fix is to clean those pages in place on the next pull.
 - CODE FIXED: the previous draft/restore cleanup routine is disabled by default and replaced by editorial repair for existing pages.

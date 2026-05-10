@@ -12,6 +12,7 @@
 - The family-law editorial repair version is bumped to v3 so live WordPress reruns the repair after the next uPress pull.
 - VERIFIED locally: PHP lint passed for 124 PHP files.
 - VERIFIED locally: the seven family-law repo drafts pass the public-marker scan after cleanup.
+- LIVE RECHECK after push `cd9b123`: public pages still expose internal markers, so the v3 repair is pushed but not live/executed yet.
 - CODE FIXED. LIVE NOT VERIFIED until uPress pulls and all seven URLs are checked again for leaked internal markers.
 
 **[MEDIUM] Improved public article conversion for repaired pages**

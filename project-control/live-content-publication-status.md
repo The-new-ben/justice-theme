@@ -65,6 +65,13 @@ These URLs exist as the working family-law cluster. The immediate task is public
 - Removed internal sections are still collected into the draft-only `Internal Editorial Notes — Family Law Cluster` page.
 - Next required proof: after uPress pulls, recheck the seven URLs and confirm those markers no longer appear in public article bodies.
 
+## LIVE RECHECK - 2026-05-10 AFTER COMMIT cd9b123
+- Result: STILL NEEDS uPress PULL / CACHE REFRESH / HOOK EXECUTION.
+- GitHub `main` has the v3 repair, but public HTML still exposes internal markers on all seven family-law URLs.
+- Locally, the same seven repo drafts scan clean after the v3 cleanup function is applied.
+- Interpretation: live WordPress is still serving the pre-v3 repaired bodies, or the latest theme code has not executed on the server yet.
+- Required action: pull latest in uPress or open wp-admin after pull so the `init` repair hook can run, then recheck the seven URLs.
+
 ## LIVE RECHECK - 2026-05-10 AFTER COMMIT d3ff1d6
 - Result: LIVE STILL NEEDS uPress PULL / CACHE REFRESH / HOOK EXECUTION.
 - All seven family-law URLs returned HTTP 200.

@@ -33,7 +33,7 @@ $justice_topic_links = array(
 	),
 	array(
 		'label' => __( 'תעבורה', 'justice-theme' ),
-		'url'   => justice_theme_safe_public_link( '/traffic-lawyer/', '/traffic-law/' ),
+		'url'   => justice_theme_safe_public_link( '/traffic-lawyer/', '/lawyers/?area=traffic-law' ),
 	),
 	array(
 		'label' => __( 'עבודה', 'justice-theme' ),
@@ -45,7 +45,7 @@ $justice_topic_links = array(
 	),
 	array(
 		'label' => __( 'אבחון משפטי חכם', 'justice-theme' ),
-		'url'   => home_url( '/legal-tools/ai-intake/' ),
+		'url'   => justice_theme_safe_public_link( '/legal-tools/ai-intake/', '/#ask-lawyer' ),
 	),
 );
 ?>

@@ -43,14 +43,24 @@
 6. NEXT: deploy/pull latest code, clear cache, then visually verify homepage topic strip and `/lawyers/` title output.
 
 ### ACTION-SEO-004: Post-Deploy Homepage + Directory Verification
-**Status:** NEXT
+**Status:** PARTIAL LIVE VERIFIED - follow-up code fix pending deploy
 **Why:** Code is fixed locally, but live site still needs deployment/cache refresh before the customer-facing links and titles can be called verified.
 **Actions:**
-1. Recheck homepage rendered topic strip links in public HTML.
-2. Recheck homepage and `/lawyers/` title/H1/meta.
-3. Recheck mobile homepage topic strip and featured pillar cards.
-4. Confirm no topic link returns homepage redirect unless intentionally using the homepage.
-5. Update `project-control/customer-facing-qa.md` and visual evidence.
+1. DONE: Rechecked homepage rendered topic strip links in public HTML.
+2. DONE: Rechecked homepage and `/lawyers/` title/H1/meta; both title fixes are live.
+3. DONE: Captured homepage and `/lawyers/` desktop/mobile screenshots after owner Upress pull.
+4. PARTIAL: Most topic links are safe, but traffic still fell back to `/traffic-law/` and LegalTech/AI links redirected home.
+5. CODE FIXED: traffic fallback changed to `/lawyers/?area=traffic-law`; LegalTech/AI fallback changed to `/#ask-lawyer`.
+6. NEXT: commit/push follow-up, owner pulls latest, then recheck rendered topic-strip and LegalTech links.
+
+### ACTION-SEO-005: Verify Follow-Up Topic/LegalTech Fallbacks
+**Status:** NEXT
+**Why:** The live pull fixed titles and most links, but the latest fallback patch must be verified after another pull.
+**Actions:**
+1. Recheck rendered topic-strip traffic link: should be `/lawyers/?area=traffic-law` unless `/traffic-lawyer/` exists.
+2. Recheck rendered AI intake link: should be `/#ask-lawyer` unless `/legal-tools/ai-intake/` exists.
+3. Recheck LegalTech section cards/buttons: no `/legal-tools/*` homepage redirects.
+4. Update visual QA and customer-facing QA.
 
 ---
 

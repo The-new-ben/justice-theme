@@ -117,3 +117,21 @@ Status:
 - NOT LIVE VERIFIED.
 - NO URL CHANGES.
 - NO REDIRECTS.
+
+## 2026-05-10 Post-Pull Verification
+
+LIVE VERIFIED:
+- Homepage now serves `2026-05-10-contextual-title-v1`.
+- Homepage title is now `עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ`.
+- `/lawyers/` title is now `מדריך עורכי דין בישראל | Jus-Tice`.
+- Topic strip renders the expanded legal-intent links.
+
+VISUAL VERIFIED:
+- `project-control/visual-evidence/homepage-post-pull-safe-links-desktop-2026-05-10.png`
+- `project-control/visual-evidence/homepage-post-pull-safe-links-mobile-2026-05-10.png`
+- `project-control/visual-evidence/lawyers-post-pull-title-fixed-desktop-2026-05-10.png`
+- `project-control/visual-evidence/lawyers-post-pull-title-fixed-mobile-2026-05-10.png`
+
+FOLLOW-UP CODE FIXED / NOT LIVE VERIFIED:
+- Traffic fallback now avoids `/traffic-law/` because it redirects to homepage.
+- LegalTech/AI links now fall back to `/#ask-lawyer` until actual `/legal-tools/` pages are published.

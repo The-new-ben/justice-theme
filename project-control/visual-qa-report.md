@@ -91,3 +91,18 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - LIVE VERIFIED BROKEN: fake 404 URL returns/finalizes as homepage with status 200.
 - LIVE VERIFIED RISK: `/practice-areas/family-law/` finalizes to `http://jus-tice.co.il/family-law/`, so HTTPS/canonical consistency needs review.
 - LIVE VERIFIED MOBILE RISK: WhatsApp/lead CTA and accessibility button overlap content on several mobile pages.
+
+## 2026-05-10 Post-Upress Pull Homepage/Directory Verification
+
+- LIVE VERIFIED: homepage now serves marker `2026-05-10-contextual-title-v1`.
+- LIVE VERIFIED: homepage title is now Hebrew and portal-oriented: `עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ`.
+- LIVE VERIFIED: `/lawyers/` title is now `מדריך עורכי דין בישראל | Jus-Tice`; the `Archive` leak is gone.
+- VISUAL VERIFIED: screenshots captured:
+  - `project-control/visual-evidence/homepage-post-pull-safe-links-desktop-2026-05-10.png`
+  - `project-control/visual-evidence/homepage-post-pull-safe-links-mobile-2026-05-10.png`
+  - `project-control/visual-evidence/lawyers-post-pull-title-fixed-desktop-2026-05-10.png`
+  - `project-control/visual-evidence/lawyers-post-pull-title-fixed-mobile-2026-05-10.png`
+- LIVE VERIFIED GOOD: rendered topic strip now includes broader lawyer-intent links for real estate, medical malpractice, personal injury, labor and inheritance.
+- LIVE VERIFIED FOLLOW-UP ISSUE: traffic topic link still rendered as `/traffic-law/`, which redirects to homepage.
+- LIVE VERIFIED FOLLOW-UP ISSUE: LegalTech/AI intake URLs redirect to homepage.
+- CODE FIXED / NOT LIVE VERIFIED: traffic fallback now points to `/lawyers/?area=traffic-law`, and LegalTech/AI links fall back to `/#ask-lawyer` until real tool pages exist.

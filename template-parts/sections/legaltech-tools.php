@@ -42,28 +42,28 @@ if ( empty( $tools ) ) {
 		array(
 			'title' => 'צ׳אט אבחון משפטי',
 			'text'  => 'שיחה מונחית שמזהה תחום, דחיפות, עיר, מסמכים חסרים והתאמה לעורך דין.',
-			'url'   => home_url( '/legal-tools/ai-intake/' ),
+			'url'   => justice_theme_safe_public_link( '/legal-tools/ai-intake/', '/#ask-lawyer' ),
 			'type'  => 'AI intake',
 			'price' => 'חינם / ליד',
 		),
 		array(
 			'title' => 'מכתב התראה',
 			'text'  => 'איסוף פרטים, יצירת טיוטה, בדיקת עורך דין ושליחה מסודרת ללקוח.',
-			'url'   => home_url( '/legal-tools/demand-letter/' ),
+			'url'   => justice_theme_safe_public_link( '/legal-tools/demand-letter/', '/#ask-lawyer' ),
 			'type'  => 'Document',
 			'price' => 'בתשלום',
 		),
 		array(
 			'title' => 'הסכם משפחתי',
 			'text'  => 'טיוטות להסכמים בסיסיים עם שאלון מובנה, אזהרות וסבב אישור משפטי.',
-			'url'   => home_url( '/legal-tools/family-agreement/' ),
+			'url'   => justice_theme_safe_public_link( '/legal-tools/family-agreement/', '/#ask-lawyer' ),
 			'type'  => 'Lawyer review',
 			'price' => 'בתשלום',
 		),
 		array(
 			'title' => 'בדיקת חוזה נדל״ן',
 			'text'  => 'העלאת מסמך, חילוץ סיכונים, שאלות המשך והעברה לעורך דין מקרקעין.',
-			'url'   => home_url( '/legal-tools/real-estate-contract-review/' ),
+			'url'   => justice_theme_safe_public_link( '/legal-tools/real-estate-contract-review/', '/#ask-lawyer' ),
 			'type'  => 'Real estate',
 			'price' => 'פרימיום',
 		),
@@ -79,7 +79,7 @@ if ( empty( $tools ) ) {
 				<h2>מסמכים, סימולציות וצ׳אט משפטי עם עורך דין בלופ</h2>
 				<p>המשתמש מתחיל בשיחה או כלי, המערכת בונה טיוטה ופרופיל מקרה, ועורך דין יכול לתת את הטאץ׳ הסופי.</p>
 			</div>
-			<a class="button button--primary" href="<?php echo esc_url( home_url( '/legal-tools/' ) ); ?>">כל הכלים</a>
+			<a class="button button--primary" href="<?php echo esc_url( justice_theme_safe_public_link( '/legal-tools/', '/#ask-lawyer' ) ); ?>">כל הכלים</a>
 		</div>
 
 		<div class="legaltech-tools__grid">
@@ -91,7 +91,7 @@ if ( empty( $tools ) ) {
 					<p><strong>משתמש:</strong> הסכם גירושין / חוזה דירה / מכתב התראה</p>
 					<p><strong>המערכת:</strong> ניצור שאלון, טיוטה, סיכום לעורך דין והצעת מחיר.</p>
 				</div>
-				<a class="button button--gold" href="<?php echo esc_url( home_url( '/legal-tools/ai-intake/' ) ); ?>">התחלת אבחון</a>
+				<a class="button button--gold" href="<?php echo esc_url( justice_theme_safe_public_link( '/legal-tools/ai-intake/', '/#ask-lawyer' ) ); ?>">התחלת אבחון</a>
 			</div>
 
 			<div class="legaltech-tools__cards">

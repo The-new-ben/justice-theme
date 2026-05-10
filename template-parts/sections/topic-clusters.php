@@ -39,7 +39,7 @@ $topics = array(
 	array(
 		'title' => 'תעבורה',
 		'slug'  => 'traffic-law',
-		'url'   => justice_theme_safe_public_link( '/traffic-lawyer/', '/traffic-law/' ),
+		'url'   => justice_theme_safe_public_link( '/traffic-lawyer/', '/lawyers/?area=traffic-law' ),
 		'links' => array(),
 	),
 );

@@ -5,7 +5,10 @@ Date: 2026-05-10
 - URL: https://jus-tice.co.il/
 - Proof: `project-control/visual-evidence/customer-home-desktop.png`, `customer-home-mobile.png`
 - LIVE VERIFIED: page loads, red-dot wordmark visible, hero is visually stronger than a default blog.
+- LIVE VERIFIED 2026-05-10 POST-PULL: homepage title is now `עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ`; proof screenshots: `homepage-post-pull-safe-links-desktop-2026-05-10.png`, `homepage-post-pull-safe-links-mobile-2026-05-10.png`.
 - What looks weak: primary menu is too thin; WhatsApp overlays mobile lower CTA area; no final uploaded logo/favicon verified.
+- LIVE VERIFIED FOLLOW-UP ISSUE: traffic and LegalTech/AI topic links still had homepage-redirect risk in the pulled version.
+- CODE FIXED / NOT LIVE VERIFIED: traffic now falls back to `/lawyers/?area=traffic-law`; LegalTech/AI links fall back to `/#ask-lawyer` until real tool pages exist.
 - FIXED IN CODE: stronger hero copy, fallback favicon, fuller primary menu augmentation, mobile WhatsApp offset.
 - Status: NOT CUSTOMER-READY until live recheck and menu assignment.
 
@@ -40,6 +43,7 @@ Date: 2026-05-10
 - URL: https://jus-tice.co.il/lawyers/
 - Proof: `project-control/visual-evidence/customer-lawyers-desktop.png`
 - LIVE VERIFIED: cards render.
+- LIVE VERIFIED 2026-05-10 POST-PULL: title is now `מדריך עורכי דין בישראל | Jus-Tice`; proof screenshots: `lawyers-post-pull-title-fixed-desktop-2026-05-10.png`, `lawyers-post-pull-title-fixed-mobile-2026-05-10.png`.
 - What looks weak: multiple demo/test lawyers appear publicly; city slugs appear in some cards; sponsorship badges can mislead if not real.
 - FIXED IN CODE: sponsored badge now requires active subscription and non-seed data; city labels map common slugs to Hebrew.
 - LIVE VERIFIED: `/lawyers/?area=family-law` now outputs the Jus-Tice `noindex,follow` filter marker. Proof: `project-control/visual-evidence/lawyers-family-filter-2026-05-10.png`.

@@ -27,7 +27,7 @@ $pillars = array(
 		'title' => 'עורך דין תעבורה',
 		'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><rect x="2" y="9" width="20" height="9" rx="2"/><path d="M5 18v2M19 18v2M2 13h20M7 9l2-4h6l2 4"/></svg>',
 		'desc'  => 'ביטול דוחות, עבירות נהיגה, השעיית רישיון ותאונות דרכים',
-		'link'  => justice_theme_safe_public_link( '/traffic-lawyer/', '/traffic-law/' ),
+		'link'  => justice_theme_safe_public_link( '/traffic-lawyer/', '/lawyers/?area=traffic-law' ),
 	),
 	array(
 		'title' => 'עורך דין מקרקעין',

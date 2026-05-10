@@ -2,6 +2,19 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST LIVE STATUS - 2026-05-10 22:15 Asia/Jerusalem
+- LIVE VERIFIED: owner Upress pull is now reflected publicly. Homepage deployment marker is `2026-05-10-contextual-title-v1`.
+- LIVE VERIFIED: homepage title is now `עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ`.
+- LIVE VERIFIED: `/lawyers/` title is now `מדריך עורכי דין בישראל | Jus-Tice`; the English `Archive` leak is fixed live.
+- LIVE VERIFIED: header topic strip renders expanded crawlable topic links for divorce, criminal, real estate, malpractice, personal injury, traffic, employment, inheritance and legal intake.
+- VISUAL VERIFIED: fresh homepage and `/lawyers/` desktop/mobile screenshots were captured under `project-control/visual-evidence/*post-pull*2026-05-10.png`.
+- LIVE VERIFIED FOLLOW-UP ISSUE: rendered traffic topic fallback used `/traffic-law/`, which returns 301 to homepage.
+- LIVE VERIFIED FOLLOW-UP ISSUE: `/legal-tools/` and `/legal-tools/ai-intake/` return 301 to homepage, so LegalTech CTAs are not safe until tool pages are published.
+- CODE FIXED: traffic fallbacks now use `/lawyers/?area=traffic-law`, and LegalTech/header AI links fall back to `/#ask-lawyer` until the legal-tool pages exist.
+- VERIFIED: PHP lint passed locally for 127 PHP files after the follow-up traffic/LegalTech fallback patch.
+- SAFETY: no slugs, redirects, public content, sitemap rules, robots rules, wp-admin settings or database records were changed.
+- NOT LIVE VERIFIED AFTER FOLLOW-UP FIX: requires another Upress pull/cache refresh after commit.
+
 ## LATEST WORK STATUS - 2026-05-10 21:55 Asia/Jerusalem
 - CODE FIXED: no-URL-change homepage/directory SEO batch added safe primary/fallback internal links for major legal-intent topics.
 - CODE FIXED: `inc/template-tags.php` now exposes `justice_theme_public_path_is_published()` and `justice_theme_safe_public_link()` so planned English pillar URLs are used only when published.

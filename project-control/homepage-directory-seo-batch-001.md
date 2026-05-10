@@ -1,7 +1,7 @@
 # Homepage + Directory SEO Batch 001
 
 Date: 2026-05-10  
-Status: CODE FIXED - NOT LIVE VERIFIED  
+Status: PARTIAL LIVE VERIFIED - FOLLOW-UP CODE FIX ADDED
 Scope: no URL changes, no redirects, no public content publication, no CMS/database edits.
 
 ## Goal
@@ -64,15 +64,32 @@ NOT EXECUTED:
 VERIFIED:
 - PHP lint passed locally for 127 PHP files.
 
-NOT LIVE VERIFIED:
-- Live header/topic-strip links require deployment/pull/cache refresh.
-- Live homepage title and `/lawyers/` title still show legacy title issues until the newest code is served.
-- Visual desktop/mobile verification is still required after deployment.
+LIVE VERIFIED AFTER OWNER Upress Pull:
+- Homepage title is now `עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ`.
+- `/lawyers/` title is now `מדריך עורכי דין בישראל | Jus-Tice`; the English `Archive` leak is fixed live.
+- Header topic strip renders the new expanded link set.
+- Rendered topic-strip fallbacks return 200 for family, criminal, real estate directory filter, malpractice directory filter, personal injury, labor directory filter and inheritance.
+- Desktop/mobile screenshots were captured:
+  - `project-control/visual-evidence/homepage-post-pull-safe-links-desktop-2026-05-10.png`
+  - `project-control/visual-evidence/homepage-post-pull-safe-links-mobile-2026-05-10.png`
+  - `project-control/visual-evidence/lawyers-post-pull-title-fixed-desktop-2026-05-10.png`
+  - `project-control/visual-evidence/lawyers-post-pull-title-fixed-mobile-2026-05-10.png`
+
+LIVE VERIFIED FOLLOW-UP ISSUES:
+- Topic strip still rendered `https://jus-tice.co.il/traffic-law/`, which returns 301 to the homepage.
+- LegalTech CTA `https://jus-tice.co.il/legal-tools/ai-intake/` returns 301 to the homepage.
+
+FOLLOW-UP CODE FIXED:
+- Traffic fallbacks now point to `/lawyers/?area=traffic-law`.
+- Header AI intake link now falls back to `/#ask-lawyer` until `/legal-tools/ai-intake/` exists.
+- Homepage LegalTech fallback cards and buttons now fall back to `/#ask-lawyer` until legal-tool pages exist.
+
+NOT LIVE VERIFIED AFTER FOLLOW-UP FIX:
+- The traffic and LegalTech fallback changes need another Upress pull/cache refresh and public HTML recheck.
 
 ## Next Action
 
-1. Pull/deploy latest repo code to live and clear cache.
-2. Recheck homepage rendered links in public HTML.
-3. Recheck `/lawyers/` title output to confirm the `Archive` leak is gone.
-4. Recheck homepage mobile topic strip and pillar cards visually.
-5. Continue GSC-informed title/H1/meta fixes without changing URLs.
+1. Pull/deploy the follow-up fallback fix and clear cache.
+2. Recheck homepage rendered topic strip: traffic should no longer link to `/traffic-law/`, and AI should no longer link to `/legal-tools/ai-intake/` unless that tool page exists.
+3. Recheck LegalTech section links.
+4. Continue GSC-informed title/H1/meta fixes without changing URLs.

@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Post-pull verification and unsafe fallback cleanup
+
+- LIVE VERIFIED: owner Upress pull is reflected publicly; homepage marker is `2026-05-10-contextual-title-v1`.
+- LIVE VERIFIED: homepage title is now `עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ`.
+- LIVE VERIFIED: `/lawyers/` title is now `מדריך עורכי דין בישראל | Jus-Tice`; the English `Archive` leak is fixed live.
+- VISUAL VERIFIED: homepage and `/lawyers/` screenshots captured after pull under `project-control/visual-evidence/*post-pull*2026-05-10.png`.
+- FOUND: rendered traffic topic fallback still used `/traffic-law/`, which redirects to the homepage.
+- FOUND: `/legal-tools/` and `/legal-tools/ai-intake/` redirect to the homepage, so LegalTech/AI CTAs were unsafe.
+- CODE FIXED: traffic fallback now points to `/lawyers/?area=traffic-law`; LegalTech/AI links fall back to `/#ask-lawyer` until tool pages exist.
+- SAFETY: no public URLs, redirects, content bodies, sitemap rules, robots rules, wp-admin settings or CMS/database records were changed.
+- NOT LIVE VERIFIED AFTER FOLLOW-UP FIX: requires another Upress pull/cache refresh.
+
 ## 2026-05-10 - No-URL-change homepage/directory SEO link safety batch
 
 - CODE FIXED: added safe primary/fallback public link helpers so planned English pillar URLs are only used when published content exists.

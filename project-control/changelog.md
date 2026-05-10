@@ -5,6 +5,14 @@
 
 ### EDITORIAL IMPROVEMENT MODE
 
+**[HIGH] Added public deployment marker for live verification**
+- Files: `functions.php`, `inc/deployment-marker.php`
+- The theme now prints non-visual `<meta>` markers for `justice-theme-version` and `justice-deployment-marker` in the public `<head>`.
+- Current marker: `2026-05-10-runtime-guard-v5`.
+- Purpose: verify whether uPress/live WordPress is actually serving the latest pushed theme code before interpreting live failures as code failures.
+- VERIFIED locally: PHP lint passed for 125 PHP files.
+- CODE FIXED. LIVE NOT VERIFIED until the public homepage includes the marker.
+
 **[CRITICAL] Added runtime public-content guard for family-law pages**
 - Files: `inc/live-content-publication.php`
 - If one of the seven family-law public pages is rendered while still containing internal markers, the theme now serves the cleaned public article body from the approved repo draft and persists that cleaned body back to the WordPress page.

@@ -10,11 +10,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'JUSTICE_THEME_VERSION', '1.0.1' );
+define( 'JUSTICE_THEME_DEPLOYMENT_MARKER', '2026-05-10-runtime-guard-v5' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
 $justice_theme_files = array(
 	'inc/setup.php',
+	'inc/deployment-marker.php',
 	'inc/enqueue.php',
 	'inc/menu-seed.php',
 	'inc/template-tags.php',

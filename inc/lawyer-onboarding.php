@@ -365,6 +365,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						<th>Plan</th>
 						<th>Mini-site Content</th>
 						<th>Pending Update</th>
+						<th>Recent Notes</th>
 						<th>Status</th>
 						<th>Submitted</th>
 						<th>Action</th>
@@ -390,6 +391,8 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 							'Video'    => get_post_meta( $post_id, 'pending_profile_video_url', true ),
 							'FAQ'      => get_post_meta( $post_id, 'pending_profile_faqs', true ),
 						);
+						$internal_notes = trim( (string) get_post_meta( $post_id, 'internal_notes', true ) );
+						$recent_notes   = array_slice( array_filter( array_map( 'trim', explode( "\n", $internal_notes ) ) ), -3 );
 						?>
 						<tr>
 							<td><strong><?php echo esc_html( get_the_title() ); ?></strong></td>
@@ -413,6 +416,15 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 										<?php if ( $value ) : ?>
 											<p style="margin:0 0 6px;"><strong><?php echo esc_html( $label ); ?>:</strong> <?php echo esc_html( wp_html_excerpt( (string) $value, 120, '...' ) ); ?></p>
 										<?php endif; ?>
+									<?php endforeach; ?>
+								<?php else : ?>
+									-
+								<?php endif; ?>
+							</td>
+							<td>
+								<?php if ( $recent_notes ) : ?>
+									<?php foreach ( $recent_notes as $note ) : ?>
+										<p style="margin:0 0 6px;"><?php echo esc_html( wp_html_excerpt( $note, 140, '...' ) ); ?></p>
 									<?php endforeach; ?>
 								<?php else : ?>
 									-

@@ -103,6 +103,7 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
 - Admins can apply a pending mini-site update from Lawyer Onboarding. The action is nonce-protected, copies non-empty `pending_profile_*` values into public profile fields, clears pending metadata, and leaves `profile_status = update_applied_pending_final_review`.
 - Admins can discard a pending mini-site update from Lawyer Onboarding. The action is nonce-protected, deletes only pending update metadata, does not touch public profile fields, and leaves `profile_status = update_rejected_no_public_change`.
 - Staged update submission, apply, and discard events append timestamped entries to the lawyer profile `internal_notes` field for lightweight audit history.
+- The Lawyer Onboarding admin queue previews the last three `internal_notes` entries for each listed lawyer profile.
 
 ## NOT VERIFIED
 

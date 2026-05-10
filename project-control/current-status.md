@@ -36,6 +36,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer Onboarding admin queue now has a nonce-protected action to apply reviewed pending mini-site updates into public profile fields while leaving final review status.
 - Lawyer Onboarding admin queue now has a nonce-protected action to discard pending mini-site updates without changing public profile fields.
 - Lawyer mini-site update submission/apply/discard events now append timestamped notes to lawyer `internal_notes` for lightweight CRM audit history.
+- Lawyer Onboarding admin queue now previews the latest internal notes for each listed lawyer profile.
 
 ## FIXED IN THIS PASS
 - Added tracked `page-home.php` because the live homepage is assigned to the `page-home.php` page template, not only `front-page.php`.

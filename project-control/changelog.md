@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[MEDIUM] Surfaced recent internal notes in Lawyer Onboarding**
+- Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
+- Lawyer Onboarding now previews the last three `internal_notes` entries for each listed lawyer profile.
+- This makes profile-update submission/apply/discard history visible in the owner queue without opening every profile editor.
+- VERIFIED in repo. LIVE NOT VERIFIED until onboarding admin is checked after Upress pull.
+
 **[MEDIUM] Added audit notes for staged mini-site updates**
 - Files: `inc/lawyer-dashboard.php`, `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
 - Staged mini-site update submission, apply, and discard events now append timestamped entries to the lawyer profile `internal_notes` field.

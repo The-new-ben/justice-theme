@@ -11,6 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 add_action( 'admin_menu', 'justice_theme_register_content_draft_importer' );
 add_action( 'admin_init', 'justice_theme_handle_content_draft_import' );
+add_filter( 'manage_articles_posts_columns', 'justice_theme_add_article_review_columns' );
+add_action( 'manage_articles_posts_custom_column', 'justice_theme_render_article_review_columns', 10, 2 );
 
 function justice_theme_register_content_draft_importer(): void {
 	add_management_page(
@@ -20,6 +22,61 @@ function justice_theme_register_content_draft_importer(): void {
 		'justice-content-drafts',
 		'justice_theme_render_content_draft_importer'
 	);
+}
+
+function justice_theme_add_article_review_columns( array $columns ): array {
+	$updated = array();
+
+	foreach ( $columns as $key => $label ) {
+		$updated[ $key ] = $label;
+
+		if ( 'title' === $key ) {
+			$updated['justice_repo_draft']    = __( 'Repo Draft', 'justice-theme' );
+			$updated['justice_review_gates'] = __( 'Review Gates', 'justice-theme' );
+			$updated['justice_words']        = __( 'Words', 'justice-theme' );
+		}
+	}
+
+	return $updated;
+}
+
+function justice_theme_render_article_review_columns( string $column, int $post_id ): void {
+	if ( 'justice_repo_draft' === $column ) {
+		$file   = (string) get_post_meta( $post_id, 'repo_content_draft_file', true );
+		$status = (string) get_post_meta( $post_id, 'repo_content_draft_status', true );
+
+		if ( '' === $file ) {
+			echo '&mdash;';
+			return;
+		}
+
+		echo '<code>' . esc_html( $file ) . '</code>';
+		if ( '' !== $status ) {
+			echo '<br><small>' . esc_html( $status ) . '</small>';
+		}
+		return;
+	}
+
+	if ( 'justice_review_gates' === $column ) {
+		$needs_legal  = (string) get_post_meta( $post_id, 'needs_legal_review', true );
+		$needs_source = (string) get_post_meta( $post_id, 'needs_browser_source_verification', true );
+		$source_audit = (string) get_post_meta( $post_id, 'repo_content_source_audit', true );
+
+		$legal_label  = '1' === $needs_legal ? __( 'Legal: NOT VERIFIED', 'justice-theme' ) : __( 'Legal: cleared/unknown', 'justice-theme' );
+		$source_label = '1' === $needs_source ? __( 'Sources: NOT VERIFIED', 'justice-theme' ) : __( 'Sources: cleared/unknown', 'justice-theme' );
+
+		echo esc_html( $legal_label ) . '<br>';
+		echo esc_html( $source_label );
+		if ( '' !== $source_audit ) {
+			echo '<br><code>' . esc_html( $source_audit ) . '</code>';
+		}
+		return;
+	}
+
+	if ( 'justice_words' === $column ) {
+		$word_count = (int) get_post_meta( $post_id, 'repo_content_draft_word_count', true );
+		echo $word_count > 0 ? esc_html( number_format_i18n( $word_count ) ) : '&mdash;';
+	}
 }
 
 function justice_theme_render_content_draft_importer(): void {

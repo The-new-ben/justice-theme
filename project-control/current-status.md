@@ -122,6 +122,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Search and archive pagination labels were cleaned in repo: search results, previous/next labels, article archive pagination, and lawyer archive pagination no longer use English or mojibake arrows.
 - CMS draft-import bridge added in repo: `Tools > Jus-Tice Content Drafts` can import repo Markdown drafts from `content-drafts/` into the `articles` CPT as draft-only posts. It never publishes content and blocks refresh of already-published articles.
 - CMS draft-import bridge now supports admin-only bulk draft import for all repo drafts. Bulk import still keeps everything draft-only and preserves the block on refreshing already-published articles.
+- Articles admin list now has repo-draft review columns for imported drafts: source file/status, legal/source verification gates, source-audit file and draft word count.
 - Family-law cluster map now exists at `project-control/family-law-content-cluster-map.md`, with anti-cannibalization roles and internal-link rules for the divorce pillar and first five supporting drafts.
 - Content inventory and title audit now include the first six repo-maintained family-law drafts with word counts, status, intent, duplicate-risk notes, and review/import actions.
 - Divorce pillar source audit now exists at `project-control/divorce-pillar-source-audit.csv`. It maps official/legal-reference sources to sensitive sections and keeps unresolved legal claims blocked from publication. Kol Zchut source URLs were direct-check verified where possible; gov.il direct checks returned 403 and remain browser/source-review items.
@@ -136,6 +137,6 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 6. Verify `/legal-tools/`, `/legal-tools/ai-intake/`, and one test LegalTech request in admin.
 7. Commit only repo-safe changes; do not create ZIPs.
 8. Export live URL/slug inventory before changing any Hebrew slugs; fill `url-migration-map.csv`, then create approved 301 redirects for every changed URL.
-9. Run lawyer/legal review and browser source verification for the six family-law drafts listed in `project-control/family-law-publication-readiness.csv`, then import as draft only through the admin content-draft importer or its bulk draft-only action.
+9. Run lawyer/legal review and browser source verification for the six family-law drafts listed in `project-control/family-law-publication-readiness.csv`, then import as draft only through the admin content-draft importer or its bulk draft-only action. Use the Articles admin review columns to track remaining gates.
 10. Pull latest in Upress and visit `/wp-admin/` once to seed/import draft pillar pages; publish `/divorce-lawyer/` first only after review gates pass.
 11. Verify live homepage after Upress pull; expected signs are the blinking red-dot Jus-Tice fallback, richer hero visual layer, and upgraded article-card placeholders.

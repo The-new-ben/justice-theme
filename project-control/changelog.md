@@ -123,6 +123,12 @@
 - Bulk import preserves draft-only behavior and still blocks refresh of already-published articles.
 - Status is NOT VERIFIED live until Upress pulls the commit and the wp-admin importer screen is tested.
 
+**[MEDIUM] Added article admin review columns**
+- Files: `inc/content-draft-importer.php`, `project-control/current-status.md`, `project-control/changelog.md`, `project-control/task-board.csv`
+- Added `Repo Draft`, `Review Gates`, and `Words` columns to the `articles` admin list.
+- Imported drafts now surface source file/status, legal/source verification blockers, source-audit file and draft word count without opening each article.
+- Status is NOT VERIFIED live until the Articles admin list is checked after import.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

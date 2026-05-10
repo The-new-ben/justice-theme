@@ -67,6 +67,11 @@
 - Added suitability test, mediation models, preparation checklist, failure paths, power-imbalance warnings, children section, legal-advice boundary, pricing caution, anti-cannibalization, CMS layout and LegalTech questionnaire concept.
 - Status remains NOT VERIFIED for legal accuracy and not ready to publish.
 
+**[HIGH] Added divorce-mediation source audit**
+- Files: `project-control/divorce-mediation-source-audit.csv`, `content-drafts/divorce-mediation-supporting-he.md`, `project-control/current-status.md`, `project-control/task-board.csv`
+- Mapped mediation procedure, price and failure-path claims to gov.il/Midrag source candidates.
+- Kept confidentiality, mediator-role and power-imbalance sections blocked for lawyer review.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

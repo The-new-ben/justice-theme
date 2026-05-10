@@ -410,6 +410,7 @@ Secondary keywords: מגשר גירושין, גישור משפחתי, עורך �
 ## סטטוס לפני פרסום
 
 - NOT VERIFIED: בדיקה משפטית.
+- PARTIAL: מקורות ראשוניים ומסחריים זוהו ונרשמו ב-`project-control/divorce-mediation-source-audit.csv`, אך עדיין צריך אימות מקור/דין לפני פרסום.
 - NOT VERIFIED: התאמת מחירי שוק לתאריך פרסום.
 - NOT VERIFIED: בדיקת קניבליזציה מול `/consensual-divorce/`.
 - READY NEXT: בדיקת מקורות, עריכה משפטית, חיבור בלוקים דינמיים, והטמעה כטיוטת CMS.

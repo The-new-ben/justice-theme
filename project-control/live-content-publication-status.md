@@ -76,6 +76,12 @@ These URLs exist as the working family-law cluster. The immediate task is public
 - This remains narrowly scoped: it does not create pages, does not delete pages, and does not run on unrelated content.
 - Required proof: after uPress pulls, open one affected page and confirm the public body no longer contains internal markers.
 
+## CODE FIX - 2026-05-10 v6
+- The repair now runs under a new v6 version marker so live WordPress reruns it after uPress pulls.
+- The cleaner now also removes product/business/editorial-planning language that should not appear in a public legal article, including references to owner strategy, paid-lawyer product logic, CRM/GSC/CMS/LegalTech planning, lead monetization, AI-internal routing, mini-site sales language, and "Jus-Tice should" implementation instructions.
+- Removed material is still preserved in the draft-only internal editorial notes page.
+- This is editorial repair, not page deletion: the public URLs stay in place, but their bodies should become visitor-facing only.
+
 ## LIVE RECHECK - 2026-05-10 AFTER COMMIT d374407
 - Result: STILL NEEDS uPress PULL / CACHE REFRESH / HOOK EXECUTION.
 - All seven family-law URLs still expose internal markers publicly.

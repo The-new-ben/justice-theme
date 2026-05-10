@@ -917,3 +917,11 @@
 - FIXED IN CODE: empty search/archive state now says `לא נמצאו תוצאות` with Hebrew guidance.
 - VERIFIED: PHP lint passed locally for 125 PHP files.
 - NOT VERIFIED LIVE: requires uPress pull/cache refresh and a fallback/search page visual recheck.
+
+## 2026-05-10 Family-Law Public Cleaner v6
+- FIXED IN CODE: Bumped the family-law editorial repair version to `v6` so live WordPress reruns repair after deployment.
+- FIXED IN CODE: The cleaner now strips product/business/editorial-planning language from public article bodies, not only obvious labels like `NOT VERIFIED`.
+- INTERNAL-ONLY examples now removed from public output include paid-lawyer product logic, lead monetization, owner strategy, CRM/CMS/GSC/LegalTech implementation notes, AI-internal routing, mini-site sales language and `Jus-Tice should` instructions.
+- DOCUMENTED: `project-control/live-content-publication-status.md` and `project-control/publication-workflow.md`.
+- VERIFIED: PHP lint passed locally for 125 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and public recheck of the seven family-law URLs.

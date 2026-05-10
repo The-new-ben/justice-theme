@@ -15,6 +15,7 @@ Public article content is for the Google visitor. Project notes are for the owne
 - Source audit notes.
 - Review blockers.
 - Internal CMS, CRM, GSC, LegalTech implementation notes.
+- Business-model or product-planning notes such as paid-lawyer value, lead monetization, owner strategy, AI-internal routing, mini-site sales plans, or "Jus-Tice should" implementation instructions.
 - Project-control paths.
 - Draft/publication status sections.
 - Cannibalization notes written as internal instructions.

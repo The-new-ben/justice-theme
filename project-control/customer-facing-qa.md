@@ -33,6 +33,7 @@ Date: 2026-05-10
 - FIXED IN CODE: practice-area taxonomy pages now include an intent layer, preparation guidance and a lead/lawyer-directory CTA. This improves taxonomy practice hubs; separate static pillar pages still need content import/review.
 - LIVE RECHECK: `https://jus-tice.co.il/practice-areas/family-law/` redirects to `http://jus-tice.co.il/family-law/` and does not expose the new taxonomy intent/CTA sections. This is likely a routing/permalink/page-vs-taxonomy conflict that needs wp-admin/uPress review.
 - FIXED IN CODE: generic English practice pages such as `/family-law/` now have a route fallback template, so a page route can render as a structured practice hub even when taxonomy routing is bypassed.
+- LIVE VERIFIED: `/family-law/` now exposes the practice intent layer publicly. Proof: `project-control/visual-evidence/family-law-live-intent-2026-05-10.png`.
 - Status: PARTIAL.
 
 ## Lawyer Archive
@@ -41,6 +42,8 @@ Date: 2026-05-10
 - LIVE VERIFIED: cards render.
 - What looks weak: multiple demo/test lawyers appear publicly; city slugs appear in some cards; sponsorship badges can mislead if not real.
 - FIXED IN CODE: sponsored badge now requires active subscription and non-seed data; city labels map common slugs to Hebrew.
+- LIVE VERIFIED: `/lawyers/?area=family-law` now outputs the Jus-Tice `noindex,follow` filter marker. Proof: `project-control/visual-evidence/lawyers-family-filter-2026-05-10.png`.
+- STILL BROKEN LIVE: Maya profile URL is currently in a redirect loop caused by Permalink Manager and theme slug migration fighting each other. Theme-side redirect is disabled in code pending deployment.
 - Status: NOT CUSTOMER-READY until demo profiles are drafted/removed.
 
 ## 404

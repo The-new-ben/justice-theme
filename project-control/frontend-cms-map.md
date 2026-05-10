@@ -38,6 +38,7 @@ Date: 2026-05-09
 | Lead form | `ask-lawyer.php`, lead handlers | `admin-post.php`, `justice_lead` CPT/meta | PARTIAL | Live wiring not verified | Submit test lead after deploy |
 | Footer brand block | `site-footer.php` | Custom logo + Customizer contact | PARTIAL | Description hardcoded | Later expose via Customizer |
 | Lawyer profile fields | `single-justice_lawyer.php`, `inc/live-migrations.php` | lawyer CPT meta | YES | Photo/video/social/reviews not complete for live profiles | Maya rich text fields now bootstrap if empty; review contact/photo/license in wp-admin |
+| Lawyer mini-site engagement module | `single-justice_lawyer.php` | lead form route, connected articles query, video/media meta, approved review meta | PARTIAL | Text is template-controlled; data modules depend on CMS fields | Keep as product-value module; add owner/lawyer editable copy later if needed |
 | Article author/reviewer | `single-articles.php` | WP author + review meta | PARTIAL | Reviewer/person authority incomplete | Add visible reviewer fields |
 | Category intro text | `taxonomy-practice-areas.php` | Taxonomy description fallback | YES | Many terms likely empty | Add Hebrew descriptions per priority area |
 | Practice-area intent layer | `taxonomy-practice-areas.php` | Taxonomy name/slug plus generic legal-intent copy | PARTIAL | Text is not individually editable per term yet | Add term meta for custom intro, urgency notes, documents and FAQ per practice area |

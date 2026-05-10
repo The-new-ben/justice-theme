@@ -138,6 +138,9 @@ if ( ! $related_articles->have_posts() && $primary_area ) {
 		),
 	) );
 }
+
+$has_related_articles = $related_articles instanceof WP_Query && $related_articles->have_posts();
+$has_media_module     = $video_url || ! empty( $media_items );
 ?>
 
 <article class="lawyer-mini-site" itemscope itemtype="https://schema.org/Attorney">
@@ -216,6 +219,40 @@ if ( ! $related_articles->have_posts() && $primary_area ) {
 			<div class="lawyer-mini-proof__item">
 				<strong><?php echo ( $review_count > 0 && $average_rating > 0 ) ? esc_html( number_format_i18n( $average_rating, 1 ) ) : 'בקרוב'; ?></strong>
 				<span>ביקורות מאושרות</span>
+			</div>
+		</div>
+	</section>
+
+	<section class="section lawyer-mini-engagement" aria-label="<?php esc_attr_e( 'אפשרויות במיני-סייט', 'justice-theme' ); ?>">
+		<div class="container">
+			<div class="section-header section-header--split">
+				<div>
+					<p class="section-header__eyebrow"><?php esc_html_e( 'מיני-סייט פעיל', 'justice-theme' ); ?></p>
+					<h2><?php esc_html_e( 'מה אפשר לעשות דרך הפרופיל הזה?', 'justice-theme' ); ?></h2>
+				</div>
+				<a class="button button--ghost" href="#lawyer-inquiry"><?php esc_html_e( 'השארת פנייה', 'justice-theme' ); ?></a>
+			</div>
+			<div class="lawyer-mini-engagement__grid">
+				<article class="lawyer-mini-engagement__card">
+					<span><?php esc_html_e( 'פנייה', 'justice-theme' ); ?></span>
+					<h3><?php esc_html_e( 'לשלוח שאלה מסודרת', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'טופס הפנייה שומר תחום, עיר, דחיפות ותיאור קצר כדי שהשיחה הראשונה תתחיל ממידע ברור יותר.', 'justice-theme' ); ?></p>
+				</article>
+				<article class="lawyer-mini-engagement__card">
+					<span><?php esc_html_e( 'תוכן', 'justice-theme' ); ?></span>
+					<h3><?php echo esc_html( $has_related_articles ? __( 'לקרוא מאמרים מחוברים לפרופיל', 'justice-theme' ) : __( 'מאמרים חתומים יופיעו לאחר בדיקה', 'justice-theme' ) ); ?></h3>
+					<p><?php echo esc_html( $has_related_articles ? __( 'מאמרים ומדריכים מחוברים לפרופיל דרך CMS, כך שהתוכן המקצועי מחזק גם את המיני-סייט וגם את אשכול ה-SEO.', 'justice-theme' ) : __( 'המערכת תומכת במאמרים חתומים, אך הם יוצגו רק לאחר עריכה, בדיקת מקורות ואישור משפטי.', 'justice-theme' ) ); ?></p>
+				</article>
+				<article class="lawyer-mini-engagement__card">
+					<span><?php esc_html_e( 'מדיה', 'justice-theme' ); ?></span>
+					<h3><?php echo esc_html( $has_media_module ? __( 'לצפות בווידאו ועדכונים', 'justice-theme' ) : __( 'וידאו וקישורי מדיה זמינים כחלק מהמיני-סייט', 'justice-theme' ) ); ?></h3>
+					<p><?php echo esc_html( $has_media_module ? __( 'סרטונים, הופעות ועדכונים מחוברים לפרופיל ומאפשרים למבקר להבין את סגנון העבודה לפני יצירת קשר.', 'justice-theme' ) : __( 'כאשר בעל הפרופיל מוסיף וידאו או קישורים מאושרים, הם מופיעים כאן כחלק ממסלול ההיכרות.', 'justice-theme' ) ); ?></p>
+				</article>
+				<article class="lawyer-mini-engagement__card">
+					<span><?php esc_html_e( 'אמון', 'justice-theme' ); ?></span>
+					<h3><?php echo esc_html( ( $review_count > 0 && $average_rating > 0 ) ? __( 'לראות ביקורות מאושרות', 'justice-theme' ) : __( 'ביקורות יוצגו רק לאחר אימות', 'justice-theme' ) ); ?></h3>
+					<p><?php echo esc_html( ( $review_count > 0 && $average_rating > 0 ) ? __( 'דירוגים וביקורות מוצגים רק כאשר יש נתונים מאושרים במערכת.', 'justice-theme' ) : __( 'אין כאן דירוגים מומצאים. ביקורות יפורסמו רק אחרי אימות, בקרה ואישור פרסום.', 'justice-theme' ) ); ?></p>
+				</article>
 			</div>
 		</div>
 	</section>

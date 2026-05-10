@@ -60,6 +60,12 @@ add_action( 'init', 'justice_theme_migrate_maya_rotenberg_slug', 30 );
  * Redirect the old Hebrew Maya URL to the English URL after migration.
  */
 function justice_theme_redirect_old_maya_rotenberg_slug(): void {
+	$redirect_enabled = (bool) apply_filters( 'justice_theme_enable_maya_slug_redirect', false );
+
+	if ( ! $redirect_enabled ) {
+		return;
+	}
+
 	$path = isset( $_SERVER['REQUEST_URI'] ) ? rawurldecode( (string) wp_unslash( $_SERVER['REQUEST_URI'] ) ) : '';
 
 	if ( false === mb_strpos( $path, '/lawyers/' ) || false === mb_strpos( $path, 'מאיה' ) || false === mb_strpos( $path, 'רוטנברג' ) ) {

@@ -764,3 +764,13 @@
 - FIXED IN CODE: Added small CSS support for route-based practice landing pages.
 - VERIFIED: PHP lint passed locally for 122 PHP files.
 - NOT VERIFIED LIVE: requires uPress pull/cache refresh and public visual check of `/family-law/`.
+
+## 2026-05-10 Live Practice/SEO Recheck and Maya Loop Guard
+- LIVE VERIFIED: `/family-law/` exposes the practice intent layer publicly.
+- LIVE VERIFIED: `/lawyers/?area=family-law` exposes Jus-Tice fallback `noindex,follow` and the base `/lawyers/` canonical.
+- PROOF: screenshots saved at `project-control/visual-evidence/family-law-live-intent-2026-05-10.png` and `project-control/visual-evidence/lawyers-family-filter-2026-05-10.png`.
+- STILL BROKEN LIVE: Maya profile URLs loop between Permalink Manager English-to-Hebrew redirects and theme Hebrew-to-English redirects.
+- FIXED IN CODE: Disabled the theme-side Maya slug redirect by default behind `justice_theme_enable_maya_slug_redirect`.
+- FIXED IN CODE: Added a lawyer mini-site engagement module for inquiry, signed content, media/video and verified reviews without fake claims.
+- VERIFIED: PHP lint passed locally for 122 PHP files.
+- NOT VERIFIED LIVE: Maya redirect-loop guard and mini-site engagement module require uPress pull/cache refresh.

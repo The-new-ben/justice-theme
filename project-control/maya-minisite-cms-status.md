@@ -32,9 +32,12 @@ Make the one verified lawyer profile, Advocate Maya Rotenberg, feel like a serio
 - Adds `tel-aviv` city only if Maya has no city term yet.
 
 ## Verification
-- VERIFIED: PHP lint passed locally for 120 PHP files.
-- NOT VERIFIED LIVE: uPress has not pulled the latest repo commits.
-- NOT VERIFIED LIVE: Maya profile slug `/lawyers/advocate-maya-rotenberg/` still needs live check after pull/cache.
+- VERIFIED: PHP lint passed locally for 122 PHP files after the latest mini-site engagement pass.
+- LIVE VERIFIED BROKEN: `/lawyers/advocate-maya-rotenberg/` and the old Hebrew Maya lawyer URL currently enter a redirect loop.
+- CAUSE OBSERVED: response headers show `X-Redirect-By: Permalink Manager` sending English URL to the Hebrew URL, while WordPress/theme redirect logic sends the Hebrew URL back to English.
+- FIXED IN CODE: the theme-side Hebrew-to-English Maya redirect is disabled by default behind the `justice_theme_enable_maya_slug_redirect` filter, so deployment should stop the loop.
+- STILL NEEDS ADMIN: remove/update the Permalink Manager custom redirect/permalink for Maya so the canonical English slug `/lawyers/advocate-maya-rotenberg/` can be final.
+- NOT VERIFIED LIVE: mini-site engagement module requires uPress pull/cache refresh.
 
 ## Next Admin Review
 After deployment, open Maya's lawyer profile in wp-admin and review:

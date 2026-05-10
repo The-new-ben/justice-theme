@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Lead attribution fields
+
+- FIXED IN CODE: Public lead forms now include hidden attribution fields for `source_keyword`, `utm_source`, `utm_campaign`, and `utm_medium` when those values are available.
+- FIXED IN CODE: `source_keyword` is resolved from explicit query params, search terms, SEO keyword meta, or the current singular page title as a fallback.
+- BUSINESS VALUE: Leads can now carry basic SEO/campaign context into CRM instead of losing it when the form posts to `admin-post.php`.
+- VERIFIED: PHP lint passed locally for 127 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull and a controlled test lead from a URL with UTM/query parameters.
+
 ## 2026-05-10 - Lead lawyer routing metadata
 
 - FIXED IN CODE: Lead handlers now save `assigned_lawyer_id` from lawyer mini-site inquiry forms into `justice_lead` metadata.

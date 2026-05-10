@@ -29,6 +29,53 @@ function justice_theme_render_lead_spam_fields(): void {
 }
 
 /**
+ * Render hidden attribution fields so SEO/ad context reaches the lead CRM.
+ */
+function justice_theme_render_lead_attribution_fields(): void {
+	$source_keyword = justice_theme_get_current_lead_source_keyword();
+
+	if ( '' !== $source_keyword ) {
+		echo '<input type="hidden" name="source_keyword" value="' . esc_attr( $source_keyword ) . '">' . "\n";
+	}
+
+	foreach ( array( 'utm_source', 'utm_campaign', 'utm_medium' ) as $utm_key ) {
+		$value = isset( $_GET[ $utm_key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $utm_key ] ) ) : '';
+		if ( '' !== $value ) {
+			echo '<input type="hidden" name="' . esc_attr( $utm_key ) . '" value="' . esc_attr( $value ) . '">' . "\n";
+		}
+	}
+}
+
+/**
+ * Resolve a public source keyword for lead attribution.
+ */
+function justice_theme_get_current_lead_source_keyword(): string {
+	foreach ( array( 'source_keyword', 'keyword', 's', 'utm_term' ) as $query_key ) {
+		if ( ! empty( $_GET[ $query_key ] ) ) {
+			return sanitize_text_field( wp_unslash( $_GET[ $query_key ] ) );
+		}
+	}
+
+	$queried_id = get_queried_object_id();
+	if ( ! $queried_id ) {
+		return '';
+	}
+
+	foreach ( array( 'primary_keyword', 'top_keyword', 'target_keyword' ) as $meta_key ) {
+		$value = get_post_meta( $queried_id, $meta_key, true );
+		if ( is_string( $value ) && '' !== trim( $value ) ) {
+			return sanitize_text_field( $value );
+		}
+	}
+
+	if ( is_singular() ) {
+		return sanitize_text_field( get_the_title( $queried_id ) );
+	}
+
+	return '';
+}
+
+/**
  * Block obvious bot submissions before the plugin creates a CRM lead.
  */
 function justice_theme_guard_lead_submission_spam(): void {

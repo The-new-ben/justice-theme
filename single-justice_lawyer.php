@@ -435,6 +435,7 @@ $has_media_module     = $video_url || ! empty( $media_items );
 							<input type="hidden" name="assigned_lawyer_id" value="<?php echo esc_attr( $lawyer_id ); ?>">
 							<?php wp_nonce_field( 'justice_submit_lead', 'justice_lead_nonce' ); ?>
 							<?php justice_theme_render_lead_spam_fields(); ?>
+							<?php justice_theme_render_lead_attribution_fields(); ?>
 
 							<label for="inquiry-name">שם מלא</label>
 							<input type="text" id="inquiry-name" name="lead_name" required>

@@ -59,6 +59,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - CRITICAL CORRECTION: family-law auto-publication is now paused. No public page should publish from the internal drafts until publication-cannibalization rows are approved.
 - LIVE VERIFIED BROKEN: the seven proposed family-law URLs are now live and contain publication/internal markers.
 - CODE FIXED: added emergency quarantine that restores backed-up page content where available or moves generated pages to draft; it deletes nothing.
+- LIVE RECHECK 13:52 Asia/Jerusalem: emergency quarantine is still NOT LIVE; all seven unsafe URLs still return 200 and expose internal markers. uPress pull/cache refresh is urgent.
 - CODE FIXED: manual wp-admin publication now runs public-content and cannibalization preflight checks and blocks unapproved pages.
 - CODE FIXED: internal-only sections such as NOT VERIFIED, source-audit notes, CMS/CRM/GSC notes, LegalTech product notes, owner/dev instructions, status sections and cannibalization notes are stripped/blocked from public output.
 - DOCUMENTED: `project-control/publication-workflow.md`, `project-control/publication-cannibalization-check.csv`, and `project-control/publication-review-family-law-cluster.md` now define the required workflow.

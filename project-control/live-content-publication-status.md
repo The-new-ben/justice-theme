@@ -63,6 +63,13 @@ These are the proposed URLs, but they are currently blocked from publication pen
 - Emergency fix added in repo: on next uPress pull, `inc/live-content-publication.php` restores backed-up content where possible or moves generated pages to draft.
 - This is reversible: old content backups are stored in post meta, and newly generated pages are drafted rather than deleted.
 
+## LIVE RECHECK - 2026-05-10 13:52 Asia/Jerusalem
+- Result: STILL UNSAFE LIVE.
+- Commit `e17e0fa` is pushed to GitHub, but the public site still serves all seven unsafe pages.
+- All seven pages still expose internal markers and publication markers.
+- Conclusion: uPress/live WordPress has not pulled/executed the emergency quarantine yet, or cache is still serving old generated content.
+- Required action: pull latest in uPress immediately, then open any public page once so the emergency quarantine runs.
+
 ## NEXT ACTION
 1. Compare every proposed page against existing live content.
 2. Merge with existing pages where the same intent already exists.

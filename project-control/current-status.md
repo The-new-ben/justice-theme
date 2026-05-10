@@ -2,6 +2,15 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 01:35 Asia/Jerusalem
+- CODE FIXED: article templates no longer expose internal review/status panels to anonymous public visitors. The `NOT VERIFIED` / source-audit / draft word-count/status blocks in `single-articles.php` are now editor-only via `current_user_can( 'edit_post', get_the_ID() )`.
+- VERIFIED: PHP lint passed for 127 PHP files after the article-note guard.
+- LIVE VERIFIED BEFORE FIX: four sampled live article pages did not currently expose unsafe internal markers, but the template was unsafe when those meta fields existed.
+- LIVE RELATED QA: sampled general, family, criminal and real-estate article pages show `data-related-mode="semantic"` and no unsafe internal markers.
+- PARTIAL QUALITY: related cards are still not customer-ready across all clusters. General/criminal samples still surface off-intent cards such as AI-for-law-firms, business-license and Australia lawyers; real-estate also surfaces Cyprus pricing. Manual related URLs, `content_cluster`, and practice-area metadata cleanup are required.
+- NOT LIVE VERIFIED AFTER FIX: deployment marker is now `2026-05-11-public-article-note-guard-v1`; uPress pull/cache clear is required before public verification of this exact guard.
+- SAFETY: no article body, URL, redirect, sitemap, robots, wp-admin setting, CRM record or database row was changed.
+
 ## LATEST LIVE STATUS - 2026-05-11 01:10 Asia/Jerusalem
 - LIVE VERIFIED: owner pressed uPress Git pull and the public site now serves deployment marker `2026-05-11-mobile-inner-qa-v1` on homepage and `/family-law/`.
 - LIVE VERIFIED: public `premium-pass-3.css` contains the inner-page mobile overflow/contact-control fix.

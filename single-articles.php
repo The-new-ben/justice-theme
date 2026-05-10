@@ -21,6 +21,7 @@ while ( have_posts() ) :
 	$content_cluster   = sanitize_key( trim( (string) get_post_meta( get_the_ID(), 'content_cluster', true ), '`' ) );
 	$primary_keyword   = (string) get_post_meta( get_the_ID(), 'primary_keyword', true );
 	$current_slug      = get_post_field( 'post_name', get_the_ID() );
+	$show_internal_review_status = current_user_can( 'edit_post', get_the_ID() );
 	$family_links      = array(
 		'divorce-lawyer'             => __( 'עורך דין גירושין', 'justice-theme' ),
 		'consensual-divorce'         => __( 'גירושין בהסכמה', 'justice-theme' ),
@@ -94,7 +95,7 @@ while ( have_posts() ) :
 					</figure>
 				<?php endif; ?>
 
-				<?php if ( $needs_legal || $needs_sources ) : ?>
+				<?php if ( $show_internal_review_status && ( $needs_legal || $needs_sources ) ) : ?>
 					<section class="article-review-status" style="margin-bottom: 2rem; padding: 1.5rem; background: #fff8eb; border: 1px solid rgba(182, 126, 48, 0.35); border-radius: var(--radius-md);">
 						<h2 style="font-size: 1.1rem; margin: 0 0 0.75rem; color: var(--color-primary);"><?php esc_html_e( 'סטטוס בדיקה לפני פרסום', 'justice-theme' ); ?></h2>
 						<ul style="margin: 0; padding-inline-start: 1.2rem; color: var(--color-muted);">
@@ -192,7 +193,7 @@ while ( have_posts() ) :
 						</section>
 					<?php endif; ?>
 
-					<?php if ( $draft_word_count || $repo_draft_status ) : ?>
+					<?php if ( $show_internal_review_status && ( $draft_word_count || $repo_draft_status ) ) : ?>
 						<hr style="border: 0; border-top: 1px solid var(--color-border); margin: 1.5rem 0;">
 						<p style="font-size: 0.85rem; color: var(--color-muted); margin: 0;">
 							<?php if ( $draft_word_count ) : ?>

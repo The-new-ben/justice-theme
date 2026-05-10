@@ -2,6 +2,13 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Related Content Live QA
+- LIVE VERIFIED: sampled public article pages render related content in semantic mode.
+- VERIFIED: public sampled bodies did not show internal markers such as `NOT VERIFIED`, source-audit labels or developer/owner notes.
+- EVIDENCE: `project-control/visual-evidence/related-content-live-qa-2026-05-11.json` and `related-content-*-2026-05-11.png`.
+- PARTIAL QUALITY: general and criminal article samples still show off-intent related cards (`ai-for-law-firms`, `business-license`, `australia-lawyers`). The real-estate sample includes a weak Cyprus pricing match.
+- CODE FIXED / NOT LIVE VERIFIED: article internal review/status panels are now editor-only in `single-articles.php`; requires uPress pull/cache clear and source check for marker `2026-05-11-public-article-note-guard-v1`.
+
 ## 2026-05-10 Third-Party Mobile CTA Check
 - LIVE VERIFIED ISSUE: the remaining green lower-right mobile overlay is `a.whatsapp-button`, a fixed WhatsApp lead banner, not a chat iframe.
 - VISUAL EVIDENCE BEFORE FIX: `project-control/visual-evidence/mobile-third-party-cta-before-2026-05-10.png`.

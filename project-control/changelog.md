@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Public article-note guard and related-content live QA
+
+- CODE FIXED: public article templates no longer render internal review/source-audit/draft-status panels to anonymous visitors; those blocks are now editor-only.
+- VERIFIED: PHP lint passed for 127 PHP files.
+- LIVE VERIFIED PARTIAL: related-content mode is live on sampled article pages and reports `data-related-mode="semantic"`.
+- LIVE VERIFIED: sampled article pages did not expose unsafe internal markers in the public body.
+- PARTIAL QUALITY: sampled general/criminal/real-estate related cards still include off-intent items; metadata/manual related URL cleanup is required before customer-ready status.
+- CREATED: `project-control/visual-evidence/related-content-live-qa-2026-05-11.json` and related-content screenshot evidence.
+- SAFETY: no public article body, URL, redirect, sitemap, robots, CRM record, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Live inner mobile QA and deployment access plan
 
 - LIVE VERIFIED: uPress Git pull is public; homepage and `/family-law/` serve marker `2026-05-11-mobile-inner-qa-v1`.

@@ -1,0 +1,266 @@
+{
+  "generatedAt": "2026-05-10T22:10:09.665Z",
+  "status": "LIVE REVIEW",
+  "results": [
+    {
+      "key": "general",
+      "cluster": "general_lawyer_selection",
+      "url": "https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/",
+      "httpStatus": 200,
+      "screenshot": "C:\\Users\\janana\\jutice-theme\\project-control\\visual-evidence\\related-content-general-2026-05-11.png",
+      "title": "איך למצוא עורך דין מומלץ? כיצד לבחור עו\"ד טוב | Jus-Tice.co.il",
+      "marker": "2026-05-11-mobile-inner-qa-v1",
+      "h1": "איך למצוא עורך דין מומלץ? כיצד לבחור עו”ד טוב",
+      "relatedMode": "semantic",
+      "relatedHeading": "מדריכים משפטיים קשורים",
+      "relatedLinks": [
+        {
+          "text": "מדריך משפטי",
+          "href": "http://jus-tice.co.il/ai-for-law-firms/"
+        },
+        {
+          "text": "עורך דין",
+          "href": "http://jus-tice.co.il/find-lawyer/"
+        },
+        {
+          "text": "הטמעת בינה מלאכותית AI במשרדי עורכי דין",
+          "href": "http://jus-tice.co.il/ai-for-law-firms/"
+        },
+        {
+          "text": "קראו מדריך",
+          "href": "http://jus-tice.co.il/ai-for-law-firms/"
+        },
+        {
+          "text": "מדריך משפטי",
+          "href": "http://jus-tice.co.il/business-license/"
+        },
+        {
+          "text": "עורך דין",
+          "href": "http://jus-tice.co.il/find-lawyer/"
+        },
+        {
+          "text": "יועץ רישוי עסקים | עורך דין מומחה רישוי עסק | מדריך ומחירון (2025)",
+          "href": "http://jus-tice.co.il/business-license/"
+        },
+        {
+          "text": "קראו מדריך",
+          "href": "http://jus-tice.co.il/business-license/"
+        },
+        {
+          "text": "מדריך משפטי",
+          "href": "http://jus-tice.co.il/australia-lawyers/"
+        },
+        {
+          "text": "עורך דין",
+          "href": "http://jus-tice.co.il/find-lawyer/"
+        },
+        {
+          "text": "עורך דין באוסטרליה | עו”ד ישראלי אוסטרליה",
+          "href": "http://jus-tice.co.il/australia-lawyers/"
+        },
+        {
+          "text": "קראו מדריך",
+          "href": "http://jus-tice.co.il/australia-lawyers/"
+        }
+      ],
+      "unsafeMarkers": [],
+      "hasArticleReviewStatus": false,
+      "canonical": "http://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/"
+    },
+    {
+      "key": "family",
+      "cluster": "family_divorce",
+      "url": "https://jus-tice.co.il/mutual-divorce-agreement-2025/",
+      "httpStatus": 200,
+      "screenshot": "C:\\Users\\janana\\jutice-theme\\project-control\\visual-evidence\\related-content-family-2026-05-11.png",
+      "title": "איך מכינים הסכם לקראת גירושים בהסכמה של בני הזוג | מדריך 2025 + סקירת תהליך פתיחת תיק גירושין בבית הדין הרבני | Jus-Tice.co.il",
+      "marker": "2026-05-11-mobile-inner-qa-v1",
+      "h1": "איך מכינים הסכם לקראת גירושים בהסכמה של בני הזוג | מדריך 2025 + סקירת תהליך פתיחת תיק גירושין בבית הדין הרבני",
+      "relatedMode": "semantic",
+      "relatedHeading": "מדריכים משפטיים קשורים",
+      "relatedLinks": [
+        {
+          "text": "מדריך משפטי",
+          "href": "http://jus-tice.co.il/rabbinical-agreement-approval/"
+        },
+        {
+          "text": "משפחה",
+          "href": "http://jus-tice.co.il/family-law/"
+        },
+        {
+          "text": "מדריך לאישור הסכם גירושין בבתי הדין הרבניים – 55 כללים מעשיים",
+          "href": "http://jus-tice.co.il/rabbinical-agreement-approval/"
+        },
+        {
+          "text": "קראו מדריך",
+          "href": "http://jus-tice.co.il/rabbinical-agreement-approval/"
+        },
+        {
+          "text": "מדריך משפטי",
+          "href": "http://jus-tice.co.il/most-recommended-family-lawyer/"
+        },
+        {
+          "text": "משפחה",
+          "href": "http://jus-tice.co.il/family-law/"
+        },
+        {
+          "text": "המלצות 2026 עורך דין לענייני משפחה מומלץ | התייעצות עם עורך דין לענייני משפחה וירושה",
+          "href": "http://jus-tice.co.il/most-recommended-family-lawyer/"
+        },
+        {
+          "text": "קראו מדריך",
+          "href": "http://jus-tice.co.il/most-recommended-family-lawyer/"
+        },
+        {
+          "text": "מדריך משפטי",
+          "href": "http://jus-tice.co.il/future-of-divorce-process/"
+        },
+        {
+          "text": "משפחה",
+          "href": "http://jus-tice.co.il/family-law/"
+        },
+        {
+          "text": "כיצד יראה בעתיד הליך גירושין – תחזית לשנים הבאות",
+          "href": "http://jus-tice.co.il/future-of-divorce-process/"
+        },
+        {
+          "text": "קראו מדריך",
+          "href": "http://jus-tice.co.il/future-of-divorce-process/"
+        }
+      ],
+      "unsafeMarkers": [],
+      "hasArticleReviewStatus": false,
+      "canonical": "http://jus-tice.co.il/mutual-divorce-agreement-2025/"
+    },
+    {
+      "key": "criminal",
+      "cluster": "criminal_law",
+      "url": "https://jus-tice.co.il/drug-offenses-criminal-lawyer/",
+      "httpStatus": 200,
+      "screenshot": "C:\\Users\\janana\\jutice-theme\\project-control\\visual-evidence\\related-content-criminal-2026-05-11.png",
+      "title": "עורך דין עבירות סמים | מדריך 2025 לתחום עבירות סמים | Jus-Tice.co.il",
+      "marker": "2026-05-11-mobile-inner-qa-v1",
+      "h1": "עורך דין עבירות סמים | מדריך 2025 לתחום עבירות סמים",
+      "relatedMode": "semantic",
+      "relatedHeading": "מדריכים משפטיים קשורים",
+      "relatedLinks": [
+        {
+          "text": "מדריך משפטי",
+          "href": "http://jus-tice.co.il/ai-for-law-firms/"
+        },
+        {
+          "text": "עורך דין",
+          "href": "http://jus-tice.co.il/find-lawyer/"
+        },
+        {
+          "text": "הטמעת בינה מלאכותית AI במשרדי עורכי דין",
+          "href": "http://jus-tice.co.il/ai-for-law-firms/"
+        },
+        {
+          "text": "קראו מדריך",
+          "href": "http://jus-tice.co.il/ai-for-law-firms/"
+        },
+        {
+          "text": "מדריך משפטי",
+          "href": "http://jus-tice.co.il/business-license/"
+        },
+        {
+          "text": "עורך דין",
+          "href": "http://jus-tice.co.il/find-lawyer/"
+        },
+        {
+          "text": "יועץ רישוי עסקים | עורך דין מומחה רישוי עסק | מדריך ומחירון (2025)",
+          "href": "http://jus-tice.co.il/business-license/"
+        },
+        {
+          "text": "קראו מדריך",
+          "href": "http://jus-tice.co.il/business-license/"
+        },
+        {
+          "text": "מדריך משפטי",
+          "href": "http://jus-tice.co.il/australia-lawyers/"
+        },
+        {
+          "text": "עורך דין",
+          "href": "http://jus-tice.co.il/find-lawyer/"
+        },
+        {
+          "text": "עורך דין באוסטרליה | עו”ד ישראלי אוסטרליה",
+          "href": "http://jus-tice.co.il/australia-lawyers/"
+        },
+        {
+          "text": "קראו מדריך",
+          "href": "http://jus-tice.co.il/australia-lawyers/"
+        }
+      ],
+      "unsafeMarkers": [],
+      "hasArticleReviewStatus": false,
+      "canonical": "http://jus-tice.co.il/drug-offenses-criminal-lawyer/"
+    },
+    {
+      "key": "real-estate",
+      "cluster": "real_estate",
+      "url": "https://jus-tice.co.il/real-estate-lawyer-cost-2025/",
+      "httpStatus": 200,
+      "screenshot": "C:\\Users\\janana\\jutice-theme\\project-control\\visual-evidence\\related-content-real-estate-2026-05-11.png",
+      "title": "עורך דין מכירת דירה מחיר (2025) | תפקידו של עורך הדין בעסקאות מקרקעין | Jus-Tice.co.il",
+      "marker": "2026-05-11-mobile-inner-qa-v1",
+      "h1": "עורך דין מכירת דירה מחיר (2025) | תפקידו של עורך הדין בעסקאות מקרקעין",
+      "relatedMode": "semantic",
+      "relatedHeading": "מדריכים משפטיים קשורים",
+      "relatedLinks": [
+        {
+          "text": "מדריך משפטי",
+          "href": "http://jus-tice.co.il/online-rent-agreement/"
+        },
+        {
+          "text": "מקרקעין | נדל\"ן",
+          "href": "http://jus-tice.co.il/israeli-lawyer-explains-real-estate/"
+        },
+        {
+          "text": "חוזה שכירות אונליין (עדכני 2025)",
+          "href": "http://jus-tice.co.il/online-rent-agreement/"
+        },
+        {
+          "text": "קראו מדריך",
+          "href": "http://jus-tice.co.il/online-rent-agreement/"
+        },
+        {
+          "text": "מדריך משפטי",
+          "href": "http://jus-tice.co.il/israel-real-estate-price-forecast/"
+        },
+        {
+          "text": "מקרקעין | נדל\"ן",
+          "href": "http://jus-tice.co.il/israeli-lawyer-explains-real-estate/"
+        },
+        {
+          "text": "מחירים עדכניים (2025) ותחזית לשוק הנדל”ן | רכישת נדל”ן בישראל בלווי עורך דין",
+          "href": "http://jus-tice.co.il/israel-real-estate-price-forecast/"
+        },
+        {
+          "text": "קראו מדריך",
+          "href": "http://jus-tice.co.il/israel-real-estate-price-forecast/"
+        },
+        {
+          "text": "מדריך משפטי",
+          "href": "http://jus-tice.co.il/cyprus-prices/"
+        },
+        {
+          "text": "מקרקעין | נדל\"ן",
+          "href": "http://jus-tice.co.il/israeli-lawyer-explains-real-estate/"
+        },
+        {
+          "text": "מחירון 2025 נכסים בקפריסין ועליות נלוות | רכישה בלווי משפטי לישראלים",
+          "href": "http://jus-tice.co.il/cyprus-prices/"
+        },
+        {
+          "text": "קראו מדריך",
+          "href": "http://jus-tice.co.il/cyprus-prices/"
+        }
+      ],
+      "unsafeMarkers": [],
+      "hasArticleReviewStatus": false,
+      "canonical": "http://jus-tice.co.il/real-estate-lawyer-cost-2025/"
+    }
+  ]
+}

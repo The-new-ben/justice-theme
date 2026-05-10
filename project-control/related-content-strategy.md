@@ -1,7 +1,7 @@
 # Related Content Strategy
 
 Date: 2026-05-10  
-Status: CODE FIXED V1 / NOT LIVE VERIFIED
+Status: PARTIAL LIVE VERIFIED / QUALITY CLEANUP NEEDED
 
 ## Goal
 
@@ -80,7 +80,16 @@ If no semantic related content exists, show fewer items and a clear category/pil
 5. NEXT: Add QA checks that flag unrelated results.
 6. NEXT: Track `article_cta_click`, `lawyer_card_click`, and `related_article_click` in GA4.
 
-Status: CODE FIXED. No public content, URL, redirect, sitemap, robots or database changes were made. Live output remains NOT VERIFIED until uPress pulls the latest theme code.
+Status: PARTIAL LIVE VERIFIED. No public content, URL, redirect, sitemap, robots or database changes were made.
+
+## 2026-05-11 Live Related-Content QA
+
+- LIVE VERIFIED: sampled article pages for general lawyer selection, family/divorce, criminal/drug offenses and real-estate cost all render `data-related-mode="semantic"`.
+- LIVE VERIFIED: sampled public article bodies did not expose unsafe internal markers such as `NOT VERIFIED`, source-audit labels, owner instructions or developer notes.
+- PARTIAL QUALITY: the semantic ladder is technically live, but the available metadata is not clean enough. General and criminal samples still surface off-intent related cards such as AI-for-law-firms, business-license and Australia lawyers. The real-estate sample includes a weak Cyprus pricing match.
+- EVIDENCE: `project-control/visual-evidence/related-content-live-qa-2026-05-11.json` plus the `related-content-*-2026-05-11.png` screenshots.
+- NEXT: populate `manual_related_urls`, `content_cluster`, `parent_pillar_url` and correct `practice-areas` terms for priority articles before calling related content customer-ready.
+- NEXT: add a cluster mismatch QA rule that flags related cards whose URL/topic does not match the source page cluster.
 
 ## 2026-05-10 Implementation Notes
 

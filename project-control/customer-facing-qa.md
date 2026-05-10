@@ -38,6 +38,9 @@ Date: 2026-05-10
 - What looks weak: breadcrumb numbering, no immediate problem/action framing before content.
 - FIXED IN CODE: article intent panel added; breadcrumbs styled.
 - CODE FIXED / NOT LIVE VERIFIED: related articles now use manual URL, cluster and practice-area relevance instead of broad latest/legacy fallback.
+- LIVE VERIFIED PARTIAL 2026-05-11: related-content mode is live on sampled article pages and no unsafe internal markers appeared in the sampled public body. Proof: `project-control/visual-evidence/related-content-live-qa-2026-05-11.json`.
+- STILL WEAK: general/criminal/real-estate related cards still include off-intent recommendations, so this is not yet customer-ready from an editorial/SEO perspective.
+- CODE FIXED / NOT LIVE VERIFIED: internal article review/status panels are now editor-only and hidden from anonymous public visitors when those meta fields exist.
 - Status: NEEDS LIVE VERIFICATION.
 
 ## Practice/Pillar Page

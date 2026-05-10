@@ -57,8 +57,9 @@
 3. DONE: no-results content now renders as a clear card with consistent spacing.
 4. DONE: 404 template no longer relies on inline styles; the panel and CTA use reusable theme classes.
 5. VERIFIED: changed PHP file passed syntax check; CSS diff passed whitespace/conflict checks.
-6. NEXT: pull/deploy marker `2026-05-11-search-404-polish-v1`, then verify public search, no-results, and a true 404 on desktop/mobile.
-7. NOT LIVE VERIFIED: no public deployment yet.
+6. DONE: forced homepage-fallback 404 responses now emit a `X-Justice-Route-Guard` verification header and `X-Robots-Tag: noindex, nofollow`.
+7. NEXT: pull/deploy marker `2026-05-11-forced-404-header-signal-v1`, then verify public search, no-results, and a true 404 on desktop/mobile.
+8. NOT LIVE VERIFIED: no public deployment yet.
 
 ### ACTION-BRAND-001: Logo + Favicon + Search Branding
 **Status:** PARTIAL LIVE VERIFIED - wp-admin/search-result verification pending

@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Forced 404 verification headers
+
+- CODE FIXED: the homepage-fallback routing guard now emits `X-Justice-Route-Guard: forced-unknown-path-404` when it converts an unknown homepage-served path into a real 404.
+- CODE FIXED: guarded 404 responses also emit `X-Robots-Tag: noindex, nofollow`.
+- EXPECTED IMPACT: post-deploy QA can verify the fake-404 fix by checking HTTP status and headers, not only rendered body text.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and public fake-URL header check with marker `2026-05-11-forced-404-header-signal-v1`.
+- SAFETY: no public content body, slug, URL migration, redirect, sitemap, CRM record, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Public link HTTPS normalization
 
 - CODE FIXED: public frontend first-party links generated through WordPress URL helpers now normalize to HTTPS.

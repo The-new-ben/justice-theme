@@ -55,6 +55,11 @@ function justice_theme_force_404_for_unknown_home_fallback(): void {
 
 	status_header( 404 );
 	nocache_headers();
+
+	if ( ! headers_sent() ) {
+		header( 'X-Justice-Route-Guard: forced-unknown-path-404', true );
+		header( 'X-Robots-Tag: noindex, nofollow', true );
+	}
 }
 add_action( 'template_redirect', 'justice_theme_force_404_for_unknown_home_fallback', 0 );
 

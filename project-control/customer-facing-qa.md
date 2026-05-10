@@ -76,6 +76,7 @@ Date: 2026-05-10
 - FIXED IN CODE: 404 template copy is Hebrew/customer-friendly.
 - VERIFIED IN CODE: 404 no longer has the English body copy called out in the audit; remaining 404 risk is routing/server behavior.
 - CODE FIXED: `inc/routing-guards.php` now detects non-root URLs being served as the front page and forces a real 404 response/template.
+- CODE FIXED / NOT LIVE VERIFIED: guarded 404 responses now include `X-Justice-Route-Guard: forced-unknown-path-404` and `X-Robots-Tag: noindex, nofollow` for easier live verification.
 - CODE FIXED / NOT LIVE VERIFIED: 404 panel and embedded search form now use premium card/form styling instead of inline/plain layout.
 - BLOCKED: real issue likely routing/permalink/plugin/server and requires wp-admin/uPress investigation.
 - Status: CODE FIXED / NOT VERIFIED LIVE after latest routing guard.

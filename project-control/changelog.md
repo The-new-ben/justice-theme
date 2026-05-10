@@ -8,7 +8,8 @@
 **[HIGH] Added family-dispute-resolution supporting draft**
 - Files: `content-drafts/family-dispute-resolution-supporting-he.md`, `project-control/family-dispute-resolution-source-audit.csv`
 - Added a Hebrew draft for `/family-dispute-resolution/` covering the pre-lawsuit family dispute process, preparation, urgent-risk warnings, relation to divorce agreements, FAQ, Maya/pillar linking plan and LegalTech intake concept.
-- VERIFIED: Draft word count is 2,183 words locally.
+- Expanded with timeline, preparation matrix, CMS/module strategy, Maya mini-site integration and URL consolidation notes.
+- VERIFIED: Draft word count is 3,521 words locally.
 - NOT VERIFIED: Legal review, browser source verification and publication readiness.
 
 **[HIGH] Documented cannibalization risk for family-dispute-resolution**

@@ -7,7 +7,7 @@ Date: 2026-05-10
 - Maya Rotenberg is the only verified lawyer/client to connect to this cluster.
 - All six first-cluster drafts are now long-form repo drafts.
 - All six first-cluster drafts have source-audit files.
-- A seventh supporting draft now exists for `/family-dispute-resolution/`, but it is intentionally marked as needing expansion and cannibalization review before import.
+- A seventh supporting draft now exists for `/family-dispute-resolution/`, and it is intentionally marked as needing cannibalization review before import.
 
 ## Cluster Readiness Snapshot
 | URL | Words | Draft Status | Source Audit | Publication Status |
@@ -18,7 +18,7 @@ Date: 2026-05-10
 | `/child-support/` | 5,019 | DRAFT_5000_WORD_CLASS_SOURCE_AUDITED | `child-support-source-audit.csv` | BLOCKED: legal review + browser source verification |
 | `/child-custody/` | 4,575 | DRAFT_4500_WORD_CLASS_SOURCE_AUDITED | `child-custody-source-audit.csv` | BLOCKED: legal review + browser source verification |
 | `/divorce-property-division/` | 4,553 | DRAFT_4500_WORD_CLASS_SOURCE_AUDITED | `property-division-source-audit.csv` | BLOCKED: legal review + browser source verification |
-| `/family-dispute-resolution/` | 2,183 | DRAFT_2200_WORD_SOURCE_AUDITED_NEEDS_EXPANSION | `family-dispute-resolution-source-audit.csv` | BLOCKED: expansion + cannibalization review + legal review + browser source verification |
+| `/family-dispute-resolution/` | 3,521 | DRAFT_3500_WORD_CLASS_SOURCE_AUDITED | `family-dispute-resolution-source-audit.csv` | BLOCKED: cannibalization review + legal review + browser source verification |
 
 ## Primary Pillar
 - URL: `/divorce-lawyer/`
@@ -71,7 +71,7 @@ Do not publish until:
 4. Import `/child-support/` as draft only.
 5. Import `/child-custody/` as draft only.
 6. Import `/divorce-property-division/` as draft only.
-7. Import `/family-dispute-resolution/` as draft only only after expansion and cannibalization review.
+7. Import `/family-dispute-resolution/` as draft only only after cannibalization review.
 
 ## BLOCKED Before Publication
 - NOT VERIFIED: Maya/legal review of all six drafts.

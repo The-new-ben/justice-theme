@@ -1,6 +1,6 @@
 ﻿id,type,url,title,slug,status,language,word_count,categories,practice_area,top_keyword,secondary_keywords,search_intent,cluster,pillar_candidate,duplicate_title_risk,duplicate_topic_risk,action
 TEMPLATE,—,—,—,—,—,—,—,—,—,—,—,—,—,—,—,—,—
-REPO-DRAFT-FAMILY-007,articles,/family-dispute-resolution/,בקשה ליישוב סכסוך במשפחה: מה קורה לפני תביעת גירושין,family-dispute-resolution,repo_draft,he,2183,דיני משפחה,family-law,בקשה ליישוב סכסוך,"יישוב סכסוך במשפחה; מהו""ת; עיכוב הליכים; יחידת הסיוע; תביעת גירושין",Informational process + urgency triage,family-law,NO,HIGH,MEDIUM,EXPAND_LEGAL_REVIEW_BROWSER_SOURCE_VERIFY_CANNIBALIZATION_REVIEW_IMPORT_AS_DRAFT
+REPO-DRAFT-FAMILY-007,articles,/family-dispute-resolution/,בקשה ליישוב סכסוך במשפחה: מה קורה לפני תביעת גירושין,family-dispute-resolution,repo_draft,he,3521,דיני משפחה,family-law,בקשה ליישוב סכסוך,"יישוב סכסוך במשפחה; מהו""ת; עיכוב הליכים; יחידת הסיוע; תביעת גירושין",Informational process + urgency triage,family-law,NO,HIGH,MEDIUM,LEGAL_REVIEW_BROWSER_SOURCE_VERIFY_CANNIBALIZATION_REVIEW_IMPORT_AS_DRAFT
 NOTE: Populate this file by running via WP-CLI or REST API. See commands below.
 NOTE: WP-CLI command to generate: wp post list --post_type=articles,post,page,justice_lawyer --post_status=publish,draft --fields=ID,post_type,post_title,post_name,post_status --format=csv > raw-inventory.csv
 NOTE: Then enrich with: word_count (manual or SEMrush), practice_area (from taxonomy), top_keyword (from GSC), cluster (manual assignment)

@@ -25,6 +25,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer onboarding admin queue now surfaces mini-site field completeness, and owner notification email includes headline/video context.
 - Lawyer registration now maps recognized submitted city names to `city` taxonomy terms on the draft profile, while still keeping the original free-text `cities_served` meta.
 - Lawyer registration city field now suggests core city names so lawyers are more likely to enter values the taxonomy mapper can recognize.
+- Lawyer registration has fallback primary-practice options with canonical English slugs if `practice-areas` terms are not available yet.
 
 ## FIXED IN THIS PASS
 - Added tracked `page-home.php` because the live homepage is assigned to the `page-home.php` page template, not only `front-page.php`.
@@ -75,6 +76,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer onboarding admin review table now shows a mini-site content checklist, reducing owner effort when deciding which registrations are ready for polishing.
 - Lawyer onboarding now auto-assigns known city terms such as Tel Aviv, Jerusalem, Haifa and Ramat Gan to draft profiles so future directory filtering needs less manual cleanup.
 - Lawyer registration form now includes a city datalist for the seeded/core cities while still allowing multiple free-text areas.
+- Lawyer registration primary-area select no longer depends entirely on live taxonomy seeding; it can show canonical fallback options during setup.
 
 ## NOT VERIFIED
 - Active live plugin path and name.

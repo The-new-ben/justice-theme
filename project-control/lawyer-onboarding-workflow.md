@@ -28,6 +28,7 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
 - Owner notification email includes submitted headline and video URL for faster triage.
 - Submitted city text is mapped to existing/core `city` taxonomy terms when possible, so draft profiles can later work with directory filters after approval.
 - Registration form now suggests the core city names with a browser datalist to improve city-taxonomy matching without forcing a restrictive selector.
+- Registration form now has canonical practice-area fallback options if taxonomy terms are unavailable, preventing empty primary-area submissions during setup.
 - No profile is published automatically.
 
 ## Review Workflow

@@ -11,6 +11,19 @@ $practice_terms = taxonomy_exists( 'practice-areas' )
 	? get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => false ) )
 	: array();
 
+$core_practice_options = array(
+	'family-law'          => 'דיני משפחה וגירושין',
+	'criminal-law'        => 'משפט פלילי',
+	'traffic-law'         => 'דיני תעבורה',
+	'real-estate-law'     => 'מקרקעין ונדל"ן',
+	'labor-law'           => 'דיני עבודה',
+	'inheritance-law'     => 'ירושה וצוואות',
+	'torts'               => 'נזיקין',
+	'medical-malpractice' => 'רשלנות רפואית',
+	'national-insurance'  => 'ביטוח לאומי',
+	'immigration-law'     => 'הגירה ואזרחות',
+);
+
 $core_city_options = array(
 	'תל אביב',
 	'ירושלים',
@@ -94,6 +107,10 @@ $core_city_options = array(
 							<?php if ( ! empty( $practice_terms ) && ! is_wp_error( $practice_terms ) ) : ?>
 								<?php foreach ( $practice_terms as $term ) : ?>
 									<option value="<?php echo esc_attr( $term->slug ); ?>"><?php echo esc_html( $term->name ); ?></option>
+								<?php endforeach; ?>
+							<?php else : ?>
+								<?php foreach ( $core_practice_options as $practice_slug => $practice_label ) : ?>
+									<option value="<?php echo esc_attr( $practice_slug ); ?>"><?php echo esc_html( $practice_label ); ?></option>
 								<?php endforeach; ?>
 							<?php endif; ?>
 						</select>

@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[MEDIUM] Added practice-area fallback options to lawyer registration**
+- Files: `page-lawyer-registration.php`, `project-control/lawyer-onboarding-workflow.md`
+- If `practice-areas` terms are unavailable, the registration form now still shows canonical primary-area options using English slugs.
+- This prevents empty practice-area submissions during setup or taxonomy activation gaps.
+- VERIFIED in repo. LIVE NOT VERIFIED until the registration page is checked after Upress pull.
+
 **[LOW] Added city suggestions to lawyer registration**
 - Files: `page-lawyer-registration.php`, `project-control/lawyer-onboarding-workflow.md`
 - The city/served-area field now includes a browser datalist with the core city names used by the city taxonomy mapper.

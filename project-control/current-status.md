@@ -56,6 +56,9 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Latest repo commit `e511c00` is pushed to `origin/main`, but live public HTML does not yet show every fix from that commit.
 
 ## FIXED IN THIS PASS
+- Maya Rotenberg mini-site CMS bootstrap added in `inc/live-migrations.php`: it fills rich editable profile fields only when empty and targets only the verified Maya profile.
+- Maya bootstrap adds services, process, approach, FAQ, CTA and credentials-style fields without fake ratings, awards, photos, bar number or paid claims.
+- Maya bootstrap can attach `family-law` and a city term only where safe, and adds an internal note for admin review.
 - Homepage hero copy is now more direct: it speaks to users who need a lawyer or legal direction, not only generic portal language.
 - Primary navigation now has a code safety layer that appends missing customer-critical links when the assigned WordPress menu is too thin.
 - Added a temporary SVG favicon fallback when WordPress Site Icon is not configured.
@@ -158,6 +161,8 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Live visual screenshot check ran again on 2026-05-10. Homepage returned 200 and latest repo markers (`brand-lockup--justice`, `hero__visual`, `article-card__placeholder--legal`) are present live, so GitHub/Upress sync is now VERIFIED for the latest theme changes.
 
 ## STILL BROKEN / RISK
+- NEEDS LIVE VERIFICATION: Maya mini-site bootstrap will not run until the latest theme code is pulled and WordPress executes `init`.
+- NEEDS ADMIN REVIEW: Maya profile contact details, photo, video, license/bar data and final copy approval still require wp-admin review.
 - LIVE VERIFIED STILL BROKEN: a fake URL (`/not-a-real-page-justice-qa/`) returned the homepage with HTTP 200 instead of a real 404; likely needs permalink/plugin/server inspection.
 - LIVE VERIFIED STILL WEAK: desktop primary menu currently shows only a thin assigned menu; code now mitigates this, but wp-admin menu assignment is still required for a clean permanent fix.
 - NEEDS LIVE VERIFICATION: breadcrumb CSS, menu augmentation, favicon fallback, article intent panel and lawyer-card badge/city cleanup after Upress pulls this pass.

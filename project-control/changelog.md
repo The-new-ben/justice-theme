@@ -731,3 +731,11 @@
 - VERIFIED: PHP lint passed locally for 120 PHP files.
 - NOT LIVE YET: post-push public recheck did not find the new hero copy, fallback favicon, appended-menu marker or article intent panel. uPress pull/cache verification is required.
 - STILL BROKEN LIVE: fake 404 URL returns the homepage with HTTP 200; requires wp-admin/uPress routing investigation.
+
+## 2026-05-10 Maya Mini-Site CMS Bootstrap
+- FIXED IN CODE: Added a narrow `inc/live-migrations.php` bootstrap for Advocate Maya Rotenberg's mini-site fields.
+- The migration fills empty CMS fields for headline, subheadline, services, process, approach, FAQs, CTA and credentials-style notes.
+- The migration does not overwrite future wp-admin edits and does not invent ratings, reviews, photos, bar number, awards or paid claims.
+- CREATED: `project-control/maya-minisite-cms-status.md`.
+- VERIFIED: PHP lint passed locally for 120 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and wp-admin profile review.

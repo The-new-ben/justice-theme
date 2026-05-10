@@ -37,7 +37,7 @@ Date: 2026-05-09
 | Breadcrumbs | `inc/breadcrumbs.php` + CSS | WP query hierarchy | NO | Visual polish needed live | Recheck after deploy |
 | Lead form | `ask-lawyer.php`, lead handlers | `admin-post.php`, `justice_lead` CPT/meta | PARTIAL | Live wiring not verified | Submit test lead after deploy |
 | Footer brand block | `site-footer.php` | Custom logo + Customizer contact | PARTIAL | Description hardcoded | Later expose via Customizer |
-| Lawyer profile fields | `single-justice_lawyer.php` | lawyer CPT meta | YES | Photo/video/social/reviews not complete for live profiles | Fill Maya profile in wp-admin |
+| Lawyer profile fields | `single-justice_lawyer.php`, `inc/live-migrations.php` | lawyer CPT meta | YES | Photo/video/social/reviews not complete for live profiles | Maya rich text fields now bootstrap if empty; review contact/photo/license in wp-admin |
 | Article author/reviewer | `single-articles.php` | WP author + review meta | PARTIAL | Reviewer/person authority incomplete | Add visible reviewer fields |
 | Category intro text | `taxonomy-practice-areas.php` | Taxonomy description fallback | YES | Many terms likely empty | Add Hebrew descriptions per priority area |
 | Homepage sections | `front-page.php`, `page-home.php` | Mixed CPT/taxonomy/hardcoded/page content | PARTIAL | Hero/value copy not editable | Add ACF/customizer/front-page fields later |

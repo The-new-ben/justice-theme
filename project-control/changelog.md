@@ -72,6 +72,12 @@
 - Mapped mediation procedure, price and failure-path claims to gov.il/Midrag source candidates.
 - Kept confidentiality, mediator-role and power-imbalance sections blocked for lawyer review.
 
+**[HIGH] Expanded child-support supporting draft**
+- Files: `content-drafts/child-support-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
+- Expanded `/child-support/` from about 1,179 words to about 2,120 words.
+- Added no-fake-calculator policy, intake model, medor, exceptional expenses, time-sharing, variable-income, agreement-clause, temporary-support and CRM-routing sections.
+- Status remains NOT VERIFIED for legal accuracy and not ready to publish.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

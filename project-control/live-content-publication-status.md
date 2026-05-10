@@ -1,8 +1,15 @@
 # Live Content Publication Status
 
 Date: 2026-05-10  
-Decision: PUBLICATION PAUSED AFTER CONTENT-SAFETY CORRECTION
+Decision: EDITORIAL REPAIR AND ENRICHMENT MODE
 Deployment model: GitHub/uPress pulls the repo into the live WordPress theme.
+
+## CURRENT MODE
+- Keep the existing family-law URLs.
+- Do not delete, draft, redirect, or hide them as the primary action.
+- Clean public article bodies so visitors see only useful Hebrew legal content.
+- Move internal/project notes into a draft-only WordPress page titled `Internal Editorial Notes — Family Law Cluster`.
+- Treat future legal content as `articles` CPT drafts first; use page URLs only for the existing repair flow and controlled migration decisions.
 
 ## VERIFIED
 - The repo now contains a narrow one-time publisher in `inc/live-content-publication.php`.
@@ -11,8 +18,10 @@ Deployment model: GitHub/uPress pulls the repo into the live WordPress theme.
 - Existing root page content is backed up into post meta before it is replaced.
 - The publisher adds SEO title, SEO description, AEO summary, GEO summary, cluster meta, connected lawyer slug, source-audit meta and a public legal disclaimer.
 - The publisher adds internal cluster links across the full family-law topic group.
-- Automatic publication is now disabled.
-- The manual publisher is now blocked unless the cannibalization CSV approves the page and internal markers are absent.
+- Automatic creation of new public pages is disabled.
+- The manual action now repairs existing family-law pages only after preflight; it does not create missing pages by default.
+- The editorial repair action updates existing pages in place with public-facing body content and leaves merge/redirect decisions for later approval.
+- The internal notes sync creates a draft-only WordPress page for owner/team notes.
 
 ## CODE FIXED
 - `functions.php` now loads `inc/live-content-publication.php`.
@@ -20,8 +29,8 @@ Deployment model: GitHub/uPress pulls the repo into the live WordPress theme.
 - `inc/schema.php` now emits Article schema for repo-published legal content pages, not only the `articles` CPT.
 - `assets/css/premium-pass-3.css` now styles the public cluster navigation, lawyer CTA and legal disclaimer blocks.
 
-## PROPOSED PUBLIC LINKS - NOT APPROVED FOR PUBLICATION YET
-These are the proposed URLs, but they are currently blocked from publication pending merge/cannibalization review:
+## PUBLIC LINKS TO REPAIR / ENRICH
+These URLs exist as the working family-law cluster. The immediate task is public-body cleanup and enrichment, not deletion:
 
 1. https://jus-tice.co.il/divorce-lawyer/
 2. https://jus-tice.co.il/consensual-divorce/
@@ -45,7 +54,7 @@ These are the proposed URLs, but they are currently blocked from publication pen
 - Every page uses the `Legal Pillar Page` template for hero, lead form, related topics and lawyer-directory connection.
 
 ## NOT VERIFIED LIVE
-- The pages are intentionally paused and must not go live until the workflow gates pass.
+- The editorial repair code has not yet been visually verified on the live site after uPress pull/cache refresh.
 - Search Console data is not yet used for traffic-risk scoring.
 - Human legal review and source review are still owner/lawyer review items.
 
@@ -77,8 +86,8 @@ These are the proposed URLs, but they are currently blocked from publication pen
 - Browser/uPress automation is not available in this session; direct authenticated uPress/wp-admin action remains required.
 
 ## NEXT ACTION
-1. Compare every proposed page against existing live content.
-2. Merge with existing pages where the same intent already exists.
-3. Update `publication-cannibalization-check.csv`.
-4. Approve only pages that are clean, public-facing and non-duplicative.
-5. Only then run the wp-admin publisher.
+1. Pull latest in uPress.
+2. Open any public page or `/wp-admin/` once so the editorial repair runs.
+3. Recheck all seven URLs for internal markers.
+4. Continue merging stronger old content into these pages where cannibalization requires it.
+5. Import future legal content into `articles` CPT drafts first, then approve publication after review.

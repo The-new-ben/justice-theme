@@ -56,15 +56,21 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Latest repo commit `e511c00` is pushed to `origin/main`, but live public HTML does not yet show every fix from that commit.
 
 ## FIXED IN THIS PASS
-- CRITICAL CORRECTION: family-law auto-publication is now paused. No public page should publish from the internal drafts until publication-cannibalization rows are approved.
-- LIVE VERIFIED BROKEN: the seven proposed family-law URLs are now live and contain publication/internal markers.
-- CODE FIXED: added emergency quarantine that restores backed-up page content where available or moves generated pages to draft; it deletes nothing.
-- LIVE RECHECK 13:52 Asia/Jerusalem: emergency quarantine is still NOT LIVE; all seven unsafe URLs still return 200 and expose internal markers. uPress pull/cache refresh is urgent.
-- LIVE RECHECK 14:02 Asia/Jerusalem: unsafe pages are STILL LIVE with internal markers. Added `project-control/emergency-live-cleanup-runbook.md` with uPress/wp-admin cleanup steps.
+- MODE SHIFT APPLIED: emergency route blocking/quarantine work is stopped. The workflow is now editorial repair/enrichment: keep pages, clean public article bodies, move internal notes to a draft-only internal WordPress page, and continue anti-cannibalization/cluster work.
+- CODE FIXED: unapproved-family route blocking was removed before commit, and the previous quarantine routine is now disabled by default.
+- CODE FIXED: existing family-law pages can now be repaired in place with public-facing body content from the repo drafts; the repair does not delete, draft, redirect, or create missing pages.
+- CODE FIXED: WordPress will create/update a draft-only internal page titled `Internal Editorial Notes — Family Law Cluster` with the team/source/CMS/GSC/publication notes extracted from the repo drafts.
+- CODE FIXED: content-draft imports into the `articles` CPT now use public-cleaned body content and store internal notes separately in `internal_editorial_notes` meta.
+- DOCUMENTED: `publication-cannibalization-check.csv` now marks the seven family-law URLs as `APPROVED_FOR_EDITORIAL_REPAIR`, meaning clean existing live pages now while merge/redirect decisions remain pending.
+- EDITORIAL SAFETY: family-law auto-publication remains paused as a creation mechanism, but existing live pages are now treated as content to repair and enrich rather than remove.
+- LIVE VERIFIED: the seven family-law URLs were live and contained internal markers in the earlier public check; the current repo fix is to clean those pages in place on the next pull.
+- CODE FIXED: the previous draft/restore cleanup routine is disabled by default and replaced by editorial repair for existing pages.
+- LIVE RECHECK 13:52 Asia/Jerusalem: the pages still needed public-body cleanup on live.
+- LIVE RECHECK 14:02 Asia/Jerusalem: the pages still needed public-body cleanup on live; the follow-up work is now editorial repair/enrichment rather than page removal.
 - CODE FIXED: manual wp-admin publication now runs public-content and cannibalization preflight checks and blocks unapproved pages.
 - CODE FIXED: internal-only sections such as NOT VERIFIED, source-audit notes, CMS/CRM/GSC notes, LegalTech product notes, owner/dev instructions, status sections and cannibalization notes are stripped/blocked from public output.
 - DOCUMENTED: `project-control/publication-workflow.md`, `project-control/publication-cannibalization-check.csv`, and `project-control/publication-review-family-law-cluster.md` now define the required workflow.
-- PREVIOUS PUBLICATION PACKAGE: a one-time publisher exists for the first family-law SEO cluster in `inc/live-content-publication.php`, but it is now blocked until the new public-content workflow passes.
+- PREVIOUS PUBLICATION PACKAGE: a one-time publisher exists for the first family-law SEO cluster in `inc/live-content-publication.php`, but manual creation of missing public pages is no longer the preferred path. Current mode repairs existing pages and keeps article drafts in the `articles` CPT.
 - CODE FIXED: the publisher creates/updates public root English-slug pages for `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/`, `/divorce-property-division/`, and `/family-dispute-resolution/`.
 - CODE FIXED: each published page gets SEO title/description, AEO/GEO summary meta, Article schema eligibility, visible internal cluster links, Maya Rotenberg connection, lead CTA and a public legal disclaimer.
 - SAFETY VERIFIED IN CODE: existing root page content is backed up into post meta before replacement.
@@ -72,7 +78,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - LIVE RECHECK: after push `8e28528`, all seven new URLs still redirected to the homepage and did not expose publication markers, so uPress pull/cache/migration execution is still required.
 - CODE FIXED: homepage topic clusters now include direct links to the seven family-law cluster pages; `/family-law/` now includes the family-dispute-resolution page in its supporting-topic map.
 - CODE FIXED: the featured divorce pillar card now points to `/divorce-lawyer/` instead of the old `/family-law/divorce/` path.
-- CODE FIXED: `Tools > Jus-Tice Content Drafts` now has an admin-only manual button to publish/refresh the family-law cluster pages if automatic front-end publication does not run.
+- CODE FIXED: `Tools > Jus-Tice Content Drafts` now has an admin-only manual button to preflight and repair existing family-law pages without creating missing pages.
 - Maya Rotenberg mini-site CMS bootstrap added in `inc/live-migrations.php`: it fills rich editable profile fields only when empty and targets only the verified Maya profile.
 - Maya bootstrap adds services, process, approach, FAQ, CTA and credentials-style fields without fake ratings, awards, photos, bar number or paid claims.
 - Practice-area archive pages now have an intent-first customer layer in `taxonomy-practice-areas.php`: problem framing, when-to-contact guidance, preparation checklist and a lead CTA.
@@ -259,6 +265,6 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 6. Verify `/legal-tools/`, `/legal-tools/ai-intake/`, and one test LegalTech request in admin.
 7. Commit only repo-safe changes; do not create ZIPs.
 8. Export live URL/slug inventory before changing any Hebrew slugs; fill `url-migration-map.csv`, then create approved 301 redirects for every changed URL.
-9. Run lawyer/legal review and browser source verification for the six family-law drafts listed in `project-control/family-law-publication-readiness.csv`, then import as draft only through the admin content-draft importer or its bulk draft-only action. Use the Articles admin review columns and single article review/status display to track remaining gates.
-10. Pull latest in Upress and visit `/wp-admin/` once to seed/import draft pillar pages; publish `/divorce-lawyer/` first only after review gates pass.
+9. Pull latest in Upress and visit `/wp-admin/` once so the family-law editorial repair and internal notes draft sync can run.
+10. Recheck all seven family-law URLs for clean public body content, then continue old-content merge review and import future legal content into the `articles` CPT as clean drafts.
 11. Verify live homepage after Upress pull; expected signs are the blinking red-dot Jus-Tice fallback, richer hero visual layer, and upgraded article-card placeholders.

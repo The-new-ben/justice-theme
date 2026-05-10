@@ -34,11 +34,22 @@ Public article content is for the Google visitor. Project notes are for the owne
 12. Update content inventory, cannibalization map and URL migration map if needed.
 13. Publish only after status is explicitly approved.
 
+## Editorial Repair Mode
+If a page is already live and contains internal notes, do not delete the page as the first action.
+
+1. Keep the URL.
+2. Remove internal notes from the public article body.
+3. Move those notes into a draft/private internal editorial note.
+4. Repair the article in place with public-facing content.
+5. Continue the cannibalization and merge review afterward.
+
+This mode is allowed only for existing live pages. It must not create a new duplicate URL.
+
 ## Code Gate
 The family-law live publisher is now blocked by default unless:
 - `publication-cannibalization-check.csv` marks the page status as approved.
 - The recommended action does not block publication.
 - The cleaned public draft has no internal safety markers.
 
-## Current Emergency Decision
-Automatic publication of the family-law cluster is disabled. The wp-admin manual trigger runs preflight checks first and will block publication while rows remain unapproved.
+## Current Decision
+Automatic creation of new family-law public pages is disabled. Existing family-law pages are handled through editorial repair/enrichment, while future public legal content should first enter the `articles` CPT as clean drafts.

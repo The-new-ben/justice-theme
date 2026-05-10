@@ -141,8 +141,6 @@ function justice_theme_render_content_draft_importer(): void {
 			<?php
 			$publication_result = get_option( 'justice_family_cluster_publication_result', array() );
 			$publication_time   = is_array( $publication_result ) && ! empty( $publication_result['time'] ) ? $publication_result['time'] : '';
-			$quarantine_result  = get_option( 'justice_family_cluster_quarantine_result', array() );
-			$quarantine_time    = is_array( $quarantine_result ) && ! empty( $quarantine_result['time'] ) ? $quarantine_result['time'] : '';
 			?>
 			<div class="notice notice-info">
 				<p>
@@ -152,16 +150,13 @@ function justice_theme_render_content_draft_importer(): void {
 					<?php else : ?>
 						<?php esc_html_e( 'Not published by the repo publisher yet.', 'justice-theme' ); ?>
 					<?php endif; ?>
-					<?php if ( $quarantine_time ) : ?>
-						<br><?php echo esc_html( sprintf( 'Emergency quarantine ran: %s', $quarantine_time ) ); ?>
-					<?php endif; ?>
 				</p>
 				<p>
 					<a class="button button-secondary" href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'justice_publish_family_cluster' ), admin_url( 'tools.php?page=justice-content-drafts' ) ), 'justice_publish_family_cluster' ) ); ?>">
-						<?php esc_html_e( 'Run preflight / publish only approved family-law pages', 'justice-theme' ); ?>
+						<?php esc_html_e( 'Run preflight / repair existing family-law pages', 'justice-theme' ); ?>
 					</a>
 				</p>
-				<p><small><?php esc_html_e( 'Publication is blocked unless the cannibalization CSV marks each page as approved and no internal markers remain in public content.', 'justice-theme' ); ?></small></p>
+				<p><small><?php esc_html_e( 'This keeps pages in place and refreshes them only with public-facing body content. Internal notes are kept in the draft internal editorial note.', 'justice-theme' ); ?></small></p>
 			</div>
 		<?php endif; ?>
 
@@ -364,7 +359,8 @@ function justice_theme_import_repo_content_draft( string $file ): array {
 
 	$slug         = justice_theme_extract_content_draft_slug( $raw, basename( $file, '.md' ) );
 	$title        = justice_theme_extract_content_draft_title( $raw );
-	$html         = justice_theme_markdown_draft_to_html( $raw );
+	$public_raw   = function_exists( 'justice_theme_strip_internal_publication_note' ) ? justice_theme_strip_internal_publication_note( $raw ) : $raw;
+	$html         = justice_theme_markdown_draft_to_html( $public_raw );
 	$draft_status = justice_theme_extract_content_draft_field( $raw, 'Status', 'UNKNOWN' );
 	$source_audit = justice_theme_extract_content_draft_source_audit( $raw );
 	$word_count   = justice_theme_count_content_draft_words( $raw );
@@ -405,6 +401,9 @@ function justice_theme_import_repo_content_draft( string $file ): array {
 	update_post_meta( $post_id, 'repo_content_draft_status', $draft_status );
 	update_post_meta( $post_id, 'repo_content_draft_word_count', (string) $word_count );
 	update_post_meta( $post_id, 'repo_content_source_audit', $source_audit );
+	if ( function_exists( 'justice_theme_extract_internal_publication_notes' ) ) {
+		update_post_meta( $post_id, 'internal_editorial_notes', justice_theme_extract_internal_publication_notes( $raw ) );
+	}
 	update_post_meta( $post_id, 'needs_legal_review', '1' );
 	update_post_meta( $post_id, 'needs_browser_source_verification', '1' );
 	update_post_meta( $post_id, 'connected_lawyer_slug', justice_theme_extract_content_draft_field( $raw, 'Connected lawyer', '' ) );

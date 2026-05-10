@@ -3,6 +3,17 @@
 
 ## 2026-05-10 - Session: CMS wiring hardening
 
+### EDITORIAL IMPROVEMENT MODE
+
+**[HIGH] Switched family-law cluster from cleanup/removal to editorial repair**
+- Files: `inc/live-content-publication.php`, `inc/content-draft-importer.php`, `project-control/publication-workflow.md`, `project-control/publication-cannibalization-check.csv`, `project-control/publication-review-family-law-cluster.md`, `project-control/live-content-publication-status.md`, `project-control/editorial-repair-runbook.md`
+- Removed the uncommitted front-end route block before it was pushed.
+- Disabled the previous draft/restore quarantine routine by default.
+- Added an editorial repair flow that keeps existing family-law pages public and refreshes their body with public-facing article content.
+- Added a draft-only WordPress page sync for `Internal Editorial Notes — Family Law Cluster`.
+- Content-draft imports into `articles` now use cleaned public body content and store internal notes separately.
+- VERIFIED locally pending PHP lint in this pass.
+
 ### URGENT PUBLICATION SAFETY CORRECTION
 
 **[CRITICAL] Paused family-law auto-publication and added public-content gates**

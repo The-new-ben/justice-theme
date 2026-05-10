@@ -13,9 +13,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_FAMILY_CLUSTER_PUBLICATION_VERSION', '2026-05-10-family-cluster-v2-public-safe' );
+define( 'JUSTICE_THEME_FAMILY_CLUSTER_PUBLICATION_VERSION', '2026-05-10-family-cluster-v3-editorial-repair' );
 define( 'JUSTICE_THEME_ENABLE_AUTO_FAMILY_CLUSTER_PUBLICATION', false );
 define( 'JUSTICE_THEME_FAMILY_CLUSTER_QUARANTINE_VERSION', '2026-05-10-quarantine-unsafe-family-cluster-v1' );
+define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_QUARANTINE', false );
+define( 'JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION', '2026-05-10-editorial-repair-family-cluster-v1' );
+define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_EDITORIAL_REPAIR', true );
 
 /**
  * Register SEO/AEO/GEO meta for public content pages.
@@ -59,6 +62,10 @@ add_action( 'init', 'justice_theme_register_publication_meta' );
  * restore backed-up content where possible or move generated pages back to draft.
  */
 function justice_theme_quarantine_unsafe_family_cluster_pages(): void {
+	if ( ! JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_QUARANTINE ) {
+		return;
+	}
+
 	if ( get_option( 'justice_family_cluster_quarantine_version' ) === JUSTICE_THEME_FAMILY_CLUSTER_QUARANTINE_VERSION ) {
 		return;
 	}
@@ -136,6 +143,96 @@ function justice_theme_quarantine_unsafe_family_cluster_pages(): void {
 add_action( 'init', 'justice_theme_quarantine_unsafe_family_cluster_pages', 41 );
 
 /**
+ * Keep internal/editorial material in a private workspace note, not in public pages.
+ */
+function justice_theme_sync_family_cluster_internal_editorial_notes(): void {
+	if ( get_option( 'justice_family_cluster_internal_notes_version' ) === JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION ) {
+		return;
+	}
+
+	$items = justice_theme_get_owner_approved_family_cluster();
+	if ( empty( $items ) ) {
+		return;
+	}
+
+	$content = justice_theme_build_family_cluster_internal_notes_html( $items );
+	if ( '' === $content ) {
+		return;
+	}
+
+	$slug     = 'internal-editorial-notes-family-law-cluster';
+	$existing = get_page_by_path( $slug, OBJECT, 'page' );
+
+	$post_data = array(
+		'post_type'    => 'page',
+		'post_status'  => 'draft',
+		'post_name'    => $slug,
+		'post_title'   => 'Internal Editorial Notes — Family Law Cluster',
+		'post_content' => $content,
+	);
+
+	if ( $existing instanceof WP_Post ) {
+		$post_data['ID'] = $existing->ID;
+		$result          = wp_update_post( $post_data, true );
+	} else {
+		$result = wp_insert_post( $post_data, true );
+	}
+
+	if ( ! is_wp_error( $result ) ) {
+		update_post_meta( (int) $result, 'content_status', 'internal_editorial_notes' );
+		update_post_meta( (int) $result, 'content_cluster', 'family-law' );
+		update_post_meta( (int) $result, 'justice_publication_version', JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION );
+		update_option( 'justice_family_cluster_internal_notes_version', JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION, false );
+	}
+}
+add_action( 'init', 'justice_theme_sync_family_cluster_internal_editorial_notes', 42 );
+
+/**
+ * Repair already-live family-law pages in place by replacing their body with
+ * public-facing article content. This does not delete, draft, or redirect pages.
+ */
+function justice_theme_editorial_repair_existing_family_cluster_pages(): void {
+	if ( ! JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_EDITORIAL_REPAIR ) {
+		return;
+	}
+
+	if ( get_option( 'justice_family_cluster_editorial_repair_version' ) === JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION ) {
+		return;
+	}
+
+	$items = justice_theme_get_owner_approved_family_cluster();
+	if ( empty( $items ) ) {
+		return;
+	}
+
+	$repaired = array();
+	$skipped  = array();
+
+	foreach ( $items as $slug => $item ) {
+		$result = justice_theme_publish_family_cluster_page( $slug, $item, $items, false );
+
+		if ( is_wp_error( $result ) ) {
+			$skipped[] = $slug . ': ' . $result->get_error_message();
+			continue;
+		}
+
+		$repaired[] = $slug;
+	}
+
+	update_option( 'justice_family_cluster_editorial_repair_version', JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION, false );
+	update_option(
+		'justice_family_cluster_editorial_repair_result',
+		array(
+			'time'     => current_time( 'mysql' ),
+			'repaired' => $repaired,
+			'skipped'  => $skipped,
+		),
+		false
+	);
+}
+add_action( 'init', 'justice_theme_editorial_repair_existing_family_cluster_pages', 43 );
+
+/**
  * Publish the approved first family-law content cluster.
  */
 function justice_theme_publish_owner_approved_family_cluster(): void {
@@ -173,7 +270,7 @@ function justice_theme_handle_family_cluster_publication_action(): void {
 
 	$result  = justice_theme_run_family_cluster_publication( true );
 	$message = sprintf(
-		'Family cluster publication finished. Published: %1$d. Blocked: %2$d.',
+		'Family cluster editorial repair finished. Repaired: %1$d. Skipped/blocked: %2$d.',
 		count( $result['published'] ),
 		count( $result['blocked'] )
 	);
@@ -196,9 +293,10 @@ add_action( 'admin_init', 'justice_theme_handle_family_cluster_publication_actio
  * Run the family cluster publication.
  *
  * @param bool $force Force rerun even if the current version is recorded.
+ * @param bool $create_missing Whether missing pages may be created.
  * @return array{published:array,blocked:array}
  */
-function justice_theme_run_family_cluster_publication( bool $force = false ): array {
+function justice_theme_run_family_cluster_publication( bool $force = false, bool $create_missing = false ): array {
 	if ( ! $force && get_option( 'justice_family_cluster_publication_version' ) === JUSTICE_THEME_FAMILY_CLUSTER_PUBLICATION_VERSION ) {
 		return get_option(
 			'justice_family_cluster_publication_result',
@@ -239,7 +337,7 @@ function justice_theme_run_family_cluster_publication( bool $force = false ): ar
 	$blocked   = array();
 
 	foreach ( $items as $slug => $item ) {
-		$result = justice_theme_publish_family_cluster_page( $slug, $item, $items );
+		$result = justice_theme_publish_family_cluster_page( $slug, $item, $items, $create_missing );
 		if ( is_wp_error( $result ) ) {
 			$blocked[] = $slug . ': ' . $result->get_error_message();
 			continue;
@@ -355,9 +453,10 @@ function justice_theme_get_owner_approved_family_cluster(): array {
  * @param string $slug Slug.
  * @param array  $item Item config.
  * @param array  $all_items All cluster items.
+ * @param bool   $create_missing Whether a missing page may be created.
  * @return int|WP_Error
  */
-function justice_theme_publish_family_cluster_page( string $slug, array $item, array $all_items ) {
+function justice_theme_publish_family_cluster_page( string $slug, array $item, array $all_items, bool $create_missing = true ) {
 	$file = sanitize_file_name( $item['file'] ?? '' );
 	$path = JUSTICE_THEME_DIR . '/content-drafts/' . $file;
 
@@ -378,6 +477,14 @@ function justice_theme_publish_family_cluster_page( string $slug, array $item, a
 	$topics       = justice_theme_build_family_cluster_topics_meta( $slug, $all_items );
 	$existing     = get_page_by_path( $slug, OBJECT, 'page' );
 
+	if ( '' === $html ) {
+		return new WP_Error( 'unsafe_public_content', 'Public article body still contains internal markers after cleanup.' );
+	}
+
+	if ( ! $existing && ! $create_missing ) {
+		return new WP_Error( 'missing_existing_page', 'No existing live page to repair in place.' );
+	}
+
 	$meta = array(
 		'_wp_page_template'           => 'page-legal-pillar.php',
 		'pillar_keyword'              => $item['keyword'],
@@ -386,7 +493,7 @@ function justice_theme_publish_family_cluster_page( string $slug, array $item, a
 		'pillar_lawyer_area'          => 'family-law',
 		'pillar_legaltech_url'        => '/legal-tools/ai-intake/',
 		'pillar_supporting_topics'    => $topics,
-		'content_status'              => 'owner_approved_live_review',
+		'content_status'              => $create_missing ? 'owner_approved_live_review' : 'editorial_repaired_public_article',
 		'content_cluster'             => 'family-law',
 		'primary_keyword'             => $item['keyword'],
 		'secondary_keywords'          => justice_theme_build_family_cluster_secondary_keywords( $slug, $all_items ),
@@ -400,7 +507,7 @@ function justice_theme_publish_family_cluster_page( string $slug, array $item, a
 		'repo_content_draft_word_count' => (string) $word_count,
 		'repo_content_source_audit'   => $source_audit,
 		'justice_publication_version' => JUSTICE_THEME_FAMILY_CLUSTER_PUBLICATION_VERSION,
-		'justice_publication_notes'   => 'Published from repo after owner approved live review. Hebrew content with short English slug. Review on live site and refine in CMS as needed.',
+		'justice_publication_notes'   => $create_missing ? 'Published from repo after owner approved live review. Hebrew content with short English slug. Review on live site and refine in CMS as needed.' : 'Repaired existing live page in place: public body cleaned, internal notes moved to a draft-only internal editorial note.',
 	);
 
 	if ( $existing ) {
@@ -455,7 +562,7 @@ function justice_theme_family_cluster_publication_preflight( array $items ): arr
 		$status = $review[ $slug ]['status'] ?? '';
 		$action = $review[ $slug ]['recommended_action'] ?? '';
 
-		if ( ! in_array( $status, array( 'APPROVED_FOR_PUBLICATION', 'APPROVED_FOR_UPDATE', 'APPROVED_FOR_MERGE' ), true ) ) {
+		if ( ! in_array( $status, array( 'APPROVED_FOR_PUBLICATION', 'APPROVED_FOR_UPDATE', 'APPROVED_FOR_MERGE', 'APPROVED_FOR_EDITORIAL_REPAIR' ), true ) ) {
 			$blocked[] = $slug . ': publication-cannibalization-check.csv status is not approved (' . ( $status ?: 'missing' ) . ').';
 			continue;
 		}
@@ -579,7 +686,7 @@ function justice_theme_strip_internal_publication_note( string $raw ): string {
 			continue;
 		}
 
-		if ( justice_theme_is_internal_publication_line( $line ) ) {
+		if ( justice_theme_is_internal_publication_line( $line ) || justice_theme_is_internal_publication_metadata_line( $line ) ) {
 			continue;
 		}
 
@@ -680,6 +787,13 @@ function justice_theme_detect_public_content_internal_markers( string $content )
 		'READY NEXT',
 		'project-control/',
 		'Source audit:',
+		'Slug target:',
+		'Status:',
+		'Target length:',
+		'Connected lawyer:',
+		'Connected pillar:',
+		'Primary keyword:',
+		'Secondary keywords:',
 		'סטטוס לפני פרסום',
 		'פעולות המשך לפני פרסום',
 		'חסמי פרסום',
@@ -698,6 +812,91 @@ function justice_theme_detect_public_content_internal_markers( string $content )
 	}
 
 	return array_values( array_unique( $markers ) );
+}
+
+/**
+ * Build the draft-only internal notes body for the family-law cluster.
+ *
+ * @param array $items Cluster map.
+ * @return string
+ */
+function justice_theme_build_family_cluster_internal_notes_html( array $items ): string {
+	$html = '<p>This draft is internal only. It collects publication notes, source-review notes, CRM/GSC notes and team instructions that must not appear inside public legal articles.</p>';
+
+	foreach ( $items as $slug => $item ) {
+		$file = sanitize_file_name( $item['file'] ?? '' );
+		$path = JUSTICE_THEME_DIR . '/content-drafts/' . $file;
+
+		if ( '' === $file || ! is_readable( $path ) ) {
+			continue;
+		}
+
+		$raw = file_get_contents( $path );
+		if ( false === $raw ) {
+			continue;
+		}
+
+		$notes = justice_theme_extract_internal_publication_notes( $raw );
+		if ( '' === $notes ) {
+			continue;
+		}
+
+		$title = justice_theme_extract_content_draft_title( $raw );
+		$html .= '<h2>' . esc_html( $title ) . '</h2>';
+		$html .= '<p><strong>Slug:</strong> <code>' . esc_html( $slug ) . '</code> | <strong>Draft file:</strong> <code>' . esc_html( $file ) . '</code></p>';
+		$html .= '<pre>' . esc_html( $notes ) . '</pre>';
+	}
+
+	return wp_kses_post( $html );
+}
+
+/**
+ * Extract owner/team-only material from a repo draft.
+ *
+ * @param string $raw Raw Markdown.
+ * @return string
+ */
+function justice_theme_extract_internal_publication_notes( string $raw ): string {
+	$lines   = preg_split( '/\r\n|\r|\n/', $raw );
+	$notes   = array();
+	$capture = false;
+
+	foreach ( $lines as $line ) {
+		if ( preg_match( '/^##\s+(.+)$/u', $line, $matches ) ) {
+			$heading = trim( wp_strip_all_tags( $matches[1] ) );
+			$capture = justice_theme_is_internal_publication_heading( $heading );
+
+			if ( $capture ) {
+				$notes[] = '';
+				$notes[] = $line;
+				continue;
+			}
+		}
+
+		if ( $capture ) {
+			$notes[] = $line;
+			continue;
+		}
+
+		if ( justice_theme_is_internal_publication_line( $line ) || justice_theme_is_internal_publication_metadata_line( $line ) ) {
+			$notes[] = $line;
+		}
+	}
+
+	return trim( implode( "\n", $notes ) );
+}
+
+/**
+ * Determine whether one Markdown metadata line belongs only in editor notes.
+ *
+ * @param string $line Line.
+ * @return bool
+ */
+function justice_theme_is_internal_publication_metadata_line( string $line ): bool {
+	return (bool) preg_match(
+		'/^(Slug target|Status|Target length|Connected pillar|Connected lawyer|Cluster|Primary keyword|Secondary keywords|Preferred editorial terminology|Source audit):/i',
+		trim( $line )
+	);
 }
 
 /**

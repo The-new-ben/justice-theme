@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[LOW] Added city suggestions to lawyer registration**
+- Files: `page-lawyer-registration.php`, `project-control/lawyer-onboarding-workflow.md`
+- The city/served-area field now includes a browser datalist with the core city names used by the city taxonomy mapper.
+- This improves matching without forcing lawyers into a rigid single-city selector.
+- VERIFIED in repo. LIVE NOT VERIFIED until the registration page is checked after Upress pull.
+
 **[MEDIUM] Mapped registration city text to city taxonomy**
 - Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
 - Lawyer registration still stores free-text `cities_served`, but now maps recognized city names to `city` taxonomy terms on the draft profile.

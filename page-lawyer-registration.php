@@ -10,6 +10,29 @@ get_header();
 $practice_terms = taxonomy_exists( 'practice-areas' )
 	? get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => false ) )
 	: array();
+
+$core_city_options = array(
+	'תל אביב',
+	'ירושלים',
+	'חיפה',
+	'ראשון לציון',
+	'פתח תקווה',
+	'אשדוד',
+	'נתניה',
+	'באר שבע',
+	'חולון',
+	'בני ברק',
+	'רמת גן',
+	'אשקלון',
+	'רחובות',
+	'בת ים',
+	'הרצליה',
+	'כפר סבא',
+	'מודיעין',
+	'נצרת',
+	'לוד',
+	'רמלה',
+);
 ?>
 
 <section class="lawyer-registration-hero section">
@@ -93,7 +116,12 @@ $practice_terms = taxonomy_exists( 'practice-areas' )
 					</label>
 					<label>
 						<span><?php esc_html_e( 'ערים/אזורי שירות', 'justice-theme' ); ?></span>
-						<input type="text" name="cities_served" placeholder="<?php esc_attr_e( 'תל אביב, רמת גן, ירושלים', 'justice-theme' ); ?>">
+						<input type="text" name="cities_served" list="justice-city-options" placeholder="<?php esc_attr_e( 'תל אביב, רמת גן, ירושלים', 'justice-theme' ); ?>">
+						<datalist id="justice-city-options">
+							<?php foreach ( $core_city_options as $city_option ) : ?>
+								<option value="<?php echo esc_attr( $city_option ); ?>"></option>
+							<?php endforeach; ?>
+						</datalist>
 					</label>
 					<label>
 						<span><?php esc_html_e( 'שפות', 'justice-theme' ); ?></span>

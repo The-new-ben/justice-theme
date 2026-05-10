@@ -135,3 +135,93 @@ Not allowed:
 ## Status
 
 NOT IMPLEMENTED. No API key, OAuth flow, sync job, cron, database update or public display was changed.
+
+## 2026-05-11 Integration Addendum
+
+Status: VERIFIED - technical integration plan only.
+Implementation status: NOT IMPLEMENTED.
+
+### Google Business Profile API Boundary
+
+Use the Business Profile review API only when:
+- the lawyer owns or manages the Google Business Profile;
+- the lawyer explicitly authorizes Jus-Tice via OAuth;
+- the Google Cloud project, scopes and app verification path are approved;
+- the system stores the connection status and last sync date;
+- the lawyer can disconnect the integration.
+
+Useful capabilities:
+- list reviews for a managed location;
+- retrieve review data;
+- reply to reviews;
+- delete or update owner replies where the API permits.
+
+Do not use it to access profiles that Jus-Tice or the lawyer does not manage.
+
+### Google Places API Boundary
+
+Use Places API only as a public profile-enrichment source after Maps Platform terms and billing are approved.
+
+Preferred fields for a later sync:
+- `id` or Place ID;
+- `displayName`;
+- `rating`;
+- `userRatingCount`;
+- `googleMapsUri`;
+- possibly `reviews`, only after terms and display rules are reviewed.
+
+Rules:
+- request only needed fields through field masks;
+- cache results and store last synced date;
+- show source disclosure;
+- link users to Google for the full review set;
+- do not treat the limited Places review sample as a full review archive.
+
+### Manual MVP Boundary
+
+Manual MVP is the safest launch path:
+- admin verifies the lawyer Google Maps profile;
+- admin stores Google profile/review URL;
+- admin stores rating/count only if source proof is kept internally;
+- public page shows "Google rating last verified on [date]";
+- public CTA says "Read reviews on Google";
+- no review text is copied into Jus-Tice unless terms and legal review approve it.
+
+### Third-Party Reputation Tools
+
+Podium, Birdeye and ReviewTrackers-style tools can inspire product design:
+- review request workflows;
+- review inbox;
+- AI response drafts;
+- sentiment themes;
+- review alerts;
+- multi-location dashboard;
+- monthly reputation reports.
+
+They should not be embedded blindly because:
+- widgets can slow pages;
+- vendor UX may clash with the site;
+- review-gating risk must be checked;
+- data ownership and export rights matter;
+- legal-directory compliance differs from general local business reputation management.
+
+### Prohibited Flows
+
+Do not build:
+- "leave us a 5-star review" messaging;
+- incentives, discounts or rewards for Google reviews;
+- funnels that ask unhappy users to submit private feedback while only happy users are sent to Google;
+- scraping of Google review text;
+- fake review imports;
+- copied screenshots of Google reviews as a workaround;
+- AggregateRating schema for Google data unless visible, permitted and approved.
+
+### Recommended Sequence
+
+1. Add fields and admin source-proof workflow.
+2. Add visible Google link and empty states.
+3. Add first-party review CPT and moderation.
+4. Add lawyer reply workflow.
+5. Add reputation dashboard.
+6. Add Places API summary sync only after billing/terms review.
+7. Add Business Profile API only for lawyers who authorize profile access.

@@ -68,3 +68,31 @@ If displaying Google review summary:
 ## Status
 
 BLOCKED: review schema is blocked until real review data, compliance approval and visible page UX exist.
+
+## 2026-05-11 Schema Addendum
+
+Status: BLOCKED - intentionally not implemented.
+
+### Extra Guardrails
+
+Do not add `AggregateRating` or `Review` schema because the product documents mention reviews. Schema is allowed only after:
+- the public page visibly displays the same review/rating facts;
+- the source of each rating is clear;
+- Google reviews are not represented as Jus-Tice first-party reviews;
+- first-party reviews have moderation and privacy controls;
+- paid placement is disclosed if relevant;
+- legal review confirms the display is acceptable for lawyer advertising;
+- SEO review confirms eligibility and self-serving review risk;
+- a public URL passes Rich Results Test;
+- Search Console monitoring is ready after launch.
+
+### MVP Schema Decision
+
+MVP review/reputation module should use no review schema. Use normal profile/entity schema only:
+- lawyer name;
+- profile URL;
+- practice areas;
+- city/office information when verified;
+- sameAs links when source-reviewed.
+
+Rating facts can be visible to users before they are marked up for rich results. That is safer than forcing schema too early.

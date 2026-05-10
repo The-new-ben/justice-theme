@@ -1308,3 +1308,12 @@
 - UPDATED: `project-control/lawyer-mini-site-strategy.md`, `project-control/payment-and-subscription-model.md`, `project-control/integrated-launch-checklist.md`, `project-control/current-status.md`, and `project-control/task-board.csv`.
 - DECISION: recommended MVP is verified Google review link/Place ID/manual source summary plus profile completeness; no fake ratings, no review schema, no automated Google sync until approvals.
 - SAFETY: no public reviews, ratings, schema, database updates, API calls, lawyer-card UI, URLs, redirects, sitemap settings or public content were changed.
+
+## 2026-05-11 Lawyer Reviews / Reputation Deepening
+- UPDATED: `project-control/reviews-reputation-research.md` with a deeper competitor/reputation-tool matrix and MVP/non-MVP boundaries.
+- UPDATED: `project-control/google-reviews-integration-plan.md` with Business Profile API, Places API, manual MVP and third-party reputation-tool constraints.
+- UPDATED: `project-control/review-compliance-risk.md` with no-review-gating, no-incentive, moderation and lawyer-reply gates.
+- UPDATED: `project-control/lawyer-rating-system-spec.md` with public-label rules, review workflow, reputation-score boundary and future criminal-lawyer example.
+- UPDATED: `project-control/reputation-product-roadmap.md`, `project-control/maya-rotenberg-reputation-plan.md`, `project-control/review-schema-policy.md`, `project-control/seo-aio-geo-strategy.md`, `project-control/payment-and-subscription-model.md`, `project-control/final-integrated-launch-checklist.md`, `project-control/current-status.md`, `project-control/next-actions.md` and `project-control/task-board.csv`.
+- DECISION: keep the first launch source-disclosed and conservative; no fake reviews, no fake stars, no AggregateRating schema and no automated Google sync before approval.
+- SAFETY: no public content, review UI, database rows, API calls, schema, URLs, redirects, sitemap settings or live CMS settings were changed.

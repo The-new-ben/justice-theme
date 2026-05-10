@@ -194,3 +194,80 @@ Do not add AggregateRating automatically. Follow `project-control/review-schema-
 ## Status
 
 SPEC ONLY. No CPT, meta box, public card, schema or review UI was implemented.
+
+## 2026-05-11 Spec Addendum
+
+Status: ACCEPTED - product rules clarified.
+Implementation status: NOT IMPLEMENTED.
+
+### Public Label Correction
+
+The public Hebrew label copy in this spec is placeholder copy only and must be reviewed in browser/admin before launch. If any Hebrew text appears corrupted in a local terminal, do not copy it into public templates. Final display copy must be entered and checked in WordPress/browser as normal Hebrew.
+
+Allowed early public labels:
+- "Google rating" only when rating/count/source are verified.
+- "Read reviews on Google."
+- "Reviews are not displayed yet."
+- "Profile details verified" only when a written verification rule exists.
+- "Profile completeness" as an internal/admin metric or a carefully explained public metric.
+
+Avoid until legal/business approval:
+- "recommended lawyer."
+- "top lawyer."
+- "best lawyer."
+- "trusted lawyer."
+- "verified lawyer" without a written verification policy.
+- any score that looks like an official professional ranking.
+
+### Review Collection Workflow
+
+1. User submits a review after a real interaction.
+2. User confirms the review reflects a genuine experience.
+3. User accepts a privacy warning.
+4. Review is saved as pending, not public.
+5. Admin moderates privacy, authenticity, conflict and legal risk.
+6. Approved review can appear on the lawyer mini-site if display is enabled.
+7. Lawyer can reply only through a moderated response workflow.
+8. Review changes, hides and removals are logged.
+
+### Reputation Score Boundary
+
+Do not launch a public "Jus-Tice score" in the first version. Start with:
+- profile completeness;
+- review availability;
+- source-disclosed Google summary;
+- first-party review count after moderation;
+- public article/Q&A contribution counts;
+- response-time or lead-response metrics inside the lawyer dashboard only.
+
+Future score requires:
+- transparent methodology;
+- paid-placement separation;
+- appeal/correction process;
+- Israeli lawyer advertising review;
+- anti-gaming controls.
+
+### Future Criminal Lawyer Example
+
+A future criminal-lawyer mini-site should support:
+- criminal law practice areas;
+- police investigation;
+- arrest/pretrial detention;
+- indictment;
+- drug offenses;
+- sex offenses;
+- white-collar crime;
+- emergency contact CTA;
+- real reviews if available;
+- Google rating only if connected or manually verified;
+- public articles/Q&A;
+- no fake ranking, no fabricated emergency availability and no unsupported success claims.
+
+Related internal links:
+- `/criminal-lawyer/`
+- `/police-investigation/`
+- `/indictment/`
+- `/pretrial-detention/`
+- `/drug-offenses/`
+- `/sex-offenses/`
+- `/white-collar-crime/`

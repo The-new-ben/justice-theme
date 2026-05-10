@@ -86,3 +86,68 @@ Before first review launch:
 - BLOCKED: Google API sync until API keys/OAuth/terms review.
 - BLOCKED: AggregateRating schema until visible real reviews and policy approval.
 - ACCEPTED: source disclosure and moderation must be MVP requirements.
+
+## 2026-05-11 Compliance Addendum
+
+Status: VERIFIED - policy-risk model documented.
+Implementation status: NOT IMPLEMENTED.
+Legal status: NEEDS LEGAL REVIEW before launch.
+
+### No Review Gating
+
+Jus-Tice must not build a flow that:
+- asks the user how satisfied they are;
+- sends only happy users to Google;
+- routes unhappy users only to a private feedback form;
+- asks users to revise or remove a negative review in exchange for anything;
+- gives a lawyer plan benefit, discount, gift or promotion in exchange for a review.
+
+Safe wording pattern:
+- "You may leave honest feedback about your experience."
+- "Please do not include confidential legal details, names of children, case numbers, health details or private settlement information."
+- "Reviews are moderated for privacy, authenticity and legal risk."
+
+Unsafe wording:
+- "Leave a 5-star review."
+- "Help us improve our rating."
+- "Get a benefit after posting a review."
+- "Only satisfied clients should post to Google."
+
+### Minimum Review Display Disclosure
+
+Draft only, legal/Hebrew review required before public use:
+
+Reviews and ratings are shown according to Jus-Tice review and moderation policy. Review sources may include Google, Jus-Tice first-party reviews, and other disclosed public sources. A rating or review is not a guarantee of legal result, professional quality or suitability for a specific case. Paid placement, if active, is disclosed separately and does not create a professional recommendation.
+
+### Moderation Gate
+
+Every first-party review must pass these checks before publication:
+- genuine interaction confirmation;
+- privacy consent;
+- no confidential legal facts;
+- no personal identifying details that are not necessary;
+- no names of children or sensitive family facts;
+- no health data unless explicitly allowed and necessary, which should normally be rejected;
+- no defamatory allegations beyond a fair service review;
+- no competitor, employee, relative or conflict-of-interest review;
+- no repeated wording pattern that suggests fake reviews;
+- no AI-generated review text submitted by Jus-Tice or the lawyer.
+
+### Lawyer Reply Gate
+
+Lawyer replies must also be moderated because replies can reveal confidential facts. The safe default is:
+- thank the reviewer;
+- do not confirm representation details;
+- do not discuss facts, strategy, documents, parties, children, settlements or court proceedings;
+- invite private follow-up if needed.
+
+### Schema Gate
+
+AggregateRating and Review schema remain BLOCKED until all are true:
+- real reviews are visible on the page;
+- the displayed source and schema source match;
+- the reviewed entity is clear;
+- the page is not using self-serving markup in a way Google disallows;
+- Israeli legal advertising/compliance review approves the display;
+- Rich Results Test validation passes;
+- Search Console monitoring is ready after launch.

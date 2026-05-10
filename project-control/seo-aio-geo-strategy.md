@@ -33,3 +33,27 @@ Next:
 - integrate fields from `lawyer-review-fields.csv`.
 - build Maya reputation prototype only with verified sources.
 - add review policy pages before any first-party review collection.
+
+## 2026-05-11 Reputation SEO Addendum
+
+Status: ACCEPTED / NOT IMPLEMENTED.
+
+Reputation data should strengthen entity SEO only when it is verifiable:
+- lawyer identity;
+- office and city;
+- practice areas;
+- source-reviewed public profiles;
+- source-disclosed Google review link;
+- manually verified or API-synced rating/count only after approval;
+- visible first-party reviews only after moderation;
+- public articles and Q&A attached to the profile.
+
+Do not use reputation data for:
+- fake E-E-A-T claims;
+- "best/top/recommended" labels without policy and legal review;
+- review schema before visible real reviews;
+- AI-generated testimonials;
+- hidden paid ranking signals.
+
+AI-search goal:
+The mini-site should read as a source-backed legal professional profile, not as a generic ad page. Reviews are one trust signal, but articles, Q&A, source links, disclosures and profile completeness carry equal strategic weight.

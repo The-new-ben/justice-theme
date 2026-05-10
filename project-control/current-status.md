@@ -542,6 +542,16 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - NEEDS LEGAL REVIEW: Israeli lawyer advertising, testimonials, directory ratings, paid placement disclosure, review moderation and any public stars/rating/schema.
 - SAFETY: no review CPT, ratings, schema, public profile changes, API calls, database updates or fake review content were implemented.
 
+## 2026-05-11 LAWYER REVIEWS / REPUTATION DEEPENING
+- ACCEPTED: the module is not just a design widget; it is a trust, SEO, mini-site, conversion and monetization layer.
+- UPDATED: `reviews-reputation-research.md` with a deeper Avvo/Justia/FindLaw/Midrag/Zap/LawReviews/Google/reputation-tools comparison matrix.
+- UPDATED: `google-reviews-integration-plan.md` with stronger Google Business Profile API, Places API, manual MVP and third-party reputation-tool boundaries.
+- UPDATED: `review-compliance-risk.md` with explicit no-review-gating, no-incentive, moderation, lawyer-reply and schema gates.
+- UPDATED: `lawyer-rating-system-spec.md` with public label boundaries, review workflow, reputation-score boundary and future criminal-lawyer mini-site example.
+- UPDATED: `reputation-product-roadmap.md`, `maya-rotenberg-reputation-plan.md`, `review-schema-policy.md`, `seo-aio-geo-strategy.md`, `payment-and-subscription-model.md`, and `final-integrated-launch-checklist.md`.
+- DECISION: MVP remains source-disclosed and conservative: Google link + verified rating/count fields + profile completeness, no automated sync, no public score, no AggregateRating schema.
+- VERIFIED: documentation-only research pass. No public reviews, fake ratings, lawyer-card UI, API calls, schema, database changes, URLs, redirects or live content changes were made.
+
 ## NEXT BEST ACTION
 1. Verify the exact GitHub sync target and active plugin path.
 2. Decide whether `justice-core/` will replace `ultra-justice-engine/` on live or whether the legacy active folder must be renamed in a controlled migration.

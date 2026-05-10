@@ -345,3 +345,14 @@ Next safe batch before any URL/content migration:
 - Add only source-disclosed "Read reviews on Google" MVP fields first; do not add stars or AggregateRating schema yet.
 - Decide whether first-party Jus-Tice reviews should be a pilot feature, and approve moderation/privacy policy first.
 - Add review/reputation fields to the lawyer CMS only after owner/legal approval.
+
+## 2026-05-11 REVIEWS / REPUTATION NEXT ACTIONS
+
+**Status:** STRATEGY DEEPENED / IMPLEMENTATION BLOCKED UNTIL APPROVAL
+
+1. Owner/legal review: approve review policy, no-incentive rule, moderation workflow, paid placement disclosure and lawyer-reply policy.
+2. Product approval: confirm MVP is manual Google review link + verified rating/count + profile completeness, not public star widgets.
+3. Maya prototype: verify Google Business Profile and Place ID before showing any Google review link or rating.
+4. CMS planning: add fields from `lawyer-review-fields.csv` only after the policy gate is approved.
+5. Schema gate: keep AggregateRating/Review schema blocked until visible real reviews, policy approval and Rich Results Test workflow exist.
+6. Future implementation: build first-party `justice_review` only as private/moderated content, not public comments.

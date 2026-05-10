@@ -89,3 +89,23 @@ Before payment implementation:
 6. GA4 events and CRM fields confirmed.
 7. Review/reputation policy approved if review features are included in paid plans.
 8. Paid placement disclosure approved so reputation signals are not confused with advertising.
+
+## 2026-05-11 Reputation Monetization Addendum
+
+Status: ACCEPTED / NOT IMPLEMENTED.
+
+Reviews and reputation should be sold as workflow and visibility value, not as fake trust:
+- setup Google review/profile link;
+- help lawyer complete source-backed profile fields;
+- provide review request tools after real interactions;
+- moderate first-party reviews;
+- show source-disclosed ratings only when verified;
+- provide dashboard/reporting;
+- offer AI-assisted response drafts with human approval.
+
+Never sell:
+- fake reviews;
+- guaranteed 5-star ratings;
+- "top lawyer" status;
+- undisclosed paid ranking;
+- review schema/rich results as a guaranteed outcome.

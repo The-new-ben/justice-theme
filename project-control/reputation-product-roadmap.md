@@ -170,3 +170,62 @@ Full service:
 ## Status
 
 ROADMAP ONLY. No payment, review, schema, API or public profile code was changed.
+
+## 2026-05-11 Roadmap Addendum
+
+Status: ACCEPTED - roadmap expanded after deeper review/reputation research.
+Implementation status: NOT IMPLEMENTED.
+
+### Reputation Management Product Layer
+
+The module should become part of the lawyer monetization path, not just a profile widget.
+
+Product capabilities to plan:
+- review source setup during lawyer onboarding;
+- Google Maps profile URL and Place ID capture;
+- source proof and last verified date;
+- review request link after a real client interaction;
+- privacy-safe first-party review form;
+- moderation dashboard;
+- lawyer reply workflow;
+- negative review handling policy;
+- public review policy page;
+- reputation health dashboard;
+- monthly profile/reputation report;
+- AI-assisted review themes and reply drafts, with human approval.
+
+### Package Alignment
+
+Free profile:
+- basic profile;
+- no public rating unless admin verifies external source;
+- no automated review tools.
+
+Pro profile:
+- Google review link;
+- profile completeness;
+- review collection enabled after policy approval;
+- basic reputation dashboard.
+
+Featured / Premium:
+- review highlights after moderation;
+- Google Places summary sync if approved;
+- AI response drafts;
+- monthly reputation report;
+- profile/content recommendations.
+
+Full service:
+- reputation setup;
+- content strategy;
+- profile optimization;
+- media/video;
+- monthly SEO and reputation report.
+
+### Vendor Strategy
+
+Podium, Birdeye and ReviewTrackers show that businesses pay for review collection, response management, reporting and AI summaries. Jus-Tice should copy the workflow logic, not the widgets:
+- keep UX native to Jus-Tice;
+- avoid slow third-party widgets;
+- ensure exportability;
+- avoid review gating;
+- preserve legal-specific moderation and privacy rules.

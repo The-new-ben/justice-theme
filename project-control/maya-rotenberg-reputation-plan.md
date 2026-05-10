@@ -73,3 +73,49 @@ Recommended non-fake public sections:
 
 NEEDS LIVE/ADMIN WORK: Google Business Profile / Place ID verification.  
 NOT IMPLEMENTED: no profile fields, ratings, reviews, source claims or schema were changed.
+
+## 2026-05-11 Maya Prototype Addendum
+
+Status: ACCEPTED - prototype remains source-first and no-fake.
+Implementation status: NOT IMPLEMENTED.
+
+### Display Rule Correction
+
+Some local terminal output can corrupt Hebrew text. Do not copy any corrupted Hebrew placeholder from this document into public pages. Final public Hebrew copy must be written and verified in browser/admin.
+
+### Maya Review Block MVP
+
+Before showing any review/rating on Maya Rotenberg's mini-site:
+1. Verify the official Google Business Profile or decide no Google block is shown.
+2. Store source proof internally.
+3. Store Google Maps URL only if verified.
+4. Store Place ID only if verified.
+5. Leave rating/count empty unless manually verified or synced through an approved API path.
+6. Keep `review_display_enabled = false` until policy and moderation rules are active.
+7. Do not add AggregateRating schema.
+
+Safe public states:
+- no review block shown;
+- "Read reviews on Google" button if URL is verified;
+- source-disclosed Google rating/count only if verified and dated.
+
+Blocked public states:
+- fake stars;
+- invented review count;
+- "verified", "recommended" or "top" labels;
+- copied Google review text;
+- client testimonials with confidential family-law facts;
+- public case references that were not source-reviewed.
+
+### Connected Content For A Family-Law Mini-Site
+
+If Maya remains the family-law prototype, connect the profile to:
+- `/divorce-lawyer/`
+- `/consensual-divorce/`
+- `/divorce-mediation/`
+- `/child-support/`
+- `/child-custody/`
+- `/divorce-property-division/`
+- `/family-dispute-resolution/`
+
+These links should support user intent, not look like keyword stuffing.

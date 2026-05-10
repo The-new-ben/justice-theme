@@ -48,3 +48,15 @@ Reference:
 - `project-control/google-reviews-integration-plan.md`
 - `project-control/lawyer-rating-system-spec.md`
 - `project-control/reputation-product-roadmap.md`
+
+## 2026-05-11 Added Reputation Launch Gates
+
+Before any lawyer review/rating element appears publicly:
+- SOURCE VERIFIED: every rating/count has source proof.
+- POLICY VERIFIED: review policy, privacy warning and moderation rules exist.
+- NO FAKE DATA VERIFIED: no seed/fake ratings or fake review snippets.
+- GOOGLE COMPLIANT: no incentives, no review gating, no copied Google review text without approval.
+- SCHEMA BLOCKED: no AggregateRating/Review schema until explicitly approved.
+- PAID DISCLOSURE READY: paid placement and review/trust signals are separated.
+- MOBILE VERIFIED: review cards fit lawyer cards and mini-sites on mobile.
+- ACCESSIBILITY VERIFIED: rating text is readable without relying only on star icons.

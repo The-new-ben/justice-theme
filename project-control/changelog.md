@@ -111,6 +111,12 @@
 - Added a CSV readiness tracker for all six first-cluster drafts, including CMS module requirements and exact next actions.
 - Status remains BLOCKED for publication until legal review, browser source verification and live CMS draft import are completed.
 
+**[HIGH] Upgraded content draft importer readiness metadata**
+- Files: `inc/content-draft-importer.php`, `content-drafts/*.md`, `project-control/*.csv`, `project-control/current-status.md`, `project-control/changelog.md`, `project-control/task-board.csv`
+- Admin importer now displays import-result notices, draft status, word count and source-audit file for each repo draft.
+- Imported article drafts now receive metadata for repo draft status, word count, source audit, browser-source-verification requirement, connected lawyer, cluster and primary keyword.
+- Added explicit source-audit lines to the first three family-law drafts so all six first-cluster drafts expose their audit files to the importer.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

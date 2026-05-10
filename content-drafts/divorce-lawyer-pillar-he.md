@@ -1,12 +1,13 @@
 # עורך דין גירושין: מדריך עומק לבחירה נכונה, תהליך, עלויות, ילדים ורכוש
 
 Slug target: `/divorce-lawyer/`
-Status: PRODUCTION_DRAFT_V3_5000_WORD_CLASS
+Status: PRODUCTION_DRAFT_V3_5000_WORD_CLASS_SOURCE_AUDITED
 Target length: 5,000+ words reached; still requires legal/editorial/source review
 Connected lawyer: `advocate-maya-rotenberg`
 Cluster: `family-law`
 Primary keyword: עורך דין גירושין
 Secondary keywords: עורך דין לענייני משפחה, עורך דין גירושין מחיר, גירושין בהסכמה, גישור גירושין, מזונות ילדים, משמורת ילדים, חלוקת רכוש בגירושין, בקשה ליישוב סכסוך, הסכם גירושין
+Source audit: `project-control/divorce-pillar-source-audit.csv`
 
 ## הערת מערכת לפני פרסום
 

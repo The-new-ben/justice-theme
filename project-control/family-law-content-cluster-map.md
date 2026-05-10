@@ -11,9 +11,9 @@ Date: 2026-05-10
 ## Cluster Readiness Snapshot
 | URL | Words | Draft Status | Source Audit | Publication Status |
 |---|---:|---|---|---|
-| `/divorce-lawyer/` | 5,080 | DRAFT_5000_WORD_CLASS | `divorce-pillar-source-audit.csv` | BLOCKED: legal review + browser source verification |
-| `/consensual-divorce/` | 3,515 | DRAFT_3500_WORD_CLASS | `consensual-divorce-source-audit.csv` | BLOCKED: legal review + browser source verification |
-| `/divorce-mediation/` | 3,522 | DRAFT_3500_WORD_CLASS | `divorce-mediation-source-audit.csv` | BLOCKED: legal review + browser source verification |
+| `/divorce-lawyer/` | 5,083 | DRAFT_5000_WORD_CLASS_SOURCE_AUDITED | `divorce-pillar-source-audit.csv` | BLOCKED: legal review + browser source verification |
+| `/consensual-divorce/` | 3,518 | DRAFT_3500_WORD_CLASS_SOURCE_AUDITED | `consensual-divorce-source-audit.csv` | BLOCKED: legal review + browser source verification |
+| `/divorce-mediation/` | 3,525 | DRAFT_3500_WORD_CLASS_SOURCE_AUDITED | `divorce-mediation-source-audit.csv` | BLOCKED: legal review + browser source verification |
 | `/child-support/` | 5,019 | DRAFT_5000_WORD_CLASS_SOURCE_AUDITED | `child-support-source-audit.csv` | BLOCKED: legal review + browser source verification |
 | `/child-custody/` | 4,575 | DRAFT_4500_WORD_CLASS_SOURCE_AUDITED | `child-custody-source-audit.csv` | BLOCKED: legal review + browser source verification |
 | `/divorce-property-division/` | 4,553 | DRAFT_4500_WORD_CLASS_SOURCE_AUDITED | `property-division-source-audit.csv` | BLOCKED: legal review + browser source verification |

@@ -1,13 +1,14 @@
 # גירושין בהסכמה: מדריך עומק להסכם נכון, אישור משפטי, ילדים, רכוש וסיכונים
 
 Slug target: `/consensual-divorce/`  
-Status: PRODUCTION_DRAFT_V3_3500_WORD_CLASS
+Status: PRODUCTION_DRAFT_V3_3500_WORD_CLASS_SOURCE_AUDITED
 Target length: 3,500-5,000 words reached; still requires legal/editorial/source review
 Connected pillar: `/divorce-lawyer/`  
 Connected lawyer: `advocate-maya-rotenberg`  
 Cluster: `family-law`  
 Primary keyword: גירושין בהסכמה  
 Secondary keywords: הסכם גירושין, אישור הסכם גירושין, גישור גירושין, עורך דין גירושין, עלות הסכם גירושין, בקשה לאישור הסכם בין בני זוג  
+Source audit: `project-control/consensual-divorce-source-audit.csv`
 
 ## הערת מערכת לפני פרסום
 

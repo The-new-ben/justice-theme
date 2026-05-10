@@ -1,13 +1,14 @@
 # גישור גירושין: מתי זה מתאים, מה בודקים, כמה זה עולה ומה חשוב לא לפספס
 
 Slug target: `/divorce-mediation/`  
-Status: PRODUCTION_DRAFT_V3_3500_WORD_CLASS
+Status: PRODUCTION_DRAFT_V3_3500_WORD_CLASS_SOURCE_AUDITED
 Target length: 3,500-5,000 words reached; still requires legal/editorial/source review
 Connected pillar: `/divorce-lawyer/`  
 Connected lawyer: `advocate-maya-rotenberg`  
 Cluster: `family-law`  
 Primary keyword: גישור גירושין  
 Secondary keywords: מגשר גירושין, גישור משפחתי, עורך דין מגשר, מחיר גישור גירושין, הסכם גישור, גירושין בהסכמה  
+Source audit: `project-control/divorce-mediation-source-audit.csv`
 
 ## הערת מערכת לפני פרסום
 

@@ -3304,6 +3304,11 @@
     margin: 0 !important;
   }
 
+  body.home .whatsapp-float,
+  html body.home.rtl a.whatsapp-button {
+    display: none !important;
+  }
+
   #pojo-a11y-toolbar {
     top: 154px !important;
     bottom: auto !important;

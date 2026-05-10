@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Criminal-law pillar draft
+
+- CREATED: `content-drafts/criminal-lawyer-pillar-he.md`, a Hebrew public-facing draft for `/criminal-lawyer/`.
+- CONTENT: Draft is about 4,110 words and covers urgent investigation/arrest/indictment intent, lawyer-selection guidance, police investigation, remand, hearing before indictment, digital evidence, case closure, criminal record risk, drugs, violence, sex offenses, white-collar matters, youth, FAQ and internal links.
+- CREATED: `project-control/criminal-lawyer-source-audit.csv` with source candidates and legal-review blockers.
+- CREATED: `project-control/criminal-lawyer-cannibalization-note.md` mapping overlap with existing live Jus-Tice criminal prosecution/arrests pages.
+- UPDATED: content inventory, publication cannibalization check and 5,000-word article brief with draft-only status.
+- SAFETY: No live publication or redirect was performed; GSC traffic risk remains unknown.
+- VERIFIED: local word count is about 4,110 words and the draft scan found only stripped metadata markers, not public-body project notes.
+
 ## 2026-05-10 - Lead attribution fields
 
 - FIXED IN CODE: Public lead forms now include hidden attribution fields for `source_keyword`, `utm_source`, `utm_campaign`, and `utm_medium` when those values are available.

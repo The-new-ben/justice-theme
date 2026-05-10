@@ -3,6 +3,10 @@ Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
 ## LATEST CODE STATUS - 2026-05-10
+- CREATED IN REPO: Criminal-law pillar draft at `content-drafts/criminal-lawyer-pillar-he.md` for `/criminal-lawyer/`, currently about 4,110 words.
+- DOCUMENTED: Criminal source audit and cannibalization note exist at `project-control/criminal-lawyer-source-audit.csv` and `project-control/criminal-lawyer-cannibalization-note.md`.
+- SAFETY: `/criminal-lawyer/` is draft-only. Existing live pages such as `/criminal-prosecutions/` and the Hebrew arrests-law slug must be compared before any publication or redirect.
+- VERIFIED: Word-count and internal-marker scan were run locally; the draft still needs expansion toward 5,000+ words plus legal/source/GSC review.
 - FIXED IN CODE: Public lead forms now carry hidden attribution fields for `source_keyword`, `utm_source`, `utm_campaign`, and `utm_medium` when available.
 - BUSINESS VALUE: Lead records can now connect a CRM inquiry back to search/ad/source context instead of losing the context during form submission.
 - VERIFIED: PHP lint passed locally for 127 PHP files after the lead-attribution patch.

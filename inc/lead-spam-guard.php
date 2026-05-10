@@ -56,6 +56,14 @@ function justice_theme_get_current_lead_source_keyword(): string {
 		}
 	}
 
+	if ( is_front_page() || is_home() ) {
+		return 'עורך דין / עורכי דין / הכוונה משפטית';
+	}
+
+	if ( is_post_type_archive( 'justice_lawyer' ) ) {
+		return 'מדריך עורכי דין לפי תחום ואזור';
+	}
+
 	$queried_id = get_queried_object_id();
 	if ( ! $queried_id ) {
 		return '';

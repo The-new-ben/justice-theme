@@ -256,8 +256,8 @@ h1, h2, h3, h4, h5, h6 { color: var(--color-heading); font-weight: 800; margin-t
 .ask-lawyer__fields { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; margin-bottom: 1.2rem; }
 .ask-lawyer__field--full { grid-column: 1 / -1; }
 .ask-lawyer__field label { display: block; font-weight: 700; margin-bottom: 0.4rem; font-size: 0.9rem; color: var(--color-heading); }
-.ask-lawyer__field input, .ask-lawyer__field textarea { width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font: inherit; font-size: 0.95rem; background: #fff; transition: border-color 0.2s; }
-.ask-lawyer__field input:focus, .ask-lawyer__field textarea:focus { outline: none; border-color: var(--color-primary); }
+.ask-lawyer__field input, .ask-lawyer__field select, .ask-lawyer__field textarea { width: 100%; padding: 0.8rem 1rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); font: inherit; font-size: 0.95rem; background: #fff; transition: border-color 0.2s; }
+.ask-lawyer__field input:focus, .ask-lawyer__field select:focus, .ask-lawyer__field textarea:focus { outline: none; border-color: var(--color-primary); }
 .ask-lawyer__consent { margin-bottom: 1.2rem; font-size: 0.85rem; color: var(--color-text); display: flex; align-items: flex-start; gap: 0.5rem; }
 .ask-lawyer__consent input[type="checkbox"] { margin-top: 0.2rem; accent-color: var(--color-primary); }
 .ask-lawyer__disclaimer { color: var(--color-text-muted); font-size: 0.8rem; margin-top: 1.2rem; line-height: 1.5; text-align: center; }
@@ -396,7 +396,8 @@ h1, h2, h3, h4, h5, h6 { color: var(--color-heading); font-weight: 800; margin-t
 @media (max-width: 768px) {
   .article-grid, .practice-areas-grid, .pillars-grid, .clusters-grid { grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
   .lawyer-cta__features { grid-template-columns: 1fr; }
-  .ask-lawyer__fields, .newsletter__form { flex-direction: column; }
+  .ask-lawyer__fields { grid-template-columns: 1fr; }
+  .newsletter__form { flex-direction: column; }
   .site-header__top { display: none; }
   .primary-navigation { display: none; position: absolute; top: 100%; inset-inline: 0; background: #fff; padding: 1.5rem; border-top: 1px solid var(--color-border); box-shadow: 0 10px 30px rgba(0,0,0,0.1); z-index: 99; }
   .primary-navigation .menu { flex-direction: column; gap: 1rem; }

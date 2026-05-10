@@ -9,6 +9,8 @@ Date: 2026-05-10
 - What looks weak: primary menu is too thin; WhatsApp overlays mobile lower CTA area; no final uploaded logo/favicon verified.
 - LIVE VERIFIED FOLLOW-UP ISSUE: traffic and LegalTech/AI topic links still had homepage-redirect risk in the pulled version.
 - CODE FIXED / NOT LIVE VERIFIED: traffic now falls back to `/lawyers/?area=traffic-law`; LegalTech/AI links fall back to `/#ask-lawyer` until real tool pages exist.
+- LIVE VERIFIED ISSUE: the pulled ask-lawyer form is wired correctly, but still uses hidden `general`/`normal` values instead of asking the visitor for legal area, city and urgency.
+- CODE FIXED / NOT LIVE VERIFIED: ask-lawyer now captures legal area, city/region, email and urgency visibly, making it safer as the temporary AI/LegalTech fallback.
 - FIXED IN CODE: stronger hero copy, fallback favicon, fuller primary menu augmentation, mobile WhatsApp offset.
 - Status: NOT CUSTOMER-READY until live recheck and menu assignment.
 

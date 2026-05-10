@@ -15,6 +15,16 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - SAFETY: no slugs, redirects, public content, sitemap rules, robots rules, wp-admin settings or database records were changed.
 - NOT LIVE VERIFIED AFTER FOLLOW-UP FIX: requires another Upress pull/cache refresh after commit.
 
+## LATEST LEAD / INTAKE STATUS - 2026-05-10 22:25 Asia/Jerusalem
+- LIVE VERIFIED: homepage ask-lawyer form now posts to `wp-admin/admin-post.php` and includes the nonce/spam/attribution hidden fields.
+- LIVE VERIFIED ISSUE: the pulled homepage ask-lawyer form still captures `lead_area=general` and `lead_urgency=normal` as hidden values, which is too thin for a LegalTech/AI fallback destination.
+- LIVE VERIFIED ISSUE: homepage lead attribution still used an old recommendation-heavy source keyword in the hidden field.
+- CODE FIXED: homepage ask-lawyer form now asks for email, legal area, city/region and urgency as visible public fields.
+- CODE FIXED: homepage and lawyer-directory lead source keywords now use neutral portal/directory phrases instead of stale page meta.
+- VERIFIED: PHP lint passed locally for 127 PHP files after the lead/intake form enrichment.
+- SAFETY: no lead submissions were sent, no CRM records changed, and no public content/URLs/redirects changed.
+- NOT LIVE VERIFIED AFTER FIX: requires Upress pull/cache refresh and one controlled lead submission test.
+
 ## LATEST WORK STATUS - 2026-05-10 21:55 Asia/Jerusalem
 - CODE FIXED: no-URL-change homepage/directory SEO batch added safe primary/fallback internal links for major legal-intent topics.
 - CODE FIXED: `inc/template-tags.php` now exposes `justice_theme_public_path_is_published()` and `justice_theme_safe_public_link()` so planned English pillar URLs are used only when published.

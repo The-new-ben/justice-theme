@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Enriched homepage ask-lawyer intake fallback
+
+- LIVE VERIFIED: homepage ask-lawyer form posts to `wp-admin/admin-post.php` and includes nonce/spam/attribution hidden fields.
+- FOUND: the pulled form still used hidden `lead_area=general` and `lead_urgency=normal`, which is too weak as the temporary AI/LegalTech fallback destination.
+- FOUND: homepage lead attribution could still inherit a stale recommendation-heavy source keyword.
+- CODE FIXED: homepage ask-lawyer form now visibly captures legal area, city/region, optional email and urgency.
+- CODE FIXED: homepage and lawyer-directory lead source keywords now use neutral portal/directory language when no explicit query/UTM term is present.
+- VERIFIED: PHP lint passed locally for 127 PHP files.
+- SAFETY: no live lead was submitted, no CRM records changed, and no public URLs/redirects/content bodies were changed.
+- NOT LIVE VERIFIED AFTER FIX: requires Upress pull/cache refresh and one controlled lead test.
+
 ## 2026-05-10 - Post-pull verification and unsafe fallback cleanup
 
 - LIVE VERIFIED: owner Upress pull is reflected publicly; homepage marker is `2026-05-10-contextual-title-v1`.

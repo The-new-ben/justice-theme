@@ -62,6 +62,16 @@
 3. Recheck LegalTech section cards/buttons: no `/legal-tools/*` homepage redirects.
 4. Update visual QA and customer-facing QA.
 
+### ACTION-LEADS-001: Verify Enriched Ask-Lawyer Intake Form
+**Status:** CODE FIXED - live deploy/test pending
+**Why:** LegalTech/AI fallback now points users to the homepage lead form when tool pages are not published, so the form must capture enough context to route the lead.
+**Actions:**
+1. DONE: Live-checked current form wiring; it posts to `admin-post.php` and includes spam/attribution fields.
+2. DONE: Code-fixed the homepage form to ask for legal area, city/region, email and urgency.
+3. DONE: Code-fixed homepage/directory source keyword fallback to neutral portal/directory language.
+4. VERIFIED: PHP lint passed locally for 127 PHP files.
+5. NEXT: pull latest code, visually recheck `/#ask-lawyer`, and submit one controlled test lead if wp-admin/CRM verification is available.
+
 ---
 
 ## CRITICAL — DO FIRST (BLOCKED UNTIL DONE)

@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[HIGH] Added discard action for staged mini-site updates**
+- Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
+- Lawyer Onboarding now shows a `Discard pending update` action beside the apply action.
+- The action is admin-only and nonce-protected; it clears pending update metadata without touching public profile fields and marks `profile_status = update_rejected_no_public_change`.
+- VERIFIED in repo. LIVE NOT VERIFIED until a staged update is discarded in wp-admin after Upress pull.
+
 **[HIGH] Added admin apply action for staged mini-site updates**
 - Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
 - Lawyer Onboarding now shows an `Apply pending update` action for profiles with staged mini-site changes.

@@ -268,6 +268,40 @@ function justice_theme_apply_lawyer_profile_update(): void {
 }
 add_action( 'admin_post_justice_apply_lawyer_profile_update', 'justice_theme_apply_lawyer_profile_update' );
 
+function justice_theme_discard_lawyer_profile_update(): void {
+	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
+
+	if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to discard this update.', 'justice-theme' ) );
+	}
+
+	check_admin_referer( 'justice_discard_lawyer_profile_update_' . $post_id );
+
+	$pending_keys = array(
+		'pending_profile_headline',
+		'pending_profile_services',
+		'pending_profile_process',
+		'pending_profile_video_url',
+		'pending_profile_faqs',
+		'pending_profile_review',
+		'pending_profile_submitted_at',
+	);
+
+	foreach ( $pending_keys as $key ) {
+		delete_post_meta( $post_id, $key );
+	}
+
+	update_post_meta( $post_id, 'profile_status', 'update_rejected_no_public_change' );
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_profile_update_discarded', 'Discarded pending lawyer profile update: ' . get_the_title( $post_id ) );
+	}
+
+	wp_safe_redirect( add_query_arg( 'profile_update', 'discarded', admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_discard_lawyer_profile_update', 'justice_theme_discard_lawyer_profile_update' );
+
 function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	if ( ! current_user_can( 'edit_pages' ) ) {
 		wp_die( esc_html__( 'You do not have permission to access this page.', 'justice-theme' ) );
@@ -307,6 +341,8 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<p>Pending lawyer self-registration submissions and staged profile update requests. Review identity, license, claims, practice areas, public content and commercial plan before publishing or applying updates.</p>
 		<?php if ( isset( $_GET['profile_update'] ) && 'applied' === $_GET['profile_update'] ) : ?>
 			<div class="notice notice-success is-dismissible"><p>Pending mini-site update applied. Review the full profile before final public approval.</p></div>
+		<?php elseif ( isset( $_GET['profile_update'] ) && 'discarded' === $_GET['profile_update'] ) : ?>
+			<div class="notice notice-warning is-dismissible"><p>Pending mini-site update discarded. Public profile fields were not changed.</p></div>
 		<?php endif; ?>
 
 		<?php if ( $pending->have_posts() ) : ?>
@@ -379,6 +415,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 								<a class="button button-primary" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Review</a>
 								<?php if ( $has_pending_update ) : ?>
 									<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=justice_apply_lawyer_profile_update&lawyer_id=' . $post_id ), 'justice_apply_lawyer_profile_update_' . $post_id ) ); ?>">Apply pending update</a>
+									<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=justice_discard_lawyer_profile_update&lawyer_id=' . $post_id ), 'justice_discard_lawyer_profile_update_' . $post_id ) ); ?>">Discard pending update</a>
 								<?php endif; ?>
 							</td>
 						</tr>

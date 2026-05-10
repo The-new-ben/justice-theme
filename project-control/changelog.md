@@ -74,8 +74,8 @@
 
 **[HIGH] Expanded child-support supporting draft**
 - Files: `content-drafts/child-support-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
-- Expanded `/child-support/` from about 1,179 words to about 2,955 words across two sequential passes.
-- Added no-fake-calculator policy, intake model, medor, exceptional expenses, time-sharing, variable-income, agreement-clause, temporary-support, age-band, proof/evidence, modification, unmarried-parent, CMS-structure and CRM-routing sections.
+- Expanded `/child-support/` from about 1,179 words to about 4,130 words across multiple sequential passes.
+- Added no-fake-calculator policy, intake model, medor, exceptional expenses, time-sharing, variable-income, agreement-clause, temporary-support, age-band, proof/evidence, modification, unmarried-parent, anti-cannibalization, cautious examples, FAQ, enforcement-caution, CMS-structure and CRM-routing sections.
 - Status remains NOT VERIFIED for legal accuracy and not ready to publish.
 
 **[MEDIUM] Rechecked live header**

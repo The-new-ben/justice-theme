@@ -1055,3 +1055,13 @@
 - MIGRATION WARNING: the old Hebrew divorce-lawyer URL has 960 impressions for `עורך דין גירושין`; the old Hebrew criminal Tel Aviv URL has 267 impressions for `עורך דין פלילי`; neither should be changed before merge/redirect mapping is approved.
 - BLOCKED: full GSC CSV/API export and 12-month comparison are still not available; the in-app browser could show the export menu but file download/export did not complete.
 - SAFETY: no public content, URLs, redirects, sitemap settings or robots rules were changed from this GSC pass.
+
+## 2026-05-10 GSC Browser Cannibalization Pass 2
+- VERIFIED: Browser GSC review continued for `עורך דין מקרקעין`, `עורך דין רשלנות רפואית`, `עורך דין נזיקין`, and `עורך דין תעבורה`.
+- UPDATED: `project-control/gsc-cannibalization-review.csv`, `project-control/gsc-keyword-page-map.csv`, `project-control/gsc-content-priorities.csv`, and `project-control/gsc-browser-workflow.md`.
+- SAVED EVIDENCE: `project-control/visual-evidence/gsc-pass-2-traffic-law-2026-05-10.png`.
+- FOUND: `עורך דין מקרקעין` has 153 impressions, 0 clicks and average position 15.8; the visible Pages tab maps 136 impressions to the homepage and 17 to `/real-estate-lawyer-cost-2025/`.
+- FOUND: `עורך דין רשלנות רפואית` has 1.34K impressions, 0 clicks and average position 49.5; visible query variants are concentrated around birth, pregnancy and c-section malpractice.
+- FOUND: the malpractice Pages tab exposed a narrow fee article as the visible URL, so this cluster needs deeper export/manual review before URL decisions.
+- FOUND: `עורך דין נזיקין` and `עורך דין תעבורה` have low current volume in the checked filter, but both show weak-primary-page signals.
+- SAFETY: no content was rewritten, no pages were published, no URLs changed and no redirects were created.

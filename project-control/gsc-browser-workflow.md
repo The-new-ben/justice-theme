@@ -79,10 +79,28 @@ Evidence:
 
 ## Next GSC Session
 
-Run the same process for:
+Completed in second browser pass:
 - `עורך דין מקרקעין`
 - `עורך דין רשלנות רפואית`
 - `עורך דין נזיקין`
 - `עורך דין תעבורה`
+
+Second pass findings:
+- `עורך דין מקרקעין`: 153 impressions, 0 clicks, average position 15.8. Pages visible: homepage with 136 impressions and `/real-estate-lawyer-cost-2025/` with 17 impressions. This is a strong page-2 opportunity and a weak-primary-page signal.
+- `עורך דין רשלנות רפואית`: 1.34K impressions, 0 clicks, average position 49.5. Top visible query variants are birth, pregnancy and c-section malpractice. Visible Pages tab exposed the fee article `/articles/שכר-טרחה-עורך-דין-רשלנות-רפואית/`, so full export/deeper review is needed before final mapping.
+- `עורך דין נזיקין`: 2 impressions, 0 clicks, average position 48. Low sample, but the only visible URL is an old Hebrew verdict/topic URL, not a clean personal-injury pillar.
+- `עורך דין תעבורה`: 15 impressions, 0 clicks, average position 45.8. Homepage receives most impressions; no clean traffic-lawyer pillar owns the query.
+
+Second pass evidence:
+- Screenshot: `project-control/visual-evidence/gsc-pass-2-traffic-law-2026-05-10.png`
+
+Run the next same process for:
+- page-to-query check for `/`, `/real-estate-lawyer-cost-2025/`, malpractice fee article and the high-impression PDFs
+- `קניית דירה`
+- `חוזה מכר`
+- `רשלנות רפואית בלידה`
+- `רשלנות רפואית בהריון`
+- `תאונת עבודה`
+- `תאונת דרכים`
 - high-impression PDF/document URLs
 - homepage low-CTR / position 5-20 opportunities

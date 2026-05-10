@@ -9,12 +9,16 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - VERIFIED: the first heuristic audit marks all GSC-dependent traffic fields as `UNKNOWN`; no fake GSC data was invented.
 - VERIFIED: Google Search Console browser UI access now works for the `https://jus-tice.co.il/` property after owner-approved sign-in/2FA.
 - VERIFIED: first GSC browser pass checked last-3-month query/page data for `עורך דין פלילי`, `דין פלילי`, `עורך דין גירושין`, `גישור גירושין`, and `עורך דין לענייני משפחה`.
+- VERIFIED: second GSC browser pass checked last-3-month query/page data for `עורך דין מקרקעין`, `עורך דין רשלנות רפואית`, `עורך דין נזיקין`, and `עורך דין תעבורה`.
 - CREATED: `project-control/gsc-browser-workflow.md`, `project-control/gsc-cannibalization-method.md`, `project-control/gsc-cannibalization-review.csv`, `project-control/gsc-keyword-page-map.csv`, and `project-control/gsc-content-priorities.csv`.
 - FOUND FROM GSC: clean pillar URLs do not yet own the competitive criminal/family terms; Google is mostly seeing old Hebrew slugs, uploaded documents, homepage and scattered legacy pages.
+- FOUND FROM GSC: `עורך דין מקרקעין` has 153 impressions at average position 15.8, mostly landing on the homepage; this is a strong candidate for a controlled `/real-estate-lawyer/` pillar/internal-linking batch after inventory review.
+- FOUND FROM GSC: `עורך דין רשלנות רפואית` has 1.34K impressions, mainly birth/pregnancy/c-section variants, but the visible page mapping points to a narrow fee article; this needs a malpractice pillar plus deeper export/manual review before migration.
 - BLOCKED: GSC API/download export, database/phpMyAdmin, wp-admin menu export and uPress server settings remain unavailable from this session without separate credentials/tooling.
 - DECISION: no URL changes, redirects, deletes, noindex actions, sitemap edits or content overwrites will happen until the maps are reviewed and approved.
 - RISK: `sitemap.xml` and `wp-sitemap.xml` returned homepage-like HTML in public shell checks, so sitemap generation must be verified/fixed before any migration.
 - GSC MIGRATION WARNING: the old Hebrew divorce-lawyer URL has 960 impressions for `עורך דין גירושין`; the old Hebrew criminal Tel Aviv URL has 267 impressions for `עורך דין פלילי`. These must be protected until merge/redirect plans are approved.
+- GSC OPPORTUNITY: homepage currently captures lawyer-intent impressions for real estate and traffic; these should be redirected by internal architecture, not by URL redirect, into clean pillar pages and supporting articles.
 
 ## LATEST CODE STATUS - 2026-05-10
 - EXPANDED IN REPO: Criminal-law pillar draft at `content-drafts/criminal-lawyer-pillar-he.md` for `/criminal-lawyer/`, now 5,037 words and in 5,000-word-class draft status.

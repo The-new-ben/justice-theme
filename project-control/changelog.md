@@ -129,6 +129,13 @@
 - Imported drafts now surface source file/status, legal/source verification blockers, source-audit file and draft word count without opening each article.
 - Status is NOT VERIFIED live until the Articles admin list is checked after import.
 
+**[HIGH] Wired single article pages to imported draft metadata**
+- Files: `single-articles.php`, `project-control/current-status.md`, `project-control/changelog.md`, `project-control/task-board.csv`
+- Single article pages now display legal/source review status and source-audit file when imported draft metadata says review is still required.
+- Sidebar now uses `connected_lawyer_slug` to show the connected lawyer mini-site CTA, with Maya Rotenberg expected for the family-law cluster.
+- Removed emoji-style date/reading-time symbols from the single article header.
+- Status is NOT VERIFIED live until drafts are imported and article pages are visually checked.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

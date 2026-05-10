@@ -10,7 +10,18 @@ get_header();
 while ( have_posts() ) :
 	the_post();
 
-	$primary_term = justice_theme_get_primary_practice_area();
+	$primary_term      = justice_theme_get_primary_practice_area();
+	$connected_lawyer  = '';
+	$connected_slug    = (string) get_post_meta( get_the_ID(), 'connected_lawyer_slug', true );
+	$needs_legal       = '1' === (string) get_post_meta( get_the_ID(), 'needs_legal_review', true );
+	$needs_sources     = '1' === (string) get_post_meta( get_the_ID(), 'needs_browser_source_verification', true );
+	$source_audit      = (string) get_post_meta( get_the_ID(), 'repo_content_source_audit', true );
+	$draft_word_count  = (int) get_post_meta( get_the_ID(), 'repo_content_draft_word_count', true );
+	$repo_draft_status = (string) get_post_meta( get_the_ID(), 'repo_content_draft_status', true );
+
+	if ( $connected_slug && post_type_exists( 'justice_lawyer' ) ) {
+		$connected_lawyer = get_page_by_path( $connected_slug, OBJECT, 'justice_lawyer' );
+	}
 	?>
 
 	<article <?php post_class( 'single-article premium-card' ); ?> style="background: var(--jt-surface); border: none; box-shadow: none;">
@@ -30,10 +41,10 @@ while ( have_posts() ) :
 
 				<div class="single-article__meta" style="display: flex; justify-content: center; gap: 1.5rem; color: var(--jt-muted); font-size: 0.95rem; font-weight: 600;">
 					<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>">
-						<span style="color: var(--jt-accent); font-size: 1.1rem; vertical-align: middle;">🗓</span> <?php echo esc_html( get_the_date() ); ?>
+						<?php echo esc_html( get_the_date() ); ?>
 					</time>
 
-					<span><span style="color: var(--jt-accent); font-size: 1.1rem; vertical-align: middle;">⏱</span> <?php echo esc_html( justice_theme_reading_time() ); ?></span>
+					<span><?php echo esc_html( justice_theme_reading_time() ); ?></span>
 
 					<span>
 						<?php
@@ -57,6 +68,23 @@ while ( have_posts() ) :
 					</figure>
 				<?php endif; ?>
 
+				<?php if ( $needs_legal || $needs_sources ) : ?>
+					<section class="article-review-status" style="margin-bottom: 2rem; padding: 1.5rem; background: #fff8eb; border: 1px solid rgba(182, 126, 48, 0.35); border-radius: var(--radius-md);">
+						<h2 style="font-size: 1.1rem; margin: 0 0 0.75rem; color: var(--color-primary);"><?php esc_html_e( 'סטטוס בדיקה לפני פרסום', 'justice-theme' ); ?></h2>
+						<ul style="margin: 0; padding-inline-start: 1.2rem; color: var(--color-muted);">
+							<?php if ( $needs_legal ) : ?>
+								<li><?php esc_html_e( 'NOT VERIFIED: נדרשת בדיקה משפטית לפני פרסום.', 'justice-theme' ); ?></li>
+							<?php endif; ?>
+							<?php if ( $needs_sources ) : ?>
+								<li><?php esc_html_e( 'NOT VERIFIED: נדרשת בדיקת מקורות ידנית לפני פרסום.', 'justice-theme' ); ?></li>
+							<?php endif; ?>
+							<?php if ( $source_audit ) : ?>
+								<li><?php echo esc_html( sprintf( __( 'Source audit: %s', 'justice-theme' ), $source_audit ) ); ?></li>
+							<?php endif; ?>
+						</ul>
+					</section>
+				<?php endif; ?>
+
 				<div class="single-article__content entry-content">
 					<?php the_content(); ?>
 				</div>
@@ -71,11 +99,57 @@ while ( have_posts() ) :
 			
 			<aside class="single-article__sidebar" role="complementary">
 				<div class="sticky-box" style="position: sticky; top: 2rem; padding: 2rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-soft);">
-					<h2 style="font-size: 1.3rem; color: var(--color-primary-deep); margin-bottom: 1rem;"><?php esc_html_e( 'צריכים עזרה משפטית?', 'justice-theme' ); ?></h2>
-					<p style="color: var(--color-muted); margin-bottom: 1.5rem;"><?php esc_html_e( 'שלחו פנייה קצרה ונסייע להפנות אתכם לתחום הרלוונטי.', 'justice-theme' ); ?></p>
-					<a class="button button--primary" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="width: 100%; text-align: center;">
-						<?php esc_html_e( 'שליחת פנייה', 'justice-theme' ); ?>
-					</a>
+					<?php if ( $connected_lawyer instanceof WP_Post ) : ?>
+						<?php
+						$firm     = get_post_meta( $connected_lawyer->ID, 'firm_name', true );
+						$headline = get_post_meta( $connected_lawyer->ID, 'profile_headline', true );
+						?>
+						<h2 style="font-size: 1.25rem; color: var(--color-primary-deep); margin-bottom: 1rem;"><?php esc_html_e( 'עורכת הדין המחוברת למדריך', 'justice-theme' ); ?></h2>
+						<div style="display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem;">
+							<?php if ( has_post_thumbnail( $connected_lawyer->ID ) ) : ?>
+								<?php echo get_the_post_thumbnail( $connected_lawyer->ID, 'thumbnail', array( 'style' => 'width: 58px; height: 58px; border-radius: 50%; object-fit: cover;' ) ); ?>
+							<?php else : ?>
+								<span style="display: inline-flex; align-items: center; justify-content: center; width: 58px; height: 58px; border-radius: 50%; background: rgba(82,114,178,0.12); color: var(--color-primary); font-weight: 800;">
+									<?php echo esc_html( mb_substr( get_the_title( $connected_lawyer ), 0, 2 ) ); ?>
+								</span>
+							<?php endif; ?>
+							<div>
+								<strong style="display: block; color: var(--color-primary-deep);"><?php echo esc_html( get_the_title( $connected_lawyer ) ); ?></strong>
+								<?php if ( $firm ) : ?>
+									<small style="color: var(--color-muted);"><?php echo esc_html( $firm ); ?></small>
+								<?php endif; ?>
+							</div>
+						</div>
+						<?php if ( $headline ) : ?>
+							<p style="color: var(--color-muted); margin-bottom: 1.5rem;"><?php echo esc_html( wp_trim_words( $headline, 24, '...' ) ); ?></p>
+						<?php else : ?>
+							<p style="color: var(--color-muted); margin-bottom: 1.5rem;"><?php esc_html_e( 'מיני-סייט מקצועי עם מאמרים, פרטי קשר וטופס פנייה מובנה.', 'justice-theme' ); ?></p>
+						<?php endif; ?>
+						<a class="button button--primary" href="<?php echo esc_url( get_permalink( $connected_lawyer ) ); ?>" style="width: 100%; text-align: center; margin-bottom: 0.75rem;">
+							<?php esc_html_e( 'מעבר למיני-סייט', 'justice-theme' ); ?>
+						</a>
+						<a class="button button--ghost" href="<?php echo esc_url( add_query_arg( 'lawyer_id', $connected_lawyer->ID, home_url( '/contact/' ) ) ); ?>" style="width: 100%; text-align: center;">
+							<?php esc_html_e( 'שליחת פנייה', 'justice-theme' ); ?>
+						</a>
+					<?php else : ?>
+						<h2 style="font-size: 1.3rem; color: var(--color-primary-deep); margin-bottom: 1rem;"><?php esc_html_e( 'צריכים עזרה משפטית?', 'justice-theme' ); ?></h2>
+						<p style="color: var(--color-muted); margin-bottom: 1.5rem;"><?php esc_html_e( 'שלחו פנייה קצרה ונסייע להפנות אתכם לתחום הרלוונטי.', 'justice-theme' ); ?></p>
+						<a class="button button--primary" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="width: 100%; text-align: center;">
+							<?php esc_html_e( 'שליחת פנייה', 'justice-theme' ); ?>
+						</a>
+					<?php endif; ?>
+
+					<?php if ( $draft_word_count || $repo_draft_status ) : ?>
+						<hr style="border: 0; border-top: 1px solid var(--color-border); margin: 1.5rem 0;">
+						<p style="font-size: 0.85rem; color: var(--color-muted); margin: 0;">
+							<?php if ( $draft_word_count ) : ?>
+								<?php echo esc_html( sprintf( __( 'טיוטת עומק: %s מילים.', 'justice-theme' ), number_format_i18n( $draft_word_count ) ) ); ?>
+							<?php endif; ?>
+							<?php if ( $repo_draft_status ) : ?>
+								<br><?php echo esc_html( $repo_draft_status ); ?>
+							<?php endif; ?>
+						</p>
+					<?php endif; ?>
 				</div>
 			</aside>
 		</div>

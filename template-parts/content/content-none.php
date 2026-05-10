@@ -11,8 +11,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 ?>
 
 <div class="content-none">
-	<h2><?php esc_html_e( 'Nothing found', 'justice-theme' ); ?></h2>
-	<p><?php esc_html_e( 'No results matched your query. Try a different search or browse by practice area.', 'justice-theme' ); ?></p>
+	<h2><?php esc_html_e( 'לא נמצאו תוצאות', 'justice-theme' ); ?></h2>
+	<p><?php esc_html_e( 'לא נמצאו תוצאות שמתאימות לחיפוש. נסו ניסוח אחר, חיפוש לפי תחום משפטי או מעבר למדריכי התחומים.', 'justice-theme' ); ?></p>
 
 	<?php get_template_part( 'template-parts/forms/search-form-legal' ); ?>
 </div>

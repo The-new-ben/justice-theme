@@ -56,6 +56,9 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Latest repo commit `e511c00` is pushed to `origin/main`, but live public HTML does not yet show every fix from that commit.
 
 ## FIXED IN THIS PASS
+- CODE FIXED: removed remaining visible English fallback strings from `index.php`, `home.php`, and `template-parts/content/content-none.php`.
+- VERIFIED locally: PHP lint passed for 125 PHP files after the Hebrew fallback-template cleanup.
+- NOT VERIFIED LIVE: fallback/search empty states require uPress pull/cache refresh and public visual recheck.
 - CODE FIXED: added a conservative public approval gate for lawyer profiles so old seed/demo/testing lawyer records are no longer rendered as real public listings.
 - CODE FIXED: lawyer archive now filters rendered cards through the approval gate; single lawyer pages return 404 for unapproved public profiles while admins can still inspect them.
 - CODE FIXED: lawyer directory now outputs explicit Hebrew meta/OG tags, preventing generic "Archive" wording from leaking into previews.

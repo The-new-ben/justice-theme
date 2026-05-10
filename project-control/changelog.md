@@ -909,3 +909,11 @@
 - FIXED IN CODE: Lawyer-card city fallback maps `herzliya` to `הרצליה`.
 - VERIFIED: PHP lint passed locally for 125 PHP files.
 - NOT VERIFIED LIVE: requires uPress pull/cache refresh and public recheck of `/lawyers/` and one old demo profile URL.
+
+## 2026-05-10 Hebrew Fallback Template Cleanup
+- FIXED IN CODE: `index.php` fallback pagination now uses Hebrew `הקודם` / `הבא`.
+- FIXED IN CODE: `home.php` no longer shows `Blog`; it uses `מאמרים משפטיים`.
+- FIXED IN CODE: `home.php` pagination now uses Hebrew `הקודם` / `הבא`.
+- FIXED IN CODE: empty search/archive state now says `לא נמצאו תוצאות` with Hebrew guidance.
+- VERIFIED: PHP lint passed locally for 125 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and a fallback/search page visual recheck.

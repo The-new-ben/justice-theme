@@ -10,7 +10,7 @@ get_header();
 
 <section class="archive-header">
 	<div class="container">
-		<h1><?php esc_html_e( 'Blog', 'justice-theme' ); ?></h1>
+		<h1><?php esc_html_e( 'מאמרים משפטיים', 'justice-theme' ); ?></h1>
 	</div>
 </section>
 
@@ -28,8 +28,8 @@ get_header();
 			<div class="pagination">
 				<?php the_posts_pagination( array(
 					'mid_size'  => 2,
-					'prev_text' => esc_html__( 'Previous', 'justice-theme' ),
-					'next_text' => esc_html__( 'Next', 'justice-theme' ),
+					'prev_text' => esc_html__( 'הקודם', 'justice-theme' ),
+					'next_text' => esc_html__( 'הבא', 'justice-theme' ),
 				) ); ?>
 			</div>
 		<?php else : ?>

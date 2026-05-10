@@ -152,3 +152,31 @@ Next GSC browser checks:
 - traffic subtopics: `נהיגה בשכרות`, `שלילת רישיון`
 - inheritance subtopics: `עורך דין ירושה`, `צוואה`, `התנגדות לצוואה`
 - page-to-query checks for `/real-estate-lawyer-cost-2025/`, `/עורך-דין-רשלנות-רפואית-בלידה-מומלץ/`, and `/car-accident-auto-injury-lawyer/`
+
+## Work / Traffic / Inheritance Variant Pass
+
+Completed in fifth browser pass:
+- `עורך דין תאונת עבודה`
+- `פגיעה בעבודה`
+- `תאונת עבודה ביטוח לאומי`
+- `נהיגה בשכרות`
+- `שלילת רישיון`
+- `עורך דין ירושה`
+- `צוואה`
+- `התנגדות לצוואה`
+
+Variant findings:
+- Work accident variants returned no visible rows in the last 3 months. This does not mean the market has no demand; it means Jus-Tice currently has no visible exact-query signal for those checked variants.
+- `נהיגה בשכרות`: 8 impressions, 0 clicks, average position 55.3. The visible page is a will-revocation article, so this is a wrong-page match and low-sample traffic-law content gap.
+- `שלילת רישיון`: 8 impressions, 0 clicks, average position 6.3. The visible URL is a Ministry of Health license-suspension PDF, and the visible queries are doctor/nurse license revocation, not driver's license suspension.
+- `עורך דין ירושה`: no visible rows for the exact query.
+- `צוואה`: 201 impressions, 0 clicks, average position 39.6. The query is split across case-law pages, an old Hebrew wills/inheritance page, a will DOCX, probate content and will-revocation content.
+- `התנגדות לצוואה`: 121 impressions, 0 clicks, average position 31. The old case-law page `/psakdin/התנגדות-לצוואה-בשל-השפעה-בלתי-הוגנת/` owns 120 impressions.
+
+Variant evidence:
+- Screenshot: `project-control/visual-evidence/gsc-variants-pass-wills-2026-05-10.png`
+
+Next GSC browser checks:
+- page-to-query checks for `/real-estate-lawyer-cost-2025/`, `/עורך-דין-רשלנות-רפואית-בלידה-מומלץ/`, `/car-accident-auto-injury-lawyer/`, and `/psakdin/התנגדות-לצוואה-בשל-השפעה-בלתי-הוגנת/`
+- variants for `עורך דין צוואה וירושה`, `צו קיום צוואה`, `צו ירושה`, `ניהול עיזבון`
+- national-insurance variants: `ועדה רפואית`, `קצבת נכות`, `עורך דין ביטוח לאומי`

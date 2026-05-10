@@ -1087,3 +1087,14 @@
 - FOUND: `תאונת עבודה` returned no visible rows for this exact filter; variants should be checked before deciding priority.
 - FOUND: `תאונת דרכים` has 84 impressions, mostly on `/car-accident-auto-injury-lawyer/`, which needs migration/primary-URL review before any slug change.
 - SAFETY: no public content, URLs, redirects, sitemap settings or robots rules were changed.
+
+## 2026-05-10 GSC Work / Traffic / Inheritance Variant Pass
+- VERIFIED: Browser GSC review checked `עורך דין תאונת עבודה`, `פגיעה בעבודה`, `תאונת עבודה ביטוח לאומי`, `נהיגה בשכרות`, `שלילת רישיון`, `עורך דין ירושה`, `צוואה`, and `התנגדות לצוואה`.
+- UPDATED: `project-control/gsc-cannibalization-review.csv`, `project-control/gsc-keyword-page-map.csv`, `project-control/gsc-content-priorities.csv`, `project-control/gsc-browser-workflow.md`, and `project-control/current-status.md`.
+- SAVED EVIDENCE: `project-control/visual-evidence/gsc-variants-pass-wills-2026-05-10.png`.
+- FOUND: exact work-accident variants returned no visible rows, so work-accident content should not be prioritized from current GSC evidence alone.
+- FOUND: `נהיגה בשכרות` has 8 impressions but maps to a will-revocation page, a wrong-page match and low-sample traffic content gap.
+- FOUND: `שלילת רישיון` has 8 impressions at position 6.3 but maps to a Ministry of Health professional-license PDF, not traffic driver-license intent.
+- FOUND: `צוואה` has 201 impressions split across old case-law pages, an old Hebrew wills/inheritance page, a DOCX, probate content and will-revocation content.
+- FOUND: `התנגדות לצוואה` has 121 impressions, with 120 on the old case-law page about undue influence.
+- SAFETY: no public content, URLs, redirects, sitemap settings or robots rules were changed.

@@ -20,6 +20,9 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - FOUND FROM GSC: `/real-estate-lawyer-cost-2025/` owns 871 of 885 impressions for `קניית דירה` and all 31 visible impressions for `חוזה מכר`; it is overloaded as a cost/support page and should not be the final pillar.
 - FOUND FROM GSC: old Hebrew birth-malpractice URL owns 661 impressions for `רשלנות רפואית בלידה` and 419 impressions for `רשלנות רפואית בהריון`; pregnancy and birth malpractice need a careful split/merge plan before English slug migration.
 - FOUND FROM GSC: `/car-accident-auto-injury-lawyer/` owns 79 of 84 impressions for `תאונת דרכים`; it needs review before deciding whether to keep it or migrate later to `/car-accident-lawyer/`.
+- VERIFIED: work/traffic/inheritance variant GSC pass checked `עורך דין תאונת עבודה`, `פגיעה בעבודה`, `תאונת עבודה ביטוח לאומי`, `נהיגה בשכרות`, `שלילת רישיון`, `עורך דין ירושה`, `צוואה`, and `התנגדות לצוואה`.
+- FOUND FROM GSC: work-accident exact variants returned no visible rows; traffic subtopic signals are currently mismapped or off-intent.
+- FOUND FROM GSC: `צוואה` has 201 impressions and `התנגדות לצוואה` has 121 impressions, mostly on old case-law pages and one old Hebrew wills/inheritance page. This is an inheritance/wills cluster opportunity but requires merge planning.
 - BLOCKED: GSC API/download export, database/phpMyAdmin, wp-admin menu export and uPress server settings remain unavailable from this session without separate credentials/tooling.
 - DECISION: no URL changes, redirects, deletes, noindex actions, sitemap edits or content overwrites will happen until the maps are reviewed and approved.
 - RISK: `sitemap.xml` and `wp-sitemap.xml` returned homepage-like HTML in public shell checks, so sitemap generation must be verified/fixed before any migration.

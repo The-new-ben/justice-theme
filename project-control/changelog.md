@@ -13,6 +13,8 @@
 - FOUND: Broad lawyer intent is weak and scattered: `עורך דין` has 10.4K impressions / 9 clicks / 0.1% CTR, and `עורכי דין` has 2.49K impressions / 4 clicks / 0.2% CTR.
 - CREATED: `project-control/gsc-master-workflow.md`, `project-control/gsc-indexing-review.csv`, `project-control/gsc-core-web-vitals-review.csv`, `project-control/ga4-analytics-review.md`, `project-control/ga4-event-plan.csv`, `project-control/seo-title-h1-review.csv`, `project-control/homepage-seo-strategy.md`, `project-control/content-architecture-decisions.md`, `project-control/sitemap-strategy.md`, and `project-control/daily-gsc-monitoring.md`.
 - UPDATED: GSC keyword/cannibalization/content-priority CSVs with broad lawyer/directory evidence, and updated robots/htaccess review with GSC HTTPS/indexing risks.
+- VERIFIED: GSC Page indexing drilldowns were sampled for crawled-currently-not-indexed, duplicate-without-user-selected-canonical, page-with-redirect, alternate-page-with-proper-canonical and 404 examples.
+- FOUND: not-indexed examples include media/PDF/DOCX URLs, legacy CPT URLs, old Hebrew taxonomy/category URLs, attachment redirect URLs, one test URL, and real content candidates such as `/divorce-mediation-basics`.
 - SAFETY: No URLs, redirects, public content, sitemap, robots or canonical behavior were changed.
 - NEXT: Open GSC indexing drilldowns for examples and prepare the first no-URL-change SEO architecture batch.
 

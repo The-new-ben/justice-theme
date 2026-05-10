@@ -7,14 +7,15 @@
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
 ### ACTION-SEO-001: Open GSC Indexing Drilldowns
-**Status:** NEXT
+**Status:** COMPLETED - first sample pass
 **Why:** GSC shows 1.58K not indexed pages, including 785 crawled-currently-not-indexed and 38 duplicate canonical issues. We need example URLs before content/URL decisions.
 **Actions:**
-1. Open GSC Page indexing examples for "Crawled - currently not indexed".
-2. Open examples for "Duplicate without user-selected canonical".
-3. Open examples for "Page with redirect".
-4. Record examples in `project-control/gsc-indexing-review.csv`.
-5. Classify whether each example is weak content, duplicate, old URL, media URL, taxonomy/archive, redirect source, or technical issue.
+1. DONE: Opened GSC Page indexing examples for "Crawled - currently not indexed".
+2. DONE: Opened examples for "Duplicate without user-selected canonical".
+3. DONE: Opened examples for "Page with redirect".
+4. DONE: Opened examples for "Alternate page with proper canonical tag" and "Not found (404)".
+5. DONE: Recorded examples in `project-control/gsc-indexing-review.csv`.
+6. NEXT: classify sampled examples into media URL, legacy CPT, taxonomy/archive, redirect source, weak content, content candidate or technical issue.
 
 ### ACTION-SEO-002: Verify Sitemap And HTTPS Migration Blockers
 **Status:** NEXT

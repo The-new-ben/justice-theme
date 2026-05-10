@@ -2,9 +2,9 @@
 Date: 2026-05-10
 
 ## Current Status
-- NOT VERIFIED: Search Console property access for `jus-tice.co.il`.
-- The owner says access exists through `mistabrajustice@gmail.com`.
-- The current repo workflow has no authenticated GSC API token or service-account credential.
+- VERIFIED: Search Console browser UI access works for the `https://jus-tice.co.il/` property.
+- VERIFIED: the Performance / Search results report was opened in the browser and used for a first last-3-month cannibalization pass.
+- NOT AVAILABLE: the current repo workflow has no authenticated GSC API token, service-account credential, or completed CSV export.
 
 ## Expected Property
 - Preferred: Domain property `sc-domain:jus-tice.co.il`.
@@ -42,14 +42,17 @@ Date: 2026-05-10
 ## Existing Repo Work
 - GSC report automation scaffold exists in `.github/workflows/gsc-weekly-report.yml` and supporting scripts.
 - Local smoke test can generate BLOCKED placeholder CSVs without secrets, preventing fake data.
+- Browser-only research docs now exist at `project-control/gsc-browser-workflow.md` and `project-control/gsc-cannibalization-method.md`.
+- First manual GSC maps now exist at `project-control/gsc-cannibalization-review.csv`, `project-control/gsc-keyword-page-map.csv`, and `project-control/gsc-content-priorities.csv`.
 
 ## Blocker
-- BLOCKED: no authenticated GSC credential is available inside this repo session.
+- BLOCKED: no API/export credential is available inside this repo session.
+- PARTIAL: browser UI data can be reviewed manually, but download/export did not complete through the in-app browser.
 
 ## Execution Path
-1. Verify GSC property in browser.
-2. Decide OAuth vs service account.
-3. Add selected credential to GitHub Secrets.
+1. Continue manual browser checks for priority clusters.
+2. Decide OAuth vs service account for automated exports.
+3. Add selected credential to GitHub Secrets only after approval.
 4. Run the weekly workflow manually once.
 5. Commit generated CSVs only if they contain real GSC data.
-6. Use the data before approving any URL redirects.
+6. Use GSC data before approving any URL redirects.

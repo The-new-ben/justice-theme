@@ -1021,6 +1021,21 @@
 - VERIFIED: PHP lint passed locally for 125 PHP files.
 - NOT VERIFIED LIVE: requires uPress pull/cache refresh and a fallback/search page visual recheck.
 
+## 2026-05-10 Content Audit + URL Migration Project Start
+- MODE SHIFT: paused random article publishing/rewrite work and started a full content inventory, URL migration and SEO restructure project.
+- CREATED: `project-control/content-audit-access-plan.md` documenting repo, public REST, wp-admin, Application Password, uPress, DB, GSC, WP All Export and local-script access states.
+- CREATED: `project-control/content-restructure-execution-plan.md` with the export -> inventory -> quality audit -> cannibalization -> URL migration -> internal link -> approval -> CMS update workflow.
+- CREATED: `project-control/ai-content-audit-workflow.md` with AI guardrails, prompts and approval gates.
+- CREATED: `tools/content-audit/wp-rest-export.ps1` for safe read-only public WordPress REST export.
+- CREATED: `tools/content-audit/build-audit-v1.ps1` for heuristic quality, URL, redirect, category, cluster and internal-link map generation.
+- VERIFIED: public REST export completed with 1,220 public content rows and 1,707 internal links.
+- CREATED/UPDATED EXPORTS: `project-control/content-master-inventory.csv`, `project-control/exports/all-content-export.csv`, `all-articles-export.csv`, `all-pages-export.csv`, `all-posts-export.csv`, `all-categories-export.csv`, `all-tags-export.csv`, `all-practice-areas-export.csv`, `all-cities-export.csv`, `all-taxonomies-export.csv`, `all-media-export.csv`, `all-internal-links-export.csv`, and `all-url-export.csv`.
+- CREATED/UPDATED AUDIT MAPS: `project-control/content-quality-audit.csv`, `project-control/cannibalization-map.csv`, `project-control/url-migration-map.csv`, `project-control/redirect-map.csv`, `project-control/category-map.csv`, `project-control/topic-clusters.csv`, and `project-control/internal-link-map.csv`.
+- CREATED: `project-control/sitemap-plan.md` and `project-control/robots-htaccess-review.md`.
+- VERIFIED: first heuristic audit generated 1,220 quality rows, 1,220 URL rows, 1,160 planned redirect rows, 110 mapped terms, 11 cannibalization groups and 1,707 link rows.
+- BLOCKED AT START OF AUDIT: GSC was initially unavailable before owner-approved sign-in/2FA. Menu REST export returned 401. DB/phpMyAdmin remains unavailable.
+- SAFETY: no URLs were changed, no redirects were created, no content was deleted, and no live CMS writes were performed.
+
 ## 2026-05-10 Family-Law Public Cleaner v6
 - FIXED IN CODE: Bumped the family-law editorial repair version to `v6` so live WordPress reruns repair after deployment.
 - FIXED IN CODE: The cleaner now strips product/business/editorial-planning language from public article bodies, not only obvious labels like `NOT VERIFIED`.
@@ -1028,3 +1043,15 @@
 - DOCUMENTED: `project-control/live-content-publication-status.md` and `project-control/publication-workflow.md`.
 - VERIFIED: PHP lint passed locally for 125 PHP files.
 - NOT VERIFIED LIVE: requires uPress pull/cache refresh and public recheck of the seven family-law URLs.
+
+## 2026-05-10 GSC Browser Cannibalization Pass 1
+- VERIFIED: Google Search Console browser UI access works for the `https://jus-tice.co.il/` property after owner-approved sign-in/2FA.
+- CREATED: `project-control/gsc-browser-workflow.md` documenting the browser-only GSC workflow, limitations and next keywords.
+- CREATED: `project-control/gsc-cannibalization-method.md` documenting the query-to-page and page-to-query method for cannibalization, low CTR, position 5-20 and migration-risk review.
+- CREATED: `project-control/gsc-cannibalization-review.csv`, `project-control/gsc-keyword-page-map.csv`, and `project-control/gsc-content-priorities.csv`.
+- VERIFIED: last-3-month GSC totals visible in browser were 482 clicks, 72.9K impressions, 0.7% CTR and average position 33.8.
+- CHECKED: `עורך דין פלילי`, `דין פלילי`, `עורך דין גירושין`, `גישור גירושין`, and `עורך דין לענייני משפחה`.
+- FOUND: the current high-value criminal/family queries are mostly associated with old Hebrew URLs, uploaded documents, homepage and scattered legacy content rather than clean English-slug pillar URLs.
+- MIGRATION WARNING: the old Hebrew divorce-lawyer URL has 960 impressions for `עורך דין גירושין`; the old Hebrew criminal Tel Aviv URL has 267 impressions for `עורך דין פלילי`; neither should be changed before merge/redirect mapping is approved.
+- BLOCKED: full GSC CSV/API export and 12-month comparison are still not available; the in-app browser could show the export menu but file download/export did not complete.
+- SAFETY: no public content, URLs, redirects, sitemap settings or robots rules were changed from this GSC pass.

@@ -311,6 +311,28 @@ function justice_theme_discard_lawyer_profile_update(): void {
 }
 add_action( 'admin_post_justice_discard_lawyer_profile_update', 'justice_theme_discard_lawyer_profile_update' );
 
+function justice_theme_mark_lawyer_content_reviewed(): void {
+	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
+
+	if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to mark this content request reviewed.', 'justice-theme' ) );
+	}
+
+	check_admin_referer( 'justice_mark_lawyer_content_reviewed_' . $post_id );
+
+	delete_post_meta( $post_id, 'pending_content_review' );
+	update_post_meta( $post_id, 'latest_content_request_reviewed_at', current_time( 'mysql' ) );
+	justice_theme_append_lawyer_internal_note( $post_id, 'Owner marked latest signed-content request as reviewed in Lawyer Onboarding.' );
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_content_request_reviewed', 'Marked lawyer content request reviewed: ' . get_the_title( $post_id ) );
+	}
+
+	wp_safe_redirect( add_query_arg( 'content_review', 'marked', admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_mark_lawyer_content_reviewed', 'justice_theme_mark_lawyer_content_reviewed' );
+
 function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	if ( ! current_user_can( 'edit_pages' ) ) {
 		wp_die( esc_html__( 'You do not have permission to access this page.', 'justice-theme' ) );
@@ -356,6 +378,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 			<div class="notice notice-success is-dismissible"><p>Pending mini-site update applied. Review the full profile before final public approval.</p></div>
 		<?php elseif ( isset( $_GET['profile_update'] ) && 'discarded' === $_GET['profile_update'] ) : ?>
 			<div class="notice notice-warning is-dismissible"><p>Pending mini-site update discarded. Public profile fields were not changed.</p></div>
+		<?php endif; ?>
+		<?php if ( isset( $_GET['content_review'] ) && 'marked' === $_GET['content_review'] ) : ?>
+			<div class="notice notice-success is-dismissible"><p>Content request review flag cleared for the lawyer profile.</p></div>
 		<?php endif; ?>
 
 		<?php if ( $pending->have_posts() ) : ?>
@@ -436,6 +461,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 									<?php if ( $content_article_id ) : ?>
 										<a href="<?php echo esc_url( get_edit_post_link( $content_article_id, '' ) ); ?>">Review draft</a>
 									<?php endif; ?>
+									<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=justice_mark_lawyer_content_reviewed&lawyer_id=' . $post_id ), 'justice_mark_lawyer_content_reviewed_' . $post_id ) ); ?>">Mark reviewed</a>
 								<?php else : ?>
 									-
 								<?php endif; ?>

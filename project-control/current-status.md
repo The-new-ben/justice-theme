@@ -39,6 +39,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer Onboarding admin queue now previews the latest internal notes for each listed lawyer profile.
 - Lawyer content request submissions now append timestamped notes to the requesting lawyer profile `internal_notes`.
 - Lawyer content request submissions now flag the lawyer profile for pending content review, and Lawyer Onboarding shows the latest content request with a draft-review link.
+- Lawyer Onboarding admin queue now has a nonce-protected action to mark a pending content request reviewed and clear the lawyer profile review flag.
 
 ## FIXED IN THIS PASS
 - Added tracked `page-home.php` because the live homepage is assigned to the `page-home.php` page template, not only `front-page.php`.

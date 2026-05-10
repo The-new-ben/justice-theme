@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[HIGH] Added content-request reviewed action in Lawyer Onboarding**
+- Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
+- Lawyer Onboarding now has a nonce-protected `Mark reviewed` action for pending signed-content requests.
+- The action clears `pending_content_review`, stores `latest_content_request_reviewed_at`, and appends an internal note to the lawyer profile.
+- VERIFIED in repo. LIVE NOT VERIFIED until a content request is marked reviewed in wp-admin after Upress pull.
+
 **[HIGH] Surfaced pending lawyer content requests in onboarding queue**
 - Files: `inc/lawyer-dashboard.php`, `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
 - Lawyer content requests now flag the lawyer profile with `pending_content_review`, latest article id, topic and submitted timestamp.

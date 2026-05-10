@@ -2,6 +2,15 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-10 23:20 Asia/Jerusalem
+- LIVE VERIFIED ISSUE: mobile DOM inspection found the remaining green lower-right overlay is `a.whatsapp-button`, not the Tawk chat iframe.
+- LIVE VERIFIED ISSUE DETAIL: before fix the button rendered about 255x61px at the mobile bottom-right and covered lower hero/customer content. Evidence: `project-control/visual-evidence/mobile-third-party-cta-before-2026-05-10.png`.
+- CODE FIXED: `assets/css/premium-pass-3.css` now converts the third-party/mobile WhatsApp lead banner into a 54x54px round icon-only control on screens under 760px.
+- CODE FIXED: the mobile override hides the extra Jus-Tice logo image/text inside that injected button, keeps the WhatsApp icon visible, lowers stacking priority, and preserves the outbound WhatsApp link.
+- VISUAL VERIFIED BY LIVE CSS SIMULATION: injected the exact CSS into the live mobile page and captured `project-control/visual-evidence/mobile-chat-widget-css-test-final-2026-05-10.png`; computed size changed to 54x54px.
+- SAFETY: no URLs, redirects, content bodies, sitemap rules, robots rules, admin settings, leads, CRM records or database data were changed.
+- NOT LIVE VERIFIED AFTER CODE FIX: requires owner/uPress pull, cache clear, and fresh mobile screenshot.
+
 ## LATEST LIVE STATUS - 2026-05-10 23:25 Asia/Jerusalem
 - LIVE VERIFIED: owner uPress pull is public; homepage now serves deployment marker `2026-05-10-branding-v1`.
 - LIVE VERIFIED: theme version `1.0.2` assets are visible in public source.

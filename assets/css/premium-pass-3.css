@@ -3266,6 +3266,44 @@
     height: 28px;
   }
 
+  html body.rtl a.whatsapp-button {
+    width: 54px !important;
+    min-width: 54px !important;
+    max-width: 54px !important;
+    height: 54px !important;
+    min-height: 54px !important;
+    max-height: 54px !important;
+    left: auto !important;
+    right: max(14px, env(safe-area-inset-right, 0px)) !important;
+    bottom: calc(18px + env(safe-area-inset-bottom, 0px)) !important;
+    padding: 0 !important;
+    border-radius: 999px !important;
+    overflow: hidden !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0 !important;
+    color: transparent !important;
+    font-size: 0 !important;
+    line-height: 0 !important;
+    z-index: 845 !important;
+    transition: background-color 0.2s ease, box-shadow 0.2s ease !important;
+  }
+
+  html body.rtl a.whatsapp-button img:first-child {
+    display: none !important;
+  }
+
+  html body.rtl a.whatsapp-button img:last-of-type,
+  html body.rtl a.whatsapp-button svg {
+    display: block !important;
+    width: 28px !important;
+    height: 28px !important;
+    min-width: 28px !important;
+    max-width: 28px !important;
+    margin: 0 !important;
+  }
+
   #pojo-a11y-toolbar {
     top: 154px !important;
     bottom: auto !important;

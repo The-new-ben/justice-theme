@@ -2,6 +2,13 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-10 Third-Party Mobile CTA Check
+- LIVE VERIFIED ISSUE: the remaining green lower-right mobile overlay is `a.whatsapp-button`, a fixed WhatsApp lead banner, not a chat iframe.
+- VISUAL EVIDENCE BEFORE FIX: `project-control/visual-evidence/mobile-third-party-cta-before-2026-05-10.png`.
+- CODE FIXED: mobile CSS now compacts the third-party WhatsApp banner into a 54x54px round icon-only button and hides its extra logo/text.
+- VISUAL VERIFIED BY LIVE CSS SIMULATION: `project-control/visual-evidence/mobile-chat-widget-css-test-final-2026-05-10.png`; computed live test size was 54x54px, bottom-right, with the WhatsApp icon visible.
+- NOT LIVE VERIFIED AFTER CODE FIX: requires uPress pull/cache clear and fresh mobile homepage/article/directory screenshots.
+
 ## 2026-05-09 Live Homepage Screenshot Check
 - VERIFIED: Live homepage returned HTTP 200.
 - VERIFIED: Desktop screenshot captured locally at `project-control/visual-evidence/homepage-desktop.png`.

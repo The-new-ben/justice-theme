@@ -41,6 +41,6 @@ Status: ACTIVE LAUNCH CHECKLIST
 - LIVE VERIFIED: `2026-05-10-branding-v1` marker is public.
 - LIVE VERIFIED: fallback theme icon assets return HTTP 200.
 - LIVE VERIFIED: header logo is visible on desktop and mobile.
-- PARTIAL: theme WhatsApp float is improved, but third-party green chat/lead bubble still overlaps lower mobile hero cards.
+- CODE FIXED: theme WhatsApp float is improved, and the third-party `a.whatsapp-button` mobile lead banner now compacts to a 54px icon-only control.
 - NOT VERIFIED: wp-admin Custom Logo and Site Icon selected media items.
-- NEXT: verify/admin-clean favicon outputs and fix third-party mobile chat bubble placement.
+- NEXT: verify/admin-clean favicon outputs and live-verify the compact mobile lead button after uPress pull/cache clear.

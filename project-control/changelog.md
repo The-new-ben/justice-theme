@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Third-party mobile CTA collision repair
+
+- LIVE VERIFIED ISSUE: mobile DOM inspection identified the remaining green overlay as `a.whatsapp-button`, not the Tawk chat iframe.
+- VISUAL EVIDENCE: before state captured at `project-control/visual-evidence/mobile-third-party-cta-before-2026-05-10.png`.
+- CODE FIXED: `assets/css/premium-pass-3.css` compacts the injected mobile WhatsApp/lead banner into a 54px round icon-only control.
+- CODE FIXED: extra logo/text inside the injected button is hidden on mobile while the WhatsApp icon/link remains visible.
+- VISUAL VERIFIED BY LIVE CSS SIMULATION: `project-control/visual-evidence/mobile-chat-widget-css-test-final-2026-05-10.png` confirms the 54x54px state on the live page with the exact CSS injected.
+- SAFETY: no URLs, redirects, content bodies, sitemap rules, robots rules, admin settings, leads or database records were changed.
+- NOT LIVE VERIFIED AFTER CODE FIX: requires uPress pull/cache clear and fresh mobile visual QA.
+
 ## 2026-05-10 - Live verification after branding pull
 
 - LIVE VERIFIED: homepage source now contains deployment marker `2026-05-10-branding-v1`.

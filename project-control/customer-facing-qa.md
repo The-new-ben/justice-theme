@@ -12,6 +12,7 @@ Date: 2026-05-10
 - LIVE VERIFIED ISSUE: the pulled ask-lawyer form is wired correctly, but still uses hidden `general`/`normal` values instead of asking the visitor for legal area, city and urgency.
 - CODE FIXED / NOT LIVE VERIFIED: ask-lawyer now captures legal area, city/region, email and urgency visibly, making it safer as the temporary AI/LegalTech fallback.
 - LIVE VERIFIED 2026-05-10 FOLLOW-UP: traffic link now uses `/lawyers/?area=traffic-law`, AI/intake link uses `/#ask-lawyer`, and the enriched ask-lawyer fields are public. Proof: `ask-lawyer-enriched-desktop-2026-05-10.png`, `ask-lawyer-enriched-mobile-2026-05-10.png`.
+- CODE FIXED / NOT LIVE VERIFIED: the remaining third-party mobile WhatsApp lead banner is now compacted to a 54px icon-only button in CSS; proof of live CSS simulation: `mobile-chat-widget-css-test-final-2026-05-10.png`.
 - FIXED IN CODE: stronger hero copy, fallback favicon, fuller primary menu augmentation, mobile WhatsApp offset.
 - Status: NOT CUSTOMER-READY until live recheck and menu assignment.
 
@@ -69,6 +70,7 @@ Date: 2026-05-10
 - FIXED IN CODE: mobile `.whatsapp-float` offset raised.
 - 2026-05-10 UPDATE: captured `project-control/visual-evidence/mobile-floating-actions-before-2026-05-10.png`; the screenshot confirms the accessibility tab and floating lead/WhatsApp controls are too aggressive on mobile.
 - CODE FIXED: mobile CSS now reduces and raises the WhatsApp float, adds bottom safe-space padding, and moves the Pojo accessibility toolbar away from the middle of the first viewport.
+- LIVE VERIFIED ISSUE / CODE FIXED: the separate third-party `a.whatsapp-button` lead banner rendered as a 255px mobile pill; CSS now converts it to a 54px icon-only WhatsApp control while preserving the link.
 - Status: CODE FIXED / NOT LIVE VERIFIED.
 
 ## Mobile Menu

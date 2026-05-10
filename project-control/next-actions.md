@@ -24,12 +24,15 @@
 12. NOT VERIFIED: final browser tab/mobile bookmark appearance and Google search-result favicon refresh.
 
 ### ACTION-UX-002: Third-Party Mobile Chat Bubble Collision
-**Status:** NEXT - live issue confirmed
+**Status:** CODE FIXED - live deployment/visual verification pending
 **Why:** Post-pull mobile screenshot shows the green third-party chat/lead bubble still covering lower hero cards even after the theme WhatsApp float was improved.
 **Actions:**
 1. DONE: confirmed in `homepage-branding-post-pull-mobile-2026-05-10.png`.
-2. NEXT: identify exact live widget selector/iframe and move it or hide it on first viewport without breaking chat/lead capture.
-3. NOT FIXED: no code change executed for the third-party bubble yet.
+2. DONE: live DOM inspection identified the overlay as `a.whatsapp-button`, a fixed 255px-wide WhatsApp lead banner, not an iframe.
+3. CODE FIXED: `assets/css/premium-pass-3.css` now compacts that injected mobile banner into a 54px circular WhatsApp icon and hides the extra logo/text.
+4. VISUAL VERIFIED BY LIVE CSS SIMULATION: `mobile-chat-widget-css-test-final-2026-05-10.png` shows the compact state on the live mobile page after injecting the exact CSS.
+5. NEXT: owner/uPress pull, clear cache, then capture fresh live mobile homepage/article/directory screenshots.
+6. NOT LIVE VERIFIED: deployed public CSS still needs post-pull verification.
 
 ### ACTION-SEO-001: Open GSC Indexing Drilldowns
 **Status:** COMPLETED - first sample pass

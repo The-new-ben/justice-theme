@@ -75,3 +75,11 @@ Status:
 - CODE FIXED: mobile bottom safe-space padding was added so fixed controls are less likely to cover footer/form content.
 - VERIFIED: CSS diff passed `git diff --check`.
 - NOT LIVE VERIFIED: needs uPress pull/cache clear and mobile screenshot recheck.
+
+## 2026-05-10 Third-Party Mobile Lead Button Repair
+
+- LIVE VERIFIED ISSUE: the remaining green lower-right mobile control is `a.whatsapp-button`, about 255x61px before fix, and can obscure first-viewport content.
+- CODE FIXED: mobile CSS compacts that injected control to a 54x54px round WhatsApp icon-only tap target.
+- CODE FIXED: the extra embedded Jus-Tice logo and direct text label are hidden only in the compact mobile state; the WhatsApp icon and link remain available.
+- VISUAL VERIFIED BY LIVE CSS SIMULATION: `project-control/visual-evidence/mobile-chat-widget-css-test-final-2026-05-10.png`.
+- NOT LIVE VERIFIED AFTER CODE FIX: needs uPress pull/cache clear and fresh mobile screenshot recheck.

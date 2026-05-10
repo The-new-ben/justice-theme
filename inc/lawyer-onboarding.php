@@ -278,6 +278,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						<th>Email</th>
 						<th>Plan</th>
 						<th>Mini-site Content</th>
+						<th>Pending Update</th>
 						<th>Status</th>
 						<th>Submitted</th>
 						<th>Action</th>
@@ -296,6 +297,13 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 							'Video'    => get_post_meta( $post_id, 'profile_video_url', true ),
 							'FAQ'      => get_post_meta( $post_id, 'profile_faqs', true ),
 						);
+						$pending_fields = array(
+							'Headline' => get_post_meta( $post_id, 'pending_profile_headline', true ),
+							'Services' => get_post_meta( $post_id, 'pending_profile_services', true ),
+							'Process'  => get_post_meta( $post_id, 'pending_profile_process', true ),
+							'Video'    => get_post_meta( $post_id, 'pending_profile_video_url', true ),
+							'FAQ'      => get_post_meta( $post_id, 'pending_profile_faqs', true ),
+						);
 						?>
 						<tr>
 							<td><strong><?php echo esc_html( get_the_title() ); ?></strong></td>
@@ -312,6 +320,17 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 										<?php echo esc_html( $label . ': ' . ( $value ? 'YES' : 'NO' ) ); ?>
 									</span>
 								<?php endforeach; ?>
+							</td>
+							<td>
+								<?php if ( $has_pending_update ) : ?>
+									<?php foreach ( $pending_fields as $label => $value ) : ?>
+										<?php if ( $value ) : ?>
+											<p style="margin:0 0 6px;"><strong><?php echo esc_html( $label ); ?>:</strong> <?php echo esc_html( wp_html_excerpt( (string) $value, 120, '...' ) ); ?></p>
+										<?php endif; ?>
+									<?php endforeach; ?>
+								<?php else : ?>
+									-
+								<?php endif; ?>
 							</td>
 							<td><?php echo esc_html( $status ); ?></td>
 							<td><?php echo esc_html( get_the_date() ); ?></td>

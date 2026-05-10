@@ -99,6 +99,7 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
 - Logged-in lawyers can submit staged mini-site update requests from `/lawyer-dashboard/`.
 - Profile update requests are stored in `pending_profile_*` metadata and set `pending_profile_review = 1`; they do not change the public profile fields automatically.
 - The Lawyer Onboarding admin queue includes profiles with pending update reviews, including already-published profiles.
+- The Lawyer Onboarding admin queue shows a compact preview of pending mini-site update fields so the owner can triage update requests before opening the full profile editor.
 
 ## NOT VERIFIED
 

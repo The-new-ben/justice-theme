@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[MEDIUM] Added pending mini-site update preview to onboarding admin**
+- Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
+- Lawyer Onboarding now has a `Pending Update` column that previews staged headline, services, process, video and FAQ update fields.
+- This lets the owner triage lawyer-submitted mini-site changes before opening the full profile editor.
+- VERIFIED in repo. LIVE NOT VERIFIED until a staged profile update exists in wp-admin after Upress pull.
+
 **[HIGH] Added staged lawyer mini-site update requests**
 - Files: `inc/lawyer-dashboard.php`, `page-lawyer-dashboard.php`, `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
 - Claimed lawyers can submit mini-site updates from `/lawyer-dashboard/` for headline, services, process, video and FAQs.

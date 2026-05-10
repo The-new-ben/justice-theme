@@ -63,8 +63,8 @@
 
 **[HIGH] Expanded divorce-mediation supporting draft**
 - Files: `content-drafts/divorce-mediation-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
-- Expanded `/divorce-mediation/` from about 1,256 words to about 2,158 words.
-- Added suitability test, mediation models, preparation checklist, failure paths, power-imbalance warnings, children section and LegalTech questionnaire concept.
+- Expanded `/divorce-mediation/` from about 1,256 words to about 3,507 words across two sequential passes.
+- Added suitability test, mediation models, preparation checklist, failure paths, power-imbalance warnings, children section, legal-advice boundary, pricing caution, anti-cannibalization, CMS layout and LegalTech questionnaire concept.
 - Status remains NOT VERIFIED for legal accuracy and not ready to publish.
 
 **[MEDIUM] Rechecked live header**

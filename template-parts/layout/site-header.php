@@ -126,9 +126,9 @@ function justice_theme_fallback_menu() {
 					<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=criminal-law' ) ); ?>">משפט פלילי</a></li>
 					<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=real-estate-law' ) ); ?>">מקרקעין ונדל"ן</a></li>
 					<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=labor-law' ) ); ?>">דיני עבודה</a></li>
-					<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=torts' ) ); ?>">נזיקין ותאונות</a></li>
+					<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=personal-injury-law' ) ); ?>">נזיקין ותאונות</a></li>
 					<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=traffic-law' ) ); ?>">תעבורה</a></li>
-					<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=inheritance' ) ); ?>">ירושה וצוואות</a></li>
+					<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=inheritance-law' ) ); ?>">ירושה וצוואות</a></li>
 					<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyers/?area=tax-law' ) ); ?>">מיסים</a></li>
 				</ul>
 			<?php endif; ?>

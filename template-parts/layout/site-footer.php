@@ -60,7 +60,7 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0544705733' );
 				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=family-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">משפחה וגירושין</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=criminal-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">משפט פלילי</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=real-estate-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מקרקעין ונדל"ן</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=torts' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">נזיקין ותאונות</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=personal-injury-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">נזיקין ותאונות</a></li>
 			</ul>
 		</section>
 

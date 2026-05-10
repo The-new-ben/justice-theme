@@ -3,6 +3,9 @@ Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
 ## LATEST CODE STATUS - 2026-05-10
+- FIXED IN CODE: Header/footer/fallback menu URLs now use canonical English lawyer-directory filter slugs for personal injury and inheritance, while old `torts`/`inheritance` params are still normalized for compatibility.
+- VERIFIED: PHP lint passed locally for 125 PHP files after the menu slug cleanup.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and menu repair hook execution.
 - FIXED IN CODE: Lawyer directory now has customer-facing guidance cards, canonical fallback filter options, active-filter chips, public-approved profile count, and a general inquiry CTA.
 - VERIFIED: PHP lint passed locally for 125 PHP files after the lawyer-directory changes.
 - NOT VERIFIED LIVE: `/lawyers/` needs uPress pull/cache refresh and public visual check before calling this customer-ready.

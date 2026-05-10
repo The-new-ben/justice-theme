@@ -100,7 +100,7 @@ function justice_theme_seed_primary_menu() {
 		array( 'title' => 'משפט פלילי',       'url' => home_url( '/lawyers/?area=criminal-law' ), 'order' => 5 ),
 		array( 'title' => 'מקרקעין ונדל"ן',   'url' => home_url( '/lawyers/?area=real-estate-law' ), 'order' => 6 ),
 		array( 'title' => 'דיני עבודה',        'url' => home_url( '/lawyers/?area=labor-law' ), 'order' => 7 ),
-		array( 'title' => 'נזיקין ותאונות',    'url' => home_url( '/lawyers/?area=torts' ), 'order' => 8 ),
+		array( 'title' => 'נזיקין ותאונות',    'url' => home_url( '/lawyers/?area=personal-injury-law' ), 'order' => 8 ),
 		array( 'title' => 'תעבורה',             'url' => home_url( '/lawyers/?area=traffic-law' ), 'order' => 9 ),
 	);
 
@@ -189,6 +189,8 @@ function justice_theme_repair_seeded_menu_area_urls(): void {
 		home_url( '/lawyers/?area=real-estate' ) => home_url( '/lawyers/?area=real-estate-law' ),
 		home_url( '/lawyers/?area=labor' )       => home_url( '/lawyers/?area=labor-law' ),
 		home_url( '/lawyers/?area=traffic' )     => home_url( '/lawyers/?area=traffic-law' ),
+		home_url( '/lawyers/?area=torts' )       => home_url( '/lawyers/?area=personal-injury-law' ),
+		home_url( '/lawyers/?area=inheritance' ) => home_url( '/lawyers/?area=inheritance-law' ),
 	);
 
 	$menus = wp_get_nav_menus();
@@ -280,9 +282,9 @@ function justice_theme_primary_practice_menu_html(): string {
 		'פלילי'           => '/lawyers/?area=criminal-law',
 		'תעבורה'          => '/lawyers/?area=traffic-law',
 		'מקרקעין'         => '/lawyers/?area=real-estate-law',
-		'נזיקין'          => '/lawyers/?area=torts',
+		'נזיקין'          => '/lawyers/?area=personal-injury-law',
 		'עבודה'           => '/lawyers/?area=labor-law',
-		'ירושה וצוואות'   => '/lawyers/?area=inheritance',
+		'ירושה וצוואות'   => '/lawyers/?area=inheritance-law',
 		'רשלנות רפואית'  => '/lawyers/?area=medical-malpractice',
 		'מיסים'           => '/lawyers/?area=tax-law',
 		'סייבר ופרטיות'  => '/lawyers/?area=cyber-privacy',

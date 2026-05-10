@@ -23,6 +23,8 @@ $legacy_area_map = array(
 	'real-estate' => 'real-estate-law',
 	'labor'       => 'labor-law',
 	'traffic'     => 'traffic-law',
+	'torts'       => 'personal-injury-law',
+	'inheritance' => 'inheritance-law',
 );
 
 if ( isset( $legacy_area_map[ $filter_area ] ) ) {

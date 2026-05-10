@@ -128,6 +128,37 @@ function justice_theme_render_content_draft_importer(): void {
 			<div class="notice <?php echo esc_attr( $class ); ?>"><p><?php echo esc_html( $message ); ?></p></div>
 		<?php endif; ?>
 
+		<?php if ( ! empty( $_GET['justice_family_publish_message'] ) ) : ?>
+			<?php
+			$publish_result  = isset( $_GET['justice_family_publish_result'] ) ? sanitize_key( wp_unslash( $_GET['justice_family_publish_result'] ) ) : 'updated';
+			$publish_message = sanitize_text_field( rawurldecode( wp_unslash( $_GET['justice_family_publish_message'] ) ) );
+			$publish_class   = 'success' === $publish_result ? 'notice-success' : 'notice-warning';
+			?>
+			<div class="notice <?php echo esc_attr( $publish_class ); ?>"><p><?php echo esc_html( $publish_message ); ?></p></div>
+		<?php endif; ?>
+
+		<?php if ( function_exists( 'justice_theme_get_owner_approved_family_cluster' ) ) : ?>
+			<?php
+			$publication_result = get_option( 'justice_family_cluster_publication_result', array() );
+			$publication_time   = is_array( $publication_result ) && ! empty( $publication_result['time'] ) ? $publication_result['time'] : '';
+			?>
+			<div class="notice notice-info">
+				<p>
+					<strong><?php esc_html_e( 'Owner-approved family-law cluster', 'justice-theme' ); ?></strong><br>
+					<?php if ( $publication_time ) : ?>
+						<?php echo esc_html( sprintf( 'Last publication run: %s', $publication_time ) ); ?>
+					<?php else : ?>
+						<?php esc_html_e( 'Not published by the repo publisher yet.', 'justice-theme' ); ?>
+					<?php endif; ?>
+				</p>
+				<p>
+					<a class="button button-secondary" href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'justice_publish_family_cluster' ), admin_url( 'tools.php?page=justice-content-drafts' ) ), 'justice_publish_family_cluster' ) ); ?>">
+						<?php esc_html_e( 'Publish / refresh family-law cluster pages', 'justice-theme' ); ?>
+					</a>
+				</p>
+			</div>
+		<?php endif; ?>
+
 		<?php if ( ! post_type_exists( 'articles' ) ) : ?>
 			<div class="notice notice-warning"><p><?php esc_html_e( 'The articles post type is not active, so imports are blocked.', 'justice-theme' ); ?></p></div>
 		<?php else : ?>

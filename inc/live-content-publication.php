@@ -62,9 +62,70 @@ function justice_theme_publish_owner_approved_family_cluster(): void {
 		return;
 	}
 
+	justice_theme_run_family_cluster_publication( false );
+}
+add_action( 'init', 'justice_theme_publish_owner_approved_family_cluster', 40 );
+
+/**
+ * Admin-only manual publication action for cache/plugin cases where front-end
+ * one-time publishing does not execute after deployment.
+ */
+function justice_theme_handle_family_cluster_publication_action(): void {
+	if (
+		! is_admin()
+		|| ! current_user_can( 'manage_options' )
+		|| empty( $_GET['action'] )
+		|| 'justice_publish_family_cluster' !== sanitize_key( wp_unslash( $_GET['action'] ) )
+	) {
+		return;
+	}
+
+	check_admin_referer( 'justice_publish_family_cluster' );
+
+	$result  = justice_theme_run_family_cluster_publication( true );
+	$message = sprintf(
+		'Family cluster publication finished. Published: %1$d. Blocked: %2$d.',
+		count( $result['published'] ),
+		count( $result['blocked'] )
+	);
+
+	wp_safe_redirect(
+		add_query_arg(
+			array(
+				'page'                           => 'justice-content-drafts',
+				'justice_family_publish_result'  => empty( $result['blocked'] ) ? 'success' : 'blocked',
+				'justice_family_publish_message' => rawurlencode( $message ),
+			),
+			admin_url( 'tools.php' )
+		)
+	);
+	exit;
+}
+add_action( 'admin_init', 'justice_theme_handle_family_cluster_publication_action' );
+
+/**
+ * Run the family cluster publication.
+ *
+ * @param bool $force Force rerun even if the current version is recorded.
+ * @return array{published:array,blocked:array}
+ */
+function justice_theme_run_family_cluster_publication( bool $force = false ): array {
+	if ( ! $force && get_option( 'justice_family_cluster_publication_version' ) === JUSTICE_THEME_FAMILY_CLUSTER_PUBLICATION_VERSION ) {
+		return get_option(
+			'justice_family_cluster_publication_result',
+			array(
+				'published' => array(),
+				'blocked'   => array(),
+			)
+		);
+	}
+
 	$items = justice_theme_get_owner_approved_family_cluster();
 	if ( empty( $items ) ) {
-		return;
+		return array(
+			'published' => array(),
+			'blocked'   => array( 'No publication items configured.' ),
+		);
 	}
 
 	$published = array();
@@ -94,8 +155,12 @@ function justice_theme_publish_owner_approved_family_cluster(): void {
 		),
 		false
 	);
+
+	return array(
+		'published' => $published,
+		'blocked'   => $blocked,
+	);
 }
-add_action( 'init', 'justice_theme_publish_owner_approved_family_cluster', 40 );
 
 /**
  * Get the approved publication map.

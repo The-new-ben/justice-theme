@@ -20,6 +20,12 @@
 - The `/family-law/` practice hub now includes `/family-dispute-resolution/` in its supporting-topic map.
 - CODE FIXED. LIVE NOT VERIFIED until uPress pulls the commit.
 
+**[MEDIUM] Added wp-admin manual trigger for family-law publication**
+- Files: `inc/live-content-publication.php`, `inc/content-draft-importer.php`
+- `Tools > Jus-Tice Content Drafts` now shows the owner-approved family-law cluster publication status.
+- Added an admin-only nonce-protected button to publish/refresh the seven family-law cluster pages if the front-end one-time publisher is blocked by cache or deployment timing.
+- CODE FIXED. LIVE NOT VERIFIED until wp-admin is opened after uPress pull.
+
 ### FIXED
 
 **[HIGH] Reviewed Claude branch without destructive merge**

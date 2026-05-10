@@ -26,7 +26,11 @@ function justice_theme_normalize_public_url( string $url ): string {
 		return '';
 	}
 
-	$site_host = wp_parse_url( home_url( '/' ), PHP_URL_HOST );
+	$site_host = wp_parse_url( (string) get_option( 'home' ), PHP_URL_HOST );
+	if ( ! $site_host ) {
+		$site_host = wp_parse_url( (string) get_option( 'siteurl' ), PHP_URL_HOST );
+	}
+
 	$url_host  = wp_parse_url( $url, PHP_URL_HOST );
 
 	if ( $site_host && $url_host && strtolower( $site_host ) === strtolower( $url_host ) ) {
@@ -35,6 +39,30 @@ function justice_theme_normalize_public_url( string $url ): string {
 
 	return $url;
 }
+
+/**
+ * Normalize first-party URL values generated for public-facing frontend output.
+ *
+ * Admin screens are left alone so wp-admin/plugin configuration remains visible
+ * exactly as stored. Public pages, REST responses and sitemap requests get the
+ * HTTPS form of first-party URLs without changing database values or redirects.
+ *
+ * @param string $url Existing URL.
+ * @return string
+ */
+function justice_theme_filter_frontend_public_url( $url ): string {
+	if ( is_admin() && ! wp_doing_ajax() ) {
+		return (string) $url;
+	}
+
+	return justice_theme_normalize_public_url( (string) $url );
+}
+add_filter( 'home_url', 'justice_theme_filter_frontend_public_url', 20 );
+add_filter( 'page_link', 'justice_theme_filter_frontend_public_url', 20 );
+add_filter( 'post_link', 'justice_theme_filter_frontend_public_url', 20 );
+add_filter( 'post_type_link', 'justice_theme_filter_frontend_public_url', 20 );
+add_filter( 'term_link', 'justice_theme_filter_frontend_public_url', 20 );
+add_filter( 'attachment_link', 'justice_theme_filter_frontend_public_url', 20 );
 
 /**
  * Clean archive titles — remove "Archives:" prefix.

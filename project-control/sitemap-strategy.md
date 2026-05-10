@@ -25,6 +25,7 @@ PARTIAL / RISK:
 CODE FIXED / NOT LIVE VERIFIED:
 - Theme-level first-party canonical, hreflang and Open Graph URLs now normalize to HTTPS.
 - WordPress core sitemap entries now normalize first-party `loc` URLs to HTTPS when core sitemaps are active.
+- Public frontend first-party links generated through WordPress URL helpers now normalize to HTTPS, reducing internal-link mixed-protocol signals after deployment.
 - The active live sitemap appears plugin-controlled, so this is only a partial safeguard until wp-admin/uPress sitemap settings are reviewed.
 
 EVIDENCE FILE:

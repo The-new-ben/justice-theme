@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Public link HTTPS normalization
+
+- CODE FIXED: public frontend first-party links generated through WordPress URL helpers now normalize to HTTPS.
+- CODE FIXED: covered surfaces include `home_url`, post/page/CPT permalinks, taxonomy term links and attachment links.
+- CODE FIXED: URL host detection now reads configured options directly, avoiding recursion when `home_url` itself is filtered.
+- PARTIAL ONLY: stored database URLs, redirect rules, URL slugs and plugin sitemap settings were not changed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and public HTML/sitemap spot checks with marker `2026-05-11-public-link-https-normalization-v1`.
+- SAFETY: no public content body, slug, URL migration, redirect, robots rule, CRM record, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - HTTPS SEO URL normalization
 
 - CODE FIXED: theme-emitted first-party canonical, hreflang and Open Graph URLs now normalize to HTTPS for the Jus-Tice host.

@@ -10,6 +10,44 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $justice_phone = justice_theme_option( 'justice_phone', '03-6161535' );
+$justice_topic_links = array(
+	array(
+		'label' => __( 'עורך דין גירושין', 'justice-theme' ),
+		'url'   => justice_theme_safe_public_link( '/divorce-lawyer/', '/family-law/' ),
+	),
+	array(
+		'label' => __( 'עורך דין פלילי', 'justice-theme' ),
+		'url'   => justice_theme_safe_public_link( '/criminal-lawyer/', '/criminal-law/' ),
+	),
+	array(
+		'label' => __( 'עורך דין מקרקעין', 'justice-theme' ),
+		'url'   => justice_theme_safe_public_link( '/real-estate-lawyer/', '/lawyers/?area=real-estate-law' ),
+	),
+	array(
+		'label' => __( 'רשלנות רפואית', 'justice-theme' ),
+		'url'   => justice_theme_safe_public_link( '/medical-malpractice-lawyer/', '/lawyers/?area=medical-malpractice-law' ),
+	),
+	array(
+		'label' => __( 'נזיקין ותאונות', 'justice-theme' ),
+		'url'   => justice_theme_safe_public_link( '/personal-injury-lawyer/', '/personal-injury-law/' ),
+	),
+	array(
+		'label' => __( 'תעבורה', 'justice-theme' ),
+		'url'   => justice_theme_safe_public_link( '/traffic-lawyer/', '/traffic-law/' ),
+	),
+	array(
+		'label' => __( 'עבודה', 'justice-theme' ),
+		'url'   => justice_theme_safe_public_link( '/employment-lawyer/', '/lawyers/?area=labor-law' ),
+	),
+	array(
+		'label' => __( 'ירושה וצוואות', 'justice-theme' ),
+		'url'   => justice_theme_safe_public_link( '/inheritance-lawyer/', '/inheritance/' ),
+	),
+	array(
+		'label' => __( 'אבחון משפטי חכם', 'justice-theme' ),
+		'url'   => home_url( '/legal-tools/ai-intake/' ),
+	),
+);
 ?>
 
 <header class="site-header" role="banner">
@@ -77,12 +115,9 @@ $justice_phone = justice_theme_option( 'justice_phone', '03-6161535' );
 	<nav class="site-header__topic-strip" aria-label="<?php esc_attr_e( 'ניווט מהיר לתחומי משפט מרכזיים', 'justice-theme' ); ?>">
 		<div class="container site-header__topic-strip-inner">
 			<span class="site-header__topic-label"><?php esc_html_e( 'תחומי חיפוש מרכזיים', 'justice-theme' ); ?></span>
-			<a href="<?php echo esc_url( home_url( '/divorce-lawyer/' ) ); ?>"><?php esc_html_e( 'עורך דין גירושין', 'justice-theme' ); ?></a>
-			<a href="<?php echo esc_url( home_url( '/criminal-lawyer/' ) ); ?>"><?php esc_html_e( 'עורך דין פלילי', 'justice-theme' ); ?></a>
-			<a href="<?php echo esc_url( home_url( '/real-estate-lawyer/' ) ); ?>"><?php esc_html_e( 'עורך דין מקרקעין', 'justice-theme' ); ?></a>
-			<a href="<?php echo esc_url( home_url( '/medical-malpractice-lawyer/' ) ); ?>"><?php esc_html_e( 'רשלנות רפואית', 'justice-theme' ); ?></a>
-			<a href="<?php echo esc_url( home_url( '/lawyers/?area=family-law' ) ); ?>"><?php esc_html_e( 'דיני משפחה', 'justice-theme' ); ?></a>
-			<a href="<?php echo esc_url( home_url( '/legal-tools/ai-intake/' ) ); ?>"><?php esc_html_e( 'אבחון משפטי חכם', 'justice-theme' ); ?></a>
+			<?php foreach ( $justice_topic_links as $justice_topic_link ) : ?>
+				<a href="<?php echo esc_url( $justice_topic_link['url'] ); ?>"><?php echo esc_html( $justice_topic_link['label'] ); ?></a>
+			<?php endforeach; ?>
 		</div>
 	</nav>
 </header>

@@ -96,3 +96,24 @@ Status:
 - VISUAL VERIFIED for current homepage.
 - PARTIAL CUSTOMER-READY.
 - Next safe action is no-URL-change homepage link/template refinement after deployment verification.
+
+## 2026-05-10 No-URL-Change Link Safety Batch
+
+CODE FIXED:
+- Header topic strip now includes the missing broad lawyer-intent links for personal injury, traffic, employment and inheritance.
+- Header, featured pillar cards and topic-cluster links now use safe primary/fallback routing.
+- Planned English pillar URLs are used only if WordPress has published content at that path.
+- If the clean pillar does not exist yet, the link falls back to an existing hub or filtered lawyer directory.
+
+LIVE VERIFIED BEFORE FIX:
+- `/criminal-lawyer/`, `/real-estate-lawyer/`, `/personal-injury-lawyer/`, `/employment-lawyer/` and `/inheritance-lawyer/` currently redirect to the homepage.
+- `/traffic-lawyer/`, `/divorce-lawyer/`, `/family-law/`, `/criminal-law/`, `/medical-malpractice-lawyer/`, `/personal-injury-law/` and `/inheritance/` returned 200 in the public check.
+
+NOT LIVE VERIFIED:
+- The safer rendered links require live deployment/cache refresh before visual verification.
+
+Status:
+- CODE FIXED.
+- NOT LIVE VERIFIED.
+- NO URL CHANGES.
+- NO REDIRECTS.

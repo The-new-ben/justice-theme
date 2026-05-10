@@ -46,6 +46,56 @@ function justice_theme_get_primary_practice_area( $post_id = 0 ) {
 }
 
 /**
+ * Check whether a clean public path already has published WordPress content.
+ *
+ * Used by homepage/header hub links so planned English pillar URLs do not send
+ * visitors to server-level homepage redirects before the page is actually live.
+ *
+ * @param string $path Public URL path, with or without leading slash.
+ * @return bool
+ */
+function justice_theme_public_path_is_published( string $path ): bool {
+	$url_path = (string) wp_parse_url( $path, PHP_URL_PATH );
+	$slug     = trim( $url_path, '/' );
+
+	if ( '' === $slug ) {
+		return true;
+	}
+
+	$post_types = array_values( array_filter( array( 'page', 'articles', 'post' ), 'post_type_exists' ) );
+	if ( empty( $post_types ) ) {
+		$post_types = array( 'page', 'post' );
+	}
+
+	$post = get_page_by_path( $slug, OBJECT, $post_types );
+
+	return $post instanceof WP_Post && 'publish' === get_post_status( $post );
+}
+
+/**
+ * Return a safe homepage/header URL for a planned pillar.
+ *
+ * Primary path is used only when a published page/article exists. Otherwise we
+ * fall back to an existing hub or filtered directory without changing slugs or
+ * creating redirects.
+ *
+ * @param string $primary_path  Preferred clean pillar path.
+ * @param string $fallback_path Working fallback path if the pillar is not live.
+ * @return string
+ */
+function justice_theme_safe_public_link( string $primary_path, string $fallback_path = '' ): string {
+	$target_path = justice_theme_public_path_is_published( $primary_path )
+		? $primary_path
+		: ( $fallback_path ?: $primary_path );
+
+	if ( preg_match( '#^https?://#i', $target_path ) ) {
+		return $target_path;
+	}
+
+	return home_url( $target_path );
+}
+
+/**
  * Resolve a public lawyer profile connected from article metadata.
  *
  * @param string $slug Canonical lawyer slug.

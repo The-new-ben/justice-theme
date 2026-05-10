@@ -32,14 +32,25 @@
 7. UPDATED: `project-control/sitemap-strategy.md` and `project-control/robots-htaccess-review.md`.
 
 ### ACTION-SEO-003: No-URL-Change Homepage + Directory SEO Batch
-**Status:** NEXT
+**Status:** CODE FIXED - live deployment/visual verification pending
 **Why:** GSC shows broad `עורך דין` / `עורכי דין` intent is scattered. This can be improved before URL migration.
 **Actions:**
-1. Export/verify current homepage and `/lawyers/` title/H1/meta.
-2. Prepare title/H1/meta update recommendations.
-3. Add/plan internal links from homepage to approved pillar URLs.
-4. Add/plan internal links from key articles to `/lawyers/`.
-5. Do not change slugs or redirects in this batch.
+1. DONE: Exported current homepage and `/lawyers/` title/H1/meta into `project-control/seo-title-h1-review.csv`.
+2. DONE: Created batch evidence at `project-control/homepage-directory-seo-batch-001.md` and `.csv`.
+3. DONE: Code-fixed homepage/header/topic-cluster links so planned pillar URLs are used only when published; otherwise they fall back to working hubs/directory filters.
+4. DONE: Updated `project-control/internal-link-map.csv` with homepage-to-pillar link intent rows.
+5. VERIFIED: no slugs or redirects were changed in this batch.
+6. NEXT: deploy/pull latest code, clear cache, then visually verify homepage topic strip and `/lawyers/` title output.
+
+### ACTION-SEO-004: Post-Deploy Homepage + Directory Verification
+**Status:** NEXT
+**Why:** Code is fixed locally, but live site still needs deployment/cache refresh before the customer-facing links and titles can be called verified.
+**Actions:**
+1. Recheck homepage rendered topic strip links in public HTML.
+2. Recheck homepage and `/lawyers/` title/H1/meta.
+3. Recheck mobile homepage topic strip and featured pillar cards.
+4. Confirm no topic link returns homepage redirect unless intentionally using the homepage.
+5. Update `project-control/customer-facing-qa.md` and visual evidence.
 
 ---
 

@@ -2,6 +2,18 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-10 21:55 Asia/Jerusalem
+- CODE FIXED: no-URL-change homepage/directory SEO batch added safe primary/fallback internal links for major legal-intent topics.
+- CODE FIXED: `inc/template-tags.php` now exposes `justice_theme_public_path_is_published()` and `justice_theme_safe_public_link()` so planned English pillar URLs are used only when published.
+- CODE FIXED: header topic strip now includes divorce, criminal, real estate, medical malpractice, personal injury, traffic, employment, inheritance and AI intake links.
+- CODE FIXED: featured pillar cards and topic-cluster links now use safe published-path checks and fallbacks.
+- VERIFIED LIVE BEFORE FIX: `/criminal-lawyer/`, `/real-estate-lawyer/`, `/personal-injury-lawyer/`, `/employment-lawyer/` and `/inheritance-lawyer/` redirect to homepage, so direct hard-coded links were unsafe before the batch.
+- VERIFIED LIVE BEFORE FIX: homepage and `/lawyers/` title/H1/meta were exported into `project-control/seo-title-h1-review.csv`; `/lawyers/` still shows the English `Archive` title leak on live.
+- VERIFIED: PHP lint passed locally for 127 PHP files after this batch.
+- DOCUMENTED: evidence and next steps are in `project-control/homepage-directory-seo-batch-001.md` and `project-control/homepage-directory-seo-batch-001.csv`.
+- SAFETY: no slugs, redirects, public content, sitemap rules, robots rules, wp-admin settings or database records were changed.
+- NOT VERIFIED LIVE: requires deployment/pull/cache refresh and visual recheck.
+
 ## LATEST VERIFICATION STATUS - 2026-05-10 21:30 Asia/Jerusalem
 - VERIFIED: owner-provided PHP ZIP was installed locally at `C:\Users\janana\tools\php-8.5.6\php.exe`.
 - VERIFIED: full repo PHP lint now passes for 127 PHP files; the previous "PHP lint blocked" status for the contextual SEO title fix is resolved locally.

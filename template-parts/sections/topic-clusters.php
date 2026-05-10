@@ -13,6 +13,7 @@ $topics = array(
 	array(
 		'title' => 'דיני משפחה',
 		'slug'  => 'family-law',
+		'url'   => justice_theme_safe_public_link( '/family-lawyer/', '/family-law/' ),
 		'links' => array(
 			array( 'label' => 'עורך דין גירושין', 'url' => '/divorce-lawyer/' ),
 			array( 'label' => 'גירושין בהסכמה', 'url' => '/consensual-divorce/' ),
@@ -23,9 +24,24 @@ $topics = array(
 			array( 'label' => 'יישוב סכסוך במשפחה', 'url' => '/family-dispute-resolution/' ),
 		),
 	),
-	array( 'title' => 'משפט פלילי', 'slug' => 'criminal-law', 'links' => array() ),
-	array( 'title' => 'מקרקעין', 'slug' => 'real-estate-law', 'links' => array() ),
-	array( 'title' => 'תעבורה', 'slug' => 'traffic-law', 'links' => array() ),
+	array(
+		'title' => 'משפט פלילי',
+		'slug'  => 'criminal-law',
+		'url'   => justice_theme_safe_public_link( '/criminal-lawyer/', '/criminal-law/' ),
+		'links' => array(),
+	),
+	array(
+		'title' => 'מקרקעין',
+		'slug'  => 'real-estate-law',
+		'url'   => justice_theme_safe_public_link( '/real-estate-lawyer/', '/lawyers/?area=real-estate-law' ),
+		'links' => array(),
+	),
+	array(
+		'title' => 'תעבורה',
+		'slug'  => 'traffic-law',
+		'url'   => justice_theme_safe_public_link( '/traffic-lawyer/', '/traffic-law/' ),
+		'links' => array(),
+	),
 );
 ?>
 
@@ -39,9 +55,10 @@ $topics = array(
 		
 		<div class="clusters-grid">
 			<?php foreach ( $topics as $topic ) : ?>
+				<?php $topic_url = $topic['url'] ?? home_url( '/' . $topic['slug'] . '/' ); ?>
 				<div class="cluster-card">
 					<h3 class="cluster-title">
-						<a href="<?php echo esc_url( home_url( '/' . $topic['slug'] . '/' ) ); ?>">
+						<a href="<?php echo esc_url( $topic_url ); ?>">
 							<?php echo esc_html( $topic['title'] ); ?>
 						</a>
 					</h3>
@@ -57,7 +74,7 @@ $topics = array(
 							if ( '' === $label || '' === $url ) {
 								continue;
 							}
-							echo '<li><a href="' . esc_url( home_url( $url ) ) . '">' . esc_html( $label ) . '</a></li>';
+							echo '<li><a href="' . esc_url( justice_theme_safe_public_link( $url, $topic_url ) ) . '">' . esc_html( $label ) . '</a></li>';
 						}
 						echo '</ul>';
 					else :
@@ -94,7 +111,7 @@ $topics = array(
 					endif;
 					endif;
 					?>
-					<a class="cluster-more" href="<?php echo esc_url( home_url( '/' . $topic['slug'] . '/' ) ); ?>">
+					<a class="cluster-more" href="<?php echo esc_url( $topic_url ); ?>">
 						<?php esc_html_e( 'לכל המדריכים בנושא זה', 'justice-theme' ); ?> &larr;
 					</a>
 				</div>

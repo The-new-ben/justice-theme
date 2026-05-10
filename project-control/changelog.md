@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - No-URL-change homepage/directory SEO link safety batch
+
+- CODE FIXED: added safe primary/fallback public link helpers so planned English pillar URLs are only used when published content exists.
+- CODE FIXED: header topic strip now covers the major homepage lawyer-intent links: divorce, criminal, real estate, medical malpractice, personal injury, traffic, employment, inheritance and AI intake.
+- CODE FIXED: featured pillar cards and topic-cluster links now avoid not-yet-published pillar URLs that currently redirect to the homepage.
+- LIVE VERIFIED BEFORE FIX: several planned pillar URLs still redirect to the homepage, including `/criminal-lawyer/`, `/real-estate-lawyer/`, `/personal-injury-lawyer/`, `/employment-lawyer/` and `/inheritance-lawyer/`.
+- UPDATED: `project-control/homepage-directory-seo-batch-001.md`, `project-control/homepage-directory-seo-batch-001.csv`, `project-control/homepage-seo-design-alignment.md`, `project-control/seo-title-h1-review.csv`, `project-control/internal-link-map.csv`, `project-control/next-actions.md`, and `project-control/current-status.md`.
+- VERIFIED: PHP lint passed locally for 127 PHP files.
+- SAFETY: no public URLs, redirects, content bodies, sitemap rules, robots rules, wp-admin settings or CMS/database records were changed.
+- NOT VERIFIED LIVE: requires deployment/cache refresh and public visual recheck.
+
 ## 2026-05-10 - Local PHP 8.5.6 install and live deployment recheck
 
 - VERIFIED: installed owner-provided PHP ZIP locally to `C:\Users\janana\tools\php-8.5.6\php.exe`.

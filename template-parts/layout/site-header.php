@@ -73,6 +73,18 @@ $justice_phone = justice_theme_option( 'justice_phone', '03-6161535' );
 			<?php endif; ?>
 		</div>
 	</div>
+
+	<nav class="site-header__topic-strip" aria-label="<?php esc_attr_e( 'ניווט מהיר לתחומי משפט מרכזיים', 'justice-theme' ); ?>">
+		<div class="container site-header__topic-strip-inner">
+			<span class="site-header__topic-label"><?php esc_html_e( 'תחומי חיפוש מרכזיים', 'justice-theme' ); ?></span>
+			<a href="<?php echo esc_url( home_url( '/divorce-lawyer/' ) ); ?>"><?php esc_html_e( 'עורך דין גירושין', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/criminal-lawyer/' ) ); ?>"><?php esc_html_e( 'עורך דין פלילי', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/real-estate-lawyer/' ) ); ?>"><?php esc_html_e( 'עורך דין מקרקעין', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/medical-malpractice-lawyer/' ) ); ?>"><?php esc_html_e( 'רשלנות רפואית', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/lawyers/?area=family-law' ) ); ?>"><?php esc_html_e( 'דיני משפחה', 'justice-theme' ); ?></a>
+			<a href="<?php echo esc_url( home_url( '/legal-tools/ai-intake/' ) ); ?>"><?php esc_html_e( 'אבחון משפטי חכם', 'justice-theme' ); ?></a>
+		</div>
+	</nav>
 </header>
 <?php
 

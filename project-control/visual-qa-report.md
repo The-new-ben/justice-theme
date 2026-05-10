@@ -23,6 +23,11 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - VERIFIED: Dummy logo text is not present.
 - NOT VERIFIED: Admin-only content draft importer cannot be verified from public homepage HTML, as expected.
 
+## 2026-05-10 Header Topic Strip
+- FIXED IN REPO: Added a dark premium topic strip below the main header with Hebrew labels and short English target slugs for divorce, criminal, real estate, medical malpractice, family law and AI intake.
+- VERIFIED: PHP lint passed locally for 120 PHP files after the header change.
+- NOT VERIFIED: Live visual rendering is pending GitHub/Upress pull and public screenshot recheck.
+
 ## Visual Findings
 - STILL BROKEN: Header still looks too thin for a premium legal portal.
 - STILL BROKEN: The logo appears too small and does not show the new blinking red dot fallback yet, indicating the live site likely has not pulled the latest commit or cache is stale.
@@ -34,7 +39,7 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - GOOD: Lead/LegalTech sections exist and the page has more business depth than a basic blog.
 - GOOD: After the live pull recheck, article placeholders are visually richer and the hero has a visible legal-tech layer.
 - STILL BROKEN: Header navigation remains too thin for the final product and needs a stronger primary menu/mega-menu.
-- FIXED IN REPO / LIVE NOT VERIFIED: Header fallback menu labels were cleaned to readable Hebrew, canonical practice-area filter slugs were corrected, LegalTech and lawyer-registration links were added, and header styling was strengthened.
+- FIXED IN REPO / LIVE NOT VERIFIED: Header fallback menu labels were cleaned to readable Hebrew, canonical practice-area filter slugs were corrected, LegalTech and lawyer-registration links were added, header styling was strengthened, and a topic strip now exposes the highest-value legal/LegalTech routes.
 
 ## Public HTML Checks
 - VERIFIED: homepage loads.

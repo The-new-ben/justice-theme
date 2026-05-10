@@ -5,6 +5,13 @@
 
 ### FIXED
 
+**[HIGH] Added premium header topic strip**
+- Files: `template-parts/layout/site-header.php`, `assets/css/premium-pass-3.css`
+- Added a dark portal-style quick navigation strip for the main Hebrew legal intents while keeping URLs in the approved short English slug format.
+- Links include divorce, criminal, real estate, medical malpractice, family law directory filtering and AI intake.
+- VERIFIED: PHP lint passed locally for 120 PHP files.
+- LIVE NOT VERIFIED: requires GitHub/Upress pull and public screenshot recheck.
+
 **[HIGH] Added reusable PHP lint helper**
 - File: `tools/php-lint.ps1`
 - Result: VERIFIED locally - PHP lint passed for 120 PHP files.

@@ -6,7 +6,7 @@ Date: 2026-05-10
 
 VERIFIED: GitHub `main` is ahead of the live WordPress theme output.
 
-Evidence from `tools/check-live-deployment.ps1` before the static marker commit is deployed:
+Evidence from `tools/check-live-deployment.ps1` after commit `542aeef`:
 
 - Homepage PHP marker: NOT VERIFIED.
 - Static theme marker at `/wp-content/themes/justice-theme/deployment-marker.txt`: NOT VERIFIED.

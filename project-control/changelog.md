@@ -20,6 +20,7 @@
 - Added a PowerShell checker that reports the homepage PHP marker, static marker, and family-law internal-marker scan in one pass.
 - This separates three states: GitHub pushed, static files pulled, and WordPress actually rendering the latest PHP.
 - VERIFIED locally: checker runs and currently reports PHP marker absent, static marker absent, and all seven family-law URLs still dirty on live.
+- LIVE RECHECK after push `542aeef`: checker still reports the same absent markers and dirty family-law pages.
 - CODE FIXED. LIVE NOT VERIFIED until uPress pulls and the checker sees the marker.
 
 **[CRITICAL] Added runtime public-content guard for family-law pages**

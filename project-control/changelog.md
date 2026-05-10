@@ -52,8 +52,8 @@
 
 **[HIGH] Expanded consensual-divorce supporting draft**
 - Files: `content-drafts/consensual-divorce-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
-- Expanded `/consensual-divorce/` from about 1,208 words to about 2,075 words.
-- Added agreement-quality checks, agreement structure, workflow, common mistakes and a LegalTech readiness-tool concept tied to lawyer mini-sites.
+- Expanded `/consensual-divorce/` from about 1,208 words to about 3,507 words across two sequential passes.
+- Added agreement-quality checks, agreement structure, approval workflow, cost caution, children/risk sections, CRM intent, CMS module plan, common mistakes and a LegalTech readiness-tool concept tied to lawyer mini-sites.
 - Status remains NOT VERIFIED for legal accuracy and not ready to publish.
 
 **[MEDIUM] Rechecked live header**

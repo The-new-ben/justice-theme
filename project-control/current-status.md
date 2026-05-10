@@ -3,6 +3,10 @@ Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
 ## LATEST CODE STATUS - 2026-05-10
+- FIXED IN CODE: Added a global publication safety gate for public posts/pages/articles. It blocks publish/future saves if internal markers like `NOT VERIFIED`, `project-control/`, `Source audit:`, `GSC`, `CMS`, `CRM`, slug metadata, keyword metadata, or owner/team notes remain in the body.
+- SAFETY: Draft/private editing remains allowed so internal notes can be preserved in draft-only editorial notes.
+- VERIFIED: PHP lint passed locally for 126 PHP files after the publication safety gate.
+- NOT VERIFIED LIVE: requires uPress pull and a controlled wp-admin test publish attempt.
 - FIXED IN CODE: Header/footer/fallback menu URLs now use canonical English lawyer-directory filter slugs for personal injury and inheritance, while old `torts`/`inheritance` params are still normalized for compatibility.
 - FIXED IN CODE: Existing WordPress menu repair is bumped to `justice_menu_area_urls_repaired_v2` so stale `torts`/`inheritance` menu items can be repaired even if the older v1 hook already ran.
 - VERIFIED: PHP lint passed locally for 125 PHP files after the menu slug cleanup.

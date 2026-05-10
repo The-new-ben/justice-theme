@@ -52,5 +52,12 @@ The family-law live publisher is now blocked by default unless:
 - The recommended action does not block publication.
 - The cleaned public draft has no internal safety markers.
 
+The theme now also has a global public-publication safety gate:
+- File: `inc/publication-safety.php`.
+- It applies to `articles`, `page`, and `post` only when the target status is `publish` or `future`.
+- It blocks publication if the content still contains internal markers such as `NOT VERIFIED`, `project-control/`, `Source audit:`, `GSC`, `CMS`, `CRM`, `Slug target:`, `Primary keyword:`, source-review notes, owner/team notes, or business-planning notes.
+- Draft/private editing is still allowed, so internal notes can be preserved in draft/private editorial notes.
+- Status: FIXED IN CODE, NOT VERIFIED LIVE until uPress pulls and an editor tries a controlled test publish.
+
 ## Current Decision
 Automatic creation of new family-law public pages is disabled. Existing family-law pages are handled through editorial repair/enrichment, while future public legal content should first enter the `articles` CPT as clean drafts.

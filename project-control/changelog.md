@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Public publication safety gate
+
+- FIXED IN CODE: Added `inc/publication-safety.php`, a hard gate that blocks `publish`/`future` saves for public posts/pages/articles when internal project markers are still present.
+- SAFETY: Draft/private content remains editable, so internal notes can still live in private editorial notes.
+- FIXED IN CODE: Theme now loads the safety gate after the family-law cleaner so both share marker-detection logic.
+- DOCUMENTED: `project-control/publication-workflow.md` now names the global safety gate and expected live test.
+- VERIFIED: PHP lint passed locally for 126 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull and a controlled wp-admin test publish attempt.
+
 ## 2026-05-10 - Canonical lawyer-directory filter slugs
 
 - FIXED IN CODE: Header/footer/fallback seeded menus now use canonical English directory filter slugs for personal injury and inheritance.

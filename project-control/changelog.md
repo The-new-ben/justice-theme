@@ -96,9 +96,14 @@
 
 **[HIGH] Expanded divorce-property-division supporting draft**
 - Files: `content-drafts/divorce-property-division-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
-- Expanded `/divorce-property-division/` from about 1,068 words to about 4,500 words across three sequential passes.
+- Expanded `/divorce-property-division/` from about 1,068 words to about 4,553 words across three sequential passes.
 - Added asset map, rupture-date caution, prenuptial agreement review, premarital-home issues, inheritance/gifts, pension documentation, business/company/self-employed issues, tech options, family-vs-personal debts, hidden-asset warning signs, asset table, staged workflow, expert roles, home-sale alternatives, common mistakes, urgency detection, CRM intake fields, lawyer monetization modules, decision paths, publication gates, follow-up cluster plan, anti-cannibalization boundaries, LegalTech property-map concept and CMS structure.
 - Status remains NOT VERIFIED for legal/financial accuracy and not ready to publish.
+
+**[HIGH] Added property-division source audit**
+- Files: `project-control/property-division-source-audit.csv`, `content-drafts/divorce-property-division-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
+- Mapped resource balancing, excluded assets, pension division, tax guidance, family-dispute procedure, interim relief, rupture date, premarital home, intent to share, agreements, inheritances/gifts, business/options, debts and hidden-assets warnings to source candidates or legal-review blockers.
+- Kol Zchut source candidates returned HTTP 200; gov.il source candidates were search-verified but require browser verification because scripted checks returned 403.
 
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`

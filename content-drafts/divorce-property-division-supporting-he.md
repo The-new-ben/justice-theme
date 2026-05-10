@@ -1,7 +1,7 @@
 # חלוקת רכוש בגירושין: איזון משאבים, דירת מגורים, פנסיה, חובות ונכסים עסקיים
 
 Slug target: `/divorce-property-division/`  
-Status: PRODUCTION_DRAFT_V4_4500_WORD_CLASS
+Status: PRODUCTION_DRAFT_V4_4500_WORD_CLASS_SOURCE_AUDITED
 Target length: 4,500-6,500 words after legal/editorial expansion  
 Connected pillar: `/divorce-lawyer/`  
 Connected lawyer: `advocate-maya-rotenberg`  
@@ -561,8 +561,13 @@ Jus-Tice יכול לבנות כלי הכנה בשם "מפת רכוש לגירו�
 
 ## מקורות ראשוניים
 
+- Source audit: `project-control/property-division-source-audit.csv`
 - כל-זכות: הסדר איזון משאבים - https://www.kolzchut.org.il/he/הסדר_איזון_משאבים
+- כל-זכות: חלוקת פנסיה בין בני זוג שנפרדו - https://www.kolzchut.org.il/he/חלוקת_פנסיה_בין_בני_זוג_שנפרדו
 - הרשות השופטת: בקשה לסעד זמני בסכסוך משפחתי - https://www.gov.il/he/service/asking_for_prohibited_steps_order
+- הרשות השופטת: בקשה ליישוב סכסוך במשפחה - https://www.gov.il/he/service/asking_for_family_dispute_settlements
+- הרשות השופטת: הגשת תביעה בעניין של סכסוך משפחתי - https://www.gov.il/he/service/filing-lawsuit-family-dispute
+- רשות המסים: הסדרת היבטי המס בעת העברת כספים מקופות גמל לבן הזוג לשעבר - https://www.gov.il/he/service/regulation-of-tax-aspects
 - סקירת SERP: Din, משפטי, מאמרי עורכי דין, פירוק שיתוף בדירת מגורים, נכסי קריירה ופנסיה.
 - Rotenberg Law הופיע בתוצאות סביב איזון משאבים; שימוש כמקור פנימי/לקוח דורש אישור לפני פרסום.
 
@@ -579,6 +584,6 @@ Jus-Tice יכול לבנות כלי הכנה בשם "מפת רכוש לגירו�
 ## סטטוס לפני פרסום
 
 - NOT VERIFIED: סקירה משפטית.
-- NOT VERIFIED: בדיקת מקורות רשמיים מלאה.
+- NOT VERIFIED: בדיקת מקורות gov.il ידנית בדפדפן.
 - NOT VERIFIED: קניבליזציה מול תכני רכוש קיימים.
-- READY NEXT: source audit, בדיקה משפטית, טבלאות נכסים/מסמכים, וחיבור ל-CMS.
+- READY NEXT: בדיקה משפטית, בדיקת מקורות ידנית בדפדפן, טבלאות נכסים/מסמכים, וחיבור ל-CMS.

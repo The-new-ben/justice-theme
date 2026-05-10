@@ -23,6 +23,8 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - VERIFIED: work/traffic/inheritance variant GSC pass checked `עורך דין תאונת עבודה`, `פגיעה בעבודה`, `תאונת עבודה ביטוח לאומי`, `נהיגה בשכרות`, `שלילת רישיון`, `עורך דין ירושה`, `צוואה`, and `התנגדות לצוואה`.
 - FOUND FROM GSC: work-accident exact variants returned no visible rows; traffic subtopic signals are currently mismapped or off-intent.
 - FOUND FROM GSC: `צוואה` has 201 impressions and `התנגדות לצוואה` has 121 impressions, mostly on old case-law pages and one old Hebrew wills/inheritance page. This is an inheritance/wills cluster opportunity but requires merge planning.
+- VERIFIED: overloaded page-to-query pass reconfirmed `/real-estate-lawyer-cost-2025/` as a real estate cost/payment support asset with 3.85K impressions and found `/car-accident-auto-injury-lawyer/` has 124 impressions mainly for fatal-accident/criminal-punishment intent.
+- PARTIAL: direct GSC page filters for Hebrew malpractice and inheritance URLs returned zero rows even though those URLs appeared in query-to-page checks; this is documented as a browser-filter limitation, not proof of no traffic.
 - BLOCKED: GSC API/download export, database/phpMyAdmin, wp-admin menu export and uPress server settings remain unavailable from this session without separate credentials/tooling.
 - DECISION: no URL changes, redirects, deletes, noindex actions, sitemap edits or content overwrites will happen until the maps are reviewed and approved.
 - RISK: `sitemap.xml` and `wp-sitemap.xml` returned homepage-like HTML in public shell checks, so sitemap generation must be verified/fixed before any migration.

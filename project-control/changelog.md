@@ -1098,3 +1098,11 @@
 - FOUND: `צוואה` has 201 impressions split across old case-law pages, an old Hebrew wills/inheritance page, a DOCX, probate content and will-revocation content.
 - FOUND: `התנגדות לצוואה` has 121 impressions, with 120 on the old case-law page about undue influence.
 - SAFETY: no public content, URLs, redirects, sitemap settings or robots rules were changed.
+
+## 2026-05-10 GSC Overloaded Page-To-Query Pass
+- VERIFIED: Browser GSC page-to-query review reconfirmed `/real-estate-lawyer-cost-2025/` with 2 clicks, 3.85K impressions, 0.1% CTR and average position 50.1.
+- VERIFIED: `/car-accident-auto-injury-lawyer/` has 0 clicks, 124 impressions and average position 57.5, mostly for fatal-accident/criminal-punishment queries.
+- UPDATED: `project-control/gsc-page-query-review.csv`, `project-control/gsc-content-priorities.csv`, `project-control/gsc-browser-workflow.md`, and `project-control/current-status.md`.
+- SAVED EVIDENCE: `project-control/visual-evidence/gsc-page-query-car-accident-2026-05-10.png`.
+- PARTIAL: direct page filters for Hebrew malpractice and inheritance URLs returned zero rows despite those URLs appearing in query-to-page checks. This was documented as a browser-filter limitation and not treated as a no-traffic conclusion.
+- SAFETY: no public content, URLs, redirects, sitemap settings or robots rules were changed.

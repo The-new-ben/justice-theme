@@ -180,3 +180,26 @@ Next GSC browser checks:
 - page-to-query checks for `/real-estate-lawyer-cost-2025/`, `/עורך-דין-רשלנות-רפואית-בלידה-מומלץ/`, `/car-accident-auto-injury-lawyer/`, and `/psakdin/התנגדות-לצוואה-בשל-השפעה-בלתי-הוגנת/`
 - variants for `עורך דין צוואה וירושה`, `צו קיום צוואה`, `צו ירושה`, `ניהול עיזבון`
 - national-insurance variants: `ועדה רפואית`, `קצבת נכות`, `עורך דין ביטוח לאומי`
+
+## Overloaded Page-To-Query Pass
+
+Completed in sixth browser pass:
+- `/real-estate-lawyer-cost-2025/`
+- `/עורך-דין-רשלנות-רפואית-בלידה-מומלץ/`
+- `/car-accident-auto-injury-lawyer/`
+- `/psakdin/התנגדות-לצוואה-בשל-השפעה-בלתי-הוגנת/`
+- `/עורך-דין-צוואות-וירושות/`
+
+Overloaded page findings:
+- `/real-estate-lawyer-cost-2025/`: reconfirmed 2 clicks, 3.85K impressions, 0.1% CTR and average position 50.1. Top queries remain apartment sale/purchase lawyer cost/payment intent.
+- `/car-accident-auto-injury-lawyer/`: 0 clicks, 124 impressions, 0% CTR and average position 57.5. Queries are mostly fatal-accident/criminal-punishment intent, so this page may be a narrower support page rather than the final generic `/car-accident-lawyer/` pillar.
+- Hebrew malpractice and inheritance pages appeared in query-to-page checks, but direct page-filter checks returned zero rows. This is recorded as a browser-filter limitation, not proof of no traffic.
+
+Overloaded page evidence:
+- Screenshot: `project-control/visual-evidence/gsc-page-query-car-accident-2026-05-10.png`
+- CSV: `project-control/gsc-page-query-review.csv`
+
+Next GSC browser checks:
+- variants for `עורך דין צוואה וירושה`, `צו קיום צוואה`, `צו ירושה`, `ניהול עיזבון`
+- national-insurance variants: `ועדה רפואית`, `קצבת נכות`, `עורך דין ביטוח לאומי`
+- broader malpractice variants: `ניתוח קיסרי`, `אבחון מאוחר`, `רשלנות באבחון`

@@ -1,5 +1,5 @@
 ﻿# Current Status - Jus-Tice.co.il
-Date: 2026-05-09
+Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
 ## VERIFIED
@@ -107,7 +107,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Consensual-divorce source audit now exists at `project-control/consensual-divorce-source-audit.csv`; official gov.il and Kol Zchut source candidates were search-verified and unresolved price/children/property/pressure claims remain blocked for review.
 - Second supporting family-law draft now exists at `content-drafts/divorce-mediation-supporting-he.md` and was expanded to about 3,507 words with suitability test, mediation types, preparation checklist, failure paths, power-imbalance warnings, children section, legal-advice boundary, pricing caution, anti-cannibalization, CMS layout and LegalTech questionnaire concept. It is still NOT legal-reviewed and not ready to publish.
 - Divorce-mediation source audit now exists at `project-control/divorce-mediation-source-audit.csv`; gov.il/Midrag source candidates were search-verified and confidentiality, mediator-role and power-imbalance claims remain blocked for legal review.
-- Third supporting family-law draft now exists at `content-drafts/child-support-supporting-he.md` and was expanded to about 4,130 words with no-fake-calculator policy, intake model, medor, exceptional expenses, time-sharing, variable income, agreement clauses, temporary support, age bands, proof/evidence, modification, unmarried parents, anti-cannibalization, cautious examples, FAQ, CMS structure, enforcement cautions and CRM routing. It is still NOT legal-reviewed and not ready to publish.
+- Third supporting family-law draft now exists at `content-drafts/child-support-supporting-he.md` and was expanded to about 4,979 words with no-fake-calculator policy, intake model, medor, exceptional expenses, time-sharing, variable income, agreement clauses, temporary support, age bands, proof/evidence, modification, unmarried parents, anti-cannibalization, cautious examples, FAQ, CMS structure, enforcement cautions, CRM routing, decision paths and LegalTech tool guardrails. It is still NOT legal-reviewed and not ready to publish.
 - Fourth supporting family-law draft now exists at `content-drafts/child-custody-supporting-he.md`, but it is NOT legal-reviewed and not ready to publish.
 - Fifth supporting family-law draft now exists at `content-drafts/divorce-property-division-supporting-he.md`, but it is NOT legal-reviewed and not ready to publish.
 - Existing live Hebrew slugs need a controlled English-slug migration with 301 redirects; repo changes prevent future seed slugs but do not automatically fix already-published URLs unless an approved migration runs.
@@ -131,5 +131,6 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 6. Verify `/legal-tools/`, `/legal-tools/ai-intake/`, and one test LegalTech request in admin.
 7. Commit only repo-safe changes; do not create ZIPs.
 8. Export live URL/slug inventory before changing any Hebrew slugs; fill `url-migration-map.csv`, then create approved 301 redirects for every changed URL.
-9. Pull latest in Upress and visit `/wp-admin/` once to seed draft pillar pages, then expand/review/publish `/divorce-lawyer/` first as the first 5,000-word-class pillar.
-10. Verify live homepage after Upress pull; expected signs are the blinking red-dot Jus-Tice fallback, richer hero visual layer, and upgraded article-card placeholders.
+9. Create `project-control/child-support-source-audit.csv` before any CMS import of `/child-support/`.
+10. Pull latest in Upress and visit `/wp-admin/` once to seed draft pillar pages, then expand/review/publish `/divorce-lawyer/` first as the first 5,000-word-class pillar.
+11. Verify live homepage after Upress pull; expected signs are the blinking red-dot Jus-Tice fallback, richer hero visual layer, and upgraded article-card placeholders.

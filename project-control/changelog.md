@@ -94,6 +94,12 @@
 - Mapped custody/time-sharing procedure, family-dispute filing, dispute-resolution process, interim relief, assistance units, legal aid, social-work reports, terminology, child-wishes, parental alienation, risk/urgency and evidence guidance to source candidates or legal-review blockers.
 - gov.il source candidates were search-verified; direct scripted checks returned 403 and require browser verification before publication.
 
+**[HIGH] Expanded divorce-property-division supporting draft**
+- Files: `content-drafts/divorce-property-division-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
+- Expanded `/divorce-property-division/` from about 1,068 words to about 2,767 words.
+- Added asset map, rupture-date caution, prenuptial agreement review, premarital-home issues, inheritance/gifts, pension documentation, business/company/self-employed issues, tech options, family-vs-personal debts, hidden-asset warning signs, asset table, anti-cannibalization boundaries, LegalTech property-map concept and CMS structure.
+- Status remains NOT VERIFIED for legal/financial accuracy and not ready to publish.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

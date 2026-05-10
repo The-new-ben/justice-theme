@@ -96,6 +96,9 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
 - Owner receives an email with the topic, lawyer, intent, audience and edit link.
 - The `articles` admin list includes a Content Origin column that identifies lawyer-requested drafts and links back to the requesting lawyer profile.
 - The lawyer dashboard now shows a read-only queue of submitted content requests with draft/publish state and the legal/source review gates.
+- Logged-in lawyers can submit staged mini-site update requests from `/lawyer-dashboard/`.
+- Profile update requests are stored in `pending_profile_*` metadata and set `pending_profile_review = 1`; they do not change the public profile fields automatically.
+- The Lawyer Onboarding admin queue includes profiles with pending update reviews, including already-published profiles.
 
 ## NOT VERIFIED
 

@@ -104,6 +104,53 @@ function justice_theme_handle_lawyer_content_request(): void {
 }
 add_action( 'admin_post_justice_lawyer_content_request', 'justice_theme_handle_lawyer_content_request' );
 
+function justice_theme_handle_lawyer_profile_update_request(): void {
+	if ( ! is_user_logged_in() || ! isset( $_POST['justice_lawyer_profile_update_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_profile_update_nonce'] ) ), 'justice_lawyer_profile_update' ) ) {
+		wp_safe_redirect( add_query_arg( 'profile_update', 'failed', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		wp_safe_redirect( add_query_arg( 'profile_update', 'blocked', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$user_id    = get_current_user_id();
+	$lawyer_id  = isset( $_POST['lawyer_profile_id'] ) ? absint( $_POST['lawyer_profile_id'] ) : 0;
+	$profile_ok = $lawyer_id && (string) $user_id === (string) get_post_meta( $lawyer_id, 'claimed_by_user_id', true );
+
+	if ( ! $profile_ok ) {
+		wp_safe_redirect( add_query_arg( 'profile_update', 'missing', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$pending = array(
+		'pending_profile_headline'  => isset( $_POST['profile_headline'] ) ? sanitize_text_field( wp_unslash( $_POST['profile_headline'] ) ) : '',
+		'pending_profile_services'  => isset( $_POST['profile_services'] ) ? sanitize_textarea_field( wp_unslash( $_POST['profile_services'] ) ) : '',
+		'pending_profile_process'   => isset( $_POST['profile_process'] ) ? sanitize_textarea_field( wp_unslash( $_POST['profile_process'] ) ) : '',
+		'pending_profile_video_url' => isset( $_POST['profile_video_url'] ) ? esc_url_raw( wp_unslash( $_POST['profile_video_url'] ) ) : '',
+		'pending_profile_faqs'      => isset( $_POST['profile_faqs'] ) ? sanitize_textarea_field( wp_unslash( $_POST['profile_faqs'] ) ) : '',
+	);
+
+	foreach ( $pending as $key => $value ) {
+		update_post_meta( $lawyer_id, $key, $value );
+	}
+
+	update_post_meta( $lawyer_id, 'pending_profile_review', '1' );
+	update_post_meta( $lawyer_id, 'pending_profile_submitted_at', current_time( 'mysql' ) );
+	update_post_meta( $lawyer_id, 'profile_status', 'pending_update_review' );
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_profile_update_request', 'New lawyer profile update request: ' . get_the_title( $lawyer_id ) );
+	}
+
+	justice_theme_notify_lawyer_profile_update_request( $lawyer_id, $pending );
+
+	wp_safe_redirect( add_query_arg( 'profile_update', 'sent', home_url( '/lawyer-dashboard/' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_lawyer_profile_update_request', 'justice_theme_handle_lawyer_profile_update_request' );
+
 function justice_theme_connect_content_request_to_lawyer_taxonomy( int $article_id, int $lawyer_id ): void {
 	if ( ! taxonomy_exists( 'practice-areas' ) ) {
 		return;
@@ -117,6 +164,24 @@ function justice_theme_connect_content_request_to_lawyer_taxonomy( int $article_
 
 	wp_set_object_terms( $article_id, $practice_slugs, 'practice-areas', false );
 	update_post_meta( $article_id, 'content_cluster', sanitize_key( (string) $practice_slugs[0] ) );
+}
+
+function justice_theme_notify_lawyer_profile_update_request( int $lawyer_id, array $pending ): void {
+	$admin_email = get_option( 'admin_email' );
+
+	if ( ! $admin_email || ! is_email( $admin_email ) ) {
+		return;
+	}
+
+	$message = sprintf(
+		"New staged lawyer mini-site update is waiting for review.\n\nLawyer: %s\nHeadline: %s\nVideo: %s\n\nReview profile: %s",
+		get_the_title( $lawyer_id ),
+		$pending['pending_profile_headline'] ?: '-',
+		$pending['pending_profile_video_url'] ?: '-',
+		admin_url( 'post.php?post=' . $lawyer_id . '&action=edit' )
+	);
+
+	wp_mail( $admin_email, 'New lawyer mini-site update request', $message );
 }
 
 function justice_theme_notify_lawyer_content_request( int $article_id, int $lawyer_id, string $topic, string $intent, string $audience ): void {

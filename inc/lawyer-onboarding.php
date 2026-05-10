@@ -247,21 +247,26 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 
 	$pending = new WP_Query( array(
 		'post_type'      => 'justice_lawyer',
-		'post_status'    => array( 'draft', 'pending', 'private' ),
+		'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
 		'posts_per_page' => 50,
 		'orderby'        => 'date',
 		'order'          => 'DESC',
 		'meta_query'     => array(
+			'relation' => 'OR',
 			array(
 				'key'   => 'source_type',
 				'value' => 'registration',
+			),
+			array(
+				'key'   => 'pending_profile_review',
+				'value' => '1',
 			),
 		),
 	) );
 	?>
 	<div class="wrap">
 		<h1>Lawyer Onboarding</h1>
-		<p>Pending lawyer self-registration submissions. Review identity, license, claims, practice areas and commercial plan before publishing.</p>
+		<p>Pending lawyer self-registration submissions and staged profile update requests. Review identity, license, claims, practice areas, public content and commercial plan before publishing or applying updates.</p>
 
 		<?php if ( $pending->have_posts() ) : ?>
 			<table class="widefat striped">
@@ -283,6 +288,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						<?php
 						$post_id = get_the_ID();
 						$status  = get_post_meta( $post_id, 'profile_status', true ) ?: get_post_status( $post_id );
+						$has_pending_update = '1' === (string) get_post_meta( $post_id, 'pending_profile_review', true );
 						$mini_fields = array(
 							'Headline' => get_post_meta( $post_id, 'profile_headline', true ),
 							'Services' => get_post_meta( $post_id, 'profile_services', true ),
@@ -298,6 +304,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 							<td><?php echo esc_html( get_post_meta( $post_id, 'email', true ) ?: '-' ); ?></td>
 							<td><?php echo esc_html( get_post_meta( $post_id, 'plan_type', true ) ?: '-' ); ?></td>
 							<td>
+								<?php if ( $has_pending_update ) : ?>
+									<span style="display:inline-block;margin:0 0 4px 4px;padding:2px 7px;border-radius:999px;background:#fff3cd;color:#7a4b00;font-size:12px;">Pending update review</span>
+								<?php endif; ?>
 								<?php foreach ( $mini_fields as $label => $value ) : ?>
 									<span style="display:inline-block;margin:0 0 4px 4px;padding:2px 7px;border-radius:999px;background:<?php echo $value ? '#e7f7ed' : '#f1f1f1'; ?>;color:<?php echo $value ? '#17643a' : '#666'; ?>;font-size:12px;">
 										<?php echo esc_html( $label . ': ' . ( $value ? 'YES' : 'NO' ) ); ?>

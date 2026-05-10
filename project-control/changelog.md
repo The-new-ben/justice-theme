@@ -5,6 +5,13 @@
 
 ### FIXED
 
+**[HIGH] Added staged lawyer mini-site update requests**
+- Files: `inc/lawyer-dashboard.php`, `page-lawyer-dashboard.php`, `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
+- Claimed lawyers can submit mini-site updates from `/lawyer-dashboard/` for headline, services, process, video and FAQs.
+- Updates are stored as `pending_profile_*` metadata and flagged with `pending_profile_review = 1`, so public profile fields are not changed before owner review.
+- Lawyer Onboarding now includes profiles with pending update review, including already-published profiles.
+- VERIFIED in repo. LIVE NOT VERIFIED until a claimed lawyer submits a profile update after Upress pull.
+
 **[HIGH] Connected lawyer content requests to practice-area clusters**
 - Files: `inc/lawyer-dashboard.php`, `project-control/lawyer-onboarding-workflow.md`
 - Lawyer-requested article drafts now inherit the requesting lawyer's `practice-areas` terms when available.

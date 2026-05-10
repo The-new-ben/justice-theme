@@ -139,6 +139,12 @@ $content_request_count = $content_requests ? (int) $content_requests->found_post
 					<?php endif; ?>
 
 					<h2><?php esc_html_e( 'הפרופילים שלי', 'justice-theme' ); ?></h2>
+					<?php if ( isset( $_GET['profile_update'] ) && 'sent' === $_GET['profile_update'] ) : ?>
+						<div class="legaltool-request__notice"><?php esc_html_e( 'בקשת עדכון המיני-סייט נשמרה לבדיקה. שום שינוי ציבורי לא יפורסם לפני אישור.', 'justice-theme' ); ?></div>
+					<?php elseif ( isset( $_GET['profile_update'] ) ) : ?>
+						<div class="lawyer-registration__error"><?php esc_html_e( 'בקשת עדכון הפרופיל לא נשלחה. בדקו שנבחר פרופיל מקושר.', 'justice-theme' ); ?></div>
+					<?php endif; ?>
+
 					<?php while ( $profiles->have_posts() ) : $profiles->the_post(); ?>
 						<?php
 						$post_id      = get_the_ID();
@@ -165,6 +171,39 @@ $content_request_count = $content_requests ? (int) $content_requests->found_post
 							</div>
 						</article>
 					<?php endwhile; wp_reset_postdata(); ?>
+
+					<section class="lawyer-dashboard-content-request">
+						<h2><?php esc_html_e( 'בקשת עדכון למיני-סייט', 'justice-theme' ); ?></h2>
+						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'שלחו נוסח חדש לכותרת, שירותים, תהליך עבודה, וידאו או שאלות נפוצות. העדכון נשמר לבדיקה בלבד ולא משנה את הפרופיל הציבורי עד אישור.', 'justice-theme' ); ?></p>
+						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">
+							<input type="hidden" name="action" value="justice_lawyer_profile_update_request">
+							<?php wp_nonce_field( 'justice_lawyer_profile_update', 'justice_lawyer_profile_update_nonce' ); ?>
+
+							<label for="profile-update-profile"><?php esc_html_e( 'פרופיל מחובר', 'justice-theme' ); ?></label>
+							<select id="profile-update-profile" name="lawyer_profile_id" required>
+								<?php foreach ( $profile_ids as $profile_id ) : ?>
+									<option value="<?php echo esc_attr( $profile_id ); ?>"><?php echo esc_html( get_the_title( $profile_id ) ); ?></option>
+								<?php endforeach; ?>
+							</select>
+
+							<label for="profile-headline"><?php esc_html_e( 'כותרת ראשית מוצעת', 'justice-theme' ); ?></label>
+							<input id="profile-headline" type="text" name="profile_headline">
+
+							<label for="profile-services"><?php esc_html_e( 'שירותים מרכזיים', 'justice-theme' ); ?></label>
+							<textarea id="profile-services" name="profile_services" rows="4"></textarea>
+
+							<label for="profile-process"><?php esc_html_e( 'איך נראה תהליך העבודה איתכם?', 'justice-theme' ); ?></label>
+							<textarea id="profile-process" name="profile_process" rows="4"></textarea>
+
+							<label for="profile-video-url"><?php esc_html_e( 'קישור וידאו', 'justice-theme' ); ?></label>
+							<input id="profile-video-url" type="url" name="profile_video_url">
+
+							<label for="profile-faqs"><?php esc_html_e( 'שאלות נפוצות שתרצו שיופיעו בפרופיל', 'justice-theme' ); ?></label>
+							<textarea id="profile-faqs" name="profile_faqs" rows="4"></textarea>
+
+							<button type="submit" class="button button--gold"><?php esc_html_e( 'שליחת בקשת עדכון', 'justice-theme' ); ?></button>
+						</form>
+					</section>
 
 					<h2><?php esc_html_e( 'לידים אחרונים', 'justice-theme' ); ?></h2>
 					<?php if ( $leads && $leads->have_posts() ) : ?>

@@ -3,14 +3,14 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 function uje_register_practice_areas_taxonomy() {
 	$labels = array(
-		'name'              => _x( 'Practice Areas', 'taxonomy general name', 'ultra-justice-engine' ),
-		'singular_name'     => _x( 'Practice Area', 'taxonomy singular name', 'ultra-justice-engine' ),
-		'search_items'      => __( 'Search Practice Areas', 'ultra-justice-engine' ),
-		'all_items'         => __( 'All Practice Areas', 'ultra-justice-engine' ),
-		'parent_item'       => __( 'Parent Practice Area', 'ultra-justice-engine' ),
-		'edit_item'         => __( 'Edit Practice Area', 'ultra-justice-engine' ),
-		'add_new_item'      => __( 'Add New Practice Area', 'ultra-justice-engine' ),
-		'menu_name'         => __( 'Practice Areas', 'ultra-justice-engine' ),
+		'name'              => _x( 'תחומי משפט', 'taxonomy general name', 'ultra-justice-engine' ),
+		'singular_name'     => _x( 'תחום משפט', 'taxonomy singular name', 'ultra-justice-engine' ),
+		'search_items'      => __( 'חיפוש תחומי משפט', 'ultra-justice-engine' ),
+		'all_items'         => __( 'כל תחומי המשפט', 'ultra-justice-engine' ),
+		'parent_item'       => __( 'תחום משפט ראשי', 'ultra-justice-engine' ),
+		'edit_item'         => __( 'עריכת תחום משפט', 'ultra-justice-engine' ),
+		'add_new_item'      => __( 'הוספת תחום משפט', 'ultra-justice-engine' ),
+		'menu_name'         => __( 'תחומי משפט', 'ultra-justice-engine' ),
 	);
 
 	register_taxonomy( 'practice-areas', array( 'articles', 'justice_lawyer', 'post' ), array(

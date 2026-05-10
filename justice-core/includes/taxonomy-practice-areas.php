@@ -3,14 +3,14 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 function uje_register_practice_areas_taxonomy() {
 	$labels = array(
-		'name'              => _x( 'Practice Areas', 'taxonomy general name', 'justice-core' ),
-		'singular_name'     => _x( 'Practice Area', 'taxonomy singular name', 'justice-core' ),
-		'search_items'      => __( 'Search Practice Areas', 'justice-core' ),
-		'all_items'         => __( 'All Practice Areas', 'justice-core' ),
-		'parent_item'       => __( 'Parent Practice Area', 'justice-core' ),
-		'edit_item'         => __( 'Edit Practice Area', 'justice-core' ),
-		'add_new_item'      => __( 'Add New Practice Area', 'justice-core' ),
-		'menu_name'         => __( 'Practice Areas', 'justice-core' ),
+		'name'              => _x( 'תחומי משפט', 'taxonomy general name', 'justice-core' ),
+		'singular_name'     => _x( 'תחום משפט', 'taxonomy singular name', 'justice-core' ),
+		'search_items'      => __( 'חיפוש תחומי משפט', 'justice-core' ),
+		'all_items'         => __( 'כל תחומי המשפט', 'justice-core' ),
+		'parent_item'       => __( 'תחום משפט ראשי', 'justice-core' ),
+		'edit_item'         => __( 'עריכת תחום משפט', 'justice-core' ),
+		'add_new_item'      => __( 'הוספת תחום משפט', 'justice-core' ),
+		'menu_name'         => __( 'תחומי משפט', 'justice-core' ),
 	);
 
 	register_taxonomy( 'practice-areas', array( 'articles', 'justice_lawyer', 'post' ), array(

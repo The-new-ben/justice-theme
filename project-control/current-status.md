@@ -2,6 +2,13 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 03:14 Asia/Jerusalem
+- CODE FIXED: Articles CPT labels in both plugin trees now use Hebrew public/admin labels (`מאמרים משפטיים`, `מאמר משפטי`) instead of English `Articles` / `Article`.
+- CODE FIXED: practice-area taxonomy labels in both plugin trees now use Hebrew labels (`תחומי משפט`, `תחום משפט`) instead of English `Practice Areas`.
+- VERIFIED IN CODE: 404 and search templates already had Hebrew body/H1/pagination strings; this batch closes the remaining CPT-label leak that can appear on search result cards.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-hebrew-cpt-labels-v1`; requires uPress pull/cache clear and live search-page QA.
+- SAFETY: no content body, URL, redirect, sitemap, robots, wp-admin setting, lead/CRM record or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 03:00 Asia/Jerusalem
 - CODE FIXED: homepage featured-lawyer module now requires the selected lawyer profile to pass the public-approved profile helper before rendering.
 - CODE FIXED: homepage featured-lawyer copy no longer says "verified lawyer" at section level; verification language is left to the card only when real profile metadata supports it.

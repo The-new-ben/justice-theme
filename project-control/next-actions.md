@@ -33,6 +33,17 @@
 9. NEXT: pull/deploy marker `2026-05-11-featured-lawyer-trust-v1`, then verify homepage, Maya profile and lawyer archive do not show unapproved review/rating/verification claims or fake contact routes.
 10. NOT LIVE VERIFIED: no public deployment yet.
 
+### ACTION-I18N-001: Remove English labels from public Hebrew surfaces
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** Hebrew visitors should not see English `Article`, `Articles`, `Practice Areas`, `Previous`, `Next`, or similar system labels on search/archive/404 pages.
+**Actions:**
+1. VERIFIED IN CODE: `404.php` body and CTA are Hebrew.
+2. VERIFIED IN CODE: `search.php` H1 and pagination labels are Hebrew.
+3. DONE: `articles` CPT labels are Hebrew in both plugin trees, preventing `Article` from leaking in search result cards.
+4. DONE: `practice-areas` taxonomy labels are Hebrew in both plugin trees.
+5. NEXT: pull/deploy marker `2026-05-11-hebrew-cpt-labels-v1`, then verify `/ ?s=גירושין` or a similar public search page does not show English content-type labels.
+6. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-BRAND-001: Logo + Favicon + Search Branding
 **Status:** PARTIAL LIVE VERIFIED - wp-admin/search-result verification pending
 **Why:** Browser tabs, mobile bookmarks and Google search results need a stable, professional icon and final brand state.

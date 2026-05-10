@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Hebrew CPT and taxonomy labels
+
+- CODE FIXED: `articles` CPT labels now use Hebrew in both plugin trees, so search result cards should show `מאמר משפטי` instead of `Article`.
+- CODE FIXED: `practice-areas` taxonomy labels now use Hebrew in both plugin trees, reducing English leakage in admin/REST/template label surfaces.
+- VERIFIED IN CODE: 404 and search templates already use Hebrew body/H1/pagination strings.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and public search-page QA with marker `2026-05-11-hebrew-cpt-labels-v1`.
+- SAFETY: no content body, URL, redirect, sitemap, robots, CRM record, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Homepage featured-lawyer trust gate
 
 - CODE FIXED: homepage featured-lawyer section now renders only a public-approved lawyer profile.

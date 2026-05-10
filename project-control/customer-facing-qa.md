@@ -74,6 +74,7 @@ Date: 2026-05-10
 - Proof: `project-control/visual-evidence/customer-404-desktop.png`
 - LIVE VERIFIED: fake URL returned homepage with HTTP 200, not a true 404.
 - FIXED IN CODE: 404 template copy is Hebrew/customer-friendly.
+- VERIFIED IN CODE: 404 no longer has the English body copy called out in the audit; remaining 404 risk is routing/server behavior.
 - CODE FIXED: `inc/routing-guards.php` now detects non-root URLs being served as the front page and forces a real 404 response/template.
 - BLOCKED: real issue likely routing/permalink/plugin/server and requires wp-admin/uPress investigation.
 - Status: CODE FIXED / NOT VERIFIED LIVE after latest routing guard.
@@ -125,6 +126,7 @@ LIVE VERIFIED:
 
 FIXED IN CODE:
 - `inc/seo.php` now shares one contextual title helper across WordPress and common SEO plugin title filters, so archive/search pages should stop leaking English titles after deployment.
+- CODE FIXED / NOT LIVE VERIFIED: Articles CPT and practice-area taxonomy labels are now Hebrew in both plugin trees, preventing `Article` / `Practice Areas` label leakage on search/result surfaces after deployment.
 - Targeted title issues: `Articles Archive`, `עורכי דין Archive`, `You searched for`.
 
 STILL LOOKS BAD / NEEDS WORK:

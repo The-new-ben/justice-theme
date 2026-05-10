@@ -15,6 +15,8 @@
 - UPDATED: GSC keyword/cannibalization/content-priority CSVs with broad lawyer/directory evidence, and updated robots/htaccess review with GSC HTTPS/indexing risks.
 - VERIFIED: GSC Page indexing drilldowns were sampled for crawled-currently-not-indexed, duplicate-without-user-selected-canonical, page-with-redirect, alternate-page-with-proper-canonical and 404 examples.
 - FOUND: not-indexed examples include media/PDF/DOCX URLs, legacy CPT URLs, old Hebrew taxonomy/category URLs, attachment redirect URLs, one test URL, and real content candidates such as `/divorce-mediation-basics`.
+- CREATED: `project-control/gsc-indexing-example-classification.csv` with 16 sampled examples classified by URL type, content match, cluster, recommended action, and no-delete/no-redirect gates.
+- DECISION: valid technical 404s remain 404; media files need a document-library policy; legacy CPT and taxonomy URLs need migration mapping; real content candidates need compare/merge work before publication.
 - SAFETY: No URLs, redirects, public content, sitemap, robots or canonical behavior were changed.
 - NEXT: Open GSC indexing drilldowns for examples and prepare the first no-URL-change SEO architecture batch.
 

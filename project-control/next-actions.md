@@ -15,7 +15,8 @@
 3. DONE: Opened examples for "Page with redirect".
 4. DONE: Opened examples for "Alternate page with proper canonical tag" and "Not found (404)".
 5. DONE: Recorded examples in `project-control/gsc-indexing-review.csv`.
-6. NEXT: classify sampled examples into media URL, legacy CPT, taxonomy/archive, redirect source, weak content, content candidate or technical issue.
+6. DONE: classified sampled examples into media URL, legacy CPT, taxonomy/archive, redirect source, weak content, content candidate and technical issue in `project-control/gsc-indexing-example-classification.csv`.
+7. NEXT: create a no-URL-change remediation batch from the classified examples: media policy, legacy CPT comparison, and `/divorce-mediation-basics` merge review.
 
 ### ACTION-SEO-002: Verify Sitemap And HTTPS Migration Blockers
 **Status:** NEXT

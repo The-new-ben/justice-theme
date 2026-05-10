@@ -33,6 +33,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer dashboard now supports staged mini-site update requests that save to `pending_profile_*` metadata instead of changing public profile fields directly.
 - Lawyer Onboarding admin queue now includes profiles flagged with `pending_profile_review = 1`, including published profiles that need update review.
 - Lawyer Onboarding admin queue now previews pending mini-site update fields so owner review is faster.
+- Lawyer Onboarding admin queue now has a nonce-protected action to apply reviewed pending mini-site updates into public profile fields while leaving final review status.
 
 ## FIXED IN THIS PASS
 - Added tracked `page-home.php` because the live homepage is assigned to the `page-home.php` page template, not only `front-page.php`.

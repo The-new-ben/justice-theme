@@ -230,6 +230,44 @@ function justice_theme_lawyer_onboarding_admin_menu(): void {
 }
 add_action( 'admin_menu', 'justice_theme_lawyer_onboarding_admin_menu' );
 
+function justice_theme_apply_lawyer_profile_update(): void {
+	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
+
+	if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to apply this update.', 'justice-theme' ) );
+	}
+
+	check_admin_referer( 'justice_apply_lawyer_profile_update_' . $post_id );
+
+	$field_map = array(
+		'pending_profile_headline'  => 'profile_headline',
+		'pending_profile_services'  => 'profile_services',
+		'pending_profile_process'   => 'profile_process',
+		'pending_profile_video_url' => 'profile_video_url',
+		'pending_profile_faqs'      => 'profile_faqs',
+	);
+
+	foreach ( $field_map as $pending_key => $public_key ) {
+		$value = get_post_meta( $post_id, $pending_key, true );
+		if ( '' !== trim( (string) $value ) ) {
+			update_post_meta( $post_id, $public_key, $value );
+		}
+		delete_post_meta( $post_id, $pending_key );
+	}
+
+	delete_post_meta( $post_id, 'pending_profile_review' );
+	delete_post_meta( $post_id, 'pending_profile_submitted_at' );
+	update_post_meta( $post_id, 'profile_status', 'update_applied_pending_final_review' );
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_profile_update_applied', 'Applied pending lawyer profile update: ' . get_the_title( $post_id ) );
+	}
+
+	wp_safe_redirect( add_query_arg( 'profile_update', 'applied', admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_apply_lawyer_profile_update', 'justice_theme_apply_lawyer_profile_update' );
+
 function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	if ( ! current_user_can( 'edit_pages' ) ) {
 		wp_die( esc_html__( 'You do not have permission to access this page.', 'justice-theme' ) );
@@ -267,6 +305,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	<div class="wrap">
 		<h1>Lawyer Onboarding</h1>
 		<p>Pending lawyer self-registration submissions and staged profile update requests. Review identity, license, claims, practice areas, public content and commercial plan before publishing or applying updates.</p>
+		<?php if ( isset( $_GET['profile_update'] ) && 'applied' === $_GET['profile_update'] ) : ?>
+			<div class="notice notice-success is-dismissible"><p>Pending mini-site update applied. Review the full profile before final public approval.</p></div>
+		<?php endif; ?>
 
 		<?php if ( $pending->have_posts() ) : ?>
 			<table class="widefat striped">
@@ -334,7 +375,12 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 							</td>
 							<td><?php echo esc_html( $status ); ?></td>
 							<td><?php echo esc_html( get_the_date() ); ?></td>
-							<td><a class="button button-primary" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Review</a></td>
+							<td>
+								<a class="button button-primary" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Review</a>
+								<?php if ( $has_pending_update ) : ?>
+									<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=justice_apply_lawyer_profile_update&lawyer_id=' . $post_id ), 'justice_apply_lawyer_profile_update_' . $post_id ) ); ?>">Apply pending update</a>
+								<?php endif; ?>
+							</td>
 						</tr>
 					<?php endwhile; ?>
 				</tbody>

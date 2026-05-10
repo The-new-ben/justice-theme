@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[HIGH] Added admin apply action for staged mini-site updates**
+- Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
+- Lawyer Onboarding now shows an `Apply pending update` action for profiles with staged mini-site changes.
+- The action is admin-only and nonce-protected; it copies non-empty pending fields into public profile fields, clears pending metadata, and leaves the profile marked `update_applied_pending_final_review`.
+- VERIFIED in repo. LIVE NOT VERIFIED until a staged update is applied in wp-admin after Upress pull.
+
 **[MEDIUM] Added pending mini-site update preview to onboarding admin**
 - Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
 - Lawyer Onboarding now has a `Pending Update` column that previews staged headline, services, process, video and FAQ update fields.

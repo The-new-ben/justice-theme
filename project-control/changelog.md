@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[MEDIUM] Polished family-law article cluster navigation**
+- Files: `single-articles.php`, `assets/css/premium-pass-3.css`
+- Moved the family-law cluster navigator from inline styles to reusable CSS classes.
+- Added larger mobile tap targets, current-page state, hover/focus states and cleaner spacing so the article sidebar feels like a premium portal module.
+- VERIFIED in repo. LIVE NOT VERIFIED until Upress pulls the commit and a family-law article draft is previewed.
+
 **[HIGH] Added family-law article cluster navigation**
 - Files: `single-articles.php`, `inc/content-draft-importer.php`
 - Article pages now read normalized `content_cluster` and `primary_keyword` metadata from imported repo drafts.

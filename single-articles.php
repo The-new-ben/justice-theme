@@ -151,24 +151,24 @@ while ( have_posts() ) :
 					<?php endif; ?>
 
 					<?php if ( 'family-law' === $content_cluster ) : ?>
-						<section class="article-cluster-nav" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border);">
-							<h2 style="font-size: 1.1rem; color: var(--color-primary-deep); margin-bottom: 0.75rem;"><?php esc_html_e( 'אשכול דיני משפחה', 'justice-theme' ); ?></h2>
+						<section class="article-cluster-nav">
+							<h2><?php esc_html_e( 'אשכול דיני משפחה', 'justice-theme' ); ?></h2>
 							<?php if ( $primary_keyword ) : ?>
-								<p style="font-size: 0.9rem; color: var(--color-muted); margin-bottom: 1rem;">
+								<p class="article-cluster-nav__keyword">
 									<?php echo esc_html( sprintf( __( 'מילת מפתח בעמוד זה: %s', 'justice-theme' ), trim( $primary_keyword, '` ' ) ) ); ?>
 								</p>
 							<?php endif; ?>
 							<nav aria-label="<?php esc_attr_e( 'קישורי אשכול דיני משפחה', 'justice-theme' ); ?>">
-								<ul style="display: grid; gap: 0.55rem; list-style: none; margin: 0; padding: 0;">
+								<ul class="article-cluster-nav__list">
 									<?php foreach ( $family_links as $slug => $label ) : ?>
 										<li>
 											<a
+												class="article-cluster-nav__link<?php echo $current_slug === $slug ? ' is-current' : ''; ?>"
 												href="<?php echo esc_url( home_url( '/' . $slug . '/' ) ); ?>"
 												<?php echo $current_slug === $slug ? 'aria-current="page"' : ''; ?>
-												style="display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.7rem 0.8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-primary); text-decoration: none; background: <?php echo $current_slug === $slug ? 'rgba(82,114,178,0.08)' : 'transparent'; ?>;"
 											>
 												<span><?php echo esc_html( $label ); ?></span>
-												<span aria-hidden="true">←</span>
+												<span class="article-cluster-nav__arrow" aria-hidden="true">←</span>
 											</a>
 										</li>
 									<?php endforeach; ?>

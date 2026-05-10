@@ -17,6 +17,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - `latest-articles.php` no longer needs regular `post` content for homepage article feed in the intended architecture.
 - Article pages can now resolve connected lawyer metadata through a shared public-lawyer resolver, including a Maya Rotenberg fallback while the live slug migration is pending.
 - Imported repo draft metadata is normalized without Markdown backticks, and family-law article pages can render a connected cluster-navigation block.
+- Family-law article cluster navigation styling is now class-based in CSS, with stronger tap targets and current-page state for mobile/desktop article sidebars.
 
 ## FIXED IN THIS PASS
 - Added tracked `page-home.php` because the live homepage is assigned to the `page-home.php` page template, not only `front-page.php`.
@@ -59,6 +60,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Article sidebar lawyer lookup now uses `justice_theme_get_connected_lawyer_by_slug()` instead of a raw slug-only lookup, so family-law drafts connected to `advocate-maya-rotenberg` can still show Maya when live data is temporarily on the old Hebrew slug.
 - Content draft imports now strip Markdown backticks from metadata fields, preventing values like `family-law` or `advocate-maya-rotenberg` from being stored with literal backticks.
 - Single article sidebars now show a family-law cluster navigation module for imported family-law drafts, linking the divorce pillar and supporting article URLs with Hebrew labels and English slugs.
+- Article cluster navigation was moved out of inline styling into `premium-pass-3.css`, improving mobile usability and making future visual QA/polish safer.
 
 ## NOT VERIFIED
 - Active live plugin path and name.

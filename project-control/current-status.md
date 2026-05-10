@@ -29,6 +29,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer dashboard now includes a draft-only content request flow for logged-in lawyers with claimed profiles.
 - Lawyer content request drafts are now visible in the Articles admin list through a `Content Origin` column and trigger an owner notification email.
 - Lawyer dashboard now shows a lawyer-facing queue of submitted content requests with draft/publish state and legal/source review gates.
+- Lawyer-requested article drafts now inherit the lawyer profile's practice-area terms and receive cluster metadata for editorial/SEO review.
 
 ## FIXED IN THIS PASS
 - Added tracked `page-home.php` because the live homepage is assigned to the `page-home.php` page template, not only `front-page.php`.

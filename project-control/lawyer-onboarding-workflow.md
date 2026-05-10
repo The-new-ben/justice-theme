@@ -90,6 +90,8 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
   - `lawyer_content_notes`
   - `needs_legal_review = 1`
   - `needs_browser_source_verification = 1`
+- The draft inherits the requesting lawyer's `practice-areas` terms when available.
+- The draft receives `primary_keyword` from the requested topic and `content_cluster` from the first linked practice-area slug when available.
 - No content request is published automatically.
 - Owner receives an email with the topic, lawyer, intent, audience and edit link.
 - The `articles` admin list includes a Content Origin column that identifies lawyer-requested drafts and links back to the requesting lawyer profile.

@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[HIGH] Connected lawyer content requests to practice-area clusters**
+- Files: `inc/lawyer-dashboard.php`, `project-control/lawyer-onboarding-workflow.md`
+- Lawyer-requested article drafts now inherit the requesting lawyer's `practice-areas` terms when available.
+- Drafts also receive `primary_keyword` from the requested topic and `content_cluster` from the first linked practice-area slug, helping editors keep requests aligned with SEO clusters.
+- VERIFIED in repo. LIVE NOT VERIFIED until a test content request is submitted after Upress pull.
+
 **[HIGH] Added lawyer-facing content request status queue**
 - Files: `page-lawyer-dashboard.php`, `assets/css/premium-pass-3.css`, `project-control/lawyer-onboarding-workflow.md`
 - Lawyer dashboard now shows a count and read-only list of the lawyer's submitted article/content requests.

@@ -89,6 +89,9 @@ function justice_theme_handle_lawyer_content_request(): void {
 	update_post_meta( $article_id, 'needs_legal_review', '1' );
 	update_post_meta( $article_id, 'needs_browser_source_verification', '1' );
 	update_post_meta( $article_id, 'source_note', 'Requested from lawyer dashboard. Draft only; editorial/legal/source review required.' );
+	update_post_meta( $article_id, 'primary_keyword', $topic );
+
+	justice_theme_connect_content_request_to_lawyer_taxonomy( $article_id, $lawyer_id );
 
 	if ( function_exists( 'uje_log' ) ) {
 		uje_log( 'lawyer_content_request', 'New lawyer content request draft: ' . $topic );
@@ -100,6 +103,21 @@ function justice_theme_handle_lawyer_content_request(): void {
 	exit;
 }
 add_action( 'admin_post_justice_lawyer_content_request', 'justice_theme_handle_lawyer_content_request' );
+
+function justice_theme_connect_content_request_to_lawyer_taxonomy( int $article_id, int $lawyer_id ): void {
+	if ( ! taxonomy_exists( 'practice-areas' ) ) {
+		return;
+	}
+
+	$practice_slugs = wp_get_object_terms( $lawyer_id, 'practice-areas', array( 'fields' => 'slugs' ) );
+
+	if ( is_wp_error( $practice_slugs ) || empty( $practice_slugs ) ) {
+		return;
+	}
+
+	wp_set_object_terms( $article_id, $practice_slugs, 'practice-areas', false );
+	update_post_meta( $article_id, 'content_cluster', sanitize_key( (string) $practice_slugs[0] ) );
+}
 
 function justice_theme_notify_lawyer_content_request( int $article_id, int $lawyer_id, string $topic, string $intent, string $audience ): void {
 	$admin_email = get_option( 'admin_email' );

@@ -26,11 +26,15 @@ Status: PARTIAL VISUAL QA COMPLETED.
 ## 2026-05-10 Header Topic Strip
 - FIXED IN REPO: Added a dark premium topic strip below the main header with Hebrew labels and short English target slugs for divorce, criminal, real estate, medical malpractice, family law and AI intake.
 - VERIFIED: PHP lint passed locally for 120 PHP files after the header change.
-- NOT VERIFIED: Live visual rendering is pending GitHub/Upress pull and public screenshot recheck.
+- VERIFIED: Live homepage HTML contains `site-header__topic-strip`, `/divorce-lawyer/`, `/legal-tools/ai-intake/`, and `brand-lockup--justice`.
+- VERIFIED: Desktop screenshot captured at `project-control/visual-evidence/homepage-topic-strip-desktop.png`.
+- VERIFIED: Mobile screenshot captured at `project-control/visual-evidence/homepage-topic-strip-mobile.png`.
+- VERIFIED: Red-dot Jus-Tice wordmark is visible in desktop/mobile screenshots.
+- VERIFIED: Topic strip is visible in desktop/mobile screenshots.
 
 ## Visual Findings
-- STILL BROKEN: Header still looks too thin for a premium legal portal.
-- STILL BROKEN: The logo appears too small and does not show the new blinking red dot fallback yet, indicating the live site likely has not pulled the latest commit or cache is stale.
+- STILL BROKEN: Header main navigation above the topic strip still feels sparse on desktop.
+- FIXED: The fallback Jus-Tice logo and red dot are visible live.
 - STILL BROKEN: Homepage still has very little real imagery. The repo now has a CSS visual layer, but live has not pulled it yet.
 - RISK: Homepage shows many article cards with weak gray image placeholders; this still reads too basic.
 - RISK: The practice-area grid is large and somewhat repetitive; it needs stronger hierarchy.
@@ -38,8 +42,8 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - GOOD: Maya Rotenberg appears as the only featured lawyer card on the screenshot.
 - GOOD: Lead/LegalTech sections exist and the page has more business depth than a basic blog.
 - GOOD: After the live pull recheck, article placeholders are visually richer and the hero has a visible legal-tech layer.
-- STILL BROKEN: Header navigation remains too thin for the final product and needs a stronger primary menu/mega-menu.
-- FIXED IN REPO / LIVE NOT VERIFIED: Header fallback menu labels were cleaned to readable Hebrew, canonical practice-area filter slugs were corrected, LegalTech and lawyer-registration links were added, header styling was strengthened, and a topic strip now exposes the highest-value legal/LegalTech routes.
+- PARTIAL FIX: Header navigation now has a visible legal-topic strip, but the full primary/mega menu is still not final.
+- VERIFIED LIVE: Header fallback menu labels, topic-strip links, LegalTech/lawyer-registration links and the red-dot wordmark are present in public HTML/screenshots.
 
 ## Public HTML Checks
 - VERIFIED: homepage loads.

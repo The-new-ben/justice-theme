@@ -163,7 +163,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Spam source remains NOT VERIFIED. Homepage may be hiding spam by querying only `articles`, but database cleanup is still required.
 - Live visual recheck found fallback wordmark order reversed on RTL (`Tice dot Jus`). FIXED IN REPO with LTR isolation; live verification pending next Upress pull.
 - Header fallback menu is stronger in repo: readable Hebrew labels, LegalTech and lawyer-registration links, corrected English filter slugs, and heavier premium nav styling. LIVE NOT VERIFIED.
-- Header topic strip is FIXED IN REPO but LIVE NOT VERIFIED until the next GitHub/Upress pull and screenshot pass.
+- Header topic strip is VERIFIED LIVE in public HTML and screenshots. Evidence: `project-control/visual-evidence/homepage-topic-strip-desktop.png` and `project-control/visual-evidence/homepage-topic-strip-mobile.png`.
 - Header recheck on live public homepage found `brand-lockup--justice`, `/legal-tools/`, and `/lawyer-registration/` links present. Dummy logo text was not present.
 - Search and archive pagination labels were cleaned in repo: search results, previous/next labels, article archive pagination, and lawyer archive pagination no longer use English or mojibake arrows.
 - CMS draft-import bridge added in repo: `Tools > Jus-Tice Content Drafts` can import repo Markdown drafts from `content-drafts/` into the `articles` CPT as draft-only posts. It never publishes content and blocks refresh of already-published articles.

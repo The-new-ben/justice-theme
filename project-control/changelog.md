@@ -22,7 +22,8 @@
 - Added a dark portal-style quick navigation strip for the main Hebrew legal intents while keeping URLs in the approved short English slug format.
 - Links include divorce, criminal, real estate, medical malpractice, family law directory filtering and AI intake.
 - VERIFIED: PHP lint passed locally for 120 PHP files.
-- LIVE NOT VERIFIED: requires GitHub/Upress pull and public screenshot recheck.
+- VERIFIED LIVE: public homepage HTML contains the topic strip and target links.
+- VERIFIED LIVE: desktop/mobile screenshots saved at `project-control/visual-evidence/homepage-topic-strip-desktop.png` and `project-control/visual-evidence/homepage-topic-strip-mobile.png`.
 
 **[HIGH] Added reusable PHP lint helper**
 - File: `tools/php-lint.ps1`

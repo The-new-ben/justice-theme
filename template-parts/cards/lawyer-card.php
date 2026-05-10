@@ -75,9 +75,8 @@ $cities          = get_the_terms( $lawyer_id, 'city' );
 $areas           = get_the_terms( $lawyer_id, 'practice-areas' );
 $city_name       = ( $cities && ! is_wp_error( $cities ) ) ? justice_theme_lawyer_card_public_city_label( $cities[0]->name, $cities[0]->slug ) : '';
 $area_names      = ( $areas && ! is_wp_error( $areas ) ) ? wp_list_pluck( array_slice( $areas, 0, 3 ), 'name' ) : array();
-$phone_link      = $phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ) : '';
-$whatsapp_digits = $whatsapp ? preg_replace( '/[^0-9]/', '', $whatsapp ) : '';
-$whatsapp_link   = $whatsapp_digits ? 'https://wa.me/972' . ltrim( $whatsapp_digits, '0' ) : '';
+$phone_link      = function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) $phone ) : '';
+$whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) $whatsapp ) : '';
 ?>
 
 <article class="lawyer-card premium-card">

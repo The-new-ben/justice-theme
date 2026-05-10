@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Lawyer public contact safety
+
+- CODE FIXED: lawyer directory cards and lawyer mini-site hero CTAs now use a shared contact safety helper before outputting phone or WhatsApp links.
+- CODE FIXED: obvious placeholder/demo numbers are suppressed instead of being exposed as public `tel:` or WhatsApp routes.
+- CODE FIXED: Attorney schema now uses the same safe public phone value, so placeholder lawyer phone values are not emitted as structured data.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and live `/lawyers/` plus lawyer profile QA with marker `2026-05-11-lawyer-contact-safety-v1`.
+- SAFETY: no public profile content, review data, lead data, URL, redirect, sitemap, robots, wp-admin setting, CRM record or database row was changed.
+
 ## 2026-05-11 - Lawyer trust-signal safety and view throttling
 
 - CODE FIXED: lawyer cards only show rating values when `review_display_enabled` is explicitly approved and rating/count data exists.

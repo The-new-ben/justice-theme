@@ -218,6 +218,113 @@ function justice_theme_lawyer_profile_is_public_approved( int $post_id = 0 ): bo
 }
 
 /**
+ * Keep only digits from a lawyer contact field.
+ *
+ * @param string $value Raw contact field value.
+ * @return string
+ */
+function justice_theme_lawyer_public_contact_digits( string $value ): string {
+	return (string) preg_replace( '/[^0-9]/', '', $value );
+}
+
+/**
+ * Detect obvious placeholder/demo phone values before they reach public CTAs.
+ *
+ * @param string $digits Digits-only contact value.
+ * @return bool
+ */
+function justice_theme_lawyer_contact_is_placeholder( string $digits ): bool {
+	$digits = justice_theme_lawyer_public_contact_digits( $digits );
+
+	if ( strlen( $digits ) < 9 || strlen( $digits ) > 15 ) {
+		return true;
+	}
+
+	$national = $digits;
+	if ( 0 === strpos( $national, '972' ) ) {
+		$national = '0' . substr( $national, 3 );
+	}
+
+	$testable = ltrim( $national, '0' );
+
+	if ( preg_match( '/^([0-9])\1{6,}$/', $testable ) ) {
+		return true;
+	}
+
+	$placeholder_fragments = array(
+		'012345',
+		'123456',
+		'1234567',
+		'234567',
+		'345678',
+		'876543',
+		'987654',
+		'555123',
+		'5551234',
+		'545551234',
+		'0545551234',
+		'0521234567',
+		'0500000000',
+	);
+
+	foreach ( $placeholder_fragments as $fragment ) {
+		if ( false !== strpos( $digits, $fragment ) || false !== strpos( $national, $fragment ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Return a normalized public phone value, or an empty string for unsafe values.
+ *
+ * @param string $phone Raw phone field value.
+ * @return string
+ */
+function justice_theme_lawyer_public_phone_value( string $phone ): string {
+	$digits = justice_theme_lawyer_public_contact_digits( $phone );
+
+	if ( '' === $digits || justice_theme_lawyer_contact_is_placeholder( $digits ) ) {
+		return '';
+	}
+
+	if ( 0 === strpos( $digits, '972' ) ) {
+		return '+' . $digits;
+	}
+
+	if ( 0 === strpos( $digits, '0' ) ) {
+		return '+972' . substr( $digits, 1 );
+	}
+
+	return $digits;
+}
+
+/**
+ * Return a safe tel: link for a lawyer phone value.
+ *
+ * @param string $phone Raw phone field value.
+ * @return string
+ */
+function justice_theme_lawyer_public_phone_link( string $phone ): string {
+	$value = justice_theme_lawyer_public_phone_value( $phone );
+
+	return $value ? 'tel:' . $value : '';
+}
+
+/**
+ * Return a safe WhatsApp link for a lawyer contact value.
+ *
+ * @param string $whatsapp Raw WhatsApp field value.
+ * @return string
+ */
+function justice_theme_lawyer_public_whatsapp_link( string $whatsapp ): string {
+	$value = justice_theme_lawyer_public_phone_value( $whatsapp );
+
+	return $value ? 'https://wa.me/' . ltrim( $value, '+' ) : '';
+}
+
+/**
  * Safe excerpt with word limit.
  *
  * @param int $post_id   Post ID.

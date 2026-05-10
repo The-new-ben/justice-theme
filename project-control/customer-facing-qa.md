@@ -65,6 +65,7 @@ Date: 2026-05-10
 - LIVE VERIFIED: `/lawyers/?area=family-law` now outputs the Jus-Tice `noindex,follow` filter marker. Proof: `project-control/visual-evidence/lawyers-family-filter-2026-05-10.png`.
 - STILL BROKEN LIVE: Maya profile URL is currently in a redirect loop caused by Permalink Manager and theme slug migration fighting each other. Theme-side redirect is disabled in code pending deployment.
 - CODE FIXED / NOT LIVE VERIFIED: lawyer cards now hide rating numbers unless review display is explicitly approved, and sponsored/profile-paid labels require an active subscription.
+- CODE FIXED / NOT LIVE VERIFIED: lawyer card/profile phone and WhatsApp buttons now suppress obvious placeholder/demo numbers, and Attorney schema uses the same safe public phone filter.
 - Status: NOT CUSTOMER-READY until demo profiles are drafted/removed.
 
 ## 404

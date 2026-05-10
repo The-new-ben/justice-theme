@@ -53,6 +53,7 @@ Do not claim:
 - public achievements, cases or media appearances unless sourced.
 - bar/license details unless verified from public/owner-approved sources.
 - ratings, reviews, "Google score" or "recommended" status unless source-disclosed and approved.
+- direct phone or WhatsApp routes unless the stored contact value passes the public-contact safety filter and is not an obvious placeholder/demo number.
 
 ## Review / Reputation Module
 

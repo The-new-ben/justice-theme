@@ -127,6 +127,7 @@ function justice_theme_lawyer_schema() {
 
 	$post_id = get_the_ID();
 	$phone   = get_post_meta( $post_id, 'phone', true );
+	$phone   = function_exists( 'justice_theme_lawyer_public_phone_value' ) ? justice_theme_lawyer_public_phone_value( (string) $phone ) : $phone;
 	$email   = get_post_meta( $post_id, 'email', true );
 	$website = get_post_meta( $post_id, 'website', true );
 	$firm    = get_post_meta( $post_id, 'firm_name', true );

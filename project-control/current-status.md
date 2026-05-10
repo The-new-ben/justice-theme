@@ -2,6 +2,13 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 02:45 Asia/Jerusalem
+- CODE FIXED: lawyer phone and WhatsApp CTAs now pass through a shared public-contact safety filter before rendering on directory cards or mini-site hero buttons.
+- CODE FIXED: obvious placeholder/demo numbers such as sequential values, repeated digits and `555123`-style values are suppressed from public lawyer CTAs.
+- CODE FIXED: Attorney schema now uses the same safe phone value, so placeholder lawyer numbers should not be emitted as structured data.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-lawyer-contact-safety-v1`; requires uPress pull/cache clear and live QA on `/lawyers/` plus at least one lawyer profile.
+- SAFETY: no lawyer profile content, review data, lead data, URL, redirect, sitemap, robots, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 02:28 Asia/Jerusalem
 - CODE FIXED: lawyer card/profile ratings and testimonials now require explicit `review_display_enabled` approval before public display.
 - CODE FIXED: sponsored/profile-paid labels on the lawyer mini-site now require `subscription_status=active` and are suppressed for seed-like profiles.

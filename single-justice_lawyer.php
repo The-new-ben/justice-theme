@@ -88,9 +88,8 @@ $show_rating       = $reviews_enabled && $review_count > 0 && $average_rating > 
 $show_testimonials = $reviews_enabled && ! empty( $testimonials );
 $primary_area      = ( ! empty( $areas ) && ! is_wp_error( $areas ) ) ? $areas[0] : null;
 $primary_city      = ( ! empty( $cities ) && ! is_wp_error( $cities ) ) ? $cities[0] : null;
-$phone_link        = $phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ) : '';
-$whatsapp_digits   = $whatsapp ? preg_replace( '/[^0-9]/', '', $whatsapp ) : '';
-$whatsapp_link     = $whatsapp_digits ? 'https://wa.me/972' . ltrim( $whatsapp_digits, '0' ) : '';
+$phone_link        = function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) $phone ) : '';
+$whatsapp_link     = function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) $whatsapp ) : '';
 
 $views = (int) $meta( 'profile_views', 0 );
 $user_agent = isset( $_SERVER['HTTP_USER_AGENT'] ) ? strtolower( sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) ) : '';

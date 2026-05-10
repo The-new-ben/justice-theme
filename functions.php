@@ -31,6 +31,7 @@ $justice_theme_files = array(
 	'inc/pillar-pages.php',
 	'inc/pillar-article-seed.php',
 	'inc/content-draft-importer.php',
+	'inc/live-content-publication.php',
 	'inc/lawyer-onboarding.php',
 	'inc/lawyer-dashboard.php',
 	'inc/lawyer-plans.php',

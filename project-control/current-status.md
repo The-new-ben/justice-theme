@@ -56,6 +56,11 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Latest repo commit `e511c00` is pushed to `origin/main`, but live public HTML does not yet show every fix from that commit.
 
 ## FIXED IN THIS PASS
+- OWNER APPROVED LIVE REVIEW: added a one-time publisher for the first family-law SEO cluster in `inc/live-content-publication.php`.
+- CODE FIXED: the publisher creates/updates public root English-slug pages for `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/`, `/divorce-property-division/`, and `/family-dispute-resolution/`.
+- CODE FIXED: each published page gets SEO title/description, AEO/GEO summary meta, Article schema eligibility, visible internal cluster links, Maya Rotenberg connection, lead CTA and a public legal disclaimer.
+- SAFETY VERIFIED IN CODE: existing root page content is backed up into post meta before replacement.
+- DOCUMENTED: `project-control/live-content-publication-status.md` lists the exact public review links and publish status.
 - Maya Rotenberg mini-site CMS bootstrap added in `inc/live-migrations.php`: it fills rich editable profile fields only when empty and targets only the verified Maya profile.
 - Maya bootstrap adds services, process, approach, FAQ, CTA and credentials-style fields without fake ratings, awards, photos, bar number or paid claims.
 - Practice-area archive pages now have an intent-first customer layer in `taxonomy-practice-areas.php`: problem framing, when-to-contact guidance, preparation checklist and a lead CTA.
@@ -138,6 +143,8 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Articles admin review columns now distinguish repo drafts from lawyer-requested drafts and show the connected/requesting lawyer context.
 
 ## NOT VERIFIED
+- LIVE NOT VERIFIED: the seven family-law cluster URLs will publish only after this commit is pushed, uPress pulls it, and WordPress executes the one-time publication migration.
+- GSC NOT USED YET: no Search Console traffic-risk scoring has been applied to these publication URLs.
 - Active live plugin path and name.
 - Whether live WordPress activates `ultra-justice`, `ultra-justice-engine`, or another Justice plugin.
 - WordPress version, PHP version, active plugin list, and debug log.

@@ -2982,6 +2982,95 @@
   gap: 0.8rem;
 }
 
+.justice-public-cluster,
+.justice-content-lawyer-cta,
+.justice-public-disclaimer {
+  border-radius: 20px;
+  margin: 0 0 1.6rem;
+}
+
+.justice-public-cluster {
+  border: 1px solid rgba(198, 154, 73, 0.28);
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.96), rgba(250,247,241,0.96)),
+    radial-gradient(circle at 12% 0%, rgba(198,154,73,0.14), transparent 34%);
+  padding: clamp(1.1rem, 2.5vw, 1.55rem);
+  box-shadow: 0 20px 50px rgba(8, 24, 46, 0.08);
+}
+
+.justice-public-cluster > strong {
+  display: block;
+  color: var(--jt-primary-deep);
+  font-size: 1.04rem;
+  margin-bottom: 0.85rem;
+}
+
+.justice-public-cluster > div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+  gap: 0.7rem;
+}
+
+.justice-public-cluster a {
+  display: grid;
+  gap: 0.2rem;
+  min-height: 76px;
+  align-content: center;
+  border: 1px solid rgba(18, 40, 75, 0.1);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.76);
+  color: var(--jt-primary-deep);
+  padding: 0.85rem 0.95rem;
+  text-decoration: none;
+  transition: transform 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.justice-public-cluster a:hover,
+.justice-public-cluster a:focus-visible {
+  transform: translateY(-2px);
+  border-color: rgba(198, 154, 73, 0.48);
+  box-shadow: 0 14px 28px rgba(8, 24, 46, 0.1);
+}
+
+.justice-public-cluster span {
+  font-weight: 800;
+}
+
+.justice-public-cluster small {
+  color: var(--jt-muted);
+  font-size: 0.82rem;
+}
+
+.justice-content-lawyer-cta {
+  border: 1px solid rgba(18, 40, 75, 0.12);
+  background: linear-gradient(135deg, #07152f, #132d54);
+  color: #fff;
+  padding: clamp(1.3rem, 2.7vw, 2rem);
+  box-shadow: 0 22px 52px rgba(8, 24, 46, 0.18);
+}
+
+.justice-content-lawyer-cta h2 {
+  color: #fff;
+  margin-top: 0;
+}
+
+.justice-content-lawyer-cta p {
+  color: rgba(255,255,255,0.78);
+}
+
+.justice-content-lawyer-cta .button {
+  margin-inline-end: 0.55rem;
+  margin-block-start: 0.35rem;
+}
+
+.justice-public-disclaimer {
+  border: 1px solid rgba(198, 154, 73, 0.32);
+  background: #fff8e8;
+  color: #4b3820;
+  padding: 1rem 1.15rem;
+  line-height: 1.7;
+}
+
 @media (max-width: 760px) {
   .article-intent-panel {
     grid-template-columns: 1fr;
@@ -3013,5 +3102,14 @@
     width: 52px !important;
     height: 52px !important;
     bottom: 86px !important;
+  }
+
+  .justice-public-cluster > div {
+    grid-template-columns: 1fr;
+  }
+
+  .justice-content-lawyer-cta .button {
+    width: 100%;
+    margin-inline-end: 0;
   }
 }

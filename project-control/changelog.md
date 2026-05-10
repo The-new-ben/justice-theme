@@ -3,6 +3,16 @@
 
 ## 2026-05-10 - Session: CMS wiring hardening
 
+### OWNER-APPROVED PUBLICATION PACKAGE
+
+**[HIGH] Added live publisher for the first family-law cluster**
+- Files: `inc/live-content-publication.php`, `functions.php`, `inc/seo.php`, `inc/schema.php`, `assets/css/premium-pass-3.css`, `project-control/live-content-publication-status.md`
+- Publishes the approved family-law cluster as public root-level SEO pages with short English slugs after GitHub/uPress deployment.
+- Intended review URLs: `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/`, `/divorce-property-division/`, `/family-dispute-resolution/`.
+- Adds page-level SEO title/description, AEO/GEO summaries, Article schema, internal cluster links, Maya Rotenberg connection, lead CTA and legal disclaimer.
+- Existing root page content is backed up into post meta before replacement.
+- CODE FIXED. LIVE NOT VERIFIED until uPress pulls the commit and the URLs are opened.
+
 ### FIXED
 
 **[HIGH] Reviewed Claude branch without destructive merge**

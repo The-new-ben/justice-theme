@@ -49,7 +49,8 @@ function justice_theme_print_breadcrumb_schema( $items ) {
  * Article schema on singular pages.
  */
 function justice_theme_article_schema() {
-	if ( ! is_singular( array( 'post', 'articles' ) ) ) {
+	$is_repo_cluster_page = is_page() && get_post_meta( get_the_ID(), 'content_status', true );
+	if ( ! is_singular( array( 'post', 'articles' ) ) && ! $is_repo_cluster_page ) {
 		return;
 	}
 
@@ -73,6 +74,15 @@ function justice_theme_article_schema() {
 			'url'   => home_url( '/' ),
 		),
 	);
+
+	$description = get_post_meta( get_the_ID(), 'seo_description', true );
+	$keywords    = get_post_meta( get_the_ID(), 'secondary_keywords', true );
+	if ( $description ) {
+		$schema['description'] = wp_strip_all_tags( $description );
+	}
+	if ( $keywords ) {
+		$schema['keywords'] = wp_strip_all_tags( $keywords );
+	}
 
 	if ( has_post_thumbnail( $post ) ) {
 		$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post ), 'full' );

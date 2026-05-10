@@ -73,6 +73,14 @@ add_action( 'pre_get_posts', 'justice_theme_include_articles_in_search' );
  * @return array
  */
 function justice_theme_document_title( $title_parts ) {
+	if ( is_singular() ) {
+		$custom_title = get_post_meta( get_the_ID(), 'seo_title', true );
+		if ( $custom_title ) {
+			$title_parts['title']   = wp_strip_all_tags( $custom_title );
+			$title_parts['tagline'] = '';
+		}
+	}
+
 	if ( is_front_page() ) {
 		$title_parts['title'] = 'עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ';
 		$title_parts['tagline'] = '';
@@ -123,6 +131,46 @@ function justice_theme_document_title( $title_parts ) {
 add_filter( 'document_title_parts', 'justice_theme_document_title' );
 
 /**
+ * Keep common SEO plugins aligned with repo-published page meta.
+ *
+ * @param string $title Existing title.
+ * @return string
+ */
+function justice_theme_filter_plugin_seo_title( $title ) {
+	if ( is_singular() ) {
+		$custom_title = get_post_meta( get_the_ID(), 'seo_title', true );
+		if ( $custom_title ) {
+			return wp_strip_all_tags( $custom_title );
+		}
+	}
+
+	return $title;
+}
+add_filter( 'wpseo_title', 'justice_theme_filter_plugin_seo_title' );
+add_filter( 'rank_math/frontend/title', 'justice_theme_filter_plugin_seo_title' );
+add_filter( 'aioseo_title', 'justice_theme_filter_plugin_seo_title' );
+
+/**
+ * Keep common SEO plugins aligned with repo-published meta descriptions.
+ *
+ * @param string $description Existing description.
+ * @return string
+ */
+function justice_theme_filter_plugin_seo_description( $description ) {
+	if ( is_singular() ) {
+		$custom_description = get_post_meta( get_the_ID(), 'seo_description', true );
+		if ( $custom_description ) {
+			return wp_strip_all_tags( $custom_description );
+		}
+	}
+
+	return $description;
+}
+add_filter( 'wpseo_metadesc', 'justice_theme_filter_plugin_seo_description' );
+add_filter( 'rank_math/frontend/description', 'justice_theme_filter_plugin_seo_description' );
+add_filter( 'aioseo_description', 'justice_theme_filter_plugin_seo_description' );
+
+/**
  * Output meta description and OG tags.
  */
 function justice_theme_meta_head() {
@@ -136,13 +184,27 @@ function justice_theme_meta_head() {
 		echo '<meta property="og:locale" content="he_IL">' . "\n";
 		echo '<meta property="og:site_name" content="Jus-Tice">' . "\n";
 	} elseif ( is_singular() ) {
-		$post_desc = get_the_excerpt();
+		$post_desc = get_post_meta( get_the_ID(), 'seo_description', true );
+		if ( ! $post_desc ) {
+			$post_desc = get_the_excerpt();
+		}
 		if ( $post_desc ) {
 			$post_desc = wp_trim_words( $post_desc, 25, '...' );
 			echo '<meta name="description" content="' . esc_attr( $post_desc ) . '">' . "\n";
 			echo '<meta property="og:title" content="' . esc_attr( get_the_title() ) . ' | Jus-Tice">' . "\n";
 			echo '<meta property="og:description" content="' . esc_attr( $post_desc ) . '">' . "\n";
 			echo '<meta property="og:type" content="article">' . "\n";
+			echo '<meta property="og:url" content="' . esc_url( get_permalink() ) . '">' . "\n";
+			echo '<meta property="og:locale" content="he_IL">' . "\n";
+		}
+
+		$aeo_summary = get_post_meta( get_the_ID(), 'aeo_summary', true );
+		$geo_summary = get_post_meta( get_the_ID(), 'geo_summary', true );
+		if ( $aeo_summary ) {
+			echo '<meta name="justice:aeo-summary" content="' . esc_attr( $aeo_summary ) . '">' . "\n";
+		}
+		if ( $geo_summary ) {
+			echo '<meta name="justice:geo-summary" content="' . esc_attr( $geo_summary ) . '">' . "\n";
 		}
 	} elseif ( is_tax( 'practice-areas' ) ) {
 		$term = get_queried_object();

@@ -61,6 +61,12 @@
 - Mapped agreement-divorce claims to official gov.il/Kol Zchut source candidates or explicit legal-review blockers.
 - Kept price, children, property and pressure/violence sections blocked from publication until source/legal review.
 
+**[HIGH] Expanded divorce-mediation supporting draft**
+- Files: `content-drafts/divorce-mediation-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
+- Expanded `/divorce-mediation/` from about 1,256 words to about 2,158 words.
+- Added suitability test, mediation models, preparation checklist, failure paths, power-imbalance warnings, children section and LegalTech questionnaire concept.
+- Status remains NOT VERIFIED for legal accuracy and not ready to publish.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

@@ -230,6 +230,13 @@ function justice_theme_lawyer_onboarding_admin_menu(): void {
 }
 add_action( 'admin_menu', 'justice_theme_lawyer_onboarding_admin_menu' );
 
+function justice_theme_append_lawyer_internal_note( int $post_id, string $note ): void {
+	$existing = trim( (string) get_post_meta( $post_id, 'internal_notes', true ) );
+	$entry    = sprintf( '[%s] %s', current_time( 'mysql' ), $note );
+
+	update_post_meta( $post_id, 'internal_notes', trim( $existing . "\n" . $entry ) );
+}
+
 function justice_theme_apply_lawyer_profile_update(): void {
 	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
 
@@ -258,6 +265,7 @@ function justice_theme_apply_lawyer_profile_update(): void {
 	delete_post_meta( $post_id, 'pending_profile_review' );
 	delete_post_meta( $post_id, 'pending_profile_submitted_at' );
 	update_post_meta( $post_id, 'profile_status', 'update_applied_pending_final_review' );
+	justice_theme_append_lawyer_internal_note( $post_id, 'Owner applied staged mini-site update; final public review still required.' );
 
 	if ( function_exists( 'uje_log' ) ) {
 		uje_log( 'lawyer_profile_update_applied', 'Applied pending lawyer profile update: ' . get_the_title( $post_id ) );
@@ -292,6 +300,7 @@ function justice_theme_discard_lawyer_profile_update(): void {
 	}
 
 	update_post_meta( $post_id, 'profile_status', 'update_rejected_no_public_change' );
+	justice_theme_append_lawyer_internal_note( $post_id, 'Owner discarded staged mini-site update; public profile fields were not changed.' );
 
 	if ( function_exists( 'uje_log' ) ) {
 		uje_log( 'lawyer_profile_update_discarded', 'Discarded pending lawyer profile update: ' . get_the_title( $post_id ) );

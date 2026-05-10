@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[MEDIUM] Added audit notes for staged mini-site updates**
+- Files: `inc/lawyer-dashboard.php`, `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
+- Staged mini-site update submission, apply, and discard events now append timestamped entries to the lawyer profile `internal_notes` field.
+- This creates a lightweight owner audit trail before building a fuller CRM activity log.
+- VERIFIED in repo. LIVE NOT VERIFIED until a staged update is submitted/applied/discarded after Upress pull.
+
 **[HIGH] Added discard action for staged mini-site updates**
 - Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
 - Lawyer Onboarding now shows a `Discard pending update` action beside the apply action.

@@ -139,6 +139,9 @@ function justice_theme_handle_lawyer_profile_update_request(): void {
 	update_post_meta( $lawyer_id, 'pending_profile_review', '1' );
 	update_post_meta( $lawyer_id, 'pending_profile_submitted_at', current_time( 'mysql' ) );
 	update_post_meta( $lawyer_id, 'profile_status', 'pending_update_review' );
+	if ( function_exists( 'justice_theme_append_lawyer_internal_note' ) ) {
+		justice_theme_append_lawyer_internal_note( $lawyer_id, 'Lawyer submitted staged mini-site update request from dashboard.' );
+	}
 
 	if ( function_exists( 'uje_log' ) ) {
 		uje_log( 'lawyer_profile_update_request', 'New lawyer profile update request: ' . get_the_title( $lawyer_id ) );

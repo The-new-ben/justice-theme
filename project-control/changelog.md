@@ -56,6 +56,11 @@
 - Added agreement-quality checks, agreement structure, approval workflow, cost caution, children/risk sections, CRM intent, CMS module plan, common mistakes and a LegalTech readiness-tool concept tied to lawyer mini-sites.
 - Status remains NOT VERIFIED for legal accuracy and not ready to publish.
 
+**[HIGH] Added consensual-divorce source audit**
+- Files: `project-control/consensual-divorce-source-audit.csv`, `content-drafts/consensual-divorce-supporting-he.md`, `project-control/current-status.md`, `project-control/task-board.csv`
+- Mapped agreement-divorce claims to official gov.il/Kol Zchut source candidates or explicit legal-review blockers.
+- Kept price, children, property and pressure/violence sections blocked from publication until source/legal review.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

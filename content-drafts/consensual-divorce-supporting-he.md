@@ -419,7 +419,7 @@ Secondary keywords: הסכם גירושין, אישור הסכם גירושין,
 
 ## סטטוס לפני פרסום
 
-- NOT VERIFIED: התאמה מלאה לדין עדכני.
+- PARTIAL: מקורות רשמיים ומשפטיים זוהו ונרשמו ב-`project-control/consensual-divorce-source-audit.csv`, אך עדיין צריך אימות מקור/דין לפני פרסום.
 - NOT VERIFIED: סקירת עורך דין.
 - NOT VERIFIED: GSC query/page data.
 - NOT VERIFIED: קניבליזציה מול תכנים קיימים באתר.

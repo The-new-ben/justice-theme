@@ -1,0 +1,42 @@
+field,applies_to,type,required_for_mvp,public_display,admin_only,source,notes,status
+google_place_id,justice_lawyer,string,yes,no,yes,google/manual,Verified Place ID for Google Maps/Places lookup,PLANNED
+google_maps_review_url,justice_lawyer,url,yes,yes,no,google/manual,External button to read Google reviews,PLANNED
+google_business_profile_location_id,justice_lawyer,string,no,no,yes,google_business_profile,Needed only for OAuth-managed GBP API,PLANNED_LATER
+google_reviews_connected,justice_lawyer,boolean,yes,yes,no,admin,True only after admin/source verification,PLANNED
+google_rating,justice_lawyer,decimal,no,yes,no,google/manual,Display only when verified and sourced,PLANNED
+google_review_count,justice_lawyer,integer,no,yes,no,google/manual,Display only when verified and sourced,PLANNED
+google_reviews_last_synced,justice_lawyer,datetime,no,yes,no,api,API sync timestamp if automated later,PLANNED_LATER
+google_reviews_last_verified,justice_lawyer,date,yes,yes,no,admin,Manual verification date for MVP,PLANNED
+justice_rating,justice_lawyer,decimal,no,yes,no,justice_review,Average of approved first-party reviews only,PLANNED_LATER
+justice_review_count,justice_lawyer,integer,no,yes,no,justice_review,Approved visible Jus-Tice review count,PLANNED_LATER
+external_rating_summary,justice_lawyer,text,no,yes,no,manual_public_source,Source-disclosed summary only not scraped text,NEEDS_LEGAL_REVIEW
+profile_completeness_score,justice_lawyer,integer,yes,maybe,yes,computed,Prefer admin/lawyer dashboard first,PLANNED
+verification_status,justice_lawyer,enum,yes,yes,no,admin,unverified/source_verified/owner_verified/admin_verified,PLANNED
+review_collection_enabled,justice_lawyer,boolean,no,no,yes,admin,Allow first-party review form after policy approval,PLANNED_LATER
+review_display_enabled,justice_lawyer,boolean,yes,no,yes,admin,Gate public review display per lawyer,PLANNED
+reputation_notes,justice_lawyer,text,no,no,yes,admin,Internal moderation/product notes,PLANNED
+review_policy_acceptance,justice_lawyer,boolean,no,no,yes,lawyer,Lawyer accepts review display/reply policy,PLANNED_LATER
+lawyer_review_reply_enabled,justice_lawyer,boolean,no,no,yes,admin,Allow lawyer replies after moderation policy,PLANNED_LATER
+review_id,justice_review,string,yes,no,yes,system,Unique normalized review id,PLANNED_LATER
+lawyer_id,justice_review,post_id,yes,no,yes,system,Linked justice_lawyer post id,PLANNED_LATER
+source,justice_review,enum,yes,yes,no,review_source,justice/google/manual_public_source/external_directory/lawyer_submitted_reference,PLANNED_LATER
+source_review_id,justice_review,string,no,no,yes,source,External review id when available,PLANNED_LATER
+source_url,justice_review,url,no,yes,no,source,Public source link where allowed,PLANNED_LATER
+reviewer_display_name,justice_review,string,no,yes,no,reviewer,Prefer initials unless consent exists,PLANNED_LATER
+reviewer_initials,justice_review,string,yes,yes,no,system/reviewer,Privacy-safe public identity,PLANNED_LATER
+reviewer_email_hash,justice_review,string,yes,no,yes,system,For abuse control without exposing email,PLANNED_LATER
+rating,justice_review,integer,yes,yes,no,reviewer,1-5 only,PLANNED_LATER
+review_text,justice_review,text,no,yes,no,reviewer/source,Visible only after moderation,PLANNED_LATER
+review_date,justice_review,date,yes,yes,no,reviewer/source,Date of review or submission,PLANNED_LATER
+imported_at,justice_review,datetime,no,no,yes,system,Import/sync timestamp,PLANNED_LATER
+verified_interaction,justice_review,boolean,no,maybe,yes,admin/system,Only true if Jus-Tice can verify interaction,NEEDS_LEGAL_REVIEW
+review_status,justice_review,enum,yes,no,yes,admin,pending/approved/rejected/hidden/imported_unverified/needs_legal_review,PLANNED_LATER
+moderation_status,justice_review,enum,yes,no,yes,admin,not_reviewed/approved/rejected/privacy_risk/conflict_of_interest/suspected_fake/defamation_risk,PLANNED_LATER
+consent_status,justice_review,enum,yes,no,yes,reviewer/admin,privacy_consent/display_consent/source_permission,PLANNED_LATER
+privacy_risk,justice_review,enum,yes,no,yes,admin,none/low/medium/high,PLANNED_LATER
+response_text,justice_review,text,no,yes,no,lawyer/admin,Lawyer reply only after approval,PLANNED_LATER
+response_date,justice_review,date,no,yes,no,system,Reply date,PLANNED_LATER
+source_place_id,justice_review,string,no,no,yes,google,Google Place ID for imported review,PLANNED_LATER
+source_business_profile_id,justice_review,string,no,no,yes,google_business_profile,GBP location id for authorized sync,PLANNED_LATER
+is_featured,justice_review,boolean,no,yes,yes,admin,Featured excerpts must not hide negative review reality,NEEDS_POLICY
+admin_notes,justice_review,text,no,no,yes,admin,Moderation and legal review notes,PLANNED_LATER

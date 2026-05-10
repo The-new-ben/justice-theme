@@ -61,6 +61,16 @@ Layer 9 - Business funnel:
 - lawyer product ladder defined.
 - lead routing fields connected.
 - paid placement/trust rules approved.
+- review/reputation product rules approved before any public ratings.
+
+Layer 10 - Reviews/reputation:
+- no fake reviews or ratings.
+- Google Place ID and rating/count source verified.
+- first-party review moderation workflow approved.
+- privacy/confidentiality review policy exists.
+- paid placement disclosure exists.
+- `AggregateRating` schema disabled unless approved.
+- Maya prototype contains no unsourced reputation claims.
 
 ## Current Status
 
@@ -84,3 +94,4 @@ No URL/content migrations. Next safe batch is:
 4. Update title/H1/meta recommendations without publishing changes.
 5. Prepare owner approval list for first no-URL-change content/template improvements.
 6. Verify final logo/favicon in browser tab, mobile header, footer and Google-search readiness.
+7. Review the reputation module docs before adding any rating/review UI to lawyer cards or mini-sites.

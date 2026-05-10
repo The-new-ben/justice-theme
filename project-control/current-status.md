@@ -531,6 +531,17 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - NOT VERIFIED: related-content quality still needs manual visual review across family, criminal and real-estate article examples.
 - NOT VERIFIED: mobile floating controls on non-home inner pages still need a separate article/directory QA pass.
 
+## 2026-05-10 LAWYER REVIEWS / REPUTATION MODULE
+- ACCEPTED: reviews, ratings, reputation and trust are now a major planned product/SEO/business module.
+- CREATED: `project-control/reviews-reputation-research.md`, `google-reviews-integration-plan.md`, `lawyer-rating-system-spec.md`, `lawyer-review-fields.csv`, `review-schema-policy.md`, `review-compliance-risk.md`, `reviews-compliance-risk.md`, `reputation-product-roadmap.md`, and `maya-rotenberg-reputation-plan.md`.
+- CREATED: `project-control/final-integrated-launch-checklist.md` and `project-control/seo-aio-geo-strategy.md` to carry the module into launch/SEO planning.
+- UPDATED: `lawyer-mini-site-strategy.md`, `payment-and-subscription-model.md`, and `integrated-launch-checklist.md`.
+- VERIFIED: research used official Google Business Profile, Google Places, Google review schema and Google Maps UGC policy docs, plus Avvo, Justia, Midrag, LawReviews and Israeli lawyer-advertising rule references.
+- DECISION: MVP should start with verified Google Place ID/review link/manual rating-count fields and profile completeness; first-party reviews, API sync and review schema come later.
+- BLOCKED: Google API sync requires API key/billing/OAuth/terms review and lawyer/business authorization.
+- NEEDS LEGAL REVIEW: Israeli lawyer advertising, testimonials, directory ratings, paid placement disclosure, review moderation and any public stars/rating/schema.
+- SAFETY: no review CPT, ratings, schema, public profile changes, API calls, database updates or fake review content were implemented.
+
 ## NEXT BEST ACTION
 1. Verify the exact GitHub sync target and active plugin path.
 2. Decide whether `justice-core/` will replace `ultra-justice-engine/` on live or whether the legacy active folder must be renamed in a controlled migration.

@@ -1293,3 +1293,18 @@
 - LIVE VERIFIED: `/find-lawyer-how-to-find-good-attorney/` exposes `data-related-mode="semantic"`.
 - VISUAL VERIFIED: `project-control/visual-evidence/homepage-mobile-after-floating-hide-2026-05-10.png` shows the mobile homepage search/CTA area without floating-button overlap.
 - SAFETY: no public content, URLs, redirects, sitemap settings, robots rules, CRM records, payments or database rows were changed.
+
+## 2026-05-10 Lawyer Reviews / Reputation Module Strategy
+- CREATED: `project-control/reviews-reputation-research.md`.
+- CREATED: `project-control/google-reviews-integration-plan.md`.
+- CREATED: `project-control/lawyer-rating-system-spec.md`.
+- CREATED: `project-control/lawyer-review-fields.csv`.
+- CREATED: `project-control/review-schema-policy.md`.
+- CREATED: `project-control/review-compliance-risk.md` and pointer `reviews-compliance-risk.md`.
+- CREATED: `project-control/reputation-product-roadmap.md`.
+- CREATED: `project-control/maya-rotenberg-reputation-plan.md`.
+- CREATED: `project-control/final-integrated-launch-checklist.md`.
+- CREATED: `project-control/seo-aio-geo-strategy.md`.
+- UPDATED: `project-control/lawyer-mini-site-strategy.md`, `project-control/payment-and-subscription-model.md`, `project-control/integrated-launch-checklist.md`, `project-control/current-status.md`, and `project-control/task-board.csv`.
+- DECISION: recommended MVP is verified Google review link/Place ID/manual source summary plus profile completeness; no fake ratings, no review schema, no automated Google sync until approvals.
+- SAFETY: no public reviews, ratings, schema, database updates, API calls, lawyer-card UI, URLs, redirects, sitemap settings or public content were changed.

@@ -333,3 +333,15 @@ Next safe batch before any URL/content migration:
 - Semantic related-content code is live on the tested article: `/find-lawyer-how-to-find-good-attorney/` exposes `data-related-mode="semantic"`.
 - Next UX check: run mobile screenshots on one article, `/articles/`, `/lawyers/`, and one practice page to confirm non-home floating controls do not cover important content.
 - Next content check: manually review related cards on one family, one criminal and one real-estate article for semantic relevance.
+
+---
+
+## 2026-05-10 REVIEWS / REPUTATION MODULE NEXT ACTIONS
+
+**Status:** STRATEGY CREATED / NOT IMPLEMENTED
+
+- Review and approve `project-control/review-compliance-risk.md` before any public review/rating UI.
+- For Maya Rotenberg, verify Google Business Profile and Place ID manually before showing any Google rating/count.
+- Add only source-disclosed "Read reviews on Google" MVP fields first; do not add stars or AggregateRating schema yet.
+- Decide whether first-party Jus-Tice reviews should be a pilot feature, and approve moderation/privacy policy first.
+- Add review/reputation fields to the lawyer CMS only after owner/legal approval.

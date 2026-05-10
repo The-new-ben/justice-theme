@@ -50,6 +50,17 @@ AI intake/CRM package:
 - lawyer dashboard/reporting.
 - no legal advice automation without legal/product approval.
 
+Review / reputation package:
+- Google review link and manual source verification.
+- Jus-Tice review collection after moderation workflow exists.
+- profile completeness score.
+- review-source disclosure.
+- reputation dashboard.
+- monthly reputation report.
+- AI review summary/reply drafts only after policy approval.
+
+Status: STRATEGY ADDED / NOT IMPLEMENTED. See `project-control/reputation-product-roadmap.md`.
+
 ## Billing Method
 
 Recommended implementation options later:
@@ -76,3 +87,5 @@ Before payment implementation:
 4. Refund/cancellation policy.
 5. Lead-quality definitions.
 6. GA4 events and CRM fields confirmed.
+7. Review/reputation policy approved if review features are included in paid plans.
+8. Paid placement disclosure approved so reputation signals are not confused with advertising.

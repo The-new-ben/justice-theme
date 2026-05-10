@@ -40,6 +40,9 @@ Each mature mini-site should support:
 - related public legal guides.
 - lead form and phone/WhatsApp CTAs.
 - disclosure/trust section.
+- review/reputation section with source-disclosed ratings only.
+- Google review link if verified.
+- first-party Jus-Tice reviews only after moderation workflow exists.
 - profile completeness indicator in admin.
 - schema where appropriate.
 
@@ -49,6 +52,30 @@ Do not claim:
 - verified, recommended, best, leading, success rate or client satisfaction unless true, documented and approved.
 - public achievements, cases or media appearances unless sourced.
 - bar/license details unless verified from public/owner-approved sources.
+- ratings, reviews, "Google score" or "recommended" status unless source-disclosed and approved.
+
+## Review / Reputation Module
+
+Status: STRATEGY ADDED / NOT IMPLEMENTED
+
+Mini-sites should eventually support:
+- Google Place ID and "Read reviews on Google" link.
+- Google rating/count only if verified.
+- Jus-Tice first-party reviews after moderation.
+- profile completeness score.
+- source verification status.
+- review-source disclosure.
+- review policy and privacy warning.
+- lawyer reply workflow after approval.
+
+Do not add `AggregateRating` schema until `project-control/review-schema-policy.md` approval gates are met.
+
+Reference files:
+- `project-control/reviews-reputation-research.md`
+- `project-control/google-reviews-integration-plan.md`
+- `project-control/lawyer-rating-system-spec.md`
+- `project-control/lawyer-review-fields.csv`
+- `project-control/maya-rotenberg-reputation-plan.md`
 
 ## Cluster Integration Examples
 
@@ -71,6 +98,12 @@ Criminal-law lawyer:
 ## Maya Rotenberg MVP
 
 Maya's mini-site is the proof-of-product profile. It should be enriched only with sourced or owner-approved facts. Any public source notes belong in `project-control/maya-rotenberg-public-source-audit.md`, not in the public profile body.
+
+Reputation prototype:
+- use Maya only with source-verified review/profile data.
+- do not show stars or Google rating until Place ID/rating/count are verified.
+- add review block as empty/source-disclosed state first.
+- see `project-control/maya-rotenberg-reputation-plan.md`.
 
 ## Analytics
 

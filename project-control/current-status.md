@@ -552,6 +552,17 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - DECISION: MVP remains source-disclosed and conservative: Google link + verified rating/count fields + profile completeness, no automated sync, no public score, no AggregateRating schema.
 - VERIFIED: documentation-only research pass. No public reviews, fake ratings, lawyer-card UI, API calls, schema, database changes, URLs, redirects or live content changes were made.
 
+## 2026-05-11 INNER-PAGE MOBILE QA FIX
+- LIVE VERIFIED BEFORE FIX: mobile Playwright QA checked `/find-lawyer-how-to-find-good-attorney/`, `/articles/`, `/lawyers/`, and `/family-law/` at 390px.
+- EVIDENCE BEFORE: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11.json` plus matching `mobile-inner-*-2026-05-11.png` screenshots.
+- FOUND: article, articles archive and lawyer directory passed horizontal-overflow checks; `/family-law/` failed with `scrollWidth` 434 vs `clientWidth` 390.
+- FOUND: `/family-law/` showed duplicate mobile WhatsApp controls and practice-hub hero text overflowing its grid column.
+- CODE FIXED: `assets/css/premium-pass-3.css` clips mobile page overflow, constrains practice-hub hero content, hides duplicate theme WhatsApp on non-home mobile, keeps one compact third-party WhatsApp button, and strengthens the Pojo accessibility toolbar mobile selector.
+- UPDATED: `functions.php` deployment marker is now `2026-05-11-mobile-inner-qa-v1`.
+- VERIFIED: `functions.php` passed PHP syntax check using local cached PHP from the owner-provided zip.
+- VISUAL VERIFIED BY CSS SIMULATION: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-final-css.json`; all four sampled pages pass overflow and duplicate-WhatsApp checks with local CSS injected.
+- NOT LIVE VERIFIED AFTER CODE FIX: requires uPress pull/cache clear and fresh public screenshots without local CSS injection.
+
 ## NEXT BEST ACTION
 1. Verify the exact GitHub sync target and active plugin path.
 2. Decide whether `justice-core/` will replace `ultra-justice-engine/` on live or whether the legacy active folder must be renamed in a controlled migration.

@@ -1,0 +1,282 @@
+{
+  "generatedAt": "2026-05-10T21:27:42.055Z",
+  "viewport": "390x844",
+  "localCssInjected": "assets/css/premium-pass-3.css",
+  "results": [
+    {
+      "key": "article",
+      "label": "Single article",
+      "url": "https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/",
+      "finalUrl": "https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/",
+      "status": 200,
+      "screenshot": "C:/Users/janana/jutice-theme/project-control/visual-evidence/mobile-inner-article-2026-05-11-final-css.png",
+      "title": "איך למצוא עורך דין מומלץ? כיצד לבחור עו\"ד טוב | Jus-Tice.co.il",
+      "h1": "איך למצוא עורך דין מומלץ? כיצד לבחור עו”ד טוב",
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "overflowX": false,
+      "relatedMode": "semantic",
+      "boxes": [
+        {
+          "selector": "a.whatsapp-button",
+          "position": "fixed",
+          "display": "flex",
+          "rect": {
+            "x": 322,
+            "y": 664,
+            "width": 54,
+            "height": 54
+          }
+        },
+        {
+          "selector": "#pojo-a11y-toolbar",
+          "position": "fixed",
+          "display": "block",
+          "rect": {
+            "x": 390,
+            "y": 154,
+            "width": 180,
+            "height": 300
+          }
+        },
+        {
+          "selector": "#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle",
+          "position": "absolute",
+          "display": "block",
+          "rect": {
+            "x": 346,
+            "y": 154,
+            "width": 44,
+            "height": 44
+          }
+        },
+        {
+          "selector": ".site-header",
+          "position": "sticky",
+          "display": "block",
+          "rect": {
+            "x": 0,
+            "y": 27,
+            "width": 390,
+            "height": 154
+          }
+        },
+        {
+          "selector": "[data-related-mode]",
+          "position": "static",
+          "display": "block",
+          "rect": {
+            "x": 16,
+            "y": 4621,
+            "width": 358,
+            "height": 1959
+          }
+        }
+      ],
+      "assessment": {
+        "horizontalOverflow": "PASS",
+        "duplicateWhatsApp": "PASS",
+        "pojoTop": 154,
+        "relatedMode": "semantic"
+      }
+    },
+    {
+      "key": "articles",
+      "label": "Articles archive",
+      "url": "https://jus-tice.co.il/articles/",
+      "finalUrl": "https://jus-tice.co.il/articles/",
+      "status": 200,
+      "screenshot": "C:/Users/janana/jutice-theme/project-control/visual-evidence/mobile-inner-articles-2026-05-11-final-css.png",
+      "title": "מאמרים משפטיים לפי הבעיה שלכם | Jus-Tice",
+      "h1": "מדריכים משפטיים לפי הבעיה שלכם",
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "overflowX": false,
+      "relatedMode": "",
+      "boxes": [
+        {
+          "selector": "a.whatsapp-button",
+          "position": "fixed",
+          "display": "flex",
+          "rect": {
+            "x": 322,
+            "y": 664,
+            "width": 54,
+            "height": 54
+          }
+        },
+        {
+          "selector": "#pojo-a11y-toolbar",
+          "position": "fixed",
+          "display": "block",
+          "rect": {
+            "x": 390,
+            "y": 154,
+            "width": 180,
+            "height": 300
+          }
+        },
+        {
+          "selector": "#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle",
+          "position": "absolute",
+          "display": "block",
+          "rect": {
+            "x": 346,
+            "y": 154,
+            "width": 44,
+            "height": 44
+          }
+        },
+        {
+          "selector": ".site-header",
+          "position": "sticky",
+          "display": "block",
+          "rect": {
+            "x": 0,
+            "y": 27,
+            "width": 390,
+            "height": 154
+          }
+        }
+      ],
+      "assessment": {
+        "horizontalOverflow": "PASS",
+        "duplicateWhatsApp": "PASS",
+        "pojoTop": 154,
+        "relatedMode": "NOT_FOUND"
+      }
+    },
+    {
+      "key": "lawyers",
+      "label": "Lawyer directory",
+      "url": "https://jus-tice.co.il/lawyers/",
+      "finalUrl": "https://jus-tice.co.il/lawyers/",
+      "status": 200,
+      "screenshot": "C:/Users/janana/jutice-theme/project-control/visual-evidence/mobile-inner-lawyers-2026-05-11-final-css.png",
+      "title": "מדריך עורכי דין בישראל | Jus-Tice",
+      "h1": "מדריך עורכי דין בישראל",
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "overflowX": false,
+      "relatedMode": "",
+      "boxes": [
+        {
+          "selector": "a.whatsapp-button",
+          "position": "fixed",
+          "display": "flex",
+          "rect": {
+            "x": 322,
+            "y": 664,
+            "width": 54,
+            "height": 54
+          }
+        },
+        {
+          "selector": "#pojo-a11y-toolbar",
+          "position": "fixed",
+          "display": "block",
+          "rect": {
+            "x": 390,
+            "y": 154,
+            "width": 180,
+            "height": 300
+          }
+        },
+        {
+          "selector": "#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle",
+          "position": "absolute",
+          "display": "block",
+          "rect": {
+            "x": 346,
+            "y": 154,
+            "width": 44,
+            "height": 44
+          }
+        },
+        {
+          "selector": ".site-header",
+          "position": "sticky",
+          "display": "block",
+          "rect": {
+            "x": 0,
+            "y": 27,
+            "width": 390,
+            "height": 154
+          }
+        }
+      ],
+      "assessment": {
+        "horizontalOverflow": "PASS",
+        "duplicateWhatsApp": "PASS",
+        "pojoTop": 154,
+        "relatedMode": "NOT_FOUND"
+      }
+    },
+    {
+      "key": "practice-family",
+      "label": "Family practice page",
+      "url": "https://jus-tice.co.il/family-law/",
+      "finalUrl": "https://jus-tice.co.il/family-law/",
+      "status": 200,
+      "screenshot": "C:/Users/janana/jutice-theme/project-control/visual-evidence/mobile-inner-practice-family-2026-05-11-final-css.png",
+      "title": "עורך דין דיני משפחה | מדריך, מאמרים ועורכי דין",
+      "h1": "משפחה",
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "overflowX": false,
+      "relatedMode": "",
+      "boxes": [
+        {
+          "selector": "a.whatsapp-button",
+          "position": "fixed",
+          "display": "flex",
+          "rect": {
+            "x": 322,
+            "y": 664,
+            "width": 54,
+            "height": 54
+          }
+        },
+        {
+          "selector": "#pojo-a11y-toolbar",
+          "position": "fixed",
+          "display": "block",
+          "rect": {
+            "x": 390,
+            "y": 154,
+            "width": 180,
+            "height": 300
+          }
+        },
+        {
+          "selector": "#pojo-a11y-toolbar .pojo-a11y-toolbar-toggle",
+          "position": "absolute",
+          "display": "block",
+          "rect": {
+            "x": 346,
+            "y": 154,
+            "width": 44,
+            "height": 44
+          }
+        },
+        {
+          "selector": ".site-header",
+          "position": "sticky",
+          "display": "block",
+          "rect": {
+            "x": 0,
+            "y": 27,
+            "width": 390,
+            "height": 154
+          }
+        }
+      ],
+      "assessment": {
+        "horizontalOverflow": "PASS",
+        "duplicateWhatsApp": "PASS",
+        "pojoTop": 154,
+        "relatedMode": "NOT_FOUND"
+      }
+    }
+  ]
+}

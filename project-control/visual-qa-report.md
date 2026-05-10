@@ -161,3 +161,16 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - FIXED: mobile homepage search form and hero CTAs are no longer covered by floating WhatsApp bubbles.
 - VERIFIED: computed mobile width stayed at 390px with no horizontal overflow.
 - PARTIAL: non-home mobile floating controls remain enabled and need separate article/directory QA before marking the whole floating-contact system customer-ready.
+
+## 2026-05-11 Inner-Page Mobile Floating QA
+
+- LIVE VERIFIED BEFORE FIX: mobile QA was run at 390px on `/find-lawyer-how-to-find-good-attorney/`, `/articles/`, `/lawyers/`, and `/family-law/`.
+- EVIDENCE BEFORE: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11.json`.
+- VISUAL EVIDENCE BEFORE: `mobile-inner-article-2026-05-11.png`, `mobile-inner-articles-2026-05-11.png`, `mobile-inner-lawyers-2026-05-11.png`, `mobile-inner-practice-family-2026-05-11.png`.
+- FOUND: article, articles archive and lawyer directory had no horizontal overflow and no bottom-zone floating collision.
+- FOUND: `/family-law/` had horizontal overflow (`scrollWidth` 434 vs `clientWidth` 390), the practice hero text overran its mobile grid column, and duplicate floating WhatsApp controls were visible.
+- CODE FIXED: mobile CSS now clips page-level horizontal overflow, constrains practice-hub description/grid children, hides the duplicate theme `.whatsapp-float` on non-home mobile pages, keeps one compact third-party WhatsApp button, and uses a stronger mobile selector for the Pojo accessibility launcher.
+- VISUAL VERIFIED BY LIVE CSS SIMULATION: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-final-css.json`.
+- VISUAL EVIDENCE AFTER CSS SIMULATION: `mobile-inner-article-2026-05-11-final-css.png`, `mobile-inner-articles-2026-05-11-final-css.png`, `mobile-inner-lawyers-2026-05-11-final-css.png`, `mobile-inner-practice-family-2026-05-11-final-css.png`.
+- VERIFIED AFTER CSS SIMULATION: all four sampled mobile pages report no horizontal overflow and no duplicate WhatsApp controls.
+- NOT LIVE VERIFIED AFTER CODE FIX: requires uPress pull/cache clear and a fresh public screenshot pass for marker `2026-05-11-mobile-inner-qa-v1`.

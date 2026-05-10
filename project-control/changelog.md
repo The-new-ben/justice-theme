@@ -1317,3 +1317,14 @@
 - UPDATED: `project-control/reputation-product-roadmap.md`, `project-control/maya-rotenberg-reputation-plan.md`, `project-control/review-schema-policy.md`, `project-control/seo-aio-geo-strategy.md`, `project-control/payment-and-subscription-model.md`, `project-control/final-integrated-launch-checklist.md`, `project-control/current-status.md`, `project-control/next-actions.md` and `project-control/task-board.csv`.
 - DECISION: keep the first launch source-disclosed and conservative; no fake reviews, no fake stars, no AggregateRating schema and no automated Google sync before approval.
 - SAFETY: no public content, review UI, database rows, API calls, schema, URLs, redirects, sitemap settings or live CMS settings were changed.
+
+## 2026-05-11 Inner-Page Mobile QA Fix
+- LIVE VERIFIED BEFORE FIX: Playwright checked mobile `/find-lawyer-how-to-find-good-attorney/`, `/articles/`, `/lawyers/`, and `/family-law/`.
+- CREATED: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11.json` and first-pass screenshots.
+- FOUND: `/family-law/` had horizontal overflow and duplicate WhatsApp controls on mobile; article, archive and lawyer directory passed horizontal-overflow checks.
+- UPDATED: `assets/css/premium-pass-3.css` to clip mobile page overflow, constrain practice hub description/grid children, hide the duplicate theme WhatsApp bubble on non-home mobile pages, lower the remaining compact third-party contact button, and strengthen Pojo accessibility toolbar placement.
+- UPDATED: `functions.php` deployment marker to `2026-05-11-mobile-inner-qa-v1`.
+- CREATED: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-final-css.json` and final local-CSS simulation screenshots.
+- VERIFIED: final CSS simulation shows all four sampled pages pass horizontal-overflow and duplicate-WhatsApp checks.
+- VERIFIED: `functions.php` passed PHP syntax check using the local cached PHP runtime from the owner-provided zip.
+- SAFETY: no public content, URLs, redirects, sitemap settings, robots rules, database rows, CRM records or admin settings were changed.

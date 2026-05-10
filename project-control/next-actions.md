@@ -356,3 +356,14 @@ Next safe batch before any URL/content migration:
 4. CMS planning: add fields from `lawyer-review-fields.csv` only after the policy gate is approved.
 5. Schema gate: keep AggregateRating/Review schema blocked until visible real reviews, policy approval and Rich Results Test workflow exist.
 6. Future implementation: build first-party `justice_review` only as private/moderated content, not public comments.
+
+## 2026-05-11 INNER MOBILE QA NEXT ACTIONS
+
+**Status:** CODE FIXED / LIVE DEPLOYMENT PENDING
+
+1. Pull latest `main` in uPress and clear cache.
+2. Verify public source marker `2026-05-11-mobile-inner-qa-v1`.
+3. Re-run mobile screenshots for `/find-lawyer-how-to-find-good-attorney/`, `/articles/`, `/lawyers/`, and `/family-law/` without local CSS injection.
+4. Confirm `/family-law/` has no horizontal overflow at 390px.
+5. Confirm only one compact mobile WhatsApp/contact control is visible on non-home pages.
+6. Confirm the accessibility launcher does not create horizontal scroll and does not cover critical CTAs.

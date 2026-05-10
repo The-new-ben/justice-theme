@@ -76,6 +76,11 @@ Date: 2026-05-10
 - 2026-05-10 UPDATE: LIVE VERIFIED homepage mobile cleanup after uPress pull/cache clear. On the homepage only, floating WhatsApp controls are hidden on mobile so they no longer cover the guided search form or hero CTAs.
 - Proof: `project-control/visual-evidence/homepage-mobile-after-floating-hide-2026-05-10.png`.
 - Status: HOMEPAGE MOBILE VISUAL VERIFIED / INNER PAGES PARTIAL.
+- 2026-05-11 UPDATE: Inner mobile pages were sampled at 390px. Article, articles archive and lawyer directory passed overflow checks; `/family-law/` had horizontal overflow and duplicate WhatsApp controls before the fix.
+- CODE FIXED: mobile practice-hub overflow is constrained, duplicate theme WhatsApp is hidden on non-home mobile pages, and one compact contact button remains.
+- Proof before: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11.json`.
+- Proof after local CSS simulation: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-final-css.json`.
+- Status: CODE FIXED / VISUAL VERIFIED BY CSS SIMULATION / NOT LIVE VERIFIED after deployment.
 
 ## Mobile Menu
 - Proof: `customer-home-mobile.png`

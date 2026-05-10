@@ -98,3 +98,33 @@ Next action:
 - VISUAL VERIFIED: `project-control/visual-evidence/homepage-mobile-after-floating-hide-2026-05-10.png`.
 - VERIFIED: no horizontal overflow in the 390px mobile viewport check.
 - PARTIAL: inner article, directory and practice pages still need mobile overlay QA because floating contact controls remain enabled outside the homepage.
+
+## 2026-05-11 Inner-Page Mobile QA
+
+Evidence before fix:
+- `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11.json`
+- `project-control/visual-evidence/mobile-inner-article-2026-05-11.png`
+- `project-control/visual-evidence/mobile-inner-articles-2026-05-11.png`
+- `project-control/visual-evidence/mobile-inner-lawyers-2026-05-11.png`
+- `project-control/visual-evidence/mobile-inner-practice-family-2026-05-11.png`
+
+Evidence after local CSS simulation:
+- `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-final-css.json`
+- `project-control/visual-evidence/mobile-inner-article-2026-05-11-final-css.png`
+- `project-control/visual-evidence/mobile-inner-articles-2026-05-11-final-css.png`
+- `project-control/visual-evidence/mobile-inner-lawyers-2026-05-11-final-css.png`
+- `project-control/visual-evidence/mobile-inner-practice-family-2026-05-11-final-css.png`
+
+VERIFIED:
+- Article page, articles archive and lawyer directory pass 390px horizontal-overflow checks.
+- The article page still exposes `data-related-mode="semantic"`.
+- After CSS simulation, all four sampled inner pages pass the horizontal-overflow check.
+- After CSS simulation, duplicate mobile WhatsApp controls are removed; one compact third-party contact button remains.
+
+FIXED IN CODE / NOT LIVE VERIFIED:
+- Practice hub mobile overflow.
+- Duplicate theme + third-party WhatsApp buttons on non-home mobile pages.
+- Stronger mobile placement selector for the Pojo accessibility launcher.
+
+Next action:
+- Pull latest in uPress, clear cache, and re-run the same four-page mobile screenshot set against live CSS without local injection.

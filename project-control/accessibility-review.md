@@ -90,3 +90,15 @@ Status:
 - VISUAL VERIFIED: `project-control/visual-evidence/homepage-mobile-after-floating-hide-2026-05-10.png`.
 - VERIFIED: computed homepage mobile check shows no horizontal overflow.
 - PARTIAL: non-home mobile pages still need QA because compact floating contact buttons remain enabled outside `body.home`.
+
+## 2026-05-11 Inner-Page Accessibility Overlay Follow-Up
+
+- LIVE VERIFIED BEFORE FIX: four non-home mobile pages were sampled at 390px. The practice page had horizontal overflow and duplicate fixed WhatsApp controls.
+- CODE FIXED: mobile CSS hides the duplicate theme `.whatsapp-float` on non-home pages while preserving the compact third-party `a.whatsapp-button`.
+- CODE FIXED: the Pojo toolbar mobile selector is strengthened to override the plugin's right-side placement and keep the launcher predictable.
+- CODE FIXED: page-level horizontal overflow is clipped on mobile, and practice-hub long descriptions are allowed to wrap inside their grid column.
+- VISUAL VERIFIED BY LIVE CSS SIMULATION: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-final-css.json` shows all sampled pages passing overflow and duplicate-button checks.
+- NOT LIVE VERIFIED AFTER CODE FIX: requires uPress pull/cache clear.
+
+Remaining accessibility risk:
+- The accessibility launcher is still visually prominent on mobile. It is now predictable and no longer creates horizontal overflow, but final placement should be reviewed after live deployment with keyboard/touch testing.

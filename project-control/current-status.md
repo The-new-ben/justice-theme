@@ -7,6 +7,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - SAFETY: Draft/private editing remains allowed so internal notes can be preserved in draft-only editorial notes.
 - VERIFIED: PHP lint passed locally for 126 PHP files after the publication safety gate.
 - NOT VERIFIED LIVE: requires uPress pull and a controlled wp-admin test publish attempt.
+- LIVE RECHECK AFTER PUSH `76dc56f`: deployment marker remains absent and family-law pages remain dirty. Publication safety gate is pushed, but not live-verified.
 - FIXED IN CODE: Header/footer/fallback menu URLs now use canonical English lawyer-directory filter slugs for personal injury and inheritance, while old `torts`/`inheritance` params are still normalized for compatibility.
 - FIXED IN CODE: Existing WordPress menu repair is bumped to `justice_menu_area_urls_repaired_v2` so stale `torts`/`inheritance` menu items can be repaired even if the older v1 hook already ran.
 - VERIFIED: PHP lint passed locally for 125 PHP files after the menu slug cleanup.

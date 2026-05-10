@@ -70,6 +70,12 @@ These are the proposed URLs, but they are currently blocked from publication pen
 - Conclusion: uPress/live WordPress has not pulled/executed the emergency quarantine yet, or cache is still serving old generated content.
 - Required action: pull latest in uPress immediately, then open any public page once so the emergency quarantine runs.
 
+## LIVE RECHECK - 2026-05-10 14:12 Asia/Jerusalem
+- Result: STILL UNSAFE LIVE.
+- Public checks again returned HTTP 200 for all seven family-law URLs.
+- All seven still expose internal markers and publication markers.
+- Browser/uPress automation is not available in this session; direct authenticated uPress/wp-admin action remains required.
+
 ## NEXT ACTION
 1. Compare every proposed page against existing live content.
 2. Merge with existing pages where the same intent already exists.

@@ -520,6 +520,17 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - LIVE VERIFIED MOBILE RISK: sticky WhatsApp/lead CTA and accessibility button overlap important content on several mobile views.
 - NOT VERIFIED: PHP syntax lint for the latest `inc/seo.php` title fix because PHP is not installed in this local session.
 
+## 2026-05-10 UPRESS PULL + MOBILE FLOATING CTA LIVE STATUS
+- LIVE VERIFIED: uPress theme folder was pulled from GitHub after commits `ffc08c8` and `b7763b7`; uPress cache clear was triggered after each pull.
+- LIVE VERIFIED: public CSS now contains the homepage-only mobile hide rule for `.whatsapp-float` and third-party `a.whatsapp-button`.
+- LIVE VERIFIED: public CSS still keeps the compact 54px third-party mobile button behavior for non-home pages.
+- VISUAL VERIFIED: homepage mobile screenshot `project-control/visual-evidence/homepage-mobile-after-floating-hide-2026-05-10.png` shows the search form and CTAs are no longer covered by floating WhatsApp bubbles.
+- VERIFIED: computed mobile homepage geometry reports `display: none` for both floating WhatsApp controls on `body.home` and no horizontal overflow.
+- LIVE VERIFIED: sample article `/find-lawyer-how-to-find-good-attorney/` exposes `data-related-mode="semantic"`, proving the semantic related-content implementation is live at least on the tested article.
+- SAFETY: no public content, URLs, redirects, sitemap settings, robots rules, CRM data, payments, lawyer records or database rows were changed in this pass.
+- NOT VERIFIED: related-content quality still needs manual visual review across family, criminal and real-estate article examples.
+- NOT VERIFIED: mobile floating controls on non-home inner pages still need a separate article/directory QA pass.
+
 ## NEXT BEST ACTION
 1. Verify the exact GitHub sync target and active plugin path.
 2. Decide whether `justice-core/` will replace `ultra-justice-engine/` on live or whether the legacy active folder must be renamed in a controlled migration.

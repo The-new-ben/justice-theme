@@ -73,6 +73,9 @@ Date: 2026-05-10
 - CODE FIXED: mobile CSS now reduces and raises the WhatsApp float, adds bottom safe-space padding, and moves the Pojo accessibility toolbar away from the middle of the first viewport.
 - LIVE VERIFIED ISSUE / CODE FIXED: the separate third-party `a.whatsapp-button` lead banner rendered as a 255px mobile pill; CSS now converts it to a 54px icon-only WhatsApp control while preserving the link.
 - Status: CODE FIXED / NOT LIVE VERIFIED.
+- 2026-05-10 UPDATE: LIVE VERIFIED homepage mobile cleanup after uPress pull/cache clear. On the homepage only, floating WhatsApp controls are hidden on mobile so they no longer cover the guided search form or hero CTAs.
+- Proof: `project-control/visual-evidence/homepage-mobile-after-floating-hide-2026-05-10.png`.
+- Status: HOMEPAGE MOBILE VISUAL VERIFIED / INNER PAGES PARTIAL.
 
 ## Mobile Menu
 - Proof: `customer-home-mobile.png`

@@ -153,3 +153,11 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - VISUAL VERIFIED PARTIAL: theme WhatsApp float is smaller/raised after the pull.
 - STILL LOOKS BAD: third-party green chat/lead bubble still overlaps lower mobile hero cards and should be handled in the next UX pass.
 - NOT VERIFIED: wp-admin Site Icon/Custom Logo selected media items and Google search-result favicon refresh.
+
+## 2026-05-10 Homepage Mobile Floating CTA Final Verification
+
+- LIVE VERIFIED: after uPress pull/cache clear, public CSS contains the homepage-only hide rule for `.whatsapp-float` and third-party `a.whatsapp-button`.
+- VISUAL VERIFIED: `project-control/visual-evidence/homepage-mobile-after-floating-hide-2026-05-10.png`.
+- FIXED: mobile homepage search form and hero CTAs are no longer covered by floating WhatsApp bubbles.
+- VERIFIED: computed mobile width stayed at 390px with no horizontal overflow.
+- PARTIAL: non-home mobile floating controls remain enabled and need separate article/directory QA before marking the whole floating-contact system customer-ready.

@@ -1284,3 +1284,12 @@
 - LIVE VERIFIED BROKEN: sample lawyer-profile Hebrew URL and fake 404 URL both returned homepage-style content with status 200.
 - NOT VERIFIED: PHP lint for the new title helper because local PHP is not installed.
 - SAFETY: no public content, URLs, redirects, sitemap settings, robots rules, payments or live CMS settings were changed.
+
+## 2026-05-10 uPress Pull, Semantic Related Live Check And Homepage Mobile CTA Cleanup
+- PUSHED: `ffc08c8` moved the third-party mobile WhatsApp CTA above the bottom content rail for inner pages.
+- PUSHED: `b7763b7` hides floating WhatsApp controls on the mobile homepage only, where the first viewport already has a guided form and CTAs.
+- LIVE VERIFIED: uPress pull and cache clear were executed after deployment.
+- LIVE VERIFIED: public `premium-pass-3.css` contains the homepage mobile hide rule and compact non-home WhatsApp button rule.
+- LIVE VERIFIED: `/find-lawyer-how-to-find-good-attorney/` exposes `data-related-mode="semantic"`.
+- VISUAL VERIFIED: `project-control/visual-evidence/homepage-mobile-after-floating-hide-2026-05-10.png` shows the mobile homepage search/CTA area without floating-button overlap.
+- SAFETY: no public content, URLs, redirects, sitemap settings, robots rules, CRM records, payments or database rows were changed.

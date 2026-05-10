@@ -322,3 +322,14 @@ Next safe batch before any URL/content migration:
 8. Recheck the live 404/routing guard and sample lawyer profile route, because both still returned homepage-style content with status 200 in the integrated visual QA pass.
 
 **Do not execute yet:** URL changes, redirects, content deletions, public rewrites, payments, index/noindex changes.
+
+---
+
+## 2026-05-10 LIVE VERIFIED UPDATES
+
+**Status:** LIVE VERIFIED / PARTIAL
+
+- Homepage mobile floating WhatsApp overlap is fixed live: the homepage hides floating WhatsApp controls on mobile, and the guided search form/CTAs remain clear.
+- Semantic related-content code is live on the tested article: `/find-lawyer-how-to-find-good-attorney/` exposes `data-related-mode="semantic"`.
+- Next UX check: run mobile screenshots on one article, `/articles/`, `/lawyers/`, and one practice page to confirm non-home floating controls do not cover important content.
+- Next content check: manually review related cards on one family, one criminal and one real-estate article for semantic relevance.

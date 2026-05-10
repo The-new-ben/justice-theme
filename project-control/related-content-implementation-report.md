@@ -5,7 +5,8 @@ Date: 2026-05-10
 
 - CODE FIXED: semantic related-content selection is implemented in `inc/related-content.php`.
 - VERIFIED: PHP lint passed for 127 PHP files.
-- NOT LIVE VERIFIED: public article pages need uPress pull/cache clear and visual recheck.
+- LIVE VERIFIED PARTIAL: public article `/find-lawyer-how-to-find-good-attorney/` exposes `data-related-mode="semantic"` after uPress pull/cache clear.
+- NOT VERIFIED: visual relevance still needs checks across one family-law, one criminal-law and one real-estate article.
 
 ## What Changed
 
@@ -29,5 +30,5 @@ Related articles are part of the SEO and user journey. A visitor reading about a
 
 1. Fill CMS metadata for priority articles: `manual_related_urls`, `parent_pillar_url`, `content_cluster`.
 2. Use `project-control/related-content-map.csv` as the editorial source for family, criminal, real estate, malpractice, traffic and inheritance clusters.
-3. After uPress pull/cache clear, visually verify one family article, one criminal article and one real-estate article.
+3. Visually verify one family article, one criminal article and one real-estate article.
 4. Add GA4 event tracking for related-article clicks later.

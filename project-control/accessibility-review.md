@@ -83,3 +83,10 @@ Status:
 - CODE FIXED: the extra embedded Jus-Tice logo and direct text label are hidden only in the compact mobile state; the WhatsApp icon and link remain available.
 - VISUAL VERIFIED BY LIVE CSS SIMULATION: `project-control/visual-evidence/mobile-chat-widget-css-test-final-2026-05-10.png`.
 - NOT LIVE VERIFIED AFTER CODE FIX: needs uPress pull/cache clear and fresh mobile screenshot recheck.
+
+## 2026-05-10 Homepage Mobile Floating Button Final State
+
+- LIVE VERIFIED: after uPress pull/cache clear, homepage mobile hides `.whatsapp-float` and third-party `a.whatsapp-button` so fixed controls do not cover the guided search form or CTAs.
+- VISUAL VERIFIED: `project-control/visual-evidence/homepage-mobile-after-floating-hide-2026-05-10.png`.
+- VERIFIED: computed homepage mobile check shows no horizontal overflow.
+- PARTIAL: non-home mobile pages still need QA because compact floating contact buttons remain enabled outside `body.home`.

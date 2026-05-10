@@ -91,3 +91,10 @@ Next action:
 - CODE FIXED: WordPress Site Icon remains preferred; theme fallback only runs when no Site Icon exists.
 - NOT LIVE VERIFIED: mobile browser tab/bookmark icon after deploying `2026-05-10-branding-v1`.
 - NEXT: after uPress pull/cache clear, recheck mobile header logo scale, footer brand, browser tab icon and add-to-home-screen icon if available.
+
+## 2026-05-10 Homepage Mobile Floating CTA Recheck
+
+- LIVE VERIFIED: homepage mobile no longer displays the fixed WhatsApp controls over the search form or hero CTAs.
+- VISUAL VERIFIED: `project-control/visual-evidence/homepage-mobile-after-floating-hide-2026-05-10.png`.
+- VERIFIED: no horizontal overflow in the 390px mobile viewport check.
+- PARTIAL: inner article, directory and practice pages still need mobile overlay QA because floating contact controls remain enabled outside the homepage.

@@ -11,6 +11,10 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - LIVE VERIFIED: `/not-a-real-page-justice-qa/` currently returns a 301 redirect to the homepage, which is a customer-facing 404/routing problem and likely requires uPress/wp-admin/server/cache review.
 - LIVE VERIFIED: a sample Hebrew lawyer URL returns 200, but sampled HTML still contains old deployment marker and HTTP canonical/OG signals; this needs a post-deploy lawyer-profile/canonical QA pass.
 - BLOCKED LIVE: uPress pull/cache refresh/wp-admin access is still needed before repo fixes can be called live customer-ready.
+- LIVE VERIFIED: `https://jus-tice.co.il/sitemap_index.xml` is the active sitemap index and returns valid XML with 9 child sitemaps.
+- LIVE VERIFIED BLOCKER: `/sitemap.xml`, `/wp-sitemap.xml`, and `/post-sitemap.xml` redirect to the homepage instead of returning XML.
+- LIVE VERIFIED BLOCKER: active child sitemaps list many `http://` URLs: page sitemap 10/11 HTTP, articles sitemap 1 has 238/252 HTTP, articles sitemap 2 has 217/217 HTTP, and practice-area sitemap has 34/48 HTTP.
+- DOCUMENTED: sitemap evidence is recorded in `project-control/sitemap-live-verification.csv`, `project-control/sitemap-strategy.md`, and `project-control/robots-htaccess-review.md`.
 
 ## LATEST CONTENT AUDIT STATUS - 2026-05-10
 - VERIFIED: GSC/GA4 continuous SEO intelligence baseline was expanded beyond keyword filters into Page indexing, Sitemaps, Core Web Vitals, HTTPS, Links overview, GA4 acquisition, GA4 events, and GA4 pages/screens.

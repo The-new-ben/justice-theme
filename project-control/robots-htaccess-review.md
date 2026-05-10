@@ -7,8 +7,12 @@ Status: REVIEW V1 - no live server changes executed
 
 VERIFIED:
 - `https://jus-tice.co.il/robots.txt` returned HTTP 200 from the public web.
-- `https://jus-tice.co.il/sitemap.xml` returned HTTP 200 but appeared to return homepage HTML, not XML.
-- `https://jus-tice.co.il/wp-sitemap.xml` returned HTTP 200 but appeared to return homepage HTML, not XML.
+- `https://jus-tice.co.il/sitemap_index.xml` returned valid XML and appears to be the active sitemap index.
+- `https://jus-tice.co.il/page-sitemap.xml`, `articles-sitemap1.xml`, `articles-sitemap2.xml`, `category-sitemap.xml`, and `practice-areas-sitemap.xml` returned XML in public shell checks.
+- `https://jus-tice.co.il/sitemap.xml` returned a 301 redirect to the homepage, not XML.
+- `https://jus-tice.co.il/wp-sitemap.xml` returned a 301 redirect to the homepage, not XML.
+- `https://jus-tice.co.il/post-sitemap.xml` returned a 301 redirect to the homepage, not XML.
+- The active sitemap children expose many `http://` locs: page sitemap 10/11 HTTP, articles sitemap 1 has 238/252 HTTP, articles sitemap 2 has 217/217 HTTP, practice-area sitemap has 34/48 HTTP.
 - GSC HTTPS report shows 412 Non-HTTPS URLs, 25 HTTPS URLs, and 222 HTTPS-not-evaluated URLs.
 - GSC Page indexing shows 90 "Page with redirect" URLs, 38 duplicate-without-user-selected-canonical URLs, 2 404 URLs and 785 crawled-currently-not-indexed URLs.
 
@@ -69,6 +73,8 @@ RISK:
 - A previous live QA check found a fake URL returning homepage-like HTTP 200 behavior. That can hide broken URLs from users and search engines. It must be verified and fixed before migration.
 - GSC HTTPS shows a large Non-HTTPS URL count. Before any migration, inspect whether internal links, canonicals, sitemap URLs or old redirects still expose `http://` URLs.
 - If sitemap URLs are returning homepage-like HTML, Google may not receive a reliable canonical URL list for the future migration.
+- If the active sitemap keeps listing `http://` URLs, Google receives mixed protocol signals even when live pages redirect or canonicalize to HTTPS.
+- Default sitemap aliases redirecting to homepage can confuse GSC setup if the wrong sitemap URL is submitted.
 
 ## Redirect Rule Source Of Truth
 
@@ -104,3 +110,4 @@ The repo now has a public REST export and heuristic maps. The next step is revie
 3. Check whether sitemap URLs return valid XML after cache/login/server review.
 4. Check whether a catch-all rewrite/redirect is returning homepage HTML for missing URLs.
 5. Confirm final redirect mechanism: SEO plugin, Redirection plugin, `.htaccess`, or uPress redirect layer.
+6. Fix sitemap generator/base URL so every public sitemap loc is HTTPS before any URL migration.

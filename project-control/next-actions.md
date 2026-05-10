@@ -19,13 +19,16 @@
 7. NEXT: create a no-URL-change remediation batch from the classified examples: media policy, legacy CPT comparison, and `/divorce-mediation-basics` merge review.
 
 ### ACTION-SEO-002: Verify Sitemap And HTTPS Migration Blockers
-**Status:** NEXT
+**Status:** PARTIAL - public endpoint verification completed; wp-admin/uPress settings still blocked
 **Why:** Public sitemap URLs appear to return homepage-like HTML, and GSC reports 412 Non-HTTPS URLs. This can break a future URL migration.
 **Actions:**
-1. Verify active sitemap generator in wp-admin/server.
-2. Confirm sitemap URL returns valid XML.
-3. Inspect GSC Non-HTTPS examples.
-4. Update `project-control/sitemap-strategy.md` and `project-control/robots-htaccess-review.md`.
+1. BLOCKED: Verify active sitemap generator in wp-admin/server.
+2. DONE: Confirmed `sitemap_index.xml` is the active valid XML sitemap index.
+3. DONE: Confirmed default `/sitemap.xml`, `/wp-sitemap.xml`, and `/post-sitemap.xml` redirect to the homepage, not XML.
+4. DONE: Confirmed live child sitemaps contain many `http://` locs, matching the GSC Non-HTTPS risk.
+5. DONE: Created `project-control/sitemap-live-verification.csv`.
+6. NEXT: Inspect GSC Non-HTTPS examples and wp-admin sitemap/SEO plugin settings when access is available.
+7. UPDATED: `project-control/sitemap-strategy.md` and `project-control/robots-htaccess-review.md`.
 
 ### ACTION-SEO-003: No-URL-Change Homepage + Directory SEO Batch
 **Status:** QUEUED

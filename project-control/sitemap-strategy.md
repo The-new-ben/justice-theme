@@ -8,12 +8,22 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
 VERIFIED:
 - GSC Sitemaps section was opened in the browser.
 - A "Submitted sitemaps" area was visible.
+- Public recheck on 2026-05-10 21:42 Asia/Jerusalem found `https://jus-tice.co.il/sitemap_index.xml` returns valid XML with 9 child sitemap URLs.
+- Public recheck found `https://jus-tice.co.il/page-sitemap.xml` returns valid XML with 11 URLs, but 10 are `http://` URLs.
+- Public recheck found `https://jus-tice.co.il/articles-sitemap1.xml` returns valid XML with 252 URLs, but 238 are `http://` URLs.
+- Public recheck found `https://jus-tice.co.il/articles-sitemap2.xml` returns valid XML with 217 URLs, all `http://`.
+- Public recheck found `https://jus-tice.co.il/practice-areas-sitemap.xml` returns valid XML with 48 locs, including 34 `http://` locs and at least one media/image URL.
+- Public recheck found `https://jus-tice.co.il/category-sitemap.xml` returns valid XML with 17 HTTPS locs.
 
 PARTIAL / RISK:
 - No submitted sitemap row was captured in the browser DOM snapshot.
-- Public checks showed both `https://jus-tice.co.il/sitemap.xml` and `https://jus-tice.co.il/wp-sitemap.xml` returning homepage-like HTML rather than obvious XML.
+- Public checks showed both `https://jus-tice.co.il/sitemap.xml` and `https://jus-tice.co.il/wp-sitemap.xml` redirecting to the homepage instead of returning XML.
 - GSC Page indexing reports 198 indexed pages and 1.58K not indexed pages.
 - GSC HTTPS reports 412 Non-HTTPS URLs, 25 HTTPS URLs and 222 HTTPS-not-evaluated URLs.
+- The live active sitemap still exposes hundreds of `http://` content URLs. This likely explains or contributes to the GSC Non-HTTPS report and is a migration blocker.
+
+EVIDENCE FILE:
+- `project-control/sitemap-live-verification.csv`
 
 DECISION:
 - Sitemap setup is a migration blocker until verified.
@@ -137,8 +147,10 @@ For each approved migration batch:
 BLOCKED / NEEDS LIVE ADMIN:
 - Verify active sitemap generator.
 - Check whether an SEO plugin is active.
-- Check server/cache behavior returning homepage HTML for sitemap URLs.
+- Check why default sitemap aliases `/sitemap.xml` and `/wp-sitemap.xml` redirect to homepage while `/sitemap_index.xml` works.
+- Check why active sitemap child files output many `http://` locs.
 - Check if a redirect/catch-all rule is masking missing XML/404s.
+- Check whether practice-area sitemap should include media/image URLs or only canonical taxonomy URLs.
 
 ## Current Decision
 

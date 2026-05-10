@@ -12,6 +12,16 @@
 - LIVE RECHECK: sample Hebrew lawyer profile URL returns 200 but still emits old marker and HTTP canonical/OG signals in sampled HTML.
 - SAFETY: no public URLs, redirects, content bodies, sitemap, robots rules or CMS records were changed.
 
+## 2026-05-10 - Public sitemap and HTTPS migration blocker verification
+
+- LIVE VERIFIED: `https://jus-tice.co.il/sitemap_index.xml` is the active sitemap index and returns valid XML with 9 HTTPS child sitemap URLs.
+- LIVE VERIFIED BLOCKER: `/sitemap.xml`, `/wp-sitemap.xml`, and `/post-sitemap.xml` redirect to the homepage instead of returning XML.
+- LIVE VERIFIED BLOCKER: active child sitemaps expose many `http://` locs, including page sitemap 10/11 HTTP, articles sitemap 1 with 238/252 HTTP, articles sitemap 2 with 217/217 HTTP, and practice-area sitemap with 34/48 HTTP.
+- CREATED: `project-control/sitemap-live-verification.csv`.
+- UPDATED: `project-control/sitemap-strategy.md`, `project-control/robots-htaccess-review.md`, `project-control/next-actions.md`, and `project-control/current-status.md`.
+- DECISION: URL migration remains blocked until sitemap generator settings/base URL are corrected and GSC is submitted the real active sitemap URL.
+- SAFETY: no sitemap settings, redirects, robots rules, public URLs, content bodies, or CMS records were changed.
+
 ## 2026-05-10 - Pretrial-detention supporting draft
 
 ## 2026-05-10 - Continuous GSC/GA4 SEO intelligence baseline

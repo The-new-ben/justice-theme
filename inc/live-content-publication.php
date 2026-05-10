@@ -13,7 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_FAMILY_CLUSTER_PUBLICATION_VERSION', '2026-05-10-family-cluster-v1' );
+define( 'JUSTICE_THEME_FAMILY_CLUSTER_PUBLICATION_VERSION', '2026-05-10-family-cluster-v2-public-safe' );
+define( 'JUSTICE_THEME_ENABLE_AUTO_FAMILY_CLUSTER_PUBLICATION', false );
 
 /**
  * Register SEO/AEO/GEO meta for public content pages.
@@ -54,6 +55,10 @@ add_action( 'init', 'justice_theme_register_publication_meta' );
  * Publish the approved first family-law content cluster.
  */
 function justice_theme_publish_owner_approved_family_cluster(): void {
+	if ( ! JUSTICE_THEME_ENABLE_AUTO_FAMILY_CLUSTER_PUBLICATION ) {
+		return;
+	}
+
 	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
 		return;
 	}
@@ -125,6 +130,24 @@ function justice_theme_run_family_cluster_publication( bool $force = false ): ar
 		return array(
 			'published' => array(),
 			'blocked'   => array( 'No publication items configured.' ),
+		);
+	}
+
+	$preflight = justice_theme_family_cluster_publication_preflight( $items );
+	if ( ! empty( $preflight['blocked'] ) ) {
+		update_option(
+			'justice_family_cluster_publication_result',
+			array(
+				'time'      => current_time( 'mysql' ),
+				'published' => array(),
+				'blocked'   => $preflight['blocked'],
+			),
+			false
+		);
+
+		return array(
+			'published' => array(),
+			'blocked'   => $preflight['blocked'],
 		);
 	}
 
@@ -335,6 +358,93 @@ function justice_theme_publish_family_cluster_page( string $slug, array $item, a
 }
 
 /**
+ * Verify public-publication gates before anything can be written live.
+ *
+ * @param array $items Publication map.
+ * @return array{blocked:array}
+ */
+function justice_theme_family_cluster_publication_preflight( array $items ): array {
+	$blocked = array();
+	$review  = justice_theme_read_publication_cannibalization_statuses();
+
+	foreach ( $items as $slug => $item ) {
+		$status = $review[ $slug ]['status'] ?? '';
+		$action = $review[ $slug ]['recommended_action'] ?? '';
+
+		if ( ! in_array( $status, array( 'APPROVED_FOR_PUBLICATION', 'APPROVED_FOR_UPDATE', 'APPROVED_FOR_MERGE' ), true ) ) {
+			$blocked[] = $slug . ': publication-cannibalization-check.csv status is not approved (' . ( $status ?: 'missing' ) . ').';
+			continue;
+		}
+
+		if ( in_array( $action, array( 'DO_NOT_PUBLISH_DUPLICATE', 'NEEDS_OWNER_REVIEW' ), true ) ) {
+			$blocked[] = $slug . ': recommended action blocks publication (' . $action . ').';
+			continue;
+		}
+
+		$file = sanitize_file_name( $item['file'] ?? '' );
+		$path = JUSTICE_THEME_DIR . '/content-drafts/' . $file;
+		if ( ! is_readable( $path ) ) {
+			$blocked[] = $slug . ': draft file is missing.';
+			continue;
+		}
+
+		$raw = file_get_contents( $path );
+		if ( false === $raw ) {
+			$blocked[] = $slug . ': draft file could not be read.';
+			continue;
+		}
+
+		$public_raw = justice_theme_strip_internal_publication_note( $raw );
+		$markers    = justice_theme_detect_public_content_internal_markers( $public_raw );
+		if ( ! empty( $markers ) ) {
+			$blocked[] = $slug . ': public-content safety markers remain: ' . implode( ', ', array_slice( $markers, 0, 4 ) );
+		}
+	}
+
+	return array( 'blocked' => $blocked );
+}
+
+/**
+ * Read approved publication statuses from project-control.
+ *
+ * @return array<string,array<string,string>>
+ */
+function justice_theme_read_publication_cannibalization_statuses(): array {
+	$path = JUSTICE_THEME_DIR . '/project-control/publication-cannibalization-check.csv';
+	if ( ! is_readable( $path ) ) {
+		return array();
+	}
+
+	$handle = fopen( $path, 'r' );
+	if ( ! $handle ) {
+		return array();
+	}
+
+	$headers = fgetcsv( $handle );
+	if ( empty( $headers ) ) {
+		fclose( $handle );
+		return array();
+	}
+
+	$rows = array();
+	while ( false !== ( $row = fgetcsv( $handle ) ) ) {
+		$record = array();
+		foreach ( $headers as $index => $header ) {
+			$record[ $header ] = $row[ $index ] ?? '';
+		}
+
+		$slug = sanitize_title( $record['proposed_slug'] ?? '' );
+		if ( $slug ) {
+			$rows[ $slug ] = $record;
+		}
+	}
+
+	fclose( $handle );
+
+	return $rows;
+}
+
+/**
  * Convert a draft into public-safe page HTML and add cluster links.
  *
  * @param string $raw Raw Markdown.
@@ -345,6 +455,11 @@ function justice_theme_publish_family_cluster_page( string $slug, array $item, a
  */
 function justice_theme_prepare_family_cluster_html( string $raw, string $slug, array $item, array $all_items ): string {
 	$raw = justice_theme_strip_internal_publication_note( $raw );
+	$markers = justice_theme_detect_public_content_internal_markers( $raw );
+	if ( ! empty( $markers ) ) {
+		return '';
+	}
+
 	$html = function_exists( 'justice_theme_markdown_draft_to_html' )
 		? justice_theme_markdown_draft_to_html( $raw )
 		: wpautop( esc_html( $raw ) );
@@ -363,10 +478,142 @@ function justice_theme_prepare_family_cluster_html( string $raw, string $slug, a
  * @return string
  */
 function justice_theme_strip_internal_publication_note( string $raw ): string {
-	$raw = preg_replace( '/^##\s+.*(?:לפני\s+פרסום|לפני\s+פירסום|before\s+publication|pre-publication).*?(?=^##\s+)/imsu', '', $raw, 1 );
-	$raw = preg_replace( '/^##\s+.*(?:הערת\s+מערכת).*?(?:אסור\s+לפרסם|טיוטה|נוסח\s+עבודה).*?(?=^##\s+)/imsu', '', $raw, 1 );
+	$lines      = preg_split( '/\r\n|\r|\n/', $raw );
+	$kept       = array();
+	$skip_block = false;
 
-	return is_string( $raw ) ? $raw : '';
+	foreach ( $lines as $line ) {
+		if ( preg_match( '/^##\s+(.+)$/u', $line, $matches ) ) {
+			$heading    = trim( wp_strip_all_tags( $matches[1] ) );
+			$skip_block = justice_theme_is_internal_publication_heading( $heading );
+			if ( $skip_block ) {
+				continue;
+			}
+		}
+
+		if ( $skip_block ) {
+			continue;
+		}
+
+		if ( justice_theme_is_internal_publication_line( $line ) ) {
+			continue;
+		}
+
+		$kept[] = $line;
+	}
+
+	return implode( "\n", $kept );
+}
+
+/**
+ * Determine whether a Markdown section is internal-only.
+ *
+ * @param string $heading Heading.
+ * @return bool
+ */
+function justice_theme_is_internal_publication_heading( string $heading ): bool {
+	$patterns = array(
+		'לפני פרסום',
+		'לפני פירסום',
+		'סטטוס',
+		'פעולות המשך',
+		'קניבליזציה',
+		'קניבל',
+		'מבנה CMS',
+		'גרסת CMS',
+		'מערכת Jus-Tice',
+		'תפקיד Jus-Tice',
+		'איך Jus-Tice',
+		'קלוט ליד',
+		'לקלוט ליד',
+		'CRM',
+		'LegalTech',
+		'מדדי הצלחה',
+		'שערי בדיקה',
+		'חסמי פרסום',
+		'קישורים פנימיים נדרשים',
+		'קישורים פנימיים מתוכננים',
+		'מקורות ראשוניים',
+		'מקורות ותחרות',
+		'מיני-סייט',
+		'mini-site',
+		'publication',
+		'pre-publication',
+		'source audit',
+	);
+
+	foreach ( $patterns as $pattern ) {
+		if ( false !== stripos( $heading, $pattern ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Determine whether one line is internal-only.
+ *
+ * @param string $line Line.
+ * @return bool
+ */
+function justice_theme_is_internal_publication_line( string $line ): bool {
+	$patterns = array(
+		'NOT VERIFIED',
+		'VERIFIED:',
+		'BLOCKED:',
+		'READY NEXT',
+		'PARTIAL:',
+		'Next action',
+		'project-control/',
+		'Source audit:',
+		'Legal review',
+		'source review',
+		'GSC',
+		'Tools > Jus-Tice',
+	);
+
+	foreach ( $patterns as $pattern ) {
+		if ( false !== stripos( $line, $pattern ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
+ * Find internal markers that must never reach public article content.
+ *
+ * @param string $content Content.
+ * @return array
+ */
+function justice_theme_detect_public_content_internal_markers( string $content ): array {
+	$markers = array();
+	$patterns = array(
+		'NOT VERIFIED',
+		'BLOCKED:',
+		'READY NEXT',
+		'project-control/',
+		'Source audit:',
+		'סטטוס לפני פרסום',
+		'פעולות המשך לפני פרסום',
+		'חסמי פרסום',
+		'מבנה CMS',
+		'גרסת CMS',
+		'CRM',
+		'GSC',
+		'קניבליזציה',
+		'מדדי הצלחה לעמוד',
+	);
+
+	foreach ( $patterns as $pattern ) {
+		if ( false !== stripos( $content, $pattern ) ) {
+			$markers[] = $pattern;
+		}
+	}
+
+	return array_values( array_unique( $markers ) );
 }
 
 /**

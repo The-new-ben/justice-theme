@@ -1,7 +1,7 @@
 # Live Content Publication Status
 
 Date: 2026-05-10  
-Decision: OWNER APPROVED LIVE REVIEW  
+Decision: PUBLICATION PAUSED AFTER CONTENT-SAFETY CORRECTION
 Deployment model: GitHub/uPress pulls the repo into the live WordPress theme.
 
 ## VERIFIED
@@ -11,6 +11,8 @@ Deployment model: GitHub/uPress pulls the repo into the live WordPress theme.
 - Existing root page content is backed up into post meta before it is replaced.
 - The publisher adds SEO title, SEO description, AEO summary, GEO summary, cluster meta, connected lawyer slug, source-audit meta and a public legal disclaimer.
 - The publisher adds internal cluster links across the full family-law topic group.
+- Automatic publication is now disabled.
+- The manual publisher is now blocked unless the cannibalization CSV approves the page and internal markers are absent.
 
 ## CODE FIXED
 - `functions.php` now loads `inc/live-content-publication.php`.
@@ -18,8 +20,8 @@ Deployment model: GitHub/uPress pulls the repo into the live WordPress theme.
 - `inc/schema.php` now emits Article schema for repo-published legal content pages, not only the `articles` CPT.
 - `assets/css/premium-pass-3.css` now styles the public cluster navigation, lawyer CTA and legal disclaimer blocks.
 
-## PUBLIC LINKS TO REVIEW AFTER uPRESS PULL
-These are the intended live review URLs:
+## PROPOSED PUBLIC LINKS - NOT APPROVED FOR PUBLICATION YET
+These are the proposed URLs, but they are currently blocked from publication pending merge/cannibalization review:
 
 1. https://jus-tice.co.il/divorce-lawyer/
 2. https://jus-tice.co.il/consensual-divorce/
@@ -43,9 +45,9 @@ These are the intended live review URLs:
 - Every page uses the `Legal Pillar Page` template for hero, lead form, related topics and lawyer-directory connection.
 
 ## NOT VERIFIED LIVE
-- The pages are not live until this commit is pushed and uPress pulls it.
+- The pages are intentionally paused and must not go live until the workflow gates pass.
 - Search Console data is not yet used for traffic-risk scoring.
-- Human legal review and source review are still owner/lawyer review items, even though the owner approved live review.
+- Human legal review and source review are still owner/lawyer review items.
 
 ## LIVE RECHECK - 2026-05-10
 - Commit pushed: `8e28528`.
@@ -55,9 +57,8 @@ These are the intended live review URLs:
 - Meaning: GitHub has the publication package, but uPress/live WordPress has not pulled/executed it yet, or cache is still serving the old state.
 
 ## NEXT ACTION
-1. Push this commit to `origin/main`.
-2. Pull latest in uPress if automatic sync does not run.
-3. Open the seven URLs above.
-4. If a page still shows old content, clear cache and reload.
-5. Review legal wording, titles, source confidence and internal links.
-6. After review, refine content directly in WordPress or in repo drafts and run a controlled republish.
+1. Compare every proposed page against existing live content.
+2. Merge with existing pages where the same intent already exists.
+3. Update `publication-cannibalization-check.csv`.
+4. Approve only pages that are clean, public-facing and non-duplicative.
+5. Only then run the wp-admin publisher.

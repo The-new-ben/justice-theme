@@ -56,7 +56,11 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Latest repo commit `e511c00` is pushed to `origin/main`, but live public HTML does not yet show every fix from that commit.
 
 ## FIXED IN THIS PASS
-- OWNER APPROVED LIVE REVIEW: added a one-time publisher for the first family-law SEO cluster in `inc/live-content-publication.php`.
+- CRITICAL CORRECTION: family-law auto-publication is now paused. No public page should publish from the internal drafts until publication-cannibalization rows are approved.
+- CODE FIXED: manual wp-admin publication now runs public-content and cannibalization preflight checks and blocks unapproved pages.
+- CODE FIXED: internal-only sections such as NOT VERIFIED, source-audit notes, CMS/CRM/GSC notes, LegalTech product notes, owner/dev instructions, status sections and cannibalization notes are stripped/blocked from public output.
+- DOCUMENTED: `project-control/publication-workflow.md`, `project-control/publication-cannibalization-check.csv`, and `project-control/publication-review-family-law-cluster.md` now define the required workflow.
+- PREVIOUS PUBLICATION PACKAGE: a one-time publisher exists for the first family-law SEO cluster in `inc/live-content-publication.php`, but it is now blocked until the new public-content workflow passes.
 - CODE FIXED: the publisher creates/updates public root English-slug pages for `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/`, `/divorce-property-division/`, and `/family-dispute-resolution/`.
 - CODE FIXED: each published page gets SEO title/description, AEO/GEO summary meta, Article schema eligibility, visible internal cluster links, Maya Rotenberg connection, lead CTA and a public legal disclaimer.
 - SAFETY VERIFIED IN CODE: existing root page content is backed up into post meta before replacement.

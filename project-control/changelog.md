@@ -3,6 +3,16 @@
 
 ## 2026-05-10 - Session: CMS wiring hardening
 
+### URGENT PUBLICATION SAFETY CORRECTION
+
+**[CRITICAL] Paused family-law auto-publication and added public-content gates**
+- Files: `inc/live-content-publication.php`, `inc/content-draft-importer.php`, `project-control/publication-workflow.md`, `project-control/publication-cannibalization-check.csv`, `project-control/publication-review-family-law-cluster.md`, `project-control/review-notes/family-law-internal-notes.md`
+- Automatic publication is now disabled.
+- Manual wp-admin publication now runs preflight and blocks unapproved rows.
+- Public output is blocked if internal markers such as `NOT VERIFIED`, `project-control`, source-audit paths, CMS/CRM/GSC notes or publication blockers remain.
+- The seven proposed family-law URLs are blocked pending cannibalization/merge review.
+- VERIFIED locally with PHP lint pending in this pass.
+
 ### OWNER-APPROVED PUBLICATION PACKAGE
 
 **[HIGH] Added live publisher for the first family-law cluster**

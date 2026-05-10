@@ -153,9 +153,10 @@ function justice_theme_render_content_draft_importer(): void {
 				</p>
 				<p>
 					<a class="button button-secondary" href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'justice_publish_family_cluster' ), admin_url( 'tools.php?page=justice-content-drafts' ) ), 'justice_publish_family_cluster' ) ); ?>">
-						<?php esc_html_e( 'Publish / refresh family-law cluster pages', 'justice-theme' ); ?>
+						<?php esc_html_e( 'Run preflight / publish only approved family-law pages', 'justice-theme' ); ?>
 					</a>
 				</p>
+				<p><small><?php esc_html_e( 'Publication is blocked unless the cannibalization CSV marks each page as approved and no internal markers remain in public content.', 'justice-theme' ); ?></small></p>
 			</div>
 		<?php endif; ?>
 

@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-BRAND-001: Logo + Favicon + Search Branding
+**Status:** CODE FIXED - live/admin verification pending
+**Why:** Browser tabs, mobile bookmarks and Google search results need a stable, professional icon and final brand state.
+**Actions:**
+1. DONE: Inspected owner-provided old logo asset.
+2. DONE: Replaced dummy repo `assets/images/logo.png` with the provided Jus-Tice logo source.
+3. DONE: Generated square favicon/app icon fallback assets in 16, 32, 48, 180, 192 and 512 sizes plus ICO.
+4. DONE: Updated SVG favicon and theme fallback tags while preserving WordPress Site Icon priority.
+5. DONE: Added `project-control/favicon-logo-task.md`.
+6. VERIFIED: live currently outputs favicon tags and sampled live icon URLs return HTTP 200.
+7. NEXT: owner/uPress pulls latest code, cache is cleared, then verify source marker `2026-05-10-branding-v1`, browser tab, mobile header, footer logo and wp-admin Site Icon.
+8. NOT LIVE VERIFIED AFTER FIX: final deployed favicon/search-branding state.
+
 ### ACTION-SEO-001: Open GSC Indexing Drilldowns
 **Status:** COMPLETED - first sample pass
 **Why:** GSC shows 1.58K not indexed pages, including 785 crawled-currently-not-indexed and 38 duplicate canonical issues. We need example URLs before content/URL decisions.

@@ -2,6 +2,16 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-10 23:05 Asia/Jerusalem
+- CODE FIXED: logo/favicon/search-branding task added and documented in `project-control/favicon-logo-task.md` and `project-control/design-polish-checklist.md`.
+- VERIFIED: owner-provided Downloads logo PNG was inspected; full image is 1781x1654 and is not square, so it is not directly suitable as a Site Icon without crop/export.
+- CODE FIXED: repo dummy `assets/images/logo.png` was replaced with the provided Jus-Tice logo source, and `assets/images/justice-logo-full.png` was added as a reference copy.
+- CODE FIXED: square fallback favicon/app assets were generated from the old mark: 16, 32, 48, 180, 192 and 512 PNGs plus `favicon.ico`.
+- CODE FIXED: `assets/images/favicon.svg` now uses a square legal mark with the red accent; `inc/seo.php` now emits ICO/SVG/512/Apple fallback tags only when WordPress has no Site Icon.
+- CODE FIXED: red dot logo animation is slightly faster and the fallback wordmark is slightly smaller.
+- LIVE VERIFIED: current live page already outputs multiple favicon tags from WordPress/media/plugin layers, and sampled live favicon URLs return HTTP 200.
+- NOT LIVE VERIFIED AFTER FIX: requires uPress pull/cache refresh, browser tab/mobile icon visual check and wp-admin Site Icon review.
+
 ## LATEST WORK STATUS - 2026-05-10 22:48 Asia/Jerusalem
 - LIVE VERIFIED BEFORE FIX: mobile homepage screenshot shows the Pojo accessibility tab overlapping the hero area and the theme WhatsApp button competing with the lower mobile lead/chat CTA.
 - VISUAL EVIDENCE: `project-control/visual-evidence/mobile-floating-actions-before-2026-05-10.png`.

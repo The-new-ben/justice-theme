@@ -27,6 +27,7 @@ Mobile is not a secondary polish pass. For Google and for users, mobile must con
 - clear H1/H2 hierarchy.
 - tappable CTAs.
 - visible logo.
+- favicon/app icon verified for mobile bookmark/search-branding readiness.
 - crawlable internal links in `<a href>`.
 - forms with labels.
 - related content limited and relevant.
@@ -83,3 +84,10 @@ CODE FIXED / NOT LIVE VERIFIED:
 Next action:
 - Fix mobile overlay spacing and verify hamburger menu contents.
 - Recheck 404 and lawyer profile routing after latest deployment.
+
+## 2026-05-10 Logo/Favicon Mobile Requirement
+
+- CODE FIXED: 180, 192 and 512 square app-icon fallback assets now exist under `assets/images/`.
+- CODE FIXED: WordPress Site Icon remains preferred; theme fallback only runs when no Site Icon exists.
+- NOT LIVE VERIFIED: mobile browser tab/bookmark icon after deploying `2026-05-10-branding-v1`.
+- NEXT: after uPress pull/cache clear, recheck mobile header logo scale, footer brand, browser tab icon and add-to-home-screen icon if available.

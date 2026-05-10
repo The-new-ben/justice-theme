@@ -1,6 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 96 96">
-  <rect width="96" height="96" rx="22" fill="#07152f"/>
-  <circle cx="55" cy="39" r="14" fill="#c83a4a"/>
-  <circle cx="55" cy="39" r="23" fill="#c83a4a" opacity=".22"/>
-  <path fill="#fff" d="M21 67h11V30H21v9h4v19h-4v9Zm17 0h11V30H38v9h4v19h-4v9Zm18 0h20v-9H63V30H56v37Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Jus-Tice">
+  <rect width="512" height="512" rx="112" fill="#123f66"/>
+  <circle cx="418" cy="402" r="34" fill="#e43325"/>
+  <circle cx="418" cy="402" r="54" fill="#e43325" opacity=".18"/>
+  <g fill="#fff">
+    <rect x="237" y="118" width="38" height="268" rx="14"/>
+    <rect x="156" y="162" width="200" height="34" rx="13"/>
+    <rect x="189" y="367" width="134" height="34" rx="13"/>
+    <path d="M169 189 103 337h132L169 189Zm-40 122 40-90 40 90h-80Z"/>
+    <path d="M343 189 277 337h132L343 189Zm-40 122 40-90 40 90h-80Z"/>
+    <circle cx="256" cy="168" r="17"/>
+  </g>
 </svg>

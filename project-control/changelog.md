@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Logo favicon search branding task
+
+- CODE FIXED: added `project-control/favicon-logo-task.md`.
+- VERIFIED: inspected owner-provided Downloads logo PNG; full logo is not square, so the scale mark was exported separately for icon use.
+- CODE FIXED: replaced dummy `assets/images/logo.png` with the provided Jus-Tice logo and added `assets/images/justice-logo-full.png`.
+- CODE FIXED: added square fallback icon assets: `favicon-16.png`, `favicon-32.png`, `favicon-48.png`, `favicon-192.png`, `favicon-512.png`, `site-icon-512.png`, `apple-touch-icon.png`, and `favicon.ico`.
+- CODE FIXED: refreshed `assets/images/favicon.svg` with a square legal mark and red accent.
+- CODE FIXED: `inc/seo.php` now emits ICO/SVG/512/Apple fallback tags only when WordPress Site Icon is absent.
+- CODE FIXED: theme version bumped to `1.0.2`, deployment marker changed to `2026-05-10-branding-v1`, and header red-dot animation was slightly tightened.
+- LIVE VERIFIED: current live source already outputs favicon tags and sampled icon URLs return HTTP 200.
+- NOT LIVE VERIFIED AFTER FIX: needs uPress pull/cache refresh, browser-tab check, mobile bookmark check and wp-admin Site Icon review.
+
 ## 2026-05-10 - Mobile floating action collision fix
 
 - LIVE VERIFIED BEFORE FIX: mobile screenshot shows the Pojo accessibility launcher and fixed WhatsApp/lead controls competing with customer-facing content.

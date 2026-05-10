@@ -530,6 +530,11 @@ function justice_theme_fallback_site_icon(): void {
 		return;
 	}
 
-	echo '<link rel="icon" href="' . esc_url( JUSTICE_THEME_URI . '/assets/images/favicon.svg' ) . '" type="image/svg+xml">' . "\n";
+	$theme_uri = JUSTICE_THEME_URI . '/assets/images';
+
+	echo '<link rel="icon" href="' . esc_url( $theme_uri . '/favicon.ico' ) . '" sizes="any">' . "\n";
+	echo '<link rel="icon" href="' . esc_url( $theme_uri . '/favicon.svg' ) . '" type="image/svg+xml">' . "\n";
+	echo '<link rel="icon" href="' . esc_url( $theme_uri . '/favicon-512.png' ) . '" type="image/png" sizes="512x512">' . "\n";
+	echo '<link rel="apple-touch-icon" href="' . esc_url( $theme_uri . '/apple-touch-icon.png' ) . '" sizes="180x180">' . "\n";
 }
 add_action( 'wp_head', 'justice_theme_fallback_site_icon', 2 );

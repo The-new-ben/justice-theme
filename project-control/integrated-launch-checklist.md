@@ -32,6 +32,7 @@ Layer 3 - URL strategy:
 Layer 4 - Template/design:
 - homepage, article, category, lawyer directory, lawyer profile, search, 404 and footer reviewed.
 - related-content block is semantic.
+- logo and favicon/search-branding are final or explicitly marked temporary.
 
 Layer 5 - Internal links:
 - support -> pillar.
@@ -49,6 +50,7 @@ Layer 7 - Schema/sitemap/canonical:
 - sitemap contains canonical approved URLs.
 - filter/query duplicates handled.
 - robots/htaccess reviewed.
+- favicon URL is stable, crawlable and aligned with WordPress Site Icon.
 
 Layer 8 - Analytics:
 - GA4 key events configured.
@@ -71,6 +73,7 @@ BLOCKED / NOT VERIFIED:
 - live event QA.
 - live mobile screenshots after latest deployment.
 - owner pricing/legal/advertising decisions.
+- wp-admin Custom Logo and Site Icon selected media item.
 
 ## Next Controlled Batch
 
@@ -80,3 +83,4 @@ No URL/content migrations. Next safe batch is:
 3. Verify mobile article/lawyer pages.
 4. Update title/H1/meta recommendations without publishing changes.
 5. Prepare owner approval list for first no-URL-change content/template improvements.
+6. Verify final logo/favicon in browser tab, mobile header, footer and Google-search readiness.

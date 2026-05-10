@@ -28,3 +28,13 @@ Date: 2026-05-10
 3. Search Media Library for old Jus-Tice logo with red dot.
 4. If found, set it as Custom Logo and Site Icon.
 5. If not found, keep the code lockup/fallback favicon marked TEMPORARY until a final logo file is created.
+
+## 2026-05-10 Branding Update
+
+- FOUND: owner-provided old logo in Downloads as a Hebrew-named PNG.
+- VERIFIED: full logo is 1781x1654, so it is useful as a logo reference but not a direct Site Icon upload.
+- CODE FIXED: old dummy `assets/images/logo.png` was replaced with the provided Jus-Tice logo source.
+- CODE FIXED: `assets/images/justice-logo-full.png` keeps a reference copy.
+- CODE FIXED: square fallback icon files now exist: `site-icon-512.png`, `favicon-512.png`, `favicon-192.png`, `apple-touch-icon.png`, `favicon-48.png`, `favicon-32.png`, `favicon-16.png`, `favicon.ico`, and `favicon.svg`.
+- LIVE VERIFIED: current live page already outputs icon tags from WordPress/media/plugin layers and sampled live icon files return HTTP 200.
+- NOT VERIFIED: wp-admin Site Icon selected media item and final browser-tab appearance after deploying this fallback batch.

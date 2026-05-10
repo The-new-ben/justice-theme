@@ -5,6 +5,13 @@
 
 ### FIXED
 
+**[HIGH] Added family-law article cluster navigation**
+- Files: `single-articles.php`, `inc/content-draft-importer.php`
+- Article pages now read normalized `content_cluster` and `primary_keyword` metadata from imported repo drafts.
+- Family-law drafts render a sidebar cluster navigator linking the divorce pillar and supporting pages with Hebrew labels and English slugs.
+- The draft importer now strips Markdown backticks from metadata fields so cluster/lawyer/keyword values remain machine-usable.
+- VERIFIED in repo. LIVE NOT VERIFIED until draft import and article preview run in wp-admin.
+
 **[HIGH] Hardened article connected-lawyer lookup**
 - Files: `inc/template-tags.php`, `single-articles.php`
 - Added `justice_theme_get_connected_lawyer_by_slug()` for article templates and future CMS blocks.

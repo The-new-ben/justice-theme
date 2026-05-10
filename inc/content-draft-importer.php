@@ -368,7 +368,7 @@ function justice_theme_extract_content_draft_title( string $raw ): string {
 function justice_theme_extract_content_draft_field( string $raw, string $field, string $fallback = '' ): string {
 	$pattern = '/^' . preg_quote( $field, '/' ) . ':\s*(.+)$/mi';
 	if ( preg_match( $pattern, $raw, $matches ) ) {
-		return wp_strip_all_tags( trim( $matches[1] ) );
+		return sanitize_text_field( trim( wp_strip_all_tags( $matches[1] ), "` \t\n\r\0\x0B" ) );
 	}
 
 	return $fallback;

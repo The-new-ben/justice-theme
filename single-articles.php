@@ -18,6 +18,17 @@ while ( have_posts() ) :
 	$source_audit      = (string) get_post_meta( get_the_ID(), 'repo_content_source_audit', true );
 	$draft_word_count  = (int) get_post_meta( get_the_ID(), 'repo_content_draft_word_count', true );
 	$repo_draft_status = (string) get_post_meta( get_the_ID(), 'repo_content_draft_status', true );
+	$content_cluster   = sanitize_key( trim( (string) get_post_meta( get_the_ID(), 'content_cluster', true ), '`' ) );
+	$primary_keyword   = (string) get_post_meta( get_the_ID(), 'primary_keyword', true );
+	$current_slug      = get_post_field( 'post_name', get_the_ID() );
+	$family_links      = array(
+		'divorce-lawyer'             => __( 'עורך דין גירושין', 'justice-theme' ),
+		'consensual-divorce'         => __( 'גירושין בהסכמה', 'justice-theme' ),
+		'divorce-mediation'          => __( 'גישור גירושין', 'justice-theme' ),
+		'child-support'              => __( 'מזונות ילדים', 'justice-theme' ),
+		'child-custody'              => __( 'זמני שהות ומשמורת', 'justice-theme' ),
+		'divorce-property-division'  => __( 'חלוקת רכוש בגירושין', 'justice-theme' ),
+	);
 
 	if ( $connected_slug && function_exists( 'justice_theme_get_connected_lawyer_by_slug' ) ) {
 		$connected_lawyer = justice_theme_get_connected_lawyer_by_slug( $connected_slug );
@@ -137,6 +148,33 @@ while ( have_posts() ) :
 						<a class="button button--primary" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="width: 100%; text-align: center;">
 							<?php esc_html_e( 'שליחת פנייה', 'justice-theme' ); ?>
 						</a>
+					<?php endif; ?>
+
+					<?php if ( 'family-law' === $content_cluster ) : ?>
+						<section class="article-cluster-nav" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid var(--color-border);">
+							<h2 style="font-size: 1.1rem; color: var(--color-primary-deep); margin-bottom: 0.75rem;"><?php esc_html_e( 'אשכול דיני משפחה', 'justice-theme' ); ?></h2>
+							<?php if ( $primary_keyword ) : ?>
+								<p style="font-size: 0.9rem; color: var(--color-muted); margin-bottom: 1rem;">
+									<?php echo esc_html( sprintf( __( 'מילת מפתח בעמוד זה: %s', 'justice-theme' ), trim( $primary_keyword, '` ' ) ) ); ?>
+								</p>
+							<?php endif; ?>
+							<nav aria-label="<?php esc_attr_e( 'קישורי אשכול דיני משפחה', 'justice-theme' ); ?>">
+								<ul style="display: grid; gap: 0.55rem; list-style: none; margin: 0; padding: 0;">
+									<?php foreach ( $family_links as $slug => $label ) : ?>
+										<li>
+											<a
+												href="<?php echo esc_url( home_url( '/' . $slug . '/' ) ); ?>"
+												<?php echo $current_slug === $slug ? 'aria-current="page"' : ''; ?>
+												style="display: flex; justify-content: space-between; gap: 0.75rem; padding: 0.7rem 0.8rem; border: 1px solid var(--color-border); border-radius: var(--radius-sm); color: var(--color-primary); text-decoration: none; background: <?php echo $current_slug === $slug ? 'rgba(82,114,178,0.08)' : 'transparent'; ?>;"
+											>
+												<span><?php echo esc_html( $label ); ?></span>
+												<span aria-hidden="true">←</span>
+											</a>
+										</li>
+									<?php endforeach; ?>
+								</ul>
+							</nav>
+						</section>
 					<?php endif; ?>
 
 					<?php if ( $draft_word_count || $repo_draft_status ) : ?>

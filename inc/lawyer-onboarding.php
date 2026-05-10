@@ -117,12 +117,14 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 
 	$subject = 'New lawyer registration pending review';
 	$message = sprintf(
-		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\n\nReview: %s",
+		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nHeadline: %s\nVideo: %s\n\nReview: %s",
 		$meta['lawyer_full_name'] ?: '-',
 		$meta['firm_name'] ?: '-',
 		$meta['phone'] ?: '-',
 		$meta['email'] ?: '-',
 		$meta['plan_type'] ?: '-',
+		$meta['profile_headline'] ?: '-',
+		$meta['profile_video_url'] ?: '-',
 		admin_url( 'post.php?post=' . $post_id . '&action=edit' )
 	);
 
@@ -209,6 +211,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						<th>Phone</th>
 						<th>Email</th>
 						<th>Plan</th>
+						<th>Mini-site Content</th>
 						<th>Status</th>
 						<th>Submitted</th>
 						<th>Action</th>
@@ -219,6 +222,13 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						<?php
 						$post_id = get_the_ID();
 						$status  = get_post_meta( $post_id, 'profile_status', true ) ?: get_post_status( $post_id );
+						$mini_fields = array(
+							'Headline' => get_post_meta( $post_id, 'profile_headline', true ),
+							'Services' => get_post_meta( $post_id, 'profile_services', true ),
+							'Process'  => get_post_meta( $post_id, 'profile_process', true ),
+							'Video'    => get_post_meta( $post_id, 'profile_video_url', true ),
+							'FAQ'      => get_post_meta( $post_id, 'profile_faqs', true ),
+						);
 						?>
 						<tr>
 							<td><strong><?php echo esc_html( get_the_title() ); ?></strong></td>
@@ -226,6 +236,13 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 							<td><?php echo esc_html( get_post_meta( $post_id, 'phone', true ) ?: '-' ); ?></td>
 							<td><?php echo esc_html( get_post_meta( $post_id, 'email', true ) ?: '-' ); ?></td>
 							<td><?php echo esc_html( get_post_meta( $post_id, 'plan_type', true ) ?: '-' ); ?></td>
+							<td>
+								<?php foreach ( $mini_fields as $label => $value ) : ?>
+									<span style="display:inline-block;margin:0 0 4px 4px;padding:2px 7px;border-radius:999px;background:<?php echo $value ? '#e7f7ed' : '#f1f1f1'; ?>;color:<?php echo $value ? '#17643a' : '#666'; ?>;font-size:12px;">
+										<?php echo esc_html( $label . ': ' . ( $value ? 'YES' : 'NO' ) ); ?>
+									</span>
+								<?php endforeach; ?>
+							</td>
 							<td><?php echo esc_html( $status ); ?></td>
 							<td><?php echo esc_html( get_the_date() ); ?></td>
 							<td><a class="button button-primary" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Review</a></td>

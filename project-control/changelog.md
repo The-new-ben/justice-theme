@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[MEDIUM] Added mini-site intake visibility to onboarding admin**
+- Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
+- Owner notification emails now include submitted profile headline and video URL.
+- The Lawyer Onboarding admin queue now shows a compact YES/NO checklist for headline, services, process, video and FAQ fields.
+- VERIFIED in repo. LIVE NOT VERIFIED until a test registration is submitted and reviewed in wp-admin.
+
 **[HIGH] Expanded lawyer self-registration into mini-site intake**
 - Files: `page-lawyer-registration.php`, `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
 - Public lawyer registration now asks for profile headline, key services, work process, video URL and FAQ ideas.

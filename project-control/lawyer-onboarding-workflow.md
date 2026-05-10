@@ -24,6 +24,8 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
   - `profile_process`
   - `profile_video_url`
   - `profile_faqs`
+- Admin onboarding queue now shows a compact YES/NO mini-site content checklist for headline, services, process, video and FAQ fields.
+- Owner notification email includes submitted headline and video URL for faster triage.
 - No profile is published automatically.
 
 ## Review Workflow

@@ -22,6 +22,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Seeded WordPress menu practice-area links now use canonical lawyer-directory filter slugs such as `family-law`, `criminal-law`, `real-estate-law`, `labor-law`, and `traffic-law`.
 - Lawyer archive filters now normalize legacy incoming area values such as `family`, `criminal`, `real-estate`, `labor`, and `traffic` to their canonical slugs before querying.
 - Lawyer self-registration now collects richer mini-site fields: profile headline, services, process steps, video URL and FAQ ideas.
+- Lawyer onboarding admin queue now surfaces mini-site field completeness, and owner notification email includes headline/video context.
 
 ## FIXED IN THIS PASS
 - Added tracked `page-home.php` because the live homepage is assigned to the `page-home.php` page template, not only `front-page.php`.
@@ -69,6 +70,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Menu seeding and repair now normalize stale filter URLs like `/lawyers/?area=family` to `/lawyers/?area=family-law` without rebuilding the full menu.
 - Lawyer archive query handling now accepts old short area filter values and converts them to canonical values, protecting users and crawlers that hit older links.
 - Lawyer onboarding handler now stores mini-site inputs as draft metadata for admin review instead of forcing the owner to gather that information manually later.
+- Lawyer onboarding admin review table now shows a mini-site content checklist, reducing owner effort when deciding which registrations are ready for polishing.
 
 ## NOT VERIFIED
 - Active live plugin path and name.

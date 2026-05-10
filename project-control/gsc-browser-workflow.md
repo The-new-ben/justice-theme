@@ -125,3 +125,30 @@ Run the next same process for:
 - `תאונת דרכים`
 - high-impression PDF/document URLs
 - homepage low-CTR / position 5-20 opportunities
+
+## Support Cluster Query Pass
+
+Completed in fourth browser pass:
+- `קניית דירה`
+- `חוזה מכר`
+- `רשלנות רפואית בלידה`
+- `רשלנות רפואית בהריון`
+- `תאונת עבודה`
+- `תאונת דרכים`
+
+Support cluster findings:
+- `קניית דירה`: 885 impressions, 0 clicks, average position 71.2. `/real-estate-lawyer-cost-2025/` owns 871 impressions, meaning the cost article is overloaded and should support a stronger `/buying-apartment/` page plus `/real-estate-lawyer/`.
+- `חוזה מכר`: 31 impressions, 0 clicks, average position 75.6. Only `/real-estate-lawyer-cost-2025/` appears, so `/real-estate-purchase-agreement/` is missing or too weak.
+- `רשלנות רפואית בלידה`: 661 impressions, 0 clicks, average position 40.5. Old Hebrew URL `/עורך-דין-רשלנות-רפואית-בלידה-מומלץ/` owns all visible impressions and is a high-risk migration candidate.
+- `רשלנות רפואית בהריון`: 419 impressions, 0 clicks, average position 65.9. The same birth-malpractice URL appears, showing pregnancy/birth intent overlap that needs careful splitting or merging.
+- `תאונת עבודה`: no visible rows for this exact filter in the last 3 months.
+- `תאונת דרכים`: 84 impressions, 0 clicks, average position 57.6. `/car-accident-auto-injury-lawyer/` owns most impressions and must be reviewed before deciding whether `/car-accident-lawyer/` becomes the final slug.
+
+Support cluster evidence:
+- Screenshot: `project-control/visual-evidence/gsc-support-pass-car-accident-2026-05-10.png`
+
+Next GSC browser checks:
+- variants for work accidents: `עורך דין תאונת עבודה`, `פגיעה בעבודה`, `תאונת עבודה ביטוח לאומי`
+- traffic subtopics: `נהיגה בשכרות`, `שלילת רישיון`
+- inheritance subtopics: `עורך דין ירושה`, `צוואה`, `התנגדות לצוואה`
+- page-to-query checks for `/real-estate-lawyer-cost-2025/`, `/עורך-דין-רשלנות-רפואית-בלידה-מומלץ/`, and `/car-accident-auto-injury-lawyer/`

@@ -1075,3 +1075,15 @@
 - VERIFIED: foreign-lawyer list PDFs for Greece and Italy have 1.39K and 1.35K impressions. They may be strategically off-focus, but they are real traffic assets and require owner/SEO review before noindex/delete/redirect decisions.
 - PARTIAL: direct page filtering for the root homepage behaved like broad property data, and direct filtering for one Hebrew malpractice article URL did not return reliable data. These require UI/manual/API recheck later.
 - SAFETY: no public content, URLs, redirects, sitemap settings or robots rules were changed.
+
+## 2026-05-10 GSC Support Cluster Pass
+- VERIFIED: Browser GSC review checked `קניית דירה`, `חוזה מכר`, `רשלנות רפואית בלידה`, `רשלנות רפואית בהריון`, `תאונת עבודה`, and `תאונת דרכים`.
+- UPDATED: `project-control/gsc-cannibalization-review.csv`, `project-control/gsc-keyword-page-map.csv`, `project-control/gsc-content-priorities.csv`, `project-control/gsc-browser-workflow.md`, and `project-control/current-status.md`.
+- SAVED EVIDENCE: `project-control/visual-evidence/gsc-support-pass-car-accident-2026-05-10.png`.
+- FOUND: `קניית דירה` has 885 impressions, 0 clicks and average position 71.2; `/real-estate-lawyer-cost-2025/` owns 871 impressions.
+- FOUND: `חוזה מכר` has 31 impressions, all mapped to `/real-estate-lawyer-cost-2025/`, showing that `/real-estate-purchase-agreement/` is missing or too weak.
+- FOUND: `רשלנות רפואית בלידה` has 661 impressions and old Hebrew URL `/עורך-דין-רשלנות-רפואית-בלידה-מומלץ/` owns all visible impressions.
+- FOUND: `רשלנות רפואית בהריון` has 419 impressions and maps to the same birth-malpractice URL, showing overlap/cannibalization between birth and pregnancy malpractice intent.
+- FOUND: `תאונת עבודה` returned no visible rows for this exact filter; variants should be checked before deciding priority.
+- FOUND: `תאונת דרכים` has 84 impressions, mostly on `/car-accident-auto-injury-lawyer/`, which needs migration/primary-URL review before any slug change.
+- SAFETY: no public content, URLs, redirects, sitemap settings or robots rules were changed.

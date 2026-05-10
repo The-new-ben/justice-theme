@@ -1,0 +1,3 @@
+justice-theme-deployment-marker=2026-05-10-runtime-guard-v5
+expected-github-main-commit=32010ec-or-newer
+purpose=public-static-file-check-for-upress-theme-sync

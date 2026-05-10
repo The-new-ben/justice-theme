@@ -14,6 +14,14 @@
 - LIVE RECHECK after push `9dd41aa`: homepage and `/divorce-lawyer/` do not contain the marker, proving live WordPress is not yet serving the latest pushed theme code.
 - CODE FIXED. LIVE NOT VERIFIED until the public homepage includes the marker.
 
+**[MEDIUM] Added repeatable live deployment checker**
+- Files: `deployment-marker.txt`, `tools/check-live-deployment.ps1`
+- Added a static theme marker file for direct uPress/theme-file sync verification at `/wp-content/themes/justice-theme/deployment-marker.txt`.
+- Added a PowerShell checker that reports the homepage PHP marker, static marker, and family-law internal-marker scan in one pass.
+- This separates three states: GitHub pushed, static files pulled, and WordPress actually rendering the latest PHP.
+- VERIFIED locally: checker runs and currently reports PHP marker absent, static marker absent, and all seven family-law URLs still dirty on live.
+- CODE FIXED. LIVE NOT VERIFIED until uPress pulls and the checker sees the marker.
+
 **[CRITICAL] Added runtime public-content guard for family-law pages**
 - Files: `inc/live-content-publication.php`
 - If one of the seven family-law public pages is rendered while still containing internal markers, the theme now serves the cleaned public article body from the approved repo draft and persists that cleaned body back to the WordPress page.

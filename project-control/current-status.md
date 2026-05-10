@@ -79,6 +79,8 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - CODE FIXED: added a public non-visual deployment marker in `<head>` so future checks can prove whether live WordPress is serving the latest theme code. Current marker: `2026-05-10-runtime-guard-v5`.
 - VERIFIED locally: PHP lint passed for 125 PHP files after adding the deployment marker.
 - LIVE RECHECK after push `9dd41aa`: homepage and `/divorce-lawyer/` do not contain `justice-deployment-marker` or `2026-05-10-runtime-guard-v5`. This VERIFIED that live WordPress is not yet serving the latest pushed theme code.
+- CODE FIXED: added a static `deployment-marker.txt` and `tools/check-live-deployment.ps1` to separate GitHub state, uPress file sync state, WordPress PHP rendering state, and family-law public content cleanliness.
+- VERIFIED locally: `tools/check-live-deployment.ps1` runs and confirms current live state: homepage PHP marker absent, static theme marker absent, and seven family-law URLs still dirty. Details documented in `project-control/deployment-verification.md`.
 - EDITORIAL SAFETY: family-law auto-publication remains paused as a creation mechanism, but existing live pages are now treated as content to repair and enrich rather than remove.
 - LIVE VERIFIED: the seven family-law URLs were live and contained internal markers in the earlier public check; the current repo fix is to clean those pages in place on the next pull.
 - CODE FIXED: the previous draft/restore cleanup routine is disabled by default and replaced by editorial repair for existing pages.

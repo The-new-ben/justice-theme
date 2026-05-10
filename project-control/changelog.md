@@ -5,6 +5,13 @@
 
 ### EDITORIAL IMPROVEMENT MODE
 
+**[HIGH] Added cache purge after family-law editorial repair**
+- Files: `inc/live-content-publication.php`
+- After repairing or manually refreshing the family-law cluster, the theme now clears post/object cache and asks common cache plugins/layers to purge: LiteSpeed, WP Rocket, W3 Total Cache, Autoptimize, SG CachePress, Cache Enabler-style hooks and WordPress object cache.
+- The family-law editorial repair version is bumped to v4 so the repair can rerun even if v3 was already recorded before cache clearing existed.
+- VERIFIED locally: PHP lint passed for 124 PHP files and the seven-draft public-marker scan still passes.
+- CODE FIXED. LIVE NOT VERIFIED until uPress pulls and the seven public URLs are checked again.
+
 **[HIGH] Hardened family-law repair against leaked internal status sections**
 - Files: `inc/live-content-publication.php`
 - Public-content cleanup now removes whole Markdown sections when the section body contains strong internal markers such as `NOT VERIFIED`, `PARTIAL:`, `READY NEXT`, `CMS`, `CRM`, `GSC`, `LegalTech`, `Tools > Jus-Tice`, `FAQ schema`, `source audit`, or `project-control/...`.

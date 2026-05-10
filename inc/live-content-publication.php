@@ -17,7 +17,7 @@ define( 'JUSTICE_THEME_FAMILY_CLUSTER_PUBLICATION_VERSION', '2026-05-10-family-c
 define( 'JUSTICE_THEME_ENABLE_AUTO_FAMILY_CLUSTER_PUBLICATION', false );
 define( 'JUSTICE_THEME_FAMILY_CLUSTER_QUARANTINE_VERSION', '2026-05-10-quarantine-unsafe-family-cluster-v1' );
 define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_QUARANTINE', false );
-define( 'JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION', '2026-05-10-editorial-repair-family-cluster-v3' );
+define( 'JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION', '2026-05-10-editorial-repair-family-cluster-v4' );
 define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_EDITORIAL_REPAIR', true );
 
 /**
@@ -229,6 +229,10 @@ function justice_theme_editorial_repair_existing_family_cluster_pages(): void {
 		),
 		false
 	);
+
+	if ( ! empty( $repaired ) ) {
+		justice_theme_purge_family_cluster_publication_caches( $repaired, 'editorial_repair' );
+	}
 }
 add_action( 'init', 'justice_theme_editorial_repair_existing_family_cluster_pages', 43 );
 
@@ -361,9 +365,64 @@ function justice_theme_run_family_cluster_publication( bool $force = false, bool
 		false
 	);
 
+	if ( ! empty( $published ) ) {
+		justice_theme_purge_family_cluster_publication_caches( $published, 'manual_publication_or_repair' );
+	}
+
 	return array(
 		'published' => $published,
 		'blocked'   => $blocked,
+	);
+}
+
+/**
+ * Clear common WordPress/page-cache layers after replacing public article body.
+ *
+ * @param array<int,string> $slugs Repaired or published slugs.
+ * @param string            $reason Short reason.
+ */
+function justice_theme_purge_family_cluster_publication_caches( array $slugs, string $reason ): void {
+	$slugs = array_values( array_unique( array_filter( array_map( 'sanitize_title', $slugs ) ) ) );
+
+	foreach ( $slugs as $slug ) {
+		$page = get_page_by_path( $slug, OBJECT, 'page' );
+		if ( $page instanceof WP_Post ) {
+			clean_post_cache( $page->ID );
+		}
+	}
+
+	if ( function_exists( 'wp_cache_flush' ) ) {
+		wp_cache_flush();
+	}
+
+	if ( function_exists( 'rocket_clean_domain' ) ) {
+		rocket_clean_domain();
+	}
+
+	if ( function_exists( 'w3tc_flush_all' ) ) {
+		w3tc_flush_all();
+	}
+
+	if ( function_exists( 'wp_cache_clear_cache' ) ) {
+		wp_cache_clear_cache();
+	}
+
+	if ( class_exists( 'autoptimizeCache' ) && method_exists( 'autoptimizeCache', 'clearall' ) ) {
+		autoptimizeCache::clearall();
+	}
+
+	do_action( 'litespeed_purge_all' );
+	do_action( 'ce_clear_cache' );
+	do_action( 'sg_cachepress_purge_cache' );
+
+	update_option(
+		'justice_family_cluster_cache_purge_result',
+		array(
+			'time'   => current_time( 'mysql' ),
+			'reason' => $reason,
+			'slugs'  => $slugs,
+		),
+		false
 	);
 }
 

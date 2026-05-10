@@ -141,6 +141,8 @@ function justice_theme_render_content_draft_importer(): void {
 			<?php
 			$publication_result = get_option( 'justice_family_cluster_publication_result', array() );
 			$publication_time   = is_array( $publication_result ) && ! empty( $publication_result['time'] ) ? $publication_result['time'] : '';
+			$quarantine_result  = get_option( 'justice_family_cluster_quarantine_result', array() );
+			$quarantine_time    = is_array( $quarantine_result ) && ! empty( $quarantine_result['time'] ) ? $quarantine_result['time'] : '';
 			?>
 			<div class="notice notice-info">
 				<p>
@@ -149,6 +151,9 @@ function justice_theme_render_content_draft_importer(): void {
 						<?php echo esc_html( sprintf( 'Last publication run: %s', $publication_time ) ); ?>
 					<?php else : ?>
 						<?php esc_html_e( 'Not published by the repo publisher yet.', 'justice-theme' ); ?>
+					<?php endif; ?>
+					<?php if ( $quarantine_time ) : ?>
+						<br><?php echo esc_html( sprintf( 'Emergency quarantine ran: %s', $quarantine_time ) ); ?>
 					<?php endif; ?>
 				</p>
 				<p>

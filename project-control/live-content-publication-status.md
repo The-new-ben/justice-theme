@@ -56,6 +56,13 @@ These are the proposed URLs, but they are currently blocked from publication pen
 - The public HTML did not contain the new `justice-public-cluster`, `owner_approved_live_review`, or `justice:aeo-summary` markers.
 - Meaning: GitHub has the publication package, but uPress/live WordPress has not pulled/executed it yet, or cache is still serving the old state.
 
+## LIVE RECHECK - 2026-05-10 13:42 Asia/Jerusalem
+- Result: UNSAFE PAGES ARE LIVE.
+- All seven proposed URLs returned HTTP 200 at their own URL.
+- Public HTML contained publication markers and internal-note markers.
+- Emergency fix added in repo: on next uPress pull, `inc/live-content-publication.php` restores backed-up content where possible or moves generated pages to draft.
+- This is reversible: old content backups are stored in post meta, and newly generated pages are drafted rather than deleted.
+
 ## NEXT ACTION
 1. Compare every proposed page against existing live content.
 2. Merge with existing pages where the same intent already exists.

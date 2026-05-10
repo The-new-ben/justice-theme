@@ -15,6 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 define( 'JUSTICE_THEME_FAMILY_CLUSTER_PUBLICATION_VERSION', '2026-05-10-family-cluster-v2-public-safe' );
 define( 'JUSTICE_THEME_ENABLE_AUTO_FAMILY_CLUSTER_PUBLICATION', false );
+define( 'JUSTICE_THEME_FAMILY_CLUSTER_QUARANTINE_VERSION', '2026-05-10-quarantine-unsafe-family-cluster-v1' );
 
 /**
  * Register SEO/AEO/GEO meta for public content pages.
@@ -50,6 +51,89 @@ function justice_theme_register_publication_meta(): void {
 	}
 }
 add_action( 'init', 'justice_theme_register_publication_meta' );
+
+/**
+ * Emergency reversible cleanup for the earlier unsafe publication run.
+ *
+ * If the first publisher already created public pages from internal repo drafts,
+ * restore backed-up content where possible or move generated pages back to draft.
+ */
+function justice_theme_quarantine_unsafe_family_cluster_pages(): void {
+	if ( get_option( 'justice_family_cluster_quarantine_version' ) === JUSTICE_THEME_FAMILY_CLUSTER_QUARANTINE_VERSION ) {
+		return;
+	}
+
+	$items = justice_theme_get_owner_approved_family_cluster();
+	if ( empty( $items ) ) {
+		return;
+	}
+
+	$restored    = array();
+	$drafted     = array();
+	$not_touched = array();
+
+	foreach ( array_keys( $items ) as $slug ) {
+		$page = get_page_by_path( $slug, OBJECT, 'page' );
+		if ( ! $page instanceof WP_Post ) {
+			$not_touched[] = $slug . ': no page found';
+			continue;
+		}
+
+		$content_status = (string) get_post_meta( $page->ID, 'content_status', true );
+		$version        = (string) get_post_meta( $page->ID, 'justice_publication_version', true );
+		$markers        = justice_theme_detect_public_content_internal_markers( (string) $page->post_content );
+		$owned_page     = 'owner_approved_live_review' === $content_status || '' !== $version;
+
+		if ( ! $owned_page && empty( $markers ) ) {
+			$not_touched[] = $slug . ': no unsafe generated marker';
+			continue;
+		}
+
+		$backup_content = get_post_meta( $page->ID, 'justice_pre_publication_backup_content_v1', true );
+		$backup_title   = get_post_meta( $page->ID, 'justice_pre_publication_backup_title_v1', true );
+		$backup_status  = get_post_meta( $page->ID, 'justice_pre_publication_backup_status_v1', true );
+
+		if ( '' !== $backup_content ) {
+			$result = wp_update_post( array(
+				'ID'           => $page->ID,
+				'post_title'   => $backup_title ? $backup_title : $page->post_title,
+				'post_content' => $backup_content,
+				'post_status'  => $backup_status ? $backup_status : 'publish',
+			), true );
+
+			if ( ! is_wp_error( $result ) ) {
+				update_post_meta( $page->ID, 'justice_emergency_quarantine_action', 'restored_backup' );
+				update_post_meta( $page->ID, 'justice_emergency_quarantine_at', current_time( 'mysql' ) );
+				$restored[] = $slug;
+				continue;
+			}
+		}
+
+		$result = wp_update_post( array(
+			'ID'          => $page->ID,
+			'post_status' => 'draft',
+		), true );
+
+		if ( ! is_wp_error( $result ) ) {
+			update_post_meta( $page->ID, 'justice_emergency_quarantine_action', 'moved_to_draft' );
+			update_post_meta( $page->ID, 'justice_emergency_quarantine_at', current_time( 'mysql' ) );
+			$drafted[] = $slug;
+		}
+	}
+
+	update_option( 'justice_family_cluster_quarantine_version', JUSTICE_THEME_FAMILY_CLUSTER_QUARANTINE_VERSION, false );
+	update_option(
+		'justice_family_cluster_quarantine_result',
+		array(
+			'time'        => current_time( 'mysql' ),
+			'restored'    => $restored,
+			'drafted'     => $drafted,
+			'not_touched' => $not_touched,
+		),
+		false
+	);
+}
+add_action( 'init', 'justice_theme_quarantine_unsafe_family_cluster_pages', 41 );
 
 /**
  * Publish the approved first family-law content cluster.

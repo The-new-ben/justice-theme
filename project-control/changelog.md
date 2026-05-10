@@ -13,6 +13,13 @@
 - The seven proposed family-law URLs are blocked pending cannibalization/merge review.
 - VERIFIED locally with PHP lint pending in this pass.
 
+**[CRITICAL] Added emergency quarantine for already-live unsafe pages**
+- Files: `inc/live-content-publication.php`, `inc/content-draft-importer.php`, `project-control/live-content-publication-status.md`
+- Live recheck found all seven family-law pages public with publication markers and internal-note markers.
+- The emergency migration restores pre-publication backups where available; otherwise it moves generated pages to draft.
+- No pages are deleted.
+- CODE FIXED. LIVE NOT VERIFIED until uPress pulls the emergency commit and the seven URLs are rechecked.
+
 ### OWNER-APPROVED PUBLICATION PACKAGE
 
 **[HIGH] Added live publisher for the first family-law cluster**

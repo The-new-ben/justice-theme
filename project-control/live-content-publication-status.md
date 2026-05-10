@@ -47,6 +47,13 @@ These are the intended live review URLs:
 - Search Console data is not yet used for traffic-risk scoring.
 - Human legal review and source review are still owner/lawyer review items, even though the owner approved live review.
 
+## LIVE RECHECK - 2026-05-10
+- Commit pushed: `8e28528`.
+- Result: STILL NOT LIVE.
+- Public checks for all seven intended URLs returned HTTP 200 only after redirecting to the homepage.
+- The public HTML did not contain the new `justice-public-cluster`, `owner_approved_live_review`, or `justice:aeo-summary` markers.
+- Meaning: GitHub has the publication package, but uPress/live WordPress has not pulled/executed it yet, or cache is still serving the old state.
+
 ## NEXT ACTION
 1. Push this commit to `origin/main`.
 2. Pull latest in uPress if automatic sync does not run.

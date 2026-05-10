@@ -83,24 +83,51 @@ $social_links = array_filter(
 	)
 );
 
-$related_articles_args = array(
+$lawyer_profile_slug      = get_post_field( 'post_name', $lawyer_id );
+$connected_article_slugs = array_filter( array( $lawyer_profile_slug ) );
+
+if ( false !== mb_strpos( get_the_title( $lawyer_id ), 'מאיה' ) && false !== mb_strpos( get_the_title( $lawyer_id ), 'רוטנברג' ) ) {
+	$connected_article_slugs[] = 'advocate-maya-rotenberg';
+}
+
+$connected_article_slugs = array_values( array_unique( array_map( 'sanitize_title', $connected_article_slugs ) ) );
+$connected_article_meta_values = $connected_article_slugs;
+
+foreach ( $connected_article_slugs as $connected_article_slug ) {
+	$connected_article_meta_values[] = '`' . $connected_article_slug . '`';
+}
+
+$connected_articles_args = array(
 	'post_type'           => 'articles',
 	'post_status'         => 'publish',
 	'posts_per_page'      => 4,
 	'ignore_sticky_posts' => true,
+	'meta_query'          => array(
+		array(
+			'key'     => 'connected_lawyer_slug',
+			'value'   => array_values( array_unique( $connected_article_meta_values ) ),
+			'compare' => 'IN',
+		),
+	),
 );
 
-if ( $primary_area ) {
-	$related_articles_args['tax_query'] = array(
-		array(
-			'taxonomy' => 'practice-areas',
-			'field'    => 'term_id',
-			'terms'    => $primary_area->term_id,
-		),
-	);
-}
+$related_articles = new WP_Query( $connected_articles_args );
 
-$related_articles = new WP_Query( $related_articles_args );
+if ( ! $related_articles->have_posts() && $primary_area ) {
+	$related_articles = new WP_Query( array(
+		'post_type'           => 'articles',
+		'post_status'         => 'publish',
+		'posts_per_page'      => 4,
+		'ignore_sticky_posts' => true,
+		'tax_query'           => array(
+			array(
+				'taxonomy' => 'practice-areas',
+				'field'    => 'term_id',
+				'terms'    => $primary_area->term_id,
+			),
+		),
+	) );
+}
 ?>
 
 <article class="lawyer-mini-site" itemscope itemtype="https://schema.org/Attorney">
@@ -252,7 +279,7 @@ $related_articles = new WP_Query( $related_articles_args );
 				<?php endif; ?>
 
 				<section class="lawyer-mini-panel">
-					<h2>מאמרים ותוכן מקצועי</h2>
+					<h2>מאמרים חתומים ותוכן מקצועי</h2>
 					<?php if ( $related_articles->have_posts() ) : ?>
 						<div class="lawyer-mini-articles">
 							<?php while ( $related_articles->have_posts() ) : ?>
@@ -265,7 +292,7 @@ $related_articles = new WP_Query( $related_articles_args );
 						</div>
 						<?php wp_reset_postdata(); ?>
 					<?php else : ?>
-						<p class="lawyer-mini-muted">כאן יוצגו מאמרים חתומים, מדריכים ועדכונים מקצועיים של עורכת הדין לאחר חיבור התוכן במערכת.</p>
+						<p class="lawyer-mini-muted">כאן יוצגו מאמרים, מדריכים ועדכונים מקצועיים שחוברו לפרופיל דרך שדה CMS ייעודי. התוכן יעלה רק לאחר בדיקה משפטית ועריכת מקורות.</p>
 					<?php endif; ?>
 				</section>
 

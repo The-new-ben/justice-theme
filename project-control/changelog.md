@@ -5,6 +5,13 @@
 
 ### FIXED
 
+**[HIGH] Wired lawyer mini-sites to connected article metadata**
+- Files: `single-justice_lawyer.php`
+- Lawyer mini-site article feeds now prefer published `articles` records whose `connected_lawyer_slug` matches the lawyer profile slug.
+- Maya Rotenberg gets a canonical `advocate-maya-rotenberg` match even while live slug cleanup is still in progress.
+- The query tolerates older imported metadata with literal Markdown backticks, then falls back to practice-area articles if no directly connected articles are published.
+- VERIFIED in repo. LIVE NOT VERIFIED until reviewed family-law drafts are imported/published and the Maya mini-site is previewed.
+
 **[MEDIUM] Polished family-law article cluster navigation**
 - Files: `single-articles.php`, `assets/css/premium-pass-3.css`
 - Moved the family-law cluster navigator from inline styles to reusable CSS classes.

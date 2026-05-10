@@ -17,6 +17,18 @@ $filter_city    = isset( $_GET['city'] )    ? sanitize_text_field( wp_unslash( $
 $filter_area    = isset( $_GET['area'] )    ? sanitize_text_field( wp_unslash( $_GET['area'] ) )    : '';
 $filter_keyword = isset( $_GET['keyword'] ) ? sanitize_text_field( wp_unslash( $_GET['keyword'] ) ) : '';
 
+$legacy_area_map = array(
+	'family'      => 'family-law',
+	'criminal'    => 'criminal-law',
+	'real-estate' => 'real-estate-law',
+	'labor'       => 'labor-law',
+	'traffic'     => 'traffic-law',
+);
+
+if ( isset( $legacy_area_map[ $filter_area ] ) ) {
+	$filter_area = $legacy_area_map[ $filter_area ];
+}
+
 // Build query
 $args = array(
 	'post_type'      => 'justice_lawyer',

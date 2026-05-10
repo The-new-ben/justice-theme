@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[MEDIUM] Normalized legacy lawyer archive area filters**
+- Files: `archive-justice_lawyer.php`
+- The `/lawyers/` archive now converts old short area values such as `family`, `criminal`, `real-estate`, `labor`, and `traffic` into canonical slugs before building the taxonomy query.
+- This protects old menu/search links from returning empty directory results after the English-slug cleanup.
+- VERIFIED in repo. LIVE NOT VERIFIED until Upress pulls the commit and archive filters are tested.
+
 **[HIGH] Repaired seeded menu lawyer-directory filter URLs**
 - Files: `inc/menu-seed.php`
 - Future menu seeding now uses canonical practice-area slugs for lawyer directory filters.

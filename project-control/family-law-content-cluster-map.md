@@ -7,6 +7,7 @@ Date: 2026-05-10
 - Maya Rotenberg is the only verified lawyer/client to connect to this cluster.
 - All six first-cluster drafts are now long-form repo drafts.
 - All six first-cluster drafts have source-audit files.
+- A seventh supporting draft now exists for `/family-dispute-resolution/`, but it is intentionally marked as needing expansion and cannibalization review before import.
 
 ## Cluster Readiness Snapshot
 | URL | Words | Draft Status | Source Audit | Publication Status |
@@ -17,6 +18,7 @@ Date: 2026-05-10
 | `/child-support/` | 5,019 | DRAFT_5000_WORD_CLASS_SOURCE_AUDITED | `child-support-source-audit.csv` | BLOCKED: legal review + browser source verification |
 | `/child-custody/` | 4,575 | DRAFT_4500_WORD_CLASS_SOURCE_AUDITED | `child-custody-source-audit.csv` | BLOCKED: legal review + browser source verification |
 | `/divorce-property-division/` | 4,553 | DRAFT_4500_WORD_CLASS_SOURCE_AUDITED | `property-division-source-audit.csv` | BLOCKED: legal review + browser source verification |
+| `/family-dispute-resolution/` | 2,183 | DRAFT_2200_WORD_SOURCE_AUDITED_NEEDS_EXPANSION | `family-dispute-resolution-source-audit.csv` | BLOCKED: expansion + cannibalization review + legal review + browser source verification |
 
 ## Primary Pillar
 - URL: `/divorce-lawyer/`
@@ -33,6 +35,7 @@ Date: 2026-05-10
 | `/child-support/` | `child-support-supporting-he.md` | User needs support calculation/process guidance | `/divorce-lawyer/`, `/child-custody/`, `/lawyers/advocate-maya-rotenberg/` |
 | `/child-custody/` | `child-custody-supporting-he.md` | User needs parenting/time-sharing guidance | `/divorce-lawyer/`, `/child-support/`, `/lawyers/advocate-maya-rotenberg/` |
 | `/divorce-property-division/` | `divorce-property-division-supporting-he.md` | User needs property/assets/debt framework | `/divorce-lawyer/`, `/consensual-divorce/`, `/lawyers/advocate-maya-rotenberg/` |
+| `/family-dispute-resolution/` | `family-dispute-resolution-supporting-he.md` | User needs the pre-lawsuit family dispute process and urgency triage | `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/lawyers/advocate-maya-rotenberg/` |
 
 ## Anti-Cannibalization Rules
 - `/divorce-lawyer/` owns the keyword "עורך דין גירושין" and lawyer-hiring intent.
@@ -41,6 +44,7 @@ Date: 2026-05-10
 - `/child-support/` owns support/payment/calculation intent.
 - `/child-custody/` owns public "משמורת ילדים" demand but should educate toward "זמני שהות" and "אחריות הורית".
 - `/divorce-property-division/` owns assets/property/pension/debt division intent.
+- `/family-dispute-resolution/` should own the pre-lawsuit request/process intent only after existing live pages are audited and consolidated.
 - None of the supporting pages should present itself as the main "עורך דין גירושין" page.
 - Every supporting page should include one contextual CTA back to the pillar and one factual Maya mini-site block.
 
@@ -67,6 +71,7 @@ Do not publish until:
 4. Import `/child-support/` as draft only.
 5. Import `/child-custody/` as draft only.
 6. Import `/divorce-property-division/` as draft only.
+7. Import `/family-dispute-resolution/` as draft only only after expansion and cannibalization review.
 
 ## BLOCKED Before Publication
 - NOT VERIFIED: Maya/legal review of all six drafts.
@@ -77,7 +82,6 @@ Do not publish until:
 - NOT VERIFIED: GSC data for traffic-risk and cannibalization.
 
 ## Next Drafts After This Cluster
-- `/family-dispute-resolution/`
 - `/ketubah-divorce/`
 - `/prenuptial-agreement/`
 - `/family-lawyer/`

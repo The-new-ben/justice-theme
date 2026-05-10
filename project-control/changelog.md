@@ -5,6 +5,17 @@
 
 ### FIXED
 
+**[HIGH] Added family-dispute-resolution supporting draft**
+- Files: `content-drafts/family-dispute-resolution-supporting-he.md`, `project-control/family-dispute-resolution-source-audit.csv`
+- Added a Hebrew draft for `/family-dispute-resolution/` covering the pre-lawsuit family dispute process, preparation, urgent-risk warnings, relation to divorce agreements, FAQ, Maya/pillar linking plan and LegalTech intake concept.
+- VERIFIED: Draft word count is 2,183 words locally.
+- NOT VERIFIED: Legal review, browser source verification and publication readiness.
+
+**[HIGH] Documented cannibalization risk for family-dispute-resolution**
+- Files: `project-control/family-dispute-resolution-cannibalization-note.md`, `project-control/url-migration-map.csv`, `project-control/content-inventory.csv`, `project-control/title-audit.csv`, `project-control/family-law-publication-readiness.csv`, `project-control/family-law-content-cluster-map.md`
+- Existing live Jus-Tice URLs around family dispute settlement were identified as overlap risks, so the new English-slug draft is treated as a controlled consolidation candidate rather than a blind new publication.
+- VERIFIED: URL migration map marks traffic risk UNKNOWN and redirects as approval-dependent.
+
 **[HIGH] Added premium header topic strip**
 - Files: `template-parts/layout/site-header.php`, `assets/css/premium-pass-3.css`
 - Added a dark portal-style quick navigation strip for the main Hebrew legal intents while keeping URLs in the approved short English slug format.

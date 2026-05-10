@@ -1,4 +1,5 @@
 url,current_title,proposed_title,primary_keyword,duplicate_title_risk,status,notes
+/family-dispute-resolution/,,בקשה ליישוב סכסוך במשפחה: מה קורה לפני תביעת גירושין,בקשה ליישוב סכסוך,HIGH,DRAFT_CREATED,"Must be reviewed against existing Jus-Tice pages before publication or redirect decisions."
 /divorce-lawyer/,,עורך דין גירושין - מדריך לבחירה, עלויות ותהליך,עורך דין גירושין,LOW,PLANNED,"New pillar title. Keep distinct from family-lawyer."
 /family-lawyer/,,עורך דין לענייני משפחה - מדריך, תחומים ופנייה לעורך דין,עורך דין לענייני משפחה,MEDIUM,PLANNED,"Needs differentiation from divorce-lawyer."
 /criminal-lawyer/,,עורך דין פלילי - מה עושים לפני חקירה או כתב אישום,עורך דין פלילי,LOW,PLANNED,"Urgency and process angle."

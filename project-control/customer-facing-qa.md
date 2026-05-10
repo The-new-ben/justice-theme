@@ -20,6 +20,7 @@ Date: 2026-05-10
 - CODE FIXED / NOT LIVE VERIFIED: ask-lawyer now captures legal area, city/region, email and urgency visibly, making it safer as the temporary AI/LegalTech fallback.
 - LIVE VERIFIED 2026-05-10 FOLLOW-UP: traffic link now uses `/lawyers/?area=traffic-law`, AI/intake link uses `/#ask-lawyer`, and the enriched ask-lawyer fields are public. Proof: `ask-lawyer-enriched-desktop-2026-05-10.png`, `ask-lawyer-enriched-mobile-2026-05-10.png`.
 - CODE FIXED / NOT LIVE VERIFIED: the remaining third-party mobile WhatsApp lead banner is now compacted to a 54px icon-only button in CSS; proof of live CSS simulation: `mobile-chat-widget-css-test-final-2026-05-10.png`.
+- CODE FIXED / NOT LIVE VERIFIED: featured-lawyer homepage section now requires a public-approved lawyer profile and no longer claims section-level verification.
 - FIXED IN CODE: stronger hero copy, fallback favicon, fuller primary menu augmentation, mobile WhatsApp offset.
 - Status: NOT CUSTOMER-READY until live recheck and menu assignment.
 

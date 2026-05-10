@@ -18,9 +18,9 @@
 6. FUTURE: secured deploy webhook only after explicit approval and security review; do not add a public `pull.php`.
 7. RECHECKED 2026-05-11: controlled autonomous login attempt is still BLOCKED by browser form-fill limitations/security policy; do not bypass this with unsafe workarounds.
 
-### ACTION-LAWYER-TRUST-001: Safe lawyer trust signals and profile view counter
-**Status:** CODE FIXED V2 - live deployment/verification pending
-**Why:** Lawyer pages must not show fake ratings/testimonials/sponsorship/contact signals, and profile view tracking should not write to the database on every page load.
+### ACTION-LAWYER-TRUST-001: Safe lawyer trust signals, contact routes and homepage feature
+**Status:** CODE FIXED V3 - live deployment/verification pending
+**Why:** Lawyer pages and homepage modules must not show fake ratings/testimonials/sponsorship/contact/verification signals, and profile view tracking should not write to the database on every page load.
 **Actions:**
 1. DONE: lawyer cards only show rating numbers when `review_display_enabled` is explicitly approved and rating/count data exists.
 2. DONE: lawyer mini-sites only show rating summaries and testimonials when review display is explicitly approved.
@@ -28,9 +28,10 @@
 4. DONE: anonymous profile views are throttled with a one-day hashed visitor transient.
 5. DONE: lawyer card/profile phone and WhatsApp links now suppress obvious placeholder/demo numbers before public display.
 6. DONE: Attorney schema now uses the same safe public phone value.
-7. VERIFIED: PHP syntax passed for changed files.
-8. NEXT: pull/deploy marker `2026-05-11-lawyer-contact-safety-v1`, then verify Maya profile and lawyer archive do not show unapproved review/rating claims or fake contact routes.
-9. NOT LIVE VERIFIED: no public deployment yet.
+7. DONE: homepage featured-lawyer module now renders only public-approved lawyer profiles and uses neutral section-level wording.
+8. VERIFIED: PHP syntax passed for changed files.
+9. NEXT: pull/deploy marker `2026-05-11-featured-lawyer-trust-v1`, then verify homepage, Maya profile and lawyer archive do not show unapproved review/rating/verification claims or fake contact routes.
+10. NOT LIVE VERIFIED: no public deployment yet.
 
 ### ACTION-BRAND-001: Logo + Favicon + Search Branding
 **Status:** PARTIAL LIVE VERIFIED - wp-admin/search-result verification pending

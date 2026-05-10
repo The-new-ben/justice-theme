@@ -2,6 +2,13 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 03:00 Asia/Jerusalem
+- CODE FIXED: homepage featured-lawyer module now requires the selected lawyer profile to pass the public-approved profile helper before rendering.
+- CODE FIXED: homepage featured-lawyer copy no longer says "verified lawyer" at section level; verification language is left to the card only when real profile metadata supports it.
+- CODE FIXED: homepage lawyer CTA now points to `/lawyer-registration/` instead of the weaker `/join/` path.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-featured-lawyer-trust-v1`; requires uPress pull/cache clear and homepage visual QA.
+- SAFETY: no lawyer profile content, review data, lead data, URL, redirect, sitemap, robots, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 02:45 Asia/Jerusalem
 - CODE FIXED: lawyer phone and WhatsApp CTAs now pass through a shared public-contact safety filter before rendering on directory cards or mini-site hero buttons.
 - CODE FIXED: obvious placeholder/demo numbers such as sequential values, repeated digits and `555123`-style values are suppressed from public lawyer CTAs.

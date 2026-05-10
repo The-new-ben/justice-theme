@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Homepage featured-lawyer trust gate
+
+- CODE FIXED: homepage featured-lawyer section now renders only a public-approved lawyer profile.
+- CODE FIXED: section-level copy no longer claims "verified lawyer"; verified wording is left to the lawyer card only when profile metadata supports it.
+- CODE FIXED: homepage lawyer mini-site CTA now points to `/lawyer-registration/`.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and homepage visual QA with marker `2026-05-11-featured-lawyer-trust-v1`.
+- SAFETY: no public lawyer content, review data, lead data, URL, redirect, sitemap, robots, wp-admin setting, CRM record or database row was changed.
+
 ## 2026-05-11 - Lawyer public contact safety
 
 - CODE FIXED: lawyer directory cards and lawyer mini-site hero CTAs now use a shared contact safety helper before outputting phone or WhatsApp links.

@@ -54,23 +54,34 @@
 6. NEXT: commit/push follow-up, owner pulls latest, then recheck rendered topic-strip and LegalTech links.
 
 ### ACTION-SEO-005: Verify Follow-Up Topic/LegalTech Fallbacks
-**Status:** NEXT
+**Status:** LIVE VERIFIED
 **Why:** The live pull fixed titles and most links, but the latest fallback patch must be verified after another pull.
 **Actions:**
-1. Recheck rendered topic-strip traffic link: should be `/lawyers/?area=traffic-law` unless `/traffic-lawyer/` exists.
-2. Recheck rendered AI intake link: should be `/#ask-lawyer` unless `/legal-tools/ai-intake/` exists.
-3. Recheck LegalTech section cards/buttons: no `/legal-tools/*` homepage redirects.
-4. Update visual QA and customer-facing QA.
+1. DONE: Rechecked rendered topic-strip traffic link; it now uses `/lawyers/?area=traffic-law`.
+2. DONE: Rechecked rendered AI intake link; it now uses `/#ask-lawyer`.
+3. DONE: Rechecked public homepage form destination and enriched fields.
+4. DONE: Updated visual QA and customer-facing QA.
 
 ### ACTION-LEADS-001: Verify Enriched Ask-Lawyer Intake Form
-**Status:** CODE FIXED - live deploy/test pending
+**Status:** LIVE VERIFIED - controlled CRM test pending
 **Why:** LegalTech/AI fallback now points users to the homepage lead form when tool pages are not published, so the form must capture enough context to route the lead.
 **Actions:**
 1. DONE: Live-checked current form wiring; it posts to `admin-post.php` and includes spam/attribution fields.
 2. DONE: Code-fixed the homepage form to ask for legal area, city/region, email and urgency.
 3. DONE: Code-fixed homepage/directory source keyword fallback to neutral portal/directory language.
 4. VERIFIED: PHP lint passed locally for 127 PHP files.
-5. NEXT: pull latest code, visually recheck `/#ask-lawyer`, and submit one controlled test lead if wp-admin/CRM verification is available.
+5. DONE: Live rechecked `/#ask-lawyer`; the enriched fields are public and hidden general/normal values are gone.
+6. NEXT: submit one controlled test lead only when wp-admin/CRM verification is available.
+
+### ACTION-LEADS-002: Controlled Lead Submission Test
+**Status:** NEXT - requires CRM/admin verification
+**Why:** The public form is now live, but a real end-to-end lead must be checked in the admin CRM before the lead funnel is called operational.
+**Actions:**
+1. Submit a clearly marked test lead from `/#ask-lawyer`.
+2. Verify a `justice_lead` record is created.
+3. Verify legal area, city, urgency, source keyword and consent are saved.
+4. Verify no duplicate email/CRM side effects.
+5. Delete or mark the test lead internally after verification.
 
 ---
 

@@ -11,6 +11,7 @@ Date: 2026-05-10
 - CODE FIXED / NOT LIVE VERIFIED: traffic now falls back to `/lawyers/?area=traffic-law`; LegalTech/AI links fall back to `/#ask-lawyer` until real tool pages exist.
 - LIVE VERIFIED ISSUE: the pulled ask-lawyer form is wired correctly, but still uses hidden `general`/`normal` values instead of asking the visitor for legal area, city and urgency.
 - CODE FIXED / NOT LIVE VERIFIED: ask-lawyer now captures legal area, city/region, email and urgency visibly, making it safer as the temporary AI/LegalTech fallback.
+- LIVE VERIFIED 2026-05-10 FOLLOW-UP: traffic link now uses `/lawyers/?area=traffic-law`, AI/intake link uses `/#ask-lawyer`, and the enriched ask-lawyer fields are public. Proof: `ask-lawyer-enriched-desktop-2026-05-10.png`, `ask-lawyer-enriched-mobile-2026-05-10.png`.
 - FIXED IN CODE: stronger hero copy, fallback favicon, fuller primary menu augmentation, mobile WhatsApp offset.
 - Status: NOT CUSTOMER-READY until live recheck and menu assignment.
 

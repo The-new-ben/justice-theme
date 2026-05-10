@@ -106,3 +106,15 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - LIVE VERIFIED FOLLOW-UP ISSUE: traffic topic link still rendered as `/traffic-law/`, which redirects to homepage.
 - LIVE VERIFIED FOLLOW-UP ISSUE: LegalTech/AI intake URLs redirect to homepage.
 - CODE FIXED / NOT LIVE VERIFIED: traffic fallback now points to `/lawyers/?area=traffic-law`, and LegalTech/AI links fall back to `/#ask-lawyer` until real tool pages exist.
+
+## 2026-05-10 Follow-Up Fallback + Intake Verification
+
+- LIVE VERIFIED: topic strip traffic link now renders as `/lawyers/?area=traffic-law`.
+- LIVE VERIFIED: topic strip AI/intake link now renders as `/#ask-lawyer`.
+- LIVE VERIFIED: homepage ask-lawyer form now shows email, legal area, city/region and urgency fields.
+- LIVE VERIFIED: old hidden `general` area and `normal` urgency values are gone from the public form.
+- LIVE VERIFIED: source keyword is now neutral portal language.
+- VISUAL VERIFIED: screenshots captured:
+  - `project-control/visual-evidence/ask-lawyer-enriched-desktop-2026-05-10.png`
+  - `project-control/visual-evidence/ask-lawyer-enriched-mobile-2026-05-10.png`
+- NOT VERIFIED: actual CRM lead record creation still requires a controlled test with wp-admin/CRM review.

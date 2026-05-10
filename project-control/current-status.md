@@ -2,6 +2,17 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST LIVE STATUS - 2026-05-10 22:35 Asia/Jerusalem
+- LIVE VERIFIED: follow-up fallback patch is now public.
+- LIVE VERIFIED: homepage topic strip traffic link now renders as `https://jus-tice.co.il/lawyers/?area=traffic-law` instead of the homepage-redirecting `/traffic-law/`.
+- LIVE VERIFIED: homepage topic strip AI/intake link now renders as `https://jus-tice.co.il/#ask-lawyer` instead of the homepage-redirecting `/legal-tools/ai-intake/`.
+- LIVE VERIFIED: enriched ask-lawyer form is public and now includes visible fields for email, legal area, city/region and urgency.
+- LIVE VERIFIED: old hidden `lead_area=general` and `lead_urgency=normal` values are no longer present in the homepage form.
+- LIVE VERIFIED: homepage lead source keyword is now neutral: `עורך דין / עורכי דין / הכוונה משפטית`.
+- VISUAL VERIFIED: screenshots captured at `project-control/visual-evidence/ask-lawyer-enriched-desktop-2026-05-10.png` and `project-control/visual-evidence/ask-lawyer-enriched-mobile-2026-05-10.png`.
+- SAFETY: no lead submission was sent, no CRM records changed, and no public URLs/redirects/content bodies were changed.
+- NEXT: run one controlled lead submission only when CRM/wp-admin verification is available.
+
 ## LATEST LIVE STATUS - 2026-05-10 22:15 Asia/Jerusalem
 - LIVE VERIFIED: owner Upress pull is now reflected publicly. Homepage deployment marker is `2026-05-10-contextual-title-v1`.
 - LIVE VERIFIED: homepage title is now `עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ`.

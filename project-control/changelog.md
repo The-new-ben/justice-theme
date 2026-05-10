@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Live verification of fallback and intake fixes
+
+- LIVE VERIFIED: homepage topic strip traffic link now renders as `/lawyers/?area=traffic-law`.
+- LIVE VERIFIED: homepage topic strip AI/intake link now renders as `/#ask-lawyer`.
+- LIVE VERIFIED: homepage ask-lawyer form now shows email, legal area, city/region and urgency fields.
+- LIVE VERIFIED: old hidden `lead_area=general` and `lead_urgency=normal` values are gone.
+- LIVE VERIFIED: homepage lead source keyword is now neutral portal language.
+- VISUAL VERIFIED: captured `ask-lawyer-enriched-desktop-2026-05-10.png` and `ask-lawyer-enriched-mobile-2026-05-10.png`.
+- SAFETY: no live lead was submitted and no CRM records were changed.
+- NEXT: controlled end-to-end CRM lead test when wp-admin/CRM verification is available.
+
 ## 2026-05-10 - Enriched homepage ask-lawyer intake fallback
 
 - LIVE VERIFIED: homepage ask-lawyer form posts to `wp-admin/admin-post.php` and includes nonce/spam/attribution hidden fields.

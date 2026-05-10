@@ -41,6 +41,13 @@ Latest recheck after commit `76dc56f`:
 - All seven family-law URLs still expose internal markers publicly.
 - Interpretation: the public-publication safety gate is pushed to GitHub, but live WordPress is still not serving the newest `main` code.
 
+Latest recheck after commit `9d19686`:
+
+- Homepage PHP marker: NOT VERIFIED.
+- Static theme marker at `/wp-content/themes/justice-theme/deployment-marker.txt`: NOT VERIFIED.
+- All seven family-law URLs still expose internal markers publicly.
+- Interpretation: the lead-form anti-spam guard is pushed to GitHub, but live WordPress is still not serving the newest `main` code.
+
 Evidence from `tools/check-live-deployment.ps1` after commit `542aeef`:
 
 - Homepage PHP marker: NOT VERIFIED.

@@ -7,6 +7,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - SAFETY: The guard runs before the plugin lead handler; filled honeypot or impossible timing is blocked without creating a CRM lead, while missing timestamp remains allowed for old cached forms.
 - VERIFIED: PHP lint passed locally for 127 PHP files after the lead spam guard.
 - NOT VERIFIED LIVE: requires uPress pull and a controlled test lead submission.
+- LIVE RECHECK AFTER PUSH `9d19686`: deployment marker remains absent and family-law pages remain dirty. Lead spam guard is pushed, but not live-verified.
 - FIXED IN CODE: Added a global publication safety gate for public posts/pages/articles. It blocks publish/future saves if internal markers like `NOT VERIFIED`, `project-control/`, `Source audit:`, `GSC`, `CMS`, `CRM`, slug metadata, keyword metadata, or owner/team notes remain in the body.
 - SAFETY: Draft/private editing remains allowed so internal notes can be preserved in draft-only editorial notes.
 - VERIFIED: PHP lint passed locally for 126 PHP files after the publication safety gate.

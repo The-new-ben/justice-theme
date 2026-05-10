@@ -3275,7 +3275,7 @@
     max-height: 54px !important;
     left: auto !important;
     right: max(14px, env(safe-area-inset-right, 0px)) !important;
-    bottom: calc(18px + env(safe-area-inset-bottom, 0px)) !important;
+    bottom: calc(126px + env(safe-area-inset-bottom, 0px)) !important;
     padding: 0 !important;
     border-radius: 999px !important;
     overflow: hidden !important;

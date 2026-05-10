@@ -157,3 +157,24 @@ Next concrete task:
   - Page with redirect
 - Export/sample example URLs in `gsc-indexing-review.csv`.
 
+## Added Integrated Design Checks
+
+ADDED 2026-05-10:
+
+Each meaningful GSC/GA4 monitoring cycle should also ask:
+- Is the ranking page the right template for the query intent?
+- Does mobile show the same important content and internal links as desktop?
+- Are related articles semantic or random?
+- Are lawyer cards and CTAs relevant to the page's cluster?
+- Is the page connected to the right pillar/support cluster?
+- Are schema, canonical and sitemap decisions consistent with the page role?
+- Are GA4 events configured for the main CTA on that template?
+
+Output updates:
+- `homepage-seo-design-alignment.md`
+- `related-content-map.csv`
+- `mobile-first-template-review.md`
+- `accessibility-review.md`
+- `analytics-monitoring-plan.md`
+
+Status: ACTIVE PROCESS / NOT AUTOMATED.

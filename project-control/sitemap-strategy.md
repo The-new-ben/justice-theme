@@ -149,3 +149,13 @@ NO URL MIGRATION UNTIL:
 - internal links/canonicals are ready,
 - owner approves batch execution.
 
+## Design / Cluster Dependency
+
+ADDED 2026-05-10:
+- Sitemap inclusion should reflect the final content and design hierarchy, not only which URLs exist.
+- Pillar pages should be included only when they have a useful layout: explanatory copy, support links, related lawyers where appropriate, FAQ/checklist, lead CTA and self-canonical.
+- Category/hub pages should not enter the sitemap as thin archives.
+- Filter/query URLs should stay out of the sitemap unless converted into curated indexable hubs.
+- Lawyer pages should be included only when profile status, consent/verification language and contact data are acceptable for public display.
+
+Status: ACCEPTED STRATEGY / NOT LIVE EXECUTED.

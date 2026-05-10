@@ -172,3 +172,13 @@ Batch 3 - Controlled migration planning:
 - Prepare internal link/canonical/sitemap updates.
 - Owner approval before live redirects.
 
+## Integrated Design / SEO Decision Layer
+
+ADDED 2026-05-10:
+- Content architecture is not only titles and slugs. Every pillar/support decision must include the template sections, related-content block, lawyer cards, lead CTA, mobile behavior, schema, sitemap and analytics events that make the page understandable to users and Google.
+- Related content must be selected semantically by cluster, pillar and intent. Random latest-post blocks are not acceptable on major legal pages.
+- Faceted lawyer-directory filters should be useful for users but noindex/canonical by default unless a curated hub page has enough unique value to be indexable.
+- Mini-sites are part of the content architecture: lawyer profiles should link to the same pillar/support clusters that define the article strategy.
+- Before any final launch batch, pass `project-control/integrated-launch-checklist.md`.
+
+Status: ACCEPTED RULE / NOT LIVE EXECUTED.

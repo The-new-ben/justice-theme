@@ -206,3 +206,19 @@ wp term create practice-areas "הגירה ואזרחות" --slug=immigration --d
 - Each major article must be built from SERP reverse engineering: intent, competing page types, related questions, price/process/risk sections, internal links, related lawyer mini-site blocks, sources, author/reviewer, and legal disclaimer.
 - First full production candidate: `/divorce-lawyer/` and the connected Maya Rotenberg mini-site/content cluster.
 - Repo drafts can now be imported into the CMS from `Tools > Jus-Tice Content Drafts`. Imports are draft-only and require legal/editorial review before publication.
+
+---
+
+## 2026-05-10 INTEGRATED SEO / DESIGN / CONTENT WORKFLOW
+
+**Status:** ACTIVE PRIORITY - planning added, no live execution yet
+
+Next safe batch before any URL/content migration:
+1. Review homepage SEO/design alignment against `project-control/homepage-seo-design-alignment.md`.
+2. Review one article template and one lawyer profile for semantic related-content behavior.
+3. Confirm mobile-first template risks in `project-control/mobile-first-template-review.md`.
+4. Confirm accessibility risks in `project-control/accessibility-review.md`.
+5. Use `project-control/related-content-map.csv` to drive the first semantic related-content implementation plan.
+6. Use `project-control/integrated-launch-checklist.md` before approving any batch that touches content, design, URLs, sitemap or redirects.
+
+**Do not execute yet:** URL changes, redirects, content deletions, public rewrites, payments, index/noindex changes.

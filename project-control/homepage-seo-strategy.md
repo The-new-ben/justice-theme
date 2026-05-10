@@ -139,3 +139,11 @@ After inventory/title export:
 
 No URL changes required for this batch.
 
+## Design Alignment Gate
+
+ADDED 2026-05-10:
+- Homepage SEO decisions must be reviewed together with homepage layout, mobile order, CTA placement, related links, card behavior and analytics events.
+- The homepage should visibly support the broad portal concepts without keyword stuffing: lawyer directory, legal fields, article library, intake/lead flow and lawyer onboarding.
+- Use `project-control/homepage-seo-design-alignment.md` as the working design/SEO checklist before any final homepage rewrite or template change.
+
+Status: PLANNED / NOT LIVE EXECUTED.

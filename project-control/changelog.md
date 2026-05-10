@@ -1123,3 +1123,20 @@
 - SAVED EVIDENCE: `project-control/visual-evidence/gsc-page-query-car-accident-2026-05-10.png`.
 - PARTIAL: direct page filters for Hebrew malpractice and inheritance URLs returned zero rows despite those URLs appearing in query-to-page checks. This was documented as a browser-filter limitation and not treated as a no-traffic conclusion.
 - SAFETY: no public content, URLs, redirects, sitemap settings or robots rules were changed.
+
+## 2026-05-10 Integrated SEO / Design / Content Layer
+- CREATED: `project-control/homepage-seo-design-alignment.md`.
+- CREATED: `project-control/related-content-strategy.md` and `project-control/related-content-map.csv`.
+- CREATED: `project-control/kol-zchut-article-structure.md`.
+- CREATED: `project-control/lawyer-mini-site-strategy.md` and `project-control/lawyer-mini-site-fields.csv`.
+- CREATED: `project-control/lawyer-funnel-strategy.md` and `project-control/payment-and-subscription-model.md`.
+- CREATED: `project-control/mobile-first-template-review.md`.
+- CREATED: `project-control/accessibility-review.md`.
+- CREATED: `project-control/entity-schema-review.md`.
+- CREATED: `project-control/image-seo-review.md`.
+- CREATED: `project-control/faceted-navigation-indexing-review.md`.
+- CREATED: `project-control/analytics-monitoring-plan.md`.
+- CREATED: `project-control/integrated-launch-checklist.md`.
+- UPDATED: `project-control/homepage-seo-strategy.md`, `project-control/content-architecture-decisions.md`, `project-control/daily-gsc-monitoring.md`, `project-control/sitemap-strategy.md`, `project-control/ga4-event-plan.csv`, `project-control/current-status.md`, `project-control/next-actions.md` and `project-control/task-board.csv`.
+- ACCEPTED: content architecture decisions must now include design/template structure, related links, mobile, accessibility, schema, sitemap and analytics before any controlled launch batch.
+- SAFETY: no public content, URLs, redirects, sitemap settings, robots rules, payments or live CMS settings were changed.

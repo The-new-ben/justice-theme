@@ -388,6 +388,18 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - FIXED: Lawyer mini-site pages now output conservative `Attorney` JSON-LD without fake ratings or unverified claims.
 - FIXED: Lawyer profile view counting now skips logged-in/admin/feed/ajax/cron/bot/preview traffic.
 
+## INTEGRATED SEO / DESIGN / CONTENT LAYER
+- ACCEPTED: SEO content architecture and page design must now be planned together. The working rule is content cluster + URL + template + related links + mobile + schema + sitemap + analytics as one system.
+- CREATED: `project-control/homepage-seo-design-alignment.md` for the homepage portal-entry strategy.
+- CREATED: `project-control/related-content-strategy.md` and `project-control/related-content-map.csv` so related articles become semantic cluster links instead of random latest posts.
+- CREATED: `project-control/kol-zchut-article-structure.md` to standardize public legal articles around practical user-facing sections.
+- CREATED: `project-control/lawyer-mini-site-strategy.md` and `project-control/lawyer-mini-site-fields.csv` for richer lawyer profile/mini-site architecture.
+- CREATED: `project-control/lawyer-funnel-strategy.md` and `project-control/payment-and-subscription-model.md` for marketplace monetization planning without implementing payments.
+- CREATED: `project-control/mobile-first-template-review.md`, `project-control/accessibility-review.md`, `project-control/entity-schema-review.md`, `project-control/image-seo-review.md` and `project-control/faceted-navigation-indexing-review.md`.
+- CREATED: `project-control/analytics-monitoring-plan.md` and `project-control/integrated-launch-checklist.md`.
+- UPDATED: `project-control/ga4-event-plan.csv` with `generate_lead`, `lawyer_signup_start` and `related_article_click`.
+- STATUS: CODE/DOC FIXED in repo; NOT LIVE EXECUTED. No URLs, redirects, sitemap settings, robots rules, public content or payments were changed.
+
 ## NEXT BEST ACTION
 1. Verify the exact GitHub sync target and active plugin path.
 2. Decide whether `justice-core/` will replace `ultra-justice-engine/` on live or whether the legacy active folder must be renamed in a controlled migration.

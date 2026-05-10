@@ -1,4 +1,5 @@
 event_name,purpose,key_event,implementation_status,where_to_fire,priority,notes
+"generate_lead","GA4-standard primary lead conversion wrapper","YES","NOT VERIFIED","All successful lead submissions after server acceptance","CRITICAL","Preferred key event name for business reporting; can be fired alongside or instead of lead_form_submit after implementation decision."
 "lead_form_submit","Primary lead conversion","YES","NOT VERIFIED","All legal lead/contact forms","CRITICAL","Must include legal_area, source_url, source_keyword, assigned_lawyer_id when relevant."
 "phone_click","Phone-call conversion","YES","NOT VERIFIED","Header, footer, lawyer cards, lawyer profiles","HIGH","Track tel: clicks as key event."
 "whatsapp_click","WhatsApp conversion","YES","NOT VERIFIED","Floating button, lawyer profiles, CTAs","HIGH","Track destination lawyer/site-level WhatsApp separately if possible."
@@ -9,5 +10,7 @@ event_name,purpose,key_event,implementation_status,where_to_fire,priority,notes
 "ask_lawyer_start","Lead form start","NO","NOT VERIFIED","Ask-lawyer form","MEDIUM","Useful drop-off metric."
 "document_request_start","LegalTech product funnel start","NO","NOT VERIFIED","Legal tools pages","MEDIUM","Future monetization."
 "document_request_submit","LegalTech product conversion","YES","NOT VERIFIED","Legal tools request forms","HIGH","Future monetization key event."
+"lawyer_signup_start","Lawyer onboarding funnel start","NO","NOT VERIFIED","Lawyer registration page and plan CTAs","HIGH","Measure lawyer monetization funnel before submit."
 "lawyer_signup_submit","Lawyer onboarding conversion","YES","NOT VERIFIED","Lawyer registration flow","CRITICAL","Core marketplace monetization event."
+"related_article_click","Semantic internal-link engagement","NO","NOT VERIFIED","Related-content blocks on article/pillar/lawyer pages","MEDIUM","Use to test whether cluster-aware related content improves navigation."
 "newsletter_signup","Email capture","NO","NOT WIRED","Newsletter section","LOW","Only track after newsletter is wired and strategically useful."

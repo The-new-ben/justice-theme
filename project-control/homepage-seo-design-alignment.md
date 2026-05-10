@@ -1,0 +1,74 @@
+# Homepage SEO And Design Alignment Review
+
+Date: 2026-05-10  
+Status: STRATEGY ADDED - no live template or content changes executed
+
+## Principle
+
+SEO and design must be planned together. The homepage is not only a visual landing page; it is the main entity page for Jus-Tice and the gateway that tells users and Google how the legal portal is organized.
+
+## Target Role
+
+The homepage should communicate:
+- what Jus-Tice is: a Hebrew legal portal, legal information library, lawyer directory and intake platform.
+- who it helps: people with legal problems, people researching before contacting a lawyer, and lawyers considering joining.
+- how users move: problem -> practice-area hub -> article/pillar -> lawyer directory or lead form.
+- why it is trustworthy: careful public language, no fake recommendations, visible disclaimers, real contact options and clear editorial structure.
+
+## Required Above-The-Fold Structure
+
+Recommended content/design order:
+1. Brand/logo and clean primary navigation.
+2. H1 that states the platform value in Hebrew.
+3. Short explanation of how to find information or a lawyer.
+4. Primary CTA to `/lawyers/`.
+5. Secondary CTA to legal guides/articles.
+6. Search or guided-entry component by legal issue, practice area and city.
+
+## Required Homepage Link Targets
+
+These links must be visible in normal HTML, not only loaded by script:
+- `/lawyers/`
+- `/divorce-lawyer/`
+- `/family-lawyer/` or the approved family-law hub
+- `/criminal-lawyer/`
+- `/real-estate-lawyer/`
+- `/medical-malpractice-lawyer/`
+- `/personal-injury-lawyer/`
+- `/traffic-lawyer/`
+- `/employment-lawyer/`
+- `/inheritance-lawyer/`
+
+Status: PLANNED. Existing homepage links need template/content review before final launch.
+
+## Design Sections That Support SEO
+
+The homepage should include:
+- Legal field hubs with concise Hebrew descriptions.
+- Lawyer directory entry with no fake ranking/recommendation claims.
+- Article library entry that distinguishes guides, court rulings, Q&A and updates.
+- Lead/intake CTA that explains the next step without implying legal advice is already being provided.
+- Lawyer onboarding CTA separated from the consumer journey.
+- Trust/disclosure block explaining editorial limits and public-information purpose.
+- Mobile-first layout with the same content and headings as desktop.
+
+## Current Risk
+
+NOT VERIFIED:
+- Whether every major pillar link is live and points to the approved canonical URL.
+- Whether mobile shows the same content and headings as desktop.
+- Whether homepage cards ever show irrelevant/latest-only related content.
+- Whether live sitemap/canonical signals match the homepage hub strategy.
+
+## Next Action
+
+Before changing live content:
+1. Compare homepage template sections to this alignment checklist.
+2. Confirm approved pillar URLs exist or are intentionally planned.
+3. Add missing links through stable CMS/template fields.
+4. Verify on mobile and desktop.
+5. Add GA4 events to hero CTA, search, directory click and lawyer onboarding click.
+
+Source notes:
+- Google mobile-first guidance says mobile pages should contain equivalent primary content and headings to desktop pages.
+- Google link guidance prefers crawlable `<a href>` links for internal discovery.

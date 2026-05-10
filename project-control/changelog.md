@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[MEDIUM] Mapped registration city text to city taxonomy**
+- Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
+- Lawyer registration still stores free-text `cities_served`, but now maps recognized city names to `city` taxonomy terms on the draft profile.
+- This reduces manual cleanup before approved profiles can appear in city-based lawyer directory filters.
+- VERIFIED in repo. LIVE NOT VERIFIED until a test registration is submitted.
+
 **[MEDIUM] Added mini-site intake visibility to onboarding admin**
 - Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
 - Owner notification emails now include submitted profile headline and video URL.

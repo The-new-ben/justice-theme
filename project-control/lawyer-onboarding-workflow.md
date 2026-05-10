@@ -26,6 +26,7 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
   - `profile_faqs`
 - Admin onboarding queue now shows a compact YES/NO mini-site content checklist for headline, services, process, video and FAQ fields.
 - Owner notification email includes submitted headline and video URL for faster triage.
+- Submitted city text is mapped to existing/core `city` taxonomy terms when possible, so draft profiles can later work with directory filters after approval.
 - No profile is published automatically.
 
 ## Review Workflow

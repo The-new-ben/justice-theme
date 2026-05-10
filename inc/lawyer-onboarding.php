@@ -96,6 +96,8 @@ function justice_theme_handle_lawyer_registration(): void {
 		wp_set_object_terms( $post_id, $area, 'practice-areas', false );
 	}
 
+	justice_theme_assign_registration_city_terms( $post_id, $cities );
+
 	if ( function_exists( 'uje_log' ) ) {
 		uje_log( 'lawyer_registration', 'New lawyer registration draft: ' . $name );
 	}
@@ -107,6 +109,65 @@ function justice_theme_handle_lawyer_registration(): void {
 }
 add_action( 'admin_post_justice_lawyer_registration', 'justice_theme_handle_lawyer_registration' );
 add_action( 'admin_post_nopriv_justice_lawyer_registration', 'justice_theme_handle_lawyer_registration' );
+
+function justice_theme_assign_registration_city_terms( int $post_id, string $cities ): void {
+	if ( ! taxonomy_exists( 'city' ) || '' === trim( $cities ) ) {
+		return;
+	}
+
+	$city_map = array(
+		'תל אביב'     => 'tel-aviv',
+		'ת"א'         => 'tel-aviv',
+		'תל-אביב'     => 'tel-aviv',
+		'ירושלים'     => 'jerusalem',
+		'חיפה'         => 'haifa',
+		'ראשון לציון' => 'rishon-lezion',
+		'פתח תקווה'   => 'petah-tikva',
+		'אשדוד'       => 'ashdod',
+		'נתניה'       => 'netanya',
+		'באר שבע'     => 'beer-sheva',
+		'חולון'       => 'holon',
+		'בני ברק'     => 'bnei-brak',
+		'רמת גן'      => 'ramat-gan',
+		'אשקלון'      => 'ashkelon',
+		'רחובות'      => 'rehovot',
+		'בת ים'       => 'bat-yam',
+		'הרצליה'      => 'herzliya',
+		'כפר סבא'     => 'kfar-saba',
+		'מודיעין'     => 'modiin',
+		'נצרת'        => 'nazareth',
+		'לוד'          => 'lod',
+		'רמלה'        => 'ramla',
+	);
+
+	$parts = preg_split( '/[,،;|]+/u', $cities ) ?: array();
+	$slugs = array();
+
+	foreach ( $parts as $part ) {
+		$city = trim( $part );
+		if ( '' === $city ) {
+			continue;
+		}
+
+		$slug = $city_map[ $city ] ?? sanitize_title( $city );
+		$term = get_term_by( 'slug', $slug, 'city' );
+
+		if ( ! $term && isset( $city_map[ $city ] ) ) {
+			$inserted = wp_insert_term( $city, 'city', array( 'slug' => $slug ) );
+			if ( ! is_wp_error( $inserted ) ) {
+				$term = get_term_by( 'id', (int) $inserted['term_id'], 'city' );
+			}
+		}
+
+		if ( $term && ! is_wp_error( $term ) ) {
+			$slugs[] = $term->slug;
+		}
+	}
+
+	if ( ! empty( $slugs ) ) {
+		wp_set_object_terms( $post_id, array_values( array_unique( $slugs ) ), 'city', false );
+	}
+}
 
 function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): void {
 	$admin_email = get_option( 'admin_email' );

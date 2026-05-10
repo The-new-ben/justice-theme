@@ -127,8 +127,12 @@
 3. DONE: Confirmed default `/sitemap.xml`, `/wp-sitemap.xml`, and `/post-sitemap.xml` redirect to the homepage, not XML.
 4. DONE: Confirmed live child sitemaps contain many `http://` locs, matching the GSC Non-HTTPS risk.
 5. DONE: Created `project-control/sitemap-live-verification.csv`.
-6. NEXT: Inspect GSC Non-HTTPS examples and wp-admin sitemap/SEO plugin settings when access is available.
-7. UPDATED: `project-control/sitemap-strategy.md` and `project-control/robots-htaccess-review.md`.
+6. CODE FIXED: theme-emitted first-party canonical, hreflang and Open Graph URLs now normalize to HTTPS.
+7. CODE FIXED: common SEO-plugin canonical/Open Graph filters and WordPress core sitemap entries use the same first-party HTTPS normalization helper.
+8. PARTIAL ONLY: active plugin sitemap settings remain blocked because live child sitemaps previously exposed many `http://` locs outside the theme output path.
+9. NEXT: pull/deploy marker `2026-05-11-https-seo-url-normalization-v1`, then source-check homepage/article/practice/lawyer pages and recheck active sitemap children.
+10. NEXT: inspect GSC Non-HTTPS examples and wp-admin sitemap/SEO plugin settings when access is available.
+11. UPDATED: `project-control/sitemap-strategy.md` and `project-control/robots-htaccess-review.md`.
 
 ### ACTION-SEO-003: No-URL-Change Homepage + Directory SEO Batch
 **Status:** CODE FIXED - live deployment/visual verification pending

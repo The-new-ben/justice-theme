@@ -10,6 +10,33 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Normalize first-party public URLs for SEO tags.
+ *
+ * The live site has historical HTTP URL leakage in taxonomy/canonical/sitemap
+ * surfaces. This does not perform redirects or migrations; it only keeps
+ * theme-emitted canonical, hreflang and OG URLs on the public HTTPS origin.
+ *
+ * @param string $url Raw URL.
+ * @return string
+ */
+function justice_theme_normalize_public_url( string $url ): string {
+	$url = trim( $url );
+
+	if ( '' === $url ) {
+		return '';
+	}
+
+	$site_host = wp_parse_url( home_url( '/' ), PHP_URL_HOST );
+	$url_host  = wp_parse_url( $url, PHP_URL_HOST );
+
+	if ( $site_host && $url_host && strtolower( $site_host ) === strtolower( $url_host ) ) {
+		return set_url_scheme( $url, 'https' );
+	}
+
+	return $url;
+}
+
+/**
  * Clean archive titles — remove "Archives:" prefix.
  *
  * @param string $title Archive title.
@@ -275,7 +302,7 @@ function justice_theme_meta_head() {
 		echo '<meta property="og:title" content="עורכי דין בישראל | Jus-Tice — פורטל משפטי">' . "\n";
 		echo '<meta property="og:description" content="' . esc_attr( $desc ) . '">' . "\n";
 		echo '<meta property="og:type" content="website">' . "\n";
-		echo '<meta property="og:url" content="' . esc_url( home_url( '/' ) ) . '">' . "\n";
+		echo '<meta property="og:url" content="' . esc_url( justice_theme_normalize_public_url( home_url( '/' ) ) ) . '">' . "\n";
 		echo '<meta property="og:locale" content="he_IL">' . "\n";
 		echo '<meta property="og:site_name" content="Jus-Tice">' . "\n";
 	} elseif ( is_post_type_archive( 'justice_lawyer' ) || is_page( 'lawyers' ) ) {
@@ -297,7 +324,7 @@ function justice_theme_meta_head() {
 			echo '<meta property="og:title" content="' . esc_attr( get_the_title() ) . ' | Jus-Tice">' . "\n";
 			echo '<meta property="og:description" content="' . esc_attr( $post_desc ) . '">' . "\n";
 			echo '<meta property="og:type" content="article">' . "\n";
-			echo '<meta property="og:url" content="' . esc_url( get_permalink() ) . '">' . "\n";
+			echo '<meta property="og:url" content="' . esc_url( justice_theme_normalize_public_url( (string) get_permalink() ) ) . '">' . "\n";
 			echo '<meta property="og:locale" content="he_IL">' . "\n";
 		}
 
@@ -327,7 +354,7 @@ add_action( 'wp_head', 'justice_theme_meta_head', 1 );
 function justice_theme_lawyer_archive_canonical_url(): string {
 	$archive = get_post_type_archive_link( 'justice_lawyer' );
 
-	return $archive ? $archive : home_url( '/lawyers/' );
+	return justice_theme_normalize_public_url( $archive ? (string) $archive : home_url( '/lawyers/' ) );
 }
 
 /**
@@ -381,7 +408,7 @@ function justice_theme_canonical_url() {
 	}
 
 	if ( $canonical && ! is_wp_error( $canonical ) ) {
-		echo '<link rel="canonical" href="' . esc_url( $canonical ) . '">' . "\n";
+		echo '<link rel="canonical" href="' . esc_url( justice_theme_normalize_public_url( (string) $canonical ) ) . '">' . "\n";
 	}
 }
 add_action( 'wp_head', 'justice_theme_canonical_url', 5 );
@@ -397,11 +424,11 @@ function justice_theme_hreflang_url(): string {
 	}
 
 	if ( is_singular() ) {
-		return (string) get_permalink();
+		return justice_theme_normalize_public_url( (string) get_permalink() );
 	}
 
 	if ( is_front_page() ) {
-		return home_url( '/' );
+		return justice_theme_normalize_public_url( home_url( '/' ) );
 	}
 
 	if ( is_post_type_archive( 'justice_lawyer' ) ) {
@@ -411,7 +438,7 @@ function justice_theme_hreflang_url(): string {
 	if ( is_post_type_archive( 'articles' ) ) {
 		$archive = get_post_type_archive_link( 'articles' );
 
-		return $archive ? (string) $archive : '';
+		return $archive ? justice_theme_normalize_public_url( (string) $archive ) : '';
 	}
 
 	if ( is_tax() || is_category() || is_tag() ) {
@@ -419,7 +446,7 @@ function justice_theme_hreflang_url(): string {
 		if ( $term && ! is_wp_error( $term ) ) {
 			$link = get_term_link( $term );
 
-			return is_wp_error( $link ) ? '' : (string) $link;
+			return is_wp_error( $link ) ? '' : justice_theme_normalize_public_url( (string) $link );
 		}
 	}
 
@@ -500,11 +527,44 @@ function justice_theme_filter_directory_canonical( $canonical ) {
 		return justice_theme_lawyer_archive_canonical_url();
 	}
 
-	return $canonical;
+	return justice_theme_normalize_public_url( (string) $canonical );
 }
 add_filter( 'wpseo_canonical', 'justice_theme_filter_directory_canonical' );
 add_filter( 'rank_math/frontend/canonical', 'justice_theme_filter_directory_canonical' );
 add_filter( 'aioseo_canonical_url', 'justice_theme_filter_directory_canonical' );
+
+/**
+ * Normalize first-party URLs emitted by SEO plugin Open Graph filters.
+ *
+ * @param string $url Existing URL.
+ * @return string
+ */
+function justice_theme_filter_public_url_scheme( $url ): string {
+	return justice_theme_normalize_public_url( (string) $url );
+}
+add_filter( 'wpseo_opengraph_url', 'justice_theme_filter_public_url_scheme' );
+add_filter( 'rank_math/opengraph/facebook/url', 'justice_theme_filter_public_url_scheme' );
+add_filter( 'rank_math/opengraph/twitter/url', 'justice_theme_filter_public_url_scheme' );
+
+/**
+ * Normalize WordPress core sitemap entries if core sitemaps are active.
+ *
+ * The live sitemap currently appears plugin-controlled, so this is a safe
+ * fallback only. Plugin sitemap settings still require wp-admin/uPress review.
+ *
+ * @param array $entry Sitemap entry.
+ * @return array
+ */
+function justice_theme_normalize_core_sitemap_entry( array $entry ): array {
+	if ( ! empty( $entry['loc'] ) ) {
+		$entry['loc'] = justice_theme_normalize_public_url( (string) $entry['loc'] );
+	}
+
+	return $entry;
+}
+add_filter( 'wp_sitemaps_posts_entry', 'justice_theme_normalize_core_sitemap_entry' );
+add_filter( 'wp_sitemaps_taxonomies_entry', 'justice_theme_normalize_core_sitemap_entry' );
+add_filter( 'wp_sitemaps_users_entry', 'justice_theme_normalize_core_sitemap_entry' );
 
 /**
  * Fallback robots tag for unknown SEO stacks. This makes filtered directory

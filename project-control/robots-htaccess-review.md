@@ -16,6 +16,12 @@ VERIFIED:
 - GSC HTTPS report shows 412 Non-HTTPS URLs, 25 HTTPS URLs, and 222 HTTPS-not-evaluated URLs.
 - GSC Page indexing shows 90 "Page with redirect" URLs, 38 duplicate-without-user-selected-canonical URLs, 2 404 URLs and 785 crawled-currently-not-indexed URLs.
 
+CODE FIXED / NOT LIVE VERIFIED:
+- Theme-emitted first-party canonical, hreflang and Open Graph URLs now normalize to HTTPS for the Jus-Tice host.
+- Common SEO plugin canonical/Open Graph URL filters now pass through the same first-party HTTPS normalization helper.
+- WordPress core sitemap entries now normalize first-party `loc` URLs to HTTPS if core sitemaps are active.
+- This does not update `.htaccess`, redirects, database URLs, or active SEO-plugin sitemap settings.
+
 NOT VERIFIED:
 - Actual `.htaccess` contents.
 - Existing redirect plugin rules.

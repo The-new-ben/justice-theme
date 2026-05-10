@@ -22,6 +22,11 @@ PARTIAL / RISK:
 - GSC HTTPS reports 412 Non-HTTPS URLs, 25 HTTPS URLs and 222 HTTPS-not-evaluated URLs.
 - The live active sitemap still exposes hundreds of `http://` content URLs. This likely explains or contributes to the GSC Non-HTTPS report and is a migration blocker.
 
+CODE FIXED / NOT LIVE VERIFIED:
+- Theme-level first-party canonical, hreflang and Open Graph URLs now normalize to HTTPS.
+- WordPress core sitemap entries now normalize first-party `loc` URLs to HTTPS when core sitemaps are active.
+- The active live sitemap appears plugin-controlled, so this is only a partial safeguard until wp-admin/uPress sitemap settings are reviewed.
+
 EVIDENCE FILE:
 - `project-control/sitemap-live-verification.csv`
 

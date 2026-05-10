@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - HTTPS SEO URL normalization
+
+- CODE FIXED: theme-emitted first-party canonical, hreflang and Open Graph URLs now normalize to HTTPS for the Jus-Tice host.
+- CODE FIXED: common SEO-plugin canonical/Open Graph URL filters route through the same first-party URL normalization helper.
+- CODE FIXED: WordPress core sitemap entries normalize first-party `loc` URLs to HTTPS when core sitemaps are active.
+- PARTIAL ONLY: active plugin sitemap configuration still requires wp-admin/uPress review because prior live checks showed many `http://` sitemap locs.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and public source/sitemap QA with marker `2026-05-11-https-seo-url-normalization-v1`.
+- SAFETY: no public content body, slug, URL migration, redirect, robots rule, CRM record, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Search and 404 visual polish
 
 - CODE FIXED: shared public legal search forms now use polished responsive styling with clear focus states and mobile stacking.

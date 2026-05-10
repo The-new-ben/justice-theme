@@ -138,7 +138,8 @@ STILL LOOKS BAD / NEEDS WORK:
 - Search title is still `You searched for גירושין | Jus-Tice.co.il` live until the code fix is deployed.
 - Sample lawyer profile Hebrew URL returned homepage-style content with status 200 and canonical homepage; this is not a real profile experience and remains a routing/content-status risk.
 - Fake 404 URL returned/finalized as homepage with status 200; this remains a serious routing/404 risk until live routing guard/server/plugin behavior is verified.
-- `/practice-areas/family-law/` redirects/finalizes to `http://jus-tice.co.il/family-law/`; canonical also uses `http`. HTTPS/canonical consistency needs review before migration.
+- CODE FIXED / NOT LIVE VERIFIED: theme canonical, hreflang and Open Graph URLs now normalize first-party URLs to HTTPS, including practice/taxonomy routes that previously inherited `http://`.
+- STILL NEEDS ADMIN REVIEW: active plugin sitemap configuration may still emit `http://` locs and requires wp-admin/uPress review.
 - Mobile floating WhatsApp/lead CTA and accessibility widget overlap content on article/search/practice pages.
 - CODE FIXED / NOT LIVE VERIFIED: search form UI on mobile now has theme-level responsive styling and should no longer look like a plain browser form after deployment.
 

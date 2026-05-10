@@ -2,6 +2,13 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 04:00 Asia/Jerusalem
+- CODE FIXED: theme-emitted first-party canonical, hreflang and Open Graph URLs now normalize to HTTPS when they point to the Jus-Tice public host.
+- CODE FIXED: common SEO plugin canonical/Open Graph URL filters are normalized through the same safe helper, and WordPress core sitemap entries are normalized if core sitemaps are active.
+- PARTIAL ONLY: this does not change live redirects, database URLs, URL slugs, or the active SEO-plugin sitemap configuration; the plugin sitemap still needs wp-admin/uPress review because live child sitemaps previously exposed many `http://` locs.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-https-seo-url-normalization-v1`; requires uPress pull/cache clear and source checks on homepage, article, practice page, lawyer directory and sitemap outputs.
+- SAFETY: no public content body, URL migration, redirect, robots rule, wp-admin setting, lead/CRM record or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 03:40 Asia/Jerusalem
 - CODE FIXED: shared public legal search forms now have premium responsive styling instead of plain browser-form presentation.
 - CODE FIXED: the public search header, no-results state, and 404 search panel now use consistent card spacing, focus states, mobile stacking, and Hebrew visitor-facing hierarchy.

@@ -20,6 +20,11 @@
 - No pages are deleted.
 - CODE FIXED. LIVE NOT VERIFIED until uPress pulls the emergency commit and the seven URLs are rechecked.
 
+**[CRITICAL] Added manual emergency cleanup runbook**
+- File: `project-control/emergency-live-cleanup-runbook.md`
+- Live recheck at 14:02 Asia/Jerusalem confirmed all seven unsafe pages are still live.
+- Runbook documents the preferred uPress pull path and wp-admin fallback to draft unsafe generated pages without deleting anything.
+
 ### OWNER-APPROVED PUBLICATION PACKAGE
 
 **[HIGH] Added live publisher for the first family-law cluster**

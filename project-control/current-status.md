@@ -8,6 +8,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - VERIFIED: PHP lint passed locally for 125 PHP files after the hreflang change.
 - NOT VERIFIED LIVE: requires uPress pull/cache refresh and public HTML recheck.
 - BLOCKED LIVE: the deployment checker still needs to prove that live WordPress is serving the newest GitHub `main` code before any family-law cleanup, lawyer trust gate or hreflang work can be called live.
+- LIVE RECHECK AFTER PUSH `2c418b4`: homepage deployment marker is still absent, static theme marker is still absent, and all seven family-law pages still expose internal markers. This is a live deployment/cache blocker, not a local PHP syntax blocker.
 
 ## VERIFIED
 - Repo is available at `C:\Users\janana\jutice-theme` and tracks `origin/main`.

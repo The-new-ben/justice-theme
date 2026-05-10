@@ -6,6 +6,13 @@ Date: 2026-05-10
 
 VERIFIED: GitHub `main` is ahead of the live WordPress theme output.
 
+Latest recheck after commit `2c418b4`:
+
+- Homepage PHP marker: NOT VERIFIED.
+- Static theme marker at `/wp-content/themes/justice-theme/deployment-marker.txt`: NOT VERIFIED.
+- All seven family-law URLs still expose internal markers publicly.
+- Interpretation: commit `2c418b4` and the queued cleaner/trust-gate changes are pushed to GitHub but are not being served by live WordPress yet.
+
 Evidence from `tools/check-live-deployment.ps1` after commit `542aeef`:
 
 - Homepage PHP marker: NOT VERIFIED.

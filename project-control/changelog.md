@@ -6,7 +6,7 @@
 - FIXED IN CODE: Public canonical pages now emit `hreflang="he"` and `hreflang="x-default"` alternate tags from `inc/seo.php`.
 - SAFETY: Search pages, 404s and filtered lawyer-directory states are skipped so thin/noindex URLs do not get language alternates.
 - VERIFIED: PHP lint passed locally for 125 PHP files.
-- NOT VERIFIED LIVE: requires uPress pull/cache refresh and public HTML recheck.
+- NOT VERIFIED LIVE: post-push checker after commit `2c418b4` still shows homepage PHP marker absent, static theme marker absent, and family-law pages dirty.
 
 ## 2026-05-10 - Session: CMS wiring hardening
 

@@ -12,7 +12,8 @@
 - Added an editorial repair flow that keeps existing family-law pages public and refreshes their body with public-facing article content.
 - Added a draft-only WordPress page sync for `Internal Editorial Notes — Family Law Cluster`.
 - Content-draft imports into `articles` now use cleaned public body content and store internal notes separately.
-- VERIFIED locally pending PHP lint in this pass.
+- VERIFIED locally: PHP lint passed for 124 PHP files.
+- LIVE RECHECK after push `d3ff1d6`: live pages still show internal-note markers, so uPress pull/cache refresh or hook execution is still required.
 
 ### URGENT PUBLICATION SAFETY CORRECTION
 

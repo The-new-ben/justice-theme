@@ -58,6 +58,13 @@ These URLs exist as the working family-law cluster. The immediate task is public
 - Search Console data is not yet used for traffic-risk scoring.
 - Human legal review and source review are still owner/lawyer review items.
 
+## LIVE RECHECK - 2026-05-10 AFTER COMMIT d3ff1d6
+- Result: LIVE STILL NEEDS uPress PULL / CACHE REFRESH / HOOK EXECUTION.
+- All seven family-law URLs returned HTTP 200.
+- Public body still contained internal-note markers.
+- Metadata markers such as `Slug target:` and `Primary keyword:` were not detected in this check, but internal-note markers remain.
+- Expected after latest commit is active: pages stay public, public body is clean, and internal notes are moved to the draft-only internal editorial note.
+
 ## LIVE RECHECK - 2026-05-10
 - Commit pushed: `8e28528`.
 - Result: STILL NOT LIVE.

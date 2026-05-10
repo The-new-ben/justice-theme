@@ -117,6 +117,12 @@
 - Imported article drafts now receive metadata for repo draft status, word count, source audit, browser-source-verification requirement, connected lawyer, cluster and primary keyword.
 - Added explicit source-audit lines to the first three family-law drafts so all six first-cluster drafts expose their audit files to the importer.
 
+**[MEDIUM] Added bulk draft import action**
+- Files: `inc/content-draft-importer.php`, `project-control/current-status.md`, `project-control/changelog.md`, `project-control/task-board.csv`
+- Added an admin-only `Import all repo drafts as drafts` action to `Tools > Jus-Tice Content Drafts`.
+- Bulk import preserves draft-only behavior and still blocks refresh of already-published articles.
+- Status is NOT VERIFIED live until Upress pulls the commit and the wp-admin importer screen is tested.
+
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`
 - Verified public homepage includes the code wordmark and new LegalTech/lawyer-registration links.

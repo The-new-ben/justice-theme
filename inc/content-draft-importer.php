@@ -44,6 +44,12 @@ function justice_theme_render_content_draft_importer(): void {
 
 		<?php if ( ! post_type_exists( 'articles' ) ) : ?>
 			<div class="notice notice-warning"><p><?php esc_html_e( 'The articles post type is not active, so imports are blocked.', 'justice-theme' ); ?></p></div>
+		<?php else : ?>
+			<p>
+				<a class="button button-primary" href="<?php echo esc_url( wp_nonce_url( add_query_arg( array( 'action' => 'justice_import_all_content_drafts' ), admin_url( 'tools.php?page=justice-content-drafts' ) ), 'justice_import_all_content_drafts' ) ); ?>">
+					<?php esc_html_e( 'Import all repo drafts as drafts', 'justice-theme' ); ?>
+				</a>
+			</p>
 		<?php endif; ?>
 
 		<table class="widefat striped">
@@ -109,9 +115,25 @@ function justice_theme_handle_content_draft_import(): void {
 		! is_admin()
 		|| ! current_user_can( 'manage_options' )
 		|| empty( $_GET['action'] )
-		|| 'justice_import_content_draft' !== $_GET['action']
-		|| empty( $_GET['file'] )
 	) {
+		return;
+	}
+
+	if ( 'justice_import_all_content_drafts' === $_GET['action'] ) {
+		check_admin_referer( 'justice_import_all_content_drafts' );
+
+		$result = justice_theme_import_all_repo_content_drafts();
+		$args   = array(
+			'page'                   => 'justice-content-drafts',
+			'justice_import_result'  => $result['status'],
+			'justice_import_message' => rawurlencode( $result['message'] ),
+		);
+
+		wp_safe_redirect( add_query_arg( $args, admin_url( 'tools.php' ) ) );
+		exit;
+	}
+
+	if ( 'justice_import_content_draft' !== $_GET['action'] || empty( $_GET['file'] ) ) {
 		return;
 	}
 
@@ -127,6 +149,45 @@ function justice_theme_handle_content_draft_import(): void {
 
 	wp_safe_redirect( add_query_arg( $args, admin_url( 'tools.php' ) ) );
 	exit;
+}
+
+function justice_theme_import_all_repo_content_drafts(): array {
+	$drafts = justice_theme_get_repo_content_drafts();
+	if ( empty( $drafts ) ) {
+		return array( 'status' => 'blocked', 'message' => 'No repo content drafts were found.' );
+	}
+
+	$imported = 0;
+	$blocked  = 0;
+	$failed   = 0;
+
+	foreach ( $drafts as $draft ) {
+		$result = justice_theme_import_repo_content_draft( $draft['file'] );
+
+		if ( 'success' === $result['status'] ) {
+			++$imported;
+			continue;
+		}
+
+		if ( 'blocked' === $result['status'] ) {
+			++$blocked;
+			continue;
+		}
+
+		++$failed;
+	}
+
+	$status = ( 0 === $failed && 0 === $blocked ) ? 'success' : 'blocked';
+
+	return array(
+		'status'  => $status,
+		'message' => sprintf(
+			'Bulk import finished. Imported/refreshed: %1$d. Blocked: %2$d. Failed: %3$d. All content remains draft-only.',
+			$imported,
+			$blocked,
+			$failed
+		),
+	);
 }
 
 function justice_theme_get_repo_content_drafts(): array {

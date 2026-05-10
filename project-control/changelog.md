@@ -756,3 +756,11 @@
 - FIXED IN CODE: added common SEO-plugin robots/canonical filters plus a fallback noindex meta tag for filtered lawyer-directory URLs.
 - VERIFIED: PHP lint passed locally for 120 PHP files.
 - NOT VERIFIED LIVE: requires uPress pull/cache refresh and a recheck of `/lawyers/?area=family-law`.
+
+## 2026-05-10 English Practice Page Route Fallback
+- FIXED IN CODE: Added `inc/practice-landing.php` with controlled configuration for English practice slugs.
+- FIXED IN CODE: Generic `page.php` now renders a structured practice landing template when a public page slug matches a controlled practice route such as `/family-law/`.
+- FIXED IN CODE: Added `template-parts/content/practice-landing-page.php` with hero, intent cards, supporting-topic links, related articles, lead form and Maya Rotenberg family-law card when resolvable.
+- FIXED IN CODE: Added small CSS support for route-based practice landing pages.
+- VERIFIED: PHP lint passed locally for 122 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and public visual check of `/family-law/`.

@@ -66,6 +66,10 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - LIVE RECHECK: `/practice-areas/family-law/` redirects to `/family-law/` and does not show the new `practice-hub-intent` / `practice-hub-cta` sections; taxonomy/page routing still needs admin/permalink review.
 - LIVE RECHECK: `/lawyers/?area=family-law` still outputs `index` in robots on the public site; code is now hardened for page-route directory filters and common SEO-plugin canonical/robots filters.
 - NOT VERIFIED live: the hardened filter-state noindex/canonical fix requires the next Upress pull/cache refresh.
+- English practice slug pages served through generic `page.php` now get a structured practice landing template when the page slug matches a controlled legal area such as `/family-law/`, `/criminal-law/`, `/traffic-law/`, `/real-estate-law/`, `/labor-law/`, `/inheritance/`, `/torts/`, `/medical-malpractice/`, or `/national-insurance/`.
+- The page-route practice landing layer includes intent cards, supporting-topic links, a lead form, related articles and a Maya Rotenberg card only on the family-law route when her public profile can be resolved.
+- VERIFIED locally: PHP lint passed for 122 PHP files after adding the reusable practice landing helper/template.
+- NOT VERIFIED live: `/family-law/` needs the latest uPress pull/cache refresh before checking that the generic page route renders the new practice landing template.
 - Maya bootstrap can attach `family-law` and a city term only where safe, and adds an internal note for admin review.
 - Homepage hero copy is now more direct: it speaks to users who need a lawyer or legal direction, not only generic portal language.
 - Primary navigation now has a code safety layer that appends missing customer-critical links when the assigned WordPress menu is too thin.

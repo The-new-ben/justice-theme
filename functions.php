@@ -23,6 +23,7 @@ $justice_theme_files = array(
 	'inc/seo.php',
 	'inc/accessibility.php',
 	'inc/related-content.php',
+	'inc/practice-landing.php',
 	'inc/lead-ui.php',
 	'inc/lead-crm.php',
 	'inc/lead-classifier.php',

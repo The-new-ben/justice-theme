@@ -42,6 +42,7 @@ Date: 2026-05-09
 | Category intro text | `taxonomy-practice-areas.php` | Taxonomy description fallback | YES | Many terms likely empty | Add Hebrew descriptions per priority area |
 | Practice-area intent layer | `taxonomy-practice-areas.php` | Taxonomy name/slug plus generic legal-intent copy | PARTIAL | Text is not individually editable per term yet | Add term meta for custom intro, urgency notes, documents and FAQ per practice area |
 | Practice-area CTA | `taxonomy-practice-areas.php` | Taxonomy slug, lawyer archive URL, homepage lead form anchor | PARTIAL | CTA copy and routing are still hardcoded | Later route by lead area and expose CTA copy in term meta |
+| English practice page fallback | `page.php`, `inc/practice-landing.php`, `template-parts/content/practice-landing-page.php` | Controlled slug config, page content, taxonomy term, related articles, lawyer archive, Maya resolver | PARTIAL | Route config is code-controlled, not wp-admin controlled yet | Use as safety layer for `/family-law/` and other English practice pages; later move per-route copy into term/page meta |
 | Homepage sections | `front-page.php`, `page-home.php` | Mixed CPT/taxonomy/hardcoded/page content | PARTIAL | Hero/value copy not editable | Add ACF/customizer/front-page fields later |
 | SEO title/meta | `inc/seo.php` | Query context + excerpt | PARTIAL | No SEO plugin/GSC feedback loop | Connect GSC and decide SEO plugin |
 | Schema fields | `inc/schema.php` | Site/lawyer/article data | PARTIAL | Lawyer schema needs live profile validation | Validate Maya profile schema |

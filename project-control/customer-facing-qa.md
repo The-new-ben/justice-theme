@@ -32,6 +32,7 @@ Date: 2026-05-10
 - What looks weak: needs clearer pillar content, FAQ, related lawyer, related articles and lead CTA after first fold.
 - FIXED IN CODE: practice-area taxonomy pages now include an intent layer, preparation guidance and a lead/lawyer-directory CTA. This improves taxonomy practice hubs; separate static pillar pages still need content import/review.
 - LIVE RECHECK: `https://jus-tice.co.il/practice-areas/family-law/` redirects to `http://jus-tice.co.il/family-law/` and does not expose the new taxonomy intent/CTA sections. This is likely a routing/permalink/page-vs-taxonomy conflict that needs wp-admin/uPress review.
+- FIXED IN CODE: generic English practice pages such as `/family-law/` now have a route fallback template, so a page route can render as a structured practice hub even when taxonomy routing is bypassed.
 - Status: PARTIAL.
 
 ## Lawyer Archive

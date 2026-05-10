@@ -85,9 +85,14 @@
 
 **[HIGH] Expanded child-custody supporting draft**
 - Files: `content-drafts/child-custody-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
-- Expanded `/child-custody/` from about 1,222 words to about 4,545 words across three sequential passes.
+- Expanded `/child-custody/` from about 1,222 words to about 4,575 words across three sequential passes.
 - Added parenting schedule models, holidays, logistics, parent communication rules, risk situations, professional factors, relocation/school-change issues, age bands, temporary-vs-permanent arrangement cautions, breach/enforcement cautions, proof/evidence guidance, urgent situations, CRM intake fields, LegalTech parenting-plan concept, Maya mini-site modules, CMS layout, decision paths, agreement-structure guidance, success metrics, common mistakes and anti-cannibalization links.
 - Status remains NOT VERIFIED for legal accuracy and not ready to publish.
+
+**[HIGH] Added child-custody source audit**
+- Files: `project-control/child-custody-source-audit.csv`, `content-drafts/child-custody-supporting-he.md`, `project-control/article-briefs-5000-word.csv`, `project-control/content-inventory.csv`, `project-control/current-status.md`, `project-control/task-board.csv`
+- Mapped custody/time-sharing procedure, family-dispute filing, dispute-resolution process, interim relief, assistance units, legal aid, social-work reports, terminology, child-wishes, parental alienation, risk/urgency and evidence guidance to source candidates or legal-review blockers.
+- gov.il source candidates were search-verified; direct scripted checks returned 403 and require browser verification before publication.
 
 **[MEDIUM] Rechecked live header**
 - Files: `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/visual-evidence/homepage-header-recheck.json`

@@ -1,7 +1,7 @@
 # זמני שהות ואחריות הורית: מדריך להורים בגירושין בלי להפוך את הילדים לזירת מאבק
 
 Slug target: `/child-custody/`  
-Status: PRODUCTION_DRAFT_V4_4500_WORD_CLASS
+Status: PRODUCTION_DRAFT_V4_4500_WORD_CLASS_SOURCE_AUDITED
 Target length: 4,500-6,000 words after legal/editorial expansion  
 Connected pillar: `/divorce-lawyer/`  
 Connected lawyer: `advocate-maya-rotenberg`  
@@ -500,9 +500,12 @@ Jus-Tice צריך להיזהר במיוחד בשפה של עמודי ילדים.
 
 ## מקורות ראשוניים
 
+- Source audit: `project-control/child-custody-source-audit.csv`
 - הרשות השופטת: הגשת תביעה בעניין של סכסוך משפחתי - https://www.gov.il/he/service/filing-lawsuit-family-dispute
+- הרשות השופטת: בקשה ליישוב סכסוך במשפחה - https://www.gov.il/he/service/asking_for_family_dispute_settlements
 - הרשות השופטת: בקשה לסעד זמני בסכסוך משפחתי - https://www.gov.il/he/service/asking_for_prohibited_steps_order
 - בתי הדין הרבניים: הגשת בקשה לקביעת הסדרי שהות לילדים - https://www.gov.il/he/service/stay-arrangements
+- משרד הרווחה: יחידות הסיוע שליד בתי המשפט לענייני משפחה ובתי הדין הדתיים - https://www.gov.il/he/Departments/units/molsa-court-assiatance-units
 - סקירת SERP: מאמרי עורכי דין סביב זמני שהות, אחריות הורית, חזקת הגיל הרך ושינוי הסדרי שהות.
 
 ## קישורים פנימיים נדרשים
@@ -521,4 +524,4 @@ Jus-Tice צריך להיזהר במיוחד בשפה של עמודי ילדים.
 - NOT VERIFIED: בדיקת מינוח עדכנית מול עו"ד.
 - NOT VERIFIED: GSC data.
 - NOT VERIFIED: בדיקת קניבליזציה מול תכנים קיימים באתר.
-- READY NEXT: source audit, בדיקה משפטית, דוגמאות הסכם, וחיבור בלוקים דינמיים.
+- READY NEXT: בדיקה משפטית, בדיקת מקורות ידנית בדפדפן, דוגמאות הסכם, וחיבור בלוקים דינמיים.

@@ -35,6 +35,7 @@ Those notes are synced into a draft-only WordPress page:
 5. Keeps the cannibalization review active for later merge/redirect decisions.
 6. Imports future repo drafts into the `articles` CPT as clean drafts, with internal notes stored separately.
 7. Removes whole internal Markdown sections when their body contains strong team-only markers, not only when the heading text is an exact match.
+8. Guards public rendering for the seven approved family-law slugs: if old page content still contains internal markers, the rendered output is replaced with the clean repo-draft body and the WordPress page is updated in place.
 
 ## Verification After uPress Pull
 1. Open each of the seven URLs.

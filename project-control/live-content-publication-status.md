@@ -70,6 +70,12 @@ These URLs exist as the working family-law cluster. The immediate task is public
 - Cache purge coverage includes WordPress post/object cache plus common cache-plugin hooks/functions for LiteSpeed, WP Rocket, W3 Total Cache, Autoptimize, SG CachePress and Cache Enabler-style hooks.
 - This is still not a substitute for a uPress pull. It only helps after the latest theme code actually executes on WordPress.
 
+## CODE FIX - 2026-05-10 v5
+- Added a runtime public-content guard on `the_content` for the seven approved family-law slugs.
+- If a page body still contains internal markers during rendering, the guard replaces the public output with the cleaned repo-draft article body, persists the cleaned body to the WordPress page, records `justice_runtime_guard_*` meta, and purges cache for that slug.
+- This remains narrowly scoped: it does not create pages, does not delete pages, and does not run on unrelated content.
+- Required proof: after uPress pulls, open one affected page and confirm the public body no longer contains internal markers.
+
 ## LIVE RECHECK - 2026-05-10 AFTER COMMIT d5824ed
 - Result: STILL NEEDS uPress PULL / CACHE REFRESH / HOOK EXECUTION.
 - All seven family-law URLs still expose internal markers publicly.

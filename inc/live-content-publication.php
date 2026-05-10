@@ -17,8 +17,9 @@ define( 'JUSTICE_THEME_FAMILY_CLUSTER_PUBLICATION_VERSION', '2026-05-10-family-c
 define( 'JUSTICE_THEME_ENABLE_AUTO_FAMILY_CLUSTER_PUBLICATION', false );
 define( 'JUSTICE_THEME_FAMILY_CLUSTER_QUARANTINE_VERSION', '2026-05-10-quarantine-unsafe-family-cluster-v1' );
 define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_QUARANTINE', false );
-define( 'JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION', '2026-05-10-editorial-repair-family-cluster-v4' );
+define( 'JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION', '2026-05-10-editorial-repair-family-cluster-v5' );
 define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_EDITORIAL_REPAIR', true );
+define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_RUNTIME_GUARD', true );
 
 /**
  * Register SEO/AEO/GEO meta for public content pages.
@@ -292,6 +293,78 @@ function justice_theme_handle_family_cluster_publication_action(): void {
 	exit;
 }
 add_action( 'admin_init', 'justice_theme_handle_family_cluster_publication_action' );
+
+/**
+ * Final public-output guard for family-law pages that were already published
+ * from repo drafts. If a public page still contains internal notes, serve and
+ * persist the cleaned article body from the repo draft immediately.
+ *
+ * @param string $content Post content.
+ * @return string
+ */
+function justice_theme_guard_family_cluster_public_content( string $content ): string {
+	if (
+		! JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_RUNTIME_GUARD
+		|| is_admin()
+		|| ! is_singular( 'page' )
+		|| ! in_the_loop()
+		|| ! is_main_query()
+	) {
+		return $content;
+	}
+
+	$post = get_post();
+	if ( ! ( $post instanceof WP_Post ) ) {
+		return $content;
+	}
+
+	$slug  = (string) $post->post_name;
+	$items = justice_theme_get_owner_approved_family_cluster();
+	if ( empty( $items[ $slug ] ) ) {
+		return $content;
+	}
+
+	$markers = justice_theme_detect_public_content_internal_markers( wp_strip_all_tags( $content ) );
+	if ( empty( $markers ) ) {
+		return $content;
+	}
+
+	$item = $items[ $slug ];
+	$file = sanitize_file_name( $item['file'] ?? '' );
+	$path = JUSTICE_THEME_DIR . '/content-drafts/' . $file;
+	if ( '' === $file || ! is_readable( $path ) ) {
+		return $content;
+	}
+
+	$raw = file_get_contents( $path );
+	if ( false === $raw ) {
+		return $content;
+	}
+
+	$clean_html = justice_theme_prepare_family_cluster_html( $raw, $slug, $item, $items );
+	if ( '' === $clean_html ) {
+		return $content;
+	}
+
+	$result = wp_update_post(
+		array(
+			'ID'           => $post->ID,
+			'post_content' => $clean_html,
+		),
+		true
+	);
+
+	if ( ! is_wp_error( $result ) ) {
+		update_post_meta( $post->ID, 'content_status', 'editorial_repaired_public_article' );
+		update_post_meta( $post->ID, 'justice_runtime_guard_version', JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION );
+		update_post_meta( $post->ID, 'justice_runtime_guard_markers', implode( ', ', array_slice( $markers, 0, 8 ) ) );
+		update_post_meta( $post->ID, 'justice_runtime_guard_repaired_at', current_time( 'mysql' ) );
+		justice_theme_purge_family_cluster_publication_caches( array( $slug ), 'runtime_public_content_guard' );
+	}
+
+	return $clean_html;
+}
+add_filter( 'the_content', 'justice_theme_guard_family_cluster_public_content', 1 );
 
 /**
  * Run the family cluster publication.

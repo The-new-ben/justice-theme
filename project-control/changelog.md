@@ -5,6 +5,14 @@
 
 ### EDITORIAL IMPROVEMENT MODE
 
+**[CRITICAL] Added runtime public-content guard for family-law pages**
+- Files: `inc/live-content-publication.php`
+- If one of the seven family-law public pages is rendered while still containing internal markers, the theme now serves the cleaned public article body from the approved repo draft and persists that cleaned body back to the WordPress page.
+- The guard is scoped only to the approved family-law English slugs and only runs when internal markers are detected.
+- The family-law repair version is bumped to v5 so normal migration repair reruns as well.
+- VERIFIED locally: PHP lint passed for 124 PHP files and the seven-draft public-marker scan still passes.
+- CODE FIXED. LIVE NOT VERIFIED until uPress pulls and at least one affected page is opened.
+
 **[HIGH] Added cache purge after family-law editorial repair**
 - Files: `inc/live-content-publication.php`
 - After repairing or manually refreshing the family-law cluster, the theme now clears post/object cache and asks common cache plugins/layers to purge: LiteSpeed, WP Rocket, W3 Total Cache, Autoptimize, SG CachePress, Cache Enabler-style hooks and WordPress object cache.

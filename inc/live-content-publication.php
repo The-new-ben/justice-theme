@@ -17,7 +17,7 @@ define( 'JUSTICE_THEME_FAMILY_CLUSTER_PUBLICATION_VERSION', '2026-05-10-family-c
 define( 'JUSTICE_THEME_ENABLE_AUTO_FAMILY_CLUSTER_PUBLICATION', false );
 define( 'JUSTICE_THEME_FAMILY_CLUSTER_QUARANTINE_VERSION', '2026-05-10-quarantine-unsafe-family-cluster-v1' );
 define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_QUARANTINE', false );
-define( 'JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION', '2026-05-10-editorial-repair-family-cluster-v2' );
+define( 'JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION', '2026-05-10-editorial-repair-family-cluster-v3' );
 define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_EDITORIAL_REPAIR', true );
 
 /**
@@ -669,31 +669,110 @@ function justice_theme_prepare_family_cluster_html( string $raw, string $slug, a
  * @return string
  */
 function justice_theme_strip_internal_publication_note( string $raw ): string {
-	$lines      = preg_split( '/\r\n|\r|\n/', $raw );
-	$kept       = array();
-	$skip_block = false;
+	$lines    = preg_split( '/\r\n|\r|\n/', $raw );
+	$sections = justice_theme_split_markdown_publication_sections( $lines );
+	$kept     = array();
 
-	foreach ( $lines as $line ) {
-		if ( preg_match( '/^##\s+(.+)$/u', $line, $matches ) ) {
-			$heading    = trim( wp_strip_all_tags( $matches[1] ) );
-			$skip_block = justice_theme_is_internal_publication_heading( $heading );
-			if ( $skip_block ) {
+	foreach ( $sections as $section ) {
+		if ( justice_theme_is_internal_publication_section( $section ) ) {
+			continue;
+		}
+
+		foreach ( $section as $line ) {
+			if ( justice_theme_is_internal_publication_line( $line ) || justice_theme_is_internal_publication_metadata_line( $line ) ) {
 				continue;
 			}
-		}
 
-		if ( $skip_block ) {
-			continue;
+			$kept[] = $line;
 		}
-
-		if ( justice_theme_is_internal_publication_line( $line ) || justice_theme_is_internal_publication_metadata_line( $line ) ) {
-			continue;
-		}
-
-		$kept[] = $line;
 	}
 
 	return implode( "\n", $kept );
+}
+
+/**
+ * Split Markdown into H2/H3-led sections so unsafe internal blocks can be
+ * removed even when only the section body contains the obvious markers.
+ *
+ * @param array<int,string>|false $lines Lines.
+ * @return array<int,array<int,string>>
+ */
+function justice_theme_split_markdown_publication_sections( $lines ): array {
+	if ( ! is_array( $lines ) ) {
+		return array();
+	}
+
+	$sections = array();
+	$current  = array();
+
+	foreach ( $lines as $line ) {
+		if ( preg_match( '/^#{2,3}\s+(.+)$/u', $line ) && ! empty( $current ) ) {
+			$sections[] = $current;
+			$current    = array();
+		}
+
+		$current[] = $line;
+	}
+
+	if ( ! empty( $current ) ) {
+		$sections[] = $current;
+	}
+
+	return $sections;
+}
+
+/**
+ * Determine whether a Markdown section is internal-only.
+ *
+ * @param array<int,string> $section Section lines.
+ * @return bool
+ */
+function justice_theme_is_internal_publication_section( array $section ): bool {
+	if ( empty( $section ) ) {
+		return false;
+	}
+
+	$heading = '';
+	if ( preg_match( '/^#{2,3}\s+(.+)$/u', (string) $section[0], $matches ) ) {
+		$heading = trim( wp_strip_all_tags( $matches[1] ) );
+	}
+
+	if ( '' !== $heading && justice_theme_is_internal_publication_heading( $heading ) ) {
+		return true;
+	}
+
+	if ( preg_match( '/^#\s+(.+)$/u', (string) $section[0] ) ) {
+		return false;
+	}
+
+	$block = implode( "\n", $section );
+	$strong_markers = array(
+		'NOT VERIFIED',
+		'BLOCKED:',
+		'READY NEXT',
+		'PARTIAL:',
+		'CMS',
+		'CRM',
+		'GSC',
+		'GSC data',
+		'LegalTech',
+		'Tools > Jus-Tice',
+		'FAQ schema',
+		'source audit',
+		'project-control/publication',
+		'project-control/source-audits',
+		'סטטוס לפני פרסום',
+		'פעולות המשך לפני פרסום',
+		'חסמי פרסום',
+	);
+
+	foreach ( $strong_markers as $marker ) {
+		if ( false !== stripos( $block, $marker ) ) {
+			return true;
+		}
+	}
+
+	return false;
 }
 
 /**
@@ -890,29 +969,23 @@ function justice_theme_build_family_cluster_internal_notes_html( array $items ):
  * @return string
  */
 function justice_theme_extract_internal_publication_notes( string $raw ): string {
-	$lines   = preg_split( '/\r\n|\r|\n/', $raw );
-	$notes   = array();
-	$capture = false;
+	$lines    = preg_split( '/\r\n|\r|\n/', $raw );
+	$sections = justice_theme_split_markdown_publication_sections( $lines );
+	$notes    = array();
 
-	foreach ( $lines as $line ) {
-		if ( preg_match( '/^##\s+(.+)$/u', $line, $matches ) ) {
-			$heading = trim( wp_strip_all_tags( $matches[1] ) );
-			$capture = justice_theme_is_internal_publication_heading( $heading );
-
-			if ( $capture ) {
-				$notes[] = '';
+	foreach ( $sections as $section ) {
+		if ( justice_theme_is_internal_publication_section( $section ) ) {
+			$notes[] = '';
+			foreach ( $section as $line ) {
 				$notes[] = $line;
-				continue;
 			}
-		}
-
-		if ( $capture ) {
-			$notes[] = $line;
 			continue;
 		}
 
-		if ( justice_theme_is_internal_publication_line( $line ) || justice_theme_is_internal_publication_metadata_line( $line ) ) {
-			$notes[] = $line;
+		foreach ( $section as $line ) {
+			if ( justice_theme_is_internal_publication_line( $line ) || justice_theme_is_internal_publication_metadata_line( $line ) ) {
+				$notes[] = $line;
+			}
 		}
 	}
 

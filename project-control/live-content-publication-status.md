@@ -55,8 +55,15 @@ These URLs exist as the working family-law cluster. The immediate task is public
 
 ## NOT VERIFIED LIVE
 - The editorial repair code has not yet been visually verified on the live site after uPress pull/cache refresh.
+- The stricter v3 repair code has not yet been visually verified on the live site after uPress pull/cache refresh.
 - Search Console data is not yet used for traffic-risk scoring.
 - Human legal review and source review are still owner/lawyer review items.
+
+## CODE FIX - 2026-05-10 v3
+- The repair cleaner now removes whole internal Markdown sections when the body contains strong team-only markers, even if the section heading is not matched exactly.
+- Strong markers include `NOT VERIFIED`, `PARTIAL:`, `READY NEXT`, `CMS`, `CRM`, `GSC`, `LegalTech`, `Tools > Jus-Tice`, `FAQ schema`, `source audit`, and `project-control/...`.
+- Removed internal sections are still collected into the draft-only `Internal Editorial Notes — Family Law Cluster` page.
+- Next required proof: after uPress pulls, recheck the seven URLs and confirm those markers no longer appear in public article bodies.
 
 ## LIVE RECHECK - 2026-05-10 AFTER COMMIT d3ff1d6
 - Result: LIVE STILL NEEDS uPress PULL / CACHE REFRESH / HOOK EXECUTION.

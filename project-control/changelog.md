@@ -5,6 +5,15 @@
 
 ### EDITORIAL IMPROVEMENT MODE
 
+**[HIGH] Hardened family-law repair against leaked internal status sections**
+- Files: `inc/live-content-publication.php`
+- Public-content cleanup now removes whole Markdown sections when the section body contains strong internal markers such as `NOT VERIFIED`, `PARTIAL:`, `READY NEXT`, `CMS`, `CRM`, `GSC`, `LegalTech`, `Tools > Jus-Tice`, `FAQ schema`, `source audit`, or `project-control/...`.
+- Internal notes extraction now uses the same section logic, so removed team/editorial sections are preserved in the draft-only `Internal Editorial Notes — Family Law Cluster` page instead of being lost.
+- The family-law editorial repair version is bumped to v3 so live WordPress reruns the repair after the next uPress pull.
+- VERIFIED locally: PHP lint passed for 124 PHP files.
+- VERIFIED locally: the seven family-law repo drafts pass the public-marker scan after cleanup.
+- CODE FIXED. LIVE NOT VERIFIED until uPress pulls and all seven URLs are checked again for leaked internal markers.
+
 **[MEDIUM] Improved public article conversion for repaired pages**
 - Files: `inc/content-draft-importer.php`, `inc/live-content-publication.php`
 - Public article conversion now turns repo-style internal URL references like `/child-support/` into actual internal links.

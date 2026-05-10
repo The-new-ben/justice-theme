@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 02:28 Asia/Jerusalem
+- CODE FIXED: lawyer card/profile ratings and testimonials now require explicit `review_display_enabled` approval before public display.
+- CODE FIXED: sponsored/profile-paid labels on the lawyer mini-site now require `subscription_status=active` and are suppressed for seed-like profiles.
+- CODE FIXED: lawyer profile view counting is throttled with a one-day hashed visitor transient, reducing database writes from every anonymous page load to at most one counted write per visitor/profile/day.
+- VERIFIED: `single-justice_lawyer.php`, `template-parts/cards/lawyer-card.php`, and `functions.php` passed PHP syntax checks.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-lawyer-trust-safety-v1`; requires uPress pull/cache clear and public lawyer-profile QA.
+- SAFETY: no review data, lawyer profile content, URL, redirect, sitemap, robots, wp-admin setting, CRM record or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 02:05 Asia/Jerusalem
 - CODE FIXED: related article taxonomy fallback now has a cluster-sanity gate in `inc/related-content.php`.
 - CODE FIXED: when explicit `content_cluster` metadata is absent, the related-content system infers a conservative editorial cluster from slug/title/meta/practice-area signals before accepting taxonomy fallback cards.

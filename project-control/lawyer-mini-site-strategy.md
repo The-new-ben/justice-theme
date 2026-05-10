@@ -116,3 +116,9 @@ Track:
 - `article_cta_click` from lawyer-connected articles
 
 Status: PLANNED. Event implementation remains NOT VERIFIED live.
+# 2026-05-11 Trust-Signal Safety Update
+
+- CODE FIXED: lawyer mini-sites only display rating summaries and testimonials when `review_display_enabled` is explicitly approved.
+- CODE FIXED: sponsored/profile-paid labels require an active subscription and are suppressed for seed-like profiles.
+- CODE FIXED: profile views are throttled by a one-day hashed visitor transient to avoid a database write on every anonymous page load.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and public Maya/profile QA with marker `2026-05-11-lawyer-trust-safety-v1`.

@@ -67,8 +67,10 @@ $source_type     = get_post_meta( $lawyer_id, 'source_type', true );
 $internal_notes  = get_post_meta( $lawyer_id, 'internal_notes', true );
 $review_count    = (int) get_post_meta( $lawyer_id, 'review_count', true );
 $average_rating  = (float) get_post_meta( $lawyer_id, 'average_rating', true );
+$reviews_enabled = in_array( strtolower( (string) get_post_meta( $lawyer_id, 'review_display_enabled', true ) ), array( '1', 'yes', 'true', 'enabled', 'approved' ), true );
 $is_seed_data    = 'seed' === $source_type || false !== stripos( (string) $internal_notes, 'SEED_DATA' );
 $is_paid         = ! $is_seed_data && 'active' === $subscription && in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
+$show_rating     = $reviews_enabled && ! $is_seed_data && $review_count > 0 && $average_rating > 0;
 $cities          = get_the_terms( $lawyer_id, 'city' );
 $areas           = get_the_terms( $lawyer_id, 'practice-areas' );
 $city_name       = ( $cities && ! is_wp_error( $cities ) ) ? justice_theme_lawyer_card_public_city_label( $cities[0]->name, $cities[0]->slug ) : '';
@@ -122,7 +124,7 @@ $whatsapp_link   = $whatsapp_digits ? 'https://wa.me/972' . ltrim( $whatsapp_dig
 			<?php if ( $languages ) : ?>
 				<span><?php echo esc_html( $languages ); ?></span>
 			<?php endif; ?>
-			<?php if ( $review_count > 0 && $average_rating > 0 ) : ?>
+			<?php if ( $show_rating ) : ?>
 				<span><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?> / 5</span>
 			<?php endif; ?>
 		</div>

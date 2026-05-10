@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Lawyer trust-signal safety and view throttling
+
+- CODE FIXED: lawyer cards only show rating values when `review_display_enabled` is explicitly approved and rating/count data exists.
+- CODE FIXED: lawyer mini-sites only show rating summaries and testimonials when review display is explicitly approved.
+- CODE FIXED: sponsored/profile-paid labels on lawyer mini-sites now require `subscription_status=active` and are suppressed for seed-like profiles.
+- CODE FIXED: profile view counting is throttled with a one-day hashed visitor transient to avoid writing on every anonymous page load.
+- VERIFIED: changed PHP files passed syntax checks.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and public lawyer archive/profile QA with marker `2026-05-11-lawyer-trust-safety-v1`.
+- SAFETY: no public lawyer content, review record, URL, redirect, sitemap, robots, wp-admin setting, CRM record or database row was changed.
+
 ## 2026-05-11 - Related content cluster gate V2
 
 - CODE FIXED: taxonomy fallback related cards now pass through an inferred cluster gate before rendering.

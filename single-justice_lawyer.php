@@ -50,6 +50,9 @@ $languages         = $meta( 'languages' );
 $experience        = $meta( 'years_experience' );
 $license           = $meta( 'license_status' );
 $plan              = $meta( 'plan_type' );
+$subscription      = strtolower( (string) $meta( 'subscription_status' ) );
+$source_type       = strtolower( (string) $meta( 'source_type' ) );
+$internal_notes    = strtolower( (string) $meta( 'internal_notes' ) );
 $bio_short         = $meta( 'bio_short' );
 $address           = $meta( 'office_address' );
 $verified          = $meta( 'verification_status' );
@@ -75,10 +78,14 @@ $cta_title         = $meta( 'profile_cta_title' );
 $cta_text          = $meta( 'profile_cta_text' );
 $review_count      = (int) $meta( 'review_count', 0 );
 $average_rating    = (float) $meta( 'average_rating', 0 );
+$reviews_enabled   = in_array( strtolower( (string) $meta( 'review_display_enabled' ) ), array( '1', 'yes', 'true', 'enabled', 'approved' ), true );
 $cities            = get_the_terms( $lawyer_id, 'city' );
 $areas             = get_the_terms( $lawyer_id, 'practice-areas' );
-$is_paid           = in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
-$is_verified       = 'verified' === $verified;
+$is_seed_data      = 'seed' === $source_type || false !== strpos( $internal_notes, 'seed_data' );
+$is_paid           = ! $is_seed_data && 'active' === $subscription && in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
+$is_verified       = 'verified' === strtolower( (string) $verified );
+$show_rating       = $reviews_enabled && $review_count > 0 && $average_rating > 0;
+$show_testimonials = $reviews_enabled && ! empty( $testimonials );
 $primary_area      = ( ! empty( $areas ) && ! is_wp_error( $areas ) ) ? $areas[0] : null;
 $primary_city      = ( ! empty( $cities ) && ! is_wp_error( $cities ) ) ? $cities[0] : null;
 $phone_link        = $phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ) : '';
@@ -95,7 +102,14 @@ $is_countable_view = ! is_admin()
 	&& ! preg_match( '/bot|crawl|spider|slurp|facebookexternalhit|whatsapp|telegram|preview|monitor|uptime/i', $user_agent );
 
 if ( $is_countable_view ) {
-	update_post_meta( $lawyer_id, 'profile_views', $views + 1 );
+	$remote_addr      = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
+	$view_fingerprint = hash( 'sha256', $lawyer_id . '|' . $remote_addr . '|' . substr( $user_agent, 0, 160 ) . '|' . wp_salt( 'nonce' ) );
+	$view_key         = 'justice_lawyer_view_' . $lawyer_id . '_' . substr( $view_fingerprint, 0, 20 );
+
+	if ( false === get_transient( $view_key ) ) {
+		update_post_meta( $lawyer_id, 'profile_views', $views + 1 );
+		set_transient( $view_key, 1, DAY_IN_SECONDS );
+	}
 }
 
 $social_links = array_filter(
@@ -232,7 +246,7 @@ $has_media_module     = $video_url || ! empty( $media_items );
 				<span>סטטוס פרופיל</span>
 			</div>
 			<div class="lawyer-mini-proof__item">
-				<strong><?php echo ( $review_count > 0 && $average_rating > 0 ) ? esc_html( number_format_i18n( $average_rating, 1 ) ) : 'בקרוב'; ?></strong>
+				<strong><?php echo $show_rating ? esc_html( number_format_i18n( $average_rating, 1 ) ) : 'בקרוב'; ?></strong>
 				<span>ביקורות מאושרות</span>
 			</div>
 		</div>
@@ -265,8 +279,8 @@ $has_media_module     = $video_url || ! empty( $media_items );
 				</article>
 				<article class="lawyer-mini-engagement__card">
 					<span><?php esc_html_e( 'אמון', 'justice-theme' ); ?></span>
-					<h3><?php echo esc_html( ( $review_count > 0 && $average_rating > 0 ) ? __( 'לראות ביקורות מאושרות', 'justice-theme' ) : __( 'ביקורות יוצגו רק לאחר אימות', 'justice-theme' ) ); ?></h3>
-					<p><?php echo esc_html( ( $review_count > 0 && $average_rating > 0 ) ? __( 'דירוגים וביקורות מוצגים רק כאשר יש נתונים מאושרים במערכת.', 'justice-theme' ) : __( 'אין כאן דירוגים מומצאים. ביקורות יפורסמו רק אחרי אימות, בקרה ואישור פרסום.', 'justice-theme' ) ); ?></p>
+					<h3><?php echo esc_html( $show_rating ? __( 'לראות ביקורות מאושרות', 'justice-theme' ) : __( 'ביקורות יוצגו רק לאחר אימות', 'justice-theme' ) ); ?></h3>
+					<p><?php echo esc_html( $show_rating ? __( 'דירוגים וביקורות מוצגים רק כאשר יש נתונים מאושרים במערכת.', 'justice-theme' ) : __( 'אין כאן דירוגים מומצאים. ביקורות יפורסמו רק אחרי אימות, בקרה ואישור פרסום.', 'justice-theme' ) ); ?></p>
 				</article>
 			</div>
 		</div>
@@ -376,12 +390,12 @@ $has_media_module     = $video_url || ! empty( $media_items );
 
 				<section class="lawyer-mini-panel">
 					<h2>ביקורות והמלצות</h2>
-					<?php if ( $review_count > 0 && $average_rating > 0 ) : ?>
+					<?php if ( $show_rating ) : ?>
 						<p class="lawyer-mini-rating"><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?> מתוך 5 על בסיס <?php echo esc_html( number_format_i18n( $review_count ) ); ?> ביקורות מאושרות.</p>
 					<?php else : ?>
 						<p class="lawyer-mini-muted">ביקורות לקוחות יוצגו רק לאחר אימות, בקרה ואישור פרסום.</p>
 					<?php endif; ?>
-					<?php if ( ! empty( $testimonials ) ) : ?>
+					<?php if ( $show_testimonials ) : ?>
 						<div class="lawyer-mini-testimonials">
 							<?php foreach ( $testimonials as $row ) : ?>
 								<figure>

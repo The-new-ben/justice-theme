@@ -170,7 +170,7 @@ function uj_lawyer_column_content( $column, $post_id ) {
 		case 'lawyer_status':
 			$status = get_post_meta( $post_id, 'profile_status', true );
 			$labels = array( 'draft' => 'טיוטה', 'imported' => 'יובא', 'pending' => 'ממתין', 'active' => 'פעיל', 'suspended' => 'מושעה' );
-			echo esc_html( isset( $labels[ $status ] ) ? $labels[ $status ] : $status ?: '—' );
+			echo esc_html( isset( $labels[ $status ] ) ? $labels[ $status ] : ( $status ?: '—' ) );
 			break;
 
 		case 'lawyer_views':

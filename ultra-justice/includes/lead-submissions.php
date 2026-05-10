@@ -168,7 +168,7 @@ function uj_lead_column_content( $column, $post_id ) {
 		case 'lead_status':
 			$status = get_post_meta( $post_id, 'lead_status', true );
 			$labels = array( 'new' => 'חדש', 'qualified' => 'מוסמך', 'assigned' => 'שויך', 'contacted' => 'נוצר קשר', 'accepted' => 'התקבל', 'rejected' => 'נדחה', 'converted' => 'הומר', 'closed' => 'סגור' );
-			echo esc_html( isset( $labels[ $status ] ) ? $labels[ $status ] : $status ?: '—' );
+			echo esc_html( isset( $labels[ $status ] ) ? $labels[ $status ] : ( $status ?: '—' ) );
 			break;
 		case 'lead_date':
 			echo esc_html( get_the_date( 'd/m/Y H:i', $post_id ) );

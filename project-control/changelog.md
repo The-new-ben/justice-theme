@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[HIGH] Installed local PHP and cleared full repo PHP lint**
+- Files: `ultra-justice/includes/cpt-lawyers.php`, `ultra-justice/includes/lead-submissions.php`
+- Installed PHP 8.3 locally through Winget for command-line syntax checks.
+- Fixed two PHP 8 parser errors in the legacy `ultra-justice` plugin folder by parenthesizing nested ternary/fallback expressions.
+- VERIFIED: PHP lint passed for 120 PHP files locally.
+
 **[HIGH] Added content-request reviewed action in Lawyer Onboarding**
 - Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
 - Lawyer Onboarding now has a nonce-protected `Mark reviewed` action for pending signed-content requests.

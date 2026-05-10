@@ -4,6 +4,8 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 
 ## VERIFIED
 - Repo is available at `C:\Users\janana\jutice-theme` and tracks `origin/main`.
+- PHP 8.3 is installed locally through Winget and can be run directly from the Winget package path in this session.
+- PHP lint passed locally for 120 PHP files after fixing two legacy `ultra-justice` syntax issues.
 - Live homepage at https://jus-tice.co.il responds and is serving the Jus-Tice portal UI.
 - Live `/lawyers/` responds and displays `justice_lawyer` profiles.
 - Live `/lawyers/` currently includes `עו"ד מאיה רוטנברג`, but also still shows multiple demo profiles.
@@ -40,6 +42,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - Lawyer content request submissions now append timestamped notes to the requesting lawyer profile `internal_notes`.
 - Lawyer content request submissions now flag the lawyer profile for pending content review, and Lawyer Onboarding shows the latest content request with a draft-review link.
 - Lawyer Onboarding admin queue now has a nonce-protected action to mark a pending content request reviewed and clear the lawyer profile review flag.
+- Legacy `ultra-justice` PHP 8 syntax errors in admin column fallback expressions are fixed in repo.
 
 ## FIXED IN THIS PASS
 - Added tracked `page-home.php` because the live homepage is assigned to the `page-home.php` page template, not only `front-page.php`.

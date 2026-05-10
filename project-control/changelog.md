@@ -10,6 +10,7 @@
 - After repairing or manually refreshing the family-law cluster, the theme now clears post/object cache and asks common cache plugins/layers to purge: LiteSpeed, WP Rocket, W3 Total Cache, Autoptimize, SG CachePress, Cache Enabler-style hooks and WordPress object cache.
 - The family-law editorial repair version is bumped to v4 so the repair can rerun even if v3 was already recorded before cache clearing existed.
 - VERIFIED locally: PHP lint passed for 124 PHP files and the seven-draft public-marker scan still passes.
+- LIVE RECHECK after push `d5824ed`: public pages still expose internal markers, so the cache-purge repair is pushed but not live/executed yet.
 - CODE FIXED. LIVE NOT VERIFIED until uPress pulls and the seven public URLs are checked again.
 
 **[HIGH] Hardened family-law repair against leaked internal status sections**

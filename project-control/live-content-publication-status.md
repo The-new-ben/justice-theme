@@ -70,6 +70,12 @@ These URLs exist as the working family-law cluster. The immediate task is public
 - Cache purge coverage includes WordPress post/object cache plus common cache-plugin hooks/functions for LiteSpeed, WP Rocket, W3 Total Cache, Autoptimize, SG CachePress and Cache Enabler-style hooks.
 - This is still not a substitute for a uPress pull. It only helps after the latest theme code actually executes on WordPress.
 
+## LIVE RECHECK - 2026-05-10 AFTER COMMIT d5824ed
+- Result: STILL NEEDS uPress PULL / CACHE REFRESH / HOOK EXECUTION.
+- All seven family-law URLs still expose internal markers publicly.
+- GitHub `main` includes the v4 cache-purge repair, but public HTML has not changed yet.
+- Required action remains: pull latest in uPress, then open `/wp-admin/` or any public page once so the repair hook executes, then recheck the seven URLs.
+
 ## LIVE RECHECK - 2026-05-10 AFTER COMMIT cd9b123
 - Result: STILL NEEDS uPress PULL / CACHE REFRESH / HOOK EXECUTION.
 - GitHub `main` has the v3 repair, but public HTML still exposes internal markers on all seven family-law URLs.

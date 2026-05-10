@@ -6,6 +6,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - FIXED IN CODE: Lawyer directory now has customer-facing guidance cards, canonical fallback filter options, active-filter chips, public-approved profile count, and a general inquiry CTA.
 - VERIFIED: PHP lint passed locally for 125 PHP files after the lawyer-directory changes.
 - NOT VERIFIED LIVE: `/lawyers/` needs uPress pull/cache refresh and public visual check before calling this customer-ready.
+- LIVE RECHECK AFTER PUSH `23e3807`: homepage deployment marker is still absent, static marker is still absent, and family-law pages still expose internal markers. The lawyer-directory fix is pushed but not live-verified.
 - FIXED IN CODE: Public canonical pages now emit Hebrew-first alternate tags: `hreflang="he"` and `hreflang="x-default"`.
 - SAFETY: Search pages, 404 pages and filtered lawyer-directory URLs are skipped because they are not primary public landing pages.
 - VERIFIED: PHP lint passed locally for 125 PHP files after the hreflang change.

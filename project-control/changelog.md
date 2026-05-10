@@ -739,3 +739,10 @@
 - CREATED: `project-control/maya-minisite-cms-status.md`.
 - VERIFIED: PHP lint passed locally for 120 PHP files.
 - NOT VERIFIED LIVE: requires uPress pull/cache refresh and wp-admin profile review.
+
+## 2026-05-10 Practice-Area Landing Page Intent Pass
+- FIXED IN CODE: `taxonomy-practice-areas.php` now adds customer intent cards for the legal problem, when to contact a lawyer and what to prepare before contacting.
+- FIXED IN CODE: Added a premium practice-area CTA panel that connects each practice hub to the lead form and filtered lawyer directory.
+- FIXED IN CODE: Added responsive styling for the new practice hub cards and CTA in `assets/css/premium-pass-3.css`.
+- VERIFIED: PHP lint passed locally for 120 PHP files.
+- NOT VERIFIED LIVE: requires uPress pull/cache refresh and a public visual check of one active practice-area taxonomy URL.

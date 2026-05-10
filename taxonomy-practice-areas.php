@@ -49,6 +49,11 @@ $related_terms = get_terms( array(
 	'exclude'    => $term instanceof WP_Term ? array( $term->term_id ) : array(),
 	'number'     => 8,
 ) );
+
+$display_area        = $clean_name ?: $term_name;
+$lawyer_archive_link = get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' );
+$filtered_lawyers    = $term_slug ? add_query_arg( 'area', $term_slug, $lawyer_archive_link ) : $lawyer_archive_link;
+$lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-theme' );
 ?>
 
 <section class="practice-hub-hero section">
@@ -80,6 +85,28 @@ $related_terms = get_terms( array(
 	</div>
 </section>
 
+<section class="practice-hub-intent section" aria-label="<?php esc_attr_e( 'הכוונה ראשונית לפי תחום משפטי', 'justice-theme' ); ?>">
+	<div class="container practice-hub-intent__grid">
+		<article class="practice-hub-intent__card">
+			<span><?php esc_html_e( 'הבעיה', 'justice-theme' ); ?></span>
+			<h2><?php echo esc_html( sprintf( 'מה חשוב להבין בנושא %s?', $lead_area_label ) ); ?></h2>
+			<p><?php echo esc_html( sprintf( 'בעמוד זה אנחנו מרכזים מדריכים, עורכי דין, שאלות וכלים שקשורים ל%s. המטרה היא לעזור להבין את המצב, לאסוף עובדות ולהימנע מצעד פזיז.', $lead_area_label ) ); ?></p>
+		</article>
+
+		<article class="practice-hub-intent__card">
+			<span><?php esc_html_e( 'מתי לפנות', 'justice-theme' ); ?></span>
+			<h2><?php esc_html_e( 'מתי כדאי לערב עורך דין?', 'justice-theme' ); ?></h2>
+			<p><?php esc_html_e( 'כאשר יש מועד קרוב, סיכון כספי, ילדים, מסמך לחתימה, חקירה, תביעה, צו, חוזה או חוסר ודאות לגבי זכויות וחובות, עדיף לקבל בדיקה מקצועית מוקדם.', 'justice-theme' ); ?></p>
+		</article>
+
+		<article class="practice-hub-intent__card">
+			<span><?php esc_html_e( 'הכנה', 'justice-theme' ); ?></span>
+			<h2><?php esc_html_e( 'מה להכין לפני פנייה?', 'justice-theme' ); ?></h2>
+			<p><?php esc_html_e( 'תיאור קצר של האירועים, מסמכים מרכזיים, מועדים, פרטי הצד השני, עיר רלוונטית, רמת דחיפות ושאלות שחשוב לברר. פנייה מסודרת מייצרת טיפול טוב יותר.', 'justice-theme' ); ?></p>
+		</article>
+	</div>
+</section>
+
 <?php if ( $lawyers && $lawyers->have_posts() ) : ?>
 	<section class="practice-hub-lawyers section" id="practice-lawyers">
 		<div class="container">
@@ -88,7 +115,7 @@ $related_terms = get_terms( array(
 					<p class="section-header__eyebrow"><?php esc_html_e( 'עורכי דין', 'justice-theme' ); ?></p>
 					<h2><?php echo esc_html( sprintf( 'עורכי דין בתחום %s', $clean_name ?: $term_name ) ); ?></h2>
 				</div>
-				<a class="button button--primary" href="<?php echo esc_url( add_query_arg( 'area', $term_slug, get_post_type_archive_link( 'justice_lawyer' ) ) ); ?>"><?php esc_html_e( 'כל הפרופילים', 'justice-theme' ); ?></a>
+				<a class="button button--primary" href="<?php echo esc_url( $filtered_lawyers ); ?>"><?php esc_html_e( 'כל הפרופילים', 'justice-theme' ); ?></a>
 			</div>
 			<div class="lawyers-grid">
 				<?php while ( $lawyers->have_posts() ) : $lawyers->the_post(); ?>
@@ -99,6 +126,20 @@ $related_terms = get_terms( array(
 	</section>
 	<?php wp_reset_postdata(); ?>
 <?php endif; ?>
+
+<section class="practice-hub-cta section">
+	<div class="container practice-hub-cta__panel">
+		<div>
+			<p class="section-header__eyebrow"><?php esc_html_e( 'פנייה מסודרת', 'justice-theme' ); ?></p>
+			<h2><?php echo esc_html( sprintf( 'צריכים הכוונה בנושא %s?', $lead_area_label ) ); ?></h2>
+			<p><?php esc_html_e( 'השאירו פרטים קצרים עם תחום, עיר ודחיפות. המערכת נועדה להפוך פנייה כללית לליד מסודר שאפשר לבדוק ולנתב בצורה אחראית.', 'justice-theme' ); ?></p>
+		</div>
+		<div class="practice-hub-cta__actions">
+			<a class="button button--gold" href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>"><?php esc_html_e( 'השארת פנייה', 'justice-theme' ); ?></a>
+			<a class="button button--ghost" href="<?php echo esc_url( $filtered_lawyers ); ?>"><?php esc_html_e( 'חיפוש עורכי דין בתחום', 'justice-theme' ); ?></a>
+		</div>
+	</div>
+</section>
 
 <section class="practice-hub-content section" id="practice-guides">
 	<div class="container">

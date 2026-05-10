@@ -58,6 +58,11 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 ## FIXED IN THIS PASS
 - Maya Rotenberg mini-site CMS bootstrap added in `inc/live-migrations.php`: it fills rich editable profile fields only when empty and targets only the verified Maya profile.
 - Maya bootstrap adds services, process, approach, FAQ, CTA and credentials-style fields without fake ratings, awards, photos, bar number or paid claims.
+- Practice-area archive pages now have an intent-first customer layer in `taxonomy-practice-areas.php`: problem framing, when-to-contact guidance, preparation checklist and a lead CTA.
+- Practice-area CTAs now link to the filtered lawyer directory with canonical English area slugs where available, plus the homepage lead form.
+- Practice-area visual styling added in `assets/css/premium-pass-3.css` for desktop/mobile cards and CTA panel.
+- VERIFIED locally: PHP lint passed for 120 PHP files after the practice-area landing-page pass.
+- NOT VERIFIED live: this requires the next Upress pull/cache refresh and a public check of at least one `practice-areas` taxonomy URL.
 - Maya bootstrap can attach `family-law` and a city term only where safe, and adds an internal note for admin review.
 - Homepage hero copy is now more direct: it speaks to users who need a lawyer or legal direction, not only generic portal language.
 - Primary navigation now has a code safety layer that appends missing customer-critical links when the assigned WordPress menu is too thin.

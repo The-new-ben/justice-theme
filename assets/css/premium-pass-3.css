@@ -2844,10 +2844,102 @@
   line-height: 1.55;
 }
 
+.practice-hub-intent {
+  background: #f8fafc;
+  padding-block: clamp(2.5rem, 5vw, 4rem);
+}
+
+.practice-hub-intent__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.practice-hub-intent__card {
+  background: #fff;
+  border: 1px solid rgba(7, 21, 47, 0.08);
+  border-radius: 18px;
+  padding: 1.4rem;
+  box-shadow: 0 16px 36px rgba(7, 21, 47, 0.06);
+}
+
+.practice-hub-intent__card span {
+  display: inline-flex;
+  margin-bottom: 0.8rem;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(217, 40, 47, 0.08);
+  color: #a82430;
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.practice-hub-intent__card h2 {
+  margin: 0 0 0.65rem;
+  color: var(--jt-primary-deep);
+  font-size: 1.16rem;
+  line-height: 1.35;
+}
+
+.practice-hub-intent__card p {
+  margin: 0;
+  color: var(--jt-muted);
+  line-height: 1.65;
+}
+
+.practice-hub-cta {
+  background: linear-gradient(135deg, #07152f, #10264a);
+  color: #fff;
+  padding-block: clamp(2.8rem, 5vw, 4.5rem);
+}
+
+.practice-hub-cta__panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 2rem;
+  align-items: center;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 22px;
+  background: rgba(255,255,255,0.06);
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  box-shadow: 0 28px 70px rgba(0,0,0,0.18);
+}
+
+.practice-hub-cta h2 {
+  color: #fff;
+  margin: 0 0 0.65rem;
+}
+
+.practice-hub-cta p {
+  margin: 0;
+  max-width: 760px;
+  color: rgba(255,255,255,0.75);
+}
+
+.practice-hub-cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.8rem;
+}
+
 @media (max-width: 760px) {
   .article-intent-panel {
     grid-template-columns: 1fr;
     width: min(100% - 2rem, 480px);
+  }
+
+  .practice-hub-intent__grid,
+  .practice-hub-cta__panel {
+    grid-template-columns: 1fr;
+  }
+
+  .practice-hub-cta__actions {
+    justify-content: stretch;
+  }
+
+  .practice-hub-cta__actions .button {
+    width: 100%;
   }
 
   .breadcrumbs__list {

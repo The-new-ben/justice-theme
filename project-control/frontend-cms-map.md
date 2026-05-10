@@ -40,6 +40,8 @@ Date: 2026-05-09
 | Lawyer profile fields | `single-justice_lawyer.php`, `inc/live-migrations.php` | lawyer CPT meta | YES | Photo/video/social/reviews not complete for live profiles | Maya rich text fields now bootstrap if empty; review contact/photo/license in wp-admin |
 | Article author/reviewer | `single-articles.php` | WP author + review meta | PARTIAL | Reviewer/person authority incomplete | Add visible reviewer fields |
 | Category intro text | `taxonomy-practice-areas.php` | Taxonomy description fallback | YES | Many terms likely empty | Add Hebrew descriptions per priority area |
+| Practice-area intent layer | `taxonomy-practice-areas.php` | Taxonomy name/slug plus generic legal-intent copy | PARTIAL | Text is not individually editable per term yet | Add term meta for custom intro, urgency notes, documents and FAQ per practice area |
+| Practice-area CTA | `taxonomy-practice-areas.php` | Taxonomy slug, lawyer archive URL, homepage lead form anchor | PARTIAL | CTA copy and routing are still hardcoded | Later route by lead area and expose CTA copy in term meta |
 | Homepage sections | `front-page.php`, `page-home.php` | Mixed CPT/taxonomy/hardcoded/page content | PARTIAL | Hero/value copy not editable | Add ACF/customizer/front-page fields later |
 | SEO title/meta | `inc/seo.php` | Query context + excerpt | PARTIAL | No SEO plugin/GSC feedback loop | Connect GSC and decide SEO plugin |
 | Schema fields | `inc/schema.php` | Site/lawyer/article data | PARTIAL | Lawyer schema needs live profile validation | Validate Maya profile schema |

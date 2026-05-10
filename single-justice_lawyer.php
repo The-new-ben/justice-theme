@@ -30,9 +30,26 @@ $routing    = get_post_meta( $lawyer_id, 'lead_routing_enabled', true );
 $cities     = get_the_terms( $lawyer_id, 'city' );
 $areas      = get_the_terms( $lawyer_id, 'practice-areas' );
 
-// Track profile view
-$views = (int) get_post_meta( $lawyer_id, 'profile_views', true );
-update_post_meta( $lawyer_id, 'profile_views', $views + 1 );
+// Track profile view — but skip:
+//   - feed/REST/admin requests
+//   - logged-in users (admin previews + the lawyer themselves)
+//   - common bot user agents (Googlebot, Bingbot, etc.)
+// This prevents inflating analytics with non-human traffic.
+$justice_skip_view = is_feed() || is_admin() || is_user_logged_in();
+if ( ! $justice_skip_view ) {
+	$ua = isset( $_SERVER['HTTP_USER_AGENT'] ) ? strtolower( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) : '';
+	$bot_signatures = array( 'bot', 'crawl', 'spider', 'slurp', 'mediapartners', 'preview', 'lighthouse', 'pagespeed', 'pingdom', 'gtmetrix' );
+	foreach ( $bot_signatures as $sig ) {
+		if ( $ua && false !== strpos( $ua, $sig ) ) {
+			$justice_skip_view = true;
+			break;
+		}
+	}
+}
+if ( ! $justice_skip_view ) {
+	$views = (int) get_post_meta( $lawyer_id, 'profile_views', true );
+	update_post_meta( $lawyer_id, 'profile_views', $views + 1 );
+}
 ?>
 
 <article class="lawyer-profile section" itemscope itemtype="https://schema.org/Attorney">

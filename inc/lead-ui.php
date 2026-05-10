@@ -50,5 +50,26 @@ function justice_theme_customize_register( $wp_customize ) {
 		'section' => 'justice_contact',
 		'type'    => 'email',
 	) );
+
+	$wp_customize->add_setting( 'justice_whatsapp', array(
+		'default'           => '0544705733',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'justice_whatsapp', array(
+		'label'       => __( 'מספר וואטסאפ', 'justice-theme' ),
+		'description' => __( 'ללא תחילית מדינה. לדוגמה: 0544705733', 'justice-theme' ),
+		'section'     => 'justice_contact',
+		'type'        => 'text',
+	) );
+
+	$wp_customize->add_setting( 'justice_business_hours', array(
+		'default'           => 'ימים א\'-ה\' 09:00-18:00',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'justice_business_hours', array(
+		'label'   => __( 'שעות פעילות', 'justice-theme' ),
+		'section' => 'justice_contact',
+		'type'    => 'text',
+	) );
 }
 add_action( 'customize_register', 'justice_theme_customize_register' );

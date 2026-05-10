@@ -1,0 +1,56 @@
+item,category,location,status,verified_by,owner,notes
+WordPress core version,environment,Settings > Updates,NOT_VERIFIED,,owner,Should be 6.4+
+PHP version,environment,Tools > Site Health,NOT_VERIFIED,,owner,Plugin requires 8.0+
+Active theme,environment,Appearance > Themes,NOT_VERIFIED,,owner,Should be 'Justice Theme' v1.0.0
+Active plugin: jus-tice-engine,environment,Plugins,NOT_VERIFIED,,owner,Should be active and v1.0.0
+Duplicate Justice plugins,environment,Plugins,NOT_VERIFIED,,owner,Use REST /reports/plugins
+Permalink structure,environment,Settings > Permalinks,NOT_VERIFIED,,owner,Must be 'Post name'
+Discourage search engines,environment,Settings > Reading,NOT_VERIFIED,,owner,Must be UNCHECKED
+Site title,environment,Settings > General,NOT_VERIFIED,,owner,
+Tagline,environment,Settings > General,NOT_VERIFIED,,owner,
+Default category,environment,Settings > Writing,NOT_VERIFIED,,owner,Set to a meaningful category
+Logo uploaded,branding,Customizer > Site Identity,NOT_VERIFIED,,owner,SVG/PNG <=80px tall x 260px wide
+Site icon (favicon),branding,Customizer > Site Identity,NOT_VERIFIED,,owner,512x512 PNG
+Phone in customizer,contact,Customizer > Contact,NOT_VERIFIED,,owner,Default 03-6161535 — change to real
+Email in customizer,contact,Customizer > Contact,NOT_VERIFIED,,owner,Default info@jus-tice.co.il
+WhatsApp in customizer,contact,Customizer > Contact,NOT_VERIFIED,,owner,Default 0544705733
+Business hours in customizer,contact,Customizer > Contact,NOT_VERIFIED,,owner,Default 'ימים א-ה 09:00-18:00'
+Primary nav menu created,navigation,Appearance > Menus,NOT_VERIFIED,,owner,Assign to 'תפריט ראשי'
+Secondary nav menu created,navigation,Appearance > Menus,NOT_VERIFIED,,owner,Assign to 'תפריט משני'
+Footer nav menu created,navigation,Appearance > Menus,NOT_VERIFIED,,owner,Assign to 'תפריט תחתון'
+Legal areas footer menu,navigation,Appearance > Menus,NOT_VERIFIED,,owner,Assign to 'תפריט תחומי משפט'
+Footer trust menu,navigation,Appearance > Menus,NOT_VERIFIED,,owner,Assign to 'תפריט מידע שימושי'
+Mobile nav menu (optional),navigation,Appearance > Menus,NOT_VERIFIED,,owner,Optional separate menu for mobile
+Practice areas terms created,taxonomy,Practice Areas,NOT_VERIFIED,,owner,Min 10 terms — see seo-aio-geo-strategy.md
+City terms created,taxonomy,Cities,NOT_VERIFIED,,owner,Plugin auto-seeds 20 cities; verify
+articles CPT registered,cpt,Tools > Site Health or REST /health,NOT_VERIFIED,,owner,Should appear in admin menu
+justice_lawyer CPT registered,cpt,Tools > Site Health or REST /health,NOT_VERIFIED,,owner,Should appear in admin menu
+justice_lead CPT registered,cpt,Admin only,NOT_VERIFIED,,owner,Admin-only CPT for leads
+Pillar PAGE: divorce-lawyer,content,Pages,NOT_BUILT,,owner,See url-strategy.md
+Pillar PAGE: criminal-lawyer,content,Pages,NOT_BUILT,,owner,
+Pillar PAGE: traffic-lawyer,content,Pages,NOT_BUILT,,owner,
+Pillar PAGE: real-estate-lawyer,content,Pages,NOT_BUILT,,owner,
+Pillar PAGE: labor-lawyer,content,Pages,NOT_BUILT,,owner,
+Pillar PAGE: inheritance-lawyer,content,Pages,NOT_BUILT,,owner,
+Pillar PAGE: medical-malpractice-lawyer,content,Pages,NOT_BUILT,,owner,
+Pillar PAGE: personal-injury-lawyer,content,Pages,NOT_BUILT,,owner,
+About page,content,Pages,NOT_BUILT,,owner,Required for E-E-A-T
+Editorial policy page,content,Pages,NOT_BUILT,,owner,Required for YMYL
+Advertising disclosure page,content,Pages,NOT_BUILT,,owner,Required by Israeli Bar
+Privacy page,content,Pages,NOT_BUILT,,owner,Critical
+Terms page,content,Pages,NOT_BUILT,,owner,Critical
+Lawyer registration page,content,Pages,NOT_BUILT,,owner,B2B funnel entry
+Lawyer plans page,content,Pages,NOT_BUILT,,owner,B2B pricing
+SEO plugin (Yoast/RankMath/AIOSEO),plugin,Plugins,NOT_INSTALLED,,owner,For sitemap + canonical
+Anti-spam plugin (Cloudflare Turnstile),plugin,Plugins,NOT_INSTALLED,,owner,For lead form
+SMTP plugin,plugin,Plugins,NOT_INSTALLED,,owner,For reliable email
+Google Search Console verification,external,GSC,NOT_VERIFIED,,owner,Domain property OR URL prefix
+Sitemap submitted to GSC,external,GSC,NOT_VERIFIED,,owner,After SEO plugin installed
+Bing Webmaster verification,external,Bing,NOT_VERIFIED,,owner,Optional
+Lawyer profiles published,content,WP Admin,NOT_VERIFIED,,owner,At least 10 verified profiles
+Articles published,content,WP Admin,NOT_VERIFIED,,owner,At least 5 pillar articles
+Casino spam removed,cleanup,WP Admin or REST /reports/spam,NOT_VERIFIED,,owner,Use plugin spam report tool
+Default WP user 'admin' renamed,security,Users,NOT_VERIFIED,,owner,Rename or delete the 'admin' username
+2FA on admin accounts,security,Users,NOT_VERIFIED,,owner,Use Wordfence or similar
+HTTPS forced,security,General Settings + .htaccess,NOT_VERIFIED,,owner,
+backup configured,operations,UpdraftPlus or hosting,NOT_VERIFIED,,owner,Daily backup minimum

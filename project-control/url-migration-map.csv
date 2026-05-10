@@ -1,0 +1,52 @@
+old_url,new_url,page_type,current_title,primary_keyword,search_intent,cluster,traffic_risk,redirect_required,status,notes
+TBD,/divorce-lawyer/,pillar_page,עורך דין גירושין,עורך דין גירושין,find_lawyer,family-law,UNKNOWN,yes_301,planned,New pillar PAGE — must be created in WP Admin
+TBD,/criminal-lawyer/,pillar_page,עורך דין פלילי,עורך דין פלילי,find_lawyer,criminal-law,UNKNOWN,yes_301,planned,New pillar PAGE
+TBD,/traffic-lawyer/,pillar_page,עורך דין תעבורה,עורך דין תעבורה,find_lawyer,traffic-law,UNKNOWN,yes_301,planned,New pillar PAGE
+TBD,/real-estate-lawyer/,pillar_page,עורך דין מקרקעין,עורך דין מקרקעין,find_lawyer,real-estate,UNKNOWN,yes_301,planned,New pillar PAGE
+TBD,/labor-lawyer/,pillar_page,עורך דין דיני עבודה,עורך דין דיני עבודה,find_lawyer,labor-law,UNKNOWN,yes_301,planned,New pillar PAGE
+TBD,/inheritance-lawyer/,pillar_page,עורך דין ירושה,עורך דין ירושה,find_lawyer,inheritance,UNKNOWN,yes_301,planned,New pillar PAGE
+TBD,/medical-malpractice-lawyer/,pillar_page,עורך דין רשלנות רפואית,עורך דין רשלנות רפואית,find_lawyer,medical,UNKNOWN,yes_301,planned,New pillar PAGE
+TBD,/personal-injury-lawyer/,pillar_page,עורך דין נזיקין,עורך דין נזיקין,find_lawyer,tort,UNKNOWN,yes_301,planned,New pillar PAGE
+TBD,/consensual-divorce/,supporting_page,גירושין בהסכמה,גירושין בהסכמה,understand_process,family-law,UNKNOWN,yes_301,planned,Supporting PAGE under divorce-lawyer pillar
+TBD,/divorce-mediation/,supporting_page,גישור גירושין,גישור גירושין,understand_process,family-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/child-support/,supporting_page,מזונות ילדים,מזונות ילדים,understand_amount,family-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/child-custody/,supporting_page,משמורת ילדים,משמורת ילדים,understand_process,family-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/divorce-property-division/,supporting_page,חלוקת רכוש,חלוקת רכוש בגירושין,understand_law,family-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/dispute-resolution-request/,supporting_page,בקשה ליישוב סכסוך,בקשה ליישוב סכסוך,understand_process,family-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/prenuptial-agreement/,supporting_page,הסכם ממון,הסכם ממון,understand_law,family-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/police-investigation/,supporting_page,חקירה במשטרה,חקירה במשטרה זכויות,understand_rights,criminal-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/indictment/,supporting_page,כתב אישום,כתב אישום פלילי,understand_process,criminal-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/pretrial-detention/,supporting_page,מעצר ימים,מעצר ימים,understand_process,criminal-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/drug-offenses/,supporting_page,עבירות סמים,עבירות סמים,find_lawyer,criminal-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/sex-offenses/,supporting_page,עבירות מין,עבירות מין,find_lawyer,criminal-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/white-collar-crime/,supporting_page,צווארון לבן,עבירות צווארון לבן,find_lawyer,criminal-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/drunk-driving/,supporting_page,נהיגה בשכרות,נהיגה בשכרות,find_lawyer,traffic-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/license-suspension/,supporting_page,השעיית רישיון,השעיית רישיון נהיגה,understand_process,traffic-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/traffic-tickets/,supporting_page,ביטול דוחות,ביטול דוח תנועה,understand_process,traffic-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/buying-apartment/,supporting_page,קניית דירה,קניית דירה ראשונה,understand_process,real-estate,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/real-estate-purchase-agreement/,supporting_page,חוזה מכר,חוזה מכר דירה,understand_document,real-estate,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/land-registry/,supporting_page,רישום בטאבו,רישום בטאבו,understand_process,real-estate,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/construction-defects/,supporting_page,ליקויי בנייה,ליקויי בנייה תביעה,find_lawyer,real-estate,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/urban-renewal/,supporting_page,התחדשות עירונית,תמ"א 38,understand_law,real-estate,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/wrongful-termination/,supporting_page,פיטורים שלא כדין,פיטורים שלא כדין,find_lawyer,labor-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/employment-agreement/,supporting_page,הסכם עבודה,הסכם עבודה,understand_document,labor-law,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/will/,supporting_page,צוואה,כתיבת צוואה,understand_document,inheritance,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/estate-administration/,supporting_page,ניהול עיזבון,ניהול עיזבון,understand_process,inheritance,UNKNOWN,yes_301,planned,Supporting PAGE
+TBD,/will-contest/,supporting_page,התנגדות לצוואה,התנגדות לצוואה,find_lawyer,inheritance,UNKNOWN,yes_301,planned,Supporting PAGE
+/lawyers/,/lawyers/,directory_archive,מדריך עורכי דין בישראל,עורכי דין,find_lawyer,directory,LIVE,no_change,active,Already canonical
+/lawyers/?city=tel-aviv,/lawyers/?city=tel-aviv,directory_filtered,עורכי דין בתל אביב,עורכי דין תל אביב,find_lawyer_city,directory,LIVE,no_change,active,Indexable single-filter URL
+/lawyers/?area=family-law,/lawyers/?area=family-law,directory_filtered,עורך דין דיני משפחה,עורך דין דיני משפחה,find_lawyer_area,directory,LIVE,no_change,active,Indexable single-filter URL
+/lawyers/?city=X&area=Y,NOINDEX,directory_combo,n/a,n/a,n/a,directory,LIVE,no_change,noindex,Combinatorial — noindex
+/lawyers/?keyword=X,NOINDEX,directory_search,n/a,n/a,n/a,directory,LIVE,no_change,noindex,Search query — noindex
+/articles/,/articles/,article_archive,מאמרים משפטיים,מאמרים משפטיים,read_articles,content,LIVE,no_change,active,Already canonical
+/articles/{slug},/articles/{slug},single_article,varies,varies,read_article,content,LIVE,no_change,active,Already canonical
+/practice-areas/{slug}/,/practice-areas/{slug}/,taxonomy_archive,תחום משפטי,varies,read_cluster,supporting,LIVE,no_change,active,Cluster index — NOT canonical pillar
+/category/{slug}/,/practice-areas/{slug}/,legacy_category,varies,varies,read_cluster,supporting,UNKNOWN,yes_301,planned,Merge legacy WP categories into practice-areas
+TBD,/contact/,page,יצירת קשר,יצירת קשר,contact,site,LIVE,no_change,exists,Standard contact PAGE
+TBD,/about/,page,אודות,אודות,about,site,UNKNOWN,no_change,planned,Required for E-E-A-T
+TBD,/editorial-policy/,page,מדיניות מערכת,מדיניות מערכת,trust,site,UNKNOWN,no_change,planned,Required for YMYL trust
+TBD,/advertising-disclosure/,page,גילוי פרסום,גילוי פרסום,trust,site,UNKNOWN,no_change,planned,Required by Israeli Bar advertising rules
+TBD,/privacy/,page,מדיניות פרטיות,מדיניות פרטיות,legal,site,UNKNOWN,no_change,planned,Required
+TBD,/terms/,page,תנאי שימוש,תנאי שימוש,legal,site,UNKNOWN,no_change,planned,Required
+TBD,/lawyer-registration/,page,הרשמה לעורכי דין,הרשמת עורך דין,b2b_signup,b2b,UNKNOWN,no_change,planned,B2B funnel entry
+TBD,/lawyer-plans/,page,תוכניות לעורכי דין,מחירון עורכי דין,b2b_pricing,b2b,UNKNOWN,no_change,planned,B2B pricing PAGE

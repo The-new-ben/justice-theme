@@ -3,17 +3,18 @@ if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 function jte_register_articles_cpt() {
 	$labels = array(
-		'name'               => _x( 'Articles', 'post type general name', 'jus-tice-engine' ),
-		'singular_name'      => _x( 'Article', 'post type singular name', 'jus-tice-engine' ),
-		'menu_name'          => _x( 'Legal Articles', 'admin menu', 'jus-tice-engine' ),
-		'add_new'            => _x( 'Add New', 'article', 'jus-tice-engine' ),
-		'add_new_item'       => __( 'Add New Article', 'jus-tice-engine' ),
-		'edit_item'          => __( 'Edit Article', 'jus-tice-engine' ),
-		'view_item'          => __( 'View Article', 'jus-tice-engine' ),
-		'all_items'          => __( 'All Articles', 'jus-tice-engine' ),
-		'search_items'       => __( 'Search Articles', 'jus-tice-engine' ),
-		'not_found'          => __( 'No articles found.', 'jus-tice-engine' ),
-		'not_found_in_trash' => __( 'No articles found in Trash.', 'jus-tice-engine' ),
+		'name'               => 'מאמרים משפטיים',
+		'singular_name'      => 'מאמר משפטי',
+		'menu_name'          => 'מאמרים משפטיים',
+		'add_new'            => 'הוסף מאמר',
+		'add_new_item'       => 'הוסף מאמר חדש',
+		'edit_item'          => 'ערוך מאמר',
+		'new_item'           => 'מאמר חדש',
+		'view_item'          => 'צפה במאמר',
+		'all_items'          => 'כל המאמרים',
+		'search_items'       => 'חפש מאמרים',
+		'not_found'          => 'לא נמצאו מאמרים.',
+		'not_found_in_trash' => 'לא נמצאו מאמרים בפח.',
 	);
 
 	register_post_type( 'articles', array(

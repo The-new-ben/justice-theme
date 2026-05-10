@@ -154,4 +154,85 @@ function justice_theme_meta_head() {
 }
 add_action( 'wp_head', 'justice_theme_meta_head', 1 );
 
+/**
+ * Emit a canonical URL on every public page.
+ *
+ * Skipped if a SEO plugin (Yoast, RankMath, AIOSEO) is already adding one —
+ * detected by checking the active filters they typically register.
+ */
+function justice_theme_canonical_url() {
+	if ( is_admin() || is_404() ) {
+		return;
+	}
+
+	// Defer to popular SEO plugins if they're active — they output their own canonical.
+	if (
+		defined( 'WPSEO_VERSION' )                              // Yoast
+		|| class_exists( 'RankMath' )                           // RankMath
+		|| class_exists( 'AIOSEO\\Plugin\\AIOSEO' )             // AIOSEO
+		|| function_exists( 'rel_canonical' ) && has_action( 'wp_head', 'rel_canonical' )
+	) {
+		return;
+	}
+
+	$canonical = '';
+
+	if ( is_front_page() ) {
+		$canonical = home_url( '/' );
+	} elseif ( is_singular() ) {
+		$canonical = get_permalink();
+	} elseif ( is_post_type_archive() ) {
+		$canonical = get_post_type_archive_link( get_query_var( 'post_type' ) );
+	} elseif ( is_tax() || is_category() || is_tag() ) {
+		$term = get_queried_object();
+		if ( $term && ! is_wp_error( $term ) ) {
+			$canonical = get_term_link( $term );
+		}
+	} elseif ( is_search() ) {
+		// Don't index search result URLs — let robots meta handle this.
+		return;
+	}
+
+	if ( $canonical && ! is_wp_error( $canonical ) ) {
+		echo '<link rel="canonical" href="' . esc_url( $canonical ) . '">' . "\n";
+	}
+}
+// Run BEFORE WP core's rel_canonical (which runs at priority 10) so we win
+// when neither plugin nor core would emit a usable URL. WP core's
+// rel_canonical only fires on is_singular(); we cover archives + taxonomies too.
+remove_action( 'wp_head', 'rel_canonical' );
+add_action( 'wp_head', 'justice_theme_canonical_url', 9 );
+
+/**
+ * Robots meta — noindex search results and paginated lawyer-directory pages
+ * with multiple filter combinations to prevent thin-content indexing.
+ */
+function justice_theme_robots_meta() {
+	if ( is_admin() ) {
+		return;
+	}
+
+	$noindex = false;
+
+	if ( is_search() ) {
+		$noindex = true;
+	}
+
+	// Don't index lawyer-directory pages with both filters (city + area) — those
+	// can multiply into hundreds of thin URLs. Index single-filter pages only.
+	if ( is_post_type_archive( 'justice_lawyer' ) ) {
+		$has_city = ! empty( $_GET['city'] );
+		$has_area = ! empty( $_GET['area'] );
+		$has_kw   = ! empty( $_GET['keyword'] );
+		if ( ( $has_city && $has_area ) || $has_kw ) {
+			$noindex = true;
+		}
+	}
+
+	if ( $noindex ) {
+		echo '<meta name="robots" content="noindex,follow">' . "\n";
+	}
+}
+add_action( 'wp_head', 'justice_theme_robots_meta', 1 );
+
 

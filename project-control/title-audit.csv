@@ -1,0 +1,20 @@
+page_type,url,current_title,recommended_title,title_length,issues,priority
+homepage,/,עורכי דין בישראל | מדריך עורכי דין מאמרים משפטיים וייעוץ,עורכי דין בישראל | מדריך מקצועי + מאמרים — Jus-Tice,55,Length OK; could shorten brand suffix,low
+post_type_archive_lawyer,/lawyers/,מדריך עורכי דין בישראל | Jus-Tice,מצאו עורך דין בישראל | מדריך מקצועי — Jus-Tice,46,Title good; consider verb-first,low
+post_type_archive_lawyer_city,/lawyers/?city=tel-aviv,עורכי דין בתל אביב | מדריך עורכי דין,עורכי דין בתל אביב — חיפוש לפי תחום | Jus-Tice,52,OK; consider keyword-rich variation,low
+post_type_archive_lawyer_area,/lawyers/?area=family-law,עורך דין דיני משפחה | מצאו עורך דין מומחה,עורך דין דיני משפחה — מצאו עו""ד מומחה | Jus-Tice,55,OK; abbreviation עו""ד saves chars,low
+post_type_archive_lawyer_combo,/lawyers/?city=tel-aviv&area=family-law,עורך דין דיני משפחה בתל אביב | Jus-Tice,n/a — NOINDEX,42,Already noindex (combinatorial filter),n/a
+post_type_archive_articles,/articles/,מאמרים משפטיים | Jus-Tice,מאמרים משפטיים — מדריכים מקצועיים | Jus-Tice,47,Add value descriptor,low
+single_article,/articles/{slug}/,{title} | Jus-Tice,{title} | מדריך משפטי — Jus-Tice,varies,Add content type signal,medium
+single_lawyer,/lawyers/{slug}/,{name} | {area} ב{city},{name} — עו""ד {area} {city} | Jus-Tice,varies,Add brand suffix,medium
+taxonomy_practice_areas,/practice-areas/{slug}/,עורך דין {area} | מדריך מאמרים ועורכי דין מומחים,עורך דין {area} — מאמרים ועורכי דין מומחים | Jus-Tice,varies,OK; consider em-dash for cleanliness,low
+search_results,/?s=X,Search Results for: X — Jus-Tice,n/a — NOINDEX,varies,Already noindex,n/a
+contact,/contact/,יצירת קשר | Jus-Tice,יצירת קשר עם פורטל Jus-Tice | מדריך עורכי דין,55,If page exists; add value descriptor,medium
+about,/about/,About | Jus-Tice,אודות פורטל Jus-Tice — צוות + מדיניות,45,Page may not exist; create + Hebrew,high
+editorial_policy,/editorial-policy/,Editorial Policy | Jus-Tice,מדיניות עריכת תוכן | Jus-Tice,32,Page must be created,high
+advertising_disclosure,/advertising-disclosure/,Advertising Disclosure | Jus-Tice,גילוי פרסום ופרופילים ממומנים | Jus-Tice,40,Page must be created — Israeli Bar requires,high
+privacy,/privacy/,Privacy | Jus-Tice,מדיניות פרטיות | Jus-Tice,28,Page must be created,critical
+terms,/terms/,Terms | Jus-Tice,תנאי שימוש | Jus-Tice,22,Page must be created,critical
+lawyer_registration,/lawyer-registration/,Lawyer Registration | Jus-Tice,הרשמת עורכי דין למדריך | Jus-Tice,38,Page must be created,high
+lawyer_plans,/lawyer-plans/,Lawyer Plans | Jus-Tice,תוכניות לעורכי דין — מחירון Jus-Tice,42,Page must be created,high
+404,n/a,Page Not Found,העמוד לא נמצא | Jus-Tice,28,May default to WP — verify Hebrew,low

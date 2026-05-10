@@ -12,9 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 $topics = [
 	[ 'title' => 'דיני משפחה', 'slug' => 'family-law' ],
 	[ 'title' => 'משפט פלילי', 'slug' => 'criminal-law' ],
-	[ 'title' => 'מקרקעין', 'slug' => 'real-estate-law' ],
-	[ 'title' => 'תעבורה', 'slug' => 'traffic-law' ],
+	[ 'title' => 'מקרקעין',     'slug' => 'real-estate' ],
+	[ 'title' => 'תעבורה',      'slug' => 'traffic-law' ],
 ];
+
+$lawyers_archive = get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' );
 ?>
 
 <section class="topic-clusters section">
@@ -24,38 +26,37 @@ $topics = [
 			<h2><?php esc_html_e( 'מדריכים משפטיים לפי תחום', 'justice-theme' ); ?></h2>
 			<p><?php esc_html_e( 'מדריכים מעשיים שיעזרו לכם להבין את הזכויות שלכם ולנווט את המערכת המשפטית.', 'justice-theme' ); ?></p>
 		</div>
-		
+
 		<div class="clusters-grid">
-			<?php foreach ( $topics as $topic ) : ?>
+			<?php foreach ( $topics as $topic ) :
+				$term         = get_term_by( 'slug', $topic['slug'], 'practice-areas' );
+				$cluster_link = $term && ! is_wp_error( $term ) ? get_term_link( $term ) : add_query_arg( 'area', $topic['slug'], $lawyers_archive );
+				if ( is_wp_error( $cluster_link ) ) {
+					$cluster_link = add_query_arg( 'area', $topic['slug'], $lawyers_archive );
+				}
+				?>
 				<div class="cluster-card">
 					<h3 class="cluster-title">
-						<a href="<?php echo esc_url( home_url( '/' . $topic['slug'] . '/' ) ); ?>">
+						<a href="<?php echo esc_url( $cluster_link ); ?>">
 							<?php echo esc_html( $topic['title'] ); ?>
 						</a>
 					</h3>
-					
+
 					<?php
-					// Try practice-areas taxonomy first
-					$args = array(
-						'post_type'      => array( 'articles', 'post' ),
-						'posts_per_page' => 4,
-						'tax_query'      => array(
-							'relation' => 'OR',
+					$q = new WP_Query( array(
+						'post_type'           => array( 'articles' ),
+						'post_status'         => 'publish',
+						'posts_per_page'      => 4,
+						'ignore_sticky_posts' => true,
+						'tax_query'           => array(
 							array(
 								'taxonomy' => 'practice-areas',
 								'field'    => 'slug',
 								'terms'    => $topic['slug'],
 							),
-							array(
-								'taxonomy' => 'category',
-								'field'    => 'slug',
-								'terms'    => $topic['slug'],
-							),
 						),
-					);
-					
-					$q = new WP_Query( $args );
-					
+					) );
+
 					if ( $q->have_posts() ) :
 						echo '<ul class="cluster-links">';
 						while ( $q->have_posts() ) : $q->the_post();
@@ -67,7 +68,7 @@ $topics = [
 						echo '<p class="cluster-empty">' . esc_html__( 'בקרוב יעלו מדריכים בנושא זה.', 'justice-theme' ) . '</p>';
 					endif;
 					?>
-					<a class="cluster-more" href="<?php echo esc_url( home_url( '/' . $topic['slug'] . '/' ) ); ?>">
+					<a class="cluster-more" href="<?php echo esc_url( $cluster_link ); ?>">
 						<?php esc_html_e( 'לכל המדריכים בנושא זה', 'justice-theme' ); ?> &larr;
 					</a>
 				</div>

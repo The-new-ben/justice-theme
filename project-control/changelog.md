@@ -5,6 +5,12 @@
 
 ### FIXED
 
+**[MEDIUM] Added audit notes for lawyer content requests**
+- Files: `inc/lawyer-dashboard.php`, `project-control/lawyer-onboarding-workflow.md`
+- Lawyer content request submissions now append a timestamped entry to the requesting lawyer profile `internal_notes` field.
+- This makes signed-article requests visible in the Lawyer Onboarding recent-notes queue.
+- VERIFIED in repo. LIVE NOT VERIFIED until a content request is submitted after Upress pull.
+
 **[MEDIUM] Surfaced recent internal notes in Lawyer Onboarding**
 - Files: `inc/lawyer-onboarding.php`, `project-control/lawyer-onboarding-workflow.md`
 - Lawyer Onboarding now previews the last three `internal_notes` entries for each listed lawyer profile.

@@ -92,6 +92,9 @@ function justice_theme_handle_lawyer_content_request(): void {
 	update_post_meta( $article_id, 'primary_keyword', $topic );
 
 	justice_theme_connect_content_request_to_lawyer_taxonomy( $article_id, $lawyer_id );
+	if ( function_exists( 'justice_theme_append_lawyer_internal_note' ) ) {
+		justice_theme_append_lawyer_internal_note( $lawyer_id, 'Lawyer requested signed content draft: ' . $topic );
+	}
 
 	if ( function_exists( 'uje_log' ) ) {
 		uje_log( 'lawyer_content_request', 'New lawyer content request draft: ' . $topic );

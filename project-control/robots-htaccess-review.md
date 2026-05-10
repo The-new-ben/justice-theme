@@ -9,6 +9,8 @@ VERIFIED:
 - `https://jus-tice.co.il/robots.txt` returned HTTP 200 from the public web.
 - `https://jus-tice.co.il/sitemap.xml` returned HTTP 200 but appeared to return homepage HTML, not XML.
 - `https://jus-tice.co.il/wp-sitemap.xml` returned HTTP 200 but appeared to return homepage HTML, not XML.
+- GSC HTTPS report shows 412 Non-HTTPS URLs, 25 HTTPS URLs, and 222 HTTPS-not-evaluated URLs.
+- GSC Page indexing shows 90 "Page with redirect" URLs, 38 duplicate-without-user-selected-canonical URLs, 2 404 URLs and 785 crawled-currently-not-indexed URLs.
 
 NOT VERIFIED:
 - Actual `.htaccess` contents.
@@ -16,6 +18,7 @@ NOT VERIFIED:
 - Server-level uPress redirects.
 - SEO plugin sitemap settings.
 - Whether robots output is modified by a plugin/cache layer.
+- Example URL lists from the GSC drilldowns.
 
 BLOCKED:
 - `.htaccess`, redirect rules and server config require uPress, file manager, SFTP, wp-admin plugin settings or database/options access.
@@ -64,6 +67,8 @@ Redirect handling must support:
 
 RISK:
 - A previous live QA check found a fake URL returning homepage-like HTTP 200 behavior. That can hide broken URLs from users and search engines. It must be verified and fixed before migration.
+- GSC HTTPS shows a large Non-HTTPS URL count. Before any migration, inspect whether internal links, canonicals, sitemap URLs or old redirects still expose `http://` URLs.
+- If sitemap URLs are returning homepage-like HTML, Google may not receive a reliable canonical URL list for the future migration.
 
 ## Redirect Rule Source Of Truth
 
@@ -91,3 +96,11 @@ For each redirect batch:
 NO URL CHANGES NOW.
 
 The repo now has a public REST export and heuristic maps. The next step is review and prioritization, not redirects.
+
+## Next Verification Steps
+
+1. Open examples for GSC Non-HTTPS URLs.
+2. Open examples for GSC crawled-currently-not-indexed URLs.
+3. Check whether sitemap URLs return valid XML after cache/login/server review.
+4. Check whether a catch-all rewrite/redirect is returning homepage HTML for missing URLs.
+5. Confirm final redirect mechanism: SEO plugin, Redirection plugin, `.htaccess`, or uPress redirect layer.

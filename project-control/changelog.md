@@ -3,6 +3,19 @@
 
 ## 2026-05-10 - Pretrial-detention supporting draft
 
+## 2026-05-10 - Continuous GSC/GA4 SEO intelligence baseline
+
+- VERIFIED: GSC browser UI was used beyond Performance queries to inspect Page indexing, Sitemaps, Core Web Vitals, HTTPS and Links overview.
+- VERIFIED: GSC Page indexing baseline is 198 indexed pages and 1.58K not indexed pages, with 785 crawled-currently-not-indexed URLs and 38 duplicate-without-user-selected-canonical URLs.
+- VERIFIED: GSC HTTPS baseline shows 412 Non-HTTPS URLs, 25 HTTPS URLs and 222 HTTPS-not-evaluated URLs.
+- VERIFIED: GA4 browser UI was used for Home, Traffic acquisition, Events and Pages and screens reports.
+- FOUND: Organic Search is the largest visible channel with 1,261 sessions, while GA4 key events are 0, meaning lead/phone/WhatsApp/lawyer conversion tracking is not configured.
+- FOUND: Broad lawyer intent is weak and scattered: `עורך דין` has 10.4K impressions / 9 clicks / 0.1% CTR, and `עורכי דין` has 2.49K impressions / 4 clicks / 0.2% CTR.
+- CREATED: `project-control/gsc-master-workflow.md`, `project-control/gsc-indexing-review.csv`, `project-control/gsc-core-web-vitals-review.csv`, `project-control/ga4-analytics-review.md`, `project-control/ga4-event-plan.csv`, `project-control/seo-title-h1-review.csv`, `project-control/homepage-seo-strategy.md`, `project-control/content-architecture-decisions.md`, `project-control/sitemap-strategy.md`, and `project-control/daily-gsc-monitoring.md`.
+- UPDATED: GSC keyword/cannibalization/content-priority CSVs with broad lawyer/directory evidence, and updated robots/htaccess review with GSC HTTPS/indexing risks.
+- SAFETY: No URLs, redirects, public content, sitemap, robots or canonical behavior were changed.
+- NEXT: Open GSC indexing drilldowns for examples and prepare the first no-URL-change SEO architecture batch.
+
 - CREATED: `content-drafts/pretrial-detention-supporting-he.md`, a Hebrew public-facing supporting draft for `/pretrial-detention/`.
 - CONTENT: Draft is 3,500 words and covers מעצר ימים, hearing flow, judicial considerations, חלופת מעצר, supervisors, release conditions, family action steps, common mistakes, youth arrests, communication with detainee, after-release workflow, condition-change requests, appeal considerations, work/family impact, release-plan checklist, FAQ and internal links.
 - CREATED: `project-control/pretrial-detention-source-audit.csv` with Kol Zchut/gov.il source candidates and legal-review blockers.

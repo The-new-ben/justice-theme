@@ -1,0 +1,4 @@
+url_group,device,status,issue,lcp,inp,cls,affected_urls,recommended_fix,priority,verification
+"Core Web Vitals group","mobile_or_primary_ui","POOR","GSC summary shows poor URL group; metric drilldown not yet opened","UNKNOWN","UNKNOWN","UNKNOWN","8","Open drilldown; run PageSpeed/Lighthouse on representative pages; inspect LCP hero, CSS, fonts, images, layout shifts","HIGH","VERIFIED_SUMMARY"
+"Core Web Vitals group","desktop_or_secondary_ui","NEEDS_IMPROVEMENT","GSC summary shows needs-improvement URL group; metric drilldown not yet opened","UNKNOWN","UNKNOWN","UNKNOWN","8","Open drilldown; compare affected templates: homepage, article, lawyer, media/PDF wrappers","HIGH","VERIFIED_SUMMARY"
+"Core Web Vitals group","other_device_group","GOOD","No good URLs shown in summary","UNKNOWN","UNKNOWN","UNKNOWN","0","Treat as performance baseline problem until more detail is exported","MEDIUM","VERIFIED_SUMMARY"

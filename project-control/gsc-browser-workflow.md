@@ -203,3 +203,36 @@ Next GSC browser checks:
 - variants for `עורך דין צוואה וירושה`, `צו קיום צוואה`, `צו ירושה`, `ניהול עיזבון`
 - national-insurance variants: `ועדה רפואית`, `קצבת נכות`, `עורך דין ביטוח לאומי`
 - broader malpractice variants: `ניתוח קיסרי`, `אבחון מאוחר`, `רשלנות באבחון`
+
+## Broad Lawyer / GA4 / Indexing Session
+
+Completed in later browser pass:
+- GSC query filters:
+  - `עורך דין`
+  - `עורכי דין`
+- GSC non-performance sections:
+  - Page indexing
+  - Sitemaps
+  - Core Web Vitals
+  - HTTPS
+  - Links overview
+- GA4 sections:
+  - Home
+  - Traffic acquisition
+  - Events
+  - Pages and screens
+
+Key findings:
+- `עורך דין`: 9 clicks, 10.4K impressions, 0.1% CTR, average position 50.6. Broad lawyer intent is scattered across specific pages and is not clearly owned by homepage or `/lawyers/`.
+- `עורכי דין`: 4 clicks, 2.49K impressions, 0.2% CTR, average position 29.7. Directory intent is scattered across lawyer-marketing and specific content pages.
+- Page indexing: 198 indexed, 1.58K not indexed, including 785 crawled-currently-not-indexed URLs and 38 duplicate-without-user-selected-canonical URLs.
+- Core Web Vitals: 8 poor URLs and 8 needs-improvement URLs shown in summary.
+- HTTPS: 412 Non-HTTPS URLs, 25 HTTPS URLs, 222 HTTPS-not-evaluated URLs.
+- GA4: Organic Search is the largest visible channel with 1,261 sessions. Key events are 0, so business conversion tracking is missing.
+
+Evidence:
+- `project-control/visual-evidence/gsc-broad-lawyers-2026-05-10.png`
+- `project-control/visual-evidence/gsc-indexing-2026-05-10.png`
+- `project-control/visual-evidence/gsc-core-web-vitals-2026-05-10.png`
+- `project-control/visual-evidence/gsc-https-2026-05-10.png`
+- `project-control/visual-evidence/ga4-pages-screens-2026-05-10.png`

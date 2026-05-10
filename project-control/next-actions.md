@@ -1,6 +1,39 @@
 # Next Actions — Jus-Tice.co.il
-**Date:** 2026-05-09  
+**Date:** 2026-05-10
 **Process:** Read this file at the start of every work session. Pick the top unblocked task. Update status when done.
+
+---
+
+## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
+
+### ACTION-SEO-001: Open GSC Indexing Drilldowns
+**Status:** NEXT
+**Why:** GSC shows 1.58K not indexed pages, including 785 crawled-currently-not-indexed and 38 duplicate canonical issues. We need example URLs before content/URL decisions.
+**Actions:**
+1. Open GSC Page indexing examples for "Crawled - currently not indexed".
+2. Open examples for "Duplicate without user-selected canonical".
+3. Open examples for "Page with redirect".
+4. Record examples in `project-control/gsc-indexing-review.csv`.
+5. Classify whether each example is weak content, duplicate, old URL, media URL, taxonomy/archive, redirect source, or technical issue.
+
+### ACTION-SEO-002: Verify Sitemap And HTTPS Migration Blockers
+**Status:** NEXT
+**Why:** Public sitemap URLs appear to return homepage-like HTML, and GSC reports 412 Non-HTTPS URLs. This can break a future URL migration.
+**Actions:**
+1. Verify active sitemap generator in wp-admin/server.
+2. Confirm sitemap URL returns valid XML.
+3. Inspect GSC Non-HTTPS examples.
+4. Update `project-control/sitemap-strategy.md` and `project-control/robots-htaccess-review.md`.
+
+### ACTION-SEO-003: No-URL-Change Homepage + Directory SEO Batch
+**Status:** QUEUED
+**Why:** GSC shows broad `עורך דין` / `עורכי דין` intent is scattered. This can be improved before URL migration.
+**Actions:**
+1. Export/verify current homepage and `/lawyers/` title/H1/meta.
+2. Prepare title/H1/meta update recommendations.
+3. Add/plan internal links from homepage to approved pillar URLs.
+4. Add/plan internal links from key articles to `/lawyers/`.
+5. Do not change slugs or redirects in this batch.
 
 ---
 

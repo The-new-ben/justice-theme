@@ -1,0 +1,141 @@
+# Homepage SEO Strategy
+
+Date: 2026-05-10  
+Status: GSC/GA4-INFORMED STRATEGY - no live content changes executed
+
+## Role Of The Homepage
+
+The homepage should be treated as a primary entity page for Jus-Tice:
+
+- Hebrew legal portal.
+- Lawyer directory entry point.
+- Legal information library.
+- Initial legal guidance and lead-routing platform.
+- Lawyer onboarding/marketplace doorway.
+
+The homepage should not try to rank for every legal practice keyword by stuffing text. It should establish the platform clearly and route users into strong pillar pages.
+
+## GSC Evidence
+
+VERIFIED:
+- Query filter `עורך דין` showed 9 clicks, 10.4K impressions, 0.1% CTR, average position 50.6.
+- Query filter `עורכי דין` showed 4 clicks, 2.49K impressions, 0.2% CTR, average position 29.7.
+- The broad lawyer intent is scattered across specific legacy pages and does not appear to be clearly owned by `/` or `/lawyers/`.
+- For some practice-area queries, the homepage appears because the correct pillar is weak or missing:
+  - `עורך דין מקרקעין`
+  - `עורך דין תעבורה`
+  - some family-law variants
+
+GA4 SUPPORT:
+- Homepage received 396 views and 108 active users in the visible Pages and screens report.
+- Average engagement was 6m10s, which is unusually strong compared with many legacy pages.
+
+## Target Concepts
+
+Primary broad concepts:
+- עורך דין
+- עורכי דין
+- פורטל משפטי
+- מידע משפטי
+- מציאת עורך דין
+- עורכי דין לפי תחום
+- עורכי דין לפי עיר
+- הכוונה משפטית ראשונית
+
+The homepage should link naturally to:
+- `/lawyers/`
+- `/divorce-lawyer/`
+- `/criminal-lawyer/`
+- `/family-law/` or chosen family-law hub
+- `/real-estate-lawyer/`
+- `/medical-malpractice-lawyer/`
+- `/personal-injury-lawyer/`
+- `/traffic-lawyer/`
+- `/employment-lawyer/`
+- `/inheritance-lawyer/`
+
+## Recommended Homepage Title / H1 / Meta
+
+Recommended title:
+
+```text
+Jus-Tice | פורטל משפטי למציאת עורכי דין, מידע משפטי והכוונה ראשונית
+```
+
+Recommended H1:
+
+```text
+פורטל משפטי חכם למציאת מידע, עורכי דין והכוונה משפטית
+```
+
+Recommended meta description:
+
+```text
+מצאו מידע משפטי, מדריכים ועורכי דין לפי תחום ואזור. התחילו מהבעיה המשפטית שלכם וקבלו הכוונה ראשונית לפני פנייה לעורך דין.
+```
+
+Status:
+- RECOMMENDED ONLY.
+- Do not deploy until current title/H1/meta are exported and compared.
+
+## Required Homepage Sections
+
+CUSTOMER-READY STRUCTURE:
+
+1. Clear brand and value proposition.
+2. Search/discovery entry by legal issue, practice area and city.
+3. Lawyer-directory entry.
+4. Major practice-area hubs.
+5. Latest/important public legal guides.
+6. Lawyer cards only if profiles are real, verified, draft-safe, or clearly marked as not recommendation.
+7. Lead CTA that does not promise legal advice if only routing/intake is provided.
+8. Lawyer onboarding CTA separated from consumer CTA.
+9. Trust language without fake verification/recommendation/success claims.
+10. Internal links to major pillars.
+
+## Internal Linking Strategy
+
+Homepage should link to pillars with natural Hebrew anchors, for example:
+
+- מדריך לעורך דין גירושין
+- מידע על עורך דין פלילי
+- עורכי דין לענייני משפחה
+- עורך דין מקרקעין
+- רשלנות רפואית
+- דיני נזיקין ותאונות
+- עורך דין תעבורה
+- ירושה וצוואות
+
+Do not over-optimize by repeating exact anchors too many times. Use the homepage as a hub that helps users move by problem, not as a keyword dump.
+
+## Directory Strategy
+
+The broad plural term `עורכי דין` should be owned mainly by `/lawyers/`, with the homepage supporting it.
+
+Recommended:
+- Homepage hero CTA -> `/lawyers/`.
+- Practice cards -> pillar pages and/or filtered directory pages where filters are stable.
+- Article CTAs -> relevant pillar + directory, not generic homepage.
+- Footer -> `/lawyers/` and major hubs.
+
+## Risks
+
+HIGH:
+- If homepage continues to capture practice-area impressions because pillars are weak, Google may not understand which page should rank.
+- If `/lawyers/` remains weak, broad `עורכי דין` intent may continue to leak into lawyer-marketing pages, old content, and unrelated pages.
+
+MEDIUM:
+- Broad terms are extremely competitive. Homepage changes alone will not rank without strong directory, pillars, internal links, and real lawyer/data quality.
+
+## Next Batch Candidate
+
+After inventory/title export:
+
+1. Confirm current homepage title/H1/meta.
+2. Confirm current `/lawyers/` title/H1/meta.
+3. Strengthen homepage internal links to approved pillar URLs.
+4. Strengthen `/lawyers/` as directory primary.
+5. Add GA4 events to homepage CTA and search actions.
+
+No URL changes required for this batch.
+

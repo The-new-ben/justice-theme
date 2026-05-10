@@ -1,0 +1,13 @@
+event_name,purpose,key_event,implementation_status,where_to_fire,priority,notes
+"lead_form_submit","Primary lead conversion","YES","NOT VERIFIED","All legal lead/contact forms","CRITICAL","Must include legal_area, source_url, source_keyword, assigned_lawyer_id when relevant."
+"phone_click","Phone-call conversion","YES","NOT VERIFIED","Header, footer, lawyer cards, lawyer profiles","HIGH","Track tel: clicks as key event."
+"whatsapp_click","WhatsApp conversion","YES","NOT VERIFIED","Floating button, lawyer profiles, CTAs","HIGH","Track destination lawyer/site-level WhatsApp separately if possible."
+"lawyer_profile_view","Lawyer mini-site engagement","NO","PARTIAL CODE SIDE","Single lawyer profile pages","HIGH","Useful for monetization reporting to lawyers."
+"lawyer_card_click","Directory engagement","NO","NOT VERIFIED","Homepage/directory lawyer cards","HIGH","Measure card-to-profile and card-to-lead flow."
+"article_cta_click","Article lead intent","NO","NOT VERIFIED","Article sidebars and CTAs","HIGH","Use to identify article value even before form submission."
+"search_submit","Directory/search intent","NO","PARTIAL GA4 enhanced measurement","Homepage search, lawyer directory filters, site search","MEDIUM","GA4 currently shows only 2 view_search_results events; custom search_submit may be needed."
+"ask_lawyer_start","Lead form start","NO","NOT VERIFIED","Ask-lawyer form","MEDIUM","Useful drop-off metric."
+"document_request_start","LegalTech product funnel start","NO","NOT VERIFIED","Legal tools pages","MEDIUM","Future monetization."
+"document_request_submit","LegalTech product conversion","YES","NOT VERIFIED","Legal tools request forms","HIGH","Future monetization key event."
+"lawyer_signup_submit","Lawyer onboarding conversion","YES","NOT VERIFIED","Lawyer registration flow","CRITICAL","Core marketplace monetization event."
+"newsletter_signup","Email capture","NO","NOT WIRED","Newsletter section","LOW","Only track after newsletter is wired and strategically useful."

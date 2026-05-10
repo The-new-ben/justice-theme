@@ -55,6 +55,13 @@ Latest recheck after commit `31a0026`:
 - All seven family-law URLs still expose internal markers publicly.
 - Interpretation: the lawyer-to-lead CRM routing patch is pushed to GitHub, but live WordPress is still not serving the newest `main` code. Maya/lawyer mini-site lead routing cannot be called live-verified until uPress pulls and a controlled test lead is submitted.
 
+Latest recheck after commit `0c6cf21`:
+
+- Homepage PHP marker: NOT VERIFIED.
+- Static theme marker at `/wp-content/themes/justice-theme/deployment-marker.txt`: NOT VERIFIED.
+- All seven family-law URLs still expose internal markers publicly.
+- Interpretation: lead attribution hidden fields are pushed to GitHub, but live WordPress is still not serving the newest `main` code. UTM/source-keyword capture cannot be called live-verified until uPress pulls and a controlled test lead is submitted.
+
 Evidence from `tools/check-live-deployment.ps1` after commit `542aeef`:
 
 - Homepage PHP marker: NOT VERIFIED.

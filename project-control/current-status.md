@@ -7,6 +7,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BUSINESS VALUE: Lead records can now connect a CRM inquiry back to search/ad/source context instead of losing the context during form submission.
 - VERIFIED: PHP lint passed locally for 127 PHP files after the lead-attribution patch.
 - NOT VERIFIED LIVE: requires uPress pull and one controlled lead test from a URL containing keyword/UTM parameters.
+- LIVE RECHECK AFTER PUSH `0c6cf21`: deployment marker remains absent and family-law pages remain dirty. Lead attribution is pushed, but not live-verified.
 - FIXED IN CODE: Lawyer mini-site inquiry leads now persist `assigned_lawyer_id` and `source_keyword` in the lead CRM metadata.
 - FIXED IN CODE: The lead admin detail box can show the assigned lawyer as a profile edit link, which makes Maya/lawyer mini-site inquiries traceable inside CRM.
 - HARDENED: UTM values and lead-status saves now use `wp_unslash()` before sanitization, and lead-status saves require `edit_post` permission.

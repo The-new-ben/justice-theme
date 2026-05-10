@@ -7,7 +7,7 @@
 - FIXED IN CODE: `source_keyword` is resolved from explicit query params, search terms, SEO keyword meta, or the current singular page title as a fallback.
 - BUSINESS VALUE: Leads can now carry basic SEO/campaign context into CRM instead of losing it when the form posts to `admin-post.php`.
 - VERIFIED: PHP lint passed locally for 127 PHP files.
-- NOT VERIFIED LIVE: requires uPress pull and a controlled test lead from a URL with UTM/query parameters.
+- NOT VERIFIED LIVE: post-push checker after commit `0c6cf21` still shows homepage PHP marker absent, static theme marker absent, and family-law pages dirty. Requires uPress pull and a controlled test lead from a URL with UTM/query parameters.
 
 ## 2026-05-10 - Lead lawyer routing metadata
 

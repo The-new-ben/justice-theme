@@ -179,7 +179,7 @@ add_action( 'init', 'justice_theme_seed_primary_menu' );
  * Repair known stale practice-area filter URLs in already-seeded menus.
  */
 function justice_theme_repair_seeded_menu_area_urls(): void {
-	if ( get_option( 'justice_menu_area_urls_repaired_v1' ) ) {
+	if ( get_option( 'justice_menu_area_urls_repaired_v2' ) ) {
 		return;
 	}
 
@@ -220,7 +220,7 @@ function justice_theme_repair_seeded_menu_area_urls(): void {
 		}
 	}
 
-	update_option( 'justice_menu_area_urls_repaired_v1', time(), false );
+	update_option( 'justice_menu_area_urls_repaired_v2', time(), false );
 }
 add_action( 'admin_init', 'justice_theme_repair_seeded_menu_area_urls' );
 

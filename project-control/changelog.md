@@ -5,6 +5,7 @@
 
 - FIXED IN CODE: Header/footer/fallback seeded menus now use canonical English directory filter slugs for personal injury and inheritance.
 - FIXED IN CODE: Existing stale menu URLs using `area=torts` and `area=inheritance` are repaired to `personal-injury-law` and `inheritance-law`.
+- FIXED IN CODE: Menu URL repair now uses version marker `justice_menu_area_urls_repaired_v2`, so it can rerun on live even if the earlier v1 repair already completed.
 - FIXED IN CODE: Lawyer archive still accepts old incoming filter params and normalizes them, so old links do not simply break.
 - VERIFIED: PHP lint passed locally for 125 PHP files.
 - NOT VERIFIED LIVE: requires uPress pull/cache refresh and menu repair hook execution.

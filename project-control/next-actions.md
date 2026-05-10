@@ -34,6 +34,17 @@
 5. NEXT: owner/uPress pull, clear cache, then capture fresh live mobile homepage/article/directory screenshots.
 6. NOT LIVE VERIFIED: deployed public CSS still needs post-pull verification.
 
+### ACTION-CONTENT-001: Semantic Related Articles
+**Status:** CODE FIXED - live verification pending
+**Why:** Related articles should support the reader's next legal step and the SEO cluster, not show random latest or unrelated legacy posts.
+**Actions:**
+1. DONE: replaced single-article related selection with manual URLs, same `content_cluster`, then same `practice-areas`.
+2. DONE: removed broad legacy `post` fallback from related article cards.
+3. DONE: added relevant practice-area fallback when no semantic card exists.
+4. VERIFIED: PHP lint passed for 127 PHP files.
+5. NEXT: fill `manual_related_urls`/`parent_pillar_url` metadata for priority clusters from `related-content-map.csv`.
+6. NOT LIVE VERIFIED: requires uPress pull/cache clear and article-page visual QA.
+
 ### ACTION-SEO-001: Open GSC Indexing Drilldowns
 **Status:** COMPLETED - first sample pass
 **Why:** GSC shows 1.58K not indexed pages, including 785 crawled-currently-not-indexed and 38 duplicate canonical issues. We need example URLs before content/URL decisions.

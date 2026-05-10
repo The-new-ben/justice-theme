@@ -84,6 +84,11 @@ Status: PARTIAL VISUAL QA COMPLETED.
 ## Next
 - Run desktop and mobile browser QA after repo changes are ready.
 
+## 2026-05-10 Related Content QA Gate
+- CODE FIXED: article-page related content now uses semantic selection: manual URLs, same `content_cluster`, then same `practice-areas`.
+- CODE FIXED: unrelated global latest-post fallback was removed from the single-article related block.
+- NOT LIVE VERIFIED: after uPress pull/cache clear, recheck at least one family-law article, one criminal-law article and one real-estate article to confirm related cards are relevant and mobile layout stays stable.
+
 ## 2026-05-10 Integrated Visual QA Pass
 - VERIFIED: Desktop and mobile screenshots captured for homepage, articles archive, one article, lawyer directory, sample lawyer profile URL, family practice page, search and 404 test.
 - EVIDENCE JSON: `project-control/visual-evidence/integrated-visual-qa-2026-05-10.json`.

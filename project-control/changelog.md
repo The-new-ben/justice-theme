@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-10 - Semantic related-content selection
+
+- BLOCKED: provided uPress file-manager URL opened to the uPress login screen in the in-app browser.
+- CODE FIXED: `inc/related-content.php` now chooses related article cards through manual URLs, same `content_cluster`, then same `practice-areas`.
+- CODE FIXED: removed broad legacy `post`/latest-style fallback from single-article related content.
+- CODE FIXED: if no semantic related card exists, the article template shows a relevant practice-area link instead of unrelated cards.
+- VERIFIED: PHP lint passed for 127 PHP files.
+- SAFETY: no public content, URLs, redirects, sitemap, robots, wp-admin, CRM or database records were changed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and representative article-page screenshots.
+
 ## 2026-05-10 - Third-party mobile CTA collision repair
 
 - LIVE VERIFIED ISSUE: mobile DOM inspection identified the remaining green overlay as `a.whatsapp-button`, not the Tawk chat iframe.

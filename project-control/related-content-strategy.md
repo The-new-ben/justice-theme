@@ -1,7 +1,7 @@
 # Related Content Strategy
 
 Date: 2026-05-10  
-Status: STRATEGY V1 - no code changes executed
+Status: CODE FIXED V1 / NOT LIVE VERIFIED
 
 ## Goal
 
@@ -73,10 +73,22 @@ If no semantic related content exists, show fewer items and a clear category/pil
 
 ## Implementation Plan
 
-1. Fill `related-content-map.csv` for priority clusters.
-2. Add CMS metadata fields or import mapping.
-3. Update related-content query logic to prefer map/cluster data.
-4. Add QA checks that flag unrelated results.
-5. Track `article_cta_click`, `lawyer_card_click`, and `related_article_click` in GA4.
+1. DONE: Updated related-content query logic to prefer manual URLs, then `content_cluster`, then shared practice area.
+2. DONE: Removed global latest-post fallback from the single-article related block.
+3. DONE: Kept a user-facing fallback that links to the relevant practice area instead of filling the block with unrelated cards.
+4. NEXT: Fill `related-content-map.csv` and CMS `manual_related_urls` metadata for priority clusters.
+5. NEXT: Add QA checks that flag unrelated results.
+6. NEXT: Track `article_cta_click`, `lawyer_card_click`, and `related_article_click` in GA4.
 
-Status: PLANNED. No public content or URL changes were made.
+Status: CODE FIXED. No public content, URL, redirect, sitemap, robots or database changes were made. Live output remains NOT VERIFIED until uPress pulls the latest theme code.
+
+## 2026-05-10 Implementation Notes
+
+- CODE FIXED: `inc/related-content.php` now collects related cards through a semantic ladder:
+  - manual editorial URLs in `manual_related_urls`, `related_urls`, or `parent_pillar_url`;
+  - same `content_cluster` metadata;
+  - same `practice-areas` taxonomy.
+- CODE FIXED: related cards are limited to public `articles` and `page` content types, avoiding legacy standard `post` fallback.
+- CODE FIXED: if no semantic card exists, the template shows a relevant practice-area link rather than unrelated latest posts.
+- VERIFIED: PHP lint passed for 127 PHP files.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and article-page visual check.

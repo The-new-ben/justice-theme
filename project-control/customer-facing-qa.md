@@ -30,6 +30,7 @@ Date: 2026-05-10
 - LIVE VERIFIED: article title/card layout is readable.
 - What looks weak: breadcrumb numbering, no immediate problem/action framing before content.
 - FIXED IN CODE: article intent panel added; breadcrumbs styled.
+- CODE FIXED / NOT LIVE VERIFIED: related articles now use manual URL, cluster and practice-area relevance instead of broad latest/legacy fallback.
 - Status: NEEDS LIVE VERIFICATION.
 
 ## Practice/Pillar Page

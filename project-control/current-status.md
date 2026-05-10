@@ -2,6 +2,15 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-10 23:32 Asia/Jerusalem
+- BLOCKED: the provided uPress file-manager URL opened to the uPress login screen in the in-app browser, so authenticated file-manager inspection is not available yet.
+- CODE FIXED: related article selection now uses semantic priority instead of broad/latest fallback.
+- CODE FIXED: `inc/related-content.php` prioritizes manual editorial URLs, then `content_cluster`, then shared `practice-areas`; it no longer uses legacy `post` as a normal related-content source.
+- CODE FIXED: when no semantic related card exists, article pages show a relevant practice-area link instead of unrelated cards.
+- VERIFIED: PHP lint passed for 127 PHP files.
+- SAFETY: no public content, URLs, redirects, sitemap, robots, wp-admin, CRM or database records were changed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and visual check on representative article pages.
+
 ## LATEST WORK STATUS - 2026-05-10 23:20 Asia/Jerusalem
 - LIVE VERIFIED ISSUE: mobile DOM inspection found the remaining green lower-right overlay is `a.whatsapp-button`, not the Tawk chat iframe.
 - LIVE VERIFIED ISSUE DETAIL: before fix the button rendered about 255x61px at the mobile bottom-right and covered lower hero/customer content. Evidence: `project-control/visual-evidence/mobile-third-party-cta-before-2026-05-10.png`.

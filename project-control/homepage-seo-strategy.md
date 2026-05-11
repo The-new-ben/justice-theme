@@ -147,3 +147,26 @@ ADDED 2026-05-10:
 - Use `project-control/homepage-seo-design-alignment.md` as the working design/SEO checklist before any final homepage rewrite or template change.
 
 Status: PLANNED / NOT LIVE EXECUTED.
+
+## 2026-05-11 Homepage Line-By-Line Review
+
+Evidence:
+- `project-control/homepage-line-by-line-review-2026-05-11.md`.
+- `project-control/homepage-line-by-line-review-2026-05-11.csv`.
+
+VERIFIED:
+- The live homepage title/meta/H1 already support the broad legal-help and lawyer-directory direction.
+- The homepage is still the best current broad entry according to the existing GSC homepage pass.
+- The public scrape showed the shorter `front-page.php` section stack, not the full richer `page-home.php` stack.
+
+Recommended next planning batch:
+1. Decide authoritative homepage template.
+2. Create owner-approved section order.
+3. Curate major pillar links instead of relying on taxonomy count/order.
+4. Verify hero search filters against `/lawyers/`.
+5. Verify lead form delivery, phone number and GA4 events.
+6. Run mobile visual QA only after approved template/content changes.
+
+Status:
+- REVIEW ONLY.
+- NO PUBLIC HOMEPAGE CHANGE.

@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-HOMEPAGE-LINE-BY-LINE-001: Review live homepage section by section
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The homepage is the current broad legal portal / lawyer-finding entry in GSC. Before any homepage content or design changes, the live sections must be reviewed together with the template structure, user signal, Google signal, business funnel and mock/fake data risk.
+**Actions:**
+1. DONE: created `project-control/homepage-line-by-line-review-2026-05-11.md`.
+2. DONE: created `project-control/homepage-line-by-line-review-2026-05-11.csv`.
+3. VERIFIED: live title/meta/H1 support broad legal-help and lawyer-directory intent.
+4. VERIFIED: live scrape matches `front-page.php` more than the richer `page-home.php`; decide authoritative homepage template before public execution.
+5. REVIEW: raw/uncurated practice-area labels, empty lawyer showcase, latest-only articles, `http://` links, `?page_id=` links and hero city-filter mismatch need controlled follow-up.
+6. NEXT: create owner-approved homepage section order and curated pillar-link map, then verify mobile and GA4/CRM tracking before implementation.
+7. BLOCKED: no public homepage content, template, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, related-card, lawyer-card, CRM/review or CMS writes until owner-approved execution.
+
 ### ACTION-CYBER-PRIVACY-INTERNAL-LINK-001: Plan cyber/privacy links before public execution
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The cyber/privacy cluster now has GSC, SERP/source and side-by-side evidence. Before any public link/template/CMS change, the primary/support link structure must be mapped and owner-approved.

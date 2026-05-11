@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Homepage line-by-line SEO/design review
+
+- CREATED: `project-control/homepage-line-by-line-review-2026-05-11.md`.
+- CREATED: `project-control/homepage-line-by-line-review-2026-05-11.csv`.
+- UPDATED: `project-control/homepage-seo-design-alignment.md`, `project-control/homepage-seo-strategy.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: live homepage title, meta and H1 support broad legal-help / lawyer-directory intent.
+- VERIFIED: live scrape matches the shorter `front-page.php` flow more than the richer `page-home.php` flow, so authoritative homepage template must be decided before execution.
+- REVIEW: homepage has useful legal-help structure but still has uncurated taxonomy quick links, empty lawyer showcase state, latest-only article logic, first-party `http://` links, `?page_id=` links and a possible city-filter mismatch.
+- BLOCKED: no public homepage, title/H1/meta, menu, template, URL, redirect, noindex, canonical, sitemap, internal link, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Cyber/privacy internal-link plan
 
 - CREATED: `project-control/cyber-privacy-internal-link-plan-2026-05-11.md`.

@@ -97,6 +97,31 @@ Status:
 - PARTIAL CUSTOMER-READY.
 - Next safe action is no-URL-change homepage link/template refinement after deployment verification.
 
+## 2026-05-11 Line-By-Line Review Overlay
+
+Evidence:
+- `project-control/homepage-line-by-line-review-2026-05-11.md`.
+- `project-control/homepage-line-by-line-review-2026-05-11.csv`.
+
+VERIFIED:
+- Live title: `עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ`.
+- Live H1: `צריכים עורך דין או הכוונה משפטית? התחילו כאן`.
+- Prior GSC evidence still makes the homepage the current broad legal portal / find-a-lawyer entry.
+- Live scrape matches the shorter `front-page.php` flow more than the richer `page-home.php` flow.
+
+REVIEW:
+- Decide whether `front-page.php` or `page-home.php` is the authoritative public homepage structure.
+- Replace taxonomy-count-driven quick links with approved curated pillar links.
+- Review raw/duplicate practice labels before final launch.
+- Hide or replace the empty lawyer showcase unless an approved real profile is ready.
+- Replace latest-only article logic with curated cluster guides.
+- Classify remaining live first-party `http://` links, `?page_id=` links and placeholder `#` links.
+- Verify hero city filter values against `/lawyers/` city slug filters.
+- Verify CRM/form delivery and GA4 events.
+
+BLOCKED:
+- No public homepage/template/content/link/title/H1/meta/menu/CMS action was executed by this review.
+
 ## 2026-05-10 No-URL-Change Link Safety Batch
 
 CODE FIXED:

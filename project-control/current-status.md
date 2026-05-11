@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 17:02 Asia/Jerusalem
+- VERIFIED / HOMEPAGE REVIEW: completed the homepage line-by-line SEO/design alignment pass as review-only documentation.
+- CREATED: `project-control/homepage-line-by-line-review-2026-05-11.md`.
+- CREATED: `project-control/homepage-line-by-line-review-2026-05-11.csv`.
+- VERIFIED: live homepage title, meta and H1 support broad legal-help / lawyer-directory intent, and prior GSC evidence still makes the homepage the current broad lawyer/search entry.
+- VERIFIED: live homepage scrape matches the shorter `front-page.php` flow more than the richer `page-home.php` flow; authoritative homepage template must be decided before public changes.
+- REVIEW: live scrape showed raw/uncurated practice-area labels, an empty featured-lawyer state, latest-only article logic, first-party `http://` links, `?page_id=` links, and a possible hero city-filter mismatch against `/lawyers/` slug filters.
+- BLOCKED: no public homepage, title/H1/meta, menu, template, URL, redirect, canonical, sitemap, internal-link, lawyer-card, CRM, review, wp-admin setting or CMS/database action was executed.
+- SAFETY: repo documentation/CSV planning only; no live public site state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 16:52 Asia/Jerusalem
 - VERIFIED / INTERNAL-LINK PLAN: completed the approval-gated cyber/privacy internal-link plan after the GSC, SERP/source and side-by-side review layers.
 - CREATED: `project-control/cyber-privacy-internal-link-plan-2026-05-11.md`.

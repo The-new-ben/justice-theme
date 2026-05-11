@@ -30,6 +30,12 @@ Recommended action:
 
 No URL change required.
 
+2026-05-11 homepage line-by-line review addendum:
+- VERIFIED: `project-control/homepage-line-by-line-review-2026-05-11.md` and `.csv` now document the live homepage section order, user signal, Google signal, business signal and execution risks.
+- VERIFIED: the live homepage scrape matches the shorter `front-page.php` flow more than `page-home.php`; authoritative homepage structure must be decided before implementation.
+- REVIEW: broad homepage strategy is right, but practice quick links, taxonomy cards, latest articles, empty lawyer showcase, city filters, `http://` links and `?page_id=` links need controlled follow-up.
+- BLOCKED: no homepage content, template, title/H1/meta, menu, URL, redirect, canonical, sitemap, lawyer, CRM or CMS action is approved by this review alone.
+
 ## Family Law / Divorce
 
 Decision:

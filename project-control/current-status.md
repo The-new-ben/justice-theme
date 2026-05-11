@@ -1084,6 +1084,19 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - NOT VERIFIED: GSC traffic overlay is not applied to these refreshed CSVs yet; traffic risk remains `UNKNOWN` until browser/API data is mapped into the inventory.
 - SAFETY: no public content body, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
 
+## 2026-05-11 CONTENT ARCHITECTURE DECISION BATCHES
+- CREATED: `tools/content-audit/build-decision-review-batches.ps1`.
+- CREATED: `project-control/slug-conflict-review.csv`.
+- CREATED: `project-control/editorial-slug-mapping-review.csv`.
+- CREATED: `project-control/cluster-pillar-review.csv`.
+- CREATED: `project-control/content-decision-batches.md`.
+- VERIFIED: generated `15` target-slug conflict groups for manual review before URL migration.
+- VERIFIED: generated `481` editorial slug mapping rows; review lanes are `266` classify-topic-first, `154` manual review, `35` thin-content review, and `26` legacy-outdated review.
+- VERIFIED: generated `11` cluster pillar review rows. Strategic clean pillar candidates are found for family divorce, medical malpractice and traffic; criminal, real estate, personal injury, employment, inheritance and cyber/privacy still lack confirmed clean target pillar URLs in the public URL map.
+- REVIEW: major conflict groups include `child-support` (`30` rows), `medical-malpractice-lawyer` (`27`), `criminal-lawyer` (`13`), `child-custody` (`12`), `will` (`10`), and `pretrial-detention` (`8`).
+- BLOCKED: these are review-only planning files; GSC/SERP evidence and owner approval are still required before changing URLs, redirects, canonicals, sitemap inclusion, content bodies, taxonomies or menus.
+- SAFETY: no public content body, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
 ## NEXT BEST ACTION
 1. Confirm the live plugin filesystem path in wp-admin/uPress plugin manager before any plugin migration.
 2. Decide whether `justice-core/` will replace `ultra-justice-engine/` on live or whether the legacy active folder must be renamed in a controlled migration.

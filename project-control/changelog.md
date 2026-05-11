@@ -1867,3 +1867,15 @@
 - VERIFIED: internal-link map has `0` first-party HTTP targets and `1,707` first-party HTTPS targets.
 - BLOCKED: public menu export still returns WordPress REST `401`, so authenticated menu export remains a later step.
 - SAFETY: no public content body, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
+## 2026-05-11 Content Architecture Decision Review Batches
+- CREATED: `tools/content-audit/build-decision-review-batches.ps1`.
+- CREATED: `project-control/slug-conflict-review.csv`.
+- CREATED: `project-control/editorial-slug-mapping-review.csv`.
+- CREATED: `project-control/cluster-pillar-review.csv`.
+- CREATED: `project-control/content-decision-batches.md`.
+- VERIFIED: decision batches identify `15` slug-conflict groups, `481` editorial slug-mapping rows and `11` cluster pillar rows.
+- VERIFIED: highest slug-conflict groups include `child-support`, `medical-malpractice-lawyer`, `criminal-lawyer`, `child-custody`, `will`, `pretrial-detention` and `divorce-lawyer`.
+- VERIFIED: cluster review separates strategic target candidates from heuristic long-article picks, so long legacy posts are not mistaken for pillars.
+- BLOCKED: GSC/SERP evidence and owner approval are still required before any redirect, URL, noindex, canonical, sitemap or content-body change.
+- SAFETY: no public content body, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.

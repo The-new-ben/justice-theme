@@ -881,3 +881,15 @@ Next safe batch before any URL/content migration:
 8. NEXT: overlay GSC query/page evidence for major terms before approving pillar URLs or redirects.
 9. NEXT: keep homepage, menus, breadcrumbs, related content, sitemap and mobile template decisions tied to the approved cluster map.
 10. DO NOT EXECUTE YET: URL changes, redirects, noindex, deletions, public rewrites, canonical changes or sitemap inclusion changes.
+
+## 2026-05-11 CONTENT DECISION BATCH NEXT ACTIONS
+
+**Status:** VERIFIED REVIEW FILES CREATED / EXECUTION BLOCKED UNTIL EVIDENCE
+
+1. Use `project-control/slug-conflict-review.csv` as the first URL conflict queue.
+2. Use `project-control/editorial-slug-mapping-review.csv` to classify the `481` pages that still need topic/slug decisions.
+3. Use `project-control/cluster-pillar-review.csv` to correct heuristic pillar choices before migration.
+4. FIRST GSC/SERP PASS: review `criminal-lawyer`, `divorce-lawyer`, `child-support`, `medical-malpractice-lawyer`, and `real-estate-lawyer`.
+5. CONFIRM: whether `/criminal-lawyer/`, `/real-estate-lawyer/`, `/personal-injury-lawyer/`, `/employment-lawyer/`, `/inheritance-lawyer/`, and `/cyber-privacy-lawyer/` should be created, updated, merged into, or mapped to an existing old URL.
+6. CONFIRM: whether exact clean URLs like `/child-support/`, `/child-custody/`, `/divorce-lawyer/`, `/divorce-mediation/`, `/divorce-property-division/`, `/medical-malpractice-lawyer/`, and `/traffic-lawyer/` should become primary URLs after GSC review.
+7. BLOCKED: no redirects, no URL changes, no noindex, no deletion, no canonical/sitemap changes until owner approval.

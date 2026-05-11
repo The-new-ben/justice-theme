@@ -156,6 +156,13 @@ Recommended action:
 
 ## Next Controlled Execution Batches
 
+ADDED 2026-05-11:
+- Use `slug-conflict-review.csv`, `editorial-slug-mapping-review.csv`, and `cluster-pillar-review.csv` as the current review queues before approving URL/content work.
+- The largest conflict groups are `child-support`, `medical-malpractice-lawyer`, `criminal-lawyer`, `child-custody`, `will`, `pretrial-detention`, and `divorce-lawyer`.
+- Strategic clean pillar targets are currently found for family divorce, medical malpractice and traffic.
+- Strategic clean pillar targets still need confirmation or creation/mapping for criminal law, real estate, personal injury, employment, inheritance and cyber/privacy.
+- These files are REVIEW ONLY; they do not approve redirect execution or content replacement.
+
 Batch 1 - No URL changes:
 - Homepage and `/lawyers/` title/H1/meta/internal-link review.
 - GA4 conversion events.

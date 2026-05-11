@@ -327,6 +327,12 @@ Current refresh limitations:
 - Heuristic pillar picks are NOT final decisions and must be reviewed against GSC, SERP intent, existing strong content and business strategy.
 - No URL migration, redirect, noindex, deletion, canonical update or sitemap inclusion change is approved by this refresh.
 
+Decision batch layer added 2026-05-11:
+- `slug-conflict-review.csv` identifies target slugs with multiple competing URLs.
+- `editorial-slug-mapping-review.csv` separates the 481 manual slug decisions into review lanes.
+- `cluster-pillar-review.csv` compares strategic target pillar slugs against current heuristic best URLs.
+- `content-decision-batches.md` explains how to use these files before any controlled migration batch.
+
 ## 14. What Can Be Automated
 
 - public REST export

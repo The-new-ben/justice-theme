@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-11 22:00 Asia/Jerusalem
+- VERIFIED LIVE / CRIMINAL LAW PRIMARY SELECTION REVIEW: compared the current criminal-law primary candidate, future target slug, old GSC-visible URL and support page before any public migration.
+- CREATED: `project-control/criminal-law-primary-selection-2026-05-11.md`.
+- CREATED: `project-control/criminal-law-primary-selection-2026-05-11.csv`.
+- CREATED: `project-control/criminal-law-primary-live-url-check-2026-05-11.csv`.
+- CREATED: `project-control/criminal-law-primary-redirect-check-2026-05-11.csv`.
+- VERIFIED LIVE: `/criminal-defense-attorney/` returns `200 OK`, self-canonicalizes, is indexable, and has criminal-lawyer title/H1 signals.
+- VERIFIED LIVE: `/criminal-lawyer/`, the old Hebrew broad criminal-lawyer URL and a legacy deep criminal-law URL currently return first-hop `301` redirects to the homepage, so they must not be used as sitemap, internal-link, menu, breadcrumb, canonical or redirect targets yet.
+- RECOMMENDED: use `/criminal-defense-attorney/` as the current no-URL-change planning primary; keep `/criminal-lawyer/` as future-only until owner approval, route repair and redirect/canonical/internal-link/sitemap planning.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-11 21:52 Asia/Jerusalem
 - VERIFIED / CRIMINAL LAW CONTENT UPLOAD READINESS BATCH: reviewed `50` higher-value criminal-law URL candidates after extracting `220` raw criminal-adjacent inventory matches.
 - CREATED: `project-control/criminal-law-content-upload-readiness-2026-05-11.md`.

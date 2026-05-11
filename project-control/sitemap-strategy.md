@@ -5,6 +5,13 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
 
 ## Current Evidence
 
+2026-05-11 CRIMINAL LAW PRIMARY SELECTION:
+- VERIFIED LIVE: `/criminal-defense-attorney/` returns `200 OK`, self-canonicalizes and has criminal-lawyer title/H1 signals.
+- BLOCKED: `/criminal-lawyer/`, the old Hebrew broad criminal-lawyer URL and a legacy deep criminal-law URL currently redirect to the homepage.
+- DECISION: do not include `/criminal-lawyer/` in the sitemap until it is a real approved destination.
+- CURRENT PLANNING PRIMARY: `/criminal-defense-attorney/`.
+- SAFETY: no sitemap inclusion rule, redirect, canonical, URL slug, taxonomy term, content body, lawyer, CRM, review, wp-admin setting or database row was changed.
+
 2026-05-11 CRIMINAL LAW CONTENT UPLOAD READINESS:
 - VERIFIED / REVIEW ONLY: `project-control/criminal-law-content-upload-readiness-2026-05-11.md` and `.csv` map `50` higher-value criminal-law candidates after extracting `220` raw criminal-adjacent inventory matches.
 - DECISION: `/criminal-lawyer/` should remain a strategic future sitemap target only until the primary page, old Hebrew GSC-visible URL, 301 redirect plan, internal links and canonical consistency are approved.

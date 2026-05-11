@@ -2,6 +2,14 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Criminal Law Primary URL Live Check
+- VERIFIED LIVE: `/criminal-defense-attorney/` returns `200 OK`, self-canonicalizes, is indexable and has criminal-lawyer title/H1 signals.
+- VERIFIED LIVE: `/criminal-defense-attorney-roles-and-responsibilities/` returns `200 OK`, self-canonicalizes and behaves as a support page.
+- BLOCKED / ROUTE RISK: `/criminal-lawyer/`, the old Hebrew broad criminal-lawyer URL and the sampled legacy deep criminal-law URL currently redirect to the homepage.
+- CREATED: `project-control/criminal-law-primary-live-url-check-2026-05-11.csv`.
+- CREATED: `project-control/criminal-law-primary-redirect-check-2026-05-11.csv`.
+- SAFETY: no public content, URL, redirect, sitemap, canonical, taxonomy, menu, lawyer, CRM, review, plugin setting, wp-admin setting or database row was changed.
+
 ## 2026-05-11 Lawyer REST Public Guard Post-Pull QA
 - VERIFIED LIVE: public pages now report deployment marker `2026-05-11-lawyer-rest-public-guard-v1` in page meta.
 - VERIFIED LIVE: `/lawyers/` returned HTTP `200`, `0` lawyer cards and no placeholder phone hits.

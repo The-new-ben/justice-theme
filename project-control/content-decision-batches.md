@@ -100,6 +100,30 @@ Use the three review CSVs to run the first GSC/SERP evidence pass on:
 
 Then update the URL migration map only as a proposed plan, not as live URL changes.
 
+## 2026-05-11 Criminal Law Primary Selection Review
+
+CREATED:
+- `project-control/criminal-law-primary-selection-2026-05-11.md`
+- `project-control/criminal-law-primary-selection-2026-05-11.csv`
+- `project-control/criminal-law-primary-live-url-check-2026-05-11.csv`
+- `project-control/criminal-law-primary-redirect-check-2026-05-11.csv`
+
+VERIFIED LIVE:
+- `/criminal-defense-attorney/` returns `200 OK`, self-canonicalizes, is indexable and has criminal-lawyer title/H1 signals.
+- `/criminal-defense-attorney-roles-and-responsibilities/` returns `200 OK`, self-canonicalizes and behaves as a support page.
+
+BLOCKED / ROUTE RISK:
+- `/criminal-lawyer/` redirects to the homepage.
+- the old Hebrew broad criminal-lawyer URL redirects to the homepage.
+- the legacy deep criminal-law broad URL redirects to the homepage.
+
+RECOMMENDED:
+- Use `/criminal-defense-attorney/` as the current no-URL-change planning primary.
+- Keep `/criminal-lawyer/` future-only until route repair, owner approval, redirect map, canonical plan, internal-link plan and sitemap plan are approved.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Criminal Law Content Upload Readiness Batch
 
 CREATED:

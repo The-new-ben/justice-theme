@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CRIMINAL-LAW-PRIMARY-SELECTION-001: Select current criminal-law primary before migration
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** `/criminal-lawyer/` is the desired English slug, but live route behavior must be checked before any URL migration, sitemap, menu or internal-link plan.
+**Actions:**
+1. DONE: created `project-control/criminal-law-primary-selection-2026-05-11.md`.
+2. DONE: created `project-control/criminal-law-primary-selection-2026-05-11.csv`.
+3. DONE: created `project-control/criminal-law-primary-live-url-check-2026-05-11.csv`.
+4. DONE: created `project-control/criminal-law-primary-redirect-check-2026-05-11.csv`.
+5. VERIFIED LIVE: `/criminal-defense-attorney/` returns `200 OK`, self-canonicalizes, is indexable and has criminal-lawyer title/H1 signals.
+6. VERIFIED LIVE / BLOCKED: `/criminal-lawyer/`, the old Hebrew broad criminal-lawyer URL and a legacy deep criminal-law URL currently redirect to the homepage.
+7. RECOMMENDED: use `/criminal-defense-attorney/` as the current no-URL-change planning primary.
+8. BLOCKED: keep `/criminal-lawyer/` future-only until owner approval, route repair and redirect/canonical/internal-link/sitemap planning.
+9. NEXT: prepare no-URL-change outline packet for the current criminal primary and the first four support pages: police investigation, indictment, detention and drug offenses.
+10. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-CRIMINAL-LAW-UPLOAD-READINESS-001: Map criminal-law cluster for content upload readiness
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The criminal-law cluster is a major pillar candidate, but broad criminal-lawyer GSC evidence is attached to an old Hebrew URL and multiple support/legacy pages. The cluster must be mapped before any upload, internal-link, sitemap or migration action.

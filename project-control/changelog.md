@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Criminal law primary selection review
+
+- CREATED: `project-control/criminal-law-primary-selection-2026-05-11.md`.
+- CREATED: `project-control/criminal-law-primary-selection-2026-05-11.csv`.
+- CREATED: `project-control/criminal-law-primary-live-url-check-2026-05-11.csv`.
+- CREATED: `project-control/criminal-law-primary-redirect-check-2026-05-11.csv`.
+- VERIFIED LIVE: `/criminal-defense-attorney/` returns `200 OK`, self-canonicalizes, is indexable, and has criminal-lawyer title/H1 signals.
+- VERIFIED LIVE / BLOCKED: `/criminal-lawyer/`, the old Hebrew broad criminal-lawyer URL and a legacy deep criminal-law URL currently `301` to the homepage.
+- RECOMMENDED: use `/criminal-defense-attorney/` as the current no-URL-change planning primary; keep `/criminal-lawyer/` future-only until route repair and migration approval.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Criminal law content upload readiness batch
 
 - CREATED: `project-control/criminal-law-content-upload-readiness-2026-05-11.md`.

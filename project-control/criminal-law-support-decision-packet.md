@@ -130,6 +130,25 @@ BLOCKED:
 
 See `project-control/criminal-law-support-review.csv`.
 
+## 2026-05-11 Criminal Law Primary Selection Review
+
+CREATED:
+- `project-control/criminal-law-primary-selection-2026-05-11.md`
+- `project-control/criminal-law-primary-selection-2026-05-11.csv`
+- `project-control/criminal-law-primary-live-url-check-2026-05-11.csv`
+- `project-control/criminal-law-primary-redirect-check-2026-05-11.csv`
+
+VERIFIED LIVE:
+- `/criminal-defense-attorney/` is the current no-URL-change planning primary because it returns `200 OK`, self-canonicalizes and has criminal-lawyer title/H1 signals.
+- `/criminal-lawyer/`, the old Hebrew broad criminal-lawyer URL and the sampled legacy deep criminal-law URL currently redirect to the homepage.
+
+DECISION:
+- Keep `/criminal-lawyer/` as a future strategic slug only.
+- Do not use `/criminal-lawyer/` in sitemap, menus, breadcrumbs, internal links, related cards, canonicals or redirects until route repair and owner approval.
+
+BLOCKED:
+- No public criminal-law content expansion, title/H1/meta change, internal-link batch, slug migration, redirect, canonical, noindex, sitemap or taxonomy/category change is approved by this review.
+
 ## 2026-05-11 Criminal Law Content Upload Readiness Batch
 
 CREATED:

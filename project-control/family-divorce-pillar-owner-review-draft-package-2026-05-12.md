@@ -137,6 +137,11 @@ Blocked until later:
 VERIFIED RISK:
 - The live `/divorce-lawyer/` related-content area has broad/recommendation-style items.
 
+VERIFIED UPDATE:
+- `project-control/family-divorce-related-content-boundary-plan-2026-05-12.md` now defines the manual allowlist and blocked related-card categories for first upload.
+- The preferred first card set is `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/` and `/child-custody/` after owner/content/legal review.
+- Secondary/deep links are separated from core cards so cost, rabbinical approval, agreement, city, LegalTech and trust-language pages do not enter the first card set accidentally.
+
 REQUIRED BEFORE PUBLIC UPLOAD:
 - Related cards should prefer actual Family/Divorce support pages.
 - Do not surface broad lawyer ranking, recommended lawyer, fake trust, Maya ranking, city doorway or unrelated LegalTech content as related authority.
@@ -206,4 +211,3 @@ VERIFIED:
 
 BLOCKED:
 - Public upload remains blocked until owner approval and final draft review.
-

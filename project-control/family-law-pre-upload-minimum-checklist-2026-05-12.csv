@@ -26,3 +26,5 @@ FAM-UPLOAD-024,Approve /divorce-lawyer/ section-level merge outline,YES,VERIFIED
 FAM-UPLOAD-025,Confirm related-content boundaries for /divorce-lawyer/,YES,PARTIAL,Live heading/source review found broad recommendation-style related items,Prepare related-card cleanup plan before upload,Do not let ranking/trust pages appear as support signals
 FAM-UPLOAD-026,Approve /divorce-lawyer/ owner-review draft package,YES,VERIFIED PLANNING,15-row owner package,Owner approves or requests GSC API export first,No public execution approved by the package
 FAM-UPLOAD-027,Prepare final merged /divorce-lawyer/ draft update,YES,BLOCKED,Owner approval plus final draft review,Prepare reviewable merged draft only after approval or GSC export,No CMS/public upload yet
+FAM-UPLOAD-028,Approve /divorce-lawyer/ manual related-content allowlist,YES,VERIFIED PLANNING,20-row related-content boundary plan,Owner approves allowed primary and secondary related cards,No public related-card execution yet
+FAM-UPLOAD-029,Verify post-upload related cards,YES,BLOCKED,Live or preview related-card QA after upload,Confirm only allowed current clean URLs appear,No upload or preview exists yet

@@ -16,6 +16,7 @@ VERIFIED:
 - The large Hebrew duplicate `/עורך-דין-לענייני-גירושין/` is strong enough to mine before final `/divorce-lawyer/` upload.
 - The `/divorce-lawyer/` section-level merge outline now defines `20` target sections before any public copy import.
 - The `/divorce-lawyer/` owner-review draft package now defines `15` owner decision rows before final merged draft preparation.
+- The `/divorce-lawyer/` related-content boundary plan now defines `20` allowed/blocked related-card rows before any public upload.
 
 NOT VERIFIED:
 - GSC API export.
@@ -45,6 +46,7 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 15. Confirm GSC monitoring plan exists for affected old and new URLs.
 16. Approve `/divorce-lawyer/` owner-review draft package.
 17. Prepare final merged draft/update package after approval or GSC API export.
+18. Approve `/divorce-lawyer/` manual related-content allowlist and blocked related-card categories.
 
 ## Current Recommendation
 

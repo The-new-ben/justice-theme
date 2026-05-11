@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Divorce pillar related-content boundary plan
+
+- CREATED: `project-control/family-divorce-related-content-boundary-plan-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-related-content-boundary-plan-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: created a `20`-row manual related-card allowlist and blocklist for the first `/divorce-lawyer/` controlled upload candidate.
+- VERIFIED: first related cards should prefer approved Family/Divorce support pages: `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/` and `/child-custody/`.
+- VERIFIED: broad recommendation/top/trusted lawyer pages, city pages, LegalTech/tool promises, Maya/reputation/profile links and protected old/document assets remain blocked from core related cards.
+- RECOMMENDED: approve related-card boundaries with the `/divorce-lawyer/` owner package before public upload.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Divorce pillar owner-review draft package
 
 - CREATED: `project-control/family-divorce-pillar-owner-review-draft-package-2026-05-12.md`.

@@ -1,3 +1,11 @@
+## LATEST WORK STATUS - 2026-05-12 03:05 Asia/Jerusalem
+- VERIFIED / DIVORCE PILLAR RELATED-CONTENT BOUNDARY PLAN: created a manual related-card allowlist and blocked-list for `/divorce-lawyer/` before any public upload.
+- CREATED: `project-control/family-divorce-related-content-boundary-plan-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-related-content-boundary-plan-2026-05-12.csv`.
+- VERIFIED: `20` related-content decision rows now define primary support cards, secondary/deep links, freshness/legal review gates and blocked trust/ranking/city/LegalTech/profile/document assets.
+- VERIFIED: first upload related cards should prefer `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/` and `/child-custody/`; broad recommended/top/trusted lawyer pages remain blocked.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 02:45 Asia/Jerusalem
 - VERIFIED / DIVORCE PILLAR OWNER-REVIEW DRAFT PACKAGE: converted the `/divorce-lawyer/` section merge outline into an owner approval package for the first controlled Family/Divorce upload candidate.
 - CREATED: `project-control/family-divorce-pillar-owner-review-draft-package-2026-05-12.md`.

@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-RELATED-CONTENT-BOUNDARY-001: Plan `/divorce-lawyer/` related-content allowlist
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The first divorce pillar upload must not show broad recommendation, trust, city, LegalTech, Maya/profile or protected document assets as related authority.
+**Actions:**
+1. DONE: created `project-control/family-divorce-related-content-boundary-plan-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-related-content-boundary-plan-2026-05-12.csv`.
+3. VERIFIED: `20` related-content decision rows now define allowed primary cards, secondary/deep support links, conditional freshness/legal gates and blocked related-card categories.
+4. VERIFIED: primary related cards for first upload should be `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/` and `/child-custody/` after owner/content/legal review.
+5. NEXT: owner approves the related-content boundary with the draft package; then prepare the final merged `/divorce-lawyer/` update package or run GSC API export first.
+6. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-FAMILY-DIVORCE-PILLAR-OWNER-REVIEW-001: Package `/divorce-lawyer/` owner-review draft/update gate
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The first Family/Divorce upload candidate needs owner approval gates before final merged draft preparation or public execution.

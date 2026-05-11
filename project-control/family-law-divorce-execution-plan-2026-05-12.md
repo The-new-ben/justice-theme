@@ -141,6 +141,19 @@ RECOMMENDED:
 - Prepare final merged draft/update package second.
 - Execute CMS/public upload only after final draft, no-fake-trust review, related-content boundary approval and post-upload QA plan.
 
+## Related-Content Boundary Update
+
+VERIFIED:
+- `project-control/family-divorce-related-content-boundary-plan-2026-05-12.md` and `.csv` now define the `/divorce-lawyer/` related-card rules before first upload.
+- Primary related cards should be limited to approved current Family/Divorce support pages: `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/` and `/child-custody/`.
+- Property division, dispute resolution and consultation can be secondary links after approval.
+- Cost, rabbinical approval and mutual-agreement pages are conditional because they need freshness, source/legal or role review.
+- Recommendation/top/trusted lawyer pages, city pages, LegalTech pages, lawyer education pages, Maya/reputation/profile links and protected old/document assets are blocked from core related cards.
+
+NEXT:
+- Owner approves the related-content boundary with the pillar draft package.
+- Post-upload QA must confirm the related section uses only allowed URLs and no fake trust signals.
+
 ## Old Pages To Keep / Protect
 
 Keep alive until GSC/API and side-by-side review:

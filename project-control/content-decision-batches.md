@@ -14,6 +14,25 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Divorce Pillar Related-Content Boundary Plan
+
+CREATED:
+- `project-control/family-divorce-related-content-boundary-plan-2026-05-12.md`
+- `project-control/family-divorce-related-content-boundary-plan-2026-05-12.csv`
+
+VERIFIED:
+- `20` related-content rows now define the first `/divorce-lawyer/` related-card allowlist and blocklist.
+- The preferred first visible related cards are `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/` and `/child-custody/` after approval.
+- Secondary/deep candidates are separated from primary cards: property division, dispute resolution, consultation, cost, rabbinical approval and mutual agreement pages.
+- Recommendation/top/trusted lawyer pages, city pages, LegalTech pages, lawyer education pages, Maya/reputation/profile links and old protected assets are blocked from the core related section.
+
+RECOMMENDED:
+- Approve manual related-card boundaries with the divorce pillar package before public upload.
+- Do not rely only on automatic semantic related cards until family/divorce trust-language exclusions are verified.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, Maya profile edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Divorce Pillar Owner-Review Draft Package
 
 CREATED:

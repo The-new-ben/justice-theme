@@ -136,6 +136,42 @@ function justice_theme_block_unknown_path_home_canonical_redirect( $redirect_url
 add_filter( 'redirect_canonical', 'justice_theme_block_unknown_path_home_canonical_redirect', 0, 2 );
 
 /**
+ * Render native public 404s before later plugins can send them to the homepage.
+ *
+ * Some legacy stacks use direct Location headers for 404-to-home behavior and
+ * bypass the normal wp_redirect/redirect_canonical filters. This guard only
+ * runs after WordPress has already identified the request as a 404, so valid
+ * pages and explicit server-level redirects remain outside its scope.
+ */
+function justice_theme_render_native_404_before_home_redirect_plugins(): void {
+	if ( ! justice_theme_is_public_non_root_request_path() || ! is_404() ) {
+		return;
+	}
+
+	status_header( 404 );
+	nocache_headers();
+
+	if ( ! headers_sent() ) {
+		header( 'X-Justice-Route-Guard: native-unknown-path-404', true );
+		header( 'X-Robots-Tag: noindex, nofollow', true );
+	}
+
+	$not_found_template = get_404_template();
+
+	if ( $not_found_template ) {
+		include $not_found_template;
+		exit;
+	}
+
+	wp_die(
+		esc_html__( 'העמוד לא נמצא', 'justice-theme' ),
+		esc_html__( 'העמוד לא נמצא', 'justice-theme' ),
+		array( 'response' => 404 )
+	);
+}
+add_action( 'template_redirect', 'justice_theme_render_native_404_before_home_redirect_plugins', -1000 );
+
+/**
  * Detect the live failure mode where an unknown path is served as the homepage.
  *
  * This is intentionally narrow: it only fires when WordPress thinks the current

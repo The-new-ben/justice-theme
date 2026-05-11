@@ -230,3 +230,22 @@ BLOCKED:
 
 NEXT:
 - Prepare the first owner-approval packet for either criminal pillar cleanup or traffic pillar expansion.
+
+## 2026-05-11 Traffic-Law Owner Approval Packet
+
+CREATED:
+- `project-control/traffic-law-owner-approval-packet.md`
+- `project-control/traffic-law-owner-approval-packet.csv`
+
+VERIFIED:
+- `/traffic-lawyer/` already exists and is the safest first traffic pillar candidate because the proposed first batch can avoid URL migration.
+- The current pillar is thin (`1,399` words in the public inventory).
+- Existing support pages are also thin: `/driving-under-the-influence/`, `/yanshuf-breathalyzer-test/`, `/speeding/`, and `/driving-under-the-influence-of-drugs/`.
+- GSC wrong-page evidence for drunk-driving lawyer intent should be handled through traffic content/internal-link planning, not by editing the will-revocation page.
+
+RECOMMENDED:
+- Owner approval for a no-URL-change traffic pillar expansion batch.
+- Hold `/drunk-driving/` and `/license-suspension/` as future migration/candidate URLs only.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits or CMS writes until explicit approval.

@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-TRAFFIC-LAW-OWNER-APPROVAL-001: Prepare no-URL-change traffic-law approval packet
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Traffic law is the safest first execution candidate because `/traffic-lawyer/` already exists and the proposed first batch can expand current content without URL migration.
+**Actions:**
+1. DONE: created `project-control/traffic-law-owner-approval-packet.md`.
+2. DONE: created `project-control/traffic-law-owner-approval-packet.csv`.
+3. VERIFIED: `/traffic-lawyer/` is a published exact clean URL but thin at `1,399` words.
+4. VERIFIED: `/driving-under-the-influence/`, `/yanshuf-breathalyzer-test/`, `/speeding/`, and `/driving-under-the-influence-of-drugs/` exist and should be reviewed/expanded before any duplicate clean slugs are created.
+5. VERIFIED: drunk-driving lawyer intent currently has a wrong-page GSC signal on the will-revocation page; do not edit that will page for traffic intent.
+6. RECOMMENDED: owner approval for no-URL-change expansion of `/traffic-lawyer/` first, then review/expand `/driving-under-the-influence/`.
+7. NEXT: if owner approves, build content briefs, source/legal checklist, and internal-link map before CMS drafts.
+8. BLOCKED: no public content edits, titles/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits or CMS writes until explicit owner approval.
+
 ### ACTION-CRIMINAL-TRAFFIC-SERP-001: Add SERP evidence to criminal and traffic decision packets
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The criminal and traffic support packets needed current SERP evidence before owner approval and before any content, URL, redirect or internal-link execution batch.

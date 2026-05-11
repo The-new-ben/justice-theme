@@ -96,6 +96,20 @@ See:
 - `project-control/serp-criminal-traffic-review-2026-05-11.md`
 - `project-control/serp-criminal-traffic-review-2026-05-11.csv`
 
+## 2026-05-11 Owner Approval Packet
+
+CREATED:
+- `project-control/traffic-law-owner-approval-packet.md`
+- `project-control/traffic-law-owner-approval-packet.csv`
+
+RECOMMENDED:
+- First traffic batch should be no-URL-change expansion of existing `/traffic-lawyer/`.
+- Existing `/driving-under-the-influence/` should be reviewed/expanded before any `/drunk-driving/` slug decision.
+- `/license-suspension/` should stay on hold until stronger GSC/source evidence exists.
+
+BLOCKED:
+- No public content edits, slugs, redirects, canonicals, sitemap updates or CMS writes until owner approval.
+
 ## CSV Detail
 
 See `project-control/traffic-law-support-review.csv`.

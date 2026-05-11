@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Traffic law owner approval packet
+
+- CREATED: `project-control/traffic-law-owner-approval-packet.md`.
+- CREATED: `project-control/traffic-law-owner-approval-packet.csv`.
+- UPDATED: `project-control/traffic-law-support-decision-packet.md`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `/traffic-lawyer/` is a published exact clean URL and is thin at `1,399` words, so the safest first traffic batch is no-URL-change expansion.
+- VERIFIED: `/driving-under-the-influence/` exists and must be reviewed/expanded before any `/drunk-driving/` clean-slug decision.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, title/H1/meta, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Criminal and traffic SERP evidence pass
 
 - CREATED: `project-control/serp-criminal-traffic-review-2026-05-11.md`.

@@ -335,3 +335,55 @@
 @media (max-width: 640px) {
   .section-header--split { flex-direction: column; align-items: stretch; }
 }
+
+/* ── 18. ASK-LAWYER VISUAL ───────────────────────────────── */
+.ask-lawyer__visual {
+  margin-top: 1.5rem; border-radius: 14px; overflow: hidden;
+  box-shadow: 0 8px 28px rgba(7,21,47,0.08);
+}
+.ask-lawyer__visual img {
+  width: 100%; height: auto; display: block;
+  object-fit: cover; border-radius: 14px;
+}
+
+/* ── 19. GUIDE VISUAL ────────────────────────────────────── */
+.find-guide__visual {
+  margin: 2rem auto 0; max-width: 760px;
+  border-radius: 16px; overflow: hidden;
+  box-shadow: 0 12px 36px rgba(7,21,47,0.08);
+}
+.find-guide__visual img {
+  width: 100%; height: auto; display: block;
+  object-fit: cover;
+}
+
+/* ── 20. LAWYER SHOWCASE EMPTY STATE ─────────────────────── */
+.verified-lawyer-showcase--empty {
+  display: grid !important; grid-template-columns: 1fr 1fr;
+  gap: 2rem; align-items: center; text-align: start;
+  background: var(--jt-bg, #f7f8fa) !important;
+  border: 2px dashed var(--jt-border, #e5e7eb) !important;
+  border-radius: 16px !important; padding: 2rem !important;
+}
+.verified-lawyer-showcase__visual { border-radius: 12px; overflow: hidden; }
+.verified-lawyer-showcase__visual img {
+  width: 100%; height: auto; display: block;
+  object-fit: cover; border-radius: 12px;
+}
+.verified-lawyer-showcase__text h3 { font-size: 1.15rem; margin: 0 0 0.8rem; }
+.verified-lawyer-showcase__text p { font-size: 0.92rem; line-height: 1.7; margin: 0 0 1.2rem; color: var(--jt-muted, #6b7280); }
+@media (max-width: 768px) {
+  .verified-lawyer-showcase--empty { grid-template-columns: 1fr !important; }
+}
+
+/* ── 21. TRUST SECTION WATERMARK ─────────────────────────── */
+.trust-section {
+  position: relative; overflow: hidden;
+}
+.trust-section::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: url('../images/trust-watermark.png');
+  background-size: 280px auto; background-position: center;
+  background-repeat: no-repeat; opacity: 0.08;
+}
+.trust-section__grid { position: relative; z-index: 1; }

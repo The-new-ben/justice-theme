@@ -23,6 +23,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p class="section-header__desc"><?php esc_html_e( 'בחירת עורך דין היא אחת ההחלטות המשמעותיות ביותר שתקבלו. המדריך שלנו יעזור לכם להבין בדיוק מה לחפש, מה לשאול, ואיך להגן על האינטרסים שלכם.', 'justice-theme' ); ?></p>
 		</div>
 
+		<!-- Guide Visual -->
+		<div class="find-guide__visual">
+			<img src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/guide-hero.png' ); ?>"
+				alt="<?php esc_attr_e( 'מחקר משפטי — חיפוש עורך דין מתאים', 'justice-theme' ); ?>"
+				width="760" height="420" loading="lazy" decoding="async">
+		</div>
+
 		<!-- Steps Grid -->
 		<div class="find-guide__steps">
 

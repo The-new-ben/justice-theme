@@ -79,11 +79,18 @@ if ( post_type_exists( 'justice_lawyer' ) ) {
 			</div>
 		<?php else : ?>
 			<div class="verified-lawyer-showcase verified-lawyer-showcase--empty">
-				<h3><?php esc_html_e( 'פרופיל עורכת הדין יוצג כאן לאחר אישור במערכת.', 'justice-theme' ); ?></h3>
-				<p><?php esc_html_e( 'עמוד הבית לא מציג עורכי דין דמו, המלצות לא מאומתות או נתוני קשר שלא עברו בדיקה. רק פרופיל שאושר ידנית יכול להופיע באזור זה.', 'justice-theme' ); ?></p>
-				<a class="button button--gold" href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>">
-					<?php esc_html_e( 'הצטרפות עורכי דין', 'justice-theme' ); ?>
-				</a>
+				<div class="verified-lawyer-showcase__visual">
+					<img src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/lawyer-cta-visual.png' ); ?>"
+						alt="<?php esc_attr_e( 'סביבת עבודה מקצועית של עורך דין — פרופיל פרימיום ב-Jus-Tice', 'justice-theme' ); ?>"
+						width="520" height="340" loading="lazy" decoding="async">
+				</div>
+				<div class="verified-lawyer-showcase__text">
+					<h3><?php esc_html_e( 'פרופיל עורכת הדין יוצג כאן לאחר אישור במערכת.', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'עמוד הבית לא מציג עורכי דין דמו, המלצות לא מאומתות או נתוני קשר שלא עברו בדיקה. רק פרופיל שאושר ידנית יכול להופיע באזור זה.', 'justice-theme' ); ?></p>
+					<a class="button button--gold" href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>">
+						<?php esc_html_e( 'הצטרפות עורכי דין', 'justice-theme' ); ?>
+					</a>
+				</div>
 			</div>
 		<?php endif; ?>
 	</div>

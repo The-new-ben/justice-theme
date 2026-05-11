@@ -18,6 +18,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<p class="section-header__eyebrow"><?php esc_html_e( 'ייעוץ משפטי ראשוני', 'justice-theme' ); ?></p>
 			<h2><?php esc_html_e( 'שאלה משפטית? קבלו הכוונה ראשונית', 'justice-theme' ); ?></h2>
 			<p><?php esc_html_e( 'תארו את הבעיה המשפטית שלכם בקצרה ונפנה אתכם לעורך הדין המתאים בתחום ובאזור שלכם.', 'justice-theme' ); ?></p>
+			<div class="ask-lawyer__visual">
+				<img src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/ask-lawyer-visual.png' ); ?>"
+					alt="<?php esc_attr_e( 'ייעוץ משפטי מקוון — שיחת וידאו עם עורך דין', 'justice-theme' ); ?>"
+					width="520" height="340" loading="lazy" decoding="async">
+			</div>
 		</div>
 
 		<form class="ask-lawyer__form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">

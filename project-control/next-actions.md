@@ -7,7 +7,7 @@
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
 ### ACTION-PUBLIC-HTTP-SCAN-001: Classify remaining first-party HTTP references
-**Status:** THEME OUTPUT FIXED LIVE / MEDIA-SITEMAP CODE FIXED
+**Status:** FIXED LIVE / MONITOR
 **Why:** After sampled related-card links were fixed, a broader public scan still found old first-party `http://jus-tice.co.il` references in rendered HTML and sitemap media URLs. These must be classified before any URL migration or GSC sitemap submission.
 **Actions:**
 1. DONE: added `tools/check-public-http-internal-links.ps1`.
@@ -25,10 +25,13 @@
 13. VERIFIED AFTER-SCAN: `project-control/public-http-internal-link-scan-2026-05-11-after-theme-term-link-https.csv` records 36 verified resources and 71 remaining review findings.
 14. FIXED LIVE: `THEME_DISPLAY_FIX` findings dropped from 54 before deployment to 0 after deployment.
 15. VERIFIED SOURCE: Rank Math official docs list `rank_math/sitemap/urlimages` and `rank_math/sitemap/xml_img_src` for sitemap image URL handling.
-16. CODE FIXED / NOT LIVE VERIFIED: media URLs now normalize to HTTPS at render time in attachment helpers, srcset sources, post content output and Rank Math image sitemap callbacks.
+16. FIXED LIVE: media URLs now normalize to HTTPS at render time in attachment helpers, srcset sources, post content output and Rank Math image sitemap callbacks.
 17. VERIFIED LOCAL: PHP lint passed for 128 PHP files; `git diff --check` returned only Windows LF-to-CRLF warnings.
-18. NEXT: push, pull in uPress, verify marker `2026-05-11-media-sitemap-https-v1`, rerun the public scan and confirm the 69 `SEO_PLUGIN_SITEMAP_MEDIA` and 2 `CONTENT_MEDIA_OUTPUT` findings drop.
-19. SAFETY: do not run bulk database replacement, redirects, slug changes, noindex changes or sitemap removals from this scan alone.
+18. DONE: pushed `a74a28b`, pulled it in uPress, and verified marker `2026-05-11-media-sitemap-https-v1`.
+19. VERIFIED AFTER-SCAN: `project-control/public-http-internal-link-scan-2026-05-11-after-media-sitemap-https.csv` records 42 `VERIFIED` resources and 0 `REVIEW` findings.
+20. FIXED LIVE: the 69 `SEO_PLUGIN_SITEMAP_MEDIA` and 2 `CONTENT_MEDIA_OUTPUT` findings from the previous scan dropped to 0 in this bounded pass.
+21. NEXT: keep this scanner in the pre-migration QA workflow and rerun before any GSC sitemap resubmission or URL migration batch.
+22. SAFETY: do not run bulk database replacement, redirects, slug changes, noindex changes or sitemap removals from this scan alone.
 
 ### ACTION-HOMEPAGE-LINE-BY-LINE-001: Review homepage signal section by section
 **Status:** QUEUED / FUTURE ACTION

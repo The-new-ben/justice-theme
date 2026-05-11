@@ -3,11 +3,16 @@
 
 ## 2026-05-11 - Media and image-sitemap HTTPS normalization
 
-- CODE FIXED / NOT LIVE VERIFIED: first-party media URLs now normalize to HTTPS in public attachment URL helpers, attachment image tuples, responsive srcsets and rendered post content.
-- CODE FIXED / NOT LIVE VERIFIED: Rank Math image sitemap URLs now normalize through `rank_math/sitemap/xml_img_src` and `rank_math/sitemap/urlimages`.
+- PUSHED: `a74a28b` (`Normalize media sitemap URLs to HTTPS`) to GitHub main.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log shows `(HEAD -> main, origin/main, origin/HEAD) Normalize media sitemap URLs to HTTPS`.
+- LIVE VERIFIED: public marker returns `2026-05-11-media-sitemap-https-v1`.
+- FIXED LIVE: first-party media URLs now normalize to HTTPS in public attachment URL helpers, attachment image tuples, responsive srcsets and rendered post content.
+- FIXED LIVE: Rank Math image sitemap URLs now normalize through `rank_math/sitemap/xml_img_src` and `rank_math/sitemap/urlimages`.
 - VERIFIED SOURCE: Rank Math official sitemap hook documentation lists both hooks for changing image URLs/items in XML sitemaps.
 - WHY: after the term-link fix, remaining first-party HTTP findings were isolated to 69 `SEO_PLUGIN_SITEMAP_MEDIA` rows and 2 `CONTENT_MEDIA_OUTPUT` rows.
 - VERIFIED LOCAL: PHP lint passed for 128 PHP files; `git diff --check` returned only Windows LF-to-CRLF warnings.
+- CREATED: `project-control/public-http-internal-link-scan-2026-05-11-after-media-sitemap-https.csv`.
+- VERIFIED AFTER-SCAN: bounded public scan now records 42 `VERIFIED` resources and 0 `REVIEW` findings.
 - DEPLOYMENT MARKER: `2026-05-11-media-sitemap-https-v1`.
 - SAFETY: no media-library record, content body, stored URL, slug, redirect, sitemap inclusion rule, canonical setting, taxonomy, lawyer, CRM, review, plugin state, wp-admin setting or database row was changed.
 

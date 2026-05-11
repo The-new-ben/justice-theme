@@ -6,11 +6,14 @@ Date: 2026-05-10
 
 Latest media/image-sitemap HTTPS fix:
 
-- CODE FIXED / NOT LIVE VERIFIED: first-party media URLs now normalize to HTTPS in public attachment URL helpers, attachment image tuples, srcset arrays, rendered post content and Rank Math image sitemap callbacks.
+- FIXED LIVE: first-party media URLs now normalize to HTTPS in public attachment URL helpers, attachment image tuples, srcset arrays, rendered post content and Rank Math image sitemap callbacks.
+- VERIFIED UPRESS PULL: uPress Git log shows top commit `a74a28b` (`Normalize media sitemap URLs to HTTPS`).
+- VERIFIED LIVE MARKER: `https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?qa=media-sitemap-https-20260511` returns `2026-05-11-media-sitemap-https-v1`.
 - VERIFIED SOURCE: Rank Math official docs list `rank_math/sitemap/urlimages` and `rank_math/sitemap/xml_img_src` for image sitemap handling.
 - LOCAL VERIFIED: PHP lint passed for 128 PHP files; `git diff --check` returned only Windows LF-to-CRLF warnings.
 - DEPLOYMENT MARKER: `2026-05-11-media-sitemap-https-v1`.
-- LIVE CHECK NEEDED: pull in uPress, verify the marker, rerun the public HTTP scan, and confirm remaining media/sitemap/content HTTP findings drop.
+- VERIFIED AFTER-SCAN: `project-control/public-http-internal-link-scan-2026-05-11-after-media-sitemap-https.csv` records 42 `VERIFIED` resources and 0 `REVIEW` findings.
+- FIXED LIVE: remaining media/sitemap/content HTTP findings from the previous scan dropped from 71 to 0 in the bounded scan.
 - SAFETY: no WordPress content, media-library record, metadata, URL slug, redirect, sitemap inclusion rule, canonical setting, taxonomy, lawyer, lead/CRM, review, plugin-state, wp-admin setting or database row was changed.
 
 Latest theme-owned term-link HTTPS fix:

@@ -3,11 +3,15 @@ Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
 ## LATEST WORK STATUS - 2026-05-11 11:13 Asia/Jerusalem
-- CODE FIXED / NOT LIVE VERIFIED: added render-only HTTPS normalization for first-party media URLs in public attachment helpers, image srcsets, post content output and Rank Math image sitemap callbacks.
+- FIXED LIVE: render-only HTTPS normalization for first-party media URLs is deployed in public attachment helpers, image srcsets, post content output and Rank Math image sitemap callbacks.
+- PUSHED: `a74a28b` (`Normalize media sitemap URLs to HTTPS`) to GitHub main.
+- VERIFIED UPRESS PULL: uPress Git log shows top commit `a74a28b` (`Normalize media sitemap URLs to HTTPS`).
+- LIVE VERIFIED: static marker returns `2026-05-11-media-sitemap-https-v1`.
+- VERIFIED AFTER-SCAN: `project-control/public-http-internal-link-scan-2026-05-11-after-media-sitemap-https.csv` records 42 `VERIFIED` resources and 0 `REVIEW` findings.
+- FIXED LIVE: the remaining 69 `SEO_PLUGIN_SITEMAP_MEDIA` rows and 2 `CONTENT_MEDIA_OUTPUT` rows from the prior scan dropped to 0 in the bounded after-scan.
 - WHY: after the term-link fix, the remaining public HTTP findings were isolated to 69 `SEO_PLUGIN_SITEMAP_MEDIA` rows and 2 `CONTENT_MEDIA_OUTPUT` rows.
 - VERIFIED SOURCE: Rank Math official documentation lists `rank_math/sitemap/urlimages` for changing images included in XML sitemaps and `rank_math/sitemap/xml_img_src` for changing image URLs in the sitemap.
 - VERIFIED LOCAL: PHP lint passed for 128 PHP files; `git diff --check` returned only normal Windows LF-to-CRLF warnings.
-- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-media-sitemap-https-v1`; uPress pull and after-scan are needed.
 - SAFETY: no media-library record, content body, stored URL, URL slug, redirect, sitemap inclusion rule, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
 
 ## LATEST WORK STATUS - 2026-05-11 11:00 Asia/Jerusalem

@@ -6,10 +6,12 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
 ## Current Evidence
 
 2026-05-11 MEDIA / IMAGE SITEMAP HTTPS FIX:
-- CODE FIXED / NOT LIVE VERIFIED: first-party image/media URLs now normalize to HTTPS in public media helpers and Rank Math image sitemap filters.
+- FIXED LIVE: first-party image/media URLs now normalize to HTTPS in public media helpers and Rank Math image sitemap filters.
 - VERIFIED SOURCE: Rank Math official docs list `rank_math/sitemap/urlimages` for changing images included in XML sitemaps and `rank_math/sitemap/xml_img_src` for changing image URL output.
 - WHY: the after-theme scan left only media/sitemap/content findings: 69 `SEO_PLUGIN_SITEMAP_MEDIA` and 2 `CONTENT_MEDIA_OUTPUT`.
-- NEXT CHECK: after uPress pull, rerun the public HTTP scan and verify that `<image:loc>` entries no longer expose `http://jus-tice.co.il/wp-content/uploads/...`.
+- LIVE VERIFIED: uPress top commit is `a74a28b`, static marker returns `2026-05-11-media-sitemap-https-v1`, and the after-scan records 42 `VERIFIED` resources with 0 `REVIEW` findings.
+- FIXED LIVE: sampled `<image:loc>` and rendered content-image findings no longer expose first-party `http://jus-tice.co.il/wp-content/uploads/...` in the bounded scan.
+- NEXT CHECK: keep the clean scan as the current pre-migration sitemap baseline, and rerun before any GSC sitemap submission or URL migration batch.
 - SAFETY: no media record, sitemap inclusion rule, redirect, canonical, URL slug, taxonomy term, content body, lawyer, CRM, review, wp-admin setting or database row was changed.
 
 2026-05-11 THEME TERM-LINK HTTPS FIX:

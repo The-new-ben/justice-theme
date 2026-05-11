@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - National insurance owner approval packet
+
+- CREATED: `project-control/national-insurance-owner-approval-packet.md`.
+- CREATED: `project-control/national-insurance-owner-approval-packet.csv`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: practice area `ביטוח לאומי` exists at `/practice-areas/national-insurance/` with count `0`; it is a hub candidate only, not an approved pillar.
+- VERIFIED: strategic `/national-insurance-lawyer/` is proposed only in the URL migration draft for the old calculator URL and must not be created or redirected without owner approval.
+- VERIFIED: the old national-insurance calculator has `1,778` words and quality `5/10`; the old disability regulations page has `24,883` words and quality `4/10`.
+- NOT VERIFIED: direct GSC/SERP evidence for national-insurance lawyer, medical-committee, disability-benefit and work-injury terms is incomplete; checked `תאונת עבודה` evidence shows zero visible rows.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, title/H1/meta, menu, taxonomy, related-card, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Cyber and privacy owner approval packet
 
 - CREATED: `project-control/cyber-privacy-owner-approval-packet.md`.

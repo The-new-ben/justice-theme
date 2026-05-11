@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-11 14:55 Asia/Jerusalem
+- VERIFIED / REVIEW: prepared the national-insurance owner-approval packet as a no-URL-change empty practice-area, strategic slug, calculator/tool, law-text, work-accident boundary and source/legal review planning decision.
+- CREATED: `project-control/national-insurance-owner-approval-packet.md`.
+- CREATED: `project-control/national-insurance-owner-approval-packet.csv`.
+- VERIFIED: practice area `ביטוח לאומי` exists at `/practice-areas/national-insurance/`, has slug `national-insurance`, description text and count `0`, so it is a hub candidate only.
+- VERIFIED: strategic `/national-insurance-lawyer/` appears as a proposed target for the old calculator URL in `url-migration-map.csv`, but it is not approved and is not treated as a verified current public pillar.
+- VERIFIED: the old `מחשבון דמי ביטוח לאומי ובריאות` URL has `1,778` words, quality `5/10`, traffic risk `UNKNOWN`, and needs calculator/tool strategy before any redirect or rewrite.
+- VERIFIED: the old national-insurance disability regulations page has `24,883` words, quality `4/10`, is outdated, and must be treated as law-text/source support review rather than a pillar by word count.
+- NOT VERIFIED: direct GSC/SERP evidence for national-insurance lawyer, medical committee, disability-benefit and work-injury variants is still incomplete; the checked `תאונת עבודה` row showed zero visible rows.
+- BLOCKED: owner approval, side-by-side comparison, source/legal review, deeper GSC/SERP evidence, work-accident/personal-injury/employment boundary review and redirect/canonical/sitemap planning are required before title/H1/meta, URL, content-body, menu/taxonomy, related-card, lawyer-card or CMS changes.
+- SAFETY: repo documentation/CSV planning only; no live public content, national-insurance URL, redirect, sitemap, canonical, related-card, lawyer profile or CMS state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 14:40 Asia/Jerusalem
 - VERIFIED / REVIEW: prepared the cyber/privacy owner-approval packet as a no-URL-change primary-selection, cyber support, privacy support, criminal/cyber boundary and source/legal review planning decision.
 - CREATED: `project-control/cyber-privacy-owner-approval-packet.md`.

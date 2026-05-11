@@ -115,6 +115,34 @@ BLOCKED:
 - No URL migration, redirect, noindex, canonical, sitemap, content rewrite, or deletion may be executed from this overlay alone.
 - Owner approval and direct GSC/SERP review remain required before changing live public URLs or page bodies.
 
+## 2026-05-11 National Insurance Owner Approval Packet
+
+CREATED:
+- `project-control/national-insurance-owner-approval-packet.md`
+- `project-control/national-insurance-owner-approval-packet.csv`
+
+VERIFIED:
+- Practice area `ביטוח לאומי` exists at `/practice-areas/national-insurance/`, has slug `national-insurance`, description text and count `0`.
+- `category-map.csv` marks the practice area as `REVIEW_EMPTY_TERM` and proposes `national-insurance-lawyer`.
+- `url-migration-map.csv` proposes the old national-insurance calculator URL -> `/national-insurance-lawyer/`, but the status is `PROPOSED_ENGLISH_SLUG_NEEDS_REVIEW`.
+- The calculator has `1,778` words, quality `5/10`, and is best treated as calculator/tool support until owner approval.
+- The old national-insurance disability regulations page has `24,883` words, quality `4/10`, is outdated, and should be reviewed as source/law-text support rather than as a pillar by word count.
+- The checked `תאונת עבודה` GSC row showed zero visible rows, so work-accident demand remains a boundary topic with low verified signal.
+
+NOT VERIFIED:
+- Direct GSC/SERP evidence for `עורך דין ביטוח לאומי`, `ביטוח לאומי`, `ועדה רפואית`, `נכות כללית`, `תאונת עבודה ביטוח לאומי`, `פגיעה בעבודה` and `עורך דין תאונת עבודה`.
+- GA4 landing-page and conversion evidence.
+- Lawyer-directory mapping for national-insurance, disability-benefit, medical-committee and work-accident lawyers.
+
+RECOMMENDED:
+- Treat `/national-insurance-lawyer/` as a strategic future slug only.
+- Protect the calculator URL until tool strategy, source/legal review and traffic-risk review are complete.
+- Keep work accident as a boundary topic across personal injury, employment and national insurance until approved.
+- Run a direct GSC/SERP pass and side-by-side comparison before any public content, URL or internal-link action.
+
+BLOCKED:
+- No title/H1/meta, URL, redirect, noindex, canonical, sitemap, content-body, menu, taxonomy, breadcrumb, related-card, lawyer-card, CRM/review or CMS change may be executed from this packet alone.
+
 ## 2026-05-11 Cyber-Privacy Owner Approval Packet
 
 CREATED:

@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-NATIONAL-INSURANCE-OWNER-APPROVAL-001: Prepare national-insurance primary and boundary approval packet
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** National insurance is a required strategic cluster, but the current inventory only verifies an empty practice-area hub, a calculator/tool page, old law-text content and boundary pages. The future `/national-insurance-lawyer/` slug is proposed only and must not be created or migrated without approval.
+**Actions:**
+1. DONE: created `project-control/national-insurance-owner-approval-packet.md`.
+2. DONE: created `project-control/national-insurance-owner-approval-packet.csv`.
+3. VERIFIED: practice area `ביטוח לאומי` exists at `/practice-areas/national-insurance/` with count `0`, description text and status `REVIEW_EMPTY_TERM`.
+4. VERIFIED: `/national-insurance-lawyer/` is a proposed future target in `url-migration-map.csv`, not an approved current public pillar.
+5. VERIFIED: old calculator page `מחשבון דמי ביטוח לאומי ובריאות` has `1,778` words, quality score `5/10`, and should be protected until calculator/tool strategy is approved.
+6. VERIFIED: old national-insurance disability regulations page has `24,883` words, quality score `4/10`, is outdated, and should be source/legal support review rather than pillar by word count.
+7. VERIFIED: `תאונת עבודה` checked GSC row has `0` clicks and `0` impressions; work accident remains a personal-injury/employment/national-insurance boundary topic.
+8. RECOMMENDED: owner approval for no-URL-change national-insurance planning, direct GSC/SERP pass, source/legal review, calculator/tool role review, work-accident boundary review and internal-link planning.
+9. NEXT: if owner approves, compare `/practice-areas/national-insurance/`, the calculator URL, old disability regulations URL, `/income-protection-insurance/`, COVID unemployment-insurance page, `/pension-insurance-complete-guide/`, future `/national-insurance-lawyer/` and future `/work-accident-lawyer/`.
+10. BLOCKED: no public content edits, titles/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards, CRM/review changes or CMS writes until explicit owner approval.
+
 ### ACTION-CYBER-PRIVACY-OWNER-APPROVAL-001: Prepare cyber/privacy primary and boundary approval packet
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Cyber/privacy has no verified current `/cyber-privacy-lawyer/` pillar, the heuristic chose an FBI cyber article by word count, and direct GSC evidence is not yet verified for cyber/privacy terms.

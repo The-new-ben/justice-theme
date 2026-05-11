@@ -30,6 +30,18 @@ $pillars = array(
 		'link'  => justice_theme_safe_public_link( '/traffic-lawyer/', '/lawyers/?area=traffic-law' ),
 	),
 	array(
+		'title' => 'עורך דין רשלנות רפואית',
+		'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M12 3v18M3 12h18"/><rect x="4" y="5" width="16" height="14" rx="3"/><path d="M8 9h8M8 15h8"/></svg>',
+		'desc'  => 'בירור זכויות לאחר טיפול רפואי, אבחון שגוי, ניתוח או לידה',
+		'link'  => justice_theme_safe_public_link( '/medical-malpractice-lawyer/', '/lawyers/?area=medical-malpractice-law' ),
+	),
+	array(
+		'title' => 'עורך דין נזיקין',
+		'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M7 21h10M12 3v18"/><path d="M5 7h14l-3 6H8L5 7z"/><path d="M8 13l-2 4M16 13l2 4"/></svg>',
+		'desc'  => 'תאונות דרכים, תאונות עבודה, פציעות ותביעות פיצויים',
+		'link'  => justice_theme_safe_public_link( '/personal-injury-lawyer/', '/lawyers/?area=personal-injury-law' ),
+	),
+	array(
 		'title' => 'עורך דין מקרקעין',
 		'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M3 10.5L12 3l9 7.5V21H3V10.5z"/><rect x="9" y="14" width="6" height="7"/></svg>',
 		'desc'  => 'עסקאות נדל"ן, ליקויי בנייה, רישום טאבו ומיסוי מקרקעין',

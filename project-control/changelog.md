@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Homepage legal hub coverage
+
+- CODE FIXED: homepage featured pillars now include medical malpractice and personal injury/damages lawyer-intent cards.
+- CODE FIXED: homepage topic clusters now include medical malpractice, personal injury/damages, employment law, and inheritance/wills, not only family/criminal/real-estate/traffic.
+- CODE FIXED: all new homepage hub/support links use safe published-page checks with directory/topic fallbacks, so clean English slugs can be promoted without creating broken or duplicate URLs.
+- EXPECTED IMPACT: the homepage better supports broad legal-portal relevance and visibly links users toward the major lawyer-topic hubs requested in the integrated SEO/design strategy.
+- VERIFIED: PHP lint passed for 127 files using local PHP 8.5.6, and `git diff --check` passed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and public homepage desktop/mobile DOM check with marker `2026-05-11-homepage-hub-coverage-v1`.
+- SAFETY: no public article body, URL migration, redirect, sitemap, CRM record, lawyer data, review data, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Forced 404 verification headers
 
 - CODE FIXED: the homepage-fallback routing guard now emits `X-Justice-Route-Guard: forced-unknown-path-404` when it converts an unknown homepage-served path into a real 404.

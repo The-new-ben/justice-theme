@@ -37,10 +37,54 @@ $topics = array(
 		'links' => array(),
 	),
 	array(
+		'title' => 'רשלנות רפואית',
+		'slug'  => 'medical-malpractice-law',
+		'url'   => justice_theme_safe_public_link( '/medical-malpractice-lawyer/', '/lawyers/?area=medical-malpractice-law' ),
+		'links' => array(
+			array( 'label' => 'עורך דין רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			array( 'label' => 'רשלנות בלידה', 'url' => '/birth-malpractice/' ),
+			array( 'label' => 'רשלנות בהריון', 'url' => '/pregnancy-malpractice/' ),
+			array( 'label' => 'רשלנות באבחון', 'url' => '/diagnosis-malpractice/' ),
+		),
+	),
+	array(
+		'title' => 'נזיקין ותאונות',
+		'slug'  => 'personal-injury-law',
+		'url'   => justice_theme_safe_public_link( '/personal-injury-lawyer/', '/lawyers/?area=personal-injury-law' ),
+		'links' => array(
+			array( 'label' => 'עורך דין נזיקין', 'url' => '/personal-injury-lawyer/' ),
+			array( 'label' => 'תאונת דרכים', 'url' => '/car-accident-lawyer/' ),
+			array( 'label' => 'תאונת עבודה', 'url' => '/work-accident/' ),
+			array( 'label' => 'ביטוח לאומי', 'url' => '/national-insurance/' ),
+		),
+	),
+	array(
 		'title' => 'תעבורה',
 		'slug'  => 'traffic-law',
 		'url'   => justice_theme_safe_public_link( '/traffic-lawyer/', '/lawyers/?area=traffic-law' ),
 		'links' => array(),
+	),
+	array(
+		'title' => 'דיני עבודה',
+		'slug'  => 'labor-law',
+		'url'   => justice_theme_safe_public_link( '/employment-lawyer/', '/lawyers/?area=labor-law' ),
+		'links' => array(
+			array( 'label' => 'עורך דין דיני עבודה', 'url' => '/employment-lawyer/' ),
+			array( 'label' => 'זכויות עובדים', 'url' => '/employee-rights/' ),
+			array( 'label' => 'פיטורים', 'url' => '/wrongful-termination/' ),
+			array( 'label' => 'הסכם עבודה', 'url' => '/employment-agreement/' ),
+		),
+	),
+	array(
+		'title' => 'ירושה וצוואות',
+		'slug'  => 'inheritance-law',
+		'url'   => justice_theme_safe_public_link( '/inheritance-lawyer/', '/lawyers/?area=inheritance-law' ),
+		'links' => array(
+			array( 'label' => 'עורך דין ירושה', 'url' => '/inheritance-lawyer/' ),
+			array( 'label' => 'צוואה', 'url' => '/will/' ),
+			array( 'label' => 'התנגדות לצוואה', 'url' => '/will-contest/' ),
+			array( 'label' => 'ניהול עיזבון', 'url' => '/estate-administration/' ),
+		),
 	),
 );
 ?>

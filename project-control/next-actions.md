@@ -61,6 +61,17 @@
 7. NEXT: pull/deploy marker `2026-05-11-forced-404-header-signal-v1`, then verify public search, no-results, and a true 404 on desktop/mobile.
 8. NOT LIVE VERIFIED: no public deployment yet.
 
+### ACTION-HOMEPAGE-SEO-004: Expand homepage legal hub coverage
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** The homepage must support broad legal-portal relevance with visible entry points to all major lawyer-topic hubs, not only a subset of categories.
+**Actions:**
+1. DONE: featured pillar cards now include `עורך דין רשלנות רפואית` and `עורך דין נזיקין`.
+2. DONE: topic clusters now include `רשלנות רפואית`, `נזיקין ותאונות`, `דיני עבודה`, and `ירושה וצוואות`.
+3. DONE: new links use safe published-page checks and fall back to lawyer-directory/topic URLs when a clean English pillar slug is not live yet.
+4. VERIFIED IN CODE: no URLs were migrated, redirected, deleted or published as new content.
+5. NEXT: pull/deploy marker `2026-05-11-homepage-hub-coverage-v1`, then verify homepage desktop/mobile DOM includes the broad hub links.
+6. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-BRAND-001: Logo + Favicon + Search Branding
 **Status:** PARTIAL LIVE VERIFIED - wp-admin/search-result verification pending
 **Why:** Browser tabs, mobile bookmarks and Google search results need a stable, professional icon and final brand state.

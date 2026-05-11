@@ -21,6 +21,7 @@ Date: 2026-05-10
 - LIVE VERIFIED 2026-05-10 FOLLOW-UP: traffic link now uses `/lawyers/?area=traffic-law`, AI/intake link uses `/#ask-lawyer`, and the enriched ask-lawyer fields are public. Proof: `ask-lawyer-enriched-desktop-2026-05-10.png`, `ask-lawyer-enriched-mobile-2026-05-10.png`.
 - CODE FIXED / NOT LIVE VERIFIED: the remaining third-party mobile WhatsApp lead banner is now compacted to a 54px icon-only button in CSS; proof of live CSS simulation: `mobile-chat-widget-css-test-final-2026-05-10.png`.
 - CODE FIXED / NOT LIVE VERIFIED: featured-lawyer homepage section now requires a public-approved lawyer profile and no longer claims section-level verification.
+- CODE FIXED / NOT LIVE VERIFIED: homepage featured pillars and topic clusters now cover medical malpractice, personal injury/damages, employment law and inheritance/wills with safe fallbacks, improving the visible legal-portal hierarchy.
 - FIXED IN CODE: stronger hero copy, fallback favicon, fuller primary menu augmentation, mobile WhatsApp offset.
 - Status: NOT CUSTOMER-READY until live recheck and menu assignment.
 
@@ -133,7 +134,7 @@ FIXED IN CODE:
 - Targeted title issues: `Articles Archive`, `עורכי דין Archive`, `You searched for`.
 
 STILL LOOKS BAD / NEEDS WORK:
-- Homepage DOM did not expose approved target links for `/personal-injury-lawyer/`, `/traffic-lawyer/`, `/employment-lawyer/` or `/inheritance-lawyer/` in this pass.
+- CODE FIXED / NOT LIVE VERIFIED: homepage body sections now add/strengthen visible hub links for `/medical-malpractice-lawyer/`, `/personal-injury-lawyer/`, `/employment-lawyer/` and `/inheritance-lawyer/`; live pull and DOM/mobile QA still required.
 - `/articles/` title is still `Articles Archive | Jus-Tice.co.il` live until the code fix is deployed.
 - `/lawyers/` title is still `עורכי דין Archive | Jus-Tice.co.il` live until the code fix is deployed.
 - Search title is still `You searched for גירושין | Jus-Tice.co.il` live until the code fix is deployed.

@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 04:36 Asia/Jerusalem
+- CODE FIXED: homepage featured pillar cards now include visible entries for `עורך דין רשלנות רפואית` and `עורך דין נזיקין`, using safe published-page checks with lawyer-directory fallbacks.
+- CODE FIXED: homepage topic clusters now cover `רשלנות רפואית`, `נזיקין ותאונות`, `דיני עבודה`, and `ירושה וצוואות` in addition to family, criminal, real estate and traffic.
+- CODE FIXED: new supporting links use `justice_theme_safe_public_link()`, so unpublished clean English slugs fall back to safe topic/directory URLs instead of creating weak homepage redirects or broken links.
+- VERIFIED: PHP lint passed for 127 files using the provided local PHP 8.5.6 runtime, and `git diff --check` passed.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-homepage-hub-coverage-v1`; requires uPress pull/cache clear and a public homepage DOM/mobile visual check.
+- SAFETY: no public article body, URL migration, redirect, sitemap, wp-admin setting, lead/CRM record, lawyer data, review data or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 04:24 Asia/Jerusalem
 - CODE FIXED: forced homepage-fallback 404 responses now emit `X-Justice-Route-Guard: forced-unknown-path-404` so the routing guard can be verified cleanly after deployment.
 - CODE FIXED: the same forced 404 responses emit `X-Robots-Tag: noindex, nofollow` to avoid accidental indexing if a missing path is caught by the guard.

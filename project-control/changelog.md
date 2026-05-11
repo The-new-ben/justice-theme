@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Demo lawyer seed gates
+
+- CODE FIXED: legacy/demo lawyer admin-init seeders in `justice-core`, `ultra-justice-engine`, and `ultra-justice` now require explicit opt-in filters.
+- CODE FIXED: legacy `/seed-lawyers` and `/seed-reset` REST routes now require separate explicit opt-in filters in addition to admin capability.
+- EXPECTED IMPACT: wp-admin and REST usage will not silently recreate placeholder/demo lawyer profiles or trigger seed reset/import behavior during the audit-first content architecture project.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-demo-lawyer-seed-gates-v1`.
+- SAFETY: no lawyer record, content, URL, redirect, sitemap, canonical, taxonomy, CRM, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - REST write gates
 
 - CODE FIXED: custom REST content write routes (`update-meta`, `trash-post`) now require explicit opt-in filters in addition to admin capability.

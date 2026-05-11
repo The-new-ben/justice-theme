@@ -20,10 +20,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 add_action( 'admin_init', 'uj_maybe_auto_seed' );
 
 function uj_maybe_auto_seed(): void {
-	if ( get_option( 'uj_seeded_v5' ) ) {
+	if ( ! current_user_can( 'manage_options' ) || ! (bool) apply_filters( 'ultra_justice_enable_demo_lawyer_auto_seed', false ) ) {
 		return;
 	}
-	if ( ! current_user_can( 'manage_options' ) ) {
+	if ( get_option( 'uj_seeded_v5' ) ) {
 		return;
 	}
 
@@ -241,7 +241,7 @@ add_action( 'rest_api_init', function () {
 			return new WP_REST_Response( uj_run_seed(), 200 );
 		},
 		'permission_callback' => function () {
-			return current_user_can( 'manage_options' );
+			return current_user_can( 'manage_options' ) && (bool) apply_filters( 'ultra_justice_enable_demo_lawyer_rest_seed', false );
 		},
 	) );
 
@@ -254,7 +254,7 @@ add_action( 'rest_api_init', function () {
 			return new WP_REST_Response( array( 'ok' => true, 'message' => 'Seed flag cleared.' ), 200 );
 		},
 		'permission_callback' => function () {
-			return current_user_can( 'manage_options' );
+			return current_user_can( 'manage_options' ) && (bool) apply_filters( 'ultra_justice_enable_demo_lawyer_seed_reset', false );
 		},
 	) );
 } );

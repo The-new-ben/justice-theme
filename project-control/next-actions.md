@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-DEMO-LAWYER-SEED-SAFETY-001: Keep legacy demo lawyer seeders opt-in
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** The audit found public risk around seed/demo lawyers. Legacy seeding helpers must not recreate placeholder lawyer profiles, fake contact routes or Maya slug changes during ordinary wp-admin/REST use.
+**Actions:**
+1. DONE: `justice-core` admin-init demo lawyer seeding requires `justice_core_enable_demo_lawyer_auto_seed`.
+2. DONE: `ultra-justice-engine` admin-init demo lawyer seeding requires `ultra_justice_engine_enable_demo_lawyer_auto_seed`.
+3. DONE: `ultra-justice` admin-init demo lawyer seeding requires `ultra_justice_enable_demo_lawyer_auto_seed`.
+4. DONE: `/seed-lawyers` and `/seed-reset` REST routes in all three copies require separate explicit opt-in filters in addition to admin capability.
+5. VERIFIED: no default seed path can create/reset/import demo lawyer profiles without owner-approved filters.
+6. NEXT: pull/deploy marker `2026-05-11-demo-lawyer-seed-gates-v1`, then verify live source marker and keep any real lawyer imports in the approved data/import workflow.
+7. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-REST-SAFETY-001: Keep REST write/deploy helper routes opt-in
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** REST inspection helps the audit, but REST writes and theme-file write helpers must not mutate content or code unless explicitly enabled.

@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 05:01 Asia/Jerusalem
+- CODE FIXED: legacy/demo lawyer auto-seeders in `justice-core`, `ultra-justice-engine`, and `ultra-justice` now require explicit opt-in filters before they can create or update demo `justice_lawyer` profiles.
+- CODE FIXED: legacy `/seed-lawyers` and `/seed-reset` REST routes now require separate explicit opt-in filters in addition to admin capability.
+- WHY: demo/seed profiles, placeholder phones and automatic Maya slug changes must not quietly re-enter the live marketplace while the content architecture, lawyer trust and URL migration projects are in controlled audit mode.
+- VERIFIED: default behavior is no automatic demo lawyer seeding and no seed reset/import route access unless the owner intentionally enables the matching filters.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-demo-lawyer-seed-gates-v1`; public homepage still needs uPress pull/cache clear before this can be verified.
+- SAFETY: no lawyer profile, URL, redirect, content body, taxonomy term, sitemap, canonical, lead/CRM record, review data, wp-admin setting or database row was changed by this repo patch.
+
 ## LATEST WORK STATUS - 2026-05-11 04:50 Asia/Jerusalem
 - CODE FIXED: custom REST content write routes for `update-meta` and `trash-post` now require explicit opt-in filters (`uje_enable_rest_content_writes` / `uj_enable_rest_content_writes`) in addition to admin capability.
 - CODE FIXED: legacy agent bridge REST routes are disabled by default through `uje_enable_agent_bridge_rest` / `uj_enable_agent_bridge_rest`; theme file writes also require `uje_enable_agent_bridge_file_write` / `uj_enable_agent_bridge_file_write`.

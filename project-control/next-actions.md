@@ -20,6 +20,19 @@
 8. NEXT: use the overlay to update URL migration and redirect maps only as proposed plans after owner review.
 9. BLOCKED: do not execute URL changes, redirects, noindex, canonical changes, sitemap changes, content rewrites, content deletion, menu changes or CMS writes from this overlay alone.
 
+### ACTION-CHILD-SUPPORT-DECISION-001: Build child-support conflict decision packet
+**Status:** IN PROGRESS / REVIEW ONLY
+**Why:** `child-support` is the largest current target-slug conflict group and needs a clear primary/support/merge review before any migration or editorial rewrite.
+**Actions:**
+1. DONE: created `project-control/child-support-content-decision-packet.md`.
+2. DONE: created `project-control/child-support-conflict-review.csv`.
+3. VERIFIED: exact clean URL candidate exists at `https://jus-tice.co.il/child-support/`.
+4. VERIFIED: the clean page is a public guide candidate with word count `2,767`, heuristic quality `8/10`, and internal links into the family-law cluster.
+5. REVIEW: old long case-law/doctrine pages should be support or merge-review material, not automatic primary pages.
+6. NOT VERIFIED: direct GSC traffic for `מזונות ילדים`, `חישוב מזונות`, `מחשבון מזונות`, `בעמ 919/15`, `מזונות משותפת`, `הפחתת מזונות`, and `שינוי מזונות`.
+7. NEXT: run the targeted GSC filters, then update the child-support packet with clicks/impressions/CTR/position per URL.
+8. BLOCKED: no redirect, slug, noindex, canonical, sitemap, or content-body action until owner approval and legal/source review.
+
 ### ACTION-PUBLIC-HTTP-SCAN-001: Classify remaining first-party HTTP references
 **Status:** FIXED LIVE / MONITOR
 **Why:** After sampled related-card links were fixed, a broader public scan still found old first-party `http://jus-tice.co.il` references in rendered HTML and sitemap media URLs. These must be classified before any URL migration or GSC sitemap submission.

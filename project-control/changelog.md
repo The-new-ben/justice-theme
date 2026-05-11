@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Child support decision packet
+
+- CREATED: `project-control/child-support-content-decision-packet.md`.
+- CREATED: `project-control/child-support-conflict-review.csv`.
+- UPDATED: `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `child-support` is the largest current conflict group, with `30` rows and an exact clean URL candidate at `https://jus-tice.co.il/child-support/`.
+- VERIFIED: `/child-support/` is the likely public guide candidate, while old long case-law/doctrine pages should be support or merge-review material until GSC and legal/source review are complete.
+- NOT VERIFIED: direct GSC query filters for `מזונות ילדים`, `חישוב מזונות`, `מחשבון מזונות`, `בעמ 919/15`, `מזונות משותפת`, `הפחתת מזונות`, and `שינוי מזונות`.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Content decision evidence overlay
 
 - CREATED: `project-control/content-decision-evidence-overlay.csv`.

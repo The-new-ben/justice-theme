@@ -2,6 +2,16 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 11:44 Asia/Jerusalem
+- IN PROGRESS / REVIEW: created a focused child-support decision packet for the largest current target-slug conflict group.
+- CREATED: `project-control/child-support-content-decision-packet.md`.
+- CREATED: `project-control/child-support-conflict-review.csv`.
+- VERIFIED: `child-support` has `30` conflict rows and an exact clean URL candidate at `https://jus-tice.co.il/child-support/`.
+- VERIFIED: the clean page is a public guide candidate with public REST word count `2,767`, quality heuristic `8/10`, and existing internal links to divorce, custody, mediation, property division, family dispute resolution, consensual divorce, and family-law lawyer directory pages.
+- REVIEW: long old case-law/doctrine pages, including `בע״ם 919/15`, `בג״ץ 5988/21`, calculator/change-of-circumstances/court-jurisdiction content, should be treated as support or merge-review material, not automatic primary pages.
+- NOT VERIFIED: direct GSC filters for `מזונות ילדים`, `חישוב מזונות`, `בעמ 919/15`, `מזונות משותפת`, and related variants are still needed before approving URL or redirect actions.
+- SAFETY: no public content body, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, menu, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 11:34 Asia/Jerusalem
 - IN PROGRESS / REVIEW: created a first GSC/SERP evidence overlay that connects the refreshed content inventory and slug-conflict queues to existing Search Console browser evidence.
 - CREATED: `project-control/content-decision-evidence-overlay.csv`.

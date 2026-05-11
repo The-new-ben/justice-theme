@@ -114,3 +114,20 @@ VERIFIED:
 BLOCKED:
 - No URL migration, redirect, noindex, canonical, sitemap, content rewrite, or deletion may be executed from this overlay alone.
 - Owner approval and direct GSC/SERP review remain required before changing live public URLs or page bodies.
+
+## 2026-05-11 Child-Support Packet
+
+CREATED:
+- `project-control/child-support-content-decision-packet.md`
+- `project-control/child-support-conflict-review.csv`
+
+VERIFIED:
+- `child-support` is the largest conflict group in the first queue.
+- `/child-support/` is the clean public guide candidate.
+- Old case-law, doctrine, calculator, rabbinical-court and changed-circumstances pages need support/merge review rather than automatic primary selection.
+
+NOT VERIFIED:
+- Direct GSC traffic for child-support query variants.
+
+BLOCKED:
+- No child-support URL, redirect, noindex, canonical, sitemap or content rewrite action before GSC, source/legal review and owner approval.

@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 18:26 Asia/Jerusalem
+- VERIFIED / PERSONAL-INJURY PAGE DECISION MATRIX: created the review-only page-by-page decision matrix for damages, tort-law, car-accident, insurance, work-accident and US/international boundary pages.
+- CREATED: `project-control/personal-injury-page-decision-matrix-2026-05-11.md`.
+- CREATED: `project-control/personal-injury-page-decision-matrix-2026-05-11.csv`.
+- VERIFIED: `/tort-lawyer/` is classified as the current thin service candidate, while `/personal-injury-lawyer/` remains a future-only strategic slug.
+- VERIFIED: `/car-accident-auto-injury-lawyer/` is protected as the current GSC-visible car-accident candidate; `/car-accident-lawyer/` remains future-only pending migration map.
+- VERIFIED: `/punitive-damage/`, `/tort-reform/`, `/outline-of-tort-law/`, `/deep-pocket/`, `/israel-road-accident-compensation-law/` and `/compulsory-motor-vehicle-insurance/` are support/specialist pages, not approved broad pillars.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, canonical, sitemap, internal-link, related-card, menu, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+- NEXT: run side-by-side comparison or draft an approval-gated internal-link map after owner approves primary/support roles.
+
 ## LATEST WORK STATUS - 2026-05-11 18:17 Asia/Jerusalem
 - VERIFIED / PERSONAL-INJURY SOURCE-LEGAL CHECKLIST: created the review-only source/legal gate for damages, tort-law, car-accident, compulsory-insurance, work-accident, personal-accident and US/international boundaries.
 - CREATED: `project-control/personal-injury-source-legal-checklist-2026-05-11.md`.

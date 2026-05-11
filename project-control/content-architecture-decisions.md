@@ -128,6 +128,13 @@ Recommended action:
 - REVIEW: `/tort-lawyer/` is the current thin damages/service candidate; `/personal-injury-lawyer/` remains a strategic future slug only.
 - BLOCKED: no public title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this checklist alone.
 
+2026-05-11 personal-injury page decision matrix addendum:
+- VERIFIED: `project-control/personal-injury-page-decision-matrix-2026-05-11.md` and `.csv` classify the current and future personal-injury/damages URLs before any public execution.
+- VERIFIED: `/tort-lawyer/` is classified as current thin service candidate, `/car-accident-auto-injury-lawyer/` as the protected current GSC-visible car-accident page, `/punitive-damage/` as specialist support, and `/personal-injury-law/` as separate US/international content.
+- VERIFIED: `/personal-injury-lawyer/`, `/car-accident-lawyer/` and `/work-accident-lawyer/` remain future-only planning slugs, not approved current pages.
+- BLOCKED: exact old Hebrew/taxonomy verdict URL for `עורך דין נזיקין` still needs capture before redirect/canonical/noindex decisions.
+- NEXT: side-by-side comparison and internal-link map can be planned only after owner approves primary/support roles.
+
 ## Traffic Law
 
 Decision:

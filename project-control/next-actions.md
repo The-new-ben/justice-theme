@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PERSONAL-INJURY-PAGE-MATRIX-001: Classify personal-injury/damages pages page by page
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** After the source/legal gate, the personal-injury/damages cluster needed concrete page-level decisions so current service, support, specialist, international and future-slug roles are not mixed.
+**Actions:**
+1. DONE: created `project-control/personal-injury-page-decision-matrix-2026-05-11.md`.
+2. DONE: created `project-control/personal-injury-page-decision-matrix-2026-05-11.csv`.
+3. VERIFIED: `/tort-lawyer/` is the current thin service candidate and `/personal-injury-lawyer/` is future-only.
+4. VERIFIED: `/car-accident-auto-injury-lawyer/` is protected as the current GSC-visible car-accident page and `/car-accident-lawyer/` is future-only.
+5. VERIFIED: support/specialist pages are separated from broad service intent and `/personal-injury-law/` remains US/international separate.
+6. NEXT: run side-by-side comparison or prepare approval-gated internal-link map after owner chooses primary/support roles.
+7. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-PERSONAL-INJURY-SOURCE-LEGAL-001: Create source/legal gate for damages, tort and accident boundaries
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The personal-injury/damages cluster mixes broad service intent, tort-law concepts, car-accident pages, insurance pages, work-accident boundaries, personal-accident benefits and US/international content. It needs source and legal-review gates before any rewrite or URL migration.

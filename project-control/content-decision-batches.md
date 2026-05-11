@@ -508,6 +508,8 @@ BLOCKED:
 CREATED:
 - `project-control/personal-injury-source-legal-checklist-2026-05-11.md`
 - `project-control/personal-injury-source-legal-checklist-2026-05-11.csv`
+- `project-control/personal-injury-page-decision-matrix-2026-05-11.md`
+- `project-control/personal-injury-page-decision-matrix-2026-05-11.csv`
 
 VERIFIED:
 - The checklist maps source/legal gates for broad damages, tort lawyer intent, car accident, compulsory insurance, work accident, personal accident, tort concept pages and US personal-injury boundary content.
@@ -515,9 +517,10 @@ VERIFIED:
 - Source anchors include Knesset law PDFs, National Insurance work-injury and accident-injury pages, gov.il police accident confirmation and Ministry of Labor work-accident reporting.
 - `/car-accident-auto-injury-lawyer/` remains protected as the current visible car-accident candidate, while `/car-accident-lawyer/` remains a future clean slug only.
 - `/personal-injury-lawyer/` remains a strategic future slug only; `/tort-lawyer/` remains the current thin damages/service candidate to compare.
+- The page decision matrix now classifies every current/future URL into current service candidate, protected current GSC-visible page, future clean slug, legal support, insurance support, specialist support, international separate or migration-safety gate.
 
 RECOMMENDED:
-- Next safe step is a page decision matrix for the personal-injury/damages pages before any rewrite, migration or internal-link execution.
+- Next safe step is a side-by-side comparison and owner approval packet update for primary/support roles before any rewrite, migration or internal-link execution.
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards, CRM/review changes or CMS writes until explicit approval.

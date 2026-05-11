@@ -334,3 +334,19 @@ VERIFIED:
 
 BLOCKED:
 - No public content rewrite, title/H1/meta change, URL migration, redirect, canonical, sitemap, noindex, internal-link, related-card, menu, lawyer-card, CRM/review, wp-admin option or CMS/database action is approved by this addendum.
+
+## 2026-05-11 Page Decision Matrix Addendum
+
+CREATED:
+- `project-control/personal-injury-page-decision-matrix-2026-05-11.md`.
+- `project-control/personal-injury-page-decision-matrix-2026-05-11.csv`.
+
+VERIFIED:
+- The matrix classifies `/tort-lawyer/` as the current thin service candidate that must be compared before expansion.
+- The matrix classifies `/car-accident-auto-injury-lawyer/` as the protected current GSC-visible car-accident candidate.
+- The matrix classifies `/punitive-damage/`, `/tort-reform/`, `/outline-of-tort-law/`, `/deep-pocket/`, `/israel-road-accident-compensation-law/` and `/compulsory-motor-vehicle-insurance/` as support/specialist pages, not broad commercial pillars.
+- The matrix classifies `/personal-injury-law/` as separate US/international content.
+- The matrix keeps `/personal-injury-lawyer/`, `/car-accident-lawyer/` and `/work-accident-lawyer/` future-only until owner-approved primary selection and migration mapping.
+
+BLOCKED:
+- No public rewrite, URL migration, redirect, canonical, sitemap, title/H1/meta, internal link, related-card, menu, lawyer-card, CRM/review, wp-admin option or CMS/database action is approved by this addendum.

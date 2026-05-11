@@ -100,6 +100,19 @@ Status: PARTIAL LIVE VERIFIED. No public content, URL, redirect, sitemap, robots
 - EXPECTED IMPACT: real-estate pages should stop accepting international/Cyprus-style cards unless the source page is also international.
 - NOT LIVE VERIFIED: requires uPress pull/cache clear and repeat of the 2026-05-11 related-content sample.
 
+## 2026-05-11 Priority CMS Metadata Batch 001
+
+- CREATED: `project-control/related-content-cms-update-batch-001.csv`.
+- PURPOSE: convert the weak live related-content QA findings into specific CMS metadata work, without changing public article bodies in the repo.
+- SCOPE: four sampled pages from the 2026-05-11 live QA:
+  - `/find-lawyer-how-to-find-good-attorney/`
+  - `/drug-offenses-criminal-lawyer/`
+  - `/real-estate-lawyer-cost-2025/`
+  - `/mutual-divorce-agreement-2025/`
+- RECOMMENDED CMS FIELDS: set `content_cluster`, `parent_pillar_url`, and `manual_related_urls` for each row.
+- NOT EXECUTED: no CMS metadata was updated from this repo session.
+- OWNER APPROVAL REQUIRED: yes, because even metadata changes can alter public related-card output.
+
 ## 2026-05-10 Implementation Notes
 
 - CODE FIXED: `inc/related-content.php` now collects related cards through a semantic ladder:

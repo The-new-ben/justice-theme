@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 03:41 Asia/Jerusalem
+- DOCUMENTED: created `project-control/related-content-cms-update-batch-001.csv` for four priority pages whose live related cards need explicit CMS metadata.
+- DOCUMENTED: batch 001 specifies `content_cluster`, `parent_pillar_url`, and `manual_related_urls` for the general lawyer-selection article, drug-offenses article, real-estate cost article, and mutual-divorce-agreement article.
+- DOCUMENTED: updated related-content strategy and implementation report so the next CMS/admin pass has a concrete metadata update list instead of a vague "fix related cards" note.
+- VERIFIED: docs-only CSV/header/content checks passed locally.
+- NOT LIVE VERIFIED / NOT EXECUTED: no WordPress article body, CMS metadata, URL, redirect, taxonomy term, lawyer record, lead/CRM record, review data, wp-admin setting or database row was changed.
+- NEXT: after owner approval and wp-admin/REST write access, apply the metadata batch and then repeat the 2026-05-11 related-content visual QA sample.
+
 ## LATEST WORK STATUS - 2026-05-11 03:31 Asia/Jerusalem
 - CODE FIXED: header topic-strip fallbacks for personal injury/damages and inheritance now route to canonical lawyer-directory filters instead of old standalone fallback paths.
 - CODE FIXED: homepage inheritance pillar fallback now also routes to the canonical inheritance lawyer-directory filter until the clean pillar page is published.

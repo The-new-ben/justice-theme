@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Related-content CMS metadata batch 001
+
+- DOCUMENTED: created `project-control/related-content-cms-update-batch-001.csv`.
+- DOCUMENTED: the batch turns live QA findings into concrete metadata instructions for four priority pages: general lawyer selection, drug offenses, real-estate cost, and mutual divorce agreement.
+- DOCUMENTED: each row includes `content_cluster`, `parent_pillar_url`, and `manual_related_urls` recommendations.
+- EXPECTED IMPACT: after owner-approved CMS metadata update, related cards should stop relying on broad taxonomy fallback for those sampled pages.
+- NOT EXECUTED: no public article body, CMS metadata, URL, redirect, taxonomy, CRM, review, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Navigation area fallback normalization
 
 - CODE FIXED: header topic-strip fallbacks for personal injury/damages and inheritance now point to canonical lawyer-directory filters instead of older bare fallback paths.

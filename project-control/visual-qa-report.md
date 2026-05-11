@@ -28,6 +28,7 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - VERIFIED: public sampled bodies did not show internal markers such as `NOT VERIFIED`, source-audit labels or developer/owner notes.
 - EVIDENCE: `project-control/visual-evidence/related-content-live-qa-2026-05-11.json` and `related-content-*-2026-05-11.png`.
 - PARTIAL QUALITY: general and criminal article samples still show off-intent related cards (`ai-for-law-firms`, `business-license`, `australia-lawyers`). The real-estate sample includes a weak Cyprus pricing match.
+- DOCUMENTED / NOT EXECUTED: `project-control/related-content-cms-update-batch-001.csv` now lists exact CMS metadata values to fix these four sampled pages without editing article bodies.
 - CODE FIXED / NOT LIVE VERIFIED: article internal review/status panels are now editor-only in `single-articles.php`; requires uPress pull/cache clear and source check for marker `2026-05-11-public-article-note-guard-v1`.
 - CODE FIXED V2 / NOT LIVE VERIFIED: taxonomy fallback now has an inferred cluster gate, intended to prevent those off-intent related cards after the next pull. Verify against marker `2026-05-11-related-cluster-gate-v1`.
 

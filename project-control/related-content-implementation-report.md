@@ -27,6 +27,14 @@ Related articles are part of the SEO and user journey. A visitor reading about a
 - No URL, slug, redirect, canonical, sitemap, robots, wp-admin, CRM or database action was changed.
 - No article was published or deleted.
 
+## 2026-05-11 CMS Metadata Batch 001
+
+- CREATED: `project-control/related-content-cms-update-batch-001.csv`.
+- STATUS: READY_FOR_CMS_METADATA_UPDATE_NO_CONTENT_BODY_CHANGE.
+- WHY: live related-content QA showed unrelated cards on general lawyer-selection, criminal/drug-offense, and real-estate cost pages.
+- WHAT TO SET IN CMS: `content_cluster`, `parent_pillar_url`, and `manual_related_urls`.
+- NOT EXECUTED: no WordPress metadata, article body, URL, redirect, taxonomy or database row was changed from this repo session.
+
 ## Next
 
 1. Fill CMS metadata for priority articles: `manual_related_urls`, `parent_pillar_url`, `content_cluster`.

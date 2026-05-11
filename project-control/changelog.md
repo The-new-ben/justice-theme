@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Public first-party HTTP scan baseline
+
+- CREATED: `tools/check-public-http-internal-links.ps1`.
+- CREATED: `project-control/public-http-internal-link-scan-2026-05-11.csv`.
+- CREATED: `project-control/public-http-internal-link-scan-review.md`.
+- VERIFIED TOOLING: scanner checks public rendered HTML plus sitemap index/child XML for remaining `http://jus-tice.co.il` references.
+- REVIEW FINDING: bounded scan found 199 remaining first-party HTTP references: 122 in rendered HTML pages and 77 in sitemap child XML.
+- REVIEW FINDING: 118 findings are internal page/category/article URLs and 81 are media upload URLs.
+- DECISION: classify source ownership before remediation; do not treat this as URL migration or redirect approval.
+- SAFETY: no content body, CMS metadata, URL slug, redirect, sitemap inclusion rule, canonical setting, taxonomy, lawyer, CRM, review, plugin state, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Public template HTTPS link normalization
 
 - PUSHED: `3b99fbb` (`Normalize public template links to HTTPS`) to GitHub main.

@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 10:33 Asia/Jerusalem
+- IN PROGRESS / REVIEW: added a read-only broad public scanner for remaining first-party `http://jus-tice.co.il` references after the template HTTPS fix.
+- VERIFIED TOOLING: `tools/check-public-http-internal-links.ps1` produced `project-control/public-http-internal-link-scan-2026-05-11.csv`.
+- REVIEW FINDING: bounded scan found 199 remaining first-party HTTP references: 122 in rendered HTML pages and 77 in child sitemap XML.
+- REVIEW FINDING: 118 findings are internal page/category/article URLs and 81 are media upload URLs under `/wp-content/uploads/`.
+- NOT FIXED YET: findings now need source classification before remediation: theme output, menu output, content body, media upload, SEO-plugin sitemap output, or unknown.
+- SAFETY: this pass was read-only plus repo tooling/docs; no public content body, CMS metadata, URL slug, redirect, sitemap inclusion rule, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 10:10 Asia/Jerusalem
 - FIXED LIVE: public template links now explicitly normalize first-party permalinks to HTTPS before rendering cards, lawyer links, LegalTech cards, schema URLs and cluster links.
 - LIVE DEPLOYMENT VERIFIED: uPress Git log shows top commit `3b99fbb` (`Normalize public template links to HTTPS`).

@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Public First-Party HTTP Scan QA
+- VERIFIED TOOLING: `tools/check-public-http-internal-links.ps1` produced `project-control/public-http-internal-link-scan-2026-05-11.csv`.
+- REVIEW FINDING: the bounded public scan found 199 remaining first-party `http://jus-tice.co.il` references.
+- REVIEW FINDING: 122 findings are in rendered HTML pages and 77 are in sitemap child XML.
+- REVIEW FINDING: 118 findings are internal page/category/article URLs and 81 are media upload URLs.
+- NOT FIXED YET: this is a source-level scan, not a visual design change or migration action.
+- NEXT QA: classify finding ownership, apply only approved display-level fixes first, then rerun the scanner and capture screenshots if visible navigation/template areas change.
+- SAFETY: no content, URL, redirect, sitemap setting, canonical, taxonomy, lawyer, CRM, review or plugin state was changed.
+
 ## 2026-05-11 Public Template HTTPS Link QA
 - LIVE DEPLOYMENT VERIFIED: uPress Git log showed commit `3b99fbb` (`Normalize public template links to HTTPS`) as live HEAD.
 - LIVE VERIFIED: static deployment marker returned `2026-05-11-public-link-https-normalization-v1`.

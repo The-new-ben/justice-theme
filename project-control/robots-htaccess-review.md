@@ -5,6 +5,14 @@ Status: REVIEW V2 - robots fixed live; redirects/htaccess unchanged
 
 ## Current Public Checks
 
+2026-05-11 BROAD PUBLIC HTTP SCAN:
+- IN PROGRESS / REVIEW: added `tools/check-public-http-internal-links.ps1` and generated `project-control/public-http-internal-link-scan-2026-05-11.csv`.
+- REVIEW FINDING: bounded scan found 199 remaining first-party `http://jus-tice.co.il` references after the sampled related-card HTTPS fix.
+- REVIEW FINDING: 122 findings are in rendered HTML pages; 77 are in child sitemap XML.
+- REVIEW FINDING: 118 findings are internal page/category/article URLs; 81 are media upload URLs.
+- INTERPRETATION: the site still needs source classification and display-level cleanup before final URL migration/GSC submission confidence.
+- SAFETY: no `.htaccess`, redirect, URL migration, stored content, canonical, sitemap setting, taxonomy, lawyer, CRM, review, wp-admin option or database change was made.
+
 2026-05-11 ROOT ROBOTS FIX:
 - FIXED LIVE: uPress root `robots.txt` was edited from a zero-byte static file into a conservative crawl file.
 - VERIFIED BEFORE FIX: `https://jus-tice.co.il/robots.txt?codex_check=...` returned HTTP 200 with length 0.

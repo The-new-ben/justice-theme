@@ -5,6 +5,14 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
 
 ## Current Evidence
 
+2026-05-11 BROAD PUBLIC HTTP SCAN:
+- IN PROGRESS / REVIEW: `tools/check-public-http-internal-links.ps1` now checks public HTML and sitemap XML for first-party HTTP references.
+- REVIEW FINDING: `project-control/public-http-internal-link-scan-2026-05-11.csv` records 199 remaining first-party HTTP references in the bounded sample.
+- REVIEW FINDING: 77 findings are in sitemap child XML, mostly media upload URLs.
+- REVIEW FINDING: rendered HTML still exposes some first-party HTTP internal page/category/article links.
+- DECISION: the content/URL migration project must include a source-classified HTTPS cleanup map before GSC sitemap submission is treated as clean.
+- SAFETY: this scan did not add, remove, redirect, migrate, noindex, canonicalize or edit any URL.
+
 2026-05-11 ROBOTS STATIC FILE FIX:
 - FIXED LIVE: root `robots.txt` now advertises `https://jus-tice.co.il/sitemap_index.xml`.
 - VERIFIED LIVE: `robots.txt?codex_verify=...` returns HTTP 200, length 268, includes the sitemap directive, has no global `Disallow: /`, and does not block theme/CSS assets.

@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PUBLIC-HTTP-SCAN-001: Classify remaining first-party HTTP references
+**Status:** IN PROGRESS / REVIEW FINDINGS
+**Why:** After sampled related-card links were fixed, a broader public scan still found old first-party `http://jus-tice.co.il` references in rendered HTML and sitemap media URLs. These must be classified before any URL migration or GSC sitemap submission.
+**Actions:**
+1. DONE: added `tools/check-public-http-internal-links.ps1`.
+2. DONE: generated `project-control/public-http-internal-link-scan-2026-05-11.csv`.
+3. VERIFIED: scanner is read-only and records source page, occurrence URL, occurrence type, attribute/context and notes.
+4. REVIEW: bounded scan found 199 remaining first-party HTTP references: 122 from rendered HTML and 77 from sitemap child XML.
+5. REVIEW: 118 findings are internal page/category/article URLs and 81 are `/wp-content/uploads/` media URLs.
+6. NEXT: classify findings as THEME_OUTPUT, MENU_OUTPUT, CONTENT_BODY, MEDIA_UPLOAD, SEO_PLUGIN_SITEMAP or UNKNOWN.
+7. NEXT: fix theme-owned render output first, then plan CMS/media/plugin cleanup separately.
+8. SAFETY: do not run bulk database replacement, redirects, slug changes, noindex changes or sitemap removals from this scan alone.
+
 ### ACTION-PUBLIC-LINK-HTTPS-001: Keep public frontend internal links on HTTPS
 **Status:** FIXED LIVE - monitor with future template changes
 **Why:** Related-content QA showed public card links still rendering `http://jus-tice.co.il/...` even after sitemap/canonical HTTPS work. Mixed-protocol internal links create crawl noise before controlled URL migration.

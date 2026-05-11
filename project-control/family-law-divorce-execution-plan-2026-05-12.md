@@ -102,7 +102,7 @@ Current review queue:
 - `58` Family/Divorce URL or URL-reference items.
 - `82` planned internal-link/control rows.
 - `13` owner-review decisions.
-- `23` minimum pre-upload checklist rows.
+- `33` minimum pre-upload checklist rows.
 
 ## Duplicate Page Comparison Update
 
@@ -177,6 +177,22 @@ VERIFIED:
 NEXT:
 - Owner approves disclaimer/CTA rules with the upload package.
 - After any preview or public update, QA must verify visible disclaimers, safe CTA copy and no fake trust/schema signals.
+
+## Protected Document / Tool Asset Update
+
+VERIFIED:
+- `project-control/family-divorce-protected-assets-strategy-2026-05-12.md` and `.csv` now define the first-wave protected asset rules.
+- `16` rows cover the divorce PDF, mediation DOCX, child-support calculator, 919/15 case-law asset, what-is-child-custody article, ChildCustody PDF, sole-mother custody case reference and post-upload QA gates.
+- `FAM-UPLOAD-003`, `FAM-UPLOAD-004`, `FAM-UPLOAD-005` and `FAM-UPLOAD-006` are now planning-verified, not execution-approved.
+
+Decision:
+- These assets stay live and protected during the first upload.
+- They should not be redirected, noindexed, deleted, replaced, promoted as safe templates or used for fake tool/schema claims.
+- GSC API export and owner approval are still required before any URL, document, sitemap, noindex, canonical or deletion decision.
+
+NEXT:
+- Include the protected asset list in the Family/Divorce owner upload package.
+- After any preview or public update, verify the protected assets still resolve as expected.
 
 ## Old Pages To Keep / Protect
 

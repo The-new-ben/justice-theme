@@ -19,10 +19,11 @@ VERIFIED:
 - The `/divorce-lawyer/` related-content boundary plan now defines `20` allowed/blocked related-card rows before any public upload.
 - The Family/Divorce taxonomy/category plan now defines `22` first-wave decisions before any public upload.
 - The Family/Divorce disclaimer/CTA policy now defines `20` page, CTA, trust-language and schema-safety rules before any public upload.
+- The Family/Divorce protected-asset strategy now defines `16` document, tool, case-law and QA rows before any public upload.
+- Divorce PDF, mediation DOCX, child-support calculator, custody article, custody PDF and custody case-law assets are planning-protected.
 
 NOT VERIFIED:
 - GSC API export.
-- Final document strategy for PDF/DOCX/calculator/case-law URLs.
 - Live post-upload QA, because upload has not happened.
 
 VERIFIED:
@@ -51,6 +52,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 18. Approve `/divorce-lawyer/` manual related-content allowlist and blocked related-card categories.
 19. Approve first-wave taxonomy/category rules and verify actual `practice-areas` assignments after any draft import or public update.
 20. Approve first-wave disclaimer/CTA rules and verify visible disclaimers, safe CTAs and no fake trust/schema signals after any preview or public update.
+21. Approve protected document/tool/case URL rules and verify protected assets after any preview or public update.
+22. Run GSC API export for protected Family/Divorce assets before any redirect, noindex, deletion, canonical or sitemap removal action.
 
 ## Current Recommendation
 

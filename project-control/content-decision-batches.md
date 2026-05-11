@@ -14,6 +14,24 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Family / Divorce Protected Asset Strategy
+
+CREATED:
+- `project-control/family-divorce-protected-assets-strategy-2026-05-12.md`
+- `project-control/family-divorce-protected-assets-strategy-2026-05-12.csv`
+
+VERIFIED:
+- `16` protected asset rows now cover Family/Divorce PDFs, DOCX, calculator, custody article, case-law and post-upload QA gates.
+- Divorce PDF, mediation DOCX, child-support calculator, what-is-child-custody article, ChildCustody PDF and sole-mother custody case reference stay protected during the first upload.
+- `FAM-UPLOAD-003`, `FAM-UPLOAD-004`, `FAM-UPLOAD-005` and `FAM-UPLOAD-006` are planning-verified, not execution-approved.
+
+RECOMMENDED:
+- Keep protected assets live while the first clean Family/Divorce pages are prepared.
+- Use GSC API export and owner approval before any redirect, noindex, canonical, deletion, media removal or sitemap-removal decision.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Family / Divorce Disclaimer CTA Policy
 
 CREATED:

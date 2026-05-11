@@ -1,10 +1,10 @@
 check_id,gate,required_before_upload,current_status,verification_method,next_step,notes
 FAM-UPLOAD-001,Compare /divorce-lawyer/ with old Hebrew divorce article,YES,VERIFIED,Side-by-side content and GSC risk comparison,Use comparison before upload decision,Old Hebrew URL has known GSC value and must be protected short term
 FAM-UPLOAD-002,Decide old Hebrew divorce URL treatment,YES,BLOCKED,Owner approval plus redirect/canonical plan,Keep live until approved,No redirect or canonical change yet
-FAM-UPLOAD-003,Decide divorce PDF strategy,YES,NOT VERIFIED,Document URL review and GSC evidence,Compare PDF with pillar/support content,Do not remove or noindex document yet
-FAM-UPLOAD-004,Decide mediation DOCX strategy,YES,NOT VERIFIED,Document URL review and GSC evidence,Compare DOCX with mediation page,Do not remove or noindex document yet
-FAM-UPLOAD-005,Decide child-support calculator relationship,YES,PARTIAL,Compare old calculator URL with /child-support/,Keep calculator protected,Calculator may own child-support calculation demand
-FAM-UPLOAD-006,Decide custody article/PDF/case-law relationship,YES,PARTIAL,Compare current custody assets with /child-custody/,Keep custody assets protected,Do not redirect case-law/document URLs blindly
+FAM-UPLOAD-003,Decide divorce PDF strategy,YES,VERIFIED PLANNING,Protected asset strategy plus GSC browser evidence,Keep PDF protected until GSC API and owner approval,Do not remove noindex redirect or promote document yet
+FAM-UPLOAD-004,Decide mediation DOCX strategy,YES,VERIFIED PLANNING,Protected asset strategy plus document-risk review,Keep DOCX protected until GSC API owner and legal review,Do not promote as safe template or remove/noindex/redirect yet
+FAM-UPLOAD-005,Decide child-support calculator relationship,YES,VERIFIED PLANNING,Protected asset strategy plus child-support packet,Keep calculator URL protected as tool intent,Do not redirect noindex delete or claim binding formula yet
+FAM-UPLOAD-006,Decide custody article/PDF/case-law relationship,YES,VERIFIED PLANNING,Protected asset strategy plus custody packet,Keep custody article PDF and case-law assets protected,Do not redirect noindex delete or overwrite custody assets yet
 FAM-UPLOAD-007,Confirm pillar role for /divorce-lawyer/,YES,VERIFIED PLANNING,Review owner package and current URL readiness,Approve or revise role,Planning only not public execution
 FAM-UPLOAD-008,Confirm support page roles,YES,VERIFIED PLANNING,Review six support pages,Approve roles before upload,Support pages must not duplicate pillar
 FAM-UPLOAD-009,Check duplicate title and H1 intent,YES,PARTIAL VERIFIED,Live/source metadata scan for six divorce-lawyer duplicate pages,Run final title/H1 scan after approved copy import,Main divorce-lawyer duplicate group is verified; support pages still need final post-copy scan
@@ -30,3 +30,5 @@ FAM-UPLOAD-028,Approve /divorce-lawyer/ manual related-content allowlist,YES,VER
 FAM-UPLOAD-029,Verify post-upload related cards,YES,BLOCKED,Live or preview related-card QA after upload,Confirm only allowed current clean URLs appear,No upload or preview exists yet
 FAM-UPLOAD-030,Verify post-import taxonomy assignments,YES,BLOCKED,Preview/live taxonomy QA after draft import or public update,Confirm approved practice-areas and no noisy legacy/city/inheritance terms,No upload or preview exists yet
 FAM-UPLOAD-031,Verify visible disclaimers and safe CTAs,YES,BLOCKED,Preview/live content QA after draft import or public update,Confirm visible disclaimers CTA disclaimer urgent-risk caution no fake trust and no review schema,No upload or preview exists yet
+FAM-UPLOAD-032,Verify protected document tool and case URLs after upload,YES,BLOCKED,Preview/live URL check after draft import or public update,Confirm protected PDF DOCX calculator article and case assets remain reachable,No upload or preview exists yet
+FAM-UPLOAD-033,Run GSC API protected asset export before URL actions,YES,BLOCKED,GSC API page-query export,Export protected asset metrics before any redirect noindex deletion or canonical action,GSC API access not connected yet

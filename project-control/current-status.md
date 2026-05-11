@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-12 04:05 Asia/Jerusalem
+- VERIFIED / FAMILY-DIVORCE PROTECTED ASSETS STRATEGY: created the first-wave protected document, tool and case-law strategy for the controlled Family/Divorce upload.
+- CREATED: `project-control/family-divorce-protected-assets-strategy-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-protected-assets-strategy-2026-05-12.csv`.
+- VERIFIED: `16` protected asset rows now cover the divorce PDF, mediation DOCX, child-support calculator, 919/15 case-law asset, what-is-child-custody article, ChildCustody PDF, sole-mother custody case reference and upload QA gates.
+- VERIFIED: `FAM-UPLOAD-003`, `FAM-UPLOAD-004`, `FAM-UPLOAD-005` and `FAM-UPLOAD-006` are now `VERIFIED PLANNING`; this protects assets but does not approve execution.
+- BLOCKED: GSC API export and owner approval are still required before any redirect, noindex, deletion, canonical, sitemap-removal, media-file, document-template, calculator/tool or public content action.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 03:45 Asia/Jerusalem
 - VERIFIED / FAMILY-DIVORCE DISCLAIMER CTA POLICY: created the disclaimer, CTA and trust-language gate for the first controlled Family/Divorce upload.
 - CREATED: `project-control/family-divorce-disclaimer-cta-policy-2026-05-12.md`.

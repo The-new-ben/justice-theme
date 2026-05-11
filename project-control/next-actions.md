@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-PROTECTED-ASSETS-001: Plan first-wave protected document tool and case-law assets
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Family/Divorce can move faster cluster by cluster, but PDFs, DOCX files, calculator URLs and case-law assets with search visibility must stay protected during the first upload.
+**Actions:**
+1. DONE: created `project-control/family-divorce-protected-assets-strategy-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-protected-assets-strategy-2026-05-12.csv`.
+3. VERIFIED: `16` protected asset rows cover the divorce PDF, mediation DOCX, child-support calculator, 919/15 case-law, custody article, custody PDF, sole-mother custody case reference and post-upload QA gates.
+4. VERIFIED: `FAM-UPLOAD-003`, `FAM-UPLOAD-004`, `FAM-UPLOAD-005` and `FAM-UPLOAD-006` are now planning-verified, not execution-approved.
+5. NEXT: run GSC API export when access is available and include protected asset verification in the first Family/Divorce upload QA package.
+6. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-FAMILY-DIVORCE-DISCLAIMER-CTA-001: Plan first-wave Family/Divorce disclaimers and safe CTAs
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The first Family/Divorce upload needs visible no-legal-advice disclaimers, safe lead language, urgent-risk caution and no fake trust/rating/recommendation claims.

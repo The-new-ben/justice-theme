@@ -2700,3 +2700,17 @@
 - VERIFIED: `מתקפת סייבר`, `לשון הרע באינטרנט`, and `מחיקת מידע` returned no visible rows.
 - BLOCKED: GSC screenshot capture timed out for this pass, so evidence is text-metric based.
 - BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
+## 2026-05-12 - Family/Divorce protected asset strategy
+
+- CREATED: `project-control/family-divorce-protected-assets-strategy-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-protected-assets-strategy-2026-05-12.csv`.
+- UPDATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md`.
+- UPDATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.csv`.
+- UPDATED: `project-control/family-law-divorce-execution-plan-2026-05-12.md`.
+- UPDATED: `project-control/content-decision-batches.md`.
+- UPDATED: project-control status and action files.
+- VERIFIED: `16` protected asset rows now cover the divorce PDF, mediation DOCX, child-support calculator, 919/15 case-law asset, what-is-child-custody article, ChildCustody PDF, sole-mother custody case reference and post-upload QA gates.
+- VERIFIED: `FAM-UPLOAD-003`, `FAM-UPLOAD-004`, `FAM-UPLOAD-005` and `FAM-UPLOAD-006` are planning-verified, not execution-approved.
+- BLOCKED: GSC API export and owner approval are still required before any redirect, noindex, deletion, canonical, sitemap-removal, media-file, document-template, calculator/tool or public content action.
+- SAFETY: no public content body, title/H1/meta, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, internal link, related-card, document/media file, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.

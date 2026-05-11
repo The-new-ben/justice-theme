@@ -3,6 +3,8 @@
 
 ## 2026-05-11 - Public first-party HTTP scan baseline
 
+- PUSHED: `88a92f0` (`Add public HTTP link scan baseline`) to GitHub main.
+- VERIFIED UPRESS PULL: uPress Git log shows `(HEAD -> main, origin/main, origin/HEAD) Add public HTTP link scan baseline`.
 - CREATED: `tools/check-public-http-internal-links.ps1`.
 - CREATED: `project-control/public-http-internal-link-scan-2026-05-11.csv`.
 - CREATED: `project-control/public-http-internal-link-scan-review.md`.

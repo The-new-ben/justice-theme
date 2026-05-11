@@ -4,6 +4,14 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest public HTTP scan baseline sync:
+
+- VERIFIED UPRESS PULL: uPress Git log shows top commit `88a92f0` (`Add public HTTP link scan baseline`).
+- SCOPE: docs/tooling sync only; no public PHP/CSS/template behavior changed in this commit.
+- VERIFIED TOOLING: `tools/check-public-http-internal-links.ps1` produced `project-control/public-http-internal-link-scan-2026-05-11.csv`.
+- REVIEW FINDING: bounded scan found 199 remaining first-party HTTP references in public output/sitemap samples.
+- SAFETY: no WordPress content, metadata, URL slug, redirect, sitemap inclusion rule, canonical setting, taxonomy, lawyer, lead/CRM, review, plugin-state, wp-admin setting or database row was changed.
+
 Latest public template HTTPS link normalization:
 
 - VERIFIED UPress PULL: uPress Git log shows top commit `3b99fbb` (`Normalize public template links to HTTPS`).

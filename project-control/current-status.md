@@ -2,8 +2,10 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
-## LATEST WORK STATUS - 2026-05-11 10:33 Asia/Jerusalem
+## LATEST WORK STATUS - 2026-05-11 10:40 Asia/Jerusalem
 - IN PROGRESS / REVIEW: added a read-only broad public scanner for remaining first-party `http://jus-tice.co.il` references after the template HTTPS fix.
+- PUSHED: `88a92f0` (`Add public HTTP link scan baseline`) to GitHub main.
+- VERIFIED UPRESS PULL: uPress Git log shows top commit `88a92f0` (`Add public HTTP link scan baseline`).
 - VERIFIED TOOLING: `tools/check-public-http-internal-links.ps1` produced `project-control/public-http-internal-link-scan-2026-05-11.csv`.
 - REVIEW FINDING: bounded scan found 199 remaining first-party HTTP references: 122 in rendered HTML pages and 77 in child sitemap XML.
 - REVIEW FINDING: 118 findings are internal page/category/article URLs and 81 are media upload URLs under `/wp-content/uploads/`.

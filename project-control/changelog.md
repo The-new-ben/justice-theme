@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - uPress Git pull verified
+
+- VERIFIED LIVE: accessed uPress File Manager, opened `ניהול GIT` for `/wp-content/themes/justice-theme`, confirmed clean Git status and ran Git pull.
+- VERIFIED LIVE: uPress Git log now shows top commit `c992fd2` (`Document reviews compliance alias`), matching GitHub `main`.
+- VERIFIED LIVE: public static deployment marker now returns `2026-05-11-robots-sitemap-directive-v1`, and homepage source includes the same marker.
+- BLOCKED / NOT FIXED BY PULL: public `robots.txt` still returns HTTP 200 with empty body; this needs static/server/plugin robots investigation.
+- BLOCKED / NOT FIXED BY PULL: Rank Math child sitemap XML still exposes HTTP loc values after deployment, likely requiring sitemap cache/settings flush.
+- DOCUMENTED: created `project-control/upress-git-pull-workflow.md`.
+- SAFETY: no content, URL, redirect, sitemap setting, robots/htaccess file, taxonomy, canonical setting, CRM, lawyer, review or database data was changed by this repo documentation patch; the live action was the requested Git pull only.
+
 ## 2026-05-11 - Reviews compliance alias hardening
 
 - DOCUMENTED: expanded `project-control/reviews-compliance-risk.md` into an owner-facing compliance summary for the lawyer reviews, ratings, reputation and trust module.

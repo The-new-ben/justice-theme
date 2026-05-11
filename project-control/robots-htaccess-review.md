@@ -5,6 +5,13 @@ Status: REVIEW V1 - no live server changes executed
 
 ## Current Public Checks
 
+2026-05-11 POST-PULL UPDATE:
+- VERIFIED LIVE: uPress pull deployed the latest theme marker `2026-05-11-robots-sitemap-directive-v1`.
+- VERIFIED LIVE: `https://jus-tice.co.il/robots.txt` still returns HTTP 200 with zero-length body.
+- INTERPRETATION: the theme `robots_txt` filter is live in code but is not controlling the public robots response. A static/server/plugin/cached robots layer is likely intercepting or replacing output; exact source is NOT VERIFIED.
+- BLOCKED: do not submit `/robots.txt` as "fixed" until it includes `Sitemap: https://jus-tice.co.il/sitemap_index.xml` and does not block CSS/JS/public content.
+- NEXT SAFE ACTION: inspect uPress webroot / WordPress SEO plugin settings / cache layer for the empty robots source before editing any robots or htaccess file.
+
 VERIFIED:
 - `https://jus-tice.co.il/robots.txt` returned HTTP 200 from the public web.
 - `https://jus-tice.co.il/sitemap_index.xml` returned valid XML and appears to be the active sitemap index.

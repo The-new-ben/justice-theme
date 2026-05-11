@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-UPRESS-PULL-001: Verify and document self-service uPress Git pull
+**Status:** VERIFIED LIVE - post-pull robots/sitemap follow-up needed
+**Why:** Many completed repo fixes were blocked on live deployment. The owner asked Codex to find a way to pull Git from uPress directly.
+**Actions:**
+1. DONE: logged into uPress with owner-approved access and opened the `jus-tice.co.il` File Manager.
+2. DONE: opened `ניהול GIT` under `/wp-content/themes/justice-theme`.
+3. DONE: ran Git Status; uPress reported the theme working directory was clean.
+4. DONE: ran Git Pull.
+5. VERIFIED LIVE: uPress Git log top commit is `c992fd2` (`Document reviews compliance alias`).
+6. VERIFIED LIVE: public static marker now returns `2026-05-11-robots-sitemap-directive-v1`, and homepage source includes the same marker.
+7. BLOCKED: public `robots.txt` still returns empty output; inspect static/server/plugin robots source before making any robots/htaccess change.
+8. BLOCKED: Rank Math child sitemap XML still exposes HTTP locs; clear Rank Math sitemap cache/resave sitemap or permalink settings, then recheck.
+
 ### ACTION-REVIEWS-COMPLIANCE-DOC-001: Keep review/reputation compliance package complete
 **Status:** DOCUMENTED - implementation blocked pending legal/owner review
 **Why:** Lawyer reviews, ratings and reputation signals are a major trust and monetization layer, but they create legal, privacy, Google-policy and advertising-risk issues if launched without strict rules.

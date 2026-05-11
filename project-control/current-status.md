@@ -2,6 +2,15 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 06:39 Asia/Jerusalem
+- VERIFIED LIVE: uPress browser Git workflow is now usable from this session. The theme working tree was clean before pull, the pull completed, and uPress Git log shows top commit `c992fd2` (`Document reviews compliance alias`).
+- VERIFIED LIVE: static marker now returns `justice-theme-deployment-marker=2026-05-11-robots-sitemap-directive-v1`, and homepage source includes `2026-05-11-robots-sitemap-directive-v1`.
+- VERIFIED LIVE PARTIAL: homepage source still uses the WordPress/RealFaviconGenerator manifest and does not duplicate the theme fallback manifest.
+- BLOCKED / NOT FIXED BY PULL: `https://jus-tice.co.il/robots.txt` still returns HTTP 200 with zero-length body, so the theme `robots_txt` filter is not affecting public output. This likely indicates a static/server/plugin robots layer; exact source NOT VERIFIED.
+- BLOCKED / NOT FIXED BY PULL: `https://jus-tice.co.il/articles-sitemap2.xml` still exposes 200 `http://jus-tice.co.il` loc values and zero HTTPS loc values, despite the latest theme code being live. The sitemap appears Rank Math generated and likely needs sitemap cache/settings flush.
+- DOCUMENTED: created `project-control/upress-git-pull-workflow.md` with the verified pull steps, post-pull evidence and next safe actions.
+- SAFETY: no content body, URL, redirect, taxonomy term, canonical setting, lawyer profile, lead/CRM record, review data, wp-admin content setting or database row was changed; the only live action was the requested Git pull.
+
 ## LATEST WORK STATUS - 2026-05-11 06:29 Asia/Jerusalem
 - DOCUMENTED: expanded `project-control/reviews-compliance-risk.md` from a thin pointer into an owner-facing compliance summary for the lawyer reviews, ratings, reputation and trust module.
 - DOCUMENTED: the plural file now clearly aliases the canonical detailed register `project-control/review-compliance-risk.md` and lists non-negotiable rules, MVP compliance position, approval gates, launch blockers and related planning files.

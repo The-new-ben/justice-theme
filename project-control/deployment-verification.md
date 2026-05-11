@@ -4,7 +4,20 @@ Date: 2026-05-10
 
 ## Current Finding
 
-VERIFIED: GitHub `main` is ahead of the live WordPress theme output.
+Latest recheck after uPress pull to commit `c992fd2`:
+
+- uPress Git Manager: VERIFIED accessible through browser automation with owner-approved login/2FA path.
+- uPress Git Status: VERIFIED clean working directory before pull.
+- uPress Git Pull: VERIFIED completed.
+- uPress Git Log: VERIFIED top commit `(HEAD -> main, origin/main, origin/HEAD) Document reviews compliance alias` / `c992fd2`.
+- Static theme marker: VERIFIED now returns `justice-theme-deployment-marker=2026-05-11-robots-sitemap-directive-v1`.
+- Homepage source marker: VERIFIED includes `2026-05-11-robots-sitemap-directive-v1`.
+- Branding manifest behavior: VERIFIED PARTIAL; homepage source continues to use the WordPress/RealFaviconGenerator manifest and does not duplicate the theme fallback manifest.
+- Robots.txt: BLOCKED / NOT FIXED BY PULL; public `https://jus-tice.co.il/robots.txt` returns HTTP 200 with zero-length body.
+- Rank Math child sitemap URLs: BLOCKED / NOT FIXED BY PULL; `https://jus-tice.co.il/articles-sitemap2.xml` still has 200 `http://jus-tice.co.il` loc values and zero HTTPS loc values.
+- Interpretation: the stale-theme deployment blocker is resolved for this cycle. Remaining robots/sitemap blockers require server/plugin/cache investigation, not another Git pull.
+
+HISTORICAL: GitHub `main` was previously ahead of the live WordPress theme output before the 2026-05-11 uPress pull.
 
 Latest recheck after commit `a90bf4b`:
 

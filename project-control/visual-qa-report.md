@@ -2,15 +2,23 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 uPress Pull And Post-Pull SEO QA
+- VERIFIED LIVE: uPress Git Manager was accessible, Git Status was clean, and Git Pull brought live theme to `c992fd2`.
+- VERIFIED LIVE: static deployment marker now returns `2026-05-11-robots-sitemap-directive-v1`; homepage source includes the same marker.
+- VERIFIED LIVE PARTIAL: homepage source uses the WordPress/RealFaviconGenerator manifest and does not duplicate the theme fallback manifest.
+- BLOCKED / NOT FIXED BY PULL: `robots.txt` still returns HTTP 200 with empty body.
+- BLOCKED / NOT FIXED BY PULL: `articles-sitemap2.xml` still exposes 200 `http://jus-tice.co.il` loc values and zero HTTPS loc values.
+- NEXT QA: inspect robots source and clear Rank Math sitemap cache/settings before resubmitting sitemaps or treating sitemap HTTPS as fixed.
+
 ## 2026-05-11 Robots Sitemap Directive QA
-- CODE FIXED / NOT LIVE VERIFIED: robots.txt should now include `Sitemap: https://jus-tice.co.il/sitemap_index.xml` after deployment if the directive is absent.
+- CODE LIVE / OUTPUT BLOCKED: robots.txt should include `Sitemap: https://jus-tice.co.il/sitemap_index.xml`, but the public response is still empty after deployment.
 - WHY IT MATTERS: the verified sitemap index returns XML, while `/sitemap.xml` and `/wp-sitemap.xml` currently redirect to the homepage.
-- LIVE CHECK NEEDED: after uPress pull/cache clear, verify `robots.txt` returns 200, includes the sitemap index directive, and does not block public rendering assets.
+- LIVE CHECK NEEDED: inspect the static/server/plugin robots source, then verify `robots.txt` returns 200, includes the sitemap index directive, and does not block public rendering assets.
 
 ## 2026-05-11 Sitemap HTTPS QA
-- CODE FIXED / NOT LIVE VERIFIED: supported sitemap generators should now normalize first-party sitemap `loc` values to HTTPS before output.
+- CODE LIVE / OUTPUT BLOCKED: supported sitemap generators have theme hooks for first-party HTTPS normalization, but Rank Math child sitemap output still exposes HTTP locs after deployment.
 - WHY IT MATTERS: sitemap mixed-protocol signals were found in live checks and should be cleared before URL migration or GSC sitemap resubmission.
-- LIVE CHECK NEEDED: after uPress pull/cache clear, re-run public checks for `page-sitemap.xml`, `articles-sitemap1.xml`, `articles-sitemap2.xml`, and `practice-areas-sitemap.xml`; record `http_loc_count` and marker `2026-05-11-sitemap-https-plugin-filters-v1`.
+- LIVE CHECK NEEDED: clear Rank Math sitemap cache/settings, then re-run public checks for `page-sitemap.xml`, `articles-sitemap1.xml`, `articles-sitemap2.xml`, and `practice-areas-sitemap.xml`; record `http_loc_count`.
 
 ## 2026-05-11 Branding Manifest QA
 - CODE FIXED / NOT LIVE VERIFIED: theme now has `assets/images/site.webmanifest` as a fallback for mobile bookmark/install branding, using existing 192x192 and 512x512 square icons.

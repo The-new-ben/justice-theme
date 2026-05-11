@@ -5,6 +5,14 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
 
 ## Current Evidence
 
+2026-05-11 POST-PULL UPDATE:
+- VERIFIED LIVE: uPress pull deployed the latest theme marker `2026-05-11-robots-sitemap-directive-v1`.
+- VERIFIED LIVE: `https://jus-tice.co.il/sitemap_index.xml` returns valid XML and its child sitemap index entries use HTTPS.
+- BLOCKED / NOT FIXED BY PULL: `https://jus-tice.co.il/articles-sitemap2.xml` still exposes 200 first-party `http://jus-tice.co.il` loc values and zero HTTPS loc values.
+- VERIFIED: the child sitemap XML contains Rank Math output markers.
+- INTERPRETATION: theme sitemap filters are live, but Rank Math child sitemap output is still cached or generated from settings/data that bypass the current normalization. Rank Math official documentation notes sitemap cache flushing after sitemap filter changes.
+- NEXT SAFE ACTION: clear Rank Math sitemap cache and/or resave Rank Math sitemap/permalink settings, then recheck child sitemap HTTP loc counts before any GSC sitemap submission or URL migration.
+
 VERIFIED:
 - GSC Sitemaps section was opened in the browser.
 - A "Submitted sitemaps" area was visible.
@@ -165,6 +173,7 @@ BLOCKED / NEEDS LIVE ADMIN:
 
 - VERIFIED: Yoast official developer docs document `wpseo_xml_sitemap_post_url` for altering sitemap post URLs.
 - VERIFIED: Rank Math official docs document `rank_math/sitemap/entry`, `rank_math/sitemap/xml_post_url`, and `rank_math/sitemap/post_type_archive_link`.
+- SOURCE: `https://rankmath.com/docs/filters-and-hooks/admin/sitemap/`
 - VERIFIED: AIOSEO official docs document `aioseo_sitemap_indexes` with `loc` entries.
 - LIMITATION: plugin cache/settings may still require wp-admin/uPress cache clear before XML output changes are visible.
 

@@ -947,3 +947,15 @@ Next safe batch before any URL/content migration:
 5. VERIFIED: `נהיגה בשכרות` is a wrong-page match to a will-revocation URL and should become a traffic-law support planning item later.
 6. NEXT: run pass 3 for criminal/traffic variants: `זכויות חשוד`, `כתב אישום`, `מעצר ימים`, `סגירת תיק פלילי`, `עורך דין עבירות סמים`, `עורך דין נהיגה בשכרות`, `פסילה מנהלית`, and `שלילת רישיון נהיגה`.
 7. BLOCKED: no URL changes, redirects, noindex, canonical changes, sitemap changes, content rewrites, content deletion, menu changes or CMS writes from this evidence alone.
+
+## 2026-05-11 TARGETED GSC PASS 3 NEXT ACTIONS
+
+**Status:** VERIFIED / REVIEW ONLY
+
+1. DONE: third targeted browser pass checked `זכויות חשוד`, `כתב אישום`, `מעצר ימים`, `סגירת תיק פלילי`, `עורך דין עבירות סמים`, `עורך דין נהיגה בשכרות`, `פסילה מנהלית`, and `שלילת רישיון נהיגה`.
+2. VERIFIED: pass 3 is documented in `project-control/gsc-targeted-query-pass-3-2026-05-11.csv` and `project-control/gsc-targeted-query-pass-3-2026-05-11.md`.
+3. VERIFIED: most exact criminal/traffic support variants returned no visible rows; do not create thin standalone pages from those filters.
+4. VERIFIED: `כתב אישום` maps to a specific Netanyahu indictment page and homepage, not a clean general support guide.
+5. VERIFIED: `עורך דין נהיגה בשכרות` maps to a will-revocation page, confirming a wrong-page traffic-law match.
+6. NEXT: build review-only criminal and traffic support decision packets from the GSC evidence, inventory and existing URL map.
+7. BLOCKED: no URL changes, redirects, noindex, canonical changes, sitemap changes, content rewrites, content deletion, menu changes or CMS writes from this evidence alone.

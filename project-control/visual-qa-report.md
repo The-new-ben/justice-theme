@@ -414,3 +414,12 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - VERIFIED: `משמורת בלעדית לאם` screenshot captures the old Hebrew case-law URL as the visible Pages-tab result with `107` impressions and average position `9.6`.
 - VERIFIED: `נהיגה בשכרות` screenshot captures the wrong-page match to the will-revocation URL.
 - SAFETY: this is evidence capture only; no public content, URL, redirect, sitemap, canonical, document, taxonomy, menu, lawyer, CRM, review or plugin state was changed.
+
+## 2026-05-11 GSC Targeted Evidence Screenshot - Pass 3
+
+- VERIFIED: browser GSC access still works for the URL-prefix property `https://jus-tice.co.il/`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass3-indictment-netanyahu-url-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass3-drunk-driving-lawyer-wrong-page-2026-05-11.png`.
+- VERIFIED: `כתב אישום` screenshot captures the specific Netanyahu indictment page plus homepage as visible Pages-tab results.
+- VERIFIED: `עורך דין נהיגה בשכרות` screenshot captures the wrong-page match to the will-revocation URL.
+- SAFETY: this is evidence capture only; no public content, URL, redirect, sitemap, canonical, document, taxonomy, menu, lawyer, CRM, review or plugin state was changed.

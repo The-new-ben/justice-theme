@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-11 12:42 Asia/Jerusalem
+- VERIFIED / REVIEW: ran the third targeted GSC browser pass from the query queue against the accessible URL-prefix property `https://jus-tice.co.il/`.
+- CREATED: `project-control/gsc-targeted-query-pass-3-2026-05-11.csv`.
+- CREATED: `project-control/gsc-targeted-query-pass-3-2026-05-11.md`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass3-indictment-netanyahu-url-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass3-drunk-driving-lawyer-wrong-page-2026-05-11.png`.
+- VERIFIED: `זכויות חשוד`, `מעצר ימים`, `סגירת תיק פלילי`, `עורך דין עבירות סמים`, `פסילה מנהלית`, and `שלילת רישיון נהיגה` returned no visible rows in the checked GSC filters.
+- VERIFIED: `כתב אישום` has only `4` impressions, with visible rows on a specific Netanyahu indictment page (`3` impressions, average position `9.7`) and the homepage (`1` impression, position `70.0`).
+- VERIFIED: `עורך דין נהיגה בשכרות` has `7` impressions on `https://jus-tice.co.il/revocation-of-a-will-and-reviving-previous-will/`, confirming the wrong-page traffic-law match.
+- BLOCKED: this evidence does not approve any URL, redirect, noindex, canonical, sitemap, content rewrite, document removal, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change.
+- SAFETY: browser GSC was read-only; repo changes are documentation/CSV evidence only.
 ## LATEST WORK STATUS - 2026-05-11 12:31 Asia/Jerusalem
 - VERIFIED / REVIEW: ran the second targeted GSC browser pass from the query queue against the accessible URL-prefix property `https://jus-tice.co.il/`.
 - CREATED: `project-control/gsc-targeted-query-pass-2-2026-05-11.csv`.

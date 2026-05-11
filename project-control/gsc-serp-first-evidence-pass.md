@@ -137,3 +137,17 @@ VERIFIED:
 
 BLOCKED:
 - This overlay is evidence only. Do not redirect, noindex, canonicalize, rewrite, delete or migrate URLs from it without approved maps.
+
+## 2026-05-11 Targeted GSC Pass 3 Overlay
+
+VERIFIED:
+- `זכויות חשוד`, `מעצר ימים`, `סגירת תיק פלילי`, `עורך דין עבירות סמים`, `פסילה מנהלית`, and `שלילת רישיון נהיגה` returned no visible rows in the checked browser filters.
+- `כתב אישום` has `4` total impressions; the visible URLs are a specific Netanyahu indictment page and the homepage.
+- `עורך דין נהיגה בשכרות` maps to the will-revocation URL, confirming a wrong-page match.
+
+REVIEW:
+- The criminal support map still needs SERP and inventory review before creating or rewriting `/indictment/`, `/police-investigation/`, `/drug-offenses/`, or related pages.
+- The traffic support map should treat `/drunk-driving/` and `/license-suspension/` as strategic gaps, but current GSC evidence is low sample.
+
+BLOCKED:
+- This overlay is evidence only. Do not redirect, noindex, canonicalize, rewrite, delete or migrate URLs from it without approved maps.

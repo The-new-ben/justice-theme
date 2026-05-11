@@ -1935,3 +1935,15 @@
 - VERIFIED: `חקירה במשטרה` returned no visible rows; `עבירות סמים` is very low sample and split across old/case-law URLs.
 - VERIFIED: `נהיגה בשכרות` maps to a will-revocation article, a wrong-page traffic-law match.
 - BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, document removal, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
+## 2026-05-11 - Targeted GSC browser evidence pass 3
+
+- CREATED: `project-control/gsc-targeted-query-pass-3-2026-05-11.csv`.
+- CREATED: `project-control/gsc-targeted-query-pass-3-2026-05-11.md`.
+- SAVED EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass3-indictment-netanyahu-url-2026-05-11.png`.
+- SAVED EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass3-drunk-driving-lawyer-wrong-page-2026-05-11.png`.
+- UPDATED: `project-control/gsc-keyword-page-map.csv`, `project-control/gsc-cannibalization-review.csv`, `project-control/gsc-content-priorities.csv`, `project-control/content-decision-evidence-overlay.csv`, and project-control status files.
+- VERIFIED: criminal support filters for `זכויות חשוד`, `מעצר ימים`, `סגירת תיק פלילי`, and `עורך דין עבירות סמים` returned no visible rows.
+- VERIFIED: `כתב אישום` is a tiny specific-case signal, with visible pages on the Netanyahu indictment article and homepage, not a general indictment guide.
+- VERIFIED: `עורך דין נהיגה בשכרות` still maps to a will-revocation article, confirming a wrong-page traffic-law match.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, document removal, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.

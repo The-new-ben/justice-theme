@@ -178,3 +178,15 @@ VERIFIED:
 
 NEXT:
 - Run a third targeted GSC pass for criminal/traffic variants: `זכויות חשוד`, `כתב אישום`, `מעצר ימים`, `סגירת תיק פלילי`, `עורך דין עבירות סמים`, `עורך דין נהיגה בשכרות`, `פסילה מנהלית`, and `שלילת רישיון נהיגה`.
+
+## 2026-05-11 Targeted GSC Pass 3 Decision Notes
+
+VERIFIED:
+- Several criminal support terms returned no visible rows, so they should not be created as thin pages from GSC evidence alone.
+- `כתב אישום` currently maps to a specific Netanyahu indictment URL and the homepage; neither should become the general indictment support page.
+- `עורך דין נהיגה בשכרות` remains a wrong-page traffic-law signal on a will-revocation URL.
+
+NEXT:
+- Build review-only criminal and traffic support decision packets before any content or URL execution.
+- Criminal packet should compare `/criminal-lawyer/`, `/indictment/`, `/police-investigation/`, `/drug-offenses/` and existing old criminal/case-law URLs.
+- Traffic packet should compare `/traffic-lawyer/`, `/drunk-driving/`, `/license-suspension/` and existing traffic/case/PDF URLs.

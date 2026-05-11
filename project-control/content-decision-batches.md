@@ -287,3 +287,23 @@ RECOMMENDED:
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, calculator/tool claims, lawyer cards or CMS writes until explicit approval.
+
+## 2026-05-11 Child-Custody Owner Approval Packet
+
+CREATED:
+- `project-control/child-custody-owner-approval-packet.md`
+- `project-control/child-custody-owner-approval-packet.csv`
+
+VERIFIED:
+- `child-custody` has `12` conflict rows and an exact clean `/child-custody/` candidate.
+- `/child-custody/` is published, has `2,397` words and has a quality heuristic of `7/10`.
+- GSC browser evidence maps broad `משמורת ילדים` demand to `what-is-child-custody/` and `ChildCustody.pdf`, not to `/child-custody/`.
+- GSC browser evidence maps `משמורת בלעדית לאם` to an old Hebrew case-law URL with `107` impressions and average position `9.6`.
+- The custody PDF is a document URL risk and must have a document strategy before any redirect, noindex, deletion or replacement.
+
+RECOMMENDED:
+- Owner approval for a no-URL-change comparison, source/legal review and document-strategy planning batch.
+- Protect `what-is-child-custody/`, `ChildCustody.pdf`, and the old sole-mother case-law URL until migration and document maps are approved.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, robots/media/document changes, taxonomy/menu edits, lawyer cards or CMS writes until explicit approval.

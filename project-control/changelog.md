@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Child custody owner approval packet
+
+- CREATED: `project-control/child-custody-owner-approval-packet.md`.
+- CREATED: `project-control/child-custody-owner-approval-packet.csv`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `/child-custody/` is a likely public guide candidate with `2,397` words and a quality heuristic of `7/10`.
+- VERIFIED: visible GSC broad custody demand maps to `what-is-child-custody/` and `ChildCustody.pdf`, while `משמורת בלעדית לאם` maps to an old case-law URL with average position `9.6`.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, title/H1/meta, PDF/document, robots, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Child support owner approval packet
 
 - CREATED: `project-control/child-support-owner-approval-packet.md`.

@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CHILD-CUSTODY-OWNER-APPROVAL-001: Prepare child-custody document-risk approval packet
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Child custody has a clean candidate URL, but GSC shows broad custody demand on an older article and a PDF, plus high-position evidence on an old Hebrew case-law URL.
+**Actions:**
+1. DONE: created `project-control/child-custody-owner-approval-packet.md`.
+2. DONE: created `project-control/child-custody-owner-approval-packet.csv`.
+3. VERIFIED: `/child-custody/` exists, has `2,397` words, and remains the likely public guide candidate.
+4. VERIFIED: `משמורת ילדים` has `611` impressions split between `what-is-child-custody/` and `ChildCustody.pdf`.
+5. VERIFIED: `משמורת בלעדית לאם` maps to an old Hebrew case-law URL with `107` impressions and average position `9.6`.
+6. RECOMMENDED: owner approval for no-URL-change comparison, source/legal review and document strategy only.
+7. NEXT: if owner approves, build side-by-side comparison, document strategy, source/legal checklist and internal-link plan for the custody cluster.
+8. BLOCKED: no public content edits, titles/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, robots/media/document changes, taxonomy/menu edits, lawyer cards or CMS writes until explicit owner approval.
+
 ### ACTION-CHILD-SUPPORT-OWNER-APPROVAL-001: Prepare child-support no-URL-change approval packet
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Child support is the largest active conflict group, but GSC shows the old calculator URL owns visible demand, so the next step must be owner approval for comparison and source/legal review, not content or URL execution.

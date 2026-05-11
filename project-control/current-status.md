@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 13:29 Asia/Jerusalem
+- VERIFIED / REVIEW: prepared the child-custody owner-approval packet as a no-URL-change comparison, source/legal review and document-risk planning decision.
+- CREATED: `project-control/child-custody-owner-approval-packet.md`.
+- CREATED: `project-control/child-custody-owner-approval-packet.csv`.
+- VERIFIED: `/child-custody/` exists, has `2,397` words, and remains the likely public guide candidate.
+- VERIFIED: broad `משמורת ילדים` demand maps to `what-is-child-custody/` and `ChildCustody.pdf`, not to `/child-custody/`.
+- VERIFIED: `משמורת בלעדית לאם` maps to an old Hebrew case-law URL with `107` impressions and average position `9.6`.
+- BLOCKED: source/legal review and a document strategy are required before title/H1/meta, URL, redirect, PDF, robots, canonical, sitemap, noindex, taxonomy/menu, lawyer-card or CMS changes.
+- SAFETY: repo documentation/CSV planning only; no live public content, PDF, URL or CMS state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 13:28 Asia/Jerusalem
 - VERIFIED / REVIEW: prepared the child-support owner-approval packet as a no-URL-change comparison and source/legal planning decision.
 - CREATED: `project-control/child-support-owner-approval-packet.md`.

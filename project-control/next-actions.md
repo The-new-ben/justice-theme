@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-TRAFFIC-LAW-NO-URL-OUTLINES-001: Prepare traffic-law outline batch using current URLs only
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The traffic-law cluster has a current pillar candidate and support lanes, but public upload still needs page-level outlines, section structure, internal-link posture, sitemap posture and blockers before Hebrew copy or CMS updates.
+**Actions:**
+1. DONE: created `project-control/traffic-law-no-url-change-outline-queue-2026-05-11.md`.
+2. DONE: created `project-control/traffic-law-no-url-change-outline-queue-2026-05-11.csv`.
+3. VERIFIED: `5` outline targets prepared across `10` current URLs.
+4. VERIFIED: current planning pillar is `/traffic-lawyer/`.
+5. VERIFIED: first support groups are drunk driving, breathalyzer/refusal/testing, speeding/points/license risk and Marvad/medical fitness.
+6. VERIFIED: `/drunk-driving/`, `/breathalyzer-test/`, `/license-suspension/`, `/traffic-evidence/` and `/fatal-road-accident-offenses/` remain blocked future-only slugs.
+7. NEXT: prepare source/legal checklist or a no-URL-change internal-link map for these five traffic-law targets before public copy upload.
+8. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-CRIMINAL-LAW-OWNER-UPLOAD-REVIEW-001: Package first criminal-law group for owner approval
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The criminal-law outline/source/internal-link work needs one owner-facing approval layer before any Hebrew drafting or CMS upload.

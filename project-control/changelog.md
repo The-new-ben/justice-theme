@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Traffic law no-URL-change outline queue
+
+- CREATED: `project-control/traffic-law-no-url-change-outline-queue-2026-05-11.md`.
+- CREATED: `project-control/traffic-law-no-url-change-outline-queue-2026-05-11.csv`.
+- VERIFIED / REVIEW ONLY: `5` outline targets were prepared across `10` current traffic-law URLs.
+- VERIFIED: the batch covers `/traffic-lawyer/`, drunk driving, breathalyzer/refusal/testing, speeding/points/license risk and Marvad/medical fitness.
+- VERIFIED: future clean slugs stay blocked until owner approval, source/legal review, redirect planning, canonical planning, internal-link planning and sitemap planning.
+- READY FOR REVIEW: section structures, internal-link posture, semantic related-content rules, CTA/lawyer-card safety rules and sitemap posture are documented for the traffic-law upload group.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Criminal law owner upload review package
 
 - CREATED: `project-control/criminal-law-owner-upload-review-package-2026-05-11.md`.

@@ -243,6 +243,13 @@ Recommended action:
 - SUPPORT_PILLAR: `/drunk-driving/`, `/license-suspension/`, `/traffic-accident/`.
 - Separate traffic driver's-license intent from medical/professional-license intent.
 
+2026-05-11 traffic-law no-URL-change outline queue addendum:
+- VERIFIED: `project-control/traffic-law-no-url-change-outline-queue-2026-05-11.md` and `.csv` prepare the first practical traffic-law upload group using current URLs only.
+- VERIFIED: `/traffic-lawyer/` is the current no-URL-change planning pillar.
+- VERIFIED: first support outline groups cover drunk driving, breathalyzer/refusal/testing, speeding/points/license risk and Marvad/medical fitness across `10` current URLs.
+- REVIEW: current outlines define section structure, internal-link posture, related-content rules, CTA/lawyer-card safety rules and sitemap posture before public copy or CMS execution.
+- BLOCKED: `/drunk-driving/`, `/breathalyzer-test/`, `/license-suspension/`, `/traffic-evidence/` and `/fatal-road-accident-offenses/` must not be used as live targets until route/migration, redirect/canonical/sitemap/internal-link planning and owner/legal approval.
+
 ## Inheritance / Wills
 
 Decision:

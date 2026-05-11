@@ -14,6 +14,25 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-11 Traffic Law No-URL-Change Outline Queue
+
+CREATED:
+- `project-control/traffic-law-no-url-change-outline-queue-2026-05-11.md`
+- `project-control/traffic-law-no-url-change-outline-queue-2026-05-11.csv`
+
+VERIFIED:
+- `5` outline targets prepared across `10` current traffic-law URLs.
+- `/traffic-lawyer/` is the current no-URL-change planning pillar.
+- Drunk driving, breathalyzer/refusal/testing, speeding/points/license risk and Marvad/medical fitness are the first support groups.
+- `/drunk-driving/`, `/breathalyzer-test/`, `/license-suspension/`, `/traffic-evidence/` and `/fatal-road-accident-offenses/` remain blocked future-only slugs.
+
+RECOMMENDED:
+- Prepare a traffic-law source/legal checklist for the same five targets next.
+- Then create a current-URL internal-link map before drafting or uploading public copy.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Criminal Law Owner Upload Review Package
 
 CREATED:

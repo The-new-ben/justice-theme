@@ -157,6 +157,25 @@ NEXT:
 - Draft no-URL-change expansion outline for `/driving-under-the-influence/`.
 - Open schema/navigation-source audit before any schema or plugin-setting change.
 
+## 2026-05-11 Traffic No-URL Outline Queue
+
+CREATED:
+- `project-control/traffic-law-no-url-change-outline-queue-2026-05-11.md`
+- `project-control/traffic-law-no-url-change-outline-queue-2026-05-11.csv`
+
+VERIFIED:
+- `5` outline targets prepared across `10` current URLs.
+- `/traffic-lawyer/` remains the current no-URL-change planning pillar.
+- First support groups are drunk driving, breathalyzer/refusal/testing, speeding/points/license risk and Marvad/medical fitness.
+- `/drunk-driving/`, `/breathalyzer-test/`, `/license-suspension/`, `/traffic-evidence/` and `/fatal-road-accident-offenses/` remain blocked future-only slugs.
+
+NEXT:
+- Create source/legal checklist for the same five targets.
+- Create current-URL internal-link map before final Hebrew copy or CMS upload.
+
+BLOCKED:
+- No public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this outline queue.
+
 ## CSV Detail
 
 See `project-control/traffic-law-support-review.csv`.

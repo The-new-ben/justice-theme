@@ -516,6 +516,8 @@ CREATED:
 - `project-control/personal-injury-internal-link-plan-2026-05-11.csv`
 - `project-control/serp-personal-injury-damages-review-2026-05-11.md`
 - `project-control/serp-personal-injury-damages-review-2026-05-11.csv`
+- `project-control/personal-injury-owner-decision-summary-2026-05-11.md`
+- `project-control/personal-injury-owner-decision-summary-2026-05-11.csv`
 
 VERIFIED:
 - The checklist maps source/legal gates for broad damages, tort lawyer intent, car accident, compulsory insurance, work accident, personal accident, tort concept pages and US personal-injury boundary content.
@@ -528,10 +530,11 @@ VERIFIED:
 - The internal-link plan maps support-to-primary and primary-to-support relationships for the current cluster while keeping every public execution row approval-gated.
 - Future slugs `/personal-injury-lawyer/` and `/car-accident-lawyer/` are recorded only as migration notes and are not approved live link targets.
 - The SERP review confirms broad damages/tort terms need a deep service/guide page, car-accident terms need a dedicated injury-compensation subcluster, and work-accident terms remain a national-insurance/employment/personal-injury boundary.
+- The owner decision summary recommends `/tort-lawyer/` as the current no-URL-change planning primary, protects `/car-accident-auto-injury-lawyer/`, and keeps `/personal-injury-lawyer/`, `/car-accident-lawyer/` and `/work-accident-lawyer/` future-only.
 - Tested old Hebrew damages/category URL variants currently redirect to the homepage, so exact old-URL capture and routing cleanup are still required before redirect mapping.
 
 RECOMMENDED:
-- Next safe step is owner/legal review of the internal-link rows and SERP evidence, or direct GSC browser checks for damages, bodily injury, road accident and work accident variants before approving primary/support roles.
+- Next safe step is owner/legal review of the decision summary, or direct GSC browser checks for damages, bodily injury, road accident and work accident variants before approving primary/support roles.
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, internal-link edits, taxonomy/menu edits, related-card edits, lawyer cards, CRM/review changes or CMS writes until explicit approval.

@@ -397,3 +397,19 @@ VERIFIED:
 
 BLOCKED:
 - No public rewrite, URL migration, redirect, canonical, sitemap, title/H1/meta, internal link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin option or CMS/database action is approved by this addendum.
+
+## 2026-05-11 Owner Decision Summary Addendum
+
+CREATED:
+- `project-control/personal-injury-owner-decision-summary-2026-05-11.md`.
+- `project-control/personal-injury-owner-decision-summary-2026-05-11.csv`.
+
+VERIFIED:
+- The summary converts the source checklist, page matrix, side-by-side review, internal-link plan and SERP review into concise owner decisions.
+- Recommended current working primary: `/tort-lawyer/`, with no URL change.
+- Recommended protected car-accident candidate: `/car-accident-auto-injury-lawyer/`, with in-place review before migration.
+- Future-only slugs remain `/personal-injury-lawyer/`, `/car-accident-lawyer/` and `/work-accident-lawyer/`.
+- Support pages and internal links remain approval-gated and not live.
+
+BLOCKED:
+- No public rewrite, URL migration, redirect, canonical, sitemap, title/H1/meta, internal link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin option or CMS/database action is approved by this addendum.

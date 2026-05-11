@@ -156,6 +156,13 @@ Recommended action:
 - VERIFIED: work-accident queries overlap national insurance, employment law and personal injury; `/work-accident-lawyer/` remains future-only until boundary approval.
 - BLOCKED: no public content, title/H1/meta, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this SERP review alone.
 
+2026-05-11 personal-injury owner decision summary addendum:
+- VERIFIED: `project-control/personal-injury-owner-decision-summary-2026-05-11.md` and `.csv` convert the evidence stack into owner decisions.
+- RECOMMENDED: use `/tort-lawyer/` as the current no-URL-change working primary for planning only.
+- RECOMMENDED: protect `/car-accident-auto-injury-lawyer/` and review it in place before any migration to `/car-accident-lawyer/`.
+- RECOMMENDED: keep `/personal-injury-lawyer/`, `/car-accident-lawyer/` and `/work-accident-lawyer/` future-only until owner/legal approval and migration maps exist.
+- BLOCKED: support-page rewrites, internal-link execution, old-URL redirects/noindex decisions and public CMS changes remain blocked.
+
 ## Traffic Law
 
 Decision:

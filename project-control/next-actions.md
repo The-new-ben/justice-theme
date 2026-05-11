@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PERSONAL-INJURY-OWNER-DECISION-SUMMARY-001: Summarize owner decisions for personal-injury/damages
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The cluster now has source, page, side-by-side, internal-link and SERP evidence. The next safe layer is a concise owner decision summary before any public execution.
+**Actions:**
+1. DONE: created `project-control/personal-injury-owner-decision-summary-2026-05-11.md`.
+2. DONE: created `project-control/personal-injury-owner-decision-summary-2026-05-11.csv`.
+3. VERIFIED: recommended current working primary is `/tort-lawyer/` without URL changes.
+4. VERIFIED: `/car-accident-auto-injury-lawyer/` remains protected and should be reviewed in place before any migration.
+5. VERIFIED: `/personal-injury-lawyer/`, `/car-accident-lawyer/` and `/work-accident-lawyer/` remain future-only.
+6. NEXT: owner/legal review can approve a no-URL-change outline batch, or request direct GSC browser checks before approval.
+7. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, breadcrumb, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-PERSONAL-INJURY-SERP-001: Run personal-injury/damages SERP review
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The internal-link plan needed current public SERP context before owner/legal approval chooses primary URLs, support roles and future migration targets.

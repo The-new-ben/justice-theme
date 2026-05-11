@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-11 19:37 Asia/Jerusalem
+- VERIFIED / PERSONAL-INJURY OWNER DECISION SUMMARY: created the short approval layer after the source checklist, page matrix, side-by-side review, internal-link plan and SERP review.
+- CREATED: `project-control/personal-injury-owner-decision-summary-2026-05-11.md`.
+- CREATED: `project-control/personal-injury-owner-decision-summary-2026-05-11.csv`.
+- VERIFIED: recommended owner decisions keep `/tort-lawyer/` as the current no-URL-change planning primary, protect `/car-accident-auto-injury-lawyer/`, and keep `/personal-injury-lawyer/`, `/car-accident-lawyer/` and `/work-accident-lawyer/` future-only.
+- VERIFIED: support pages stay support/specialist only; internal-link rows remain planned and not live.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+- NEXT: owner/legal review can approve a no-URL-change outline batch, or run direct GSC browser checks for damages, road-accident and work-accident variants first.
+
 ## LATEST WORK STATUS - 2026-05-11 19:28 Asia/Jerusalem
 - VERIFIED / PERSONAL-INJURY SERP REVIEW: created the review-only public SERP evidence pass for damages, bodily injury, tort claims, road accidents and work-accident boundary terms.
 - CREATED: `project-control/serp-personal-injury-damages-review-2026-05-11.md`.

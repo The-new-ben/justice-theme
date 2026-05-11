@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Personal injury owner decision summary
+
+- CREATED: `project-control/personal-injury-owner-decision-summary-2026-05-11.md`.
+- CREATED: `project-control/personal-injury-owner-decision-summary-2026-05-11.csv`.
+- UPDATED: `project-control/personal-injury-owner-approval-packet.md`, `project-control/content-decision-batches.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: decision summary recommends `/tort-lawyer/` as the current no-URL-change planning primary, protects `/car-accident-auto-injury-lawyer/`, and keeps future clean slugs blocked until migration planning.
+- VERIFIED: support pages, internal links, old URLs and work-accident boundary topics remain approval-gated.
+- BLOCKED: no public personal-injury/damages content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, internal link, related-card, menu, breadcrumb, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Personal injury damages SERP review
 
 - CREATED: `project-control/serp-personal-injury-damages-review-2026-05-11.md`.

@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-TARGETED-GSC-QUERY-QUEUE-001: Run targeted GSC filters for unresolved decision gaps
+**Status:** IN PROGRESS / REVIEW ONLY
+**Why:** The audit now needs precise browser GSC checks for unresolved topics before any URL/content/redirect decisions can be approved.
+**Actions:**
+1. DONE: created `project-control/targeted-gsc-query-queue.csv`.
+2. DONE: created `project-control/targeted-gsc-query-queue.md`.
+3. VERIFIED: queue rows cover child support, child custody, employment law, inheritance/wills, work/car accident, traffic/drunk-driving and criminal support spokes.
+4. VERIFIED: each row defines expected primary URL, support URLs, known current signal, decision rules and required GSC tabs.
+5. NEXT: run the first browser pass for `מזונות ילדים`, `חישוב מזונות`, `מחשבון מזונות`, `בעמ 919/15`, `משמורת ילדים`, `עורך דין דיני עבודה`, `דיני עבודה`, `עורך דין ירושה`, `עורך דין צוואות וירושות`, and `עורך דין תאונות דרכים`.
+6. NEXT: update `gsc-keyword-page-map.csv`, `gsc-cannibalization-review.csv`, `gsc-content-priorities.csv`, `content-decision-evidence-overlay.csv`, and topic packets after each checked group.
+7. BLOCKED: do not execute URL changes, redirects, noindex, canonical changes, sitemap changes, content rewrites, content deletion, menu changes or CMS writes from the query queue alone.
+
 ### ACTION-CONTENT-DECISION-EVIDENCE-001: Overlay GSC/SERP evidence on first content decision batch
 **Status:** IN PROGRESS / REVIEW ONLY
 **Why:** The refreshed inventory and conflict queues need Search Console and SERP evidence before any pillar, merge, redirect, or English-slug migration decision.

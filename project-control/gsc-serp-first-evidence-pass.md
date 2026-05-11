@@ -92,6 +92,16 @@ Run these GSC browser filters next, then update the overlay:
 - `עורך דין תאונות דרכים`
 - `עורך דין תאונת עבודה`
 
+## 2026-05-11 Targeted Queue Added
+
+CREATED:
+- `project-control/targeted-gsc-query-queue.csv`
+- `project-control/targeted-gsc-query-queue.md`
+
+VERIFIED:
+- The safe next queries are now expanded into a row-level queue with expected primary URLs, support URLs, decision rules and status labels.
+- This keeps the next GSC browser session focused on evidence collection rather than content rewriting.
+
 ## Execution Rule
 
 Map first. Decide second. Execute later in controlled batches.

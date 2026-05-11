@@ -1,0 +1,90 @@
+# Targeted GSC Query Queue
+
+Date: 2026-05-11
+Status: IN PROGRESS / REVIEW ONLY
+
+## Purpose
+
+This file converts the current content-audit gaps into a practical Search Console browser work queue.
+
+It does not approve URL changes, redirects, noindex decisions, canonical updates, sitemap changes, public rewrites, menu changes, or content deletion.
+
+## Created
+
+VERIFIED:
+- `project-control/targeted-gsc-query-queue.csv`
+
+## Why This Queue Exists
+
+The public inventory and audit maps are refreshed, and the first evidence overlay already connects existing GSC evidence to the highest-risk clusters. The next bottleneck is direct query evidence for topics where the inventory shows conflict but GSC traffic risk is still NOT VERIFIED.
+
+Priority gaps:
+- Child support: largest slug-conflict group, but direct query evidence is still missing.
+- Child custody: exact clean URL exists, but broad custody and narrow custody evidence must be separated.
+- Employment law: strategic pillar is not confirmed by public URL map or direct GSC evidence.
+- Inheritance/wills: will queries have evidence, but inheritance-lawyer intent is weak or zero-row.
+- Work/car accidents and traffic: several variants either have zero visible rows or map to wrong/old URLs.
+- Criminal support topics: broad criminal-lawyer evidence exists, but support spokes need query-to-page checks.
+
+## How To Use In GSC
+
+For each row in `targeted-gsc-query-queue.csv`:
+
+1. Open Google Search Console Performance > Search results.
+2. Set date range to last 3 months.
+3. Add filter: Query contains the `query_filter` value.
+4. Open Pages tab.
+5. Record every visible URL with clicks, impressions, CTR and average position.
+6. If a likely primary URL appears, run the reverse Page filter and inspect Queries.
+7. Update:
+   - `project-control/gsc-keyword-page-map.csv`
+   - `project-control/gsc-cannibalization-review.csv`
+   - `project-control/gsc-content-priorities.csv`
+   - `project-control/content-decision-evidence-overlay.csv`
+   - topic-specific packets such as `project-control/child-support-content-decision-packet.md`
+
+## Decision Rules
+
+VERIFIED:
+- A clean English slug can be a primary candidate only after GSC, SERP, content-quality and internal-link review.
+- An old Hebrew URL with impressions is a migration-risk URL, not junk.
+- A DOCX/media URL with impressions needs a document/public-content strategy before any redirect.
+- Zero visible GSC rows means Jus-Tice has no visible current signal for that exact filter; it does not prove the topic has no demand.
+
+BLOCKED:
+- Do not redirect old URLs from this queue alone.
+- Do not change slugs from this queue alone.
+- Do not delete old content from this queue alone.
+- Do not noindex pages from this queue alone.
+- Do not publish new duplicate pages from this queue alone.
+- Do not update canonical or sitemap logic from this queue alone.
+
+## Immediate First Pass
+
+Run these first because they directly unblock the active child-support and first decision batch:
+
+1. `מזונות ילדים`
+2. `חישוב מזונות`
+3. `מחשבון מזונות`
+4. `בעמ 919/15`
+5. `משמורת ילדים`
+6. `עורך דין דיני עבודה`
+7. `דיני עבודה`
+8. `עורך דין ירושה`
+9. `עורך דין צוואות וירושות`
+10. `עורך דין תאונות דרכים`
+
+## Output After GSC Session
+
+After each browser session, document:
+
+- VERIFIED: queries checked, date range, Pages tab URLs and metrics.
+- REVIEW: suspected primary URL, support URLs, merge candidates and weak primary pages.
+- NOT VERIFIED: filters that showed no rows or could not be checked.
+- BLOCKED: decisions needing owner approval, legal review, menu export, full CMS export or GSC/GA4 export.
+
+## Current Safety State
+
+VERIFIED:
+- This is a repo-side planning artifact only.
+- No public content body, URL slug, redirect, noindex, canonical, sitemap inclusion, taxonomy, menu, lawyer, CRM, review, plugin-state, wp-admin setting or database row was changed.

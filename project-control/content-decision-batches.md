@@ -131,3 +131,21 @@ NOT VERIFIED:
 
 BLOCKED:
 - No child-support URL, redirect, noindex, canonical, sitemap or content rewrite action before GSC, source/legal review and owner approval.
+
+## 2026-05-11 Targeted GSC Query Queue
+
+CREATED:
+- `project-control/targeted-gsc-query-queue.csv`
+- `project-control/targeted-gsc-query-queue.md`
+
+VERIFIED:
+- The next query sequence is now explicit instead of scattered through notes.
+- The queue covers the unresolved child-support, child-custody, employment-law, inheritance/wills, work/car-accident, traffic/drunk-driving, and criminal-support gaps.
+- Each row states the expected primary URL, supporting URLs, known current signal, GSC tabs to check, and decision rules for clean URL, old URL and multiple-URL outcomes.
+
+NEXT:
+- Run the first browser pass for the child-support and adjacent family-law queries.
+- Then update `gsc-keyword-page-map.csv`, `gsc-cannibalization-review.csv`, `gsc-content-priorities.csv`, `content-decision-evidence-overlay.csv`, and the relevant topic packet.
+
+BLOCKED:
+- The queue is not approval for URL migration, redirects, noindex, canonical changes, sitemap changes, content rewrites, deletions, taxonomy/menu changes or CMS writes.

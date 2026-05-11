@@ -2,6 +2,16 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 11:55 Asia/Jerusalem
+- IN PROGRESS / REVIEW: created a targeted GSC query queue to turn the current audit gaps into a concrete browser-check sequence.
+- CREATED: `project-control/targeted-gsc-query-queue.csv`.
+- CREATED: `project-control/targeted-gsc-query-queue.md`.
+- VERIFIED: the queue covers the active NOT VERIFIED decision gaps for child support, child custody, employment law, inheritance/wills, work/car accident, traffic/drunk-driving, and criminal support spokes.
+- VERIFIED: every row records expected primary URL, supporting URLs, why the query matters, what to record in GSC, and what to do if an old URL, clean URL, or multiple URLs appear.
+- REVIEW: the first browser pass should start with `מזונות ילדים`, `חישוב מזונות`, `מחשבון מזונות`, `בעמ 919/15`, `משמורת ילדים`, employment-law, inheritance-lawyer, wills/inheritance, and car-accident lawyer variants.
+- BLOCKED: the queue is not approval for any URL, redirect, noindex, canonical, sitemap, content rewrite, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change.
+- SAFETY: this pass created planning documents only; no public site state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 11:44 Asia/Jerusalem
 - IN PROGRESS / REVIEW: created a focused child-support decision packet for the largest current target-slug conflict group.
 - CREATED: `project-control/child-support-content-decision-packet.md`.

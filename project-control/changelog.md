@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Targeted GSC query queue
+
+- CREATED: `project-control/targeted-gsc-query-queue.csv`.
+- CREATED: `project-control/targeted-gsc-query-queue.md`.
+- UPDATED: `project-control/current-status.md`, `project-control/next-actions.md`, `project-control/content-decision-batches.md`, `project-control/gsc-serp-first-evidence-pass.md`, and `project-control/task-board.csv`.
+- VERIFIED: the queue turns the current NOT VERIFIED audit gaps into a concrete browser GSC sequence for child support, child custody, employment law, inheritance/wills, work/car accident, traffic/drunk-driving, and criminal support spokes.
+- VERIFIED: each row documents expected primary URL, supporting URLs, known signal, GSC tabs to inspect, and decision rules if a clean URL, old URL, or multiple URLs appear.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Child support decision packet
 
 - CREATED: `project-control/child-support-content-decision-packet.md`.

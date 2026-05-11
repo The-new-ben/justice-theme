@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-SITEMAP-HTTPS-001: Normalize plugin sitemap URLs to HTTPS
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** Live sitemap child files previously exposed many first-party `http://` URLs, creating mixed protocol signals and blocking a clean URL migration project.
+**Actions:**
+1. DONE: WordPress core sitemap entries still normalize first-party `loc` values to HTTPS.
+2. DONE: added Yoast sitemap URL/entry filters for first-party HTTPS normalization.
+3. DONE: added Rank Math sitemap URL/index/entry filters for first-party HTTPS normalization.
+4. DONE: added AIOSEO sitemap index normalization for first-party HTTPS URLs.
+5. VERIFIED: official plugin documentation was checked for the sitemap hooks before implementation.
+6. VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+7. NEXT: pull/deploy marker `2026-05-11-sitemap-https-plugin-filters-v1`, clear sitemap/plugin cache if needed, then recheck `page-sitemap.xml`, `articles-sitemap1.xml`, `articles-sitemap2.xml`, and `practice-areas-sitemap.xml` for `http://jus-tice.co.il` locs.
+8. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-BRANDING-MANIFEST-001: Add stable mobile/search-branding manifest
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** Browser tabs, mobile bookmarks and search branding need stable, crawlable brand assets without depending on a database-side Site Icon update.

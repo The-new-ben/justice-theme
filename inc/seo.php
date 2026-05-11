@@ -575,6 +575,30 @@ add_filter( 'rank_math/opengraph/facebook/url', 'justice_theme_filter_public_url
 add_filter( 'rank_math/opengraph/twitter/url', 'justice_theme_filter_public_url_scheme' );
 
 /**
+ * Normalize a sitemap entry array without changing non-URL metadata.
+ *
+ * @param mixed $entry Sitemap entry.
+ * @return mixed
+ */
+function justice_theme_normalize_sitemap_entry_loc( $entry ) {
+	if ( is_array( $entry ) && ! empty( $entry['loc'] ) ) {
+		$entry['loc'] = justice_theme_normalize_public_url( (string) $entry['loc'] );
+	}
+
+	return $entry;
+}
+
+/**
+ * Normalize first-party URL strings in plugin sitemap callbacks.
+ *
+ * @param mixed $url Sitemap URL.
+ * @return string
+ */
+function justice_theme_normalize_sitemap_url_string( $url ): string {
+	return justice_theme_normalize_public_url( (string) $url );
+}
+
+/**
  * Normalize WordPress core sitemap entries if core sitemaps are active.
  *
  * The live sitemap currently appears plugin-controlled, so this is a safe
@@ -584,15 +608,45 @@ add_filter( 'rank_math/opengraph/twitter/url', 'justice_theme_filter_public_url_
  * @return array
  */
 function justice_theme_normalize_core_sitemap_entry( array $entry ): array {
-	if ( ! empty( $entry['loc'] ) ) {
-		$entry['loc'] = justice_theme_normalize_public_url( (string) $entry['loc'] );
-	}
-
-	return $entry;
+	return justice_theme_normalize_sitemap_entry_loc( $entry );
 }
 add_filter( 'wp_sitemaps_posts_entry', 'justice_theme_normalize_core_sitemap_entry' );
 add_filter( 'wp_sitemaps_taxonomies_entry', 'justice_theme_normalize_core_sitemap_entry' );
 add_filter( 'wp_sitemaps_users_entry', 'justice_theme_normalize_core_sitemap_entry' );
+
+/**
+ * Normalize common SEO-plugin sitemap URL entries to the public HTTPS origin.
+ *
+ * These filters only alter first-party URL strings already being emitted by
+ * the active sitemap generator. They do not add, remove, redirect or migrate
+ * any URL.
+ */
+add_filter( 'wpseo_xml_sitemap_post_url', 'justice_theme_normalize_sitemap_url_string', 20 );
+add_filter( 'wpseo_xml_sitemap_term_url', 'justice_theme_normalize_sitemap_url_string', 20 );
+add_filter( 'wpseo_sitemap_entry', 'justice_theme_normalize_sitemap_entry_loc', 20 );
+add_filter( 'rank_math/sitemap/xml_post_url', 'justice_theme_normalize_sitemap_url_string', 20 );
+add_filter( 'rank_math/sitemap/post_type_archive_link', 'justice_theme_normalize_sitemap_url_string', 20 );
+add_filter( 'rank_math/sitemap/entry', 'justice_theme_normalize_sitemap_entry_loc', 20 );
+add_filter( 'rank_math/sitemap/index/entry', 'justice_theme_normalize_sitemap_entry_loc', 20 );
+add_filter( 'aioseo_sitemap_indexes', 'justice_theme_normalize_aioseo_sitemap_indexes', 20 );
+
+/**
+ * Normalize AIOSEO sitemap index locations.
+ *
+ * @param mixed $indexes Sitemap indexes.
+ * @return mixed
+ */
+function justice_theme_normalize_aioseo_sitemap_indexes( $indexes ) {
+	if ( ! is_array( $indexes ) ) {
+		return $indexes;
+	}
+
+	foreach ( $indexes as $key => $index ) {
+		$indexes[ $key ] = justice_theme_normalize_sitemap_entry_loc( $index );
+	}
+
+	return $indexes;
+}
 
 /**
  * Fallback robots tag for unknown SEO stacks. This makes filtered directory

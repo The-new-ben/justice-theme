@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-11-branding-manifest-v1
-expected-github-main-commit=after-branding-manifest
+justice-theme-deployment-marker=2026-05-11-sitemap-https-plugin-filters-v1
+expected-github-main-commit=after-sitemap-https-plugin-filters
 purpose=public-static-file-check-for-upress-theme-sync

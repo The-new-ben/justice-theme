@@ -26,7 +26,8 @@ CODE FIXED / NOT LIVE VERIFIED:
 - Theme-level first-party canonical, hreflang and Open Graph URLs now normalize to HTTPS.
 - WordPress core sitemap entries now normalize first-party `loc` URLs to HTTPS when core sitemaps are active.
 - Public frontend first-party links generated through WordPress URL helpers now normalize to HTTPS, reducing internal-link mixed-protocol signals after deployment.
-- The active live sitemap appears plugin-controlled, so this is only a partial safeguard until wp-admin/uPress sitemap settings are reviewed.
+- Plugin sitemap compatibility filters now normalize first-party URLs emitted through supported Yoast, Rank Math and AIOSEO sitemap hooks.
+- The active live sitemap still requires post-deployment recheck because plugin cache/settings may need a uPress/wp-admin cache clear before changed hooks affect XML output.
 
 EVIDENCE FILE:
 - `project-control/sitemap-live-verification.csv`
@@ -154,9 +155,16 @@ BLOCKED / NEEDS LIVE ADMIN:
 - Verify active sitemap generator.
 - Check whether an SEO plugin is active.
 - Check why default sitemap aliases `/sitemap.xml` and `/wp-sitemap.xml` redirect to homepage while `/sitemap_index.xml` works.
-- Check why active sitemap child files output many `http://` locs.
+- Recheck whether active sitemap child files still output `http://` locs after marker `2026-05-11-sitemap-https-plugin-filters-v1` is live.
 - Check if a redirect/catch-all rule is masking missing XML/404s.
 - Check whether practice-area sitemap should include media/image URLs or only canonical taxonomy URLs.
+
+## 2026-05-11 Hook Source Notes
+
+- VERIFIED: Yoast official developer docs document `wpseo_xml_sitemap_post_url` for altering sitemap post URLs.
+- VERIFIED: Rank Math official docs document `rank_math/sitemap/entry`, `rank_math/sitemap/xml_post_url`, and `rank_math/sitemap/post_type_archive_link`.
+- VERIFIED: AIOSEO official docs document `aioseo_sitemap_indexes` with `loc` entries.
+- LIMITATION: plugin cache/settings may still require wp-admin/uPress cache clear before XML output changes are visible.
 
 ## Current Decision
 

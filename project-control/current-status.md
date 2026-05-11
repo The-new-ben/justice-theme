@@ -2,6 +2,15 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 06:09 Asia/Jerusalem
+- CODE FIXED: added plugin-sitemap HTTPS normalization hooks for first-party sitemap entries, covering WordPress core sitemap entries plus common Yoast, Rank Math and AIOSEO sitemap URL/index filters.
+- CODE FIXED: sitemap `loc` values are normalized through the existing `justice_theme_normalize_public_url()` helper; the patch does not add, remove, redirect, migrate or noindex any URL.
+- WHY: live sitemap checks previously found many `http://jus-tice.co.il` child sitemap URLs, which is a technical SEO blocker before any controlled URL migration.
+- VERIFIED: plugin hook names were checked against official Yoast, Rank Math and AIOSEO documentation before coding.
+- VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-sitemap-https-plugin-filters-v1`; public sitemap verification still needs uPress pull/cache clear.
+- SAFETY: no URL, redirect, sitemap plugin setting, robots/htaccess rule, content body, taxonomy term, canonical setting, lawyer profile, lead/CRM record, review data, wp-admin setting or database row was changed by this repo patch.
+
 ## LATEST WORK STATUS - 2026-05-11 05:58 Asia/Jerusalem
 - CODE FIXED: added stable `assets/images/site.webmanifest` for mobile bookmark/install surfaces, pointing to the existing 192x192 and 512x512 Jus-Tice icon assets.
 - CODE FIXED: `inc/seo.php` now provides a fallback manifest link only when WordPress has no Site Icon, matching the favicon fallback behavior and avoiding duplicate live manifest tags.

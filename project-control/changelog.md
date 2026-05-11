@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Plugin sitemap HTTPS filters
+
+- CODE FIXED: added first-party HTTPS normalization for sitemap entries emitted through WordPress core, Yoast, Rank Math and AIOSEO hooks.
+- CODE FIXED: sitemap entry arrays and URL strings now reuse `justice_theme_normalize_public_url()` so only Jus-Tice host URLs are changed from HTTP to HTTPS.
+- EXPECTED IMPACT: after deployment and cache clear, active sitemap child files should stop exposing first-party `http://jus-tice.co.il` locs when the active generator uses supported hooks.
+- VERIFIED: official Yoast, Rank Math and AIOSEO sitemap hook documentation was checked before implementation.
+- VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-sitemap-https-plugin-filters-v1`.
+- SAFETY: no URLs, redirects, sitemap settings, robots/htaccess rules, content, taxonomy, canonical settings, CRM, lawyer, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - Branding manifest
 
 - CODE FIXED: added `assets/images/site.webmanifest` for stable mobile bookmark/install branding.

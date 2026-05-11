@@ -2,6 +2,11 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Sitemap HTTPS QA
+- CODE FIXED / NOT LIVE VERIFIED: supported sitemap generators should now normalize first-party sitemap `loc` values to HTTPS before output.
+- WHY IT MATTERS: sitemap mixed-protocol signals were found in live checks and should be cleared before URL migration or GSC sitemap resubmission.
+- LIVE CHECK NEEDED: after uPress pull/cache clear, re-run public checks for `page-sitemap.xml`, `articles-sitemap1.xml`, `articles-sitemap2.xml`, and `practice-areas-sitemap.xml`; record `http_loc_count` and marker `2026-05-11-sitemap-https-plugin-filters-v1`.
+
 ## 2026-05-11 Branding Manifest QA
 - CODE FIXED / NOT LIVE VERIFIED: theme now has `assets/images/site.webmanifest` as a fallback for mobile bookmark/install branding, using existing 192x192 and 512x512 square icons.
 - PARTIAL LIVE VERIFIED: current public source already includes the RealFaviconGenerator manifest from `/wp-content/uploads/fbrfg/site.webmanifest`, so the theme fallback should remain suppressed while that admin icon stack is active.

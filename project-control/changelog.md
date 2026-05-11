@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Related-content QA attributes
+
+- CODE FIXED: manual related URL metadata now supports comma, newline, pipe and semicolon separators.
+- CODE FIXED: semantic related-content sections expose source cluster and card count as safe `data-*` attributes.
+- CODE FIXED: related article cards expose inferred card cluster and cluster-match state for visual/DOM QA.
+- EXPECTED IMPACT: post-deployment checks can identify off-cluster related cards without reading internal project notes or changing public article bodies.
+- VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and related-content QA with marker `2026-05-11-related-content-qa-attrs-v1`.
+- SAFETY: no content, URLs, redirects, sitemap, robots, CMS metadata, CRM, lawyer or review records were changed.
+
 ## 2026-05-11 - Related-content CMS metadata batch 001
 
 - DOCUMENTED: created `project-control/related-content-cms-update-batch-001.csv`.

@@ -3,10 +3,10 @@ Date: 2026-05-10
 
 ## Status
 
-- CODE FIXED V2: semantic related-content selection is implemented in `inc/related-content.php`, with a cluster gate for taxonomy fallback.
+- CODE FIXED V3: semantic related-content selection is implemented in `inc/related-content.php`, with a cluster gate for taxonomy fallback and safe QA attributes for post-deploy DOM checks.
 - VERIFIED: PHP lint passed for 127 PHP files.
 - LIVE VERIFIED PARTIAL: public article `/find-lawyer-how-to-find-good-attorney/` exposes `data-related-mode="semantic"` after uPress pull/cache clear.
-- CODE FIXED / NOT LIVE VERIFIED: V2 should reduce off-intent fallback cards found on general, criminal and real-estate samples; deployment and repeat visual QA are still required.
+- CODE FIXED / NOT LIVE VERIFIED: V3 should make off-cluster cards easier to detect after deployment; deployment and repeat visual QA are still required.
 
 ## What Changed
 
@@ -14,6 +14,9 @@ Date: 2026-05-10
 - Articles with the same `content_cluster` are selected before taxonomy fallback.
 - Shared `practice-areas` taxonomy is used only after manual and cluster matches.
 - Shared `practice-areas` fallback now requires a matching inferred editorial cluster when the source page has enough slug/meta/title signals.
+- Manual URL fields now accept comma, newline, pipe and semicolon separators.
+- Related sections expose `data-related-source-cluster` and `data-related-card-count`.
+- Related cards expose `data-related-card-cluster` and `data-related-cluster-match`.
 - Global latest-post fallback was removed from single-article related cards.
 - If no semantic related article exists, the public page shows a relevant practice-area link instead of unrelated cards.
 
@@ -35,9 +38,17 @@ Related articles are part of the SEO and user journey. A visitor reading about a
 - WHAT TO SET IN CMS: `content_cluster`, `parent_pillar_url`, and `manual_related_urls`.
 - NOT EXECUTED: no WordPress metadata, article body, URL, redirect, taxonomy or database row was changed from this repo session.
 
+## 2026-05-11 QA Attributes V1
+
+- CODE FIXED: related cards can now be inspected for source cluster, card cluster and match/mismatch state.
+- QA RULE: `data-related-cluster-match="mismatch"` should be treated as an editorial review warning, especially when the card was not manually selected.
+- VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and DOM QA against marker `2026-05-11-related-content-qa-attrs-v1`.
+
 ## Next
 
 1. Fill CMS metadata for priority articles: `manual_related_urls`, `parent_pillar_url`, `content_cluster`.
 2. Use `project-control/related-content-map.csv` as the editorial source for family, criminal, real estate, malpractice, traffic and inheritance clusters.
 3. After uPress pull/cache clear, repeat live visual QA for one general lawyer-selection article, one family article, one criminal article and one real-estate article.
-4. Add GA4 event tracking for related-article clicks later.
+4. During that QA, record any related card with `data-related-cluster-match="mismatch"`.
+5. Add GA4 event tracking for related-article clicks later.

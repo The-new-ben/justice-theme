@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 04:52 Asia/Jerusalem
+- CODE FIXED: related-content manual URL metadata now accepts comma, newline, pipe and semicolon separators, so admin/CMS batches are less brittle.
+- CODE FIXED: related-article sections now expose safe DOM QA signals: `data-related-source-cluster`, `data-related-card-count`, and per-card `data-related-card-cluster` / `data-related-cluster-match`.
+- CODE FIXED: reusable article cards can receive controlled `data-*` attributes without changing public text, layout, URLs or article content.
+- VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-related-content-qa-attrs-v1`; requires uPress pull/cache clear and repeat related-content DOM/visual QA.
+- SAFETY: no WordPress article body, CMS metadata, URL, redirect, taxonomy term, lawyer record, lead/CRM record, review data, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 03:41 Asia/Jerusalem
 - DOCUMENTED: created `project-control/related-content-cms-update-batch-001.csv` for four priority pages whose live related cards need explicit CMS metadata.
 - DOCUMENTED: batch 001 specifies `content_cluster`, `parent_pillar_url`, and `manual_related_urls` for the general lawyer-selection article, drug-offenses article, real-estate cost article, and mutual-divorce-agreement article.

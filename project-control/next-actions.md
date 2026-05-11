@@ -136,7 +136,7 @@
 6. NOT LIVE VERIFIED: deployed public CSS still needs post-pull verification.
 
 ### ACTION-CONTENT-001: Semantic Related Articles
-**Status:** CODE FIXED V2 - metadata batch prepared / deployment and live QA pending
+**Status:** CODE FIXED V3 - metadata batch prepared / deployment and live QA pending
 **Why:** Related articles should support the reader's next legal step and the SEO cluster, not show random latest or unrelated legacy posts.
 **Actions:**
 1. DONE: replaced single-article related selection with manual URLs, same `content_cluster`, then same `practice-areas`.
@@ -148,10 +148,11 @@
 7. CODE FIXED: internal article review/status blocks are now editor-only so public visitors do not see internal QA/source-audit status when meta fields exist.
 8. CODE FIXED V2: taxonomy fallback now applies an inferred cluster gate so broad/shared practice terms cannot pull obviously off-topic cards.
 9. DONE: created `project-control/related-content-cms-update-batch-001.csv` with concrete `content_cluster`, `parent_pillar_url`, and `manual_related_urls` values for four sampled priority pages.
-10. NEXT: deploy/pull marker `2026-05-11-related-cluster-gate-v1`, then repeat live QA on general, criminal, family and real-estate article samples.
-11. NEXT: with owner approval and wp-admin/REST write access, apply metadata batch 001.
-12. NEXT: add a QA flag for related cards whose URL/topic does not match the page cluster.
-13. NOT LIVE VERIFIED AFTER V2: requires uPress pull/cache clear and article-page source check for marker `2026-05-11-related-cluster-gate-v1`.
+10. DONE V3: manual related URL metadata now accepts comma/newline/pipe/semicolon separators, matching messy real CMS entry patterns.
+11. DONE V3: related sections and cards expose safe QA attributes for source cluster, card cluster and cluster-match state.
+12. NEXT: deploy/pull marker `2026-05-11-related-content-qa-attrs-v1`, then repeat live QA on general, criminal, family and real-estate article samples.
+13. NEXT: with owner approval and wp-admin/REST write access, apply metadata batch 001.
+14. NOT LIVE VERIFIED AFTER V3: requires uPress pull/cache clear and article-page DOM/source check for the new QA attributes.
 
 ### ACTION-SEO-001: Open GSC Indexing Drilldowns
 **Status:** COMPLETED - first sample pass

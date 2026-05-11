@@ -10,9 +10,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $post_id = get_the_ID();
+$extra_attributes = '';
+
+if ( isset( $args['data_attrs'] ) && is_array( $args['data_attrs'] ) ) {
+	foreach ( $args['data_attrs'] as $attr_name => $attr_value ) {
+		$attr_name = (string) $attr_name;
+
+		if ( ! preg_match( '/^data-[a-z0-9_-]+$/', $attr_name ) ) {
+			continue;
+		}
+
+		$extra_attributes .= sprintf( ' %s="%s"', esc_attr( $attr_name ), esc_attr( (string) $attr_value ) );
+	}
+}
 ?>
 
-<article <?php post_class( 'article-card premium-card' ); ?> style="display: flex; flex-direction: column;">
+<article <?php post_class( 'article-card premium-card' ); ?><?php echo $extra_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> style="display: flex; flex-direction: column;">
 	<a class="article-card__media" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1" style="display: block; height: 180px; background: rgba(0,0,0,0.05); overflow: hidden;">
 		<?php if ( has_post_thumbnail() ) : ?>
 			<?php the_post_thumbnail( 'justice-card', array( 'loading' => 'lazy', 'style' => 'width: 100%; height: 100%; object-fit: cover;' ) ); ?>

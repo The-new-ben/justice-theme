@@ -73,6 +73,16 @@ function justice_theme_related_post_id_from_path( string $path ): int {
 }
 
 /**
+ * Split manual related URLs into individual path values.
+ *
+ * @param string $raw Raw metadata value.
+ * @return string[]
+ */
+function justice_theme_related_split_paths( string $raw ): array {
+	return array_filter( array_map( 'trim', preg_split( '/[\r\n,|;]+/', $raw ) ?: array() ) );
+}
+
+/**
  * Add unique IDs without exceeding the requested limit.
  *
  * @param int[] $ids Current IDs.
@@ -114,7 +124,7 @@ function justice_theme_related_manual_ids( int $post_id ): array {
 			continue;
 		}
 
-		$paths = array_merge( $paths, preg_split( '/[\r\n,]+/', $raw ) ?: array() );
+		$paths = array_merge( $paths, justice_theme_related_split_paths( $raw ) );
 	}
 
 	$ids = array();
@@ -276,6 +286,34 @@ function justice_theme_related_filter_cluster_candidates( array $candidate_ids, 
 }
 
 /**
+ * Return safe QA attributes for a related-content card.
+ *
+ * These attributes do not change public rendering, but let visual/DOM QA flag
+ * off-cluster related cards after deployment.
+ *
+ * @param int    $source_id      Current post ID.
+ * @param int    $candidate_id   Related post ID.
+ * @param string $source_cluster Optional precomputed source cluster.
+ * @return array<string,string>
+ */
+function justice_theme_related_card_data_attrs( int $source_id, int $candidate_id, string $source_cluster = '' ): array {
+	$source_cluster    = $source_cluster ?: justice_theme_related_infer_cluster( $source_id );
+	$candidate_cluster = justice_theme_related_infer_cluster( $candidate_id );
+	$cluster_match     = 'unknown';
+
+	if ( $source_cluster && $candidate_cluster ) {
+		$cluster_match = $source_cluster === $candidate_cluster ? 'match' : 'mismatch';
+	}
+
+	return array(
+		'data-related-card'           => 'true',
+		'data-related-source-cluster' => $source_cluster ?: 'unknown',
+		'data-related-card-cluster'   => $candidate_cluster ?: 'unknown',
+		'data-related-cluster-match'  => $cluster_match,
+	);
+}
+
+/**
  * Collect semantic related articles.
  *
  * Priority:
@@ -393,6 +431,7 @@ function justice_theme_related_empty_state( ?WP_Term $term ): void {
 function justice_theme_related_articles( $post_id ) {
 	$post_id     = (int) $post_id;
 	$related_ids = justice_theme_get_related_article_ids( $post_id, 3 );
+	$source_cluster = justice_theme_related_infer_cluster( $post_id );
 
 	if ( empty( $related_ids ) ) {
 		justice_theme_related_empty_state( justice_theme_get_primary_practice_area( $post_id ) );
@@ -416,7 +455,12 @@ function justice_theme_related_articles( $post_id ) {
 		return;
 	}
 	?>
-	<section class="related-articles section" data-related-mode="semantic">
+	<section
+		class="related-articles section"
+		data-related-mode="semantic"
+		data-related-source-cluster="<?php echo esc_attr( $source_cluster ?: 'unknown' ); ?>"
+		data-related-card-count="<?php echo esc_attr( (string) count( $related_ids ) ); ?>"
+	>
 		<div class="container">
 			<div class="section-header">
 				<h2><?php esc_html_e( 'מדריכים משפטיים קשורים', 'justice-theme' ); ?></h2>
@@ -427,7 +471,13 @@ function justice_theme_related_articles( $post_id ) {
 				<?php
 				while ( $related->have_posts() ) :
 					$related->the_post();
-					get_template_part( 'template-parts/cards/article-card' );
+					get_template_part(
+						'template-parts/cards/article-card',
+						null,
+						array(
+							'data_attrs' => justice_theme_related_card_data_attrs( $post_id, get_the_ID(), $source_cluster ),
+						)
+					);
 				endwhile;
 				wp_reset_postdata();
 				?>

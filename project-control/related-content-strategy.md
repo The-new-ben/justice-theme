@@ -113,6 +113,15 @@ Status: PARTIAL LIVE VERIFIED. No public content, URL, redirect, sitemap, robots
 - NOT EXECUTED: no CMS metadata was updated from this repo session.
 - OWNER APPROVAL REQUIRED: yes, because even metadata changes can alter public related-card output.
 
+## 2026-05-11 QA Attribute Batch
+
+- CODE FIXED: manual related metadata now accepts comma, newline, pipe and semicolon separators.
+- CODE FIXED: related sections expose `data-related-source-cluster` and `data-related-card-count`.
+- CODE FIXED: related cards expose `data-related-card-cluster` and `data-related-cluster-match`.
+- QA USE: after deployment, DOM checks can flag `data-related-cluster-match="mismatch"` for editorial review instead of relying only on screenshots.
+- LIMITATION: a mismatch is a QA warning, not an automatic failure, because some manually selected cross-cluster links may be intentional.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and repeat related-content sample QA.
+
 ## 2026-05-10 Implementation Notes
 
 - CODE FIXED: `inc/related-content.php` now collects related cards through a semantic ladder:

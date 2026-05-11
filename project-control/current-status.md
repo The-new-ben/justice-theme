@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 20:08 Asia/Jerusalem
+- VERIFIED / REAL-ESTATE PAGE DECISION MATRIX: created the review-only page-by-page classification layer for the real-estate cluster.
+- CREATED: `project-control/real-estate-page-decision-matrix-2026-05-11.md`.
+- CREATED: `project-control/real-estate-page-decision-matrix-2026-05-11.csv`.
+- VERIFIED: `/real-estate-attorney/` remains the current no-URL-change commercial candidate; `/real-estate-lawyer/` remains future-only until a migration map is approved.
+- VERIFIED: `/real-estate-lawyer-cost-2025/` is protected as high-impression support content, not the broad pillar.
+- VERIFIED: `/israeli_land_and_property_laws/`, cost/fee pages, buying-apartment candidates, registry, tax, rental, contractor/defect and international-property pages are now separated by role before any rewrite or URL decision.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, homepage, menu, taxonomy, internal-link, related-card, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+- NEXT: run a real-estate side-by-side comparison and then an approval-gated internal-link plan.
+
 ## LATEST WORK STATUS - 2026-05-11 19:58 Asia/Jerusalem
 - VERIFIED / REAL-ESTATE SOURCE-LEGAL CHECKLIST: created the review-only source/legal gate for the Israeli real-estate, apartment purchase/sale, land registry, tax, contractor/defect, rental and international-property boundary cluster.
 - CREATED: `project-control/real-estate-source-legal-checklist-2026-05-11.md`.

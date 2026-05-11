@@ -205,6 +205,26 @@ Before any rewrite or merge, verify:
 - Planning/building rights and roof-rights claims.
 - No unsupported “recommended lawyer”, “free consultation” or price promises unless approved.
 
+## 2026-05-11 Page Decision Matrix Addendum
+
+CREATED:
+- `project-control/real-estate-page-decision-matrix-2026-05-11.md`
+- `project-control/real-estate-page-decision-matrix-2026-05-11.csv`
+
+VERIFIED:
+- `/real-estate-attorney/` remains the current no-URL-change commercial candidate.
+- `/real-estate-lawyer/` remains a future strategic slug only and is blocked until a migration map is approved.
+- `/real-estate-lawyer-cost-2025/` is protected as high-impression support content.
+- `/israeli_land_and_property_laws/`, fee/cost pages, buying-apartment candidates, registry, registration, tax, rental, contractor/defect and international-property pages are now separated by role.
+- `/buying-apartment/` and `/real-estate-purchase-agreement/` remain future support slugs only until existing content and duplicate-target risks are reviewed.
+
+RECOMMENDED:
+- Run a real-estate side-by-side comparison next.
+- Then create an approval-gated internal-link plan only after owner/legal approval chooses page roles.
+
+BLOCKED:
+- No public title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this matrix alone.
+
 ## Internal-Link Direction
 
 Recommended later structure, pending owner approval:

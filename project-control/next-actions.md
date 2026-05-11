@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-REAL-ESTATE-PAGE-MATRIX-001: Classify real-estate pages page by page
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** After the source/legal checklist, the real-estate cluster needed concrete page-level role decisions so current commercial pages, future clean slugs, cost support, registry/tax pages, rental pages and international property content are not mixed.
+**Actions:**
+1. DONE: created `project-control/real-estate-page-decision-matrix-2026-05-11.md`.
+2. DONE: created `project-control/real-estate-page-decision-matrix-2026-05-11.csv`.
+3. VERIFIED: `/real-estate-attorney/` remains the current no-URL-change commercial candidate.
+4. VERIFIED: `/real-estate-lawyer/` remains a strategic future slug only.
+5. VERIFIED: `/real-estate-lawyer-cost-2025/` remains protected high-impression support content.
+6. VERIFIED: `/israeli_land_and_property_laws/`, fee pages, buying-apartment candidates, registry/tax/rental pages, contractor/defect support and international-property pages are separated before public execution.
+7. NEXT: create a real-estate side-by-side comparison and approval-gated internal-link plan.
+8. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, homepage, menu, breadcrumb, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-REAL-ESTATE-SOURCE-LEGAL-001: Create source/legal gate for Israeli real-estate pages
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The real-estate cluster mixes current commercial service intent, a future clean slug, overloaded cost support, registry/tax/contract pages, contractor-defect topics, rental intent and international property content. It needs source/legal gates before any rewrite, internal-link execution or URL migration.

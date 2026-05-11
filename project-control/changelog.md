@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Real estate page decision matrix
+
+- CREATED: `project-control/real-estate-page-decision-matrix-2026-05-11.md`.
+- CREATED: `project-control/real-estate-page-decision-matrix-2026-05-11.csv`.
+- UPDATED: `project-control/real-estate-owner-approval-packet.md`, `project-control/content-decision-batches.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `/real-estate-attorney/` is classified as the current no-URL-change commercial candidate, while `/real-estate-lawyer/` remains a future-only migration slug.
+- VERIFIED: `/real-estate-lawyer-cost-2025/` is protected as a high-impression support page.
+- VERIFIED: broad property-law, fee/cost, buying-apartment, registry, tax, rental, contractor/defect and international-property pages now have role classifications before side-by-side review.
+- BLOCKED: no public real-estate content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, internal link, related-card, menu, breadcrumb, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Real estate source and legal checklist
 
 - CREATED: `project-control/real-estate-source-legal-checklist-2026-05-11.md`.

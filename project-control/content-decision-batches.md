@@ -100,6 +100,27 @@ Use the three review CSVs to run the first GSC/SERP evidence pass on:
 
 Then update the URL migration map only as a proposed plan, not as live URL changes.
 
+## 2026-05-11 Real Estate Page Decision Matrix
+
+CREATED:
+- `project-control/real-estate-page-decision-matrix-2026-05-11.md`
+- `project-control/real-estate-page-decision-matrix-2026-05-11.csv`
+
+VERIFIED:
+- `/real-estate-attorney/` is the current no-URL-change commercial candidate.
+- `/real-estate-lawyer/` is future-only and requires a full migration map before use.
+- `/real-estate-lawyer-cost-2025/` is a protected support page with visible GSC demand, not the broad pillar.
+- `/israeli_land_and_property_laws/`, fee/cost pages, buying-apartment candidates, registry, registration, tax, rental, contractor/defect and international-property pages now have initial roles.
+- International property content is separated from Israeli real-estate lawyer intent.
+
+RECOMMENDED:
+- Run a side-by-side comparison for the current commercial candidate, future clean slug candidates, cost pages, buying-apartment candidates and registry/tax/rental support pages.
+- Keep `/buying-apartment/` and `/real-estate-purchase-agreement/` as future-only until duplicate-target and source/legal checks are complete.
+- Build an approval-gated internal-link map only after owner approves page roles.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, breadcrumbs, related-card edits, lawyer cards, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Evidence Overlay
 
 CREATED:

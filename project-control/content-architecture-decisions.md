@@ -97,6 +97,13 @@ Recommended action:
 - REVIEW: registry and tax pages need official-source validation; contractor/defect claims need Sale Law/legal review; international property pages must be separated from Israeli lawyer-service intent.
 - BLOCKED: no public real-estate title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this checklist alone.
 
+2026-05-11 real-estate page decision matrix addendum:
+- VERIFIED: `project-control/real-estate-page-decision-matrix-2026-05-11.md` and `.csv` classify current and future real-estate URLs before any public execution.
+- VERIFIED: `/real-estate-attorney/` is the current no-URL-change commercial candidate; `/real-estate-lawyer/` remains future-only and migration-blocked.
+- VERIFIED: `/real-estate-lawyer-cost-2025/` is protected high-impression support content, while `/israeli_land_and_property_laws/`, fee pages, buying-apartment candidates, registry/tax/rental pages, contractor/defect support and international-property pages need side-by-side review before role approval.
+- VERIFIED: `/buying-apartment/` and `/real-estate-purchase-agreement/` remain future support slugs only until duplicate-target and source/legal checks are complete.
+- BLOCKED: no public real-estate title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this matrix alone.
+
 ## Medical Malpractice
 
 Decision:

@@ -83,6 +83,26 @@ After each browser session, document:
 - NOT VERIFIED: filters that showed no rows or could not be checked.
 - BLOCKED: decisions needing owner approval, legal review, menu export, full CMS export or GSC/GA4 export.
 
+## 2026-05-11 Homepage And Directory Browser Pass Completed
+
+VERIFIED:
+- `project-control/gsc-homepage-directory-page-query-pass-2026-05-11.md`
+- `project-control/gsc-homepage-directory-page-query-pass-2026-05-11.csv`
+- `project-control/visual-evidence/gsc-homepage-page-query-2026-05-11.png`
+- `project-control/visual-evidence/gsc-lawyers-page-query-2026-05-11.png`
+- `project-control/visual-evidence/gsc-query-lawyer-singular-pages-2026-05-11.png`
+- `project-control/visual-evidence/gsc-query-lawyers-plural-pages-2026-05-11.png`
+- `project-control/visual-evidence/gsc-query-find-lawyer-pages-2026-05-11.png`
+
+Key findings:
+- Homepage page-to-query check shows `26` clicks, `5,459` impressions, CTR `0.5%`, and average position `17.1`.
+- `/lawyers/` page-to-query check returned `No data`.
+- `עורך דין`, `עורכי דין`, and `מציאת עורך דין` query-to-page checks currently map broad lawyer/directory intent mainly to the homepage.
+- Multiple old/support URLs receive broad lawyer impressions, so homepage and directory decisions must be integrated with internal links, pillar pages and URL migration planning.
+
+Next queue direction:
+- Run cyber/privacy and national-insurance remaining-gap checks.
+
 ## 2026-05-11 Second Browser Pass Completed
 
 VERIFIED:

@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 GSC Homepage And Directory Evidence Screenshots
+- VERIFIED: browser GSC access was used for the homepage and lawyer-directory evidence pass on the URL-prefix property `https://jus-tice.co.il/`.
+- EVIDENCE: `project-control/visual-evidence/gsc-homepage-page-query-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-lawyers-page-query-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-query-lawyer-singular-pages-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-query-lawyers-plural-pages-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-query-find-lawyer-pages-2026-05-11.png`.
+- VERIFIED: the homepage has broad lawyer/find-lawyer visibility, while `/lawyers/` returned no visible query rows in the reverse check.
+- SAFETY: this is GSC evidence capture only; no public homepage, directory, title/H1/meta, URL, redirect, sitemap, canonical, taxonomy, menu, lawyer, CRM, review or plugin state was changed.
+
 ## 2026-05-11 GSC Targeted Evidence Screenshot - Pass 2
 - VERIFIED: browser GSC access was used for the second targeted query pass on the URL-prefix property `https://jus-tice.co.il/`.
 - EVIDENCE: `project-control/visual-evidence/gsc-targeted-drunk-driving-pages-2026-05-11.png`.

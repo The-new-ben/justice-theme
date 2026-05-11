@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-GSC-HOMEPAGE-DIRECTORY-EVIDENCE-001: Run homepage and lawyer-directory GSC evidence pass
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The remaining-gap queue identified homepage broad intent and `/lawyers/` directory intent as the top unblocked GSC evidence gap before homepage/design or directory SEO changes.
+**Actions:**
+1. DONE: created `project-control/gsc-homepage-directory-page-query-pass-2026-05-11.md`.
+2. DONE: created `project-control/gsc-homepage-directory-page-query-pass-2026-05-11.csv`.
+3. DONE: captured browser evidence screenshots in `project-control/visual-evidence/`.
+4. DONE: updated `project-control/gsc-keyword-page-map.csv`, `project-control/gsc-cannibalization-review.csv`, and `project-control/gsc-content-priorities.csv`.
+5. VERIFIED: homepage page-to-query check shows `26` clicks, `5,459` impressions, CTR `0.5%`, and average position `17.1`.
+6. VERIFIED: `/lawyers/` page-to-query check shows `0` clicks, `0` impressions and `No data`.
+7. VERIFIED: broad `עורך דין`, `עורכי דין`, and `מציאת עורך דין` query-to-page checks currently point to the homepage as the best visible URL by clicks.
+8. REVIEW: the homepage should remain the current broad legal portal/find-a-lawyer entry while `/lawyers/` gets indexability, internal-link, title/H1, sitemap and content-depth review.
+9. NEXT: run the next remaining-gap pass for cyber/privacy and national-insurance checks.
+10. BLOCKED: no public homepage, directory, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/menu, related-card, lawyer-card, CRM/review or CMS writes until owner-approved execution.
+
 ### ACTION-GSC-REMAINING-GAP-QUEUE-001: Create next GSC queue for cyber/privacy, national insurance, homepage and directory checks
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** After the family/criminal/traffic passes, the highest remaining evidence gaps are cyber/privacy, national insurance, homepage broad intent, lawyer-directory intent and page-to-query diagnostics.

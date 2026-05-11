@@ -1,3 +1,24 @@
+## LATEST WORK STATUS - 2026-05-11 15:42 Asia/Jerusalem
+- VERIFIED / GSC: completed the first remaining-gap browser evidence pass for homepage and lawyer-directory intent.
+- CREATED: `project-control/gsc-homepage-directory-page-query-pass-2026-05-11.md`.
+- CREATED: `project-control/gsc-homepage-directory-page-query-pass-2026-05-11.csv`.
+- CREATED: `project-control/visual-evidence/gsc-homepage-page-query-2026-05-11.png`.
+- CREATED: `project-control/visual-evidence/gsc-lawyers-page-query-2026-05-11.png`.
+- CREATED: `project-control/visual-evidence/gsc-query-lawyer-singular-pages-2026-05-11.png`.
+- CREATED: `project-control/visual-evidence/gsc-query-lawyers-plural-pages-2026-05-11.png`.
+- CREATED: `project-control/visual-evidence/gsc-query-find-lawyer-pages-2026-05-11.png`.
+- UPDATED: `project-control/gsc-keyword-page-map.csv`.
+- UPDATED: `project-control/gsc-cannibalization-review.csv`.
+- UPDATED: `project-control/gsc-content-priorities.csv`.
+- VERIFIED: homepage reverse page-to-query check shows `26` clicks, `5,459` impressions, CTR `0.5%`, and average position `17.1`; top visible intents are lawyer-name search, lawyer search, online legal consultation, lawyer directory/index and find-a-lawyer terms.
+- VERIFIED: `/lawyers/` reverse page-to-query check returned `0` clicks, `0` impressions and `No data`, so the lawyer directory is not yet a verified broad SEO primary URL in GSC.
+- VERIFIED: broad `עורך דין` query-to-page check shows homepage as current best URL by clicks with `9` clicks and `2,004` impressions, while many old/support URLs receive broad impressions.
+- VERIFIED: broad `עורכי דין` query-to-page check also maps primarily to the homepage with `3` clicks and `1,228` impressions; `/lawyers/` did not appear in the visible top rows.
+- VERIFIED: `מציאת עורך דין` maps to the homepage only in the visible row with `1` click, `34` impressions and position `7.2`.
+- REVIEW: homepage is currently the de facto broad legal portal/find-a-lawyer entry; `/lawyers/` needs indexability, internal-link, title/H1, sitemap and real-lawyer-content review before it can be treated as a primary directory SEO page.
+- BLOCKED: no public homepage, `/lawyers/`, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, lawyer-card, CRM, review, wp-admin setting or CMS/database action was executed.
+- SAFETY: browser evidence capture and repo documentation only; no live public site state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 15:36 Asia/Jerusalem
 - VERIFIED / REVIEW: created the next remaining-gap GSC queue for cyber/privacy, national insurance, homepage, lawyer-directory and page-to-query checks.
 - CREATED: `project-control/gsc-remaining-gap-queue-2026-05-11.md`.

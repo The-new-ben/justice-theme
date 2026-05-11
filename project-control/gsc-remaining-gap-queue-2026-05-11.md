@@ -76,6 +76,23 @@ Update after each checked group:
   - `project-control/national-insurance-owner-approval-packet.md`
   - `project-control/homepage-seo-design-alignment.md`
 
+## 2026-05-11 Completed Group: Homepage And Lawyer Directory
+
+VERIFIED:
+- `project-control/gsc-homepage-directory-page-query-pass-2026-05-11.md`
+- `project-control/gsc-homepage-directory-page-query-pass-2026-05-11.csv`
+- Browser screenshots in `project-control/visual-evidence/`.
+
+Findings:
+- Homepage reverse query check has `26` clicks, `5,459` impressions and average position `17.1`.
+- `/lawyers/` reverse query check has `0` clicks, `0` impressions and no visible query rows.
+- Broad `עורך דין`, `עורכי דין`, and `מציאת עורך דין` currently map primarily to the homepage.
+
+Decision:
+- REVIEW: keep homepage as current broad legal portal/find-a-lawyer entry.
+- REVIEW: do not treat `/lawyers/` as a proven GSC primary until indexability, internal links, sitemap, title/H1 and real lawyer inventory are reviewed.
+- BLOCKED: no live homepage, directory, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, lawyer-card, CRM/review or CMS action.
+
 ## Safety
 
 This queue is a research plan only. It does not approve any live public content, URL, redirect, sitemap, canonical, related-card, menu, taxonomy, lawyer, lead, review, wp-admin or database change.

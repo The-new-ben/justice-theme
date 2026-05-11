@@ -1,6 +1,21 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Homepage and directory GSC evidence pass
+
+- CREATED: `project-control/gsc-homepage-directory-page-query-pass-2026-05-11.md`.
+- CREATED: `project-control/gsc-homepage-directory-page-query-pass-2026-05-11.csv`.
+- CREATED: `project-control/visual-evidence/gsc-homepage-page-query-2026-05-11.png`.
+- CREATED: `project-control/visual-evidence/gsc-lawyers-page-query-2026-05-11.png`.
+- CREATED: `project-control/visual-evidence/gsc-query-lawyer-singular-pages-2026-05-11.png`.
+- CREATED: `project-control/visual-evidence/gsc-query-lawyers-plural-pages-2026-05-11.png`.
+- CREATED: `project-control/visual-evidence/gsc-query-find-lawyer-pages-2026-05-11.png`.
+- UPDATED: `project-control/gsc-keyword-page-map.csv`, `project-control/gsc-cannibalization-review.csv`, and `project-control/gsc-content-priorities.csv`.
+- UPDATED: `project-control/current-status.md`, `project-control/next-actions.md`, `project-control/targeted-gsc-query-queue.md`, `project-control/gsc-remaining-gap-queue-2026-05-11.md`, `project-control/visual-qa-report.md`, and `project-control/task-board.csv`.
+- VERIFIED: the homepage currently owns broad lawyer/find-lawyer visibility in GSC, including `26` clicks and `5,459` impressions in the homepage page-to-query check.
+- VERIFIED: `/lawyers/` returned zero visible GSC rows in the page-to-query check.
+- BLOCKED: no public homepage, directory, URL, redirect, noindex, canonical, sitemap, title/H1/meta, menu, taxonomy, related-card, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Remaining GSC gap queue
 
 - CREATED: `project-control/gsc-remaining-gap-queue-2026-05-11.md`.

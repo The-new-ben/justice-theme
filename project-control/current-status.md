@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 06:49 Asia/Jerusalem
+- CODE FIXED: disabled Rank Math sitemap caching through the official `rank_math/sitemap/enable_caching` filter while the sitemap HTTPS baseline is being verified.
+- WHY: after uPress pull confirmed the latest theme code was live, public Rank Math child sitemap XML still exposed stale `http://jus-tice.co.il` loc values. Cache bypass is the narrowest repo-level next step before any plugin setting or URL migration work.
+- CODE FIXED: deployment marker advanced to `2026-05-11-rankmath-sitemap-cache-bypass-v1`.
+- VERIFIED BEFORE PATCH: `articles-sitemap2.xml?nocache=1` still returned 200 HTTP loc values and zero HTTPS loc values, so the issue was not solved by a simple URL query cache bust.
+- NOT LIVE VERIFIED: requires GitHub push, uPress pull, and public recheck of `page-sitemap.xml`, `articles-sitemap1.xml`, `articles-sitemap2.xml`, and `practice-areas-sitemap.xml`.
+- SAFETY: no URL, redirect, sitemap plugin setting, robots/htaccess file, content body, taxonomy term, canonical setting, lawyer profile, lead/CRM record, review data, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 06:39 Asia/Jerusalem
 - VERIFIED LIVE: uPress browser Git workflow is now usable from this session. The theme working tree was clean before pull, the pull completed, and uPress Git log shows top commit `c992fd2` (`Document reviews compliance alias`).
 - VERIFIED LIVE: static marker now returns `justice-theme-deployment-marker=2026-05-11-robots-sitemap-directive-v1`, and homepage source includes `2026-05-11-robots-sitemap-directive-v1`.

@@ -2,6 +2,12 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Rank Math Sitemap Cache Bypass QA
+- CODE FIXED / NOT LIVE VERIFIED: Rank Math sitemap caching is disabled while sitemap HTTPS normalization is being verified.
+- WHY IT MATTERS: after deployment was verified, child sitemap XML still exposed stale HTTP locs; this blocks a clean URL migration and GSC sitemap submission.
+- PRE-PATCH LIVE CHECK: `articles-sitemap2.xml?nocache=1` returned 200 HTTP locs and zero HTTPS locs.
+- LIVE CHECK NEEDED: after uPress pull for marker `2026-05-11-rankmath-sitemap-cache-bypass-v1`, recheck child sitemap HTTP/HTTPS loc counts.
+
 ## 2026-05-11 uPress Pull And Post-Pull SEO QA
 - VERIFIED LIVE: uPress Git Manager was accessible, Git Status was clean, and Git Pull brought live theme to `c992fd2`.
 - VERIFIED LIVE: static deployment marker now returns `2026-05-11-robots-sitemap-directive-v1`; homepage source includes the same marker.

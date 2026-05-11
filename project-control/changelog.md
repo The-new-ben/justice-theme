@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Rank Math sitemap cache bypass
+
+- CODE FIXED: disabled Rank Math sitemap caching via the official `rank_math/sitemap/enable_caching` filter while sitemap HTTPS output is being verified.
+- EXPECTED IMPACT: Rank Math child sitemap XML should stop serving stale cached HTTP loc values and allow the existing first-party HTTPS normalization filters to affect generated entries.
+- VERIFIED BEFORE PATCH: `articles-sitemap2.xml?nocache=1` still returned 200 `http://jus-tice.co.il` loc values and zero HTTPS loc values.
+- NOT LIVE VERIFIED: requires push, uPress pull and public sitemap recheck against marker `2026-05-11-rankmath-sitemap-cache-bypass-v1`.
+- SAFETY: no URL inventory, redirect, sitemap plugin setting, robots/htaccess file, content, taxonomy, canonical setting, CRM, lawyer, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - uPress Git pull verified
 
 - VERIFIED LIVE: accessed uPress File Manager, opened `ניהול GIT` for `/wp-content/themes/justice-theme`, confirmed clean Git status and ran Git pull.

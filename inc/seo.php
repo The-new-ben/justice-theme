@@ -648,6 +648,9 @@ add_filter( 'wp_sitemaps_users_entry', 'justice_theme_normalize_core_sitemap_ent
  * These filters only alter first-party URL strings already being emitted by
  * the active sitemap generator. They do not add, remove, redirect or migrate
  * any URL.
+ *
+ * Rank Math sitemap caching is disabled while the HTTPS sitemap baseline is
+ * being verified, so stale HTTP loc entries do not mask the normalization hooks.
  */
 add_filter( 'wpseo_xml_sitemap_post_url', 'justice_theme_normalize_sitemap_url_string', 20 );
 add_filter( 'wpseo_xml_sitemap_term_url', 'justice_theme_normalize_sitemap_url_string', 20 );
@@ -656,6 +659,7 @@ add_filter( 'rank_math/sitemap/xml_post_url', 'justice_theme_normalize_sitemap_u
 add_filter( 'rank_math/sitemap/post_type_archive_link', 'justice_theme_normalize_sitemap_url_string', 20 );
 add_filter( 'rank_math/sitemap/entry', 'justice_theme_normalize_sitemap_entry_loc', 20 );
 add_filter( 'rank_math/sitemap/index/entry', 'justice_theme_normalize_sitemap_entry_loc', 20 );
+add_filter( 'rank_math/sitemap/enable_caching', '__return_false', 20 );
 add_filter( 'aioseo_sitemap_indexes', 'justice_theme_normalize_aioseo_sitemap_indexes', 20 );
 
 /**

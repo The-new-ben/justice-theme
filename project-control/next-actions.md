@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-RANKMATH-SITEMAP-CACHE-001: Bypass stale Rank Math sitemap cache during HTTPS baseline verification
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** Latest theme code is live, but Rank Math child sitemap XML still emits stale `http://jus-tice.co.il` loc values. Sitemap HTTPS must be clean before GSC sitemap submission or URL migration.
+**Actions:**
+1. DONE: added the official Rank Math `rank_math/sitemap/enable_caching` filter with `__return_false`.
+2. DONE: kept the existing first-party sitemap URL normalization hooks; no URL inventory, redirect, canonical or sitemap inclusion rule was changed.
+3. DONE: deployment marker advanced to `2026-05-11-rankmath-sitemap-cache-bypass-v1`.
+4. VERIFIED BEFORE PATCH: `articles-sitemap2.xml?nocache=1` still returned 200 HTTP loc values and zero HTTPS loc values.
+5. NEXT: push, pull through uPress Git Manager, then recheck `page-sitemap.xml`, `articles-sitemap1.xml`, `articles-sitemap2.xml`, and `practice-areas-sitemap.xml` HTTP loc counts.
+6. NOT FIXED: robots.txt remains a separate empty-output blocker requiring server/plugin/static robots investigation.
+
 ### ACTION-UPRESS-PULL-001: Verify and document self-service uPress Git pull
 **Status:** VERIFIED LIVE - post-pull robots/sitemap follow-up needed
 **Why:** Many completed repo fixes were blocked on live deployment. The owner asked Codex to find a way to pull Git from uPress directly.

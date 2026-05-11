@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Real estate owner approval packet
+
+- CREATED: `project-control/real-estate-owner-approval-packet.md`.
+- CREATED: `project-control/real-estate-owner-approval-packet.csv`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `/real-estate-attorney/` exists as current commercial candidate with `6,941` words and quality `6/10`, while exact `/real-estate-lawyer/` was not found as current public URL.
+- VERIFIED: GSC browser evidence maps real-estate lawyer intent to the homepage and sale/buying/agreement support intent to `/real-estate-lawyer-cost-2025/`.
+- VERIFIED: international-property content contaminates the real-estate cluster and must be classified before internal-link or migration decisions.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, title/H1/meta, homepage, menu, taxonomy, related-card, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Medical malpractice owner approval packet
 
 - CREATED: `project-control/medical-malpractice-owner-approval-packet.md`.

@@ -369,3 +369,24 @@ RECOMMENDED:
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, lawyer cards, review/rating/schema or CMS writes until explicit approval.
+
+## 2026-05-11 Real-Estate Owner Approval Packet
+
+CREATED:
+- `project-control/real-estate-owner-approval-packet.md`
+- `project-control/real-estate-owner-approval-packet.csv`
+
+VERIFIED:
+- `/real-estate-attorney/` exists as current commercial candidate with `6,941` words and quality score `6/10`.
+- Exact `/real-estate-lawyer/` was not found as a current public URL; it remains a future migration target only.
+- GSC browser evidence maps `עורך דין מקרקעין` mainly to the homepage with `136` impressions.
+- GSC content priorities map `עורך דין מכירת דירה` to `/real-estate-lawyer-cost-2025/` with `3.85K` impressions and very low CTR.
+- `קניית דירה` and `חוזה מכר` also map to the cost page, showing support-page overload.
+- Real-estate cluster evidence includes international property pages, and the heuristic selected a Greece article as pillar by word count.
+
+RECOMMENDED:
+- Owner approval for no-URL-change primary comparison, homepage routing review, support-page comparison, source/legal review and international-cluster cleanup.
+- Protect homepage and `/real-estate-lawyer-cost-2025/` signals until the pillar, redirect/canonical/sitemap and internal-link plan is approved.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, homepage changes, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards or CMS writes until explicit approval.

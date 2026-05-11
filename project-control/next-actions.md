@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-REAL-ESTATE-OWNER-APPROVAL-001: Prepare real-estate primary and homepage-signal approval packet
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Real-estate service intent is currently carried by homepage and a cost article, while the strategic `/real-estate-lawyer/` slug is not an exact current URL and international property pages pollute the cluster.
+**Actions:**
+1. DONE: created `project-control/real-estate-owner-approval-packet.md`.
+2. DONE: created `project-control/real-estate-owner-approval-packet.csv`.
+3. VERIFIED: `/real-estate-attorney/` exists with `6,941` words and quality score `6/10`; exact `/real-estate-lawyer/` was not found in the current public inventory.
+4. VERIFIED: homepage carries `עורך דין מקרקעין` with `136` impressions and `עורך דין מקרקעין ייעוץ חינם` with `135` impressions.
+5. VERIFIED: `/real-estate-lawyer-cost-2025/` carries overloaded support demand, including `3.85K` impressions for `עורך דין מכירת דירה`, about `885` for `קניית דירה`, and `31` for `חוזה מכר`.
+6. RECOMMENDED: owner approval for no-URL-change primary comparison, homepage routing review, support-page comparison, international-cluster cleanup and source/legal review.
+7. NEXT: if owner approves, compare `/real-estate-attorney/`, `/real-estate-lawyer-cost-2025/`, `/lawyer-for-buying-or-selling-a-house/`, `/apartment/`, ID `11261`, registry/tax/contract support pages and international-property pages.
+8. BLOCKED: no public content edits, titles/H1/meta changes, URL changes, redirects, homepage changes, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards or CMS writes until explicit owner approval.
+
 ### ACTION-MEDICAL-MALPRACTICE-OWNER-APPROVAL-001: Prepare medical-malpractice primary and YMYL review approval packet
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Medical malpractice is a high-risk YMYL commercial cluster with `27` conflict rows, same-public-URL duplicate records, old Hebrew pages with GSC impressions, and multiple thin/specialist support pages.

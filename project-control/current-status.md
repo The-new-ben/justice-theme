@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 14:10 Asia/Jerusalem
+- VERIFIED / REVIEW: prepared the real-estate owner-approval packet as a no-URL-change primary-selection, homepage-signal, support-page and international-content cleanup planning decision.
+- CREATED: `project-control/real-estate-owner-approval-packet.md`.
+- CREATED: `project-control/real-estate-owner-approval-packet.csv`.
+- VERIFIED: `/real-estate-attorney/` exists as the current commercial candidate with `6,941` words and quality `6/10`; exact `/real-estate-lawyer/` was not found as a current public URL.
+- VERIFIED: GSC browser evidence maps `עורך דין מקרקעין` mainly to the homepage with `136` impressions, while `/real-estate-lawyer-cost-2025/` carries sale/buying/support queries including `3.85K` impressions for `עורך דין מכירת דירה`.
+- VERIFIED: the real-estate cluster has international-property contamination; the heuristic selected a Greece property article as pillar by word count, so manual classification is required.
+- BLOCKED: owner approval, side-by-side comparison, source/legal review, deeper GSC/SERP evidence and redirect/canonical/sitemap planning are required before homepage, title/H1/meta, URL, content-body, menu/taxonomy, related-card, lawyer-card or CMS changes.
+- SAFETY: repo documentation/CSV planning only; no live public content, homepage, real-estate URL, redirect, related-card or CMS state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 14:00 Asia/Jerusalem
 - VERIFIED / REVIEW: prepared the medical-malpractice owner-approval packet as a no-URL-change primary-selection, duplicate-same-public-URL and YMYL source/legal review planning decision.
 - CREATED: `project-control/medical-malpractice-owner-approval-packet.md`.

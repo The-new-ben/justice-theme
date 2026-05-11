@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Traffic/criminal wrong-page decision packet
+
+- CREATED: `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.md`.
+- CREATED: `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.csv`.
+- VERIFIED: targeted GSC evidence shows `עורך דין נהיגה בשכרות` mapping to `https://jus-tice.co.il/revocation-of-a-will-and-reviving-previous-will/`, so the will page is protected and must not be optimized for traffic-law intent.
+- VERIFIED: `כתב אישום` maps only to a specific Netanyahu indictment page and homepage in the latest pass, so it is not a general indictment primary-page signal.
+- RECOMMENDED: audit `/driving-under-the-influence/`, `/traffic-lawyer/` and the wrong-page will URL before any public drunk-driving content expansion.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Lawyer seed profile cleanup plan
 
 - CREATED: `project-control/lawyer-seed-profile-cleanup-plan-2026-05-11.md`.

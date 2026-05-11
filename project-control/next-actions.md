@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-TRAFFIC-CRIMINAL-WRONG-PAGE-DECISION-001: Convert GSC wrong-page evidence into protected decisions
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Targeted GSC evidence shows drunk-driving lawyer intent landing on a will-revocation page, while criminal support queries are either low-sample, specific-case, or not visibly owned. This needs a protected decision layer before any public content, internal-link or URL action.
+**Actions:**
+1. DONE: created `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.md`.
+2. DONE: created `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.csv`.
+3. VERIFIED: `עורך דין נהיגה בשכרות` maps to `https://jus-tice.co.il/revocation-of-a-will-and-reviving-previous-will/`, which should stay an inheritance/will page.
+4. VERIFIED: `כתב אישום` maps to a specific Netanyahu indictment page and homepage, so it should not be treated as evidence for a general indictment primary page.
+5. RECOMMENDED: audit `/driving-under-the-influence/`, `/traffic-lawyer/` and the will-revocation wrong-page source before drafting any public content expansion.
+6. NEXT: prepare a no-URL-change drunk-driving outline only after owner/legal review confirms the correct current support URL.
+7. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-LAWYER-SEED-PROFILE-CLEANUP-PLAN-001: Prepare owner-approved cleanup plan for published seed lawyer records
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The REST guard blocks public exposure after deployment, but the underlying WordPress database still contains published seed-style lawyer records that should not remain publish-status without verified source/contact/approval data.

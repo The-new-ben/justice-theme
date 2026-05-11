@@ -100,6 +100,25 @@ Use the three review CSVs to run the first GSC/SERP evidence pass on:
 
 Then update the URL migration map only as a proposed plan, not as live URL changes.
 
+## 2026-05-11 Traffic / Criminal Wrong-Page Decision Packet
+
+CREATED:
+- `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.md`
+- `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.csv`
+
+VERIFIED:
+- `עורך דין נהיגה בשכרות` maps to the will-revocation page in GSC, which is a wrong-page signal and not a reason to change the inheritance page toward traffic-law intent.
+- `כתב אישום` maps to a specific Netanyahu indictment page and homepage, not to a general indictment guide.
+- Current traffic and criminal support pages remain review-only until owner/legal approval.
+
+RECOMMENDED:
+- Protect the will-revocation page.
+- Review `/driving-under-the-influence/` and `/traffic-lawyer/` before any drunk-driving content expansion.
+- Keep criminal support topics in the primary-selection queue before any clean slug migration.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, breadcrumbs, related-card edits, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Real Estate Page Decision Matrix
 
 CREATED:

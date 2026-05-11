@@ -113,6 +113,19 @@ RECOMMENDED:
 BLOCKED:
 - No public content edits, slugs, redirects, canonicals, sitemap updates, noindex changes or CMS writes until owner approval.
 
+## 2026-05-11 Traffic / Criminal Wrong-Page Decision Packet
+
+CREATED:
+- `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.md`
+- `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.csv`
+
+VERIFIED:
+- `כתב אישום` maps to a specific Netanyahu indictment page and homepage in the latest targeted pass, not to a general indictment primary.
+- Criminal support topics remain in review lanes before any clean slug migration.
+
+BLOCKED:
+- No public criminal-law content expansion, internal-link batch, slug migration, redirect, canonical, noindex, sitemap or title/H1/meta change is approved by this packet.
+
 ## CSV Detail
 
 See `project-control/criminal-law-support-review.csv`.

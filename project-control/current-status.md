@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 21:16 Asia/Jerusalem
+- VERIFIED / TRAFFIC-CRIMINAL WRONG-PAGE DECISION PACKET: converted the latest targeted GSC evidence into an owner-review decision layer before any traffic/criminal content or URL execution.
+- CREATED: `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.md`.
+- CREATED: `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.csv`.
+- VERIFIED: `עורך דין נהיגה בשכרות` maps to the will-revocation page in GSC, so the will page must be protected and not optimized for traffic-law intent.
+- VERIFIED: `כתב אישום` maps only to a specific Netanyahu indictment page and the homepage in the latest pass, not to a general indictment guide.
+- RECOMMENDED: review `/driving-under-the-influence/`, `/traffic-lawyer/` and the wrong-page will URL before drafting any public drunk-driving expansion.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+- NEXT: audit the current drunk-driving support page and wrong-page source, then prepare a no-URL-change content outline only after owner/legal review.
+
 ## LATEST WORK STATUS - 2026-05-11 21:01 Asia/Jerusalem
 - VERIFIED / LAWYER SEED PROFILE CLEANUP PLAN: exported the live public REST `justice_lawyer` records into an owner-approval cleanup packet.
 - CREATED: `project-control/lawyer-seed-profile-cleanup-plan-2026-05-11.md`.

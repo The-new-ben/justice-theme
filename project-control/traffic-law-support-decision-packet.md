@@ -110,6 +110,19 @@ RECOMMENDED:
 BLOCKED:
 - No public content edits, slugs, redirects, canonicals, sitemap updates or CMS writes until owner approval.
 
+## 2026-05-11 Traffic / Criminal Wrong-Page Decision Packet
+
+CREATED:
+- `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.md`
+- `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.csv`
+
+VERIFIED:
+- The drunk-driving lawyer query still maps to the will-revocation page, so the will page remains protected from traffic-law optimization.
+- `/driving-under-the-influence/` is the current support candidate to review before any `/drunk-driving/` migration.
+
+BLOCKED:
+- No public drunk-driving content expansion, internal-link batch, slug migration, redirect, canonical, sitemap or title/H1/meta change is approved by this packet.
+
 ## CSV Detail
 
 See `project-control/traffic-law-support-review.csv`.

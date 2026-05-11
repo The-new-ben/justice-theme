@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CYBER-PRIVACY-OWNER-APPROVAL-001: Prepare cyber/privacy primary and boundary approval packet
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Cyber/privacy has no verified current `/cyber-privacy-lawyer/` pillar, the heuristic chose an FBI cyber article by word count, and direct GSC evidence is not yet verified for cyber/privacy terms.
+**Actions:**
+1. DONE: created `project-control/cyber-privacy-owner-approval-packet.md`.
+2. DONE: created `project-control/cyber-privacy-owner-approval-packet.csv`.
+3. VERIFIED: `/cyber-lawyer/` exists with `6,405` words, quality score `8/10`, and internal links.
+4. VERIFIED: strategic `/cyber-privacy-lawyer/` is not a verified current public URL.
+5. VERIFIED: `/fbi-cyber-division/` has `21,917` words and quality `6/10`, but it is FBI/international-security support, not an approved local service pillar.
+6. VERIFIED: `/cyber-laws/` has `13,956` words and quality `8/10`; `/cybersex-trafficking/` has `2,819` words and quality `8/10`, but both need role/boundary review.
+7. NOT VERIFIED: direct GSC rows for `עורך דין סייבר`, `דיני סייבר`, `פגיעה בפרטיות`, `לשון הרע באינטרנט`, `שיימינג`, `מחיקת מידע` and related terms.
+8. RECOMMENDED: owner approval for no-URL-change primary selection, cyber support review, privacy support review, criminal/cyber boundary review, source/legal review and direct GSC/SERP pass.
+9. NEXT: if owner approves, compare `/cyber-lawyer/`, `/fbi-cyber-division/`, `/cyber-laws/`, `/cybercrime-lawyer-roll/`, `/what-is-cyberattack/`, `/cyber-insurance/`, `/cybersex-trafficking/`, the privacy overview article and `/police-records-data-deletion/`.
+10. BLOCKED: no public content edits, titles/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards or CMS writes until explicit owner approval.
+
 ### ACTION-PERSONAL-INJURY-OWNER-APPROVAL-001: Prepare personal-injury/damages primary and car-accident approval packet
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Personal injury/damages has no verified current `/personal-injury-lawyer/` pillar, the heuristic chose a punitive-damages article by word count, `/tort-lawyer/` is thin, and car-accident demand maps to a non-final current URL.

@@ -115,6 +115,36 @@ BLOCKED:
 - No URL migration, redirect, noindex, canonical, sitemap, content rewrite, or deletion may be executed from this overlay alone.
 - Owner approval and direct GSC/SERP review remain required before changing live public URLs or page bodies.
 
+## 2026-05-11 Cyber-Privacy Owner Approval Packet
+
+CREATED:
+- `project-control/cyber-privacy-owner-approval-packet.md`
+- `project-control/cyber-privacy-owner-approval-packet.csv`
+
+VERIFIED:
+- Strategic `/cyber-privacy-lawyer/` is not a verified current public URL; `cluster-pillar-review.csv` lists it as a strategic target only.
+- The heuristic selected `/fbi-cyber-division/` as the cyber/privacy pillar by word count, so manual owner review is required.
+- `/cyber-lawyer/` exists as the strongest current service candidate with `6,405` words, quality `8/10`, and internal links.
+- `/fbi-cyber-division/` has `21,917` words and quality `6/10`, but its FBI/international-security intent should not become the local lawyer-service pillar by default.
+- `/cyber-laws/` has `13,956` words and quality `8/10`.
+- `/cybercrime-lawyer-roll/` has `4,455` words and quality `6/10`.
+- `/what-is-cyberattack/` has `3,744` words and quality `6/10`.
+- `/cyber-insurance/` has `2,832` words and quality `6/10`.
+- `/cybersex-trafficking/` has `2,819` words and quality `8/10`, but needs criminal/cyber boundary review.
+- The privacy overview article is thin at `763` words with quality `4/10`.
+- `/police-records-data-deletion/` is thin/outdated at `530` words with quality `2/10` and needs boundary classification.
+
+NOT VERIFIED:
+- Direct GSC rows for cyber/privacy terms are missing from the checked keyword map and content priorities.
+
+RECOMMENDED:
+- Owner approval for a no-URL-change primary-selection, cyber support, privacy support, criminal/cyber boundary, direct GSC/SERP and source/legal review planning batch.
+- Protect `/cyber-lawyer/` as current service candidate until a redirect/canonical/sitemap/internal-link map is approved.
+- Separate cyber lawyer/service intent from FBI/international-security, cyber insurance, privacy/defamation/reputation, data deletion, lawyer-AI/legal-tech and criminal cybersex content.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards or CMS writes until explicit approval.
+
 ## 2026-05-11 Personal-Injury And Damages Owner Approval Packet
 
 CREATED:

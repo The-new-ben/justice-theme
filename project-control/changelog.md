@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Cyber and privacy owner approval packet
+
+- CREATED: `project-control/cyber-privacy-owner-approval-packet.md`.
+- CREATED: `project-control/cyber-privacy-owner-approval-packet.csv`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `/cyber-lawyer/` exists with `6,405` words, quality `8/10`, and internal links.
+- VERIFIED: strategic `/cyber-privacy-lawyer/` is not a verified current public URL, while the heuristic selected `/fbi-cyber-division/` by word count only.
+- NOT VERIFIED: direct GSC evidence for cyber/privacy terms is still missing and must be gathered before public execution.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, title/H1/meta, menu, taxonomy, related-card, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Personal injury and damages owner approval packet
 
 - CREATED: `project-control/personal-injury-owner-approval-packet.md`.

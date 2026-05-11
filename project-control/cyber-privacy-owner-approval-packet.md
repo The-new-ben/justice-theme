@@ -1,0 +1,249 @@
+# Cyber And Privacy Owner Approval Packet
+
+Date: 2026-05-11
+Status: REVIEW ONLY / OWNER APPROVAL REQUIRED / NO URL CHANGE
+
+This packet converts the cyber/privacy inventory, content-quality audit, topic-cluster data and cannibalization map into an owner decision framework. It does not approve or execute public content rewrites, URL changes, redirects, canonical changes, sitemap changes, noindex actions, taxonomy/menu changes, related-card changes, lawyer-card changes or CMS writes.
+
+## Recommended Approval Decision
+
+RECOMMENDED:
+- Approve a no-URL-change cyber/privacy primary-selection, cyber support, privacy support and source/legal review planning batch.
+- Treat `/cyber-lawyer/` as the current published service-page candidate for comparison.
+- Treat `/cyber-privacy-lawyer/` as a strategic future slug only, not an approved migration target.
+- Do not let `/fbi-cyber-division/` become the cyber/privacy pillar by word count alone.
+- Separate cyber lawyer/service intent from FBI/international-security content, cyberattack explainers, cyber insurance, cybersex trafficking, privacy/defamation/reputation content and lawyer-facing AI/legal-tech content.
+- Require direct GSC/SERP evidence before title/H1/meta, URL, content-body, internal-link, related-card or sitemap decisions.
+
+Why:
+- `cluster-pillar-review.csv` lists `cyber-privacy-lawyer` as the strategic target slug, but that target was not found as a current public URL.
+- The heuristic selected `/fbi-cyber-division/` as the cluster pillar by word count only.
+- `/cyber-lawyer/` exists, has `6,405` words, quality `8/10`, and already targets cyber lawyer/privacy service language.
+- Several support pages have reasonable quality, but their roles are not approved and direct GSC evidence is currently NOT VERIFIED.
+
+## Current Evidence
+
+VERIFIED:
+- `project-control/content-master-inventory.csv`.
+- `project-control/content-quality-audit.csv`.
+- `project-control/cluster-pillar-review.csv`.
+- `project-control/topic-clusters.csv`.
+- `project-control/cannibalization-map.csv`.
+
+NOT VERIFIED:
+- Direct GSC browser/API query rows for `עורך דין סייבר`, `דיני סייבר`, `מתקפת סייבר`, `עורך דין פרטיות`, `פגיעה בפרטיות`, `לשון הרע באינטרנט`, `שיימינג`, `מחיקת מידע`, or `הגנת הפרטיות`.
+- Fresh SERP review for cyber lawyer, privacy lawyer, cybercrime, privacy invasion, online reputation and defamation variants.
+- GA4 landing-page, lead and conversion data.
+- Source/legal review for privacy, cybercrime, cyber insurance, platform liability, police records/data deletion and defamation/privacy claims.
+- Owner approval for primary URL, title/H1/meta changes, redirect/canonical/sitemap decisions, content rewrites, related-card logic or menu/taxonomy changes.
+- Verified lawyer-directory mapping for cyber, privacy, internet law, defamation and digital reputation lawyers.
+
+## Available Inventory Evidence
+
+VERIFIED:
+- `/cyber-lawyer/`: ID `11880`, title `עורך דין סייבר | עו”ד לענייני סייבר | דיני סייבר והגנת פרטיות`, `6,405` words, quality `8/10`, has internal links.
+- `/fbi-cyber-division/`: ID `12495`, title `יחידת ה-Cyber Division של ה-FBI | עו”ד סייבר`, `21,917` words, quality `6/10`, no internal links.
+- `/cyber-laws/`: ID `9554`, title `הגדרת דיני סייבר`, `13,956` words, quality `8/10`, has internal links.
+- `/cybercrime-lawyer-roll/`: ID `11904`, title `סקירה ממבט אישי על תפקידו של עורך דין לענייני פשעי סייבר`, `4,455` words, quality `6/10`, no internal links.
+- `/what-is-cyberattack/`: ID `11910`, title `מתקפת סייבר מהי? הגדרות מונחים והכרת טכנולוגיות בתחום התקפת סייבר`, `3,744` words, quality `6/10`, no internal links.
+- `/cyber-insurance/`: ID `10562`, title `ביטוח סייבר | מה זה ביטוח סייבר`, `2,832` words, quality `6/10`, no internal links.
+- `/cybersex-trafficking/`: ID `9571`, title `עורך דין סחר במין סייבר | עו”ד פשעי מין אינטרנט וסייבר`, `2,819` words, quality `8/10`, has internal links.
+- Privacy overview article: ID `6676`, `763` words, quality `4/10`, thin, no internal links, recommended `EXPAND`.
+- `/police-records-data-deletion/`: ID `888`, `530` words, quality `2/10`, thin/outdated, recommended `REWRITE`, currently classified outside the clean cyber/privacy cluster.
+
+Interpretation:
+- `/cyber-lawyer/` is the strongest current service candidate by title, quality and internal-link status.
+- `/fbi-cyber-division/` is long and visible in the heuristic, but its intent is FBI/international/security education, not local Israeli lawyer-service intent.
+- Privacy, defamation, digital reputation and data-deletion content needs its own role review before being merged under a cyber/privacy pillar.
+
+## Page Decisions For Approval
+
+### 1. Current Cyber Lawyer Candidate
+
+Current URL:
+- `https://jus-tice.co.il/cyber-lawyer/`
+
+Recommended action:
+- COMPARE AS CURRENT SERVICE PRIMARY / NO URL CHANGE.
+
+Blocked:
+- No title/H1/meta, body, canonical, sitemap, URL or redirect changes until owner approval and direct GSC/SERP evidence.
+
+### 2. Strategic Clean Slug
+
+Future candidate:
+- `/cyber-privacy-lawyer/`
+
+Recommended action:
+- STRATEGIC FUTURE SLUG / MIGRATION MAP REQUIRED.
+
+Blocked:
+- Do not create, migrate, redirect, canonicalize or add to sitemap until `/cyber-lawyer/`, privacy pages and support pages are compared.
+
+### 3. FBI Cyber Division Article
+
+Current URL:
+- `https://jus-tice.co.il/fbi-cyber-division/`
+
+Recommended action:
+- PROTECT / INTERNATIONAL-SECURITY SUPPORT REVIEW / NOT PRIMARY BY DEFAULT.
+
+Blocked:
+- Do not use as the cyber/privacy pillar by word count alone.
+
+### 4. Cyber Law Guide
+
+Current URL:
+- `https://jus-tice.co.il/cyber-laws/`
+
+Recommended action:
+- SUPPORT OR INFORMATIONAL GUIDE REVIEW.
+
+Blocked:
+- Do not let it compete with `/cyber-lawyer/` unless search intent proves it should be a separate informational guide.
+
+### 5. Cybercrime Lawyer Role Page
+
+Current URL:
+- `https://jus-tice.co.il/cybercrime-lawyer-roll/`
+
+Recommended action:
+- SUPPORT REVIEW / POSSIBLE SPECIALIST GUIDE.
+
+Blocked:
+- No rewrite or related-card/internal-link batch until primary role is approved.
+
+### 6. Cyberattack Explainer
+
+Current URL:
+- `https://jus-tice.co.il/what-is-cyberattack/`
+
+Recommended action:
+- SUPPORT GUIDE REVIEW.
+
+Blocked:
+- No title/content/internal-link decisions until SERP/GSC clarifies if it is informational, service support or technical explainer content.
+
+### 7. Cyber Insurance
+
+Current URL:
+- `https://jus-tice.co.il/cyber-insurance/`
+
+Recommended action:
+- BUSINESS/INSURANCE SUPPORT REVIEW.
+
+Blocked:
+- Do not merge with lawyer-service content without checking insurance, business and cyber-law intent.
+
+### 8. Cybersex Trafficking / Internet Sex Offenses
+
+Current URL:
+- `https://jus-tice.co.il/cybersex-trafficking/`
+
+Recommended action:
+- CRIMINAL/CYBER BOUNDARY REVIEW.
+
+Blocked:
+- This may support both criminal law and cyber law; do not attach it blindly to only one pillar.
+
+### 9. Privacy Overview Article
+
+Current URL:
+- `https://jus-tice.co.il/articles/פגיעה-בפרטיות-סקירת-המסגרת-הנורמטיבי/`
+
+Recommended action:
+- EXPAND AS PRIVACY SUPPORT AFTER SOURCE/LEGAL REVIEW.
+
+Blocked:
+- No rewrite or migration until privacy-lawyer/privacy-guide strategy is approved.
+
+### 10. Police Records / Data Deletion
+
+Current URL:
+- `https://jus-tice.co.il/police-records-data-deletion/`
+
+Recommended action:
+- CLASSIFY BOUNDARY: CRIMINAL RECORDS / PRIVACY / DATA DELETION.
+
+Blocked:
+- Do not pull this into cyber/privacy without criminal-law and source/legal review.
+
+## Source And Legal Review Checklist
+
+Required before public rewrites:
+- Israeli privacy law and official/public authority sources where relevant.
+- Cybercrime, computer misuse and criminal-law boundaries.
+- Defamation/privacy online content sources where relevant.
+- Police-record/data-deletion public procedure sources where relevant.
+- Cyber insurance/business risk sources where relevant.
+- Clear disclaimer that content is general information and not legal advice.
+- Privacy/confidentiality caution for internet, reputation, data breach and intimate-content topics.
+
+## Internal-Link Direction
+
+Recommended planning only:
+- Cyber service page -> cyber law, cyberattack, cybercrime, cyber insurance, privacy overview and relevant lawyer profiles.
+- Privacy guide -> cyber/privacy service page, defamation/online reputation support and official/public sources.
+- Cybersex trafficking -> cyber service page and criminal-law pillar only after boundary review.
+- Data deletion -> criminal-law/data privacy boundary after approval.
+
+Blocked:
+- No internal links, related cards, menus, breadcrumbs or homepage sections should be changed from this packet alone.
+
+## Sitemap, Canonical, Robots And Redirect Position
+
+Do not change now:
+- Sitemap inclusion.
+- Canonicals.
+- Robots rules.
+- 301 redirects.
+- Slugs.
+- Related-card logic.
+
+Future migration must map:
+- `/cyber-lawyer/` role and whether it remains primary.
+- whether `/cyber-privacy-lawyer/` is created or postponed.
+- support URLs and cross-cluster boundaries.
+- old URL -> new URL only if migration is approved.
+- canonical target.
+- sitemap inclusion.
+- internal links to update.
+
+## Owner Questions
+
+OWNER APPROVAL REQUIRED:
+1. Should `/cyber-lawyer/` remain the current primary service candidate?
+2. Should `/cyber-privacy-lawyer/` be a future migration target or should privacy become a separate guide/cluster?
+3. Should FBI/international cyber content be separated from local lawyer-service content?
+4. Should privacy, online reputation and defamation content be part of this cluster or a separate legal-reputation cluster?
+5. Which lawyer profiles should connect to cyber/privacy pages?
+
+## Blocked Actions
+
+BLOCKED until explicit owner approval:
+- Public content rewrites.
+- Title/H1/meta updates.
+- URL or slug changes.
+- 301 redirects.
+- Canonical changes.
+- Sitemap inclusion/exclusion changes.
+- Robots/noindex changes.
+- Menu, taxonomy, breadcrumb, related-card or homepage changes.
+- Lawyer-card/profile wiring.
+- CMS writes or database changes.
+
+## Next Approved Work
+
+If owner approves this planning lane, the next safe work is:
+1. Build a side-by-side comparison of `/cyber-lawyer/`, `/fbi-cyber-division/`, `/cyber-laws/`, `/cybercrime-lawyer-roll/`, `/what-is-cyberattack/`, `/cyber-insurance/`, `/cybersex-trafficking/`, the privacy overview article and `/police-records-data-deletion/`.
+2. Run direct GSC browser checks for `עורך דין סייבר`, `דיני סייבר`, `מתקפת סייבר`, `עורך דין פרטיות`, `פגיעה בפרטיות`, `לשון הרע באינטרנט`, `שיימינג`, `מחיקת מידע`, and `הגנת הפרטיות`.
+3. Run SERP review for service, guide and support intents.
+4. Create source/legal review checklist for each approved page.
+5. Draft internal-link map only after primary/support roles are approved.
+6. Prepare URL migration and redirect plan only after owner chooses target URLs.
+
+## Safety
+
+VERIFIED:
+- This packet is documentation and CSV planning only.
+- No live public content, URL, redirect, sitemap, canonical, noindex, menu, taxonomy, related-card, lawyer-card, CMS or database state was changed.

@@ -890,6 +890,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - EVIDENCE: `project-control/visual-evidence/upress-plugin-manager-all-404-active-2026-05-11.png`.
 - DECISION: treat `ultra-justice-engine/` as the active live plugin surface for now; do not activate `justice-core/` beside it because both share `UJE_*` constants and `uje_*` functions.
 - LIVE DEPLOYMENT VERIFIED: Codex operated the uPress Git panel directly; the uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Verify live plugin architecture surface` at commit `c58cd7e`.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log now shows `(HEAD -> main, origin/main, origin/HEAD) Document uPress plugin manager status` at commit `7acd40c`.
 - NOT VERIFIED: exact active plugin PHP file path remains unconfirmed because the uPress plugin manager shows name/status/version but not the plugin file path.
 - SAFETY: no plugin activation, deactivation, deletion, installation, file-manager edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
 

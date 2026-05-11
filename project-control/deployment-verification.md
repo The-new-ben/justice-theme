@@ -176,4 +176,5 @@ BLOCKED: waiting for uPress pull / live file sync / cache refresh.
 - DEPLOYMENT INTERPRETATION: theme Git pulls are verified, but plugin deployment remains a separate control surface until wp-admin/uPress plugin-path inspection confirms the active plugin filesystem path and version.
 - NOT VERIFIED: exact active plugin PHP file path; uPress plugin manager confirms name/version/status but not the plugin file path.
 - LIVE DEPLOYMENT VERIFIED: uPress Git log shows commit `c58cd7e` as `Verify live plugin architecture surface`.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log shows commit `7acd40c` as `Document uPress plugin manager status`.
 - SAFETY: no plugin activation, deactivation, deletion, installation, file-manager edit, wp-admin setting or database change was made.

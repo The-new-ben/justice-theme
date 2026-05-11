@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-11 16:35 Asia/Jerusalem
+- VERIFIED / SERP-SOURCE REVIEW: completed the cyber/privacy SERP and source-overlay pass after the GSC support-term evidence.
+- CREATED: `project-control/serp-cyber-privacy-review-2026-05-11.md`.
+- CREATED: `project-control/serp-cyber-privacy-review-2026-05-11.csv`.
+- UPDATED: `project-control/cyber-privacy-owner-approval-packet.md` and `.csv`.
+- UPDATED: `project-control/content-decision-evidence-overlay.csv`.
+- VERIFIED: `/cyber-lawyer/` remains the current inventory service candidate, but it is not GSC-proven enough for public execution.
+- VERIFIED: the old Hebrew privacy-injury URL remains protected because `פגיעה בפרטיות` and `הגנת הפרטיות` already show visible GSC impressions there.
+- VERIFIED: online defamation/shaming and data deletion remain separate source/legal/boundary review topics, not approved new pages.
+- BLOCKED: no public cyber/privacy title/H1/meta, content body, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, lawyer-card, CRM, review, wp-admin setting or CMS/database action was executed.
+- SAFETY: repo documentation/CSV planning only; no live public site state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 16:23 Asia/Jerusalem
 - VERIFIED / GSC: completed the cyber/privacy support-term browser pass from the remaining-gap queue.
 - CREATED: `project-control/gsc-cyber-privacy-support-pass-2026-05-11.md`.

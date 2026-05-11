@@ -211,6 +211,31 @@ Recommended action:
 Blocked:
 - Do not pull this into cyber/privacy without criminal-law and source/legal review.
 
+## 2026-05-11 SERP And Source Review Overlay
+
+VERIFIED:
+- Created `project-control/serp-cyber-privacy-review-2026-05-11.md`.
+- Created `project-control/serp-cyber-privacy-review-2026-05-11.csv`.
+- Cyber-service intent exists as a planning lane, but `/cyber-lawyer/` is still not approved for public execution because the checked GSC evidence points weakly to `/cybercrime-lawyer-roll/`.
+- The old Hebrew privacy-injury URL remains protected because `פגיעה בפרטיות` and `הגנת הפרטיות` map there in GSC.
+- Online defamation/shaming and data deletion are not approved duplicate pages; they remain source/legal/boundary review topics.
+
+Source anchors identified:
+- Privacy Protection Authority digital privacy guidance: `https://mojforms.justice.gov.il/mojaemprivacyprotectionauthority/dpiaform.html`
+- Government privacy services / Amendment 13 context: `https://www.gov.il/he/service/registration_in_the_database`
+- Knesset Privacy Protection Law text candidate: `https://fs.knesset.gov.il/25/law/25_ls_bk_4300009.pdf`
+- Google personal information removal guidance: `https://support.google.com/websearch/answer/9673730?hl=en`
+- Google legal/privacy delisting overview: `https://support.google.com/legal/answer/10769224?hl=en`
+
+NOT VERIFIED:
+- Final legal-source list for public defamation/shaming claims.
+- Final legal-source list for criminal-record/data-deletion claims.
+- Final public article outlines.
+- Owner approval for public execution.
+
+BLOCKED:
+- No public content, title/H1/meta, URL, redirect, canonical, sitemap, noindex, related-card, lawyer-card, CMS or database action is approved by this overlay.
+
 ## Source And Legal Review Checklist
 
 Required before public rewrites:

@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Cyber/privacy SERP and source review
+
+- CREATED: `project-control/serp-cyber-privacy-review-2026-05-11.md`.
+- CREATED: `project-control/serp-cyber-privacy-review-2026-05-11.csv`.
+- UPDATED: `project-control/cyber-privacy-owner-approval-packet.md`, `project-control/cyber-privacy-owner-approval-packet.csv`, `project-control/content-decision-evidence-overlay.csv`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: cyber/privacy service intent remains a planning lane only; `/cyber-lawyer/` is the current inventory candidate but not a public execution approval.
+- VERIFIED: the old Hebrew privacy-injury URL must be protected and compared because privacy-injury/privacy-protection GSC support signals already map there.
+- VERIFIED: online defamation/shaming and data deletion remain source/legal/boundary review items, not approved duplicate content.
+- BLOCKED: no public content, URL, redirect, noindex, canonical, sitemap, title/H1/meta, menu, taxonomy, related-card, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Cyber/privacy and national-insurance GSC gap pass
 
 - CREATED: `project-control/gsc-cyber-national-gap-pass-2026-05-11.md`.

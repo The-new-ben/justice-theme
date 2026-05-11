@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-SERP-CYBER-PRIVACY-SOURCE-001: Run cyber/privacy SERP and official-source review
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The cyber/privacy GSC pass created partial evidence, but the cluster still needed SERP/source/legal context before any content, URL, redirect, internal-link, title/H1/meta or CMS execution.
+**Actions:**
+1. DONE: created `project-control/serp-cyber-privacy-review-2026-05-11.md`.
+2. DONE: created `project-control/serp-cyber-privacy-review-2026-05-11.csv`.
+3. DONE: updated the cyber/privacy owner-approval packet.
+4. DONE: updated the content-decision evidence overlay for the cyber/privacy pillar candidate.
+5. VERIFIED: cyber-lawyer/service intent exists as a planning lane, but `/cyber-lawyer/` is not GSC-proven enough for public execution.
+6. VERIFIED: old Hebrew privacy-injury URL is protected because it already carries privacy-injury/privacy-protection impressions.
+7. VERIFIED: shaming/online defamation and data deletion remain separate source/legal/boundary review topics.
+8. NEXT: build a side-by-side comparison of `/cyber-lawyer/`, `/cybercrime-lawyer-roll/`, `/cyber-laws/`, `/what-is-cyberattack/`, old privacy-injury URL and `/police-records-data-deletion/`, or move to homepage line-by-line SEO/design alignment.
+9. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/menu, related-card, lawyer-card, CRM/review or CMS writes until owner-approved execution.
+
 ### ACTION-GSC-CYBER-PRIVACY-SUPPORT-PASS-001: Run remaining cyber/privacy support-term GSC evidence pass
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The previous cyber/privacy GSC pass covered service terms, but the owner packet still needed support and boundary checks for privacy invasion, online defamation, data deletion, shaming and cyberattack before any content or URL decision.

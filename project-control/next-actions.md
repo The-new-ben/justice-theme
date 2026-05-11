@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-ROBOTS-SITEMAP-001: Advertise verified sitemap index in robots.txt
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** `sitemap_index.xml` is the verified active XML sitemap, while `/sitemap.xml` and `/wp-sitemap.xml` redirect to the homepage and should not be submitted.
+**Actions:**
+1. DONE: added a `robots_txt` filter that appends `Sitemap: https://jus-tice.co.il/sitemap_index.xml` when absent.
+2. DONE: the filter respects WordPress public-indexing settings.
+3. DONE: duplicate sitemap directives are avoided when the same URL is already present.
+4. VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+5. NEXT: pull/deploy marker `2026-05-11-robots-sitemap-directive-v1`, then verify `https://jus-tice.co.il/robots.txt` includes the sitemap index and still does not block CSS/JS/public content.
+6. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-SITEMAP-HTTPS-001: Normalize plugin sitemap URLs to HTTPS
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** Live sitemap child files previously exposed many first-party `http://` URLs, creating mixed protocol signals and blocking a clean URL migration project.

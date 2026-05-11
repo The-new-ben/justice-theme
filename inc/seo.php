@@ -575,6 +575,34 @@ add_filter( 'rank_math/opengraph/facebook/url', 'justice_theme_filter_public_url
 add_filter( 'rank_math/opengraph/twitter/url', 'justice_theme_filter_public_url_scheme' );
 
 /**
+ * Advertise the verified active sitemap index in robots.txt.
+ *
+ * This does not change sitemap generation, redirects or URL inventory. It only
+ * adds the known working sitemap index when no equivalent directive exists.
+ *
+ * @param string $output Robots.txt output.
+ * @param bool   $public Whether search engines are allowed.
+ * @return string
+ */
+function justice_theme_robots_sitemap_directive( string $output, bool $public ): string {
+	if ( ! $public ) {
+		return $output;
+	}
+
+	$sitemap_url = justice_theme_normalize_public_url( home_url( '/sitemap_index.xml' ) );
+
+	if ( false !== stripos( $output, $sitemap_url ) ) {
+		return $output;
+	}
+
+	$output = rtrim( $output );
+	$output .= ( '' === $output ? '' : "\n" ) . 'Sitemap: ' . $sitemap_url . "\n";
+
+	return $output;
+}
+add_filter( 'robots_txt', 'justice_theme_robots_sitemap_directive', 20, 2 );
+
+/**
  * Normalize a sitemap entry array without changing non-URL metadata.
  *
  * @param mixed $entry Sitemap entry.

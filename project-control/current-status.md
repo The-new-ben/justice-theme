@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 06:18 Asia/Jerusalem
+- CODE FIXED: added a `robots_txt` filter that appends the verified active sitemap index `https://jus-tice.co.il/sitemap_index.xml` when robots.txt does not already include it.
+- WHY: public checks verified `sitemap_index.xml` is valid XML, while default sitemap aliases redirect to the homepage. Robots should point crawlers to the known working sitemap source before any URL migration.
+- VERIFIED: the filter respects the WordPress public-indexing flag and avoids duplicate directives when the same sitemap URL is already present.
+- VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-robots-sitemap-directive-v1`; public robots.txt verification still needs uPress pull/cache clear.
+- SAFETY: no URL, redirect, sitemap plugin setting, robots/htaccess server file, content body, taxonomy term, canonical setting, lawyer profile, lead/CRM record, review data, wp-admin setting or database row was changed by this repo patch.
+
 ## LATEST WORK STATUS - 2026-05-11 06:09 Asia/Jerusalem
 - CODE FIXED: added plugin-sitemap HTTPS normalization hooks for first-party sitemap entries, covering WordPress core sitemap entries plus common Yoast, Rank Math and AIOSEO sitemap URL/index filters.
 - CODE FIXED: sitemap `loc` values are normalized through the existing `justice_theme_normalize_public_url()` helper; the patch does not add, remove, redirect, migrate or noindex any URL.

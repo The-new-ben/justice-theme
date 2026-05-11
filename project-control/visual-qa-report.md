@@ -2,6 +2,11 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Robots Sitemap Directive QA
+- CODE FIXED / NOT LIVE VERIFIED: robots.txt should now include `Sitemap: https://jus-tice.co.il/sitemap_index.xml` after deployment if the directive is absent.
+- WHY IT MATTERS: the verified sitemap index returns XML, while `/sitemap.xml` and `/wp-sitemap.xml` currently redirect to the homepage.
+- LIVE CHECK NEEDED: after uPress pull/cache clear, verify `robots.txt` returns 200, includes the sitemap index directive, and does not block public rendering assets.
+
 ## 2026-05-11 Sitemap HTTPS QA
 - CODE FIXED / NOT LIVE VERIFIED: supported sitemap generators should now normalize first-party sitemap `loc` values to HTTPS before output.
 - WHY IT MATTERS: sitemap mixed-protocol signals were found in live checks and should be cleared before URL migration or GSC sitemap resubmission.

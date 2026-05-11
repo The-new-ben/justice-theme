@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Robots sitemap directive
+
+- CODE FIXED: robots.txt now appends the verified active sitemap index `https://jus-tice.co.il/sitemap_index.xml` when absent.
+- EXPECTED IMPACT: crawlers receive the working sitemap index instead of relying on default aliases that currently redirect to the homepage.
+- VERIFIED: the filter respects WordPress public-indexing settings and avoids duplicate directives for the same sitemap URL.
+- VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-robots-sitemap-directive-v1`.
+- SAFETY: no URLs, redirects, sitemap plugin settings, robots/htaccess server files, content, taxonomy, canonical settings, CRM, lawyer, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - Plugin sitemap HTTPS filters
 
 - CODE FIXED: added first-party HTTPS normalization for sitemap entries emitted through WordPress core, Yoast, Rank Math and AIOSEO hooks.

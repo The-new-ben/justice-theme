@@ -27,6 +27,7 @@ CODE FIXED / NOT LIVE VERIFIED:
 - WordPress core sitemap entries now normalize first-party `loc` URLs to HTTPS when core sitemaps are active.
 - Public frontend first-party links generated through WordPress URL helpers now normalize to HTTPS, reducing internal-link mixed-protocol signals after deployment.
 - Plugin sitemap compatibility filters now normalize first-party URLs emitted through supported Yoast, Rank Math and AIOSEO sitemap hooks.
+- Robots.txt now appends the verified active sitemap index when the directive is absent.
 - The active live sitemap still requires post-deployment recheck because plugin cache/settings may need a uPress/wp-admin cache clear before changed hooks affect XML output.
 
 EVIDENCE FILE:
@@ -156,6 +157,7 @@ BLOCKED / NEEDS LIVE ADMIN:
 - Check whether an SEO plugin is active.
 - Check why default sitemap aliases `/sitemap.xml` and `/wp-sitemap.xml` redirect to homepage while `/sitemap_index.xml` works.
 - Recheck whether active sitemap child files still output `http://` locs after marker `2026-05-11-sitemap-https-plugin-filters-v1` is live.
+- Recheck robots.txt after marker `2026-05-11-robots-sitemap-directive-v1` is live.
 - Check if a redirect/catch-all rule is masking missing XML/404s.
 - Check whether practice-area sitemap should include media/image URLs or only canonical taxonomy URLs.
 

@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Remaining GSC gap queue
+
+- CREATED: `project-control/gsc-remaining-gap-queue-2026-05-11.md`.
+- CREATED: `project-control/gsc-remaining-gap-queue-2026-05-11.csv`.
+- UPDATED: `project-control/targeted-gsc-query-queue.md`.
+- UPDATED: `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: the new queue covers cyber/privacy, national insurance, homepage broad intent, lawyer-directory intent and page-to-query diagnostics.
+- NOT VERIFIED: no new browser GSC metrics were pulled in this cycle; the queue is the executable plan for the next GSC pass.
+- BLOCKED: no public content, URL, redirect, noindex, canonical, sitemap, title/H1/meta, menu, taxonomy, related-card, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - GSC pass-2 packet carry-forward
 
 - UPDATED: `project-control/child-custody-owner-approval-packet.md`.

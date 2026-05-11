@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-GSC-REMAINING-GAP-QUEUE-001: Create next GSC queue for cyber/privacy, national insurance, homepage and directory checks
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** After the family/criminal/traffic passes, the highest remaining evidence gaps are cyber/privacy, national insurance, homepage broad intent, lawyer-directory intent and page-to-query diagnostics.
+**Actions:**
+1. DONE: created `project-control/gsc-remaining-gap-queue-2026-05-11.md`.
+2. DONE: created `project-control/gsc-remaining-gap-queue-2026-05-11.csv`.
+3. DONE: updated `project-control/targeted-gsc-query-queue.md`.
+4. VERIFIED: the queue contains query-to-page checks for cyber/privacy, national-insurance and homepage/directory broad queries.
+5. VERIFIED: the queue contains page-to-query checks for the homepage, `/lawyers/`, `/cyber-lawyer/`, `/practice-areas/national-insurance/` and the old national-insurance calculator URL.
+6. NEXT: run GSC browser checks for homepage and `/lawyers/` first, then cyber/privacy and national-insurance service terms.
+7. BLOCKED: no public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards, CRM/review changes or CMS writes until explicit owner approval.
+
 ### ACTION-GSC-PASS2-PACKET-CARRY-FORWARD-001: Fold pass-2 risks into custody and traffic approval packets
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The second targeted GSC browser pass created owner-decision risks that must travel with the topic packets before any content, URL, redirect, canonical, sitemap, internal-link, related-card, menu, lawyer-card or CMS execution.

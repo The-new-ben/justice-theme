@@ -101,6 +101,19 @@ Next queue direction:
 - Keep child-support modification variants as SERP/source-review topics rather than GSC-driven priorities.
 - Continue remaining GSC/SERP gaps for cyber/privacy, national insurance, lawyer-directory, homepage and page-to-query checks.
 
+## 2026-05-11 Remaining Gap Queue Added
+
+VERIFIED:
+- Created `project-control/gsc-remaining-gap-queue-2026-05-11.md`.
+- Created `project-control/gsc-remaining-gap-queue-2026-05-11.csv`.
+- The new queue covers cyber/privacy, national insurance, homepage broad intent, lawyer-directory intent and page-to-query checks.
+- It adds both query-to-page and page-to-query rows so future GSC browser sessions can capture what Google associates with the homepage, `/lawyers/`, `/cyber-lawyer/`, the national-insurance practice-area hub and the old national-insurance calculator URL.
+
+NEXT:
+- Run the homepage and `/lawyers/` page-to-query checks first.
+- Then check cyber/privacy and national-insurance lawyer-service terms.
+- Update the relevant owner packets only after evidence is captured.
+
 ## Current Safety State
 
 VERIFIED:

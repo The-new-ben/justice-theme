@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-11 15:36 Asia/Jerusalem
+- VERIFIED / REVIEW: created the next remaining-gap GSC queue for cyber/privacy, national insurance, homepage, lawyer-directory and page-to-query checks.
+- CREATED: `project-control/gsc-remaining-gap-queue-2026-05-11.md`.
+- CREATED: `project-control/gsc-remaining-gap-queue-2026-05-11.csv`.
+- UPDATED: `project-control/targeted-gsc-query-queue.md`.
+- VERIFIED: the queue includes query-to-page checks for cyber lawyer, cyber law, privacy, data deletion, national insurance, medical committees, disability benefits, broad lawyer/homepage terms and find-a-lawyer intent.
+- VERIFIED: the queue includes page-to-query checks for the homepage, `/lawyers/`, `/cyber-lawyer/`, `/practice-areas/national-insurance/`, and the old national-insurance calculator URL.
+- NOT VERIFIED: no new GSC browser metrics were pulled in this cycle; this is a structured queue for the next browser evidence pass.
+- BLOCKED: no public content, URL, redirect, noindex, canonical, sitemap, related-card, menu, taxonomy, lawyer-card, CRM, review, wp-admin setting or CMS/database action is approved by this queue.
+- SAFETY: repo documentation/CSV planning only; no live public site state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 15:24 Asia/Jerusalem
 - VERIFIED / REVIEW: folded the second targeted GSC browser evidence pass into the child-custody and traffic-law owner-approval packets.
 - UPDATED: `project-control/child-custody-owner-approval-packet.md`.

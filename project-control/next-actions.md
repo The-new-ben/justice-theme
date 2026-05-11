@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-TRAFFIC-LAW-NO-URL-INTERNAL-LINK-MAP-001: Plan current-URL links for traffic-law upload group
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The traffic-law outline/source group must be connected internally before any content upload, so the future public changes are not disconnected articles.
+**Actions:**
+1. DONE: created `project-control/traffic-law-no-url-internal-link-map-2026-05-11.md`.
+2. DONE: created `project-control/traffic-law-no-url-internal-link-map-2026-05-11.csv`.
+3. VERIFIED: `31` planned current-URL relationships mapped.
+4. VERIFIED: links connect traffic-law pillar, drunk driving, breathalyzer/refusal/testing, speeding/points/license risk and Marvad/medical fitness without using blocked future slugs.
+5. VERIFIED: relationship type, priority, anchor direction, placement guidance and reason are documented.
+6. NEXT: prepare an owner-review upload package for these five traffic-law targets or move to the next priority cluster.
+7. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-TRAFFIC-LAW-SOURCE-LEGAL-CHECKLIST-001: Add source/legal gates for traffic-law upload group
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The traffic-law outline group cannot move toward final Hebrew copy without source anchors, legal-claim limits, privacy/medical-risk flags and approval gates.

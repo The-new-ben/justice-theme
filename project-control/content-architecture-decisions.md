@@ -256,6 +256,11 @@ Recommended action:
 - REVIEW: final Hebrew copy remains blocked until an Israeli traffic-law source/legal review approves thresholds, deadlines, penalty references, administrative-suspension claims, Marvad appeal wording and disclaimers.
 - NEXT: prepare no-URL-change internal-link map before drafting or uploading public copy.
 
+2026-05-11 traffic-law no-URL internal-link map addendum:
+- VERIFIED: `project-control/traffic-law-no-url-internal-link-map-2026-05-11.md` and `.csv` map `31` planned current-URL relationships.
+- VERIFIED: the traffic-law group now has outline structure, source/legal gates and internal-link posture before public copy.
+- BLOCKED: no internal-link execution, related-card metadata, sitemap update, future slug link, redirect or canonical change is approved yet.
+
 ## Inheritance / Wills
 
 Decision:

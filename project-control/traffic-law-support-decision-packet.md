@@ -194,6 +194,24 @@ NEXT:
 BLOCKED:
 - No public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this source/legal checklist.
 
+## 2026-05-11 Traffic No-URL Internal Link Map
+
+CREATED:
+- `project-control/traffic-law-no-url-internal-link-map-2026-05-11.md`
+- `project-control/traffic-law-no-url-internal-link-map-2026-05-11.csv`
+
+VERIFIED:
+- `31` planned current-URL relationships mapped.
+- The map connects traffic-law pillar, drunk driving, breathalyzer/refusal/testing, speeding/points/license risk and Marvad/medical fitness.
+- Future clean slugs remain blocked.
+- Personal-injury car-accident compensation and will/inheritance wrong-page signals are excluded from the first traffic-defense related-link set.
+
+NEXT:
+- Package the traffic-law upload group for owner approval or start a controlled first-draft package after owner/legal approval.
+
+BLOCKED:
+- No public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this internal-link map.
+
 ## CSV Detail
 
 See `project-control/traffic-law-support-review.csv`.

@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-INHERITANCE-WILLS-OWNER-APPROVAL-001: Prepare inheritance/wills primary and document-risk approval packet
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Inheritance/wills has no verified current `/inheritance-lawyer/` pillar, the future `/will/` slug has multiple conflict rows, and GSC maps visible will demand to case-law, old Hebrew, support and document URLs.
+**Actions:**
+1. DONE: created `project-control/inheritance-wills-owner-approval-packet.md`.
+2. DONE: created `project-control/inheritance-wills-owner-approval-packet.csv`.
+3. VERIFIED: `will` has `10` conflict rows and `0` exact current clean `/will/` URLs.
+4. VERIFIED: strategic `/inheritance-lawyer/` is not a verified current public URL; the heuristic selected `/most-recommended-family-lawyer/` by word count only.
+5. VERIFIED: GSC browser evidence maps `צוואה` to a case-law page with `126` impressions, an old Hebrew wills/inheritance URL with `43` impressions, and `צוואה.docx` with `6` impressions.
+6. VERIFIED: `התנגדות לצוואה` maps to a case-law URL with `120` impressions, while exact `עורך דין ירושה` showed no visible rows in the checked pass.
+7. RECOMMENDED: owner approval for no-URL-change primary selection, side-by-side comparison, source/legal review, document/media strategy and internal-link planning.
+8. NEXT: if owner approves, compare `/inheritance/`, `/will-and-testament/`, `/will-probate-objection/`, `/what-is-a-probate-order/`, `/inheritance-order/`, `/revocation-of-a-will-and-reviving-previous-will/`, old Hebrew service/case-law URLs and the DOCX document before any public content or URL decision.
+9. BLOCKED: no public content edits, titles/H1/meta changes, URL changes, redirects, document/media deletion/replacement/noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards or CMS writes until explicit owner approval.
+
 ### ACTION-REAL-ESTATE-OWNER-APPROVAL-001: Prepare real-estate primary and homepage-signal approval packet
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Real-estate service intent is currently carried by homepage and a cost article, while the strategic `/real-estate-lawyer/` slug is not an exact current URL and international property pages pollute the cluster.

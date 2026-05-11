@@ -115,6 +115,34 @@ BLOCKED:
 - No URL migration, redirect, noindex, canonical, sitemap, content rewrite, or deletion may be executed from this overlay alone.
 - Owner approval and direct GSC/SERP review remain required before changing live public URLs or page bodies.
 
+## 2026-05-11 Inheritance-Wills Owner Approval Packet
+
+CREATED:
+- `project-control/inheritance-wills-owner-approval-packet.md`
+- `project-control/inheritance-wills-owner-approval-packet.csv`
+
+VERIFIED:
+- `will` has `10` conflict rows and `0` exact current clean `/will/` URLs.
+- Strategic `/inheritance-lawyer/` is not a verified current public URL; `cluster-pillar-review.csv` lists it as a strategic target only.
+- The heuristic selected `/most-recommended-family-lawyer/` as the inheritance-wills pillar by word count, so manual owner review is required.
+- `/inheritance/` is thin at `705` words with quality `4/10`.
+- `/will-and-testament/` is thin/outdated at `682` words with quality `4/10`.
+- `/will-probate-objection/` is thin/outdated at `618` words with quality `2/10`.
+- `/what-is-a-probate-order/` is thin at `573` words with quality `4/10`.
+- `/inheritance-order/` has `2,182` words, quality `5/10`, and needs rewrite review.
+- `/revocation-of-a-will-and-reviving-previous-will/` has `11,861` words, quality `4/10`, and also has low-sample wrong-page traffic-law matches.
+- GSC browser evidence maps `צוואה` to a case-law page with `126` impressions, an old Hebrew wills/inheritance URL with `43` impressions, a DOCX file with `6` impressions, and several support/case-law URLs.
+- GSC browser evidence maps `התנגדות לצוואה` to a case-law page with `120` impressions.
+- Exact `עורך דין ירושה` showed no visible rows in the checked GSC browser pass.
+
+RECOMMENDED:
+- Owner approval for a no-URL-change primary-selection, will-guide, will-contest, probate/inheritance-order, document/media and source/legal review planning batch.
+- Protect old Hebrew, case-law and document/template URLs until a redirect/canonical/sitemap/internal-link map is approved.
+- Separate local Israeli inheritance-lawyer service intent from will guide, will contest, inheritance/probate procedure and international inheritance/wills intent.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, document/media deletion/replacement/noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards or CMS writes until explicit approval.
+
 ## 2026-05-11 Child-Support Packet
 
 CREATED:

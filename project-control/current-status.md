@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-11 14:20 Asia/Jerusalem
+- VERIFIED / REVIEW: prepared the inheritance/wills owner-approval packet as a no-URL-change primary-selection, will-guide, will-contest, document/media-risk and support-page planning decision.
+- CREATED: `project-control/inheritance-wills-owner-approval-packet.md`.
+- CREATED: `project-control/inheritance-wills-owner-approval-packet.csv`.
+- VERIFIED: `will` has `10` conflict rows and `0` exact current clean `/will/` URLs.
+- VERIFIED: strategic `/inheritance-lawyer/` is not a verified current public URL; the heuristic selected `/most-recommended-family-lawyer/` by word count only, so owner approval is required before any primary decision.
+- VERIFIED: GSC browser evidence maps `צוואה` and `התנגדות לצוואה` to old Hebrew, case-law, support and document/template URLs, including `126` impressions for a case-law page on `צוואה`, `120` impressions for the same case-law page on `התנגדות לצוואה`, and `6` impressions for `צוואה.docx`.
+- VERIFIED: exact `עורך דין ירושה` filter returned no visible rows in the checked GSC browser pass, so lawyer-service traffic risk remains UNKNOWN/low-sample.
+- BLOCKED: owner approval, side-by-side comparison, source/legal review, deeper GSC/SERP evidence, document/media strategy and redirect/canonical/sitemap planning are required before title/H1/meta, URL, content-body, document/media, menu/taxonomy, related-card, lawyer-card or CMS changes.
+- SAFETY: repo documentation/CSV planning only; no live public content, inheritance/wills URL, redirect, sitemap, canonical, document/media, related-card or CMS state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 14:10 Asia/Jerusalem
 - VERIFIED / REVIEW: prepared the real-estate owner-approval packet as a no-URL-change primary-selection, homepage-signal, support-page and international-content cleanup planning decision.
 - CREATED: `project-control/real-estate-owner-approval-packet.md`.

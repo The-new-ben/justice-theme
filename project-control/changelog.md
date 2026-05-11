@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Inheritance and wills owner approval packet
+
+- CREATED: `project-control/inheritance-wills-owner-approval-packet.md`.
+- CREATED: `project-control/inheritance-wills-owner-approval-packet.csv`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `will` has `10` conflict rows and `0` exact current clean `/will/` URLs.
+- VERIFIED: strategic `/inheritance-lawyer/` is not a verified current public URL; the heuristic selected `/most-recommended-family-lawyer/` by word count only.
+- VERIFIED: GSC browser evidence maps visible `צוואה` and `התנגדות לצוואה` demand to case-law, old Hebrew, support and document URLs, including a DOCX file.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, title/H1/meta, document/media, menu, taxonomy, related-card, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Real estate owner approval packet
 
 - CREATED: `project-control/real-estate-owner-approval-packet.md`.

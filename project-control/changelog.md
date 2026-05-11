@@ -1857,3 +1857,13 @@
 - VERIFIED: `git diff --check` passed.
 - NOT LIVE VERIFIED AFTER FIX: needs push, uPress pull/cache refresh and a fresh related-content QA run.
 - SAFETY: no content body, CMS metadata, URL, redirect, sitemap setting, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state or database row was changed.
+
+## 2026-05-11 Content Inventory Refresh And Audit Map Rebuild
+- RERAN: `tools/content-audit/wp-rest-export.ps1` against the public WordPress REST API.
+- RERAN: `tools/content-audit/build-audit-v1.ps1` from the refreshed inventory.
+- UPDATED: public export CSVs, `content-master-inventory.csv`, `content-quality-audit.csv`, `url-migration-map.csv`, `redirect-map.csv`, `cannibalization-map.csv`, `category-map.csv`, `topic-clusters.csv`, and `internal-link-map.csv`.
+- VERIFIED: export contains `1,220` public content rows and `1,707` internal links.
+- VERIFIED: audit maps contain `1,220` quality rows, `1,220` URL rows, `1,160` redirect-plan rows, `11` cannibalization groups, `110` category/term rows, `11` topic clusters, and `1,707` internal-link rows.
+- VERIFIED: internal-link map has `0` first-party HTTP targets and `1,707` first-party HTTPS targets.
+- BLOCKED: public menu export still returns WordPress REST `401`, so authenticated menu export remains a later step.
+- SAFETY: no public content body, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.

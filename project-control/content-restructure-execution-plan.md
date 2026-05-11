@@ -314,13 +314,18 @@ Legal review required before:
 ## 13. Timeline
 
 Phase 1: Access plan and executable export plan - complete in repo.
-Phase 2: Public REST export - next safe execution step.
-Phase 3: Quality audit v1 - after export.
-Phase 4: Cannibalization and URL migration maps - after quality audit.
-Phase 5: GSC overlay - when credentials exist.
+Phase 2: Public REST export - VERIFIED refreshed on 2026-05-11 with 1,220 public content rows and 1,707 internal links.
+Phase 3: Quality audit v1 - VERIFIED rebuilt on 2026-05-11 with 1,220 quality rows.
+Phase 4: Cannibalization and URL migration maps - VERIFIED rebuilt on 2026-05-11 with 1,220 URL rows, 1,160 redirect-plan rows and 11 heuristic cannibalization groups.
+Phase 5: GSC overlay - IN PROGRESS / NOT MERGED into the refreshed CSVs; traffic risk remains UNKNOWN until query/page data is mapped.
 Phase 6: Owner decisions - pillars, merges, redirects.
 Phase 7: CMS draft imports/updates - after decisions.
 Phase 8: Live migration and verification - after approval.
+
+Current refresh limitations:
+- Public REST menu export is BLOCKED by 401 and needs authenticated admin/export access later.
+- Heuristic pillar picks are NOT final decisions and must be reviewed against GSC, SERP intent, existing strong content and business strategy.
+- No URL migration, redirect, noindex, deletion, canonical update or sitemap inclusion change is approved by this refresh.
 
 ## 14. What Can Be Automated
 

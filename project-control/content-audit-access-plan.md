@@ -106,6 +106,22 @@ Scope not available until authenticated:
 - full automated GSC export/API data
 - database-only legacy data
 
+## 2026-05-11 Public REST Refresh Status
+
+VERIFIED:
+- Public REST export is still available and was refreshed successfully.
+- Current public export includes `1,220` content rows and `1,707` internal links.
+- Public content rows include `1,199` articles, `11` pages and `10` lawyer profiles.
+- Audit maps were rebuilt from the refreshed export without live WordPress writes.
+
+BLOCKED:
+- Menu export still returns REST `401`.
+- Private/draft content, full custom fields, SEO plugin meta, redirect settings and GSC metrics are not included in the public-only refresh.
+
+RECOMMENDED USE:
+- Continue using the refreshed public export for first-pass clustering, duplicate detection and URL migration planning.
+- Use authenticated admin/export or GSC browser evidence before approving high-risk URL, redirect or content decisions.
+
 ## Recommended Access Upgrade
 
 1. Create a WordPress Application Password for an admin user dedicated to audit export.

@@ -866,3 +866,18 @@ Next safe batch before any URL/content migration:
 8. FIXED LIVE: the Greece real-estate pricing card was removed from `/real-estate-lawyer-cost-2025/` related results by classifying foreign-market real-estate content as `international`.
 9. NEXT: fix editorially weak but technically same-cluster recommendations through CMS metadata/manual related URLs, not through URL changes.
 10. Keep global/latest unrelated fallback blocked for important legal articles.
+
+## 2026-05-11 CONTENT INVENTORY / URL MIGRATION NEXT ACTIONS
+
+**Status:** VERIFIED PUBLIC EXPORT REFRESHED / MANUAL DECISIONS STILL NEEDED
+
+1. VERIFIED: refreshed public REST export has `1,220` public content rows and `1,707` internal-link rows.
+2. VERIFIED: rebuilt `content-quality-audit.csv`, `url-migration-map.csv`, `redirect-map.csv`, `cannibalization-map.csv`, `category-map.csv`, `topic-clusters.csv`, and `internal-link-map.csv`.
+3. BLOCKED: menu export remains `401` through public REST; use authenticated admin/export access later before final menu/internal-link decisions.
+4. NOT VERIFIED: GSC traffic metrics are not merged into the refreshed inventory yet; do not treat redirect risk as approved.
+5. NEXT: manually review the `129` target-slug-conflict rows before any English slug migration.
+6. NEXT: review the `481` needs-editorial-slug-mapping rows and decide KEEP / MERGE / REWRITE / REDIRECT_LATER only after GSC and SERP review.
+7. NEXT: correct heuristic pillar candidates for clusters where the current best-by-word-count URL is clearly not the strategic pillar, especially criminal law, real estate, personal injury, inheritance, employment and needs-classification.
+8. NEXT: overlay GSC query/page evidence for major terms before approving pillar URLs or redirects.
+9. NEXT: keep homepage, menus, breadcrumbs, related content, sitemap and mobile template decisions tied to the approved cluster map.
+10. DO NOT EXECUTE YET: URL changes, redirects, noindex, deletions, public rewrites, canonical changes or sitemap inclusion changes.

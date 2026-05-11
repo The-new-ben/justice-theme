@@ -1,7 +1,7 @@
 # Export Folder
 
-Date: 2026-05-10
-Status: PUBLIC REST EXPORT V1 COMPLETED
+Date: 2026-05-11
+Status: PUBLIC REST EXPORT REFRESHED
 
 This folder is reserved for the full content audit exports.
 
@@ -16,6 +16,13 @@ Result:
 - Internal links exported: 1,707
 - Menu export: blocked by WordPress REST 401, requires authentication
 - Traffic metrics: UNKNOWN until GSC access exists
+
+Latest refresh:
+- VERIFIED: export rerun on 2026-05-11 against `https://jus-tice.co.il`.
+- VERIFIED: refreshed inventory still contains 1,220 public content rows and 1,707 internal links.
+- VERIFIED: refreshed internal-link export contains HTTPS-normalized first-party targets after public template/link normalization.
+- BLOCKED: menu export remains unavailable through public REST.
+- SAFETY: export is read-only; it does not change WordPress content, URLs, redirects, sitemap settings or database rows.
 
 Expected files after the export:
 

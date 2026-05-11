@@ -1071,6 +1071,19 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - NOT LIVE VERIFIED AFTER FIX: requires commit, push, uPress pull/cache refresh, then rerun `tools/check-live-related-content-qa.ps1`.
 - SAFETY: no public content body, CMS metadata, URL, redirect, sitemap, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state or database row was changed.
 
+## 2026-05-11 CONTENT INVENTORY REFRESH + AUDIT MAP REBUILD
+- VERIFIED: public REST content export was rerun safely without WordPress login or live writes.
+- VERIFIED: exported `1,220` public content rows: `1,199` articles, `11` pages, and `10` lawyer profiles.
+- VERIFIED: exported `1,707` internal-link rows.
+- VERIFIED: rebuilt audit maps from the refreshed inventory: `1,220` quality rows, `1,220` URL migration rows, `1,160` redirect-plan rows, `11` cannibalization groups, `110` term/category rows, `11` topic clusters, and `1,707` internal-link map rows.
+- VERIFIED: refreshed `internal-link-map.csv` has `1,707` HTTPS first-party targets and `0` HTTP first-party targets after the public template/link normalization work.
+- REVIEW: URL migration status counts are `604` keep-current-clean-slug rows, `481` needs-editorial-slug-mapping rows, `129` target-slug-conflict rows, and `6` proposed-English-slug review rows.
+- REVIEW: quality actions are `455` review/classify rows, `310` rewrite rows, `270` keep-or-make-pillar review rows, `105` support-pillar review rows, and `80` expand rows.
+- REVIEW: some heuristic pillar picks are intentionally not final, including criminal, real-estate, personal-injury, inheritance, employment and uncategorized clusters; GSC/manual SERP review must choose the real pillars before migration.
+- BLOCKED: public menu export remains blocked by WordPress REST `401`; authenticated menus, private/draft content, full custom meta and GSC metrics are not included in this public-only export.
+- NOT VERIFIED: GSC traffic overlay is not applied to these refreshed CSVs yet; traffic risk remains `UNKNOWN` until browser/API data is mapped into the inventory.
+- SAFETY: no public content body, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
 ## NEXT BEST ACTION
 1. Confirm the live plugin filesystem path in wp-admin/uPress plugin manager before any plugin migration.
 2. Decide whether `justice-core/` will replace `ultra-justice-engine/` on live or whether the legacy active folder must be renamed in a controlled migration.

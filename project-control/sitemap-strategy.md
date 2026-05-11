@@ -5,6 +5,13 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
 
 ## Current Evidence
 
+2026-05-11 MEDIA / IMAGE SITEMAP HTTPS FIX:
+- CODE FIXED / NOT LIVE VERIFIED: first-party image/media URLs now normalize to HTTPS in public media helpers and Rank Math image sitemap filters.
+- VERIFIED SOURCE: Rank Math official docs list `rank_math/sitemap/urlimages` for changing images included in XML sitemaps and `rank_math/sitemap/xml_img_src` for changing image URL output.
+- WHY: the after-theme scan left only media/sitemap/content findings: 69 `SEO_PLUGIN_SITEMAP_MEDIA` and 2 `CONTENT_MEDIA_OUTPUT`.
+- NEXT CHECK: after uPress pull, rerun the public HTTP scan and verify that `<image:loc>` entries no longer expose `http://jus-tice.co.il/wp-content/uploads/...`.
+- SAFETY: no media record, sitemap inclusion rule, redirect, canonical, URL slug, taxonomy term, content body, lawyer, CRM, review, wp-admin setting or database row was changed.
+
 2026-05-11 THEME TERM-LINK HTTPS FIX:
 - FIXED LIVE: public template taxonomy links now normalize first-party term URLs to HTTPS before rendering.
 - VERIFIED LIVE: uPress top commit is `005af18` and static marker returns `2026-05-11-theme-term-link-https-v1`.
@@ -220,6 +227,7 @@ BLOCKED / NEEDS LIVE ADMIN:
 
 - VERIFIED: Yoast official developer docs document `wpseo_xml_sitemap_post_url` for altering sitemap post URLs.
 - VERIFIED: Rank Math official docs document `rank_math/sitemap/entry`, `rank_math/sitemap/xml_post_url`, and `rank_math/sitemap/post_type_archive_link`.
+- VERIFIED: Rank Math official docs document `rank_math/sitemap/urlimages` and `rank_math/sitemap/xml_img_src` for image sitemap URL handling.
 - SOURCE: `https://rankmath.com/docs/filters-and-hooks/admin/sitemap/`
 - VERIFIED: AIOSEO official docs document `aioseo_sitemap_indexes` with `loc` entries.
 - LIMITATION: plugin cache/settings may still require wp-admin/uPress cache clear before XML output changes are visible.

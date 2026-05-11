@@ -2,6 +2,14 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Media/Image Sitemap HTTPS QA
+- CODE FIXED / NOT LIVE VERIFIED: public media URLs now normalize to HTTPS in attachment helpers, image srcsets, rendered post content and Rank Math image sitemap callbacks.
+- WHY: after theme link cleanup, the remaining findings were 69 sitemap image URLs and 2 public content image `src` attributes.
+- VERIFIED SOURCE: Rank Math documents image sitemap filters `rank_math/sitemap/urlimages` and `rank_math/sitemap/xml_img_src`.
+- VERIFIED LOCAL: PHP lint passed for 128 PHP files; `git diff --check` returned only normal Windows LF-to-CRLF warnings.
+- LIVE CHECK NEEDED: after uPress pull, verify marker `2026-05-11-media-sitemap-https-v1`, rerun the public HTTP scan and confirm sitemap/media/content findings drop.
+- SAFETY: output-level normalization only; no media library, content body, URL slug, redirect, sitemap inclusion, canonical, taxonomy, lawyer, CRM, review or plugin state was changed.
+
 ## 2026-05-11 Theme Term-Link HTTPS QA
 - FIXED LIVE: theme-owned taxonomy term links now render through a shared first-party HTTPS helper.
 - LIVE DEPLOYMENT VERIFIED: uPress Git log showed commit `005af18` (`Normalize theme term links to HTTPS`) as live HEAD.

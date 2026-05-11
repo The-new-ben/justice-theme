@@ -48,6 +48,15 @@ This pass checks public rendered output and sitemap XML for remaining first-part
 - REVIEW REMAINS: the remaining findings are 69 `SEO_PLUGIN_SITEMAP_MEDIA` and 2 `CONTENT_MEDIA_OUTPUT`.
 - SAFETY: this does not update stored content, taxonomy records, media URLs, sitemap plugin settings or redirects.
 
+## Media / Image Sitemap Fix Applied In Code
+
+- CODE FIXED / NOT LIVE VERIFIED: first-party media URLs now normalize to HTTPS in public attachment URLs, attachment image tuples, srcsets and rendered post content.
+- CODE FIXED / NOT LIVE VERIFIED: Rank Math image sitemap output now normalizes first-party image URLs via `rank_math/sitemap/xml_img_src` and `rank_math/sitemap/urlimages`.
+- VERIFIED SOURCE: Rank Math official sitemap hooks document both image sitemap filters.
+- VERIFIED LOCAL: PHP lint passed for 128 PHP files.
+- NOT LIVE VERIFIED: pull marker `2026-05-11-media-sitemap-https-v1`, rerun the scanner, and confirm whether the 69 `SEO_PLUGIN_SITEMAP_MEDIA` and 2 `CONTENT_MEDIA_OUTPUT` rows clear.
+- SAFETY: this does not update stored content, media records, sitemap inclusion rules, redirects or database values.
+
 ## Interpretation
 
 - NOT FIXED: the previous related-card/template HTTPS fix worked for sampled related cards, but broader public output still contains first-party HTTP references.

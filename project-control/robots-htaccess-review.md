@@ -5,6 +5,12 @@ Status: REVIEW V2 - robots fixed live; redirects/htaccess unchanged
 
 ## Current Public Checks
 
+2026-05-11 MEDIA / IMAGE SITEMAP HTTPS FIX:
+- CODE FIXED / NOT LIVE VERIFIED: first-party media URLs now normalize to HTTPS in public media output and Rank Math image sitemap callbacks.
+- VERIFIED SOURCE: Rank Math documents `rank_math/sitemap/urlimages` and `rank_math/sitemap/xml_img_src` as image sitemap filters.
+- NEXT SAFE ACTION: pull in uPress, verify marker `2026-05-11-media-sitemap-https-v1`, rerun the scanner and confirm media/sitemap HTTP findings drop.
+- SAFETY: no `.htaccess`, redirect, URL migration, stored content, media-library item, canonical, sitemap setting, taxonomy, lawyer, CRM, review, wp-admin option or database change was made.
+
 2026-05-11 THEME TERM-LINK HTTPS FIX:
 - FIXED LIVE: theme-owned taxonomy term links now use `justice_theme_public_term_link()` and first-party HTTPS normalization before rendering.
 - VERIFIED LIVE: uPress top commit is `005af18` and static marker returns `2026-05-11-theme-term-link-https-v1`.

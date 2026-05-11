@@ -63,6 +63,72 @@ add_filter( 'post_link', 'justice_theme_filter_frontend_public_url', 20 );
 add_filter( 'post_type_link', 'justice_theme_filter_frontend_public_url', 20 );
 add_filter( 'term_link', 'justice_theme_filter_frontend_public_url', 20 );
 add_filter( 'attachment_link', 'justice_theme_filter_frontend_public_url', 20 );
+add_filter( 'wp_get_attachment_url', 'justice_theme_filter_frontend_public_url', 20 );
+
+/**
+ * Normalize first-party attachment image arrays without changing media records.
+ *
+ * @param array|false $image Image tuple from wp_get_attachment_image_src().
+ * @return array|false
+ */
+function justice_theme_filter_attachment_image_src( $image ) {
+	if ( is_array( $image ) && ! empty( $image[0] ) ) {
+		$image[0] = justice_theme_normalize_public_url( (string) $image[0] );
+	}
+
+	return $image;
+}
+add_filter( 'wp_get_attachment_image_src', 'justice_theme_filter_attachment_image_src', 20 );
+
+/**
+ * Normalize first-party srcset URLs in rendered media markup.
+ *
+ * @param array $sources Image source candidates.
+ * @return array
+ */
+function justice_theme_filter_image_srcset_sources( array $sources ): array {
+	foreach ( $sources as $width => $source ) {
+		if ( is_array( $source ) && ! empty( $source['url'] ) ) {
+			$sources[ $width ]['url'] = justice_theme_normalize_public_url( (string) $source['url'] );
+		}
+	}
+
+	return $sources;
+}
+add_filter( 'wp_calculate_image_srcset', 'justice_theme_filter_image_srcset_sources', 20 );
+
+/**
+ * Normalize first-party HTTP URLs in public post content at render time.
+ *
+ * This intentionally leaves the database untouched. It only prevents old
+ * embedded media/content URLs from being emitted as HTTP in public HTML.
+ *
+ * @param string $content Rendered post content.
+ * @return string
+ */
+function justice_theme_normalize_public_content_urls( string $content ): string {
+	if ( is_admin() && ! wp_doing_ajax() ) {
+		return $content;
+	}
+
+	$site_host = wp_parse_url( (string) get_option( 'home' ), PHP_URL_HOST );
+	if ( ! $site_host ) {
+		$site_host = wp_parse_url( (string) get_option( 'siteurl' ), PHP_URL_HOST );
+	}
+
+	if ( '' === $content || ! $site_host ) {
+		return $content;
+	}
+
+	$http_origin = 'http://' . $site_host;
+
+	if ( false === strpos( $content, $http_origin ) ) {
+		return $content;
+	}
+
+	return str_replace( $http_origin, 'https://' . $site_host, $content );
+}
+add_filter( 'the_content', 'justice_theme_normalize_public_content_urls', 999 );
 
 /**
  * Map public lawyer-directory area aliases to the taxonomy slugs that exist now.
@@ -689,6 +755,46 @@ function justice_theme_normalize_sitemap_url_string( $url ): string {
 }
 
 /**
+ * Normalize image items emitted in Rank Math XML sitemaps.
+ *
+ * Rank Math exposes image sitemap callbacks separately from the page loc
+ * callbacks, so media URLs need their own render-only normalization.
+ *
+ * @param mixed $images Image item list.
+ * @return mixed
+ */
+function justice_theme_normalize_sitemap_image_items( $images ) {
+	if ( is_string( $images ) ) {
+		return justice_theme_normalize_public_url( $images );
+	}
+
+	if ( ! is_array( $images ) ) {
+		return $images;
+	}
+
+	foreach ( $images as $key => $image ) {
+		if ( is_string( $image ) ) {
+			$images[ $key ] = justice_theme_normalize_public_url( $image );
+			continue;
+		}
+
+		if ( ! is_array( $image ) ) {
+			continue;
+		}
+
+		foreach ( array( 'src', 'loc', 'url' ) as $url_key ) {
+			if ( ! empty( $image[ $url_key ] ) ) {
+				$image[ $url_key ] = justice_theme_normalize_public_url( (string) $image[ $url_key ] );
+			}
+		}
+
+		$images[ $key ] = $image;
+	}
+
+	return $images;
+}
+
+/**
  * Normalize WordPress core sitemap entries if core sitemaps are active.
  *
  * The live sitemap currently appears plugin-controlled, so this is a safe
@@ -718,6 +824,8 @@ add_filter( 'wpseo_xml_sitemap_post_url', 'justice_theme_normalize_sitemap_url_s
 add_filter( 'wpseo_xml_sitemap_term_url', 'justice_theme_normalize_sitemap_url_string', 20 );
 add_filter( 'wpseo_sitemap_entry', 'justice_theme_normalize_sitemap_entry_loc', 20 );
 add_filter( 'rank_math/sitemap/xml_post_url', 'justice_theme_normalize_sitemap_url_string', 20 );
+add_filter( 'rank_math/sitemap/xml_img_src', 'justice_theme_normalize_sitemap_url_string', 20 );
+add_filter( 'rank_math/sitemap/urlimages', 'justice_theme_normalize_sitemap_image_items', 20 );
 add_filter( 'rank_math/sitemap/post_type_archive_link', 'justice_theme_normalize_sitemap_url_string', 20 );
 add_filter( 'rank_math/sitemap/entry', 'justice_theme_normalize_sitemap_entry_loc', 20 );
 add_filter( 'rank_math/sitemap/index/entry', 'justice_theme_normalize_sitemap_entry_loc', 20 );

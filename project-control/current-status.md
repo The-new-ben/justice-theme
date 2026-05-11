@@ -2,6 +2,15 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 08:16 Asia/Jerusalem
+- DOCUMENTED / VERIFIED LOCAL: added repeatable Justice plugin collision scanner `tools/check-justice-plugin-collision.ps1`.
+- VERIFIED LOCAL: `ultra-justice-engine/ultra-justice-engine.php` is `Ultra Justice Engine` v1.0.0 and uses REST namespace `ultra-justice-engine/v1`.
+- VERIFIED LOCAL: `justice-core/justice-core.php` is `Justice Core` v1.0.0 and uses REST namespace `justice-core/v1`.
+- VERIFIED LOCAL RISK: `justice-core/` and `ultra-justice-engine/` both define `UJE_VERSION`, `UJE_DIR`, `UJE_URL` and many `uje_*` functions, so they must not be active together.
+- DOCUMENTED: created `project-control/justice-plugin-collision-review.md` and updated `project-control/plugin-registry.md` / `project-control/live-plugin-architecture-review.md`.
+- DECISION: keep treating `Ultra Justice Engine` as the active live Justice plugin; keep `Justice Core` as a future migration target only after parity/collision review, backup, maintenance window and owner approval.
+- SAFETY: no plugin activation, deactivation, deletion, installation, file-manager edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+
 ## LATEST WORK STATUS - 2026-05-11 07:30 Asia/Jerusalem
 - CODE FIXED / DEPLOYED: added a narrow native-404 route guard that renders the theme 404 template before later template handlers can redirect a request, but only after WordPress has already identified the request as `is_404()`.
 - DEPLOYED LIVE: uPress Git log shows commit `cbbba45` (`Render native 404 before homepage redirects`) and the public static marker returns `2026-05-11-native-404-before-redirect-v1`.

@@ -4,6 +4,16 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest local plugin collision review:
+
+- VERIFIED LOCAL: `tools/check-justice-plugin-collision.ps1` scans repo-side Justice plugin headers, constants, functions, REST namespaces, CPTs and taxonomies.
+- VERIFIED LOCAL: `ultra-justice-engine/ultra-justice-engine.php` is the expected repo main file for `Ultra Justice Engine` v1.0.0.
+- VERIFIED LOCAL: `justice-core/justice-core.php` is the expected repo main file for `Justice Core` v1.0.0.
+- VERIFIED LOCAL: `ultra-justice/ultra-justice.php` is the expected repo main file for `Ultra Justice` v1.0.0.
+- VERIFIED LOCAL RISK: `justice-core/` and `ultra-justice-engine/` share `UJE_*` constants and many `uje_*` functions.
+- NOT LIVE CHANGED: plugin state remains unchanged; this was a local repo/path and documentation review only.
+- NEXT LIVE PATH CHECK: exact active plugin PHP file path still requires WP-CLI, active-plugin registry, or read-only plugin filesystem confirmation.
+
 Latest recheck after uPress pull to commit `cbbba45`:
 
 - uPress Git Log: VERIFIED top commit `cbbba45` (`Render native 404 before homepage redirects`).

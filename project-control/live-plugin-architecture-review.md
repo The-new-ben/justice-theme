@@ -31,6 +31,15 @@ Additional interpretation: the plugin code currently active on live may not be i
 
 The uPress plugin manager confirms the active plugin name but does not expose the exact PHP file path. The likely path is `ultra-justice-engine/ultra-justice-engine.php`, but exact path remains NOT VERIFIED until a read-only plugin registry, WP-CLI, wp-admin plugin detail, or filesystem-level check confirms it.
 
+Local repo path/collision scan now adds:
+
+- VERIFIED LOCAL: `ultra-justice-engine/ultra-justice-engine.php` has plugin header `Ultra Justice Engine`, version `1.0.0`, text domain `ultra-justice-engine`.
+- VERIFIED LOCAL: `justice-core/justice-core.php` has plugin header `Justice Core`, version `1.0.0`, text domain `justice-core`.
+- VERIFIED LOCAL: `ultra-justice/ultra-justice.php` has plugin header `Ultra Justice`, version `1.0.0`, text domain `ultra-justice`.
+- VERIFIED LOCAL RISK: `justice-core/` and `ultra-justice-engine/` both define `UJE_VERSION`, `UJE_DIR`, `UJE_URL` and many `uje_*` functions.
+- DOCUMENTED: `project-control/justice-plugin-collision-review.md`.
+- TOOLING: `tools/check-justice-plugin-collision.ps1`.
+
 ## Repo Plugin Trees
 
 | Folder | Plugin name | REST namespace | Function/constant prefix | Live status |
@@ -85,6 +94,14 @@ Use:
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass -File tools/check-live-plugin-surface.ps1
 ```
+
+For local repo collision review, use:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/check-justice-plugin-collision.ps1
+```
+
+Use `-FailOnCollision` when a non-zero exit should be raised for duplicate symbols.
 
 Expected current result:
 

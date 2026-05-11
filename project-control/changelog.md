@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Justice plugin collision review
+
+- DOCUMENTED / VERIFIED LOCAL: added `tools/check-justice-plugin-collision.ps1` to scan Justice plugin headers, constants, functions, REST namespaces, CPTs and taxonomies.
+- VERIFIED LOCAL: `Ultra Justice Engine`, `Justice Core`, and `Ultra Justice` all exist as repo plugin trees with version `1.0.0`.
+- VERIFIED LOCAL RISK: `justice-core/` and `ultra-justice-engine/` share `UJE_*` constants and many `uje_*` functions.
+- DOCUMENTED: created `project-control/justice-plugin-collision-review.md` and updated the plugin registry / live plugin architecture notes.
+- DECISION: keep `Ultra Justice Engine` as the active live plugin track; do not activate `Justice Core` beside it.
+- SAFETY: no plugin activation, deactivation, deletion, installation, file-manager edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+
 ## 2026-05-11 - Live root robots.txt fixed
 
 - FIXED LIVE: replaced the empty physical root `robots.txt` in uPress File Manager with conservative crawler directives and the verified sitemap index URL.

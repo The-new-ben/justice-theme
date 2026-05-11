@@ -3,6 +3,42 @@
 **Status:** NOT VERIFIED live — requires `wp plugin list` or wp-admin access.  
 **Purpose:** Track all Justice-related plugins, their CPTs, taxonomies, and roles.
 
+2026-05-11 status override: PARTIAL LIVE VERIFIED / MIGRATION NOT APPROVED. Public REST and uPress plugin-manager checks show `Ultra Justice Engine` active on live; `justice-core` remains a future target only after collision/parity review and owner approval.
+
+---
+
+## 2026-05-11 Current Live Reality
+
+VERIFIED LIVE:
+
+- Public REST exposes `ultra-justice-engine/v1`.
+- Public REST does not expose `justice-core/v1`.
+- Public REST does not expose `ultra-justice/v1`.
+- uPress plugin manager shows `Ultra Justice Engine` version `1.0.0` active.
+- uPress plugin manager did not show a separate `Justice Core` row when filtered for `Justice`.
+
+VERIFIED LOCAL:
+
+- `ultra-justice-engine/ultra-justice-engine.php` has plugin header `Ultra Justice Engine`.
+- `justice-core/justice-core.php` has plugin header `Justice Core`.
+- `ultra-justice/ultra-justice.php` has plugin header `Ultra Justice`.
+- `justice-core/` and `ultra-justice-engine/` both define `UJE_VERSION`, `UJE_DIR`, `UJE_URL` and many `uje_*` functions.
+
+DECISION:
+
+- Treat `Ultra Justice Engine` as the active live Justice plugin for now.
+- Do not activate `justice-core/` beside `ultra-justice-engine/`.
+- Do not deactivate or delete `ultra-justice-engine/` without a controlled migration plan, backup and owner approval.
+- Keep `justice-core/` as a future canonical target only after collision and parity risks are resolved.
+
+Supporting files:
+
+- `project-control/live-plugin-architecture-review.md`
+- `project-control/upress-plugin-manager-readonly-review.md`
+- `project-control/justice-plugin-collision-review.md`
+- `tools/check-live-plugin-surface.ps1`
+- `tools/check-justice-plugin-collision.ps1`
+
 ---
 
 ## How to Verify Live State
@@ -25,7 +61,7 @@ GET /wp-json/justice-core/v1/plugin-registry
 
 ## Expected Plugin Architecture
 
-There must be EXACTLY ONE canonical Justice plugin:
+There must be EXACTLY ONE active Justice plugin. The original target architecture below named `justice-core` as canonical, but live reality currently uses `Ultra Justice Engine`. Do not switch plugins until the migration gates above are complete.
 
 ### justice-core (CANONICAL — KEEP)
 

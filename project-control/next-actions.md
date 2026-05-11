@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PLUGIN-COLLISION-001: Keep Justice plugin migration controlled
+**Status:** VERIFIED LOCAL / MIGRATION NOT APPROVED
+**Why:** The live site currently exposes `Ultra Justice Engine`, while the repo also contains `justice-core` and `ultra-justice`. Activating duplicate Justice plugins could create PHP fatal errors, duplicate CPT/taxonomy registration, or confused REST/content behavior.
+**Actions:**
+1. DONE: added `tools/check-justice-plugin-collision.ps1`.
+2. VERIFIED LOCAL: `ultra-justice-engine/ultra-justice-engine.php` has plugin header `Ultra Justice Engine`, version `1.0.0`, REST namespace `ultra-justice-engine/v1`.
+3. VERIFIED LOCAL: `justice-core/justice-core.php` has plugin header `Justice Core`, version `1.0.0`, REST namespace `justice-core/v1`.
+4. VERIFIED LOCAL: `ultra-justice/ultra-justice.php` has plugin header `Ultra Justice`, version `1.0.0`, REST namespace `ultra-justice/v1`.
+5. VERIFIED LOCAL RISK: `justice-core/` and `ultra-justice-engine/` share `UJE_*` constants and many `uje_*` functions.
+6. DOCUMENTED: `project-control/justice-plugin-collision-review.md`.
+7. DECISION: do not activate `justice-core/` while `ultra-justice-engine/` is active.
+8. NEXT: confirm exact active live plugin file path through WP-CLI, active-plugin registry, or read-only `/wp-content/plugins/` filesystem inspection; then create a parity checklist before any plugin switch.
+9. SAFETY: no plugin activation, deactivation, deletion, installation, file-manager edit, wp-admin setting, URL, redirect, content, taxonomy, sitemap, canonical, lawyer, CRM, review or database change was made.
+
 ### ACTION-ROUTING-404-HOMEPAGE-001: Identify and disable uncontrolled 404-to-homepage redirects
 **Status:** VERIFIED SOURCE - owner approval needed before deactivation
 **Why:** Arbitrary missing URLs and invalid query routes should return a real Hebrew 404. Redirecting every miss to the homepage hides broken URLs, confuses users, and creates crawl/SEO noise before controlled URL migration.

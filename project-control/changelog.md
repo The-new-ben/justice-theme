@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Employment law owner approval packet
+
+- CREATED: `project-control/employment-law-owner-approval-packet.md`.
+- CREATED: `project-control/employment-law-owner-approval-packet.csv`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `/labor-lawyer/` is the current service candidate but is thin at `689` words and quality score `4/10`.
+- VERIFIED: GSC browser evidence maps `עורך דין דיני עבודה` mostly to the homepage and `דיני עבודה` mostly to `/israeli-labor-law/`.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, title/H1/meta, homepage, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Child custody owner approval packet
 
 - CREATED: `project-control/child-custody-owner-approval-packet.md`.

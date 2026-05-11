@@ -307,3 +307,23 @@ RECOMMENDED:
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, robots/media/document changes, taxonomy/menu edits, lawyer cards or CMS writes until explicit approval.
+
+## 2026-05-11 Employment-Law Owner Approval Packet
+
+CREATED:
+- `project-control/employment-law-owner-approval-packet.md`
+- `project-control/employment-law-owner-approval-packet.csv`
+
+VERIFIED:
+- `/labor-lawyer/` is the current service-page candidate but is thin at `689` words and quality score `4/10`.
+- Future `/employment-lawyer/` is cleaner strategically but is not an exact current public URL.
+- GSC browser evidence maps `עורך דין דיני עבודה` mostly to the homepage.
+- GSC browser evidence maps broad `דיני עבודה` mostly to `/israeli-labor-law/`.
+- Lawyer-facing content such as `/legal-courses-for-lawyers/` should be separated from public legal-help intent.
+
+RECOMMENDED:
+- Owner approval for a no-URL-change primary-selection, SERP review, source/legal review and internal-link planning batch.
+- Protect `/israeli-labor-law/` as informational support and do not treat homepage as the employment primary.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, homepage changes, noindex, canonical changes, sitemap changes, taxonomy/menu edits, lawyer cards or CMS writes until explicit approval.

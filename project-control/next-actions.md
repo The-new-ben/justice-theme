@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-EMPLOYMENT-LAW-OWNER-APPROVAL-001: Prepare employment-law intent-split approval packet
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Employment law has weak primary ownership: service intent maps mostly to homepage, broad informational intent maps mostly to `/israeli-labor-law/`, and `/labor-lawyer/` is thin.
+**Actions:**
+1. DONE: created `project-control/employment-law-owner-approval-packet.md`.
+2. DONE: created `project-control/employment-law-owner-approval-packet.csv`.
+3. VERIFIED: `/labor-lawyer/` exists, has `689` words, and has a quality score of `4/10`.
+4. VERIFIED: `עורך דין דיני עבודה` has `88` impressions, mostly homepage.
+5. VERIFIED: `דיני עבודה` has `614` impressions, mostly `/israeli-labor-law/`.
+6. RECOMMENDED: owner approval for no-URL-change primary selection, SERP review, source/legal review and internal-link planning only.
+7. NEXT: if owner approves, build side-by-side comparison and decide whether `/labor-lawyer/` remains the service primary or `/employment-lawyer/` becomes the migration target later.
+8. BLOCKED: no public content edits, titles/H1/meta changes, URL changes, redirects, homepage changes, noindex, canonical changes, sitemap changes, taxonomy/menu edits, lawyer cards or CMS writes until explicit owner approval.
+
 ### ACTION-CHILD-CUSTODY-OWNER-APPROVAL-001: Prepare child-custody document-risk approval packet
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Child custody has a clean candidate URL, but GSC shows broad custody demand on an older article and a PDF, plus high-position evidence on an old Hebrew case-law URL.

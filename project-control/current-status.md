@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 13:39 Asia/Jerusalem
+- VERIFIED / REVIEW: prepared the employment-law owner-approval packet as a no-URL-change primary-selection and intent-split planning decision.
+- CREATED: `project-control/employment-law-owner-approval-packet.md`.
+- CREATED: `project-control/employment-law-owner-approval-packet.csv`.
+- VERIFIED: `/labor-lawyer/` exists but is thin at `689` words and has quality score `4/10`.
+- VERIFIED: `עורך דין דיני עבודה` maps mostly to the homepage, while `דיני עבודה` maps mostly to `/israeli-labor-law/`.
+- VERIFIED: future `/employment-lawyer/` is cleaner strategically, but no exact current URL exists and migration is not approved.
+- BLOCKED: source/legal review and primary URL approval are required before title/H1/meta, URL, redirect, homepage, canonical, sitemap, noindex, taxonomy/menu, lawyer-card or CMS changes.
+- SAFETY: repo documentation/CSV planning only; no live public content, homepage, URL or CMS state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 13:29 Asia/Jerusalem
 - VERIFIED / REVIEW: prepared the child-custody owner-approval packet as a no-URL-change comparison, source/legal review and document-risk planning decision.
 - CREATED: `project-control/child-custody-owner-approval-packet.md`.

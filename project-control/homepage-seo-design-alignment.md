@@ -122,6 +122,26 @@ REVIEW:
 BLOCKED:
 - No public homepage/template/content/link/title/H1/meta/menu/CMS action was executed by this review.
 
+## 2026-05-11 Section-Order Proposal Overlay
+
+Evidence:
+- `project-control/homepage-section-order-proposal-2026-05-11.md`.
+- `project-control/homepage-section-order-proposal-2026-05-11.csv`.
+- `project-control/homepage-curated-pillar-link-map-2026-05-11.csv`.
+
+VERIFIED:
+- `front-page.php` should remain the short-term authoritative live homepage template unless the owner approves a template switch.
+- `page-home.php` should be treated as a source of future approved modules, not a blind replacement.
+- Live URL checks show some clean pillar slugs are safe 200 targets and some still resolve to the homepage.
+
+REVIEW:
+- Use curated homepage hubs instead of taxonomy-count ordering.
+- Use safe fallbacks for `family-lawyer`, `criminal-lawyer`, `personal-injury-lawyer`, `employment-lawyer` and `inheritance-lawyer` until those pages are approved.
+- Keep LegalTech, newsletter and richer B2B sections gated until routes, products, forms and analytics are real.
+
+BLOCKED:
+- No public homepage order, link, template or CMS change was executed by this proposal.
+
 ## 2026-05-10 No-URL-Change Link Safety Batch
 
 CODE FIXED:

@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Homepage section-order and pillar-link proposal
+
+- CREATED: `project-control/homepage-section-order-proposal-2026-05-11.md`.
+- CREATED: `project-control/homepage-section-order-proposal-2026-05-11.csv`.
+- CREATED: `project-control/homepage-curated-pillar-link-map-2026-05-11.csv`.
+- UPDATED: `project-control/homepage-seo-design-alignment.md`, `project-control/homepage-seo-strategy.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: live URL checks were recorded for major homepage pillar candidates and fallbacks.
+- VERIFIED: several clean strategic slugs still resolve to the homepage, so the proposal blocks blind homepage promotion of those URLs.
+- REVIEW: proposed structure keeps `front-page.php` as the short-term live template and uses `page-home.php` only as a source of future approved sections.
+- BLOCKED: no public homepage, title/H1/meta, menu, template, URL, redirect, noindex, canonical, sitemap, internal link, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Homepage line-by-line SEO/design review
 
 - CREATED: `project-control/homepage-line-by-line-review-2026-05-11.md`.

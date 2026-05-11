@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-11 17:12 Asia/Jerusalem
+- VERIFIED / HOMEPAGE STRUCTURE PLAN: completed the approval-gated homepage section-order proposal and curated pillar-link map.
+- CREATED: `project-control/homepage-section-order-proposal-2026-05-11.md`.
+- CREATED: `project-control/homepage-section-order-proposal-2026-05-11.csv`.
+- CREATED: `project-control/homepage-curated-pillar-link-map-2026-05-11.csv`.
+- VERIFIED: live URL checks show `/lawyers/`, `/divorce-lawyer/`, `/real-estate-lawyer/`, `/medical-malpractice-lawyer/`, `/traffic-lawyer/`, `/cyber-lawyer/` and `/practice-areas/national-insurance/` return 200 on their own paths.
+- VERIFIED: `/family-lawyer/`, `/criminal-lawyer/`, `/personal-injury-lawyer/`, `/employment-lawyer/` and `/inheritance-lawyer/` resolve to the homepage, so the proposed map uses safer fallbacks or marks them as gated.
+- REVIEW: proposed homepage order keeps `front-page.php` as the short-term authoritative live template and avoids switching to `page-home.php` blindly.
+- BLOCKED: no public homepage, title/H1/meta, menu, template, URL, redirect, canonical, sitemap, internal-link, lawyer-card, CRM, review, wp-admin setting or CMS/database action was executed.
+- SAFETY: repo documentation/CSV planning only; no live public site state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 17:02 Asia/Jerusalem
 - VERIFIED / HOMEPAGE REVIEW: completed the homepage line-by-line SEO/design alignment pass as review-only documentation.
 - CREATED: `project-control/homepage-line-by-line-review-2026-05-11.md`.

@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-HOMEPAGE-SECTION-ORDER-001: Propose homepage section order and curated pillar links
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The line-by-line review showed the homepage needs a single authoritative structure and curated links before public changes. Several clean pillar slugs still resolve to the homepage, so homepage links must use safe approved targets or fallbacks.
+**Actions:**
+1. DONE: created `project-control/homepage-section-order-proposal-2026-05-11.md`.
+2. DONE: created `project-control/homepage-section-order-proposal-2026-05-11.csv`.
+3. DONE: created `project-control/homepage-curated-pillar-link-map-2026-05-11.csv`.
+4. VERIFIED: current live URL checks were recorded for major homepage pillar candidates.
+5. VERIFIED: `/family-lawyer/`, `/criminal-lawyer/`, `/personal-injury-lawyer/`, `/employment-lawyer/` and `/inheritance-lawyer/` must not be promoted blindly because they resolve to the homepage.
+6. NEXT: owner approves or edits the proposed section order and pillar-link map; then create an implementation checklist for a controlled no-URL-change homepage batch.
+7. BLOCKED: no public homepage content, template, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, related-card, lawyer-card, CRM/review or CMS writes until owner-approved execution.
+
 ### ACTION-HOMEPAGE-LINE-BY-LINE-001: Review live homepage section by section
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The homepage is the current broad legal portal / lawyer-finding entry in GSC. Before any homepage content or design changes, the live sections must be reviewed together with the template structure, user signal, Google signal, business funnel and mock/fake data risk.

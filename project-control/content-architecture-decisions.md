@@ -36,6 +36,12 @@ No URL change required.
 - REVIEW: broad homepage strategy is right, but practice quick links, taxonomy cards, latest articles, empty lawyer showcase, city filters, `http://` links and `?page_id=` links need controlled follow-up.
 - BLOCKED: no homepage content, template, title/H1/meta, menu, URL, redirect, canonical, sitemap, lawyer, CRM or CMS action is approved by this review alone.
 
+2026-05-11 homepage section-order proposal addendum:
+- VERIFIED: `project-control/homepage-section-order-proposal-2026-05-11.md`, `.csv` and `project-control/homepage-curated-pillar-link-map-2026-05-11.csv` now define the approval-gated homepage order and link/fallback map.
+- VERIFIED: `/family-lawyer/`, `/criminal-lawyer/`, `/personal-injury-lawyer/`, `/employment-lawyer/` and `/inheritance-lawyer/` resolve to the homepage in the live URL check, so they should not be promoted as homepage pillar targets until approved.
+- REVIEW: use safe current hubs or filtered directory fallbacks for those clusters while content/URL decisions are still pending.
+- BLOCKED: no homepage link/template/CMS implementation is approved by this proposal alone.
+
 ## Family Law / Divorce
 
 Decision:

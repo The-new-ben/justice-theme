@@ -170,3 +170,18 @@ Recommended next planning batch:
 Status:
 - REVIEW ONLY.
 - NO PUBLIC HOMEPAGE CHANGE.
+
+## 2026-05-11 Section Order And Pillar Link Proposal
+
+Evidence:
+- `project-control/homepage-section-order-proposal-2026-05-11.md`.
+- `project-control/homepage-section-order-proposal-2026-05-11.csv`.
+- `project-control/homepage-curated-pillar-link-map-2026-05-11.csv`.
+
+VERIFIED:
+- The proposal keeps the homepage as broad portal/entity entry and `/lawyers/` as the directory path to strengthen.
+- The proposal avoids promoting clean slugs that currently resolve to the homepage.
+- The proposal separates consumer legal-help sections from lawyer onboarding and future LegalTech/product sections.
+
+Next approval gate:
+- Owner approves the section order and link map, then a no-URL-change implementation checklist can be created.

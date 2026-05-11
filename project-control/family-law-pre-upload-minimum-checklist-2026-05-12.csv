@@ -1,5 +1,5 @@
 check_id,gate,required_before_upload,current_status,verification_method,next_step,notes
-FAM-UPLOAD-001,Compare /divorce-lawyer/ with old Hebrew divorce article,YES,NOT VERIFIED,Side-by-side content and GSC risk comparison,Run comparison before any upload,Old Hebrew URL has known GSC value and must be protected
+FAM-UPLOAD-001,Compare /divorce-lawyer/ with old Hebrew divorce article,YES,VERIFIED,Side-by-side content and GSC risk comparison,Use comparison before upload decision,Old Hebrew URL has known GSC value and must be protected short term
 FAM-UPLOAD-002,Decide old Hebrew divorce URL treatment,YES,BLOCKED,Owner approval plus redirect/canonical plan,Keep live until approved,No redirect or canonical change yet
 FAM-UPLOAD-003,Decide divorce PDF strategy,YES,NOT VERIFIED,Document URL review and GSC evidence,Compare PDF with pillar/support content,Do not remove or noindex document yet
 FAM-UPLOAD-004,Decide mediation DOCX strategy,YES,NOT VERIFIED,Document URL review and GSC evidence,Compare DOCX with mediation page,Do not remove or noindex document yet

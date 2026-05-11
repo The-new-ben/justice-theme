@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-12 02:00 Asia/Jerusalem
+- VERIFIED / DIVORCE PILLAR SIDE-BY-SIDE REVIEW: compared the clean `/divorce-lawyer/` pillar candidate against the old Hebrew divorce URL with existing GSC evidence and live page checks.
+- CREATED: `project-control/family-divorce-divorce-pillar-side-by-side-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-first-upload-decision-table-2026-05-12.csv`.
+- VERIFIED LIVE: `/divorce-lawyer/` returns `200`, self-canonicalizes, has the intended divorce-lawyer H1/meta direction and is the best first public repair/enrichment candidate after approval.
+- VERIFIED LIVE: the old Hebrew divorce URL returns `200`, self-canonicalizes, has only `697` exported words but has `960` GSC-browser impressions for `עורך דין גירושין`, so it remains protected short term.
+- RECOMMENDED: merge useful old-page value into `/divorce-lawyer/`; do not treat the weak old page as sacred forever; decide redirect/canonical only after GSC API export and owner approval.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 01:35 Asia/Jerusalem
 - VERIFIED / FAMILY LAW DIVORCE EXECUTION PLAN + GSC SETUP GUIDE: prepared the first cluster execution plan under the staged publishing strategy and saved a simple owner-facing GSC API connection guide for tomorrow.
 - CREATED: `project-control/gsc-api-setup-guide.md`.

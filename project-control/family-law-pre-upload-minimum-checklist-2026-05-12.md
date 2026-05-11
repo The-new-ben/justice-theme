@@ -15,9 +15,11 @@ VERIFIED:
 
 NOT VERIFIED:
 - GSC API export.
-- Side-by-side comparison of the old Hebrew divorce URL against `/divorce-lawyer/`.
 - Final document strategy for PDF/DOCX/calculator/case-law URLs.
 - Live post-upload QA, because upload has not happened.
+
+VERIFIED:
+- Side-by-side comparison of the old Hebrew divorce URL against `/divorce-lawyer/` exists at `project-control/family-divorce-divorce-pillar-side-by-side-2026-05-12.md`.
 
 ## Minimum Gates
 

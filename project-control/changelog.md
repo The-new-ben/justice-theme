@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Divorce pillar side-by-side review
+
+- CREATED: `project-control/family-divorce-divorce-pillar-side-by-side-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-first-upload-decision-table-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: compared `/divorce-lawyer/` with the old Hebrew divorce URL before any public upload or redirect.
+- VERIFIED LIVE: `/divorce-lawyer/` returns `200`, self-canonicalizes and is the best first repair/enrichment candidate.
+- VERIFIED LIVE: the old Hebrew divorce URL returns `200`, self-canonicalizes and has `960` GSC-browser impressions for `עורך דין גירושין`, but only `697` exported words.
+- RECOMMENDED: merge useful old-page value into `/divorce-lawyer/`, keep the old URL live short term and decide redirect/canonical only after GSC API export and owner approval.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Family Law / Divorce execution plan and GSC setup guide
 
 - CREATED: `project-control/gsc-api-setup-guide.md`.

@@ -321,9 +321,11 @@ Wait:
 ## Immediate Next Work Cycle
 
 NEXT:
-1. Build side-by-side comparison for `/divorce-lawyer/` versus old Hebrew divorce URL.
-2. Add GSC API export once access is ready.
-3. Produce first upload decision table:
+1. VERIFIED: `project-control/family-divorce-divorce-pillar-side-by-side-2026-05-12.md` now compares `/divorce-lawyer/` against the old Hebrew divorce URL.
+2. VERIFIED: `project-control/family-divorce-first-upload-decision-table-2026-05-12.csv` now lists first upload decisions.
+3. Add GSC API export once access is ready.
+4. Compare the large duplicate `/עורך-דין-לענייני-גירושין/` and smaller selection/definition duplicate pages against `/divorce-lawyer/`.
+5. Produce a final owner approval table:
    - publish now,
    - improve first,
    - merge later,

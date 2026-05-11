@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-PILLAR-COMPARISON-001: Compare divorce pillar against old Hebrew URL
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** `/divorce-lawyer/` is the first upload candidate, but the old Hebrew URL currently has GSC visibility and must be handled deliberately.
+**Actions:**
+1. DONE: created `project-control/family-divorce-divorce-pillar-side-by-side-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-first-upload-decision-table-2026-05-12.csv`.
+3. VERIFIED LIVE: `/divorce-lawyer/` returns `200`, self-canonicalizes and is the best first repair/enrichment candidate.
+4. VERIFIED LIVE: the old Hebrew divorce URL returns `200`, self-canonicalizes and has `960` GSC-browser impressions for `עורך דין גירושין`.
+5. RECOMMENDED: merge useful old-page content into `/divorce-lawyer/`; keep old URL live short term; decide redirect/canonical after GSC API export and owner approval.
+6. NEXT: compare the large duplicate `/עורך-דין-לענייני-גירושין/` and the selection/definition duplicate pages against the same pillar before final upload.
+7. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-FAMILY-DIVORCE-EXECUTION-PLAN-001: Prepare first cluster execution plan and GSC setup guide
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Family/Divorce is now the first controlled upload cluster, and owner needs a simple GSC API guide before setup tomorrow.

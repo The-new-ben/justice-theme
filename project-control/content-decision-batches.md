@@ -53,6 +53,26 @@ RECOMMENDED:
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, Maya profile edits, CRM/review work or CMS writes until explicit approval.
 
+## 2026-05-12 Divorce Pillar Side-by-Side Review
+
+CREATED:
+- `project-control/family-divorce-divorce-pillar-side-by-side-2026-05-12.md`
+- `project-control/family-divorce-first-upload-decision-table-2026-05-12.csv`
+
+VERIFIED:
+- `/divorce-lawyer/` is the first repair/enrichment candidate.
+- The old Hebrew divorce URL has GSC-browser visibility but is thin and topic-mixed.
+- The old URL should be protected short term, not preserved forever.
+- First upload table now separates publish-first, merge-later, protect-now and wait/compliance items.
+
+RECOMMENDED:
+- Merge useful old-page material into `/divorce-lawyer/`.
+- Keep old URL live until GSC API export and owner approval.
+- Compare the large duplicate `/עורך-דין-לענייני-גירושין/` before final upload.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, Maya profile edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Family / Divorce Owner Upload Review Package
 
 CREATED:

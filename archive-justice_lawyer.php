@@ -18,18 +18,31 @@ $filter_area    = isset( $_GET['area'] )    ? sanitize_text_field( wp_unslash( $
 $filter_keyword = isset( $_GET['keyword'] ) ? sanitize_text_field( wp_unslash( $_GET['keyword'] ) ) : '';
 
 $legacy_area_map = array(
-	'family'      => 'family-law',
-	'criminal'    => 'criminal-law',
-	'real-estate' => 'real-estate-law',
-	'labor'       => 'labor-law',
-	'traffic'     => 'traffic-law',
-	'torts'       => 'personal-injury-law',
-	'inheritance' => 'inheritance-law',
+	'family'              => 'family-law',
+	'criminal'            => 'criminal-law',
+	'real-estate'         => 'real-estate-law',
+	'labor'               => 'labor-law',
+	'employment'          => 'labor-law',
+	'employment-law'      => 'labor-law',
+	'traffic'             => 'traffic-law',
+	'tort'                => 'personal-injury-law',
+	'torts'               => 'personal-injury-law',
+	'personal-injury'     => 'personal-injury-law',
+	'medical'             => 'medical-malpractice-law',
+	'medical-malpractice' => 'medical-malpractice-law',
+	'inheritance'         => 'inheritance-law',
 );
 
 if ( isset( $legacy_area_map[ $filter_area ] ) ) {
 	$filter_area = $legacy_area_map[ $filter_area ];
 }
+
+$area_taxonomy_slug_map = array(
+	'personal-injury-law'     => 'torts',
+	'medical-malpractice-law' => 'medical-malpractice',
+);
+
+$filter_area_tax_slug = $area_taxonomy_slug_map[ $filter_area ] ?? $filter_area;
 
 // Build query
 $args = array(
@@ -72,7 +85,7 @@ if ( $filter_area ) {
 	$tax_query[] = array(
 		'taxonomy' => 'practice-areas',
 		'field'    => 'slug',
-		'terms'    => $filter_area,
+		'terms'    => $filter_area_tax_slug,
 	);
 }
 
@@ -104,7 +117,7 @@ $canonical_area_options = array(
 	'traffic-law'             => 'דיני תעבורה',
 	'real-estate-law'         => 'מקרקעין ונדל"ן',
 	'personal-injury-law'     => 'נזיקין ותאונות',
-	'employment-law'          => 'דיני עבודה',
+	'labor-law'               => 'דיני עבודה',
 	'inheritance-law'         => 'ירושה וצוואות',
 	'medical-malpractice-law' => 'רשלנות רפואית',
 	'tax-law'                 => 'מיסים',
@@ -143,7 +156,7 @@ if ( $filter_city ) {
 	}
 }
 if ( $filter_area ) {
-	$area_term = get_term_by( 'slug', $filter_area, 'practice-areas' );
+	$area_term = get_term_by( 'slug', $filter_area_tax_slug, 'practice-areas' );
 	if ( ! $area_term && isset( $canonical_area_options[ $filter_area ] ) ) {
 		$area_term = (object) array(
 			'name' => $canonical_area_options[ $filter_area ],
@@ -166,6 +179,29 @@ if ( ! empty( $city_term ) && ! empty( $area_term ) ) {
 // Get all cities and practice areas for filters
 $all_cities = get_terms( array( 'taxonomy' => 'city', 'hide_empty' => false, 'orderby' => 'name' ) );
 $all_areas  = get_terms( array( 'taxonomy' => 'practice-areas', 'hide_empty' => true, 'orderby' => 'count', 'order' => 'DESC', 'number' => 30 ) );
+
+$public_area_option_map = array(
+	'torts'               => array( 'slug' => 'personal-injury-law', 'name' => 'נזיקין ותאונות' ),
+	'medical-malpractice' => array( 'slug' => 'medical-malpractice-law', 'name' => 'רשלנות רפואית' ),
+	'labor-law'           => array( 'slug' => 'labor-law', 'name' => 'דיני עבודה' ),
+);
+
+$normalize_area_filter_options = static function ( $terms, array $aliases ): array {
+	$options = ( ! empty( $terms ) && ! is_wp_error( $terms ) ) ? array_values( $terms ) : array();
+
+	foreach ( $options as $index => $term_option ) {
+		if ( ! isset( $term_option->slug, $aliases[ $term_option->slug ] ) ) {
+			continue;
+		}
+
+		$options[ $index ] = (object) array(
+			'slug' => $aliases[ $term_option->slug ]['slug'],
+			'name' => $aliases[ $term_option->slug ]['name'],
+		);
+	}
+
+	return $options;
+};
 
 $merge_filter_options = static function ( $terms, array $fallbacks ): array {
 	$options        = ( ! empty( $terms ) && ! is_wp_error( $terms ) ) ? array_values( $terms ) : array();
@@ -191,6 +227,7 @@ $merge_filter_options = static function ( $terms, array $fallbacks ): array {
 	return $options;
 };
 
+$all_areas = $normalize_area_filter_options( $all_areas, $public_area_option_map );
 $all_areas  = $merge_filter_options( $all_areas, $canonical_area_options );
 $all_cities = $merge_filter_options( $all_cities, $canonical_city_options );
 

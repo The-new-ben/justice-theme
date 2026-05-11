@@ -72,6 +72,17 @@
 5. NEXT: pull/deploy marker `2026-05-11-homepage-hub-coverage-v1`, then verify homepage desktop/mobile DOM includes the broad hub links.
 6. NOT LIVE VERIFIED: no public deployment yet.
 
+### ACTION-DIRECTORY-004: Normalize lawyer-directory filter aliases
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** Header/homepage/menu filter links must not land on empty directory states just because public clean slugs differ from legacy seeded taxonomy slugs.
+**Actions:**
+1. DONE: `personal-injury-law` now queries the existing `torts` taxonomy term.
+2. DONE: `medical-malpractice-law` now queries the existing `medical-malpractice` taxonomy term.
+3. DONE: `employment-law`, `employment` and `labor` normalize to `labor-law`.
+4. DONE: dropdown labels are normalized for visitor-facing Hebrew labels.
+5. NEXT: pull/deploy marker `2026-05-11-lawyer-filter-slug-alias-v1`, then verify `/lawyers/?area=personal-injury-law`, `/lawyers/?area=medical-malpractice-law`, and `/lawyers/?area=labor-law`.
+6. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-BRAND-001: Logo + Favicon + Search Branding
 **Status:** PARTIAL LIVE VERIFIED - wp-admin/search-result verification pending
 **Why:** Browser tabs, mobile bookmarks and Google search results need a stable, professional icon and final brand state.

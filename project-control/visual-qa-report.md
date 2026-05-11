@@ -2,6 +2,11 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Lawyer Directory Filter Alias QA
+- CODE FIXED / NOT LIVE VERIFIED: clean public filter aliases now map to the existing seeded taxonomy slugs in `archive-justice_lawyer.php`.
+- WHY IT MATTERS: homepage/header links such as `/lawyers/?area=personal-injury-law` and `/lawyers/?area=medical-malpractice-law` should not lead to empty directory states if the underlying term is still `torts` or `medical-malpractice`.
+- LIVE CHECK NEEDED: after uPress pull/cache clear, verify `/lawyers/?area=personal-injury-law`, `/lawyers/?area=medical-malpractice-law`, `/lawyers/?area=labor-law`, and `/lawyers/?area=employment-law` show the intended Hebrew title/filter chip and no broken layout.
+
 ## 2026-05-11 Search And 404 Visual Polish
 - CODE FIXED: shared legal search form styling was upgraded in `assets/css/main.css` for desktop/mobile, including card chrome, focus states, and full-width mobile buttons.
 - CODE FIXED: search headers now keep query text readable and accent-highlighted without layout breakage.

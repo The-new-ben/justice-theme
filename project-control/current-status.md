@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 03:10 Asia/Jerusalem
+- CODE FIXED: lawyer-directory area filters now accept clean/public aliases such as `personal-injury-law`, `medical-malpractice-law`, and `employment-law` while querying the existing taxonomy slugs safely.
+- CODE FIXED: legacy/old filter params (`torts`, `medical-malpractice`, `labor`, `employment`) are normalized so menu/header/homepage links do not silently produce empty or weak lawyer-directory states.
+- CODE FIXED: the public filter dropdown now presents normalized visitor-facing labels for `נזיקין ותאונות`, `רשלנות רפואית`, and `דיני עבודה` while preserving the underlying taxonomy route.
+- VERIFIED: PHP lint passed for 127 files using the provided local PHP 8.5.6 runtime, and `git diff --check` passed.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-lawyer-filter-slug-alias-v1`; requires uPress pull/cache clear and live checks for `/lawyers/?area=personal-injury-law`, `/lawyers/?area=medical-malpractice-law`, and `/lawyers/?area=labor-law`.
+- SAFETY: no taxonomy terms, URLs, redirects, public article bodies, lawyer records, review data, lead/CRM records, wp-admin settings or database rows were changed.
+
 ## LATEST WORK STATUS - 2026-05-11 04:36 Asia/Jerusalem
 - CODE FIXED: homepage featured pillar cards now include visible entries for `עורך דין רשלנות רפואית` and `עורך דין נזיקין`, using safe published-page checks with lawyer-directory fallbacks.
 - CODE FIXED: homepage topic clusters now cover `רשלנות רפואית`, `נזיקין ותאונות`, `דיני עבודה`, and `ירושה וצוואות` in addition to family, criminal, real estate and traffic.

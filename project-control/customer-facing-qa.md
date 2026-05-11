@@ -68,6 +68,7 @@ Date: 2026-05-10
 - STILL BROKEN LIVE: Maya profile URL is currently in a redirect loop caused by Permalink Manager and theme slug migration fighting each other. Theme-side redirect is disabled in code pending deployment.
 - CODE FIXED / NOT LIVE VERIFIED: lawyer cards now hide rating numbers unless review display is explicitly approved, and sponsored/profile-paid labels require an active subscription.
 - CODE FIXED / NOT LIVE VERIFIED: lawyer card/profile phone and WhatsApp buttons now suppress obvious placeholder/demo numbers, and Attorney schema uses the same safe public phone filter.
+- CODE FIXED / NOT LIVE VERIFIED: directory filters now normalize public aliases (`personal-injury-law`, `medical-malpractice-law`, `employment-law`) to the existing taxonomy slugs so major homepage/header links do not create empty filtered states.
 - Status: NOT CUSTOMER-READY until demo profiles are drafted/removed.
 
 ## 404

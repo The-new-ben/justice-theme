@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Lawyer directory filter slug aliases
+
+- CODE FIXED: lawyer-directory area filters now accept clean/public aliases while querying the real taxonomy slugs underneath.
+- CODE FIXED: `personal-injury-law` maps safely to the existing `torts` term, and `medical-malpractice-law` maps safely to `medical-malpractice`.
+- CODE FIXED: `employment-law`, `employment` and `labor` normalize to the established `labor-law` filter path.
+- CODE FIXED: filter dropdown labels are normalized for `נזיקין ותאונות`, `רשלנות רפואית`, and `דיני עבודה`, reducing duplicate/technical term leakage.
+- VERIFIED: PHP lint passed for 127 files using local PHP 8.5.6, and `git diff --check` passed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and live filtered-directory checks with marker `2026-05-11-lawyer-filter-slug-alias-v1`.
+- SAFETY: no taxonomy terms, redirects, public content, lawyer records, review data, wp-admin settings or database rows were changed.
+
 ## 2026-05-11 - Homepage legal hub coverage
 
 - CODE FIXED: homepage featured pillars now include medical malpractice and personal injury/damages lawyer-intent cards.

@@ -47,6 +47,22 @@ RECOMMENDED:
 - Use `project-control/family-law-divorce-execution-plan-2026-05-12.md` as the cluster execution plan.
 - Use `project-control/gsc-api-setup-guide.md` for tomorrow's GSC API connection setup.
 - Use `project-control/family-divorce-divorce-pillar-side-by-side-2026-05-12.md` and `project-control/family-divorce-first-upload-decision-table-2026-05-12.csv` as the first divorce-pillar comparison layer.
+- Use `project-control/family-divorce-duplicate-page-comparison-2026-05-12.md` and `.csv` as the duplicate-page comparison layer before public pillar upload.
+
+## Duplicate Page Comparison Update
+
+VERIFIED:
+- The main duplicate divorce-lawyer group includes `/divorce-lawyer/`, `/עורך-דין-לענייני-גירושין/`, the law-office selection article, the definition article, the broad divorce guide and the consultation guide.
+- All checked pages returned `200` and self-canonicalized.
+- The large Hebrew duplicate is strong enough to use as a section-source before final `/divorce-lawyer/` upload.
+
+Owner decision needed:
+- approve `/divorce-lawyer/` as the clean primary target,
+- approve using the large Hebrew duplicate as a section-source,
+- approve merging the smaller selection/definition pages into the pillar,
+- keep consultation as a support page,
+- hold the broad generic divorce guide until process-role review,
+- do not execute redirects/canonicals until GSC API export and explicit approval.
 
 ## Proposed Upload Order After Approval
 

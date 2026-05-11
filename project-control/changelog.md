@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Family/Divorce duplicate page comparison
+
+- CREATED: `project-control/family-divorce-duplicate-page-comparison-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-duplicate-page-comparison-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: checked the live duplicate divorce-lawyer group before first Family/Divorce upload.
+- VERIFIED LIVE: `6` URLs returned `200` and self-canonicalized.
+- VERIFIED LIVE: `/עורך-דין-לענייני-גירושין/` has `9,697` extracted live words and is a major merge-source candidate, not a page to ignore.
+- RECOMMENDED: keep `/divorce-lawyer/` as the future primary pillar, merge strong material from the large duplicate and smaller selection/definition pages, keep consultation as support, and hold the generic divorce guide for process-role review.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Divorce pillar side-by-side review
 
 - CREATED: `project-control/family-divorce-divorce-pillar-side-by-side-2026-05-12.md`.

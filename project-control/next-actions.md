@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-DUPLICATE-PAGE-COMPARISON-001: Compare duplicate divorce-lawyer pages before upload
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The first Family/Divorce upload cannot be SEO-safe while several live pages target the same divorce-lawyer intent.
+**Actions:**
+1. DONE: created `project-control/family-divorce-duplicate-page-comparison-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-duplicate-page-comparison-2026-05-12.csv`.
+3. VERIFIED LIVE: `6` URLs returned `200` and self-canonicalized.
+4. VERIFIED: the large Hebrew duplicate `/עורך-דין-לענייני-גירושין/` is the strongest current section-source candidate and should be mined before enriching `/divorce-lawyer/`.
+5. RECOMMENDED: merge the large duplicate plus selection/definition pages into `/divorce-lawyer/`; keep `/divorce-consultation-guide/` as support; hold `/divorce-everything-you-need-to-know/` until process-role review.
+6. NEXT: create a section-level merge outline for `/divorce-lawyer/` before any public upload, then run GSC API export once owner provides access.
+7. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-FAMILY-DIVORCE-PILLAR-COMPARISON-001: Compare divorce pillar against old Hebrew URL
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** `/divorce-lawyer/` is the first upload candidate, but the old Hebrew URL currently has GSC visibility and must be handled deliberately.

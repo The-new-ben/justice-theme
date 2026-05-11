@@ -104,6 +104,20 @@ Current review queue:
 - `13` owner-review decisions.
 - `23` minimum pre-upload checklist rows.
 
+## Duplicate Page Comparison Update
+
+VERIFIED:
+- `project-control/family-divorce-duplicate-page-comparison-2026-05-12.md` now compares the main divorce-lawyer duplicate group.
+- `6` live pages were checked and all returned `200` with self-canonicals.
+- The large Hebrew duplicate `/עורך-דין-לענייני-גירושין/` is a major section-source candidate and must be reviewed before final `/divorce-lawyer/` upload.
+
+Decision:
+- `/divorce-lawyer/` remains the future primary pillar.
+- `/עורך-דין-לענייני-גירושין/` should be mined and then likely redirected/canonicalized later only after owner approval and GSC API export.
+- selection/definition duplicate pages should feed the pillar unless GSC proves a distinct role.
+- `/divorce-consultation-guide/` stays support.
+- `/divorce-everything-you-need-to-know/` waits for a process-guide decision.
+
 ## Old Pages To Keep / Protect
 
 Keep alive until GSC/API and side-by-side review:

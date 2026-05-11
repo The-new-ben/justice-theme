@@ -14,6 +14,27 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Family / Divorce Duplicate Page Comparison
+
+CREATED:
+- `project-control/family-divorce-duplicate-page-comparison-2026-05-12.md`
+- `project-control/family-divorce-duplicate-page-comparison-2026-05-12.csv`
+
+VERIFIED:
+- `6` live divorce-adjacent URLs returned `200` and self-canonicalized.
+- `/divorce-lawyer/` remains the future clean primary target.
+- `/עורך-דין-לענייני-גירושין/` is a major duplicate section-source candidate with `9,697` live extracted words.
+- the selection and definition pages should be merged into the pillar unless GSC API proves distinct demand.
+- `/divorce-consultation-guide/` should remain support.
+- `/divorce-everything-you-need-to-know/` should be held until process-role review.
+
+RECOMMENDED:
+- Build a section-level merge outline for `/divorce-lawyer/` before public upload.
+- Keep duplicate pages live until GSC API export and owner approval.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, Maya profile edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Cluster-by-Cluster Publishing Strategy
 
 CREATED:

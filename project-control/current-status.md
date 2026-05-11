@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-12 02:10 Asia/Jerusalem
+- VERIFIED / FAMILY-DIVORCE DUPLICATE PAGE COMPARISON: compared the clean `/divorce-lawyer/` target against the large Hebrew duplicate, selection article, definition article, generic divorce guide and consultation guide.
+- CREATED: `project-control/family-divorce-duplicate-page-comparison-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-duplicate-page-comparison-2026-05-12.csv`.
+- VERIFIED LIVE: `6` checked URLs return `200` and self-canonicalize, so the divorce-lawyer upload group is a real cannibalization/merge group.
+- VERIFIED LIVE: the large Hebrew duplicate `/עורך-דין-לענייני-גירושין/` has the strongest current live word count (`9,697`) and must be mined before final `/divorce-lawyer/` upload.
+- RECOMMENDED: keep `/divorce-lawyer/` as the future primary pillar, merge useful sections from the large duplicate and smaller selection/definition pages, keep consultation as support and hold the broad generic divorce guide until process-role review.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 02:00 Asia/Jerusalem
 - VERIFIED / DIVORCE PILLAR SIDE-BY-SIDE REVIEW: compared the clean `/divorce-lawyer/` pillar candidate against the old Hebrew divorce URL with existing GSC evidence and live page checks.
 - CREATED: `project-control/family-divorce-divorce-pillar-side-by-side-2026-05-12.md`.

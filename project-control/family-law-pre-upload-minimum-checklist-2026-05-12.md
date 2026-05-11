@@ -12,6 +12,8 @@ VERIFIED:
 - `58` URL or URL-reference items are in the current-url readiness queue.
 - `82` planned internal-link/control rows are mapped.
 - `13` owner-review decisions are packaged.
+- The main duplicate divorce-lawyer group has now been checked across `6` live URLs; all returned `200` and self-canonicalized.
+- The large Hebrew duplicate `/עורך-דין-לענייני-גירושין/` is strong enough to mine before final `/divorce-lawyer/` upload.
 
 NOT VERIFIED:
 - GSC API export.

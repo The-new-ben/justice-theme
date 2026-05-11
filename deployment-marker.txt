@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-11-plugin-manifest-diagnostic-v1
-expected-github-main-commit=after-plugin-manifest-diagnostic
+justice-theme-deployment-marker=2026-05-11-lawyer-filter-seo-alias-v1
+expected-github-main-commit=after-lawyer-filter-seo-alias
 purpose=public-static-file-check-for-upress-theme-sync

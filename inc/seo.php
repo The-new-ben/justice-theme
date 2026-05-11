@@ -65,6 +65,68 @@ add_filter( 'term_link', 'justice_theme_filter_frontend_public_url', 20 );
 add_filter( 'attachment_link', 'justice_theme_filter_frontend_public_url', 20 );
 
 /**
+ * Map public lawyer-directory area aliases to the taxonomy slugs that exist now.
+ *
+ * The public URL strategy uses clean English aliases such as
+ * /lawyers/?area=personal-injury-law, while the legacy taxonomy still contains
+ * terms such as "torts". Keep titles aligned with the rendered directory H1
+ * without changing URLs, terms, redirects or stored content.
+ *
+ * @param string $area_slug Raw public area filter.
+ * @return string
+ */
+function justice_theme_lawyer_directory_area_taxonomy_slug( string $area_slug ): string {
+	$area_slug = sanitize_title( str_replace( '_', '-', trim( strtolower( $area_slug ) ) ) );
+
+	if ( '' === $area_slug ) {
+		return '';
+	}
+
+	$alias_map = array(
+		'family'                  => 'family-law',
+		'criminal'                => 'criminal-law',
+		'real-estate'             => 'real-estate-law',
+		'labor'                   => 'labor-law',
+		'employment'              => 'labor-law',
+		'employment-law'          => 'labor-law',
+		'traffic'                 => 'traffic-law',
+		'tort'                    => 'torts',
+		'torts'                   => 'torts',
+		'personal-injury'         => 'torts',
+		'personal-injury-law'     => 'torts',
+		'medical'                 => 'medical-malpractice',
+		'medical-malpractice'     => 'medical-malpractice',
+		'medical-malpractice-law' => 'medical-malpractice',
+		'inheritance'             => 'inheritance-law',
+		'cyber'                   => 'cyber-law',
+		'privacy'                 => 'cyber-law',
+		'cyber-law'               => 'cyber-law',
+		'cyber-privacy'           => 'cyber-law',
+		'privacy-cyber'           => 'cyber-law',
+		'privacy-cyber-law'       => 'cyber-law',
+		'tax'                     => 'tax-law',
+	);
+
+	return $alias_map[ $area_slug ] ?? $area_slug;
+}
+
+/**
+ * Resolve a lawyer-directory area filter to a practice-area term.
+ *
+ * @param string $area_slug Raw public area filter.
+ * @return WP_Term|false
+ */
+function justice_theme_lawyer_directory_area_term( string $area_slug ) {
+	$taxonomy_slug = justice_theme_lawyer_directory_area_taxonomy_slug( $area_slug );
+
+	if ( '' === $taxonomy_slug ) {
+		return false;
+	}
+
+	return get_term_by( 'slug', $taxonomy_slug, 'practice-areas' );
+}
+
+/**
  * Clean archive titles — remove "Archives:" prefix.
  *
  * @param string $title Archive title.
@@ -155,7 +217,7 @@ function justice_theme_contextual_seo_title(): string {
 		if ( $city_slug ) {
 			$city_t = get_term_by( 'slug', $city_slug, 'city' );
 			if ( $area_slug ) {
-				$area_t = get_term_by( 'slug', $area_slug, 'practice-areas' );
+				$area_t = justice_theme_lawyer_directory_area_term( $area_slug );
 
 				return 'עורך דין ' . ( $area_t ? $area_t->name : '' ) . ' ב' . ( $city_t ? $city_t->name : '' ) . ' | Jus-Tice';
 			}
@@ -164,7 +226,7 @@ function justice_theme_contextual_seo_title(): string {
 		}
 
 		if ( $area_slug ) {
-			$area_t = get_term_by( 'slug', $area_slug, 'practice-areas' );
+			$area_t = justice_theme_lawyer_directory_area_term( $area_slug );
 
 			return 'עורך דין ' . ( $area_t ? $area_t->name : '' ) . ' | מצאו עורך דין מתאים';
 		}
@@ -244,13 +306,13 @@ function justice_theme_document_title( $title_parts ) {
 		if ( $city_slug ) {
 			$city_t = get_term_by( 'slug', $city_slug, 'city' );
 			if ( $area_slug ) {
-				$area_t = get_term_by( 'slug', $area_slug, 'practice-areas' );
+				$area_t = justice_theme_lawyer_directory_area_term( $area_slug );
 				$title_parts['title'] = 'עורך דין ' . ( $area_t ? $area_t->name : '' ) . ' ב' . ( $city_t ? $city_t->name : '' ) . ' | Jus-Tice';
 			} else {
 				$title_parts['title'] = 'עורכי דין ב' . ( $city_t ? $city_t->name : '' ) . ' | מדריך עורכי דין';
 			}
 		} elseif ( $area_slug ) {
-			$area_t = get_term_by( 'slug', $area_slug, 'practice-areas' );
+			$area_t = justice_theme_lawyer_directory_area_term( $area_slug );
 			$title_parts['title'] = 'עורך דין ' . ( $area_t ? $area_t->name : '' ) . ' | מצאו עורך דין מומחה';
 		} else {
 			$title_parts['title'] = 'מדריך עורכי דין בישראל | Jus-Tice';

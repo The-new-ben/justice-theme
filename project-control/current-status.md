@@ -963,6 +963,20 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - NOT VERIFIED: exact active plugin PHP file path remains unconfirmed because the uPress plugin manager shows name/status/version but not the plugin file path.
 - SAFETY: no plugin activation, deactivation, deletion, installation, file-manager edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
 
+## 2026-05-11 LIVE PUBLIC TEMPLATE QA + LAWYER FILTER TITLE FIX
+- CREATED: `tools/check-live-public-template-qa.ps1`.
+- CREATED: `project-control/live-public-template-qa-2026-05-11.csv`.
+- VERIFIED LIVE SOURCE: homepage, main `/lawyers/`, `/articles/`, search for `גירושין`, and article sample `/find-lawyer-how-to-find-good-attorney/` return HTTP 200 with Hebrew titles and no English default-title leak in the sampled title/UI checks.
+- VERIFIED LIVE SOURCE: homepage still contains the traffic fallback link to `/lawyers/?area=traffic-law` and AI/intake fallback to `/#ask-lawyer`.
+- VERIFIED LIVE SOURCE: sampled article exposes semantic related-content QA attributes, including `data-related-mode="semantic"` and related cluster-match attributes.
+- VERIFIED LIVE SOURCE: clean lawyer filter URLs stay on `/lawyers/` and do not redirect to homepage.
+- FOUND LIVE: `/lawyers/?area=personal-injury-law`, `/lawyers/?area=medical-malpractice-law`, and `/lawyers/?area=employment-law` render specific H1s but generic SEO titles (`עורך דין | מצאו עורך דין מתאים`).
+- FIXED IN CODE: `inc/seo.php` now normalizes lawyer-directory area aliases for title generation, mapping clean public aliases to current taxonomy slugs without changing URLs, redirects, terms or stored content.
+- UPDATED: deployment marker is now `2026-05-11-lawyer-filter-seo-alias-v1`.
+- VERIFIED: PHP lint passed for 128 PHP files; `git diff --check` passed.
+- NOT LIVE VERIFIED AFTER FIX: requires commit, push, uPress pull/cache refresh, then rerun `tools/check-live-public-template-qa.ps1`.
+- SAFETY: no public content body, URL, redirect, sitemap, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state or database row was changed.
+
 ## NEXT BEST ACTION
 1. Confirm the live plugin filesystem path in wp-admin/uPress plugin manager before any plugin migration.
 2. Decide whether `justice-core/` will replace `ultra-justice-engine/` on live or whether the legacy active folder must be renamed in a controlled migration.

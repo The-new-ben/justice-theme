@@ -756,3 +756,14 @@ Next safe batch before any URL/content migration:
 6. Investigate why `justice_legal_tool` and `justice_legal_request` are not exposed in current public `wp/v2/types`.
 7. Keep LegalTech public routes marked NOT VERIFIED LIVE until active plugin code version is confirmed.
 8. Plan a controlled plugin migration only after backup, parity diff, permalink flush plan and owner approval.
+
+## 2026-05-11 LIVE PUBLIC TEMPLATE QA NEXT ACTIONS
+
+**Status:** CODE FIXED / LIVE DEPLOYMENT PENDING
+
+1. Push and pull the marker `2026-05-11-lawyer-filter-seo-alias-v1` through uPress.
+2. Rerun `tools/check-live-public-template-qa.ps1`.
+3. Expected fixed state: `lawyers_filter_personal_injury`, `lawyers_filter_medical_malpractice`, and `lawyers_filter_employment` move from REVIEW to VERIFIED.
+4. Confirm their titles contain the rendered H1 area text instead of generic `עורך דין | מצאו עורך דין מתאים`.
+5. Keep the URL migration rule intact: do not redirect or rename these filter URLs during this title fix.
+6. Continue using the script after each public template pull to catch title leaks, homepage fallback regressions, related-content QA attribute regressions and filtered directory redirects.

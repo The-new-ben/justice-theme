@@ -1738,3 +1738,17 @@
 - LIVE DEPLOYMENT VERIFIED: Codex used the uPress Git panel directly and verified the uPress Git log at commit `c58cd7e` for `Verify live plugin architecture surface`.
 - LIVE DEPLOYMENT VERIFIED: uPress Git log shows commit `7acd40c` for `Document uPress plugin manager status`.
 - SAFETY: no plugin activation, deactivation, deletion, installation, file-manager edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+
+## 2026-05-11 Live Public Template QA And Lawyer Filter SEO Alias Fix
+- CREATED: `tools/check-live-public-template-qa.ps1`.
+- CREATED: `project-control/live-public-template-qa-2026-05-11.csv`.
+- VERIFIED LIVE SOURCE: homepage, main lawyer directory, article archive, Hebrew search page and sample article return HTTP 200 with Hebrew titles in the sampled checks.
+- VERIFIED LIVE SOURCE: homepage fallback links are still safe: traffic points to `/lawyers/?area=traffic-law`, and LegalTech/AI intake points to `/#ask-lawyer`.
+- VERIFIED LIVE SOURCE: sample article exposes semantic related-content QA attributes.
+- FOUND LIVE: clean lawyer-directory aliases for personal injury, medical malpractice and employment stay on `/lawyers/` but have generic SEO titles.
+- FIXED IN CODE: `inc/seo.php` now maps public lawyer-directory area aliases to existing taxonomy slugs before building SEO titles.
+- UPDATED: deployment marker to `2026-05-11-lawyer-filter-seo-alias-v1`.
+- VERIFIED: PHP lint passed for 128 PHP files.
+- VERIFIED: `git diff --check` passed.
+- NOT LIVE VERIFIED AFTER FIX: needs push, uPress pull/cache refresh and a fresh public QA run.
+- SAFETY: no content, URLs, redirects, sitemap settings, canonical settings, taxonomy terms, lawyer records, CRM records, review data, plugin state or database rows were changed.

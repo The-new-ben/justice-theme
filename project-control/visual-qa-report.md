@@ -300,3 +300,14 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - EVIDENCE: `project-control/visual-evidence/upress-plugin-filesystem-ultra-main-file-2026-05-11.png`.
 - EVIDENCE: `project-control/visual-evidence/upress-plugin-filesystem-no-justice-core-2026-05-11.png`.
 - SAFETY: screenshots were captured through read-only file navigation and filtering; no plugin file or plugin state was changed.
+
+## 2026-05-11 Live Public Template Source QA
+
+- SOURCE VERIFIED: `project-control/live-public-template-qa-2026-05-11.csv` captures the sampled public checks.
+- VERIFIED: homepage source returns HTTP 200, a Hebrew portal title, active favicon/manifest tags, the traffic fallback link `/lawyers/?area=traffic-law`, and the AI/intake fallback `/#ask-lawyer`.
+- VERIFIED: `/lawyers/`, `/articles/`, and Hebrew search for `גירושין` return HTTP 200 with Hebrew titles and no sampled English default strings such as `Search results for:`, `Previous`, `Next`, or `Archive` in the document title.
+- VERIFIED: `/find-lawyer-how-to-find-good-attorney/` exposes semantic related-content QA attributes and 3 related cluster-match markers.
+- VERIFIED: filtered lawyer directory URLs for `personal-injury-law`, `medical-malpractice-law`, `employment-law`, `labor-law`, and `traffic-law` stay on `/lawyers/` and do not redirect to homepage.
+- FOUND LIVE: `personal-injury-law`, `medical-malpractice-law`, and `employment-law` filter pages have specific H1s but generic SEO titles.
+- FIXED IN CODE / NOT LIVE VERIFIED: `inc/seo.php` now normalizes lawyer-directory area aliases before title generation; rerun the source QA script after the next uPress pull.
+- SAFETY: no public content, URLs, redirects, sitemap settings, canonical settings, taxonomy terms, lawyer records, CRM records, review data, plugin state or database rows were changed.

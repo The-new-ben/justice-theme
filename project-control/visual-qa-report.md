@@ -3,12 +3,17 @@ Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
 ## 2026-05-11 Theme Term-Link HTTPS QA
-- CODE FIXED / NOT LIVE VERIFIED: theme-owned taxonomy term links now render through a shared first-party HTTPS helper.
+- FIXED LIVE: theme-owned taxonomy term links now render through a shared first-party HTTPS helper.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log showed commit `005af18` (`Normalize theme term links to HTTPS`) as live HEAD.
+- LIVE VERIFIED: static deployment marker returned `2026-05-11-theme-term-link-https-v1`.
 - AFFECTED VISUAL SURFACES: breadcrumbs, homepage quick topic links, practice-area cards, article/category term chips, article archive sidebar terms, lawyer mini-site area chips, fallback header dropdown terms and related-content fallback links.
 - SOURCE QA BASELINE: `project-control/public-http-internal-link-scan-2026-05-11-classified-before-theme-fix.csv`.
 - REVIEW FINDING: before deployment, 54 findings were classified into the `THEME_DISPLAY_FIX` lane.
+- SOURCE QA AFTER: `project-control/public-http-internal-link-scan-2026-05-11-after-theme-term-link-https.csv`.
+- VERIFIED: after deployment, `THEME_DISPLAY_FIX` findings dropped to 0.
+- REVIEW REMAINS: 69 sitemap/media findings and 2 content-media findings remain outside the theme display lane.
 - VERIFIED LOCAL: PHP lint passed for 128 PHP files; `git diff --check` returned only normal Windows LF-to-CRLF warnings.
-- LIVE CHECK NEEDED: after uPress pull, rerun the public HTTP scan and verify the affected visible navigation/card/breadcrumb links no longer expose `http://jus-tice.co.il`.
+- NEXT QA: inspect the remaining media/sitemap/content findings as their own lane; do not treat them as visual template bugs.
 - SAFETY: source-level output normalization only; no visible copy, content body, URL slug, redirect, sitemap setting, canonical, taxonomy, lawyer, CRM, review or plugin state was changed.
 
 ## 2026-05-11 Public First-Party HTTP Scan QA

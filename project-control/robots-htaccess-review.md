@@ -6,10 +6,12 @@ Status: REVIEW V2 - robots fixed live; redirects/htaccess unchanged
 ## Current Public Checks
 
 2026-05-11 THEME TERM-LINK HTTPS FIX:
-- CODE FIXED / NOT LIVE VERIFIED: theme-owned taxonomy term links now use `justice_theme_public_term_link()` and first-party HTTPS normalization before rendering.
+- FIXED LIVE: theme-owned taxonomy term links now use `justice_theme_public_term_link()` and first-party HTTPS normalization before rendering.
+- VERIFIED LIVE: uPress top commit is `005af18` and static marker returns `2026-05-11-theme-term-link-https-v1`.
 - VERIFIED LOCAL: PHP lint passed for 128 PHP files; `git diff --check` returned only normal Windows LF-to-CRLF warnings.
 - REVIEW BASELINE: `project-control/public-http-internal-link-scan-2026-05-11-classified-before-theme-fix.csv` classifies 54 findings as `THEME_DISPLAY_FIX` before deployment.
-- NEXT SAFE ACTION: pull in uPress, verify marker `2026-05-11-theme-term-link-https-v1`, rerun the scanner, and compare theme-owned public HTTP findings.
+- VERIFIED AFTER-SCAN: `project-control/public-http-internal-link-scan-2026-05-11-after-theme-term-link-https.csv` shows `THEME_DISPLAY_FIX` dropped to 0; remaining findings are media/sitemap/content lanes.
+- NEXT SAFE ACTION: investigate the remaining media/sitemap/content findings without `.htaccess`, redirect, slug or bulk database changes.
 - SAFETY: no `.htaccess`, redirect, URL migration, stored content, canonical, sitemap setting, taxonomy, lawyer, CRM, review, wp-admin option or database change was made.
 
 2026-05-11 BROAD PUBLIC HTTP SCAN:

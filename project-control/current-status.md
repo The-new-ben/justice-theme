@@ -2,6 +2,17 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 11:00 Asia/Jerusalem
+- FIXED LIVE: theme-owned taxonomy/term links now render through HTTPS normalization on the tested public surfaces.
+- PUSHED: `005af18` (`Normalize theme term links to HTTPS`) to GitHub main.
+- VERIFIED UPRESS PULL: uPress Git log shows top commit `005af18` (`Normalize theme term links to HTTPS`).
+- LIVE VERIFIED: static marker returns `2026-05-11-theme-term-link-https-v1`.
+- VERIFIED AFTER-SCAN: `project-control/public-http-internal-link-scan-2026-05-11-after-theme-term-link-https.csv` records 107 rows: 36 `VERIFIED` resources and 71 remaining `REVIEW` findings.
+- FIXED LIVE: the `THEME_DISPLAY_FIX` lane dropped from 54 findings before deployment to 0 after deployment.
+- REVIEW REMAINS: 69 findings are `SEO_PLUGIN_SITEMAP_MEDIA` and 2 are `CONTENT_MEDIA_OUTPUT`; these are now separate media/sitemap/content review tasks, not theme-link or URL-migration actions.
+- ROADMAP ADDED: future actions are queued for homepage line-by-line review, competitor-aligned homepage strategy, holistic content-upload governance, Google Business/marketing ecosystem planning, and timeline/resource estimation.
+- SAFETY: no public content body, stored URL, URL slug, redirect, sitemap inclusion rule, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 10:53 Asia/Jerusalem
 - CODE FIXED / NOT LIVE VERIFIED: theme-owned taxonomy links now use a shared HTTPS-normalized term-link helper in breadcrumbs, homepage quick links, practice-area cards, article term chips, article archive term lists, lawyer mini-site area chips, header fallback dropdowns and related-content fallback targets.
 - TOOLING FIXED / VERIFIED LOCAL: `tools/check-public-http-internal-links.ps1` now classifies findings into suspected source and remediation lane columns.

@@ -6,10 +6,13 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
 ## Current Evidence
 
 2026-05-11 THEME TERM-LINK HTTPS FIX:
-- CODE FIXED / NOT LIVE VERIFIED: public template taxonomy links now normalize first-party term URLs to HTTPS before rendering.
+- FIXED LIVE: public template taxonomy links now normalize first-party term URLs to HTTPS before rendering.
+- VERIFIED LIVE: uPress top commit is `005af18` and static marker returns `2026-05-11-theme-term-link-https-v1`.
 - REVIEW BASELINE: `project-control/public-http-internal-link-scan-2026-05-11-classified-before-theme-fix.csv` separates 54 theme-display findings from plugin/media/content review lanes.
+- VERIFIED AFTER-SCAN: `project-control/public-http-internal-link-scan-2026-05-11-after-theme-term-link-https.csv` shows 0 remaining `THEME_DISPLAY_FIX` findings.
+- REVIEW REMAINS: remaining first-party HTTP references are media/sitemap/content lanes: 69 `SEO_PLUGIN_SITEMAP_MEDIA` and 2 `CONTENT_MEDIA_OUTPUT`.
 - DECISION: fix visible theme output first, then handle media/sitemap/plugin or stored-content references as separate review lanes; do not use this as redirect or URL-migration approval.
-- NEXT CHECK: after uPress pull, rerun the scanner and confirm theme-display findings dropped before treating remaining sitemap/media rows as a separate task.
+- NEXT CHECK: classify whether remaining media URLs should be normalized by sitemap/plugin config, media metadata, content rendering, or left alone pending traffic review.
 - SAFETY: no sitemap inclusion rule, redirect, canonical, URL slug, taxonomy term, content body, lawyer, CRM, review, wp-admin setting or database row was changed.
 
 2026-05-11 BROAD PUBLIC HTTP SCAN:

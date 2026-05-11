@@ -39,10 +39,13 @@ This pass checks public rendered output and sitemap XML for remaining first-part
 
 ## Theme Display Fix Applied In Code
 
-- CODE FIXED / NOT LIVE VERIFIED: added `justice_theme_public_term_link()`.
+- FIXED LIVE: added `justice_theme_public_term_link()` and deployed it through uPress.
+- LIVE VERIFIED: uPress Git log shows commit `005af18` as live HEAD and the public static marker returns `2026-05-11-theme-term-link-https-v1`.
 - CODE FIXED: theme term links now normalize to HTTPS in breadcrumbs, homepage popular term links, practice-area cards, article cards, single-article term chip, article archive sidebar terms, lawyer mini-site practice-area chips, fallback header dropdown terms and related-content fallback targets.
 - VERIFIED LOCAL: PHP lint passed for 128 PHP files.
-- NOT LIVE VERIFIED: after uPress pull, rerun the scan and compare the `THEME_DISPLAY_FIX` lane against the classified pre-fix baseline.
+- VERIFIED AFTER-SCAN: `project-control/public-http-internal-link-scan-2026-05-11-after-theme-term-link-https.csv` records 36 `VERIFIED` resources and 71 remaining `REVIEW` findings.
+- FIXED LIVE: `THEME_DISPLAY_FIX` findings dropped from 54 before deployment to 0 after deployment.
+- REVIEW REMAINS: the remaining findings are 69 `SEO_PLUGIN_SITEMAP_MEDIA` and 2 `CONTENT_MEDIA_OUTPUT`.
 - SAFETY: this does not update stored content, taxonomy records, media URLs, sitemap plugin settings or redirects.
 
 ## Interpretation

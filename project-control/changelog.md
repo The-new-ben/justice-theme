@@ -3,12 +3,18 @@
 
 ## 2026-05-11 - Theme-owned term links HTTPS normalization
 
+- PUSHED: `005af18` (`Normalize theme term links to HTTPS`) to GitHub main.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log shows `(HEAD -> main, origin/main, origin/HEAD) Normalize theme term links to HTTPS`.
+- LIVE VERIFIED: public marker returns `2026-05-11-theme-term-link-https-v1`.
 - CODE FIXED / NOT LIVE VERIFIED: added `justice_theme_public_term_link()` for first-party HTTPS-normalized taxonomy term URLs.
 - CODE FIXED: breadcrumbs, homepage popular legal-topic links, practice-area cards, article cards, single-article term chips, article archive term lists, lawyer mini-site area chips, fallback header dropdowns and related-content fallback targets now use HTTPS-normalized term links.
 - TOOLING FIXED: `tools/check-public-http-internal-links.ps1` now records `suspected_source` and `remediation_lane`.
 - CREATED: `project-control/public-http-internal-link-scan-2026-05-11-classified-before-theme-fix.csv`.
+- CREATED: `project-control/public-http-internal-link-scan-2026-05-11-after-theme-term-link-https.csv`.
 - REVIEW FINDING: the classified pre-fix scan has 160 findings needing review and 15 verified resources with no first-party HTTP references.
-- REVIEW FINDING: 54 findings are currently in the `THEME_DISPLAY_FIX` lane; remaining non-theme lanes require plugin/media/content review rather than URL migration.
+- FIXED LIVE: `THEME_DISPLAY_FIX` findings dropped from 54 before deployment to 0 after deployment.
+- REVIEW REMAINS: 69 `SEO_PLUGIN_SITEMAP_MEDIA` findings and 2 `CONTENT_MEDIA_OUTPUT` findings remain for separate media/sitemap/content review.
+- ROADMAP: queued future homepage line-by-line review, competitor-aligned homepage strategy, holistic content-upload governance, Google Business/marketing ecosystem planning and timing/resource tracking.
 - VERIFIED LOCAL: PHP lint passed for 128 PHP files; `git diff --check` returned only Windows LF-to-CRLF warnings.
 - SAFETY: no content body, CMS metadata, stored URL, URL slug, redirect, sitemap inclusion rule, canonical setting, taxonomy term, lawyer, CRM, review, plugin state, wp-admin setting or database row was changed.
 

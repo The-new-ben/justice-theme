@@ -7,7 +7,7 @@
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
 ### ACTION-PUBLIC-HTTP-SCAN-001: Classify remaining first-party HTTP references
-**Status:** CODE FIXED / LOCAL VERIFIED / LIVE VERIFY NEXT
+**Status:** FIXED LIVE FOR THEME OUTPUT / MEDIA-SITEMAP REVIEW NEXT
 **Why:** After sampled related-card links were fixed, a broader public scan still found old first-party `http://jus-tice.co.il` references in rendered HTML and sitemap media URLs. These must be classified before any URL migration or GSC sitemap submission.
 **Actions:**
 1. DONE: added `tools/check-public-http-internal-links.ps1`.
@@ -20,8 +20,59 @@
 8. REVIEW: classified pre-fix sample found 54 `THEME_DISPLAY_FIX` items, 69 `PLUGIN_OR_MEDIA_CONFIG_REVIEW` items, 2 `CONTENT_MEDIA_DISPLAY_OR_CMS_REVIEW` items and 35 `CLASSIFY_BEFORE_FIX` items.
 9. CODE FIXED: theme-owned taxonomy/term link surfaces now use `justice_theme_public_term_link()` and first-party HTTPS normalization.
 10. VERIFIED LOCAL: PHP lint passed for 128 PHP files; `git diff --check` returned only Windows LF-to-CRLF warnings.
-11. NEXT: push, pull in uPress, verify marker `2026-05-11-theme-term-link-https-v1`, rerun the public scan and compare theme-owned finding counts before/after.
-12. SAFETY: do not run bulk database replacement, redirects, slug changes, noindex changes or sitemap removals from this scan alone.
+11. DONE: pushed `005af18` and pulled in uPress.
+12. VERIFIED LIVE: uPress Git log shows `005af18` as top commit and static marker returns `2026-05-11-theme-term-link-https-v1`.
+13. VERIFIED AFTER-SCAN: `project-control/public-http-internal-link-scan-2026-05-11-after-theme-term-link-https.csv` records 36 verified resources and 71 remaining review findings.
+14. FIXED LIVE: `THEME_DISPLAY_FIX` findings dropped from 54 before deployment to 0 after deployment.
+15. NEXT: classify/plan the remaining 69 `SEO_PLUGIN_SITEMAP_MEDIA` findings and 2 `CONTENT_MEDIA_OUTPUT` findings without bulk database replacement.
+16. SAFETY: do not run bulk database replacement, redirects, slug changes, noindex changes or sitemap removals from this scan alone.
+
+### ACTION-HOMEPAGE-LINE-BY-LINE-001: Review homepage signal section by section
+**Status:** QUEUED / FUTURE ACTION
+**Why:** The homepage must communicate legal-help intent to users, broad legal-portal relevance to Google, and business value to lawyers considering joining.
+**Actions:**
+1. Review every homepage section, headline, CTA, link and card.
+2. For each section, document the Google signal, user signal, lawyer/business signal, SEO fit and conversion fit.
+3. Compare against strong legal portal/directory structures without copying text or design.
+4. Produce a recommended section order, copy/heading direction, internal-link plan and mobile notes.
+5. SAFETY: do not rewrite homepage content or templates until the current content inventory/technical SEO baseline is stable.
+
+### ACTION-HOMEPAGE-COMPETITOR-STRATEGY-001: Build competitor-aligned homepage strategy
+**Status:** QUEUED / FUTURE ACTION
+**Why:** Jus-Tice needs homepage structure that matches or beats top legal portals: clear identity, directory, practice areas, legal guides, trust, lead CTA and lawyer onboarding.
+**Actions:**
+1. Research strong ranking legal sites and classify their homepage structure.
+2. Extract structural patterns only: portal identity, hub links, directory flow, guide library, trust signals, CTA paths and onboarding.
+3. Map the best patterns to Jus-Tice pillars and business model.
+4. Add findings to homepage SEO/design strategy before template changes.
+
+### ACTION-CONTENT-UPLOAD-SYSTEM-001: Treat content upload as one governed architecture
+**Status:** QUEUED / FUTURE ACTION
+**Why:** Article publishing must be controlled together with quality, slugs, pillars, links, homepage, menus, breadcrumbs, categories, lawyer cards, mobile UX, sitemap, redirects and GSC monitoring.
+**Actions:**
+1. Define the approval checklist for every content batch.
+2. Require inventory, cannibalization check, slug check, internal-link plan, sitemap/canonical review and mobile/template QA before publishing.
+3. Record decisions in content inventory, URL migration map, cannibalization map and internal link map.
+4. Do not publish isolated articles outside this system.
+
+### ACTION-BUSINESS-MARKETING-ECOSYSTEM-001: Plan Google Business, analytics and marketing visibility
+**Status:** QUEUED / FUTURE ACTION
+**Why:** The site needs measurement and off-site visibility: Google Business Profile strategy, GA4 events, lead tracking, lawyer funnel, campaigns and business presence beyond the website.
+**Actions:**
+1. Add Google Business Profile strategy for Jus-Tice and participating lawyers.
+2. Verify GA4 events for lead, phone, WhatsApp, lawyer profile, article CTA, search and signup flows.
+3. Map lawyer onboarding funnel and campaign readiness.
+4. Keep this as planning until the current content/GSC/audit workflow is stable.
+
+### ACTION-PROJECT-TIMING-RESOURCES-001: Maintain realistic timeline and acceleration needs
+**Status:** QUEUED / FUTURE ACTION
+**Why:** The owner needs realistic expectations for the full content architecture project.
+**Current Estimate:**
+1. Full content inventory: about 1-2 focused workdays if REST/export stays stable; faster with WP All Export or full CSV export.
+2. Cannibalization mapping: about 2-4 focused workdays, depending on old-content volume and GSC query coverage.
+3. URL migration planning: about 2-3 focused workdays after inventory and cannibalization groups are mapped.
+4. Homepage/content/design alignment: about 1-2 focused workdays after priority clusters and business CTAs are clear.
+5. Speed-up needs: full WP export, GSC/GA4 exports, approved pillar priority list, owner decisions on first money clusters, and stable admin/API access.
 
 ### ACTION-PUBLIC-LINK-HTTPS-001: Keep public frontend internal links on HTTPS
 **Status:** FIXED LIVE - monitor with future template changes

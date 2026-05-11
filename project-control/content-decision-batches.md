@@ -32,6 +32,24 @@ RECOMMENDED:
 BLOCKED:
 - No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
 
+## 2026-05-12 Divorce Lawyer Controlled Upload QA Package
+
+CREATED:
+- `project-control/family-divorce-controlled-upload-qa-package-2026-05-12.md`
+- `project-control/family-divorce-controlled-upload-qa-package-2026-05-12.csv`
+
+VERIFIED:
+- `32` QA rows now define the controlled path before, during and after an approved `/divorce-lawyer/` upload.
+- The package covers owner/source/legal approval, backup, body cleanliness, title/H1/meta, taxonomy, disclaimers, related cards, protected old URLs, protected documents/tools/case assets, canonical/indexability, mobile/desktop checks, GSC follow-up and rollback.
+- `FAM-UPLOAD-037` is now `VERIFIED PLANNING`.
+
+RECOMMENDED:
+- Use the package as the first upload checklist if the clean body is approved.
+- Keep the first upload narrow: `/divorce-lawyer/` only.
+
+BLOCKED:
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Divorce Lawyer Final Draft Package
 
 CREATED:

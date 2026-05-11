@@ -244,6 +244,21 @@ NEXT:
 - Owner/legal/source review approves the body or requests edits.
 - If approved, prepare the controlled upload QA package before touching CMS, URLs, redirects, taxonomy, related cards or sitemap.
 
+## Controlled Upload QA Package Update
+
+VERIFIED:
+- `project-control/family-divorce-controlled-upload-qa-package-2026-05-12.md` and `.csv` now define the controlled QA path for the first `/divorce-lawyer/` upload candidate.
+- `32` QA rows cover pre-upload approval, backup, body cleanliness, metadata, taxonomy, related cards, protected assets, canonical/indexability, mobile/desktop QA, GSC follow-up and rollback.
+- `FAM-UPLOAD-037` is now `VERIFIED PLANNING`.
+
+Decision:
+- The first safe move remains narrow: approve and update only `/divorce-lawyer/`, then verify.
+- Support pages, URL migration, redirects, noindex, canonical changes, sitemap removals, old URL retirement and protected assets remain outside this first upload action.
+
+NEXT:
+- Owner/legal/source review approves or edits the clean body.
+- If approved, use the QA package before any CMS/public change and again immediately after upload.
+
 ## Old Pages To Keep / Protect
 
 Keep alive until GSC/API and side-by-side review:

@@ -35,3 +35,5 @@ FAM-UPLOAD-033,Run GSC API protected asset export before URL actions,YES,BLOCKED
 FAM-UPLOAD-034,Approve first upload package scope,YES,VERIFIED PLANNING,First upload package created,Owner chooses Wave 1A only or Wave 1A plus Wave 1B,No public upload approved yet
 FAM-UPLOAD-035,Create CMS-clean /divorce-lawyer/ public body file,YES,PARTIAL VERIFIED,CMS-clean public body file created and scanned,Owner/legal/source review and final upload approval,No CMS/public upload yet
 FAM-UPLOAD-036,Approve CMS-clean /divorce-lawyer/ public body for upload,YES,BLOCKED,Owner legal and source review,Approve final copy or request edits,No public upload approved yet
+FAM-UPLOAD-037,Prepare controlled /divorce-lawyer/ upload QA package,YES,VERIFIED PLANNING,32-row QA package created,Use package before and after any approved upload,No public upload approved yet
+FAM-UPLOAD-038,Run controlled /divorce-lawyer/ upload QA,YES,BLOCKED,Preview/live QA after approved CMS update,Verify status canonical indexability body related cards protected URLs mobile desktop and rollback,No preview public upload or approval exists yet

@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-12 02:42 Asia/Jerusalem
+- VERIFIED PLANNING / DIVORCE LAWYER CONTROLLED UPLOAD QA PACKAGE: created the first practical QA package for a controlled `/divorce-lawyer/` upload after approval.
+- CREATED: `project-control/family-divorce-controlled-upload-qa-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-controlled-upload-qa-package-2026-05-12.csv`.
+- VERIFIED: `32` QA rows cover pre-upload approval, backup, content cleanliness, title/H1/meta, taxonomy, related cards, protected old URLs/assets, canonical/indexability, mobile/desktop QA, GSC follow-up and rollback.
+- VERIFIED: `FAM-UPLOAD-037` is now planning-verified.
+- BLOCKED: `FAM-UPLOAD-038` remains blocked until there is an approved preview or public upload to test.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 02:36 Asia/Jerusalem
 - PARTIAL VERIFIED / DIVORCE LAWYER CMS-CLEAN PUBLIC BODY: created a clean public Hebrew body for the first Family/Divorce upload candidate.
 - CREATED: `content-drafts/divorce-lawyer-public-body-he.md`.

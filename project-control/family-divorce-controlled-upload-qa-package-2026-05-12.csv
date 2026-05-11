@@ -1,0 +1,33 @@
+qa_id,stage,target,check,required,expected_result,current_status,blocked_if_failed,next_step
+FD-QA-001,pre_upload,/divorce-lawyer/,Owner approves clean Hebrew body,YES,Owner approves or requests edits,BLOCKED,Do not upload,Owner review
+FD-QA-002,pre_upload,/divorce-lawyer/,Source/legal review accepts general informational copy,YES,Approved or accepted for later full legal review,BLOCKED,Do not upload,Source/legal review
+FD-QA-003,pre_upload,/divorce-lawyer/,Backup current live body title meta and taxonomy,YES,Rollback material saved,BLOCKED,Do not overwrite,Create backup immediately before CMS edit
+FD-QA-004,pre_upload,/divorce-lawyer/,Confirm slug remains /divorce-lawyer/,YES,No slug change planned,VERIFIED_PLANNING,URL conflict risk,Keep current slug
+FD-QA-005,pre_upload,/divorce-lawyer/,Confirm H1 intent,YES,H1 is עורך דין גירושין,VERIFIED_PLANNING,Weak intent signal,Use approved H1
+FD-QA-006,pre_upload,/divorce-lawyer/,Confirm title and meta do not use fake trust language,YES,No top recommended trusted rating or review claims,VERIFIED_PLANNING,Compliance risk,Use final draft package metadata
+FD-QA-007,pre_upload,/divorce-lawyer/,Scan body for internal notes TODO TBD source notes and competitor notes,YES,No internal notes visible,VERIFIED,Public trust risk,Use clean body file only
+FD-QA-008,pre_upload,/divorce-lawyer/,Scan body for fake ratings badges reviews and guaranteed-result claims,YES,No fake trust or outcome claims,VERIFIED,Compliance risk,Keep clean body wording
+FD-QA-009,pre_upload,/divorce-lawyer/,Confirm visible general-information disclaimer,YES,Disclaimer appears near top or CTA section,VERIFIED_PLANNING,YMYL trust risk,Verify during preview
+FD-QA-010,pre_upload,/divorce-lawyer/,Confirm CTA disclaimer,YES,Lead/contact CTA does not imply attorney-client relationship,VERIFIED_PLANNING,Compliance risk,Verify during preview
+FD-QA-011,pre_upload,/divorce-lawyer/,Confirm taxonomy,YES,Use approved practice-areas family-law and divorce only,VERIFIED_PLANNING,Wrong breadcrumb/category signal,Verify after import
+FD-QA-012,pre_upload,/divorce-lawyer/,Block noisy terms,YES,No city inheritance wills prenuptial-agreement or legacy WP category control,VERIFIED_PLANNING,Cannibalization or slug collision risk,Verify after import
+FD-QA-013,pre_upload,/divorce-lawyer/,Confirm related-card allowlist,YES,Primary cards limited to approved support paths or disabled,VERIFIED_PLANNING,Funnel/trust risk,Verify after upload
+FD-QA-014,pre_upload,/divorce-lawyer/,Confirm blocked related-card categories,YES,No ranking trust Maya city LegalTech old asset or duplicate cards,VERIFIED_PLANNING,Trust/cannibalization risk,Verify after upload
+FD-QA-015,pre_upload,/divorce-lawyer/,No Review AggregateRating or review schema,YES,No review/rating schema added,VERIFIED_PLANNING,Search/compliance risk,Verify source after upload
+FD-QA-016,upload,/divorce-lawyer/,Update only approved body title meta taxonomy if approved,YES,No bulk cluster dump,BLOCKED,Scope creep,Upload only after approval
+FD-QA-017,post_upload,/divorce-lawyer/,HTTP status,YES,Returns 200,BLOCKED,Rollback or fix,Run live/preview check
+FD-QA-018,post_upload,/divorce-lawyer/,Canonical,YES,Self-canonical or approved canonical,BLOCKED,Indexing risk,Run source check
+FD-QA-019,post_upload,/divorce-lawyer/,Indexability,YES,No accidental noindex,BLOCKED,Indexing risk,Run source/header check
+FD-QA-020,post_upload,/divorce-lawyer/,Visible H1 and first viewport,YES,H1 and first screen match legal-help intent,BLOCKED,UX/SEO risk,Run desktop/mobile visual check
+FD-QA-021,post_upload,/divorce-lawyer/,Public body cleanliness,YES,No planning notes internal notes or duplicate FAQ,BLOCKED,Public trust risk,Run page text scan
+FD-QA-022,post_upload,/divorce-lawyer/,Internal links,YES,Approved support links resolve with HTTPS,BLOCKED,Broken link risk,Run link check
+FD-QA-023,post_upload,/divorce-lawyer/,Related cards,YES,Only allowed related cards appear or no related cards appear,BLOCKED,Trust/cannibalization risk,Run page scan
+FD-QA-024,post_upload,/divorce-lawyer/,Protected old Hebrew divorce URL,YES,Old URL remains live until GSC/owner decision,BLOCKED,Traffic loss risk,Verify status
+FD-QA-025,post_upload,protected_assets,PDF DOCX calculator case-law and support assets remain reachable,YES,No protected asset changed or removed,BLOCKED,Traffic/source asset risk,Verify protected list
+FD-QA-026,post_upload,/divorce-lawyer/,No accidental redirects or sitemap removals,YES,No URL retirement action occurred,BLOCKED,Migration risk,Check affected URL list
+FD-QA-027,post_upload,/divorce-lawyer/,No fake trust/review/schema output,YES,No ratings badges review counts AggregateRating or review schema,BLOCKED,Compliance risk,Run source scan
+FD-QA-028,post_upload,/divorce-lawyer/,Mobile visual QA,YES,Readable heading CTAs and no overlap,BLOCKED,UX risk,Capture mobile screenshot if possible
+FD-QA-029,post_upload,/divorce-lawyer/,Desktop visual QA,YES,Readable heading CTAs and no overlap,BLOCKED,UX risk,Capture desktop screenshot if possible
+FD-QA-030,gsc_follow_up,Family Divorce protected URL set,GSC API export before URL actions,YES,Query/page export reviewed before redirect noindex canonical deletion or sitemap-removal,BLOCKED,Traffic loss risk,Run after API credentials exist
+FD-QA-031,gsc_follow_up,/divorce-lawyer/,Post-publish monitoring,YES,Monitor impressions clicks queries and cannibalization,NOT_STARTED,Miss ranking/cannibalization changes,Run after upload
+FD-QA-032,rollback,/divorce-lawyer/,Rollback material exists,YES,Previous body title meta taxonomy can be restored,BLOCKED,Slow recovery,Save before upload

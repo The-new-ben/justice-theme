@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Divorce lawyer controlled upload QA package
+
+- CREATED: `project-control/family-divorce-controlled-upload-qa-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-controlled-upload-qa-package-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: created a `32`-row QA package for the first controlled `/divorce-lawyer/` upload candidate.
+- VERIFIED: package covers approval, backup, clean body checks, metadata, taxonomy, related cards, protected old URLs/assets, canonical/indexability, mobile/desktop QA, GSC follow-up and rollback.
+- VERIFIED: `FAM-UPLOAD-037` is planning-verified; `FAM-UPLOAD-038` remains blocked until an approved preview or public upload exists.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Divorce lawyer CMS-clean public body
 
 - CREATED: `content-drafts/divorce-lawyer-public-body-he.md`.

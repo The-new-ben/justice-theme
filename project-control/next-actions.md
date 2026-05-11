@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-DIVORCE-LAWYER-CONTROLLED-UPLOAD-QA-001: Prepare controlled upload QA package
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** After the clean body is approved, the first upload needs a precise checklist so we do not accidentally change URLs, old assets, schema, taxonomy or related cards.
+**Actions:**
+1. DONE: created `project-control/family-divorce-controlled-upload-qa-package-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-controlled-upload-qa-package-2026-05-12.csv`.
+3. VERIFIED: `32` QA rows cover pre-upload approval, backup, body cleanliness, metadata, taxonomy, related cards, protected URLs/assets, canonical/indexability, mobile/desktop QA, GSC follow-up and rollback.
+4. VERIFIED: `FAM-UPLOAD-037` is now planning-verified.
+5. BLOCKED: `FAM-UPLOAD-038` cannot run until owner/legal/source approval and preview/public upload exist.
+6. NEXT: owner/legal/source review approves or edits the clean body; after approval, use this package before and after the CMS update.
+7. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-DIVORCE-LAWYER-CMS-CLEAN-BODY-001: Create clean `/divorce-lawyer/` public body
 **Status:** COMPLETED / REVIEW ONLY / PARTIAL VERIFIED
 **Why:** The final draft package was too editorial for direct upload. The first controlled Family/Divorce upload candidate needed a clean public body with internal notes removed.
@@ -25,8 +37,8 @@
 1. DONE: created `project-control/family-divorce-divorce-lawyer-final-draft-package-2026-05-12.md`.
 2. DONE: created `project-control/family-divorce-divorce-lawyer-final-draft-package-2026-05-12.csv`.
 3. VERIFIED: `36` package rows cover CMS fields, internal-note removals, section actions, related-content controls, schema block and URL hold state.
-4. PARTIAL VERIFIED: `FAM-UPLOAD-027` is now partially verified; final package exists, but clean public body file is not created yet.
-5. NEXT: create the CMS-clean `/divorce-lawyer/` public body file from the existing draft, with no internal notes and no upload.
+4. PARTIAL VERIFIED: `FAM-UPLOAD-027` is now partially verified; final package exists and the clean public body file was created in the next action.
+5. NEXT: owner/legal/source review of the clean body, then use the controlled upload QA package if upload is approved.
 6. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
 
 ### ACTION-FAMILY-DIVORCE-FIRST-UPLOAD-PACKAGE-001: Package first upload scope for owner review

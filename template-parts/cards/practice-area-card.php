@@ -17,9 +17,9 @@ if ( ! $term || is_wp_error( $term ) ) {
 	return;
 }
 
-$term_link = get_term_link( $term );
+$term_link = justice_theme_public_term_link( $term );
 
-if ( is_wp_error( $term_link ) ) {
+if ( '' === $term_link ) {
 	return;
 }
 ?>

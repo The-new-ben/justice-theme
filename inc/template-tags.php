@@ -142,6 +142,22 @@ function justice_theme_public_permalink( int $post_id = 0 ): string {
 }
 
 /**
+ * Return a public taxonomy term link with first-party HTTPS normalization.
+ *
+ * @param WP_Term|int|string $term Term object, ID, or slug accepted by get_term_link().
+ * @return string
+ */
+function justice_theme_public_term_link( $term ): string {
+	$term_link = get_term_link( $term );
+
+	if ( is_wp_error( $term_link ) ) {
+		return '';
+	}
+
+	return justice_theme_public_url( (string) $term_link );
+}
+
+/**
  * Resolve a public lawyer profile connected from article metadata.
  *
  * @param string $slug Canonical lawyer slug.

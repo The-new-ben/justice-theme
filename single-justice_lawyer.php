@@ -349,7 +349,7 @@ $has_media_module     = $video_url || ! empty( $media_items );
 						<h2>תחומי טיפול</h2>
 						<div class="lawyer-mini-tags">
 							<?php foreach ( $areas as $area ) : ?>
-								<a href="<?php echo esc_url( get_term_link( $area ) ); ?>"><?php echo esc_html( $area->name ); ?></a>
+								<a href="<?php echo esc_url( justice_theme_public_term_link( $area ) ); ?>"><?php echo esc_html( $area->name ); ?></a>
 							<?php endforeach; ?>
 						</div>
 					</section>

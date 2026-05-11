@@ -42,7 +42,7 @@ while ( have_posts() ) :
 				<?php if ( $primary_term ) : 
 					$clean_name = str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ', 'ותאונות' ), array( '', '', '', '' ), $primary_term->name );
 				?>
-					<a class="single-article__term" href="<?php echo esc_url( get_term_link( $primary_term ) ); ?>" style="display: inline-block; margin-bottom: 1.2rem; font-size: 0.95rem; background: rgba(95, 126, 168, 0.1); color: var(--jt-accent); padding: 0.4rem 1.2rem; border-radius: 50px; font-weight: 800; text-decoration: none;">
+					<a class="single-article__term" href="<?php echo esc_url( justice_theme_public_term_link( $primary_term ) ); ?>" style="display: inline-block; margin-bottom: 1.2rem; font-size: 0.95rem; background: rgba(95, 126, 168, 0.1); color: var(--jt-accent); padding: 0.4rem 1.2rem; border-radius: 50px; font-weight: 800; text-decoration: none;">
 						<?php echo esc_html( trim( $clean_name ) ); ?>
 					</a>
 				<?php endif; ?>

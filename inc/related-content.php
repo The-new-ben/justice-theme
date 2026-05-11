@@ -458,8 +458,8 @@ function justice_theme_related_fallback_target( ?WP_Term $term, string $source_c
 	$source_cluster = justice_theme_related_normalize_cluster( $source_cluster );
 
 	if ( $term && ! is_wp_error( $term ) ) {
-		$term_link = get_term_link( $term );
-		if ( ! is_wp_error( $term_link ) ) {
+		$term_link = justice_theme_public_term_link( $term );
+		if ( '' !== $term_link ) {
 			return array(
 				'url'   => $term_link,
 				'label' => sprintf( __( 'מעבר לתחום %s', 'justice-theme' ), $term->name ),
@@ -484,7 +484,7 @@ function justice_theme_related_fallback_target( ?WP_Term $term, string $source_c
 	}
 
 	return array(
-		'url'   => home_url( $cluster_targets[ $source_cluster ][0] ),
+		'url'   => justice_theme_public_url( home_url( $cluster_targets[ $source_cluster ][0] ) ),
 		'label' => $cluster_targets[ $source_cluster ][1],
 	);
 }

@@ -38,7 +38,7 @@ get_header();
 				<ul class="term-list">
 					<?php foreach ( $sidebar_terms as $sterm ) : ?>
 						<li>
-							<a href="<?php echo esc_url( get_term_link( $sterm ) ); ?>">
+							<a href="<?php echo esc_url( justice_theme_public_term_link( $sterm ) ); ?>">
 								<?php echo esc_html( $sterm->name ); ?>
 								<span><?php echo esc_html( $sterm->count ); ?></span>
 							</a>

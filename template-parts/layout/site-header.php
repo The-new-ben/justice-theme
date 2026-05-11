@@ -149,7 +149,7 @@ function justice_theme_fallback_menu() {
 				<ul class="sub-menu">
 					<?php foreach ( $practice_terms as $term ) : ?>
 						<li class="menu-item">
-							<a href="<?php echo esc_url( get_term_link( $term ) ); ?>">
+							<a href="<?php echo esc_url( justice_theme_public_term_link( $term ) ); ?>">
 								<?php echo esc_html( $term->name ); ?>
 							</a>
 						</li>

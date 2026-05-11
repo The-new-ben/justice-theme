@@ -52,7 +52,7 @@ if ( isset( $args['data_attrs'] ) && is_array( $args['data_attrs'] ) ) {
 				$term->name
 			);
 			?>
-			<a class="article-card__term" href="<?php echo esc_url( justice_theme_public_url( (string) get_term_link( $term ) ) ); ?>" style="display: inline-block; margin-bottom: 0.8rem; font-size: 0.8rem; background: rgba(82, 114, 178, 0.1); color: var(--color-accent); padding: 0.3rem 0.8rem; border-radius: 50px; font-weight: 700;">
+			<a class="article-card__term" href="<?php echo esc_url( justice_theme_public_term_link( $term ) ); ?>" style="display: inline-block; margin-bottom: 0.8rem; font-size: 0.8rem; background: rgba(82, 114, 178, 0.1); color: var(--color-accent); padding: 0.3rem 0.8rem; border-radius: 50px; font-weight: 700;">
 				<?php echo esc_html( trim( $clean_name ) ); ?>
 			</a>
 		<?php endif; ?>

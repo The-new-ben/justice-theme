@@ -2,6 +2,16 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 10:53 Asia/Jerusalem
+- CODE FIXED / NOT LIVE VERIFIED: theme-owned taxonomy links now use a shared HTTPS-normalized term-link helper in breadcrumbs, homepage quick links, practice-area cards, article term chips, article archive term lists, lawyer mini-site area chips, header fallback dropdowns and related-content fallback targets.
+- TOOLING FIXED / VERIFIED LOCAL: `tools/check-public-http-internal-links.ps1` now classifies findings into suspected source and remediation lane columns.
+- CREATED / REVIEW: `project-control/public-http-internal-link-scan-2026-05-11-classified-before-theme-fix.csv` records the pre-deployment classified baseline.
+- REVIEW FINDING: classified pre-fix sample has 160 `REVIEW` findings and 15 `VERIFIED` resources.
+- REVIEW FINDING: 54 findings are in the `THEME_DISPLAY_FIX` lane, 69 are `PLUGIN_OR_MEDIA_CONFIG_REVIEW`, 2 are `CONTENT_MEDIA_DISPLAY_OR_CMS_REVIEW`, and 35 still require source classification.
+- VERIFIED LOCAL: PHP lint passed for 128 PHP files; `git diff --check` returned only normal Windows LF-to-CRLF warnings.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-theme-term-link-https-v1`; uPress pull and after-scan still need to verify whether theme-owned HTTP references dropped from public output.
+- SAFETY: this is rendered-output normalization only. No public content body, stored URL, URL slug, redirect, sitemap inclusion rule, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 10:40 Asia/Jerusalem
 - IN PROGRESS / REVIEW: added a read-only broad public scanner for remaining first-party `http://jus-tice.co.il` references after the template HTTPS fix.
 - PUSHED: `88a92f0` (`Add public HTTP link scan baseline`) to GitHub main.

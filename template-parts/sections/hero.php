@@ -171,7 +171,7 @@ $israel_cities = array(
 				<ul class="hero__quick-links">
 					<?php foreach ( $popular_terms as $pterm ) : ?>
 						<li>
-							<a href="<?php echo esc_url( get_term_link( $pterm ) ); ?>">
+							<a href="<?php echo esc_url( justice_theme_public_term_link( $pterm ) ); ?>">
 								<?php echo esc_html( $pterm->name ); ?>
 								<span><?php echo esc_html( $pterm->count ); ?></span>
 							</a>

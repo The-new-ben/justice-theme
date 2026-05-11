@@ -4,6 +4,17 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest theme-owned term-link HTTPS fix:
+
+- CODE FIXED / NOT LIVE VERIFIED: taxonomy term links in public theme surfaces now use `justice_theme_public_term_link()` and first-party HTTPS normalization.
+- AFFECTED SURFACES: breadcrumbs, homepage quick links, practice-area cards, article cards, single article term chips, archive term lists, lawyer mini-site area chips, fallback header dropdowns and related-content fallback targets.
+- TOOLING FIXED: public HTTP scanner now classifies findings by suspected source and remediation lane.
+- CREATED: `project-control/public-http-internal-link-scan-2026-05-11-classified-before-theme-fix.csv`.
+- LOCAL VERIFIED: PHP lint passed for 128 PHP files; `git diff --check` returned only Windows LF-to-CRLF warnings.
+- DEPLOYMENT MARKER: `2026-05-11-theme-term-link-https-v1`.
+- LIVE CHECK NEEDED: pull in uPress, verify the marker, rerun `tools/check-public-http-internal-links.ps1`, and compare theme-owned finding counts against the classified baseline.
+- SAFETY: no WordPress content, metadata, URL slug, redirect, sitemap inclusion rule, canonical setting, taxonomy, lawyer, lead/CRM, review, plugin-state, wp-admin setting or database row was changed.
+
 Latest public HTTP scan baseline sync:
 
 - VERIFIED UPRESS PULL: uPress Git log shows top commit `88a92f0` (`Add public HTTP link scan baseline`).

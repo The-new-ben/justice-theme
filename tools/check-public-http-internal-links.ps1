@@ -113,6 +113,78 @@ function Invoke-LiveResource {
     }
 }
 
+function Get-FindingClassification {
+    param(
+        [string]$SourceType,
+        [string]$RequestUrl,
+        [string]$OccurrenceType,
+        [string]$Attribute,
+        [string]$OccurrenceUrl,
+        [string]$Context
+    )
+
+    if ($SourceType -like "sitemap*" -and $OccurrenceUrl -like "http://jus-tice.co.il/wp-content/uploads/*") {
+        return [pscustomobject]@{
+            suspected_source = "SEO_PLUGIN_SITEMAP_MEDIA"
+            remediation_lane = "PLUGIN_OR_MEDIA_CONFIG_REVIEW"
+        }
+    }
+
+    if ($SourceType -like "sitemap*") {
+        return [pscustomobject]@{
+            suspected_source = "SEO_PLUGIN_SITEMAP_URL"
+            remediation_lane = "SITEMAP_PLUGIN_REVIEW"
+        }
+    }
+
+    if ($OccurrenceUrl -like "http://jus-tice.co.il/wp-content/uploads/*") {
+        return [pscustomobject]@{
+            suspected_source = "CONTENT_MEDIA_OUTPUT"
+            remediation_lane = "CONTENT_MEDIA_DISPLAY_OR_CMS_REVIEW"
+        }
+    }
+
+    if ($Context -match "breadcrumbs__link") {
+        return [pscustomobject]@{
+            suspected_source = "THEME_BREADCRUMBS"
+            remediation_lane = "THEME_DISPLAY_FIX"
+        }
+    }
+
+    if ($Context -match "single-article__term") {
+        return [pscustomobject]@{
+            suspected_source = "THEME_SINGLE_ARTICLE_TERM"
+            remediation_lane = "THEME_DISPLAY_FIX"
+        }
+    }
+
+    if ($Context -match "hero__quick-links") {
+        return [pscustomobject]@{
+            suspected_source = "THEME_HOMEPAGE_QUICK_LINKS"
+            remediation_lane = "THEME_DISPLAY_FIX"
+        }
+    }
+
+    if ($Context -match "practice-area-card__link") {
+        return [pscustomobject]@{
+            suspected_source = "THEME_PRACTICE_AREA_CARD"
+            remediation_lane = "THEME_DISPLAY_FIX"
+        }
+    }
+
+    if ($RequestUrl -match "/articles/(\\?|$)" -and $Context -match "<li>\\s*<a href=") {
+        return [pscustomobject]@{
+            suspected_source = "THEME_ARTICLE_ARCHIVE_TERM_LIST"
+            remediation_lane = "THEME_DISPLAY_FIX"
+        }
+    }
+
+    return [pscustomobject]@{
+        suspected_source = "UNKNOWN_PUBLIC_OUTPUT"
+        remediation_lane = "CLASSIFY_BEFORE_FIX"
+    }
+}
+
 function Add-FindingRows {
     param(
         [System.Collections.Generic.List[object]]$Rows,
@@ -137,6 +209,8 @@ function Add-FindingRows {
             occurrence_type = "none"
             occurrence_url = ""
             attribute = ""
+            suspected_source = "NONE"
+            remediation_lane = "NONE"
             context = ""
             notes = if ($Result.Error) { $Result.Error } else { "No first-party http://jus-tice.co.il references found." }
         })
@@ -158,6 +232,7 @@ function Add-FindingRows {
         } else {
             "raw_body"
         }
+        $classification = Get-FindingClassification -SourceType $SourceType -RequestUrl $Result.RequestUrl -OccurrenceType $occurrenceType -Attribute $attribute -OccurrenceUrl $match.Value -Context $snippet
 
         $Rows.Add([pscustomobject]@{
             checked_at = (Get-Date).ToString("s")
@@ -170,6 +245,8 @@ function Add-FindingRows {
             occurrence_type = $occurrenceType
             occurrence_url = $match.Value
             attribute = $attribute
+            suspected_source = $classification.suspected_source
+            remediation_lane = $classification.remediation_lane
             context = $snippet
             notes = "First-party HTTP URL remains in public output; classify as theme-owned, plugin-owned, content-owned, or sitemap/cache-owned before changing anything."
         })
@@ -187,6 +264,8 @@ function Add-FindingRows {
             occurrence_type = "truncated_resource"
             occurrence_url = ""
             attribute = ""
+            suspected_source = "TRUNCATED_RESOURCE"
+            remediation_lane = "MANUAL_REVIEW"
             context = ""
             notes = "Resource contains $($allMatches.Count) first-party HTTP references; CSV records first $MaxFindingsPerResource for bounded runtime."
         })

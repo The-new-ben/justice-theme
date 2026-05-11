@@ -7,7 +7,7 @@
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
 ### ACTION-PUBLIC-HTTP-SCAN-001: Classify remaining first-party HTTP references
-**Status:** IN PROGRESS / REVIEW FINDINGS
+**Status:** CODE FIXED / LOCAL VERIFIED / LIVE VERIFY NEXT
 **Why:** After sampled related-card links were fixed, a broader public scan still found old first-party `http://jus-tice.co.il` references in rendered HTML and sitemap media URLs. These must be classified before any URL migration or GSC sitemap submission.
 **Actions:**
 1. DONE: added `tools/check-public-http-internal-links.ps1`.
@@ -15,9 +15,13 @@
 3. VERIFIED: scanner is read-only and records source page, occurrence URL, occurrence type, attribute/context and notes.
 4. REVIEW: bounded scan found 199 remaining first-party HTTP references: 122 from rendered HTML and 77 from sitemap child XML.
 5. REVIEW: 118 findings are internal page/category/article URLs and 81 are `/wp-content/uploads/` media URLs.
-6. NEXT: classify findings as THEME_OUTPUT, MENU_OUTPUT, CONTENT_BODY, MEDIA_UPLOAD, SEO_PLUGIN_SITEMAP or UNKNOWN.
-7. NEXT: fix theme-owned render output first, then plan CMS/media/plugin cleanup separately.
-8. SAFETY: do not run bulk database replacement, redirects, slug changes, noindex changes or sitemap removals from this scan alone.
+6. DONE: extended the scanner with `suspected_source` and `remediation_lane` columns.
+7. CREATED / REVIEW: `project-control/public-http-internal-link-scan-2026-05-11-classified-before-theme-fix.csv`.
+8. REVIEW: classified pre-fix sample found 54 `THEME_DISPLAY_FIX` items, 69 `PLUGIN_OR_MEDIA_CONFIG_REVIEW` items, 2 `CONTENT_MEDIA_DISPLAY_OR_CMS_REVIEW` items and 35 `CLASSIFY_BEFORE_FIX` items.
+9. CODE FIXED: theme-owned taxonomy/term link surfaces now use `justice_theme_public_term_link()` and first-party HTTPS normalization.
+10. VERIFIED LOCAL: PHP lint passed for 128 PHP files; `git diff --check` returned only Windows LF-to-CRLF warnings.
+11. NEXT: push, pull in uPress, verify marker `2026-05-11-theme-term-link-https-v1`, rerun the public scan and compare theme-owned finding counts before/after.
+12. SAFETY: do not run bulk database replacement, redirects, slug changes, noindex changes or sitemap removals from this scan alone.
 
 ### ACTION-PUBLIC-LINK-HTTPS-001: Keep public frontend internal links on HTTPS
 **Status:** FIXED LIVE - monitor with future template changes

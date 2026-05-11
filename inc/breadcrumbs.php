@@ -74,14 +74,14 @@ function justice_theme_get_breadcrumb_items() {
 	$items = array(
 		array(
 			'name' => __( 'עמוד הבית', 'justice-theme' ),
-			'url'  => home_url( '/' ),
+			'url'  => justice_theme_public_url( home_url( '/' ) ),
 		),
 	);
 
 	if ( is_singular( 'articles' ) ) {
 		$items[] = array(
 			'name' => __( 'מאמרים משפטיים', 'justice-theme' ),
-			'url'  => get_post_type_archive_link( 'articles' ),
+			'url'  => justice_theme_public_url( (string) get_post_type_archive_link( 'articles' ) ),
 		);
 
 		$terms = get_the_terms( get_the_ID(), 'practice-areas' );
@@ -89,7 +89,7 @@ function justice_theme_get_breadcrumb_items() {
 			$term    = array_shift( $terms );
 			$items[] = array(
 				'name' => $term->name,
-				'url'  => get_term_link( $term ),
+				'url'  => justice_theme_public_term_link( $term ),
 			);
 		}
 
@@ -104,7 +104,7 @@ function justice_theme_get_breadcrumb_items() {
 	if ( is_singular( 'justice_lawyer' ) ) {
 		$items[] = array(
 			'name' => __( 'עורכי דין', 'justice-theme' ),
-			'url'  => get_post_type_archive_link( 'justice_lawyer' ),
+			'url'  => justice_theme_public_url( (string) get_post_type_archive_link( 'justice_lawyer' ) ),
 		);
 
 		$areas = get_the_terms( get_the_ID(), 'practice-areas' );
@@ -112,7 +112,7 @@ function justice_theme_get_breadcrumb_items() {
 			$area    = array_shift( $areas );
 			$items[] = array(
 				'name' => $area->name,
-				'url'  => add_query_arg( 'area', $area->slug, get_post_type_archive_link( 'justice_lawyer' ) ),
+				'url'  => justice_theme_public_url( (string) add_query_arg( 'area', $area->slug, get_post_type_archive_link( 'justice_lawyer' ) ) ),
 			);
 		}
 
@@ -127,7 +127,7 @@ function justice_theme_get_breadcrumb_items() {
 	if ( is_tax( 'practice-areas' ) ) {
 		$items[] = array(
 			'name' => __( 'תחומי משפט', 'justice-theme' ),
-			'url'  => get_post_type_archive_link( 'justice_lawyer' ),
+			'url'  => justice_theme_public_url( (string) get_post_type_archive_link( 'justice_lawyer' ) ),
 		);
 
 		$items[] = array(

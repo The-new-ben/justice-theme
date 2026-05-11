@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Theme Term-Link HTTPS QA
+- CODE FIXED / NOT LIVE VERIFIED: theme-owned taxonomy term links now render through a shared first-party HTTPS helper.
+- AFFECTED VISUAL SURFACES: breadcrumbs, homepage quick topic links, practice-area cards, article/category term chips, article archive sidebar terms, lawyer mini-site area chips, fallback header dropdown terms and related-content fallback links.
+- SOURCE QA BASELINE: `project-control/public-http-internal-link-scan-2026-05-11-classified-before-theme-fix.csv`.
+- REVIEW FINDING: before deployment, 54 findings were classified into the `THEME_DISPLAY_FIX` lane.
+- VERIFIED LOCAL: PHP lint passed for 128 PHP files; `git diff --check` returned only normal Windows LF-to-CRLF warnings.
+- LIVE CHECK NEEDED: after uPress pull, rerun the public HTTP scan and verify the affected visible navigation/card/breadcrumb links no longer expose `http://jus-tice.co.il`.
+- SAFETY: source-level output normalization only; no visible copy, content body, URL slug, redirect, sitemap setting, canonical, taxonomy, lawyer, CRM, review or plugin state was changed.
+
 ## 2026-05-11 Public First-Party HTTP Scan QA
 - VERIFIED TOOLING: `tools/check-public-http-internal-links.ps1` produced `project-control/public-http-internal-link-scan-2026-05-11.csv`.
 - REVIEW FINDING: the bounded public scan found 199 remaining first-party `http://jus-tice.co.il` references.

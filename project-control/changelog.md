@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Homepage controlled implementation checklist
+
+- CREATED: `project-control/homepage-controlled-implementation-checklist-2026-05-11.md`.
+- CREATED: `project-control/homepage-controlled-implementation-checklist-2026-05-11.csv`.
+- UPDATED: `project-control/homepage-seo-design-alignment.md`, `project-control/homepage-seo-strategy.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: the checklist turns the homepage review and section-order proposal into a no-URL-change, owner-approved execution path.
+- VERIFIED: the first public homepage batch is constrained to reversible template/link/empty-state/UX cleanup and requires screenshots, link crawl, PHP checks and rollback planning.
+- BLOCKED: no public homepage, title/H1/meta, menu, template, URL, redirect, noindex, canonical, sitemap, internal link, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Homepage section-order and pillar-link proposal
 
 - CREATED: `project-control/homepage-section-order-proposal-2026-05-11.md`.

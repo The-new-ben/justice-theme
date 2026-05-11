@@ -185,3 +185,18 @@ VERIFIED:
 
 Next approval gate:
 - Owner approves the section order and link map, then a no-URL-change implementation checklist can be created.
+
+## 2026-05-11 Controlled Homepage Implementation Checklist
+
+Evidence:
+- `project-control/homepage-controlled-implementation-checklist-2026-05-11.md`.
+- `project-control/homepage-controlled-implementation-checklist-2026-05-11.csv`.
+
+VERIFIED:
+- The implementation checklist now exists and keeps the first homepage execution batch reversible and no-URL-change.
+- The homepage should keep its current broad legal-help title/H1/meta in the first batch unless separately approved.
+- Curated pillar/fallback links should be used only after owner approval and live URL verification.
+
+BLOCKED:
+- No public homepage implementation is approved yet.
+- Sitemap, canonical, redirects, robots/noindex, title/H1/meta, menu and CMS/database changes remain blocked.

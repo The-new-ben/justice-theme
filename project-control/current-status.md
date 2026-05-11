@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 17:22 Asia/Jerusalem
+- VERIFIED / HOMEPAGE IMPLEMENTATION CHECKLIST: completed the approval-gated no-URL-change homepage implementation checklist.
+- CREATED: `project-control/homepage-controlled-implementation-checklist-2026-05-11.md`.
+- CREATED: `project-control/homepage-controlled-implementation-checklist-2026-05-11.csv`.
+- VERIFIED: the checklist keeps the first homepage batch limited to owner-approved template, link, empty-state and UX cleanup only.
+- VERIFIED: the checklist explicitly blocks URL, redirect, canonical, sitemap, robots/noindex, title/H1/meta, menu, CMS/database, CRM, review/rating and fake-data changes.
+- VERIFIED: preflight and QA gates include baseline screenshots, link crawl, URL checks, PHP syntax, `git diff --check`, secret scan, desktop/mobile QA and rollback strategy.
+- BLOCKED: no public homepage, template, link, title/H1/meta, URL, redirect, canonical, sitemap, CMS/database, CRM/review, wp-admin setting or deploy action was executed.
+- SAFETY: repo documentation/CSV planning only; no live public site state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 17:12 Asia/Jerusalem
 - VERIFIED / HOMEPAGE STRUCTURE PLAN: completed the approval-gated homepage section-order proposal and curated pillar-link map.
 - CREATED: `project-control/homepage-section-order-proposal-2026-05-11.md`.

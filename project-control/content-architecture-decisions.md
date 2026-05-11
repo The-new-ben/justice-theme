@@ -201,3 +201,13 @@ ADDED 2026-05-10:
 - Before any final launch batch, pass `project-control/integrated-launch-checklist.md`.
 
 Status: ACCEPTED RULE / NOT LIVE EXECUTED.
+
+## Homepage Controlled Implementation Addendum
+
+ADDED 2026-05-11:
+- `project-control/homepage-controlled-implementation-checklist-2026-05-11.md` and `.csv` define the first safe homepage execution path.
+- The first batch must be no-URL-change, reversible and owner-approved.
+- The batch may only touch approved homepage template/link/empty-state/UX cleanup after preflight and QA gates.
+- The batch must not change public URLs, redirects, canonical tags, sitemap, robots/noindex, title/H1/meta, menus, CMS/database state, CRM/review behavior or fake trust signals.
+
+Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER APPROVAL.

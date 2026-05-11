@@ -142,6 +142,21 @@ REVIEW:
 BLOCKED:
 - No public homepage order, link, template or CMS change was executed by this proposal.
 
+## 2026-05-11 Controlled Implementation Checklist Overlay
+
+Evidence:
+- `project-control/homepage-controlled-implementation-checklist-2026-05-11.md`.
+- `project-control/homepage-controlled-implementation-checklist-2026-05-11.csv`.
+
+VERIFIED:
+- The next homepage batch is now defined as a small, reversible, no-URL-change execution path.
+- The checklist keeps design, SEO signal, internal links, fake-data risk, mobile QA and rollback in the same workflow.
+- `front-page.php` remains the proposed short-term live template until the owner approves otherwise.
+
+BLOCKED:
+- No public homepage implementation may run until the owner approves the checklist, section order and link map.
+- URL, redirect, canonical, sitemap, robots/noindex, title/H1/meta, menu, CMS/database, CRM, review/rating and fake-data changes remain out of scope.
+
 ## 2026-05-10 No-URL-Change Link Safety Batch
 
 CODE FIXED:

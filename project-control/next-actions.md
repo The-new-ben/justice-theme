@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-HOMEPAGE-IMPLEMENTATION-CHECKLIST-001: Create controlled no-URL-change homepage implementation checklist
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The homepage section-order and pillar-link proposal needed an executable safety checklist before any public template, link or UX edits. The first homepage batch must be small, reversible and owner-approved.
+**Actions:**
+1. DONE: created `project-control/homepage-controlled-implementation-checklist-2026-05-11.md`.
+2. DONE: created `project-control/homepage-controlled-implementation-checklist-2026-05-11.csv`.
+3. VERIFIED: checklist keeps `front-page.php` as the short-term live template unless the owner approves otherwise.
+4. VERIFIED: checklist blocks URL, redirect, canonical, sitemap, robots/noindex, title/H1/meta, menu, CMS/database, CRM, review/rating and fake-data changes.
+5. VERIFIED: checklist defines preflight, implementation, QA, deploy and rollback gates.
+6. NEXT: owner approves or edits the homepage checklist, section order and link map; otherwise continue review-only content architecture tasks such as source/legal checklists and deeper cluster comparisons.
+7. BLOCKED: no public homepage content, template, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, related-card, lawyer-card, CRM/review or CMS writes until owner-approved execution.
+
 ### ACTION-HOMEPAGE-SECTION-ORDER-001: Propose homepage section order and curated pillar links
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The line-by-line review showed the homepage needs a single authoritative structure and curated links before public changes. Several clean pillar slugs still resolve to the homepage, so homepage links must use safe approved targets or fallbacks.

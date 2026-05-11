@@ -99,6 +99,20 @@ See:
 - `project-control/serp-criminal-traffic-review-2026-05-11.md`
 - `project-control/serp-criminal-traffic-review-2026-05-11.csv`
 
+## 2026-05-11 Owner Approval Packet
+
+CREATED:
+- `project-control/criminal-law-owner-approval-packet.md`
+- `project-control/criminal-law-owner-approval-packet.csv`
+
+RECOMMENDED:
+- Do not approve criminal-law URL migration yet.
+- Approve primary-selection and consolidation planning first.
+- Compare the existing clean `/criminal-defense-attorney/` page, the old Hebrew GSC-signal page, and the future `/criminal-lawyer/` target before choosing a primary.
+
+BLOCKED:
+- No public content edits, slugs, redirects, canonicals, sitemap updates, noindex changes or CMS writes until owner approval.
+
 ## CSV Detail
 
 See `project-control/criminal-law-support-review.csv`.

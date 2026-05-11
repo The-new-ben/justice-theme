@@ -249,3 +249,21 @@ RECOMMENDED:
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits or CMS writes until explicit approval.
+
+## 2026-05-11 Criminal-Law Owner Approval Packet
+
+CREATED:
+- `project-control/criminal-law-owner-approval-packet.md`
+- `project-control/criminal-law-owner-approval-packet.csv`
+
+VERIFIED:
+- The criminal-law cluster is higher-risk than the traffic-law first batch because there is no exact current `/criminal-lawyer/` URL in the public map.
+- Existing clean `/criminal-defense-attorney/` is published, has `9,086` words, and already targets `עורך דין פלילי` in the title.
+- Old Hebrew criminal-lawyer URLs still have visible GSC signal and must be protected until a migration map is approved.
+- Support targets (`police-investigation`, `indictment`, `pretrial-detention`, `drug-offenses`) all have existing old/current assets that must be compared before any new slug is created.
+
+RECOMMENDED:
+- Owner approval for a primary-selection/consolidation planning batch, not URL migration.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits or CMS writes until explicit approval.

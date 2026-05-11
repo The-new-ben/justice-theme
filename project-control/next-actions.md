@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CRIMINAL-LAW-OWNER-APPROVAL-001: Prepare criminal-law primary-selection approval packet
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Criminal law is a high-value cluster, but it has heavier URL risk than traffic law because `/criminal-lawyer/` is not an exact current URL and old Hebrew URLs have GSC signal.
+**Actions:**
+1. DONE: created `project-control/criminal-law-owner-approval-packet.md`.
+2. DONE: created `project-control/criminal-law-owner-approval-packet.csv`.
+3. VERIFIED: existing clean `/criminal-defense-attorney/` is published, has `9,086` words, and already targets `עורך דין פלילי` in the title.
+4. VERIFIED: `/criminal-lawyer/` remains a strategic future target, but migration is blocked by 13 conflict rows and old Hebrew GSC-signal URLs.
+5. VERIFIED: support targets (`police-investigation`, `indictment`, `pretrial-detention`, `drug-offenses`) already have old/current assets and must not be duplicated.
+6. RECOMMENDED: owner approval for primary selection and consolidation planning only; no URL migration yet.
+7. NEXT: if owner approves, build content-quality comparison for primary candidates and a source/legal/internal-link checklist.
+8. BLOCKED: no public content edits, titles/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits or CMS writes until explicit owner approval.
+
 ### ACTION-TRAFFIC-LAW-OWNER-APPROVAL-001: Prepare no-URL-change traffic-law approval packet
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Traffic law is the safest first execution candidate because `/traffic-lawyer/` already exists and the proposed first batch can expand current content without URL migration.

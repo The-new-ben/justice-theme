@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Criminal law owner approval packet
+
+- CREATED: `project-control/criminal-law-owner-approval-packet.md`.
+- CREATED: `project-control/criminal-law-owner-approval-packet.csv`.
+- UPDATED: `project-control/criminal-law-support-decision-packet.md`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `/criminal-defense-attorney/` is a published clean page with `9,086` words and title alignment for `עורך דין פלילי`.
+- VERIFIED: `/criminal-lawyer/` remains a strategic future target, but migration is blocked by conflict rows and old Hebrew GSC-signal URLs.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, title/H1/meta, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Traffic law owner approval packet
 
 - CREATED: `project-control/traffic-law-owner-approval-packet.md`.

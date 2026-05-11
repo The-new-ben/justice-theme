@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 13:18 Asia/Jerusalem
+- VERIFIED / REVIEW: prepared the criminal-law owner-approval packet as a primary-selection/consolidation decision, not a URL migration task.
+- CREATED: `project-control/criminal-law-owner-approval-packet.md`.
+- CREATED: `project-control/criminal-law-owner-approval-packet.csv`.
+- VERIFIED: existing clean `/criminal-defense-attorney/` is published, has `9,086` words, and already targets `עורך דין פלילי` in the title.
+- VERIFIED: `/criminal-lawyer/` remains a strategic future target, but migration is blocked by `13` conflict rows and old Hebrew GSC-signal URLs.
+- VERIFIED: support targets such as police investigation, indictment, detention and drug offenses already have old/current assets, so duplicate clean slugs are blocked.
+- BLOCKED: owner approval is required before public content edits, title/H1/meta changes, URL changes, redirects, canonicals, sitemap changes, noindex changes, taxonomy/menu edits or CMS writes.
+- SAFETY: repo documentation/CSV planning only; no live public content or CMS state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 13:08 Asia/Jerusalem
 - VERIFIED / REVIEW: prepared the first owner-approval packet for a traffic-law no-URL-change expansion batch.
 - CREATED: `project-control/traffic-law-owner-approval-packet.md`.

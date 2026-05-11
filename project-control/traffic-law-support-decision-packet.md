@@ -212,6 +212,19 @@ NEXT:
 BLOCKED:
 - No public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this internal-link map.
 
+## 2026-05-11 Traffic Owner Upload Review Package
+
+CREATED:
+- `project-control/traffic-law-owner-upload-review-package-2026-05-11.md`
+- `project-control/traffic-law-owner-upload-review-package-2026-05-11.csv`
+
+RECOMMENDED:
+- Owner approves planning package only, then draft `/traffic-lawyer/` first under source/legal review.
+- Keep `/drunk-driving/`, `/breathalyzer-test/`, `/license-suspension/`, `/traffic-evidence/` and `/fatal-road-accident-offenses/` blocked as future-only slugs.
+
+BLOCKED:
+- No public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this owner package.
+
 ## CSV Detail
 
 See `project-control/traffic-law-support-review.csv`.

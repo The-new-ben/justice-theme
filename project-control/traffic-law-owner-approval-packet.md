@@ -211,6 +211,25 @@ For this proposed first batch:
 - Internal-link updates: REQUIRED after content approval.
 - URL migration map: keep `drunk-driving` and `license-suspension` as future candidates only.
 
+## 2026-05-11 Owner Upload Review Package
+
+CREATED:
+- `project-control/traffic-law-owner-upload-review-package-2026-05-11.md`
+- `project-control/traffic-law-owner-upload-review-package-2026-05-11.csv`
+
+VERIFIED:
+- The upload review package consolidates the outline queue, source/legal checklist and current-URL internal-link map.
+- `5` target decisions are ready for owner review: traffic-law pillar, drunk driving, breathalyzer/refusal/testing, speeding/points/license risk and Marvad/medical fitness.
+- `31` planned current-URL internal-link relationships are available for later execution after approval.
+
+RECOMMENDED:
+- Approve planning package only.
+- Draft `/traffic-lawyer/` first under source/legal review.
+- Keep future clean slugs blocked until route/migration, redirect, canonical, sitemap and internal-link plans are approved.
+
+BLOCKED:
+- No public upload, URL change, redirect, canonical, sitemap, internal-link execution, related-card write, lawyer-card insert, schema review/rating markup, CRM/review work, wp-admin setting or CMS/database write is approved by this package.
+
 ## Approval Questions
 
 Owner approval needed:

@@ -14,6 +14,23 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-11 Traffic Law Owner Upload Review Package
+
+CREATED:
+- `project-control/traffic-law-owner-upload-review-package-2026-05-11.md`
+- `project-control/traffic-law-owner-upload-review-package-2026-05-11.csv`
+
+VERIFIED:
+- `5` target decisions are packaged for owner review.
+- Outline structure, source/legal gates, internal-link map, upload order, anti-cannibalization rules and blocked future slugs are consolidated.
+
+RECOMMENDED:
+- Owner approves the planning package only, then the current traffic-law pillar can be drafted first under source/legal review.
+- If owner does not approve, move to the next priority cluster with the same outline/source/link process.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Traffic Law No-URL Internal Link Map
 
 CREATED:

@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-TRAFFIC-LAW-OWNER-UPLOAD-REVIEW-001: Package first traffic-law group for owner approval
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The traffic-law outline/source/internal-link work needs one owner-facing approval layer before any Hebrew drafting or CMS upload.
+**Actions:**
+1. DONE: created `project-control/traffic-law-owner-upload-review-package-2026-05-11.md`.
+2. DONE: created `project-control/traffic-law-owner-upload-review-package-2026-05-11.csv`.
+3. VERIFIED: `5` target decisions are ready for owner review.
+4. VERIFIED: package combines page role, current URL use, source/legal gates, internal-link map, upload order, anti-cannibalization rules and blocked future slugs.
+5. RECOMMENDED: approve planning package only, then draft `/traffic-lawyer/` first under legal/source review.
+6. NEXT: owner approves Option A planning package or requests one-page draft first; otherwise move to the next priority cluster.
+7. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-TRAFFIC-LAW-NO-URL-INTERNAL-LINK-MAP-001: Plan current-URL links for traffic-law upload group
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The traffic-law outline/source group must be connected internally before any content upload, so the future public changes are not disconnected articles.

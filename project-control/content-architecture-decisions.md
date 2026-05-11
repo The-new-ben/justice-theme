@@ -261,6 +261,11 @@ Recommended action:
 - VERIFIED: the traffic-law group now has outline structure, source/legal gates and internal-link posture before public copy.
 - BLOCKED: no internal-link execution, related-card metadata, sitemap update, future slug link, redirect or canonical change is approved yet.
 
+2026-05-11 traffic-law owner upload review package addendum:
+- VERIFIED: `project-control/traffic-law-owner-upload-review-package-2026-05-11.md` and `.csv` consolidate the first traffic-law group into one owner-review package.
+- RECOMMENDED: approve planning only, then draft `/traffic-lawyer/` first under source/legal review.
+- BLOCKED: public upload, future slugs, sitemap changes, internal-link execution, related cards, lawyer cards and review/rating schema remain blocked until explicit approval.
+
 ## Inheritance / Wills
 
 Decision:

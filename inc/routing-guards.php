@@ -37,6 +37,77 @@ function justice_theme_strip_home_path_prefix( string $request_path, string $hom
 }
 
 /**
+ * Check whether the current/requested public path is a non-root path.
+ *
+ * @param string $requested_url Optional requested URL. Falls back to REQUEST_URI.
+ * @return bool
+ */
+function justice_theme_is_public_non_root_request_path( string $requested_url = '' ): bool {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
+		return false;
+	}
+
+	$path_source = $requested_url;
+
+	if ( '' === $path_source ) {
+		$path_source = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+	}
+
+	$home_path    = justice_theme_normalize_route_path( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ) );
+	$request_path = justice_theme_normalize_route_path( (string) wp_parse_url( $path_source, PHP_URL_PATH ) );
+	$request_path = justice_theme_strip_home_path_prefix( $request_path, $home_path );
+
+	return '/' !== $request_path;
+}
+
+/**
+ * Check whether a redirect target is the site homepage.
+ *
+ * @param string $location Redirect location.
+ * @return bool
+ */
+function justice_theme_is_home_redirect_target( string $location ): bool {
+	if ( '' === $location ) {
+		return false;
+	}
+
+	$home_url      = home_url( '/' );
+	$home_host     = wp_parse_url( $home_url, PHP_URL_HOST );
+	$location_host = wp_parse_url( $location, PHP_URL_HOST );
+
+	if ( $home_host && $location_host && strtolower( $home_host ) !== strtolower( $location_host ) ) {
+		return false;
+	}
+
+	$home_path     = justice_theme_normalize_route_path( (string) wp_parse_url( $home_url, PHP_URL_PATH ) );
+	$location_path = justice_theme_normalize_route_path( (string) wp_parse_url( $location, PHP_URL_PATH ) );
+
+	return $location_path === $home_path;
+}
+
+/**
+ * Prevent plugins or core helpers from redirecting arbitrary misses to home.
+ *
+ * @param string|false $location Redirect location.
+ * @param int          $status   Redirect status.
+ * @return string|false
+ */
+function justice_theme_block_non_root_wp_redirect_to_home( $location, int $status ) {
+	unset( $status );
+
+	if ( ! is_string( $location ) || '' === $location ) {
+		return $location;
+	}
+
+	if ( justice_theme_is_public_non_root_request_path() && justice_theme_is_home_redirect_target( $location ) ) {
+		return false;
+	}
+
+	return $location;
+}
+add_filter( 'wp_redirect', 'justice_theme_block_non_root_wp_redirect_to_home', 0, 2 );
+
+/**
  * Prevent unknown public paths from being canonical-redirected to the homepage.
  *
  * Redirecting arbitrary missing paths to `/` hides broken URLs from users and
@@ -53,21 +124,10 @@ function justice_theme_block_unknown_path_home_canonical_redirect( $redirect_url
 		return $redirect_url;
 	}
 
-	$home_url     = home_url( '/' );
-	$home_host    = wp_parse_url( $home_url, PHP_URL_HOST );
-	$redirect_host = wp_parse_url( (string) $redirect_url, PHP_URL_HOST );
-
-	if ( $home_host && $redirect_host && strtolower( $home_host ) !== strtolower( $redirect_host ) ) {
-		return $redirect_url;
-	}
-
-	$home_path     = justice_theme_normalize_route_path( (string) wp_parse_url( $home_url, PHP_URL_PATH ) );
-	$request_path  = justice_theme_normalize_route_path( (string) wp_parse_url( $requested_url, PHP_URL_PATH ) );
-	$redirect_path = justice_theme_normalize_route_path( (string) wp_parse_url( (string) $redirect_url, PHP_URL_PATH ) );
-
-	$request_path = justice_theme_strip_home_path_prefix( $request_path, $home_path );
-
-	if ( '/' !== $request_path && $redirect_path === $home_path ) {
+	if (
+		justice_theme_is_public_non_root_request_path( $requested_url )
+		&& justice_theme_is_home_redirect_target( (string) $redirect_url )
+	) {
 		return false;
 	}
 

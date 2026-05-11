@@ -30,7 +30,14 @@ $legacy_area_map = array(
 	'personal-injury'     => 'personal-injury-law',
 	'medical'             => 'medical-malpractice-law',
 	'medical-malpractice' => 'medical-malpractice-law',
+	'medical_malpractice' => 'medical-malpractice-law',
 	'inheritance'         => 'inheritance-law',
+	'cyber'               => 'privacy-cyber-law',
+	'privacy'             => 'privacy-cyber-law',
+	'cyber-law'           => 'privacy-cyber-law',
+	'cyber-privacy'       => 'privacy-cyber-law',
+	'privacy-cyber'       => 'privacy-cyber-law',
+	'tax'                 => 'tax-law',
 );
 
 if ( isset( $legacy_area_map[ $filter_area ] ) ) {
@@ -40,6 +47,7 @@ if ( isset( $legacy_area_map[ $filter_area ] ) ) {
 $area_taxonomy_slug_map = array(
 	'personal-injury-law'     => 'torts',
 	'medical-malpractice-law' => 'medical-malpractice',
+	'privacy-cyber-law'       => 'cyber-law',
 );
 
 $filter_area_tax_slug = $area_taxonomy_slug_map[ $filter_area ] ?? $filter_area;

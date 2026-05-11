@@ -22,7 +22,9 @@ Date: 2026-05-10
 - CODE FIXED / NOT LIVE VERIFIED: the remaining third-party mobile WhatsApp lead banner is now compacted to a 54px icon-only button in CSS; proof of live CSS simulation: `mobile-chat-widget-css-test-final-2026-05-10.png`.
 - CODE FIXED / NOT LIVE VERIFIED: featured-lawyer homepage section now requires a public-approved lawyer profile and no longer claims section-level verification.
 - CODE FIXED / NOT LIVE VERIFIED: homepage featured pillars and topic clusters now cover medical malpractice, personal injury/damages, employment law and inheritance/wills with safe fallbacks, improving the visible legal-portal hierarchy.
+- CODE FIXED / NOT LIVE VERIFIED: homepage inheritance pillar fallback now uses the inheritance lawyer-directory filter instead of an older bare `/inheritance/` path.
 - CODE FIXED / NOT LIVE VERIFIED: homepage ask-lawyer lead form now sends clean legal-area values that match the content/directory architecture instead of legacy CRM labels.
+- CODE FIXED / NOT LIVE VERIFIED: header topic-strip fallbacks now route personal injury/damages and inheritance to canonical lawyer-directory filters when clean pillar pages are not live.
 - FIXED IN CODE: stronger hero copy, fallback favicon, fuller primary menu augmentation, mobile WhatsApp offset.
 - Status: NOT CUSTOMER-READY until live recheck and menu assignment.
 
@@ -70,6 +72,7 @@ Date: 2026-05-10
 - CODE FIXED / NOT LIVE VERIFIED: lawyer cards now hide rating numbers unless review display is explicitly approved, and sponsored/profile-paid labels require an active subscription.
 - CODE FIXED / NOT LIVE VERIFIED: lawyer card/profile phone and WhatsApp buttons now suppress obvious placeholder/demo numbers, and Attorney schema uses the same safe public phone filter.
 - CODE FIXED / NOT LIVE VERIFIED: directory filters now normalize public aliases (`personal-injury-law`, `medical-malpractice-law`, `employment-law`) to the existing taxonomy slugs so major homepage/header links do not create empty filtered states.
+- CODE FIXED / NOT LIVE VERIFIED: directory filter parsing now also accepts medical underscore, privacy/cyber, and tax aliases used by menu/fallback navigation; privacy/cyber queries the existing `cyber-law` taxonomy slug.
 - Status: NOT CUSTOMER-READY until demo profiles are drafted/removed.
 
 ## 404
@@ -98,6 +101,7 @@ Date: 2026-05-10
 - Status: HOMEPAGE MOBILE VISUAL VERIFIED / INNER PAGES PARTIAL.
 - 2026-05-11 UPDATE: Inner mobile pages were sampled at 390px. Article, articles archive and lawyer directory passed overflow checks; `/family-law/` had horizontal overflow and duplicate WhatsApp controls before the fix.
 - CODE FIXED: mobile practice-hub overflow is constrained, duplicate theme WhatsApp is hidden on non-home mobile pages, and one compact contact button remains.
+- CODE FIXED / NOT LIVE VERIFIED: footer specialization navigation now includes medical malpractice, employment, traffic and inheritance filters, making the mobile footer more useful as a legal-portal navigation layer.
 - Proof before: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11.json`.
 - Proof after local CSS simulation: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-final-css.json`.
 - Status: CODE FIXED / VISUAL VERIFIED BY CSS SIMULATION / NOT LIVE VERIFIED after deployment.

@@ -102,6 +102,8 @@ function justice_theme_seed_primary_menu() {
 		array( 'title' => 'דיני עבודה',        'url' => home_url( '/lawyers/?area=labor-law' ), 'order' => 7 ),
 		array( 'title' => 'נזיקין ותאונות',    'url' => home_url( '/lawyers/?area=personal-injury-law' ), 'order' => 8 ),
 		array( 'title' => 'תעבורה',             'url' => home_url( '/lawyers/?area=traffic-law' ), 'order' => 9 ),
+		array( 'title' => 'רשלנות רפואית',      'url' => home_url( '/lawyers/?area=medical-malpractice-law' ), 'order' => 10 ),
+		array( 'title' => 'ירושה וצוואות',      'url' => home_url( '/lawyers/?area=inheritance-law' ), 'order' => 11 ),
 	);
 
 	// Try to get real practice-area terms instead of static URLs
@@ -179,18 +181,23 @@ add_action( 'init', 'justice_theme_seed_primary_menu' );
  * Repair known stale practice-area filter URLs in already-seeded menus.
  */
 function justice_theme_repair_seeded_menu_area_urls(): void {
-	if ( get_option( 'justice_menu_area_urls_repaired_v2' ) ) {
+	if ( get_option( 'justice_menu_area_urls_repaired_v3' ) ) {
 		return;
 	}
 
 	$replacements = array(
-		home_url( '/lawyers/?area=family' )      => home_url( '/lawyers/?area=family-law' ),
-		home_url( '/lawyers/?area=criminal' )    => home_url( '/lawyers/?area=criminal-law' ),
-		home_url( '/lawyers/?area=real-estate' ) => home_url( '/lawyers/?area=real-estate-law' ),
-		home_url( '/lawyers/?area=labor' )       => home_url( '/lawyers/?area=labor-law' ),
-		home_url( '/lawyers/?area=traffic' )     => home_url( '/lawyers/?area=traffic-law' ),
-		home_url( '/lawyers/?area=torts' )       => home_url( '/lawyers/?area=personal-injury-law' ),
-		home_url( '/lawyers/?area=inheritance' ) => home_url( '/lawyers/?area=inheritance-law' ),
+		home_url( '/lawyers/?area=family' )              => home_url( '/lawyers/?area=family-law' ),
+		home_url( '/lawyers/?area=criminal' )            => home_url( '/lawyers/?area=criminal-law' ),
+		home_url( '/lawyers/?area=real-estate' )         => home_url( '/lawyers/?area=real-estate-law' ),
+		home_url( '/lawyers/?area=labor' )               => home_url( '/lawyers/?area=labor-law' ),
+		home_url( '/lawyers/?area=employment-law' )      => home_url( '/lawyers/?area=labor-law' ),
+		home_url( '/lawyers/?area=traffic' )             => home_url( '/lawyers/?area=traffic-law' ),
+		home_url( '/lawyers/?area=torts' )               => home_url( '/lawyers/?area=personal-injury-law' ),
+		home_url( '/lawyers/?area=inheritance' )         => home_url( '/lawyers/?area=inheritance-law' ),
+		home_url( '/lawyers/?area=medical-malpractice' ) => home_url( '/lawyers/?area=medical-malpractice-law' ),
+		home_url( '/lawyers/?area=medical_malpractice' ) => home_url( '/lawyers/?area=medical-malpractice-law' ),
+		home_url( '/lawyers/?area=cyber-privacy' )       => home_url( '/lawyers/?area=privacy-cyber-law' ),
+		home_url( '/lawyers/?area=privacy-cyber' )       => home_url( '/lawyers/?area=privacy-cyber-law' ),
 	);
 
 	$menus = wp_get_nav_menus();
@@ -220,7 +227,7 @@ function justice_theme_repair_seeded_menu_area_urls(): void {
 		}
 	}
 
-	update_option( 'justice_menu_area_urls_repaired_v2', time(), false );
+	update_option( 'justice_menu_area_urls_repaired_v3', time(), false );
 }
 add_action( 'admin_init', 'justice_theme_repair_seeded_menu_area_urls' );
 
@@ -285,9 +292,9 @@ function justice_theme_primary_practice_menu_html(): string {
 		'נזיקין'          => '/lawyers/?area=personal-injury-law',
 		'עבודה'           => '/lawyers/?area=labor-law',
 		'ירושה וצוואות'   => '/lawyers/?area=inheritance-law',
-		'רשלנות רפואית'  => '/lawyers/?area=medical-malpractice',
+		'רשלנות רפואית'  => '/lawyers/?area=medical-malpractice-law',
 		'מיסים'           => '/lawyers/?area=tax-law',
-		'סייבר ופרטיות'  => '/lawyers/?area=cyber-privacy',
+		'סייבר ופרטיות'  => '/lawyers/?area=privacy-cyber-law',
 	);
 
 	$html = '<li class="menu-item menu-item-has-children practice-areas-menu"><a href="' . esc_url( home_url( '/lawyers/' ) ) . '">תחומי משפט</a><ul class="sub-menu">';

@@ -2,6 +2,11 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Navigation Area Fallback QA
+- CODE FIXED / NOT LIVE VERIFIED: header topic-strip fallbacks now keep personal injury/damages and inheritance users inside the lawyer directory if the clean pillar pages are not published.
+- CODE FIXED / NOT LIVE VERIFIED: footer specialization links now expose medical malpractice, employment, traffic and inheritance filters, reducing the visual/SEO gap between homepage hubs and footer navigation.
+- LIVE CHECK NEEDED: after uPress pull/cache clear, verify homepage header/footer on desktop and mobile, then spot-check `/lawyers/?area=personal-injury-law`, `/lawyers/?area=medical-malpractice-law`, `/lawyers/?area=privacy-cyber-law`, `/lawyers/?area=tax-law`, and `/lawyers/?area=inheritance-law`.
+
 ## 2026-05-11 Lead Area Vocabulary QA
 - CODE FIXED / NOT LIVE VERIFIED: public lead forms now submit clean legal-area slugs that match the content/directory architecture.
 - CODE FIXED / NOT LIVE VERIFIED: CRM display should show Hebrew area labels after classification instead of raw legacy values such as `damages` or `medical_malpractice`.

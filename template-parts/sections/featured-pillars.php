@@ -57,7 +57,7 @@ $pillars = array(
 		'title' => 'עורך דין ירושה',
 		'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8L14 2z"/><path d="M14 2v6h6M9 12h6M9 16h4"/></svg>',
 		'desc'  => 'צוואות, ירושות, ניהול עיזבון והתנגדויות לצוואה',
-		'link'  => justice_theme_safe_public_link( '/inheritance-lawyer/', '/inheritance/' ),
+		'link'  => justice_theme_safe_public_link( '/inheritance-lawyer/', '/lawyers/?area=inheritance-law' ),
 	),
 );
 ?>

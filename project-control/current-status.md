@@ -2,6 +2,16 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 03:31 Asia/Jerusalem
+- CODE FIXED: header topic-strip fallbacks for personal injury/damages and inheritance now route to canonical lawyer-directory filters instead of old standalone fallback paths.
+- CODE FIXED: homepage inheritance pillar fallback now also routes to the canonical inheritance lawyer-directory filter until the clean pillar page is published.
+- CODE FIXED: footer specialization links now expose medical malpractice, employment, traffic and inheritance filters in addition to family, criminal, real estate and personal injury.
+- CODE FIXED: seeded/admin-repaired practice-area menu URLs now normalize additional stale aliases (`medical-malpractice`, `medical_malpractice`, `cyber-privacy`, `privacy-cyber`, `employment-law`) into canonical directory filters.
+- CODE FIXED: lawyer-directory filter parsing now accepts extra public aliases for medical malpractice, privacy/cyber and tax filters, with `privacy-cyber-law` querying the existing `cyber-law` taxonomy slug.
+- VERIFIED: PHP lint passed for 127 files, `git diff --check` passed, and the remaining legacy alias scan matches intentional admin-menu repair mappings only.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-nav-area-fallback-normalization-v1`; requires uPress pull/cache clear and live checks of header/footer/menu links plus filtered directory URLs.
+- SAFETY: no public article body, URL migration, redirect, taxonomy term, lawyer record, lead/CRM record, review data, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 03:20 Asia/Jerusalem
 - CODE FIXED: public lead forms now submit canonical clean legal-area slugs (`family-law`, `criminal-law`, `real-estate-law`, `personal-injury-law`, `medical-malpractice-law`, etc.) instead of mixed legacy values.
 - CODE FIXED: the lead classifier now normalizes old/legacy area values (`family`, `real_estate`, `damages`, `torts`, `medical_malpractice`, `employment-law`, Hebrew `אחר`) into the same canonical CRM/content-cluster vocabulary.

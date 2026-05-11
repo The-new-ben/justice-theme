@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Navigation area fallback normalization
+
+- CODE FIXED: header topic-strip fallbacks for personal injury/damages and inheritance now point to canonical lawyer-directory filters instead of older bare fallback paths.
+- CODE FIXED: homepage inheritance pillar fallback now uses the canonical inheritance lawyer-directory filter while the clean pillar page is not yet live.
+- CODE FIXED: footer specialization navigation now includes the same major legal-area filters already used by the homepage/directory strategy: medical malpractice, employment, traffic and inheritance.
+- CODE FIXED: seeded/admin-repaired menu URLs normalize additional legacy aliases into canonical directory filters, including medical malpractice, employment and privacy/cyber variants.
+- CODE FIXED: lawyer-directory parsing now accepts extra public aliases for medical malpractice, privacy/cyber and tax filters, and maps the clean privacy/cyber filter to the existing `cyber-law` taxonomy slug.
+- EXPECTED IMPACT: visible navigation, SEO cluster links and directory filters stay aligned without changing public slugs or executing redirects.
+- VERIFIED: PHP lint passed for 127 files, `git diff --check` passed, and the leftover legacy alias scan only matched intentional repair mappings.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and live header/footer/menu/directory checks with marker `2026-05-11-nav-area-fallback-normalization-v1`.
+- SAFETY: no public content body, URL migration, redirect, taxonomy term, lawyer data, lead data, review data, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Lead area normalization
 
 - CODE FIXED: homepage and shared lead forms now submit canonical clean area slugs instead of mixed legacy form values.

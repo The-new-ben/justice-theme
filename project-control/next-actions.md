@@ -95,6 +95,18 @@
 6. NEXT: pull/deploy marker `2026-05-11-lead-area-normalization-v1`, then submit one controlled lead with area `רשלנות רפואית` or `נזיקין ותאונות` and verify CRM metadata.
 7. NOT LIVE VERIFIED: no public deployment/test lead yet.
 
+### ACTION-NAV-004: Normalize legal-area navigation fallbacks
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** Header, footer and menu links must support the same canonical directory filters as the homepage/content-cluster strategy, otherwise users can land on stale paths or empty filtered states.
+**Actions:**
+1. DONE: header topic-strip fallbacks for personal injury/damages and inheritance now route to `/lawyers/?area=personal-injury-law` and `/lawyers/?area=inheritance-law`.
+2. DONE: homepage inheritance pillar fallback now routes to `/lawyers/?area=inheritance-law` until the clean pillar page is published.
+3. DONE: footer specialization links now include medical malpractice, employment, traffic and inheritance in addition to the existing major fields.
+4. DONE: menu repair logic normalizes additional stale aliases for medical malpractice, employment and privacy/cyber filters.
+5. DONE: lawyer-directory filter parsing now accepts extra public aliases for medical malpractice, privacy/cyber and tax filters, with privacy/cyber querying the existing `cyber-law` taxonomy slug.
+6. NEXT: pull/deploy marker `2026-05-11-nav-area-fallback-normalization-v1`, then verify header/footer/menu links and filtered directory pages on desktop/mobile.
+7. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-BRAND-001: Logo + Favicon + Search Branding
 **Status:** PARTIAL LIVE VERIFIED - wp-admin/search-result verification pending
 **Why:** Browser tabs, mobile bookmarks and Google search results need a stable, professional icon and final brand state.

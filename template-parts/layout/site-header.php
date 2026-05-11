@@ -29,7 +29,7 @@ $justice_topic_links = array(
 	),
 	array(
 		'label' => __( 'נזיקין ותאונות', 'justice-theme' ),
-		'url'   => justice_theme_safe_public_link( '/personal-injury-lawyer/', '/personal-injury-law/' ),
+		'url'   => justice_theme_safe_public_link( '/personal-injury-lawyer/', '/lawyers/?area=personal-injury-law' ),
 	),
 	array(
 		'label' => __( 'תעבורה', 'justice-theme' ),
@@ -41,7 +41,7 @@ $justice_topic_links = array(
 	),
 	array(
 		'label' => __( 'ירושה וצוואות', 'justice-theme' ),
-		'url'   => justice_theme_safe_public_link( '/inheritance-lawyer/', '/inheritance/' ),
+		'url'   => justice_theme_safe_public_link( '/inheritance-lawyer/', '/lawyers/?area=inheritance-law' ),
 	),
 	array(
 		'label' => __( 'אבחון משפטי חכם', 'justice-theme' ),

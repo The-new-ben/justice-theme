@@ -502,3 +502,22 @@ RECOMMENDED:
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, homepage changes, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards or CMS writes until explicit approval.
+
+## 2026-05-11 Personal Injury / Damages Source And Legal Checklist
+
+CREATED:
+- `project-control/personal-injury-source-legal-checklist-2026-05-11.md`
+- `project-control/personal-injury-source-legal-checklist-2026-05-11.csv`
+
+VERIFIED:
+- The checklist maps source/legal gates for broad damages, tort lawyer intent, car accident, compulsory insurance, work accident, personal accident, tort concept pages and US personal-injury boundary content.
+- Direct public URL checks returned 200 for the main current cluster pages: `/tort-lawyer/`, `/punitive-damage/`, `/car-accident-auto-injury-lawyer/`, `/israel-road-accident-compensation-law/`, `/compulsory-motor-vehicle-insurance/`, `/personal-injury-law/`, `/tort-reform/`, `/outline-of-tort-law/` and `/deep-pocket/`.
+- Source anchors include Knesset law PDFs, National Insurance work-injury and accident-injury pages, gov.il police accident confirmation and Ministry of Labor work-accident reporting.
+- `/car-accident-auto-injury-lawyer/` remains protected as the current visible car-accident candidate, while `/car-accident-lawyer/` remains a future clean slug only.
+- `/personal-injury-lawyer/` remains a strategic future slug only; `/tort-lawyer/` remains the current thin damages/service candidate to compare.
+
+RECOMMENDED:
+- Next safe step is a page decision matrix for the personal-injury/damages pages before any rewrite, migration or internal-link execution.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards, CRM/review changes or CMS writes until explicit approval.

@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PERSONAL-INJURY-SOURCE-LEGAL-001: Create source/legal gate for damages, tort and accident boundaries
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The personal-injury/damages cluster mixes broad service intent, tort-law concepts, car-accident pages, insurance pages, work-accident boundaries, personal-accident benefits and US/international content. It needs source and legal-review gates before any rewrite or URL migration.
+**Actions:**
+1. DONE: created `project-control/personal-injury-source-legal-checklist-2026-05-11.md`.
+2. DONE: created `project-control/personal-injury-source-legal-checklist-2026-05-11.csv`.
+3. VERIFIED: direct public URL checks returned 200 for the main current personal-injury/damages pages.
+4. VERIFIED: official/public source anchors were mapped for tort law, road accidents, police confirmation, work injury, work-accident reporting and personal-accident boundaries.
+5. VERIFIED: `/car-accident-auto-injury-lawyer/` remains protected as the current visible car-accident candidate; `/car-accident-lawyer/` remains future-only.
+6. NEXT: create a page decision matrix for the current and future personal-injury/damages URLs before any internal-link, rewrite or migration plan.
+7. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-BRANDING-POLISH-V3-001: Verify and correct latest logo/favicon polish
 **Status:** COMPLETED / CODE FIXED / NOT LIVE VERIFIED
 **Why:** The latest pulled branding commit improved logo/favicon polish, and a later v4.3 CSS commit landed during rebase; the combined state needed duplicate favicon removal, no negative letter-spacing, and aligned cache markers.

@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-11 18:17 Asia/Jerusalem
+- VERIFIED / PERSONAL-INJURY SOURCE-LEGAL CHECKLIST: created the review-only source/legal gate for damages, tort-law, car-accident, compulsory-insurance, work-accident, personal-accident and US/international boundaries.
+- CREATED: `project-control/personal-injury-source-legal-checklist-2026-05-11.md`.
+- CREATED: `project-control/personal-injury-source-legal-checklist-2026-05-11.csv`.
+- VERIFIED: direct public URL checks returned 200 for `/tort-lawyer/`, `/punitive-damage/`, `/car-accident-auto-injury-lawyer/`, `/israel-road-accident-compensation-law/`, `/compulsory-motor-vehicle-insurance/`, `/personal-injury-law/`, `/tort-reform/`, `/outline-of-tort-law/` and `/deep-pocket/`.
+- VERIFIED: official/public source anchors were mapped for Torts Ordinance, road-accident compensation law, police accident confirmation, National Insurance work injury, Ministry of Labor work-accident reporting and personal-accident benefits.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, canonical, sitemap, internal-link, related-card, menu, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+- NEXT: build a page decision matrix for the personal-injury/damages cluster, or continue another cluster source/legal gate while owner approvals are pending.
+
 ## LATEST WORK STATUS - 2026-05-11 18:06 Asia/Jerusalem
 - FIXED / BRANDING POLISH V3: corrected the latest logo/favicon polish commit before live rollout and aligned it over the v4.3 CSS work that arrived during rebase.
 - CODE FIXED: removed duplicate fallback favicon output from `header.php`; fallback now remains centralized in `inc/seo.php` and still respects WordPress Site Icon.

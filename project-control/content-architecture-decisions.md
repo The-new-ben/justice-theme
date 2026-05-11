@@ -121,6 +121,13 @@ Recommended action:
 - MAKE_PILLAR strategically, but not as first GSC-priority batch.
 - Review `/car-accident-auto-injury-lawyer/` before deciding whether it stays, becomes support, or redirects later.
 
+2026-05-11 personal-injury source/legal checklist addendum:
+- VERIFIED: `project-control/personal-injury-source-legal-checklist-2026-05-11.md` and `.csv` now define official/public source anchors and legal-review gates for damages, tort law, car accidents, compulsory insurance, work accident, personal accident and US/international boundaries.
+- VERIFIED: current public 200 checks passed for `/tort-lawyer/`, `/punitive-damage/`, `/car-accident-auto-injury-lawyer/`, `/israel-road-accident-compensation-law/`, `/compulsory-motor-vehicle-insurance/`, `/personal-injury-law/`, `/tort-reform/`, `/outline-of-tort-law/` and `/deep-pocket/`.
+- VERIFIED: the checklist protects `/car-accident-auto-injury-lawyer/` as the current GSC-visible car-accident candidate and blocks migration to `/car-accident-lawyer/` until primary selection, redirect map, canonical/sitemap/internal-link plan and owner approval exist.
+- REVIEW: `/tort-lawyer/` is the current thin damages/service candidate; `/personal-injury-lawyer/` remains a strategic future slug only.
+- BLOCKED: no public title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this checklist alone.
+
 ## Traffic Law
 
 Decision:

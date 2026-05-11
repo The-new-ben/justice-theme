@@ -320,3 +320,17 @@ If owner approves this planning lane, the next safe work is:
 VERIFIED:
 - This packet is documentation and CSV planning only.
 - No live public content, URL, redirect, sitemap, canonical, noindex, menu, taxonomy, related-card, lawyer-card, CMS or database state was changed.
+
+## 2026-05-11 Source / Legal Checklist Addendum
+
+CREATED:
+- `project-control/personal-injury-source-legal-checklist-2026-05-11.md`.
+- `project-control/personal-injury-source-legal-checklist-2026-05-11.csv`.
+
+VERIFIED:
+- Official/public source anchors were mapped for tort law, road-accident bodily-injury compensation, police accident confirmation, National Insurance work injury, Ministry of Labor work-accident reporting and personal-accident boundary topics.
+- Direct public URL checks returned 200 for `/tort-lawyer/`, `/punitive-damage/`, `/car-accident-auto-injury-lawyer/`, `/israel-road-accident-compensation-law/`, `/compulsory-motor-vehicle-insurance/`, `/personal-injury-law/`, `/tort-reform/`, `/outline-of-tort-law/` and `/deep-pocket/`.
+- The checklist separates Israeli damages/service intent from road-accident support, work-accident boundary, personal-accident benefits and US personal-injury content.
+
+BLOCKED:
+- No public content rewrite, title/H1/meta change, URL migration, redirect, canonical, sitemap, noindex, internal-link, related-card, menu, lawyer-card, CRM/review, wp-admin option or CMS/database action is approved by this addendum.

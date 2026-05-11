@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Personal injury source and legal checklist
+
+- CREATED: `project-control/personal-injury-source-legal-checklist-2026-05-11.md`.
+- CREATED: `project-control/personal-injury-source-legal-checklist-2026-05-11.csv`.
+- UPDATED: `project-control/personal-injury-owner-approval-packet.md`, `project-control/content-decision-batches.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: direct public URL checks returned 200 for `/tort-lawyer/`, `/punitive-damage/`, `/car-accident-auto-injury-lawyer/`, `/israel-road-accident-compensation-law/`, `/compulsory-motor-vehicle-insurance/`, `/personal-injury-law/`, `/tort-reform/`, `/outline-of-tort-law/` and `/deep-pocket/`.
+- VERIFIED: source/legal gates were mapped for tort law, road-accident compensation, police accident confirmation, National Insurance work injury, Ministry of Labor work-accident reporting, personal-accident benefits and US personal-injury separation.
+- BLOCKED: no public personal-injury/damages content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, internal link, related-card, menu, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Logo/favicon polish v3
 
 - CODE FIXED: removed duplicate fallback favicon output from `header.php`.

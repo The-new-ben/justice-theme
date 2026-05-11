@@ -1,6 +1,6 @@
 # Plugin Manifest Diagnostic Review
 Date: 2026-05-11
-Status: CODE FIXED / LIVE DEPLOYMENT PENDING
+Status: LIVE VERIFIED PUBLIC PROTECTION / ADMIN EXPORT PENDING
 
 ## Purpose
 
@@ -74,12 +74,20 @@ HTTP 401 or 403
 RESULT: VERIFIED - diagnostic route is protected from public unauthenticated access.
 ```
 
+VERIFIED LIVE:
+
+- uPress Git log shows top commit `8111d12`.
+- Static marker returns `2026-05-11-plugin-manifest-diagnostic-v1`.
+- Public unauthenticated route check returned HTTP 401.
+
 Admin-authenticated result:
 
 - Use an authenticated WordPress admin session or application-password flow.
 - Export the JSON response.
 - Convert `files` into a CSV.
 - Compare against `project-control/ultra-justice-engine-repo-manifest.csv`.
+
+Status: BLOCKED until an authenticated WordPress admin request is available in this session.
 
 ## Important Limitation
 

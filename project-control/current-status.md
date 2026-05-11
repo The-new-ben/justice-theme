@@ -2,6 +2,15 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 08:58 Asia/Jerusalem
+- VERIFIED LIVE DEPLOYMENT: uPress Git log shows top commit `8111d12` (`Add active plugin manifest diagnostic`).
+- VERIFIED LIVE MARKER: public static marker returns `2026-05-11-plugin-manifest-diagnostic-v1`.
+- VERIFIED LIVE SECURITY: unauthenticated public request to `/wp-json/justice-theme/v1/active-plugin-manifest?plugin=ultra-justice-engine%2Fultra-justice-engine.php` returns HTTP 401.
+- VERIFIED TOOLING: `tools/check-plugin-manifest-diagnostic.ps1` reports `RESULT: VERIFIED - diagnostic route is protected from public unauthenticated access.`
+- STILL BLOCKED: admin-authenticated export of the live active plugin manifest was not performed in this pass; it requires a WordPress admin-authenticated request/session.
+- NEXT: use authenticated admin access to export the route JSON, convert the `files` array into CSV, and compare against `project-control/ultra-justice-engine-repo-manifest.csv`.
+- SAFETY: no plugin activation, deactivation, deletion, upload, rename, compression, file edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+
 ## LATEST WORK STATUS - 2026-05-11 08:54 Asia/Jerusalem
 - CODE FIXED: added admin-only read-only REST route `GET /wp-json/justice-theme/v1/active-plugin-manifest` for active plugin file manifests.
 - WHY: the live active plugin code parity check is blocked without SSH/WP-CLI/download support; this gives an administrator a controlled way to retrieve active plugin paths, byte sizes and SHA-256 hashes without changing plugin state.

@@ -4,6 +4,14 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest live verification after diagnostic deployment:
+
+- VERIFIED UPress PULL: uPress Git log shows top theme commit `8111d12` (`Add active plugin manifest diagnostic`).
+- VERIFIED LIVE MARKER: `https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?codex_diag=202605110856` returns `2026-05-11-plugin-manifest-diagnostic-v1`.
+- VERIFIED LIVE SECURITY: `tools/check-plugin-manifest-diagnostic.ps1` returned HTTP 401 for a public unauthenticated request.
+- RESULT: the diagnostic route is deployed and protected from public access.
+- STILL BLOCKED: admin-authenticated manifest export has not been run yet.
+
 Latest code change awaiting deployment:
 
 - CODE FIXED: added admin-only read-only active plugin manifest route at `/wp-json/justice-theme/v1/active-plugin-manifest`.

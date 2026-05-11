@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Full review report action intake
+
+- CREATED: `project-control/full-review-report-action-intake-2026-05-11.md`.
+- CREATED: `project-control/full-review-report-action-intake-2026-05-11.csv`.
+- UPDATED: `project-control/current-status.md`, `project-control/next-actions.md`, `project-control/final-integrated-launch-checklist.md`, and `project-control/task-board.csv`.
+- VERIFIED / REVIEW ONLY: owner-provided site review was converted into P0/P1/P2 roadmap tasks for demo lawyer trust, mock data, Hebrew UI, menu links, legal policy pages, E-E-A-T, branding, taxonomy/cannibalization, URL migration, canonical/hreflang/HTTPS, 404 routing, lead routing, visuals, legacy CPTs and competitor-parity items.
+- VERIFIED: existing project docs already cover several claims as code-fixed, live-checked or blocked, so new tasks distinguish `PARTIAL`, `NOT VERIFIED`, `BLOCKED` and `ROADMAP` rather than treating every report claim as newly confirmed.
+- BLOCKED / P0: public demo/seed lawyer exposure remains the immediate pre-marketing verification gate.
+- BLOCKED: no public lawyer record, content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy, menu, breadcrumb, related-card, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Real estate route/CMS audit plan
 
 - CREATED: `project-control/real-estate-route-cms-audit-plan-2026-05-11.md`.

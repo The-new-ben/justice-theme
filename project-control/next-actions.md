@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FULL-REVIEW-REPORT-INTAKE-001: Convert owner full-review report into launch-readiness tasks
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The owner report identifies public trust, demo-data, Hebrew UI, policy, content-quality, taxonomy, URL, visual and competitor-parity risks that must stay visible in the roadmap without interrupting the current GSC/content architecture work.
+**Actions:**
+1. DONE: created `project-control/full-review-report-action-intake-2026-05-11.md`.
+2. DONE: created `project-control/full-review-report-action-intake-2026-05-11.csv`.
+3. VERIFIED: overlapping existing work was recognized instead of duplicated blindly, including lawyer trust gates, placeholder phone suppression, branding/favicons, hreflang/HTTPS normalization, Hebrew UI checks and the known 404 plugin blocker.
+4. BLOCKED / P0: re-run live lawyer-directory/profile QA before public marketing; if any demo/seed/unapproved lawyer is visible as real, owner must approve draft/private/hide/demo-label remediation.
+5. NEXT: keep this queue as a pre-marketing safety layer while continuing GSC/content architecture batches.
+6. BLOCKED: no public lawyer record, content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy, menu, breadcrumb, related-card, lawyer-card, CRM/review or CMS write was executed from this report intake.
+
 ### ACTION-REAL-ESTATE-ROUTE-CMS-AUDIT-001: Plan audit for blocked real-estate future slugs
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The side-by-side review found unsafe future routes. Before any internal-link or migration plan, the route/CMS source of these URLs must be audited.

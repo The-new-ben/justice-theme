@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 20:44 Asia/Jerusalem
+- VERIFIED / FULL REVIEW REPORT TASK INTAKE: read the owner-provided full review report and converted needed items into launch-readiness tasks only.
+- CREATED: `project-control/full-review-report-action-intake-2026-05-11.md`.
+- CREATED: `project-control/full-review-report-action-intake-2026-05-11.csv`.
+- UPDATED: `project-control/next-actions.md`, `project-control/final-integrated-launch-checklist.md`, `project-control/changelog.md`, and `project-control/task-board.csv`.
+- VERIFIED: several report items already overlap with documented fixes or live checks, including lawyer public approval gates, placeholder phone suppression, branding/favicons, hreflang/HTTPS normalization, Hebrew UI cleanup, and the known 404 plugin blocker.
+- BLOCKED / P0: public demo or seed lawyer exposure remains the highest launch-readiness verification task until a live QA pass proves no visitor can mistake demo data for real lawyers.
+- BLOCKED: no public lawyer record, content, title/H1/meta, URL, redirect, canonical, sitemap, taxonomy, menu, CRM/review, wp-admin setting or CMS/database action was executed.
+- NEXT: use the new intake CSV as the pre-marketing trust/SEO cleanup queue, then return to the current GSC/content architecture sequence.
+
 ## LATEST WORK STATUS - 2026-05-11 20:39 Asia/Jerusalem
 - VERIFIED / REAL-ESTATE ROUTE-CMS AUDIT PLAN: created the review-only route/CMS audit plan for the blocked real-estate future slugs.
 - CREATED: `project-control/real-estate-route-cms-audit-plan-2026-05-11.md`.

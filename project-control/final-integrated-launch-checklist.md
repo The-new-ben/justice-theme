@@ -13,6 +13,8 @@ This file adds final pre-launch gates, including the new review/reputation modul
 ## Final Gates
 
 Before public marketing to lawyers:
+- P0 full-review trust gate complete: no seed/demo/unapproved lawyer appears to visitors as a real available lawyer.
+- P0 mock-data gate complete: no fake phone numbers, fake ratings, fake badges, fake reviews, placeholder CTAs or non-working user promises are visible without clear demo/explanatory context.
 - logo/favicon stable and crawlable.
 - mobile/search-branding manifest stable and crawlable.
 - homepage mobile clean.
@@ -24,6 +26,20 @@ Before public marketing to lawyers:
 - GSC risks reviewed.
 - lead forms tested.
 - analytics events ready.
+
+## 2026-05-11 Full Review Report Gates
+
+Added from owner-provided full review report:
+- DEMO LAWYER VERIFIED: live lawyer directory and profile URLs are checked after deployment/cache state; any demo/seed/unapproved profiles are hidden, drafted, private, or unmistakably labeled outside public marketing.
+- HEBREW UI VERIFIED: homepage, search, no-results, 404, articles archive, lawyer archive and one article have no sampled English WordPress default strings.
+- MENU VERIFIED: Contact/About and other main navigation links use stable approved slugs, not raw `?page_id=` URLs.
+- POLICY VERIFIED: Privacy, Terms, Editorial Policy, Advertising/Paid Placement Disclosure and Lawyer Verification/Review Policy exist where relevant.
+- ARTICLE TRUST VERIFIED: high-value legal pages have an approved author/reviewer/source-date/freshness/disclaimer plan before publication.
+- TAXONOMY VERIFIED: overlapping practice-area terms have an approved canonical map before merge, redirect, noindex or sitemap changes.
+- URL MIGRATION VERIFIED: old URL -> 301 -> new URL -> sitemap -> internal links -> canonical consistency is approved before any URL changes.
+- 404 ROUTING VERIFIED: invalid URLs return a real Hebrew 404 after owner-approved plugin/server change; valid URLs remain 200.
+- VISUAL TRUST VERIFIED: logo, favicon, OG image, lawyer imagery, article thumbnails and practice-area icons are either approved, real, or safely omitted without broken UI.
+- LEAD FLOW VERIFIED: lead forms and lawyer contact CTAs route to a real destination before marketing.
 
 ## Review / Reputation Gates
 

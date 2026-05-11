@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-11 16:43 Asia/Jerusalem
+- VERIFIED / SIDE-BY-SIDE REVIEW: completed the cyber/privacy content comparison layer after the GSC and SERP/source passes.
+- CREATED: `project-control/cyber-privacy-side-by-side-review-2026-05-11.md`.
+- CREATED: `project-control/cyber-privacy-side-by-side-review-2026-05-11.csv`.
+- UPDATED: `project-control/cyber-privacy-owner-approval-packet.md` and `.csv`.
+- VERIFIED: `/cyber-lawyer/` remains the current service candidate, but the Hebrew `תפקידם של עורכי דין בתחום הסייבר` page and `/cybercrime-lawyer-roll/` must be compared before any rewrite.
+- VERIFIED: `/fbi-cyber-division/` and `/cyber-laws/` are strong/long support assets but must not be selected as pillars by word count alone.
+- VERIFIED: the old Hebrew privacy-injury URL is still protected as the privacy support/migration-risk page; `/police-records-data-deletion/` remains a criminal-record/privacy boundary item.
+- BLOCKED: no public cyber/privacy title/H1/meta, content body, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, lawyer-card, CRM, review, wp-admin setting or CMS/database action was executed.
+- SAFETY: repo documentation/CSV planning only; no live public site state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 16:35 Asia/Jerusalem
 - VERIFIED / SERP-SOURCE REVIEW: completed the cyber/privacy SERP and source-overlay pass after the GSC support-term evidence.
 - CREATED: `project-control/serp-cyber-privacy-review-2026-05-11.md`.

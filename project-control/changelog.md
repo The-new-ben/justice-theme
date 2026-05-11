@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Cyber/privacy side-by-side content review
+
+- CREATED: `project-control/cyber-privacy-side-by-side-review-2026-05-11.md`.
+- CREATED: `project-control/cyber-privacy-side-by-side-review-2026-05-11.csv`.
+- UPDATED: `project-control/cyber-privacy-owner-approval-packet.md`, `project-control/cyber-privacy-owner-approval-packet.csv`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `/cyber-lawyer/` remains the current service candidate but must be compared against the Hebrew cyber-lawyer role page and `/cybercrime-lawyer-roll/`.
+- VERIFIED: `/fbi-cyber-division/` and `/cyber-laws/` are strong support assets but not approved primary pages by word count alone.
+- VERIFIED: the old Hebrew privacy-injury URL remains protected; `/police-records-data-deletion/` remains a criminal-record/privacy/data-deletion boundary item.
+- BLOCKED: no public content, URL, redirect, noindex, canonical, sitemap, title/H1/meta, menu, taxonomy, related-card, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Cyber/privacy SERP and source review
 
 - CREATED: `project-control/serp-cyber-privacy-review-2026-05-11.md`.

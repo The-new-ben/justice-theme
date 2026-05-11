@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CYBER-PRIVACY-SIDE-BY-SIDE-001: Compare existing cyber/privacy pages before execution
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The GSC and SERP/source passes showed that cyber/privacy has overlapping service, support, case-law, privacy and data-deletion assets. A side-by-side comparison is required before any rewrite, merge, redirect, internal-link, title/H1/meta or CMS execution.
+**Actions:**
+1. DONE: created `project-control/cyber-privacy-side-by-side-review-2026-05-11.md`.
+2. DONE: created `project-control/cyber-privacy-side-by-side-review-2026-05-11.csv`.
+3. DONE: updated the cyber/privacy owner-approval packet.
+4. VERIFIED: `/cyber-lawyer/` is still the current service candidate, but it must be compared against the Hebrew `תפקידם של עורכי דין בתחום הסייבר` page and `/cybercrime-lawyer-roll/`.
+5. VERIFIED: `/fbi-cyber-division/` and `/cyber-laws/` are not approved primary pages by word count alone.
+6. VERIFIED: the old Hebrew privacy-injury URL remains protected and `/police-records-data-deletion/` remains a boundary page.
+7. NEXT: create an approval-gated cyber/privacy internal-link plan, or move to homepage line-by-line SEO/design alignment from verified homepage evidence.
+8. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/menu, related-card, lawyer-card, CRM/review or CMS writes until owner-approved execution.
+
 ### ACTION-SERP-CYBER-PRIVACY-SOURCE-001: Run cyber/privacy SERP and official-source review
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The cyber/privacy GSC pass created partial evidence, but the cluster still needed SERP/source/legal context before any content, URL, redirect, internal-link, title/H1/meta or CMS execution.

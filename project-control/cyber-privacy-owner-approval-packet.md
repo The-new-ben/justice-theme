@@ -236,6 +236,22 @@ NOT VERIFIED:
 BLOCKED:
 - No public content, title/H1/meta, URL, redirect, canonical, sitemap, noindex, related-card, lawyer-card, CMS or database action is approved by this overlay.
 
+## 2026-05-11 Side-By-Side Content Review Overlay
+
+VERIFIED:
+- Created `project-control/cyber-privacy-side-by-side-review-2026-05-11.md`.
+- Created `project-control/cyber-privacy-side-by-side-review-2026-05-11.csv`.
+- `/cyber-lawyer/` remains the current service candidate with `6,405` words and quality `8/10`.
+- Hebrew `תפקידם של עורכי דין בתחום הסייבר` has `9,576` words and quality `8/10`, so it must be compared for possible merge/support before rewriting `/cyber-lawyer/`.
+- `/cybercrime-lawyer-roll/` has the only visible GSC row for `עורך דין סייבר` but should remain support/boundary review, not automatic primary.
+- `/fbi-cyber-division/` has `21,917` words but is international/FBI context and must not become primary by word count.
+- `/cyber-laws/` has `13,956` words and quality `8/10`, but should remain informational/support unless owner approves a separate hub.
+- Old Hebrew privacy-injury URL has `4,121` words, quality `6/10`, a rewrite flag, and visible GSC support signals; protect it before any migration.
+- `/police-records-data-deletion/` is thin (`530` words), quality `2/10`, outdated and remains a criminal-record/privacy/data-deletion boundary item.
+
+BLOCKED:
+- No public rewrite, merge, slug change, redirect, canonical, sitemap, internal-link, title/H1/meta, related-card, lawyer-card, CMS or database action is approved by this side-by-side comparison.
+
 ## Source And Legal Review Checklist
 
 Required before public rewrites:

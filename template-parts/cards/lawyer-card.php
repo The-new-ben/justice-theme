@@ -84,10 +84,17 @@ $whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' 
 	<a class="lawyer-card__media" href="<?php echo esc_url( $lawyer_url ); ?>" aria-label="<?php echo esc_attr( sprintf( 'פרופיל עורך הדין %s', get_the_title() ) ); ?>">
 		<?php if ( has_post_thumbnail() ) : ?>
 			<?php the_post_thumbnail( 'justice-card', array( 'loading' => 'lazy' ) ); ?>
-		<?php else : ?>
-			<div class="lawyer-card__placeholder" aria-hidden="true">
-				<span><?php echo esc_html( mb_substr( get_the_title(), 0, 2 ) ); ?></span>
-			</div>
+		<?php else :
+			// Gender-aware default avatar — Hebrew female names often end with ה
+			$lawyer_title   = get_the_title();
+			$first_name     = explode( ' ', trim( $lawyer_title ) )[0] ?? '';
+			$is_female_hint = ( mb_substr( $first_name, -1 ) === 'ה' || mb_substr( $first_name, -1 ) === 'ת' );
+			$avatar_file    = $is_female_hint ? 'avatar-female.png' : 'avatar-male.png';
+		?>
+			<img class="lawyer-card__avatar" loading="lazy" decoding="async"
+				src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/' . $avatar_file ); ?>"
+				alt="<?php echo esc_attr( sprintf( __( 'תמונת פרופיל — %s', 'justice-theme' ), $lawyer_title ) ); ?>"
+				width="260" height="260">
 		<?php endif; ?>
 	</a>
 

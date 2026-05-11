@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 04:40 Asia/Jerusalem
+- CODE FIXED: theme admin seeders now require explicit opt-in filters before creating taxonomy terms, pillar page drafts, article drafts, city/practice drafts, lawyer registration page, lawyer dashboard page or lawyer plans page.
+- CODE FIXED: added shared `justice_theme_admin_cms_write_enabled()` gate for owner-approved admin seed/write actions.
+- WHY: opening wp-admin during the content audit/URL migration project should not silently create public pages, article drafts, taxonomy terms or business-funnel pages.
+- VERIFIED: manual/editorial form submissions and existing public render-time fallbacks are unchanged; this patch only controls automatic seeders.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-admin-seed-write-guard-v1`; public homepage still needs uPress pull/cache clear before this can be verified.
+- SAFETY: no taxonomy term, page, article, URL, redirect, content body, sitemap, canonical, lawyer record, lead/CRM record, review data, wp-admin setting or database row was changed by this repo patch.
+
 ## LATEST WORK STATUS - 2026-05-11 04:30 Asia/Jerusalem
 - CODE FIXED: primary WordPress menu seeding no longer runs from public `init`; it is admin-only and requires explicit opt-in filter `justice_theme_enable_primary_menu_seed`.
 - CODE FIXED: seeded-menu URL repair now requires explicit opt-in filter `justice_theme_enable_seeded_menu_area_url_repair`.

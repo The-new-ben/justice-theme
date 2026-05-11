@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-ADMIN-SEED-SAFETY-001: Prevent automatic draft/page/term seeding during audit
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** The current mode is inventory, mapping and controlled approval. Opening wp-admin should not silently create draft pages, article drafts, taxonomy terms or lawyer funnel pages.
+**Actions:**
+1. DONE: added shared `justice_theme_admin_cms_write_enabled()` helper.
+2. DONE: taxonomy practice/city seeding requires `justice_theme_enable_core_practice_terms_seed` / `justice_theme_enable_core_city_terms_seed`.
+3. DONE: pillar page, pillar article and city/practice draft seeders require explicit opt-in filters.
+4. DONE: lawyer registration, dashboard and plans page seeders require explicit opt-in filters.
+5. VERIFIED: existing public fallback links and user-submitted workflows are unchanged.
+6. NEXT: pull/deploy marker `2026-05-11-admin-seed-write-guard-v1`, then confirm wp-admin load does not create unapproved seed content.
+7. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-MENU-SAFETY-001: Keep permanent WordPress menu writes controlled
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** Menus define the public SEO/design hierarchy. During the content architecture project, a theme pull or public page request must not silently create or repair WordPress menu items.

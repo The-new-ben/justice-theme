@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function justice_theme_seed_pillar_article_drafts(): void {
-	if ( ! current_user_can( 'manage_options' ) || get_option( 'justice_pillar_article_drafts_seeded_v1' ) ) {
+	if ( ! justice_theme_admin_cms_write_enabled( 'justice_theme_enable_pillar_article_draft_seed' ) || get_option( 'justice_pillar_article_drafts_seeded_v1' ) ) {
 		return;
 	}
 

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function justice_theme_seed_core_practice_terms(): void {
-	if ( ! current_user_can( 'manage_options' ) || get_option( 'justice_core_practice_terms_seeded_v1' ) ) {
+	if ( ! justice_theme_admin_cms_write_enabled( 'justice_theme_enable_core_practice_terms_seed' ) || get_option( 'justice_core_practice_terms_seeded_v1' ) ) {
 		return;
 	}
 
@@ -52,7 +52,7 @@ function justice_theme_seed_core_practice_terms(): void {
 add_action( 'admin_init', 'justice_theme_seed_core_practice_terms' );
 
 function justice_theme_seed_core_city_terms(): void {
-	if ( ! current_user_can( 'manage_options' ) || get_option( 'justice_core_city_terms_seeded_v1' ) ) {
+	if ( ! justice_theme_admin_cms_write_enabled( 'justice_theme_enable_core_city_terms_seed' ) || get_option( 'justice_core_city_terms_seeded_v1' ) ) {
 		return;
 	}
 

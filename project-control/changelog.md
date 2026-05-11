@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Admin seed CMS write guard
+
+- CODE FIXED: added `justice_theme_admin_cms_write_enabled()` for explicit owner-approved admin seed/write actions.
+- CODE FIXED: automatic theme seeders for taxonomy terms, pillar page drafts, pillar article drafts, city/practice drafts, lawyer registration, lawyer dashboard and lawyer plans pages now require explicit opt-in filters.
+- EXPECTED IMPACT: opening wp-admin after a theme pull will not silently create new drafts/pages/terms during the audit-first content architecture project.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-admin-seed-write-guard-v1`.
+- SAFETY: no terms, pages, articles, content, URLs, redirects, sitemap, canonical, CRM, lawyer, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - Menu CMS write guard
 
 - CODE FIXED: primary menu seeding no longer runs from public `init`; it is admin-only and requires `justice_theme_enable_primary_menu_seed`.

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function justice_theme_seed_lawyer_dashboard_page(): void {
-	if ( ! current_user_can( 'manage_options' ) || get_option( 'justice_lawyer_dashboard_page_seeded_v1' ) ) {
+	if ( ! justice_theme_admin_cms_write_enabled( 'justice_theme_enable_lawyer_dashboard_page_seed' ) || get_option( 'justice_lawyer_dashboard_page_seeded_v1' ) ) {
 		return;
 	}
 

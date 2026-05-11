@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function justice_theme_seed_city_practice_drafts(): void {
-	if ( ! current_user_can( 'manage_options' ) || get_option( 'justice_city_practice_drafts_seeded_v1' ) ) {
+	if ( ! justice_theme_admin_cms_write_enabled( 'justice_theme_enable_city_practice_draft_seed' ) || get_option( 'justice_city_practice_drafts_seeded_v1' ) ) {
 		return;
 	}
 

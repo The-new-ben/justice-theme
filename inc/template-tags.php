@@ -10,6 +10,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Confirm that an admin-only CMS seed/write action has been explicitly enabled.
+ *
+ * These seeders create WordPress terms, pages, or draft articles. During the
+ * audit-first restructure project, opening wp-admin should not create content
+ * unless a deployment owner deliberately opts in with the relevant filter.
+ *
+ * @param string $filter_name Boolean feature filter name.
+ * @return bool
+ */
+function justice_theme_admin_cms_write_enabled( string $filter_name ): bool {
+	return is_admin() && current_user_can( 'manage_options' ) && (bool) apply_filters( $filter_name, false );
+}
+
+/**
  * Calculate reading time.
  *
  * @param int $post_id Post ID.

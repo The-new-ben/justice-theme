@@ -107,7 +107,7 @@ function justice_theme_save_pillar_page_meta( int $post_id ): void {
 add_action( 'save_post_page', 'justice_theme_save_pillar_page_meta' );
 
 function justice_theme_seed_pillar_page_drafts(): void {
-	if ( ! current_user_can( 'manage_options' ) || get_option( 'justice_pillar_drafts_seeded_v1' ) ) {
+	if ( ! justice_theme_admin_cms_write_enabled( 'justice_theme_enable_pillar_page_draft_seed' ) || get_option( 'justice_pillar_drafts_seeded_v1' ) ) {
 		return;
 	}
 

@@ -17,6 +17,9 @@
 5. NEXT: run the first browser pass for `מזונות ילדים`, `חישוב מזונות`, `מחשבון מזונות`, `בעמ 919/15`, `משמורת ילדים`, `עורך דין דיני עבודה`, `דיני עבודה`, `עורך דין ירושה`, `עורך דין צוואות וירושות`, and `עורך דין תאונות דרכים`.
 6. NEXT: update `gsc-keyword-page-map.csv`, `gsc-cannibalization-review.csv`, `gsc-content-priorities.csv`, `content-decision-evidence-overlay.csv`, and topic packets after each checked group.
 7. BLOCKED: do not execute URL changes, redirects, noindex, canonical changes, sitemap changes, content rewrites, content deletion, menu changes or CMS writes from the query queue alone.
+8. DONE: first browser pass completed and documented in `project-control/gsc-targeted-query-pass-2026-05-11.csv` and `project-control/gsc-targeted-query-pass-2026-05-11.md`.
+9. VERIFIED: child-support/calculation variants map to old calculator URL; custody maps to `what-is-child-custody` plus a PDF; employment is split across homepage, `/labor-lawyer/`, `/israeli-labor-law/` and support pages.
+10. NEXT: run the second pass for `מזונות משותפת`, `הפחתת מזונות`, `שינוי מזונות`, `הלכת המזונות החדשה`, `בע"מ 919/15`, `משמורת בלעדית לאם`, `חקירה במשטרה`, `עבירות סמים`, and `נהיגה בשכרות`.
 
 ### ACTION-CONTENT-DECISION-EVIDENCE-001: Overlay GSC/SERP evidence on first content decision batch
 **Status:** IN PROGRESS / REVIEW ONLY

@@ -2,6 +2,14 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 GSC Targeted Evidence Screenshot
+- VERIFIED: browser GSC access works for the URL-prefix property `https://jus-tice.co.il/`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-child-support-pages-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-child-support-pages-2026-05-11-full.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-child-support-pages-table-2026-05-11.png`.
+- VERIFIED: screenshot captures the Pages-tab evidence for `מזונות ילדים`, showing the old calculator URL as the visible GSC page for that filtered query.
+- SAFETY: this is evidence capture only; no public content, URL, redirect, sitemap, canonical, document, taxonomy, menu, lawyer, CRM, review or plugin state was changed.
+
 ## 2026-05-11 Media/Image Sitemap HTTPS QA
 - FIXED LIVE: public media URLs now normalize to HTTPS in attachment helpers, image srcsets, rendered post content and Rank Math image sitemap callbacks.
 - WHY: after theme link cleanup, the remaining findings were 69 sitemap image URLs and 2 public content image `src` attributes.

@@ -23,10 +23,29 @@ It does not approve URL changes, redirects, content deletion, noindex, canonical
 
 ## NOT VERIFIED
 
-- Direct GSC traffic for `מזונות ילדים`, `חישוב מזונות`, `בעמ 919/15`, `מזונות משותפת`, and related variants is still missing from the current evidence overlay.
+- Direct GSC traffic for `מזונות משותפת`, `הפחתת מזונות`, `שינוי מזונות`, `הלכת המזונות החדשה`, `בע"מ 919/15`, and related variants is still missing from the current evidence overlay.
 - Full legal/source review of the child-support guide is not complete.
 - Official source for exact `בע״ם 919/15` wording is still not verified.
 - Any child-support calculator/tool framing is not approved for publication.
+
+## 2026-05-11 Targeted GSC Browser Evidence
+
+VERIFIED:
+- `מזונות ילדים`: `160` impressions, `0` clicks, `0%` CTR, average position `49.6`.
+- `חישוב מזונות`: `131` impressions, `0` clicks, `0%` CTR, average position `54.9`.
+- `מחשבון מזונות`: `70` impressions, `0` clicks, `0%` CTR, average position `30.0`.
+- All three visible child-support/calculation filters mapped to `https://jus-tice.co.il/מחשבון-מזונות-ילדים/`.
+- `בעמ 919/15` returned no visible rows for this exact typed filter.
+
+REVIEW:
+- The clean `/child-support/` guide did not appear for the checked child-support variants.
+- The old calculator URL is now a verified traffic-risk/support/tool page, not a page to remove or redirect blindly.
+- Calculator intent may need a compliant support article or tool plan, but no calculator/tool framing is approved without legal/source review.
+
+BLOCKED:
+- No redirect from the old calculator URL.
+- No deletion/noindex of the old calculator URL.
+- No publication of calculator claims or formula language without legal review.
 
 ## Preliminary Decision
 

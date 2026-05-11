@@ -149,3 +149,22 @@ NEXT:
 
 BLOCKED:
 - The queue is not approval for URL migration, redirects, noindex, canonical changes, sitemap changes, content rewrites, deletions, taxonomy/menu changes or CMS writes.
+
+## 2026-05-11 Targeted GSC Browser Pass 001
+
+CREATED:
+- `project-control/gsc-targeted-query-pass-2026-05-11.csv`
+- `project-control/gsc-targeted-query-pass-2026-05-11.md`
+
+VERIFIED:
+- `מזונות ילדים`, `חישוב מזונות`, and `מחשבון מזונות` are currently owned in GSC by the old URL `https://jus-tice.co.il/מחשבון-מזונות-ילדים/`.
+- `משמורת ילדים` is split between `https://jus-tice.co.il/what-is-child-custody/` and `https://jus-tice.co.il/wp-content/uploads/2021/07/ChildCustody.pdf`.
+- `דיני עבודה` is split across an informational page, homepage, a weak service page, case/support pages and one lawyer-facing page.
+- Exact `עורך דין ירושה` and `עורך דין צוואות וירושות` filters returned no visible rows.
+
+REVIEW:
+- Child support and custody clean URLs remain candidates, but they are not current GSC winners for the checked queries.
+- Old URLs and document URLs now have verified migration risk and must be protected until owner-approved redirect/document strategy.
+
+BLOCKED:
+- No URL migration, redirect, noindex, canonical, sitemap, content rewrite, document removal, taxonomy/menu change or CMS write is approved from this pass.

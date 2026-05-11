@@ -2,6 +2,20 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 12:17 Asia/Jerusalem
+- IN PROGRESS / REVIEW: ran the first targeted GSC browser pass from the new query queue against the accessible URL-prefix property `https://jus-tice.co.il/`.
+- CREATED: `project-control/gsc-targeted-query-pass-2026-05-11.csv`.
+- CREATED: `project-control/gsc-targeted-query-pass-2026-05-11.md`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-child-support-pages-2026-05-11.png`.
+- UPDATED: `project-control/gsc-keyword-page-map.csv`, `project-control/gsc-cannibalization-review.csv`, `project-control/gsc-content-priorities.csv`, `project-control/content-decision-evidence-overlay.csv`, and `project-control/child-support-content-decision-packet.md`.
+- VERIFIED: `מזונות ילדים` has `160` impressions and all visible impressions go to `https://jus-tice.co.il/מחשבון-מזונות-ילדים/`, not `/child-support/`.
+- VERIFIED: `חישוב מזונות` has `131` impressions and `מחשבון מזונות` has `70` impressions; both also map to the old calculator URL.
+- VERIFIED: `משמורת ילדים` has `611` impressions split between `https://jus-tice.co.il/what-is-child-custody/` and `https://jus-tice.co.il/wp-content/uploads/2021/07/ChildCustody.pdf`; clean `/child-custody/` did not appear.
+- VERIFIED: employment-law queries show weak primary ownership: `עורך דין דיני עבודה` maps mostly to the homepage, while `דיני עבודה` maps mostly to `https://jus-tice.co.il/israeli-labor-law/`.
+- VERIFIED: exact `עורך דין ירושה` and `עורך דין צוואות וירושות` filters returned no visible rows; `עורך דין תאונות דרכים` had only `2` impressions on `https://jus-tice.co.il/car-accident-auto-injury-lawyer/`.
+- BLOCKED: this evidence does not approve any URL, redirect, noindex, canonical, sitemap, content rewrite, document removal, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change.
+- SAFETY: browser GSC was read-only; repo changes are documentation/CSV evidence only.
+
 ## LATEST WORK STATUS - 2026-05-11 11:55 Asia/Jerusalem
 - IN PROGRESS / REVIEW: created a targeted GSC query queue to turn the current audit gaps into a concrete browser-check sequence.
 - CREATED: `project-control/targeted-gsc-query-queue.csv`.

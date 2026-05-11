@@ -102,6 +102,24 @@ VERIFIED:
 - The safe next queries are now expanded into a row-level queue with expected primary URLs, support URLs, decision rules and status labels.
 - This keeps the next GSC browser session focused on evidence collection rather than content rewriting.
 
+## 2026-05-11 Targeted Browser Pass 001
+
+CREATED:
+- `project-control/gsc-targeted-query-pass-2026-05-11.csv`
+- `project-control/gsc-targeted-query-pass-2026-05-11.md`
+
+VERIFIED:
+- The browser-accessible GSC property is the URL-prefix property `https://jus-tice.co.il/`.
+- `מזונות ילדים`: `160` impressions, `0` clicks, old calculator URL owns all visible rows.
+- `חישוב מזונות`: `131` impressions, `0` clicks, old calculator URL owns all visible rows.
+- `מחשבון מזונות`: `70` impressions, `0` clicks, old calculator URL owns all visible rows.
+- `משמורת ילדים`: `611` impressions, split between `what-is-child-custody` and `ChildCustody.pdf`.
+- `דיני עבודה`: `614` impressions, mostly `israeli-labor-law`, with additional homepage/service/support-page overlap.
+
+REVIEW:
+- Child-support and custody clean URLs require merge/internal-link/document strategy before any migration.
+- Employment needs an informational-vs-lawyer-intent split before selecting final English slugs.
+
 ## Execution Rule
 
 Map first. Decide second. Execute later in controlled batches.

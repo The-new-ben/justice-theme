@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Targeted GSC browser evidence pass
+
+- CREATED: `project-control/gsc-targeted-query-pass-2026-05-11.csv`.
+- CREATED: `project-control/gsc-targeted-query-pass-2026-05-11.md`.
+- SAVED EVIDENCE: `project-control/visual-evidence/gsc-targeted-child-support-pages-2026-05-11.png`.
+- UPDATED: `project-control/gsc-keyword-page-map.csv`, `project-control/gsc-cannibalization-review.csv`, `project-control/gsc-content-priorities.csv`, `project-control/content-decision-evidence-overlay.csv`, and `project-control/child-support-content-decision-packet.md`.
+- VERIFIED: GSC URL-prefix property `https://jus-tice.co.il/` is accessible in the browser, while the domain property route showed no access.
+- VERIFIED: `מזונות ילדים`, `חישוב מזונות`, and `מחשבון מזונות` all map to `https://jus-tice.co.il/מחשבון-מזונות-ילדים/`, not `/child-support/`.
+- VERIFIED: `משמורת ילדים` maps to `https://jus-tice.co.il/what-is-child-custody/` and a `ChildCustody.pdf` upload, not clean `/child-custody/`.
+- VERIFIED: employment-law queries show weak primary ownership across homepage, `/labor-lawyer/`, `/israeli-labor-law/`, case/support pages and one lawyer-facing page.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, document removal, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Targeted GSC query queue
 
 - CREATED: `project-control/targeted-gsc-query-queue.csv`.

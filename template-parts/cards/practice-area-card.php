@@ -49,21 +49,23 @@ $count = absint( $term->count );
 			<?php endif; ?>
 		</div>
 
-		<h3 class="practice-area-card__title">
-			<?php echo esc_html( $clean_name ); ?>
-		</h3>
+		<div class="practice-area-card__content">
+			<h3 class="practice-area-card__title">
+				<?php echo esc_html( $clean_name ); ?>
+			</h3>
 
-		<span class="practice-area-card__count">
-			<?php
-			if ( $count === 0 ) {
-				esc_html_e( 'בקרוב', 'justice-theme' );
-			} elseif ( $count === 1 ) {
-				echo esc_html( '1 ' . __( 'מדריך', 'justice-theme' ) );
-			} else {
-				/* translators: %d: number of articles. */
-				printf( esc_html__( '%d מדריכים', 'justice-theme' ), $count );
-			}
-			?>
-		</span>
+			<span class="practice-area-card__count">
+				<?php
+				if ( $count === 0 ) {
+					esc_html_e( 'בקרוב', 'justice-theme' );
+				} elseif ( $count === 1 ) {
+					echo esc_html( '1 ' . __( 'מדריך', 'justice-theme' ) );
+				} else {
+					/* translators: %d: number of articles. */
+					printf( esc_html__( '%d מדריכים', 'justice-theme' ), $count );
+				}
+				?>
+			</span>
+		</div>
 	</a>
 </article>

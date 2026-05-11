@@ -20,57 +20,45 @@ if ( ! defined( 'ABSPATH' ) ) {
  */
 function justice_get_practice_area_icon( $slug ) {
 	$icons = array(
-		// Family law — family/people icon
-		'family-law'    => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>',
-		'דיני-משפחה'    => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path stroke-linecap="round" stroke-linejoin="round" d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>',
+		// Family law / Divorce — document with heart accent
+		'family-law'    => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M9 14.5c0-1.5 1.5-3 3-1.5 1.5-1.5 3 0 3 1.5 0 2.5-3 4.5-3 4.5s-3-2-3-4.5z"/></svg>',
+		'דיני-משפחה'    => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M9 14.5c0-1.5 1.5-3 3-1.5 1.5-1.5 3 0 3 1.5 0 2.5-3 4.5-3 4.5s-3-2-3-4.5z"/></svg>',
 
-		// Criminal law — shield/lock icon
-		'criminal-law'  => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
-		'פלילי'         => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+		// Criminal law — shield and document
+		'criminal-law'  => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M12 11l4 2v3.5c0 3-4 4.5-4 4.5s-4-1.5-4-4.5V13l4-2z"/></svg>',
+		'פלילי'         => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M12 11l4 2v3.5c0 3-4 4.5-4 4.5s-4-1.5-4-4.5V13l4-2z"/></svg>',
 
-		// Real estate — building icon
-		'real-estate'   => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11M8 14v.01M12 14v.01M16 14v.01M8 18v.01M12 18v.01M16 18v.01"/></svg>',
-		'מקרקעין'       => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11M8 14v.01M12 14v.01M16 14v.01M8 18v.01M12 18v.01M16 18v.01"/></svg>',
+		// Real estate — house on document
+		'real-estate'   => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M8 15l4-3 4 3v5H8v-5z"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M12 12l-5 3.5M12 12l5 3.5"/></svg>',
+		'מקרקעין'       => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M8 15l4-3 4 3v5H8v-5z"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M12 12l-5 3.5M12 12l5 3.5"/></svg>',
 
-		// Labor law — briefcase icon
-		'labor-law'     => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>',
-		'עבודה'         => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path stroke-linecap="round" stroke-linejoin="round" d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg>',
+		// Labor law — briefcase and document
+		'labor-law'     => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><rect stroke="var(--jt-accent-red)" x="8" y="14" width="8" height="5" rx="1"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M10 14v-1a2 2 0 014 0v1"/></svg>',
+		'עבודה'         => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><rect stroke="var(--jt-accent-red)" x="8" y="14" width="8" height="5" rx="1"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M10 14v-1a2 2 0 014 0v1"/></svg>',
 
-		// Torts — alert triangle
-		'torts'         => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg>',
-		'נזיקין'        => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0zM12 9v4M12 17h.01"/></svg>',
+		// Torts / Damages — document with insurance check
+		'torts'         => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><circle stroke="var(--jt-accent-red)" cx="12" cy="15" r="4"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M10.5 15l1 1 2-2"/></svg>',
+		'נזיקין'        => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><circle stroke="var(--jt-accent-red)" cx="12" cy="15" r="4"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M10.5 15l1 1 2-2"/></svg>',
 
-		// Traffic — car icon
-		'traffic'       => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 17h14M5 17a2 2 0 01-2-2V9a2 2 0 012-2h1l2-3h8l2 3h1a2 2 0 012 2v6a2 2 0 01-2 2M5 17a2 2 0 100 4 2 2 0 000-4zM19 17a2 2 0 100 4 2 2 0 000-4z"/></svg>',
-		'תעבורה'        => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 17h14M5 17a2 2 0 01-2-2V9a2 2 0 012-2h1l2-3h8l2 3h1a2 2 0 012 2v6a2 2 0 01-2 2M5 17a2 2 0 100 4 2 2 0 000-4zM19 17a2 2 0 100 4 2 2 0 000-4z"/></svg>',
+		// Traffic — document and road/car
+		'traffic'       => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M9 20l1.5-7h3l1.5 7M12 13v2m0 3v2"/></svg>',
+		'תעבורה'        => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M9 20l1.5-7h3l1.5 7M12 13v2m0 3v2"/></svg>',
 
-		// Inheritance — scroll/document icon
-		'inheritance'   => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
-		'ירושה-וצוואות' => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14,2 14,8 20,8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>',
+		// Inheritance — document and seal
+		'inheritance'   => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><circle stroke="var(--jt-accent-red)" cx="12" cy="14" r="3"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M10.5 16.5L9 20l3-1 3 1-1.5-3.5"/></svg>',
+		'ירושה-וצוואות' => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><circle stroke="var(--jt-accent-red)" cx="12" cy="14" r="3"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M10.5 16.5L9 20l3-1 3 1-1.5-3.5"/></svg>',
 
-		// Medical malpractice — heart/medical icon
-		'medical'       => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
-		'רשלנות-רפואית' => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>',
+		// Medical malpractice — document and medical cross
+		'medical'       => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M12 12v6m-3-3h6"/></svg>',
+		'רשלנות-רפואית' => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M12 12v6m-3-3h6"/></svg>',
 
-		// Commercial law — trending up
-		'commercial'    => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/><polyline points="17,6 23,6 23,12"/></svg>',
-		'מסחרי'         => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23,6 13.5,15.5 8.5,10.5 1,18"/><polyline points="17,6 23,6 23,12"/></svg>',
+		// Commercial law — document and trending up
+		'commercial'    => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M8 17l3-3 2 2 3-3M16 13v3m0-3h-3"/></svg>',
+		'מסחרי'         => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M8 17l3-3 2 2 3-3M16 13v3m0-3h-3"/></svg>',
 
-		// Tax — calculator / dollar
-		'tax'           => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path stroke-linecap="round" stroke-linejoin="round" d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>',
-		'מיסים'         => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path stroke-linecap="round" stroke-linejoin="round" d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>',
-
-		// Insurance — umbrella
-		'ביטוח'         => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M23 12a11.05 11.05 0 00-22 0M12 12v9a3 3 0 01-3-3"/></svg>',
-
-		// National insurance — institution
-		'ביטוח-לאומי'   => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21h18M3 10h18M3 7l9-4 9 4M4 10v11M20 10v11M8 14v.01M12 14v.01M16 14v.01M8 18v.01M12 18v.01M16 18v.01"/></svg>',
-
-		// Environmental — leaf
-		'איכות-סביבה'   => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 8C8 10 5.9 16.17 3.82 21.34M20.54 5.11l-1.42 1.42M15.17 2.93l-.5 2.5M21 3s-4.5 1-7.5 4-4 7.5-4 7.5"/></svg>',
-
-		// Rabbinical court — star of david (hexagram)
-		'בית-הדין-הרבני' => '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>',
+		// Tax — document and calculator/percent
+		'tax'           => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M9 13l6 6m-5.5-1.5a.5.5 0 100-1 .5.5 0 000 1zm5-3a.5.5 0 100-1 .5.5 0 000 1z"/></svg>',
+		'מיסים'         => '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M9 13l6 6m-5.5-1.5a.5.5 0 100-1 .5.5 0 000 1zm5-3a.5.5 0 100-1 .5.5 0 000 1z"/></svg>',
 	);
 
 	// Try exact slug match first
@@ -85,6 +73,6 @@ function justice_get_practice_area_icon( $slug ) {
 		}
 	}
 
-	// Default fallback — scales of justice
-	return '<svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3v18M3 7l3 6c0 1.66 1.34 3 3 3s3-1.34 3-3l3-6M12 7l3 6c0 1.66 1.34 3 3 3s3-1.34 3-3l3-6"/></svg>';
+	// Default fallback — document with pen
+	return '<svg width="28" height="28" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8l-6-6z"/><path d="M14 2v6h6"/><path stroke="var(--jt-accent-red)" stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5L9 15v3h3l4.5-4.5-3-3z"/></svg>';
 }

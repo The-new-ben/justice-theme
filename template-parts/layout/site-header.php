@@ -77,6 +77,13 @@ $justice_topic_links = array(
 					<?php the_custom_logo(); ?>
 				<?php else : ?>
 					<a class="brand-lockup brand-lockup--justice" href="<?php echo esc_url( home_url( '/' ) ); ?>" aria-label="Jus-Tice" dir="ltr">
+						<span class="brand-lockup__icon" aria-hidden="true">
+							<svg width="30" height="30" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M14 2H6C4.89543 2 4 2.89543 4 4V24C4 25.1046 4.89543 26 6 26H22C23.1046 26 24 25.1046 24 24V12L14 2Z" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+								<path d="M14 2V12H24" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+								<path d="M11 18C11 19.6569 12.3431 21 14 21C15.6569 21 17 19.6569 17 18V12" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</span>
 						<span class="brand-lockup__wordmark" aria-hidden="true">
 							<span>Jus</span><span class="brand-lockup__red-dot"></span><span>Tice</span>
 						</span>

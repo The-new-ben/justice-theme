@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-WAVE-1B-SUPPORT-REVIEW-001: Review support-page drafts as a batch
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** `/divorce-lawyer/` is blocked by approval, so the next useful repo-only work is preparing the six support pages without touching the public site.
+**Actions:**
+1. DONE: created `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.csv`.
+3. VERIFIED: `6` support drafts exist and total `27,277` words.
+4. VERIFIED: all six drafts target clean English URLs and support `/divorce-lawyer/`.
+5. NOT VERIFIED / NOT CMS-CLEAN: all six still contain internal production notes and planning sections.
+6. NEXT: create a CMS-clean `/consensual-divorce/` public body file, then `/divorce-mediation/`, unless owner approval redirects work back to `/divorce-lawyer/` upload.
+7. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-DIVORCE-LAWYER-CONTROLLED-UPLOAD-QA-001: Prepare controlled upload QA package
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
 **Why:** After the clean body is approved, the first upload needs a precise checklist so we do not accidentally change URLs, old assets, schema, taxonomy or related cards.

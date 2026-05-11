@@ -27,6 +27,7 @@ VERIFIED:
 - `content-drafts/divorce-lawyer-public-body-he.md` contains a `2,374`-word public Hebrew body for `/divorce-lawyer/`.
 - The clean public body scan found no internal planning notes and no fake-trust/rating language.
 - `project-control/family-divorce-controlled-upload-qa-package-2026-05-12.csv` now defines `32` pre-upload, upload, post-upload, GSC follow-up and rollback QA rows.
+- `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.csv` now reviews all `6` Wave 1B support drafts, totaling `27,277` words.
 
 NOT VERIFIED:
 - GSC API export.
@@ -64,6 +65,7 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 24. Create CMS-clean `/divorce-lawyer/` public body file with internal notes removed and one final FAQ block.
 25. Approve the CMS-clean `/divorce-lawyer/` public body after owner/legal/source review before upload.
 26. Use the controlled upload QA package before and after any approved CMS update.
+27. Prepare clean public bodies for Wave 1B support pages only after internal-note cleanup and page-specific risk review.
 
 ## Current Recommendation
 

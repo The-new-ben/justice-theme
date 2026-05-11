@@ -259,6 +259,21 @@ NEXT:
 - Owner/legal/source review approves or edits the clean body.
 - If approved, use the QA package before any CMS/public change and again immediately after upload.
 
+## Wave 1B Support Review Package Update
+
+VERIFIED:
+- `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.md` and `.csv` now review all six Wave 1B support drafts.
+- The six support drafts total `27,277` words.
+- All six drafts have clean English target URLs and connect back to `/divorce-lawyer/`.
+- All six drafts are useful planning drafts, but none are CMS-clean public bodies yet because they still contain internal production notes, source-audit notes, CMS structure notes, Maya/profile notes, LegalTech notes or pre-publication status notes.
+
+Decision:
+- Do not upload Wave 1B as-is.
+- Recommended clean-body order is `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/`, then `/child-custody/`.
+
+NEXT:
+- Create the CMS-clean `/consensual-divorce/` public body next as a repo-only artifact, unless owner approval redirects attention back to `/divorce-lawyer/` upload.
+
 ## Old Pages To Keep / Protect
 
 Keep alive until GSC/API and side-by-side review:

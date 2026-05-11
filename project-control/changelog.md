@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Family/Divorce Wave 1B support review package
+
+- CREATED: `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: reviewed the six Family/Divorce support drafts planned after `/divorce-lawyer/`.
+- VERIFIED: support drafts total `27,277` words and cover `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/`, `/divorce-property-division/` and `/family-dispute-resolution/`.
+- NOT VERIFIED / NOT CMS-CLEAN: all six drafts still contain internal production notes or planning sections and must be cleaned before public upload.
+- RECOMMENDED: clean `/consensual-divorce/` first, then `/divorce-mediation/`.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Divorce lawyer controlled upload QA package
 
 - CREATED: `project-control/family-divorce-controlled-upload-qa-package-2026-05-12.md`.

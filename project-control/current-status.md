@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-12 02:53 Asia/Jerusalem
+- VERIFIED PLANNING / FAMILY-DIVORCE WAVE 1B SUPPORT REVIEW PACKAGE: reviewed the six support-page drafts planned after `/divorce-lawyer/`.
+- CREATED: `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.csv`.
+- VERIFIED: `6` support drafts exist and total `27,277` words across agreement, mediation, child support, custody, property division and dispute-resolution procedure.
+- VERIFIED: all six drafts target clean English URLs and support `/divorce-lawyer/`.
+- NOT VERIFIED / NOT CMS-CLEAN: all six still contain internal production notes, source-audit notes, CMS notes, Maya/profile notes, LegalTech notes or pre-publication status notes.
+- RECOMMENDED: create clean public support bodies next, starting with `/consensual-divorce/` and then `/divorce-mediation/`.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 02:42 Asia/Jerusalem
 - VERIFIED PLANNING / DIVORCE LAWYER CONTROLLED UPLOAD QA PACKAGE: created the first practical QA package for a controlled `/divorce-lawyer/` upload after approval.
 - CREATED: `project-control/family-divorce-controlled-upload-qa-package-2026-05-12.md`.

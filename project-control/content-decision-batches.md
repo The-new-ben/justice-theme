@@ -50,6 +50,25 @@ RECOMMENDED:
 BLOCKED:
 - No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
 
+## 2026-05-12 Family / Divorce Wave 1B Support Review Package
+
+CREATED:
+- `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.md`
+- `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.csv`
+
+VERIFIED:
+- Reviewed `6` Wave 1B support drafts totaling `27,277` words.
+- All six drafts target clean English URLs and support `/divorce-lawyer/`.
+- All six drafts are substantial but not CMS-clean yet because internal publishing notes and planning sections remain.
+- `FAM-UPLOAD-039` is now `VERIFIED PLANNING`.
+
+RECOMMENDED:
+- Create clean public body files in this order: `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/`, `/child-custody/`.
+- Keep support page upload blocked until the pillar approval path is settled.
+
+BLOCKED:
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Divorce Lawyer Final Draft Package
 
 CREATED:

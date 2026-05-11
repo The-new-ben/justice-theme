@@ -228,22 +228,70 @@ function justice_theme_related_context_text( int $post_id ): string {
 }
 
 /**
+ * Return tokens that identify foreign/international legal intent.
+ *
+ * @return string[]
+ */
+function justice_theme_related_international_tokens(): array {
+	return array(
+		'abroad',
+		'australia',
+		'cyprus',
+		'foreign',
+		'greece',
+		'greek',
+		'international',
+		'italian',
+		'italy',
+		'overseas',
+		'portugal',
+		'spain',
+		'אוסטרליה',
+		'איטליה',
+		'יוון',
+		'קפריסין',
+	);
+}
+
+/**
+ * Check whether a normalized text fingerprint contains any tokens.
+ *
+ * @param string   $text   Normalized text fingerprint.
+ * @param string[] $tokens Tokens to look for.
+ * @return bool
+ */
+function justice_theme_related_text_has_any( string $text, array $tokens ): bool {
+	foreach ( $tokens as $token ) {
+		if ( false !== strpos( $text, $token ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+/**
  * Infer an editorial cluster when explicit metadata is absent.
  *
  * @param int $post_id Post ID.
  * @return string
  */
 function justice_theme_related_infer_cluster( int $post_id ): string {
+	$text  = justice_theme_related_context_text( $post_id );
 	$cluster = justice_theme_related_normalize_cluster( (string) get_post_meta( $post_id, 'content_cluster', true ) );
+
+	if ( 'real_estate' === $cluster && justice_theme_related_text_has_any( $text, justice_theme_related_international_tokens() ) ) {
+		return 'international';
+	}
+
 	if ( $cluster ) {
 		return $cluster;
 	}
 
-	$text  = justice_theme_related_context_text( $post_id );
 	$rules = array(
 		'legal_tech_business' => array( 'ai-for-law-firms', 'legal-tech', 'legaltech', 'ai-intake', 'law-firms' ),
 		'business_commercial' => array( 'business-license', 'company', 'commercial', 'business' ),
-		'international'       => array( 'australia', 'cyprus', 'foreign', 'international' ),
+		'international'       => justice_theme_related_international_tokens(),
 		'family_divorce'      => array( 'divorce', 'family-law', 'family_law', 'child-support', 'child-custody', 'custody', 'mediation', 'rabbinical', 'alimony', 'mutual-divorce' ),
 		'criminal_law'        => array( 'criminal', 'drug-offenses', 'police-investigation', 'indictment', 'pretrial-detention', 'sex-offenses', 'white-collar', 'arrest' ),
 		'real_estate'         => array( 'real-estate', 'property', 'apartment', 'rent-agreement', 'purchase-agreement', 'sale-agreement', 'land-registry', 'construction-defects', 'urban-renewal' ),

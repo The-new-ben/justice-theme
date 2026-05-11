@@ -274,6 +274,18 @@ Required before public rewrites:
 - Clear disclaimer that content is general information and not legal advice.
 - Privacy/confidentiality caution for internet, reputation, data breach and intimate-content topics.
 
+## 2026-05-11 Source/Legal Checklist Overlay
+
+VERIFIED:
+- Created `project-control/cyber-privacy-source-legal-checklist-2026-05-11.md`.
+- Created `project-control/cyber-privacy-source-legal-checklist-2026-05-11.csv`.
+- Official/public source anchors now exist for privacy/data breach, database obligations, information-security regulations, cyber event reporting, CERT, police complaints, computer-law references, defamation-law references and Google/platform removal process references.
+- The source matrix separates cyber lawyer, cybercrime, privacy/data breach, online defamation/reputation, Google removal and police-record/data-deletion into separate intent lanes.
+
+BLOCKED:
+- The checklist does not approve publication.
+- Legal review is still required before claims about rights, duties, compensation, eligibility, criminal classifications, platform removal or sensitive facts.
+
 ## Internal-Link Direction
 
 Recommended planning only:

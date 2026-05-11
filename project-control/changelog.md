@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Cyber/privacy source and legal checklist
+
+- CREATED: `project-control/cyber-privacy-source-legal-checklist-2026-05-11.md`.
+- CREATED: `project-control/cyber-privacy-source-legal-checklist-2026-05-11.csv`.
+- UPDATED: `project-control/cyber-privacy-owner-approval-packet.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: official/public source anchors were mapped for privacy/data breach, cyber event reporting, CERT, police complaints, computer-law, defamation-law and Google/platform removal process references.
+- VERIFIED: the checklist separates cyber lawyer, cybercrime, privacy/data breach, online defamation/reputation, Google removal and police-record/data-deletion boundaries before any public rewrite.
+- BLOCKED: no public cyber/privacy content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, internal link, related-card, menu, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Homepage controlled implementation checklist
 
 - CREATED: `project-control/homepage-controlled-implementation-checklist-2026-05-11.md`.

@@ -211,3 +211,12 @@ ADDED 2026-05-11:
 - The batch must not change public URLs, redirects, canonical tags, sitemap, robots/noindex, title/H1/meta, menus, CMS/database state, CRM/review behavior or fake trust signals.
 
 Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER APPROVAL.
+
+## Cyber / Privacy Source-Legal Gate Addendum
+
+ADDED 2026-05-11:
+- `project-control/cyber-privacy-source-legal-checklist-2026-05-11.md` and `.csv` define source and legal-review gates for the cyber/privacy cluster.
+- Cyber lawyer, cybercrime, privacy/data breach, online defamation/reputation, Google removal and police-record/data-deletion must be classified separately before public rewrites or migration decisions.
+- Official/public source anchors are now mapped, but legal review is still required before publishing advice-like claims.
+
+Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.

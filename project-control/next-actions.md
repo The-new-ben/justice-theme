@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CYBER-PRIVACY-SOURCE-LEGAL-CHECKLIST-001: Create source/legal gate for cyber privacy and data-deletion boundaries
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The cyber/privacy cluster contains sensitive legal, criminal, privacy, data-removal and reputation topics. Before any rewrite, merge, URL migration, internal-link execution or CMS update, each topic needs source anchors and legal-review boundaries.
+**Actions:**
+1. DONE: created `project-control/cyber-privacy-source-legal-checklist-2026-05-11.md`.
+2. DONE: created `project-control/cyber-privacy-source-legal-checklist-2026-05-11.csv`.
+3. VERIFIED: official/public source anchors were mapped for privacy breach reporting, database obligations, information-security regulations, cyber reporting, CERT, police complaints, computer-law PDFs, defamation-law PDFs and Google removal process pages.
+4. VERIFIED: cyber lawyer, cybercrime, privacy/data breach, online reputation/defamation, Google removal and police-record/data-deletion were separated into different intent lanes.
+5. NEXT: use the source matrix to decide page-by-page whether `/cyber-lawyer/`, `/cybercrime-lawyer-roll/`, `/cyber-laws/`, `/what-is-cyberattack/`, the old privacy-injury URL and `/police-records-data-deletion/` should be kept, expanded, rewritten, merged, protected or mapped for later migration.
+6. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-HOMEPAGE-IMPLEMENTATION-CHECKLIST-001: Create controlled no-URL-change homepage implementation checklist
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The homepage section-order and pillar-link proposal needed an executable safety checklist before any public template, link or UX edits. The first homepage batch must be small, reversible and owner-approved.

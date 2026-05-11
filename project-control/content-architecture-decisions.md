@@ -13,6 +13,12 @@ ACCEPTED:
 - Existing useful content should be merged or connected, not destroyed.
 - High-impression old URLs are protected until reviewed.
 
+2026-05-12 cluster-by-cluster publishing addendum:
+- VERIFIED: `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md` records the strategy shift from full-site waiting to staged cluster publishing.
+- VERIFIED: staged publishing is acceptable only when each cluster has protected old URL/document review, anti-cannibalization, pillar/support roles, internal-link map, redirect/canonical/sitemap posture and post-publish monitoring.
+- RECOMMENDED: Family/Divorce first, then Criminal Law, Medical Malpractice, Traffic, Real Estate and Personal Injury/Damages.
+- BLOCKED: no public upload, redirect, canonical, sitemap, taxonomy/category, internal-link, related-card, lawyer-card, review/rating/schema or CMS write is approved by this addendum alone.
+
 ## Broad Lawyer / Directory
 
 Decision:

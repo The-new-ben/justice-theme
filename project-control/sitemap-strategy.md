@@ -5,6 +5,13 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
 
 ## Current Evidence
 
+2026-05-12 CLUSTER-BY-CLUSTER PUBLISHING STRATEGY:
+- VERIFIED / REVIEW ONLY: `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md` sets staged cluster publishing as the next operating model.
+- VERIFIED: sitemap changes should happen cluster-by-cluster only after pillar/support roles, old URL/document protection, internal-link execution, canonical posture and owner approval are complete.
+- FAMILY/DIVORCE FIRST: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md` and `.csv` require sitemap posture before public upload.
+- DECISION: do not add clean Family/Divorce pages to sitemap as a special push until their content, canonicals, internal links and protected old URL/document strategy are approved together.
+- SAFETY: no sitemap inclusion rule, redirect, canonical, URL slug, taxonomy term, content body, internal-link, related-card, lawyer, CRM, review, wp-admin setting or database row was changed.
+
 2026-05-11 CRIMINAL LAW NO-URL-CHANGE OUTLINE QUEUE:
 - VERIFIED / REVIEW ONLY: `project-control/criminal-law-no-url-change-outline-queue-2026-05-11.md` and `.csv` prepare `5` outline targets across `6` current URLs.
 - CURRENT SITEMAP POSTURE: `/criminal-defense-attorney/`, police investigation, indictment, detention and drug offenses can be considered for sitemap inclusion only after owner/legal/source review and content expansion.

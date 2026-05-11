@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-12 00:55 Asia/Jerusalem
+- VERIFIED / STRATEGY SHIFT TO CLUSTER-BY-CLUSTER PUBLISHING: documented the faster staged publishing strategy so content upload can advance one legal field at a time instead of waiting for a full 1,200-article audit.
+- CREATED: `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md`.
+- CREATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md`.
+- CREATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.csv`.
+- CREATED: `project-control/gsc-api-access-plan-2026-05-12.md`.
+- VERIFIED: Family/Divorce remains the recommended first upload cluster, followed by Criminal Law, Medical Malpractice, Traffic, Real Estate and Personal Injury/Damages.
+- VERIFIED: the minimum safe upload gate now explicitly requires URL conflict prevention, protected old URL/document review, anti-cannibalization, English slug posture, internal-link map, redirect/canonical/sitemap posture, no-fake-trust controls and post-publish monitoring.
+- RECOMMENDED: set up GSC API read-only exports for `https://jus-tice.co.il/` to reduce browser-based query/page checks and speed each future cluster by roughly one work cycle.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 00:30 Asia/Jerusalem
 - VERIFIED / FAMILY-DIVORCE INTERNAL-LINK MAP + OWNER UPLOAD REVIEW PACKAGE: converted the family/divorce current-URL readiness queue into a no-URL internal-link map and owner-facing upload review layer.
 - CREATED: `project-control/family-divorce-no-url-internal-link-map-2026-05-12.md`.

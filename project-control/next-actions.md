@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-STAGED-CLUSTER-PUBLISHING-001: Switch content execution to cluster-by-cluster publishing gates
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The full-site audit pace is too slow for the current timeline; staged cluster publishing can move faster while preserving SEO safety.
+**Actions:**
+1. DONE: created `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md`.
+2. DONE: created `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md`.
+3. DONE: created `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.csv`.
+4. DONE: created `project-control/gsc-api-access-plan-2026-05-12.md`.
+5. VERIFIED: recommended sequence is Family/Divorce first, then Criminal Law, Medical Malpractice, Traffic, Real Estate and Personal Injury/Damages.
+6. VERIFIED: minimum safe gate requires old URL/document protection, anti-cannibalization, pillar/support roles, internal-link map, redirect/canonical/sitemap posture and monitoring before public upload.
+7. NEXT: run the Family/Divorce pre-upload comparison cycle and set up GSC API export if access is available.
+8. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-FAMILY-DIVORCE-OWNER-UPLOAD-REVIEW-001: Package family/divorce group for owner approval
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The family/divorce queue needs one owner-facing approval layer before any Hebrew drafting, draft import, internal-link execution, document strategy, sitemap/canonical change or CMS upload.

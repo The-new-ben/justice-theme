@@ -34,6 +34,17 @@ NOT READY FOR PUBLIC UPLOAD:
 - URL migration is not ready until redirect/canonical/sitemap/internal-link maps are approved together.
 - Maya lawyer-card, review, rating, badge or reputation elements are not ready until data is real and compliance-reviewed.
 
+## 2026-05-12 Strategy Update
+
+VERIFIED:
+- Family/Divorce is now the recommended first staged publishing cluster.
+- `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md` and `.csv` define the minimum safe gate before this package can move into upload execution.
+- `project-control/gsc-api-access-plan-2026-05-12.md` identifies the GSC API export needed to speed old/new URL and cannibalization checks.
+
+RECOMMENDED:
+- Do the side-by-side comparison cycle next, not another broad sitewide audit cycle.
+- Keep all protected old URLs/documents live while the comparison is in progress.
+
 ## Proposed Upload Order After Approval
 
 1. Compare `/divorce-lawyer/` against the old Hebrew divorce URL.

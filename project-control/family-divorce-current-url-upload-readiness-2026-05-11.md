@@ -50,6 +50,12 @@ BLOCKED:
 - Do not publish final legal copy until source/legal review is complete.
 - Do not show Maya Rotenberg reviews, ratings, badges or reputation claims unless verified in a later lawyer-profile/reputation batch.
 
+2026-05-12 acceleration addendum:
+- VERIFIED: Family/Divorce is selected as the first staged publishing candidate.
+- VERIFIED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md` and `.csv` now define the minimum gate before upload.
+- RECOMMENDED: proceed with side-by-side comparison and GSC API export rather than continuing a slow full-site audit before this cluster.
+- BLOCKED: this addendum does not approve public upload, redirects, noindex, canonical changes, sitemap changes, internal-link execution, related cards, lawyer cards, review/rating/schema, Maya profile edits or CMS writes.
+
 ## Content Architecture
 
 ### Pillar Candidate

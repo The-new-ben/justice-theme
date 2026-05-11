@@ -14,6 +14,26 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Cluster-by-Cluster Publishing Strategy
+
+CREATED:
+- `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md`
+- `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md`
+- `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.csv`
+- `project-control/gsc-api-access-plan-2026-05-12.md`
+
+VERIFIED:
+- Staged cluster-by-cluster publishing is the recommended operating model for the next upload phase.
+- Family/Divorce is the first cluster to move toward pre-upload comparison, not a random article-by-article upload.
+- The minimum Family/Divorce upload gate now requires old URL/document protection, duplicate/cannibalization review, title/H1 uniqueness, internal-link execution list, redirect/canonical/sitemap posture, disclaimers and post-publish GSC monitoring.
+
+RECOMMENDED:
+- Run Family/Divorce side-by-side comparison next.
+- Set up GSC API read-only exports to reduce browser-based query/page checks.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, document/media actions, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, Maya profile edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Family / Divorce Owner Upload Review Package
 
 CREATED:

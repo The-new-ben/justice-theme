@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Cluster-by-cluster publishing strategy
+
+- CREATED: `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md`.
+- CREATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md`.
+- CREATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.csv`.
+- CREATED: `project-control/gsc-api-access-plan-2026-05-12.md`.
+- VERIFIED / REVIEW ONLY: content execution strategy now favors staged cluster-by-cluster publishing rather than waiting for the full sitewide audit before the first controlled upload.
+- VERIFIED: Family/Divorce is the first recommended cluster, with Criminal Law, Medical Malpractice, Traffic, Real Estate and Personal Injury/Damages following.
+- VERIFIED: minimum Family/Divorce upload gates now cover protected old URLs/documents, URL conflict prevention, anti-cannibalization, English slug posture, internal links, redirect/canonical/sitemap posture, disclaimers, no-fake-trust controls and GSC monitoring.
+- RECOMMENDED: set up GSC API read-only query/page exports to reduce browser work and accelerate future clusters.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Family/divorce owner upload review package
 
 - CREATED: `project-control/family-divorce-owner-upload-review-package-2026-05-12.md`.

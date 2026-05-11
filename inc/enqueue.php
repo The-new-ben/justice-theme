@@ -39,6 +39,13 @@ function justice_theme_enqueue_assets() {
 	);
 
 	wp_enqueue_style(
+		'justice-premium-4',
+		JUSTICE_THEME_URI . '/assets/css/premium-pass-4.css',
+		array( 'justice-premium-3' ),
+		'4.0.0'
+	);
+
+	wp_enqueue_style(
 		'justice-components',
 		JUSTICE_THEME_URI . '/assets/css/components.css',
 		array( 'justice-premium-3' ),
@@ -66,6 +73,14 @@ function justice_theme_enqueue_assets() {
 		JUSTICE_THEME_URI . '/assets/js/navigation.js',
 		array(),
 		JUSTICE_THEME_VERSION,
+		true
+	);
+
+	wp_enqueue_script(
+		'justice-scroll-animations',
+		JUSTICE_THEME_URI . '/assets/js/scroll-animations.js',
+		array(),
+		'4.0.0',
 		true
 	);
 }

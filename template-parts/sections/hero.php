@@ -1,11 +1,12 @@
 <?php
 /**
- * Homepage hero section — competitive, search-first design.
+ * Homepage hero section — search-first centered design.
  *
- * Based on competitive analysis of din.co.il, PsakDin, and Justia:
- * - Every top legal portal leads with a structured search (practice area + city)
- * - The H1 must contain "עורכי דין" — the primary money keyword
- * - Dual CTAs: one for finding a lawyer, one for guides
+ * Redesigned based on competitive analysis:
+ * - Centered layout with real background image
+ * - Search form is the dominant element above the fold
+ * - Practice area chips integrated as quick-links below search
+ * - Stats bar at the bottom for social proof
  *
  * @package JusticeTheme
  */
@@ -45,9 +46,12 @@ $israel_cities = array(
 	'לוד',
 	'רמלה',
 );
+
+// Hero background image
+$hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
 ?>
 
-<section class="hero" id="hero">
+<section class="hero hero--has-bg" id="hero" style="--hero-bg-image: url('<?php echo esc_url( $hero_bg ); ?>');">
 	<div class="container hero__grid">
 		<div class="hero__content">
 			<h1 class="hero__title">
@@ -55,7 +59,7 @@ $israel_cities = array(
 			</h1>
 
 			<p class="hero__description">
-				<?php esc_html_e( 'Jus-Tice מרכז מדריכים משפטיים, חיפוש עורכי דין, שאלות ראשוניות וכלים חכמים כדי לעזור לכם להבין את הבעיה, להתכונן נכון ולפנות לגורם המתאים.', 'justice-theme' ); ?>
+				<?php esc_html_e( 'חיפוש עורכי דין לפי תחום ומיקום, מאמרים משפטיים, ומדריכים מקצועיים — הכל במקום אחד.', 'justice-theme' ); ?>
 			</p>
 
 			<form class="hero-search" role="search" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ); ?>" id="hero-search-form">
@@ -109,12 +113,12 @@ $israel_cities = array(
 				</div>
 			</form>
 
-			<div class="hero__ctas" style="margin-top: 1.5rem; display: flex; gap: 1rem;">
+			<div class="hero__ctas" style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center;">
 				<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" class="button button--primary">
-					<?php esc_html_e( 'מצאו עורך דין מתאים', 'justice-theme' ); ?>
+					<?php esc_html_e( 'מצאו עורך דין', 'justice-theme' ); ?>
 				</a>
 				<a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>" class="button button--outline" style="border-color: rgba(255,255,255,0.4); color: #fff;">
-					<?php esc_html_e( 'קראו מדריכים לפי הבעיה', 'justice-theme' ); ?>
+					<?php esc_html_e( 'עיינו במדריכים', 'justice-theme' ); ?>
 				</a>
 			</div>
 
@@ -140,49 +144,36 @@ $israel_cities = array(
 			</div>
 		</div>
 
+		<?php
+		// Quick-links bar — popular practice areas as chip buttons
+		$popular_terms = get_terms( array(
+			'taxonomy'   => 'practice-areas',
+			'hide_empty' => true,
+			'number'     => 10,
+			'orderby'    => 'count',
+			'order'      => 'DESC',
+		) );
+
+		if ( ! empty( $popular_terms ) && ! is_wp_error( $popular_terms ) ) :
+		?>
 		<div class="hero__panel" aria-label="<?php esc_attr_e( 'תחומי משפט נפוצים', 'justice-theme' ); ?>">
-			<div class="hero__visual" aria-hidden="true">
-				<div class="hero__visual-card hero__visual-card--main">
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
-				<div class="hero__visual-card hero__visual-card--case">
-					<strong>Jus-Tice</strong>
-					<span></span>
-					<span></span>
-				</div>
-				<div class="hero__visual-node hero__visual-node--red"></div>
-				<div class="hero__visual-node hero__visual-node--gold"></div>
-			</div>
-			<h2><?php esc_html_e( 'תחומי משפט נפוצים', 'justice-theme' ); ?></h2>
+			<h2><?php esc_html_e( 'תחומי חיפוש מרכזיים', 'justice-theme' ); ?></h2>
 
-			<?php
-			$popular_terms = get_terms( array(
-				'taxonomy'   => 'practice-areas',
-				'hide_empty' => true,
-				'number'     => 8,
-				'orderby'    => 'count',
-				'order'      => 'DESC',
-			) );
-
-			if ( ! empty( $popular_terms ) && ! is_wp_error( $popular_terms ) ) :
-			?>
-				<ul class="hero__quick-links">
-					<?php foreach ( $popular_terms as $pterm ) : ?>
-						<li>
-							<a href="<?php echo esc_url( justice_theme_public_term_link( $pterm ) ); ?>">
-								<?php echo esc_html( $pterm->name ); ?>
-								<span><?php echo esc_html( $pterm->count ); ?></span>
-							</a>
-						</li>
-					<?php endforeach; ?>
-				</ul>
-			<?php endif; ?>
+			<ul class="hero__quick-links">
+				<?php foreach ( $popular_terms as $pterm ) : ?>
+					<li>
+						<a href="<?php echo esc_url( get_term_link( $pterm ) ); ?>">
+							<?php echo esc_html( $pterm->name ); ?>
+							<span><?php echo esc_html( $pterm->count ); ?></span>
+						</a>
+					</li>
+				<?php endforeach; ?>
+			</ul>
 
 			<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" class="hero__panel-cta">
 				<?php esc_html_e( 'כל התחומים ←', 'justice-theme' ); ?>
 			</a>
 		</div>
+		<?php endif; ?>
 	</div>
 </section>

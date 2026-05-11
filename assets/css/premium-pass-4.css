@@ -1,0 +1,319 @@
+/* ============================================================
+   JUS-TICE PREMIUM PASS 4 — VISUAL OVERHAUL
+   Version: 4.0.0
+   Date: 2026-05-11
+   Scope: Homepage visual improvements — Phases A through D
+   ============================================================ */
+
+/* ── PHASE A: QUICK WINS ─────────────────────────────────── */
+
+/* A1: Hide hero illustration panel on mobile — it wastes 70% viewport */
+@media (max-width: 768px) {
+  .hero__panel {
+    display: none !important;
+  }
+}
+
+/* A2: Section alternating backgrounds — visual rhythm */
+.practice-areas-section { background: #fff; }
+.cities-section         { background: var(--jt-bg); }
+.featured-lawyers       { background: #fff; }
+.latest-articles        { background: var(--jt-bg); }
+.featured-pillars       { background: #fff; }
+.topic-clusters-section { background: var(--jt-bg); }
+.ask-lawyer             { background: #fff; }
+/* trust-section already has dark bg */
+.lawyer-cta             { background: var(--jt-bg); }
+.newsletter             { background: #fff; }
+
+/* A3: Enhanced card hover effects */
+.premium-card:hover,
+.practice-area-card:hover,
+.article-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(7, 21, 47, 0.12);
+  border-color: rgba(178, 58, 72, 0.2);
+}
+
+/* A4: Stat counter typography — bigger, bolder */
+.hero__stat strong {
+  font-size: clamp(2.4rem, 5vw, 3.6rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.05em;
+  background: linear-gradient(135deg, #fff, rgba(255,255,255,0.75));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* A5: Button hover states — consistent feedback */
+.button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.button--primary:hover,
+.button--gold:hover {
+  box-shadow: 0 8px 28px rgba(178, 58, 72, 0.25);
+}
+
+.button--ghost:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(7, 21, 47, 0.08);
+}
+
+/* A6: Mobile hamburger — bigger tap target, clearer appearance */
+@media (max-width: 768px) {
+  .menu-toggle {
+    min-width: 44px;
+    min-height: 44px;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--jt-primary-deep);
+    border-radius: 12px;
+    font-size: 1.5rem;
+    background: rgba(7, 21, 47, 0.04);
+  }
+
+  .menu-toggle:hover,
+  .menu-toggle:active {
+    background: var(--jt-accent-red);
+    border-color: var(--jt-accent-red);
+    color: #fff;
+  }
+}
+
+/* ── BLINKING RED DOT — BRAND SIGNATURE ──────────────────── */
+
+/* Logo red dot pulse animation */
+@keyframes jt-pulse-dot {
+  0%, 100% {
+    opacity: 1;
+    box-shadow: 0 0 0 0 rgba(178, 58, 72, 0.55);
+  }
+  50% {
+    opacity: 0.7;
+    box-shadow: 0 0 0 8px rgba(178, 58, 72, 0);
+  }
+}
+
+.brand-lockup__mark::after {
+  animation: jt-pulse-dot 2.4s ease-in-out infinite;
+}
+
+/* Eyebrow red dots also pulse subtly */
+@keyframes jt-eyebrow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 0 4px var(--jt-accent-red-soft);
+    opacity: 1;
+  }
+  50% {
+    box-shadow: 0 0 0 7px rgba(178, 58, 72, 0);
+    opacity: 0.65;
+  }
+}
+
+.section-header__eyebrow::before,
+.hero__eyebrow::before {
+  animation: jt-eyebrow-pulse 3s ease-in-out infinite;
+}
+
+/* ── PHASE A: HERO RESTRUCTURE (CSS part) ────────────────── */
+
+/* Hero centered layout — search-first design */
+.hero__grid {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+}
+
+.hero__content {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.hero__title {
+  text-align: center;
+}
+
+.hero__description {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.hero__ctas {
+  justify-content: center !important;
+}
+
+.hero__stats {
+  justify-content: center;
+}
+
+/* Hero panel — now horizontal quick-links bar below search */
+.hero__panel {
+  width: 100%;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 16px !important;
+  padding: 1.5rem 2rem !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  box-shadow: none !important;
+}
+
+.hero__panel h2 {
+  font-size: 1rem !important;
+  text-align: center;
+  margin-bottom: 1rem !important;
+  opacity: 0.8;
+  font-weight: 600;
+}
+
+.hero__quick-links {
+  display: flex !important;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.6rem !important;
+}
+
+.hero__quick-links li {
+  flex: 0 0 auto;
+}
+
+.hero__quick-links a {
+  padding: 0.5rem 1rem !important;
+  border-radius: 50px !important;
+  font-size: 0.88rem !important;
+  background: rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.15) !important;
+  white-space: nowrap;
+}
+
+.hero__quick-links a span {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 2px 8px;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  margin-inline-start: 6px;
+}
+
+.hero__quick-links a:hover {
+  background: rgba(255, 255, 255, 0.18) !important;
+  transform: none !important;
+  border-color: rgba(255, 255, 255, 0.35) !important;
+}
+
+.hero__panel-cta {
+  display: block !important;
+  text-align: center;
+  margin-top: 1rem !important;
+  font-size: 0.9rem !important;
+}
+
+/* Hero search form — more prominent, centered */
+.hero-search {
+  max-width: 700px;
+  margin: 2rem auto 0 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25) !important;
+  border: 2px solid rgba(255, 255, 255, 0.15);
+}
+
+.hero-search__filters {
+  flex-direction: row;
+}
+
+/* ── PHASE D: SCROLL ANIMATIONS ──────────────────────────── */
+
+/* Sections animate in on scroll */
+@keyframes jt-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section[data-animate] {
+  opacity: 0;
+}
+
+.section[data-animate].is-visible {
+  animation: jt-fade-up 0.6s ease-out forwards;
+}
+
+/* Stagger children */
+.section[data-animate].is-visible .practice-area-card:nth-child(1) { animation-delay: 0.05s; }
+.section[data-animate].is-visible .practice-area-card:nth-child(2) { animation-delay: 0.1s; }
+.section[data-animate].is-visible .practice-area-card:nth-child(3) { animation-delay: 0.15s; }
+.section[data-animate].is-visible .practice-area-card:nth-child(4) { animation-delay: 0.2s; }
+.section[data-animate].is-visible .practice-area-card:nth-child(5) { animation-delay: 0.25s; }
+.section[data-animate].is-visible .practice-area-card:nth-child(6) { animation-delay: 0.3s; }
+
+/* ── PRACTICE AREA UNIQUE ICONS (CSS fallback) ───────────── */
+
+/* Color-coded left borders per category type */
+.practice-area-card[data-area="family"] { border-top-color: #e74c8b; }
+.practice-area-card[data-area="criminal"] { border-top-color: #6c5ce7; }
+.practice-area-card[data-area="real-estate"] { border-top-color: #00b894; }
+.practice-area-card[data-area="labor"] { border-top-color: #fdcb6e; }
+.practice-area-card[data-area="torts"] { border-top-color: #e17055; }
+.practice-area-card[data-area="traffic"] { border-top-color: #0984e3; }
+.practice-area-card[data-area="inheritance"] { border-top-color: #a29bfe; }
+.practice-area-card[data-area="medical"] { border-top-color: #55efc4; }
+.practice-area-card[data-area="commercial"] { border-top-color: #fab1a0; }
+.practice-area-card[data-area="tax"] { border-top-color: #ffeaa7; }
+.practice-area-card[data-area="immigration"] { border-top-color: #74b9ff; }
+.practice-area-card[data-area="military"] { border-top-color: #636e72; }
+
+/* ── HERO BACKGROUND IMAGE SUPPORT ───────────────────────── */
+
+.hero--has-bg {
+  background-image:
+    linear-gradient(160deg, rgba(7,21,47,0.88) 0%, rgba(13,31,60,0.82) 50%, rgba(19,42,92,0.78) 100%),
+    var(--hero-bg-image);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* ── STICKY HEADER ON SCROLL ─────────────────────────────── */
+
+.site-header {
+  transition: box-shadow 300ms ease, background 300ms ease;
+}
+
+.site-header--scrolled {
+  box-shadow: 0 4px 30px rgba(7, 21, 47, 0.12);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+.site-header--scrolled .site-header__top {
+  max-height: 0;
+  overflow: hidden;
+  padding: 0;
+  border: none;
+  opacity: 0;
+  transition: all 300ms ease;
+}
+
+/* ── RESPECT MOTION PREFERENCES ──────────────────────────── */
+
+@media (prefers-reduced-motion: reduce) {
+  .brand-lockup__mark::after,
+  .section-header__eyebrow::before,
+  .hero__eyebrow::before {
+    animation: none !important;
+  }
+
+  .section[data-animate] {
+    opacity: 1;
+  }
+}

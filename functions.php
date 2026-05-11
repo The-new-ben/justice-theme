@@ -44,6 +44,7 @@ $justice_theme_files = array(
 	'inc/city-practice-pages.php',
 	'inc/cleanup.php',
 	'inc/live-migrations.php',
+	'inc/practice-area-icons.php',
 );
 
 foreach ( $justice_theme_files as $justice_theme_file ) {

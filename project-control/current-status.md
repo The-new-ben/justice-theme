@@ -1,4 +1,13 @@
 ## LATEST WORK STATUS - 2026-05-11 19:18 Asia/Jerusalem
+- VERIFIED / PERSONAL-INJURY INTERNAL-LINK PLAN: created the review-only internal-link map for the personal-injury, damages, tort-law, road-accident and compulsory-insurance cluster.
+- CREATED: `project-control/personal-injury-internal-link-plan-2026-05-11.md`.
+- CREATED: `project-control/personal-injury-internal-link-plan-2026-05-11.csv`.
+- VERIFIED: the plan connects `/tort-lawyer/`, `/car-accident-auto-injury-lawyer/`, `/israel-road-accident-compensation-law/`, `/compulsory-motor-vehicle-insurance/`, `/punitive-damage/`, `/tort-reform/`, `/outline-of-tort-law/`, `/deep-pocket/` and `/personal-injury-law/` only as approval-gated rows.
+- VERIFIED: future clean slugs `/personal-injury-lawyer/` and `/car-accident-lawyer/` remain future-only and are not approved as live destinations.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+- NEXT: owner/legal review decides primary service URL, car-accident URL strategy and which rows can move from `PLANNED_NEEDS_OWNER_APPROVAL` to approved implementation.
+
+## LATEST WORK STATUS - 2026-05-11 19:18 Asia/Jerusalem
 - VERIFIED / PERSONAL-INJURY SIDE-BY-SIDE REVIEW: created the review-only side-by-side comparison for current damages, tort, car-accident, road-accident, insurance and US/international pages.
 - CREATED: `project-control/personal-injury-side-by-side-review-2026-05-11.md`.
 - CREATED: `project-control/personal-injury-side-by-side-review-2026-05-11.csv`.

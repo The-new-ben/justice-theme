@@ -142,6 +142,13 @@ Recommended action:
 - REVIEW: old Hebrew damages/category URL variants currently 301 to the homepage while routing/plugin behavior is unresolved, so exact URL capture and native 404 cleanup remain important before migration.
 - NEXT: create an approval-gated personal-injury internal-link plan or run deeper GSC/SERP checks for damages, bodily injury, road accident and work accident variants.
 
+2026-05-11 personal-injury internal-link plan addendum:
+- VERIFIED: `project-control/personal-injury-internal-link-plan-2026-05-11.md` and `.csv` now map approval-gated internal links for the personal-injury/damages cluster.
+- VERIFIED: `/tort-lawyer/` remains the current broad service candidate for link planning, while `/car-accident-auto-injury-lawyer/` remains the protected car-accident candidate.
+- VERIFIED: `/israel-road-accident-compensation-law/`, `/compulsory-motor-vehicle-insurance/`, `/punitive-damage/`, `/tort-reform/`, `/outline-of-tort-law/` and `/deep-pocket/` are mapped as support/specialist pages, not competing broad service pillars.
+- VERIFIED: `/personal-injury-lawyer/` and `/car-accident-lawyer/` remain future-only migration notes until owner approval, redirect mapping, canonical/sitemap planning and internal-link updates are approved together.
+- BLOCKED: no public links, related cards, menus, breadcrumbs, titles, H1s, meta, URLs, redirects, canonicals, sitemap entries, lawyer cards, CRM/reviews, wp-admin settings or CMS/database rows are approved by this plan alone.
+
 ## Traffic Law
 
 Decision:

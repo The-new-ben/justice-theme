@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PERSONAL-INJURY-INTERNAL-LINK-001: Plan personal-injury/damages internal links
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The side-by-side review confirmed page roles, but the cluster still needed a controlled internal-link map before any public content, related-card, menu, breadcrumb or template implementation.
+**Actions:**
+1. DONE: created `project-control/personal-injury-internal-link-plan-2026-05-11.md`.
+2. DONE: created `project-control/personal-injury-internal-link-plan-2026-05-11.csv`.
+3. VERIFIED: `/tort-lawyer/` remains the current broad service candidate for internal-link planning, but all rows require owner/legal approval before execution.
+4. VERIFIED: `/car-accident-auto-injury-lawyer/` remains the protected current car-accident URL; `/car-accident-lawyer/` stays future-only.
+5. VERIFIED: tort-law, punitive-damage, road-accident compensation and compulsory-insurance pages are mapped as support, not competing broad pillars.
+6. NEXT: owner/legal review decides primary URL, car-accident migration timing and which planned rows can become approved CMS/template work.
+7. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, breadcrumb, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-PERSONAL-INJURY-SIDE-BY-SIDE-001: Compare current personal-injury/damages pages side by side
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The page decision matrix selected roles, but current pages still needed direct comparison so thin service pages, long specialist pages, support pages, international content and old URL routing risks are not mixed.

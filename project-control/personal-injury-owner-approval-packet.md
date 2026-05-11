@@ -308,11 +308,11 @@ BLOCKED until explicit owner approval:
 ## Next Approved Work
 
 If owner approves this planning lane, the next safe work is:
-1. Create an approval-gated internal-link map for `/tort-lawyer/`, `/car-accident-auto-injury-lawyer/`, `/israel-road-accident-compensation-law/`, `/compulsory-motor-vehicle-insurance/`, `/punitive-damage/`, `/tort-reform/`, `/outline-of-tort-law/`, `/deep-pocket/` and the future clean slugs.
+1. Review the approval-gated internal-link map for `/tort-lawyer/`, `/car-accident-auto-injury-lawyer/`, `/israel-road-accident-compensation-law/`, `/compulsory-motor-vehicle-insurance/`, `/punitive-damage/`, `/tort-reform/`, `/outline-of-tort-law/`, `/deep-pocket/` and the future clean slugs.
 2. Run deeper GSC browser checks for variants: `עורך דין נזיקין`, `נזקי גוף`, `תביעת נזיקין`, `פיצויים`, `תאונת דרכים`, `עורך דין תאונות דרכים`, `תאונת עבודה`, `עורך דין תאונת עבודה`.
 3. Run SERP review for broad damages, car accident and work accident intents.
 4. Create source/legal review checklist for each approved page.
-5. Draft internal-link map only after primary/support roles are approved.
+5. Move selected internal-link rows from `PLANNED_NEEDS_OWNER_APPROVAL` to approved implementation only after primary/support roles are approved.
 6. Prepare URL migration and redirect plan only after owner chooses target URLs.
 
 ## Safety
@@ -367,3 +367,18 @@ VERIFIED:
 
 BLOCKED:
 - No public rewrite, URL migration, redirect, canonical, sitemap, title/H1/meta, internal link, related-card, menu, lawyer-card, CRM/review, wp-admin option or CMS/database action is approved by this addendum.
+
+## 2026-05-11 Internal-Link Plan Addendum
+
+CREATED:
+- `project-control/personal-injury-internal-link-plan-2026-05-11.md`.
+- `project-control/personal-injury-internal-link-plan-2026-05-11.csv`.
+
+VERIFIED:
+- The plan maps approval-gated links across `/tort-lawyer/`, `/car-accident-auto-injury-lawyer/`, `/israel-road-accident-compensation-law/`, `/compulsory-motor-vehicle-insurance/`, `/punitive-damage/`, `/tort-reform/`, `/outline-of-tort-law/`, `/deep-pocket/` and `/personal-injury-law/`.
+- `/tort-lawyer/` remains the current broad damages/service candidate for link planning only.
+- `/car-accident-auto-injury-lawyer/` remains the protected current car-accident candidate for link planning only.
+- `/personal-injury-lawyer/` and `/car-accident-lawyer/` remain future-only migration notes until owner approval, redirect mapping, canonical/sitemap planning and internal-link updates are approved together.
+
+BLOCKED:
+- No public rewrite, URL migration, redirect, canonical, sitemap, title/H1/meta, internal link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin option or CMS/database action is approved by this addendum.

@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Real estate route/CMS audit plan
+
+- CREATED: `project-control/real-estate-route-cms-audit-plan-2026-05-11.md`.
+- CREATED: `project-control/real-estate-route-cms-audit-plan-2026-05-11.csv`.
+- UPDATED: `project-control/real-estate-owner-approval-packet.md`, `project-control/content-decision-batches.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED LIVE: `/real-estate-lawyer/` returns `200` with `0` response bytes and no title/H1/canonical/body marker.
+- VERIFIED LIVE: `/buying-apartment/` and `/real-estate-purchase-agreement/` resolve to homepage content with homepage canonical.
+- BLOCKED: those future slugs must not be used in internal links, redirects, canonicals, sitemap plans, related cards, menus or breadcrumbs until route/CMS audit and owner approval.
+- BLOCKED: no public real-estate route, content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, internal link, related-card, menu, breadcrumb, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Real estate owner decision summary
 
 - CREATED: `project-control/real-estate-owner-decision-summary-2026-05-11.md`.

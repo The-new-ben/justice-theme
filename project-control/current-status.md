@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 20:39 Asia/Jerusalem
+- VERIFIED / REAL-ESTATE ROUTE-CMS AUDIT PLAN: created the review-only route/CMS audit plan for the blocked real-estate future slugs.
+- CREATED: `project-control/real-estate-route-cms-audit-plan-2026-05-11.md`.
+- CREATED: `project-control/real-estate-route-cms-audit-plan-2026-05-11.csv`.
+- VERIFIED LIVE: `/real-estate-lawyer/` returns `200` with `0` response bytes and no title/H1/canonical/body marker.
+- VERIFIED LIVE: `/buying-apartment/` and `/real-estate-purchase-agreement/` resolve to homepage content with homepage canonical and marker `2026-05-11-branding-polish-v3`.
+- BLOCKED: these three future slugs must not be used in internal links, redirects, canonicals, sitemap plans, related cards, menus or breadcrumbs until route/CMS audit and owner approval.
+- BLOCKED: no public route, content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, homepage, menu, taxonomy, internal-link, related-card, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+- NEXT: owner/legal review can approve wp-admin/CMS route lookup, then an approval-gated real-estate internal-link plan using safe current URLs only.
+
 ## LATEST WORK STATUS - 2026-05-11 20:28 Asia/Jerusalem
 - VERIFIED / REAL-ESTATE OWNER DECISION SUMMARY: created the short owner approval layer after the source/legal checklist, page matrix and side-by-side review.
 - CREATED: `project-control/real-estate-owner-decision-summary-2026-05-11.md`.

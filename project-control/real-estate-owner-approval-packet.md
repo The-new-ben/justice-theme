@@ -267,6 +267,24 @@ NEXT OWNER ACTION:
 BLOCKED:
 - No public title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this summary alone.
 
+## 2026-05-11 Route/CMS Audit Plan Addendum
+
+CREATED:
+- `project-control/real-estate-route-cms-audit-plan-2026-05-11.md`
+- `project-control/real-estate-route-cms-audit-plan-2026-05-11.csv`
+
+VERIFIED LIVE:
+- `/real-estate-lawyer/` returns an empty `200` response with `0` bytes.
+- `/buying-apartment/` resolves to homepage content and homepage canonical.
+- `/real-estate-purchase-agreement/` resolves to homepage content and homepage canonical.
+
+RECOMMENDED OWNER ACTION:
+- Approve wp-admin/CMS lookup for these three slugs before any sitemap, internal-link, redirect, canonical, breadcrumb, related-card or menu planning uses them.
+- Keep `/real-estate-attorney/` as the safe current planning primary while the future route state is unresolved.
+
+BLOCKED:
+- No route repair, page creation, title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this plan alone.
+
 ## Internal-Link Direction
 
 Recommended later structure, pending owner approval:

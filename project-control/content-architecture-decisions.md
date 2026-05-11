@@ -118,6 +118,13 @@ Recommended action:
 - RECOMMENDED: protect `/real-estate-lawyer-cost-2025/` and keep property-law, fee, buying, registry, tax, rental and contractor pages in support/merge-review lanes.
 - BLOCKED: no public real-estate title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this summary alone.
 
+2026-05-11 real-estate route/CMS audit addendum:
+- VERIFIED: `project-control/real-estate-route-cms-audit-plan-2026-05-11.md` and `.csv` define the route/CMS audit needed for the blocked future slugs.
+- VERIFIED LIVE: `/real-estate-lawyer/` returns an empty `200` response with no title/H1/canonical/body marker.
+- VERIFIED LIVE: `/buying-apartment/` and `/real-estate-purchase-agreement/` resolve to homepage content and homepage canonical.
+- BLOCKED: these URLs must stay out of sitemap, redirects, canonicals, internal links, related cards, menus and breadcrumbs until route/CMS state is audited and owner-approved.
+- NEXT: after owner approval, inspect wp-admin object state, permalink/redirect/404 plugin behavior, cache/SeoEdge state, and GSC indexing before internal-link planning.
+
 ## Medical Malpractice
 
 Decision:

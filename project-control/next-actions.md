@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-REAL-ESTATE-ROUTE-CMS-AUDIT-001: Plan audit for blocked real-estate future slugs
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The side-by-side review found unsafe future routes. Before any internal-link or migration plan, the route/CMS source of these URLs must be audited.
+**Actions:**
+1. DONE: created `project-control/real-estate-route-cms-audit-plan-2026-05-11.md`.
+2. DONE: created `project-control/real-estate-route-cms-audit-plan-2026-05-11.csv`.
+3. VERIFIED LIVE: `/real-estate-lawyer/` is an empty `200` route with `0` response bytes.
+4. VERIFIED LIVE: `/buying-apartment/` and `/real-estate-purchase-agreement/` resolve to homepage content and homepage canonical.
+5. BLOCKED: do not use those URLs in sitemap, internal links, related cards, breadcrumbs, menus, canonicals or redirects.
+6. NEXT: owner/legal review approves wp-admin/CMS route lookup and then an approval-gated real-estate internal-link plan using only safe current URLs.
+7. BLOCKED: no public content, title/H1/meta, route, URL, redirect, noindex, canonical, sitemap, homepage, menu, breadcrumb, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-REAL-ESTATE-OWNER-DECISION-SUMMARY-001: Summarize owner decisions for real-estate cluster
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The real-estate cluster now has source/legal, page matrix and side-by-side evidence. The next safe layer is a concise owner decision summary before any internal-link, route, content or URL execution.

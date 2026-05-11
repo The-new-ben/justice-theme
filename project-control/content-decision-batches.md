@@ -164,6 +164,25 @@ RECOMMENDED:
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, breadcrumbs, related-card edits, lawyer cards, CRM/review work or CMS writes until explicit approval.
 
+## 2026-05-11 Real Estate Route/CMS Audit Plan
+
+CREATED:
+- `project-control/real-estate-route-cms-audit-plan-2026-05-11.md`
+- `project-control/real-estate-route-cms-audit-plan-2026-05-11.csv`
+
+VERIFIED:
+- `/real-estate-lawyer/` returns `200` with `0` bytes and no title/H1/canonical/body marker.
+- `/buying-apartment/` resolves to homepage content and homepage canonical.
+- `/real-estate-purchase-agreement/` resolves to homepage content and homepage canonical.
+
+RECOMMENDED:
+- Keep all three routes blocked from sitemap, redirects, canonicals, internal links and related cards.
+- Audit WordPress object state, permalink rules, Rank Math/redirect plugins, 404-to-homepage behavior, uPress cache/SeoEdge and GSC state before unblocking.
+- Use only safe current URLs in any future internal-link plan unless the route audit repairs these slugs and owner/legal approval is recorded.
+
+BLOCKED:
+- No route repair, page creation, public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, breadcrumbs, related-card edits, lawyer cards, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Evidence Overlay
 
 CREATED:

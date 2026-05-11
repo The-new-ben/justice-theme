@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Cyber/privacy internal-link plan
+
+- CREATED: `project-control/cyber-privacy-internal-link-plan-2026-05-11.md`.
+- CREATED: `project-control/cyber-privacy-internal-link-plan-2026-05-11.csv`.
+- UPDATED: `project-control/cyber-privacy-owner-approval-packet.md`, `project-control/cyber-privacy-owner-approval-packet.csv`, `project-control/content-decision-evidence-overlay.csv`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: the plan maps primary-to-support and support-to-primary links around `/cyber-lawyer/`, cybercrime, cyber law, cyberattack, cyber insurance, cybersex trafficking, old privacy-injury and police-record/data-deletion pages.
+- VERIFIED: all planned link rows remain approval-gated and are not live-site instructions.
+- BLOCKED: no public content, internal link, URL, redirect, noindex, canonical, sitemap, title/H1/meta, menu, taxonomy, related-card, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Cyber/privacy side-by-side content review
 
 - CREATED: `project-control/cyber-privacy-side-by-side-review-2026-05-11.md`.

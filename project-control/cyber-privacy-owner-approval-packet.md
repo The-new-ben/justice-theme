@@ -252,6 +252,17 @@ VERIFIED:
 BLOCKED:
 - No public rewrite, merge, slug change, redirect, canonical, sitemap, internal-link, title/H1/meta, related-card, lawyer-card, CMS or database action is approved by this side-by-side comparison.
 
+## 2026-05-11 Internal-Link Plan Overlay
+
+VERIFIED:
+- Created `project-control/cyber-privacy-internal-link-plan-2026-05-11.md`.
+- Created `project-control/cyber-privacy-internal-link-plan-2026-05-11.csv`.
+- The plan maps candidate primary-to-support and support-to-primary relationships around `/cyber-lawyer/`, `/cybercrime-lawyer-roll/`, `/cyber-laws/`, `/what-is-cyberattack/`, `/cyber-insurance/`, `/cybersex-trafficking/`, the old privacy-injury URL and `/police-records-data-deletion/`.
+- Every row is marked `PLANNED_NEEDS_OWNER_APPROVAL`.
+
+BLOCKED:
+- No public links, related-card logic, menus, breadcrumbs, templates, content, title/H1/meta, URL, redirect, canonical, sitemap, CMS or database action is approved by this plan.
+
 ## Source And Legal Review Checklist
 
 Required before public rewrites:
@@ -319,12 +330,10 @@ BLOCKED until explicit owner approval:
 ## Next Approved Work
 
 If owner approves this planning lane, the next safe work is:
-1. Build a side-by-side comparison of `/cyber-lawyer/`, `/fbi-cyber-division/`, `/cyber-laws/`, `/cybercrime-lawyer-roll/`, `/what-is-cyberattack/`, `/cyber-insurance/`, `/cybersex-trafficking/`, the privacy overview article and `/police-records-data-deletion/`.
-2. Run direct GSC browser checks for `עורך דין סייבר`, `דיני סייבר`, `מתקפת סייבר`, `עורך דין פרטיות`, `פגיעה בפרטיות`, `לשון הרע באינטרנט`, `שיימינג`, `מחיקת מידע`, and `הגנת הפרטיות`.
-3. Run SERP review for service, guide and support intents.
-4. Create source/legal review checklist for each approved page.
-5. Draft internal-link map only after primary/support roles are approved.
-6. Prepare URL migration and redirect plan only after owner chooses target URLs.
+1. Review the approval-gated internal-link plan and move selected rows to `APPROVED` only after owner/source/legal review.
+2. Create source/legal review checklist for each approved cyber/privacy/data-deletion/defamation page.
+3. Prepare URL migration and redirect plan only after owner chooses target URLs.
+4. Execute public links, related cards, breadcrumbs, sitemap or CMS edits only in a controlled approved batch.
 
 ## Safety
 

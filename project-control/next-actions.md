@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CYBER-PRIVACY-INTERNAL-LINK-001: Plan cyber/privacy links before public execution
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The cyber/privacy cluster now has GSC, SERP/source and side-by-side evidence. Before any public link/template/CMS change, the primary/support link structure must be mapped and owner-approved.
+**Actions:**
+1. DONE: created `project-control/cyber-privacy-internal-link-plan-2026-05-11.md`.
+2. DONE: created `project-control/cyber-privacy-internal-link-plan-2026-05-11.csv`.
+3. VERIFIED: `/cyber-lawyer/` is the current planned primary candidate only after owner approval.
+4. VERIFIED: planned support links include `/cybercrime-lawyer-roll/`, `/cyber-laws/`, `/what-is-cyberattack/`, `/cyber-insurance/`, `/cybersex-trafficking/`, the old privacy-injury URL and `/police-records-data-deletion/`.
+5. VERIFIED: all link rows are `PLANNED_NEEDS_OWNER_APPROVAL`.
+6. NEXT: start homepage line-by-line SEO/design alignment from verified homepage evidence, or create the source/legal checklist for privacy/data deletion/defamation before execution.
+7. BLOCKED: no public internal links, related cards, menus, breadcrumbs, content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, lawyer-card, CRM/review or CMS writes until owner-approved execution.
+
 ### ACTION-CYBER-PRIVACY-SIDE-BY-SIDE-001: Compare existing cyber/privacy pages before execution
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The GSC and SERP/source passes showed that cyber/privacy has overlapping service, support, case-law, privacy and data-deletion assets. A side-by-side comparison is required before any rewrite, merge, redirect, internal-link, title/H1/meta or CMS execution.

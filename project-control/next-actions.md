@@ -61,6 +61,17 @@
 7. NEXT: pull/deploy marker `2026-05-11-forced-404-header-signal-v1`, then verify public search, no-results, and a true 404 on desktop/mobile.
 8. NOT LIVE VERIFIED: no public deployment yet.
 
+### ACTION-UX-004: Breadcrumb Premium Polish
+**Status:** CODE FIXED - live visual verification pending
+**Why:** Breadcrumbs are visible on customer-facing article, archive, lawyer, practice, search and 404 pages, and weak breadcrumbs reduce trust/navigation clarity.
+**Actions:**
+1. DONE: breadcrumb markup now includes stable home/current item classes and text wrappers.
+2. DONE: breadcrumb band now uses premium compact styling, pill links, current-page emphasis, subtle accent line and mobile horizontal scrolling.
+3. DONE: RTL separator behavior was updated for the new visual separator.
+4. VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+5. NEXT: pull/deploy marker `2026-05-11-breadcrumb-polish-v1`, then visually check breadcrumbs on article, articles archive, lawyers archive, practice, search and 404 pages.
+6. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-HOMEPAGE-SEO-004: Expand homepage legal hub coverage
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** The homepage must support broad legal-portal relevance with visible entry points to all major lawyer-topic hubs, not only a subset of categories.

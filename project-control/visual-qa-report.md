@@ -2,6 +2,11 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Breadcrumb Visual Polish
+- CODE FIXED / NOT LIVE VERIFIED: breadcrumb markup and styling were upgraded into a more premium navigation band with pill links, a current-page chip, subtle accent line, and mobile horizontal scrolling.
+- CODE FIXED / NOT LIVE VERIFIED: RTL separator behavior was updated for the new visual separator.
+- LIVE CHECK NEEDED: after uPress pull/cache clear, verify breadcrumbs on desktop/mobile for a single article, `/articles/`, `/lawyers/`, `/family-law/`, a search page and a real 404 route.
+
 ## 2026-05-11 Navigation Area Fallback QA
 - CODE FIXED / NOT LIVE VERIFIED: header topic-strip fallbacks now keep personal injury/damages and inheritance users inside the lawyer directory if the clean pillar pages are not published.
 - CODE FIXED / NOT LIVE VERIFIED: footer specialization links now expose medical malpractice, employment, traffic and inheritance filters, reducing the visual/SEO gap between homepage hubs and footer navigation.

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Breadcrumb visual polish
+
+- CODE FIXED: breadcrumb markup now has stable item/current/home classes, text wrappers and a depth attribute for safer CSS/QA.
+- CODE FIXED: breadcrumbs now render as a more premium customer-facing navigation band with pill links, current-page emphasis, subtle brand accent and mobile horizontal scrolling.
+- CODE FIXED: RTL separator behavior was aligned with the updated visual separator.
+- VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and desktop/mobile checks with marker `2026-05-11-breadcrumb-polish-v1`.
+- SAFETY: no content, URL, redirect, sitemap, canonical, taxonomy, CRM, lawyer, review or database data was changed.
+
 ## 2026-05-11 - Related-content QA attributes
 
 - CODE FIXED: manual related URL metadata now supports comma, newline, pipe and semicolon separators.

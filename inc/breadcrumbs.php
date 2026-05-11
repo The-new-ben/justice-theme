@@ -22,17 +22,37 @@ function justice_theme_breadcrumbs() {
 	if ( empty( $items ) ) {
 		return;
 	}
+
+	$item_count = count( $items );
 	?>
-	<nav class="breadcrumbs" aria-label="<?php esc_attr_e( 'שביל ניווט', 'justice-theme' ); ?>">
+	<nav class="breadcrumbs" aria-label="<?php esc_attr_e( 'שביל ניווט', 'justice-theme' ); ?>" data-breadcrumb-depth="<?php echo esc_attr( (string) $item_count ); ?>">
 		<ol class="container breadcrumbs__list">
 			<?php foreach ( $items as $index => $item ) : ?>
-				<li class="breadcrumbs__item">
-					<?php if ( ! empty( $item['url'] ) && $index < count( $items ) - 1 ) : ?>
-						<a href="<?php echo esc_url( $item['url'] ); ?>">
-							<?php echo esc_html( $item['name'] ); ?>
+				<?php
+				$is_first   = 0 === $index;
+				$is_current = $index === $item_count - 1;
+				$classes    = array( 'breadcrumbs__item' );
+
+				if ( $is_first ) {
+					$classes[] = 'breadcrumbs__item--home';
+				}
+
+				if ( $is_current ) {
+					$classes[] = 'breadcrumbs__item--current';
+				}
+				?>
+				<li class="<?php echo esc_attr( implode( ' ', $classes ) ); ?>">
+					<?php if ( ! empty( $item['url'] ) && ! $is_current ) : ?>
+						<a class="breadcrumbs__link" href="<?php echo esc_url( $item['url'] ); ?>">
+							<?php if ( $is_first ) : ?>
+								<span class="breadcrumbs__home-mark" aria-hidden="true"></span>
+							<?php endif; ?>
+							<span class="breadcrumbs__text"><?php echo esc_html( $item['name'] ); ?></span>
 						</a>
 					<?php else : ?>
-						<span aria-current="page"><?php echo esc_html( $item['name'] ); ?></span>
+						<span class="breadcrumbs__current" aria-current="page">
+							<span class="breadcrumbs__text"><?php echo esc_html( $item['name'] ); ?></span>
+						</span>
 					<?php endif; ?>
 				</li>
 			<?php endforeach; ?>

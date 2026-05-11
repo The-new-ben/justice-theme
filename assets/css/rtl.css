@@ -23,7 +23,7 @@ body {
 
 /* Breadcrumb chevron flip */
 .breadcrumbs__item + .breadcrumbs__item::before {
-  transform: none;
+  transform: rotate(-45deg);
 }
 
 /* Blockquote border side */

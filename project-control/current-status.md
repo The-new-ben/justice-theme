@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-11 23:59 Asia/Jerusalem
+- VERIFIED SOURCE ANCHORS / MEDICAL MALPRACTICE SOURCE-LEGAL CHECKLIST: created the source/legal gate for the medical-malpractice cluster before any public YMYL copy or URL execution.
+- CREATED: `project-control/medical-malpractice-source-legal-checklist-2026-05-11.md`.
+- CREATED: `project-control/medical-malpractice-source-legal-checklist-2026-05-11.csv`.
+- VERIFIED: `8` page/topic gates were mapped: commercial pillar, fee/cost support, birth/pregnancy malpractice, birth injury/cerebral palsy, surgery/anesthesia/hospital error, definition/common-errors, records/evidence/expert-opinion/privacy and system/report background.
+- VERIFIED: source anchors were documented from Ministry of Health, Kol Zchut, Patient Rights Law PDF, Gov.il malpractice committee, State Comptroller report and medical-record documentation sources.
+- CONTENT-UPLOAD READINESS: final Hebrew medical-malpractice copy remains blocked, but allowed/blocked claims, privacy risk, source anchors, schema/review limits and legal-review status are now documented.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-11 23:58 Asia/Jerusalem
 - VERIFIED / FAMILY-DIVORCE CURRENT-URL UPLOAD READINESS: consolidated the family/divorce cluster into a larger current-URL readiness queue before any public upload.
 - CREATED: `project-control/family-divorce-current-url-upload-readiness-2026-05-11.md`.

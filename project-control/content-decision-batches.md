@@ -916,3 +916,22 @@ RECOMMENDED:
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, internal-link edits, taxonomy/menu edits, breadcrumb edits, related-card edits, lawyer cards, Maya profile changes, review/rating/schema, CRM changes or CMS writes until explicit approval.
+
+## 2026-05-11 Medical Malpractice Source / Legal Checklist
+
+CREATED:
+- `project-control/medical-malpractice-source-legal-checklist-2026-05-11.md`
+- `project-control/medical-malpractice-source-legal-checklist-2026-05-11.csv`
+
+VERIFIED:
+- `8` page/topic gates were mapped for commercial pillar, fee/cost support, birth/pregnancy malpractice, birth injury/cerebral palsy, surgery/anesthesia/hospital error, definition/common-errors, records/evidence/expert-opinion/privacy and report/background content.
+- Source anchors include Ministry of Health medical-malpractice information, Kol Zchut definition/claim overview, Ministry of Health second-opinion information, Patient Rights Law PDF copy, Gov.il malpractice committee, State Comptroller report and medical-record documentation sources.
+- Allowed/blocked claim boundaries are documented for compensation language, fee claims, birth/pregnancy causation, surgery/anesthesia complications, definition pages, expert-opinion language, privacy and schema/review usage.
+- Schema/review/rating and lawyer-card work remains blocked because fake reviews, fake ratings, unverified badges and sensitive health disclosures are unacceptable.
+
+RECOMMENDED:
+- Prepare a current-URL upload-readiness queue and current-URL internal-link map for the medical-malpractice cluster before public copy.
+- Keep `/medical-malpractice-lawyer/`, fee article, old birth/pregnancy page and support pages protected until duplicate identity, source/legal review, redirect/canonical/sitemap map and owner approval are complete.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, internal-link edits, taxonomy/menu edits, breadcrumb edits, related-card edits, lawyer cards, review/rating/schema, CRM changes or CMS writes until explicit approval.

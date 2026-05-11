@@ -264,3 +264,17 @@ If owner approves this review-only packet, the next safe work is:
 VERIFIED:
 - This packet is documentation and planning only.
 - No public content, URL, redirect, canonical, sitemap, noindex, taxonomy, menu, lawyer, review, CRM, plugin-state, wp-admin setting or database state was changed.
+
+## 2026-05-11 Source / Legal Checklist Addendum
+
+VERIFIED / REVIEW ONLY:
+- Created `project-control/medical-malpractice-source-legal-checklist-2026-05-11.md`.
+- Created `project-control/medical-malpractice-source-legal-checklist-2026-05-11.csv`.
+- `8` source/legal gates now cover commercial pillar, fee/cost support, birth/pregnancy, birth injury/cerebral palsy, surgery/anesthesia/hospital error, definition/common-errors, records/evidence/privacy and report/background content.
+- The checklist records source anchors, allowed claims, blocked claims, privacy-risk level, schema/review restrictions and legal-review status.
+
+NEXT:
+- Build a current-URL upload-readiness queue and internal-link map for the medical-malpractice cluster.
+
+BLOCKED:
+- No public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/menu, related-card, lawyer-card, review/rating/schema, CRM or CMS execution is approved by this addendum.

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Medical malpractice source/legal checklist
+
+- CREATED: `project-control/medical-malpractice-source-legal-checklist-2026-05-11.md`.
+- CREATED: `project-control/medical-malpractice-source-legal-checklist-2026-05-11.csv`.
+- VERIFIED SOURCE ANCHORS / REVIEW ONLY: `8` medical-malpractice page/topic gates were mapped before public YMYL copy or URL execution.
+- VERIFIED: source anchors and limitations are documented for Ministry of Health, Kol Zchut, Patient Rights Law, Gov.il committee, State Comptroller and medical-record documentation sources.
+- READY FOR REVIEW: allowed claims, blocked claims, privacy-risk level, disclaimer needs, schema/review restrictions and legal-review status are mapped per target.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Family/divorce current-URL upload readiness
 
 - CREATED: `project-control/family-divorce-current-url-upload-readiness-2026-05-11.md`.

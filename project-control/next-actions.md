@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-MEDICAL-MALPRACTICE-SOURCE-LEGAL-CHECKLIST-001: Add source/legal gates for medical-malpractice cluster
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Medical malpractice is high-risk YMYL content and cannot move toward public copy, schema, reviews, internal links or CMS upload without source anchors, privacy controls and legal-review gates.
+**Actions:**
+1. DONE: created `project-control/medical-malpractice-source-legal-checklist-2026-05-11.md`.
+2. DONE: created `project-control/medical-malpractice-source-legal-checklist-2026-05-11.csv`.
+3. VERIFIED: `8` page/topic gates were mapped for the commercial pillar, fee/cost support, birth/pregnancy, birth injury/cerebral palsy, surgery/anesthesia, definition/common errors, records/evidence/privacy and report/background content.
+4. VERIFIED: official/public source anchors and limitations are documented.
+5. VERIFIED: allowed claims, blocked claims, privacy-risk level, disclaimer requirements and review/schema restrictions are mapped.
+6. NEXT: prepare a current-URL upload-readiness queue and then internal-link map for the medical-malpractice cluster.
+7. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-FAMILY-DIVORCE-CURRENT-URL-UPLOAD-READINESS-001: Consolidate family/divorce current-URL upload readiness
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Family/divorce is one of the most upload-ready clusters, but the first public upload must protect old GSC-visible URLs, PDFs/DOCX files, child-support/custody risks, Maya profile claims and broad family-lawyer hub intent.

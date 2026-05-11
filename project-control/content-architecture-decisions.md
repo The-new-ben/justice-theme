@@ -383,3 +383,15 @@ ADDED 2026-05-11:
 - Maya Rotenberg mini-site/reputation work remains separate and must use only verified data.
 
 Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.
+
+## Medical Malpractice Source / Legal Gate Addendum
+
+ADDED 2026-05-11:
+- `project-control/medical-malpractice-source-legal-checklist-2026-05-11.md` and `.csv` define source/legal gates for the medical-malpractice cluster.
+- The checklist maps `8` page/topic gates before public copy: commercial pillar, fee/cost, birth/pregnancy, birth injury/cerebral palsy, surgery/anesthesia/hospital error, definition/common-errors, records/evidence/privacy and report/background content.
+- Medical malpractice remains separate from general personal-injury/tort intent.
+- Birth and pregnancy malpractice must be split or merged only after source/legal and GSC review.
+- Sensitive medical records, lead forms, testimonials, reviews and ratings require privacy-safe implementation before any public exposure.
+- Fake reviews, fake ratings, fake verified badges, unsupported "top/recommended" claims and automatic review schema remain blocked.
+
+Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.

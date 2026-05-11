@@ -5,6 +5,9 @@ Status: RECOMMENDED / BLOCKED UNTIL ACCESS / NO PUBLIC CHANGES
 
 Browser-based Search Console work is useful but too slow for cluster-by-cluster publishing. API access is worth setting up because it can turn manual query/page checks into repeatable exports.
 
+OWNER SETUP GUIDE:
+- Use `project-control/gsc-api-setup-guide.md` for the practical step-by-step setup instructions.
+
 ## Recommendation
 
 VERIFIED:

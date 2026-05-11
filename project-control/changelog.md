@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Family Law / Divorce execution plan and GSC setup guide
+
+- CREATED: `project-control/gsc-api-setup-guide.md`.
+- CREATED: `project-control/family-law-divorce-execution-plan-2026-05-12.md`.
+- VERIFIED / REVIEW ONLY: Family/Divorce is now documented as the first controlled upload cluster under the staged publishing strategy.
+- VERIFIED: plan covers competitor research, current Jus-Tice pages, old pages to keep/improve/merge, new pages needed, pillar/support structures, internal-link map posture, English slug map, redirect/canonical notes, content gaps, upload checklist, first-publish candidates and wait list.
+- VERIFIED: GSC setup guide explains required Search Console access, Google Cloud/API/OAuth credential setup, read-only scope, export fields and credential safety.
+- RECOMMENDED: next cycle should build the side-by-side comparison for `/divorce-lawyer/` versus the old Hebrew divorce URL.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Cluster-by-cluster publishing strategy
 
 - CREATED: `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md`.

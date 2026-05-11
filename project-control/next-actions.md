@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-EXECUTION-PLAN-001: Prepare first cluster execution plan and GSC setup guide
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Family/Divorce is now the first controlled upload cluster, and owner needs a simple GSC API guide before setup tomorrow.
+**Actions:**
+1. DONE: created `project-control/gsc-api-setup-guide.md`.
+2. DONE: created `project-control/family-law-divorce-execution-plan-2026-05-12.md`.
+3. VERIFIED: plan covers competitor research, current pages, old pages to keep/improve/merge, new pages needed, pillar/support structure, internal-link posture, English slug map, redirect/canonical notes, content gap analysis, upload/update checklist and publish/wait sequencing.
+4. VERIFIED: GSC guide covers required access, OAuth credential setup, read-only scope, export fields, output files and credential safety.
+5. NEXT: compare `/divorce-lawyer/` with the old Hebrew divorce URL and prepare the first upload decision table.
+6. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-STAGED-CLUSTER-PUBLISHING-001: Switch content execution to cluster-by-cluster publishing gates
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The full-site audit pace is too slow for the current timeline; staged cluster publishing can move faster while preserving SEO safety.

@@ -34,6 +34,25 @@ RECOMMENDED:
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, document/media actions, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, Maya profile edits, CRM/review work or CMS writes until explicit approval.
 
+## 2026-05-12 Family Law / Divorce Execution Plan
+
+CREATED:
+- `project-control/family-law-divorce-execution-plan-2026-05-12.md`
+- `project-control/gsc-api-setup-guide.md`
+
+VERIFIED:
+- Family/Divorce execution is now framed as one controlled cluster, not disconnected uploads.
+- The plan identifies pages to protect, improve, merge, create and hold.
+- Competitor gaps are documented: costs, court process, FAQs, documents, mediation, children/custody/support, agreements, lawyer CTAs and structure.
+- Wills/inheritance is treated as adjacent Phase 1B rather than being mixed blindly into the first divorce upload.
+
+RECOMMENDED:
+- Build side-by-side comparison for `/divorce-lawyer/` and the old Hebrew divorce URL.
+- Add GSC API export tomorrow before redirect/canonical/upload approval.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, Maya profile edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Family / Divorce Owner Upload Review Package
 
 CREATED:

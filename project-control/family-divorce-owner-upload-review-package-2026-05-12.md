@@ -44,6 +44,8 @@ VERIFIED:
 RECOMMENDED:
 - Do the side-by-side comparison cycle next, not another broad sitewide audit cycle.
 - Keep all protected old URLs/documents live while the comparison is in progress.
+- Use `project-control/family-law-divorce-execution-plan-2026-05-12.md` as the cluster execution plan.
+- Use `project-control/gsc-api-setup-guide.md` for tomorrow's GSC API connection setup.
 
 ## Proposed Upload Order After Approval
 

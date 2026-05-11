@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-12 01:35 Asia/Jerusalem
+- VERIFIED / FAMILY LAW DIVORCE EXECUTION PLAN + GSC SETUP GUIDE: prepared the first cluster execution plan under the staged publishing strategy and saved a simple owner-facing GSC API connection guide for tomorrow.
+- CREATED: `project-control/gsc-api-setup-guide.md`.
+- CREATED: `project-control/family-law-divorce-execution-plan-2026-05-12.md`.
+- VERIFIED: the Family/Divorce plan covers competitor research, current Jus-Tice pages, keep/improve/merge/new-page decisions, pillar/support structures, internal-link posture, English slug map, redirect/canonical notes, content gaps, upload checklist, first-publish candidates and wait list.
+- VERIFIED: GSC setup guide explains required Search Console access, Google Cloud/API/OAuth credentials, read-only scope, export fields, first Family/Divorce exports and token safety.
+- RECOMMENDED: continue with side-by-side comparison for `/divorce-lawyer/` against the old Hebrew divorce URL, then run GSC API export once access is ready.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 00:55 Asia/Jerusalem
 - VERIFIED / STRATEGY SHIFT TO CLUSTER-BY-CLUSTER PUBLISHING: documented the faster staged publishing strategy so content upload can advance one legal field at a time instead of waiting for a full 1,200-article audit.
 - CREATED: `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md`.

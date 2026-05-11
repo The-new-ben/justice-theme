@@ -19,6 +19,13 @@ ACCEPTED:
 - RECOMMENDED: Family/Divorce first, then Criminal Law, Medical Malpractice, Traffic, Real Estate and Personal Injury/Damages.
 - BLOCKED: no public upload, redirect, canonical, sitemap, taxonomy/category, internal-link, related-card, lawyer-card, review/rating/schema or CMS write is approved by this addendum alone.
 
+2026-05-12 Family/Divorce execution-plan addendum:
+- VERIFIED: `project-control/family-law-divorce-execution-plan-2026-05-12.md` defines the first controlled Family/Divorce upload structure.
+- VERIFIED: Wave 1 is divorce, agreement, mediation, child support, custody, property division and family dispute resolution.
+- REVIEW: `צוואה` and `צוואות וירושות` are adjacent Family Law Phase 1B because existing GSC and URL evidence are already tracked in the inheritance/wills packet.
+- NEXT: compare `/divorce-lawyer/` with the old Hebrew divorce URL before upload.
+- BLOCKED: no URL, redirect, canonical, sitemap, taxonomy, internal-link, content or CMS execution is approved by this addendum alone.
+
 ## Broad Lawyer / Directory
 
 Decision:

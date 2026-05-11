@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Family/divorce current-URL upload readiness
+
+- CREATED: `project-control/family-divorce-current-url-upload-readiness-2026-05-11.md`.
+- CREATED: `project-control/family-divorce-current-url-upload-readiness-2026-05-11.csv`.
+- VERIFIED / REVIEW ONLY: `92` inventory candidates were scanned and `58` family/divorce URL or URL-reference items were advanced into review roles.
+- VERIFIED: the queue separates pillar, support, old high-risk URL, document-risk, child-support/custody, property/dispute, broad family-lawyer hub and Maya-profile items before public upload.
+- READY FOR REVIEW: current URL roles, support hierarchy, merge candidates, sitemap posture, internal-link requirements and related-content boundaries are documented in one package.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Traffic law owner upload review package
 
 - CREATED: `project-control/traffic-law-owner-upload-review-package-2026-05-11.md`.

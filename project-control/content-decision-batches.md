@@ -893,3 +893,26 @@ RECOMMENDED:
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, internal-link edits, taxonomy/menu edits, related-card edits, lawyer cards, CRM/review changes or CMS writes until explicit approval.
+
+## 2026-05-11 Family / Divorce Current-URL Upload Readiness
+
+CREATED:
+- `project-control/family-divorce-current-url-upload-readiness-2026-05-11.md`
+- `project-control/family-divorce-current-url-upload-readiness-2026-05-11.csv`
+
+VERIFIED:
+- `92` inventory candidates were scanned using family/divorce/custody/support/mediation/agreement/property/dispute signals.
+- `58` family/divorce URL or URL-reference items were advanced into review roles.
+- `/divorce-lawyer/` remains the current clean commercial divorce pillar candidate, but the old Hebrew divorce article remains protected because prior GSC browser evidence shows stronger query ownership.
+- `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/`, `/divorce-property-division/` and `/family-dispute-resolution/` remain support pages, not random standalone uploads.
+- Child-support calculator, custody PDF/article, mediation DOCX, divorce PDF and sole-mother custody case-law URL remain protected until document/source/legal/redirect strategy is approved.
+- Broad family-lawyer and "recommended/top/trusted" pages are separated as hub/compliance risks, not trust signals.
+- Maya Rotenberg profile/reputation work remains a separate verified-profile task.
+
+RECOMMENDED:
+- Owner approval for a no-URL-change comparison batch.
+- Recheck the seven live family-law URLs after uPress/cache refresh.
+- Compare old/new divorce, child-support, child-custody, mediation and dispute-resolution assets before redirect/canonical/sitemap execution.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, internal-link edits, taxonomy/menu edits, breadcrumb edits, related-card edits, lawyer cards, Maya profile changes, review/rating/schema, CRM changes or CMS writes until explicit approval.

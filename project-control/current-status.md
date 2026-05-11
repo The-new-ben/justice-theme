@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-11 23:58 Asia/Jerusalem
+- VERIFIED / FAMILY-DIVORCE CURRENT-URL UPLOAD READINESS: consolidated the family/divorce cluster into a larger current-URL readiness queue before any public upload.
+- CREATED: `project-control/family-divorce-current-url-upload-readiness-2026-05-11.md`.
+- CREATED: `project-control/family-divorce-current-url-upload-readiness-2026-05-11.csv`.
+- VERIFIED: `92` inventory candidates were scanned and `58` family/divorce URL or URL-reference items were advanced into review roles.
+- VERIFIED: the queue separates divorce pillar, support pages, protected old GSC-visible URLs, document risks, child-support/custody risks, property/dispute supports, broad family-lawyer hub risks, Maya profile risks and future-only decisions.
+- READY FOR REVIEW: family/divorce now has page roles, support hierarchy, protected high-risk URLs, merge candidates, future-only slugs, sitemap posture, internal-link requirements and related-content boundaries in one consolidated package.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-11 23:38 Asia/Jerusalem
 - VERIFIED / TRAFFIC LAW OWNER UPLOAD REVIEW PACKAGE: packaged the first traffic-law group into a single owner-review approval layer before any content upload.
 - CREATED: `project-control/traffic-law-owner-upload-review-package-2026-05-11.md`.

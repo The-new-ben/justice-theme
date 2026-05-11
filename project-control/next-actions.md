@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-CURRENT-URL-UPLOAD-READINESS-001: Consolidate family/divorce current-URL upload readiness
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Family/divorce is one of the most upload-ready clusters, but the first public upload must protect old GSC-visible URLs, PDFs/DOCX files, child-support/custody risks, Maya profile claims and broad family-lawyer hub intent.
+**Actions:**
+1. DONE: created `project-control/family-divorce-current-url-upload-readiness-2026-05-11.md`.
+2. DONE: created `project-control/family-divorce-current-url-upload-readiness-2026-05-11.csv`.
+3. VERIFIED: `92` inventory candidates were scanned and `58` family/divorce URL or URL-reference items were advanced into review roles.
+4. VERIFIED: divorce pillar, support pages, protected old assets, document risks, merge candidates, future-only slugs, sitemap posture and internal-link requirements are consolidated.
+5. NEXT: owner approves no-URL-change comparison batch, then recheck the seven live family-law URLs after uPress/cache refresh and compare old/new content before redirects or public upload.
+6. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-TRAFFIC-LAW-OWNER-UPLOAD-REVIEW-001: Package first traffic-law group for owner approval
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The traffic-law outline/source/internal-link work needs one owner-facing approval layer before any Hebrew drafting or CMS upload.

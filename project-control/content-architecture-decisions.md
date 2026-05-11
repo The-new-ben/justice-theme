@@ -370,3 +370,16 @@ ADDED 2026-05-11:
 - All outline work remains blocked until owner/legal review.
 
 Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.
+
+## Family / Divorce Current-URL Upload Readiness Addendum
+
+ADDED 2026-05-11:
+- `project-control/family-divorce-current-url-upload-readiness-2026-05-11.md` and `.csv` consolidate the family/divorce cluster before public upload.
+- `92` inventory candidates were scanned and `58` URL or URL-reference items were advanced into review roles.
+- `/divorce-lawyer/` remains the current clean commercial divorce pillar candidate.
+- `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/`, `/divorce-property-division/` and `/family-dispute-resolution/` remain support pages with owner/legal/source gates.
+- Old GSC-visible URLs, PDFs/DOCX files, calculator/tool URLs and case-law URLs are protected until comparison, document strategy, internal-link plan, redirect map, canonical plan and sitemap plan are approved.
+- Broad family-lawyer and recommended/top/trusted lawyer pages are compliance-sensitive hub items, not approved ranking/trust signals.
+- Maya Rotenberg mini-site/reputation work remains separate and must use only verified data.
+
+Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.

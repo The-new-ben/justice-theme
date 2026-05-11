@@ -297,3 +297,15 @@ VERIFIED / REVIEW ONLY:
 
 BLOCKED:
 - No sitemap entry, sitemap removal, noindex, canonical, redirect or category change is approved by this review-only batch.
+
+# 2026-05-11 Family / Divorce Sitemap Posture
+
+VERIFIED / REVIEW ONLY:
+- `project-control/family-divorce-current-url-upload-readiness-2026-05-11.md` and `.csv` scanned `92` inventory candidates and advanced `58` family/divorce URL or URL-reference items before any sitemap execution.
+- Include `/divorce-lawyer/` only after owner/legal review, live public-body cleanup verification, source verification, self-canonical confirmation and internal-link execution approval.
+- Include `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/`, `/divorce-property-division/` and `/family-dispute-resolution/` only after their support roles, source/legal review, merge candidates and internal links are approved.
+- Do not remove or noindex the old divorce article, child-support calculator URL, custody article/PDF, mediation DOCX, divorce PDF or high-position custody case-law URL until document/migration strategy is approved.
+- Broad family-lawyer, recommended/top/trusted lawyer and Maya-profile pages stay out of sitemap promotion until profile, compliance and trust-signal policy are approved.
+
+BLOCKED:
+- No sitemap entry, sitemap removal, noindex, canonical, redirect, taxonomy/category, menu, breadcrumb, related-card, lawyer-card, Maya profile or review/rating/schema change is approved by this review-only batch.

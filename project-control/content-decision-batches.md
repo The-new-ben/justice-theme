@@ -100,6 +100,30 @@ Use the three review CSVs to run the first GSC/SERP evidence pass on:
 
 Then update the URL migration map only as a proposed plan, not as live URL changes.
 
+## 2026-05-11 Criminal Law Content Upload Readiness Batch
+
+CREATED:
+- `project-control/criminal-law-content-upload-readiness-2026-05-11.md`
+- `project-control/criminal-law-content-upload-readiness-2026-05-11.csv`
+
+VERIFIED:
+- `220` raw criminal-adjacent inventory candidates were extracted.
+- `50` higher-value criminal-law candidates were reviewed as one larger upload-readiness batch.
+- `/criminal-defense-attorney/` is the current clean-ish primary candidate.
+- `/criminal-lawyer/` remains the future strategic pillar target only.
+- The old Hebrew criminal-lawyer URL is protected because GSC shows broad criminal-lawyer impressions there.
+- Police investigation, indictment, detention, drug offenses, sex offenses, economic/white-collar crime, tax offenses, criminal record deletion and criminal defenses are support lanes.
+- Foreign/international pages, legal-career pages, victim-rights pages, defamation/police-complaint pages, traffic-criminal pages and cyber-criminal pages are boundary or exclude lanes.
+
+RECOMMENDED:
+- Do not approve criminal-law URL migration yet.
+- Compare `/criminal-defense-attorney/`, the old GSC-visible Hebrew criminal-lawyer URL and the future `/criminal-lawyer/` target before choosing the primary.
+- Prepare no-URL-change support outlines for police investigation, indictment, detention and drug offenses.
+- Use only approved current URLs in internal-link plans until redirects and sitemap changes are approved.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Traffic Law Content Upload Readiness Batch
 
 CREATED:

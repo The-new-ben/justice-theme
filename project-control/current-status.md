@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 21:52 Asia/Jerusalem
+- VERIFIED / CRIMINAL LAW CONTENT UPLOAD READINESS BATCH: reviewed `50` higher-value criminal-law URL candidates after extracting `220` raw criminal-adjacent inventory matches.
+- CREATED: `project-control/criminal-law-content-upload-readiness-2026-05-11.md`.
+- CREATED: `project-control/criminal-law-content-upload-readiness-2026-05-11.csv`.
+- VERIFIED: batch separates the current clean-ish `/criminal-defense-attorney/` candidate, the future `/criminal-lawyer/` strategic target, the old GSC-visible Hebrew criminal-lawyer URL, and support lanes for police investigation, indictment, detention, drug offenses, sex offenses, economic/white-collar crime, tax offenses, criminal records and defenses.
+- VERIFIED: GSC evidence still blocks immediate `/criminal-lawyer/` migration because broad criminal-lawyer intent is currently attached to an old Hebrew URL and scattered legacy/support URLs.
+- CATEGORY CLEANUP: international/foreign-law, legal-career, victim-rights, defamation/police-complaint, traffic-criminal and cyber-criminal boundary pages must not be merged blindly into the Israeli criminal-lawyer service pillar.
+- CONTENT-UPLOAD READINESS: criminal-law role map, category cleanup concept, URL lanes, internal-link requirements and sitemap posture are ready for owner review.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-11 21:31 Asia/Jerusalem
 - VERIFIED / TRAFFIC LAW CONTENT UPLOAD READINESS BATCH: reviewed `38` traffic-adjacent URL candidates as one larger cluster batch.
 - CREATED: `project-control/traffic-law-content-upload-readiness-2026-05-11.md`.

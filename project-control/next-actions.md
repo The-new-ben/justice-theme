@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CRIMINAL-LAW-UPLOAD-READINESS-001: Map criminal-law cluster for content upload readiness
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The criminal-law cluster is a major pillar candidate, but broad criminal-lawyer GSC evidence is attached to an old Hebrew URL and multiple support/legacy pages. The cluster must be mapped before any upload, internal-link, sitemap or migration action.
+**Actions:**
+1. DONE: created `project-control/criminal-law-content-upload-readiness-2026-05-11.md`.
+2. DONE: created `project-control/criminal-law-content-upload-readiness-2026-05-11.csv`.
+3. VERIFIED: `220` raw criminal-adjacent inventory candidates were extracted and `50` higher-value candidates were reviewed.
+4. VERIFIED: `/criminal-defense-attorney/` is the current clean-ish primary candidate; `/criminal-lawyer/` remains a future strategic pillar target only.
+5. VERIFIED: the old Hebrew criminal-lawyer URL remains protected because GSC shows broad criminal-lawyer impressions there.
+6. VERIFIED: support lanes are mapped for police investigation, indictment, detention, drug offenses, sex offenses, economic/white-collar crime, tax offenses, criminal records and criminal defenses.
+7. CATEGORY CLEANUP: international/foreign-law, legal-career, victim-rights, defamation/police-complaint, traffic-criminal and cyber-criminal boundary pages must stay out of blind Israeli criminal-lawyer pillar consolidation.
+8. NEXT: prepare owner-review primary selection for `/criminal-defense-attorney/` vs `/criminal-lawyer/`, then map no-URL-change outlines for police investigation, indictment, detention and drug offenses.
+9. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-TRAFFIC-LAW-UPLOAD-READINESS-001: Map traffic-law cluster for content upload readiness
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** To move toward content upload safely, the full traffic-law cluster needs pillar/support, category, URL, redirect, internal-link and sitemap posture before rewriting or uploading individual pages.

@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Criminal law content upload readiness batch
+
+- CREATED: `project-control/criminal-law-content-upload-readiness-2026-05-11.md`.
+- CREATED: `project-control/criminal-law-content-upload-readiness-2026-05-11.csv`.
+- VERIFIED / REVIEW ONLY: `220` raw criminal-adjacent inventory candidates were extracted and `50` higher-value URL candidates were mapped into pillar, support, merge/rewrite, source/reference, boundary and exclude lanes.
+- VERIFIED: `/criminal-defense-attorney/` is the current clean-ish primary candidate, while `/criminal-lawyer/` remains the future strategic pillar target pending owner-approved migration.
+- VERIFIED: the old Hebrew criminal-lawyer URL remains protected because GSC shows broad criminal-lawyer impressions there.
+- VERIFIED: support lanes now cover police investigation, indictment, detention, drug offenses, sex offenses, economic/white-collar crime, tax offenses, criminal records, criminal defenses and selected case/source pages.
+- CATEGORY CLEANUP: foreign-law, legal-career, victim-rights, defamation/police-complaint, traffic-criminal and cyber-criminal boundary pages are excluded from blind criminal-law pillar consolidation.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Traffic law content upload readiness batch
 
 - CREATED: `project-control/traffic-law-content-upload-readiness-2026-05-11.md`.

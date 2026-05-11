@@ -5,6 +5,14 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
 
 ## Current Evidence
 
+2026-05-11 CRIMINAL LAW CONTENT UPLOAD READINESS:
+- VERIFIED / REVIEW ONLY: `project-control/criminal-law-content-upload-readiness-2026-05-11.md` and `.csv` map `50` higher-value criminal-law candidates after extracting `220` raw criminal-adjacent inventory matches.
+- DECISION: `/criminal-lawyer/` should remain a strategic future sitemap target only until the primary page, old Hebrew GSC-visible URL, 301 redirect plan, internal links and canonical consistency are approved.
+- CURRENT CANDIDATE: `/criminal-defense-attorney/` is the current clean-ish primary candidate to compare before migration.
+- INCLUDE LATER ONLY AFTER APPROVAL: selected criminal pillar, police investigation, indictment, detention, drug offenses, sex offenses, economic/white-collar crime, tax offenses, criminal record deletion and criminal defenses.
+- HOLD OUT: old GSC-visible Hebrew URL until redirect plan, thin detention/drug pages, foreign-law pages, legal-career pages, victim-rights pages, defamation/police-complaint boundary pages, traffic-criminal and cyber-criminal boundary pages unless separately approved.
+- SAFETY: no sitemap inclusion rule, redirect, canonical, URL slug, taxonomy term, content body, lawyer, CRM, review, wp-admin setting or database row was changed.
+
 2026-05-11 MEDIA / IMAGE SITEMAP HTTPS FIX:
 - FIXED LIVE: first-party image/media URLs now normalize to HTTPS in public media helpers and Rank Math image sitemap filters.
 - VERIFIED SOURCE: Rank Math official docs list `rank_math/sitemap/urlimages` for changing images included in XML sitemaps and `rank_math/sitemap/xml_img_src` for changing image URL output.

@@ -129,3 +129,20 @@ BLOCKED:
 ## CSV Detail
 
 See `project-control/criminal-law-support-review.csv`.
+
+## 2026-05-11 Criminal Law Content Upload Readiness Batch
+
+CREATED:
+- `project-control/criminal-law-content-upload-readiness-2026-05-11.md`
+- `project-control/criminal-law-content-upload-readiness-2026-05-11.csv`
+
+VERIFIED:
+- `220` raw criminal-adjacent inventory candidates were extracted.
+- `50` higher-value candidates were mapped into upload-readiness lanes.
+- `/criminal-defense-attorney/` is the current clean-ish primary candidate to compare.
+- `/criminal-lawyer/` remains the future strategic pillar target, but no migration is approved.
+- The old Hebrew GSC-visible criminal-lawyer URL must remain protected until the redirect and internal-link map are owner-approved.
+- Support lanes are now mapped for police investigation, indictment, detention, drug offenses, sex offenses, economic/white-collar crime, tax offenses, criminal records and criminal defenses.
+
+BLOCKED:
+- No public criminal-law content expansion, title/H1/meta change, internal-link batch, slug migration, redirect, canonical, noindex, sitemap or taxonomy/category change is approved by this batch.

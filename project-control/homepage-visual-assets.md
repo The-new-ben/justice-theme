@@ -8,8 +8,11 @@
 | Hero background | Hero | `assets/images/hero-bg.png` | No (theme fallback) | Legal consultation office | Medium (668KB) | ✅ Live |
 | Logo wordmark | Header | `assets/images/logo.png` | Yes (Customizer override) | Jus-Tice logo | None (80KB) | ✅ Live |
 | Favicon | Browser tab | `assets/images/favicon.png` | Yes (Customizer override) | — | None (389KB, needs optimization) | ✅ Live |
-| Guide hero | Find Lawyer Guide | `assets/images/guide-hero.png` | No (not yet used in template) | Person researching legal info | Medium | ⚠️ Generated, not wired |
+| Guide hero | Find Lawyer Guide | `assets/images/guide-hero.png` | No (theme asset) | Person researching legal info | Medium | ✅ Live, wired in template |
 | OG share image | Meta/Social | `assets/images/og-default.png` | No (theme fallback in seo.php) | Jus-Tice brand card | None | ✅ Live via og:image |
+| Ask-lawyer visual | Ask Lawyer | `assets/images/ask-lawyer-visual.png` | No (theme asset) | Video call with lawyer | Medium | ✅ Live, wired in template |
+| Lawyer CTA visual | Featured Lawyers | `assets/images/lawyer-cta-visual.png` | No (theme asset) | Professional lawyer desk | Medium | ✅ Live, wired in template |
+| Trust watermark | Trust Section | `assets/images/trust-watermark.png` | No (CSS bg) | Scales of justice watermark | Low (CSS opacity 0.08) | ✅ Live via CSS ::before |
 
 ## SVG Assets (Zero Performance Cost)
 
@@ -33,10 +36,10 @@
 
 | Need | Section | Priority | Notes |
 |------|---------|----------|-------|
-| Article card thumbnails | Latest Articles | Medium | Depends on post featured images in CMS |
+| ~~Article card thumbnails~~ | Latest Articles | Low | Uses CSS skeleton placeholder — acceptable until real thumbnails uploaded |
 | Lawyer profile photos | Featured Lawyers | High | Depends on real lawyer onboarding |
-| Ask-lawyer section visual | Ask Lawyer | Low | Could use CSS illustration or subtle bg |
-| Footer brand visual | Footer | Low | Logo is sufficient |
+| ~~Ask-lawyer section visual~~ | ~~Ask Lawyer~~ | ~~Done~~ | ✅ Generated and wired |
+| ~~Footer brand visual~~ | Footer | Low | Logo is sufficient, no action needed |
 | ~~OG image for sharing~~ | ~~Meta~~ | ~~Done~~ | ✅ Created and wired in seo.php |
 
 ## Performance Notes

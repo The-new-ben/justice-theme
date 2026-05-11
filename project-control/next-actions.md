@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-MEDICAL-MALPRACTICE-OWNER-APPROVAL-001: Prepare medical-malpractice primary and YMYL review approval packet
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Medical malpractice is a high-risk YMYL commercial cluster with `27` conflict rows, same-public-URL duplicate records, old Hebrew pages with GSC impressions, and multiple thin/specialist support pages.
+**Actions:**
+1. DONE: created `project-control/medical-malpractice-owner-approval-packet.md`.
+2. DONE: created `project-control/medical-malpractice-owner-approval-packet.csv`.
+3. VERIFIED: `/medical-malpractice-lawyer/` has two public REST records: ID `11607` with `5,135` words and quality `6/10`, and ID `1130` with `3,287` words and quality `8/10`.
+4. VERIFIED: `עורך דין רשלנות רפואית` visible GSC page is the fee article with `145` impressions, not the clean pillar.
+5. VERIFIED: `רשלנות רפואית בלידה` has `661` impressions and `רשלנות רפואית בהריון` has `419` impressions on the old Hebrew birth-malpractice page.
+6. RECOMMENDED: owner approval for no-URL-change duplicate identity review, side-by-side content comparison, source/legal review and internal-link planning.
+7. NEXT: if owner approves, compare IDs `11607`, `1130`, fee article `6861`, birth-malpractice `11834`, and main support pages before any rewrite or URL decision.
+8. BLOCKED: no public content edits, titles/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, lawyer cards, review/rating/schema or CMS writes until explicit owner approval.
+
 ### ACTION-DIVORCE-FAMILY-OWNER-APPROVAL-001: Prepare divorce/family-law primary and document-risk approval packet
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Divorce/family is a core commercial cluster, but the main query is currently owned by an old Hebrew URL and document URLs also have GSC visibility.

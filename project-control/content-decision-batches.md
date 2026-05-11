@@ -348,3 +348,24 @@ RECOMMENDED:
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, document/media deletion, robots/media noindex, homepage changes, canonical changes, sitemap changes, taxonomy/menu edits, Maya profile edits, lawyer cards or CMS writes until explicit approval.
+
+## 2026-05-11 Medical-Malpractice Owner Approval Packet
+
+CREATED:
+- `project-control/medical-malpractice-owner-approval-packet.md`
+- `project-control/medical-malpractice-owner-approval-packet.csv`
+
+VERIFIED:
+- `medical-malpractice-lawyer` has `27` conflict rows and `2` exact current records for the same public URL.
+- `/medical-malpractice-lawyer/` has two public REST records: ID `11607` with `5,135` words and quality score `6/10`, and ID `1130` with `3,287` words and quality score `8/10`.
+- GSC browser evidence maps visible `עורך דין רשלנות רפואית` demand to the fee article with `145` impressions, not to the clean pillar.
+- GSC browser evidence maps `רשלנות רפואית בלידה` to the old Hebrew birth-malpractice page with `661` impressions.
+- GSC browser evidence maps `רשלנות רפואית בהריון` to the same birth-malpractice page with `419` impressions, indicating overlap/cannibalization risk.
+- The cluster includes thin/specialist support pages and some unrelated contamination that must be classified before internal-link generation or migration.
+
+RECOMMENDED:
+- Owner approval for no-URL-change duplicate identity review, side-by-side content comparison, source/legal review and internal-link planning.
+- Protect the fee article and old Hebrew birth-malpractice URL until redirect/canonical/sitemap maps are approved.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, lawyer cards, review/rating/schema or CMS writes until explicit approval.

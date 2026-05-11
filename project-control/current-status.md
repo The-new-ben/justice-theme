@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 14:00 Asia/Jerusalem
+- VERIFIED / REVIEW: prepared the medical-malpractice owner-approval packet as a no-URL-change primary-selection, duplicate-same-public-URL and YMYL source/legal review planning decision.
+- CREATED: `project-control/medical-malpractice-owner-approval-packet.md`.
+- CREATED: `project-control/medical-malpractice-owner-approval-packet.csv`.
+- VERIFIED: `medical-malpractice-lawyer` has `27` conflict rows and `2` exact current records for the same public URL.
+- VERIFIED: `/medical-malpractice-lawyer/` has two public REST records: ID `11607` with `5,135` words and quality `6/10`, and ID `1130` with `3,287` words and quality `8/10`.
+- VERIFIED: GSC browser evidence maps visible `עורך דין רשלנות רפואית` demand to the fee article with `145` impressions, while birth/pregnancy malpractice demand maps to the old Hebrew birth-malpractice page with `661` and `419` impressions.
+- BLOCKED: duplicate identity review, source/legal review, GSC/SERP deepening and owner approval are required before title/H1/meta, URL, redirect, content-body, canonical, sitemap, noindex, taxonomy/menu, lawyer-card, review/rating, schema or CMS changes.
+- SAFETY: repo documentation/CSV planning only; no live public content, medical page, URL, redirect, profile, review, rating or CMS state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 13:49 Asia/Jerusalem
 - VERIFIED / REVIEW: prepared the divorce/family-law owner-approval packet as a no-URL-change primary-selection, document-risk and merge-review planning decision.
 - CREATED: `project-control/divorce-family-owner-approval-packet.md`.

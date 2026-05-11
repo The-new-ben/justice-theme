@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Medical malpractice owner approval packet
+
+- CREATED: `project-control/medical-malpractice-owner-approval-packet.md`.
+- CREATED: `project-control/medical-malpractice-owner-approval-packet.csv`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `medical-malpractice-lawyer` has `27` conflict rows and duplicate same-public-URL records.
+- VERIFIED: `/medical-malpractice-lawyer/` has public REST IDs `11607` and `1130`, with quality scores `6/10` and `8/10`.
+- VERIFIED: GSC browser evidence maps visible `עורך דין רשלנות רפואית` demand to the fee article and maps birth/pregnancy malpractice demand to an old Hebrew birth-malpractice page.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, title/H1/meta, taxonomy, menu, lawyer, review/rating, schema, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Divorce and family-law owner approval packet
 
 - CREATED: `project-control/divorce-family-owner-approval-packet.md`.

@@ -872,6 +872,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - VERIFIED BASELINE: homepage, articles archive, lawyers archive, robots and sitemap checks pass.
 - BLOCKED BASELINE: fake URLs and invalid `?p=99999999` still return `301 Location: https://jus-tice.co.il/` while `All 404 Redirect to Homepage` remains active.
 - OWNER APPROVAL NEEDED: deactivate `All 404 Redirect to Homepage` only after explicit approval, then rerun the checker and capture a real 404 screenshot.
+- LIVE DEPLOYMENT VERIFIED: Codex operated the uPress Git panel directly; the uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Prepare 404 plugin deactivation checks` at commit `0410d2f`.
 - SAFETY: no live plugin state, URL, redirect rule, `.htaccess`, permalink setting, content body, taxonomy, canonical, sitemap, lawyer data, CRM data, review data or database row was changed.
 
 ## NEXT BEST ACTION

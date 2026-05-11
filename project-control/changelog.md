@@ -1668,5 +1668,6 @@
 - VERIFIED: the checker runs locally and covers fake generated URLs, invalid post queries, homepage, `/articles/`, `/lawyers/`, `robots.txt`, and `sitemap_index.xml`.
 - VERIFIED BASELINE: homepage, articles archive, lawyers archive, robots and sitemap checks pass.
 - BLOCKED BASELINE: fake generated URLs and invalid `?p=99999999` still return `301 Location: https://jus-tice.co.il/`.
+- LIVE DEPLOYMENT VERIFIED: Codex used the uPress Git panel directly and verified the uPress Git log at commit `0410d2f` for `Prepare 404 plugin deactivation checks`.
 - DECISION: plugin deactivation remains an owner-approval action because it changes live WordPress plugin state.
 - SAFETY: no live plugin state, URL, redirect rule, `.htaccess`, permalink setting, content body, taxonomy, canonical, sitemap, lawyer data, CRM data, review data or database row was changed.

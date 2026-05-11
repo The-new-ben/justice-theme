@@ -9,7 +9,13 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
 - CODE FIXED / NOT LIVE VERIFIED: added `rank_math/sitemap/enable_caching` with `__return_false` so Rank Math does not serve stale sitemap XML while HTTPS loc normalization is being verified.
 - WHY: latest theme code was live, but child sitemap XML still emitted HTTP locs. `articles-sitemap2.xml?nocache=1` also returned 200 HTTP locs and zero HTTPS locs before the patch.
 - SAFETY: this does not add, remove, redirect, migrate, noindex or canonicalize any URL. It only prevents Rank Math sitemap cache from masking the active normalization hooks.
-- NEXT CHECK: after push/uPress pull, record HTTP/HTTPS loc counts for `page-sitemap.xml`, `articles-sitemap1.xml`, `articles-sitemap2.xml`, and `practice-areas-sitemap.xml`.
+- VERIFIED LIVE: after uPress pull to `4c7b45e`, sampled child sitemaps returned zero first-party HTTP locs:
+  - `page-sitemap.xml`: 0 HTTP / 11 HTTPS
+  - `articles-sitemap1.xml`: 0 HTTP / 201 HTTPS
+  - `articles-sitemap2.xml`: 0 HTTP / 200 HTTPS
+  - `practice-areas-sitemap.xml`: 0 HTTP / 40 HTTPS
+  - `category-sitemap.xml`: 0 HTTP / 16 HTTPS
+- NEXT CHECK: monitor the same counts after any Rank Math, permalink, cache or sitemap setting change.
 
 2026-05-11 POST-PULL UPDATE:
 - VERIFIED LIVE: uPress pull deployed the latest theme marker `2026-05-11-robots-sitemap-directive-v1`.

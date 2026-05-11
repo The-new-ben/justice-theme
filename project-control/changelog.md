@@ -6,7 +6,9 @@
 - CODE FIXED: disabled Rank Math sitemap caching via the official `rank_math/sitemap/enable_caching` filter while sitemap HTTPS output is being verified.
 - EXPECTED IMPACT: Rank Math child sitemap XML should stop serving stale cached HTTP loc values and allow the existing first-party HTTPS normalization filters to affect generated entries.
 - VERIFIED BEFORE PATCH: `articles-sitemap2.xml?nocache=1` still returned 200 `http://jus-tice.co.il` loc values and zero HTTPS loc values.
-- NOT LIVE VERIFIED: requires push, uPress pull and public sitemap recheck against marker `2026-05-11-rankmath-sitemap-cache-bypass-v1`.
+- VERIFIED LIVE: uPress Git log shows top commit `4c7b45e` and public marker returns `2026-05-11-rankmath-sitemap-cache-bypass-v1`.
+- FIXED LIVE: sampled child sitemaps now return zero first-party HTTP locs and HTTPS locs only: page 11, articles1 201, articles2 200, practice-areas 40, category 16.
+- STILL BLOCKED: public `robots.txt` remains empty and needs separate server/plugin/static robots investigation.
 - SAFETY: no URL inventory, redirect, sitemap plugin setting, robots/htaccess file, content, taxonomy, canonical setting, CRM, lawyer, review or database data was changed by this repo patch.
 
 ## 2026-05-11 - uPress Git pull verified

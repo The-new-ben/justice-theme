@@ -47,11 +47,27 @@ VERIFIED:
 - Homepage source still uses the WordPress/RealFaviconGenerator manifest and
   does not duplicate the theme fallback manifest.
 
+## 2026-05-11 Second Pull Result
+
+VERIFIED:
+
+- uPress Git log top commit: `4c7b45e`
+- Commit title: `Bypass Rank Math sitemap cache`
+- Live static marker:
+  `justice-theme-deployment-marker=2026-05-11-rankmath-sitemap-cache-bypass-v1`
+- Rank Math child sitemap HTTP-loc blocker fixed in sampled public checks:
+  - `page-sitemap.xml`: 0 HTTP / 11 HTTPS
+  - `articles-sitemap1.xml`: 0 HTTP / 201 HTTPS
+  - `articles-sitemap2.xml`: 0 HTTP / 200 HTTPS
+  - `practice-areas-sitemap.xml`: 0 HTTP / 40 HTTPS
+  - `category-sitemap.xml`: 0 HTTP / 16 HTTPS
+
 PARTIAL / NOT FIXED BY PULL:
 
 - `https://jus-tice.co.il/robots.txt` returns HTTP 200 with zero-length body.
-- `https://jus-tice.co.il/articles-sitemap2.xml` still returns 200 first-party
-  `http://jus-tice.co.il` locs and zero HTTPS locs.
+- Initial pull only: `https://jus-tice.co.il/articles-sitemap2.xml` still
+  returned first-party `http://jus-tice.co.il` locs until the Rank Math sitemap
+  cache-bypass patch was deployed.
 - `https://jus-tice.co.il/sitemap_index.xml` returns valid XML and points to
   HTTPS child sitemap URLs.
 

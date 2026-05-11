@@ -7,7 +7,9 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - WHY: after uPress pull confirmed the latest theme code was live, public Rank Math child sitemap XML still exposed stale `http://jus-tice.co.il` loc values. Cache bypass is the narrowest repo-level next step before any plugin setting or URL migration work.
 - CODE FIXED: deployment marker advanced to `2026-05-11-rankmath-sitemap-cache-bypass-v1`.
 - VERIFIED BEFORE PATCH: `articles-sitemap2.xml?nocache=1` still returned 200 HTTP loc values and zero HTTPS loc values, so the issue was not solved by a simple URL query cache bust.
-- NOT LIVE VERIFIED: requires GitHub push, uPress pull, and public recheck of `page-sitemap.xml`, `articles-sitemap1.xml`, `articles-sitemap2.xml`, and `practice-areas-sitemap.xml`.
+- VERIFIED LIVE: uPress Git log shows top commit `4c7b45e` (`Bypass Rank Math sitemap cache`) and public static marker returns `2026-05-11-rankmath-sitemap-cache-bypass-v1`.
+- FIXED LIVE: sampled child sitemaps now return zero first-party HTTP locs: `page-sitemap.xml` 0 HTTP / 11 HTTPS, `articles-sitemap1.xml` 0 HTTP / 201 HTTPS, `articles-sitemap2.xml` 0 HTTP / 200 HTTPS, `practice-areas-sitemap.xml` 0 HTTP / 40 HTTPS, `category-sitemap.xml` 0 HTTP / 16 HTTPS.
+- STILL BLOCKED: `https://jus-tice.co.il/robots.txt` still returns HTTP 200 with zero-length body and needs separate static/server/plugin robots-source investigation.
 - SAFETY: no URL, redirect, sitemap plugin setting, robots/htaccess file, content body, taxonomy term, canonical setting, lawyer profile, lead/CRM record, review data, wp-admin setting or database row was changed.
 
 ## LATEST WORK STATUS - 2026-05-11 06:39 Asia/Jerusalem

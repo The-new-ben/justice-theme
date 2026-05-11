@@ -17,6 +17,19 @@ Latest recheck after uPress pull to commit `c992fd2`:
 - Rank Math child sitemap URLs: BLOCKED / NOT FIXED BY PULL; `https://jus-tice.co.il/articles-sitemap2.xml` still has 200 `http://jus-tice.co.il` loc values and zero HTTPS loc values.
 - Interpretation: the stale-theme deployment blocker is resolved for this cycle. Remaining robots/sitemap blockers require server/plugin/cache investigation, not another Git pull.
 
+Latest recheck after uPress pull to commit `4c7b45e`:
+
+- uPress Git Log: VERIFIED top commit `(HEAD -> main, origin/main, origin/HEAD) Bypass Rank Math sitemap cache` / `4c7b45e`.
+- Static theme marker: VERIFIED now returns `justice-theme-deployment-marker=2026-05-11-rankmath-sitemap-cache-bypass-v1`.
+- Sitemap HTTPS: FIXED LIVE for sampled child sitemaps:
+  - `page-sitemap.xml`: 0 HTTP / 11 HTTPS
+  - `articles-sitemap1.xml`: 0 HTTP / 201 HTTPS
+  - `articles-sitemap2.xml`: 0 HTTP / 200 HTTPS
+  - `practice-areas-sitemap.xml`: 0 HTTP / 40 HTTPS
+  - `category-sitemap.xml`: 0 HTTP / 16 HTTPS
+- Robots.txt: STILL BLOCKED; public `https://jus-tice.co.il/robots.txt` returns HTTP 200 with zero-length body.
+- Interpretation: the Rank Math sitemap HTTP-loc blocker is fixed for the sampled XML outputs. Robots remains a separate server/plugin/static output issue.
+
 HISTORICAL: GitHub `main` was previously ahead of the live WordPress theme output before the 2026-05-11 uPress pull.
 
 Latest recheck after commit `a90bf4b`:

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Traffic law source/legal checklist
+
+- CREATED: `project-control/traffic-law-source-legal-checklist-2026-05-11.md`.
+- CREATED: `project-control/traffic-law-source-legal-checklist-2026-05-11.csv`.
+- VERIFIED SOURCE ANCHORS / REVIEW ONLY: `5` traffic-law page/topic gates were mapped for traffic-law pillar, drunk driving, breathalyzer/refusal/testing, speeding/points/license risk and Marvad/medical fitness.
+- VERIFIED: source anchors and limitations are documented for police intoxication and breathalyzer procedures, point/suspension workflows, driver inquiries and Marvad medical-fitness workflows.
+- READY FOR REVIEW: allowed legal claims, blocked legal claims, privacy/medical-risk level, disclaimer requirement and approval status are mapped per target.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Traffic law no-URL-change outline queue
 
 - CREATED: `project-control/traffic-law-no-url-change-outline-queue-2026-05-11.md`.

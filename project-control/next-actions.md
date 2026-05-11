@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-TRAFFIC-LAW-SOURCE-LEGAL-CHECKLIST-001: Add source/legal gates for traffic-law upload group
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The traffic-law outline group cannot move toward final Hebrew copy without source anchors, legal-claim limits, privacy/medical-risk flags and approval gates.
+**Actions:**
+1. DONE: created `project-control/traffic-law-source-legal-checklist-2026-05-11.md`.
+2. DONE: created `project-control/traffic-law-source-legal-checklist-2026-05-11.csv`.
+3. VERIFIED: `5` page/topic gates mapped for traffic-law pillar, drunk driving, breathalyzer/refusal/testing, speeding/points/license risk and Marvad/medical fitness.
+4. VERIFIED: official/public source anchors and limitations are documented.
+5. VERIFIED: allowed claims, blocked claims, privacy/medical-risk level, disclaimer requirement and approval status are mapped per page.
+6. NEXT: prepare a no-URL-change internal-link map for the same five traffic-law targets.
+7. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-TRAFFIC-LAW-NO-URL-OUTLINES-001: Prepare traffic-law outline batch using current URLs only
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The traffic-law cluster has a current pillar candidate and support lanes, but public upload still needs page-level outlines, section structure, internal-link posture, sitemap posture and blockers before Hebrew copy or CMS updates.

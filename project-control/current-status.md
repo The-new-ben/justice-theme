@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-11 23:12 Asia/Jerusalem
+- VERIFIED SOURCE ANCHORS / TRAFFIC LAW SOURCE-LEGAL CHECKLIST: created the source/legal gate for the first traffic-law upload group before any public drafting.
+- CREATED: `project-control/traffic-law-source-legal-checklist-2026-05-11.md`.
+- CREATED: `project-control/traffic-law-source-legal-checklist-2026-05-11.csv`.
+- VERIFIED: `5` page/topic gates were mapped for traffic-law pillar, drunk driving, breathalyzer/refusal/testing, speeding/points/license risk and Marvad/medical fitness.
+- VERIFIED: official/public source anchors are documented for police intoxication/breathalyzer procedures, Ministry of Transport point/suspension workflows, driver inquiries and Marvad medical-fitness workflows, with limitations noted.
+- CONTENT-UPLOAD READINESS: final Hebrew copy is still blocked, but the traffic-law group now has source anchors, allowed/blocked legal claims, privacy/medical-risk flags, disclaimer requirements and approval status.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-11 23:00 Asia/Jerusalem
 - VERIFIED / TRAFFIC LAW NO-URL-CHANGE OUTLINE QUEUE: converted the traffic-law upload-readiness evidence into the next practical outline batch.
 - CREATED: `project-control/traffic-law-no-url-change-outline-queue-2026-05-11.md`.

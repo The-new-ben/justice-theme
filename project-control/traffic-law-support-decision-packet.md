@@ -176,6 +176,24 @@ NEXT:
 BLOCKED:
 - No public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this outline queue.
 
+## 2026-05-11 Traffic Source/Legal Checklist
+
+CREATED:
+- `project-control/traffic-law-source-legal-checklist-2026-05-11.md`
+- `project-control/traffic-law-source-legal-checklist-2026-05-11.csv`
+
+VERIFIED:
+- `5` traffic-law page/topic gates mapped for traffic-law pillar, drunk driving, breathalyzer/refusal/testing, speeding/points/license risk and Marvad/medical fitness.
+- Source anchors include police intoxication/breathalyzer procedures, Ministry of Transport point and suspension workflows, driver inquiry paths and Marvad medical-fitness workflows.
+- Allowed claims, blocked claims, privacy/medical-risk level, disclaimer requirement and approval status are mapped per target.
+
+NEXT:
+- Create current-URL internal-link map for the same five targets.
+- Then package the traffic-law upload group for owner approval before any public copy.
+
+BLOCKED:
+- No public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this source/legal checklist.
+
 ## CSV Detail
 
 See `project-control/traffic-law-support-review.csv`.

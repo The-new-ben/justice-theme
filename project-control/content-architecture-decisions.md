@@ -250,6 +250,12 @@ Recommended action:
 - REVIEW: current outlines define section structure, internal-link posture, related-content rules, CTA/lawyer-card safety rules and sitemap posture before public copy or CMS execution.
 - BLOCKED: `/drunk-driving/`, `/breathalyzer-test/`, `/license-suspension/`, `/traffic-evidence/` and `/fatal-road-accident-offenses/` must not be used as live targets until route/migration, redirect/canonical/sitemap/internal-link planning and owner/legal approval.
 
+2026-05-11 traffic-law source/legal checklist addendum:
+- VERIFIED: `project-control/traffic-law-source-legal-checklist-2026-05-11.md` and `.csv` map source/legal gates for the same five traffic-law targets.
+- VERIFIED: police intoxication/breathalyzer procedure anchors, Ministry of Transport point/suspension workflow anchors, driver inquiry anchors and Marvad medical-fitness anchors are documented with limitations.
+- REVIEW: final Hebrew copy remains blocked until an Israeli traffic-law source/legal review approves thresholds, deadlines, penalty references, administrative-suspension claims, Marvad appeal wording and disclaimers.
+- NEXT: prepare no-URL-change internal-link map before drafting or uploading public copy.
+
 ## Inheritance / Wills
 
 Decision:

@@ -149,6 +149,13 @@ Recommended action:
 - VERIFIED: `/personal-injury-lawyer/` and `/car-accident-lawyer/` remain future-only migration notes until owner approval, redirect mapping, canonical/sitemap planning and internal-link updates are approved together.
 - BLOCKED: no public links, related cards, menus, breadcrumbs, titles, H1s, meta, URLs, redirects, canonicals, sitemap entries, lawyer cards, CRM/reviews, wp-admin settings or CMS/database rows are approved by this plan alone.
 
+2026-05-11 personal-injury SERP review addendum:
+- VERIFIED: `project-control/serp-personal-injury-damages-review-2026-05-11.md` and `.csv` document current public SERP patterns for damages, bodily injury, tort claims, road accidents and work-accident boundary terms.
+- VERIFIED: damages/tort queries favor commercial lawyer-service pages with practical guide depth, so the eventual primary should not be a thin landing page.
+- VERIFIED: road-accident queries justify a dedicated car-accident injury subcluster and support the current protection of `/car-accident-auto-injury-lawyer/`.
+- VERIFIED: work-accident queries overlap national insurance, employment law and personal injury; `/work-accident-lawyer/` remains future-only until boundary approval.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this SERP review alone.
+
 ## Traffic Law
 
 Decision:

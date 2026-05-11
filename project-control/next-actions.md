@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PERSONAL-INJURY-SERP-001: Run personal-injury/damages SERP review
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The internal-link plan needed current public SERP context before owner/legal approval chooses primary URLs, support roles and future migration targets.
+**Actions:**
+1. DONE: created `project-control/serp-personal-injury-damages-review-2026-05-11.md`.
+2. DONE: created `project-control/serp-personal-injury-damages-review-2026-05-11.csv`.
+3. VERIFIED: `עורך דין נזיקין`, `נזקי גוף` and `תביעת נזיקין` support a deep damages service/guide structure, not several thin duplicate pillars.
+4. VERIFIED: `תאונת דרכים` and `עורך דין תאונות דרכים` support a dedicated car-accident injury subcluster that must stay separate from traffic/criminal accident-offense intent.
+5. VERIFIED: `תאונת עבודה` and `עורך דין תאונת עבודה` remain boundary terms across personal injury, national insurance and employment law.
+6. NEXT: use this evidence in owner/legal approval, or run direct GSC browser checks for damages, road-accident and work-accident variants.
+7. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, breadcrumb, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-PERSONAL-INJURY-INTERNAL-LINK-001: Plan personal-injury/damages internal links
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The side-by-side review confirmed page roles, but the cluster still needed a controlled internal-link map before any public content, related-card, menu, breadcrumb or template implementation.

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Personal injury damages SERP review
+
+- CREATED: `project-control/serp-personal-injury-damages-review-2026-05-11.md`.
+- CREATED: `project-control/serp-personal-injury-damages-review-2026-05-11.csv`.
+- UPDATED: `project-control/personal-injury-owner-approval-packet.md`, `project-control/content-decision-batches.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: current public SERP patterns support a strong damages service page, a separate car-accident injury page and a cautious work-accident boundary decision.
+- VERIFIED: `/tort-lawyer/` and `/car-accident-auto-injury-lawyer/` remain protected current candidates, while `/personal-injury-lawyer/`, `/car-accident-lawyer/` and `/work-accident-lawyer/` remain future-only.
+- BLOCKED: no public personal-injury/damages content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, internal link, related-card, menu, breadcrumb, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Personal injury internal-link plan
 
 - CREATED: `project-control/personal-injury-internal-link-plan-2026-05-11.md`.

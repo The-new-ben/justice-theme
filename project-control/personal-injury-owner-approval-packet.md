@@ -382,3 +382,18 @@ VERIFIED:
 
 BLOCKED:
 - No public rewrite, URL migration, redirect, canonical, sitemap, title/H1/meta, internal link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin option or CMS/database action is approved by this addendum.
+
+## 2026-05-11 SERP Review Addendum
+
+CREATED:
+- `project-control/serp-personal-injury-damages-review-2026-05-11.md`.
+- `project-control/serp-personal-injury-damages-review-2026-05-11.csv`.
+
+VERIFIED:
+- Public SERP patterns for `עורך דין נזיקין`, `נזקי גוף` and `תביעת נזיקין` support a deep damages service/guide structure rather than several thin duplicate pages.
+- Public SERP patterns for `תאונת דרכים` and `עורך דין תאונות דרכים` support a dedicated car-accident injury subcluster with compensation, compulsory-insurance and source-backed support pages.
+- Public SERP patterns for `תאונת עבודה` and `עורך דין תאונת עבודה` overlap national insurance, employment law and personal injury, so `/work-accident-lawyer/` remains future-only.
+- `/tort-lawyer/` and `/car-accident-auto-injury-lawyer/` remain protected current candidates until owner/legal review approves a target URL strategy.
+
+BLOCKED:
+- No public rewrite, URL migration, redirect, canonical, sitemap, title/H1/meta, internal link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin option or CMS/database action is approved by this addendum.

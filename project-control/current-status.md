@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 19:28 Asia/Jerusalem
+- VERIFIED / PERSONAL-INJURY SERP REVIEW: created the review-only public SERP evidence pass for damages, bodily injury, tort claims, road accidents and work-accident boundary terms.
+- CREATED: `project-control/serp-personal-injury-damages-review-2026-05-11.md`.
+- CREATED: `project-control/serp-personal-injury-damages-review-2026-05-11.csv`.
+- VERIFIED: public SERP patterns support a strong damages service page plus a separate car-accident injury page, while work accident remains a national-insurance/employment/personal-injury boundary.
+- VERIFIED: `/tort-lawyer/` and `/car-accident-auto-injury-lawyer/` remain protected current candidates; `/personal-injury-lawyer/`, `/car-accident-lawyer/` and `/work-accident-lawyer/` remain future-only until approved.
+- NOT VERIFIED: full manual Google top-10 screenshots, PAA/autocomplete, GSC API, GA4 evidence and legal review.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+- NEXT: fold this evidence into owner/legal approval decisions or run direct GSC browser checks for damages, bodily injury, road accident and work accident variants.
+
 ## LATEST WORK STATUS - 2026-05-11 19:18 Asia/Jerusalem
 - VERIFIED / PERSONAL-INJURY INTERNAL-LINK PLAN: created the review-only internal-link map for the personal-injury, damages, tort-law, road-accident and compulsory-insurance cluster.
 - CREATED: `project-control/personal-injury-internal-link-plan-2026-05-11.md`.

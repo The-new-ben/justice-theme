@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Public Template HTTPS Link QA
+- LIVE DEPLOYMENT VERIFIED: uPress Git log showed commit `3b99fbb` (`Normalize public template links to HTTPS`) as live HEAD.
+- LIVE VERIFIED: static deployment marker returned `2026-05-11-public-link-https-normalization-v1`.
+- SOURCE VERIFIED: `project-control/live-related-content-qa-2026-05-11-after-public-link-https.csv` captures the after-pull QA pass.
+- VERIFIED: all sampled rows passed as `VERIFIED`.
+- FIXED LIVE: sampled related-card URLs now render as `https://jus-tice.co.il/...` instead of `http://jus-tice.co.il/...`.
+- VERIFIED STABLE: general lawyer-selection fallback, criminal-law semantic cards, real-estate semantic cards and family-divorce semantic cards still pass source/card cluster checks.
+- SAFETY: source-level QA only; no public content body, URL slug, redirect, sitemap, canonical, taxonomy, lawyer, CRM, review or plugin state was changed.
+
 ## 2026-05-11 Related Content International Filter QA
 - LIVE DEPLOYMENT VERIFIED: uPress Git log showed commit `4868db2` (`Filter international real estate related cards`) as live HEAD.
 - LIVE VERIFIED: static deployment marker returned `2026-05-11-related-international-filter-v1`.

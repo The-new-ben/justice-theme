@@ -4,6 +4,14 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest public template HTTPS link normalization:
+
+- VERIFIED UPress PULL: uPress Git log shows top commit `3b99fbb` (`Normalize public template links to HTTPS`).
+- VERIFIED LIVE MARKER: `https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?qa=public-link-https-20260511` returns `2026-05-11-public-link-https-normalization-v1`.
+- VERIFIED LIVE QA: `tools/check-live-related-content-qa.ps1` created `project-control/live-related-content-qa-2026-05-11-after-public-link-https.csv` with every sampled row marked `VERIFIED`.
+- FIXED LIVE: sampled related-card URLs now render with `https://jus-tice.co.il/...` in public HTML.
+- SAFETY: no WordPress content, metadata, URL slug, redirect, sitemap inclusion rule, canonical setting, taxonomy, lawyer, lead/CRM, review, plugin-state, wp-admin setting or database row was changed.
+
 Latest related-content international filter deployment:
 
 - VERIFIED UPress PULL: uPress Git log shows top commit `4868db2` (`Filter international real estate related cards`).

@@ -17,6 +17,11 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
   - `category-sitemap.xml`: 0 HTTP / 16 HTTPS
 - DECISION: the sitemap/robots technical baseline is now suitable for GSC sitemap submission review, but URL migration, redirects and content consolidation remain approval-gated.
 
+2026-05-11 PUBLIC INTERNAL LINK HTTPS FIX:
+- FIXED LIVE: public template links now explicitly render first-party permalinks through HTTPS normalization helpers.
+- VERIFIED LIVE: related-content QA after uPress pull produced `project-control/live-related-content-qa-2026-05-11-after-public-link-https.csv`; all sampled rows are `VERIFIED` and sampled card URLs use `https://jus-tice.co.il/...`.
+- SAFETY: this is rendered-output normalization only. It did not change stored URLs, slugs, redirects, sitemap inclusion rules, canonicals, content bodies, taxonomy, lawyer, CRM, review or database data.
+
 2026-05-11 CACHE-BYPASS PATCH:
 - CODE FIXED / NOT LIVE VERIFIED: added `rank_math/sitemap/enable_caching` with `__return_false` so Rank Math does not serve stale sitemap XML while HTTPS loc normalization is being verified.
 - WHY: latest theme code was live, but child sitemap XML still emitted HTTP locs. `articles-sitemap2.xml?nocache=1` also returned 200 HTTP locs and zero HTTPS locs before the patch.
@@ -54,10 +59,10 @@ PARTIAL / RISK:
 - GSC HTTPS reports 412 Non-HTTPS URLs, 25 HTTPS URLs and 222 HTTPS-not-evaluated URLs.
 - The live active sitemap still exposes hundreds of `http://` content URLs. This likely explains or contributes to the GSC Non-HTTPS report and is a migration blocker.
 
-CODE FIXED / NOT LIVE VERIFIED:
+CODE FIXED / LIVE VERIFIED WHERE NOTED:
 - Theme-level first-party canonical, hreflang and Open Graph URLs now normalize to HTTPS.
 - WordPress core sitemap entries now normalize first-party `loc` URLs to HTTPS when core sitemaps are active.
-- Public frontend first-party links generated through WordPress URL helpers now normalize to HTTPS, reducing internal-link mixed-protocol signals after deployment.
+- Public frontend first-party links generated through WordPress URL helpers and major theme templates now normalize to HTTPS; sampled related-card URLs are LIVE VERIFIED as HTTPS.
 - Plugin sitemap compatibility filters now normalize first-party URLs emitted through supported Yoast, Rank Math and AIOSEO sitemap hooks.
 - Robots.txt now appends the verified active sitemap index when the directive is absent.
 - The active live sitemap still requires post-deployment recheck because plugin cache/settings may need a uPress/wp-admin cache clear before changed hooks affect XML output.

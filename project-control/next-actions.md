@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PUBLIC-LINK-HTTPS-001: Keep public frontend internal links on HTTPS
+**Status:** FIXED LIVE - monitor with future template changes
+**Why:** Related-content QA showed public card links still rendering `http://jus-tice.co.il/...` even after sitemap/canonical HTTPS work. Mixed-protocol internal links create crawl noise before controlled URL migration.
+**Actions:**
+1. DONE: added display-only helpers `justice_theme_public_url()` and `justice_theme_public_permalink()`.
+2. DONE: wired major public template surfaces through those helpers, including article cards, lawyer cards, search cards, generic cards, LegalTech cards, practice pages, lawyer mini-site article links, dashboard links, topic-cluster links and schema URLs.
+3. VERIFIED LOCAL: PHP lint passed for 128 PHP files; `git diff --check` returned only Windows LF-to-CRLF warnings.
+4. LIVE DEPLOYMENT VERIFIED: uPress top commit is `3b99fbb` (`Normalize public template links to HTTPS`).
+5. LIVE VERIFIED: marker `2026-05-11-public-link-https-normalization-v1` is public.
+6. LIVE VERIFIED: `project-control/live-related-content-qa-2026-05-11-after-public-link-https.csv` has all sampled rows marked `VERIFIED`, and sampled related-card URLs are HTTPS.
+7. SAFETY: this changed rendered output only; no stored URL, slug, redirect, sitemap inclusion rule, canonical setting, content body, CMS metadata, taxonomy, lawyer, CRM, review, plugin state, wp-admin setting or database row was changed.
+
 ### ACTION-PLUGIN-COLLISION-001: Keep Justice plugin migration controlled
 **Status:** PARTIAL PARITY VERIFIED / MIGRATION NOT APPROVED
 **Why:** The live site currently exposes `Ultra Justice Engine`, while the repo also contains `justice-core` and `ultra-justice`. Activating duplicate Justice plugins could create PHP fatal errors, duplicate CPT/taxonomy registration, or confused REST/content behavior.

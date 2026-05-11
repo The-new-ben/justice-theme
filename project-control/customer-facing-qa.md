@@ -7,6 +7,12 @@ Date: 2026-05-10
 - CUSTOMER IMPACT: Google and other crawlers now receive a clean sitemap pointer for the current technical SEO baseline.
 - NOT CHANGED: no public content, URL, redirect, `.htaccess`, lawyer, lead, review, taxonomy or database data was changed.
 
+## 2026-05-11 Public Link Protocol QA Update
+- FIXED LIVE: sampled public article-card links now render as `https://jus-tice.co.il/...` instead of `http://jus-tice.co.il/...`.
+- VERIFIED: `project-control/live-related-content-qa-2026-05-11-after-public-link-https.csv` shows all sampled related-content rows as `VERIFIED`.
+- CUSTOMER IMPACT: visitors and crawlers receive consistent HTTPS internal links from article cards and related-content surfaces.
+- NOT CHANGED: no content body, stored URL, slug, redirect, `.htaccess`, sitemap inclusion rule, taxonomy, lawyer, lead, review, wp-admin setting or database row was changed.
+
 ## 2026-05-11 Inner Mobile QA Update
 - LIVE VERIFIED: latest uPress pull is public with marker `2026-05-11-mobile-inner-qa-v1`.
 - VISUAL VERIFIED: article, articles archive, lawyer directory and family practice page were captured on 390px mobile without injected CSS.

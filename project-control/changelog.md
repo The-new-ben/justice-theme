@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Public template HTTPS link normalization
+
+- PUSHED: `3b99fbb` (`Normalize public template links to HTTPS`) to GitHub main.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log shows `(HEAD -> main, origin/main, origin/HEAD) Normalize public template links to HTTPS`.
+- LIVE VERIFIED: public marker returns `2026-05-11-public-link-https-normalization-v1`.
+- CODE FIXED: added `justice_theme_public_url()` and `justice_theme_public_permalink()` display helpers.
+- CODE FIXED: article cards, lawyer cards, search cards, generic cards, LegalTech cards, practice pages, lawyer mini-site article links, dashboard links, topic-cluster links and schema URLs now render first-party public URLs through HTTPS normalization.
+- CREATED: `project-control/live-related-content-qa-2026-05-11-after-public-link-https.csv`.
+- VERIFIED: all sampled live related-content rows passed after deployment.
+- FIXED LIVE: related-card `card_url` values now use HTTPS in sampled public HTML.
+- SAFETY: no stored URL, slug, redirect, content body, CMS metadata, sitemap inclusion rule, canonical setting, taxonomy, lawyer, CRM, review, plugin state, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Related content international real-estate filter
 
 - PUSHED: `4868db2` (`Filter international real estate related cards`) to GitHub main.

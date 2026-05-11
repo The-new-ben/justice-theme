@@ -2,6 +2,16 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 10:10 Asia/Jerusalem
+- FIXED LIVE: public template links now explicitly normalize first-party permalinks to HTTPS before rendering cards, lawyer links, LegalTech cards, schema URLs and cluster links.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log shows top commit `3b99fbb` (`Normalize public template links to HTTPS`).
+- LIVE VERIFIED: static marker returns `2026-05-11-public-link-https-normalization-v1`.
+- VERIFIED: `tools/check-live-related-content-qa.ps1` produced `project-control/live-related-content-qa-2026-05-11-after-public-link-https.csv` with all sampled rows marked `VERIFIED`.
+- FIXED LIVE: sampled related-card `card_url` values now use `https://jus-tice.co.il/...` instead of `http://jus-tice.co.il/...`.
+- VERIFIED STABLE: related-content semantic/fallback cluster QA still passes for general lawyer selection, criminal/drug offenses, local real estate cost, and family mutual divorce samples.
+- VERIFIED LOCAL: PHP lint passed for 128 PHP files using the local PHP binary; `git diff --check` returned only normal Windows LF-to-CRLF warnings.
+- SAFETY: no public content body, CMS metadata, URL slug, redirect, sitemap inclusion rule, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 10:02 Asia/Jerusalem
 - FIXED LIVE: related-content cluster inference now separates foreign/international real-estate intent from local Israeli real-estate intent.
 - LIVE DEPLOYMENT VERIFIED: uPress Git log shows top commit `4868db2` (`Filter international real estate related cards`).

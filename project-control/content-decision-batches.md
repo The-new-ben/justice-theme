@@ -935,3 +935,23 @@ RECOMMENDED:
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, internal-link edits, taxonomy/menu edits, breadcrumb edits, related-card edits, lawyer cards, review/rating/schema, CRM changes or CMS writes until explicit approval.
+
+## 2026-05-11 Medical Malpractice Current-URL Upload Readiness
+
+CREATED:
+- `project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.md`
+- `project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.csv`
+
+VERIFIED:
+- `19` inventory candidates were scanned and `23` URL or URL-reference items were advanced into review roles.
+- `/medical-malpractice-lawyer/` remains the current clean commercial pillar candidate only after duplicate same-public-URL review.
+- The fee article and old Hebrew birth/pregnancy page are protected because prior owner-packet evidence shows visible GSC demand.
+- Birth injury, surgery/anesthesia, definition/common-errors and concept pages are support candidates, not automatic new clean slug pages.
+- Traffic/Marvad medical-fitness pages, criminal negligence, US malpractice and low-value boundary pages are excluded from the Israeli medical-malpractice service cluster.
+- Future slugs `/birth-malpractice/`, `/pregnancy-malpractice/`, `/diagnosis-malpractice/` and `/surgery-malpractice/` remain future-only until the current pages are compared.
+
+RECOMMENDED:
+- Prepare a current-URL internal-link map and then an owner upload review package for the medical-malpractice cluster.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, internal-link edits, taxonomy/menu edits, breadcrumb edits, related-card edits, lawyer cards, review/rating/schema, CRM changes or CMS writes until explicit approval.

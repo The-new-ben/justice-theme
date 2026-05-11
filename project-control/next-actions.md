@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-MEDICAL-MALPRACTICE-CURRENT-URL-UPLOAD-READINESS-001: Consolidate medical-malpractice current-URL upload readiness
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The malpractice cluster has duplicate same-public-URL risk, old GSC-visible fee and birth/pregnancy pages, YMYL source risk, support-page overlap and traffic/criminal boundary contamination that must be resolved before public upload.
+**Actions:**
+1. DONE: created `project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.md`.
+2. DONE: created `project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.csv`.
+3. VERIFIED: `19` inventory candidates were scanned and `23` URL or URL-reference items were advanced into review roles.
+4. VERIFIED: the queue separates pillar, duplicate state, protected GSC-visible assets, support pages, boundary exclusions, future-only slugs, sitemap posture and internal-link requirements.
+5. NEXT: prepare a no-URL current-link map for the malpractice queue, then package for owner upload review.
+6. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-MEDICAL-MALPRACTICE-SOURCE-LEGAL-CHECKLIST-001: Add source/legal gates for medical-malpractice cluster
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Medical malpractice is high-risk YMYL content and cannot move toward public copy, schema, reviews, internal links or CMS upload without source anchors, privacy controls and legal-review gates.

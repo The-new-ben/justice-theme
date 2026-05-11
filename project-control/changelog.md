@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Medical malpractice current-URL upload readiness
+
+- CREATED: `project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.md`.
+- CREATED: `project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.csv`.
+- VERIFIED / REVIEW ONLY: `19` inventory candidates were scanned and `23` medical-malpractice URL or URL-reference items were advanced into review roles.
+- VERIFIED: the queue separates commercial pillar, duplicate same-public-URL state, protected fee/birth assets, support pages, traffic/criminal boundaries and future-only slugs.
+- READY FOR REVIEW: internal-link posture, sitemap posture, related-content boundaries and blocked public actions are documented.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Medical malpractice source/legal checklist
 
 - CREATED: `project-control/medical-malpractice-source-legal-checklist-2026-05-11.md`.

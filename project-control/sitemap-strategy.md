@@ -309,3 +309,15 @@ VERIFIED / REVIEW ONLY:
 
 BLOCKED:
 - No sitemap entry, sitemap removal, noindex, canonical, redirect, taxonomy/category, menu, breadcrumb, related-card, lawyer-card, Maya profile or review/rating/schema change is approved by this review-only batch.
+
+# 2026-05-11 Medical Malpractice Sitemap Posture
+
+VERIFIED / REVIEW ONLY:
+- `project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.md` and `.csv` scanned `19` inventory candidates and advanced `23` medical-malpractice URL or URL-reference items before any sitemap execution.
+- Include `/medical-malpractice-lawyer/` only after duplicate same-public-URL identity review, source/legal approval, self-canonical verification and internal-link plan approval.
+- Include birth injury, surgery/anesthesia and definition/common-errors support pages only if they have unique reviewed value and do not duplicate the commercial pillar.
+- Hold the fee article, old Hebrew birth/pregnancy page and large report-style page out of migration changes until comparison, redirect/canonical and source/copyright/indexation reviews are complete.
+- Exclude traffic/Marvad medical-fitness pages, criminal negligence and US/international malpractice pages from the Israeli medical-malpractice service sitemap group.
+
+BLOCKED:
+- No sitemap entry, sitemap removal, noindex, canonical, redirect, taxonomy/category, menu, breadcrumb, related-card, lawyer-card, review/rating/schema or CMS change is approved by this review-only batch.

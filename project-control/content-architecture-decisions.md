@@ -395,3 +395,15 @@ ADDED 2026-05-11:
 - Fake reviews, fake ratings, fake verified badges, unsupported "top/recommended" claims and automatic review schema remain blocked.
 
 Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.
+
+## Medical Malpractice Current-URL Upload Readiness Addendum
+
+ADDED 2026-05-11:
+- `project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.md` and `.csv` consolidate the malpractice owner packet, inventory scan and source/legal gates into a current-URL upload queue.
+- `19` inventory candidates were scanned and `23` URL or URL-reference items were advanced into review roles.
+- `/medical-malpractice-lawyer/` remains the current commercial pillar candidate only after duplicate same-public-URL identity review.
+- The fee article, old birth/pregnancy malpractice page and large report-style page are protected until comparison and migration strategy are approved.
+- Traffic/Marvad, criminal negligence, US/international malpractice and low-value boundary pages are excluded from the Israeli medical-malpractice service cluster.
+- Future clean slugs remain blocked until current URL comparison, source/legal review, internal-link map, redirect map, canonical plan and sitemap plan are approved.
+
+Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.

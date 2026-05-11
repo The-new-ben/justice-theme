@@ -1,4 +1,13 @@
 ## LATEST WORK STATUS - 2026-05-11 23:59 Asia/Jerusalem
+- VERIFIED / MEDICAL MALPRACTICE CURRENT-URL UPLOAD READINESS: converted the malpractice owner packet, inventory scan and source/legal gates into a current-URL upload-readiness queue.
+- CREATED: `project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.md`.
+- CREATED: `project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.csv`.
+- VERIFIED: `19` inventory candidates were scanned and `23` URL or URL-reference items were advanced into review roles, including duplicate same-public-URL state, fee/cost article, birth/pregnancy old URL, support pages, traffic/criminal boundaries and future-only slugs.
+- VERIFIED: the queue records pillar/support/protected/boundary roles, internal-link posture, sitemap posture and blocked future slugs for the malpractice cluster.
+- READY FOR REVIEW: next safe step is a current-URL internal-link map before an owner upload package.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
+## LATEST WORK STATUS - 2026-05-11 23:59 Asia/Jerusalem
 - VERIFIED SOURCE ANCHORS / MEDICAL MALPRACTICE SOURCE-LEGAL CHECKLIST: created the source/legal gate for the medical-malpractice cluster before any public YMYL copy or URL execution.
 - CREATED: `project-control/medical-malpractice-source-legal-checklist-2026-05-11.md`.
 - CREATED: `project-control/medical-malpractice-source-legal-checklist-2026-05-11.csv`.

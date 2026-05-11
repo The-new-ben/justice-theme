@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Lawyer profile view tracking gate
+
+- CODE FIXED: automatic lawyer profile view tracking now requires explicit opt-in filter `justice_theme_enable_lawyer_profile_view_tracking`.
+- EXPECTED IMPACT: public single lawyer page loads no longer write `profile_views` metadata or visitor throttling transients by default during the audit-first cleanup phase.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-lawyer-profile-view-tracking-gate-v1`.
+- SAFETY: no lawyer record, content, URL, redirect, sitemap, canonical, taxonomy, CRM, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - Demo lawyer seed gates
 
 - CODE FIXED: legacy/demo lawyer admin-init seeders in `justice-core`, `ultra-justice-engine`, and `ultra-justice` now require explicit opt-in filters.

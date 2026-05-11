@@ -93,7 +93,9 @@ $whatsapp_link     = function_exists( 'justice_theme_lawyer_public_whatsapp_link
 
 $views = (int) $meta( 'profile_views', 0 );
 $user_agent = isset( $_SERVER['HTTP_USER_AGENT'] ) ? strtolower( sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) ) : '';
-$is_countable_view = ! is_admin()
+$track_profile_views = (bool) apply_filters( 'justice_theme_enable_lawyer_profile_view_tracking', false );
+$is_countable_view = $track_profile_views
+	&& ! is_admin()
 	&& ! is_user_logged_in()
 	&& ! wp_doing_ajax()
 	&& ! wp_doing_cron()

@@ -2,6 +2,13 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 05:10 Asia/Jerusalem
+- CODE FIXED: lawyer profile view tracking is now disabled by default and requires explicit opt-in filter `justice_theme_enable_lawyer_profile_view_tracking`.
+- WHY: single lawyer profile page loads should not write `profile_views` metadata or visitor throttling transients during the content audit, URL migration and marketplace trust cleanup phase.
+- VERIFIED: lawyer mini-site rendering, approval checks, contact safety gates and public content output remain unchanged; only the automatic page-load write path is gated.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-lawyer-profile-view-tracking-gate-v1`; public homepage still needs uPress pull/cache clear before this can be verified.
+- SAFETY: no lawyer profile, URL, redirect, content body, taxonomy term, sitemap, canonical, lead/CRM record, review data, wp-admin setting or database row was changed by this repo patch.
+
 ## LATEST WORK STATUS - 2026-05-11 05:01 Asia/Jerusalem
 - CODE FIXED: legacy/demo lawyer auto-seeders in `justice-core`, `ultra-justice-engine`, and `ultra-justice` now require explicit opt-in filters before they can create or update demo `justice_lawyer` profiles.
 - CODE FIXED: legacy `/seed-lawyers` and `/seed-reset` REST routes now require separate explicit opt-in filters in addition to admin capability.

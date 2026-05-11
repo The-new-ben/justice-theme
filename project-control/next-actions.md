@@ -6,6 +6,16 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-LAWYER-PERFORMANCE-SAFETY-001: Keep profile view tracking opt-in
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** Profile analytics are useful later, but public lawyer mini-site page loads should not write metadata/transients by default while the directory is still being cleaned and URL/content migration is controlled.
+**Actions:**
+1. DONE: single lawyer profile view tracking now requires `justice_theme_enable_lawyer_profile_view_tracking`.
+2. DONE: existing public approval gate, contact safety gate, article links and profile rendering remain unchanged.
+3. VERIFIED: default request path no longer increments `profile_views` or creates the visitor throttle transient unless owner enables the filter.
+4. NEXT: pull/deploy marker `2026-05-11-lawyer-profile-view-tracking-gate-v1`, then verify a lawyer profile renders normally and profile view writes remain disabled unless intentionally enabled.
+5. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-DEMO-LAWYER-SEED-SAFETY-001: Keep legacy demo lawyer seeders opt-in
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** The audit found public risk around seed/demo lawyers. Legacy seeding helpers must not recreate placeholder lawyer profiles, fake contact routes or Maya slug changes during ordinary wp-admin/REST use.

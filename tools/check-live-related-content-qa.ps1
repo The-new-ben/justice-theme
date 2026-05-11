@@ -106,7 +106,8 @@ foreach ($sample in $samples) {
     $result = Invoke-LivePage -Url $requestUrl
     $body = [string]$result.Body
 
-    $sectionMatch = [regex]::Match($body, '<section[^>]*class="[^"]*related-articles[^"]*"[^>]*data-related-mode="semantic"[^>]*>', "Singleline")
+    $sectionMatch = [regex]::Match($body, '<section[^>]*class="[^"]*related-articles[^"]*"[^>]*data-related-mode="(?:semantic|fallback)"[^>]*>', "Singleline")
+    $relatedMode = if ($sectionMatch.Success) { Get-Attr -Html $sectionMatch.Value -Name "data-related-mode" } else { "" }
     $sourceCluster = if ($sectionMatch.Success) { Get-Attr -Html $sectionMatch.Value -Name "data-related-source-cluster" } else { "" }
     $cardCount = if ($sectionMatch.Success) { Get-Attr -Html $sectionMatch.Value -Name "data-related-card-count" } else { "" }
     $cards = [regex]::Matches($body, '<article[^>]*data-related-card="true"[\s\S]*?</article>', "Singleline")
@@ -125,6 +126,7 @@ foreach ($sample in $samples) {
             http_status = $result.Status
             final_url = $result.FinalUrl
             source_title = $result.Title
+            related_mode = if ($relatedMode) { $relatedMode } else { "missing" }
             expected_source_cluster = $sample.expected
             detected_source_cluster = if ($sourceCluster) { $sourceCluster } else { "missing" }
             related_card_count = if ($cardCount) { $cardCount } else { "0" }
@@ -171,6 +173,7 @@ foreach ($sample in $samples) {
             http_status = $result.Status
             final_url = $result.FinalUrl
             source_title = $result.Title
+            related_mode = if ($relatedMode) { $relatedMode } else { "missing" }
             expected_source_cluster = $sample.expected
             detected_source_cluster = if ($sourceCluster) { $sourceCluster } else { "missing" }
             related_card_count = $cardCount
@@ -194,7 +197,7 @@ $rows | Export-Csv -Path $OutputPath -NoTypeInformation -Encoding UTF8
 Write-Host "LIVE RELATED CONTENT QA"
 Write-Host "Output: $OutputPath"
 $rows |
-    Select-Object status,source_key,expected_source_cluster,detected_source_cluster,card_match,card_cluster,card_title,card_url,notes |
+    Select-Object status,source_key,related_mode,expected_source_cluster,detected_source_cluster,card_match,card_cluster,card_title,card_url,notes |
     Format-Table -AutoSize
 
 if ($rows | Where-Object { $_.status -eq "REVIEW" }) {

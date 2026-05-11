@@ -400,28 +400,72 @@ function justice_theme_get_related_article_ids( int $post_id, int $limit = 3 ): 
 }
 
 /**
- * Render a compact fallback when no semantic related article exists.
+ * Return a safe fallback destination when no related article cards exist.
  *
- * @param WP_Term|null $term Primary practice-area term.
+ * @param WP_Term|null $term           Primary practice-area term.
+ * @param string       $source_cluster Inferred editorial cluster.
+ * @return array{url:string,label:string}|array{}
  */
-function justice_theme_related_empty_state( ?WP_Term $term ): void {
-	if ( ! $term || is_wp_error( $term ) ) {
-		return;
+function justice_theme_related_fallback_target( ?WP_Term $term, string $source_cluster = '' ): array {
+	$source_cluster = justice_theme_related_normalize_cluster( $source_cluster );
+
+	if ( $term && ! is_wp_error( $term ) ) {
+		$term_link = get_term_link( $term );
+		if ( ! is_wp_error( $term_link ) ) {
+			return array(
+				'url'   => $term_link,
+				'label' => sprintf( __( 'מעבר לתחום %s', 'justice-theme' ), $term->name ),
+			);
+		}
 	}
 
-	$term_link = get_term_link( $term );
-	if ( is_wp_error( $term_link ) ) {
+	$cluster_targets = array(
+		'lawyer_selection'    => array( '/lawyers/', __( 'מעבר למדריך עורכי הדין', 'justice-theme' ) ),
+		'family_divorce'      => array( '/lawyers/?area=family-law', __( 'מצאו עורכי דין לענייני משפחה', 'justice-theme' ) ),
+		'criminal_law'        => array( '/lawyers/?area=criminal-law', __( 'מצאו עורכי דין פליליים', 'justice-theme' ) ),
+		'real_estate'         => array( '/lawyers/?area=real-estate-law', __( 'מצאו עורכי דין מקרקעין', 'justice-theme' ) ),
+		'medical_malpractice' => array( '/lawyers/?area=medical-malpractice-law', __( 'מצאו עורכי דין רשלנות רפואית', 'justice-theme' ) ),
+		'personal_injury'     => array( '/lawyers/?area=personal-injury-law', __( 'מצאו עורכי דין נזיקין', 'justice-theme' ) ),
+		'traffic_law'         => array( '/lawyers/?area=traffic-law', __( 'מצאו עורכי דין תעבורה', 'justice-theme' ) ),
+		'employment_law'      => array( '/lawyers/?area=employment-law', __( 'מצאו עורכי דין דיני עבודה', 'justice-theme' ) ),
+		'inheritance_wills'   => array( '/lawyers/?area=inheritance-law', __( 'מצאו עורכי דין ירושה וצוואות', 'justice-theme' ) ),
+	);
+
+	if ( empty( $cluster_targets[ $source_cluster ] ) ) {
+		return array();
+	}
+
+	return array(
+		'url'   => home_url( $cluster_targets[ $source_cluster ][0] ),
+		'label' => $cluster_targets[ $source_cluster ][1],
+	);
+}
+
+/**
+ * Render a compact fallback when no semantic related article exists.
+ *
+ * @param WP_Term|null $term           Primary practice-area term.
+ * @param string       $source_cluster Inferred editorial cluster.
+ */
+function justice_theme_related_empty_state( ?WP_Term $term, string $source_cluster = '' ): void {
+	$target = justice_theme_related_fallback_target( $term, $source_cluster );
+	if ( empty( $target['url'] ) || empty( $target['label'] ) ) {
 		return;
 	}
 	?>
-	<section class="related-articles related-articles--fallback section">
+	<section
+		class="related-articles related-articles--fallback section"
+		data-related-mode="fallback"
+		data-related-source-cluster="<?php echo esc_attr( $source_cluster ?: 'unknown' ); ?>"
+		data-related-card-count="0"
+	>
 		<div class="container">
 			<div class="section-header">
 				<h2><?php esc_html_e( 'עוד בנושא', 'justice-theme' ); ?></h2>
 				<p><?php esc_html_e( 'כדי לשמור על רלוונטיות, מוצגים כאן רק קישורים הקשורים לתחום המשפטי של המדריך.', 'justice-theme' ); ?></p>
 			</div>
-			<a class="button button--ghost" href="<?php echo esc_url( $term_link ); ?>">
-				<?php echo esc_html( sprintf( __( 'מעבר לתחום %s', 'justice-theme' ), $term->name ) ); ?>
+			<a class="button button--ghost" href="<?php echo esc_url( $target['url'] ); ?>">
+				<?php echo esc_html( $target['label'] ); ?>
 			</a>
 		</div>
 	</section>
@@ -439,7 +483,7 @@ function justice_theme_related_articles( $post_id ) {
 	$source_cluster = justice_theme_related_infer_cluster( $post_id );
 
 	if ( empty( $related_ids ) ) {
-		justice_theme_related_empty_state( justice_theme_get_primary_practice_area( $post_id ) );
+		justice_theme_related_empty_state( justice_theme_get_primary_practice_area( $post_id ), $source_cluster );
 		return;
 	}
 
@@ -456,7 +500,7 @@ function justice_theme_related_articles( $post_id ) {
 	);
 
 	if ( ! $related->have_posts() ) {
-		justice_theme_related_empty_state( justice_theme_get_primary_practice_area( $post_id ) );
+		justice_theme_related_empty_state( justice_theme_get_primary_practice_area( $post_id ), $source_cluster );
 		return;
 	}
 	?>

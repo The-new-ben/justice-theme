@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Related content international real-estate filter
+
+- PUSHED: `4868db2` (`Filter international real estate related cards`) to GitHub main.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log shows `(HEAD -> main, origin/main, origin/HEAD) Filter international real estate related cards`.
+- LIVE VERIFIED: public marker returns `2026-05-11-related-international-filter-v1`.
+- CODE FIXED: related-content inference now classifies foreign market signals such as Greece, Cyprus, Italy, Portugal, Spain and Australia as `international`.
+- CODE FIXED: a post with broad `real_estate` metadata can be overridden to `international` when its slug/title clearly shows foreign-market intent.
+- CREATED: `project-control/live-related-content-qa-2026-05-11-after-international-filter.csv`.
+- VERIFIED: all sampled live related-content rows passed after deployment.
+- FIXED LIVE: `/real-estate-lawyer-cost-2025/` no longer shows the Greece real-estate pricing article as a related card.
+- VERIFIED STABLE: general lawyer-selection fallback, criminal-law cards and family-divorce cards still pass.
+- SAFETY: no content body, CMS metadata, URL, redirect, sitemap setting, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Related content fallback QA live verification
 
 - PUSHED: `40ee1c4` (`Expose related fallback QA attributes`) to GitHub main.

@@ -67,10 +67,20 @@ Related articles are part of the SEO and user journey. A visitor reading about a
 - FIXED LIVE: `/find-lawyer-how-to-find-good-attorney/` now reports `related_mode=fallback` and `detected_source_cluster=lawyer_selection` instead of `missing`, with no off-topic related cards.
 - FIXED LIVE: `/drug-offenses-criminal-lawyer/` reports `criminal_law` with three matching criminal-law cards.
 
+## 2026-05-11 International Real-Estate Filter
+
+- FIXED IN CODE: `justice_theme_related_infer_cluster()` now recognizes foreign/international real-estate signals such as Greece, Cyprus, Italy, Portugal, Spain and Australia.
+- FIXED IN CODE: if old metadata says `real_estate` but the slug/title clearly points to a foreign market, the related-content gate treats it as `international`.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Filter international real estate related cards` at commit `4868db2`.
+- LIVE VERIFIED: public static marker returns `2026-05-11-related-international-filter-v1`.
+- LIVE VERIFIED: `project-control/live-related-content-qa-2026-05-11-after-international-filter.csv` passed with all sampled rows marked `VERIFIED`.
+- FIXED LIVE: `/real-estate-lawyer-cost-2025/` no longer shows the Greece pricing article as a related card; the replacement card stays in the local/legal real-estate lane.
+- SAFETY: no article body, CMS metadata, taxonomy, URL, redirect, canonical, sitemap, lawyer, CRM, review or plugin state was changed.
+
 ## Next
 
 1. Fill CMS metadata for priority articles: `manual_related_urls`, `parent_pillar_url`, `content_cluster`.
 2. Use `project-control/related-content-map.csv` as the editorial source for family, criminal, real estate, malpractice, traffic and inheritance clusters.
-3. Continue CMS metadata cleanup for weak but same-cluster recommendations, especially real-estate cards that are technically clustered but too international or broad for local Israeli intent.
+3. Continue CMS metadata cleanup for weak but same-cluster recommendations, including real-estate cards that are local/legal but still too broad for the source article intent.
 4. During future QA, record any related card with `data-related-cluster-match="mismatch"` or any same-cluster card that is semantically weak.
 5. Add GA4 event tracking for related-article clicks later.

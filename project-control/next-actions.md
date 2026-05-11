@@ -768,12 +768,15 @@ Next safe batch before any URL/content migration:
 
 ## 2026-05-11 RELATED CONTENT URL INFERENCE NEXT ACTIONS
 
-**Status:** FIXED LIVE / TECHNICAL QA VERIFIED
+**Status:** FIXED LIVE / TECHNICAL QA VERIFIED / EDITORIAL CLEANUP CONTINUES
 
 1. DONE: pulled `40ee1c4` through uPress and verified public marker `2026-05-11-related-fallback-qa-v1`.
 2. DONE: reran `tools/check-live-related-content-qa.ps1`.
 3. VERIFIED: `project-control/live-related-content-qa-2026-05-11-after-fallback-attrs.csv` has all sampled rows marked `VERIFIED`.
 4. VERIFIED: `general_lawyer_selection` now uses `related_mode=fallback` with `detected_source_cluster=lawyer_selection`.
 5. VERIFIED: `criminal_drug_offenses` now uses `related_mode=semantic` with `detected_source_cluster=criminal_law` and matched cards.
-6. NEXT: fix editorially weak but technically same-cluster recommendations through CMS metadata/manual related URLs, not through URL changes.
-7. Keep global/latest unrelated fallback blocked for important legal articles.
+6. DONE: pulled `4868db2` through uPress and verified public marker `2026-05-11-related-international-filter-v1`.
+7. VERIFIED: `project-control/live-related-content-qa-2026-05-11-after-international-filter.csv` has all sampled rows marked `VERIFIED`.
+8. FIXED LIVE: the Greece real-estate pricing card was removed from `/real-estate-lawyer-cost-2025/` related results by classifying foreign-market real-estate content as `international`.
+9. NEXT: fix editorially weak but technically same-cluster recommendations through CMS metadata/manual related URLs, not through URL changes.
+10. Keep global/latest unrelated fallback blocked for important legal articles.

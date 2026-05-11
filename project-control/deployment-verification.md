@@ -4,6 +4,14 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest related-content international filter deployment:
+
+- VERIFIED UPress PULL: uPress Git log shows top commit `4868db2` (`Filter international real estate related cards`).
+- VERIFIED LIVE MARKER: `https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?qa=related-international-filter-20260511` returns `2026-05-11-related-international-filter-v1`.
+- VERIFIED LIVE QA: `tools/check-live-related-content-qa.ps1` created `project-control/live-related-content-qa-2026-05-11-after-international-filter.csv` with every sampled row marked `VERIFIED`.
+- FIXED LIVE: foreign-market real-estate content no longer appears under the local real-estate cost sample.
+- SAFETY: no WordPress content, metadata, URL, redirect, sitemap, canonical, taxonomy, lawyer, lead/CRM, review, plugin-state, wp-admin setting or database row was changed.
+
 Latest related-content fallback QA deployment:
 
 - VERIFIED UPress PULL: uPress Git log shows top commit `40ee1c4` (`Expose related fallback QA attributes`).

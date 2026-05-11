@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Related Content International Filter QA
+- LIVE DEPLOYMENT VERIFIED: uPress Git log showed commit `4868db2` (`Filter international real estate related cards`) as live HEAD.
+- LIVE VERIFIED: static deployment marker returned `2026-05-11-related-international-filter-v1`.
+- SOURCE VERIFIED: `project-control/live-related-content-qa-2026-05-11-after-international-filter.csv` captures the after-pull QA pass.
+- VERIFIED: all sampled rows passed as `VERIFIED`.
+- FIXED LIVE: `/real-estate-lawyer-cost-2025/` no longer shows the Greece pricing article in related cards.
+- VERIFIED REPLACEMENT: the real-estate sample now shows local/legal real-estate related cards, including rental agreement, Israeli price forecast, and building-rights roof ownership content.
+- VERIFIED STABLE: general lawyer-selection fallback, criminal-law semantic cards and family-divorce semantic cards still pass the same source/card cluster checks.
+- SAFETY: source-level QA only; no public content body, URL, redirect, sitemap, canonical, taxonomy, lawyer, CRM, review or plugin state was changed.
+
 ## 2026-05-11 Related Content Fallback QA After Live Pull
 - LIVE DEPLOYMENT VERIFIED: uPress Git log showed commit `40ee1c4` (`Expose related fallback QA attributes`) as live HEAD.
 - LIVE VERIFIED: static deployment marker returned `2026-05-11-related-fallback-qa-v1`.

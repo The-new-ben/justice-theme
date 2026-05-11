@@ -2,6 +2,15 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 10:02 Asia/Jerusalem
+- FIXED LIVE: related-content cluster inference now separates foreign/international real-estate intent from local Israeli real-estate intent.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log shows top commit `4868db2` (`Filter international real estate related cards`).
+- LIVE VERIFIED: static marker returns `2026-05-11-related-international-filter-v1`.
+- VERIFIED: `tools/check-live-related-content-qa.ps1` produced `project-control/live-related-content-qa-2026-05-11-after-international-filter.csv` with all sampled rows marked `VERIFIED`.
+- FIXED LIVE: `/real-estate-lawyer-cost-2025/` no longer shows the Greece real-estate pricing article as a related card; the third card is now an Israel/legal-real-estate article about building rights on roofs.
+- VERIFIED STABLE: general lawyer-selection fallback, criminal-law semantic cards, and family-divorce semantic cards still pass cluster QA.
+- SAFETY: no public content body, CMS metadata, URL, redirect, sitemap, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 09:51 Asia/Jerusalem
 - FIXED LIVE: related-content fallback sections now expose QA attributes and safe cluster-aware fallback links instead of disappearing when a page has no practice-area term.
 - LIVE DEPLOYMENT VERIFIED: uPress Git log shows top commit `40ee1c4` (`Expose related fallback QA attributes`).

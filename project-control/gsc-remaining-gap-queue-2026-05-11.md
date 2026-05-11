@@ -10,9 +10,9 @@ Created file:
 ## Scope
 
 VERIFIED:
-- Cyber/privacy still lacks direct GSC rows for cyber lawyer, cyber law, cyberattack, privacy lawyer, privacy invasion, online defamation, data deletion and shaming terms.
-- National insurance still lacks direct GSC rows for national-insurance lawyer, broad national-insurance, medical committee, disability benefit, national-insurance work accident and unemployment-benefit terms.
-- Homepage and lawyer-directory broad intent still need direct query-to-page and page-to-query checks.
+- Cyber/privacy direct GSC rows now exist for cyber lawyer, cyber law, privacy lawyer, cyberattack, privacy invasion, online defamation, data deletion, shaming and privacy-protection variants.
+- National insurance direct GSC rows now exist for national-insurance lawyer, broad national-insurance, medical committee, disability benefit and empty-hub page-to-query checks.
+- Homepage and lawyer-directory broad intent have direct query-to-page and page-to-query checks.
 - The old national-insurance calculator URL must be reverse-checked before any future `/national-insurance-lawyer/` migration decision.
 
 NOT VERIFIED:
@@ -110,6 +110,25 @@ Decision:
 - REVIEW: keep `/cyber-lawyer/` as inventory candidate but not GSC-proven.
 - REVIEW: keep `/national-insurance-lawyer/` as strategic future slug only.
 - BLOCKED: no live cyber/privacy, national-insurance, title/H1/meta, content, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, lawyer-card, CRM/review or CMS action.
+
+## 2026-05-11 Completed Group: Cyber/Privacy Support Terms
+
+VERIFIED:
+- `project-control/gsc-cyber-privacy-support-pass-2026-05-11.md`.
+- `project-control/gsc-cyber-privacy-support-pass-2026-05-11.csv`.
+
+Findings:
+- `פגיעה בפרטיות` maps to an old Hebrew privacy-injury URL with `0` clicks, `38` impressions and average position `46`.
+- `הגנת הפרטיות` maps to the same old Hebrew privacy-injury URL with `0` clicks, `7` impressions and average position `49.3`.
+- `שיימינג` maps only once to `/changing-or-canceling-a-prenuptial-agreement/`, a wrong-page family-law/prenup signal.
+- `מתקפת סייבר`, `לשון הרע באינטרנט`, and `מחיקת מידע` have no visible rows.
+
+Decision:
+- REVIEW: protect the old privacy-injury URL for comparison and source/legal review.
+- REVIEW: do not edit the prenup page for shaming intent.
+- REVIEW: treat cyberattack, online defamation and data deletion as SERP/source/legal review items, not GSC-proven traffic pages.
+- BLOCKED: screenshot capture timed out during this pass, so the evidence is text-metric based.
+- BLOCKED: no live cyber/privacy, title/H1/meta, content, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, lawyer-card, CRM/review or CMS action.
 
 ## Safety
 

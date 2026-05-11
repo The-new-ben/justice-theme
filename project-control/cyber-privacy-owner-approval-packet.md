@@ -31,7 +31,7 @@ VERIFIED:
 - `project-control/cannibalization-map.csv`.
 
 NOT VERIFIED:
-- Direct GSC browser/API query rows for `עורך דין סייבר`, `דיני סייבר`, `מתקפת סייבר`, `עורך דין פרטיות`, `פגיעה בפרטיות`, `לשון הרע באינטרנט`, `שיימינג`, `מחיקת מידע`, or `הגנת הפרטיות`.
+- Full GSC API export for cyber/privacy terms beyond the browser-visible rows documented below.
 - Fresh SERP review for cyber lawyer, privacy lawyer, cybercrime, privacy invasion, online reputation and defamation variants.
 - GA4 landing-page, lead and conversion data.
 - Source/legal review for privacy, cybercrime, cyber insurance, platform liability, police records/data deletion and defamation/privacy claims.
@@ -76,6 +76,27 @@ Interpretation:
 - `/cyber-lawyer/` remains the strongest current inventory candidate, but it is not GSC-proven in this pass.
 - `/cybercrime-lawyer-roll/` has weak service-query impressions and should be reviewed as a support page, not treated as the primary.
 - Privacy-lawyer and cyber-law guide demand remain NOT VERIFIED from GSC alone.
+- No title, H1, meta, body, URL, redirect, canonical, sitemap, internal-link, related-card or CMS action is approved by this evidence.
+
+## 2026-05-11 Cyber/Privacy Support-Term GSC Browser Evidence
+
+VERIFIED:
+- `project-control/gsc-cyber-privacy-support-pass-2026-05-11.md`.
+- `project-control/gsc-cyber-privacy-support-pass-2026-05-11.csv`.
+
+Query findings:
+- `מתקפת סייבר`: `0` clicks, `0` impressions, no visible rows.
+- `פגיעה בפרטיות`: `0` clicks, `38` impressions, CTR `0%`, position `46`; visible URL was `https://jus-tice.co.il/פיצוי-כספי-בגין-פגיעה-בפרטיות-צפייה-ומחיקה-של-פריטים-מהטלפון-ללא-רשות/`.
+- `לשון הרע באינטרנט`: `0` clicks, `0` impressions, no visible rows.
+- `מחיקת מידע`: `0` clicks, `0` impressions, no visible rows.
+- `שיימינג`: `0` clicks, `1` impression, CTR `0%`, position `137`; visible URL was `/changing-or-canceling-a-prenuptial-agreement/`.
+- `הגנת הפרטיות`: `0` clicks, `7` impressions, CTR `0%`, position `49.3`; visible URL was the same old Hebrew privacy-injury URL.
+
+Interpretation:
+- The old Hebrew privacy-injury URL is a protected comparison/support URL, not a blind redirect/rewrite target.
+- `שיימינג` is a wrong-page signal on a prenup/family-law page; do not edit that page for reputation/shaming intent.
+- Cyberattack, online defamation and data-deletion terms are not GSC-proven on current pages in this browser pass.
+- Screenshot capture timed out, so this pass is text-metric evidence only.
 - No title, H1, meta, body, URL, redirect, canonical, sitemap, internal-link, related-card or CMS action is approved by this evidence.
 
 ## Page Decisions For Approval

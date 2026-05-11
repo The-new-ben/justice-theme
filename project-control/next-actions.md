@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-GSC-CYBER-PRIVACY-SUPPORT-PASS-001: Run remaining cyber/privacy support-term GSC evidence pass
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The previous cyber/privacy GSC pass covered service terms, but the owner packet still needed support and boundary checks for privacy invasion, online defamation, data deletion, shaming and cyberattack before any content or URL decision.
+**Actions:**
+1. DONE: created `project-control/gsc-cyber-privacy-support-pass-2026-05-11.md`.
+2. DONE: created `project-control/gsc-cyber-privacy-support-pass-2026-05-11.csv`.
+3. DONE: updated GSC keyword, cannibalization, priority and evidence-overlay maps.
+4. DONE: updated the cyber/privacy owner-approval packet.
+5. VERIFIED: `פגיעה בפרטיות` has `38` impressions and `הגנת הפרטיות` has `7` impressions, both on an old Hebrew privacy-injury URL that must be protected and compared.
+6. VERIFIED: `שיימינג` has only `1` wrong-page impression on a prenup/family-law URL; do not edit that page for shaming intent.
+7. VERIFIED: `מתקפת סייבר`, `לשון הרע באינטרנט`, and `מחיקת מידע` returned zero visible rows.
+8. BLOCKED: screenshots timed out, so evidence is text-metric based.
+9. NEXT: run SERP/source/legal review or move to homepage line-by-line SEO/design alignment from verified homepage evidence.
+10. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/menu, related-card, lawyer-card, CRM/review or CMS writes until owner-approved execution.
+
 ### ACTION-GSC-CYBER-NATIONAL-GAP-PASS-001: Run cyber/privacy and national-insurance GSC evidence pass
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** After homepage/directory evidence, the remaining-gap queue prioritizes cyber/privacy and national-insurance service/support checks before owner-approved content or URL decisions.

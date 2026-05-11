@@ -447,3 +447,13 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - VERIFIED: `כתב אישום` screenshot captures the specific Netanyahu indictment page plus homepage as visible Pages-tab results.
 - VERIFIED: `עורך דין נהיגה בשכרות` screenshot captures the wrong-page match to the will-revocation URL.
 - SAFETY: this is evidence capture only; no public content, URL, redirect, sitemap, canonical, document, taxonomy, menu, lawyer, CRM, review or plugin state was changed.
+
+## 2026-05-11 GSC Cyber / Privacy Support Evidence
+
+- VERIFIED: browser GSC access still works for the URL-prefix property `https://jus-tice.co.il/`.
+- VERIFIED TEXT EVIDENCE: `פגיעה בפרטיות` maps to an old Hebrew privacy-injury URL with `38` impressions.
+- VERIFIED TEXT EVIDENCE: `הגנת הפרטיות` maps to the same old Hebrew privacy-injury URL with `7` impressions.
+- VERIFIED TEXT EVIDENCE: `שיימינג` maps once to `/changing-or-canceling-a-prenuptial-agreement/`, a wrong-page signal.
+- VERIFIED TEXT EVIDENCE: `מתקפת סייבר`, `לשון הרע באינטרנט`, and `מחיקת מידע` returned no visible rows.
+- BLOCKED: screenshot capture timed out for this pass, so no new screenshot artifact was saved.
+- SAFETY: this is evidence capture only; no public content, URL, redirect, sitemap, canonical, document, taxonomy, menu, lawyer, CRM, review or plugin state was changed.

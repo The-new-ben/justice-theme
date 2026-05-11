@@ -2149,3 +2149,14 @@
 - VERIFIED: `כתב אישום` is a tiny specific-case signal, with visible pages on the Netanyahu indictment article and homepage, not a general indictment guide.
 - VERIFIED: `עורך דין נהיגה בשכרות` still maps to a will-revocation article, confirming a wrong-page traffic-law match.
 - BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, document removal, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
+## 2026-05-11 - Cyber/privacy support GSC browser evidence pass
+
+- CREATED: `project-control/gsc-cyber-privacy-support-pass-2026-05-11.md`.
+- CREATED: `project-control/gsc-cyber-privacy-support-pass-2026-05-11.csv`.
+- UPDATED: `project-control/gsc-keyword-page-map.csv`, `project-control/gsc-cannibalization-review.csv`, `project-control/gsc-content-priorities.csv`, `project-control/content-decision-evidence-overlay.csv`, `project-control/cyber-privacy-owner-approval-packet.md`, `project-control/cyber-privacy-owner-approval-packet.csv`, and project-control status files.
+- VERIFIED: `פגיעה בפרטיות` has 38 impressions and `הגנת הפרטיות` has 7 impressions on an old Hebrew privacy-injury URL.
+- VERIFIED: `שיימינג` has a one-impression wrong-page signal on `/changing-or-canceling-a-prenuptial-agreement/`.
+- VERIFIED: `מתקפת סייבר`, `לשון הרע באינטרנט`, and `מחיקת מידע` returned no visible rows.
+- BLOCKED: GSC screenshot capture timed out for this pass, so evidence is text-metric based.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.

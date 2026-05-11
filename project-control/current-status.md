@@ -1,3 +1,20 @@
+## LATEST WORK STATUS - 2026-05-11 16:23 Asia/Jerusalem
+- VERIFIED / GSC: completed the cyber/privacy support-term browser pass from the remaining-gap queue.
+- CREATED: `project-control/gsc-cyber-privacy-support-pass-2026-05-11.md`.
+- CREATED: `project-control/gsc-cyber-privacy-support-pass-2026-05-11.csv`.
+- UPDATED: `project-control/gsc-keyword-page-map.csv`.
+- UPDATED: `project-control/gsc-cannibalization-review.csv`.
+- UPDATED: `project-control/gsc-content-priorities.csv`.
+- UPDATED: `project-control/content-decision-evidence-overlay.csv`.
+- UPDATED: `project-control/cyber-privacy-owner-approval-packet.md` and `.csv`.
+- VERIFIED: `פגיעה בפרטיות` returned `0` clicks and `38` impressions at position `46`, mapped to old Hebrew URL `https://jus-tice.co.il/פיצוי-כספי-בגין-פגיעה-בפרטיות-צפייה-ומחיקה-של-פריטים-מהטלפון-ללא-רשות/`.
+- VERIFIED: `הגנת הפרטיות` returned `0` clicks and `7` impressions at position `49.3`, mapped to the same old Hebrew privacy-injury URL.
+- VERIFIED: `שיימינג` returned only `1` impression at position `137`, mapped to unrelated family-law/prenup URL `/changing-or-canceling-a-prenuptial-agreement/`.
+- VERIFIED: `מתקפת סייבר`, `לשון הרע באינטרנט`, and `מחיקת מידע` returned zero visible rows.
+- BLOCKED: screenshot capture timed out during this pass; text rows and metrics were still recorded from the browser UI.
+- BLOCKED: no public cyber/privacy title/H1/meta, content body, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, lawyer-card, CRM, review, wp-admin setting or CMS/database action was executed.
+- SAFETY: browser evidence capture and repo documentation only; no live public site state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 16:10 Asia/Jerusalem
 - VERIFIED / GSC: completed the cyber/privacy and national-insurance remaining-gap browser pass.
 - CREATED: `project-control/gsc-cyber-national-gap-pass-2026-05-11.md`.

@@ -33,4 +33,5 @@ FAM-UPLOAD-031,Verify visible disclaimers and safe CTAs,YES,BLOCKED,Preview/live
 FAM-UPLOAD-032,Verify protected document tool and case URLs after upload,YES,BLOCKED,Preview/live URL check after draft import or public update,Confirm protected PDF DOCX calculator article and case assets remain reachable,No upload or preview exists yet
 FAM-UPLOAD-033,Run GSC API protected asset export before URL actions,YES,BLOCKED,GSC API page-query export,Export protected asset metrics before any redirect noindex deletion or canonical action,GSC API access not connected yet
 FAM-UPLOAD-034,Approve first upload package scope,YES,VERIFIED PLANNING,First upload package created,Owner chooses Wave 1A only or Wave 1A plus Wave 1B,No public upload approved yet
-FAM-UPLOAD-035,Create CMS-clean /divorce-lawyer/ public body file,YES,BLOCKED,Final draft package defines cleanup instructions,Remove internal notes duplicate FAQ and planning sections into clean body,No public body file created yet
+FAM-UPLOAD-035,Create CMS-clean /divorce-lawyer/ public body file,YES,PARTIAL VERIFIED,CMS-clean public body file created and scanned,Owner/legal/source review and final upload approval,No CMS/public upload yet
+FAM-UPLOAD-036,Approve CMS-clean /divorce-lawyer/ public body for upload,YES,BLOCKED,Owner legal and source review,Approve final copy or request edits,No public upload approved yet

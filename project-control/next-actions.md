@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-DIVORCE-LAWYER-CMS-CLEAN-BODY-001: Create clean `/divorce-lawyer/` public body
+**Status:** COMPLETED / REVIEW ONLY / PARTIAL VERIFIED
+**Why:** The final draft package was too editorial for direct upload. The first controlled Family/Divorce upload candidate needed a clean public body with internal notes removed.
+**Actions:**
+1. DONE: created `content-drafts/divorce-lawyer-public-body-he.md`.
+2. VERIFIED: clean public body is `2,374` words across `92` lines.
+3. VERIFIED: scans found no internal planning notes, `TODO`/`TBD`, fake-trust language, fake-rating language or guaranteed-result claims.
+4. PARTIAL VERIFIED: `FAM-UPLOAD-035` is now partially verified because the clean file exists.
+5. BLOCKED: `FAM-UPLOAD-036` requires owner/legal/source approval before any upload.
+6. NEXT: approve the clean body or request edits; after approval, prepare controlled upload QA before any CMS/public change.
+7. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-DIVORCE-LAWYER-FINAL-DRAFT-PACKAGE-001: Package final `/divorce-lawyer/` draft update
 **Status:** COMPLETED / REVIEW ONLY / PARTIAL VERIFIED
 **Why:** The current Hebrew draft is deep enough for a final copy pass, but it still includes internal notes and duplicate sections that must not be uploaded.

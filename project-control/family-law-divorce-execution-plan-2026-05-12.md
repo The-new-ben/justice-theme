@@ -216,16 +216,33 @@ NEXT:
 VERIFIED:
 - `project-control/family-divorce-divorce-lawyer-final-draft-package-2026-05-12.md` and `.csv` now translate the current `5,691`-word Hebrew draft into a CMS update plan.
 - `36` package rows cover CMS fields, internal-note removals, section actions, related-content controls, schema block and URL hold state.
-- `FAM-UPLOAD-027` is now `PARTIAL VERIFIED`: the draft package exists, but the clean public body file is not created yet.
+- `FAM-UPLOAD-027` is now `PARTIAL VERIFIED`: the draft package exists and the clean public body file has now been created.
 
 Decision:
 - The current draft is deep enough for a final copy pass, but not safe to upload as-is.
 - Internal production notes, duplicate FAQ blocks, competitor/source notes and CMS planning sections must be removed before upload.
-- The next unblocked content task is a CMS-clean `/divorce-lawyer/` public body file with no live changes.
+- The next unblocked content task is owner/legal/source review of the CMS-clean `/divorce-lawyer/` public body file.
 
 NEXT:
-- Create the CMS-clean public body from `content-drafts/divorce-lawyer-pillar-he.md`.
+- Review `content-drafts/divorce-lawyer-public-body-he.md` for final owner/legal/source approval.
 - Keep all public upload actions blocked until owner approval and final QA.
+
+## Divorce Lawyer CMS-Clean Body Update
+
+VERIFIED:
+- `content-drafts/divorce-lawyer-public-body-he.md` now contains the CMS-clean public body for `/divorce-lawyer/`.
+- The clean body is `2,374` words across `92` lines.
+- The scan found no internal editorial/planning notes, `TODO`/`TBD` markers, fake-rating terms or fake-trust language.
+- The body includes a general-information/no-legal-advice disclaimer, practical decision sections, process guidance, cost/document sections, FAQ, neutral Jus-Tice CTA and related Family/Divorce page paths.
+
+Decision:
+- This file is upload-prep only. It is not a public upload approval.
+- `FAM-UPLOAD-035` is now `PARTIAL VERIFIED`.
+- `FAM-UPLOAD-036` is now the blocking approval gate for the clean public body.
+
+NEXT:
+- Owner/legal/source review approves the body or requests edits.
+- If approved, prepare the controlled upload QA package before touching CMS, URLs, redirects, taxonomy, related cards or sitemap.
 
 ## Old Pages To Keep / Protect
 

@@ -23,7 +23,9 @@ VERIFIED:
 - Divorce PDF, mediation DOCX, child-support calculator, custody article, custody PDF and custody case-law assets are planning-protected.
 - The Family/Divorce first-upload package now defines `20` wave and wait-list rows for owner review.
 - The `/divorce-lawyer/` final draft package now defines `36` cleanup, metadata, section and upload-control rows.
-- The existing Hebrew draft is about `5,691` words, but still needs a CMS-clean public body pass.
+- The existing Hebrew draft is about `5,691` words and has now been reduced into a CMS-clean public body draft.
+- `content-drafts/divorce-lawyer-public-body-he.md` contains a `2,374`-word public Hebrew body for `/divorce-lawyer/`.
+- The clean public body scan found no internal planning notes and no fake-trust/rating language.
 
 NOT VERIFIED:
 - GSC API export.
@@ -59,6 +61,7 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 22. Run GSC API export for protected Family/Divorce assets before any redirect, noindex, deletion, canonical or sitemap removal action.
 23. Approve first-upload scope: Wave 1A only, or Wave 1A plus Wave 1B support pages.
 24. Create CMS-clean `/divorce-lawyer/` public body file with internal notes removed and one final FAQ block.
+25. Approve the CMS-clean `/divorce-lawyer/` public body after owner/legal/source review before upload.
 
 ## Current Recommendation
 

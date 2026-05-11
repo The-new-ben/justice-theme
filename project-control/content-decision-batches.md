@@ -14,6 +14,24 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Divorce Lawyer CMS-Clean Public Body
+
+CREATED:
+- `content-drafts/divorce-lawyer-public-body-he.md`
+
+VERIFIED:
+- The clean public Hebrew body is `2,374` words across `92` lines.
+- Internal editorial notes, CMS planning sections, duplicate FAQ structure and source/competitor notes were removed from the public body.
+- The scan found no internal planning markers, `TODO`/`TBD`, fake ratings, fake review claims, fake trust labels or guaranteed-result language.
+- `FAM-UPLOAD-035` is now `PARTIAL VERIFIED`.
+
+RECOMMENDED:
+- Owner/legal/source review should approve the clean body or request edits before any CMS import.
+- Keep GSC API and protected-asset export as required gates before URL, redirect, noindex, canonical, deletion or sitemap-removal actions.
+
+BLOCKED:
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Divorce Lawyer Final Draft Package
 
 CREATED:

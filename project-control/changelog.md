@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Divorce lawyer CMS-clean public body
+
+- CREATED: `content-drafts/divorce-lawyer-public-body-he.md`.
+- VERIFIED / REVIEW ONLY: created a `2,374`-word clean public Hebrew body for `/divorce-lawyer/`.
+- VERIFIED: internal editorial notes, CMS planning sections, duplicate FAQ structure and source/competitor notes were removed from the public body.
+- VERIFIED: scans found no internal planning markers, `TODO`/`TBD`, fake ratings, fake review claims, fake trust labels or guaranteed-result language.
+- PARTIAL VERIFIED: `FAM-UPLOAD-035` now has a clean file, but `FAM-UPLOAD-036` blocks upload until owner/legal/source approval.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Family/Divorce disclaimer and CTA policy
 
 - CREATED: `project-control/family-divorce-disclaimer-cta-policy-2026-05-12.md`.

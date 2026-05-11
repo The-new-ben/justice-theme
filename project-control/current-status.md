@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-12 02:36 Asia/Jerusalem
+- PARTIAL VERIFIED / DIVORCE LAWYER CMS-CLEAN PUBLIC BODY: created a clean public Hebrew body for the first Family/Divorce upload candidate.
+- CREATED: `content-drafts/divorce-lawyer-public-body-he.md`.
+- VERIFIED: the clean body is `2,374` words across `92` lines.
+- VERIFIED: scans found no internal planning notes, `TODO`/`TBD`, fake-trust language, fake-rating language or guaranteed-result claims.
+- PARTIAL VERIFIED: `FAM-UPLOAD-035` is now partially verified; the clean file exists, but it still needs owner/legal/source approval.
+- BLOCKED: `FAM-UPLOAD-036` now blocks public upload until the clean body is approved.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 04:45 Asia/Jerusalem
 - PARTIAL VERIFIED / DIVORCE LAWYER FINAL DRAFT PACKAGE: translated the existing `5,691`-word `/divorce-lawyer/` Hebrew draft and 20-section merge outline into a CMS update plan.
 - CREATED: `project-control/family-divorce-divorce-lawyer-final-draft-package-2026-05-12.md`.

@@ -91,6 +91,11 @@ Recommended action:
 - VERIFIED: the first criminal-law group now has outline structure, source/legal gates and internal-link posture before public copy.
 - BLOCKED: no internal-link execution, related-card metadata, sitemap update, future slug link, redirect or canonical change is approved yet.
 
+2026-05-11 criminal-law owner upload review package addendum:
+- VERIFIED: `project-control/criminal-law-owner-upload-review-package-2026-05-11.md` and `.csv` consolidate the first criminal-law group into one owner-review package.
+- RECOMMENDED: approve planning only, then draft `/criminal-defense-attorney/` first under source/legal review.
+- BLOCKED: public upload, URL migration, sitemap changes, internal-link execution, related cards, lawyer cards and review/rating schema remain blocked until explicit approval.
+
 ## Real Estate
 
 Decision:

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Criminal law owner upload review package
+
+- CREATED: `project-control/criminal-law-owner-upload-review-package-2026-05-11.md`.
+- CREATED: `project-control/criminal-law-owner-upload-review-package-2026-05-11.csv`.
+- VERIFIED / REVIEW ONLY: `5` target decisions are packaged for owner review before content upload.
+- VERIFIED: package combines outline structure, source/legal gates, current-URL internal-link map, upload order, anti-cannibalization rules and blocked future slugs.
+- RECOMMENDED: approve the planning package only, then draft `/criminal-defense-attorney/` first under source/legal review.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Criminal law no-URL internal-link map
 
 - CREATED: `project-control/criminal-law-no-url-internal-link-map-2026-05-11.md`.

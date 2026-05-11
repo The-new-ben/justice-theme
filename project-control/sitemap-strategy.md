@@ -16,6 +16,11 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
 - SITEMAP IMPACT: sitemap inclusion should wait until these internal links and source-reviewed content can be executed together.
 - SAFETY: no sitemap inclusion rule, redirect, canonical, URL slug, taxonomy term, content body, internal-link, related-card, lawyer, CRM, review, wp-admin setting or database row was changed.
 
+2026-05-11 CRIMINAL LAW OWNER UPLOAD REVIEW PACKAGE:
+- VERIFIED / REVIEW ONLY: `project-control/criminal-law-owner-upload-review-package-2026-05-11.md` and `.csv` consolidate `5` target decisions for owner review.
+- SITEMAP IMPACT: no criminal-law sitemap additions are approved yet; sitemap changes wait until owner/legal review and public content approval.
+- SAFETY: no sitemap inclusion rule, redirect, canonical, URL slug, taxonomy term, content body, internal-link, related-card, lawyer, CRM, review, wp-admin setting or database row was changed.
+
 2026-05-11 CRIMINAL LAW PRIMARY SELECTION:
 - VERIFIED LIVE: `/criminal-defense-attorney/` returns `200 OK`, self-canonicalizes and has criminal-lawyer title/H1 signals.
 - BLOCKED: `/criminal-lawyer/`, the old Hebrew broad criminal-lawyer URL and a legacy deep criminal-law URL currently redirect to the homepage.

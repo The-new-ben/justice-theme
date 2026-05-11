@@ -130,6 +130,22 @@ BLOCKED:
 
 See `project-control/criminal-law-support-review.csv`.
 
+## 2026-05-11 Criminal Law Owner Upload Review Package
+
+CREATED:
+- `project-control/criminal-law-owner-upload-review-package-2026-05-11.md`
+- `project-control/criminal-law-owner-upload-review-package-2026-05-11.csv`
+
+VERIFIED:
+- `5` target decisions are ready for owner review.
+- Package combines the no-URL outline queue, source/legal checklist and current-URL internal-link map into one approval layer.
+
+RECOMMENDED:
+- Approve planning package only, then draft `/criminal-defense-attorney/` first under legal/source review.
+
+BLOCKED:
+- No public criminal-law content expansion, title/H1/meta change, internal-link batch, slug migration, redirect, canonical, noindex, sitemap or taxonomy/category change is approved by this package.
+
 ## 2026-05-11 Criminal Law No-URL Internal Link Map
 
 CREATED:

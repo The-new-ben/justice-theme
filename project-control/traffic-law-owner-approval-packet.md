@@ -48,6 +48,13 @@ Current inventory facts:
 - Word count: `1,399`.
 - Already links out to drunk driving, refusal/test content, medical road-safety, speeding and breathalyzer content.
 
+2026-05-11 pass-2 carry-forward:
+- VERIFIED: `project-control/gsc-targeted-query-pass-2-2026-05-11.csv` records both `נהיגה בשכרות` and `עורך דין נהיגה בשכרות` with `7` impressions each on `https://jus-tice.co.il/revocation-of-a-will-and-reviving-previous-will/`.
+- VERIFIED: the same wrong-page pattern also appears in the documented third targeted pass, so this is not a one-off note.
+- INTERPRETATION: the will-revocation page is being associated with traffic-law language by Google, but it should not be rewritten or optimized for traffic-law intent.
+- RECOMMENDED: solve the mismatch through traffic-law content quality, a clear `/traffic-lawyer/` pillar, review of `/driving-under-the-influence/`, and careful internal links after approval.
+- BLOCKED: do not create `/drunk-driving/`, redirect `/driving-under-the-influence/`, or edit the will-revocation URL for drunk-driving intent from this evidence alone.
+
 Recommended action:
 - APPROVE EXPAND / NO URL CHANGE.
 

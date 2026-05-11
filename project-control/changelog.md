@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - GSC pass-2 packet carry-forward
+
+- UPDATED: `project-control/child-custody-owner-approval-packet.md`.
+- UPDATED: `project-control/child-custody-owner-approval-packet.csv`.
+- UPDATED: `project-control/traffic-law-owner-approval-packet.md`.
+- UPDATED: `project-control/traffic-law-owner-approval-packet.csv`.
+- UPDATED: `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `משמורת בלעדית לאם` pass-2 evidence is now carried in the custody approval packet as a protected old-case-law URL risk with `107` impressions and average position `9.6`.
+- VERIFIED: drunk-driving pass-2 evidence is now carried in the traffic approval packet as a wrong-page signal on `/revocation-of-a-will-and-reviving-previous-will/`.
+- BLOCKED: no public content, URL, redirect, noindex, canonical, sitemap, title/H1/meta, menu, taxonomy, related-card, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Targeted GSC browser pass 2
 
 - CREATED: `project-control/gsc-targeted-query-pass-2-2026-05-11.md`.

@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-11 15:24 Asia/Jerusalem
+- VERIFIED / REVIEW: folded the second targeted GSC browser evidence pass into the child-custody and traffic-law owner-approval packets.
+- UPDATED: `project-control/child-custody-owner-approval-packet.md`.
+- UPDATED: `project-control/child-custody-owner-approval-packet.csv`.
+- UPDATED: `project-control/traffic-law-owner-approval-packet.md`.
+- UPDATED: `project-control/traffic-law-owner-approval-packet.csv`.
+- VERIFIED: the custody packet now explicitly carries forward the `משמורת בלעדית לאם` old-case-law URL risk with `107` impressions and average position `9.6`.
+- VERIFIED: the traffic packet now explicitly carries forward the drunk-driving wrong-page signal where `נהיגה בשכרות` and `עורך דין נהיגה בשכרות` map to `/revocation-of-a-will-and-reviving-previous-will/`.
+- NOT VERIFIED: these packet updates do not replace full GSC API export, GA4 data, legal/source review, side-by-side content comparison or owner approval.
+- BLOCKED: no public content, URL, redirect, noindex, canonical, sitemap, related-card, menu, taxonomy, lawyer-card, CRM, review, wp-admin setting or CMS/database action is approved by these updates.
+- SAFETY: repo documentation/CSV planning only; no live public site state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 15:12 Asia/Jerusalem
 - VERIFIED / GSC: completed the second targeted GSC browser evidence pass for child-support variants, sole-custody, police-investigation, drug-offenses and drunk-driving terms.
 - CREATED: `project-control/gsc-targeted-query-pass-2-2026-05-11.md`.

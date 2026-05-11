@@ -61,6 +61,25 @@ Interpretation:
 - The PDF is an SEO migration risk and needs a document strategy before any URL changes.
 - The old sole-mother custody case-law URL has position 5-20 opportunity/risk and must not be redirected or replaced blindly.
 
+## 2026-05-11 Pass-2 Evidence Carry-Forward
+
+VERIFIED:
+- The second targeted GSC browser pass is now part of this owner-approval packet:
+  - `project-control/gsc-targeted-query-pass-2-2026-05-11.md`
+  - `project-control/gsc-targeted-query-pass-2-2026-05-11.csv`
+- `משמורת בלעדית לאם` remains a high-risk narrow custody query because all visible GSC impressions in the pass map to the old Hebrew case-law URL.
+- The old case-law URL has `107` impressions, `0` clicks, `0%` CTR and average position `9.6`, so it is both a position 5-20 opportunity and a migration-risk URL.
+- Child-support modification/shared-custody variants checked in the same pass returned no visible rows; they should stay in source/SERP review and should not drive custody URL decisions.
+
+RECOMMENDED:
+- Protect the old sole-mother custody case-law URL until the side-by-side custody comparison is complete.
+- Treat the old URL as possible case-support content, not as disposable duplicate content.
+- Do not merge, redirect, noindex or canonicalize the old URL into `/child-custody/` unless the final migration map, source/legal review and owner approval explicitly support that move.
+- Add internal links from the old case-law/support path to the final custody guide only after the primary URL is approved.
+
+BLOCKED:
+- No public custody content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical, sitemap, PDF/media or CMS changes are approved by this pass-2 evidence.
+
 ## Page Decisions For Approval
 
 ### 1. Child Custody Guide Candidate

@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-GSC-PASS2-PACKET-CARRY-FORWARD-001: Fold pass-2 risks into custody and traffic approval packets
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The second targeted GSC browser pass created owner-decision risks that must travel with the topic packets before any content, URL, redirect, canonical, sitemap, internal-link, related-card, menu, lawyer-card or CMS execution.
+**Actions:**
+1. DONE: updated `project-control/child-custody-owner-approval-packet.md`.
+2. DONE: updated `project-control/child-custody-owner-approval-packet.csv`.
+3. DONE: updated `project-control/traffic-law-owner-approval-packet.md`.
+4. DONE: updated `project-control/traffic-law-owner-approval-packet.csv`.
+5. VERIFIED: `משמורת בלעדית לאם` is now carried forward as an old-case-law migration-risk/support item with `107` impressions and average position `9.6`.
+6. VERIFIED: `נהיגה בשכרות` and `עורך דין נהיגה בשכרות` are now carried forward as wrong-page traffic-law signals on `/revocation-of-a-will-and-reviving-previous-will/`.
+7. VERIFIED: child-support modification/shared-custody zero-row filters remain source/SERP review items, not immediate GSC-driven execution items.
+8. NEXT: continue remaining direct GSC/SERP gaps for cyber/privacy, national insurance, homepage, lawyer-directory and page-to-query checks.
+9. BLOCKED: no public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards, CRM/review changes or CMS writes until explicit owner approval.
+
 ### ACTION-NATIONAL-INSURANCE-OWNER-APPROVAL-001: Prepare national-insurance primary and boundary approval packet
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** National insurance is a required strategic cluster, but the current inventory only verifies an empty practice-area hub, a calculator/tool page, old law-text content and boundary pages. The future `/national-insurance-lawyer/` slug is proposed only and must not be created or migrated without approval.
@@ -214,7 +228,8 @@
 11. VERIFIED: `משמורת בלעדית לאם` maps to an old case-law URL with `107` impressions and average position `9.6`; this is a high-risk custody support/migration review item.
 12. VERIFIED: `נהיגה בשכרות` and `עורך דין נהיגה בשכרות` map to `/revocation-of-a-will-and-reviving-previous-will/`, confirming wrong-page traffic-law evidence.
 13. VERIFIED: `עבירות סמים` has only `2` impressions across a case-law page and an old criminal-lawyer URL; child-support modification variants, `בע"מ 919/15`, and `חקירה במשטרה` showed no visible rows.
-14. NEXT: update topic packets and approval queues with the pass-2 implications, then continue with remaining direct GSC/SERP gaps for cyber/privacy, national-insurance, lawyer-directory and page-to-query checks.
+14. DONE: pass-2 implications were folded into the child-custody and traffic-law owner-approval packets.
+15. NEXT: continue with remaining direct GSC/SERP gaps for cyber/privacy, national-insurance, lawyer-directory and page-to-query checks.
 
 ### ACTION-CONTENT-DECISION-EVIDENCE-001: Overlay GSC/SERP evidence on first content decision batch
 **Status:** IN PROGRESS / REVIEW ONLY

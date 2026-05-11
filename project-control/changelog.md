@@ -3,6 +3,11 @@
 
 ## 2026-05-11 - Active plugin manifest diagnostic
 
+- BLOCKED AUTH EXPORT: Codex browser hit a network failure opening the WordPress-side diagnostic route/wp-admin, while local unauthenticated PowerShell access still reached the route and received HTTP 401.
+- CODE FIXED: added `tools/export-plugin-manifest-diagnostic.ps1` for future WordPress Application Password export without hardcoded secrets.
+- CODE FIXED: added `tools/compare-plugin-manifests.ps1` for live-vs-repo manifest comparison.
+- DECISION: do not use normal account passwords for command-line Basic Auth and do not store credentials in repo files.
+
 - VERIFIED LIVE: uPress Git log shows top commit `8111d12` (`Add active plugin manifest diagnostic`).
 - VERIFIED LIVE: public static marker returns `2026-05-11-plugin-manifest-diagnostic-v1`.
 - VERIFIED LIVE SECURITY: unauthenticated public diagnostic request returns HTTP 401; `tools/check-plugin-manifest-diagnostic.ps1` reports the route is protected.

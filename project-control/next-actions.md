@@ -26,8 +26,10 @@
 14. CODE FIXED: added admin-only read-only route `GET /wp-json/justice-theme/v1/active-plugin-manifest` to produce an active-plugin manifest when authenticated as an administrator.
 15. DOCUMENTED: `project-control/plugin-manifest-diagnostic-review.md`.
 16. VERIFIED LIVE: uPress top commit `8111d12`, static marker `2026-05-11-plugin-manifest-diagnostic-v1`, and unauthenticated public diagnostic request returns HTTP 401.
-17. NEXT: use an authenticated admin session to export the live active plugin manifest and compare it against `project-control/ultra-justice-engine-repo-manifest.csv`.
-18. SAFETY: no plugin activation, deactivation, deletion, installation, upload, rename, compression, file-manager edit, wp-admin setting, URL, redirect, content, taxonomy, sitemap, canonical, lawyer, CRM, review or database change was made.
+17. BLOCKED: Codex browser cannot currently open `jus-tice.co.il/wp-admin/` or the WordPress-side diagnostic route due a browser network failure, while local unauthenticated checks still reach the route.
+18. CODE FIXED: added `tools/export-plugin-manifest-diagnostic.ps1` and `tools/compare-plugin-manifests.ps1` for future Application Password export and live-vs-repo comparison.
+19. NEXT: create/use a WordPress Application Password or authenticated WP admin session, run the export script, then run the comparison script.
+20. SAFETY: no plugin activation, deactivation, deletion, installation, upload, rename, compression, file-manager edit, wp-admin setting, URL, redirect, content, taxonomy, sitemap, canonical, lawyer, CRM, review or database change was made.
 
 ### ACTION-ROUTING-404-HOMEPAGE-001: Identify and disable uncontrolled 404-to-homepage redirects
 **Status:** VERIFIED SOURCE - owner approval needed before deactivation

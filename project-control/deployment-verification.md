@@ -4,6 +4,14 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest authenticated manifest export attempt:
+
+- BLOCKED: Codex browser returned a network failure for the WordPress-side diagnostic route and `/wp-admin/`.
+- VERIFIED: unauthenticated PowerShell route check still reaches the diagnostic endpoint and returns HTTP 401.
+- CODE FIXED: added future export helper `tools/export-plugin-manifest-diagnostic.ps1`.
+- CODE FIXED: added comparison helper `tools/compare-plugin-manifests.ps1`.
+- NEXT: use WordPress Application Password or authenticated WP admin session to export `project-control/live-active-plugin-manifest.csv`, then compare.
+
 Latest live verification after diagnostic deployment:
 
 - VERIFIED UPress PULL: uPress Git log shows top theme commit `8111d12` (`Add active plugin manifest diagnostic`).

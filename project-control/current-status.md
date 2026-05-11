@@ -2,6 +2,16 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 09:04 Asia/Jerusalem
+- BLOCKED AUTH EXPORT: Codex browser could not open the WordPress-side diagnostic route or `/wp-admin/` because the in-app browser returned a network failure for `jus-tice.co.il`.
+- VERIFIED PUBLIC ROUTE STILL REACHABLE: local public checker reaches the same diagnostic route and receives HTTP 401, so the route remains live/protected.
+- DECISION: do not pass normal account passwords through command-line Basic Auth and do not store credentials in the repo.
+- CODE FIXED: added `tools/export-plugin-manifest-diagnostic.ps1` for future authenticated export via WordPress Application Password or safe environment variables.
+- CODE FIXED: added `tools/compare-plugin-manifests.ps1` to compare the authenticated live manifest CSV against `project-control/ultra-justice-engine-repo-manifest.csv`.
+- DOCUMENTED: updated `project-control/plugin-manifest-diagnostic-review.md` with the export/compare workflow and current blocker.
+- STILL BLOCKED: actual live manifest export remains pending until a WordPress admin-authenticated request or Application Password is available.
+- SAFETY: no plugin activation, deactivation, deletion, upload, rename, compression, file edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+
 ## LATEST WORK STATUS - 2026-05-11 08:58 Asia/Jerusalem
 - VERIFIED LIVE DEPLOYMENT: uPress Git log shows top commit `8111d12` (`Add active plugin manifest diagnostic`).
 - VERIFIED LIVE MARKER: public static marker returns `2026-05-11-plugin-manifest-diagnostic-v1`.

@@ -87,7 +87,33 @@ Admin-authenticated result:
 - Convert `files` into a CSV.
 - Compare against `project-control/ultra-justice-engine-repo-manifest.csv`.
 
-Status: BLOCKED until an authenticated WordPress admin request is available in this session.
+Prepared export command:
+
+```powershell
+$env:JUSTICE_WP_USER = "admin-user@example.com"
+$env:JUSTICE_WP_APP_PASSWORD = "xxxx xxxx xxxx xxxx xxxx xxxx"
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/export-plugin-manifest-diagnostic.ps1
+```
+
+Prepared comparison command:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File tools/compare-plugin-manifests.ps1
+```
+
+Status: BLOCKED until an authenticated WordPress admin request or WordPress Application Password is available in this session. Do not use or commit normal account passwords for this route.
+
+## Authenticated Export Attempt
+
+2026-05-11:
+
+- BLOCKED: Codex browser could not open the WordPress-side diagnostic route or wp-admin path because the in-app browser returned a network failure for `jus-tice.co.il`, while local unauthenticated PowerShell checks still reached the route and received HTTP 401.
+- DECISION: do not force normal account passwords through command-line Basic Auth. Use a WordPress Application Password or an already authenticated WordPress admin browser session.
+- CODE FIXED: added `tools/export-plugin-manifest-diagnostic.ps1` for Application Password export without hardcoded secrets.
+- CODE FIXED: added `tools/compare-plugin-manifests.ps1` to compare the authenticated live manifest CSV against `project-control/ultra-justice-engine-repo-manifest.csv`.
+- VERIFIED LOCAL: both new PowerShell scripts parse successfully.
+- VERIFIED BLOCKED BEHAVIOR: export script stops with a clear `JUSTICE_WP_USER` / `JUSTICE_WP_APP_PASSWORD` requirement when no credentials are provided.
+- VERIFIED BLOCKED BEHAVIOR: compare script stops with a clear missing-live-manifest message until `project-control/live-active-plugin-manifest.csv` exists.
 
 ## Important Limitation
 

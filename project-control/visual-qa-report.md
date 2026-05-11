@@ -2,6 +2,14 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 GSC Cyber / Privacy / National Insurance Evidence Screenshots
+- VERIFIED: browser GSC access was used for the cyber/privacy and national-insurance gap pass on the URL-prefix property `https://jus-tice.co.il/`.
+- EVIDENCE: `project-control/visual-evidence/gsc-gap-query-cyber-lawyer-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-gap-query-privacy-lawyer-2026-05-11.png`.
+- VERIFIED: `עורך דין סייבר` maps weakly to `/cybercrime-lawyer-roll/`; privacy lawyer and the checked national-insurance service/hub rows showed no visible primary signal.
+- BLOCKED: GSC screenshot capture timed out for the national-insurance rows after the cyber/privacy screenshots; text metrics and rows were still recorded in `project-control/gsc-cyber-national-gap-pass-2026-05-11.csv`.
+- SAFETY: this is GSC evidence capture only; no public cyber/privacy, national-insurance, title/H1/meta, URL, redirect, sitemap, canonical, taxonomy, menu, lawyer, CRM, review or plugin state was changed.
+
 ## 2026-05-11 GSC Homepage And Directory Evidence Screenshots
 - VERIFIED: browser GSC access was used for the homepage and lawyer-directory evidence pass on the URL-prefix property `https://jus-tice.co.il/`.
 - EVIDENCE: `project-control/visual-evidence/gsc-homepage-page-query-2026-05-11.png`.

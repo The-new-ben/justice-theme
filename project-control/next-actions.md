@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-GSC-CYBER-NATIONAL-GAP-PASS-001: Run cyber/privacy and national-insurance GSC evidence pass
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** After homepage/directory evidence, the remaining-gap queue prioritizes cyber/privacy and national-insurance service/support checks before owner-approved content or URL decisions.
+**Actions:**
+1. DONE: created `project-control/gsc-cyber-national-gap-pass-2026-05-11.md`.
+2. DONE: created `project-control/gsc-cyber-national-gap-pass-2026-05-11.csv`.
+3. DONE: captured cyber/privacy screenshots where GSC screenshot capture worked.
+4. DONE: updated GSC keyword, cannibalization and priority maps.
+5. DONE: updated cyber/privacy and national-insurance owner-approval packets.
+6. VERIFIED: `עורך דין סייבר` maps weakly to `/cybercrime-lawyer-roll/` with `42` impressions; `/cyber-lawyer/` reverse check shows `No data`.
+7. VERIFIED: `עורך דין ביטוח לאומי`, medical committee and the empty national-insurance hub show no visible GSC rows.
+8. REVIEW: cyber and national-insurance remain planning/approval items, not execution items.
+9. NEXT: continue remaining cyber/privacy support terms or start homepage line-by-line SEO/design alignment from verified homepage evidence.
+10. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/menu, related-card, lawyer-card, CRM/review or CMS writes until owner-approved execution.
+
 ### ACTION-GSC-HOMEPAGE-DIRECTORY-EVIDENCE-001: Run homepage and lawyer-directory GSC evidence pass
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The remaining-gap queue identified homepage broad intent and `/lawyers/` directory intent as the top unblocked GSC evidence gap before homepage/design or directory SEO changes.

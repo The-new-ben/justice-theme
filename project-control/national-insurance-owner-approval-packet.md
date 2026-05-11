@@ -59,6 +59,31 @@ Interpretation:
 - `/national-insurance-lawyer/` should remain a strategic future slug until the owner approves the role and migration plan.
 - Work accident should not be moved blindly; it may belong to personal injury, employment law, national insurance, or a carefully linked overlap page.
 
+## 2026-05-11 Direct GSC Browser Evidence
+
+VERIFIED:
+- `project-control/gsc-cyber-national-gap-pass-2026-05-11.md`.
+- `project-control/gsc-cyber-national-gap-pass-2026-05-11.csv`.
+
+Screenshot limitation:
+- BLOCKED: after the cyber/privacy screenshots, GSC screenshot capture timed out for national-insurance rows. Text metrics and rows were still visible in the browser UI and recorded.
+
+Query findings:
+- `עורך דין ביטוח לאומי`: `0` clicks, `0` impressions, `No data`.
+- `ביטוח לאומי`: `0` clicks, `2` impressions, position `72`; visible URLs were `/returning-resident-rights-determining-tax-rate/` and a low-sample case-law URL.
+- `ועדה רפואית ביטוח לאומי`: `0` clicks, `0` impressions, `No data`.
+- `קצבת נכות`: `0` clicks, `1` impression, position `76`; visible URL was `/cerebral-palsy-rights/`.
+
+Page findings:
+- `/practice-areas/national-insurance/`: reverse page-to-query check returned `0` clicks, `0` impressions and `No data`.
+
+Interpretation:
+- There is no verified national-insurance lawyer-service signal in GSC from this pass.
+- The existing empty practice-area hub is not GSC-visible and should not be promoted as a primary page yet.
+- The broad national-insurance and disability-benefit rows are too small and too weak to guide a URL migration.
+- `/national-insurance-lawyer/` remains a future strategic slug only.
+- No title, H1, meta, body, URL, redirect, canonical, sitemap, internal-link, related-card, taxonomy, menu or CMS action is approved by this evidence.
+
 ## Page Decisions For Approval
 
 ### 1. Existing Practice Area

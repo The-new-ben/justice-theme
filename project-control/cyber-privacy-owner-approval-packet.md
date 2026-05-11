@@ -56,6 +56,28 @@ Interpretation:
 - `/fbi-cyber-division/` is long and visible in the heuristic, but its intent is FBI/international/security education, not local Israeli lawyer-service intent.
 - Privacy, defamation, digital reputation and data-deletion content needs its own role review before being merged under a cyber/privacy pillar.
 
+## 2026-05-11 Direct GSC Browser Evidence
+
+VERIFIED:
+- `project-control/gsc-cyber-national-gap-pass-2026-05-11.md`.
+- `project-control/gsc-cyber-national-gap-pass-2026-05-11.csv`.
+- `project-control/visual-evidence/gsc-gap-query-cyber-lawyer-2026-05-11.png`.
+- `project-control/visual-evidence/gsc-gap-query-privacy-lawyer-2026-05-11.png`.
+
+Query findings:
+- `עורך דין סייבר`: `0` clicks, `42` impressions, CTR `0%`, position `71.6`; visible URL was `/cybercrime-lawyer-roll/`.
+- `דיני סייבר`: `0` clicks, `0` impressions, `No data`.
+- `עורך דין פרטיות`: `0` clicks, `0` impressions, `No data`.
+
+Page findings:
+- `/cyber-lawyer/`: reverse page-to-query check returned `0` clicks, `0` impressions and `No data`.
+
+Interpretation:
+- `/cyber-lawyer/` remains the strongest current inventory candidate, but it is not GSC-proven in this pass.
+- `/cybercrime-lawyer-roll/` has weak service-query impressions and should be reviewed as a support page, not treated as the primary.
+- Privacy-lawyer and cyber-law guide demand remain NOT VERIFIED from GSC alone.
+- No title, H1, meta, body, URL, redirect, canonical, sitemap, internal-link, related-card or CMS action is approved by this evidence.
+
 ## Page Decisions For Approval
 
 ### 1. Current Cyber Lawyer Candidate

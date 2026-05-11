@@ -93,6 +93,24 @@ Decision:
 - REVIEW: do not treat `/lawyers/` as a proven GSC primary until indexability, internal links, sitemap, title/H1 and real lawyer inventory are reviewed.
 - BLOCKED: no live homepage, directory, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, lawyer-card, CRM/review or CMS action.
 
+## 2026-05-11 Completed Group: Cyber/Privacy And National Insurance
+
+VERIFIED:
+- `project-control/gsc-cyber-national-gap-pass-2026-05-11.md`
+- `project-control/gsc-cyber-national-gap-pass-2026-05-11.csv`
+- Cyber/privacy screenshots in `project-control/visual-evidence/`.
+
+Findings:
+- `עורך דין סייבר` maps to `/cybercrime-lawyer-roll/` with `0` clicks and `42` impressions; `/cyber-lawyer/` reverse check has no data.
+- `דיני סייבר` and `עורך דין פרטיות` have no visible rows.
+- `עורך דין ביטוח לאומי`, `ועדה רפואית ביטוח לאומי`, and `/practice-areas/national-insurance/` have no visible rows.
+- Broad `ביטוח לאומי` and `קצבת נכות` have only very low-sample wrong-page/boundary rows.
+
+Decision:
+- REVIEW: keep `/cyber-lawyer/` as inventory candidate but not GSC-proven.
+- REVIEW: keep `/national-insurance-lawyer/` as strategic future slug only.
+- BLOCKED: no live cyber/privacy, national-insurance, title/H1/meta, content, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, lawyer-card, CRM/review or CMS action.
+
 ## Safety
 
 This queue is a research plan only. It does not approve any live public content, URL, redirect, sitemap, canonical, related-card, menu, taxonomy, lawyer, lead, review, wp-admin or database change.

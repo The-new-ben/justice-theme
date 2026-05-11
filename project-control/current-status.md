@@ -1,3 +1,22 @@
+## LATEST WORK STATUS - 2026-05-11 16:10 Asia/Jerusalem
+- VERIFIED / GSC: completed the cyber/privacy and national-insurance remaining-gap browser pass.
+- CREATED: `project-control/gsc-cyber-national-gap-pass-2026-05-11.md`.
+- CREATED: `project-control/gsc-cyber-national-gap-pass-2026-05-11.csv`.
+- CREATED: `project-control/visual-evidence/gsc-gap-query-cyber-lawyer-2026-05-11.png`.
+- CREATED: `project-control/visual-evidence/gsc-gap-query-privacy-lawyer-2026-05-11.png`.
+- UPDATED: `project-control/gsc-keyword-page-map.csv`.
+- UPDATED: `project-control/gsc-cannibalization-review.csv`.
+- UPDATED: `project-control/gsc-content-priorities.csv`.
+- UPDATED: `project-control/cyber-privacy-owner-approval-packet.md` and `.csv`.
+- UPDATED: `project-control/national-insurance-owner-approval-packet.md` and `.csv`.
+- VERIFIED: `עורך דין סייבר` returned `0` clicks and `42` impressions at position `71.6`, mapped only to `/cybercrime-lawyer-roll/`; `/cyber-lawyer/` itself returned `No data` in reverse page-to-query.
+- VERIFIED: `דיני סייבר` and `עורך דין פרטיות` returned zero visible rows in this pass.
+- VERIFIED: `עורך דין ביטוח לאומי`, `ועדה רפואית ביטוח לאומי`, and `/practice-areas/national-insurance/` returned zero visible rows.
+- VERIFIED: broad `ביטוח לאומי` had only `2` impressions across weak/wrong URLs; `קצבת נכות` had only `1` impression on `/cerebral-palsy-rights/`.
+- BLOCKED: national-insurance screenshots were not captured because GSC screenshot capture timed out after the cyber/privacy screenshots; text rows and metrics were still recorded from the browser UI.
+- BLOCKED: no public cyber/privacy, national-insurance, title/H1/meta, content body, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, lawyer-card, CRM, review, wp-admin setting or CMS/database action was executed.
+- SAFETY: browser evidence capture and repo documentation only; no live public site state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 15:42 Asia/Jerusalem
 - VERIFIED / GSC: completed the first remaining-gap browser evidence pass for homepage and lawyer-directory intent.
 - CREATED: `project-control/gsc-homepage-directory-page-query-pass-2026-05-11.md`.

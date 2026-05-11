@@ -7,7 +7,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - CODE FIXED: family-law editorial repair, internal-notes draft sync, quarantine and auto-publication now all require explicit opt-in filters before they can perform permanent CMS writes.
 - WHY: the current project mode is content inventory, URL migration mapping and controlled approvals. A theme pull should not silently rewrite article bodies, draft pages, URLs, metadata or cache state.
 - VERIFIED: automatic creation/update of the internal notes draft is paused by default; manual wp-admin repair remains available through the existing approved admin action.
-- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-family-cluster-render-only-guard-v1`; requires uPress pull/cache clear and a source-marker check.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-family-cluster-render-only-guard-v1`; public homepage still serves older marker `2026-05-11-mobile-inner-qa-v1`, so uPress pull/cache clear is still required.
 - SAFETY: no public content body, URL, redirect, taxonomy term, sitemap, canonical, lawyer record, lead/CRM record, review data, wp-admin setting or database row was changed by this repo patch.
 
 ## LATEST WORK STATUS - 2026-05-11 05:18 Asia/Jerusalem

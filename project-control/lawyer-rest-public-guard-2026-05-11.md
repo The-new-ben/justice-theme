@@ -1,6 +1,6 @@
 # Lawyer REST Public Guard - 2026-05-11
 
-Status: CODE FIXED / NOT LIVE VERIFIED
+Status: CODE FIXED / LIVE REST VERIFIED / PROFILE ROUTE REVIEW
 
 ## Why This Was Prioritized
 
@@ -57,8 +57,24 @@ Before-pull checker result:
 - REVIEW: direct REST seed ID `19139` returns `200`, with placeholder phone and sensitive meta hits.
 - REVIEW: one old profile route check aborted during redirect/response handling; this remains a post-pull browser/source QA item.
 
-NOT LIVE VERIFIED:
-- Requires GitHub push, uPress pull/cache refresh, then live public REST and profile-route checks.
+## Post-Pull Live QA - 2026-05-11 21:23 Asia/Jerusalem
+
+CREATED:
+- `project-control/live-lawyer-rest-public-guard-2026-05-11.csv`
+
+VERIFIED LIVE:
+- Public page meta now reports marker `2026-05-11-lawyer-rest-public-guard-v1`.
+- `/lawyers/` remains HTTP `200`, has `0` lawyer-card blocks and no placeholder phone hits.
+- Anonymous `/wp-json/wp/v2/justice_lawyer?per_page=20` returns HTTP `200`, `X-WP-Total: 0`, no placeholder phone hits and no sensitive meta-key hits.
+- Anonymous `/wp-json/wp/v2/justice_lawyer/19139` returns HTTP `404`, so direct REST access to that known seed ID is blocked.
+
+REVIEW:
+- Static `deployment-marker.txt` still reports `2026-05-11-branding-polish-v3`, even though page meta reports the current guard marker.
+- The sampled old profile route for `עו"ד איתן כץ` ends at the homepage with HTTP `200` and no placeholder phone data, instead of returning the expected generic noindex `404` profile block.
+
+DECISION:
+- The P0 anonymous REST exposure of seed lawyer records is FIXED LIVE.
+- Old profile-route behavior still needs a routing/permalink review, but the sampled route did not expose lawyer-card HTML, placeholder phone data or sensitive custom meta.
 
 ## Post-Pull Expected Results
 

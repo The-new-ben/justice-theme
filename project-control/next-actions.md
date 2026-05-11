@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-TRAFFIC-DRUNK-DRIVING-SOURCE-AUDIT-001: Audit current drunk-driving source pages before content expansion
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** GSC maps drunk-driving lawyer intent to a will-revocation page. Before editing any content or URL, the current support page, pillar page and wrong-page source must be compared.
+**Actions:**
+1. DONE: created `project-control/traffic-drunk-driving-source-audit-2026-05-11.md`.
+2. DONE: created `project-control/traffic-drunk-driving-source-audit-2026-05-11.csv`.
+3. VERIFIED LIVE: `/driving-under-the-influence/`, `/traffic-lawyer/` and `/revocation-of-a-will-and-reviving-previous-will/` return `200`, self-canonical and indexable pages.
+4. VERIFIED: `/driving-under-the-influence/` is the current support candidate; do not create duplicate `/drunk-driving/` content yet.
+5. VERIFIED: the will-revocation page has `0` visible drunk-driving matches in fetched text and should stay protected as inheritance/wills content.
+6. REVIEW: sitewide `SiteNavigationElement` schema appears on the will page and includes traffic-law URLs using `http://`; source/generator is NOT VERIFIED.
+7. NEXT: prepare a no-URL-change expansion outline for `/driving-under-the-influence/` and open a schema/navigation-source audit.
+8. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-TRAFFIC-CRIMINAL-WRONG-PAGE-DECISION-001: Convert GSC wrong-page evidence into protected decisions
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Targeted GSC evidence shows drunk-driving lawyer intent landing on a will-revocation page, while criminal support queries are either low-sample, specific-case, or not visibly owned. This needs a protected decision layer before any public content, internal-link or URL action.
@@ -31,7 +44,7 @@
 7. BLOCKED: no CMS/database changes were executed.
 
 ### ACTION-LAWYER-REST-PUBLIC-GUARD-001: Stop anonymous REST exposure of seed lawyer profiles
-**Status:** CODE FIXED / NOT LIVE VERIFIED
+**Status:** LIVE REST VERIFIED / PROFILE ROUTE REVIEW
 **Why:** The visible lawyer archive is currently filtered, but anonymous REST requests still expose published seed-style lawyer records, contact metadata and placeholder phone patterns. This is a P0 trust/privacy issue before public marketing.
 **Actions:**
 1. VERIFIED LIVE BASELINE: `/lawyers/` returns `200` with `0` `lawyer-card` blocks and no placeholder phone hits.
@@ -42,8 +55,12 @@
 6. CODE FIXED: unapproved public lawyer profile routes are marked `404` before SEO/head output and forced to generic noindex/nofollow signals.
 7. CREATED: `project-control/lawyer-rest-public-guard-2026-05-11.md`, `project-control/lawyer-rest-public-guard-2026-05-11.csv`, `tools/check-live-lawyer-rest-public-guard.ps1`, and `project-control/live-lawyer-rest-public-guard-2026-05-11-before-pull.csv`.
 8. VERIFIED LOCAL: PHP lint passed for all `130` PHP files.
-9. NEXT: after uPress pulls the commit, rerun `tools/check-live-lawyer-rest-public-guard.ps1`; expected marker is `2026-05-11-lawyer-rest-public-guard-v1`.
-10. BLOCKED: no CMS/database lawyer cleanup was performed; existing published seed profiles still need owner-approved CMS cleanup or verified public gating.
+9. VERIFIED LIVE: after uPress pull, `/wp-json/wp/v2/justice_lawyer?per_page=20` returns `X-WP-Total: 0`, with no placeholder phone hits and no sensitive meta-key hits.
+10. VERIFIED LIVE: direct anonymous REST request for seed ID `19139` returns `404`.
+11. REVIEW: static `deployment-marker.txt` still reports the older branding marker, while page meta reports `2026-05-11-lawyer-rest-public-guard-v1`.
+12. REVIEW: one sampled old lawyer profile route lands on the homepage with `200` instead of the expected generic noindex `404`, but it did not expose placeholder phone data or sensitive meta.
+13. NEXT: review old lawyer profile routing/permalink behavior separately; existing published seed profiles still need owner-approved CMS cleanup or verified real-profile replacement.
+14. BLOCKED: no CMS/database lawyer cleanup was performed.
 
 ### ACTION-FULL-REVIEW-REPORT-INTAKE-001: Convert owner full-review report into launch-readiness tasks
 **Status:** COMPLETED / REVIEW ONLY

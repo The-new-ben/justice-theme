@@ -100,6 +100,25 @@ Use the three review CSVs to run the first GSC/SERP evidence pass on:
 
 Then update the URL migration map only as a proposed plan, not as live URL changes.
 
+## 2026-05-11 Traffic Drunk-Driving Source Audit
+
+CREATED:
+- `project-control/traffic-drunk-driving-source-audit-2026-05-11.md`
+- `project-control/traffic-drunk-driving-source-audit-2026-05-11.csv`
+
+VERIFIED:
+- `/driving-under-the-influence/` is the current support URL to review first.
+- `/traffic-lawyer/` remains the current traffic-law pillar candidate and already links to several support pages.
+- `/revocation-of-a-will-and-reviving-previous-will/` should remain protected as an inheritance/will page; fetched text has no visible drunk-driving matches.
+- Sitewide `SiteNavigationElement` schema appears on checked pages and includes traffic-law URLs on the will page; source is not verified.
+
+RECOMMENDED:
+- Draft a no-URL-change expansion outline for `/driving-under-the-influence/` after legal/source review.
+- Open a schema/navigation-source audit before technical SEO changes.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, breadcrumbs, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Traffic / Criminal Wrong-Page Decision Packet
 
 CREATED:

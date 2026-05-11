@@ -123,6 +123,24 @@ VERIFIED:
 BLOCKED:
 - No public drunk-driving content expansion, internal-link batch, slug migration, redirect, canonical, sitemap or title/H1/meta change is approved by this packet.
 
+## 2026-05-11 Traffic Drunk-Driving Source Audit
+
+CREATED:
+- `project-control/traffic-drunk-driving-source-audit-2026-05-11.md`
+- `project-control/traffic-drunk-driving-source-audit-2026-05-11.csv`
+
+VERIFIED:
+- `/driving-under-the-influence/` is the current support page to review first, not a duplicate-new-page task.
+- `/traffic-lawyer/` is the current no-URL-change pillar candidate and already links to drunk-driving support.
+- The wrong-page will URL has no visible drunk-driving terms in fetched text and must remain protected.
+
+REVIEW:
+- Sitewide `SiteNavigationElement` schema includes traffic-law URLs on the will page and still uses `http://` in those entries; source/generator is not verified.
+
+NEXT:
+- Draft no-URL-change expansion outline for `/driving-under-the-influence/`.
+- Open schema/navigation-source audit before any schema or plugin-setting change.
+
 ## CSV Detail
 
 See `project-control/traffic-law-support-review.csv`.

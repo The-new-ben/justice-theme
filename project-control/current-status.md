@@ -1,3 +1,23 @@
+## LATEST WORK STATUS - 2026-05-11 21:28 Asia/Jerusalem
+- VERIFIED LIVE / LAWYER REST PUBLIC GUARD POST-PULL QA: ran the live checker after page-source markers showed the latest guard is active.
+- CREATED: `project-control/live-lawyer-rest-public-guard-2026-05-11.csv`.
+- VERIFIED LIVE: anonymous `/wp-json/wp/v2/justice_lawyer?per_page=20` now returns `X-WP-Total: 0`, with no placeholder phone hits and no sensitive meta-key hits.
+- VERIFIED LIVE: anonymous direct REST request for seed ID `19139` returns `404`.
+- VERIFIED LIVE: `/lawyers/` stays public `200`, with `0` lawyer-card blocks and no placeholder phone hits.
+- REVIEW: static `deployment-marker.txt` still reports `2026-05-11-branding-polish-v3`, while page meta reports `2026-05-11-lawyer-rest-public-guard-v1`.
+- REVIEW: one sampled old lawyer profile route redirects/lands on the homepage with `200` instead of the expected generic noindex `404`, but it did not expose placeholder phone data or sensitive meta.
+- BLOCKED: old profile-route behavior still needs routing/permalink review; no CMS records, lawyer records, URLs, redirects, taxonomy, sitemap, content, menu, CRM, review or wp-admin settings were changed.
+
+## LATEST WORK STATUS - 2026-05-11 21:25 Asia/Jerusalem
+- VERIFIED / TRAFFIC DRUNK-DRIVING SOURCE AUDIT: checked the current drunk-driving support page, traffic-law pillar and wrong-page will-revocation URL before any public content or URL change.
+- CREATED: `project-control/traffic-drunk-driving-source-audit-2026-05-11.md`.
+- CREATED: `project-control/traffic-drunk-driving-source-audit-2026-05-11.csv`.
+- VERIFIED LIVE: `/driving-under-the-influence/`, `/traffic-lawyer/` and `/revocation-of-a-will-and-reviving-previous-will/` all return `200`, self-canonical and indexable pages.
+- VERIFIED: the will-revocation page has strong will/inheritance signals and `0` visible `נהיגה בשכרות` matches in the fetched text, so it should remain protected from traffic-law optimization.
+- TECHNICAL SEO REVIEW: the will page source includes sitewide `SiteNavigationElement` schema entries for traffic pages, including `driving-under-the-influence` and `traffic-lawyer`, using `http://` URLs; generator is NOT VERIFIED and needs a schema/navigation-source audit.
+- RECOMMENDED: draft a no-URL-change expansion outline for `/driving-under-the-influence/` only after owner/legal review.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-11 21:16 Asia/Jerusalem
 - VERIFIED / TRAFFIC-CRIMINAL WRONG-PAGE DECISION PACKET: converted the latest targeted GSC evidence into an owner-review decision layer before any traffic/criminal content or URL execution.
 - CREATED: `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.md`.

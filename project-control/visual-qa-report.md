@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Lawyer REST Public Guard Post-Pull QA
+- VERIFIED LIVE: public pages now report deployment marker `2026-05-11-lawyer-rest-public-guard-v1` in page meta.
+- VERIFIED LIVE: `/lawyers/` returned HTTP `200`, `0` lawyer cards and no placeholder phone hits.
+- VERIFIED LIVE: anonymous `/wp-json/wp/v2/justice_lawyer?per_page=20` returned HTTP `200`, `X-WP-Total: 0`, no placeholder phone hits and no sensitive meta-key hits.
+- VERIFIED LIVE: anonymous `/wp-json/wp/v2/justice_lawyer/19139` returned HTTP `404`.
+- REVIEW: static `deployment-marker.txt` still reports `2026-05-11-branding-polish-v3`, so page-meta marker is the reliable live marker for this check.
+- REVIEW: the sampled old profile route ends at the homepage with HTTP `200` and no lawyer/placeholder exposure instead of the expected generic noindex `404`; this needs routing/permalink review.
+- CREATED: `project-control/live-lawyer-rest-public-guard-2026-05-11.csv`.
+- SAFETY: no CMS records, lawyer records, URLs, redirects, taxonomy, sitemap, content, menu, CRM, review or wp-admin settings were changed.
+
 ## 2026-05-11 Lawyer REST Public Guard QA
 - VERIFIED LIVE BASELINE: `/lawyers/` returned HTTP `200`, marker `2026-05-11-branding-polish-v3`, `0` lawyer cards and no placeholder phone hits.
 - VERIFIED LIVE RISK: anonymous `/wp-json/wp/v2/justice_lawyer?per_page=20` returned HTTP `200`, `X-WP-Total: 10`, `11` placeholder phone hits and `50` sensitive meta-key hits.

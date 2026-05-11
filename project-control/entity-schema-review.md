@@ -27,6 +27,21 @@ NOT VERIFIED LIVE:
 - Whether all required/recommended fields are complete.
 - Whether mobile and desktop render equivalent structured data.
 
+## 2026-05-11 Sitewide Navigation Schema Finding
+
+VERIFIED LIVE / NEEDS SOURCE REVIEW:
+- During the traffic drunk-driving source audit, checked article pages contained `86` `SiteNavigationElement` entries in page source.
+- The will-revocation page source included traffic-law URLs such as `http://jus-tice.co.il/driving-under-the-influence/` and `http://jus-tice.co.il/traffic-lawyer/` in schema/navigation output.
+- The checked theme files did not directly define `SiteNavigationElement`, so the generator is NOT VERIFIED and may be a plugin, menu schema, Rank Math setting or stored CMS output.
+
+RISK:
+- Broad sitewide navigation schema may add unrelated topical signals to article pages.
+- Some schema/navigation URLs still use `http://` while live canonical URLs are `https://`.
+
+NEXT:
+- Identify the schema generator before changing code or plugin settings.
+- Compare homepage, pillar, article, category and lawyer profile schema outputs before deciding whether to reduce, scope or HTTPS-normalize navigation schema.
+
 ## Recommended Schema Types
 
 Homepage:

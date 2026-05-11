@@ -1,6 +1,25 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Lawyer REST public guard post-pull QA
+
+- CREATED: `project-control/live-lawyer-rest-public-guard-2026-05-11.csv`.
+- VERIFIED LIVE: anonymous `/wp-json/wp/v2/justice_lawyer?per_page=20` now returns `X-WP-Total: 0`, with no placeholder phone hits and no sensitive meta-key hits.
+- VERIFIED LIVE: anonymous direct REST request for seed ID `19139` returns `404`.
+- VERIFIED LIVE: `/lawyers/` remains public `200`, with `0` lawyer cards and no placeholder phone hits.
+- REVIEW: static `deployment-marker.txt` still reports `2026-05-11-branding-polish-v3`, while page meta reports `2026-05-11-lawyer-rest-public-guard-v1`.
+- REVIEW: one sampled old lawyer profile route lands on the homepage with `200` instead of the expected generic noindex `404`, but it did not expose placeholder phone data or sensitive meta.
+- BLOCKED: old profile-route behavior still needs routing/permalink review; no CMS records, lawyer records, URLs, redirects, taxonomy, sitemap, content, menu, CRM, review or wp-admin settings were changed.
+
+## 2026-05-11 - Traffic drunk-driving source audit
+
+- CREATED: `project-control/traffic-drunk-driving-source-audit-2026-05-11.md`.
+- CREATED: `project-control/traffic-drunk-driving-source-audit-2026-05-11.csv`.
+- VERIFIED LIVE: `/driving-under-the-influence/`, `/traffic-lawyer/` and `/revocation-of-a-will-and-reviving-previous-will/` return `200`, self-canonical and indexable pages.
+- VERIFIED: the will-revocation page has strong will/inheritance signals and no visible `נהיגה בשכרות` matches in fetched text, so it should not be optimized for traffic-law intent.
+- REVIEW: the will page source contains sitewide `SiteNavigationElement` entries for traffic pages using `http://`; generator is not yet verified and needs schema/navigation-source audit.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, taxonomy, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Traffic/criminal wrong-page decision packet
 
 - CREATED: `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.md`.

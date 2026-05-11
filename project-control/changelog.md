@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Targeted GSC browser pass 2
+
+- CREATED: `project-control/gsc-targeted-query-pass-2-2026-05-11.md`.
+- CREATED: `project-control/gsc-targeted-query-pass-2-2026-05-11.csv`.
+- CREATED: `project-control/visual-evidence/gsc-targeted-drunk-driving-pages-2026-05-11.png`.
+- UPDATED: `project-control/current-status.md`, `project-control/next-actions.md`, `project-control/targeted-gsc-query-queue.md`, `project-control/visual-qa-report.md`, and `project-control/task-board.csv`.
+- VERIFIED: `משמורת בלעדית לאם` maps to an old case-law URL with `107` impressions and average position `9.6`.
+- VERIFIED: `נהיגה בשכרות` and `עורך דין נהיגה בשכרות` map to `/revocation-of-a-will-and-reviving-previous-will/`, confirming wrong-page traffic-law evidence.
+- VERIFIED: `עבירות סמים` has only `2` impressions across case-law/old criminal URLs, and child-support modification variants returned zero visible rows.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, title/H1/meta, menu, taxonomy, related-card, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - National insurance owner approval packet
 
 - CREATED: `project-control/national-insurance-owner-approval-packet.md`.

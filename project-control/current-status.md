@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-11 15:12 Asia/Jerusalem
+- VERIFIED / GSC: completed the second targeted GSC browser evidence pass for child-support variants, sole-custody, police-investigation, drug-offenses and drunk-driving terms.
+- CREATED: `project-control/gsc-targeted-query-pass-2-2026-05-11.md`.
+- CREATED: `project-control/gsc-targeted-query-pass-2-2026-05-11.csv`.
+- CREATED: `project-control/visual-evidence/gsc-targeted-drunk-driving-pages-2026-05-11.png`.
+- VERIFIED: `משמורת בלעדית לאם` has `107` impressions at average position `9.6`, all mapped to an old case-law URL, so it is a high-risk custody support/migration review item.
+- VERIFIED: `נהיגה בשכרות` and `עורך דין נהיגה בשכרות` each show `7` impressions mapped to `/revocation-of-a-will-and-reviving-previous-will/`, confirming a wrong-page traffic-law signal.
+- VERIFIED: `עבירות סמים` has only `2` impressions across a case-law page and an old criminal-lawyer URL, so it remains low-sample support evidence.
+- NOT VERIFIED: child-support modification/shared-custody variants, `בע"מ 919/15`, and `חקירה במשטרה` showed no visible rows in this pass.
+- BLOCKED: owner approval, old-content comparison, source/legal review, internal-link planning and redirect/canonical/sitemap planning remain required before public content, URL, noindex, sitemap, related-card, menu, taxonomy, lawyer-card or CMS changes.
+- SAFETY: evidence capture and repo documentation only; no live public content, GSC setting, URL, redirect, sitemap, canonical, related-card, lawyer profile or CMS state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 14:55 Asia/Jerusalem
 - VERIFIED / REVIEW: prepared the national-insurance owner-approval packet as a no-URL-change empty practice-area, strategic slug, calculator/tool, law-text, work-accident boundary and source/legal review planning decision.
 - CREATED: `project-control/national-insurance-owner-approval-packet.md`.

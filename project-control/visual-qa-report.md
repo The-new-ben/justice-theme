@@ -2,6 +2,12 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 GSC Targeted Evidence Screenshot - Pass 2
+- VERIFIED: browser GSC access was used for the second targeted query pass on the URL-prefix property `https://jus-tice.co.il/`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-drunk-driving-pages-2026-05-11.png`.
+- VERIFIED: screenshot captures the Pages-tab evidence for `עורך דין נהיגה בשכרות`, showing `/revocation-of-a-will-and-reviving-previous-will/` as the visible GSC page for that filtered query.
+- SAFETY: this is evidence capture only; no public content, URL, redirect, sitemap, canonical, document, taxonomy, menu, lawyer, CRM, review or plugin state was changed.
+
 ## 2026-05-11 GSC Targeted Evidence Screenshot
 - VERIFIED: browser GSC access works for the URL-prefix property `https://jus-tice.co.il/`.
 - EVIDENCE: `project-control/visual-evidence/gsc-targeted-child-support-pages-2026-05-11.png`.

@@ -210,7 +210,11 @@
 7. BLOCKED: do not execute URL changes, redirects, noindex, canonical changes, sitemap changes, content rewrites, content deletion, menu changes or CMS writes from the query queue alone.
 8. DONE: first browser pass completed and documented in `project-control/gsc-targeted-query-pass-2026-05-11.csv` and `project-control/gsc-targeted-query-pass-2026-05-11.md`.
 9. VERIFIED: child-support/calculation variants map to old calculator URL; custody maps to `what-is-child-custody` plus a PDF; employment is split across homepage, `/labor-lawyer/`, `/israeli-labor-law/` and support pages.
-10. NEXT: run the second pass for `מזונות משותפת`, `הפחתת מזונות`, `שינוי מזונות`, `הלכת המזונות החדשה`, `בע"מ 919/15`, `משמורת בלעדית לאם`, `חקירה במשטרה`, `עבירות סמים`, and `נהיגה בשכרות`.
+10. DONE: second browser pass completed and documented in `project-control/gsc-targeted-query-pass-2-2026-05-11.csv` and `project-control/gsc-targeted-query-pass-2-2026-05-11.md`.
+11. VERIFIED: `משמורת בלעדית לאם` maps to an old case-law URL with `107` impressions and average position `9.6`; this is a high-risk custody support/migration review item.
+12. VERIFIED: `נהיגה בשכרות` and `עורך דין נהיגה בשכרות` map to `/revocation-of-a-will-and-reviving-previous-will/`, confirming wrong-page traffic-law evidence.
+13. VERIFIED: `עבירות סמים` has only `2` impressions across a case-law page and an old criminal-lawyer URL; child-support modification variants, `בע"מ 919/15`, and `חקירה במשטרה` showed no visible rows.
+14. NEXT: update topic packets and approval queues with the pass-2 implications, then continue with remaining direct GSC/SERP gaps for cyber/privacy, national-insurance, lawyer-directory and page-to-query checks.
 
 ### ACTION-CONTENT-DECISION-EVIDENCE-001: Overlay GSC/SERP evidence on first content decision batch
 **Status:** IN PROGRESS / REVIEW ONLY

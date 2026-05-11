@@ -83,6 +83,24 @@ After each browser session, document:
 - NOT VERIFIED: filters that showed no rows or could not be checked.
 - BLOCKED: decisions needing owner approval, legal review, menu export, full CMS export or GSC/GA4 export.
 
+## 2026-05-11 Second Browser Pass Completed
+
+VERIFIED:
+- `project-control/gsc-targeted-query-pass-2-2026-05-11.md`
+- `project-control/gsc-targeted-query-pass-2-2026-05-11.csv`
+- `project-control/visual-evidence/gsc-targeted-drunk-driving-pages-2026-05-11.png`
+
+Key findings:
+- `משמורת בלעדית לאם` maps to an old case-law URL with `107` impressions and average position `9.6`.
+- `נהיגה בשכרות` and `עורך דין נהיגה בשכרות` map to `/revocation-of-a-will-and-reviving-previous-will/`.
+- `עבירות סמים` has only `2` impressions across case-law/old criminal URLs.
+- Child-support modification/shared-custody variants, `בע"מ 919/15`, and `חקירה במשטרה` showed no visible rows.
+
+Next queue direction:
+- Update custody and traffic approval packets with these risks.
+- Keep child-support modification variants as SERP/source-review topics rather than GSC-driven priorities.
+- Continue remaining GSC/SERP gaps for cyber/privacy, national insurance, lawyer-directory, homepage and page-to-query checks.
+
 ## Current Safety State
 
 VERIFIED:

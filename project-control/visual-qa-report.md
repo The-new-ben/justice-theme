@@ -322,3 +322,13 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - FIXED LIVE: `/lawyers/?area=employment-law` now has the specific title `עורך דין דיני עבודה | מצאו עורך דין מתאים`.
 - VERIFIED: homepage fallback links, search Hebrew labels, article related-content QA attributes and main archive title checks remained stable.
 - SAFETY: no public content, URLs, redirects, sitemap settings, canonical settings, taxonomy terms, lawyer records, CRM records, review data, plugin state or database rows were changed.
+
+## 2026-05-11 Related Content Source QA Before URL Inference Fix
+
+- SOURCE VERIFIED: `project-control/live-related-content-qa-2026-05-11-before-url-inference.csv` captures the pre-fix related-content QA pass.
+- REVIEW: `/find-lawyer-how-to-find-good-attorney/` returned `data-related-source-cluster="unknown"` and off-topic related cards.
+- REVIEW: `/drug-offenses-criminal-lawyer/` returned `data-related-source-cluster="unknown"` and off-topic related cards.
+- VERIFIED: `/real-estate-lawyer-cost-2025/` returned `real_estate` source/card cluster matches.
+- VERIFIED: `/mutual-divorce-agreement-2025/` returned `family_divorce` source/card cluster matches.
+- FIXED IN CODE / NOT LIVE VERIFIED: cluster inference now includes public permalink and request URI signals so clean public slugs can drive related-card filtering.
+- SAFETY: no public content, URLs, redirects, sitemap settings, canonical settings, taxonomy terms, lawyer records, CRM records, review data, plugin state or database rows were changed.

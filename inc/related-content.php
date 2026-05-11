@@ -204,12 +204,17 @@ function justice_theme_related_normalize_cluster( string $cluster ): string {
 function justice_theme_related_context_text( int $post_id ): string {
 	$parts = array(
 		get_post_field( 'post_name', $post_id ),
+		get_permalink( $post_id ),
 		get_the_title( $post_id ),
 		get_post_meta( $post_id, 'content_cluster', true ),
 		get_post_meta( $post_id, 'primary_keyword', true ),
 		get_post_meta( $post_id, 'secondary_keywords', true ),
 		get_post_meta( $post_id, 'search_intent', true ),
 	);
+
+	if ( get_the_ID() === $post_id && isset( $_SERVER['REQUEST_URI'] ) ) {
+		$parts[] = sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) );
+	}
 
 	$terms = get_the_terms( $post_id, 'practice-areas' );
 	if ( ! empty( $terms ) && ! is_wp_error( $terms ) ) {

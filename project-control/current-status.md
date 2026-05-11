@@ -988,6 +988,17 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - FIXED LIVE: `/lawyers/?area=employment-law` title is now `עורך דין דיני עבודה | מצאו עורך דין מתאים`.
 - SAFETY: no public content body, URL, redirect, sitemap, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state or database row was changed.
 
+## 2026-05-11 RELATED CONTENT URL INFERENCE FIX
+- CREATED: `tools/check-live-related-content-qa.ps1`.
+- CREATED: `project-control/live-related-content-qa-2026-05-11-before-url-inference.csv`.
+- FOUND LIVE: related-content source/card clusters for `/find-lawyer-how-to-find-good-attorney/` and `/drug-offenses-criminal-lawyer/` were still `unknown`, allowing off-topic cards such as AI-for-law-firms, business-license and Australia lawyers.
+- VERIFIED LIVE BASELINE: `/real-estate-lawyer-cost-2025/` and `/mutual-divorce-agreement-2025/` already pass cluster QA with matched cards.
+- FIXED IN CODE: `inc/related-content.php` now includes each post permalink and the current request URI in the cluster-inference text fingerprint.
+- UPDATED: deployment marker is now `2026-05-11-related-cluster-url-inference-v1`.
+- VERIFIED: PHP lint passed for 128 PHP files; `git diff --check` passed.
+- NOT LIVE VERIFIED AFTER FIX: requires commit, push, uPress pull/cache refresh, then rerun `tools/check-live-related-content-qa.ps1`.
+- SAFETY: no public content body, CMS metadata, URL, redirect, sitemap, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state or database row was changed.
+
 ## NEXT BEST ACTION
 1. Confirm the live plugin filesystem path in wp-admin/uPress plugin manager before any plugin migration.
 2. Decide whether `justice-core/` will replace `ultra-justice-engine/` on live or whether the legacy active folder must be renamed in a controlled migration.

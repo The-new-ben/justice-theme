@@ -765,3 +765,13 @@ Next safe batch before any URL/content migration:
 2. Keep the URL migration rule intact: do not redirect or rename these filter URLs during title/template fixes.
 3. Expand the script later with one family-law article, one criminal-law article and one real-estate article when selecting the next related-content QA batch.
 4. Use `project-control/live-public-template-qa-2026-05-11-after-pull.csv` as the current VERIFIED baseline.
+
+## 2026-05-11 RELATED CONTENT URL INFERENCE NEXT ACTIONS
+
+**Status:** CODE FIXED / LIVE DEPLOYMENT PENDING
+
+1. Push and pull the marker `2026-05-11-related-cluster-url-inference-v1` through uPress.
+2. Rerun `tools/check-live-related-content-qa.ps1`.
+3. Expected fixed state: `general_lawyer_selection` and `criminal_drug_offenses` should no longer show `detected_source_cluster=unknown`.
+4. If off-topic cards remain after inference works, do not hide the issue with URL changes. Use the approved CMS metadata path in `project-control/related-content-cms-update-batch-001.csv`.
+5. Keep global/latest unrelated fallback blocked for important legal articles.

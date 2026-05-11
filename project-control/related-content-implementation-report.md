@@ -45,6 +45,16 @@ Related articles are part of the SEO and user journey. A visitor reading about a
 - VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
 - NOT LIVE VERIFIED: requires uPress pull/cache clear and DOM QA against marker `2026-05-11-related-content-qa-attrs-v1`.
 
+## 2026-05-11 URL Inference Fix
+
+- CREATED: `tools/check-live-related-content-qa.ps1`.
+- CREATED: `project-control/live-related-content-qa-2026-05-11-before-url-inference.csv`.
+- FOUND LIVE: general lawyer-selection and criminal/drug-offense samples still had `data-related-source-cluster="unknown"` and off-topic cards because inference did not use the public permalink/request path.
+- FIXED IN CODE: `justice_theme_related_context_text()` now includes `get_permalink( $post_id )` and, for the current source page, the current request URI.
+- EXPECTED IMPACT: clean public URL slugs such as `/find-lawyer-how-to-find-good-attorney/` and `/drug-offenses-criminal-lawyer/` can drive cluster inference even when old post metadata is weak.
+- VERIFIED: PHP lint passed for 128 PHP files.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and rerun of `tools/check-live-related-content-qa.ps1`.
+
 ## Next
 
 1. Fill CMS metadata for priority articles: `manual_related_urls`, `parent_pillar_url`, `content_cluster`.

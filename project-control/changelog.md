@@ -1761,3 +1761,14 @@
 - VERIFIED: full public template source QA passed with all sampled rows marked `VERIFIED`.
 - FIXED LIVE: clean lawyer-directory aliases for personal injury, medical malpractice and employment now generate specific SEO titles matching their rendered H1 topics.
 - SAFETY: no content, URL, redirect, sitemap setting, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state or database row was changed.
+
+## 2026-05-11 Related Content URL Inference Fix
+- CREATED: `tools/check-live-related-content-qa.ps1`.
+- CREATED: `project-control/live-related-content-qa-2026-05-11-before-url-inference.csv`.
+- FOUND LIVE: general lawyer-selection and criminal/drug-offense related-content samples still produced `unknown` clusters and off-topic cards.
+- FIXED IN CODE: `inc/related-content.php` now includes post permalinks and the current request URI in the cluster-inference fingerprint.
+- UPDATED: deployment marker to `2026-05-11-related-cluster-url-inference-v1`.
+- VERIFIED: PHP lint passed for 128 PHP files.
+- VERIFIED: `git diff --check` passed.
+- NOT LIVE VERIFIED AFTER FIX: needs push, uPress pull/cache refresh and a fresh related-content QA run.
+- SAFETY: no content body, CMS metadata, URL, redirect, sitemap setting, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state or database row was changed.

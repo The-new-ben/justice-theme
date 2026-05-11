@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-11 14:30 Asia/Jerusalem
+- VERIFIED / REVIEW: prepared the personal-injury/damages owner-approval packet as a no-URL-change primary-selection, tort-law, car-accident, work-accident and source/legal review planning decision.
+- CREATED: `project-control/personal-injury-owner-approval-packet.md`.
+- CREATED: `project-control/personal-injury-owner-approval-packet.csv`.
+- VERIFIED: strategic `/personal-injury-lawyer/` is not a verified current public URL; the heuristic selected `/punitive-damage/` by word count only, so owner approval is required before any primary decision.
+- VERIFIED: `/tort-lawyer/` exists as a current local damages/service candidate but is thin at `507` words with quality `4/10`.
+- VERIFIED: GSC browser evidence maps `תאונת דרכים` mainly to `/car-accident-auto-injury-lawyer/` with `79-84` impressions, while future `/car-accident-lawyer/` has `4` conflict rows and `0` exact current clean URL.
+- VERIFIED: `עורך דין נזיקין` has only a low-sample old category/verdict URL row with `2` impressions, and `תאונת עבודה` returned no visible rows in the checked pass.
+- BLOCKED: owner approval, side-by-side comparison, source/legal review, deeper GSC/SERP evidence, car-accident/work-accident boundary review and redirect/canonical/sitemap planning are required before title/H1/meta, URL, content-body, menu/taxonomy, related-card, lawyer-card or CMS changes.
+- SAFETY: repo documentation/CSV planning only; no live public content, personal-injury URL, redirect, sitemap, canonical, related-card or CMS state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 14:20 Asia/Jerusalem
 - VERIFIED / REVIEW: prepared the inheritance/wills owner-approval packet as a no-URL-change primary-selection, will-guide, will-contest, document/media-risk and support-page planning decision.
 - CREATED: `project-control/inheritance-wills-owner-approval-packet.md`.

@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Personal injury and damages owner approval packet
+
+- CREATED: `project-control/personal-injury-owner-approval-packet.md`.
+- CREATED: `project-control/personal-injury-owner-approval-packet.csv`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: strategic `/personal-injury-lawyer/` is not a verified current public URL, while the heuristic selected `/punitive-damage/` by word count only.
+- VERIFIED: `/tort-lawyer/` exists but is thin at `507` words and quality `4/10`.
+- VERIFIED: GSC browser evidence maps `תאונת דרכים` mainly to `/car-accident-auto-injury-lawyer/`, while future `/car-accident-lawyer/` has conflict rows and no exact current clean URL.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, title/H1/meta, menu, taxonomy, related-card, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Inheritance and wills owner approval packet
 
 - CREATED: `project-control/inheritance-wills-owner-approval-packet.md`.

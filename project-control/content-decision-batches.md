@@ -115,6 +115,32 @@ BLOCKED:
 - No URL migration, redirect, noindex, canonical, sitemap, content rewrite, or deletion may be executed from this overlay alone.
 - Owner approval and direct GSC/SERP review remain required before changing live public URLs or page bodies.
 
+## 2026-05-11 Personal-Injury And Damages Owner Approval Packet
+
+CREATED:
+- `project-control/personal-injury-owner-approval-packet.md`
+- `project-control/personal-injury-owner-approval-packet.csv`
+
+VERIFIED:
+- Strategic `/personal-injury-lawyer/` is not a verified current public URL; `cluster-pillar-review.csv` lists it as a strategic target only.
+- The heuristic selected `/punitive-damage/` as the personal-injury pillar by word count, so manual owner review is required.
+- `/tort-lawyer/` exists as a local damages/service candidate but is thin at `507` words with quality `4/10`.
+- `/punitive-damage/` has `57,276` words and quality `6/10`, but it is a specialist punitive-damages topic, not an approved commercial pillar.
+- `/personal-injury-law/` is US-focused, has `8,005` words and quality `6/10`, and should be separated from Israeli local service intent.
+- `/car-accident-auto-injury-lawyer/` has `590` words, quality `2/10`, and carries the visible car-accident GSC signal.
+- `car-accident-lawyer` has `4` conflict rows and `0` exact current clean URL rows.
+- GSC browser evidence maps `תאונת דרכים` mainly to `/car-accident-auto-injury-lawyer/` with `79-84` impressions.
+- GSC browser evidence maps `עורך דין נזיקין` only to a low-sample old category/verdict URL with `2` impressions.
+- `תאונת עבודה` returned no visible rows in the checked GSC browser pass.
+
+RECOMMENDED:
+- Owner approval for a no-URL-change primary-selection, tort-law support, car-accident migration-risk, work-accident recheck and source/legal review planning batch.
+- Protect `/car-accident-auto-injury-lawyer/` until a redirect/canonical/sitemap/internal-link map is approved.
+- Separate Israeli personal-injury/damages intent from US personal-injury, medical malpractice, traffic/criminal accident, insurance and national-insurance/work-accident intent.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards or CMS writes until explicit approval.
+
 ## 2026-05-11 Inheritance-Wills Owner Approval Packet
 
 CREATED:

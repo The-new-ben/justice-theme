@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PERSONAL-INJURY-OWNER-APPROVAL-001: Prepare personal-injury/damages primary and car-accident approval packet
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Personal injury/damages has no verified current `/personal-injury-lawyer/` pillar, the heuristic chose a punitive-damages article by word count, `/tort-lawyer/` is thin, and car-accident demand maps to a non-final current URL.
+**Actions:**
+1. DONE: created `project-control/personal-injury-owner-approval-packet.md`.
+2. DONE: created `project-control/personal-injury-owner-approval-packet.csv`.
+3. VERIFIED: strategic `/personal-injury-lawyer/` is not a verified current public URL; `/punitive-damage/` was selected by heuristic word count only.
+4. VERIFIED: `/tort-lawyer/` exists with `507` words and quality score `4/10`.
+5. VERIFIED: `/car-accident-auto-injury-lawyer/` has `590` words, quality score `2/10`, and carries `79-84` GSC impressions for `תאונת דרכים`.
+6. VERIFIED: `/car-accident-lawyer/` has `4` conflict rows and `0` exact current clean URL rows.
+7. VERIFIED: `עורך דין נזיקין` has only a low-sample old category/verdict row with `2` impressions; `תאונת עבודה` has no visible rows in the checked pass.
+8. RECOMMENDED: owner approval for no-URL-change primary selection, car-accident comparison, tort-law support review, work-accident recheck, source/legal review and internal-link planning.
+9. NEXT: if owner approves, compare `/tort-lawyer/`, `/personal-injury-law/`, `/punitive-damage/`, `/tort-reform/`, `/outline-of-tort-law/`, `/deep-pocket/`, `/car-accident-auto-injury-lawyer/`, `/israel-road-accident-compensation-law/` and `/compulsory-motor-vehicle-insurance/`.
+10. BLOCKED: no public content edits, titles/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards or CMS writes until explicit owner approval.
+
 ### ACTION-INHERITANCE-WILLS-OWNER-APPROVAL-001: Prepare inheritance/wills primary and document-risk approval packet
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Inheritance/wills has no verified current `/inheritance-lawyer/` pillar, the future `/will/` slug has multiple conflict rows, and GSC maps visible will demand to case-law, old Hebrew, support and document URLs.

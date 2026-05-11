@@ -298,6 +298,17 @@ VERIFIED:
 BLOCKED:
 - The matrix does not approve public URL, redirect, canonical, sitemap, noindex, title/H1/meta, content, internal-link, related-card, menu, lawyer-card, CRM/review, wp-admin or CMS/database changes.
 
+## 2026-05-11 Rewrite Outline Queue Overlay
+
+VERIFIED:
+- Created `project-control/cyber-privacy-rewrite-outline-queue-2026-05-11.md`.
+- Created `project-control/cyber-privacy-rewrite-outline-queue-2026-05-11.csv`.
+- The queue separates primary service, support guide, boundary, section-first and context-support outline candidates.
+- `/cyber-lawyer/` remains a blocked outline candidate until the Hebrew role-page comparison and owner/legal review are complete.
+
+BLOCKED:
+- The queue does not approve full drafts, public rewrites, title/H1/meta changes, URL changes, redirects, internal links, related cards, menus, lawyer wiring, CRM/review changes or CMS/database updates.
+
 ## Internal-Link Direction
 
 Recommended planning only:

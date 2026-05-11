@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Cyber/privacy rewrite outline queue
+
+- CREATED: `project-control/cyber-privacy-rewrite-outline-queue-2026-05-11.md`.
+- CREATED: `project-control/cyber-privacy-rewrite-outline-queue-2026-05-11.csv`.
+- UPDATED: `project-control/cyber-privacy-owner-approval-packet.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: the queue separates primary-service, support-guide, boundary, section-first and context-support outline candidates.
+- VERIFIED: all rows remain outline-only or section-only and block public execution.
+- BLOCKED: no public cyber/privacy content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, internal link, related-card, menu, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Cyber/privacy page decision matrix
 
 - CREATED: `project-control/cyber-privacy-page-decision-matrix-2026-05-11.md`.

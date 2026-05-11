@@ -1,3 +1,11 @@
+## LATEST WORK STATUS - 2026-05-11 17:53 Asia/Jerusalem
+- VERIFIED / CYBER-PRIVACY OUTLINE QUEUE: created the review-only rewrite/outline queue for cyber/privacy pages and section-first topics.
+- CREATED: `project-control/cyber-privacy-rewrite-outline-queue-2026-05-11.md`.
+- CREATED: `project-control/cyber-privacy-rewrite-outline-queue-2026-05-11.csv`.
+- VERIFIED: the queue keeps `/cyber-lawyer/` as a blocked primary-service outline candidate pending comparison with the Hebrew role page and `/cybercrime-lawyer-roll/`.
+- VERIFIED: support outlines were separated for cybercrime, cyber laws, cyberattack, privacy injury, police-record/data deletion, Google/platform removal, data-breach reporting, cyber insurance, sensitive cybersex/criminal boundary and FBI context.
+- BLOCKED: all queue rows are outline-only or section-only and explicitly block public content, title/H1/meta, URL, redirect, canonical, sitemap, internal-link, related-card, menu, lawyer-card, CRM/review, wp-admin setting or CMS/database action.
+
 ## LATEST WORK STATUS - 2026-05-11 17:43 Asia/Jerusalem
 - VERIFIED / CYBER-PRIVACY PAGE DECISION MATRIX: created the review-only page-by-page decision matrix for cyber/privacy assets.
 - CREATED: `project-control/cyber-privacy-page-decision-matrix-2026-05-11.md`.

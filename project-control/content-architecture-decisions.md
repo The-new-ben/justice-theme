@@ -230,3 +230,13 @@ ADDED 2026-05-11:
 - Old Hebrew privacy and case-law URLs remain migration-risk/protected until exact URL checks and source/legal review are complete.
 
 Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.
+
+## Cyber / Privacy Rewrite Outline Queue Addendum
+
+ADDED 2026-05-11:
+- `project-control/cyber-privacy-rewrite-outline-queue-2026-05-11.md` and `.csv` queue cyber/privacy pages for future outline-only work.
+- The queue distinguishes primary service, support guide, sensitive boundary, section-first and context-support work.
+- Google/platform removal and data-breach reporting are section-first items, not approved standalone pages.
+- All outline work remains blocked until owner/legal review.
+
+Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.

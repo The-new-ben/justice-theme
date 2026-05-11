@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CYBER-PRIVACY-OUTLINE-QUEUE-001: Build gated rewrite/outline queue for cyber/privacy pages
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The page decision matrix identified pages that may eventually need primary refresh, support outlines, section-first blocks or boundary review. The next safe step is to queue outlines without drafting or publishing.
+**Actions:**
+1. DONE: created `project-control/cyber-privacy-rewrite-outline-queue-2026-05-11.md`.
+2. DONE: created `project-control/cyber-privacy-rewrite-outline-queue-2026-05-11.csv`.
+3. VERIFIED: `/cyber-lawyer/` remains a blocked primary-service outline candidate until Hebrew role-page comparison and owner/legal review.
+4. VERIFIED: section-first topics include Google/platform removal and data-breach reporting, with no new page approved.
+5. VERIFIED: all queue rows block public execution.
+6. NEXT: if owner/legal review approves, select one page for a controlled outline-only draft package; otherwise continue another cluster owner packet.
+7. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-CYBER-PRIVACY-PAGE-DECISION-MATRIX-001: Classify cyber/privacy pages page by page
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** After the source/legal checklist, the cluster needed a concrete page-by-page decision layer so existing pages are protected, support assets are not mistaken for pillars, and no URL/content action happens blindly.

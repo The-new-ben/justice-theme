@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-REAL-ESTATE-OWNER-DECISION-SUMMARY-001: Summarize owner decisions for real-estate cluster
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The real-estate cluster now has source/legal, page matrix and side-by-side evidence. The next safe layer is a concise owner decision summary before any internal-link, route, content or URL execution.
+**Actions:**
+1. DONE: created `project-control/real-estate-owner-decision-summary-2026-05-11.md`.
+2. DONE: created `project-control/real-estate-owner-decision-summary-2026-05-11.csv`.
+3. RECOMMENDED: `/real-estate-attorney/` as current no-URL-change working primary for planning only.
+4. RECOMMENDED: `/real-estate-lawyer/`, `/buying-apartment/` and `/real-estate-purchase-agreement/` stay blocked future slugs until route/CMS audit and migration planning.
+5. VERIFIED: `/real-estate-lawyer-cost-2025/` remains protected support; property-law, fee, buying, registry, tax, rental, contractor and international pages remain separated.
+6. NEXT: owner/legal review approves a route/CMS audit and an approval-gated internal-link plan using only safe current URLs.
+7. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, homepage, menu, breadcrumb, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-REAL-ESTATE-SIDE-BY-SIDE-001: Compare current real-estate pages side by side
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The page matrix selected roles, but the current pages and future slugs still needed direct comparison so commercial, cost, property-law, buying-apartment, registry, tax, rental, contractor/defect and international content are not mixed.

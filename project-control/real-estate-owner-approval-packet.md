@@ -247,6 +247,26 @@ RECOMMENDED:
 BLOCKED:
 - No public title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this review alone.
 
+## 2026-05-11 Owner Decision Summary Addendum
+
+CREATED:
+- `project-control/real-estate-owner-decision-summary-2026-05-11.md`
+- `project-control/real-estate-owner-decision-summary-2026-05-11.csv`
+
+RECOMMENDED OWNER DECISIONS:
+- Use `/real-estate-attorney/` as the current no-URL-change working primary for planning only.
+- Keep `/real-estate-lawyer/` future-only until route/CMS audit and migration planning are approved.
+- Keep `/buying-apartment/` and `/real-estate-purchase-agreement/` future-only until they stop resolving to homepage content/canonical and supporting content is compared.
+- Protect `/real-estate-lawyer-cost-2025/` as support.
+- Keep `/israeli_land_and_property_laws/`, Hebrew fee page, buying/selling support, registry, tax, rental, contractor/defect and urban-renewal pages in support or merge-review lanes.
+- Separate international property pages from Israeli real-estate lawyer-service intent.
+
+NEXT OWNER ACTION:
+- Approve whether the next internal-link plan should use `/real-estate-attorney/` as the temporary safe primary and exclude unsafe future slugs.
+
+BLOCKED:
+- No public title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this summary alone.
+
 ## Internal-Link Direction
 
 Recommended later structure, pending owner approval:

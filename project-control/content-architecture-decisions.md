@@ -111,6 +111,13 @@ Recommended action:
 - REVIEW: `/buying-apartment/` and `/real-estate-purchase-agreement/` currently resolve to homepage content/canonical, so they must remain blocked future slugs.
 - BLOCKED: no public real-estate title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this side-by-side review alone.
 
+2026-05-11 real-estate owner decision summary addendum:
+- VERIFIED: `project-control/real-estate-owner-decision-summary-2026-05-11.md` and `.csv` convert the evidence stack into owner decisions.
+- RECOMMENDED: use `/real-estate-attorney/` as the current no-URL-change working primary for planning only.
+- RECOMMENDED: keep `/real-estate-lawyer/`, `/buying-apartment/` and `/real-estate-purchase-agreement/` blocked future slugs until routing, redirect, canonical, sitemap and internal-link planning are approved together.
+- RECOMMENDED: protect `/real-estate-lawyer-cost-2025/` and keep property-law, fee, buying, registry, tax, rental and contractor pages in support/merge-review lanes.
+- BLOCKED: no public real-estate title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this summary alone.
+
 ## Medical Malpractice
 
 Decision:

@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Real estate owner decision summary
+
+- CREATED: `project-control/real-estate-owner-decision-summary-2026-05-11.md`.
+- CREATED: `project-control/real-estate-owner-decision-summary-2026-05-11.csv`.
+- UPDATED: `project-control/real-estate-owner-approval-packet.md`, `project-control/content-decision-batches.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- RECOMMENDED: `/real-estate-attorney/` as the current no-URL-change working primary for planning only.
+- RECOMMENDED: keep `/real-estate-lawyer/`, `/buying-apartment/` and `/real-estate-purchase-agreement/` blocked until route/CMS audit and migration planning are approved.
+- VERIFIED: `/real-estate-lawyer-cost-2025/` remains protected support and international property content remains separate from local Israeli real-estate lawyer-service intent.
+- BLOCKED: no public real-estate content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, internal link, related-card, menu, breadcrumb, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Real estate side-by-side review
 
 - CREATED: `project-control/real-estate-side-by-side-review-2026-05-11.md`.

@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 20:28 Asia/Jerusalem
+- VERIFIED / REAL-ESTATE OWNER DECISION SUMMARY: created the short owner approval layer after the source/legal checklist, page matrix and side-by-side review.
+- CREATED: `project-control/real-estate-owner-decision-summary-2026-05-11.md`.
+- CREATED: `project-control/real-estate-owner-decision-summary-2026-05-11.csv`.
+- RECOMMENDED: use `/real-estate-attorney/` as the current no-URL-change working primary for planning only.
+- RECOMMENDED: keep `/real-estate-lawyer/`, `/buying-apartment/` and `/real-estate-purchase-agreement/` blocked future slugs until route/CMS audit and migration planning are approved.
+- RECOMMENDED: protect `/real-estate-lawyer-cost-2025/` as support, keep `/israeli_land_and_property_laws/` and fee/buying/registry/tax/rental/contractor pages in support or merge-review lanes, and separate international property pages from local Israeli service intent.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, homepage, menu, taxonomy, internal-link, related-card, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+- NEXT: owner/legal review can approve a route/CMS audit and then an approval-gated internal-link plan using only safe current URLs.
+
 ## LATEST WORK STATUS - 2026-05-11 20:21 Asia/Jerusalem
 - VERIFIED / REAL-ESTATE SIDE-BY-SIDE REVIEW: created the review-only comparison for current real-estate commercial, cost, property-law, buying-apartment, registry, tax, rental, contractor/defect, urban-renewal and international-property pages.
 - CREATED: `project-control/real-estate-side-by-side-review-2026-05-11.md`.

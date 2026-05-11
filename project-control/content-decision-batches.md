@@ -144,6 +144,26 @@ RECOMMENDED:
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, breadcrumbs, related-card edits, lawyer cards, CRM/review work or CMS writes until explicit approval.
 
+## 2026-05-11 Real Estate Owner Decision Summary
+
+CREATED:
+- `project-control/real-estate-owner-decision-summary-2026-05-11.md`
+- `project-control/real-estate-owner-decision-summary-2026-05-11.csv`
+
+VERIFIED:
+- The real-estate source/legal, page matrix and side-by-side evidence were converted into owner decisions.
+- `/real-estate-attorney/` is recommended as the current no-URL-change working primary for planning only.
+- `/real-estate-lawyer/`, `/buying-apartment/` and `/real-estate-purchase-agreement/` remain blocked future slugs because of route/canonical issues.
+- `/real-estate-lawyer-cost-2025/` remains protected support.
+- Property-law, fee, buying, registry, tax, rental, contractor/defect and international pages remain separated by role.
+
+RECOMMENDED:
+- Run owner/legal review before any internal-link plan.
+- If approved, build the next internal-link map with only safe current URLs and `PLANNED_NEEDS_OWNER_APPROVAL` rows.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, breadcrumbs, related-card edits, lawyer cards, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Evidence Overlay
 
 CREATED:

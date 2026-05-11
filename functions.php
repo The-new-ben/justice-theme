@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_VERSION', '1.0.4' );
-define( 'JUSTICE_THEME_DEPLOYMENT_MARKER', '2026-05-11-branding-polish-v3' );
+define( 'JUSTICE_THEME_VERSION', '1.0.5' );
+define( 'JUSTICE_THEME_DEPLOYMENT_MARKER', '2026-05-11-lawyer-rest-public-guard-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -20,6 +20,7 @@ $justice_theme_files = array(
 	'inc/enqueue.php',
 	'inc/menu-seed.php',
 	'inc/template-tags.php',
+	'inc/lawyer-rest-guards.php',
 	'inc/breadcrumbs.php',
 	'inc/routing-guards.php',
 	'inc/diagnostics.php',

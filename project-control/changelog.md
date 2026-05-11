@@ -1,6 +1,23 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Lawyer REST public guard
+
+- VERIFIED LIVE BASELINE: `/lawyers/` returns `200` with `0` `lawyer-card` blocks and no placeholder phone hits.
+- VERIFIED LIVE BASELINE: anonymous `/wp-json/wp/v2/justice_lawyer?per_page=20` returns `X-WP-Total: 10`, `11` placeholder phone hits and `50` sensitive meta-key hits before this patch is live.
+- VERIFIED LIVE BASELINE: anonymous `/wp-json/wp/v2/justice_lawyer/19139` returns `200` before this patch is live.
+- CODE FIXED: added `inc/lawyer-rest-guards.php` and included it from `functions.php`.
+- CODE FIXED: anonymous lawyer REST collections now return public-approved profiles only; anonymous direct REST reads for unapproved lawyer IDs return `404`.
+- CODE FIXED: anonymous approved lawyer REST responses strip `meta`, `acf` and `guid`.
+- CODE FIXED: unapproved public lawyer profile routes are marked as `404` before head/SEO output, with generic Hebrew title/description, no Rank Math canonical and noindex/nofollow robots directives.
+- CREATED: `project-control/lawyer-rest-public-guard-2026-05-11.md`.
+- CREATED: `project-control/lawyer-rest-public-guard-2026-05-11.csv`.
+- CREATED: `tools/check-live-lawyer-rest-public-guard.ps1`.
+- CREATED: `project-control/live-lawyer-rest-public-guard-2026-05-11-before-pull.csv`.
+- VERIFIED LOCAL: PHP lint passed for all `130` PHP files.
+- NOT LIVE VERIFIED: requires uPress pull/cache refresh and live checker rerun for marker `2026-05-11-lawyer-rest-public-guard-v1`.
+- SAFETY: no CMS records, lawyer records, URLs, redirects, taxonomy, sitemap, content, menu, CRM, review or wp-admin settings were changed.
+
 ## 2026-05-11 - Full review report action intake
 
 - CREATED: `project-control/full-review-report-action-intake-2026-05-11.md`.

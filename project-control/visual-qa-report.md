@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Lawyer REST Public Guard QA
+- VERIFIED LIVE BASELINE: `/lawyers/` returned HTTP `200`, marker `2026-05-11-branding-polish-v3`, `0` lawyer cards and no placeholder phone hits.
+- VERIFIED LIVE RISK: anonymous `/wp-json/wp/v2/justice_lawyer?per_page=20` returned HTTP `200`, `X-WP-Total: 10`, `11` placeholder phone hits and `50` sensitive meta-key hits.
+- VERIFIED LIVE RISK: anonymous `/wp-json/wp/v2/justice_lawyer/19139` returned HTTP `200` before this patch is live.
+- CODE FIXED / NOT LIVE VERIFIED: anonymous lawyer REST output is now gated to public-approved profiles only, direct unapproved IDs return 404, and public responses strip sensitive custom meta.
+- CODE FIXED / NOT LIVE VERIFIED: unapproved lawyer profile routes are marked as 404 before SEO/head output and forced to generic noindex/nofollow signals.
+- CREATED: `project-control/live-lawyer-rest-public-guard-2026-05-11-before-pull.csv`.
+- NEXT QA: after uPress pull/cache refresh, rerun `tools/check-live-lawyer-rest-public-guard.ps1` and verify marker `2026-05-11-lawyer-rest-public-guard-v1`.
+- SAFETY: no CMS records, lawyer records, URLs, redirects, taxonomy, sitemap, content, menu, CRM, review or wp-admin settings were changed.
+
 ## 2026-05-11 Logo/Favicon Polish V3 QA
 - CODE FIXED: duplicate fallback favicon output was removed from `header.php`; fallback logic remains centralized in `inc/seo.php` and respects WordPress Site Icon when present.
 - CODE FIXED: premium brand CSS cache version moved to `4.3.1`; theme version moved to `1.0.4`; deployment marker moved to `2026-05-11-branding-polish-v3`.

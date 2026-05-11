@@ -1,3 +1,18 @@
+## LATEST WORK STATUS - 2026-05-11 20:55 Asia/Jerusalem
+- FIXED IN CODE / P0 LAWYER REST PUBLIC GUARD: found that the visible `/lawyers/` archive currently shows `0` lawyer cards, but anonymous `wp-json/wp/v2/justice_lawyer` still exposes published seed-style lawyer profiles and custom meta.
+- VERIFIED LIVE BASELINE: `/wp-json/wp/v2/justice_lawyer?per_page=20` returns `200`, `X-WP-Total: 10`, `11` placeholder phone hits and `50` sensitive meta-key hits before this patch is live.
+- VERIFIED LIVE BASELINE: `/wp-json/wp/v2/justice_lawyer/19139` returns `200` to anonymous users before this patch is live.
+- CODE FIXED: added `inc/lawyer-rest-guards.php` and included it from `functions.php`.
+- CODE FIXED: anonymous lawyer REST collections now filter to public-approved profiles only, anonymous direct REST reads for unapproved lawyer IDs return `404`, and anonymous approved lawyer REST responses strip `meta`, `acf` and `guid`.
+- CODE FIXED: unapproved public lawyer profile routes are marked as `404` before head/SEO output, with generic Hebrew title/description, no Rank Math canonical and noindex/nofollow robots.
+- CREATED: `project-control/lawyer-rest-public-guard-2026-05-11.md`.
+- CREATED: `project-control/lawyer-rest-public-guard-2026-05-11.csv`.
+- CREATED: `tools/check-live-lawyer-rest-public-guard.ps1`.
+- CREATED: `project-control/live-lawyer-rest-public-guard-2026-05-11-before-pull.csv`.
+- VERIFIED LOCAL: PHP lint passed for all `130` PHP files with the local PHP runtime.
+- NOT LIVE VERIFIED: requires GitHub push, uPress pull/cache clear and checker rerun for marker `2026-05-11-lawyer-rest-public-guard-v1`.
+- SAFETY: no CMS records, lawyer records, URLs, redirects, taxonomy, sitemap, content, menu, CRM, review or wp-admin settings were changed.
+
 ## LATEST WORK STATUS - 2026-05-11 20:44 Asia/Jerusalem
 - VERIFIED / FULL REVIEW REPORT TASK INTAKE: read the owner-provided full review report and converted needed items into launch-readiness tasks only.
 - CREATED: `project-control/full-review-report-action-intake-2026-05-11.md`.

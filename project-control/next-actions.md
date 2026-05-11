@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-LAWYER-REST-PUBLIC-GUARD-001: Stop anonymous REST exposure of seed lawyer profiles
+**Status:** CODE FIXED / NOT LIVE VERIFIED
+**Why:** The visible lawyer archive is currently filtered, but anonymous REST requests still expose published seed-style lawyer records, contact metadata and placeholder phone patterns. This is a P0 trust/privacy issue before public marketing.
+**Actions:**
+1. VERIFIED LIVE BASELINE: `/lawyers/` returns `200` with `0` `lawyer-card` blocks and no placeholder phone hits.
+2. VERIFIED LIVE BASELINE: `/wp-json/wp/v2/justice_lawyer?per_page=20` returns `200`, `X-WP-Total: 10`, `11` placeholder phone hits and `50` sensitive meta-key hits before this patch is live.
+3. CODE FIXED: anonymous `justice_lawyer` REST collections are filtered to profiles that pass the existing public approval gate.
+4. CODE FIXED: anonymous direct REST reads for unapproved lawyer IDs return `404`.
+5. CODE FIXED: anonymous approved lawyer REST responses strip `meta`, `acf` and `guid`.
+6. CODE FIXED: unapproved public lawyer profile routes are marked `404` before SEO/head output and forced to generic noindex/nofollow signals.
+7. CREATED: `project-control/lawyer-rest-public-guard-2026-05-11.md`, `project-control/lawyer-rest-public-guard-2026-05-11.csv`, `tools/check-live-lawyer-rest-public-guard.ps1`, and `project-control/live-lawyer-rest-public-guard-2026-05-11-before-pull.csv`.
+8. VERIFIED LOCAL: PHP lint passed for all `130` PHP files.
+9. NEXT: after uPress pulls the commit, rerun `tools/check-live-lawyer-rest-public-guard.ps1`; expected marker is `2026-05-11-lawyer-rest-public-guard-v1`.
+10. BLOCKED: no CMS/database lawyer cleanup was performed; existing published seed profiles still need owner-approved CMS cleanup or verified public gating.
+
 ### ACTION-FULL-REVIEW-REPORT-INTAKE-001: Convert owner full-review report into launch-readiness tasks
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The owner report identifies public trust, demo-data, Hebrew UI, policy, content-quality, taxonomy, URL, visual and competitor-parity risks that must stay visible in the roadmap without interrupting the current GSC/content architecture work.

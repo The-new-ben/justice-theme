@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-11-lawyer-profile-view-tracking-gate-v1
-expected-github-main-commit=after-lawyer-profile-view-tracking-gate
+justice-theme-deployment-marker=2026-05-11-legal-tools-seed-gate-v1
+expected-github-main-commit=after-legal-tools-seed-gate
 purpose=public-static-file-check-for-upress-theme-sync

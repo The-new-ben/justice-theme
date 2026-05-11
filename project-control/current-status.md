@@ -2,6 +2,13 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 05:19 Asia/Jerusalem
+- CODE FIXED: legacy LegalTech tool-page seeders in `justice-core`, `ultra-justice-engine`, and `ultra-justice` now require explicit opt-in filters before they can publish `justice_legal_tool` pages.
+- WHY: LegalTech/intake pages are product and SEO surfaces, so they must be planned, reviewed and approved instead of being silently published by an admin page load during the content architecture project.
+- VERIFIED: public/user-submitted LegalTech request handling is unchanged; only automatic admin-init tool-page creation is gated.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-legal-tools-seed-gate-v1`; public homepage still needs uPress pull/cache clear before this can be verified.
+- SAFETY: no legal tool page, legal request, lawyer profile, URL, redirect, content body, taxonomy term, sitemap, canonical, lead/CRM record, review data, wp-admin setting or database row was changed by this repo patch.
+
 ## LATEST WORK STATUS - 2026-05-11 05:10 Asia/Jerusalem
 - CODE FIXED: lawyer profile view tracking is now disabled by default and requires explicit opt-in filter `justice_theme_enable_lawyer_profile_view_tracking`.
 - WHY: single lawyer profile page loads should not write `profile_views` metadata or visitor throttling transients during the content audit, URL migration and marketplace trust cleanup phase.

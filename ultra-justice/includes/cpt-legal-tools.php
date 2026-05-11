@@ -102,7 +102,7 @@ function uj_register_legal_tool_meta(): void {
 add_action( 'init', 'uj_register_legal_tool_meta' );
 
 function uj_seed_legal_tools_if_needed(): void {
-	if ( ! current_user_can( 'manage_options' ) || get_option( 'uj_legal_tools_seeded_v1' ) ) {
+	if ( ! current_user_can( 'manage_options' ) || ! (bool) apply_filters( 'ultra_justice_enable_legal_tools_seed', false ) || get_option( 'uj_legal_tools_seeded_v1' ) ) {
 		return;
 	}
 

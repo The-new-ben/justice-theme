@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-LEGALTOOLS-SEED-SAFETY-001: Keep LegalTech tool-page seeding opt-in
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** LegalTech tools can be valuable product/SEO assets, but draft/product pages should not be published silently by admin-init before strategy, content, pricing, funnel and legal-review decisions are approved.
+**Actions:**
+1. DONE: `justice-core` LegalTech tool seeding requires `justice_core_enable_legal_tools_seed`.
+2. DONE: `ultra-justice-engine` LegalTech tool seeding requires `ultra_justice_engine_enable_legal_tools_seed`.
+3. DONE: `ultra-justice` LegalTech tool seeding requires `ultra_justice_enable_legal_tools_seed`.
+4. VERIFIED: public LegalTech request submission handler remains unchanged; only automatic tool-page creation is gated.
+5. NEXT: pull/deploy marker `2026-05-11-legal-tools-seed-gate-v1`, then verify existing LegalTech pages/request forms still render as expected and no admin load creates new tool pages unless explicitly enabled.
+6. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-LAWYER-PERFORMANCE-SAFETY-001: Keep profile view tracking opt-in
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** Profile analytics are useful later, but public lawyer mini-site page loads should not write metadata/transients by default while the directory is still being cleaned and URL/content migration is controlled.

@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - LegalTech tool seed gate
+
+- CODE FIXED: automatic LegalTech tool-page seeders in `justice-core`, `ultra-justice-engine`, and `ultra-justice` now require explicit opt-in filters.
+- EXPECTED IMPACT: wp-admin loads will not silently publish `justice_legal_tool` product pages before product, SEO, pricing, legal-review and funnel decisions are approved.
+- VERIFIED: public LegalTech request submissions are unchanged; this patch only gates automatic tool-page creation.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-legal-tools-seed-gate-v1`.
+- SAFETY: no legal tool, legal request, lawyer record, content, URL, redirect, sitemap, canonical, taxonomy, CRM, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - Lawyer profile view tracking gate
 
 - CODE FIXED: automatic lawyer profile view tracking now requires explicit opt-in filter `justice_theme_enable_lawyer_profile_view_tracking`.

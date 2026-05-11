@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CYBER-PRIVACY-PAGE-DECISION-MATRIX-001: Classify cyber/privacy pages page by page
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** After the source/legal checklist, the cluster needed a concrete page-by-page decision layer so existing pages are protected, support assets are not mistaken for pillars, and no URL/content action happens blindly.
+**Actions:**
+1. DONE: created `project-control/cyber-privacy-page-decision-matrix-2026-05-11.md`.
+2. DONE: created `project-control/cyber-privacy-page-decision-matrix-2026-05-11.csv`.
+3. VERIFIED: direct 200 checks passed for the eight ASCII cyber/privacy URLs in the matrix.
+4. VERIFIED: `/cyber-lawyer/` remains current primary candidate; `/cybercrime-lawyer-roll/`, `/cyber-laws/`, `/what-is-cyberattack/`, `/cyber-insurance/`, `/cybersex-trafficking/`, `/fbi-cyber-division/` and `/police-records-data-deletion/` are not approved as primary pillars.
+5. VERIFIED: old Hebrew privacy and case-law URLs remain protected/review-only and require exact URL checks before migration decisions.
+6. NEXT: either build owner-approved rewrite/outline queues for selected cyber/privacy pages, or continue another cluster owner packet while this waits for owner/legal approval.
+7. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-CYBER-PRIVACY-SOURCE-LEGAL-CHECKLIST-001: Create source/legal gate for cyber privacy and data-deletion boundaries
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The cyber/privacy cluster contains sensitive legal, criminal, privacy, data-removal and reputation topics. Before any rewrite, merge, URL migration, internal-link execution or CMS update, each topic needs source anchors and legal-review boundaries.

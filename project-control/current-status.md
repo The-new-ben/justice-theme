@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-11 17:43 Asia/Jerusalem
+- VERIFIED / CYBER-PRIVACY PAGE DECISION MATRIX: created the review-only page-by-page decision matrix for cyber/privacy assets.
+- CREATED: `project-control/cyber-privacy-page-decision-matrix-2026-05-11.md`.
+- CREATED: `project-control/cyber-privacy-page-decision-matrix-2026-05-11.csv`.
+- VERIFIED: public direct 200 checks passed for `/cyber-lawyer/`, `/cybercrime-lawyer-roll/`, `/cyber-laws/`, `/what-is-cyberattack/`, `/cyber-insurance/`, `/cybersex-trafficking/`, `/police-records-data-deletion/` and `/fbi-cyber-division/`.
+- VERIFIED: `/cyber-lawyer/` remains the current primary candidate, while cybercrime, cyber laws, cyberattack, cyber insurance, cybersex trafficking and FBI pages are classified as support/boundary/context assets.
+- VERIFIED: old Hebrew privacy, thin privacy overview, privacy/defamation case-law, online reputation, data breach and Google removal items remain protected/review-only and blocked from public execution.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, canonical, sitemap, internal-link, related-card, menu, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+
 ## LATEST WORK STATUS - 2026-05-11 17:33 Asia/Jerusalem
 - VERIFIED / CYBER-PRIVACY SOURCE-LEGAL CHECKLIST: created the review-only source/legal gate for cyber, privacy, data breach, online defamation/shaming, Google removal and police-record/data-deletion boundaries.
 - CREATED: `project-control/cyber-privacy-source-legal-checklist-2026-05-11.md`.

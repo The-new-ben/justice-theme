@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Cyber/privacy page decision matrix
+
+- CREATED: `project-control/cyber-privacy-page-decision-matrix-2026-05-11.md`.
+- CREATED: `project-control/cyber-privacy-page-decision-matrix-2026-05-11.csv`.
+- UPDATED: `project-control/cyber-privacy-owner-approval-packet.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: direct 200 checks passed for `/cyber-lawyer/`, `/cybercrime-lawyer-roll/`, `/cyber-laws/`, `/what-is-cyberattack/`, `/cyber-insurance/`, `/cybersex-trafficking/`, `/police-records-data-deletion/` and `/fbi-cyber-division/`.
+- VERIFIED: the matrix classifies current cyber/privacy URLs as primary candidate, support, boundary, context, protected old URL, case support or planned section before execution.
+- BLOCKED: no public cyber/privacy content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, internal link, related-card, menu, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Cyber/privacy source and legal checklist
 
 - CREATED: `project-control/cyber-privacy-source-legal-checklist-2026-05-11.md`.

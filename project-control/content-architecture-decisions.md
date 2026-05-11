@@ -220,3 +220,13 @@ ADDED 2026-05-11:
 - Official/public source anchors are now mapped, but legal review is still required before publishing advice-like claims.
 
 Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.
+
+## Cyber / Privacy Page Decision Matrix Addendum
+
+ADDED 2026-05-11:
+- `project-control/cyber-privacy-page-decision-matrix-2026-05-11.md` and `.csv` classify cyber/privacy pages before execution.
+- `/cyber-lawyer/` remains the current primary candidate only after owner/legal review.
+- Existing support/boundary/context pages are protected from accidental pillar promotion, random merge, or blind redirect.
+- Old Hebrew privacy and case-law URLs remain migration-risk/protected until exact URL checks and source/legal review are complete.
+
+Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.

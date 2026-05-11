@@ -286,6 +286,18 @@ BLOCKED:
 - The checklist does not approve publication.
 - Legal review is still required before claims about rights, duties, compensation, eligibility, criminal classifications, platform removal or sensitive facts.
 
+## 2026-05-11 Page Decision Matrix Overlay
+
+VERIFIED:
+- Created `project-control/cyber-privacy-page-decision-matrix-2026-05-11.md`.
+- Created `project-control/cyber-privacy-page-decision-matrix-2026-05-11.csv`.
+- Direct 200 checks passed for the eight ASCII cyber/privacy URLs in the matrix.
+- `/cyber-lawyer/` remains the current primary candidate, but not execution-approved.
+- Cybercrime, cyber-law, cyberattack, cyber-insurance, cybersex, FBI, data-deletion, old privacy, thin privacy and case-law pages are classified by role before any rewrite or migration.
+
+BLOCKED:
+- The matrix does not approve public URL, redirect, canonical, sitemap, noindex, title/H1/meta, content, internal-link, related-card, menu, lawyer-card, CRM/review, wp-admin or CMS/database changes.
+
 ## Internal-Link Direction
 
 Recommended planning only:

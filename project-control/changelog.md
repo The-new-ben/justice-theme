@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Criminal law no-URL-change outline queue
+
+- CREATED: `project-control/criminal-law-no-url-change-outline-queue-2026-05-11.md`.
+- CREATED: `project-control/criminal-law-no-url-change-outline-queue-2026-05-11.csv`.
+- VERIFIED / REVIEW ONLY: `5` outline targets were prepared across `6` current URLs.
+- VERIFIED: the batch covers the current planning pillar `/criminal-defense-attorney/`, police investigation, indictment, detention and drug offenses.
+- VERIFIED: all future clean slugs remain blocked until route repair, owner approval, redirect planning, canonical planning, internal-link planning and sitemap planning.
+- READY FOR REVIEW: section structures, internal-link posture, semantic related-content rules, CTA/lawyer-card safety rules and sitemap posture are documented for the first criminal-law upload group.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Criminal law primary selection review
 
 - CREATED: `project-control/criminal-law-primary-selection-2026-05-11.md`.

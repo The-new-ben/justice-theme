@@ -130,6 +130,27 @@ BLOCKED:
 
 See `project-control/criminal-law-support-review.csv`.
 
+## 2026-05-11 Criminal Law No-URL-Change Outline Queue
+
+CREATED:
+- `project-control/criminal-law-no-url-change-outline-queue-2026-05-11.md`
+- `project-control/criminal-law-no-url-change-outline-queue-2026-05-11.csv`
+
+VERIFIED:
+- `5` outline targets were prepared across `6` current URLs.
+- Current planning primary: `/criminal-defense-attorney/`.
+- First support lanes: police investigation, indictment, detention and drug offenses.
+- Future clean slugs remain blocked: `/criminal-lawyer/`, `/police-investigation/`, `/indictment/`, `/pretrial-detention/`, `/drug-offenses/`.
+
+CONTENT-UPLOAD READINESS:
+- The first criminal-law upload group now has review-only section structures, internal-link posture, semantic related-content rules, CTA/lawyer-card safety rules and sitemap posture.
+
+NEXT:
+- Prepare source/legal checklist or no-URL-change internal-link map before final Hebrew copy or CMS upload.
+
+BLOCKED:
+- No public criminal-law content expansion, title/H1/meta change, internal-link batch, slug migration, redirect, canonical, noindex, sitemap or taxonomy/category change is approved by this queue.
+
 ## 2026-05-11 Criminal Law Primary Selection Review
 
 CREATED:

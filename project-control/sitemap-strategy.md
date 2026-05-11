@@ -5,6 +5,12 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
 
 ## Current Evidence
 
+2026-05-11 CRIMINAL LAW NO-URL-CHANGE OUTLINE QUEUE:
+- VERIFIED / REVIEW ONLY: `project-control/criminal-law-no-url-change-outline-queue-2026-05-11.md` and `.csv` prepare `5` outline targets across `6` current URLs.
+- CURRENT SITEMAP POSTURE: `/criminal-defense-attorney/`, police investigation, indictment, detention and drug offenses can be considered for sitemap inclusion only after owner/legal/source review and content expansion.
+- HOLD OUT: `/criminal-lawyer/`, `/police-investigation/`, `/indictment/`, `/pretrial-detention/` and `/drug-offenses/` remain future-only and must not be added to sitemap until route repair and migration planning are approved.
+- SAFETY: no sitemap inclusion rule, redirect, canonical, URL slug, taxonomy term, content body, lawyer, CRM, review, wp-admin setting or database row was changed.
+
 2026-05-11 CRIMINAL LAW PRIMARY SELECTION:
 - VERIFIED LIVE: `/criminal-defense-attorney/` returns `200 OK`, self-canonicalizes and has criminal-lawyer title/H1 signals.
 - BLOCKED: `/criminal-lawyer/`, the old Hebrew broad criminal-lawyer URL and a legacy deep criminal-law URL currently redirect to the homepage.

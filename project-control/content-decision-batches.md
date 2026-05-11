@@ -14,6 +14,25 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-11 Criminal Law No-URL-Change Outline Queue
+
+CREATED:
+- `project-control/criminal-law-no-url-change-outline-queue-2026-05-11.md`
+- `project-control/criminal-law-no-url-change-outline-queue-2026-05-11.csv`
+
+VERIFIED:
+- `5` outline targets were prepared across `6` current URLs.
+- `/criminal-defense-attorney/` is the current no-URL-change planning pillar.
+- Police investigation, indictment, detention and drug offenses are the first support lanes.
+- `/criminal-lawyer/`, `/police-investigation/`, `/indictment/`, `/pretrial-detention/` and `/drug-offenses/` remain blocked future-only slugs.
+
+RECOMMENDED:
+- Prepare source/legal checklist or current-URL internal-link map for this five-page group next.
+- Do not upload final Hebrew copy until owner/legal review approves the page roles and source requirements.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## Batch 1 - Slug Conflicts
 
 VERIFIED: `slug-conflict-review.csv` contains 15 target slug groups where multiple URLs currently point toward the same proposed clean slug.

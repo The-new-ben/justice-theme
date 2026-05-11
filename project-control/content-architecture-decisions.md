@@ -73,6 +73,13 @@ Recommended action:
 - SUPPORT_PILLAR: `/criminal-law/`, `/police-investigation/`, `/indictment/`, `/pretrial-detention/`, `/drug-offenses/`, `/sex-offenses/`, `/white-collar-crime/`.
 - Add internal links from old criminal pages to the pillar after content comparison.
 
+2026-05-11 criminal-law no-URL-change outline queue addendum:
+- VERIFIED: `project-control/criminal-law-no-url-change-outline-queue-2026-05-11.md` and `.csv` prepare the first practical criminal-law upload group using current URLs only.
+- VERIFIED: `/criminal-defense-attorney/` is the current no-URL-change planning primary because `/criminal-lawyer/` is still blocked as a future-only route.
+- VERIFIED: first support outlines are police investigation, indictment, detention and drug offenses across `6` current URLs.
+- REVIEW: current outlines define section structure, internal-link posture, related-content rules, CTA/lawyer-card safety rules and sitemap posture before public copy or CMS execution.
+- BLOCKED: `/criminal-lawyer/`, `/police-investigation/`, `/indictment/`, `/pretrial-detention/` and `/drug-offenses/` must not be used as live targets until route repair, redirect/canonical/sitemap/internal-link planning and owner/legal approval.
+
 ## Real Estate
 
 Decision:

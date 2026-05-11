@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CRIMINAL-LAW-NO-URL-OUTLINES-001: Prepare first criminal-law outline batch using current URLs only
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The criminal-law primary is selected for planning, but public upload still needs page-level outlines, section structure, internal-link posture, sitemap posture and blockers before Hebrew copy or CMS updates.
+**Actions:**
+1. DONE: created `project-control/criminal-law-no-url-change-outline-queue-2026-05-11.md`.
+2. DONE: created `project-control/criminal-law-no-url-change-outline-queue-2026-05-11.csv`.
+3. VERIFIED: `5` outline targets prepared across `6` current URLs.
+4. VERIFIED: current planning pillar is `/criminal-defense-attorney/`.
+5. VERIFIED: first support lanes are police investigation, indictment, detention and drug offenses.
+6. VERIFIED: `/criminal-lawyer/`, `/police-investigation/`, `/indictment/`, `/pretrial-detention/` and `/drug-offenses/` remain blocked future-only slugs.
+7. NEXT: prepare source/legal checklist or a no-URL-change internal-link map for these five targets before public copy upload.
+8. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-CRIMINAL-LAW-PRIMARY-SELECTION-001: Select current criminal-law primary before migration
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** `/criminal-lawyer/` is the desired English slug, but live route behavior must be checked before any URL migration, sitemap, menu or internal-link plan.

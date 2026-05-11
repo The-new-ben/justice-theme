@@ -628,9 +628,13 @@ function justice_theme_fallback_site_icon(): void {
 add_action( 'wp_head', 'justice_theme_fallback_site_icon', 2 );
 
 /**
- * Expose a stable mobile app manifest for bookmarks and install surfaces.
+ * Expose a stable mobile app manifest when the admin icon stack is absent.
  */
 function justice_theme_brand_manifest_link(): void {
+	if ( has_site_icon() ) {
+		return;
+	}
+
 	echo '<link rel="manifest" href="' . esc_url( JUSTICE_THEME_URI . '/assets/images/site.webmanifest' ) . '">' . "\n";
 }
 add_action( 'wp_head', 'justice_theme_brand_manifest_link', 3 );

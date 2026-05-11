@@ -3,9 +3,10 @@ Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
 ## 2026-05-11 Branding Manifest QA
-- CODE FIXED / NOT LIVE VERIFIED: theme now exposes `assets/images/site.webmanifest` for mobile bookmark/install branding, using existing 192x192 and 512x512 square icons.
+- CODE FIXED / NOT LIVE VERIFIED: theme now has `assets/images/site.webmanifest` as a fallback for mobile bookmark/install branding, using existing 192x192 and 512x512 square icons.
+- PARTIAL LIVE VERIFIED: current public source already includes the RealFaviconGenerator manifest from `/wp-content/uploads/fbrfg/site.webmanifest`, so the theme fallback should remain suppressed while that admin icon stack is active.
 - VERIFIED LOCALLY: icon dimensions exist for 16, 32, 48, 180, 192 and 512 pixels; full logo source is non-square and remains unsuitable as a raw Site Icon without cropping.
-- LIVE CHECK NEEDED: after uPress pull/cache clear, verify homepage source includes `/assets/images/site.webmanifest`, the manifest returns HTTP 200, and browser/mobile bookmark icon remains visually correct with marker `2026-05-11-branding-manifest-v1`.
+- LIVE CHECK NEEDED: after uPress pull/cache clear, verify marker `2026-05-11-branding-manifest-v1`, confirm no duplicate manifest links while WordPress Site Icon exists, and confirm the fallback manifest URL is available if the admin icon stack is removed.
 
 ## 2026-05-11 Lawyer Directory Approved Query QA
 - CODE FIXED / NOT LIVE VERIFIED: `/lawyers/` now queries only profiles that pass the public approval gate, so result counts and pagination should match visible public cards.

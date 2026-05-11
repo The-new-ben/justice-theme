@@ -11,11 +11,12 @@
 **Why:** Browser tabs, mobile bookmarks and search branding need stable, crawlable brand assets without depending on a database-side Site Icon update.
 **Actions:**
 1. DONE: added `assets/images/site.webmanifest` using the existing 192x192 and 512x512 Jus-Tice icon assets.
-2. DONE: `inc/seo.php` outputs the manifest link while keeping WordPress Site Icon as the preferred favicon source.
+2. DONE: `inc/seo.php` outputs the manifest link only when WordPress has no Site Icon, matching the safe favicon fallback behavior.
 3. VERIFIED: local icon dimensions include 16, 32, 48, 180, 192 and 512 square PNG assets; full logo source is 1781x1654.
 4. VERIFIED: PHP lint passed for 127 files, manifest JSON validated, and `git diff --check` passed.
-5. NEXT: pull/deploy marker `2026-05-11-branding-manifest-v1`, then verify homepage source contains `/assets/images/site.webmanifest` and the manifest URL returns HTTP 200.
-6. NOT LIVE VERIFIED: no public deployment yet.
+5. VERIFIED LIVE PARTIAL: current public source already has a RealFaviconGenerator manifest under `/wp-content/uploads/fbrfg/site.webmanifest`.
+6. NEXT: pull/deploy marker `2026-05-11-branding-manifest-v1`, then verify the theme fallback manifest is suppressed while WordPress Site Icon exists, and appears only if the admin icon stack is absent.
+7. NOT LIVE VERIFIED: no public deployment yet.
 
 ### ACTION-LAWYER-DIRECTORY-QUERY-001: Keep public lawyer archive counts/pagination approval-safe
 **Status:** CODE FIXED - live deployment/verification pending

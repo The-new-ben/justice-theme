@@ -127,8 +127,9 @@ Repo fallback assets now exist:
 ## 2026-05-11 Manifest / Mobile Bookmark Pass
 
 - CODE FIXED: added `assets/images/site.webmanifest` with stable 192x192 and 512x512 icon references.
-- CODE FIXED: `inc/seo.php` now emits a manifest link in `wp_head` while the favicon fallback still returns early when WordPress Site Icon exists.
+- CODE FIXED: `inc/seo.php` now emits the manifest link only when WordPress has no Site Icon, so the live RealFaviconGenerator/WordPress icon stack is not duplicated.
 - VERIFIED LOCALLY: icon dimensions were checked: 16x16, 32x32, 48x48, 180x180, 192x192 and 512x512 square PNG assets exist.
 - VERIFIED LOCALLY: full logo source remains 1781x1654 and should not be uploaded raw as the Site Icon without crop/export.
+- PARTIAL LIVE VERIFIED: current public source already includes `/wp-content/uploads/fbrfg/site.webmanifest`.
 - NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-branding-manifest-v1`.
-- LIVE CHECK NEEDED: homepage source should include `/assets/images/site.webmanifest`; the manifest URL should return 200; browser/mobile bookmark icon should use the approved square mark.
+- LIVE CHECK NEEDED: homepage source should not include duplicate manifest links while WordPress Site Icon exists; theme fallback manifest should be available only if the admin icon stack is absent.

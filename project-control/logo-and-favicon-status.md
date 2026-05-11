@@ -14,7 +14,7 @@ Date: 2026-05-10
 - Added `assets/images/favicon.svg`, PNG favicon sizes, ICO fallback and Apple/mobile icons.
 - Added `assets/images/site.webmanifest` for mobile bookmark/install branding.
 - Added `wp_head` fallback icon links in `inc/seo.php`, only used when WordPress has no Site Icon configured.
-- Added a stable manifest link in `inc/seo.php`.
+- Added a stable fallback manifest link in `inc/seo.php`, suppressed when WordPress has a Site Icon.
 
 ## NOT VERIFIED
 - Old final logo in WordPress Media Library.

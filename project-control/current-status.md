@@ -4,10 +4,11 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 
 ## LATEST WORK STATUS - 2026-05-11 05:58 Asia/Jerusalem
 - CODE FIXED: added stable `assets/images/site.webmanifest` for mobile bookmark/install surfaces, pointing to the existing 192x192 and 512x512 Jus-Tice icon assets.
-- CODE FIXED: `inc/seo.php` now outputs a manifest link while keeping WordPress Site Icon as the preferred favicon source.
+- CODE FIXED: `inc/seo.php` now provides a fallback manifest link only when WordPress has no Site Icon, matching the favicon fallback behavior and avoiding duplicate live manifest tags.
 - VERIFIED: existing logo/icon dimensions were checked locally; square icon assets exist at 16, 32, 48, 180, 192 and 512 pixels, and the full logo source is 1781x1654.
 - VERIFIED: PHP lint passed for 127 files, `site.webmanifest` JSON validated, and `git diff --check` passed.
-- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-branding-manifest-v1`; public homepage/static marker still needs uPress pull/cache clear before the manifest can be verified live.
+- PARTIAL LIVE VERIFIED: current public source already has a RealFaviconGenerator manifest under `/wp-content/uploads/fbrfg/site.webmanifest`; the new theme manifest should stay suppressed while WordPress Site Icon remains active.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-branding-manifest-v1`; public homepage/static marker still needs uPress pull/cache clear before the theme-side fallback behavior can be verified live.
 - SAFETY: no WordPress Site Icon setting, custom logo setting, media-library item, content body, URL, redirect, sitemap, canonical, taxonomy, lawyer profile, lead/CRM record, review data or database row was changed by this repo patch.
 
 ## LATEST WORK STATUS - 2026-05-11 05:46 Asia/Jerusalem

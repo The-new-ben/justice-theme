@@ -6,6 +6,16 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-MENU-SAFETY-001: Keep permanent WordPress menu writes controlled
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** Menus define the public SEO/design hierarchy. During the content architecture project, a theme pull or public page request must not silently create or repair WordPress menu items.
+**Actions:**
+1. DONE: primary menu seeding moved off public `init` and now requires explicit opt-in filter `justice_theme_enable_primary_menu_seed`.
+2. DONE: seeded-menu area URL repair now requires explicit opt-in filter `justice_theme_enable_seeded_menu_area_url_repair`.
+3. VERIFIED: render-time public fallback links remain available, so frontend navigation can still expose core legal-portal links without writing CMS data.
+4. NEXT: pull/deploy marker `2026-05-11-menu-cms-write-guard-v1`, then verify public menu still renders and no automatic menu write is needed.
+5. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-PUBLICATION-SAFETY-002: Keep family-law public cleanup render-only unless approved
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** Public pages must not expose internal notes, but the current content architecture project also says no silent CMS rewrites before inventory, GSC, URL migration and owner approval.

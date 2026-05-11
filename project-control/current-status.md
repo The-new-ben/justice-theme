@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 04:30 Asia/Jerusalem
+- CODE FIXED: primary WordPress menu seeding no longer runs from public `init`; it is admin-only and requires explicit opt-in filter `justice_theme_enable_primary_menu_seed`.
+- CODE FIXED: seeded-menu URL repair now requires explicit opt-in filter `justice_theme_enable_seeded_menu_area_url_repair`.
+- WHY: menus are part of SEO/design hierarchy and should not be permanently rewritten by an ordinary frontend request during the content architecture and URL migration project.
+- VERIFIED: customer-facing render-time fallback menu links remain in place through `wp_nav_menu_items`; the patch only controls permanent WordPress menu writes.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-menu-cms-write-guard-v1`; public homepage still needs uPress pull/cache clear before this can be verified.
+- SAFETY: no menu item, URL, redirect, content body, taxonomy term, sitemap, canonical, lawyer record, lead/CRM record, review data, wp-admin setting or database row was changed by this repo patch.
+
 ## LATEST WORK STATUS - 2026-05-11 04:22 Asia/Jerusalem
 - CODE FIXED: family-law public runtime guard now remains visitor-safe but render-only by default; if old public bodies still contain internal markers, the rendered output is replaced with the cleaned repo article body without silently saving it back to WordPress.
 - CODE FIXED: family-law editorial repair, internal-notes draft sync, quarantine and auto-publication now all require explicit opt-in filters before they can perform permanent CMS writes.

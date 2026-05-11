@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Menu CMS write guard
+
+- CODE FIXED: primary menu seeding no longer runs from public `init`; it is admin-only and requires `justice_theme_enable_primary_menu_seed`.
+- CODE FIXED: seeded menu URL repair now requires `justice_theme_enable_seeded_menu_area_url_repair`.
+- EXPECTED IMPACT: pulling the theme will not silently create/assign/repair WordPress menus during ordinary frontend traffic, while render-time fallback links still protect the public navigation experience.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-menu-cms-write-guard-v1`.
+- SAFETY: no menu, content, URL, redirect, sitemap, canonical, taxonomy, CRM, lawyer, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - Family cluster render-only public guard
 
 - CODE FIXED: the family-law runtime public-content guard still replaces unsafe public output at render time, but no longer persists the cleaned body to WordPress unless `justice_theme_enable_family_cluster_runtime_guard_persistence` is explicitly enabled.

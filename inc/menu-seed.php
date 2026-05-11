@@ -14,10 +14,27 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Confirm that a permanent menu/CMS write has been explicitly enabled.
+ *
+ * The frontend has render-time fallback navigation, so WordPress menu creation
+ * and menu-item repair should not run from an ordinary public page load.
+ *
+ * @param string $filter_name Boolean feature filter name.
+ * @return bool
+ */
+function justice_theme_menu_cms_write_enabled( string $filter_name ): bool {
+	return (bool) apply_filters( $filter_name, false );
+}
+
+/**
  * Seed the primary menu with the full navigation structure.
- * Fires on admin_init but only once (guarded by option flag).
+ * Runs only when explicitly enabled and only once (guarded by option flag).
  */
 function justice_theme_seed_primary_menu() {
+	if ( ! justice_theme_menu_cms_write_enabled( 'justice_theme_enable_primary_menu_seed' ) ) {
+		return;
+	}
+
 	// Guard: run once only
 	if ( get_option( 'justice_menu_seeded_v3' ) ) {
 		return;
@@ -175,12 +192,16 @@ function justice_theme_seed_primary_menu() {
 	// ── Mark as done ───────────────────────────────────────
 	update_option( 'justice_menu_seeded_v3', true );
 }
-add_action( 'init', 'justice_theme_seed_primary_menu' );
+add_action( 'admin_init', 'justice_theme_seed_primary_menu' );
 
 /**
  * Repair known stale practice-area filter URLs in already-seeded menus.
  */
 function justice_theme_repair_seeded_menu_area_urls(): void {
+	if ( ! justice_theme_menu_cms_write_enabled( 'justice_theme_enable_seeded_menu_area_url_repair' ) ) {
+		return;
+	}
+
 	if ( get_option( 'justice_menu_area_urls_repaired_v3' ) ) {
 		return;
 	}

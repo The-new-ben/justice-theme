@@ -82,7 +82,23 @@ BLOCKED:
 3. Choose one primary criminal-lawyer URL for owner approval.
 4. Only then prepare a redirect and internal-link batch.
 
+## 2026-05-11 SERP Evidence Pass
+
+VERIFIED:
+- `עורך דין פלילי` is dominated by specialist criminal-defense service pages with urgency, credibility signals, consultation CTAs and sections for investigation, arrest, indictment and offense types.
+- `דין פלילי` is broader than lawyer-hiring and should not become a competing second pillar unless owner approval separates the intent clearly.
+- `חקירה במשטרה`, `כתב אישום`, and `מעצר ימים` are valid support intents, but each requires old-content comparison and legal/source review before clean URL execution.
+- `עבירות סמים` must start from the existing `drug-offenses-criminal-lawyer/` asset rather than a new duplicate page.
+
+DECISION IMPACT:
+- Keep `/criminal-lawyer/` as the strategic pillar target.
+- Compare old Hebrew criminal-lawyer pages and existing criminal support pages before any new clean URL, merge or redirect decision.
+- Next step is an owner-approval packet, not execution.
+
+See:
+- `project-control/serp-criminal-traffic-review-2026-05-11.md`
+- `project-control/serp-criminal-traffic-review-2026-05-11.csv`
+
 ## CSV Detail
 
 See `project-control/criminal-law-support-review.csv`.
-

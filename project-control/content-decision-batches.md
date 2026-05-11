@@ -211,3 +211,22 @@ BLOCKED:
 
 NEXT:
 - Run SERP review and owner approval packets for criminal and traffic before execution batches.
+
+## 2026-05-11 Criminal And Traffic SERP Evidence Pass
+
+CREATED:
+- `project-control/serp-criminal-traffic-review-2026-05-11.md`
+- `project-control/serp-criminal-traffic-review-2026-05-11.csv`
+
+VERIFIED:
+- Criminal-law SERPs support `/criminal-lawyer/` as the strategic commercial pillar, but old Hebrew criminal-lawyer URLs and existing support pages must be compared before any migration or merge decision.
+- `דין פלילי` is broad enough to cannibalize the commercial pillar if it is split into a separate page without a clear informational intent.
+- `חקירה במשטרה`, `כתב אישום`, `מעצר ימים`, and `עבירות סמים` are support intents, not random article ideas; each needs old-content comparison and source/legal review.
+- Traffic-law SERPs support expanding the existing `/traffic-lawyer/` page as the pillar.
+- `נהיגה בשכרות` supports a dedicated support path, but existing `/driving-under-the-influence/` must be reviewed before any `/drunk-driving/` URL decision.
+
+BLOCKED:
+- No URL changes, redirects, noindex, canonical changes, sitemap changes, content rewrites, deletions, taxonomy/menu edits or CMS writes are approved from this SERP pass.
+
+NEXT:
+- Prepare the first owner-approval packet for either criminal pillar cleanup or traffic pillar expansion.

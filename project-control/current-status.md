@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-11 12:56 Asia/Jerusalem
+- VERIFIED / REVIEW: added a current SERP evidence pass for the criminal-law and traffic-law decision packets.
+- CREATED: `project-control/serp-criminal-traffic-review-2026-05-11.md`.
+- CREATED: `project-control/serp-criminal-traffic-review-2026-05-11.csv`.
+- UPDATED: `project-control/criminal-law-support-decision-packet.md`.
+- UPDATED: `project-control/traffic-law-support-decision-packet.md`.
+- VERIFIED: criminal-law SERPs support `/criminal-lawyer/` as a strategic commercial pillar, but old Hebrew criminal-lawyer URLs and existing support pages still require comparison before any migration.
+- VERIFIED: `דין פלילי` can cannibalize `עורך דין פלילי` if it becomes a competing pillar without a clear separate informational role.
+- VERIFIED: `חקירה במשטרה`, `כתב אישום`, `מעצר ימים`, and `עבירות סמים` are support intents, but none should be created as duplicate pages before old-content/source/legal review.
+- VERIFIED: traffic-law SERPs support expanding existing `/traffic-lawyer/` as the pillar and reviewing existing `/driving-under-the-influence/` before any `/drunk-driving/` slug decision.
+- BLOCKED: no public content body, URL slug, redirect, noindex, canonical, sitemap, taxonomy, menu, lawyer, CRM, review, plugin-state, wp-admin setting or database row was changed.
+- SAFETY: repo documentation/CSV planning only; no live public content or CMS state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 12:43 Asia/Jerusalem
 - VERIFIED / REVIEW: created criminal-law and traffic-law support decision packets from the refreshed inventory, slug-conflict map, URL migration map and targeted GSC browser passes.
 - CREATED: `project-control/criminal-law-support-decision-packet.md`.

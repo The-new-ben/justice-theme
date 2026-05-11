@@ -77,7 +77,25 @@ BLOCKED:
 3. Review `/driving-under-the-influence/` before creating any `/drunk-driving/` duplicate.
 4. Build a traffic internal-link batch only after primary/support decisions are approved.
 
+## 2026-05-11 SERP Evidence Pass
+
+VERIFIED:
+- `עורך דין תעבורה` is a commercial/service SERP with traffic-lawyer profiles, license-risk messaging, consultation CTAs, and links into drunk driving, speeding, suspension and accident topics.
+- `נהיגה בשכרות` has a clear dedicated-support pattern and should connect to `/traffic-lawyer/` plus breathalyzer content.
+- `/traffic-lawyer/` already exists and should be expanded as the pillar candidate instead of creating a competing traffic-law pillar.
+- `/driving-under-the-influence/` already exists, so `/drunk-driving/` is a migration/rename question, not a new article task.
+- `פסילה מנהלית` and `שלילת רישיון נהיגה` need more review because the intent can split between driver-license, professional-license, administrative and court-suspension meanings.
+
+DECISION IMPACT:
+- Keep `/traffic-lawyer/` as the primary candidate.
+- Review/expand `/driving-under-the-influence/` before any `/drunk-driving/` decision.
+- Keep `/license-suspension/` as a candidate only after clearer source/GSC/content evidence.
+- Do not optimize the will-revocation page for traffic-law queries; it remains a wrong-page signal to fix through controlled content and internal-link planning later.
+
+See:
+- `project-control/serp-criminal-traffic-review-2026-05-11.md`
+- `project-control/serp-criminal-traffic-review-2026-05-11.csv`
+
 ## CSV Detail
 
 See `project-control/traffic-law-support-review.csv`.
-

@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Criminal and traffic SERP evidence pass
+
+- CREATED: `project-control/serp-criminal-traffic-review-2026-05-11.md`.
+- CREATED: `project-control/serp-criminal-traffic-review-2026-05-11.csv`.
+- UPDATED: `project-control/criminal-law-support-decision-packet.md`.
+- UPDATED: `project-control/traffic-law-support-decision-packet.md`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: criminal-law SERPs support `/criminal-lawyer/` as a strategic commercial pillar, but old Hebrew URLs and existing support pages still block immediate URL/content execution.
+- VERIFIED: `דין פלילי` requires careful intent separation to avoid cannibalizing `עורך דין פלילי`.
+- VERIFIED: traffic-law SERPs support expanding `/traffic-lawyer/`, while `/driving-under-the-influence/` must be reviewed before any `/drunk-driving/` migration decision.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, document removal, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Targeted GSC browser evidence pass
 
 - CREATED: `project-control/gsc-targeted-query-pass-2026-05-11.csv`.

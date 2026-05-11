@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CRIMINAL-TRAFFIC-SERP-001: Add SERP evidence to criminal and traffic decision packets
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The criminal and traffic support packets needed current SERP evidence before owner approval and before any content, URL, redirect or internal-link execution batch.
+**Actions:**
+1. DONE: created `project-control/serp-criminal-traffic-review-2026-05-11.md`.
+2. DONE: created `project-control/serp-criminal-traffic-review-2026-05-11.csv`.
+3. VERIFIED: criminal-law SERPs support `/criminal-lawyer/` as a strategic commercial pillar, while `דין פלילי` must not cannibalize it as an uncontrolled duplicate.
+4. VERIFIED: criminal support terms (`חקירה במשטרה`, `כתב אישום`, `מעצר ימים`, `עבירות סמים`) are valid support intents but require old-content comparison and source/legal review first.
+5. VERIFIED: traffic-law SERPs support expanding existing `/traffic-lawyer/` as the pillar, with drunk-driving, breathalyzer, speeding and license-suspension as support review paths.
+6. VERIFIED: existing `/driving-under-the-influence/` must be reviewed before any `/drunk-driving/` clean-slug decision.
+7. NEXT: prepare the first owner-approval packet for either criminal pillar cleanup or traffic pillar expansion.
+8. BLOCKED: no URL changes, redirects, noindex, canonical changes, sitemap changes, public rewrites, deletions, taxonomy/menu edits or CMS writes from this SERP pass alone.
+
 ### ACTION-CRIMINAL-TRAFFIC-SUPPORT-PACKETS-001: Build review-only criminal and traffic support decision packets
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The targeted GSC passes exposed weak primary ownership, old URL risk, low-sample support terms and wrong-page traffic-law matches. These needed to become controlled decision packets before any article, URL or redirect work.
@@ -17,8 +30,9 @@
 5. VERIFIED: criminal-law support planning now compares `/criminal-lawyer/`, `/police-investigation/`, `/indictment/`, `/pretrial-detention/`, `/drug-offenses/`, old Hebrew criminal-lawyer URLs and existing criminal support articles.
 6. VERIFIED: traffic-law support planning now compares `/traffic-lawyer/`, existing `/driving-under-the-influence/`, possible `/drunk-driving/`, possible `/license-suspension/`, wrong-page will-revocation GSC matches, and car-accident boundary pages.
 7. VERIFIED: packets are review-only and explicitly block duplicate page creation, blind URL migration, redirects, noindex, canonical changes, sitemap changes, or public content replacement.
-8. NEXT: run SERP review for the criminal and traffic terms, then choose the first owner-approval packet for either criminal pillar cleanup or traffic pillar expansion.
-9. BLOCKED: no execution until owner approval, content-quality review, source/legal review, redirect map and internal-link batch are ready.
+8. DONE: SERP review for the criminal and traffic terms was documented in `project-control/serp-criminal-traffic-review-2026-05-11.md` and `.csv`.
+9. NEXT: choose the first owner-approval packet for either criminal pillar cleanup or traffic pillar expansion.
+10. BLOCKED: no execution until owner approval, content-quality review, source/legal review, redirect map and internal-link batch are ready.
 
 ### ACTION-TARGETED-GSC-QUERY-QUEUE-001: Run targeted GSC filters for unresolved decision gaps
 **Status:** IN PROGRESS / REVIEW ONLY

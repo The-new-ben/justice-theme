@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Reviews compliance alias hardening
+
+- DOCUMENTED: expanded `project-control/reviews-compliance-risk.md` into an owner-facing compliance summary for the lawyer reviews, ratings, reputation and trust module.
+- DOCUMENTED: kept `project-control/review-compliance-risk.md` as the canonical detailed compliance register while making the plural requested filename complete and readable.
+- VERIFIED: the related review/reputation research, Google review integration plan, rating-system spec, review field map, schema policy, product roadmap and Maya reputation plan are present.
+- NOT IMPLEMENTED: no public review UI, no fake ratings, no review schema, no Google review sync, no lawyer-profile change and no database/wp-admin change was made.
+- SAFETY: docs-only change; no URLs, redirects, sitemap settings, robots/htaccess rules, content, taxonomy, canonical settings, CRM, lawyer, review or database data was changed.
+
 ## 2026-05-11 - Robots sitemap directive
 
 - CODE FIXED: robots.txt now appends the verified active sitemap index `https://jus-tice.co.il/sitemap_index.xml` when absent.

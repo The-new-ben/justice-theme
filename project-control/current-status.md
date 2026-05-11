@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 06:29 Asia/Jerusalem
+- DOCUMENTED: expanded `project-control/reviews-compliance-risk.md` from a thin pointer into an owner-facing compliance summary for the lawyer reviews, ratings, reputation and trust module.
+- DOCUMENTED: the plural file now clearly aliases the canonical detailed register `project-control/review-compliance-risk.md` and lists non-negotiable rules, MVP compliance position, approval gates, launch blockers and related planning files.
+- WHY: the owner requested both `reviews-compliance-risk.md` and `review-compliance-risk.md`; the project-control package should not look incomplete or ambiguous during the review/reputation module rollout.
+- VERIFIED: documentation review confirmed the broader review/reputation package is present, including research, Google integration plan, rating spec, review fields, schema policy, product roadmap and Maya prototype plan.
+- NOT IMPLEMENTED: no public review UI, no fake ratings, no reputation score, no review schema, no Google review sync, no lawyer profile change and no database/wp-admin change were made.
+- SAFETY: docs-only change; no URL, redirect, sitemap, robots/htaccess, content body, taxonomy term, canonical setting, lawyer profile, lead/CRM record, review data, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 06:18 Asia/Jerusalem
 - CODE FIXED: added a `robots_txt` filter that appends the verified active sitemap index `https://jus-tice.co.il/sitemap_index.xml` when robots.txt does not already include it.
 - WHY: public checks verified `sitemap_index.xml` is valid XML, while default sitemap aliases redirect to the homepage. Robots should point crawlers to the known working sitemap source before any URL migration.

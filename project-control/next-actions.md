@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-REVIEWS-COMPLIANCE-DOC-001: Keep review/reputation compliance package complete
+**Status:** DOCUMENTED - implementation blocked pending legal/owner review
+**Why:** Lawyer reviews, ratings and reputation signals are a major trust and monetization layer, but they create legal, privacy, Google-policy and advertising-risk issues if launched without strict rules.
+**Actions:**
+1. DONE: expanded `project-control/reviews-compliance-risk.md` from a pointer into an owner-facing compliance summary.
+2. DONE: preserved `project-control/review-compliance-risk.md` as the canonical detailed compliance register.
+3. DONE: documented non-negotiable rules, MVP compliance position, launch blockers and related planning files.
+4. VERIFIED: the related review/reputation research, Google integration plan, rating-system spec, review-fields CSV, schema policy, roadmap and Maya prototype plan are present.
+5. NEXT: before implementation, confirm legal/owner approval for review wording, paid placement disclosure, moderation workflow, first-party review collection, Google review source display and schema policy.
+6. NOT IMPLEMENTED: no public rating/review UI, review schema, Google sync, lawyer profile edit or database/wp-admin change was made.
+
 ### ACTION-ROBOTS-SITEMAP-001: Advertise verified sitemap index in robots.txt
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** `sitemap_index.xml` is the verified active XML sitemap, while `/sitemap.xml` and `/wp-sitemap.xml` redirect to the homepage and should not be submitted.

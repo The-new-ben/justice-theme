@@ -104,6 +104,13 @@ Recommended action:
 - VERIFIED: `/buying-apartment/` and `/real-estate-purchase-agreement/` remain future support slugs only until duplicate-target and source/legal checks are complete.
 - BLOCKED: no public real-estate title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this matrix alone.
 
+2026-05-11 real-estate side-by-side review addendum:
+- VERIFIED: `project-control/real-estate-side-by-side-review-2026-05-11.md` and `.csv` compare the current commercial, cost, broad property-law, buying-apartment, registry, tax, rental, contractor/defect, urban-renewal and international-property pages.
+- VERIFIED: `/real-estate-attorney/` remains the current no-URL-change planning primary and `/real-estate-lawyer-cost-2025/` remains protected support.
+- REVIEW: `/real-estate-lawyer/` currently returns a `200 OK` route with no fetched title/H1/canonical/body marker, so it is not ready as a sitemap/internal-link/redirect target.
+- REVIEW: `/buying-apartment/` and `/real-estate-purchase-agreement/` currently resolve to homepage content/canonical, so they must remain blocked future slugs.
+- BLOCKED: no public real-estate title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this side-by-side review alone.
+
 ## Medical Malpractice
 
 Decision:

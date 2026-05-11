@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-REAL-ESTATE-SIDE-BY-SIDE-001: Compare current real-estate pages side by side
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The page matrix selected roles, but the current pages and future slugs still needed direct comparison so commercial, cost, property-law, buying-apartment, registry, tax, rental, contractor/defect and international content are not mixed.
+**Actions:**
+1. DONE: created `project-control/real-estate-side-by-side-review-2026-05-11.md`.
+2. DONE: created `project-control/real-estate-side-by-side-review-2026-05-11.csv`.
+3. VERIFIED: `/real-estate-attorney/` remains the current no-URL-change commercial candidate.
+4. VERIFIED: `/real-estate-lawyer-cost-2025/` remains protected support, not the broad pillar.
+5. REVIEW: `/real-estate-lawyer/` currently behaves like an empty/broken `200` route and needs routing/CMS audit before use.
+6. REVIEW: `/buying-apartment/` and `/real-estate-purchase-agreement/` resolve to homepage content/canonical and must not be linked, redirected or added to sitemap yet.
+7. NEXT: create a real-estate internal-link plan only after owner/legal approval confirms page roles and route fixes.
+8. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, homepage, menu, breadcrumb, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-REAL-ESTATE-PAGE-MATRIX-001: Classify real-estate pages page by page
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** After the source/legal checklist, the real-estate cluster needed concrete page-level role decisions so current commercial pages, future clean slugs, cost support, registry/tax pages, rental pages and international property content are not mixed.

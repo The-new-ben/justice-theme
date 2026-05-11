@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Real estate side-by-side review
+
+- CREATED: `project-control/real-estate-side-by-side-review-2026-05-11.md`.
+- CREATED: `project-control/real-estate-side-by-side-review-2026-05-11.csv`.
+- UPDATED: `project-control/real-estate-owner-approval-packet.md`, `project-control/content-decision-batches.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `/real-estate-attorney/` is the current no-URL-change planning primary and `/real-estate-lawyer-cost-2025/` remains protected high-impression support.
+- REVIEW: `/real-estate-lawyer/` currently returns a `200` route with no fetched title/H1/canonical/body marker.
+- REVIEW: `/buying-apartment/` and `/real-estate-purchase-agreement/` currently resolve to homepage content/canonical and must not be treated as safe support destinations.
+- BLOCKED: no public real-estate content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, internal link, related-card, menu, breadcrumb, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Real estate page decision matrix
 
 - CREATED: `project-control/real-estate-page-decision-matrix-2026-05-11.md`.

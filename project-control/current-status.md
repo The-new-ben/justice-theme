@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 20:21 Asia/Jerusalem
+- VERIFIED / REAL-ESTATE SIDE-BY-SIDE REVIEW: created the review-only comparison for current real-estate commercial, cost, property-law, buying-apartment, registry, tax, rental, contractor/defect, urban-renewal and international-property pages.
+- CREATED: `project-control/real-estate-side-by-side-review-2026-05-11.md`.
+- CREATED: `project-control/real-estate-side-by-side-review-2026-05-11.csv`.
+- VERIFIED LIVE: `/real-estate-attorney/`, `/real-estate-lawyer-cost-2025/`, `/israeli_land_and_property_laws/`, `/lawyer-for-buying-or-selling-a-house/`, registry, tax, rental and Greece/international pages return live `200` pages with expected page signals.
+- REVIEW / ROUTING RISK: `/real-estate-lawyer/` returns a `200 OK` route with no fetched title/H1/canonical/body marker; `/buying-apartment/` and `/real-estate-purchase-agreement/` resolve to homepage content/canonical and must not be used as live destinations yet.
+- VERIFIED: `/real-estate-attorney/` remains the current no-URL-change planning primary; `/real-estate-lawyer/`, `/buying-apartment/` and `/real-estate-purchase-agreement/` remain blocked future slugs.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, homepage, menu, taxonomy, internal-link, related-card, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+- NEXT: create a real-estate internal-link plan only after owner/legal approval confirms the page roles and route fixes.
+
 ## LATEST WORK STATUS - 2026-05-11 20:08 Asia/Jerusalem
 - VERIFIED / REAL-ESTATE PAGE DECISION MATRIX: created the review-only page-by-page classification layer for the real-estate cluster.
 - CREATED: `project-control/real-estate-page-decision-matrix-2026-05-11.md`.

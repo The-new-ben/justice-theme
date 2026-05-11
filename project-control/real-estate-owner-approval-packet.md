@@ -225,6 +225,28 @@ RECOMMENDED:
 BLOCKED:
 - No public title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this matrix alone.
 
+## 2026-05-11 Side-By-Side Review Addendum
+
+CREATED:
+- `project-control/real-estate-side-by-side-review-2026-05-11.md`
+- `project-control/real-estate-side-by-side-review-2026-05-11.csv`
+
+VERIFIED:
+- `/real-estate-attorney/` remains the current no-URL-change planning primary.
+- `/real-estate-lawyer-cost-2025/` remains protected high-impression support.
+- `/israeli_land_and_property_laws/`, Hebrew fee/cost page, `/lawyer-for-buying-or-selling-a-house/`, registry, registration, tax, rental, contractor/defect, urban-renewal and international-property pages are compared by role.
+
+REVIEW:
+- `/real-estate-lawyer/` currently returns `200 OK` but no fetched title/H1/canonical/body marker, so it needs routing/CMS audit before being used.
+- `/buying-apartment/` and `/real-estate-purchase-agreement/` currently resolve to homepage content/canonical and must not be used as live support destinations yet.
+
+RECOMMENDED:
+- Owner/legal review should approve whether `/real-estate-attorney/` is the current working primary before any internal-link plan.
+- Future slugs should stay blocked until routing, redirect, canonical, sitemap and internal-link maps are approved together.
+
+BLOCKED:
+- No public title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this review alone.
+
 ## Internal-Link Direction
 
 Recommended later structure, pending owner approval:

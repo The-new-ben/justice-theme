@@ -121,6 +121,29 @@ RECOMMENDED:
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, breadcrumbs, related-card edits, lawyer cards, CRM/review work or CMS writes until explicit approval.
 
+## 2026-05-11 Real Estate Side-By-Side Review
+
+CREATED:
+- `project-control/real-estate-side-by-side-review-2026-05-11.md`
+- `project-control/real-estate-side-by-side-review-2026-05-11.csv`
+
+VERIFIED:
+- `/real-estate-attorney/` is the current no-URL-change commercial candidate.
+- `/real-estate-lawyer-cost-2025/` remains protected high-impression support.
+- `/israeli_land_and_property_laws/`, fee/cost pages, buy/sell support, registry, tax, rental, contractor/defect and international pages have direct comparison rows.
+
+REVIEW:
+- `/real-estate-lawyer/` currently returns `200 OK` but no fetched title/H1/canonical/body marker.
+- `/buying-apartment/` and `/real-estate-purchase-agreement/` resolve to homepage content/canonical.
+- Future clean slugs are therefore blocked from sitemap, redirects, canonicals, internal links and related cards until routing is repaired and approved.
+
+RECOMMENDED:
+- Run owner/legal approval on the side-by-side roles.
+- Then build the real-estate internal-link plan as `PLANNED_NEEDS_OWNER_APPROVAL` only.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, breadcrumbs, related-card edits, lawyer cards, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Evidence Overlay
 
 CREATED:

@@ -15,6 +15,7 @@ VERIFIED:
 - The main duplicate divorce-lawyer group has now been checked across `6` live URLs; all returned `200` and self-canonicalized.
 - The large Hebrew duplicate `/עורך-דין-לענייני-גירושין/` is strong enough to mine before final `/divorce-lawyer/` upload.
 - The `/divorce-lawyer/` section-level merge outline now defines `20` target sections before any public copy import.
+- The `/divorce-lawyer/` owner-review draft package now defines `15` owner decision rows before final merged draft preparation.
 
 NOT VERIFIED:
 - GSC API export.
@@ -42,6 +43,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 13. Confirm no redirects or noindex actions touch protected old URLs/documents without explicit approval.
 14. Confirm broken-link and 404 checks are planned immediately after upload.
 15. Confirm GSC monitoring plan exists for affected old and new URLs.
+16. Approve `/divorce-lawyer/` owner-review draft package.
+17. Prepare final merged draft/update package after approval or GSC API export.
 
 ## Current Recommendation
 

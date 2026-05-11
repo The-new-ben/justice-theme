@@ -126,7 +126,20 @@ VERIFIED:
 - It protects support pages from accidental merge and explicitly blocks broad recommendation/trust/ranking language.
 
 NEXT:
-- Turn the outline into an owner-review draft/update package for `/divorce-lawyer/`, or run GSC API first if credentials are ready.
+- VERIFIED: `project-control/family-divorce-pillar-owner-review-draft-package-2026-05-12.md` and `.csv` now convert the outline into a `15`-row owner approval gate.
+- Next practical step is owner approval plus final merged draft preparation, or GSC API export first if credentials are ready.
+
+## Pillar Owner Review Draft Package Update
+
+VERIFIED:
+- `/divorce-lawyer/` remains the first controlled Family/Divorce upload candidate.
+- The owner-review package records the primary URL decision, duplicate merge-source decisions, support-page boundaries, legal/freshness/document gates, related-content cleanup and redirect/canonical/sitemap hold.
+- Public upload is still blocked until owner approval and final draft review.
+
+RECOMMENDED:
+- Approve planning first.
+- Prepare final merged draft/update package second.
+- Execute CMS/public upload only after final draft, no-fake-trust review, related-content boundary approval and post-upload QA plan.
 
 ## Old Pages To Keep / Protect
 

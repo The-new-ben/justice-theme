@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-PILLAR-OWNER-REVIEW-001: Package `/divorce-lawyer/` owner-review draft/update gate
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The first Family/Divorce upload candidate needs owner approval gates before final merged draft preparation or public execution.
+**Actions:**
+1. DONE: created `project-control/family-divorce-pillar-owner-review-draft-package-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-pillar-owner-review-draft-package-2026-05-12.csv`.
+3. VERIFIED: `15` owner decision rows now cover primary URL, merge sources, support boundaries, legal/freshness/document gates, related-content boundary and redirect/canonical/sitemap hold.
+4. VERIFIED: `/divorce-lawyer/` remains the first controlled upload candidate, but final Hebrew copy and CMS/public execution remain blocked.
+5. NEXT: owner approves this package, or Codex prepares the final merged draft package after GSC API export is available.
+6. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-FAMILY-DIVORCE-PILLAR-SECTION-MERGE-001: Create section-level merge outline for `/divorce-lawyer/`
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The clean divorce pillar cannot be uploaded safely until the duplicate-page material is mapped section by section.

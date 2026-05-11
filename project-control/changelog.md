@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Divorce pillar owner-review draft package
+
+- CREATED: `project-control/family-divorce-pillar-owner-review-draft-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-pillar-owner-review-draft-package-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: converted the `/divorce-lawyer/` section-level merge outline into a `15`-row owner approval package.
+- VERIFIED: the package defines the primary URL, merge sources, support-page boundaries, legal/freshness/document gates, related-content boundary and redirect/canonical/sitemap hold state.
+- RECOMMENDED: owner approves the package, then prepare a final merged draft/update package for review; otherwise run GSC API export first.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Divorce pillar section merge outline
 
 - CREATED: `project-control/family-divorce-pillar-section-merge-outline-2026-05-12.md`.

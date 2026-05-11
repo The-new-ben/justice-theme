@@ -77,6 +77,22 @@ Owner decision needed:
 - approve related-content cleanup before public upload,
 - keep redirects/canonicals blocked until GSC API and owner approval.
 
+## Pillar Owner Review Draft Package Update
+
+VERIFIED:
+- `project-control/family-divorce-pillar-owner-review-draft-package-2026-05-12.md` and `.csv` now package the `/divorce-lawyer/` pillar for owner approval.
+- `15` decision rows cover the primary URL, merge sources, support-page roles, legal/freshness/document gates, related-content boundary, CTA/profile safety and URL-control hold.
+
+Owner decision needed:
+- approve the package before preparing the final merged draft/update,
+- or run GSC API export first and update the package with query/page risk.
+
+Execution remains blocked:
+- no public upload,
+- no redirect/canonical/noindex/sitemap action,
+- no related-card execution,
+- no lawyer/profile/review/rating/schema changes.
+
 ## Proposed Upload Order After Approval
 
 1. Compare `/divorce-lawyer/` against the old Hebrew divorce URL.

@@ -14,6 +14,27 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Divorce Pillar Owner-Review Draft Package
+
+CREATED:
+- `project-control/family-divorce-pillar-owner-review-draft-package-2026-05-12.md`
+- `project-control/family-divorce-pillar-owner-review-draft-package-2026-05-12.csv`
+
+VERIFIED:
+- `15` owner decision rows now gate the first `/divorce-lawyer/` controlled upload candidate.
+- The package confirms `/divorce-lawyer/` as the current clean primary target.
+- The large Hebrew duplicate, old Hebrew GSC-visible URL, selection article and definition article are merge sources, not approved redirect targets yet.
+- Support pages remain separate and protected.
+- Related-content boundary cleanup is required before or with public upload.
+- Redirect, canonical, noindex and sitemap changes remain blocked until GSC API and owner approval.
+
+RECOMMENDED:
+- Owner approves the package, then prepare the final merged draft/update package for `/divorce-lawyer/`.
+- If owner prefers a safer route first, run GSC API export before final draft preparation.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, Maya profile edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Divorce Pillar Section Merge Outline
 
 CREATED:

@@ -1,3 +1,11 @@
+## LATEST WORK STATUS - 2026-05-12 02:45 Asia/Jerusalem
+- VERIFIED / DIVORCE PILLAR OWNER-REVIEW DRAFT PACKAGE: converted the `/divorce-lawyer/` section merge outline into an owner approval package for the first controlled Family/Divorce upload candidate.
+- CREATED: `project-control/family-divorce-pillar-owner-review-draft-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-pillar-owner-review-draft-package-2026-05-12.csv`.
+- VERIFIED: `15` owner decision rows now define the primary URL, merge sources, support-page boundaries, related-content boundary, metadata posture, review gates and redirect/canonical/sitemap hold state.
+- VERIFIED: `/divorce-lawyer/` is now close to first controlled upload readiness, but final public copy is still blocked until owner approval and final draft review.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 02:25 Asia/Jerusalem
 - VERIFIED / DIVORCE PILLAR SECTION MERGE OUTLINE: converted the duplicate-page comparison into a section-by-section merge plan for the final `/divorce-lawyer/` pillar.
 - CREATED: `project-control/family-divorce-pillar-section-merge-outline-2026-05-12.md`.

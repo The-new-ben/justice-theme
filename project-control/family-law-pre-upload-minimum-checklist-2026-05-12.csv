@@ -24,3 +24,5 @@ FAM-UPLOAD-022,Confirm no overwrite of strong existing content,YES,PARTIAL VERIF
 FAM-UPLOAD-023,Confirm owner approval checkpoint,YES,BLOCKED,Owner approves package and checklist,Wait for approval,No public execution before approval
 FAM-UPLOAD-024,Approve /divorce-lawyer/ section-level merge outline,YES,VERIFIED PLANNING,20-section merge outline created,Owner reviews before draft/update package,Defines what to keep merge exclude and link before upload
 FAM-UPLOAD-025,Confirm related-content boundaries for /divorce-lawyer/,YES,PARTIAL,Live heading/source review found broad recommendation-style related items,Prepare related-card cleanup plan before upload,Do not let ranking/trust pages appear as support signals
+FAM-UPLOAD-026,Approve /divorce-lawyer/ owner-review draft package,YES,VERIFIED PLANNING,15-row owner package,Owner approves or requests GSC API export first,No public execution approved by the package
+FAM-UPLOAD-027,Prepare final merged /divorce-lawyer/ draft update,YES,BLOCKED,Owner approval plus final draft review,Prepare reviewable merged draft only after approval or GSC export,No CMS/public upload yet

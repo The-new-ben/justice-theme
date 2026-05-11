@@ -1750,5 +1750,14 @@
 - UPDATED: deployment marker to `2026-05-11-lawyer-filter-seo-alias-v1`.
 - VERIFIED: PHP lint passed for 128 PHP files.
 - VERIFIED: `git diff --check` passed.
-- NOT LIVE VERIFIED AFTER FIX: needs push, uPress pull/cache refresh and a fresh public QA run.
+- LIVE VERIFIED AFTER FIX: see `project-control/live-public-template-qa-2026-05-11-after-pull.csv`.
 - SAFETY: no content, URLs, redirects, sitemap settings, canonical settings, taxonomy terms, lawyer records, CRM records, review data, plugin state or database rows were changed.
+
+## 2026-05-11 Lawyer Filter SEO Alias Live Verification
+- PUSHED: `3b07267` (`Fix lawyer filter SEO alias titles`) to GitHub main.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log shows `(HEAD -> main, origin/main, origin/HEAD) Fix lawyer filter SEO alias titles` at commit `3b07267`.
+- LIVE VERIFIED: public static marker returns `2026-05-11-lawyer-filter-seo-alias-v1`.
+- CREATED: `project-control/live-public-template-qa-2026-05-11-after-pull.csv`.
+- VERIFIED: full public template source QA passed with all sampled rows marked `VERIFIED`.
+- FIXED LIVE: clean lawyer-directory aliases for personal injury, medical malpractice and employment now generate specific SEO titles matching their rendered H1 topics.
+- SAFETY: no content, URL, redirect, sitemap setting, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state or database row was changed.

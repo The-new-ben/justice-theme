@@ -759,11 +759,9 @@ Next safe batch before any URL/content migration:
 
 ## 2026-05-11 LIVE PUBLIC TEMPLATE QA NEXT ACTIONS
 
-**Status:** CODE FIXED / LIVE DEPLOYMENT PENDING
+**Status:** LIVE VERIFIED / MONITOR
 
-1. Push and pull the marker `2026-05-11-lawyer-filter-seo-alias-v1` through uPress.
-2. Rerun `tools/check-live-public-template-qa.ps1`.
-3. Expected fixed state: `lawyers_filter_personal_injury`, `lawyers_filter_medical_malpractice`, and `lawyers_filter_employment` move from REVIEW to VERIFIED.
-4. Confirm their titles contain the rendered H1 area text instead of generic `עורך דין | מצאו עורך דין מתאים`.
-5. Keep the URL migration rule intact: do not redirect or rename these filter URLs during this title fix.
-6. Continue using the script after each public template pull to catch title leaks, homepage fallback regressions, related-content QA attribute regressions and filtered directory redirects.
+1. Continue using `tools/check-live-public-template-qa.ps1` after each public template pull to catch title leaks, homepage fallback regressions, related-content QA attribute regressions and filtered directory redirects.
+2. Keep the URL migration rule intact: do not redirect or rename these filter URLs during title/template fixes.
+3. Expand the script later with one family-law article, one criminal-law article and one real-estate article when selecting the next related-content QA batch.
+4. Use `project-control/live-public-template-qa-2026-05-11-after-pull.csv` as the current VERIFIED baseline.

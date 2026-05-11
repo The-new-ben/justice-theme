@@ -309,5 +309,16 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - VERIFIED: `/find-lawyer-how-to-find-good-attorney/` exposes semantic related-content QA attributes and 3 related cluster-match markers.
 - VERIFIED: filtered lawyer directory URLs for `personal-injury-law`, `medical-malpractice-law`, `employment-law`, `labor-law`, and `traffic-law` stay on `/lawyers/` and do not redirect to homepage.
 - FOUND LIVE: `personal-injury-law`, `medical-malpractice-law`, and `employment-law` filter pages have specific H1s but generic SEO titles.
-- FIXED IN CODE / NOT LIVE VERIFIED: `inc/seo.php` now normalizes lawyer-directory area aliases before title generation; rerun the source QA script after the next uPress pull.
+- FIXED LIVE: `inc/seo.php` now normalizes lawyer-directory area aliases before title generation; see the after-pull QA section below.
+- SAFETY: no public content, URLs, redirects, sitemap settings, canonical settings, taxonomy terms, lawyer records, CRM records, review data, plugin state or database rows were changed.
+
+## 2026-05-11 Live Public Template Source QA After Pull
+
+- LIVE DEPLOYMENT VERIFIED: uPress Git log shows commit `3b07267` (`Fix lawyer filter SEO alias titles`) as the live HEAD.
+- SOURCE VERIFIED: `project-control/live-public-template-qa-2026-05-11-after-pull.csv` captures the after-pull verification pass.
+- VERIFIED: all sampled rows passed as `VERIFIED`.
+- FIXED LIVE: `/lawyers/?area=personal-injury-law` now has the specific title `עורך דין נזיקין | מצאו עורך דין מתאים`.
+- FIXED LIVE: `/lawyers/?area=medical-malpractice-law` now has the specific title `עורך דין רשלנות רפואית | מצאו עורך דין מתאים`.
+- FIXED LIVE: `/lawyers/?area=employment-law` now has the specific title `עורך דין דיני עבודה | מצאו עורך דין מתאים`.
+- VERIFIED: homepage fallback links, search Hebrew labels, article related-content QA attributes and main archive title checks remained stable.
 - SAFETY: no public content, URLs, redirects, sitemap settings, canonical settings, taxonomy terms, lawyer records, CRM records, review data, plugin state or database rows were changed.

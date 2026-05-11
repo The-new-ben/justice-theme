@@ -974,7 +974,18 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - FIXED IN CODE: `inc/seo.php` now normalizes lawyer-directory area aliases for title generation, mapping clean public aliases to current taxonomy slugs without changing URLs, redirects, terms or stored content.
 - UPDATED: deployment marker is now `2026-05-11-lawyer-filter-seo-alias-v1`.
 - VERIFIED: PHP lint passed for 128 PHP files; `git diff --check` passed.
-- NOT LIVE VERIFIED AFTER FIX: requires commit, push, uPress pull/cache refresh, then rerun `tools/check-live-public-template-qa.ps1`.
+- LIVE VERIFIED AFTER FIX: see the following verification section and `project-control/live-public-template-qa-2026-05-11-after-pull.csv`.
+- SAFETY: no public content body, URL, redirect, sitemap, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state or database row was changed.
+
+## 2026-05-11 LAWYER FILTER TITLE LIVE VERIFICATION
+- PUSHED: commit `3b07267` (`Fix lawyer filter SEO alias titles`) to GitHub main.
+- LIVE DEPLOYMENT VERIFIED: Codex operated the uPress Git panel directly; the uPress Git log shows `(HEAD -> main, origin/main, origin/HEAD) Fix lawyer filter SEO alias titles` at commit `3b07267`.
+- LIVE VERIFIED: static marker now returns `2026-05-11-lawyer-filter-seo-alias-v1`.
+- CREATED: `project-control/live-public-template-qa-2026-05-11-after-pull.csv`.
+- VERIFIED: full public source QA passed with all sampled rows `VERIFIED`.
+- FIXED LIVE: `/lawyers/?area=personal-injury-law` title is now `עורך דין נזיקין | מצאו עורך דין מתאים`.
+- FIXED LIVE: `/lawyers/?area=medical-malpractice-law` title is now `עורך דין רשלנות רפואית | מצאו עורך דין מתאים`.
+- FIXED LIVE: `/lawyers/?area=employment-law` title is now `עורך דין דיני עבודה | מצאו עורך דין מתאים`.
 - SAFETY: no public content body, URL, redirect, sitemap, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state or database row was changed.
 
 ## NEXT BEST ACTION

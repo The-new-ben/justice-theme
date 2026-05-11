@@ -1681,4 +1681,5 @@
 - NOT VERIFIED LIVE: `justice_legal_tool` and `justice_legal_request` are not exposed in the public type check.
 - VERIFIED RISK: legacy CPTs remain exposed in `wp/v2/types`.
 - DECISION: do not activate `justice-core/` beside `ultra-justice-engine/`; they share `UJE_*` constants and `uje_*` functions.
+- LIVE DEPLOYMENT VERIFIED: Codex used the uPress Git panel directly and verified the uPress Git log at commit `c58cd7e` for `Verify live plugin architecture surface`.
 - SAFETY: no plugin activation, deactivation, deletion, file-manager edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.

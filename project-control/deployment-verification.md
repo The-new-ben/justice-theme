@@ -171,4 +171,5 @@ BLOCKED: waiting for uPress pull / live file sync / cache refresh.
 - NOT VERIFIED LIVE: `justice_legal_tool` and `justice_legal_request` are not exposed in the current public type check.
 - VERIFIED RISK: legacy CPTs remain exposed in `wp/v2/types`.
 - DEPLOYMENT INTERPRETATION: theme Git pulls are verified, but plugin deployment remains a separate control surface until wp-admin/uPress plugin-path inspection confirms the active plugin filesystem path and version.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log shows commit `c58cd7e` as `Verify live plugin architecture surface`.
 - SAFETY: no plugin activation, deactivation, deletion, file-manager edit, wp-admin setting or database change was made.

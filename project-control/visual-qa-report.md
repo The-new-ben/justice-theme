@@ -403,3 +403,14 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - VERIFIED: `/mutual-divorce-agreement-2025/` returned `family_divorce` source/card cluster matches.
 - FIXED IN CODE / NOT LIVE VERIFIED: cluster inference now includes public permalink and request URI signals so clean public slugs can drive related-card filtering.
 - SAFETY: no public content, URLs, redirects, sitemap settings, canonical settings, taxonomy terms, lawyer records, CRM records, review data, plugin state or database rows were changed.
+
+## 2026-05-11 GSC Targeted Evidence Screenshot - Pass 2
+
+- VERIFIED: browser GSC access still works for the URL-prefix property `https://jus-tice.co.il/`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass2-custody-sole-mother-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass2-custody-sole-mother-table-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass2-drunk-driving-wrong-page-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass2-drunk-driving-wrong-page-table-2026-05-11.png`.
+- VERIFIED: `משמורת בלעדית לאם` screenshot captures the old Hebrew case-law URL as the visible Pages-tab result with `107` impressions and average position `9.6`.
+- VERIFIED: `נהיגה בשכרות` screenshot captures the wrong-page match to the will-revocation URL.
+- SAFETY: this is evidence capture only; no public content, URL, redirect, sitemap, canonical, document, taxonomy, menu, lawyer, CRM, review or plugin state was changed.

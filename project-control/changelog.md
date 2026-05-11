@@ -1920,3 +1920,18 @@
 - VERIFIED: cluster review separates strategic target candidates from heuristic long-article picks, so long legacy posts are not mistaken for pillars.
 - BLOCKED: GSC/SERP evidence and owner approval are still required before any redirect, URL, noindex, canonical, sitemap or content-body change.
 - SAFETY: no public content body, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
+## 2026-05-11 - Targeted GSC browser evidence pass 2
+
+- CREATED: `project-control/gsc-targeted-query-pass-2-2026-05-11.csv`.
+- CREATED: `project-control/gsc-targeted-query-pass-2-2026-05-11.md`.
+- SAVED EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass2-custody-sole-mother-2026-05-11.png`.
+- SAVED EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass2-custody-sole-mother-table-2026-05-11.png`.
+- SAVED EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass2-drunk-driving-wrong-page-2026-05-11.png`.
+- SAVED EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass2-drunk-driving-wrong-page-table-2026-05-11.png`.
+- UPDATED: `project-control/gsc-keyword-page-map.csv`, `project-control/gsc-cannibalization-review.csv`, `project-control/gsc-content-priorities.csv`, `project-control/content-decision-evidence-overlay.csv`, `project-control/child-support-content-decision-packet.md`, and project-control status files.
+- VERIFIED: child-support sub-variants `מזונות משותפת`, `הפחתת מזונות`, `שינוי מזונות`, `הלכת המזונות החדשה`, and `בע"מ 919/15` returned no visible rows in the checked filters.
+- VERIFIED: `משמורת בלעדית לאם` maps to an old Hebrew case-law URL with `107` impressions and average position `9.6`, so it is a protected support/merge-review URL.
+- VERIFIED: `חקירה במשטרה` returned no visible rows; `עבירות סמים` is very low sample and split across old/case-law URLs.
+- VERIFIED: `נהיגה בשכרות` maps to a will-revocation article, a wrong-page traffic-law match.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, document removal, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.

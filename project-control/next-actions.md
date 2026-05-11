@@ -935,3 +935,15 @@ Next safe batch before any URL/content migration:
 5. CONFIRM: whether `/criminal-lawyer/`, `/real-estate-lawyer/`, `/personal-injury-lawyer/`, `/employment-lawyer/`, `/inheritance-lawyer/`, and `/cyber-privacy-lawyer/` should be created, updated, merged into, or mapped to an existing old URL.
 6. CONFIRM: whether exact clean URLs like `/child-support/`, `/child-custody/`, `/divorce-lawyer/`, `/divorce-mediation/`, `/divorce-property-division/`, `/medical-malpractice-lawyer/`, and `/traffic-lawyer/` should become primary URLs after GSC review.
 7. BLOCKED: no redirects, no URL changes, no noindex, no deletion, no canonical/sitemap changes until owner approval.
+
+## 2026-05-11 TARGETED GSC PASS 2 NEXT ACTIONS
+
+**Status:** VERIFIED / REVIEW ONLY
+
+1. DONE: second targeted browser pass checked `מזונות משותפת`, `הפחתת מזונות`, `שינוי מזונות`, `הלכת המזונות החדשה`, `בע"מ 919/15`, `משמורת בלעדית לאם`, `חקירה במשטרה`, `עבירות סמים`, and `נהיגה בשכרות`.
+2. VERIFIED: pass 2 is documented in `project-control/gsc-targeted-query-pass-2-2026-05-11.csv` and `project-control/gsc-targeted-query-pass-2-2026-05-11.md`.
+3. VERIFIED: the child-support long-tail variants checked in pass 2 showed zero visible rows; do not create thin standalone pages from those filters.
+4. VERIFIED: `משמורת בלעדית לאם` is a protected old Hebrew case-law URL with `107` impressions and average position `9.6`.
+5. VERIFIED: `נהיגה בשכרות` is a wrong-page match to a will-revocation URL and should become a traffic-law support planning item later.
+6. NEXT: run pass 3 for criminal/traffic variants: `זכויות חשוד`, `כתב אישום`, `מעצר ימים`, `סגירת תיק פלילי`, `עורך דין עבירות סמים`, `עורך דין נהיגה בשכרות`, `פסילה מנהלית`, and `שלילת רישיון נהיגה`.
+7. BLOCKED: no URL changes, redirects, noindex, canonical changes, sitemap changes, content rewrites, content deletion, menu changes or CMS writes from this evidence alone.

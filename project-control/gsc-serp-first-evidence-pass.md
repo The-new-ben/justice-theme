@@ -125,3 +125,15 @@ REVIEW:
 Map first. Decide second. Execute later in controlled batches.
 
 No URL, redirect, canonical, sitemap, content-body, taxonomy, menu, lawyer, CRM, review, plugin-state, wp-admin setting, or database change was made in this pass.
+
+## 2026-05-11 Targeted GSC Pass 2 Overlay
+
+VERIFIED:
+- Child-support sub-variants `מזונות משותפת`, `הפחתת מזונות`, `שינוי מזונות`, `הלכת המזונות החדשה`, and `בע"מ 919/15` returned no visible rows in the checked browser filters.
+- `משמורת בלעדית לאם` maps to an old Hebrew case-law URL with `107` impressions and average position `9.6`; protect it as support/merge-review material under the child-custody cluster.
+- `חקירה במשטרה` returned no visible rows.
+- `עבירות סמים` is a very low-sample criminal support gap: 2 impressions split between a case-law page and an old criminal-lawyer page.
+- `נהיגה בשכרות` maps to a will-revocation URL, confirming a wrong-page match and a traffic-law support gap.
+
+BLOCKED:
+- This overlay is evidence only. Do not redirect, noindex, canonicalize, rewrite, delete or migrate URLs from it without approved maps.

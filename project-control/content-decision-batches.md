@@ -168,3 +168,13 @@ REVIEW:
 
 BLOCKED:
 - No URL migration, redirect, noindex, canonical, sitemap, content rewrite, document removal, taxonomy/menu change or CMS write is approved from this pass.
+
+## 2026-05-11 Targeted GSC Pass 2 Decision Notes
+
+VERIFIED:
+- The child-support long-tail variants checked in pass 2 showed zero visible rows; do not create thin articles for them yet.
+- `משמורת בלעדית לאם` is a high-position old case-law support URL and should be protected during the child-custody merge/redirect review.
+- `עבירות סמים` and `נהיגה בשכרות` remain support gaps for the criminal/traffic clusters, but current samples are too small for immediate migration decisions.
+
+NEXT:
+- Run a third targeted GSC pass for criminal/traffic variants: `זכויות חשוד`, `כתב אישום`, `מעצר ימים`, `סגירת תיק פלילי`, `עורך דין עבירות סמים`, `עורך דין נהיגה בשכרות`, `פסילה מנהלית`, and `שלילת רישיון נהיגה`.

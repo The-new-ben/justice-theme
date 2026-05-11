@@ -1,4 +1,18 @@
-﻿# Current Status - Jus-Tice.co.il
+## LATEST WORK STATUS - 2026-05-11 12:31 Asia/Jerusalem
+- VERIFIED / REVIEW: ran the second targeted GSC browser pass from the query queue against the accessible URL-prefix property `https://jus-tice.co.il/`.
+- CREATED: `project-control/gsc-targeted-query-pass-2-2026-05-11.csv`.
+- CREATED: `project-control/gsc-targeted-query-pass-2-2026-05-11.md`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass2-custody-sole-mother-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass2-custody-sole-mother-table-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass2-drunk-driving-wrong-page-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/gsc-targeted-pass2-drunk-driving-wrong-page-table-2026-05-11.png`.
+- VERIFIED: `מזונות משותפת`, `הפחתת מזונות`, `שינוי מזונות`, `הלכת המזונות החדשה`, `בע"מ 919/15`, and `חקירה במשטרה` returned no visible rows in the checked GSC filters.
+- VERIFIED: `משמורת בלעדית לאם` has `107` impressions, `0` clicks, `0%` CTR and average position `9.6`, all on an old Hebrew case-law URL.
+- VERIFIED: `עבירות סמים` has only `2` impressions split between a case-law page and an old criminal-lawyer URL; no clean `/drug-offenses/` support page owns the query.
+- VERIFIED: `נהיגה בשכרות` has `7` impressions on `https://jus-tice.co.il/revocation-of-a-will-and-reviving-previous-will/`, a wrong-page match for traffic-law intent.
+- BLOCKED: this evidence does not approve any URL, redirect, noindex, canonical, sitemap, content rewrite, document removal, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change.
+- SAFETY: browser GSC was read-only; repo changes are documentation/CSV evidence only.
+# Current Status - Jus-Tice.co.il
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 

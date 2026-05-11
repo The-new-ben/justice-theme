@@ -146,3 +146,17 @@ BLOCKED until approval:
 ## Safety
 
 No public content body, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, menu, lawyer record, CRM record, review data, plugin state, wp-admin setting, or database row was changed.
+
+## 2026-05-11 Targeted GSC Browser Evidence Pass 2
+
+VERIFIED:
+- `מזונות משותפת`: no visible rows.
+- `הפחתת מזונות`: no visible rows.
+- `שינוי מזונות`: no visible rows.
+- `הלכת המזונות החדשה`: no visible rows.
+- `בע"מ 919/15`: no visible rows.
+
+REVIEW:
+- These zero-row variants should not trigger thin standalone articles.
+- They can become sections or support topics after the primary child-support guide, calculator/tool strategy and legal-source review are decided.
+- The broader child-support risk remains driven by `מזונות ילדים`, `חישוב מזונות`, and `מחשבון מזונות`, which map to the old calculator URL.

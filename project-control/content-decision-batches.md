@@ -14,6 +14,24 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Divorce Lawyer Final Draft Package
+
+CREATED:
+- `project-control/family-divorce-divorce-lawyer-final-draft-package-2026-05-12.md`
+- `project-control/family-divorce-divorce-lawyer-final-draft-package-2026-05-12.csv`
+
+VERIFIED:
+- `36` package rows now translate the existing `5,691`-word `/divorce-lawyer/` draft into a CMS update plan.
+- The package identifies public CMS fields, final section order, internal sections to remove, FAQ merge, related-card boundaries and URL hold state.
+- `FAM-UPLOAD-027` is now partially verified because the draft package exists but the clean public body file is still missing.
+
+RECOMMENDED:
+- Create the CMS-clean public body file next.
+- Do not upload the current draft as-is because it includes internal editorial and planning sections.
+
+BLOCKED:
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Family / Divorce First Upload Package
 
 CREATED:

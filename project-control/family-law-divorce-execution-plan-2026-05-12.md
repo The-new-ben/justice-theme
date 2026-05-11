@@ -102,7 +102,7 @@ Current review queue:
 - `58` Family/Divorce URL or URL-reference items.
 - `82` planned internal-link/control rows.
 - `13` owner-review decisions.
-- `34` minimum pre-upload checklist rows.
+- `35` minimum pre-upload checklist rows.
 
 ## Duplicate Page Comparison Update
 
@@ -210,6 +210,22 @@ Decision:
 NEXT:
 - Owner chooses Wave 1A only or Wave 1A plus Wave 1B.
 - Codex prepares final merged `/divorce-lawyer/` draft/update package as the next unblocked content task.
+
+## Divorce Lawyer Final Draft Package Update
+
+VERIFIED:
+- `project-control/family-divorce-divorce-lawyer-final-draft-package-2026-05-12.md` and `.csv` now translate the current `5,691`-word Hebrew draft into a CMS update plan.
+- `36` package rows cover CMS fields, internal-note removals, section actions, related-content controls, schema block and URL hold state.
+- `FAM-UPLOAD-027` is now `PARTIAL VERIFIED`: the draft package exists, but the clean public body file is not created yet.
+
+Decision:
+- The current draft is deep enough for a final copy pass, but not safe to upload as-is.
+- Internal production notes, duplicate FAQ blocks, competitor/source notes and CMS planning sections must be removed before upload.
+- The next unblocked content task is a CMS-clean `/divorce-lawyer/` public body file with no live changes.
+
+NEXT:
+- Create the CMS-clean public body from `content-drafts/divorce-lawyer-pillar-he.md`.
+- Keep all public upload actions blocked until owner approval and final QA.
 
 ## Old Pages To Keep / Protect
 

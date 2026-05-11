@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-DIVORCE-LAWYER-FINAL-DRAFT-PACKAGE-001: Package final `/divorce-lawyer/` draft update
+**Status:** COMPLETED / REVIEW ONLY / PARTIAL VERIFIED
+**Why:** The current Hebrew draft is deep enough for a final copy pass, but it still includes internal notes and duplicate sections that must not be uploaded.
+**Actions:**
+1. DONE: created `project-control/family-divorce-divorce-lawyer-final-draft-package-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-divorce-lawyer-final-draft-package-2026-05-12.csv`.
+3. VERIFIED: `36` package rows cover CMS fields, internal-note removals, section actions, related-content controls, schema block and URL hold state.
+4. PARTIAL VERIFIED: `FAM-UPLOAD-027` is now partially verified; final package exists, but clean public body file is not created yet.
+5. NEXT: create the CMS-clean `/divorce-lawyer/` public body file from the existing draft, with no internal notes and no upload.
+6. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-FAMILY-DIVORCE-FIRST-UPLOAD-PACKAGE-001: Package first upload scope for owner review
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Family/Divorce now has pillar, support, taxonomy, related-content, disclaimer and protected-asset planning. The next useful step is one practical upload sequence so the owner can choose Wave 1A only or Wave 1A plus support pages.

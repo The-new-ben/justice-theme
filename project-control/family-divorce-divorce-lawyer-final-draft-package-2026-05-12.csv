@@ -1,0 +1,37 @@
+row_id,type,target,current_state,action,approval_gate,upload_status,notes
+FD-FINAL-001,cms_field,slug,/divorce-lawyer/,KEEP_CURRENT_URL,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,No URL migration in first wave
+FD-FINAL-002,cms_field,h1,עורך דין גירושין,USE_AS_H1,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Shorter than draft title and clearer for user intent
+FD-FINAL-003,cms_field,seo_title,עורך דין גירושין | מדריך לבחירה תהליך עלויות וזכויות,REVIEW_AND_USE,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,No best top recommended or trust claim
+FD-FINAL-004,cms_field,meta_description,מדריך מעשי לבחירת עורך דין גירושין: מתי לפנות מה להכין איך להבין עלויות גישור מזונות משמורת וחלוקת רכוש. מידע כללי בלבד.,REVIEW_AND_USE,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Includes disclaimer signal and core terms
+FD-FINAL-005,taxonomy,practice_areas,family-law plus divorce,USE_APPROVED_TERMS,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Matches taxonomy plan first wave
+FD-FINAL-006,content_cleanup,editorial_note,הערת מערכת לפני פרסום,REMOVE_FROM_PUBLIC_BODY,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Internal note must not be uploaded
+FD-FINAL-007,content_cleanup,cms_structure_notes,מבנה מומלץ לעמוד חי ב-CMS,REMOVE_FROM_PUBLIC_BODY,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Planning section not public copy
+FD-FINAL-008,content_cleanup,missing_extensions_notes,הרחבות תוכן שעדיין חסרות לגרסת 5000+ מילים,REMOVE_FROM_PUBLIC_BODY,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Internal production note
+FD-FINAL-009,content_cleanup,author_model_notes,מודל תוכן חתום על שם עורך הדין,REMOVE_FROM_PUBLIC_BODY,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Needs separate author/reviewer policy
+FD-FINAL-010,content_cleanup,source_competitor_notes,מקורות ותחרות שנבדקו ראשונית,REMOVE_OR_CONVERT_TO_SOURCE_NOTES,OWNER_AND_SOURCE_REVIEW_REQUIRED,NOT_EXECUTED,Do not show competitor notes in public body
+FD-FINAL-011,content_cleanup,internal_link_notes,קישורים פנימיים נדרשים,REMOVE_AND_EXECUTE_AS_LINK_PLAN,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Public copy should contain actual links not planning notes
+FD-FINAL-012,content_cleanup,status_notes,סטטוס לפני פרסום,REMOVE_FROM_PUBLIC_BODY,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Internal status not public copy
+FD-FINAL-013,section,opening_who_page_helps,current draft has user intro plus audience section,KEEP_AND_SHARPEN,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Avoid broad family-law and wills in opening
+FD-FINAL-014,section,fast_decision_block,missing or scattered,BUILD_FROM_MERGE_OUTLINE,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Help user choose lawyer mediation agreement or urgent path
+FD-FINAL-015,section,when_to_contact_lawyer,current section exists,KEEP_AND_MERGE,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Do not imply every divorce requires litigation
+FD-FINAL-016,section,what_lawyer_does,partly covered by existing sections,BUILD_OR_MERGE,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Use definition duplicate as source later if approved
+FD-FINAL-017,section,process_overview,timeline section exists,KEEP_AND_MOVE_UP,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Connect to dispute resolution agreement mediation and court path
+FD-FINAL-018,section,court_vs_rabbinical,covered partly in ketubah/rabbinical section,KEEP_WITH_LEGAL_REVIEW,LEGAL_REVIEW_REQUIRED,NOT_EXECUTED,Jurisdiction language needs care
+FD-FINAL-019,section,agreement_vs_dispute,current section exists,KEEP_SUMMARY_LINK_SUPPORT,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Link to consensual divorce and mediation support
+FD-FINAL-020,section,mediation,current section exists,KEEP_SUMMARY_LINK_SUPPORT,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Do not overpromise mediation
+FD-FINAL-021,section,children_custody,current section exists,KEEP_SUMMARY_LINK_SUPPORT,LEGAL_REVIEW_REQUIRED,NOT_EXECUTED,Use cautious parenting-time language
+FD-FINAL-022,section,child_support,current section exists,KEEP_SUMMARY_LINK_SUPPORT,LEGAL_REVIEW_REQUIRED,NOT_EXECUTED,No calculator or fixed-number promise
+FD-FINAL-023,section,property_division,current section exists,KEEP_SUMMARY_LINK_SUPPORT,LEGAL_REVIEW_REQUIRED,NOT_EXECUTED,Include apartment pension business debt evidence as general topics
+FD-FINAL-024,section,costs,current section exists,FRESHNESS_REVIEW_THEN_KEEP,FRESHNESS_REVIEW_REQUIRED,NOT_EXECUTED,No unsupported price ranges
+FD-FINAL-025,section,documents_checklist,current section exists,KEEP_AND_WARN,DOCUMENT_STRATEGY_REQUIRED,NOT_EXECUTED,No unsafe DOCX/template promotion
+FD-FINAL-026,section,first_consultation,current section exists,KEEP_SUPPORT_LINK,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Can link to consultation guide after approval
+FD-FINAL-027,section,choose_lawyer,current section exists,MERGE_AND_PRUNE,COMPLIANCE_REVIEW_REQUIRED,NOT_EXECUTED,Remove top/best/trusted/recommended language
+FD-FINAL-028,section,common_mistakes,current section exists,KEEP_AND_REWRITE,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Keep practical not promise-based
+FD-FINAL-029,section,urgent_risk,current section exists,KEEP_WITH_CAUTION,LEGAL_REVIEW_REQUIRED,NOT_EXECUTED,Include emergency caution not just website reading
+FD-FINAL-030,section,faq,two FAQ blocks exist,MERGE_AND_PRUNE,OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,One final FAQ block only
+FD-FINAL-031,section,cta,current Jus-Tice role section exists,KEEP_NEUTRAL_ONLY,PROFILE_SAFETY_REQUIRED,NOT_EXECUTED,No fake lawyer cards ratings reviews badges
+FD-FINAL-032,related_content,primary_related,consensual divorce mediation child support child custody,ALLOW_PRIMARY_AFTER_APPROVAL,OWNER_CONTENT_LEGAL_APPROVAL_REQUIRED,NOT_EXECUTED,Matches related-content boundary plan
+FD-FINAL-033,related_content,blocked_related,ranking city LegalTech Maya old assets,BLOCK_FROM_FIRST_UPLOAD,OWNER_COMPLIANCE_APPROVAL_REQUIRED,NOT_EXECUTED,Protect trust and funnel clarity
+FD-FINAL-034,schema,review_rating_schema,not approved,BLOCK,LEGAL_AND_OWNER_REVIEW_REQUIRED,NOT_EXECUTED,No review or aggregate rating schema
+FD-FINAL-035,url_controls,redirect_canonical_sitemap,hold state,NO_ACTION,GSC_API_AND_OWNER_APPROVAL_REQUIRED,NOT_EXECUTED,Keep old URLs and protected assets live
+FD-FINAL-036,next_artifact,cms_clean_body,not created yet,CREATE_NEXT,OWNER_SCOPE_DECISION_OR_CONTINUE_REPO_DRAFT,NOT_EXECUTED,Next step is clean public body file with no internal notes

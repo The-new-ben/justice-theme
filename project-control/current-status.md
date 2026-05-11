@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-12 04:45 Asia/Jerusalem
+- PARTIAL VERIFIED / DIVORCE LAWYER FINAL DRAFT PACKAGE: translated the existing `5,691`-word `/divorce-lawyer/` Hebrew draft and 20-section merge outline into a CMS update plan.
+- CREATED: `project-control/family-divorce-divorce-lawyer-final-draft-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-divorce-lawyer-final-draft-package-2026-05-12.csv`.
+- VERIFIED: `36` package rows now cover CMS fields, internal-note removals, section actions, related-content controls, schema block and URL hold state.
+- PARTIAL VERIFIED: `FAM-UPLOAD-027` is now partially verified; the final draft package exists, but a CMS-clean public body file has not been created yet.
+- RECOMMENDED: create the clean `/divorce-lawyer/` public body file next, removing internal notes, duplicate FAQ and planning sections.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 04:25 Asia/Jerusalem
 - VERIFIED / FAMILY-DIVORCE FIRST UPLOAD PACKAGE: converted the Family/Divorce planning work into a practical owner-review upload sequence.
 - CREATED: `project-control/family-divorce-first-upload-package-2026-05-12.md`.

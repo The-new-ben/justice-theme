@@ -15,8 +15,10 @@
 - DEPLOYED LIVE: uPress Git log shows commit `cbbba45` and the public static marker returns `2026-05-11-native-404-before-redirect-v1`.
 - VERIFIED LIVE BLOCKED: fake public URLs still return `301 Location: https://jus-tice.co.il`; invalid `?p=99999999` and `/index.php/not-a-real-index-path-.../` also redirect to homepage.
 - VERIFIED CLUE: the 301 response has no `X-Redirect-By` header and no theme route-guard header, so the redirect source is likely before theme template routing or bypasses standard WordPress redirect filters.
-- NEXT: inspect wp-admin/uPress redirect, permalink, SEO and server settings for an uncontrolled "404 to homepage" rule before any URL migration or redirect work.
-- SAFETY: no live URL, redirect, `.htaccess`, content, taxonomy, canonical, sitemap, lawyer, CRM, review, wp-admin option or database data was changed by this repo patch.
+- VERIFIED SOURCE: uPress plugin manager shows `All 404 Redirect to Homepage` active (`פעיל`), and its description says it redirects 404 links using 301 redirects.
+- DOCUMENTED: added `project-control/redirect-404-source-review.md` and screenshot evidence under `project-control/visual-evidence/`.
+- NEXT: deactivate the plugin only after owner approval, then clear cache and verify real 404 behavior.
+- SAFETY: no live URL, redirect, `.htaccess`, content, taxonomy, canonical, sitemap, lawyer, CRM, review, wp-admin option or database data was changed; plugin status was inspected read-only.
 
 ## 2026-05-11 - Rank Math sitemap cache bypass
 

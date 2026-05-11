@@ -13,8 +13,10 @@ Latest recheck after uPress pull to commit `cbbba45`:
 - Fake public URL: STILL BLOCKED; returns `301 Location: https://jus-tice.co.il`.
 - Invalid post query `/?p=99999999`: STILL BLOCKED; returns `301 Location: https://jus-tice.co.il`.
 - Diagnostic clue: no `X-Redirect-By` header and no theme `X-Justice-Route-Guard` header on the 301 response.
-- Interpretation: the uncontrolled homepage redirect is likely coming from a server/plugin/SEO/permalink layer before theme template routing or via direct headers that bypass normal WordPress redirect filters. Exact source NOT VERIFIED.
-- Safety: no `.htaccess`, redirect, permalink, URL migration, content, taxonomy, canonical, sitemap, lawyer, CRM, review, wp-admin setting or database data was changed.
+- Source: VERIFIED in uPress plugin manager. `All 404 Redirect to Homepage` is active (`פעיל`) and describes 301 redirects for 404 links.
+- Evidence: `project-control/visual-evidence/all-404-redirect-plugin-active-upress-2026-05-11.png`.
+- Interpretation: the uncontrolled homepage redirect is coming from the active 404 redirect plugin unless later testing disproves it.
+- Safety: no `.htaccess`, redirect, permalink, URL migration, content, taxonomy, canonical, sitemap, lawyer, CRM, review, wp-admin setting or database data was changed. Plugin status was inspected only.
 
 Latest recheck after live root robots.txt repair:
 

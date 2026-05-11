@@ -7,7 +7,7 @@
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
 ### ACTION-ROUTING-404-HOMEPAGE-001: Identify and disable uncontrolled 404-to-homepage redirects
-**Status:** BLOCKED LIVE - repo guard deployed but redirect source is earlier/outside normal theme hooks
+**Status:** VERIFIED SOURCE - owner approval needed before deactivation
 **Why:** Arbitrary missing URLs and invalid query routes should return a real Hebrew 404. Redirecting every miss to the homepage hides broken URLs, confuses users, and creates crawl/SEO noise before controlled URL migration.
 **Actions:**
 1. DONE: confirmed fake paths were returning `301 Location: https://jus-tice.co.il` and then homepage 200.
@@ -16,8 +16,10 @@
 4. VERIFIED LIVE: marker is deployed and uPress Git log shows `cbbba45`.
 5. VERIFIED LIVE BLOCKED: fake paths still return homepage 301 and do not expose `X-Justice-Route-Guard`.
 6. VERIFIED LIVE CLUE: the 301 response has no `X-Redirect-By`, suggesting a direct header/server/plugin redirect source. Exact source NOT VERIFIED.
-7. NEXT: inspect wp-admin redirect/permalink/SEO plugins and uPress server redirect settings for any "404 redirect to homepage" behavior; do not edit `.htaccess`, plugin settings, or redirects without approval and rollback notes.
-8. SAFETY: no URL migration, redirect rule, `.htaccess`, content, taxonomy, canonical, sitemap, lawyer, CRM, review, wp-admin option or database row was changed.
+7. VERIFIED SOURCE: uPress plugin manager shows `All 404 Redirect to Homepage` active (`פעיל`); its own description says it redirects 404 links to the homepage or another page using 301 redirects.
+8. DOCUMENTED: `project-control/redirect-404-source-review.md` and evidence screenshot `project-control/visual-evidence/all-404-redirect-plugin-active-upress-2026-05-11.png`.
+9. NEXT: with owner approval, deactivate `All 404 Redirect to Homepage`, clear cache if needed, then verify fake URLs return HTTP 404, homepage returns 200, and key valid pages remain 200.
+10. SAFETY: no URL migration, redirect rule, `.htaccess`, content, taxonomy, canonical, sitemap, lawyer, CRM, review, wp-admin option or database row was changed.
 
 ### ACTION-ROBOTS-STATIC-FILE-001: Replace empty static root robots.txt with verified sitemap-safe directives
 **Status:** FIXED LIVE - monitor after cache/server changes

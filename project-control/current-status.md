@@ -8,8 +8,10 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - VERIFIED LIVE BLOCKER: fake public URLs still return `301 Location: https://jus-tice.co.il` instead of a 404, even after the native-404 guard deployed.
 - VERIFIED LIVE BLOCKER: `/?p=99999999`, `/wp-admin/not-a-real-admin-.../`, `/index.php/not-a-real-index-path-.../`, and arbitrary fake paths all redirect to the homepage.
 - VERIFIED LIVE CLUE: the 301 response has no `X-Redirect-By` header and does not include the theme `X-Justice-Route-Guard` header, so the redirect source is likely earlier than theme template routing or bypasses normal WordPress redirect filters. Exact source NOT VERIFIED.
-- BLOCKED: further safe progress needs wp-admin/uPress server/plugin investigation for 404-to-homepage behavior. Do not change `.htaccess`, permalink settings, redirect rules, URL migrations, or plugin settings without a rollback plan and owner approval.
-- SAFETY: no public content, URL, redirect rule, `.htaccess`, taxonomy, canonical, sitemap, lawyer, lead/CRM, review, wp-admin option or database row was changed. The repo patch is a guard only and the live blocker remains open.
+- VERIFIED SOURCE: uPress plugin manager shows `All 404 Redirect to Homepage` active (`פעיל`), and its description says it redirects random 404 links to the homepage or another page using 301 redirects.
+- DOCUMENTED: created `project-control/redirect-404-source-review.md` and screenshot evidence `project-control/visual-evidence/all-404-redirect-plugin-active-upress-2026-05-11.png`.
+- NEXT: with owner approval, deactivate `All 404 Redirect to Homepage`, clear cache if needed, and verify fake URLs return HTTP 404 while valid URLs remain 200. Do not change `.htaccess`, permalink settings, URL migrations, or redirect maps.
+- SAFETY: no public content, URL, redirect rule, `.htaccess`, taxonomy, canonical, sitemap, lawyer, lead/CRM, review, wp-admin option or database row was changed. Plugin source was identified read-only; deactivation still requires approval.
 
 ## LATEST WORK STATUS - 2026-05-11 07:00 Asia/Jerusalem
 - FIXED LIVE: replaced the zero-byte static root `robots.txt` in uPress File Manager with a conservative crawl file that includes the verified sitemap directive `Sitemap: https://jus-tice.co.il/sitemap_index.xml`.

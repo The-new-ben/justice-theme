@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-11-maya-public-approval-hardening-v1
-expected-github-main-commit=after-maya-public-approval-hardening
+justice-theme-deployment-marker=2026-05-11-lawyer-directory-approved-query-v1
+expected-github-main-commit=after-lawyer-directory-approved-query
 purpose=public-static-file-check-for-upress-theme-sync

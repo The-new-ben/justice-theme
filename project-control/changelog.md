@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Lawyer directory approved query
+
+- CODE FIXED: `/lawyers/` now builds the visible archive query from profiles that pass the public lawyer approval gate.
+- CODE FIXED: public result counts and pagination now reflect approved matching profiles instead of unapproved records filtered after the query.
+- EXPECTED IMPACT: seed/demo/unapproved lawyer records should no longer create misleading directory counts or empty later pages.
+- VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-lawyer-directory-approved-query-v1`.
+- SAFETY: no lawyer record, content, URL, redirect, sitemap, canonical, taxonomy, CRM, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - Maya public approval hardening
 
 - CODE FIXED: Maya Rotenberg no longer bypasses lawyer public-approval safety solely by name/slug before seed/demo metadata is evaluated.

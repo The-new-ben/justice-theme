@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-LAWYER-DIRECTORY-QUERY-001: Keep public lawyer archive counts/pagination approval-safe
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** The archive should not let seed/demo/unapproved lawyer records distort result counts, pagination or empty-directory states after the public approval gates are applied.
+**Actions:**
+1. DONE: candidate lawyer IDs are scanned through `justice_theme_lawyer_profile_is_public_approved()` before the visible archive query.
+2. DONE: the visible archive query is limited to approved IDs and fails closed when no public-approved profiles exist.
+3. DONE: result count now uses the approved query total instead of counting only the current page after PHP-side filtering.
+4. VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+5. NEXT: pull/deploy marker `2026-05-11-lawyer-directory-approved-query-v1`, then verify `/lawyers/` and key filtered directory URLs on desktop/mobile.
+6. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-MAYA-TRUST-SAFETY-001: Require real approval signals for Maya public display
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** Maya Rotenberg is the mini-site prototype, but she must not be public-approved solely because a seed/demo profile uses her name or slug.

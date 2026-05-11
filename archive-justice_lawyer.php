@@ -104,20 +104,28 @@ if ( ! empty( $tax_query ) ) {
 	$args['tax_query'] = $tax_query;
 }
 
-$lawyers = new WP_Query( $args );
-$public_lawyer_posts = array();
+$approved_lawyer_ids = array();
+$candidate_args      = $args;
 
-if ( $lawyers->have_posts() ) {
-	foreach ( $lawyers->posts as $lawyer_post ) {
-		if (
-			$lawyer_post instanceof WP_Post
-			&& function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
-			&& justice_theme_lawyer_profile_is_public_approved( (int) $lawyer_post->ID )
-		) {
-			$public_lawyer_posts[] = $lawyer_post;
+$candidate_args['fields']         = 'ids';
+$candidate_args['posts_per_page'] = (int) apply_filters( 'justice_theme_lawyer_directory_approval_scan_limit', -1 );
+$candidate_args['paged']          = 1;
+$candidate_args['no_found_rows']  = true;
+
+unset( $candidate_args['meta_query'], $candidate_args['meta_key'], $candidate_args['orderby'], $candidate_args['order'] );
+
+if ( function_exists( 'justice_theme_lawyer_profile_is_public_approved' ) ) {
+	foreach ( get_posts( $candidate_args ) as $candidate_id ) {
+		if ( justice_theme_lawyer_profile_is_public_approved( (int) $candidate_id ) ) {
+			$approved_lawyer_ids[] = (int) $candidate_id;
 		}
 	}
 }
+
+$args['post__in'] = ! empty( $approved_lawyer_ids ) ? $approved_lawyer_ids : array( 0 );
+
+$lawyers = new WP_Query( $args );
+$public_lawyer_posts = $lawyers->posts;
 
 $canonical_area_options = array(
 	'family-law'              => 'משפחה וגירושין',
@@ -250,7 +258,7 @@ if ( $filter_keyword ) {
 	$active_filters[] = sprintf( 'חיפוש: %s', $filter_keyword );
 }
 
-$approved_count = count( $public_lawyer_posts );
+$approved_count = (int) $lawyers->found_posts;
 ?>
 
 <section class="lawyer-directory section" aria-labelledby="directory-heading">

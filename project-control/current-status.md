@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 05:46 Asia/Jerusalem
+- CODE FIXED: the public lawyer directory now prefilters candidate profiles through `justice_theme_lawyer_profile_is_public_approved()` before the visible `WP_Query` runs.
+- CODE FIXED: directory result counts and pagination now use the approved-profile query result instead of counting only the already-loaded page after filtering.
+- WHY: seed/demo/unapproved lawyer records should not distort the public directory count or create weak empty pages while the lawyer trust, review/reputation and URL architecture projects are still controlled.
+- VERIFIED: PHP lint passed for 127 files and `git diff --check` passed.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-lawyer-directory-approved-query-v1`; public homepage/static marker still needs uPress pull/cache clear before live behavior can be verified.
+- SAFETY: no lawyer profile, URL, redirect, content body, taxonomy term, sitemap, canonical, lead/CRM record, review data, wp-admin setting or database row was changed by this repo patch.
+
 ## LATEST WORK STATUS - 2026-05-11 05:29 Asia/Jerusalem
 - CODE FIXED: Maya Rotenberg no longer bypasses lawyer public-approval safety by name/slug before seed/demo metadata is evaluated.
 - CODE FIXED: a Maya name/slug fallback now requires either normal approval/source signals or explicit opt-in filter `justice_theme_allow_maya_name_public_profile_fallback`.

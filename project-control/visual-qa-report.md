@@ -2,6 +2,11 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Lawyer Directory Approved Query QA
+- CODE FIXED / NOT LIVE VERIFIED: `/lawyers/` now queries only profiles that pass the public approval gate, so result counts and pagination should match visible public cards.
+- WHY IT MATTERS: seed/demo/unapproved lawyer records should not produce misleading totals or empty pages after the visible card filter is applied.
+- LIVE CHECK NEEDED: after uPress pull/cache clear, verify `/lawyers/`, `/lawyers/?area=family-law`, `/lawyers/?area=criminal-law`, and one city filter on desktop/mobile with marker `2026-05-11-lawyer-directory-approved-query-v1`.
+
 ## 2026-05-11 Breadcrumb Visual Polish
 - CODE FIXED / NOT LIVE VERIFIED: breadcrumb markup and styling were upgraded into a more premium navigation band with pill links, a current-page chip, subtle accent line, and mobile horizontal scrolling.
 - CODE FIXED / NOT LIVE VERIFIED: RTL separator behavior was updated for the new visual separator.

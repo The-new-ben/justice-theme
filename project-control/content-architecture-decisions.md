@@ -80,6 +80,12 @@ Recommended action:
 - REVIEW: current outlines define section structure, internal-link posture, related-content rules, CTA/lawyer-card safety rules and sitemap posture before public copy or CMS execution.
 - BLOCKED: `/criminal-lawyer/`, `/police-investigation/`, `/indictment/`, `/pretrial-detention/` and `/drug-offenses/` must not be used as live targets until route repair, redirect/canonical/sitemap/internal-link planning and owner/legal approval.
 
+2026-05-11 criminal-law source/legal checklist addendum:
+- VERIFIED: `project-control/criminal-law-source-legal-checklist-2026-05-11.md` and `.csv` map source/legal gates for the same five criminal-law targets.
+- VERIFIED: criminal procedure, public-defense, detention and drug/cannabis public-source anchors are documented with limitations.
+- REVIEW: final Hebrew copy remains blocked until an Israeli criminal-law source/legal review approves claims, deadlines, rights wording, penalty references and disclaimers.
+- NEXT: prepare no-URL-change internal-link map before drafting or uploading public copy.
+
 ## Real Estate
 
 Decision:

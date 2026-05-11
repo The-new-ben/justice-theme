@@ -130,6 +130,23 @@ BLOCKED:
 
 See `project-control/criminal-law-support-review.csv`.
 
+## 2026-05-11 Criminal Law Source/Legal Checklist
+
+CREATED:
+- `project-control/criminal-law-source-legal-checklist-2026-05-11.md`
+- `project-control/criminal-law-source-legal-checklist-2026-05-11.csv`
+
+VERIFIED:
+- `5` criminal-law page/topic gates were mapped for current criminal pillar, police investigation, indictment, detention and drug offenses.
+- Source anchors and limitations are documented before final Hebrew drafting.
+- Allowed claims, blocked claims, privacy/confidentiality risk, disclaimer requirement and approval status are mapped per target.
+
+NEXT:
+- Prepare a no-URL-change internal-link map for the same five targets.
+
+BLOCKED:
+- No public criminal-law content expansion, title/H1/meta change, internal-link batch, slug migration, redirect, canonical, noindex, sitemap or taxonomy/category change is approved by this checklist.
+
 ## 2026-05-11 Criminal Law No-URL-Change Outline Queue
 
 CREATED:

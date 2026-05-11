@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Criminal law source/legal checklist
+
+- CREATED: `project-control/criminal-law-source-legal-checklist-2026-05-11.md`.
+- CREATED: `project-control/criminal-law-source-legal-checklist-2026-05-11.csv`.
+- VERIFIED SOURCE ANCHORS / REVIEW ONLY: `5` criminal-law page/topic gates were mapped for current criminal pillar, police investigation, indictment, detention and drug offenses.
+- VERIFIED: source anchors and limitations are documented for criminal procedure, public-defense representation/investigation context, detention context and drug/cannabis public workflows.
+- READY FOR REVIEW: allowed legal claims, blocked legal claims, confidentiality risk, disclaimer requirement and approval status are mapped per target.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Criminal law no-URL-change outline queue
 
 - CREATED: `project-control/criminal-law-no-url-change-outline-queue-2026-05-11.md`.

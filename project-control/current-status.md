@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-11 22:20 Asia/Jerusalem
+- VERIFIED SOURCE ANCHORS / CRIMINAL LAW SOURCE-LEGAL CHECKLIST: created the source/legal gate for the first criminal-law upload group before any public drafting.
+- CREATED: `project-control/criminal-law-source-legal-checklist-2026-05-11.md`.
+- CREATED: `project-control/criminal-law-source-legal-checklist-2026-05-11.csv`.
+- VERIFIED: `5` page/topic gates were mapped for current criminal pillar, police investigation, indictment, detention and drug offenses.
+- VERIFIED: official/public source anchors are documented for criminal procedure, public-defense representation/investigation context, detention context and drug/cannabis public workflows, with limitations noted.
+- CONTENT-UPLOAD READINESS: final Hebrew copy is still blocked, but the first criminal-law group now has source anchors, allowed/blocked legal claims, confidentiality risk, disclaimer requirements and approval status.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-11 22:10 Asia/Jerusalem
 - VERIFIED / CRIMINAL LAW NO-URL-CHANGE OUTLINE QUEUE: converted the criminal-law primary-selection and upload-readiness evidence into a first practical outline batch.
 - CREATED: `project-control/criminal-law-no-url-change-outline-queue-2026-05-11.md`.

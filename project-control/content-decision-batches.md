@@ -14,6 +14,24 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-11 Criminal Law Source/Legal Checklist
+
+CREATED:
+- `project-control/criminal-law-source-legal-checklist-2026-05-11.md`
+- `project-control/criminal-law-source-legal-checklist-2026-05-11.csv`
+
+VERIFIED:
+- `5` criminal-law page/topic gates mapped for current criminal pillar, police investigation, indictment, detention and drug offenses.
+- Official/public source anchors and limitations are documented.
+- Allowed claims, blocked claims, privacy/confidentiality risk, disclaimer requirement and approval status are mapped per target.
+
+RECOMMENDED:
+- Prepare a no-URL-change internal-link map for the same five targets next.
+- Do not draft final Hebrew public copy until owner/legal review approves the source gates.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Criminal Law No-URL-Change Outline Queue
 
 CREATED:

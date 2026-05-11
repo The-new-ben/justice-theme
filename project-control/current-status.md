@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 19:58 Asia/Jerusalem
+- VERIFIED / REAL-ESTATE SOURCE-LEGAL CHECKLIST: created the review-only source/legal gate for the Israeli real-estate, apartment purchase/sale, land registry, tax, contractor/defect, rental and international-property boundary cluster.
+- CREATED: `project-control/real-estate-source-legal-checklist-2026-05-11.md`.
+- CREATED: `project-control/real-estate-source-legal-checklist-2026-05-11.csv`.
+- VERIFIED: `/real-estate-attorney/` remains the current no-URL-change commercial candidate, while `/real-estate-lawyer/` remains a future strategic slug only.
+- VERIFIED: `/real-estate-lawyer-cost-2025/` is protected as a high-impression support page and must not be redirected, canonicalized away, noindexed or rewritten blindly.
+- VERIFIED: registry, tax, contractor/defect, rental, buying-apartment and sale-agreement topics now have source/legal gates before public content or URL execution.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, canonical, sitemap, robots/noindex, homepage, menu, taxonomy, related-card, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+- NEXT: build a real-estate page decision matrix or side-by-side comparison before any internal-link, rewrite or migration plan.
+
 ## LATEST WORK STATUS - 2026-05-11 19:47 Asia/Jerusalem
 - VERIFIED / PERSONAL-INJURY OUTLINE QUEUE: created the review-only rewrite/outline queue for the approved-planning personal-injury/damages lane.
 - CREATED: `project-control/personal-injury-rewrite-outline-queue-2026-05-11.md`.

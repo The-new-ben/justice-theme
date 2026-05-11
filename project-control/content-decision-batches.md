@@ -503,6 +503,25 @@ RECOMMENDED:
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, homepage changes, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards or CMS writes until explicit approval.
 
+## 2026-05-11 Real-Estate Source And Legal Checklist
+
+CREATED:
+- `project-control/real-estate-source-legal-checklist-2026-05-11.md`
+- `project-control/real-estate-source-legal-checklist-2026-05-11.csv`
+
+VERIFIED:
+- `/real-estate-attorney/` remains the current no-URL-change commercial candidate.
+- `/real-estate-lawyer/` remains a future strategic slug only until a redirect/canonical/sitemap/internal-link map is approved.
+- `/real-estate-lawyer-cost-2025/` is protected as overloaded high-impression support content.
+- Buying-apartment, sale-agreement, land registry, tax, contractor/defect and rental topics now have source/legal review gates.
+- International property content is explicitly separated from Israeli real-estate lawyer-service intent.
+
+RECOMMENDED:
+- Build a real-estate page decision matrix and side-by-side comparison before any internal-link, rewrite or migration planning.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, homepage changes, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards, CRM/review, wp-admin setting or CMS/database writes until explicit approval.
+
 ## 2026-05-11 Personal Injury / Damages Source And Legal Checklist
 
 CREATED:

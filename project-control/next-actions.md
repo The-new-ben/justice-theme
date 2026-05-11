@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-REAL-ESTATE-SOURCE-LEGAL-001: Create source/legal gate for Israeli real-estate pages
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The real-estate cluster mixes current commercial service intent, a future clean slug, overloaded cost support, registry/tax/contract pages, contractor-defect topics, rental intent and international property content. It needs source/legal gates before any rewrite, internal-link execution or URL migration.
+**Actions:**
+1. DONE: created `project-control/real-estate-source-legal-checklist-2026-05-11.md`.
+2. DONE: created `project-control/real-estate-source-legal-checklist-2026-05-11.csv`.
+3. VERIFIED: `/real-estate-attorney/` remains the current no-URL-change commercial candidate.
+4. VERIFIED: `/real-estate-lawyer/` remains a future strategic slug only until redirect/canonical/sitemap/internal-link maps are approved.
+5. VERIFIED: `/real-estate-lawyer-cost-2025/` remains protected as an overloaded support page with visible GSC impressions.
+6. NEXT: create a real-estate page decision matrix and side-by-side comparison before any internal-link or migration planning.
+7. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, homepage, menu, breadcrumb, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-PERSONAL-INJURY-OUTLINE-QUEUE-001: Queue personal-injury/damages rewrite outlines
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The owner decision summary points to a no-URL-change outline batch as the next safe planning layer, but public drafting/execution still needs owner/legal approval.

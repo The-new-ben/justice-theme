@@ -269,6 +269,20 @@ If owner approves this review-only packet, the next safe work is:
 4. Create an internal-link map for the Israeli real-estate cluster.
 5. Draft a redirect/canonical/sitemap decision map only after owner approval.
 
+## 2026-05-11 Source/Legal Checklist Addendum
+
+VERIFIED:
+- Created `project-control/real-estate-source-legal-checklist-2026-05-11.md`.
+- Created `project-control/real-estate-source-legal-checklist-2026-05-11.csv`.
+- The checklist maps source/legal gates for `/real-estate-attorney/`, future `/real-estate-lawyer/`, homepage routing, `/real-estate-lawyer-cost-2025/`, future `/buying-apartment/`, future `/real-estate-purchase-agreement/`, registry pages, tax pages, contractor/defect pages, rental support and international-property contamination.
+- Official/public source anchors are now identified for Land Registry, Tax Authority, Sale Law, RMI rights context and municipal due-diligence examples.
+
+NEXT:
+- Build a page decision matrix and side-by-side comparison before internal-link, rewrite or migration planning.
+
+BLOCKED:
+- The source/legal checklist does not approve public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, homepage edits, related-card edits, lawyer cards, review/rating/schema, CRM, wp-admin settings or CMS/database writes.
+
 ## Safety
 
 VERIFIED:

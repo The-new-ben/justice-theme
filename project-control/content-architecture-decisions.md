@@ -90,6 +90,13 @@ Recommended action:
 - KEEP_AS_SUPPORT: `/real-estate-lawyer-cost-2025/`.
 - SUPPORT_PILLAR: `/buying-apartment/`, `/real-estate-purchase-agreement/`, `/land-registry/`, `/construction-defects/`.
 
+2026-05-11 real-estate source/legal checklist addendum:
+- VERIFIED: `project-control/real-estate-source-legal-checklist-2026-05-11.md` and `.csv` now define source/legal gates for Israeli real-estate, purchase/sale, registry, tax, contractor/defect, rental and international-property boundary topics.
+- VERIFIED: `/real-estate-attorney/` remains the current no-URL-change commercial candidate; `/real-estate-lawyer/` is future-only until migration, redirect, canonical, sitemap and internal-link maps are approved.
+- VERIFIED: `/real-estate-lawyer-cost-2025/` remains protected as high-impression support content and must not be rewritten, noindexed, redirected or canonicalized away blindly.
+- REVIEW: registry and tax pages need official-source validation; contractor/defect claims need Sale Law/legal review; international property pages must be separated from Israeli lawyer-service intent.
+- BLOCKED: no public real-estate title/H1/meta, content body, URL, redirect, canonical, sitemap, internal-link, related-card, menu, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this checklist alone.
+
 ## Medical Malpractice
 
 Decision:

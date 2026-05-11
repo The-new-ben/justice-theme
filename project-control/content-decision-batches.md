@@ -14,6 +14,25 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Family / Divorce Taxonomy Category Plan
+
+CREATED:
+- `project-control/family-divorce-taxonomy-category-plan-2026-05-12.md`
+- `project-control/family-divorce-taxonomy-category-plan-2026-05-12.csv`
+
+VERIFIED:
+- `22` decision rows now define first-wave Family/Divorce taxonomy/category rules.
+- The first wave should use existing `practice-areas` terms only: `family-law`, `divorce`, `child-support` and `child-custody`.
+- WordPress `category`, `post_tag`, city terms, inheritance/wills terms and new Family/Divorce term archives are blocked from first-wave cluster control.
+- `prenuptial-agreement` has a slug collision risk and remains blocked until term cleanup.
+
+RECOMMENDED:
+- Approve this plan with the Family/Divorce upload package.
+- After any draft import or public update, verify each page has the intended `practice-areas` assignment and no noisy legacy terms.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, Maya profile edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Divorce Pillar Related-Content Boundary Plan
 
 CREATED:

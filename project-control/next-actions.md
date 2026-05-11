@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-TAXONOMY-CATEGORY-001: Plan first-wave Family/Divorce taxonomy/category rules
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The first Family/Divorce upload must not drift into noisy legacy categories, duplicate term archives, city terms or unrelated practice-area slugs.
+**Actions:**
+1. DONE: created `project-control/family-divorce-taxonomy-category-plan-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-taxonomy-category-plan-2026-05-12.csv`.
+3. VERIFIED: `22` decision rows define allowed existing terms, held terms, blocked new term creation, metadata rules and post-upload taxonomy QA.
+4. VERIFIED: first-wave upload should use existing `practice-areas` terms only: `family-law`, `divorce`, `child-support` and `child-custody`.
+5. REVIEW: `prenuptial-agreement` has a slug collision risk and must not be used for `הסכם ממון` until the term map is reviewed.
+6. NEXT: owner approves taxonomy/category rules with the Family/Divorce upload package; then post-import QA must verify actual term assignments.
+7. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-FAMILY-DIVORCE-RELATED-CONTENT-BOUNDARY-001: Plan `/divorce-lawyer/` related-content allowlist
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The first divorce pillar upload must not show broad recommendation, trust, city, LegalTech, Maya/profile or protected document assets as related authority.

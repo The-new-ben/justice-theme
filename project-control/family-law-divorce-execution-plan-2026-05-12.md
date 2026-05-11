@@ -154,6 +154,18 @@ NEXT:
 - Owner approves the related-content boundary with the pillar draft package.
 - Post-upload QA must confirm the related section uses only allowed URLs and no fake trust signals.
 
+## Taxonomy / Category Update
+
+VERIFIED:
+- `project-control/family-divorce-taxonomy-category-plan-2026-05-12.md` and `.csv` now define the first-wave taxonomy/category rules.
+- First-wave Family/Divorce pages should use existing `practice-areas` terms only: `family-law`, `divorce`, `child-support` and `child-custody`.
+- WordPress `category`, `post_tag`, city terms, inheritance/wills terms and new Family/Divorce term archives are blocked from first-wave cluster control.
+- `prenuptial-agreement` has a slug collision risk and must not be used for `הסכם ממון` until term cleanup.
+
+NEXT:
+- Owner approves taxonomy/category rules with the upload package.
+- After any draft import or public update, QA must verify actual `practice-areas` assignments, breadcrumbs and related-content behavior.
+
 ## Old Pages To Keep / Protect
 
 Keep alive until GSC/API and side-by-side review:

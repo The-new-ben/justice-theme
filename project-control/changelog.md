@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Family/Divorce taxonomy and category plan
+
+- CREATED: `project-control/family-divorce-taxonomy-category-plan-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-taxonomy-category-plan-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: created a `22`-row first-wave taxonomy/category decision plan for the Family/Divorce controlled upload gate.
+- VERIFIED: first-wave pages should use existing `practice-areas` terms only: `family-law`, `divorce`, `child-support` and `child-custody`.
+- VERIFIED: WordPress `category`, `post_tag`, city terms, inheritance/wills terms and new Family/Divorce term archives are blocked from first-wave cluster control.
+- REVIEW: `prenuptial-agreement` has a current slug collision risk and must not be used for `הסכם ממון` until the term map is reviewed.
+- RECOMMENDED: approve the taxonomy/category plan with the Family/Divorce upload package, then verify actual term assignments after any draft import or public update.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Divorce pillar related-content boundary plan
 
 - CREATED: `project-control/family-divorce-related-content-boundary-plan-2026-05-12.md`.

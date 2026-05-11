@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-12 03:25 Asia/Jerusalem
+- VERIFIED / FAMILY-DIVORCE TAXONOMY CATEGORY PLAN: created the first-wave taxonomy/category rules for the controlled Family/Divorce upload gate.
+- CREATED: `project-control/family-divorce-taxonomy-category-plan-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-taxonomy-category-plan-2026-05-12.csv`.
+- VERIFIED: `22` taxonomy/category decision rows now define allowed first-wave terms, held terms, blocked new term creation, metadata rules, lawyer-profile boundaries and sitemap posture.
+- VERIFIED: first-wave pages should use existing `practice-areas` terms only: `family-law`, `divorce`, `child-support` and `child-custody`; no new Family/Divorce term archives should be created during the first upload.
+- VERIFIED RISK: current slug `prenuptial-agreement` appears attached to an unrelated criminal/ruling term in the category map, so the future `הסכם ממון` page/term remains blocked until term cleanup.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 03:05 Asia/Jerusalem
 - VERIFIED / DIVORCE PILLAR RELATED-CONTENT BOUNDARY PLAN: created a manual related-card allowlist and blocked-list for `/divorce-lawyer/` before any public upload.
 - CREATED: `project-control/family-divorce-related-content-boundary-plan-2026-05-12.md`.

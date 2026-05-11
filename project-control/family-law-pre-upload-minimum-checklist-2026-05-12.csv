@@ -13,7 +13,7 @@ FAM-UPLOAD-011,Check sitemap posture,YES,PARTIAL,Review sitemap strategy and liv
 FAM-UPLOAD-012,Prepare redirect hold list,YES,PARTIAL,Use owner package protected URL list,Keep all protected URLs live,Redirects later only
 FAM-UPLOAD-013,Prepare internal-link execution list,YES,VERIFIED PLANNING,Use 82-row internal-link map,Execute only after content approval,No link edits yet
 FAM-UPLOAD-014,Confirm related-content boundaries,YES,VERIFIED PLANNING,Review owner package and link map,Keep broad ranking and Maya out of batch,Avoid fake trust or profile claims
-FAM-UPLOAD-015,Confirm category/taxonomy role,YES,NOT VERIFIED,Map final pages to canonical family/divorce terms,Approve before upload,Avoid duplicate family-law categories
+FAM-UPLOAD-015,Confirm category/taxonomy role,YES,VERIFIED PLANNING,22-row taxonomy/category plan,Approve before upload and verify after import/update,Use existing practice-areas only: family-law divorce child-support child-custody
 FAM-UPLOAD-016,Confirm disclaimers,YES,NOT VERIFIED,Review final page templates/copy,Add before public upload,General information and no legal advice language needed
 FAM-UPLOAD-017,Confirm no fake ratings badges or recommendations,YES,VERIFIED POLICY,Review public cards and copy before upload,Keep all trust claims out unless real,Reviews module is future only
 FAM-UPLOAD-018,Confirm Maya profile safety,YES,PARTIAL,Review verified facts only,Do not use as ranking or review signal,Profile/reputation work remains separate
@@ -28,3 +28,4 @@ FAM-UPLOAD-026,Approve /divorce-lawyer/ owner-review draft package,YES,VERIFIED 
 FAM-UPLOAD-027,Prepare final merged /divorce-lawyer/ draft update,YES,BLOCKED,Owner approval plus final draft review,Prepare reviewable merged draft only after approval or GSC export,No CMS/public upload yet
 FAM-UPLOAD-028,Approve /divorce-lawyer/ manual related-content allowlist,YES,VERIFIED PLANNING,20-row related-content boundary plan,Owner approves allowed primary and secondary related cards,No public related-card execution yet
 FAM-UPLOAD-029,Verify post-upload related cards,YES,BLOCKED,Live or preview related-card QA after upload,Confirm only allowed current clean URLs appear,No upload or preview exists yet
+FAM-UPLOAD-030,Verify post-import taxonomy assignments,YES,BLOCKED,Preview/live taxonomy QA after draft import or public update,Confirm approved practice-areas and no noisy legacy/city/inheritance terms,No upload or preview exists yet

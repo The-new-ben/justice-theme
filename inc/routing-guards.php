@@ -10,6 +10,72 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Normalize a path for root/home comparisons.
+ *
+ * @param string $path URL path.
+ * @return string
+ */
+function justice_theme_normalize_route_path( string $path ): string {
+	$path = '/' . trim( $path, '/' );
+
+	return '//' === $path ? '/' : $path;
+}
+
+/**
+ * Remove a WordPress subdirectory home path from a request path when needed.
+ *
+ * @param string $request_path Request path.
+ * @param string $home_path Home path.
+ * @return string
+ */
+function justice_theme_strip_home_path_prefix( string $request_path, string $home_path ): string {
+	if ( '/' !== $home_path && 0 === strpos( $request_path . '/', trailingslashit( $home_path ) ) ) {
+		return justice_theme_normalize_route_path( substr( $request_path, strlen( $home_path ) ) );
+	}
+
+	return $request_path;
+}
+
+/**
+ * Prevent unknown public paths from being canonical-redirected to the homepage.
+ *
+ * Redirecting arbitrary missing paths to `/` hides broken URLs from users and
+ * crawlers. This guard is intentionally narrow: it only blocks redirects where
+ * the requested public path is not the home path and the canonical target is
+ * the site home URL. Approved URL migrations still need explicit redirect rules.
+ *
+ * @param string|false $redirect_url  Proposed canonical redirect URL.
+ * @param string       $requested_url Requested URL.
+ * @return string|false
+ */
+function justice_theme_block_unknown_path_home_canonical_redirect( $redirect_url, string $requested_url ) {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() || empty( $redirect_url ) ) {
+		return $redirect_url;
+	}
+
+	$home_url     = home_url( '/' );
+	$home_host    = wp_parse_url( $home_url, PHP_URL_HOST );
+	$redirect_host = wp_parse_url( (string) $redirect_url, PHP_URL_HOST );
+
+	if ( $home_host && $redirect_host && strtolower( $home_host ) !== strtolower( $redirect_host ) ) {
+		return $redirect_url;
+	}
+
+	$home_path     = justice_theme_normalize_route_path( (string) wp_parse_url( $home_url, PHP_URL_PATH ) );
+	$request_path  = justice_theme_normalize_route_path( (string) wp_parse_url( $requested_url, PHP_URL_PATH ) );
+	$redirect_path = justice_theme_normalize_route_path( (string) wp_parse_url( (string) $redirect_url, PHP_URL_PATH ) );
+
+	$request_path = justice_theme_strip_home_path_prefix( $request_path, $home_path );
+
+	if ( '/' !== $request_path && $redirect_path === $home_path ) {
+		return false;
+	}
+
+	return $redirect_url;
+}
+add_filter( 'redirect_canonical', 'justice_theme_block_unknown_path_home_canonical_redirect', 0, 2 );
+
+/**
  * Detect the live failure mode where an unknown path is served as the homepage.
  *
  * This is intentionally narrow: it only fires when WordPress thinks the current
@@ -25,12 +91,9 @@ function justice_theme_is_unknown_path_served_as_home(): bool {
 	$request_path = wp_parse_url( isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '', PHP_URL_PATH );
 	$home_path    = wp_parse_url( home_url( '/' ), PHP_URL_PATH );
 
-	$request_path = '/' . trim( (string) $request_path, '/' );
-	$home_path    = '/' . trim( (string) $home_path, '/' );
-
-	if ( '/' !== $home_path && 0 === strpos( $request_path . '/', trailingslashit( $home_path ) ) ) {
-		$request_path = '/' . trim( substr( $request_path, strlen( $home_path ) ), '/' );
-	}
+	$request_path = justice_theme_normalize_route_path( (string) $request_path );
+	$home_path    = justice_theme_normalize_route_path( (string) $home_path );
+	$request_path = justice_theme_strip_home_path_prefix( $request_path, $home_path );
 
 	return '/' !== $request_path;
 }

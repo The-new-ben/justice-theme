@@ -162,3 +162,13 @@ BLOCKED: waiting for uPress pull / live file sync / cache refresh.
 - BLOCKED BASELINE: fake generated URLs and invalid `?p=99999999` still return `301 Location: https://jus-tice.co.il/`.
 - NEXT: after explicit owner approval, deactivate only `All 404 Redirect to Homepage`, rerun the checker, and capture screenshots if the 404 is fixed.
 - SAFETY: no plugin state, `.htaccess`, permalink, URL migration, redirect map, content, taxonomy, canonical, sitemap, lawyer, CRM, review or database change was executed in this documentation/checker pass.
+
+## 2026-05-11 Live Justice Plugin Surface Verification
+
+- VERIFIED LIVE: `tools/check-live-plugin-surface.ps1` reports `ultra-justice-engine/v1` as the exposed Justice REST namespace.
+- VERIFIED LIVE: `justice-core/v1` and `ultra-justice/v1` are not exposed.
+- VERIFIED LIVE: `articles`, `justice_lawyer`, and `justice_lead` are exposed in `wp/v2/types`.
+- NOT VERIFIED LIVE: `justice_legal_tool` and `justice_legal_request` are not exposed in the current public type check.
+- VERIFIED RISK: legacy CPTs remain exposed in `wp/v2/types`.
+- DEPLOYMENT INTERPRETATION: theme Git pulls are verified, but plugin deployment remains a separate control surface until wp-admin/uPress plugin-path inspection confirms the active plugin filesystem path and version.
+- SAFETY: no plugin activation, deactivation, deletion, file-manager edit, wp-admin setting or database change was made.

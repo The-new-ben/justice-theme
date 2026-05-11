@@ -1671,3 +1671,14 @@
 - LIVE DEPLOYMENT VERIFIED: Codex used the uPress Git panel directly and verified the uPress Git log at commit `0410d2f` for `Prepare 404 plugin deactivation checks`.
 - DECISION: plugin deactivation remains an owner-approval action because it changes live WordPress plugin state.
 - SAFETY: no live plugin state, URL, redirect rule, `.htaccess`, permalink setting, content body, taxonomy, canonical, sitemap, lawyer data, CRM data, review data or database row was changed.
+
+## 2026-05-11 Live Justice Plugin Surface Review
+- CREATED: `project-control/live-plugin-architecture-review.md`.
+- CREATED: `tools/check-live-plugin-surface.ps1`.
+- VERIFIED LIVE: `ultra-justice-engine/v1` is the public Justice REST namespace.
+- VERIFIED LIVE: `justice-core/v1` and `ultra-justice/v1` return 404.
+- VERIFIED LIVE: core CPTs `articles`, `justice_lawyer`, and `justice_lead` are exposed in `wp/v2/types`.
+- NOT VERIFIED LIVE: `justice_legal_tool` and `justice_legal_request` are not exposed in the public type check.
+- VERIFIED RISK: legacy CPTs remain exposed in `wp/v2/types`.
+- DECISION: do not activate `justice-core/` beside `ultra-justice-engine/`; they share `UJE_*` constants and `uje_*` functions.
+- SAFETY: no plugin activation, deactivation, deletion, file-manager edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.

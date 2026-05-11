@@ -875,8 +875,19 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - LIVE DEPLOYMENT VERIFIED: Codex operated the uPress Git panel directly; the uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Prepare 404 plugin deactivation checks` at commit `0410d2f`.
 - SAFETY: no live plugin state, URL, redirect rule, `.htaccess`, permalink setting, content body, taxonomy, canonical, sitemap, lawyer data, CRM data, review data or database row was changed.
 
+## 2026-05-11 LIVE JUSTICE PLUGIN SURFACE REVIEW
+- CREATED: `project-control/live-plugin-architecture-review.md`.
+- CREATED: `tools/check-live-plugin-surface.ps1`.
+- VERIFIED LIVE: public REST namespaces expose `ultra-justice-engine/v1`.
+- VERIFIED LIVE: `justice-core/v1` and `ultra-justice/v1` return 404, so they are not the current public REST surface.
+- VERIFIED LIVE: core CPTs `articles`, `justice_lawyer`, and `justice_lead` are exposed through `wp/v2/types`.
+- NOT VERIFIED LIVE: `justice_legal_tool` and `justice_legal_request` are not exposed in the current public `wp/v2/types` check.
+- VERIFIED RISK: legacy CPTs remain exposed in `wp/v2/types`, including `labor_law`, `small_claims`, `corona_virus`, `supreme_court`, `tort`, `goverment-gazette`, and `yada_wiki`.
+- DECISION: treat `ultra-justice-engine/` as the active live plugin surface for now; do not activate `justice-core/` beside it because both share `UJE_*` constants and `uje_*` functions.
+- SAFETY: no plugin activation, deactivation, deletion, file-manager edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+
 ## NEXT BEST ACTION
-1. Verify the exact GitHub sync target and active plugin path.
+1. Confirm the live plugin filesystem path in wp-admin/uPress plugin manager before any plugin migration.
 2. Decide whether `justice-core/` will replace `ultra-justice-engine/` on live or whether the legacy active folder must be renamed in a controlled migration.
 3. Use admin/API access to set Maya Rotenberg's live slug to `advocate-maya-rotenberg` and draft/unpublish demo lawyers after backup.
 4. Run PHP lint on changed files when PHP is available locally or on server.

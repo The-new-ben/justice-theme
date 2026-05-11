@@ -64,6 +64,19 @@ Owner decision needed:
 - hold the broad generic divorce guide until process-role review,
 - do not execute redirects/canonicals until GSC API export and explicit approval.
 
+## Pillar Section Merge Update
+
+VERIFIED:
+- `project-control/family-divorce-pillar-section-merge-outline-2026-05-12.md` and `.csv` define the `20`-section target structure for `/divorce-lawyer/`.
+- The outline separates what to keep in the pillar from what should remain as support pages.
+- It also records related-content boundary risk because the live pillar currently surfaces broad/recommendation-style items.
+
+Owner decision needed:
+- approve the target section structure,
+- approve which duplicate pages feed the pillar,
+- approve related-content cleanup before public upload,
+- keep redirects/canonicals blocked until GSC API and owner approval.
+
 ## Proposed Upload Order After Approval
 
 1. Compare `/divorce-lawyer/` against the old Hebrew divorce URL.

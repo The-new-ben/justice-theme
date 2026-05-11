@@ -22,3 +22,5 @@ FAM-UPLOAD-020,Prepare 404 check,YES,NOT VERIFIED,Run affected URL check after u
 FAM-UPLOAD-021,Prepare GSC post-publish monitoring list,YES,PARTIAL,Use protected old/new URL list plus API export if available,Create monitoring export,GSC API would speed this
 FAM-UPLOAD-022,Confirm no overwrite of strong existing content,YES,PARTIAL VERIFIED,Side-by-side old/new duplicate comparison,Create section-level merge outline before upload,Large Hebrew duplicate is strong enough to mine before clean pillar upload
 FAM-UPLOAD-023,Confirm owner approval checkpoint,YES,BLOCKED,Owner approves package and checklist,Wait for approval,No public execution before approval
+FAM-UPLOAD-024,Approve /divorce-lawyer/ section-level merge outline,YES,VERIFIED PLANNING,20-section merge outline created,Owner reviews before draft/update package,Defines what to keep merge exclude and link before upload
+FAM-UPLOAD-025,Confirm related-content boundaries for /divorce-lawyer/,YES,PARTIAL,Live heading/source review found broad recommendation-style related items,Prepare related-card cleanup plan before upload,Do not let ranking/trust pages appear as support signals

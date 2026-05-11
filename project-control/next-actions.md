@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-PILLAR-SECTION-MERGE-001: Create section-level merge outline for `/divorce-lawyer/`
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The clean divorce pillar cannot be uploaded safely until the duplicate-page material is mapped section by section.
+**Actions:**
+1. DONE: created `project-control/family-divorce-pillar-section-merge-outline-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-pillar-section-merge-outline-2026-05-12.csv`.
+3. VERIFIED: `20` target sections now specify source, merge candidates, support links, approval needs and exclusions.
+4. VERIFIED: large Hebrew duplicate should feed the pillar; selection and definition pages should merge into the pillar; consultation remains support; broad generic divorce guide waits for process-role decision.
+5. REVIEW: live related-content boundaries need cleanup before public upload because broad/recommendation-style items can undermine trust and anti-cannibalization.
+6. NEXT: prepare the actual merged `/divorce-lawyer/` owner-review draft/update package, or run GSC API export first if credentials are ready.
+7. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-FAMILY-DIVORCE-DUPLICATE-PAGE-COMPARISON-001: Compare duplicate divorce-lawyer pages before upload
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The first Family/Divorce upload cannot be SEO-safe while several live pages target the same divorce-lawyer intent.

@@ -14,6 +14,27 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Divorce Pillar Section Merge Outline
+
+CREATED:
+- `project-control/family-divorce-pillar-section-merge-outline-2026-05-12.md`
+- `project-control/family-divorce-pillar-section-merge-outline-2026-05-12.csv`
+
+VERIFIED:
+- `20` target sections are now mapped for the final `/divorce-lawyer/` pillar.
+- The clean pillar remains the target.
+- The large Hebrew duplicate is a section source, not a page to ignore.
+- The selection and definition duplicates feed the pillar.
+- Consultation remains support.
+- The broad process guide waits for role review.
+- related-card boundaries must be cleaned before upload execution.
+
+RECOMMENDED:
+- Prepare the actual merged owner-review draft/update package for `/divorce-lawyer/`, unless GSC API credentials are ready first.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, Maya profile edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Family / Divorce Duplicate Page Comparison
 
 CREATED:

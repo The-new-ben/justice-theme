@@ -118,6 +118,16 @@ Decision:
 - `/divorce-consultation-guide/` stays support.
 - `/divorce-everything-you-need-to-know/` waits for a process-guide decision.
 
+## Pillar Section Merge Update
+
+VERIFIED:
+- `project-control/family-divorce-pillar-section-merge-outline-2026-05-12.md` now maps the final `/divorce-lawyer/` pillar into `20` sections.
+- The outline assigns source material from the clean pillar, large Hebrew duplicate, selection article, definition article and protected old Hebrew URL.
+- It protects support pages from accidental merge and explicitly blocks broad recommendation/trust/ranking language.
+
+NEXT:
+- Turn the outline into an owner-review draft/update package for `/divorce-lawyer/`, or run GSC API first if credentials are ready.
+
 ## Old Pages To Keep / Protect
 
 Keep alive until GSC/API and side-by-side review:

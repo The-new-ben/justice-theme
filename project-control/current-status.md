@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-12 02:25 Asia/Jerusalem
+- VERIFIED / DIVORCE PILLAR SECTION MERGE OUTLINE: converted the duplicate-page comparison into a section-by-section merge plan for the final `/divorce-lawyer/` pillar.
+- CREATED: `project-control/family-divorce-pillar-section-merge-outline-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-pillar-section-merge-outline-2026-05-12.csv`.
+- VERIFIED: `20` target pillar sections now define what to keep, merge, keep separate, review legally, exclude and link internally.
+- VERIFIED: the large Hebrew duplicate is assigned as a section source, while `/divorce-consultation-guide/` remains support and `/divorce-everything-you-need-to-know/` remains held for process-role review.
+- REVIEW: the live `/divorce-lawyer/` related-content area includes broad/recommendation-style items, so related-card boundaries must be cleaned before upload execution.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 02:10 Asia/Jerusalem
 - VERIFIED / FAMILY-DIVORCE DUPLICATE PAGE COMPARISON: compared the clean `/divorce-lawyer/` target against the large Hebrew duplicate, selection article, definition article, generic divorce guide and consultation guide.
 - CREATED: `project-control/family-divorce-duplicate-page-comparison-2026-05-12.md`.

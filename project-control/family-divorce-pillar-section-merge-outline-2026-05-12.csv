@@ -1,0 +1,21 @@
+section_id,target_section,primary_source,merge_sources,keep_separate_links,action,approval_status,notes
+FD-MERGE-001,Opening / who this page helps,/divorce-lawyer/,"large Hebrew duplicate; old Hebrew GSC-visible page",,KEEP_AND_SHARPEN,OWNER_APPROVAL_REQUIRED,Avoid broad family-law/wills/recommended language in opening
+FD-MERGE-002,Fast decision block,/divorce-lawyer/,"large Hebrew duplicate",,BUILD_OR_REPAIR,OWNER_APPROVAL_REQUIRED,Help users choose lawyer/mediation/agreement/urgent-help route
+FD-MERGE-003,When to contact a divorce lawyer,/divorce-lawyer/,"definition duplicate; old Hebrew page; large Hebrew duplicate",,MERGE_INTO_PILLAR,OWNER_APPROVAL_REQUIRED,Do not imply every divorce always requires a lawyer
+FD-MERGE-004,What a divorce lawyer does,definition duplicate,"large Hebrew duplicate",,MERGE_INTO_PILLAR,OWNER_APPROVAL_REQUIRED,Definition page likely redirect/canonical candidate after GSC export
+FD-MERGE-005,Process overview,/divorce-lawyer/,"large Hebrew duplicate; generic divorce guide later after role review","/family-dispute-resolution/; /consensual-divorce/; /divorce-mediation/",MERGE_AND_LINK,OWNER_APPROVAL_REQUIRED,Keep process guide protected until separate decision
+FD-MERGE-006,Family court vs rabbinical court,/divorce-lawyer/,"large Hebrew duplicate","/family-dispute-resolution/",LEGAL_REVIEW_REQUIRED,LEGAL_REVIEW_REQUIRED,Jurisdiction/get/ketubah language needs careful review
+FD-MERGE-007,Agreement vs dispute path,/divorce-lawyer/,"large Hebrew duplicate","/consensual-divorce/; /divorce-mediation/",KEEP_SUMMARY_LINK_DEEP_SUPPORT,OWNER_APPROVAL_REQUIRED,Do not overload pillar with full agreement guide
+FD-MERGE-008,Mediation,/divorce-lawyer/,,"/divorce-mediation/; /consensual-divorce/",KEEP_SUMMARY_LINK_SUPPORT,OWNER_APPROVAL_REQUIRED,Do not say mediation is always suitable
+FD-MERGE-009,Children custody parenting time,/divorce-lawyer/,"large Hebrew duplicate","/child-custody/",KEEP_SUMMARY_LINK_SUPPORT,LEGAL_REVIEW_REQUIRED,Use cautious updated terminology
+FD-MERGE-010,Child support,/divorce-lawyer/,"large Hebrew duplicate","/child-support/; protected calculator URL",KEEP_SUMMARY_LINK_SUPPORT,LEGAL_REVIEW_REQUIRED,No fake calculator or fixed numbers
+FD-MERGE-011,Property division,/divorce-lawyer/,"large Hebrew duplicate","/divorce-property-division/",KEEP_SUMMARY_LINK_SUPPORT,LEGAL_REVIEW_REQUIRED,Include apartment pension business debts evidence
+FD-MERGE-012,Costs,/divorce-lawyer/,"large Hebrew duplicate","/divorce-costs-2025/",KEEP_SUMMARY_LINK_SUPPORT,FRESHNESS_REVIEW_REQUIRED,No unsupported or stale price claims
+FD-MERGE-013,Documents checklist,/divorce-lawyer/,"large Hebrew duplicate","document/PDF/DOCX strategy",KEEP_AND_WARN,DOCUMENT_STRATEGY_REQUIRED,No template promises without disclaimer
+FD-MERGE-014,First consultation,/divorce-lawyer/,"consultation guide summary only","/divorce-consultation-guide/",KEEP_SUPPORT_LINK,OWNER_APPROVAL_REQUIRED,Consultation guide remains separate
+FD-MERGE-015,How to choose a divorce lawyer,/divorce-lawyer/,"selection article; old Hebrew page","lawyer directory after safety review",MERGE_SELECTION_GUIDANCE,COMPLIANCE_REVIEW_REQUIRED,Remove recommended/top/best/trusted claims
+FD-MERGE-016,Common mistakes,/divorce-lawyer/,"large Hebrew duplicate",,MERGE_AND_REWRITE,OWNER_APPROVAL_REQUIRED,Focus on practical mistakes not legal promises
+FD-MERGE-017,Urgent / risk situations,/divorce-lawyer/,,"family-dispute and legal-help CTA",KEEP_WITH_CAUTION,LEGAL_REVIEW_REQUIRED,No guaranteed outcomes
+FD-MERGE-018,FAQ,/divorce-lawyer/,"definition duplicate; selection article; old Hebrew page",,MERGE_AND_PRUNE,OWNER_APPROVAL_REQUIRED,Answers must be general information not legal advice
+FD-MERGE-019,CTA / lawyer connection,/divorce-lawyer/,,"lawyer directory; verified Maya profile later",KEEP_NEUTRAL_ONLY,PROFILE_SAFETY_REQUIRED,No fake lawyer cards ratings reviews badges or ranking claims
+FD-MERGE-020,Internal links and related content,/divorce-lawyer/,"82-row internal-link map","approved support pages only",BOUNDARY_FIX_REQUIRED,OWNER_APPROVAL_REQUIRED,Block broad recommendation/trust related cards before upload

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Divorce pillar section merge outline
+
+- CREATED: `project-control/family-divorce-pillar-section-merge-outline-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-pillar-section-merge-outline-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: converted the duplicate-page comparison into a `20`-section merge plan for `/divorce-lawyer/`.
+- VERIFIED: the large Hebrew duplicate, selection article and definition article are mapped into the pillar; consultation remains support; the generic divorce guide remains held for process-role review.
+- REVIEW: live related-content on the pillar includes broad/recommendation-style items, so related-card boundaries must be cleaned before public upload execution.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Family/Divorce duplicate page comparison
 
 - CREATED: `project-control/family-divorce-duplicate-page-comparison-2026-05-12.md`.

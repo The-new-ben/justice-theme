@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-DIVORCE-FAMILY-OWNER-APPROVAL-001: Prepare divorce/family-law primary and document-risk approval packet
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Divorce/family is a core commercial cluster, but the main query is currently owned by an old Hebrew URL and document URLs also have GSC visibility.
+**Actions:**
+1. DONE: created `project-control/divorce-family-owner-approval-packet.md`.
+2. DONE: created `project-control/divorce-family-owner-approval-packet.csv`.
+3. VERIFIED: `/divorce-lawyer/` exists, has `3,205` words, and has a quality score of `8/10`.
+4. VERIFIED: `עורך דין גירושין` has `960` impressions on the old Hebrew divorce-lawyer article.
+5. VERIFIED: divorce/family document URLs have GSC visibility: PDF `45` impressions and DOCX `86` impressions for relevant queries.
+6. RECOMMENDED: owner approval for no-URL-change comparison, document strategy, source/legal review and internal-link planning only.
+7. NEXT: if owner approves, build side-by-side comparison and decide whether useful old content merges into `/divorce-lawyer/`, how to handle document URLs, and how Maya profile links into the cluster.
+8. BLOCKED: no public content edits, titles/H1/meta changes, URL changes, redirects, document/media deletion, noindex, canonical changes, sitemap changes, homepage changes, taxonomy/menu edits, Maya profile edits, lawyer cards or CMS writes until explicit owner approval.
+
 ### ACTION-EMPLOYMENT-LAW-OWNER-APPROVAL-001: Prepare employment-law intent-split approval packet
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Employment law has weak primary ownership: service intent maps mostly to homepage, broad informational intent maps mostly to `/israeli-labor-law/`, and `/labor-lawyer/` is thin.

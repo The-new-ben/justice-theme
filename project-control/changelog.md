@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Divorce and family-law owner approval packet
+
+- CREATED: `project-control/divorce-family-owner-approval-packet.md`.
+- CREATED: `project-control/divorce-family-owner-approval-packet.csv`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `/divorce-lawyer/` is a clean candidate with `3,205` words and quality score `8/10`.
+- VERIFIED: GSC browser evidence maps `עורך דין גירושין` mostly to an old Hebrew divorce-lawyer article with `960` impressions.
+- VERIFIED: document URL risk exists for divorce/family queries: a PDF has `45` impressions and a DOCX has `86` impressions.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, title/H1/meta, document/media, homepage, menu, taxonomy, Maya profile, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Employment law owner approval packet
 
 - CREATED: `project-control/employment-law-owner-approval-packet.md`.

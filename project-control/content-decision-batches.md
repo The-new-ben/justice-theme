@@ -327,3 +327,24 @@ RECOMMENDED:
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, homepage changes, noindex, canonical changes, sitemap changes, taxonomy/menu edits, lawyer cards or CMS writes until explicit approval.
+
+## 2026-05-11 Divorce And Family-Law Owner Approval Packet
+
+CREATED:
+- `project-control/divorce-family-owner-approval-packet.md`
+- `project-control/divorce-family-owner-approval-packet.csv`
+
+VERIFIED:
+- `/divorce-lawyer/` exists as a clean candidate with `3,205` words and quality score `8/10`.
+- GSC browser evidence maps `עורך דין גירושין` mostly to the old Hebrew divorce-lawyer article with `960` impressions, not to `/divorce-lawyer/`.
+- A divorce-related PDF has `45` impressions for `עורך דין גירושין`.
+- `גישור גירושין` maps mostly to an uploaded DOCX with `86` impressions, not to `/divorce-mediation/`.
+- Clean support pages already exist for consensual divorce, mediation, property division and family dispute resolution.
+- Maya Rotenberg is related to the family/divorce path but her profile remains a separate mini-site/profile approval task.
+
+RECOMMENDED:
+- Owner approval for a no-URL-change side-by-side comparison, document strategy, source/legal review and internal-link planning batch.
+- Protect old high-impression article and PDF/DOCX document URLs until redirect/document maps are approved.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, document/media deletion, robots/media noindex, homepage changes, canonical changes, sitemap changes, taxonomy/menu edits, Maya profile edits, lawyer cards or CMS writes until explicit approval.

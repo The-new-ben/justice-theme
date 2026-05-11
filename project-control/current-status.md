@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 13:49 Asia/Jerusalem
+- VERIFIED / REVIEW: prepared the divorce/family-law owner-approval packet as a no-URL-change primary-selection, document-risk and merge-review planning decision.
+- CREATED: `project-control/divorce-family-owner-approval-packet.md`.
+- CREATED: `project-control/divorce-family-owner-approval-packet.csv`.
+- VERIFIED: `/divorce-lawyer/` exists as a clean candidate with `3,205` words and quality score `8/10`.
+- VERIFIED: `עורך דין גירושין` maps mostly to the old Hebrew divorce-lawyer article with `960` impressions, so that URL is protected.
+- VERIFIED: divorce/family document risk exists: a PDF has `45` impressions for `עורך דין גירושין`, and a DOCX has `86` impressions for `גישור גירושין`.
+- BLOCKED: side-by-side content comparison, document strategy, source/legal review and owner approval are required before title/H1/meta, URL, redirect, document/media, homepage, canonical, sitemap, noindex, taxonomy/menu, Maya profile, lawyer-card or CMS changes.
+- SAFETY: repo documentation/CSV planning only; no live public content, document, profile, homepage, URL or CMS state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 13:39 Asia/Jerusalem
 - VERIFIED / REVIEW: prepared the employment-law owner-approval packet as a no-URL-change primary-selection and intent-split planning decision.
 - CREATED: `project-control/employment-law-owner-approval-packet.md`.

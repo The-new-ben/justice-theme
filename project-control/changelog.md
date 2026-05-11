@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - REST write gates
+
+- CODE FIXED: custom REST content write routes (`update-meta`, `trash-post`) now require explicit opt-in filters in addition to admin capability.
+- CODE FIXED: legacy agent bridge REST routes are disabled by default and theme file writes require a separate explicit write filter.
+- EXPECTED IMPACT: REST remains useful for controlled inspection, but cannot quietly mutate CMS records or theme files during the audit-first migration phase.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-rest-write-gates-v1`.
+- SAFETY: no REST call, file write, terms, pages, articles, content, URLs, redirects, sitemap, canonical, CRM, lawyer, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - Admin seed CMS write guard
 
 - CODE FIXED: added `justice_theme_admin_cms_write_enabled()` for explicit owner-approved admin seed/write actions.

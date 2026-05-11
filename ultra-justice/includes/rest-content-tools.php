@@ -25,6 +25,9 @@ function uj_register_content_routes(): void {
 	$admin_only = function () {
 		return current_user_can( 'manage_options' );
 	};
+	$write_allowed = function () {
+		return current_user_can( 'manage_options' ) && (bool) apply_filters( 'uj_enable_rest_content_writes', false );
+	};
 
 	// Read routes
 	register_rest_route( 'ultra-justice/v1', '/content/lawyers', array(
@@ -58,7 +61,7 @@ function uj_register_content_routes(): void {
 	register_rest_route( 'ultra-justice/v1', '/content/update-meta', array(
 		'methods'             => 'POST',
 		'callback'            => 'uj_update_meta',
-		'permission_callback' => $admin_only,
+		'permission_callback' => $write_allowed,
 		'args'                => array(
 			'post_id'  => array( 'type' => 'integer', 'required' => true ),
 			'meta_key' => array( 'type' => 'string',  'required' => true ),
@@ -69,7 +72,7 @@ function uj_register_content_routes(): void {
 	register_rest_route( 'ultra-justice/v1', '/content/trash-post', array(
 		'methods'             => 'POST',
 		'callback'            => 'uj_trash_post',
-		'permission_callback' => $admin_only,
+		'permission_callback' => $write_allowed,
 		'args'                => array(
 			'post_id' => array( 'type' => 'integer', 'required' => true ),
 			'reason'  => array( 'type' => 'string',  'required' => false, 'default' => 'admin_action' ),

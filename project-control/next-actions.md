@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-REST-SAFETY-001: Keep REST write/deploy helper routes opt-in
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** REST inspection helps the audit, but REST writes and theme-file write helpers must not mutate content or code unless explicitly enabled.
+**Actions:**
+1. DONE: content REST write routes for `update-meta` and `trash-post` now require `uje_enable_rest_content_writes` or `uj_enable_rest_content_writes`.
+2. DONE: legacy agent bridge routes now require `uje_enable_agent_bridge_rest` or `uj_enable_agent_bridge_rest`.
+3. DONE: agent bridge theme file writes also require `uje_enable_agent_bridge_file_write` or `uj_enable_agent_bridge_file_write`.
+4. VERIFIED: read-only audit/report routes remain admin-only and unchanged.
+5. NEXT: pull/deploy marker `2026-05-11-rest-write-gates-v1`, then verify unauthenticated/public REST cannot access these tools and admin writes remain disabled unless opted in.
+6. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-ADMIN-SEED-SAFETY-001: Prevent automatic draft/page/term seeding during audit
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** The current mode is inventory, mapping and controlled approval. Opening wp-admin should not silently create draft pages, article drafts, taxonomy terms or lawyer funnel pages.

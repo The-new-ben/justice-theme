@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-11-admin-seed-write-guard-v1
-expected-github-main-commit=after-admin-seed-write-guard
+justice-theme-deployment-marker=2026-05-11-rest-write-gates-v1
+expected-github-main-commit=after-rest-write-gates
 purpose=public-static-file-check-for-upress-theme-sync

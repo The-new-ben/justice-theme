@@ -2,7 +2,7 @@
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 function uj_agent_permission() {
-	return current_user_can( 'manage_options' );
+	return current_user_can( 'manage_options' ) && (bool) apply_filters( 'uj_enable_agent_bridge_rest', false );
 }
 
 function uj_register_agent_routes() {
@@ -68,6 +68,10 @@ function uj_agent_read_theme_file( WP_REST_Request $r ) {
 }
 
 function uj_agent_write_theme_file( WP_REST_Request $r ) {
+	if ( ! (bool) apply_filters( 'uj_enable_agent_bridge_file_write', false ) ) {
+		return new WP_Error( 'rest_write_disabled', 'Theme file writes are disabled unless explicitly enabled.', array( 'status' => 403 ) );
+	}
+
 	$path = uj_normalize_path( $r->get_param( 'path' ) );
 	if ( ! $path ) {
 		return new WP_Error( 'invalid', 'Path not allowed.', array( 'status' => 400 ) );

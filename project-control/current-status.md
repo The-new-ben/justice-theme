@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-11 22:32 Asia/Jerusalem
+- VERIFIED / CRIMINAL LAW NO-URL INTERNAL LINK MAP: created the first current-URL internal-link map for the criminal-law upload group.
+- CREATED: `project-control/criminal-law-no-url-internal-link-map-2026-05-11.md`.
+- CREATED: `project-control/criminal-law-no-url-internal-link-map-2026-05-11.csv`.
+- VERIFIED: `21` planned internal-link relationships connect the current criminal planning pillar, police investigation, indictment, detention, detention-days and drug offenses without using blocked future slugs.
+- VERIFIED: the map separates priority 1 pillar/support links, priority 2 process links and priority 3 support/boundary links.
+- CONTENT-UPLOAD READINESS: the first criminal-law group now has outline structure, source/legal gates and a current-URL internal-link map.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-11 22:20 Asia/Jerusalem
 - VERIFIED SOURCE ANCHORS / CRIMINAL LAW SOURCE-LEGAL CHECKLIST: created the source/legal gate for the first criminal-law upload group before any public drafting.
 - CREATED: `project-control/criminal-law-source-legal-checklist-2026-05-11.md`.

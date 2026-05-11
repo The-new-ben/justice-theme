@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CRIMINAL-LAW-NO-URL-INTERNAL-LINK-MAP-001: Plan current-URL links for first criminal-law upload group
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The first criminal-law outline/source group must be connected internally before any content upload, so the future public changes are not disconnected articles.
+**Actions:**
+1. DONE: created `project-control/criminal-law-no-url-internal-link-map-2026-05-11.md`.
+2. DONE: created `project-control/criminal-law-no-url-internal-link-map-2026-05-11.csv`.
+3. VERIFIED: `21` planned current-URL relationships mapped.
+4. VERIFIED: links connect current criminal pillar, police investigation, indictment, detention, detention-days and drug offenses without using blocked future slugs.
+5. VERIFIED: relationship type, priority, anchor direction, placement guidance and reason are documented.
+6. NEXT: prepare an owner-review upload package for these five targets or repeat the outline/source/link sequence for the next priority cluster.
+7. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-CRIMINAL-LAW-SOURCE-LEGAL-CHECKLIST-001: Add source/legal gates for first criminal-law upload group
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The first criminal-law outline group cannot move toward final Hebrew copy without source anchors, legal-claim limits, confidentiality risk and approval gates.

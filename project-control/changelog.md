@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Criminal law no-URL internal-link map
+
+- CREATED: `project-control/criminal-law-no-url-internal-link-map-2026-05-11.md`.
+- CREATED: `project-control/criminal-law-no-url-internal-link-map-2026-05-11.csv`.
+- VERIFIED / REVIEW ONLY: `21` planned current-URL internal-link relationships were mapped for the first criminal-law upload group.
+- VERIFIED: the map connects current criminal pillar, police investigation, indictment, detention, detention-days and drug offenses while keeping future clean slugs blocked.
+- READY FOR REVIEW: relationship type, priority, anchor direction, placement guidance and reason are documented.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Criminal law source/legal checklist
 
 - CREATED: `project-control/criminal-law-source-legal-checklist-2026-05-11.md`.

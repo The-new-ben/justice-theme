@@ -130,6 +130,23 @@ BLOCKED:
 
 See `project-control/criminal-law-support-review.csv`.
 
+## 2026-05-11 Criminal Law No-URL Internal Link Map
+
+CREATED:
+- `project-control/criminal-law-no-url-internal-link-map-2026-05-11.md`
+- `project-control/criminal-law-no-url-internal-link-map-2026-05-11.csv`
+
+VERIFIED:
+- `21` planned current-URL internal-link relationships mapped.
+- The map connects the current planning pillar, police investigation, indictment, detention, detention-days and drug offenses.
+- Future clean slugs remain blocked from internal links.
+
+NEXT:
+- Prepare an owner-review upload package for the first criminal-law group or repeat the outline/source/link sequence for the next cluster.
+
+BLOCKED:
+- No public criminal-law content expansion, title/H1/meta change, internal-link batch, slug migration, redirect, canonical, noindex, sitemap or taxonomy/category change is approved by this map.
+
 ## 2026-05-11 Criminal Law Source/Legal Checklist
 
 CREATED:

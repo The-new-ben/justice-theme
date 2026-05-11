@@ -86,6 +86,11 @@ Recommended action:
 - REVIEW: final Hebrew copy remains blocked until an Israeli criminal-law source/legal review approves claims, deadlines, rights wording, penalty references and disclaimers.
 - NEXT: prepare no-URL-change internal-link map before drafting or uploading public copy.
 
+2026-05-11 criminal-law no-URL internal-link map addendum:
+- VERIFIED: `project-control/criminal-law-no-url-internal-link-map-2026-05-11.md` and `.csv` map `21` planned current-URL relationships.
+- VERIFIED: the first criminal-law group now has outline structure, source/legal gates and internal-link posture before public copy.
+- BLOCKED: no internal-link execution, related-card metadata, sitemap update, future slug link, redirect or canonical change is approved yet.
+
 ## Real Estate
 
 Decision:

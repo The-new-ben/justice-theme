@@ -413,3 +413,18 @@ VERIFIED:
 
 BLOCKED:
 - No public rewrite, URL migration, redirect, canonical, sitemap, title/H1/meta, internal link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin option or CMS/database action is approved by this addendum.
+
+## 2026-05-11 Rewrite Outline Queue Addendum
+
+CREATED:
+- `project-control/personal-injury-rewrite-outline-queue-2026-05-11.md`.
+- `project-control/personal-injury-rewrite-outline-queue-2026-05-11.csv`.
+
+VERIFIED:
+- `/tort-lawyer/` is queued as current primary-service refresh outline only.
+- `/car-accident-auto-injury-lawyer/` is queued as protected car-accident refresh outline only.
+- Road-accident law, compulsory insurance, punitive damages, tort overview, tort reform and deep-pocket pages are queued as support/specialist outline candidates.
+- `/personal-injury-law/`, `/work-accident-lawyer/` and old Hebrew/taxonomy damages URLs remain boundary/research items.
+
+BLOCKED:
+- No public rewrite, URL migration, redirect, canonical, sitemap, title/H1/meta, internal link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin option or CMS/database action is approved by this addendum.

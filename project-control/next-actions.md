@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PERSONAL-INJURY-OUTLINE-QUEUE-001: Queue personal-injury/damages rewrite outlines
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The owner decision summary points to a no-URL-change outline batch as the next safe planning layer, but public drafting/execution still needs owner/legal approval.
+**Actions:**
+1. DONE: created `project-control/personal-injury-rewrite-outline-queue-2026-05-11.md`.
+2. DONE: created `project-control/personal-injury-rewrite-outline-queue-2026-05-11.csv`.
+3. VERIFIED: `/tort-lawyer/` is queued as the current primary-service refresh outline only.
+4. VERIFIED: `/car-accident-auto-injury-lawyer/` is queued as the protected car-accident refresh outline only.
+5. VERIFIED: support, specialist, international and work-accident boundary items are separated and blocked from public execution.
+6. NEXT: owner/legal review approves one outline-only draft package, or direct GSC browser checks are run before approval.
+7. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, breadcrumb, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-PERSONAL-INJURY-OWNER-DECISION-SUMMARY-001: Summarize owner decisions for personal-injury/damages
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The cluster now has source, page, side-by-side, internal-link and SERP evidence. The next safe layer is a concise owner decision summary before any public execution.

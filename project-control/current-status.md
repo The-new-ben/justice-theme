@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-11 19:47 Asia/Jerusalem
+- VERIFIED / PERSONAL-INJURY OUTLINE QUEUE: created the review-only rewrite/outline queue for the approved-planning personal-injury/damages lane.
+- CREATED: `project-control/personal-injury-rewrite-outline-queue-2026-05-11.md`.
+- CREATED: `project-control/personal-injury-rewrite-outline-queue-2026-05-11.csv`.
+- VERIFIED: `/tort-lawyer/` and `/car-accident-auto-injury-lawyer/` are queued only as outline candidates with no URL/content/title execution.
+- VERIFIED: road-accident, compulsory-insurance, punitive-damage, tort-law overview, tort-reform, deep-pocket, US/international and work-accident boundary items are separated with owner/legal gates.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+- NEXT: owner/legal review can approve one outline-only draft package, or direct GSC browser checks can be run first for damages and accident variants.
+
 ## LATEST WORK STATUS - 2026-05-11 19:37 Asia/Jerusalem
 - VERIFIED / PERSONAL-INJURY OWNER DECISION SUMMARY: created the short approval layer after the source checklist, page matrix, side-by-side review, internal-link plan and SERP review.
 - CREATED: `project-control/personal-injury-owner-decision-summary-2026-05-11.md`.

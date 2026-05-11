@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Personal injury rewrite outline queue
+
+- CREATED: `project-control/personal-injury-rewrite-outline-queue-2026-05-11.md`.
+- CREATED: `project-control/personal-injury-rewrite-outline-queue-2026-05-11.csv`.
+- UPDATED: `project-control/personal-injury-owner-approval-packet.md`, `project-control/content-decision-batches.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `/tort-lawyer/` and `/car-accident-auto-injury-lawyer/` are queued only as blocked outline candidates.
+- VERIFIED: road-accident, compulsory-insurance, tort-law support, US/international, work-accident and old-URL items remain separated and approval-gated.
+- BLOCKED: no public personal-injury/damages content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, internal link, related-card, menu, breadcrumb, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Personal injury owner decision summary
 
 - CREATED: `project-control/personal-injury-owner-decision-summary-2026-05-11.md`.

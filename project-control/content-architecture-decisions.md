@@ -163,6 +163,13 @@ Recommended action:
 - RECOMMENDED: keep `/personal-injury-lawyer/`, `/car-accident-lawyer/` and `/work-accident-lawyer/` future-only until owner/legal approval and migration maps exist.
 - BLOCKED: support-page rewrites, internal-link execution, old-URL redirects/noindex decisions and public CMS changes remain blocked.
 
+2026-05-11 personal-injury rewrite outline queue addendum:
+- VERIFIED: `project-control/personal-injury-rewrite-outline-queue-2026-05-11.md` and `.csv` queue outline-only work for the current damages lane.
+- VERIFIED: `/tort-lawyer/` is queued as current primary-service refresh outline only, and `/car-accident-auto-injury-lawyer/` is queued as protected car-accident refresh outline only.
+- VERIFIED: `/israel-road-accident-compensation-law/`, `/compulsory-motor-vehicle-insurance/`, `/punitive-damage/`, `/outline-of-tort-law/`, `/tort-reform/` and `/deep-pocket/` stay support/specialist outline candidates.
+- VERIFIED: `/personal-injury-law/`, `/work-accident-lawyer/` and old Hebrew/taxonomy damages URLs remain boundary/research items.
+- BLOCKED: no public outline, rewrite, title/H1/meta, URL, redirect, canonical, sitemap, internal-link, related-card, menu, breadcrumb, lawyer-card, CRM/review, wp-admin setting or CMS/database action is approved by this queue alone.
+
 ## Traffic Law
 
 Decision:

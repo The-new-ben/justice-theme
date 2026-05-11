@@ -2,6 +2,12 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 09:07 Asia/Jerusalem
+- VERIFIED UPress PULL: uPress Git log shows top commit `74309c5` (`Prepare plugin manifest export tooling`).
+- VERIFIED SYNC: the hosted theme repo now contains `tools/export-plugin-manifest-diagnostic.ps1` and `tools/compare-plugin-manifests.ps1`.
+- STILL BLOCKED: authenticated live manifest export still requires a WordPress Application Password or an already authenticated WordPress admin session.
+- SAFETY: no plugin activation, deactivation, deletion, upload, rename, compression, file edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+
 ## LATEST WORK STATUS - 2026-05-11 09:04 Asia/Jerusalem
 - BLOCKED AUTH EXPORT: Codex browser could not open the WordPress-side diagnostic route or `/wp-admin/` because the in-app browser returned a network failure for `jus-tice.co.il`.
 - VERIFIED PUBLIC ROUTE STILL REACHABLE: local public checker reaches the same diagnostic route and receives HTTP 401, so the route remains live/protected.

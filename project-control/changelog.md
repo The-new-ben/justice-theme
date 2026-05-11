@@ -3,6 +3,8 @@
 
 ## 2026-05-11 - Active plugin manifest diagnostic
 
+- VERIFIED UPress PULL: uPress Git log shows top commit `74309c5` (`Prepare plugin manifest export tooling`).
+
 - BLOCKED AUTH EXPORT: Codex browser hit a network failure opening the WordPress-side diagnostic route/wp-admin, while local unauthenticated PowerShell access still reached the route and received HTTP 401.
 - CODE FIXED: added `tools/export-plugin-manifest-diagnostic.ps1` for future WordPress Application Password export without hardcoded secrets.
 - CODE FIXED: added `tools/compare-plugin-manifests.ps1` for live-vs-repo manifest comparison.

@@ -4,6 +4,11 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest uPress pull after export-tooling commit:
+
+- VERIFIED UPress PULL: uPress Git log shows top commit `74309c5` (`Prepare plugin manifest export tooling`).
+- SCOPE: docs/tooling sync only; active live plugin files under `/wp-content/plugins/ultra-justice-engine/` were not changed.
+
 Latest authenticated manifest export attempt:
 
 - BLOCKED: Codex browser returned a network failure for the WordPress-side diagnostic route and `/wp-admin/`.

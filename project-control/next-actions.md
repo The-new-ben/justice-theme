@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-DISCLAIMER-CTA-001: Plan first-wave Family/Divorce disclaimers and safe CTAs
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The first Family/Divorce upload needs visible no-legal-advice disclaimers, safe lead language, urgent-risk caution and no fake trust/rating/recommendation claims.
+**Actions:**
+1. DONE: created `project-control/family-divorce-disclaimer-cta-policy-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-disclaimer-cta-policy-2026-05-12.csv`.
+3. VERIFIED: `20` policy rows define article disclaimers, CTA disclaimers, urgent-risk warnings, page-specific boundaries, Maya/profile limits and schema exclusions.
+4. VERIFIED: `FAM-UPLOAD-016` is now planning-verified, while live disclaimer QA remains blocked until preview/upload exists.
+5. NEXT: owner approves disclaimer/CTA rules with the Family/Divorce upload package; post-upload QA verifies visible disclaimers and no fake trust language.
+6. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-FAMILY-DIVORCE-TAXONOMY-CATEGORY-001: Plan first-wave Family/Divorce taxonomy/category rules
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The first Family/Divorce upload must not drift into noisy legacy categories, duplicate term archives, city terms or unrelated practice-area slugs.

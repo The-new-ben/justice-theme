@@ -166,6 +166,18 @@ NEXT:
 - Owner approves taxonomy/category rules with the upload package.
 - After any draft import or public update, QA must verify actual `practice-areas` assignments, breadcrumbs and related-content behavior.
 
+## Disclaimer / CTA Update
+
+VERIFIED:
+- `project-control/family-divorce-disclaimer-cta-policy-2026-05-12.md` and `.csv` now define first-wave disclaimer, CTA and trust-language rules.
+- Every first-wave page needs visible no-legal-advice/general-information language.
+- Lead/contact CTAs need a clear request disclaimer and must not imply that the website itself gives legal advice.
+- Fake ratings, review counts, badges, top/recommended/trusted language, guaranteed results and review/rating schema are blocked.
+
+NEXT:
+- Owner approves disclaimer/CTA rules with the upload package.
+- After any preview or public update, QA must verify visible disclaimers, safe CTA copy and no fake trust/schema signals.
+
 ## Old Pages To Keep / Protect
 
 Keep alive until GSC/API and side-by-side review:

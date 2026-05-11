@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Family/Divorce disclaimer and CTA policy
+
+- CREATED: `project-control/family-divorce-disclaimer-cta-policy-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-disclaimer-cta-policy-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: created a `20`-row first-wave disclaimer, CTA and trust-language policy for the Family/Divorce controlled upload gate.
+- VERIFIED: all first-wave pages need visible general-information/no-legal-advice language, CTA disclaimers and page-specific caution where the topic is sensitive.
+- VERIFIED: fake ratings, badges, review counts, top/recommended/trusted language, guaranteed results, fixed child-support promises and review/rating schema remain blocked.
+- RECOMMENDED: approve this policy with the Family/Divorce upload package, then verify visible disclaimers and blocked trust language after preview or upload.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Family/Divorce taxonomy and category plan
 
 - CREATED: `project-control/family-divorce-taxonomy-category-plan-2026-05-12.md`.

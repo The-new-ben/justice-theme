@@ -1,3 +1,11 @@
+## LATEST WORK STATUS - 2026-05-12 03:45 Asia/Jerusalem
+- VERIFIED / FAMILY-DIVORCE DISCLAIMER CTA POLICY: created the disclaimer, CTA and trust-language gate for the first controlled Family/Divorce upload.
+- CREATED: `project-control/family-divorce-disclaimer-cta-policy-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-disclaimer-cta-policy-2026-05-12.csv`.
+- VERIFIED: `20` disclaimer/CTA policy rows now cover every first-wave Family/Divorce page, lead CTA disclaimers, urgent-risk language, Maya profile boundaries, fake trust exclusions and schema restrictions.
+- VERIFIED: `FAM-UPLOAD-016` is now `VERIFIED PLANNING`; live disclaimer QA remains blocked until preview/public upload exists.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 03:25 Asia/Jerusalem
 - VERIFIED / FAMILY-DIVORCE TAXONOMY CATEGORY PLAN: created the first-wave taxonomy/category rules for the controlled Family/Divorce upload gate.
 - CREATED: `project-control/family-divorce-taxonomy-category-plan-2026-05-12.md`.

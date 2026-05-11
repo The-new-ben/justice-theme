@@ -14,6 +14,26 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Family / Divorce Disclaimer CTA Policy
+
+CREATED:
+- `project-control/family-divorce-disclaimer-cta-policy-2026-05-12.md`
+- `project-control/family-divorce-disclaimer-cta-policy-2026-05-12.csv`
+
+VERIFIED:
+- `20` policy rows now define first-wave disclaimer and safe-CTA rules.
+- Every first-wave page needs visible general-information/no-legal-advice language.
+- Lead/contact CTAs need clear request/relationship disclaimers.
+- Urgent-risk content needs a caution not to rely only on website reading.
+- Fake ratings, badges, review counts, top/recommended/trusted language, guaranteed results and review/rating schema remain blocked.
+
+RECOMMENDED:
+- Approve this policy with the Family/Divorce upload package.
+- After any preview or public upload, verify visible disclaimers, CTA disclaimers, blocked trust language and schema posture.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, Maya profile edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Family / Divorce Taxonomy Category Plan
 
 CREATED:

@@ -18,6 +18,7 @@ VERIFIED:
 - The `/divorce-lawyer/` owner-review draft package now defines `15` owner decision rows before final merged draft preparation.
 - The `/divorce-lawyer/` related-content boundary plan now defines `20` allowed/blocked related-card rows before any public upload.
 - The Family/Divorce taxonomy/category plan now defines `22` first-wave decisions before any public upload.
+- The Family/Divorce disclaimer/CTA policy now defines `20` page, CTA, trust-language and schema-safety rules before any public upload.
 
 NOT VERIFIED:
 - GSC API export.
@@ -49,6 +50,7 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 17. Prepare final merged draft/update package after approval or GSC API export.
 18. Approve `/divorce-lawyer/` manual related-content allowlist and blocked related-card categories.
 19. Approve first-wave taxonomy/category rules and verify actual `practice-areas` assignments after any draft import or public update.
+20. Approve first-wave disclaimer/CTA rules and verify visible disclaimers, safe CTAs and no fake trust/schema signals after any preview or public update.
 
 ## Current Recommendation
 

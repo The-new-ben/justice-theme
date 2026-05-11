@@ -1,119 +1,31 @@
 /* ============================================================
    JUS-TICE PREMIUM PASS 4 — COMPLETE VISUAL OVERHAUL
-   Version: 4.2.0
-   Date: 2026-05-11
-   Scope: Pixel-perfect rebuild inspired by din.co.il, psakdin,
-          avvo.com — but better.
+   Version: 4.1.0 | Date: 2026-05-11
+   Modeled after din.co.il / psakdin.co.il / avvo.com
    ============================================================ */
 
-/* ── PHASE A: QUICK WINS ─────────────────────────────────── */
-
-/* A1: Hide hero illustration panel on mobile */
-@media (max-width: 768px) {
-  .hero__panel {
-    display: none !important;
-  }
-}
-
-/* A2: Section alternating backgrounds */
-.practice-areas-section,
-.practice-areas-grid-section { background: #fff; }
-.find-guide             { background: var(--jt-bg); }
-.featured-lawyers       { background: #fff; }
-.latest-articles        { background: var(--jt-bg); }
-.ask-lawyer             { background: #fff; }
-.trust-section          { background: var(--jt-primary-deep); }
-.cta-section            { background: var(--jt-bg); }
-
-/* A3: Enhanced card hover */
-.premium-card:hover,
-.practice-area-card:hover,
-.article-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 60px rgba(7, 21, 47, 0.12);
-  border-color: rgba(178, 58, 72, 0.2);
-}
-
-/* A4: Stat counter typography */
-.hero__stat strong {
-  font-size: clamp(2.4rem, 5vw, 3.6rem) !important;
-  font-weight: 900 !important;
-  letter-spacing: -0.05em;
-  background: linear-gradient(135deg, #fff, rgba(255,255,255,0.75));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* A5: Button hover consistency */
-.button:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.08);
-}
-
-.button--primary:hover,
-.button--gold:hover {
-  box-shadow: 0 8px 28px rgba(178, 58, 72, 0.25);
-}
-
-/* A6: Mobile hamburger */
-@media (max-width: 768px) {
-  .menu-toggle {
-    min-width: 44px;
-    min-height: 44px;
-    display: flex !important;
-    align-items: center;
-    justify-content: center;
-    border: 2px solid var(--jt-primary-deep);
-    border-radius: 12px;
-    font-size: 1.5rem;
-    background: rgba(7, 21, 47, 0.04);
-  }
-
-  .menu-toggle:hover,
-  .menu-toggle:active {
-    background: var(--jt-accent-red);
-    border-color: var(--jt-accent-red);
-    color: #fff;
-  }
-}
-
-/* ── BLINKING RED DOT — BRAND SIGNATURE ──────────────────── */
-
+/* ── BLINKING RED DOT ────────────────────────────────────── */
 @keyframes jt-pulse-dot {
-  0%, 100% {
-    opacity: 1;
-    box-shadow: 0 0 0 0 rgba(178, 58, 72, 0.55);
-  }
-  50% {
-    opacity: 0.7;
-    box-shadow: 0 0 0 8px rgba(178, 58, 72, 0);
-  }
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(178,58,72,0.55); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 8px rgba(178,58,72,0); }
 }
+.brand-lockup__mark::after { animation: jt-pulse-dot 2.4s ease-in-out infinite; }
 
-.brand-lockup__mark::after {
-  animation: jt-pulse-dot 2.4s ease-in-out infinite;
-}
-
-/* Eyebrow dots pulse */
 @keyframes jt-eyebrow-pulse {
-  0%, 100% {
-    box-shadow: 0 0 0 4px var(--jt-accent-red-soft);
-    opacity: 1;
-  }
-  50% {
-    box-shadow: 0 0 0 7px rgba(178, 58, 72, 0);
-    opacity: 0.65;
-  }
+  0%, 100% { box-shadow: 0 0 0 4px var(--jt-accent-red-soft); opacity: 1; }
+  50% { box-shadow: 0 0 0 7px rgba(178,58,72,0); opacity: 0.65; }
 }
-
 .section-header__eyebrow::before,
-.hero__eyebrow::before {
-  animation: jt-eyebrow-pulse 3s ease-in-out infinite;
+.hero__eyebrow::before { animation: jt-eyebrow-pulse 3s ease-in-out infinite; }
+
+/* ── HERO — CENTERED SEARCH-FIRST ────────────────────────── */
+.hero--has-bg {
+  background-image:
+    linear-gradient(160deg, rgba(7,21,47,0.92) 0%, rgba(13,31,60,0.85) 50%, rgba(19,42,92,0.80) 100%),
+    var(--hero-bg-image);
+  background-size: cover;
+  background-position: center;
 }
-
-/* ── HERO CENTERED LAYOUT ────────────────────────────────── */
-
 .hero__grid {
   display: flex !important;
   flex-direction: column;
@@ -121,680 +33,279 @@
   text-align: center;
   gap: 2rem;
 }
-
-.hero__content {
-  max-width: 800px;
-  margin: 0 auto;
+.hero__content { max-width: 800px; margin: 0 auto; }
+.hero__title { text-align: center; }
+.hero__description { margin-inline: auto; text-align: center; }
+.hero__stats { justify-content: center; }
+.hero__stat strong {
+  font-size: clamp(2.4rem, 5vw, 3.6rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: -0.05em;
 }
-
-.hero__title {
-  text-align: center;
-}
-
-.hero__description {
-  margin-inline: auto;
-  text-align: center;
-}
-
-.hero__ctas {
-  justify-content: center !important;
-}
-
-.hero__stats {
-  justify-content: center;
+.hero-search {
+  max-width: 720px;
+  margin: 2rem auto 0 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.25) !important;
+  border: 2px solid rgba(255,255,255,0.12);
 }
 
 /* Hero panel — horizontal chips bar */
 .hero__panel {
-  width: 100%;
-  max-width: 900px;
-  background: rgba(255, 255, 255, 0.06) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  width: 100%; max-width: 900px;
+  background: rgba(255,255,255,0.06) !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
   border-radius: 16px !important;
-  padding: 1.5rem 2rem !important;
+  padding: 1.2rem 1.5rem !important;
   backdrop-filter: blur(12px) !important;
   -webkit-backdrop-filter: blur(12px) !important;
   box-shadow: none !important;
 }
-
-.hero__panel h2 {
-  font-size: 1rem !important;
-  text-align: center;
-  margin-bottom: 1rem !important;
-  opacity: 0.8;
-  font-weight: 600;
-}
-
+.hero__panel h2 { font-size: 0.95rem !important; text-align: center; margin-bottom: 0.8rem !important; opacity: 0.7; font-weight: 600; }
 .hero__quick-links {
-  display: flex !important;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.6rem !important;
+  display: flex !important; flex-wrap: wrap; justify-content: center; gap: 0.5rem !important;
 }
-
-.hero__quick-links li {
-  flex: 0 0 auto;
-}
-
+.hero__quick-links li { flex: 0 0 auto; }
 .hero__quick-links a {
-  padding: 0.5rem 1rem !important;
-  border-radius: 50px !important;
-  font-size: 0.88rem !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.15) !important;
-  white-space: nowrap;
+  padding: 0.45rem 0.9rem !important; border-radius: 50px !important;
+  font-size: 0.85rem !important; background: rgba(255,255,255,0.08) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important; white-space: nowrap;
 }
-
 .hero__quick-links a span {
-  background: rgba(255, 255, 255, 0.15);
-  padding: 2px 8px;
-  border-radius: 50px;
-  font-size: 0.75rem;
-  margin-inline-start: 6px;
+  background: rgba(255,255,255,0.15); padding: 2px 7px; border-radius: 50px;
+  font-size: 0.72rem; margin-inline-start: 5px;
 }
-
 .hero__quick-links a:hover {
-  background: rgba(255, 255, 255, 0.18) !important;
-  transform: none !important;
-  border-color: rgba(255, 255, 255, 0.35) !important;
+  background: rgba(255,255,255,0.18) !important;
+  transform: none !important; border-color: rgba(255,255,255,0.35) !important;
+}
+.hero__panel-cta { display: block !important; text-align: center; margin-top: 0.8rem !important; font-size: 0.88rem !important; }
+
+@media (max-width: 768px) {
+  .hero__panel { display: none !important; }
 }
 
-.hero__panel-cta {
-  display: block !important;
-  text-align: center;
-  margin-top: 1rem !important;
-  font-size: 0.9rem !important;
-}
+/* ── SECTION RHYTHM ──────────────────────────────────────── */
+.practice-areas-section,
+.featured-lawyers,
+.ask-lawyer { background: #fff; }
+.find-guide,
+.latest-articles,
+.lawyer-cta { background: var(--jt-bg); }
 
-/* Hero search — prominent, centered */
-.hero-search {
-  max-width: 700px;
-  margin: 2rem auto 0 !important;
-  border-radius: 16px !important;
-  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.25) !important;
-  border: 2px solid rgba(255, 255, 255, 0.15);
-}
-
-/* Hero background image support */
-.hero--has-bg {
-  background-image:
-    linear-gradient(160deg, rgba(7,21,47,0.88) 0%, rgba(13,31,60,0.82) 50%, rgba(19,42,92,0.78) 100%),
-    var(--hero-bg-image);
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
-
-/* ══════════════════════════════════════════════════════════════
-   FIND LAWYER GUIDE — PREMIUM SECTION
-   ══════════════════════════════════════════════════════════════ */
-
-.find-guide {
-  padding-block: clamp(4rem, 8vw, 7rem);
-}
-
+/* ── FIND-LAWYER GUIDE ───────────────────────────────────── */
+.find-guide { padding-block: clamp(4rem, 8vw, 6rem); }
 .find-guide .section-header__desc {
-  color: var(--jt-muted);
-  font-size: 1.1rem;
-  line-height: 1.7;
-  max-width: 700px;
-  margin: 1rem auto 0;
+  color: var(--jt-muted); font-size: 1.05rem; line-height: 1.7;
+  max-width: 700px; margin: 0 auto;
 }
-
-/* Steps grid */
 .find-guide__steps {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-top: 3.5rem;
-  counter-reset: step-counter;
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 2rem; margin-top: 3rem;
 }
-
 .find-guide__step {
-  position: relative;
-  background: #fff;
-  border: 1px solid var(--jt-border);
-  border-radius: var(--jt-radius-lg);
-  padding: 2.5rem 2rem 2rem;
-  transition: all 280ms ease;
-  overflow: hidden;
+  position: relative; background: #fff; border: 1px solid var(--jt-border);
+  border-radius: var(--jt-radius-lg); padding: 2rem 1.8rem;
   box-shadow: var(--jt-shadow-soft);
+  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
 }
-
-.find-guide__step::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  inset-inline-start: 0;
-  width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, var(--jt-accent-red), var(--jt-primary));
-  opacity: 0;
-  transition: opacity 280ms ease;
-}
-
 .find-guide__step:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 60px rgba(7, 21, 47, 0.1);
-  border-color: rgba(178, 58, 72, 0.15);
+  transform: translateY(-4px);
+  box-shadow: var(--jt-shadow-strong);
+  border-color: rgba(178,58,72,0.2);
 }
-
-.find-guide__step:hover::before {
-  opacity: 1;
-}
-
-/* Step number badge */
 .find-guide__step-number {
-  position: absolute;
-  top: 1.5rem;
-  inset-inline-end: 1.5rem;
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  border-radius: 50%;
-  background: var(--jt-accent-red-soft);
-  color: var(--jt-accent-red);
-  font-size: 0.95rem;
-  font-weight: 900;
-  border: 2px solid var(--jt-accent-red-line);
-  transition: all 200ms ease;
+  position: absolute; top: -14px; inset-inline-start: 20px;
+  width: 32px; height: 32px; display: grid; place-items: center;
+  background: var(--jt-accent-red); color: #fff;
+  font-weight: 900; font-size: 0.85rem; border-radius: 50%;
+  box-shadow: 0 4px 12px rgba(178,58,72,0.3);
 }
-
-.find-guide__step:hover .find-guide__step-number {
-  background: var(--jt-accent-red);
-  color: #fff;
-  border-color: var(--jt-accent-red);
-  transform: scale(1.1);
-}
-
-/* Step icon */
 .find-guide__step-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
-  background: var(--jt-accent-red-soft);
-  color: var(--jt-accent-red);
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 56px; height: 56px; border-radius: 16px;
+  background: var(--jt-accent-red-soft); color: var(--jt-accent-red);
   margin-bottom: 1.2rem;
-  transition: all 250ms ease;
+  transition: background 200ms, color 200ms;
 }
-
 .find-guide__step:hover .find-guide__step-icon {
-  background: var(--jt-accent-red);
-  color: #fff;
-  transform: scale(1.06);
-  box-shadow: 0 8px 24px rgba(178, 58, 72, 0.2);
+  background: var(--jt-accent-red); color: #fff;
 }
-
 .find-guide__step-title {
-  font-size: 1.15rem;
-  font-weight: 800;
-  color: var(--jt-primary-deep);
+  font-size: 1.15rem; font-weight: 800; color: var(--jt-primary-deep);
   margin: 0 0 0.8rem;
-  line-height: 1.3;
 }
-
 .find-guide__step-desc {
-  font-size: 0.95rem;
-  color: var(--color-text);
-  line-height: 1.7;
-  margin: 0 0 1.2rem;
+  font-size: 0.92rem; color: var(--color-text); line-height: 1.7; margin: 0 0 1rem;
 }
-
-/* Tip box */
 .find-guide__step-tip {
-  background: rgba(178, 58, 72, 0.04);
-  border: 1px solid rgba(178, 58, 72, 0.1);
-  border-inline-start: 3px solid var(--jt-accent-red);
-  border-radius: 8px;
-  padding: 0.8rem 1rem;
-  font-size: 0.88rem;
-  color: var(--color-text);
-  line-height: 1.6;
+  background: rgba(178,58,72,0.05); border: 1px solid rgba(178,58,72,0.12);
+  border-radius: 10px; padding: 0.7rem 1rem; font-size: 0.85rem;
+  line-height: 1.6; color: var(--jt-primary-deep);
 }
+.find-guide__step-tip strong { color: var(--jt-accent-red); }
 
-.find-guide__step-tip strong {
-  display: block;
-  margin-bottom: 4px;
-  color: var(--jt-accent-red);
-  font-size: 0.82rem;
-}
-
-/* FAQ */
-.find-guide__faq {
-  margin-top: 4rem;
-  padding-top: 3rem;
-  border-top: 1px solid var(--jt-border);
-}
-
-.find-guide__faq-title {
-  text-align: center;
-  font-size: clamp(1.4rem, 3vw, 1.8rem);
-  margin: 0 0 2rem;
-  color: var(--jt-primary-deep);
-}
-
-.find-guide__faq-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1rem;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-.find-guide__faq-item {
-  background: #fff;
-  border: 1px solid var(--jt-border);
-  border-radius: var(--jt-radius-md);
-  overflow: hidden;
-  transition: all 200ms ease;
-}
-
-.find-guide__faq-item:hover {
-  border-color: rgba(178, 58, 72, 0.2);
-  box-shadow: 0 8px 24px rgba(7, 21, 47, 0.06);
-}
-
-.find-guide__faq-item summary {
-  padding: 1.2rem 1.5rem;
-  font-weight: 700;
-  color: var(--jt-primary-deep);
-  cursor: pointer;
-  font-size: 0.98rem;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  line-height: 1.4;
-  transition: color 200ms;
-}
-
-.find-guide__faq-item summary::before {
-  content: "+";
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  background: var(--jt-accent-red-soft);
-  color: var(--jt-accent-red);
-  font-size: 1.1rem;
-  font-weight: 900;
-  flex-shrink: 0;
-  transition: all 200ms ease;
-}
-
-.find-guide__faq-item[open] summary::before {
-  content: "−";
-  background: var(--jt-accent-red);
-  color: #fff;
-}
-
-.find-guide__faq-item summary::-webkit-details-marker {
-  display: none;
-}
-
-.find-guide__faq-item summary:hover {
-  color: var(--jt-accent-red);
-}
-
-.find-guide__faq-item p {
-  padding: 0 1.5rem 1.5rem;
-  margin: 0;
-  font-size: 0.93rem;
-  line-height: 1.7;
-  color: var(--color-text);
-  border-top: 1px solid var(--jt-border);
-  padding-top: 1rem;
-}
-
-/* CTA bar */
-.find-guide__cta {
-  text-align: center;
-  margin-top: 3rem;
-  padding: 2.5rem;
-  background: linear-gradient(135deg, var(--jt-primary-deep), var(--jt-primary));
-  border-radius: var(--jt-radius-lg);
-  color: #fff;
-}
-
-.find-guide__cta p {
-  margin: 0 0 1.2rem;
-  font-size: 1.3rem;
-  font-weight: 800;
-}
-
-.find-guide__cta-buttons {
-  display: flex;
-  gap: 1rem;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.find-guide__cta .button--primary {
-  background: var(--jt-accent-red);
-  color: #fff;
-  box-shadow: 0 6px 20px rgba(178, 58, 72, 0.3);
-}
-
-.find-guide__cta .button--primary:hover {
-  background: #fff;
-  color: var(--jt-primary-deep);
-}
-
-.find-guide__cta .button--ghost {
-  border-color: rgba(255,255,255,0.4);
-  color: #fff;
-}
-
-.find-guide__cta .button--ghost:hover {
-  background: rgba(255,255,255,0.1);
-  border-color: #fff;
-}
-
-/* Mobile: steps stack */
 @media (max-width: 1024px) {
-  .find-guide__steps {
-    grid-template-columns: repeat(2, 1fr);
-  }
+  .find-guide__steps { grid-template-columns: repeat(2, 1fr); }
 }
-
 @media (max-width: 640px) {
-  .find-guide__steps {
-    grid-template-columns: 1fr;
+  .find-guide__steps { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+/* ── FAQ ACCORDION ───────────────────────────────────────── */
+.find-guide__faq { margin-top: 3.5rem; max-width: 800px; margin-inline: auto; }
+.find-guide__faq-title {
+  text-align: center; font-size: 1.5rem; font-weight: 800;
+  color: var(--jt-primary-deep); margin-bottom: 1.5rem;
+}
+.find-guide__faq-grid { display: grid; gap: 0.8rem; }
+.find-guide__faq-item {
+  background: #fff; border: 1px solid var(--jt-border);
+  border-radius: 14px; overflow: hidden;
+  transition: border-color 200ms;
+}
+.find-guide__faq-item[open] { border-color: var(--jt-accent-red-line); }
+.find-guide__faq-item summary {
+  padding: 1.1rem 1.4rem; font-weight: 700; font-size: 1rem;
+  color: var(--jt-primary-deep); cursor: pointer; list-style: none;
+  display: flex; justify-content: space-between; align-items: center;
+  transition: background 160ms;
+}
+.find-guide__faq-item summary:hover { background: rgba(178,58,72,0.03); }
+.find-guide__faq-item summary::-webkit-details-marker { display: none; }
+.find-guide__faq-item summary::after {
+  content: "+"; font-size: 1.3rem; color: var(--jt-accent-red);
+  font-weight: 300; flex-shrink: 0; margin-inline-start: 12px;
+  transition: transform 200ms;
+}
+.find-guide__faq-item[open] summary::after { content: "−"; }
+.find-guide__faq-item p {
+  padding: 0 1.4rem 1.2rem; font-size: 0.95rem; line-height: 1.8;
+  color: var(--color-text); margin: 0;
+}
+
+/* ── GUIDE CTA BAR ───────────────────────────────────────── */
+.find-guide__cta {
+  margin-top: 3rem; text-align: center;
+  background: linear-gradient(135deg, var(--jt-primary-deep), var(--jt-primary));
+  border-radius: var(--jt-radius-lg); padding: 2.5rem 2rem;
+  color: #fff;
+}
+.find-guide__cta p { font-size: 1.2rem; font-weight: 700; margin: 0 0 1.2rem; }
+.find-guide__cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.find-guide__cta .button--primary {
+  background: var(--jt-accent-red) !important;
+  box-shadow: 0 6px 24px rgba(178,58,72,0.35);
+}
+.find-guide__cta .button--ghost {
+  border-color: rgba(255,255,255,0.3) !important;
+  color: #fff !important;
+}
+
+/* ── CTA SECTION (bottom) ────────────────────────────────── */
+.cta-section {
+  background: linear-gradient(160deg, var(--jt-primary-deep) 0%, #132a5c 60%, #0d1f3c 100%);
+  text-align: center; position: relative; overflow: hidden;
+}
+.cta-section::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.03) 1px, transparent 0);
+  background-size: 32px 32px;
+}
+.cta-section__inner { position: relative; z-index: 1; }
+
+/* ── VERIFIED LAWYER SHOWCASE ────────────────────────────── */
+.verified-lawyer-showcase {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2.5rem; align-items: start; margin-top: 2rem;
+}
+.verified-lawyer-showcase--empty {
+  display: block; text-align: center;
+  background: var(--jt-bg); border: 2px dashed var(--jt-border);
+  border-radius: var(--jt-radius-lg); padding: 3rem 2rem;
+}
+.verified-lawyer-showcase__value h3 {
+  font-size: 1.2rem; margin: 0 0 1.2rem; color: var(--jt-primary-deep);
+}
+.verified-lawyer-showcase__value ul {
+  list-style: none; padding: 0; margin: 0; display: grid; gap: 0.8rem;
+}
+.verified-lawyer-showcase__value li {
+  position: relative; padding-inline-start: 1.6rem;
+  font-size: 0.95rem; line-height: 1.6; color: var(--color-text);
+}
+.verified-lawyer-showcase__value li::before {
+  content: "✓"; position: absolute; inset-inline-start: 0; top: 0;
+  color: var(--jt-accent-red); font-weight: 800;
+}
+@media (max-width: 768px) {
+  .verified-lawyer-showcase { grid-template-columns: 1fr; }
+}
+
+/* ── CARD HOVER EFFECTS ──────────────────────────────────── */
+.premium-card:hover,
+.practice-area-card:hover,
+.article-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(7,21,47,0.12);
+  border-color: rgba(178,58,72,0.2);
+}
+
+/* ── BUTTON POLISH ───────────────────────────────────────── */
+.button:hover { filter: brightness(1.06); }
+.button--primary:hover,
+.button--gold:hover { box-shadow: 0 8px 28px rgba(178,58,72,0.25); }
+
+/* ── MOBILE HAMBURGER ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .menu-toggle {
+    min-width: 44px; min-height: 44px;
+    display: flex !important; align-items: center; justify-content: center;
+    border: 2px solid var(--jt-primary-deep); border-radius: 12px;
+    font-size: 1.5rem; background: rgba(7,21,47,0.04);
   }
-
-  .find-guide__faq-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .find-guide__cta {
-    padding: 2rem 1.5rem;
-  }
-
-  .find-guide__cta p {
-    font-size: 1.1rem;
+  .menu-toggle:hover, .menu-toggle:active {
+    background: var(--jt-accent-red); border-color: var(--jt-accent-red); color: #fff;
   }
 }
 
-/* ── SECTION HEADER ENHANCEMENTS ─────────────────────────── */
-
-.section-header h2 {
-  position: relative;
-}
-
-.section-header--center .section-header__eyebrow {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-}
-
-/* ── PRACTICE AREA UNIQUE ICONS (CSS color) ──────────────── */
-
-.practice-area-card[data-area*="family"] .practice-area-card__icon,
-.practice-area-card[data-area*="משפחה"] .practice-area-card__icon {
-  background: rgba(231, 76, 139, 0.1);
-  color: #e74c8b;
-}
-.practice-area-card[data-area*="family"]:hover .practice-area-card__icon,
-.practice-area-card[data-area*="משפחה"]:hover .practice-area-card__icon {
-  background: #e74c8b;
-  color: #fff;
-}
-
-.practice-area-card[data-area*="criminal"] .practice-area-card__icon,
-.practice-area-card[data-area*="פלילי"] .practice-area-card__icon {
-  background: rgba(108, 92, 231, 0.1);
-  color: #6c5ce7;
-}
-.practice-area-card[data-area*="criminal"]:hover .practice-area-card__icon,
-.practice-area-card[data-area*="פלילי"]:hover .practice-area-card__icon {
-  background: #6c5ce7;
-  color: #fff;
-}
-
-.practice-area-card[data-area*="real-estate"] .practice-area-card__icon,
-.practice-area-card[data-area*="מקרקעין"] .practice-area-card__icon {
-  background: rgba(0, 184, 148, 0.1);
-  color: #00b894;
-}
-.practice-area-card[data-area*="real-estate"]:hover .practice-area-card__icon,
-.practice-area-card[data-area*="מקרקעין"]:hover .practice-area-card__icon {
-  background: #00b894;
-  color: #fff;
-}
-
-.practice-area-card[data-area*="labor"] .practice-area-card__icon,
-.practice-area-card[data-area*="עבודה"] .practice-area-card__icon {
-  background: rgba(253, 203, 110, 0.15);
-  color: #e17055;
-}
-.practice-area-card[data-area*="labor"]:hover .practice-area-card__icon,
-.practice-area-card[data-area*="עבודה"]:hover .practice-area-card__icon {
-  background: #e17055;
-  color: #fff;
-}
-
-.practice-area-card[data-area*="תעבורה"] .practice-area-card__icon {
-  background: rgba(9, 132, 227, 0.1);
-  color: #0984e3;
-}
-.practice-area-card[data-area*="תעבורה"]:hover .practice-area-card__icon {
-  background: #0984e3;
-  color: #fff;
-}
-
-.practice-area-card[data-area*="נזיקין"] .practice-area-card__icon {
-  background: rgba(225, 112, 85, 0.1);
-  color: #e17055;
-}
-.practice-area-card[data-area*="נזיקין"]:hover .practice-area-card__icon {
-  background: #e17055;
-  color: #fff;
-}
-
-.practice-area-card[data-area*="ירושה"] .practice-area-card__icon {
-  background: rgba(162, 155, 254, 0.12);
-  color: #6c5ce7;
-}
-.practice-area-card[data-area*="ירושה"]:hover .practice-area-card__icon {
-  background: #6c5ce7;
-  color: #fff;
-}
-
-.practice-area-card[data-area*="מסחרי"] .practice-area-card__icon {
-  background: rgba(250, 177, 160, 0.15);
-  color: #e17055;
-}
-.practice-area-card[data-area*="מסחרי"]:hover .practice-area-card__icon {
-  background: #e17055;
-  color: #fff;
-}
-
-/* ── STICKY HEADER ON SCROLL ─────────────────────────────── */
-
-.site-header {
-  transition: box-shadow 300ms ease, background 300ms ease;
-}
-
+/* ── STICKY HEADER ───────────────────────────────────────── */
+.site-header { transition: box-shadow 300ms ease, background 300ms ease; }
 .site-header--scrolled {
-  box-shadow: 0 4px 30px rgba(7, 21, 47, 0.12);
-  background: rgba(255, 255, 255, 0.98);
+  box-shadow: 0 4px 30px rgba(7,21,47,0.12);
+  background: rgba(255,255,255,0.98);
 }
-
 .site-header--scrolled .site-header__top {
-  max-height: 0;
-  overflow: hidden;
-  padding: 0;
-  border: none;
-  opacity: 0;
+  max-height: 0; overflow: hidden; padding: 0; border: none; opacity: 0;
   transition: all 300ms ease;
 }
 
 /* ── SCROLL ANIMATIONS ───────────────────────────────────── */
-
 @keyframes jt-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
+.section[data-animate] { opacity: 0; }
+.section[data-animate].is-visible { animation: jt-fade-up 0.6s ease-out forwards; }
 
-.section[data-animate] {
-  opacity: 0;
-}
+/* ── PRACTICE AREA COLOR BORDERS ─────────────────────────── */
+.practice-area-card[data-area*="family"],
+.practice-area-card[data-area*="משפחה"] { border-top-color: #e74c8b; }
+.practice-area-card[data-area*="criminal"],
+.practice-area-card[data-area*="פלילי"] { border-top-color: #6c5ce7; }
+.practice-area-card[data-area*="real-estate"],
+.practice-area-card[data-area*="מקרקעין"] { border-top-color: #00b894; }
+.practice-area-card[data-area*="labor"],
+.practice-area-card[data-area*="עבודה"] { border-top-color: #fdcb6e; }
+.practice-area-card[data-area*="torts"],
+.practice-area-card[data-area*="נזיקין"] { border-top-color: #e17055; }
+.practice-area-card[data-area*="traffic"],
+.practice-area-card[data-area*="תעבורה"] { border-top-color: #0984e3; }
 
-.section[data-animate].is-visible {
-  animation: jt-fade-up 0.6s ease-out forwards;
-}
-
-/* ── RESPECT MOTION PREFERENCES ──────────────────────────── */
-
+/* ── MOTION PREFERENCES ──────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
   .brand-lockup__mark::after,
   .section-header__eyebrow::before,
-  .hero__eyebrow::before {
-    animation: none !important;
-  }
-
-  .section[data-animate] {
-    opacity: 1;
-  }
-}
-
-/* ── ASK LAWYER SECTION IMPROVEMENTS ─────────────────────── */
-
-.ask-lawyer {
-  position: relative;
-  overflow: hidden;
-}
-
-.ask-lawyer::before {
-  content: "";
-  position: absolute;
-  top: -50%;
-  inset-inline-end: -20%;
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(178, 58, 72, 0.04), transparent 70%);
-  pointer-events: none;
-}
-
-.ask-lawyer__form {
-  border-top: 3px solid var(--jt-accent-red);
-}
-
-/* ── CTA SECTION IMPROVEMENTS ────────────────────────────── */
-
-.cta-section {
-  position: relative;
-}
-
-.cta-section .container {
-  position: relative;
-}
-
-.cta-section__inner {
-  background: linear-gradient(135deg, var(--jt-primary-deep), #1a3a6e);
-  border-radius: var(--jt-radius-lg);
-  padding: 3.5rem;
-  text-align: center;
-  color: #fff;
-  position: relative;
-  overflow: hidden;
-}
-
-.cta-section__inner::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 90% 10%, rgba(178, 58, 72, 0.15), transparent 50%),
-    radial-gradient(ellipse at 10% 90%, rgba(95, 126, 168, 0.15), transparent 50%);
-  pointer-events: none;
-}
-
-.cta-section__inner > * {
-  position: relative;
-  z-index: 1;
-}
-
-/* ── TRUST SECTION IMPROVEMENTS ──────────────────────────── */
-
-.trust-section {
-  position: relative;
-  overflow: hidden;
-}
-
-.trust-section::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 80% 20%, rgba(178, 58, 72, 0.12), transparent 40%),
-    radial-gradient(ellipse at 20% 80%, rgba(95, 126, 168, 0.15), transparent 40%);
-  pointer-events: none;
-}
-
-.trust-section > .container {
-  position: relative;
-  z-index: 1;
-}
-
-.trust-section__number {
-  font-size: clamp(3rem, 5vw, 4rem) !important;
-  background: linear-gradient(135deg, #fff, rgba(255,255,255,0.8));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* ── FEATURED LAWYERS — IMPROVED ─────────────────────────── */
-
-.featured-lawyers .section-header__eyebrow::before {
-  animation: jt-pulse-dot 2s ease-in-out infinite;
-}
-
-/* ── MOBILE FINAL POLISH ─────────────────────────────────── */
-
-@media (max-width: 640px) {
-  .hero__ctas {
-    flex-direction: column !important;
-    align-items: center;
-  }
-
-  .hero__ctas .button {
-    width: 100%;
-    max-width: 280px;
-    text-align: center;
-  }
-
-  .hero__stats {
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center;
-  }
-
-  .hero__stat {
-    text-align: center;
-  }
-
-  .find-guide__cta-buttons {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .find-guide__cta-buttons .button {
-    width: 100%;
-    max-width: 280px;
-  }
+  .hero__eyebrow::before { animation: none !important; }
+  .section[data-animate] { opacity: 1; }
 }

@@ -1,6 +1,21 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Related content fallback QA live verification
+
+- PUSHED: `40ee1c4` (`Expose related fallback QA attributes`) to GitHub main.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log shows `(HEAD -> main, origin/main, origin/HEAD) Expose related fallback QA attributes`.
+- LIVE VERIFIED: public marker returns `2026-05-11-related-fallback-qa-v1`.
+- CODE FIXED: related fallback sections now expose `data-related-mode="fallback"`, `data-related-source-cluster`, and `data-related-card-count="0"`.
+- CODE FIXED: known no-card clusters can show a safe fallback lawyer-directory link instead of disappearing or falling back to unrelated latest posts.
+- TOOLING FIXED: `tools/check-live-related-content-qa.ps1` now validates both semantic and fallback related sections.
+- CREATED: `project-control/live-related-content-qa-2026-05-11-after-url-inference.csv`.
+- CREATED: `project-control/live-related-content-qa-2026-05-11-after-fallback-attrs.csv`.
+- VERIFIED: all four sampled live sources now pass the related-content QA script.
+- FIXED LIVE: the general lawyer-selection article no longer shows off-topic cards and now reports a verified `lawyer_selection` fallback.
+- FIXED LIVE: the criminal/drug-offense article now reports `criminal_law` and matched related cards.
+- SAFETY: no content body, CMS metadata, URL, redirect, sitemap setting, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
 ## 2026-05-11 - Active plugin manifest diagnostic
 
 - VERIFIED UPress PULL: uPress Git log shows top commit `74309c5` (`Prepare plugin manifest export tooling`).

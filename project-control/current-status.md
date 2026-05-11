@@ -2,6 +2,16 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 09:51 Asia/Jerusalem
+- FIXED LIVE: related-content fallback sections now expose QA attributes and safe cluster-aware fallback links instead of disappearing when a page has no practice-area term.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log shows top commit `40ee1c4` (`Expose related fallback QA attributes`).
+- LIVE VERIFIED: static marker returns `2026-05-11-related-fallback-qa-v1`.
+- VERIFIED: `tools/check-live-related-content-qa.ps1` produced `project-control/live-related-content-qa-2026-05-11-after-fallback-attrs.csv` with all sampled rows marked `VERIFIED`.
+- FIXED LIVE: `/find-lawyer-how-to-find-good-attorney/` now has a `lawyer_selection` fallback instead of missing related-section QA or off-topic cards.
+- FIXED LIVE: `/drug-offenses-criminal-lawyer/` now has `criminal_law` semantic related cards with cluster matches.
+- STILL REVIEW: some same-cluster cards remain editorially weak even when they pass the technical cluster gate, such as international real-estate articles under a local real-estate cost page.
+- SAFETY: no public content body, CMS metadata, URL, redirect, sitemap, canonical setting, taxonomy term, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 09:07 Asia/Jerusalem
 - VERIFIED UPress PULL: uPress Git log shows top commit `74309c5` (`Prepare plugin manifest export tooling`).
 - VERIFIED SYNC: the hosted theme repo now contains `tools/export-plugin-manifest-diagnostic.ps1` and `tools/compare-plugin-manifests.ps1`.

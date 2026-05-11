@@ -49,16 +49,28 @@ Related articles are part of the SEO and user journey. A visitor reading about a
 
 - CREATED: `tools/check-live-related-content-qa.ps1`.
 - CREATED: `project-control/live-related-content-qa-2026-05-11-before-url-inference.csv`.
+- CREATED: `project-control/live-related-content-qa-2026-05-11-after-url-inference.csv`.
 - FOUND LIVE: general lawyer-selection and criminal/drug-offense samples still had `data-related-source-cluster="unknown"` and off-topic cards because inference did not use the public permalink/request path.
 - FIXED IN CODE: `justice_theme_related_context_text()` now includes `get_permalink( $post_id )` and, for the current source page, the current request URI.
 - EXPECTED IMPACT: clean public URL slugs such as `/find-lawyer-how-to-find-good-attorney/` and `/drug-offenses-criminal-lawyer/` can drive cluster inference even when old post metadata is weak.
 - VERIFIED: PHP lint passed for 128 PHP files.
-- NOT LIVE VERIFIED: requires uPress pull/cache clear and rerun of `tools/check-live-related-content-qa.ps1`.
+- LIVE VERIFIED PARTIAL: after uPress pulled `fec30a2`, the criminal/drug-offense sample moved to `criminal_law` with three matching cards. The general lawyer-selection article stopped showing off-topic cards but exposed no fallback QA attributes, so it remained REVIEW.
+
+## 2026-05-11 Fallback QA Attributes
+
+- FIXED IN CODE: fallback related sections now expose `data-related-mode="fallback"`, `data-related-source-cluster`, and `data-related-card-count="0"`.
+- FIXED IN CODE: when no semantic cards exist and no practice-area term is available, known clusters can render a controlled fallback link to the relevant lawyer-directory view instead of random latest posts.
+- FIXED IN CODE: the live QA script now accepts semantic and fallback modes, but only marks fallback rows VERIFIED when the expected source cluster is detected.
+- LIVE DEPLOYMENT VERIFIED: uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Expose related fallback QA attributes` at commit `40ee1c4`.
+- LIVE VERIFIED: public static marker returns `2026-05-11-related-fallback-qa-v1`.
+- LIVE VERIFIED: `project-control/live-related-content-qa-2026-05-11-after-fallback-attrs.csv` passed with all sampled rows marked `VERIFIED`.
+- FIXED LIVE: `/find-lawyer-how-to-find-good-attorney/` now reports `related_mode=fallback` and `detected_source_cluster=lawyer_selection` instead of `missing`, with no off-topic related cards.
+- FIXED LIVE: `/drug-offenses-criminal-lawyer/` reports `criminal_law` with three matching criminal-law cards.
 
 ## Next
 
 1. Fill CMS metadata for priority articles: `manual_related_urls`, `parent_pillar_url`, `content_cluster`.
 2. Use `project-control/related-content-map.csv` as the editorial source for family, criminal, real estate, malpractice, traffic and inheritance clusters.
-3. After uPress pull/cache clear, repeat live visual QA for one general lawyer-selection article, one family article, one criminal article and one real-estate article.
-4. During that QA, record any related card with `data-related-cluster-match="mismatch"`.
+3. Continue CMS metadata cleanup for weak but same-cluster recommendations, especially real-estate cards that are technically clustered but too international or broad for local Israeli intent.
+4. During future QA, record any related card with `data-related-cluster-match="mismatch"` or any same-cluster card that is semantically weak.
 5. Add GA4 event tracking for related-article clicks later.

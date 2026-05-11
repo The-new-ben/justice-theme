@@ -4,6 +4,13 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest related-content fallback QA deployment:
+
+- VERIFIED UPress PULL: uPress Git log shows top commit `40ee1c4` (`Expose related fallback QA attributes`).
+- VERIFIED LIVE MARKER: `https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?qa=related-fallback-qa-20260511` returns `2026-05-11-related-fallback-qa-v1`.
+- VERIFIED LIVE QA: `tools/check-live-related-content-qa.ps1` created `project-control/live-related-content-qa-2026-05-11-after-fallback-attrs.csv` with every sampled row marked `VERIFIED`.
+- SAFETY: no WordPress content, metadata, URL, redirect, sitemap, canonical, taxonomy, lawyer, lead/CRM, review, plugin-state, wp-admin setting or database row was changed.
+
 Latest uPress pull after export-tooling commit:
 
 - VERIFIED UPress PULL: uPress Git log shows top commit `74309c5` (`Prepare plugin manifest export tooling`).

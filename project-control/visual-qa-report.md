@@ -2,6 +2,17 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Related Content Fallback QA After Live Pull
+- LIVE DEPLOYMENT VERIFIED: uPress Git log showed commit `40ee1c4` (`Expose related fallback QA attributes`) as live HEAD.
+- LIVE VERIFIED: static deployment marker returned `2026-05-11-related-fallback-qa-v1`.
+- SOURCE VERIFIED: `project-control/live-related-content-qa-2026-05-11-after-fallback-attrs.csv` captures the after-pull QA pass.
+- VERIFIED: all sampled rows passed as `VERIFIED`.
+- FIXED LIVE: `/find-lawyer-how-to-find-good-attorney/` now exposes a fallback related section with `related_mode=fallback` and `detected_source_cluster=lawyer_selection`.
+- FIXED LIVE: `/drug-offenses-criminal-lawyer/` now exposes semantic criminal-law related cards with `data-related-cluster-match="match"`.
+- VERIFIED STABLE: real-estate and family-divorce sampled pages still expose semantic related sections with matching source/card clusters.
+- EDITORIAL REVIEW STILL NEEDED: the technical cluster gate can still allow broad same-cluster cards, such as international real-estate content under a local real-estate cost page; fix those through manual related URLs/content metadata.
+- SAFETY: no screenshots/content edits were required for this source-level QA pass, and no public content body, URL, redirect, sitemap, canonical, taxonomy, lawyer, CRM, review or plugin state was changed.
+
 ## 2026-05-11 Live Plugin Includes Visibility QA
 - VERIFIED LIVE VISIBLE: uPress File Manager opened the active plugin `includes/` folder at `/wp-content/plugins/ultra-justice-engine/includes/`.
 - EVIDENCE: `project-control/visual-evidence/upress-plugin-filesystem-ultra-includes-2026-05-11.png`.

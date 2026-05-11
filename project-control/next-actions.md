@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PUBLICATION-SAFETY-002: Keep family-law public cleanup render-only unless approved
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** Public pages must not expose internal notes, but the current content architecture project also says no silent CMS rewrites before inventory, GSC, URL migration and owner approval.
+**Actions:**
+1. DONE: family-law runtime guard still cleans visitor output when internal markers are detected.
+2. DONE: runtime guard persistence now requires explicit opt-in filter `justice_theme_enable_family_cluster_runtime_guard_persistence`.
+3. DONE: automatic editorial repair now requires explicit opt-in filter `justice_theme_enable_family_cluster_editorial_repair`.
+4. DONE: automatic internal-notes draft sync now requires explicit opt-in filter `justice_theme_enable_family_cluster_internal_notes_sync`.
+5. DONE: quarantine and auto-publication also use explicit opt-in filters before they can write live CMS data.
+6. VERIFIED: no content bodies, URLs, redirects, wp-admin settings, sitemap, taxonomy, lawyer, lead/CRM or review records were changed by this repo patch.
+7. NEXT: pull/deploy marker `2026-05-11-family-cluster-render-only-guard-v1`, then inspect one affected family-law URL for clean public rendering while confirming no automatic CMS write was required.
+8. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-URL-MIGRATION-SAFETY-001: Keep Maya slug/profile changes controlled
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** The current URL migration rule says "map first, approve, then migrate"; theme pulls must not silently change lawyer slugs or profile CMS fields.

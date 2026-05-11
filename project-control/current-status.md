@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 04:22 Asia/Jerusalem
+- CODE FIXED: family-law public runtime guard now remains visitor-safe but render-only by default; if old public bodies still contain internal markers, the rendered output is replaced with the cleaned repo article body without silently saving it back to WordPress.
+- CODE FIXED: family-law editorial repair, internal-notes draft sync, quarantine and auto-publication now all require explicit opt-in filters before they can perform permanent CMS writes.
+- WHY: the current project mode is content inventory, URL migration mapping and controlled approvals. A theme pull should not silently rewrite article bodies, draft pages, URLs, metadata or cache state.
+- VERIFIED: automatic creation/update of the internal notes draft is paused by default; manual wp-admin repair remains available through the existing approved admin action.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-family-cluster-render-only-guard-v1`; requires uPress pull/cache clear and a source-marker check.
+- SAFETY: no public content body, URL, redirect, taxonomy term, sitemap, canonical, lawyer record, lead/CRM record, review data, wp-admin setting or database row was changed by this repo patch.
+
 ## LATEST WORK STATUS - 2026-05-11 05:18 Asia/Jerusalem
 - CODE FIXED: automatic Maya Rotenberg live slug migration is now disabled by default and requires explicit opt-in through `justice_theme_enable_maya_slug_migration`.
 - CODE FIXED: automatic Maya mini-site CMS field bootstrapping is now disabled by default and requires explicit opt-in through `justice_theme_enable_maya_minisite_bootstrap`.

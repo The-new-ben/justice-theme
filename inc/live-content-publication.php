@@ -18,8 +18,27 @@ define( 'JUSTICE_THEME_ENABLE_AUTO_FAMILY_CLUSTER_PUBLICATION', false );
 define( 'JUSTICE_THEME_FAMILY_CLUSTER_QUARANTINE_VERSION', '2026-05-10-quarantine-unsafe-family-cluster-v1' );
 define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_QUARANTINE', false );
 define( 'JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION', '2026-05-10-editorial-repair-family-cluster-v6' );
-define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_EDITORIAL_REPAIR', true );
+define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_EDITORIAL_REPAIR', false );
 define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_RUNTIME_GUARD', true );
+define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_RUNTIME_GUARD_PERSISTENCE', false );
+define( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_INTERNAL_NOTES_SYNC', false );
+
+/**
+ * Confirm that a live family-cluster CMS write has been explicitly enabled.
+ *
+ * Public rendering can still stay clean through the runtime guard, but any
+ * permanent WordPress mutation must be deliberately enabled by a deployment
+ * owner after the current inventory/migration review is approved.
+ *
+ * @param string $constant_name Boolean feature constant name.
+ * @param string $filter_name Boolean feature filter name.
+ * @return bool
+ */
+function justice_theme_family_cluster_live_write_enabled( string $constant_name, string $filter_name ): bool {
+	$enabled = defined( $constant_name ) ? (bool) constant( $constant_name ) : false;
+
+	return (bool) apply_filters( $filter_name, $enabled );
+}
 
 /**
  * Register SEO/AEO/GEO meta for public content pages.
@@ -63,7 +82,7 @@ add_action( 'init', 'justice_theme_register_publication_meta' );
  * restore backed-up content where possible or move generated pages back to draft.
  */
 function justice_theme_quarantine_unsafe_family_cluster_pages(): void {
-	if ( ! JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_QUARANTINE ) {
+	if ( ! justice_theme_family_cluster_live_write_enabled( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_QUARANTINE', 'justice_theme_enable_family_cluster_quarantine' ) ) {
 		return;
 	}
 
@@ -147,6 +166,10 @@ add_action( 'init', 'justice_theme_quarantine_unsafe_family_cluster_pages', 41 )
  * Keep internal/editorial material in a private workspace note, not in public pages.
  */
 function justice_theme_sync_family_cluster_internal_editorial_notes(): void {
+	if ( ! justice_theme_family_cluster_live_write_enabled( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_INTERNAL_NOTES_SYNC', 'justice_theme_enable_family_cluster_internal_notes_sync' ) ) {
+		return;
+	}
+
 	if ( get_option( 'justice_family_cluster_internal_notes_version' ) === JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION ) {
 		return;
 	}
@@ -193,7 +216,7 @@ add_action( 'init', 'justice_theme_sync_family_cluster_internal_editorial_notes'
  * public-facing article content. This does not delete, draft, or redirect pages.
  */
 function justice_theme_editorial_repair_existing_family_cluster_pages(): void {
-	if ( ! JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_EDITORIAL_REPAIR ) {
+	if ( ! justice_theme_family_cluster_live_write_enabled( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_EDITORIAL_REPAIR', 'justice_theme_enable_family_cluster_editorial_repair' ) ) {
 		return;
 	}
 
@@ -241,7 +264,7 @@ add_action( 'init', 'justice_theme_editorial_repair_existing_family_cluster_page
  * Publish the approved first family-law content cluster.
  */
 function justice_theme_publish_owner_approved_family_cluster(): void {
-	if ( ! JUSTICE_THEME_ENABLE_AUTO_FAMILY_CLUSTER_PUBLICATION ) {
+	if ( ! justice_theme_family_cluster_live_write_enabled( 'JUSTICE_THEME_ENABLE_AUTO_FAMILY_CLUSTER_PUBLICATION', 'justice_theme_enable_auto_family_cluster_publication' ) ) {
 		return;
 	}
 
@@ -296,8 +319,10 @@ add_action( 'admin_init', 'justice_theme_handle_family_cluster_publication_actio
 
 /**
  * Final public-output guard for family-law pages that were already published
- * from repo drafts. If a public page still contains internal notes, serve and
- * persist the cleaned article body from the repo draft immediately.
+ * from repo drafts. If a public page still contains internal notes, serve the
+ * cleaned article body from the repo draft immediately. Persisting the cleaned
+ * body back into WordPress is opt-in only during the current audit/migration
+ * phase.
  *
  * @param string $content Post content.
  * @return string
@@ -346,20 +371,22 @@ function justice_theme_guard_family_cluster_public_content( string $content ): s
 		return $content;
 	}
 
-	$result = wp_update_post(
-		array(
-			'ID'           => $post->ID,
-			'post_content' => $clean_html,
-		),
-		true
-	);
+	if ( justice_theme_family_cluster_live_write_enabled( 'JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_RUNTIME_GUARD_PERSISTENCE', 'justice_theme_enable_family_cluster_runtime_guard_persistence' ) ) {
+		$result = wp_update_post(
+			array(
+				'ID'           => $post->ID,
+				'post_content' => $clean_html,
+			),
+			true
+		);
 
-	if ( ! is_wp_error( $result ) ) {
-		update_post_meta( $post->ID, 'content_status', 'editorial_repaired_public_article' );
-		update_post_meta( $post->ID, 'justice_runtime_guard_version', JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION );
-		update_post_meta( $post->ID, 'justice_runtime_guard_markers', implode( ', ', array_slice( $markers, 0, 8 ) ) );
-		update_post_meta( $post->ID, 'justice_runtime_guard_repaired_at', current_time( 'mysql' ) );
-		justice_theme_purge_family_cluster_publication_caches( array( $slug ), 'runtime_public_content_guard' );
+		if ( ! is_wp_error( $result ) ) {
+			update_post_meta( $post->ID, 'content_status', 'editorial_repaired_public_article' );
+			update_post_meta( $post->ID, 'justice_runtime_guard_version', JUSTICE_THEME_FAMILY_CLUSTER_EDITORIAL_REPAIR_VERSION );
+			update_post_meta( $post->ID, 'justice_runtime_guard_markers', implode( ', ', array_slice( $markers, 0, 8 ) ) );
+			update_post_meta( $post->ID, 'justice_runtime_guard_repaired_at', current_time( 'mysql' ) );
+			justice_theme_purge_family_cluster_publication_caches( array( $slug ), 'runtime_public_content_guard' );
+		}
 	}
 
 	return $clean_html;

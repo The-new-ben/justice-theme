@@ -35,7 +35,9 @@ Those notes are synced into a draft-only WordPress page:
 5. Keeps the cannibalization review active for later merge/redirect decisions.
 6. Imports future repo drafts into the `articles` CPT as clean drafts, with internal notes stored separately.
 7. Removes whole internal Markdown sections when their body contains strong team-only markers, not only when the heading text is an exact match.
-8. Guards public rendering for the seven approved family-law slugs: if old page content still contains internal markers, the rendered output is replaced with the clean repo-draft body and the WordPress page is updated in place.
+8. Guards public rendering for the seven approved family-law slugs: if old page content still contains internal markers, the rendered output is replaced with the clean repo-draft body.
+9. Does not persist runtime cleanup back into WordPress unless `justice_theme_enable_family_cluster_runtime_guard_persistence` is explicitly enabled.
+10. Does not run automatic editorial repair, internal-notes draft sync, quarantine or auto-publication unless their explicit opt-in filters are enabled.
 
 ## Verification After uPress Pull
 1. Open each of the seven URLs.

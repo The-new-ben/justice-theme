@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Family cluster render-only public guard
+
+- CODE FIXED: the family-law runtime public-content guard still replaces unsafe public output at render time, but no longer persists the cleaned body to WordPress unless `justice_theme_enable_family_cluster_runtime_guard_persistence` is explicitly enabled.
+- CODE FIXED: automatic editorial repair, internal-notes draft sync, quarantine and auto-publication are all opt-in live CMS writes.
+- EXPECTED IMPACT: pulling the theme keeps visitors protected from internal-note leakage while respecting the current audit-first migration policy.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-family-cluster-render-only-guard-v1`.
+- SAFETY: no content, URLs, redirects, sitemap, canonical, taxonomy, CRM, lawyer, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - Controlled Maya migration guard
 
 - CODE FIXED: automatic Maya Rotenberg slug migration is now opt-in only through `justice_theme_enable_maya_slug_migration`.

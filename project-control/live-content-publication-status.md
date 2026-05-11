@@ -21,7 +21,7 @@ Deployment model: GitHub/uPress pulls the repo into the live WordPress theme.
 - Automatic creation of new public pages is disabled.
 - The manual action now repairs existing family-law pages only after preflight; it does not create missing pages by default.
 - The editorial repair action updates existing pages in place with public-facing body content and leaves merge/redirect decisions for later approval.
-- The internal notes sync creates a draft-only WordPress page for owner/team notes.
+- The internal notes sync can create a draft-only WordPress page for owner/team notes, but it is now opt-in only while the full inventory/migration project is active.
 
 ## CODE FIXED
 - `functions.php` now loads `inc/live-content-publication.php`.
@@ -75,6 +75,15 @@ These URLs exist as the working family-law cluster. The immediate task is public
 - If a page body still contains internal markers during rendering, the guard replaces the public output with the cleaned repo-draft article body, persists the cleaned body to the WordPress page, records `justice_runtime_guard_*` meta, and purges cache for that slug.
 - This remains narrowly scoped: it does not create pages, does not delete pages, and does not run on unrelated content.
 - Required proof: after uPress pulls, open one affected page and confirm the public body no longer contains internal markers.
+
+## CODE FIX - 2026-05-11 render-only guard
+- Runtime public-content cleanup remains enabled for the seven approved family-law slugs, so visitors should receive cleaned public-facing article output if old content still contains internal markers.
+- Persistent WordPress writes are now disabled by default during the audit-first migration phase.
+- Persisting a runtime cleanup requires `justice_theme_enable_family_cluster_runtime_guard_persistence`.
+- Automatic editorial repair requires `justice_theme_enable_family_cluster_editorial_repair`.
+- Automatic internal-notes draft sync requires `justice_theme_enable_family_cluster_internal_notes_sync`.
+- Automatic quarantine and auto-publication also require explicit opt-in filters.
+- This protects public rendering without silently rewriting CMS content, URLs, metadata, draft pages, cache state or migration records.
 
 ## CODE FIX - 2026-05-10 v6
 - The repair now runs under a new v6 version marker so live WordPress reruns it after uPress pulls.

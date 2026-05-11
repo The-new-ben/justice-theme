@@ -29,7 +29,22 @@ Interpretation: the active live Justice plugin namespace is `ultra-justice-engin
 
 Additional interpretation: the plugin code currently active on live may not be identical to the plugin copies inside the theme Git folder, because the public REST/type surface does not show every newer repo-side LegalTech CPT expectation. Treat plugin deployment as a separate controlled track from theme Git pulls until verified in wp-admin or the plugins filesystem path.
 
-The uPress plugin manager confirms the active plugin name but does not expose the exact PHP file path. The likely path is `ultra-justice-engine/ultra-justice-engine.php`, but exact path remains NOT VERIFIED until a read-only plugin registry, WP-CLI, wp-admin plugin detail, or filesystem-level check confirms it.
+uPress File Manager read-only filesystem check adds:
+
+- VERIFIED LIVE PATH: `/wp-content/plugins/ultra-justice-engine/` exists.
+- VERIFIED LIVE PATH: `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php` exists.
+- VERIFIED LIVE PATH: `/wp-content/plugins/ultra-justice-engine/includes/` exists.
+- VERIFIED LIVE ABSENCE: filtering `/wp-content/plugins/` for `justice-core` returned 0 items.
+- EVIDENCE: `project-control/visual-evidence/upress-plugin-filesystem-ultra-justice-engine-active-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/upress-plugin-filesystem-ultra-main-file-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/upress-plugin-filesystem-no-justice-core-2026-05-11.png`.
+- DOCUMENTED: `project-control/upress-plugin-filesystem-readonly-review.md`.
+
+The exact live Justice plugin path is now VERIFIED for the current live state:
+
+```text
+/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php
+```
 
 Local repo path/collision scan now adds:
 
@@ -44,8 +59,8 @@ Local repo path/collision scan now adds:
 
 | Folder | Plugin name | REST namespace | Function/constant prefix | Live status |
 |---|---|---|---|---|
-| `ultra-justice-engine/` | Ultra Justice Engine | `ultra-justice-engine/v1` | `UJE_*`, `uje_*` | VERIFIED LIVE |
-| `justice-core/` | Justice Core | `justice-core/v1` | `UJE_*`, `uje_*` | NOT LIVE EXPOSED |
+| `ultra-justice-engine/` | Ultra Justice Engine | `ultra-justice-engine/v1` | `UJE_*`, `uje_*` | VERIFIED LIVE PATH |
+| `justice-core/` | Justice Core | `justice-core/v1` | `UJE_*`, `uje_*` | NOT LIVE EXPOSED / NOT FOUND IN LIVE PLUGINS FOLDER |
 | `ultra-justice/` | Ultra Justice | `ultra-justice/v1` | `uj_*` | NOT LIVE EXPOSED |
 
 ## Key Risk
@@ -66,7 +81,7 @@ Current safe operating decision:
 4. Do not activate `justice-core/` until `ultra-justice-engine/` has been deactivated in a maintenance window.
 5. Do not delete any plugin folder before backup and owner approval.
 6. Treat LegalTech CPT availability as NOT VERIFIED LIVE until wp-admin/plugin-path inspection confirms the active plugin code version.
-7. Keep exact active plugin file path as NOT VERIFIED until a path-level check confirms it.
+7. Treat exact active plugin file path as VERIFIED for the current uPress filesystem state: `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php`.
 
 ## Controlled Migration Plan Required
 

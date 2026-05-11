@@ -282,3 +282,13 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - EVIDENCE: `project-control/visual-evidence/upress-plugin-manager-ultra-justice-engine-active-2026-05-11.png`.
 - EVIDENCE: `project-control/visual-evidence/upress-plugin-manager-all-404-active-2026-05-11.png`.
 - SAFETY: screenshots were captured after filtering the plugin table only; no plugin state was changed.
+
+## 2026-05-11 uPress Plugin Filesystem Read-Only Evidence
+
+- VISUAL VERIFIED: `/wp-content/plugins/ultra-justice-engine/` exists in the uPress File Manager.
+- VISUAL VERIFIED: `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php` exists, with `includes/` in the same plugin folder.
+- VISUAL VERIFIED: filtering `/wp-content/plugins/` for `justice-core` returned 0 items.
+- EVIDENCE: `project-control/visual-evidence/upress-plugin-filesystem-ultra-justice-engine-active-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/upress-plugin-filesystem-ultra-main-file-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/upress-plugin-filesystem-no-justice-core-2026-05-11.png`.
+- SAFETY: screenshots were captured through read-only file navigation and filtering; no plugin file or plugin state was changed.

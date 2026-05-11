@@ -78,11 +78,12 @@ VERIFIED LIVE from previous checks:
 - Public REST does not expose `justice-core/v1`.
 - Public REST does not expose `ultra-justice/v1`.
 - uPress plugin manager shows `Ultra Justice Engine` version `1.0.0` active.
+- uPress File Manager confirms `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php` exists.
+- uPress File Manager filtering for `justice-core` under `/wp-content/plugins/` returned 0 items.
 
 NOT VERIFIED:
 
-- Exact live active plugin file path remains not directly shown by uPress plugin manager.
-- The likely path is `ultra-justice-engine/ultra-justice-engine.php`, but a path-level live check still requires WP-CLI, admin active-plugin registry access, or read-only filesystem confirmation under `/wp-content/plugins/`.
+- Whether the active live plugin code is byte-for-byte identical to the repo copy. This needs a read-only code/version comparison before a plugin migration.
 
 ## Current Decision
 

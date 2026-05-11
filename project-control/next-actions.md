@@ -7,7 +7,7 @@
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
 ### ACTION-PLUGIN-COLLISION-001: Keep Justice plugin migration controlled
-**Status:** VERIFIED LOCAL / MIGRATION NOT APPROVED
+**Status:** VERIFIED LIVE PATH / MIGRATION NOT APPROVED
 **Why:** The live site currently exposes `Ultra Justice Engine`, while the repo also contains `justice-core` and `ultra-justice`. Activating duplicate Justice plugins could create PHP fatal errors, duplicate CPT/taxonomy registration, or confused REST/content behavior.
 **Actions:**
 1. DONE: added `tools/check-justice-plugin-collision.ps1`.
@@ -17,8 +17,10 @@
 5. VERIFIED LOCAL RISK: `justice-core/` and `ultra-justice-engine/` share `UJE_*` constants and many `uje_*` functions.
 6. DOCUMENTED: `project-control/justice-plugin-collision-review.md`.
 7. DECISION: do not activate `justice-core/` while `ultra-justice-engine/` is active.
-8. NEXT: confirm exact active live plugin file path through WP-CLI, active-plugin registry, or read-only `/wp-content/plugins/` filesystem inspection; then create a parity checklist before any plugin switch.
-9. SAFETY: no plugin activation, deactivation, deletion, installation, file-manager edit, wp-admin setting, URL, redirect, content, taxonomy, sitemap, canonical, lawyer, CRM, review or database change was made.
+8. DONE: read-only uPress File Manager inspection confirmed `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php` exists on live and `/wp-content/plugins/justice-core` returned 0 filtered items.
+9. DOCUMENTED: `project-control/upress-plugin-filesystem-readonly-review.md`.
+10. NEXT: compare live `ultra-justice-engine` code against repo plugin code and create a parity checklist before any plugin switch.
+11. SAFETY: no plugin activation, deactivation, deletion, installation, file-manager edit, wp-admin setting, URL, redirect, content, taxonomy, sitemap, canonical, lawyer, CRM, review or database change was made.
 
 ### ACTION-ROUTING-404-HOMEPAGE-001: Identify and disable uncontrolled 404-to-homepage redirects
 **Status:** VERIFIED SOURCE - owner approval needed before deactivation
@@ -735,12 +737,13 @@ Next safe batch before any URL/content migration:
 
 ## 2026-05-11 LIVE PLUGIN ARCHITECTURE NEXT ACTIONS
 
-**Status:** LIVE REST SURFACE VERIFIED / FILESYSTEM PATH STILL NEEDS ADMIN CONFIRMATION
+**Status:** LIVE REST SURFACE VERIFIED / FILESYSTEM PATH VERIFIED / MIGRATION NOT APPROVED
 
 1. Use `tools/check-live-plugin-surface.ps1` before plugin migration work.
 2. Treat `ultra-justice-engine/v1` as the active live Justice REST namespace.
 3. Do not activate `justice-core/` while `ultra-justice-engine/` is active because both use `UJE_*` constants and `uje_*` functions.
-4. Confirm the actual active plugin filesystem path before any plugin code migration; uPress plugin manager verifies `Ultra Justice Engine` is active but does not expose the PHP file path.
-5. Investigate why `justice_legal_tool` and `justice_legal_request` are not exposed in current public `wp/v2/types`.
-6. Keep LegalTech public routes marked NOT VERIFIED LIVE until active plugin code version is confirmed.
-7. Plan a controlled plugin migration only after backup, parity diff, permalink flush plan and owner approval.
+4. VERIFIED: uPress File Manager confirms `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php` exists and `/wp-content/plugins/justice-core` is not present in the filtered live plugin filesystem view.
+5. NEXT: compare active live plugin code version against repo `ultra-justice-engine/` before assuming LegalTech CPT parity.
+6. Investigate why `justice_legal_tool` and `justice_legal_request` are not exposed in current public `wp/v2/types`.
+7. Keep LegalTech public routes marked NOT VERIFIED LIVE until active plugin code version is confirmed.
+8. Plan a controlled plugin migration only after backup, parity diff, permalink flush plan and owner approval.

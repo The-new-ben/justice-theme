@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 08:30 Asia/Jerusalem
+- VERIFIED LIVE PATH: uPress File Manager read-only inspection confirms the active Justice plugin filesystem path is `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php`.
+- VERIFIED LIVE PATH: `/wp-content/plugins/ultra-justice-engine/` exists, is marked active in the uPress filesystem view, and contains `includes/` plus `ultra-justice-engine.php`.
+- VERIFIED LIVE ABSENCE: filtering `/wp-content/plugins/` for `justice-core` returned 0 items, so `justice-core/` is a repo-side future target, not the live plugin folder in this uPress check.
+- DOCUMENTED: created `project-control/upress-plugin-filesystem-readonly-review.md` and saved screenshot evidence under `project-control/visual-evidence/`.
+- DECISION: exact plugin path question is now closed for the current live state; keep `Ultra Justice Engine` as active track and keep any future `justice-core` migration approval-gated.
+- SAFETY: no plugin activation, deactivation, deletion, upload, rename, file-manager edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+
 ## LATEST WORK STATUS - 2026-05-11 08:16 Asia/Jerusalem
 - DOCUMENTED / VERIFIED LOCAL: added repeatable Justice plugin collision scanner `tools/check-justice-plugin-collision.ps1`.
 - VERIFIED LOCAL: `ultra-justice-engine/ultra-justice-engine.php` is `Ultra Justice Engine` v1.0.0 and uses REST namespace `ultra-justice-engine/v1`.

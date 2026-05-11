@@ -3,6 +3,13 @@
 
 ## 2026-05-11 - Justice plugin collision review
 
+- VERIFIED LIVE PATH: uPress File Manager read-only inspection confirmed `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php` as the live Justice plugin path.
+- VERIFIED LIVE ABSENCE: filtering `/wp-content/plugins/` for `justice-core` returned 0 items.
+- DOCUMENTED: created `project-control/upress-plugin-filesystem-readonly-review.md`.
+- SAVED EVIDENCE: `project-control/visual-evidence/upress-plugin-filesystem-ultra-justice-engine-active-2026-05-11.png`, `project-control/visual-evidence/upress-plugin-filesystem-ultra-main-file-2026-05-11.png`, and `project-control/visual-evidence/upress-plugin-filesystem-no-justice-core-2026-05-11.png`.
+- DECISION: exact plugin path is now verified for the current live state; keep `Ultra Justice Engine` as the active track and keep `Justice Core` migration approval-gated.
+- SAFETY: no plugin activation, deactivation, deletion, upload, rename, file edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+
 - DOCUMENTED / VERIFIED LOCAL: added `tools/check-justice-plugin-collision.ps1` to scan Justice plugin headers, constants, functions, REST namespaces, CPTs and taxonomies.
 - VERIFIED LOCAL: `Ultra Justice Engine`, `Justice Core`, and `Ultra Justice` all exist as repo plugin trees with version `1.0.0`.
 - VERIFIED LOCAL RISK: `justice-core/` and `ultra-justice-engine/` share `UJE_*` constants and many `uje_*` functions.

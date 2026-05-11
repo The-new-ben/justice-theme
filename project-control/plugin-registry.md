@@ -3,7 +3,7 @@
 **Status:** NOT VERIFIED live — requires `wp plugin list` or wp-admin access.  
 **Purpose:** Track all Justice-related plugins, their CPTs, taxonomies, and roles.
 
-2026-05-11 status override: PARTIAL LIVE VERIFIED / MIGRATION NOT APPROVED. Public REST and uPress plugin-manager checks show `Ultra Justice Engine` active on live; `justice-core` remains a future target only after collision/parity review and owner approval.
+2026-05-11 status override: LIVE PATH VERIFIED / MIGRATION NOT APPROVED. Public REST, uPress plugin manager and uPress File Manager checks show `Ultra Justice Engine` active on live at `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php`; `justice-core` remains a repo-side future target only after collision/parity review and owner approval.
 
 ---
 
@@ -16,6 +16,8 @@ VERIFIED LIVE:
 - Public REST does not expose `ultra-justice/v1`.
 - uPress plugin manager shows `Ultra Justice Engine` version `1.0.0` active.
 - uPress plugin manager did not show a separate `Justice Core` row when filtered for `Justice`.
+- uPress File Manager shows `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php`.
+- uPress File Manager filtering for `justice-core` under `/wp-content/plugins/` returned 0 items.
 
 VERIFIED LOCAL:
 
@@ -35,6 +37,7 @@ Supporting files:
 
 - `project-control/live-plugin-architecture-review.md`
 - `project-control/upress-plugin-manager-readonly-review.md`
+- `project-control/upress-plugin-filesystem-readonly-review.md`
 - `project-control/justice-plugin-collision-review.md`
 - `tools/check-live-plugin-surface.ps1`
 - `tools/check-justice-plugin-collision.ps1`

@@ -274,3 +274,11 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - VERIFIED BASELINE: the checker confirms valid public pages and crawl files still pass.
 - BLOCKED BASELINE: fake URL and invalid `?p=99999999` still return 301-to-homepage while `All 404 Redirect to Homepage` remains active.
 - NOT YET VISUAL VERIFIED: post-deactivation real Hebrew 404 screenshot still requires owner approval to deactivate the plugin and rerun live QA.
+
+## 2026-05-11 uPress Plugin Manager Read-Only Evidence
+
+- VISUAL VERIFIED: `Ultra Justice Engine` appears in the uPress plugin manager as active.
+- VISUAL VERIFIED: `All 404 Redirect to Homepage` appears in the uPress plugin manager as active.
+- EVIDENCE: `project-control/visual-evidence/upress-plugin-manager-ultra-justice-engine-active-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/upress-plugin-manager-all-404-active-2026-05-11.png`.
+- SAFETY: screenshots were captured after filtering the plugin table only; no plugin state was changed.

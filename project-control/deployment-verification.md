@@ -170,6 +170,10 @@ BLOCKED: waiting for uPress pull / live file sync / cache refresh.
 - VERIFIED LIVE: `articles`, `justice_lawyer`, and `justice_lead` are exposed in `wp/v2/types`.
 - NOT VERIFIED LIVE: `justice_legal_tool` and `justice_legal_request` are not exposed in the current public type check.
 - VERIFIED RISK: legacy CPTs remain exposed in `wp/v2/types`.
+- VERIFIED UPRESS PLUGIN MANAGER: `Ultra Justice Engine` version `1.0.0` is active; `All 404 Redirect to Homepage` version `5.6` is also active.
+- EVIDENCE: `project-control/visual-evidence/upress-plugin-manager-ultra-justice-engine-active-2026-05-11.png`.
+- EVIDENCE: `project-control/visual-evidence/upress-plugin-manager-all-404-active-2026-05-11.png`.
 - DEPLOYMENT INTERPRETATION: theme Git pulls are verified, but plugin deployment remains a separate control surface until wp-admin/uPress plugin-path inspection confirms the active plugin filesystem path and version.
+- NOT VERIFIED: exact active plugin PHP file path; uPress plugin manager confirms name/version/status but not the plugin file path.
 - LIVE DEPLOYMENT VERIFIED: uPress Git log shows commit `c58cd7e` as `Verify live plugin architecture surface`.
-- SAFETY: no plugin activation, deactivation, deletion, file-manager edit, wp-admin setting or database change was made.
+- SAFETY: no plugin activation, deactivation, deletion, installation, file-manager edit, wp-admin setting or database change was made.

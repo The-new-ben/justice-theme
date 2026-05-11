@@ -97,6 +97,7 @@ Date: 2026-05-10
 - Status: SOURCE VERIFIED / OWNER APPROVAL NEEDED. Deactivate this plugin only after approval, then retest real 404 behavior. Do not change URL migrations or redirect rules until mapped and approved.
 - 2026-05-11 CHECKLIST READY: `project-control/404-plugin-deactivation-checklist.md` documents the owner approval gate, pre-change checks, live change steps, post-change checks and rollback.
 - 2026-05-11 CHECKER READY: `tools/check-404-routing.ps1` runs locally and currently reports the expected BLOCKED baseline: fake URL and invalid `?p=99999999` fail with 301-to-homepage, while homepage, `/articles/`, `/lawyers/`, `robots.txt`, and `sitemap_index.xml` pass.
+- 2026-05-11 UPRESS PLUGIN MANAGER VERIFIED: filtered plugin search shows `All 404 Redirect to Homepage` version `5.6` active. Evidence: `project-control/visual-evidence/upress-plugin-manager-all-404-active-2026-05-11.png`.
 - Status: SOURCE VERIFIED / CHECKER READY / OWNER APPROVAL NEEDED.
 
 ## Footer / Mobile

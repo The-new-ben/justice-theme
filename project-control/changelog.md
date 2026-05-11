@@ -1680,6 +1680,10 @@
 - VERIFIED LIVE: core CPTs `articles`, `justice_lawyer`, and `justice_lead` are exposed in `wp/v2/types`.
 - NOT VERIFIED LIVE: `justice_legal_tool` and `justice_legal_request` are not exposed in the public type check.
 - VERIFIED RISK: legacy CPTs remain exposed in `wp/v2/types`.
+- VERIFIED UPRESS PLUGIN MANAGER: `Ultra Justice Engine` version `1.0.0` is active; filtering for `Justice` did not show a separate `Justice Core` row.
+- VERIFIED UPRESS PLUGIN MANAGER: `All 404 Redirect to Homepage` version `5.6` is active.
+- CREATED: `project-control/upress-plugin-manager-readonly-review.md`.
+- SAVED EVIDENCE: `project-control/visual-evidence/upress-plugin-manager-ultra-justice-engine-active-2026-05-11.png` and `project-control/visual-evidence/upress-plugin-manager-all-404-active-2026-05-11.png`.
 - DECISION: do not activate `justice-core/` beside `ultra-justice-engine/`; they share `UJE_*` constants and `uje_*` functions.
 - LIVE DEPLOYMENT VERIFIED: Codex used the uPress Git panel directly and verified the uPress Git log at commit `c58cd7e` for `Verify live plugin architecture surface`.
-- SAFETY: no plugin activation, deactivation, deletion, file-manager edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+- SAFETY: no plugin activation, deactivation, deletion, installation, file-manager edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.

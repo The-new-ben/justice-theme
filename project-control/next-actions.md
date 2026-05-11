@@ -726,7 +726,7 @@ Next safe batch before any URL/content migration:
 1. Use `tools/check-live-plugin-surface.ps1` before plugin migration work.
 2. Treat `ultra-justice-engine/v1` as the active live Justice REST namespace.
 3. Do not activate `justice-core/` while `ultra-justice-engine/` is active because both use `UJE_*` constants and `uje_*` functions.
-4. Confirm the actual active plugin filesystem path in wp-admin/uPress plugin manager before any plugin code migration.
+4. Confirm the actual active plugin filesystem path before any plugin code migration; uPress plugin manager verifies `Ultra Justice Engine` is active but does not expose the PHP file path.
 5. Investigate why `justice_legal_tool` and `justice_legal_request` are not exposed in current public `wp/v2/types`.
 6. Keep LegalTech public routes marked NOT VERIFIED LIVE until active plugin code version is confirmed.
 7. Plan a controlled plugin migration only after backup, parity diff, permalink flush plan and owner approval.

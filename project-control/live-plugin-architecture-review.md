@@ -19,9 +19,17 @@ Public REST checks on `https://jus-tice.co.il/wp-json/` show:
 - NOT VERIFIED LIVE: `justice_legal_tool` and `justice_legal_request` are not exposed in `wp/v2/types` in the current public check.
 - VERIFIED RISK: legacy CPTs remain exposed, including `labor_law`, `small_claims`, `corona_virus`, `supreme_court`, `tort`, `goverment-gazette` and `yada_wiki`.
 
+uPress plugin manager read-only check shows:
+
+- VERIFIED: `Ultra Justice Engine` version `1.0.0` is active (`פעיל`).
+- VERIFIED: filtering for `Justice` showed `Ultra Justice Engine`; no separate `Justice Core` row was visible in that filtered result.
+- EVIDENCE: `project-control/visual-evidence/upress-plugin-manager-ultra-justice-engine-active-2026-05-11.png`.
+
 Interpretation: the active live Justice plugin namespace is `ultra-justice-engine/v1`.
 
 Additional interpretation: the plugin code currently active on live may not be identical to the plugin copies inside the theme Git folder, because the public REST/type surface does not show every newer repo-side LegalTech CPT expectation. Treat plugin deployment as a separate controlled track from theme Git pulls until verified in wp-admin or the plugins filesystem path.
+
+The uPress plugin manager confirms the active plugin name but does not expose the exact PHP file path. The likely path is `ultra-justice-engine/ultra-justice-engine.php`, but exact path remains NOT VERIFIED until a read-only plugin registry, WP-CLI, wp-admin plugin detail, or filesystem-level check confirms it.
 
 ## Repo Plugin Trees
 
@@ -49,6 +57,7 @@ Current safe operating decision:
 4. Do not activate `justice-core/` until `ultra-justice-engine/` has been deactivated in a maintenance window.
 5. Do not delete any plugin folder before backup and owner approval.
 6. Treat LegalTech CPT availability as NOT VERIFIED LIVE until wp-admin/plugin-path inspection confirms the active plugin code version.
+7. Keep exact active plugin file path as NOT VERIFIED until a path-level check confirms it.
 
 ## Controlled Migration Plan Required
 

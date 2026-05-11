@@ -56,3 +56,11 @@ If unexpected live behavior appears after deactivation:
 - Do not change permalink structure.
 - Do not execute URL migration redirects before the approved migration map exists.
 
+## 2026-05-11 uPress Plugin Manager Recheck
+
+- VERIFIED: uPress plugin manager filtered search for `404` shows `All 404 Redirect to Homepage`.
+- VERIFIED: plugin version is `5.6`.
+- VERIFIED: plugin status is active (`פעיל`).
+- VERIFIED: the plugin description in uPress says it redirects 404s to the homepage or another page using 301 redirects.
+- EVIDENCE: `project-control/visual-evidence/upress-plugin-manager-all-404-active-2026-05-11.png`.
+- SAFETY: plugin manager was viewed and filtered only; no plugin state was changed.

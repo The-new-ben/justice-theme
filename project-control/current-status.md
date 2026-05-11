@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 18:06 Asia/Jerusalem
+- FIXED / BRANDING POLISH V2: corrected the latest logo/favicon polish commit before live rollout.
+- CODE FIXED: removed duplicate fallback favicon output from `header.php`; fallback now remains centralized in `inc/seo.php` and still respects WordPress Site Icon.
+- CODE FIXED: removed negative letter-spacing from the new premium brand/trust polish rules and bumped premium CSS cache version to `4.2.1`.
+- CODE FIXED: theme version moved to `1.0.3` and deployment marker moved to `2026-05-11-branding-polish-v2`.
+- VERIFIED LOCAL: `git diff --check` passed with only normal Windows LF-to-CRLF warnings; public source still shows old marker `2026-05-11-media-sitemap-https-v1`.
+- VERIFIED LOCAL: PHP lint passed for all PHP files using the owner-provided local PHP zip extracted to a temporary runtime.
+- NOT LIVE VERIFIED: browser tab/favicon/mobile bookmark visual QA requires uPress pull/cache refresh.
+- SAFETY: no content, URL slug, redirect, canonical, sitemap, title/H1/meta, taxonomy, menu, lawyer, CRM, review, wp-admin option or CMS/database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 17:53 Asia/Jerusalem
 - VERIFIED / CYBER-PRIVACY OUTLINE QUEUE: created the review-only rewrite/outline queue for cyber/privacy pages and section-first topics.
 - CREATED: `project-control/cyber-privacy-rewrite-outline-queue-2026-05-11.md`.

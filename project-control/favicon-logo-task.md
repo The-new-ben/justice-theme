@@ -3,6 +3,17 @@
 Date: 2026-05-10  
 Status: CODE FIXED / PARTIAL LIVE VERIFIED / WP-ADMIN SITE ICON NOT VERIFIED
 
+## 2026-05-11 Branding Polish V2 Verification
+
+- CODE FIXED: removed the duplicate fallback favicon block from `header.php`; favicon/app-icon fallback is centralized in `inc/seo.php`.
+- VERIFIED LOCAL: `inc/seo.php` preserves WordPress Site Icon priority by returning early when `has_site_icon()` is true.
+- CODE FIXED: premium brand polish CSS moved to `4.2.1`, theme version moved to `1.0.3`, and deployment marker moved to `2026-05-11-branding-polish-v2`.
+- VERIFIED LOCAL: new premium-pass brand/trust rules no longer use negative `letter-spacing`.
+- VERIFIED LOCAL: `git diff --check` passed with only normal Windows LF-to-CRLF warnings.
+- VERIFIED LOCAL: PHP lint passed for all PHP files using the owner-provided local PHP zip extracted to a temporary runtime.
+- NOT LIVE VERIFIED: public homepage source still reports marker `2026-05-11-media-sitemap-https-v1`; uPress pull/cache refresh is needed before live visual/favicon verification.
+- BLOCKED: WordPress admin Site Icon media item, browser tab rendering after deploy, mobile bookmark icon, and Google search favicon refresh still need authenticated/live verification.
+
 ## Source Guidance
 
 - Google favicon guidance: favicon must be crawlable by Googlebot and Googlebot-Image, use a stable URL, and be larger than the minimum 8x8 where possible. Source: https://developers.google.com/search/docs/appearance/favicon-in-search

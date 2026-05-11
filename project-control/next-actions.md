@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-BRANDING-POLISH-V2-001: Verify and correct latest logo/favicon polish
+**Status:** COMPLETED / CODE FIXED / NOT LIVE VERIFIED
+**Why:** The latest pulled branding commit improved logo/favicon polish but added duplicate fallback favicon output and negative letter-spacing that should not ship as-is.
+**Actions:**
+1. DONE: removed duplicate fallback favicon tags from `header.php`.
+2. DONE: kept fallback favicon/app-icon logic centralized in `inc/seo.php`, where it returns early when WordPress Site Icon exists.
+3. DONE: removed negative letter-spacing from the new premium brand/trust polish CSS rules.
+4. DONE: bumped premium brand CSS cache version to `4.2.1`, theme version to `1.0.3`, and marker to `2026-05-11-branding-polish-v2`.
+5. VERIFIED LOCAL: `git diff --check` passed with only normal Windows LF-to-CRLF warnings.
+6. VERIFIED LOCAL: PHP lint passed for all PHP files using the owner-provided local PHP zip extracted to a temporary runtime.
+7. NEXT: after uPress pulls the commit and cache clears, verify browser tab favicon, mobile icon, page source, and visual header/footer logo behavior.
+8. SAFETY: no content, URL, redirect, canonical, sitemap, title/H1/meta, menu, taxonomy, lawyer, CRM, review, wp-admin option or CMS/database action was executed.
+
 ### ACTION-CYBER-PRIVACY-OUTLINE-QUEUE-001: Build gated rewrite/outline queue for cyber/privacy pages
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The page decision matrix identified pages that may eventually need primary refresh, support outlines, section-first blocks or boundary review. The next safe step is to queue outlines without drafting or publishing.

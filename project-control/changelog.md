@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Logo/favicon polish v2
+
+- CODE FIXED: removed duplicate fallback favicon output from `header.php`.
+- CODE FIXED: kept fallback favicon/app-icon logic centralized in `inc/seo.php`, preserving the WordPress Site Icon first path via `has_site_icon()`.
+- CODE FIXED: removed negative letter-spacing from the newest premium brand/trust polish rules.
+- UPDATED: premium brand CSS cache version to `4.2.1`, theme version to `1.0.3`, and deployment marker to `2026-05-11-branding-polish-v2`.
+- UPDATED: `project-control/favicon-logo-task.md`, `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED LOCAL: `git diff --check` passed with only normal Windows LF-to-CRLF warnings.
+- VERIFIED LOCAL: PHP lint passed for all PHP files using the owner-provided local PHP zip extracted to a temporary runtime.
+- NOT LIVE VERIFIED: public source still showed marker `2026-05-11-media-sitemap-https-v1` before uPress pull/cache refresh.
+- SAFETY: no public content body, URL slug, redirect, noindex, canonical, sitemap, taxonomy, menu, lawyer, CRM, review, wp-admin option or CMS/database row was changed.
+
 ## 2026-05-11 - Cyber/privacy rewrite outline queue
 
 - CREATED: `project-control/cyber-privacy-rewrite-outline-queue-2026-05-11.md`.

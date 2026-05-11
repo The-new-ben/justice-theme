@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Logo/Favicon Polish V2 QA
+- CODE FIXED: duplicate fallback favicon output was removed from `header.php`; fallback logic remains centralized in `inc/seo.php` and respects WordPress Site Icon when present.
+- CODE FIXED: premium brand CSS cache version moved to `4.2.1`; theme version moved to `1.0.3`; deployment marker moved to `2026-05-11-branding-polish-v2`.
+- VERIFIED LOCAL: `assets/css/premium-pass-4.css` no longer contains negative `letter-spacing` declarations in the new brand/trust polish rules.
+- VERIFIED LOCAL: `git diff --check` passed with only normal Windows LF-to-CRLF warnings.
+- VERIFIED LOCAL: PHP lint passed for all PHP files using the owner-provided local PHP zip extracted to a temporary runtime.
+- NOT LIVE VERIFIED: public source still reports `justice-deployment-marker` as `2026-05-11-media-sitemap-https-v1`, so uPress pull/cache refresh is required before browser-tab and mobile favicon visual QA.
+- SAFETY: no public content, URL slug, redirect, canonical, sitemap, title/H1/meta, taxonomy, menu, lawyer, CRM, review, wp-admin option or CMS/database row was changed.
+
 ## 2026-05-11 GSC Cyber / Privacy / National Insurance Evidence Screenshots
 - VERIFIED: browser GSC access was used for the cyber/privacy and national-insurance gap pass on the URL-prefix property `https://jus-tice.co.il/`.
 - EVIDENCE: `project-control/visual-evidence/gsc-gap-query-cyber-lawyer-2026-05-11.png`.

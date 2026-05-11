@@ -1,6 +1,6 @@
 /* ============================================================
    JUS-TICE PREMIUM PASS 4 — SURGICAL VISUAL POLISH
-   Version: 4.2.0 | 2026-05-11
+   Version: 4.2.1 | 2026-05-11
    ============================================================ */
 
 /* ── 1. LOGO POLISH + FASTER RED DOT ────────────────────── */
@@ -13,13 +13,13 @@
 .brand-lockup__mark::after {
   animation: jt-pulse-dot 1.8s ease-in-out infinite;
 }
-.brand-lockup__name { font-size: 1.2rem; letter-spacing: -0.04em; }
-.brand-lockup__tagline { font-size: 0.72rem; letter-spacing: 0.02em; text-transform: uppercase; }
+.brand-lockup__name { font-size: 1.2rem; letter-spacing: 0; }
+.brand-lockup__tagline { font-size: 0.72rem; letter-spacing: 0; text-transform: uppercase; }
 
 /* Wordmark variant */
 .brand-lockup__wordmark {
   display: inline-flex; align-items: center; gap: 0;
-  font-size: 1.55rem; font-weight: 900; letter-spacing: -0.03em;
+  font-size: 1.55rem; font-weight: 900; letter-spacing: 0;
   color: var(--jt-primary-deep); line-height: 1;
 }
 .brand-lockup__red-dot {
@@ -166,7 +166,7 @@
   color: #fff; text-align: center;
 }
 .trust-section__grid { display: flex; justify-content: center; gap: clamp(2rem, 5vw, 4rem); flex-wrap: wrap; }
-.trust-section__number { font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 900; display: block; letter-spacing: -0.04em; }
+.trust-section__number { font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 900; display: block; letter-spacing: 0; }
 .trust-section__label { font-size: 0.88rem; opacity: 0.75; display: block; margin-top: 0.3rem; }
 
 /* ── 7. CTA SECTION ──────────────────────────────────────── */

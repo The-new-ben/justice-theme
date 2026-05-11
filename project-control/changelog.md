@@ -9,6 +9,15 @@
 - VERIFIED LIVE: active sitemap index and sampled child sitemaps still return valid XML and zero first-party HTTP locs.
 - SAFETY: no URL changes, redirects, `.htaccess` rules, sitemap inclusion changes, public content edits, taxonomy edits, canonical changes, CRM/lawyer/review changes, wp-admin option changes or database writes were made.
 
+## 2026-05-11 - Native 404 route guard deployed / live redirect still blocked
+
+- CODE FIXED: added an early native-404 guard that renders the theme 404 template before later template redirect handlers can send real 404s to the homepage.
+- DEPLOYED LIVE: uPress Git log shows commit `cbbba45` and the public static marker returns `2026-05-11-native-404-before-redirect-v1`.
+- VERIFIED LIVE BLOCKED: fake public URLs still return `301 Location: https://jus-tice.co.il`; invalid `?p=99999999` and `/index.php/not-a-real-index-path-.../` also redirect to homepage.
+- VERIFIED CLUE: the 301 response has no `X-Redirect-By` header and no theme route-guard header, so the redirect source is likely before theme template routing or bypasses standard WordPress redirect filters.
+- NEXT: inspect wp-admin/uPress redirect, permalink, SEO and server settings for an uncontrolled "404 to homepage" rule before any URL migration or redirect work.
+- SAFETY: no live URL, redirect, `.htaccess`, content, taxonomy, canonical, sitemap, lawyer, CRM, review, wp-admin option or database data was changed by this repo patch.
+
 ## 2026-05-11 - Rank Math sitemap cache bypass
 
 - CODE FIXED: disabled Rank Math sitemap caching via the official `rank_math/sitemap/enable_caching` filter while sitemap HTTPS output is being verified.

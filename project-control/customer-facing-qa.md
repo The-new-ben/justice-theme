@@ -90,8 +90,10 @@ Date: 2026-05-10
 - CODE FIXED: `inc/routing-guards.php` now detects non-root URLs being served as the front page and forces a real 404 response/template.
 - CODE FIXED / NOT LIVE VERIFIED: guarded 404 responses now include `X-Justice-Route-Guard: forced-unknown-path-404` and `X-Robots-Tag: noindex, nofollow` for easier live verification.
 - CODE FIXED / NOT LIVE VERIFIED: 404 panel and embedded search form now use premium card/form styling instead of inline/plain layout.
-- BLOCKED: real issue likely routing/permalink/plugin/server and requires wp-admin/uPress investigation.
-- Status: CODE FIXED / NOT VERIFIED LIVE after latest routing guard.
+- CODE FIXED / DEPLOYED: native 404 guard is live at marker `2026-05-11-native-404-before-redirect-v1`.
+- LIVE VERIFIED BLOCKED 2026-05-11: fake public URLs still return `301 Location: https://jus-tice.co.il`; invalid `?p=99999999` also redirects to home.
+- DIAGNOSTIC CLUE: the 301 has no `X-Redirect-By` and no theme route-guard header, so the source is likely a direct server/plugin/permalink redirect before the theme can render 404.
+- Status: BLOCKED LIVE pending wp-admin/uPress redirect-source investigation. Do not change URL migrations or redirect rules until mapped and approved.
 
 ## Footer / Mobile
 - Proof: mobile homepage and article screenshots.

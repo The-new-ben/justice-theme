@@ -4,6 +4,18 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest recheck after uPress pull to commit `cbbba45`:
+
+- uPress Git Log: VERIFIED top commit `cbbba45` (`Render native 404 before homepage redirects`).
+- Static theme marker: VERIFIED now returns `justice-theme-deployment-marker=2026-05-11-native-404-before-redirect-v1`.
+- Homepage marker: VERIFIED source includes `2026-05-11-native-404-before-redirect-v1`.
+- Native 404 guard: CODE DEPLOYED.
+- Fake public URL: STILL BLOCKED; returns `301 Location: https://jus-tice.co.il`.
+- Invalid post query `/?p=99999999`: STILL BLOCKED; returns `301 Location: https://jus-tice.co.il`.
+- Diagnostic clue: no `X-Redirect-By` header and no theme `X-Justice-Route-Guard` header on the 301 response.
+- Interpretation: the uncontrolled homepage redirect is likely coming from a server/plugin/SEO/permalink layer before theme template routing or via direct headers that bypass normal WordPress redirect filters. Exact source NOT VERIFIED.
+- Safety: no `.htaccess`, redirect, permalink, URL migration, content, taxonomy, canonical, sitemap, lawyer, CRM, review, wp-admin setting or database data was changed.
+
 Latest recheck after live root robots.txt repair:
 
 - Root `robots.txt`: FIXED LIVE by editing the physical uPress webroot file that was shadowing WordPress-generated robots output.

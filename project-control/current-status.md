@@ -2,6 +2,15 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 07:30 Asia/Jerusalem
+- CODE FIXED / DEPLOYED: added a narrow native-404 route guard that renders the theme 404 template before later template handlers can redirect a request, but only after WordPress has already identified the request as `is_404()`.
+- DEPLOYED LIVE: uPress Git log shows commit `cbbba45` (`Render native 404 before homepage redirects`) and the public static marker returns `2026-05-11-native-404-before-redirect-v1`.
+- VERIFIED LIVE BLOCKER: fake public URLs still return `301 Location: https://jus-tice.co.il` instead of a 404, even after the native-404 guard deployed.
+- VERIFIED LIVE BLOCKER: `/?p=99999999`, `/wp-admin/not-a-real-admin-.../`, `/index.php/not-a-real-index-path-.../`, and arbitrary fake paths all redirect to the homepage.
+- VERIFIED LIVE CLUE: the 301 response has no `X-Redirect-By` header and does not include the theme `X-Justice-Route-Guard` header, so the redirect source is likely earlier than theme template routing or bypasses normal WordPress redirect filters. Exact source NOT VERIFIED.
+- BLOCKED: further safe progress needs wp-admin/uPress server/plugin investigation for 404-to-homepage behavior. Do not change `.htaccess`, permalink settings, redirect rules, URL migrations, or plugin settings without a rollback plan and owner approval.
+- SAFETY: no public content, URL, redirect rule, `.htaccess`, taxonomy, canonical, sitemap, lawyer, lead/CRM, review, wp-admin option or database row was changed. The repo patch is a guard only and the live blocker remains open.
+
 ## LATEST WORK STATUS - 2026-05-11 07:00 Asia/Jerusalem
 - FIXED LIVE: replaced the zero-byte static root `robots.txt` in uPress File Manager with a conservative crawl file that includes the verified sitemap directive `Sitemap: https://jus-tice.co.il/sitemap_index.xml`.
 - WHY: public `https://jus-tice.co.il/robots.txt` was shadowing WordPress' healthy generated robots output and returned HTTP 200 with an empty body, which blocked clean GSC sitemap/crawl verification.

@@ -9,6 +9,13 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - VERIFIED SAFETY: the live robots file has no global `Disallow: /` and does not block `/wp-content/themes`, so public rendering assets remain crawlable.
 - VERIFIED SITEMAP CONTEXT: sitemap index and sampled child sitemaps return XML with zero first-party HTTP loc values.
 
+## 2026-05-11 Native 404 Redirect QA
+- CODE FIXED / DEPLOYED: native 404 guard is live with marker `2026-05-11-native-404-before-redirect-v1` and uPress commit `cbbba45`.
+- LIVE VERIFIED BLOCKED: fake public URL checks still return `301 Location: https://jus-tice.co.il` instead of the Hebrew 404 template.
+- LIVE VERIFIED BLOCKED: invalid `?p=99999999` and `/index.php/not-a-real-index-path-.../` also redirect to the homepage.
+- DIAGNOSTIC CLUE: no `X-Redirect-By` and no `X-Justice-Route-Guard` response header appeared on the 301, which points to a redirect source outside the normal theme guard path.
+- NEXT QA: after the server/plugin redirect source is identified and disabled, capture desktop/mobile screenshots for a real fake URL and verify HTTP 404, Hebrew copy, no homepage hero, and noindex/no-follow headers.
+
 ## 2026-05-11 Rank Math Sitemap Cache Bypass QA
 - CODE FIXED / LIVE VERIFIED: Rank Math sitemap caching is disabled while sitemap HTTPS normalization is being verified.
 - WHY IT MATTERS: after deployment was verified, child sitemap XML still exposed stale HTTP locs; this blocks a clean URL migration and GSC sitemap submission.

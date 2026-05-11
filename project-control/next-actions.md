@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-ROUTING-404-HOMEPAGE-001: Identify and disable uncontrolled 404-to-homepage redirects
+**Status:** BLOCKED LIVE - repo guard deployed but redirect source is earlier/outside normal theme hooks
+**Why:** Arbitrary missing URLs and invalid query routes should return a real Hebrew 404. Redirecting every miss to the homepage hides broken URLs, confuses users, and creates crawl/SEO noise before controlled URL migration.
+**Actions:**
+1. DONE: confirmed fake paths were returning `301 Location: https://jus-tice.co.il` and then homepage 200.
+2. DONE: added and deployed canonical/wp_redirect guards for non-root requests targeting the homepage.
+3. DONE: added and deployed native-404 early template guard in commit `cbbba45` with marker `2026-05-11-native-404-before-redirect-v1`.
+4. VERIFIED LIVE: marker is deployed and uPress Git log shows `cbbba45`.
+5. VERIFIED LIVE BLOCKED: fake paths still return homepage 301 and do not expose `X-Justice-Route-Guard`.
+6. VERIFIED LIVE CLUE: the 301 response has no `X-Redirect-By`, suggesting a direct header/server/plugin redirect source. Exact source NOT VERIFIED.
+7. NEXT: inspect wp-admin redirect/permalink/SEO plugins and uPress server redirect settings for any "404 redirect to homepage" behavior; do not edit `.htaccess`, plugin settings, or redirects without approval and rollback notes.
+8. SAFETY: no URL migration, redirect rule, `.htaccess`, content, taxonomy, canonical, sitemap, lawyer, CRM, review, wp-admin option or database row was changed.
+
 ### ACTION-ROBOTS-STATIC-FILE-001: Replace empty static root robots.txt with verified sitemap-safe directives
 **Status:** FIXED LIVE - monitor after cache/server changes
 **Why:** The live root `robots.txt` was a zero-byte static file that shadowed WordPress' healthy generated robots output and prevented the verified sitemap index from being advertised to crawlers.

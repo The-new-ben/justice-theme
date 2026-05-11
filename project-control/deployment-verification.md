@@ -4,6 +4,15 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest recheck after live root robots.txt repair:
+
+- Root `robots.txt`: FIXED LIVE by editing the physical uPress webroot file that was shadowing WordPress-generated robots output.
+- Public robots before fix: VERIFIED HTTP 200 with zero-length body.
+- WordPress dynamic robots before fix: VERIFIED at `/?robots=1`, with normal crawl rules and `Sitemap: https://jus-tice.co.il/sitemap_index.xml`.
+- Public robots after fix: VERIFIED HTTP 200, length 268, sitemap directive present, no global `Disallow: /`, and no `/wp-content/themes` block.
+- Sitemap context: VERIFIED active sitemap index and sampled children remain XML with zero first-party HTTP loc values.
+- Interpretation: current deployment blocker is no longer robots/sitemap HTTPS. Remaining high-risk deployment checks are 404/homepage redirect behavior, active generator/settings review, and controlled GSC submission/monitoring.
+
 Latest recheck after uPress pull to commit `c992fd2`:
 
 - uPress Git Manager: VERIFIED accessible through browser automation with owner-approved login/2FA path.

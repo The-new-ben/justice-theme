@@ -1,6 +1,12 @@
 # Customer-Facing QA
 Date: 2026-05-10
 
+## 2026-05-11 Robots / Crawl QA Update
+- FIXED LIVE: public `robots.txt` now returns a real crawl file instead of an empty body.
+- VERIFIED: it includes `Sitemap: https://jus-tice.co.il/sitemap_index.xml`, has no global site block, and does not block theme/CSS assets.
+- CUSTOMER IMPACT: Google and other crawlers now receive a clean sitemap pointer for the current technical SEO baseline.
+- NOT CHANGED: no public content, URL, redirect, `.htaccess`, lawyer, lead, review, taxonomy or database data was changed.
+
 ## 2026-05-11 Inner Mobile QA Update
 - LIVE VERIFIED: latest uPress pull is public with marker `2026-05-11-mobile-inner-qa-v1`.
 - VISUAL VERIFIED: article, articles archive, lawyer directory and family practice page were captured on 390px mobile without injected CSS.

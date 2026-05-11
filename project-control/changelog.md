@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Live root robots.txt fixed
+
+- FIXED LIVE: replaced the empty physical root `robots.txt` in uPress File Manager with conservative crawler directives and the verified sitemap index URL.
+- VERIFIED BEFORE FIX: public `/robots.txt` returned HTTP 200 with zero-length body, while `/?robots=1` returned healthy WordPress-generated robots output with the sitemap directive.
+- VERIFIED LIVE AFTER FIX: `/robots.txt?codex_verify=...` returns HTTP 200, length 268, includes `Sitemap: https://jus-tice.co.il/sitemap_index.xml`, has no global `Disallow: /`, and does not block theme/CSS assets.
+- VERIFIED LIVE: active sitemap index and sampled child sitemaps still return valid XML and zero first-party HTTP locs.
+- SAFETY: no URL changes, redirects, `.htaccess` rules, sitemap inclusion changes, public content edits, taxonomy edits, canonical changes, CRM/lawyer/review changes, wp-admin option changes or database writes were made.
+
 ## 2026-05-11 - Rank Math sitemap cache bypass
 
 - CODE FIXED: disabled Rank Math sitemap caching via the official `rank_math/sitemap/enable_caching` filter while sitemap HTTPS output is being verified.

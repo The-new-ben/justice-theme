@@ -2,6 +2,13 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Robots Static File QA
+- FIXED LIVE: the public root `robots.txt` no longer returns an empty body.
+- VERIFIED BEFORE FIX: `/robots.txt?codex_check=...` returned HTTP 200, `Content-Type: text/plain`, and length 0, while `/?robots=1` returned a valid WordPress robots body with the sitemap directive.
+- VERIFIED LIVE AFTER FIX: `/robots.txt?codex_verify=...` returns HTTP 200 and includes `Sitemap: https://jus-tice.co.il/sitemap_index.xml`.
+- VERIFIED SAFETY: the live robots file has no global `Disallow: /` and does not block `/wp-content/themes`, so public rendering assets remain crawlable.
+- VERIFIED SITEMAP CONTEXT: sitemap index and sampled child sitemaps return XML with zero first-party HTTP loc values.
+
 ## 2026-05-11 Rank Math Sitemap Cache Bypass QA
 - CODE FIXED / LIVE VERIFIED: Rank Math sitemap caching is disabled while sitemap HTTPS normalization is being verified.
 - WHY IT MATTERS: after deployment was verified, child sitemap XML still exposed stale HTTP locs; this blocks a clean URL migration and GSC sitemap submission.

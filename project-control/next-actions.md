@@ -6,8 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-ROBOTS-STATIC-FILE-001: Replace empty static root robots.txt with verified sitemap-safe directives
+**Status:** FIXED LIVE - monitor after cache/server changes
+**Why:** The live root `robots.txt` was a zero-byte static file that shadowed WordPress' healthy generated robots output and prevented the verified sitemap index from being advertised to crawlers.
+**Actions:**
+1. DONE: confirmed public `https://jus-tice.co.il/robots.txt` returned HTTP 200 with zero-length body.
+2. DONE: confirmed WordPress dynamic robots output at `/?robots=1` contained normal crawl rules and `Sitemap: https://jus-tice.co.il/sitemap_index.xml`.
+3. DONE: confirmed uPress root File Manager listed physical `robots.txt` as size `—` and old backup `robots_ren1756059924.txt` as 196 B.
+4. FIXED LIVE: edited root `robots.txt` in uPress File Manager to include wp-admin/feed/embed blocks, plugin private-file blocks, `Allow: /wp-admin/admin-ajax.php`, and the verified sitemap index directive.
+5. VERIFIED LIVE: `robots.txt?codex_verify=...` returns HTTP 200, length 268, includes the sitemap index, has no global `Disallow: /`, and does not block theme/CSS assets.
+6. VERIFIED LIVE: active sitemap index and sampled child sitemaps remain XML with zero first-party HTTP locs.
+7. NEXT: monitor this file after server cache/plugin changes and submit `https://jus-tice.co.il/sitemap_index.xml` in GSC only after the owner approves the current technical SEO baseline.
+8. SAFETY: no URL, redirect, `.htaccess`, content body, taxonomy, canonical, lawyer, CRM, review, wp-admin option or database row was changed.
+
 ### ACTION-RANKMATH-SITEMAP-CACHE-001: Bypass stale Rank Math sitemap cache during HTTPS baseline verification
-**Status:** FIXED LIVE - monitor / robots separate blocker remains
+**Status:** FIXED LIVE - monitor with robots baseline now fixed
 **Why:** Latest theme code is live, but Rank Math child sitemap XML still emits stale `http://jus-tice.co.il` loc values. Sitemap HTTPS must be clean before GSC sitemap submission or URL migration.
 **Actions:**
 1. DONE: added the official Rank Math `rank_math/sitemap/enable_caching` filter with `__return_false`.
@@ -17,7 +30,7 @@
 5. VERIFIED LIVE: uPress Git log top commit is `4c7b45e`; public marker returns `2026-05-11-rankmath-sitemap-cache-bypass-v1`.
 6. FIXED LIVE: sampled child sitemaps now show zero first-party HTTP locs and HTTPS locs only.
 7. NEXT: recheck the same sitemap URLs after any Rank Math/settings/cache change and before GSC sitemap submission.
-8. NOT FIXED: robots.txt remains a separate empty-output blocker requiring server/plugin/static robots investigation.
+8. FIXED FOLLOW-UP: the separate empty root `robots.txt` blocker was fixed live in `ACTION-ROBOTS-STATIC-FILE-001`; continue monitoring after server/plugin/cache changes.
 
 ### ACTION-UPRESS-PULL-001: Verify and document self-service uPress Git pull
 **Status:** VERIFIED LIVE - post-pull robots/sitemap follow-up needed

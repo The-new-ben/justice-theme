@@ -5,6 +5,18 @@ Status: STRATEGY V1 - no sitemap or redirect changes executed
 
 ## Current Evidence
 
+2026-05-11 ROBOTS STATIC FILE FIX:
+- FIXED LIVE: root `robots.txt` now advertises `https://jus-tice.co.il/sitemap_index.xml`.
+- VERIFIED LIVE: `robots.txt?codex_verify=...` returns HTTP 200, length 268, includes the sitemap directive, has no global `Disallow: /`, and does not block theme/CSS assets.
+- VERIFIED LIVE: the sitemap index and sampled child sitemaps remain valid XML with zero first-party HTTP loc values:
+  - `sitemap_index.xml`: 0 HTTP / 9 HTTPS
+  - `page-sitemap.xml`: 0 HTTP / 11 HTTPS
+  - `articles-sitemap1.xml`: 0 HTTP / 201 HTTPS
+  - `articles-sitemap2.xml`: 0 HTTP / 200 HTTPS
+  - `practice-areas-sitemap.xml`: 0 HTTP / 40 HTTPS
+  - `category-sitemap.xml`: 0 HTTP / 16 HTTPS
+- DECISION: the sitemap/robots technical baseline is now suitable for GSC sitemap submission review, but URL migration, redirects and content consolidation remain approval-gated.
+
 2026-05-11 CACHE-BYPASS PATCH:
 - CODE FIXED / NOT LIVE VERIFIED: added `rank_math/sitemap/enable_caching` with `__return_false` so Rank Math does not serve stale sitemap XML while HTTPS loc normalization is being verified.
 - WHY: latest theme code was live, but child sitemap XML still emitted HTTP locs. `articles-sitemap2.xml?nocache=1` also returned 200 HTTP locs and zero HTTPS locs before the patch.
@@ -176,8 +188,8 @@ BLOCKED / NEEDS LIVE ADMIN:
 - Verify active sitemap generator.
 - Check whether an SEO plugin is active.
 - Check why default sitemap aliases `/sitemap.xml` and `/wp-sitemap.xml` redirect to homepage while `/sitemap_index.xml` works.
-- Recheck whether active sitemap child files still output `http://` locs after marker `2026-05-11-sitemap-https-plugin-filters-v1` is live.
-- Recheck robots.txt after marker `2026-05-11-robots-sitemap-directive-v1` is live.
+- Monitor whether active sitemap child files keep zero `http://` locs after Rank Math, permalink, cache or sitemap setting changes.
+- Monitor robots.txt after cache/server/plugin changes; root static file is fixed live as of 2026-05-11 07:00.
 - Check if a redirect/catch-all rule is masking missing XML/404s.
 - Check whether practice-area sitemap should include media/image URLs or only canonical taxonomy URLs.
 

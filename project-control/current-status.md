@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 07:00 Asia/Jerusalem
+- FIXED LIVE: replaced the zero-byte static root `robots.txt` in uPress File Manager with a conservative crawl file that includes the verified sitemap directive `Sitemap: https://jus-tice.co.il/sitemap_index.xml`.
+- WHY: public `https://jus-tice.co.il/robots.txt` was shadowing WordPress' healthy generated robots output and returned HTTP 200 with an empty body, which blocked clean GSC sitemap/crawl verification.
+- VERIFIED BEFORE FIX: `https://jus-tice.co.il/robots.txt?codex_check=...` returned length 0, while `https://jus-tice.co.il/?robots=1&codex_check=...` returned valid WordPress robots output with the sitemap directive.
+- VERIFIED LIVE: `https://jus-tice.co.il/robots.txt?codex_verify=...` now returns HTTP 200, length 268, includes the sitemap index, has no global `Disallow: /`, and does not block `/wp-content/themes`.
+- VERIFIED LIVE: the active sitemap index and sampled child sitemaps remain valid XML and all sampled first-party loc values are HTTPS only: sitemap index 0 HTTP / 9 HTTPS, page 0 / 11, articles1 0 / 201, articles2 0 / 200, practice-areas 0 / 40, category 0 / 16.
+- SAFETY: no URL, redirect, `.htaccess` rule, sitemap inclusion rule, content body, taxonomy term, canonical setting, lawyer profile, lead/CRM record, review data, wp-admin setting or database row was changed. The only live mutation was the root `robots.txt` file content.
+
 ## LATEST WORK STATUS - 2026-05-11 06:49 Asia/Jerusalem
 - CODE FIXED: disabled Rank Math sitemap caching through the official `rank_math/sitemap/enable_caching` filter while the sitemap HTTPS baseline is being verified.
 - WHY: after uPress pull confirmed the latest theme code was live, public Rank Math child sitemap XML still exposed stale `http://jus-tice.co.il` loc values. Cache bypass is the narrowest repo-level next step before any plugin setting or URL migration work.

@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-FIRST-UPLOAD-PACKAGE-001: Package first upload scope for owner review
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Family/Divorce now has pillar, support, taxonomy, related-content, disclaimer and protected-asset planning. The next useful step is one practical upload sequence so the owner can choose Wave 1A only or Wave 1A plus support pages.
+**Actions:**
+1. DONE: created `project-control/family-divorce-first-upload-package-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-first-upload-package-2026-05-12.csv`.
+3. VERIFIED: `20` package rows define Wave 1A, Wave 1B, Wave 1C, wait-list, QA and GSC lanes.
+4. VERIFIED: Wave 1A is `/divorce-lawyer/`; Wave 1B contains the six core support pages with drafts available but review required.
+5. NEXT: prepare the final merged `/divorce-lawyer/` draft/update package as the next unblocked content task.
+6. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-FAMILY-DIVORCE-PROTECTED-ASSETS-001: Plan first-wave protected document tool and case-law assets
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Family/Divorce can move faster cluster by cluster, but PDFs, DOCX files, calculator URLs and case-law assets with search visibility must stay protected during the first upload.

@@ -14,6 +14,26 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Family / Divorce First Upload Package
+
+CREATED:
+- `project-control/family-divorce-first-upload-package-2026-05-12.md`
+- `project-control/family-divorce-first-upload-package-2026-05-12.csv`
+
+VERIFIED:
+- `20` package rows now define Wave 1A, Wave 1B, Wave 1C, wait-list, QA and GSC lanes.
+- Wave 1A is `/divorce-lawyer/` as the anchor pillar.
+- Wave 1B contains the six core support pages, all with drafts available but review still required.
+- Broad family-law hub, family-lawyer hub, prenuptial agreement, ranking/trust pages, Maya profile links and LegalTech/AI family pages are held out of the first upload.
+
+RECOMMENDED:
+- Prepare the final merged `/divorce-lawyer/` draft/update package next.
+- Do not publish all seven pages blindly as one dump.
+- Keep old URLs and protected assets live during first upload.
+
+BLOCKED:
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Family / Divorce Protected Asset Strategy
 
 CREATED:

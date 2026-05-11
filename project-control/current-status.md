@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-12 04:25 Asia/Jerusalem
+- VERIFIED / FAMILY-DIVORCE FIRST UPLOAD PACKAGE: converted the Family/Divorce planning work into a practical owner-review upload sequence.
+- CREATED: `project-control/family-divorce-first-upload-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-first-upload-package-2026-05-12.csv`.
+- VERIFIED: `20` package rows now define Wave 1A, Wave 1B, Wave 1C, wait-list, QA and GSC lanes.
+- VERIFIED: Wave 1A is `/divorce-lawyer/`; Wave 1B contains `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/`, `/divorce-property-division/` and `/family-dispute-resolution/`.
+- RECOMMENDED: prepare the final merged `/divorce-lawyer/` draft/update package next; do not publish all seven pages blindly as one dump.
+- BLOCKED: owner approval is still required before public upload or draft import, and GSC API is still required before URL, redirect, noindex, deletion, canonical or sitemap-removal actions.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 04:05 Asia/Jerusalem
 - VERIFIED / FAMILY-DIVORCE PROTECTED ASSETS STRATEGY: created the first-wave protected document, tool and case-law strategy for the controlled Family/Divorce upload.
 - CREATED: `project-control/family-divorce-protected-assets-strategy-2026-05-12.md`.

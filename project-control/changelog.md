@@ -2714,3 +2714,17 @@
 - VERIFIED: `FAM-UPLOAD-003`, `FAM-UPLOAD-004`, `FAM-UPLOAD-005` and `FAM-UPLOAD-006` are planning-verified, not execution-approved.
 - BLOCKED: GSC API export and owner approval are still required before any redirect, noindex, deletion, canonical, sitemap-removal, media-file, document-template, calculator/tool or public content action.
 - SAFETY: no public content body, title/H1/meta, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, internal link, related-card, document/media file, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
+## 2026-05-12 - Family/Divorce first upload package
+
+- CREATED: `project-control/family-divorce-first-upload-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-first-upload-package-2026-05-12.csv`.
+- UPDATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md`.
+- UPDATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.csv`.
+- UPDATED: `project-control/family-law-divorce-execution-plan-2026-05-12.md`.
+- UPDATED: `project-control/content-decision-batches.md`.
+- UPDATED: project-control status and action files.
+- VERIFIED: `20` package rows define Wave 1A, Wave 1B, Wave 1C, wait-list, QA and GSC lanes.
+- VERIFIED: Wave 1A is `/divorce-lawyer/`, while Wave 1B contains the six core support pages with drafts available but review required.
+- RECOMMENDED: prepare the final merged `/divorce-lawyer/` draft/update package next; do not publish all seven pages blindly as one dump.
+- SAFETY: no public content body, draft import, title/H1/meta, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, internal link, related-card, document/media file, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.

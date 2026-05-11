@@ -102,7 +102,7 @@ Current review queue:
 - `58` Family/Divorce URL or URL-reference items.
 - `82` planned internal-link/control rows.
 - `13` owner-review decisions.
-- `33` minimum pre-upload checklist rows.
+- `34` minimum pre-upload checklist rows.
 
 ## Duplicate Page Comparison Update
 
@@ -193,6 +193,23 @@ Decision:
 NEXT:
 - Include the protected asset list in the Family/Divorce owner upload package.
 - After any preview or public update, verify the protected assets still resolve as expected.
+
+## First Upload Package Update
+
+VERIFIED:
+- `project-control/family-divorce-first-upload-package-2026-05-12.md` and `.csv` now convert the planning work into a practical first-upload sequence.
+- `20` package rows split the work into Wave 1A, Wave 1B, Wave 1C, wait-list, QA and GSC lanes.
+- Wave 1A is the `/divorce-lawyer/` anchor pillar.
+- Wave 1B contains the six core support pages: `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/`, `/divorce-property-division/` and `/family-dispute-resolution/`.
+
+Decision:
+- Prepare the final merged `/divorce-lawyer/` draft package next.
+- Keep public upload blocked until owner chooses scope and approves final copy.
+- Keep URL migration, redirects, noindex, deletion, canonical and sitemap-removal decisions blocked until GSC API and owner approval.
+
+NEXT:
+- Owner chooses Wave 1A only or Wave 1A plus Wave 1B.
+- Codex prepares final merged `/divorce-lawyer/` draft/update package as the next unblocked content task.
 
 ## Old Pages To Keep / Protect
 

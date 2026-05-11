@@ -310,6 +310,17 @@ VERIFIED / REVIEW ONLY:
 BLOCKED:
 - No sitemap entry, sitemap removal, noindex, canonical, redirect, taxonomy/category, menu, breadcrumb, related-card, lawyer-card, Maya profile or review/rating/schema change is approved by this review-only batch.
 
+## 2026-05-12 Family / Divorce Internal-Link And Owner Package Addendum
+
+VERIFIED:
+- `project-control/family-divorce-no-url-internal-link-map-2026-05-12.md` and `.csv` map `82` relationship/control rows before any sitemap execution.
+- `project-control/family-divorce-owner-upload-review-package-2026-05-12.md` and `.csv` package `13` owner-review decisions before any sitemap execution.
+- Sitemap inclusion for `/divorce-lawyer/` remains blocked until old Hebrew URL comparison, legal/source approval, self-canonical verification, internal-link approval and owner approval are complete.
+- Support pages can enter the sitemap group only after they have unique reviewed value, approved merge/document strategy and approved internal links back to the pillar.
+
+BLOCKED:
+- Old document URLs, child-support calculator, custody PDF/article/case URLs, broad family-lawyer pages, ranking/trust pages, Maya profile/reputation pages, city pages and LegalTech/product pages stay out of sitemap promotion until separately approved.
+
 # 2026-05-11 Medical Malpractice Sitemap Posture
 
 VERIFIED / REVIEW ONLY:

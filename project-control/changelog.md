@@ -1,6 +1,24 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Family/divorce owner upload review package
+
+- CREATED: `project-control/family-divorce-owner-upload-review-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-owner-upload-review-package-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: `13` family/divorce target decisions are packaged for owner review before content upload or draft import.
+- VERIFIED: package combines old Hebrew divorce URL risk, PDF/DOCX document risk, child-support calculator risk, custody PDF/case risk, support-page roles, internal-link map, upload order, anti-cannibalization rules, family-law hub separation and Maya/compliance boundaries.
+- RECOMMENDED: approve planning only, then compare the divorce pillar, old Hebrew divorce article, document URLs, child-support/custody protected URLs and support pages side-by-side.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
+## 2026-05-12 - Family/divorce no-URL internal-link map
+
+- CREATED: `project-control/family-divorce-no-url-internal-link-map-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-no-url-internal-link-map-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: `82` planned current-URL relationship/control rows were mapped for the family/divorce upload group.
+- VERIFIED: the map connects the divorce pillar, six clean support pages, protected old GSC/document URLs, child-support/custody assets, property/dispute supports and compliance boundaries while keeping broad ranking/trust, city, LegalTech and Maya profile paths blocked until approved.
+- READY FOR REVIEW: relationship type, priority, anchor intent, placement guidance and execution status are documented.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Medical malpractice owner upload review package
 
 - CREATED: `project-control/medical-malpractice-owner-upload-review-package-2026-05-11.md`.

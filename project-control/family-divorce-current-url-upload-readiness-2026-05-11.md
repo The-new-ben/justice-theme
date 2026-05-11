@@ -171,3 +171,16 @@ RECOMMENDED:
 
 BLOCKED:
 - No public content body, title, H1, meta, URL, slug, redirect, canonical, noindex, sitemap, taxonomy, category, menu, breadcrumb, related-card, lawyer-card, review/rating/schema, CRM, wp-admin setting or database row change was executed by this batch.
+
+## 2026-05-12 Internal-Link And Owner Package Addendum
+
+VERIFIED:
+- `project-control/family-divorce-no-url-internal-link-map-2026-05-12.md` and `.csv` now map `82` current-URL relationship/control rows for this queue.
+- `project-control/family-divorce-owner-upload-review-package-2026-05-12.md` and `.csv` now package `13` owner-review decisions.
+- The cluster has a review-only path from inventory and GSC/document evidence to current URL roles, internal-link plan and owner upload review.
+
+NEXT:
+- Owner/legal review should approve planning only, then compare the divorce pillar, old Hebrew divorce article, PDF/DOCX assets, child-support/custody protected URLs and support roles side-by-side before public copy, draft import or URL execution.
+
+BLOCKED:
+- No public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed by the internal-link or owner-package addendum.

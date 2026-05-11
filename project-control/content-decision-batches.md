@@ -14,6 +14,41 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Family / Divorce Owner Upload Review Package
+
+CREATED:
+- `project-control/family-divorce-owner-upload-review-package-2026-05-12.md`
+- `project-control/family-divorce-owner-upload-review-package-2026-05-12.csv`
+
+VERIFIED:
+- `13` target decisions are packaged for owner review.
+- Old Hebrew divorce URL risk, PDF/DOCX document risk, child-support calculator risk, custody PDF/case risk, support-page roles, internal-link map, upload order, anti-cannibalization rules, family-law hub separation and Maya/compliance boundaries are consolidated.
+
+RECOMMENDED:
+- Owner approves the planning package only, then the divorce pillar, old Hebrew divorce article, document URLs, child-support/custody protected URLs and support pages can be compared side-by-side.
+- If owner does not approve, move to the next priority cluster with the same outline/source/link process.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, document/media actions, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, Maya profile edits, CRM/review work or CMS writes until explicit approval.
+
+## 2026-05-12 Family / Divorce No-URL Internal Link Map
+
+CREATED:
+- `project-control/family-divorce-no-url-internal-link-map-2026-05-12.md`
+- `project-control/family-divorce-no-url-internal-link-map-2026-05-12.csv`
+
+VERIFIED:
+- `82` planned relationship/control rows mapped.
+- The map connects the divorce pillar, six clean support pages, protected old GSC/document URLs, child-support/custody assets, property/dispute supports and compliance boundaries.
+- Broad ranking/trust, city, LegalTech and Maya profile paths remain blocked until approved.
+
+RECOMMENDED:
+- Use this as the internal-link checklist when owner/legal review approves public copy and document strategy.
+- Do not execute links until the final content batch is approved.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, document/media actions, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, Maya profile edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Medical Malpractice Owner Upload Review Package
 
 CREATED:

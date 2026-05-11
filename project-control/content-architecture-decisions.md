@@ -384,6 +384,17 @@ ADDED 2026-05-11:
 
 Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.
 
+## Family / Divorce Internal-Link And Upload Review Addendum
+
+ADDED 2026-05-12:
+- `project-control/family-divorce-no-url-internal-link-map-2026-05-12.md` and `.csv` map `82` planned current-URL relationship/control rows before public upload or draft import.
+- `project-control/family-divorce-owner-upload-review-package-2026-05-12.md` and `.csv` package `13` owner-review decisions before public copy or CMS execution.
+- The internal-link map connects `/divorce-lawyer/`, the six clean support pages, protected old GSC/document URLs, child-support/custody assets, property/dispute supports and compliance boundaries.
+- Broad family-lawyer, recommended/top/trusted lawyer, city, LegalTech and Maya profile paths remain blocked until profile, hub, product and compliance rules are approved.
+- Recommended next action is owner/legal approval for side-by-side comparison and document strategy before any public Hebrew copy, draft import, redirect, canonical or sitemap execution.
+
+Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.
+
 ## Medical Malpractice Internal-Link And Upload Review Addendum
 
 ADDED 2026-05-11:

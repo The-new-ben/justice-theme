@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-12 00:30 Asia/Jerusalem
+- VERIFIED / FAMILY-DIVORCE INTERNAL-LINK MAP + OWNER UPLOAD REVIEW PACKAGE: converted the family/divorce current-URL readiness queue into a no-URL internal-link map and owner-facing upload review layer.
+- CREATED: `project-control/family-divorce-no-url-internal-link-map-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-no-url-internal-link-map-2026-05-12.csv`.
+- CREATED: `project-control/family-divorce-owner-upload-review-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-owner-upload-review-package-2026-05-12.csv`.
+- VERIFIED: `82` planned relationship/control rows now connect the divorce pillar, six support pages, protected old GSC/document URLs, child-support/custody assets, property/dispute supports and compliance boundaries without using future unapproved hub/ranking/trust paths.
+- VERIFIED: `13` owner-review decisions are packaged before any public upload, including old Hebrew URL comparison, document strategy, support roles, cost/freshness review, family-law hub separation, Maya profile safety and ranking/trust-language exclusions.
+- READY FOR REVIEW: next safe step is owner/legal approval for side-by-side comparison and document strategy before any public Hebrew copy, draft import or URL execution.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-11 23:25 Asia/Jerusalem
 - VERIFIED / MEDICAL MALPRACTICE INTERNAL-LINK MAP + OWNER UPLOAD REVIEW PACKAGE: converted the malpractice current-URL readiness queue into a no-URL internal-link map and owner-facing upload review layer.
 - CREATED: `project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.md`.

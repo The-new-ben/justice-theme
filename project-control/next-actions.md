@@ -6,6 +6,30 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-OWNER-UPLOAD-REVIEW-001: Package family/divorce group for owner approval
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The family/divorce queue needs one owner-facing approval layer before any Hebrew drafting, draft import, internal-link execution, document strategy, sitemap/canonical change or CMS upload.
+**Actions:**
+1. DONE: created `project-control/family-divorce-owner-upload-review-package-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-owner-upload-review-package-2026-05-12.csv`.
+3. VERIFIED: `13` target decisions are ready for owner review.
+4. VERIFIED: package combines old Hebrew divorce URL risk, PDF/DOCX document risk, child-support calculator risk, custody PDF/case risk, support-page roles, internal-link map, upload order, anti-cannibalization rules, family-law hub separation and Maya/compliance boundaries.
+5. RECOMMENDED: approve planning only, then compare `/divorce-lawyer/`, the old Hebrew divorce article, the PDF/DOCX assets, child-support/custody protected URLs and support pages side-by-side.
+6. NEXT: owner approves planning package or requests a one-page comparison first; otherwise continue the next priority cluster using the same controlled process.
+7. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
+### ACTION-FAMILY-DIVORCE-NO-URL-INTERNAL-LINK-MAP-001: Plan current-URL links for family/divorce upload group
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The family/divorce queue must be connected internally before public upload so the future changes are a coherent cluster rather than disconnected pages.
+**Actions:**
+1. DONE: created `project-control/family-divorce-no-url-internal-link-map-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-no-url-internal-link-map-2026-05-12.csv`.
+3. VERIFIED: `82` planned current-URL relationship/control rows were mapped.
+4. VERIFIED: links connect the current divorce pillar candidate, six clean support pages, old GSC-visible URLs, PDF/DOCX assets, child-support/custody risks, property/dispute support pages and ranking/Maya/LegalTech boundaries without using unapproved future slugs or fake trust signals.
+5. VERIFIED: relationship type, priority, anchor intent, placement guidance and execution status are documented.
+6. NEXT: use the map inside the owner-review upload package and do not execute links until owner/legal review approves public copy and document strategy.
+7. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-MEDICAL-MALPRACTICE-OWNER-UPLOAD-REVIEW-001: Package medical-malpractice group for owner approval
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The malpractice queue needs one owner-facing approval layer before any Hebrew drafting, internal-link execution, sitemap/canonical change or CMS upload.
@@ -61,7 +85,7 @@
 2. DONE: created `project-control/family-divorce-current-url-upload-readiness-2026-05-11.csv`.
 3. VERIFIED: `92` inventory candidates were scanned and `58` family/divorce URL or URL-reference items were advanced into review roles.
 4. VERIFIED: divorce pillar, support pages, protected old assets, document risks, merge candidates, future-only slugs, sitemap posture and internal-link requirements are consolidated.
-5. NEXT: owner approves no-URL-change comparison batch, then recheck the seven live family-law URLs after uPress/cache refresh and compare old/new content before redirects or public upload.
+5. DONE: prepared a no-URL internal-link map and owner upload review package for the family/divorce queue.
 6. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
 
 ### ACTION-TRAFFIC-LAW-OWNER-UPLOAD-REVIEW-001: Package first traffic-law group for owner approval

@@ -304,3 +304,19 @@ Do not execute yet:
 ## Safety
 
 This packet is documentation and CSV planning only. No public content body, URL slug, redirect, sitemap inclusion, canonical setting, noindex setting, document/media file, homepage structure, taxonomy term, menu, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
+## 2026-05-12 Internal-Link And Upload Package Addendum
+
+VERIFIED / REVIEW ONLY:
+- Created `project-control/family-divorce-no-url-internal-link-map-2026-05-12.md`.
+- Created `project-control/family-divorce-no-url-internal-link-map-2026-05-12.csv`.
+- Created `project-control/family-divorce-owner-upload-review-package-2026-05-12.md`.
+- Created `project-control/family-divorce-owner-upload-review-package-2026-05-12.csv`.
+- `82` current-URL relationship/control rows are mapped for the family/divorce upload group.
+- `13` owner-review decisions are packaged before public copy, draft import or CMS execution.
+
+NEXT:
+- Owner/legal review should approve planning only, then compare the divorce pillar, old Hebrew divorce article, PDF/DOCX assets, child-support/custody protected URLs and support roles side-by-side.
+
+BLOCKED:
+- No public content, draft import, URL migration, redirects, sitemap changes, internal-link execution, schema, reviews/ratings, lawyer cards, Maya profile edits, CRM changes or CMS/database writes are approved by this addendum.

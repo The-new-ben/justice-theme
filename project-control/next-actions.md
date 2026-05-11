@@ -6,6 +6,30 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-MEDICAL-MALPRACTICE-OWNER-UPLOAD-REVIEW-001: Package medical-malpractice group for owner approval
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The malpractice queue needs one owner-facing approval layer before any Hebrew drafting, internal-link execution, sitemap/canonical change or CMS upload.
+**Actions:**
+1. DONE: created `project-control/medical-malpractice-owner-upload-review-package-2026-05-11.md`.
+2. DONE: created `project-control/medical-malpractice-owner-upload-review-package-2026-05-11.csv`.
+3. VERIFIED: `8` target decisions are ready for owner review.
+4. VERIFIED: package combines duplicate same-public-URL identity risk, protected fee/birth assets, source/legal gates, current-URL internal-link map, upload order, anti-cannibalization rules and blocked future slugs.
+5. RECOMMENDED: approve planning only, then compare `/medical-malpractice-lawyer/` duplicate records, fee article and old birth/pregnancy page side-by-side.
+6. NEXT: owner approves planning package or requests a one-page comparison first; otherwise continue the next priority cluster using the same controlled process.
+7. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
+### ACTION-MEDICAL-MALPRACTICE-NO-URL-INTERNAL-LINK-MAP-001: Plan current-URL links for medical-malpractice upload group
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The medical-malpractice queue must be connected internally before public upload so the future changes are a coherent cluster rather than disconnected pages.
+**Actions:**
+1. DONE: created `project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.md`.
+2. DONE: created `project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.csv`.
+3. VERIFIED: `38` planned current-URL relationship/control rows were mapped.
+4. VERIFIED: links connect the current malpractice pillar candidate, protected fee/birth assets, anesthesia/surgery pages, definition/common-errors pages and birth-injury pages while excluding traffic/Marvad, criminal negligence, US malpractice and future slugs.
+5. VERIFIED: relationship type, priority, anchor intent, placement guidance and execution status are documented.
+6. NEXT: use the map inside the owner-review upload package and do not execute links until owner/legal review approves public copy.
+7. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-MEDICAL-MALPRACTICE-CURRENT-URL-UPLOAD-READINESS-001: Consolidate medical-malpractice current-URL upload readiness
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** The malpractice cluster has duplicate same-public-URL risk, old GSC-visible fee and birth/pregnancy pages, YMYL source risk, support-page overlap and traffic/criminal boundary contamination that must be resolved before public upload.
@@ -14,7 +38,7 @@
 2. DONE: created `project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.csv`.
 3. VERIFIED: `19` inventory candidates were scanned and `23` URL or URL-reference items were advanced into review roles.
 4. VERIFIED: the queue separates pillar, duplicate state, protected GSC-visible assets, support pages, boundary exclusions, future-only slugs, sitemap posture and internal-link requirements.
-5. NEXT: prepare a no-URL current-link map for the malpractice queue, then package for owner upload review.
+5. DONE: prepared a no-URL current-link map for the malpractice queue and packaged it for owner upload review.
 6. BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
 
 ### ACTION-MEDICAL-MALPRACTICE-SOURCE-LEGAL-CHECKLIST-001: Add source/legal gates for medical-malpractice cluster

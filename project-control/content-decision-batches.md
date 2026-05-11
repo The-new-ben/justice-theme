@@ -14,6 +14,41 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-11 Medical Malpractice Owner Upload Review Package
+
+CREATED:
+- `project-control/medical-malpractice-owner-upload-review-package-2026-05-11.md`
+- `project-control/medical-malpractice-owner-upload-review-package-2026-05-11.csv`
+
+VERIFIED:
+- `8` target decisions are packaged for owner review.
+- Duplicate same-public-URL risk, protected fee/birth assets, source/legal gates, internal-link map, upload order, anti-cannibalization rules and blocked future slugs are consolidated.
+
+RECOMMENDED:
+- Owner approves the planning package only, then the current malpractice pillar, fee article and old birth/pregnancy page can be compared side-by-side.
+- If owner does not approve, move to the next priority cluster with the same outline/source/link process.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
+## 2026-05-11 Medical Malpractice No-URL Internal Link Map
+
+CREATED:
+- `project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.md`
+- `project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.csv`
+
+VERIFIED:
+- `38` planned relationship/control rows mapped.
+- The map connects the malpractice pillar candidate, protected fee/birth assets, surgery/anesthesia support, definition/common-errors support and birth-injury support without future slug use.
+- Traffic/Marvad, criminal negligence, US malpractice and future slugs are explicitly blocked from the current malpractice link graph.
+
+RECOMMENDED:
+- Use this as the internal-link checklist when owner/legal review approves public copy.
+- Do not execute links until the final content batch is approved.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Traffic Law Owner Upload Review Package
 
 CREATED:

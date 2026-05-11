@@ -1,6 +1,24 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Medical malpractice owner upload review package
+
+- CREATED: `project-control/medical-malpractice-owner-upload-review-package-2026-05-11.md`.
+- CREATED: `project-control/medical-malpractice-owner-upload-review-package-2026-05-11.csv`.
+- VERIFIED / REVIEW ONLY: `8` medical-malpractice target decisions are packaged for owner review before content upload.
+- VERIFIED: package combines duplicate same-public-URL identity risk, source/legal gates, current-URL readiness, internal-link map, upload order, anti-cannibalization rules and blocked future slugs.
+- RECOMMENDED: approve planning only, then compare `/medical-malpractice-lawyer/` duplicate records, the protected fee article and the old birth/pregnancy page side-by-side.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
+## 2026-05-11 - Medical malpractice no-URL internal-link map
+
+- CREATED: `project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.md`.
+- CREATED: `project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.csv`.
+- VERIFIED / REVIEW ONLY: `38` planned current-URL relationship/control rows were mapped for the medical-malpractice upload group.
+- VERIFIED: the map connects the malpractice pillar candidate, protected fee/birth assets, surgery/anesthesia pages, definition/common-errors pages and birth-injury support while keeping traffic/Marvad, criminal negligence, US malpractice and future clean slugs blocked.
+- READY FOR REVIEW: relationship type, priority, anchor intent, placement guidance and execution status are documented.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Medical malpractice current-URL upload readiness
 
 - CREATED: `project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.md`.

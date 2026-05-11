@@ -384,6 +384,16 @@ ADDED 2026-05-11:
 
 Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.
 
+## Medical Malpractice Internal-Link And Upload Review Addendum
+
+ADDED 2026-05-11:
+- `project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.md` and `.csv` map `38` planned current-URL relationship/control rows before public upload.
+- `project-control/medical-malpractice-owner-upload-review-package-2026-05-11.md` and `.csv` package `8` owner-review decisions before public copy or CMS execution.
+- The internal-link map connects the malpractice pillar candidate, protected fee/birth assets, surgery/anesthesia support, definition/common-errors support and birth-injury support while keeping traffic/Marvad, criminal negligence, US malpractice and future slugs blocked.
+- Recommended next action is owner/legal approval for side-by-side comparison of the duplicate pillar records, fee article, old birth/pregnancy page and support roles.
+
+Status: VERIFIED / REVIEW ONLY / BLOCKED UNTIL OWNER AND LEGAL REVIEW.
+
 ## Medical Malpractice Source / Legal Gate Addendum
 
 ADDED 2026-05-11:

@@ -321,3 +321,14 @@ VERIFIED / REVIEW ONLY:
 
 BLOCKED:
 - No sitemap entry, sitemap removal, noindex, canonical, redirect, taxonomy/category, menu, breadcrumb, related-card, lawyer-card, review/rating/schema or CMS change is approved by this review-only batch.
+
+## 2026-05-11 Medical Malpractice Internal-Link And Owner Package Addendum
+
+VERIFIED:
+- `project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.md` and `.csv` map `38` relationship/control rows before any sitemap execution.
+- `project-control/medical-malpractice-owner-upload-review-package-2026-05-11.md` and `.csv` package `8` owner-review decisions before any sitemap execution.
+- Sitemap inclusion for `/medical-malpractice-lawyer/` remains blocked until duplicate identity review, legal/source approval, self-canonical verification, internal-link approval and owner approval are complete.
+- Support pages can enter the sitemap group only after they have unique reviewed value and approved internal links back to the pillar.
+
+BLOCKED:
+- Future clean slugs, traffic/Marvad pages, criminal negligence, US/international malpractice and unreviewed report/background pages stay out of the Israeli malpractice sitemap group until separately approved.

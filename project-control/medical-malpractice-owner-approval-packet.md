@@ -278,3 +278,19 @@ NEXT:
 
 BLOCKED:
 - No public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/menu, related-card, lawyer-card, review/rating/schema, CRM or CMS execution is approved by this addendum.
+
+## 2026-05-11 Internal-Link And Upload Package Addendum
+
+VERIFIED / REVIEW ONLY:
+- Created `project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.md`.
+- Created `project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.csv`.
+- Created `project-control/medical-malpractice-owner-upload-review-package-2026-05-11.md`.
+- Created `project-control/medical-malpractice-owner-upload-review-package-2026-05-11.csv`.
+- `38` current-URL relationship/control rows are mapped for the malpractice upload group.
+- `8` owner-review decisions are packaged before public copy or CMS execution.
+
+NEXT:
+- Owner/legal review should approve planning only, then compare the duplicate pillar records, protected fee article, old birth/pregnancy page and support roles side-by-side.
+
+BLOCKED:
+- No public content, URL migration, redirects, sitemap changes, internal-link execution, schema, reviews/ratings, lawyer cards, CRM changes or CMS/database writes are approved by this addendum.

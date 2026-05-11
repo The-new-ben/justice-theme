@@ -159,3 +159,16 @@ RECOMMENDED:
 
 BLOCKED:
 - No public content body, title, H1, meta, URL, slug, redirect, canonical, noindex, sitemap, taxonomy, category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or database row change was executed by this batch.
+
+## 2026-05-11 Internal-Link And Owner Package Addendum
+
+VERIFIED:
+- `project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.md` and `.csv` now map `38` current-URL relationship/control rows for this queue.
+- `project-control/medical-malpractice-owner-upload-review-package-2026-05-11.md` and `.csv` now package `8` owner-review decisions.
+- The cluster has a review-only path from inventory and GSC evidence to source/legal gates, current URL roles, internal-link plan and owner upload review.
+
+NEXT:
+- Owner/legal review should approve planning only, then compare the duplicate pillar records, fee article, old birth/pregnancy page and support roles side-by-side before public copy or URL execution.
+
+BLOCKED:
+- No public content, title/H1/meta, URL migration, redirect, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database change was executed by the internal-link or owner-package addendum.

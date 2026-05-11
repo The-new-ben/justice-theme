@@ -189,6 +189,41 @@ function justice_theme_lawyer_profile_is_public_approved( int $post_id = 0 ): bo
 
 	$slug  = (string) get_post_field( 'post_name', $post_id );
 	$title = get_the_title( $post_id );
+	$is_maya_identity = 'advocate-maya-rotenberg' === $slug
+		|| (
+			false !== mb_strpos( $title, rawurldecode( '%D7%9E%D7%90%D7%99%D7%94' ) )
+			&& false !== mb_strpos( $title, rawurldecode( '%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92' ) )
+		);
+
+	if ( $is_maya_identity ) {
+		$maya_source_type    = strtolower( (string) get_post_meta( $post_id, 'source_type', true ) );
+		$maya_source_url     = strtolower( (string) get_post_meta( $post_id, 'source_url', true ) );
+		$maya_profile_status = strtolower( (string) get_post_meta( $post_id, 'profile_status', true ) );
+		$maya_verification   = strtolower( (string) get_post_meta( $post_id, 'verification_status', true ) );
+		$maya_subscription   = strtolower( (string) get_post_meta( $post_id, 'subscription_status', true ) );
+		$maya_notes          = strtolower( (string) get_post_meta( $post_id, 'internal_notes', true ) );
+		$maya_seed_haystack  = implode( ' ', array( $maya_source_type, $maya_source_url, $maya_profile_status, $maya_notes ) );
+		$maya_is_seed_like   = false !== strpos( $maya_seed_haystack, 'seed' )
+			|| false !== strpos( $maya_seed_haystack, 'demo' )
+			|| false !== strpos( $maya_seed_haystack, 'test data' )
+			|| false !== strpos( $maya_seed_haystack, 'testing only' )
+			|| false !== strpos( $maya_seed_haystack, 'not real' )
+			|| false !== strpos( $maya_seed_haystack, 'fictional' )
+			|| false !== strpos( $maya_seed_haystack, 'fake' );
+		$maya_has_approval_signal = in_array( $maya_profile_status, array( 'approved', 'public', 'published', 'active', 'verified' ), true )
+			|| 'active' === $maya_subscription
+			|| ( 'verified' === $maya_verification && '' !== $maya_source_type && 'seed' !== $maya_source_type );
+
+		if (
+			$maya_is_seed_like
+			|| (
+				! $maya_has_approval_signal
+				&& ! (bool) apply_filters( 'justice_theme_allow_maya_name_public_profile_fallback', false, $post_id )
+			)
+		) {
+			return false;
+		}
+	}
 
 	if (
 		'advocate-maya-rotenberg' === $slug

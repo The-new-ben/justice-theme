@@ -6,6 +6,16 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-MAYA-TRUST-SAFETY-001: Require real approval signals for Maya public display
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** Maya Rotenberg is the mini-site prototype, but she must not be public-approved solely because a seed/demo profile uses her name or slug.
+**Actions:**
+1. DONE: seed/demo metadata is now checked before Maya can pass public approval.
+2. DONE: Maya name/slug fallback now requires normal approval/source signals or explicit opt-in filter `justice_theme_allow_maya_name_public_profile_fallback`.
+3. VERIFIED: Maya can still display when the profile has approved/verified/source-backed metadata, but seed/demo records cannot pass by name alone.
+4. NEXT: pull/deploy marker `2026-05-11-maya-public-approval-hardening-v1`, then verify homepage featured-lawyer section and Maya profile behavior after the current live data state is known.
+5. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-LEGALTOOLS-SEED-SAFETY-001: Keep LegalTech tool-page seeding opt-in
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** LegalTech tools can be valuable product/SEO assets, but draft/product pages should not be published silently by admin-init before strategy, content, pricing, funnel and legal-review decisions are approved.

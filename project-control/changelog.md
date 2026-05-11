@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Maya public approval hardening
+
+- CODE FIXED: Maya Rotenberg no longer bypasses lawyer public-approval safety solely by name/slug before seed/demo metadata is evaluated.
+- CODE FIXED: Maya name/slug fallback now requires normal approval/source signals or explicit opt-in filter `justice_theme_allow_maya_name_public_profile_fallback`.
+- EXPECTED IMPACT: a real, approved/source-backed Maya mini-site can still appear, but seed/demo Maya records cannot be treated as public-approved by identity alone.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-maya-public-approval-hardening-v1`.
+- SAFETY: no Maya profile, lawyer record, content, URL, redirect, sitemap, canonical, taxonomy, CRM, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - LegalTech tool seed gate
 
 - CODE FIXED: automatic LegalTech tool-page seeders in `justice-core`, `ultra-justice-engine`, and `ultra-justice` now require explicit opt-in filters.

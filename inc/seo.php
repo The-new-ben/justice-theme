@@ -461,6 +461,9 @@ function justice_theme_meta_head() {
 		echo '<meta property="og:url" content="' . esc_url( justice_theme_normalize_public_url( home_url( '/' ) ) ) . '">' . "\n";
 		echo '<meta property="og:locale" content="he_IL">' . "\n";
 		echo '<meta property="og:site_name" content="Jus-Tice">' . "\n";
+		echo '<meta property="og:image" content="' . esc_url( JUSTICE_THEME_URI . '/assets/images/og-default.png' ) . '">' . "\n";
+		echo '<meta property="og:image:width" content="1200">' . "\n";
+		echo '<meta property="og:image:height" content="630">' . "\n";
 	} elseif ( is_post_type_archive( 'justice_lawyer' ) || is_page( 'lawyers' ) ) {
 		$directory_desc = 'מדריך עורכי הדין של Jus-Tice מציג פרופילים מאושרים בלבד, לפי תחום משפטי, עיר, ניסיון, שפות ודרכי פנייה. אין דירוג או המלצה ללא בסיס מאומת.';
 		echo '<meta name="description" content="' . esc_attr( $directory_desc ) . '">' . "\n";

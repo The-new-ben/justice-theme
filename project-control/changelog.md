@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Child support owner approval packet
+
+- CREATED: `project-control/child-support-owner-approval-packet.md`.
+- CREATED: `project-control/child-support-owner-approval-packet.csv`.
+- UPDATED: `project-control/child-support-content-decision-packet.md`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `/child-support/` is a likely public guide candidate with `2,767` words and a quality heuristic of `8/10`.
+- VERIFIED: visible GSC child-support/calculation demand maps to the old calculator URL, so `https://jus-tice.co.il/מחשבון-מזונות-ילדים/` must be protected until a support/tool strategy is approved.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, title/H1/meta, calculator/tool claim, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Criminal law owner approval packet
 
 - CREATED: `project-control/criminal-law-owner-approval-packet.md`.

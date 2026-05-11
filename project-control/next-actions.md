@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CHILD-SUPPORT-OWNER-APPROVAL-001: Prepare child-support no-URL-change approval packet
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** Child support is the largest active conflict group, but GSC shows the old calculator URL owns visible demand, so the next step must be owner approval for comparison and source/legal review, not content or URL execution.
+**Actions:**
+1. DONE: created `project-control/child-support-owner-approval-packet.md`.
+2. DONE: created `project-control/child-support-owner-approval-packet.csv`.
+3. VERIFIED: `/child-support/` exists, has `2,767` words, and remains the likely public guide candidate.
+4. VERIFIED: `https://jus-tice.co.il/מחשבון-מזונות-ילדים/` receives the visible GSC child-support/calculation impressions from the checked filters.
+5. VERIFIED: child-support has `30` conflict rows and requires source/legal review before calculator, formula, `בע"מ 919/15`, jurisdiction or support-page claims.
+6. RECOMMENDED: owner approval for no-URL-change comparison and source/legal planning only.
+7. NEXT: if owner approves, build side-by-side content-quality comparison, claim/source checklist and internal-link plan for the child-support cluster.
+8. BLOCKED: no public content edits, titles/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, calculator/tool claims, lawyer cards or CMS writes until explicit owner approval.
+
 ### ACTION-CRIMINAL-LAW-OWNER-APPROVAL-001: Prepare criminal-law primary-selection approval packet
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** Criminal law is a high-value cluster, but it has heavier URL risk than traffic law because `/criminal-lawyer/` is not an exact current URL and old Hebrew URLs have GSC signal.

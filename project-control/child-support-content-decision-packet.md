@@ -9,6 +9,23 @@ This packet reviews the largest current content conflict group: `child-support`.
 
 It does not approve URL changes, redirects, content deletion, noindex, canonical changes, sitemap changes, or live CMS edits.
 
+## 2026-05-11 Owner Approval Packet
+
+CREATED:
+- `project-control/child-support-owner-approval-packet.md`
+- `project-control/child-support-owner-approval-packet.csv`
+
+VERIFIED:
+- `/child-support/` remains the likely public guide candidate, but it does not currently own the checked GSC child-support/calculation demand.
+- `https://jus-tice.co.il/מחשבון-מזונות-ילדים/` is a protected traffic-risk URL because visible GSC impressions for `מזונות ילדים`, `חישוב מזונות`, and `מחשבון מזונות` map there.
+- `בע"מ 919/15`, shared-support, reduction, change and rabbinical-jurisdiction topics require source/legal review before public claims or standalone page decisions.
+
+RECOMMENDED:
+- Owner approval for a no-URL-change comparison and source/legal planning batch.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, calculator/tool claims, lawyer cards or CMS writes until explicit approval.
+
 ## VERIFIED
 
 - `slug-conflict-review.csv` identifies `child-support` as the largest current target-slug conflict group with `30` rows.

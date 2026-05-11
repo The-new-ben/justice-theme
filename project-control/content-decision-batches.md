@@ -267,3 +267,23 @@ RECOMMENDED:
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits or CMS writes until explicit approval.
+
+## 2026-05-11 Child-Support Owner Approval Packet
+
+CREATED:
+- `project-control/child-support-owner-approval-packet.md`
+- `project-control/child-support-owner-approval-packet.csv`
+
+VERIFIED:
+- `child-support` remains the largest current target-slug conflict group with `30` conflict rows.
+- `/child-support/` is the likely guide candidate, exists as a clean URL, has `2,767` words and has a quality heuristic of `8/10`.
+- GSC browser evidence maps visible child-support/calculation demand to the old calculator URL, not to `/child-support/`.
+- `מזונות ילדים` has `160` impressions, `חישוב מזונות` has `131` impressions, and `מחשבון מזונות` has `70` impressions on `https://jus-tice.co.il/מחשבון-מזונות-ילדים/`.
+- `בע"מ 919/15`, calculation, change/reduction/shared-support and rabbinical-jurisdiction claims require source/legal review before public edits.
+
+RECOMMENDED:
+- Owner approval for a no-URL-change comparison and source/legal planning batch.
+- Protect the old calculator URL until a support/tool strategy, redirect map, canonical plan, sitemap plan and owner approval exist.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, calculator/tool claims, lawyer cards or CMS writes until explicit approval.

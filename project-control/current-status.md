@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 13:28 Asia/Jerusalem
+- VERIFIED / REVIEW: prepared the child-support owner-approval packet as a no-URL-change comparison and source/legal planning decision.
+- CREATED: `project-control/child-support-owner-approval-packet.md`.
+- CREATED: `project-control/child-support-owner-approval-packet.csv`.
+- VERIFIED: `/child-support/` exists, has `2,767` words, and remains the likely public guide candidate.
+- VERIFIED: visible GSC child-support/calculation demand maps to `https://jus-tice.co.il/מחשבון-מזונות-ילדים/`, not to `/child-support/`.
+- VERIFIED: `מזונות ילדים` has `160` impressions, `חישוב מזונות` has `131`, and `מחשבון מזונות` has `70` on the old calculator URL in the checked GSC browser filters.
+- BLOCKED: source/legal review is required before calculator, formula, `בע"מ 919/15`, jurisdiction, title/H1/meta, URL, redirect, canonical, sitemap, noindex, taxonomy/menu, lawyer-card or CMS changes.
+- SAFETY: repo documentation/CSV planning only; no live public content or CMS state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 13:18 Asia/Jerusalem
 - VERIFIED / REVIEW: prepared the criminal-law owner-approval packet as a primary-selection/consolidation decision, not a URL migration task.
 - CREATED: `project-control/criminal-law-owner-approval-packet.md`.

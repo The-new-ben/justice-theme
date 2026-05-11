@@ -1661,3 +1661,12 @@
 - VERIFIED: final CSS simulation shows all four sampled pages pass horizontal-overflow and duplicate-WhatsApp checks.
 - VERIFIED: `functions.php` passed PHP syntax check using the local cached PHP runtime from the owner-provided zip.
 - SAFETY: no public content, URLs, redirects, sitemap settings, robots rules, database rows, CRM records or admin settings were changed.
+
+## 2026-05-11 404 Plugin Deactivation Checklist And Verifier
+- CREATED: `project-control/404-plugin-deactivation-checklist.md`.
+- CREATED: `tools/check-404-routing.ps1`.
+- VERIFIED: the checker runs locally and covers fake generated URLs, invalid post queries, homepage, `/articles/`, `/lawyers/`, `robots.txt`, and `sitemap_index.xml`.
+- VERIFIED BASELINE: homepage, articles archive, lawyers archive, robots and sitemap checks pass.
+- BLOCKED BASELINE: fake generated URLs and invalid `?p=99999999` still return `301 Location: https://jus-tice.co.il/`.
+- DECISION: plugin deactivation remains an owner-approval action because it changes live WordPress plugin state.
+- SAFETY: no live plugin state, URL, redirect rule, `.htaccess`, permalink setting, content body, taxonomy, canonical, sitemap, lawyer data, CRM data, review data or database row was changed.

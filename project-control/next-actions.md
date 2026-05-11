@@ -704,3 +704,17 @@ Next safe batch before any URL/content migration:
 4. Confirm `/family-law/` has no horizontal overflow at 390px.
 5. Confirm only one compact mobile WhatsApp/contact control is visible on non-home pages.
 6. Confirm the accessibility launcher does not create horizontal scroll and does not cover critical CTAs.
+
+## 2026-05-11 404 ROUTING PLUGIN NEXT ACTIONS
+
+**Status:** SOURCE VERIFIED / CHECKLIST READY / OWNER APPROVAL NEEDED
+
+1. Review `project-control/404-plugin-deactivation-checklist.md`.
+2. Confirm owner approval to deactivate `All 404 Redirect to Homepage`.
+3. Before changing plugin state, run `tools/check-404-routing.ps1` and preserve the blocked baseline.
+4. Deactivate the plugin only; do not delete it, edit `.htaccess`, change permalinks, add redirect rules or change URL migration settings.
+5. Rerun `tools/check-404-routing.ps1`.
+6. Expected fixed state: fake generated URL and invalid `?p=99999999` return HTTP 404 with no homepage redirect.
+7. Confirm homepage, `/articles/`, `/lawyers/`, `robots.txt`, and `sitemap_index.xml` still pass.
+8. Capture desktop and mobile screenshots of the fixed Hebrew 404 page.
+9. If valid pages break, reactivate the plugin and document the regression.

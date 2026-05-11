@@ -865,6 +865,15 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - VISUAL VERIFIED BY CSS SIMULATION: `project-control/visual-evidence/mobile-inner-page-qa-2026-05-11-final-css.json`; all four sampled pages pass overflow and duplicate-WhatsApp checks with local CSS injected.
 - NOT LIVE VERIFIED AFTER CODE FIX: requires uPress pull/cache clear and fresh public screenshots without local CSS injection.
 
+## 2026-05-11 CONTROLLED 404 PLUGIN DEACTIVATION PREP
+- CREATED: `project-control/404-plugin-deactivation-checklist.md`.
+- CREATED: `tools/check-404-routing.ps1`.
+- VERIFIED: the routing checker runs locally and validates fake URLs, invalid post queries, homepage, `/articles/`, `/lawyers/`, `robots.txt`, and `sitemap_index.xml`.
+- VERIFIED BASELINE: homepage, articles archive, lawyers archive, robots and sitemap checks pass.
+- BLOCKED BASELINE: fake URLs and invalid `?p=99999999` still return `301 Location: https://jus-tice.co.il/` while `All 404 Redirect to Homepage` remains active.
+- OWNER APPROVAL NEEDED: deactivate `All 404 Redirect to Homepage` only after explicit approval, then rerun the checker and capture a real 404 screenshot.
+- SAFETY: no live plugin state, URL, redirect rule, `.htaccess`, permalink setting, content body, taxonomy, canonical, sitemap, lawyer data, CRM data, review data or database row was changed.
+
 ## NEXT BEST ACTION
 1. Verify the exact GitHub sync target and active plugin path.
 2. Decide whether `justice-core/` will replace `ultra-justice-engine/` on live or whether the legacy active folder must be renamed in a controlled migration.

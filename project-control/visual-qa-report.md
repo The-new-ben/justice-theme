@@ -265,3 +265,12 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - VISUAL EVIDENCE LIVE: `mobile-inner-article-2026-05-11-live.png`, `mobile-inner-articles-2026-05-11-live.png`, `mobile-inner-lawyers-2026-05-11-live.png`, `mobile-inner-practice-family-2026-05-11-live.png`.
 - LIVE VERIFIED: `/find-lawyer-how-to-find-good-attorney/`, `/articles/`, `/lawyers/`, and `/family-law/` all report `scrollWidth = 390`, `clientWidth = 390`, and `overflowX = false` at 390px mobile width.
 - LIVE VERIFIED: duplicate theme `.whatsapp-float` is hidden on sampled inner pages, while one compact third-party WhatsApp button remains available.
+
+## 2026-05-11 404 Plugin Deactivation QA Prep
+
+- SOURCE VERIFIED: screenshot evidence exists at `project-control/visual-evidence/all-404-redirect-plugin-active-upress-2026-05-11.png`.
+- CREATED: `project-control/404-plugin-deactivation-checklist.md`.
+- CREATED: `tools/check-404-routing.ps1`.
+- VERIFIED BASELINE: the checker confirms valid public pages and crawl files still pass.
+- BLOCKED BASELINE: fake URL and invalid `?p=99999999` still return 301-to-homepage while `All 404 Redirect to Homepage` remains active.
+- NOT YET VISUAL VERIFIED: post-deactivation real Hebrew 404 screenshot still requires owner approval to deactivate the plugin and rerun live QA.

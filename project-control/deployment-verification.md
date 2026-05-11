@@ -151,3 +151,13 @@ we cannot claim the v5 runtime guard is active on the live site.
 ## Status
 
 BLOCKED: waiting for uPress pull / live file sync / cache refresh.
+
+## 2026-05-11 404 Redirect Plugin Verification Baseline
+
+- VERIFIED SOURCE: uPress plugin manager shows active `All 404 Redirect to Homepage`.
+- CREATED: `tools/check-404-routing.ps1` for repeatable pre/post plugin-state checks.
+- CREATED: `project-control/404-plugin-deactivation-checklist.md` for owner-approved deactivation, post-change verification and rollback.
+- VERIFIED BASELINE: the checker passes homepage, `/articles/`, `/lawyers/`, `robots.txt`, and `sitemap_index.xml`.
+- BLOCKED BASELINE: fake generated URLs and invalid `?p=99999999` still return `301 Location: https://jus-tice.co.il/`.
+- NEXT: after explicit owner approval, deactivate only `All 404 Redirect to Homepage`, rerun the checker, and capture screenshots if the 404 is fixed.
+- SAFETY: no plugin state, `.htaccess`, permalink, URL migration, redirect map, content, taxonomy, canonical, sitemap, lawyer, CRM, review or database change was executed in this documentation/checker pass.

@@ -95,6 +95,9 @@ Date: 2026-05-10
 - DIAGNOSTIC CLUE: the 301 has no `X-Redirect-By` and no theme route-guard header, so the source is likely a direct server/plugin/permalink redirect before the theme can render 404.
 - VERIFIED SOURCE 2026-05-11: uPress plugin manager shows active `All 404 Redirect to Homepage`; the plugin description says it redirects 404 links using 301 redirects.
 - Status: SOURCE VERIFIED / OWNER APPROVAL NEEDED. Deactivate this plugin only after approval, then retest real 404 behavior. Do not change URL migrations or redirect rules until mapped and approved.
+- 2026-05-11 CHECKLIST READY: `project-control/404-plugin-deactivation-checklist.md` documents the owner approval gate, pre-change checks, live change steps, post-change checks and rollback.
+- 2026-05-11 CHECKER READY: `tools/check-404-routing.ps1` runs locally and currently reports the expected BLOCKED baseline: fake URL and invalid `?p=99999999` fail with 301-to-homepage, while homepage, `/articles/`, `/lawyers/`, `robots.txt`, and `sitemap_index.xml` pass.
+- Status: SOURCE VERIFIED / CHECKER READY / OWNER APPROVAL NEEDED.
 
 ## Footer / Mobile
 - Proof: mobile homepage and article screenshots.

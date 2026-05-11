@@ -510,6 +510,8 @@ CREATED:
 - `project-control/personal-injury-source-legal-checklist-2026-05-11.csv`
 - `project-control/personal-injury-page-decision-matrix-2026-05-11.md`
 - `project-control/personal-injury-page-decision-matrix-2026-05-11.csv`
+- `project-control/personal-injury-side-by-side-review-2026-05-11.md`
+- `project-control/personal-injury-side-by-side-review-2026-05-11.csv`
 
 VERIFIED:
 - The checklist maps source/legal gates for broad damages, tort lawyer intent, car accident, compulsory insurance, work accident, personal accident, tort concept pages and US personal-injury boundary content.
@@ -518,9 +520,11 @@ VERIFIED:
 - `/car-accident-auto-injury-lawyer/` remains protected as the current visible car-accident candidate, while `/car-accident-lawyer/` remains a future clean slug only.
 - `/personal-injury-lawyer/` remains a strategic future slug only; `/tort-lawyer/` remains the current thin damages/service candidate to compare.
 - The page decision matrix now classifies every current/future URL into current service candidate, protected current GSC-visible page, future clean slug, legal support, insurance support, specialist support, international separate or migration-safety gate.
+- The side-by-side review confirms `/punitive-damage/` and `/tort-reform/` must not become broad pillars by word count alone, and `/personal-injury-law/` must remain separate US/international content.
+- Tested old Hebrew damages/category URL variants currently redirect to the homepage, so exact old-URL capture and routing cleanup are still required before redirect mapping.
 
 RECOMMENDED:
-- Next safe step is a side-by-side comparison and owner approval packet update for primary/support roles before any rewrite, migration or internal-link execution.
+- Next safe step is an approval-gated internal-link map, or deeper GSC/SERP checks for damages, bodily injury, road accident and work accident variants before approving primary/support roles.
 
 BLOCKED:
 - No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/menu edits, related-card edits, lawyer cards, CRM/review changes or CMS writes until explicit approval.

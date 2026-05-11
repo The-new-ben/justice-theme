@@ -308,7 +308,7 @@ BLOCKED until explicit owner approval:
 ## Next Approved Work
 
 If owner approves this planning lane, the next safe work is:
-1. Build a side-by-side comparison of `/tort-lawyer/`, `/personal-injury-law/`, `/punitive-damage/`, `/tort-reform/`, `/outline-of-tort-law/`, `/deep-pocket/`, `/car-accident-auto-injury-lawyer/`, `/israel-road-accident-compensation-law/` and `/compulsory-motor-vehicle-insurance/`.
+1. Create an approval-gated internal-link map for `/tort-lawyer/`, `/car-accident-auto-injury-lawyer/`, `/israel-road-accident-compensation-law/`, `/compulsory-motor-vehicle-insurance/`, `/punitive-damage/`, `/tort-reform/`, `/outline-of-tort-law/`, `/deep-pocket/` and the future clean slugs.
 2. Run deeper GSC browser checks for variants: `עורך דין נזיקין`, `נזקי גוף`, `תביעת נזיקין`, `פיצויים`, `תאונת דרכים`, `עורך דין תאונות דרכים`, `תאונת עבודה`, `עורך דין תאונת עבודה`.
 3. Run SERP review for broad damages, car accident and work accident intents.
 4. Create source/legal review checklist for each approved page.
@@ -347,6 +347,23 @@ VERIFIED:
 - The matrix classifies `/punitive-damage/`, `/tort-reform/`, `/outline-of-tort-law/`, `/deep-pocket/`, `/israel-road-accident-compensation-law/` and `/compulsory-motor-vehicle-insurance/` as support/specialist pages, not broad commercial pillars.
 - The matrix classifies `/personal-injury-law/` as separate US/international content.
 - The matrix keeps `/personal-injury-lawyer/`, `/car-accident-lawyer/` and `/work-accident-lawyer/` future-only until owner-approved primary selection and migration mapping.
+
+BLOCKED:
+- No public rewrite, URL migration, redirect, canonical, sitemap, title/H1/meta, internal link, related-card, menu, lawyer-card, CRM/review, wp-admin option or CMS/database action is approved by this addendum.
+
+## 2026-05-11 Side-By-Side Review Addendum
+
+CREATED:
+- `project-control/personal-injury-side-by-side-review-2026-05-11.md`.
+- `project-control/personal-injury-side-by-side-review-2026-05-11.csv`.
+
+VERIFIED:
+- `/tort-lawyer/` remains the current local damages/service candidate, but it is thin and should not be treated as a finished pillar without approved expansion.
+- `/car-accident-auto-injury-lawyer/` remains the current GSC-visible car-accident candidate, but it is thin/outdated and should not be migrated to `/car-accident-lawyer/` without a full redirect/canonical/sitemap/internal-link map.
+- `/punitive-damage/` is a specialist punitive-damages page and must not become the broad personal-injury pillar by word count alone.
+- `/personal-injury-law/` is US/international content and must stay separate from Israeli damages/service intent.
+- `/tort-reform/`, `/outline-of-tort-law/`, `/deep-pocket/`, `/israel-road-accident-compensation-law/` and `/compulsory-motor-vehicle-insurance/` are support or merge-review assets.
+- Old Hebrew damages/category URL variants tested in this pass currently 301 to the homepage, so exact old URL capture and 404 routing cleanup are still required before redirect decisions.
 
 BLOCKED:
 - No public rewrite, URL migration, redirect, canonical, sitemap, title/H1/meta, internal link, related-card, menu, lawyer-card, CRM/review, wp-admin option or CMS/database action is approved by this addendum.

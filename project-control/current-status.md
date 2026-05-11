@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-11 19:18 Asia/Jerusalem
+- VERIFIED / PERSONAL-INJURY SIDE-BY-SIDE REVIEW: created the review-only side-by-side comparison for current damages, tort, car-accident, road-accident, insurance and US/international pages.
+- CREATED: `project-control/personal-injury-side-by-side-review-2026-05-11.md`.
+- CREATED: `project-control/personal-injury-side-by-side-review-2026-05-11.csv`.
+- VERIFIED: `/tort-lawyer/` remains the current local damages/service candidate, but is thin and not ready as a finished pillar.
+- VERIFIED: `/car-accident-auto-injury-lawyer/` remains protected as the current GSC-visible car-accident candidate, but needs source-backed rewrite/migration review.
+- VERIFIED: `/punitive-damage/` is specialist support, `/personal-injury-law/` is international/US content, and the tort concept pages are support/merge-review assets.
+- REVIEW: old Hebrew damages/category URL variants currently 301 to the homepage while the 404 redirect plugin is active, so exact old-URL capture and routing cleanup are still required before redirects.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, canonical, sitemap, internal-link, related-card, menu, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+- NEXT: create an approval-gated internal-link plan for the personal-injury/damages cluster, or run deeper GSC/SERP checks before primary URL approval.
+
 ## LATEST WORK STATUS - 2026-05-11 18:26 Asia/Jerusalem
 - VERIFIED / PERSONAL-INJURY PAGE DECISION MATRIX: created the review-only page-by-page decision matrix for damages, tort-law, car-accident, insurance, work-accident and US/international boundary pages.
 - CREATED: `project-control/personal-injury-page-decision-matrix-2026-05-11.md`.

@@ -135,6 +135,13 @@ Recommended action:
 - BLOCKED: exact old Hebrew/taxonomy verdict URL for `עורך דין נזיקין` still needs capture before redirect/canonical/noindex decisions.
 - NEXT: side-by-side comparison and internal-link map can be planned only after owner approves primary/support roles.
 
+2026-05-11 personal-injury side-by-side review addendum:
+- VERIFIED: `project-control/personal-injury-side-by-side-review-2026-05-11.md` and `.csv` compare the current service, support, specialist, car-accident, insurance and international pages before execution.
+- VERIFIED: `/tort-lawyer/` remains the current local damages/service candidate but is thin; `/car-accident-auto-injury-lawyer/` remains the protected current GSC-visible car-accident candidate.
+- VERIFIED: `/punitive-damage/` and `/tort-reform/` are too intent-specific to become broad service pillars by word count alone.
+- REVIEW: old Hebrew damages/category URL variants currently 301 to the homepage while routing/plugin behavior is unresolved, so exact URL capture and native 404 cleanup remain important before migration.
+- NEXT: create an approval-gated personal-injury internal-link plan or run deeper GSC/SERP checks for damages, bodily injury, road accident and work accident variants.
+
 ## Traffic Law
 
 Decision:

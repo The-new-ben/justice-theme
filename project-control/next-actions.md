@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PERSONAL-INJURY-SIDE-BY-SIDE-001: Compare current personal-injury/damages pages side by side
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The page decision matrix selected roles, but current pages still needed direct comparison so thin service pages, long specialist pages, support pages, international content and old URL routing risks are not mixed.
+**Actions:**
+1. DONE: created `project-control/personal-injury-side-by-side-review-2026-05-11.md`.
+2. DONE: created `project-control/personal-injury-side-by-side-review-2026-05-11.csv`.
+3. VERIFIED: `/tort-lawyer/` is the current broad service candidate but is thin and needs approved expansion before pillar use.
+4. VERIFIED: `/car-accident-auto-injury-lawyer/` is the protected current GSC-visible car-accident candidate, not an approved final slug.
+5. VERIFIED: `/punitive-damage/`, `/tort-reform/`, `/outline-of-tort-law/`, `/deep-pocket/`, `/israel-road-accident-compensation-law` and `/compulsory-motor-vehicle-insurance/` are support/specialist assets.
+6. VERIFIED: `/personal-injury-law/` is US/international content and must stay separate from Israeli damages intent.
+7. REVIEW: old Hebrew damages/category URL variants currently redirect to the homepage, so exact old URL and routing verification are still needed before any redirect plan.
+8. NEXT: create a personal-injury internal-link plan with `PLANNED_NEEDS_OWNER_APPROVAL` statuses, or run deeper GSC/SERP checks for damages and accident variants.
+9. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, menu, related-card, lawyer-card, CRM/review or CMS writes until owner and legal review approve execution.
+
 ### ACTION-PERSONAL-INJURY-PAGE-MATRIX-001: Classify personal-injury/damages pages page by page
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** After the source/legal gate, the personal-injury/damages cluster needed concrete page-level decisions so current service, support, specialist, international and future-slug roles are not mixed.

@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Personal injury side-by-side review
+
+- CREATED: `project-control/personal-injury-side-by-side-review-2026-05-11.md`.
+- CREATED: `project-control/personal-injury-side-by-side-review-2026-05-11.csv`.
+- UPDATED: `project-control/personal-injury-owner-approval-packet.md`, `project-control/content-decision-batches.md`, `project-control/content-architecture-decisions.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: `/tort-lawyer/` remains the current local damages/service candidate but is thin and needs approved expansion before pillar use.
+- VERIFIED: `/car-accident-auto-injury-lawyer/` remains the protected current GSC-visible car-accident candidate, while future `/car-accident-lawyer/` remains migration-only planning.
+- VERIFIED: `/punitive-damage/` is specialist support, `/personal-injury-law/` is US/international content, and tort-law concept pages remain support/merge-review assets.
+- REVIEW: old Hebrew damages/category URL variants currently 301 to the homepage, so exact old URL capture and routing cleanup remain required before redirects.
+- BLOCKED: no public personal-injury/damages content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, internal link, related-card, menu, lawyer, CRM, review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Personal injury page decision matrix
 
 - CREATED: `project-control/personal-injury-page-decision-matrix-2026-05-11.md`.

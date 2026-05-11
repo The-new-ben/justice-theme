@@ -2,9 +2,9 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
-## 2026-05-11 Logo/Favicon Polish V2 QA
+## 2026-05-11 Logo/Favicon Polish V3 QA
 - CODE FIXED: duplicate fallback favicon output was removed from `header.php`; fallback logic remains centralized in `inc/seo.php` and respects WordPress Site Icon when present.
-- CODE FIXED: premium brand CSS cache version moved to `4.2.1`; theme version moved to `1.0.3`; deployment marker moved to `2026-05-11-branding-polish-v2`.
+- CODE FIXED: premium brand CSS cache version moved to `4.3.1`; theme version moved to `1.0.4`; deployment marker moved to `2026-05-11-branding-polish-v3`.
 - VERIFIED LOCAL: `assets/css/premium-pass-4.css` no longer contains negative `letter-spacing` declarations in the new brand/trust polish rules.
 - VERIFIED LOCAL: `git diff --check` passed with only normal Windows LF-to-CRLF warnings.
 - VERIFIED LOCAL: PHP lint passed for all PHP files using the owner-provided local PHP zip extracted to a temporary runtime.

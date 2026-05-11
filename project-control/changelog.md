@@ -1,12 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
-## 2026-05-11 - Logo/favicon polish v2
+## 2026-05-11 - Logo/favicon polish v3
 
 - CODE FIXED: removed duplicate fallback favicon output from `header.php`.
 - CODE FIXED: kept fallback favicon/app-icon logic centralized in `inc/seo.php`, preserving the WordPress Site Icon first path via `has_site_icon()`.
 - CODE FIXED: removed negative letter-spacing from the newest premium brand/trust polish rules.
-- UPDATED: premium brand CSS cache version to `4.2.1`, theme version to `1.0.3`, and deployment marker to `2026-05-11-branding-polish-v2`.
+- UPDATED: premium brand CSS cache version to `4.3.1`, theme version to `1.0.4`, and deployment marker to `2026-05-11-branding-polish-v3`.
+- VERIFIED: this version is aligned on top of the incoming v4.3 CSS commit that arrived during rebase.
 - UPDATED: `project-control/favicon-logo-task.md`, `project-control/visual-qa-report.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
 - VERIFIED LOCAL: `git diff --check` passed with only normal Windows LF-to-CRLF warnings.
 - VERIFIED LOCAL: PHP lint passed for all PHP files using the owner-provided local PHP zip extracted to a temporary runtime.

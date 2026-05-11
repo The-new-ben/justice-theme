@@ -1,8 +1,8 @@
 ## LATEST WORK STATUS - 2026-05-11 18:06 Asia/Jerusalem
-- FIXED / BRANDING POLISH V2: corrected the latest logo/favicon polish commit before live rollout.
+- FIXED / BRANDING POLISH V3: corrected the latest logo/favicon polish commit before live rollout and aligned it over the v4.3 CSS work that arrived during rebase.
 - CODE FIXED: removed duplicate fallback favicon output from `header.php`; fallback now remains centralized in `inc/seo.php` and still respects WordPress Site Icon.
-- CODE FIXED: removed negative letter-spacing from the new premium brand/trust polish rules and bumped premium CSS cache version to `4.2.1`.
-- CODE FIXED: theme version moved to `1.0.3` and deployment marker moved to `2026-05-11-branding-polish-v2`.
+- CODE FIXED: removed negative letter-spacing from the new premium brand/trust polish rules and bumped premium CSS cache version to `4.3.1`.
+- CODE FIXED: theme version moved to `1.0.4` and deployment marker moved to `2026-05-11-branding-polish-v3`.
 - VERIFIED LOCAL: `git diff --check` passed with only normal Windows LF-to-CRLF warnings; public source still shows old marker `2026-05-11-media-sitemap-https-v1`.
 - VERIFIED LOCAL: PHP lint passed for all PHP files using the owner-provided local PHP zip extracted to a temporary runtime.
 - NOT LIVE VERIFIED: browser tab/favicon/mobile bookmark visual QA requires uPress pull/cache refresh.

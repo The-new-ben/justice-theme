@@ -6,14 +6,14 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
-### ACTION-BRANDING-POLISH-V2-001: Verify and correct latest logo/favicon polish
+### ACTION-BRANDING-POLISH-V3-001: Verify and correct latest logo/favicon polish
 **Status:** COMPLETED / CODE FIXED / NOT LIVE VERIFIED
-**Why:** The latest pulled branding commit improved logo/favicon polish but added duplicate fallback favicon output and negative letter-spacing that should not ship as-is.
+**Why:** The latest pulled branding commit improved logo/favicon polish, and a later v4.3 CSS commit landed during rebase; the combined state needed duplicate favicon removal, no negative letter-spacing, and aligned cache markers.
 **Actions:**
 1. DONE: removed duplicate fallback favicon tags from `header.php`.
 2. DONE: kept fallback favicon/app-icon logic centralized in `inc/seo.php`, where it returns early when WordPress Site Icon exists.
 3. DONE: removed negative letter-spacing from the new premium brand/trust polish CSS rules.
-4. DONE: bumped premium brand CSS cache version to `4.2.1`, theme version to `1.0.3`, and marker to `2026-05-11-branding-polish-v2`.
+4. DONE: bumped premium brand CSS cache version to `4.3.1`, theme version to `1.0.4`, and marker to `2026-05-11-branding-polish-v3`.
 5. VERIFIED LOCAL: `git diff --check` passed with only normal Windows LF-to-CRLF warnings.
 6. VERIFIED LOCAL: PHP lint passed for all PHP files using the owner-provided local PHP zip extracted to a temporary runtime.
 7. NEXT: after uPress pulls the commit and cache clears, verify browser tab favicon, mobile icon, page source, and visual header/footer logo behavior.

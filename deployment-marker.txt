@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-11-branding-polish-v2
-expected-github-main-commit=after-branding-polish-v2
+justice-theme-deployment-marker=2026-05-11-branding-polish-v3
+expected-github-main-commit=after-branding-polish-v3
 purpose=public-static-file-check-for-upress-theme-sync

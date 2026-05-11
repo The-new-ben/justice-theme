@@ -148,6 +148,7 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 				$email   = get_post_meta( $post_id, 'visitor_email', true ) ?: get_post_meta( $post_id, 'lead_email', true );
 				$area    = get_post_meta( $post_id, 'legal_area', true ) ?: get_post_meta( $post_id, 'lead_area', true );
 				$ai_area = get_post_meta( $post_id, 'ai_detected_area', true );
+				$area_display = function_exists( 'justice_theme_lead_area_label' ) ? justice_theme_lead_area_label( $ai_area ?: $area ) : ( $ai_area ?: $area );
 				$tool_id = (int) get_post_meta( $post_id, 'tool_id', true );
 				$source  = get_post_meta( $post_id, 'source_url', true );
 				$status  = get_post_meta( $post_id, $status_key, true ) ?: 'new';
@@ -156,7 +157,7 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 					<td><strong><?php echo esc_html( $name ); ?></strong></td>
 					<td><?php echo $phone ? '<a href="tel:' . esc_attr( preg_replace( '/[^0-9+]/', '', $phone ) ) . '">' . esc_html( $phone ) . '</a>' : '-'; ?></td>
 					<td><?php echo $email ? '<a href="mailto:' . esc_attr( $email ) . '">' . esc_html( $email ) . '</a>' : '-'; ?></td>
-					<td><?php echo esc_html( $tool_id ? get_the_title( $tool_id ) : ( $ai_area ?: $area ?: '-' ) ); ?></td>
+					<td><?php echo esc_html( $tool_id ? get_the_title( $tool_id ) : ( $area_display ?: '-' ) ); ?></td>
 					<td><?php echo esc_html( $status ); ?></td>
 					<td><?php echo $source ? '<a href="' . esc_url( $source ) . '" target="_blank" rel="noopener">source</a>' : '-'; ?></td>
 					<td><?php echo esc_html( get_the_date( 'd/m/Y H:i', $post_id ) ); ?></td>

@@ -36,13 +36,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<label for="lead-area"><?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?></label>
 			<select id="lead-area" name="lead_area" required>
 				<option value=""><?php esc_html_e( 'בחרו תחום משפטי', 'justice-theme' ); ?></option>
-				<option value="family"><?php esc_html_e( 'דיני משפחה', 'justice-theme' ); ?></option>
-				<option value="criminal"><?php esc_html_e( 'משפט פלילי', 'justice-theme' ); ?></option>
-				<option value="traffic"><?php esc_html_e( 'דיני תעבורה', 'justice-theme' ); ?></option>
-				<option value="real_estate"><?php esc_html_e( 'מקרקעין ונדל״ן', 'justice-theme' ); ?></option>
-				<option value="labor"><?php esc_html_e( 'דיני עבודה', 'justice-theme' ); ?></option>
-				<option value="damages"><?php esc_html_e( 'נזיקין', 'justice-theme' ); ?></option>
-				<option value="אחר"><?php esc_html_e( 'אחר', 'justice-theme' ); ?></option>
+				<option value="family-law"><?php esc_html_e( 'דיני משפחה', 'justice-theme' ); ?></option>
+				<option value="criminal-law"><?php esc_html_e( 'משפט פלילי', 'justice-theme' ); ?></option>
+				<option value="traffic-law"><?php esc_html_e( 'דיני תעבורה', 'justice-theme' ); ?></option>
+				<option value="real-estate-law"><?php esc_html_e( 'מקרקעין ונדל״ן', 'justice-theme' ); ?></option>
+				<option value="labor-law"><?php esc_html_e( 'דיני עבודה', 'justice-theme' ); ?></option>
+				<option value="personal-injury-law"><?php esc_html_e( 'נזיקין ותאונות', 'justice-theme' ); ?></option>
+				<option value="medical-malpractice-law"><?php esc_html_e( 'רשלנות רפואית', 'justice-theme' ); ?></option>
+				<option value="inheritance-law"><?php esc_html_e( 'ירושה וצוואות', 'justice-theme' ); ?></option>
+				<option value="general"><?php esc_html_e( 'אחר / לא בטוח', 'justice-theme' ); ?></option>
 			</select>
 		</p>
 

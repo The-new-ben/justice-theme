@@ -42,15 +42,15 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<label for="ask-area"><?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?></label>
 					<select id="ask-area" name="lead_area" required>
 						<option value=""><?php esc_html_e( 'בחרו תחום', 'justice-theme' ); ?></option>
-						<option value="family"><?php esc_html_e( 'משפחה וגירושין', 'justice-theme' ); ?></option>
-						<option value="criminal"><?php esc_html_e( 'משפט פלילי', 'justice-theme' ); ?></option>
-						<option value="real_estate"><?php esc_html_e( 'מקרקעין ונדל״ן', 'justice-theme' ); ?></option>
-						<option value="medical_malpractice"><?php esc_html_e( 'רשלנות רפואית', 'justice-theme' ); ?></option>
-						<option value="damages"><?php esc_html_e( 'נזיקין ותאונות', 'justice-theme' ); ?></option>
-						<option value="traffic"><?php esc_html_e( 'תעבורה', 'justice-theme' ); ?></option>
-						<option value="labor"><?php esc_html_e( 'דיני עבודה', 'justice-theme' ); ?></option>
-						<option value="inheritance"><?php esc_html_e( 'ירושה וצוואות', 'justice-theme' ); ?></option>
-						<option value="other"><?php esc_html_e( 'אחר / לא בטוח', 'justice-theme' ); ?></option>
+						<option value="family-law"><?php esc_html_e( 'משפחה וגירושין', 'justice-theme' ); ?></option>
+						<option value="criminal-law"><?php esc_html_e( 'משפט פלילי', 'justice-theme' ); ?></option>
+						<option value="real-estate-law"><?php esc_html_e( 'מקרקעין ונדל״ן', 'justice-theme' ); ?></option>
+						<option value="medical-malpractice-law"><?php esc_html_e( 'רשלנות רפואית', 'justice-theme' ); ?></option>
+						<option value="personal-injury-law"><?php esc_html_e( 'נזיקין ותאונות', 'justice-theme' ); ?></option>
+						<option value="traffic-law"><?php esc_html_e( 'תעבורה', 'justice-theme' ); ?></option>
+						<option value="labor-law"><?php esc_html_e( 'דיני עבודה', 'justice-theme' ); ?></option>
+						<option value="inheritance-law"><?php esc_html_e( 'ירושה וצוואות', 'justice-theme' ); ?></option>
+						<option value="general"><?php esc_html_e( 'אחר / לא בטוח', 'justice-theme' ); ?></option>
 					</select>
 				</div>
 				<div class="ask-lawyer__field">

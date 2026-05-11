@@ -22,6 +22,7 @@ Date: 2026-05-10
 - CODE FIXED / NOT LIVE VERIFIED: the remaining third-party mobile WhatsApp lead banner is now compacted to a 54px icon-only button in CSS; proof of live CSS simulation: `mobile-chat-widget-css-test-final-2026-05-10.png`.
 - CODE FIXED / NOT LIVE VERIFIED: featured-lawyer homepage section now requires a public-approved lawyer profile and no longer claims section-level verification.
 - CODE FIXED / NOT LIVE VERIFIED: homepage featured pillars and topic clusters now cover medical malpractice, personal injury/damages, employment law and inheritance/wills with safe fallbacks, improving the visible legal-portal hierarchy.
+- CODE FIXED / NOT LIVE VERIFIED: homepage ask-lawyer lead form now sends clean legal-area values that match the content/directory architecture instead of legacy CRM labels.
 - FIXED IN CODE: stronger hero copy, fallback favicon, fuller primary menu augmentation, mobile WhatsApp offset.
 - Status: NOT CUSTOMER-READY until live recheck and menu assignment.
 

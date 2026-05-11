@@ -2,6 +2,11 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Lead Area Vocabulary QA
+- CODE FIXED / NOT LIVE VERIFIED: public lead forms now submit clean legal-area slugs that match the content/directory architecture.
+- CODE FIXED / NOT LIVE VERIFIED: CRM display should show Hebrew area labels after classification instead of raw legacy values such as `damages` or `medical_malpractice`.
+- LIVE CHECK NEEDED: after uPress pull/cache clear, submit one controlled homepage lead with `רשלנות רפואית` or `נזיקין ותאונות`, then verify `legal_area`, `ai_detected_area`, and CRM area display.
+
 ## 2026-05-11 Lawyer Directory Filter Alias QA
 - CODE FIXED / NOT LIVE VERIFIED: clean public filter aliases now map to the existing seeded taxonomy slugs in `archive-justice_lawyer.php`.
 - WHY IT MATTERS: homepage/header links such as `/lawyers/?area=personal-injury-law` and `/lawyers/?area=medical-malpractice-law` should not lead to empty directory states if the underlying term is still `torts` or `medical-malpractice`.

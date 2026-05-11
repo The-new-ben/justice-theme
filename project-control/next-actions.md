@@ -83,6 +83,18 @@
 5. NEXT: pull/deploy marker `2026-05-11-lawyer-filter-slug-alias-v1`, then verify `/lawyers/?area=personal-injury-law`, `/lawyers/?area=medical-malpractice-law`, and `/lawyers/?area=labor-law`.
 6. NOT LIVE VERIFIED: no public deployment yet.
 
+### ACTION-LEADS-004: Normalize lead legal-area vocabulary
+**Status:** CODE FIXED - live lead test pending
+**Why:** Lead intake, CRM, content clusters and lawyer-directory filters should use one legal-area vocabulary instead of mixed values like `damages`, `torts`, `medical_malpractice`, and `real_estate`.
+**Actions:**
+1. DONE: homepage ask-lawyer form now submits clean area slugs.
+2. DONE: shared lead form now submits clean area slugs.
+3. DONE: classifier normalizes legacy aliases and Hebrew `אחר` into canonical legal-area values.
+4. DONE: existing non-canonical lead area values are normalized on lead save/classification.
+5. DONE: CRM area column displays Hebrew labels when possible.
+6. NEXT: pull/deploy marker `2026-05-11-lead-area-normalization-v1`, then submit one controlled lead with area `רשלנות רפואית` or `נזיקין ותאונות` and verify CRM metadata.
+7. NOT LIVE VERIFIED: no public deployment/test lead yet.
+
 ### ACTION-BRAND-001: Logo + Favicon + Search Branding
 **Status:** PARTIAL LIVE VERIFIED - wp-admin/search-result verification pending
 **Why:** Browser tabs, mobile bookmarks and Google search results need a stable, professional icon and final brand state.

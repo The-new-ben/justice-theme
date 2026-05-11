@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Lead area normalization
+
+- CODE FIXED: homepage and shared lead forms now submit canonical clean area slugs instead of mixed legacy form values.
+- CODE FIXED: the rule-based lead classifier maps legacy aliases such as `family`, `real_estate`, `damages`, `medical_malpractice`, `torts`, `employment-law`, and Hebrew `אחר` into the current content/CRM vocabulary.
+- CODE FIXED: saved leads with non-canonical `legal_area` values are normalized during lead classification, and the CRM table displays Hebrew area labels when possible.
+- EXPECTED IMPACT: lead routing, CRM review, content clusters and directory filters now speak the same legal-area language.
+- VERIFIED: PHP lint passed for 127 files using local PHP 8.5.6, and `git diff --check` passed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and one controlled public lead test with marker `2026-05-11-lead-area-normalization-v1`.
+- SAFETY: no existing leads, public content, URLs, redirects, taxonomy terms, lawyer data, review data, wp-admin settings or database rows were changed by this repo patch.
+
 ## 2026-05-11 - Lawyer directory filter slug aliases
 
 - CODE FIXED: lawyer-directory area filters now accept clean/public aliases while querying the real taxonomy slugs underneath.

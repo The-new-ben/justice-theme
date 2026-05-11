@@ -33,7 +33,7 @@ function justice_theme_classify_lead_on_save( int $post_id, WP_Post $post, bool 
 	update_post_meta( $post_id, 'ai_summary', $result['summary'] );
 	update_post_meta( $post_id, 'routing_notes', $result['routing_notes'] );
 
-	if ( ! $area && $result['area'] ) {
+	if ( $result['area'] && ( ! $area || $result['area'] !== $area ) ) {
 		update_post_meta( $post_id, 'legal_area', $result['area'] );
 	}
 
@@ -53,13 +53,13 @@ function justice_theme_rule_based_lead_classification( string $text, string $are
 		'traffic-law' => array( 'תעבורה', 'דוח', 'שלילה', 'רישיון', 'שכרות', 'נהיגה', 'traffic', 'dui' ),
 		'real-estate-law' => array( 'דירה', 'מקרקעין', 'טאבו', 'חוזה מכר', 'נדלן', 'ליקויי בנייה', 'apartment', 'real estate' ),
 		'labor-law' => array( 'פיטורים', 'שימוע', 'עבודה', 'שכר', 'מעסיק', 'עובד', 'employment', 'salary' ),
-		'torts' => array( 'נזיק', 'תאונה', 'פציעה', 'נזק גוף', 'פיצוי', 'injury', 'accident' ),
-		'medical-malpractice' => array( 'רשלנות רפואית', 'לידה', 'הריון', 'אבחון', 'ניתוח', 'medical malpractice' ),
+		'personal-injury-law' => array( 'נזיק', 'תאונה', 'פציעה', 'נזק גוף', 'פיצוי', 'injury', 'accident' ),
+		'medical-malpractice-law' => array( 'רשלנות רפואית', 'לידה', 'הריון', 'אבחון', 'ניתוח', 'medical malpractice' ),
 		'inheritance-law' => array( 'ירושה', 'צוואה', 'עיזבון', 'התנגדות לצוואה', 'inheritance', 'will' ),
 		'national-insurance' => array( 'ביטוח לאומי', 'נכות', 'ועדה רפואית', 'קצבה', 'national insurance' ),
 	);
 
-	if ( ! $normalized_area ) {
+	if ( ! $normalized_area || 'general' === $normalized_area ) {
 		foreach ( $area_rules as $candidate_area => $keywords ) {
 			foreach ( $keywords as $keyword ) {
 				if ( false !== strpos( $lower_text, function_exists( 'mb_strtolower' ) ? mb_strtolower( $keyword, 'UTF-8' ) : strtolower( $keyword ) ) ) {
@@ -95,16 +95,65 @@ function justice_theme_rule_based_lead_classification( string $text, string $are
 }
 
 function justice_theme_normalize_lead_area( string $area ): string {
+	$raw = trim( $area );
+
+	if ( '' === $raw ) {
+		return '';
+	}
+
+	if ( in_array( $raw, array( 'אחר', 'לא בטוח' ), true ) ) {
+		return 'general';
+	}
+
 	$map = array(
-		'family'      => 'family-law',
-		'criminal'    => 'criminal-law',
-		'traffic'     => 'traffic-law',
-		'real_estate' => 'real-estate-law',
-		'labor'       => 'labor-law',
-		'damages'     => 'torts',
+		'family'                  => 'family-law',
+		'family-law'              => 'family-law',
+		'criminal'                => 'criminal-law',
+		'criminal-law'            => 'criminal-law',
+		'traffic'                 => 'traffic-law',
+		'traffic-law'             => 'traffic-law',
+		'real_estate'             => 'real-estate-law',
+		'real-estate'             => 'real-estate-law',
+		'real-estate-law'         => 'real-estate-law',
+		'labor'                   => 'labor-law',
+		'employment'              => 'labor-law',
+		'employment-law'          => 'labor-law',
+		'labor-law'               => 'labor-law',
+		'damages'                 => 'personal-injury-law',
+		'tort'                    => 'personal-injury-law',
+		'torts'                   => 'personal-injury-law',
+		'personal-injury'         => 'personal-injury-law',
+		'personal-injury-law'     => 'personal-injury-law',
+		'medical'                 => 'medical-malpractice-law',
+		'medical_malpractice'     => 'medical-malpractice-law',
+		'medical-malpractice'     => 'medical-malpractice-law',
+		'medical-malpractice-law' => 'medical-malpractice-law',
+		'inheritance'             => 'inheritance-law',
+		'inheritance-law'         => 'inheritance-law',
+		'other'                   => 'general',
+		'general'                 => 'general',
 	);
 
-	$key = sanitize_key( $area );
+	$key = sanitize_key( $raw );
 
 	return $map[ $key ] ?? $key;
+}
+
+function justice_theme_lead_area_label( string $area ): string {
+	$labels = array(
+		'family-law'              => 'דיני משפחה',
+		'criminal-law'            => 'משפט פלילי',
+		'traffic-law'             => 'דיני תעבורה',
+		'real-estate-law'         => 'מקרקעין ונדל״ן',
+		'labor-law'               => 'דיני עבודה',
+		'personal-injury-law'     => 'נזיקין ותאונות',
+		'medical-malpractice-law' => 'רשלנות רפואית',
+		'inheritance-law'         => 'ירושה וצוואות',
+		'national-insurance'      => 'ביטוח לאומי',
+		'general'                 => 'כללי / לא בטוח',
+	);
+
+	$normalized_area = justice_theme_normalize_lead_area( $area );
+
+	return $labels[ $normalized_area ] ?? $area;
 }

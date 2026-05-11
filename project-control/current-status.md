@@ -2,6 +2,14 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 03:20 Asia/Jerusalem
+- CODE FIXED: public lead forms now submit canonical clean legal-area slugs (`family-law`, `criminal-law`, `real-estate-law`, `personal-injury-law`, `medical-malpractice-law`, etc.) instead of mixed legacy values.
+- CODE FIXED: the lead classifier now normalizes old/legacy area values (`family`, `real_estate`, `damages`, `torts`, `medical_malpractice`, `employment-law`, Hebrew `אחר`) into the same canonical CRM/content-cluster vocabulary.
+- CODE FIXED: existing non-canonical `legal_area` values are normalized on lead save, and the CRM table displays Hebrew legal-area labels instead of raw slugs where possible.
+- VERIFIED: PHP lint passed for 127 files using the provided local PHP 8.5.6 runtime, and `git diff --check` passed.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-lead-area-normalization-v1`; requires uPress pull/cache clear and one controlled test lead from homepage/lead form.
+- SAFETY: no existing lead rows, lawyer records, review data, public article bodies, URLs, redirects, taxonomy terms, wp-admin settings or database rows were changed by this repo patch.
+
 ## LATEST WORK STATUS - 2026-05-11 03:10 Asia/Jerusalem
 - CODE FIXED: lawyer-directory area filters now accept clean/public aliases such as `personal-injury-law`, `medical-malpractice-law`, and `employment-law` while querying the existing taxonomy slugs safely.
 - CODE FIXED: legacy/old filter params (`torts`, `medical-malpractice`, `labor`, `employment`) are normalized so menu/header/homepage links do not silently produce empty or weak lawyer-directory states.

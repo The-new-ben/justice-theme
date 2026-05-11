@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Controlled Maya migration guard
+
+- CODE FIXED: automatic Maya Rotenberg slug migration is now opt-in only through `justice_theme_enable_maya_slug_migration`.
+- CODE FIXED: automatic Maya mini-site field bootstrapping is now opt-in only through `justice_theme_enable_maya_minisite_bootstrap`.
+- CODE FIXED: automatic Maya public-source metadata bootstrapping is now opt-in only through `justice_theme_enable_maya_public_sources_bootstrap`.
+- EXPECTED IMPACT: pulling the theme will no longer silently change live lawyer slugs or profile CMS fields before URL migration mapping, redirect planning and owner approval.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-controlled-maya-migration-guard-v1`.
+- SAFETY: no content, URLs, redirects, sitemap, canonical, taxonomy, CRM, lawyer, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - Breadcrumb visual polish
 
 - CODE FIXED: breadcrumb markup now has stable item/current/home classes, text wrappers and a depth attribute for safer CSS/QA.

@@ -2,6 +2,15 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 05:18 Asia/Jerusalem
+- CODE FIXED: automatic Maya Rotenberg live slug migration is now disabled by default and requires explicit opt-in through `justice_theme_enable_maya_slug_migration`.
+- CODE FIXED: automatic Maya mini-site CMS field bootstrapping is now disabled by default and requires explicit opt-in through `justice_theme_enable_maya_minisite_bootstrap`.
+- CODE FIXED: automatic Maya public-source metadata bootstrapping is now disabled by default and requires explicit opt-in through `justice_theme_enable_maya_public_sources_bootstrap`.
+- WHY: URL/profile changes must be controlled by the content inventory, URL migration map, redirect plan and owner approval. A theme pull should not silently mutate WordPress slugs or lawyer profile fields.
+- VERIFIED: the previous public lawyer trust gate remains in place; this patch only changes when live data migrations are allowed to run.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-controlled-maya-migration-guard-v1`; requires uPress pull/cache clear and a source-marker check.
+- SAFETY: no public content body, URL, redirect, taxonomy term, sitemap, canonical, lawyer record, lead/CRM record, review data, wp-admin setting or database row was changed by this repo patch.
+
 ## LATEST WORK STATUS - 2026-05-11 05:02 Asia/Jerusalem
 - CODE FIXED: breadcrumb markup now includes stable item/current/home classes, a breadcrumb depth attribute, and text wrappers for safer truncation.
 - CODE FIXED: breadcrumb styling was upgraded from a plain grey strip to a compact premium navigation band with pill links, current-page emphasis, subtle legal-brand accent, mobile horizontal scrolling, and RTL-safe separators.

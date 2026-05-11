@@ -51,6 +51,7 @@ English slugs are easier to read, share, type, maintain, debug, redirect, track 
 8. Add 301 redirects only after the full mapping is approved.
 9. Update internal links and breadcrumbs after migration.
 10. Update sitemap and check canonicals after migration.
+11. Keep theme-side live data migrations disabled by default; enabling a slug/profile migration must be explicit, documented, and tied to the approved URL migration map.
 
 ## Current State
 
@@ -67,3 +68,8 @@ English slugs are easier to read, share, type, maintain, debug, redirect, track 
 
 ## BLOCKED
 - Any live slug migration is blocked until inventory and redirect map are complete.
+
+## 2026-05-11 Control Update
+- FIXED IN CODE: Maya Rotenberg automatic slug migration is now opt-in only through `justice_theme_enable_maya_slug_migration`.
+- FIXED IN CODE: Maya mini-site/profile metadata bootstraps are now opt-in only through `justice_theme_enable_maya_minisite_bootstrap` and `justice_theme_enable_maya_public_sources_bootstrap`.
+- WHY: a Git/uPress pull should deploy templates safely, not silently change live URLs or profile CMS fields before owner approval.

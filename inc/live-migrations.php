@@ -10,12 +10,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Decide whether a live data migration is allowed to run.
+ *
+ * Default is intentionally false. URL/profile migrations must be enabled by an
+ * explicit owner-approved filter after the migration map and rollback plan exist.
+ *
+ * @param string $filter_name Migration-specific opt-in filter name.
+ * @return bool
+ */
+function justice_theme_live_migration_is_enabled( string $filter_name ): bool {
+	return (bool) apply_filters( $filter_name, false );
+}
+
+/**
  * Move the one verified lawyer profile to the approved English slug.
  *
  * This is deliberately narrow: it only targets Maya Rotenberg by title and only
  * changes the post_name field for the justice_lawyer CPT.
  */
 function justice_theme_migrate_maya_rotenberg_slug(): void {
+	if ( ! justice_theme_live_migration_is_enabled( 'justice_theme_enable_maya_slug_migration' ) ) {
+		return;
+	}
+
 	if ( get_option( 'justice_theme_maya_slug_migrated_v1' ) ) {
 		return;
 	}
@@ -87,6 +104,10 @@ add_action( 'template_redirect', 'justice_theme_redirect_old_maya_rotenberg_slug
  * - keeps owner-editable CMS fields as the source of truth after first fill.
  */
 function justice_theme_bootstrap_maya_rotenberg_minisite(): void {
+	if ( ! justice_theme_live_migration_is_enabled( 'justice_theme_enable_maya_minisite_bootstrap' ) ) {
+		return;
+	}
+
 	if ( get_option( 'justice_theme_maya_minisite_bootstrapped_v1' ) ) {
 		return;
 	}
@@ -200,6 +221,10 @@ add_action( 'init', 'justice_theme_bootstrap_maya_rotenberg_minisite', 35 );
  * profile meta and does not add unreviewed awards, ratings, reviews or case claims.
  */
 function justice_theme_bootstrap_maya_rotenberg_public_sources(): void {
+	if ( ! justice_theme_live_migration_is_enabled( 'justice_theme_enable_maya_public_sources_bootstrap' ) ) {
+		return;
+	}
+
 	if ( get_option( 'justice_theme_maya_public_sources_bootstrapped_v1' ) ) {
 		return;
 	}

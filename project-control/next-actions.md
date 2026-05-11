@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-URL-MIGRATION-SAFETY-001: Keep Maya slug/profile changes controlled
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** The current URL migration rule says "map first, approve, then migrate"; theme pulls must not silently change lawyer slugs or profile CMS fields.
+**Actions:**
+1. DONE: automatic Maya Rotenberg slug migration now requires explicit opt-in filter `justice_theme_enable_maya_slug_migration`.
+2. DONE: automatic Maya mini-site field bootstrap now requires explicit opt-in filter `justice_theme_enable_maya_minisite_bootstrap`.
+3. DONE: automatic Maya public-source metadata bootstrap now requires explicit opt-in filter `justice_theme_enable_maya_public_sources_bootstrap`.
+4. VERIFIED: no URLs, redirects, lawyer records, profile fields, database rows or wp-admin settings were changed by this repo patch.
+5. NEXT: pull/deploy marker `2026-05-11-controlled-maya-migration-guard-v1`, then confirm public source marker and keep Maya slug/profile changes on the approved migration map.
+6. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-DEPLOY-001: Make Codex-operated uPress pulls reliable
 **Status:** PLAN CREATED - access still blocked unless session is authenticated
 **Why:** Owner wants Codex to pull Git through uPress without manual intervention every time.

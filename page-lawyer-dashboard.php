@@ -15,8 +15,8 @@ if ( ! is_user_logged_in() ) :
 			<h1><?php esc_html_e( 'התחברו כדי לנהל את הנוכחות שלכם ב-Jus-Tice', 'justice-theme' ); ?></h1>
 			<p><?php esc_html_e( 'האזור האישי מיועד לפרופיל, לידים, תוכן, סטטוס מנוי וכלים עתידיים. פרסום ועדכונים מהותיים עוברים בדיקה לפני עלייה לאתר.', 'justice-theme' ); ?></p>
 			<div class="lawyer-dashboard__actions">
-				<a class="button button--gold" href="<?php echo esc_url( wp_login_url( get_permalink() ) ); ?>"><?php esc_html_e( 'התחברות', 'justice-theme' ); ?></a>
-				<a class="button button--outline" href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>"><?php esc_html_e( 'הצטרפות לעורכי דין', 'justice-theme' ); ?></a>
+				<a class="button button--gold" href="<?php echo esc_url( wp_login_url( justice_theme_public_permalink( get_the_ID() ) ) ); ?>"><?php esc_html_e( 'התחברות', 'justice-theme' ); ?></a>
+				<a class="button button--outline" href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-registration/' ) ) ); ?>"><?php esc_html_e( 'הצטרפות לעורכי דין', 'justice-theme' ); ?></a>
 			</div>
 		</div>
 	</section>
@@ -101,14 +101,14 @@ $content_request_count = $content_requests ? (int) $content_requests->found_post
 				<h1><?php esc_html_e( 'מרכז השליטה לנוכחות, תוכן ולידים', 'justice-theme' ); ?></h1>
 				<p><?php esc_html_e( 'זהו MVP ראשון: צפייה בפרופיל המקושר, סטטוס מסחרי, לידים משויכים ומשימות לשיפור המיני-סייט. עריכה עצמאית, תשלומים ו-AI Console יתווספו בשלבים מבוקרים.', 'justice-theme' ); ?></p>
 			</div>
-			<a class="button button--gold" href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>"><?php esc_html_e( 'פתיחת פרופיל נוסף', 'justice-theme' ); ?></a>
+			<a class="button button--gold" href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-registration/' ) ) ); ?>"><?php esc_html_e( 'פתיחת פרופיל נוסף', 'justice-theme' ); ?></a>
 		</header>
 
 		<?php if ( ! $profiles || ! $profiles->have_posts() ) : ?>
 			<div class="lawyer-dashboard__empty">
 				<h2><?php esc_html_e( 'עדיין אין פרופיל מקושר לחשבון הזה', 'justice-theme' ); ?></h2>
 				<p><?php esc_html_e( 'אפשר לשלוח בקשת הצטרפות, או לבקש מצוות האתר לקשר פרופיל קיים לחשבון המשתמש שלכם. פרופיל לא עולה לאוויר בלי בדיקה ואישור.', 'justice-theme' ); ?></p>
-				<a class="button button--gold" href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>"><?php esc_html_e( 'שליחת בקשת הצטרפות', 'justice-theme' ); ?></a>
+				<a class="button button--gold" href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-registration/' ) ) ); ?>"><?php esc_html_e( 'שליחת בקשת הצטרפות', 'justice-theme' ); ?></a>
 			</div>
 		<?php else : ?>
 			<div class="lawyer-dashboard__summary">
@@ -151,7 +151,7 @@ $content_request_count = $content_requests ? (int) $content_requests->found_post
 						$plan         = get_post_meta( $post_id, 'plan_type', true ) ?: 'free';
 						$subscription = get_post_meta( $post_id, 'subscription_status', true ) ?: 'inactive';
 						$verification = get_post_meta( $post_id, 'verification_status', true ) ?: 'unverified';
-						$profile_url  = get_permalink( $post_id );
+						$profile_url  = justice_theme_public_permalink( $post_id );
 						$completeness = justice_theme_lawyer_dashboard_profile_completeness( $post_id );
 						?>
 						<article class="lawyer-dashboard-profile">
@@ -167,7 +167,7 @@ $content_request_count = $content_requests ? (int) $content_requests->found_post
 							</dl>
 							<div class="lawyer-dashboard-profile__actions">
 								<a class="button button--outline" href="<?php echo esc_url( $profile_url ); ?>"><?php esc_html_e( 'צפייה בפרופיל', 'justice-theme' ); ?></a>
-								<a class="button button--gold" href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>"><?php esc_html_e( 'שדרוג מסלול', 'justice-theme' ); ?></a>
+								<a class="button button--gold" href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-plans/' ) ) ); ?>"><?php esc_html_e( 'שדרוג מסלול', 'justice-theme' ); ?></a>
 							</div>
 						</article>
 					<?php endwhile; wp_reset_postdata(); ?>

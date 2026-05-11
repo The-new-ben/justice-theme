@@ -9,7 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$post_id = get_the_ID();
+$post_id     = get_the_ID();
+$article_url = justice_theme_public_permalink( $post_id );
 $extra_attributes = '';
 
 if ( isset( $args['data_attrs'] ) && is_array( $args['data_attrs'] ) ) {
@@ -26,7 +27,7 @@ if ( isset( $args['data_attrs'] ) && is_array( $args['data_attrs'] ) ) {
 ?>
 
 <article <?php post_class( 'article-card premium-card' ); ?><?php echo $extra_attributes; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?> style="display: flex; flex-direction: column;">
-	<a class="article-card__media" href="<?php the_permalink(); ?>" aria-hidden="true" tabindex="-1" style="display: block; height: 180px; background: rgba(0,0,0,0.05); overflow: hidden;">
+	<a class="article-card__media" href="<?php echo esc_url( $article_url ); ?>" aria-hidden="true" tabindex="-1" style="display: block; height: 180px; background: rgba(0,0,0,0.05); overflow: hidden;">
 		<?php if ( has_post_thumbnail() ) : ?>
 			<?php the_post_thumbnail( 'justice-card', array( 'loading' => 'lazy', 'style' => 'width: 100%; height: 100%; object-fit: cover;' ) ); ?>
 		<?php else : ?>
@@ -51,13 +52,13 @@ if ( isset( $args['data_attrs'] ) && is_array( $args['data_attrs'] ) ) {
 				$term->name
 			);
 			?>
-			<a class="article-card__term" href="<?php echo esc_url( get_term_link( $term ) ); ?>" style="display: inline-block; margin-bottom: 0.8rem; font-size: 0.8rem; background: rgba(82, 114, 178, 0.1); color: var(--color-accent); padding: 0.3rem 0.8rem; border-radius: 50px; font-weight: 700;">
+			<a class="article-card__term" href="<?php echo esc_url( justice_theme_public_url( (string) get_term_link( $term ) ) ); ?>" style="display: inline-block; margin-bottom: 0.8rem; font-size: 0.8rem; background: rgba(82, 114, 178, 0.1); color: var(--color-accent); padding: 0.3rem 0.8rem; border-radius: 50px; font-weight: 700;">
 				<?php echo esc_html( trim( $clean_name ) ); ?>
 			</a>
 		<?php endif; ?>
 
 		<h2 class="article-card__title" style="margin: 0 0 0.8rem; font-size: 1.25rem; line-height: 1.4;">
-			<a href="<?php the_permalink(); ?>" style="color: var(--color-primary-deep); text-decoration: none;">
+			<a href="<?php echo esc_url( $article_url ); ?>" style="color: var(--color-primary-deep); text-decoration: none;">
 				<?php the_title(); ?>
 			</a>
 		</h2>
@@ -73,7 +74,7 @@ if ( isset( $args['data_attrs'] ) && is_array( $args['data_attrs'] ) ) {
 			<?php echo esc_html( justice_theme_excerpt( $post_id, 24 ) ); ?>
 		</p>
 
-		<a class="article-card__read-more" href="<?php the_permalink(); ?>" style="color: var(--color-primary); font-weight: 700; text-decoration: none; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 1rem; margin-top: auto; display: block;">
+		<a class="article-card__read-more" href="<?php echo esc_url( $article_url ); ?>" style="color: var(--color-primary); font-weight: 700; text-decoration: none; border-top: 1px solid rgba(0,0,0,0.05); padding-top: 1rem; margin-top: auto; display: block;">
 			<?php esc_html_e( 'קראו מדריך', 'justice-theme' ); ?>
 		</a>
 	</div>

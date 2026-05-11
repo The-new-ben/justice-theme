@@ -110,6 +110,38 @@ function justice_theme_safe_public_link( string $primary_path, string $fallback_
 }
 
 /**
+ * Normalize a URL before rendering it in public templates.
+ *
+ * This is display-only; it does not change stored URLs, redirects or slugs.
+ *
+ * @param string $url Raw public URL.
+ * @return string
+ */
+function justice_theme_public_url( string $url ): string {
+	if ( function_exists( 'justice_theme_normalize_public_url' ) ) {
+		return justice_theme_normalize_public_url( $url );
+	}
+
+	return $url;
+}
+
+/**
+ * Return a public permalink with first-party HTTPS normalization applied.
+ *
+ * @param int $post_id Optional post ID. Defaults to the current loop post.
+ * @return string
+ */
+function justice_theme_public_permalink( int $post_id = 0 ): string {
+	$post_id = $post_id ?: (int) get_the_ID();
+
+	if ( $post_id <= 0 ) {
+		return '';
+	}
+
+	return justice_theme_public_url( (string) get_permalink( $post_id ) );
+}
+
+/**
  * Resolve a public lawyer profile connected from article metadata.
  *
  * @param string $slug Canonical lawyer slug.

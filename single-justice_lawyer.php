@@ -361,7 +361,7 @@ $has_media_module     = $video_url || ! empty( $media_items );
 						<div class="lawyer-mini-articles">
 							<?php while ( $related_articles->have_posts() ) : ?>
 								<?php $related_articles->the_post(); ?>
-								<a class="lawyer-mini-article" href="<?php the_permalink(); ?>">
+								<a class="lawyer-mini-article" href="<?php echo esc_url( justice_theme_public_permalink( get_the_ID() ) ); ?>">
 									<span><?php echo esc_html( get_the_date() ); ?></span>
 									<strong><?php the_title(); ?></strong>
 								</a>

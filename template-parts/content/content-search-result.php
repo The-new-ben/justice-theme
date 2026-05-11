@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $type_label = function_exists( 'justice_theme_public_post_type_label' )
 	? justice_theme_public_post_type_label( get_post_type() )
 	: '';
+$result_url = justice_theme_public_permalink( get_the_ID() );
 ?>
 
 <article <?php post_class( 'article-card' ); ?>>
@@ -26,7 +27,7 @@ $type_label = function_exists( 'justice_theme_public_post_type_label' )
 		</div>
 
 		<h2 class="article-card__title">
-			<a href="<?php the_permalink(); ?>">
+			<a href="<?php echo esc_url( $result_url ); ?>">
 				<?php the_title(); ?>
 			</a>
 		</h2>
@@ -35,7 +36,7 @@ $type_label = function_exists( 'justice_theme_public_post_type_label' )
 			<?php echo esc_html( justice_theme_excerpt( get_the_ID(), 28 ) ); ?>
 		</p>
 
-		<a class="article-card__read-more" href="<?php the_permalink(); ?>">
+		<a class="article-card__read-more" href="<?php echo esc_url( $result_url ); ?>">
 			<?php esc_html_e( 'קראו עוד', 'justice-theme' ); ?>
 		</a>
 	</div>

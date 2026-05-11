@@ -25,9 +25,10 @@ get_header();
 					$tool_type  = get_post_meta( get_the_ID(), 'tool_type', true );
 					$price      = get_post_meta( get_the_ID(), 'starting_price', true );
 					$turnaround = get_post_meta( get_the_ID(), 'estimated_turnaround', true );
+					$tool_url   = justice_theme_public_permalink( get_the_ID() );
 					?>
 					<article class="legaltool-card">
-						<a href="<?php the_permalink(); ?>" class="legaltool-card__link">
+						<a href="<?php echo esc_url( $tool_url ); ?>" class="legaltool-card__link">
 							<span><?php echo esc_html( $tool_type ?: 'LegalTech' ); ?></span>
 							<h2><?php the_title(); ?></h2>
 							<p><?php echo esc_html( get_the_excerpt() ?: wp_trim_words( wp_strip_all_tags( get_the_content() ), 28 ) ); ?></p>

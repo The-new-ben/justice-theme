@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-11-related-international-filter-v1
-expected-github-main-commit=after-related-international-filter
+justice-theme-deployment-marker=2026-05-11-public-link-https-normalization-v1
+expected-github-main-commit=after-public-link-https-normalization
 purpose=public-static-file-check-for-upress-theme-sync

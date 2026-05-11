@@ -51,7 +51,7 @@ $related_terms = get_terms( array(
 ) );
 
 $display_area        = $clean_name ?: $term_name;
-$lawyer_archive_link = get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' );
+$lawyer_archive_link = justice_theme_public_url( (string) ( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ) );
 $filtered_lawyers    = $term_slug ? add_query_arg( 'area', $term_slug, $lawyer_archive_link ) : $lawyer_archive_link;
 $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-theme' );
 ?>
@@ -148,7 +148,7 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 				<p class="section-header__eyebrow"><?php esc_html_e( 'מדריכים', 'justice-theme' ); ?></p>
 				<h2><?php esc_html_e( 'מדריכים ומאמרים בתחום', 'justice-theme' ); ?></h2>
 			</div>
-			<a class="button button--ghost" href="<?php echo esc_url( get_post_type_archive_link( 'articles' ) ); ?>"><?php esc_html_e( 'כל המאמרים', 'justice-theme' ); ?></a>
+			<a class="button button--ghost" href="<?php echo esc_url( justice_theme_public_url( (string) get_post_type_archive_link( 'articles' ) ) ); ?>"><?php esc_html_e( 'כל המאמרים', 'justice-theme' ); ?></a>
 		</div>
 
 		<?php if ( have_posts() ) : ?>
@@ -188,9 +188,10 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 					<?php
 					$tool_type = get_post_meta( get_the_ID(), 'tool_type', true );
 					$price     = get_post_meta( get_the_ID(), 'starting_price', true );
+					$tool_url  = justice_theme_public_permalink( get_the_ID() );
 					?>
 					<article class="legaltool-card">
-						<a href="<?php the_permalink(); ?>" class="legaltool-card__link">
+						<a href="<?php echo esc_url( $tool_url ); ?>" class="legaltool-card__link">
 							<span><?php echo esc_html( $tool_type ?: 'LegalTech' ); ?></span>
 							<h3><?php the_title(); ?></h3>
 							<p><?php echo esc_html( get_the_excerpt() ?: wp_trim_words( wp_strip_all_tags( get_the_content() ), 22 ) ); ?></p>

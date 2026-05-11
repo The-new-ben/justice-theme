@@ -54,6 +54,7 @@ if ( ! function_exists( 'justice_theme_lawyer_card_public_city_label' ) ) {
 }
 
 $lawyer_id       = get_the_ID();
+$lawyer_url      = justice_theme_public_permalink( $lawyer_id );
 $firm            = get_post_meta( $lawyer_id, 'firm_name', true );
 $phone           = get_post_meta( $lawyer_id, 'phone', true );
 $whatsapp        = get_post_meta( $lawyer_id, 'whatsapp', true );
@@ -80,7 +81,7 @@ $whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' 
 ?>
 
 <article class="lawyer-card premium-card">
-	<a class="lawyer-card__media" href="<?php the_permalink(); ?>" aria-label="<?php echo esc_attr( sprintf( 'פרופיל עורך הדין %s', get_the_title() ) ); ?>">
+	<a class="lawyer-card__media" href="<?php echo esc_url( $lawyer_url ); ?>" aria-label="<?php echo esc_attr( sprintf( 'פרופיל עורך הדין %s', get_the_title() ) ); ?>">
 		<?php if ( has_post_thumbnail() ) : ?>
 			<?php the_post_thumbnail( 'justice-card', array( 'loading' => 'lazy' ) ); ?>
 		<?php else : ?>
@@ -93,7 +94,7 @@ $whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' 
 	<div class="lawyer-card__body">
 		<div class="lawyer-card__top">
 			<h3 class="lawyer-card__name">
-				<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+				<a href="<?php echo esc_url( $lawyer_url ); ?>"><?php the_title(); ?></a>
 			</h3>
 			<?php if ( 'verified' === $verified ) : ?>
 				<span class="lawyer-card__status">מאומת</span>
@@ -129,7 +130,7 @@ $whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' 
 		</div>
 
 		<div class="lawyer-card__actions">
-			<a class="button button--primary" href="<?php the_permalink(); ?>">צפייה בפרופיל</a>
+			<a class="button button--primary" href="<?php echo esc_url( $lawyer_url ); ?>">צפייה בפרופיל</a>
 			<?php if ( $whatsapp_link ) : ?>
 				<a class="button button--ghost" href="<?php echo esc_url( $whatsapp_link ); ?>" target="_blank" rel="noopener">וואטסאפ</a>
 			<?php elseif ( $phone_link ) : ?>

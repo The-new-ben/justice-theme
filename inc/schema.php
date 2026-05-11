@@ -34,7 +34,7 @@ function justice_theme_print_breadcrumb_schema( $items ) {
 			'@type'    => 'ListItem',
 			'position' => $index + 1,
 			'name'     => wp_strip_all_tags( $item['name'] ),
-			'item'     => ! empty( $item['url'] ) ? esc_url_raw( $item['url'] ) : esc_url_raw( get_permalink() ),
+			'item'     => ! empty( $item['url'] ) ? esc_url_raw( justice_theme_public_url( (string) $item['url'] ) ) : esc_url_raw( justice_theme_public_permalink( get_the_ID() ) ),
 		);
 	}
 
@@ -62,16 +62,16 @@ function justice_theme_article_schema() {
 		'headline'         => wp_strip_all_tags( get_the_title() ),
 		'datePublished'    => get_the_date( DATE_W3C ),
 		'dateModified'     => get_the_modified_date( DATE_W3C ),
-		'mainEntityOfPage' => esc_url_raw( get_permalink() ),
+		'mainEntityOfPage' => esc_url_raw( justice_theme_public_permalink( get_the_ID() ) ),
 		'author'           => array(
 			'@type' => 'Organization',
 			'name'  => get_bloginfo( 'name' ),
-			'url'   => home_url( '/' ),
+			'url'   => justice_theme_public_url( home_url( '/' ) ),
 		),
 		'publisher'        => array(
 			'@type' => 'Organization',
 			'name'  => get_bloginfo( 'name' ),
-			'url'   => home_url( '/' ),
+			'url'   => justice_theme_public_url( home_url( '/' ) ),
 		),
 	);
 
@@ -107,10 +107,10 @@ function justice_theme_website_schema() {
 		'@context'        => 'https://schema.org',
 		'@type'           => 'WebSite',
 		'name'            => get_bloginfo( 'name' ),
-		'url'             => home_url( '/' ),
+		'url'             => justice_theme_public_url( home_url( '/' ) ),
 		'potentialAction' => array(
 			'@type'       => 'SearchAction',
-			'target'      => home_url( '/?s={search_term_string}' ),
+			'target'      => justice_theme_public_url( home_url( '/?s={search_term_string}' ) ),
 			'query-input' => 'required name=search_term_string',
 		),
 	) );
@@ -139,7 +139,7 @@ function justice_theme_lawyer_schema() {
 		'@context' => 'https://schema.org',
 		'@type'    => 'Attorney',
 		'name'     => wp_strip_all_tags( get_the_title( $post_id ) ),
-		'url'      => esc_url_raw( get_permalink( $post_id ) ),
+		'url'      => esc_url_raw( justice_theme_public_permalink( $post_id ) ),
 	);
 
 	if ( $firm ) {

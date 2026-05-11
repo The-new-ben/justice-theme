@@ -152,7 +152,7 @@ if ( post_type_exists( 'articles' ) ) {
 						<p class="section-header__eyebrow"><?php esc_html_e( 'פרופיל מקצועי מחובר', 'justice-theme' ); ?></p>
 						<h2><?php esc_html_e( 'עורכת דין בתחום המשפחה', 'justice-theme' ); ?></h2>
 					</div>
-					<a class="button button--primary" href="<?php echo esc_url( get_permalink( $featured_lawyer ) ); ?>"><?php esc_html_e( 'כניסה למיני-סייט', 'justice-theme' ); ?></a>
+					<a class="button button--primary" href="<?php echo esc_url( justice_theme_public_permalink( $featured_lawyer->ID ) ); ?>"><?php esc_html_e( 'כניסה למיני-סייט', 'justice-theme' ); ?></a>
 				</div>
 				<div class="lawyers-grid lawyers-grid--single">
 					<?php
@@ -174,7 +174,7 @@ if ( post_type_exists( 'articles' ) ) {
 						<p class="section-header__eyebrow"><?php esc_html_e( 'מדריכים משפטיים', 'justice-theme' ); ?></p>
 						<h2><?php esc_html_e( 'מאמרים מחוברים לתחום', 'justice-theme' ); ?></h2>
 					</div>
-					<a class="button button--ghost" href="<?php echo esc_url( get_post_type_archive_link( 'articles' ) ); ?>"><?php esc_html_e( 'כל המאמרים', 'justice-theme' ); ?></a>
+					<a class="button button--ghost" href="<?php echo esc_url( justice_theme_public_url( (string) get_post_type_archive_link( 'articles' ) ) ); ?>"><?php esc_html_e( 'כל המאמרים', 'justice-theme' ); ?></a>
 				</div>
 				<div class="article-grid">
 					<?php while ( $articles->have_posts() ) : $articles->the_post(); ?>

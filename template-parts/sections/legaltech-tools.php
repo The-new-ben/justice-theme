@@ -28,7 +28,7 @@ if ( post_type_exists( 'justice_legal_tool' ) ) {
 			$tools[] = array(
 				'title' => get_the_title(),
 				'text'  => get_the_excerpt() ?: wp_trim_words( wp_strip_all_tags( get_the_content() ), 24 ),
-				'url'   => get_permalink(),
+				'url'   => justice_theme_public_permalink( get_the_ID() ),
 				'type'  => get_post_meta( get_the_ID(), 'tool_type', true ),
 				'price' => get_post_meta( get_the_ID(), 'starting_price', true ),
 			);

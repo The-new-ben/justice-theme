@@ -152,7 +152,7 @@ while ( have_posts() ) :
 						<?php else : ?>
 							<p style="color: var(--color-muted); margin-bottom: 1.5rem;"><?php esc_html_e( 'מיני-סייט מקצועי עם מאמרים, פרטי קשר וטופס פנייה מובנה.', 'justice-theme' ); ?></p>
 						<?php endif; ?>
-						<a class="button button--primary" href="<?php echo esc_url( get_permalink( $connected_lawyer ) ); ?>" style="width: 100%; text-align: center; margin-bottom: 0.75rem;">
+						<a class="button button--primary" href="<?php echo esc_url( justice_theme_public_permalink( $connected_lawyer->ID ) ); ?>" style="width: 100%; text-align: center; margin-bottom: 0.75rem;">
 							<?php esc_html_e( 'מעבר למיני-סייט', 'justice-theme' ); ?>
 						</a>
 						<a class="button button--ghost" href="<?php echo esc_url( add_query_arg( 'lawyer_id', $connected_lawyer->ID, home_url( '/contact/' ) ) ); ?>" style="width: 100%; text-align: center;">
@@ -180,7 +180,7 @@ while ( have_posts() ) :
 										<li>
 											<a
 												class="article-cluster-nav__link<?php echo $current_slug === $slug ? ' is-current' : ''; ?>"
-												href="<?php echo esc_url( home_url( '/' . $slug . '/' ) ); ?>"
+												href="<?php echo esc_url( justice_theme_public_url( home_url( '/' . $slug . '/' ) ) ); ?>"
 												<?php echo $current_slug === $slug ? 'aria-current="page"' : ''; ?>
 											>
 												<span><?php echo esc_html( $label ); ?></span>

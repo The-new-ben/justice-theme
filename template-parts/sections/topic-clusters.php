@@ -146,7 +146,7 @@ $topics = array(
 					if ( $q->have_posts() ) :
 						echo '<ul class="cluster-links">';
 						while ( $q->have_posts() ) : $q->the_post();
-							echo '<li><a href="' . esc_url( get_permalink() ) . '">' . esc_html( get_the_title() ) . '</a></li>';
+							echo '<li><a href="' . esc_url( justice_theme_public_permalink( get_the_ID() ) ) . '">' . esc_html( get_the_title() ) . '</a></li>';
 						endwhile;
 						echo '</ul>';
 						wp_reset_postdata();

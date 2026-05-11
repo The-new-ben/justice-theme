@@ -41,6 +41,7 @@ Repo fallback assets now exist:
 | 192 app icon | `assets/images/favicon-192.png` | CODE FIXED | Square 192x192 |
 | Apple touch icon | `assets/images/apple-touch-icon.png` | CODE FIXED | Square 180x180 |
 | Small favicons | `assets/images/favicon-48.png`, `favicon-32.png`, `favicon-16.png` | CODE FIXED | Browser/search fallback sizes |
+| Web app manifest | `assets/images/site.webmanifest` | CODE FIXED | Stable mobile bookmark/install manifest |
 
 ## WordPress Site Icon Status
 
@@ -122,3 +123,12 @@ Repo fallback assets now exist:
   - `project-control/visual-evidence/homepage-branding-post-pull-desktop-2026-05-10.png`
   - `project-control/visual-evidence/homepage-branding-post-pull-mobile-2026-05-10.png`
 - STILL NEEDS ADMIN REVIEW: wp-admin Site Icon selected media item, Custom Logo selected media item, and whether duplicate favicon plugin outputs should be simplified.
+
+## 2026-05-11 Manifest / Mobile Bookmark Pass
+
+- CODE FIXED: added `assets/images/site.webmanifest` with stable 192x192 and 512x512 icon references.
+- CODE FIXED: `inc/seo.php` now emits a manifest link in `wp_head` while the favicon fallback still returns early when WordPress Site Icon exists.
+- VERIFIED LOCALLY: icon dimensions were checked: 16x16, 32x32, 48x48, 180x180, 192x192 and 512x512 square PNG assets exist.
+- VERIFIED LOCALLY: full logo source remains 1781x1654 and should not be uploaded raw as the Site Icon without crop/export.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-branding-manifest-v1`.
+- LIVE CHECK NEEDED: homepage source should include `/assets/images/site.webmanifest`; the manifest URL should return 200; browser/mobile bookmark icon should use the approved square mark.

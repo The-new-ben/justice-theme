@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Branding manifest
+
+- CODE FIXED: added `assets/images/site.webmanifest` for stable mobile bookmark/install branding.
+- CODE FIXED: `inc/seo.php` now emits the manifest link while preserving WordPress Site Icon priority for favicon output.
+- VERIFIED: local icon assets include square 16/32/48/180/192/512 PNG variants; the full logo source remains available as a non-square reference image.
+- VERIFIED: PHP lint passed for 127 files, manifest JSON validated, and `git diff --check` passed.
+- NOT LIVE VERIFIED: requires uPress pull/cache clear and marker check for `2026-05-11-branding-manifest-v1`.
+- SAFETY: no wp-admin Site Icon, custom logo, media item, content, URL, redirect, sitemap, canonical, taxonomy, CRM, lawyer, review or database data was changed by this repo patch.
+
 ## 2026-05-11 - Lawyer directory approved query
 
 - CODE FIXED: `/lawyers/` now builds the visible archive query from profiles that pass the public lawyer approval gate.

@@ -608,10 +608,10 @@ function justice_theme_filter_directory_robots_meta(): void {
 add_action( 'wp_head', 'justice_theme_filter_directory_robots_meta', 0 );
 
 /**
- * Provide a temporary branded site icon until a final media-library favicon is set.
+ * Provide branded fallback icon links when no WordPress Site Icon is set.
  *
- * WordPress outputs the real Site Icon automatically when it exists, so this
- * fallback only covers the current missing-brand state.
+ * WordPress outputs the selected Site Icon automatically when it exists, so the
+ * favicon fallback stays out of the way of the admin-controlled source.
  */
 function justice_theme_fallback_site_icon(): void {
 	if ( has_site_icon() ) {
@@ -626,3 +626,11 @@ function justice_theme_fallback_site_icon(): void {
 	echo '<link rel="apple-touch-icon" href="' . esc_url( $theme_uri . '/apple-touch-icon.png' ) . '" sizes="180x180">' . "\n";
 }
 add_action( 'wp_head', 'justice_theme_fallback_site_icon', 2 );
+
+/**
+ * Expose a stable mobile app manifest for bookmarks and install surfaces.
+ */
+function justice_theme_brand_manifest_link(): void {
+	echo '<link rel="manifest" href="' . esc_url( JUSTICE_THEME_URI . '/assets/images/site.webmanifest' ) . '">' . "\n";
+}
+add_action( 'wp_head', 'justice_theme_brand_manifest_link', 3 );

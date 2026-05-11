@@ -2,22 +2,24 @@
 Date: 2026-05-10
 
 ## VERIFIED
-- Repo contains only one brand image: `assets/images/logo.png`.
-- `assets/images/logo.png` is a 1.4KB dummy placeholder and should not be used as the final visible logo.
+- Repo contains the owner-provided full Jus-Tice logo source at `assets/images/logo.png` and `assets/images/justice-logo-full.png`.
+- `assets/images/logo.png` is no longer the old dummy placeholder; it is a 1781x1654 full logo reference and is not square enough to upload raw as the Site Icon.
+- Repo contains square favicon/app icon assets at 16, 32, 48, 180, 192 and 512 pixels.
 - Live screenshots show the code-based Jus-Tice wordmark with the red dot in the header.
 - Dummy logo text is not visible in the latest public homepage screenshots.
 
 ## FIXED IN CODE
 - Header and footer already use a code-based Jus-Tice lockup when no WordPress custom logo exists.
 - Red dot is present and CSS-animated.
-- Added `assets/images/favicon.svg` as a temporary branded site icon.
-- Added a `wp_head` fallback icon in `inc/seo.php`, only used when WordPress has no Site Icon configured.
-- Bumped theme asset version to `1.0.1` to help CSS/icon cache refresh.
+- Added `assets/images/favicon.svg`, PNG favicon sizes, ICO fallback and Apple/mobile icons.
+- Added `assets/images/site.webmanifest` for mobile bookmark/install branding.
+- Added `wp_head` fallback icon links in `inc/seo.php`, only used when WordPress has no Site Icon configured.
+- Added a stable manifest link in `inc/seo.php`.
 
 ## NOT VERIFIED
 - Old final logo in WordPress Media Library.
 - WordPress Site Icon setting.
-- Whether uPress/live cache has pulled the new favicon fallback.
+- Whether uPress/live cache has pulled the latest manifest pass.
 
 ## BLOCKED
 - Media Library and Site Identity require wp-admin or authenticated browser access.

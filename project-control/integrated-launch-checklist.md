@@ -51,6 +51,7 @@ Layer 7 - Schema/sitemap/canonical:
 - filter/query duplicates handled.
 - robots/htaccess reviewed.
 - favicon URL is stable, crawlable and aligned with WordPress Site Icon.
+- mobile/search-branding manifest is stable, crawlable and uses approved square icons.
 
 Layer 8 - Analytics:
 - GA4 key events configured.
@@ -93,5 +94,5 @@ No URL/content migrations. Next safe batch is:
 3. Verify mobile article/lawyer pages.
 4. Update title/H1/meta recommendations without publishing changes.
 5. Prepare owner approval list for first no-URL-change content/template improvements.
-6. Verify final logo/favicon in browser tab, mobile header, footer and Google-search readiness.
+6. Verify final logo/favicon/manifest in browser tab, mobile header, footer, mobile bookmark and Google-search readiness.
 7. Review the reputation module docs before adding any rating/review UI to lawyer cards or mini-sites.

@@ -7,8 +7,10 @@ Status: ACTIVE LAUNCH CHECKLIST
 
 - CODE FIXED: repo logo fallback is no longer the dummy placeholder.
 - CODE FIXED: favicon/app icon fallback set exists in SVG, ICO and PNG sizes.
+- CODE FIXED: mobile/search-branding manifest exists at `assets/images/site.webmanifest`.
 - CODE FIXED: header red-dot animation is slightly faster.
 - NOT LIVE VERIFIED: browser tab favicon after `2026-05-10-branding-v1` deploy.
+- NOT LIVE VERIFIED: manifest link after `2026-05-11-branding-manifest-v1` deploy.
 - NOT LIVE VERIFIED: wp-admin Custom Logo and Site Icon selected asset.
 - NEEDS OWNER DECISION: approve old blue-scale mark as final favicon or temporary fallback.
 
@@ -33,6 +35,7 @@ Status: ACTIVE LAUNCH CHECKLIST
 
 - LIVE VERIFIED: current live favicon URLs are crawlable with HTTP 200.
 - CODE FIXED: stable theme fallback URLs exist.
+- CODE FIXED: stable manifest URL exists for mobile bookmark surfaces.
 - NOT LIVE VERIFIED: final Google result favicon refresh.
 - NEXT: after final icon is selected, request homepage recrawl in GSC.
 

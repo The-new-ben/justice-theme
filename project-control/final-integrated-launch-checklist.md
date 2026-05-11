@@ -14,6 +14,7 @@ This file adds final pre-launch gates, including the new review/reputation modul
 
 Before public marketing to lawyers:
 - logo/favicon stable and crawlable.
+- mobile/search-branding manifest stable and crawlable.
 - homepage mobile clean.
 - lawyer cards do not make fake claims.
 - lawyer directory does not show demo profiles as real lawyers.

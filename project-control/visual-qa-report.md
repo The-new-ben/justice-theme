@@ -2,6 +2,11 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Branding Manifest QA
+- CODE FIXED / NOT LIVE VERIFIED: theme now exposes `assets/images/site.webmanifest` for mobile bookmark/install branding, using existing 192x192 and 512x512 square icons.
+- VERIFIED LOCALLY: icon dimensions exist for 16, 32, 48, 180, 192 and 512 pixels; full logo source is non-square and remains unsuitable as a raw Site Icon without cropping.
+- LIVE CHECK NEEDED: after uPress pull/cache clear, verify homepage source includes `/assets/images/site.webmanifest`, the manifest returns HTTP 200, and browser/mobile bookmark icon remains visually correct with marker `2026-05-11-branding-manifest-v1`.
+
 ## 2026-05-11 Lawyer Directory Approved Query QA
 - CODE FIXED / NOT LIVE VERIFIED: `/lawyers/` now queries only profiles that pass the public approval gate, so result counts and pagination should match visible public cards.
 - WHY IT MATTERS: seed/demo/unapproved lawyer records should not produce misleading totals or empty pages after the visible card filter is applied.

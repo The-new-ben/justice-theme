@@ -6,6 +6,17 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-BRANDING-MANIFEST-001: Add stable mobile/search-branding manifest
+**Status:** CODE FIXED - live deployment/verification pending
+**Why:** Browser tabs, mobile bookmarks and search branding need stable, crawlable brand assets without depending on a database-side Site Icon update.
+**Actions:**
+1. DONE: added `assets/images/site.webmanifest` using the existing 192x192 and 512x512 Jus-Tice icon assets.
+2. DONE: `inc/seo.php` outputs the manifest link while keeping WordPress Site Icon as the preferred favicon source.
+3. VERIFIED: local icon dimensions include 16, 32, 48, 180, 192 and 512 square PNG assets; full logo source is 1781x1654.
+4. VERIFIED: PHP lint passed for 127 files, manifest JSON validated, and `git diff --check` passed.
+5. NEXT: pull/deploy marker `2026-05-11-branding-manifest-v1`, then verify homepage source contains `/assets/images/site.webmanifest` and the manifest URL returns HTTP 200.
+6. NOT LIVE VERIFIED: no public deployment yet.
+
 ### ACTION-LAWYER-DIRECTORY-QUERY-001: Keep public lawyer archive counts/pagination approval-safe
 **Status:** CODE FIXED - live deployment/verification pending
 **Why:** The archive should not let seed/demo/unapproved lawyer records distort result counts, pagination or empty-directory states after the public approval gates are applied.

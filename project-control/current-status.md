@@ -2,6 +2,16 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 11:34 Asia/Jerusalem
+- IN PROGRESS / REVIEW: created a first GSC/SERP evidence overlay that connects the refreshed content inventory and slug-conflict queues to existing Search Console browser evidence.
+- CREATED: `project-control/content-decision-evidence-overlay.csv`.
+- CREATED: `project-control/gsc-serp-first-evidence-pass.md`.
+- VERIFIED: existing `GSC_BROWSER_VERIFIED` evidence is now mapped to the first priority decision targets: `criminal-lawyer`, `divorce-lawyer`, `medical-malpractice-lawyer`, `real-estate-lawyer`, `divorce-mediation`, `traffic-lawyer`, `personal-injury-lawyer`, and `inheritance-lawyer` / will variants.
+- VERIFIED: `child-support` is a major inventory conflict (`30` rows) with an exact clean URL candidate, but direct GSC traffic for `מזונות ילדים` variants is still NOT VERIFIED.
+- REVIEW: high-risk old URL signals are visible for divorce, criminal, malpractice, mediation/document URLs, real estate, and will/inheritance variants, so these must be handled as controlled migration decisions, not quick slug changes.
+- BLOCKED: fresh browser GSC was not captured in this pass; authenticated menus/private content/full postmeta remain outside the public export.
+- SAFETY: no public content body, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, menu, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 11:13 Asia/Jerusalem
 - FIXED LIVE: render-only HTTPS normalization for first-party media URLs is deployed in public attachment helpers, image srcsets, post content output and Rank Math image sitemap callbacks.
 - PUSHED: `a74a28b` (`Normalize media sitemap URLs to HTTPS`) to GitHub main.

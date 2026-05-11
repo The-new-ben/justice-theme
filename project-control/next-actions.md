@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CONTENT-DECISION-EVIDENCE-001: Overlay GSC/SERP evidence on first content decision batch
+**Status:** IN PROGRESS / REVIEW ONLY
+**Why:** The refreshed inventory and conflict queues need Search Console and SERP evidence before any pillar, merge, redirect, or English-slug migration decision.
+**Actions:**
+1. DONE: created `project-control/content-decision-evidence-overlay.csv`.
+2. DONE: created `project-control/gsc-serp-first-evidence-pass.md`.
+3. VERIFIED: existing `GSC_BROWSER_VERIFIED` rows were mapped to the first priority targets: `criminal-lawyer`, `divorce-lawyer`, `medical-malpractice-lawyer`, `real-estate-lawyer`, `divorce-mediation`, `traffic-lawyer`, `personal-injury-lawyer`, and `inheritance-lawyer` / will variants.
+4. VERIFIED: old Hebrew/media/document URLs hold visible impressions for several topics, so migration risk is real and must be controlled.
+5. NOT VERIFIED: direct GSC pass for `child-support` / `מזונות ילדים` variants is still missing.
+6. NOT VERIFIED: direct GSC pass for employment-lawyer variants is still missing.
+7. NEXT: run targeted GSC browser filters for `מזונות ילדים`, `חישוב מזונות`, `בעמ 919/15`, `משמורת ילדים`, `עורך דין דיני עבודה`, `דיני עבודה`, `עורך דין ירושה`, and `עורך דין צוואות וירושות`.
+8. NEXT: use the overlay to update URL migration and redirect maps only as proposed plans after owner review.
+9. BLOCKED: do not execute URL changes, redirects, noindex, canonical changes, sitemap changes, content rewrites, content deletion, menu changes or CMS writes from this overlay alone.
+
 ### ACTION-PUBLIC-HTTP-SCAN-001: Classify remaining first-party HTTP references
 **Status:** FIXED LIVE / MONITOR
 **Why:** After sampled related-card links were fixed, a broader public scan still found old first-party `http://jus-tice.co.il` references in rendered HTML and sitemap media URLs. These must be classified before any URL migration or GSC sitemap submission.

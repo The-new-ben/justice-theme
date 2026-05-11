@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Content decision evidence overlay
+
+- CREATED: `project-control/content-decision-evidence-overlay.csv`.
+- CREATED: `project-control/gsc-serp-first-evidence-pass.md`.
+- UPDATED: `project-control/content-decision-batches.md`, `project-control/current-status.md`, `project-control/next-actions.md`, and `project-control/task-board.csv`.
+- VERIFIED: existing `GSC_BROWSER_VERIFIED` rows were mapped onto the first URL/content decision queue for criminal, divorce, child support, medical malpractice, real estate, custody, mediation, traffic, personal injury, employment and inheritance targets.
+- REVIEW: old Hebrew URLs, document/media URLs and support pages hold visible impressions in multiple clusters, so these are controlled migration decisions, not quick slug replacements.
+- NOT VERIFIED: fresh GSC browser data was not captured in this pass; `child-support` and employment-law variants still need targeted GSC filters.
+- BLOCKED: no URL migration, redirect, noindex, canonical, sitemap, content-body, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Media and image-sitemap HTTPS normalization
 
 - PUSHED: `a74a28b` (`Normalize media sitemap URLs to HTTPS`) to GitHub main.

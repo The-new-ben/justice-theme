@@ -1,0 +1,99 @@
+# GSC / SERP First Evidence Overlay
+
+Date: 2026-05-11
+Status: IN PROGRESS / REVIEW ONLY
+
+## Purpose
+
+This pass connects the refreshed content inventory and slug conflict queues to the Search Console evidence already documented in the repo.
+
+It does not approve URL changes, redirects, noindex decisions, canonical changes, sitemap changes, content replacement, or deletion.
+
+## Created
+
+- `project-control/content-decision-evidence-overlay.csv`
+
+## VERIFIED
+
+- The public inventory/audit files exist and were refreshed before this pass.
+- `slug-conflict-review.csv` identifies high-risk conflict groups including `child-support`, `medical-malpractice-lawyer`, `criminal-lawyer`, `child-custody`, `divorce-lawyer`, `divorce-mediation`, and `traffic-lawyer`.
+- `cluster-pillar-review.csv` separates strategic pillar targets from heuristic long-article picks.
+- Existing `GSC_BROWSER_VERIFIED` rows show real query-to-page evidence for:
+  - `עורך דין פלילי`
+  - `דין פלילי`
+  - `עורך דין גירושין`
+  - `גישור גירושין`
+  - `עורך דין לענייני משפחה`
+  - `עורך דין מקרקעין`
+  - `עורך דין רשלנות רפואית`
+  - `עורך דין נזיקין`
+  - `עורך דין תעבורה`
+  - `קניית דירה`
+  - `חוזה מכר`
+  - `צוואה`
+  - `התנגדות לצוואה`
+- Old Hebrew URLs and media/document URLs are already visible in GSC for several topics, so any migration must protect old URL signals with a controlled redirect plan.
+
+## NOT VERIFIED
+
+- Fresh browser GSC data was not captured in this specific pass.
+- GSC traffic has not been merged row-by-row into all `1,220` inventory rows.
+- `child-support` still needs a direct GSC pass for `מזונות ילדים`, `חישוב מזונות`, `בעמ 919/15`, and related variants.
+- `employment-lawyer` still needs a direct GSC pass for employment-law terms.
+- Broad inheritance-lawyer intent is weakly verified; will-related variants have evidence, but `עורך דין ירושה` showed no visible rows in the earlier pass.
+- Authenticated menu export is still blocked by REST `401`, so menu/internal-link decisions are not final.
+
+## BLOCKED
+
+- URL migration execution is blocked until owner approval.
+- Redirect execution is blocked until old URL -> new URL mapping is approved.
+- Public content rewriting/publishing is blocked until duplicate/cannibalization and source review are complete.
+- Noindex/delete decisions are blocked until owner approval and GSC risk review.
+
+## First Decisions To Review
+
+1. `criminal-lawyer`
+   - Current evidence: old Hebrew criminal-law URL receives the visible criminal-lawyer impressions.
+   - Risk: no clean exact `/criminal-lawyer/` URL in the public map; several pages compete for criminal intent.
+   - Next: choose/create/strengthen the clean pillar, map old criminal URLs, then approve redirects later.
+
+2. `divorce-lawyer`
+   - Current evidence: clean `/divorce-lawyer/` exists, but an old Hebrew divorce-lawyer URL has 960 impressions.
+   - Risk: HIGH URL migration risk.
+   - Next: protect the old URL, merge useful content, and require redirect/internal-link/canonical/sitemap plan.
+
+3. `child-support`
+   - Current evidence: clean `/child-support/` exists and there are 30 conflict rows.
+   - Risk: traffic not yet verified for child-support variants.
+   - Next: run GSC query pass before deciding merge/redirect support pages.
+
+4. `medical-malpractice-lawyer`
+   - Current evidence: fee article receives broad malpractice-lawyer query impressions; exact clean pillar URL has duplicate rows.
+   - Risk: HIGH because the current visible page intent may not match the desired pillar.
+   - Next: resolve exact duplicate records, choose pillar/support split, protect fee article traffic.
+
+5. `real-estate-lawyer`
+   - Current evidence: homepage and real-estate cost article receive lawyer-intent impressions; strategic clean pillar is missing from public URL map.
+   - Risk: MEDIUM.
+   - Next: plan/create/strengthen clean pillar and route real-estate support pages into it.
+
+## Safe Next Queries
+
+Run these GSC browser filters next, then update the overlay:
+
+- `מזונות ילדים`
+- `חישוב מזונות`
+- `בעמ 919/15`
+- `משמורת ילדים`
+- `עורך דין דיני עבודה`
+- `דיני עבודה`
+- `עורך דין ירושה`
+- `עורך דין צוואות וירושות`
+- `עורך דין תאונות דרכים`
+- `עורך דין תאונת עבודה`
+
+## Execution Rule
+
+Map first. Decide second. Execute later in controlled batches.
+
+No URL, redirect, canonical, sitemap, content-body, taxonomy, menu, lawyer, CRM, review, plugin-state, wp-admin setting, or database change was made in this pass.

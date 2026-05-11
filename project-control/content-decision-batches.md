@@ -99,3 +99,18 @@ Use the three review CSVs to run the first GSC/SERP evidence pass on:
 5. `real-estate-lawyer`
 
 Then update the URL migration map only as a proposed plan, not as live URL changes.
+
+## 2026-05-11 Evidence Overlay
+
+CREATED:
+- `project-control/content-decision-evidence-overlay.csv`
+- `project-control/gsc-serp-first-evidence-pass.md`
+
+VERIFIED:
+- Existing `GSC_BROWSER_VERIFIED` rows were mapped onto the first decision queue.
+- High-risk evidence exists for `divorce-lawyer`, `medical-malpractice-lawyer`, `criminal-lawyer`, `real-estate-lawyer`, `divorce-mediation`, and will/inheritance variants.
+- `child-support` has a verified inventory conflict but NOT VERIFIED traffic risk until a direct `מזונות ילדים` GSC pass is run.
+
+BLOCKED:
+- No URL migration, redirect, noindex, canonical, sitemap, content rewrite, or deletion may be executed from this overlay alone.
+- Owner approval and direct GSC/SERP review remain required before changing live public URLs or page bodies.

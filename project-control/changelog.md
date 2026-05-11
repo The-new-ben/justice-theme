@@ -3,6 +3,9 @@
 
 ## 2026-05-11 - Justice plugin collision review
 
+- VERIFIED UPress PULL: uPress Git log shows top theme commit `8800b13` (`Document live plugin parity gap`).
+- SCOPE WARNING: the pull synced theme-repo documentation/tooling only; it did not update the separately active live plugin folder under `/wp-content/plugins/ultra-justice-engine/`.
+
 - PARTIAL VERIFIED LIVE PARITY: generated repo hash manifest for `ultra-justice-engine/` and recorded the live-visible uPress active-plugin file listing.
 - VERIFIED LOCAL: repo plugin contains 17 files / 80,392 bytes and repo `includes/` contains 16 files / 77,046 bytes.
 - VERIFIED LIVE VISIBLE: uPress active plugin `includes/` listing shows 15 files; screenshot evidence saved at `project-control/visual-evidence/upress-plugin-filesystem-ultra-includes-2026-05-11.png`.

@@ -2,6 +2,13 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 08:48 Asia/Jerusalem
+- VERIFIED UPress PULL: uPress Git log for `/wp-content/themes/justice-theme` shows top commit `8800b13` (`Document live plugin parity gap`).
+- VERIFIED SYNC: the live theme repository now has the plugin parity baseline docs/tooling pulled from GitHub.
+- IMPORTANT: this was a theme Git pull only; it does not update the separately active live plugin under `/wp-content/plugins/ultra-justice-engine/`.
+- DECISION: do not assume the active live plugin has the repo LegalTech CPT file until a plugin-specific deployment/parity plan is approved.
+- SAFETY: no plugin activation, deactivation, deletion, upload, rename, compression, file edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+
 ## LATEST WORK STATUS - 2026-05-11 08:43 Asia/Jerusalem
 - PARTIAL VERIFIED LIVE PARITY: created a repo-side hash manifest for `ultra-justice-engine/` and a live-visible uPress manifest for the active plugin folder.
 - VERIFIED LOCAL: repo `ultra-justice-engine/` contains 17 files / 80,392 bytes; repo `includes/` contains 16 files / 77,046 bytes.

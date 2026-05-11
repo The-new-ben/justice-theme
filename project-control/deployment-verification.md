@@ -4,6 +4,14 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest uPress pull after plugin parity documentation:
+
+- VERIFIED UPress PULL: uPress Git log for `/wp-content/themes/justice-theme` shows top commit `8800b13` (`Document live plugin parity gap`).
+- VERIFIED SYNC: the theme repository on uPress now includes the plugin parity baseline files.
+- SCOPE WARNING: theme Git pull does not update the active plugin folder under `/wp-content/plugins/ultra-justice-engine/`.
+- NEXT: keep plugin code replacement/update blocked until byte-level active plugin parity or an owner-approved plugin deployment plan exists.
+- SAFETY: no plugin activation state or live plugin file was changed.
+
 Latest live plugin code parity baseline:
 
 - PARTIAL VERIFIED LIVE PARITY: repo `ultra-justice-engine/` manifest generated with 17 files, 80,392 bytes and SHA-256 hashes.

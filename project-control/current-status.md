@@ -2,6 +2,16 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 08:43 Asia/Jerusalem
+- PARTIAL VERIFIED LIVE PARITY: created a repo-side hash manifest for `ultra-justice-engine/` and a live-visible uPress manifest for the active plugin folder.
+- VERIFIED LOCAL: repo `ultra-justice-engine/` contains 17 files / 80,392 bytes; repo `includes/` contains 16 files / 77,046 bytes.
+- VERIFIED LIVE VISIBLE: uPress File Manager `includes/` listing for `/wp-content/plugins/ultra-justice-engine/includes/` shows 15 files and screenshot evidence was saved.
+- VERIFIED PARITY GAP: repo contains `ultra-justice-engine/includes/cpt-legal-tools.php`, but that file was NOT VISIBLE in the live active plugin `includes/` listing.
+- EXPLAINED: this matches the earlier public REST finding that `justice_legal_tool` and `justice_legal_request` are NOT_EXPOSED on live, so LegalTech CPT parity must be treated as NOT VERIFIED before any product/CMS planning depends on it.
+- BLOCKED: byte-level live-vs-repo comparison remains blocked because the Codex in-app browser cannot download files from uPress File Manager and SSH/WP-CLI/file API access is not available in this session.
+- DOCUMENTED: created `project-control/live-plugin-code-parity-review.md`, `project-control/ultra-justice-engine-repo-manifest.csv`, `project-control/ultra-justice-engine-live-visible-manifest.csv`, and `tools/build-plugin-manifest.ps1`.
+- SAFETY: no plugin activation, deactivation, deletion, upload, rename, compression, file edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+
 ## LATEST WORK STATUS - 2026-05-11 08:30 Asia/Jerusalem
 - VERIFIED LIVE PATH: uPress File Manager read-only inspection confirms the active Justice plugin filesystem path is `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php`.
 - VERIFIED LIVE PATH: `/wp-content/plugins/ultra-justice-engine/` exists, is marked active in the uPress filesystem view, and contains `includes/` plus `ultra-justice-engine.php`.

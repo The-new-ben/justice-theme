@@ -46,6 +46,15 @@ The exact live Justice plugin path is now VERIFIED for the current live state:
 /wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php
 ```
 
+Live-visible code parity review adds:
+
+- PARTIAL VERIFIED: `project-control/ultra-justice-engine-repo-manifest.csv` records 17 local repo files and SHA-256 hashes.
+- PARTIAL VERIFIED: `project-control/ultra-justice-engine-live-visible-manifest.csv` records the active live plugin files visible through uPress File Manager.
+- VERIFIED PARITY GAP: repo `ultra-justice-engine/includes/cpt-legal-tools.php` exists, but `/wp-content/plugins/ultra-justice-engine/includes/cpt-legal-tools.php` was NOT VISIBLE in the live active plugin `includes/` listing.
+- EXPLAINED: the missing visible LegalTech CPT file matches the public REST result where `justice_legal_tool` and `justice_legal_request` are NOT_EXPOSED.
+- BLOCKED: byte-level live file hashes are not available from this session because uPress File Manager downloads are unsupported in Codex in-app browser and SSH/WP-CLI/file API access is unavailable.
+- DOCUMENTED: `project-control/live-plugin-code-parity-review.md`.
+
 Local repo path/collision scan now adds:
 
 - VERIFIED LOCAL: `ultra-justice-engine/ultra-justice-engine.php` has plugin header `Ultra Justice Engine`, version `1.0.0`, text domain `ultra-justice-engine`.
@@ -82,6 +91,7 @@ Current safe operating decision:
 5. Do not delete any plugin folder before backup and owner approval.
 6. Treat LegalTech CPT availability as NOT VERIFIED LIVE until wp-admin/plugin-path inspection confirms the active plugin code version.
 7. Treat exact active plugin file path as VERIFIED for the current uPress filesystem state: `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php`.
+8. Treat LegalTech CPT registration as NOT LIVE PARITY until the live plugin code is byte-compared or intentionally updated through an approved plugin deployment plan.
 
 ## Controlled Migration Plan Required
 

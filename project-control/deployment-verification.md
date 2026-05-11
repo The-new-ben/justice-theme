@@ -4,6 +4,16 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest live plugin code parity baseline:
+
+- PARTIAL VERIFIED LIVE PARITY: repo `ultra-justice-engine/` manifest generated with 17 files, 80,392 bytes and SHA-256 hashes.
+- VERIFIED LIVE VISIBLE: uPress File Manager active plugin `includes/` listing shows 15 files.
+- VERIFIED PARITY GAP: repo `ultra-justice-engine/includes/cpt-legal-tools.php` exists, but live `/wp-content/plugins/ultra-justice-engine/includes/cpt-legal-tools.php` was NOT VISIBLE.
+- EXPLAINED: this aligns with public REST where `justice_legal_tool` and `justice_legal_request` are NOT_EXPOSED.
+- BLOCKED: byte-level live plugin hashes are not available without SSH/WP-CLI/file export or an owner-approved read-only diagnostic endpoint.
+- DOCUMENTED: `project-control/live-plugin-code-parity-review.md`, `project-control/ultra-justice-engine-repo-manifest.csv`, and `project-control/ultra-justice-engine-live-visible-manifest.csv`.
+- SAFETY: no live plugin file, plugin activation state, URL, redirect, sitemap, content, taxonomy, lawyer, CRM, review, wp-admin setting or database row was changed.
+
 Latest path-level live plugin filesystem check:
 
 - VERIFIED LIVE PATH: uPress File Manager shows `/wp-content/plugins/ultra-justice-engine/`.

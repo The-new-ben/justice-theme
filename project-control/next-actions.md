@@ -7,7 +7,7 @@
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
 ### ACTION-PLUGIN-COLLISION-001: Keep Justice plugin migration controlled
-**Status:** VERIFIED LIVE PATH / MIGRATION NOT APPROVED
+**Status:** PARTIAL PARITY VERIFIED / MIGRATION NOT APPROVED
 **Why:** The live site currently exposes `Ultra Justice Engine`, while the repo also contains `justice-core` and `ultra-justice`. Activating duplicate Justice plugins could create PHP fatal errors, duplicate CPT/taxonomy registration, or confused REST/content behavior.
 **Actions:**
 1. DONE: added `tools/check-justice-plugin-collision.ps1`.
@@ -19,8 +19,12 @@
 7. DECISION: do not activate `justice-core/` while `ultra-justice-engine/` is active.
 8. DONE: read-only uPress File Manager inspection confirmed `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php` exists on live and `/wp-content/plugins/justice-core` returned 0 filtered items.
 9. DOCUMENTED: `project-control/upress-plugin-filesystem-readonly-review.md`.
-10. NEXT: compare live `ultra-justice-engine` code against repo plugin code and create a parity checklist before any plugin switch.
-11. SAFETY: no plugin activation, deactivation, deletion, installation, file-manager edit, wp-admin setting, URL, redirect, content, taxonomy, sitemap, canonical, lawyer, CRM, review or database change was made.
+10. DONE: generated `project-control/ultra-justice-engine-repo-manifest.csv` with local file hashes and `project-control/ultra-justice-engine-live-visible-manifest.csv` from the uPress visible active-plugin listing.
+11. PARTIAL VERIFIED: repo `ultra-justice-engine/` has 17 files and repo `includes/` has 16 files; live visible `includes/` listing shows 15 files.
+12. VERIFIED PARITY GAP: `includes/cpt-legal-tools.php` exists in the repo plugin but was NOT VISIBLE in the live active plugin listing.
+13. DOCUMENTED: `project-control/live-plugin-code-parity-review.md`.
+14. NEXT: get a byte-level live plugin manifest through SSH/WP-CLI, owner-provided export, or a temporary read-only admin diagnostic endpoint before copying/replacing/updating any plugin code.
+15. SAFETY: no plugin activation, deactivation, deletion, installation, upload, rename, compression, file-manager edit, wp-admin setting, URL, redirect, content, taxonomy, sitemap, canonical, lawyer, CRM, review or database change was made.
 
 ### ACTION-ROUTING-404-HOMEPAGE-001: Identify and disable uncontrolled 404-to-homepage redirects
 **Status:** VERIFIED SOURCE - owner approval needed before deactivation

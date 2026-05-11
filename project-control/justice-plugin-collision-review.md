@@ -85,6 +85,14 @@ NOT VERIFIED:
 
 - Whether the active live plugin code is byte-for-byte identical to the repo copy. This needs a read-only code/version comparison before a plugin migration.
 
+PARTIAL VERIFIED:
+
+- Repo `ultra-justice-engine/` manifest contains 17 files.
+- Live uPress visible `includes/` listing contains 15 files.
+- Repo `ultra-justice-engine/includes/cpt-legal-tools.php` was NOT VISIBLE in the live active plugin listing.
+- This strengthens the migration warning: the live active plugin should be treated as older/incomplete for LegalTech CPT parity until a byte-level manifest proves otherwise.
+- Supporting review: `project-control/live-plugin-code-parity-review.md`.
+
 ## Current Decision
 
 FIXED / DOCUMENTED DECISION:

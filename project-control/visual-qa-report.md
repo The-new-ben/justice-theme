@@ -2,6 +2,14 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-11 Live Plugin Includes Visibility QA
+- VERIFIED LIVE VISIBLE: uPress File Manager opened the active plugin `includes/` folder at `/wp-content/plugins/ultra-justice-engine/includes/`.
+- EVIDENCE: `project-control/visual-evidence/upress-plugin-filesystem-ultra-includes-2026-05-11.png`.
+- VERIFIED VISIBLE COUNT: live active plugin `includes/` listing shows 15 files.
+- VERIFIED PARITY GAP: repo has `ultra-justice-engine/includes/cpt-legal-tools.php`, but the live active plugin listing did not show it.
+- BLOCKED: byte-level visual/download parity is not possible in the Codex in-app browser because uPress file downloads are unsupported.
+- SAFETY: no plugin state or file content was changed.
+
 ## 2026-05-11 Robots Static File QA
 - FIXED LIVE: the public root `robots.txt` no longer returns an empty body.
 - VERIFIED BEFORE FIX: `/robots.txt?codex_check=...` returned HTTP 200, `Content-Type: text/plain`, and length 0, while `/?robots=1` returned a valid WordPress robots body with the sitemap directive.

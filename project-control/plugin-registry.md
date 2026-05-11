@@ -18,6 +18,10 @@ VERIFIED LIVE:
 - uPress plugin manager did not show a separate `Justice Core` row when filtered for `Justice`.
 - uPress File Manager shows `/wp-content/plugins/ultra-justice-engine/ultra-justice-engine.php`.
 - uPress File Manager filtering for `justice-core` under `/wp-content/plugins/` returned 0 items.
+- uPress File Manager live-visible `includes/` listing shows 15 files.
+- Repo `ultra-justice-engine/includes/` has 16 files.
+- Repo `ultra-justice-engine/includes/cpt-legal-tools.php` was NOT VISIBLE in the live active plugin listing.
+- LegalTech CPTs `justice_legal_tool` and `justice_legal_request` are therefore NOT VERIFIED LIVE / NOT LIVE PARITY.
 
 VERIFIED LOCAL:
 
@@ -32,6 +36,7 @@ DECISION:
 - Do not activate `justice-core/` beside `ultra-justice-engine/`.
 - Do not deactivate or delete `ultra-justice-engine/` without a controlled migration plan, backup and owner approval.
 - Keep `justice-core/` as a future canonical target only after collision and parity risks are resolved.
+- Do not copy/replace the active plugin until byte-level live plugin parity is verified or an owner-approved plugin deployment plan exists.
 
 Supporting files:
 
@@ -39,8 +44,12 @@ Supporting files:
 - `project-control/upress-plugin-manager-readonly-review.md`
 - `project-control/upress-plugin-filesystem-readonly-review.md`
 - `project-control/justice-plugin-collision-review.md`
+- `project-control/live-plugin-code-parity-review.md`
+- `project-control/ultra-justice-engine-repo-manifest.csv`
+- `project-control/ultra-justice-engine-live-visible-manifest.csv`
 - `tools/check-live-plugin-surface.ps1`
 - `tools/check-justice-plugin-collision.ps1`
+- `tools/build-plugin-manifest.ps1`
 
 ---
 

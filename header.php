@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Header template.
  *
@@ -15,6 +15,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#07152f">
+	<?php if ( ! has_site_icon() ) : ?>
+		<link rel="icon" href="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/favicon.png' ); ?>" sizes="32x32">
+		<link rel="icon" href="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/favicon.png' ); ?>" sizes="192x192">
+		<link rel="apple-touch-icon" href="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/favicon.png' ); ?>">
+	<?php endif; ?>
 	<?php wp_head(); ?>
 </head>
 

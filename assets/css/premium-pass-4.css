@@ -1,210 +1,177 @@
 /* ============================================================
-   JUS-TICE PREMIUM PASS 4 — COMPLETE VISUAL OVERHAUL
-   Version: 4.1.0 | Date: 2026-05-11
-   Modeled after din.co.il / psakdin.co.il / avvo.com
+   JUS-TICE PREMIUM PASS 4 — SURGICAL VISUAL POLISH
+   Version: 4.2.0 | 2026-05-11
    ============================================================ */
 
-/* ── BLINKING RED DOT ────────────────────────────────────── */
+/* ── 1. LOGO POLISH + FASTER RED DOT ────────────────────── */
 @keyframes jt-pulse-dot {
-  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(178,58,72,0.55); }
-  50% { opacity: 0.7; box-shadow: 0 0 0 8px rgba(178,58,72,0); }
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(178,58,72,0.5); }
+  50% { opacity: 0.75; box-shadow: 0 0 0 7px rgba(178,58,72,0); }
 }
-.brand-lockup__mark::after { animation: jt-pulse-dot 2.4s ease-in-out infinite; }
 
-@keyframes jt-eyebrow-pulse {
-  0%, 100% { box-shadow: 0 0 0 4px var(--jt-accent-red-soft); opacity: 1; }
-  50% { box-shadow: 0 0 0 7px rgba(178,58,72,0); opacity: 0.65; }
+.brand-lockup__mark { border-radius: 12px; }
+.brand-lockup__mark::after {
+  animation: jt-pulse-dot 1.8s ease-in-out infinite;
 }
-.section-header__eyebrow::before,
-.hero__eyebrow::before { animation: jt-eyebrow-pulse 3s ease-in-out infinite; }
+.brand-lockup__name { font-size: 1.2rem; letter-spacing: -0.04em; }
+.brand-lockup__tagline { font-size: 0.72rem; letter-spacing: 0.02em; text-transform: uppercase; }
 
-/* ── HERO — CENTERED SEARCH-FIRST ────────────────────────── */
+/* Wordmark variant */
+.brand-lockup__wordmark {
+  display: inline-flex; align-items: center; gap: 0;
+  font-size: 1.55rem; font-weight: 900; letter-spacing: -0.03em;
+  color: var(--jt-primary-deep); line-height: 1;
+}
+.brand-lockup__red-dot {
+  display: inline-block; width: 9px; height: 9px;
+  background: var(--jt-accent-red); border-radius: 50%;
+  margin: 0 2px; position: relative; top: 2px;
+  animation: jt-pulse-dot 1.8s ease-in-out infinite;
+}
+
+@media (max-width: 520px) {
+  .brand-lockup__wordmark { font-size: 1.25rem; }
+  .brand-lockup__red-dot { width: 7px; height: 7px; }
+  .brand-lockup__text { display: none; }
+}
+
+/* ── 2. HERO — CENTERED SEARCH-FIRST ────────────────────── */
 .hero--has-bg {
   background-image:
-    linear-gradient(160deg, rgba(7,21,47,0.92) 0%, rgba(13,31,60,0.85) 50%, rgba(19,42,92,0.80) 100%),
+    linear-gradient(160deg, rgba(7,21,47,0.93) 0%, rgba(13,31,60,0.87) 50%, rgba(19,42,92,0.82) 100%),
     var(--hero-bg-image);
-  background-size: cover;
-  background-position: center;
+  background-size: cover; background-position: center;
+  padding-block: clamp(3.5rem, 8vw, 6rem);
 }
 .hero__grid {
-  display: flex !important;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 2rem;
+  display: flex !important; flex-direction: column;
+  align-items: center; text-align: center; gap: 2rem;
 }
 .hero__content { max-width: 800px; margin: 0 auto; }
-.hero__title { text-align: center; }
-.hero__description { margin-inline: auto; text-align: center; }
-.hero__stats { justify-content: center; }
-.hero__stat strong {
-  font-size: clamp(2.4rem, 5vw, 3.6rem) !important;
-  font-weight: 900 !important;
-  letter-spacing: -0.05em;
-}
-.hero-search {
-  max-width: 720px;
-  margin: 2rem auto 0 !important;
-  border-radius: 16px !important;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.25) !important;
-  border: 2px solid rgba(255,255,255,0.12);
-}
+.hero__title { text-align: center; font-size: clamp(1.6rem, 4.5vw, 2.6rem); }
+.hero__description { margin-inline: auto; text-align: center; max-width: 600px; }
+.hero__stats { justify-content: center; gap: 2rem; }
+.hero__stat strong { font-size: clamp(2rem, 4vw, 3rem) !important; font-weight: 900 !important; }
 
-/* Hero panel — horizontal chips bar */
+.hero-search {
+  max-width: 720px; margin: 1.5rem auto 0 !important;
+  border-radius: 16px !important;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.22) !important;
+  border: 1.5px solid rgba(255,255,255,0.12);
+}
+.hero__ctas { margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+
+/* Hero panel chips */
 .hero__panel {
   width: 100%; max-width: 900px;
-  background: rgba(255,255,255,0.06) !important;
-  border: 1px solid rgba(255,255,255,0.1) !important;
-  border-radius: 16px !important;
-  padding: 1.2rem 1.5rem !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px) !important;
-  box-shadow: none !important;
+  background: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.08) !important;
+  border-radius: 14px !important; padding: 1rem 1.2rem !important;
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
 }
-.hero__panel h2 { font-size: 0.95rem !important; text-align: center; margin-bottom: 0.8rem !important; opacity: 0.7; font-weight: 600; }
-.hero__quick-links {
-  display: flex !important; flex-wrap: wrap; justify-content: center; gap: 0.5rem !important;
-}
-.hero__quick-links li { flex: 0 0 auto; }
+.hero__panel h2 { font-size: 0.88rem !important; text-align: center; margin-bottom: 0.6rem !important; opacity: 0.6; }
+.hero__quick-links { display: flex !important; flex-wrap: wrap; justify-content: center; gap: 0.4rem !important; }
 .hero__quick-links a {
-  padding: 0.45rem 0.9rem !important; border-radius: 50px !important;
-  font-size: 0.85rem !important; background: rgba(255,255,255,0.08) !important;
-  border: 1px solid rgba(255,255,255,0.15) !important; white-space: nowrap;
+  padding: 0.35rem 0.8rem !important; border-radius: 50px !important;
+  font-size: 0.82rem !important; background: rgba(255,255,255,0.07) !important;
+  border: 1px solid rgba(255,255,255,0.12) !important; white-space: nowrap;
 }
-.hero__quick-links a span {
-  background: rgba(255,255,255,0.15); padding: 2px 7px; border-radius: 50px;
-  font-size: 0.72rem; margin-inline-start: 5px;
-}
-.hero__quick-links a:hover {
-  background: rgba(255,255,255,0.18) !important;
-  transform: none !important; border-color: rgba(255,255,255,0.35) !important;
-}
-.hero__panel-cta { display: block !important; text-align: center; margin-top: 0.8rem !important; font-size: 0.88rem !important; }
+.hero__quick-links a span { background: rgba(255,255,255,0.12); padding: 1px 6px; border-radius: 50px; font-size: 0.7rem; margin-inline-start: 4px; }
+.hero__quick-links a:hover { background: rgba(255,255,255,0.15) !important; border-color: rgba(255,255,255,0.3) !important; transform: none !important; }
+.hero__panel-cta { display: block !important; text-align: center; margin-top: 0.6rem !important; font-size: 0.85rem !important; }
+@media (max-width: 768px) { .hero__panel { display: none !important; } }
 
-@media (max-width: 768px) {
-  .hero__panel { display: none !important; }
+/* ── 3. SECTION RHYTHM ───────────────────────────────────── */
+.section { padding-block: clamp(3rem, 6vw, 5rem); }
+.practice-areas-section, .featured-lawyers, .ask-lawyer { background: #fff; }
+.find-guide, .latest-articles { background: var(--jt-bg, #f7f8fa); }
+.section-header { margin-bottom: 2.5rem; }
+.section-header__eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 0.78rem; font-weight: 800; text-transform: uppercase;
+  letter-spacing: 0.08em; color: var(--jt-accent-red);
+  margin-bottom: 0.6rem;
+}
+.section-header__eyebrow::before {
+  content: ""; width: 8px; height: 8px; border-radius: 50%;
+  background: var(--jt-accent-red); flex-shrink: 0;
+  animation: jt-pulse-dot 2.4s ease-in-out infinite;
 }
 
-/* ── SECTION RHYTHM ──────────────────────────────────────── */
-.practice-areas-section,
-.featured-lawyers,
-.ask-lawyer { background: #fff; }
-.find-guide,
-.latest-articles,
-.lawyer-cta { background: var(--jt-bg); }
-
-/* ── FIND-LAWYER GUIDE ───────────────────────────────────── */
-.find-guide { padding-block: clamp(4rem, 8vw, 6rem); }
-.find-guide .section-header__desc {
-  color: var(--jt-muted); font-size: 1.05rem; line-height: 1.7;
-  max-width: 700px; margin: 0 auto;
-}
-.find-guide__steps {
-  display: grid; grid-template-columns: repeat(3, 1fr);
-  gap: 2rem; margin-top: 3rem;
-}
+/* ── 4. FIND-LAWYER GUIDE ────────────────────────────────── */
+.find-guide__steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.8rem; margin-top: 2.5rem; }
 .find-guide__step {
-  position: relative; background: #fff; border: 1px solid var(--jt-border);
-  border-radius: var(--jt-radius-lg); padding: 2rem 1.8rem;
-  box-shadow: var(--jt-shadow-soft);
-  transition: transform 200ms ease, box-shadow 200ms ease, border-color 200ms ease;
+  position: relative; background: #fff; border: 1px solid var(--jt-border, #e5e7eb);
+  border-radius: 16px; padding: 2rem 1.6rem;
+  box-shadow: 0 2px 12px rgba(7,21,47,0.04);
+  transition: transform 200ms, box-shadow 200ms, border-color 200ms;
 }
-.find-guide__step:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--jt-shadow-strong);
-  border-color: rgba(178,58,72,0.2);
-}
+.find-guide__step:hover { transform: translateY(-4px); box-shadow: 0 12px 36px rgba(7,21,47,0.08); border-color: rgba(178,58,72,0.18); }
 .find-guide__step-number {
-  position: absolute; top: -14px; inset-inline-start: 20px;
-  width: 32px; height: 32px; display: grid; place-items: center;
+  position: absolute; top: -12px; inset-inline-start: 18px;
+  width: 28px; height: 28px; display: grid; place-items: center;
   background: var(--jt-accent-red); color: #fff;
-  font-weight: 900; font-size: 0.85rem; border-radius: 50%;
-  box-shadow: 0 4px 12px rgba(178,58,72,0.3);
+  font-weight: 900; font-size: 0.8rem; border-radius: 50%;
+  box-shadow: 0 3px 10px rgba(178,58,72,0.25);
 }
 .find-guide__step-icon {
   display: inline-flex; align-items: center; justify-content: center;
-  width: 56px; height: 56px; border-radius: 16px;
+  width: 52px; height: 52px; border-radius: 14px;
   background: var(--jt-accent-red-soft); color: var(--jt-accent-red);
-  margin-bottom: 1.2rem;
-  transition: background 200ms, color 200ms;
+  margin-bottom: 1rem; transition: background 180ms, color 180ms;
 }
-.find-guide__step:hover .find-guide__step-icon {
-  background: var(--jt-accent-red); color: #fff;
-}
-.find-guide__step-title {
-  font-size: 1.15rem; font-weight: 800; color: var(--jt-primary-deep);
-  margin: 0 0 0.8rem;
-}
-.find-guide__step-desc {
-  font-size: 0.92rem; color: var(--color-text); line-height: 1.7; margin: 0 0 1rem;
-}
+.find-guide__step:hover .find-guide__step-icon { background: var(--jt-accent-red); color: #fff; }
+.find-guide__step-title { font-size: 1.08rem; font-weight: 800; margin: 0 0 0.6rem; }
+.find-guide__step-desc { font-size: 0.9rem; line-height: 1.7; margin: 0 0 0.8rem; }
 .find-guide__step-tip {
-  background: rgba(178,58,72,0.05); border: 1px solid rgba(178,58,72,0.12);
-  border-radius: 10px; padding: 0.7rem 1rem; font-size: 0.85rem;
-  line-height: 1.6; color: var(--jt-primary-deep);
+  background: rgba(178,58,72,0.04); border: 1px solid rgba(178,58,72,0.1);
+  border-radius: 10px; padding: 0.6rem 0.9rem; font-size: 0.82rem; line-height: 1.6;
 }
 .find-guide__step-tip strong { color: var(--jt-accent-red); }
+@media (max-width: 1024px) { .find-guide__steps { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { .find-guide__steps { grid-template-columns: 1fr; gap: 2.2rem; } }
 
-@media (max-width: 1024px) {
-  .find-guide__steps { grid-template-columns: repeat(2, 1fr); }
-}
-@media (max-width: 640px) {
-  .find-guide__steps { grid-template-columns: 1fr; gap: 2.5rem; }
-}
-
-/* ── FAQ ACCORDION ───────────────────────────────────────── */
-.find-guide__faq { margin-top: 3.5rem; max-width: 800px; margin-inline: auto; }
-.find-guide__faq-title {
-  text-align: center; font-size: 1.5rem; font-weight: 800;
-  color: var(--jt-primary-deep); margin-bottom: 1.5rem;
-}
-.find-guide__faq-grid { display: grid; gap: 0.8rem; }
+/* ── 5. FAQ ACCORDION ────────────────────────────────────── */
+.find-guide__faq { margin-top: 3rem; max-width: 780px; margin-inline: auto; }
+.find-guide__faq-title { text-align: center; font-size: 1.4rem; font-weight: 800; margin-bottom: 1.2rem; }
+.find-guide__faq-grid { display: grid; gap: 0.6rem; }
 .find-guide__faq-item {
-  background: #fff; border: 1px solid var(--jt-border);
-  border-radius: 14px; overflow: hidden;
-  transition: border-color 200ms;
+  background: #fff; border: 1px solid var(--jt-border, #e5e7eb);
+  border-radius: 12px; overflow: hidden; transition: border-color 180ms;
 }
-.find-guide__faq-item[open] { border-color: var(--jt-accent-red-line); }
+.find-guide__faq-item[open] { border-color: rgba(178,58,72,0.25); }
 .find-guide__faq-item summary {
-  padding: 1.1rem 1.4rem; font-weight: 700; font-size: 1rem;
-  color: var(--jt-primary-deep); cursor: pointer; list-style: none;
+  padding: 1rem 1.2rem; font-weight: 700; font-size: 0.95rem;
+  cursor: pointer; list-style: none;
   display: flex; justify-content: space-between; align-items: center;
-  transition: background 160ms;
 }
-.find-guide__faq-item summary:hover { background: rgba(178,58,72,0.03); }
 .find-guide__faq-item summary::-webkit-details-marker { display: none; }
-.find-guide__faq-item summary::after {
-  content: "+"; font-size: 1.3rem; color: var(--jt-accent-red);
-  font-weight: 300; flex-shrink: 0; margin-inline-start: 12px;
-  transition: transform 200ms;
-}
-.find-guide__faq-item[open] summary::after { content: "−"; }
-.find-guide__faq-item p {
-  padding: 0 1.4rem 1.2rem; font-size: 0.95rem; line-height: 1.8;
-  color: var(--color-text); margin: 0;
-}
+.find-guide__faq-item summary::after { content: "+"; font-size: 1.2rem; color: var(--jt-accent-red); font-weight: 300; }
+.find-guide__faq-item[open] summary::after { content: "\2212"; }
+.find-guide__faq-item summary:hover { background: rgba(178,58,72,0.02); }
+.find-guide__faq-item p { padding: 0 1.2rem 1rem; font-size: 0.92rem; line-height: 1.8; margin: 0; }
 
-/* ── GUIDE CTA BAR ───────────────────────────────────────── */
+/* Guide CTA */
 .find-guide__cta {
-  margin-top: 3rem; text-align: center;
-  background: linear-gradient(135deg, var(--jt-primary-deep), var(--jt-primary));
-  border-radius: var(--jt-radius-lg); padding: 2.5rem 2rem;
-  color: #fff;
+  margin-top: 2.5rem; text-align: center;
+  background: linear-gradient(135deg, var(--jt-primary-deep, #07152f), var(--jt-primary, #132a5c));
+  border-radius: 16px; padding: 2.5rem 2rem; color: #fff;
 }
-.find-guide__cta p { font-size: 1.2rem; font-weight: 700; margin: 0 0 1.2rem; }
-.find-guide__cta-buttons { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-.find-guide__cta .button--primary {
-  background: var(--jt-accent-red) !important;
-  box-shadow: 0 6px 24px rgba(178,58,72,0.35);
-}
-.find-guide__cta .button--ghost {
-  border-color: rgba(255,255,255,0.3) !important;
-  color: #fff !important;
-}
+.find-guide__cta p { font-size: 1.15rem; font-weight: 700; margin: 0 0 1rem; }
+.find-guide__cta-buttons { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
 
-/* ── CTA SECTION (bottom) ────────────────────────────────── */
+/* ── 6. TRUST SECTION ────────────────────────────────────── */
+.trust-section {
+  background: linear-gradient(135deg, var(--jt-primary-deep, #07152f), #132a5c);
+  color: #fff; text-align: center;
+}
+.trust-section__grid { display: flex; justify-content: center; gap: clamp(2rem, 5vw, 4rem); flex-wrap: wrap; }
+.trust-section__number { font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 900; display: block; letter-spacing: -0.04em; }
+.trust-section__label { font-size: 0.88rem; opacity: 0.75; display: block; margin-top: 0.3rem; }
+
+/* ── 7. CTA SECTION ──────────────────────────────────────── */
 .cta-section {
-  background: linear-gradient(160deg, var(--jt-primary-deep) 0%, #132a5c 60%, #0d1f3c 100%);
+  background: linear-gradient(160deg, var(--jt-primary-deep, #07152f) 0%, #132a5c 60%, #0d1f3c 100%);
   text-align: center; position: relative; overflow: hidden;
 }
 .cta-section::before {
@@ -214,98 +181,71 @@
 }
 .cta-section__inner { position: relative; z-index: 1; }
 
-/* ── VERIFIED LAWYER SHOWCASE ────────────────────────────── */
-.verified-lawyer-showcase {
-  display: grid; grid-template-columns: 1fr 1fr;
-  gap: 2.5rem; align-items: start; margin-top: 2rem;
+/* ── 8. PRACTICE AREA CARDS ──────────────────────────────── */
+.practice-areas-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.2rem;
 }
+.practice-area-card {
+  border: 1px solid var(--jt-border, #e5e7eb); border-radius: 14px;
+  border-top: 3px solid var(--jt-accent-red);
+  transition: transform 200ms, box-shadow 200ms, border-color 200ms;
+  overflow: hidden;
+}
+.practice-area-card:hover { transform: translateY(-5px); box-shadow: 0 16px 48px rgba(7,21,47,0.1); }
+.practice-area-card__link { display: block; padding: 1.4rem 1.2rem; text-align: center; text-decoration: none; color: inherit; }
+.practice-area-card__icon { margin-bottom: 0.8rem; color: var(--jt-accent-red); }
+.practice-area-card__icon svg { width: 36px; height: 36px; }
+.practice-area-card__title { font-size: 0.95rem; font-weight: 700; margin: 0 0 0.4rem; }
+.practice-area-card__count { font-size: 0.78rem; color: var(--jt-muted, #6b7280); }
+
+/* Color-coded top borders */
+.practice-area-card[data-area*="family"] { border-top-color: #e74c8b; }
+.practice-area-card[data-area*="criminal"] { border-top-color: #6c5ce7; }
+.practice-area-card[data-area*="real-estate"] { border-top-color: #00b894; }
+.practice-area-card[data-area*="labor"] { border-top-color: #fdcb6e; }
+.practice-area-card[data-area*="torts"], .practice-area-card[data-area*="injury"] { border-top-color: #e17055; }
+.practice-area-card[data-area*="traffic"] { border-top-color: #0984e3; }
+.practice-area-card[data-area*="inheritance"] { border-top-color: #a29bfe; }
+.practice-area-card[data-area*="tax"] { border-top-color: #55a3a4; }
+.practice-area-card[data-area*="medical"] { border-top-color: #e84393; }
+.practice-area-card[data-area*="insurance"] { border-top-color: #74b9ff; }
+
+/* ── 9. LAWYER SHOWCASE ──────────────────────────────────── */
+.verified-lawyer-showcase { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; align-items: start; margin-top: 2rem; }
 .verified-lawyer-showcase--empty {
   display: block; text-align: center;
-  background: var(--jt-bg); border: 2px dashed var(--jt-border);
-  border-radius: var(--jt-radius-lg); padding: 3rem 2rem;
+  background: var(--jt-bg, #f7f8fa); border: 2px dashed var(--jt-border, #e5e7eb);
+  border-radius: 16px; padding: 3rem 2rem;
 }
-.verified-lawyer-showcase__value h3 {
-  font-size: 1.2rem; margin: 0 0 1.2rem; color: var(--jt-primary-deep);
-}
-.verified-lawyer-showcase__value ul {
-  list-style: none; padding: 0; margin: 0; display: grid; gap: 0.8rem;
-}
-.verified-lawyer-showcase__value li {
-  position: relative; padding-inline-start: 1.6rem;
-  font-size: 0.95rem; line-height: 1.6; color: var(--color-text);
-}
-.verified-lawyer-showcase__value li::before {
-  content: "✓"; position: absolute; inset-inline-start: 0; top: 0;
-  color: var(--jt-accent-red); font-weight: 800;
-}
-@media (max-width: 768px) {
-  .verified-lawyer-showcase { grid-template-columns: 1fr; }
-}
+.verified-lawyer-showcase__value h3 { font-size: 1.15rem; margin: 0 0 1rem; }
+.verified-lawyer-showcase__value ul { list-style: none; padding: 0; display: grid; gap: 0.7rem; }
+.verified-lawyer-showcase__value li { position: relative; padding-inline-start: 1.4rem; font-size: 0.92rem; line-height: 1.6; }
+.verified-lawyer-showcase__value li::before { content: "\2713"; position: absolute; inset-inline-start: 0; color: var(--jt-accent-red); font-weight: 800; }
+@media (max-width: 768px) { .verified-lawyer-showcase { grid-template-columns: 1fr; } }
 
-/* ── CARD HOVER EFFECTS ──────────────────────────────────── */
-.premium-card:hover,
-.practice-area-card:hover,
-.article-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 20px 60px rgba(7,21,47,0.12);
-  border-color: rgba(178,58,72,0.2);
-}
+/* ── 10. BUTTON POLISH ───────────────────────────────────── */
+.button { transition: all 180ms ease; }
+.button:hover { filter: brightness(1.05); }
+.button--primary:hover, .button--gold:hover { box-shadow: 0 6px 20px rgba(178,58,72,0.2); }
 
-/* ── BUTTON POLISH ───────────────────────────────────────── */
-.button:hover { filter: brightness(1.06); }
-.button--primary:hover,
-.button--gold:hover { box-shadow: 0 8px 28px rgba(178,58,72,0.25); }
+/* ── 11. STICKY HEADER ───────────────────────────────────── */
+.site-header { transition: box-shadow 250ms ease, background 250ms ease; }
+.site-header--scrolled { box-shadow: 0 2px 20px rgba(7,21,47,0.1); background: rgba(255,255,255,0.98); }
+.site-header--scrolled .site-header__top { max-height: 0; overflow: hidden; padding: 0; border: none; opacity: 0; transition: all 250ms ease; }
 
-/* ── MOBILE HAMBURGER ────────────────────────────────────── */
-@media (max-width: 768px) {
-  .menu-toggle {
-    min-width: 44px; min-height: 44px;
-    display: flex !important; align-items: center; justify-content: center;
-    border: 2px solid var(--jt-primary-deep); border-radius: 12px;
-    font-size: 1.5rem; background: rgba(7,21,47,0.04);
-  }
-  .menu-toggle:hover, .menu-toggle:active {
-    background: var(--jt-accent-red); border-color: var(--jt-accent-red); color: #fff;
-  }
-}
-
-/* ── STICKY HEADER ───────────────────────────────────────── */
-.site-header { transition: box-shadow 300ms ease, background 300ms ease; }
-.site-header--scrolled {
-  box-shadow: 0 4px 30px rgba(7,21,47,0.12);
-  background: rgba(255,255,255,0.98);
-}
-.site-header--scrolled .site-header__top {
-  max-height: 0; overflow: hidden; padding: 0; border: none; opacity: 0;
-  transition: all 300ms ease;
-}
-
-/* ── SCROLL ANIMATIONS ───────────────────────────────────── */
-@keyframes jt-fade-up {
-  from { opacity: 0; transform: translateY(30px); }
-  to { opacity: 1; transform: translateY(0); }
-}
+/* ── 12. SCROLL ANIMATIONS ───────────────────────────────── */
+@keyframes jt-fade-up { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
 .section[data-animate] { opacity: 0; }
-.section[data-animate].is-visible { animation: jt-fade-up 0.6s ease-out forwards; }
+.section[data-animate].is-visible { animation: jt-fade-up 0.5s ease-out forwards; }
 
-/* ── PRACTICE AREA COLOR BORDERS ─────────────────────────── */
-.practice-area-card[data-area*="family"],
-.practice-area-card[data-area*="משפחה"] { border-top-color: #e74c8b; }
-.practice-area-card[data-area*="criminal"],
-.practice-area-card[data-area*="פלילי"] { border-top-color: #6c5ce7; }
-.practice-area-card[data-area*="real-estate"],
-.practice-area-card[data-area*="מקרקעין"] { border-top-color: #00b894; }
-.practice-area-card[data-area*="labor"],
-.practice-area-card[data-area*="עבודה"] { border-top-color: #fdcb6e; }
-.practice-area-card[data-area*="torts"],
-.practice-area-card[data-area*="נזיקין"] { border-top-color: #e17055; }
-.practice-area-card[data-area*="traffic"],
-.practice-area-card[data-area*="תעבורה"] { border-top-color: #0984e3; }
+/* ── 13. MOBILE HAMBURGER ────────────────────────────────── */
+@media (max-width: 768px) {
+  .menu-toggle { min-width: 44px; min-height: 44px; display: flex !important; align-items: center; justify-content: center; }
+}
 
-/* ── MOTION PREFERENCES ──────────────────────────────────── */
+/* ── 14. REDUCED MOTION ──────────────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  .brand-lockup__mark::after,
-  .section-header__eyebrow::before,
-  .hero__eyebrow::before { animation: none !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
   .section[data-animate] { opacity: 1; }
 }

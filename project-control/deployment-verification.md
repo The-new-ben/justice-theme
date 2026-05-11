@@ -4,6 +4,14 @@ Date: 2026-05-10
 
 ## Current Finding
 
+Latest code change awaiting deployment:
+
+- CODE FIXED: added admin-only read-only active plugin manifest route at `/wp-json/justice-theme/v1/active-plugin-manifest`.
+- DEPLOYMENT MARKER: `2026-05-11-plugin-manifest-diagnostic-v1`.
+- LOCAL VERIFIED: PHP lint passed for 128 files; `git diff --check` returned only Windows LF-to-CRLF warnings.
+- LIVE CHECK NEEDED: pull in uPress, verify public unauthenticated route returns 401/403 with `tools/check-plugin-manifest-diagnostic.ps1`, then use admin authentication to export the live plugin manifest.
+- SAFETY: route reads active plugin files only for admins and returns hashes/metadata only; no plugin state or database data is changed.
+
 Latest uPress pull after plugin parity documentation:
 
 - VERIFIED UPress PULL: uPress Git log for `/wp-content/themes/justice-theme` shows top commit `8800b13` (`Document live plugin parity gap`).

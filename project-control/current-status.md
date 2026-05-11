@@ -2,6 +2,16 @@
 Date: 2026-05-10
 Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages unless explicitly requested.
 
+## LATEST WORK STATUS - 2026-05-11 08:54 Asia/Jerusalem
+- CODE FIXED: added admin-only read-only REST route `GET /wp-json/justice-theme/v1/active-plugin-manifest` for active plugin file manifests.
+- WHY: the live active plugin code parity check is blocked without SSH/WP-CLI/download support; this gives an administrator a controlled way to retrieve active plugin paths, byte sizes and SHA-256 hashes without changing plugin state.
+- VERIFIED IN CODE: route requires `manage_options`, only allows active plugins, constrains file reads to `WP_PLUGIN_DIR`, returns hashes/metadata only, and does not return file contents.
+- CODE FIXED: added `tools/check-plugin-manifest-diagnostic.ps1` to verify the route is not publicly accessible without authentication after deployment.
+- DOCUMENTED: created `project-control/plugin-manifest-diagnostic-review.md` and updated the plugin parity workflow.
+- VERIFIED: PHP lint passed for 128 files; `git diff --check` returned only Windows LF-to-CRLF warnings.
+- NOT LIVE VERIFIED: deployment marker is now `2026-05-11-plugin-manifest-diagnostic-v1`; uPress pull/cache check still needed before public route protection can be verified.
+- SAFETY: no plugin activation, deactivation, deletion, upload, rename, compression, file edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+
 ## LATEST WORK STATUS - 2026-05-11 08:48 Asia/Jerusalem
 - VERIFIED UPress PULL: uPress Git log for `/wp-content/themes/justice-theme` shows top commit `8800b13` (`Document live plugin parity gap`).
 - VERIFIED SYNC: the live theme repository now has the plugin parity baseline docs/tooling pulled from GitHub.

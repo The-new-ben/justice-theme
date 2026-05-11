@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Active plugin manifest diagnostic
+
+- CODE FIXED: added admin-only read-only route `GET /wp-json/justice-theme/v1/active-plugin-manifest` for active plugin file manifests.
+- CODE FIXED: added `inc/diagnostics.php` and included it from `functions.php`.
+- CODE FIXED: route defaults to `ultra-justice-engine/ultra-justice-engine.php`, requires `manage_options`, only accepts active plugins, stays inside `WP_PLUGIN_DIR`, and returns file metadata plus SHA-256 hashes without file contents.
+- CODE FIXED: added `tools/check-plugin-manifest-diagnostic.ps1` to confirm public unauthenticated requests get 401/403 after deployment.
+- DOCUMENTED: created `project-control/plugin-manifest-diagnostic-review.md`.
+- VERIFIED: PHP lint passed for 128 files; `git diff --check` returned only Windows LF-to-CRLF warnings.
+- NOT LIVE VERIFIED: deployment marker is `2026-05-11-plugin-manifest-diagnostic-v1`; needs uPress pull and public protection check.
+- SAFETY: no plugin activation, deactivation, deletion, upload, rename, compression, file edit, wp-admin setting, URL, redirect, sitemap, canonical, content, taxonomy, lawyer, CRM, review or database change was made.
+
 ## 2026-05-11 - Justice plugin collision review
 
 - VERIFIED UPress PULL: uPress Git log shows top theme commit `8800b13` (`Document live plugin parity gap`).

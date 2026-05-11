@@ -129,7 +129,11 @@ Preferred next verification routes:
    find . -type f -print0 | sort -z | xargs -0 sha256sum
    ```
 2. uPress file download/export if the owner downloads the plugin folder or enables a safe file export.
-3. Temporary read-only admin diagnostic endpoint, gated to `manage_options`, returning active plugin file manifest and hashes. This should be removed after use.
+3. CODE FIXED: read-only admin diagnostic endpoint, gated to `manage_options`, returning active plugin file manifest and hashes:
+   ```text
+   GET /wp-json/justice-theme/v1/active-plugin-manifest?plugin=ultra-justice-engine/ultra-justice-engine.php
+   ```
+   Supporting review: `project-control/plugin-manifest-diagnostic-review.md`.
 
 ## Migration Decision
 

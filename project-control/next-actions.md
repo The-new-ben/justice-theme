@@ -23,8 +23,10 @@
 11. PARTIAL VERIFIED: repo `ultra-justice-engine/` has 17 files and repo `includes/` has 16 files; live visible `includes/` listing shows 15 files.
 12. VERIFIED PARITY GAP: `includes/cpt-legal-tools.php` exists in the repo plugin but was NOT VISIBLE in the live active plugin listing.
 13. DOCUMENTED: `project-control/live-plugin-code-parity-review.md`.
-14. NEXT: get a byte-level live plugin manifest through SSH/WP-CLI, owner-provided export, or a temporary read-only admin diagnostic endpoint before copying/replacing/updating any plugin code.
-15. SAFETY: no plugin activation, deactivation, deletion, installation, upload, rename, compression, file-manager edit, wp-admin setting, URL, redirect, content, taxonomy, sitemap, canonical, lawyer, CRM, review or database change was made.
+14. CODE FIXED: added admin-only read-only route `GET /wp-json/justice-theme/v1/active-plugin-manifest` to produce an active-plugin manifest when authenticated as an administrator.
+15. DOCUMENTED: `project-control/plugin-manifest-diagnostic-review.md`.
+16. NEXT: pull marker `2026-05-11-plugin-manifest-diagnostic-v1`, verify unauthenticated public access returns 401/403, then use an authenticated admin session to export the live active plugin manifest.
+17. SAFETY: no plugin activation, deactivation, deletion, installation, upload, rename, compression, file-manager edit, wp-admin setting, URL, redirect, content, taxonomy, sitemap, canonical, lawyer, CRM, review or database change was made.
 
 ### ACTION-ROUTING-404-HOMEPAGE-001: Identify and disable uncontrolled 404-to-homepage redirects
 **Status:** VERIFIED SOURCE - owner approval needed before deactivation

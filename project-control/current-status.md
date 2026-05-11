@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-11 12:43 Asia/Jerusalem
+- VERIFIED / REVIEW: created criminal-law and traffic-law support decision packets from the refreshed inventory, slug-conflict map, URL migration map and targeted GSC browser passes.
+- CREATED: `project-control/criminal-law-support-decision-packet.md`.
+- CREATED: `project-control/criminal-law-support-review.csv`.
+- CREATED: `project-control/traffic-law-support-decision-packet.md`.
+- CREATED: `project-control/traffic-law-support-review.csv`.
+- VERIFIED: `criminal-lawyer` remains a strategic pillar target, but the public map has `13` conflict rows and no exact current `/criminal-lawyer/` URL; broad GSC evidence still favors old Hebrew criminal-lawyer URLs.
+- VERIFIED: criminal support terms are mostly low-sample or zero-row in GSC; `כתב אישום` maps to a specific Netanyahu indictment page and homepage, while `עבירות סמים` has only `2` impressions split across old/case-law URLs.
+- VERIFIED: `traffic-lawyer` has an exact current clean URL, but the pillar is thin and weak in GSC; drunk-driving intent still maps to the will-revocation page, which is a wrong-page match.
+- VERIFIED: `driving-under-the-influence/`, `yanshuf-breathalyzer-test/`, and `speeding/` already exist, so future `/drunk-driving/` or traffic-support work must avoid duplicates.
+- BLOCKED: these packets do not approve URL changes, redirects, noindex, canonical changes, sitemap changes, content rewrites, content deletion, menu/taxonomy edits, lawyer/CRM/review changes, plugin-state changes, wp-admin settings or database writes.
+- SAFETY: repo documentation/CSV planning only; no live public content or CMS state was changed.
+
 ## LATEST WORK STATUS - 2026-05-11 12:42 Asia/Jerusalem
 - VERIFIED / REVIEW: ran the third targeted GSC browser pass from the query queue against the accessible URL-prefix property `https://jus-tice.co.il/`.
 - CREATED: `project-control/gsc-targeted-query-pass-3-2026-05-11.csv`.

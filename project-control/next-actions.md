@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CRIMINAL-TRAFFIC-SUPPORT-PACKETS-001: Build review-only criminal and traffic support decision packets
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The targeted GSC passes exposed weak primary ownership, old URL risk, low-sample support terms and wrong-page traffic-law matches. These needed to become controlled decision packets before any article, URL or redirect work.
+**Actions:**
+1. DONE: created `project-control/criminal-law-support-decision-packet.md`.
+2. DONE: created `project-control/criminal-law-support-review.csv`.
+3. DONE: created `project-control/traffic-law-support-decision-packet.md`.
+4. DONE: created `project-control/traffic-law-support-review.csv`.
+5. VERIFIED: criminal-law support planning now compares `/criminal-lawyer/`, `/police-investigation/`, `/indictment/`, `/pretrial-detention/`, `/drug-offenses/`, old Hebrew criminal-lawyer URLs and existing criminal support articles.
+6. VERIFIED: traffic-law support planning now compares `/traffic-lawyer/`, existing `/driving-under-the-influence/`, possible `/drunk-driving/`, possible `/license-suspension/`, wrong-page will-revocation GSC matches, and car-accident boundary pages.
+7. VERIFIED: packets are review-only and explicitly block duplicate page creation, blind URL migration, redirects, noindex, canonical changes, sitemap changes, or public content replacement.
+8. NEXT: run SERP review for the criminal and traffic terms, then choose the first owner-approval packet for either criminal pillar cleanup or traffic pillar expansion.
+9. BLOCKED: no execution until owner approval, content-quality review, source/legal review, redirect map and internal-link batch are ready.
+
 ### ACTION-TARGETED-GSC-QUERY-QUEUE-001: Run targeted GSC filters for unresolved decision gaps
 **Status:** IN PROGRESS / REVIEW ONLY
 **Why:** The audit now needs precise browser GSC checks for unresolved topics before any URL/content/redirect decisions can be approved.

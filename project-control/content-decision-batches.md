@@ -190,3 +190,24 @@ NEXT:
 - Build review-only criminal and traffic support decision packets before any content or URL execution.
 - Criminal packet should compare `/criminal-lawyer/`, `/indictment/`, `/police-investigation/`, `/drug-offenses/` and existing old criminal/case-law URLs.
 - Traffic packet should compare `/traffic-lawyer/`, `/drunk-driving/`, `/license-suspension/` and existing traffic/case/PDF URLs.
+
+## 2026-05-11 Criminal And Traffic Support Decision Packets
+
+CREATED:
+- `project-control/criminal-law-support-decision-packet.md`
+- `project-control/criminal-law-support-review.csv`
+- `project-control/traffic-law-support-decision-packet.md`
+- `project-control/traffic-law-support-review.csv`
+
+VERIFIED:
+- Criminal-law planning now separates the strategic `/criminal-lawyer/` pillar from old Hebrew service pages, existing criminal support articles, case-law pages, and possible future support slugs.
+- `criminal-lawyer` has 13 conflict rows and no exact current clean `/criminal-lawyer/` URL in the public map, so primary selection is not approved yet.
+- `drug-offenses-criminal-lawyer/` already exists and is long; do not create `/drug-offenses/` as a duplicate without a keep-or-migrate decision.
+- Traffic-law planning now separates the exact `/traffic-lawyer/` pillar from thin support pages, possible future `/drunk-driving/`, possible `/license-suspension/`, wrong-page will traffic matches, and car-accident cross-cluster intent.
+- `driving-under-the-influence/` already exists; do not create `/drunk-driving/` until the existing page is reviewed.
+
+BLOCKED:
+- No URL changes, redirects, noindex, canonical changes, sitemap changes, content rewrites, deletions, taxonomy/menu edits or CMS writes are approved from these packets.
+
+NEXT:
+- Run SERP review and owner approval packets for criminal and traffic before execution batches.

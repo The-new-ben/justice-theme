@@ -13,6 +13,17 @@
 - VERIFIED: employment-law queries show weak primary ownership across homepage, `/labor-lawyer/`, `/israeli-labor-law/`, case/support pages and one lawyer-facing page.
 - BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, document removal, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
 
+## 2026-05-11 - Criminal and traffic support decision packets
+
+- CREATED: `project-control/criminal-law-support-decision-packet.md`.
+- CREATED: `project-control/criminal-law-support-review.csv`.
+- CREATED: `project-control/traffic-law-support-decision-packet.md`.
+- CREATED: `project-control/traffic-law-support-review.csv`.
+- VERIFIED: criminal-law support planning now compares `/criminal-lawyer/`, old Hebrew criminal-lawyer URLs, police-investigation, indictment, pretrial-detention, drug-offenses and existing criminal support/case-law pages.
+- VERIFIED: traffic-law support planning now compares `/traffic-lawyer/`, existing `/driving-under-the-influence/`, possible `/drunk-driving/`, possible `/license-suspension/`, wrong-page will-revocation GSC matches and car-accident boundary pages.
+- DECISION: do not create duplicate support pages where old or clean support content already exists; choose keep, expand, merge or migrate only after SERP, content-quality, legal/source and owner review.
+- BLOCKED: no URL, redirect, noindex, canonical, sitemap, content-body, document removal, menu, taxonomy, lawyer, CRM, review, plugin-state, wp-admin setting or database change was executed.
+
 ## 2026-05-11 - Targeted GSC query queue
 
 - CREATED: `project-control/targeted-gsc-query-queue.csv`.

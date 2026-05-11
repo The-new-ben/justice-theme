@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Traffic law content upload readiness batch
+
+- CREATED: `project-control/traffic-law-content-upload-readiness-2026-05-11.md`.
+- CREATED: `project-control/traffic-law-content-upload-readiness-2026-05-11.csv`.
+- VERIFIED / REVIEW ONLY: `38` traffic-adjacent URL candidates were mapped into pillar, support, merge/rewrite, boundary, legacy and false-positive lanes.
+- VERIFIED: `/traffic-lawyer/` remains the current no-URL-change pillar candidate.
+- VERIFIED: drunk driving, refusal/testing, breathalyzer, speeding, Marvad, license suspension/points and traffic evidence are the main support lanes.
+- CATEGORY CLEANUP: business-license, professional-license, real-estate-license, trafficking and unrelated intoxication pages are excluded from traffic-law upload planning.
+- BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-11 - Lawyer REST public guard post-pull QA
 
 - CREATED: `project-control/live-lawyer-rest-public-guard-2026-05-11.csv`.

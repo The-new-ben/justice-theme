@@ -253,3 +253,13 @@ ADDED 2026-05-10:
 - Lawyer pages should be included only when profile status, consent/verification language and contact data are acceptable for public display.
 
 Status: ACCEPTED STRATEGY / NOT LIVE EXECUTED.
+# 2026-05-11 Traffic Law Sitemap Posture
+
+VERIFIED / REVIEW ONLY:
+- `project-control/traffic-law-content-upload-readiness-2026-05-11.md` and `.csv` reviewed `38` traffic-adjacent URLs before any sitemap execution.
+- Include `/traffic-lawyer/` after owner approval as the traffic-law pillar.
+- Include only expanded/source-reviewed support pages for drunk driving, testing/refusal, breathalyzer, speeding, Marvad, license suspension/points and traffic evidence.
+- Hold thin pages, outdated Corona traffic pages, unapproved future slugs, personal-injury accident pages and false-positive license/trafficking pages out of the traffic-law sitemap plan until their correct cluster is approved.
+
+BLOCKED:
+- No sitemap entry, sitemap removal, noindex, canonical, redirect or category change is approved by this review-only batch.

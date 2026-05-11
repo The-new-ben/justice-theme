@@ -100,6 +100,26 @@ Use the three review CSVs to run the first GSC/SERP evidence pass on:
 
 Then update the URL migration map only as a proposed plan, not as live URL changes.
 
+## 2026-05-11 Traffic Law Content Upload Readiness Batch
+
+CREATED:
+- `project-control/traffic-law-content-upload-readiness-2026-05-11.md`
+- `project-control/traffic-law-content-upload-readiness-2026-05-11.csv`
+
+VERIFIED:
+- `38` traffic-adjacent candidates reviewed as one larger batch.
+- `/traffic-lawyer/` is the no-URL-change pillar candidate.
+- Drunk driving, refusal/testing, breathalyzer, speeding, Marvad, license suspension/points and traffic evidence are support lanes.
+- Personal-injury accident pages stay in a separate car-accident/personal-injury batch.
+- Business-license, professional-license, real-estate-license, trafficking and unrelated intoxication pages are false positives for traffic-law category cleanup.
+
+RECOMMENDED:
+- Prepare no-URL-change content outlines for the pillar and top support groups.
+- Do not create future clean slugs such as `/drunk-driving/`, `/breathalyzer-test/`, `/license-suspension/`, `/traffic-evidence/` or `/fatal-road-accident-offenses/` until migration and redirect maps are approved.
+
+BLOCKED:
+- No public content edits, title/H1/meta changes, URL changes, redirects, noindex, canonical changes, sitemap changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-11 Traffic Drunk-Driving Source Audit
 
 CREATED:

@@ -5,6 +5,22 @@ Status: VERIFIED / REVIEW ONLY / NO URL CHANGE
 
 This packet turns the current traffic-law inventory and targeted GSC evidence into a controlled review plan. It does not approve publishing, slug changes, redirects, noindex, canonical changes, sitemap changes, menu changes or content replacement.
 
+## 2026-05-11 Content Upload Readiness Batch
+
+CREATED:
+- `project-control/traffic-law-content-upload-readiness-2026-05-11.md`
+- `project-control/traffic-law-content-upload-readiness-2026-05-11.csv`
+
+VERIFIED:
+- `38` traffic-adjacent URL candidates reviewed.
+- `/traffic-lawyer/` remains the current no-URL-change pillar candidate.
+- Core support lanes are drunk driving, refusal/testing, breathalyzer, speeding, Marvad, license suspension/points and traffic evidence.
+- Personal-injury car-accident pages and false-positive license/trafficking pages are separated out before category or sitemap changes.
+
+NEXT:
+- Create no-URL-change content outlines for the pillar and top support groups.
+- Keep future slugs and redirects blocked until owner/legal approval.
+
 ## Evidence Used
 
 VERIFIED:

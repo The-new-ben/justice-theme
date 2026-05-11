@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-TRAFFIC-LAW-UPLOAD-READINESS-001: Map traffic-law cluster for content upload readiness
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** To move toward content upload safely, the full traffic-law cluster needs pillar/support, category, URL, redirect, internal-link and sitemap posture before rewriting or uploading individual pages.
+**Actions:**
+1. DONE: created `project-control/traffic-law-content-upload-readiness-2026-05-11.md`.
+2. DONE: created `project-control/traffic-law-content-upload-readiness-2026-05-11.csv`.
+3. VERIFIED: `38` traffic-adjacent URL candidates reviewed in one batch.
+4. VERIFIED: `/traffic-lawyer/` is the current no-URL-change pillar candidate.
+5. VERIFIED: drunk driving, refusal/testing, breathalyzer, speeding, Marvad, points/license suspension and traffic evidence are support lanes.
+6. CATEGORY CLEANUP: personal-injury car-accident pages, business/professional/license false positives, trafficking pages and unrelated intoxication case-law must stay out of the canonical traffic-law category.
+7. NEXT: prepare no-URL-change outlines for `/traffic-lawyer/`, `/driving-under-the-influence/`, the breathalyzer/testing group and the license-suspension/points group.
+8. BLOCKED: no public content, title/H1/meta, URL, redirect, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, CRM/review, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-TRAFFIC-DRUNK-DRIVING-SOURCE-AUDIT-001: Audit current drunk-driving source pages before content expansion
 **Status:** COMPLETED / REVIEW ONLY
 **Why:** GSC maps drunk-driving lawyer intent to a will-revocation page. Before editing any content or URL, the current support page, pillar page and wrong-page source must be compared.

@@ -85,11 +85,23 @@ $whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' 
 		<?php if ( has_post_thumbnail() ) : ?>
 			<?php the_post_thumbnail( 'justice-card', array( 'loading' => 'lazy' ) ); ?>
 		<?php else :
-			// Gender-aware default avatar — Hebrew female names often end with ה
-			$lawyer_title   = get_the_title();
-			$first_name     = explode( ' ', trim( $lawyer_title ) )[0] ?? '';
-			$is_female_hint = ( mb_substr( $first_name, -1 ) === 'ה' || mb_substr( $first_name, -1 ) === 'ת' );
-			$avatar_file    = $is_female_hint ? 'avatar-female.png' : 'avatar-male.png';
+			// Gender-aware default avatar
+			$lawyer_title = get_the_title();
+			$name_parts   = preg_split( '/\s+/', trim( $lawyer_title ) );
+			// Strip common prefixes: עו״ד / עו"ד / עוד / ד״ר / פרופ
+			$prefixes = array( 'עו״ד', 'עו"ד', "עו\xd7\xb3\xd7\x93", 'עוד', 'ד״ר', 'ד"ר', 'פרופ', 'פרופ׳' );
+			while ( ! empty( $name_parts ) && in_array( $name_parts[0], $prefixes, true ) ) {
+				array_shift( $name_parts );
+			}
+			$given_name = $name_parts[0] ?? '';
+			// Hebrew female names commonly end with ה or ת
+			$is_female  = ( mb_substr( $given_name, -1 ) === 'ה' || mb_substr( $given_name, -1 ) === 'ת' );
+			// Explicit female name list as safety net
+			$female_names = array( 'מאיה', 'מיה', 'שרה', 'רות', 'נועה', 'דנה', 'מיכל', 'ענת', 'גלית', 'אורית', 'שירה', 'אפרת', 'טלי', 'קרן', 'לימור', 'סיגל', 'אורלי', 'יעל', 'עדי', 'שלי', 'מור', 'רוני', 'נטלי', 'ליאת', 'הדר', 'תמר', 'אילנה', 'רינת' );
+			if ( in_array( $given_name, $female_names, true ) ) {
+				$is_female = true;
+			}
+			$avatar_file = $is_female ? 'avatar-female.png' : 'avatar-male.png';
 		?>
 			<img class="lawyer-card__avatar" loading="lazy" decoding="async"
 				src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/' . $avatar_file ); ?>"

@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-LAWYER-SEED-PROFILE-CLEANUP-PLAN-001: Prepare owner-approved cleanup plan for published seed lawyer records
+**Status:** COMPLETED / REVIEW ONLY
+**Why:** The REST guard blocks public exposure after deployment, but the underlying WordPress database still contains published seed-style lawyer records that should not remain publish-status without verified source/contact/approval data.
+**Actions:**
+1. DONE: created `project-control/lawyer-seed-profile-cleanup-plan-2026-05-11.md`.
+2. DONE: created `project-control/lawyer-seed-profile-cleanup-plan-2026-05-11.csv`.
+3. VERIFIED LIVE BASELINE: public REST exposes `10` published `justice_lawyer` records, IDs `19130` through `19139`.
+4. VERIFIED LIVE BASELINE: all `10` exported records have placeholder/seed-style contact signals and should be drafted/private unless real source approval is confirmed.
+5. REVIEW FIRST: ID `19130` / Maya Rotenberg may be the intended prototype/client profile, so it must be reviewed separately before status changes.
+6. NEXT: after backup and owner approval, draft/private all unverified seed profiles or replace them with real verified lawyer data; then rerun REST/profile checks.
+7. BLOCKED: no CMS/database changes were executed.
+
 ### ACTION-LAWYER-REST-PUBLIC-GUARD-001: Stop anonymous REST exposure of seed lawyer profiles
 **Status:** CODE FIXED / NOT LIVE VERIFIED
 **Why:** The visible lawyer archive is currently filtered, but anonymous REST requests still expose published seed-style lawyer records, contact metadata and placeholder phone patterns. This is a P0 trust/privacy issue before public marketing.

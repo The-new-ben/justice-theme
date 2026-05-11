@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-11 21:01 Asia/Jerusalem
+- VERIFIED / LAWYER SEED PROFILE CLEANUP PLAN: exported the live public REST `justice_lawyer` records into an owner-approval cleanup packet.
+- CREATED: `project-control/lawyer-seed-profile-cleanup-plan-2026-05-11.md`.
+- CREATED: `project-control/lawyer-seed-profile-cleanup-plan-2026-05-11.csv`.
+- VERIFIED LIVE BASELINE: public REST currently exposes `10` published lawyer records, IDs `19130` through `19139`.
+- VERIFIED LIVE BASELINE: all `10` exported records have placeholder/seed-style contact signals and are recommended as `DRAFT_OR_PRIVATE_UNTIL_REAL_SOURCE_APPROVED`.
+- IMPORTANT: ID `19130` / Maya Rotenberg must be reviewed separately because she may be the intended real client prototype, but the current live record still requires verified source/contact/approval before public use.
+- BLOCKED: owner approval and backup are required before any CMS/database post-status or meta cleanup.
+- SAFETY: no CMS records, lawyer records, URLs, redirects, taxonomy, sitemap, content, menu, CRM, review or wp-admin settings were changed.
+
 ## LATEST WORK STATUS - 2026-05-11 20:55 Asia/Jerusalem
 - FIXED IN CODE / P0 LAWYER REST PUBLIC GUARD: found that the visible `/lawyers/` archive currently shows `0` lawyer cards, but anonymous `wp-json/wp/v2/justice_lawyer` still exposes published seed-style lawyer profiles and custom meta.
 - VERIFIED LIVE BASELINE: `/wp-json/wp/v2/justice_lawyer?per_page=20` returns `200`, `X-WP-Total: 10`, `11` placeholder phone hits and `50` sensitive meta-key hits before this patch is live.

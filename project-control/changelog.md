@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-11 - Lawyer seed profile cleanup plan
+
+- CREATED: `project-control/lawyer-seed-profile-cleanup-plan-2026-05-11.md`.
+- CREATED: `project-control/lawyer-seed-profile-cleanup-plan-2026-05-11.csv`.
+- VERIFIED LIVE BASELINE: public REST currently exposes `10` published `justice_lawyer` records, IDs `19130` through `19139`.
+- VERIFIED LIVE BASELINE: all `10` exported records have placeholder/seed-style contact signals and are recommended as `DRAFT_OR_PRIVATE_UNTIL_REAL_SOURCE_APPROVED`.
+- REVIEW: ID `19130` / Maya Rotenberg must be checked separately because she may be the intended real client prototype, but current public use still requires verified source/contact/approval.
+- BLOCKED: owner approval and backup are required before any post-status/meta cleanup.
+- SAFETY: no CMS records, lawyer records, URLs, redirects, taxonomy, sitemap, content, menu, CRM, review or wp-admin settings were changed.
+
 ## 2026-05-11 - Lawyer REST public guard
 
 - VERIFIED LIVE BASELINE: `/lawyers/` returns `200` with `0` `lawyer-card` blocks and no placeholder phone hits.

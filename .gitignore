@@ -3,6 +3,7 @@
 
 # Environment / credentials
 .env*
+credentials/
 
 # OS files
 Thumbs.db

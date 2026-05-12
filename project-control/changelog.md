@@ -55,3 +55,4 @@
 - SEO meta tags, schema.org markup, breadcrumbs
 - Accessibility features
 - WhatsApp floating button
+2026-05-12: Antigravity established content-master directory with 1,199 WP posts + GSC data merged. 

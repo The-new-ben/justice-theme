@@ -1,0 +1,79 @@
+# Family Law 301 Redirects
+# Generated: 2026-05-12T15:38
+# DO NOT APPLY until owner approval
+
+# 8409: מחשבון מזונות ילדים 2023
+RedirectPermanent /מחשבון-מזונות-ילדים https://jus-tice.co.il/psakdin/משמורת-מזונות-ההלכה-החדשה-במזונות-919-15
+
+# 3196: מהם ידועים בציבור?
+RedirectPermanent /common-law-marriage https://jus-tice.co.il/can-you-be-common-law-married-to-a-married-person
+
+# 3191: ידועים בציבור ללא מגורים משותפים
+RedirectPermanent /living-apart-together-legal-rights https://jus-tice.co.il/can-you-be-common-law-married-to-a-married-person
+
+# 4945: חזקת הגיל הרך | משמורת ילדים עד גיל 6
+RedirectPermanent /tender-years-mother-custody-child-age-under-6 https://jus-tice.co.il/מדריך-עדכני-לגירושין
+
+# 5627: משמורת אם
+RedirectPermanent /mom-full-custody https://jus-tice.co.il/מדריך-עדכני-לגירושין
+
+# 3157: הסכם גירושין
+RedirectPermanent /what-is-a-divorce-settlement-agreement https://jus-tice.co.il/1440015/1
+
+# 3113: ביטול הסכם גירושין
+RedirectPermanent /cancel-a-divorce-settlement-agreement https://jus-tice.co.il/1440015/1
+
+# 7199: עורך דין גירושין; דיני משפחה וצוואות | עורך דין גי
+RedirectPermanent /עוד-גירושין-מומלץ-כיצד-למצוא-עורך-דין-גירושין-וכמה-עולה-להתגרש https://jus-tice.co.il/divorce-everything-you-need-to-know
+
+# 11359: Cordell &#038; Cordell | קורדל &#038; קורדל | משרד
+RedirectPermanent /cordell-cordell https://jus-tice.co.il/divorce-everything-you-need-to-know
+
+# 6549: סטטיסטיקה על גירושין
+RedirectPermanent /סטטיסטיקה-על-גירושין https://jus-tice.co.il/divorce-everything-you-need-to-know
+
+# 11750: אסטרטגיות לשימור הון לאחר הגירושין | גירושי עשירון
+RedirectPermanent /financial-strategies-after-divorce https://jus-tice.co.il/divorce-everything-you-need-to-know
+
+# 3499: גירושין בהסכמה
+RedirectPermanent /divorce-with-consent https://jus-tice.co.il/divorce-everything-you-need-to-know
+
+# 9973: גירושין בבלגיה
+RedirectPermanent /גירושין-בבלגיה https://jus-tice.co.il/divorce-everything-you-need-to-know
+
+# 11370: Co-op Legal Services | דיני משפחה; גירושין; צוואות
+RedirectPermanent /co-op-legal-services https://jus-tice.co.il/divorce-everything-you-need-to-know
+
+# 6429: תכונות חובה של עורך דין משפחה טוב
+RedirectPermanent /must-have-traits-of-a-good-family-lawyer https://jus-tice.co.il/top-experts-family-law
+
+# 11263: משרד עורכי דין דיני משפחה בשותפות
+RedirectPermanent /משרד-עורכי-דין-דיני-משפחה-בשותפות https://jus-tice.co.il/top-experts-family-law
+
+# 10480: בגידה | מעשה הבגידה | מה זה בגידה? | עורך דין גירו
+RedirectPermanent /בגידה https://jus-tice.co.il/infidelity-statistics-reasons-suspicions
+
+# 10886: הגדרת גישור גירושין: יתרונות וחסרונות (מדריך 2024)
+RedirectPermanent /divorce-mediation-cons-pros https://jus-tice.co.il/family-mediation-updated-trends
+
+# 8234: תהליך גישור גירושין בשנת 2023- כל מה חייבים לדעת מ
+RedirectPermanent /תהליך-גישור-גירושין-בשנת-2023-כל-מה-חייבים-לדעת-מעורכי-דין-מומחים-לגישור-בגירושין https://jus-tice.co.il/family-mediation-updated-trends
+
+# 8236: גירושין בגישור עם ילדים: הדרך הטובה להתגרש בגישור 
+RedirectPermanent /גירושין-בגישור-עם-ילדים-הדרך-הטובה-להתגרש-בגישור-בלי-לפגוע-בילדים https://jus-tice.co.il/family-mediation-updated-trends
+
+# 5760: מרוץ הסמכויות
+RedirectPermanent /the-race-for-jurisdiction-family-law https://jus-tice.co.il/עונש-פלילי-תקיפת-בת-זוג-ועבירות-איומים
+
+# 6142: 7 סיבות למה אתה צריך הסכם ממון
+RedirectPermanent /7-reasons-why-you-need-a-prenup https://jus-tice.co.il/psakdin/חלוקת-דירה-לפי-רישום-לא-שוויוני-על-פי-הס
+
+# 3381: הסכם ממון דוגמא | הורדת הסכם ממון
+RedirectPermanent /prenuptial-agreement-sample https://jus-tice.co.il/psakdin/חלוקת-דירה-לפי-רישום-לא-שוויוני-על-פי-הס
+
+# 3306: כמה עולה הסכם ממון?
+RedirectPermanent /how-much-does-prenup-cost https://jus-tice.co.il/psakdin/חלוקת-דירה-לפי-רישום-לא-שוויוני-על-פי-הס
+
+# 3300: ביטול הסכם ממון
+RedirectPermanent /changing-or-canceling-a-prenuptial-agreement https://jus-tice.co.il/psakdin/חלוקת-דירה-לפי-רישום-לא-שוויוני-על-פי-הס
+

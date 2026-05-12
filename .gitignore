@@ -19,8 +19,6 @@ justice-installer.php
 .idea/
 
 # Legacy plugin folders (do not push to repo)
-justice-core/
 justice-core-v3/
 justice-portal/
-justice-theme/
 

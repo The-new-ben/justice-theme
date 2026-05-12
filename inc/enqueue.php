@@ -59,6 +59,14 @@ function justice_theme_enqueue_assets() {
 		JUSTICE_THEME_VERSION
 	);
 
+	// Homepage upgrade layer — loads last to refine prior passes without specificity wars.
+	wp_enqueue_style(
+		'justice-homepage-upgrade',
+		JUSTICE_THEME_URI . '/assets/css/homepage-upgrade.css',
+		array( 'justice-premium-4', 'justice-components' ),
+		JUSTICE_THEME_VERSION
+	);
+
 	if ( is_rtl() ) {
 		wp_enqueue_style(
 			'justice-rtl',

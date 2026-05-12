@@ -38,9 +38,9 @@ $cities = array(
 
 		<div class="cities-grid__list">
 			<?php foreach ( $cities as $city ) : ?>
-				<a href="<?php echo esc_url( home_url( '/lawyers/?city=' . $city['slug'] ) ); ?>" class="city-card">
+				<a href="<?php echo esc_url( home_url( '/lawyers/?city=' . $city['slug'] ) ); ?>" class="city-card" aria-label="<?php echo esc_attr( sprintf( __( 'עורכי דין ב%s', 'justice-theme' ), $city['name'] ) ); ?>">
 					<span class="city-card__name"><?php echo esc_html( $city['name'] ); ?></span>
-					<span class="city-card__arrow" aria-hidden="true">←</span>
+					<span class="city-card__arrow" aria-hidden="true">›</span>
 				</a>
 			<?php endforeach; ?>
 		</div>

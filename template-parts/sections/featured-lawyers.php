@@ -1,8 +1,9 @@
 <?php
 /**
- * Homepage featured lawyer section.
+ * Homepage featured lawyers — dynamic, multi-card grid.
  *
- * Only public-approved lawyer profiles are allowed here.
+ * Only public-approved, verified, active-subscription lawyers are shown.
+ * No hardcoded slugs, no demo data, no fallback fake profiles.
  *
  * @package JusticeTheme
  */
@@ -11,85 +12,134 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$featured_lawyer = null;
+$eyebrow  = function_exists( 'justice_theme_mod' )
+	? justice_theme_mod( 'justice_featured_lawyers_eyebrow', __( 'פרופילים מאומתים', 'justice-theme' ) )
+	: __( 'פרופילים מאומתים', 'justice-theme' );
 
-if ( post_type_exists( 'justice_lawyer' ) ) {
-	if ( function_exists( 'justice_theme_get_connected_lawyer_by_slug' ) ) {
-		$featured_lawyer = justice_theme_get_connected_lawyer_by_slug( 'advocate-maya-rotenberg' );
-	}
+$headline = function_exists( 'justice_theme_mod' )
+	? justice_theme_mod( 'justice_featured_lawyers_headline', __( 'עורכי דין מובילים בפלטפורמה', 'justice-theme' ) )
+	: __( 'עורכי דין מובילים בפלטפורמה', 'justice-theme' );
 
-	if ( ! $featured_lawyer instanceof WP_Post ) {
-		$query = new WP_Query(
+$count = function_exists( 'justice_theme_mod' )
+	? (int) justice_theme_mod( 'justice_featured_lawyers_count', 6 )
+	: 6;
+$count = max( 0, min( 12, $count ) );
+
+$featured_lawyers = array();
+
+if ( $count > 0 && post_type_exists( 'justice_lawyer' ) ) {
+
+	// Primary query: verified + active subscription + premium plan, ordered by priority_score.
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_lawyer',
+		'post_status'    => 'publish',
+		'posts_per_page' => $count,
+		'no_found_rows'  => true,
+		'orderby'        => array(
+			'meta_value_num' => 'DESC',
+			'date'           => 'DESC',
+		),
+		'meta_key'       => 'priority_score', // phpcs:ignore WordPress.DB.SlowDBQuery
+		'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery
+			'relation' => 'AND',
 			array(
-				'name'           => 'advocate-maya-rotenberg',
-				'post_type'      => 'justice_lawyer',
-				'post_status'    => 'publish',
-				'posts_per_page' => 1,
-				'no_found_rows'  => true,
-			)
-		);
+				'key'     => 'verification_status',
+				'value'   => 'verified',
+				'compare' => '=',
+			),
+			array(
+				'key'     => 'subscription_status',
+				'value'   => 'active',
+				'compare' => '=',
+			),
+		),
+	) );
 
-		if ( $query->have_posts() ) {
-			$featured_lawyer = $query->posts[0];
+	if ( $query->have_posts() ) {
+		foreach ( $query->posts as $post_obj ) {
+			if (
+				function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+				&& justice_theme_lawyer_profile_is_public_approved( (int) $post_obj->ID )
+			) {
+				$featured_lawyers[] = $post_obj;
+			}
 		}
 	}
 
-	if (
-		! $featured_lawyer instanceof WP_Post
-		|| ! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
-		|| ! justice_theme_lawyer_profile_is_public_approved( (int) $featured_lawyer->ID )
-	) {
-		$featured_lawyer = null;
+	// Fallback query: verified only (in case no paid lawyers exist yet).
+	if ( empty( $featured_lawyers ) ) {
+		$fallback = new WP_Query( array(
+			'post_type'      => 'justice_lawyer',
+			'post_status'    => 'publish',
+			'posts_per_page' => $count,
+			'no_found_rows'  => true,
+			'orderby'        => 'date',
+			'order'          => 'DESC',
+			'meta_query'     => array( // phpcs:ignore WordPress.DB.SlowDBQuery
+				array(
+					'key'     => 'verification_status',
+					'value'   => 'verified',
+					'compare' => '=',
+				),
+			),
+		) );
+
+		if ( $fallback->have_posts() ) {
+			foreach ( $fallback->posts as $post_obj ) {
+				if (
+					function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+					&& justice_theme_lawyer_profile_is_public_approved( (int) $post_obj->ID )
+				) {
+					$featured_lawyers[] = $post_obj;
+				}
+			}
+		}
 	}
 }
 ?>
 
-<section class="featured-lawyers section" id="featured-lawyers">
+<section class="featured-lawyers section" id="featured-lawyers" aria-labelledby="featured-lawyers-title">
 	<div class="container">
 		<div class="section-header section-header--split">
 			<div>
-				<p class="section-header__eyebrow"><?php esc_html_e( 'פרופיל עורכת דין', 'justice-theme' ); ?></p>
-				<h2><?php esc_html_e( 'מיני-סייט מקצועי בדיני משפחה', 'justice-theme' ); ?></h2>
+				<p class="section-header__eyebrow"><?php echo esc_html( $eyebrow ); ?></p>
+				<h2 id="featured-lawyers-title"><?php echo esc_html( $headline ); ?></h2>
 			</div>
-			<a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" class="button button--gold">
-				<?php esc_html_e( 'לעורכי דין: בניית מיני-סייט', 'justice-theme' ); ?>
+			<a href="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ); ?>" class="button button--outline">
+				<?php esc_html_e( 'לכל עורכי הדין', 'justice-theme' ); ?>
+				<span aria-hidden="true">›</span>
 			</a>
 		</div>
 
-		<?php if ( $featured_lawyer instanceof WP_Post ) : ?>
-			<div class="verified-lawyer-showcase">
-				<div class="verified-lawyer-showcase__profile">
+		<?php if ( ! empty( $featured_lawyers ) ) : ?>
+			<div class="featured-lawyers__grid lawyers-grid">
+				<?php foreach ( $featured_lawyers as $lawyer_post ) : ?>
 					<?php
-					$GLOBALS['post'] = $featured_lawyer; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
-					setup_postdata( $featured_lawyer );
+					$GLOBALS['post'] = $lawyer_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+					setup_postdata( $lawyer_post );
 					get_template_part( 'template-parts/cards/lawyer-card' );
-					wp_reset_postdata();
 					?>
-				</div>
-
-				<div class="verified-lawyer-showcase__value">
-					<h3><?php esc_html_e( 'מה עורך דין מקבל בפרופיל פרימיום?', 'justice-theme' ); ?></h3>
-					<ul>
-						<li><?php esc_html_e( 'עמוד פרופיל עשיר עם תמונה, וידאו, תחומי התמחות, אזורי שירות ופרטי קשר שאושרו להצגה.', 'justice-theme' ); ?></li>
-						<li><?php esc_html_e( 'מאמרים מקצועיים שמחוברים לפרופיל ולתחומי המשפט הרלוונטיים.', 'justice-theme' ); ?></li>
-						<li><?php esc_html_e( 'פניות לקוחות, טלפון או WhatsApp רק כאשר פרטי הקשר עברו בדיקה ואינם נתוני דמו.', 'justice-theme' ); ?></li>
-						<li><?php esc_html_e( 'ביקורות, דירוגים וסימוני אמון יוצגו רק לאחר אימות, אישור ומדיניות פרסום ברורה.', 'justice-theme' ); ?></li>
-					</ul>
-				</div>
+				<?php endforeach; ?>
+				<?php wp_reset_postdata(); ?>
 			</div>
 		<?php else : ?>
-			<div class="verified-lawyer-showcase verified-lawyer-showcase--empty">
-				<div class="verified-lawyer-showcase__visual">
+			<div class="featured-lawyers__empty">
+				<div class="featured-lawyers__empty-visual">
 					<img src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/lawyer-cta-visual.png' ); ?>"
-						alt="<?php esc_attr_e( 'סביבת עבודה מקצועית של עורך דין — פרופיל פרימיום ב-Jus-Tice', 'justice-theme' ); ?>"
+						alt="<?php esc_attr_e( 'פרופיל פרימיום לעורכי דין ב-Jus-Tice', 'justice-theme' ); ?>"
 						width="520" height="340" loading="lazy" decoding="async">
 				</div>
-				<div class="verified-lawyer-showcase__text">
-					<h3><?php esc_html_e( 'פרופיל עורכת הדין יוצג כאן לאחר אישור במערכת.', 'justice-theme' ); ?></h3>
-					<p><?php esc_html_e( 'עמוד הבית לא מציג עורכי דין דמו, המלצות לא מאומתות או נתוני קשר שלא עברו בדיקה. רק פרופיל שאושר ידנית יכול להופיע באזור זה.', 'justice-theme' ); ?></p>
-					<a class="button button--gold" href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>">
-						<?php esc_html_e( 'הצטרפות עורכי דין', 'justice-theme' ); ?>
-					</a>
+				<div class="featured-lawyers__empty-text">
+					<h3><?php esc_html_e( 'פרופילים מאומתים יוצגו כאן ברגע שייקלטו במערכת.', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'אנחנו לא מציגים עורכי דין דמו, המלצות לא מאומתות או נתוני קשר שלא עברו בדיקה. רק פרופיל שאושר ידנית מופיע בעמוד הבית.', 'justice-theme' ); ?></p>
+					<div class="featured-lawyers__empty-actions">
+						<a class="button button--gold" href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>">
+							<?php esc_html_e( 'הצטרפות עורכי דין', 'justice-theme' ); ?>
+						</a>
+						<a class="button button--outline" href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>">
+							<?php esc_html_e( 'תוכניות חברות', 'justice-theme' ); ?>
+						</a>
+					</div>
 				</div>
 			</div>
 		<?php endif; ?>

@@ -102,7 +102,7 @@ Current review queue:
 - `58` Family/Divorce URL or URL-reference items.
 - `82` planned internal-link/control rows.
 - `13` owner-review decisions.
-- `57` minimum pre-upload checklist rows.
+- `59` minimum pre-upload checklist rows.
 
 ## Duplicate Page Comparison Update
 
@@ -435,6 +435,22 @@ Decision:
 NEXT:
 - Owner approves or edits the clean body and metadata package together.
 - Then run the controlled upload QA package before any CMS edit.
+
+## Divorce Lawyer CMS Upload Field Map Update
+
+VERIFIED:
+- `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.md` and `.csv` now define the practical CMS field map for `/divorce-lawyer/`.
+- The map contains `24` field/action rows.
+- It covers backup, body source, title/H1, SEO title, meta description, OG fields, breadcrumb, canonical, robots, taxonomy, related links, schema safety, disclaimer, CTA, post-upload QA and GSC monitoring.
+- The map keeps `/divorce-lawyer/` and its self-canonical unchanged.
+- Review, AggregateRating, fake ratings, fake trust labels, protected old URLs and protected assets remain blocked.
+
+Decision:
+- This is the operator worksheet for after approval, not approval itself.
+- Owner should review the clean body, metadata package and CMS field map together.
+
+NEXT:
+- Owner approval remains the blocker before any WordPress/CMS edit.
 
 ## Old Pages To Keep / Protect
 

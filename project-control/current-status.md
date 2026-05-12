@@ -1,3 +1,12 @@
+## LATEST WORK STATUS - 2026-05-12 04:36 Asia/Jerusalem
+- VERIFIED PLANNING / DIVORCE LAWYER CMS UPLOAD FIELD MAP: created the practical CMS field worksheet for the first `/divorce-lawyer/` upload candidate.
+- CREATED: `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.csv`.
+- VERIFIED: the map converts the clean body, metadata package and controlled QA package into `24` upload fields/actions covering URL, backup, body, title/H1, SEO meta, OG fields, breadcrumb, canonical, robots, taxonomy, related links, schema safety, disclaimer, CTA, post-upload QA and GSC monitoring.
+- VERIFIED: the field map keeps the slug/canonical unchanged, protects old URLs/assets and blocks Review/AggregateRating/fake trust/fake rating claims.
+- BLOCKED: `FAM-UPLOAD-059` now blocks CMS field execution until owner approval of the clean body, metadata and field map.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 04:26 Asia/Jerusalem
 - VERIFIED PLANNING / DIVORCE LAWYER METADATA PACKAGE: created the exact title/H1/meta/canonical/taxonomy package for the first `/divorce-lawyer/` upload candidate.
 - CREATED: `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.md`.

@@ -12,6 +12,7 @@ Wave 1A candidate:
 - Clean body source: `content-drafts/divorce-lawyer-public-body-he.md`
 - Current clean draft size: `2,374` words across `92` lines
 - Metadata package: `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.md`
+- CMS upload field map: `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.md`
 
 Not included in this first QA package:
 - Bulk upload of the six support pages.
@@ -52,6 +53,7 @@ MUST PASS:
 - Confirm the target URL remains `/divorce-lawyer/`; no slug change.
 - Confirm title/H1/meta contain divorce-lawyer intent without top/recommended/trusted/rating language.
 - Confirm the exact title/H1/meta/canonical/taxonomy values match the approved metadata package.
+- Confirm the operator follows the approved CMS upload field map and saves backup fields first.
 - Confirm visible disclaimer and safe CTA disclaimer are present.
 - Confirm no Review, AggregateRating or fake trust schema is added.
 - Confirm taxonomy is limited to approved first-wave practice areas: `family-law` and `divorce`.

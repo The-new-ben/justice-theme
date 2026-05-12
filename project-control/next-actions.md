@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-DIVORCE-LAWYER-CMS-FIELD-MAP-001: Prepare `/divorce-lawyer/` CMS upload field map
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** The clean body and metadata package were ready for approval, but the first upload also needs a practical CMS field worksheet before any operator touches WordPress.
+**Actions:**
+1. DONE: created `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.csv`.
+3. VERIFIED: `24` field/action rows cover backup, body, H1/title, SEO meta, OG, breadcrumb, canonical, robots, taxonomy, related links, schema safety, disclaimer, CTA, post-upload QA and GSC monitoring.
+4. VERIFIED: field map keeps `/divorce-lawyer/` and the self-canonical unchanged.
+5. BLOCKED: CMS execution remains blocked until owner approval of clean body, metadata and field map.
+6. NEXT: owner approves or edits the three-piece upload packet; then run controlled upload QA before CMS edit.
+7. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-DIVORCE-LAWYER-METADATA-PACKAGE-001: Prepare exact `/divorce-lawyer/` title/H1/meta package
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
 **Why:** The first upload decision brief recommended Wave 1A only, but the exact metadata fields needed owner-review packaging before any CMS work.

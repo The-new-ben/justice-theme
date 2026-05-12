@@ -14,6 +14,25 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Divorce Lawyer CMS Upload Field Map
+
+CREATED:
+- `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.md`
+- `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.csv`
+
+VERIFIED:
+- The field map creates a `24`-row upload worksheet for `/divorce-lawyer/`.
+- It combines the clean body, metadata package and controlled upload QA package into a practical operator map.
+- It keeps the URL and canonical unchanged.
+- It blocks review/rating/trust/schema claims and protected old URL/asset actions.
+
+RECOMMENDED:
+- Owner reviews the clean body, metadata package and CMS field map together.
+- After approval, use the controlled upload QA package before any CMS edit.
+
+BLOCKED:
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Divorce Lawyer Metadata Package
 
 CREATED:

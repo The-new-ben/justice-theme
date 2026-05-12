@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Divorce lawyer CMS upload field map
+
+- CREATED: `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: created a `24`-row CMS upload worksheet for the first controlled `/divorce-lawyer/` upload candidate.
+- VERIFIED: map covers backup, body, title/H1, SEO meta, OG fields, breadcrumb, canonical, robots, taxonomy, related links, schema safety, disclaimer, CTA, post-upload QA and GSC monitoring.
+- VERIFIED: slug and canonical remain unchanged; old URLs/protected assets remain untouched.
+- BLOCKED: CMS execution remains blocked until owner approval of the clean body, metadata package and field map.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Divorce lawyer metadata package
 
 - CREATED: `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.md`.

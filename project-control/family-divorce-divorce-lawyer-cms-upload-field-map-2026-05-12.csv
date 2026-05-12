@@ -1,0 +1,25 @@
+map_id,wp_area,field_or_action,value,status,why,qa_check,blocked_until
+FD-CMS-MAP-001,identity,target_url,https://jus-tice.co.il/divorce-lawyer/,VERIFIED_PLANNING,Existing first-wave target URL,Confirm status 200 before and after upload,Owner approves first upload
+FD-CMS-MAP-002,identity,slug,/divorce-lawyer/,VERIFIED_PLANNING,No URL change in first upload,Confirm slug unchanged in CMS,Owner approves first upload
+FD-CMS-MAP-003,backup,current_body,Save full current live body before overwrite,REQUIRED_PRE_UPLOAD,Rollback protection,Backup file or CMS revision exists,Owner approves first upload
+FD-CMS-MAP-004,backup,current_metadata,"Save current title H1 SEO title meta description OG canonical taxonomy related links",REQUIRED_PRE_UPLOAD,Rollback protection,Backup values captured before edit,Owner approves first upload
+FD-CMS-MAP-005,content,public_body_source,content-drafts/divorce-lawyer-public-body-he.md,READY_FOR_REVIEW,CMS-clean body exists,Use this file only after approval,Owner approves clean body
+FD-CMS-MAP-006,content,post_body,Copy approved clean body into existing /divorce-lawyer/ page,BLOCKED,No CMS edit approved yet,Compare first paragraph and final disclaimer after upload,Owner approves clean body and upload
+FD-CMS-MAP-007,content,post_title_h1,עורך דין גירושין: מדריך לבחירה נכונה ולהיערכות להליך,RECOMMENDED,Clear user and SEO intent without fake trust language,Confirm exactly one visible H1,Owner approves metadata
+FD-CMS-MAP-008,seo,seo_title,עורך דין גירושין | מדריך לבחירה נכונה ולהיערכות להליך,RECOMMENDED,Tighter than current live title and keeps core keyword,Confirm source/title output,Owner approves metadata
+FD-CMS-MAP-009,seo,meta_description,"מדריך למי שמחפש עורך דין גירושין: מתי לפנות, אילו מסמכים להכין, ומה לבדוק לגבי ילדים, מזונות, רכוש והסכם גירושין.",RECOMMENDED,Answers search intent without fake recommendation or result claim,Confirm meta description in source,Owner approves metadata
+FD-CMS-MAP-010,social,og_title,עורך דין גירושין: מדריך לבחירה ולהיערכות,RECOMMENDED,Short social title aligned with page topic,Confirm OG title in source,Owner approves metadata
+FD-CMS-MAP-011,social,og_description,"מדריך למי שמחפש עורך דין גירושין: מתי לפנות, אילו מסמכים להכין, ומה לבדוק לגבי ילדים, מזונות, רכוש והסכם גירושין.",RECOMMENDED,Consistent share description,Confirm OG description in source,Owner approves metadata
+FD-CMS-MAP-012,navigation,breadcrumb_label,עורך דין גירושין,RECOMMENDED,Short navigational label,Confirm breadcrumb and BreadcrumbList output,Owner approves metadata
+FD-CMS-MAP-013,seo,canonical,https://jus-tice.co.il/divorce-lawyer/,VERIFIED_PLANNING,Self-canonical avoids migration risk,Confirm canonical unchanged,Owner approves upload
+FD-CMS-MAP-014,seo,robots,index follow,BLOCKED_UNTIL_UPLOAD_APPROVAL,Indexable only after content QA,Confirm no accidental noindex,Owner approves upload
+FD-CMS-MAP-015,taxonomy,practice_areas,"family-law, divorce",RECOMMENDED,Approved first-wave Family/Divorce terms only,Confirm terms after upload,Owner approves taxonomy use
+FD-CMS-MAP-016,related_links,primary,"/consensual-divorce/; /divorce-mediation/; /child-support/; /child-custody/",RECOMMENDED,Core support pages for first-wave pillar,Confirm links resolve and stay approved,Owner approves related boundaries
+FD-CMS-MAP-017,related_links,secondary,"/divorce-property-division/; /family-dispute-resolution/",OPTIONAL_AFTER_APPROVAL,Useful but can wait if support upload is held,Confirm as secondary only,Owner approves related boundaries
+FD-CMS-MAP-018,related_links,blocked,"city pages; ranking pages; Maya profile; reviews; ratings; LegalTech; duplicate URLs; PDFs; DOCX; calculators; case-law cards",BLOCKED,Prevent fake trust and protected-asset leakage,Inspect related cards after upload,Owner approves separate modules
+FD-CMS-MAP-019,schema,allowed,"WebPage Article Breadcrumb only if visible content matches",REVIEW_ONLY,Safe structured data only,Inspect source after upload,Owner approves upload
+FD-CMS-MAP-020,schema,blocked,"Review; AggregateRating; fake ratings; fake badges; top/recommended/trusted claims",BLOCKED,Compliance and Google rich-result risk,Inspect source after upload,Review/reputation module approval
+FD-CMS-MAP-021,disclaimer,visible_disclaimer,General information and no legal advice disclaimer,REQUIRED,Legal information boundary,Confirm visible in body,Owner approves clean body
+FD-CMS-MAP-022,cta,legal_help_cta,Neutral legal-help CTA only,RECOMMENDED,Lead path without outcome promise,Confirm CTA does not promise result,Owner approves copy
+FD-CMS-MAP-023,qa,post_upload,"200 status; self canonical; indexable; one H1; no internal notes; mobile/desktop readable; no fake trust schema",REQUIRED_POST_UPLOAD,First upload must be checked immediately,Run controlled QA package,Owner approves upload
+FD-CMS-MAP-024,gsc,gsc_monitoring,Monitor /divorce-lawyer/ after upload and export old/new URL query data,BLOCKED_UNTIL_GSC_API,Needed before URL actions and post-publish monitoring,Run after credentials exist,GSC API credentials

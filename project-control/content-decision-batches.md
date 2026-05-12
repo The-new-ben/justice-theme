@@ -59,12 +59,12 @@ CREATED:
 VERIFIED:
 - Reviewed `6` Wave 1B support drafts totaling `27,277` words.
 - All six drafts target clean English URLs and support `/divorce-lawyer/`.
-- The first four support targets now have clean public bodies; the remaining two drafts still need CMS-clean conversion because internal publishing notes and planning sections remain.
+- The first five support targets now have clean public bodies; the remaining custody draft still needs CMS-clean conversion because internal publishing notes and planning sections remain.
 - `FAM-UPLOAD-039` is now `VERIFIED PLANNING`.
 
 RECOMMENDED:
 - Create clean public body files in this order: `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/`, `/child-custody/`.
-- Prepare `/child-support/` next if repo-only support prep continues.
+- Prepare `/child-custody/` next if repo-only support prep continues.
 - Keep support page upload blocked until the pillar approval path is settled.
 
 BLOCKED:
@@ -121,7 +121,7 @@ VERIFIED:
 
 RECOMMENDED:
 - Owner/legal/source review should approve the clean body or request edits before any CMS import.
-- Review `/family-dispute-resolution/`, then prepare `/child-support/` as the next clean support body if the repo-only prep continues.
+- `/child-support/` now has a clean body; prepare `/child-custody/` as the next clean support body if the repo-only prep continues.
 
 BLOCKED:
 - No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
@@ -140,7 +140,26 @@ VERIFIED:
 
 RECOMMENDED:
 - Owner/legal/source review should approve the clean body or request edits before any CMS import.
-- Prepare `/child-support/` as the next clean support body if the repo-only prep continues.
+- Review `/child-support/`, then prepare `/child-custody/` as the next clean support body if the repo-only prep continues.
+
+BLOCKED:
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
+## 2026-05-12 Child Support CMS-Clean Public Body
+
+CREATED:
+- `content-drafts/child-support-public-body-he.md`
+
+VERIFIED:
+- The clean public Hebrew body is `1,729` words across `49` lines.
+- Internal editorial notes, CMS planning sections, source-audit notes, Maya/profile notes, LegalTech notes and pre-publication status notes were removed from the public body.
+- The scan found no internal planning markers, `TODO`/`TBD`, fake ratings, fake review claims, fake trust labels, fixed calculator promises or guaranteed-result language.
+- Required related paths were found for `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/child-custody/`, `/divorce-property-division/` and `/family-dispute-resolution/`.
+- `FAM-UPLOAD-048` is now `PARTIAL VERIFIED`.
+
+RECOMMENDED:
+- Owner/legal/source review should approve the clean body or request edits before any CMS import.
+- Prepare `/child-custody/` as the next clean support body if the repo-only prep continues.
 
 BLOCKED:
 - No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.

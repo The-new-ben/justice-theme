@@ -102,7 +102,7 @@ Current review queue:
 - `58` Family/Divorce URL or URL-reference items.
 - `82` planned internal-link/control rows.
 - `13` owner-review decisions.
-- `47` minimum pre-upload checklist rows.
+- `49` minimum pre-upload checklist rows.
 
 ## Duplicate Page Comparison Update
 
@@ -265,15 +265,15 @@ VERIFIED:
 - `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.md` and `.csv` now review all six Wave 1B support drafts.
 - The six support drafts total `27,277` words.
 - All six drafts have clean English target URLs and connect back to `/divorce-lawyer/`.
-- `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/` and `/family-dispute-resolution/` now have CMS-clean public bodies.
-- The remaining two support drafts are useful planning drafts, but are not CMS-clean public bodies yet because they still contain internal production notes, source-audit notes, CMS structure notes, Maya/profile notes, LegalTech notes or pre-publication status notes.
+- `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/` and `/child-support/` now have CMS-clean public bodies.
+- The remaining support draft, `/child-custody/`, is a useful planning draft, but is not a CMS-clean public body yet because it still contains internal production notes, source-audit notes, CMS structure notes, Maya/profile notes, LegalTech notes or pre-publication status notes.
 
 Decision:
 - Do not upload Wave 1B as-is.
 - Recommended clean-body order is `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/`, then `/child-custody/`.
 
 NEXT:
-- Review the clean `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/` and `/family-dispute-resolution/` bodies, then create the CMS-clean `/child-support/` public body next as a repo-only artifact unless owner approval redirects attention back to `/divorce-lawyer/` upload.
+- Review the clean `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/` and `/child-support/` bodies, then create the CMS-clean `/child-custody/` public body next as a repo-only artifact unless owner approval redirects attention back to `/divorce-lawyer/` upload.
 
 ## Consensual Divorce CMS-Clean Body Update
 
@@ -344,7 +344,25 @@ Decision:
 
 NEXT:
 - Owner/legal/source review approves the body or requests edits.
-- Prepare the CMS-clean `/child-support/` public body next if the repo-only support prep continues.
+- Review the CMS-clean `/child-support/` public body next, then prepare `/child-custody/` if the repo-only support prep continues.
+
+## Child Support CMS-Clean Body Update
+
+VERIFIED:
+- `content-drafts/child-support-public-body-he.md` now contains the CMS-clean public body for `/child-support/`.
+- The clean body is `1,729` words across `49` lines.
+- The scan found no internal editorial/planning notes, `TODO`/`TBD` markers, Maya/profile notes, LegalTech notes, fake-rating terms, fake-trust language or guaranteed-result language.
+- The body includes general-information/no-legal-advice disclaimer, no fixed calculator promise, child-support factor overview, age and 919/15 caution, parenting-time context, medor/housing expenses, exceptional-expense sections, agreement/lawsuit/change/collection guidance, document checklist, FAQ, neutral Jus-Tice CTA and related Family/Divorce page paths.
+- Required related paths were found for `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/child-custody/`, `/divorce-property-division/` and `/family-dispute-resolution/`.
+
+Decision:
+- This file is upload-prep only. It is not a public upload approval.
+- `FAM-UPLOAD-048` is now `PARTIAL VERIFIED`.
+- `FAM-UPLOAD-049` is now the blocking approval gate for the clean public body.
+
+NEXT:
+- Owner/legal/source review approves the body or requests edits.
+- Prepare the CMS-clean `/child-custody/` public body next if the repo-only support prep continues.
 
 ## Old Pages To Keep / Protect
 

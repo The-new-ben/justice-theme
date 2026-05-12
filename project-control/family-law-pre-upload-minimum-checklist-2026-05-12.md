@@ -36,6 +36,8 @@ VERIFIED:
 - The clean divorce-property-division body scan found no internal planning notes, no fake-trust/rating language and all required Family/Divorce related paths.
 - `content-drafts/family-dispute-resolution-public-body-he.md` contains a `1,992`-word public Hebrew body for `/family-dispute-resolution/`.
 - The clean family-dispute-resolution body scan found no internal planning notes, no fake-trust/rating language and all required Family/Divorce related paths.
+- `content-drafts/child-support-public-body-he.md` contains a `1,729`-word public Hebrew body for `/child-support/`.
+- The clean child-support body scan found no internal planning notes, no fake-trust/rating language, no fixed calculator promise and all required Family/Divorce related paths.
 
 NOT VERIFIED:
 - GSC API export.
@@ -81,6 +83,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 32. Approve the CMS-clean `/divorce-property-division/` public body after owner/legal/source review before upload.
 33. Create CMS-clean `/family-dispute-resolution/` public body file with internal notes, source-audit notes, Maya/profile notes and LegalTech notes removed.
 34. Approve the CMS-clean `/family-dispute-resolution/` public body after owner/legal/source review before upload.
+35. Create CMS-clean `/child-support/` public body file with internal notes, source-audit notes, Maya/profile notes and LegalTech notes removed.
+36. Approve the CMS-clean `/child-support/` public body after owner/legal/source review before upload.
 
 ## Current Recommendation
 

@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Consensual divorce CMS-clean public body
+
+- CREATED: `content-drafts/consensual-divorce-public-body-he.md`.
+- VERIFIED / REVIEW ONLY: created a `1,875`-word clean public Hebrew body for `/consensual-divorce/`.
+- VERIFIED: internal editorial notes, CMS planning sections, source-audit notes, Maya/profile notes, LegalTech notes and pre-publication status notes were removed from the public body.
+- VERIFIED: scans found no internal planning markers, `TODO`/`TBD`, fake ratings, fake review claims, fake trust labels or guaranteed-result language.
+- PARTIAL VERIFIED: `FAM-UPLOAD-040` now has a clean file, but `FAM-UPLOAD-041` blocks upload until owner/legal/source approval.
+- RECOMMENDED: prepare `/divorce-mediation/` as the next clean support body if repo-only prep continues.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Family/Divorce Wave 1B support review package
 
 - CREATED: `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.md`.

@@ -274,6 +274,23 @@ Decision:
 NEXT:
 - Create the CMS-clean `/consensual-divorce/` public body next as a repo-only artifact, unless owner approval redirects attention back to `/divorce-lawyer/` upload.
 
+## Consensual Divorce CMS-Clean Body Update
+
+VERIFIED:
+- `content-drafts/consensual-divorce-public-body-he.md` now contains the CMS-clean public body for `/consensual-divorce/`.
+- The clean body is `1,875` words across `79` lines.
+- The scan found no internal editorial/planning notes, `TODO`/`TBD` markers, Maya/profile notes, LegalTech notes, fake-rating terms or fake-trust language.
+- The body includes a general-information/no-legal-advice disclaimer, agreement safety warnings, approval-process guidance, cost caution, FAQ, neutral Jus-Tice CTA and related Family/Divorce page paths.
+
+Decision:
+- This file is upload-prep only. It is not a public upload approval.
+- `FAM-UPLOAD-040` is now `PARTIAL VERIFIED`.
+- `FAM-UPLOAD-041` is now the blocking approval gate for the clean public body.
+
+NEXT:
+- Owner/legal/source review approves the body or requests edits.
+- Prepare the CMS-clean `/divorce-mediation/` public body next if the repo-only support prep continues.
+
 ## Old Pages To Keep / Protect
 
 Keep alive until GSC/API and side-by-side review:

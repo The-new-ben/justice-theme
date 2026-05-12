@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Wave 1B support approval package
+
+- CREATED: `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: packaged all six clean Family/Divorce support bodies into a `16`-row owner/legal/source approval gate.
+- VERIFIED: the support bodies total `11,222` words across `435` lines.
+- VERIFIED: strict scans found no internal planning markers, `TODO`/`TBD`, Maya/profile notes, LegalTech notes, fake ratings, fake review claims, fake trust labels, recommendation-label terms or guaranteed-result language.
+- FIXED: neutralized two harmless `מומלץ` wording hits in `/divorce-property-division/` and `/family-dispute-resolution/` so the strict scan stays clean.
+- VERIFIED: `FAM-UPLOAD-052` is planning-verified; `FAM-UPLOAD-053` blocks support upload scope until owner/legal/source approval.
+- RECOMMENDED: approve support copy as a batch, but keep public upload blocked until `/divorce-lawyer/` scope and QA are settled.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Child custody CMS-clean public body
 
 - CREATED: `content-drafts/child-custody-public-body-he.md`.

@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-12 04:04 Asia/Jerusalem
+- VERIFIED PLANNING / WAVE 1B SUPPORT APPROVAL PACKAGE: created the owner/legal/source approval gate for all six clean Family/Divorce support bodies.
+- CREATED: `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.csv`.
+- VERIFIED: the six clean support bodies total `11,222` words across `435` lines.
+- VERIFIED: strict scans found no internal planning notes, `TODO`/`TBD`, Maya/profile notes, LegalTech notes, fake-trust language, fake-rating language, recommendation-label terms or guaranteed-result claims.
+- FIXED: two harmless "not recommended" phrasing hits in `/divorce-property-division/` and `/family-dispute-resolution/` were rewritten so the scan stays clean.
+- VERIFIED: `FAM-UPLOAD-052` is now planning-verified.
+- BLOCKED: `FAM-UPLOAD-053` now blocks support upload scope until owner/legal/source approval.
+- RECOMMENDED: approve copy as a batch, but keep public upload blocked until `/divorce-lawyer/` upload scope and QA are settled.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 03:56 Asia/Jerusalem
 - PARTIAL VERIFIED / CHILD CUSTODY CMS-CLEAN PUBLIC BODY: created the clean public Hebrew body for the sixth Wave 1B support page.
 - CREATED: `content-drafts/child-custody-public-body-he.md`.

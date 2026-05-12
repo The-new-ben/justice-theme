@@ -83,6 +83,10 @@ RECOMMENDED:
 - Review all six clean bodies as one support-page approval batch before any CMS import.
 - Keep the support upload decision tied to the pillar approval path and the controlled QA package.
 
+APPROVAL PACKAGE:
+- `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.md` and `.csv` now define the owner/legal/source approval gate for the six clean bodies.
+- The approval package records copy approval, lower-risk-first upload options, hold/edit choices, protected assets, metadata/taxonomy blocks, GSC/API dependency and post-upload QA gates.
+
 BLOCKED:
 - Public upload of the support pages.
 - Redirecting old agreement, mediation, child-support, custody, property or dispute-resolution pages.

@@ -40,6 +40,8 @@ VERIFIED:
 - The clean child-support body scan found no internal planning notes, no fake-trust/rating language, no fixed calculator promise and all required Family/Divorce related paths.
 - `content-drafts/child-custody-public-body-he.md` contains a `1,693`-word public Hebrew body for `/child-custody/`.
 - The clean child-custody body scan found no internal planning notes, no fake-trust/rating language, no custody-result promises and all required Family/Divorce related paths.
+- `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.csv` now defines a `16`-row owner/legal/source approval gate for all six Wave 1B support bodies.
+- The six clean support bodies total `11,222` words across `435` lines and passed the strict scan for internal markers, fake trust, fake ratings, recommendation-label terms and guaranteed-result language.
 
 NOT VERIFIED:
 - GSC API export.
@@ -89,6 +91,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 36. Approve the CMS-clean `/child-support/` public body after owner/legal/source review before upload.
 37. Create CMS-clean `/child-custody/` public body file with internal notes, source-audit notes, Maya/profile notes and LegalTech notes removed.
 38. Approve the CMS-clean `/child-custody/` public body after owner/legal/source review before upload.
+39. Prepare a Wave 1B support-body approval package that groups the six clean bodies into approve/edit/hold decisions.
+40. Approve the Wave 1B support-body upload scope after owner/legal/source review before any support page goes public.
 
 ## Current Recommendation
 

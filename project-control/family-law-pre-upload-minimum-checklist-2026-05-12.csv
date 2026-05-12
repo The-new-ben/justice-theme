@@ -50,3 +50,5 @@ FAM-UPLOAD-048,Create CMS-clean /child-support/ public body,YES,PARTIAL VERIFIED
 FAM-UPLOAD-049,Approve CMS-clean /child-support/ public body for upload,YES,BLOCKED,Owner legal and source review,Approve final copy or request edits,No public upload approved yet
 FAM-UPLOAD-050,Create CMS-clean /child-custody/ public body,YES,PARTIAL VERIFIED,CMS-clean public body file created and scanned,Owner/legal/source review and final upload approval,No CMS/public upload yet
 FAM-UPLOAD-051,Approve CMS-clean /child-custody/ public body for upload,YES,BLOCKED,Owner legal and source review,Approve final copy or request edits,No public upload approved yet
+FAM-UPLOAD-052,Prepare Wave 1B support-body approval package,YES,VERIFIED PLANNING,16-row owner approval package created,Owner chooses approve edit hold or upload scope,No CMS/public upload yet
+FAM-UPLOAD-053,Approve Wave 1B support-body upload scope,YES,BLOCKED,Owner legal and source review,Choose copy-only approval support-first lower-risk pages or hold until pillar upload,No public upload approved yet

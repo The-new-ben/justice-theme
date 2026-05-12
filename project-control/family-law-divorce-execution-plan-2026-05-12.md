@@ -102,7 +102,7 @@ Current review queue:
 - `58` Family/Divorce URL or URL-reference items.
 - `82` planned internal-link/control rows.
 - `13` owner-review decisions.
-- `51` minimum pre-upload checklist rows.
+- `53` minimum pre-upload checklist rows.
 
 ## Duplicate Page Comparison Update
 
@@ -380,6 +380,24 @@ Decision:
 NEXT:
 - Owner/legal/source review approves the body or requests edits.
 - With all six Wave 1B support bodies now clean, prepare a support-body owner review batch or return to the first controlled `/divorce-lawyer/` upload decision.
+
+## Wave 1B Support Approval Package Update
+
+VERIFIED:
+- `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.md` and `.csv` now convert the six clean support bodies into a `16`-row owner/legal/source approval gate.
+- The six clean support bodies total `11,222` words across `435` lines.
+- Strict scans found no internal editorial/planning notes, `TODO`/`TBD`, Maya/profile notes, LegalTech notes, fake-rating terms, fake-trust language, recommendation-label terms or guaranteed-result language.
+- Two harmless public-copy uses of `מומלץ` were rewritten in `/divorce-property-division/` and `/family-dispute-resolution/` so the stricter scan is clean.
+- `FAM-UPLOAD-052` is now `VERIFIED PLANNING`.
+
+Decision:
+- The support pages are ready for owner/legal/source review as copy, but not approved for upload.
+- Default recommendation is to approve copy as a batch, then keep upload blocked until `/divorce-lawyer/` scope and QA are settled.
+- A faster but more cautious path is to approve lower-risk pages first: `/consensual-divorce/` and `/divorce-mediation/`.
+
+NEXT:
+- Owner chooses one support-scope decision: approve copy only, approve lower-risk first, edit selected pages, hold all support until `/divorce-lawyer/`, or approve Wave 1B after pillar QA.
+- `FAM-UPLOAD-053` remains blocked until that decision exists.
 
 ## Old Pages To Keep / Protect
 

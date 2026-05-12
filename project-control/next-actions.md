@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-WAVE-1B-SUPPORT-APPROVAL-PACKAGE-001: Package six clean support bodies for owner review
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** All six Wave 1B support bodies are clean, so the next useful gate is an owner/legal/source approval package before any support upload.
+**Actions:**
+1. DONE: created `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.csv`.
+3. VERIFIED: package covers all six support bodies: `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/` and `/child-custody/`.
+4. VERIFIED: the six clean bodies total `11,222` words across `435` lines.
+5. VERIFIED: strict scans found no internal planning notes, `TODO`/`TBD`, Maya/profile notes, LegalTech notes, fake-trust language, fake-rating language, recommendation-label terms or guaranteed-result claims.
+6. FIXED: neutralized two harmless `מומלץ` wording hits in prior clean bodies so the strict scan is clean.
+7. VERIFIED: `FAM-UPLOAD-052` is now planning-verified.
+8. BLOCKED: `FAM-UPLOAD-053` requires owner/legal/source approval before support upload scope.
+9. NEXT: owner chooses approve copy only, approve lower-risk support pages first, edit selected pages, hold all support until `/divorce-lawyer/`, or approve Wave 1B after pillar QA.
+10. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-CHILD-CUSTODY-CMS-CLEAN-BODY-001: Create clean `/child-custody/` public body
 **Status:** COMPLETED / REVIEW ONLY / PARTIAL VERIFIED
 **Why:** The sixth Wave 1B support page needed a clean public body before any owner/legal/source review or CMS upload.

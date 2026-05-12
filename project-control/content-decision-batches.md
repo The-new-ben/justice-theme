@@ -14,6 +14,26 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Wave 1B Support Approval Package
+
+CREATED:
+- `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.md`
+- `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.csv`
+
+VERIFIED:
+- The package creates a `16`-row owner/legal/source approval gate for the six Wave 1B clean support bodies.
+- The six clean bodies total `11,222` words across `435` lines.
+- Strict scans found no internal planning markers, `TODO`/`TBD`, Maya/profile notes, LegalTech notes, fake ratings, fake review claims, fake trust labels, recommendation-label terms or guaranteed-result language.
+- `FAM-UPLOAD-052` is now `VERIFIED PLANNING`.
+
+RECOMMENDED:
+- Owner can approve copy only, approve lower-risk pages first, request edits, hold all support until `/divorce-lawyer/`, or approve Wave 1B after pillar QA.
+- Default recommendation remains: approve copy as a batch, then upload only after `/divorce-lawyer/` scope and QA are settled.
+
+BLOCKED:
+- `FAM-UPLOAD-053` blocks support upload scope until owner/legal/source approval.
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Divorce Lawyer CMS-Clean Public Body
 
 CREATED:

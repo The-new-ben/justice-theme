@@ -59,13 +59,31 @@ CREATED:
 VERIFIED:
 - Reviewed `6` Wave 1B support drafts totaling `27,277` words.
 - All six drafts target clean English URLs and support `/divorce-lawyer/`.
-- The first five support targets now have clean public bodies; the remaining custody draft still needs CMS-clean conversion because internal publishing notes and planning sections remain.
+- All six support targets now have CMS-clean public bodies; the custody draft conversion is complete.
 - `FAM-UPLOAD-039` is now `VERIFIED PLANNING`.
 
 RECOMMENDED:
-- Create clean public body files in this order: `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/`, `/child-custody/`.
-- Prepare `/child-custody/` next if repo-only support prep continues.
+- Review the six clean public body files as one support-page approval batch.
 - Keep support page upload blocked until the pillar approval path is settled.
+
+BLOCKED:
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
+## 2026-05-12 Child Custody CMS-Clean Public Body
+
+CREATED:
+- `content-drafts/child-custody-public-body-he.md`
+
+VERIFIED:
+- The clean public Hebrew body is `1,693` words across `54` lines.
+- Internal editorial notes, CMS planning sections, source-audit notes, Maya/profile notes, LegalTech notes and pre-publication status notes were removed from the public body.
+- The scan found no internal planning markers, `TODO`/`TBD`, fake ratings, fake review claims, fake trust labels, custody-result promises or guaranteed-result language.
+- Required related paths were found for `/divorce-lawyer/`, `/child-support/`, `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/` and `/family-dispute-resolution/`.
+- `FAM-UPLOAD-050` is now `PARTIAL VERIFIED`.
+
+RECOMMENDED:
+- Owner/legal/source review should approve the clean body or request edits before any CMS import.
+- With all six Wave 1B clean bodies done, prepare a support upload review only after the pillar route approval is settled.
 
 BLOCKED:
 - No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
@@ -121,7 +139,7 @@ VERIFIED:
 
 RECOMMENDED:
 - Owner/legal/source review should approve the clean body or request edits before any CMS import.
-- `/child-support/` now has a clean body; prepare `/child-custody/` as the next clean support body if the repo-only prep continues.
+- `/child-support/` and `/child-custody/` now have clean bodies; review all six Wave 1B clean support bodies before any upload.
 
 BLOCKED:
 - No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
@@ -140,7 +158,7 @@ VERIFIED:
 
 RECOMMENDED:
 - Owner/legal/source review should approve the clean body or request edits before any CMS import.
-- Review `/child-support/`, then prepare `/child-custody/` as the next clean support body if the repo-only prep continues.
+- `/child-support/` and `/child-custody/` now have clean bodies; review all six Wave 1B clean support bodies before any upload.
 
 BLOCKED:
 - No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
@@ -159,7 +177,7 @@ VERIFIED:
 
 RECOMMENDED:
 - Owner/legal/source review should approve the clean body or request edits before any CMS import.
-- Prepare `/child-custody/` as the next clean support body if the repo-only prep continues.
+- Review all six Wave 1B clean support bodies as one support-page approval batch if the repo-only prep continues.
 
 BLOCKED:
 - No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.

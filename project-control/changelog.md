@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Child custody CMS-clean public body
+
+- CREATED: `content-drafts/child-custody-public-body-he.md`.
+- VERIFIED / REVIEW ONLY: created a `1,693`-word clean public Hebrew body for `/child-custody/`.
+- VERIFIED: internal editorial notes, CMS planning sections, source-audit notes, Maya/profile notes, LegalTech notes and pre-publication status notes were removed from the public body.
+- VERIFIED: scans found no internal planning markers, `TODO`/`TBD`, fake ratings, fake review claims, fake trust labels, custody-result promises or guaranteed-result language.
+- VERIFIED: required Family/Divorce related paths were found for `/divorce-lawyer/`, `/child-support/`, `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/` and `/family-dispute-resolution/`.
+- PARTIAL VERIFIED: `FAM-UPLOAD-050` now has a clean file, but `FAM-UPLOAD-051` blocks upload until owner/legal/source approval.
+- VERIFIED: all six Wave 1B support pages now have CMS-clean public bodies.
+- RECOMMENDED: review all six clean Wave 1B support bodies as one support-page approval batch, or return to the first controlled `/divorce-lawyer/` upload decision.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Child support CMS-clean public body
 
 - CREATED: `content-drafts/child-support-public-body-he.md`.
@@ -9,7 +21,7 @@
 - VERIFIED: scans found no internal planning markers, `TODO`/`TBD`, fake ratings, fake review claims, fake trust labels, fixed calculator promises or guaranteed-result language.
 - VERIFIED: required Family/Divorce related paths were found for `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/child-custody/`, `/divorce-property-division/` and `/family-dispute-resolution/`.
 - PARTIAL VERIFIED: `FAM-UPLOAD-048` now has a clean file, but `FAM-UPLOAD-049` blocks upload until owner/legal/source approval.
-- RECOMMENDED: prepare `/child-custody/` as the next clean support body if repo-only prep continues.
+- RECOMMENDED: `/child-custody/` clean body now exists; review all six Wave 1B support bodies before any support upload.
 - BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
 
 ## 2026-05-12 - Family dispute resolution CMS-clean public body

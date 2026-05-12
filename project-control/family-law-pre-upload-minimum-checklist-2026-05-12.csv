@@ -52,3 +52,5 @@ FAM-UPLOAD-050,Create CMS-clean /child-custody/ public body,YES,PARTIAL VERIFIED
 FAM-UPLOAD-051,Approve CMS-clean /child-custody/ public body for upload,YES,BLOCKED,Owner legal and source review,Approve final copy or request edits,No public upload approved yet
 FAM-UPLOAD-052,Prepare Wave 1B support-body approval package,YES,VERIFIED PLANNING,16-row owner approval package created,Owner chooses approve edit hold or upload scope,No CMS/public upload yet
 FAM-UPLOAD-053,Approve Wave 1B support-body upload scope,YES,BLOCKED,Owner legal and source review,Choose copy-only approval support-first lower-risk pages or hold until pillar upload,No public upload approved yet
+FAM-UPLOAD-054,Prepare first-upload owner decision brief,YES,VERIFIED PLANNING,10-row decision brief created,Owner chooses Wave 1A only copy-only lower-risk support edits GSC wait or hold,No CMS/public upload yet
+FAM-UPLOAD-055,Approve first public Family/Divorce upload scope,YES,BLOCKED,Owner approval plus QA checklist,Approve /divorce-lawyer/ first upload or hold pending edits/GSC,No public upload approved yet

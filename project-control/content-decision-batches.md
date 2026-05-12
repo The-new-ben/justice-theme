@@ -14,6 +14,25 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 First Upload Decision Brief
+
+CREATED:
+- `project-control/family-divorce-first-upload-decision-brief-2026-05-12.md`
+- `project-control/family-divorce-first-upload-decision-brief-2026-05-12.csv`
+
+VERIFIED:
+- The brief creates a `10`-row owner decision layer for the first controlled Family/Divorce upload.
+- It recommends Wave 1A only: `/divorce-lawyer/`.
+- It separates copy approval from upload approval for the six support pages.
+- It keeps protected assets, URL migration, redirects, noindex, canonical and sitemap actions blocked until GSC API and owner approval.
+
+RECOMMENDED:
+- Owner approves or edits the `/divorce-lawyer/` clean body first.
+- If approval is not ready, prepare the exact `/divorce-lawyer/` title/H1/meta package as repo-only work.
+
+BLOCKED:
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Wave 1B Support Approval Package
 
 CREATED:

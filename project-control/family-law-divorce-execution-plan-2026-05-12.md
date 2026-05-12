@@ -102,7 +102,7 @@ Current review queue:
 - `58` Family/Divorce URL or URL-reference items.
 - `82` planned internal-link/control rows.
 - `13` owner-review decisions.
-- `53` minimum pre-upload checklist rows.
+- `55` minimum pre-upload checklist rows.
 
 ## Duplicate Page Comparison Update
 
@@ -398,6 +398,23 @@ Decision:
 NEXT:
 - Owner chooses one support-scope decision: approve copy only, approve lower-risk first, edit selected pages, hold all support until `/divorce-lawyer/`, or approve Wave 1B after pillar QA.
 - `FAM-UPLOAD-053` remains blocked until that decision exists.
+
+## First Upload Decision Brief Update
+
+VERIFIED:
+- `project-control/family-divorce-first-upload-decision-brief-2026-05-12.md` and `.csv` now define the owner-facing first upload decision layer.
+- The brief contains `10` decision rows.
+- It recommends Wave 1A only: `/divorce-lawyer/`.
+- It separates support copy approval from support upload approval.
+- It keeps old URLs, PDFs, DOCX files, calculators, case-law assets, redirects, canonicals, noindex and sitemap actions blocked until GSC API and owner approval.
+
+Decision:
+- The safest next public move remains narrow: approve and upload `/divorce-lawyer/` first, then QA.
+- Support pages can be copy-approved now, but should not go public until the pillar path is approved or owner explicitly chooses a support-first path.
+
+NEXT:
+- Owner approves or edits `content-drafts/divorce-lawyer-public-body-he.md`.
+- If approval is not ready, prepare exact `/divorce-lawyer/` title/H1/meta package as repo-only work.
 
 ## Old Pages To Keep / Protect
 

@@ -6,6 +6,18 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FIRST-UPLOAD-DECISION-BRIEF-001: Prepare first Family/Divorce upload decision brief
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** The cluster has clean copy and QA packages, but owner approval needs a short practical decision layer before any public upload.
+**Actions:**
+1. DONE: created `project-control/family-divorce-first-upload-decision-brief-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-first-upload-decision-brief-2026-05-12.csv`.
+3. VERIFIED: `10` decision rows cover Wave 1A first upload, support copy approval, lower-risk support path, protected assets, taxonomy, related links, schema/trust exclusions, GSC API and next action.
+4. RECOMMENDED: first public upload should be Wave 1A only: `/divorce-lawyer/`.
+5. BLOCKED: `FAM-UPLOAD-055` requires owner approval before any public Family/Divorce upload scope.
+6. NEXT: owner approves or edits `content-drafts/divorce-lawyer-public-body-he.md`; if approval is not ready, prepare exact `/divorce-lawyer/` title/H1/meta package as repo-only work.
+7. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-WAVE-1B-SUPPORT-APPROVAL-PACKAGE-001: Package six clean support bodies for owner review
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
 **Why:** All six Wave 1B support bodies are clean, so the next useful gate is an owner/legal/source approval package before any support upload.

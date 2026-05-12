@@ -42,6 +42,8 @@ VERIFIED:
 - The clean child-custody body scan found no internal planning notes, no fake-trust/rating language, no custody-result promises and all required Family/Divorce related paths.
 - `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.csv` now defines a `16`-row owner/legal/source approval gate for all six Wave 1B support bodies.
 - The six clean support bodies total `11,222` words across `435` lines and passed the strict scan for internal markers, fake trust, fake ratings, recommendation-label terms and guaranteed-result language.
+- `project-control/family-divorce-first-upload-decision-brief-2026-05-12.csv` now defines a `10`-row owner decision brief for the first controlled upload scope.
+- The current recommendation is Wave 1A only: approve and upload `/divorce-lawyer/` first after owner/legal/source approval and controlled QA.
 
 NOT VERIFIED:
 - GSC API export.
@@ -93,6 +95,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 38. Approve the CMS-clean `/child-custody/` public body after owner/legal/source review before upload.
 39. Prepare a Wave 1B support-body approval package that groups the six clean bodies into approve/edit/hold decisions.
 40. Approve the Wave 1B support-body upload scope after owner/legal/source review before any support page goes public.
+41. Prepare a first-upload owner decision brief that states the safest upload scope and blocked alternatives.
+42. Approve the first public Family/Divorce upload scope before any CMS/public change.
 
 ## Current Recommendation
 

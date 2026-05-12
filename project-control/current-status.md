@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-12 04:14 Asia/Jerusalem
+- VERIFIED PLANNING / FIRST UPLOAD DECISION BRIEF: created the short owner-facing decision brief for the first Family/Divorce public upload.
+- CREATED: `project-control/family-divorce-first-upload-decision-brief-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-first-upload-decision-brief-2026-05-12.csv`.
+- VERIFIED: the brief defines `10` decision rows covering Wave 1A, support copy approval, lower-risk support path, protected assets, taxonomy, related links, trust/schema exclusions, GSC API and immediate next action.
+- RECOMMENDED: first public upload should be Wave 1A only: `/divorce-lawyer/`, after owner/legal/source approval and controlled QA.
+- BLOCKED: `FAM-UPLOAD-055` now blocks the first public Family/Divorce upload scope until owner approval.
+- RECOMMENDED NEXT: approve or edit `content-drafts/divorce-lawyer-public-body-he.md`; if approval is not ready, prepare exact `/divorce-lawyer/` title/H1/meta package as repo-only work.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 04:04 Asia/Jerusalem
 - VERIFIED PLANNING / WAVE 1B SUPPORT APPROVAL PACKAGE: created the owner/legal/source approval gate for all six clean Family/Divorce support bodies.
 - CREATED: `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.md`.

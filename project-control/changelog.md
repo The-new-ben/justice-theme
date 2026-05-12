@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - First upload decision brief
+
+- CREATED: `project-control/family-divorce-first-upload-decision-brief-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-first-upload-decision-brief-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: created a `10`-row owner-facing decision brief for the first Family/Divorce public upload scope.
+- RECOMMENDED: first public upload should be Wave 1A only: `/divorce-lawyer/`, after owner/legal/source approval and controlled QA.
+- VERIFIED: support copy can be approved separately, but support upload remains blocked until owner chooses scope.
+- BLOCKED: `FAM-UPLOAD-055` blocks the first public Family/Divorce upload scope until owner approval.
+- RECOMMENDED NEXT: approve or edit `content-drafts/divorce-lawyer-public-body-he.md`; if approval is not ready, prepare exact `/divorce-lawyer/` title/H1/meta package as repo-only work.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Wave 1B support approval package
 
 - CREATED: `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.md`.

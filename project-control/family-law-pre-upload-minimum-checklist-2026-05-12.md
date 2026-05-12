@@ -32,6 +32,8 @@ VERIFIED:
 - The clean consensual-divorce body scan found no internal planning notes and no fake-trust/rating language.
 - `content-drafts/divorce-mediation-public-body-he.md` contains a `2,059`-word public Hebrew body for `/divorce-mediation/`.
 - The clean divorce-mediation body scan found no internal planning notes, no fake-trust/rating language and all required Family/Divorce related paths.
+- `content-drafts/divorce-property-division-public-body-he.md` contains a `1,874`-word public Hebrew body for `/divorce-property-division/`.
+- The clean divorce-property-division body scan found no internal planning notes, no fake-trust/rating language and all required Family/Divorce related paths.
 
 NOT VERIFIED:
 - GSC API export.
@@ -73,6 +75,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 28. Approve the CMS-clean `/consensual-divorce/` public body after owner/legal/source review before upload.
 29. Create CMS-clean `/divorce-mediation/` public body file with internal notes, source-audit notes, Maya/profile notes and LegalTech notes removed.
 30. Approve the CMS-clean `/divorce-mediation/` public body after owner/legal/source review before upload.
+31. Create CMS-clean `/divorce-property-division/` public body file with internal notes, source-audit notes, Maya/profile notes and LegalTech notes removed.
+32. Approve the CMS-clean `/divorce-property-division/` public body after owner/legal/source review before upload.
 
 ## Current Recommendation
 

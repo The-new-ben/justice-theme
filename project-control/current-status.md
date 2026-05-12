@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-12 03:25 Asia/Jerusalem
+- PARTIAL VERIFIED / DIVORCE PROPERTY DIVISION CMS-CLEAN PUBLIC BODY: created the clean public Hebrew body for the third Wave 1B support page.
+- CREATED: `content-drafts/divorce-property-division-public-body-he.md`.
+- VERIFIED: the clean body is `1,874` words across `89` lines.
+- VERIFIED: scans found no internal planning notes, `TODO`/`TBD`, Maya/profile notes, LegalTech notes, fake-trust language, fake-rating language or guaranteed-result claims.
+- VERIFIED: required Family/Divorce related paths were found for `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/` and `/family-dispute-resolution/`.
+- PARTIAL VERIFIED: `FAM-UPLOAD-044` is now partially verified; the clean file exists, but it still needs owner/legal/source approval.
+- BLOCKED: `FAM-UPLOAD-045` now blocks public upload until the clean body is approved.
+- RECOMMENDED: prepare the CMS-clean `/family-dispute-resolution/` body next if the repo-only support prep continues.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 03:16 Asia/Jerusalem
 - PARTIAL VERIFIED / DIVORCE MEDIATION CMS-CLEAN PUBLIC BODY: created the clean public Hebrew body for the second Wave 1B support page.
 - CREATED: `content-drafts/divorce-mediation-public-body-he.md`.

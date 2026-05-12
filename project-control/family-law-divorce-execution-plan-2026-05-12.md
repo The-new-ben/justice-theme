@@ -102,7 +102,7 @@ Current review queue:
 - `58` Family/Divorce URL or URL-reference items.
 - `82` planned internal-link/control rows.
 - `13` owner-review decisions.
-- `43` minimum pre-upload checklist rows.
+- `45` minimum pre-upload checklist rows.
 
 ## Duplicate Page Comparison Update
 
@@ -265,15 +265,15 @@ VERIFIED:
 - `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.md` and `.csv` now review all six Wave 1B support drafts.
 - The six support drafts total `27,277` words.
 - All six drafts have clean English target URLs and connect back to `/divorce-lawyer/`.
-- `/consensual-divorce/` and `/divorce-mediation/` now have CMS-clean public bodies.
-- The remaining four support drafts are useful planning drafts, but are not CMS-clean public bodies yet because they still contain internal production notes, source-audit notes, CMS structure notes, Maya/profile notes, LegalTech notes or pre-publication status notes.
+- `/consensual-divorce/`, `/divorce-mediation/` and `/divorce-property-division/` now have CMS-clean public bodies.
+- The remaining three support drafts are useful planning drafts, but are not CMS-clean public bodies yet because they still contain internal production notes, source-audit notes, CMS structure notes, Maya/profile notes, LegalTech notes or pre-publication status notes.
 
 Decision:
 - Do not upload Wave 1B as-is.
 - Recommended clean-body order is `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/`, then `/child-custody/`.
 
 NEXT:
-- Review the clean `/consensual-divorce/` and `/divorce-mediation/` bodies, then create the CMS-clean `/divorce-property-division/` public body next as a repo-only artifact unless owner approval redirects attention back to `/divorce-lawyer/` upload.
+- Review the clean `/consensual-divorce/`, `/divorce-mediation/` and `/divorce-property-division/` bodies, then create the CMS-clean `/family-dispute-resolution/` public body next as a repo-only artifact unless owner approval redirects attention back to `/divorce-lawyer/` upload.
 
 ## Consensual Divorce CMS-Clean Body Update
 
@@ -308,7 +308,25 @@ Decision:
 
 NEXT:
 - Owner/legal/source review approves the body or requests edits.
-- Prepare the CMS-clean `/divorce-property-division/` public body next if the repo-only support prep continues.
+- Review the CMS-clean `/divorce-property-division/` public body next, then prepare `/family-dispute-resolution/` if the repo-only support prep continues.
+
+## Divorce Property Division CMS-Clean Body Update
+
+VERIFIED:
+- `content-drafts/divorce-property-division-public-body-he.md` now contains the CMS-clean public body for `/divorce-property-division/`.
+- The clean body is `1,874` words across `89` lines.
+- The scan found no internal editorial/planning notes, `TODO`/`TBD` markers, Maya/profile notes, LegalTech notes, fake-rating terms or fake-trust language.
+- The body includes a general-information/no-legal-advice disclaimer, asset and debt mapping, rupture-date caution, home/pension/business/debt sections, hidden-asset warning signs, agreement/mediation context, urgency guidance, FAQ, neutral Jus-Tice CTA and related Family/Divorce page paths.
+- Required related paths were found for `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/` and `/family-dispute-resolution/`.
+
+Decision:
+- This file is upload-prep only. It is not a public upload approval.
+- `FAM-UPLOAD-044` is now `PARTIAL VERIFIED`.
+- `FAM-UPLOAD-045` is now the blocking approval gate for the clean public body.
+
+NEXT:
+- Owner/legal/source review approves the body or requests edits.
+- Prepare the CMS-clean `/family-dispute-resolution/` public body next if the repo-only support prep continues.
 
 ## Old Pages To Keep / Protect
 

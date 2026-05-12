@@ -59,7 +59,7 @@ CREATED:
 VERIFIED:
 - Reviewed `6` Wave 1B support drafts totaling `27,277` words.
 - All six drafts target clean English URLs and support `/divorce-lawyer/`.
-- All six drafts are substantial but not CMS-clean yet because internal publishing notes and planning sections remain.
+- The first three support targets now have clean public bodies; the remaining three drafts still need CMS-clean conversion because internal publishing notes and planning sections remain.
 - `FAM-UPLOAD-039` is now `VERIFIED PLANNING`.
 
 RECOMMENDED:
@@ -102,6 +102,25 @@ VERIFIED:
 RECOMMENDED:
 - Owner/legal/source review should approve the clean body or request edits before any CMS import.
 - Prepare `/divorce-property-division/` as the next clean support body if the repo-only prep continues.
+
+BLOCKED:
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
+## 2026-05-12 Divorce Property Division CMS-Clean Public Body
+
+CREATED:
+- `content-drafts/divorce-property-division-public-body-he.md`
+
+VERIFIED:
+- The clean public Hebrew body is `1,874` words across `89` lines.
+- Internal editorial notes, CMS planning sections, source-audit notes, Maya/profile notes, LegalTech notes and pre-publication status notes were removed from the public body.
+- The scan found no internal planning markers, `TODO`/`TBD`, fake ratings, fake review claims, fake trust labels or guaranteed-result language.
+- Required related paths were found for `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/` and `/family-dispute-resolution/`.
+- `FAM-UPLOAD-044` is now `PARTIAL VERIFIED`.
+
+RECOMMENDED:
+- Owner/legal/source review should approve the clean body or request edits before any CMS import.
+- Prepare `/family-dispute-resolution/` as the next clean support body if the repo-only prep continues.
 
 BLOCKED:
 - No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.

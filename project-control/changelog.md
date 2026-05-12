@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Divorce lawyer metadata package
+
+- CREATED: `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: created a `20`-row metadata package for the first controlled `/divorce-lawyer/` upload candidate.
+- VERIFIED: live `/divorce-lawyer/` returned `200` and self-canonicalized before any public change.
+- RECOMMENDED: tighter H1/title/meta while keeping the slug and canonical unchanged.
+- VERIFIED: taxonomy is limited to `family-law` and `divorce`; related links are limited to approved Family/Divorce support paths.
+- BLOCKED: Review, AggregateRating, fake ratings, fake badges, fake trust labels, recommendation language, URL changes, redirects, noindex, sitemap changes and CMS writes remain blocked until owner approval.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - First upload decision brief
 
 - CREATED: `project-control/family-divorce-first-upload-decision-brief-2026-05-12.md`.

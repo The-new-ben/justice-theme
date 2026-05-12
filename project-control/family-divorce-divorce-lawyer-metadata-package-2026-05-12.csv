@@ -1,0 +1,21 @@
+field_id,field,target_value,status,reason,qa_check,blocked_until
+FD-META-001,target_url,https://jus-tice.co.il/divorce-lawyer/,VERIFIED_PLANNING,Keep existing live pillar URL,Must return 200 before and after upload,Owner approves upload
+FD-META-002,slug,/divorce-lawyer/,VERIFIED_PLANNING,No URL migration needed for first upload,Confirm slug unchanged in CMS,Owner approves upload
+FD-META-003,h1,עורך דין גירושין: מדריך לבחירה נכונה ולהיערכות להליך,RECOMMENDED,Clear commercial and user-help intent without overloading subtopics,Confirm single visible H1 after upload,Owner approves metadata
+FD-META-004,seo_title,עורך דין גירושין | מדריך לבחירה נכונה ולהיערכות להליך,RECOMMENDED,Primary keyword plus guide intent in a cleaner title,Confirm browser title and SEO plugin title,Owner approves metadata
+FD-META-005,meta_description,"מדריך למי שמחפש עורך דין גירושין: מתי לפנות, אילו מסמכים להכין, ומה לבדוק לגבי ילדים, מזונות, רכוש והסכם גירושין.",RECOMMENDED,Covers high-intent concerns without fake trust or ranking claims,Confirm meta description in page source,Owner approves metadata
+FD-META-006,og_title,עורך דין גירושין: מדריך לבחירה ולהיערכות,RECOMMENDED,Shorter social title aligned with page intent,Confirm OG title in source,Owner approves metadata
+FD-META-007,og_description,"מדריך למי שמחפש עורך דין גירושין: מתי לפנות, אילו מסמכים להכין, ומה לבדוק לגבי ילדים, מזונות, רכוש והסכם גירושין.",RECOMMENDED,Reuse approved safe description for sharing consistency,Confirm OG description in source,Owner approves metadata
+FD-META-008,breadcrumb_label,עורך דין גירושין,RECOMMENDED,Short label for navigation clarity,Confirm breadcrumb text and schema match,Owner approves metadata
+FD-META-009,canonical,https://jus-tice.co.il/divorce-lawyer/,VERIFIED_PLANNING,Self-canonical first upload avoids migration risk,Confirm canonical remains self-canonical,Owner approves upload
+FD-META-010,robots,index follow,BLOCKED_UNTIL_UPLOAD_APPROVAL,Indexable only after owner approval and QA,Confirm no accidental noindex after upload,Owner approves upload
+FD-META-011,primary_taxonomy,"family-law, divorce",RECOMMENDED,Use approved existing Family/Divorce terms only,Confirm assigned terms after upload,Owner approves metadata
+FD-META-012,primary_related_links,"/consensual-divorce/; /divorce-mediation/; /child-support/; /child-custody/",RECOMMENDED,Supports pillar without broad or fake trust links,Confirm links resolve and are approved,Owner approves related boundaries
+FD-META-013,secondary_related_links,"/divorce-property-division/; /family-dispute-resolution/",RECOMMENDED_SECONDARY,Useful deep links but can wait if support scope is held,Confirm as secondary links only or hold,Owner approves related boundaries
+FD-META-014,schema_policy,"No Review; no AggregateRating; no fake rating; no fake badge; safe WebPage/Article/Breadcrumb only if visible data matches",BLOCKED_FOR_REVIEW_SCHEMA,Legal and Google review-schema risk,Inspect source after upload,Review module and owner approval
+FD-META-015,blocked_language,"Do not use: הכי טוב; מוביל; מומלץ; אמין; דירוג; חוות דעת; ביקורות; תוצאה מובטחת; הצלחה מובטחת",VERIFIED_PLANNING,Avoid fake trust recommendation or guaranteed-result claims,Scan final title H1 meta and body,Owner approves final copy
+FD-META-016,backup_current_live_fields,"body; title; meta description; OG fields; canonical; taxonomy; related links",REQUIRED_PRE_UPLOAD,Rollback requires exact current-state copy,Backup immediately before CMS edit,Owner approves upload
+FD-META-017,disclaimer,Visible general-information and no-legal-advice disclaimer,REQUIRED_PRE_UPLOAD,Legal informational content needs clear boundary,Confirm disclaimer visible after upload,Owner approves upload
+FD-META-018,post_upload_qa,"200 status; self canonical; indexable; one H1; mobile/desktop visual check; no internal notes; no fake trust schema",REQUIRED_POST_UPLOAD,First upload must be checked immediately,Run QA after public update,Owner approves upload
+FD-META-019,gsc_monitoring,Monitor /divorce-lawyer/ query and page performance after upload,BLOCKED_UNTIL_GSC_API,GSC API is not connected yet,Export query/page data when ready,GSC API credentials
+FD-META-020,implementation_scope,Planning package only; no CMS public change,VERIFIED,This file documents approval fields only,Confirm git diff contains docs only,Owner approval for public work

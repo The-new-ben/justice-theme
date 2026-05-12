@@ -14,6 +14,25 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Divorce Lawyer Metadata Package
+
+CREATED:
+- `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.md`
+- `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.csv`
+
+VERIFIED:
+- The package creates a `20`-row title/H1/meta/canonical/taxonomy/related-link approval gate for `/divorce-lawyer/`.
+- Live `/divorce-lawyer/` returned `200` and self-canonicalized before any change.
+- The recommended metadata keeps the slug and canonical unchanged.
+- The package blocks Review, AggregateRating, fake trust, fake ratings, fake badges and recommendation/ranking claims.
+
+RECOMMENDED:
+- Owner approves or edits the clean body and metadata package together.
+- If approved, use the controlled upload QA package before touching the CMS.
+
+BLOCKED:
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 First Upload Decision Brief
 
 CREATED:

@@ -102,7 +102,7 @@ Current review queue:
 - `58` Family/Divorce URL or URL-reference items.
 - `82` planned internal-link/control rows.
 - `13` owner-review decisions.
-- `55` minimum pre-upload checklist rows.
+- `57` minimum pre-upload checklist rows.
 
 ## Duplicate Page Comparison Update
 
@@ -415,6 +415,26 @@ Decision:
 NEXT:
 - Owner approves or edits `content-drafts/divorce-lawyer-public-body-he.md`.
 - If approval is not ready, prepare exact `/divorce-lawyer/` title/H1/meta package as repo-only work.
+
+## Divorce Lawyer Metadata Package Update
+
+VERIFIED:
+- `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.md` and `.csv` now define the exact title/H1/meta/canonical/taxonomy package for the first `/divorce-lawyer/` upload candidate.
+- The package contains `20` metadata rows.
+- Live `/divorce-lawyer/` returned `200` and self-canonicalized before the package was created.
+- The recommended H1 is `עורך דין גירושין: מדריך לבחירה נכונה ולהיערכות להליך`.
+- The recommended SEO title is `עורך דין גירושין | מדריך לבחירה נכונה ולהיערכות להליך`.
+- The slug and canonical stay unchanged.
+- Review, AggregateRating, fake ratings, fake badges, fake trust claims and recommendation/ranking language remain blocked.
+
+Decision:
+- Use this metadata package only after owner approval.
+- If approved, pair it with the clean body and controlled upload QA package.
+- Do not change URL, redirects, noindex, canonical, sitemap, protected assets, support pages or schema posture as part of this metadata package.
+
+NEXT:
+- Owner approves or edits the clean body and metadata package together.
+- Then run the controlled upload QA package before any CMS edit.
 
 ## Old Pages To Keep / Protect
 

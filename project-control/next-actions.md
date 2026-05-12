@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-DIVORCE-LAWYER-METADATA-PACKAGE-001: Prepare exact `/divorce-lawyer/` title/H1/meta package
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** The first upload decision brief recommended Wave 1A only, but the exact metadata fields needed owner-review packaging before any CMS work.
+**Actions:**
+1. DONE: created `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.csv`.
+3. VERIFIED: live `/divorce-lawyer/` returned `200` and self-canonicalized before any change.
+4. VERIFIED: package recommends a tighter H1/title/meta while keeping `/divorce-lawyer/` and the canonical unchanged.
+5. VERIFIED: taxonomy is limited to `family-law` and `divorce`; related links are limited to approved Family/Divorce support paths.
+6. BLOCKED: Review/AggregateRating/fake-rating/fake-trust/recommendation language remains blocked.
+7. NEXT: owner approves or edits the clean body plus this metadata package; then use the controlled upload QA package before any CMS edit.
+8. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-FIRST-UPLOAD-DECISION-BRIEF-001: Prepare first Family/Divorce upload decision brief
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
 **Why:** The cluster has clean copy and QA packages, but owner approval needs a short practical decision layer before any public upload.

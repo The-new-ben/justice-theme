@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-12 04:26 Asia/Jerusalem
+- VERIFIED PLANNING / DIVORCE LAWYER METADATA PACKAGE: created the exact title/H1/meta/canonical/taxonomy package for the first `/divorce-lawyer/` upload candidate.
+- CREATED: `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.csv`.
+- VERIFIED: live `/divorce-lawyer/` returned `200` and self-canonicalized to `https://jus-tice.co.il/divorce-lawyer/`.
+- VERIFIED: current live title, H1, meta description and clean body size were captured before any public change.
+- RECOMMENDED: use the tighter H1 `עורך דין גירושין: מדריך לבחירה נכונה ולהיערכות להליך` and SEO title `עורך דין גירושין | מדריך לבחירה נכונה ולהיערכות להליך` if the first upload is approved.
+- VERIFIED: the metadata package keeps the slug and canonical unchanged, assigns only `family-law` and `divorce`, blocks Review/AggregateRating/fake trust claims and limits related links to the approved Family/Divorce boundaries.
+- BLOCKED: `FAM-UPLOAD-057` now blocks metadata/public upload approval until owner approval.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 04:14 Asia/Jerusalem
 - VERIFIED PLANNING / FIRST UPLOAD DECISION BRIEF: created the short owner-facing decision brief for the first Family/Divorce public upload.
 - CREATED: `project-control/family-divorce-first-upload-decision-brief-2026-05-12.md`.

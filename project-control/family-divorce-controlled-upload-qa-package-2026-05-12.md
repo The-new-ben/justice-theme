@@ -11,6 +11,7 @@ Wave 1A candidate:
 - `/divorce-lawyer/`
 - Clean body source: `content-drafts/divorce-lawyer-public-body-he.md`
 - Current clean draft size: `2,374` words across `92` lines
+- Metadata package: `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.md`
 
 Not included in this first QA package:
 - Bulk upload of the six support pages.
@@ -50,6 +51,7 @@ MUST PASS:
 - Save the current live `/divorce-lawyer/` body/title/meta before overwriting anything.
 - Confirm the target URL remains `/divorce-lawyer/`; no slug change.
 - Confirm title/H1/meta contain divorce-lawyer intent without top/recommended/trusted/rating language.
+- Confirm the exact title/H1/meta/canonical/taxonomy values match the approved metadata package.
 - Confirm visible disclaimer and safe CTA disclaimer are present.
 - Confirm no Review, AggregateRating or fake trust schema is added.
 - Confirm taxonomy is limited to approved first-wave practice areas: `family-law` and `divorce`.
@@ -61,7 +63,7 @@ MUST VERIFY:
 - `/divorce-lawyer/` returns `200`.
 - `/divorce-lawyer/` is self-canonical or uses the approved canonical.
 - `/divorce-lawyer/` is indexable unless a separate noindex decision is approved.
-- H1 is `עורך דין גירושין`.
+- H1 matches the approved metadata package, currently recommended as `עורך דין גירושין: מדריך לבחירה נכונה ולהיערכות להליך`.
 - The first viewport clearly says the page is for people looking for divorce-lawyer help.
 - No internal notes, draft notes, source notes, competitor notes or planning sections are visible.
 - Disclaimer and CTA disclaimer are visible.

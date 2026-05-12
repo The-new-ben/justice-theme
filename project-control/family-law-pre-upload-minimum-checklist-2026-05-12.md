@@ -44,6 +44,9 @@ VERIFIED:
 - The six clean support bodies total `11,222` words across `435` lines and passed the strict scan for internal markers, fake trust, fake ratings, recommendation-label terms and guaranteed-result language.
 - `project-control/family-divorce-first-upload-decision-brief-2026-05-12.csv` now defines a `10`-row owner decision brief for the first controlled upload scope.
 - The current recommendation is Wave 1A only: approve and upload `/divorce-lawyer/` first after owner/legal/source approval and controlled QA.
+- `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.csv` now defines a `20`-row metadata approval package for `/divorce-lawyer/`.
+- Live `/divorce-lawyer/` returned `200` and self-canonicalized before the metadata package was created.
+- The recommended `/divorce-lawyer/` metadata keeps the slug and canonical unchanged and blocks Review/AggregateRating/fake trust/fake rating claims.
 
 NOT VERIFIED:
 - GSC API export.
@@ -97,6 +100,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 40. Approve the Wave 1B support-body upload scope after owner/legal/source review before any support page goes public.
 41. Prepare a first-upload owner decision brief that states the safest upload scope and blocked alternatives.
 42. Approve the first public Family/Divorce upload scope before any CMS/public change.
+43. Prepare exact `/divorce-lawyer/` title/H1/meta/canonical/taxonomy package before any CMS edit.
+44. Approve exact `/divorce-lawyer/` metadata package before any title/H1/meta/public upload change.
 
 ## Current Recommendation
 

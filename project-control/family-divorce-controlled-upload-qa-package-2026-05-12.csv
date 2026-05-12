@@ -31,3 +31,4 @@ FD-QA-029,post_upload,/divorce-lawyer/,Desktop visual QA,YES,Readable heading CT
 FD-QA-030,gsc_follow_up,Family Divorce protected URL set,GSC API export before URL actions,YES,Query/page export reviewed before redirect noindex canonical deletion or sitemap-removal,BLOCKED,Traffic loss risk,Run after API credentials exist
 FD-QA-031,gsc_follow_up,/divorce-lawyer/,Post-publish monitoring,YES,Monitor impressions clicks queries and cannibalization,NOT_STARTED,Miss ranking/cannibalization changes,Run after upload
 FD-QA-032,rollback,/divorce-lawyer/,Rollback material exists,YES,Previous body title meta taxonomy can be restored,BLOCKED,Slow recovery,Save before upload
+FD-QA-033,pre_upload,/divorce-lawyer/,Approved metadata package exists,YES,Title H1 meta canonical taxonomy and related boundaries are owner-approved,BLOCKED,Do not edit CMS metadata,Approve project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.md

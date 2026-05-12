@@ -92,3 +92,12 @@ Approve or edit `content-drafts/divorce-lawyer-public-body-he.md`, then use `pro
 
 If approval is not ready:
 Continue repo-only prep by creating the exact metadata/title/H1 package for `/divorce-lawyer/`, still with no CMS/public changes.
+
+## Update - Metadata Package Created
+
+VERIFIED:
+- `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.md` now defines the exact recommended title, H1, meta description, OG fields, canonical, taxonomy and related-link boundaries for `/divorce-lawyer/`.
+- `project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.csv` records the same decision set in `20` rows.
+
+NEXT:
+- Owner approves or edits the clean body and metadata package together before any CMS/public change.

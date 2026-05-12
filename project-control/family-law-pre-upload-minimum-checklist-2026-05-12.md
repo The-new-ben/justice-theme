@@ -30,6 +30,8 @@ VERIFIED:
 - `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.csv` now reviews all `6` Wave 1B support drafts, totaling `27,277` words.
 - `content-drafts/consensual-divorce-public-body-he.md` contains a `1,875`-word public Hebrew body for `/consensual-divorce/`.
 - The clean consensual-divorce body scan found no internal planning notes and no fake-trust/rating language.
+- `content-drafts/divorce-mediation-public-body-he.md` contains a `2,059`-word public Hebrew body for `/divorce-mediation/`.
+- The clean divorce-mediation body scan found no internal planning notes, no fake-trust/rating language and all required Family/Divorce related paths.
 
 NOT VERIFIED:
 - GSC API export.
@@ -69,6 +71,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 26. Use the controlled upload QA package before and after any approved CMS update.
 27. Prepare clean public bodies for Wave 1B support pages only after internal-note cleanup and page-specific risk review.
 28. Approve the CMS-clean `/consensual-divorce/` public body after owner/legal/source review before upload.
+29. Create CMS-clean `/divorce-mediation/` public body file with internal notes, source-audit notes, Maya/profile notes and LegalTech notes removed.
+30. Approve the CMS-clean `/divorce-mediation/` public body after owner/legal/source review before upload.
 
 ## Current Recommendation
 

@@ -87,6 +87,25 @@ RECOMMENDED:
 BLOCKED:
 - No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
 
+## 2026-05-12 Divorce Mediation CMS-Clean Public Body
+
+CREATED:
+- `content-drafts/divorce-mediation-public-body-he.md`
+
+VERIFIED:
+- The clean public Hebrew body is `2,059` words across `77` lines.
+- Internal editorial notes, CMS planning sections, source-audit notes, Maya/profile notes, LegalTech notes and pre-publication status notes were removed from the public body.
+- The scan found no internal planning markers, `TODO`/`TBD`, fake ratings, fake review claims, fake trust labels or guaranteed-result language.
+- Required related paths were found for `/divorce-lawyer/`, `/consensual-divorce/`, `/child-support/`, `/child-custody/`, `/divorce-property-division/` and `/family-dispute-resolution/`.
+- `FAM-UPLOAD-042` is now `PARTIAL VERIFIED`.
+
+RECOMMENDED:
+- Owner/legal/source review should approve the clean body or request edits before any CMS import.
+- Prepare `/divorce-property-division/` as the next clean support body if the repo-only prep continues.
+
+BLOCKED:
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Divorce Lawyer Final Draft Package
 
 CREATED:

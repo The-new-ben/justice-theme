@@ -40,3 +40,5 @@ FAM-UPLOAD-038,Run controlled /divorce-lawyer/ upload QA,YES,BLOCKED,Preview/liv
 FAM-UPLOAD-039,Prepare Wave 1B support-page review package,YES,VERIFIED PLANNING,6 support drafts and 27277 words reviewed,Create clean support bodies only after pillar approval path is clear,No support page public upload approved yet
 FAM-UPLOAD-040,Create CMS-clean /consensual-divorce/ public body,YES,PARTIAL VERIFIED,CMS-clean public body file created and scanned,Owner/legal/source review and final upload approval,No CMS/public upload yet
 FAM-UPLOAD-041,Approve CMS-clean /consensual-divorce/ public body for upload,YES,BLOCKED,Owner legal and source review,Approve final copy or request edits,No public upload approved yet
+FAM-UPLOAD-042,Create CMS-clean /divorce-mediation/ public body,YES,PARTIAL VERIFIED,CMS-clean public body file created and scanned,Owner/legal/source review and final upload approval,No CMS/public upload yet
+FAM-UPLOAD-043,Approve CMS-clean /divorce-mediation/ public body for upload,YES,BLOCKED,Owner legal and source review,Approve final copy or request edits,No public upload approved yet

@@ -138,6 +138,16 @@ Choose one:
 BLOCKED:
 - Public execution is blocked until owner/legal/source approval.
 
+## Update - Metadata Package Created
+
+VERIFIED:
+- `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.md` now defines the support-page metadata posture for all six Wave 1B pages.
+- `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv` records the same support metadata set in `6` rows.
+- All six support URLs returned `200` and self-canonicalized in the metadata check.
+
+NEXT:
+- Owner should review support clean bodies and support metadata together before any support upload.
+
 NEXT:
 - Owner reviews this package and chooses approval scope.
 - If approved, prepare the exact support-page metadata/QA package or return to `/divorce-lawyer/` controlled upload.

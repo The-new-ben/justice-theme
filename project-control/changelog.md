@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Wave 1B support metadata package
+
+- CREATED: `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv`.
+- VERIFIED / REVIEW ONLY: created a `6`-row metadata package for the six Family/Divorce support pages.
+- VERIFIED LIVE: all six support URLs returned `200` and self-canonicalized.
+- VERIFIED: package covers H1/title, meta description, OG posture, breadcrumb labels, taxonomy, related-link boundaries and schema/trust exclusions.
+- RECOMMENDED: preserve current safe support metadata unless owner requests edits.
+- BLOCKED: support metadata execution and support upload remain blocked until owner/legal/source approval.
+- BLOCKED: no public content, support title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Divorce lawyer CMS upload field map
 
 - CREATED: `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.md`.

@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-WAVE-1B-SUPPORT-METADATA-PACKAGE-001: Prepare metadata for six Family/Divorce support pages
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** All six support bodies are clean, but support pages also need exact title/H1/meta/taxonomy boundaries before any future support upload.
+**Actions:**
+1. DONE: created `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.md`.
+2. DONE: created `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv`.
+3. VERIFIED LIVE: all six support URLs returned `200` and self-canonicalized.
+4. VERIFIED: `6` metadata rows cover H1/title, meta description, OG posture, breadcrumb labels, taxonomy, related-link boundaries and schema/trust exclusions.
+5. RECOMMENDED: preserve the current safe support metadata unless owner requests edits.
+6. BLOCKED: support metadata execution and support upload remain blocked until owner/legal/source approval.
+7. NEXT: owner approves support copy/metadata scope, or keep support blocked until `/divorce-lawyer/` passes controlled QA.
+8. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-DIVORCE-LAWYER-CMS-FIELD-MAP-001: Prepare `/divorce-lawyer/` CMS upload field map
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
 **Why:** The clean body and metadata package were ready for approval, but the first upload also needs a practical CMS field worksheet before any operator touches WordPress.

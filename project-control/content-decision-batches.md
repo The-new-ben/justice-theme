@@ -14,6 +14,25 @@ VERIFIED:
 - `project-control/cluster-pillar-review.csv`
 - `tools/content-audit/build-decision-review-batches.ps1`
 
+## 2026-05-12 Wave 1B Support Metadata Package
+
+CREATED:
+- `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.md`
+- `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv`
+
+VERIFIED:
+- The package creates a `6`-row metadata gate for `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/` and `/child-custody/`.
+- All six support URLs returned `200` and self-canonicalized during the live check.
+- The package maps H1/title, meta description, OG posture, breadcrumb labels, taxonomy, related-link boundaries and schema/trust exclusions.
+- The six clean support bodies total `11,222` words.
+
+RECOMMENDED:
+- Preserve the current safe support metadata unless owner requests edits.
+- Keep support upload blocked until `/divorce-lawyer/` is approved and QA-tested, unless owner chooses a support-first path.
+
+BLOCKED:
+- No public content edits, draft import, title/H1/meta changes, URL changes, redirects, deletion, noindex, canonical changes, sitemap changes, document/media changes, taxonomy/category edits, internal-link edits, related-card edits, schema changes, lawyer-card edits, CRM/review work or CMS writes until explicit approval.
+
 ## 2026-05-12 Divorce Lawyer CMS Upload Field Map
 
 CREATED:

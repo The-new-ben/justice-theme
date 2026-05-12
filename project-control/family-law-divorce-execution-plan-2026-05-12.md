@@ -102,7 +102,7 @@ Current review queue:
 - `58` Family/Divorce URL or URL-reference items.
 - `82` planned internal-link/control rows.
 - `13` owner-review decisions.
-- `59` minimum pre-upload checklist rows.
+- `61` minimum pre-upload checklist rows.
 
 ## Duplicate Page Comparison Update
 
@@ -451,6 +451,23 @@ Decision:
 
 NEXT:
 - Owner approval remains the blocker before any WordPress/CMS edit.
+
+## Wave 1B Support Metadata Package Update
+
+VERIFIED:
+- `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.md` and `.csv` now define metadata posture for all six Wave 1B support pages.
+- The package contains `6` page rows.
+- Live checks confirmed `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/` and `/child-custody/` all return `200` and self-canonicalize.
+- The package maps recommended H1/title, meta description, OG posture, breadcrumb label, taxonomy, related-link boundaries and schema/trust exclusions.
+- Current support metadata is safe enough to preserve unless owner requests edits.
+
+Decision:
+- Support pages are not approved for public upload.
+- Use this package only after support copy/upload scope is approved.
+- Keep `/divorce-lawyer/` as the preferred first public upload unless owner chooses a support-first path.
+
+NEXT:
+- Owner/legal/source review approves support copy and metadata, or support remains blocked until the pillar passes controlled QA.
 
 ## Old Pages To Keep / Protect
 

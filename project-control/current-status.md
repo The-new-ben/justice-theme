@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-12 07:17 Asia/Jerusalem
+- VERIFIED PLANNING / WAVE 1B SUPPORT METADATA PACKAGE: created exact metadata posture for all six Family/Divorce support pages.
+- CREATED: `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.md`.
+- CREATED: `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv`.
+- VERIFIED LIVE: `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/` and `/child-custody/` all returned `200` and self-canonicalized.
+- VERIFIED: the six clean support bodies total `11,222` words and now have a `6`-row metadata package covering H1/title, meta description, OG posture, breadcrumb label, taxonomy, related-link boundaries and schema/trust exclusions.
+- RECOMMENDED: preserve the current safe support metadata unless owner requests edits; do not rewrite metadata just to change it.
+- BLOCKED: `FAM-UPLOAD-061` now blocks support metadata/public upload approval until owner/legal/source approval.
+- BLOCKED: no public content, support title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, menu, breadcrumb, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## LATEST WORK STATUS - 2026-05-12 04:36 Asia/Jerusalem
 - VERIFIED PLANNING / DIVORCE LAWYER CMS UPLOAD FIELD MAP: created the practical CMS field worksheet for the first `/divorce-lawyer/` upload candidate.
 - CREATED: `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.md`.

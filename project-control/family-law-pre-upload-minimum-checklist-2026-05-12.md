@@ -49,6 +49,8 @@ VERIFIED:
 - The recommended `/divorce-lawyer/` metadata keeps the slug and canonical unchanged and blocks Review/AggregateRating/fake trust/fake rating claims.
 - `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.csv` now defines a `24`-row practical CMS upload field map for `/divorce-lawyer/`.
 - The CMS field map combines backup, body, metadata, taxonomy, related links, schema safety and post-upload QA into one operator worksheet.
+- `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv` now defines a `6`-row metadata package for all six Wave 1B support pages.
+- All six Wave 1B support URLs returned `200` and self-canonicalized during the metadata check.
 
 NOT VERIFIED:
 - GSC API export.
@@ -106,6 +108,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 44. Approve exact `/divorce-lawyer/` metadata package before any title/H1/meta/public upload change.
 45. Prepare practical `/divorce-lawyer/` CMS upload field map before any operator edits WordPress.
 46. Approve the `/divorce-lawyer/` CMS upload field map together with the clean body and metadata package before execution.
+47. Prepare exact Wave 1B support-page metadata package before any support upload.
+48. Approve Wave 1B support-page metadata together with support copy and upload scope before execution.
 
 ## Current Recommendation
 

@@ -1,0 +1,10 @@
+# Token files (contain auth credentials - never commit)
+tools/gsc/gsc-token.json
+
+# Node modules
+tools/gsc/node_modules/
+tools/gsc/package-lock.json
+
+# OS files
+.DS_Store
+Thumbs.db

@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-12 - Family dispute resolution CMS-clean public body
+
+- CREATED: `content-drafts/family-dispute-resolution-public-body-he.md`.
+- VERIFIED / REVIEW ONLY: created a `1,992`-word clean public Hebrew body for `/family-dispute-resolution/`.
+- VERIFIED: internal editorial notes, CMS planning sections, source-audit notes, Maya/profile notes, LegalTech notes and pre-publication status notes were removed from the public body.
+- VERIFIED: scans found no internal planning markers, `TODO`/`TBD`, fake ratings, fake review claims, fake trust labels or guaranteed-result language.
+- VERIFIED: required Family/Divorce related paths were found for `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- PARTIAL VERIFIED: `FAM-UPLOAD-046` now has a clean file, but `FAM-UPLOAD-047` blocks upload until owner/legal/source approval.
+- RECOMMENDED: prepare `/child-support/` as the next clean support body if repo-only prep continues.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Divorce property division CMS-clean public body
 
 - CREATED: `content-drafts/divorce-property-division-public-body-he.md`.
@@ -2799,6 +2810,6 @@
 - UPDATED: `project-control/content-decision-batches.md`.
 - UPDATED: project-control status and action files.
 - VERIFIED: `36` rows translate the existing `5,691`-word Hebrew draft and 20-section merge outline into a CMS update plan.
-- PARTIAL VERIFIED: `FAM-UPLOAD-027` is now partially verified; the package exists but the CMS-clean public body file is still missing.
-- RECOMMENDED: create the clean `/divorce-lawyer/` public body file next, removing internal editorial notes, duplicate FAQ and planning sections.
+- PARTIAL VERIFIED: `FAM-UPLOAD-027` is now partially verified; the package exists and a later cycle created the CMS-clean public body file.
+- RECOMMENDED: review the clean `/divorce-lawyer/` public body and controlled upload QA package before any CMS import.
 - SAFETY: no public content body, draft import, title/H1/meta, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, internal link, related-card, document/media file, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.

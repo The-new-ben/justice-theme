@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DISPUTE-RESOLUTION-CMS-CLEAN-BODY-001: Create clean `/family-dispute-resolution/` public body
+**Status:** COMPLETED / REVIEW ONLY / PARTIAL VERIFIED
+**Why:** The fourth Wave 1B support page needed a clean public body before any owner/legal/source review or CMS upload.
+**Actions:**
+1. DONE: created `content-drafts/family-dispute-resolution-public-body-he.md`.
+2. VERIFIED: clean public body is `1,992` words across `87` lines.
+3. VERIFIED: scans found no internal planning notes, `TODO`/`TBD`, Maya/profile notes, LegalTech notes, fake-trust language, fake-rating language or guaranteed-result claims.
+4. VERIFIED: required Family/Divorce related paths were found for `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+5. PARTIAL VERIFIED: `FAM-UPLOAD-046` is now partially verified because the clean file exists.
+6. BLOCKED: `FAM-UPLOAD-047` requires owner/legal/source approval before any upload.
+7. NEXT: create the CMS-clean `/child-support/` public body unless owner approval redirects work back to `/divorce-lawyer/` or support-page upload review.
+8. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-DIVORCE-PROPERTY-DIVISION-CMS-CLEAN-BODY-001: Create clean `/divorce-property-division/` public body
 **Status:** COMPLETED / REVIEW ONLY / PARTIAL VERIFIED
 **Why:** The third Wave 1B support page needed a clean public body before any owner/legal/source review or CMS upload.
@@ -16,7 +29,7 @@
 4. VERIFIED: required Family/Divorce related paths were found for `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/child-support/`, `/child-custody/` and `/family-dispute-resolution/`.
 5. PARTIAL VERIFIED: `FAM-UPLOAD-044` is now partially verified because the clean file exists.
 6. BLOCKED: `FAM-UPLOAD-045` requires owner/legal/source approval before any upload.
-7. NEXT: create the CMS-clean `/family-dispute-resolution/` public body unless owner approval redirects work back to `/divorce-lawyer/` or support-page upload review.
+7. NEXT: `/family-dispute-resolution/` clean body now exists; create the CMS-clean `/child-support/` public body unless owner approval redirects work back to `/divorce-lawyer/` or support-page upload review.
 8. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
 
 ### ACTION-DIVORCE-MEDIATION-CMS-CLEAN-BODY-001: Create clean `/divorce-mediation/` public body
@@ -29,7 +42,7 @@
 4. VERIFIED: required Family/Divorce related paths were found for `/divorce-lawyer/`, `/consensual-divorce/`, `/child-support/`, `/child-custody/`, `/divorce-property-division/` and `/family-dispute-resolution/`.
 5. PARTIAL VERIFIED: `FAM-UPLOAD-042` is now partially verified because the clean file exists.
 6. BLOCKED: `FAM-UPLOAD-043` requires owner/legal/source approval before any upload.
-7. NEXT: `/divorce-property-division/` clean body now exists; create the CMS-clean `/family-dispute-resolution/` public body unless owner approval redirects work back to `/divorce-lawyer/` or support-page upload review.
+7. NEXT: `/divorce-property-division/` and `/family-dispute-resolution/` clean bodies now exist; create the CMS-clean `/child-support/` public body unless owner approval redirects work back to `/divorce-lawyer/` or support-page upload review.
 8. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
 
 ### ACTION-CONSENSUAL-DIVORCE-CMS-CLEAN-BODY-001: Create clean `/consensual-divorce/` public body
@@ -41,7 +54,7 @@
 3. VERIFIED: scans found no internal planning notes, `TODO`/`TBD`, Maya/profile notes, LegalTech notes, fake-trust language, fake-rating language or guaranteed-result claims.
 4. PARTIAL VERIFIED: `FAM-UPLOAD-040` is now partially verified because the clean file exists.
 5. BLOCKED: `FAM-UPLOAD-041` requires owner/legal/source approval before any upload.
-6. NEXT: `/divorce-mediation/` and `/divorce-property-division/` clean bodies now exist; create the CMS-clean `/family-dispute-resolution/` public body unless owner approval redirects work back to `/divorce-lawyer/` or support-page upload review.
+6. NEXT: `/divorce-mediation/`, `/divorce-property-division/` and `/family-dispute-resolution/` clean bodies now exist; create the CMS-clean `/child-support/` public body unless owner approval redirects work back to `/divorce-lawyer/` or support-page upload review.
 7. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
 
 ### ACTION-FAMILY-DIVORCE-WAVE-1B-SUPPORT-REVIEW-001: Review support-page drafts as a batch
@@ -52,8 +65,8 @@
 2. DONE: created `project-control/family-divorce-wave-1b-support-review-package-2026-05-12.csv`.
 3. VERIFIED: `6` support drafts exist and total `27,277` words.
 4. VERIFIED: all six drafts target clean English URLs and support `/divorce-lawyer/`.
-5. NOT VERIFIED / NOT CMS-CLEAN: all six still contain internal production notes and planning sections.
-6. NEXT: `/consensual-divorce/`, `/divorce-mediation/` and `/divorce-property-division/` clean bodies now exist; create a CMS-clean `/family-dispute-resolution/` public body file unless owner approval redirects work back to `/divorce-lawyer/` upload.
+5. PARTIAL VERIFIED / NOT FULLY CMS-CLEAN: four support pages now have clean bodies; `/child-support/` and `/child-custody/` still contain internal production notes and planning sections.
+6. NEXT: `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/` and `/family-dispute-resolution/` clean bodies now exist; create a CMS-clean `/child-support/` public body file unless owner approval redirects work back to `/divorce-lawyer/` upload.
 7. BLOCKED: no public content, draft import, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, document/media, schema, lawyer-card, Maya profile, review/rating, CRM, wp-admin setting or CMS/database action was executed.
 
 ### ACTION-DIVORCE-LAWYER-CONTROLLED-UPLOAD-QA-001: Prepare controlled upload QA package

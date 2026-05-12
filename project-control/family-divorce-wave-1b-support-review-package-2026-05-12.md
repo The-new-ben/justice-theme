@@ -41,7 +41,9 @@ CMS-CLEAN STATUS:
 - The clean `/divorce-mediation/` body is `2,059` words and passed internal-note, fake-trust and required-link scans.
 - `/divorce-property-division/` now has a clean public body file: `content-drafts/divorce-property-division-public-body-he.md`.
 - The clean `/divorce-property-division/` body is `1,874` words and passed internal-note, fake-trust and required-link scans.
-- The remaining three support drafts still contain internal production notes such as editor notes, CMS structure notes, source-audit notes, planned-link notes, Maya/profile notes, LegalTech notes or pre-publication status notes.
+- `/family-dispute-resolution/` now has a clean public body file: `content-drafts/family-dispute-resolution-public-body-he.md`.
+- The clean `/family-dispute-resolution/` body is `1,992` words and passed internal-note, fake-trust and required-link scans.
+- The remaining two support drafts still contain internal production notes such as editor notes, CMS structure notes, source-audit notes, planned-link notes, Maya/profile notes, LegalTech notes or pre-publication status notes.
 - These sections are useful for planning but must not be uploaded into public article bodies.
 - The fake-trust scan found planning/caution examples in some original drafts, not approved public trust claims. Clean bodies should remove or rewrite these before upload.
 
@@ -59,7 +61,7 @@ CMS-CLEAN STATUS:
    - Why third: high-value commercial support intent.
    - Main risk: no entitlement guarantees; legal/source review for property, pension, business and debt claims.
 
-4. `/family-dispute-resolution/`
+4. `/family-dispute-resolution/` - clean body created
    - Why fourth: important procedural support.
    - Main risk: procedure/freshness and urgent-case exceptions.
 
@@ -75,7 +77,7 @@ CMS-CLEAN STATUS:
 
 RECOMMENDED:
 - Do not upload Wave 1B until `/divorce-lawyer/` owner/legal/source review is resolved.
-- Review the clean `/consensual-divorce/`, `/divorce-mediation/` and `/divorce-property-division/` bodies, then prepare `/family-dispute-resolution/`.
+- Review the clean `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/` and `/family-dispute-resolution/` bodies, then prepare `/child-support/`.
 - Keep the first support clean-body pass focused on removing internal notes, duplicate planning sections, Maya/profile claims, LegalTech promises, source-audit notes and fake-trust examples.
 
 BLOCKED:
@@ -86,4 +88,4 @@ BLOCKED:
 
 ## Decision
 
-The six Wave 1B drafts are useful and substantial. `/consensual-divorce/`, `/divorce-mediation/` and `/divorce-property-division/` now have clean public bodies, while the remaining support drafts are still planning drafts, not public bodies. The next unblocked repo-only task is a CMS-clean public body for `/family-dispute-resolution/`.
+The six Wave 1B drafts are useful and substantial. `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/` and `/family-dispute-resolution/` now have clean public bodies, while `/child-support/` and `/child-custody/` are still planning drafts, not public bodies. The next unblocked repo-only task is a CMS-clean public body for `/child-support/`.

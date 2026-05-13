@@ -96,152 +96,26 @@ function justice_theme_article_schema() {
 add_action( 'wp_head', 'justice_theme_article_schema', 20 );
 
 /**
- * Resolve a public lawyer-directory search URL template for SearchAction.
- */
-function justice_theme_search_action_target() {
-	$archive = get_post_type_archive_link( 'justice_lawyer' );
-	$base    = $archive ? $archive : home_url( '/lawyers/' );
-
-	return add_query_arg( 'keyword', '{search_term_string}', $base );
-}
-
-/**
- * WebSite schema on front page — includes SearchAction sitelinks search box.
+ * WebSite schema on front page.
  */
 function justice_theme_website_schema() {
 	if ( ! is_front_page() ) {
 		return;
 	}
 
-	$home   = justice_theme_public_url( home_url( '/' ) );
-	$target = justice_theme_search_action_target();
-
 	justice_theme_print_schema( array(
 		'@context'        => 'https://schema.org',
 		'@type'           => 'WebSite',
-		'@id'             => trailingslashit( $home ) . '#website',
 		'name'            => get_bloginfo( 'name' ),
-		'alternateName'   => 'Jus-Tice',
-		'url'             => $home,
-		'inLanguage'      => 'he-IL',
-		'description'     => get_bloginfo( 'description' ),
-		'publisher'       => array(
-			'@id' => trailingslashit( $home ) . '#organization',
-		),
+		'url'             => justice_theme_public_url( home_url( '/' ) ),
 		'potentialAction' => array(
 			'@type'       => 'SearchAction',
-			'target'      => array(
-				'@type'       => 'EntryPoint',
-				'urlTemplate' => esc_url_raw( $target ),
-			),
+			'target'      => justice_theme_public_url( home_url( '/?s={search_term_string}' ) ),
 			'query-input' => 'required name=search_term_string',
 		),
 	) );
 }
 add_action( 'wp_head', 'justice_theme_website_schema', 20 );
-
-/**
- * Organization schema on front page — establishes site identity for Google
- * Knowledge Graph + AI engines.
- */
-function justice_theme_organization_schema() {
-	if ( ! is_front_page() ) {
-		return;
-	}
-
-	$home  = justice_theme_public_url( home_url( '/' ) );
-	$phone = function_exists( 'justice_theme_mod' ) ? justice_theme_mod( 'justice_phone', '03-6161535' ) : '03-6161535';
-
-	$same_as = array_values( array_filter( array(
-		function_exists( 'justice_theme_mod' ) ? justice_theme_mod( 'justice_facebook_url', '' ) : '',
-		function_exists( 'justice_theme_mod' ) ? justice_theme_mod( 'justice_linkedin_url', '' ) : '',
-		function_exists( 'justice_theme_mod' ) ? justice_theme_mod( 'justice_youtube_url', '' ) : '',
-	) ) );
-
-	$logo_id  = get_theme_mod( 'custom_logo' );
-	$logo_url = $logo_id ? wp_get_attachment_image_url( $logo_id, 'full' ) : JUSTICE_THEME_URI . '/assets/images/favicon-gen.png';
-
-	$schema = array(
-		'@context'    => 'https://schema.org',
-		'@type'       => 'Organization',
-		'@id'         => trailingslashit( $home ) . '#organization',
-		'name'        => get_bloginfo( 'name' ),
-		'alternateName' => 'Jus-Tice',
-		'url'         => $home,
-		'logo'        => array(
-			'@type' => 'ImageObject',
-			'url'   => esc_url_raw( $logo_url ),
-		),
-		'inLanguage'  => 'he-IL',
-		'description' => __( 'פורטל משפטי ישראלי — חיפוש עורכי דין לפי תחום ומיקום, מאמרים ומדריכים מקצועיים.', 'justice-theme' ),
-		'areaServed'  => array(
-			'@type' => 'Country',
-			'name'  => 'Israel',
-		),
-	);
-
-	if ( $phone ) {
-		$schema['contactPoint'] = array(
-			array(
-				'@type'             => 'ContactPoint',
-				'telephone'         => $phone,
-				'contactType'       => 'customer service',
-				'areaServed'        => 'IL',
-				'availableLanguage' => array( 'Hebrew', 'English' ),
-			),
-		);
-	}
-
-	if ( ! empty( $same_as ) ) {
-		$schema['sameAs'] = $same_as;
-	}
-
-	justice_theme_print_schema( $schema );
-}
-add_action( 'wp_head', 'justice_theme_organization_schema', 21 );
-
-/**
- * ItemList schema for featured practice areas on the homepage.
- *
- * Helps Google + AI engines understand the topical structure of the portal.
- */
-function justice_theme_homepage_itemlist_schema() {
-	if ( ! is_front_page() ) {
-		return;
-	}
-
-	$terms = get_terms( array(
-		'taxonomy'   => 'practice-areas',
-		'hide_empty' => false,
-		'number'     => 12,
-		'orderby'    => 'count',
-		'order'      => 'DESC',
-	) );
-
-	if ( empty( $terms ) || is_wp_error( $terms ) ) {
-		return;
-	}
-
-	$items = array();
-	$pos   = 1;
-	foreach ( $terms as $term ) {
-		$items[] = array(
-			'@type'    => 'ListItem',
-			'position' => $pos,
-			'url'      => esc_url_raw( get_term_link( $term ) ),
-			'name'     => wp_strip_all_tags( $term->name ),
-		);
-		$pos++;
-	}
-
-	justice_theme_print_schema( array(
-		'@context'        => 'https://schema.org',
-		'@type'           => 'ItemList',
-		'name'            => __( 'תחומי משפט — Jus-Tice', 'justice-theme' ),
-		'itemListElement' => $items,
-	) );
-}
-add_action( 'wp_head', 'justice_theme_homepage_itemlist_schema', 22 );
 
 /**
  * Attorney schema for lawyer mini-site pages.

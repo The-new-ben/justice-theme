@@ -16,7 +16,6 @@ define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
 $justice_theme_files = array(
 	'inc/setup.php',
-	'inc/customizer.php',
 	'inc/deployment-marker.php',
 	'inc/enqueue.php',
 	'inc/menu-seed.php',

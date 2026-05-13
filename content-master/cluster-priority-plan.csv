@@ -1,0 +1,14 @@
+﻿cluster,current_master_rows,confidence,recommended_pilot_status,recommended_next_step,notes
+UNKNOWN,720,LOW,BACKLOG,validate_with_body_categories_gsc,Counts are preliminary because full WP categories and body extraction are missing.
+family-law,188,MEDIUM_HEURISTIC,CANDIDATE,validate_with_body_categories_gsc,Counts are preliminary because full WP categories and body extraction are missing.
+criminal-law,140,MEDIUM_HEURISTIC,CANDIDATE,validate_with_body_categories_gsc,Counts are preliminary because full WP categories and body extraction are missing.
+real-estate,77,MEDIUM_HEURISTIC,BACKLOG,validate_with_body_categories_gsc,Counts are preliminary because full WP categories and body extraction are missing.
+employment-law,70,MEDIUM_HEURISTIC,BACKLOG,validate_with_body_categories_gsc,Counts are preliminary because full WP categories and body extraction are missing.
+legal-database-rulings,69,MEDIUM_HEURISTIC,BACKLOG,validate_with_body_categories_gsc,Counts are preliminary because full WP categories and body extraction are missing.
+medical-malpractice,47,MEDIUM_HEURISTIC,CANDIDATE,validate_with_body_categories_gsc,Counts are preliminary because full WP categories and body extraction are missing.
+notary-foreign,39,MEDIUM_HEURISTIC,BACKLOG,validate_with_body_categories_gsc,Counts are preliminary because full WP categories and body extraction are missing.
+tax-law,29,MEDIUM_HEURISTIC,BACKLOG,validate_with_body_categories_gsc,Counts are preliminary because full WP categories and body extraction are missing.
+traffic-law,25,MEDIUM_HEURISTIC,BACKLOG,validate_with_body_categories_gsc,Counts are preliminary because full WP categories and body extraction are missing.
+personal-injury,21,MEDIUM_HEURISTIC,BACKLOG,validate_with_body_categories_gsc,Counts are preliminary because full WP categories and body extraction are missing.
+inheritance-wills,18,MEDIUM_HEURISTIC,BACKLOG,validate_with_body_categories_gsc,Counts are preliminary because full WP categories and body extraction are missing.
+cyber-privacy,12,MEDIUM_HEURISTIC,BACKLOG,validate_with_body_categories_gsc,Counts are preliminary because full WP categories and body extraction are missing.

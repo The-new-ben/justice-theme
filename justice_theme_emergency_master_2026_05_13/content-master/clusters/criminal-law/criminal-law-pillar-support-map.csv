@@ -1,0 +1,19 @@
+pillar_name_hebrew,pillar_name_english,proposed_slug,pillar_type,existing_url_count,top_existing_url,top_clicks_12m,notes
+עורך דין פלילי,Criminal Defense Lawyer,criminal-lawyer,MAIN_PILLAR,175,NEEDS_CREATION,0,Main pillar page — does not exist yet. Must be created as the hub for all criminal law content.
+חקירה במשטרה,Police Investigation,criminal-law/police-investigation,SUB_PILLAR,~10,https://jus-tice.co.il/apply-for-police-criminal-information-certificates/,187,Multiple articles about police procedures and suspect rights
+זכויות נחקר,Suspect Rights,criminal-law/suspect-rights,SUB_PILLAR,~5,NEEDS_IDENTIFICATION,0,Articles about rights during interrogation
+מעצר,Arrest,criminal-law/arrest,SUB_PILLAR,~8,NEEDS_IDENTIFICATION,0,Covers arrest types — administrative detention and remand
+כתב אישום,Indictment,criminal-law/indictment,SUB_PILLAR,~5,NEEDS_IDENTIFICATION,0,Indictment process and pre-indictment hearing
+רישום פלילי / מחיקת רישום,Criminal Record,criminal-law/criminal-record,SUB_PILLAR,~5,NEEDS_IDENTIFICATION,0,Expungement and record clearing
+עבירות סמים,Drug Offenses,criminal-law/drug-offenses,SUB_PILLAR,~5,NEEDS_IDENTIFICATION,0,Drug-related criminal offenses
+עבירות מין,Sex Offenses,criminal-law/sex-offenses,SUB_PILLAR,~5,NEEDS_IDENTIFICATION,0,Sex offense categories and defense
+עבירות אלימות,Violence Offenses,criminal-law/violence-offenses,SUB_PILLAR,~5,NEEDS_IDENTIFICATION,0,Assault and violence charges
+צווארון לבן,White Collar Crime,criminal-law/white-collar-crime,SUB_PILLAR,~5,NEEDS_IDENTIFICATION,0,Fraud and financial crimes
+גניבה / שוד / רכוש,Property Crimes,criminal-law/property-crimes,SUB_PILLAR,~5,https://jus-tice.co.il/shoplifting/,162,Theft and shoplifting
+הליך פלילי,Criminal Process,criminal-law/criminal-process,SUB_PILLAR,~5,NEEDS_IDENTIFICATION,0,Overview of the criminal justice process in Israel
+שימוע לפני כתב אישום,Pre-Indictment Hearing,criminal-law/pre-indictment-hearing,SUPPORT,~3,NEEDS_IDENTIFICATION,0,Support page for indictment sub-pillar
+הסדר מותנה,Conditional Arrangement,criminal-law/conditional-arrangement,SUPPORT,~2,NEEDS_IDENTIFICATION,0,Alternative to prosecution
+סגירת תיק פלילי,Case Closure,criminal-law/case-closure,SUPPORT,~2,NEEDS_IDENTIFICATION,0,Support page for criminal process sub-pillar
+עלות עורך דין פלילי,Criminal Lawyer Cost,criminal-law/criminal-lawyer-cost,SUPPORT,1,https://jus-tice.co.il/how-much-will-a-criminal-defense-lawyer-cost/,217,High-traffic support page — DO NOT CHANGE URL
+להב 433,Lahav 433,criminal-law/lahav-433,SUPPORT,1,https://jus-tice.co.il/lahav-433/,302,High-traffic — DO NOT CHANGE URL
+פסקי דין פליליים,Criminal Court Rulings,criminal-law/rulings,SUPPORT,~31,VARIOUS,0,Court ruling articles supporting the cluster

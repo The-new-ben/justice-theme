@@ -1,0 +1,8 @@
+﻿missing_item,why_needed,source_to_get,priority,status
+Full WordPress REST export with post_id/categories/tags/practice_area/status/modified/author,The accessible master has many UNKNOWN category/practice/tag fields; classification cannot rely only on URL/title/GSC.,"WordPress REST API /wp-json/wp/v2/posts, /pages, /articles, taxonomies; or WP All Export",P0,NEEDED
+Actual article body/content for every post,"Required for quality scoring, duplicate text detection, internal links, headings, FAQ/checklist/CTA review.",Extract project-control.rar content-bodies or export content via WP REST/API/WP All Export,P0,RAR_LISTED_NOT_EXTRACTED_HERE
+GSC query-page export last 3 and 12 months with exact dates,"Need accurate traffic risk, cannibalization and low CTR opportunities.","Search Console API searchanalytics.query dimensions query,page,date or browser export",P0,PARTIAL_GSC_UPLOAD_PRESENT
+Index coverage / not indexed / canonical errors,URL migration and sitemap plan require knowing what Google indexes or ignores.,GSC Page indexing export / URL inspection samples,P1,NEEDED
+Current live sitemap and robots.txt,Need sitemap/canonical/robots integration for migration.,Live site URLs / SEO plugin / server files,P1,NEEDED
+GA4 landing-page and lead event data,Business value and conversion prioritization.,GA4 reports/events,P2,NOT_VERIFIED
+Competitor URLs per cluster,Content gap map and missing article pipeline.,SERP research / competitor crawl,P1,STARTER_GAPS_CREATED

@@ -1,0 +1,67 @@
+# Master Database Fields
+
+The master CSV contains these fields:
+
+- `row_id`
+- `post_id`
+- `post_type`
+- `status`
+- `current_url`
+- `current_slug`
+- `proposed_english_slug`
+- `proposed_new_url`
+- `title`
+- `title_source`
+- `h1`
+- `seo_title`
+- `meta_description`
+- `content_body_available`
+- `content_body_file`
+- `word_count`
+- `date_published`
+- `date_modified`
+- `author`
+- `categories`
+- `tags`
+- `practice_area`
+- `city`
+- `related_lawyer`
+- `related_lawyer_profile_url`
+- `primary_cluster`
+- `secondary_cluster`
+- `classification_basis`
+- `pillar_page`
+- `supporting_page`
+- `search_intent`
+- `primary_keyword`
+- `secondary_keywords`
+- `gsc_clicks_export`
+- `gsc_impressions_export`
+- `gsc_ctr_export`
+- `gsc_position_export`
+- `top_queries`
+- `traffic_risk`
+- `content_quality_score`
+- `duplicate_title_risk`
+- `duplicate_topic_risk`
+- `cannibalization_group`
+- `recommended_action`
+- `redirect_required`
+- `redirect_target`
+- `redirect_type`
+- `canonical_action`
+- `internal_links_needed`
+- `official_sources_needed`
+- `category_action`
+- `menu_action`
+- `sitemap_action`
+- `homepage_action`
+- `owner_approval_required`
+- `import_ready`
+- `data_gaps`
+- `data_sources`
+- `notes`
+- `reviewed_by`
+- `reviewed_at`
+
+All UNKNOWN fields must be filled before import/update decisions.

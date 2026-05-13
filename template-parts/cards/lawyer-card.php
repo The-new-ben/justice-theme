@@ -138,58 +138,24 @@ $whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' 
 
 		<div class="lawyer-card__proof">
 			<?php if ( $experience ) : ?>
-				<span class="lawyer-card__proof-item">
-					<span aria-hidden="true">⌛</span>
-					<?php echo esc_html( $experience ); ?> <?php esc_html_e( 'שנות ניסיון', 'justice-theme' ); ?>
-				</span>
+				<span><?php echo esc_html( $experience ); ?> שנות ניסיון</span>
 			<?php endif; ?>
 			<?php if ( $languages ) : ?>
-				<span class="lawyer-card__proof-item">
-					<span aria-hidden="true">🌐</span>
-					<?php echo esc_html( $languages ); ?>
-				</span>
+				<span><?php echo esc_html( $languages ); ?></span>
 			<?php endif; ?>
 			<?php if ( $show_rating ) : ?>
-				<span class="lawyer-card__proof-item lawyer-card__proof-item--rating">
-					<span aria-hidden="true">★</span>
-					<?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?> / 5
-					<?php if ( $review_count > 0 ) : ?>
-						<small>(<?php echo esc_html( number_format_i18n( $review_count ) ); ?>)</small>
-					<?php endif; ?>
-				</span>
-			<?php elseif ( 'verified' === $verified && ! $is_seed_data ) : ?>
-				<span class="lawyer-card__proof-item lawyer-card__proof-item--badge">
-					<span aria-hidden="true">✓</span>
-					<?php esc_html_e( 'פרופיל מאומת', 'justice-theme' ); ?>
-				</span>
-			<?php elseif ( ! $is_seed_data ) : ?>
-				<span class="lawyer-card__proof-item lawyer-card__proof-item--badge">
-					<span aria-hidden="true">✦</span>
-					<?php esc_html_e( 'חדש בפלטפורמה', 'justice-theme' ); ?>
-				</span>
+				<span><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?> / 5</span>
 			<?php endif; ?>
 		</div>
 
-		<?php
-		$display_phone = function_exists( 'justice_theme_lawyer_public_phone_value' )
-			? justice_theme_lawyer_public_phone_value( (string) $phone )
-			: ( $is_seed_data ? '' : $phone );
-		?>
-		<?php if ( $display_phone && $phone_link ) : ?>
-			<a class="lawyer-card__phone" href="<?php echo esc_url( $phone_link ); ?>" aria-label="<?php echo esc_attr( sprintf( __( 'התקשרו לעורך הדין %s', 'justice-theme' ), get_the_title() ) ); ?>">
-				<span aria-hidden="true">📞</span>
-				<span class="lawyer-card__phone-number"><?php echo esc_html( $display_phone ); ?></span>
-			</a>
-		<?php endif; ?>
-
 		<div class="lawyer-card__actions">
-			<a class="button button--primary" href="<?php echo esc_url( $lawyer_url ); ?>"><?php esc_html_e( 'צפייה בפרופיל', 'justice-theme' ); ?></a>
+			<a class="button button--primary" href="<?php echo esc_url( $lawyer_url ); ?>">צפייה בפרופיל</a>
 			<?php if ( $whatsapp_link ) : ?>
-				<a class="button button--ghost" href="<?php echo esc_url( $whatsapp_link ); ?>" target="_blank" rel="noopener" aria-label="<?php esc_attr_e( 'פנייה בוואטסאפ', 'justice-theme' ); ?>"><?php esc_html_e( 'וואטסאפ', 'justice-theme' ); ?></a>
-			<?php elseif ( $phone_link && ! $display_phone ) : ?>
-				<a class="button button--ghost" href="<?php echo esc_url( $phone_link ); ?>"><?php esc_html_e( 'שיחה', 'justice-theme' ); ?></a>
-			<?php elseif ( ! $phone_link ) : ?>
-				<a class="button button--ghost" href="<?php echo esc_url( add_query_arg( 'lawyer_id', $lawyer_id, home_url( '/contact/' ) ) ); ?>"><?php esc_html_e( 'שליחת פנייה', 'justice-theme' ); ?></a>
+				<a class="button button--ghost" href="<?php echo esc_url( $whatsapp_link ); ?>" target="_blank" rel="noopener">וואטסאפ</a>
+			<?php elseif ( $phone_link ) : ?>
+				<a class="button button--ghost" href="<?php echo esc_url( $phone_link ); ?>">שיחה</a>
+			<?php else : ?>
+				<a class="button button--ghost" href="<?php echo esc_url( add_query_arg( 'lawyer_id', $lawyer_id, home_url( '/contact/' ) ) ); ?>">שליחת פנייה</a>
 			<?php endif; ?>
 		</div>
 	</div>

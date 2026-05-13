@@ -1,62 +1,42 @@
 <?php
 /**
- * ONE-TIME article updater for post 857 (/criminal-defense-attorney/)
- * Deployed via git push -> uPress auto-pull
- * Access: https://jus-tice.co.il/?justice_update_857=GO
- * DELETE THIS FILE AFTER USE
+ * ONE-TIME updater for post 857. Uses template_redirect to intercept before output.
  */
-
-add_action('init', function() {
+add_action('template_redirect', function() {
     if (!isset($_GET['justice_update_857']) || $_GET['justice_update_857'] !== 'GO') {
         return;
     }
-
-    // Prevent running twice
-    if (get_option('justice_857_updated_v2')) {
-        wp_die('Already executed. Delete this file.', 'Done', array('response' => 200));
+    if (get_option('justice_857_updated_v3')) {
+        wp_die('Already executed on ' . get_option('justice_857_updated_v3'));
     }
 
-    // Build the article
-    $part1_file = get_template_directory() . '/criminal-article-part1.html';
-    $part2_file = get_template_directory() . '/criminal-article-part2.html';
+    $dir = get_template_directory();
+    $p1 = @file_get_contents($dir . '/criminal-article-part1.html');
+    $p2 = @file_get_contents($dir . '/criminal-article-part2.html');
 
-    if (!file_exists($part1_file) || !file_exists($part2_file)) {
-        wp_die('ERROR: Article HTML files not found. Part1: ' . ($part1_file) . ' Part2: ' . ($part2_file));
-    }
+    if (empty($p1)) { wp_die('Part1 not found at ' . $dir . '/criminal-article-part1.html'); }
+    if (empty($p2)) { wp_die('Part2 not found at ' . $dir . '/criminal-article-part2.html'); }
 
-    $part1 = file_get_contents($part1_file);
-    $part2 = file_get_contents($part2_file);
-    $full_content = $part1 . "\n" . $part2;
+    $content = $p1 . "\n" . $p2;
 
-    // Backup current content
-    $current = get_post(857);
-    if (!$current) {
-        wp_die('ERROR: Post 857 not found.');
-    }
+    $old = get_post(857);
+    if (!$old) { wp_die('Post 857 not found'); }
 
-    update_option('justice_857_backup_title', $current->post_title);
-    update_option('justice_857_backup_content', $current->post_content);
-    update_option('justice_857_backup_date', current_time('mysql'));
+    update_option('justice_857_bak_title', $old->post_title);
+    update_option('justice_857_bak_len', strlen($old->post_content));
 
-    // Update the post
-    $new_title = html_entity_decode('&#1506;&#1493;&#1512;&#1498; &#1491;&#1497;&#1503; &#1508;&#1500;&#1497;&#1500;&#1497; &#1489;&#1497;&#1513;&#1512;&#1488;&#1500; | &#1502;&#1491;&#1512;&#1497;&#1498; &#1502;&#1500;&#1488;: &#1495;&#1511;&#1497;&#1512;&#1492;, &#1502;&#1506;&#1510;&#1512;, &#1499;&#1514;&#1489; &#1488;&#1497;&#1513;&#1493;&#1501; &#1493;&#1512;&#1497;&#1513;&#1493;&#1501; &#1508;&#1500;&#1497;&#1500;&#1497;', ENT_HTML5, 'UTF-8');
+    $title = "\xd7\xa2\xd7\x95\xd7\xa8\xd7\x9a \xd7\x93\xd7\x99\xd7\x9f \xd7\xa4\xd7\x9c\xd7\x99\xd7\x9c\xd7\x99 \xd7\x91\xd7\x99\xd7\xa9\xd7\xa8\xd7\x90\xd7\x9c | \xd7\x9e\xd7\x93\xd7\xa8\xd7\x99\xd7\x9a \xd7\x9e\xd7\x9c\xd7\x90: \xd7\x97\xd7\xa7\xd7\x99\xd7\xa8\xd7\x94, \xd7\x9e\xd7\xa2\xd7\xa6\xd7\xa8, \xd7\x9b\xd7\xaa\xd7\x91 \xd7\x90\xd7\x99\xd7\xa9\xd7\x95\xd7\x9d \xd7\x95\xd7\xa8\xd7\x99\xd7\xa9\xd7\x95\xd7\x9d \xd7\xa4\xd7\x9c\xd7\x99\xd7\x9c\xd7\x99";
 
-    $result = wp_update_post(array(
-        'ID'           => 857,
-        'post_title'   => $new_title,
-        'post_content' => $full_content,
-        'post_status'  => 'publish',
+    $r = wp_update_post(array(
+        'ID' => 857,
+        'post_title' => $title,
+        'post_content' => $content,
+        'post_status' => 'publish',
     ), true);
 
-    if (is_wp_error($result)) {
-        wp_die('UPDATE ERROR: ' . $result->get_error_message());
-    }
+    if (is_wp_error($r)) { wp_die('Error: ' . $r->get_error_message()); }
 
-    // Mark as done
-    update_option('justice_857_updated_v2', current_time('mysql'));
+    update_option('justice_857_updated_v3', current_time('mysql'));
 
-    // Output
-    header('Content-Type: text/html; charset=utf-8');
-    echo 'POST 857 Updated Successfully. Content length: ' . mb_strlen($full_content, 'UTF-8') . ' chars. Slug: criminal-defense-attorney (UNCHANGED). Delete updater files now.';
-    exit;
+    wp_die('SUCCESS: Post 857 updated. Length: ' . mb_strlen($content) . ' chars. Slug unchanged: criminal-defense-attorney. DELETE THIS FILE NOW.', 'Updated', array('response' => 200));
 }, 1);

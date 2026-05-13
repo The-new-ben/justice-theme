@@ -1,5 +1,6 @@
 # Token files (contain auth credentials - never commit)
 tools/gsc/gsc-token.json
+tools/gsc/wp-app-password.json
 
 # Node modules
 tools/gsc/node_modules/

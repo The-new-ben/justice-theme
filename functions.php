@@ -48,8 +48,28 @@ $justice_theme_files = array(
 	'inc/practice-area-icons.php',
 );
 
-// ONE-TIME updater for Criminal Law pillar (post 857). Remove after use.
-require_once JUSTICE_THEME_DIR . '/justice-update-857.php';
+// ONE-TIME Criminal Law pillar updater (post 857). Remove after use.
+add_action('wp_ajax_nopriv_justice_update_857', 'justice_do_update_857');
+add_action('wp_ajax_justice_update_857', 'justice_do_update_857');
+function justice_do_update_857() {
+	if ( get_option('justice_857_done_v4') ) {
+		wp_send_json( array( 'done' => get_option('justice_857_done_v4') ) );
+	}
+	$dir = get_template_directory();
+	$p1 = @file_get_contents( $dir . '/criminal-article-part1.html' );
+	$p2 = @file_get_contents( $dir . '/criminal-article-part2.html' );
+	if ( empty($p1) || empty($p2) ) {
+		wp_send_json_error( array( 'msg' => 'missing html', 'dir' => $dir, 'p1' => strlen($p1), 'p2' => strlen($p2) ) );
+	}
+	$content = $p1 . $p2;
+	global $wpdb;
+	$title = "\xd7\xa2\xd7\x95\xd7\xa8\xd7\x9a \xd7\x93\xd7\x99\xd7\x9f \xd7\xa4\xd7\x9c\xd7\x99\xd7\x9c\xd7\x99 \xd7\x91\xd7\x99\xd7\xa9\xd7\xa8\xd7\x90\xd7\x9c | \xd7\x9e\xd7\x93\xd7\xa8\xd7\x99\xd7\x9a \xd7\x9e\xd7\x9c\xd7\x90: \xd7\x97\xd7\xa7\xd7\x99\xd7\xa8\xd7\x94, \xd7\x9e\xd7\xa2\xd7\xa6\xd7\xa8, \xd7\x9b\xd7\xaa\xd7\x91 \xd7\x90\xd7\x99\xd7\xa9\xd7\x95\xd7\x9d \xd7\x95\xd7\xa8\xd7\x99\xd7\xa9\xd7\x95\xd7\x9d \xd7\xa4\xd7\x9c\xd7\x99\xd7\x9c\xd7\x99";
+	$rows = $wpdb->update( $wpdb->posts, array( 'post_title' => $title, 'post_content' => $content, 'post_modified' => current_time('mysql'), 'post_modified_gmt' => current_time('mysql',true) ), array('ID'=>857), array('%s','%s','%s','%s'), array('%d') );
+	if ( $rows === false ) { wp_send_json_error( array('db_err' => $wpdb->last_error) ); }
+	clean_post_cache(857);
+	update_option( 'justice_857_done_v4', current_time('mysql') );
+	wp_send_json_success( array( 'post' => 857, 'len' => strlen($content), 'rows' => $rows ) );
+}
 
 foreach ( $justice_theme_files as $justice_theme_file ) {
 	$justice_theme_path = JUSTICE_THEME_DIR . '/' . $justice_theme_file;

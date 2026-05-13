@@ -49,9 +49,7 @@ $justice_theme_files = array(
 );
 
 // ONE-TIME updater for Criminal Law pillar (post 857). Remove after use.
-if ( isset( $_GET['justice_update_857'] ) ) {
-	require_once JUSTICE_THEME_DIR . '/justice-update-857.php';
-}
+require_once JUSTICE_THEME_DIR . '/justice-update-857.php';
 
 foreach ( $justice_theme_files as $justice_theme_file ) {
 	$justice_theme_path = JUSTICE_THEME_DIR . '/' . $justice_theme_file;

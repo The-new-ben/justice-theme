@@ -10,7 +10,6 @@ tools/gsc/package-lock.json
 Thumbs.db
 
 # Emergency project-control data — never deploy to production
-justice_theme_emergency_master_2026_05_13/
 project-control/
 reports/
 content-drafts/

@@ -46,6 +46,7 @@ $justice_theme_files = array(
 	'inc/cleanup.php',
 	'inc/live-migrations.php',
 	'inc/practice-area-icons.php',
+	'inc/sitemap.php',
 );
 
 

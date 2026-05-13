@@ -96,6 +96,103 @@ function justice_theme_article_schema() {
 add_action( 'wp_head', 'justice_theme_article_schema', 20 );
 
 /**
+ * FAQPage schema on articles that contain FAQ sections.
+ *
+ * Detects h2/h3 "שאלות נפוצות" sections and extracts Q&A pairs
+ * from the subsequent h3 + p pattern.
+ */
+function justice_theme_faq_schema() {
+	if ( ! is_singular( array( 'post', 'articles' ) ) ) {
+		return;
+	}
+
+	$content = get_the_content();
+	if ( empty( $content ) ) {
+		return;
+	}
+
+	// Check if content has a FAQ section.
+	if ( stripos( $content, 'שאלות נפוצות' ) === false ) {
+		return;
+	}
+
+	// Extract FAQ section: everything after "שאלות נפוצות" heading.
+	$faq_start = strpos( $content, 'שאלות נפוצות' );
+	if ( false === $faq_start ) {
+		return;
+	}
+
+	$faq_content = substr( $content, $faq_start );
+
+	// Extract Q&A pairs from h3 + p pattern.
+	$questions = array();
+	if ( preg_match_all( '/<h3[^>]*>([^<]+)<\/h3>\s*<p>([^<]+(?:<[^h][^>]*>[^<]*<\/[^h][^>]*>)*[^<]*)<\/p>/us', $faq_content, $matches, PREG_SET_ORDER ) ) {
+		foreach ( $matches as $match ) {
+			$question = wp_strip_all_tags( $match[1] );
+			$answer   = wp_strip_all_tags( $match[2] );
+			if ( mb_strlen( $question ) > 5 && mb_strlen( $answer ) > 10 ) {
+				$questions[] = array(
+					'@type'          => 'Question',
+					'name'           => $question,
+					'acceptedAnswer' => array(
+						'@type' => 'Answer',
+						'text'  => $answer,
+					),
+				);
+			}
+		}
+	}
+
+	if ( empty( $questions ) ) {
+		return;
+	}
+
+	justice_theme_print_schema( array(
+		'@context'   => 'https://schema.org',
+		'@type'      => 'FAQPage',
+		'mainEntity' => $questions,
+	) );
+}
+add_action( 'wp_head', 'justice_theme_faq_schema', 21 );
+
+/**
+ * LegalService schema on front page.
+ */
+function justice_theme_legal_service_schema() {
+	if ( ! is_front_page() ) {
+		return;
+	}
+
+	justice_theme_print_schema( array(
+		'@context'    => 'https://schema.org',
+		'@type'       => 'LegalService',
+		'name'        => 'ג\'סטיס - פורטל משפטי',
+		'url'         => justice_theme_public_url( home_url( '/' ) ),
+		'telephone'   => '03-6161535',
+		'email'       => 'info@jus-tice.co.il',
+		'address'     => array(
+			'@type'          => 'PostalAddress',
+			'addressCountry' => 'IL',
+		),
+		'areaServed'  => array(
+			'@type' => 'Country',
+			'name'  => 'Israel',
+		),
+		'knowsAbout'  => array(
+			'Criminal Law',
+			'Family Law',
+			'Real Estate Law',
+			'Labor Law',
+			'Tort Law',
+			'Traffic Law',
+			'Inheritance Law',
+		),
+		'description' => 'פורטל משפטי מוביל בישראל. מדריכים מקצועיים, מאגר עורכי דין וייעוץ משפטי בכל תחומי המשפט.',
+	) );
+}
+add_action( 'wp_head', 'justice_theme_legal_service_schema', 20 );
+
+/**
  * WebSite schema on front page.
  */
 function justice_theme_website_schema() {

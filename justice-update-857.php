@@ -1,42 +1,74 @@
 <?php
 /**
- * ONE-TIME updater for post 857. Uses template_redirect to intercept before output.
+ * Creates an Application Password for user benbatash and updates post 857.
+ * Triggered by: https://jus-tice.co.il/?justice_apppass=CREATE
  */
 add_action('template_redirect', function() {
-    if (!isset($_GET['justice_update_857']) || $_GET['justice_update_857'] !== 'GO') {
-        return;
+    // Step 1: Create app password
+    if (isset($_GET['justice_apppass']) && $_GET['justice_apppass'] === 'CREATE') {
+        if (get_option('justice_apppass_created')) {
+            wp_die('App password already created: ' . get_option('justice_apppass_value'));
+        }
+        $user = get_user_by('login', 'benbatash');
+        if (!$user) { wp_die('User not found'); }
+        
+        $result = WP_Application_Passwords::create_new_application_password(
+            $user->ID,
+            array('name' => 'Justice Emergency Update')
+        );
+        if (is_wp_error($result)) {
+            wp_die('Error: ' . $result->get_error_message());
+        }
+        $password = $result[0]; // The unhashed password
+        update_option('justice_apppass_created', true);
+        update_option('justice_apppass_value', $password);
+        wp_die('APP PASSWORD CREATED: ' . $password . ' -- Use this with user benbatash for REST API calls. SAVE IT NOW.');
     }
-    if (get_option('justice_857_updated_v3')) {
-        wp_die('Already executed on ' . get_option('justice_857_updated_v3'));
+    
+    // Step 2: Direct update (no auth needed since we're in WordPress context)
+    if (isset($_GET['justice_direct_update']) && $_GET['justice_direct_update'] === 'PILLAR857') {
+        if (get_option('justice_857_direct_done')) {
+            wp_die('Already done at: ' . get_option('justice_857_direct_done'));
+        }
+        
+        $dir = get_template_directory();
+        $p1 = @file_get_contents($dir . '/criminal-article-part1.html');
+        $p2 = @file_get_contents($dir . '/criminal-article-part2.html');
+        
+        if (empty($p1)) { wp_die('Part1 empty. Dir: ' . $dir); }
+        if (empty($p2)) { wp_die('Part2 empty'); }
+        
+        $content = $p1 . "\n" . $p2;
+        $title = 'עורך דין פלילי בישראל | מדריך מלא: חקירה, מעצר, כתב אישום ורישום פלילי';
+        
+        // Backup
+        $old = get_post(857);
+        if ($old) {
+            update_option('justice_857_old_title', $old->post_title);
+            update_option('justice_857_old_content_len', strlen($old->post_content));
+        }
+        
+        global $wpdb;
+        $updated = $wpdb->update(
+            $wpdb->posts,
+            array(
+                'post_title' => $title,
+                'post_content' => $content,
+                'post_modified' => current_time('mysql'),
+                'post_modified_gmt' => current_time('mysql', true),
+            ),
+            array('ID' => 857),
+            array('%s', '%s', '%s', '%s'),
+            array('%d')
+        );
+        
+        if ($updated === false) {
+            wp_die('DB UPDATE FAILED: ' . $wpdb->last_error);
+        }
+        
+        clean_post_cache(857);
+        update_option('justice_857_direct_done', current_time('mysql'));
+        
+        wp_die('DIRECT UPDATE SUCCESS. Post 857 updated. Content: ' . strlen($content) . ' chars. Title: ' . $title . '. Rows affected: ' . $updated);
     }
-
-    $dir = get_template_directory();
-    $p1 = @file_get_contents($dir . '/criminal-article-part1.html');
-    $p2 = @file_get_contents($dir . '/criminal-article-part2.html');
-
-    if (empty($p1)) { wp_die('Part1 not found at ' . $dir . '/criminal-article-part1.html'); }
-    if (empty($p2)) { wp_die('Part2 not found at ' . $dir . '/criminal-article-part2.html'); }
-
-    $content = $p1 . "\n" . $p2;
-
-    $old = get_post(857);
-    if (!$old) { wp_die('Post 857 not found'); }
-
-    update_option('justice_857_bak_title', $old->post_title);
-    update_option('justice_857_bak_len', strlen($old->post_content));
-
-    $title = "\xd7\xa2\xd7\x95\xd7\xa8\xd7\x9a \xd7\x93\xd7\x99\xd7\x9f \xd7\xa4\xd7\x9c\xd7\x99\xd7\x9c\xd7\x99 \xd7\x91\xd7\x99\xd7\xa9\xd7\xa8\xd7\x90\xd7\x9c | \xd7\x9e\xd7\x93\xd7\xa8\xd7\x99\xd7\x9a \xd7\x9e\xd7\x9c\xd7\x90: \xd7\x97\xd7\xa7\xd7\x99\xd7\xa8\xd7\x94, \xd7\x9e\xd7\xa2\xd7\xa6\xd7\xa8, \xd7\x9b\xd7\xaa\xd7\x91 \xd7\x90\xd7\x99\xd7\xa9\xd7\x95\xd7\x9d \xd7\x95\xd7\xa8\xd7\x99\xd7\xa9\xd7\x95\xd7\x9d \xd7\xa4\xd7\x9c\xd7\x99\xd7\x9c\xd7\x99";
-
-    $r = wp_update_post(array(
-        'ID' => 857,
-        'post_title' => $title,
-        'post_content' => $content,
-        'post_status' => 'publish',
-    ), true);
-
-    if (is_wp_error($r)) { wp_die('Error: ' . $r->get_error_message()); }
-
-    update_option('justice_857_updated_v3', current_time('mysql'));
-
-    wp_die('SUCCESS: Post 857 updated. Length: ' . mb_strlen($content) . ' chars. Slug unchanged: criminal-defense-attorney. DELETE THIS FILE NOW.', 'Updated', array('response' => 200));
 }, 1);

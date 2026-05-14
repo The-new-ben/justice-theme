@@ -523,61 +523,39 @@ add_filter( 'wpseo_metadesc', 'justice_theme_filter_plugin_seo_description' );
 add_filter( 'aioseo_description', 'justice_theme_filter_plugin_seo_description' );
 
 /**
- * Output meta description and OG tags.
+ * Output custom Justice meta tags that Yoast SEO does not handle.
+ *
+ * Standard SEO meta tags (description, OG, canonical) are now handled
+ * exclusively by Yoast SEO. This function only outputs:
+ *   - justice:aeo-summary  — AI Engine Optimization summary
+ *   - justice:geo-summary  — Geographic relevance summary
+ *
+ * @since 1.0.6  Stripped duplicate meta/OG/canonical output (Yoast migration).
  */
 function justice_theme_meta_head() {
-	if ( is_front_page() ) {
-		$desc = 'מחפשים עורך דין? פורטל Jus-Tice — מדריך עורכי דין מומחים בישראל לפי תחום ומיקום. מאמרים משפטיים, מדריכים מקצועיים, ופנייה חכמה לייצוג המשפטי המתאים.';
-		echo '<meta name="description" content="' . esc_attr( $desc ) . '">' . "\n";
-		echo '<meta property="og:title" content="עורכי דין בישראל | Jus-Tice — פורטל משפטי">' . "\n";
-		echo '<meta property="og:description" content="' . esc_attr( $desc ) . '">' . "\n";
-		echo '<meta property="og:type" content="website">' . "\n";
-		echo '<meta property="og:url" content="' . esc_url( justice_theme_normalize_public_url( home_url( '/' ) ) ) . '">' . "\n";
-		echo '<meta property="og:locale" content="he_IL">' . "\n";
-		echo '<meta property="og:site_name" content="Jus-Tice">' . "\n";
-		echo '<meta property="og:image" content="' . esc_url( JUSTICE_THEME_URI . '/assets/images/og-default.png' ) . '">' . "\n";
-		echo '<meta property="og:image:width" content="1200">' . "\n";
-		echo '<meta property="og:image:height" content="630">' . "\n";
-	} elseif ( is_post_type_archive( 'justice_lawyer' ) || is_page( 'lawyers' ) ) {
-		$directory_desc = 'מדריך עורכי הדין של Jus-Tice מציג פרופילים מאושרים בלבד, לפי תחום משפטי, עיר, ניסיון, שפות ודרכי פנייה. אין דירוג או המלצה ללא בסיס מאומת.';
-		echo '<meta name="description" content="' . esc_attr( $directory_desc ) . '">' . "\n";
-		echo '<meta property="og:title" content="מדריך עורכי דין בישראל | Jus-Tice">' . "\n";
-		echo '<meta property="og:description" content="' . esc_attr( $directory_desc ) . '">' . "\n";
-		echo '<meta property="og:type" content="website">' . "\n";
-		echo '<meta property="og:url" content="' . esc_url( justice_theme_lawyer_archive_canonical_url() ) . '">' . "\n";
-		echo '<meta property="og:locale" content="he_IL">' . "\n";
-	} elseif ( is_singular() ) {
-		$post_desc = get_post_meta( get_the_ID(), 'seo_description', true );
-		if ( ! $post_desc ) {
-			$post_desc = get_the_excerpt();
-		}
-		if ( $post_desc ) {
-			$post_desc = wp_trim_words( $post_desc, 25, '...' );
-			echo '<meta name="description" content="' . esc_attr( $post_desc ) . '">' . "\n";
-			echo '<meta property="og:title" content="' . esc_attr( get_the_title() ) . ' | Jus-Tice">' . "\n";
-			echo '<meta property="og:description" content="' . esc_attr( $post_desc ) . '">' . "\n";
-			echo '<meta property="og:type" content="article">' . "\n";
-			echo '<meta property="og:url" content="' . esc_url( justice_theme_normalize_public_url( (string) get_permalink() ) ) . '">' . "\n";
-			echo '<meta property="og:locale" content="he_IL">' . "\n";
-		}
+	if ( ! is_singular() ) {
+		return;
+	}
 
-		$aeo_summary = get_post_meta( get_the_ID(), 'aeo_summary', true );
-		$geo_summary = get_post_meta( get_the_ID(), 'geo_summary', true );
-		if ( $aeo_summary ) {
-			echo '<meta name="justice:aeo-summary" content="' . esc_attr( $aeo_summary ) . '">' . "\n";
-		}
-		if ( $geo_summary ) {
-			echo '<meta name="justice:geo-summary" content="' . esc_attr( $geo_summary ) . '">' . "\n";
-		}
-	} elseif ( is_tax( 'practice-areas' ) ) {
-		$term = get_queried_object();
-		if ( $term ) {
-			$tax_desc = 'מצאו עורך דין ' . $term->name . ' — רשימת עורכי דין מומחים, מאמרים מקצועיים ומדריכים בתחום ' . $term->name . ' בישראל.';
-			echo '<meta name="description" content="' . esc_attr( $tax_desc ) . '">' . "\n";
-		}
+	$post_id = get_the_ID();
+	if ( ! $post_id ) {
+		return;
+	}
+
+	$aeo_summary = get_post_meta( $post_id, 'aeo_summary', true );
+	$geo_summary = get_post_meta( $post_id, 'geo_summary', true );
+
+	if ( $aeo_summary ) {
+		echo '<meta name="justice:aeo-summary" content="' . esc_attr( $aeo_summary ) . '">' . "\n";
+	}
+	if ( $geo_summary ) {
+		echo '<meta name="justice:geo-summary" content="' . esc_attr( $geo_summary ) . '">' . "\n";
 	}
 }
 add_action( 'wp_head', 'justice_theme_meta_head', 1 );
+
+
+
 
 /**
  * Get the canonical lawyer-directory URL.

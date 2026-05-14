@@ -117,7 +117,7 @@ function justice_theme_render_sitemap_articles() {
 	$articles = get_posts( array(
 		'post_type'      => 'articles',
 		'post_status'    => 'publish',
-		'posts_per_page' => 1000,
+		'posts_per_page' => -1,
 		'orderby'        => 'modified',
 		'order'          => 'DESC',
 	) );

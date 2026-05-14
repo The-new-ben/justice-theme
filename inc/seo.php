@@ -16,24 +16,44 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Settings → Permalinks, which makes /practice-areas/criminal-law/
  * resolve to the WP "category" taxonomy instead of our custom
  * "practice-areas" taxonomy. This resets the base to "category".
- *
- * Runs once on init, checks the option, fixes if wrong, and flushes
- * rewrite rules exactly once to avoid recurring overhead.
  */
 function justice_theme_fix_category_base_collision(): void {
 	$current = get_option( 'category_base', '' );
 
 	if ( 'practice-areas' === $current ) {
 		update_option( 'category_base', 'category' );
-
-		// Flush once. The transient prevents repeated flushes.
-		if ( ! get_transient( 'justice_category_base_flushed' ) ) {
-			flush_rewrite_rules( false );
-			set_transient( 'justice_category_base_flushed', 1, HOUR_IN_SECONDS );
-		}
+		flush_rewrite_rules( false );
 	}
 }
 add_action( 'init', 'justice_theme_fix_category_base_collision', 5 );
+
+/**
+ * REST endpoint to trigger the category_base fix manually.
+ *
+ * Usage: POST /wp-json/justice/v1/fix-category-base (with admin auth)
+ */
+function justice_theme_register_fix_category_base_endpoint(): void {
+	register_rest_route( 'justice/v1', '/fix-category-base', array(
+		'methods'             => 'POST',
+		'callback'            => function () {
+			$old = get_option( 'category_base', '' );
+			update_option( 'category_base', 'category' );
+			flush_rewrite_rules( false );
+			$new = get_option( 'category_base', '' );
+
+			return new WP_REST_Response( array(
+				'old_value' => $old,
+				'new_value' => $new,
+				'flushed'   => true,
+			), 200 );
+		},
+		'permission_callback' => function () {
+			return current_user_can( 'manage_options' );
+		},
+	) );
+}
+add_action( 'rest_api_init', 'justice_theme_register_fix_category_base_endpoint' );
+
 
 
 

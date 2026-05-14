@@ -3,7 +3,11 @@
  * Dynamic XML Sitemap for Jus-Tice.
  *
  * Generates a sitemap at /justice-sitemap.xml containing all published
- * articles, pages, and practice-area landing pages.
+ * articles, pages, lawyer profiles, and practice-area landing pages.
+ *
+ * Uses direct REQUEST_URI check instead of rewrite rules for reliability
+ * on managed WordPress hosts (uPress). Hooks at priority -2000 to fire
+ * before routing guards.
  *
  * @package JusticeTheme
  */
@@ -13,35 +17,29 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Register the sitemap rewrite rule.
- */
-function justice_theme_sitemap_rewrite() {
-	add_rewrite_rule( 'justice-sitemap\.xml$', 'index.php?justice_sitemap=1', 'top' );
-}
-add_action( 'init', 'justice_theme_sitemap_rewrite' );
-
-/**
- * Register query var.
+ * Serve the sitemap XML by checking REQUEST_URI directly.
  *
- * @param array $vars Existing query vars.
- * @return array
- */
-function justice_theme_sitemap_query_var( $vars ) {
-	$vars[] = 'justice_sitemap';
-	return $vars;
-}
-add_filter( 'query_vars', 'justice_theme_sitemap_query_var' );
-
-/**
- * Serve the sitemap XML.
+ * This fires at template_redirect priority -2000, well before routing
+ * guards (-1000 and 0) that might force a 404 or homepage fallback.
  */
 function justice_theme_serve_sitemap() {
-	if ( ! get_query_var( 'justice_sitemap' ) ) {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
+		return;
+	}
+
+	$request_uri = isset( $_SERVER['REQUEST_URI'] )
+		? (string) wp_unslash( $_SERVER['REQUEST_URI'] )
+		: '';
+
+	$path = wp_parse_url( $request_uri, PHP_URL_PATH );
+
+	if ( ! $path || ! preg_match( '#/justice-sitemap\.xml$#', $path ) ) {
 		return;
 	}
 
 	header( 'Content-Type: application/xml; charset=UTF-8' );
 	header( 'X-Robots-Tag: noindex' );
+	header( 'Cache-Control: public, max-age=3600' );
 
 	echo '<?xml version="1.0" encoding="UTF-8"?>' . "\n";
 	echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">' . "\n";
@@ -93,13 +91,32 @@ function justice_theme_serve_sitemap() {
 	foreach ( $lawyers as $lawyer ) {
 		$permalink = get_permalink( $lawyer );
 		$modified  = get_the_modified_date( 'Y-m-d', $lawyer );
-		justice_theme_sitemap_url( $permalink, '0.5', 'monthly', $modified );
+		justice_theme_sitemap_url( $permalink, '0.7', 'monthly', $modified );
+	}
+
+	// Practice-area taxonomy archive pages.
+	$practice_terms = get_terms( array(
+		'taxonomy'   => 'practice-areas',
+		'hide_empty' => true,
+	) );
+
+	if ( ! is_wp_error( $practice_terms ) ) {
+		foreach ( $practice_terms as $term ) {
+			$term_link = get_term_link( $term );
+			if ( ! is_wp_error( $term_link ) ) {
+				justice_theme_sitemap_url(
+					$term_link,
+					'0.7',
+					'weekly'
+				);
+			}
+		}
 	}
 
 	echo '</urlset>' . "\n";
 	exit;
 }
-add_action( 'template_redirect', 'justice_theme_serve_sitemap' );
+add_action( 'template_redirect', 'justice_theme_serve_sitemap', -2000 );
 
 /**
  * Output a single URL entry.

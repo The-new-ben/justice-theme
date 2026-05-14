@@ -9,6 +9,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Ensure practice-areas taxonomy is always attached to justice_lawyer CPT.
+ *
+ * On some managed hosts or plugin load orders, the taxonomy may be registered
+ * without justice_lawyer in its object types. This safety function runs late
+ * on init to guarantee the association exists.
+ */
+function justice_theme_ensure_practice_areas_on_lawyer_cpt(): void {
+	if ( ! taxonomy_exists( 'practice-areas' ) || ! post_type_exists( 'justice_lawyer' ) ) {
+		return;
+	}
+
+	$tax = get_taxonomy( 'practice-areas' );
+	if ( $tax && ! in_array( 'justice_lawyer', (array) $tax->object_type, true ) ) {
+		register_taxonomy_for_object_type( 'practice-areas', 'justice_lawyer' );
+	}
+}
+add_action( 'init', 'justice_theme_ensure_practice_areas_on_lawyer_cpt', 99 );
+
+
 function justice_theme_seed_core_practice_terms(): void {
 	if ( ! justice_theme_admin_cms_write_enabled( 'justice_theme_enable_core_practice_terms_seed' ) || get_option( 'justice_core_practice_terms_seeded_v1' ) ) {
 		return;

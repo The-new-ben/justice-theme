@@ -720,14 +720,21 @@ function justice_theme_robots_sitemap_directive( string $output, bool $public ):
 		return $output;
 	}
 
-	$sitemap_url = justice_theme_normalize_public_url( home_url( '/sitemap_index.xml' ) );
+	$justice_sitemap_url = justice_theme_normalize_public_url( home_url( '/justice-sitemap.xml' ) );
 
-	if ( false !== stripos( $output, $sitemap_url ) ) {
+	// Remove any old sitemap_index.xml reference that doesn't work.
+	$old_sitemap = justice_theme_normalize_public_url( home_url( '/sitemap_index.xml' ) );
+	if ( false !== stripos( $output, $old_sitemap ) ) {
+		$output = preg_replace( '/Sitemap:\s*' . preg_quote( $old_sitemap, '/' ) . '\s*/i', '', $output );
+	}
+
+	// Add our working sitemap if not already there.
+	if ( false !== stripos( $output, $justice_sitemap_url ) ) {
 		return $output;
 	}
 
 	$output = rtrim( $output );
-	$output .= ( '' === $output ? '' : "\n" ) . 'Sitemap: ' . $sitemap_url . "\n";
+	$output .= ( '' === $output ? '' : "\n" ) . 'Sitemap: ' . $justice_sitemap_url . "\n";
 
 	return $output;
 }

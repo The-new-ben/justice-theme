@@ -10,6 +10,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Strip X-Robots-Tag: noindex from Rank Math sitemap HTTP headers.
+ *
+ * Google Search Console rejects sitemaps with a noindex header.
+ * Rank Math adds this header by default on some configurations.
+ * This filter removes it so GSC can process the sitemap correctly.
+ *
+ * @see https://rankmath.com/kb/fix-sitemap-issues/
+ */
+add_filter( 'rank_math/sitemap/http_headers', function ( $headers ) {
+	unset( $headers['X-Robots-Tag'] );
+	return $headers;
+} );
+
+/**
  * Fix category_base collision with practice-areas taxonomy.
  *
  * Someone set the WordPress category_base to "practice-areas" in

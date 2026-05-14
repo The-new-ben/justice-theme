@@ -251,6 +251,26 @@ function justice_theme_include_articles_in_search( $query ) {
 add_action( 'pre_get_posts', 'justice_theme_include_articles_in_search' );
 
 /**
+ * Include articles CPT in practice-areas taxonomy archives.
+ *
+ * WordPress default taxonomy archives only query 'post' type. Our legal
+ * content lives in the 'articles' CPT, so we must add it here or the
+ * taxonomy-practice-areas.php template shows "no results".
+ *
+ * @param WP_Query $query Query object.
+ */
+function justice_theme_include_articles_in_practice_area_archive( $query ) {
+	if ( is_admin() || ! $query->is_main_query() ) {
+		return;
+	}
+
+	if ( $query->is_tax( 'practice-areas' ) ) {
+		$query->set( 'post_type', array( 'post', 'articles' ) );
+	}
+}
+add_action( 'pre_get_posts', 'justice_theme_include_articles_in_practice_area_archive' );
+
+/**
  * Build the public-facing SEO title for the current request.
  *
  * Shared by WordPress core title parts and common SEO plugin filters so archive

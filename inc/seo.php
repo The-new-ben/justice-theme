@@ -720,12 +720,18 @@ function justice_theme_robots_sitemap_directive( string $output, bool $public ):
 		return $output;
 	}
 
-	$justice_sitemap_url = justice_theme_normalize_public_url( home_url( '/justice-sitemap.xml' ) );
+	// Use REST API sitemap URL because uPress nginx 301-redirects .xml files.
+	$justice_sitemap_url = justice_theme_normalize_public_url( home_url( '/wp-json/justice/v1/sitemap' ) );
 
-	// Remove any old sitemap_index.xml reference that doesn't work.
-	$old_sitemap = justice_theme_normalize_public_url( home_url( '/sitemap_index.xml' ) );
-	if ( false !== stripos( $output, $old_sitemap ) ) {
-		$output = preg_replace( '/Sitemap:\s*' . preg_quote( $old_sitemap, '/' ) . '\s*/i', '', $output );
+	// Remove any old sitemap_index.xml or justice-sitemap.xml references.
+	$old_patterns = array(
+		justice_theme_normalize_public_url( home_url( '/sitemap_index.xml' ) ),
+		justice_theme_normalize_public_url( home_url( '/justice-sitemap.xml' ) ),
+	);
+	foreach ( $old_patterns as $old_sitemap ) {
+		if ( false !== stripos( $output, $old_sitemap ) ) {
+			$output = preg_replace( '/Sitemap:\s*' . preg_quote( $old_sitemap, '/' ) . '\s*/i', '', $output );
+		}
 	}
 
 	// Add our working sitemap if not already there.

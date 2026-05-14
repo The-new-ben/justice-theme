@@ -761,23 +761,12 @@ add_filter( 'rank_math/frontend/canonical', 'justice_theme_filter_directory_cano
 add_filter( 'aioseo_canonical_url', 'justice_theme_filter_directory_canonical' );
 
 /**
- * Normalize first-party URLs emitted by SEO plugin Open Graph filters.
+ * Ensure robots.txt references the Rank Math sitemap.
  *
- * @param string $url Existing URL.
- * @return string
- */
-function justice_theme_filter_public_url_scheme( $url ): string {
-	return justice_theme_normalize_public_url( (string) $url );
-}
-add_filter( 'wpseo_opengraph_url', 'justice_theme_filter_public_url_scheme' );
-add_filter( 'rank_math/opengraph/facebook/url', 'justice_theme_filter_public_url_scheme' );
-add_filter( 'rank_math/opengraph/twitter/url', 'justice_theme_filter_public_url_scheme' );
-
-/**
- * Advertise the verified active sitemap index in robots.txt.
- *
- * This does not change sitemap generation, redirects or URL inventory. It only
- * adds the known working sitemap index when no equivalent directive exists.
+ * Google Search Console does NOT accept /wp-json/ endpoints as sitemaps.
+ * Rank Math generates a proper sitemap_index.xml that GSC accepts.
+ * This filter ensures robots.txt points to the Rank Math sitemap and
+ * removes any stale references to our custom REST API sitemap.
  *
  * @param string $output Robots.txt output.
  * @param bool   $public Whether search engines are allowed.
@@ -788,27 +777,28 @@ function justice_theme_robots_sitemap_directive( string $output, bool $public ):
 		return $output;
 	}
 
-	// Use REST API sitemap URL because uPress nginx 301-redirects .xml files.
-	$justice_sitemap_url = justice_theme_normalize_public_url( home_url( '/wp-json/justice/v1/sitemap' ) );
+	// Rank Math's sitemap is the only one GSC will accept.
+	$correct_sitemap = justice_theme_normalize_public_url( home_url( '/sitemap_index.xml' ) );
 
-	// Remove any old sitemap_index.xml or justice-sitemap.xml references.
-	$old_patterns = array(
-		justice_theme_normalize_public_url( home_url( '/sitemap_index.xml' ) ),
+	// Remove any stale custom sitemap references.
+	$stale_patterns = array(
+		justice_theme_normalize_public_url( home_url( '/wp-json/justice/v1/sitemap' ) ),
 		justice_theme_normalize_public_url( home_url( '/justice-sitemap.xml' ) ),
 	);
-	foreach ( $old_patterns as $old_sitemap ) {
+	foreach ( $stale_patterns as $old_sitemap ) {
 		if ( false !== stripos( $output, $old_sitemap ) ) {
 			$output = preg_replace( '/Sitemap:\s*' . preg_quote( $old_sitemap, '/' ) . '\s*/i', '', $output );
 		}
 	}
 
-	// Add our working sitemap if not already there.
-	if ( false !== stripos( $output, $justice_sitemap_url ) ) {
+	// Rank Math already adds sitemap_index.xml via its own filter.
+	// Only add it if somehow missing.
+	if ( false !== stripos( $output, 'sitemap_index.xml' ) ) {
 		return $output;
 	}
 
 	$output = rtrim( $output );
-	$output .= ( '' === $output ? '' : "\n" ) . 'Sitemap: ' . $justice_sitemap_url . "\n";
+	$output .= ( '' === $output ? '' : "\n" ) . 'Sitemap: ' . $correct_sitemap . "\n";
 
 	return $output;
 }

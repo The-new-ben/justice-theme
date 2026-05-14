@@ -1,0 +1,211 @@
+version: "1.0"
+name: "Jus-Tice Practice Area SEO Workflow"
+description: "Reusable workflow for reviewing, improving, and safely launching legal practice-area clusters on jus-tice.co.il."
+created: "2026-05-14"
+author: "Antigravity Agent"
+
+status_values:
+  - COMPLETE
+  - PARTIAL
+  - NOT_STARTED
+  - BLOCKED
+  - NEEDS_OWNER_REVIEW
+  - NOT_SAFE_YET
+  - READY_FOR_REVIEW
+  - READY_FOR_IMPLEMENTATION
+
+hard_stop_rules:
+  - "Do not change URLs without redirect plan and owner approval."
+  - "Do not redirect high-traffic URLs without review."
+  - "Do not delete content without owner approval."
+  - "Do not use fake ratings or fake reviews."
+  - "Do not use best/recommended lawyer language."
+  - "Do not start next cluster before exit review."
+  - "Do not mass-update all rows."
+  - "Do not create thin doorway city pages."
+
+stages:
+  - id: data_verification
+    name: "Layer 1 - Data and Risk Verification"
+    checks:
+      - "Pull WordPress posts/pages/articles for this practice area"
+      - "Pull practice-area taxonomy terms"
+      - "Pull GSC query/page data for the cluster"
+      - "Map current URLs (slug, post_id, post_type)"
+      - "Identify content bodies (length, quality)"
+      - "Mark high-traffic URLs as PROTECTED"
+      - "Mark missing data gaps"
+      - "Count cannibalization groups"
+    output_files:
+      - "{cluster}/criminal-law-master-map.csv"
+      - "{cluster}/criminal-law-upload-readiness.md"
+
+  - id: competitor_playbook
+    name: "Layer 2 - Competitor and Market Playbook"
+    checks:
+      - "Identify top 10 SERP competitors for head keyword"
+      - "Extract competitor page types and structure"
+      - "Extract content gaps (keywords we dont rank for)"
+      - "Extract sub-practice opportunities with volume/KD"
+      - "Extract city-page opportunities"
+      - "Extract authority/link gaps"
+      - "Map what competitors do better"
+    output_files:
+      - "{cluster}/criminal-law-competitor-patterns.md"
+      - "{cluster}/criminal-law-semrush-playbook-actions.csv"
+
+  - id: trust_cleanup
+    name: "Layer 3 - Trust and Spam Cleanup"
+    checks:
+      - "Check toxic/spam anchors in backlink profile"
+      - "Check foreign spam pages"
+      - "Check off-topic pages diluting authority"
+      - "Check HTTPS canonical enforcement"
+      - "Check title/meta duplication sitewide"
+      - "Check robots.txt and noindex tags"
+    output_files:
+      - "{cluster}/criminal-law-trust-cleanup.md"
+
+  - id: pillar_decision
+    name: "Layer 4 - Pillar / Category / Hub Decision"
+    checks:
+      - "Select current safe pillar URL (highest GSC signal)"
+      - "Plan future final pillar URL if different"
+      - "Review category/taxonomy page"
+      - "Rewrite category intro text if safe"
+      - "Verify pillar links to all spokes"
+      - "Verify all spokes link back to pillar"
+      - "Do NOT change URL without owner approval"
+    output_files:
+      - "{cluster}/criminal-law-pillar-decision.md"
+
+  - id: subpractice_mapping
+    name: "Layer 5 - Sub-Practice Mapping"
+    checks:
+      - "Map money keywords (volume, KD, business value)"
+      - "Map existing pages covering each sub-practice"
+      - "Map missing pages to create"
+      - "Assign business/lead value to each"
+      - "Assign priority (quick-win vs long-term)"
+      - "Do NOT create pages without approval"
+    output_files:
+      - "{cluster}/criminal-law-subpractice-map.csv"
+
+  - id: guide_mapping
+    name: "Layer 6 - Guide / FAQ / Procedure Mapping"
+    checks:
+      - "Map procedure/explainer keywords"
+      - "Map FAQ content opportunities"
+      - "Map official/source links needed"
+      - "Map CTAs for each guide"
+      - "Map internal links required"
+      - "Check if existing content covers the topic"
+    output_files:
+      - "{cluster}/criminal-law-guide-content-map.csv"
+
+  - id: cannibalization
+    name: "Layer 7 - Anti-Cannibalization"
+    checks:
+      - "Build query-to-page map from GSC data"
+      - "Find competing URLs per query"
+      - "Select canonical candidate for each query"
+      - "Protect high-traffic URLs"
+      - "Mark merge candidates (do not execute)"
+      - "Do NOT redirect without owner approval"
+    output_files:
+      - "{cluster}/criminal-law-cannibalization-map.csv"
+
+  - id: internal_links
+    name: "Layer 8 - Internal Linking"
+    checks:
+      - "Homepage links to pillar with descriptive anchor"
+      - "Category page links to pillar and top spokes"
+      - "Pillar links to all sub-practice and guide pages"
+      - "Every spoke links back to pillar"
+      - "Related spokes cross-link (2-3 sideways links)"
+      - "Natural Hebrew anchors (not over-optimized)"
+    output_files:
+      - "{cluster}/criminal-law-internal-link-map.csv"
+
+  - id: journeys
+    name: "Layer 9 - User / Googlebot / AI Bot Journeys"
+    checks:
+      - "User path from homepage to pillar in 2 clicks"
+      - "User path from pillar to any spoke in 1 click"
+      - "Mobile usability and CTA visibility"
+      - "Googlebot crawl path (HTML links, no JS blocking)"
+      - "Breadcrumb path matches BreadcrumbList schema"
+      - "AI answer-engine readability (definitions, steps, FAQ)"
+      - "Sitemap includes all cluster pages"
+    output_files:
+      - "{cluster}/criminal-law-user-journey.md"
+      - "{cluster}/criminal-law-googlebot-journey.md"
+      - "{cluster}/criminal-law-ai-bot-journey.md"
+
+  - id: technical_seo
+    name: "Layer 10 - Technical and On-Page SEO"
+    checks:
+      - "Title tags unique and descriptive"
+      - "Meta descriptions set and compelling"
+      - "One H1 per page"
+      - "Logical H2/H3 hierarchy"
+      - "Self-referencing canonical tags"
+      - "Sitemap is valid XML (not HTML)"
+      - "Article schema present"
+      - "FAQPage schema on FAQ sections"
+      - "BreadcrumbList schema matches visible breadcrumbs"
+      - "Mobile layout correct"
+      - "Core Web Vitals acceptable"
+      - "RTL and accessibility"
+    output_files:
+      - "{cluster}/criminal-law-technical-seo-review.md"
+
+  - id: eeat
+    name: "Layer 11 - E-E-A-T / Legal Compliance"
+    checks:
+      - "Author/reviewer attribution on every page"
+      - "Legal disclaimer on every page"
+      - "Last updated date on every page"
+      - "Official source links (gov.il, nevo, kolzchut)"
+      - "No fake reviews or ratings"
+      - "No misleading claims (best, recommended)"
+      - "Transparent paid placement disclosure"
+    output_files:
+      - "{cluster}/criminal-law-eeat-source-map.csv"
+
+  - id: business_alignment
+    name: "Layer 12 - Business / Monetization Alignment"
+    checks:
+      - "Lawyer profile path connected to practice area"
+      - "Lead form/CTA accessible from cluster pages"
+      - "Paid placement disclosure language"
+      - "Future tools/products space reserved"
+      - "Homepage space balanced across practice areas"
+      - "Menu/footer space balanced"
+    output_files:
+      - "{cluster}/criminal-law-business-integration.md"
+
+  - id: authority_plan
+    name: "Layer 13 - Authority / Links / PR"
+    checks:
+      - "Toxic backlink review documented"
+      - "Clean legal directory listing targets identified"
+      - "Expert column/interview targets identified"
+      - "Google Business Profile status"
+      - "City page opportunities mapped"
+    output_files:
+      - "{cluster}/criminal-law-authority-plan.md"
+
+  - id: exit_review
+    name: "Layer 14 - Exit Review Before Next Field"
+    checks:
+      - "All layers above reviewed and documented"
+      - "What is complete"
+      - "What is incomplete"
+      - "What is unsafe"
+      - "What must wait for owner approval"
+      - "Protected high-traffic URLs documented"
+      - "Reusable workflow exists for next field"
+    output_files:
+      - "{cluster}/criminal-law-exit-review.md"
+      - "{cluster}/criminal-law-next-actions.csv"

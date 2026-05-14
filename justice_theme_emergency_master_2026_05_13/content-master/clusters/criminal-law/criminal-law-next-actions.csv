@@ -1,0 +1,16 @@
+action_id,priority,layer,action,description,url_affected,post_id,safe_to_execute,owner_approval_needed,status
+1,CRITICAL,sitemap,sync uPress and flush permalinks,activate sitemap rewrite rule on server,,,"yes, owner must do","yes",NOT_STARTED
+2,CRITICAL,sitemap,submit sitemap to GSC,submit https://jus-tice.co.il/justice-sitemap.xml,,,"yes, owner must do","yes",NOT_STARTED
+3,HIGH,lawyer,deploy Sharon Nahari profile,create justice_lawyer post with full minisite data,/lawyers/advocate-sharon-nahari/,,"yes, via XML-RPC","no",READY_FOR_IMPLEMENTATION
+4,HIGH,category,add category intro text,add Hebrew intro paragraph to criminal-law category,/category/criminal-law/,730,"yes, safe","no",READY_FOR_IMPLEMENTATION
+5,HIGH,homepage,verify criminal law link on homepage,check practice areas section links to criminal pillar,/,,browser check needed,"no",NEEDS_VERIFICATION
+6,HIGH,content,create sex-offences sub-practice page,720/mo KD 12 quick win,/sex-offences/,,"yes, new content","yes",NOT_STARTED
+7,HIGH,content,create family-violence sub-practice page,720/mo KD 9 quick win,/family-violence-criminal/,,"yes, new content","yes",NOT_STARTED
+8,HIGH,content,create military criminal law page,170/mo KD 0 instant win,/military-criminal-lawyer/,,"yes, new content","yes",NOT_STARTED
+9,HIGH,content,create tel-aviv city page,880/mo KD 12 quick win,/criminal-lawyer-tel-aviv/,,"yes, but needs real lawyer data","yes",NOT_STARTED
+10,HIGH,content,create כתב אישום guide,1900/mo KD 20 highest volume gap,/what-is-an-indictment/,,"yes, new content","yes",NOT_STARTED
+11,MEDIUM,content,create שימוע לפני כתב אישום guide,90/mo KD 0 instant win,/pre-indictment-hearing/,,"yes, new content","no",NOT_STARTED
+12,MEDIUM,content,expand pillar to 2500 words,currently around 1800 Hebrew words,/criminal-defense-attorney/,857,"careful, safe if additive","no",READY_FOR_REVIEW
+13,MEDIUM,trust,prepare toxic backlink export,need Semrush export of all backlinks,,,owner must run Semrush,"yes",BLOCKED
+14,MEDIUM,trust,verify foreign spam pages,check /magia-detali... and similar,,,"safe to check","no",NEEDS_VERIFICATION
+15,MEDIUM,technical,verify HTTPS enforcement,check all internal links use HTTPS,,,browser/curl check,"no",NEEDS_VERIFICATION

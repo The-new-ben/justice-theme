@@ -1,13 +1,21 @@
-"cluster","current_url_count","matched_content_bodies","gsc_clicks_3m","gsc_impressions_3m","cannibalization_count","traffic_risk_count","missing_taxonomy_count","business_value","implementation_complexity","recommended_order","decision","decision_reason"
-"family-law","188","NEEDS_MATCH",,,"188","39","188","HIGH","HIGH","11","LATER","Too broad (188 URLs), cannibalization risk high, many subtopics - requires owner involvement before launch"
-"criminal-law","140","NEEDS_MATCH","3216","796250","140","42","140","HIGH","MEDIUM","1","START_HERE","Commercially valuable, clear intent groups, 140 URLs, SERP reviewed, narrower than family-law, urgent CTA opportunity"
-"real-estate","77","NEEDS_MATCH","1025","570198","77","28","77","HIGH","HIGH","10","LATER","Standard priority order by complexity and business value"
-"employment-law","70","NEEDS_MATCH","573","137717","70","10","70","HIGH","HIGH","9","LATER","Standard priority order by complexity and business value"
-"legal-database-rulings","69","NEEDS_MATCH","1103","133336","69","5","69","LOW","LOW","12","LATER","Low commercial value, rulings format needs special handling"
-"medical-malpractice","47","NEEDS_MATCH","466","201338","47","9","47","HIGH","MEDIUM","6","LATER","Standard priority order by complexity and business value"
-"notary-foreign","39","NEEDS_MATCH","848","163847","39","15","39","MEDIUM","LOW","3","FALLBACK_2","Small cluster (39 URLs), low competition, clear operational intent"
-"tax-law","29","NEEDS_MATCH","321","120212","29","6","29","MEDIUM","MEDIUM","7","LATER","Standard priority order by complexity and business value"
-"traffic-law","25","NEEDS_MATCH","379","79458","25","6","25","MEDIUM","LOW","2","FALLBACK_1","Smaller (25 URLs), lower risk, good fallback if criminal too complex"
-"personal-injury","21","NEEDS_MATCH","268","66675","21","5","21","HIGH","MEDIUM","5","LATER","Standard priority order by complexity and business value"
-"inheritance-wills","18","NEEDS_MATCH","335","81447","18","4","18","MEDIUM","MEDIUM","4","LATER","Standard priority order by complexity and business value"
-"cyber-privacy","12","NEEDS_MATCH","100","40495","12","3","12","MEDIUM","LOW","8","LATER","Standard priority order by complexity and business value"
+cluster,business_value,seo_value,lead_value,complexity,current_url_count,gsc_impressions_12m,gsc_clicks_12m,cannibalization_risk,category_page_status,pillar_status,homepage_space_needed,menu_space_needed,recommended_order,notes
+Criminal Law,HIGH,HIGH,HIGH,MEDIUM,18+legacy,14455+,100+,HIGH (13 pages),CREATED (ID 730),LIVE (ID 857),YES,YES,1 - CURRENT,Phase 1 complete; exit review in progress
+Family Law,HIGH,HIGH,HIGH,HIGH,legacy exists,,,,NOT_CREATED,NOT_STARTED,YES,YES,2,8508 imp for משמורת ילדים; high demand
+Real Estate Law,HIGH,HIGH,HIGH,MEDIUM,legacy exists,11218,,HIGH (2 pages),NOT_CREATED,NOT_STARTED,YES,YES,3,11K impressions cannibalized
+Divorce,HIGH,HIGH,HIGH,HIGH,legacy exists,,,,NOT_CREATED,NOT_STARTED,YES - under family,YES - under family,2b,may merge with family law or separate pillar
+Medical Malpractice,HIGH,HIGH,HIGH,MEDIUM,some exists,,,,NOT_CREATED,NOT_STARTED,YES,YES,4,high CPC value
+Traffic Law,MEDIUM,MEDIUM,HIGH,LOW,some exists,,,,NOT_CREATED,NOT_STARTED,YES,YES,5,overlaps with criminal driving-under-influence
+Personal Injury / Tort,MEDIUM,HIGH,HIGH,MEDIUM,some exists,,,,NOT_CREATED,NOT_STARTED,YES,YES,6,
+Employment / Labor Law,MEDIUM,MEDIUM,MEDIUM,MEDIUM,legacy CPT exists,,,,NOT_CREATED,NOT_STARTED,YES,YES,7,has dedicated labor_law CPT
+Inheritance / Wills,MEDIUM,MEDIUM,MEDIUM,LOW,,,,,NOT_CREATED,NOT_STARTED,YES,YES,8,
+Tax Law,HIGH,MEDIUM,HIGH,MEDIUM,,,,,NOT_CREATED,NOT_STARTED,YES,YES,9,overlaps with criminal tax-crimes
+Notary / Foreign Documents,LOW,LOW,LOW,LOW,,,,,NOT_CREATED,NOT_STARTED,YES,YES,15,niche
+National Insurance,MEDIUM,MEDIUM,MEDIUM,MEDIUM,,,,,NOT_CREATED,NOT_STARTED,YES,YES,10,
+Debt Collection / Execution,MEDIUM,MEDIUM,HIGH,LOW,,,,,NOT_CREATED,NOT_STARTED,YES,YES,11,
+Insolvency,MEDIUM,MEDIUM,MEDIUM,MEDIUM,,,,,NOT_CREATED,NOT_STARTED,YES,YES,12,
+Administrative Law,LOW,LOW,MEDIUM,HIGH,,,,,NOT_CREATED,NOT_STARTED,YES,YES,16,
+Consumer Law,LOW,MEDIUM,LOW,LOW,,,,,NOT_CREATED,NOT_STARTED,YES,YES,14,
+Defamation / Privacy / Cyber,MEDIUM,MEDIUM,MEDIUM,MEDIUM,,,,,NOT_CREATED,NOT_STARTED,YES,YES,13,
+Business / Commercial Law,HIGH,MEDIUM,HIGH,MEDIUM,,,,,NOT_CREATED,NOT_STARTED,YES,YES,8b,
+Military Law,MEDIUM,MEDIUM,MEDIUM,LOW,,,,,NOT_CREATED,NOT_STARTED,YES,YES,5b,overlaps with criminal military
+Immigration / Citizenship,LOW,LOW,LOW,MEDIUM,,,,,NOT_CREATED,NOT_STARTED,YES,YES,17,

@@ -1,0 +1,16 @@
+guide_topic,target_keyword_hebrew,reported_volume,reported_KD,existing_url,existing_post_id,existing_quality,needs_rewrite,covers_intent,internal_links_to_pillar,cta_present,official_sources_needed,recommended_action,proposed_slug,status
+indictment,כתב אישום,1900,20,,,MISSING,,,,,gov.il court system nevo,create new guide article,/what-is-an-indictment/,NOT_STARTED
+drunk-driving,נהיגה בשכרות,1000,16,/driving-under-influence/,19277,GOOD,no,yes,yes,yes,police.gov.il nevo,expand existing content to cover search intent more fully,/driving-under-influence/,PARTIAL
+erase-record,מחיקת רישום פלילי,1000,19,/criminal-record-deletion/,19259,GOOD,no,yes,yes,yes,police.gov.il gov.il,expand with more case examples,/criminal-record-deletion/,PARTIAL
+restraining-order,צו הרחקה,880,19,,,MISSING,,,,,courts.gov.il,create new guide article,/restraining-order/,NOT_STARTED
+money-laundering-guide,הלבנת הון,720,22,,,MISSING,,,,,nevo gov.il,create as both sub-practice and guide,/money-laundering/,NOT_STARTED
+death-by-negligence,גרימת מוות ברשלנות,590,6,/criminal-negligence/,19302,PARTIAL,yes,partial,yes,yes,nevo penal-code,expand to fully cover vehicular manslaughter and workplace deaths,/criminal-negligence/,PARTIAL
+threats,עבירת איומים,480,13,,,MISSING,,,,,penal-code nevo,create new guide article,/threats-offense/,NOT_STARTED
+detention-days,מעצר ימים,390,9,/arrest-rights/,19283,PARTIAL,yes,partial,yes,yes,courts.gov.il,expand existing arrest article or create dedicated guide,/detention-days/,PARTIAL
+white-collar-guide,עבירות צווארון לבן,390,7,,,MISSING,,,,,nevo gov.il,create new guide article,/white-collar-crimes/,NOT_STARTED
+drug-trafficking-guide,סחר בסמים,390,9,/drug-trafficking/,19273,GOOD,no,yes,yes,yes,nevo police.gov.il,good as is; minor expansion possible,/drug-trafficking/,COMPLETE
+police-investigation,חקירה במשטרה,320,24,/police-investigation-rights/,19269,GOOD,no,yes,yes,yes,police.gov.il nevo,good as is; expand with more FAQs,/police-investigation-rights/,PARTIAL
+plea-bargain-guide,עסקת טיעון,260,9,/plea-bargain/,19279,GOOD,no,yes,yes,yes,nevo courts.gov.il,good as is,/plea-bargain/,COMPLETE
+pre-indictment-hearing,שימוע לפני כתב אישום,90,0,,,MISSING,,,,,nevo courts.gov.il,create new guide - KD 0 is instant win,/pre-indictment-hearing/,NOT_STARTED
+choose-criminal-lawyer,איך לבחור עורך דין פלילי,110,,,,MISSING,,,,,israelbar.org.il,create guide targeting question keyword,/how-to-choose-criminal-lawyer/,NOT_STARTED
+cost-criminal-lawyer,כמה עולה עורך דין פלילי,20,,/criminal-lawyer-cost/,19261,GOOD,no,yes,yes,yes,,good as is - high CPC value,/criminal-lawyer-cost/,COMPLETE

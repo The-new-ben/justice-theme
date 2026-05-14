@@ -1,0 +1,11 @@
+action_id,action_layer,issue,data,examples,risk,action_now,action_later,status
+1,trust_cleanup,casino/gambling spam anchors,"Top anchors include payid casino, mostbet, kasyno","payid casino, mostbet, kasyno, online casino",hurts trust/topical authority for entire domain,document and identify pages/domains if data available,export backlink data and prepare disavow/reconsideration only after owner review,NEEDS_BACKLINK_TOOL_OR_SEMRUSH_EXPORT
+2,authority_gap,follow backlink gap,Jus-Tice 189 follow backlinks vs flanter-law 1207,,flanter-law has 6x more follow links,mark authority gap,build legitimate legal/PR/directory links,PLANNED
+3,brand_anchor_gap,competitors have cleaner brand/legal anchors,top anchors should be brand name + practice area,,brand diluted by spam anchors,record gap,create lawful directory listings and expert columns and legal citations,PLANNED
+4,content_gap,missing sub-practice pages,"sex-offences 720/mo KD12, family-violence 720/mo KD9, military 170/mo KD0",,competitors have these pages and we dont,map existing coverage,create pages after mapping and approval,NOT_STARTED
+5,content_gap,missing procedure pages,"כתב אישום 1900/mo KD20, צו הרחקה 880/mo KD19",,high-volume informational keywords not covered,map existing content,create guide articles,NOT_STARTED
+6,content_gap,missing city pages,"tel-aviv 880/mo KD12, beer-sheva 260/mo KD0",,competitors have city-targeted pages,map city opportunities,create pages with real lawyer listings not thin doorway,NOT_STARTED
+7,technical,HTTPS canonical enforcement,HTTP variants may be indexed,,duplicate content risk,check redirect and canonical,force HTTPS site-wide if not done,NEEDS_VERIFICATION
+8,technical,sitemap not submitted,0 sitemaps in GSC and 0/18 articles indexed,,critical indexing delay,generated sitemap at inc/sitemap.php,sync uPress and submit to GSC,READY_FOR_IMPLEMENTATION
+9,off_topic,foreign spam pages,Polish casino spam page /magia-detali... mentioned in Playbook,,topical trust damage,verify existence and status code,remove/noindex/410 after review,NEEDS_VERIFICATION
+10,off_topic,irrelevant pages,/about-usa/ and /about-cyprus/ and kuprisin,,fragments topical authority,verify existence and GSC traffic,noindex/remove/rewrite after review,NEEDS_VERIFICATION

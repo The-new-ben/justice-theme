@@ -1,0 +1,12 @@
+subpractice,target_keyword_hebrew,reported_volume,reported_KD,business_value,lead_value,existing_url,existing_post_id,existing_content_quality,gsc_clicks_12m,gsc_impressions_12m,recommended_action,proposed_slug,pillar_or_support,owner_review_required,notes
+drug-crimes,עורך דין סמים,590,11,HIGH,HIGH,/drug-crimes/,19263,GOOD,,,"expand content, add city variants",/drug-crimes/,support,no,quick win - existing page covers topic
+sex-offences,עורך דין עבירות מין,720,12,HIGH,HIGH,,,MISSING,,,create new sub-practice page,/sex-offences/,support,yes,high volume quick win - no existing page
+family-violence,עורך דין אלימות במשפחה,720,9,HIGH,HIGH,,,MISSING,,,create new sub-practice page,/family-violence-criminal/,support,yes,"careful: avoid cannibalization with family-law cluster"
+military-criminal,עורך דין פלילי צבאי,170,0,MEDIUM,HIGH,,,MISSING,,,create new sub-practice page,/military-criminal-lawyer/,support,yes,KD 0 = very easy win
+white-collar,עבירות צווארון לבן,390,7,HIGH,HIGH,,,MISSING,,,create new sub-practice page,/white-collar-crimes/,support,yes,Nahari specialty
+money-laundering,הלבנת הון,720,22,HIGH,HIGH,,,MISSING,,,create new sub-practice page,/money-laundering/,support,yes,Nahari specialty
+weapons,עורך דין נשק,not-reported,,MEDIUM,MEDIUM,,,MISSING,,,create later,/weapons-offences/,support,yes,lower priority
+traffic-serious,נהיגה בשכרות,1000,16,HIGH,HIGH,/driving-under-influence/,19277,GOOD,,,expand existing page,/driving-under-influence/,support,no,existing page covers core topic
+assault,עבירת איומים,480,13,MEDIUM,MEDIUM,,,MISSING,,,create new sub-practice page,/assault-threats/,support,yes,
+property-crimes,שוד / פריצה / גניבה,not-reported,,MEDIUM,MEDIUM,/shoplifting-defense/,19265,PARTIAL,,,expand or create parent property crimes page,/property-crimes/,support,yes,shoplifting page exists but doesn't cover robbery/burglary
+fraud-expanded,עבירות הונאה,not-reported,,HIGH,HIGH,/fraud-types/,19281,GOOD,,,expand existing page,/fraud-types/,support,no,existing page is solid

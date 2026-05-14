@@ -10,6 +10,34 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Fix category_base collision with practice-areas taxonomy.
+ *
+ * Someone set the WordPress category_base to "practice-areas" in
+ * Settings → Permalinks, which makes /practice-areas/criminal-law/
+ * resolve to the WP "category" taxonomy instead of our custom
+ * "practice-areas" taxonomy. This resets the base to "category".
+ *
+ * Runs once on init, checks the option, fixes if wrong, and flushes
+ * rewrite rules exactly once to avoid recurring overhead.
+ */
+function justice_theme_fix_category_base_collision(): void {
+	$current = get_option( 'category_base', '' );
+
+	if ( 'practice-areas' === $current ) {
+		update_option( 'category_base', 'category' );
+
+		// Flush once. The transient prevents repeated flushes.
+		if ( ! get_transient( 'justice_category_base_flushed' ) ) {
+			flush_rewrite_rules( false );
+			set_transient( 'justice_category_base_flushed', 1, HOUR_IN_SECONDS );
+		}
+	}
+}
+add_action( 'init', 'justice_theme_fix_category_base_collision', 5 );
+
+
+
+/**
  * Normalize first-party public URLs for SEO tags.
  *
  * The live site has historical HTTP URL leakage in taxonomy/canonical/sitemap

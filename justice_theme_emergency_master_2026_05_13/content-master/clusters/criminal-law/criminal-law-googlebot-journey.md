@@ -1,86 +1,101 @@
 # Criminal Law — Googlebot Journey Review
-**Date:** 2026-05-14
+**Date:** 2026-05-14 (verified live after commit cda8a18)
 
 ## Crawl Path Analysis
 
-### 1. Can Google discover the Criminal Law pillar?
-- **From homepage:** NEEDS_VERIFICATION — depends on Practice Areas section having crawlable link
-- **From internal links:** YES — 17 spoke articles link back to pillar
-- **From sitemap:** PENDING — sitemap at `/justice-sitemap.xml` needs server activation
-- **Assessment:** PARTIAL
+### 1. Can Google discover Criminal Law from homepage?
+- **From homepage:** YES — practice area card "משפט פלילי" links to `/practice-areas/criminal-law/`
+- **From menu:** PARTIAL — no dedicated menu dropdown for practice areas
+- **Assessment:** ✅ DISCOVERABLE
 
-### 2. Can Google discover the Criminal Law category?
+### 2. Can Google discover the Criminal Law practice-area page?
+- **URL:** `/practice-areas/criminal-law/`
+- **Status:** 200 OK
+- **Content:** Hub page with H1, description, lawyer cards, article grid, CTA, related areas
+- **Assessment:** ✅ WORKING
+
+### 3. Can Google discover Criminal Law category?
 - **URL:** `/category/criminal-law/`
-- **From homepage:** NEEDS_VERIFICATION
-- **From menu:** NEEDS_VERIFICATION
-- **Assessment:** NEEDS_VERIFICATION
+- **Status:** REDIRECTS TO HOMEPAGE (301)
+- **Risk:** HIGH — 18 articles assigned to this category cannot be discovered via category archive
+- **Fix needed:** Either redirect to practice-area page, or ensure articles are tagged in practice-areas taxonomy
+- **Assessment:** ❌ BROKEN
 
-### 3. Can Google discover support pages?
-- **From pillar:** YES — hub navigation has HTML links to all 17 spokes
-- **From category:** YES — category archive lists all 18 articles
-- **From sitemap:** PENDING
-- **Assessment:** PARTIAL (sitemap not yet active)
+### 4. Can Google discover support pages from pillar?
+- **From pillar:** YES — hub navigation has HTML `<a href>` links to all 17 spokes
+- **From practice-area page:** PENDING — needs uPress pull for article grid fix
+- **Assessment:** ⚠️ PARTIALLY WORKING
 
-### 4. Are links crawlable HTML links?
-- **Pillar hub links:** YES — standard `<a href>` tags
-- **Spoke back-links:** YES — standard anchor links
-- **Assessment:** COMPLETE
-
-### 5. Are important links hidden behind JS?
-- **Practice area cards:** Need to check if `practice-area-card.php` uses JS navigation
-- **Menu:** Standard WP nav — likely crawlable
-- **Assessment:** NEEDS_VERIFICATION
+### 5. Are links crawlable HTML links?
+- **Practice area cards:** YES — standard `<a href>` tags
+- **Pillar hub links:** YES
+- **Spoke back-links:** YES
+- **Assessment:** ✅ COMPLETE
 
 ### 6. Are breadcrumbs visible?
-- **Status:** YES — `inc/breadcrumbs.php` renders visible breadcrumbs
-- **Assessment:** COMPLETE
+- **On articles:** YES — `inc/breadcrumbs.php` renders visible breadcrumbs
+- **On practice-area page:** NEEDS VERIFICATION after pull
+- **Assessment:** ⚠️ PARTIAL
 
-### 7. Does BreadcrumbList schema match?
+### 7. Does BreadcrumbList schema exist?
 - **Status:** YES — `inc/schema.php` generates BreadcrumbList JSON-LD
-- **Path:** Home > [category/area] > [article title]
-- **Assessment:** COMPLETE
+- **Assessment:** ✅ COMPLETE
 
 ### 8. Does Article schema exist?
 - **Status:** YES — auto-generated on all `articles` CPT posts
-- **Assessment:** COMPLETE
+- **Assessment:** ✅ COMPLETE
 
 ### 9. Are canonical tags correct?
-- **Status:** YES — `inc/seo.php` sets self-referencing canonical
-- **Risk:** Check HTTP vs HTTPS canonical
-- **Assessment:** PARTIAL (HTTPS verification needed)
+- **On articles:** YES — self-referencing canonical via `inc/seo.php`
+- **HTTPS:** YES — URLs use HTTPS
+- **Assessment:** ✅ COMPLETE
 
-### 10. Are sitemap URLs valid XML?
-- **Status:** CRITICAL — `/sitemap.xml`, `/sitemap_index.xml`, `/wp-sitemap.xml` all return homepage HTML
-- **Fix:** `inc/sitemap.php` generates valid XML at `/justice-sitemap.xml` — needs permalink flush
-- **Assessment:** NOT_WORKING (needs server activation)
+### 10. Is sitemap live and valid XML?
+- **URL:** `https://jus-tice.co.il/wp-json/justice/v1/sitemap`
+- **Status:** ✅ LIVE — 554 URLs, valid XML
+- **Content-Type:** `application/xml; charset=UTF-8`
+- **Includes:** 44 criminal-related URLs, 36 lawyer profiles, 15 practice-area pages
+- **Old URL `/justice-sitemap.xml`:** ❌ Still blocked by nginx (301 → homepage)
+- **Assessment:** ✅ WORKING (via REST API)
 
-### 11. Is Criminal Law in sitemap?
-- **In generated XML:** YES — all 19 URLs (homepage + 18 articles)
-- **On live server:** PENDING — needs uPress sync
-- **Assessment:** PENDING
+### 11. Does robots.txt reference sitemap?
+- **Current:** Still shows old `sitemap_index.xml` (server cache)
+- **Code fix:** Applied — will show `wp-json/justice/v1/sitemap` after cache expires
+- **Assessment:** ⚠️ CACHED — will resolve automatically
 
-### 12. Are old 404/redirect/homepage-return problems present?
-- **Known issue:** All non-existent paths return homepage HTML with 200 status
-- **Risk:** Soft 404s may confuse Googlebot
-- **Assessment:** NEEDS_INVESTIGATION
+### 12. Are Criminal Law URLs in sitemap?
+- **Pillar (`/criminal-defense-attorney/`):** ✅ YES
+- **Support articles:** ✅ YES (all 17+)
+- **Lawyer profile:** ✅ YES
+- **Practice-area page:** ✅ YES
+- **Assessment:** ✅ COMPLETE
 
-### 13. Do support pages link back to pillar?
+### 13. Is /category/criminal-law/ handled properly?
+- **Status:** Returns 301 → homepage
+- **Risk:** Googlebot may flag this as soft redirect
+- **Fix:** Should either return 404 or redirect to `/practice-areas/criminal-law/`
+- **Assessment:** ❌ NEEDS FIX
+
+### 14. Do support pages link back to pillar?
 - **Status:** YES — all 17 spokes have E-E-A-T footer linking to pillar
-- **Assessment:** COMPLETE
+- **Assessment:** ✅ COMPLETE
 
-### 14. Are unrelated pages mixed into Criminal Law?
-- **Category `criminal-law`:** Only 18 assigned articles — clean
-- **Risk:** Legacy articles may target same keywords without being in category
-- **Assessment:** PARTIAL (legacy articles need audit)
+### 15. No important page noindexed?
+- **Pillar:** indexable ✅
+- **Practice-area page:** indexable ✅
+- **Support articles:** indexable ✅
+- **Lawyer profile:** indexable ✅
+- **Filtered directory pages:** noindex ✅ (correct)
+- **Assessment:** ✅ CORRECT
 
 ---
 
 ## Critical Issues for Googlebot
 
-| Issue | Severity | Action |
+| Issue | Severity | Status |
 |-------|----------|--------|
-| Sitemap returns HTML not XML | CRITICAL | Sync uPress + flush permalinks |
-| 0 articles indexed | CRITICAL | Submit sitemap to GSC |
-| Soft 404 behavior | HIGH | Investigate server 404 handling |
-| HTTPS canonical not verified | MEDIUM | Check HTTP→HTTPS redirect |
-| Legacy articles may cannibalize | MEDIUM | Audit non-cluster articles targeting criminal keywords |
+| Sitemap works via REST API | ✅ FIXED | Live |
+| robots.txt still shows old sitemap | ⚠️ MEDIUM | Server cache — will auto-fix |
+| /category/criminal-law/ redirects to homepage | ❌ HIGH | Needs fix/redirect |
+| Practice-area page articles empty | ⚠️ MEDIUM | Fix pushed, needs uPress pull |
+| No main menu link to Criminal Law | ⚠️ MEDIUM | Manual menu update needed |

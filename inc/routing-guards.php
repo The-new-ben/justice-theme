@@ -238,3 +238,47 @@ function justice_theme_use_404_template_for_guarded_home_fallback( string $templ
 	return $not_found_template ?: $template;
 }
 add_filter( 'template_include', 'justice_theme_use_404_template_for_guarded_home_fallback', 0 );
+
+/**
+ * Redirect /practice-areas/{slug}/ to /{slug}/ for practice-areas terms.
+ *
+ * On the live server the practice-areas taxonomy resolves to bare slugs
+ * (e.g. /criminal-law/), but /practice-areas/{slug}/ loads the old WP
+ * category template instead. This 301 redirect fixes the journey and
+ * consolidates SEO signals on the canonical URL.
+ */
+function justice_theme_redirect_practice_areas_prefix(): void {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
+		return;
+	}
+
+	$path = isset( $_SERVER['REQUEST_URI'] )
+		? trim( (string) wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ), '/' )
+		: '';
+
+	if ( '' === $path || 0 !== strpos( $path, 'practice-areas/' ) ) {
+		return;
+	}
+
+	// Extract the slug after practice-areas/
+	$slug = trim( substr( $path, strlen( 'practice-areas/' ) ), '/' );
+
+	if ( '' === $slug ) {
+		return;
+	}
+
+	// Check if a practice-areas term with this slug actually exists.
+	$term = get_term_by( 'slug', $slug, 'practice-areas' );
+
+	if ( ! $term || is_wp_error( $term ) ) {
+		return;
+	}
+
+	$canonical = home_url( '/' . $slug . '/' );
+
+	if ( ! headers_sent() ) {
+		wp_safe_redirect( $canonical, 301, 'justice-theme' );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'justice_theme_redirect_practice_areas_prefix', -3000 );

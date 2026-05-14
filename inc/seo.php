@@ -590,37 +590,17 @@ function justice_theme_is_lawyer_directory_filter_state(): bool {
 }
 
 /**
- * Output one canonical URL for public templates that WordPress core does not cover well.
+ * Custom canonical URL output — DISABLED since Yoast migration.
+ *
+ * Yoast SEO now handles canonical URLs for all page types.
+ * This function is kept as a no-op to avoid breaking any code
+ * that may call it directly or unhook/rehook it.
+ *
+ * @since 1.0.6  Disabled to prevent duplicate canonicals with Yoast.
  */
 function justice_theme_canonical_url() {
-	if ( is_admin() || is_404() ) {
-		return;
-	}
-
-	$canonical = '';
-
-	if ( is_singular() ) {
-		return;
-	} elseif ( is_front_page() ) {
-		$canonical = home_url( '/' );
-	} elseif ( justice_theme_is_lawyer_directory_filter_state() ) {
-		$canonical = justice_theme_lawyer_archive_canonical_url();
-	} elseif ( is_post_type_archive( 'justice_lawyer' ) ) {
-		$canonical = justice_theme_lawyer_archive_canonical_url();
-	} elseif ( is_post_type_archive( 'articles' ) ) {
-		$canonical = get_post_type_archive_link( 'articles' );
-	} elseif ( is_tax() || is_category() || is_tag() ) {
-		$term = get_queried_object();
-		if ( $term && ! is_wp_error( $term ) ) {
-			$canonical = get_term_link( $term );
-		}
-	} elseif ( is_search() ) {
-		$canonical = home_url( '/' );
-	}
-
-	if ( $canonical && ! is_wp_error( $canonical ) ) {
-		echo '<link rel="canonical" href="' . esc_url( justice_theme_normalize_public_url( (string) $canonical ) ) . '">' . "\n";
-	}
+	// Yoast SEO handles all canonical output. No-op.
+	return;
 }
 add_action( 'wp_head', 'justice_theme_canonical_url', 5 );
 

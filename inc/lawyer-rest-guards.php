@@ -134,7 +134,7 @@ function justice_theme_blocked_lawyer_profile_404_title( string $title ): string
 	return justice_theme_is_blocked_lawyer_profile_404() ? __( 'עמוד לא נמצא | Jus-Tice', 'justice-theme' ) : $title;
 }
 add_filter( 'pre_get_document_title', 'justice_theme_blocked_lawyer_profile_404_title', PHP_INT_MAX );
-add_filter( 'rank_math/frontend/title', 'justice_theme_blocked_lawyer_profile_404_title', PHP_INT_MAX );
+add_filter( 'wpseo_title', 'justice_theme_blocked_lawyer_profile_404_title', PHP_INT_MAX );
 
 /**
  * Use a generic Hebrew description for blocked lawyer profile routes.
@@ -145,7 +145,7 @@ add_filter( 'rank_math/frontend/title', 'justice_theme_blocked_lawyer_profile_40
 function justice_theme_blocked_lawyer_profile_404_description( string $description ): string {
 	return justice_theme_is_blocked_lawyer_profile_404() ? __( 'העמוד שביקשתם לא נמצא או אינו זמין לצפייה ציבורית.', 'justice-theme' ) : $description;
 }
-add_filter( 'rank_math/frontend/description', 'justice_theme_blocked_lawyer_profile_404_description', PHP_INT_MAX );
+add_filter( 'wpseo_metadesc', 'justice_theme_blocked_lawyer_profile_404_description', PHP_INT_MAX );
 
 /**
  * Remove canonical URLs from blocked lawyer profile routes.
@@ -156,7 +156,7 @@ add_filter( 'rank_math/frontend/description', 'justice_theme_blocked_lawyer_prof
 function justice_theme_blocked_lawyer_profile_404_canonical( string $canonical ): string {
 	return justice_theme_is_blocked_lawyer_profile_404() ? '' : $canonical;
 }
-add_filter( 'rank_math/frontend/canonical', 'justice_theme_blocked_lawyer_profile_404_canonical', PHP_INT_MAX );
+add_filter( 'wpseo_canonical', 'justice_theme_blocked_lawyer_profile_404_canonical', PHP_INT_MAX );
 
 /**
  * Force noindex/nofollow for blocked lawyer profile routes.
@@ -178,25 +178,7 @@ function justice_theme_blocked_lawyer_profile_404_robots( array $robots ): array
 }
 add_filter( 'wp_robots', 'justice_theme_blocked_lawyer_profile_404_robots', PHP_INT_MAX );
 
-/**
- * Force noindex/nofollow for blocked lawyer profile routes in Rank Math.
- *
- * @param array $robots Robots directives.
- * @return array
- */
-function justice_theme_blocked_lawyer_profile_404_rank_math_robots( array $robots ): array {
-	if ( ! justice_theme_is_blocked_lawyer_profile_404() ) {
-		return $robots;
-	}
-
-	unset( $robots['index'], $robots['follow'] );
-
-	$robots['noindex']  = 'noindex';
-	$robots['nofollow'] = 'nofollow';
-
-	return $robots;
-}
-add_filter( 'rank_math/frontend/robots', 'justice_theme_blocked_lawyer_profile_404_rank_math_robots', PHP_INT_MAX );
+/* Rank Math-specific robots filter removed — handled by wpseo_robots below. */
 
 /**
  * Force noindex/nofollow for blocked lawyer profile routes in Yoast-style output.

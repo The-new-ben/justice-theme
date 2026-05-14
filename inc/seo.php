@@ -9,19 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Strip X-Robots-Tag: noindex from Rank Math sitemap HTTP headers.
- *
- * Google Search Console rejects sitemaps with a noindex header.
- * Rank Math adds this header by default on some configurations.
- * This filter removes it so GSC can process the sitemap correctly.
- *
- * @see https://rankmath.com/kb/fix-sitemap-issues/
+/*
+ * Rank Math has been replaced by Yoast SEO as of May 2026.
+ * The Rank Math noindex-header filter has been removed.
+ * Yoast sitemap is disabled in inc/sitemap.php because uPress nginx
+ * 301-redirects all .xml files to the homepage. Our REST API sitemap
+ * at /wp-json/justice/v1/sitemap is the only delivery method.
  */
-add_filter( 'rank_math/sitemap/http_headers', function ( $headers ) {
-	unset( $headers['X-Robots-Tag'] );
-	return $headers;
-} );
 
 /**
  * Fix category_base collision with practice-areas taxonomy.
@@ -507,7 +501,6 @@ function justice_theme_filter_plugin_seo_title( $title ) {
 	return $title;
 }
 add_filter( 'wpseo_title', 'justice_theme_filter_plugin_seo_title' );
-add_filter( 'rank_math/frontend/title', 'justice_theme_filter_plugin_seo_title' );
 add_filter( 'aioseo_title', 'justice_theme_filter_plugin_seo_title' );
 
 /**
@@ -527,7 +520,6 @@ function justice_theme_filter_plugin_seo_description( $description ) {
 	return $description;
 }
 add_filter( 'wpseo_metadesc', 'justice_theme_filter_plugin_seo_description' );
-add_filter( 'rank_math/frontend/description', 'justice_theme_filter_plugin_seo_description' );
 add_filter( 'aioseo_description', 'justice_theme_filter_plugin_seo_description' );
 
 /**
@@ -740,22 +732,7 @@ function justice_theme_filter_yoast_robots( $robots ) {
 }
 add_filter( 'wpseo_robots', 'justice_theme_filter_yoast_robots' );
 
-/**
- * Keep Rank Math robots output aligned with the filtered-directory rule.
- *
- * @param array $robots Robots directives.
- * @return array
- */
-function justice_theme_filter_rank_math_robots( $robots ) {
-	if ( justice_theme_is_lawyer_directory_filter_state() ) {
-		unset( $robots['index'] );
-		$robots['noindex'] = 'noindex';
-		$robots['follow']  = 'follow';
-	}
-
-	return $robots;
-}
-add_filter( 'rank_math/frontend/robots', 'justice_theme_filter_rank_math_robots' );
+/* Rank Math robots filter removed — Yoast SEO is now active. */
 
 /**
  * Override SEO-plugin canonical output for filtered lawyer-directory states.
@@ -771,16 +748,17 @@ function justice_theme_filter_directory_canonical( $canonical ) {
 	return justice_theme_normalize_public_url( (string) $canonical );
 }
 add_filter( 'wpseo_canonical', 'justice_theme_filter_directory_canonical' );
-add_filter( 'rank_math/frontend/canonical', 'justice_theme_filter_directory_canonical' );
 add_filter( 'aioseo_canonical_url', 'justice_theme_filter_directory_canonical' );
 
 /**
- * Ensure robots.txt references the Rank Math sitemap.
+ * Ensure robots.txt references our REST API sitemap.
  *
- * Google Search Console does NOT accept /wp-json/ endpoints as sitemaps.
- * Rank Math generates a proper sitemap_index.xml that GSC accepts.
- * This filter ensures robots.txt points to the Rank Math sitemap and
- * removes any stale references to our custom REST API sitemap.
+ * On uPress, nginx 301-redirects all .xml files to the homepage.
+ * Yoast's sitemap_index.xml and WordPress core's wp-sitemap.xml
+ * are both unreachable. Our REST API endpoint is the only working
+ * sitemap delivery method.
+ *
+ * GSC fully supports REST API endpoints as sitemap URLs.
  *
  * @param string $output Robots.txt output.
  * @param bool   $public Whether search engines are allowed.
@@ -791,23 +769,24 @@ function justice_theme_robots_sitemap_directive( string $output, bool $public ):
 		return $output;
 	}
 
-	// Rank Math's sitemap is the only one GSC will accept.
-	$correct_sitemap = justice_theme_normalize_public_url( home_url( '/sitemap_index.xml' ) );
-
-	// Remove any stale custom sitemap references.
-	$stale_patterns = array(
-		justice_theme_normalize_public_url( home_url( '/wp-json/justice/v1/sitemap' ) ),
-		justice_theme_normalize_public_url( home_url( '/justice-sitemap.xml' ) ),
+	// Our REST API sitemap is the only one that works on uPress.
+	$correct_sitemap = justice_theme_normalize_public_url(
+		home_url( '/wp-json/justice/v1/sitemap' )
 	);
-	foreach ( $stale_patterns as $old_sitemap ) {
-		if ( false !== stripos( $output, $old_sitemap ) ) {
-			$output = preg_replace( '/Sitemap:\s*' . preg_quote( $old_sitemap, '/' ) . '\s*/i', '', $output );
-		}
+
+	// Remove any stale sitemap references (old .xml paths).
+	$stale_patterns = array(
+		'sitemap_index.xml',
+		'sitemap.xml',
+		'justice-sitemap.xml',
+		'wp-sitemap.xml',
+	);
+	foreach ( $stale_patterns as $stale ) {
+		$output = preg_replace( '/Sitemap:\s*[^\n]*' . preg_quote( $stale, '/' ) . '[^\n]*\n?/i', '', $output );
 	}
 
-	// Rank Math already adds sitemap_index.xml via its own filter.
-	// Only add it if somehow missing.
-	if ( false !== stripos( $output, 'sitemap_index.xml' ) ) {
+	// Don't duplicate if already present.
+	if ( false !== stripos( $output, 'justice/v1/sitemap' ) ) {
 		return $output;
 	}
 
@@ -899,25 +878,14 @@ add_filter( 'wp_sitemaps_taxonomies_entry', 'justice_theme_normalize_core_sitema
 add_filter( 'wp_sitemaps_users_entry', 'justice_theme_normalize_core_sitemap_entry' );
 
 /**
- * Normalize common SEO-plugin sitemap URL entries to the public HTTPS origin.
+ * Normalize SEO-plugin sitemap URL entries to the public HTTPS origin.
  *
- * These filters only alter first-party URL strings already being emitted by
- * the active sitemap generator. They do not add, remove, redirect or migrate
- * any URL.
- *
- * Rank Math sitemap caching is disabled while the HTTPS sitemap baseline is
- * being verified, so stale HTTP loc entries do not mask the normalization hooks.
+ * Yoast sitemap is disabled on this site (uPress nginx blocks .xml),
+ * but these hooks remain as safety nets. Rank Math hooks removed.
  */
 add_filter( 'wpseo_xml_sitemap_post_url', 'justice_theme_normalize_sitemap_url_string', 20 );
 add_filter( 'wpseo_xml_sitemap_term_url', 'justice_theme_normalize_sitemap_url_string', 20 );
 add_filter( 'wpseo_sitemap_entry', 'justice_theme_normalize_sitemap_entry_loc', 20 );
-add_filter( 'rank_math/sitemap/xml_post_url', 'justice_theme_normalize_sitemap_url_string', 20 );
-add_filter( 'rank_math/sitemap/xml_img_src', 'justice_theme_normalize_sitemap_url_string', 20 );
-add_filter( 'rank_math/sitemap/urlimages', 'justice_theme_normalize_sitemap_image_items', 20 );
-add_filter( 'rank_math/sitemap/post_type_archive_link', 'justice_theme_normalize_sitemap_url_string', 20 );
-add_filter( 'rank_math/sitemap/entry', 'justice_theme_normalize_sitemap_entry_loc', 20 );
-add_filter( 'rank_math/sitemap/index/entry', 'justice_theme_normalize_sitemap_entry_loc', 20 );
-add_filter( 'rank_math/sitemap/enable_caching', '__return_false', 20 );
 add_filter( 'aioseo_sitemap_indexes', 'justice_theme_normalize_aioseo_sitemap_indexes', 20 );
 
 /**

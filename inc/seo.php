@@ -795,7 +795,7 @@ function justice_theme_robots_sitemap_directive( string $output, bool $public ):
 
 	return $output;
 }
-add_filter( 'robots_txt', 'justice_theme_robots_sitemap_directive', 20, 2 );
+add_filter( 'robots_txt', 'justice_theme_robots_sitemap_directive', 9999, 2 );
 
 /**
  * Normalize a sitemap entry array without changing non-URL metadata.

@@ -230,6 +230,11 @@ function justice_theme_sitemap_base_url() {
  * @param string $xml The XML content.
  */
 function justice_theme_output_sitemap_xml( $xml ) {
+	// WordPress REST API adds X-Robots-Tag: noindex to all /wp-json/ responses
+	// via rest_output_noindex_header(). GSC rejects sitemaps with this header,
+	// so we must explicitly strip it.
+	header_remove( 'X-Robots-Tag' );
+
 	header( 'Content-Type: application/xml; charset=UTF-8' );
 	header( 'Cache-Control: public, max-age=3600' );
 	echo $xml;

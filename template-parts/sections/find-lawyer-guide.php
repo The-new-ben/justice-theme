@@ -228,6 +228,131 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</ol>
 		</div>
 
+		<!-- Types of Lawyers by Practice Area -->
+		<div class="find-guide__deep-section">
+			<h3><?php esc_html_e( '👨‍⚖️ סוגי עורכי דין לפי תחום — מתי לפנות לכל מומחה?', 'justice-theme' ); ?></h3>
+			<p><?php esc_html_e( 'המשפט הישראלי מתחלק לעשרות תחומי התמחות. בחירת עורך דין עם מומחיות ספציפית בתחום שלכם יכולה לעשות את ההבדל בין הצלחה לכישלון. להלן התחומים העיקריים ומתי כדאי לפנות לכל סוג של עורך דין:', 'justice-theme' ); ?></p>
+
+			<div class="find-guide__specialties-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.2rem; margin: 1.5rem 0;">
+				<div class="find-guide__specialty-card" style="background: rgba(82, 114, 178, 0.05); padding: 1.2rem; border-radius: 12px; border-right: 3px solid var(--color-accent, #5272b2);">
+					<h4><?php esc_html_e( 'עורך דין משפחה וגירושין', 'justice-theme' ); ?></h4>
+					<p style="font-size: 0.9rem; color: var(--color-muted, #666);"><?php esc_html_e( 'גירושין, משמורת ילדים, מזונות, הסכמי ממון, ידועים בציבור, אימוץ, אפוטרופסות. מומלץ לפנות מייד כשיש סכסוך משפחתי — שגיאות בשלב מוקדם עלולות לעלות ביוקר שנים קדימה. בישראל, ענייני נישואין וגירושין נידונים בבית הדין הרבני.', 'justice-theme' ); ?></p>
+				</div>
+				<div class="find-guide__specialty-card" style="background: rgba(82, 114, 178, 0.05); padding: 1.2rem; border-radius: 12px; border-right: 3px solid var(--color-accent, #5272b2);">
+					<h4><?php esc_html_e( 'עורך דין פלילי', 'justice-theme' ); ?></h4>
+					<p style="font-size: 0.9rem; color: var(--color-muted, #666);"><?php esc_html_e( 'עבירות אלימות, סמים, הונאה, עבירות מין, צווארון לבן, הליכי מעצר, ערעורים פליליים. פנו מיד כשיש חשד או הזמנה לחקירה — אל תמסרו עדות בלי עורך דין. בעבירות שעונשן מעל 10 שנים, הייצוג הוא חובה.', 'justice-theme' ); ?></p>
+				</div>
+				<div class="find-guide__specialty-card" style="background: rgba(82, 114, 178, 0.05); padding: 1.2rem; border-radius: 12px; border-right: 3px solid var(--color-accent, #5272b2);">
+					<h4><?php esc_html_e( 'עורך דין מקרקעין ונדל"ן', 'justice-theme' ); ?></h4>
+					<p style="font-size: 0.9rem; color: var(--color-muted, #666);"><?php esc_html_e( 'קנייה ומכירה של דירה, בדיקת זכויות בטאבו, רישום בית משותף, סכסוכי שכנים, עסקאות קומבינציה, תמ"א 38, פינוי בינוי. בישראל, חובה לפי חוק שעורך דין ילווה כל עסקת נדל"ן.', 'justice-theme' ); ?></p>
+				</div>
+				<div class="find-guide__specialty-card" style="background: rgba(82, 114, 178, 0.05); padding: 1.2rem; border-radius: 12px; border-right: 3px solid var(--color-accent, #5272b2);">
+					<h4><?php esc_html_e( 'עורך דין נזיקין ותאונות', 'justice-theme' ); ?></h4>
+					<p style="font-size: 0.9rem; color: var(--color-muted, #666);"><?php esc_html_e( 'תאונות דרכים, תאונות עבודה, רשלנות רפואית, נפילות, נזקי גוף. רוב עורכי הדין בתחום עובדים באחוזים (8%-25% מהפיצוי), כך שאין צורך בתשלום מראש. פנו מוקדם ככל האפשר — יש התיישנות של 7 שנים.', 'justice-theme' ); ?></p>
+				</div>
+				<div class="find-guide__specialty-card" style="background: rgba(82, 114, 178, 0.05); padding: 1.2rem; border-radius: 12px; border-right: 3px solid var(--color-accent, #5272b2);">
+					<h4><?php esc_html_e( 'עורך דין עבודה', 'justice-theme' ); ?></h4>
+					<p style="font-size: 0.9rem; color: var(--color-muted, #666);"><?php esc_html_e( 'פיטורים שלא כדין, הטרדה מינית, אפליה, הפרת חוזה עבודה, שעות נוספות, פנסיה, זכויות עובדים. פנו כשהמעסיק מפר זכויות — בית הדין לעבודה מכיר בזכויות רבות גם ללא חוזה כתוב.', 'justice-theme' ); ?></p>
+				</div>
+				<div class="find-guide__specialty-card" style="background: rgba(82, 114, 178, 0.05); padding: 1.2rem; border-radius: 12px; border-right: 3px solid var(--color-accent, #5272b2);">
+					<h4><?php esc_html_e( 'עורך דין ירושה וצוואות', 'justice-theme' ); ?></h4>
+					<p style="font-size: 0.9rem; color: var(--color-muted, #666);"><?php esc_html_e( 'עריכת צוואה, בקשת צו ירושה, התנגדות לצוואה, ניהול עיזבון, הסכמי חלוקת ירושה. מומלץ לערוך צוואה בגיל צעיר כדי למנוע סכסוכים. עורך דין ירושה מכיר את חוק הירושה 1965 ואת הפסיקה העדכנית.', 'justice-theme' ); ?></p>
+				</div>
+			</div>
+
+			<p><?php esc_html_e( 'לרשימה מלאה של תחומי התמחות ועורכי דין מומחים, השתמשו בחיפוש המתקדם שלנו בראש העמוד.', 'justice-theme' ); ?></p>
+		</div>
+
+		<!-- Online vs Offline Search -->
+		<div class="find-guide__deep-section">
+			<h3><?php esc_html_e( '🌐 חיפוש עורך דין באינטרנט לעומת המלצות אישיות — מה עדיף?', 'justice-theme' ); ?></h3>
+			<p><?php esc_html_e( 'לפי מחקרים של ה-American Bar Association ואתרי FindLaw ו-Avvo, שילוב של שתי השיטות מניב את התוצאה הטובה ביותר:', 'justice-theme' ); ?></p>
+			<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.5rem 0;">
+				<div style="background: rgba(16, 185, 129, 0.06); padding: 1.2rem; border-radius: 12px;">
+					<h4 style="color: #10b981;"><?php esc_html_e( '✅ יתרונות חיפוש אונליין', 'justice-theme' ); ?></h4>
+					<ul style="font-size: 0.9rem; padding-right: 1.2rem;">
+						<li><?php esc_html_e( 'גישה למאות עורכי דין ברגע אחד', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'ביקורות ודירוגים מלקוחות אמיתיים', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'סינון לפי תחום, עיר, שפה ומחיר', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'מאמרים מקצועיים שמעידים על מומחיות', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'השוואה בין מספר מועמדים ללא לחץ', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'בדיקת רישיון ומעמד באתר לשכת עוה"ד', 'justice-theme' ); ?></li>
+					</ul>
+				</div>
+				<div style="background: rgba(59, 130, 246, 0.06); padding: 1.2rem; border-radius: 12px;">
+					<h4 style="color: #3b82f6;"><?php esc_html_e( '✅ יתרונות המלצה אישית', 'justice-theme' ); ?></h4>
+					<ul style="font-size: 0.9rem; padding-right: 1.2rem;">
+						<li><?php esc_html_e( 'חוויה ממקור ראשון מאדם שאתם סומכים עליו', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'מידע על הגישה האישית ואופי העבודה', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'פרטים שלא מופיעים בפרופיל מקוון', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'תחושת ביטחון ראשונית', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'אפשרות לתיווך ו"כניסה חמה"', 'justice-theme' ); ?></li>
+					</ul>
+				</div>
+			</div>
+			<p><strong><?php esc_html_e( 'המלצה: התחילו עם חיפוש אונליין כדי לבנות רשימה קצרה, ואז בקשו המלצות אישיות כדי לאמת. זוהי הגישה המומלצת על ידי לשכת עורכי הדין בישראל ו-ABA.', 'justice-theme' ); ?></strong></p>
+		</div>
+
+		<!-- First Meeting Preparation -->
+		<div class="find-guide__deep-section">
+			<h3><?php esc_html_e( '📂 הכנה לפגישה ראשונה עם עורך דין — רשימת מסמכים', 'justice-theme' ); ?></h3>
+			<p><?php esc_html_e( 'הגעה מוכנה לפגישה הראשונית חוסכת זמן ויקרה, ומאפשרת לעורך הדין לתת לכם הערכה מדויקת יותר. הנה מה להביא:', 'justice-theme' ); ?></p>
+			<div style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; margin: 1rem 0;">
+				<div style="background: rgba(0,0,0,0.03); padding: 1rem; border-radius: 8px;">
+					<h4><?php esc_html_e( 'כל תיק', 'justice-theme' ); ?></h4>
+					<ul style="font-size: 0.88rem; padding-right: 1.2rem;">
+						<li><?php esc_html_e( 'תיאור כתוב קצר של המצב', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'ציר זמן עם תאריכים מרכזיים', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'רשימת שאלות שרוצים לשאול', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'תעודת זהות', 'justice-theme' ); ?></li>
+					</ul>
+				</div>
+				<div style="background: rgba(0,0,0,0.03); padding: 1rem; border-radius: 8px;">
+					<h4><?php esc_html_e( 'דיני משפחה', 'justice-theme' ); ?></h4>
+					<ul style="font-size: 0.88rem; padding-right: 1.2rem;">
+						<li><?php esc_html_e( 'תעודת נישואין', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'הסכם ממון (אם קיים)', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'מסמכי רכוש (נסחי טאבו)', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'תלושי שכר של שני בני הזוג', 'justice-theme' ); ?></li>
+					</ul>
+				</div>
+				<div style="background: rgba(0,0,0,0.03); padding: 1rem; border-radius: 8px;">
+					<h4><?php esc_html_e( 'נזיקין / תאונות', 'justice-theme' ); ?></h4>
+					<ul style="font-size: 0.88rem; padding-right: 1.2rem;">
+						<li><?php esc_html_e( 'דו"ח משטרה / דו"ח תאונה', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'מסמכים רפואיים ואישורי מחלה', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'תמונות מהאירוע', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'פוליסת ביטוח', 'justice-theme' ); ?></li>
+					</ul>
+				</div>
+				<div style="background: rgba(0,0,0,0.03); padding: 1rem; border-radius: 8px;">
+					<h4><?php esc_html_e( 'פלילי', 'justice-theme' ); ?></h4>
+					<ul style="font-size: 0.88rem; padding-right: 1.2rem;">
+						<li><?php esc_html_e( 'הזמנה לחקירה / כתב אישום', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'תנאי שחרור ממעצר (אם רלוונטי)', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'גיליון רישום פלילי (אם זמין)', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'עדויות או ראיות שיש ברשותכם', 'justice-theme' ); ?></li>
+					</ul>
+				</div>
+			</div>
+			<p><strong><?php esc_html_e( 'טיפ מהפרקטיקה: צלמו את כל המסמכים לפני הפגישה ושמרו עותק דיגיטלי. אף פעם אל תמסרו מסמכים מקוריים בלי לשמור העתק.', 'justice-theme' ); ?></strong></p>
+		</div>
+
+		<!-- Client Rights -->
+		<div class="find-guide__deep-section">
+			<h3><?php esc_html_e( '🛡️ הזכויות שלכם כלקוחות — מה לשכת עורכי הדין מחייבת?', 'justice-theme' ); ?></h3>
+			<p><?php esc_html_e( 'לפי כללי לשכת עורכי הדין בישראל וחוק לשכת עורכי הדין, התשכ"א-1961, יש לכם זכויות ברורות שחשוב להכיר:', 'justice-theme' ); ?></p>
+			<ol>
+				<li><strong><?php esc_html_e( 'הסכם שכר טרחה כתוב:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'עורך הדין חייב לפרט את שכר הטרחה ואת תנאי ההתקשרות בכתב. זו אינה המלצה — זו חובה.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'סודיות מלאה:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'כל מה שתספרו לעורך הדין חסוי על פי חיסיון עורך דין-לקוח. הוא לא יכול לחשוף מידע בלי הסכמתכם (למעט חריגים קיצוניים הקבועים בחוק).', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'עדכון שוטף:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'יש לכם זכות לדעת מה קורה בתיק. עורך דין שלא מעדכן אתכם מפר את חובתו.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'החלפת עורך דין:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'זכותכם להחליף עורך דין בכל שלב. עורך הדין חייב להעביר לכם את כל חומרי התיק.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'תלונה לוועדת אתיקה:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'אם אתם חשים שעורך הדין פעל באופן לא אתי, תוכלו להגיש תלונה לוועדת האתיקה של לשכת עורכי הדין. התלונה אינה עולה כסף.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'אין הבטחת תוצאות:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'עורך דין שמבטיח לכם "ניצחון בטוח" פועל בניגוד לכללי האתיקה. אף עורך דין לא יכול לערוב לתוצאה.', 'justice-theme' ); ?></li>
+			</ol>
+			<p><?php esc_html_e( 'לפרטים נוספים: אתר לשכת עורכי הדין בישראל — israelbar.org.il', 'justice-theme' ); ?></p>
+		</div>
+
 		<!-- CTA -->
 		<div class="find-guide__cta">
 			<p><?php esc_html_e( 'מוכנים למצוא עורך דין מתאים?', 'justice-theme' ); ?></p>

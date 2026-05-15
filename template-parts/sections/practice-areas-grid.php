@@ -12,7 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $terms = get_terms( array(
 	'taxonomy'   => 'practice-areas',
 	'hide_empty' => true,
-	'number'     => 12,
+	'number'     => 16,
 	'parent'     => 0,
 	'orderby'    => 'count',
 	'order'      => 'DESC',

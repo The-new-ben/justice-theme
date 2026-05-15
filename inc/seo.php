@@ -141,9 +141,9 @@ function justice_theme_seed_yoast_configuration(): void {
 		// Media/attachment pages: redirect to parent.
 		'disable-attachment'            => true,
 
-		// Homepage (front page) — matching din.co.il keyword signals.
-		'title-home-wpseo'              => 'עורכי דין בישראל, משרדי עורכי דין בכל תחום • Jus-Tice.co.il',
-		'metadesc-home-wpseo'           => 'Jus-Tice.co.il — פורטל המשפט של ישראל. מאגר עורכי דין מקיף, מאמרים משפטיים, מדריכים מקצועיים וייעוץ משפטי. חפשו עורך דין לפי תחום ואזור — חינם.',
+		// Homepage (front page) — matching din.co.il keyword pattern + keyword stuffing.
+		'title-home-wpseo'              => 'אינדקס עורכי דין בישראל | מאמרים משפטיים, מדריכים וייעוץ משפטי - Jus-Tice',
+		'metadesc-home-wpseo'           => 'פורטל המשפט המוביל בישראל. אינדקס עורכי דין מקיף לפי תחום ומיקום, מאמרים משפטיים, מדריכים מקצועיים. עורך דין גירושין, עורך דין פלילי, עורך דין נדל\"ן, נזיקין, עבודה, ירושה ועוד — חיפוש חינם.',
 	);
 
 	foreach ( $updates as $key => $value ) {
@@ -198,6 +198,43 @@ function justice_theme_register_seed_yoast_endpoint(): void {
 	) );
 }
 add_action( 'rest_api_init', 'justice_theme_register_seed_yoast_endpoint' );
+
+/**
+ * Clean up wp_head output: remove duplicate theme-color, generator, emoji, etc.
+ *
+ * BUG-01 from homepage audit: 3 separate theme-color meta tags from theme,
+ * WP core, and PWA plugin. This removes the WP core and PWA versions,
+ * keeping only the theme's #07152f from header.php.
+ *
+ * @since 1.0.5
+ */
+function justice_theme_cleanup_head(): void {
+	// Remove WP generator tag (security + cleaner HTML).
+	remove_action( 'wp_head', 'wp_generator' );
+
+	// Remove emoji detection scripts and styles (saves ~10KB).
+	remove_action( 'wp_head', 'print_emoji_detection_script', 7 );
+	remove_action( 'wp_print_styles', 'print_emoji_styles' );
+
+	// Remove WP's theme-color output (we output our own in header.php).
+	remove_action( 'wp_head', 'wp_theme_color_meta', 1 );
+
+	// Remove oEmbed discovery links (not needed for legal portal).
+	remove_action( 'wp_head', 'wp_oembed_add_discovery_links' );
+
+	// Remove REST API discovery link (available but no need to advertise).
+	remove_action( 'wp_head', 'rest_output_link_wp_head', 10 );
+
+	// Remove Windows Live Writer manifest.
+	remove_action( 'wp_head', 'wlwmanifest_link' );
+
+	// Remove RSD (Really Simple Discovery) link.
+	remove_action( 'wp_head', 'rsd_link' );
+
+	// Remove shortlink.
+	remove_action( 'wp_head', 'wp_shortlink_wp_head', 10, 0 );
+}
+add_action( 'after_setup_theme', 'justice_theme_cleanup_head' );
 
 
 /**

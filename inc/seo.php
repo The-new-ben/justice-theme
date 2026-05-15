@@ -247,7 +247,10 @@ add_action( 'after_setup_theme', 'justice_theme_cleanup_head' );
  * @param string $url Raw URL.
  * @return string
  */
-function justice_theme_normalize_public_url( string $url ): string {
+function justice_theme_normalize_public_url( ?string $url ): string {
+	if ( null === $url ) {
+		return '';
+	}
 	$url = trim( $url );
 
 	if ( '' === $url ) {
@@ -281,7 +284,7 @@ function justice_theme_normalize_public_url( string $url ): string {
  *
  * @since 1.0.5
  */
-function justice_theme_force_https_home_url( string $url, string $path, $scheme, int $blog_id ): string {
+function justice_theme_force_https_home_url( ?string $url, ?string $path, $scheme, ?int $blog_id ): string {
 	if ( null === $scheme && 0 === strpos( $url, 'http://' ) ) {
 		return set_url_scheme( $url, 'https' );
 	}

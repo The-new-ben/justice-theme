@@ -117,7 +117,10 @@ function justice_theme_safe_public_link( string $primary_path, string $fallback_
  * @param string $url Raw public URL.
  * @return string
  */
-function justice_theme_public_url( string $url ): string {
+function justice_theme_public_url( ?string $url ): string {
+	if ( null === $url ) {
+		return '';
+	}
 	if ( function_exists( 'justice_theme_normalize_public_url' ) ) {
 		return justice_theme_normalize_public_url( $url );
 	}

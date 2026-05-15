@@ -21,7 +21,7 @@ function justice_theme_print_deployment_marker(): void {
 	printf(
 		"\n" . '<meta name="justice-theme-version" content="%1$s" />' . "\n" . '<meta name="justice-deployment-marker" content="%2$s" />' . "\n",
 		esc_attr( JUSTICE_THEME_VERSION ),
-		esc_attr( JUSTICE_THEME_DEPLOYMENT_MARKER )
+		esc_attr( defined( 'JUSTICE_DEPLOY_MARKER' ) ? JUSTICE_DEPLOY_MARKER : 'unknown' )
 	);
 }
 add_action( 'wp_head', 'justice_theme_print_deployment_marker', 0 );

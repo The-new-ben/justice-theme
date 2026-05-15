@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'JUSTICE_THEME_VERSION', '1.0.5' );
-define( 'JUSTICE_THEME_DEPLOYMENT_MARKER', '2026-05-15-taxonomy-object-type-safety-net-v1' );
+define( 'JUSTICE_THEME_DEPLOYMENT_MARKER', '2026-05-15-robots-fix-term-cleanup-v2' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 

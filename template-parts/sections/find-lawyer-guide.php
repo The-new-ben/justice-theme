@@ -156,6 +156,78 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 		</div>
 
+		<!-- Red Flags Section -->
+		<div class="find-guide__deep-section">
+			<h3><?php esc_html_e( '🚩 דגלים אדומים — 7 סימני אזהרה בבחירת עורך דין', 'justice-theme' ); ?></h3>
+			<p><?php esc_html_e( 'לפי לשכת עורכי הדין בישראל והמלצות ה-American Bar Association, הסימנים הבאים מחייבים זהירות מיוחדת:', 'justice-theme' ); ?></p>
+			<ol>
+				<li><strong><?php esc_html_e( 'הבטחת תוצאה:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'עורך דין שמבטיח "ניצחון בטוח" פועל בניגוד לכללי האתיקה. אף עורך דין לא יכול לערוב לתוצאה בבית משפט.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'לחץ לחתום מיד:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'עורך דין מקצועי ייתן לכם זמן לחשוב. לחץ לחתום על הסכם שכר טרחה במקום הוא סימן מדאיג.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'חוסר שקיפות בעלויות:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'סירוב לפרט עלויות, עמלות נסתרות, או חוסר נכונות לחתום על הסכם שכר טרחה בכתב.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'תקשורת לקויה:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'אם עורך הדין לא חוזר לשיחות, לא עונה למיילים, או לא מעדכן — זה יחמיר רק אחרי שתשלמו.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( '"אני מומחה בהכל":', 'justice-theme' ); ?></strong> <?php esc_html_e( 'עורך דין שטוען להתמחות בכל תחום חסר לרוב את העומק הנדרש. חפשו מומחיות ספציפית.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'משרד לא מאורגן:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'מסמכים אבודים, פגישות שנדחות שוב ושוב, או חוסר היכרות עם פרטי התיק שלכם.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'תחושת בטן:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'אם אתם לא מרגישים בנוח, לא מרגישים שמקשיבים לכם, או לא סומכים על עורך הדין — סמכו על האינסטינקט שלכם.', 'justice-theme' ); ?></li>
+			</ol>
+		</div>
+
+		<!-- Fee Structures -->
+		<div class="find-guide__deep-section">
+			<h3><?php esc_html_e( '💰 שיטות תמחור שכר טרחה — מדריך השוואתי', 'justice-theme' ); ?></h3>
+			<p><?php esc_html_e( 'הבנת מבנה שכר הטרחה היא קריטית לפני שמתחילים לעבוד עם עורך דין. להלן השיטות המקובלות בישראל:', 'justice-theme' ); ?></p>
+			<div class="find-guide__fee-grid">
+				<div class="find-guide__fee-card">
+					<h4><?php esc_html_e( 'שכר טרחה שעתי', 'justice-theme' ); ?></h4>
+					<p><?php esc_html_e( 'חיוב לפי שעות עבודה (350-1,500 ₪ לשעה). נפוץ בתחומים מסחריים, ליטיגציה מורכבת, ודיני עבודה. יתרון: משלמים רק על עבודה שבוצעה. חיסרון: קשה לחזות את העלות הסופית.', 'justice-theme' ); ?></p>
+				</div>
+				<div class="find-guide__fee-card">
+					<h4><?php esc_html_e( 'שכר טרחה קבוע (פאושלי)', 'justice-theme' ); ?></h4>
+					<p><?php esc_html_e( 'סכום מוסכם מראש עבור כל הטיפול. נפוץ בעסקאות נדל"ן, הסכמי גירושין בהסכמה, ורישום חברות. יתרון: ודאות תקציבית מלאה. חיסרון: אם התיק מתארך, עורך הדין עלול לקצר בטיפול.', 'justice-theme' ); ?></p>
+				</div>
+				<div class="find-guide__fee-card">
+					<h4><?php esc_html_e( 'אחוז מהפיצוי (שכר טרחה מותנה)', 'justice-theme' ); ?></h4>
+					<p><?php esc_html_e( 'עורך הדין מקבל 8-25% מהסכום שנפסק. נפוץ בתיקי נזיקין, תאונות דרכים, ורשלנות רפואית. אסור בתיקים פליליים. יתרון: אין תשלום מראש. חיסרון: אם הפיצוי גבוה, שכר הטרחה יהיה גבוה מאוד.', 'justice-theme' ); ?></p>
+				</div>
+				<div class="find-guide__fee-card">
+					<h4><?php esc_html_e( 'ריטיינר (שירות שוטף)', 'justice-theme' ); ?></h4>
+					<p><?php esc_html_e( 'תשלום חודשי קבוע עבור ליווי משפטי שוטף. נפוץ אצל עסקים, חברות, ויזמים. יתרון: זמינות מיידית ומחיר צפוי. חיסרון: משלמים גם בחודשים שקטים.', 'justice-theme' ); ?></p>
+				</div>
+			</div>
+			<p><strong><?php esc_html_e( 'חשוב: לפי כללי לשכת עורכי הדין, כל הסכם שכר טרחה חייב להיות בכתב. אם עורך הדין לא מציע הסכם כתוב — אל תמשיכו.', 'justice-theme' ); ?></strong></p>
+		</div>
+
+		<!-- When You Must Have a Lawyer -->
+		<div class="find-guide__deep-section">
+			<h3><?php esc_html_e( '⚖️ מתי חובה להיעזר בעורך דין?', 'justice-theme' ); ?></h3>
+			<p><?php esc_html_e( 'בישראל, ייצוג עצמי מותר ברוב ההליכים האזרחיים. עם זאת, במקרים הבאים חובה או מומלץ מאוד להיעזר בעורך דין:', 'justice-theme' ); ?></p>
+			<ul>
+				<li><strong><?php esc_html_e( 'הליכים פליליים:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'חובת ייצוג בעבירות שעונשן מעל 10 שנות מאסר. מומלץ מאוד בכל תיק פלילי.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'עסקאות נדל"ן:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'חובה לפי חוק. עורך דין נדל"ן מטפל ברישום טאבו, בדיקת זכויות, ועריכת חוזה.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'גירושין ומשמורת:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'מומלץ מאוד כשיש ילדים, רכוש משותף, או מחלוקת. שגיאות בהסכם גירושין עלולות להשפיע שנים קדימה.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'תביעות ביטוח ונזיקין:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'חברות ביטוח מעסיקות צוותים משפטיים. בלי ייצוג, הפיצוי שלכם יהיה נמוך משמעותית.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'סכסוכי עבודה:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'פיטורים שלא כדין, הטרדה מינית, הפרת חוזה עבודה — עורך דין דיני עבודה מכיר את הפסיקות והזכויות.', 'justice-theme' ); ?></li>
+				<li><strong><?php esc_html_e( 'ירושה וצוואות:', 'justice-theme' ); ?></strong> <?php esc_html_e( 'עריכת צוואה, קבלת צו ירושה, או התנגדות לצוואה דורשות ידע משפטי מדויק.', 'justice-theme' ); ?></li>
+			</ul>
+			<p><?php esc_html_e( 'גם כשלא חובה — ייעוץ משפטי חד-פעמי (200-800 ₪) יכול לחסוך טעויות יקרות של אלפי שקלים.', 'justice-theme' ); ?></p>
+		</div>
+
+		<!-- 10 Questions Checklist -->
+		<div class="find-guide__deep-section">
+			<h3><?php esc_html_e( '📋 10 שאלות שחייבים לשאול עורך דין לפני ששוכרים אותו', 'justice-theme' ); ?></h3>
+			<ol>
+				<li><?php esc_html_e( 'מה תחום ההתמחות העיקרי שלך? כמה שנים אתה עוסק בתחום הזה?', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'כמה תיקים דומים לשלי טיפלת? מה היו התוצאות?', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'מהי ההערכה שלך לגבי סיכויי התיק? מהם הסיכונים?', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'מי יטפל בתיק ביומיום — אתה אישית, שותף, או מתמחה?', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'מהו מבנה שכר הטרחה? האם יש הוצאות נוספות (אגרות, מומחים)?', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'האם תוכל לספק הסכם שכר טרחה כתוב ומפורט?', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'כמה זמן צפוי ההליך להימשך? מה עלול לגרום לעיכובים?', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'איך ניתן ליצור קשר? כמה פעם אקבל עדכון על מצב התיק?', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'האם יש חלופות (גישור, בוררות, פשרה) שכדאי לשקול?', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'מה קורה אם ארצה להחליף עורך דין באמצע ההליך?', 'justice-theme' ); ?></li>
+			</ol>
+		</div>
+
 		<!-- CTA -->
 		<div class="find-guide__cta">
 			<p><?php esc_html_e( 'מוכנים למצוא עורך דין מתאים?', 'justice-theme' ); ?></p>

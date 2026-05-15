@@ -196,6 +196,24 @@
 .find-guide__faq-item summary:hover { background: rgba(178,58,72,0.02); }
 .find-guide__faq-item p { padding: 0 1.2rem 1rem; font-size: 0.92rem; line-height: 1.8; margin: 0; }
 
+/* Deep guide sections (red flags, fees, checklist) */
+.find-guide__deep-section {
+  margin-top: 2.5rem; max-width: 780px; margin-inline: auto;
+  padding: 2rem; background: #fff; border: 1px solid var(--jt-border, #e5e7eb);
+  border-radius: 16px; box-shadow: 0 2px 12px rgba(7,21,47,0.04);
+}
+.find-guide__deep-section h3 { font-size: 1.25rem; font-weight: 800; margin: 0 0 1rem; }
+.find-guide__deep-section h4 { font-size: 1.05rem; font-weight: 700; margin: 0 0 0.5rem; color: var(--jt-accent-red); }
+.find-guide__deep-section ol, .find-guide__deep-section ul { padding-inline-start: 1.2rem; margin: 0.5rem 0; }
+.find-guide__deep-section li { margin-bottom: 0.6rem; font-size: 0.92rem; line-height: 1.7; }
+.find-guide__fee-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1rem 0; }
+.find-guide__fee-card {
+  padding: 1.2rem; background: var(--jt-bg, #f7f8fa); border-radius: 12px;
+  border: 1px solid var(--jt-border, #e5e7eb);
+}
+.find-guide__fee-card p { font-size: 0.88rem; line-height: 1.7; margin: 0; }
+@media (max-width: 640px) { .find-guide__fee-grid { grid-template-columns: 1fr; } }
+
 /* Guide CTA */
 .find-guide__cta {
   margin-top: 2.5rem; text-align: center;

@@ -1,9 +1,12 @@
 <?php
 /**
- * Homepage hero — search-first, CMS-driven, mobile-optimized.
+ * Homepage hero section — search-first centered design.
  *
- * All editable content is sourced from the Customizer.
- * Practice areas + cities are sourced from their taxonomies.
+ * Redesigned based on competitive analysis:
+ * - Centered layout with real background image
+ * - Search form is the dominant element above the fold
+ * - Practice area chips integrated as quick-links below search
+ * - Stats bar at the bottom for social proof
  *
  * @package JusticeTheme
  */
@@ -12,32 +15,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$headline    = function_exists( 'justice_theme_mod' )
-	? justice_theme_mod( 'justice_hero_headline', __( 'צריכים עורך דין או הכוונה משפטית? התחילו כאן', 'justice-theme' ) )
-	: __( 'צריכים עורך דין או הכוונה משפטית? התחילו כאן', 'justice-theme' );
-
-$description = function_exists( 'justice_theme_mod' )
-	? justice_theme_mod( 'justice_hero_description', __( 'חיפוש עורכי דין לפי תחום ומיקום, מאמרים משפטיים, ומדריכים מקצועיים — הכל במקום אחד.', 'justice-theme' ) )
-	: __( 'חיפוש עורכי דין לפי תחום ומיקום, מאמרים משפטיים, ומדריכים מקצועיים — הכל במקום אחד.', 'justice-theme' );
-
-$placeholder = function_exists( 'justice_theme_mod' )
-	? justice_theme_mod( 'justice_hero_search_placeholder', __( 'מה הבעיה המשפטית שלך?', 'justice-theme' ) )
-	: __( 'מה הבעיה המשפטית שלך?', 'justice-theme' );
-
-$trust_micro = function_exists( 'justice_theme_mod' )
-	? justice_theme_mod( 'justice_hero_trust_microcopy', __( 'עורכי דין מאומתים בלבד · רישוי מלא בלשכת עורכי הדין', 'justice-theme' ) )
-	: __( 'עורכי דין מאומתים בלבד · רישוי מלא בלשכת עורכי הדין', 'justice-theme' );
-
-$hero_bg = function_exists( 'justice_theme_mod' )
-	? justice_theme_mod( 'justice_hero_bg_image', JUSTICE_THEME_URI . '/assets/images/hero-bg.png' )
-	: JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
-
-$hero_bg_mobile = function_exists( 'justice_theme_mod' )
-	? justice_theme_mod( 'justice_hero_bg_image_mobile', '' )
-	: '';
-$hero_bg_mobile = $hero_bg_mobile ? $hero_bg_mobile : $hero_bg;
-
-// Practice areas from taxonomy.
+// Get practice area terms for dropdown
 $practice_terms = get_terms( array(
 	'taxonomy'   => 'practice-areas',
 	'hide_empty' => false,
@@ -45,49 +23,46 @@ $practice_terms = get_terms( array(
 	'order'      => 'DESC',
 ) );
 
-// Cities from taxonomy (NOT hardcoded any more).
-$city_terms = get_terms( array(
-	'taxonomy'   => 'city',
-	'hide_empty' => false,
-	'orderby'    => 'name',
-	'order'      => 'ASC',
-) );
-
-// Fallback major cities if the taxonomy is empty.
-$fallback_cities = array(
-	'תל אביב', 'ירושלים', 'חיפה', 'ראשון לציון', 'פתח תקווה',
-	'אשדוד', 'נתניה', 'באר שבע', 'חולון', 'רמת גן',
-	'הרצליה', 'כפר סבא', 'מודיעין', 'אשקלון', 'רחובות',
+// Major Israeli cities for dropdown
+$israel_cities = array(
+	'תל אביב',
+	'ירושלים',
+	'חיפה',
+	'ראשון לציון',
+	'פתח תקווה',
+	'אשדוד',
+	'נתניה',
+	'באר שבע',
+	'חולון',
+	'בני ברק',
+	'רמת גן',
+	'אשקלון',
+	'רחובות',
+	'בת ים',
+	'הרצליה',
+	'כפר סבא',
+	'מודיעין',
+	'נצרת',
+	'לוד',
+	'רמלה',
 );
 
-$lawyers_archive = get_post_type_archive_link( 'justice_lawyer' );
-$search_action   = $lawyers_archive ? $lawyers_archive : home_url( '/lawyers/' );
-
-$total_articles = wp_count_posts( 'articles' );
-$total_count    = isset( $total_articles->publish ) ? (int) $total_articles->publish : 0;
-$total_count   += (int) wp_count_posts( 'post' )->publish;
-$total_terms    = wp_count_terms( array( 'taxonomy' => 'practice-areas' ) );
-$total_terms    = is_wp_error( $total_terms ) ? 0 : (int) $total_terms;
-$total_lawyers  = (int) ( wp_count_posts( 'justice_lawyer' )->publish ?? 0 );
-$total_cities   = is_wp_error( $city_terms ) ? count( $fallback_cities ) : ( ! empty( $city_terms ) ? count( $city_terms ) : count( $fallback_cities ) );
+// Hero background image
+$hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
 ?>
 
-<section class="hero hero--has-bg" id="hero"
-	style="--hero-bg-image: url('<?php echo esc_url( $hero_bg ); ?>'); --hero-bg-image-mobile: url('<?php echo esc_url( $hero_bg_mobile ); ?>');">
+<section class="hero hero--has-bg" id="hero" style="--hero-bg-image: url('<?php echo esc_url( $hero_bg ); ?>');">
 	<div class="container hero__grid">
 		<div class="hero__content">
-			<h1 class="hero__title"><?php echo esc_html( $headline ); ?></h1>
+			<h1 class="hero__title">
+				<?php esc_html_e( 'עורכי דין בישראל — מאגר עורכי דין, מאמרים משפטיים ומדריכים מקצועיים', 'justice-theme' ); ?>
+			</h1>
 
-			<p class="hero__description"><?php echo esc_html( $description ); ?></p>
+			<p class="hero__description">
+				<?php esc_html_e( 'מחפשים עורך דין? במדריך המשפטי שלנו תמצאו עורכי דין מומלצים ומשרדי עורכי דין מובילים בכל תחומי המשפט בישראל, לרבות: דיני משפחה, נזיקין, מקרקעין, דיני עבודה, פלילי, הוצאה לפועל, תעבורה, משפט מסחרי ועוד. בצעו חיפוש עורך דין מקצועי לפי התמחות, עיר או יישוב וקבלו מענה לכל סוגיה משפטית.', 'justice-theme' ); ?>
+			</p>
 
-			<form
-				class="hero-search"
-				role="search"
-				method="get"
-				action="<?php echo esc_url( $search_action ); ?>"
-				id="hero-search-form"
-				aria-label="<?php esc_attr_e( 'חיפוש עורך דין', 'justice-theme' ); ?>"
-			>
+			<form class="hero-search" role="search" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ); ?>" id="hero-search-form">
 				<div class="hero-search__filters">
 					<div class="hero-search__field">
 						<label class="screen-reader-text" for="hero-practice-area">
@@ -95,13 +70,17 @@ $total_cities   = is_wp_error( $city_terms ) ? count( $fallback_cities ) : ( ! e
 						</label>
 						<select id="hero-practice-area" name="area">
 							<option value=""><?php esc_html_e( 'בחרו תחום משפטי', 'justice-theme' ); ?></option>
-							<?php if ( ! empty( $practice_terms ) && ! is_wp_error( $practice_terms ) ) : ?>
-								<?php foreach ( $practice_terms as $pterm ) : ?>
-									<option value="<?php echo esc_attr( $pterm->slug ); ?>">
-										<?php echo esc_html( $pterm->name ); ?>
-									</option>
-								<?php endforeach; ?>
-							<?php endif; ?>
+							<?php
+							if ( ! empty( $practice_terms ) && ! is_wp_error( $practice_terms ) ) :
+								foreach ( $practice_terms as $pterm ) :
+							?>
+								<option value="<?php echo esc_attr( $pterm->slug ); ?>">
+									<?php echo esc_html( $pterm->name ); ?>
+								</option>
+							<?php
+								endforeach;
+							endif;
+							?>
 						</select>
 					</div>
 
@@ -111,19 +90,11 @@ $total_cities   = is_wp_error( $city_terms ) ? count( $fallback_cities ) : ( ! e
 						</label>
 						<select id="hero-city" name="city">
 							<option value=""><?php esc_html_e( 'בחרו עיר', 'justice-theme' ); ?></option>
-							<?php if ( ! empty( $city_terms ) && ! is_wp_error( $city_terms ) ) : ?>
-								<?php foreach ( $city_terms as $cterm ) : ?>
-									<option value="<?php echo esc_attr( $cterm->slug ); ?>">
-										<?php echo esc_html( $cterm->name ); ?>
-									</option>
-								<?php endforeach; ?>
-							<?php else : ?>
-								<?php foreach ( $fallback_cities as $fallback_city ) : ?>
-									<option value="<?php echo esc_attr( sanitize_title( $fallback_city ) ); ?>">
-										<?php echo esc_html( $fallback_city ); ?>
-									</option>
-								<?php endforeach; ?>
-							<?php endif; ?>
+							<?php foreach ( $israel_cities as $city ) : ?>
+								<option value="<?php echo esc_attr( $city ); ?>">
+									<?php echo esc_html( $city ); ?>
+								</option>
+							<?php endforeach; ?>
 						</select>
 					</div>
 				</div>
@@ -133,46 +104,49 @@ $total_cities   = is_wp_error( $city_terms ) ? count( $fallback_cities ) : ( ! e
 						id="hero-search-input"
 						type="search"
 						name="keyword"
-						placeholder="<?php echo esc_attr( $placeholder ); ?>"
-						aria-label="<?php esc_attr_e( 'מילת מפתח', 'justice-theme' ); ?>"
+						placeholder="<?php echo esc_attr__( 'חפשו עורך דין או תחום משפטי...', 'justice-theme' ); ?>"
 						value=""
 					>
-					<button type="submit" class="button button--primary hero-search__submit">
-						<?php esc_html_e( 'חיפוש עורך דין', 'justice-theme' ); ?>
+					<button type="submit" class="button button--primary">
+						<?php esc_html_e( 'חיפוש', 'justice-theme' ); ?>
 					</button>
 				</div>
 			</form>
 
-			<?php if ( $trust_micro ) : ?>
-				<p class="hero__trust-micro">
-					<span aria-hidden="true">✓</span>
-					<?php echo esc_html( $trust_micro ); ?>
-				</p>
-			<?php endif; ?>
+			<div class="hero__ctas" style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center;">
+				<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" class="button button--primary">
+					<?php esc_html_e( 'מצאו עורך דין', 'justice-theme' ); ?>
+				</a>
+				<a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>" class="button button--outline" style="border-color: rgba(255,255,255,0.4); color: #fff;">
+					<?php esc_html_e( 'עיינו במדריכים', 'justice-theme' ); ?>
+				</a>
+			</div>
 
-			<div class="hero__stats" role="list" aria-label="<?php esc_attr_e( 'נתוני הפלטפורמה', 'justice-theme' ); ?>">
-				<span class="hero__stat" role="listitem">
+			<div class="hero__stats">
+				<?php
+				$total_articles = wp_count_posts( 'articles' );
+				$total_count = isset( $total_articles->publish ) ? (int) $total_articles->publish : 0;
+				$post_counts = wp_count_posts( 'post' );
+				$total_count += isset( $post_counts->publish ) ? (int) $post_counts->publish : 0;
+				$total_terms = wp_count_terms( array( 'taxonomy' => 'practice-areas' ) );
+				?>
+				<span class="hero__stat">
 					<strong><?php echo esc_html( number_format_i18n( $total_count ) ); ?></strong>
 					<?php esc_html_e( 'מאמרים משפטיים', 'justice-theme' ); ?>
 				</span>
-				<span class="hero__stat" role="listitem">
-					<strong><?php echo esc_html( number_format_i18n( $total_terms ) ); ?></strong>
+				<span class="hero__stat">
+					<strong><?php echo esc_html( is_numeric( $total_terms ) ? $total_terms : 0 ); ?></strong>
 					<?php esc_html_e( 'תחומי משפט', 'justice-theme' ); ?>
 				</span>
-				<?php if ( $total_lawyers > 0 ) : ?>
-					<span class="hero__stat" role="listitem">
-						<strong><?php echo esc_html( number_format_i18n( $total_lawyers ) ); ?></strong>
-						<?php esc_html_e( 'עורכי דין', 'justice-theme' ); ?>
-					</span>
-				<?php endif; ?>
-				<span class="hero__stat" role="listitem">
-					<strong><?php echo esc_html( number_format_i18n( $total_cities ) ); ?>+</strong>
+				<span class="hero__stat">
+					<strong><?php echo esc_html( count( $israel_cities ) ); ?></strong>
 					<?php esc_html_e( 'ערים', 'justice-theme' ); ?>
 				</span>
 			</div>
 		</div>
 
 		<?php
+		// Quick-links bar — popular practice areas as chip buttons
 		$popular_terms = get_terms( array(
 			'taxonomy'   => 'practice-areas',
 			'hide_empty' => true,
@@ -183,25 +157,28 @@ $total_cities   = is_wp_error( $city_terms ) ? count( $fallback_cities ) : ( ! e
 
 		if ( ! empty( $popular_terms ) && ! is_wp_error( $popular_terms ) ) :
 		?>
-		<aside class="hero__panel" aria-label="<?php esc_attr_e( 'תחומי משפט נפוצים', 'justice-theme' ); ?>">
-			<p class="hero__panel-label"><?php esc_html_e( 'תחומי חיפוש מרכזיים', 'justice-theme' ); ?></p>
+		<div class="hero__panel" aria-label="<?php esc_attr_e( 'תחומי משפט נפוצים', 'justice-theme' ); ?>">
+			<h2><?php esc_html_e( 'תחומי חיפוש מרכזיים', 'justice-theme' ); ?></h2>
 
 			<ul class="hero__quick-links">
-				<?php foreach ( $popular_terms as $pterm ) : ?>
+				<?php 
+					foreach ( $popular_terms as $pterm ) : 
+						$pterm_link = get_term_link( $pterm );
+						$pterm_url  = is_wp_error( $pterm_link ) ? '' : justice_theme_public_url( (string) $pterm_link );
+				?>
 					<li>
-						<a href="<?php echo esc_url( get_term_link( $pterm ) ); ?>" rel="tag">
+						<a href="<?php echo esc_url( $pterm_url ); ?>">
 							<?php echo esc_html( $pterm->name ); ?>
-							<span class="hero__quick-count"><?php echo esc_html( $pterm->count ); ?></span>
+							<span><?php echo esc_html( $pterm->count ); ?></span>
 						</a>
 					</li>
 				<?php endforeach; ?>
 			</ul>
 
-			<a href="<?php echo esc_url( $search_action ); ?>" class="hero__panel-cta">
-				<?php esc_html_e( 'לכל התחומים', 'justice-theme' ); ?>
-				<span aria-hidden="true" class="hero__panel-arrow">›</span>
+			<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" class="hero__panel-cta">
+				<?php esc_html_e( 'כל התחומים ←', 'justice-theme' ); ?>
 			</a>
-		</aside>
+		</div>
 		<?php endif; ?>
 	</div>
 </section>

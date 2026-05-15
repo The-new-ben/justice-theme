@@ -1,0 +1,106 @@
+# Taxonomy Governance — machine-readable rules
+# Jus-Tice.co.il legal portal
+# Updated: 2026-05-15
+
+version: 1
+updated: 2026-05-15
+seo_plugin: "Yoast SEO v27.6"
+
+canonical_taxonomies:
+  practice-areas:
+    role: "Single canonical legal-field taxonomy for articles and lawyers"
+    slug: practice-areas
+    hierarchical: true
+    show_in_rest: true
+    rest_base: practice-areas
+    object_types: [articles, post, justice_lawyer]
+    live_label_issue: "Live label is English 'Practice Areas'; should be Hebrew 'תחומי משפט'"
+  city:
+    role: "Geographic taxonomy for lawyer directory and city pages"
+    slug: city
+    hierarchical: false
+    show_in_rest: true
+    rest_base: city
+    object_types: [justice_lawyer]
+    live_note: "Live object types also include legacy 'lawyer' CPT"
+  category:
+    role: "Legacy WordPress categories - NOT the legal-field taxonomy"
+    status: legacy
+    do_not_use_for: "legal field classification"
+  post_tag:
+    role: "Free-form tags - not used for legal-field classification"
+
+plugin_copies:
+  - name: justice-core
+    prefix: uje_
+    hebrew_encoding: corrupted
+    practice_areas_label: hebrew
+    activate: false
+    reason: "Mojibake Hebrew in taxonomy-city.php and cpt-lawyers.php"
+  - name: ultra-justice-engine
+    prefix: uje_
+    hebrew_encoding: correct
+    practice_areas_label: hebrew
+    activate: conditional
+    reason: "Shares uje_ function names with justice-core - fatal redeclare if both active"
+  - name: ultra-justice
+    prefix: uj_
+    hebrew_encoding: correct
+    practice_areas_label: english
+    activate: likely_active
+    reason: "Live practice-areas label is English, which only this copy uses"
+
+hard_rules:
+  - "Exactly one plugin copy active at a time"
+  - "justice-core and ultra-justice-engine can NEVER both be active (uje_ function name collision = fatal error)"
+  - "practice-areas is the only legal-field taxonomy; category is not a parallel system"
+  - "Theme safety net inc/taxonomy-seed.php justice_theme_ensure_core_taxonomy_objects() guarantees object-type associations at init priority 99; additive and idempotent"
+  - "Taxonomy REST field name equals taxonomy slug; never rename"
+
+term_naming_standard:
+  slug: "lowercase Latin, hyphenated, English; never percent-encoded Hebrew"
+  name: "Hebrew display name; never an English slug-string"
+  description: "one short plain-text sentence; never a full HTML article body"
+  uniqueness: "one term per legal field; no semantic duplicates; no category/practice-area twins"
+
+fix_applied_2026_05_15:
+  file: inc/taxonomy-seed.php
+  change: "Generalised justice_theme_ensure_practice_areas_on_lawyer_cpt() to justice_theme_ensure_core_taxonomy_objects()"
+  guarantees:
+    - "practice-areas -> articles, post, justice_lawyer"
+    - "city -> justice_lawyer"
+  hook: "init priority 99"
+  properties: [additive, idempotent, load-order-safe]
+  back_compat: "old function name kept as alias"
+  deployment_marker: "2026-05-15-taxonomy-object-type-safety-net-v1"
+
+cleanup_backlog:
+  - id: full-term-inventory
+    desc: "Pull complete practice-areas term list; build legacy->canonical merge map"
+    blocked_by: "tooling truncation / needs workspace curl or browser permission"
+  - id: city-latin-names
+    desc: "Rename 9 city terms (IDs 700-710) from Latin placeholder names to Hebrew; names only, keep slugs/IDs"
+  - id: category-practice-duplication
+    desc: "Resolve category/criminal-law (730) vs practice-areas/criminal-law (170); re-tag before any redirect"
+  - id: term-naming-fixes
+    desc: "Give term 713 a Hebrew name; fix percent-encoded slug on term 18"
+  - id: criminal-law-subterms
+    desc: "Decide and build Criminal Law sub-term structure (child terms vs pillar/spoke)"
+  - id: legacy-cpts
+    desc: "Inventory labor_law, small_claims, corona_virus, supreme_court, old 'lawyer' CPT; decide keep/redirect/migrate"
+
+safe_change_rules:
+  allowed:
+    - "additive code safety nets"
+    - "term renames (name field only)"
+    - "term description cleanup"
+    - "building term inventory"
+    - "REST diagnostics"
+    - "single controlled term assignments"
+  requires_explicit_approval:
+    - "deleting terms"
+    - "bulk merging terms"
+    - "changing term slugs (breaks URLs)"
+    - "deactivating or swapping plugins"
+    - "mass re-tagging"
+    - "changing category/practice-areas URL structure"

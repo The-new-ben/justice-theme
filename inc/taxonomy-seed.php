@@ -10,23 +10,64 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
- * Ensure practice-areas taxonomy is always attached to justice_lawyer CPT.
+ * Ensure core taxonomy <-> object-type associations always exist.
  *
- * On some managed hosts or plugin load orders, the taxonomy may be registered
- * without justice_lawyer in its object types. This safety function runs late
- * on init to guarantee the association exists.
+ * The site has historically shipped multiple plugin copies (justice-core,
+ * ultra-justice, ultra-justice-engine) that each register the `practice-areas`
+ * and `city` taxonomies with slightly different object types and load orders.
+ * Depending on which copy is active and on plugin/CPT load order, an object-type
+ * association can silently be missing after registration or object caching.
+ *
+ * This safety net runs late on `init` (priority 99, after all CPT and taxonomy
+ * registrations) and guarantees the associations the theme templates, archives,
+ * REST consumers and sitemap depend on.
+ *
+ * It is intentionally PURELY ADDITIVE and IDEMPOTENT: it only ever ADDS a
+ * missing association and never removes one, so it cannot conflict with
+ * whichever plugin copy is active, and re-running it has no side effects.
+ *
+ * Guaranteed associations:
+ *   - practice-areas  ->  articles, post, justice_lawyer
+ *   - city            ->  justice_lawyer
  */
-function justice_theme_ensure_practice_areas_on_lawyer_cpt(): void {
-	if ( ! taxonomy_exists( 'practice-areas' ) || ! post_type_exists( 'justice_lawyer' ) ) {
-		return;
-	}
+function justice_theme_ensure_core_taxonomy_objects(): void {
+	$map = array(
+		'practice-areas' => array( 'articles', 'post', 'justice_lawyer' ),
+		'city'           => array( 'justice_lawyer' ),
+	);
 
-	$tax = get_taxonomy( 'practice-areas' );
-	if ( $tax && ! in_array( 'justice_lawyer', (array) $tax->object_type, true ) ) {
-		register_taxonomy_for_object_type( 'practice-areas', 'justice_lawyer' );
+	foreach ( $map as $taxonomy => $object_types ) {
+		if ( ! taxonomy_exists( $taxonomy ) ) {
+			continue;
+		}
+
+		$tax     = get_taxonomy( $taxonomy );
+		$current = $tax ? (array) $tax->object_type : array();
+
+		foreach ( $object_types as $object_type ) {
+			if ( ! post_type_exists( $object_type ) ) {
+				continue;
+			}
+			if ( ! in_array( $object_type, $current, true ) ) {
+				register_taxonomy_for_object_type( $taxonomy, $object_type );
+			}
+		}
 	}
 }
-add_action( 'init', 'justice_theme_ensure_practice_areas_on_lawyer_cpt', 99 );
+add_action( 'init', 'justice_theme_ensure_core_taxonomy_objects', 99 );
+
+/**
+ * Back-compat alias for the previous, narrower function name.
+ *
+ * Kept so any direct caller of the old name keeps working after the
+ * function was generalised to cover `city` and the `articles`/`post`
+ * object types as well.
+ *
+ * @deprecated Use justice_theme_ensure_core_taxonomy_objects() instead.
+ */
+function justice_theme_ensure_practice_areas_on_lawyer_cpt(): void {
+	justice_theme_ensure_core_taxonomy_objects();
+}
 
 
 function justice_theme_seed_core_practice_terms(): void {

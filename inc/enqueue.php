@@ -146,12 +146,13 @@ function justice_theme_strip_duplicate_theme_color(): void {
 	ob_start(
 		function ( string $html ): string {
 			// Remove all plugin-injected theme-color tags (our header.php has the canonical one).
-			return preg_replace(
+			$result = preg_replace(
 				'#<meta\s+name=["\']theme-color["\']\s+content=["\'][^"\']*["\']\s*/?\s*>\s*\n?#i',
 				'',
 				$html,
 				-1
 			);
+			return is_string( $result ) ? $result : $html;
 		}
 	);
 }

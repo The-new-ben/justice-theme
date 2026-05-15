@@ -125,8 +125,9 @@ $hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
 			<div class="hero__stats">
 				<?php
 				$total_articles = wp_count_posts( 'articles' );
-				$total_count = isset( $total_articles->publish ) ? $total_articles->publish : 0;
-				$total_count += wp_count_posts( 'post' )->publish;
+				$total_count = isset( $total_articles->publish ) ? (int) $total_articles->publish : 0;
+				$post_counts = wp_count_posts( 'post' );
+				$total_count += isset( $post_counts->publish ) ? (int) $post_counts->publish : 0;
 				$total_terms = wp_count_terms( array( 'taxonomy' => 'practice-areas' ) );
 				?>
 				<span class="hero__stat">
@@ -160,9 +161,13 @@ $hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
 			<h2><?php esc_html_e( 'תחומי חיפוש מרכזיים', 'justice-theme' ); ?></h2>
 
 			<ul class="hero__quick-links">
-				<?php foreach ( $popular_terms as $pterm ) : ?>
+				<?php 
+					foreach ( $popular_terms as $pterm ) : 
+						$pterm_link = get_term_link( $pterm );
+						$pterm_url  = is_wp_error( $pterm_link ) ? '' : justice_theme_public_url( (string) $pterm_link );
+				?>
 					<li>
-						<a href="<?php echo esc_url( justice_theme_normalize_public_url( get_term_link( $pterm ) ) ); ?>">
+						<a href="<?php echo esc_url( $pterm_url ); ?>">
 							<?php echo esc_html( $pterm->name ); ?>
 							<span><?php echo esc_html( $pterm->count ); ?></span>
 						</a>

@@ -1,0 +1,58 @@
+id,slug,name,count,parent,notes
+713,real-estate-law,real-estate-law,0,0,English-only name - needs Hebrew rename
+18,%d7%90%d7%92%d7%95%d7%93%d7%95%d7%aa-%d7%a9%d7%99%d7%aa%d7%95%d7%a4%d7%99%d7%95%d7%aa,אגודות שיתופיות,0,0,URL-encoded slug
+25,environmental-law,דיני סביבה,1,0,
+34,insurance-law,ביטוח,5,0,
+717,national-insurance,ביטוח לאומי,0,0,
+640,rabbinical-court,בית הדין הרבני,6,0,
+643,supreme-court,בית המשפט העליון,4,632,child of 632
+639,family-court,בית משפט לענייני משפחה,4,0,
+40,blockchain-crypto,בלוקצ'יין ומטבעות קריפטוגרפיים,1,0,
+392,divorce,גירושין,28,68,child of family-law(68)
+68,family-law,דיני משפחה,176,0,MAJOR - 176 articles
+711,tort-law,דיני נזיקין,1,0,
+76,personal-injury,דיני נזיקין,21,0,DUPLICATE NAME with 711
+83,israeli-labor-law,דיני עבודה,18,0,
+703,labor-law,דיני עבודה,0,0,DUPLICATE NAME with 83
+97,traffic-law,דיני תעבורה,9,0,
+99,%d7%93%d7%99%d7%a0%d7%99-%d7%aa%d7%a7%d7%a9%d7%95%d7%a8%d7%aa,דיני תקשורת,0,0,URL-encoded slug
+240,%d7%94%d7%92%d7%91%d7%9c%d7%99%d7%9d-%d7%94%d7%a2%d7%a1%d7%a7%d7%99%d7%99%d7%9d,הגבלים העסקיים,0,18,child of 18; URL-encoded slug
+681,%d7%94%d7%92%d7%99%d7%a8%d7%94,הגירה,0,0,URL-encoded slug
+718,immigration-law,הגירה ואזרחות,0,0,
+51,%d7%94%d7%95%d7%a6%d7%90%d7%94-%d7%9c%d7%a4%d7%95%d7%a2%d7%9c,הוצאה לפועל,0,0,URL-encoded slug
+637,public-defense,הסנגוריה הציבורית,1,632,child of 632
+119,%d7%97%d7%93%d7%9c%d7%95%d7%aa-%d7%a4%d7%99%d7%a8%d7%a2%d7%95%d7%9f,חדלות פירעון,0,0,URL-encoded slug
+714,inheritance-law,ירושה וצוואות,0,0,
+307,%d7%99%d7%a8%d7%95%d7%a9%d7%95%d7%aa-%d7%95%d7%a6%d7%95%d7%95%d7%90%d7%95%d7%aa,ירושות וצוואות,1,75,DUPLICATE of 714; child of 75; URL-encoded slug
+644,knesset,כנסת ישראל,1,0,
+127,%d7%9c%d7%99%d7%98%d7%99%d7%92%d7%a6%d7%99%d7%94-%d7%9e%d7%a1%d7%97%d7%a8%d7%99%d7%aa,ליטיגציה מסחרית,0,0,URL-encoded slug
+129,defamation,לשון הרע,9,0,
+635,child-support,מזונות ילדים,4,392,child of divorce(392)
+112,%d7%9e%d7%99%d7%96%d7%95%d7%92%d7%99%d7%9d-%d7%95%d7%a8%d7%9b%d7%99%d7%a9%d7%95%d7%aa,מיזוגים ורכישות,0,0,URL-encoded slug
+485,tax-law,מיסוי,7,0,
+312,%d7%9e%d7%a1%d7%97%d7%a8%d7%99-%d7%90%d7%96%d7%a8%d7%97%d7%99,מסחרי-אזרחי,16,0,URL-encoded slug
+234,real-estate,מקרקעין | נדל"ן,95,0,MAJOR - 95 articles
+634,child-custody,משמורת ילדים,2,68,child of family-law(68)
+159,%d7%9e%d7%a9%d7%a4%d7%98-%d7%99%d7%9e%d7%99,משפט ימי,0,0,URL-encoded slug
+165,administrative-law,משפט מינהלי,2,0,
+709,commercial-law,משפט מסחרי,1,0,
+170,criminal-law,משפט פלילי,143,0,MAJOR - 143 articles; Criminal Law
+632,%d7%9e%d7%a9%d7%a8%d7%93-%d7%94%d7%9e%d7%a9%d7%a4%d7%98%d7%99%d7%9d-%d7%99%d7%a9%d7%a8%d7%90%d7%9c,מערך המשפט,16,0,URL-encoded slug
+715,torts,נזיקין,0,0,DUPLICATE of 711 and 76
+188,cyber-law,סייבר,8,0,
+648,attorney-rulings,פס"ד נזיקין נבחר מעו,6,76,child of personal-injury(76); truncated name
+308,lawyer-directory,ספר עסק,171,0,SUSPICIOUS - 171 articles tagged; not a practice area
+656,prenuptial-agreement,הסכם ממון טופס הסכם ממון 2022,10,170,child of criminal-law(170); WRONG PARENT
+75,inheritance,ירושות ודיני,6,68,child of family-law(68)
+683,portugal,פורטוגל,44,0,NOT a practice area - country
+309,compensation,פיצויים,6,76,child of personal-injury(76)
+642,criminal-court-rulings,פסיקה דיני עונשין ושפיטה,31,170,child of criminal-law(170)
+79,%d7%a4%d7%9c%d7%aa%d7%93,פלת"ד,0,76,child of personal-injury(76); URL-encoded slug
+651,family-court-rulings,הסכם ממון משפט משפחה דיני משפחה 2022,30,68,child of family-law(68); overstuffed name
+646,court-rulings,פסקי דין משפחה,81,68,child of family-law(68); misleading slug
+74,wills,צוואות,2,68,child of family-law(68)
+194,%d7%a7%d7%a0%d7%99%d7%99%d7%9f-%d7%a8%d7%95%d7%97%d7%a0%d7%99,קניין רוחני,2,0,URL-encoded slug
+668,%d7%a8%d7%99%d7%a9%d7%95%d7%99-%d7%a2%d7%a1%d7%a7%d7%99%d7%9d,רישוי עסקים,2,312,child of 312; URL-encoded slug
+716,medical-malpractice,רשלנות רפואית,0,0,
+225,%d7%a9%d7%95%d7%a7-%d7%94%d7%94%d7%95%d7%9f,שוק ההון,1,0,URL-encoded slug
+232,%d7%aa%d7%95%d7%91%d7%a2%d7%a0%d7%95%d7%aa-%d7%99%d7%99%d7%a6%d7%95%d7%92%d7%99%d7%95%d7%aa,תובענות ייצוגיות,1,0,URL-encoded slug

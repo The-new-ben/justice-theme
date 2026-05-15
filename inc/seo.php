@@ -62,7 +62,138 @@ function justice_theme_register_fix_category_base_endpoint(): void {
 }
 add_action( 'rest_api_init', 'justice_theme_register_fix_category_base_endpoint' );
 
+/**
+ * One-time Yoast SEO configuration seeder.
+ *
+ * Seeds `wpseo_titles` and `wpseo` options with best-practice defaults for
+ * a Hebrew legal portal:
+ *   - Meta description templates for articles, practice-areas, category, city
+ *   - Title templates following "Term - Brand" pattern
+ *   - Noindex for thin/tag archives
+ *   - Disable author/date archives (single-brand portal)
+ *   - Enable media redirect to parent post
+ *
+ * Runs once on admin_init (idempotent — checks a flag before writing).
+ * Re-run by deleting the `justice_yoast_seeded` option.
+ *
+ * Research basis:
+ *   - Yoast SEO docs: snippet variables, taxonomy archive settings
+ *   - SEO expert consensus: unique descriptions > templates, but templates
+ *     are better than nothing for 1200+ articles
+ *   - Hebrew/RTL legal site: E-E-A-T, local SEO, practice-area hub structure
+ *   - wpseo_titles option structure: metadesc-{cpt}, title-tax-{taxonomy}, etc.
+ */
+function justice_theme_seed_yoast_configuration(): void {
+	if ( ! is_admin() || get_option( 'justice_yoast_seeded' ) === 'v2-2026-05-15' ) {
+		return;
+	}
 
+	// --- wpseo_titles: templates for titles, meta descriptions, indexation ---
+	$titles = get_option( 'wpseo_titles', array() );
+	if ( ! is_array( $titles ) ) {
+		$titles = array();
+	}
+
+	$updates = array(
+		// Articles CPT: title and meta description templates.
+		'title-articles'                => '%%title%% %%page%% %%sep%% %%sitename%%',
+		'metadesc-articles'             => '%%title%% - %%excerpt%%',
+		'title-ptarchive-articles'      => 'מאמרים משפטיים %%page%% %%sep%% %%sitename%%',
+		'metadesc-ptarchive-articles'   => 'מאמרים ומדריכים משפטיים בכל תחומי המשפט. מידע כללי על זכויות, הליכים משפטיים ותחומי ייצוג בישראל.',
+
+		// Justice Lawyer CPT.
+		'title-justice_lawyer'          => '%%title%% %%sep%% %%sitename%%',
+		'metadesc-justice_lawyer'       => '%%title%% - פרופיל עורך דין. תחומי התמחות, אזורי פעילות ופרטי קשר.',
+		'title-ptarchive-justice_lawyer' => 'מאגר עורכי דין %%page%% %%sep%% %%sitename%%',
+		'metadesc-ptarchive-justice_lawyer' => 'חפשו עורכי דין לפי תחום התמחות ואזור. מאגר עורכי דין מקצועי בישראל.',
+
+		// Practice-areas taxonomy (main hub pages).
+		'title-tax-practice-areas'      => '%%term_title%% %%page%% %%sep%% %%sitename%%',
+		'metadesc-tax-practice-areas'   => '%%term_title%% - מדריכים, מאמרים ועורכי דין מומחים. מידע כללי על זכויות והליכים משפטיים בישראל.',
+		'noindex-tax-practice-areas'    => false,
+
+		// City taxonomy.
+		'title-tax-city'                => 'עורכי דין ב%%term_title%% %%page%% %%sep%% %%sitename%%',
+		'metadesc-tax-city'             => 'מצאו עורכי דין ב%%term_title%%. רשימת עורכי דין לפי תחומי התמחות באזור %%term_title%%.',
+		'noindex-tax-city'              => false,
+
+		// WordPress category (legacy, keep indexed for now).
+		'title-tax-category'            => '%%term_title%% %%page%% %%sep%% %%sitename%%',
+		'metadesc-tax-category'         => '%%term_title%% - מאמרים ומדריכים משפטיים. מידע כללי ועדכני בתחום.',
+
+		// Tags: noindex (thin content risk).
+		'noindex-tax-post_tag'          => true,
+
+		// Posts (standard WP posts, if any).
+		'title-post'                    => '%%title%% %%page%% %%sep%% %%sitename%%',
+		'metadesc-post'                 => '%%title%% - %%excerpt%%',
+
+		// Pages.
+		'title-page'                    => '%%title%% %%page%% %%sep%% %%sitename%%',
+
+		// Author archives: disabled (portal brand, not individual authors).
+		'disable-author'                => true,
+		'noindex-author-wpseo'          => true,
+
+		// Date archives: noindex (thin, duplicate content).
+		'noindex-archive-wpseo'         => true,
+
+		// Media/attachment pages: redirect to parent.
+		'disable-attachment'            => true,
+	);
+
+	foreach ( $updates as $key => $value ) {
+		$titles[ $key ] = $value;
+	}
+
+	update_option( 'wpseo_titles', $titles );
+
+	// --- wpseo: general settings ---
+	$wpseo = get_option( 'wpseo', array() );
+	if ( ! is_array( $wpseo ) ) {
+		$wpseo = array();
+	}
+
+	// Separator: vertical pipe for clean Hebrew titles.
+	$wpseo['separator'] = 'sc-pipe';
+
+	// Enable breadcrumbs (Yoast breadcrumbs, theme may override display).
+	$wpseo['breadcrumbs-enable'] = true;
+	$wpseo['breadcrumbs-home']   = 'עמוד הבית';
+
+	update_option( 'wpseo', $wpseo );
+
+	// Mark as seeded to prevent re-running.
+	update_option( 'justice_yoast_seeded', 'v2-2026-05-15', true );
+}
+add_action( 'admin_init', 'justice_theme_seed_yoast_configuration' );
+
+/**
+ * REST endpoint to trigger Yoast configuration seeding.
+ *
+ * POST /wp-json/justice/v1/seed-yoast-config
+ * Allows remote trigger without visiting wp-admin.
+ */
+function justice_theme_register_seed_yoast_endpoint(): void {
+	register_rest_route( 'justice/v1', '/seed-yoast-config', array(
+		'methods'             => 'POST',
+		'callback'            => function () {
+			delete_option( 'justice_yoast_seeded' );
+			justice_theme_seed_yoast_configuration();
+			$titles = get_option( 'wpseo_titles', array() );
+			return new WP_REST_Response( array(
+				'seeded'               => true,
+				'metadesc-articles'    => $titles['metadesc-articles'] ?? '(not set)',
+				'metadesc-tax-practice-areas' => $titles['metadesc-tax-practice-areas'] ?? '(not set)',
+				'metadesc-justice_lawyer' => $titles['metadesc-justice_lawyer'] ?? '(not set)',
+			), 200 );
+		},
+		'permission_callback' => function () {
+			return current_user_can( 'manage_options' );
+		},
+	) );
+}
+add_action( 'rest_api_init', 'justice_theme_register_seed_yoast_endpoint' );
 
 
 /**

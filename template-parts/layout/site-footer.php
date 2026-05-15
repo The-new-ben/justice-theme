@@ -64,14 +64,14 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0544705733' );
 				<span style="position: absolute; bottom: 0; right: 0; width: 40px; height: 3px; background: var(--jt-accent); border-radius: 2px;"></span>
 			</h3>
 			<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.8rem;">
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=family-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">משפחה וגירושין</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=criminal-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">משפט פלילי</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=real-estate-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מקרקעין ונדל"ן</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=personal-injury-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">נזיקין ותאונות</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=medical-malpractice-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">רשלנות רפואית</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=labor-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני עבודה</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=traffic-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">תעבורה</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=inheritance-law' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">ירושה וצוואות</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/family-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני משפחה וגירושין</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/criminal-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">משפט פלילי</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/real-estate/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מקרקעין ונדל"ן</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/personal-injury/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">נזיקין ותאונות</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=medical-malpractice' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">רשלנות רפואית</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/israeli-labor-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני עבודה</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/traffic-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">תעבורה</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/tax-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני מיסים</a></li>
 			</ul>
 		</section>
 

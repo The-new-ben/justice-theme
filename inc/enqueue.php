@@ -135,3 +135,30 @@ function justice_theme_dequeue_homepage_bloat() {
 	wp_dequeue_script( 'pwaforwp-download' );
 }
 add_action( 'wp_enqueue_scripts', 'justice_theme_dequeue_homepage_bloat', 999 );
+
+/**
+ * Strip duplicate theme-color meta tags from plugin output.
+ *
+ * header.php already defines <meta name="theme-color" content="#07152f">.
+ * PWA / Flavor / other plugins inject their own copies. This removes them.
+ */
+function justice_theme_strip_duplicate_theme_color(): void {
+	ob_start(
+		function ( string $html ): string {
+			// Remove all plugin-injected theme-color tags (our header.php has the canonical one).
+			return preg_replace(
+				'#<meta\s+name=["\']theme-color["\']\s+content=["\'][^"\']*["\']\s*/?\s*>\s*\n?#i',
+				'',
+				$html,
+				-1
+			);
+		}
+	);
+}
+function justice_theme_flush_theme_color_buffer(): void {
+	if ( ob_get_level() > 0 ) {
+		ob_end_flush();
+	}
+}
+add_action( 'wp_head', 'justice_theme_strip_duplicate_theme_color', 1 );
+add_action( 'wp_head', 'justice_theme_flush_theme_color_buffer', 999 );

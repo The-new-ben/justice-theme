@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 /**
  * Practice areas grid section.
  *
@@ -11,9 +11,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $terms = get_terms( array(
 	'taxonomy'   => 'practice-areas',
-	'hide_empty' => false,
+	'hide_empty' => true,
 	'number'     => 12,
 	'parent'     => 0,
+	'orderby'    => 'count',
+	'order'      => 'DESC',
 ) );
 
 if ( empty( $terms ) || is_wp_error( $terms ) ) {

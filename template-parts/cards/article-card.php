@@ -52,11 +52,11 @@ if ( isset( $args['data_attrs'] ) && is_array( $args['data_attrs'] ) ) {
 			</a>
 		<?php endif; ?>
 
-		<h2 class="article-card__title" style="margin: 0 0 0.8rem; font-size: 1.25rem; line-height: 1.4;">
+		<h3 class="article-card__title" style="margin: 0 0 0.8rem; font-size: 1.25rem; line-height: 1.4;">
 			<a href="<?php echo esc_url( $article_url ); ?>" style="color: var(--color-primary-deep); text-decoration: none;">
 				<?php the_title(); ?>
 			</a>
-		</h2>
+		</h3>
 
 		<div class="article-card__meta" style="margin-bottom: 1rem; font-size: 0.85rem; color: var(--color-muted); display: flex; gap: 1rem;">
 			<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>">

@@ -84,7 +84,7 @@ add_action( 'rest_api_init', 'justice_theme_register_fix_category_base_endpoint'
  *   - wpseo_titles option structure: metadesc-{cpt}, title-tax-{taxonomy}, etc.
  */
 function justice_theme_seed_yoast_configuration(): void {
-	if ( ! is_admin() || get_option( 'justice_yoast_seeded' ) === 'v3-2026-05-15' ) {
+	if ( ! is_admin() || get_option( 'justice_yoast_seeded' ) === 'v4-2026-05-15' ) {
 		return;
 	}
 
@@ -168,7 +168,7 @@ function justice_theme_seed_yoast_configuration(): void {
 	update_option( 'wpseo', $wpseo );
 
 	// Mark as seeded to prevent re-running.
-	update_option( 'justice_yoast_seeded', 'v3-2026-05-15', true );
+	update_option( 'justice_yoast_seeded', 'v4-2026-05-15', true );
 }
 add_action( 'admin_init', 'justice_theme_seed_yoast_configuration' );
 

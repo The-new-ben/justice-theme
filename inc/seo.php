@@ -228,6 +228,27 @@ function justice_theme_normalize_public_url( string $url ): string {
 }
 
 /**
+ * Global root-cause fix: force HTTPS on all home_url() output.
+ *
+ * The `home` option in wp_options is `http://jus-tice.co.il` and cannot be
+ * changed via REST API (locked by hosting/wp-config). This filter catches
+ * ALL WordPress core functions that use home_url() — get_term_link(),
+ * get_permalink(), get_post_type_archive_link(), etc. — and forces HTTPS.
+ *
+ * Without this, every term link, archive link, and permalink that WordPress
+ * generates will be HTTP, requiring individual wrappers in every template.
+ *
+ * @since 1.0.5
+ */
+function justice_theme_force_https_home_url( string $url, string $path, $scheme, int $blog_id ): string {
+	if ( null === $scheme && 0 === strpos( $url, 'http://' ) ) {
+		return set_url_scheme( $url, 'https' );
+	}
+	return $url;
+}
+add_filter( 'home_url', 'justice_theme_force_https_home_url', 1, 4 );
+
+/**
  * Normalize first-party URL values generated for public-facing frontend output.
  *
  * Admin screens are left alone so wp-admin/plugin configuration remains visible

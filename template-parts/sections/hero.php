@@ -55,11 +55,11 @@ $hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
 	<div class="container hero__grid">
 		<div class="hero__content">
 			<h1 class="hero__title">
-				<?php esc_html_e( 'צריכים עורך דין או הכוונה משפטית? התחילו כאן', 'justice-theme' ); ?>
+				<?php esc_html_e( 'עורכי דין בישראל — מצאו עורך דין מומלץ לפי תחום ואזור', 'justice-theme' ); ?>
 			</h1>
 
 			<p class="hero__description">
-				<?php esc_html_e( 'חיפוש עורכי דין לפי תחום ומיקום, מאמרים משפטיים, ומדריכים מקצועיים — הכל במקום אחד.', 'justice-theme' ); ?>
+				<?php esc_html_e( 'מדריך עורכי דין מקיף: חיפוש עורך דין לפי התמחות ומיקום, מאמרים משפטיים, פסקי דין, ייעוץ משפטי ראשוני — אינדקס עורכי דין מומלצים בכל תחומי המשפט בישראל.', 'justice-theme' ); ?>
 			</p>
 
 			<form class="hero-search" role="search" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ); ?>" id="hero-search-form">
@@ -104,7 +104,7 @@ $hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
 						id="hero-search-input"
 						type="search"
 						name="keyword"
-						placeholder="<?php echo esc_attr__( 'מה הבעיה המשפטית שלך?', 'justice-theme' ); ?>"
+						placeholder="<?php echo esc_attr__( 'חפשו עורך דין או תחום משפטי...', 'justice-theme' ); ?>"
 						value=""
 					>
 					<button type="submit" class="button button--primary">

@@ -81,14 +81,20 @@ if ( post_type_exists( 'justice_lawyer' ) ) {
 			<div class="verified-lawyer-showcase verified-lawyer-showcase--empty">
 				<div class="verified-lawyer-showcase__visual">
 					<img src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/lawyer-cta-visual.png' ); ?>"
-						alt="<?php esc_attr_e( 'סביבת עבודה מקצועית של עורך דין — פרופיל פרימיום ב-Jus-Tice', 'justice-theme' ); ?>"
+						alt="<?php esc_attr_e( 'פרופיל עורך דין מקצועי ב-Jus-Tice — מיני-סייט פרימיום', 'justice-theme' ); ?>"
 						width="520" height="340" loading="lazy" decoding="async">
 				</div>
 				<div class="verified-lawyer-showcase__text">
-					<h3><?php esc_html_e( 'פרופיל עורכת הדין יוצג כאן לאחר אישור במערכת.', 'justice-theme' ); ?></h3>
-					<p><?php esc_html_e( 'עמוד הבית לא מציג עורכי דין דמו, המלצות לא מאומתות או נתוני קשר שלא עברו בדיקה. רק פרופיל שאושר ידנית יכול להופיע באזור זה.', 'justice-theme' ); ?></p>
+					<h3><?php esc_html_e( 'עורכי דין — בנו מיני-סייט מקצועי ומושכים לקוחות חדשים', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'הצטרפו לפורטל המשפטי המוביל בישראל. הפרופיל שלכם יופיע מול מאות גולשים שמחפשים ייצוג משפטי בכל יום.', 'justice-theme' ); ?></p>
+					<ul style="list-style: none; padding: 0; margin: 0 0 1.2rem; display: grid; gap: 0.5rem;">
+						<li style="font-size: 0.92rem;">✓ <?php esc_html_e( 'עמוד פרופיל עשיר עם תמונה, תחומי התמחות ופרטי קשר', 'justice-theme' ); ?></li>
+						<li style="font-size: 0.92rem;">✓ <?php esc_html_e( 'חיבור למאמרים מקצועיים שכתבתם — חשיפה כמומחה', 'justice-theme' ); ?></li>
+						<li style="font-size: 0.92rem;">✓ <?php esc_html_e( 'פניות ישירות: טלפון, WhatsApp וטופס יצירת קשר', 'justice-theme' ); ?></li>
+						<li style="font-size: 0.92rem;">✓ <?php esc_html_e( 'דירוג SEO גבוה — הפרופיל שלכם מופיע בגוגל', 'justice-theme' ); ?></li>
+					</ul>
 					<a class="button button--gold" href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>">
-						<?php esc_html_e( 'הצטרפות עורכי דין', 'justice-theme' ); ?>
+						<?php esc_html_e( 'בניית פרופיל עורך דין — חינם', 'justice-theme' ); ?>
 					</a>
 				</div>
 			</div>

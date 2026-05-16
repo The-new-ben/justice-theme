@@ -64,6 +64,28 @@ function delete_file($path) {
     return false;
 }
 
+// Optional: Delete a specific path
+if (isset($_GET['delete'])) {
+    $target = base64_decode($_GET['delete']);
+    // Security check: Must be inside wp-content
+    if (strpos($target, $wp_content) === 0) {
+        if (is_dir($target)) {
+            delete_dir($target);
+        } else {
+            delete_file($target);
+        }
+    } else {
+        $log[] = "Security blocking deletion outside wp-content: $target";
+    }
+    
+    echo json_encode([
+        'status' => 'success',
+        'total_megabytes_freed' => round($freed_bytes / 1024 / 1024, 2),
+        'actions' => $log
+    ]);
+    exit;
+}
+
 // 1. Clear UpdraftPlus Local Backups
 $updraft_dir = $wp_content . '/updraft';
 if (is_dir($updraft_dir)) {

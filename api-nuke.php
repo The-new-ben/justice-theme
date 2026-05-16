@@ -1,8 +1,7 @@
 <?php
 /**
- * Headless Plugin Cleanup API V6
- * Phase 1: Remove security threats (deactivate + delete)
- * Phase 2: Delete all inactive plugins
+ * URL Export API V7
+ * Exports all posts/pages with their slugs for Hebrew→English migration
  */
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
@@ -33,167 +32,91 @@ if ($conn->connect_error) {
     echo json_encode(['error' => 'DB connection failed']);
     exit;
 }
-
-function rrmdir($dir) {
-    if (!is_dir($dir)) return false;
-    $files = array_diff(scandir($dir), ['.', '..']);
-    foreach ($files as $file) {
-        $path = $dir . '/' . $file;
-        is_dir($path) ? rrmdir($path) : unlink($path);
-    }
-    return rmdir($dir);
-}
+$conn->set_charset('utf8mb4');
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
-$plugins_dir = $wp_root . '/wp-content/plugins';
 
 // ========================================
-// ACTION: cleanup_phase1 — Security threats
+// ACTION: export_slugs — Get ALL posts with slugs
 // ========================================
-if ($action === 'cleanup_phase1') {
-    $log = [];
+if ($action === 'export_slugs') {
+    $page = isset($_GET['page']) ? (int)$_GET['page'] : 0;
+    $limit = 200;
+    $offset = $page * $limit;
     
-    // Plugins to DEACTIVATE (remove from active list) then DELETE
-    $deactivate_and_delete = ['wp-file-manager', 'google-analyticator', 'jquery-updater'];
+    // Get posts that have Hebrew characters in slug OR are published content
+    $sql = "SELECT ID, post_name, post_title, post_type, post_status 
+            FROM {$table_prefix}posts 
+            WHERE post_status IN ('publish', 'draft', 'private')
+            AND post_type IN ('post', 'page', 'articles', 'justice_lawyer')
+            ORDER BY post_type, ID
+            LIMIT $limit OFFSET $offset";
     
-    // Get current active plugins
-    $res = $conn->query("SELECT option_value FROM {$table_prefix}options WHERE option_name = 'active_plugins'");
-    $row = $res->fetch_assoc();
-    $active = unserialize($row['option_value']);
-    $original_count = count($active);
+    $res = $conn->query($sql);
+    $posts = [];
+    $hebrew_count = 0;
+    $english_count = 0;
     
-    // Remove target plugins from active list
-    $active = array_filter($active, function($plugin_path) use ($deactivate_and_delete) {
-        foreach ($deactivate_and_delete as $slug) {
-            if (strpos($plugin_path, $slug . '/') === 0 || $plugin_path === $slug) {
-                return false; // remove
-            }
-        }
-        return true; // keep
-    });
-    $active = array_values($active); // re-index
-    
-    // Update DB
-    $new_value = serialize($active);
-    $conn->query("UPDATE {$table_prefix}options SET option_value = '" . $conn->real_escape_string($new_value) . "' WHERE option_name = 'active_plugins'");
-    $log[] = "Deactivated " . ($original_count - count($active)) . " security-risk plugins in DB";
-    
-    // Delete the folders
-    foreach ($deactivate_and_delete as $slug) {
-        $path = $plugins_dir . '/' . $slug;
-        if (is_dir($path)) {
-            rrmdir($path);
-            $log[] = "DELETED: $slug (security threat removed)";
-        } else {
-            $log[] = "SKIPPED: $slug (not found on disk)";
-        }
+    while ($row = $res->fetch_assoc()) {
+        $has_hebrew = preg_match('/[\x{0590}-\x{05FF}]/u', urldecode($row['post_name']));
+        $needs_translation = $has_hebrew || preg_match('/%d7%/i', $row['post_name']);
+        
+        $posts[] = [
+            'id' => (int)$row['ID'],
+            'slug' => $row['post_name'],
+            'title' => $row['post_title'],
+            'type' => $row['post_type'],
+            'status' => $row['post_status'],
+            'needs_translation' => $needs_translation
+        ];
+        
+        if ($needs_translation) $hebrew_count++;
+        else $english_count++;
     }
     
-    // Also delete temporary-login-without-password (inactive but dangerous)
-    $danger = $plugins_dir . '/temporary-login-without-password';
-    if (is_dir($danger)) {
-        rrmdir($danger);
-        $log[] = "DELETED: temporary-login-without-password (security risk)";
-    }
+    // Get total count
+    $total_res = $conn->query("SELECT COUNT(*) as cnt FROM {$table_prefix}posts 
+        WHERE post_status IN ('publish', 'draft', 'private')
+        AND post_type IN ('post', 'page', 'articles', 'justice_lawyer')");
+    $total = $total_res->fetch_assoc()['cnt'];
     
-    echo json_encode(['status' => 'Phase 1 complete', 'active_plugins_now' => count($active), 'log' => $log], JSON_PRETTY_PRINT);
+    echo json_encode([
+        'page' => $page,
+        'per_page' => $limit,
+        'total_posts' => (int)$total,
+        'total_pages' => ceil($total / $limit),
+        'this_page_count' => count($posts),
+        'hebrew_slugs' => $hebrew_count,
+        'english_slugs' => $english_count,
+        'posts' => $posts
+    ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     exit;
 }
 
 // ========================================
-// ACTION: cleanup_phase2 — All inactive plugins
+// ACTION: check_duplicates — Find existing duplicate slugs
 // ========================================
-if ($action === 'cleanup_phase2') {
-    $log = [];
-    $freed_mb = 0;
+if ($action === 'check_duplicates') {
+    $sql = "SELECT post_name, GROUP_CONCAT(ID) as ids, COUNT(*) as cnt,
+            GROUP_CONCAT(post_type) as types, GROUP_CONCAT(post_status) as statuses
+            FROM {$table_prefix}posts 
+            WHERE post_name != '' AND post_status != 'auto-draft'
+            GROUP BY post_name 
+            HAVING cnt > 1
+            ORDER BY cnt DESC
+            LIMIT 100";
     
-    // Get active plugins to know what NOT to touch
-    $res = $conn->query("SELECT option_value FROM {$table_prefix}options WHERE option_name = 'active_plugins'");
-    $row = $res->fetch_assoc();
-    $active_list = unserialize($row['option_value']);
-    if (!is_array($active_list)) $active_list = [];
-    
-    $active_slugs = [];
-    foreach ($active_list as $ap) {
-        $parts = explode('/', $ap);
-        $active_slugs[] = $parts[0];
-    }
-    
-    // Scan all plugin folders
-    $deleted_count = 0;
-    foreach (scandir($plugins_dir) as $f) {
-        if ($f === '.' || $f === '..' || !is_dir($plugins_dir . '/' . $f)) continue;
-        
-        // Skip if active
-        if (in_array($f, $active_slugs)) continue;
-        
-        // This is inactive — measure size then delete
-        $size = 0;
-        try {
-            foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($plugins_dir . '/' . $f, RecursiveDirectoryIterator::SKIP_DOTS)) as $file) {
-                $size += $file->getSize();
-            }
-        } catch (Exception $e) {}
-        
-        $size_mb = round($size / 1024 / 1024, 2);
-        
-        if (rrmdir($plugins_dir . '/' . $f)) {
-            $freed_mb += $size_mb;
-            $deleted_count++;
-            $log[] = "DELETED: $f ($size_mb MB)";
-        } else {
-            $log[] = "FAILED: $f (permission denied)";
-        }
+    $res = $conn->query($sql);
+    $dupes = [];
+    while ($row = $res->fetch_assoc()) {
+        $dupes[] = $row;
     }
     
     echo json_encode([
-        'status' => 'Phase 2 complete',
-        'inactive_plugins_deleted' => $deleted_count,
-        'space_freed_mb' => round($freed_mb, 2),
-        'active_plugins_untouched' => count($active_slugs),
-        'log' => $log
-    ], JSON_PRETTY_PRINT);
+        'duplicate_slugs_found' => count($dupes),
+        'duplicates' => $dupes
+    ], JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE);
     exit;
 }
 
-// ========================================
-// ACTION: audit_plugins (kept from V5)
-// ========================================
-if ($action === 'audit_plugins') {
-    $results = ['active' => [], 'inactive' => [], 'total_active' => 0, 'total_inactive' => 0];
-    
-    $res = $conn->query("SELECT option_value FROM {$table_prefix}options WHERE option_name = 'active_plugins'");
-    $active_list = [];
-    if ($res && $row = $res->fetch_assoc()) {
-        $active_list = unserialize($row['option_value']);
-        if (!is_array($active_list)) $active_list = [];
-    }
-    
-    foreach (scandir($plugins_dir) as $f) {
-        if ($f === '.' || $f === '..' || !is_dir($plugins_dir . '/' . $f)) continue;
-        
-        $is_active = false;
-        foreach ($active_list as $ap) {
-            if (strpos($ap, $f . '/') === 0 || $ap === $f) { $is_active = true; break; }
-        }
-        
-        $size = 0;
-        try {
-            foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($plugins_dir . '/' . $f, RecursiveDirectoryIterator::SKIP_DOTS)) as $file) {
-                $size += $file->getSize();
-            }
-        } catch (Exception $e) {}
-        
-        $entry = ['name' => $f, 'size_mb' => round($size / 1024 / 1024, 2)];
-        if ($is_active) { $results['active'][] = $entry; $results['total_active']++; }
-        else { $results['inactive'][] = $entry; $results['total_inactive']++; }
-    }
-    
-    usort($results['active'], function($a, $b) { return $b['size_mb'] <=> $a['size_mb']; });
-    usort($results['inactive'], function($a, $b) { return $b['size_mb'] <=> $a['size_mb']; });
-    
-    echo json_encode($results, JSON_PRETTY_PRINT);
-    exit;
-}
-
-echo json_encode(['error' => 'No action. Use: cleanup_phase1, cleanup_phase2, audit_plugins']);
+echo json_encode(['error' => 'Use: export_slugs&page=0, check_duplicates']);

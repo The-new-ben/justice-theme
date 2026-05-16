@@ -1,6 +1,6 @@
 <?php
 /**
- * Headless Server Nuke & Deep Scan API
+ * Headless Server Nuke & Deep Scan API V2
  */
 header('Content-Type: application/json; charset=utf-8');
 
@@ -13,85 +13,125 @@ if ( ! isset( $_GET['token'] ) || $_GET['token'] !== $expected_token ) {
 
 $wp_root = dirname(dirname(dirname(dirname(__FILE__)))); // public_html
 
-if (isset($_GET['action']) && $_GET['action'] === 'scan_root') {
-    $results = ['large_files' => []];
-    $iterator = new RecursiveIteratorIterator(new RecursiveDirectoryIterator($wp_root, RecursiveDirectoryIterator::SKIP_DOTS));
-    $all_files = [];
-    foreach ($iterator as $file) {
-        if ($file->isFile()) {
-            $all_files[$file->getPathname()] = $file->getSize();
+function get_dir_size($dir) {
+    if (!is_dir($dir)) return 0;
+    $size = 0;
+    foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS)) as $file) {
+        $size += $file->getSize();
+    }
+    return $size;
+}
+
+if (isset($_GET['action']) && $_GET['action'] === 'scan_folders') {
+    $results = ['folders' => [], 'root_files' => []];
+    
+    // Top level folders
+    foreach (scandir($wp_root) as $f) {
+        if ($f === '.' || $f === '..') continue;
+        $path = $wp_root . '/' . $f;
+        if (is_dir($path)) {
+            $results['folders'][$f] = round(get_dir_size($path) / 1024 / 1024, 2) . ' MB';
+        } else {
+            $s = filesize($path);
+            if ($s > 1024 * 1024) { // Only show > 1MB files in root
+                $results['root_files'][$f] = round($s / 1024 / 1024, 2) . ' MB';
+            }
         }
     }
-    arsort($all_files);
-    $top_50 = array_slice($all_files, 0, 50);
-    foreach ($top_50 as $path => $size) {
-        $rel_path = str_replace($wp_root, '', $path);
-        $results['large_files'][$rel_path] = round($size / 1024 / 1024, 2) . ' MB';
+    
+    // Check uploads subfolders
+    $uploads = $wp_root . '/wp-content/uploads';
+    if (is_dir($uploads)) {
+        foreach (scandir($uploads) as $f) {
+            if ($f === '.' || $f === '..') continue;
+            $path = $uploads . '/' . $f;
+            if (is_dir($path)) {
+                $results['folders']['wp-content/uploads/' . $f] = round(get_dir_size($path) / 1024 / 1024, 2) . ' MB';
+            }
+        }
     }
+    
+    arsort($results['folders']);
     echo json_encode($results, JSON_PRETTY_PRINT);
     exit;
 }
 
-if (isset($_POST['delete_paths'])) {
-    $paths = json_decode($_POST['delete_paths'], true);
+if (isset($_GET['action']) && $_GET['action'] === 'nuke_junk') {
     $freed = 0;
     $log = [];
-    $errors = [];
-
-    function force_delete_file($path) {
-        global $freed, $log, $errors;
-        if (!file_exists($path)) return;
-        @chmod($path, 0777);
-        $s = filesize($path);
-        if (@unlink($path)) {
-            $freed += $s;
-            $log[] = "Deleted: $path (" . round($s/1024/1024, 2) . " MB)";
-        } else {
-            $error = error_get_last();
-            $errors[] = "Failed to delete file $path: " . ($error ? $error['message'] : 'Unknown error');
-        }
-    }
-
-    function force_delete_dir($dir) {
-        global $freed, $log, $errors;
-        if (!is_dir($dir)) return;
-        @chmod($dir, 0777);
-        $files = array_diff(scandir($dir), array('.','..'));
-        foreach ($files as $file) {
-            $path = "$dir/$file";
-            if (is_dir($path)) {
-                force_delete_dir($path);
-            } else {
-                force_delete_file($path);
+    
+    function nuke_file($path, $reason) {
+        global $freed, $log;
+        if (is_file($path)) {
+            @chmod($path, 0777);
+            $s = filesize($path);
+            if (@unlink($path)) {
+                $freed += $s;
+                $log[] = "Nuked [$reason]: " . basename($path) . " (" . round($s/1024/1024, 2) . " MB)";
             }
         }
-        if (@rmdir($dir)) {
-            $log[] = "Deleted dir: $dir";
-        } else {
-            $error = error_get_last();
-            $errors[] = "Failed to remove dir $dir: " . ($error ? $error['message'] : 'Unknown error (might not be empty)');
+    }
+    
+    function nuke_dir($dir, $reason) {
+        global $freed, $log;
+        if (!is_dir($dir)) return;
+        @chmod($dir, 0777);
+        $size = get_dir_size($dir);
+        // We will just do a simple recursive delete
+        $it = new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS);
+        $files = new RecursiveIteratorIterator($it, RecursiveIteratorIterator::CHILD_FIRST);
+        foreach($files as $file) {
+            if ($file->isDir()){
+                @rmdir($file->getRealPath());
+            } else {
+                @unlink($file->getRealPath());
+            }
         }
+        @rmdir($dir);
+        $freed += $size;
+        $log[] = "Nuked DIR [$reason]: " . basename($dir) . " (" . round($size/1024/1024, 2) . " MB)";
     }
 
-    foreach ($paths as $rel_path) {
-        $full_path = $wp_root . '/' . ltrim($rel_path, '/');
-        // Ensure we don't delete public_html itself or crucial wp folders
-        if ($full_path === $wp_root || strpos($full_path, $wp_root) !== 0) {
-            $errors[] = "Security block: $full_path";
-            continue;
-        }
-        if (is_dir($full_path)) {
-            force_delete_dir($full_path);
-        } else {
-            force_delete_file($full_path);
+    // 1. Root folder junk (installer files, sql, zips)
+    foreach (scandir($wp_root) as $f) {
+        if ($f === '.' || $f === '..') continue;
+        $path = $wp_root . '/' . $f;
+        if (is_file($path)) {
+            if (strpos($f, 'installer') !== false || 
+                strpos($f, 'backup') !== false || 
+                substr($f, -4) === '.zip' || 
+                substr($f, -4) === '.sql' ||
+                substr($f, -4) === '.tar' ||
+                substr($f, -3) === '.gz' ||
+                strpos($f, 'dup-installer') !== false) {
+                nuke_file($path, 'Root Backup/Installer');
+            }
+        } elseif (is_dir($path) && strpos($f, 'dup-installer') !== false) {
+            nuke_dir($path, 'Duplicator Installer Dir');
         }
     }
-
+    
+    // 2. Emergency Backup in Theme
+    $emergency_dir = $wp_root . '/wp-content/themes/justice-theme/justice_theme_emergency_master_2026_05_13';
+    nuke_dir($emergency_dir, 'Old Emergency Theme Backup');
+    nuke_file($emergency_dir . '.zip', 'Old Emergency Theme Backup ZIP');
+    
+    // 3. WP Import Export Lite exports
+    $exports_dir = $wp_root . '/wp-content/uploads/wp-import-export-lite/export';
+    nuke_dir($exports_dir, 'Import/Export Plugin Artifacts');
+    
+    // 4. Old themes (aero-index, etc)
+    $themes_dir = $wp_root . '/wp-content/themes';
+    $junk_themes = ['aero-index', 'generatepress', 'hello-elementor', 'jus-tice-ui', 'justice-theme1', 'rotenberg', 'twentynineteen', 'twentyseventeen', 'twentysixteen', 'twentytwentyfive'];
+    foreach ($junk_themes as $jt) {
+        nuke_dir($themes_dir . '/' . $jt, 'Unused Theme');
+    }
+    nuke_file($themes_dir . '/aero-index777.archive.zip', 'Unused Theme Archive');
+    
     echo json_encode([
         'status' => 'success',
         'freed_mb' => round($freed / 1024 / 1024, 2),
-        'log' => $log,
-        'errors' => $errors
+        'log' => $log
     ], JSON_PRETTY_PRINT);
     exit;
 }

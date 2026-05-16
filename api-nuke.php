@@ -138,10 +138,16 @@ $dict = [
 // ── TRANSLATION FUNCTION ──
 function hebrew_to_slug($title, $dict) {
     if (empty($title)) return '';
+
+    // Use only the FIRST part if title has | or : separators
+    $t = explode('|', $title)[0];
+    $t = explode(':', $t)[0];
+    $t = trim($t);
+
     // Remove case numbers, dates, section refs, special punctuation
-    $t = preg_replace('/\b\d{4,}[-\/]\d{2}[-\/]?\d{0,4}\b/', '', $title);
+    $t = preg_replace('/\b\d{4,}[-\/]\d{2}[-\/]?\d{0,4}\b/', '', $t);
     $t = preg_replace('/\b\d{2}[-\/]\d{2}[-\/]\d{2,4}\b/', '', $t);
-    $t = str_replace(['"','"','״','׳','|','(',')','[',']','{','}','«','»','–','—','…','\''], ' ', $t);
+    $t = str_replace(['"','"','״','׳','(',')','[',']','{','}','«','»','–','—','…','\'',',','.','?','!'], ' ', $t);
     $t = preg_replace('/\bעש"א\b|\bת"ע\b|\bע"א\b|\bבע"ם\b/', '', $t);
     $t = trim($t);
 
@@ -154,16 +160,14 @@ function hebrew_to_slug($title, $dict) {
     }
 
     // Try prefix-stripping for remaining Hebrew words
-    $prefixes = ['ב','ל','מ','ה','ו','כ','ש','וב','וה','ול','של','לב'];
+    $prefixes = ['וב','וה','ול','של','לב','ב','ל','מ','ה','ו','כ','ש'];
     $words = preg_split('/\s+/', $t);
     $result = [];
     foreach ($words as $w) {
         $w = trim($w);
         if (empty($w)) continue;
         if (preg_match('/[\x{0590}-\x{05FF}]/u', $w)) {
-            // Still Hebrew - try stripping prefixes
             $found = false;
-            usort($prefixes, function($a,$b){ return mb_strlen($b)-mb_strlen($a); });
             foreach ($prefixes as $p) {
                 if (mb_strpos($w, $p, 0, 'UTF-8') === 0) {
                     $stripped = mb_substr($w, mb_strlen($p,'UTF-8'), null, 'UTF-8');
@@ -174,7 +178,6 @@ function hebrew_to_slug($title, $dict) {
                     }
                 }
             }
-            // Skip untranslatable Hebrew
             if (!$found) continue;
         } else {
             $result[] = $w;
@@ -186,15 +189,25 @@ function hebrew_to_slug($title, $dict) {
     $slug = preg_replace('/-{2,}/', '-', $slug);
     $slug = trim($slug, '-');
 
-    // Remove duplicate consecutive words
+    // Remove ALL duplicate words (global dedup, keep first occurrence)
     $parts = explode('-', $slug);
-    $deduped = [$parts[0] ?? ''];
-    for ($i = 1; $i < count($parts); $i++) {
-        if ($parts[$i] !== $parts[$i-1]) $deduped[] = $parts[$i];
+    $seen = [];
+    $deduped = [];
+    foreach ($parts as $p) {
+        if (!isset($seen[$p])) {
+            $seen[$p] = true;
+            $deduped[] = $p;
+        }
     }
-    $slug = implode('-', array_filter($deduped));
+    $slug = implode('-', $deduped);
 
-    // Limit to 60 chars at word boundary
+    // Limit to 5 words max for clean SEO slugs
+    $parts = explode('-', $slug);
+    if (count($parts) > 5) {
+        $slug = implode('-', array_slice($parts, 0, 5));
+    }
+
+    // Also limit to 60 chars at word boundary
     if (strlen($slug) > 60) {
         $slug = substr($slug, 0, 60);
         $slug = preg_replace('/-[^-]*$/', '', $slug);

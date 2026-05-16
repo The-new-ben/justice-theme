@@ -327,7 +327,10 @@ add_action( 'admin_init', 'justice_theme_handle_family_cluster_publication_actio
  * @param string $content Post content.
  * @return string
  */
-function justice_theme_guard_family_cluster_public_content( string $content ): string {
+function justice_theme_guard_family_cluster_public_content( ?string $content ): string {
+	if ( null === $content ) {
+		return '';
+	}
 	if (
 		! JUSTICE_THEME_ENABLE_FAMILY_CLUSTER_RUNTIME_GUARD
 		|| is_admin()

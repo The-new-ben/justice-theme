@@ -261,7 +261,10 @@ add_action( 'admin_init', 'justice_theme_repair_seeded_menu_area_urls' );
  * @param object $args  Menu arguments.
  * @return string
  */
-function justice_theme_append_customer_primary_menu_items( string $items, $args ): string {
+function justice_theme_append_customer_primary_menu_items( ?string $items, $args ): string {
+	if ( null === $items ) {
+		$items = '';
+	}
 	if ( empty( $args->theme_location ) || 'primary' !== $args->theme_location ) {
 		return $items;
 	}

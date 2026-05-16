@@ -92,7 +92,7 @@ function justice_theme_is_home_redirect_target( string $location ): bool {
  * @param int          $status   Redirect status.
  * @return string|false
  */
-function justice_theme_block_non_root_wp_redirect_to_home( $location, int $status ) {
+function justice_theme_block_non_root_wp_redirect_to_home( $location, ?int $status ) {
 	unset( $status );
 
 	if ( ! is_string( $location ) || '' === $location ) {
@@ -119,7 +119,10 @@ add_filter( 'wp_redirect', 'justice_theme_block_non_root_wp_redirect_to_home', 0
  * @param string       $requested_url Requested URL.
  * @return string|false
  */
-function justice_theme_block_unknown_path_home_canonical_redirect( $redirect_url, string $requested_url ) {
+function justice_theme_block_unknown_path_home_canonical_redirect( $redirect_url, ?string $requested_url ) {
+	if ( null === $requested_url ) {
+		return $redirect_url;
+	}
 	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() || empty( $redirect_url ) ) {
 		return $redirect_url;
 	}
@@ -228,7 +231,10 @@ add_action( 'template_redirect', 'justice_theme_force_404_for_unknown_home_fallb
  * @param string $template Current template path.
  * @return string
  */
-function justice_theme_use_404_template_for_guarded_home_fallback( string $template ): string {
+function justice_theme_use_404_template_for_guarded_home_fallback( ?string $template ): string {
+	if ( null === $template ) {
+		$template = '';
+	}
 	if ( ! is_404() || empty( $GLOBALS['justice_theme_forced_unknown_path_404'] ) ) {
 		return $template;
 	}

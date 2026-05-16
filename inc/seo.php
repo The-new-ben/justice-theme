@@ -281,7 +281,10 @@ function justice_theme_normalize_public_url( string $url ): string {
  *
  * @since 1.0.5
  */
-function justice_theme_force_https_home_url( string $url, string $path, $scheme, int $blog_id ): string {
+function justice_theme_force_https_home_url( ?string $url, ?string $path, $scheme, ?int $blog_id ): string {
+	if ( null === $url ) {
+		return '';
+	}
 	if ( null === $scheme && 0 === strpos( $url, 'http://' ) ) {
 		return set_url_scheme( $url, 'https' );
 	}
@@ -335,7 +338,10 @@ add_filter( 'wp_get_attachment_image_src', 'justice_theme_filter_attachment_imag
  * @param array $sources Image source candidates.
  * @return array
  */
-function justice_theme_filter_image_srcset_sources( array $sources ): array {
+function justice_theme_filter_image_srcset_sources( ?array $sources ): array {
+	if ( null === $sources ) {
+		return [];
+	}
 	foreach ( $sources as $width => $source ) {
 		if ( is_array( $source ) && ! empty( $source['url'] ) ) {
 			$sources[ $width ]['url'] = justice_theme_normalize_public_url( (string) $source['url'] );
@@ -355,7 +361,10 @@ add_filter( 'wp_calculate_image_srcset', 'justice_theme_filter_image_srcset_sour
  * @param string $content Rendered post content.
  * @return string
  */
-function justice_theme_normalize_public_content_urls( string $content ): string {
+function justice_theme_normalize_public_content_urls( ?string $content ): string {
+	if ( null === $content ) {
+		return '';
+	}
 	if ( is_admin() && ! wp_doing_ajax() ) {
 		return $content;
 	}
@@ -915,7 +924,10 @@ add_filter( 'aioseo_canonical_url', 'justice_theme_filter_directory_canonical' )
  * @param bool   $public Whether search engines are allowed.
  * @return string
  */
-function justice_theme_robots_sitemap_directive( string $output, bool $public ): string {
+function justice_theme_robots_sitemap_directive( ?string $output, ?bool $public ): string {
+	if ( null === $output ) {
+		return '';
+	}
 	if ( ! $public ) {
 		return $output;
 	}

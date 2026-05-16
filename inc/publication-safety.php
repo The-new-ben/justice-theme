@@ -23,7 +23,7 @@ add_filter( 'wp_insert_post_data', 'justice_theme_block_internal_notes_publicati
  * @param bool  $update              Whether this is an existing post update.
  * @return array
  */
-function justice_theme_block_internal_notes_publication( array $data, array $postarr, array $unsanitized_postarr, bool $update ): array {
+function justice_theme_block_internal_notes_publication( array $data, array $postarr, array $unsanitized_postarr, ?bool $update ): array {
 	unset( $postarr, $unsanitized_postarr, $update );
 
 	$post_type = isset( $data['post_type'] ) ? (string) $data['post_type'] : '';

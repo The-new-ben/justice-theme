@@ -1,6 +1,7 @@
 <?php
 /**
- * Headless Server Nuke & Deep Scan API V3
+ * Headless Server Deep Diagnostic V4
+ * Proves EXACTLY where 10.25 GB is hiding.
  */
 header('Content-Type: application/json; charset=utf-8');
 
@@ -11,54 +12,81 @@ if ( ! isset( $_GET['token'] ) || $_GET['token'] !== $expected_token ) {
     exit;
 }
 
-$wp_root = dirname(dirname(dirname(dirname(__FILE__)))); // public_html
-$domain_root = dirname($wp_root); // /domains/jus-tice.co.il/
-$user_root = dirname(dirname($domain_root)); // /home/username/
+// Load WordPress to get DB access
+define('ABSPATH', dirname(dirname(dirname(dirname(__FILE__)))) . '/');
+require_once ABSPATH . 'wp-config.php';
 
-function get_dir_size($dir) {
-    if (!is_dir($dir)) return 0;
+$results = [];
+
+// 1. DATABASE SIZE - the smoking gun
+$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+if ($conn->connect_error) {
+    $results['db_error'] = $conn->connect_error;
+} else {
+    // Total DB size
+    $res = $conn->query("SELECT 
+        ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS total_mb,
+        ROUND(SUM(data_free) / 1024 / 1024, 2) AS overhead_mb
+        FROM information_schema.TABLES 
+        WHERE table_schema = '" . DB_NAME . "'");
+    $row = $res->fetch_assoc();
+    $results['database_total_mb'] = $row['total_mb'];
+    $results['database_overhead_mb'] = $row['overhead_mb'];
+
+    // Top 20 largest tables
+    $res2 = $conn->query("SELECT 
+        table_name,
+        ROUND((data_length + index_length) / 1024 / 1024, 2) AS size_mb,
+        table_rows
+        FROM information_schema.TABLES 
+        WHERE table_schema = '" . DB_NAME . "'
+        ORDER BY (data_length + index_length) DESC
+        LIMIT 20");
+    $results['largest_tables'] = [];
+    while ($r = $res2->fetch_assoc()) {
+        $results['largest_tables'][] = $r;
+    }
+
+    // Count post revisions
+    $rev = $conn->query("SELECT COUNT(*) as cnt FROM wp_posts WHERE post_type = 'revision'");
+    $r = $rev->fetch_assoc();
+    $results['post_revisions_count'] = $r['cnt'];
+
+    // Count transients
+    $trans = $conn->query("SELECT COUNT(*) as cnt FROM wp_options WHERE option_name LIKE '_transient_%'");
+    $r = $trans->fetch_assoc();
+    $results['transients_count'] = $r['cnt'];
+
+    $conn->close();
+}
+
+// 2. FILE SYSTEM summary (quick)
+$wp_root = dirname(dirname(dirname(dirname(__FILE__))));
+$results['filesystem_mb'] = round(disk_total_space($wp_root) / 1024 / 1024, 2);
+$results['filesystem_free_mb'] = round(disk_free_space($wp_root) / 1024 / 1024, 2);
+$results['filesystem_used_mb'] = $results['filesystem_mb'] - $results['filesystem_free_mb'];
+
+// 3. Plugins folder size and count
+$plugins_dir = $wp_root . '/wp-content/plugins';
+$plugin_count = 0;
+$plugins_list = [];
+if (is_dir($plugins_dir)) {
+    foreach (scandir($plugins_dir) as $f) {
+        if ($f === '.' || $f === '..' || !is_dir($plugins_dir . '/' . $f)) continue;
+        $plugin_count++;
+        $plugins_list[] = $f;
+    }
+}
+$results['plugin_folders_count'] = $plugin_count;
+
+// 4. Theme emergency backup size
+$emergency = $wp_root . '/wp-content/themes/justice-theme/justice_theme_emergency_master_2026_05_13';
+if (is_dir($emergency)) {
     $size = 0;
-    try {
-        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($dir, RecursiveDirectoryIterator::SKIP_DOTS)) as $file) {
-            $size += $file->getSize();
-        }
-    } catch(Exception $e) {}
-    return $size;
+    foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($emergency, RecursiveDirectoryIterator::SKIP_DOTS)) as $file) {
+        $size += $file->getSize();
+    }
+    $results['emergency_backup_mb'] = round($size / 1024 / 1024, 2);
 }
 
-if (isset($_GET['action']) && $_GET['action'] === 'scan_everything') {
-    $results = ['folders' => [], 'files_outside_public_html' => []];
-    
-    // Scan domain root folders
-    if (is_dir($domain_root)) {
-        foreach (scandir($domain_root) as $f) {
-            if ($f === '.' || $f === '..') continue;
-            $path = $domain_root . '/' . $f;
-            if (is_dir($path)) {
-                $results['folders']['DOMAIN_ROOT/' . $f] = round(get_dir_size($path) / 1024 / 1024, 2) . ' MB';
-            } else {
-                $s = filesize($path);
-                if ($s > 1024 * 1024) { 
-                    $results['files_outside_public_html']['DOMAIN_ROOT/' . $f] = round($s / 1024 / 1024, 2) . ' MB';
-                }
-            }
-        }
-    }
-    
-    // Scan user root folders (careful, might hit permissions issues)
-    if (is_dir($user_root)) {
-        foreach (scandir($user_root) as $f) {
-            if ($f === '.' || $f === '..') continue;
-            $path = $user_root . '/' . $f;
-            if (is_dir($path)) {
-                $results['folders']['USER_ROOT/' . $f] = round(get_dir_size($path) / 1024 / 1024, 2) . ' MB';
-            }
-        }
-    }
-    
-    arsort($results['folders']);
-    echo json_encode($results, JSON_PRETTY_PRINT);
-    exit;
-}
-
-echo json_encode(['error' => 'No action specified']);
+echo json_encode($results, JSON_PRETTY_PRINT);

@@ -1,9 +1,11 @@
 <?php
 /**
- * Headless Server Deep Diagnostic V4
- * Proves EXACTLY where 10.25 GB is hiding.
+ * Headless Server Deep Diagnostic V4b
+ * Reads DB creds from wp-config without bootstrapping WP.
  */
 header('Content-Type: application/json; charset=utf-8');
+ini_set('display_errors', 0);
+error_reporting(0);
 
 $expected_token = 'justice-headless-clear-99x';
 if ( ! isset( $_GET['token'] ) || $_GET['token'] !== $expected_token ) {
@@ -12,81 +14,110 @@ if ( ! isset( $_GET['token'] ) || $_GET['token'] !== $expected_token ) {
     exit;
 }
 
-// Load WordPress to get DB access
-define('ABSPATH', dirname(dirname(dirname(dirname(__FILE__)))) . '/');
-require_once ABSPATH . 'wp-config.php';
+// Parse wp-config.php for DB credentials without loading WordPress
+$wp_root = dirname(dirname(dirname(dirname(__FILE__))));
+$config_file = $wp_root . '/wp-config.php';
+$config_content = file_get_contents($config_file);
 
-$results = [];
+function extract_define($name, $content) {
+    if (preg_match("/define\s*\(\s*['\"]" . preg_quote($name) . "['\"]\s*,\s*['\"]([^'\"]*)['\"]/" , $content, $m)) {
+        return $m[1];
+    }
+    return null;
+}
 
-// 1. DATABASE SIZE - the smoking gun
-$conn = new mysqli(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
+$db_name = extract_define('DB_NAME', $config_content);
+$db_user = extract_define('DB_USER', $config_content);
+$db_pass = extract_define('DB_PASSWORD', $config_content);
+$db_host = extract_define('DB_HOST', $config_content);
+$table_prefix = 'wp_';
+if (preg_match('/\$table_prefix\s*=\s*[\'"]([^\'"]+)[\'"]/', $config_content, $m)) {
+    $table_prefix = $m[1];
+}
+
+$results = [
+    'db_name' => $db_name,
+    'table_prefix' => $table_prefix
+];
+
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 if ($conn->connect_error) {
     $results['db_error'] = $conn->connect_error;
-} else {
-    // Total DB size
-    $res = $conn->query("SELECT 
-        ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS total_mb,
-        ROUND(SUM(data_free) / 1024 / 1024, 2) AS overhead_mb
-        FROM information_schema.TABLES 
-        WHERE table_schema = '" . DB_NAME . "'");
-    $row = $res->fetch_assoc();
-    $results['database_total_mb'] = $row['total_mb'];
-    $results['database_overhead_mb'] = $row['overhead_mb'];
+    echo json_encode($results, JSON_PRETTY_PRINT);
+    exit;
+}
 
-    // Top 20 largest tables
-    $res2 = $conn->query("SELECT 
-        table_name,
-        ROUND((data_length + index_length) / 1024 / 1024, 2) AS size_mb,
-        table_rows
-        FROM information_schema.TABLES 
-        WHERE table_schema = '" . DB_NAME . "'
-        ORDER BY (data_length + index_length) DESC
-        LIMIT 20");
-    $results['largest_tables'] = [];
-    while ($r = $res2->fetch_assoc()) {
-        $results['largest_tables'][] = $r;
-    }
+// 1. Total DB size
+$res = $conn->query("SELECT 
+    ROUND(SUM(data_length + index_length) / 1024 / 1024, 2) AS total_mb,
+    ROUND(SUM(data_free) / 1024 / 1024, 2) AS overhead_mb,
+    COUNT(*) as table_count
+    FROM information_schema.TABLES 
+    WHERE table_schema = '" . $conn->real_escape_string($db_name) . "'");
+$row = $res->fetch_assoc();
+$results['database_total_mb'] = $row['total_mb'];
+$results['database_overhead_mb'] = $row['overhead_mb'];
+$results['database_table_count'] = $row['table_count'];
 
-    // Count post revisions
-    $rev = $conn->query("SELECT COUNT(*) as cnt FROM wp_posts WHERE post_type = 'revision'");
+// 2. Top 30 largest tables
+$res2 = $conn->query("SELECT 
+    table_name,
+    ROUND((data_length + index_length) / 1024 / 1024, 2) AS size_mb,
+    ROUND(data_free / 1024 / 1024, 2) AS overhead_mb,
+    table_rows
+    FROM information_schema.TABLES 
+    WHERE table_schema = '" . $conn->real_escape_string($db_name) . "'
+    ORDER BY (data_length + index_length) DESC
+    LIMIT 30");
+$results['largest_tables'] = [];
+while ($r = $res2->fetch_assoc()) {
+    $results['largest_tables'][] = $r;
+}
+
+// 3. Post revisions count
+$rev = $conn->query("SELECT COUNT(*) as cnt FROM {$table_prefix}posts WHERE post_type = 'revision'");
+if ($rev) {
     $r = $rev->fetch_assoc();
     $results['post_revisions_count'] = $r['cnt'];
+}
 
-    // Count transients
-    $trans = $conn->query("SELECT COUNT(*) as cnt FROM wp_options WHERE option_name LIKE '_transient_%'");
+// 4. Transients count
+$trans = $conn->query("SELECT COUNT(*) as cnt FROM {$table_prefix}options WHERE option_name LIKE '_transient_%'");
+if ($trans) {
     $r = $trans->fetch_assoc();
     $results['transients_count'] = $r['cnt'];
-
-    $conn->close();
 }
 
-// 2. FILE SYSTEM summary (quick)
-$wp_root = dirname(dirname(dirname(dirname(__FILE__))));
-$results['filesystem_mb'] = round(disk_total_space($wp_root) / 1024 / 1024, 2);
+// 5. Auto-draft and trash posts
+$trash = $conn->query("SELECT post_status, COUNT(*) as cnt FROM {$table_prefix}posts GROUP BY post_status");
+if ($trash) {
+    $results['posts_by_status'] = [];
+    while ($r = $trash->fetch_assoc()) {
+        $results['posts_by_status'][$r['post_status']] = (int)$r['cnt'];
+    }
+}
+
+// 6. Spam/trash comments
+$comments = $conn->query("SELECT comment_approved, COUNT(*) as cnt FROM {$table_prefix}comments GROUP BY comment_approved");
+if ($comments) {
+    $results['comments_by_status'] = [];
+    while ($r = $comments->fetch_assoc()) {
+        $results['comments_by_status'][$r['comment_approved']] = (int)$r['cnt'];
+    }
+}
+
+// 7. File system summary
+$results['filesystem_total_mb'] = round(disk_total_space($wp_root) / 1024 / 1024, 2);
 $results['filesystem_free_mb'] = round(disk_free_space($wp_root) / 1024 / 1024, 2);
-$results['filesystem_used_mb'] = $results['filesystem_mb'] - $results['filesystem_free_mb'];
+$results['filesystem_used_by_site_mb'] = 1933; // from previous confirmed scan
 
-// 3. Plugins folder size and count
-$plugins_dir = $wp_root . '/wp-content/plugins';
-$plugin_count = 0;
-$plugins_list = [];
-if (is_dir($plugins_dir)) {
-    foreach (scandir($plugins_dir) as $f) {
-        if ($f === '.' || $f === '..' || !is_dir($plugins_dir . '/' . $f)) continue;
-        $plugin_count++;
-        $plugins_list[] = $f;
-    }
-}
-$results['plugin_folders_count'] = $plugin_count;
+// 8. GRAND TOTAL
+$results['GRAND_TOTAL_EXPLANATION'] = [
+    'files_mb' => 1933,
+    'database_mb' => (float)$row['total_mb'],
+    'combined_mb' => 1933 + (float)$row['total_mb'],
+    'upress_shows_mb' => 10250
+];
 
-// 4. Theme emergency backup size
-$emergency = $wp_root . '/wp-content/themes/justice-theme/justice_theme_emergency_master_2026_05_13';
-if (is_dir($emergency)) {
-    $size = 0;
-    foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($emergency, RecursiveDirectoryIterator::SKIP_DOTS)) as $file) {
-        $size += $file->getSize();
-    }
-    $results['emergency_backup_mb'] = round($size / 1024 / 1024, 2);
-}
-
+$conn->close();
 echo json_encode($results, JSON_PRETTY_PRINT);

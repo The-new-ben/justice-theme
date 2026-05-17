@@ -246,15 +246,19 @@ function justice_theme_use_404_template_for_guarded_home_fallback( ?string $temp
 add_filter( 'template_include', 'justice_theme_use_404_template_for_guarded_home_fallback', 0 );
 
 /**
- * Redirect /practice-areas/{slug}/ to /{slug}/ for practice-areas terms.
+ * Redirect bare /{slug}/ to /practice-areas/{slug}/ for practice-areas terms.
  *
- * On the live server the practice-areas taxonomy resolves to bare slugs
- * (e.g. /criminal-law/), but /practice-areas/{slug}/ loads the old WP
- * category template instead. This 301 redirect fixes the journey and
- * consolidates SEO signals on the canonical URL.
+ * After removing Permalink Manager (May 2026), taxonomy terms now resolve at
+ * their native /practice-areas/{slug}/ URLs. Legacy root-level URLs that PM
+ * used to handle (e.g. /criminal-law/) must 301 to the canonical taxonomy URL.
  */
-function justice_theme_redirect_practice_areas_prefix(): void {
+function justice_theme_redirect_bare_practice_area_slugs(): void {
 	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
+		return;
+	}
+
+	// Only run on 404 — if WP resolved the page, don't interfere.
+	if ( ! is_404() ) {
 		return;
 	}
 
@@ -262,29 +266,29 @@ function justice_theme_redirect_practice_areas_prefix(): void {
 		? trim( (string) wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ), '/' )
 		: '';
 
-	if ( '' === $path || 0 !== strpos( $path, 'practice-areas/' ) ) {
+	if ( '' === $path ) {
 		return;
 	}
 
-	// Extract the slug after practice-areas/
-	$slug = trim( substr( $path, strlen( 'practice-areas/' ) ), '/' );
-
-	if ( '' === $slug ) {
+	// Only handle single-segment paths (bare slugs like /criminal-law/).
+	if ( false !== strpos( $path, '/' ) ) {
 		return;
 	}
 
-	// Check if a practice-areas term with this slug actually exists.
+	$slug = urldecode( $path );
+
+	// Check if a practice-areas term with this slug exists.
 	$term = get_term_by( 'slug', $slug, 'practice-areas' );
 
 	if ( ! $term || is_wp_error( $term ) ) {
 		return;
 	}
 
-	$canonical = home_url( '/' . $slug . '/' );
+	$canonical = home_url( '/practice-areas/' . $slug . '/' );
 
 	if ( ! headers_sent() ) {
 		wp_safe_redirect( $canonical, 301, 'justice-theme' );
 		exit;
 	}
 }
-add_action( 'template_redirect', 'justice_theme_redirect_practice_areas_prefix', -3000 );
+add_action( 'template_redirect', 'justice_theme_redirect_bare_practice_area_slugs', -2999 );

@@ -291,6 +291,26 @@ function justice_theme_redirect_bare_practice_area_slugs(): void {
 		exit;
 	}
 }
+/**
+ * Redirect /sitemap.xml to /sitemap_index.xml
+ *
+ * Yoast generates sitemap_index.xml. On Nginx servers, the default fallback
+ * for sitemap.xml often 404s. This ensures users and bots submitting
+ * sitemap.xml are routed to the correct index.
+ */
+function justice_theme_redirect_sitemap_xml() {
+	if ( is_admin() ) {
+		return;
+	}
+	
+	$path = isset( $_SERVER['REQUEST_URI'] ) ? parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ) : '';
+	if ( '/sitemap.xml' === $path ) {
+		wp_safe_redirect( home_url( '/sitemap_index.xml' ), 301, 'justice-theme' );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'justice_theme_redirect_sitemap_xml', -3000 );
+
 add_action( 'template_redirect', 'justice_theme_redirect_bare_practice_area_slugs', -2999 );
 
 /**

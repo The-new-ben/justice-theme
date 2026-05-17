@@ -24,7 +24,7 @@ function uj_register_articles_cpt() {
 		'show_in_menu'       => true,
 		'show_in_rest'       => true,
 		'query_var'          => true,
-		'rewrite'            => array( 'slug' => '/', 'with_front' => false ),
+		'rewrite'            => array( 'slug' => 'articles', 'with_front' => false ),
 		'capability_type'    => 'post',
 		'has_archive'        => true,
 		'hierarchical'       => false,

@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_VERSION', '1.0.5' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-05-15-homepage-seo-overhaul-v2' );
+define( 'JUSTICE_THEME_VERSION', '1.1.0' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-05-17-lead-routing-pipeline-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -33,6 +33,7 @@ $justice_theme_files = array(
 	'inc/lead-ui.php',
 	'inc/lead-crm.php',
 	'inc/lead-classifier.php',
+	'inc/lead-routing.php',
 	'inc/pillar-pages.php',
 	'inc/pillar-article-seed.php',
 	'inc/content-draft-importer.php',

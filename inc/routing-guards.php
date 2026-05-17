@@ -408,3 +408,54 @@ function justice_theme_redirect_legacy_pillar_slugs(): void {
 	}
 }
 add_action( 'template_redirect', 'justice_theme_redirect_legacy_pillar_slugs', -2997 );
+
+/**
+ * Emergency SEO reset: flush permalinks and reset Yoast indexables.
+ * Triggers on ?emergency_yoast_reset=BynE_nrDn
+ */
+function justice_theme_emergency_yoast_reset() {
+	if ( isset( $_GET['emergency_yoast_reset'] ) && $_GET['emergency_yoast_reset'] === 'BynE_nrDn' ) {
+		global $wpdb;
+
+		// 1. Truncate Yoast Indexable tables
+		$tables = [
+			$wpdb->prefix . 'yoast_indexable',
+			$wpdb->prefix . 'yoast_indexable_hierarchy',
+			$wpdb->prefix . 'yoast_migrations',
+			$wpdb->prefix . 'yoast_primary_term',
+			$wpdb->prefix . 'yoast_seo_links',
+		];
+
+		$output = "<h2>Yoast Reset & Permalink Flush</h2><ul>";
+		
+		foreach ( $tables as $table ) {
+			// Suppress errors if table doesn't exist
+			$wpdb->suppress_errors();
+			$result = $wpdb->query( "TRUNCATE TABLE {$table}" );
+			$wpdb->suppress_errors( false );
+			$output .= "<li>Truncated {$table}: " . ( $result !== false ? 'Success' : 'Failed' ) . "</li>";
+		}
+
+		// 2. Delete Yoast options related to migrations and indexation
+		$options = [
+			'yoast_migrations_free',
+			'wpseo_migrations',
+			'yoast_migrations_premium',
+			'wpseo-premium-migrations',
+			'yoast_indexables_indexed'
+		];
+
+		foreach ( $options as $option ) {
+			delete_option( $option );
+			$output .= "<li>Deleted option {$option}</li>";
+		}
+
+		// 3. Flush permalinks
+		flush_rewrite_rules( false );
+		$output .= "<li><strong>Permalinks flushed successfully.</strong></li>";
+		$output .= "</ul><p>Please log in to WP Admin -> Yoast SEO -> Tools and click 'Start SEO data optimization'.</p>";
+
+		wp_die( $output, 'Emergency SEO Reset Complete', ['response' => 200] );
+	}
+}
+add_action( 'init', 'justice_theme_emergency_yoast_reset', -9999 );

@@ -1,0 +1,19 @@
+{
+  "name": "seo-rescue",
+  "version": "1.0.0",
+  "description": "Emergency SEO URL rescue for jus-tice.co.il",
+  "scripts": {
+    "wp": "node scripts/url-rescue.js wp",
+    "gsc": "node scripts/url-rescue.js gsc",
+    "crawl": "node scripts/url-rescue.js crawl",
+    "sitemap": "node scripts/url-rescue.js sitemap",
+    "redirects": "node scripts/url-rescue.js redirects",
+    "report": "node scripts/url-rescue.js report",
+    "all": "node scripts/url-rescue.js all"
+  },
+  "dependencies": {
+    "fast-xml-parser": "^5.8.0",
+    "googleapis": "^171.4.0",
+    "p-limit": "^7.3.0"
+  }
+}

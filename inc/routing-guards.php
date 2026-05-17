@@ -294,6 +294,75 @@ function justice_theme_redirect_bare_practice_area_slugs(): void {
 add_action( 'template_redirect', 'justice_theme_redirect_bare_practice_area_slugs', -2999 );
 
 /**
+ * Redirect legacy root-level article slugs to /articles/{slug}/.
+ *
+ * When the articles CPT was registered with 'rewrite' => ['slug' => 'articles'],
+ * all article URLs moved from /{slug}/ to /articles/{slug}/. Google had already
+ * indexed 1,356 URLs at the old root-level format. This redirect restores those
+ * URLs by performing a lightweight slug lookup against the articles CPT.
+ *
+ * Performance: Uses a direct WP_Query with 'name' parameter which hits the
+ * wp_posts.post_name index. Cached by WordPress object cache on repeat hits.
+ *
+ * @since 1.0.8  Emergency SEO rescue (May 2026).
+ */
+function justice_theme_redirect_legacy_article_root_slugs(): void {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
+		return;
+	}
+
+	if ( ! is_404() ) {
+		return;
+	}
+
+	$path = isset( $_SERVER['REQUEST_URI'] )
+		? trim( (string) wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ), '/' )
+		: '';
+
+	if ( '' === $path ) {
+		return;
+	}
+
+	// Only handle single-segment paths (bare slugs like /lahav-433/).
+	if ( false !== strpos( $path, '/' ) ) {
+		return;
+	}
+
+	$slug = sanitize_title( urldecode( $path ) );
+
+	if ( '' === $slug ) {
+		return;
+	}
+
+	// Check if an articles CPT post with this slug exists.
+	$query = new WP_Query(
+		array(
+			'post_type'              => 'articles',
+			'name'                   => $slug,
+			'posts_per_page'         => 1,
+			'post_status'            => 'publish',
+			'no_found_rows'          => true,
+			'update_post_meta_cache' => false,
+			'update_post_term_cache' => false,
+			'fields'                 => 'ids',
+		)
+	);
+
+	if ( ! $query->have_posts() ) {
+		return;
+	}
+
+	$canonical = home_url( '/articles/' . $slug . '/' );
+
+	if ( ! headers_sent() ) {
+		header( 'X-Justice-Route-Guard: article-slug-301', true );
+		wp_safe_redirect( $canonical, 301, 'justice-theme' );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'justice_theme_redirect_legacy_article_root_slugs', -2998 );
+
+/**
  * Redirect legacy root-level pillar page slugs that no longer resolve.
  *
  * Permalink Manager previously routed these root-level slugs to specific
@@ -338,4 +407,4 @@ function justice_theme_redirect_legacy_pillar_slugs(): void {
 		exit;
 	}
 }
-add_action( 'template_redirect', 'justice_theme_redirect_legacy_pillar_slugs', -2998 );
+add_action( 'template_redirect', 'justice_theme_redirect_legacy_pillar_slugs', -2997 );

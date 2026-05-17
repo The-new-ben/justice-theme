@@ -8,8 +8,7 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
-// Temporarily disabled for slug migration
-// add_filter( 'wp_insert_post_data', 'justice_theme_block_internal_notes_publication', 20, 4 );
+add_filter( 'wp_insert_post_data', 'justice_theme_block_internal_notes_publication', 20, 4 );
 /**
  * Block public publication when internal workflow notes are still in content.
  *

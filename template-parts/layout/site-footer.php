@@ -65,7 +65,7 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0544705733' );
 			</h3>
 			<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.8rem;">
 				<li><a href="<?php echo esc_url( home_url( '/family-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני משפחה וגירושין</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/criminal-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">משפט פלילי</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/criminal-defense-attorney/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">משפט פלילי</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/real-estate/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מקרקעין ונדל"ן</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/personal-injury/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">נזיקין ותאונות</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=medical-malpractice' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">רשלנות רפואית</a></li>
@@ -83,7 +83,7 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0544705733' );
 			<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.8rem;">
 				<li><a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מאגר מאמרים</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">אינדקס עורכי דין</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">התייעצות משפטית</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">התייעצות משפטית</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" style="color: var(--jt-accent); font-weight: 700; text-decoration: none;">הצטרפות עורכי דין &larr;</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מסלולים לעורכי דין</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-dashboard/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">אזור אישי לעורכי דין</a></li>

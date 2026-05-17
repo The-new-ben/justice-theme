@@ -21,7 +21,7 @@ $pillars = array(
 		'title' => 'עורך דין פלילי',
 		'icon'  => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" width="28" height="28" aria-hidden="true"><path d="M12 2L3 7v6c0 5.25 3.75 10.15 9 11.25C17.25 23.15 21 18.25 21 13V7L12 2z"/></svg>',
 		'desc'  => 'הגנה בפלילים, ייצוג בחקירות משטרה ובבתי משפט',
-		'link'  => justice_theme_safe_public_link( '/criminal-lawyer/', '/criminal-law/' ),
+		'link'  => justice_theme_safe_public_link( '/criminal-defense-attorney/', '/criminal-law/' ),
 	),
 	array(
 		'title' => 'עורך דין תעבורה',

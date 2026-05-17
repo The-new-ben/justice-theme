@@ -27,7 +27,7 @@ $topics = array(
 	array(
 		'title' => 'משפט פלילי',
 		'slug'  => 'criminal-law',
-		'url'   => justice_theme_safe_public_link( '/criminal-lawyer/', '/criminal-law/' ),
+		'url'   => justice_theme_safe_public_link( '/criminal-defense-attorney/', '/criminal-law/' ),
 		'links' => array(),
 	),
 	array(

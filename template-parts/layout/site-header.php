@@ -17,7 +17,7 @@ $justice_topic_links = array(
 	),
 	array(
 		'label' => __( 'עורך דין פלילי', 'justice-theme' ),
-		'url'   => justice_theme_safe_public_link( '/criminal-lawyer/', '/criminal-law/' ),
+		'url'   => justice_theme_safe_public_link( '/criminal-defense-attorney/', '/criminal-law/' ),
 	),
 	array(
 		'label' => __( 'עורך דין מקרקעין', 'justice-theme' ),

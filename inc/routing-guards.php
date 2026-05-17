@@ -410,52 +410,134 @@ function justice_theme_redirect_legacy_pillar_slugs(): void {
 add_action( 'template_redirect', 'justice_theme_redirect_legacy_pillar_slugs', -2997 );
 
 /**
- * Emergency SEO reset: flush permalinks and reset Yoast indexables.
- * Triggers on ?emergency_yoast_reset=BynE_nrDn
+ * Emergency SEO reset: reset Yoast indexables, flush permalinks, clear caches.
+ *
+ * This follows the official Yoast Test Helper procedure:
+ * 1. Truncate wp_yoast_indexable (cached SEO data with stale canonicals)
+ * 2. Truncate wp_yoast_indexable_hierarchy (parent-child cache)
+ * 3. Delete migration options so Yoast re-runs table setup
+ * 4. Hard-flush rewrite rules (fixes sitemap routing)
+ * 5. Clear object cache
+ *
+ * NOT truncated (preserves user data):
+ * - wp_yoast_primary_term (user-selected primary terms)
+ * - wp_yoast_seo_links (internal link data, not related to canonicals)
+ *
+ * One-time use: sets a transient to prevent re-execution.
+ * Trigger: ?emergency_yoast_reset=BynE_nrDn
+ *
+ * @since 1.0.8  Emergency SEO rescue (May 2026).
  */
 function justice_theme_emergency_yoast_reset() {
-	if ( isset( $_GET['emergency_yoast_reset'] ) && $_GET['emergency_yoast_reset'] === 'BynE_nrDn' ) {
-		global $wpdb;
-
-		// 1. Truncate Yoast Indexable tables
-		$tables = [
-			$wpdb->prefix . 'yoast_indexable',
-			$wpdb->prefix . 'yoast_indexable_hierarchy',
-			$wpdb->prefix . 'yoast_migrations',
-			$wpdb->prefix . 'yoast_primary_term',
-			$wpdb->prefix . 'yoast_seo_links',
-		];
-
-		$output = "<h2>Yoast Reset & Permalink Flush</h2><ul>";
-		
-		foreach ( $tables as $table ) {
-			// Suppress errors if table doesn't exist
-			$wpdb->suppress_errors();
-			$result = $wpdb->query( "TRUNCATE TABLE {$table}" );
-			$wpdb->suppress_errors( false );
-			$output .= "<li>Truncated {$table}: " . ( $result !== false ? 'Success' : 'Failed' ) . "</li>";
-		}
-
-		// 2. Delete Yoast options related to migrations and indexation
-		$options = [
-			'yoast_migrations_free',
-			'wpseo_migrations',
-			'yoast_migrations_premium',
-			'wpseo-premium-migrations',
-			'yoast_indexables_indexed'
-		];
-
-		foreach ( $options as $option ) {
-			delete_option( $option );
-			$output .= "<li>Deleted option {$option}</li>";
-		}
-
-		// 3. Flush permalinks
-		flush_rewrite_rules( false );
-		$output .= "<li><strong>Permalinks flushed successfully.</strong></li>";
-		$output .= "</ul><p>Please log in to WP Admin -> Yoast SEO -> Tools and click 'Start SEO data optimization'.</p>";
-
-		wp_die( $output, 'Emergency SEO Reset Complete', ['response' => 200] );
+	if ( ! isset( $_GET['emergency_yoast_reset'] ) || $_GET['emergency_yoast_reset'] !== 'BynE_nrDn' ) {
+		return;
 	}
+
+	// One-time guard.
+	if ( get_transient( 'justice_yoast_reset_done' ) ) {
+		wp_die(
+			'<h2>Already executed</h2><p>This reset has already been run. Delete the transient <code>justice_yoast_reset_done</code> to run again.</p>',
+			'Reset Already Complete',
+			array( 'response' => 200 )
+		);
+	}
+
+	global $wpdb;
+	$output = '<h2 style="color:#2c3e50;">Emergency SEO Reset — Yoast Indexables + Permalinks</h2>';
+	$output .= '<p style="color:#7f8c8d;">Executed: ' . gmdate( 'Y-m-d H:i:s' ) . ' UTC</p>';
+	$output .= '<h3>Phase 1: Truncate Yoast Indexable Cache</h3><ul>';
+
+	// Phase 1: Truncate only the cache tables (NOT primary_term).
+	$cache_tables = array(
+		$wpdb->prefix . 'yoast_indexable',
+		$wpdb->prefix . 'yoast_indexable_hierarchy',
+	);
+
+	foreach ( $cache_tables as $table ) {
+		$wpdb->suppress_errors();
+		$exists = $wpdb->get_var( $wpdb->prepare( 'SHOW TABLES LIKE %s', $table ) );
+		if ( $exists ) {
+			$result = $wpdb->query( "TRUNCATE TABLE `{$table}`" );
+			$status = false !== $result ? '✅ Truncated' : '❌ Failed';
+		} else {
+			$status = '⚠️ Table not found';
+		}
+		$wpdb->suppress_errors( false );
+		$output .= "<li>{$table}: {$status}</li>";
+	}
+	$output .= '</ul>';
+
+	// Phase 2: Delete Yoast migration/indexation state options.
+	$output .= '<h3>Phase 2: Reset Yoast Migration State</h3><ul>';
+	$migration_options = array(
+		'yoast_migrations_free',
+		'wpseo_migrations',
+		'yoast_migrations_premium',
+		'wpseo-premium-migrations',
+		'yoast_indexables_indexed',
+	);
+
+	foreach ( $migration_options as $option ) {
+		$existed = get_option( $option, '__NOT_SET__' ) !== '__NOT_SET__';
+		delete_option( $option );
+		$output .= '<li>' . $option . ': ' . ( $existed ? '✅ Deleted' : '⏭️ Not present' ) . '</li>';
+	}
+	$output .= '</ul>';
+
+	// Phase 3: Hard-flush rewrite rules (fixes sitemap.xml routing).
+	$output .= '<h3>Phase 3: Flush Rewrite Rules</h3><ul>';
+	flush_rewrite_rules( true );
+	$output .= '<li>✅ Hard flush completed (rewrite rules + .htaccess updated)</li>';
+	$output .= '</ul>';
+
+	// Phase 4: Clear object cache.
+	$output .= '<h3>Phase 4: Clear Object Cache</h3><ul>';
+	wp_cache_flush();
+	$output .= '<li>✅ Object cache flushed</li>';
+	$output .= '</ul>';
+
+	// Phase 5: Verification.
+	$output .= '<h3>Phase 5: Verification</h3><ul>';
+
+	// Check if sitemap_index.xml rewrite rule exists.
+	$rules = get_option( 'rewrite_rules' );
+	$has_sitemap_rule = false;
+	if ( is_array( $rules ) ) {
+		foreach ( $rules as $pattern => $match ) {
+			if ( false !== strpos( $pattern, 'sitemap' ) ) {
+				$has_sitemap_rule = true;
+				break;
+			}
+		}
+	}
+	$output .= '<li>Sitemap rewrite rules: ' . ( $has_sitemap_rule ? '✅ Present' : '❌ Missing' ) . '</li>';
+
+	// Check Yoast indexable table is empty.
+	$indexable_table = $wpdb->prefix . 'yoast_indexable';
+	$wpdb->suppress_errors();
+	$count = $wpdb->get_var( "SELECT COUNT(*) FROM `{$indexable_table}`" );
+	$wpdb->suppress_errors( false );
+	$output .= '<li>Indexable table rows: ' . ( null === $count ? '⚠️ Table gone (will be recreated)' : $count ) . '</li>';
+
+	// Check Yoast migration option.
+	$migration_opt = get_option( 'yoast_migrations_free', 'NOT SET' );
+	$output .= '<li>yoast_migrations_free: ' . esc_html( is_array( $migration_opt ) ? wp_json_encode( $migration_opt ) : $migration_opt ) . '</li>';
+
+	$output .= '</ul>';
+
+	// Set one-time guard.
+	set_transient( 'justice_yoast_reset_done', time(), DAY_IN_SECONDS );
+
+	// Instructions.
+	$output .= '<h3 style="color:#e74c3c;">Next Steps (REQUIRED)</h3>';
+	$output .= '<ol>';
+	$output .= '<li><strong>Go to WP Admin → Yoast SEO → General</strong> — If you see a notification about "SEO data optimization", click <strong>"Start SEO data optimization"</strong>.</li>';
+	$output .= '<li><strong>Go to WP Admin → Yoast SEO → Settings → Site features</strong> — Verify XML sitemaps toggle is ON.</li>';
+	$output .= '<li><strong>Visit</strong> <a href="https://jus-tice.co.il/sitemap_index.xml">sitemap_index.xml</a> to confirm sitemaps work.</li>';
+	$output .= '<li><strong>Go to Google Search Console → Sitemaps</strong> — Resubmit <code>sitemap_index.xml</code>.</li>';
+	$output .= '</ol>';
+
+	wp_die( $output, 'Emergency SEO Reset Complete', array( 'response' => 200 ) );
 }
 add_action( 'init', 'justice_theme_emergency_yoast_reset', -9999 );
+

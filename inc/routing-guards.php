@@ -294,6 +294,59 @@ function justice_theme_redirect_bare_practice_area_slugs(): void {
 add_action( 'template_redirect', 'justice_theme_redirect_bare_practice_area_slugs', -2999 );
 
 /**
+ * Remove the /articles/ prefix from custom post type permalinks.
+ *
+ * We want the 'articles' CPT to be served at root level /{slug}/
+ * instead of /articles/{slug}/. This filter modifies the generated URL.
+ *
+ * @param string  $post_link The post's permalink.
+ * @param WP_Post $post      The post in question.
+ * @return string
+ */
+function justice_theme_remove_articles_cpt_slug( $post_link, $post ) {
+	if ( 'articles' === $post->post_type && 'publish' === $post->post_status ) {
+		$post_link = str_replace( '/' . $post->post_type . '/', '/', $post_link );
+	}
+	return $post_link;
+}
+add_filter( 'post_type_link', 'justice_theme_remove_articles_cpt_slug', 10, 2 );
+
+/**
+ * Tell WordPress to check the 'articles' CPT when resolving root-level slugs.
+ *
+ * When a root-level slug like /lahav-433/ is requested, WordPress assumes
+ * it's a page and sets the 'pagename' or 'name' query var. This filter
+ * intercepts the request and tells WP to also search the 'articles' post type.
+ *
+ * @param array $query_vars The parsed query variables.
+ * @return array
+ */
+function justice_theme_modify_request_for_articles( $query_vars ) {
+	if ( is_admin() ) {
+		return $query_vars;
+	}
+
+	// If a root-level slug is requested, WP usually assigns it to 'pagename'
+	if ( isset( $query_vars['pagename'] ) || isset( $query_vars['name'] ) ) {
+		$slug = isset( $query_vars['pagename'] ) ? $query_vars['pagename'] : $query_vars['name'];
+
+		// We only want to intercept root-level slugs
+		if ( false === strpos( $slug, '/' ) ) {
+			// To allow searching articles, we MUST use 'name' instead of 'pagename'
+			// because 'pagename' forces WP to only look for post_type='page'
+			$query_vars['name'] = $slug;
+			unset( $query_vars['pagename'] );
+			
+			// Specify that we want to search all these types
+			$query_vars['post_type'] = array( 'page', 'post', 'articles' );
+		}
+	}
+
+	return $query_vars;
+}
+add_filter( 'request', 'justice_theme_modify_request_for_articles' );
+
+/**
  * Redirect /articles/{slug}/ to /{slug}/ (root-level).
  *
  * The articles CPT rewrite slug has been changed from 'articles' to '/'

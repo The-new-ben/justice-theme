@@ -155,13 +155,13 @@ while ( have_posts() ) :
 						<a class="button button--primary" href="<?php echo esc_url( justice_theme_public_permalink( $connected_lawyer->ID ) ); ?>" style="width: 100%; text-align: center; margin-bottom: 0.75rem;">
 							<?php esc_html_e( 'מעבר למיני-סייט', 'justice-theme' ); ?>
 						</a>
-						<a class="button button--ghost" href="<?php echo esc_url( add_query_arg( 'lawyer_id', $connected_lawyer->ID, home_url( '/contact/' ) ) ); ?>" style="width: 100%; text-align: center;">
+						<a class="button button--ghost" href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>" style="width: 100%; text-align: center;">
 							<?php esc_html_e( 'שליחת פנייה', 'justice-theme' ); ?>
 						</a>
 					<?php else : ?>
 						<h2 style="font-size: 1.3rem; color: var(--color-primary-deep); margin-bottom: 1rem;"><?php esc_html_e( 'צריכים עזרה משפטית?', 'justice-theme' ); ?></h2>
 						<p style="color: var(--color-muted); margin-bottom: 1.5rem;"><?php esc_html_e( 'שלחו פנייה קצרה ונסייע להפנות אתכם לתחום הרלוונטי.', 'justice-theme' ); ?></p>
-						<a class="button button--primary" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="width: 100%; text-align: center;">
+						<a class="button button--primary" href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>" style="width: 100%; text-align: center;">
 							<?php esc_html_e( 'שליחת פנייה', 'justice-theme' ); ?>
 						</a>
 					<?php endif; ?>

@@ -47,8 +47,8 @@ $justice_theme_files = array(
 	'inc/live-migrations.php',
 	'inc/practice-area-icons.php',
 	'inc/sitemap.php',
+	'inc/url-redirects.php',
 );
-
 
 
 foreach ( $justice_theme_files as $justice_theme_file ) {

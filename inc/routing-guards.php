@@ -292,3 +292,50 @@ function justice_theme_redirect_bare_practice_area_slugs(): void {
 	}
 }
 add_action( 'template_redirect', 'justice_theme_redirect_bare_practice_area_slugs', -2999 );
+
+/**
+ * Redirect legacy root-level pillar page slugs that no longer resolve.
+ *
+ * Permalink Manager previously routed these root-level slugs to specific
+ * pages or templates. Now that PM is removed, they 404. This maps each
+ * known legacy slug to its correct destination.
+ *
+ * @since 1.0.7  Post-PM-removal migration (May 2026).
+ */
+function justice_theme_redirect_legacy_pillar_slugs(): void {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
+		return;
+	}
+
+	if ( ! is_404() ) {
+		return;
+	}
+
+	$path = isset( $_SERVER['REQUEST_URI'] )
+		? trim( (string) wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ), PHP_URL_PATH ), '/' )
+		: '';
+
+	if ( '' === $path || false !== strpos( $path, '/' ) ) {
+		return;
+	}
+
+	$slug = urldecode( $path );
+
+	// Legacy root-level slugs → correct destinations.
+	$legacy_map = array(
+		'traffic-lawyer'   => '/lawyers/?area=traffic-law',
+		'criminal-lawyer'  => '/practice-areas/criminal-law/',
+	);
+
+	if ( ! isset( $legacy_map[ $slug ] ) ) {
+		return;
+	}
+
+	$destination = home_url( $legacy_map[ $slug ] );
+
+	if ( ! headers_sent() ) {
+		wp_safe_redirect( $destination, 301, 'justice-theme' );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'justice_theme_redirect_legacy_pillar_slugs', -2998 );

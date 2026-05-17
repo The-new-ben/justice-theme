@@ -12,10 +12,49 @@ if ( ! defined( 'ABSPATH' ) ) {
 /*
  * Rank Math has been replaced by Yoast SEO as of May 2026.
  * The Rank Math noindex-header filter has been removed.
- * Yoast sitemap is disabled in inc/sitemap.php because uPress nginx
- * 301-redirects all .xml files to the homepage. Our REST API sitemap
- * at /wp-json/justice/v1/sitemap is the only delivery method.
+ * Yoast sitemaps are active at /sitemap_index.xml.
+ * A custom REST API sitemap also exists at /wp-json/justice/v1/sitemap
+ * (backup, not referenced by robots.txt).
  */
+
+/**
+ * Homepage safety guard: NEVER let the front page serve noindex.
+ *
+ * The expert SEO audit (May 2026) discovered that the SeoEdge CDN was
+ * intermittently caching a "Page not found" + noindex variant of the homepage.
+ * This guard intercepts the final robots meta and forces index,follow on the
+ * front page, preventing any accidental noindex from Yoast, routing guards,
+ * or stale cache payloads.
+ *
+ * @since 1.0.8  Emergency SEO rescue.
+ */
+function justice_theme_homepage_force_index( $robots ) {
+	if ( is_front_page() || is_home() ) {
+		$robots['index']  = 'index';
+		$robots['follow'] = 'follow';
+		// Remove any noindex that may have been set.
+		unset( $robots['noindex'] );
+	}
+	return $robots;
+}
+add_filter( 'wp_robots', 'justice_theme_homepage_force_index', 99999 );
+
+/**
+ * Yoast-specific: force index on the front page via Yoast's robots filter.
+ *
+ * @param array $robots Yoast robots array.
+ * @return array
+ */
+function justice_theme_yoast_homepage_force_index( $robots ) {
+	if ( is_front_page() || is_home() ) {
+		$robots['index']  = 'index';
+		$robots['follow'] = 'follow';
+		unset( $robots['noindex'] );
+	}
+	return $robots;
+}
+add_filter( 'wpseo_robots_array', 'justice_theme_yoast_homepage_force_index', 99999 );
+
 
 /**
  * Fix category_base collision with practice-areas taxonomy.

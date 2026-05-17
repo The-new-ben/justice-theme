@@ -528,6 +528,23 @@ function justice_theme_emergency_yoast_reset() {
 	// Set one-time guard.
 	set_transient( 'justice_yoast_reset_done', time(), DAY_IN_SECONDS );
 
+	// Phase 5.5: Deactivate conflicting plugins.
+	$output .= '<h3>Phase 5.5: Deactivate Conflicting Plugins</h3><ul>';
+	$conflicting_plugins = array(
+		'schema-and-structured-data-for-wp/structured-data-for-wp.php' => 'Schema & Structured Data for WP & AMP (duplicates Yoast schema)',
+		'faq-schema-for-pages-and-posts/wp-faq-schema.php'             => 'FAQ Schema For Pages And Posts (conflicts with Yoast FAQ)',
+	);
+
+	foreach ( $conflicting_plugins as $plugin_file => $reason ) {
+		if ( is_plugin_active( $plugin_file ) ) {
+			deactivate_plugins( $plugin_file );
+			$output .= '<li>🔌 Deactivated: ' . esc_html( $reason ) . '</li>';
+		} else {
+			$output .= '<li>⏭️ Already inactive: ' . esc_html( $reason ) . '</li>';
+		}
+	}
+	$output .= '</ul>';
+
 	// Instructions.
 	$output .= '<h3 style="color:#e74c3c;">Next Steps (REQUIRED)</h3>';
 	$output .= '<ol>';
@@ -535,6 +552,7 @@ function justice_theme_emergency_yoast_reset() {
 	$output .= '<li><strong>Go to WP Admin → Yoast SEO → Settings → Site features</strong> — Verify XML sitemaps toggle is ON.</li>';
 	$output .= '<li><strong>Visit</strong> <a href="https://jus-tice.co.il/sitemap_index.xml">sitemap_index.xml</a> to confirm sitemaps work.</li>';
 	$output .= '<li><strong>Go to Google Search Console → Sitemaps</strong> — Resubmit <code>sitemap_index.xml</code>.</li>';
+	$output .= '<li><strong>Ask your host to purge the SeoEdge cache</strong> for the entire domain.</li>';
 	$output .= '</ol>';
 
 	wp_die( $output, 'Emergency SEO Reset Complete', array( 'response' => 200 ) );

@@ -1180,4 +1180,4 @@ function justice_theme_native_slug_redirect() {
 		}
 	}
 }
-add_action( 'template_redirect', 'justice_theme_native_slug_redirect', 1 );
+add_action( 'template_redirect', 'justice_theme_native_slug_redirect', -3000 );

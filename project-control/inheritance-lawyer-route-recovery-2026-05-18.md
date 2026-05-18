@@ -43,13 +43,15 @@ Pre-deployment local checks:
 - Node syntax checks passed for the live traffic, HTML sitemap, and owner-phone checkers.
 - `git diff --check` passed with line-ending warnings only.
 
-Live verification must run after GitHub push and uPress Pull:
+Post-deployment live verification:
 
-- `/inheritance-lawyer/` should return HTTP 200.
-- It should not expose `noindex`.
-- It should self-canonicalize to `https://jus-tice.co.il/inheritance-lawyer/`.
-- It should include inheritance/wills language and links to live support pages.
-- `tools/check-live-traffic-priority.mjs`, `tools/check-live-html-sitemap.mjs`, and `tools/check-live-owner-phone.mjs` should pass.
+- Commit `d6cfc64` was pushed to GitHub `main`.
+- Codex opened uPress File Manager Git management for `/wp-content/themes/justice-theme` and clicked Pull Git. uPress did not display a clear success toast, but live deployment-marker proof showed the pull landed.
+- `/inheritance-lawyer/` returns HTTP 200.
+- It does not expose `noindex`.
+- It self-canonicalizes to `https://jus-tice.co.il/inheritance-lawyer/`.
+- It includes inheritance/wills language and links to live support pages, including `/inheritance-order/` and `/will-probate-objection/`.
+- `tools/check-live-traffic-priority.mjs`, `tools/check-live-html-sitemap.mjs`, `tools/check-live-owner-phone.mjs`, and `tools/check-live-reachability.mjs` passed after deployment.
 
 ## Safety
 

@@ -891,3 +891,36 @@ Remaining work:
 
 Safety:
 - Query-only theme change. No CMS database row, article body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
+
+## Priority Cycle 31 - Inheritance Lawyer Route Recovery
+
+Research reviewed:
+- Google's crawlable-link guidance says important internal links should be real `<a href>` links and the visible anchor text should help users and Google understand the destination. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Israeli inheritance/wills competitors reviewed this cycle cluster their commercial pages around inheritance orders, probate orders, wills, objections to wills, estate administration, heir disputes and estate division.
+
+Business interpretation:
+- `/inheritance-lawyer/` is the better commercial destination than `/lawyers/?area=inheritance-law` because the lawyer directory filter is noindexed and not a clean money-page target.
+- Leaving `/inheritance-lawyer/` as 404 creates a crawl and user-journey hole in a category that should sit near the homepage's paid-lead priorities.
+
+Implemented in this cycle:
+- Added `practice-inheritance-lawyer-route.php`.
+- Added a controlled `/inheritance-lawyer/` route, index/follow metadata and canonical handling in `inc/practice-landing.php`.
+- Replaced non-live inheritance support links with existing live support pages: `/inheritance/`, `/inheritance-order/`, `/will-and-testament/`, `/will-probate-objection/`, and `/what-is-a-probate-order/`.
+- Updated `JUSTICE_DEPLOY_MARKER` to `2026-05-18-inheritance-lawyer-route-v1`.
+- Updated live checkers so `/inheritance-lawyer/` is part of the traffic-priority sample and the new deployment marker is required.
+
+Verification:
+- PHP lint passed for `functions.php`, `inc/practice-landing.php`, and `practice-inheritance-lawyer-route.php`.
+- Node syntax checks passed for `tools/check-live-traffic-priority.mjs`, `tools/check-live-html-sitemap.mjs`, and `tools/check-live-owner-phone.mjs`.
+- `git diff --check` passed with line-ending warnings only.
+- Commit `d6cfc64` was pushed to GitHub `main`.
+- Codex operated uPress File Manager Git management for `/wp-content/themes/justice-theme` and clicked Pull Git. uPress did not display a clear success toast, but live deployment-marker proof showed the pull landed.
+- Live direct Googlebot-style fetch: `/inheritance-lawyer/` HTTP 200, no `noindex`, self-canonical, support links present, deployment marker present.
+- Live traffic-priority audit, HTML sitemap/footer checker, owner-phone checker and broad reachability checker all passed after the pull.
+
+Remaining work:
+- Strengthen the visible H1/title language on the inherited route so it says `עורך דין ירושה` more directly.
+- Continue content classification and owner-approved support-to-hub internal linking for inheritance/wills, employment, traffic, real-estate, criminal, family and medical-malpractice clusters.
+
+Safety:
+- Render-only theme route recovery. No CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.

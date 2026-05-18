@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 16:20 Asia/Jerusalem
+- INHERITANCE/WILLS ROUTE RECOVERY: recovered `/inheritance-lawyer/` as a controlled, indexable commercial route after live checks found it returned 404.
+- RESEARCHED: Google crawlable/internal-link guidance and current Israeli inheritance/wills competitors. Key point: the route should be reachable through crawlable links with descriptive anchors and support the main money intent around inheritance orders, probate orders, wills and objections to wills.
+- IMPLEMENTED: `practice-inheritance-lawyer-route.php` plus route/metadata guards in `inc/practice-landing.php`; updated inheritance support links away from non-live `/will/` and `/will-contest/` paths to current live support pages.
+- UPDATED: deployment marker to `2026-05-18-inheritance-lawyer-route-v1`; live checkers now include `/inheritance-lawyer/` and expect the new marker.
+- DEPLOYED: commit `d6cfc64` was pushed to GitHub `main`; Codex opened uPress File Manager Git management for `wp-content/themes/justice-theme` and clicked Pull Git. uPress did not show a clear success toast, but live marker checks prove the pull landed.
+- VERIFIED LIVE: `/inheritance-lawyer/` returns HTTP 200, does not expose `noindex`, self-canonicalizes to `https://jus-tice.co.il/inheritance-lawyer/`, includes support links to live inheritance/wills pages, and serves marker `2026-05-18-inheritance-lawyer-route-v1`.
+- VERIFIED LIVE: traffic-priority audit, HTML sitemap/footer audit, owner-phone audit, and broad reachability audit all passed after the uPress pull.
+- NEXT: improve the inherited H1/title language for stronger `עורך דין ירושה` intent, then continue content classification and owner-approved support-to-hub internal links.
+- SAFETY: render-only theme route recovery. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 16:10 Asia/Jerusalem
 - LIVE INCIDENT CHECK: owner reported "This site can't be reached"; external fetch, DNS and HTTPS checks showed the site is reachable now.
 - RESEARCHED: Google LocalBusiness/Organization schema guidance says `telephone` should represent the primary customer contact number, and current local SEO guidance emphasizes consistent name/address/phone signals across the site and business profiles.

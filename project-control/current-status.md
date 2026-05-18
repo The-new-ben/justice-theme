@@ -6,6 +6,18 @@
 - SAFETY: documentation-only. No code, live database, plugin, account, payment or DNS change made by this commit.
 - NEXT: owner gives Codex permission to execute Sections 4–10. Cross-media advertising (Google Ads, FB, news-site media buying — the Din-style amplification layer the owner requested) is roadmapped into the runbook §12 as "DO NOT promise publicly until commercial spine is proven live".
 
+## LATEST WORK STATUS - 2026-05-18 20:16 Asia/Jerusalem
+- COMMERCIAL PAYMENT ABUSE + RENEWAL GUARDRAILS: strengthened the draft commercial runbook before live checkout exists.
+- RESEARCHED: WooCommerce card-testing prevention, WooCommerce fraud-prevention guidance, and WooCommerce Subscriptions Health Check guidance. Key point: public checkout needs bot/rate-limit/gateway controls before live mode, and recurring revenue needs ongoing subscription-health review.
+- UPDATED: `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` with Section 6.9 checkout abuse protection before live mode.
+- UPDATED: `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` Section 9.4 with WooCommerce Subscriptions Health Check review after sandbox test, after owner real-money smoke test, and weekly after launch.
+- UPDATED: Section 15 done criteria now requires checkout abuse protection and subscription-health review before declaring the commercial spine load-bearing.
+- VERIFIED LIVE JOURNEYS: `node tools/check-live-journeys.mjs` passed homepage lead path, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap, and robots.
+- CREATED: `project-control/commercial-pipeline-payment-abuse-and-renewal-monitoring-2026-05-18.md`.
+- CREATED: `project-control/commercial-pipeline-payment-abuse-and-renewal-monitoring-2026-05-18.csv`.
+- UPRESS: no uPress pull needed because this cycle changed draft-branch planning/runbook artifacts only; no live deployable code was merged to `main`.
+- SAFETY: no wp-admin login, uPress pull, plugin install, WooCommerce product, payment gateway enablement, Morning account action, user, lawyer profile, lead, order, subscription, invoice, CMS content, URL/redirect/canonical/noindex/sitemap, GA4/GSC, or database change.
+
 ## LATEST WORK STATUS - 2026-05-18 20:08 Asia/Jerusalem
 - COMMERCIAL PIPELINE CLEAN INTEGRATION: created `codex/commercial-pipeline-pr5-integration` from current `main` so PR #5 code/runbook can be reviewed without force-pushing another agent's branch.
 - APPLIED: cherry-picked `2ebe724` commercial pipeline activation fixes and `49c25df` commercial runbook onto current `main`.

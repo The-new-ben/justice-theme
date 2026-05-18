@@ -357,6 +357,26 @@ EXPECT: Saving the toggle does not throw an error. The method shows
 WHERE:  Open an incognito browser. Visit
         https://jus-tice.co.il/?add-to-cart=<ANY_PRODUCT_ID>
         (we don't have products yet — skip this and revisit after 7.1).
+
+■ STEP 6.9 — Add checkout abuse protection before live mode
+WHY:    Automated card-testing bots look for new WooCommerce checkouts
+        with small recurring charges. Protection must exist before the
+        first public payment method is live, not after failed orders appear.
+WHERE:  wp-admin + uPress/WAF/security layer
+HOW:    Enable at least three layers before Section 9:
+          1. Bot challenge on checkout, login, registration, password reset
+             and payment-method update screens (Cloudflare Turnstile,
+             reCAPTCHA, hCaptcha, or an equivalent security plugin).
+          2. Rate limiting for checkout/payment endpoints by IP/user/email
+             and failed-payment velocity.
+          3. Gateway/Morning/Meshulam fraud controls: require CVV, keep
+             3DS/SCA enabled where available, and keep address/phone/email
+             checks in the order review workflow.
+        Add a weekly review: WooCommerce -> Orders filtered by Failed,
+        Cancelled, Pending payment, and unusual low-value attempts.
+EXPECT: No production credit-card method is enabled until these controls
+        are installed, configured, and tested with the sandbox checkout.
+IF IT FAILS: keep Morning in test mode and do not open the public gate.
 ```
 
 ---
@@ -653,6 +673,17 @@ HOW:    Already done — the prices are public. No further action.
 WHERE:  wp-admin → WooCommerce → Subscriptions → Reports.
         Add to Codex's recurring task list: weekly status check —
         any "On hold" or "Failed" renewals get owner notification.
+WHERE:  wp-admin → WooCommerce → Status → Subscriptions
+        Direct path: /wp-admin/admin.php?page=wc-status&tab=wcs-health-check
+HOW:    Run WooCommerce Subscriptions Health Check manually after the
+        first sandbox subscription, after the real-money smoke test, and
+        weekly after launch. Watch especially for:
+          - manual-renewal subscriptions that could renew automatically;
+          - active/on-hold subscriptions with missing or past next-payment
+            dates;
+          - renewal orders stuck in Pending payment, On hold, or Failed;
+          - payment-token replacement needed after expired/failed cards.
+EXPECT: No unreviewed flagged subscriptions before the public gate opens.
 ```
 
 ---
@@ -782,6 +813,11 @@ The owner can say "this is done" when ALL of these are true:
 - [ ] Settings → Lawyer Plans shows all 4 products mapped with no "not found" rows.
 - [ ] Section 8 sandbox test passed all 11 sub-steps.
 - [ ] Section 9 owner-led real-money test passed, ₪1 refunded successfully.
+- [ ] Checkout abuse protection is active before live credit-card mode:
+      bot challenge, rate limiting, gateway fraud controls, and failed-order
+      review workflow.
+- [ ] WooCommerce Subscriptions Health Check is enabled/reviewed and has no
+      unreviewed flagged subscriptions.
 - [ ] First real paying lawyer subscribed AND renewed at month 2.
 - [ ] No PHP errors in `wp-content/debug.log` from any of the new modules over a 7-day window.
 - [ ] Owner confirms they did not have to manually create a WP user, link a profile, send credentials, or issue an invoice for that first paying lawyer.

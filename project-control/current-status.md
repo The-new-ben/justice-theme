@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-18 15:40 Asia/Jerusalem
+- REAL ESTATE MONEY CLUSTER: converted real-estate P0 evidence into a support-to-hub map for `/real-estate-attorney/`, with `/real-estate-lawyer-guide/` as the newly recovered secondary explainer.
+- RESEARCHED: Google crawlable/internal-link guidance, 2026 internal-linking hub guidance, and leading real-estate-law competitors. Key point: competitor pages cluster around apartment purchase/sale, contract checks, land registry, real-estate tax, late delivery, appraisers and transaction risk.
+- CREATED: `project-control/real-estate-support-to-hub-map-2026-05-18.md`.
+- CREATED: `project-control/real-estate-support-to-hub-map-2026-05-18.csv`.
+- VERIFIED LIVE: Googlebot-style fetch returned 200/indexable/self-canonical for `/real-estate-attorney/`, `/real-estate-lawyer-guide/`, `/lawyer-for-buying-or-selling-a-house/`, `/registration-of-real-estate-israel/`, `/land-appreciation-tax/`, `/real-estate-lawyer-cost-2025/`, `/real-estate-appraiser/`, `/marital-property-agreement/`, and `/spouse-property-registration-guide/`.
+- FOUND: strongest Israeli commercial support opportunities include buying/selling apartment (35,650 impressions), real-estate lawyer guide (26,708), registration of rights (17,400), partition of shared apartment (16,201), land-appreciation tax (11,831), lawyer cost (10,927), appraiser (10,295), and spouse-property registration (7,432 and 84 clicks).
+- FOUND: high-traffic foreign real-estate pages such as Greece, Dubai, UK, Portugal and broad foreign investment should remain discoverable but not outrank Israeli lawyer-lead pages unless monetization is confirmed.
+- NEXT: owner approval is needed before public CMS edits; start with Israeli transaction pages and rewrite unsupported "recommended/free consultation/expert" language into factual selection/checklist language.
+- UPRESS: no uPress pull was needed in this cycle because only repo planning artifacts changed; no deployable public theme code changed.
+- SAFETY: no public CMS/database content, article body, title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting or wp-admin setting was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 15:30 Asia/Jerusalem
 - REAL ESTATE ROUTE RECOVERY: during the real-estate cycle, `/real-estate-lawyer-guide/` was found live as 404/noindex despite P0 GSC evidence (26,708 impressions and 7 clicks).
 - RESEARCHED: Google crawlable/internal-link guidance, current internal-linking hub guidance, and leading Israeli real-estate-law competitor pages. Key point: real-estate competitors cluster around buying/selling apartments, contract review, land registry, real-estate tax, late delivery by contractor, appraisers and property agreements.

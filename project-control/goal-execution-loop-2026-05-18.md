@@ -11,6 +11,36 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 27 - Real Estate Support-to-Hub Map
+
+Research reviewed:
+- Google's link guidance says internal links should be crawlable `<a href>` links and that clear anchor text helps both users and Google understand the destination. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Current 2026 internal-linking guidance recommends hub-and-spoke topic clusters where support pages link back to the relevant commercial hub with natural, specific anchors. Source: https://seoglen.com/guides/internal-linking-seo
+- Leading Israeli real-estate-law competitor pages cluster around apartment purchase/sale, contract review, land registry, real-estate tax, late delivery by contractor, appraisers, property agreements and transaction risk checks.
+
+Business interpretation:
+- Real estate is the fourth commercial-priority cluster after family/divorce, medical malpractice and criminal law.
+- The recovered `/real-estate-lawyer-guide/` route should support the main commercial `/real-estate-attorney/` page instead of competing with it.
+- Foreign real-estate investment pages have real search demand, but they should not dominate homepage/global signals unless owner confirms monetization and lawyer supply.
+
+Implemented in this cycle:
+- Created `project-control/real-estate-support-to-hub-map-2026-05-18.md`.
+- Created `project-control/real-estate-support-to-hub-map-2026-05-18.csv`.
+- Mapped Israeli transaction, registration, tax, appraiser, late-delivery and family/property-overlap pages to the commercial real-estate hub.
+- Marked foreign real-estate investment pages as discoverable but lower commercial priority.
+
+Verification:
+- Googlebot-style live fetch passed for `/real-estate-attorney/`, `/real-estate-lawyer-guide/`, `/lawyer-for-buying-or-selling-a-house/`, `/registration-of-real-estate-israel/`, `/land-appreciation-tax/`, `/real-estate-lawyer-cost-2025/`, `/real-estate-appraiser/`, `/marital-property-agreement/`, and `/spouse-property-registration-guide/`.
+- All sampled URLs returned HTTP 200, no `noindex`, and self-canonical URLs.
+- Repo change is planning-only, so no public deployment or uPress pull was required.
+
+Next step:
+- Owner approves the first public real-estate internal-link/content cleanup batch, starting with Israeli transaction-intent pages and factual anchor language.
+- Rewrite unsupported "recommended", "free consultation", "best", "leading" and "expert" wording into factual selection/checklist language before public content edits.
+
+Safety:
+- Planning-only repo update. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or uPress deployment was changed.
+
 ## Cycle 1 - Research To Implementation
 
 Research reviewed:

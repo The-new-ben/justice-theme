@@ -1,0 +1,10 @@
+{
+  "heartbeatIntervalMinutes": 10,
+  "apiProvider": "lms",
+  "apiEndpoint": "http://localhost:1234/v1/chat/completions",
+  "model": "local-model",
+  "systemPrompt": "You are an autonomous background agent. Review the provided state. If an action is required, output a JSON block with { \"action\": \"execute\", \"script\": \"your_command\" }. If no action is needed, output { \"action\": \"sleep\" }.",
+  "targetDirectory": "C:\\Users\\pro\\justice\\justice-theme",
+  "stateCommand": "git status",
+  "logFile": "./agent-activity.log"
+}

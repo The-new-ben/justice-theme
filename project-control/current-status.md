@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 19:46 Asia/Jerusalem
+- MONEY-QUERY SEO RESCUE BATCH 001: prepared the first owner-review packet for five commercial pages with high impressions and weak/zero CTR.
+- RESEARCHED: Google Search Console Performance guidance and Google title-link/snippet guidance. Key point: low CTR pages with real impressions should be reviewed by query/page, then titles/snippets/content should better match searcher intent.
+- USED EVIDENCE: `project-control/gsc-money-query-opportunity-map-2026-05-18.md`, `project-control/gsc-money-query-opportunity-map-2026-05-18.csv`, and `reports/traffic-priority-audit-2026-05-18.csv`.
+- PREPARED: proposed title/H1/intro/internal-link direction for `/real-estate-attorney/`, the criminal indictment cancellation article, `/sex-crime-lawyer/`, `/prenup-attorney/`, and `/traffic-lawyer/`.
+- CREATED: `project-control/money-query-seo-rescue-batch-001-2026-05-18.md`.
+- CREATED: `project-control/money-query-seo-rescue-batch-001-2026-05-18.csv`.
+- DECISION: do not edit all five live pages blindly. Start with real estate, then traffic, then prenup, then criminal indictment, then sex-crime after YMYL tone/privacy review.
+- UPRESS: no uPress pull needed because this cycle changed repo planning/status artifacts only; no deployable public theme code changed.
+- SAFETY: repo-only SEO rescue packet. No public CMS title, H1, meta description, article body, slug, redirect, canonical, noindex, sitemap setting, taxonomy term, lawyer profile, lead record, payment setting, GA4/GSC setting, WordPress database row or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-18 19:36 Asia/Jerusalem
 - COMMERCIAL PIPELINE BRANCH REVIEW: reviewed `origin/claude/review-legal-portal-aRAzz` / commit `e07851a` before deployment.
 - RESEARCHED: WooCommerce Subscriptions action reference and 2026 law-firm intake/payment workflow guidance. Key point: subscription/account/profile state must be connected before payment is treated as activation; do not rely on redirect luck.

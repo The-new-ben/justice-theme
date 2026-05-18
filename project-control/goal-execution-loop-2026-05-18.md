@@ -11,6 +11,35 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 30 - Live Reachability And Contact Signal Checker
+
+Research reviewed:
+- Google's LocalBusiness structured-data guidance defines `telephone` as the primary customer contact number and recommends including country/area code where relevant. Source: https://developers.google.com/search/docs/appearance/structured-data/local-business
+- Google's Organization structured-data guidance says primary phone information belongs at the organization/local-business level before using multiple contact points. Source: https://developers.google.com/search/docs/appearance/structured-data/organization
+- Current local SEO guidance emphasizes that website phone, structured data, and business-profile phone should be consistent so users and search systems do not receive conflicting contact signals.
+
+Business interpretation:
+- A "site can't be reached" report must be split quickly into DNS/SSL/server outage, WordPress/theme failure, page-level failure, or local/browser/ISP issue.
+- Phone consistency is a conversion and trust signal. If a mock number leaks into the header, footer or schema, users may call the wrong number and Google receives inconsistent entity information.
+
+Implemented in this cycle:
+- Added `tools/check-live-reachability.mjs`.
+- The checker verifies DNS A records, homepage, HTML sitemap, WordPress REST API, robots.txt, XML sitemap, owner phone, WhatsApp number, legacy/mock phone absence, and homepage canonical.
+- Updated shared status so other agents know the site is currently reachable and the old phone number is not live.
+
+Verification:
+- Homepage, `/site-map/`, `/wp-json/`, `/robots.txt`, and `/sitemap_index.xml` returned HTTP 200.
+- DNS resolved `jus-tice.co.il` to `185.108.148.104`; HTTPS verified and port 443 was reachable.
+- Existing owner-phone checker passed: homepage exposes `0525101555`, `tel:0525101555`, WhatsApp `972525101555`, and no legacy/mock phone numbers.
+- Repo change is tooling/status-only, so no public deployment or uPress pull was required.
+
+Next step:
+- Run `node tools/check-live-reachability.mjs` after future uPress pulls and whenever the user reports reachability issues.
+- If the user still sees a browser failure, capture the exact Chrome error code and compare it with the checker output.
+
+Safety:
+- Tooling/status-only repo update. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or uPress deployment was changed.
+
 ## Priority Cycle 29 - Employment Law Support-to-Hub Map
 
 Research reviewed:

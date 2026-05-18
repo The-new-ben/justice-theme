@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 16:10 Asia/Jerusalem
+- LIVE INCIDENT CHECK: owner reported "This site can't be reached"; external fetch, DNS and HTTPS checks showed the site is reachable now.
+- RESEARCHED: Google LocalBusiness/Organization schema guidance says `telephone` should represent the primary customer contact number, and current local SEO guidance emphasizes consistent name/address/phone signals across the site and business profiles.
+- VERIFIED LIVE: homepage, `/site-map/`, `/wp-json/`, `/robots.txt`, and `/sitemap_index.xml` returned HTTP 200.
+- VERIFIED LIVE: DNS resolves `jus-tice.co.il` to uPress IP `185.108.148.104`, HTTPS verifies, and port 443 is reachable.
+- VERIFIED LIVE: owner-phone checker passes; homepage exposes `0525101555`, `tel:0525101555`, WhatsApp `972525101555`, and no legacy/mock phone numbers.
+- CREATED: `tools/check-live-reachability.mjs` for repeatable live checks across DNS, homepage, HTML sitemap, REST API, robots, XML sitemap, owner phone, WhatsApp, legacy phone leakage, and canonical.
+- NEXT: run `node tools/check-live-reachability.mjs` whenever the site appears unavailable, after uPress pulls, and during journey checks; if a user still sees "site can't be reached", capture the exact browser error code and compare against this checker.
+- UPRESS: no uPress pull was needed in this cycle because only repo tooling and shared status changed; no deployable public theme code changed.
+- SAFETY: no public CMS/database content, article body, title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting or wp-admin setting was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 16:00 Asia/Jerusalem
 - EMPLOYMENT LAW MONEY CLUSTER: converted employment-law and employment-boundary GSC evidence into a support-to-hub map for `/labor-lawyer/`.
 - RESEARCHED: Google crawlable/internal-link guidance, 2026 internal-linking hub guidance, and leading Israeli employment-law competitors. Key point: competitor pages cluster around dismissal, severance, wage withholding, employee rights, employer representation, employment contracts, hearings, harassment at work, discrimination, pregnancy/parental rights, pensions, overtime, and labor-court representation.

@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-18 16:31 Asia/Jerusalem
+- INHERITANCE H1 INTENT FIX: strengthened `/inheritance-lawyer/` visible H1 from the generic taxonomy fallback to the commercial phrase `עורך דין ירושה וצוואות`.
+- RESEARCHED: Google title-link guidance says Google uses the `<title>`, main visual title, heading elements including `<h1>`, prominent text, and anchor text to create title links; the visible H1 should clearly describe the page.
+- IMPLEMENTED: added a `display_title` override for controlled practice routes in `template-parts/content/practice-landing-page.php`, set it only for `practice-inheritance-lawyer-route.php`, and updated live checkers to require the new deployment marker and inheritance H1 intent.
+- DEPLOYED: commit `a30e808` was pushed to GitHub `main`; Codex opened uPress File Manager Git management for `wp-content/themes/justice-theme` and clicked Pull Git.
+- VERIFIED LIVE: `/inheritance-lawyer/` returns HTTP 200, has no `noindex`, serves marker `2026-05-18-inheritance-lawyer-h1-v2`, title `עורך דין ירושה וצוואות | צו ירושה, צוואה והתנגדות לצוואה | Jus-Tice`, and H1 `עורך דין ירושה וצוואות`.
+- VERIFIED LIVE: traffic-priority audit, HTML sitemap/footer audit, and owner-phone audit all passed after the uPress pull.
+- NEXT: continue content classification and owner-approved support-to-hub internal links; inheritance route now has the correct visible money-page heading.
+- SAFETY: render-only template/config change. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 16:20 Asia/Jerusalem
 - INHERITANCE/WILLS ROUTE RECOVERY: recovered `/inheritance-lawyer/` as a controlled, indexable commercial route after live checks found it returned 404.
 - RESEARCHED: Google crawlable/internal-link guidance and current Israeli inheritance/wills competitors. Key point: the route should be reachable through crawlable links with descriptive anchors and support the main money intent around inheritance orders, probate orders, wills and objections to wills.

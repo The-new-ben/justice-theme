@@ -924,3 +924,34 @@ Remaining work:
 
 Safety:
 - Render-only theme route recovery. No CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.
+
+## Priority Cycle 32 - Inheritance Lawyer H1 Intent Alignment
+
+Research reviewed:
+- Google's title-link guidance says Google uses several sources to create a search result title link, including the `<title>` element, the main visual title, heading elements such as `<h1>`, prominent text, on-page anchor text and inbound anchor text. Source: https://developers.google.com/search/docs/appearance/title-link
+- The inheritance route already had correct metadata, but the visible H1 still fell back to the taxonomy term name, weakening the on-page signal for `עורך דין ירושה`.
+
+Business interpretation:
+- The recovered route was technically indexable, but the visible page title was still not aligned with the money query. That can reduce user confidence and give Google a weaker title source.
+- The safest fix is a route-level display-title override, not a taxonomy or CMS edit.
+
+Implemented in this cycle:
+- Added `display_title` support in `template-parts/content/practice-landing-page.php`.
+- Set `display_title` only in `practice-inheritance-lawyer-route.php` to `עורך דין ירושה וצוואות`.
+- Updated `JUSTICE_DEPLOY_MARKER` to `2026-05-18-inheritance-lawyer-h1-v2`.
+- Updated live checkers to expect the new marker and to require inheritance H1 intent in `tools/check-live-traffic-priority.mjs`.
+
+Verification:
+- PHP lint passed for `functions.php`, `template-parts/content/practice-landing-page.php`, and `practice-inheritance-lawyer-route.php`.
+- Node syntax checks passed for `tools/check-live-traffic-priority.mjs`, `tools/check-live-html-sitemap.mjs`, and `tools/check-live-owner-phone.mjs`.
+- `git diff --check` passed with line-ending warnings only.
+- Commit `a30e808` was pushed to GitHub `main`.
+- Codex opened uPress File Manager Git management for `/wp-content/themes/justice-theme` and clicked Pull Git.
+- Live direct Googlebot-style fetch: `/inheritance-lawyer/` HTTP 200, no `noindex`, deployment marker present, title `עורך דין ירושה וצוואות | צו ירושה, צוואה והתנגדות לצוואה | Jus-Tice`, H1 `עורך דין ירושה וצוואות`.
+- Live traffic-priority audit, HTML sitemap/footer checker and owner-phone checker all passed after the pull.
+
+Remaining work:
+- Continue owner-approved content classification and support-to-hub internal links for inheritance/wills and the other commercial clusters.
+
+Safety:
+- Render-only route display-title/template change. No CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.

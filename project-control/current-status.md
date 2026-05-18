@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 21:31 Asia/Jerusalem
+- MONEY-QUERY SEO RESCUE BATCH 001: created a GSC-backed priority rescue plan for high-impression legal pages with almost no clicks.
+- RESEARCHED: Google crawlable-link and anchor-text guidance plus current law-firm SEO guidance around practice hubs, supporting pages, and internal linking. Key point: the site needs clear legal money hubs with contextual links, not more scattered articles.
+- ANALYZED: `content-master/gsc/gsc-url-summary.csv` and identified major traffic leaks: `/real-estate-attorney` has 88,601 impressions and 0.02% CTR; `/criminal-defense-attorney` has 62,561 impressions and 0.02% CTR; `/traffic-lawyer` has 20,330 impressions and 0 clicks.
+- CREATED: `project-control/money-query-seo-rescue-batch-001-2026-05-18.md`.
+- CREATED: `project-control/money-query-seo-rescue-batch-001-2026-05-18.csv`.
+- DECISION: preserve high-impression URLs first; fix title/H1/intro/CTA/internal links before considering redirects or deletion.
+- NEXT: implement draft title/H1/intro/CTA/internal-link blocks for `/real-estate-attorney` and `/criminal-defense-attorney`, then review before live CMS publication.
+- UPRESS: no uPress pull needed because this is repo-only planning/status; not merged to `main`.
+- SAFETY: no live wp-admin login, public form, CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-18 21:20 Asia/Jerusalem
 - UNSERVED DEMAND LEAD EDIT META BOX: upgraded PR #7 so unsupported calls can be edited and managed directly on each `justice_lead` admin record.
 - RESEARCHED: law-firm intake CRM best practices around source, practice area, status, urgency, follow-up deadline, and conversion/revenue tracking. Key point: every missed/unserved request must stay attached to an actionable lead record.

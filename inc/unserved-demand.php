@@ -15,11 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function justice_theme_unserved_demand_register_meta(): void {
-	if ( ! post_type_exists( 'justice_lead' ) ) {
-		return;
-	}
-
 	$fields = array(
+		'visitor_whatsapp',
 		'service_status',
 		'requested_area_raw',
 		'requested_country',
@@ -138,8 +135,12 @@ function justice_theme_unserved_demand_render_quick_log_form(): void {
 			<input id="unserved-phone" name="visitor_phone" type="tel" class="regular-text" style="width:100%;" required>
 		</p>
 		<p>
-			<label for="unserved-email"><strong>Email / WhatsApp</strong></label>
-			<input id="unserved-email" name="visitor_email" type="text" class="regular-text" style="width:100%;" placeholder="Optional">
+			<label for="unserved-email"><strong>Email</strong></label>
+			<input id="unserved-email" name="visitor_email" type="email" class="regular-text" style="width:100%;" placeholder="Optional">
+		</p>
+		<p>
+			<label for="unserved-whatsapp"><strong>WhatsApp</strong></label>
+			<input id="unserved-whatsapp" name="visitor_whatsapp" type="tel" class="regular-text" style="width:100%;" placeholder="Optional">
 		</p>
 		<p>
 			<label for="unserved-area"><strong>Requested area</strong></label>
@@ -199,6 +200,7 @@ function justice_theme_handle_unserved_lead_log(): void {
 	$name             = isset( $_POST['visitor_name'] ) ? sanitize_text_field( wp_unslash( $_POST['visitor_name'] ) ) : '';
 	$phone            = isset( $_POST['visitor_phone'] ) ? sanitize_text_field( wp_unslash( $_POST['visitor_phone'] ) ) : '';
 	$email            = isset( $_POST['visitor_email'] ) ? sanitize_text_field( wp_unslash( $_POST['visitor_email'] ) ) : '';
+	$whatsapp         = isset( $_POST['visitor_whatsapp'] ) ? sanitize_text_field( wp_unslash( $_POST['visitor_whatsapp'] ) ) : '';
 	$requested_area   = isset( $_POST['requested_area_raw'] ) ? sanitize_text_field( wp_unslash( $_POST['requested_area_raw'] ) ) : '';
 	$country          = isset( $_POST['requested_country'] ) ? sanitize_text_field( wp_unslash( $_POST['requested_country'] ) ) : '';
 	$urgency          = isset( $_POST['matter_urgency'] ) ? sanitize_key( wp_unslash( $_POST['matter_urgency'] ) ) : 'normal';
@@ -235,6 +237,7 @@ function justice_theme_handle_unserved_lead_log(): void {
 		'visitor_name'         => $name,
 		'visitor_phone'        => $phone,
 		'visitor_email'        => is_email( $email ) ? $email : '',
+		'visitor_whatsapp'     => $whatsapp,
 		'message'              => $message,
 		'requested_area_raw'   => $requested_area,
 		'requested_country'    => $country,
@@ -335,6 +338,8 @@ function justice_theme_unserved_demand_stats(): array {
 	$total = 0;
 	$this_month = 0;
 	$urgent = 0;
+	$overdue    = 0;
+	$now        = current_time( 'timestamp' );
 
 	foreach ( $query->posts as $post_item ) {
 		$post_id = $post_item instanceof WP_Post ? $post_item->ID : (int) $post_item;
@@ -349,6 +354,12 @@ function justice_theme_unserved_demand_stats(): array {
 			$urgent++;
 		}
 
+		$deadline = get_post_meta( $post_id, 'follow_up_deadline', true );
+		$deadline_ts = $deadline ? strtotime( $deadline ) : false;
+		if ( $deadline_ts && $deadline_ts < $now ) {
+			$overdue++;
+		}
+
 		$area = get_post_meta( $post_id, 'requested_area_raw', true ) ?: get_post_meta( $post_id, 'legal_area', true ) ?: 'unknown';
 		$areas[ $area ] = true;
 	}
@@ -356,10 +367,11 @@ function justice_theme_unserved_demand_stats(): array {
 	wp_reset_postdata();
 
 	return array(
-		'Unserved total' => $total,
-		'This month'     => $this_month,
-		'High urgency'   => $urgent,
-		'Partner gaps'   => count( $areas ),
+		'Unserved total'    => $total,
+		'This month'        => $this_month,
+		'High urgency'      => $urgent,
+		'Overdue follow-up' => $overdue,
+		'Partner gaps'      => count( $areas ),
 	);
 }
 
@@ -450,12 +462,7 @@ function justice_theme_unserved_demand_render_recruitment_summary(): void {
 				foreach ( $row['sources'] as $source => $count ) {
 					$sources[] = $source . ' x' . $count;
 				}
-				$sales_line = sprintf(
-					'Jus-Tice already received %d request(s) for %s%s and has no active partner yet.',
-					(int) $row['count'],
-					$row['demand'],
-					'unknown' !== $row['country'] ? ' / ' . $row['country'] : ''
-				);
+				$sales_line = justice_theme_unserved_demand_sales_line( $row['demand'], $row['country'], (int) $row['count'] );
 				?>
 				<tr>
 					<td><?php echo esc_html( $row['demand'] ); ?></td>
@@ -470,6 +477,15 @@ function justice_theme_unserved_demand_render_recruitment_summary(): void {
 		</tbody>
 	</table>
 	<?php
+}
+
+function justice_theme_unserved_demand_sales_line( string $demand, string $country, int $count ): string {
+	return sprintf(
+		'Jus-Tice already received %d request(s) for %s%s and has no active partner yet.',
+		$count,
+		$demand,
+		'unknown' !== $country ? ' / ' . $country : ''
+	);
 }
 
 function justice_theme_unserved_demand_render_table( WP_Query $leads ): void {
@@ -538,7 +554,7 @@ function justice_theme_export_unserved_demand_csv(): void {
 		exit;
 	}
 
-	fputcsv( $output, array( 'id', 'date', 'caller', 'phone', 'email', 'demand', 'country', 'urgency', 'source', 'follow_up_deadline', 'revenue_status', 'summary' ) );
+	fputcsv( $output, array( 'id', 'date', 'caller', 'phone', 'email', 'whatsapp', 'demand', 'country', 'urgency', 'source', 'follow_up_deadline', 'unserved_reason', 'owner_next_action', 'revenue_status', 'summary' ) );
 
 	foreach ( $leads->posts as $post_item ) {
 		$post_id = $post_item instanceof WP_Post ? $post_item->ID : (int) $post_item;
@@ -550,11 +566,14 @@ function justice_theme_export_unserved_demand_csv(): void {
 				get_post_meta( $post_id, 'visitor_name', true ),
 				get_post_meta( $post_id, 'visitor_phone', true ),
 				get_post_meta( $post_id, 'visitor_email', true ),
+				get_post_meta( $post_id, 'visitor_whatsapp', true ),
 				get_post_meta( $post_id, 'requested_area_raw', true ) ?: get_post_meta( $post_id, 'legal_area', true ),
 				get_post_meta( $post_id, 'requested_country', true ),
 				get_post_meta( $post_id, 'matter_urgency', true ) ?: get_post_meta( $post_id, 'urgency', true ),
 				get_post_meta( $post_id, 'source_landing_url', true ) ?: get_post_meta( $post_id, 'source_url', true ),
 				get_post_meta( $post_id, 'follow_up_deadline', true ),
+				get_post_meta( $post_id, 'unserved_reason', true ),
+				get_post_meta( $post_id, 'owner_next_action', true ),
 				get_post_meta( $post_id, 'revenue_status', true ),
 				get_post_meta( $post_id, 'message', true ) ?: get_post_field( 'post_content', $post_id ),
 			)

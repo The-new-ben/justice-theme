@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-18 20:59 Asia/Jerusalem
+- UNSERVED DEMAND INTAKE HARDENING: tightened PR #7 admin ledger so unsupported calls are easier to follow up and export for lawyer recruitment.
+- RESEARCHED: current law-firm intake guidance around source tracking, response time, follow-up status, and conversion reporting. Key point: unmonitored channels and overdue follow-ups leak revenue.
+- CODED: `inc/unserved-demand.php` now separates Email and WhatsApp inputs and saves `visitor_whatsapp`.
+- CODED: dashboard summary cards now include `Overdue follow-up`.
+- CODED: CSV export now includes WhatsApp, unserved reason, owner next action, and revenue status.
+- CODED: meta registration no longer depends on `post_type_exists( 'justice_lead' )`, making it more robust if the CPT is registered later in the load order.
+- CREATED: `project-control/unserved-demand-intake-hardening-2026-05-18.md`.
+- CREATED: `project-control/unserved-demand-intake-hardening-2026-05-18.csv`.
+- VERIFIED: PHP lint clean on `inc/unserved-demand.php`, `inc/lead-routing.php`, and `functions.php`; `git diff --check` clean.
+- UPRESS: no uPress pull needed because this is draft PR code only; not merged to `main`.
+- SAFETY: no live wp-admin login, public form, CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-18 20:49 Asia/Jerusalem
 - UNSERVED DEMAND RECRUITMENT PROOF PANEL: upgraded the admin-only ledger so logged unsupported calls become lawyer-sales evidence, not only CRM rows.
 - RESEARCHED: law-firm lead source/practice-area tracking, response-speed and conversion-reporting best practices. Key point: demand must be grouped by source and practice area so the business can sell partner seats with evidence.

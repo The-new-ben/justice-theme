@@ -1,0 +1,7 @@
+"file","change","verification","live_effect_now"
+"inc/unserved-demand.php","Separate Email and WhatsApp inputs; save visitor_whatsapp","php -l clean","None until branch is deployed"
+"inc/unserved-demand.php","Add Overdue follow-up summary card","php -l clean","None until branch is deployed"
+"inc/unserved-demand.php","Export WhatsApp unserved_reason owner_next_action revenue_status","php -l clean","None until branch is deployed"
+"inc/unserved-demand.php","Register meta without post_type_exists guard to avoid CPT load-order skip","php -l clean","None until branch is deployed"
+"project-control/current-status.md","Record hardening for other agents","git diff review","Repo status only"
+"project-control/task-board.csv","Task-board row for intake hardening","git diff review","Repo status only"

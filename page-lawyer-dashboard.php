@@ -10,16 +10,35 @@ get_header();
 echo "\n" . '<!-- justice-dashboard-first-value-v1 -->' . "\n";
 
 if ( ! is_user_logged_in() ) :
+	$magic_state = isset( $_GET['magic'] ) ? sanitize_key( wp_unslash( $_GET['magic'] ) ) : '';
 	?>
 	<section class="lawyer-dashboard lawyer-dashboard--logged-out section">
 		<div class="container lawyer-dashboard__gate">
 			<p class="section-header__eyebrow"><?php esc_html_e( 'אזור אישי לעורכי דין', 'justice-theme' ); ?></p>
 			<h1><?php esc_html_e( 'התחברו כדי לנהל את הנוכחות שלכם ב-Jus-Tice', 'justice-theme' ); ?></h1>
 			<p><?php esc_html_e( 'האזור האישי מיועד לפרופיל, לידים, תוכן, סטטוס מנוי וכלים עתידיים. פרסום ועדכונים מהותיים עוברים בדיקה לפני עלייה לאתר.', 'justice-theme' ); ?></p>
+
+			<?php if ( 'sent' === $magic_state ) : ?>
+				<div class="legaltool-request__notice"><?php esc_html_e( 'שלחנו אליכם קישור כניסה חד-פעמי במייל. בדקו את תיבת הדואר (כולל ספאם).', 'justice-theme' ); ?></div>
+			<?php elseif ( 'expired' === $magic_state ) : ?>
+				<div class="lawyer-registration__error"><?php esc_html_e( 'הקישור פג תוקף או שכבר נעשה בו שימוש. בקשו קישור חדש למטה.', 'justice-theme' ); ?></div>
+			<?php elseif ( 'invalid' === $magic_state ) : ?>
+				<div class="lawyer-registration__error"><?php esc_html_e( 'בקשה לא תקינה. נסו שוב או צרו קשר עם התמיכה.', 'justice-theme' ); ?></div>
+			<?php endif; ?>
+
 			<div class="lawyer-dashboard__actions">
-				<a class="button button--gold" href="<?php echo esc_url( wp_login_url( justice_theme_public_permalink( get_the_ID() ) ) ); ?>"><?php esc_html_e( 'התחברות', 'justice-theme' ); ?></a>
+				<a class="button button--gold" href="<?php echo esc_url( wp_login_url( justice_theme_public_permalink( get_the_ID() ) ) ); ?>"><?php esc_html_e( 'כניסה עם סיסמה', 'justice-theme' ); ?></a>
 				<a class="button button--outline" href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-registration/' ) ) ); ?>"><?php esc_html_e( 'הצטרפות לעורכי דין', 'justice-theme' ); ?></a>
 			</div>
+
+			<form class="lawyer-dashboard__magic-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" style="margin-top:24px;">
+				<input type="hidden" name="action" value="justice_magic_resend">
+				<?php wp_nonce_field( 'justice_magic_resend', 'justice_magic_resend_nonce' ); ?>
+				<label for="magic-email"><strong><?php esc_html_e( 'קיבלתם פעם קישור כניסה?', 'justice-theme' ); ?></strong></label>
+				<p><?php esc_html_e( 'הזינו את האימייל ונשלח קישור חדש לכניסה ישירה לאזור האישי, בלי סיסמה.', 'justice-theme' ); ?></p>
+				<input id="magic-email" type="email" name="email" required placeholder="email@example.com">
+				<button class="button button--gold" type="submit"><?php esc_html_e( 'שלחו לי קישור כניסה', 'justice-theme' ); ?></button>
+			</form>
 		</div>
 	</section>
 	<?php
@@ -138,9 +157,12 @@ $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 
 			<div>
 				<p class="section-header__eyebrow"><?php esc_html_e( 'אזור אישי לעורכי דין', 'justice-theme' ); ?></p>
 				<h1><?php esc_html_e( 'מרכז השליטה לנוכחות, תוכן ולידים', 'justice-theme' ); ?></h1>
-				<p><?php esc_html_e( 'זהו MVP ראשון: צפייה בפרופיל המקושר, סטטוס מסחרי, לידים משויכים ומשימות לשיפור המיני-סייט. עריכה עצמאית, תשלומים ו-AI Console יתווספו בשלבים מבוקרים.', 'justice-theme' ); ?></p>
+				<?php if ( isset( $_GET['welcome'] ) ) : ?>
+					<div class="legaltool-request__notice"><?php esc_html_e( 'ברוכים הבאים! נכנסתם עם קישור הכניסה. מומלץ להגדיר סיסמה קבועה בפרופיל המשתמש לכניסות הבאות.', 'justice-theme' ); ?></div>
+				<?php endif; ?>
+				<p><?php esc_html_e( 'צפייה בפרופיל המקושר, סטטוס מסחרי, לידים משויכים ומשימות לשיפור המיני-סייט. שדרוג מסלול מפעיל אוטומטית פרסום ולידים בהתאם לתחום והאזור.', 'justice-theme' ); ?></p>
 			</div>
-			<a class="button button--gold" href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-registration/' ) ) ); ?>"><?php esc_html_e( 'פתיחת פרופיל נוסף', 'justice-theme' ); ?></a>
+			<a class="button button--gold" href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-plans/' ) ) ); ?>"><?php esc_html_e( 'מסלולים ושדרוג', 'justice-theme' ); ?></a>
 		</header>
 
 		<?php if ( ! $profiles || ! $profiles->have_posts() ) : ?>

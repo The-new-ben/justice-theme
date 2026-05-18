@@ -11,6 +11,15 @@
 - UPRESS PULL NEEDED AFTER PUSH: this is deployable public code. After GitHub push, run uPress Git Pull for `wp-content/themes/justice-theme`, then run `node tools/check-live-html-sitemap.mjs`.
 - SAFETY: no public CMS/database content, taxonomy term, slug, redirect rule, XML sitemap setting, robots rule, lawyer record, lead record, payment setting, GA4/GSC setting or database row was changed.
 
+## LIVE TRAFFIC AUDIT SNAPSHOT - 2026-05-18 13:20 Asia/Jerusalem
+- VERIFIED: `tools/url-checker/site-health-audit.js` completed against the live site.
+- RESULT: 1,292 URLs checked; 1,289 returned 200; 3 returned 404; 0 server errors; 0 redirect loops; 0 multi-hop redirects.
+- FOUND 404: `/medical-malpractice-lawyer/`, `/contact/`, and `/about/`.
+- FOUND DUPLICATE TITLE GROUPS: `חדלות פירעון`, `דיני נזיקין`, and `דיני עבודה`.
+- CREATED: `reports/site-health-audit-2026-05-18.csv`.
+- CREATED: `reports/site-health-summary-2026-05-18.txt`.
+- NOTE: `/site-map/` failed live before commit/push because the sitemap change was still local; commit `ef30efb` is now pushed and requires a fresh uPress Git Pull before live verification.
+
 ## LATEST WORK STATUS - 2026-05-18 12:20 Asia/Jerusalem
 - ACTIVE BUSINESS EXECUTION LOOP: owner instructed sequential cycles that start with current research, implement the highest-impact safe next change, and update shared repo progress for other agents.
 - CREATED HEARTBEAT: `jus-tice-10-minute-execution-loop` is active and will continue this thread every 10 minutes if work stalls.

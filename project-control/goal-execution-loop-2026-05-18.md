@@ -956,6 +956,39 @@ Remaining work:
 Safety:
 - Render-only route display-title/template change. No CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.
 
+## Priority Cycle 35 - Corona Legacy Content Audit
+
+Research reviewed:
+- Google's helpful-content guidance says successful content should be useful, reliable and people-first, not written mainly for search traffic. Source: https://developers.google.com/search/docs/fundamentals/creating-helpful-content
+- Google's core-update guidance warns against reactive quick fixes and says broad site-quality improvements may take time to be reflected. Source: https://developers.google.com/search/docs/appearance/core-updates
+- Google's outdated-content tool is for content that no longer exists or materially changed in Google results; it is not a blanket instruction to delete old pages. Source: https://support.google.com/webmasters/answer/7041154
+
+Business interpretation:
+- Corona-era content can dilute quality if it still presents obsolete practical guidance as current advice.
+- It can also still carry legal archive, backlink, long-tail, or support value, so mass deletion/noindexing is unsafe.
+- The right move is evidence-led triage: refresh useful commercial/support pages, label historical pages, and only prune after GSC/backlink review.
+
+Implemented in this cycle:
+- Scanned `project-control/url-migration-map.csv` for corona/COVID/emergency-regulation candidates.
+- Found 48 corona-adjacent rows: 29 `outdated-corona-legacy`, 7 `employment-law`, 4 `needs-classification`, 2 `cyber-privacy`, 2 `criminal-law`, 2 `real-estate`, 1 `traffic-law`, and 1 `medical-malpractice`.
+- Created `project-control/corona-legacy-content-audit-2026-05-18.md`.
+- Created `project-control/corona-legacy-content-audit-2026-05-18.csv`.
+- Classified representative rows into `REFRESH_EVERGREEN`, `HISTORICAL_ARCHIVE_OR_REFRESH`, `NOINDEX_OR_ARCHIVE_REVIEW`, and `KEEP_OUT_OF_COMMERCIAL_CLUSTER` style lanes.
+
+Verification:
+- Repo was up to date before work.
+- Googlebot-style header checks returned HTTP 200 for `https://jus-tice.co.il/coronavirus-employers-guide/`, `https://jus-tice.co.il/income-protection-insurance/`, and `https://jus-tice.co.il/research-report-n156-persistent-symptoms/`.
+- `git diff --check` passed with line-ending warnings only.
+- No deployable theme code changed, so no uPress pull was required.
+
+Remaining work:
+- Pull GSC clicks/impressions for all 48 candidates.
+- Run live indexability checks for the 29 `outdated-corona-legacy` rows.
+- Owner approval needed before any CMS refresh, noindex, 410, redirect, category, or internal-link changes.
+
+Safety:
+- Repo-only editorial planning and read-only live checks. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.
+
 ## Priority Cycle 33 - Inheritance/Wills Support-To-Hub Map
 
 Research reviewed:

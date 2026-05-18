@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 17:11 Asia/Jerusalem
+- CORONA LEGACY CONTENT AUDIT: converted the owner's stale corona-content concern into a safe editorial control packet before any public CMS cleanup.
+- RESEARCHED: Google helpful-content, core-update, and outdated-content guidance. Key point: improve useful pages and avoid reactive mass deletion/noindexing; old pages should be refreshed, archived, or pruned only after evidence.
+- SCANNED: `project-control/url-migration-map.csv` for corona/COVID/emergency-regulation signals and found 48 candidates: 29 `outdated-corona-legacy`, 7 `employment-law`, 4 `needs-classification`, 2 `cyber-privacy`, 2 `criminal-law`, 2 `real-estate`, 1 `traffic-law`, and 1 `medical-malpractice`.
+- LIVE SAMPLE: Googlebot-style header checks returned HTTP 200 for `coronavirus-employers-guide`, `income-protection-insurance`, and `research-report-n156-persistent-symptoms`, proving the group needs page-by-page handling instead of blanket pruning.
+- CREATED: `project-control/corona-legacy-content-audit-2026-05-18.md`.
+- CREATED: `project-control/corona-legacy-content-audit-2026-05-18.csv`.
+- DECISION: do not mass-delete, mass-noindex, or broad-redirect corona pages. First approved batch should refresh current commercial/support pages and hold pure 2020 emergency updates for GSC/backlink review.
+- UPRESS: no uPress pull needed because this cycle changed repo planning/status artifacts only; no deployable public theme code changed.
+- SAFETY: no public CMS database row, article body, title/H1/meta, URL slug, redirect, noindex, canonical, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 16:51 Asia/Jerusalem
 - INHERITANCE TOPIC LINK BUG FIX: replaced dead inheritance topic-cluster links to `/will/`, `/will-contest/`, and `/estate-administration/` with live verified support URLs.
 - RESEARCHED: Google redirect/site-move/soft-404 guidance. Key point: redirect or link only to meaningful equivalent pages; do not mask missing/conflicted URLs with broad unrelated destinations.

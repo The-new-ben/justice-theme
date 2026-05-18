@@ -4,9 +4,11 @@
 - IMPLEMENTED: `/lawyer-dashboard/` now includes a logged-in first-value panel that summarizes profile linkage, profile readiness, measured visibility, assigned leads, content/profile work, activation status and honest payment status.
 - IMPLEMENTED: added responsive styling for the first-value panel in `assets/css/premium-pass-3.css`.
 - IMPLEMENTED: added dashboard marker `justice-dashboard-first-value-v1` so live deployment can be verified from the public logged-out dashboard page after uPress pull.
+- FOUND UPRESS BLOCKER: uPress Git status showed three tracked emergency utility files deleted on the server: `emergency-recovery.php`, `restore-from-github.php`, and `server-cleanup.php`.
+- RESOLUTION: those files explicitly say they should be deleted after recovery and are security-sensitive utility scripts, so they were removed from the repo to align GitHub with the safer server state and unblock future uPress pulls.
 - VERIFIED LOCAL: PHP lint passed for `page-lawyer-dashboard.php`; `git diff --check` passed with line-ending warnings only.
 - NEXT: commit/push, run uPress Pull Git because deployable theme code changed, then verify `/lawyer-dashboard/` returns 200 and exposes the marker. Logged-in visual verification still requires a linked lawyer/demo account.
-- SAFETY: render-only dashboard/CSS change. No user account, lawyer profile, lead record, payment product, subscription, invoice, public CMS database content, URL, redirect, canonical, noindex, sitemap setting, GA4/GSC setting or WordPress database row was changed.
+- SAFETY: dashboard/CSS change plus removal of obsolete emergency utility scripts from version control. No user account, lawyer profile, lead record, payment product, subscription, invoice, public CMS database content, URL, redirect, canonical, noindex, sitemap setting, GA4/GSC setting or WordPress database row was changed.
 
 ## LATEST WORK STATUS - 2026-05-18 19:06 Asia/Jerusalem
 - LAWYER DEMO ACCOUNT JOURNEY PACKET: converted the hidden lawyer/private-zone/payment/value gap into a concrete owner-verifiable demo journey plan.

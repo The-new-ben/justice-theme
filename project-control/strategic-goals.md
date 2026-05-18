@@ -15,6 +15,7 @@ Hebrew-first user experience, premium trust, strong SEO architecture, lawyer mon
 - User journey: visitors must quickly understand the service, find relevant legal content/lawyers, submit an inquiry, and receive a clear next step.
 - Lawyer customer journey: lawyers must understand the value, register smoothly, see measurable monthly value, receive qualified leads, and have reasons to keep paying and upgrade.
 - Googlebot journey: crawlers must reach clean indexable URLs, HTTPS canonicals, helpful Hebrew content, valid sitemaps, and internally linked topic clusters without confusing redirects or duplicate signals.
+- HTML crawl hub: the site must maintain a dynamic human-readable sitemap linked from the global footer so users and Googlebot can reach articles, categories, practice areas, lawyer profiles and core conversion pages through normal crawlable links.
 - Every execution cycle should include either direct hands-on journey testing or a documented reason why testing waits for deployment, login access, or owner approval.
 - Competitor work must connect back to one of these journeys: outrank through better content and structure, out-convert through better intake, or out-retain through better lawyer value.
 
@@ -38,6 +39,7 @@ Hebrew-first user experience, premium trust, strong SEO architecture, lawyer mon
 - GSC-driven decisions when data is available.
 - English slugs with Hebrew titles/content.
 - Pillar pages connected to supporting articles, lawyer profiles, LegalTech tools, and lead CTAs.
+- Dynamic HTML sitemap connected from the homepage/footer, using descriptive crawlable anchors and automatic WordPress content/taxonomy updates.
 
 ## Business Goals
 

@@ -87,6 +87,7 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0544705733' );
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" style="color: var(--jt-accent); font-weight: 700; text-decoration: none;">הצטרפות עורכי דין &larr;</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מסלולים לעורכי דין</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-dashboard/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">אזור אישי לעורכי דין</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/site-map/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מפת אתר</a></li>
 			</ul>
 		</section>
 	</div>

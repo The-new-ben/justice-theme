@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-18 13:05 Asia/Jerusalem
+- PRIORITY INTERRUPTION ACCEPTED: owner reported traffic concern and requested an immediate dynamic HTML sitemap page, with web research first, linked close to the homepage/footer, and designed for Google crawling.
+- RESEARCHED: Google Search Central crawlable-link guidance, Google's SEO Starter Guide site-structure guidance, and current internal-linking/HTML-sitemap best practices.
+- IMPLEMENTED: dynamic human-readable sitemap route at `/site-map/` in `inc/html-sitemap.php`; `/html-sitemap/` 301-redirects to the canonical route.
+- IMPLEMENTED: the sitemap is generated from live WordPress data without database writes: published `articles`, standard posts, non-empty `practice-areas`, non-empty `category` terms, selected pages, and approved public lawyer profiles.
+- IMPLEMENTED: global footer now links to `/site-map/`, so the homepage and normal site pages point crawlers toward the HTML crawl hub.
+- IMPLEMENTED: deployment marker updated to `2026-05-18-html-sitemap-v1`.
+- CREATED: `tools/check-live-html-sitemap.mjs` to verify homepage/footer link, `/site-map/` status, crawlable anchors, article/lawyer hub links, deployment marker and Googlebot fetch behavior after uPress pull.
+- CREATED: `project-control/html-sitemap-crawl-hub-plan-2026-05-18.md`.
+- VERIFIED: `php -l inc/html-sitemap.php`, `php -l functions.php`, `php -l template-parts/layout/site-footer.php`, `node --check tools/check-live-html-sitemap.mjs`, and `git diff --check` passed.
+- UPRESS PULL NEEDED AFTER PUSH: this is deployable public code. After GitHub push, run uPress Git Pull for `wp-content/themes/justice-theme`, then run `node tools/check-live-html-sitemap.mjs`.
+- SAFETY: no public CMS/database content, taxonomy term, slug, redirect rule, XML sitemap setting, robots rule, lawyer record, lead record, payment setting, GA4/GSC setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 12:20 Asia/Jerusalem
 - ACTIVE BUSINESS EXECUTION LOOP: owner instructed sequential cycles that start with current research, implement the highest-impact safe next change, and update shared repo progress for other agents.
 - CREATED HEARTBEAT: `jus-tice-10-minute-execution-loop` is active and will continue this thread every 10 minutes if work stalls.

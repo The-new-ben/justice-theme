@@ -364,3 +364,35 @@ Verification:
 
 Next cycle recommendation:
 - After deployment/uPress pull, verify the activation meta box in wp-admin and then expose a non-sensitive first-value milestone on the lawyer dashboard.
+
+## Priority Cycle 13 - Dynamic HTML Sitemap Crawl Hub
+
+Research reviewed:
+- Google Search Central says Google discovers pages through crawlable links and generally needs real `<a>` elements with `href` attributes. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Google's SEO Starter Guide notes that content organization can affect crawling and indexing as a site grows. Source: https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+- Current internal-linking guidance emphasizes shallow crawl paths, descriptive anchors and hub-style linking for important pages. Source: https://searchengineland.com/guide/internal-linking
+- Recent SEO guidance reinforces that internal links help search engines discover pages and understand site structure. Source: https://ahrefs.com/blog/internal-links-for-seo/
+
+Business interpretation:
+- The owner is worried about traffic and wants Googlebot to find the full site more reliably.
+- The safest immediate change is a dynamic HTML crawl hub linked from the global footer, using real server-rendered links and no CMS/database writes.
+
+Implemented in this cycle:
+- Added `inc/html-sitemap.php`, serving `/site-map/` as a dynamic public HTML sitemap.
+- Added `/html-sitemap/` as a canonical redirect to `/site-map/`.
+- The page dynamically lists published articles/posts, non-empty legal topics/categories, selected pages and approved public lawyer profiles.
+- Added a footer link to `/site-map/`.
+- Updated deployment marker to `2026-05-18-html-sitemap-v1`.
+- Added `tools/check-live-html-sitemap.mjs` for live post-pull validation.
+- Created `project-control/html-sitemap-crawl-hub-plan-2026-05-18.md`.
+
+Verification:
+- `php -l inc/html-sitemap.php` passed.
+- `php -l functions.php` passed.
+- `php -l template-parts/layout/site-footer.php` passed.
+- `node --check tools/check-live-html-sitemap.mjs` passed.
+- `git diff --check` passed with line-ending warnings only.
+
+Next cycle recommendation:
+- Commit and push this batch, pull Git in uPress, then run `node tools/check-live-html-sitemap.mjs` and a quick visual check of `/site-map/`.
+- Resume the normal growth loop with GA4/GSC traffic diagnostics and crawl/indexing journey checks.

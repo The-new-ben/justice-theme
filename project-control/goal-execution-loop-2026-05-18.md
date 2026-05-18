@@ -311,3 +311,27 @@ Current deployment blocker:
 
 Next cycle recommendation:
 - Once uPress pull is completed by an agent with browser control or by the owner, run `node tools/check-live-deployment.mjs` and then verify GA4/GTM receipt for the new events.
+
+## Cycle 11 - Lawyer Time To First Value
+
+Research reviewed:
+- Current SaaS onboarding guidance emphasizes time-to-first-value and activation events over generic checklist completion. Sources: https://www.arcade.software/post/customer-onboarding-best-practices, https://productgrowth.in/insights/saas/saas-onboarding-benchmarks-2026/, https://retentioncheck.com/learn/onboarding-reduces-churn, https://growthlayer.app/blog/saas-customer-onboarding-best-practices
+
+Business interpretation:
+- A lawyer registering is not enough. Jus-Tice needs to get each lawyer to first measurable value quickly: profile readiness, verified visibility, a qualified lead, a contact event, content linkage or a first monthly report snapshot.
+- This gives the owner a retention system: who is activated, who is stalled, who needs follow-up, and who has a real upgrade reason.
+
+Implemented in this cycle:
+- Created `project-control/lawyer-time-to-first-value-plan-2026-05-18.md`.
+- The plan defines registration complete, profile ready, first measurable value, retention value, owner/admin signals, at-risk rules and safe next implementation steps.
+- No public CMS content, lead records, redirects, payment logic, sitemap settings, wp-admin settings or database rows were changed.
+
+Verification:
+- `git diff --check` passed with line-ending warnings only.
+- `node tools/check-live-deployment.mjs` still returns BLOCKED for live analytics asset/homepage enqueue and PASS for homepage deployment marker.
+
+Current deployment blocker:
+- `node tools/check-live-deployment.mjs` still reports live `analytics-events.js` as HTTP `404`; uPress Git Pull remains required before GA4/live journey verification.
+
+Next cycle recommendation:
+- After uPress pull, add owner-only activation status fields to lawyer onboarding/admin views and verify the live lawyer registration journey.

@@ -35,9 +35,12 @@ Verification:
 - JS syntax check passed for the new live checker.
 - `git diff --check` passed.
 - After the first uPress pull, cache-busted homepage checks showed the new favicon marker and canonical scales icon tags, but root favicon/spam URL status handling still returned through the 404 flow. The guard was moved earlier to `init` and now explicitly forces the HTTP status code.
+- After the second uPress pull, cache-busted homepage checks passed for the deployment marker, canonical scales favicon tags, and old J favicon absence.
+- Deleted casino spam examples now return HTTP 410 with `X-Robots-Tag: noindex,nofollow`.
+- Browser visual check confirmed the header combines the legacy circular scales logo with the Jus-Tice wordmark and preserves the red dot.
+- `/favicon.ico` and `/favicon.png` remain server-level 404 paths outside the theme, but the homepage `<link rel="icon">` tags are the Google-supported source and now point to stable crawlable theme assets.
 
 Next step:
-- Push and pull Git in uPress, then run `node tools/check-live-favicon-and-spam-guard.mjs`.
 - Request homepage recrawl in Search Console. Submit exact casino URLs in Search Console Removals if they must disappear faster than normal recrawl.
 
 Safety:

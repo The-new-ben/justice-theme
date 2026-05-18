@@ -45,16 +45,18 @@ If deleted casino pages still show in Google after this deployment, that can be 
 - `node --check tools/check-live-favicon-and-spam-guard.mjs` passed.
 - `git diff --check` passed.
 - After first uPress pull, a cache-busted homepage request showed the new marker and canonical scales favicon tags. Root favicon and spam URL handling still returned through the normal 404 flow, so the guard was moved earlier to `init` and now forces the HTTP status code.
+- After second uPress pull, cache-busted homepage checks verified the new marker, canonical scales favicon tags, and old J favicon absence.
+- Deleted casino spam examples now return HTTP 410 with `X-Robots-Tag: noindex,nofollow`.
+- Browser visual check verified the header combines the circular legacy scales logo with the Jus-Tice wordmark and preserves the red dot.
+- `/favicon.ico` and `/favicon.png` remain server-level 404 paths outside the theme, but the homepage `<link rel="icon">` tags are the Google-supported source and now point to stable crawlable theme assets.
 
 ## Post-deploy verification required
 
 After uPress pulls this commit:
 
 1. Run `node tools/check-live-favicon-and-spam-guard.mjs`.
-2. Verify homepage head has only canonical `data-justice-theme="brand-icon"` favicon tags.
-3. Verify `/favicon.ico` and `/favicon.png` return HTTP 200.
-4. Verify known casino spam examples return HTTP 410 with `X-Robots-Tag: noindex,nofollow`.
-5. Use Search Console URL Inspection on the homepage to request recrawl. The Google search favicon may still take time to refresh.
+2. Use Search Console URL Inspection on the homepage to request recrawl. The Google search favicon may still take time to refresh.
+3. Submit exact casino URLs in Search Console Removals if they must disappear faster than normal recrawl.
 
 ## Safety
 

@@ -8,7 +8,12 @@
 - CREATED: `project-control/favicon-and-casino-spam-indexing-fix-2026-05-18.csv`.
 - VERIFIED LOCAL: PHP lint passed for touched PHP files, JS syntax check passed for the checker, and `git diff --check` passed.
 - DEPLOYMENT ADJUSTMENT: after uPress pull, live homepage showed the new favicon marker with cache-busting, but root favicon/spam URL handling was still being captured by the normal 404 flow. Moved those guards from `template_redirect` to early `init` and forced HTTP status codes.
-- UPRESS: required after commit/push because deployable theme code changed.
+- DEPLOYED: commits `1215009` and `c856135` were pushed to GitHub `main`; Codex opened uPress File Manager for `wp-content/themes/justice-theme`, opened Git management, and clicked Pull Git twice.
+- VERIFIED LIVE: cache-busted homepage returns marker `2026-05-18-brand-favicon-spam-guard-v1`, exposes six canonical `data-justice-theme="brand-icon"` scales favicon links, and no longer exposes `favicon-gen.png` or `cropped-jus-tice-ai-2025` old J icon source.
+- VERIFIED LIVE: deleted casino spam examples `/guide-complet-du-casino-en-ligne/` and `/guia-experta-para-maximizar-bonos-y-estrategias-de-juego/` now return HTTP 410 with `X-Robots-Tag: noindex,nofollow`.
+- VERIFIED LIVE VISUAL: homepage header combines the circular legacy scales logo with the Jus-Tice wordmark; the red dot remains in the wordmark.
+- ROOT FAVICON NOTE: `/favicon.ico` and `/favicon.png` still return server-level 404 before WordPress can handle them, but Google favicon guidance accepts the homepage `<link rel="icon">` path, which is now stable and crawlable.
+- UPRESS: completed for deployable theme code.
 - SAFETY: theme-level technical SEO/brand fix only. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value changed.
 
 ## LATEST WORK STATUS - 2026-05-18 18:12 Asia/Jerusalem

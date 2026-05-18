@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 15:00 Asia/Jerusalem
+- MEDICAL MALPRACTICE MONEY CLUSTER: converted P0 GSC evidence into a support-to-hub internal-link plan for the recovered `/medical-malpractice-lawyer/` commercial page.
+- RESEARCHED: Google crawlable/internal-link guidance, Google SEO starter guidance, and leading Israeli medical-malpractice competitor pages. Key point: competitors organize around birth malpractice, cerebral palsy, experts, costs, examples, hospitals, diagnosis/treatment errors and claim process.
+- CREATED: `project-control/medical-malpractice-support-to-hub-map-2026-05-18.md`.
+- CREATED: `project-control/medical-malpractice-support-to-hub-map-2026-05-18.csv`.
+- VERIFIED LIVE: Googlebot-style fetch returned 200/indexable/self-canonical for `/medical-malpractice-lawyer/`, `/cerebral-palsy/`, `/what-is-medical-malpractice-definition-examples/`, `/malpractice-cerebral-palsy/`, `/medical-malpractice-common-errors-doctors-hospitals/`, and `/anesthesia-medical-malpractice/`.
+- FOUND: strongest support opportunities include birth-malpractice lawyer query page (27,275 impressions), medical-malpractice lawyer comparison/trust page (19,549 impressions), United States malpractice page (10,267), claim-cost page (9,670), medical-expert list (8,191 and 144 clicks), and cerebral-palsy page (7,104 and 21 clicks).
+- NEXT: owner approval is needed before public CMS edits; then add one contextual factual link from each approved source page into `/medical-malpractice-lawyer/`, avoiding unsupported "recommended/leading/free consultation" language.
+- UPRESS: no uPress pull was needed in this cycle because only repo planning artifacts changed; no deployable public theme code changed.
+- SAFETY: no public CMS/database content, article body, title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting or wp-admin setting was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 14:50 Asia/Jerusalem
 - HOMEPAGE COMMERCIAL PRIORITY: converted the content triage into a homepage/internal-link priority map so the site can stop rewarding old content volume and start promoting lawyer-lead categories.
 - RESEARCHED: Google SEO starter/internal-link guidance, Google crawl-budget guidance, and current large-site internal-link architecture guidance. Key point: homepage/global prominence should point to important user/business pages with descriptive anchors.

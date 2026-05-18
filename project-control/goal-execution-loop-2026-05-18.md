@@ -515,6 +515,29 @@ Verification:
 Safety:
 - No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
 
+## Priority Cycle 23 - Medical Malpractice Support-to-Hub Map
+
+Research reviewed:
+- Google crawlable-link guidance says internal links should be crawlable and anchor text should help users and Google understand the destination page. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Google SEO starter guidance emphasizes useful content and clear navigation to important pages. Source: https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+- Competitor review for Israeli medical-malpractice pages shows common commercial subtopics: birth malpractice, cerebral palsy, medical experts, costs, examples, hospitals, diagnosis/treatment errors and claim process. Sources reviewed: https://yairlaw.co.il/ , https://www.bilaw.co.il/ , https://www.gn-law.co.il/ , https://www.mishpati.co.il/find-lawyer/medical-malpractice
+
+Business interpretation:
+- The recovered `/medical-malpractice-lawyer/` hub needs support links from high-impression informational pages so Google and users see it as the commercial center of the cluster.
+- The safe next step is not a live CMS edit. It is an approved link map, because several candidate pages include risky "recommended/leading" language and legal/YMYL claims.
+
+Implemented in this cycle:
+- Created `project-control/medical-malpractice-support-to-hub-map-2026-05-18.md`.
+- Created `project-control/medical-malpractice-support-to-hub-map-2026-05-18.csv`.
+- Mapped 15 P0 support URLs to `/medical-malpractice-lawyer/` with factual anchor directions and trust-claim cautions.
+
+Verification:
+- Googlebot-style live fetch returned 200, indexable and self-canonical for `/medical-malpractice-lawyer/`, `/cerebral-palsy/`, `/what-is-medical-malpractice-definition-examples/`, `/malpractice-cerebral-palsy/`, `/medical-malpractice-common-errors-doctors-hospitals/`, and `/anesthesia-medical-malpractice/`.
+- No deployable theme code changed, so no uPress pull was required.
+
+Safety:
+- Repo-only planning. No public CMS database row, article body, title/H1/meta, URL slug, redirect, taxonomy, noindex, canonical, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC admin setting or wp-admin setting was changed.
+
 ## Priority Cycle 22 - Homepage Commercial Priority Map
 
 Research reviewed:

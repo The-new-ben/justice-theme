@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 18:12 Asia/Jerusalem
+- REAL ESTATE CLUSTER CONSOLIDATION PACKET: converted the top money-query opportunity into a safe hub/support decision packet before any public CMS edits.
+- RESEARCHED: Google Performance report, canonicalization, and title-link guidance. Key point: similar pages should not be redirected/canonicalized blindly; first define the best representative money hub and each support page's unique role.
+- FOUND: `/real-estate-attorney/` is the strongest primary commercial hub candidate for `עורך דין מקרקעין` and `עורך דין נדלן`, while `/real-estate-lawyer-guide/`, `/lawyer-for-buying-or-selling-a-house/`, `/registration-of-real-estate-israel/`, and rental-contract pages should remain support/tool pages.
+- VERIFIED LIVE: sampled real-estate URLs returned HTTP 200, indexable, and self-canonical to Googlebot-style fetches.
+- CREATED: `project-control/real-estate-cluster-consolidation-packet-2026-05-18.md`.
+- CREATED: `project-control/real-estate-cluster-consolidation-packet-2026-05-18.csv`.
+- DECISION: no redirects/canonical merges now. Next public edit packet should strengthen `/real-estate-attorney/` as the hub and add support-to-hub internal links from guide, purchase/sale, and registration pages after owner approval.
+- UPRESS: no uPress pull needed because this cycle changed repo planning/status artifacts only; no deployable public theme code changed.
+- SAFETY: repo-only planning and read-only live checks. No public CMS database row, article body, stored title/H1/meta, URL slug, redirect, noindex, canonical, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-18 18:04 Asia/Jerusalem
 - GSC MONEY QUERY OPPORTUNITY MAP: mined the query/page mirror for money keywords with impressions, weak CTR, and clear commercial intent.
 - RESEARCHED: Google Search Console Performance report and title/snippet guidance. Key point: the next recovery pass should filter by important queries/pages, then improve title/snippet/content alignment and internal links where important queries have low CTR.

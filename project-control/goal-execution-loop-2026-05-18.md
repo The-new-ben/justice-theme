@@ -11,6 +11,33 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 33 - Real Estate Cluster Consolidation Packet
+
+Research reviewed:
+- Google Search Console Performance reports should be used to review queries, pages, impressions, clicks, CTR and average position before deciding what to improve. Source: https://support.google.com/webmasters/answer/7576553
+- Google canonical guidance says the canonical URL should represent the best representative page among duplicate or very similar pages, but canonicalization is not a substitute for deciding each page's unique purpose. Source: https://developers.google.com/search/docs/crawling-indexing/canonicalization
+- Google's title-link guidance says title links should describe page content clearly and avoid weak or boilerplate text. Source: https://developers.google.com/search/docs/appearance/title-link
+
+Business interpretation:
+- Real estate is the first commercial recovery cluster because `עורך דין מקרקעין` and related lawyer queries have thousands of impressions and almost no clicks.
+- The pages are live and indexable, so the problem is not a basic crawl block. It is likely split intent, weak hub/support structure, internal linking and authority.
+
+Implemented in this cycle:
+- Created `project-control/real-estate-cluster-consolidation-packet-2026-05-18.md`.
+- Created `project-control/real-estate-cluster-consolidation-packet-2026-05-18.csv`.
+- Defined `/real-estate-attorney/` as the primary commercial hub candidate and mapped the guide, purchase/sale, registration and rental pages into support/tool roles.
+
+Verification:
+- GSC query/page mirror confirmed `עורך דין מקרקעין` to `/real-estate-attorney/` has 7,986 impressions and 0.01% CTR.
+- Googlebot-style live checks returned HTTP 200, indexable and self-canonical for `/real-estate-attorney/`, `/real-estate-lawyer-guide/`, `/lawyer-for-buying-or-selling-a-house/`, `/registration-of-real-estate-israel/`, `/rental-agreement/`, and `/online-rent-agreement/`.
+- Repo change is planning/status-only, so no public deployment or uPress pull was required.
+
+Next step:
+- Prepare owner-approved public edit text for `/real-estate-attorney/` and support-to-hub links from `/real-estate-lawyer-guide/`, `/lawyer-for-buying-or-selling-a-house/`, and `/registration-of-real-estate-israel/`.
+
+Safety:
+- Repo-only planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
 ## Priority Cycle 32 - GSC Money Query Opportunity Map
 
 Research reviewed:

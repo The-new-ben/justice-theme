@@ -152,11 +152,14 @@ function justice_theme_practice_landing_request_path(): string {
  * reaching users or Googlebot. It does not edit the database or create a
  * redirect.
  */
-function justice_theme_maybe_render_family_law_practice_route(): void {
-	if ( is_admin() || '/family-law/' !== justice_theme_practice_landing_request_path() ) {
-		return;
-	}
+function justice_theme_is_family_law_practice_route(): bool {
+	return ! is_admin() && '/family-law/' === justice_theme_practice_landing_request_path();
+}
 
+/**
+ * Apply SEO plugin filters for the controlled family-law route.
+ */
+function justice_theme_prepare_family_law_practice_route_meta(): void {
 	$config = justice_theme_get_practice_landing_config( 'family-law' );
 	if ( empty( $config ) ) {
 		return;
@@ -203,17 +206,30 @@ function justice_theme_maybe_render_family_law_practice_route(): void {
 		},
 		PHP_INT_MAX
 	);
-
-	get_header();
-	get_template_part(
-		'template-parts/content/practice-landing-page',
-		null,
-		array(
-			'page_id' => 0,
-			'config'  => $config,
-		)
-	);
-	get_footer();
-	exit;
 }
-add_action( 'template_redirect', 'justice_theme_maybe_render_family_law_practice_route', -3500 );
+
+/**
+ * Prepare metadata early for the family-law route.
+ */
+function justice_theme_maybe_prepare_family_law_practice_route(): void {
+	if ( justice_theme_is_family_law_practice_route() ) {
+		justice_theme_prepare_family_law_practice_route_meta();
+	}
+}
+add_action( 'template_redirect', 'justice_theme_maybe_prepare_family_law_practice_route', -3500 );
+
+/**
+ * Use the controlled practice template for /family-law/ even if a post owns it.
+ *
+ * @param string $template Template path selected by WordPress.
+ * @return string
+ */
+function justice_theme_use_family_law_practice_template( string $template ): string {
+	if ( ! justice_theme_is_family_law_practice_route() ) {
+		return $template;
+	}
+
+	$practice_template = locate_template( 'practice-family-law-route.php' );
+	return $practice_template ?: $template;
+}
+add_filter( 'template_include', 'justice_theme_use_family_law_practice_template', -3500 );

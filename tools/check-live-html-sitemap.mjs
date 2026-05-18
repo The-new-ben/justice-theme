@@ -55,7 +55,7 @@ expect(/<a\s+[^>]*href=["'][^"']+["']/i.test(sitemap.body), 'HTML sitemap contai
 expect(/\/articles\//i.test(sitemap.body), 'HTML sitemap links to the article hub');
 expect(/\/lawyers\//i.test(sitemap.body), 'HTML sitemap links to the lawyer directory');
 expect(
-  /justice-deployment-marker["'][^>]*2026-05-18-family-law-route-v1/i.test(sitemap.body),
+  /justice-deployment-marker["'][^>]*2026-05-18-family-law-template-v1/i.test(sitemap.body),
   'Deployment marker is present on sitemap page'
 );
 

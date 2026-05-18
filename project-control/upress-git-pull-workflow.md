@@ -65,34 +65,37 @@ VERIFIED:
   - `practice-areas-sitemap.xml`: 0 HTTP / 40 HTTPS
   - `category-sitemap.xml`: 0 HTTP / 16 HTTPS
 
-## 2026-05-18 Pull Needed
+## 2026-05-18 Pull Result
 
-BLOCKED IN CURRENT CODEX SESSION:
+PARTIAL TOOLING BLOCKER / OWNER MANUAL PULL VERIFIED:
 
 - GitHub `main` now includes commit `08a3844`
   (`Add lawyer growth analytics and journey checks`).
-- The public site still returns `404` for
-  `https://jus-tice.co.il/wp-content/themes/justice-theme/assets/js/analytics-events.js`.
-- This means uPress has not pulled the latest theme code yet, or cache/file
-  serving has not caught up after the pull.
-- Browser/uPress control tools were not exposed in the active Codex heartbeat
-  session, so the pull could not be executed directly from this session.
+- GitHub `main` also includes later deployment/status commits through
+  `c66d678`.
+- The owner manually ran the uPress Git pull after Codex reported the blocker.
+- Codex could not operate the uPress panel directly in this heartbeat session
+  because the authenticated browser/control tool was not exposed to the active
+  tool list. This was a tool availability issue, not a credential objection.
+- Previous sessions did have browser/uPress control available, so future agents
+  should try the browser/chrome tool again before declaring uPress blocked.
 
 POST-PULL VERIFICATION:
 
 - Run `node tools/check-live-deployment.mjs`.
-- Expected result after successful uPress pull:
+- Expected result after successful uPress pull/cache generation:
   - analytics asset returns HTTP `200`;
-  - homepage source includes `analytics-events.js`;
+  - homepage serves the analytics code directly or through an optimized
+    Autoptimize JS file;
   - homepage still includes `justice-deployment-marker` and
     `justice-theme-version`.
 
-CURRENT CHECK RESULT:
+CURRENT CHECK RESULT AFTER OWNER MANUAL PULL:
 
-- `node tools/check-live-deployment.mjs` was run before uPress pull.
-- Result: BLOCKED.
-- Live analytics asset: HTTP `404`.
-- Homepage enqueue check: missing `analytics-events.js`.
+- `node tools/check-live-deployment.mjs` was rerun after owner manual pull.
+- Result: PASS.
+- Live analytics asset: HTTP `200`.
+- Homepage analytics check: PASS via Autoptimize optimized script.
 - Homepage deployment marker: present.
 
 PARTIAL / NOT FIXED BY PULL:

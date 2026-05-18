@@ -330,8 +330,10 @@ Verification:
 - `git diff --check` passed with line-ending warnings only.
 - `node tools/check-live-deployment.mjs` still returns BLOCKED for live analytics asset/homepage enqueue and PASS for homepage deployment marker.
 
-Current deployment blocker:
-- `node tools/check-live-deployment.mjs` still reports live `analytics-events.js` as HTTP `404`; uPress Git Pull remains required before GA4/live journey verification.
+Current deployment status:
+- Owner manually ran the uPress Git pull.
+- `node tools/check-live-deployment.mjs` now passes: live `analytics-events.js` returns HTTP `200`, homepage serves analytics through Autoptimize, and deployment markers are present.
+- Remaining next verification is GA4/GTM receipt and browser/visual journey QA.
 
 Next cycle recommendation:
 - After uPress pull, add owner-only activation status fields to lawyer onboarding/admin views and verify the live lawyer registration journey.

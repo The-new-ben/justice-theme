@@ -19,7 +19,7 @@
 - VERIFIED LIVE: `node tools/check-live-journeys.mjs` passed sampled public user, lawyer customer and Googlebot checks for homepage, `/lawyers/`, sample article, `/lawyer-registration/`, `/lawyer-registration/?plan_interest=pro`, `/sitemap_index.xml` and `/robots.txt`.
 - CREATED: `tools/check-live-deployment.mjs`, a read-only checker that proves whether the pushed growth analytics batch is actually served by uPress.
 - VERIFIED: `node --check tools/check-live-deployment.mjs` passed.
-- BLOCKED DEPLOYMENT: `node tools/check-live-deployment.mjs` confirms GitHub `main` includes `08a3844`, but live `assets/js/analytics-events.js` still returns `404` and homepage does not enqueue `analytics-events.js`, so uPress Git Pull is still needed.
+- VERIFIED DEPLOYMENT AFTER OWNER MANUAL PULL: `node tools/check-live-deployment.mjs` now passes; live `assets/js/analytics-events.js` returns `200`, homepage serves analytics through Autoptimize, and deployment markers are present.
 - CREATED: `project-control/lawyer-time-to-first-value-plan-2026-05-18.md`, defining lawyer activation, first measurable value, retention value, at-risk rules and next owner/admin signals.
 - BLOCKED: live GA4/GTM receipt, GA4 key-event configuration, payment provider selection, pricing/legal/tax/refund terms, and live payment activation remain unverified/not approved.
 - NEXT: continue the loop with browser/visual checks after deployment, CRM/admin verification, lawyer-registration value proposition and recurring lawyer-retention/product packaging.

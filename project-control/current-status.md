@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 18:42 Asia/Jerusalem
+- SPAM FOOTPRINT DISCOVERY QUEUE: expanded the casino cleanup from two visible URLs into a controlled discovery/removal workflow.
+- RESEARCHED: Google Removals, hacked URL, recrawl, and 404/410 guidance. Key point: use exact URL removals for hacked URLs, keep permanent 404/410/noindex signals, and do not block the whole site or legitimate legal prefixes.
+- VERIFIED LIVE: favicon/spam checker still passes for the important live signals: homepage marker, canonical scales favicon tags, old J favicon absence, and two casino URLs returning 410/noindex.
+- REVIEWED INTERNAL EVIDENCE: `spam-investigation.md`, `criminal-law-semrush-playbook-actions.csv`, and `criminal-law-exit-review.md` show unresolved wider risk around spam anchors such as `payid casino`, `mostbet`, `kasyno`, and `online casino`.
+- CREATED: `project-control/spam-footprint-discovery-queue-2026-05-18.md`.
+- CREATED: `project-control/spam-footprint-discovery-queue-2026-05-18.csv`.
+- DECISION: do not disavow backlinks, delete DB rows, remove broad prefixes, or touch legal pages without exact URL/source evidence and owner approval. Next evidence source is GSC Pages/Links export filtered by spam terms.
+- UPRESS: no uPress pull needed because this cycle changed repo planning/status artifacts only; no deployable theme code changed.
+- SAFETY: repo-only discovery planning and read-only verification. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-18 18:32 Asia/Jerusalem
 - GSC FAVICON/SPAM AFTERCARE PACKET: converted the live favicon/spam fix into exact Search Console next actions.
 - RESEARCHED: Google Search Console Removals, hacked URL handling, recrawl, and crawl-budget guidance. Key point: Removals hides URLs temporarily; permanent cleanup still depends on 404/410/noindex, and hacked URLs should be blocked specifically rather than blocking the whole site.

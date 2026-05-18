@@ -11,6 +11,35 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 36 - Spam Footprint Discovery Queue
+
+Research reviewed:
+- Google Search Console Removals can temporarily hide URLs from Google Search, but permanent removal still requires server-side action such as 404/410 or noindex. Source: https://support.google.com/webmasters/answer/9689846
+- Google's Removals guidance says hacked URLs can be blocked with the URL blocking tool, but the whole site should not be blocked; clean the hack and let Google recrawl. Source: https://support.google.com/webmasters/answer/9689846
+- Google recrawl guidance says URL Inspection can request recrawl for updated pages. Source: https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl
+- Google's crawl-budget guidance says permanently removed pages should return 404 or 410. Source: https://developers.google.com/crawling/docs/crawl-budget
+
+Business interpretation:
+- The visible favicon/casino fix is live, but the domain may still have hidden spam footprint in indexed URLs, anchors or backlinks.
+- The safe growth move is evidence collection, not broad deletion or disavow.
+
+Implemented in this cycle:
+- Created `project-control/spam-footprint-discovery-queue-2026-05-18.md`.
+- Created `project-control/spam-footprint-discovery-queue-2026-05-18.csv`.
+- Defined exact URL removal rules, backlink/disavow rules, and GSC/Semrush export needs.
+
+Verification:
+- `node tools/check-live-favicon-and-spam-guard.mjs` still passes for homepage marker, canonical scales favicon tags, old J absence, and two casino URLs 410/noindex.
+- Reviewed repo evidence from prior spam investigation and criminal-law Semrush playbook.
+- Repo change is planning/status-only, so no public deployment or uPress pull was required.
+
+Next step:
+- In GSC, export Pages and Links data filtered by spam terms: `casino`, `bonos`, `juego`, `keno`, `mostbet`, `kasyno`, `payid`.
+- Test every exact URL live before submitting removals or considering disavow.
+
+Safety:
+- Repo-only discovery planning and read-only verification. No public CMS database row, article body, WordPress title/H1/meta, URL slug, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
 ## Priority Cycle 35 - GSC Favicon/Spam Aftercare Packet
 
 Research reviewed:

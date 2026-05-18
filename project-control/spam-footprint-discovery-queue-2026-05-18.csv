@@ -1,0 +1,6 @@
+priority,source,term_or_url,current_evidence,required_verification,next_action,status
+1,google_serp,casino_or_bonos_or_juego_results,"Two screenshot examples already guarded: /guide-complet-du-casino-en-ligne/ and /guia-experta-para-maximizar-bonos-y-estrategias-de-juego/","Copy exact result URL; live fetch must return 410 404 or noindex","Submit exact URL in GSC Removals",READY_FOR_OWNER_GSC
+2,gsc_pages_report,"casino; bonos; juego; keno; mostbet; kasyno; payid","Manual public search can miss indexed ghost URLs","Export exact page URLs and query text","Add confirmed spam URLs to removals queue",PENDING_GSC_EXPORT
+3,gsc_links_report,spam_anchor_text,"Internal playbook notes payid casino mostbet kasyno online casino anchors","Export top linked pages and anchor text","Prepare backlink review CSV",PENDING_GSC_EXPORT
+4,semrush_or_ahrefs_backlink_export,"payid casino; mostbet; kasyno; online casino","criminal-law playbook marks toxic anchors as unresolved","Export referring domains source URLs target URLs anchors follow state","Owner-approved disavow/contact review only",BLOCKED_ON_EXPORT
+5,wp_admin_or_db_audit,unknown_users_posts_widgets_imports,"Historical spam-investigation.md says posts users widgets plugins cron jobs need audit","Authenticated admin/WP-CLI audit only","Document before any delete/trash action",OWNER_APPROVAL_REQUIRED

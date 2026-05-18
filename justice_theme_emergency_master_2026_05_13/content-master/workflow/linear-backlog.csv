@@ -1,0 +1,4 @@
+task_id,title,area,priority,status,owner,description,acceptance_criteria,files,urls,dependencies,owner_approval_required,notes
+1,Verify Live E2E Lead Routing for Family Law,lead-generation,P0,todo,,Verify live end-to-end lead flow for Family Law routing a lead to Maya Rotenberg.,Lead successfully created and routed email sent to Maya.,inc/lead-routing.php,https://jus-tice.co.il/#ask-lawyer,None,no,
+2,Weekly GSC API Reporting Loop,seo,P1,todo,,Establish weekly GSC data pull and cannibalization report generation.,Script runs and outputs weekly CSVs to reports/gsc.,tools/gsc/gsc-pull.js,,None,no,
+3,Choose Israel-compatible recurring billing stack,monetization,P1,todo,,Map entitlement to lead routing based on qualified lead definition.,Chosen payment provider and implementation plan documented.,,,None,yes,Need owner input on payment provider.

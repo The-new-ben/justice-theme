@@ -60,11 +60,15 @@
 
 ## NOT READY TO MOVE NEXT FIELD
 
-Remaining before exit review:
-1. Internal linking: Pillar needs links to all 17 support articles
-2. Spokes need back-links to pillar
-3. Competitor playbook refresh with current GSC data
-4. Mobile usability test
-5. Author attribution verification
-6. Authority plan (backlinks, GBP)
-7. GSC URL Inspection API: request indexing for new/updated pages
+### Resolved on 2026-05-18 (by Antigravity session ea369a6):
+1. ~~Internal linking: Pillar needs links to all 17 support articles~~ ✅ VERIFIED LIVE — all 17 spoke URLs found in pillar HTML
+2. ~~Spokes need back-links to pillar~~ ✅ VERIFIED LIVE — all 17 spokes link to `/criminal-defense-attorney/`
+3. ~~Mobile usability test~~ ✅ VERIFIED — tested at 375x812 viewport, responsive RTL layout, CTA visible, WhatsApp sticky
+4. ~~Author attribution verification~~ ✅ FIXED & DEPLOYED — commit `ea369a6` adds visible "מאת עו״ד בן בטש" byline to `single-articles.php` + changes schema author from Organization → Person
+5. ~~FAQPage schema~~ ✅ FIXED — expanded to fire on `page` post type (for pillar pages), broadened regex to handle inline HTML in answers
+
+### Still remaining:
+6. Competitor playbook refresh with current GSC data — analysis task, no code change
+7. Authority plan (backlinks, GBP) — **requires owner input**
+8. GSC URL Inspection API: request indexing for new/updated pages — script exists at `gsc-inspect-urls.js`
+9. **NEW — Author authority page**: "About Ben Batash" dedicated page does not exist yet. E-E-A-T requires a full author bio page with credentials, Bar Association link, sameAs schema, and professional photo. See research in `agent-workflow/EEAT-AUTHOR-RESEARCH.md`.

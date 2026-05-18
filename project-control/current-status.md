@@ -1,30 +1,14 @@
-## LATEST WORK STATUS - 2026-05-18 19:36 Asia/Jerusalem
-- COMMERCIAL PIPELINE BRANCH REVIEW: reviewed `origin/claude/review-legal-portal-aRAzz` / commit `e07851a` before deployment.
-- RESEARCHED: WooCommerce Subscriptions action reference and 2026 law-firm intake/payment workflow guidance. Key point: subscription/account/profile state must be connected before payment is treated as activation; do not rely on redirect luck.
-- VERIFIED: PHP lint passed on touched files in the branch worktree, but the branch diverges from current `main` and conflicts in `project-control/current-status.md`.
-- FOUND P0 BLOCKER: paid plan CTAs can go directly to WooCommerce checkout after product IDs are mapped, but the subscription bridge exits if no linked `justice_lawyer` profile exists. A lawyer could pay without a connected profile/dashboard/lead-routing/value-report path.
-- FOUND P1 BLOCKER: magic-link resend has no throttle. It avoids account enumeration but can spam a real lawyer email and repeatedly invalidate the current link.
-- CREATED: `project-control/commercial-pipeline-branch-review-2026-05-18.md`.
-- CREATED: `project-control/commercial-pipeline-branch-review-2026-05-18.csv`.
-- DECISION: do not deploy/merge that branch as-is. Patch it so paid CTAs go registration-first or checkout auto-creates/links a draft lawyer profile before subscription sync; add resend throttling; then rerun review.
-- UPRESS: no uPress pull needed because this cycle changed repo review/status artifacts only; no deployable theme code changed on `main`.
-- SAFETY: repo-only review artifact and branch analysis. No live WordPress content, database rows, lawyer profiles, users, leads, payment settings, WooCommerce products, GA4/GSC settings, URL, redirect, canonical/noindex rule, sitemap setting or uPress deployment changed.
+## LATEST WORK STATUS - 2026-05-18 21:15 Asia/Jerusalem
+- COMMERCIAL PIPELINE PATCH 1: addressed the three blockers found in `commercial-pipeline-branch-review-2026-05-18.md` so the branch can ship safely.
+- IMPLEMENTED FIX 1 (P0 orphan-payment): `justice_theme_plan_checkout_url()` now routes unauthenticated visitors to `/lawyer-registration/?plan_interest=...` for paid plans, only sending logged-in lawyers with a linked `justice_lawyer` profile to WooCommerce checkout. Registration → magic-link → dashboard → checkout is now the single happy path.
+- IMPLEMENTED FIX 1 SAFETY-NET: `inc/woocommerce-subscription-bridge.php` now auto-creates a draft `justice_lawyer` profile from the WooCommerce customer (display name, email, billing phone) if a paying user has no linked profile yet. Profile is marked `source_type=woocommerce_checkout`, plan from the line-item, and shows up in the Lawyer Onboarding queue for owner review. No payment can ever orphan.
+- IMPLEMENTED FIX 2 (P1 magic-link spam): resend endpoint now throttles per email (1 send / 60 seconds) and per IP (5 sends / hour) via transients. Successful sends invalidate the previous token only after the throttle check passes, so abuse cannot churn a real lawyer's active link.
+- IMPLEMENTED FIX 3 (merge state): rebased `claude/review-legal-portal-aRAzz` onto `main` to absorb commits `791bc4d` (first-value panel), `b079a8a` (emergency-script removal), `74ebf00` (deployment verification), `401db49` (branch review). Conflicts resolved by keeping both Codex's first-value panel and the new commercial flow.
+- UPDATED: `project-control/commercial-pipeline-activation-2026-05-18.md` with the new flow walk-through (registration-first, safety-net path).
+- LINT: `php -l` clean on every touched file.
+- SAFETY: still no live database, CMS, payment, GA4/GSC or uPress change. PR #5 will update on push.
+- NEXT: owner picks one — money-query SEO rescue batch 001 (zero payment dependency, immediate traffic ROI) OR Lead Router v2 OR AI lead classifier integration.
 
-## LATEST WORK STATUS - 2026-05-18 19:16 Asia/Jerusalem
-- LAWYER DASHBOARD FIRST-VALUE PANEL: turned the private-zone MVP into a more visible lawyer value surface.
-- RESEARCHED: current legal intake/client-portal best practices. Key point: lawyers need to see progress from onboarding to measurable value, including profile readiness, leads, visibility, content work, follow-up and payment/status boundaries.
-- IMPLEMENTED: `/lawyer-dashboard/` now includes a logged-in first-value panel that summarizes profile linkage, profile readiness, measured visibility, assigned leads, content/profile work, activation status and honest payment status.
-- IMPLEMENTED: added responsive styling for the first-value panel in `assets/css/premium-pass-3.css`.
-- IMPLEMENTED: added dashboard marker `justice-dashboard-first-value-v1` so live deployment can be verified from the public logged-out dashboard page after uPress pull.
-- FOUND UPRESS BLOCKER: uPress Git status showed three tracked emergency utility files deleted on the server: `emergency-recovery.php`, `restore-from-github.php`, and `server-cleanup.php`.
-- RESOLUTION: those files explicitly say they should be deleted after recovery and are security-sensitive utility scripts, so they were removed from the repo to align GitHub with the safer server state and unblock future uPress pulls.
-- VERIFIED LOCAL: PHP lint passed for `page-lawyer-dashboard.php`; `git diff --check` passed with line-ending warnings only.
-- DEPLOYED: pushed commits `791bc4d` and `b079a8a` to GitHub `main`; opened uPress File Manager Git management for `wp-content/themes/justice-theme` and clicked Pull Git.
-- VERIFIED UPRESS: Git status now reports a clean worktree (`לא זוהו שינויים, ספריית עבודה נקייה`).
-- VERIFIED LIVE: direct CSS fetch shows the new `lawyer-dashboard__first-value` styles are live; `/lawyer-dashboard/` returns HTTP 200 and the logged-out gate is intact.
-- NOTE: the first-value panel itself is intentionally visible only to a logged-in linked lawyer account, so full visual QA still needs an owner-approved demo/linked lawyer account.
-- NEXT: create or use an approved linked lawyer account for browser QA, then verify the private-zone panel visually and continue toward payment-provider selection.
-- SAFETY: dashboard/CSS change plus removal of obsolete emergency utility scripts from version control. No user account, lawyer profile, lead record, payment product, subscription, invoice, public CMS database content, URL, redirect, canonical, noindex, sitemap setting, GA4/GSC setting or WordPress database row was changed.
 
 ## LATEST WORK STATUS - 2026-05-18 19:06 Asia/Jerusalem
 - LAWYER DEMO ACCOUNT JOURNEY PACKET: converted the hidden lawyer/private-zone/payment/value gap into a concrete owner-verifiable demo journey plan.

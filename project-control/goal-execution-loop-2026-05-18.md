@@ -515,6 +515,29 @@ Verification:
 Safety:
 - No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
 
+## Priority Cycle 25 - Criminal Law Support-to-Hub Map
+
+Research reviewed:
+- Google crawlable-link guidance says internal links should use real `<a href>` elements and descriptive anchor text so users and Google understand the destination page. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Current internal-linking hub guidance recommends connecting related support pages back to the hub with natural, varied anchors. Source: https://seoglen.com/guides/internal-linking-seo
+- Competitor review for Israeli criminal-defense pages shows common commercial subtopics: police investigation, arrest, sex offenses, drug offenses, criminal record, white-collar/economic offenses, price/cost and court representation. Sources reviewed: https://sasson-oren.co.il/ , https://www.mizrahi-law.co.il/ , https://peretz-law.co.il/ , https://www.criminallaw.co.il/
+
+Business interpretation:
+- `/criminal-defense-attorney/` is a major commercial hub with strong GSC evidence, but criminal-law content has heavy trust-claim and sensitivity risk.
+- The safe next move is an approved support-to-hub map plus a trust-language cleanup gate before any live CMS edit.
+
+Implemented in this cycle:
+- Created `project-control/criminal-law-support-to-hub-map-2026-05-18.md`.
+- Created `project-control/criminal-law-support-to-hub-map-2026-05-18.csv`.
+- Mapped 18 P0 support URLs to `/criminal-defense-attorney/` with factual anchor directions, trust-claim cautions, and sensitive-page review gates.
+
+Verification:
+- Googlebot-style live fetch returned 200, indexable and self-canonical for `/criminal-defense-attorney/`, `/apply-for-police-criminal-information-certificates/`, `/sex-crime-lawyer/`, `/drug-related-crime/`, `/how-much-will-a-criminal-defense-lawyer-cost/`, `/tax-investigation-guide/`, `/famous-criminal-defense-lawyer/`, and `/what-is-money-laundering/`.
+- No deployable theme code changed, so no uPress pull was required.
+
+Safety:
+- Repo-only planning. No public CMS database row, article body, title/H1/meta, URL slug, redirect, taxonomy, noindex, canonical, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC admin setting or wp-admin setting was changed.
+
 ## Priority Cycle 24 - Family Law Support-to-Hub Map
 
 Research reviewed:

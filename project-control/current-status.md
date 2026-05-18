@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 15:20 Asia/Jerusalem
+- CRIMINAL LAW MONEY CLUSTER: converted P0 GSC evidence into a support-to-hub internal-link plan for `/criminal-defense-attorney/`, the third homepage commercial-priority category.
+- RESEARCHED: Google crawlable/internal-link guidance, current internal-linking hub guidance, and leading Israeli criminal-defense competitor pages. Key point: competitors cluster around police investigation, arrest, sex offenses, drug offenses, criminal record, white-collar/economic offenses, price/cost, and court representation.
+- CREATED: `project-control/criminal-law-support-to-hub-map-2026-05-18.md`.
+- CREATED: `project-control/criminal-law-support-to-hub-map-2026-05-18.csv`.
+- VERIFIED LIVE: Googlebot-style fetch returned 200/indexable/self-canonical for `/criminal-defense-attorney/`, `/apply-for-police-criminal-information-certificates/`, `/sex-crime-lawyer/`, `/drug-related-crime/`, `/how-much-will-a-criminal-defense-lawyer-cost/`, `/tax-investigation-guide/`, `/famous-criminal-defense-lawyer/`, and `/what-is-money-laundering/`.
+- FOUND: strongest support opportunities include police stations list (118,014 impressions and 482 clicks), criminal hub (62,561), famous/best lawyer pages (52,640 / 16,268 with trust-claim risk), criminal certificate page (38,667 and 188 clicks), criminal price pages (38,017 / 23,313), sex crimes (27,904), drug crimes (24,014), and tax investigations (22,811).
+- NEXT: owner approval is needed before public CMS edits; start with lower-risk record/cost/drug/white-collar pages, hold sex-offense/victim-sensitive pages for extra legal/ethical review, and rewrite unsupported "recommended/best/leading/famous" language.
+- UPRESS: no uPress pull was needed in this cycle because only repo planning artifacts changed; no deployable public theme code changed.
+- SAFETY: no public CMS/database content, article body, title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting or wp-admin setting was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 15:10 Asia/Jerusalem
 - FAMILY/DIVORCE MONEY CLUSTER: converted P0 GSC evidence into a support-to-hub internal-link plan for `/family-law/`, the highest homepage commercial-priority category.
 - RESEARCHED: Google crawlable/internal-link guidance, Google SEO starter guidance, and leading Israeli family/divorce competitor pages. Key point: competitors cluster around divorce agreement, costs, custody/parental responsibility, child support, dispute resolution, property division, mediation and process checklists.

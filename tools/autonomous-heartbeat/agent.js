@@ -17,7 +17,7 @@ const log = (message) => {
 
 // Generic API Caller Function (supports OpenAI, OpenRouter, LMS, Gemini)
 const fetchLLMResponse = async (stateOutput) => {
-    const provider = config.apiProvider.toLowerCase();
+    const provider = (process.env.AGENT_API_PROVIDER || config.apiProvider).toLowerCase();
     const apiKey = process.env.AGENT_API_KEY || '';
     
     if (provider !== 'lms' && (!apiKey || apiKey === 'YOUR_API_KEY_HERE')) {

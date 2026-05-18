@@ -515,6 +515,38 @@ Verification:
 Safety:
 - No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
 
+## Priority Cycle 21 - Content Triage and GSC Protection Map
+
+Research reviewed:
+- Google's core-update guidance recommends checking dropped pages against helpful-content self-assessment and improving or removing unhelpful content. Source: https://developers.google.com/search/docs/appearance/core-updates
+- Google's helpful-content guidance emphasizes people-first content, clear purpose, and user satisfaction. Source: https://developers.google.com/search/docs/fundamentals/creating-helpful-content
+- Google's crawl-budget guidance says higher-value content improves crawl demand, while low-value URL exposure can waste crawl attention. Source: https://developers.google.com/search/docs/crawling-indexing/large-site-managing-crawl-budget
+
+Business interpretation:
+- Traffic recovery is no longer only a technical-routing problem. The site has many old, broad, non-commercial, corona-era, trust-claim and misclassified pages that can dilute the legal-money clusters.
+- Because this is legal/YMYL-style content, the safe path is evidence-first triage: protect URLs with Search Console value, rewrite/merge weak pages, and only propose noindex/merge/delete after owner approval.
+
+Implemented in this cycle:
+- Added `tools/content-audit/build-content-triage.mjs`.
+- Created `project-control/content-triage-2026-05-18.csv`.
+- Created `project-control/content-triage-2026-05-18.md`.
+- The tool combines `project-control/url-migration-map.csv`, `reports/site-health-audit-2026-05-18.csv`, `content-master/gsc/gsc-url-summary.csv`, and `content-master/content-gap-map.csv`.
+
+Results:
+- 2,055 triage candidates.
+- 821 P0 protect/rewrite/merge candidates with strong GSC evidence.
+- 612 P1 review-before-change candidates.
+- 622 P2 owner-approval cleanup candidates.
+- Specific queues include 40 outdated/corona-or-2020 cleanup candidates, 93 merge-mapping reviews, 19 trust-claim rewrites, and 27 technical-first rows.
+
+Verification:
+- Node syntax passed for `tools/content-audit/build-content-triage.mjs`.
+- The triage builder ran successfully and generated both CSV and Markdown outputs.
+- No deployable theme code changed, so no uPress pull was required for this cycle.
+
+Safety:
+- Repo-only analysis/tooling. No public CMS database row, article body, title/H1/meta, URL slug, redirect, taxonomy, noindex, canonical, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC admin setting or wp-admin setting was changed.
+
 ## Priority Cycle 18 - Medical Malpractice Money Route Recovery
 
 Research reviewed:

@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-18 14:40 Asia/Jerusalem
+- CONTENT QUALITY / TRAFFIC RECOVERY: shifted from technical route recovery into content triage for outdated, weak, misclassified, corona-era, trust-claim and GSC-risk pages.
+- RESEARCHED: Google core-update, helpful-content, and crawl-budget guidance. Key point: do not blindly delete legal/YMYL content; improve, merge, or remove only after page-level evidence review, because unhelpful sitewide content can suppress stronger pages.
+- IMPLEMENTED: `tools/content-audit/build-content-triage.mjs`, a repeatable repo-only triage builder combining the URL migration map, live site-health audit, GSC URL summary, and content-gap map.
+- CREATED: `project-control/content-triage-2026-05-18.csv` and `project-control/content-triage-2026-05-18.md`.
+- RESULT: 2,055 triage candidates: 821 P0 protect/rewrite/merge candidates with strong GSC signals, 612 P1 review-before-change candidates, and 622 P2 owner-approval content cleanup candidates.
+- FOUND: high-value GSC pages include police-station list, real estate attorney, criminal defense attorney, tax refund calculator, criminal certificates, divorce agreement template and other pages that must not be noindexed/deleted/redirected without owner/GSC review.
+- FOUND: 40 outdated/corona-or-2020 cleanup candidates, 93 merge-mapping reviews, 19 trust-claim rewrite candidates, and 27 technical-first rows.
+- NEXT: process P0 commercial/legal pages first for rewrite/merge protection, then batch outdated/corona candidates for owner approval, then connect high-value content gaps to family-law and medical-malpractice hubs.
+- UPRESS: no uPress pull was needed in this cycle because only repo planning/reporting/tool artifacts changed; no deployable public theme code changed.
+- SAFETY: no public CMS/database content, title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting or wp-admin setting was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 14:34 Asia/Jerusalem
 - PRIORITY CRAWL/UX RECOVERY: `/articles/` was the last failing item in the live traffic-priority audit and now passes.
 - RESEARCHED: Google pagination guidance and large-site crawl-budget guidance. Key point: paginated content should expose crawlable sequential links, while huge link-heavy pages can waste crawl attention and weaken discovery priority.

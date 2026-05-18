@@ -157,6 +157,30 @@ function justice_theme_is_family_law_practice_route(): bool {
 }
 
 /**
+ * Render the medical-malpractice commercial hub when the route would otherwise
+ * be a 404. The URL is linked internally and appears in GSC data, so recovering
+ * it is safer than letting users and Googlebot hit a dead money page.
+ */
+function justice_theme_is_medical_malpractice_practice_route(): bool {
+	return ! is_admin() && '/medical-malpractice-lawyer/' === justice_theme_practice_landing_request_path();
+}
+
+/**
+ * Mark a controlled practice route as a real 200 response, even when WordPress
+ * initially resolved the request as a 404.
+ */
+function justice_theme_mark_controlled_practice_route_found(): void {
+	global $wp_query;
+
+	if ( $wp_query instanceof WP_Query ) {
+		$wp_query->is_404  = false;
+		$wp_query->is_page = true;
+	}
+
+	status_header( 200 );
+}
+
+/**
  * Apply SEO plugin filters for the controlled family-law route.
  */
 function justice_theme_prepare_family_law_practice_route_meta(): void {
@@ -169,7 +193,7 @@ function justice_theme_prepare_family_law_practice_route_meta(): void {
 	$description   = 'מרכז מידע משפטי על דיני משפחה, גירושין, מזונות, משמורת, חלוקת רכוש וסכסוכי משפחה, עם מדריכים מעשיים וחיבור לעורכי דין בתחום.';
 	$canonical_url = justice_theme_public_url( home_url( '/family-law/' ) );
 
-	status_header( 200 );
+	justice_theme_mark_controlled_practice_route_found();
 
 	add_filter(
 		'pre_get_document_title',
@@ -209,11 +233,68 @@ function justice_theme_prepare_family_law_practice_route_meta(): void {
 }
 
 /**
+ * Apply SEO plugin filters for the controlled medical-malpractice route.
+ */
+function justice_theme_prepare_medical_malpractice_practice_route_meta(): void {
+	$config = justice_theme_get_practice_landing_config( 'medical-malpractice' );
+	if ( empty( $config ) ) {
+		return;
+	}
+
+	$title          = trim( ( $config['title'] ?? '' ) . ' | ' . ( $config['keyword'] ?? '' ) . ' | Jus-Tice' );
+	$description    = wp_strip_all_tags( (string) ( $config['summary'] ?? '' ) );
+	$canonical_url  = justice_theme_public_url( home_url( '/medical-malpractice-lawyer/' ) );
+	$robots_content = 'index, follow';
+
+	justice_theme_mark_controlled_practice_route_found();
+
+	add_filter(
+		'pre_get_document_title',
+		static function () use ( $title ): string {
+			return $title;
+		},
+		PHP_INT_MAX
+	);
+	add_filter(
+		'wpseo_title',
+		static function () use ( $title ): string {
+			return $title;
+		},
+		PHP_INT_MAX
+	);
+	add_filter(
+		'wpseo_metadesc',
+		static function () use ( $description ): string {
+			return $description;
+		},
+		PHP_INT_MAX
+	);
+	add_filter(
+		'wpseo_canonical',
+		static function () use ( $canonical_url ): string {
+			return $canonical_url;
+		},
+		PHP_INT_MAX
+	);
+	add_filter(
+		'wpseo_robots',
+		static function () use ( $robots_content ): string {
+			return $robots_content;
+		},
+		PHP_INT_MAX
+	);
+}
+
+/**
  * Prepare metadata early for the family-law route.
  */
 function justice_theme_maybe_prepare_family_law_practice_route(): void {
 	if ( justice_theme_is_family_law_practice_route() ) {
 		justice_theme_prepare_family_law_practice_route_meta();
+	}
+
+	if ( justice_theme_is_medical_malpractice_practice_route() ) {
+		justice_theme_prepare_medical_malpractice_practice_route_meta();
 	}
 }
 add_action( 'template_redirect', 'justice_theme_maybe_prepare_family_law_practice_route', -3500 );
@@ -225,11 +306,16 @@ add_action( 'template_redirect', 'justice_theme_maybe_prepare_family_law_practic
  * @return string
  */
 function justice_theme_use_family_law_practice_template( string $template ): string {
-	if ( ! justice_theme_is_family_law_practice_route() ) {
-		return $template;
+	if ( justice_theme_is_family_law_practice_route() ) {
+		$practice_template = locate_template( 'practice-family-law-route.php' );
+		return $practice_template ?: $template;
 	}
 
-	$practice_template = locate_template( 'practice-family-law-route.php' );
-	return $practice_template ?: $template;
+	if ( justice_theme_is_medical_malpractice_practice_route() ) {
+		$practice_template = locate_template( 'practice-medical-malpractice-route.php' );
+		return $practice_template ?: $template;
+	}
+
+	return $template;
 }
 add_filter( 'template_include', 'justice_theme_use_family_law_practice_template', -3500 );

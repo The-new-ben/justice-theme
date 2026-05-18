@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-18 19:36 Asia/Jerusalem
+- COMMERCIAL PIPELINE BRANCH REVIEW: reviewed `origin/claude/review-legal-portal-aRAzz` / commit `e07851a` before deployment.
+- RESEARCHED: WooCommerce Subscriptions action reference and 2026 law-firm intake/payment workflow guidance. Key point: subscription/account/profile state must be connected before payment is treated as activation; do not rely on redirect luck.
+- VERIFIED: PHP lint passed on touched files in the branch worktree, but the branch diverges from current `main` and conflicts in `project-control/current-status.md`.
+- FOUND P0 BLOCKER: paid plan CTAs can go directly to WooCommerce checkout after product IDs are mapped, but the subscription bridge exits if no linked `justice_lawyer` profile exists. A lawyer could pay without a connected profile/dashboard/lead-routing/value-report path.
+- FOUND P1 BLOCKER: magic-link resend has no throttle. It avoids account enumeration but can spam a real lawyer email and repeatedly invalidate the current link.
+- CREATED: `project-control/commercial-pipeline-branch-review-2026-05-18.md`.
+- CREATED: `project-control/commercial-pipeline-branch-review-2026-05-18.csv`.
+- DECISION: do not deploy/merge that branch as-is. Patch it so paid CTAs go registration-first or checkout auto-creates/links a draft lawyer profile before subscription sync; add resend throttling; then rerun review.
+- UPRESS: no uPress pull needed because this cycle changed repo review/status artifacts only; no deployable theme code changed on `main`.
+- SAFETY: repo-only review artifact and branch analysis. No live WordPress content, database rows, lawyer profiles, users, leads, payment settings, WooCommerce products, GA4/GSC settings, URL, redirect, canonical/noindex rule, sitemap setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-18 19:16 Asia/Jerusalem
 - LAWYER DASHBOARD FIRST-VALUE PANEL: turned the private-zone MVP into a more visible lawyer value surface.
 - RESEARCHED: current legal intake/client-portal best practices. Key point: lawyers need to see progress from onboarding to measurable value, including profile readiness, leads, visibility, content work, follow-up and payment/status boundaries.

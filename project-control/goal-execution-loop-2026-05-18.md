@@ -431,6 +431,32 @@ Deployment result:
 Safety:
 - No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
 
+## Priority Cycle 16 - Live Traffic Priority Audit
+
+Research reviewed:
+- Google's Search Console traffic-drop guide recommends checking whether a drop is tied to specific pages, queries, countries, devices or search features before making broad changes. Source: https://support.google.com/webmasters/answer/9079473
+- Google's helpful-content guidance recommends auditing the pages and searches most affected by a drop, then judging whether the content is complete, trustworthy and people-first. Source: https://developers.google.com/search/docs/fundamentals/creating-helpful-content
+
+Business interpretation:
+- The traffic problem should be handled as a priority-path audit: money pages, crawl hubs and trust pages first.
+- The next safe step is not blind content generation; it is catching live route/intent defects that can waste Googlebot and lose paying users.
+
+Implemented in this cycle:
+- Added `tools/check-live-traffic-priority.mjs`.
+- Generated `reports/traffic-priority-audit-2026-05-18.csv`.
+- Created `project-control/traffic-priority-audit-2026-05-18.md` for other agents.
+
+Live findings:
+- PASS: `/`, `/site-map/`, `/lawyers/?area=family-law`, `/criminal-defense-attorney/`, `/traffic-lawyer/`.
+- REVIEW: `/family-law/` is live 200 but title/H1 are wrong-intent court-judgment language rather than family-law commercial/practice intent.
+- REVIEW: `/medical-malpractice-lawyer/` is HTTP 404/noindex.
+- REVIEW: `/articles/` is about 2.9 MB with 4,793 links.
+- REVIEW: `/contact/` is HTTP 404/noindex.
+- REVIEW: `/about/` is HTTP 404/noindex.
+
+Safety:
+- Read-only live audit plus repo documentation/tooling only. No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
+
 ## Priority Cycle 15 - Sitewide Breadcrumb Schema Fix
 
 Research reviewed:

@@ -2187,3 +2187,17 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - LIVE JOURNEY VERIFIED: `node tools/check-live-journeys.mjs` passed homepage, lawyer directory, sample article, lawyer registration, sitemap and robots checks.
 - NEXT: resume traffic/content audit: family-law wrong-page bug, `/about/` and `/contact/` 404s, outdated/corona content classification, homepage priority order, and GSC indexing diagnostics.
 - SAFETY: no public CMS/database writes, content changes, redirects, sitemap settings, taxonomy changes, lawyer profile changes, lead records, payment settings or GSC/GA4 admin settings were changed.
+
+## 2026-05-18 LIVE TRAFFIC PRIORITY AUDIT
+- RESEARCH BASIS: Google recommends diagnosing traffic drops by page/query/device/country/search-feature segments before broad changes, and helpful-content guidance says to audit impacted pages for completeness, trust and people-first value.
+- CREATED: `tools/check-live-traffic-priority.mjs`.
+- CREATED: `reports/traffic-priority-audit-2026-05-18.csv`.
+- CREATED: `project-control/traffic-priority-audit-2026-05-18.md`.
+- LIVE PASS: `/`, `/site-map/`, `/lawyers/?area=family-law`, `/criminal-defense-attorney/`, `/traffic-lawyer/`.
+- LIVE REVIEW: `/family-law/` returns 200 but has wrong-intent court-judgment title/H1 instead of family-law practice intent.
+- LIVE REVIEW: `/medical-malpractice-lawyer/` returns 404/noindex.
+- LIVE REVIEW: `/articles/` is about 2.9 MB with 4,793 links, so it is too heavy and link-dense as a primary article hub.
+- LIVE REVIEW: `/contact/` returns 404/noindex.
+- LIVE REVIEW: `/about/` returns 404/noindex.
+- NEXT: fix `/family-law/` route ownership/title/H1 without changing URL; decide `/medical-malpractice-lawyer/` landing vs safe directory fallback; add accurate `/contact/` and `/about/`; split/reduce `/articles/`.
+- SAFETY: read-only live audit plus repo tooling/docs only; no public CMS/database writes, content changes, redirects, sitemap settings, taxonomy changes, lawyer profile changes, lead records, payment settings or GSC/GA4 admin settings were changed.

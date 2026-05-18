@@ -1,3 +1,11 @@
+## LATEST WORK STATUS - 2026-05-18 22:05 Asia/Jerusalem
+- CODEX RUNBOOK CREATED: full executable runbook for Codex (the operating agent) to take PR #5 from "merged" to "first paying lawyer subscribed". Covers account-opening, plugin installs, product creation, sandbox testing, real-money smoke test, failure recovery and a check-in template.
+- RESEARCHED: Morning (Green Invoice) WooCommerce plugin (`wc-gateway-greeninvoice` v2.4.0 — 2026-05-11) which bundles Meshulam clearing + invoice issuance into one plugin and supports WC Subscriptions natively since v1.6.0. Confirmed WooCommerce Subscriptions costs $280/yr and Morning has a free trial month.
+- DECISION: use Morning's bundled flow (Morning plugin + Meshulam add-on inside Morning) instead of separate Meshulam + Morning plugins — simpler integration, one plugin to configure, one vendor to support.
+- CREATED: `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` — 15 sections + 2 appendices. Includes click-by-click instructions, exact Hebrew labels, sandbox/production test scenarios, cost summary, "what NOT to do" list and an honest scoping section explaining what value lawyers get at launch vs roadmap items (cross-media advertising, reputation module, AI console, Q&A forum).
+- SAFETY: documentation-only. No code, live database, plugin, account, payment or DNS change made by this commit.
+- NEXT: owner gives Codex permission to execute Sections 4–10. Cross-media advertising (Google Ads, FB, news-site media buying — the Din-style amplification layer the owner requested) is roadmapped into the runbook §12 as "DO NOT promise publicly until commercial spine is proven live".
+
 ## LATEST WORK STATUS - 2026-05-18 21:15 Asia/Jerusalem
 - COMMERCIAL PIPELINE PATCH 1: addressed the three blockers found in `commercial-pipeline-branch-review-2026-05-18.md` so the branch can ship safely.
 - IMPLEMENTED FIX 1 (P0 orphan-payment): `justice_theme_plan_checkout_url()` now routes unauthenticated visitors to `/lawyer-registration/?plan_interest=...` for paid plans, only sending logged-in lawyers with a linked `justice_lawyer` profile to WooCommerce checkout. Registration -> magic-link -> dashboard -> checkout is now the single happy path.

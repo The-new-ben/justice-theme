@@ -430,3 +430,31 @@ Deployment result:
 
 Safety:
 - No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
+
+## Priority Cycle 15 - Sitewide Breadcrumb Schema Fix
+
+Research reviewed:
+- Google Search Central Breadcrumb structured data documentation says each `ListItem` needs a visible breadcrumb title via `name` or `item.name`. Source: https://developers.google.com/search/docs/appearance/structured-data/breadcrumb
+
+Business interpretation:
+- GSC flagged `/site-map/` with `Either "name" or "item.name" should be specified` because the virtual sitemap route emitted an empty second breadcrumb item.
+- Broken rich-result structured data is a Googlebot trust/eligibility issue. It does not explain all traffic loss by itself, but it is a clean technical defect that should be fixed immediately.
+
+Implemented in this cycle:
+- Fixed the virtual `/site-map/` breadcrumb name to render `מפת אתר`.
+- Hardened breadcrumb schema generation so empty breadcrumb names fall back to a safe non-empty label.
+- Added a current-request public URL helper for virtual routes without a WordPress post ID.
+- Added `tools/check-live-breadcrumb-schema.mjs`, which discovers URLs from the XML sitemap, fetches them with a Googlebot user agent, parses JSON-LD, and checks every `BreadcrumbList` for missing names or empty `item` values.
+- Updated deployment marker to `2026-05-18-breadcrumb-schema-v1`.
+
+Verification:
+- Pre-fix live sample found `/site-map/` invalid: `breadcrumb_0_position_2_missing_name;breadcrumb_0_position_2_empty_item`.
+- PHP lint passed for `inc/breadcrumbs.php`, `inc/schema.php`, `inc/template-tags.php`, and `functions.php`.
+- Node syntax passed for the breadcrumb checker and updated live checkers.
+- Codex pushed commit `ed9b2ae` and ran uPress Git Pull for `/wp-content/themes/justice-theme`.
+- Live `/site-map/` JSON-LD now has position 2 `name` = `מפת אתר` and `item` = `https://jus-tice.co.il/site-map/`.
+- Full live breadcrumb scan checked `1,299` URLs and found `0` review items. Report: `reports/breadcrumb-schema-audit-2026-05-18.csv`.
+- Live user/lawyer/Googlebot journey checker passed after deployment.
+
+Safety:
+- No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.

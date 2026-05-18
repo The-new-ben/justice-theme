@@ -5,6 +5,8 @@ const BASE_URL = process.env.JUSTICE_BASE_URL || 'https://jus-tice.co.il';
 const REPORT_PATH = process.env.JUSTICE_BREADCRUMB_REPORT || 'reports/breadcrumb-schema-audit-2026-05-18.csv';
 const WRITE_REPORT = process.env.JUSTICE_WRITE_REPORT === '1';
 const LIMIT = Number.parseInt(process.env.JUSTICE_BREADCRUMB_LIMIT || '0', 10);
+const CONCURRENCY = Number.parseInt(process.env.JUSTICE_BREADCRUMB_CONCURRENCY || '8', 10);
+const FETCH_TIMEOUT_MS = Number.parseInt(process.env.JUSTICE_BREADCRUMB_TIMEOUT_MS || '15000', 10);
 
 const seedPaths = [
   '/',
@@ -27,19 +29,26 @@ function unique(values) {
 }
 
 async function fetchText(url, headers = {}) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
   const response = await fetch(url, {
     redirect: 'follow',
+    signal: controller.signal,
     headers: {
       'User-Agent': 'Googlebot/2.1 (+http://www.google.com/bot.html)',
       Accept: 'text/html,application/xml,*/*',
       ...headers,
     },
   });
-  return {
-    status: response.status,
-    finalUrl: response.url,
-    body: await response.text(),
-  };
+  try {
+    return {
+      status: response.status,
+      finalUrl: response.url,
+      body: await response.text(),
+    };
+  } finally {
+    clearTimeout(timeout);
+  }
 }
 
 async function discoverSitemapUrls() {
@@ -144,32 +153,55 @@ if (LIMIT > 0) {
   urls = urls.slice(0, LIMIT);
 }
 
-const results = [];
-for (const url of urls) {
+async function checkUrl(url) {
   try {
     const response = await fetchText(url);
     const jsonLd = parseJsonLd(response.body);
     const breadcrumbLists = jsonLd.flatMap((node) => collectBreadcrumbLists(node));
     const issues = validateBreadcrumbLists(breadcrumbLists);
-    results.push({
+    return {
       status: issues.length ? 'REVIEW' : 'PASS',
       http: response.status,
       url,
       finalUrl: response.finalUrl,
       breadcrumbLists: breadcrumbLists.length,
       issues: issues.join(';'),
-    });
+    };
   } catch (error) {
-    results.push({
+    return {
       status: 'REVIEW',
       http: 0,
       url,
       finalUrl: '',
       breadcrumbLists: 0,
       issues: error instanceof Error ? error.message : String(error),
-    });
+    };
   }
 }
+
+async function mapWithConcurrency(items, concurrency, worker) {
+  const results = new Array(items.length);
+  let nextIndex = 0;
+
+  async function runWorker() {
+    while (nextIndex < items.length) {
+      const index = nextIndex;
+      nextIndex += 1;
+      results[index] = await worker(items[index], index);
+      if ((index + 1) % 100 === 0) {
+        console.log(`Checked ${index + 1}/${items.length}`);
+      }
+    }
+  }
+
+  await Promise.all(
+    Array.from({ length: Math.max(1, concurrency) }, () => runWorker())
+  );
+
+  return results;
+}
+
+const results = await mapWithConcurrency(urls, CONCURRENCY, checkUrl);
 
 console.table(results.filter((row) => row.status !== 'PASS').slice(0, 30));
 console.log(`Checked ${results.length} URLs; ${results.filter((row) => row.status !== 'PASS').length} need review.`);

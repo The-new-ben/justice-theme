@@ -2173,3 +2173,17 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - CACHE NOTE: a cached homepage variant initially still exposed the old LegalService phone, but no-cache fetch showed `0525101555` and the normal homepage owner-phone checker passed on rerun.
 - NEXT: resume traffic/content audit: family-law wrong-page bug, `/about/` and `/contact/` 404s, outdated/corona content classification, and homepage priority order.
 - SAFETY: no public CMS/database writes, content changes, redirects, sitemap settings, taxonomy changes, lawyer profile changes, lead records, payment settings or GSC/GA4 admin settings were changed.
+
+## 2026-05-18 SITEWIDE BREADCRUMB SCHEMA FIX
+- OWNER/GSC ISSUE: URL Inspection for `https://jus-tice.co.il/site-map/` reported Breadcrumbs invalid: ListItem position 2 had no `name` or `item.name`.
+- LIVE ROOT CAUSE VERIFIED: `/site-map/` emitted JSON-LD with position 2 `name: ""` and `item: ""`.
+- CODE FIXED: `/site-map/` now gets a real breadcrumb label (`מפת אתר`).
+- CODE HARDENED: breadcrumb schema generation now prevents empty `name` values and uses the current public request URL for virtual routes without a post ID.
+- CREATED: `tools/check-live-breadcrumb-schema.mjs` to run a Googlebot-style BreadcrumbList validation across XML-sitemap URLs.
+- UPDATED: deployment marker is now `2026-05-18-breadcrumb-schema-v1`.
+- DEPLOYED: Codex pushed commit `ed9b2ae` and clicked uPress Git Pull for `/wp-content/themes/justice-theme`.
+- LIVE VERIFIED: `/site-map/` now emits position 2 `name: "מפת אתר"` and `item: "https://jus-tice.co.il/site-map/"`.
+- SITEWIDE VERIFIED: `reports/breadcrumb-schema-audit-2026-05-18.csv` checked `1,299` live URLs; all rows are `PASS`.
+- LIVE JOURNEY VERIFIED: `node tools/check-live-journeys.mjs` passed homepage, lawyer directory, sample article, lawyer registration, sitemap and robots checks.
+- NEXT: resume traffic/content audit: family-law wrong-page bug, `/about/` and `/contact/` 404s, outdated/corona content classification, homepage priority order, and GSC indexing diagnostics.
+- SAFETY: no public CMS/database writes, content changes, redirects, sitemap settings, taxonomy changes, lawyer profile changes, lead records, payment settings or GSC/GA4 admin settings were changed.

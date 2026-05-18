@@ -110,6 +110,28 @@ VERIFIED:
   LegalService schema telephone. A no-cache fetch showed `0525101555`, and the
   normal homepage checker passed on rerun.
 
+## 2026-05-18 Codex Pull Result - Breadcrumb Schema
+
+VERIFIED:
+
+- GitHub `main` included commit `ed9b2ae`
+  (`Fix breadcrumb schema names`).
+- Codex opened the authenticated uPress file manager at
+  `/wp-content/themes/justice-theme`.
+- Codex clicked `ניהול GIT`.
+- Codex clicked `משיכת נתונים (Pull)`.
+- Live `/site-map/` source showed deployment marker
+  `2026-05-18-breadcrumb-schema-v1`.
+- Live `/site-map/` BreadcrumbList position 2 now has:
+  - `name`: `מפת אתר`
+  - `item`: `https://jus-tice.co.il/site-map/`
+- Full post-pull verification:
+  - `node tools/check-live-breadcrumb-schema.mjs` checked `1,299` URLs with
+    `0` review rows.
+  - `node tools/check-live-html-sitemap.mjs` passed.
+  - `node tools/check-live-owner-phone.mjs` passed.
+  - `node tools/check-live-journeys.mjs` passed.
+
 POST-PULL VERIFICATION:
 
 - Run `node tools/check-live-deployment.mjs`.

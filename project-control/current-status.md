@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 17:31 Asia/Jerusalem
+- MEDICAL MALPRACTICE CLEAN SLUG REVIEW: reviewed `/birth-malpractice/`, `/pregnancy-malpractice/`, and `/diagnosis-malpractice/` after removing public links to those 404 paths.
+- RESEARCHED: Google redirect, HTTP/soft-404, and people-first/YMYL guidance. Key point: use precise equivalent redirects or real useful pages; do not create thin medical/legal route recoveries or broad redirects to a generic hub.
+- VERIFIED LIVE: `/birth-malpractice/`, `/pregnancy-malpractice/`, and `/diagnosis-malpractice/` remain 404 and should stay unlinked until route-history/GSC review is approved.
+- FOUND LIVE ALTERNATIVES: `/medical-malpractice-lawyer-birth-representation/`, `/medical-malpractice-lawyer-birth-recommended/`, `/birth-injury/`, `/birth-injury-lawyer/`, `/birth-injury-causes/`, `/brain-damage-at-birth/`, and `/medical-malpractice-8271/` return 200.
+- CREATED: `project-control/medical-malpractice-clean-slug-route-review-2026-05-18.md`.
+- CREATED: `project-control/medical-malpractice-clean-slug-route-review-2026-05-18.csv`.
+- DECISION: no public route recovery or redirects yet. Birth/pregnancy need a split/merge decision; diagnosis may later get a precise redirect to `/medical-malpractice-8271/` if owner/legal approval confirms equivalence.
+- UPRESS: no uPress pull needed because this cycle changed repo planning/status artifacts only; no deployable public theme code changed.
+- SAFETY: repo-only route review and read-only live checks. No public CMS database row, article body, stored title/H1/meta, URL slug, redirect, noindex, canonical, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value changed.
+
 ## LATEST WORK STATUS - 2026-05-18 17:21 Asia/Jerusalem
 - MEDICAL MALPRACTICE SUPPORT LINK FIX: found and fixed theme-owned links from the live `/medical-malpractice-lawyer/` route/topic cluster to dead support URLs.
 - RESEARCHED: Google crawlable-link guidance and current Israeli medical-malpractice competitors. Key point: the money hub should link to crawlable, live support pages around birth injury, surgery, anesthesia, definitions/examples and medical causation topics, not to clean slugs that currently 404.

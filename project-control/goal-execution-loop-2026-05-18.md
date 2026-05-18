@@ -956,6 +956,38 @@ Remaining work:
 Safety:
 - Render-only route display-title/template change. No CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.
 
+## Priority Cycle 37 - Medical Malpractice Clean Slug Route Review
+
+Research reviewed:
+- Google redirect guidance: redirects should point to meaningful new destinations when content moved or merged. Source: https://developers.google.com/search/docs/crawling-indexing/301-redirects
+- Google HTTP/soft-404 guidance: empty/error-like content may be treated as soft 404 even when a server returns 200. Source: https://developers.google.com/search/docs/advanced/crawling/http-network-errors
+- Google helpful-content guidance calls out YMYL topics; legal and medical pages require high trust and useful people-first content. Source: https://developers.google.com/search/docs/fundamentals/creating-helpful-content
+
+Business interpretation:
+- The dead clean slugs are important, but recovering them as thin route pages would be unsafe.
+- Birth and pregnancy malpractice already have overlapping live pages and older GSC-visible Hebrew demand.
+- Diagnosis malpractice has a live diagnosis-specific candidate, so any future redirect should be precise.
+
+Implemented in this cycle:
+- Created `project-control/medical-malpractice-clean-slug-route-review-2026-05-18.md`.
+- Created `project-control/medical-malpractice-clean-slug-route-review-2026-05-18.csv`.
+- Mapped `/birth-malpractice/`, `/pregnancy-malpractice/`, and `/diagnosis-malpractice/` to live status and candidate equivalents.
+- Confirmed live alternatives including `/medical-malpractice-lawyer-birth-representation/`, `/medical-malpractice-lawyer-birth-recommended/`, `/birth-injury/`, `/birth-injury-lawyer/`, `/birth-injury-causes/`, `/brain-damage-at-birth/`, and `/medical-malpractice-8271/`.
+
+Verification:
+- Repo was up to date before work.
+- Googlebot-style curl checks captured live status for the clean slugs and key candidate URLs.
+- `git diff --check` passed with line-ending warnings only.
+- No deployable theme code changed, so no uPress pull was required.
+
+Remaining work:
+- Pull GSC page-level clicks/impressions for the candidate pages.
+- Compare birth/pregnancy pages before any route recovery, redirect, or CMS rewrite.
+- Consider `/diagnosis-malpractice/` -> `/medical-malpractice-8271/` only after equivalence and legal/source review.
+
+Safety:
+- Repo-only route review and read-only live checks. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.
+
 ## Priority Cycle 36 - Medical Malpractice Support Link Fix
 
 Research reviewed:

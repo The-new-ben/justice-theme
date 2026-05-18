@@ -7,7 +7,11 @@
 - FOUND UPRESS BLOCKER: uPress Git status showed three tracked emergency utility files deleted on the server: `emergency-recovery.php`, `restore-from-github.php`, and `server-cleanup.php`.
 - RESOLUTION: those files explicitly say they should be deleted after recovery and are security-sensitive utility scripts, so they were removed from the repo to align GitHub with the safer server state and unblock future uPress pulls.
 - VERIFIED LOCAL: PHP lint passed for `page-lawyer-dashboard.php`; `git diff --check` passed with line-ending warnings only.
-- NEXT: commit/push, run uPress Pull Git because deployable theme code changed, then verify `/lawyer-dashboard/` returns 200 and exposes the marker. Logged-in visual verification still requires a linked lawyer/demo account.
+- DEPLOYED: pushed commits `791bc4d` and `b079a8a` to GitHub `main`; opened uPress File Manager Git management for `wp-content/themes/justice-theme` and clicked Pull Git.
+- VERIFIED UPRESS: Git status now reports a clean worktree (`לא זוהו שינויים, ספריית עבודה נקייה`).
+- VERIFIED LIVE: direct CSS fetch shows the new `lawyer-dashboard__first-value` styles are live; `/lawyer-dashboard/` returns HTTP 200 and the logged-out gate is intact.
+- NOTE: the first-value panel itself is intentionally visible only to a logged-in linked lawyer account, so full visual QA still needs an owner-approved demo/linked lawyer account.
+- NEXT: create or use an approved linked lawyer account for browser QA, then verify the private-zone panel visually and continue toward payment-provider selection.
 - SAFETY: dashboard/CSS change plus removal of obsolete emergency utility scripts from version control. No user account, lawyer profile, lead record, payment product, subscription, invoice, public CMS database content, URL, redirect, canonical, noindex, sitemap setting, GA4/GSC setting or WordPress database row was changed.
 
 ## LATEST WORK STATUS - 2026-05-18 19:06 Asia/Jerusalem

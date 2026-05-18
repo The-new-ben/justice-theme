@@ -7,6 +7,8 @@
 
 get_header();
 
+echo "\n" . '<!-- justice-dashboard-first-value-v1 -->' . "\n";
+
 if ( ! is_user_logged_in() ) :
 	?>
 	<section class="lawyer-dashboard lawyer-dashboard--logged-out section">
@@ -96,6 +98,38 @@ $content_requests = ( post_type_exists( 'articles' ) && $profile_ids )
 	: null;
 
 $content_request_count = $content_requests ? (int) $content_requests->found_posts : 0;
+$primary_profile_id     = $profile_ids ? (int) $profile_ids[0] : 0;
+$primary_completeness   = $primary_profile_id ? justice_theme_lawyer_dashboard_profile_completeness( $primary_profile_id ) : 0;
+$activation_status      = $primary_profile_id ? ( get_post_meta( $primary_profile_id, 'activation_status', true ) ?: 'registered' ) : 'registered';
+$subscription_status    = $primary_profile_id ? ( get_post_meta( $primary_profile_id, 'subscription_status', true ) ?: 'pending' ) : 'pending';
+$first_value_steps      = array(
+	array(
+		'label' => __( 'פרופיל מקושר לחשבון', 'justice-theme' ),
+		'done'  => (bool) $primary_profile_id,
+	),
+	array(
+		'label' => __( 'פרופיל מוכן לבדיקה', 'justice-theme' ),
+		'done'  => 70 <= $primary_completeness,
+	),
+	array(
+		'label' => __( 'חשיפה ראשונה נמדדה', 'justice-theme' ),
+		'done'  => 0 < $profile_views_total,
+	),
+	array(
+		'label' => __( 'ליד או פנייה שויכו', 'justice-theme' ),
+		'done'  => 0 < $lead_count,
+	),
+	array(
+		'label' => __( 'תוכן או שיפור פרופיל בטיפול', 'justice-theme' ),
+		'done'  => 0 < $content_request_count,
+	),
+);
+$completed_first_value_steps = count( array_filter( $first_value_steps, static function ( array $step ): bool {
+	return ! empty( $step['done'] );
+} ) );
+$payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 'trialing' ), true )
+	? __( 'תשלום פעיל לפי סטטוס המנוי.', 'justice-theme' )
+	: __( 'תשלום וסליקה עדיין לא פעילים עד אישור מסחרי, חשבוניות וכללי חיוב.', 'justice-theme' );
 ?>
 
 <section class="lawyer-dashboard section">
@@ -134,6 +168,32 @@ $content_request_count = $content_requests ? (int) $content_requests->found_post
 					<span><?php esc_html_e( 'צפיות בפרופיל', 'justice-theme' ); ?></span>
 				</div>
 			</div>
+
+			<section class="lawyer-dashboard__first-value" aria-labelledby="lawyer-dashboard-first-value-title">
+				<div>
+					<p class="section-header__eyebrow"><?php esc_html_e( 'מדד ערך ראשון', 'justice-theme' ); ?></p>
+					<h2 id="lawyer-dashboard-first-value-title"><?php esc_html_e( 'מה כבר מתקדם בדרך לליד משלם?', 'justice-theme' ); ?></h2>
+					<p><?php esc_html_e( 'כאן רואים את הדרך מהצטרפות לערך אמיתי: פרופיל מוכן, חשיפה, פניות, תוכן וסטטוס תשלום. הנתונים מוצגים רק כשיש מקור אמיתי, בלי הבטחות דירוג או לידים לא מאומתים.', 'justice-theme' ); ?></p>
+				</div>
+				<div class="lawyer-dashboard__first-value-meter">
+					<strong><?php echo esc_html( $completed_first_value_steps . '/' . count( $first_value_steps ) ); ?></strong>
+					<span><?php esc_html_e( 'שלבי ערך שהושלמו', 'justice-theme' ); ?></span>
+				</div>
+				<ul class="lawyer-dashboard__first-value-list">
+					<?php foreach ( $first_value_steps as $step ) : ?>
+						<li class="<?php echo esc_attr( $step['done'] ? 'is-complete' : 'is-pending' ); ?>">
+							<span><?php echo $step['done'] ? esc_html__( 'בוצע', 'justice-theme' ) : esc_html__( 'בטיפול', 'justice-theme' ); ?></span>
+							<?php echo esc_html( $step['label'] ); ?>
+						</li>
+					<?php endforeach; ?>
+				</ul>
+				<div class="lawyer-dashboard__first-value-note">
+					<strong><?php esc_html_e( 'סטטוס הפעלה', 'justice-theme' ); ?></strong>
+					<span><?php echo esc_html( $activation_status ); ?></span>
+					<strong><?php esc_html_e( 'תשלום', 'justice-theme' ); ?></strong>
+					<span><?php echo esc_html( $payment_status_text ); ?></span>
+				</div>
+			</section>
 
 			<div class="lawyer-dashboard__grid">
 				<div class="lawyer-dashboard__main">

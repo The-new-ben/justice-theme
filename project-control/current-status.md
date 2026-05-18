@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-18 19:16 Asia/Jerusalem
+- LAWYER DASHBOARD FIRST-VALUE PANEL: turned the private-zone MVP into a more visible lawyer value surface.
+- RESEARCHED: current legal intake/client-portal best practices. Key point: lawyers need to see progress from onboarding to measurable value, including profile readiness, leads, visibility, content work, follow-up and payment/status boundaries.
+- IMPLEMENTED: `/lawyer-dashboard/` now includes a logged-in first-value panel that summarizes profile linkage, profile readiness, measured visibility, assigned leads, content/profile work, activation status and honest payment status.
+- IMPLEMENTED: added responsive styling for the first-value panel in `assets/css/premium-pass-3.css`.
+- IMPLEMENTED: added dashboard marker `justice-dashboard-first-value-v1` so live deployment can be verified from the public logged-out dashboard page after uPress pull.
+- VERIFIED LOCAL: PHP lint passed for `page-lawyer-dashboard.php`; `git diff --check` passed with line-ending warnings only.
+- NEXT: commit/push, run uPress Pull Git because deployable theme code changed, then verify `/lawyer-dashboard/` returns 200 and exposes the marker. Logged-in visual verification still requires a linked lawyer/demo account.
+- SAFETY: render-only dashboard/CSS change. No user account, lawyer profile, lead record, payment product, subscription, invoice, public CMS database content, URL, redirect, canonical, noindex, sitemap setting, GA4/GSC setting or WordPress database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 19:06 Asia/Jerusalem
 - LAWYER DEMO ACCOUNT JOURNEY PACKET: converted the hidden lawyer/private-zone/payment/value gap into a concrete owner-verifiable demo journey plan.
 - RESEARCHED: 2026 legal intake/client-portal best practices from Clio, Lawmatics, US Tech Automations and CounselStack. Key point: a winning system links intake, fast follow-up, private portal, payment/status and recurring value reporting; a static registration page is not enough.

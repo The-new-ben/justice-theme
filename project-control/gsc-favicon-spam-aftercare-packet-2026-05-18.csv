@@ -1,0 +1,5 @@
+priority,item,url,live_state,gsc_action,owner_note
+1,homepage_recrawl,https://jus-tice.co.il/,"200; brand scales favicon tags live; old J source absent",URL Inspection request indexing,Refresh Google favicon/search branding
+2,french_casino_result,https://jus-tice.co.il/guide-complet-du-casino-en-ligne/,"410; X-Robots-Tag noindex nofollow",Temporary removal exact URL,Shown in screenshot as French casino result
+3,spanish_casino_result,https://jus-tice.co.il/guia-experta-para-maximizar-bonos-y-estrategias-de-juego/,"410; X-Robots-Tag noindex nofollow",Temporary removal exact URL,Matches screenshot Spanish casino result
+4,additional_spam_result_url,copied_exact_url_from_google_serp,must_test_first,Temporary removal only after 404 or 410 verification,Do not remove broad legal prefixes

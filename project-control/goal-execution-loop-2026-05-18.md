@@ -11,6 +11,34 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 35 - GSC Favicon/Spam Aftercare Packet
+
+Research reviewed:
+- Google Search Console Removals can temporarily hide URLs from Google Search for owned properties, but permanent removal still requires server-side action such as 404/410 or noindex. Source: https://support.google.com/webmasters/answer/9689846
+- Google's Removals guidance specifically says hacked URLs can be blocked with the URL blocking tool, but the site itself should be cleaned and recrawled rather than blocking the whole domain. Source: https://support.google.com/webmasters/answer/9689846
+- Google recrawl guidance says URL Inspection can request recrawl for updated pages. Source: https://developers.google.com/search/docs/crawling-indexing/ask-google-to-recrawl
+- Google's crawl-budget guidance says permanently removed pages should return 404 or 410. Source: https://developers.google.com/crawling/docs/crawl-budget
+
+Business interpretation:
+- The code fix is live, but Google may still show old casino results and the old/globe favicon until it recrawls or a temporary removal is submitted.
+- The right operational move is precise Search Console action: homepage recrawl plus exact casino URL removals.
+
+Implemented in this cycle:
+- Created `project-control/gsc-favicon-spam-aftercare-packet-2026-05-18.md`.
+- Created `project-control/gsc-favicon-spam-aftercare-packet-2026-05-18.csv`.
+- Recorded the exact owner-safe removal queue and guardrails.
+
+Verification:
+- `node tools/check-live-favicon-and-spam-guard.mjs` passed for homepage marker, canonical scales favicon tags, old J absence, and 410/noindex casino examples.
+- Repo change is planning/status-only, so no public deployment or uPress pull was required.
+
+Next step:
+- In Search Console: inspect/request indexing for `https://jus-tice.co.il/`.
+- In Search Console Removals: submit the exact casino URLs copied from Google results, starting with `/guide-complet-du-casino-en-ligne/` and `/guia-experta-para-maximizar-bonos-y-estrategias-de-juego/`.
+
+Safety:
+- Repo-only operational guidance and read-only live verification. No public CMS database row, article body, WordPress title/H1/meta, URL slug, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value was changed.
+
 ## Priority Cycle 34 - Favicon And Casino Spam Indexing Fix
 
 Research reviewed:

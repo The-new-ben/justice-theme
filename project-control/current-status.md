@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-18 18:32 Asia/Jerusalem
+- GSC FAVICON/SPAM AFTERCARE PACKET: converted the live favicon/spam fix into exact Search Console next actions.
+- RESEARCHED: Google Search Console Removals, hacked URL handling, recrawl, and crawl-budget guidance. Key point: Removals hides URLs temporarily; permanent cleanup still depends on 404/410/noindex, and hacked URLs should be blocked specifically rather than blocking the whole site.
+- VERIFIED LIVE: `node tools/check-live-favicon-and-spam-guard.mjs` passed for the important live signals: homepage 200, marker live, six canonical scales favicon tags, old J favicon absent, and the two casino example URLs returning 410/noindex.
+- CREATED: `project-control/gsc-favicon-spam-aftercare-packet-2026-05-18.md`.
+- CREATED: `project-control/gsc-favicon-spam-aftercare-packet-2026-05-18.csv`.
+- DECISION: submit homepage URL Inspection recrawl, then submit exact casino result URLs in Search Console Removals; do not remove full site, homepage, legal prefixes, `/articles/`, or `/lawyers/`.
+- UPRESS: no uPress pull needed because this cycle changed repo planning/status artifacts only; no deployable theme code changed.
+- SAFETY: repo-only operational guidance and read-only live verification. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value changed.
+
 ## LATEST WORK STATUS - 2026-05-18 18:28 Asia/Jerusalem
 - FAVICON AND CASINO SPAM INDEXING FIX: fixed the conflicting favicon stack and added a deleted-spam URL guard for casino/gambling hacked paths.
 - RESEARCHED: Google favicon-in-search and Search Console Removals guidance. Key point: Google supports one favicon per hostname; homepage and favicon must be crawlable; use a square stable icon larger than 48x48; deleted URLs can remain in results until recrawl/removal and should return 404/410/noindex signals.

@@ -57,6 +57,7 @@ const checks = [
     role: 'medical malpractice commercial path',
     mustStatus: 200,
     mustIncludeAny: ['רשלנות רפואית', 'עורך דין', 'medical'],
+    mustNotInclude: ['/birth-malpractice/', '/pregnancy-malpractice/', '/diagnosis-malpractice/'],
     maxBytes: 500000,
   },
   {
@@ -192,6 +193,11 @@ async function runCheck(check) {
   }
   if (missingAnyGroup(body, check.mustIncludeAny)) {
     issues.push(`missing_any:${check.mustIncludeAny.join('|')}`);
+  }
+  for (const token of check.mustNotInclude || []) {
+    if (body.toLowerCase().includes(String(token).toLowerCase())) {
+      issues.push(`unexpected_${token}`);
+    }
   }
   if (missingAnyGroup(titleAndH1, check.titleMustIncludeAny)) {
     issues.push(`title_h1_missing_any:${check.titleMustIncludeAny.join('|')}`);

@@ -42,9 +42,10 @@ $topics = array(
 		'url'   => justice_theme_safe_public_link( '/medical-malpractice-lawyer/', '/lawyers/?area=medical-malpractice-law' ),
 		'links' => array(
 			array( 'label' => 'עורך דין רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
-			array( 'label' => 'רשלנות בלידה', 'url' => '/birth-malpractice/' ),
-			array( 'label' => 'רשלנות בהריון', 'url' => '/pregnancy-malpractice/' ),
-			array( 'label' => 'רשלנות באבחון', 'url' => '/diagnosis-malpractice/' ),
+			array( 'label' => 'פגיעות לידה', 'url' => '/birth-injury/' ),
+			array( 'label' => 'רשלנות בהרדמה', 'url' => '/anesthesia-medical-malpractice/' ),
+			array( 'label' => 'רשלנות בניתוח', 'url' => '/surgical-errors-medical-malpractice/' ),
+			array( 'label' => 'הגדרה ודוגמאות', 'url' => '/what-is-medical-malpractice-definition-examples/' ),
 		),
 	),
 	array(

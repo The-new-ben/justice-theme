@@ -295,7 +295,7 @@ function justice_theme_related_infer_cluster( int $post_id ): string {
 		'family_divorce'      => array( 'divorce', 'family-law', 'family_law', 'child-support', 'child-custody', 'custody', 'mediation', 'rabbinical', 'alimony', 'mutual-divorce' ),
 		'criminal_law'        => array( 'criminal', 'drug-offenses', 'police-investigation', 'indictment', 'pretrial-detention', 'sex-offenses', 'white-collar', 'arrest' ),
 		'real_estate'         => array( 'real-estate', 'property', 'apartment', 'rent-agreement', 'purchase-agreement', 'sale-agreement', 'land-registry', 'construction-defects', 'urban-renewal' ),
-		'medical_malpractice' => array( 'medical-malpractice', 'malpractice', 'birth-malpractice', 'pregnancy-malpractice', 'diagnosis-malpractice', 'surgery-malpractice' ),
+		'medical_malpractice' => array( 'medical-malpractice', 'malpractice', 'birth-injury', 'anesthesia-medical-malpractice', 'surgical-errors-medical-malpractice', 'what-is-medical-malpractice' ),
 		'personal_injury'     => array( 'personal-injury', 'car-accident', 'work-accident', 'accident', 'national-insurance', 'injury', 'tort' ),
 		'traffic_law'         => array( 'traffic-law', 'traffic-lawyer', 'drunk-driving', 'license-suspension', 'speeding' ),
 		'employment_law'      => array( 'employment', 'labor-law', 'work-rights', 'dismissal' ),

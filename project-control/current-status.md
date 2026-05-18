@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-18 17:21 Asia/Jerusalem
+- MEDICAL MALPRACTICE SUPPORT LINK FIX: found and fixed theme-owned links from the live `/medical-malpractice-lawyer/` route/topic cluster to dead support URLs.
+- RESEARCHED: Google crawlable-link guidance and current Israeli medical-malpractice competitors. Key point: the money hub should link to crawlable, live support pages around birth injury, surgery, anesthesia, definitions/examples and medical causation topics, not to clean slugs that currently 404.
+- VERIFIED BEFORE FIX: `/medical-malpractice-lawyer/` is live 200, but `/birth-malpractice/`, `/pregnancy-malpractice/`, and `/diagnosis-malpractice/` return 404.
+- IMPLEMENTED: replaced dead medical-malpractice support links in `inc/practice-landing.php`, `template-parts/sections/topic-clusters.php`, `inc/pillar-pages.php`, and related-content cluster tokens with verified live support URLs.
+- UPDATED: deployment marker to `2026-05-18-medmal-support-links-v1`.
+- UPDATED: `tools/check-live-traffic-priority.mjs` now fails the medical-malpractice route if the three blocked clean slugs appear in public HTML.
+- CREATED: `project-control/medical-malpractice-support-link-fix-2026-05-18.md`.
+- CREATED: `project-control/medical-malpractice-support-link-fix-2026-05-18.csv`.
+- NEXT: after commit/push, pull Git in uPress and verify live traffic-priority, sitemap, owner-phone and targeted medical-malpractice checks.
+- SAFETY: theme-owned crawl-path correction only. No public CMS database row, article body, stored title/H1/meta, URL slug, redirect, noindex, canonical, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value changed.
+
 ## LATEST WORK STATUS - 2026-05-18 17:11 Asia/Jerusalem
 - CORONA LEGACY CONTENT AUDIT: converted the owner's stale corona-content concern into a safe editorial control packet before any public CMS cleanup.
 - RESEARCHED: Google helpful-content, core-update, and outdated-content guidance. Key point: improve useful pages and avoid reactive mass deletion/noindexing; old pages should be refreshed, archived, or pruned only after evidence.

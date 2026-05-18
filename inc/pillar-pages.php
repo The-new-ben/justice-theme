@@ -184,7 +184,7 @@ function justice_theme_get_pillar_seed_pages(): array {
 			'lawyer_area' => 'medical-malpractice',
 			'tool_url'    => '/legal-tools/ai-intake/',
 			'summary'     => 'מדריך ראשוני לבדיקת עילת תביעה ברשלנות רפואית, איסוף מסמכים, חוות דעת רפואית והערכת סיכויי ההליך.',
-			'topics'      => "רשלנות רפואית בהריון | /pregnancy-malpractice/\nרשלנות רפואית בלידה | /birth-malpractice/\nאבחון שגוי | /misdiagnosis/\nחוות דעת רפואית | /medical-expert-opinion/",
+			'topics'      => "פגיעות לידה ורשלנות רפואית | /birth-injury/\nרשלנות רפואית בהרדמה | /anesthesia-medical-malpractice/\nרשלנות בניתוח | /surgical-errors-medical-malpractice/\nהגדרה ודוגמאות לרשלנות רפואית | /what-is-medical-malpractice-definition-examples/",
 			'content'     => '<h2>מה בודקים בתביעת רשלנות רפואית?</h2><p>בדרך כלל נדרש לבדוק האם הייתה סטייה מסטנדרט רפואי סביר, האם נגרם נזק, והאם קיים קשר סיבתי בין הטיפול לנזק. מדובר בתחום מורכב שמצריך מסמכים רפואיים ולעיתים חוות דעת מומחה.</p><h2>מסמכים שכדאי לאסוף</h2><ul><li>סיכומי אשפוז וביקור.</li><li>בדיקות דימות ומעבדה.</li><li>מרשמים והפניות.</li><li>תיעוד התכתבויות ותלונות.</li></ul><p>המידע הוא כללי בלבד ואינו ייעוץ רפואי או משפטי.</p>',
 		),
 	);

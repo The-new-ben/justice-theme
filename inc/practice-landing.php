@@ -105,8 +105,10 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 			'keyword'    => 'עורך דין רשלנות רפואית',
 			'summary'    => 'מידע על בדיקת רשלנות רפואית, חוות דעת, מסמכים רפואיים, נזק, קשר סיבתי וסיכוני תביעה.',
 			'supporting' => array(
-				array( 'label' => 'רשלנות רפואית בהריון', 'url' => '/pregnancy-malpractice/' ),
-				array( 'label' => 'רשלנות רפואית בלידה', 'url' => '/birth-malpractice/' ),
+				array( 'label' => 'פגיעות לידה ורשלנות רפואית', 'url' => '/birth-injury/' ),
+				array( 'label' => 'רשלנות רפואית בהרדמה', 'url' => '/anesthesia-medical-malpractice/' ),
+				array( 'label' => 'רשלנות בניתוח', 'url' => '/surgical-errors-medical-malpractice/' ),
+				array( 'label' => 'מהי רשלנות רפואית', 'url' => '/what-is-medical-malpractice-definition-examples/' ),
 			),
 		),
 		'national-insurance'  => array(

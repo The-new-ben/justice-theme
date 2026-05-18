@@ -956,6 +956,37 @@ Remaining work:
 Safety:
 - Render-only route display-title/template change. No CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.
 
+## Priority Cycle 36 - Medical Malpractice Support Link Fix
+
+Research reviewed:
+- Google's crawlable-link guidance says Google generally crawls links from real anchor elements with `href`, and descriptive anchor text helps both people and Google understand linked pages. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Current Israeli medical-malpractice competitors emphasize birth injury, pregnancy/birth care, diagnosis or treatment mistakes, surgery, anesthesia, expert medical opinions, causation, damages and limitation periods.
+
+Business interpretation:
+- `/medical-malpractice-lawyer/` is a commercial money route, so it must not send users or Googlebot into 404 support paths.
+- Birth and pregnancy malpractice are important intents, but the clean English slugs currently return 404 and should not be promoted until route-history review.
+
+Implemented in this cycle:
+- Replaced `/birth-malpractice/`, `/pregnancy-malpractice/`, and `/diagnosis-malpractice/` in theme-owned medical-malpractice support surfaces.
+- Added live support URLs: `/birth-injury/`, `/anesthesia-medical-malpractice/`, `/surgical-errors-medical-malpractice/`, and `/what-is-medical-malpractice-definition-examples/`.
+- Updated `inc/practice-landing.php`, `template-parts/sections/topic-clusters.php`, `inc/pillar-pages.php`, `inc/related-content.php`, and `tools/check-live-traffic-priority.mjs`.
+- Updated deployment marker to `2026-05-18-medmal-support-links-v1`.
+- Created `project-control/medical-malpractice-support-link-fix-2026-05-18.md`.
+- Created `project-control/medical-malpractice-support-link-fix-2026-05-18.csv`.
+
+Verification:
+- PHP lint passed for modified PHP files.
+- Node syntax checks passed for modified live checkers.
+- Static scan shows the blocked clean slugs are no longer present in public theme output surfaces, except as explicit test guards and offline audit heuristics.
+- Deployment and live verification are required after uPress pull.
+
+Remaining work:
+- Review GSC and route history for the old Hebrew birth/pregnancy malpractice page before deciding whether to recover clean routes, merge, redirect, or leave unavailable.
+- Continue medical-malpractice content support mapping only after owner/legal approval.
+
+Safety:
+- Theme-owned crawl-path correction. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, noindex, canonical, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.
+
 ## Priority Cycle 35 - Corona Legacy Content Audit
 
 Research reviewed:

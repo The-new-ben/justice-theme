@@ -955,3 +955,34 @@ Remaining work:
 
 Safety:
 - Render-only route display-title/template change. No CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.
+
+## Priority Cycle 33 - Inheritance/Wills Support-To-Hub Map
+
+Research reviewed:
+- Google's crawlable-link guidance says important pages should be reachable through real `<a href>` links and descriptive anchor text. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Google's title-link guidance says Google can use title, main visual title, headings, prominent text and anchor text to understand and display page titles. Source: https://developers.google.com/search/docs/appearance/title-link
+- Leading Israeli inheritance/wills competitors cluster around inheritance orders, probate orders, wills, objections to wills, estate administration, heir disputes, estate division, capacity, undue influence and cross-border inheritance.
+
+Business interpretation:
+- `/inheritance-lawyer/` now exists and has the correct H1, but it needs clean support pages pointing into it before it can become a stronger commercial route.
+- The first safe batch should use pages with GSC demand and live 200/indexable status, while excluding false positives and route-conflict pages.
+
+Implemented in this cycle:
+- Created `project-control/inheritance-wills-support-to-hub-map-2026-05-18.md`.
+- Created `project-control/inheritance-wills-support-to-hub-map-2026-05-18.csv`.
+- Mapped P0 support pages: `/inheritance/`, `/inheritance-order/`, `/what-is-a-probate-order/`, `/will-probate-objection/`, `/will-and-testament/`, and `/international-inheritance-wills-lawyer/`.
+- Logged `/will/` as a blocker because it is 404/noindex and has duplicate target slug history.
+- Logged false positives caused by the English word "will", including criminal-law cost and traffic-law license pages.
+
+Verification:
+- Googlebot-style live checks passed for the inheritance hub and support pages listed in the support map.
+- `/will/` returned 404/noindex and remains blocked for route-history review.
+- `git diff --check` passed with line-ending warnings only.
+- No deployable theme code changed, so no uPress pull was required.
+
+Remaining work:
+- Owner approval is needed before public CMS edits.
+- After approval, add one natural contextual link from each P0 support page to `/inheritance-lawyer/`, avoiding unsupported "best/recommended/free consultation" claims.
+
+Safety:
+- Repo-only planning and live read-only audit. No CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.

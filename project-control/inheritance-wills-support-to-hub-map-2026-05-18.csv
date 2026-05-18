@@ -1,0 +1,12 @@
+priority,url,gsc_clicks,gsc_impressions,gsc_position,cluster_observation,role,recommended_next_action,safety_note
+P0,https://jus-tice.co.il/inheritance/,2,15808,49.3,inheritance-wills,broad inheritance explainer,Add one factual contextual link to /inheritance-lawyer/ after owner approval,No CMS edit executed
+P0,https://jus-tice.co.il/what-is-a-probate-order/,0,15131,51.9,misclustered as family-law in GSC export,probate order intent,Reclassify in planning as inheritance/wills support and add factual hub link after approval,No CMS edit executed
+P0,https://jus-tice.co.il/will-probate-objection/,11,14894,59.4,inheritance-wills,will objection and probate dispute,Add careful non-alarmist hub link after legal/editorial approval,No CMS edit executed
+P0,https://jus-tice.co.il/international-inheritance-wills-lawyer/,129,14123,48.0,misclustered as family-law in GSC export,cross-border inheritance and wills,Support hub but keep Israeli local-service hub as primary commercial destination,No CMS edit executed
+P0,https://jus-tice.co.il/inheritance-order/,7,11447,46.8,inheritance-wills,inheritance order,Add factual contextual hub link after approval,No CMS edit executed
+P1,https://jus-tice.co.il/revocation-of-a-will-and-reviving-previous-will/,9,3414,56.7,noisy queries in GSC export,will revocation and court dispute,Review content and query fit before linking,No CMS edit executed
+P1,https://jus-tice.co.il/will-and-testament/,0,1484,66.5,inheritance-wills,wills explainer,Improve title/meta/content later and add hub link after review,No CMS edit executed
+P1,https://jus-tice.co.il/maximize-an-inheritance/,0,293,56.4,inheritance-wills,practical inheritance checklist,Possible support page after stronger P0 pages,No CMS edit executed
+BLOCKER,https://jus-tice.co.il/will/,,,,duplicate target slug conflict in migration map,old will route,Do not recover or redirect blindly; review route history first,Live 404/noindex
+EXCLUDE,https://jus-tice.co.il/how-much-will-a-criminal-defense-lawyer-cost/,224,23313,36.2,false positive caused by English word will,criminal-law cost page,Exclude from inheritance planning,No CMS edit executed
+EXCLUDE,https://jus-tice.co.il/driver-with-36-valid-points-or-more-will-be-disqualified-from-holding-a-drivers-license/,0,269,56.0,false positive caused by English word will,traffic-law page,Exclude from inheritance planning,No CMS edit executed

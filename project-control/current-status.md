@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-18 16:41 Asia/Jerusalem
+- INHERITANCE/WILLS SUPPORT MAP: converted the recovered `/inheritance-lawyer/` route into the next owner-approval content/internal-link batch.
+- RESEARCHED: Google crawlable-link and title-link guidance plus leading Israeli inheritance/wills competitors. Key point: competitors cluster around inheritance orders, probate orders, wills, objections to wills, estate administration, heir disputes, estate division, capacity and undue influence.
+- CREATED: `project-control/inheritance-wills-support-to-hub-map-2026-05-18.md`.
+- CREATED: `project-control/inheritance-wills-support-to-hub-map-2026-05-18.csv`.
+- VERIFIED LIVE: Googlebot-style checks passed for `/inheritance-lawyer/`, `/inheritance/`, `/inheritance-order/`, `/will-and-testament/`, `/will-probate-objection/`, `/what-is-a-probate-order/`, `/maximize-an-inheritance/`, `/revocation-of-a-will-and-reviving-previous-will/`, and `/international-inheritance-wills-lawyer/`.
+- FOUND BLOCKER: `/will/` is live 404/noindex and the migration map shows repeated `TARGET_SLUG_CONFLICT_NEEDS_REVIEW`; do not recover or redirect `/will/` blindly.
+- FOUND DATA ISSUE: GSC inheritance export has false positives caused by the English word "will", including criminal-law and traffic-law URLs; these must be excluded from inheritance planning.
+- NEXT: owner approval is needed before public CMS edits; start with factual links from `/inheritance/`, `/inheritance-order/`, `/what-is-a-probate-order/`, `/will-probate-objection/`, and `/will-and-testament/` into `/inheritance-lawyer/`.
+- UPRESS: no uPress pull was needed in this cycle because only repo planning artifacts changed; no deployable public theme code changed.
+- SAFETY: planning and live read-only audit only. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 16:31 Asia/Jerusalem
 - INHERITANCE H1 INTENT FIX: strengthened `/inheritance-lawyer/` visible H1 from the generic taxonomy fallback to the commercial phrase `עורך דין ירושה וצוואות`.
 - RESEARCHED: Google title-link guidance says Google uses the `<title>`, main visual title, heading elements including `<h1>`, prominent text, and anchor text to create title links; the visible H1 should clearly describe the page.

@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-18 19:56 Asia/Jerusalem
+- COMMERCIAL PIPELINE BRANCH RE-REVIEW: reviewed updated `origin/claude/review-legal-portal-aRAzz` / commit `2ebe724` after Codex blocker fixes.
+- VERIFIED FIXED: paid plan CTA is now registration-first unless the logged-in user already has a linked `justice_lawyer` profile.
+- VERIFIED FIXED: WooCommerce subscription bridge now has a safety net that auto-creates a draft linked lawyer profile from WooCommerce customer data if a paying user has no profile.
+- VERIFIED FIXED: magic-link resend now has per-email and per-IP throttling while preserving the non-enumerating public response.
+- VERIFIED LOCAL: PHP lint passed on touched branch files in the review worktree.
+- FOUND REMAINING P1: branch still conflicts with current `main` in `project-control/current-status.md` because `main` now includes the money-query SEO rescue packet.
+- FOUND REMAINING P2: `project-control/commercial-pipeline-activation-2026-05-18.md` still has a stale "not in this commit" bullet saying checkout-first draft profile auto-creation is backlog, even though the code now implements it.
+- CREATED: `project-control/commercial-pipeline-branch-rereview-2026-05-18.md`.
+- CREATED: `project-control/commercial-pipeline-branch-rereview-2026-05-18.csv`.
+- DECISION: original code blockers are addressed, but do not uPress-pull/deploy until the branch is rebased onto current `main`, the status conflict is resolved, and the stale runbook bullet is fixed.
+- UPRESS: no uPress pull needed because this cycle changed repo review/status artifacts only; no deployable theme code changed on `main`.
+- SAFETY: repo-only branch re-review. No live WordPress content, database row, lawyer profile, user, lead, payment setting, WooCommerce product, GA4/GSC setting, URL, redirect, canonical/noindex rule, sitemap setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-18 19:46 Asia/Jerusalem
 - MONEY-QUERY SEO RESCUE BATCH 001: prepared the first owner-review packet for five commercial pages with high impressions and weak/zero CTR.
 - RESEARCHED: Google Search Console Performance guidance and Google title-link/snippet guidance. Key point: low CTR pages with real impressions should be reviewed by query/page, then titles/snippets/content should better match searcher intent.

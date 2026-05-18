@@ -1,0 +1,7 @@
+"priority","check","status","evidence","required_before_live"
+"P0","Paid CTA cannot bypass profile creation","FIXED_IN_CODE","Paid plan checkout URL now requires logged-in user with linked justice_lawyer profile; otherwise registration-first","Rebase on current main and rerun lint"
+"P0","Checkout safety net creates draft profile for paying user without profile","FIXED_IN_CODE","justice_theme_create_lawyer_profile_from_wc_customer creates draft linked profile and owner notification","End-to-end WooCommerce test after plugin setup"
+"P1","Magic-link resend throttling","FIXED_IN_CODE","Per-email cooldown and per-IP window/max attempts implemented; public response remains non-enumerating","Confirm cooldown values are acceptable"
+"P1","Merge conflict with current main","OPEN","project-control/current-status.md conflicts because main has money-query SEO rescue packet","Rebase/merge and preserve both status entries"
+"P2","Activation runbook stale bullet","OPEN","Runbook still says checkout-first auto-create profile is not in commit though code implements it","Remove/rewrite stale bullet"
+"PASS","PHP lint","PASS","Touched branch files lint-clean","Rerun after final rebase"

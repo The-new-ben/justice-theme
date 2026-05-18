@@ -537,7 +537,10 @@ Verification before deployment:
 - Node syntax passed for `tools/check-live-traffic-priority.mjs`, `tools/check-live-html-sitemap.mjs`, and `tools/check-live-owner-phone.mjs`.
 
 Deployment:
-- uPress Git Pull is required after GitHub push because deployable theme code changed.
+- Codex used uPress File Manager Git management for `wp-content/themes/justice-theme` and clicked `משיכת נתונים (Pull)`. uPress did not show a clear success toast, but live marker verification proved the pull landed.
+- Live `/real-estate-lawyer-guide/` now returns HTTP 200, no noindex, self-canonical to `https://jus-tice.co.il/real-estate-lawyer-guide/`, includes expected support links, and serves deployment marker `2026-05-18-real-estate-guide-route-v1`.
+- Live traffic-priority audit passed including `/real-estate-lawyer-guide/`.
+- Live HTML sitemap checker and owner-phone checker passed after deployment.
 
 Safety:
 - Theme-rendered route recovery only. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, taxonomy, noindex setting, canonical setting in CMS, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC admin setting or wp-admin setting was changed.

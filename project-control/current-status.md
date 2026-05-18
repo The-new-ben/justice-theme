@@ -6,7 +6,9 @@
 - UPDATED: deployment marker to `2026-05-18-real-estate-guide-route-v1`; live checkers now expect it and include `/real-estate-lawyer-guide/`.
 - CREATED: `project-control/real-estate-guide-route-recovery-2026-05-18.md`.
 - VERIFIED LOCAL: PHP lint passed for `inc/practice-landing.php`, `practice-real-estate-guide-route.php`, and `functions.php`; Node syntax passed for traffic-priority, HTML sitemap and owner-phone live checkers.
-- UPRESS: required after push because deployable public theme code changed; run uPress Git Pull and then live checks.
+- DEPLOYED: Codex used uPress File Manager Git management for `wp-content/themes/justice-theme`; uPress did not show a clear success message, but the live deployment marker proves the pull landed.
+- VERIFIED LIVE: `/real-estate-lawyer-guide/` is HTTP 200, indexable, self-canonical, includes the expected real-estate support links, and serves deployment marker `2026-05-18-real-estate-guide-route-v1`.
+- VERIFIED LIVE: traffic-priority audit, HTML sitemap checker, and owner-phone checker all passed after uPress pull.
 - SAFETY: no public CMS/database content, WordPress title/H1/meta, URL slug, redirect, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting or wp-admin setting was changed.
 
 ## LATEST WORK STATUS - 2026-05-18 15:20 Asia/Jerusalem

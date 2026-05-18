@@ -11,6 +11,35 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 31 - GSC Traffic Drop Triage
+
+Research reviewed:
+- Google Search Console Performance reports support page/query comparisons, CTR, impressions, filters and exports for diagnosing traffic changes. Source: https://support.google.com/webmasters/answer/7576553
+- Google's title-link guidance says title links are a primary search-result decision point and should be descriptive, concise and aligned to the page. Source: https://developers.google.com/search/docs/advanced/appearance/good-titles-snippets
+- Google's snippet guidance says snippets are primarily generated from page content and can be improved with useful page content and quality meta descriptions. Source: https://developers.google.com/search/docs/appearance/snippet
+
+Business interpretation:
+- The current traffic concern should be handled with query-page evidence, not blanket SEO edits.
+- The first loss rows in the GSC mirror are mostly legacy PDFs, archive/utility pages and narrow articles. These may matter for authority, but they are not the first commercial conversion path.
+- The strongest growth path is to prioritize money clusters where impressions exist but CTR or recent visibility is weak: family/divorce, medical malpractice, criminal, traffic, inheritance/wills, employment/labor and real estate.
+
+Implemented in this cycle:
+- Created `project-control/gsc-traffic-drop-triage-2026-05-18.md`.
+- Created `project-control/gsc-traffic-drop-triage-2026-05-18.csv`.
+- Recorded a shared decision not to delete, noindex or redirect old PDFs/archive pages without owner approval and backlink/history review.
+
+Verification:
+- Used `gsc-traffic-drop-analysis.csv` and `gsc-url-master.csv` from the local GSC mirror.
+- Homepage row verified at 8 clicks / 1,723 impressions over 28 days and 27 clicks / 5,153 impressions over 3 months.
+- Money-cluster sampled rows showed historical impressions with weak recent sampled traffic for `/criminal-defense-attorney`, `/real-estate-lawyer-guide`, `/medical-malpractice-lawyer`, and `/traffic-lawyer`.
+- Repo change is planning/status-only, so no public deployment or uPress pull was required.
+
+Next step:
+- Mine `gsc-query-page-master.csv` for money-cluster query-page pairs and prepare page-specific title/snippet/H1/internal-link recommendations before any public CMS edits.
+
+Safety:
+- Repo-only GSC triage. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
 ## Priority Cycle 30 - Live Reachability And Contact Signal Checker
 
 Research reviewed:

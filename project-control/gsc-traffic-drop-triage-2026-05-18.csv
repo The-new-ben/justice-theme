@@ -1,0 +1,12 @@
+item,url,current_clicks,previous_clicks,click_change,current_impressions,previous_impressions,triage,next_action
+1,https://jus-tice.co.il/wp-content/uploads/2023/03/attorney-list-december-2017-1.pdf,2,9,-7,486,354,legacy_pdf_not_primary_conversion,hold_for_backlink_history_review
+2,https://jus-tice.co.il/court-judge,0,7,-7,11,283,utility_archive_review,check_query_intent_before_recovery
+3,https://jus-tice.co.il/wp-content/uploads/2023/03/attorney-list-july-updated-nov-2020-1.pdf,1,4,-3,274,204,legacy_pdf_not_primary_conversion,hold_for_backlink_history_review
+4,https://jus-tice.co.il,8,10,-2,1723,1504,commercial_directory_homepage_ctr_issue,review_title_snippet_h1_homepage_intent_and_conversion_path
+5,https://jus-tice.co.il/damages-claim-husband-ketubah-obligation,0,2,-2,20,63,narrow_family_article,map_to_family_or_inheritance_support_cluster
+6,https://jus-tice.co.il/united-arab-emirates-market-overview,0,2,-2,13,12,low_priority_noncore_topic,do_not_prioritize_homepage
+7,https://jus-tice.co.il/portugal-homes,0,1,-1,11,15,low_priority_noncore_topic,do_not_prioritize_homepage
+8,https://jus-tice.co.il/criminal-defense-attorney,0,0,0,0,0,money_cluster_historical_visibility,query_page_ctr_review
+9,https://jus-tice.co.il/real-estate-lawyer-guide,0,0,0,0,0,money_cluster_historical_visibility,query_page_ctr_review
+10,https://jus-tice.co.il/medical-malpractice-lawyer,0,0,0,0,11,money_cluster_recent_visibility_loss,query_page_ctr_review
+11,https://jus-tice.co.il/traffic-lawyer,0,0,0,0,0,money_cluster_historical_visibility,query_page_ctr_review

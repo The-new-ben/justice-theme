@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-18 17:54 Asia/Jerusalem
+- GSC TRAFFIC DROP TRIAGE: used the local GSC mirror to separate traffic-loss noise from commercial recovery work.
+- RESEARCHED: Google Search Console Performance report, title-link, and snippet guidance. Key point: recovery should be page/query-driven; compare pages and queries, then improve title/snippet/content/internal-link signals where impressions exist but CTR or recent visibility collapsed.
+- FOUND: the first drop rows are concentrated in old PDFs, `/court-judge`, narrow case/archive articles, and low-priority topics; this does not look like a simple sitewide crawl block after today's live technical checks passed.
+- FOUND: homepage still matters commercially: 8 clicks / 1,723 impressions over 28 days and 27 clicks / 5,153 impressions over 3 months, with directory/lawyer-search intent queries in the GSC mirror.
+- FOUND: money clusters need priority review because historical visibility exists with weak recent sampled traffic: criminal defense, real estate lawyer guide, medical malpractice lawyer, and traffic lawyer.
+- CREATED: `project-control/gsc-traffic-drop-triage-2026-05-18.md`.
+- CREATED: `project-control/gsc-traffic-drop-triage-2026-05-18.csv`.
+- DECISION: do not chase old PDF/archive traffic first and do not delete/noindex/redirect those assets without owner approval and backlink/history review. Next safe cycle should mine query-page pairs for money clusters and prepare title/snippet/H1/internal-link fixes.
+- UPRESS: no uPress pull needed because this cycle changed repo planning/status artifacts only; no deployable public theme code changed.
+- SAFETY: repo-only GSC triage. No public CMS database row, article body, stored title/H1/meta, URL slug, redirect, noindex, canonical, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-18 17:41 Asia/Jerusalem
 - LIVE JOURNEY HEALTH SNAPSHOT: ran the current post-fix user, lawyer, Googlebot, reachability, commercial-route and breadcrumb-schema checks.
 - RESEARCHED: Google title/snippet, LocalBusiness/Organization phone/contact, and crawlable-link guidance. Key point: traffic recovery now depends less on basic reachability breakage and more on clear page intent, consistent entity/contact signals, crawlable internal links, and GSC-driven content decisions.

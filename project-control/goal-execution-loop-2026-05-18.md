@@ -549,3 +549,38 @@ Remaining blockers:
 
 Safety:
 - Render-only theme change. No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
+
+## Priority Cycle 19 - Contact and About Trust Route Recovery
+
+Research reviewed:
+- Google's helpful-content guidance recommends making it clear who created/published content, how it was made and why it exists, and says trust can be supported by background about the author or site such as an About page. Source: https://developers.google.com/search/docs/fundamentals/creating-helpful-content
+- Google's traffic-drop guidance recommends isolating and fixing page-level causes rather than making broad blind changes. Source: https://support.google.com/webmasters/answer/9079473
+
+Business interpretation:
+- `/contact/` is a direct conversion/trust path. Leaving it as 404/noindex loses users who click old links, lawyer cards or search results looking for a way to reach the business.
+- `/about/` is a trust path for a legal information site. The safest immediate fix is truthful lightweight copy that explains what Jus-Tice does and what it does not do, without fake claims.
+
+Implemented in this cycle:
+- Added `inc/trust-routes.php`.
+- Added render-only virtual routes for `/contact/` and `/about/`.
+- `/contact/` includes direct owner phone `0525101555`, email, lawyer-directory link, and the existing lead form.
+- `/about/` explains Jus-Tice, its content/navigation/intake purpose, and the no-legal-advice boundary.
+- Footer and dynamic HTML sitemap now link to `/contact/` and `/about/`.
+- Updated deployment marker to `2026-05-18-trust-routes-v1`.
+
+Verification:
+- PHP lint passed for `inc/trust-routes.php`, `functions.php`, `inc/html-sitemap.php`, and `template-parts/layout/site-footer.php`.
+- Node syntax checks passed for the live traffic, sitemap, and owner-phone checkers.
+- `git diff --check` passed with line-ending warnings only.
+- Commit `72ed36c` was pushed to GitHub `main`.
+- Codex operated the uPress File Manager Git panel directly for `/wp-content/themes/justice-theme`. The success toast did not appear on this run, but live marker checks showed the new deployment marker, proving the pull landed.
+- Live direct fetch: `/contact/` HTTP 200, no noindex, H1 `יצירת קשר`.
+- Live direct fetch: `/about/` HTTP 200, no noindex, H1 `אודות Jus-Tice`.
+- Live traffic priority audit now shows `/contact/` and `/about/` as `PASS`.
+- Live sitemap, owner-phone and user/lawyer/Googlebot journey checks passed after uPress pull.
+
+Remaining blocker:
+- `/articles/` is still oversized at about 2.9 MB with 4,795 links.
+
+Safety:
+- Render-only theme change. No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.

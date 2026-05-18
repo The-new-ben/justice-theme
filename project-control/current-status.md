@@ -1,3 +1,19 @@
+## LATEST WORK STATUS - 2026-05-18 14:25 Asia/Jerusalem
+- PRIORITY TRUST RECOVERY: `/contact/` and `/about/` were live 404/noindex paths and are now recovered as lightweight indexable trust routes.
+- RESEARCHED: Google helpful-content guidance on clear "who/how/why" and site/About context, plus contact/about expectations for trust on high-stakes legal/YMYL-style sites.
+- IMPLEMENTED: `inc/trust-routes.php` to serve `/contact/` and `/about/` without CMS/database edits.
+- IMPLEMENTED: `/contact/` includes direct owner phone `0525101555`, email, lawyer-directory link and the existing lead form with the legal-advice boundary notice.
+- IMPLEMENTED: `/about/` explains what Jus-Tice does, the limits of general legal information, and links to contact, sitemap, articles and lawyers.
+- IMPLEMENTED: footer and dynamic HTML sitemap now link to `/contact/` and `/about/`.
+- UPDATED: deployment marker to `2026-05-18-trust-routes-v1`; live marker checkers now expect it.
+- PUSHED: GitHub `main` includes commit `72ed36c` (`Recover contact and about trust routes`).
+- DEPLOYED: Codex used uPress File Manager Git management for `wp-content/themes/justice-theme`; the success toast did not appear, but live deployment marker verification proved the pull landed.
+- VERIFIED LIVE: `/contact/` is HTTP 200, indexable, about 72 KB, and passes the traffic-priority audit.
+- VERIFIED LIVE: `/about/` is HTTP 200, indexable, about 70 KB, and passes the traffic-priority audit.
+- VERIFIED LIVE: HTML sitemap, owner phone, and public user/lawyer/Googlebot journey checks passed after uPress pull.
+- REMAINING TRAFFIC BLOCKER: `/articles/` is still too large/link-dense at about 2.9 MB and 4,795 links.
+- SAFETY: no public CMS/database content, taxonomy term, slug, redirect rule, XML sitemap setting, robots rule, lawyer record, lead record, payment setting, GA4/GSC setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 14:16 Asia/Jerusalem
 - PRIORITY TRAFFIC RECOVERY: `/medical-malpractice-lawyer/` was a live commercial 404/noindex and is now recovered as an indexable controlled practice route.
 - RESEARCHED: Google traffic-drop diagnostics, crawlable-link/site-structure guidance, and indexing guidance for fixing internally linked 404s.

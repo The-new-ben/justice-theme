@@ -38,19 +38,15 @@ Checked priority paths:
 - `/medical-malpractice-lawyer/` now passes after the controlled medical-malpractice route was deployed and pulled in uPress.
 - `/criminal-defense-attorney/` passed.
 - `/traffic-lawyer/` passed.
+- `/contact/` now passes after a lightweight trust/contact route was deployed and pulled in uPress.
+- `/about/` now passes after a lightweight about/trust route was deployed and pulled in uPress.
 
 ## Critical Review Items
 
 1. `/articles/` is too large and too link-dense.
    - Current HTML size: about 2.9 MB.
-   - Current crawlable links: 4,793.
+   - Current crawlable links: 4,795.
    - This weakens both user scanning and crawl prioritization. The new `/site-map/` is healthier, but `/articles/` still needs pagination/segmentation review.
-
-2. `/contact/` is a high-priority legacy 404.
-   - Owner phone is now correct globally, but users and old menu/search paths may still expect a contact page.
-
-3. `/about/` is a trust-path 404.
-   - For YMYL/legal content, missing trust/about context is an E-E-A-T weakness and should be fixed with accurate, conservative copy.
 
 ## Fixed This Cycle
 
@@ -60,14 +56,17 @@ Checked priority paths:
 - `/medical-malpractice-lawyer/` was fixed without a URL change, redirect or CMS edit.
 - A controlled template route now serves a medical-malpractice practice hub at the existing commercial URL instead of the 404/noindex response.
 - Post-pull live audit result: `/medical-malpractice-lawyer/` is `PASS`, HTTP 200, about 56 KB, 67 links.
+- `/contact/` was fixed without a CMS page, URL change or redirect.
+- `/about/` was fixed without a CMS page, URL change or redirect.
+- Post-pull live audit result: `/contact/` is `PASS`, HTTP 200, about 72 KB, 66 links; `/about/` is `PASS`, HTTP 200, about 70 KB, 67 links.
 
 ## Safe Next Actions
 
-1. Create lightweight `/contact/` and `/about/` route/page handling with accurate owner-approved copy.
-2. Split or reduce `/articles/` hub output so it is useful to users and not a 4,793-link dump.
-3. Keep `/site-map/` as the crawler discovery hub, but do not use it as a substitute for fixing commercial intent pages.
-4. Continue content-cluster classification so medical malpractice, family law and other commercial hubs get stronger supporting articles.
+1. Split or reduce `/articles/` hub output so it is useful to users and not a 4,795-link dump.
+2. Keep `/site-map/` as the crawler discovery hub, but do not use it as a substitute for fixing commercial intent pages.
+3. Continue content-cluster classification so medical malpractice, family law and other commercial hubs get stronger supporting articles.
+4. Continue live journey checks after every route/content change.
 
 ## Safety
 
-The `/family-law/` and `/medical-malpractice-lawyer/` fixes were render-only theme code. No CMS/database rows, content bodies, URLs, redirects, sitemap settings, taxonomy terms, lawyer profiles, lead records, payment settings, GA4 or GSC settings were changed.
+The `/family-law/`, `/medical-malpractice-lawyer/`, `/contact/`, and `/about/` fixes were render-only theme code. No CMS/database rows, content bodies, URLs, redirects, sitemap settings, taxonomy terms, lawyer profiles, lead records, payment settings, GA4 or GSC settings were changed.

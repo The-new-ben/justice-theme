@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-18 21:08 Asia/Jerusalem
+- UNSERVED DEMAND SOURCE ATTRIBUTION HARDENING: strengthened PR #7 so unsupported calls/forms can be measured by source channel, city, and language.
+- RESEARCHED: law-firm lead source attribution and intake conversion guidance. Key point: source, response time, practice area, and conversion stage must be tracked together before marketing/SEO decisions can be trusted.
+- CODED: `inc/unserved-demand.php` quick-log form now includes a `Source channel` select for phone, WhatsApp, website form, email, organic search, and manual/other.
+- CODED: quick-log form now captures requested city and language, and saves `requested_city` plus `requested_language`.
+- CODED: source channel is validated against an allowlist before saving, so reports do not fragment into random source labels.
+- CREATED: `project-control/unserved-demand-source-attribution-hardening-2026-05-18.md`.
+- CREATED: `project-control/unserved-demand-source-attribution-hardening-2026-05-18.csv`.
+- VERIFIED: PHP lint clean on `inc/unserved-demand.php`, `inc/lead-routing.php`, and `functions.php`; `git diff --check` clean.
+- UPRESS: no uPress pull needed because this is draft PR code only; not merged to `main`.
+- SAFETY: no live wp-admin login, public form, CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-18 20:59 Asia/Jerusalem
 - UNSERVED DEMAND INTAKE HARDENING: tightened PR #7 admin ledger so unsupported calls are easier to follow up and export for lawyer recruitment.
 - RESEARCHED: current law-firm intake guidance around source tracking, response time, follow-up status, and conversion reporting. Key point: unmonitored channels and overdue follow-ups leak revenue.

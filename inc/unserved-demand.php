@@ -151,11 +151,30 @@ function justice_theme_unserved_demand_render_quick_log_form(): void {
 			<input id="unserved-country" name="requested_country" type="text" class="regular-text" style="width:100%;" placeholder="Example: Thailand">
 		</p>
 		<p>
+			<label for="unserved-city"><strong>City</strong></label>
+			<input id="unserved-city" name="requested_city" type="text" class="regular-text" style="width:100%;" placeholder="Optional">
+		</p>
+		<p>
+			<label for="unserved-language"><strong>Language</strong></label>
+			<input id="unserved-language" name="requested_language" type="text" class="regular-text" style="width:100%;" placeholder="Example: Hebrew">
+		</p>
+		<p>
 			<label for="unserved-urgency"><strong>Urgency</strong></label>
 			<select id="unserved-urgency" name="matter_urgency" style="width:100%;">
 				<option value="normal">Normal</option>
 				<option value="high">High / today</option>
 				<option value="low">Low / research</option>
+			</select>
+		</p>
+		<p>
+			<label for="unserved-channel"><strong>Source channel</strong></label>
+			<select id="unserved-channel" name="lead_source_channel" style="width:100%;">
+				<option value="phone">Phone</option>
+				<option value="whatsapp">WhatsApp</option>
+				<option value="form">Website form</option>
+				<option value="email">Email</option>
+				<option value="organic">Organic search</option>
+				<option value="manual">Manual / other</option>
 			</select>
 		</p>
 		<p>
@@ -203,15 +222,23 @@ function justice_theme_handle_unserved_lead_log(): void {
 	$whatsapp         = isset( $_POST['visitor_whatsapp'] ) ? sanitize_text_field( wp_unslash( $_POST['visitor_whatsapp'] ) ) : '';
 	$requested_area   = isset( $_POST['requested_area_raw'] ) ? sanitize_text_field( wp_unslash( $_POST['requested_area_raw'] ) ) : '';
 	$country          = isset( $_POST['requested_country'] ) ? sanitize_text_field( wp_unslash( $_POST['requested_country'] ) ) : '';
+	$city             = isset( $_POST['requested_city'] ) ? sanitize_text_field( wp_unslash( $_POST['requested_city'] ) ) : '';
+	$language         = isset( $_POST['requested_language'] ) ? sanitize_text_field( wp_unslash( $_POST['requested_language'] ) ) : '';
 	$urgency          = isset( $_POST['matter_urgency'] ) ? sanitize_key( wp_unslash( $_POST['matter_urgency'] ) ) : 'normal';
+	$source_channel   = isset( $_POST['lead_source_channel'] ) ? sanitize_key( wp_unslash( $_POST['lead_source_channel'] ) ) : 'phone';
 	$source_url       = isset( $_POST['source_landing_url'] ) ? esc_url_raw( wp_unslash( $_POST['source_landing_url'] ) ) : '';
 	$message          = isset( $_POST['message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['message'] ) ) : '';
 	$owner_action     = isset( $_POST['owner_next_action'] ) ? sanitize_text_field( wp_unslash( $_POST['owner_next_action'] ) ) : '';
 	$consent          = isset( $_POST['consent_to_follow_up'] ) ? 'yes' : 'no';
 	$allowed_urgency  = array( 'low', 'normal', 'high' );
+	$allowed_channels = array( 'phone', 'whatsapp', 'form', 'email', 'organic', 'manual' );
 
 	if ( ! in_array( $urgency, $allowed_urgency, true ) ) {
 		$urgency = 'normal';
+	}
+
+	if ( ! in_array( $source_channel, $allowed_channels, true ) ) {
+		$source_channel = 'manual';
 	}
 
 	if ( '' === $phone || '' === $requested_area || '' === $message ) {
@@ -241,9 +268,11 @@ function justice_theme_handle_unserved_lead_log(): void {
 		'message'              => $message,
 		'requested_area_raw'   => $requested_area,
 		'requested_country'    => $country,
+		'requested_city'       => $city,
+		'requested_language'   => $language,
 		'matter_urgency'       => $urgency,
 		'urgency'              => $urgency,
-		'lead_source_channel'  => 'phone',
+		'lead_source_channel'  => $source_channel,
 		'source_landing_url'   => $source_url,
 		'source_url'           => $source_url,
 		'consent_to_follow_up' => $consent,
@@ -554,7 +583,7 @@ function justice_theme_export_unserved_demand_csv(): void {
 		exit;
 	}
 
-	fputcsv( $output, array( 'id', 'date', 'caller', 'phone', 'email', 'whatsapp', 'demand', 'country', 'urgency', 'source', 'follow_up_deadline', 'unserved_reason', 'owner_next_action', 'revenue_status', 'summary' ) );
+	fputcsv( $output, array( 'id', 'date', 'caller', 'phone', 'email', 'whatsapp', 'demand', 'country', 'city', 'language', 'urgency', 'source_channel', 'source_url', 'follow_up_deadline', 'unserved_reason', 'owner_next_action', 'revenue_status', 'summary' ) );
 
 	foreach ( $leads->posts as $post_item ) {
 		$post_id = $post_item instanceof WP_Post ? $post_item->ID : (int) $post_item;
@@ -569,7 +598,10 @@ function justice_theme_export_unserved_demand_csv(): void {
 				get_post_meta( $post_id, 'visitor_whatsapp', true ),
 				get_post_meta( $post_id, 'requested_area_raw', true ) ?: get_post_meta( $post_id, 'legal_area', true ),
 				get_post_meta( $post_id, 'requested_country', true ),
+				get_post_meta( $post_id, 'requested_city', true ),
+				get_post_meta( $post_id, 'requested_language', true ),
 				get_post_meta( $post_id, 'matter_urgency', true ) ?: get_post_meta( $post_id, 'urgency', true ),
+				get_post_meta( $post_id, 'lead_source_channel', true ),
 				get_post_meta( $post_id, 'source_landing_url', true ) ?: get_post_meta( $post_id, 'source_url', true ),
 				get_post_meta( $post_id, 'follow_up_deadline', true ),
 				get_post_meta( $post_id, 'unserved_reason', true ),

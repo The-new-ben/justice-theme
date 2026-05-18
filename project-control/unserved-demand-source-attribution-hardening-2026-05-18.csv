@@ -1,0 +1,6 @@
+"file","change","verification","live_effect_now"
+"inc/unserved-demand.php","Adds Source channel select to owner quick-log form","php -l clean","None until branch is deployed"
+"inc/unserved-demand.php","Saves requested_city and requested_language from quick-log form","php -l clean","None until branch is deployed"
+"inc/unserved-demand.php","Validates source channel against allowlist before saving","php -l clean","None until branch is deployed"
+"project-control/current-status.md","Records source-attribution hardening for other agents","git diff review","Repo status only"
+"project-control/task-board.csv","Adds task-board row for source attribution","git diff review","Repo status only"

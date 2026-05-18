@@ -81,9 +81,10 @@ $topics = array(
 		'url'   => justice_theme_safe_public_link( '/inheritance-lawyer/', '/lawyers/?area=inheritance-law' ),
 		'links' => array(
 			array( 'label' => 'עורך דין ירושה', 'url' => '/inheritance-lawyer/' ),
-			array( 'label' => 'צוואה', 'url' => '/will/' ),
-			array( 'label' => 'התנגדות לצוואה', 'url' => '/will-contest/' ),
-			array( 'label' => 'ניהול עיזבון', 'url' => '/estate-administration/' ),
+			array( 'label' => 'צו ירושה', 'url' => '/inheritance-order/' ),
+			array( 'label' => 'צוואה', 'url' => '/will-and-testament/' ),
+			array( 'label' => 'התנגדות לצוואה', 'url' => '/will-probate-objection/' ),
+			array( 'label' => 'צו קיום צוואה', 'url' => '/what-is-a-probate-order/' ),
 		),
 	),
 );

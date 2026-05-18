@@ -1,0 +1,7 @@
+"area","control","required_before","evidence","status"
+"Checkout abuse","Bot challenge on checkout/login/registration/password reset/payment update","Public credit-card live mode","WooCommerce card-testing docs recommend CAPTCHA/bot protection","PLANNED_IN_RUNBOOK"
+"Checkout abuse","Rate limiting for checkout/payment endpoints and failed-payment velocity","Public credit-card live mode","WooCommerce fraud guidance recommends layered rate limiting/WAF controls","PLANNED_IN_RUNBOOK"
+"Gateway controls","CVV and 3DS/SCA where available through Morning/Meshulam","Public credit-card live mode","Payment fraud guidance: card checks and gateway controls reduce testing risk","PLANNED_IN_RUNBOOK"
+"Order monitoring","Weekly review of failed/cancelled/pending payment orders","Post-launch week 1 onward","Detect card-testing waves and payment failures early","PLANNED_IN_RUNBOOK"
+"Renewal monitoring","WooCommerce Subscriptions Health Check after sandbox, smoke test, and weekly","After WC Subscriptions installation","Health Check surfaces manual-renewal drift and missing renewal dates","PLANNED_IN_RUNBOOK"
+"Live journeys","Public user/lawyer/googlebot baseline","Current cycle","node tools/check-live-journeys.mjs passed all rows","PASS_2026_05_18"

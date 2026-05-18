@@ -123,6 +123,24 @@ function justice_theme_handle_lawyer_registration(): void {
 		uje_log( 'lawyer_registration', 'New lawyer registration draft: ' . $name );
 	}
 
+	// Self-serve: provision a WP user, link the profile to that user, and
+	// email a one-shot magic-link so the lawyer can land authenticated on the
+	// dashboard with zero password setup. Guarded by function_exists so the
+	// theme keeps working if the provisioning module is missing.
+	$provisioned_user_id = 0;
+	if ( function_exists( 'justice_theme_provision_lawyer_user' ) ) {
+		$provisioned_user_id = justice_theme_provision_lawyer_user( $email, $name, $post_id );
+		if ( $provisioned_user_id && function_exists( 'justice_theme_send_magic_link_email' ) ) {
+			justice_theme_send_magic_link_email( $provisioned_user_id, $name, (string) $meta['plan_type'] );
+		}
+		if ( $provisioned_user_id ) {
+			justice_theme_append_lawyer_internal_note(
+				$post_id,
+				sprintf( 'Auto-provisioned WP user #%d and emailed magic-link.', $provisioned_user_id )
+			);
+		}
+	}
+
 	justice_theme_notify_lawyer_registration( $post_id, $meta );
 
 	wp_safe_redirect(

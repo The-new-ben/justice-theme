@@ -1,3 +1,45 @@
+## LATEST WORK STATUS - 2026-05-18 22:05 Asia/Jerusalem
+- CODEX RUNBOOK CREATED: full executable runbook for Codex (the operating agent) to take PR #5 from "merged" to "first paying lawyer subscribed". Covers account-opening, plugin installs, product creation, sandbox testing, real-money smoke test, failure recovery and a check-in template.
+- RESEARCHED: Morning (Green Invoice) WooCommerce plugin (`wc-gateway-greeninvoice` v2.4.0 — 2026-05-11) which bundles Meshulam clearing + invoice issuance into one plugin and supports WC Subscriptions natively since v1.6.0. Confirmed WooCommerce Subscriptions costs $280/yr and Morning has a free trial month.
+- DECISION: use Morning's bundled flow (Morning plugin + Meshulam add-on inside Morning) instead of separate Meshulam + Morning plugins — simpler integration, one plugin to configure, one vendor to support.
+- CREATED: `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` — 15 sections + 2 appendices. Includes click-by-click instructions, exact Hebrew labels, sandbox/production test scenarios, cost summary, "what NOT to do" list and an honest scoping section explaining what value lawyers get at launch vs roadmap items (cross-media advertising, reputation module, AI console, Q&A forum).
+- SAFETY: documentation-only. No code, live database, plugin, account, payment or DNS change made by this commit.
+- NEXT: owner gives Codex permission to execute Sections 4–10. Cross-media advertising (Google Ads, FB, news-site media buying — the Din-style amplification layer the owner requested) is roadmapped into the runbook §12 as "DO NOT promise publicly until commercial spine is proven live".
+
+## LATEST WORK STATUS - 2026-05-18 20:16 Asia/Jerusalem
+- COMMERCIAL PAYMENT ABUSE + RENEWAL GUARDRAILS: strengthened the draft commercial runbook before live checkout exists.
+- RESEARCHED: WooCommerce card-testing prevention, WooCommerce fraud-prevention guidance, and WooCommerce Subscriptions Health Check guidance. Key point: public checkout needs bot/rate-limit/gateway controls before live mode, and recurring revenue needs ongoing subscription-health review.
+- UPDATED: `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` with Section 6.9 checkout abuse protection before live mode.
+- UPDATED: `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` Section 9.4 with WooCommerce Subscriptions Health Check review after sandbox test, after owner real-money smoke test, and weekly after launch.
+- UPDATED: Section 15 done criteria now requires checkout abuse protection and subscription-health review before declaring the commercial spine load-bearing.
+- VERIFIED LIVE JOURNEYS: `node tools/check-live-journeys.mjs` passed homepage lead path, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap, and robots.
+- CREATED: `project-control/commercial-pipeline-payment-abuse-and-renewal-monitoring-2026-05-18.md`.
+- CREATED: `project-control/commercial-pipeline-payment-abuse-and-renewal-monitoring-2026-05-18.csv`.
+- UPRESS: no uPress pull needed because this cycle changed draft-branch planning/runbook artifacts only; no live deployable code was merged to `main`.
+- SAFETY: no wp-admin login, uPress pull, plugin install, WooCommerce product, payment gateway enablement, Morning account action, user, lawyer profile, lead, order, subscription, invoice, CMS content, URL/redirect/canonical/noindex/sitemap, GA4/GSC, or database change.
+
+## LATEST WORK STATUS - 2026-05-18 20:08 Asia/Jerusalem
+- COMMERCIAL PIPELINE CLEAN INTEGRATION: created `codex/commercial-pipeline-pr5-integration` from current `main` so PR #5 code/runbook can be reviewed without force-pushing another agent's branch.
+- APPLIED: cherry-picked `2ebe724` commercial pipeline activation fixes and `49c25df` commercial runbook onto current `main`.
+- RESOLVED: `project-control/current-status.md` conflict by keeping the current `main` history and adding the commercial branch's status entry; no status history was removed.
+- RESEARCHED: current WooCommerce Subscriptions Health Check guidance and Morning for WooCommerce plugin notes. Key point: recurring revenue launch must include ongoing subscription-health monitoring and card-token recovery, not only a first checkout test.
+- CLEANED: changed one Markdown diagram separator in `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` so `git diff --check` does not treat it as an unresolved merge marker.
+- VERIFIED: PHP lint clean on all touched commercial PHP/template files.
+- CREATED: `project-control/commercial-pipeline-clean-integration-branch-2026-05-18.md`.
+- CREATED: `project-control/commercial-pipeline-clean-integration-branch-2026-05-18.csv`.
+- DECISION: do not deploy yet. Next gate is GitHub mergeability on the Codex integration branch, authenticated wp-admin/uPress Section 3 checks, then owner approval before merge/install/payment/account actions.
+- SAFETY: integration branch only. No live wp-admin login, uPress pull, plugin install, WooCommerce product, payment gateway, Morning account, user, lawyer profile, lead, order, subscription, invoice, CMS content, URL/redirect/canonical/noindex/sitemap, GA4/GSC, or database change.
+
+## LATEST WORK STATUS - 2026-05-18 21:15 Asia/Jerusalem
+- COMMERCIAL PIPELINE PATCH 1: addressed the three blockers found in `commercial-pipeline-branch-review-2026-05-18.md` so the branch can ship safely.
+- IMPLEMENTED FIX 1 (P0 orphan-payment): `justice_theme_plan_checkout_url()` now routes unauthenticated visitors to `/lawyer-registration/?plan_interest=...` for paid plans, only sending logged-in lawyers with a linked `justice_lawyer` profile to WooCommerce checkout. Registration -> magic-link -> dashboard -> checkout is now the single happy path.
+- IMPLEMENTED FIX 1 SAFETY-NET: `inc/woocommerce-subscription-bridge.php` now auto-creates a draft `justice_lawyer` profile from the WooCommerce customer (display name, email, billing phone) if a paying user has no linked profile yet. Profile is marked `source_type=woocommerce_checkout`, plan from the line item, and shows up in the Lawyer Onboarding queue for owner review. No payment can orphan.
+- IMPLEMENTED FIX 2 (P1 magic-link spam): resend endpoint now throttles per email (1 send / 60 seconds) and per IP (5 sends / hour) via transients. Successful sends invalidate the previous token only after the throttle check passes, so abuse cannot churn a real lawyer's active link.
+- IMPLEMENTED FIX 3 (merge state): this Codex integration branch applied the commercial flow on top of current `main` and resolved the `project-control/current-status.md` conflict by keeping both the existing Codex status history and this commercial status entry.
+- UPDATED: `project-control/commercial-pipeline-activation-2026-05-18.md` with the new flow walk-through (registration-first, safety-net path).
+- SAFETY: still no live database, CMS, payment, GA4/GSC or uPress change.
+- NEXT: rerun PHP lint and Section 3 pre-flight on this clean integration branch before any merge or uPress pull.
+
 ## LATEST WORK STATUS - 2026-05-18 20:03 Asia/Jerusalem
 - COMMERCIAL PIPELINE SECTION 3 PREFLIGHT: read `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` from `origin/claude/review-legal-portal-aRAzz` and executed only Section 3 checks.
 - RESULT 3.1: PR #5 is not mergeable. GitHub API reports `mergeable=false`, `mergeable_state=dirty`; local merge simulation confirms a conflict in `project-control/current-status.md`.

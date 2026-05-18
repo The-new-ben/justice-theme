@@ -11,6 +11,35 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 32 - GSC Money Query Opportunity Map
+
+Research reviewed:
+- Google Search Console Performance reports support query/page filters, impressions, clicks, CTR and average position. The guidance recommends reviewing low-CTR pages and improving title/snippet/content when the page is worth keeping. Source: https://support.google.com/webmasters/answer/7576553
+- Google's Search Console guidance says important low-CTR queries should be checked against generated titles/snippets and page content. Source: https://support.google.com/webmasters/answer/10268906
+- Google's title/snippet guidance says titles and snippets should accurately describe the page and match what users are looking for. Source: https://developers.google.com/search/docs/advanced/appearance/good-titles-snippets
+
+Business interpretation:
+- The most valuable next work is not generic traffic recovery. It is money-query recovery where there are thousands of impressions and almost no clicks.
+- Low CTR at position 9 is a snippet/conversion-path opportunity; low CTR at position 60 usually needs content depth, internal links and authority before title changes alone will matter.
+
+Implemented in this cycle:
+- Created `project-control/gsc-money-query-opportunity-map-2026-05-18.md`.
+- Created `project-control/gsc-money-query-opportunity-map-2026-05-18.csv`.
+- Mapped the top money-query opportunities across real estate, criminal, family/prenup, medical malpractice, traffic and homepage directory search.
+
+Verification:
+- Source data came from `justice_theme_emergency_master_2026_05_13/content-master/gsc-mirror/gsc-query-page-master.csv`.
+- Filtered for money keywords with at least 100 impressions and CTR under 2.5%.
+- Googlebot-style sample checks returned HTTP 200 and indexable for homepage, `/real-estate-attorney/`, the criminal indictment cancellation article, `/sex-crime-lawyer/`, `/prenup-attorney/`, `/traffic-lawyer/`, `/criminal-defense-attorney/`, and `/real-estate-lawyer-guide/`.
+- Repo change is planning/status-only, so no public deployment or uPress pull was required.
+
+Next step:
+- Prepare the real estate cluster consolidation packet first, especially `/real-estate-attorney/` versus `/real-estate-lawyer-guide/`, before public title/H1/meta/content edits.
+- Then prepare the criminal cluster consolidation packet because multiple criminal pages compete for high-impression commercial queries.
+
+Safety:
+- Repo-only GSC opportunity planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
 ## Priority Cycle 31 - GSC Traffic Drop Triage
 
 Research reviewed:

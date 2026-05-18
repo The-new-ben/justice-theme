@@ -1,0 +1,11 @@
+priority,query,url,clicks,impressions,ctr,position,cluster,live_check,next_action
+1,עורך דין מקרקעין,https://jus-tice.co.il/real-estate-attorney/,1,7986,0.01%,64.6,real_estate,200_indexable,review_against_real_estate_lawyer_guide_title_h1_content_internal_links
+2,ביטול כתב אישום,https://jus-tice.co.il/articles/%D7%9E%D7%97%D7%99%D7%A7%D7%AA-%D7%9B%D7%AA%D7%91-%D7%90%D7%99%D7%A9%D7%95%D7%9D-%D7%97%D7%96%D7%A8%D7%94-%D7%9E%D7%9B%D7%AA%D7%91-%D7%90%D7%99%D7%A9%D7%95%D7%9D-%D7%91%D7%99%D7%98%D7%95%D7%9C/,0,7771,0.00%,39.8,criminal,200_indexable,map_to_criminal_hub_and_lawyer_matching
+3,עורך דין עבירות מין,https://jus-tice.co.il/sex-crime-lawyer/,0,7171,0.00%,68.4,criminal,200_indexable,review_trust_scope_lawyer_route_and_related_criminal_links
+4,עורך דין פלילי מומלץ,https://jus-tice.co.il/%D7%A2%D7%95%D7%A8%D7%9B%D7%99-%D7%93%D7%99%D7%9F/%D7%A2%D7%95%D7%A8%D7%9B%D7%99-%D7%94%D7%93%D7%99%D7%9F-%D7%94%D7%9E%D7%A4%D7%95%D7%A8%D7%A1%D7%9E%D7%99%D7%9D-%D7%91%D7%99%D7%95%D7%AA%D7%A8-%D7%9C%D7%94%D7%92%D7%A0%D7%94-%D7%A4%D7%9C%D7%99%D7%9C/,0,7160,0.00%,23.6,criminal,not_sampled,title_snippet_search_intent_review
+5,עורך דין פלילי בתל אביב,https://jus-tice.co.il/%D7%9E%D7%A9%D7%A8%D7%93-%D7%A2%D7%95%D7%A8%D7%9B%D7%99-%D7%93%D7%99%D7%9F-%D7%A4%D7%9C%D7%99%D7%9C%D7%99-%D7%94%D7%9B%D7%99-%D7%98%D7%95%D7%91-%D7%AA%D7%9C-%D7%90%D7%91%D7%99%D7%91/,0,6482,0.00%,49.3,criminal_local,not_sampled,review_city_intent_and_real_lawyer_inventory
+6,עורך דין הסכם ממון,https://jus-tice.co.il/prenup-attorney/,0,6251,0.00%,59.0,family,200_indexable,connect_to_family_law_lawyer_journey
+7,עורך דין רשלנות רפואית בלידה,https://jus-tice.co.il/%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A8%D7%A9%D7%9C%D7%A0%D7%95%D7%AA-%D7%A8%D7%A4%D7%95%D7%90%D7%99%D7%AA-%D7%91%D7%9C%D7%99%D7%93%D7%94-%D7%9E%D7%95%D7%9E%D7%9C%D7%A5/,0,5763,0.00%,39.5,medical_malpractice,not_sampled,map_to_medmal_hub_and_birth_injury_support_pages
+8,חיפוש עורך דין לפי שם,https://jus-tice.co.il/,21,3891,0.54%,9.3,directory_search,200_indexable,improve_homepage_directory_search_promise_and_snippet
+9,עורך דין תעבורה,https://jus-tice.co.il/traffic-lawyer/,0,3455,0.00%,63.9,traffic,200_indexable,review_hub_intent_title_h1_support_links
+10,עורך דין פלילי,https://jus-tice.co.il/criminal-defense-attorney/,0,2929,0.00%,58.9,criminal,200_indexable,consolidate_criminal_commercial_hub_structure

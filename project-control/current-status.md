@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 18:04 Asia/Jerusalem
+- GSC MONEY QUERY OPPORTUNITY MAP: mined the query/page mirror for money keywords with impressions, weak CTR, and clear commercial intent.
+- RESEARCHED: Google Search Console Performance report and title/snippet guidance. Key point: the next recovery pass should filter by important queries/pages, then improve title/snippet/content alignment and internal links where important queries have low CTR.
+- FOUND: top commercial weak-CTR rows include `עורך דין מקרקעין` to `/real-estate-attorney/` (7,986 impressions, 0.01% CTR), `ביטול כתב אישום` to a criminal article (7,771 impressions, 0% CTR), `עורך דין עבירות מין` to `/sex-crime-lawyer/` (7,171 impressions, 0% CTR), `עורך דין הסכם ממון` to `/prenup-attorney/` (6,251 impressions, 0% CTR), and `עורך דין תעבורה` to `/traffic-lawyer/` (3,455 impressions, 0% CTR).
+- VERIFIED LIVE SAMPLE: homepage, `/real-estate-attorney/`, criminal indictment cancellation article, `/sex-crime-lawyer/`, `/prenup-attorney/`, `/traffic-lawyer/`, `/criminal-defense-attorney/`, and `/real-estate-lawyer-guide/` returned HTTP 200 and indexable to a Googlebot-style fetch.
+- CREATED: `project-control/gsc-money-query-opportunity-map-2026-05-18.md`.
+- CREATED: `project-control/gsc-money-query-opportunity-map-2026-05-18.csv`.
+- DECISION: next public content work should start with real estate and criminal cluster consolidation packets, then family/prenup, medical-malpractice birth, traffic, and homepage directory CTR.
+- UPRESS: no uPress pull needed because this cycle changed repo planning/status artifacts only; no deployable public theme code changed.
+- SAFETY: repo-only GSC opportunity planning and read-only live checks. No public CMS database row, article body, stored title/H1/meta, URL slug, redirect, noindex, canonical, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-18 17:54 Asia/Jerusalem
 - GSC TRAFFIC DROP TRIAGE: used the local GSC mirror to separate traffic-loss noise from commercial recovery work.
 - RESEARCHED: Google Search Console Performance report, title-link, and snippet guidance. Key point: recovery should be page/query-driven; compare pages and queries, then improve title/snippet/content/internal-link signals where impressions exist but CTR or recent visibility collapsed.

@@ -98,6 +98,18 @@ CURRENT CHECK RESULT AFTER OWNER MANUAL PULL:
 - Homepage analytics check: PASS via Autoptimize optimized script.
 - Homepage deployment marker: present.
 
+## 2026-05-18 Next Pull Needed
+
+- GitHub `main` now includes commit `c2c4328`
+  (`Add lawyer activation tracking fields`).
+- This commit changes admin-side lawyer activation fields in
+  `inc/lawyer-onboarding.php`, so public homepage asset checks cannot fully
+  prove it is live.
+- Browser/uPress control was still not exposed in the latest heartbeat session.
+- Next agent with browser/uPress control should run Git Pull in
+  `/wp-content/themes/justice-theme`, then verify the `Jus-Tice Lawyer
+  Activation` meta box exists on a `justice_lawyer` edit screen.
+
 PARTIAL / NOT FIXED BY PULL:
 
 - `https://jus-tice.co.il/robots.txt` returns HTTP 200 with zero-length body.

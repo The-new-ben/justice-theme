@@ -22,6 +22,8 @@
 - VERIFIED DEPLOYMENT AFTER OWNER MANUAL PULL: `node tools/check-live-deployment.mjs` now passes; live `assets/js/analytics-events.js` returns `200`, homepage serves analytics through Autoptimize, and deployment markers are present.
 - CREATED: `project-control/lawyer-time-to-first-value-plan-2026-05-18.md`, defining lawyer activation, first measurable value, retention value, at-risk rules and next owner/admin signals.
 - IMPLEMENTED: owner-only lawyer activation status fields in `inc/lawyer-onboarding.php` for `activation_status`, `first_value_at`, and `activation_owner_note`; new registrations start as `registered`.
+- PUSHED: GitHub `main` includes `c2c4328` (`Add lawyer activation tracking fields`).
+- UPRESS PULL NEEDED: latest admin activation fields are pushed to GitHub but not verified on uPress yet; browser/uPress control tool was not exposed in this heartbeat session.
 - BLOCKED: live GA4/GTM receipt, GA4 key-event configuration, payment provider selection, pricing/legal/tax/refund terms, and live payment activation remain unverified/not approved.
 - NEXT: continue the loop with browser/visual checks after deployment, CRM/admin verification, lawyer-registration value proposition and recurring lawyer-retention/product packaging.
 

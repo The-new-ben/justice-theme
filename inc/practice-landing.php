@@ -131,3 +131,89 @@ function justice_theme_is_practice_landing_page( ?WP_Post $post ): bool {
 
 	return null !== justice_theme_get_practice_landing_config( $post->post_name );
 }
+
+/**
+ * Return the normalized public request path for route-level practice guards.
+ *
+ * @return string
+ */
+function justice_theme_practice_landing_request_path(): string {
+	$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+	$request_path = (string) wp_parse_url( $request_uri, PHP_URL_PATH );
+
+	return '/' . trim( $request_path, '/' ) . '/';
+}
+
+/**
+ * Render the family-law practice hub when another content item owns /family-law/.
+ *
+ * The CMS currently has a court-judgment content item at this money URL. This
+ * render-only guard preserves the URL while preventing the wrong title/H1 from
+ * reaching users or Googlebot. It does not edit the database or create a
+ * redirect.
+ */
+function justice_theme_maybe_render_family_law_practice_route(): void {
+	if ( is_admin() || '/family-law/' !== justice_theme_practice_landing_request_path() ) {
+		return;
+	}
+
+	$config = justice_theme_get_practice_landing_config( 'family-law' );
+	if ( empty( $config ) ) {
+		return;
+	}
+
+	$title         = 'דיני משפחה וגירושין | עורך דין לענייני משפחה | Jus-Tice';
+	$description   = 'מרכז מידע משפטי על דיני משפחה, גירושין, מזונות, משמורת, חלוקת רכוש וסכסוכי משפחה, עם מדריכים מעשיים וחיבור לעורכי דין בתחום.';
+	$canonical_url = justice_theme_public_url( home_url( '/family-law/' ) );
+
+	status_header( 200 );
+
+	add_filter(
+		'pre_get_document_title',
+		static function () use ( $title ): string {
+			return $title;
+		},
+		PHP_INT_MAX
+	);
+	add_filter(
+		'wpseo_title',
+		static function () use ( $title ): string {
+			return $title;
+		},
+		PHP_INT_MAX
+	);
+	add_filter(
+		'wpseo_metadesc',
+		static function () use ( $description ): string {
+			return $description;
+		},
+		PHP_INT_MAX
+	);
+	add_filter(
+		'wpseo_canonical',
+		static function () use ( $canonical_url ): string {
+			return $canonical_url;
+		},
+		PHP_INT_MAX
+	);
+	add_filter(
+		'wpseo_robots',
+		static function (): string {
+			return 'index, follow';
+		},
+		PHP_INT_MAX
+	);
+
+	get_header();
+	get_template_part(
+		'template-parts/content/practice-landing-page',
+		null,
+		array(
+			'page_id' => 0,
+			'config'  => $config,
+		)
+	);
+	get_footer();
+	exit;
+}
+add_action( 'template_redirect', 'justice_theme_maybe_render_family_law_practice_route', -3500 );

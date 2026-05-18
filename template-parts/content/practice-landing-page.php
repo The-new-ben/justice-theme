@@ -126,7 +126,7 @@ if ( post_type_exists( 'articles' ) ) {
 				<?php endif; ?>
 
 				<?php
-				$page_content = trim( wp_strip_all_tags( get_post_field( 'post_content', $page_id ) ) );
+				$page_content = $page_id > 0 ? trim( wp_strip_all_tags( get_post_field( 'post_content', $page_id ) ) ) : '';
 				if ( $page_content ) :
 					?>
 					<div class="practice-landing__cms-content">

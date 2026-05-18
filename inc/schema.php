@@ -80,8 +80,8 @@ function justice_theme_article_schema() {
 		'dateModified'     => get_the_modified_date( DATE_W3C ),
 		'mainEntityOfPage' => esc_url_raw( justice_theme_public_permalink( get_the_ID() ) ),
 		'author'           => array(
-			'@type' => 'Organization',
-			'name'  => get_bloginfo( 'name' ),
+			'@type' => 'Person',
+			'name'  => 'עו״ד בן בטש',
 			'url'   => justice_theme_public_url( home_url( '/' ) ),
 		),
 		'publisher'        => array(
@@ -118,7 +118,7 @@ add_action( 'wp_head', 'justice_theme_article_schema', 20 );
  * from the subsequent h3 + p pattern.
  */
 function justice_theme_faq_schema() {
-	if ( ! is_singular( array( 'post', 'articles' ) ) ) {
+	if ( ! is_singular( array( 'post', 'articles', 'page' ) ) ) {
 		return;
 	}
 
@@ -142,7 +142,7 @@ function justice_theme_faq_schema() {
 
 	// Extract Q&A pairs from h3 + p pattern.
 	$questions = array();
-	if ( preg_match_all( '/<h3[^>]*>([^<]+)<\/h3>\s*<p>([^<]+(?:<[^h][^>]*>[^<]*<\/[^h][^>]*>)*[^<]*)<\/p>/us', $faq_content, $matches, PREG_SET_ORDER ) ) {
+	if ( preg_match_all( '/<h3[^>]*>(.+?)<\/h3>\s*<p>(.+?)<\/p>/us', $faq_content, $matches, PREG_SET_ORDER ) ) {
 		foreach ( $matches as $match ) {
 			$question = wp_strip_all_tags( $match[1] );
 			$answer   = wp_strip_all_tags( $match[2] );

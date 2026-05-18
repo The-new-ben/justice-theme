@@ -51,6 +51,11 @@ while ( have_posts() ) :
 					<?php the_title(); ?>
 				</h1>
 
+				<div class="single-article__author" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.8rem; font-size: 1rem; color: var(--jt-primary-deep); font-weight: 700;">
+					<span aria-hidden="true" style="font-size: 1.2rem;">✍️</span>
+					<span><?php esc_html_e( 'מאת עו״ד בן בטש', 'justice-theme' ); ?></span>
+				</div>
+
 				<div class="single-article__meta" style="display: flex; justify-content: center; gap: 1.5rem; color: var(--jt-muted); font-size: 0.95rem; font-weight: 600;">
 					<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>">
 						<?php echo esc_html( get_the_date() ); ?>

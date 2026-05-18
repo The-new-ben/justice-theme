@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-18 20:24 Asia/Jerusalem
+- TRAFFIC + UNSERVED LEAD MONETIZATION: shifted focus back to ranking/traffic/keywords and the owner's live problem: callers ask for lawyer categories where Jus-Tice has no paying partner yet.
+- RESEARCHED: Google people-first/YMYL guidance, Google indexing/link guidance, Nolo/Martindale-Avvo legal lead model, LegalZoom attorney-plan model, legal lead-generation ethics overview, Israeli Bar advertising rules sources, and Israeli intermediary/referral-fee risk sources.
+- REPO EVIDENCE: `content-master/gsc/gsc-url-summary.csv` already shows Thailand lawyer demand: the Hebrew Thailand lawyer URL has 59 clicks, 1,689 impressions, 3.49% CTR, average position 11.8.
+- REPO EVIDENCE: international/foreign demand is larger than one call: `/immigration-lawyer` has 43,300 impressions, `/german-passport` has 46,747, `/international-inheritance-wills-lawyer` has 14,123, `/international-litigation` has 6,936, `/apostille` has 6,588.
+- DECISION: safest first monetization path is lawyer-funded subscription/category seats with capped routed leads, plus an Unserved Demand Ledger; do not charge users merely for a referral until legal/ethics review.
+- CREATED: `project-control/traffic-and-unserved-lead-monetization-strategy-2026-05-18.md`.
+- CREATED: `project-control/unserved-lead-ledger-template-2026-05-18.csv`.
+- CREATED: `project-control/traffic-and-unserved-lead-monetization-priority-2026-05-18.csv`.
+- NEXT: implement an admin-side unserved-lead capture tool after the commercial PR path is settled, and continue money-query rescue + criminal/family journey audits in parallel.
+- UPRESS: no uPress pull needed because this is repo-only strategy/status; no deployable code was merged to `main`.
+- SAFETY: no live CMS content, WordPress database row, lawyer profile, lead record, payment setting, user account, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap setting, article body/title/H1/meta, taxonomy term, uPress deployment, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-18 20:03 Asia/Jerusalem
 - COMMERCIAL PIPELINE SECTION 3 PREFLIGHT: read `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` from `origin/claude/review-legal-portal-aRAzz` and executed only Section 3 checks.
 - RESULT 3.1: PR #5 is not mergeable. GitHub API reports `mergeable=false`, `mergeable_state=dirty`; local merge simulation confirms a conflict in `project-control/current-status.md`.

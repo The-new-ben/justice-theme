@@ -11,6 +11,36 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 29 - Employment Law Support-to-Hub Map
+
+Research reviewed:
+- Google's link guidance says internal links should be crawlable `<a href>` links and that clear anchor text helps both users and Google understand the destination. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Current 2026 internal-linking guidance recommends service hubs supported by related detail pages with varied, topically relevant anchors. Source: https://seoglen.com/guides/internal-linking-seo
+- Israeli employment-law competitors cluster around dismissal, severance, wage withholding, employee rights, employer representation, employment contracts, hearings, harassment at work, discrimination, pregnancy/parental rights, pensions, overtime and labor-court representation.
+
+Business interpretation:
+- `/labor-lawyer/` is a real commercial hub with 29,862 GSC impressions and only 3 clicks, which means the page has visibility but weak click/conversion capture.
+- The employment-law cluster has false positives and boundaries: foreign real-estate/Airbnb, work injury, insurance, foreign-worker permits, PDFs, and outdated corona/emergency-workplace content.
+- The safest next step is a boundary-aware support-to-hub map before public content edits.
+
+Implemented in this cycle:
+- Created `project-control/employment-law-support-to-hub-map-2026-05-18.md`.
+- Created `project-control/employment-law-support-to-hub-map-2026-05-18.csv`.
+- Mapped employment-contract, employee-employer relationship, Israeli labor law, work-capacity, foreign-worker permit, work-injury and employer-representation pages to the correct hub or boundary posture.
+- Flagged two high-impression 404 routes for route-history review before public recovery or redirect.
+
+Verification:
+- Googlebot-style live fetch returned HTTP 200/indexable for `/labor-lawyer/`, `/employment-contract/`, `/employer-worker-relationship/`, `/israeli-labor-law/`, `/income-protection-insurance/`, and `/working-permit-for-foreign-workers/`.
+- Found two route blockers: early-notice/firing URL under `/labor-law/` has 5,467 impressions but returned 404, and the Wolt courier employee-status URL has 5,806 impressions and 14 clicks but returned 404.
+- Repo change is planning-only, so no public deployment or uPress pull was required.
+
+Next step:
+- Owner approves the first public employment-law internal-link/content cleanup batch, starting with factual links from `/employment-contract/` and `/employer-worker-relationship/` into `/labor-lawyer/`.
+- Review the two high-impression 404 employment routes before deciding whether to recover, redirect, or leave them alone.
+
+Safety:
+- Planning-only repo update. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or uPress deployment was changed.
+
 ## Priority Cycle 28 - Traffic Law Support-to-Hub Map
 
 Research reviewed:

@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-18 16:00 Asia/Jerusalem
+- EMPLOYMENT LAW MONEY CLUSTER: converted employment-law and employment-boundary GSC evidence into a support-to-hub map for `/labor-lawyer/`.
+- RESEARCHED: Google crawlable/internal-link guidance, 2026 internal-linking hub guidance, and leading Israeli employment-law competitors. Key point: competitor pages cluster around dismissal, severance, wage withholding, employee rights, employer representation, employment contracts, hearings, harassment at work, discrimination, pregnancy/parental rights, pensions, overtime, and labor-court representation.
+- CREATED: `project-control/employment-law-support-to-hub-map-2026-05-18.md`.
+- CREATED: `project-control/employment-law-support-to-hub-map-2026-05-18.csv`.
+- VERIFIED LIVE: Googlebot-style fetch returned HTTP 200/indexable for `/labor-lawyer/`, `/employment-contract/`, `/employer-worker-relationship/`, `/israeli-labor-law/`, `/income-protection-insurance/`, and `/working-permit-for-foreign-workers/`.
+- FOUND BLOCKER: early-notice/firing URL under `/labor-law/` has 5,467 GSC impressions but normalized to `/labor-law/law-2731/` and returned HTTP 404.
+- FOUND BLOCKER: Wolt courier employee-status URL has 5,806 GSC impressions and 14 clicks but returned HTTP 404.
+- FOUND: `/labor-lawyer/` has 29,862 impressions and only 3 clicks, so the first approved public batch should strengthen factual click intent and connect employment-contract and employee-employer relationship pages into the hub.
+- FOUND: false positives and boundaries must be held out or handled carefully, including foreign real-estate/Airbnb, work-injury/national-insurance, income-protection insurance, foreign-worker permits, PDFs, and outdated corona/emergency workplace pages.
+- NEXT: owner approval is needed before public CMS edits; start with factual internal links from employment-contract and employee-employer relationship pages, then route-review the two high-impression 404 URLs.
+- UPRESS: no uPress pull was needed in this cycle because only repo planning artifacts changed; no deployable public theme code changed.
+- SAFETY: no public CMS/database content, article body, title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting or wp-admin setting was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 15:50 Asia/Jerusalem
 - TRAFFIC LAW MONEY CLUSTER: converted traffic-law and traffic/criminal-boundary evidence into a support-to-hub map for `/traffic-lawyer/`.
 - RESEARCHED: Google crawlable/internal-link guidance, 2026 internal-linking hub guidance, and leading Israeli traffic-law competitors. Key point: competitor pages cluster around drunk driving, license suspension, traffic points, speeding, phone use while driving, driving while disqualified, new-driver offenses, accident representation, administrative disqualification, vehicle impound/use bans, and traffic-court representation.

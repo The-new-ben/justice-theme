@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-18 20:49 Asia/Jerusalem
+- UNSERVED DEMAND RECRUITMENT PROOF PANEL: upgraded the admin-only ledger so logged unsupported calls become lawyer-sales evidence, not only CRM rows.
+- RESEARCHED: law-firm lead source/practice-area tracking, response-speed and conversion-reporting best practices. Key point: demand must be grouped by source and practice area so the business can sell partner seats with evidence.
+- CODED: `inc/unserved-demand.php` now renders a `Partner Recruitment Proof` table grouped by demand, country/jurisdiction, request count, high-urgency count, source channel, and latest request date.
+- CODED: each grouped row generates a sales line such as "Jus-Tice already received N request(s) for Thailand lawyer / Thailand and has no active partner yet."
+- CREATED: `project-control/unserved-demand-recruitment-proof-panel-2026-05-18.md`.
+- CREATED: `project-control/unserved-demand-recruitment-proof-panel-2026-05-18.csv`.
+- NEXT: lint and push PR #7; after deployment, test with one controlled owner-only call log and confirm the recruitment-proof row appears.
+- SAFETY: draft PR admin code only. No live wp-admin login, public form, CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-18 20:40 Asia/Jerusalem
 - UNSERVED DEMAND LEDGER ADMIN IMPLEMENTATION: implemented the first admin-only version on draft PR #7 so owner phone calls in unsupported categories can become measurable demand instead of lost time.
 - RESEARCHED: Clio/Lawmatics intake guidance this cycle; confirmed source, practice area, pipeline stage, follow-up deadline, and conversion/unserved status are core intake fields.

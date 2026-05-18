@@ -103,6 +103,10 @@ function justice_theme_render_unserved_demand_admin_page(): void {
 			<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=justice_export_unserved_demand' ), 'justice_export_unserved_demand' ) ); ?>">Export CSV</a>
 		</p>
 
+		<h2>Partner Recruitment Proof</h2>
+		<p>Use this table when contacting lawyers: it shows where Jus-Tice already has demand but no paying/routing partner.</p>
+		<?php justice_theme_unserved_demand_render_recruitment_summary(); ?>
+
 		<div style="display:grid;grid-template-columns:minmax(280px,420px) 1fr;gap:24px;align-items:start;">
 			<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:16px;">
 				<h2 style="margin-top:0;">Quick Log Phone Lead</h2>
@@ -357,6 +361,115 @@ function justice_theme_unserved_demand_stats(): array {
 		'High urgency'   => $urgent,
 		'Partner gaps'   => count( $areas ),
 	);
+}
+
+function justice_theme_unserved_demand_summary_rows(): array {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return array();
+	}
+
+	$query = justice_theme_unserved_demand_query( 200 );
+	$rows  = array();
+
+	foreach ( $query->posts as $post_item ) {
+		$post_id = $post_item instanceof WP_Post ? $post_item->ID : (int) $post_item;
+		$demand  = get_post_meta( $post_id, 'requested_area_raw', true ) ?: get_post_meta( $post_id, 'legal_area', true ) ?: 'unknown';
+		$country = get_post_meta( $post_id, 'requested_country', true ) ?: 'unknown';
+		$key     = sanitize_key( $demand . '-' . $country );
+
+		if ( ! isset( $rows[ $key ] ) ) {
+			$rows[ $key ] = array(
+				'demand'       => $demand,
+				'country'      => $country,
+				'count'        => 0,
+				'high_urgency' => 0,
+				'latest'       => '',
+				'sources'      => array(),
+			);
+		}
+
+		$rows[ $key ]['count']++;
+
+		$urgency = get_post_meta( $post_id, 'matter_urgency', true ) ?: get_post_meta( $post_id, 'urgency', true );
+		if ( 'high' === $urgency ) {
+			$rows[ $key ]['high_urgency']++;
+		}
+
+		$date = get_the_date( 'Y-m-d', $post_id );
+		if ( ! $rows[ $key ]['latest'] || $date > $rows[ $key ]['latest'] ) {
+			$rows[ $key ]['latest'] = $date;
+		}
+
+		$source = get_post_meta( $post_id, 'lead_source_channel', true ) ?: 'unknown';
+		if ( ! isset( $rows[ $key ]['sources'][ $source ] ) ) {
+			$rows[ $key ]['sources'][ $source ] = 0;
+		}
+		$rows[ $key ]['sources'][ $source ]++;
+	}
+
+	wp_reset_postdata();
+
+	usort(
+		$rows,
+		static function ( array $a, array $b ): int {
+			if ( $a['count'] === $b['count'] ) {
+				return strcmp( $b['latest'], $a['latest'] );
+			}
+
+			return $b['count'] <=> $a['count'];
+		}
+	);
+
+	return array_slice( $rows, 0, 10 );
+}
+
+function justice_theme_unserved_demand_render_recruitment_summary(): void {
+	$rows = justice_theme_unserved_demand_summary_rows();
+
+	if ( empty( $rows ) ) {
+		echo '<div class="notice notice-info inline"><p>No recruitment proof yet. Log the next unserved phone call to start building evidence.</p></div>';
+		return;
+	}
+	?>
+	<table class="widefat striped" style="margin-bottom:24px;">
+		<thead>
+			<tr>
+				<th>Demand</th>
+				<th>Country</th>
+				<th>Requests</th>
+				<th>High urgency</th>
+				<th>Sources</th>
+				<th>Latest</th>
+				<th>Sales line</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ( $rows as $row ) : ?>
+				<?php
+				$sources = array();
+				foreach ( $row['sources'] as $source => $count ) {
+					$sources[] = $source . ' x' . $count;
+				}
+				$sales_line = sprintf(
+					'Jus-Tice already received %d request(s) for %s%s and has no active partner yet.',
+					(int) $row['count'],
+					$row['demand'],
+					'unknown' !== $row['country'] ? ' / ' . $row['country'] : ''
+				);
+				?>
+				<tr>
+					<td><?php echo esc_html( $row['demand'] ); ?></td>
+					<td><?php echo esc_html( $row['country'] ); ?></td>
+					<td><?php echo esc_html( (string) $row['count'] ); ?></td>
+					<td><?php echo esc_html( (string) $row['high_urgency'] ); ?></td>
+					<td><?php echo esc_html( implode( ', ', $sources ) ); ?></td>
+					<td><?php echo esc_html( $row['latest'] ?: '-' ); ?></td>
+					<td><?php echo esc_html( $sales_line ); ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<?php
 }
 
 function justice_theme_unserved_demand_render_table( WP_Query $leads ): void {

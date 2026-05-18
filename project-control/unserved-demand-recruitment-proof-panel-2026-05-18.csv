@@ -1,0 +1,4 @@
+"file","change","verification","live_effect_now"
+"inc/unserved-demand.php","Adds Partner Recruitment Proof table grouped by demand country source latest date and urgency","Pending lint in this cycle","None until branch is deployed"
+"project-control/current-status.md","Records recruitment-proof panel work for other agents","git diff review","Repo status only"
+"project-control/task-board.csv","Adds task-board row for recruitment proof panel","git diff review","Repo status only"

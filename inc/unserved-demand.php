@@ -304,6 +304,156 @@ function justice_theme_handle_unserved_lead_log(): void {
 }
 add_action( 'admin_post_justice_log_unserved_lead', 'justice_theme_handle_unserved_lead_log' );
 
+function justice_theme_unserved_demand_meta_box(): void {
+	add_meta_box(
+		'justice_theme_unserved_demand',
+		'Jus-Tice Unserved Demand',
+		'justice_theme_render_unserved_demand_meta_box',
+		'justice_lead',
+		'normal',
+		'high'
+	);
+}
+add_action( 'add_meta_boxes', 'justice_theme_unserved_demand_meta_box' );
+
+function justice_theme_render_unserved_demand_meta_box( WP_Post $post ): void {
+	wp_nonce_field( 'justice_theme_unserved_demand_meta', 'justice_theme_unserved_demand_meta_nonce' );
+
+	$service_status = get_post_meta( $post->ID, 'service_status', true ) ?: 'served';
+	$reason         = get_post_meta( $post->ID, 'unserved_reason', true ) ?: 'no_partner';
+	$revenue        = get_post_meta( $post->ID, 'revenue_status', true ) ?: 'none';
+	$urgency        = get_post_meta( $post->ID, 'matter_urgency', true ) ?: get_post_meta( $post->ID, 'urgency', true ) ?: 'normal';
+	$channel        = get_post_meta( $post->ID, 'lead_source_channel', true ) ?: 'phone';
+	?>
+	<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
+		<p>
+			<label for="justice-service-status"><strong>Service status</strong></label>
+			<select id="justice-service-status" name="justice_unserved_meta[service_status]" style="width:100%;">
+				<?php foreach ( justice_theme_unserved_service_status_options() as $value => $label ) : ?>
+					<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $service_status, $value ); ?>><?php echo esc_html( $label ); ?></option>
+				<?php endforeach; ?>
+			</select>
+		</p>
+		<p>
+			<label for="justice-unserved-reason"><strong>Unserved reason</strong></label>
+			<select id="justice-unserved-reason" name="justice_unserved_meta[unserved_reason]" style="width:100%;">
+				<?php foreach ( justice_theme_unserved_reason_options() as $value => $label ) : ?>
+					<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $reason, $value ); ?>><?php echo esc_html( $label ); ?></option>
+				<?php endforeach; ?>
+			</select>
+		</p>
+		<p>
+			<label for="justice-revenue-status"><strong>Revenue status</strong></label>
+			<select id="justice-revenue-status" name="justice_unserved_meta[revenue_status]" style="width:100%;">
+				<?php foreach ( justice_theme_unserved_revenue_status_options() as $value => $label ) : ?>
+					<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $revenue, $value ); ?>><?php echo esc_html( $label ); ?></option>
+				<?php endforeach; ?>
+			</select>
+		</p>
+		<p>
+			<label for="justice-unserved-urgency"><strong>Urgency</strong></label>
+			<select id="justice-unserved-urgency" name="justice_unserved_meta[matter_urgency]" style="width:100%;">
+				<?php foreach ( justice_theme_unserved_urgency_options() as $value => $label ) : ?>
+					<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $urgency, $value ); ?>><?php echo esc_html( $label ); ?></option>
+				<?php endforeach; ?>
+			</select>
+		</p>
+		<p>
+			<label for="justice-source-channel"><strong>Source channel</strong></label>
+			<select id="justice-source-channel" name="justice_unserved_meta[lead_source_channel]" style="width:100%;">
+				<?php foreach ( justice_theme_unserved_source_channel_options() as $value => $label ) : ?>
+					<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $channel, $value ); ?>><?php echo esc_html( $label ); ?></option>
+				<?php endforeach; ?>
+			</select>
+		</p>
+		<p>
+			<label for="justice-requested-area"><strong>Requested area</strong></label>
+			<input id="justice-requested-area" name="justice_unserved_meta[requested_area_raw]" type="text" value="<?php echo esc_attr( get_post_meta( $post->ID, 'requested_area_raw', true ) ); ?>" style="width:100%;">
+		</p>
+		<p>
+			<label for="justice-requested-country"><strong>Country / jurisdiction</strong></label>
+			<input id="justice-requested-country" name="justice_unserved_meta[requested_country]" type="text" value="<?php echo esc_attr( get_post_meta( $post->ID, 'requested_country', true ) ); ?>" style="width:100%;">
+		</p>
+		<p>
+			<label for="justice-requested-city"><strong>City</strong></label>
+			<input id="justice-requested-city" name="justice_unserved_meta[requested_city]" type="text" value="<?php echo esc_attr( get_post_meta( $post->ID, 'requested_city', true ) ); ?>" style="width:100%;">
+		</p>
+		<p>
+			<label for="justice-requested-language"><strong>Language</strong></label>
+			<input id="justice-requested-language" name="justice_unserved_meta[requested_language]" type="text" value="<?php echo esc_attr( get_post_meta( $post->ID, 'requested_language', true ) ); ?>" style="width:100%;">
+		</p>
+		<p>
+			<label for="justice-follow-up-deadline"><strong>Follow-up deadline</strong></label>
+			<input id="justice-follow-up-deadline" name="justice_unserved_meta[follow_up_deadline]" type="text" value="<?php echo esc_attr( get_post_meta( $post->ID, 'follow_up_deadline', true ) ); ?>" style="width:100%;" placeholder="YYYY-MM-DD HH:MM:SS">
+		</p>
+		<p>
+			<label for="justice-source-url"><strong>Source URL</strong></label>
+			<input id="justice-source-url" name="justice_unserved_meta[source_landing_url]" type="url" value="<?php echo esc_attr( get_post_meta( $post->ID, 'source_landing_url', true ) ); ?>" style="width:100%;">
+		</p>
+		<p>
+			<label for="justice-recruitment-priority"><strong>Recruitment priority</strong></label>
+			<input id="justice-recruitment-priority" name="justice_unserved_meta[recruitment_priority]" type="text" value="<?php echo esc_attr( get_post_meta( $post->ID, 'recruitment_priority', true ) ); ?>" style="width:100%;" placeholder="review / high / low">
+		</p>
+	</div>
+	<p>
+		<label for="justice-owner-next-action"><strong>Owner next action</strong></label>
+		<textarea id="justice-owner-next-action" name="justice_unserved_meta[owner_next_action]" rows="3" style="width:100%;"><?php echo esc_textarea( get_post_meta( $post->ID, 'owner_next_action', true ) ); ?></textarea>
+	</p>
+	<p style="color:#646970;">Owner-only operational fields. These values power the Unserved Demand dashboard and export; they are not displayed publicly by this module.</p>
+	<?php
+}
+
+function justice_theme_save_unserved_demand_meta_box( int $post_id ): void {
+	$nonce = isset( $_POST['justice_theme_unserved_demand_meta_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_theme_unserved_demand_meta_nonce'] ) ) : '';
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'justice_theme_unserved_demand_meta' ) ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'edit_post', $post_id ) || ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ) {
+		return;
+	}
+
+	$input = isset( $_POST['justice_unserved_meta'] ) && is_array( $_POST['justice_unserved_meta'] ) ? wp_unslash( $_POST['justice_unserved_meta'] ) : array();
+	if ( empty( $input ) ) {
+		return;
+	}
+
+	$allowed_values = array(
+		'service_status'      => array_keys( justice_theme_unserved_service_status_options() ),
+		'unserved_reason'     => array_keys( justice_theme_unserved_reason_options() ),
+		'revenue_status'      => array_keys( justice_theme_unserved_revenue_status_options() ),
+		'matter_urgency'      => array_keys( justice_theme_unserved_urgency_options() ),
+		'lead_source_channel' => array_keys( justice_theme_unserved_source_channel_options() ),
+	);
+
+	foreach ( $allowed_values as $key => $allowed ) {
+		$value = isset( $input[ $key ] ) ? sanitize_key( $input[ $key ] ) : '';
+		if ( $value && in_array( $value, $allowed, true ) ) {
+			update_post_meta( $post_id, $key, $value );
+			if ( 'matter_urgency' === $key ) {
+				update_post_meta( $post_id, 'urgency', $value );
+			}
+		}
+	}
+
+	$text_fields = array(
+		'requested_area_raw',
+		'requested_country',
+		'requested_city',
+		'requested_language',
+		'follow_up_deadline',
+		'recruitment_priority',
+	);
+
+	foreach ( $text_fields as $key ) {
+		update_post_meta( $post_id, $key, isset( $input[ $key ] ) ? sanitize_text_field( $input[ $key ] ) : '' );
+	}
+
+	update_post_meta( $post_id, 'source_landing_url', isset( $input['source_landing_url'] ) ? esc_url_raw( $input['source_landing_url'] ) : '' );
+	update_post_meta( $post_id, 'owner_next_action', isset( $input['owner_next_action'] ) ? sanitize_textarea_field( $input['owner_next_action'] ) : '' );
+}
+add_action( 'save_post_justice_lead', 'justice_theme_save_unserved_demand_meta_box' );
+
 function justice_theme_mark_lead_unserved( int $lead_id, string $reason = 'no_partner', string $notes = '' ): void {
 	if ( ! $lead_id || 'justice_lead' !== get_post_type( $lead_id ) ) {
 		return;
@@ -331,6 +481,56 @@ function justice_theme_unserved_follow_up_deadline( string $urgency ): string {
 	}
 
 	return wp_date( 'Y-m-d H:i:s', $timestamp );
+}
+
+function justice_theme_unserved_service_status_options(): array {
+	return array(
+		'served'              => 'Served',
+		'unserved'            => 'Unserved',
+		'waiting_for_partner' => 'Waiting for partner',
+		'referred_out'        => 'Referred out',
+		'not_qualified'       => 'Not qualified',
+		'closed'              => 'Closed',
+	);
+}
+
+function justice_theme_unserved_reason_options(): array {
+	return array(
+		'no_partner'    => 'No matching partner',
+		'outside_scope' => 'Outside scope',
+		'unclear_area'  => 'Unclear area',
+		'no_budget'     => 'No budget',
+		'duplicate'     => 'Duplicate',
+		'spam'          => 'Spam',
+	);
+}
+
+function justice_theme_unserved_revenue_status_options(): array {
+	return array(
+		'none'                      => 'None',
+		'partner_recruitment_open'  => 'Partner recruitment open',
+		'partner_sold'              => 'Partner sold',
+		'converted_to_partner_lead' => 'Converted to partner lead',
+	);
+}
+
+function justice_theme_unserved_urgency_options(): array {
+	return array(
+		'low'    => 'Low',
+		'normal' => 'Normal',
+		'high'   => 'High',
+	);
+}
+
+function justice_theme_unserved_source_channel_options(): array {
+	return array(
+		'phone'    => 'Phone',
+		'whatsapp' => 'WhatsApp',
+		'form'     => 'Website form',
+		'email'    => 'Email',
+		'organic'  => 'Organic search',
+		'manual'   => 'Manual / other',
+	);
 }
 
 function justice_theme_unserved_demand_query( int $limit ): WP_Query {

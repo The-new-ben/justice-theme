@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-18 21:20 Asia/Jerusalem
+- UNSERVED DEMAND LEAD EDIT META BOX: upgraded PR #7 so unsupported calls can be edited and managed directly on each `justice_lead` admin record.
+- RESEARCHED: law-firm intake CRM best practices around source, practice area, status, urgency, follow-up deadline, and conversion/revenue tracking. Key point: every missed/unserved request must stay attached to an actionable lead record.
+- CODED: `inc/unserved-demand.php` now adds a `Jus-Tice Unserved Demand` meta box on the `justice_lead` edit screen.
+- CODED: admins can edit service status, unserved reason, revenue status, urgency, source channel, requested area, country/jurisdiction, city, language, follow-up deadline, source URL, recruitment priority, and owner next action.
+- CODED: save handling includes nonce verification, autosave guard, `edit_post` capability check, allowlisted select values, sanitized fields, and urgency compatibility with the existing `urgency` meta.
+- CREATED: `project-control/unserved-demand-lead-edit-meta-box-2026-05-18.md`.
+- CREATED: `project-control/unserved-demand-lead-edit-meta-box-2026-05-18.csv`.
+- VERIFIED: PHP lint clean on `inc/unserved-demand.php`, `inc/lead-routing.php`, and `functions.php`; `git diff --check` clean; live journey checker passed homepage lead path, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index, and robots.txt.
+- UPRESS: no uPress pull needed because this is draft PR code only; not merged to `main`.
+- SAFETY: no live wp-admin login, public form, CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-18 21:08 Asia/Jerusalem
 - UNSERVED DEMAND SOURCE ATTRIBUTION HARDENING: strengthened PR #7 so unsupported calls/forms can be measured by source channel, city, and language.
 - RESEARCHED: law-firm lead source attribution and intake conversion guidance. Key point: source, response time, practice area, and conversion stage must be tracked together before marketing/SEO decisions can be trusted.

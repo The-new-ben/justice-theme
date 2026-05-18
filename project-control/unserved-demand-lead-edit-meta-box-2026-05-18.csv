@@ -1,0 +1,15 @@
+field,value
+date,2026-05-18
+time_asia_jerusalem,21:20
+owner_problem,"Calls arrive for unsupported lawyer categories and leak owner time/revenue"
+research_focus,"Legal intake CRM best practice: source, practice area, status, urgency, follow-up, conversion/revenue tracking"
+code_change,"Added admin meta box on justice_lead edit screen"
+primary_file,inc/unserved-demand.php
+admin_surface,"justice_lead edit screen -> Jus-Tice Unserved Demand"
+fields_added,"service_status; unserved_reason; revenue_status; matter_urgency; lead_source_channel; requested_area_raw; requested_country; requested_city; requested_language; follow_up_deadline; source_landing_url; recruitment_priority; owner_next_action"
+validation,"nonce; edit_post capability; autosave guard; allowlisted select values; sanitized text/url/textarea fields"
+public_site_change,no
+database_live_change,no
+upress_pull_needed,no
+verification,"PHP lint clean for inc/unserved-demand.php, inc/lead-routing.php, functions.php; git diff --check clean; live journey checker passed homepage lawyer directory sample article lawyer registration plan-intent registration sitemap and robots"
+next_test_after_deploy,"Open one controlled justice_lead record in wp-admin and confirm the unserved-demand fields save and appear in the Unserved Demand dashboard/export"

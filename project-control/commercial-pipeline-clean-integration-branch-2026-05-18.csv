@@ -1,0 +1,7 @@
+"item","status","evidence","next_action"
+"Branch created","DONE","codex/commercial-pipeline-pr5-integration from current main","Open/verify PR"
+"Commercial code applied","DONE","Cherry-picked 2ebe724","Rerun full Section 3 before merge"
+"Commercial runbook applied","DONE","Cherry-picked 49c25df","Owner approval required after Section 3 passes"
+"Status conflict resolved","DONE","project-control/current-status.md keeps both main history and commercial entry","Review diff in PR"
+"Runbook diff-check cleanup","DONE","Diagram separator changed from equals to hyphens","Run git diff --check"
+"Live deployment","NOT_DONE","No uPress pull or public CMS change","Only after merge and owner approval"

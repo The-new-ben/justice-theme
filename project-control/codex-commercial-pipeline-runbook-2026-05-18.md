@@ -54,7 +54,7 @@ These are NOT options. They were decided in `commercial-pipeline-activation-2026
 
 ```
 LAWYER                       JUS-TICE THEME (this PR)               WOOCOMMERCE STACK            EXTERNAL
-=======                      ========================               ===================          ========
+------                       -------------------------              ------------------           --------
 
 clicks /lawyer-plans/ ─────► page-lawyer-plans.php
                              ↓

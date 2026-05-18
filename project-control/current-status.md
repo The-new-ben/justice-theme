@@ -6,6 +6,18 @@
 - SAFETY: documentation-only. No code, live database, plugin, account, payment or DNS change made by this commit.
 - NEXT: owner gives Codex permission to execute Sections 4–10. Cross-media advertising (Google Ads, FB, news-site media buying — the Din-style amplification layer the owner requested) is roadmapped into the runbook §12 as "DO NOT promise publicly until commercial spine is proven live".
 
+## LATEST WORK STATUS - 2026-05-18 20:08 Asia/Jerusalem
+- COMMERCIAL PIPELINE CLEAN INTEGRATION: created `codex/commercial-pipeline-pr5-integration` from current `main` so PR #5 code/runbook can be reviewed without force-pushing another agent's branch.
+- APPLIED: cherry-picked `2ebe724` commercial pipeline activation fixes and `49c25df` commercial runbook onto current `main`.
+- RESOLVED: `project-control/current-status.md` conflict by keeping the current `main` history and adding the commercial branch's status entry; no status history was removed.
+- RESEARCHED: current WooCommerce Subscriptions Health Check guidance and Morning for WooCommerce plugin notes. Key point: recurring revenue launch must include ongoing subscription-health monitoring and card-token recovery, not only a first checkout test.
+- CLEANED: changed one Markdown diagram separator in `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` so `git diff --check` does not treat it as an unresolved merge marker.
+- VERIFIED: PHP lint clean on all touched commercial PHP/template files.
+- CREATED: `project-control/commercial-pipeline-clean-integration-branch-2026-05-18.md`.
+- CREATED: `project-control/commercial-pipeline-clean-integration-branch-2026-05-18.csv`.
+- DECISION: do not deploy yet. Next gate is GitHub mergeability on the Codex integration branch, authenticated wp-admin/uPress Section 3 checks, then owner approval before merge/install/payment/account actions.
+- SAFETY: integration branch only. No live wp-admin login, uPress pull, plugin install, WooCommerce product, payment gateway, Morning account, user, lawyer profile, lead, order, subscription, invoice, CMS content, URL/redirect/canonical/noindex/sitemap, GA4/GSC, or database change.
+
 ## LATEST WORK STATUS - 2026-05-18 21:15 Asia/Jerusalem
 - COMMERCIAL PIPELINE PATCH 1: addressed the three blockers found in `commercial-pipeline-branch-review-2026-05-18.md` so the branch can ship safely.
 - IMPLEMENTED FIX 1 (P0 orphan-payment): `justice_theme_plan_checkout_url()` now routes unauthenticated visitors to `/lawyer-registration/?plan_interest=...` for paid plans, only sending logged-in lawyers with a linked `justice_lawyer` profile to WooCommerce checkout. Registration -> magic-link -> dashboard -> checkout is now the single happy path.

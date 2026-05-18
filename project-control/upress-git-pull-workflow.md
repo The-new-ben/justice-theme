@@ -19,6 +19,9 @@ Do not store credentials in this file.
 - Git status action: VERIFIED.
 - Git pull action: VERIFIED.
 - Direct SSH/WP-CLI: NOT AVAILABLE in this session.
+- Current Codex browser automation: NOT EXPOSED in the 2026-05-18 heartbeat
+  session. If no browser/control tool is available, record the blocker and run
+  `node tools/check-live-deployment.mjs` after the owner or another agent pulls.
 
 ## Verified Steps
 
@@ -61,6 +64,36 @@ VERIFIED:
   - `articles-sitemap2.xml`: 0 HTTP / 200 HTTPS
   - `practice-areas-sitemap.xml`: 0 HTTP / 40 HTTPS
   - `category-sitemap.xml`: 0 HTTP / 16 HTTPS
+
+## 2026-05-18 Pull Needed
+
+BLOCKED IN CURRENT CODEX SESSION:
+
+- GitHub `main` now includes commit `08a3844`
+  (`Add lawyer growth analytics and journey checks`).
+- The public site still returns `404` for
+  `https://jus-tice.co.il/wp-content/themes/justice-theme/assets/js/analytics-events.js`.
+- This means uPress has not pulled the latest theme code yet, or cache/file
+  serving has not caught up after the pull.
+- Browser/uPress control tools were not exposed in the active Codex heartbeat
+  session, so the pull could not be executed directly from this session.
+
+POST-PULL VERIFICATION:
+
+- Run `node tools/check-live-deployment.mjs`.
+- Expected result after successful uPress pull:
+  - analytics asset returns HTTP `200`;
+  - homepage source includes `analytics-events.js`;
+  - homepage still includes `justice-deployment-marker` and
+    `justice-theme-version`.
+
+CURRENT CHECK RESULT:
+
+- `node tools/check-live-deployment.mjs` was run before uPress pull.
+- Result: BLOCKED.
+- Live analytics asset: HTTP `404`.
+- Homepage enqueue check: missing `analytics-events.js`.
+- Homepage deployment marker: present.
 
 PARTIAL / NOT FIXED BY PULL:
 

@@ -283,3 +283,31 @@ Verification:
 
 Next cycle recommendation:
 - Extend the journey checker with browser screenshots after deployment, especially for mobile visitor flow and lawyer registration.
+
+## Cycle 10 - Deployment Proof And Activation Discipline
+
+Research reviewed:
+- 2026 SaaS onboarding guidance emphasizes activation events and time-to-first-value, not just page visits or completed setup. Source: https://www.arcade.software/post/customer-onboarding-best-practices
+- Current legal-intake automation guidance emphasizes fast response, follow-up sequences and CRM workflow triggers as the practical difference between generated leads and signed clients. Sources: https://inoriseo.com/law-firm-seo/law-firm-marketing-automation/, https://softabase.com/guides/client-intake-automation-law-firms
+
+Business interpretation:
+- Jus-Tice must prove that code actually reached the live site before measuring activation, GA4 events, lawyer onboarding or CRM follow-up value.
+- Deployment verification is now part of the business loop: no uPress pull means no live analytics, no live CRM SLA UI and no reliable customer/lawyer journey validation.
+
+Implemented in this cycle:
+- Added `tools/check-live-deployment.mjs`, a read-only live deployment checker.
+- Updated `project-control/upress-git-pull-workflow.md` with the 2026-05-18 pull blocker and the exact post-pull verification command.
+- No public CMS content, lead records, redirects, payment logic, sitemap settings, wp-admin settings or database rows were changed.
+
+Verification:
+- `node --check tools/check-live-deployment.mjs` passed.
+- `node --check tools/check-live-journeys.mjs` passed.
+- `git diff --check` passed with line-ending warnings only.
+- `node tools/check-live-deployment.mjs` correctly returned BLOCKED: live analytics asset is `404`, homepage does not enqueue `analytics-events.js`, and homepage deployment marker is present.
+
+Current deployment blocker:
+- GitHub main includes `08a3844`, but the live analytics asset still returns HTTP `404`, so uPress has not pulled the latest pushed code yet.
+- Browser/uPress control tools are not exposed in this Codex heartbeat session.
+
+Next cycle recommendation:
+- Once uPress pull is completed by an agent with browser control or by the owner, run `node tools/check-live-deployment.mjs` and then verify GA4/GTM receipt for the new events.

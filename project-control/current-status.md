@@ -17,6 +17,9 @@
 - UPDATED: `project-control/goal-execution-loop-2026-05-18.md`, `project-control/analytics-monitoring-plan.md`, and `project-control/ga4-event-plan.csv`.
 - VERIFIED: `node --check assets/js/analytics-events.js` passed; `node --check tools/check-live-journeys.mjs` passed; `php -l inc/enqueue.php` passed; `php -l inc/lead-crm.php` passed.
 - VERIFIED LIVE: `node tools/check-live-journeys.mjs` passed sampled public user, lawyer customer and Googlebot checks for homepage, `/lawyers/`, sample article, `/lawyer-registration/`, `/lawyer-registration/?plan_interest=pro`, `/sitemap_index.xml` and `/robots.txt`.
+- CREATED: `tools/check-live-deployment.mjs`, a read-only checker that proves whether the pushed growth analytics batch is actually served by uPress.
+- VERIFIED: `node --check tools/check-live-deployment.mjs` passed.
+- BLOCKED DEPLOYMENT: `node tools/check-live-deployment.mjs` confirms GitHub `main` includes `08a3844`, but live `assets/js/analytics-events.js` still returns `404` and homepage does not enqueue `analytics-events.js`, so uPress Git Pull is still needed.
 - BLOCKED: live GA4/GTM receipt, GA4 key-event configuration, payment provider selection, pricing/legal/tax/refund terms, and live payment activation remain unverified/not approved.
 - NEXT: continue the loop with browser/visual checks after deployment, CRM/admin verification, lawyer-registration value proposition and recurring lawyer-retention/product packaging.
 

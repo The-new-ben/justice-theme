@@ -1,3 +1,26 @@
+## LATEST WORK STATUS - 2026-05-18 19:06 Asia/Jerusalem
+- LAWYER DEMO ACCOUNT JOURNEY PACKET: converted the hidden lawyer/private-zone/payment/value gap into a concrete owner-verifiable demo journey plan.
+- RESEARCHED: 2026 legal intake/client-portal best practices from Clio, Lawmatics, US Tech Automations and CounselStack. Key point: a winning system links intake, fast follow-up, private portal, payment/status and recurring value reporting; a static registration page is not enough.
+- REVIEWED REPO STATE: previous lawyer commercial status artifacts are still uncommitted local work; no conflicting user changes were detected.
+- CREATED: `project-control/lawyer-demo-account-journey-packet-2026-05-18.md`.
+- CREATED: `project-control/lawyer-demo-account-journey-packet-2026-05-18.csv`.
+- DECISION: next safe implementation should make `/lawyer-dashboard/` show a clear first-value/status panel and then create a demo linked lawyer account only after owner approval for live/staging test data.
+- UPRESS: no uPress pull needed because this cycle changed repo planning/status artifacts only; no deployable public theme code changed.
+- SAFETY: repo-only implementation packet. No user account, lawyer profile, lead record, payment product, subscription, invoice, public CMS content, URL, redirect, noindex/canonical rule, sitemap setting, GA4/GSC setting, WordPress database row or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-18 18:56 Asia/Jerusalem
+- LAWYER COMMERCIAL SYSTEM VISIBILITY STATUS: answered the owner question about what actually exists for lawyer registration, private zone, account, payments, leads, insights and value.
+- RESEARCHED: 2026 legal intake/client-portal best practices. Key point: winning systems do not stop at a registration form; they connect intake, CRM/follow-up, payment path, private dashboard and recurring value reporting.
+- VERIFIED LIVE: `node tools/check-live-journeys.mjs` passed homepage lead path, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap and robots.
+- VERIFIED LIVE: `/lawyer-registration/`, `/lawyer-registration/?plan_interest=pro`, `/lawyer-plans/`, `/lawyer-dashboard/`, and `/lawyers/` return HTTP 200.
+- FOUND: the lawyer business system exists as infrastructure/MVP: registration, draft lawyer profile creation, plan-interest preservation, owner onboarding admin, Justice CRM, lead routing, gated lawyer dashboard, content requests, owner activation fields, monthly value report spec and time-to-first-value plan.
+- FOUND GAP: public-visible revenue engine is not finished: no live payment checkout/recurring billing, no confirmed payment provider/product IDs, no finalized qualified-lead billing rules, no frictionless self-service account linking, and no finished lawyer-facing monthly value report.
+- CREATED: `project-control/lawyer-commercial-system-visibility-status-2026-05-18.md`.
+- CREATED: `project-control/lawyer-commercial-system-visibility-status-2026-05-18.csv`.
+- NEXT: make the lawyer funnel more visible on `/lawyer-plans/` and `/lawyer-registration/`, then create an owner-verifiable demo linked lawyer account/private-zone journey before activating payments.
+- UPRESS: no uPress pull needed because this cycle changed repo planning/status artifacts only; no deployable public theme code changed.
+- SAFETY: repo-only status/planning and read-only live checks. No public CMS database row, lawyer profile, lead record, payment setting, user account, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap setting, article body, title/H1/meta, taxonomy term or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-18 18:42 Asia/Jerusalem
 - SPAM FOOTPRINT DISCOVERY QUEUE: expanded the casino cleanup from two visible URLs into a controlled discovery/removal workflow.
 - RESEARCHED: Google Removals, hacked URL, recrawl, and 404/410 guidance. Key point: use exact URL removals for hacked URLs, keep permanent 404/410/noindex signals, and do not block the whole site or legitimate legal prefixes.

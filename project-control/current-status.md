@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-18 16:51 Asia/Jerusalem
+- INHERITANCE TOPIC LINK BUG FIX: replaced dead inheritance topic-cluster links to `/will/`, `/will-contest/`, and `/estate-administration/` with live verified support URLs.
+- RESEARCHED: Google redirect/site-move/soft-404 guidance. Key point: redirect or link only to meaningful equivalent pages; do not mask missing/conflicted URLs with broad unrelated destinations.
+- IMPLEMENTED: `template-parts/sections/topic-clusters.php` now links inheritance users to `/inheritance-order/`, `/will-and-testament/`, `/will-probate-objection/`, and `/what-is-a-probate-order/`.
+- UPDATED: deployment marker to `2026-05-18-inheritance-topic-links-v1`; live marker checkers now expect it.
+- CREATED: `project-control/will-route-conflict-review-2026-05-18.md`.
+- CREATED: `project-control/will-route-conflict-review-2026-05-18.csv`.
+- DEPLOYED: commit `5e6973b` was pushed to GitHub `main`; Codex opened uPress File Manager Git management for `wp-content/themes/justice-theme` and clicked Pull Git.
+- VERIFIED LIVE: HTML sitemap/footer checker, owner-phone checker, traffic-priority audit and reachability checker all passed after the uPress pull.
+- DECISION: `/will/` remains blocked for route-history review because it is live 404/noindex and is a 10-row duplicate slug conflict; do not blanket-redirect it.
+- SAFETY: theme link correction plus read-only route review. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 16:41 Asia/Jerusalem
 - INHERITANCE/WILLS SUPPORT MAP: converted the recovered `/inheritance-lawyer/` route into the next owner-approval content/internal-link batch.
 - RESEARCHED: Google crawlable-link and title-link guidance plus leading Israeli inheritance/wills competitors. Key point: competitors cluster around inheritance orders, probate orders, wills, objections to wills, estate administration, heir disputes, estate division, capacity and undue influence.

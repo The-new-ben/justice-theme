@@ -1,0 +1,8 @@
+old_or_current_url,status,evidence,recommended_decision,safety_note
+https://jus-tice.co.il/will/,BLOCKED,Live 404/noindex and 10-row slug conflict,Do not recover or redirect blindly,No route change executed
+https://jus-tice.co.il/will-contest/,REPLACED_LINK,Not a verified live support URL in current inheritance map,Use https://jus-tice.co.il/will-probate-objection/ in topic links,Theme link corrected
+https://jus-tice.co.il/estate-administration/,REPLACED_LINK,Live 404/noindex,Use https://jus-tice.co.il/what-is-a-probate-order/ in topic links until a real estate-administration page exists,Theme link corrected
+https://jus-tice.co.il/will-and-testament/,LIVE_REPLACEMENT,Live 200/indexable,Use for basic will explainer intent,No CMS edit executed
+https://jus-tice.co.il/will-probate-objection/,LIVE_REPLACEMENT,Live 200/indexable,Use for objection to will/probate dispute intent,No CMS edit executed
+https://jus-tice.co.il/inheritance-order/,LIVE_REPLACEMENT,Live 200/indexable,Use for inheritance order intent,No CMS edit executed
+https://jus-tice.co.il/what-is-a-probate-order/,LIVE_REPLACEMENT,Live 200/indexable,Use for probate order intent,No CMS edit executed

@@ -986,3 +986,39 @@ Remaining work:
 
 Safety:
 - Repo-only planning and live read-only audit. No CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.
+
+## Priority Cycle 34 - Inheritance Topic Link Bug Fix And `/will/` Route Review
+
+Research reviewed:
+- Google redirect guidance says redirects are useful when content has moved, been removed with a new destination, or when merging URLs. Source: https://developers.google.com/search/docs/crawling-indexing/301-redirects
+- Google site-move guidance recommends a URL mapping from current URLs to corresponding new URLs before redirects. Source: https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes
+- Google soft-404 guidance discourages successful pages for non-existent content because they confuse users/search engines and can waste crawl coverage. Source: https://developers.google.com/search/blog/2008/08/farewell-to-soft-404s
+
+Business interpretation:
+- The site should not link users or Googlebot to `/will/`, `/will-contest/`, or `/estate-administration/` while those are not verified live destinations.
+- `/will/` is not safe for blanket recovery because the repo shows it as a 10-row duplicate target for several different case-law intents.
+
+Implemented in this cycle:
+- Updated `template-parts/sections/topic-clusters.php`.
+- Replaced `/will/` with `/will-and-testament/`.
+- Replaced `/will-contest/` with `/will-probate-objection/`.
+- Replaced `/estate-administration/` with `/what-is-a-probate-order/`.
+- Added `/inheritance-order/` to the inheritance topic cluster.
+- Updated `JUSTICE_DEPLOY_MARKER` to `2026-05-18-inheritance-topic-links-v1`.
+- Created `project-control/will-route-conflict-review-2026-05-18.md`.
+- Created `project-control/will-route-conflict-review-2026-05-18.csv`.
+
+Verification:
+- PHP lint passed for `functions.php` and `template-parts/sections/topic-clusters.php`.
+- Node syntax checks passed for live checkers.
+- Static scan found no remaining hardcoded `'/will/'`, `'/will-contest/'`, or `'/estate-administration/'` links in `template-parts`, `inc`, `tools`, or `functions.php`.
+- `git diff --check` passed with line-ending warnings only.
+- Commit `5e6973b` was pushed to GitHub `main`.
+- Codex opened uPress File Manager Git management for `/wp-content/themes/justice-theme` and clicked Pull Git.
+- Live HTML sitemap/footer checker, owner-phone checker, traffic-priority audit and reachability checker all passed after the pull.
+
+Remaining work:
+- Review each old URL mapped to `/will/` and choose a specific equivalent target, merge target, or true 404/410 decision. Do not blanket redirect `/will/` to homepage or `/inheritance-lawyer/`.
+
+Safety:
+- Theme link correction plus read-only route review. No CMS database row, article body, stored WordPress title/H1/meta, URL slug, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.

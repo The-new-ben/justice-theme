@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-18 21:15 Asia/Jerusalem
+- COMMERCIAL PIPELINE PATCH 1: addressed the three blockers found in `commercial-pipeline-branch-review-2026-05-18.md` so the branch can ship safely.
+- IMPLEMENTED FIX 1 (P0 orphan-payment): `justice_theme_plan_checkout_url()` now routes unauthenticated visitors to `/lawyer-registration/?plan_interest=...` for paid plans, only sending logged-in lawyers with a linked `justice_lawyer` profile to WooCommerce checkout. Registration -> magic-link -> dashboard -> checkout is now the single happy path.
+- IMPLEMENTED FIX 1 SAFETY-NET: `inc/woocommerce-subscription-bridge.php` now auto-creates a draft `justice_lawyer` profile from the WooCommerce customer (display name, email, billing phone) if a paying user has no linked profile yet. Profile is marked `source_type=woocommerce_checkout`, plan from the line item, and shows up in the Lawyer Onboarding queue for owner review. No payment can orphan.
+- IMPLEMENTED FIX 2 (P1 magic-link spam): resend endpoint now throttles per email (1 send / 60 seconds) and per IP (5 sends / hour) via transients. Successful sends invalidate the previous token only after the throttle check passes, so abuse cannot churn a real lawyer's active link.
+- IMPLEMENTED FIX 3 (merge state): this Codex integration branch applied the commercial flow on top of current `main` and resolved the `project-control/current-status.md` conflict by keeping both the existing Codex status history and this commercial status entry.
+- UPDATED: `project-control/commercial-pipeline-activation-2026-05-18.md` with the new flow walk-through (registration-first, safety-net path).
+- SAFETY: still no live database, CMS, payment, GA4/GSC or uPress change.
+- NEXT: rerun PHP lint and Section 3 pre-flight on this clean integration branch before any merge or uPress pull.
+
 ## LATEST WORK STATUS - 2026-05-18 20:03 Asia/Jerusalem
 - COMMERCIAL PIPELINE SECTION 3 PREFLIGHT: read `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` from `origin/claude/review-legal-portal-aRAzz` and executed only Section 3 checks.
 - RESULT 3.1: PR #5 is not mergeable. GitHub API reports `mergeable=false`, `mergeable_state=dirty`; local merge simulation confirms a conflict in `project-control/current-status.md`.

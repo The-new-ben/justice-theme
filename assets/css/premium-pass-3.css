@@ -2582,6 +2582,13 @@
   text-decoration: none;
 }
 
+.brand-lockup__icon img {
+  display: block;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+}
+
 .brand-lockup__wordmark {
   display: inline-flex;
   align-items: center;
@@ -2762,6 +2769,11 @@
 @media (max-width: 620px) {
   .brand-lockup--justice {
     gap: 0.5rem;
+  }
+
+  .brand-lockup__icon img {
+    width: 30px;
+    height: 30px;
   }
 
   .brand-lockup--justice .brand-lockup__text {

@@ -19,6 +19,12 @@
   color: var(--jt-primary-deep, #07152f);
 }
 .brand-lockup__icon svg { width: 30px; height: 30px; }
+.brand-lockup__icon img {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  display: block;
+}
 .brand-lockup__name { font-size: 1.2rem; letter-spacing: 0; display: none; }
 .brand-lockup__tagline { font-size: 0.72rem; letter-spacing: 0; text-transform: uppercase; }
 
@@ -39,6 +45,7 @@
 @media (max-width: 520px) {
   .brand-lockup__wordmark { font-size: 1.25rem; }
   .brand-lockup__icon svg { width: 24px; height: 24px; }
+  .brand-lockup__icon img { width: 30px; height: 30px; }
   .brand-lockup__red-dot { width: 7px; height: 7px; margin: 0 2px; }
   .brand-lockup__text { display: none; }
 }

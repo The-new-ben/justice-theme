@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'JUSTICE_THEME_VERSION', '1.1.0' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-05-18-medmal-support-links-v1' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-05-18-brand-favicon-spam-guard-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -23,6 +23,7 @@ $justice_theme_files = array(
 	'inc/lawyer-rest-guards.php',
 	'inc/breadcrumbs.php',
 	'inc/routing-guards.php',
+	'inc/spam-url-guards.php',
 	'inc/diagnostics.php',
 	'inc/schema.php',
 	'inc/seo.php',

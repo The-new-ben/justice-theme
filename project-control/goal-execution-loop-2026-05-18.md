@@ -11,6 +11,37 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 34 - Favicon And Casino Spam Indexing Fix
+
+Research reviewed:
+- Google Search Central says the homepage should expose a crawlable favicon with supported `rel` values, the favicon should be square, stable, and larger than 48x48 for best display, and Google supports one favicon per hostname. Source: https://developers.google.com/search/docs/appearance/favicon-in-search
+- Search Console Removals guidance says deleted URLs can still appear temporarily and the removals tool can hide URLs while permanent removal is handled by 404/410/noindex signals. Source: https://support.google.com/webmasters/answer/9689846
+
+Business interpretation:
+- The missing Google favicon is not just Yoast versus Rank Math. The live page exposed multiple competing icon systems, including the unwanted J mark, so Google could pick the wrong source or fall back to the globe.
+- Deleted casino spam results need two tracks: server-side permanent removal signals and Search Console temporary removals for fast hiding.
+
+Implemented in this cycle:
+- Removed hardcoded J favicon links from `header.php`.
+- Added canonical scales favicon head output and favicon-tag cleanup in `inc/seo.php`.
+- Added root `/favicon.ico` and `/favicon.png` serving plus deleted casino/gambling spam 410 guard in `inc/spam-url-guards.php`.
+- Combined the legacy scales logo asset with the Jus-Tice wordmark in header/footer while preserving the blinking red dot.
+- Added `tools/check-live-favicon-and-spam-guard.mjs`.
+- Updated deployment marker to `2026-05-18-brand-favicon-spam-guard-v1`.
+- Created `project-control/favicon-and-casino-spam-indexing-fix-2026-05-18.md` and `.csv`.
+
+Verification:
+- PHP lint passed for all touched PHP files.
+- JS syntax check passed for the new live checker.
+- `git diff --check` passed.
+
+Next step:
+- Push and pull Git in uPress, then run `node tools/check-live-favicon-and-spam-guard.mjs`.
+- Request homepage recrawl in Search Console. Submit exact casino URLs in Search Console Removals if they must disappear faster than normal recrawl.
+
+Safety:
+- Theme-level technical SEO/brand fix only. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value was changed.
+
 ## Priority Cycle 33 - Real Estate Cluster Consolidation Packet
 
 Research reviewed:

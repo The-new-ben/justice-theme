@@ -15,8 +15,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#07152f">
-	<link rel="icon" type="image/png" href="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/favicon-gen.png' ); ?>">
-	<link rel="apple-touch-icon" href="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/favicon-gen.png' ); ?>">
 	<?php wp_head(); ?>
 </head>
 

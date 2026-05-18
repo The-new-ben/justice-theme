@@ -1,0 +1,7 @@
+item,type,target,before,after,verification
+1,favicon_head,homepage,Multiple competing favicon sources including favicon-gen old J fbrfg plugin and cropped-jus-tice-ai,One canonical scales favicon set from theme assets with data-justice-theme brand-icon,post_deploy_checker
+2,root_favicon,/favicon.ico,404,theme serves favicon.ico with HTTP 200,post_deploy_checker
+3,root_favicon,/favicon.png,404,theme serves favicon-512.png with HTTP 200,post_deploy_checker
+4,brand_logo,header_footer_fallback,Document/J-style inline icon,Legacy circular scales image combined with Jus-Tice wordmark and blinking red dot,php_lint
+5,spam_url_guard,casino_gambling_deleted_paths,Deleted hacked URLs could remain as generic 404/WordPress paths,Matching casino/gambling spam paths return 410 and X-Robots-Tag noindex nofollow,post_deploy_checker
+6,deployment_marker,theme_marker,2026-05-18-medmal-support-links-v1,2026-05-18-brand-favicon-spam-guard-v1,post_deploy_checker

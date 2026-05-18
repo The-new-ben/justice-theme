@@ -1122,33 +1122,85 @@ function justice_theme_filter_directory_robots_meta(): void {
 add_action( 'wp_head', 'justice_theme_filter_directory_robots_meta', 0 );
 
 /**
- * Provide branded fallback icon links when no WordPress Site Icon is set.
+ * Suppress conflicting favicon stacks so Google sees one stable brand icon.
  *
- * WordPress outputs the selected Site Icon automatically when it exists, so the
- * favicon fallback stays out of the way of the admin-controlled source.
+ * The site has previously exposed theme, plugin and WordPress Site Icon links
+ * at the same time. Google may choose any eligible icon, so keep one canonical
+ * scales mark in public head output.
  */
-function justice_theme_fallback_site_icon(): void {
-	if ( has_site_icon() ) {
-		return;
-	}
-
-	$theme_uri = JUSTICE_THEME_URI . '/assets/images';
-
-	echo '<link rel="icon" href="' . esc_url( $theme_uri . '/favicon.ico' ) . '" sizes="any">' . "\n";
-	echo '<link rel="icon" href="' . esc_url( $theme_uri . '/favicon.svg' ) . '" type="image/svg+xml">' . "\n";
-	echo '<link rel="icon" href="' . esc_url( $theme_uri . '/favicon-512.png' ) . '" type="image/png" sizes="512x512">' . "\n";
-	echo '<link rel="apple-touch-icon" href="' . esc_url( $theme_uri . '/apple-touch-icon.png' ) . '" sizes="180x180">' . "\n";
+function justice_theme_start_brand_icon_buffer(): void {
+	ob_start( 'justice_theme_filter_brand_icon_output' );
 }
-add_action( 'wp_head', 'justice_theme_fallback_site_icon', 2 );
+add_action( 'wp_head', 'justice_theme_start_brand_icon_buffer', 0 );
 
 /**
- * Expose a stable mobile app manifest when the admin icon stack is absent.
+ * Flush the public head favicon cleanup buffer after plugin output finishes.
+ */
+function justice_theme_flush_brand_icon_buffer(): void {
+	if ( ob_get_level() > 0 ) {
+		ob_end_flush();
+	}
+}
+add_action( 'wp_head', 'justice_theme_flush_brand_icon_buffer', 1000 );
+
+/**
+ * Remove plugin/admin icon tags while preserving the Justice brand icon set.
+ *
+ * @param string $html Buffered wp_head output.
+ * @return string
+ */
+function justice_theme_filter_brand_icon_output( string $html ): string {
+	$html = preg_replace_callback(
+		'#<link\b[^>]*>\s*#i',
+		static function ( array $matches ): string {
+			$tag = $matches[0];
+
+			if ( false !== stripos( $tag, 'data-justice-theme="brand-icon"' ) ) {
+				return $tag;
+			}
+
+			if (
+				preg_match( '#\brel=["\'][^"\']*(?:icon|apple-touch-icon|mask-icon)[^"\']*["\']#i', $tag )
+				|| false !== stripos( $tag, 'favicon' )
+			) {
+				return '';
+			}
+
+			return $tag;
+		},
+		$html
+	);
+
+	$html = is_string( $html ) ? $html : '';
+
+	$html = preg_replace(
+		'#<meta\b[^>]*name=["\']msapplication-(?:TileImage|config)["\'][^>]*>\s*#i',
+		'',
+		$html
+	);
+
+	return is_string( $html ) ? $html : '';
+}
+
+/**
+ * Print the canonical scales favicon set for browser tabs and Google results.
+ */
+function justice_theme_print_brand_icons(): void {
+	$theme_uri = JUSTICE_THEME_URI . '/assets/images';
+
+	echo '<link rel="icon" type="image/png" sizes="48x48" href="' . esc_url( $theme_uri . '/favicon-48.png' ) . '" data-justice-theme="brand-icon">' . "\n";
+	echo '<link rel="icon" type="image/png" sizes="192x192" href="' . esc_url( $theme_uri . '/favicon-192.png' ) . '" data-justice-theme="brand-icon">' . "\n";
+	echo '<link rel="icon" type="image/png" sizes="512x512" href="' . esc_url( $theme_uri . '/favicon-512.png' ) . '" data-justice-theme="brand-icon">' . "\n";
+	echo '<link rel="icon" type="image/svg+xml" href="' . esc_url( $theme_uri . '/favicon.svg' ) . '" data-justice-theme="brand-icon">' . "\n";
+	echo '<link rel="shortcut icon" href="' . esc_url( $theme_uri . '/favicon.ico' ) . '" sizes="any" data-justice-theme="brand-icon">' . "\n";
+	echo '<link rel="apple-touch-icon" sizes="180x180" href="' . esc_url( $theme_uri . '/apple-touch-icon.png' ) . '" data-justice-theme="brand-icon">' . "\n";
+}
+add_action( 'wp_head', 'justice_theme_print_brand_icons', 2 );
+
+/**
+ * Expose a stable mobile app manifest for the canonical brand icon set.
  */
 function justice_theme_brand_manifest_link(): void {
-	if ( has_site_icon() ) {
-		return;
-	}
-
-	echo '<link rel="manifest" href="' . esc_url( JUSTICE_THEME_URI . '/assets/images/site.webmanifest' ) . '">' . "\n";
+	echo '<link rel="manifest" href="' . esc_url( JUSTICE_THEME_URI . '/assets/images/site.webmanifest' ) . '" data-justice-theme="brand-icon">' . "\n";
 }
 add_action( 'wp_head', 'justice_theme_brand_manifest_link', 3 );

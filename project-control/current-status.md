@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-18 18:28 Asia/Jerusalem
+- FAVICON AND CASINO SPAM INDEXING FIX: fixed the conflicting favicon stack and added a deleted-spam URL guard for casino/gambling hacked paths.
+- RESEARCHED: Google favicon-in-search and Search Console Removals guidance. Key point: Google supports one favicon per hostname; homepage and favicon must be crawlable; use a square stable icon larger than 48x48; deleted URLs can remain in results until recrawl/removal and should return 404/410/noindex signals.
+- FOUND LIVE BEFORE FIX: homepage head exposed multiple competing icon sources, including the unwanted J favicon, fbrfg plugin icons, and WordPress Site Icon output; `/favicon.ico` and `/favicon.png` returned 404.
+- IMPLEMENTED: canonical scales favicon output in `inc/seo.php`, removed hardcoded J favicon links from `header.php`, added root `/favicon.ico` and `/favicon.png` fallbacks, combined the legacy scales logo asset with the Jus-Tice wordmark in header/footer while preserving the blinking red dot, and added 410/noindex spam path guard.
+- CREATED: `tools/check-live-favicon-and-spam-guard.mjs`.
+- CREATED: `project-control/favicon-and-casino-spam-indexing-fix-2026-05-18.md`.
+- CREATED: `project-control/favicon-and-casino-spam-indexing-fix-2026-05-18.csv`.
+- VERIFIED LOCAL: PHP lint passed for touched PHP files, JS syntax check passed for the checker, and `git diff --check` passed.
+- UPRESS: required after commit/push because deployable theme code changed.
+- SAFETY: theme-level technical SEO/brand fix only. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value changed.
+
 ## LATEST WORK STATUS - 2026-05-18 18:12 Asia/Jerusalem
 - REAL ESTATE CLUSTER CONSOLIDATION PACKET: converted the top money-query opportunity into a safe hub/support decision packet before any public CMS edits.
 - RESEARCHED: Google Performance report, canonicalization, and title-link guidance. Key point: similar pages should not be redirected/canonicalized blindly; first define the best representative money hub and each support page's unique role.

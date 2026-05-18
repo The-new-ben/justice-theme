@@ -584,3 +584,36 @@ Remaining blocker:
 
 Safety:
 - Render-only theme change. No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
+
+## Priority Cycle 20 - Article Archive Segmentation
+
+Research reviewed:
+- Google's pagination guidance says paginated content should expose crawlable links between pages rather than relying on user-triggered JavaScript. Source: https://developers.google.com/search/docs/specialty/ecommerce/pagination-and-incremental-page-loading
+- Google's large-site crawl-budget guidance warns that excessive crawl paths and low-value URL exposure can waste Googlebot attention. Source: https://developers.google.com/search/docs/crawling-indexing/large-site-managing-crawl-budget
+
+Business interpretation:
+- `/articles/` was technically indexable, but it rendered about 2.9 MB and 4,795 links. That is poor for users and weak for crawl prioritization.
+- The HTML sitemap should remain the broad discovery hub. The article archive should be a usable paginated entry point.
+
+Implemented in this cycle:
+- Added `inc/article-archive-controls.php`.
+- Limited the public `articles` archive main query to 24 posts per page.
+- Preserved standard WordPress pagination and did not touch individual article URLs, article bodies, taxonomies, redirects or sitemap settings.
+- Updated deployment marker to `2026-05-18-articles-archive-segment-v1`.
+
+Verification:
+- PHP lint passed for `inc/article-archive-controls.php` and `functions.php`.
+- Node syntax checks passed for the live traffic, sitemap, and owner-phone checkers.
+- `git diff --check` passed with line-ending warnings only.
+- Commit `c3b5a27` was pushed to GitHub `main`.
+- Codex operated the uPress File Manager Git panel directly for `/wp-content/themes/justice-theme`. The success toast did not appear, but live marker checks showed the new deployment marker, proving the pull landed.
+- Live direct Googlebot fetch: `/articles/` HTTP 200, no noindex, about 125 KB, 203 links, down from about 2.9 MB and 4,795 links.
+- Live traffic priority audit now shows all sampled priority routes as `PASS`.
+- Live sitemap, owner-phone and user/lawyer/Googlebot journey checks passed after uPress pull.
+
+Remaining work:
+- Technical priority-route blockers from the sampled audit are cleared.
+- Next work should move into content classification, outdated/corona article review, homepage commercial priority order, support-to-pillar internal links, and GSC query/page mismatch diagnostics.
+
+Safety:
+- Query-only theme change. No CMS database row, article body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.

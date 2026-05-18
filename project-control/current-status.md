@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-18 14:34 Asia/Jerusalem
+- PRIORITY CRAWL/UX RECOVERY: `/articles/` was the last failing item in the live traffic-priority audit and now passes.
+- RESEARCHED: Google pagination guidance and large-site crawl-budget guidance. Key point: paginated content should expose crawlable sequential links, while huge link-heavy pages can waste crawl attention and weaken discovery priority.
+- IMPLEMENTED: `inc/article-archive-controls.php` to cap the public `articles` archive main query at 24 posts per page while keeping standard pagination.
+- UPDATED: deployment marker to `2026-05-18-articles-archive-segment-v1`; live marker checkers now expect it.
+- PUSHED: GitHub `main` includes commit `c3b5a27` (`Segment articles archive output`).
+- DEPLOYED: Codex used uPress File Manager Git management for `wp-content/themes/justice-theme`; the success toast did not appear, but live deployment marker verification proved the pull landed.
+- VERIFIED LIVE: `/articles/` with Googlebot user agent is HTTP 200, indexable, about 125 KB, and 203 links, down from about 2.9 MB and 4,795 links.
+- VERIFIED LIVE: full traffic-priority audit now passes all sampled priority routes: `/`, `/site-map/`, `/articles/`, `/family-law/`, `/lawyers/?area=family-law`, `/medical-malpractice-lawyer/`, `/criminal-defense-attorney/`, `/traffic-lawyer/`, `/contact/`, and `/about/`.
+- VERIFIED LIVE: HTML sitemap, owner phone, and public user/lawyer/Googlebot journey checks passed after uPress pull.
+- NEXT: move from technical traffic leaks into content classification, outdated/corona content review, homepage priority order, commercial cluster support links, and GSC query/page diagnostics.
+- SAFETY: no public CMS/database content, taxonomy term, slug, redirect rule, XML sitemap setting, robots rule, lawyer record, lead record, payment setting, GA4/GSC setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 14:25 Asia/Jerusalem
 - PRIORITY TRUST RECOVERY: `/contact/` and `/about/` were live 404/noindex paths and are now recovered as lightweight indexable trust routes.
 - RESEARCHED: Google helpful-content guidance on clear "who/how/why" and site/About context, plus contact/about expectations for trust on high-stakes legal/YMYL-style sites.

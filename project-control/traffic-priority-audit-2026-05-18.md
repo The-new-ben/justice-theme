@@ -4,10 +4,14 @@
 
 - Google's Search Console traffic-drop guide recommends isolating whether a decline is tied to specific pages, queries, countries, devices or search features before making broad changes.
 - Google's helpful-content guidance recommends auditing the pages and searches most affected by a drop, then judging whether those pages provide complete, trustworthy, people-first answers.
+- Google's pagination guidance recommends using crawlable links between paginated pages so search engines can discover items without relying on user-triggered JavaScript.
+- Google's large-site crawl-budget guidance warns that exposing many low-value URLs or excessive discovery paths can waste crawl attention.
 
 Sources:
 - https://support.google.com/webmasters/answer/9079473
 - https://developers.google.com/search/docs/fundamentals/creating-helpful-content
+- https://developers.google.com/search/docs/specialty/ecommerce/pagination-and-incremental-page-loading
+- https://developers.google.com/search/docs/crawling-indexing/large-site-managing-crawl-budget
 
 ## Live Audit Result
 
@@ -40,13 +44,12 @@ Checked priority paths:
 - `/traffic-lawyer/` passed.
 - `/contact/` now passes after a lightweight trust/contact route was deployed and pulled in uPress.
 - `/about/` now passes after a lightweight about/trust route was deployed and pulled in uPress.
+- `/articles/` now passes after the public archive query was segmented to 24 posts per page with normal pagination.
 
 ## Critical Review Items
 
-1. `/articles/` is too large and too link-dense.
-   - Current HTML size: about 2.9 MB.
-   - Current crawlable links: 4,795.
-   - This weakens both user scanning and crawl prioritization. The new `/site-map/` is healthier, but `/articles/` still needs pagination/segmentation review.
+- No sampled priority route currently fails the live traffic-priority checker.
+- Next risk is content quality/distribution, not a sampled route availability bug: outdated articles, weak cluster classification, homepage priority order, and GSC query/page mismatch still need review.
 
 ## Fixed This Cycle
 
@@ -59,14 +62,17 @@ Checked priority paths:
 - `/contact/` was fixed without a CMS page, URL change or redirect.
 - `/about/` was fixed without a CMS page, URL change or redirect.
 - Post-pull live audit result: `/contact/` is `PASS`, HTTP 200, about 72 KB, 66 links; `/about/` is `PASS`, HTTP 200, about 70 KB, 67 links.
+- `/articles/` was fixed without editing article content or changing article URLs.
+- The public archive now renders a segmented first page instead of thousands of links at once.
+- Post-pull live audit result: `/articles/` is `PASS`, HTTP 200, about 125 KB, 203 links, down from about 2.9 MB and 4,795 links.
 
 ## Safe Next Actions
 
-1. Split or reduce `/articles/` hub output so it is useful to users and not a 4,795-link dump.
-2. Keep `/site-map/` as the crawler discovery hub, but do not use it as a substitute for fixing commercial intent pages.
+1. Keep `/site-map/` as the crawler discovery hub and `/articles/` as a usable paginated archive.
+2. Start content classification and pruning review: outdated/corona articles, weak practice-area assignment, and thin/duplicative support pages.
 3. Continue content-cluster classification so medical malpractice, family law and other commercial hubs get stronger supporting articles.
 4. Continue live journey checks after every route/content change.
 
 ## Safety
 
-The `/family-law/`, `/medical-malpractice-lawyer/`, `/contact/`, and `/about/` fixes were render-only theme code. No CMS/database rows, content bodies, URLs, redirects, sitemap settings, taxonomy terms, lawyer profiles, lead records, payment settings, GA4 or GSC settings were changed.
+The `/family-law/`, `/medical-malpractice-lawyer/`, `/contact/`, `/about/`, and `/articles/` fixes were render/query-only theme code. No CMS/database rows, content bodies, URLs, redirects, sitemap settings, taxonomy terms, lawyer profiles, lead records, payment settings, GA4 or GSC settings were changed.

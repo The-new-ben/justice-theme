@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 15:30 Asia/Jerusalem
+- REAL ESTATE ROUTE RECOVERY: during the real-estate cycle, `/real-estate-lawyer-guide/` was found live as 404/noindex despite P0 GSC evidence (26,708 impressions and 7 clicks).
+- RESEARCHED: Google crawlable/internal-link guidance, current internal-linking hub guidance, and leading Israeli real-estate-law competitor pages. Key point: real-estate competitors cluster around buying/selling apartments, contract review, land registry, real-estate tax, late delivery by contractor, appraisers and property agreements.
+- IMPLEMENTED: `practice-real-estate-guide-route.php` and a controlled route guard in `inc/practice-landing.php` to render `/real-estate-lawyer-guide/` as a real indexable guide route without CMS/database edits.
+- IMPLEMENTED: supporting links in the controlled route point to existing live pages for buying/selling apartment, real-estate registration, land-appreciation tax, lawyer cost, appraiser and marital-property agreement.
+- UPDATED: deployment marker to `2026-05-18-real-estate-guide-route-v1`; live checkers now expect it and include `/real-estate-lawyer-guide/`.
+- CREATED: `project-control/real-estate-guide-route-recovery-2026-05-18.md`.
+- VERIFIED LOCAL: PHP lint passed for `inc/practice-landing.php`, `practice-real-estate-guide-route.php`, and `functions.php`; Node syntax passed for traffic-priority, HTML sitemap and owner-phone live checkers.
+- UPRESS: required after push because deployable public theme code changed; run uPress Git Pull and then live checks.
+- SAFETY: no public CMS/database content, WordPress title/H1/meta, URL slug, redirect, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting or wp-admin setting was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 15:20 Asia/Jerusalem
 - CRIMINAL LAW MONEY CLUSTER: converted P0 GSC evidence into a support-to-hub internal-link plan for `/criminal-defense-attorney/`, the third homepage commercial-priority category.
 - RESEARCHED: Google crawlable/internal-link guidance, current internal-linking hub guidance, and leading Israeli criminal-defense competitor pages. Key point: competitors cluster around police investigation, arrest, sex offenses, drug offenses, criminal record, white-collar/economic offenses, price/cost, and court representation.

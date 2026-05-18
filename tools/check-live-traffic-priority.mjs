@@ -62,6 +62,15 @@ const checks = [
   {
     journey: 'user',
     priority: 'critical',
+    path: '/real-estate-lawyer-guide/',
+    role: 'real estate lawyer guide recovery path',
+    mustStatus: 200,
+    mustIncludeAny: ['מקרקעין', 'נדל', 'עורך דין', 'real estate'],
+    maxBytes: 500000,
+  },
+  {
+    journey: 'user',
+    priority: 'critical',
     path: '/criminal-defense-attorney/',
     role: 'criminal lawyer commercial path',
     mustStatus: 200,

@@ -515,6 +515,33 @@ Verification:
 Safety:
 - No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
 
+## Priority Cycle 26 - Real Estate Guide Route Recovery
+
+Research reviewed:
+- Google crawlable-link guidance says important pages should use normal crawlable links and descriptive anchors. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Current internal-linking hub guidance recommends preserving valuable pages with search evidence and linking them into the correct hub. Source: https://seoglen.com/guides/internal-linking-seo
+- Competitor review for Israeli real-estate-law pages shows common commercial subtopics: buying/selling apartments, contract review, land registry, real-estate tax, late delivery by contractor, appraisers and property agreements. Sources reviewed: https://mli-law.co.il/ , https://www.propertylaw.co.il/ , https://peteladv.co.il/ , https://myglaw.co.il/ , https://ygoldlaw.co.il/real-estate-lawyer/
+
+Business interpretation:
+- `/real-estate-lawyer-guide/` has P0 GSC evidence but was live as 404/noindex. This is a technical traffic leak in a money cluster, so it outranked another planning-only map.
+
+Implemented in this cycle:
+- Added `practice-real-estate-guide-route.php`.
+- Updated `inc/practice-landing.php` to treat `/real-estate-lawyer-guide/` as a controlled 200/indexable route.
+- Updated the deployment marker to `2026-05-18-real-estate-guide-route-v1`.
+- Updated live checkers so `/real-estate-lawyer-guide/` is part of the traffic-priority audit and marker checks expect the new deployment.
+- Created `project-control/real-estate-guide-route-recovery-2026-05-18.md`.
+
+Verification before deployment:
+- PHP lint passed for `inc/practice-landing.php`, `practice-real-estate-guide-route.php`, and `functions.php`.
+- Node syntax passed for `tools/check-live-traffic-priority.mjs`, `tools/check-live-html-sitemap.mjs`, and `tools/check-live-owner-phone.mjs`.
+
+Deployment:
+- uPress Git Pull is required after GitHub push because deployable theme code changed.
+
+Safety:
+- Theme-rendered route recovery only. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, taxonomy, noindex setting, canonical setting in CMS, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC admin setting or wp-admin setting was changed.
+
 ## Priority Cycle 25 - Criminal Law Support-to-Hub Map
 
 Research reviewed:

@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'JUSTICE_THEME_VERSION', '1.1.0' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-05-18-articles-archive-segment-v1' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-05-18-real-estate-guide-route-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 

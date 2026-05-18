@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-18 20:40 Asia/Jerusalem
+- UNSERVED DEMAND LEDGER ADMIN IMPLEMENTATION: implemented the first admin-only version on draft PR #7 so owner phone calls in unsupported categories can become measurable demand instead of lost time.
+- RESEARCHED: Clio/Lawmatics intake guidance this cycle; confirmed source, practice area, pipeline stage, follow-up deadline, and conversion/unserved status are core intake fields.
+- CODED: new `inc/unserved-demand.php` with Justice CRM submenu `Unserved Demand`, quick-log phone form, unserved stats, recent unserved table, CSV export, and meta registration for `service_status`, requested country/area, follow-up deadline, recruitment priority, and revenue status.
+- CODED: `functions.php` now loads `inc/unserved-demand.php`.
+- CODED: `inc/lead-routing.php` now marks leads as `service_status=unserved` when no matching lawyer with routing enabled exists.
+- VERIFIED: PHP lint clean on `inc/unserved-demand.php`, `inc/lead-routing.php`, and `functions.php`; `git diff --check` clean.
+- CREATED: `project-control/unserved-demand-ledger-admin-implementation-2026-05-18.md`.
+- CREATED: `project-control/unserved-demand-ledger-admin-implementation-2026-05-18.csv`.
+- UPRESS: no uPress pull needed because this is draft PR code only; not merged to `main`.
+- SAFETY: no live wp-admin login, public form, CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-18 20:29 Asia/Jerusalem
 - UNSERVED DEMAND LEDGER IMPLEMENTATION SPEC: converted the Thailand-lawyer/leaking-call problem into a build-ready admin workflow tied to the existing Justice CRM.
 - RESEARCHED: Clio client-intake tips, Clio intake stages, Clio lead-management best practices, Lawmatics practice-area segmentation, Lawmatics intake pipeline, and Lawmatics AI lead qualification. Key point: every lead needs source, practice area, pipeline stage, follow-up deadline, and conversion/unserved status.

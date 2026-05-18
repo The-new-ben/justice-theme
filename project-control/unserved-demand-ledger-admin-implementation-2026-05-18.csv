@@ -1,0 +1,6 @@
+"file","change","verification","live_effect_now"
+"inc/unserved-demand.php","New admin-only Justice CRM submenu, quick-log form, unserved stats/table, CSV export, helper to mark leads unserved","php -l clean","None until branch is deployed"
+"functions.php","Loads inc/unserved-demand.php after lead routing modules","php -l clean","None until branch is deployed"
+"inc/lead-routing.php","When no matching routing lawyer exists, calls justice_theme_mark_lead_unserved if available","php -l clean","None until branch is deployed"
+"project-control/current-status.md","Shared progress entry for other agents","git diff --check clean","Repo status only"
+"project-control/task-board.csv","Task-board row for implementation","git diff --check clean","Repo status only"

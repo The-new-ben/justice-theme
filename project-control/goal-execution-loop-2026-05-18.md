@@ -457,6 +457,36 @@ Live findings:
 Safety:
 - Read-only live audit plus repo documentation/tooling only. No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
 
+## Priority Cycle 17 - Family Law Route Intent Fix
+
+Research reviewed:
+- Google's title-link guidance says title text and prominent headings should clearly and accurately describe the page. Source: https://developers.google.com/search/docs/appearance/title-link
+
+Business interpretation:
+- `/family-law/` is a commercial/practice-intent page, but live Googlebot/user checks showed a court-judgment title and H1. That confuses users, Google title generation and internal relevance signals.
+- Since the URL itself is valuable and already linked internally, the safe fix is route ownership at render time, not a redirect or CMS database rewrite.
+
+Implemented in this cycle:
+- Added `practice-family-law-route.php`, a controlled family-law practice template.
+- Updated `inc/practice-landing.php` so `/family-law/` uses the controlled practice template even if a legacy content item owns the slug.
+- Kept the URL stable at `/family-law/`.
+- Updated deployment marker to `2026-05-18-family-law-template-v1`.
+
+Verification:
+- First attempt (`2a6617b`) deployed but did not win route ownership; live audit still showed the old court-judgment title/H1.
+- Second attempt (`90c437a`) used `template_include`, was pulled in uPress, and fixed the live route.
+- Live traffic priority audit now shows `/family-law/` as `PASS`, HTTP 200, about 105 KB, 104 links.
+- Live sitemap, owner-phone and user/lawyer/Googlebot journey checks passed after uPress pull.
+
+Remaining blockers:
+- `/medical-malpractice-lawyer/` is still HTTP 404/noindex.
+- `/contact/` is still HTTP 404/noindex.
+- `/about/` is still HTTP 404/noindex.
+- `/articles/` remains too large/link-dense.
+
+Safety:
+- Render-only theme change. No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
+
 ## Priority Cycle 15 - Sitewide Breadcrumb Schema Fix
 
 Research reviewed:

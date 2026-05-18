@@ -2201,3 +2201,14 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - LIVE REVIEW: `/about/` returns 404/noindex.
 - NEXT: fix `/family-law/` route ownership/title/H1 without changing URL; decide `/medical-malpractice-lawyer/` landing vs safe directory fallback; add accurate `/contact/` and `/about/`; split/reduce `/articles/`.
 - SAFETY: read-only live audit plus repo tooling/docs only; no public CMS/database writes, content changes, redirects, sitemap settings, taxonomy changes, lawyer profile changes, lead records, payment settings or GSC/GA4 admin settings were changed.
+
+## 2026-05-18 FAMILY LAW ROUTE INTENT FIX
+- LIVE ROOT CAUSE: `/family-law/` was a valuable practice URL, but WordPress served an old court-judgment item with court-verdict title/H1.
+- FIRST FIX ATTEMPT: commit `2a6617b` added a route guard and was pulled in uPress, but live verification showed it did not win request ownership.
+- FINAL FIX: commit `90c437a` added `practice-family-law-route.php` and switched `/family-law/` through `template_include` to the controlled practice landing template.
+- DEPLOYED: Codex clicked uPress Git Pull for `/wp-content/themes/justice-theme`.
+- LIVE VERIFIED: `/family-law/` now passes `tools/check-live-traffic-priority.mjs` with HTTP 200, about 105 KB and 104 links.
+- LIVE VERIFIED: `node tools/check-live-html-sitemap.mjs`, `node tools/check-live-owner-phone.mjs`, and `node tools/check-live-journeys.mjs` passed after deployment.
+- UPDATED: deployment marker is now `2026-05-18-family-law-template-v1`.
+- REMAINING LIVE REVIEW: `/medical-malpractice-lawyer/`, `/contact/`, `/about/`, and oversized `/articles/`.
+- SAFETY: render-only theme fix; no public CMS/database writes, content changes, redirects, sitemap settings, taxonomy changes, lawyer profile changes, lead records, payment settings or GSC/GA4 admin settings were changed.

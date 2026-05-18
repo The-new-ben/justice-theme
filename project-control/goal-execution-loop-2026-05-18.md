@@ -956,6 +956,43 @@ Remaining work:
 Safety:
 - Render-only route display-title/template change. No CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.
 
+## Priority Cycle 38 - Live Journey Health Snapshot
+
+Research reviewed:
+- Google snippet guidance says useful, page-specific meta descriptions can help Google generate better search snippets. Source: https://developers.google.com/search/docs/appearance/snippet
+- Google title-link guidance says title links may use title elements, prominent headings and other visible page text. Source: https://developers.google.com/search/docs/advanced/appearance/good-titles-snippets
+- Google LocalBusiness guidance says telephone should be the primary customer contact method. Source: https://developers.google.com/search/docs/appearance/structured-data/local-business
+- Google crawlable-link guidance says important pages should be reachable through crawlable anchor links. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+
+Business interpretation:
+- After the recent crawl fixes, the main sampled journeys are healthy.
+- The next growth work should shift toward GSC-led content decisions, title/snippet clarity and support-to-hub content quality instead of chasing the already-fixed basic reachability bugs.
+
+Implemented in this cycle:
+- Ran live user/lawyer/Googlebot journey checker.
+- Ran live traffic-priority checker.
+- Ran live reachability checker.
+- Ran live breadcrumb schema scan across 1,299 URLs.
+- Created `project-control/live-journey-health-snapshot-2026-05-18-1741.md`.
+- Created `project-control/live-journey-health-snapshot-2026-05-18-1741.csv`.
+
+Verification:
+- Public user journey passed homepage lead path, lawyer directory and sample article.
+- Lawyer customer journey passed registration and plan-intent registration.
+- Googlebot journey passed XML sitemap and robots.
+- Commercial route checker passed all 12 sampled paths.
+- Reachability checker passed DNS, homepage, sitemap, REST API, robots, XML sitemap, phone/WhatsApp, mock phone absence and canonical.
+- Breadcrumb schema checker scanned 1,299 URLs and found 0 review rows.
+- `git diff --check` passed with line-ending warnings only.
+
+Remaining work:
+- Pull GSC page-level data for medical-malpractice birth/pregnancy/diagnosis candidates.
+- Continue corona legacy review with GSC/backlink evidence.
+- Compare title/snippet intent on homepage and money pages before public copy changes.
+
+Safety:
+- Read-only live audit and repo documentation only. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, redirect, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or WordPress database value was changed.
+
 ## Priority Cycle 37 - Medical Malpractice Clean Slug Route Review
 
 Research reviewed:

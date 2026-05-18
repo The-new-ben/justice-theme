@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-18 17:41 Asia/Jerusalem
+- LIVE JOURNEY HEALTH SNAPSHOT: ran the current post-fix user, lawyer, Googlebot, reachability, commercial-route and breadcrumb-schema checks.
+- RESEARCHED: Google title/snippet, LocalBusiness/Organization phone/contact, and crawlable-link guidance. Key point: traffic recovery now depends less on basic reachability breakage and more on clear page intent, consistent entity/contact signals, crawlable internal links, and GSC-driven content decisions.
+- VERIFIED LIVE: public user journey passed for homepage lead path, lawyer directory and sample article.
+- VERIFIED LIVE: lawyer customer journey passed for `/lawyer-registration/` and `/lawyer-registration/?plan_interest=pro`.
+- VERIFIED LIVE: Googlebot journey passed for `/sitemap_index.xml` and `/robots.txt`.
+- VERIFIED LIVE: traffic-priority checker passed all sampled commercial/trust routes, including family, medical malpractice, real estate, criminal, traffic, inheritance, contact and about.
+- VERIFIED LIVE: reachability checker passed DNS, homepage, HTML sitemap, REST API, robots, XML sitemap, owner phone, WhatsApp, legacy phone leakage and canonical checks.
+- VERIFIED LIVE: breadcrumb schema checker scanned 1,299 URLs with 0 review rows.
+- CREATED: `project-control/live-journey-health-snapshot-2026-05-18-1741.md`.
+- CREATED: `project-control/live-journey-health-snapshot-2026-05-18-1741.csv`.
+- UPRESS: no uPress pull needed because this cycle changed repo documentation/status artifacts only; no deployable public theme code changed.
+- SAFETY: read-only live audit and repo documentation only. No public CMS database row, article body, stored title/H1/meta, URL slug, redirect, noindex, canonical, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value changed.
+
 ## LATEST WORK STATUS - 2026-05-18 17:31 Asia/Jerusalem
 - MEDICAL MALPRACTICE CLEAN SLUG REVIEW: reviewed `/birth-malpractice/`, `/pregnancy-malpractice/`, and `/diagnosis-malpractice/` after removing public links to those 404 paths.
 - RESEARCHED: Google redirect, HTTP/soft-404, and people-first/YMYL guidance. Key point: use precise equivalent redirects or real useful pages; do not create thin medical/legal route recoveries or broad redirects to a generic hub.

@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-18 20:06 Asia/Jerusalem
+- COMMERCIAL PIPELINE LIVE TEST MATRIX: converted the repaired branch status into exact go-live tests before any uPress deployment.
+- RESEARCHED: WooCommerce Subscriptions staging/migration guidance, WooCommerce Subscriptions Health Check, and recurring-billing launch guidance. Key point: plugin installation is not launch; subscription creation, invoice, customer portal, profile linkage, cancellation and failed-payment states must be tested end to end.
+- CHECKED BRANCH: `origin/claude/review-legal-portal-aRAzz` advanced to commit `49c25df`, but still conflicts with current `main` in `project-control/current-status.md`.
+- VERIFIED LIVE BASELINE: `node tools/check-live-journeys.mjs` passed homepage lead path, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap and robots.
+- VERIFIED LIVE BASELINE: `/lawyer-plans/` returns HTTP 200, still does not expose the approved NIS 349 pricing, and does not expose checkout/add-to-cart links; commercial branch is not live yet.
+- CREATED: `project-control/commercial-pipeline-live-test-matrix-2026-05-18.md`.
+- CREATED: `project-control/commercial-pipeline-live-test-matrix-2026-05-18.csv`.
+- DECISION: before deployment, require branch merge into current `main`, clean uPress Git status, registration-first paid CTA, linked profile/user, magic-link flow, checkout product mapping, Meshulam payment, Morning invoice, subscription sync, lead-routing gate, safety-net path and cancellation tests.
+- UPRESS: no uPress pull needed because this cycle changed repo planning/status artifacts only; no deployable theme code changed on `main`.
+- SAFETY: repo-only launch/test matrix and read-only live checks. No plugin installed, WooCommerce product created, user created, lawyer profile created, test registration submitted, card charged, payment setting changed, public CMS content changed, URL/redirect/canonical/noindex/sitemap setting changed, GA4/GSC setting changed or uPress deployment triggered.
+
 ## LATEST WORK STATUS - 2026-05-18 19:56 Asia/Jerusalem
 - COMMERCIAL PIPELINE BRANCH RE-REVIEW: reviewed updated `origin/claude/review-legal-portal-aRAzz` / commit `2ebe724` after Codex blocker fixes.
 - VERIFIED FIXED: paid plan CTA is now registration-first unless the logged-in user already has a linked `justice_lawyer` profile.

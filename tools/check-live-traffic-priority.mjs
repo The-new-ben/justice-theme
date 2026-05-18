@@ -93,6 +93,7 @@ const checks = [
     role: 'inheritance and wills lawyer commercial path',
     mustStatus: 200,
     mustIncludeAny: ['ירושה', 'צווא', 'עורך דין', 'inheritance'],
+    h1MustIncludeAny: ['\u05e2\u05d5\u05e8\u05da \u05d3\u05d9\u05df \u05d9\u05e8\u05d5\u05e9\u05d4'],
     maxBytes: 500000,
   },
   {
@@ -194,6 +195,9 @@ async function runCheck(check) {
   }
   if (missingAnyGroup(titleAndH1, check.titleMustIncludeAny)) {
     issues.push(`title_h1_missing_any:${check.titleMustIncludeAny.join('|')}`);
+  }
+  if (missingAnyGroup(h1, check.h1MustIncludeAny)) {
+    issues.push(`h1_missing_any:${check.h1MustIncludeAny.join('|')}`);
   }
   if (hasAny(titleAndH1, check.titleMustNotIncludeAny || [])) {
     issues.push(`title_h1_wrong_intent:${check.titleMustNotIncludeAny.join('|')}`);

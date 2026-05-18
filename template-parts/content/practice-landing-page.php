@@ -25,7 +25,9 @@ if ( empty( $config ) ) {
 
 $term_slug       = sanitize_title( $config['term_slug'] ?? '' );
 $term            = $term_slug && taxonomy_exists( 'practice-areas' ) ? get_term_by( 'slug', $term_slug, 'practice-areas' ) : null;
-$title           = $term instanceof WP_Term ? $term->name : ( $config['title'] ?? get_the_title( $page_id ) );
+$title           = ! empty( $config['display_title'] )
+	? (string) $config['display_title']
+	: ( $term instanceof WP_Term ? $term->name : ( $config['title'] ?? get_the_title( $page_id ) ) );
 $keyword         = $config['keyword'] ?? $title;
 $summary         = $term instanceof WP_Term && $term->description ? $term->description : ( $config['summary'] ?? '' );
 $supporting      = is_array( $config['supporting'] ?? null ) ? $config['supporting'] : array();

@@ -14,10 +14,11 @@ $justice_inheritance_config = function_exists( 'justice_theme_get_practice_landi
 	: null;
 
 if ( is_array( $justice_inheritance_config ) ) {
-	$justice_inheritance_config['title']      = 'עורך דין ירושה וצוואות';
-	$justice_inheritance_config['keyword']    = 'עורך דין ירושה';
-	$justice_inheritance_config['summary']    = 'מרכז מידע מעשי על צוואות, ירושות, צו ירושה, צו קיום צוואה, התנגדות לצוואה, ניהול עיזבון וסכסוכים בין יורשים.';
-	$justice_inheritance_config['supporting'] = array(
+	$justice_inheritance_config['title']         = 'עורך דין ירושה וצוואות';
+	$justice_inheritance_config['display_title'] = $justice_inheritance_config['title'];
+	$justice_inheritance_config['keyword']       = 'עורך דין ירושה';
+	$justice_inheritance_config['summary']       = 'מרכז מידע מעשי על צוואות, ירושות, צו ירושה, צו קיום צוואה, התנגדות לצוואה, ניהול עיזבון וסכסוכים בין יורשים.';
+	$justice_inheritance_config['supporting']    = array(
 		array( 'label' => 'מהי ירושה', 'url' => '/inheritance/' ),
 		array( 'label' => 'צו ירושה', 'url' => '/inheritance-order/' ),
 		array( 'label' => 'צוואה', 'url' => '/will-and-testament/' ),

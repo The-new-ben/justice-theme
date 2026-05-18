@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'JUSTICE_THEME_VERSION', '1.1.0' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-05-18-trust-routes-v1' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-05-18-articles-archive-segment-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -28,6 +28,7 @@ $justice_theme_files = array(
 	'inc/seo.php',
 	'inc/accessibility.php',
 	'inc/related-content.php',
+	'inc/article-archive-controls.php',
 	'inc/practice-landing.php',
 	'inc/lead-spam-guard.php',
 	'inc/lead-ui.php',

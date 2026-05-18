@@ -10,7 +10,10 @@
     "pm2:logs": "pm2 logs autonomous-agent"
   },
   "dependencies": {
+    "body-parser": "^2.2.2",
     "dotenv": "^16.4.5",
-    "node-cron": "^3.0.3"
+    "express": "^5.2.1",
+    "node-cron": "^3.0.3",
+    "open": "^11.0.0"
   }
 }

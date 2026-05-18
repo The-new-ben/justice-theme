@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Autonomous Agent Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .glass { background: rgba(17, 24, 39, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.1); }
+        .log-window { font-family: 'Courier New', Courier, monospace; }
+    </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen p-8">
+
+    <div class="max-w-6xl mx-auto space-y-6">
+        
+        <!-- Header -->
+        <div class="glass p-6 rounded-2xl flex justify-between items-center shadow-xl">
+            <div>
+                <h1 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">Autonomous Agent Control Center</h1>
+                <p class="text-gray-400 text-sm mt-1">Manage your PM2 background agent and LLM settings.</p>
+            </div>
+            <div class="space-x-3">
+                <button onclick="controlPM2('start')" class="px-4 py-2 bg-green-600 hover:bg-green-500 rounded-lg font-medium transition">Start Agent</button>
+                <button onclick="controlPM2('stop')" class="px-4 py-2 bg-red-600 hover:bg-red-500 rounded-lg font-medium transition">Stop Agent</button>
+                <button onclick="controlPM2('restart')" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg font-medium transition">Restart</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            
+            <!-- Configuration Panel -->
+            <div class="glass p-6 rounded-2xl shadow-xl">
+                <h2 class="text-xl font-semibold mb-4 border-b border-gray-700 pb-2">Configuration</h2>
+                <div class="space-y-4" id="config-form">
+                    <!-- Loaded dynamically -->
+                </div>
+                <button onclick="saveConfig()" class="mt-6 w-full py-3 bg-purple-600 hover:bg-purple-500 rounded-lg font-bold text-lg shadow-lg transition">Save & Apply Changes</button>
+            </div>
+
+            <!-- Live Logs Panel -->
+            <div class="glass p-6 rounded-2xl shadow-xl flex flex-col h-[600px]">
+                <div class="flex justify-between items-center mb-4 border-b border-gray-700 pb-2">
+                    <h2 class="text-xl font-semibold">Live Agent Logs</h2>
+                    <span class="text-xs px-2 py-1 bg-green-900 text-green-300 rounded-full animate-pulse">Live</span>
+                </div>
+                <div id="log-window" class="log-window flex-1 bg-black/50 p-4 rounded-lg overflow-y-auto text-sm text-green-400 whitespace-pre-wrap">Loading logs...</div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        let currentConfig = {};
+
+        // Fetch Initial Config
+        async function loadConfig() {
+            const res = await fetch('/api/config');
+            const data = await res.json();
+            currentConfig = data.config;
+            
+            const formHtml = `
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">API Provider</label>
+                    <select id="provider" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 focus:ring-2 focus:ring-purple-500 outline-none">
+                        <option value="openrouter" ${data.provider === 'openrouter' ? 'selected' : ''}>OpenRouter (Free/Paid)</option>
+                        <option value="lms" ${data.provider === 'lms' ? 'selected' : ''}>LM Studio (Local)</option>
+                        <option value="openai" ${data.provider === 'openai' ? 'selected' : ''}>OpenAI</option>
+                        <option value="gemini" ${data.provider === 'gemini' ? 'selected' : ''}>Google Gemini</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">API Key</label>
+                    <input type="password" id="apiKey" value="${data.apiKey}" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Model Name</label>
+                    <input type="text" id="model" value="${currentConfig.model}" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Heartbeat Interval (Minutes)</label>
+                    <input type="number" id="interval" value="${currentConfig.heartbeatIntervalMinutes}" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">Target Directory</label>
+                    <input type="text" id="directory" value="${currentConfig.targetDirectory}" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 outline-none">
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-400 mb-1">System Prompt / Goal</label>
+                    <textarea id="prompt" rows="4" class="w-full bg-gray-800 border border-gray-700 rounded-lg p-2 outline-none">${currentConfig.systemPrompt}</textarea>
+                </div>
+            `;
+            document.getElementById('config-form').innerHTML = formHtml;
+        }
+
+        // Save Config
+        async function saveConfig() {
+            currentConfig.model = document.getElementById('model').value;
+            currentConfig.heartbeatIntervalMinutes = parseInt(document.getElementById('interval').value);
+            currentConfig.targetDirectory = document.getElementById('directory').value;
+            currentConfig.systemPrompt = document.getElementById('prompt').value;
+            
+            const payload = {
+                config: currentConfig,
+                provider: document.getElementById('provider').value,
+                apiKey: document.getElementById('apiKey').value
+            };
+
+            await fetch('/api/config', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            alert('Settings Saved! The background agent has been restarted.');
+        }
+
+        // PM2 Controls
+        async function controlPM2(action) {
+            await fetch('/api/pm2', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action })
+            });
+            alert(`Agent ${action} command sent successfully!`);
+        }
+
+        // Live Logs Fetcher
+        async function fetchLogs() {
+            try {
+                const res = await fetch('/api/logs');
+                const text = await res.text();
+                const logEl = document.getElementById('log-window');
+                
+                // Only scroll to bottom if user is already at the bottom
+                const isAtBottom = logEl.scrollHeight - logEl.scrollTop <= logEl.clientHeight + 20;
+                
+                logEl.textContent = text;
+                
+                if (isAtBottom) {
+                    logEl.scrollTop = logEl.scrollHeight;
+                }
+            } catch (e) {}
+        }
+
+        // Init
+        loadConfig();
+        setInterval(fetchLogs, 2000);
+        fetchLogs();
+
+    </script>
+</body>
+</html>

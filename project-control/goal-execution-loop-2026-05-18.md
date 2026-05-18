@@ -978,7 +978,13 @@ Verification:
 - PHP lint passed for modified PHP files.
 - Node syntax checks passed for modified live checkers.
 - Static scan shows the blocked clean slugs are no longer present in public theme output surfaces, except as explicit test guards and offline audit heuristics.
-- Deployment and live verification are required after uPress pull.
+- `git diff --check` passed with line-ending warnings only.
+- Commit `21fff2c` was pushed to GitHub `main`.
+- Codex opened uPress File Manager Git management for `/wp-content/themes/justice-theme` and clicked Pull Git.
+- Live traffic-priority checker passed all sampled commercial/trust routes.
+- Live HTML sitemap/footer checker passed.
+- Live owner-phone checker passed.
+- Targeted Googlebot-style fetch of `/medical-malpractice-lawyer/` confirmed marker `2026-05-18-medmal-support-links-v1`, confirmed the live support URLs, and confirmed `/birth-malpractice/`, `/pregnancy-malpractice/`, and `/diagnosis-malpractice/` are absent.
 
 Remaining work:
 - Review GSC and route history for the old Hebrew birth/pregnancy malpractice page before deciding whether to recover clean routes, merge, redirect, or leave unavailable.

@@ -7,7 +7,10 @@
 - UPDATED: `tools/check-live-traffic-priority.mjs` now fails the medical-malpractice route if the three blocked clean slugs appear in public HTML.
 - CREATED: `project-control/medical-malpractice-support-link-fix-2026-05-18.md`.
 - CREATED: `project-control/medical-malpractice-support-link-fix-2026-05-18.csv`.
-- NEXT: after commit/push, pull Git in uPress and verify live traffic-priority, sitemap, owner-phone and targeted medical-malpractice checks.
+- DEPLOYED: commit `21fff2c` was pushed to GitHub `main`; Codex opened uPress File Manager Git management for `wp-content/themes/justice-theme` and clicked Pull Git.
+- VERIFIED LIVE: traffic-priority checker passed all sampled commercial/trust routes; HTML sitemap/footer checker passed; owner-phone checker passed.
+- VERIFIED LIVE: Googlebot-style fetch of `/medical-malpractice-lawyer/` contains marker `2026-05-18-medmal-support-links-v1`, contains the live support URLs `/birth-injury/`, `/anesthesia-medical-malpractice/`, `/surgical-errors-medical-malpractice/`, and `/what-is-medical-malpractice-definition-examples/`, and does not contain `/birth-malpractice/`, `/pregnancy-malpractice/`, or `/diagnosis-malpractice/`.
+- NEXT: route-history/GSC review is still needed before deciding whether to recover, redirect, or leave unavailable the clean birth/pregnancy/diagnosis malpractice slugs.
 - SAFETY: theme-owned crawl-path correction only. No public CMS database row, article body, stored title/H1/meta, URL slug, redirect, noindex, canonical, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value changed.
 
 ## LATEST WORK STATUS - 2026-05-18 17:11 Asia/Jerusalem

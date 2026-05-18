@@ -2162,12 +2162,14 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 
 ## 2026-05-18 OWNER PHONE CLEANUP + uPRESS PULL CONTROL
 - PRIORITY FROM OWNER: stop everything until Codex can operate the uPress Git Pull path directly and remove the mock phone number from the public site.
-- uPRESS CONTROL: browser-based uPress File Manager and Git Management path is working again in Codex; prior blocker was tool exposure in that heartbeat session, not lack of access.
+- uPRESS CONTROL: browser-based uPress File Manager and Git Management path is working again in Codex; Codex clicked the uPress `Pull` action for `/wp-content/themes/justice-theme`.
 - CODE FIXED: public phone/WhatsApp fallbacks now use `0525101555`.
 - CODE FIXED: `justice_theme_option()` now guards `justice_phone` and `justice_whatsapp` against legacy/mock saved values (`03-6161535`, `0544705733`) at render time.
 - CODE FIXED: front-page LegalService schema telephone now uses the same owner contact value.
 - CREATED: `tools/check-live-owner-phone.mjs` to verify homepage phone display, tel link, WhatsApp link, legacy-number removal and deployment marker.
 - UPDATED: deployment marker is now `2026-05-18-owner-phone-v1`.
 - VERIFIED LOCALLY: PHP lint passed for touched PHP files; Node syntax checks passed; `git diff --check` passed with line-ending warnings only.
-- NEXT: commit, push, run uPress Git Pull, then live-verify owner phone, HTML sitemap and journey checks.
+- LIVE VERIFIED AFTER uPRESS PULL: `node tools/check-live-owner-phone.mjs`, `node tools/check-live-html-sitemap.mjs`, and `node tools/check-live-journeys.mjs` passed.
+- CACHE NOTE: a cached homepage variant initially still exposed the old LegalService phone, but no-cache fetch showed `0525101555` and the normal homepage owner-phone checker passed on rerun.
+- NEXT: resume traffic/content audit: family-law wrong-page bug, `/about/` and `/contact/` 404s, outdated/corona content classification, and homepage priority order.
 - SAFETY: no public CMS/database writes, content changes, redirects, sitemap settings, taxonomy changes, lawyer profile changes, lead records, payment settings or GSC/GA4 admin settings were changed.

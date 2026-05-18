@@ -96,12 +96,19 @@ VERIFIED:
 
 ## 2026-05-18 Next Pull Needed - Owner Phone
 
-- GitHub `main` will include the owner-phone cleanup batch after commit/push.
-- Next required uPress action: run Git Pull in `/wp-content/themes/justice-theme`.
-- Required post-pull verification:
+- GitHub `main` included commit `dcf862a`
+  (`Replace public mock phone number`).
+- Codex opened the authenticated uPress file manager at
+  `/wp-content/themes/justice-theme`.
+- Codex clicked `ניהול GIT`.
+- Codex clicked `משיכת נתונים (Pull)`.
+- Live verification passed:
   - `node tools/check-live-owner-phone.mjs`
   - `node tools/check-live-html-sitemap.mjs`
   - `node tools/check-live-journeys.mjs`
+- Cache note: a cached homepage variant initially still exposed the old
+  LegalService schema telephone. A no-cache fetch showed `0525101555`, and the
+  normal homepage checker passed on rerun.
 
 POST-PULL VERIFICATION:
 

@@ -419,8 +419,14 @@ Verification:
 - Node syntax checks passed for `tools/check-live-owner-phone.mjs` and `tools/check-live-html-sitemap.mjs`.
 - `git diff --check` passed with line-ending warnings only.
 
-Deployment action required:
-- Commit and push the owner-phone batch, run uPress Git Pull for `/wp-content/themes/justice-theme`, then run `node tools/check-live-owner-phone.mjs`, `node tools/check-live-html-sitemap.mjs`, and `node tools/check-live-journeys.mjs`.
+Deployment result:
+- Committed and pushed the owner-phone batch to GitHub `main`.
+- Codex operated the uPress File Manager Git panel directly and clicked `משיכת נתונים (Pull)` for `/wp-content/themes/justice-theme`.
+- Live verification passed with:
+  - `node tools/check-live-owner-phone.mjs`
+  - `node tools/check-live-html-sitemap.mjs`
+  - `node tools/check-live-journeys.mjs`
+- A cached homepage variant initially still showed the old LegalService telephone. A no-cache fetch showed the fixed schema, and the normal homepage check passed on rerun.
 
 Safety:
 - No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.

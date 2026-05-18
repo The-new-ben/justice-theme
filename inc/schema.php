@@ -30,12 +30,28 @@ function justice_theme_print_breadcrumb_schema( $items ) {
 	$list_items = array();
 
 	foreach ( $items as $index => $item ) {
-		$list_items[] = array(
+		$name = isset( $item['name'] ) ? trim( wp_strip_all_tags( (string) $item['name'] ) ) : '';
+		if ( '' === $name ) {
+			$name = function_exists( 'justice_theme_get_fallback_breadcrumb_name' )
+				? justice_theme_get_fallback_breadcrumb_name()
+				: ( get_bloginfo( 'name' ) ?: 'Jus-Tice' );
+		}
+
+		$url = ! empty( $item['url'] )
+			? justice_theme_public_url( (string) $item['url'] )
+			: ( function_exists( 'justice_theme_current_public_url' ) ? justice_theme_current_public_url() : justice_theme_public_permalink( get_the_ID() ) );
+
+		$list_item = array(
 			'@type'    => 'ListItem',
 			'position' => $index + 1,
-			'name'     => wp_strip_all_tags( $item['name'] ),
-			'item'     => ! empty( $item['url'] ) ? esc_url_raw( justice_theme_public_url( (string) $item['url'] ) ) : esc_url_raw( justice_theme_public_permalink( get_the_ID() ) ),
+			'name'     => $name,
 		);
+
+		if ( '' !== $url ) {
+			$list_item['item'] = esc_url_raw( $url );
+		}
+
+		$list_items[] = $list_item;
 	}
 
 	justice_theme_print_schema( array(

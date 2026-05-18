@@ -145,6 +145,21 @@ function justice_theme_public_permalink( int $post_id = 0 ): string {
 }
 
 /**
+ * Return the current public request URL without query parameters.
+ *
+ * Useful for virtual theme routes that do not have a WordPress post ID.
+ *
+ * @return string
+ */
+function justice_theme_current_public_url(): string {
+	$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '/';
+	$path        = (string) wp_parse_url( $request_uri, PHP_URL_PATH );
+	$path        = '/' . ltrim( $path ?: '/', '/' );
+
+	return justice_theme_public_url( home_url( $path ) );
+}
+
+/**
  * Return a public taxonomy term link with first-party HTTPS normalization.
  *
  * @param WP_Term|int|string $term Term object, ID, or slug accepted by get_term_link().

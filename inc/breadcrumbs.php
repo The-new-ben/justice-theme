@@ -78,6 +78,15 @@ function justice_theme_get_breadcrumb_items() {
 		),
 	);
 
+	if ( justice_theme_is_html_sitemap_request() ) {
+		$items[] = array(
+			'name' => __( 'מפת אתר', 'justice-theme' ),
+			'url'  => '',
+		);
+
+		return $items;
+	}
+
 	if ( is_singular( 'articles' ) ) {
 		$items[] = array(
 			'name' => __( 'מאמרים משפטיים', 'justice-theme' ),
@@ -179,8 +188,13 @@ function justice_theme_get_breadcrumb_items() {
 	}
 
 	if ( is_page() || is_single() ) {
+		$title = trim( wp_strip_all_tags( get_the_title() ) );
+		if ( '' === $title ) {
+			$title = justice_theme_get_fallback_breadcrumb_name();
+		}
+
 		$items[] = array(
-			'name' => get_the_title(),
+			'name' => $title,
 			'url'  => '',
 		);
 
@@ -195,4 +209,38 @@ function justice_theme_get_breadcrumb_items() {
 	}
 
 	return $items;
+}
+
+/**
+ * Check whether the current request is the virtual HTML sitemap.
+ *
+ * @return bool
+ */
+function justice_theme_is_html_sitemap_request(): bool {
+	$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+	$request_path = (string) wp_parse_url( $request_uri, PHP_URL_PATH );
+	$request_path = '/' . trim( $request_path, '/' ) . '/';
+
+	return '/site-map/' === $request_path || '/html-sitemap/' === $request_path;
+}
+
+/**
+ * Provide a non-empty breadcrumb name for virtual or edge routes.
+ *
+ * @return string
+ */
+function justice_theme_get_fallback_breadcrumb_name(): string {
+	if ( justice_theme_is_html_sitemap_request() ) {
+		return __( 'מפת אתר', 'justice-theme' );
+	}
+
+	$document_title = trim( wp_strip_all_tags( wp_get_document_title() ) );
+	if ( '' !== $document_title ) {
+		$parts = preg_split( '/\s+[-–—]\s+/u', $document_title );
+		if ( is_array( $parts ) && ! empty( $parts[0] ) ) {
+			return trim( $parts[0] );
+		}
+	}
+
+	return get_bloginfo( 'name' ) ?: 'Jus-Tice';
 }

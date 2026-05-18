@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-18 20:03 Asia/Jerusalem
+- COMMERCIAL PIPELINE SECTION 3 PREFLIGHT: read `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` from `origin/claude/review-legal-portal-aRAzz` and executed only Section 3 checks.
+- RESULT 3.1: PR #5 is not mergeable. GitHub API reports `mergeable=false`, `mergeable_state=dirty`; local merge simulation confirms a conflict in `project-control/current-status.md`.
+- RESULT 3.1: PR #5 currently has 11 changed files and 2 commits, while the runbook still says to expect 10 files and a single commit.
+- RESULT 3.2: live public checks passed. Homepage, `/lawyer-plans/`, `/lawyer-registration/`, and `/lawyer-dashboard/` returned HTTP 200; homepage headers did not show `X-Robots-Tag`.
+- RESULT 3.3: wp-admin is blocked pending authenticated session. `/wp-admin/` redirects to login and the login page loads, but dashboard/version could not be confirmed without login.
+- RESULT 3.4: uPress Git Manager is blocked pending authenticated session. The uPress URL redirects repeatedly without login, so clean working tree/current branch could not be confirmed.
+- RESULT 3.5: approval gate not reached. Do not merge PR #5, do not install plugins, do not create paid products, and do not uPress pull until branch conflict and authenticated checks are resolved.
+- CREATED: `project-control/commercial-pipeline-section-3-preflight-2026-05-18.md`.
+- CREATED: `project-control/commercial-pipeline-section-3-preflight-2026-05-18.csv`.
+- SAFETY: read-only public checks and GitHub/local merge checks only. No wp-admin login, uPress pull, plugin install, WooCommerce product, payment, user, lawyer profile, lead, CMS content, URL, redirect, canonical, noindex, sitemap, GA4, GSC, or public database change.
+
 ## LATEST WORK STATUS - 2026-05-18 20:06 Asia/Jerusalem
 - COMMERCIAL PIPELINE LIVE TEST MATRIX: converted the repaired branch status into exact go-live tests before any uPress deployment.
 - RESEARCHED: WooCommerce Subscriptions staging/migration guidance, WooCommerce Subscriptions Health Check, and recurring-billing launch guidance. Key point: plugin installation is not launch; subscription creation, invoice, customer portal, profile linkage, cancellation and failed-payment states must be tested end to end.

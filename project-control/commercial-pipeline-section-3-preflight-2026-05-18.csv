@@ -1,0 +1,6 @@
+"section","check","result","evidence","next_action"
+"3.1","PR mergeability","FAIL","GitHub API mergeable=false mergeable_state=dirty; local merge simulation conflicts in project-control/current-status.md","Update branch with current main and resolve status-log conflict"
+"3.2","Live public site health","PASS","Homepage lawyer-plans lawyer-registration lawyer-dashboard returned HTTP 200; homepage X-Robots-Tag absent","Keep monitoring before deployment"
+"3.3","WordPress admin access","BLOCKED_AUTH_REQUIRED","wp-admin redirects to login page; login page HTTP 200","Use authenticated browser/session; then confirm dashboard and WordPress 6.7+"
+"3.4","uPress Git Manager access","BLOCKED_AUTH_REQUIRED","uPress file manager URL redirects repeatedly without authenticated session","Use authenticated browser/session; then confirm clean working tree and branch main"
+"3.5","Owner approval gate","NOT_REACHED","Pre-flight did not pass","Do not ask merge approval until 3.1-3.4 pass"

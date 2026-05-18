@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 15:10 Asia/Jerusalem
+- FAMILY/DIVORCE MONEY CLUSTER: converted P0 GSC evidence into a support-to-hub internal-link plan for `/family-law/`, the highest homepage commercial-priority category.
+- RESEARCHED: Google crawlable/internal-link guidance, Google SEO starter guidance, and leading Israeli family/divorce competitor pages. Key point: competitors cluster around divorce agreement, costs, custody/parental responsibility, child support, dispute resolution, property division, mediation and process checklists.
+- CREATED: `project-control/family-law-support-to-hub-map-2026-05-18.md`.
+- CREATED: `project-control/family-law-support-to-hub-map-2026-05-18.csv`.
+- VERIFIED LIVE: Googlebot-style fetch returned 200/indexable/self-canonical for `/family-law/`, `/free-divorce-agreement-template/`, `/joint-custody-shared-parenting/`, `/child-custody-modification/`, `/divorce-costs-2025/`, `/request-for-family-dispute-settlements/`, and `/how-much-does-a-divorce-agreement-cost/`.
+- FOUND: strongest support opportunities include divorce agreement template (36,900 impressions and 185 clicks), child-support calculator (17,808 impressions), joint custody/shared parenting (16,996), updated divorce guide (16,790 and 128 clicks), custody modification (14,186), divorce costs (13,272), and how-to-choose divorce lawyer queries (13,216).
+- NEXT: owner approval is needed before public CMS edits; then add one contextual factual link from each approved source page into `/family-law/`, avoiding unsupported "recommended/leading/free consultation" language.
+- UPRESS: no uPress pull was needed in this cycle because only repo planning artifacts changed; no deployable public theme code changed.
+- SAFETY: no public CMS/database content, article body, title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting or wp-admin setting was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 15:00 Asia/Jerusalem
 - MEDICAL MALPRACTICE MONEY CLUSTER: converted P0 GSC evidence into a support-to-hub internal-link plan for the recovered `/medical-malpractice-lawyer/` commercial page.
 - RESEARCHED: Google crawlable/internal-link guidance, Google SEO starter guidance, and leading Israeli medical-malpractice competitor pages. Key point: competitors organize around birth malpractice, cerebral palsy, experts, costs, examples, hospitals, diagnosis/treatment errors and claim process.

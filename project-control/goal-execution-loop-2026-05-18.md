@@ -515,6 +515,29 @@ Verification:
 Safety:
 - No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
 
+## Priority Cycle 24 - Family Law Support-to-Hub Map
+
+Research reviewed:
+- Google crawlable-link guidance says internal links should be crawlable and anchor text should help users and Google understand the destination page. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Google SEO starter guidance emphasizes useful content and clear navigation to important pages. Source: https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+- Competitor review for Israeli family/divorce pages shows common commercial subtopics: divorce agreement, costs, custody/parental responsibility, child support, dispute resolution, property division, mediation and process checklists. Sources reviewed: https://gertelaw.co.il/divorce-agreement/ , https://www.lawreviews.co.il/article/divorce-by-mutual-consent , https://divorcify.co.il/he/calculators/divorce-cost , https://www.sayag-law.co.il/cost-divorce-how-much/
+
+Business interpretation:
+- `/family-law/` is the first homepage commercial-priority category and has a real lawyer-supply path through Maya Rotenberg.
+- Existing family/divorce support pages already have strong GSC demand. The safe next move is an approved support-to-hub link map, not broad live content edits.
+
+Implemented in this cycle:
+- Created `project-control/family-law-support-to-hub-map-2026-05-18.md`.
+- Created `project-control/family-law-support-to-hub-map-2026-05-18.csv`.
+- Mapped 18 P0 support URLs to `/family-law/` with factual anchor directions and trust-claim cautions.
+
+Verification:
+- Googlebot-style live fetch returned 200, indexable and self-canonical for `/family-law/`, `/free-divorce-agreement-template/`, `/joint-custody-shared-parenting/`, `/child-custody-modification/`, `/divorce-costs-2025/`, `/request-for-family-dispute-settlements/`, and `/how-much-does-a-divorce-agreement-cost/`.
+- No deployable theme code changed, so no uPress pull was required.
+
+Safety:
+- Repo-only planning. No public CMS database row, article body, title/H1/meta, URL slug, redirect, taxonomy, noindex, canonical, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC admin setting or wp-admin setting was changed.
+
 ## Priority Cycle 23 - Medical Malpractice Support-to-Hub Map
 
 Research reviewed:

@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$justice_phone = justice_theme_option( 'justice_phone', '03-6161535' );
+$justice_phone = justice_theme_option( 'justice_phone', '0525101555' );
 $justice_topic_links = array(
 	array(
 		'label' => __( 'עורך דין גירושין', 'justice-theme' ),

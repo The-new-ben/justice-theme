@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$justice_phone    = justice_theme_option( 'justice_phone', '03-6161535' );
+$justice_phone    = justice_theme_option( 'justice_phone', '0525101555' );
 $justice_email    = justice_theme_option( 'justice_email', 'info@jus-tice.co.il' );
-$justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0544705733' );
+$justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
 ?>
 
 <footer class="site-footer" role="contentinfo" style="background: var(--jt-primary-deep); color: #fff; padding-top: 5rem; padding-bottom: 2rem; border-top: 4px solid var(--jt-accent);">
@@ -108,7 +108,7 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0544705733' );
 </footer>
 
 <?php
-$justice_wa = justice_theme_option( 'justice_whatsapp', '0544705733' );
+$justice_wa = justice_theme_option( 'justice_whatsapp', '0525101555' );
 if ( $justice_wa ) :
 ?>
 <a class="whatsapp-float" href="<?php echo esc_url( 'https://wa.me/972' . ltrim( $justice_wa, '0' ) ); ?>" target="_blank" rel="noopener" aria-label="<?php esc_attr_e( 'שלחו הודעה בוואטסאפ', 'justice-theme' ); ?>" style="position: fixed; bottom: 20px; left: 20px; background: #25D366; color: white; border-radius: 50px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); z-index: 1000;">

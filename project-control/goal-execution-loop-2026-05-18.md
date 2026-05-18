@@ -396,3 +396,31 @@ Verification:
 Next cycle recommendation:
 - Commit and push this batch, pull Git in uPress, then run `node tools/check-live-html-sitemap.mjs` and a quick visual check of `/site-map/`.
 - Resume the normal growth loop with GA4/GSC traffic diagnostics and crawl/indexing journey checks.
+
+## Priority Cycle 14 - uPress Pull Control + Owner Phone Cleanup
+
+Research reviewed:
+- Google Search Central link guidance says Google needs crawlable `<a href>` links and meaningful internal anchor text so users and Google can discover site pages. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Google Search Central structured-data guidance says the primary business phone should be represented consistently in LocalBusiness/Organization-style structured data where applicable. Sources: https://developers.google.com/search/docs/appearance/structured-data/local-business and https://developers.google.com/search/docs/appearance/structured-data/organization
+
+Business interpretation:
+- The owner identified the public bottom phone number as a mock value. A wrong phone number is a direct trust, conversion and local-entity signal problem.
+- The safest immediate fix is a render-level owner-phone guard, so stale uPress/Customizer values cannot leak the old phone back into the public header, footer, CTA, WhatsApp button or LegalService schema.
+
+Implemented in this cycle:
+- Replaced public theme fallbacks for phone and WhatsApp with `0525101555`.
+- Added a render-level legacy-number guard in `justice_theme_option()` for `justice_phone` and `justice_whatsapp`.
+- Updated LegalService schema telephone to use the same public owner contact value.
+- Added `tools/check-live-owner-phone.mjs` to verify the live homepage displays `0525101555`, uses `tel:0525101555`, points WhatsApp to `972525101555`, and no longer exposes the old mock numbers.
+- Updated the deployment marker to `2026-05-18-owner-phone-v1`.
+
+Verification:
+- PHP lint passed for `inc/lead-ui.php`, `inc/schema.php`, `functions.php`, `template-parts/layout/site-header.php`, `template-parts/layout/site-footer.php`, and `template-parts/sections/cta-section.php`.
+- Node syntax checks passed for `tools/check-live-owner-phone.mjs` and `tools/check-live-html-sitemap.mjs`.
+- `git diff --check` passed with line-ending warnings only.
+
+Deployment action required:
+- Commit and push the owner-phone batch, run uPress Git Pull for `/wp-content/themes/justice-theme`, then run `node tools/check-live-owner-phone.mjs`, `node tools/check-live-html-sitemap.mjs`, and `node tools/check-live-journeys.mjs`.
+
+Safety:
+- No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.

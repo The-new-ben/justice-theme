@@ -19,9 +19,9 @@ Do not store credentials in this file.
 - Git status action: VERIFIED.
 - Git pull action: VERIFIED.
 - Direct SSH/WP-CLI: NOT AVAILABLE in this session.
-- Current Codex browser automation: NOT EXPOSED in the 2026-05-18 heartbeat
-  session. If no browser/control tool is available, record the blocker and run
-  `node tools/check-live-deployment.mjs` after the owner or another agent pulls.
+- Current Codex browser automation: AVAILABLE again in the 2026-05-18 owner
+  priority session. Use the in-app browser workflow first; only record a
+  blocker if the Git Management panel or Pull button cannot be reached.
 
 ## Verified Steps
 
@@ -67,7 +67,7 @@ VERIFIED:
 
 ## 2026-05-18 Pull Result
 
-PARTIAL TOOLING BLOCKER / OWNER MANUAL PULL VERIFIED:
+OWNER MANUAL PULL VERIFIED:
 
 - GitHub `main` now includes commit `08a3844`
   (`Add lawyer growth analytics and journey checks`).
@@ -79,6 +79,29 @@ PARTIAL TOOLING BLOCKER / OWNER MANUAL PULL VERIFIED:
   tool list. This was a tool availability issue, not a credential objection.
 - Previous sessions did have browser/uPress control available, so future agents
   should try the browser/chrome tool again before declaring uPress blocked.
+
+## 2026-05-18 Codex Pull Result - HTML Sitemap
+
+VERIFIED:
+
+- Codex opened the authenticated uPress file manager at
+  `/wp-content/themes/justice-theme`.
+- Codex clicked `ניהול GIT`.
+- Codex clicked `משיכת נתונים (Pull)`.
+- Live verification after the pull passed:
+  - `node tools/check-live-html-sitemap.mjs`
+  - `node tools/check-live-journeys.mjs`
+- Live `/site-map/` returned 200, had crawlable links, was linked from the
+  footer/homepage, and exposed the deployment marker.
+
+## 2026-05-18 Next Pull Needed - Owner Phone
+
+- GitHub `main` will include the owner-phone cleanup batch after commit/push.
+- Next required uPress action: run Git Pull in `/wp-content/themes/justice-theme`.
+- Required post-pull verification:
+  - `node tools/check-live-owner-phone.mjs`
+  - `node tools/check-live-html-sitemap.mjs`
+  - `node tools/check-live-journeys.mjs`
 
 POST-PULL VERIFICATION:
 

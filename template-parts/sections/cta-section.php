@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $justice_phone = function_exists( 'justice_theme_option' )
-	? justice_theme_option( 'justice_phone', '03-6161535' )
-	: '03-6161535';
+	? justice_theme_option( 'justice_phone', '0525101555' )
+	: '0525101555';
 ?>
 
 <section class="cta-section section" id="cta-section">

@@ -168,7 +168,7 @@ function justice_theme_legal_service_schema() {
 		'@type'       => 'LegalService',
 		'name'        => 'ג\'סטיס - פורטל משפטי',
 		'url'         => justice_theme_public_url( home_url( '/' ) ),
-		'telephone'   => '03-6161535',
+		'telephone'   => function_exists( 'justice_theme_public_contact_number' ) ? justice_theme_public_contact_number() : '0525101555',
 		'email'       => 'info@jus-tice.co.il',
 		'address'     => array(
 			'@type'          => 'PostalAddress',

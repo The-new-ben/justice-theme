@@ -514,3 +514,38 @@ Verification:
 
 Safety:
 - No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
+
+## Priority Cycle 18 - Medical Malpractice Money Route Recovery
+
+Research reviewed:
+- Google Search Console traffic-drop guidance recommends checking whether a decline is tied to specific pages and fixing page-level causes before making broad changes. Source: https://support.google.com/webmasters/answer/9079473
+- Google link and site-structure guidance recommends making important pages reachable through crawlable internal links with clear anchors. Sources: https://developers.google.com/search/docs/crawling-indexing/links-crawlable and https://developers.google.com/search/docs/appearance/sitelinks
+- Google's indexing report guidance says to fix 404s that the site links to itself or lists in discovery surfaces. Source: https://support.google.com/webmasters/answer/7440203
+
+Business interpretation:
+- `/medical-malpractice-lawyer/` is an internally linked commercial URL and appears in GSC/export evidence, so leaving it as a 404/noindex wastes crawl signals and loses high-value user intent.
+- The safest immediate recovery is a render-only controlled landing route. This keeps the public URL stable and avoids CMS/database edits while the larger medical-malpractice content audit continues.
+
+Implemented in this cycle:
+- Added `practice-medical-malpractice-route.php`.
+- Updated `inc/practice-landing.php` to serve `/medical-malpractice-lawyer/` through the controlled medical-malpractice practice template and force a real 200 response even when WordPress initially resolves the request as 404.
+- Added index/follow, canonical and title/meta filters for the recovered commercial route.
+- Updated the deployment marker to `2026-05-18-medical-malpractice-route-v1`.
+- Updated live checkers to expect the new marker.
+
+Verification:
+- PHP lint passed for `inc/practice-landing.php`, `practice-medical-malpractice-route.php`, and `functions.php`.
+- Node syntax checks passed for `tools/check-live-traffic-priority.mjs`, `tools/check-live-html-sitemap.mjs`, and `tools/check-live-owner-phone.mjs`.
+- `git diff --check` passed with line-ending warnings only.
+- Commit `2d1f99e` was pushed to GitHub `main`.
+- Codex operated the uPress File Manager Git panel directly and clicked `משיכת נתונים (Pull)` for `/wp-content/themes/justice-theme`; uPress reported pull success.
+- Live traffic priority audit now shows `/medical-malpractice-lawyer/` as `PASS`, HTTP 200, about 56 KB, 67 links.
+- Live sitemap, owner-phone and user/lawyer/Googlebot journey checks passed after uPress pull.
+
+Remaining blockers:
+- `/articles/` is still oversized at about 2.9 MB with 4,793 links.
+- `/contact/` is still HTTP 404/noindex.
+- `/about/` is still HTTP 404/noindex.
+
+Safety:
+- Render-only theme change. No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.

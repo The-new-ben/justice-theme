@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-18 14:16 Asia/Jerusalem
+- PRIORITY TRAFFIC RECOVERY: `/medical-malpractice-lawyer/` was a live commercial 404/noindex and is now recovered as an indexable controlled practice route.
+- RESEARCHED: Google traffic-drop diagnostics, crawlable-link/site-structure guidance, and indexing guidance for fixing internally linked 404s.
+- IMPLEMENTED: `practice-medical-malpractice-route.php` and route handling in `inc/practice-landing.php` to serve the medical-malpractice hub at the existing URL without CMS/database edits.
+- IMPLEMENTED: index/follow robots, canonical, and title/meta filters for the recovered route.
+- UPDATED: deployment marker to `2026-05-18-medical-malpractice-route-v1`; live marker checkers now expect it.
+- PUSHED: GitHub `main` includes commit `2d1f99e` (`Recover medical malpractice money route`).
+- DEPLOYED: Codex used uPress File Manager Git management for `wp-content/themes/justice-theme` and uPress reported `משיכת נתונים (Pull) הושלמה בהצלחה`.
+- VERIFIED LIVE: `/medical-malpractice-lawyer/` now passes the traffic-priority audit with HTTP 200, about 56 KB, 67 links.
+- VERIFIED LIVE: HTML sitemap, owner phone, and public user/lawyer/Googlebot journey checks passed after uPress pull.
+- REMAINING TRAFFIC BLOCKERS: `/articles/` is still too large/link-dense; `/contact/` and `/about/` are still 404/noindex.
+- SAFETY: no public CMS/database content, taxonomy term, slug, redirect rule, XML sitemap setting, robots rule, lawyer record, lead record, payment setting, GA4/GSC setting or database row was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 13:05 Asia/Jerusalem
 - PRIORITY INTERRUPTION ACCEPTED: owner reported traffic concern and requested an immediate dynamic HTML sitemap page, with web research first, linked close to the homepage/footer, and designed for Google crawling.
 - RESEARCHED: Google Search Central crawlable-link guidance, Google's SEO Starter Guide site-structure guidance, and current internal-linking/HTML-sitemap best practices.

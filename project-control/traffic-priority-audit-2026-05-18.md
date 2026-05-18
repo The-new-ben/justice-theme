@@ -35,24 +35,21 @@ Checked priority paths:
 - `/site-map/` passed: dynamic crawl hub is reachable and crawlable.
 - `/family-law/` now passes after the controlled family-law template route was deployed and pulled in uPress.
 - `/lawyers/?area=family-law` passed after allowing the intentional filtered-directory noindex.
+- `/medical-malpractice-lawyer/` now passes after the controlled medical-malpractice route was deployed and pulled in uPress.
 - `/criminal-defense-attorney/` passed.
 - `/traffic-lawyer/` passed.
 
 ## Critical Review Items
 
-1. `/medical-malpractice-lawyer/` is a critical commercial 404.
-   - Expected: indexable commercial path or a deliberate safe fallback.
-   - Current: HTTP 404 and noindex.
-
-2. `/articles/` is too large and too link-dense.
+1. `/articles/` is too large and too link-dense.
    - Current HTML size: about 2.9 MB.
    - Current crawlable links: 4,793.
    - This weakens both user scanning and crawl prioritization. The new `/site-map/` is healthier, but `/articles/` still needs pagination/segmentation review.
 
-3. `/contact/` is a high-priority legacy 404.
+2. `/contact/` is a high-priority legacy 404.
    - Owner phone is now correct globally, but users and old menu/search paths may still expect a contact page.
 
-4. `/about/` is a trust-path 404.
+3. `/about/` is a trust-path 404.
    - For YMYL/legal content, missing trust/about context is an E-E-A-T weakness and should be fixed with accurate, conservative copy.
 
 ## Fixed This Cycle
@@ -60,14 +57,17 @@ Checked priority paths:
 - `/family-law/` was fixed without a URL change, redirect or CMS edit.
 - A controlled template route now serves the family-law practice hub even though an old court-judgment content item owns the slug in WordPress.
 - Post-pull live audit result: `/family-law/` is `PASS`, HTTP 200, about 105 KB, 104 links.
+- `/medical-malpractice-lawyer/` was fixed without a URL change, redirect or CMS edit.
+- A controlled template route now serves a medical-malpractice practice hub at the existing commercial URL instead of the 404/noindex response.
+- Post-pull live audit result: `/medical-malpractice-lawyer/` is `PASS`, HTTP 200, about 56 KB, 67 links.
 
 ## Safe Next Actions
 
-1. Decide whether `/medical-malpractice-lawyer/` should become a real commercial landing page or safely resolve to the lawyer directory filter.
-2. Create lightweight `/contact/` and `/about/` route/page handling with accurate owner-approved copy.
-3. Split or reduce `/articles/` hub output so it is useful to users and not a 4,793-link dump.
-4. Keep `/site-map/` as the crawler discovery hub, but do not use it as a substitute for fixing commercial intent pages.
+1. Create lightweight `/contact/` and `/about/` route/page handling with accurate owner-approved copy.
+2. Split or reduce `/articles/` hub output so it is useful to users and not a 4,793-link dump.
+3. Keep `/site-map/` as the crawler discovery hub, but do not use it as a substitute for fixing commercial intent pages.
+4. Continue content-cluster classification so medical malpractice, family law and other commercial hubs get stronger supporting articles.
 
 ## Safety
 
-The `/family-law/` fix was render-only theme code. No CMS/database rows, content bodies, URLs, redirects, sitemap settings, taxonomy terms, lawyer profiles, lead records, payment settings, GA4 or GSC settings were changed.
+The `/family-law/` and `/medical-malpractice-lawyer/` fixes were render-only theme code. No CMS/database rows, content bodies, URLs, redirects, sitemap settings, taxonomy terms, lawyer profiles, lead records, payment settings, GA4 or GSC settings were changed.

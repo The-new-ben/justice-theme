@@ -88,6 +88,15 @@ const checks = [
   },
   {
     journey: 'user',
+    priority: 'critical',
+    path: '/inheritance-lawyer/',
+    role: 'inheritance and wills lawyer commercial path',
+    mustStatus: 200,
+    mustIncludeAny: ['ירושה', 'צווא', 'עורך דין', 'inheritance'],
+    maxBytes: 500000,
+  },
+  {
+    journey: 'user',
     priority: 'high',
     path: '/contact/',
     role: 'legacy contact path',

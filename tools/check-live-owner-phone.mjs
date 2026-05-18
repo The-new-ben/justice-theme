@@ -52,6 +52,6 @@ expect(
   'Homepage no longer exposes legacy/mock phone numbers'
 );
 expect(
-  /justice-deployment-marker["'][^>]*2026-05-18-real-estate-guide-route-v1/i.test(homepage.body),
+  /justice-deployment-marker["'][^>]*2026-05-18-inheritance-lawyer-route-v1/i.test(homepage.body),
   'Owner phone deployment marker is present'
 );

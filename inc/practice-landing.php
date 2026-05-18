@@ -83,8 +83,11 @@ function justice_theme_get_practice_landing_config( string $slug ): ?array {
 			'keyword'    => 'עורך דין ירושה',
 			'summary'    => 'מידע על צוואות, ירושות, התנגדות לצוואה, ניהול עיזבון וסכסוכים משפחתיים סביב רכוש.',
 			'supporting' => array(
-				array( 'label' => 'צוואה', 'url' => '/will/' ),
-				array( 'label' => 'התנגדות לצוואה', 'url' => '/will-contest/' ),
+				array( 'label' => 'מהי ירושה', 'url' => '/inheritance/' ),
+				array( 'label' => 'צו ירושה', 'url' => '/inheritance-order/' ),
+				array( 'label' => 'צוואה', 'url' => '/will-and-testament/' ),
+				array( 'label' => 'התנגדות לצוואה', 'url' => '/will-probate-objection/' ),
+				array( 'label' => 'צו קיום צוואה', 'url' => '/what-is-a-probate-order/' ),
 			),
 		),
 		'torts'               => array(
@@ -171,6 +174,14 @@ function justice_theme_is_medical_malpractice_practice_route(): bool {
  */
 function justice_theme_is_real_estate_lawyer_guide_route(): bool {
 	return ! is_admin() && '/real-estate-lawyer-guide/' === justice_theme_practice_landing_request_path();
+}
+
+/**
+ * Recover the strategic inheritance/wills lawyer route when WordPress would
+ * otherwise serve a 404 or noindexed fallback directory page.
+ */
+function justice_theme_is_inheritance_lawyer_practice_route(): bool {
+	return ! is_admin() && '/inheritance-lawyer/' === justice_theme_practice_landing_request_path();
 }
 
 /**
@@ -347,6 +358,59 @@ function justice_theme_prepare_real_estate_lawyer_guide_route_meta(): void {
 }
 
 /**
+ * Apply SEO plugin filters for the controlled inheritance/wills lawyer route.
+ */
+function justice_theme_prepare_inheritance_lawyer_practice_route_meta(): void {
+	$config = justice_theme_get_practice_landing_config( 'inheritance' );
+	if ( empty( $config ) ) {
+		return;
+	}
+
+	$title          = 'עורך דין ירושה וצוואות | צו ירושה, צוואה והתנגדות לצוואה | Jus-Tice';
+	$description    = 'מרכז מידע על צוואות, ירושות, צו ירושה, צו קיום צוואה, התנגדות לצוואה וניהול עיזבון, עם חיבור לעורכי דין בתחום ירושה וצוואות.';
+	$canonical_url  = justice_theme_public_url( home_url( '/inheritance-lawyer/' ) );
+	$robots_content = 'index, follow';
+
+	justice_theme_mark_controlled_practice_route_found();
+
+	add_filter(
+		'pre_get_document_title',
+		static function () use ( $title ): string {
+			return $title;
+		},
+		PHP_INT_MAX
+	);
+	add_filter(
+		'wpseo_title',
+		static function () use ( $title ): string {
+			return $title;
+		},
+		PHP_INT_MAX
+	);
+	add_filter(
+		'wpseo_metadesc',
+		static function () use ( $description ): string {
+			return $description;
+		},
+		PHP_INT_MAX
+	);
+	add_filter(
+		'wpseo_canonical',
+		static function () use ( $canonical_url ): string {
+			return $canonical_url;
+		},
+		PHP_INT_MAX
+	);
+	add_filter(
+		'wpseo_robots',
+		static function () use ( $robots_content ): string {
+			return $robots_content;
+		},
+		PHP_INT_MAX
+	);
+}
+
+/**
  * Prepare metadata early for the family-law route.
  */
 function justice_theme_maybe_prepare_family_law_practice_route(): void {
@@ -360,6 +424,10 @@ function justice_theme_maybe_prepare_family_law_practice_route(): void {
 
 	if ( justice_theme_is_real_estate_lawyer_guide_route() ) {
 		justice_theme_prepare_real_estate_lawyer_guide_route_meta();
+	}
+
+	if ( justice_theme_is_inheritance_lawyer_practice_route() ) {
+		justice_theme_prepare_inheritance_lawyer_practice_route_meta();
 	}
 }
 add_action( 'template_redirect', 'justice_theme_maybe_prepare_family_law_practice_route', -3500 );
@@ -383,6 +451,11 @@ function justice_theme_use_family_law_practice_template( string $template ): str
 
 	if ( justice_theme_is_real_estate_lawyer_guide_route() ) {
 		$practice_template = locate_template( 'practice-real-estate-guide-route.php' );
+		return $practice_template ?: $template;
+	}
+
+	if ( justice_theme_is_inheritance_lawyer_practice_route() ) {
+		$practice_template = locate_template( 'practice-inheritance-lawyer-route.php' );
 		return $practice_template ?: $template;
 	}
 

@@ -95,12 +95,13 @@ Needed signals:
 Current implemented pieces:
 - selected plan intent is preserved through registration;
 - onboarding admin shows plan and sales priority;
+- owner-only activation fields are implemented on lawyer edit screens: `activation_status`, `first_value_at`, and `activation_owner_note`;
+- new lawyer registrations start with `activation_status=registered`;
 - dashboard shows profile views, assigned leads and content requests;
 - CRM shows lead quality, follow-up and response SLA;
 - monthly value report spec exists.
 
 Blocked pieces:
-- live deployment/uPress pull;
 - GA4/GTM event receipt;
 - payment provider and subscription state;
 - exact billing/qualified-lead rules;
@@ -119,7 +120,7 @@ Mark a lawyer as at risk when:
 ## Next Safe Implementation Steps
 
 1. After uPress pull, verify the lawyer registration and analytics changes live.
-2. Add owner-only activation status fields to lawyer onboarding/admin views.
+2. Verify the owner-only activation fields in wp-admin on one draft lawyer.
 3. Add dashboard copy/structure that makes the first-value milestone visible to the lawyer.
 4. Add a report/export skeleton for lawyers who reached first measurable value.
 5. Only after payment/legal/tax approval, connect subscription state and renewal-risk reporting.

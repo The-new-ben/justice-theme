@@ -337,3 +337,30 @@ Current deployment status:
 
 Next cycle recommendation:
 - After uPress pull, add owner-only activation status fields to lawyer onboarding/admin views and verify the live lawyer registration journey.
+
+## Cycle 12 - Owner Activation Status Fields
+
+Research reviewed:
+- Current SaaS/customer-success guidance emphasizes milestone-based activation and time-to-first-value tracking, rather than treating onboarding completion as success. Sources: https://netpartners.marketing/customer-onboarding-automation-2026-saas-guide/, https://www.pmguru.org/insights/customer-onboarding-retention/, https://retentioncheck.com/learn/onboarding-reduces-churn
+- Current law-firm marketing/reporting positioning emphasizes signed retainers, qualified leads, transparent reporting and ROI, not vanity metrics. Source: https://goconstellation.com/
+
+Business interpretation:
+- Jus-Tice needs an owner-visible activation state for every registered lawyer: registered, profile ready, first value reached, retention review or at risk.
+- This gives the owner a simple customer-success operating layer before billing automation is approved.
+
+Implemented in this cycle:
+- `inc/lawyer-onboarding.php` now registers owner-only lawyer activation meta: `activation_status`, `first_value_at`, and `activation_owner_note`.
+- New lawyer registrations now start with `activation_status=registered`.
+- Added a `Jus-Tice Lawyer Activation` meta box on `justice_lawyer` edit screens.
+- Lawyer Onboarding admin now shows activation status and first-value timestamp beside sales priority.
+- Updated `project-control/lawyer-time-to-first-value-plan-2026-05-18.md`.
+- No public CMS content, public profile approval, lead record, email automation, payment logic, redirect, sitemap setting, wp-admin setting or existing database row was changed.
+
+Verification:
+- `php -l inc/lawyer-onboarding.php` passed.
+- `node tools/check-live-deployment.mjs` passed.
+- `node tools/check-live-journeys.mjs` passed sampled user, lawyer and Googlebot checks.
+- `git diff --check` passed with line-ending warnings only.
+
+Next cycle recommendation:
+- After deployment/uPress pull, verify the activation meta box in wp-admin and then expose a non-sensitive first-value milestone on the lawyer dashboard.

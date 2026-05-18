@@ -9,6 +9,24 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+function justice_theme_register_lawyer_activation_meta(): void {
+	$fields = array(
+		'activation_status'     => 'string',
+		'first_value_at'        => 'string',
+		'activation_owner_note' => 'string',
+	);
+
+	foreach ( $fields as $key => $type ) {
+		register_post_meta( 'justice_lawyer', $key, array(
+			'single'            => true,
+			'type'              => $type,
+			'sanitize_callback' => 'activation_owner_note' === $key ? 'sanitize_textarea_field' : 'sanitize_text_field',
+			'show_in_rest'      => false,
+		) );
+	}
+}
+add_action( 'init', 'justice_theme_register_lawyer_activation_meta' );
+
 function justice_theme_handle_lawyer_registration(): void {
 	if ( ! isset( $_POST['justice_lawyer_registration_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_registration_nonce'] ) ), 'justice_lawyer_registration' ) ) {
 		wp_safe_redirect( add_query_arg( 'registration', 'failed', home_url( '/lawyer-registration/' ) ) );
@@ -82,6 +100,9 @@ function justice_theme_handle_lawyer_registration(): void {
 		'subscription_status'  => 'pending',
 		'verification_status'  => 'pending',
 		'profile_status'       => 'pending',
+		'activation_status'    => 'registered',
+		'first_value_at'       => '',
+		'activation_owner_note' => '',
 		'claimed_by_user_id'   => is_user_logged_in() ? get_current_user_id() : 0,
 		'source_type'          => 'registration',
 		'lead_routing_enabled' => false,
@@ -244,6 +265,100 @@ function justice_theme_append_lawyer_internal_note( int $post_id, string $note )
 
 	update_post_meta( $post_id, 'internal_notes', trim( $existing . "\n" . $entry ) );
 }
+
+function justice_theme_lawyer_activation_options(): array {
+	return array(
+		'registered'       => 'Registered',
+		'profile_ready'    => 'Profile ready',
+		'first_value'      => 'First value reached',
+		'retention_review' => 'Retention review',
+		'at_risk'          => 'At risk',
+	);
+}
+
+function justice_theme_lawyer_activation_badge( string $status ): array {
+	$labels = justice_theme_lawyer_activation_options();
+	$label  = $labels[ $status ] ?? 'Registered';
+
+	if ( 'first_value' === $status ) {
+		return array( 'label' => $label, 'style' => 'background:#ecfdf3;color:#166534;' );
+	}
+
+	if ( 'profile_ready' === $status ) {
+		return array( 'label' => $label, 'style' => 'background:#e7f0ff;color:#16427a;' );
+	}
+
+	if ( 'retention_review' === $status ) {
+		return array( 'label' => $label, 'style' => 'background:#eef2ff;color:#3730a3;' );
+	}
+
+	if ( 'at_risk' === $status ) {
+		return array( 'label' => $label, 'style' => 'background:#fef2f2;color:#991b1b;' );
+	}
+
+	return array( 'label' => $label, 'style' => 'background:#f1f5f9;color:#334155;' );
+}
+
+function justice_theme_lawyer_activation_meta_box(): void {
+	add_meta_box(
+		'justice_theme_lawyer_activation',
+		'Jus-Tice Lawyer Activation',
+		'justice_theme_render_lawyer_activation_box',
+		'justice_lawyer',
+		'side',
+		'high'
+	);
+}
+add_action( 'add_meta_boxes', 'justice_theme_lawyer_activation_meta_box' );
+
+function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
+	wp_nonce_field( 'justice_theme_lawyer_activation', 'justice_theme_lawyer_activation_nonce' );
+
+	$status         = get_post_meta( $post->ID, 'activation_status', true ) ?: 'registered';
+	$first_value_at = get_post_meta( $post->ID, 'first_value_at', true );
+	$owner_note     = get_post_meta( $post->ID, 'activation_owner_note', true );
+	?>
+	<p>
+		<label for="justice-lawyer-activation-status"><strong>Activation status</strong></label>
+		<select id="justice-lawyer-activation-status" name="activation_status" style="width:100%;">
+			<?php foreach ( justice_theme_lawyer_activation_options() as $value => $label ) : ?>
+				<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $status, $value ); ?>><?php echo esc_html( $label ); ?></option>
+			<?php endforeach; ?>
+		</select>
+	</p>
+	<p>
+		<label for="justice-first-value-at"><strong>First value time</strong></label>
+		<input id="justice-first-value-at" type="datetime-local" name="first_value_at" value="<?php echo esc_attr( $first_value_at ); ?>" style="width:100%;">
+	</p>
+	<p>
+		<label for="justice-activation-owner-note"><strong>Owner/customer-success note</strong></label>
+		<textarea id="justice-activation-owner-note" name="activation_owner_note" rows="5" style="width:100%;"><?php echo esc_textarea( $owner_note ); ?></textarea>
+	</p>
+	<p style="color:#646970;">Owner-only tracking for time-to-first-value and retention review. No public display.</p>
+	<?php
+}
+
+function justice_theme_save_lawyer_activation( int $post_id ): void {
+	$nonce = isset( $_POST['justice_theme_lawyer_activation_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_theme_lawyer_activation_nonce'] ) ) : '';
+
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'justice_theme_lawyer_activation' ) ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'edit_post', $post_id ) || ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ) {
+		return;
+	}
+
+	$status = isset( $_POST['activation_status'] ) ? sanitize_key( wp_unslash( $_POST['activation_status'] ) ) : 'registered';
+	if ( ! array_key_exists( $status, justice_theme_lawyer_activation_options() ) ) {
+		$status = 'registered';
+	}
+
+	update_post_meta( $post_id, 'activation_status', $status );
+	update_post_meta( $post_id, 'first_value_at', isset( $_POST['first_value_at'] ) ? sanitize_text_field( wp_unslash( $_POST['first_value_at'] ) ) : '' );
+	update_post_meta( $post_id, 'activation_owner_note', isset( $_POST['activation_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['activation_owner_note'] ) ) : '' );
+}
+add_action( 'save_post_justice_lawyer', 'justice_theme_save_lawyer_activation' );
 
 function justice_theme_apply_lawyer_profile_update(): void {
 	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
@@ -453,6 +568,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$status  = get_post_meta( $post_id, 'profile_status', true ) ?: get_post_status( $post_id );
 						$plan    = (string) get_post_meta( $post_id, 'plan_type', true );
 						$sales_priority = justice_theme_lawyer_onboarding_sales_priority( $plan );
+						$activation_status = (string) get_post_meta( $post_id, 'activation_status', true ) ?: 'registered';
+						$activation_badge  = justice_theme_lawyer_activation_badge( $activation_status );
+						$first_value_at     = get_post_meta( $post_id, 'first_value_at', true );
 						$has_pending_update = '1' === (string) get_post_meta( $post_id, 'pending_profile_review', true );
 						$has_pending_content = '1' === (string) get_post_meta( $post_id, 'pending_content_review', true );
 						$content_article_id = (int) get_post_meta( $post_id, 'latest_content_request_article_id', true );
@@ -490,6 +608,14 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 									<?php echo esc_html( $sales_priority['label'] ); ?>
 								</span>
 								<p style="margin:0;"><?php echo esc_html( $sales_priority['note'] ); ?></p>
+								<p style="margin:8px 0 0;">
+									<span style="display:inline-block;margin:0 0 4px;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $activation_badge['style'] ); ?>">
+										<?php echo esc_html( $activation_badge['label'] ); ?>
+									</span>
+									<?php if ( $first_value_at ) : ?>
+										<br><small>First value: <?php echo esc_html( $first_value_at ); ?></small>
+									<?php endif; ?>
+								</p>
 							</td>
 							<td>
 								<?php if ( $has_pending_update ) : ?>

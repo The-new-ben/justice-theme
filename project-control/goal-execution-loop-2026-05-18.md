@@ -515,6 +515,30 @@ Verification:
 Safety:
 - No CMS database row, content body, URL slug, redirect, taxonomy, lawyer profile, lead record, payment setting, GA4/GSC admin setting, XML sitemap setting or wp-admin setting was changed.
 
+## Priority Cycle 22 - Homepage Commercial Priority Map
+
+Research reviewed:
+- Google SEO starter guidance says link text should tell users and Google something about the linked page, and navigation should help users find important pages. Source: https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+- Google's crawl-budget guidance says higher-value content improves crawl demand, while low-value URL exposure can waste crawl attention. Source: https://developers.google.com/search/docs/crawling-indexing/large-site-managing-crawl-budget
+- Current large-site internal-link architecture guidance recommends reserving homepage/global prominence for the most important pillar or commercial pages, then supporting them with contextual cluster links. Source: https://www.ranktracker.com/blog/internal-linking-strategy-for-large-sites-100k-pages/
+
+Business interpretation:
+- The homepage is the strongest internal-link signal source. If it sorts practice areas by content count, old or broad clusters can outrank the legal money categories the business wants to sell to lawyers.
+- The next public homepage change should not be visual guesswork. It should follow an approved commercial priority list backed by GSC signals, lawyer supply, and lead value.
+
+Implemented in this cycle:
+- Created `project-control/homepage-commercial-priority-map-2026-05-18.md`.
+- Created `project-control/homepage-commercial-priority-map-2026-05-18.csv`.
+- Documented that `template-parts/sections/practice-areas-grid.php` currently orders cards by term `count`.
+- Proposed the safe homepage priority order: Family/Divorce, Medical Malpractice, Criminal Law, Real Estate, Traffic Law, Employment, Inheritance/Wills, Personal Injury, foreign/relocation, broad informational.
+
+Verification:
+- Live read-only journey check passed homepage lead path, lawyer directory, sample article, lawyer registration, plan-intent registration, XML sitemap and robots.
+- No deployable theme code changed, so no uPress pull was required for this cycle.
+
+Safety:
+- Repo-only planning. No public CMS database row, homepage template, article body, title/H1/meta, URL slug, redirect, taxonomy, noindex, canonical, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC admin setting or wp-admin setting was changed.
+
 ## Priority Cycle 21 - Content Triage and GSC Protection Map
 
 Research reviewed:

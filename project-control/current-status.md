@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 14:50 Asia/Jerusalem
+- HOMEPAGE COMMERCIAL PRIORITY: converted the content triage into a homepage/internal-link priority map so the site can stop rewarding old content volume and start promoting lawyer-lead categories.
+- RESEARCHED: Google SEO starter/internal-link guidance, Google crawl-budget guidance, and current large-site internal-link architecture guidance. Key point: homepage/global prominence should point to important user/business pages with descriptive anchors.
+- VERIFIED CURRENT HOMEPAGE LOGIC: `template-parts/sections/practice-areas-grid.php` sorts practice areas by term `count`, which is crawlable but not aligned with business priority or lawyer monetization.
+- CREATED: `project-control/homepage-commercial-priority-map-2026-05-18.md`.
+- CREATED: `project-control/homepage-commercial-priority-map-2026-05-18.csv`.
+- RECOMMENDED HOMEPAGE ORDER: Family/Divorce, Medical Malpractice, Criminal Law, Real Estate, Traffic Law, then Employment, Inheritance/Wills, Personal Injury, foreign/relocation, broad informational.
+- VERIFIED LIVE: `tools/check-live-journeys.mjs` passed homepage lead path, lawyer directory, sample article, lawyer registration, plan-intent registration, XML sitemap and robots checks.
+- UPRESS: no uPress pull was needed in this cycle because only repo planning artifacts changed; no deployable public theme code changed.
+- SAFETY: no public CMS/database content, homepage template, title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting or wp-admin setting was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 14:40 Asia/Jerusalem
 - CONTENT QUALITY / TRAFFIC RECOVERY: shifted from technical route recovery into content triage for outdated, weak, misclassified, corona-era, trust-claim and GSC-risk pages.
 - RESEARCHED: Google core-update, helpful-content, and crawl-budget guidance. Key point: do not blindly delete legal/YMYL content; improve, merge, or remove only after page-level evidence review, because unhelpful sitewide content can suppress stronger pages.

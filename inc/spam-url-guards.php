@@ -41,12 +41,13 @@ function justice_theme_serve_root_brand_icon(): void {
 	}
 
 	status_header( 200 );
+	http_response_code( 200 );
 	header( 'Content-Type: ' . $icon['type'] );
 	header( 'Cache-Control: public, max-age=604800' );
 	readfile( $icon['file'] ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_readfile
 	exit;
 }
-add_action( 'template_redirect', 'justice_theme_serve_root_brand_icon', 0 );
+add_action( 'init', 'justice_theme_serve_root_brand_icon', 0 );
 
 /**
  * Return 410 for deleted casino/gambling spam paths left by the old breach.
@@ -70,10 +71,12 @@ function justice_theme_guard_deleted_spam_urls(): void {
 	}
 
 	status_header( 410 );
+	http_response_code( 410 );
+	header( 'Status: 410 Gone', true, 410 );
 	header( 'X-Robots-Tag: noindex, nofollow', true );
 	nocache_headers();
 
 	echo '<!doctype html><html lang="he" dir="rtl"><head><meta charset="utf-8"><meta name="robots" content="noindex,nofollow"><title>עמוד הוסר | Jus-Tice</title></head><body><h1>עמוד הוסר</h1><p>העמוד הוסר מהאתר ואינו זמין יותר.</p></body></html>';
 	exit;
 }
-add_action( 'template_redirect', 'justice_theme_guard_deleted_spam_urls', -100 );
+add_action( 'init', 'justice_theme_guard_deleted_spam_urls', 0 );

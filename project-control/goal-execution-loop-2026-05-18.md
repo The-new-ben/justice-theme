@@ -34,6 +34,7 @@ Verification:
 - PHP lint passed for all touched PHP files.
 - JS syntax check passed for the new live checker.
 - `git diff --check` passed.
+- After the first uPress pull, cache-busted homepage checks showed the new favicon marker and canonical scales icon tags, but root favicon/spam URL status handling still returned through the 404 flow. The guard was moved earlier to `init` and now explicitly forces the HTTP status code.
 
 Next step:
 - Push and pull Git in uPress, then run `node tools/check-live-favicon-and-spam-guard.mjs`.

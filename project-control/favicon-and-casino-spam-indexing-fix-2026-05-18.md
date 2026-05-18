@@ -44,6 +44,7 @@ If deleted casino pages still show in Google after this deployment, that can be 
 - PHP lint passed for `header.php`, `functions.php`, `inc/seo.php`, `inc/spam-url-guards.php`, `template-parts/layout/site-header.php`, and `template-parts/layout/site-footer.php`.
 - `node --check tools/check-live-favicon-and-spam-guard.mjs` passed.
 - `git diff --check` passed.
+- After first uPress pull, a cache-busted homepage request showed the new marker and canonical scales favicon tags. Root favicon and spam URL handling still returned through the normal 404 flow, so the guard was moved earlier to `init` and now forces the HTTP status code.
 
 ## Post-deploy verification required
 

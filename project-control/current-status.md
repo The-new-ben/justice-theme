@@ -7,6 +7,7 @@
 - CREATED: `project-control/favicon-and-casino-spam-indexing-fix-2026-05-18.md`.
 - CREATED: `project-control/favicon-and-casino-spam-indexing-fix-2026-05-18.csv`.
 - VERIFIED LOCAL: PHP lint passed for touched PHP files, JS syntax check passed for the checker, and `git diff --check` passed.
+- DEPLOYMENT ADJUSTMENT: after uPress pull, live homepage showed the new favicon marker with cache-busting, but root favicon/spam URL handling was still being captured by the normal 404 flow. Moved those guards from `template_redirect` to early `init` and forced HTTP status codes.
 - UPRESS: required after commit/push because deployable theme code changed.
 - SAFETY: theme-level technical SEO/brand fix only. No public CMS database row, article body, stored WordPress title/H1/meta, URL slug, taxonomy term, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, or WordPress database value changed.
 

@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-18 15:50 Asia/Jerusalem
+- TRAFFIC LAW MONEY CLUSTER: converted traffic-law and traffic/criminal-boundary evidence into a support-to-hub map for `/traffic-lawyer/`.
+- RESEARCHED: Google crawlable/internal-link guidance, 2026 internal-linking hub guidance, and leading Israeli traffic-law competitors. Key point: competitor pages cluster around drunk driving, license suspension, traffic points, speeding, phone use while driving, driving while disqualified, new-driver offenses, accident representation, administrative disqualification, vehicle impound/use bans, and traffic-court representation.
+- CREATED: `project-control/traffic-law-support-to-hub-map-2026-05-18.md`.
+- CREATED: `project-control/traffic-law-support-to-hub-map-2026-05-18.csv`.
+- VERIFIED LIVE: Googlebot-style fetch returned HTTP 200 for `/traffic-lawyer/`, `/driving-under-the-influence/`, `/driving-under-the-influence-of-drugs/`, `/dui-refusal-blood-breath-urine-test/`, `/driver-with-36-valid-points-or-more-will-be-disqualified-from-holding-a-drivers-license/`, `/car-accident-auto-injury-lawyer/`, and `/medical-fitness-tests-for-driving-marvad-info/`.
+- FOUND BLOCKER: old traffic category URL `/קטגוריות-מאמרים/דיני-תעבורה` has 1,116 GSC impressions but returned HTTP 404; it needs old-route/GSC review before route recovery or redirect.
+- FOUND: `/traffic-lawyer/` has 20,330 impressions and 0 clicks, so the first approved public batch should strengthen factual on-page click intent and connect drunk-driving/refusal/points pages into the hub.
+- FOUND: several false positives must be held out of traffic-law promotion, including `drug-trafficking`, `human-trafficking`, `sex-trafficking`, `cybersex-trafficking`, business-licensing pages, rental-agreement pages, and outdated corona/license-extension pages.
+- NEXT: owner approval is needed before public CMS edits; start with factual internal links from drunk-driving and refusal-test pages, then handle the 404 traffic category route only after route-history review.
+- UPRESS: no uPress pull was needed in this cycle because only repo planning artifacts changed; no deployable public theme code changed.
+- SAFETY: no public CMS/database content, article body, title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting or wp-admin setting was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 15:40 Asia/Jerusalem
 - REAL ESTATE MONEY CLUSTER: converted real-estate P0 evidence into a support-to-hub map for `/real-estate-attorney/`, with `/real-estate-lawyer-guide/` as the newly recovered secondary explainer.
 - RESEARCHED: Google crawlable/internal-link guidance, 2026 internal-linking hub guidance, and leading real-estate-law competitors. Key point: competitor pages cluster around apartment purchase/sale, contract checks, land registry, real-estate tax, late delivery, appraisers and transaction risk.

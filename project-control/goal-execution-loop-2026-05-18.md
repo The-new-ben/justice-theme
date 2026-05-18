@@ -11,6 +11,36 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 28 - Traffic Law Support-to-Hub Map
+
+Research reviewed:
+- Google's link guidance says internal links should be crawlable `<a href>` links and that clear anchor text helps both users and Google understand the destination. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Current 2026 internal-linking guidance recommends service hubs supported by related detail pages with varied, topically relevant anchors. Source: https://seoglen.com/guides/internal-linking-seo
+- Israeli traffic-law competitors cluster around drunk driving, license suspension, traffic points, speeding, phone use while driving, driving while disqualified, new-driver offenses, accidents, administrative disqualification, vehicle use bans and traffic-court representation.
+
+Business interpretation:
+- `/traffic-lawyer/` is a real commercial hub with 20,330 GSC impressions and 0 clicks, which means the page has visibility but weak click/conversion capture.
+- The traffic-law cluster has dangerous false positives: "traffic" can mean road traffic, human/drug/sex trafficking, business licensing, car rental, medical-fitness licensing or personal-injury car accidents.
+- The safest next step is a boundary-aware support-to-hub map before public content edits.
+
+Implemented in this cycle:
+- Created `project-control/traffic-law-support-to-hub-map-2026-05-18.md`.
+- Created `project-control/traffic-law-support-to-hub-map-2026-05-18.csv`.
+- Mapped drunk-driving, refusal-test, drugged-driving, points/suspension, camera-evidence and fatal-accident boundary pages to the correct hub or boundary posture.
+- Flagged false-positive and outdated pages that should not feed the traffic-law hub without owner/legal approval.
+
+Verification:
+- Googlebot-style live fetch returned HTTP 200 for `/traffic-lawyer/`, `/driving-under-the-influence/`, `/driving-under-the-influence-of-drugs/`, `/dui-refusal-blood-breath-urine-test/`, `/driver-with-36-valid-points-or-more-will-be-disqualified-from-holding-a-drivers-license/`, `/car-accident-auto-injury-lawyer/`, and `/medical-fitness-tests-for-driving-marvad-info/`.
+- Found one route blocker: old traffic category URL `/קטגוריות-מאמרים/דיני-תעבורה` has 1,116 GSC impressions but returned HTTP 404.
+- Repo change is planning-only, so no public deployment or uPress pull was required.
+
+Next step:
+- Owner approves the first public traffic-law internal-link/content cleanup batch, starting with factual links from drunk-driving and refusal-test pages into `/traffic-lawyer/`.
+- Review the 404 old traffic-category route before deciding whether to recover, redirect, or leave it alone.
+
+Safety:
+- Planning-only repo update. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap setting, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting or uPress deployment was changed.
+
 ## Priority Cycle 27 - Real Estate Support-to-Hub Map
 
 Research reviewed:

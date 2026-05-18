@@ -84,6 +84,8 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
 				<li><a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מאגר מאמרים</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">אינדקס עורכי דין</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">התייעצות משפטית</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">יצירת קשר</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">אודות Jus-Tice</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" style="color: var(--jt-accent); font-weight: 700; text-decoration: none;">הצטרפות עורכי דין &larr;</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מסלולים לעורכי דין</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-dashboard/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">אזור אישי לעורכי דין</a></li>

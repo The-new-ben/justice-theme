@@ -478,6 +478,8 @@ function justice_theme_render_html_sitemap_page(): void {
 					<a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>"><?php esc_html_e( 'מאגר מאמרים משפטיים', 'justice-theme' ); ?></a>
 					<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>"><?php esc_html_e( 'אינדקס עורכי דין', 'justice-theme' ); ?></a>
 					<a href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>"><?php esc_html_e( 'התייעצות משפטית', 'justice-theme' ); ?></a>
+					<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'יצירת קשר', 'justice-theme' ); ?></a>
+					<a href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php esc_html_e( 'אודות Jus-Tice', 'justice-theme' ); ?></a>
 					<a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>"><?php esc_html_e( 'הצטרפות עורכי דין', 'justice-theme' ); ?></a>
 					<a href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>"><?php esc_html_e( 'מסלולים לעורכי דין', 'justice-theme' ); ?></a>
 				</nav>

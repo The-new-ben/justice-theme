@@ -1,0 +1,7 @@
+"phase","item","owner","status","acceptance_criteria","risk_control"
+"1","Add admin-only Unserved Demand panel inside Justice CRM","Codex","SPEC_READY","Owner can see unserved leads by area/country/source without public UI changes","Admin capability edit_pages only"
+"2","Register service_status and unserved-demand meta fields on justice_lead","Codex","SPEC_READY","Fields exist for service_status requested_country source_landing_url follow_up_deadline revenue_status","No separate database silo"
+"3","Quick-log phone lead form","Codex","SPEC_READY","Owner can log caller in under 45 seconds and create private justice_lead","Nonce and capability checks required"
+"4","Mark no-partner routing results as unserved","Codex","SPEC_READY","When no matching routing lawyer exists, lead gets service_status=unserved and unserved_reason=no_partner","No random lawyer emails"
+"5","Monthly unserved-demand report/export","Codex","SPEC_READY","Owner can show lawyers proof by area/country/page and recruit partner seats","No public claims or recommendations"
+"6","Future public specialty request form","Later","BACKLOG","User can request specialty not listed yet","Only after admin workflow and compliance copy are approved"

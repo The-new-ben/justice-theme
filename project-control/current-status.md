@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-18 20:29 Asia/Jerusalem
+- UNSERVED DEMAND LEDGER IMPLEMENTATION SPEC: converted the Thailand-lawyer/leaking-call problem into a build-ready admin workflow tied to the existing Justice CRM.
+- RESEARCHED: Clio client-intake tips, Clio intake stages, Clio lead-management best practices, Lawmatics practice-area segmentation, Lawmatics intake pipeline, and Lawmatics AI lead qualification. Key point: every lead needs source, practice area, pipeline stage, follow-up deadline, and conversion/unserved status.
+- INSPECTED CODE: `functions.php`, `inc/lead-crm.php`, `inc/lead-routing.php`, and `inc/lead-classifier.php`; confirmed the best implementation is to extend `justice_lead` and Justice CRM rather than create a separate silo.
+- SPECIFIED: admin-only Unserved Demand panel, quick-log phone lead form, `service_status=unserved`, `unserved_reason=no_partner`, country/jurisdiction/source fields, follow-up deadline, recruitment priority, revenue status, and monthly export.
+- DECISION: when routing finds no matching paying lawyer, mark the existing `justice_lead` as unserved and turn it into lawyer-recruitment evidence; do not email random lawyers and do not sell client-paid referrals without legal review.
+- CREATED: `project-control/unserved-demand-ledger-implementation-spec-2026-05-18.md`.
+- CREATED: `project-control/unserved-demand-ledger-implementation-spec-2026-05-18.csv`.
+- NEXT: implement `inc/unserved-demand.php` behind admin capability `edit_pages` after draft PR review; keep public forms unchanged until owner approves.
+- SAFETY: repo-only spec. No WordPress record, public form, CMS content, lawyer profile, lead record, payment setting, user account, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress pull, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-18 20:24 Asia/Jerusalem
 - TRAFFIC + UNSERVED LEAD MONETIZATION: shifted focus back to ranking/traffic/keywords and the owner's live problem: callers ask for lawyer categories where Jus-Tice has no paying partner yet.
 - RESEARCHED: Google people-first/YMYL guidance, Google indexing/link guidance, Nolo/Martindale-Avvo legal lead model, LegalZoom attorney-plan model, legal lead-generation ethics overview, Israeli Bar advertising rules sources, and Israeli intermediary/referral-fee risk sources.

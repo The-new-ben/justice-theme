@@ -46,6 +46,13 @@ $core_city_options = array(
 	'לוד',
 	'רמלה',
 );
+
+$allowed_plan_interests = array( 'free', 'pro', 'featured', 'lead_partner', 'full_service' );
+$selected_plan_interest = isset( $_GET['plan_interest'] ) ? sanitize_key( wp_unslash( $_GET['plan_interest'] ) ) : 'free';
+
+if ( ! in_array( $selected_plan_interest, $allowed_plan_interests, true ) ) {
+	$selected_plan_interest = 'free';
+}
 ?>
 
 <section class="lawyer-registration-hero section">
@@ -146,7 +153,7 @@ $core_city_options = array(
 					</label>
 					<label>
 						<span><?php esc_html_e( 'מסלול שמעניין אותך', 'justice-theme' ); ?></span>
-						<select name="plan_interest">
+						<select name="plan_interest" data-selected-plan="<?php echo esc_attr( $selected_plan_interest ); ?>">
 							<option value="free"><?php esc_html_e( 'פרופיל בסיסי', 'justice-theme' ); ?></option>
 							<option value="pro"><?php esc_html_e( 'מיני-סייט מקצועי', 'justice-theme' ); ?></option>
 							<option value="featured"><?php esc_html_e( 'חשיפה מוגברת', 'justice-theme' ); ?></option>

@@ -104,7 +104,15 @@ function justice_theme_handle_lawyer_registration(): void {
 
 	justice_theme_notify_lawyer_registration( $post_id, $meta );
 
-	wp_safe_redirect( add_query_arg( 'registration', 'sent', home_url( '/lawyer-registration/' ) ) );
+	wp_safe_redirect(
+		add_query_arg(
+			array(
+				'registration'  => 'sent',
+				'plan_interest' => $meta['plan_type'],
+			),
+			home_url( '/lawyer-registration/' )
+		)
+	);
 	exit;
 }
 add_action( 'admin_post_justice_lawyer_registration', 'justice_theme_handle_lawyer_registration' );
@@ -333,6 +341,42 @@ function justice_theme_mark_lawyer_content_reviewed(): void {
 }
 add_action( 'admin_post_justice_mark_lawyer_content_reviewed', 'justice_theme_mark_lawyer_content_reviewed' );
 
+function justice_theme_lawyer_onboarding_plan_label( string $plan ): string {
+	if ( function_exists( 'justice_theme_lawyer_plans' ) ) {
+		$plans = justice_theme_lawyer_plans();
+
+		if ( isset( $plans[ $plan ]['label'] ) ) {
+			return (string) $plans[ $plan ]['label'];
+		}
+	}
+
+	return $plan ?: '-';
+}
+
+function justice_theme_lawyer_onboarding_sales_priority( string $plan ): array {
+	if ( in_array( $plan, array( 'lead_partner', 'full_service' ), true ) ) {
+		return array(
+			'label' => 'HIGH',
+			'style' => 'background:#fef2f2;color:#991b1b;',
+			'note'  => 'Call first: high-value commercial intent.',
+		);
+	}
+
+	if ( in_array( $plan, array( 'pro', 'featured' ), true ) ) {
+		return array(
+			'label' => 'MEDIUM',
+			'style' => 'background:#fff7ed;color:#9a3412;',
+			'note'  => 'Follow up with mini-site and visibility offer.',
+		);
+	}
+
+	return array(
+		'label' => 'LOW',
+		'style' => 'background:#f1f5f9;color:#334155;',
+		'note'  => 'Nurture until paid intent appears.',
+	);
+}
+
 function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	if ( ! current_user_can( 'edit_pages' ) ) {
 		wp_die( esc_html__( 'You do not have permission to access this page.', 'justice-theme' ) );
@@ -392,6 +436,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						<th>Phone</th>
 						<th>Email</th>
 						<th>Plan</th>
+						<th>Sales Priority</th>
 						<th>Mini-site Content</th>
 						<th>Pending Update</th>
 						<th>Content Request</th>
@@ -406,6 +451,8 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						<?php
 						$post_id = get_the_ID();
 						$status  = get_post_meta( $post_id, 'profile_status', true ) ?: get_post_status( $post_id );
+						$plan    = (string) get_post_meta( $post_id, 'plan_type', true );
+						$sales_priority = justice_theme_lawyer_onboarding_sales_priority( $plan );
 						$has_pending_update = '1' === (string) get_post_meta( $post_id, 'pending_profile_review', true );
 						$has_pending_content = '1' === (string) get_post_meta( $post_id, 'pending_content_review', true );
 						$content_article_id = (int) get_post_meta( $post_id, 'latest_content_request_article_id', true );
@@ -432,7 +479,18 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 							<td><?php echo esc_html( get_post_meta( $post_id, 'firm_name', true ) ?: '-' ); ?></td>
 							<td><?php echo esc_html( get_post_meta( $post_id, 'phone', true ) ?: '-' ); ?></td>
 							<td><?php echo esc_html( get_post_meta( $post_id, 'email', true ) ?: '-' ); ?></td>
-							<td><?php echo esc_html( get_post_meta( $post_id, 'plan_type', true ) ?: '-' ); ?></td>
+							<td>
+								<strong><?php echo esc_html( justice_theme_lawyer_onboarding_plan_label( $plan ) ); ?></strong>
+								<?php if ( $plan ) : ?>
+									<br><small><?php echo esc_html( $plan ); ?></small>
+								<?php endif; ?>
+							</td>
+							<td>
+								<span style="display:inline-block;margin:0 0 4px;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $sales_priority['style'] ); ?>">
+									<?php echo esc_html( $sales_priority['label'] ); ?>
+								</span>
+								<p style="margin:0;"><?php echo esc_html( $sales_priority['note'] ); ?></p>
+							</td>
 							<td>
 								<?php if ( $has_pending_update ) : ?>
 									<span style="display:inline-block;margin:0 0 4px 4px;padding:2px 7px;border-radius:999px;background:#fff3cd;color:#7a4b00;font-size:12px;">Pending update review</span>

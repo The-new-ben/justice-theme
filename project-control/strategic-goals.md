@@ -10,6 +10,14 @@ Build Jus-Tice.co.il into a leading Israeli legal portal and legal-tech business
 
 Hebrew-first user experience, premium trust, strong SEO architecture, lawyer monetization, lead generation, legal-tech tools, and as much owner automation as possible.
 
+## Journey Quality Goals
+
+- User journey: visitors must quickly understand the service, find relevant legal content/lawyers, submit an inquiry, and receive a clear next step.
+- Lawyer customer journey: lawyers must understand the value, register smoothly, see measurable monthly value, receive qualified leads, and have reasons to keep paying and upgrade.
+- Googlebot journey: crawlers must reach clean indexable URLs, HTTPS canonicals, helpful Hebrew content, valid sitemaps, and internally linked topic clusters without confusing redirects or duplicate signals.
+- Every execution cycle should include either direct hands-on journey testing or a documented reason why testing waits for deployment, login access, or owner approval.
+- Competitor work must connect back to one of these journeys: outrank through better content and structure, out-convert through better intake, or out-retain through better lawyer value.
+
 ## 2026 Phase 1 Goals
 
 1. Stabilize WordPress architecture.

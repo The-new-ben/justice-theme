@@ -93,6 +93,14 @@ function justice_theme_enqueue_assets() {
 		'4.0.0',
 		true
 	);
+
+	wp_enqueue_script(
+		'justice-analytics-events',
+		JUSTICE_THEME_URI . '/assets/js/analytics-events.js',
+		array(),
+		JUSTICE_THEME_VERSION,
+		true
+	);
 }
 add_action( 'wp_enqueue_scripts', 'justice_theme_enqueue_assets' );
 

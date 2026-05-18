@@ -1,7 +1,7 @@
 # Analytics Monitoring Plan
 
 Date: 2026-05-10  
-Status: PLAN V1 - GA4/GSC monitoring active manually, events not fully verified
+Status: PLAN V2 - GA4/GSC monitoring active manually, front-end event hooks wired 2026-05-18, live GA4/GTM receipt not yet verified
 
 ## Purpose
 
@@ -72,11 +72,11 @@ Update:
 ## Current Blockers
 
 NOT VERIFIED:
-- event firing on live forms/buttons.
+- live GA4/GTM receipt for newly wired form/button events.
 - key-event configuration in GA4.
 - full GSC API export.
 - GA4 landing-page exports.
 
 ## Next Action
 
-After next live deployment, run a click/form event QA pass and record whether each event appears in GA4 DebugView or Realtime.
+After next live deployment, run a click/form event QA pass and record whether each event appears in GA4 DebugView or Realtime. The repo now includes `assets/js/analytics-events.js`, which sends privacy-safe events through `gtag` or `dataLayer` when either is present.

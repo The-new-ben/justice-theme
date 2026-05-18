@@ -1,3 +1,25 @@
+## LATEST WORK STATUS - 2026-05-18 12:20 Asia/Jerusalem
+- ACTIVE BUSINESS EXECUTION LOOP: owner instructed sequential cycles that start with current research, implement the highest-impact safe next change, and update shared repo progress for other agents.
+- CREATED HEARTBEAT: `jus-tice-10-minute-execution-loop` is active and will continue this thread every 10 minutes if work stalls.
+- UPDATED HEARTBEAT: the recurring mission now includes periodic hands-on checks for the public user journey, lawyer customer journey and Googlebot/indexing journey, plus uPress Git Pull after deployable code is pushed.
+- RESEARCHED: Israeli legal directory competitors, legal intake automation, Google people-first/YMYL content guidance, and recurring billing options for Israel/WooCommerce.
+- IMPLEMENTED: privacy-safe GA4/GTM event hooks in `assets/js/analytics-events.js`, enqueued from `inc/enqueue.php`.
+- IMPLEMENTED: paid-plan interest now persists through lawyer registration preselection and successful registration redirects.
+- IMPLEMENTED: lawyer dashboard now shows a first monthly-value snapshot using stored profile views, assigned leads and content requests, while clearly holding phone/WhatsApp/GSC metrics until GA4/GSC verification.
+- IMPLEMENTED: `lawyer_plan_click` tracking for plan-selection links carrying `plan_interest`, so commercial plan demand is visible before signup completion.
+- IMPLEMENTED: Lawyer Onboarding admin now turns selected plan interest into owner-facing sales-priority badges for faster follow-up.
+- CREATED: `project-control/lawyer-monthly-value-report-spec-2026-05-18.md`, defining the recurring lawyer value report across CRM, GA4, GSC, content, profile and customer-success data.
+- IMPLEMENTED: Justice CRM now shows display-only lead quality and follow-up badges derived from existing lead fields, with no database mutation.
+- IMPLEMENTED: owner-only lead disposition meta box for lead quality override, follow-up status, first contact time and customer-success note.
+- IMPLEMENTED: Justice CRM now shows a display-only Response SLA badge so urgent/fresh/overdue leads are visible before automation sends any message.
+- CREATED: `tools/check-live-journeys.mjs`, a read-only live checker for public user, lawyer customer and Googlebot journeys.
+- UPDATED: `project-control/strategic-goals.md` now records the user journey, lawyer customer journey and Googlebot journey as standing quality goals.
+- UPDATED: `project-control/goal-execution-loop-2026-05-18.md`, `project-control/analytics-monitoring-plan.md`, and `project-control/ga4-event-plan.csv`.
+- VERIFIED: `node --check assets/js/analytics-events.js` passed; `node --check tools/check-live-journeys.mjs` passed; `php -l inc/enqueue.php` passed; `php -l inc/lead-crm.php` passed.
+- VERIFIED LIVE: `node tools/check-live-journeys.mjs` passed sampled public user, lawyer customer and Googlebot checks for homepage, `/lawyers/`, sample article, `/lawyer-registration/`, `/lawyer-registration/?plan_interest=pro`, `/sitemap_index.xml` and `/robots.txt`.
+- BLOCKED: live GA4/GTM receipt, GA4 key-event configuration, payment provider selection, pricing/legal/tax/refund terms, and live payment activation remain unverified/not approved.
+- NEXT: continue the loop with browser/visual checks after deployment, CRM/admin verification, lawyer-registration value proposition and recurring lawyer-retention/product packaging.
+
 ## LATEST WORK STATUS - 2026-05-12 07:17 Asia/Jerusalem
 - VERIFIED PLANNING / WAVE 1B SUPPORT METADATA PACKAGE: created exact metadata posture for all six Family/Divorce support pages.
 - CREATED: `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.md`.

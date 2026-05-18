@@ -67,6 +67,11 @@ $leads = ( post_type_exists( 'justice_lead' ) && $profile_ids )
 	: null;
 
 $lead_count = $leads ? (int) $leads->found_posts : 0;
+$profile_views_total = 0;
+
+foreach ( $profile_ids as $profile_id ) {
+	$profile_views_total += (int) get_post_meta( $profile_id, 'profile_views', true );
+}
 
 $content_requests = ( post_type_exists( 'articles' ) && $profile_ids )
 	? new WP_Query( array(
@@ -125,8 +130,8 @@ $content_request_count = $content_requests ? (int) $content_requests->found_post
 					<span><?php esc_html_e( 'לידים משויכים', 'justice-theme' ); ?></span>
 				</div>
 				<div>
-					<strong><?php esc_html_e( 'בקרוב', 'justice-theme' ); ?></strong>
-					<span><?php esc_html_e( 'תשלומים ו-AI Console', 'justice-theme' ); ?></span>
+					<strong><?php echo esc_html( (string) $profile_views_total ); ?></strong>
+					<span><?php esc_html_e( 'צפיות בפרופיל', 'justice-theme' ); ?></span>
 				</div>
 			</div>
 
@@ -284,6 +289,17 @@ $content_request_count = $content_requests ? (int) $content_requests->found_post
 				</div>
 
 				<aside class="lawyer-dashboard__side">
+					<section class="lawyer-dashboard__roadmap">
+						<h2><?php esc_html_e( 'דוח ערך חודשי', 'justice-theme' ); ?></h2>
+						<p><?php esc_html_e( 'המטרה של האזור האישי היא להראות לעורך הדין מה הפלטפורמה יצרה בפועל: חשיפה, פניות, תוכן ופעולות המשך.', 'justice-theme' ); ?></p>
+						<ul>
+							<li><?php printf( esc_html__( 'צפיות בפרופיל: %s', 'justice-theme' ), esc_html( (string) $profile_views_total ) ); ?></li>
+							<li><?php printf( esc_html__( 'לידים משויכים: %s', 'justice-theme' ), esc_html( (string) $lead_count ) ); ?></li>
+							<li><?php printf( esc_html__( 'בקשות תוכן בטיפול: %s', 'justice-theme' ), esc_html( (string) $content_request_count ) ); ?></li>
+							<li><?php esc_html_e( 'שיחות, WhatsApp, קליקים ונתוני GSC יוצגו לאחר אימות GA4/GSC.', 'justice-theme' ); ?></li>
+						</ul>
+					</section>
+
 					<h2><?php esc_html_e( 'מה יעלה את הערך של המיני-סייט?', 'justice-theme' ); ?></h2>
 					<ul>
 						<li><?php esc_html_e( 'תמונה מקצועית, לוגו משרד וביוגרפיה ממוקדת.', 'justice-theme' ); ?></li>

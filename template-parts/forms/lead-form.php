@@ -44,6 +44,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<option value="personal-injury-law"><?php esc_html_e( 'נזיקין ותאונות', 'justice-theme' ); ?></option>
 				<option value="medical-malpractice-law"><?php esc_html_e( 'רשלנות רפואית', 'justice-theme' ); ?></option>
 				<option value="inheritance-law"><?php esc_html_e( 'ירושה וצוואות', 'justice-theme' ); ?></option>
+				<option value="thailand-law"><?php esc_html_e( 'תאילנד / משפט בינלאומי', 'justice-theme' ); ?></option>
 				<option value="general"><?php esc_html_e( 'אחר / לא בטוח', 'justice-theme' ); ?></option>
 			</select>
 		</p>

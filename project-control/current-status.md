@@ -2885,3 +2885,16 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - COMPLETION ASSESSMENT: lawyer acquisition page clarity 70%; automated paid checkout 35%; revenue collection 0% until the paid subscription stack is active.
 - OWNER CAN NOTICE: `/lawyer-plans/` should show real prices/caps; buttons should say registration/check-fit until checkout is truly ready.
 - SAFETY: repo-only template/logic change; no public CMS/database writes, product creation, payment activation, lead record changes or lawyer profile changes were made in this step.
+
+## 2026-05-19 UNCOVERED DEMAND CAPTURE UPGRADE
+- OWNER PAIN: callers ask for niche lawyers (example: Thailand lawyer) and the owner currently spends time manually helping without monetization.
+- RESEARCH BASIS: legal lead-generation guidance repeatedly warns against fee-splitting/recommendation-style referrals; safer monetization is transparent advertising/subscription coverage, qualified intake tracking, and strong intake/disposition infrastructure.
+- CODE UPDATED: public lead form now includes `תאילנד / משפט בינלאומי` as a selectable demand area.
+- CODE UPDATED: rule-based lead classifier now detects Thailand/Bangkok/Phuket/Koh Samui/Thai keywords and normalizes them into `thailand-law`.
+- CODE UPDATED: new leads now automatically receive a `coverage_status`: routable when assigned, urgent manual when urgent, uncovered recruit when specific but no routable lawyer exists, or coverage review when unclear.
+- CODE UPDATED: Thailand leads are tagged with `jurisdiction=Thailand` so the Justice CRM uncovered-demand queue can aggregate them as a recruitable niche market.
+- MONEY IMPACT: repeated niche calls become measurable demand evidence for recruiting paid coverage partners instead of owner-only manual goodwill.
+- BLOCKED FOR OUTREACH: Gmail connector token is expired; direct email outreach cannot be sent until Gmail is reconnected.
+- COMPLETION ASSESSMENT: uncovered-demand capture 75%; automated niche lawyer recruitment 25%; paid lead monetization still blocked by payment setup and outreach channel.
+- OWNER CAN NOTICE: future Thailand/international requests should appear in wp-admin → Justice CRM → Uncovered demand queue rather than disappearing into phone memory.
+- SAFETY: repo-only intake/classification change; no live lead records, lawyer records, public CMS content, payment settings or database rows were edited manually.

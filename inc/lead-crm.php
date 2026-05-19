@@ -91,6 +91,7 @@ function justice_theme_render_crm_admin_page(): void {
 			<?php endforeach; ?>
 		</div>
 		<?php justice_theme_crm_render_table( $uncovered_demand, 'justice_lead' ); ?>
+		<?php justice_theme_crm_render_uncovered_response_templates(); ?>
 
 		<h2 style="margin-top:28px;">Recent LegalTech requests</h2>
 		<?php if ( $requests ) : ?>
@@ -98,6 +99,27 @@ function justice_theme_render_crm_admin_page(): void {
 		<?php else : ?>
 			<div class="notice notice-info inline"><p>`justice_legal_request` is not active yet.</p></div>
 		<?php endif; ?>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_render_uncovered_response_templates(): void {
+	$user_template = "שלום,\n\nתודה שפניתם ל-Jus-Tice. בשלב זה אין לנו כיסוי מאומת/שותף פעיל בתחום שביקשתם, ולכן איננו יכולים להפנות אתכם לעורך דין ספציפי או להציג זאת כהמלצה.\n\nנשמור את פרטי הפנייה לצורך בדיקת התאמה עתידית, ואם יימצא כיסוי מתאים נוכל לחזור אליכם בהתאם לפרטים שמסרתם.\n\nהמידע בהודעה זו הוא כללי בלבד, אינו ייעוץ משפטי ואינו יוצר יחסי עורך דין-לקוח. אם יש מועד משפטי קרוב, דחיפות, סיכון מיידי או צורך בפעולה משפטית, מומלץ לפנות בהקדם לעורך דין מוסמך בתחום הרלוונטי.\n\nצוות Jus-Tice";
+	$lawyer_template = "שלום,\n\nאנחנו מזהים ב-Jus-Tice ביקוש חוזר בתחום: [תחום/מדינה/עיר]. בשלב זה אין לנו כיסוי מאומת מספיק בתחום הזה, ולכן אנחנו בוחנים פתיחת מקום לשותף מקצועי מתאים.\n\nהמודל הוא מסלול חשיפה/כיסוי חודשי ושקוף, עם תיעוד לידים, מגבלת כמות לפי מסלול, וכללי מענה. אין התחייבות לתוצאה, אין חלוקת שכר טרחה, וכל פרופיל ממומן יסומן כנדרש.\n\nאם התחום רלוונטי אליכם, נשמח לבדוק התאמה מקצועית, פרטי רישיון, אזורי שירות, זמינות למענה ועמידה בכללי הפרסומת.\n\nJus-Tice";
+	?>
+	<div style="margin:18px 0 0;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:16px;">
+		<h3 style="margin-top:0;">Safe uncovered-demand response templates</h3>
+		<p>Use these as a starting point when there is demand but no verified/paid coverage yet. Keep the message neutral: no recommendation, no legal advice, no outcome promise.</p>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;">
+			<label>
+				<strong>User no-match response</strong>
+				<textarea readonly rows="11" style="width:100%;margin-top:6px;direction:rtl;"><?php echo esc_textarea( $user_template ); ?></textarea>
+			</label>
+			<label>
+				<strong>Lawyer recruitment script</strong>
+				<textarea readonly rows="11" style="width:100%;margin-top:6px;direction:rtl;"><?php echo esc_textarea( $lawyer_template ); ?></textarea>
+			</label>
+		</div>
 	</div>
 	<?php
 }

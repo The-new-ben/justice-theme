@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-19 16:18 Asia/Jerusalem
+- UNCOVERED DEMAND RESPONSE TEMPLATES: added safe operational scripts to the CRM queue so unmatched calls can receive a fast, careful response.
+- RESEARCHED: legal intake/no-legal-advice guidance and lawyer advertising/lead-generation ethics. Key point: when no verified lawyer coverage exists, response language must avoid recommendations, legal advice, fee-split implications, and outcome promises.
+- CODED: `inc/lead-crm.php` now renders a CRM panel with a user no-match response template and a lawyer recruitment script under the Uncovered Demand Queue.
+- CREATED: `project-control/uncovered-demand-response-templates-2026-05-19.md`.
+- CREATED: `project-control/uncovered-demand-response-templates-2026-05-19.csv`.
+- UPDATED: `project-control/goals-money-earning-scorecard-2026-05-19.md` and `.csv`; lead monetization/intake moved from 34% to 36%.
+- VERIFIED: PHP lint passed for `inc/lead-crm.php`, `functions.php`, `inc/lead-routing.php`, and `inc/lead-classifier.php`; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- OWNER-VISIBLE AFTER MERGE: `wp-admin -> Justice CRM -> Uncovered demand queue` should show ready response templates for the owner.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is reducing manual improvisation and making unmatched-demand handling faster and safer.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 16:08 Asia/Jerusalem
 - UNCOVERED DEMAND CRM BUILD: moved the "Thailand lawyer / no partner" leakage path from planning into branch code.
 - RESEARCHED: current legal intake speed-to-lead and CRM guidance. Key point: leads convert when they are captured, qualified, owned, and responded to quickly; unmatched demand also needs structured classification so it can become partner-recruitment evidence.

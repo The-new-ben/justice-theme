@@ -1,0 +1,6 @@
+item,status,evidence,next_action,safety
+user_no_match_template,implemented,Justice CRM panel includes neutral user response,Verify in wp-admin after merge/deploy,Branch code only no live message sent
+lawyer_recruitment_script,implemented,Justice CRM panel includes partner outreach script,Use repeated demand categories for outreach after deploy,Branch code only
+lead_monetization_completion,updated,Scorecard should move from 34 to 36 percent,Build report/send actions next,No money earned no live data changed
+compliance_guardrail,implemented,Template avoids recommendation legal advice and outcome promise,Legal review before public automation,Branch admin copy only
+verification,completed,"PHP lint passed; git diff check clean except line-ending warnings; live journey checker passed","Commit and push to PR #8","Read-only live checks only"

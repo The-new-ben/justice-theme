@@ -2873,3 +2873,15 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - UPDATED: deployment marker is now `2026-05-18-family-law-template-v1`.
 - REMAINING LIVE REVIEW: `/medical-malpractice-lawyer/`, `/contact/`, `/about/`, and oversized `/articles/`.
 - SAFETY: render-only theme fix; no public CMS/database writes, content changes, redirects, sitemap settings, taxonomy changes, lawyer profile changes, lead records, payment settings or GSC/GA4 admin settings were changed.
+
+## 2026-05-19 LAWYER PLAN MONEY-PATH GUARD
+- OWNER APPROVAL BASIS: owner approved deployment, SEO page edits, payment setup and lawyer outreach; payment stack is partially installed live but not yet subscription-ready.
+- RESEARCH BASIS: WooCommerce Subscriptions documentation requires a real subscription engine and recurring-capable payment gateway for automatic renewal flows; Google link guidance also reinforces that public CTAs should be crawlable and truthful, not script-only or dead-end paths.
+- CODE UPDATED: `/lawyer-plans/` now publishes the approved monthly prices and lead caps: Pro ₪349/5 leads, Featured ₪749/15 leads, Lead Partner ₪1,490/40 leads, Full Service ₪2,490/80 leads.
+- CODE UPDATED: paid plan checkout now requires all readiness checks before sending a lawyer to checkout: mapped product ID, WooCommerce checkout helper, product lookup, WooCommerce Subscriptions availability and purchasable product.
+- CODE UPDATED: when the recurring-payment stack is not ready, paid CTAs route to `/lawyer-registration/?plan_interest=<plan>&pre_checkout=1` instead of a broken checkout.
+- MONEY IMPACT: lawyers can now understand the offer and register intent immediately, while the site avoids trust damage from sending prospects to an unfinished payment flow.
+- BLOCKED FOR FULL REVENUE: Morning license/plugin key, Morning/Meshulam business approval, WooCommerce Subscriptions paid plugin/license and four subscription products still need completion before live charging.
+- COMPLETION ASSESSMENT: lawyer acquisition page clarity 70%; automated paid checkout 35%; revenue collection 0% until the paid subscription stack is active.
+- OWNER CAN NOTICE: `/lawyer-plans/` should show real prices/caps; buttons should say registration/check-fit until checkout is truly ready.
+- SAFETY: repo-only template/logic change; no public CMS/database writes, product creation, payment activation, lead record changes or lawyer profile changes were made in this step.

@@ -15,11 +15,11 @@ $plans = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_
 		<div>
 			<p class="section-header__eyebrow"><?php esc_html_e( 'מסלולים לעורכי דין', 'justice-theme' ); ?></p>
 			<h1><?php esc_html_e( 'מיני-סייט, תוכן, לידים וכלים במקום אחד', 'justice-theme' ); ?></h1>
-			<p><?php esc_html_e( 'המסלולים נועדו להפוך את Jus-Tice למערכת עצמאית ככל האפשר: עורך דין מצטרף, בונה נכס דיגיטלי, מקבל תוכן ופניות, ורואה נתונים באזור האישי. תשלומים חיים יופעלו רק אחרי הגדרת מוצרים, חשבוניות וכללי פרסום/אתיקה.', 'justice-theme' ); ?></p>
+			<p><?php esc_html_e( 'Jus-Tice נבנית כמערכת מסחרית לעורכי דין: פרופיל מקצועי, תוכן, חשיפה, פניות ודוחות ערך. המחירים פורסמו כדי לאפשר מכירה ושיחות לקוח ברורות; מעבר לתשלום ייפתח רק לאחר שמוצרי WooCommerce Subscriptions ו-Morning מוכנים בפועל.', 'justice-theme' ); ?></p>
 		</div>
 		<aside>
 			<strong><?php esc_html_e( 'סטטוס תשלומים', 'justice-theme' ); ?></strong>
-			<p><?php esc_html_e( 'WooCommerce נתמך כיעד אינטגרציה, אבל אם מוצרי מסלול לא מוגדרים עדיין, הכפתורים מובילים להרשמה ובדיקת התאמה.', 'justice-theme' ); ?></p>
+			<p><?php esc_html_e( 'אם הסליקה החודשית עדיין לא מוכנה, הכפתורים מובילים להרשמה ובדיקת התאמה. כשהמוצרים, המנויים ו-Morning יהיו פעילים, הכפתורים יעברו אוטומטית לתשלום מאובטח.', 'justice-theme' ); ?></p>
 		</aside>
 	</div>
 </section>
@@ -28,6 +28,16 @@ $plans = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_
 	<div class="container">
 		<div class="lawyer-plans__grid">
 			<?php foreach ( $plans as $plan_key => $plan ) : ?>
+				<?php
+				$public_override = function_exists( 'justice_theme_lawyer_plan_public_overrides' ) ? justice_theme_lawyer_plan_public_overrides( $plan_key ) : array();
+				if ( ! empty( $public_override['price'] ) ) {
+					$plan['price'] = $public_override['price'];
+				}
+				if ( ! empty( $public_override['features_append'] ) && is_array( $public_override['features_append'] ) ) {
+					$plan['features'] = array_merge( $plan['features'], $public_override['features_append'] );
+				}
+				$paid_checkout_ready = 'free' !== $plan_key && function_exists( 'justice_theme_plan_checkout_ready' ) && justice_theme_plan_checkout_ready( $plan_key );
+				?>
 				<article class="lawyer-plan-card lawyer-plan-card--<?php echo esc_attr( $plan_key ); ?>">
 					<div class="lawyer-plan-card__top">
 						<span><?php echo esc_html( $plan['badge'] ); ?></span>
@@ -41,7 +51,15 @@ $plans = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_
 						<?php endforeach; ?>
 					</ul>
 					<a class="button button--gold" href="<?php echo esc_url( justice_theme_plan_checkout_url( $plan_key ) ); ?>">
-						<?php echo 'free' === $plan_key ? esc_html__( 'פתיחת פרופיל', 'justice-theme' ) : esc_html__( 'בחירת מסלול', 'justice-theme' ); ?>
+						<?php
+						if ( 'free' === $plan_key ) {
+							esc_html_e( 'פתיחת פרופיל', 'justice-theme' );
+						} elseif ( $paid_checkout_ready ) {
+							esc_html_e( 'בחירת מסלול ותשלום', 'justice-theme' );
+						} else {
+							esc_html_e( 'הרשמה ובדיקת התאמה', 'justice-theme' );
+						}
+						?>
 					</a>
 				</article>
 			<?php endforeach; ?>
@@ -49,7 +67,7 @@ $plans = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_
 
 		<div class="lawyer-plans__notice">
 			<h2><?php esc_html_e( 'כללי הפעלה לפני סליקה', 'justice-theme' ); ?></h2>
-			<p><?php esc_html_e( 'אין להפעיל תשלום אוטומטי למסלולי פרסום, דירוג או לידים לפני בדיקת מדיניות פרסום לעורכי דין, גילוי נאות, תנאי שירות, חשבוניות, החזרים ומדיניות פרטיות. המסלול הטכני מוכן למיפוי מוצרי WooCommerce, אבל הפעלה מסחרית דורשת אישור.', 'justice-theme' ); ?></p>
+			<p><?php esc_html_e( 'כל מסלול בתשלום כפוף לבדיקה, גילוי נאות, תנאי שירות, מדיניות פרטיות וכללי לשכת עורכי הדין. אין הבטחה לתוצאה משפטית או עסקית, ופניות נכללות כחלק ממכסת המסלול בלבד.', 'justice-theme' ); ?></p>
 		</div>
 	</div>
 </section>

@@ -26,7 +26,7 @@ Traffic alone is not enough. Lawyer subscriptions alone are not enough. The busi
 | SEO authority / E-E-A-T | 38% | PR #8 adds authority registry, safer article attribution, editorial policy route, footer/sitemap discovery, Linear HAD-59-HAD-62 | Verified author pages and external sameAs/GBP/LinkedIn are not live yet | Finish Ben/Maya author-reviewer pages and entity footprint verification |
 | Money-query SEO recovery | 28% | GSC money-query map and batch 001 identify high-impression low-CTR pages | Public CMS title/H1/intro edits need controlled owner/legal review | Start batch 001 with real-estate, traffic, prenup, criminal, sex-crime pages |
 | Lawyer commercial pipeline | 31% | Pricing/product/payment bridge branch exists; live test matrix exists; dashboard first-value panel live | PR #5 still needs clean merge/preflight and live WooCommerce/Morning setup | Rebase/merge commercial branch only after preflight; then run runbook |
-| Lead monetization / intake | 24% | Lead form, CRM fields, routing foundation, lead audit docs | Many incoming legal needs have no paying lawyer coverage yet | Build lead triage: capture, classify, hold, partner-match, and monetization rule |
+| Lead monetization / intake | 30% | Lead form, CRM fields, routing foundation, lead audit docs, uncovered-demand monetization model | Many incoming legal needs have no paying lawyer coverage yet | Add lead `coverage_status`, Uncovered Demand Queue report, and lawyer recruitment script |
 | Lawyer retention / monthly value | 22% | Dashboard first-value panel and value report concepts | No paying lawyer subscription live yet; no month-2 renewal proof | Tie dashboard metrics to paid plan promises and monthly report automation |
 | Entity footprint / local trust | 18% | Checklist exists for Google Business Profile, LinkedIn, sameAs | Owner entity details and eligibility/address/service-area decision required | Lock entity data, then create/claim GBP and LinkedIn safely |
 
@@ -67,7 +67,10 @@ Every cycle should choose from this priority order unless there is an outage:
 2. **Start money-query SEO batch 001:** real-estate hub first because it has high impressions and commercial intent.
 3. **Define lead monetization for uncovered needs:** create a triage model for requests like "Thailand lawyer" so calls are captured, routed, and monetized instead of handled manually for free.
 
+## 2026-05-19 Uncovered Demand Update
+
+The uncovered-demand leakage path is now defined in `project-control/uncovered-demand-lead-monetization-2026-05-19.md`. The safer first product is not a user-paid connection fee or fee split. It is a structured Uncovered Demand Queue that turns unmatched calls into evidence for recruiting paying lawyer partners by niche, then routes leads only through transparent subscription/coverage plans.
+
 ## Honesty Statement
 
 No money has been earned yet from the current code work. The substantial progress is infrastructure, trust, SEO recovery planning, and conversion-path preparation. The closest path to actual revenue is still the commercial pipeline plus a small number of paying lawyers. The closest path to scalable demand is money-query recovery plus authority cleanup.
-

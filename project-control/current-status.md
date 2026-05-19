@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-19 12:48 Asia/Jerusalem
+- EDITORIAL POLICY TRUST ROUTE: added the missing public policy surface for legal content governance on the authority branch.
+- RESEARCHED: Google Search Central helpful-content "who/how/why" guidance and Google Article structured-data guidance. Key point: YMYL legal content needs transparent authorship, process, review boundaries, and accurate schema; schema alone is not a ranking shortcut.
+- CODED: `inc/trust-routes.php` now defines a virtual `/editorial-policy/` route with canonical metadata, index/follow robots behavior, and Hebrew copy explaining content purpose, legal-advice limits, author/reviewer rules, paid profile disclosure, and correction/update process.
+- CREATED: `project-control/editorial-policy-route-2026-05-19.md`.
+- CREATED: `project-control/editorial-policy-route-2026-05-19.csv`.
+- VERIFIED: PHP lint passed for `inc/trust-routes.php`, `inc/authority.php`, `inc/schema.php`, `single-articles.php`, and `functions.php`; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index, and robots.txt.
+- LINEAR: this work belongs under HAD-59 authority governance and PR #8.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code and repo documentation only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 12:47 Asia/Jerusalem
 - LIVE AUTHOR ATTRIBUTION AUDIT: built and ran a read-only audit for the owner's concern that Ben Batash was placed as writer/byline across criminal articles.
 - RESEARCHED: Google Article author structured-data guidance and people-first/E-E-A-T guidance. Key point: Article author can be Organization or Person, but a Person author should have a real `url`/`sameAs` identity chain; legal/YMYL pages should not use unverified broad person attribution.

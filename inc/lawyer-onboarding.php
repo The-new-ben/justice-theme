@@ -319,6 +319,30 @@ function justice_theme_lawyer_activation_badge( string $status ): array {
 	return array( 'label' => $label, 'style' => 'background:#f1f5f9;color:#334155;' );
 }
 
+function justice_theme_lawyer_payment_followup_badge( string $payment_path, string $followup_status ): array {
+	if ( 'manual_invoice' !== $payment_path ) {
+		return array(
+			'label' => 'No manual payment',
+			'note'  => 'Use normal checkout or free review path.',
+			'style' => 'background:#f1f5f9;color:#334155;',
+		);
+	}
+
+	if ( 'invoice_requested' === $followup_status ) {
+		return array(
+			'label' => 'Invoice requested',
+			'note'  => 'Create/send Morning invoice, then activate after payment confirmation.',
+			'style' => 'background:#fef3c7;color:#92400e;',
+		);
+	}
+
+	return array(
+		'label' => 'Manual payment',
+		'note'  => 'Review payment state before activation.',
+		'style' => 'background:#eef2ff;color:#3730a3;',
+	);
+}
+
 function justice_theme_lawyer_activation_meta_box(): void {
 	add_meta_box(
 		'justice_theme_lawyer_activation',
@@ -337,7 +361,17 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 	$status         = get_post_meta( $post->ID, 'activation_status', true ) ?: 'registered';
 	$first_value_at = get_post_meta( $post->ID, 'first_value_at', true );
 	$owner_note     = get_post_meta( $post->ID, 'activation_owner_note', true );
+	$payment_path   = (string) get_post_meta( $post->ID, 'payment_path', true );
+	$payment_status = (string) get_post_meta( $post->ID, 'payment_followup_status', true );
+	$payment_badge  = justice_theme_lawyer_payment_followup_badge( $payment_path, $payment_status );
 	?>
+	<p>
+		<strong>Payment follow-up</strong><br>
+		<span style="display:inline-block;margin:4px 0;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $payment_badge['style'] ); ?>">
+			<?php echo esc_html( $payment_badge['label'] ); ?>
+		</span><br>
+		<small><?php echo esc_html( $payment_badge['note'] ); ?></small>
+	</p>
 	<p>
 		<label for="justice-lawyer-activation-status"><strong>Activation status</strong></label>
 		<select id="justice-lawyer-activation-status" name="activation_status" style="width:100%;">
@@ -572,6 +606,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						<th>Email</th>
 						<th>Plan</th>
 						<th>Sales Priority</th>
+						<th>Payment Follow-up</th>
 						<th>Mini-site Content</th>
 						<th>Pending Update</th>
 						<th>Content Request</th>
@@ -590,6 +625,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$sales_priority = justice_theme_lawyer_onboarding_sales_priority( $plan );
 						$activation_status = (string) get_post_meta( $post_id, 'activation_status', true ) ?: 'registered';
 						$activation_badge  = justice_theme_lawyer_activation_badge( $activation_status );
+						$payment_path      = (string) get_post_meta( $post_id, 'payment_path', true );
+						$payment_followup  = (string) get_post_meta( $post_id, 'payment_followup_status', true );
+						$payment_badge     = justice_theme_lawyer_payment_followup_badge( $payment_path, $payment_followup );
 						$first_value_at     = get_post_meta( $post_id, 'first_value_at', true );
 						$has_pending_update = '1' === (string) get_post_meta( $post_id, 'pending_profile_review', true );
 						$has_pending_content = '1' === (string) get_post_meta( $post_id, 'pending_content_review', true );
@@ -636,6 +674,15 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 										<br><small>First value: <?php echo esc_html( $first_value_at ); ?></small>
 									<?php endif; ?>
 								</p>
+							</td>
+							<td>
+								<span style="display:inline-block;margin:0 0 4px;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $payment_badge['style'] ); ?>">
+									<?php echo esc_html( $payment_badge['label'] ); ?>
+								</span>
+								<p style="margin:0;"><?php echo esc_html( $payment_badge['note'] ); ?></p>
+								<?php if ( $payment_path || $payment_followup ) : ?>
+									<small><?php echo esc_html( trim( $payment_path . ' / ' . $payment_followup, ' /' ) ); ?></small>
+								<?php endif; ?>
 							</td>
 							<td>
 								<?php if ( $has_pending_update ) : ?>

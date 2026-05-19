@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-19 - Traffic lawyer SEO rescue edit blocks
+
+- CREATED: `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.md`.
+- CREATED: `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.csv`.
+- VERIFIED / REVIEW ONLY: prepared exact owner-review edit blocks for `/traffic-lawyer/`.
+- VERIFIED LIVE: `/traffic-lawyer/` returned HTTP 200, self-canonicalized and remained index/follow.
+- VERIFIED GSC: local GSC summary shows `/traffic-lawyer` has `0` clicks, `20,330` impressions, `0.00%` CTR and average position `67.9`.
+- VERIFIED LIVE: eleven proposed support/directory link targets returned 200.
+- DECISION: preserve `/traffic-lawyer/` and improve title/H1/meta/intro/CTA/internal-link alignment before considering `/drunk-driving/`, `/breathalyzer-test/`, `/license-suspension/`, redirects, noindex, canonical consolidation or sitemap edits.
+- BLOCKED: public CMS execution remains blocked until owner approval, current-field backup and legal/source review.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-19 - Criminal-defense attorney CMS update field map
 
 - CREATED: `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.md`.

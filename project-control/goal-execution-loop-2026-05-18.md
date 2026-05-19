@@ -11,6 +11,39 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 40 - Traffic Lawyer SEO Rescue Edit Blocks
+
+Research reviewed:
+- `project-control/traffic-law-content-upload-readiness-2026-05-11.md`.
+- `project-control/traffic-law-no-url-internal-link-map-2026-05-11.md`.
+- `project-control/traffic-law-support-to-hub-map-2026-05-18.md`.
+- `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.md`.
+- `content-master/gsc/gsc-url-summary.csv`.
+- `justice_theme_emergency_master_2026_05_13/content-master/seo-rescue/output/gsc/gsc_query_page_12m.csv`.
+
+Business interpretation:
+- The next safe traffic recovery step is not a new traffic URL or a redirect. `/traffic-lawyer/` already receives exact traffic-lawyer impressions and should be strengthened first.
+- Support pages and future clean slugs stay blocked until the hub is approved, backed up and QA-tested.
+
+Implemented in this cycle:
+- Created `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.md`.
+- Created `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.csv`.
+- Prepared exact owner-review blocks for SEO title, H1, meta description, OG fields, intro, practical section, CTA, contextual internal links, inbound-link requests and boundary rules.
+
+Verification:
+- Live Googlebot-style check returned HTTP 200, self-canonical and index/follow state for `/traffic-lawyer/`.
+- Eleven planned support/directory targets returned HTTP 200.
+- Local GSC summary shows `/traffic-lawyer` has `0` clicks, `20,330` impressions, `0.00%` CTR and average position `67.9`.
+- Query-page mirror shows the highest exact query, `עורך דין תעבורה`, has `3,290` impressions and `0` clicks mapping to `/traffic-lawyer/`.
+- CSV parsed with `24` rows.
+
+Next step:
+- Owner approves or edits the `/traffic-lawyer/` edit block package.
+- After approval, create a CMS update field map for `/traffic-lawyer/` before any public edit.
+
+Safety:
+- Repo-only planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, noindex, canonical, sitemap setting, taxonomy term, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
 ## Priority Cycle 39 - Criminal Defense Attorney CMS Update Field Map
 
 Research reviewed:

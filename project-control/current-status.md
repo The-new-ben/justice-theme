@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-19 11:58 Asia/Jerusalem
+- TRAFFIC LAWYER SEO RESCUE EDIT BLOCKS: prepared exact owner-review title/H1/meta/intro/CTA/internal-link blocks for `/traffic-lawyer/`.
+- VERIFIED LIVE: `/traffic-lawyer/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/traffic-lawyer/`, and remains index/follow.
+- VERIFIED GSC: local GSC summary shows `/traffic-lawyer` has `0` clicks, `20,330` impressions, `0.00%` CTR and average position `67.9`.
+- VERIFIED QUERY-PAGE: exact traffic-lawyer queries already map to `/traffic-lawyer/`, including `עורך דין תעבורה` with `3,290` impressions and `0` clicks.
+- VERIFIED LIVE: eleven planned support/directory targets return 200, including drunk-driving, refusal/testing, breathalyzer, speeding, points/license-risk, Marvad and traffic-law directory paths.
+- CREATED: `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.md`.
+- CREATED: `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.csv`.
+- DECISION: preserve `/traffic-lawyer/` and strengthen the hub before considering `/drunk-driving/`, `/breathalyzer-test/`, `/license-suspension/`, redirects, canonicals, noindex or sitemap changes.
+- NEXT: owner reviews the `/traffic-lawyer/` edit blocks; after approval, create the CMS field map and then apply only with backup and post-upload QA.
+- SAFETY: no public CMS/database row, article body, title, H1, meta description, URL slug, redirect, noindex, canonical, sitemap, taxonomy, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment was changed.
+
 ## LATEST WORK STATUS - 2026-05-19 11:47 Asia/Jerusalem
 - CRIMINAL DEFENSE ATTORNEY CMS UPDATE FIELD MAP: converted the `/criminal-defense-attorney/` money-query rescue block into an operator-safe CMS update worksheet.
 - VERIFIED LIVE: `/criminal-defense-attorney/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/criminal-defense-attorney/`, and remains index/follow.

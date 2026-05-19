@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-TRAFFIC-LAWYER-SEO-RESCUE-EDIT-BLOCKS-001: Prepare exact edit blocks for `/traffic-lawyer/`
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** `/traffic-lawyer/` has `20,330` impressions and `0` clicks, and exact traffic-lawyer queries already map to it; the next safe step is URL-preserving title/H1/meta/intro/CTA/internal-link improvement before redirects or support migrations.
+**Actions:**
+1. DONE: created `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.md`.
+2. DONE: created `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.csv`.
+3. VERIFIED LIVE: `/traffic-lawyer/` returned HTTP 200, self-canonicalized and remained indexable.
+4. VERIFIED GSC: `/traffic-lawyer` has `0` clicks, `20,330` impressions, `0.00%` CTR and average position `67.9`.
+5. VERIFIED LIVE: eleven proposed support/directory targets returned 200.
+6. READY FOR REVIEW: exact recommended SEO title, H1, meta description, OG fields, intro block, practical section, CTA block, internal links, inbound-link requests and boundary rules are documented.
+7. BLOCKED: no CMS/public edit until owner approval, legal/source review and backup of current fields.
+8. NEXT: approve or edit the `/traffic-lawyer/` packet, then create its CMS field map before any public update.
+9. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-CRIMINAL-DEFENSE-ATTORNEY-CMS-FIELD-MAP-001: Prepare `/criminal-defense-attorney/` CMS update field map
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
 **Why:** `/criminal-defense-attorney/` is the second high-impression money-query rescue page, but sensitive criminal-law updates need exact fields, backups, blocked changes, legal/source review gates and post-upload QA before any WordPress edit.

@@ -2920,3 +2920,14 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - MONEY IMPACT: paid lawyer interest is now capturable on the live site even before Grow/Meshulam card recurrence is approved.
 - NEXT MONEY STEP: owner completes Grow/Meshulam ID/KYC; Codex then finishes WooCommerce Subscriptions/product mapping and tests checkout.
 - SAFETY: uPress pull + live read-only verification only; no live invoices, products, lawyer records, lead records, payment settings or CMS database content were manually changed.
+
+## 2026-05-19 MANUAL PAYMENT ADMIN VISIBILITY
+- RESEARCH BASIS: WooCommerce B2B invoice guidance supports invoice/manual-payment flows for business buyers; operationally, the important part is making manual payment follow-up visible so paid-intent prospects are not lost in a generic registration queue.
+- CODE UPDATED: Lawyer Onboarding now shows a `Payment Follow-up` column for every lawyer registration row.
+- CODE UPDATED: manual invoice requests show an `Invoice requested` badge with the explicit next action: create/send Morning invoice and activate only after payment confirmation.
+- CODE UPDATED: the lawyer activation side box now repeats the payment follow-up state so the reviewer sees the money step while editing the draft profile.
+- MONEY IMPACT: paid plan requests are now surfaced inside the owner workflow instead of being hidden in post meta or email only.
+- BLOCKED FOR FULL AUTOMATION: Grow/Meshulam ID verification, recurring billing, subscription products and live checkout mapping remain incomplete.
+- COMPLETION ASSESSMENT: manual revenue operations 65%; automated recurring checkout 35%; first-payment readiness 50%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin → Lawyer Onboarding should include the `Payment Follow-up` column and each manual invoice lawyer should show `Invoice requested`.
+- SAFETY: repo-only admin visibility/status change; no live lawyer records, payment settings, invoices, products, CMS pages or database rows were changed manually.

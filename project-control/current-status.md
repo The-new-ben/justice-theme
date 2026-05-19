@@ -1,3 +1,62 @@
+## LATEST WORK STATUS - 2026-05-19 17:52 Asia/Jerusalem
+- MONEY-QUERY POST-EDIT VERIFICATION: added the after-edit safety checklist for the five PR #9 target pages.
+- RESEARCHED: Google URL Inspection, recrawl and title-link guidance. Key point: after page edits, the right workflow is live inspection, crawl/indexability confirmation, request indexing when appropriate, then 14/28/45-day performance comparison.
+- VERIFIED SHARED PROGRESS: PR #8 and PR #9 are both ready for review and mergeable/clean.
+- CREATED: `project-control/money-query-post-edit-verification-2026-05-19.md`.
+- CREATED: `project-control/money-query-post-edit-verification-2026-05-19.csv`.
+- UPDATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.md` with the post-edit gate.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that PR #9 now has both before-state evidence and after-edit verification, so approved CMS edits can be measured rather than guessed.
+- COMPLETION ASSESSMENT: money-query SEO recovery moved from 35% to 37%; PR #9 review readiness moved to 76%. Remaining blockers are human review, owner/legal approval, public CMS edits, PR #8 authority sequencing, Search Console recrawl requests, and measured CTR lift.
+- OWNER-VISIBLE NOW: PR #9 contains an execution-ready post-edit checklist with Search Console and 14/28/45-day measurement steps.
+- UPRESS: no uPress pull because this is a branch docs/report update and not merged to `main`.
+- SAFETY: branch docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 17:42 Asia/Jerusalem
+- MONEY-QUERY PRE-EDIT SNAPSHOT: added a repeatable snapshot tool and captured the before-state for the five PR #9 target pages.
+- RESEARCHED: Google Search Console Performance guidance and Google title/canonical/noindex guidance. Key point: high-impression low-CTR pages should be improved by title/snippet/content alignment, but pre-edit checks must confirm indexability, canonical state and page intent before changing content.
+- VERIFIED SHARED PROGRESS: PR #8 and PR #9 are both ready for review and mergeable.
+- CODED: `tools/snapshot-money-query-pages.mjs`.
+- CREATED: `reports/money-query-preedit-snapshot-2026-05-19.csv`.
+- CREATED: `reports/money-query-preedit-snapshot-2026-05-19.json`.
+- UPDATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.md` with the snapshot results.
+- SNAPSHOT RESULT: all five target pages return HTTP 200, are in the sitemap, canonicalize to themselves, are not noindex, and expose lead intent signals.
+- SNAPSHOT WARNINGS: `/criminal-defense-attorney/` has 2 H1s; `/sex-crime-lawyer/` has a very long title/meta description.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is implementation readiness: we now have a saved before-state to compare after approved WordPress edits.
+- COMPLETION ASSESSMENT: money-query SEO recovery moved from 32% to 35%; PR #9 review readiness remains about 70%. Remaining blockers are human review, owner/legal approval, public CMS edits, PR #8 authority sequencing, recrawl/indexing, and measured CTR lift.
+- OWNER-VISIBLE NOW: PR #9 contains the snapshot tool and reports showing the current live state before any edits.
+- UPRESS: no uPress pull because this is a branch/report update and not merged to `main`.
+- SAFETY: read-only live fetches plus branch code/report/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 17:29 Asia/Jerusalem
+- MONEY-QUERY SEO PR HANDOFF: marked PR #9 ready for review after verification.
+- RESEARCHED: Google Search Console Performance report guidance and Google title-link guidance. Key point: for high-impression/low-CTR pages, improve title/snippet/content alignment by page and query; clear page-specific titles are safer than generic or promotional wording.
+- VERIFIED: PR #9 is no longer draft, remains mergeable, and has 4 changed files / 2 commits.
+- VERIFIED: `git diff --check` passed.
+- VERIFIED LIVE JOURNEY: `node tools/check-live-traffic-priority.mjs` passed all checked public routes.
+- UPDATED: Linear `HAD-65` with PR #9 ready-for-review state and verification results.
+- UPDATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.md` with the review handoff.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is release-flow progress: the money-query rescue packet is now review-ready instead of draft.
+- COMPLETION ASSESSMENT: money-query SEO recovery remains 32%; PR #9 review readiness is 70%. Remaining blockers are human review, owner/legal approval, public CMS edits, PR #8 authority sequencing, recrawl/indexing, and measured CTR lift.
+- OWNER-VISIBLE NOW: PR #9 shows ready for review, and Linear `HAD-65` shows the verification state.
+- UPRESS: no uPress pull because this is repo-only planning and not merged to `main`.
+- SAFETY: GitHub PR state and branch docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 17:28 Asia/Jerusalem
+- MONEY-QUERY SEO RESCUE REFRESH: created a separate branch `codex/money-query-seo-batch-001` from `main` so PR #8 remains clean for review.
+- RESEARCHED: Google title-link guidance and helpful-content guidance. Key point: titles should be clear, descriptive and page-specific; legal/YMYL content needs people-first trust signals rather than promotional keyword chains.
+- VERIFIED PR TRACK: PR #8 remains ready for review and mergeable; no extra scope was added to that PR.
+- VERIFIED LIVE JOURNEY: `node tools/check-live-traffic-priority.mjs` passed all checked public routes, including `/real-estate-lawyer-guide/`, `/criminal-defense-attorney/`, and `/traffic-lawyer/`.
+- VERIFIED LIVE TARGETS: `/real-estate-attorney/`, `/traffic-lawyer/`, `/prenup-attorney/`, `/criminal-defense-attorney/`, and `/sex-crime-lawyer/` all return HTTP 200.
+- UPDATED EVIDENCE: Batch 001 now uses stronger GSC evidence: `/real-estate-attorney/` 88,601 impressions / 0.02% CTR; `/criminal-defense-attorney/` 62,561 / 0.02%; `/sex-crime-lawyer/` 27,904 / 0.12%; `/prenup-attorney/` 20,894 / 0.00%; `/traffic-lawyer/` 20,330 / 0.00%.
+- CREATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.md`.
+- CREATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.csv`.
+- CREATED: Linear `HAD-65` for money-query SEO rescue batch 001.
+- CREATED: draft PR #9: `https://github.com/The-new-ben/justice-theme/pull/9`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that five high-impression commercial pages now have refreshed metrics, live title/H1 risk findings, and safe no-URL-change title/H1 directions ready for owner/legal approval.
+- COMPLETION ASSESSMENT: money-query SEO recovery moved from 28% to 32% for this lane; remaining blockers are owner/legal approval, public CMS edits, PR #8 authority sequencing, recrawl/indexing and measured CTR lift.
+- OWNER-VISIBLE NOW: draft PR #9 and the new refresh packet list exact target pages, metrics, current risks, proposed titles/H1s and approval gates.
+- UPRESS: no uPress pull because this is a repo-only planning branch and not merged to `main`.
+- SAFETY: branch docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
 ## LATEST WORK STATUS - 2026-05-19 17:09 Asia/Jerusalem
 - PR #8 REVIEW STATE ADVANCED: marked PR #8 ready for review after the 17:03 pre-merge verification passed.
 - RESEARCHED: GitHub draft/ready PR guidance and PR review guidance. Key point: draft PRs are for unfinished work; once verification evidence is complete, moving to ready-for-review is the correct handoff to reviewers.

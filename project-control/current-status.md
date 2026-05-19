@@ -2951,3 +2951,11 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - COMPLETION ASSESSMENT: Googlebot trust route stability 90%; broader traffic recovery 38%; lawyer/customer conversion foundation 62%.
 - OWNER CAN NOTICE: `https://jus-tice.co.il/about/`, `/contact/` and `/editorial-policy/` should load as real indexable trust pages, and future agents can run `node tools/check-live-trust-routes.mjs`.
 - SAFETY: repo-only checker/status plus read-only live verification; no live CMS/database, payment, lawyer, lead, redirect, GSC or product settings were changed.
+
+## 2026-05-19 TRUST ROUTE CHECKER LIVE SYNC
+- MERGED: PR #17 (`codex/trust-route-googlebot-checker`) was squash-merged to `main`.
+- DEPLOYED: Codex opened uPress File Manager → `/wp-content/themes/justice-theme` → `ניהול GIT` and ran `משיכת נתונים (Pull)` successfully.
+- VERIFIED: local/live checker run passed for `/about/`, `/contact/` and `/editorial-policy/`.
+- MONEY IMPACT: this does not collect payment directly; it protects three trust/conversion URLs that support SEO, user confidence and lawyer sales conversations.
+- COMPLETION ASSESSMENT: Googlebot trust route stability 92%; broader traffic recovery 38%; lawyer/customer conversion foundation 63%.
+- SAFETY: uPress pull + read-only route verification only; no live CMS/database, payment, lawyer, lead, redirect, GSC or product settings were changed.

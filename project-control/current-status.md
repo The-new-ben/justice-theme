@@ -2940,3 +2940,14 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - MONEY IMPACT: owner can now spot paid-intent lawyer registrations directly in the onboarding queue without hunting through emails or hidden meta.
 - COMPLETION ASSESSMENT: manual revenue operations 70%; automated recurring checkout 35%; first-payment readiness 52%.
 - SAFETY: uPress pull + live read-only wp-admin verification only; no live lawyer records, payment settings, invoices, products or CMS database content were changed manually.
+
+## 2026-05-19 TRUST ROUTE GOOGLEBOT CHECKER
+- RESEARCH BASIS: Google Search Central recommends creating people-first pages that make ownership, purpose, contact paths and content review context clear; for legal/YMYL trust, the crawlable `/about/`, `/contact/` and `/editorial-policy/` pages are part of the authority and conversion journey.
+- CREATED: `tools/check-live-trust-routes.mjs` to verify `/about/`, `/contact/` and `/editorial-policy/` as Googlebot.
+- LIVE VERIFIED: all three routes return 200, are indexable, self-canonical and expose the expected H1.
+- LIVE VERIFIED: `/contact/` includes the public phone `0525101555`, `info@jus-tice.co.il` and the lead form anchor.
+- MONEY IMPACT: contact/trust pages that were previously traffic-audit risks are now protected by a repeatable check, reducing the chance that lawyer/user conversion paths silently fall back to 404/noindex.
+- BLOCKED: this checker does not create new traffic by itself; it protects crawl trust and conversion while money-query content edits and outreach continue.
+- COMPLETION ASSESSMENT: Googlebot trust route stability 90%; broader traffic recovery 38%; lawyer/customer conversion foundation 62%.
+- OWNER CAN NOTICE: `https://jus-tice.co.il/about/`, `/contact/` and `/editorial-policy/` should load as real indexable trust pages, and future agents can run `node tools/check-live-trust-routes.mjs`.
+- SAFETY: repo-only checker/status plus read-only live verification; no live CMS/database, payment, lawyer, lead, redirect, GSC or product settings were changed.

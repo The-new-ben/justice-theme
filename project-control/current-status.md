@@ -1,3 +1,18 @@
+## LATEST WORK STATUS - 2026-05-19 17:28 Asia/Jerusalem
+- MONEY-QUERY SEO RESCUE REFRESH: created a separate branch `codex/money-query-seo-batch-001` from `main` so PR #8 remains clean for review.
+- RESEARCHED: Google title-link guidance and helpful-content guidance. Key point: titles should be clear, descriptive and page-specific; legal/YMYL content needs people-first trust signals rather than promotional keyword chains.
+- VERIFIED PR TRACK: PR #8 remains ready for review and mergeable; no extra scope was added to that PR.
+- VERIFIED LIVE JOURNEY: `node tools/check-live-traffic-priority.mjs` passed all checked public routes, including `/real-estate-lawyer-guide/`, `/criminal-defense-attorney/`, and `/traffic-lawyer/`.
+- VERIFIED LIVE TARGETS: `/real-estate-attorney/`, `/traffic-lawyer/`, `/prenup-attorney/`, `/criminal-defense-attorney/`, and `/sex-crime-lawyer/` all return HTTP 200.
+- UPDATED EVIDENCE: Batch 001 now uses stronger GSC evidence: `/real-estate-attorney/` 88,601 impressions / 0.02% CTR; `/criminal-defense-attorney/` 62,561 / 0.02%; `/sex-crime-lawyer/` 27,904 / 0.12%; `/prenup-attorney/` 20,894 / 0.00%; `/traffic-lawyer/` 20,330 / 0.00%.
+- CREATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.md`.
+- CREATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.csv`.
+- CREATED: Linear `HAD-65` for money-query SEO rescue batch 001.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that five high-impression commercial pages now have refreshed metrics, live title/H1 risk findings, and safe no-URL-change title/H1 directions ready for owner/legal approval.
+- COMPLETION ASSESSMENT: money-query SEO recovery moved from 28% to 32% for this lane; remaining blockers are owner/legal approval, public CMS edits, PR #8 authority sequencing, recrawl/indexing and measured CTR lift.
+- OWNER-VISIBLE NOW: the new refresh packet lists exact target pages, metrics, current risks, proposed titles/H1s and approval gates.
+- UPRESS: no uPress pull because this is a repo-only planning branch and not merged to `main`.
+- SAFETY: branch docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
 ## LATEST WORK STATUS - 2026-05-19 17:09 Asia/Jerusalem
 - PR #8 REVIEW STATE ADVANCED: marked PR #8 ready for review after the 17:03 pre-merge verification passed.
 - RESEARCHED: GitHub draft/ready PR guidance and PR review guidance. Key point: draft PRs are for unfinished work; once verification evidence is complete, moving to ready-for-review is the correct handoff to reviewers.

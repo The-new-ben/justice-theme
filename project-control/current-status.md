@@ -2970,3 +2970,14 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - COMPLETION ASSESSMENT: commercial journey monitoring 80%; manual revenue operations 72%; automated recurring checkout 35%; first-payment readiness 53%.
 - OWNER CAN NOTICE: future agents can run `node tools/check-live-commercial-journey.mjs`; lawyers should see real prices and a working manual invoice path.
 - SAFETY: repo-only checker/status plus read-only live verification; no live CMS/database, payment, lawyer, lead, product, redirect or GSC settings were changed.
+
+## 2026-05-19 LAWYER RECRUITMENT MICRO-OFFER SCRIPT
+- RESEARCH BASIS: current B2B outreach guidance emphasizes signal-based targeting, relevance over volume, and low-friction micro-offers instead of asking cold prospects for a long sales call immediately.
+- CODE UPDATED: Justice CRM uncovered-demand templates now include the live `/lawyer-plans/` URL and approved monthly plan prices.
+- CODE UPDATED: lawyer recruitment copy now offers a 5-minute fit check / 2-minute overview instead of a hard sales call.
+- CODE UPDATED: added a 3-touch outreach sequence: day 1 signal/opening, day 3 demand evidence, day 7 polite close with compliance guardrails.
+- MONEY IMPACT: repeated uncovered demand can now be turned into a concrete lawyer outreach workflow linked to the manual invoice/payment path.
+- BLOCKED: no outreach was sent in this cycle; Gmail/outbound channel and owner-approved target list still determine actual customer acquisition speed.
+- COMPLETION ASSESSMENT: lawyer outreach readiness 48%; manual revenue operations 74%; first-payment readiness 54%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin → Justice CRM → Safe uncovered-demand response templates should show the enriched lawyer recruitment script and 3-touch outreach sequence.
+- SAFETY: repo-only admin copy/status change; no live outreach, emails, SMS, lawyer records, lead records, invoices, products, payment settings or CMS database content were changed manually.

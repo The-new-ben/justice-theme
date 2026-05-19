@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-19 15:29 Asia/Jerusalem
+- GOALS/MONEY SCORECARD: converted the owner's "advance goals and money earning" instruction into a measurable operating scoreboard for every future cycle.
+- RESEARCHED: Google helpful-content guidance, Google Business Profile local ranking guidance, and Clio 2025 legal trends. Key point: money comes from combining qualified demand, trust/authority, fast digital intake, and paid lawyer value; generic task volume is not enough.
+- UPDATED AUTOMATION: the 10-minute execution loop now requires money-focused completion assessment, blocker reporting, and "where can the owner notice this" reporting.
+- CREATED: `project-control/goals-money-earning-scorecard-2026-05-19.md`.
+- CREATED: `project-control/goals-money-earning-scorecard-2026-05-19.csv`.
+- HONEST COMPLETION SNAPSHOT: technical crawl/index 72%; SEO authority/E-E-A-T 38%; money-query SEO 28%; lawyer commercial pipeline 31%; lead monetization/intake 24%; lawyer retention/value 22%; entity footprint/local trust 18%.
+- MONEY REALITY: no new money earned yet from this cycle. The closest revenue path remains commercial pipeline launch plus paying lawyers; the closest demand path remains money-query recovery plus authority cleanup.
+- UPRESS: no uPress pull because this is draft-PR branch/status work and not merged to `main`.
+- SAFETY: repo docs and automation prompt only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 13:02 Asia/Jerusalem
 - TRUST DISCOVERABILITY: moved the editorial-policy work one step closer to real SEO/user value by adding crawlable links to it.
 - RESEARCHED: Google helpful-content guidance and Google customer-support/search guidance. Key point: trust/support pages are most useful when users and Googlebot can easily find them; hidden policy pages are weaker trust signals.

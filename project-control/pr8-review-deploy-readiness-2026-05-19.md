@@ -3,7 +3,7 @@
 PR: https://github.com/The-new-ben/justice-theme/pull/8  
 Branch: `codex/eeat-authority-linear-sync`  
 Status at creation: Draft, mergeable, 32 changed files, 11 commits
-Latest check: 2026-05-19 17:03 Asia/Jerusalem, draft, mergeable, 34 changed files, 12 commits
+Latest check: 2026-05-19 17:09 Asia/Jerusalem, ready for review, mergeable, 34 changed files, 13 commits
 
 ## Objective
 
@@ -159,6 +159,13 @@ Review PR #8 in four passes:
   - fetch errors: 0
 - Interpretation: this is a clean baseline before deploy. The count should drop after PR #8 is merged and uPress pulls; any remaining Ben signals should be treated as CMS/plugin/content leftovers.
 
+## 2026-05-19 17:09 Review Handoff
+
+- PR #8 was marked ready for review after the verification checklist passed.
+- GitHub reports the PR is no longer draft and remains mergeable.
+- This removes the draft blocker, but does not replace human review or owner approval.
+- No uPress pull is permitted yet because the PR has not been merged to `main`.
+
 ## Deploy Checklist After Merge
 
 1. Pull latest `main` on uPress Git Manager for `wp-content/themes/justice-theme`.
@@ -191,10 +198,10 @@ Review PR #8 in four passes:
 
 ## Honest Completion Assessment
 
-PR #8 review/deploy readiness is now **70%**:
+PR #8 review/deploy readiness is now **78%**:
 
-- Complete: branch exists, mergeable, pre-merge checks pass, live author baseline captured, documented, Linear-linked.
-- Blocked: still draft, not reviewed/approved, not merged, not pulled to uPress, no live wp-admin visual verification, no post-deploy author audit.
+- Complete: branch exists, mergeable, pre-merge checks pass, live author baseline captured, documented, Linear-linked, and ready for review.
+- Blocked: not reviewed/approved, not merged, not pulled to uPress, no live wp-admin visual verification, no post-deploy author audit.
 
 No money has been earned by PR #8 yet. Its revenue value is enabling: safer authority signals, better trust surface, and a CRM workflow to turn unmatched demand into paid partner recruitment.
 
@@ -206,4 +213,4 @@ Stop adding feature scope to PR #8 unless a blocker is found. Next cycles should
 2. split CRM work into a smaller PR if reviewers find the branch too broad;
 3. move to money-query SEO batch 001 only after PR #8 has a clear merge path.
 
-Current recommendation after the 17:03 checks: mark PR #8 ready for human review or explicitly split it. Do not add more feature scope to this branch.
+Current recommendation after the 17:09 handoff: review PR #8 now. If reviewers consider it too broad, split CRM work from authority/trust work before merge. Do not add more feature scope to this branch.

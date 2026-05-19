@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-19 17:09 Asia/Jerusalem
+- PR #8 REVIEW STATE ADVANCED: marked PR #8 ready for review after the 17:03 pre-merge verification passed.
+- RESEARCHED: GitHub draft/ready PR guidance and PR review guidance. Key point: draft PRs are for unfinished work; once verification evidence is complete, moving to ready-for-review is the correct handoff to reviewers.
+- VERIFIED: PR #8 is no longer draft, remains mergeable, and still has 34 changed files / 13 commits.
+- UPDATED: Linear HAD-59 and PR #8 already have the pre-merge readiness checkpoint; this cycle removed the draft blocker.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is release-flow progress: the E-E-A-T authority fix and uncovered-demand CRM are now waiting on review/merge instead of sitting as draft work.
+- COMPLETION ASSESSMENT: PR #8 review/deploy readiness moved from 70% to 78%. Remaining blockers are human review/approval, merge to main, uPress pull, live wp-admin visual QA, and post-deploy author audit.
+- OWNER-VISIBLE NOW: GitHub PR #8 shows "ready for review" instead of draft.
+- OWNER-VISIBLE AFTER MERGE: footer/editorial policy trust link, safer article attribution, and Justice CRM uncovered-demand workflow.
+- UPRESS: no uPress pull because PR #8 is not merged to `main`.
+- SAFETY: GitHub PR state and repo docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 17:03 Asia/Jerusalem
 - PR #8 FINAL PRE-MERGE CHECKS: ran the release-readiness verification set for the authority + uncovered-demand branch.
 - RESEARCHED: GitHub PR review guidance and Google Search technical/crawl requirements. Key point: large PRs need strong review context, and Google-facing deploys need robots/sitemap/canonical/crawl checks before and after launch.

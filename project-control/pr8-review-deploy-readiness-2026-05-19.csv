@@ -1,8 +1,8 @@
 area,status,evidence,next_action,risk
-pr_state,mergeable_draft,"PR #8 is draft mergeable with 34 changed files and 12 commits","Mark ready for review or split before merge","Large PR scope can slow review"
+pr_state,ready_mergeable,"PR #8 is ready for review and mergeable with 34 changed files and 13 commits","Human review/approval; split CRM work only if reviewers request smaller scope","Large PR scope can slow review"
 authority_schema,ready_for_review,"Authority registry schema fallback and article template changes documented","Review for fake or overbroad author/reviewer claims","YMYL trust risk if wrong"
 editorial_policy,ready_for_review,"Virtual route footer and sitemap links documented","Verify /editorial-policy/ after merge/uPress pull","Public trust page must render 200"
 crm_uncovered_demand,ready_for_review,"Coverage status queue templates summary and weekly brief documented","Verify wp-admin Justice CRM after deploy","Admin-only workflow must not mutate live data unexpectedly"
 premerge_checks,passed,"PHP lint passed; git diff check clean; live journey checker passed; author audit checked 80 URLs with 45 visible Ben 45 schema Ben and 0 fetch errors","Mark ready for review or split if reviewers prefer smaller PR","Do not deploy until reviewed merged and uPress pulled"
 deploy_checks,defined,"uPress and live route/admin checks listed","Execute only after merge to main","No uPress pull while draft branch"
-completion_assessment,70_percent,"Mergeable pre-merge checks pass author baseline captured documented Linear-linked","Human review merge uPress pull live admin QA post-deploy audits","No money earned until live and used"
+completion_assessment,78_percent,"Mergeable pre-merge checks pass author baseline captured documented Linear-linked ready-for-review","Human review merge uPress pull live admin QA post-deploy audits","No money earned until live and used"

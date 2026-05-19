@@ -25,6 +25,7 @@ add_action( 'admin_menu', 'justice_theme_crm_admin_menu' );
 function justice_theme_crm_register_lead_meta(): void {
 	$fields = array(
 		'lead_quality_override'     => 'string',
+		'coverage_status'           => 'string',
 		'follow_up_status'          => 'string',
 		'first_contact_at'          => 'string',
 		'customer_success_note'     => 'string',
@@ -47,8 +48,10 @@ function justice_theme_render_crm_admin_page(): void {
 	}
 
 	$lead_counts = justice_theme_crm_count_by_status( 'justice_lead', 'lead_status' );
+	$coverage_counts = justice_theme_crm_count_by_status( 'justice_lead', 'coverage_status' );
 	$tool_counts = post_type_exists( 'justice_legal_request' ) ? justice_theme_crm_count_by_status( 'justice_legal_request', 'status' ) : array();
 	$leads       = justice_theme_crm_query_items( 'justice_lead', 15 );
+	$uncovered_demand = justice_theme_crm_query_uncovered_demand( 15 );
 	$requests    = post_type_exists( 'justice_legal_request' ) ? justice_theme_crm_query_items( 'justice_legal_request', 10 ) : null;
 	?>
 	<div class="wrap">
@@ -77,12 +80,215 @@ function justice_theme_render_crm_admin_page(): void {
 		<h2>Recent legal leads</h2>
 		<?php justice_theme_crm_render_table( $leads, 'justice_lead' ); ?>
 
+		<h2 style="margin-top:28px;">Uncovered demand queue</h2>
+		<p>Leads with no clear paid coverage yet. Use this to recruit lawyers for repeated demand before manually giving away calls for free.</p>
+		<div class="justice-crm-cards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0;">
+			<?php foreach ( justice_theme_crm_coverage_status_labels() as $status => $label ) : ?>
+				<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+					<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) ( $coverage_counts[ $status ] ?? 0 ) ); ?></strong>
+					<span><?php echo esc_html( $label ); ?></span>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<?php justice_theme_crm_render_uncovered_demand_summary(); ?>
+		<?php justice_theme_crm_render_table( $uncovered_demand, 'justice_lead' ); ?>
+		<?php justice_theme_crm_render_uncovered_response_templates(); ?>
+
 		<h2 style="margin-top:28px;">Recent LegalTech requests</h2>
 		<?php if ( $requests ) : ?>
 			<?php justice_theme_crm_render_table( $requests, 'justice_legal_request' ); ?>
 		<?php else : ?>
 			<div class="notice notice-info inline"><p>`justice_legal_request` is not active yet.</p></div>
 		<?php endif; ?>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_render_uncovered_demand_summary(): void {
+	$signals = justice_theme_crm_uncovered_demand_summary( 200 );
+
+	if ( empty( $signals ) ) {
+		echo '<div class="notice notice-info inline"><p>No uncovered demand signals yet.</p></div>';
+		return;
+	}
+	?>
+	<table class="widefat striped" style="margin:12px 0 18px;">
+		<thead>
+			<tr>
+				<th>Demand signal</th>
+				<th>Lead count</th>
+				<th>Urgent/manual</th>
+				<th>Latest lead</th>
+				<th>Suggested business action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ( array_slice( $signals, 0, 8 ) as $signal ) : ?>
+				<tr>
+					<td><strong><?php echo esc_html( $signal['label'] ); ?></strong></td>
+					<td><?php echo esc_html( (string) $signal['count'] ); ?></td>
+					<td><?php echo esc_html( (string) $signal['urgent_count'] ); ?></td>
+					<td>
+						<a href="<?php echo esc_url( get_edit_post_link( (int) $signal['latest_post_id'], '' ) ); ?>">
+							<?php echo esc_html( $signal['latest_title'] ); ?>
+						</a>
+						<br><small><?php echo esc_html( $signal['latest_date'] ); ?></small>
+					</td>
+					<td><?php echo esc_html( $signal['suggested_action'] ); ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<?php justice_theme_crm_render_uncovered_recruitment_brief( $signals ); ?>
+	<?php
+}
+
+function justice_theme_crm_render_uncovered_recruitment_brief( array $signals ): void {
+	$top_signals = array_slice( $signals, 0, 5 );
+	$lines       = array(
+		'Jus-Tice weekly uncovered-demand brief',
+		'Generated from recent unmatched leads in Justice CRM.',
+		'',
+	);
+
+	foreach ( $top_signals as $index => $signal ) {
+		$lines[] = sprintf(
+			'%d. %s — %d leads, %d urgent/manual. Latest: %s. Action: %s',
+			$index + 1,
+			$signal['label'],
+			(int) $signal['count'],
+			(int) $signal['urgent_count'],
+			$signal['latest_date'],
+			$signal['suggested_action']
+		);
+	}
+
+	$lines[] = '';
+	$lines[] = 'Compliance notes: use this as internal demand evidence only. Do not promise a result, do not present a lawyer as recommended without a verified basis, do not split fees, and do not send legal advice.';
+	$brief   = implode( "\n", $lines );
+	?>
+	<div style="margin:12px 0 18px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:16px;">
+		<h3 style="margin-top:0;">Weekly recruitment brief</h3>
+		<p>Copy this into the owner workflow when recruiting lawyers for repeated uncovered demand.</p>
+		<textarea readonly rows="10" style="width:100%;"><?php echo esc_textarea( $brief ); ?></textarea>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_uncovered_demand_summary( int $limit ): array {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return array();
+	}
+
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_lead',
+		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+		'posts_per_page' => $limit,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+		'meta_query'     => array(
+			'relation' => 'OR',
+			array(
+				'key'     => 'coverage_status',
+				'value'   => array( 'coverage_review', 'covered_nonpaying', 'uncovered_recruit', 'urgent_manual' ),
+				'compare' => 'IN',
+			),
+			array(
+				'key'     => 'coverage_status',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => 'assigned_lawyer_id',
+				'compare' => 'NOT EXISTS',
+			),
+		),
+	) );
+
+	$signals = array();
+	foreach ( $query->posts as $post_id ) {
+		$post_id = (int) $post_id;
+		$area    = get_post_meta( $post_id, 'ai_detected_area', true ) ?: get_post_meta( $post_id, 'legal_area', true ) ?: get_post_meta( $post_id, 'lead_area', true );
+		$country = get_post_meta( $post_id, 'jurisdiction', true ) ?: get_post_meta( $post_id, 'country', true ) ?: get_post_meta( $post_id, 'lead_country', true );
+		$city    = get_post_meta( $post_id, 'city', true ) ?: get_post_meta( $post_id, 'lead_city', true );
+
+		$area_label = function_exists( 'justice_theme_lead_area_label' ) ? justice_theme_lead_area_label( (string) $area ) : (string) $area;
+		$area_label = $area_label ?: 'Unknown practice';
+		$market     = $country ?: $city ?: 'Unknown market';
+		$key        = sanitize_key( $area_label . '-' . $market );
+		$label      = $area_label . ' / ' . $market;
+
+		if ( ! isset( $signals[ $key ] ) ) {
+			$signals[ $key ] = array(
+				'label'            => $label,
+				'count'            => 0,
+				'urgent_count'     => 0,
+				'latest_post_id'   => $post_id,
+				'latest_timestamp' => 0,
+				'latest_title'     => get_the_title( $post_id ),
+				'latest_date'      => get_the_date( 'd/m/Y H:i', $post_id ),
+				'suggested_action' => 'Monitor until repeated, then recruit a paid coverage partner.',
+			);
+		}
+
+		$signals[ $key ]['count']++;
+
+		$coverage_status = get_post_meta( $post_id, 'coverage_status', true );
+		$urgency         = strtolower( (string) get_post_meta( $post_id, 'urgency', true ) );
+		if ( 'urgent_manual' === $coverage_status || in_array( $urgency, array( 'high', 'urgent', 'דחוף' ), true ) ) {
+			$signals[ $key ]['urgent_count']++;
+		}
+
+		$timestamp = (int) get_post_time( 'U', true, $post_id );
+		if ( $timestamp > (int) $signals[ $key ]['latest_timestamp'] ) {
+			$signals[ $key ]['latest_post_id']   = $post_id;
+			$signals[ $key ]['latest_timestamp'] = $timestamp;
+			$signals[ $key ]['latest_title']     = get_the_title( $post_id );
+			$signals[ $key ]['latest_date']      = get_the_date( 'd/m/Y H:i', $post_id );
+		}
+	}
+
+	usort(
+		$signals,
+		static function ( array $a, array $b ): int {
+			if ( $a['count'] === $b['count'] ) {
+				return $b['latest_timestamp'] <=> $a['latest_timestamp'];
+			}
+
+			return $b['count'] <=> $a['count'];
+		}
+	);
+
+	foreach ( $signals as &$signal ) {
+		if ( $signal['count'] >= 3 ) {
+			$signal['suggested_action'] = 'Recruit a paid niche coverage partner now.';
+		} elseif ( $signal['urgent_count'] > 0 ) {
+			$signal['suggested_action'] = 'Manual owner review first, then recruit coverage if repeated.';
+		}
+	}
+	unset( $signal );
+
+	return $signals;
+}
+
+function justice_theme_crm_render_uncovered_response_templates(): void {
+	$user_template = "שלום,\n\nתודה שפניתם ל-Jus-Tice. בשלב זה אין לנו כיסוי מאומת/שותף פעיל בתחום שביקשתם, ולכן איננו יכולים להפנות אתכם לעורך דין ספציפי או להציג זאת כהמלצה.\n\nנשמור את פרטי הפנייה לצורך בדיקת התאמה עתידית, ואם יימצא כיסוי מתאים נוכל לחזור אליכם בהתאם לפרטים שמסרתם.\n\nהמידע בהודעה זו הוא כללי בלבד, אינו ייעוץ משפטי ואינו יוצר יחסי עורך דין-לקוח. אם יש מועד משפטי קרוב, דחיפות, סיכון מיידי או צורך בפעולה משפטית, מומלץ לפנות בהקדם לעורך דין מוסמך בתחום הרלוונטי.\n\nצוות Jus-Tice";
+	$lawyer_template = "שלום,\n\nאנחנו מזהים ב-Jus-Tice ביקוש חוזר בתחום: [תחום/מדינה/עיר]. בשלב זה אין לנו כיסוי מאומת מספיק בתחום הזה, ולכן אנחנו בוחנים פתיחת מקום לשותף מקצועי מתאים.\n\nהמודל הוא מסלול חשיפה/כיסוי חודשי ושקוף, עם תיעוד לידים, מגבלת כמות לפי מסלול, וכללי מענה. אין התחייבות לתוצאה, אין חלוקת שכר טרחה, וכל פרופיל ממומן יסומן כנדרש.\n\nאם התחום רלוונטי אליכם, נשמח לבדוק התאמה מקצועית, פרטי רישיון, אזורי שירות, זמינות למענה ועמידה בכללי הפרסומת.\n\nJus-Tice";
+	?>
+	<div style="margin:18px 0 0;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:16px;">
+		<h3 style="margin-top:0;">Safe uncovered-demand response templates</h3>
+		<p>Use these as a starting point when there is demand but no verified/paid coverage yet. Keep the message neutral: no recommendation, no legal advice, no outcome promise.</p>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;">
+			<label>
+				<strong>User no-match response</strong>
+				<textarea readonly rows="11" style="width:100%;margin-top:6px;direction:rtl;"><?php echo esc_textarea( $user_template ); ?></textarea>
+			</label>
+			<label>
+				<strong>Lawyer recruitment script</strong>
+				<textarea readonly rows="11" style="width:100%;margin-top:6px;direction:rtl;"><?php echo esc_textarea( $lawyer_template ); ?></textarea>
+			</label>
+		</div>
 	</div>
 	<?php
 }
@@ -98,6 +304,36 @@ function justice_theme_crm_query_items( string $post_type, int $limit ): ?WP_Que
 		'posts_per_page' => $limit,
 		'orderby'        => 'date',
 		'order'          => 'DESC',
+	) );
+}
+
+function justice_theme_crm_query_uncovered_demand( int $limit ): ?WP_Query {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return null;
+	}
+
+	return new WP_Query( array(
+		'post_type'      => 'justice_lead',
+		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+		'posts_per_page' => $limit,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'meta_query'     => array(
+			'relation' => 'OR',
+			array(
+				'key'     => 'coverage_status',
+				'value'   => array( 'coverage_review', 'covered_nonpaying', 'uncovered_recruit', 'urgent_manual' ),
+				'compare' => 'IN',
+			),
+			array(
+				'key'     => 'coverage_status',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => 'assigned_lawyer_id',
+				'compare' => 'NOT EXISTS',
+			),
+		),
 	) );
 }
 
@@ -134,6 +370,40 @@ function justice_theme_crm_status_labels(): array {
 		'contacted' => 'Contacted',
 		'converted' => 'Converted',
 		'closed'    => 'Closed',
+	);
+}
+
+function justice_theme_crm_coverage_status_labels(): array {
+	return array(
+		'coverage_review'  => 'Needs coverage review',
+		'covered_routable' => 'Covered: routable',
+		'covered_nonpaying' => 'Covered: recruit lawyer',
+		'uncovered_recruit' => 'Uncovered: recruit niche',
+		'unsupported'      => 'Unsupported/no match',
+		'urgent_manual'    => 'Urgent manual review',
+	);
+}
+
+function justice_theme_crm_coverage_badge( int $post_id ): array {
+	$status = get_post_meta( $post_id, 'coverage_status', true );
+
+	if ( ! $status ) {
+		$status = (int) get_post_meta( $post_id, 'assigned_lawyer_id', true ) ? 'covered_routable' : 'coverage_review';
+	}
+
+	$labels = justice_theme_crm_coverage_status_labels();
+	$styles = array(
+		'covered_routable'  => 'background:#ecfdf3;color:#166534;',
+		'covered_nonpaying' => 'background:#fff7ed;color:#9a3412;',
+		'uncovered_recruit' => 'background:#fef3c7;color:#92400e;',
+		'unsupported'      => 'background:#f1f5f9;color:#334155;',
+		'urgent_manual'    => 'background:#fef2f2;color:#991b1b;',
+		'coverage_review'  => 'background:#eef2ff;color:#3730a3;',
+	);
+
+	return array(
+		'label' => $labels[ $status ] ?? $labels['coverage_review'],
+		'style' => $styles[ $status ] ?? $styles['coverage_review'],
 	);
 }
 
@@ -328,6 +598,7 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 	wp_nonce_field( 'justice_theme_lead_disposition', 'justice_theme_lead_disposition_nonce' );
 
 	$quality         = get_post_meta( $post->ID, 'lead_quality_override', true ) ?: 'auto';
+	$coverage_status = get_post_meta( $post->ID, 'coverage_status', true ) ?: 'coverage_review';
 	$follow_up       = get_post_meta( $post->ID, 'follow_up_status', true ) ?: 'not_started';
 	$first_contact   = get_post_meta( $post->ID, 'first_contact_at', true );
 	$customer_note   = get_post_meta( $post->ID, 'customer_success_note', true );
@@ -337,6 +608,7 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 		'medium' => 'Medium',
 		'low'    => 'Low',
 	);
+	$coverage_options = justice_theme_crm_coverage_status_labels();
 	$follow_up_options = array(
 		'not_started'       => 'Not started',
 		'first_attempt'     => 'First attempt',
@@ -352,6 +624,14 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 		<select id="justice-lead-quality" name="lead_quality_override" style="width:100%;">
 			<?php foreach ( $quality_options as $value => $label ) : ?>
 				<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $quality, $value ); ?>><?php echo esc_html( $label ); ?></option>
+			<?php endforeach; ?>
+		</select>
+	</p>
+	<p>
+		<label for="justice-coverage-status"><strong>Coverage status</strong></label>
+		<select id="justice-coverage-status" name="coverage_status" style="width:100%;">
+			<?php foreach ( $coverage_options as $value => $label ) : ?>
+				<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $coverage_status, $value ); ?>><?php echo esc_html( $label ); ?></option>
 			<?php endforeach; ?>
 		</select>
 	</p>
@@ -396,7 +676,13 @@ function justice_theme_crm_save_lead_disposition( int $post_id ): void {
 		$follow_up = 'not_started';
 	}
 
+	$coverage_status = isset( $_POST['coverage_status'] ) ? sanitize_key( wp_unslash( $_POST['coverage_status'] ) ) : 'coverage_review';
+	if ( ! array_key_exists( $coverage_status, justice_theme_crm_coverage_status_labels() ) ) {
+		$coverage_status = 'coverage_review';
+	}
+
 	update_post_meta( $post_id, 'lead_quality_override', $quality );
+	update_post_meta( $post_id, 'coverage_status', $coverage_status );
 	update_post_meta( $post_id, 'follow_up_status', $follow_up );
 	update_post_meta( $post_id, 'first_contact_at', isset( $_POST['first_contact_at'] ) ? sanitize_text_field( wp_unslash( $_POST['first_contact_at'] ) ) : '' );
 	update_post_meta( $post_id, 'customer_success_note', isset( $_POST['customer_success_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['customer_success_note'] ) ) : '' );
@@ -419,6 +705,7 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 				<th>Email</th>
 				<th>Area / Tool</th>
 				<th>Status</th>
+				<th>Coverage</th>
 				<th>Quality</th>
 				<th>Follow-up</th>
 				<th>Response SLA</th>
@@ -440,6 +727,7 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 				$tool_id = (int) get_post_meta( $post_id, 'tool_id', true );
 				$source  = get_post_meta( $post_id, 'source_url', true );
 				$status  = get_post_meta( $post_id, $status_key, true ) ?: 'new';
+				$coverage = 'justice_lead' === $post_type ? justice_theme_crm_coverage_badge( $post_id ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;' );
 				$quality = 'justice_lead' === $post_type ? justice_theme_crm_lead_quality( $post_id ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;' );
 				$follow_up = 'justice_lead' === $post_type ? justice_theme_crm_follow_up_label( $post_id, $status ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;' );
 				$response_sla = 'justice_lead' === $post_type ? justice_theme_crm_response_sla_badge( $post_id, $status ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;' );
@@ -450,6 +738,7 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 					<td><?php echo $email ? '<a href="mailto:' . esc_attr( $email ) . '">' . esc_html( $email ) . '</a>' : '-'; ?></td>
 					<td><?php echo esc_html( $tool_id ? get_the_title( $tool_id ) : ( $area_display ?: '-' ) ); ?></td>
 					<td><?php echo esc_html( $status ); ?></td>
+					<td><span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $coverage['style'] ); ?>"><?php echo esc_html( $coverage['label'] ); ?></span></td>
 					<td><span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $quality['style'] ); ?>"><?php echo esc_html( $quality['label'] ); ?></span></td>
 					<td><span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $follow_up['style'] ); ?>"><?php echo esc_html( $follow_up['label'] ); ?></span></td>
 					<td><span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $response_sla['style'] ); ?>"><?php echo esc_html( $response_sla['label'] ); ?></span></td>

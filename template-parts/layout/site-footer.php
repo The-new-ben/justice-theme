@@ -82,6 +82,7 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
 				<li><a href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">התייעצות משפטית</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">יצירת קשר</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">אודות Jus-Tice</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/editorial-policy/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מדיניות עריכה</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" style="color: var(--jt-accent); font-weight: 700; text-decoration: none;">הצטרפות עורכי דין &larr;</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מסלולים לעורכי דין</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-dashboard/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">אזור אישי לעורכי דין</a></li>
@@ -94,6 +95,7 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
 		<div style="display: flex; gap: 1.5rem; margin-bottom: 1rem;">
 			<a href="<?php echo esc_url( home_url( '/terms/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">תנאי שימוש</a>
 			<a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">מדיניות פרטיות</a>
+			<a href="<?php echo esc_url( home_url( '/editorial-policy/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">מדיניות עריכה</a>
 			<a href="<?php echo esc_url( home_url( '/accessibility/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">הצהרת נגישות</a>
 		</div>
 		<p style="color: rgba(255,255,255,0.4); font-size: 0.85rem; max-width: 800px; line-height: 1.6; margin: 0;">

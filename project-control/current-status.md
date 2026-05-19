@@ -1,3 +1,175 @@
+## LATEST WORK STATUS - 2026-05-19 17:09 Asia/Jerusalem
+- PR #8 REVIEW STATE ADVANCED: marked PR #8 ready for review after the 17:03 pre-merge verification passed.
+- RESEARCHED: GitHub draft/ready PR guidance and PR review guidance. Key point: draft PRs are for unfinished work; once verification evidence is complete, moving to ready-for-review is the correct handoff to reviewers.
+- VERIFIED: PR #8 is no longer draft, remains mergeable, and still has 34 changed files / 13 commits.
+- UPDATED: Linear HAD-59 and PR #8 already have the pre-merge readiness checkpoint; this cycle removed the draft blocker.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is release-flow progress: the E-E-A-T authority fix and uncovered-demand CRM are now waiting on review/merge instead of sitting as draft work.
+- COMPLETION ASSESSMENT: PR #8 review/deploy readiness moved from 70% to 78%. Remaining blockers are human review/approval, merge to main, uPress pull, live wp-admin visual QA, and post-deploy author audit.
+- OWNER-VISIBLE NOW: GitHub PR #8 shows "ready for review" instead of draft.
+- OWNER-VISIBLE AFTER MERGE: footer/editorial policy trust link, safer article attribution, and Justice CRM uncovered-demand workflow.
+- UPRESS: no uPress pull because PR #8 is not merged to `main`.
+- SAFETY: GitHub PR state and repo docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 17:03 Asia/Jerusalem
+- PR #8 FINAL PRE-MERGE CHECKS: ran the release-readiness verification set for the authority + uncovered-demand branch.
+- RESEARCHED: GitHub PR review guidance and Google Search technical/crawl requirements. Key point: large PRs need strong review context, and Google-facing deploys need robots/sitemap/canonical/crawl checks before and after launch.
+- VERIFIED: PR #8 is still draft and mergeable; current scope is 34 changed files and 12 commits.
+- VERIFIED: PHP lint passed for authority, schema, article template, functions, trust route, footer, HTML sitemap, lead CRM, lead routing and lead classifier.
+- VERIFIED: `git diff --check` passed with no output.
+- VERIFIED: live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- VERIFIED BASELINE: live author-attribution audit checked 80 URLs as Googlebot; found 45 visible Ben attributions, 45 Article schema Ben authors, and 0 fetch errors.
+- UPDATED: `project-control/pr8-review-deploy-readiness-2026-05-19.md` and `.csv`; readiness moved from 55% to 70%.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that PR #8 now has passing pre-merge evidence and a clean baseline for post-deploy comparison.
+- NEXT DECISION: mark PR #8 ready for human review or split CRM work if reviewers prefer smaller PRs. Do not add more feature scope to this branch.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: checks/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 16:48 Asia/Jerusalem
+- PR #8 REVIEW/DEPLOY READINESS: stopped feature expansion and created a reviewer/deployment map so the authority + lead monetization branch can move toward safe merge.
+- RESEARCHED: current PR review best practices and Google launch/migration verification guidance. Key point: large PRs need clear intent, risk-specific review passes, pre-merge checks, and post-deploy crawl/admin verification.
+- CREATED: `project-control/pr8-review-deploy-readiness-2026-05-19.md`.
+- CREATED: `project-control/pr8-review-deploy-readiness-2026-05-19.csv`.
+- PR STATUS: PR #8 is draft, mergeable, 32 changed files, 11 commits.
+- COMPLETION ASSESSMENT: PR #8 review/deploy readiness is 55%; complete enough to map/review, not complete enough to merge/deploy without final checks and owner/reviewer approval.
+- OWNER-VISIBLE AFTER MERGE: editorial policy links, safer article attribution, and Justice CRM uncovered-demand workflow.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is reducing merge risk and creating a clear path to deploy the work that can support authority and future revenue.
+- UPRESS: no uPress pull because this is draft-PR branch/docs work and not merged to `main`.
+- SAFETY: repo docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 16:38 Asia/Jerusalem
+- UNCOVERED DEMAND WEEKLY BRIEF: added a copy-ready partner-recruitment brief to the CRM so repeated missing-lawyer demand can move into outreach faster.
+- RESEARCHED: law-firm intake analytics and lead-source reporting best practices. Key point: growth teams need concise reports by practice/market and stage, not raw lead lists, to choose where to invest or recruit.
+- CODED: `inc/lead-crm.php` now renders a weekly recruitment brief from the top five uncovered demand signals, with lead count, urgent/manual count, latest activity, suggested action, and compliance reminders.
+- CREATED: `project-control/uncovered-demand-weekly-brief-2026-05-19.md`.
+- CREATED: `project-control/uncovered-demand-weekly-brief-2026-05-19.csv`.
+- UPDATED: `project-control/goals-money-earning-scorecard-2026-05-19.md` and `.csv`; lead monetization/intake moved from 38% to 40%.
+- VERIFIED: PHP lint passed for `inc/lead-crm.php`, `functions.php`, `inc/lead-routing.php`, and `inc/lead-classifier.php`; `git diff --check` is clean except expected Windows line-ending warnings; first live journey checker attempt hit a full-network fetch failure across all URLs, then retry passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- OWNER-VISIBLE AFTER MERGE: `wp-admin -> Justice CRM -> Uncovered demand queue -> Weekly recruitment brief`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is a faster sales/outreach artifact for recruiting lawyers into uncovered categories after deploy.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 16:28 Asia/Jerusalem
+- UNCOVERED DEMAND SUMMARY REPORT: added a partner-recruitment signal table to the CRM queue so repeated missing-lawyer demand can be prioritized.
+- RESEARCHED: legal intake analytics and lead reporting best practices. Key point: a lead queue is useful, but revenue decisions need grouped demand by practice/market, urgency, and latest activity.
+- CODED: `inc/lead-crm.php` now renders an uncovered-demand summary table before the raw queue, grouped by practice/market with lead count, urgent/manual count, latest lead, and suggested business action.
+- CREATED: `project-control/uncovered-demand-summary-report-2026-05-19.md`.
+- CREATED: `project-control/uncovered-demand-summary-report-2026-05-19.csv`.
+- UPDATED: `project-control/goals-money-earning-scorecard-2026-05-19.md` and `.csv`; lead monetization/intake moved from 36% to 38%.
+- VERIFIED: PHP lint passed for `inc/lead-crm.php`, `functions.php`, `inc/lead-routing.php`, and `inc/lead-classifier.php`; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- OWNER-VISIBLE AFTER MERGE: `wp-admin -> Justice CRM -> Uncovered demand queue` should show a top-demand summary answering which missing lawyer category to recruit next.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is making partner recruitment smarter from real demand patterns after deploy.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 16:18 Asia/Jerusalem
+- UNCOVERED DEMAND RESPONSE TEMPLATES: added safe operational scripts to the CRM queue so unmatched calls can receive a fast, careful response.
+- RESEARCHED: legal intake/no-legal-advice guidance and lawyer advertising/lead-generation ethics. Key point: when no verified lawyer coverage exists, response language must avoid recommendations, legal advice, fee-split implications, and outcome promises.
+- CODED: `inc/lead-crm.php` now renders a CRM panel with a user no-match response template and a lawyer recruitment script under the Uncovered Demand Queue.
+- CREATED: `project-control/uncovered-demand-response-templates-2026-05-19.md`.
+- CREATED: `project-control/uncovered-demand-response-templates-2026-05-19.csv`.
+- UPDATED: `project-control/goals-money-earning-scorecard-2026-05-19.md` and `.csv`; lead monetization/intake moved from 34% to 36%.
+- VERIFIED: PHP lint passed for `inc/lead-crm.php`, `functions.php`, `inc/lead-routing.php`, and `inc/lead-classifier.php`; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- OWNER-VISIBLE AFTER MERGE: `wp-admin -> Justice CRM -> Uncovered demand queue` should show ready response templates for the owner.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is reducing manual improvisation and making unmatched-demand handling faster and safer.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 16:08 Asia/Jerusalem
+- UNCOVERED DEMAND CRM BUILD: moved the "Thailand lawyer / no partner" leakage path from planning into branch code.
+- RESEARCHED: current legal intake speed-to-lead and CRM guidance. Key point: leads convert when they are captured, qualified, owned, and responded to quickly; unmatched demand also needs structured classification so it can become partner-recruitment evidence.
+- CODED: `inc/lead-crm.php` now registers `coverage_status`, adds a coverage dropdown to the lead disposition box, adds a Coverage badge column to CRM lead tables, and adds an "Uncovered demand queue" section to Justice CRM.
+- CREATED: `project-control/uncovered-demand-queue-crm-build-2026-05-19.md`.
+- CREATED: `project-control/uncovered-demand-queue-crm-build-2026-05-19.csv`.
+- UPDATED: `project-control/goals-money-earning-scorecard-2026-05-19.md` and `.csv`; lead monetization/intake moved from 30% to 34%.
+- VERIFIED: PHP lint passed for `inc/lead-crm.php`, `functions.php`, `inc/lead-routing.php`, and `inc/lead-classifier.php`; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- OWNER-VISIBLE AFTER MERGE: `wp-admin -> Justice CRM` should show coverage-status cards, an Uncovered demand queue, and a Coverage column/dropdown for leads.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that unmatched demand now has a CRM workflow in code, pending merge/deploy.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 15:58 Asia/Jerusalem
+- UNCOVERED DEMAND MONETIZATION: converted the owner's "Thailand lawyer" call problem into a safer lead monetization model.
+- RESEARCHED: lawyer lead-generation ethics, Israeli lawyer advertising constraints, and current lead-generation quality concerns. Key point: sell transparent advertising/subscription/coverage and response SLA, not unsafe hidden recommendations, fee-splits, or user-paid connection fees before legal review.
+- CREATED: `project-control/uncovered-demand-lead-monetization-2026-05-19.md`.
+- CREATED: `project-control/uncovered-demand-lead-monetization-2026-05-19.csv`.
+- UPDATED: `project-control/goals-money-earning-scorecard-2026-05-19.md` and `.csv`; lead monetization/intake moved from 24% to 30% planning maturity.
+- RECOMMENDED PRODUCT: Uncovered Demand Queue -> partner acquisition evidence -> paid niche coverage slot -> transparent routing under plan caps/SLA.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that unmatched calls now have a monetization path and next implementation steps instead of staying manual/free.
+- UPRESS: no uPress pull because this is draft-PR branch/planning work and not merged to `main`.
+- SAFETY: repo docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 15:29 Asia/Jerusalem
+- GOALS/MONEY SCORECARD: converted the owner's "advance goals and money earning" instruction into a measurable operating scoreboard for every future cycle.
+- RESEARCHED: Google helpful-content guidance, Google Business Profile local ranking guidance, and Clio 2025 legal trends. Key point: money comes from combining qualified demand, trust/authority, fast digital intake, and paid lawyer value; generic task volume is not enough.
+- UPDATED AUTOMATION: the 10-minute execution loop now requires money-focused completion assessment, blocker reporting, and "where can the owner notice this" reporting.
+- CREATED: `project-control/goals-money-earning-scorecard-2026-05-19.md`.
+- CREATED: `project-control/goals-money-earning-scorecard-2026-05-19.csv`.
+- HONEST COMPLETION SNAPSHOT: technical crawl/index 72%; SEO authority/E-E-A-T 38%; money-query SEO 28%; lawyer commercial pipeline 31%; lead monetization/intake 24%; lawyer retention/value 22%; entity footprint/local trust 18%.
+- MONEY REALITY: no new money earned yet from this cycle. The closest revenue path remains commercial pipeline launch plus paying lawyers; the closest demand path remains money-query recovery plus authority cleanup.
+- UPRESS: no uPress pull because this is draft-PR branch/status work and not merged to `main`.
+- SAFETY: repo docs and automation prompt only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 13:02 Asia/Jerusalem
+- TRUST DISCOVERABILITY: moved the editorial-policy work one step closer to real SEO/user value by adding crawlable links to it.
+- RESEARCHED: Google helpful-content guidance and Google customer-support/search guidance. Key point: trust/support pages are most useful when users and Googlebot can easily find them; hidden policy pages are weaker trust signals.
+- CODED: `template-parts/layout/site-footer.php` now links to `/editorial-policy/` in the quick navigation and the footer legal/trust row.
+- CODED: `inc/html-sitemap.php` now includes `/editorial-policy/` in the core quick links on `/site-map/`.
+- UPDATED: `project-control/editorial-policy-route-2026-05-19.md` and `.csv`.
+- VERIFIED: PHP lint passed for footer, HTML sitemap, trust route, authority, schema, article template and functions; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- LINEAR: this remains under HAD-59 authority governance and PR #8.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch template/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 12:48 Asia/Jerusalem
+- EDITORIAL POLICY TRUST ROUTE: added the missing public policy surface for legal content governance on the authority branch.
+- RESEARCHED: Google Search Central helpful-content "who/how/why" guidance and Google Article structured-data guidance. Key point: YMYL legal content needs transparent authorship, process, review boundaries, and accurate schema; schema alone is not a ranking shortcut.
+- CODED: `inc/trust-routes.php` now defines a virtual `/editorial-policy/` route with canonical metadata, index/follow robots behavior, and Hebrew copy explaining content purpose, legal-advice limits, author/reviewer rules, paid profile disclosure, and correction/update process.
+- CREATED: `project-control/editorial-policy-route-2026-05-19.md`.
+- CREATED: `project-control/editorial-policy-route-2026-05-19.csv`.
+- VERIFIED: PHP lint passed for `inc/trust-routes.php`, `inc/authority.php`, `inc/schema.php`, `single-articles.php`, and `functions.php`; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index, and robots.txt.
+- LINEAR: this work belongs under HAD-59 authority governance and PR #8.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code and repo documentation only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 12:47 Asia/Jerusalem
+- LIVE AUTHOR ATTRIBUTION AUDIT: built and ran a read-only audit for the owner's concern that Ben Batash was placed as writer/byline across criminal articles.
+- RESEARCHED: Google Article author structured-data guidance and people-first/E-E-A-T guidance. Key point: Article author can be Organization or Person, but a Person author should have a real `url`/`sameAs` identity chain; legal/YMYL pages should not use unverified broad person attribution.
+- CODED: `tools/check-live-author-attribution.mjs` reads the GSC mirror, selects likely criminal/high-risk URLs, fetches live pages as Googlebot, detects visible Ben attribution, parses Article JSON-LD author/reviewer data, and writes a CSV report.
+- RAN: checked 80 live URLs and wrote `reports/live-author-attribution-audit-2026-05-19.csv`.
+- FOUND: 45 URLs have visible Ben attribution and 45 have Ben as Article schema author; 35 checked URLs had no Ben attribution detected; 0 fetch errors.
+- CREATED: `project-control/live-author-attribution-audit-2026-05-19.md`.
+- CREATED: `project-control/live-author-attribution-audit-2026-05-19.csv`.
+- LINEAR: HAD-62 is the coordinating issue for this audit and cleanup.
+- UPRESS: no uPress pull because this is branch work and not merged to `main`.
+- SAFETY: read-only live fetches and repo artifacts only. No live wp-admin login, public CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, social account creation, Google Business Profile change, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 12:33 Asia/Jerusalem
+- ENTITY FOOTPRINT CHECKLIST: turned the Google Business/Profile/social authority goal into an approval-gated execution checklist.
+- RESEARCHED: Google Business Profile representation guidelines, Google local ranking guidance, and Schema.org Organization `sameAs`. Key point: do not invent a physical office or schema links; Google entity trust must reflect the real business footprint.
+- CREATED: `project-control/jus-tice-entity-footprint-checklist-2026-05-19.md`.
+- CREATED: `project-control/jus-tice-entity-footprint-checklist-2026-05-19.csv`.
+- DECISION: start with entity data lock, then Google Business Profile eligibility, then LinkedIn company page; add Organization `sameAs` only after profiles are live and verified.
+- LINEAR: HAD-61 remains the coordinating issue for Google Business/Profile/social entity footprint.
+- UPRESS: no uPress pull because this is branch planning/status only and not merged to `main`.
+- SAFETY: no live wp-admin login, public CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, social account creation, Google Business Profile change, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 10:35 Asia/Jerusalem
+- LINEAR CONNECTED: installed/connected the Linear plugin and searched existing Jus-Tice coordination work. Found the project `Jus-Tice Dominant Legal Portal` plus related SEO/internal-linking/lawyer-CPT tasks.
+- E-E-A-T AUTHORITY RISK FOUND: article schema and `single-articles.php` were hardcoding Ben Batash as the author for articles. That is too broad for legal/YMYL content unless the author entity and practice-area authority are verified.
+- RESEARCHED: Google people-first/E-E-A-T guidance, Google Article author structured-data guidance, Google Business Profile local ranking guidance, and current law-firm SEO authority patterns.
+- CODED: added `inc/authority.php` as the authority registry and reviewer resolver.
+- CODED: `inc/schema.php` now defaults Article `author` to the Jus-Tice Organization and adds `reviewedBy` only for a verified connected lawyer/practice-area match.
+- CODED: `single-articles.php` now uses controlled editorial/reviewer attribution instead of the hardcoded Ben byline.
+- CODED: Maya Rotenberg is the first verified reviewer candidate, scoped only to `family-law` content connected by `connected_lawyer_slug=advocate-maya-rotenberg`.
+- CREATED: `project-control/eeat-authority-governance-2026-05-19.md`.
+- CREATED: `project-control/eeat-authority-governance-2026-05-19.csv`.
+- LINEAR CREATED: HAD-59 authority governance parent, HAD-60 verified Ben/Maya author-reviewer pages, HAD-61 Jus-Tice Google Business/Profile/social entity footprint, HAD-62 criminal-article Ben attribution audit, plus a Linear project document.
+- VERIFIED: PHP lint passed for `inc/authority.php`, `inc/schema.php`, `single-articles.php`, and `functions.php`; `git diff --check` clean; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index, and robots.txt.
+- NEXT: create the PR, then build editorial policy, Ben entity page requirements, Maya profile enrichment, and Google Business/social footprint checklist.
+- UPRESS: no uPress pull yet because this is branch work and not merged to `main`.
+- SAFETY: no live wp-admin login, public CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-18 20:03 Asia/Jerusalem
 - COMMERCIAL PIPELINE SECTION 3 PREFLIGHT: read `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` from `origin/claude/review-legal-portal-aRAzz` and executed only Section 3 checks.
 - RESULT 3.1: PR #5 is not mergeable. GitHub API reports `mergeable=false`, `mergeable_state=dirty`; local merge simulation confirms a conflict in `project-control/current-status.md`.

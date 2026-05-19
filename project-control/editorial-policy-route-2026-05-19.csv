@@ -1,0 +1,6 @@
+item,status,evidence,next_action,safety
+editorial_policy_route,created,inc/trust-routes.php adds /editorial-policy/ virtual route,Verify after PR merge and uPress pull,No live CMS database or public WordPress setting changed
+google_helpful_content_research,completed,Google Search Central who/how/why guidance,Use route as public trust surface for YMYL legal content,Research only
+article_schema_research,completed,Google Article structured-data guidance,Keep Person attribution limited to verified authors/reviewers,Research only
+footer_link,created,Footer quick navigation and footer legal/trust row link to /editorial-policy/,Verify after PR merge and uPress pull,Branch template change only
+html_sitemap_link,created,/site-map/ quick links include /editorial-policy/,Verify after PR merge and uPress pull,Branch sitemap template change only

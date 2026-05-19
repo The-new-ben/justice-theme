@@ -1,0 +1,6 @@
+item,status,evidence,next_action,safety
+summary_table,implemented,Justice CRM shows grouped demand signals before raw uncovered leads,Verify in wp-admin after merge/deploy,Branch code only
+practice_market_grouping,implemented,Groups by detected practice and country/city/market,Improve with AI classifier later,No live lead data changed
+suggested_action,implemented,Shows monitor recruit now or manual review recommendation,Use for lawyer partner outreach,Admin-only guidance
+lead_monetization_completion,updated,Scorecard should move from 36 to 38 percent,Build weekly report and outreach workflow next,No money earned no live data changed
+verification,completed,"PHP lint passed; git diff check clean except line-ending warnings; live journey checker passed","Commit and push to PR #8","Read-only live checks only"

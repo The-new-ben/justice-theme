@@ -20,6 +20,7 @@ $justice_theme_files = array(
 	'inc/enqueue.php',
 	'inc/menu-seed.php',
 	'inc/template-tags.php',
+	'inc/authority.php',
 	'inc/lawyer-rest-guards.php',
 	'inc/breadcrumbs.php',
 	'inc/routing-guards.php',

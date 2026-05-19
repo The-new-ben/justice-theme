@@ -1,0 +1,7 @@
+item,status,evidence,next_action,safety
+coverage_status_meta,implemented,inc/lead-crm.php registers coverage_status,Verify after PR merge in wp-admin lead edit screen,Branch code only no live lead data changed
+coverage_dropdown,implemented,Lead disposition box includes Coverage status,Owner can classify unmatched calls/leads after deploy,Branch code only
+uncovered_queue,implemented,Justice CRM page includes Uncovered demand queue,Add recruitment report and no-match template next,Branch code only
+coverage_column,implemented,CRM tables show Coverage badge,Verify visual admin page after deploy,Branch code only
+lead_monetization_completion,updated,Scorecard should move from 30 to 34 percent,Continue with no-match response and recruitment script,Planning/code only no revenue earned
+verification,completed,"PHP lint passed; git diff check clean except line-ending warnings; live journey checker passed","Commit and push to PR #8","Read-only live checks only"

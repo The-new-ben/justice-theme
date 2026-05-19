@@ -1,0 +1,5 @@
+item,status,evidence,next_action,safety
+weekly_recruitment_brief,implemented,Justice CRM creates copy-ready brief from top five uncovered demand signals,Verify in wp-admin after merge/deploy,Branch code only
+compliance_guardrails,implemented,Brief includes no-result no-recommendation no-fee-split no-legal-advice reminder,Legal review before automation,Admin-only text
+lead_monetization_completion,updated,Scorecard should move from 38 to 40 percent,Build automated weekly email or outreach ownership next,No money earned no live data changed
+verification,completed,"PHP lint passed; git diff check clean except line-ending warnings; live journey retry passed","Commit and push to PR #8","Read-only live checks only"

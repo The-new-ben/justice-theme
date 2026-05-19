@@ -43,6 +43,13 @@ function justice_theme_get_trust_route_config( string $path ): ?array {
 			'description' => __( 'Jus-Tice הוא פורטל משפטי בישראל שמרכז מידע, מדריכים, פסקי דין, אינדקס עורכי דין וטפסי פנייה כדי לעזור לציבור להבין נושאים משפטיים ולמצוא את הצעד הבא.', 'justice-theme' ),
 			'canonical'   => home_url( '/about/' ),
 		),
+		'/editorial-policy/' => array(
+			'slug'        => 'editorial-policy',
+			'title'       => __( 'מדיניות עריכה ובדיקת תוכן', 'justice-theme' ),
+			'eyebrow'     => __( 'אמון, מקורות ובקרה', 'justice-theme' ),
+			'description' => __( 'כך Jus-Tice יוצר, בודק ומעדכן מידע משפטי: שקיפות לגבי מי כתב, מי בדק, אילו מקורות נשקלו, ומה גבולות המידע לפני פנייה לעורך דין.', 'justice-theme' ),
+			'canonical'   => home_url( '/editorial-policy/' ),
+		),
 	);
 
 	return $configs[ $path ] ?? null;
@@ -262,6 +269,31 @@ function justice_theme_render_trust_route_page( array $config ): void {
 							</a>
 						</div>
 						<p class="jt-trust-disclaimer"><?php esc_html_e( 'הפנייה אינה יוצרת יחסי עורך דין-לקוח. במצב דחוף, מועד משפטי קרוב או סיכון מיידי, יש לפנות לעורך דין מוסמך בהקדם.', 'justice-theme' ); ?></p>
+					</aside>
+				</div>
+			<?php elseif ( 'editorial-policy' === $slug ) : ?>
+				<div class="jt-trust-grid">
+					<section class="jt-trust-panel" aria-labelledby="jt-editorial-process-title">
+						<h2 id="jt-editorial-process-title"><?php esc_html_e( 'איך אנחנו בונים תוכן משפטי', 'justice-theme' ); ?></h2>
+						<p><?php esc_html_e( 'התוכן ב-Jus-Tice נועד להסביר מושגים, אפשרויות ושאלות נפוצות לציבור הרחב. הוא אינו מחליף ייעוץ משפטי אישי, אינו מבטיח תוצאה, ואינו יוצר יחסי עורך דין-לקוח.', 'justice-theme' ); ?></p>
+						<ul class="jt-trust-list">
+							<li><?php esc_html_e( 'כל עמוד צריך לשרת שאלה אמיתית של משתמש: מה קרה, מה המשמעות, אילו מסמכים כדאי להכין, ומה כדאי לשאול עורך דין.', 'justice-theme' ); ?></li>
+							<li><?php esc_html_e( 'כאשר מופיע עורך דין ככותב או כבודק, נדרש קשר מקצועי ברור בין אותו אדם לבין תחום המאמר, לצד עמוד זהות או פרופיל שניתן לבדוק.', 'justice-theme' ); ?></li>
+							<li><?php esc_html_e( 'מאמרים ללא בודק משפטי מאומת מוצגים כתוכן מערכת של Jus-Tice, ולא כמאמר אישי של עורך דין ספציפי.', 'justice-theme' ); ?></li>
+							<li><?php esc_html_e( 'תוכן ממומן או פרופיל ממומן יסומן באופן גלוי כאשר הוא חלק ממסלול חשיפה בתשלום.', 'justice-theme' ); ?></li>
+						</ul>
+					</section>
+
+					<aside class="jt-trust-panel" aria-labelledby="jt-editorial-review-title">
+						<h2 id="jt-editorial-review-title"><?php esc_html_e( 'בדיקה, תיקונים ועדכונים', 'justice-theme' ); ?></h2>
+						<p><?php esc_html_e( 'אנחנו בודקים תוכן מול מקורות משפטיים זמינים, שומרים על ניסוח זהיר, ומעדכנים עמודים כאשר מתגלה טעות, שינוי מהותי או צורך בהבהרה.', 'justice-theme' ); ?></p>
+						<p><?php esc_html_e( 'אם מצאתם טעות, ניסוח לא ברור או ייחוס מקצועי שדורש בדיקה, פנו אלינו עם כתובת העמוד וההערה. תיקונים מהותיים מקבלים עדיפות.', 'justice-theme' ); ?></p>
+						<div class="jt-trust-links">
+							<a class="button button--ghost" href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php esc_html_e( 'אודות Jus-Tice', 'justice-theme' ); ?></a>
+							<a class="button button--ghost" href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'דיווח על תיקון', 'justice-theme' ); ?></a>
+							<a class="button button--ghost" href="<?php echo esc_url( home_url( '/site-map/' ) ); ?>"><?php esc_html_e( 'מפת אתר', 'justice-theme' ); ?></a>
+						</div>
+						<p class="jt-trust-disclaimer"><?php esc_html_e( 'במצב דחוף, מועד משפטי קרוב או סיכון מיידי, אין להסתמך על מידע כללי באתר ויש לפנות לעורך דין מוסמך בהקדם.', 'justice-theme' ); ?></p>
 					</aside>
 				</div>
 			<?php else : ?>

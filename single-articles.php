@@ -51,9 +51,23 @@ while ( have_posts() ) :
 					<?php the_title(); ?>
 				</h1>
 
+				<?php
+				$article_attribution = function_exists( 'justice_theme_article_visible_attribution' )
+					? justice_theme_article_visible_attribution( get_the_ID() )
+					: array(
+						'label' => __( 'נערך על ידי', 'justice-theme' ),
+						'name'  => get_bloginfo( 'name' ),
+						'url'   => home_url( '/' ),
+					);
+				?>
 				<div class="single-article__author" style="display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: 0.8rem; font-size: 1rem; color: var(--jt-primary-deep); font-weight: 700;">
-					<span aria-hidden="true" style="font-size: 1.2rem;">✍️</span>
-					<span><?php esc_html_e( 'מאת עו״ד בן בטש', 'justice-theme' ); ?></span>
+					<span aria-hidden="true" style="font-size: 1.2rem;">&#9878;</span>
+					<span>
+						<?php echo esc_html( $article_attribution['label'] ); ?>
+						<a href="<?php echo esc_url( $article_attribution['url'] ); ?>" style="color: inherit;">
+							<?php echo esc_html( $article_attribution['name'] ); ?>
+						</a>
+					</span>
 				</div>
 
 				<div class="single-article__meta" style="display: flex; justify-content: center; gap: 1.5rem; color: var(--jt-muted); font-size: 0.95rem; font-weight: 600;">
@@ -229,5 +243,4 @@ while ( have_posts() ) :
 <?php endwhile;
 
 get_footer();
-
 

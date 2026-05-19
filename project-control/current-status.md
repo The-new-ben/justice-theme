@@ -1,3 +1,19 @@
+## LATEST WORK STATUS - 2026-05-19 17:42 Asia/Jerusalem
+- MONEY-QUERY PRE-EDIT SNAPSHOT: added a repeatable snapshot tool and captured the before-state for the five PR #9 target pages.
+- RESEARCHED: Google Search Console Performance guidance and Google title/canonical/noindex guidance. Key point: high-impression low-CTR pages should be improved by title/snippet/content alignment, but pre-edit checks must confirm indexability, canonical state and page intent before changing content.
+- VERIFIED SHARED PROGRESS: PR #8 and PR #9 are both ready for review and mergeable.
+- CODED: `tools/snapshot-money-query-pages.mjs`.
+- CREATED: `reports/money-query-preedit-snapshot-2026-05-19.csv`.
+- CREATED: `reports/money-query-preedit-snapshot-2026-05-19.json`.
+- UPDATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.md` with the snapshot results.
+- SNAPSHOT RESULT: all five target pages return HTTP 200, are in the sitemap, canonicalize to themselves, are not noindex, and expose lead intent signals.
+- SNAPSHOT WARNINGS: `/criminal-defense-attorney/` has 2 H1s; `/sex-crime-lawyer/` has a very long title/meta description.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is implementation readiness: we now have a saved before-state to compare after approved WordPress edits.
+- COMPLETION ASSESSMENT: money-query SEO recovery moved from 32% to 35%; PR #9 review readiness remains about 70%. Remaining blockers are human review, owner/legal approval, public CMS edits, PR #8 authority sequencing, recrawl/indexing, and measured CTR lift.
+- OWNER-VISIBLE NOW: PR #9 contains the snapshot tool and reports showing the current live state before any edits.
+- UPRESS: no uPress pull because this is a branch/report update and not merged to `main`.
+- SAFETY: read-only live fetches plus branch code/report/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 17:29 Asia/Jerusalem
 - MONEY-QUERY SEO PR HANDOFF: marked PR #9 ready for review after verification.
 - RESEARCHED: Google Search Console Performance report guidance and Google title-link guidance. Key point: for high-impression/low-CTR pages, improve title/snippet/content alignment by page and query; clear page-specific titles are safer than generic or promotional wording.

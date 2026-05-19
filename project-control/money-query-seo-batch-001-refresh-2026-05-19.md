@@ -59,11 +59,30 @@ Do not upload edits to WordPress until:
 3. pre-edit snapshots are saved;
 4. post-edit checks are ready: 200 status, title/H1 match, no noindex/canonical issue, sitemap inclusion, lead CTA intact.
 
+## 2026-05-19 Pre-Edit Snapshot
+
+Added `tools/snapshot-money-query-pages.mjs` and captured the live baseline before any public CMS edits:
+
+- `reports/money-query-preedit-snapshot-2026-05-19.csv`
+- `reports/money-query-preedit-snapshot-2026-05-19.json`
+
+Snapshot result:
+
+| URL | Status | Sitemap | Canonical | Noindex | H1 count | Lead intent |
+|---|---:|---|---|---|---:|---|
+| `/real-estate-attorney/` | 200 | YES | self | NO | 1 | YES |
+| `/criminal-defense-attorney/` | 200 | YES | self | NO | 2 | YES |
+| `/sex-crime-lawyer/` | 200 | YES | self | NO | 1 | YES |
+| `/prenup-attorney/` | 200 | YES | self | NO | 1 | YES |
+| `/traffic-lawyer/` | 200 | YES | self | NO | 1 | YES |
+
+Interpretation: these pages are eligible for a no-URL-change title/H1/intro rescue. The criminal page has two H1s and should be checked during implementation. The sex-crime page has a very long title and meta description, which strengthens the case for a careful rewrite.
+
 ## Completion Assessment
 
 Money-query SEO recovery remains **32%** for this lane, and PR #9 review readiness is now **70%**.
 
-What advanced: the old Batch 001 is now refreshed with stronger GSC evidence, current live title/H1 checks, safer title/H1 directions, and a no-URL-change implementation gate.
+What advanced: the old Batch 001 is now refreshed with stronger GSC evidence, current live title/H1 checks, safer title/H1 directions, a no-URL-change implementation gate, and a saved pre-edit snapshot report.
 
 2026-05-19 17:29 review handoff: PR #9 is no longer draft, remains mergeable, `git diff --check` passed, and `node tools/check-live-traffic-priority.mjs` passed.
 

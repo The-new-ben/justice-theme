@@ -139,6 +139,39 @@ function justice_theme_crm_render_uncovered_demand_summary(): void {
 			<?php endforeach; ?>
 		</tbody>
 	</table>
+	<?php justice_theme_crm_render_uncovered_recruitment_brief( $signals ); ?>
+	<?php
+}
+
+function justice_theme_crm_render_uncovered_recruitment_brief( array $signals ): void {
+	$top_signals = array_slice( $signals, 0, 5 );
+	$lines       = array(
+		'Jus-Tice weekly uncovered-demand brief',
+		'Generated from recent unmatched leads in Justice CRM.',
+		'',
+	);
+
+	foreach ( $top_signals as $index => $signal ) {
+		$lines[] = sprintf(
+			'%d. %s — %d leads, %d urgent/manual. Latest: %s. Action: %s',
+			$index + 1,
+			$signal['label'],
+			(int) $signal['count'],
+			(int) $signal['urgent_count'],
+			$signal['latest_date'],
+			$signal['suggested_action']
+		);
+	}
+
+	$lines[] = '';
+	$lines[] = 'Compliance notes: use this as internal demand evidence only. Do not promise a result, do not present a lawyer as recommended without a verified basis, do not split fees, and do not send legal advice.';
+	$brief   = implode( "\n", $lines );
+	?>
+	<div style="margin:12px 0 18px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:16px;">
+		<h3 style="margin-top:0;">Weekly recruitment brief</h3>
+		<p>Copy this into the owner workflow when recruiting lawyers for repeated uncovered demand.</p>
+		<textarea readonly rows="10" style="width:100%;"><?php echo esc_textarea( $brief ); ?></textarea>
+	</div>
 	<?php
 }
 

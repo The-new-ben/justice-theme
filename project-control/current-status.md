@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-19 16:38 Asia/Jerusalem
+- UNCOVERED DEMAND WEEKLY BRIEF: added a copy-ready partner-recruitment brief to the CRM so repeated missing-lawyer demand can move into outreach faster.
+- RESEARCHED: law-firm intake analytics and lead-source reporting best practices. Key point: growth teams need concise reports by practice/market and stage, not raw lead lists, to choose where to invest or recruit.
+- CODED: `inc/lead-crm.php` now renders a weekly recruitment brief from the top five uncovered demand signals, with lead count, urgent/manual count, latest activity, suggested action, and compliance reminders.
+- CREATED: `project-control/uncovered-demand-weekly-brief-2026-05-19.md`.
+- CREATED: `project-control/uncovered-demand-weekly-brief-2026-05-19.csv`.
+- UPDATED: `project-control/goals-money-earning-scorecard-2026-05-19.md` and `.csv`; lead monetization/intake moved from 38% to 40%.
+- VERIFIED: PHP lint passed for `inc/lead-crm.php`, `functions.php`, `inc/lead-routing.php`, and `inc/lead-classifier.php`; `git diff --check` is clean except expected Windows line-ending warnings; first live journey checker attempt hit a full-network fetch failure across all URLs, then retry passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- OWNER-VISIBLE AFTER MERGE: `wp-admin -> Justice CRM -> Uncovered demand queue -> Weekly recruitment brief`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is a faster sales/outreach artifact for recruiting lawyers into uncovered categories after deploy.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 16:28 Asia/Jerusalem
 - UNCOVERED DEMAND SUMMARY REPORT: added a partner-recruitment signal table to the CRM queue so repeated missing-lawyer demand can be prioritized.
 - RESEARCHED: legal intake analytics and lead reporting best practices. Key point: a lead queue is useful, but revenue decisions need grouped demand by practice/market, urgency, and latest activity.

@@ -49,9 +49,14 @@ $core_city_options = array(
 
 $allowed_plan_interests = array( 'free', 'pro', 'featured', 'lead_partner', 'full_service' );
 $selected_plan_interest = isset( $_GET['plan_interest'] ) ? sanitize_key( wp_unslash( $_GET['plan_interest'] ) ) : 'free';
+$selected_payment_path  = isset( $_GET['payment_path'] ) ? sanitize_key( wp_unslash( $_GET['payment_path'] ) ) : '';
 
 if ( ! in_array( $selected_plan_interest, $allowed_plan_interests, true ) ) {
 	$selected_plan_interest = 'free';
+}
+
+if ( 'manual_invoice' !== $selected_payment_path ) {
+	$selected_payment_path = '';
 }
 ?>
 
@@ -87,8 +92,15 @@ if ( ! in_array( $selected_plan_interest, $allowed_plan_interests, true ) ) {
 				<div class="lawyer-registration__error"><?php esc_html_e( 'חסרים פרטים או שהשליחה נכשלה. בדקו את הטופס ונסו שוב.', 'justice-theme' ); ?></div>
 			<?php endif; ?>
 
+			<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
+				<div class="legaltool-request__notice"><?php esc_html_e( 'בקשת המסלול תטופל ידנית: לאחר בדיקת התאמה נשלח חשבונית/דרישת תשלום ונפעיל את המסלול לאחר אישור תשלום.', 'justice-theme' ); ?></div>
+			<?php endif; ?>
+
 			<form class="lawyer-registration-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="justice_lawyer_registration">
+				<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
+					<input type="hidden" name="payment_path" value="manual_invoice">
+				<?php endif; ?>
 				<?php wp_nonce_field( 'justice_lawyer_registration', 'justice_lawyer_registration_nonce' ); ?>
 				<p class="lawyer-registration-form__trap">
 					<label>Website <input type="text" name="website_url_confirm" tabindex="-1" autocomplete="off"></label>

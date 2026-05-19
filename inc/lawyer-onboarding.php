@@ -14,6 +14,8 @@ function justice_theme_register_lawyer_activation_meta(): void {
 		'activation_status'     => 'string',
 		'first_value_at'        => 'string',
 		'activation_owner_note' => 'string',
+		'payment_path'            => 'string',
+		'payment_followup_status' => 'string',
 	);
 
 	foreach ( $fields as $key => $type ) {
@@ -59,7 +61,12 @@ function justice_theme_handle_lawyer_registration(): void {
 	$video_url  = isset( $_POST['profile_video_url'] ) ? esc_url_raw( wp_unslash( $_POST['profile_video_url'] ) ) : '';
 	$faqs       = isset( $_POST['profile_faqs'] ) ? sanitize_textarea_field( wp_unslash( $_POST['profile_faqs'] ) ) : '';
 	$area       = isset( $_POST['practice_area'] ) ? sanitize_key( wp_unslash( $_POST['practice_area'] ) ) : '';
-	$plan       = isset( $_POST['plan_interest'] ) ? sanitize_key( wp_unslash( $_POST['plan_interest'] ) ) : 'free';
+	$plan         = isset( $_POST['plan_interest'] ) ? sanitize_key( wp_unslash( $_POST['plan_interest'] ) ) : 'free';
+	$payment_path = isset( $_POST['payment_path'] ) ? sanitize_key( wp_unslash( $_POST['payment_path'] ) ) : '';
+
+	if ( 'manual_invoice' !== $payment_path ) {
+		$payment_path = '';
+	}
 
 	if ( ! $name || ! $phone || ! $email || empty( $_POST['consent'] ) ) {
 		wp_safe_redirect( add_query_arg( 'registration', 'missing', home_url( '/lawyer-registration/' ) ) );
@@ -79,6 +86,14 @@ function justice_theme_handle_lawyer_registration(): void {
 		exit;
 	}
 
+	$plan_type      = in_array( $plan, array( 'free', 'pro', 'featured', 'lead_partner', 'full_service' ), true ) ? $plan : 'free';
+	$manual_payment = 'manual_invoice' === $payment_path && 'free' !== $plan_type;
+	$internal_notes = 'Self-registration submission. Review license, identity, content, ethics and commercial plan before publishing.';
+
+	if ( $manual_payment ) {
+		$internal_notes .= "\nManual invoice path requested. Create Morning invoice/payment instructions after review, then activate only after payment confirmation.";
+	}
+
 	$meta = array(
 		'lawyer_full_name'     => $name,
 		'firm_name'            => $firm,
@@ -96,8 +111,10 @@ function justice_theme_handle_lawyer_registration(): void {
 		'profile_process'      => $process,
 		'profile_video_url'    => $video_url,
 		'profile_faqs'         => $faqs,
-		'plan_type'            => in_array( $plan, array( 'free', 'pro', 'featured', 'lead_partner', 'full_service' ), true ) ? $plan : 'free',
+		'plan_type'            => $plan_type,
 		'subscription_status'  => 'pending',
+		'payment_path'            => $manual_payment ? 'manual_invoice' : '',
+		'payment_followup_status' => $manual_payment ? 'invoice_requested' : '',
 		'verification_status'  => 'pending',
 		'profile_status'       => 'pending',
 		'activation_status'    => 'registered',
@@ -106,7 +123,7 @@ function justice_theme_handle_lawyer_registration(): void {
 		'claimed_by_user_id'   => is_user_logged_in() ? get_current_user_id() : 0,
 		'source_type'          => 'registration',
 		'lead_routing_enabled' => false,
-		'internal_notes'       => 'Self-registration submission. Review license, identity, content, ethics and commercial plan before publishing.',
+		'internal_notes'       => $internal_notes,
 	);
 
 	foreach ( $meta as $key => $value ) {
@@ -130,6 +147,7 @@ function justice_theme_handle_lawyer_registration(): void {
 			array(
 				'registration'  => 'sent',
 				'plan_interest' => $meta['plan_type'],
+				'payment_path'  => $meta['payment_path'],
 			),
 			home_url( '/lawyer-registration/' )
 		)
@@ -207,12 +225,14 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 
 	$subject = 'New lawyer registration pending review';
 	$message = sprintf(
-		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nHeadline: %s\nVideo: %s\n\nReview: %s",
+		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nHeadline: %s\nVideo: %s\n\nReview: %s",
 		$meta['lawyer_full_name'] ?: '-',
 		$meta['firm_name'] ?: '-',
 		$meta['phone'] ?: '-',
 		$meta['email'] ?: '-',
 		$meta['plan_type'] ?: '-',
+		$meta['payment_path'] ?: '-',
+		$meta['payment_followup_status'] ?: '-',
 		$meta['profile_headline'] ?: '-',
 		$meta['profile_video_url'] ?: '-',
 		admin_url( 'post.php?post=' . $post_id . '&action=edit' )

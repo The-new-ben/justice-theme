@@ -2931,3 +2931,12 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - COMPLETION ASSESSMENT: manual revenue operations 65%; automated recurring checkout 35%; first-payment readiness 50%.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin → Lawyer Onboarding should include the `Payment Follow-up` column and each manual invoice lawyer should show `Invoice requested`.
 - SAFETY: repo-only admin visibility/status change; no live lawyer records, payment settings, invoices, products, CMS pages or database rows were changed manually.
+
+## 2026-05-19 MANUAL PAYMENT ADMIN VISIBILITY LIVE
+- MERGED: PR #15 (`codex/manual-payment-admin-visibility`) was squash-merged to `main`.
+- DEPLOYED: Codex opened uPress File Manager → `/wp-content/themes/justice-theme` → `ניהול GIT` and ran `משיכת נתונים (Pull)` successfully.
+- LIVE VERIFIED: wp-admin → Lawyer Onboarding loads and shows the new `Payment Follow-up` column.
+- LIVE VERIFIED: existing rows show `No manual payment`; future manual-invoice registrations should show `Invoice requested` with the Morning invoice next action.
+- MONEY IMPACT: owner can now spot paid-intent lawyer registrations directly in the onboarding queue without hunting through emails or hidden meta.
+- COMPLETION ASSESSMENT: manual revenue operations 70%; automated recurring checkout 35%; first-payment readiness 52%.
+- SAFETY: uPress pull + live read-only wp-admin verification only; no live lawyer records, payment settings, invoices, products or CMS database content were changed manually.

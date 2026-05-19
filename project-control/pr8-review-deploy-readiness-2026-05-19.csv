@@ -1,0 +1,8 @@
+area,status,evidence,next_action,risk
+pr_state,mergeable_draft,"PR #8 is draft mergeable with 32 changed files and 11 commits","Review or split before merge","Large PR scope can slow review"
+authority_schema,ready_for_review,"Authority registry schema fallback and article template changes documented","Review for fake or overbroad author/reviewer claims","YMYL trust risk if wrong"
+editorial_policy,ready_for_review,"Virtual route footer and sitemap links documented","Verify /editorial-policy/ after merge/uPress pull","Public trust page must render 200"
+crm_uncovered_demand,ready_for_review,"Coverage status queue templates summary and weekly brief documented","Verify wp-admin Justice CRM after deploy","Admin-only workflow must not mutate live data unexpectedly"
+premerge_checks,pending_final_run,"Checklist defined","Run before marking PR ready","Do not merge stale or unchecked branch"
+deploy_checks,defined,"uPress and live route/admin checks listed","Execute only after merge to main","No uPress pull while draft branch"
+completion_assessment,55_percent,"Mergeable tested documented Linear-linked","Review merge deploy live QA post-deploy audits","No money earned until live and used"

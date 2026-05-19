@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-19 16:48 Asia/Jerusalem
+- PR #8 REVIEW/DEPLOY READINESS: stopped feature expansion and created a reviewer/deployment map so the authority + lead monetization branch can move toward safe merge.
+- RESEARCHED: current PR review best practices and Google launch/migration verification guidance. Key point: large PRs need clear intent, risk-specific review passes, pre-merge checks, and post-deploy crawl/admin verification.
+- CREATED: `project-control/pr8-review-deploy-readiness-2026-05-19.md`.
+- CREATED: `project-control/pr8-review-deploy-readiness-2026-05-19.csv`.
+- PR STATUS: PR #8 is draft, mergeable, 32 changed files, 11 commits.
+- COMPLETION ASSESSMENT: PR #8 review/deploy readiness is 55%; complete enough to map/review, not complete enough to merge/deploy without final checks and owner/reviewer approval.
+- OWNER-VISIBLE AFTER MERGE: editorial policy links, safer article attribution, and Justice CRM uncovered-demand workflow.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is reducing merge risk and creating a clear path to deploy the work that can support authority and future revenue.
+- UPRESS: no uPress pull because this is draft-PR branch/docs work and not merged to `main`.
+- SAFETY: repo docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 16:38 Asia/Jerusalem
 - UNCOVERED DEMAND WEEKLY BRIEF: added a copy-ready partner-recruitment brief to the CRM so repeated missing-lawyer demand can move into outreach faster.
 - RESEARCHED: law-firm intake analytics and lead-source reporting best practices. Key point: growth teams need concise reports by practice/market and stage, not raw lead lists, to choose where to invest or recruit.

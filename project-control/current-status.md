@@ -2911,3 +2911,12 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - COMPLETION ASSESSMENT: manual revenue intake path 55%; automated recurring checkout 35%; first-payment readiness 45% overall because owner can invoice manually but card recurrence is not live.
 - OWNER CAN NOTICE: `/lawyer-plans/` should show a manual invoice activation link on paid plans until checkout readiness becomes true; submitted manual requests should be marked in the lawyer draft meta/admin email.
 - SAFETY: repo-only template/logic/status change; no live products, payment settings, invoices, lawyer records, lead records, CMS pages or database rows were changed manually.
+
+## 2026-05-19 MANUAL PAYMENT BRIDGE LIVE DEPLOYMENT
+- MERGED: PR #13 (`codex/manual-payment-bridge`) was squash-merged to `main`.
+- DEPLOYED: Codex opened uPress File Manager → `/wp-content/themes/justice-theme` → `ניהול GIT` and ran `משיכת נתונים (Pull)` successfully.
+- LIVE VERIFIED: `https://jus-tice.co.il/lawyer-plans/` returns 200 and contains the manual invoice activation path (`payment_path=manual_invoice`).
+- LIVE VERIFIED: `https://jus-tice.co.il/lawyer-registration/?plan_interest=pro&payment_path=manual_invoice` returns 200, shows the manual-invoice notice, keeps the selected Pro plan and includes the manual payment marker.
+- MONEY IMPACT: paid lawyer interest is now capturable on the live site even before Grow/Meshulam card recurrence is approved.
+- NEXT MONEY STEP: owner completes Grow/Meshulam ID/KYC; Codex then finishes WooCommerce Subscriptions/product mapping and tests checkout.
+- SAFETY: uPress pull + live read-only verification only; no live invoices, products, lawyer records, lead records, payment settings or CMS database content were manually changed.

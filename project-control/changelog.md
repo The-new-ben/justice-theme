@@ -1,6 +1,20 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-19 - Real-estate buy/sell support edit blocks
+
+- CREATED: `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.md`.
+- CREATED: `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.csv`.
+- VERIFIED / REVIEW ONLY: prepared exact owner-review edit blocks for `/lawyer-for-buying-or-selling-a-house/`.
+- VERIFIED LIVE: `/lawyer-for-buying-or-selling-a-house/` returned HTTP 200, self-canonicalized and remained index/follow.
+- VERIFIED GSC: local GSC summary shows `/lawyer-for-buying-or-selling-a-house` has `3` clicks, `35,650` impressions, `0.01%` CTR, average position `61.5`, `HIGH` traffic risk and `DO_NOT_TOUCH_HIGH_TRAFFIC_URL`.
+- VERIFIED QUERY-PAGE: purchase/sale lawyer queries already map to this page, including `עורך דין קניית דירה` with `3,361` impressions and `0` clicks.
+- VERIFIED SOURCE: planned hub/support paths currently appear `0` times in page source.
+- VERIFIED LIVE: seven planned hub/support/directory link targets returned 200.
+- DECISION: preserve `/lawyer-for-buying-or-selling-a-house/` and strengthen it as a transaction support page that links to `/real-estate-attorney/`; do not redirect, canonicalize, noindex or broaden it into the general hub.
+- BLOCKED: public CMS execution remains blocked until owner approval and field backup.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-19 - Traffic lawyer CMS update field map
 
 - CREATED: `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.md`.

@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-19 12:22 Asia/Jerusalem
+- REAL ESTATE BUY/SELL SUPPORT EDIT BLOCKS: prepared exact owner-review title/H1/meta/intro/CTA/internal-link blocks for `/lawyer-for-buying-or-selling-a-house/`.
+- VERIFIED LIVE: `/lawyer-for-buying-or-selling-a-house/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/lawyer-for-buying-or-selling-a-house/`, and remains index/follow.
+- VERIFIED GSC: local GSC summary shows `/lawyer-for-buying-or-selling-a-house` has `3` clicks, `35,650` impressions, `0.01%` CTR, average position `61.5`, `HIGH` traffic risk and `DO_NOT_TOUCH_HIGH_TRAFFIC_URL`.
+- VERIFIED QUERY-PAGE: apartment purchase/sale lawyer queries already map to this page, including `עורך דין קניית דירה` with `3,361` impressions and `0` clicks.
+- VERIFIED INTERNAL-LINK GAP: live source has `0` occurrences of planned links to `/real-estate-attorney/`, `/real-estate-lawyer-guide/`, `/registration-of-real-estate-israel/`, `/real-estate-lawyer-cost-2025/`, `/land-appreciation-tax/` and `/real-estate-appraiser/`.
+- VERIFIED LIVE: seven planned hub/support/directory targets return 200.
+- CREATED: `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.md`.
+- CREATED: `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.csv`.
+- DECISION: preserve `/lawyer-for-buying-or-selling-a-house/` as a focused transaction support page and link it to `/real-estate-attorney/`; do not redirect, canonicalize, noindex or broaden it into the general hub.
+- NEXT: owner reviews the buy/sell support edit blocks; after approval, create the CMS field map before any public update.
+- SAFETY: no public CMS/database row, article body, title, H1, meta description, URL slug, redirect, noindex, canonical, sitemap, taxonomy, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment was changed.
+
 ## LATEST WORK STATUS - 2026-05-19 12:08 Asia/Jerusalem
 - TRAFFIC LAWYER CMS UPDATE FIELD MAP: converted the `/traffic-lawyer/` SEO rescue packet into an operator-safe CMS worksheet.
 - VERIFIED LIVE: `/traffic-lawyer/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/traffic-lawyer/`, and remains index/follow.

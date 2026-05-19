@@ -11,6 +11,39 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 42 - Real Estate Buy/Sell Support Edit Blocks
+
+Research reviewed:
+- `project-control/money-query-seo-rescue-batch-001-2026-05-18.csv`.
+- `project-control/real-estate-cluster-consolidation-packet-2026-05-18.md`.
+- `project-control/real-estate-support-to-hub-map-2026-05-18.csv`.
+- `content-master/gsc/gsc-url-summary.csv`.
+- `justice_theme_emergency_master_2026_05_13/content-master/seo-rescue/output/gsc/gsc_query_page_12m.csv`.
+
+Business interpretation:
+- `/lawyer-for-buying-or-selling-a-house/` is a high-impression real-estate transaction support page, not a redirect candidate.
+- The fastest safe improvement is to preserve the URL, remove unsupported expert wording, clarify purchase/sale intent, and connect it to the real-estate hub and transaction support pages.
+
+Implemented in this cycle:
+- Created `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.md`.
+- Created `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.csv`.
+- Prepared exact owner-review blocks for SEO title, H1, meta description, OG fields, intro, practical section, CTA, contextual internal links and boundary rules.
+
+Verification:
+- Live `curl` check returned HTTP 200, self-canonical and index/follow state for `/lawyer-for-buying-or-selling-a-house/`.
+- Local GSC summary shows `3` clicks, `35,650` impressions, `0.01%` CTR, average position `61.5`, `HIGH` traffic risk and `DO_NOT_TOUCH_HIGH_TRAFFIC_URL`.
+- Query-page mirror shows apartment purchase/sale lawyer queries mapping to the page, led by `עורך דין קניית דירה` with `3,361` impressions and `0` clicks.
+- Source check found `0` occurrences of planned links to `/real-estate-attorney/`, `/real-estate-lawyer-guide/`, `/registration-of-real-estate-israel/`, `/real-estate-lawyer-cost-2025/`, `/land-appreciation-tax/` and `/real-estate-appraiser/`.
+- Seven planned hub/support/directory targets returned HTTP 200.
+- CSV parsed with `24` rows.
+
+Next step:
+- Owner approves or edits the `/lawyer-for-buying-or-selling-a-house/` edit block package.
+- After approval, create a CMS update field map for this support page before any public edit.
+
+Safety:
+- Repo-only planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, noindex, canonical, sitemap setting, taxonomy term, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
 ## Priority Cycle 41 - Traffic Lawyer CMS Update Field Map
 
 Research reviewed:

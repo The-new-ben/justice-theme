@@ -6,6 +6,22 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-REAL-ESTATE-BUY-SELL-SUPPORT-EDIT-BLOCKS-001: Prepare exact edit blocks for `/lawyer-for-buying-or-selling-a-house/`
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** `/lawyer-for-buying-or-selling-a-house/` has `35,650` impressions and almost no clicks, but GSC marks it `HIGH` traffic risk / `DO_NOT_TOUCH_HIGH_TRAFFIC_URL`; the safe action is URL-preserving support-page strengthening and support-to-hub linking.
+**Actions:**
+1. DONE: created `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.md`.
+2. DONE: created `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.csv`.
+3. VERIFIED LIVE: `/lawyer-for-buying-or-selling-a-house/` returned HTTP 200, self-canonicalized and remained indexable.
+4. VERIFIED GSC: URL summary shows `3` clicks, `35,650` impressions, `0.01%` CTR and average position `61.5`.
+5. VERIFIED QUERY-PAGE: purchase/sale lawyer queries already map to this page, including `עורך דין קניית דירה` with `3,361` impressions and `0` clicks.
+6. VERIFIED SOURCE: the page currently has no source links to the real-estate hub or the planned registration/cost/tax/appraisal support pages.
+7. VERIFIED LIVE: seven planned hub/support/directory targets returned 200.
+8. READY FOR REVIEW: exact recommended SEO title, H1, meta description, OG fields, intro block, practical section, CTA block, internal links and boundary rules are documented.
+9. BLOCKED: no CMS/public edit until owner approval and backup of current fields.
+10. NEXT: approve or edit this packet, then create its CMS field map before any public update.
+11. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-TRAFFIC-LAWYER-CMS-FIELD-MAP-001: Prepare `/traffic-lawyer/` CMS update field map
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
 **Why:** `/traffic-lawyer/` has `20,330` impressions and `0` clicks, and the edit blocks are ready; before any WordPress edit the operator needs exact fields, backups, blocked changes, legal/source review gates and post-upload QA.

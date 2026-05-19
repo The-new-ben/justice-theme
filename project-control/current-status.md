@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-19 12:33 Asia/Jerusalem
+- ENTITY FOOTPRINT CHECKLIST: turned the Google Business/Profile/social authority goal into an approval-gated execution checklist.
+- RESEARCHED: Google Business Profile representation guidelines, Google local ranking guidance, and Schema.org Organization `sameAs`. Key point: do not invent a physical office or schema links; Google entity trust must reflect the real business footprint.
+- CREATED: `project-control/jus-tice-entity-footprint-checklist-2026-05-19.md`.
+- CREATED: `project-control/jus-tice-entity-footprint-checklist-2026-05-19.csv`.
+- DECISION: start with entity data lock, then Google Business Profile eligibility, then LinkedIn company page; add Organization `sameAs` only after profiles are live and verified.
+- LINEAR: HAD-61 remains the coordinating issue for Google Business/Profile/social entity footprint.
+- UPRESS: no uPress pull because this is branch planning/status only and not merged to `main`.
+- SAFETY: no live wp-admin login, public CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, social account creation, Google Business Profile change, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 10:35 Asia/Jerusalem
 - LINEAR CONNECTED: installed/connected the Linear plugin and searched existing Jus-Tice coordination work. Found the project `Jus-Tice Dominant Legal Portal` plus related SEO/internal-linking/lawyer-CPT tasks.
 - E-E-A-T AUTHORITY RISK FOUND: article schema and `single-articles.php` were hardcoding Ben Batash as the author for articles. That is too broad for legal/YMYL content unless the author entity and practice-area authority are verified.

@@ -69,6 +69,41 @@ function justice_theme_lawyer_plans(): array {
 	);
 }
 
+function justice_theme_lawyer_plan_public_overrides( string $plan_key ): array {
+	$overrides = array(
+		'pro'          => array(
+			'price'           => '₪349 לחודש כולל מע"מ',
+			'features_append' => array(
+				'עד 5 פניות תואמות בחודש',
+				'דוח חשיפה חודשי לעורך הדין',
+			),
+		),
+		'featured'     => array(
+			'price'           => '₪749 לחודש כולל מע"מ',
+			'features_append' => array(
+				'עד 15 פניות תואמות בחודש',
+				'מיקום מועדף עם גילוי "פרופיל ממומן"',
+			),
+		),
+		'lead_partner' => array(
+			'price'           => '₪1,490 לחודש כולל מע"מ',
+			'features_append' => array(
+				'עד 40 פניות תואמות בחודש',
+				'תיעדוף ניתוב לפי תחום, עיר וזמינות',
+			),
+		),
+		'full_service' => array(
+			'price'           => '₪2,490 לחודש כולל מע"מ',
+			'features_append' => array(
+				'עד 80 פניות תואמות בחודש',
+				'ניהול תוכן, אופטימיזציה ודוח ערך חודשי',
+			),
+		),
+	);
+
+	return $overrides[ $plan_key ] ?? array();
+}
+
 function justice_theme_plan_product_id( string $plan_key ): int {
 	$product_ids = get_option( 'justice_lawyer_plan_product_ids', array() );
 
@@ -79,14 +114,50 @@ function justice_theme_plan_product_id( string $plan_key ): int {
 	return absint( $product_ids[ $plan_key ] );
 }
 
+function justice_theme_plan_checkout_ready( string $plan_key ): bool {
+	$product_id = justice_theme_plan_product_id( $plan_key );
+
+	if ( ! $product_id || ! function_exists( 'wc_get_checkout_url' ) || ! function_exists( 'wc_get_product' ) ) {
+		return false;
+	}
+
+	if ( ! class_exists( 'WC_Subscriptions' ) && ! function_exists( 'wcs_get_subscriptions' ) ) {
+		return false;
+	}
+
+	$product = wc_get_product( $product_id );
+
+	if ( ! $product || ! $product->is_purchasable() ) {
+		return false;
+	}
+
+	return true;
+}
+
+function justice_theme_any_paid_plan_checkout_ready(): bool {
+	foreach ( array( 'pro', 'featured', 'lead_partner', 'full_service' ) as $plan_key ) {
+		if ( justice_theme_plan_checkout_ready( $plan_key ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 function justice_theme_plan_checkout_url( string $plan_key ): string {
 	$product_id = justice_theme_plan_product_id( $plan_key );
 
-	if ( $product_id && function_exists( 'wc_get_checkout_url' ) ) {
+	if ( $product_id && justice_theme_plan_checkout_ready( $plan_key ) ) {
 		return add_query_arg( 'add-to-cart', $product_id, wc_get_checkout_url() );
 	}
 
-	return add_query_arg( 'plan_interest', $plan_key, home_url( '/lawyer-registration/' ) );
+	return add_query_arg(
+		array(
+			'plan_interest' => $plan_key,
+			'pre_checkout'  => '1',
+		),
+		home_url( '/lawyer-registration/' )
+	);
 }
 
 function justice_theme_seed_lawyer_plans_page(): void {

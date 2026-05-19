@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-19 17:03 Asia/Jerusalem
+- PR #8 FINAL PRE-MERGE CHECKS: ran the release-readiness verification set for the authority + uncovered-demand branch.
+- RESEARCHED: GitHub PR review guidance and Google Search technical/crawl requirements. Key point: large PRs need strong review context, and Google-facing deploys need robots/sitemap/canonical/crawl checks before and after launch.
+- VERIFIED: PR #8 is still draft and mergeable; current scope is 34 changed files and 12 commits.
+- VERIFIED: PHP lint passed for authority, schema, article template, functions, trust route, footer, HTML sitemap, lead CRM, lead routing and lead classifier.
+- VERIFIED: `git diff --check` passed with no output.
+- VERIFIED: live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- VERIFIED BASELINE: live author-attribution audit checked 80 URLs as Googlebot; found 45 visible Ben attributions, 45 Article schema Ben authors, and 0 fetch errors.
+- UPDATED: `project-control/pr8-review-deploy-readiness-2026-05-19.md` and `.csv`; readiness moved from 55% to 70%.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that PR #8 now has passing pre-merge evidence and a clean baseline for post-deploy comparison.
+- NEXT DECISION: mark PR #8 ready for human review or split CRM work if reviewers prefer smaller PRs. Do not add more feature scope to this branch.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: checks/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 16:48 Asia/Jerusalem
 - PR #8 REVIEW/DEPLOY READINESS: stopped feature expansion and created a reviewer/deployment map so the authority + lead monetization branch can move toward safe merge.
 - RESEARCHED: current PR review best practices and Google launch/migration verification guidance. Key point: large PRs need clear intent, risk-specific review passes, pre-merge checks, and post-deploy crawl/admin verification.

@@ -3,6 +3,7 @@
 PR: https://github.com/The-new-ben/justice-theme/pull/8  
 Branch: `codex/eeat-authority-linear-sync`  
 Status at creation: Draft, mergeable, 32 changed files, 11 commits
+Latest check: 2026-05-19 17:03 Asia/Jerusalem, draft, mergeable, 34 changed files, 12 commits
 
 ## Objective
 
@@ -130,8 +131,8 @@ Review PR #8 in four passes:
 
 ## Pre-Merge Checklist
 
-- [ ] PR is mergeable.
-- [ ] PHP lint passes for:
+- [x] PR is mergeable.
+- [x] PHP lint passes for:
   - `inc/authority.php`
   - `inc/schema.php`
   - `single-articles.php`
@@ -142,10 +143,21 @@ Review PR #8 in four passes:
   - `inc/lead-crm.php`
   - `inc/lead-routing.php`
   - `inc/lead-classifier.php`
-- [ ] `git diff --check` has no real whitespace errors.
-- [ ] `node tools/check-live-journeys.mjs` passes.
-- [ ] `node tools/check-live-author-attribution.mjs` can run before deploy as baseline.
-- [ ] Owner understands no money is earned until deployed and used.
+- [x] `git diff --check` has no real whitespace errors.
+- [x] `node tools/check-live-journeys.mjs` passes.
+- [x] `node tools/check-live-author-attribution.mjs` ran before deploy as baseline.
+- [x] Owner understands no money is earned until deployed and used.
+
+## 2026-05-19 17:03 Pre-Merge Verification
+
+- PHP lint passed for every file in the pre-merge checklist.
+- `git diff --check` passed with no output.
+- Live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index, and robots.txt.
+- Live author attribution audit checked 80 URLs as Googlebot:
+  - visible Ben attribution: 45
+  - Article schema Ben author: 45
+  - fetch errors: 0
+- Interpretation: this is a clean baseline before deploy. The count should drop after PR #8 is merged and uPress pulls; any remaining Ben signals should be treated as CMS/plugin/content leftovers.
 
 ## Deploy Checklist After Merge
 
@@ -179,10 +191,10 @@ Review PR #8 in four passes:
 
 ## Honest Completion Assessment
 
-PR #8 review/deploy readiness is now **55%**:
+PR #8 review/deploy readiness is now **70%**:
 
-- Complete: branch exists, mergeable, tested repeatedly, documented, Linear-linked.
-- Blocked: still draft, not reviewed, not merged, not pulled to uPress, no live wp-admin visual verification, no post-deploy author audit.
+- Complete: branch exists, mergeable, pre-merge checks pass, live author baseline captured, documented, Linear-linked.
+- Blocked: still draft, not reviewed/approved, not merged, not pulled to uPress, no live wp-admin visual verification, no post-deploy author audit.
 
 No money has been earned by PR #8 yet. Its revenue value is enabling: safer authority signals, better trust surface, and a CRM workflow to turn unmatched demand into paid partner recruitment.
 
@@ -194,3 +206,4 @@ Stop adding feature scope to PR #8 unless a blocker is found. Next cycles should
 2. split CRM work into a smaller PR if reviewers find the branch too broad;
 3. move to money-query SEO batch 001 only after PR #8 has a clear merge path.
 
+Current recommendation after the 17:03 checks: mark PR #8 ready for human review or explicitly split it. Do not add more feature scope to this branch.

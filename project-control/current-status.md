@@ -1,3 +1,167 @@
+## LATEST WORK STATUS - 2026-05-19 12:22 Asia/Jerusalem
+- REAL ESTATE BUY/SELL SUPPORT EDIT BLOCKS: prepared exact owner-review title/H1/meta/intro/CTA/internal-link blocks for `/lawyer-for-buying-or-selling-a-house/`.
+- VERIFIED LIVE: `/lawyer-for-buying-or-selling-a-house/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/lawyer-for-buying-or-selling-a-house/`, and remains index/follow.
+- VERIFIED GSC: local GSC summary shows `/lawyer-for-buying-or-selling-a-house` has `3` clicks, `35,650` impressions, `0.01%` CTR, average position `61.5`, `HIGH` traffic risk and `DO_NOT_TOUCH_HIGH_TRAFFIC_URL`.
+- VERIFIED QUERY-PAGE: apartment purchase/sale lawyer queries already map to this page, including `עורך דין קניית דירה` with `3,361` impressions and `0` clicks.
+- VERIFIED INTERNAL-LINK GAP: live source has `0` occurrences of planned links to `/real-estate-attorney/`, `/real-estate-lawyer-guide/`, `/registration-of-real-estate-israel/`, `/real-estate-lawyer-cost-2025/`, `/land-appreciation-tax/` and `/real-estate-appraiser/`.
+- VERIFIED LIVE: seven planned hub/support/directory targets return 200.
+- CREATED: `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.md`.
+- CREATED: `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.csv`.
+- DECISION: preserve `/lawyer-for-buying-or-selling-a-house/` as a focused transaction support page and link it to `/real-estate-attorney/`; do not redirect, canonicalize, noindex or broaden it into the general hub.
+- NEXT: owner reviews the buy/sell support edit blocks; after approval, create the CMS field map before any public update.
+- SAFETY: no public CMS/database row, article body, title, H1, meta description, URL slug, redirect, noindex, canonical, sitemap, taxonomy, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment was changed.
+
+## LATEST WORK STATUS - 2026-05-19 12:08 Asia/Jerusalem
+- TRAFFIC LAWYER CMS UPDATE FIELD MAP: converted the `/traffic-lawyer/` SEO rescue packet into an operator-safe CMS worksheet.
+- VERIFIED LIVE: `/traffic-lawyer/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/traffic-lawyer/`, and remains index/follow.
+- VERIFIED LIVE: eleven planned support/directory link targets return 200, including drunk-driving, DUI testing/refusal, breathalyzer, alcohol-testing, speeding, points/license-risk, Marvad and traffic-law directory paths.
+- VERIFIED GSC BASELINE: local GSC summary shows `/traffic-lawyer` has `0` clicks, `20,330` impressions, `0.00%` CTR and average position `67.9`.
+- CREATED: `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.md`.
+- CREATED: `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.csv`.
+- VERIFIED PLANNING: the worksheet defines backup requirements, recommended title/H1/meta/OG/breadcrumb values, sensitive traffic-law gates, contextual internal links, blocked redirects/canonicals/sitemap changes, boundary rules, upload order and post-upload QA.
+- DECISION: keep `/traffic-lawyer/`, self-canonical, robots, support URLs and sitemap unchanged for the first update; do not create `/drunk-driving/`, `/breathalyzer-test/` or `/license-suspension/` until migration maps are approved.
+- NEXT: owner approves or edits the traffic-lawyer field map; then back up CMS fields, legal/source review body copy, apply the hub update and QA immediately.
+- SAFETY: no public CMS/database row, article body, title, H1, meta description, URL slug, redirect, noindex, canonical, sitemap, taxonomy, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment was changed.
+
+## LATEST WORK STATUS - 2026-05-19 11:58 Asia/Jerusalem
+- TRAFFIC LAWYER SEO RESCUE EDIT BLOCKS: prepared exact owner-review title/H1/meta/intro/CTA/internal-link blocks for `/traffic-lawyer/`.
+- VERIFIED LIVE: `/traffic-lawyer/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/traffic-lawyer/`, and remains index/follow.
+- VERIFIED GSC: local GSC summary shows `/traffic-lawyer` has `0` clicks, `20,330` impressions, `0.00%` CTR and average position `67.9`.
+- VERIFIED QUERY-PAGE: exact traffic-lawyer queries already map to `/traffic-lawyer/`, including `עורך דין תעבורה` with `3,290` impressions and `0` clicks.
+- VERIFIED LIVE: eleven planned support/directory targets return 200, including drunk-driving, refusal/testing, breathalyzer, speeding, points/license-risk, Marvad and traffic-law directory paths.
+- CREATED: `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.md`.
+- CREATED: `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.csv`.
+- DECISION: preserve `/traffic-lawyer/` and strengthen the hub before considering `/drunk-driving/`, `/breathalyzer-test/`, `/license-suspension/`, redirects, canonicals, noindex or sitemap changes.
+- NEXT: owner reviews the `/traffic-lawyer/` edit blocks; after approval, create the CMS field map and then apply only with backup and post-upload QA.
+- SAFETY: no public CMS/database row, article body, title, H1, meta description, URL slug, redirect, noindex, canonical, sitemap, taxonomy, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment was changed.
+
+## LATEST WORK STATUS - 2026-05-19 11:47 Asia/Jerusalem
+- CRIMINAL DEFENSE ATTORNEY CMS UPDATE FIELD MAP: converted the `/criminal-defense-attorney/` money-query rescue block into an operator-safe CMS update worksheet.
+- VERIFIED LIVE: `/criminal-defense-attorney/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/criminal-defense-attorney/`, and remains index/follow.
+- VERIFIED LIVE: planned support/directory link targets return 200: `/police-investigation-rights/`, `/criminal-lawyer-cost/`, `/how-much-will-a-criminal-defense-lawyer-cost/`, `/apply-for-police-criminal-information-certificates/`, `/sex-crime-lawyer/`, `/drug-related-crime/`, and `/lawyers/?area=criminal-law`.
+- CREATED: `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.md`.
+- CREATED: `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.csv`.
+- VERIFIED PLANNING: the worksheet defines backup requirements, recommended title/H1/meta/OG/breadcrumb values, sensitive-topic safety gates, contextual internal links, blocked schema/language, upload order, and post-upload QA.
+- DECISION: keep `/criminal-defense-attorney/`, self-canonical, robots, support URLs and sitemap unchanged for the first update; criminal-law body copy remains blocked until legal/source review.
+- NEXT: owner approves or edits the criminal-defense field map after the real-estate first update path is decided; then back up CMS fields and apply with immediate post-upload QA.
+- SAFETY: no public CMS/database row, article body, title, H1, meta description, URL slug, redirect, noindex, canonical, sitemap, taxonomy, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment was changed.
+
+## LATEST WORK STATUS - 2026-05-19 11:35 Asia/Jerusalem
+- REAL-ESTATE ATTORNEY CMS UPDATE FIELD MAP: converted the approved-ready `/real-estate-attorney/` money-query rescue block into an operator-safe CMS update worksheet.
+- VERIFIED LIVE: `/real-estate-attorney/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/real-estate-attorney/`, and remains index/follow.
+- CAPTURED CURRENT LIVE FIELDS: title and H1 still contain `מומלץ` and `ייעוץ חינם`, so the first recommended public edit removes claim-heavy language while preserving the URL.
+- CREATED: `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.md`.
+- CREATED: `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.csv`.
+- VERIFIED PLANNING: the worksheet defines backup requirements, recommended title/H1/meta/OG/breadcrumb values, contextual internal links, blocked schema/language, upload order, and post-upload QA.
+- DECISION: apply `/real-estate-attorney/` first after owner approval because it is the highest-opportunity money page and lower legal sensitivity than criminal defense.
+- NEXT: owner approves or edits the `/real-estate-attorney/` field map; then back up CMS fields and apply the update with immediate post-upload QA.
+- SAFETY: no public CMS/database row, article body, title, H1, meta description, URL slug, redirect, noindex, canonical, sitemap, taxonomy, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment was changed.
+
+## LATEST WORK STATUS - 2026-05-19 11:17 Asia/Jerusalem
+- MONEY-QUERY SEO RESCUE EDIT BLOCKS: prepared exact owner-review title/H1/meta/intro/CTA/internal-link blocks for the two highest-impression low-CTR money pages.
+- REVIEWED: `project-control/money-query-seo-rescue-batch-001-2026-05-18.md`, `project-control/gsc-money-query-opportunity-map-2026-05-18.csv`, `project-control/real-estate-support-to-hub-map-2026-05-18.csv`, and `project-control/criminal-law-support-to-hub-map-2026-05-18.csv`.
+- VERIFIED LIVE: `/real-estate-attorney/` and `/criminal-defense-attorney/` return HTTP 200, are indexable, and self-canonicalize.
+- VERIFIED LIVE: proposed internal-link targets for real estate and criminal support paths return 200; `/articles/criminal-indictment/` redirects, so it was excluded from the first link block.
+- CREATED: `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.md`.
+- CREATED: `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.csv`.
+- DECISION: preserve both URLs and improve query match, trust language, CTA and contextual links before considering redirects or deletions.
+- NEXT: owner approves or edits the two page packets; then back up CMS fields and apply `/real-estate-attorney/` first as the controlled public edit.
+- SAFETY: no public CMS/database row, article body, title, H1, meta description, URL slug, redirect, noindex, canonical, sitemap, taxonomy, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment was changed.
+
+## LATEST WORK STATUS - 2026-05-18 21:31 Asia/Jerusalem
+- MONEY-QUERY SEO RESCUE BATCH 001: created a GSC-backed priority rescue plan for high-impression legal pages with almost no clicks.
+- RESEARCHED: Google crawlable-link and anchor-text guidance plus current law-firm SEO guidance around practice hubs, supporting pages, and internal linking. Key point: the site needs clear legal money hubs with contextual links, not more scattered articles.
+- ANALYZED: `content-master/gsc/gsc-url-summary.csv` and identified major traffic leaks: `/real-estate-attorney` has 88,601 impressions and 0.02% CTR; `/criminal-defense-attorney` has 62,561 impressions and 0.02% CTR; `/traffic-lawyer` has 20,330 impressions and 0 clicks.
+- CREATED: `project-control/money-query-seo-rescue-batch-001-2026-05-18.md`.
+- CREATED: `project-control/money-query-seo-rescue-batch-001-2026-05-18.csv`.
+- DECISION: preserve high-impression URLs first; fix title/H1/intro/CTA/internal links before considering redirects or deletion.
+- NEXT: implement draft title/H1/intro/CTA/internal-link blocks for `/real-estate-attorney` and `/criminal-defense-attorney`, then review before live CMS publication.
+- UPRESS: no uPress pull needed because this is repo-only planning/status; not merged to `main`.
+- SAFETY: no live wp-admin login, public form, CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-18 21:20 Asia/Jerusalem
+- UNSERVED DEMAND LEAD EDIT META BOX: upgraded PR #7 so unsupported calls can be edited and managed directly on each `justice_lead` admin record.
+- RESEARCHED: law-firm intake CRM best practices around source, practice area, status, urgency, follow-up deadline, and conversion/revenue tracking. Key point: every missed/unserved request must stay attached to an actionable lead record.
+- CODED: `inc/unserved-demand.php` now adds a `Jus-Tice Unserved Demand` meta box on the `justice_lead` edit screen.
+- CODED: admins can edit service status, unserved reason, revenue status, urgency, source channel, requested area, country/jurisdiction, city, language, follow-up deadline, source URL, recruitment priority, and owner next action.
+- CODED: save handling includes nonce verification, autosave guard, `edit_post` capability check, allowlisted select values, sanitized fields, and urgency compatibility with the existing `urgency` meta.
+- CREATED: `project-control/unserved-demand-lead-edit-meta-box-2026-05-18.md`.
+- CREATED: `project-control/unserved-demand-lead-edit-meta-box-2026-05-18.csv`.
+- VERIFIED: PHP lint clean on `inc/unserved-demand.php`, `inc/lead-routing.php`, and `functions.php`; `git diff --check` clean; live journey checker passed homepage lead path, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index, and robots.txt.
+- UPRESS: no uPress pull needed because this is draft PR code only; not merged to `main`.
+- SAFETY: no live wp-admin login, public form, CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-18 21:08 Asia/Jerusalem
+- UNSERVED DEMAND SOURCE ATTRIBUTION HARDENING: strengthened PR #7 so unsupported calls/forms can be measured by source channel, city, and language.
+- RESEARCHED: law-firm lead source attribution and intake conversion guidance. Key point: source, response time, practice area, and conversion stage must be tracked together before marketing/SEO decisions can be trusted.
+- CODED: `inc/unserved-demand.php` quick-log form now includes a `Source channel` select for phone, WhatsApp, website form, email, organic search, and manual/other.
+- CODED: quick-log form now captures requested city and language, and saves `requested_city` plus `requested_language`.
+- CODED: source channel is validated against an allowlist before saving, so reports do not fragment into random source labels.
+- CREATED: `project-control/unserved-demand-source-attribution-hardening-2026-05-18.md`.
+- CREATED: `project-control/unserved-demand-source-attribution-hardening-2026-05-18.csv`.
+- VERIFIED: PHP lint clean on `inc/unserved-demand.php`, `inc/lead-routing.php`, and `functions.php`; `git diff --check` clean.
+- UPRESS: no uPress pull needed because this is draft PR code only; not merged to `main`.
+- SAFETY: no live wp-admin login, public form, CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-18 20:59 Asia/Jerusalem
+- UNSERVED DEMAND INTAKE HARDENING: tightened PR #7 admin ledger so unsupported calls are easier to follow up and export for lawyer recruitment.
+- RESEARCHED: current law-firm intake guidance around source tracking, response time, follow-up status, and conversion reporting. Key point: unmonitored channels and overdue follow-ups leak revenue.
+- CODED: `inc/unserved-demand.php` now separates Email and WhatsApp inputs and saves `visitor_whatsapp`.
+- CODED: dashboard summary cards now include `Overdue follow-up`.
+- CODED: CSV export now includes WhatsApp, unserved reason, owner next action, and revenue status.
+- CODED: meta registration no longer depends on `post_type_exists( 'justice_lead' )`, making it more robust if the CPT is registered later in the load order.
+- CREATED: `project-control/unserved-demand-intake-hardening-2026-05-18.md`.
+- CREATED: `project-control/unserved-demand-intake-hardening-2026-05-18.csv`.
+- VERIFIED: PHP lint clean on `inc/unserved-demand.php`, `inc/lead-routing.php`, and `functions.php`; `git diff --check` clean.
+- UPRESS: no uPress pull needed because this is draft PR code only; not merged to `main`.
+- SAFETY: no live wp-admin login, public form, CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-18 20:49 Asia/Jerusalem
+- UNSERVED DEMAND RECRUITMENT PROOF PANEL: upgraded the admin-only ledger so logged unsupported calls become lawyer-sales evidence, not only CRM rows.
+- RESEARCHED: law-firm lead source/practice-area tracking, response-speed and conversion-reporting best practices. Key point: demand must be grouped by source and practice area so the business can sell partner seats with evidence.
+- CODED: `inc/unserved-demand.php` now renders a `Partner Recruitment Proof` table grouped by demand, country/jurisdiction, request count, high-urgency count, source channel, and latest request date.
+- CODED: each grouped row generates a sales line such as "Jus-Tice already received N request(s) for Thailand lawyer / Thailand and has no active partner yet."
+- CREATED: `project-control/unserved-demand-recruitment-proof-panel-2026-05-18.md`.
+- CREATED: `project-control/unserved-demand-recruitment-proof-panel-2026-05-18.csv`.
+- NEXT: lint and push PR #7; after deployment, test with one controlled owner-only call log and confirm the recruitment-proof row appears.
+- SAFETY: draft PR admin code only. No live wp-admin login, public form, CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-18 20:40 Asia/Jerusalem
+- UNSERVED DEMAND LEDGER ADMIN IMPLEMENTATION: implemented the first admin-only version on draft PR #7 so owner phone calls in unsupported categories can become measurable demand instead of lost time.
+- RESEARCHED: Clio/Lawmatics intake guidance this cycle; confirmed source, practice area, pipeline stage, follow-up deadline, and conversion/unserved status are core intake fields.
+- CODED: new `inc/unserved-demand.php` with Justice CRM submenu `Unserved Demand`, quick-log phone form, unserved stats, recent unserved table, CSV export, and meta registration for `service_status`, requested country/area, follow-up deadline, recruitment priority, and revenue status.
+- CODED: `functions.php` now loads `inc/unserved-demand.php`.
+- CODED: `inc/lead-routing.php` now marks leads as `service_status=unserved` when no matching lawyer with routing enabled exists.
+- VERIFIED: PHP lint clean on `inc/unserved-demand.php`, `inc/lead-routing.php`, and `functions.php`; `git diff --check` clean.
+- CREATED: `project-control/unserved-demand-ledger-admin-implementation-2026-05-18.md`.
+- CREATED: `project-control/unserved-demand-ledger-admin-implementation-2026-05-18.csv`.
+- UPRESS: no uPress pull needed because this is draft PR code only; not merged to `main`.
+- SAFETY: no live wp-admin login, public form, CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-18 20:29 Asia/Jerusalem
+- UNSERVED DEMAND LEDGER IMPLEMENTATION SPEC: converted the Thailand-lawyer/leaking-call problem into a build-ready admin workflow tied to the existing Justice CRM.
+- RESEARCHED: Clio client-intake tips, Clio intake stages, Clio lead-management best practices, Lawmatics practice-area segmentation, Lawmatics intake pipeline, and Lawmatics AI lead qualification. Key point: every lead needs source, practice area, pipeline stage, follow-up deadline, and conversion/unserved status.
+- INSPECTED CODE: `functions.php`, `inc/lead-crm.php`, `inc/lead-routing.php`, and `inc/lead-classifier.php`; confirmed the best implementation is to extend `justice_lead` and Justice CRM rather than create a separate silo.
+- SPECIFIED: admin-only Unserved Demand panel, quick-log phone lead form, `service_status=unserved`, `unserved_reason=no_partner`, country/jurisdiction/source fields, follow-up deadline, recruitment priority, revenue status, and monthly export.
+- DECISION: when routing finds no matching paying lawyer, mark the existing `justice_lead` as unserved and turn it into lawyer-recruitment evidence; do not email random lawyers and do not sell client-paid referrals without legal review.
+- CREATED: `project-control/unserved-demand-ledger-implementation-spec-2026-05-18.md`.
+- CREATED: `project-control/unserved-demand-ledger-implementation-spec-2026-05-18.csv`.
+- NEXT: implement `inc/unserved-demand.php` behind admin capability `edit_pages` after draft PR review; keep public forms unchanged until owner approves.
+- SAFETY: repo-only spec. No WordPress record, public form, CMS content, lawyer profile, lead record, payment setting, user account, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress pull, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-18 20:24 Asia/Jerusalem
+- TRAFFIC + UNSERVED LEAD MONETIZATION: shifted focus back to ranking/traffic/keywords and the owner's live problem: callers ask for lawyer categories where Jus-Tice has no paying partner yet.
+- RESEARCHED: Google people-first/YMYL guidance, Google indexing/link guidance, Nolo/Martindale-Avvo legal lead model, LegalZoom attorney-plan model, legal lead-generation ethics overview, Israeli Bar advertising rules sources, and Israeli intermediary/referral-fee risk sources.
+- REPO EVIDENCE: `content-master/gsc/gsc-url-summary.csv` already shows Thailand lawyer demand: the Hebrew Thailand lawyer URL has 59 clicks, 1,689 impressions, 3.49% CTR, average position 11.8.
+- REPO EVIDENCE: international/foreign demand is larger than one call: `/immigration-lawyer` has 43,300 impressions, `/german-passport` has 46,747, `/international-inheritance-wills-lawyer` has 14,123, `/international-litigation` has 6,936, `/apostille` has 6,588.
+- DECISION: safest first monetization path is lawyer-funded subscription/category seats with capped routed leads, plus an Unserved Demand Ledger; do not charge users merely for a referral until legal/ethics review.
+- CREATED: `project-control/traffic-and-unserved-lead-monetization-strategy-2026-05-18.md`.
+- CREATED: `project-control/unserved-lead-ledger-template-2026-05-18.csv`.
+- CREATED: `project-control/traffic-and-unserved-lead-monetization-priority-2026-05-18.csv`.
+- NEXT: implement an admin-side unserved-lead capture tool after the commercial PR path is settled, and continue money-query rescue + criminal/family journey audits in parallel.
+- UPRESS: no uPress pull needed because this is repo-only strategy/status; no deployable code was merged to `main`.
+- SAFETY: no live CMS content, WordPress database row, lawyer profile, lead record, payment setting, user account, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap setting, article body/title/H1/meta, taxonomy term, uPress deployment, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-18 20:03 Asia/Jerusalem
 - COMMERCIAL PIPELINE SECTION 3 PREFLIGHT: read `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` from `origin/claude/review-legal-portal-aRAzz` and executed only Section 3 checks.
 - RESULT 3.1: PR #5 is not mergeable. GitHub API reports `mergeable=false`, `mergeable_state=dirty`; local merge simulation confirms a conflict in `project-control/current-status.md`.

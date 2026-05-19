@@ -1,195 +1,157 @@
 # Money Query SEO Rescue Batch 001 - 2026-05-18
 
-Status: REPO ONLY / OWNER-REVIEW PACKET / NO PUBLIC CMS CHANGES
+## Goal
 
-## Purpose
+Recover qualified legal traffic by fixing high-impression, low-CTR pages that already have Google visibility but are not converting impressions into clicks or leads.
 
-Prepare the first high-impact SEO rescue batch for money queries that already have Google impressions but weak or zero CTR.
+This batch is intentionally conservative:
 
-This packet is designed to run in parallel with the commercial lawyer funnel. The goal is to feed the future lawyer registration/payment system with higher-quality commercial traffic.
+- Do not redirect high-impression URLs yet.
+- Do not delete old pages yet.
+- Do not overwrite live CMS content without owner approval.
+- First fix title/H1/intro/search intent/internal links on the existing URL.
+- Add contextual internal links from relevant hubs and articles using crawlable `<a href="">` links with descriptive anchor text.
 
-## Research Basis
+## Research Signal
 
-Sources checked this cycle:
-- Google Search Console Performance report guidance: `https://support.google.com/webmasters/answer/7576553`
-- Google title link/snippet guidance: `https://developers.google.com/search/docs/advanced/appearance/good-titles-snippets`
-- Current law-firm intake/search guidance: match user intent, reduce form friction, and connect commercial searches to a clear next action.
+Google's current link guidance is very direct: Google uses links to discover pages and understand relevance, links should be real crawlable anchors, and anchor text should be descriptive, concise, and relevant to both pages. This matches the site problem: many pages exist, but Google and users need clearer pathways to the money pages.
 
-Applied rules:
-- Prioritize pages with real impressions and low CTR.
-- Match the title/H1/intro to the actual query language.
-- Keep titles descriptive and concise.
-- Avoid fake "best", "recommended", rankings, guarantees, fake ratings or unsupported lawyer claims.
-- Do not redirect/canonicalize until route history, backlinks and query overlap are checked.
+Current law-firm SEO guidance is also consistent: the strongest legal sites use practice-area hub pages, supporting articles, local/practical pages, clear attorney credibility, and internal linking between related intent layers.
 
-## Source Evidence
+## Batch Selection From GSC Mirror
 
-Source artifacts:
-- `project-control/gsc-money-query-opportunity-map-2026-05-18.md`
-- `project-control/gsc-money-query-opportunity-map-2026-05-18.csv`
-- `reports/traffic-priority-audit-2026-05-18.csv`
+Data source: `content-master/gsc/gsc-url-summary.csv`.
 
-Core GSC signal:
-- These pages are not blocked from crawling/indexing in the sampled checks.
-- The problem is mostly intent alignment, title/snippet weakness, content depth, internal links and commercial trust.
+Priority is based on:
 
-## Batch 001 Pages
+1. High impressions.
+2. Very low CTR.
+3. Legal money intent.
+4. Existing or near-existing lawyer monetization path.
+5. Safe to improve without redirecting.
 
-### 1. Real Estate Lawyer Hub
+## Priority Pages
 
-URL:
-- `https://jus-tice.co.il/real-estate-attorney/`
+### P1 - `/real-estate-attorney`
 
-Main query:
-- `עורך דין מקרקעין`
-
-GSC signal:
-- 1 click / 7,986 impressions / 0.01% CTR / average position 64.6
-
-Current issue:
-- High commercial intent exists, but the page probably does not look like the strongest answer for Israeli real-estate lawyer intent.
-
-Proposed public edit:
-- Title: `עורך דין מקרקעין | קניית דירה, מכירה ורישום זכויות | Jus-Tice`
-- H1: `עורך דין מקרקעין`
-- Intro angle: explain when a buyer/seller needs a real-estate lawyer, what documents and risks matter, and how Jus-Tice helps compare relevant lawyers by transaction type and location.
-- Add support links to:
-  - `/real-estate-lawyer-guide/`
+- GSC: 88,601 impressions, 17 clicks, 0.02% CTR, average position 58.6.
+- Problem: enormous demand but weak click capture.
+- Intent: "real estate lawyer", "property purchase lawyer", "property sale lawyer".
+- First action: make this the clean real-estate lawyer hub.
+- Suggested title: `עורך דין מקרקעין - קנייה, מכירה, חוזים ורישום זכויות | Jus-Tice`
+- Suggested H1: `עורך דין מקרקעין לקנייה, מכירה ורישום נכס`
+- Intro job: answer who needs a lawyer, what documents to prepare, when to call, and how Jus-Tice connects to relevant lawyers.
+- Internal links to add:
   - `/lawyer-for-buying-or-selling-a-house/`
-  - `/registration-of-real-estate-israel/`
-  - `/land-appreciation-tax/`
+  - `/israel-real-estate-price-forecast/`
+  - `/buying-property-in-greece/`
+  - `/lawyers/?area=real-estate`
 
-Guardrail:
-- Do not merge with `/real-estate-lawyer-guide/`; keep guide as educational support page.
+### P2 - `/criminal-defense-attorney`
 
-### 2. Criminal Indictment Cancellation Article
+- GSC: 62,561 impressions, 10 clicks, 0.02% CTR, average position 56.4.
+- Intent: urgent criminal lawyer.
+- First action: convert into the main criminal defense commercial hub, linked from criminal pillar content.
+- Suggested title: `עורך דין פלילי - חקירה, מעצר וכתב אישום | Jus-Tice`
+- Suggested H1: `עורך דין פלילי לפני חקירה, מעצר או כתב אישום`
+- Intro job: urgent first steps, what not to say before advice, what to prepare, and lawyer matching CTA.
+- Internal links to add:
+  - `/police-investigation/`
+  - `/indictment/`
+  - `/sex-crime-lawyer/`
+  - `/apply-for-police-criminal-information-certificates/`
+  - `/lawyers/?area=criminal-law`
 
-URL:
-- `https://jus-tice.co.il/articles/מחיקת-כתב-אישום-חזרה-מכתב-אישום-ביטול/`
+### P3 - `/lawyer-for-buying-or-selling-a-house`
 
-Main query:
-- `ביטול כתב אישום`
+- GSC: 35,650 impressions, 3 clicks, 0.01% CTR, average position 61.5.
+- Intent: transactional property lawyer.
+- First action: keep as support page for `/real-estate-attorney`, not a competing hub.
+- Suggested title: `עורך דין לקניית דירה או מכירת דירה - מה בודקים לפני חתימה`
+- Suggested H1: `עורך דין לקנייה או מכירה של דירה`
+- Internal links:
+  - Up to `/real-estate-attorney/` with anchor `עורך דין מקרקעין`.
+  - To lawyer directory filtered by real estate.
 
-GSC signal:
-- 0 clicks / 7,771 impressions / 0.00% CTR / average position 39.8
+### P4 - `/labor-lawyer`
 
-Current issue:
-- Strong informational-to-commercial bridge, but likely title/snippet does not clearly promise the practical decision path.
+- GSC: 29,862 impressions, 3 clicks, 0.01% CTR, average position 67.0.
+- Intent: employment lawyer.
+- First action: create or improve employment-law partner landing path before investing in deep content.
+- Suggested title: `עורך דין דיני עבודה - פיטורים, זכויות עובדים ומעסיקים | Jus-Tice`
+- Suggested H1: `עורך דין דיני עבודה לעובדים ומעסיקים`
+- Business note: no strong partner coverage means this should also feed the Unserved Demand Ledger and partner recruitment.
 
-Proposed public edit:
-- Title: `ביטול כתב אישום | מתי אפשר לבקש ומה בודקים לפני פנייה לעורך דין`
-- H1: `ביטול כתב אישום`
-- Intro angle: define cancellation/withdrawal/amendment of indictment, list the first legal checks, and route urgent readers toward criminal-law guidance without promising outcomes.
-- Add support links to:
-  - `/criminal-defense-attorney/`
-  - `/criminal-law/`
-  - `/sex-crime-lawyer/` only where contextually relevant
+### P5 - `/sex-crime-lawyer`
 
-Guardrail:
-- Do not promise dismissal, acquittal or guaranteed result.
+- GSC: 27,904 impressions, 34 clicks, 0.12% CTR, average position 56.0.
+- Intent: high urgency and high sensitivity.
+- First action: legal tone review plus user-path clarity, not aggressive marketing.
+- Suggested title: `עורך דין עבירות מין - ייעוץ לפני חקירה וייצוג בהליך פלילי`
+- Suggested H1: `עורך דין עבירות מין: חקירה, זכויות וייצוג`
+- Must include: careful disclaimer, victim/suspect distinction, urgent consultation CTA, no sensational language.
 
-### 3. Sex Crime Lawyer Hub
+### P6 - medical birth malpractice URL
 
-URL:
-- `https://jus-tice.co.il/sex-crime-lawyer/`
+- GSC: 27,275 impressions, 1 click, 0.00% CTR, average position 60.6.
+- Intent: birth-related medical malpractice lawyer.
+- First action: decide whether this is a money page or support page. If money page, add lawyer CTA and medical-malpractice hub links.
+- Suggested title: `עורך דין רשלנות רפואית בלידה - בדיקת מקרה וזכויות`
 
-Main query:
-- `עורך דין עבירות מין`
+### P7 - `/prenup-attorney`
 
-GSC signal:
-- 0 clicks / 7,171 impressions / 0.00% CTR / average position 68.4
+- GSC: 20,894 impressions, 1 click, 0.00% CTR, average position 55.4.
+- Intent: prenuptial agreement lawyer.
+- First action: make commercial page distinct from informational prenup guides.
+- Suggested title: `עורך דין הסכם ממון - ניסוח, בדיקה ואישור הסכם | Jus-Tice`
+- Suggested H1: `עורך דין הסכם ממון לפני נישואין או בפרק ב'`
+- Internal links:
+  - `/prenuptial-agreements-overview/`
+  - `/changing-or-canceling-a-prenuptial-agreement/`
+  - `/lawyers/?area=family-law`
 
-Current issue:
-- YMYL criminal query needs trust, privacy, process clarity and careful language.
+### P8 - `/traffic-lawyer`
 
-Proposed public edit:
-- Title: `עורך דין עבירות מין | ייעוץ לחשודים, נפגעים והליכי חקירה | Jus-Tice`
-- H1: `עורך דין עבירות מין`
-- Intro angle: explain urgent first steps, privacy, investigation/arraignment stages, and how to find a relevant criminal lawyer by area and case type.
-- Add support links to:
-  - `/criminal-defense-attorney/`
-  - criminal investigation/support articles where live and relevant
+- GSC: 20,330 impressions, 0 clicks, 0.00% CTR, average position 67.9.
+- Intent: traffic lawyer.
+- First action: service-page rewrite and internal links from Eye Hawk / license / Marvad pages.
+- Suggested title: `עורך דין תעבורה - דוחות, שלילה, נהיגה בשכרות ותאונות`
+- Suggested H1: `עורך דין תעבורה לטיפול בדוחות, שלילה ותאונות`
 
-Guardrail:
-- Avoid sensational phrasing, judgmental wording and any guarantee of legal outcome.
+### P9 - `/immigration-lawyer`
 
-### 4. Prenup / Financial Agreement Hub
+- GSC: 43,300 impressions, 100 clicks, 0.23% CTR, average position 40.5.
+- Intent: immigration / foreign jurisdiction lawyer.
+- First action: classify sub-intents into countries and feed unserved demand.
+- Business note: this is directly related to the Thailand-lawyer call. If no partner exists, log demand and recruit country-specialist lawyers.
 
-URL:
-- `https://jus-tice.co.il/prenup-attorney/`
+### P10 - `/german-passport`
 
-Main query:
-- `עורך דין הסכם ממון`
+- GSC: 46,747 impressions, 13 clicks, 0.03% CTR, average position 43.2.
+- Intent: German passport / citizenship assistance.
+- First action: decide if Jus-Tice has lawyer/service coverage. If yes, strengthen CTA. If no, feed Unserved Demand Ledger.
 
-GSC signal:
-- 0 clicks / 6,251 impressions / 0.00% CTR / average position 59.0
+## Exclusions For This Batch
 
-Current issue:
-- Family-law commercial intent is clear, but the page should answer why a lawyer is needed and what the process includes.
+- `/beginners-guide-how-to-choose-the-best-website-builder`: high impressions but not legal money intent.
+- `legalzoom`: branded competitor/info query, low priority.
+- generic legal encyclopedia pages without lawyer-intent should support hubs, not lead the rescue.
 
-Proposed public edit:
-- Title: `עורך דין הסכם ממון | ניסוח, אישור ושינוי הסכם | Jus-Tice`
-- H1: `עורך דין הסכם ממון`
-- Intro angle: cover before marriage, during marriage, second chapter, property separation, approval in court/notary where relevant, and common mistakes.
-- Add support links to:
-  - `/family-law/`
-  - `/divorce-lawyer/` if live and contextually relevant
-  - property/family support pages with verified live status
+## Execution Rules
 
-Guardrail:
-- Do not make universal legal advice; keep it as general information and lawyer matching.
+1. Preserve all high-impression URLs until post-change GSC data proves a redirect is safe.
+2. Every page gets one primary intent and one primary CTA.
+3. Every page links upward to its practice hub and sideways to 2-4 related support pages.
+4. Anchor text must describe the destination, not "read more".
+5. For YMYL/legal pages, content must be practical, cautious, jurisdiction-aware, and avoid outcome promises.
+6. If no paying lawyer coverage exists, add a business action: log/recruit partner instead of pretending coverage.
 
-### 5. Traffic Lawyer Hub
+## Next Implementation Commit
 
-URL:
-- `https://jus-tice.co.il/traffic-lawyer/`
+Start with `/real-estate-attorney` and `/criminal-defense-attorney` because they combine highest impressions, clear commercial intent, and broad support clusters. The first implementation should produce draft title/H1/intro/CTA/internal-link blocks in repo docs or a safe importer draft, not publish live CMS changes without owner approval.
 
-Main query:
-- `עורך דין תעבורה`
+## Sources
 
-GSC signal:
-- 0 clicks / 3,455 impressions / 0.00% CTR / average position 63.9
-
-Current issue:
-- Core commercial hub has visibility but needs stronger intent match and support links to common offense types.
-
-Proposed public edit:
-- Title: `עורך דין תעבורה | נהיגה בשכרות, נקודות, שלילה ותאונות | Jus-Tice`
-- H1: `עורך דין תעבורה`
-- Intro angle: explain urgent traffic-law situations, common offense categories, what documents to prepare, and how to choose a relevant traffic lawyer.
-- Add support links to:
-  - `/driving-under-the-influence/`
-  - `/dui-refusal-blood-breath-urine-test/`
-  - `/driver-with-36-valid-points-or-more-will-be-disqualified-from-holding-a-drivers-license/`
-  - `/car-accident-auto-injury-lawyer/`
-
-Guardrail:
-- Do not promote unrelated trafficking pages; keep the support cluster strictly traffic-law.
-
-## Implementation Recommendation
-
-Do not edit all five live pages blindly.
-
-Recommended order:
-1. Real estate hub first, because it has the highest impressions and a clean commercial route.
-2. Traffic lawyer hub second, because it has a stable commercial route and support pages.
-3. Prenup third, after verifying family-law support links.
-4. Criminal indictment article fourth, because it is article/CMS content and needs legal/source review.
-5. Sex-crime hub fifth, because it is sensitive YMYL and needs extra tone/privacy review.
-
-## Measurement Plan
-
-After public edits:
-- Request URL Inspection recrawl for each edited URL.
-- Annotate the change date in the GSC tracking sheet.
-- Review after 14, 28 and 45 days:
-  - impressions;
-  - clicks;
-  - CTR;
-  - average position;
-  - whether Google rewrote the title;
-  - lead-form interactions from those URLs.
-
-## Safety Statement
-
-This packet is repo-only. No public CMS title, H1, meta description, article body, slug, redirect, canonical, noindex, sitemap setting, taxonomy term, lawyer profile, lead record, payment setting, GA4/GSC setting, WordPress database row or uPress deployment was changed.
+- Google Search Central, link best practices: https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- Brand Vision, law-firm SEO guide: https://www.brandvm.com/post/law-firm-seo-guide
+- Digital Neighbor, 2026 law-firm website content guide: https://digitalneighbor.com/law-firm-website-content-guide

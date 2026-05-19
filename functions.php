@@ -36,6 +36,7 @@ $justice_theme_files = array(
 	'inc/lead-crm.php',
 	'inc/lead-classifier.php',
 	'inc/lead-routing.php',
+	'inc/unserved-demand.php',
 	'inc/pillar-pages.php',
 	'inc/pillar-article-seed.php',
 	'inc/content-draft-importer.php',

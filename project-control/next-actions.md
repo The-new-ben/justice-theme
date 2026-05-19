@@ -6,6 +6,90 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-REAL-ESTATE-BUY-SELL-SUPPORT-EDIT-BLOCKS-001: Prepare exact edit blocks for `/lawyer-for-buying-or-selling-a-house/`
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** `/lawyer-for-buying-or-selling-a-house/` has `35,650` impressions and almost no clicks, but GSC marks it `HIGH` traffic risk / `DO_NOT_TOUCH_HIGH_TRAFFIC_URL`; the safe action is URL-preserving support-page strengthening and support-to-hub linking.
+**Actions:**
+1. DONE: created `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.md`.
+2. DONE: created `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.csv`.
+3. VERIFIED LIVE: `/lawyer-for-buying-or-selling-a-house/` returned HTTP 200, self-canonicalized and remained indexable.
+4. VERIFIED GSC: URL summary shows `3` clicks, `35,650` impressions, `0.01%` CTR and average position `61.5`.
+5. VERIFIED QUERY-PAGE: purchase/sale lawyer queries already map to this page, including `עורך דין קניית דירה` with `3,361` impressions and `0` clicks.
+6. VERIFIED SOURCE: the page currently has no source links to the real-estate hub or the planned registration/cost/tax/appraisal support pages.
+7. VERIFIED LIVE: seven planned hub/support/directory targets returned 200.
+8. READY FOR REVIEW: exact recommended SEO title, H1, meta description, OG fields, intro block, practical section, CTA block, internal links and boundary rules are documented.
+9. BLOCKED: no CMS/public edit until owner approval and backup of current fields.
+10. NEXT: approve or edit this packet, then create its CMS field map before any public update.
+11. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
+### ACTION-TRAFFIC-LAWYER-CMS-FIELD-MAP-001: Prepare `/traffic-lawyer/` CMS update field map
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** `/traffic-lawyer/` has `20,330` impressions and `0` clicks, and the edit blocks are ready; before any WordPress edit the operator needs exact fields, backups, blocked changes, legal/source review gates and post-upload QA.
+**Actions:**
+1. DONE: created `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.md`.
+2. DONE: created `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.csv`.
+3. VERIFIED LIVE: `/traffic-lawyer/` returned HTTP 200, self-canonicalized and remained indexable.
+4. VERIFIED LIVE: eleven planned support/directory targets returned 200.
+5. VERIFIED PLANNING: `38` field/action rows cover live snapshot, GSC baseline, backup, title/H1, SEO meta, OG, breadcrumb, canonical, robots, taxonomy, body links, redirects, canonicals, sitemap, future slug holds, traffic/criminal/personal-injury boundaries, schema, blocked language, sensitive-topic rules, post-upload QA and GSC monitoring.
+6. DECISION: keep `/traffic-lawyer/`, self-canonical, robots, support URLs and sitemap unchanged for the first update.
+7. BLOCKED: public CMS execution remains blocked until owner approval, current-field backup and legal/source review.
+8. NEXT: owner approves or edits this field map; then back up CMS fields, apply the hub update and QA before support-to-hub inbound edits.
+9. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
+### ACTION-TRAFFIC-LAWYER-SEO-RESCUE-EDIT-BLOCKS-001: Prepare exact edit blocks for `/traffic-lawyer/`
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** `/traffic-lawyer/` has `20,330` impressions and `0` clicks, and exact traffic-lawyer queries already map to it; the next safe step is URL-preserving title/H1/meta/intro/CTA/internal-link improvement before redirects or support migrations.
+**Actions:**
+1. DONE: created `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.md`.
+2. DONE: created `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.csv`.
+3. VERIFIED LIVE: `/traffic-lawyer/` returned HTTP 200, self-canonicalized and remained indexable.
+4. VERIFIED GSC: `/traffic-lawyer` has `0` clicks, `20,330` impressions, `0.00%` CTR and average position `67.9`.
+5. VERIFIED LIVE: eleven proposed support/directory targets returned 200.
+6. READY FOR REVIEW: exact recommended SEO title, H1, meta description, OG fields, intro block, practical section, CTA block, internal links, inbound-link requests and boundary rules are documented.
+7. BLOCKED: no CMS/public edit until owner approval, legal/source review and backup of current fields.
+8. NEXT: approve or edit the `/traffic-lawyer/` packet, then create its CMS field map before any public update.
+9. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
+### ACTION-CRIMINAL-DEFENSE-ATTORNEY-CMS-FIELD-MAP-001: Prepare `/criminal-defense-attorney/` CMS update field map
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** `/criminal-defense-attorney/` is the second high-impression money-query rescue page, but sensitive criminal-law updates need exact fields, backups, blocked changes, legal/source review gates and post-upload QA before any WordPress edit.
+**Actions:**
+1. DONE: created `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.md`.
+2. DONE: created `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.csv`.
+3. VERIFIED LIVE: `/criminal-defense-attorney/` returned HTTP 200, self-canonicalized and remained indexable.
+4. VERIFIED LIVE: seven planned support/directory targets returned 200.
+5. VERIFIED PLANNING: `31` field/action rows cover live snapshot, backup, title/H1, SEO meta, OG, breadcrumb, canonical, robots, taxonomy, body blocks, contextual links, redirects, canonicals, sitemap, criminal-boundary hold, schema safety, blocked language, sensitive-topic rules, post-upload QA and GSC monitoring.
+6. DECISION: keep `/criminal-defense-attorney/`, self-canonical, robots, support URLs and sitemap unchanged for the first update.
+7. BLOCKED: public CMS execution remains blocked until owner approval, current-field backup and legal/source review.
+8. NEXT: approve or edit this field map after `/real-estate-attorney/` upload path is settled; then apply criminal defense with immediate QA.
+9. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
+### ACTION-REAL-ESTATE-ATTORNEY-CMS-FIELD-MAP-001: Prepare `/real-estate-attorney/` CMS update field map
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** `/real-estate-attorney/` is the highest-opportunity money-query rescue page, but before any WordPress edit the operator needs exact fields, backups, blocked changes and post-upload QA.
+**Actions:**
+1. DONE: created `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.md`.
+2. DONE: created `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.csv`.
+3. VERIFIED LIVE: `/real-estate-attorney/` returned HTTP 200, self-canonicalized and remained indexable.
+4. VERIFIED PLANNING: `29` field/action rows cover live snapshot, backup, title/H1, SEO meta, OG, breadcrumb, canonical, robots, taxonomy, body blocks, contextual links, redirects, canonicals, sitemap, schema safety, blocked language, post-upload QA and GSC monitoring.
+5. DECISION: keep `/real-estate-attorney/`, self-canonical, robots, support URLs and sitemap unchanged for the first update.
+6. BLOCKED: public CMS execution remains blocked until owner approval and current-field backup.
+7. NEXT: owner approves or edits the field map; then apply the real-estate update first with immediate QA before touching `/criminal-defense-attorney/`.
+8. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
+### ACTION-MONEY-QUERY-SEO-RESCUE-EDIT-BLOCKS-001: Prepare exact edit blocks for real-estate and criminal money pages
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** `/real-estate-attorney/` and `/criminal-defense-attorney/` have high impressions and extremely low CTR, so the next safe step is URL-preserving title/H1/meta/intro/CTA/internal-link improvement before redirects or broad content migration.
+**Actions:**
+1. DONE: created `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.md`.
+2. DONE: created `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.csv`.
+3. VERIFIED LIVE: both priority URLs returned HTTP 200, self-canonicalized and remained indexable.
+4. VERIFIED LIVE: proposed support-link targets returned 200; the redirecting `/articles/criminal-indictment/` path was excluded from the first link block.
+5. READY FOR REVIEW: exact recommended SEO title, H1, meta description, intro block, CTA block, internal links, inbound-link requests and blocked-language rules are documented.
+6. BLOCKED: no CMS/public edit until owner approval and backup of current fields.
+7. NEXT: approve or edit the `/real-estate-attorney/` packet, then apply it first with post-upload QA before touching `/criminal-defense-attorney/`.
+8. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-WAVE-1B-SUPPORT-METADATA-PACKAGE-001: Prepare metadata for six Family/Divorce support pages
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
 **Why:** All six support bodies are clean, but support pages also need exact title/H1/meta/taxonomy boundaries before any future support upload.

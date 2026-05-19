@@ -62,10 +62,15 @@ function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool 
 	$matching_lawyers = justice_theme_find_routing_lawyers( $area );
 
 	if ( empty( $matching_lawyers ) ) {
-		update_post_meta( $post_id, 'routing_notes', sprintf(
+		$notes = sprintf(
 			'No lawyers with routing enabled found for area: %s. Lead kept in admin CRM.',
 			$area
-		) );
+		);
+		update_post_meta( $post_id, 'routing_notes', $notes );
+
+		if ( function_exists( 'justice_theme_mark_lead_unserved' ) ) {
+			justice_theme_mark_lead_unserved( $post_id, 'no_partner', $notes );
+		}
 		return;
 	}
 

@@ -11,6 +11,191 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 42 - Real Estate Buy/Sell Support Edit Blocks
+
+Research reviewed:
+- `project-control/money-query-seo-rescue-batch-001-2026-05-18.csv`.
+- `project-control/real-estate-cluster-consolidation-packet-2026-05-18.md`.
+- `project-control/real-estate-support-to-hub-map-2026-05-18.csv`.
+- `content-master/gsc/gsc-url-summary.csv`.
+- `justice_theme_emergency_master_2026_05_13/content-master/seo-rescue/output/gsc/gsc_query_page_12m.csv`.
+
+Business interpretation:
+- `/lawyer-for-buying-or-selling-a-house/` is a high-impression real-estate transaction support page, not a redirect candidate.
+- The fastest safe improvement is to preserve the URL, remove unsupported expert wording, clarify purchase/sale intent, and connect it to the real-estate hub and transaction support pages.
+
+Implemented in this cycle:
+- Created `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.md`.
+- Created `project-control/real-estate-buy-sell-support-edit-blocks-2026-05-19.csv`.
+- Prepared exact owner-review blocks for SEO title, H1, meta description, OG fields, intro, practical section, CTA, contextual internal links and boundary rules.
+
+Verification:
+- Live `curl` check returned HTTP 200, self-canonical and index/follow state for `/lawyer-for-buying-or-selling-a-house/`.
+- Local GSC summary shows `3` clicks, `35,650` impressions, `0.01%` CTR, average position `61.5`, `HIGH` traffic risk and `DO_NOT_TOUCH_HIGH_TRAFFIC_URL`.
+- Query-page mirror shows apartment purchase/sale lawyer queries mapping to the page, led by `עורך דין קניית דירה` with `3,361` impressions and `0` clicks.
+- Source check found `0` occurrences of planned links to `/real-estate-attorney/`, `/real-estate-lawyer-guide/`, `/registration-of-real-estate-israel/`, `/real-estate-lawyer-cost-2025/`, `/land-appreciation-tax/` and `/real-estate-appraiser/`.
+- Seven planned hub/support/directory targets returned HTTP 200.
+- CSV parsed with `24` rows.
+
+Next step:
+- Owner approves or edits the `/lawyer-for-buying-or-selling-a-house/` edit block package.
+- After approval, create a CMS update field map for this support page before any public edit.
+
+Safety:
+- Repo-only planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, noindex, canonical, sitemap setting, taxonomy term, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
+## Priority Cycle 41 - Traffic Lawyer CMS Update Field Map
+
+Research reviewed:
+- `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.md`.
+- `project-control/traffic-law-support-to-hub-map-2026-05-18.md`.
+- `project-control/traffic-law-no-url-internal-link-map-2026-05-11.md`.
+- `project-control/traffic-law-content-upload-readiness-2026-05-11.md`.
+- Existing CMS map pattern in `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.md`.
+
+Business interpretation:
+- The traffic-lawyer hub is already indexable and receiving exact-query impressions, so the next safe step is controlled CMS preparation, not redirects or new slugs.
+- The field map lets the owner apply a bounded hub update quickly after approval while keeping support URLs, canonicals, sitemap and taxonomy stable.
+
+Implemented in this cycle:
+- Created `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.md`.
+- Created `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.csv`.
+- Defined exact backup requirements, recommended title/H1/meta/OG/breadcrumb fields, body source, contextual internal links, blocked schema/language, sensitive traffic-law gates, upload order and post-upload QA.
+
+Verification:
+- Live `curl` check returned HTTP 200, self-canonical and index/follow state for `/traffic-lawyer/`.
+- Current live title, H1, meta description, canonical, robots and source size were captured for comparison.
+- Eleven planned support/directory targets returned HTTP 200.
+- Local GSC summary shows `/traffic-lawyer` has `0` clicks, `20,330` impressions, `0.00%` CTR and average position `67.9`.
+- CSV parsed with `38` rows.
+
+Next step:
+- Owner approves or edits the `/traffic-lawyer/` field map.
+- After approval and legal/source review, back up the current CMS fields, apply the traffic-lawyer update, and run immediate post-upload QA before inbound support-link edits.
+
+Safety:
+- Repo-only planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, noindex, canonical, sitemap setting, taxonomy term, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
+## Priority Cycle 40 - Traffic Lawyer SEO Rescue Edit Blocks
+
+Research reviewed:
+- `project-control/traffic-law-content-upload-readiness-2026-05-11.md`.
+- `project-control/traffic-law-no-url-internal-link-map-2026-05-11.md`.
+- `project-control/traffic-law-support-to-hub-map-2026-05-18.md`.
+- `project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.md`.
+- `content-master/gsc/gsc-url-summary.csv`.
+- `justice_theme_emergency_master_2026_05_13/content-master/seo-rescue/output/gsc/gsc_query_page_12m.csv`.
+
+Business interpretation:
+- The next safe traffic recovery step is not a new traffic URL or a redirect. `/traffic-lawyer/` already receives exact traffic-lawyer impressions and should be strengthened first.
+- Support pages and future clean slugs stay blocked until the hub is approved, backed up and QA-tested.
+
+Implemented in this cycle:
+- Created `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.md`.
+- Created `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.csv`.
+- Prepared exact owner-review blocks for SEO title, H1, meta description, OG fields, intro, practical section, CTA, contextual internal links, inbound-link requests and boundary rules.
+
+Verification:
+- Live Googlebot-style check returned HTTP 200, self-canonical and index/follow state for `/traffic-lawyer/`.
+- Eleven planned support/directory targets returned HTTP 200.
+- Local GSC summary shows `/traffic-lawyer` has `0` clicks, `20,330` impressions, `0.00%` CTR and average position `67.9`.
+- Query-page mirror shows the highest exact query, `עורך דין תעבורה`, has `3,290` impressions and `0` clicks mapping to `/traffic-lawyer/`.
+- CSV parsed with `24` rows.
+
+Next step:
+- Owner approves or edits the `/traffic-lawyer/` edit block package.
+- After approval, create a CMS update field map for `/traffic-lawyer/` before any public edit.
+
+Safety:
+- Repo-only planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, noindex, canonical, sitemap setting, taxonomy term, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
+## Priority Cycle 39 - Criminal Defense Attorney CMS Update Field Map
+
+Research reviewed:
+- `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.md`.
+- `project-control/criminal-law-support-to-hub-map-2026-05-18.csv`.
+- Existing CMS map pattern in `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.md`.
+
+Business interpretation:
+- After the real-estate field map, the next useful repo-only traffic recovery step is preparing the second money page for controlled approval and upload.
+- Criminal defense has high search opportunity, but it is more sensitive than real estate, so the map must explicitly hold body copy until owner approval and legal/source review.
+
+Implemented in this cycle:
+- Created `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.md`.
+- Created `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.csv`.
+- Defined exact backup requirements, recommended title/H1/meta/OG/breadcrumb fields, body source, contextual internal links, blocked schema/language, sensitive-topic gates, upload order and post-upload QA.
+
+Verification:
+- Live Googlebot-style check returned HTTP 200, self-canonical and index/follow state for `/criminal-defense-attorney/`.
+- Current live title, H1, meta description, OG fields, H2 list and source link count were captured for comparison.
+- Seven planned support/directory targets returned HTTP 200.
+- CSV parsed with `31` rows.
+
+Next step:
+- Owner approves or edits the `/criminal-defense-attorney/` field map after the real-estate first update path is settled.
+- After approval and legal/source review, back up the current CMS fields, apply the criminal-defense update, and run immediate post-upload QA.
+
+Safety:
+- Repo-only planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, noindex, canonical, sitemap setting, taxonomy term, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
+## Priority Cycle 38 - Real Estate Attorney CMS Update Field Map
+
+Research reviewed:
+- `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.md`.
+- `project-control/real-estate-cluster-consolidation-packet-2026-05-18.md`.
+- `project-control/real-estate-support-to-hub-map-2026-05-18.csv`.
+- Existing CMS map pattern in `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.md`.
+
+Business interpretation:
+- The next safe traffic move is not another broad audit. It is converting the real-estate money-page rescue copy into an operator-safe CMS field map so a public edit can happen quickly after approval.
+- `/real-estate-attorney/` should go first because it has the largest money-query opportunity and lower legal sensitivity than criminal defense.
+
+Implemented in this cycle:
+- Created `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.md`.
+- Created `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.csv`.
+- Defined exact backup requirements, recommended title/H1/meta/OG/breadcrumb fields, body source, contextual internal links, blocked schema/language, upload order and post-upload QA.
+
+Verification:
+- Live Googlebot-style check returned HTTP 200, self-canonical and index/follow state for `/real-estate-attorney/`.
+- Current live title, H1, meta description, OG fields, H2 list and source link count were captured for comparison.
+- CSV parsed with `29` rows.
+
+Next step:
+- Owner approves or edits the `/real-estate-attorney/` field map.
+- After approval, back up the current CMS fields, apply the real-estate update, and run immediate post-upload QA before editing `/criminal-defense-attorney/`.
+
+Safety:
+- Repo-only planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, noindex, canonical, sitemap setting, taxonomy term, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
+## Priority Cycle 37 - Money Query SEO Rescue Edit Blocks
+
+Research reviewed:
+- `project-control/money-query-seo-rescue-batch-001-2026-05-18.md`.
+- `project-control/gsc-money-query-opportunity-map-2026-05-18.csv`.
+- `project-control/real-estate-support-to-hub-map-2026-05-18.csv`.
+- `project-control/criminal-law-support-to-hub-map-2026-05-18.csv`.
+
+Business interpretation:
+- The fastest safe SEO recovery path is not a broad migration. It is preserving high-impression URLs and making their title/H1/intro/CTA/internal links match the money queries they already receive.
+- `/real-estate-attorney/` should be repaired first because it has the highest opportunity and lower legal sensitivity than criminal defense.
+
+Implemented in this cycle:
+- Created `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.md`.
+- Created `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.csv`.
+- Prepared exact owner-review blocks for `/real-estate-attorney/` and `/criminal-defense-attorney/`.
+
+Verification:
+- Live Googlebot-style checks returned HTTP 200, self-canonical and indexable state for both priority pages.
+- Proposed real-estate and criminal support-link targets returned HTTP 200.
+- The redirecting `/articles/criminal-indictment/` path was excluded from the first criminal internal-link block.
+
+Next step:
+- Owner approves or edits the `/real-estate-attorney/` packet.
+- After approval, back up current CMS fields and apply real estate first with post-upload QA before editing `/criminal-defense-attorney/`.
+
+Safety:
+- Repo-only planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, noindex, canonical, sitemap setting, taxonomy term, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
 ## Priority Cycle 36 - Spam Footprint Discovery Queue
 
 Research reviewed:

@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-19 12:47 Asia/Jerusalem
+- LIVE AUTHOR ATTRIBUTION AUDIT: built and ran a read-only audit for the owner's concern that Ben Batash was placed as writer/byline across criminal articles.
+- RESEARCHED: Google Article author structured-data guidance and people-first/E-E-A-T guidance. Key point: Article author can be Organization or Person, but a Person author should have a real `url`/`sameAs` identity chain; legal/YMYL pages should not use unverified broad person attribution.
+- CODED: `tools/check-live-author-attribution.mjs` reads the GSC mirror, selects likely criminal/high-risk URLs, fetches live pages as Googlebot, detects visible Ben attribution, parses Article JSON-LD author/reviewer data, and writes a CSV report.
+- RAN: checked 80 live URLs and wrote `reports/live-author-attribution-audit-2026-05-19.csv`.
+- FOUND: 45 URLs have visible Ben attribution and 45 have Ben as Article schema author; 35 checked URLs had no Ben attribution detected; 0 fetch errors.
+- CREATED: `project-control/live-author-attribution-audit-2026-05-19.md`.
+- CREATED: `project-control/live-author-attribution-audit-2026-05-19.csv`.
+- LINEAR: HAD-62 is the coordinating issue for this audit and cleanup.
+- UPRESS: no uPress pull because this is branch work and not merged to `main`.
+- SAFETY: read-only live fetches and repo artifacts only. No live wp-admin login, public CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, social account creation, Google Business Profile change, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 12:33 Asia/Jerusalem
 - ENTITY FOOTPRINT CHECKLIST: turned the Google Business/Profile/social authority goal into an approval-gated execution checklist.
 - RESEARCHED: Google Business Profile representation guidelines, Google local ranking guidance, and Schema.org Organization `sameAs`. Key point: do not invent a physical office or schema links; Google entity trust must reflect the real business footprint.

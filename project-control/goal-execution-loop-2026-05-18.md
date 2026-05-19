@@ -11,6 +11,35 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 37 - Money Query SEO Rescue Edit Blocks
+
+Research reviewed:
+- `project-control/money-query-seo-rescue-batch-001-2026-05-18.md`.
+- `project-control/gsc-money-query-opportunity-map-2026-05-18.csv`.
+- `project-control/real-estate-support-to-hub-map-2026-05-18.csv`.
+- `project-control/criminal-law-support-to-hub-map-2026-05-18.csv`.
+
+Business interpretation:
+- The fastest safe SEO recovery path is not a broad migration. It is preserving high-impression URLs and making their title/H1/intro/CTA/internal links match the money queries they already receive.
+- `/real-estate-attorney/` should be repaired first because it has the highest opportunity and lower legal sensitivity than criminal defense.
+
+Implemented in this cycle:
+- Created `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.md`.
+- Created `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.csv`.
+- Prepared exact owner-review blocks for `/real-estate-attorney/` and `/criminal-defense-attorney/`.
+
+Verification:
+- Live Googlebot-style checks returned HTTP 200, self-canonical and indexable state for both priority pages.
+- Proposed real-estate and criminal support-link targets returned HTTP 200.
+- The redirecting `/articles/criminal-indictment/` path was excluded from the first criminal internal-link block.
+
+Next step:
+- Owner approves or edits the `/real-estate-attorney/` packet.
+- After approval, back up current CMS fields and apply real estate first with post-upload QA before editing `/criminal-defense-attorney/`.
+
+Safety:
+- Repo-only planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, noindex, canonical, sitemap setting, taxonomy term, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
 ## Priority Cycle 36 - Spam Footprint Discovery Queue
 
 Research reviewed:

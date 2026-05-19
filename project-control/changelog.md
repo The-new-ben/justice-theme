@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-19 - Money-query SEO rescue edit blocks
+
+- CREATED: `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.md`.
+- CREATED: `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.csv`.
+- VERIFIED / REVIEW ONLY: prepared exact owner-review edit blocks for `/real-estate-attorney/` and `/criminal-defense-attorney/`.
+- VERIFIED LIVE: both priority URLs returned HTTP 200, self-canonicalized and remained indexable.
+- VERIFIED LIVE: proposed real-estate and criminal support-link targets returned 200; the redirecting `/articles/criminal-indictment/` path was excluded.
+- DECISION: preserve both high-impression URLs and improve title/H1/meta/intro/CTA/internal-link alignment before considering redirects, deletions, noindex or canonical consolidation.
+- BLOCKED: public CMS execution remains blocked until owner approval and field backup.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-12 - Wave 1B support metadata package
 
 - CREATED: `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.md`.

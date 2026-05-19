@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-MONEY-QUERY-SEO-RESCUE-EDIT-BLOCKS-001: Prepare exact edit blocks for real-estate and criminal money pages
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** `/real-estate-attorney/` and `/criminal-defense-attorney/` have high impressions and extremely low CTR, so the next safe step is URL-preserving title/H1/meta/intro/CTA/internal-link improvement before redirects or broad content migration.
+**Actions:**
+1. DONE: created `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.md`.
+2. DONE: created `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.csv`.
+3. VERIFIED LIVE: both priority URLs returned HTTP 200, self-canonicalized and remained indexable.
+4. VERIFIED LIVE: proposed support-link targets returned 200; the redirecting `/articles/criminal-indictment/` path was excluded from the first link block.
+5. READY FOR REVIEW: exact recommended SEO title, H1, meta description, intro block, CTA block, internal links, inbound-link requests and blocked-language rules are documented.
+6. BLOCKED: no CMS/public edit until owner approval and backup of current fields.
+7. NEXT: approve or edit the `/real-estate-attorney/` packet, then apply it first with post-upload QA before touching `/criminal-defense-attorney/`.
+8. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-WAVE-1B-SUPPORT-METADATA-PACKAGE-001: Prepare metadata for six Family/Divorce support pages
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
 **Why:** All six support bodies are clean, but support pages also need exact title/H1/meta/taxonomy boundaries before any future support upload.

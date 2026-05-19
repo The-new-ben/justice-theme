@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-19 11:17 Asia/Jerusalem
+- MONEY-QUERY SEO RESCUE EDIT BLOCKS: prepared exact owner-review title/H1/meta/intro/CTA/internal-link blocks for the two highest-impression low-CTR money pages.
+- REVIEWED: `project-control/money-query-seo-rescue-batch-001-2026-05-18.md`, `project-control/gsc-money-query-opportunity-map-2026-05-18.csv`, `project-control/real-estate-support-to-hub-map-2026-05-18.csv`, and `project-control/criminal-law-support-to-hub-map-2026-05-18.csv`.
+- VERIFIED LIVE: `/real-estate-attorney/` and `/criminal-defense-attorney/` return HTTP 200, are indexable, and self-canonicalize.
+- VERIFIED LIVE: proposed internal-link targets for real estate and criminal support paths return 200; `/articles/criminal-indictment/` redirects, so it was excluded from the first link block.
+- CREATED: `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.md`.
+- CREATED: `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.csv`.
+- DECISION: preserve both URLs and improve query match, trust language, CTA and contextual links before considering redirects or deletions.
+- NEXT: owner approves or edits the two page packets; then back up CMS fields and apply `/real-estate-attorney/` first as the controlled public edit.
+- SAFETY: no public CMS/database row, article body, title, H1, meta description, URL slug, redirect, noindex, canonical, sitemap, taxonomy, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment was changed.
+
 ## LATEST WORK STATUS - 2026-05-18 21:31 Asia/Jerusalem
 - MONEY-QUERY SEO RESCUE BATCH 001: created a GSC-backed priority rescue plan for high-impression legal pages with almost no clicks.
 - RESEARCHED: Google crawlable-link and anchor-text guidance plus current law-firm SEO guidance around practice hubs, supporting pages, and internal linking. Key point: the site needs clear legal money hubs with contextual links, not more scattered articles.

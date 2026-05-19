@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-REAL-ESTATE-ATTORNEY-CMS-FIELD-MAP-001: Prepare `/real-estate-attorney/` CMS update field map
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** `/real-estate-attorney/` is the highest-opportunity money-query rescue page, but before any WordPress edit the operator needs exact fields, backups, blocked changes and post-upload QA.
+**Actions:**
+1. DONE: created `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.md`.
+2. DONE: created `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.csv`.
+3. VERIFIED LIVE: `/real-estate-attorney/` returned HTTP 200, self-canonicalized and remained indexable.
+4. VERIFIED PLANNING: `29` field/action rows cover live snapshot, backup, title/H1, SEO meta, OG, breadcrumb, canonical, robots, taxonomy, body blocks, contextual links, redirects, canonicals, sitemap, schema safety, blocked language, post-upload QA and GSC monitoring.
+5. DECISION: keep `/real-estate-attorney/`, self-canonical, robots, support URLs and sitemap unchanged for the first update.
+6. BLOCKED: public CMS execution remains blocked until owner approval and current-field backup.
+7. NEXT: owner approves or edits the field map; then apply the real-estate update first with immediate QA before touching `/criminal-defense-attorney/`.
+8. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-MONEY-QUERY-SEO-RESCUE-EDIT-BLOCKS-001: Prepare exact edit blocks for real-estate and criminal money pages
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
 **Why:** `/real-estate-attorney/` and `/criminal-defense-attorney/` have high impressions and extremely low CTR, so the next safe step is URL-preserving title/H1/meta/intro/CTA/internal-link improvement before redirects or broad content migration.

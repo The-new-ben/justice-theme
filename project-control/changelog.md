@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-19 - Real-estate attorney CMS update field map
+
+- CREATED: `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.md`.
+- CREATED: `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.csv`.
+- VERIFIED / REVIEW ONLY: converted the `/real-estate-attorney/` money-query rescue packet into a CMS operator worksheet.
+- VERIFIED LIVE: `/real-estate-attorney/` returned HTTP 200, self-canonicalized and remained index/follow.
+- VERIFIED PLANNING: worksheet captures current live title/H1/meta/OG risk, recommended title/H1/meta/OG/breadcrumb values, backup requirements, contextual internal links, blocked language/schema, upload order and post-upload QA.
+- DECISION: preserve URL, canonical, robots, support pages, sitemap and taxonomy during the first real-estate update; do not redirect or canonicalize support pages yet.
+- BLOCKED: public CMS execution remains blocked until owner approval and current-field backup.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-19 - Money-query SEO rescue edit blocks
 
 - CREATED: `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.md`.

@@ -11,6 +11,35 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 38 - Real Estate Attorney CMS Update Field Map
+
+Research reviewed:
+- `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.md`.
+- `project-control/real-estate-cluster-consolidation-packet-2026-05-18.md`.
+- `project-control/real-estate-support-to-hub-map-2026-05-18.csv`.
+- Existing CMS map pattern in `project-control/family-divorce-divorce-lawyer-cms-upload-field-map-2026-05-12.md`.
+
+Business interpretation:
+- The next safe traffic move is not another broad audit. It is converting the real-estate money-page rescue copy into an operator-safe CMS field map so a public edit can happen quickly after approval.
+- `/real-estate-attorney/` should go first because it has the largest money-query opportunity and lower legal sensitivity than criminal defense.
+
+Implemented in this cycle:
+- Created `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.md`.
+- Created `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.csv`.
+- Defined exact backup requirements, recommended title/H1/meta/OG/breadcrumb fields, body source, contextual internal links, blocked schema/language, upload order and post-upload QA.
+
+Verification:
+- Live Googlebot-style check returned HTTP 200, self-canonical and index/follow state for `/real-estate-attorney/`.
+- Current live title, H1, meta description, OG fields, H2 list and source link count were captured for comparison.
+- CSV parsed with `29` rows.
+
+Next step:
+- Owner approves or edits the `/real-estate-attorney/` field map.
+- After approval, back up the current CMS fields, apply the real-estate update, and run immediate post-upload QA before editing `/criminal-defense-attorney/`.
+
+Safety:
+- Repo-only planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, noindex, canonical, sitemap setting, taxonomy term, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
 ## Priority Cycle 37 - Money Query SEO Rescue Edit Blocks
 
 Research reviewed:

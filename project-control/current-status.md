@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-19 11:35 Asia/Jerusalem
+- REAL-ESTATE ATTORNEY CMS UPDATE FIELD MAP: converted the approved-ready `/real-estate-attorney/` money-query rescue block into an operator-safe CMS update worksheet.
+- VERIFIED LIVE: `/real-estate-attorney/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/real-estate-attorney/`, and remains index/follow.
+- CAPTURED CURRENT LIVE FIELDS: title and H1 still contain `מומלץ` and `ייעוץ חינם`, so the first recommended public edit removes claim-heavy language while preserving the URL.
+- CREATED: `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.md`.
+- CREATED: `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.csv`.
+- VERIFIED PLANNING: the worksheet defines backup requirements, recommended title/H1/meta/OG/breadcrumb values, contextual internal links, blocked schema/language, upload order, and post-upload QA.
+- DECISION: apply `/real-estate-attorney/` first after owner approval because it is the highest-opportunity money page and lower legal sensitivity than criminal defense.
+- NEXT: owner approves or edits the `/real-estate-attorney/` field map; then back up CMS fields and apply the update with immediate post-upload QA.
+- SAFETY: no public CMS/database row, article body, title, H1, meta description, URL slug, redirect, noindex, canonical, sitemap, taxonomy, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment was changed.
+
 ## LATEST WORK STATUS - 2026-05-19 11:17 Asia/Jerusalem
 - MONEY-QUERY SEO RESCUE EDIT BLOCKS: prepared exact owner-review title/H1/meta/intro/CTA/internal-link blocks for the two highest-impression low-CTR money pages.
 - REVIEWED: `project-control/money-query-seo-rescue-batch-001-2026-05-18.md`, `project-control/gsc-money-query-opportunity-map-2026-05-18.csv`, `project-control/real-estate-support-to-hub-map-2026-05-18.csv`, and `project-control/criminal-law-support-to-hub-map-2026-05-18.csv`.

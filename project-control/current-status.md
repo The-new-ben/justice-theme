@@ -2981,3 +2981,11 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - COMPLETION ASSESSMENT: lawyer outreach readiness 48%; manual revenue operations 74%; first-payment readiness 54%.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin → Justice CRM → Safe uncovered-demand response templates should show the enriched lawyer recruitment script and 3-touch outreach sequence.
 - SAFETY: repo-only admin copy/status change; no live outreach, emails, SMS, lawyer records, lead records, invoices, products, payment settings or CMS database content were changed manually.
+
+## 2026-05-19 LAWYER RECRUITMENT MICRO-OFFER LIVE
+- MERGED: PR #20 (`codex/lawyer-recruitment-micro-offer`) was squash-merged to `main`.
+- DEPLOYED: Codex opened uPress File Manager → `/wp-content/themes/justice-theme` → `ניהול GIT` and ran `משיכת נתונים (Pull)` successfully.
+- LIVE VERIFIED: wp-admin → Justice CRM contains the enriched lawyer recruitment script, `/lawyer-plans/` link, approved prices and 3-touch outreach sequence.
+- MONEY IMPACT: the owner now has copy-ready outreach inside the CRM to turn uncovered demand into paid lawyer conversations without waiting for automatic billing.
+- COMPLETION ASSESSMENT: lawyer outreach readiness 52%; manual revenue operations 75%; first-payment readiness 55%.
+- SAFETY: uPress pull + live read-only wp-admin verification only; no outreach, emails, SMS, lawyer records, lead records, invoices, products, payment settings or CMS database content were changed manually.

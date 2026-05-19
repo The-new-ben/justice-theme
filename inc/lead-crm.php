@@ -90,6 +90,7 @@ function justice_theme_render_crm_admin_page(): void {
 				</div>
 			<?php endforeach; ?>
 		</div>
+		<?php justice_theme_crm_render_uncovered_demand_summary(); ?>
 		<?php justice_theme_crm_render_table( $uncovered_demand, 'justice_lead' ); ?>
 		<?php justice_theme_crm_render_uncovered_response_templates(); ?>
 
@@ -101,6 +102,141 @@ function justice_theme_render_crm_admin_page(): void {
 		<?php endif; ?>
 	</div>
 	<?php
+}
+
+function justice_theme_crm_render_uncovered_demand_summary(): void {
+	$signals = justice_theme_crm_uncovered_demand_summary( 200 );
+
+	if ( empty( $signals ) ) {
+		echo '<div class="notice notice-info inline"><p>No uncovered demand signals yet.</p></div>';
+		return;
+	}
+	?>
+	<table class="widefat striped" style="margin:12px 0 18px;">
+		<thead>
+			<tr>
+				<th>Demand signal</th>
+				<th>Lead count</th>
+				<th>Urgent/manual</th>
+				<th>Latest lead</th>
+				<th>Suggested business action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ( array_slice( $signals, 0, 8 ) as $signal ) : ?>
+				<tr>
+					<td><strong><?php echo esc_html( $signal['label'] ); ?></strong></td>
+					<td><?php echo esc_html( (string) $signal['count'] ); ?></td>
+					<td><?php echo esc_html( (string) $signal['urgent_count'] ); ?></td>
+					<td>
+						<a href="<?php echo esc_url( get_edit_post_link( (int) $signal['latest_post_id'], '' ) ); ?>">
+							<?php echo esc_html( $signal['latest_title'] ); ?>
+						</a>
+						<br><small><?php echo esc_html( $signal['latest_date'] ); ?></small>
+					</td>
+					<td><?php echo esc_html( $signal['suggested_action'] ); ?></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<?php
+}
+
+function justice_theme_crm_uncovered_demand_summary( int $limit ): array {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return array();
+	}
+
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_lead',
+		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+		'posts_per_page' => $limit,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+		'meta_query'     => array(
+			'relation' => 'OR',
+			array(
+				'key'     => 'coverage_status',
+				'value'   => array( 'coverage_review', 'covered_nonpaying', 'uncovered_recruit', 'urgent_manual' ),
+				'compare' => 'IN',
+			),
+			array(
+				'key'     => 'coverage_status',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => 'assigned_lawyer_id',
+				'compare' => 'NOT EXISTS',
+			),
+		),
+	) );
+
+	$signals = array();
+	foreach ( $query->posts as $post_id ) {
+		$post_id = (int) $post_id;
+		$area    = get_post_meta( $post_id, 'ai_detected_area', true ) ?: get_post_meta( $post_id, 'legal_area', true ) ?: get_post_meta( $post_id, 'lead_area', true );
+		$country = get_post_meta( $post_id, 'jurisdiction', true ) ?: get_post_meta( $post_id, 'country', true ) ?: get_post_meta( $post_id, 'lead_country', true );
+		$city    = get_post_meta( $post_id, 'city', true ) ?: get_post_meta( $post_id, 'lead_city', true );
+
+		$area_label = function_exists( 'justice_theme_lead_area_label' ) ? justice_theme_lead_area_label( (string) $area ) : (string) $area;
+		$area_label = $area_label ?: 'Unknown practice';
+		$market     = $country ?: $city ?: 'Unknown market';
+		$key        = sanitize_key( $area_label . '-' . $market );
+		$label      = $area_label . ' / ' . $market;
+
+		if ( ! isset( $signals[ $key ] ) ) {
+			$signals[ $key ] = array(
+				'label'            => $label,
+				'count'            => 0,
+				'urgent_count'     => 0,
+				'latest_post_id'   => $post_id,
+				'latest_timestamp' => 0,
+				'latest_title'     => get_the_title( $post_id ),
+				'latest_date'      => get_the_date( 'd/m/Y H:i', $post_id ),
+				'suggested_action' => 'Monitor until repeated, then recruit a paid coverage partner.',
+			);
+		}
+
+		$signals[ $key ]['count']++;
+
+		$coverage_status = get_post_meta( $post_id, 'coverage_status', true );
+		$urgency         = strtolower( (string) get_post_meta( $post_id, 'urgency', true ) );
+		if ( 'urgent_manual' === $coverage_status || in_array( $urgency, array( 'high', 'urgent', 'דחוף' ), true ) ) {
+			$signals[ $key ]['urgent_count']++;
+		}
+
+		$timestamp = (int) get_post_time( 'U', true, $post_id );
+		if ( $timestamp > (int) $signals[ $key ]['latest_timestamp'] ) {
+			$signals[ $key ]['latest_post_id']   = $post_id;
+			$signals[ $key ]['latest_timestamp'] = $timestamp;
+			$signals[ $key ]['latest_title']     = get_the_title( $post_id );
+			$signals[ $key ]['latest_date']      = get_the_date( 'd/m/Y H:i', $post_id );
+		}
+	}
+
+	usort(
+		$signals,
+		static function ( array $a, array $b ): int {
+			if ( $a['count'] === $b['count'] ) {
+				return $b['latest_timestamp'] <=> $a['latest_timestamp'];
+			}
+
+			return $b['count'] <=> $a['count'];
+		}
+	);
+
+	foreach ( $signals as &$signal ) {
+		if ( $signal['count'] >= 3 ) {
+			$signal['suggested_action'] = 'Recruit a paid niche coverage partner now.';
+		} elseif ( $signal['urgent_count'] > 0 ) {
+			$signal['suggested_action'] = 'Manual owner review first, then recruit coverage if repeated.';
+		}
+	}
+	unset( $signal );
+
+	return $signals;
 }
 
 function justice_theme_crm_render_uncovered_response_templates(): void {

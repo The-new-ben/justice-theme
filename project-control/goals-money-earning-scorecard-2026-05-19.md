@@ -26,7 +26,7 @@ Traffic alone is not enough. Lawyer subscriptions alone are not enough. The busi
 | SEO authority / E-E-A-T | 38% | PR #8 adds authority registry, safer article attribution, editorial policy route, footer/sitemap discovery, Linear HAD-59-HAD-62 | Verified author pages and external sameAs/GBP/LinkedIn are not live yet | Finish Ben/Maya author-reviewer pages and entity footprint verification |
 | Money-query SEO recovery | 28% | GSC money-query map and batch 001 identify high-impression low-CTR pages | Public CMS title/H1/intro edits need controlled owner/legal review | Start batch 001 with real-estate, traffic, prenup, criminal, sex-crime pages |
 | Lawyer commercial pipeline | 31% | Pricing/product/payment bridge branch exists; live test matrix exists; dashboard first-value panel live | PR #5 still needs clean merge/preflight and live WooCommerce/Morning setup | Rebase/merge commercial branch only after preflight; then run runbook |
-| Lead monetization / intake | 36% | Lead form, CRM fields, routing foundation, lead audit docs, uncovered-demand monetization model, branch CRM coverage-status/queue build, no-match/recruitment response templates | Many incoming legal needs have no paying lawyer coverage yet and queue is not live yet | Add automated send action, weekly uncovered-category report, and AI coverage classifier |
+| Lead monetization / intake | 38% | Lead form, CRM fields, routing foundation, lead audit docs, uncovered-demand monetization model, branch CRM coverage-status/queue build, no-match/recruitment templates, demand summary report | Many incoming legal needs have no paying lawyer coverage yet and queue is not live yet | Add automated send action, weekly uncovered-category report, and AI coverage classifier |
 | Lawyer retention / monthly value | 22% | Dashboard first-value panel and value report concepts | No paying lawyer subscription live yet; no month-2 renewal proof | Tie dashboard metrics to paid plan promises and monthly report automation |
 | Entity footprint / local trust | 18% | Checklist exists for Google Business Profile, LinkedIn, sameAs | Owner entity details and eligibility/address/service-area decision required | Lock entity data, then create/claim GBP and LinkedIn safely |
 
@@ -78,6 +78,10 @@ The first CRM implementation step is now on the branch in `inc/lead-crm.php`: a 
 ## 2026-05-19 Response Template Update
 
 The branch now adds safe response templates inside Justice CRM for uncovered demand: one neutral user no-match response and one lawyer recruitment script. This reduces improvisation risk and makes speed-to-lead more realistic without making a false referral or legal-advice claim.
+
+## 2026-05-19 Demand Summary Update
+
+The branch now adds a grouped uncovered-demand summary inside Justice CRM. It turns the raw queue into a partner-recruitment priority list by practice/market signal, count, urgency, latest lead, and suggested business action.
 
 ## Honesty Statement
 

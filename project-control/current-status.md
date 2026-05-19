@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-19 17:52 Asia/Jerusalem
+- MONEY-QUERY POST-EDIT VERIFICATION: added the after-edit safety checklist for the five PR #9 target pages.
+- RESEARCHED: Google URL Inspection, recrawl and title-link guidance. Key point: after page edits, the right workflow is live inspection, crawl/indexability confirmation, request indexing when appropriate, then 14/28/45-day performance comparison.
+- VERIFIED SHARED PROGRESS: PR #8 and PR #9 are both ready for review and mergeable/clean.
+- CREATED: `project-control/money-query-post-edit-verification-2026-05-19.md`.
+- CREATED: `project-control/money-query-post-edit-verification-2026-05-19.csv`.
+- UPDATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.md` with the post-edit gate.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that PR #9 now has both before-state evidence and after-edit verification, so approved CMS edits can be measured rather than guessed.
+- COMPLETION ASSESSMENT: money-query SEO recovery moved from 35% to 37%; PR #9 review readiness moved to 76%. Remaining blockers are human review, owner/legal approval, public CMS edits, PR #8 authority sequencing, Search Console recrawl requests, and measured CTR lift.
+- OWNER-VISIBLE NOW: PR #9 contains an execution-ready post-edit checklist with Search Console and 14/28/45-day measurement steps.
+- UPRESS: no uPress pull because this is a branch docs/report update and not merged to `main`.
+- SAFETY: branch docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 17:42 Asia/Jerusalem
 - MONEY-QUERY PRE-EDIT SNAPSHOT: added a repeatable snapshot tool and captured the before-state for the five PR #9 target pages.
 - RESEARCHED: Google Search Console Performance guidance and Google title/canonical/noindex guidance. Key point: high-impression low-CTR pages should be improved by title/snippet/content alignment, but pre-edit checks must confirm indexability, canonical state and page intent before changing content.

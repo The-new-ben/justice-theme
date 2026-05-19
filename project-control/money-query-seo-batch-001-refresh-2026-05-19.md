@@ -78,15 +78,24 @@ Snapshot result:
 
 Interpretation: these pages are eligible for a no-URL-change title/H1/intro rescue. The criminal page has two H1s and should be checked during implementation. The sex-crime page has a very long title and meta description, which strengthens the case for a careful rewrite.
 
+## 2026-05-19 Post-Edit Verification Packet
+
+Added a post-edit verification checklist:
+
+- `project-control/money-query-post-edit-verification-2026-05-19.md`
+- `project-control/money-query-post-edit-verification-2026-05-19.csv`
+
+This defines the exact after-edit checks: HTTP 200, same final URL, sitemap inclusion, self-canonical, no noindex, approved title/H1 rendering, H1 count, lead intent, URL Inspection live test, Request Indexing, and 14/28/45-day GSC measurement.
+
 ## Completion Assessment
 
-Money-query SEO recovery remains **32%** for this lane, and PR #9 review readiness is now **70%**.
+Money-query SEO recovery moves to **37%** for this lane, and PR #9 review readiness is now **76%**.
 
-What advanced: the old Batch 001 is now refreshed with stronger GSC evidence, current live title/H1 checks, safer title/H1 directions, a no-URL-change implementation gate, and a saved pre-edit snapshot report.
+What advanced: the old Batch 001 is now refreshed with stronger GSC evidence, current live title/H1 checks, safer title/H1 directions, a no-URL-change implementation gate, a saved pre-edit snapshot report, and a post-edit verification packet.
 
 2026-05-19 17:29 review handoff: PR #9 is no longer draft, remains mergeable, `git diff --check` passed, and `node tools/check-live-traffic-priority.mjs` passed.
 
-What remains blocked: human review, owner/legal approval, public CMS edits, PR #8 authority sequencing, recrawl/indexing, and measured CTR lift.
+What remains blocked: human review, owner/legal approval, public CMS edits, PR #8 authority sequencing, Search Console recrawl requests, and measured CTR lift.
 
 Where the owner can notice now: this packet and the CSV next to it.  
 Where the owner can notice after implementation: titles/H1s on the five pages, then GSC CTR movement.

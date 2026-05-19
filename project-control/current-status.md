@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-19 16:08 Asia/Jerusalem
+- UNCOVERED DEMAND CRM BUILD: moved the "Thailand lawyer / no partner" leakage path from planning into branch code.
+- RESEARCHED: current legal intake speed-to-lead and CRM guidance. Key point: leads convert when they are captured, qualified, owned, and responded to quickly; unmatched demand also needs structured classification so it can become partner-recruitment evidence.
+- CODED: `inc/lead-crm.php` now registers `coverage_status`, adds a coverage dropdown to the lead disposition box, adds a Coverage badge column to CRM lead tables, and adds an "Uncovered demand queue" section to Justice CRM.
+- CREATED: `project-control/uncovered-demand-queue-crm-build-2026-05-19.md`.
+- CREATED: `project-control/uncovered-demand-queue-crm-build-2026-05-19.csv`.
+- UPDATED: `project-control/goals-money-earning-scorecard-2026-05-19.md` and `.csv`; lead monetization/intake moved from 30% to 34%.
+- VERIFIED: PHP lint passed for `inc/lead-crm.php`, `functions.php`, `inc/lead-routing.php`, and `inc/lead-classifier.php`; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- OWNER-VISIBLE AFTER MERGE: `wp-admin -> Justice CRM` should show coverage-status cards, an Uncovered demand queue, and a Coverage column/dropdown for leads.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that unmatched demand now has a CRM workflow in code, pending merge/deploy.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 15:58 Asia/Jerusalem
 - UNCOVERED DEMAND MONETIZATION: converted the owner's "Thailand lawyer" call problem into a safer lead monetization model.
 - RESEARCHED: lawyer lead-generation ethics, Israeli lawyer advertising constraints, and current lead-generation quality concerns. Key point: sell transparent advertising/subscription/coverage and response SLA, not unsafe hidden recommendations, fee-splits, or user-paid connection fees before legal review.

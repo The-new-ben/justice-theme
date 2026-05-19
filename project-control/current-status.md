@@ -2959,3 +2959,14 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - MONEY IMPACT: this does not collect payment directly; it protects three trust/conversion URLs that support SEO, user confidence and lawyer sales conversations.
 - COMPLETION ASSESSMENT: Googlebot trust route stability 92%; broader traffic recovery 38%; lawyer/customer conversion foundation 63%.
 - SAFETY: uPress pull + read-only route verification only; no live CMS/database, payment, lawyer, lead, redirect, GSC or product settings were changed.
+
+## 2026-05-19 COMMERCIAL JOURNEY CHECKER
+- RESEARCH BASIS: Google link best practices say important paths should be crawlable `<a href>` links with meaningful anchor text; the lawyer-money path therefore needs a repeatable check that the pricing page links to the manual invoice registration path before full checkout is ready.
+- CREATED: `tools/check-live-commercial-journey.mjs`.
+- LIVE VERIFIED: `/lawyer-plans/` exposes all approved paid prices and the manual invoice activation link.
+- LIVE VERIFIED: `/lawyer-registration/?plan_interest=pro&payment_path=manual_invoice` preserves the Pro plan, includes the hidden manual payment marker and shows the manual-invoice notice.
+- MONEY IMPACT: future deployments can quickly catch broken pricing/manual-invoice paths before outreach sends lawyers into a dead end.
+- BLOCKED FOR FULL MONEY: Grow/Meshulam ID/KYC and recurring checkout setup remain blocked until owner completes identity verification.
+- COMPLETION ASSESSMENT: commercial journey monitoring 80%; manual revenue operations 72%; automated recurring checkout 35%; first-payment readiness 53%.
+- OWNER CAN NOTICE: future agents can run `node tools/check-live-commercial-journey.mjs`; lawyers should see real prices and a working manual invoice path.
+- SAFETY: repo-only checker/status plus read-only live verification; no live CMS/database, payment, lawyer, lead, product, redirect or GSC settings were changed.

@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-19 - Criminal-defense attorney CMS update field map
+
+- CREATED: `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.md`.
+- CREATED: `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.csv`.
+- VERIFIED / REVIEW ONLY: converted the `/criminal-defense-attorney/` money-query rescue packet into a CMS operator worksheet.
+- VERIFIED LIVE: `/criminal-defense-attorney/` returned HTTP 200, self-canonicalized and remained index/follow.
+- VERIFIED LIVE: seven planned support/directory link targets returned 200.
+- VERIFIED PLANNING: worksheet captures current live title/H1/meta/OG, recommended title/H1/meta/OG/breadcrumb values, backup requirements, contextual internal links, blocked language/schema, sensitive criminal-law gates, upload order and post-upload QA.
+- DECISION: preserve URL, canonical, robots, support pages, sitemap and taxonomy during the first criminal-defense update; do not redirect or canonicalize support pages yet.
+- BLOCKED: public CMS execution remains blocked until owner approval, current-field backup and legal/source review.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-19 - Real-estate attorney CMS update field map
 
 - CREATED: `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.md`.

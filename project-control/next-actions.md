@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CRIMINAL-DEFENSE-ATTORNEY-CMS-FIELD-MAP-001: Prepare `/criminal-defense-attorney/` CMS update field map
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** `/criminal-defense-attorney/` is the second high-impression money-query rescue page, but sensitive criminal-law updates need exact fields, backups, blocked changes, legal/source review gates and post-upload QA before any WordPress edit.
+**Actions:**
+1. DONE: created `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.md`.
+2. DONE: created `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.csv`.
+3. VERIFIED LIVE: `/criminal-defense-attorney/` returned HTTP 200, self-canonicalized and remained indexable.
+4. VERIFIED LIVE: seven planned support/directory targets returned 200.
+5. VERIFIED PLANNING: `31` field/action rows cover live snapshot, backup, title/H1, SEO meta, OG, breadcrumb, canonical, robots, taxonomy, body blocks, contextual links, redirects, canonicals, sitemap, criminal-boundary hold, schema safety, blocked language, sensitive-topic rules, post-upload QA and GSC monitoring.
+6. DECISION: keep `/criminal-defense-attorney/`, self-canonical, robots, support URLs and sitemap unchanged for the first update.
+7. BLOCKED: public CMS execution remains blocked until owner approval, current-field backup and legal/source review.
+8. NEXT: approve or edit this field map after `/real-estate-attorney/` upload path is settled; then apply criminal defense with immediate QA.
+9. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-REAL-ESTATE-ATTORNEY-CMS-FIELD-MAP-001: Prepare `/real-estate-attorney/` CMS update field map
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
 **Why:** `/real-estate-attorney/` is the highest-opportunity money-query rescue page, but before any WordPress edit the operator needs exact fields, backups, blocked changes and post-upload QA.

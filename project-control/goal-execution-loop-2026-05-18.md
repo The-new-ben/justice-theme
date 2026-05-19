@@ -11,6 +11,35 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 39 - Criminal Defense Attorney CMS Update Field Map
+
+Research reviewed:
+- `project-control/money-query-seo-rescue-edit-blocks-2026-05-19.md`.
+- `project-control/criminal-law-support-to-hub-map-2026-05-18.csv`.
+- Existing CMS map pattern in `project-control/real-estate-attorney-cms-update-field-map-2026-05-19.md`.
+
+Business interpretation:
+- After the real-estate field map, the next useful repo-only traffic recovery step is preparing the second money page for controlled approval and upload.
+- Criminal defense has high search opportunity, but it is more sensitive than real estate, so the map must explicitly hold body copy until owner approval and legal/source review.
+
+Implemented in this cycle:
+- Created `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.md`.
+- Created `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.csv`.
+- Defined exact backup requirements, recommended title/H1/meta/OG/breadcrumb fields, body source, contextual internal links, blocked schema/language, sensitive-topic gates, upload order and post-upload QA.
+
+Verification:
+- Live Googlebot-style check returned HTTP 200, self-canonical and index/follow state for `/criminal-defense-attorney/`.
+- Current live title, H1, meta description, OG fields, H2 list and source link count were captured for comparison.
+- Seven planned support/directory targets returned HTTP 200.
+- CSV parsed with `31` rows.
+
+Next step:
+- Owner approves or edits the `/criminal-defense-attorney/` field map after the real-estate first update path is settled.
+- After approval and legal/source review, back up the current CMS fields, apply the criminal-defense update, and run immediate post-upload QA.
+
+Safety:
+- Repo-only planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, noindex, canonical, sitemap setting, taxonomy term, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
 ## Priority Cycle 38 - Real Estate Attorney CMS Update Field Map
 
 Research reviewed:

@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-19 11:47 Asia/Jerusalem
+- CRIMINAL DEFENSE ATTORNEY CMS UPDATE FIELD MAP: converted the `/criminal-defense-attorney/` money-query rescue block into an operator-safe CMS update worksheet.
+- VERIFIED LIVE: `/criminal-defense-attorney/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/criminal-defense-attorney/`, and remains index/follow.
+- VERIFIED LIVE: planned support/directory link targets return 200: `/police-investigation-rights/`, `/criminal-lawyer-cost/`, `/how-much-will-a-criminal-defense-lawyer-cost/`, `/apply-for-police-criminal-information-certificates/`, `/sex-crime-lawyer/`, `/drug-related-crime/`, and `/lawyers/?area=criminal-law`.
+- CREATED: `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.md`.
+- CREATED: `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.csv`.
+- VERIFIED PLANNING: the worksheet defines backup requirements, recommended title/H1/meta/OG/breadcrumb values, sensitive-topic safety gates, contextual internal links, blocked schema/language, upload order, and post-upload QA.
+- DECISION: keep `/criminal-defense-attorney/`, self-canonical, robots, support URLs and sitemap unchanged for the first update; criminal-law body copy remains blocked until legal/source review.
+- NEXT: owner approves or edits the criminal-defense field map after the real-estate first update path is decided; then back up CMS fields and apply with immediate post-upload QA.
+- SAFETY: no public CMS/database row, article body, title, H1, meta description, URL slug, redirect, noindex, canonical, sitemap, taxonomy, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment was changed.
+
 ## LATEST WORK STATUS - 2026-05-19 11:35 Asia/Jerusalem
 - REAL-ESTATE ATTORNEY CMS UPDATE FIELD MAP: converted the approved-ready `/real-estate-attorney/` money-query rescue block into an operator-safe CMS update worksheet.
 - VERIFIED LIVE: `/real-estate-attorney/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/real-estate-attorney/`, and remains index/follow.

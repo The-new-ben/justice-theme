@@ -8,9 +8,10 @@
 - CREATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.md`.
 - CREATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.csv`.
 - CREATED: Linear `HAD-65` for money-query SEO rescue batch 001.
+- CREATED: draft PR #9: `https://github.com/The-new-ben/justice-theme/pull/9`.
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that five high-impression commercial pages now have refreshed metrics, live title/H1 risk findings, and safe no-URL-change title/H1 directions ready for owner/legal approval.
 - COMPLETION ASSESSMENT: money-query SEO recovery moved from 28% to 32% for this lane; remaining blockers are owner/legal approval, public CMS edits, PR #8 authority sequencing, recrawl/indexing and measured CTR lift.
-- OWNER-VISIBLE NOW: the new refresh packet lists exact target pages, metrics, current risks, proposed titles/H1s and approval gates.
+- OWNER-VISIBLE NOW: draft PR #9 and the new refresh packet list exact target pages, metrics, current risks, proposed titles/H1s and approval gates.
 - UPRESS: no uPress pull because this is a repo-only planning branch and not merged to `main`.
 - SAFETY: branch docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
 ## LATEST WORK STATUS - 2026-05-19 17:09 Asia/Jerusalem

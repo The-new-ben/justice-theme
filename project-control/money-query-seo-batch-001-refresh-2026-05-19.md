@@ -1,7 +1,7 @@
 # Money-Query SEO Batch 001 Refresh - 2026-05-19
 
 Branch: `codex/money-query-seo-batch-001`  
-Status: repo-only refresh / no public CMS edits  
+Status: ready for review / no public CMS edits  
 Purpose: update the existing Batch 001 packet with the stronger 2026-05-19 GSC evidence and live title/H1 checks.
 
 ## Research Used
@@ -61,12 +61,13 @@ Do not upload edits to WordPress until:
 
 ## Completion Assessment
 
-Money-query SEO recovery moves from **28% to 32%** for this lane.
+Money-query SEO recovery remains **32%** for this lane, and PR #9 review readiness is now **70%**.
 
 What advanced: the old Batch 001 is now refreshed with stronger GSC evidence, current live title/H1 checks, safer title/H1 directions, and a no-URL-change implementation gate.
 
-What remains blocked: owner/legal approval, public CMS edits, PR #8 authority sequencing, recrawl/indexing, and measured CTR lift.
+2026-05-19 17:29 review handoff: PR #9 is no longer draft, remains mergeable, `git diff --check` passed, and `node tools/check-live-traffic-priority.mjs` passed.
+
+What remains blocked: human review, owner/legal approval, public CMS edits, PR #8 authority sequencing, recrawl/indexing, and measured CTR lift.
 
 Where the owner can notice now: this packet and the CSV next to it.  
 Where the owner can notice after implementation: titles/H1s on the five pages, then GSC CTR movement.
-

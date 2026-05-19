@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-19 17:29 Asia/Jerusalem
+- MONEY-QUERY SEO PR HANDOFF: marked PR #9 ready for review after verification.
+- RESEARCHED: Google Search Console Performance report guidance and Google title-link guidance. Key point: for high-impression/low-CTR pages, improve title/snippet/content alignment by page and query; clear page-specific titles are safer than generic or promotional wording.
+- VERIFIED: PR #9 is no longer draft, remains mergeable, and has 4 changed files / 2 commits.
+- VERIFIED: `git diff --check` passed.
+- VERIFIED LIVE JOURNEY: `node tools/check-live-traffic-priority.mjs` passed all checked public routes.
+- UPDATED: Linear `HAD-65` with PR #9 ready-for-review state and verification results.
+- UPDATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.md` with the review handoff.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is release-flow progress: the money-query rescue packet is now review-ready instead of draft.
+- COMPLETION ASSESSMENT: money-query SEO recovery remains 32%; PR #9 review readiness is 70%. Remaining blockers are human review, owner/legal approval, public CMS edits, PR #8 authority sequencing, recrawl/indexing, and measured CTR lift.
+- OWNER-VISIBLE NOW: PR #9 shows ready for review, and Linear `HAD-65` shows the verification state.
+- UPRESS: no uPress pull because this is repo-only planning and not merged to `main`.
+- SAFETY: GitHub PR state and branch docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 17:28 Asia/Jerusalem
 - MONEY-QUERY SEO RESCUE REFRESH: created a separate branch `codex/money-query-seo-batch-001` from `main` so PR #8 remains clean for review.
 - RESEARCHED: Google title-link guidance and helpful-content guidance. Key point: titles should be clear, descriptive and page-specific; legal/YMYL content needs people-first trust signals rather than promotional keyword chains.

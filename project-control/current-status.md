@@ -1,3 +1,19 @@
+## LATEST WORK STATUS - 2026-05-19 10:35 Asia/Jerusalem
+- LINEAR CONNECTED: installed/connected the Linear plugin and searched existing Jus-Tice coordination work. Found the project `Jus-Tice Dominant Legal Portal` plus related SEO/internal-linking/lawyer-CPT tasks.
+- E-E-A-T AUTHORITY RISK FOUND: article schema and `single-articles.php` were hardcoding Ben Batash as the author for articles. That is too broad for legal/YMYL content unless the author entity and practice-area authority are verified.
+- RESEARCHED: Google people-first/E-E-A-T guidance, Google Article author structured-data guidance, Google Business Profile local ranking guidance, and current law-firm SEO authority patterns.
+- CODED: added `inc/authority.php` as the authority registry and reviewer resolver.
+- CODED: `inc/schema.php` now defaults Article `author` to the Jus-Tice Organization and adds `reviewedBy` only for a verified connected lawyer/practice-area match.
+- CODED: `single-articles.php` now uses controlled editorial/reviewer attribution instead of the hardcoded Ben byline.
+- CODED: Maya Rotenberg is the first verified reviewer candidate, scoped only to `family-law` content connected by `connected_lawyer_slug=advocate-maya-rotenberg`.
+- CREATED: `project-control/eeat-authority-governance-2026-05-19.md`.
+- CREATED: `project-control/eeat-authority-governance-2026-05-19.csv`.
+- LINEAR CREATED: HAD-59 authority governance parent, HAD-60 verified Ben/Maya author-reviewer pages, HAD-61 Jus-Tice Google Business/Profile/social entity footprint, HAD-62 criminal-article Ben attribution audit, plus a Linear project document.
+- VERIFIED: PHP lint passed for `inc/authority.php`, `inc/schema.php`, `single-articles.php`, and `functions.php`; `git diff --check` clean; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index, and robots.txt.
+- NEXT: create the PR, then build editorial policy, Ben entity page requirements, Maya profile enrichment, and Google Business/social footprint checklist.
+- UPRESS: no uPress pull yet because this is branch work and not merged to `main`.
+- SAFETY: no live wp-admin login, public CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-18 20:03 Asia/Jerusalem
 - COMMERCIAL PIPELINE SECTION 3 PREFLIGHT: read `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` from `origin/claude/review-legal-portal-aRAzz` and executed only Section 3 checks.
 - RESULT 3.1: PR #5 is not mergeable. GitHub API reports `mergeable=false`, `mergeable_state=dirty`; local merge simulation confirms a conflict in `project-control/current-status.md`.

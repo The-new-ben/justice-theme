@@ -72,6 +72,17 @@ function justice_theme_article_schema() {
 
 	global $post;
 
+	$author = function_exists( 'justice_theme_authority_organization_schema' )
+		? justice_theme_authority_organization_schema()
+		: array(
+			'@type' => 'Organization',
+			'name'  => get_bloginfo( 'name' ),
+			'url'   => justice_theme_public_url( home_url( '/' ) ),
+		);
+	$reviewer = function_exists( 'justice_theme_authority_article_reviewer_schema' )
+		? justice_theme_authority_article_reviewer_schema( get_the_ID() )
+		: null;
+
 	$schema = array(
 		'@context'         => 'https://schema.org',
 		'@type'            => 'Article',
@@ -79,17 +90,17 @@ function justice_theme_article_schema() {
 		'datePublished'    => get_the_date( DATE_W3C ),
 		'dateModified'     => get_the_modified_date( DATE_W3C ),
 		'mainEntityOfPage' => esc_url_raw( justice_theme_public_permalink( get_the_ID() ) ),
-		'author'           => array(
-			'@type' => 'Person',
-			'name'  => 'עו״ד בן בטש',
-			'url'   => justice_theme_public_url( home_url( '/' ) ),
-		),
+		'author'           => $author,
 		'publisher'        => array(
 			'@type' => 'Organization',
 			'name'  => get_bloginfo( 'name' ),
 			'url'   => justice_theme_public_url( home_url( '/' ) ),
 		),
 	);
+
+	if ( $reviewer ) {
+		$schema['reviewedBy'] = $reviewer;
+	}
 
 	$description = get_post_meta( get_the_ID(), 'seo_description', true );
 	$keywords    = get_post_meta( get_the_ID(), 'secondary_keywords', true );

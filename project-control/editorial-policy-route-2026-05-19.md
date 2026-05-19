@@ -10,6 +10,7 @@ Give Jus-Tice a public, indexable editorial policy page that supports the E-E-A-
 ## Repo Change
 - Added a virtual route for `/editorial-policy/` in `inc/trust-routes.php`.
 - The route uses the existing trust-route renderer, SEO metadata filters, canonical URL handling, and `index, follow` robots behavior.
+- Added discoverability links from the footer and the HTML sitemap quick-links area.
 - The page explains:
   - content purpose and limitations;
   - no legal-advice / no attorney-client relationship boundary;
@@ -23,10 +24,10 @@ The owner reported that another team added Ben Batash broadly as the author on l
 
 ## Verification Plan
 1. PHP lint `inc/trust-routes.php`.
-2. Confirm `/editorial-policy/` returns 200 after PR merge and uPress pull.
-3. Confirm the page is indexable and has canonical `https://jus-tice.co.il/editorial-policy/`.
-4. Add the page to footer/sitewide trust links in a later focused commit after visual QA.
+2. PHP lint `template-parts/layout/site-footer.php` and `inc/html-sitemap.php`.
+3. Confirm `/editorial-policy/` returns 200 after PR merge and uPress pull.
+4. Confirm the page is indexable and has canonical `https://jus-tice.co.il/editorial-policy/`.
+5. Confirm footer and `/site-map/` expose the editorial policy link after deployment.
 
 ## Safety
 No live wp-admin, CMS database, lawyer profile, lead, user, payment, GA4, GSC, URL redirect, noindex, sitemap, taxonomy, social profile, Google Business Profile, uPress deployment, or client charge was changed.
-

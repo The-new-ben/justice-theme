@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-19 13:02 Asia/Jerusalem
+- TRUST DISCOVERABILITY: moved the editorial-policy work one step closer to real SEO/user value by adding crawlable links to it.
+- RESEARCHED: Google helpful-content guidance and Google customer-support/search guidance. Key point: trust/support pages are most useful when users and Googlebot can easily find them; hidden policy pages are weaker trust signals.
+- CODED: `template-parts/layout/site-footer.php` now links to `/editorial-policy/` in the quick navigation and the footer legal/trust row.
+- CODED: `inc/html-sitemap.php` now includes `/editorial-policy/` in the core quick links on `/site-map/`.
+- UPDATED: `project-control/editorial-policy-route-2026-05-19.md` and `.csv`.
+- VERIFIED: PHP lint passed for footer, HTML sitemap, trust route, authority, schema, article template and functions; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- LINEAR: this remains under HAD-59 authority governance and PR #8.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch template/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 12:48 Asia/Jerusalem
 - EDITORIAL POLICY TRUST ROUTE: added the missing public policy surface for legal content governance on the authority branch.
 - RESEARCHED: Google Search Central helpful-content "who/how/why" guidance and Google Article structured-data guidance. Key point: YMYL legal content needs transparent authorship, process, review boundaries, and accurate schema; schema alone is not a ranking shortcut.

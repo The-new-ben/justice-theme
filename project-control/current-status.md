@@ -2898,3 +2898,16 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - COMPLETION ASSESSMENT: uncovered-demand capture 75%; automated niche lawyer recruitment 25%; paid lead monetization still blocked by payment setup and outreach channel.
 - OWNER CAN NOTICE: future Thailand/international requests should appear in wp-admin → Justice CRM → Uncovered demand queue rather than disappearing into phone memory.
 - SAFETY: repo-only intake/classification change; no live lead records, lawyer records, public CMS content, payment settings or database rows were edited manually.
+
+## 2026-05-19 MANUAL PAYMENT BRIDGE WHILE GROW KYC IS BLOCKED
+- OWNER STATUS: Morning/Green Invoice account and digital-payments setup moved forward, but Grow/Meshulam onboarding is temporarily blocked at identity-document verification; owner will handle the ID/KYC step tomorrow.
+- RESEARCH BASIS: WooCommerce documents Direct Bank Transfer/BACS as an offline/manual payment method where the customer places an order and the merchant verifies payment outside the online card flow; this supports a temporary manual invoice bridge while recurring card billing waits for KYC.
+- CODE UPDATED: paid `/lawyer-plans/` cards now expose a secondary "בקשת חשבונית והפעלה ידנית" path when automatic checkout is not ready.
+- CODE UPDATED: `/lawyer-registration/?payment_path=manual_invoice` shows a clear manual-invoice notice and submits a hidden payment path.
+- CODE UPDATED: lawyer registration drafts now store `payment_path=manual_invoice` and `payment_followup_status=invoice_requested` for paid manual requests.
+- CODE UPDATED: admin notification email now includes payment path and follow-up status so paid-intent lawyers can be handled commercially, not as generic free leads.
+- MONEY IMPACT: first paid lawyers can now be captured and manually invoiced via Morning while automatic recurring billing is blocked; this reduces the risk of losing interested lawyers during KYC delay.
+- BLOCKED FOR FULL AUTOMATION: Grow/Meshulam ID verification, WooCommerce Subscriptions license/install, subscription products and product mapping still need completion before automatic monthly card billing.
+- COMPLETION ASSESSMENT: manual revenue intake path 55%; automated recurring checkout 35%; first-payment readiness 45% overall because owner can invoice manually but card recurrence is not live.
+- OWNER CAN NOTICE: `/lawyer-plans/` should show a manual invoice activation link on paid plans until checkout readiness becomes true; submitted manual requests should be marked in the lawyer draft meta/admin email.
+- SAFETY: repo-only template/logic/status change; no live products, payment settings, invoices, lawyer records, lead records, CMS pages or database rows were changed manually.

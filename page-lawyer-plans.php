@@ -36,7 +36,8 @@ $plans = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_
 				if ( ! empty( $public_override['features_append'] ) && is_array( $public_override['features_append'] ) ) {
 					$plan['features'] = array_merge( $plan['features'], $public_override['features_append'] );
 				}
-				$paid_checkout_ready = 'free' !== $plan_key && function_exists( 'justice_theme_plan_checkout_ready' ) && justice_theme_plan_checkout_ready( $plan_key );
+				$paid_plan           = 'free' !== $plan_key;
+				$paid_checkout_ready = $paid_plan && function_exists( 'justice_theme_plan_checkout_ready' ) && justice_theme_plan_checkout_ready( $plan_key );
 				?>
 				<article class="lawyer-plan-card lawyer-plan-card--<?php echo esc_attr( $plan_key ); ?>">
 					<div class="lawyer-plan-card__top">
@@ -61,6 +62,11 @@ $plans = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_
 						}
 						?>
 					</a>
+					<?php if ( $paid_plan && ! $paid_checkout_ready && function_exists( 'justice_theme_plan_manual_activation_url' ) ) : ?>
+						<a class="lawyer-plan-card__manual-link" href="<?php echo esc_url( justice_theme_plan_manual_activation_url( $plan_key ) ); ?>">
+							<?php esc_html_e( 'בקשת חשבונית והפעלה ידנית', 'justice-theme' ); ?>
+						</a>
+					<?php endif; ?>
 				</article>
 			<?php endforeach; ?>
 		</div>
@@ -68,6 +74,7 @@ $plans = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_
 		<div class="lawyer-plans__notice">
 			<h2><?php esc_html_e( 'כללי הפעלה לפני סליקה', 'justice-theme' ); ?></h2>
 			<p><?php esc_html_e( 'כל מסלול בתשלום כפוף לבדיקה, גילוי נאות, תנאי שירות, מדיניות פרטיות וכללי לשכת עורכי הדין. אין הבטחה לתוצאה משפטית או עסקית, ופניות נכללות כחלק ממכסת המסלול בלבד.', 'justice-theme' ); ?></p>
+			<p><?php esc_html_e( 'עד שהסליקה החודשית האוטומטית תאושר, אפשר לקלוט עורכי דין למסלול בתשלום דרך חשבונית והפעלה ידנית לאחר בדיקת התאמה ואישור תשלום.', 'justice-theme' ); ?></p>
 		</div>
 	</div>
 </section>

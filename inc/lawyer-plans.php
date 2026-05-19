@@ -160,6 +160,17 @@ function justice_theme_plan_checkout_url( string $plan_key ): string {
 	);
 }
 
+function justice_theme_plan_manual_activation_url( string $plan_key ): string {
+	return add_query_arg(
+		array(
+			'plan_interest' => $plan_key,
+			'pre_checkout'  => '1',
+			'payment_path'  => 'manual_invoice',
+		),
+		home_url( '/lawyer-registration/' )
+	);
+}
+
 function justice_theme_seed_lawyer_plans_page(): void {
 	if ( ! justice_theme_admin_cms_write_enabled( 'justice_theme_enable_lawyer_plans_page_seed' ) || get_option( 'justice_lawyer_plans_page_seeded_v1' ) ) {
 		return;

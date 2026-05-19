@@ -11,6 +11,38 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 41 - Traffic Lawyer CMS Update Field Map
+
+Research reviewed:
+- `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.md`.
+- `project-control/traffic-law-support-to-hub-map-2026-05-18.md`.
+- `project-control/traffic-law-no-url-internal-link-map-2026-05-11.md`.
+- `project-control/traffic-law-content-upload-readiness-2026-05-11.md`.
+- Existing CMS map pattern in `project-control/criminal-defense-attorney-cms-update-field-map-2026-05-19.md`.
+
+Business interpretation:
+- The traffic-lawyer hub is already indexable and receiving exact-query impressions, so the next safe step is controlled CMS preparation, not redirects or new slugs.
+- The field map lets the owner apply a bounded hub update quickly after approval while keeping support URLs, canonicals, sitemap and taxonomy stable.
+
+Implemented in this cycle:
+- Created `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.md`.
+- Created `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.csv`.
+- Defined exact backup requirements, recommended title/H1/meta/OG/breadcrumb fields, body source, contextual internal links, blocked schema/language, sensitive traffic-law gates, upload order and post-upload QA.
+
+Verification:
+- Live `curl` check returned HTTP 200, self-canonical and index/follow state for `/traffic-lawyer/`.
+- Current live title, H1, meta description, canonical, robots and source size were captured for comparison.
+- Eleven planned support/directory targets returned HTTP 200.
+- Local GSC summary shows `/traffic-lawyer` has `0` clicks, `20,330` impressions, `0.00%` CTR and average position `67.9`.
+- CSV parsed with `38` rows.
+
+Next step:
+- Owner approves or edits the `/traffic-lawyer/` field map.
+- After approval and legal/source review, back up the current CMS fields, apply the traffic-lawyer update, and run immediate post-upload QA before inbound support-link edits.
+
+Safety:
+- Repo-only planning and read-only live checks. No public CMS database row, article body, WordPress title/H1/meta, URL slug, redirect, noindex, canonical, sitemap setting, taxonomy term, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value or uPress deployment was changed.
+
 ## Priority Cycle 40 - Traffic Lawyer SEO Rescue Edit Blocks
 
 Research reviewed:

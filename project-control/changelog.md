@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-19 - Traffic lawyer CMS update field map
+
+- CREATED: `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.md`.
+- CREATED: `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.csv`.
+- VERIFIED / REVIEW ONLY: converted the `/traffic-lawyer/` SEO rescue packet into a CMS operator worksheet.
+- VERIFIED LIVE: `/traffic-lawyer/` returned HTTP 200, self-canonicalized and remained index/follow.
+- VERIFIED LIVE: eleven planned support/directory link targets returned 200.
+- VERIFIED GSC BASELINE: local GSC summary shows `/traffic-lawyer` has `0` clicks, `20,330` impressions, `0.00%` CTR and average position `67.9`.
+- VERIFIED PLANNING: worksheet captures current live title/H1/meta/OG, recommended title/H1/meta/OG/breadcrumb values, backup requirements, contextual internal links, blocked language/schema, traffic-law boundary gates, upload order and post-upload QA.
+- DECISION: preserve URL, canonical, robots, support pages, sitemap and taxonomy during the first traffic-lawyer update; do not create future short slugs or redirect/canonicalize support pages yet.
+- BLOCKED: public CMS execution remains blocked until owner approval, current-field backup and legal/source review.
+- BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database change was executed.
+
 ## 2026-05-19 - Traffic lawyer SEO rescue edit blocks
 
 - CREATED: `project-control/traffic-lawyer-seo-rescue-edit-blocks-2026-05-19.md`.

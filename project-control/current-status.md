@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-19 12:08 Asia/Jerusalem
+- TRAFFIC LAWYER CMS UPDATE FIELD MAP: converted the `/traffic-lawyer/` SEO rescue packet into an operator-safe CMS worksheet.
+- VERIFIED LIVE: `/traffic-lawyer/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/traffic-lawyer/`, and remains index/follow.
+- VERIFIED LIVE: eleven planned support/directory link targets return 200, including drunk-driving, DUI testing/refusal, breathalyzer, alcohol-testing, speeding, points/license-risk, Marvad and traffic-law directory paths.
+- VERIFIED GSC BASELINE: local GSC summary shows `/traffic-lawyer` has `0` clicks, `20,330` impressions, `0.00%` CTR and average position `67.9`.
+- CREATED: `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.md`.
+- CREATED: `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.csv`.
+- VERIFIED PLANNING: the worksheet defines backup requirements, recommended title/H1/meta/OG/breadcrumb values, sensitive traffic-law gates, contextual internal links, blocked redirects/canonicals/sitemap changes, boundary rules, upload order and post-upload QA.
+- DECISION: keep `/traffic-lawyer/`, self-canonical, robots, support URLs and sitemap unchanged for the first update; do not create `/drunk-driving/`, `/breathalyzer-test/` or `/license-suspension/` until migration maps are approved.
+- NEXT: owner approves or edits the traffic-lawyer field map; then back up CMS fields, legal/source review body copy, apply the hub update and QA immediately.
+- SAFETY: no public CMS/database row, article body, title, H1, meta description, URL slug, redirect, noindex, canonical, sitemap, taxonomy, internal link, related-card, lawyer profile, lead record, payment setting, GA4/GSC setting, wp-admin setting, WordPress database value, or uPress deployment was changed.
+
 ## LATEST WORK STATUS - 2026-05-19 11:58 Asia/Jerusalem
 - TRAFFIC LAWYER SEO RESCUE EDIT BLOCKS: prepared exact owner-review title/H1/meta/intro/CTA/internal-link blocks for `/traffic-lawyer/`.
 - VERIFIED LIVE: `/traffic-lawyer/` returns HTTP 200, self-canonicalizes to `https://jus-tice.co.il/traffic-lawyer/`, and remains index/follow.

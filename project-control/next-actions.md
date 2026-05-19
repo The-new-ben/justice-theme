@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-TRAFFIC-LAWYER-CMS-FIELD-MAP-001: Prepare `/traffic-lawyer/` CMS update field map
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
+**Why:** `/traffic-lawyer/` has `20,330` impressions and `0` clicks, and the edit blocks are ready; before any WordPress edit the operator needs exact fields, backups, blocked changes, legal/source review gates and post-upload QA.
+**Actions:**
+1. DONE: created `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.md`.
+2. DONE: created `project-control/traffic-lawyer-cms-update-field-map-2026-05-19.csv`.
+3. VERIFIED LIVE: `/traffic-lawyer/` returned HTTP 200, self-canonicalized and remained indexable.
+4. VERIFIED LIVE: eleven planned support/directory targets returned 200.
+5. VERIFIED PLANNING: `38` field/action rows cover live snapshot, GSC baseline, backup, title/H1, SEO meta, OG, breadcrumb, canonical, robots, taxonomy, body links, redirects, canonicals, sitemap, future slug holds, traffic/criminal/personal-injury boundaries, schema, blocked language, sensitive-topic rules, post-upload QA and GSC monitoring.
+6. DECISION: keep `/traffic-lawyer/`, self-canonical, robots, support URLs and sitemap unchanged for the first update.
+7. BLOCKED: public CMS execution remains blocked until owner approval, current-field backup and legal/source review.
+8. NEXT: owner approves or edits this field map; then back up CMS fields, apply the hub update and QA before support-to-hub inbound edits.
+9. BLOCKED: no public content, title/H1/meta, URL migration, redirect, deletion, noindex, canonical, sitemap, taxonomy/category, internal-link, related-card, schema, lawyer-card, review/rating, CRM, wp-admin setting or CMS/database action was executed.
+
 ### ACTION-TRAFFIC-LAWYER-SEO-RESCUE-EDIT-BLOCKS-001: Prepare exact edit blocks for `/traffic-lawyer/`
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
 **Why:** `/traffic-lawyer/` has `20,330` impressions and `0` clicks, and exact traffic-lawyer queries already map to it; the next safe step is URL-preserving title/H1/meta/intro/CTA/internal-link improvement before redirects or support migrations.

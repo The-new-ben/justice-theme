@@ -467,7 +467,7 @@ $has_media_module     = $video_url || ! empty( $media_items );
 					<?php if ( $routing ) : ?>
 						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">
 							<input type="hidden" name="action" value="justice_submit_lead">
-							<input type="hidden" name="lead_area" value="<?php echo $primary_area ? esc_attr( $primary_area->name ) : ''; ?>">
+							<input type="hidden" name="lead_area" value="<?php echo $primary_area ? esc_attr( $primary_area->slug ) : ''; ?>">
 							<input type="hidden" name="lead_city" value="<?php echo $primary_city ? esc_attr( $primary_city->name ) : ''; ?>">
 							<input type="hidden" name="assigned_lawyer_id" value="<?php echo esc_attr( $lawyer_id ); ?>">
 							<?php wp_nonce_field( 'justice_submit_lead', 'justice_lead_nonce' ); ?>

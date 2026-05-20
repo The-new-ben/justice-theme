@@ -3177,3 +3177,13 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - CODE UPDATED: footer now shows `כתובת בית עסק:` with the public Raul Wallenberg office address, so the address is visible site-wide and not only inside the legal page box.
 - BLOCKED: needs commit/push/uPress pull/live verification, then submit Grow/Meshulam re-check again.
 - COMPLETION ASSESSMENT: Grow website checklist fix 100% code-adjusted after rejection; automated recurring payment readiness 78%; first-payment readiness 73%.
+
+## 2026-05-20 GROW/MESHULAM THIRD REVIEW SUBMISSION
+- DEPLOYED: live uPress Git log already showed `5d82f68 Match Grow compliance checklist wording` on `main`.
+- CACHE ACTION: uPress development/no-cache mode was enabled temporarily so public reviewers see the latest compliance pages instead of stale cached copies.
+- VERIFIED LIVE: normal public `/checkout/` contains `jt-compliance--checkout`, WooCommerce-style billing fields, required `terms` checkbox, and links to terms, privacy and cancellation/responsibility pages.
+- VERIFIED LIVE: homepage/footer show the public business address; `/privacy/` includes security/use-of-data wording; `/cancellation/` includes product/service responsibility and liability-limitation wording.
+- ACTION TAKEN: after owner approval, opened the Grow/Meshulam checklist link, checked the confirmation box and submitted the site for another review.
+- RESULT: Grow page confirmed: `תודה, האתר נשלח לבדיקה חוזרת בהצלחה! הבדיקה אורכת עד יום עסקים, בסיום הבדיקה ניצור קשר עם בית העסק.`
+- BLOCKED: waiting for Grow/Meshulam reviewer response; automated recurring lawyer payments still depend on their approval and final account/payment activation.
+- COMPLETION ASSESSMENT: Grow website checklist fix 100% submitted after third pass; automated recurring payment readiness 80%; first-payment readiness 75%.

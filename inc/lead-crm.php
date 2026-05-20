@@ -133,6 +133,10 @@ function justice_theme_crm_render_uncovered_demand_summary(): void {
 							<?php echo esc_html( $signal['latest_title'] ); ?>
 						</a>
 						<br><small><?php echo esc_html( $signal['latest_date'] ); ?></small>
+						<?php $prospect_url = justice_theme_crm_prospect_from_lead_url( (int) $signal['latest_post_id'] ); ?>
+						<?php if ( $prospect_url ) : ?>
+							<br><a class="button button-small" style="margin-top:6px;" href="<?php echo esc_url( $prospect_url ); ?>">Create prospect</a>
+						<?php endif; ?>
 					</td>
 					<td><?php echo esc_html( $signal['suggested_action'] ); ?></td>
 				</tr>
@@ -781,6 +785,7 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 				$quality = 'justice_lead' === $post_type ? justice_theme_crm_lead_quality( $post_id ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;' );
 				$follow_up = 'justice_lead' === $post_type ? justice_theme_crm_follow_up_label( $post_id, $status ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;' );
 				$response_sla = 'justice_lead' === $post_type ? justice_theme_crm_response_sla_badge( $post_id, $status ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;' );
+				$prospect_url = 'justice_lead' === $post_type ? justice_theme_crm_prospect_from_lead_url( $post_id ) : '';
 				?>
 				<tr>
 					<td><strong><?php echo esc_html( $name ); ?></strong></td>
@@ -797,6 +802,9 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 					<td>
 						<div style="display:flex;gap:4px;flex-wrap:wrap;min-width:180px;">
 							<a class="button button-primary" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Open</a>
+							<?php if ( $prospect_url ) : ?>
+								<a class="button" href="<?php echo esc_url( $prospect_url ); ?>">Prospect</a>
+							<?php endif; ?>
 							<?php if ( $phone_link ) : ?>
 								<a class="button" href="<?php echo esc_url( $phone_link ); ?>">Call</a>
 							<?php endif; ?>
@@ -814,4 +822,20 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 	</table>
 	<?php
 	wp_reset_postdata();
+}
+
+function justice_theme_crm_prospect_from_lead_url( int $post_id ): string {
+	if ( ! post_type_exists( 'justice_prospect' ) || 'justice_lead' !== get_post_type( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
+		return '';
+	}
+
+	$url = add_query_arg(
+		array(
+			'post_type' => 'justice_prospect',
+			'from_lead' => $post_id,
+		),
+		admin_url( 'post-new.php' )
+	);
+
+	return wp_nonce_url( $url, 'justice_create_prospect_from_lead_' . $post_id, 'justice_prospect_from_lead_nonce' );
 }

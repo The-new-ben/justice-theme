@@ -53,6 +53,7 @@ function justice_theme_register_lawyer_prospect_meta(): void {
 		'prospect_contact_email'       => 'string',
 		'prospect_contact_phone'       => 'string',
 		'prospect_source_url'          => 'string',
+		'prospect_source_lead_id'      => 'integer',
 		'prospect_demand_signal'       => 'string',
 		'prospect_next_action_at'      => 'string',
 		'prospect_last_contacted_at'   => 'string',
@@ -85,6 +86,10 @@ function justice_theme_lawyer_prospect_meta_sanitizer( string $key ): string {
 	}
 
 	if ( 'prospect_expected_monthly_nis' === $key ) {
+		return 'absint';
+	}
+
+	if ( 'prospect_source_lead_id' === $key ) {
 		return 'absint';
 	}
 
@@ -139,6 +144,132 @@ function justice_theme_lawyer_prospect_response_fit_options(): array {
 		);
 }
 
+function justice_theme_lawyer_prospect_prefill_lead_id(): int {
+	$lead_id = isset( $_GET['from_lead'] ) ? absint( wp_unslash( $_GET['from_lead'] ) ) : 0;
+	if ( ! $lead_id || 'justice_lead' !== get_post_type( $lead_id ) || ! current_user_can( 'edit_post', $lead_id ) ) {
+		return 0;
+	}
+
+	$nonce = isset( $_GET['justice_prospect_from_lead_nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['justice_prospect_from_lead_nonce'] ) ) : '';
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'justice_create_prospect_from_lead_' . $lead_id ) ) {
+		return 0;
+	}
+
+	return $lead_id;
+}
+
+function justice_theme_lawyer_prospect_lead_meta_first( int $lead_id, array $keys ): string {
+	foreach ( $keys as $key ) {
+		$value = get_post_meta( $lead_id, $key, true );
+		if ( '' !== (string) $value ) {
+			return (string) $value;
+		}
+	}
+
+	return '';
+}
+
+function justice_theme_lawyer_prospect_lead_area_label( int $lead_id ): string {
+	$area = justice_theme_lawyer_prospect_lead_meta_first( $lead_id, array( 'ai_detected_area', 'legal_area', 'lead_area' ) );
+	if ( ! $area ) {
+		return '';
+	}
+
+	return function_exists( 'justice_theme_lead_area_label' ) ? justice_theme_lead_area_label( $area ) : $area;
+}
+
+function justice_theme_lawyer_prospect_lead_market_label( int $lead_id ): string {
+	return justice_theme_lawyer_prospect_lead_meta_first( $lead_id, array( 'city', 'lead_city', 'jurisdiction', 'country', 'lead_country' ) );
+}
+
+function justice_theme_lawyer_prospect_form_value( WP_Post $post, string $key ): string {
+	$saved = (string) get_post_meta( $post->ID, $key, true );
+	if ( '' !== $saved || 'auto-draft' !== $post->post_status ) {
+		return $saved;
+	}
+
+	$lead_id = justice_theme_lawyer_prospect_prefill_lead_id();
+	if ( ! $lead_id ) {
+		return '';
+	}
+
+	$area            = justice_theme_lawyer_prospect_lead_area_label( $lead_id );
+	$market          = justice_theme_lawyer_prospect_lead_market_label( $lead_id );
+	$coverage_status = (string) get_post_meta( $lead_id, 'coverage_status', true );
+	$urgency         = strtolower( (string) get_post_meta( $lead_id, 'urgency', true ) );
+	$message         = justice_theme_lawyer_prospect_lead_meta_first( $lead_id, array( 'message', 'lead_message', 'visitor_message' ) );
+	$message_excerpt = $message ? wp_trim_words( wp_strip_all_tags( $message ), 32, '...' ) : '';
+
+	switch ( $key ) {
+		case 'prospect_practice_area':
+			return $area;
+		case 'prospect_city':
+			return $market;
+		case 'prospect_target_plan':
+			return 'lead_partner';
+		case 'prospect_priority':
+			return ( 'urgent_manual' === $coverage_status || in_array( $urgency, array( 'high', 'urgent' ), true ) ) ? 'hot' : 'warm';
+		case 'prospect_outreach_status':
+			return 'ready';
+		case 'prospect_source_url':
+			return justice_theme_lawyer_prospect_lead_meta_first( $lead_id, array( 'source_url', 'landing_page', 'referrer_url' ) );
+		case 'prospect_source_lead_id':
+			return (string) $lead_id;
+		case 'prospect_expected_monthly_nis':
+			return '1490';
+		case 'prospect_demand_signal':
+			return trim(
+				sprintf(
+					'CRM lead #%d: %s / %s. Coverage status: %s. %s',
+					$lead_id,
+					$area ?: 'Unknown practice',
+					$market ?: 'Unknown market',
+					$coverage_status ?: 'not set',
+					$message_excerpt ? 'Lead note: ' . $message_excerpt : ''
+				)
+			);
+		case 'prospect_owner_note':
+			return 'Created from Justice CRM lead #' . $lead_id . '. Validate license, fit and response speed before any paid placement promise.';
+	}
+
+	return '';
+}
+
+function justice_theme_lawyer_prospect_default_title( string $title, WP_Post $post ): string {
+	if ( 'justice_prospect' !== $post->post_type || '' !== $title ) {
+		return $title;
+	}
+
+	$lead_id = justice_theme_lawyer_prospect_prefill_lead_id();
+	if ( ! $lead_id ) {
+		return $title;
+	}
+
+	$area   = justice_theme_lawyer_prospect_lead_area_label( $lead_id ) ?: 'Uncovered demand';
+	$market = justice_theme_lawyer_prospect_lead_market_label( $lead_id );
+
+	return trim( 'Recruit coverage: ' . $area . ( $market ? ' / ' . $market : '' ) );
+}
+add_filter( 'default_title', 'justice_theme_lawyer_prospect_default_title', 10, 2 );
+
+function justice_theme_lawyer_prospect_default_content( string $content, WP_Post $post ): string {
+	if ( 'justice_prospect' !== $post->post_type || '' !== $content ) {
+		return $content;
+	}
+
+	$lead_id = justice_theme_lawyer_prospect_prefill_lead_id();
+	if ( ! $lead_id ) {
+		return $content;
+	}
+
+	return sprintf(
+		"Source: Justice CRM lead #%d\nAdmin link: %s\n\nUse this record to research and contact a paid coverage partner. Do not promise outcomes, exclusivity or lead volume without approved plan language.",
+		$lead_id,
+		get_edit_post_link( $lead_id, '' )
+	);
+}
+add_filter( 'default_content', 'justice_theme_lawyer_prospect_default_content', 10, 2 );
+
 function justice_theme_lawyer_prospect_meta_boxes(): void {
 	add_meta_box(
 		'justice_theme_lawyer_prospect_details',
@@ -154,12 +285,17 @@ add_action( 'add_meta_boxes', 'justice_theme_lawyer_prospect_meta_boxes' );
 function justice_theme_render_lawyer_prospect_details_box( WP_Post $post ): void {
 	wp_nonce_field( 'justice_theme_lawyer_prospect_details', 'justice_theme_lawyer_prospect_details_nonce' );
 
-	$status       = (string) get_post_meta( $post->ID, 'prospect_outreach_status', true ) ?: 'research';
-	$priority     = (string) get_post_meta( $post->ID, 'prospect_priority', true ) ?: 'warm';
-	$target_plan  = (string) get_post_meta( $post->ID, 'prospect_target_plan', true ) ?: 'lead_partner';
-	$response_fit = (string) get_post_meta( $post->ID, 'prospect_response_fit', true );
+	$status         = justice_theme_lawyer_prospect_form_value( $post, 'prospect_outreach_status' ) ?: 'research';
+	$priority       = justice_theme_lawyer_prospect_form_value( $post, 'prospect_priority' ) ?: 'warm';
+	$target_plan    = justice_theme_lawyer_prospect_form_value( $post, 'prospect_target_plan' ) ?: 'lead_partner';
+	$response_fit   = justice_theme_lawyer_prospect_form_value( $post, 'prospect_response_fit' );
+	$source_lead_id = absint( justice_theme_lawyer_prospect_form_value( $post, 'prospect_source_lead_id' ) );
 	?>
 	<p>Use this private pipeline to turn repeated user demand into paid lawyer coverage. Do not promise exclusivity, outcomes or lead volume unless the plan and Bar-compliant disclosures are approved.</p>
+	<?php if ( $source_lead_id ) : ?>
+		<input type="hidden" name="prospect_source_lead_id" value="<?php echo esc_attr( (string) $source_lead_id ); ?>">
+		<p><strong>Source lead:</strong> <a href="<?php echo esc_url( get_edit_post_link( $source_lead_id, '' ) ); ?>">#<?php echo esc_html( (string) $source_lead_id ); ?></a></p>
+	<?php endif; ?>
 	<table class="form-table" role="presentation">
 		<tr>
 			<th scope="row"><label for="justice-prospect-status">Outreach status</label></th>
@@ -218,16 +354,16 @@ function justice_theme_render_lawyer_prospect_details_box( WP_Post $post ): void
 			?>
 			<tr>
 				<th scope="row"><label for="justice-<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $field['label'] ); ?></label></th>
-				<td><input id="justice-<?php echo esc_attr( $key ); ?>" type="<?php echo esc_attr( $field['type'] ); ?>" name="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( (string) get_post_meta( $post->ID, $key, true ) ); ?>" class="regular-text"></td>
+				<td><input id="justice-<?php echo esc_attr( $key ); ?>" type="<?php echo esc_attr( $field['type'] ); ?>" name="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( justice_theme_lawyer_prospect_form_value( $post, $key ) ); ?>" class="regular-text"></td>
 			</tr>
 		<?php endforeach; ?>
 		<tr>
 			<th scope="row"><label for="justice-prospect-demand-signal">Demand signal</label></th>
-			<td><textarea id="justice-prospect-demand-signal" name="prospect_demand_signal" rows="4" class="large-text" placeholder="Example: 3 Thailand-law calls this week, no paying coverage partner yet."><?php echo esc_textarea( (string) get_post_meta( $post->ID, 'prospect_demand_signal', true ) ); ?></textarea></td>
+			<td><textarea id="justice-prospect-demand-signal" name="prospect_demand_signal" rows="4" class="large-text" placeholder="Example: 3 Thailand-law calls this week, no paying coverage partner yet."><?php echo esc_textarea( justice_theme_lawyer_prospect_form_value( $post, 'prospect_demand_signal' ) ); ?></textarea></td>
 		</tr>
 		<tr>
 			<th scope="row"><label for="justice-prospect-owner-note">Owner note</label></th>
-			<td><textarea id="justice-prospect-owner-note" name="prospect_owner_note" rows="4" class="large-text"><?php echo esc_textarea( (string) get_post_meta( $post->ID, 'prospect_owner_note', true ) ); ?></textarea></td>
+			<td><textarea id="justice-prospect-owner-note" name="prospect_owner_note" rows="4" class="large-text"><?php echo esc_textarea( justice_theme_lawyer_prospect_form_value( $post, 'prospect_owner_note' ) ); ?></textarea></td>
 		</tr>
 	</table>
 	<?php
@@ -275,6 +411,7 @@ function justice_theme_save_lawyer_prospect_details( int $post_id ): void {
 	}
 
 	update_post_meta( $post_id, 'prospect_source_url', isset( $_POST['prospect_source_url'] ) ? esc_url_raw( wp_unslash( $_POST['prospect_source_url'] ) ) : '' );
+	update_post_meta( $post_id, 'prospect_source_lead_id', isset( $_POST['prospect_source_lead_id'] ) ? absint( wp_unslash( $_POST['prospect_source_lead_id'] ) ) : 0 );
 	update_post_meta( $post_id, 'prospect_expected_monthly_nis', isset( $_POST['prospect_expected_monthly_nis'] ) ? absint( wp_unslash( $_POST['prospect_expected_monthly_nis'] ) ) : 0 );
 	update_post_meta( $post_id, 'prospect_demand_signal', isset( $_POST['prospect_demand_signal'] ) ? sanitize_textarea_field( wp_unslash( $_POST['prospect_demand_signal'] ) ) : '' );
 	update_post_meta( $post_id, 'prospect_owner_note', isset( $_POST['prospect_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['prospect_owner_note'] ) ) : '' );

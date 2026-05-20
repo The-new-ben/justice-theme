@@ -327,6 +327,15 @@ $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 
 							<label for="review-client-group"><?php esc_html_e( 'Who should receive the first request?', 'justice-theme' ); ?></label>
 							<input id="review-client-group" type="text" name="review_client_group" placeholder="<?php esc_attr_e( 'Example: clients from the last 90 days after closed matters', 'justice-theme' ); ?>">
 
+							<label for="review-google-business-profile-url"><?php esc_html_e( 'Google Business profile URL', 'justice-theme' ); ?></label>
+							<input id="review-google-business-profile-url" type="url" name="google_business_profile_url" placeholder="<?php esc_attr_e( 'Paste the public Google Maps / Business profile link', 'justice-theme' ); ?>">
+
+							<label for="review-google-request-url"><?php esc_html_e( 'Google review request URL', 'justice-theme' ); ?></label>
+							<input id="review-google-request-url" type="url" name="google_review_request_url" placeholder="<?php esc_attr_e( 'Example: https://search.google.com/local/writereview?placeid=...', 'justice-theme' ); ?>">
+
+							<label for="review-google-place-id"><?php esc_html_e( 'Google Place ID', 'justice-theme' ); ?></label>
+							<input id="review-google-place-id" type="text" name="google_place_id" placeholder="<?php esc_attr_e( 'Optional: ChIJ...', 'justice-theme' ); ?>">
+
 							<label for="review-campaign-notes"><?php esc_html_e( 'Notes for the owner', 'justice-theme' ); ?></label>
 							<textarea id="review-campaign-notes" name="review_campaign_notes" rows="4" placeholder="<?php esc_attr_e( 'Add Google Business link, preferred wording, or sensitive cases to avoid.', 'justice-theme' ); ?>"></textarea>
 

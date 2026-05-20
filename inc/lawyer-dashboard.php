@@ -183,21 +183,47 @@ function justice_theme_handle_lawyer_review_campaign_request(): void {
 
 	$client_group = isset( $_POST['review_client_group'] ) ? sanitize_text_field( wp_unslash( $_POST['review_client_group'] ) ) : '';
 	$notes        = isset( $_POST['review_campaign_notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['review_campaign_notes'] ) ) : '';
+	$business_url = isset( $_POST['google_business_profile_url'] ) ? esc_url_raw( wp_unslash( $_POST['google_business_profile_url'] ) ) : '';
+	$review_url   = isset( $_POST['google_review_request_url'] ) ? esc_url_raw( wp_unslash( $_POST['google_review_request_url'] ) ) : '';
+	$place_id     = isset( $_POST['google_place_id'] ) ? sanitize_text_field( wp_unslash( $_POST['google_place_id'] ) ) : '';
 
 	update_post_meta( $lawyer_id, 'pending_review_campaign_request', '1' );
 	update_post_meta( $lawyer_id, 'latest_review_campaign_client_group', $client_group );
 	update_post_meta( $lawyer_id, 'latest_review_campaign_notes', $notes );
 	update_post_meta( $lawyer_id, 'latest_review_campaign_requested_at', current_time( 'mysql' ) );
+	update_post_meta( $lawyer_id, 'latest_review_campaign_google_business_url', $business_url );
+	update_post_meta( $lawyer_id, 'latest_review_campaign_google_review_url', $review_url );
+	update_post_meta( $lawyer_id, 'latest_review_campaign_google_place_id', $place_id );
+
+	if ( $business_url ) {
+		update_post_meta( $lawyer_id, 'google_business_profile_url', $business_url );
+	}
+	if ( $review_url ) {
+		update_post_meta( $lawyer_id, 'google_review_request_url', $review_url );
+	}
+	if ( $place_id ) {
+		update_post_meta( $lawyer_id, 'google_place_id', $place_id );
+	}
 
 	if ( function_exists( 'justice_theme_append_lawyer_internal_note' ) ) {
-		justice_theme_append_lawyer_internal_note( $lawyer_id, 'Lawyer requested review/recommendation campaign setup from dashboard.' );
+		$source_note = $business_url || $review_url || $place_id ? ' Google source details were provided.' : '';
+		justice_theme_append_lawyer_internal_note( $lawyer_id, 'Lawyer requested review/recommendation campaign setup from dashboard.' . $source_note );
 	}
 
 	if ( function_exists( 'uje_log' ) ) {
 		uje_log( 'lawyer_review_campaign_request', 'New lawyer review campaign request: ' . get_the_title( $lawyer_id ) );
 	}
 
-	justice_theme_notify_lawyer_review_campaign_request( $lawyer_id, $client_group, $notes );
+	justice_theme_notify_lawyer_review_campaign_request(
+		$lawyer_id,
+		$client_group,
+		$notes,
+		array(
+			'business_url' => $business_url,
+			'review_url'   => $review_url,
+			'place_id'     => $place_id,
+		)
+	);
 
 	wp_safe_redirect( add_query_arg( 'review_campaign', 'sent', home_url( '/lawyer-dashboard/' ) ) );
 	exit;
@@ -309,7 +335,7 @@ function justice_theme_notify_lawyer_content_request( int $article_id, int $lawy
 	wp_mail( $admin_email, 'New lawyer content request draft', $message );
 }
 
-function justice_theme_notify_lawyer_review_campaign_request( int $lawyer_id, string $client_group, string $notes ): void {
+function justice_theme_notify_lawyer_review_campaign_request( int $lawyer_id, string $client_group, string $notes, array $google_sources = array() ): void {
 	$admin_email = get_option( 'admin_email' );
 
 	if ( ! $admin_email || ! is_email( $admin_email ) ) {
@@ -317,9 +343,12 @@ function justice_theme_notify_lawyer_review_campaign_request( int $lawyer_id, st
 	}
 
 	$message = sprintf(
-		"New lawyer review/recommendation campaign request.\n\nLawyer: %s\nClient group: %s\nNotes: %s\n\nImportant: do not send SMS/email review requests before owner review and lawyer approval.\n\nReview profile: %s",
+		"New lawyer review/recommendation campaign request.\n\nLawyer: %s\nClient group: %s\nGoogle Business URL: %s\nGoogle review request URL: %s\nGoogle Place ID: %s\nNotes: %s\n\nImportant: do not send SMS/email review requests before owner review and lawyer approval. Do not copy Google review text into Jus-Tice unless the approved API/policy path is used.\n\nReview profile: %s",
 		get_the_title( $lawyer_id ),
 		$client_group ?: '-',
+		isset( $google_sources['business_url'] ) && $google_sources['business_url'] ? $google_sources['business_url'] : '-',
+		isset( $google_sources['review_url'] ) && $google_sources['review_url'] ? $google_sources['review_url'] : '-',
+		isset( $google_sources['place_id'] ) && $google_sources['place_id'] ? $google_sources['place_id'] : '-',
 		$notes ?: '-',
 		admin_url( 'post.php?post=' . $lawyer_id . '&action=edit' )
 	);

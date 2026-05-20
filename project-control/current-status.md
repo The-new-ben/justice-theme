@@ -3187,3 +3187,13 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - RESULT: Grow page confirmed: `תודה, האתר נשלח לבדיקה חוזרת בהצלחה! הבדיקה אורכת עד יום עסקים, בסיום הבדיקה ניצור קשר עם בית העסק.`
 - BLOCKED: waiting for Grow/Meshulam reviewer response; automated recurring lawyer payments still depend on their approval and final account/payment activation.
 - COMPLETION ASSESSMENT: Grow website checklist fix 100% submitted after third pass; automated recurring payment readiness 80%; first-payment readiness 75%.
+
+## 2026-05-20 REPUTATION PRODUCT: GOOGLE REVIEW SOURCE CAPTURE
+- RESEARCH BASIS: Google allows businesses to ask real customers for reviews via a Google link/QR code, but prohibits incentives and fake/misleading reviews; Google review content/API display requires attribution and policy compliance; BrightLocal 2026 reinforces review freshness as a major trust factor.
+- CODE UPDATED: lawyer dashboard review-campaign requests now capture Google Business profile URL, Google review request URL and Google Place ID instead of relying only on free-text notes.
+- CODE UPDATED: submitted Google reputation sources are saved onto the linked lawyer profile and included in the owner notification email. No SMS/email is sent to clients automatically.
+- CREATED: `project-control/reputation-google-review-system-plan-2026-05-20.md`.
+- MONEY IMPACT: this turns the review feature into a concrete paid value path: lawyers can connect their Google reputation source, request a managed review campaign, and later upgrade into review monitoring/reply/first-party recommendation services.
+- BLOCKED: official Google review sync still needs a Google Cloud/OAuth/API decision and Business Profile access; public first-party recommendation display still needs a focused build; recurring payments still wait for Grow/Meshulam approval.
+- COMPLETION ASSESSMENT: Google review source capture 60%; Google API sync 10%; first-party recommendation storage 55%; public reputation display 20%; reputation product revenue readiness 35%.
+- OWNER CAN NOTICE AFTER DEPLOY: logged-in lawyer dashboard, section `Google reviews and recommendations`, now has separate fields for Google Business URL, Google review request URL and Place ID.

@@ -651,6 +651,28 @@ function justice_theme_mark_lawyer_content_reviewed(): void {
 }
 add_action( 'admin_post_justice_mark_lawyer_content_reviewed', 'justice_theme_mark_lawyer_content_reviewed' );
 
+function justice_theme_mark_lawyer_review_campaign_reviewed(): void {
+	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
+
+	if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to mark this review campaign reviewed.', 'justice-theme' ) );
+	}
+
+	check_admin_referer( 'justice_mark_lawyer_review_campaign_reviewed_' . $post_id );
+
+	delete_post_meta( $post_id, 'pending_review_campaign_request' );
+	update_post_meta( $post_id, 'latest_review_campaign_reviewed_at', current_time( 'mysql' ) );
+	justice_theme_append_lawyer_internal_note( $post_id, 'Owner marked latest review/recommendation campaign request as reviewed in Lawyer Onboarding.' );
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_review_campaign_reviewed', 'Marked lawyer review campaign reviewed: ' . get_the_title( $post_id ) );
+	}
+
+	wp_safe_redirect( add_query_arg( 'review_campaign', 'marked', admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_mark_lawyer_review_campaign_reviewed', 'justice_theme_mark_lawyer_review_campaign_reviewed' );
+
 function justice_theme_lawyer_onboarding_plan_label( string $plan ): string {
 	if ( function_exists( 'justice_theme_lawyer_plans' ) ) {
 		$plans = justice_theme_lawyer_plans();
@@ -739,6 +761,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php endif; ?>
 		<?php if ( isset( $_GET['content_review'] ) && 'marked' === $_GET['content_review'] ) : ?>
 			<div class="notice notice-success is-dismissible"><p>Content request review flag cleared for the lawyer profile.</p></div>
+		<?php endif; ?>
+		<?php if ( isset( $_GET['review_campaign'] ) && 'marked' === $_GET['review_campaign'] ) : ?>
+			<div class="notice notice-success is-dismissible"><p>Review campaign request flag cleared for the lawyer profile.</p></div>
 		<?php endif; ?>
 
 		<?php if ( $pending->have_posts() ) : ?>
@@ -898,6 +923,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 									<?php if ( $review_campaign_at ) : ?>
 										<small><?php echo esc_html( $review_campaign_at ); ?></small>
 									<?php endif; ?>
+									<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=justice_mark_lawyer_review_campaign_reviewed&lawyer_id=' . $post_id ), 'justice_mark_lawyer_review_campaign_reviewed_' . $post_id ) ); ?>">Mark reviewed</a>
 								<?php else : ?>
 									-
 								<?php endif; ?>

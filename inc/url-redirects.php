@@ -1146,6 +1146,30 @@ function justice_theme_get_slug_redirects(): array {
 }
 
 /**
+ * Redirect exact legacy English paths that WordPress would otherwise send home.
+ */
+function justice_theme_exact_legacy_path_redirect() {
+	if ( is_admin() ) {
+		return;
+	}
+
+	$req_path = $_SERVER['REQUEST_URI'] ?? '';
+	$path_parts = explode( '?', $req_path );
+	$path = trim( rawurldecode( $path_parts[0] ), '/' );
+
+	$redirects = [
+		'tax-law'         => 'tax-lawyer',
+		'personal-injury' => 'tort-lawyer',
+	];
+
+	if ( isset( $redirects[ $path ] ) ) {
+		wp_safe_redirect( home_url( '/' . $redirects[ $path ] . '/' ), 301 );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'justice_theme_exact_legacy_path_redirect', -3001 );
+
+/**
  * Hook into template_redirect to perform the native 301 redirect
  */
 function justice_theme_native_slug_redirect() {

@@ -1,0 +1,9 @@
+url,gsc_last_crawl,live_result_2026_05_20,decision
+https://jus-tice.co.il/drug-crimes/,2026-05-16,200,RESOLVED_200_NO_REDIRECT
+https://jus-tice.co.il/criminal-record-deletion/,2026-05-16,200,RESOLVED_200_NO_REDIRECT
+https://jus-tice.co.il/shoplifting-defense/,2026-05-16,200,RESOLVED_200_NO_REDIRECT
+https://jus-tice.co.il/real-estate/,2026-05-16,200,RESOLVED_200_NO_REDIRECT
+https://jus-tice.co.il/tax-law/,2026-05-16,301_TO_HOMEPAGE_BEFORE_FIX,FIX_EXACT_REDIRECT_TO_TAX_LAWYER
+https://jus-tice.co.il/personal-injury/,2026-05-16,301_TO_HOMEPAGE_BEFORE_FIX,FIX_EXACT_REDIRECT_TO_TORT_LAWYER
+https://jus-tice.co.il/wp-content/plugins/real-accessability/support.php,2025-12-08,404,LEAVE_404_SECURITY_NOISE
+https://jus-tice.co.il/wp-abc.php,2025-12-05,404,LEAVE_404_SECURITY_NOISE

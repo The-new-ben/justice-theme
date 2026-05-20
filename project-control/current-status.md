@@ -3243,6 +3243,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - RESEARCH BASIS: legal intake best practice emphasizes fast response and structured practice-area/source routing; Clio and intake research repeatedly frame slow or missed follow-up as a major conversion loss.
 - CODE UPDATED: lead routing now retries after important lead meta is written (`message`, `legal_area`, `ai_detected_area`, `assigned_lawyer_id`) instead of relying only on the first empty post-save event.
 - CODE UPDATED: direct lawyer mini-site inquiry forms now submit the practice-area slug instead of the display name, so routing and CRM grouping use stable taxonomy keys.
+- DEPLOYED: pushed `b75c005 Retry lead routing after meta save` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
 - MONEY IMPACT: direct lawyer-profile leads and matched area leads are less likely to sit unrouted because the form details arrived after initial post creation. This protects the core promise lawyers pay for: “you receive relevant leads quickly.”
 - BLOCKED: still needs real live lead submissions to measure route success and response times; Grow/Meshulam approval still blocks automated recurring subscription payments.
 - COMPLETION ASSESSMENT: lead capture reliability 88%; lead routing reliability 72%; lawyer-value delivery 58%; paid lead monetization 38%.

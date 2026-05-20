@@ -7,7 +7,7 @@
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is conversion discipline: paid lawyers can see what to do next and which leads are slipping.
 - COMPLETION ASSESSMENT: lawyer private zone moved from 66% to 68%; Clio-lite lead dashboard moved from 47% to 53%; paid-lawyer retention value moved from 60% to 62%. Remaining blockers: live QA with real lawyer user/lead, automatic lead alerts, per-lead detail page, and payment activation.
 - OWNER-VISIBLE AFTER DEPLOY: logged-in lawyers on `/lawyer-dashboard/` will see response-needed/overdue counts in the pipeline header and next-action labels beside Recent leads.
-- UPRESS: pending code deploy/pull for this commit.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `8329097 Show lawyer lead next actions` is `HEAD -> main, origin/main`.
 - SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
 
 ## LATEST WORK STATUS - 2026-05-20 19:41 Asia/Jerusalem

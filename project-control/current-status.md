@@ -3193,6 +3193,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - CODE UPDATED: lawyer dashboard review-campaign requests now capture Google Business profile URL, Google review request URL and Google Place ID instead of relying only on free-text notes.
 - CODE UPDATED: submitted Google reputation sources are saved onto the linked lawyer profile and included in the owner notification email. No SMS/email is sent to clients automatically.
 - CREATED: `project-control/reputation-google-review-system-plan-2026-05-20.md`.
+- DEPLOYED: pushed `572b845 Capture lawyer Google review sources` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Capture lawyer Google review sources`.
 - MONEY IMPACT: this turns the review feature into a concrete paid value path: lawyers can connect their Google reputation source, request a managed review campaign, and later upgrade into review monitoring/reply/first-party recommendation services.
 - BLOCKED: official Google review sync still needs a Google Cloud/OAuth/API decision and Business Profile access; public first-party recommendation display still needs a focused build; recurring payments still wait for Grow/Meshulam approval.
 - COMPLETION ASSESSMENT: Google review source capture 60%; Google API sync 10%; first-party recommendation storage 55%; public reputation display 20%; reputation product revenue readiness 35%.

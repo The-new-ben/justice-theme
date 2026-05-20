@@ -2989,3 +2989,38 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - MONEY IMPACT: the owner now has copy-ready outreach inside the CRM to turn uncovered demand into paid lawyer conversations without waiting for automatic billing.
 - COMPLETION ASSESSMENT: lawyer outreach readiness 52%; manual revenue operations 75%; first-payment readiness 55%.
 - SAFETY: uPress pull + live read-only wp-admin verification only; no outreach, emails, SMS, lawyer records, lead records, invoices, products, payment settings or CMS database content were changed manually.
+
+## 2026-05-20 DIN REPUTATION SYSTEM COMPETITIVE ANALYSIS
+- OWNER INPUT: owner authorized read-only inspection of a Din lawyer management account for inspiration and product analysis.
+- SAFETY: no credentials were stored in repo; no SMS, payment load, profile edit, article edit, judgment edit, lead update or outreach action was intentionally performed.
+- HONESTY NOTE: while inspecting, Din's "improve your position" link redirected to a system message saying a callback request was received. No form was filled and no payment/profile change was made, but future agents should avoid that link during competitor analysis.
+- RESEARCH BASIS: BrightLocal 2026 review research and Google Business Profile policies both reinforce that review recency, authenticity and no-incentive collection matter; fake/incentivized/manipulated reviews can trigger Google restrictions.
+- CREATED: `project-control/din-lawyer-review-system-analysis-2026-05-20.md`.
+- LINEAR: created `HAD-66` for the next implementation PR: `Build lawyer Reputation And Value dashboard from Din competitive analysis`.
+- PRODUCT FINDING: Din's monetization strength is a private lawyer control panel combining leads, phone calls, profile views, category position, ad budget, content and reviews into one value story.
+- MONEY IMPACT: this turns the reputation module from "nice review widget" into a retention/upsell engine for Pro, Featured, Lead Partner and Full Service lawyers.
+- NEXT SAFE CODE STEP: add a private lawyer dashboard `Reputation And Value` panel with review freshness, profile views, linked leads, content/profile actions and copyable review-request link placeholders; do not add SMS yet.
+- COMPLETION ASSESSMENT: competitive intelligence 70%; reputation/reviews product definition 45%; lawyer dashboard retention layer 55%; actual review/SMS automation 0%.
+- OWNER CAN NOTICE: repo planning exists now; public website does not change until the next implementation PR.
+
+## 2026-05-20 PSAKDIN LAWYER PLATFORM PARTIAL ANALYSIS
+- OWNER INPUT: owner authorized read-only PsakDin inspection and provided credentials.
+- ACCESS RESULT: login attempt returned `wrong username/password`; no additional guesses were attempted.
+- SAFETY: no credentials were stored in repo; no profile edit, payment, message, registration, content edit, subscription, lead action or form submission was performed.
+- CREATED: `project-control/psakdin-lawyer-platform-analysis-2026-05-20.md`.
+- PRODUCT FINDING: PsakDin combines lawyer index, case-law database, magazine, forms, video/live, polls, legal-service providers, forums and AI/chat entry points into a recurring legal platform.
+- PROFILE FINDING: public lawyer profiles act as authority hubs with practice areas, cities, narrative bio, video CTA, media/publication links and article links.
+- MONEY IMPACT: reinforces that Jus-Tice paid lawyer value must include authority assets and content/media proof, not just a profile and raw leads.
+- NEXT SAFE CODE STEP: include an `Authority Assets` checklist inside the same private `Reputation And Value` dashboard panel planned in `HAD-66`.
+- COMPLETION ASSESSMENT: private PsakDin analysis 0% blocked; public PsakDin product analysis 45%; competitive profile/authority pattern captured 50%.
+
+## 2026-05-20 JUSTIA FAMILY LAW CENTER ANALYSIS
+- OWNER INPUT: owner provided `https://www.justia.com/family/divorce/` as a model for content/SEO inspiration.
+- SAFETY: public research only; no account login, form submission, payment, outreach or account action was performed.
+- CREATED: `project-control/justia-family-law-center-analysis-2026-05-20.md`.
+- LINEAR: created `HAD-67` for implementation follow-up: `Build Family Law Center / Divorce hub from Justia analysis`.
+- RESEARCH BASIS: Justia's divorce page behaves as a law center hub with plain-language guide content, internal links, topic cards, FAQs, popular topics, last-reviewed signal and lawyer/resource paths.
+- COMMERCIAL FINDING: Justia packages lawyer monetization as directory + premium placement + SEO + websites + blogs + PPC + Google Business Profile + social media + analytics.
+- MONEY IMPACT: validates Jus-Tice's plan ladder and shows the family/divorce cluster should become a guided Israeli law center, not isolated articles.
+- NEXT SAFE CODE STEP: create a family-law/divorce hub rescue package: URL audit, canonical pillar, topic cards, internal links, last-reviewed/reviewer plan, Maya authority block after verification and live link/CTA checker.
+- COMPLETION ASSESSMENT: Justia public content analysis 65%; marketing packaging analysis 60%; family-law SEO rescue readiness 45%; implementation 0%.

@@ -3002,3 +3002,14 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - NEXT SAFE CODE STEP: add a private lawyer dashboard `Reputation And Value` panel with review freshness, profile views, linked leads, content/profile actions and copyable review-request link placeholders; do not add SMS yet.
 - COMPLETION ASSESSMENT: competitive intelligence 70%; reputation/reviews product definition 45%; lawyer dashboard retention layer 55%; actual review/SMS automation 0%.
 - OWNER CAN NOTICE: repo planning exists now; public website does not change until the next implementation PR.
+
+## 2026-05-20 PSAKDIN LAWYER PLATFORM PARTIAL ANALYSIS
+- OWNER INPUT: owner authorized read-only PsakDin inspection and provided credentials.
+- ACCESS RESULT: login attempt returned `wrong username/password`; no additional guesses were attempted.
+- SAFETY: no credentials were stored in repo; no profile edit, payment, message, registration, content edit, subscription, lead action or form submission was performed.
+- CREATED: `project-control/psakdin-lawyer-platform-analysis-2026-05-20.md`.
+- PRODUCT FINDING: PsakDin combines lawyer index, case-law database, magazine, forms, video/live, polls, legal-service providers, forums and AI/chat entry points into a recurring legal platform.
+- PROFILE FINDING: public lawyer profiles act as authority hubs with practice areas, cities, narrative bio, video CTA, media/publication links and article links.
+- MONEY IMPACT: reinforces that Jus-Tice paid lawyer value must include authority assets and content/media proof, not just a profile and raw leads.
+- NEXT SAFE CODE STEP: include an `Authority Assets` checklist inside the same private `Reputation And Value` dashboard panel planned in `HAD-66`.
+- COMPLETION ASSESSMENT: private PsakDin analysis 0% blocked; public PsakDin product analysis 45%; competitive profile/authority pattern captured 50%.

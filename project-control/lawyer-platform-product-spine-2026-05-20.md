@@ -50,6 +50,11 @@ Build the first-party Jus-Tice lawyer operating system:
   - Loads the supplier module.
 - Updated `assets/css/premium-pass-3.css`.
   - Adds professional wizard layout and mobile behavior.
+- Added lawyer dashboard supplier request intake.
+  - Lawyers can request vetted services from the dashboard.
+  - The request stores private profile meta and emails the owner.
+  - Nothing is sent to suppliers before owner review.
+  - These requests become buying-intent proof for supplier outreach.
 
 ## Linear coordination
 
@@ -60,13 +65,14 @@ Build the first-party Jus-Tice lawyer operating system:
 
 - Lawyer onboarding UX: 35% -> 48%.
 - Zero-owner-interference onboarding: 25% -> 35%.
-- Supplier marketplace revenue track: 0% -> 18%.
+- Supplier marketplace revenue track: 0% -> 24%.
 - Admin money-system cleanup: 35% -> 40%.
 - Automated AI profile drafting: 0% -> 10% defined, not built.
 
 ## Where the owner can notice after merge/deploy
 
 - `/lawyer-registration/` should show a more professional step-by-step wizard instead of one long raw form.
+- `/lawyer-dashboard/` should let a logged-in lawyer request a vetted supplier/service.
 - wp-admin should show a new `Suppliers` area under the lawyer onboarding/admin menu.
 
 ## Blockers

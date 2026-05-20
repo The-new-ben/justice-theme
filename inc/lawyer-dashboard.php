@@ -204,6 +204,59 @@ function justice_theme_handle_lawyer_review_campaign_request(): void {
 }
 add_action( 'admin_post_justice_lawyer_review_campaign_request', 'justice_theme_handle_lawyer_review_campaign_request' );
 
+function justice_theme_handle_lawyer_supplier_request(): void {
+	if ( ! is_user_logged_in() || ! isset( $_POST['justice_lawyer_supplier_request_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_supplier_request_nonce'] ) ), 'justice_lawyer_supplier_request' ) ) {
+		wp_safe_redirect( add_query_arg( 'supplier_request', 'failed', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		wp_safe_redirect( add_query_arg( 'supplier_request', 'blocked', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$user_id    = get_current_user_id();
+	$lawyer_id  = isset( $_POST['lawyer_profile_id'] ) ? absint( $_POST['lawyer_profile_id'] ) : 0;
+	$profile_ok = $lawyer_id && (string) $user_id === (string) get_post_meta( $lawyer_id, 'claimed_by_user_id', true );
+
+	if ( ! $profile_ok ) {
+		wp_safe_redirect( add_query_arg( 'supplier_request', 'missing', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$category = isset( $_POST['supplier_category'] ) ? sanitize_key( wp_unslash( $_POST['supplier_category'] ) ) : 'other';
+	if ( function_exists( 'justice_theme_lawyer_supplier_categories' ) && ! array_key_exists( $category, justice_theme_lawyer_supplier_categories() ) ) {
+		$category = 'other';
+	}
+
+	$urgency = isset( $_POST['supplier_urgency'] ) ? sanitize_key( wp_unslash( $_POST['supplier_urgency'] ) ) : 'this_month';
+	if ( ! in_array( $urgency, array( 'urgent', 'this_month', 'researching', 'not_sure' ), true ) ) {
+		$urgency = 'this_month';
+	}
+
+	$notes = isset( $_POST['supplier_request_notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['supplier_request_notes'] ) ) : '';
+
+	update_post_meta( $lawyer_id, 'pending_supplier_request', '1' );
+	update_post_meta( $lawyer_id, 'latest_supplier_request_category', $category );
+	update_post_meta( $lawyer_id, 'latest_supplier_request_urgency', $urgency );
+	update_post_meta( $lawyer_id, 'latest_supplier_request_notes', $notes );
+	update_post_meta( $lawyer_id, 'latest_supplier_request_requested_at', current_time( 'mysql' ) );
+
+	if ( function_exists( 'justice_theme_append_lawyer_internal_note' ) ) {
+		justice_theme_append_lawyer_internal_note( $lawyer_id, 'Lawyer requested a vetted supplier/service: ' . $category . ' (' . $urgency . ').' );
+	}
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_supplier_request', 'New lawyer supplier request: ' . get_the_title( $lawyer_id ) . ' - ' . $category );
+	}
+
+	justice_theme_notify_lawyer_supplier_request( $lawyer_id, $category, $urgency, $notes );
+
+	wp_safe_redirect( add_query_arg( 'supplier_request', 'sent', home_url( '/lawyer-dashboard/' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_lawyer_supplier_request', 'justice_theme_handle_lawyer_supplier_request' );
+
 function justice_theme_connect_content_request_to_lawyer_taxonomy( int $article_id, int $lawyer_id ): void {
 	if ( ! taxonomy_exists( 'practice-areas' ) ) {
 		return;
@@ -272,6 +325,32 @@ function justice_theme_notify_lawyer_review_campaign_request( int $lawyer_id, st
 	);
 
 	wp_mail( $admin_email, 'New lawyer review campaign request', $message );
+}
+
+function justice_theme_notify_lawyer_supplier_request( int $lawyer_id, string $category, string $urgency, string $notes ): void {
+	$admin_email = get_option( 'admin_email' );
+
+	if ( ! $admin_email || ! is_email( $admin_email ) ) {
+		return;
+	}
+
+	$category_label = $category;
+	if ( function_exists( 'justice_theme_lawyer_supplier_categories' ) ) {
+		$categories     = justice_theme_lawyer_supplier_categories();
+		$category_label = isset( $categories[ $category ] ) ? wp_strip_all_tags( (string) $categories[ $category ] ) : $category;
+	}
+
+	$message = sprintf(
+		"New lawyer supplier/service request.\n\nLawyer: %s\nCategory: %s\nUrgency: %s\nNotes: %s\n\nMoney path: match this request to an approved supplier prospect or use it as evidence for supplier outreach.\n\nReview profile: %s\nSupplier pipeline: %s",
+		get_the_title( $lawyer_id ),
+		$category_label ?: '-',
+		$urgency ?: '-',
+		$notes ?: '-',
+		admin_url( 'post.php?post=' . $lawyer_id . '&action=edit' ),
+		admin_url( 'edit.php?post_type=justice_supplier' )
+	);
+
+	wp_mail( $admin_email, 'New lawyer supplier request', $message );
 }
 
 function justice_theme_lawyer_dashboard_profile_completeness( int $post_id ): int {
@@ -365,6 +444,11 @@ function justice_theme_lawyer_dashboard_growth_assets( int $post_id, int $lead_c
 			'label' => __( 'Signed content or guide request exists', 'justice-theme' ),
 			'done'  => 0 < $content_request_count,
 			'why'   => __( 'Content connects the lawyer to practice-area authority.', 'justice-theme' ),
+		),
+		array(
+			'label' => __( 'Professional supplier/service need is captured', 'justice-theme' ),
+			'done'  => '1' === (string) get_post_meta( $post_id, 'pending_supplier_request', true ),
+			'why'   => __( 'Useful partner services give lawyers more value and create a second revenue line.', 'justice-theme' ),
 		),
 		array(
 			'label' => __( 'Measured exposure exists', 'justice-theme' ),

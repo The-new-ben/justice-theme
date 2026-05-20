@@ -3076,3 +3076,14 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - COMPLETION ASSESSMENT: lawyer onboarding UX 48%; zero-owner-interference onboarding 35%; supplier marketplace revenue track 18%; admin money-system cleanup 40%; automated AI profile drafting 10%.
 - OWNER CAN NOTICE AFTER MERGE/DEPLOY: `/lawyer-registration/` should feel like a guided wizard; wp-admin should expose `Suppliers` under the lawyer onboarding/admin area.
 - SAFETY: branch code/docs/Linear only; no live CMS/database, supplier, lawyer, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 LAWYER SUPPLIER REQUEST INTAKE
+- RESEARCH BASIS: current onboarding guidance emphasizes fast first value and repeatable next-step actions; legal marketplace/vendor examples show that curated suppliers for lawyers can become a second revenue line when quality and disclosure are controlled.
+- CODE UPDATED: lawyer dashboard now includes a private `Vetted services for your firm` request form.
+- CODE UPDATED: added `justice_lawyer_supplier_request` handler that verifies the logged-in lawyer owns the profile, stores category/urgency/notes on the profile, appends an internal note and emails the owner.
+- CODE UPDATED: growth assets now count captured professional supplier/service needs as a value signal.
+- MONEY IMPACT: this turns supplier monetization from only a prospect CRM into real lawyer demand capture; each request can support supplier outreach and future partner offers.
+- BLOCKED: supplier matching remains manual until approved suppliers and commercial terms exist; automated recurring lawyer payments remain blocked until Meshulam/Grow KYC/account recovery is completed by owner.
+- COMPLETION ASSESSMENT: supplier marketplace revenue track 24%; lawyer dashboard retention/value layer 64%; zero-owner-interference onboarding 36%; first-payment readiness 56%.
+- OWNER CAN NOTICE AFTER MERGE/DEPLOY: logged-in lawyers on `/lawyer-dashboard/` should see `Vetted services for your firm` and can request a supplier match.
+- SAFETY: branch code/docs only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.

@@ -207,6 +207,12 @@ $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 
 						<div class="lawyer-registration__error"><?php esc_html_e( 'Review campaign request was not saved. Please choose a linked profile.', 'justice-theme' ); ?></div>
 					<?php endif; ?>
 
+					<?php if ( isset( $_GET['supplier_request'] ) && 'sent' === $_GET['supplier_request'] ) : ?>
+						<div class="legaltool-request__notice"><?php esc_html_e( 'Supplier/service request saved. Jus-Tice will match it only after owner review and supplier quality check.', 'justice-theme' ); ?></div>
+					<?php elseif ( isset( $_GET['supplier_request'] ) ) : ?>
+						<div class="lawyer-registration__error"><?php esc_html_e( 'Supplier/service request was not saved. Please choose a linked profile.', 'justice-theme' ); ?></div>
+					<?php endif; ?>
+
 					<?php if ( isset( $_GET['content_request'] ) && 'sent' === $_GET['content_request'] ) : ?>
 						<div class="legaltool-request__notice"><?php esc_html_e( 'בקשת התוכן התקבלה כטיוטה ותיבדק לפני כל פרסום.', 'justice-theme' ); ?></div>
 					<?php elseif ( isset( $_GET['content_request'] ) ) : ?>
@@ -328,7 +334,46 @@ $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 
 						</form>
 					</section>
 
-					<h2><?php esc_html_e( 'לידים אחרונים', 'justice-theme' ); ?></h2>
+					<section class="lawyer-dashboard-content-request">
+						<h2><?php esc_html_e( 'Vetted services for your firm', 'justice-theme' ); ?></h2>
+						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Tell Jus-Tice what professional supplier you need. We use these requests to match lawyers with checked providers and to build partner offers inside the platform. Nothing is sent to a supplier before owner review.', 'justice-theme' ); ?></p>
+						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">
+							<input type="hidden" name="action" value="justice_lawyer_supplier_request">
+							<?php wp_nonce_field( 'justice_lawyer_supplier_request', 'justice_lawyer_supplier_request_nonce' ); ?>
+
+							<label for="supplier-profile"><?php esc_html_e( 'Linked profile', 'justice-theme' ); ?></label>
+							<select id="supplier-profile" name="lawyer_profile_id" required>
+								<?php foreach ( $profile_ids as $profile_id ) : ?>
+									<option value="<?php echo esc_attr( $profile_id ); ?>"><?php echo esc_html( get_the_title( $profile_id ) ); ?></option>
+								<?php endforeach; ?>
+							</select>
+
+							<label for="supplier-category"><?php esc_html_e( 'Service needed', 'justice-theme' ); ?></label>
+							<select id="supplier-category" name="supplier_category" required>
+								<?php
+								$supplier_categories = function_exists( 'justice_theme_lawyer_supplier_categories' ) ? justice_theme_lawyer_supplier_categories() : array( 'other' => __( 'Other', 'justice-theme' ) );
+								foreach ( $supplier_categories as $category_key => $category_label ) :
+									?>
+									<option value="<?php echo esc_attr( $category_key ); ?>"><?php echo esc_html( $category_label ); ?></option>
+								<?php endforeach; ?>
+							</select>
+
+							<label for="supplier-urgency"><?php esc_html_e( 'Urgency', 'justice-theme' ); ?></label>
+							<select id="supplier-urgency" name="supplier_urgency">
+								<option value="urgent"><?php esc_html_e( 'Urgent', 'justice-theme' ); ?></option>
+								<option value="this_month"><?php esc_html_e( 'This month', 'justice-theme' ); ?></option>
+								<option value="researching"><?php esc_html_e( 'Researching options', 'justice-theme' ); ?></option>
+								<option value="not_sure"><?php esc_html_e( 'Not sure yet', 'justice-theme' ); ?></option>
+							</select>
+
+							<label for="supplier-request-notes"><?php esc_html_e( 'What do you need?', 'justice-theme' ); ?></label>
+							<textarea id="supplier-request-notes" name="supplier_request_notes" rows="4" placeholder="<?php esc_attr_e( 'Example: certified translation for court documents, shared office room in Tel Aviv, video production, expert witness, CRM setup.', 'justice-theme' ); ?>"></textarea>
+
+							<button type="submit" class="button button--gold"><?php esc_html_e( 'Request matched provider', 'justice-theme' ); ?></button>
+						</form>
+					</section>
+
+					<h2><?php esc_html_e( 'Recent leads', 'justice-theme' ); ?></h2>
 					<?php if ( $leads && $leads->have_posts() ) : ?>
 						<div class="lawyer-dashboard-leads">
 							<?php while ( $leads->have_posts() ) : $leads->the_post(); ?>

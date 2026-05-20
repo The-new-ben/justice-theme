@@ -192,6 +192,65 @@ $lead_pipeline = array(
 );
 $lead_response_needed_count = 0;
 $lead_response_overdue_count = 0;
+$lead_value_now             = current_datetime();
+$lead_value_month_start     = $lead_value_now->modify( 'first day of this month' )->setTime( 0, 0, 0 )->getTimestamp();
+$lead_value_month_end       = $lead_value_now->getTimestamp();
+$lead_value_window_label    = date_i18n( 'F Y', $lead_value_month_end );
+$lead_value_metrics         = array(
+	'assigned'       => 0,
+	'first_response' => 0,
+	'consultations'  => 0,
+	'retained'       => 0,
+	'closed'         => 0,
+);
+$lead_value_metric_ids      = ( post_type_exists( 'justice_lead' ) && $profile_ids )
+	? get_posts( array(
+		'post_type'      => 'justice_lead',
+		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+		'posts_per_page' => 200,
+		'fields'         => 'ids',
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'meta_query'     => array(
+			array(
+				'key'     => 'assigned_lawyer_id',
+				'value'   => $profile_ids,
+				'compare' => 'IN',
+			),
+		),
+	) )
+	: array();
+$lead_value_in_window       = static function ( $timestamp ) use ( $lead_value_month_start, $lead_value_month_end ): bool {
+	if ( ! $timestamp ) {
+		return false;
+	}
+
+	if ( ! is_numeric( $timestamp ) ) {
+		$timestamp = strtotime( (string) $timestamp );
+	}
+
+	$timestamp = (int) $timestamp;
+	return $timestamp >= $lead_value_month_start && $timestamp <= $lead_value_month_end;
+};
+
+foreach ( $lead_value_metric_ids as $lead_metric_id ) {
+	$lead_metric_id = (int) $lead_metric_id;
+	if ( $lead_value_in_window( get_post_time( 'U', true, $lead_metric_id ) ) ) {
+		$lead_value_metrics['assigned']++;
+	}
+	if ( $lead_value_in_window( get_post_meta( $lead_metric_id, 'first_contact_at', true ) ) ) {
+		$lead_value_metrics['first_response']++;
+	}
+	if ( $lead_value_in_window( get_post_meta( $lead_metric_id, 'consultation_scheduled_at', true ) ) ) {
+		$lead_value_metrics['consultations']++;
+	}
+	if ( $lead_value_in_window( get_post_meta( $lead_metric_id, 'retained_at', true ) ) ) {
+		$lead_value_metrics['retained']++;
+	}
+	if ( $lead_value_in_window( get_post_meta( $lead_metric_id, 'closed_at', true ) ) ) {
+		$lead_value_metrics['closed']++;
+	}
+}
 
 if ( $leads && $leads->posts ) {
 	foreach ( $leads->posts as $lead_post ) {
@@ -506,6 +565,38 @@ if ( $leads && $leads->posts ) {
 									<small><?php echo $stage['latest'] ? esc_html( $stage['latest'] ) : esc_html__( 'No leads in this stage', 'justice-theme' ); ?></small>
 								</article>
 							<?php endforeach; ?>
+						</div>
+					</section>
+
+					<section class="lawyer-dashboard-value-snapshot" aria-labelledby="lawyer-dashboard-value-snapshot-title">
+						<div class="lawyer-dashboard-pipeline__header">
+							<div>
+								<p class="section-header__eyebrow"><?php esc_html_e( 'Monthly value snapshot', 'justice-theme' ); ?></p>
+								<h2 id="lawyer-dashboard-value-snapshot-title"><?php printf( esc_html__( 'What Jus-Tice created in %s', 'justice-theme' ), esc_html( $lead_value_window_label ) ); ?></h2>
+							</div>
+							<span><?php esc_html_e( 'Visible proof for your next report', 'justice-theme' ); ?></span>
+						</div>
+						<div class="lawyer-dashboard-value-snapshot__grid">
+							<article>
+								<strong><?php echo esc_html( (string) $lead_value_metrics['assigned'] ); ?></strong>
+								<span><?php esc_html_e( 'Assigned leads', 'justice-theme' ); ?></span>
+							</article>
+							<article>
+								<strong><?php echo esc_html( (string) $lead_value_metrics['first_response'] ); ?></strong>
+								<span><?php esc_html_e( 'First responses', 'justice-theme' ); ?></span>
+							</article>
+							<article>
+								<strong><?php echo esc_html( (string) $lead_value_metrics['consultations'] ); ?></strong>
+								<span><?php esc_html_e( 'Consultations set', 'justice-theme' ); ?></span>
+							</article>
+							<article>
+								<strong><?php echo esc_html( (string) $lead_value_metrics['retained'] ); ?></strong>
+								<span><?php esc_html_e( 'Clients retained', 'justice-theme' ); ?></span>
+							</article>
+							<article>
+								<strong><?php echo esc_html( (string) $lead_value_metrics['closed'] ); ?></strong>
+								<span><?php esc_html_e( 'Closed / not fit', 'justice-theme' ); ?></span>
+							</article>
 						</div>
 					</section>
 

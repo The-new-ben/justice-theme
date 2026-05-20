@@ -7,7 +7,7 @@
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is direct lead usability: a paid lawyer can now receive, contact and stage an assigned lead from the private zone.
 - COMPLETION ASSESSMENT: lawyer private zone moved from 63% to 66%; Clio-lite lead dashboard moved from 40% to 47%; paid-lawyer retention value moved from 56% to 60%. Remaining blockers: live QA with a real lawyer user and assigned lead, per-lead detail view, automated lead notifications, and payment activation.
 - OWNER-VISIBLE AFTER DEPLOY: logged-in lawyers on `/lawyer-dashboard/` will see Call / WhatsApp / Email beside Recent leads when contact data exists.
-- UPRESS: pending code deploy/pull for this commit.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `72c171f Show lawyer lead contact actions` is `HEAD -> main, origin/main`.
 - SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
 
 ## LATEST WORK STATUS - 2026-05-20 19:33 Asia/Jerusalem

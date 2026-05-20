@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-20 10:33 Asia/Jerusalem
+- COURT VERDICT LIBRARY TRACK: created the official-source mission for building a large Israeli verdict/ruling library without copying competitor editorial assets.
+- RESEARCHED: court.gov.il / Net HaMishpat decision search, court.gov.il homepage state, gov.il judiciary decisions page, and gov.il freedom-of-information verdict index. Key point: official gov/court sources should be the primary source layer; PsakDin/Nevo/Takdin should be used first as product inspiration and discovery references, not copied summaries.
+- CREATED: `project-control/court-verdict-library-mission-2026-05-20.md`.
+- CREATED: `project-control/court-verdict-library-fields-2026-05-20.csv`.
+- CREATED LINEAR: `HAD-70` - official-source court verdict library pilot.
+- STRATEGIC DECISION: start with a manual 10-record family-law pilot before any scraper/importer. This protects privacy, publication restrictions and quality, especially around family/minor-sensitive rulings.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that the verdict-library moat now has a safe build path tied to SEO traffic, lawyer authority value and subscription retention.
+- COMPLETION ASSESSMENT: verdict-library business strategy 70%; source-safety approach 65%; actual import system 0%; public verdict pages 0%. Remaining blockers are intake pilot, privacy/legal review, source fetch method, CPT/design decision, and owner approval before publishing any rulings.
+- OWNER-VISIBLE NOW: repo now contains a clear verdict-library mission and intake schema. Nothing changed on the live website yet.
+- UPRESS: no uPress pull because this is a planning/schema branch and not merged to `main`.
+- SAFETY: repo-only planning. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, court scraping, competitor scraping, verdict publication, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 17:52 Asia/Jerusalem
 - MONEY-QUERY POST-EDIT VERIFICATION: added the after-edit safety checklist for the five PR #9 target pages.
 - RESEARCHED: Google URL Inspection, recrawl and title-link guidance. Key point: after page edits, the right workflow is live inspection, crawl/indexability confirmation, request indexing when appropriate, then 14/28/45-day performance comparison.

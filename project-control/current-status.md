@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-20 21:49 Asia/Jerusalem
+- LAWYER REGISTRATION QUALIFICATION: tightened the handoff from `/lawyer-plans/` to `/lawyer-registration/` so paid-plan prospects see the selected plan/price and tell us how fast they can respond to leads.
+- RESEARCHED: current 2026 legal intake guidance. Clio emphasizes tracking lead source/status/conversion and says the intake process starts the moment a prospect reaches out; Justia sells premium visibility by practice area and metro area, so availability/coverage fit matters before selling placement. Sources: https://www.clio.com/blog/client-intake-law-firms/ and https://www.justia.com/marketing/lawyer-directory/
+- CODED: `page-lawyer-registration.php` now shows a selected-plan summary panel, including manual-invoice wording when the founder-partner path is used.
+- CODED: the lawyer onboarding form now asks for lead-response availability: within 15 minutes, same day, next day, or needs process setup.
+- CODED: `inc/lawyer-onboarding.php` stores `lead_response_commitment`, includes it in owner notification email/internal notes, and displays it in the lawyer activation box.
+- CODED: `assets/js/lawyer-registration-wizard.js` includes the response availability field in the Practice fit step; `assets/css/premium-pass-3.css` styles the selected-plan summary.
+- VERIFIED: `php -l page-lawyer-registration.php`, `php -l inc/lawyer-onboarding.php`, `node --check assets/js/lawyer-registration-wizard.js`, `git diff --check`, uPress pull, uPress Git log, and live markup check on `/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice` all passed.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is sales quality: before selling Lead Partner access, Jus-Tice can now see whether the lawyer can actually respond fast enough to protect lead value.
+- COMPLETION ASSESSMENT: first-lawyer sales readiness moved from 51% to 55%; paid lead quality control moved from 40% to 48%; automated payment readiness unchanged at 56% because Grow/Meshulam approval is still external.
+- OWNER-VISIBLE AFTER DEPLOY: open `/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice`; the selected plan panel appears and the form asks for lead-response availability.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `30b53ab Qualify lawyer registration response fit` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 21:36 Asia/Jerusalem
 - LAWYER SALES CONVERSION: added a founder-partner activation panel to `/lawyer-plans/` so outreach calls can point lawyers to a clearer early-partner path instead of only the pricing cards.
 - RESEARCHED: current 2026 law-firm intake guidance. Clio says client intake should reduce manual work, improve client experience, track where leads come from and show lead/client status; Justia sells premium lawyer visibility by practice area and metro area. Sources: https://www.clio.com/blog/client-intake-law-firms/ and https://www.justia.com/marketing/lawyer-directory/

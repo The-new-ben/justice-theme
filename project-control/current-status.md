@@ -3233,6 +3233,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - CODE UPDATED: homepage Ask-a-Lawyer form now includes `Thailand / international law`, matching the reusable lead form and the CRM classifier.
 - CODE UPDATED: lead classification now refreshes after public lead meta is written, not only when the lead post shell is created. This fixes a timing leak where `legal_area`, `city` and `message` could be saved after the classifier had already run.
 - CODE UPDATED: coverage status now refreshes when a lead message is saved, and force-refreshes to `covered_routable` if an assigned lawyer/routing completion is written later.
+- DEPLOYED: pushed `349f7ac Fix uncovered demand lead classification` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
 - MONEY IMPACT: niche demand like Thailand/international lawyer requests is more likely to land in the uncovered-demand queue as a recruitable sales signal instead of disappearing under `general` or an unclassified lead.
 - BLOCKED: still needs real inbound leads and lawyer outreach; payment automation still waits on Grow/Meshulam approval.
 - COMPLETION ASSESSMENT: uncovered-demand capture 85%; CRM recruitment evidence 70%; automated niche lawyer recruitment 35%; paid lead monetization 35%.

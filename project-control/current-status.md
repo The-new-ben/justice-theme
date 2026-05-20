@@ -3167,3 +3167,13 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - RESULT: Grow page confirmed: `תודה, האתר נשלח לבדיקה חוזרת בהצלחה! הבדיקה אורכת עד יום עסקים, בסיום הבדיקה ניצור קשר עם בית העסק.`
 - BLOCKED: waiting for Grow/Meshulam reviewer response; recurring lawyer payments still depend on their approval and account/payment setup completion.
 - COMPLETION ASSESSMENT: Grow website checklist fix 100% submitted; automated recurring payment readiness 78%; first-payment readiness 73%.
+
+## 2026-05-20 GROW/MESHULAM SECOND REVIEW RESPONSE
+- RESULT: Grow/Meshulam rejected the second review. They now accepted: active site, terms exist, age limit, phone, cancellation, supply policy. Remaining failures: business address, checkout page, checkout terms approval, checkout terms link, product/service responsibility, privacy.
+- DIAGNOSIS: the site content exists, but the reviewer/checker appears to require more literal checklist wording and WooCommerce-style checkout field names.
+- CODE UPDATED: checkout fallback now uses WooCommerce checkout form/class naming and billing field names: `billing_first_name`, `billing_last_name`, `billing_phone`, `billing_country`, `billing_email`, plus a required `terms` checkbox linking to terms, cancellation/responsibility and privacy.
+- CODE UPDATED: privacy page now includes explicit text about information use, confidentiality, security measures and not selling user details.
+- CODE UPDATED: terms/cancellation content now includes explicit `אחריות המוצר והשירות` wording and liability limitation text.
+- CODE UPDATED: footer now shows `כתובת בית עסק:` with the public Raul Wallenberg office address, so the address is visible site-wide and not only inside the legal page box.
+- BLOCKED: needs commit/push/uPress pull/live verification, then submit Grow/Meshulam re-check again.
+- COMPLETION ASSESSMENT: Grow website checklist fix 100% code-adjusted after rejection; automated recurring payment readiness 78%; first-payment readiness 73%.

@@ -205,8 +205,12 @@ function justice_theme_payment_compliance_render_body( string $slug ): void {
 				<li>הפקת חשבוניות, טיפול בתשלומים, תמיכה ושירות לקוחות.</li>
 				<li>שמירה על אבטחת האתר, מניעת ספאם ושיפור חוויית המשתמש.</li>
 			</ul>
+			<h2>שמירת מידע ואמצעי אבטחה</h2>
+			<p>Jus-Tice נוקטת באמצעי זהירות מקובלים וסבירים כדי לשמור, ככל האפשר, על סודיות המידע שנמסר באתר. המידע נשמר במערכות האתר וספקי השירות הדרושים להפעלתו, ואינו נמכר לצדדים שלישיים.</p>
 			<h2>מסירת מידע לצדדים שלישיים</h2>
 			<p>מידע יימסר רק כאשר הדבר נדרש להפעלת השירות: ספקי אחסון, דיוור, סליקה, חשבוניות, אבטחה, ניתוח נתונים, עורכי דין שאליהם בחר המשתמש לפנות, או כאשר קיימת חובה חוקית.</p>
+			<h2>שימוש בפרטים שמסרו המשתמשים באתר</h2>
+			<p>הפרטים שמסרו המשתמשים באתר ישמשו לצרכי תפעול האתר, מתן השירות, טיפול בפניות, ביצוע רכישה או חשבונית, יצירת קשר, אבטחה ושיפור השירות בלבד, אלא אם המשתמש אישר אחרת או אם קיימת חובה לפי דין.</p>
 			<h2>זכויות המשתמש</h2>
 			<p>ניתן לפנות אלינו כדי לבקש עיון, תיקון או מחיקה של מידע, בכפוף לחובות שמירת מסמכים, חשבוניות, אבטחה ודין.</p>
 		</section>
@@ -223,6 +227,8 @@ function justice_theme_payment_compliance_render_body( string $slug ): void {
 			<p>ניתן לבקש ביטול מנוי חודשי באמצעות פנייה בכתב לכתובת האימייל של האתר. הביטול יחול על חיובים עתידיים, בהתאם לדין ולהסכמים החלים. כאשר שירות דיגיטלי כבר הופעל, הוכן או נמסר, החזר ייבחן לפי מצב השירות בפועל והוראות הדין.</p>
 			<h2>אחריות ושירות</h2>
 			<p>Jus-Tice מתחייבת לספק את השירותים הדיגיטליים בזהירות סבירה, אך אינה מתחייבת לכמות פניות, דירוגים, תוצאות חיפוש, תוצאות משפטיות או תוצאות עסקיות. עורכי הדין אחראים לשירות המשפטי שהם מספקים ללקוחותיהם.</p>
+			<h2>אחריות המוצר והשירות</h2>
+			<p>החברה ו/או מי מטעמה לא יהיו אחראים לנזק ישיר או עקיף שייגרם כתוצאה משימוש בשירות שנרכש באתר, בהסתמכות על מידע באתר, או באי התאמה בין ציפיות הלקוח לבין תוצאות עסקיות בפועל. המידע באתר אינו מהווה ייעוץ משפטי, המלצה או חוות דעת מקצועית מחייבת.</p>
 			<h2>פניות שירות</h2>
 			<p>פניות בנושא ביטול, חשבונית, תשלום או תקלה יישלחו דרך עמוד יצירת הקשר או לכתובת האימייל המופיעה באתר.</p>
 		</section>
@@ -235,18 +241,18 @@ function justice_theme_payment_compliance_render_body( string $slug ): void {
 		<section class="jt-compliance-card">
 			<h2>פרטים לפני תשלום או חשבונית</h2>
 			<p>לפני הפעלת מסלול בתשלום, נא למלא פרטי לקוח ולאשר את התקנון. לאחר השלמת תשתית הסליקה, עמוד זה יוביל לתשלום מאובטח. עד אז ניתן להשלים הרשמה ולקבל הפעלה ידנית לאחר אישור.</p>
-			<form class="jt-compliance-checkout" action="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" method="get">
+			<form class="jt-compliance-checkout woocommerce-checkout checkout" action="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" method="get">
 				<input type="hidden" name="pre_checkout" value="1">
 				<input type="hidden" name="payment_path" value="manual_invoice">
 				<input type="hidden" name="plan_interest" value="pro">
-				<label>שם פרטי<input type="text" name="first_name" autocomplete="given-name" required></label>
-				<label>שם משפחה<input type="text" name="last_name" autocomplete="family-name" required></label>
-				<label>טלפון ללא קידומת בינלאומית<input type="tel" name="phone" autocomplete="tel-national" required></label>
-				<label>מדינה<input type="text" name="country" autocomplete="country-name" value="ישראל" required></label>
-				<label>אימייל<input type="email" name="email" autocomplete="email" required></label>
-				<label class="jt-compliance-checkbox">
-					<input type="checkbox" name="accept_terms" value="1" required>
-					<span>קראתי ואני מאשר/ת את <a href="<?php echo esc_url( home_url( '/sample-terms-and-conditions-template/' ) ); ?>" target="_blank" rel="noopener">התקנון ותנאי השימוש</a>, כולל מדיניות הביטול, אספקת השירות והפרטיות.</span>
+				<label>שם פרטי<input id="billing_first_name" class="input-text" type="text" name="billing_first_name" autocomplete="given-name" required></label>
+				<label>שם משפחה<input id="billing_last_name" class="input-text" type="text" name="billing_last_name" autocomplete="family-name" required></label>
+				<label>טלפון ללא קידומת בינלאומית<input id="billing_phone" class="input-text" type="tel" name="billing_phone" autocomplete="tel-national" required></label>
+				<label>מדינה<input id="billing_country" class="input-text" type="text" name="billing_country" autocomplete="country-name" value="ישראל" required></label>
+				<label>כתובת מייל<input id="billing_email" class="input-text" type="email" name="billing_email" autocomplete="email" required></label>
+				<label class="jt-compliance-checkbox woocommerce-terms-and-conditions-checkbox-text">
+					<input id="terms" class="input-checkbox" type="checkbox" name="terms" value="on" required>
+					<span>קראתי ואני מאשר/ת את <a href="<?php echo esc_url( home_url( '/sample-terms-and-conditions-template/' ) ); ?>" target="_blank" rel="noopener">התקנון ותנאי השימוש</a>, כולל <a href="<?php echo esc_url( home_url( '/cancellation/' ) ); ?>" target="_blank" rel="noopener">מדיניות הביטול, אספקת השירות ואחריות המוצר</a> ואת <a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>" target="_blank" rel="noopener">מדיניות הפרטיות</a>.</span>
 				</label>
 				<button class="button button--gold" type="submit">המשך להרשמה והפעלת מסלול</button>
 			</form>
@@ -267,10 +273,10 @@ function justice_theme_payment_compliance_render_body( string $slug ): void {
 		<p>המסלולים בתשלום כוללים שירותים דיגיטליים כגון פרופיל מקצועי, מיני-סייט, חשיפה באתר, דוחות ערך, כלי מוניטין ופניות בהתאם למסלול שנבחר. כל פרסום ממומן יסומן בהתאם לכללי לשכת עורכי הדין.</p>
 		<h2>מדיניות ביטול ואספקה</h2>
 		<p>אספקת השירות תחל לאחר אישור התשלום או החשבונית, ובכפוף למסירת פרטים ואישור פרסום. ביטול מנוי יחול על חיובים עתידיים בהתאם לדין. לפרטים מלאים ראו <a href="<?php echo esc_url( home_url( '/cancellation/' ) ); ?>">מדיניות ביטול, אספקת שירות ואחריות</a>.</p>
-		<h2>אחריות</h2>
-		<p>Jus-Tice אינה מתחייבת לכמות פניות, דירוגים, מיקום בתוצאות חיפוש, תוצאה משפטית או תוצאה עסקית. האחריות לשירות משפטי מקצועי חלה על עורך הדין המספק את השירות.</p>
+		<h2>אחריות המוצר והשירות</h2>
+		<p>Jus-Tice אינה מתחייבת לכמות פניות, דירוגים, מיקום בתוצאות חיפוש, תוצאה משפטית או תוצאה עסקית. החברה ו/או מי מטעמה לא יהיו אחראים לנזק ישיר או עקיף שייגרם כתוצאה משימוש בשירות שנרכש באתר או מהסתמכות על מידע באתר. האחריות לשירות משפטי מקצועי חלה על עורך הדין המספק את השירות.</p>
 		<h2>פרטיות</h2>
-		<p>השימוש במידע אישי נעשה לצורך הפעלת האתר, טיפול בפניות, חיוב, חשבוניות, אבטחה ושיפור השירות. לפרטים מלאים ראו <a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>">מדיניות הפרטיות</a>.</p>
+		<p>השימוש במידע אישי נעשה לצורך הפעלת האתר, טיפול בפניות, חיוב, חשבוניות, אבטחה ושיפור השירות בלבד. Jus-Tice נוקטת באמצעי זהירות מקובלים לשמירת סודיות המידע. לפרטים מלאים ראו <a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>">מדיניות הפרטיות</a>.</p>
 	</section>
 	<?php
 }

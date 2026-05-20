@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $justice_phone    = justice_theme_option( 'justice_phone', '0525101555' );
 $justice_email    = justice_theme_option( 'justice_email', 'info@jus-tice.co.il' );
 $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
+$justice_address  = function_exists( 'justice_theme_business_address' ) ? justice_theme_business_address() : justice_theme_option( 'justice_business_address', 'רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו' );
 ?>
 
 <footer class="site-footer" role="contentinfo" style="background: var(--jt-primary-deep); color: #fff; padding-top: 5rem; padding-bottom: 2rem; border-top: 4px solid var(--jt-accent);">
@@ -52,6 +53,12 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
 					</a>
 				<?php endif; ?>
 			</div>
+			<?php if ( $justice_address ) : ?>
+				<p class="footer-business-address" style="margin: 1rem 0 0; color: rgba(255,255,255,0.7); line-height: 1.7; font-size: 0.95rem;">
+					<strong style="color: #fff;"><?php esc_html_e( 'כתובת בית עסק:', 'justice-theme' ); ?></strong>
+					<?php echo esc_html( $justice_address ); ?>
+				</p>
+			<?php endif; ?>
 		</section>
 
 		<section class="site-footer__section">

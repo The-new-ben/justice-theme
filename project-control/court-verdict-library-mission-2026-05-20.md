@@ -139,3 +139,9 @@ Create the intake schema and 10-record manual pilot for family law. Do not scrap
 ## Linear
 
 - `HAD-70`: Build official-source court verdict library pilot.
+
+## Pilot Template
+
+- `project-control/court-verdict-library-pilot-template-2026-05-20.csv`
+
+This starts with 10 empty official-source family-law rows. Each row is defaulted to `hold` and `high` privacy risk until a human review proves it is safe to publish.

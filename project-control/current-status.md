@@ -3158,3 +3158,12 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - MONEY IMPACT: this removes the remaining visible website-address blocker from the Grow/Meshulam checklist.
 - BLOCKED: needs commit/push/uPress pull and live verification before resubmission.
 - COMPLETION ASSESSMENT: Grow website checklist fix 98%; automated recurring payment readiness 76%; first-payment readiness 71%.
+
+## 2026-05-20 GROW/MESHULAM RESUBMITTED FOR REVIEW
+- DEPLOYED: pushed and pulled `5f0ce5d` to live via uPress Git management; uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Add public business address for Grow approval`.
+- VERIFIED LIVE: `/sample-terms-and-conditions-template/` and `/checkout/` now show `רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו`; the missing-address warning text is no longer present in the rendered compliance content.
+- VERIFIED LIVE: `/checkout/` still shows the customer details form and required `accept_terms` checkbox.
+- ACTION TAKEN: opened the Grow/Meshulam review-result link, checked the confirmation box, and submitted the site for re-check.
+- RESULT: Grow page confirmed: `תודה, האתר נשלח לבדיקה חוזרת בהצלחה! הבדיקה אורכת עד יום עסקים, בסיום הבדיקה ניצור קשר עם בית העסק.`
+- BLOCKED: waiting for Grow/Meshulam reviewer response; recurring lawyer payments still depend on their approval and account/payment setup completion.
+- COMPLETION ASSESSMENT: Grow website checklist fix 100% submitted; automated recurring payment readiness 78%; first-payment readiness 73%.

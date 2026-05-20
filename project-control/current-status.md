@@ -4,10 +4,11 @@
 - CODED: `page-lawyer-dashboard.php` now pre-fills the Google Business URL, Google review request URL and Place ID in the review campaign request form when the lawyer already supplied them during signup or owner setup.
 - CODED: `inc/lawyer-onboarding.php` now has an owner-only `Mark reviewed` action for review campaign requests, mirroring the content-review workflow.
 - CODED: marking a review campaign reviewed clears the pending flag, stores `latest_review_campaign_reviewed_at`, appends an internal note and logs the owner action.
-- VERIFIED: `php -l page-lawyer-dashboard.php`, `php -l inc/lawyer-onboarding.php`.
+- VERIFIED: `php -l page-lawyer-dashboard.php`, `php -l inc/lawyer-onboarding.php`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `3608f3d Tighten review campaign operations`.
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is retention/product value: Google review growth can now be sold and operated as a controlled service instead of remaining a loose note on the profile.
 - COMPLETION ASSESSMENT: reputation/review infrastructure moved from 34% to 41%; lawyer dashboard operating value moved from 62% to 66%; first paid-lawyer readiness moved from 78% to 79%. Still blocked: real lawyer usage, owner review, and a future approved public review display/API path.
 - OWNER-VISIBLE AFTER DEPLOY: logged-in `/lawyer-dashboard/` review campaign form will reuse saved Google links; wp-admin -> Lawyer Onboarding -> Reputation column will show `Mark reviewed` on pending review campaign rows.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `3608f3d Tighten review campaign operations` is `HEAD -> main, origin/main`.
 - SAFETY: repo code only. No review request was sent, no Google review was copied, no public profile changed, no CMS record was created, no payment setting changed and no client charge happened.
 
 ## LATEST WORK STATUS - 2026-05-20 23:04 Asia/Jerusalem

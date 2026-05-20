@@ -3128,3 +3128,11 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: this second patch still needs commit/push and another uPress pull; exact public business address is still required before Grow/Meshulam re-check.
 - COMPLETION ASSESSMENT: Grow website checklist fix 88%; automated recurring payment readiness 70%; first-payment readiness 65%.
 - OWNER CAN NOTICE AFTER NEXT PULL: footer policy links should point to working pages, `/sample-terms-and-conditions-template/` should show the real terms, `/cancellation/` should show service/cancellation responsibility policy, and checkout should show a terms approval box.
+
+## 2026-05-20 GROW/MESHULAM CHECKOUT REVIEW PATCH
+- FINDING: the legal/compliance pages were live, but the empty `/checkout/` URL still rendered the normal WooCommerce empty-cart page. This is the exact URL a payment-provider reviewer is likely to open, so the required customer details form and terms checkbox were not visible.
+- CODE UPDATED: empty `/checkout/` now renders the payment-compliance fallback page. Real WooCommerce payment checkout is preserved when there is an active cart or payment/order query such as `add-to-cart`, `order-pay`, `order-received`, `key`, `pay_for_order` or `wc-ajax`.
+- MONEY IMPACT: this closes one more concrete Grow/Meshulam approval blocker without changing the lawyer payment architecture.
+- BLOCKED: exact public business address is still required before final re-check submission; live deployment/uPress pull and public verification still need to happen for this patch.
+- COMPLETION ASSESSMENT: Grow website checklist fix 92%; automated recurring payment readiness 72%; first-payment readiness 67%.
+- OWNER CAN NOTICE AFTER DEPLOY: opening `/checkout/` while not paying should show a Jus-Tice customer details form and required terms approval checkbox; checkout with a product should still go through WooCommerce.

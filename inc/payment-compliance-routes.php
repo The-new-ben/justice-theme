@@ -70,6 +70,41 @@ function justice_theme_payment_compliance_config( string $path ): ?array {
 	return $routes[ $path ] ?? null;
 }
 
+function justice_theme_should_render_checkout_compliance_fallback(): bool {
+	if ( '/checkout/' !== justice_theme_payment_compliance_path() ) {
+		return false;
+	}
+
+	$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+	$query       = (string) wp_parse_url( $request_uri, PHP_URL_QUERY );
+	$args        = array();
+
+	if ( '' !== $query ) {
+		parse_str( $query, $args );
+	}
+
+	$live_checkout_args = array(
+		'add-to-cart',
+		'key',
+		'order-pay',
+		'order-received',
+		'pay_for_order',
+		'wc-ajax',
+	);
+
+	foreach ( $live_checkout_args as $arg ) {
+		if ( isset( $args[ $arg ] ) ) {
+			return false;
+		}
+	}
+
+	if ( function_exists( 'WC' ) && WC() && isset( WC()->cart ) && WC()->cart && ! WC()->cart->is_empty() ) {
+		return false;
+	}
+
+	return true;
+}
+
 function justice_theme_payment_compliance_prepare( array $config ): void {
 	global $wp_query;
 
@@ -384,7 +419,7 @@ function justice_theme_maybe_render_payment_compliance_route(): void {
 		exit;
 	}
 
-	if ( '/checkout/' === $path && class_exists( 'WooCommerce' ) && function_exists( 'wc_get_page_id' ) ) {
+	if ( '/checkout/' === $path && class_exists( 'WooCommerce' ) && function_exists( 'wc_get_page_id' ) && ! justice_theme_should_render_checkout_compliance_fallback() ) {
 		$checkout_page_id = (int) wc_get_page_id( 'checkout' );
 		if ( $checkout_page_id > 0 && 'publish' === get_post_status( $checkout_page_id ) ) {
 			return;

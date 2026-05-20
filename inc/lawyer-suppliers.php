@@ -295,3 +295,74 @@ function justice_theme_lawyer_supplier_admin_column( string $column, int $post_i
 	}
 }
 add_action( 'manage_justice_supplier_posts_custom_column', 'justice_theme_lawyer_supplier_admin_column', 10, 2 );
+
+function justice_theme_lawyer_supplier_admin_filters( string $post_type ): void {
+	if ( 'justice_supplier' !== $post_type ) {
+		return;
+	}
+
+	$filters = array(
+		'justice_supplier_category_filter' => array(
+			'label'   => __( 'All supplier categories', 'justice-theme' ),
+			'meta'    => 'supplier_category',
+			'current' => isset( $_GET['justice_supplier_category_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_supplier_category_filter'] ) ) : '',
+			'options' => justice_theme_lawyer_supplier_categories(),
+		),
+		'justice_supplier_status_filter' => array(
+			'label'   => __( 'All partnership statuses', 'justice-theme' ),
+			'meta'    => 'supplier_partnership_status',
+			'current' => isset( $_GET['justice_supplier_status_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_supplier_status_filter'] ) ) : '',
+			'options' => justice_theme_lawyer_supplier_statuses(),
+		),
+		'justice_supplier_priority_filter' => array(
+			'label'   => __( 'All priorities', 'justice-theme' ),
+			'meta'    => 'supplier_priority',
+			'current' => isset( $_GET['justice_supplier_priority_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_supplier_priority_filter'] ) ) : '',
+			'options' => array(
+				'high'   => __( 'High', 'justice-theme' ),
+				'medium' => __( 'Medium', 'justice-theme' ),
+				'low'    => __( 'Low', 'justice-theme' ),
+			),
+		),
+	);
+
+	foreach ( $filters as $name => $filter ) {
+		echo '<select name="' . esc_attr( $name ) . '">';
+		echo '<option value="">' . esc_html( $filter['label'] ) . '</option>';
+		foreach ( $filter['options'] as $value => $label ) {
+			echo '<option value="' . esc_attr( $value ) . '" ' . selected( $filter['current'], $value, false ) . '>' . esc_html( $label ) . '</option>';
+		}
+		echo '</select>';
+	}
+}
+add_action( 'restrict_manage_posts', 'justice_theme_lawyer_supplier_admin_filters' );
+
+function justice_theme_lawyer_supplier_admin_filter_query( WP_Query $query ): void {
+	if ( ! is_admin() || ! $query->is_main_query() || 'justice_supplier' !== $query->get( 'post_type' ) ) {
+		return;
+	}
+
+	$filter_map = array(
+		'justice_supplier_category_filter' => 'supplier_category',
+		'justice_supplier_status_filter'   => 'supplier_partnership_status',
+		'justice_supplier_priority_filter' => 'supplier_priority',
+	);
+	$meta_query = (array) $query->get( 'meta_query' );
+
+	foreach ( $filter_map as $request_key => $meta_key ) {
+		$value = isset( $_GET[ $request_key ] ) ? sanitize_key( wp_unslash( $_GET[ $request_key ] ) ) : '';
+		if ( '' === $value ) {
+			continue;
+		}
+
+		$meta_query[] = array(
+			'key'   => $meta_key,
+			'value' => $value,
+		);
+	}
+
+	if ( ! empty( $meta_query ) ) {
+		$query->set( 'meta_query', $meta_query );
+	}
+}
+add_action( 'pre_get_posts', 'justice_theme_lawyer_supplier_admin_filter_query' );

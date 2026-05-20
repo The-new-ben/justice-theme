@@ -3087,3 +3087,12 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - COMPLETION ASSESSMENT: supplier marketplace revenue track 24%; lawyer dashboard retention/value layer 64%; zero-owner-interference onboarding 36%; first-payment readiness 56%.
 - OWNER CAN NOTICE AFTER MERGE/DEPLOY: logged-in lawyers on `/lawyer-dashboard/` should see `Vetted services for your firm` and can request a supplier match.
 - SAFETY: branch code/docs only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 SUPPLIER PIPELINE ADMIN FILTERS
+- RESEARCH BASIS: 2026 attorney marketplace examples emphasize curated/vetted providers, attorney-focused categories and warm introductions; therefore the supplier CRM must be easy to filter by category, status and priority instead of becoming another flat CMS list.
+- CODE UPDATED: `justice_supplier` wp-admin list now has filters for supplier category, partnership status and priority.
+- MONEY IMPACT: owner can quickly find high-priority outreach-ready suppliers and turn lawyer demand into partner conversations.
+- BLOCKED: real supplier records and commercial terms still need owner/business outreach; automated recurring lawyer payments remain blocked until Meshulam/Grow KYC/account recovery is completed by owner.
+- COMPLETION ASSESSMENT: supplier marketplace revenue track 27%; admin money-system cleanup 42%; lawyer dashboard retention/value layer 64%.
+- OWNER CAN NOTICE AFTER MERGE/DEPLOY: wp-admin supplier list should have dropdown filters for category, status and priority.
+- SAFETY: branch code/docs only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.

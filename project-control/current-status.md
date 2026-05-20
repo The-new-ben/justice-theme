@@ -7,7 +7,7 @@
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is value proof: the platform can begin showing lawyers not just leads, but funnel movement toward retained clients.
 - COMPLETION ASSESSMENT: lawyer private zone remains 68%; Clio-lite dashboard moved from 55% to 58%; paid-lawyer reporting/value proof moved from 35% to 43%. Remaining blockers: live QA with real lawyer user/lead, monthly value report UI/email, automatic lead alerts, per-lead detail page, and payment activation.
 - OWNER-VISIBLE AFTER DEPLOY: stage changes to Consultation/Won/Lost from either `/lawyer-dashboard/` or wp-admin CRM will preserve milestone timestamps for later reports.
-- UPRESS: pending code deploy/pull for this commit.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `f537d59 Track lead funnel milestones` is `HEAD -> main, origin/main`.
 - SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
 
 ## LATEST WORK STATUS - 2026-05-20 20:00 Asia/Jerusalem

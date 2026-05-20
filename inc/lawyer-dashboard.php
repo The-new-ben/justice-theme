@@ -283,6 +283,57 @@ function justice_theme_handle_lawyer_supplier_request(): void {
 }
 add_action( 'admin_post_justice_lawyer_supplier_request', 'justice_theme_handle_lawyer_supplier_request' );
 
+function justice_theme_lawyer_dashboard_lead_stage_options(): array {
+	return array(
+		'not_started'       => __( 'New', 'justice-theme' ),
+		'first_attempt'     => __( 'First attempt', 'justice-theme' ),
+		'contacted'         => __( 'Contacted', 'justice-theme' ),
+		'consult_scheduled' => __( 'Consultation scheduled', 'justice-theme' ),
+		'won'               => __( 'Won', 'justice-theme' ),
+		'lost'              => __( 'Not fit / lost', 'justice-theme' ),
+	);
+}
+
+function justice_theme_handle_lawyer_lead_stage_update(): void {
+	if ( ! is_user_logged_in() || ! isset( $_POST['justice_lawyer_lead_stage_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_lead_stage_nonce'] ) ), 'justice_lawyer_lead_stage_update' ) ) {
+		wp_safe_redirect( add_query_arg( 'lead_stage', 'failed', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	if ( ! post_type_exists( 'justice_lead' ) || ! post_type_exists( 'justice_lawyer' ) ) {
+		wp_safe_redirect( add_query_arg( 'lead_stage', 'blocked', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$user_id        = get_current_user_id();
+	$lead_id        = isset( $_POST['lead_id'] ) ? absint( $_POST['lead_id'] ) : 0;
+	$selected_stage = isset( $_POST['lead_stage'] ) ? sanitize_key( wp_unslash( $_POST['lead_stage'] ) ) : 'not_started';
+	$stage_options  = justice_theme_lawyer_dashboard_lead_stage_options();
+	$assigned_id    = $lead_id ? (int) get_post_meta( $lead_id, 'assigned_lawyer_id', true ) : 0;
+	$profile_ok     = $assigned_id && 'justice_lawyer' === get_post_type( $assigned_id ) && (string) $user_id === (string) get_post_meta( $assigned_id, 'claimed_by_user_id', true );
+
+	if ( ! $lead_id || 'justice_lead' !== get_post_type( $lead_id ) || ! $profile_ok || ! array_key_exists( $selected_stage, $stage_options ) ) {
+		wp_safe_redirect( add_query_arg( 'lead_stage', 'missing', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	update_post_meta( $lead_id, 'follow_up_status', $selected_stage );
+	update_post_meta( $lead_id, 'latest_lawyer_stage_update_at', current_time( 'mysql' ) );
+	update_post_meta( $lead_id, 'latest_lawyer_stage_update_by', (string) $user_id );
+
+	if ( in_array( $selected_stage, array( 'first_attempt', 'contacted', 'consult_scheduled', 'won', 'lost' ), true ) && ! get_post_meta( $lead_id, 'first_contact_at', true ) ) {
+		update_post_meta( $lead_id, 'first_contact_at', current_time( 'Y-m-d\TH:i' ) );
+	}
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_lead_stage_update', 'Lawyer updated lead #' . $lead_id . ' stage to ' . $selected_stage );
+	}
+
+	wp_safe_redirect( add_query_arg( 'lead_stage', 'updated', home_url( '/lawyer-dashboard/' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_lawyer_lead_stage_update', 'justice_theme_handle_lawyer_lead_stage_update' );
+
 function justice_theme_connect_content_request_to_lawyer_taxonomy( int $article_id, int $lawyer_id ): void {
 	if ( ! taxonomy_exists( 'practice-areas' ) ) {
 		return;

@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-20 19:33 Asia/Jerusalem
+- LAWYER PRIVATE ZONE / PIPELINE CONTROL: upgraded the dashboard from a display-only lead pipeline into a usable lightweight CRM workflow.
+- RESEARCHED: Clio's 2026 lead-management guidance. Key point: lead management is the pre-retention sales process; lawyers need a CRM to track follow-up, consultation, and hire/not-fit stages so prospects do not slip through cracks.
+- CODED: `inc/lawyer-dashboard.php` now has an ownership-checked `justice_lawyer_lead_stage_update` handler. A lawyer can update only leads assigned to a profile claimed by their own user account.
+- CODED: `/lawyer-dashboard/` Recent leads now includes a stage selector and Update button for each assigned lead: New, First attempt, Contacted, Consultation scheduled, Won, Not fit/lost.
+- CODED: stage updates save `follow_up_status`, `latest_lawyer_stage_update_at`, `latest_lawyer_stage_update_by`, and first-contact time when relevant.
+- VERIFIED: `php -l inc/lawyer-dashboard.php`, `php -l page-lawyer-dashboard.php`, and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is paid-lawyer retention value: lawyers can now operate leads inside the private zone instead of only looking at them.
+- COMPLETION ASSESSMENT: lawyer private zone moved from 59% to 63%; Clio-lite lead dashboard moved from 28% to 40%; paid-lawyer retention value moved from 52% to 56%. Remaining blockers: live QA with a lawyer user and real assigned lead, per-lead detail pages, automatic WhatsApp/SMS notifications, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: logged-in lawyers on `/lawyer-dashboard/` will see Update controls beside Recent leads, and stage changes will refresh the pipeline.
+- UPRESS: pending code deploy/pull for this commit.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 19:22 Asia/Jerusalem
 - LAWYER PRIVATE ZONE / CLIO-LITE: added a first visual lead pipeline to the lawyer dashboard so paid lawyers can see where assigned leads stand instead of only reading a flat recent-leads list.
 - RESEARCHED: current 2026 law-firm CRM/intake guidance. Key point: legal CRMs that stick show a visible pipeline and source/conversion metrics; lawyers need to see inquiry -> response -> consultation -> retained progress without digging in email or wp-admin.

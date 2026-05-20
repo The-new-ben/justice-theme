@@ -2628,9 +2628,31 @@
 .lawyer-dashboard-leads article,
 .lawyer-dashboard-content-list article {
   display: grid;
-  grid-template-columns: 1.2fr 1fr 0.7fr 0.8fr;
+  grid-template-columns: 1.1fr 0.8fr 0.7fr 0.7fr minmax(160px, 0.9fr);
   gap: 0.65rem;
   align-items: center;
+}
+
+.lawyer-dashboard-leads__stage-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.4rem;
+  align-items: center;
+}
+
+.lawyer-dashboard-leads__stage-form select {
+  width: 100%;
+  min-height: 2.25rem;
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--jt-primary-deep);
+  font-weight: 800;
+}
+
+.lawyer-dashboard-leads__stage-form .button {
+  min-height: 2.25rem;
+  padding: 0 0.65rem;
 }
 
 .lawyer-dashboard-leads span,
@@ -2705,6 +2727,10 @@
   }
 
   .lawyer-dashboard-pipeline__stages {
+    grid-template-columns: 1fr;
+  }
+
+  .lawyer-dashboard-leads__stage-form {
     grid-template-columns: 1fr;
   }
 

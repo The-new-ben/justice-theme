@@ -139,6 +139,14 @@ $dashboard_google_business_url  = $primary_profile_id ? (string) get_post_meta( 
 $dashboard_review_profile_title = $primary_profile_id ? get_the_title( $primary_profile_id ) : '';
 $dashboard_review_message       = '';
 $dashboard_review_whatsapp_url  = '';
+$dashboard_lead_stage_options   = function_exists( 'justice_theme_lawyer_dashboard_lead_stage_options' ) ? justice_theme_lawyer_dashboard_lead_stage_options() : array(
+	'not_started'       => __( 'New', 'justice-theme' ),
+	'first_attempt'     => __( 'First attempt', 'justice-theme' ),
+	'contacted'         => __( 'Contacted', 'justice-theme' ),
+	'consult_scheduled' => __( 'Consultation scheduled', 'justice-theme' ),
+	'won'               => __( 'Won', 'justice-theme' ),
+	'lost'              => __( 'Not fit / lost', 'justice-theme' ),
+);
 
 if ( $dashboard_google_review_url ) {
 	$dashboard_review_message = sprintf(
@@ -277,6 +285,12 @@ if ( $leads && $leads->posts ) {
 						<div class="legaltool-request__notice"><?php esc_html_e( 'Supplier/service request saved. Jus-Tice will match it only after owner review and supplier quality check.', 'justice-theme' ); ?></div>
 					<?php elseif ( isset( $_GET['supplier_request'] ) ) : ?>
 						<div class="lawyer-registration__error"><?php esc_html_e( 'Supplier/service request was not saved. Please choose a linked profile.', 'justice-theme' ); ?></div>
+					<?php endif; ?>
+
+					<?php if ( isset( $_GET['lead_stage'] ) && 'updated' === $_GET['lead_stage'] ) : ?>
+						<div class="legaltool-request__notice"><?php esc_html_e( 'Lead stage updated. The pipeline and first-response tracking will refresh from this status.', 'justice-theme' ); ?></div>
+					<?php elseif ( isset( $_GET['lead_stage'] ) ) : ?>
+						<div class="lawyer-registration__error"><?php esc_html_e( 'Lead stage was not updated. Only assigned leads can be changed from this dashboard.', 'justice-theme' ); ?></div>
 					<?php endif; ?>
 
 					<?php if ( isset( $_GET['content_request'] ) && 'sent' === $_GET['content_request'] ) : ?>
@@ -488,12 +502,31 @@ if ( $leads && $leads->posts ) {
 					<?php if ( $leads && $leads->have_posts() ) : ?>
 						<div class="lawyer-dashboard-leads">
 							<?php while ( $leads->have_posts() ) : $leads->the_post(); ?>
-								<?php $lead_id = get_the_ID(); ?>
+								<?php
+								$lead_id             = get_the_ID();
+								$current_lead_stage  = sanitize_key( (string) ( get_post_meta( $lead_id, 'follow_up_status', true ) ?: get_post_meta( $lead_id, 'lead_status', true ) ?: 'not_started' ) );
+								if ( ! array_key_exists( $current_lead_stage, $dashboard_lead_stage_options ) && in_array( $current_lead_stage, array( 'new', 'assigned', 'qualified', 'pending', '' ), true ) ) {
+									$current_lead_stage = 'not_started';
+								}
+								$current_stage_label = $dashboard_lead_stage_options[ $current_lead_stage ] ?? ( get_post_meta( $lead_id, 'lead_status', true ) ?: 'new' );
+								?>
 								<article>
 									<strong><?php echo esc_html( get_post_meta( $lead_id, 'visitor_name', true ) ?: get_the_title() ); ?></strong>
 									<span><?php echo esc_html( get_post_meta( $lead_id, 'legal_area', true ) ?: get_post_meta( $lead_id, 'lead_area', true ) ?: '-' ); ?></span>
-									<span><?php echo esc_html( get_post_meta( $lead_id, 'lead_status', true ) ?: 'new' ); ?></span>
+									<span><?php echo esc_html( $current_stage_label ); ?></span>
 									<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+									<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="lawyer-dashboard-leads__stage-form">
+										<input type="hidden" name="action" value="justice_lawyer_lead_stage_update">
+										<input type="hidden" name="lead_id" value="<?php echo esc_attr( $lead_id ); ?>">
+										<?php wp_nonce_field( 'justice_lawyer_lead_stage_update', 'justice_lawyer_lead_stage_nonce' ); ?>
+										<label class="screen-reader-text" for="lead-stage-<?php echo esc_attr( $lead_id ); ?>"><?php esc_html_e( 'Update lead stage', 'justice-theme' ); ?></label>
+										<select id="lead-stage-<?php echo esc_attr( $lead_id ); ?>" name="lead_stage">
+											<?php foreach ( $dashboard_lead_stage_options as $stage_key => $stage_label ) : ?>
+												<option value="<?php echo esc_attr( $stage_key ); ?>" <?php selected( $current_lead_stage, $stage_key ); ?>><?php echo esc_html( $stage_label ); ?></option>
+											<?php endforeach; ?>
+										</select>
+										<button type="submit" class="button"><?php esc_html_e( 'Update', 'justice-theme' ); ?></button>
+									</form>
 								</article>
 							<?php endwhile; wp_reset_postdata(); ?>
 						</div>

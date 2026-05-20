@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-20 11:34 Asia/Jerusalem
+- OWNER WALKTHROUGH: created the plain-English operating guide for the lawyer platform so the owner can understand how to use/administer the system after PR #26 is merged and deployed.
+- RESEARCHED: current SaaS onboarding/activation best practices. Key point: the system should guide lawyers to first value quickly, not overwhelm them with a feature tour; first value for Jus-Tice is profile readiness, reputation source, content, exposure and leads.
+- CREATED: `project-control/lawyer-platform-owner-walkthrough-2026-05-20.md`.
+- UPDATED: PR #26 with the walkthrough.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is operational readiness: the owner now has a clear map for registration, admin review, dashboard use, Google review source fields, first-party recommendations and manual activation while Meshulam is being handled.
+- COMPLETION ASSESSMENT: owner walkthrough clarity 80%; lawyer dashboard value clarity 60%; admin operating system 55%; recommendation/reputation system 48%; paying customer readiness 45%.
+- OWNER-VISIBLE AFTER MERGE/DEPLOY: the dashboard/admin surfaces described in the walkthrough become visible on `/lawyer-dashboard/` and `wp-admin -> Lawyer Onboarding`.
+- UPRESS: no uPress pull yet because this branch is not merged to `main`.
+- SAFETY: repo documentation only in this cycle. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, SMS/email review request, review publication, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 11:18 Asia/Jerusalem
 - GOOGLE REVIEWS / REPUTATION SYSTEM: started turning the lawyer dashboard into an active reputation and authority cockpit, inspired by Justia, Din, PsakDin and LawReviews patterns.
 - RESEARCHED: official Google Business Profile review APIs, Google Maps user-generated-content policy, Google review-link workflows, Justia lawyer profile badges/premium placements/reviews, Din fresh-review/directory/Q&A surfaces, and lawyer reputation-management patterns.

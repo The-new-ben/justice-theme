@@ -97,6 +97,8 @@ function justice_theme_handle_lawyer_registration(): void {
 	$plan         = isset( $_POST['plan_interest'] ) ? sanitize_key( wp_unslash( $_POST['plan_interest'] ) ) : 'free';
 	$payment_path = isset( $_POST['payment_path'] ) ? sanitize_key( wp_unslash( $_POST['payment_path'] ) ) : '';
 	$response_commitment = isset( $_POST['lead_response_commitment'] ) ? sanitize_key( wp_unslash( $_POST['lead_response_commitment'] ) ) : '';
+	$google_business_url = isset( $_POST['google_business_profile_url'] ) ? esc_url_raw( wp_unslash( $_POST['google_business_profile_url'] ) ) : '';
+	$google_review_url   = isset( $_POST['google_review_request_url'] ) ? esc_url_raw( wp_unslash( $_POST['google_review_request_url'] ) ) : '';
 
 	if ( ! array_key_exists( $response_commitment, justice_theme_lawyer_response_commitment_options() ) ) {
 		$response_commitment = '';
@@ -136,6 +138,10 @@ function justice_theme_handle_lawyer_registration(): void {
 		$internal_notes .= "\nLead response commitment: " . justice_theme_lawyer_response_commitment_options()[ $response_commitment ];
 	}
 
+	if ( $google_business_url || $google_review_url ) {
+		$internal_notes .= "\nGoogle reputation sources supplied during registration. Verify ownership and policy compliance before public display or review outreach.";
+	}
+
 	$meta = array(
 		'lawyer_full_name'     => $name,
 		'firm_name'            => $firm,
@@ -153,6 +159,8 @@ function justice_theme_handle_lawyer_registration(): void {
 		'profile_process'      => $process,
 		'profile_video_url'    => $video_url,
 		'profile_faqs'         => $faqs,
+		'google_business_profile_url' => $google_business_url,
+		'google_review_request_url'   => $google_review_url,
 		'plan_type'            => $plan_type,
 		'subscription_status'  => 'pending',
 		'payment_path'            => $manual_payment ? 'manual_invoice' : '',
@@ -268,7 +276,7 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 
 	$subject = 'New lawyer registration pending review';
 	$message = sprintf(
-		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nLead response: %s\nHeadline: %s\nVideo: %s\n\nReview: %s",
+		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nLead response: %s\nHeadline: %s\nVideo: %s\nGoogle Business: %s\nGoogle review link: %s\n\nReview: %s",
 		$meta['lawyer_full_name'] ?: '-',
 		$meta['firm_name'] ?: '-',
 		$meta['phone'] ?: '-',
@@ -279,6 +287,8 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 		justice_theme_lawyer_response_commitment_options()[ $meta['lead_response_commitment'] ?? '' ] ?? '-',
 		$meta['profile_headline'] ?: '-',
 		$meta['profile_video_url'] ?: '-',
+		$meta['google_business_profile_url'] ?: '-',
+		$meta['google_review_request_url'] ?: '-',
 		admin_url( 'post.php?post=' . $post_id . '&action=edit' )
 	);
 

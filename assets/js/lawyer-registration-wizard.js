@@ -66,8 +66,14 @@
 				fields: ['bio_short', 'profile_headline', 'profile_services', 'profile_process', 'profile_video_url', 'profile_faqs']
 			},
 			{
-				title: 'Review',
+				title: 'Trust sources',
 				kicker: 'Step 4',
+				description: 'Google Business and review links help the owner verify reputation assets before publishing.',
+				fields: ['google_business_profile_url', 'google_review_request_url']
+			},
+			{
+				title: 'Review',
+				kicker: 'Step 5',
 				description: 'Submit for owner review. Nothing goes public before license and ethics review.',
 				fields: []
 			}

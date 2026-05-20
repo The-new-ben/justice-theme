@@ -227,6 +227,14 @@ if ( $selected_plan && function_exists( 'justice_theme_lawyer_plan_public_overri
 						<span><?php esc_html_e( 'קישור לווידאו היכרות', 'justice-theme' ); ?></span>
 						<input type="url" name="profile_video_url" placeholder="https://">
 					</label>
+					<label>
+						<span>Google Business / Maps profile</span>
+						<input type="url" name="google_business_profile_url" placeholder="https://maps.google.com/...">
+					</label>
+					<label>
+						<span>Google review request link</span>
+						<input type="url" name="google_review_request_url" placeholder="https://search.google.com/local/writereview?...">
+					</label>
 					<label class="lawyer-registration-form__full">
 						<span><?php esc_html_e( 'שאלות נפוצות שתרצו לענות עליהן', 'justice-theme' ); ?></span>
 						<textarea name="profile_faqs" rows="4" placeholder="<?php esc_attr_e( 'כל שורה: שאלה | תשובה קצרה. כל תשובה תיבדק לפני פרסום.', 'justice-theme' ); ?>"></textarea>

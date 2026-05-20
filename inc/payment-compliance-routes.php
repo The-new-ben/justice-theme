@@ -397,6 +397,27 @@ function justice_theme_maybe_render_payment_compliance_route(): void {
 }
 add_action( 'template_redirect', 'justice_theme_maybe_render_payment_compliance_route', -3940 );
 
+function justice_theme_is_checkout_compliance_context(): bool {
+	$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+
+	if ( false !== strpos( $request_uri, '/checkout' ) ) {
+		return true;
+	}
+
+	if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+		return true;
+	}
+
+	if ( function_exists( 'wc_get_page_id' ) && function_exists( 'is_page' ) ) {
+		$checkout_page_id = (int) wc_get_page_id( 'checkout' );
+		if ( $checkout_page_id > 0 && is_page( $checkout_page_id ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 function justice_theme_render_checkout_compliance_notice(): void {
 	static $rendered = false;
 
@@ -404,12 +425,7 @@ function justice_theme_render_checkout_compliance_notice(): void {
 		return;
 	}
 
-	$is_checkout_context = '/checkout/' === justice_theme_payment_compliance_path();
-	if ( ! $is_checkout_context && function_exists( 'is_checkout' ) && is_checkout() ) {
-		$is_checkout_context = true;
-	}
-
-	if ( ! $is_checkout_context ) {
+	if ( ! justice_theme_is_checkout_compliance_context() ) {
 		return;
 	}
 
@@ -430,3 +446,16 @@ add_action( 'woocommerce_before_checkout_form', 'justice_theme_render_checkout_c
 add_action( 'woocommerce_before_checkout_billing_form', 'justice_theme_render_checkout_compliance_notice', 5 );
 add_action( 'woocommerce_after_checkout_form', 'justice_theme_render_checkout_compliance_notice', 5 );
 add_action( 'wp_footer', 'justice_theme_render_checkout_compliance_notice', 5 );
+
+function justice_theme_prepend_checkout_compliance_notice_to_content( string $content ): string {
+	if ( ! justice_theme_is_checkout_compliance_context() || ! in_the_loop() || ! is_main_query() ) {
+		return $content;
+	}
+
+	ob_start();
+	justice_theme_render_checkout_compliance_notice();
+	$notice = ob_get_clean();
+
+	return $notice ? $notice . $content : $content;
+}
+add_filter( 'the_content', 'justice_theme_prepend_checkout_compliance_notice_to_content', 8 );

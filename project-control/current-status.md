@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-20 20:00 Asia/Jerusalem
+- LEAD CRM CONSISTENCY: synced lawyer dashboard stage updates with the older internal CRM lead status field.
+- RESEARCHED: current 2026 legal CRM/intake guidance. Key point: fast lead response is not enough; the CRM must remain trustworthy and consistent, otherwise teams stop relying on it and leads slip.
+- CODED: when a lawyer updates an assigned lead stage from `/lawyer-dashboard/`, `inc/lawyer-dashboard.php` now updates both `follow_up_status` and the legacy/internal `lead_status`.
+- STATUS MAP: New -> assigned, First attempt/Contacted -> contacted, Consultation scheduled -> accepted, Won -> converted, Not fit/lost -> closed.
+- VERIFIED: `php -l inc/lawyer-dashboard.php` and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is operational reliability: private-zone actions now keep admin CRM reports aligned, which matters before selling this as paid lead management.
+- COMPLETION ASSESSMENT: lawyer private zone remains 68%; Clio-lite dashboard moved from 53% to 55%; paid-lawyer retention value moved from 62% to 63%. Remaining blockers: live QA with real lawyer user/lead, automatic lead alerts, per-lead detail page, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: stage updates made in `/lawyer-dashboard/` should also reflect in wp-admin lead status columns/reports.
+- UPRESS: pending code deploy/pull for this commit.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 19:51 Asia/Jerusalem
 - LAWYER PRIVATE ZONE / NEXT ACTIONS: added response urgency and next-action guidance to the private lead pipeline.
 - RESEARCHED: current 2026 legal intake guidance. Key point: Clio recommends calling every lead within 15 minutes; faster intake response is a major conversion lever, so the dashboard should show which leads need response now.

@@ -317,7 +317,17 @@ function justice_theme_handle_lawyer_lead_stage_update(): void {
 		exit;
 	}
 
+	$lead_status_map = array(
+		'not_started'       => 'assigned',
+		'first_attempt'     => 'contacted',
+		'contacted'         => 'contacted',
+		'consult_scheduled' => 'accepted',
+		'won'               => 'converted',
+		'lost'              => 'closed',
+	);
+
 	update_post_meta( $lead_id, 'follow_up_status', $selected_stage );
+	update_post_meta( $lead_id, 'lead_status', $lead_status_map[ $selected_stage ] ?? 'assigned' );
 	update_post_meta( $lead_id, 'latest_lawyer_stage_update_at', current_time( 'mysql' ) );
 	update_post_meta( $lead_id, 'latest_lawyer_stage_update_by', (string) $user_id );
 

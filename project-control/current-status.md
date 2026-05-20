@@ -4,10 +4,12 @@
 - CODED: `page-lawyer-registration.php` now asks lawyers for their Google Business / Maps profile URL and Google review request link during self-registration.
 - CODED: `assets/js/lawyer-registration-wizard.js` now adds a dedicated `Trust sources` step before final review, so reputation assets are part of the professional onboarding flow instead of buried later in manual follow-up.
 - CODED: `inc/lawyer-onboarding.php` sanitizes and stores the submitted Google Business/review links on the draft lawyer profile, adds an internal compliance note, and includes the links in the owner notification email.
-- VERIFIED: `php -l page-lawyer-registration.php`, `php -l inc/lawyer-onboarding.php`, `node --check assets/js/lawyer-registration-wizard.js`.
+- VERIFIED: `php -l page-lawyer-registration.php`, `php -l inc/lawyer-onboarding.php`, `node --check assets/js/lawyer-registration-wizard.js`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `858918c Collect lawyer Google reputation sources`.
+- LIVE CHECK: `/lawyer-registration/` returns HTTP 200 and live HTML contains `google_business_profile_url` plus `google_review_request_url`; the live wizard asset contains `Trust sources`, `google_business_profile_url` and `Step 5`.
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is sales readiness: a paying lawyer can now provide Google reputation assets during onboarding, which reduces founder follow-up and prepares the future review module without unsafe scraping or fake reviews.
 - COMPLETION ASSESSMENT: lawyer onboarding wizard moved from 55% to 62%; reputation/review infrastructure moved from 25% to 34%; first paid-lawyer readiness moved from 76% to 78%. Still blocked: real lawyers must sign up, owner must verify license/reputation before publishing, and Google review display/import rules need a separate implementation before public review widgets.
 - OWNER-VISIBLE AFTER DEPLOY: `/lawyer-registration/` wizard step `Trust sources`; wp-admin -> Lawyer Onboarding draft profile meta and registration email will include the supplied Google links.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `858918c Collect lawyer Google reputation sources` is `HEAD -> main, origin/main`.
 - SAFETY: repo code only. No public lawyer profile was published, no review was copied, no Google API was called, no CMS database record was created, no outreach was sent, no payment setting changed, and no client charge happened.
 
 ## LATEST WORK STATUS - 2026-05-20 22:52 Asia/Jerusalem

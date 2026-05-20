@@ -3202,6 +3202,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 ## 2026-05-20 REPUTATION ADMIN QUEUE VISIBILITY
 - RESEARCH BASIS: BrightLocal 2026 emphasizes review recency and response handling; Google allows real review requests through a business link/QR code but prohibits incentives and fake/misleading reviews.
 - CODE UPDATED: Lawyer Onboarding admin queue now surfaces the Google Business profile link, Google review request link and Place ID for pending review-campaign requests, with missing-source warnings.
+- DEPLOYED: pushed `472619b Show review sources in onboarding queue` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
 - MONEY IMPACT: owner/admin can now process review campaign requests without opening each lawyer profile first, making the reputation product operational for sales and retention.
 - BLOCKED: needs commit/push/uPress pull/live verification; first-party public recommendation display and official Google API sync still need focused builds.
 - COMPLETION ASSESSMENT: review source capture 65%; admin reputation operations 45%; Google API sync 10%; public reputation display 20%; reputation product revenue readiness 38%.

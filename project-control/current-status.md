@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-20 10:57 Asia/Jerusalem
+- LAWYER ACQUISITION FIRST WAVE: created a practical first-wave sales packet for getting paying lawyers before Meshulam/Grow recurring payments are fully approved.
+- RESEARCHED: current 2026 lawyer marketing guidance and legal-directory patterns. Key point: lawyers buy qualified demand, reputation proof, local SEO/reviews, authority assets and measurable follow-up; they do not care about raw traffic claims.
+- CREATED: `project-control/lawyer-acquisition-first-wave-2026-05-20.md`.
+- CREATED: `project-control/lawyer-acquisition-first-wave-template-2026-05-20.csv`.
+- CREATED LINEAR: `HAD-71` - prepare and run first lawyer acquisition wave.
+- STRATEGIC DECISION: pitch "authority profile + connected content + measurable exposure/lead report" instead of "listing." Use manual invoice/manual activation until Meshulam KYC is complete.
+- HONEST MONEY ASSESSMENT: no money earned this cycle and no outreach was sent. Substantial advancement is that the first lawyer sales motion now has a clear offer, target practice areas, safe promise language and private CRM template.
+- COMPLETION ASSESSMENT: lawyer acquisition strategy 65%; first-wave positioning 70%; actual outreach 0%; paying lawyers 0%; payment automation still blocked by Meshulam/Grow KYC.
+- OWNER-VISIBLE NOW: repo contains the first-wave acquisition packet. It is not visible on the public website.
+- UPRESS: no uPress pull because this is a planning branch and not merged to `main`.
+- SAFETY: repo-only planning. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 17:52 Asia/Jerusalem
 - MONEY-QUERY POST-EDIT VERIFICATION: added the after-edit safety checklist for the five PR #9 target pages.
 - RESEARCHED: Google URL Inspection, recrawl and title-link guidance. Key point: after page edits, the right workflow is live inspection, crawl/indexability confirmation, request indexing when appropriate, then 14/28/45-day performance comparison.

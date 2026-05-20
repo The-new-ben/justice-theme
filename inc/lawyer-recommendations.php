@@ -306,6 +306,62 @@ function justice_theme_lawyer_recommendation_counts( int $lawyer_id ): array {
 	);
 }
 
+function justice_theme_lawyer_public_recommendations( int $lawyer_id, int $limit = 3 ): array {
+	if ( ! post_type_exists( 'justice_recommendation' ) || ! $lawyer_id ) {
+		return array();
+	}
+
+	$recommendations = new WP_Query(
+		array(
+			'post_type'           => 'justice_recommendation',
+			'post_status'         => 'publish',
+			'posts_per_page'      => max( 1, min( 6, $limit ) ),
+			'orderby'             => 'date',
+			'order'               => 'DESC',
+			'ignore_sticky_posts' => true,
+			'meta_query'          => array(
+				'relation' => 'AND',
+				array(
+					'key'   => 'recommended_lawyer_id',
+					'value' => (string) $lawyer_id,
+				),
+				array(
+					'key'   => 'recommendation_moderation',
+					'value' => 'approved_public',
+				),
+				array(
+					'key'   => 'recommendation_permission',
+					'value' => 'confirmed',
+				),
+			),
+		)
+	);
+
+	if ( ! $recommendations->have_posts() ) {
+		return array();
+	}
+
+	$items = array();
+	foreach ( $recommendations->posts as $recommendation ) {
+		$quote = trim( wp_strip_all_tags( (string) $recommendation->post_content ) );
+		if ( '' === $quote ) {
+			continue;
+		}
+
+		$items[] = array(
+			'id'            => (int) $recommendation->ID,
+			'quote'         => $quote,
+			'client_name'   => (string) get_post_meta( $recommendation->ID, 'client_display_name', true ),
+			'relationship'  => (string) get_post_meta( $recommendation->ID, 'client_relationship', true ),
+			'rating'        => (int) get_post_meta( $recommendation->ID, 'recommendation_rating', true ),
+			'received_at'   => (string) get_post_meta( $recommendation->ID, 'recommendation_received_at', true ),
+			'source_type'   => (string) get_post_meta( $recommendation->ID, 'recommendation_source_type', true ),
+		);
+	}
+
+	return $items;
+}
+
 function justice_theme_recommendation_columns( array $columns ): array {
 	$columns['recommended_lawyer'] = __( 'Lawyer', 'justice-theme' );
 	$columns['moderation']         = __( 'Moderation', 'justice-theme' );

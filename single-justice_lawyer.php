@@ -79,6 +79,9 @@ $cta_text          = $meta( 'profile_cta_text' );
 $review_count      = (int) $meta( 'review_count', 0 );
 $average_rating    = (float) $meta( 'average_rating', 0 );
 $reviews_enabled   = in_array( strtolower( (string) $meta( 'review_display_enabled' ) ), array( '1', 'yes', 'true', 'enabled', 'approved' ), true );
+$approved_recommendations = $reviews_enabled && function_exists( 'justice_theme_lawyer_public_recommendations' )
+	? justice_theme_lawyer_public_recommendations( $lawyer_id, 4 )
+	: array();
 $cities            = get_the_terms( $lawyer_id, 'city' );
 $areas             = get_the_terms( $lawyer_id, 'practice-areas' );
 $is_seed_data      = 'seed' === $source_type || false !== strpos( $internal_notes, 'seed_data' );
@@ -86,6 +89,7 @@ $is_paid           = ! $is_seed_data && 'active' === $subscription && in_array( 
 $is_verified       = 'verified' === strtolower( (string) $verified );
 $show_rating       = $reviews_enabled && $review_count > 0 && $average_rating > 0;
 $show_testimonials = $reviews_enabled && ! empty( $testimonials );
+$show_approved_recommendations = ! empty( $approved_recommendations );
 $primary_area      = ( ! empty( $areas ) && ! is_wp_error( $areas ) ) ? $areas[0] : null;
 $primary_city      = ( ! empty( $cities ) && ! is_wp_error( $cities ) ) ? $cities[0] : null;
 $phone_link        = function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) $phone ) : '';
@@ -393,8 +397,26 @@ $has_media_module     = $video_url || ! empty( $media_items );
 					<h2>ביקורות והמלצות</h2>
 					<?php if ( $show_rating ) : ?>
 						<p class="lawyer-mini-rating"><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?> מתוך 5 על בסיס <?php echo esc_html( number_format_i18n( $review_count ) ); ?> ביקורות מאושרות.</p>
-					<?php else : ?>
+					<?php elseif ( ! $show_approved_recommendations && ! $show_testimonials ) : ?>
 						<p class="lawyer-mini-muted">ביקורות לקוחות יוצגו רק לאחר אימות, בקרה ואישור פרסום.</p>
+					<?php endif; ?>
+					<?php if ( $show_approved_recommendations ) : ?>
+						<div class="lawyer-mini-testimonials">
+							<?php foreach ( $approved_recommendations as $recommendation ) : ?>
+								<figure>
+									<blockquote><?php echo esc_html( $recommendation['quote'] ); ?></blockquote>
+									<figcaption>
+										<?php echo esc_html( $recommendation['client_name'] ?: __( 'Client recommendation', 'justice-theme' ) ); ?>
+										<?php if ( ! empty( $recommendation['relationship'] ) ) : ?>
+											<span> - <?php echo esc_html( $recommendation['relationship'] ); ?></span>
+										<?php endif; ?>
+										<?php if ( ! empty( $recommendation['received_at'] ) ) : ?>
+											<span> - <?php echo esc_html( mysql2date( get_option( 'date_format' ), $recommendation['received_at'] ) ); ?></span>
+										<?php endif; ?>
+									</figcaption>
+								</figure>
+							<?php endforeach; ?>
+						</div>
 					<?php endif; ?>
 					<?php if ( $show_testimonials ) : ?>
 						<div class="lawyer-mini-testimonials">

@@ -3207,3 +3207,12 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: needs commit/push/uPress pull/live verification; first-party public recommendation display and official Google API sync still need focused builds.
 - COMPLETION ASSESSMENT: review source capture 65%; admin reputation operations 45%; Google API sync 10%; public reputation display 20%; reputation product revenue readiness 38%.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Reputation column will show Google profile/review links for lawyers who requested a review campaign.
+
+## 2026-05-20 FIRST-PARTY RECOMMENDATION PUBLIC DISPLAY
+- RESEARCH BASIS: Google Search Central says LocalBusiness/Organization pages are not eligible for self-serving review snippets when the entity controls the reviews; Google Business Profile guidance supports asking real customers for reviews, but not inventing/copying review content. So the safe build is first-party Jus-Tice recommendations with explicit permission and moderation, without adding review schema.
+- CODE UPDATED: added a public recommendation query helper that only returns published `justice_recommendation` records linked to the lawyer, with `recommendation_moderation=approved_public` and `recommendation_permission=confirmed`.
+- CODE UPDATED: public lawyer mini-sites now render those approved first-party recommendations in the reviews/recommendations section when review display is enabled for that lawyer.
+- MONEY IMPACT: lawyers can now be sold a visible reputation asset, not only an admin workflow. This supports the paid mini-site/reputation product while keeping Google review integration separate and compliant.
+- BLOCKED: needs real approved recommendation records to be visible; Google official review sync/API is still not built; Grow/Meshulam payment approval is still pending.
+- COMPLETION ASSESSMENT: first-party recommendation storage 65%; public recommendation display 45%; Google review source connection 65%; reputation product revenue readiness 43%.
+- OWNER CAN NOTICE AFTER DEPLOY: on a public lawyer profile, the review section will show approved client recommendations after an admin publishes a linked recommendation with confirmed permission and turns on review display for that lawyer.

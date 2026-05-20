@@ -7,7 +7,7 @@
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is operational reliability: private-zone actions now keep admin CRM reports aligned, which matters before selling this as paid lead management.
 - COMPLETION ASSESSMENT: lawyer private zone remains 68%; Clio-lite dashboard moved from 53% to 55%; paid-lawyer retention value moved from 62% to 63%. Remaining blockers: live QA with real lawyer user/lead, automatic lead alerts, per-lead detail page, and payment activation.
 - OWNER-VISIBLE AFTER DEPLOY: stage updates made in `/lawyer-dashboard/` should also reflect in wp-admin lead status columns/reports.
-- UPRESS: pending code deploy/pull for this commit.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `a239225 Sync lawyer lead stage to CRM status` is `HEAD -> main, origin/main`.
 - SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
 
 ## LATEST WORK STATUS - 2026-05-20 19:51 Asia/Jerusalem

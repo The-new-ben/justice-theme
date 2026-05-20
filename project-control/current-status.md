@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-20 22:14 Asia/Jerusalem
+- LAWYER SALES PIPELINE VIEW: added a sales pipeline block inside Justice CRM so the owner can see prospect count, expected monthly value, hot prospects and due follow-ups without opening the separate prospects screen first.
+- RESEARCHED: current Clio Grow documentation says CRM dashboards should expose pipeline value, lead source/matter type and conversion rate; Clio CRM marketing also emphasizes tracking every client, conversation and follow-up so opportunities do not fall through. Sources: https://help.clio.com/hc/en-us/articles/29739406189339-Clio-Grow-Reports and https://www.clio.com/features/legal-crm-software/
+- CODED: `inc/lead-crm.php` now renders `Lawyer sales pipeline` under Recent legal leads.
+- CODED: the new CRM block shows open prospects, open monthly pipeline value in NIS, hot prospects, due follow-ups, buttons to open/add prospects, and a next-action table with source lead links.
+- VERIFIED: `php -l inc/lead-crm.php`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `f2d705a Show lawyer prospect pipeline in CRM`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is sales focus: the owner can now see the monthly value and next action queue for lawyer recruitment from the CRM, which makes outreach faster and less likely to disappear.
+- COMPLETION ASSESSMENT: lawyer outreach operating system moved from 45% to 52%; paid coverage pipeline moved from 35% to 43%; first-lawyer sales readiness moved from 63% to 66%; automated payment readiness unchanged at 80%.
+- OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Justice CRM -> Lawyer sales pipeline.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `f2d705a Show lawyer prospect pipeline in CRM` is `HEAD -> main, origin/main`.
+- SAFETY: admin display only. No public CMS database content, lawyer profile, lead record, prospect record, outbound message, payment setting, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 22:06 Asia/Jerusalem
 - CRM TO LAWYER-PROSPECT BRIDGE: connected uncovered demand in Justice CRM to the new Lawyer Prospects pipeline.
 - RESEARCHED: current legal lead-management guidance says intake systems should track lead source, status, follow-up and conversion by channel; Justia's 2026 directory material reinforces that lawyers buy visibility by practice area and metro area, which matches our area/city prospect pipeline. Sources: https://www.clio.com/blog/lead-management-best-practices-law-firms/ and https://onward.justia.com/how-to-maximize-the-benefits-of-your-justia-lawyer-directory-profile/
@@ -3426,3 +3438,13 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: requires owner/admin to save prospects and perform outreach; no automatic lawyer messages were sent; payment automation still depends on Grow/Meshulam approval.
 - COMPLETION ASSESSMENT: uncovered-demand-to-sales workflow 55%; lawyer outreach operating system 45%; first-lawyer sales readiness 63%; automated payment readiness 80%.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Justice CRM -> `Prospect` / `Create prospect`.
+
+## 2026-05-20 LAWYER SALES PIPELINE VIEW
+- RESEARCH BASIS: Clio Grow reports expose pipeline value, source/matter type and conversion rate; Clio CRM guidance emphasizes tracking every contact, conversation and follow-up so opportunities do not fall through.
+- CODE UPDATED: Justice CRM now has a `Lawyer sales pipeline` block with open prospect count, open monthly NIS value, hot prospect count and due follow-up count.
+- CODE UPDATED: the same block shows the next prospect actions, target plan, status, priority, expected monthly value and source lead link.
+- DEPLOYED: pushed `f2d705a Show lawyer prospect pipeline in CRM` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
+- MONEY IMPACT: this makes the owner sales queue visible from the CRM so repeated demand can move toward paid lawyer coverage faster.
+- BLOCKED: still requires real prospects and owner/admin outreach; no automatic outreach or records were created.
+- COMPLETION ASSESSMENT: lawyer outreach operating system 52%; paid coverage pipeline 43%; first-lawyer sales readiness 66%; automated payment readiness 80%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Justice CRM -> Lawyer sales pipeline.

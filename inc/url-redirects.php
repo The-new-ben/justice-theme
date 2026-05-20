@@ -1146,10 +1146,10 @@ function justice_theme_get_slug_redirects(): array {
 }
 
 /**
- * Redirect exact legacy English paths that WordPress would otherwise send home.
+ * Redirect exact legacy English paths before plugins/canonical logic can send them home.
  */
 function justice_theme_exact_legacy_path_redirect() {
-	if ( is_admin() ) {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
 		return;
 	}
 
@@ -1167,7 +1167,7 @@ function justice_theme_exact_legacy_path_redirect() {
 		exit;
 	}
 }
-add_action( 'template_redirect', 'justice_theme_exact_legacy_path_redirect', -3001 );
+add_action( 'init', 'justice_theme_exact_legacy_path_redirect', -3001 );
 
 /**
  * Hook into template_redirect to perform the native 301 redirect

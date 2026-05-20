@@ -26,7 +26,7 @@ Sources:
 | `/wp-*.php` example | 2025-12-05 | 404 | Leave as 404. This is fake WordPress-file noise, not a user page. |
 
 ## Code Change
-Added two exact redirects in `inc/url-redirects.php` before WordPress canonical redirects:
+Added two exact redirects in `inc/url-redirects.php` during early WordPress startup, before plugins/canonical logic can send them to the homepage:
 
 - `/tax-law/` -> `/tax-lawyer/`
 - `/personal-injury/` -> `/tort-lawyer/`
@@ -35,4 +35,3 @@ No broad redirect rule was added. No homepage catch-all was added.
 
 ## Next Action
 After deployment, check the two redirects live, then in Search Console use Validate Fix only after the site is pulled and cache is clear. The main 200 URLs can wait for Google recrawl because Search Console data was stale.
-

@@ -3,10 +3,10 @@
 - RESEARCHED: Google's own guidance says use 3XX/301 redirects when a page moved or has a clear replacement, but real missing/no-replacement URLs can stay 404/410; generic fake-valid redirects can create poor crawl signals. Sources: https://support.google.com/webmasters/answer/7440203, https://developers.google.com/search/docs/crawling-indexing/301-redirects, https://developers.google.com/search/docs/crawling-indexing/troubleshoot-crawling-errors
 - FOUND: `/drug-crimes/`, `/criminal-record-deletion/`, `/shoplifting-defense/` and `/real-estate/` now return live 200, so the GSC report is stale for those examples.
 - FOUND: `/tax-law/` and `/personal-injury/` were redirecting to the homepage, which is weaker than redirecting to the closest real legal pages.
-- CODED: `inc/url-redirects.php` now redirects only `/tax-law/` -> `/tax-lawyer/` and `/personal-injury/` -> `/tort-lawyer/` before WordPress canonical redirects.
+- CODED: `inc/url-redirects.php` now redirects only `/tax-law/` -> `/tax-lawyer/` and `/personal-injury/` -> `/tort-lawyer/` during early WordPress startup, before canonical/plugin homepage redirects.
 - LEFT ALONE: `/wp-content/plugins/real-accessability/support.php` and fake `/wp-*.php` requests remain 404 because they are plugin/security noise, not user journeys or moved content.
 - DOCUMENTED: `project-control/gsc-404-live-audit-2026-05-20.md` and `.csv` record the sample, live result and decision.
-- VERIFIED: `php -l inc/url-redirects.php` passed before commit; live verification still needs deployment/pull.
+- VERIFIED: `php -l inc/url-redirects.php` passed before commit; first uPress pull showed another layer still won at `template_redirect`, so the hook was moved earlier to `init` and needs final live verification after the second pull.
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is SEO hygiene: two bad homepage redirects are now mapped to relevant money/legal pages, while stale resolved 404 examples do not distract the build.
 - COMPLETION ASSESSMENT: known GSC 404 sample handling moved from 45% to 78%; traffic/ranking recovery moved from 31% to 32%; first-lawyer sales readiness unchanged. Still blocked: Google must recrawl, GSC remains delayed, and we need Analytics/Search Console export for the full 404 list later.
 - OWNER-VISIBLE AFTER DEPLOY: `/tax-law/` should land on `/tax-lawyer/`; `/personal-injury/` should land on `/tort-lawyer/`.

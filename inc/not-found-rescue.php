@@ -79,6 +79,12 @@ function justice_theme_prepare_not_found_rescue_route(): void {
 	);
 }
 
+function justice_theme_is_not_found_rescue_request(): bool {
+	$path = justice_theme_not_found_rescue_path();
+
+	return '/not-found-help/' === $path || '/404-help/' === $path;
+}
+
 function justice_theme_render_not_found_rescue_route(): void {
 	$links = array(
 		array(
@@ -237,7 +243,7 @@ function justice_theme_render_not_found_rescue_route(): void {
 }
 
 function justice_theme_maybe_render_not_found_rescue_route(): void {
-	if ( '/not-found-help/' !== justice_theme_not_found_rescue_path() && '/404-help/' !== justice_theme_not_found_rescue_path() ) {
+	if ( ! justice_theme_is_not_found_rescue_request() ) {
 		return;
 	}
 
@@ -245,5 +251,4 @@ function justice_theme_maybe_render_not_found_rescue_route(): void {
 	justice_theme_render_not_found_rescue_route();
 	exit;
 }
-add_action( 'template_redirect', 'justice_theme_maybe_render_not_found_rescue_route', -4010 );
-
+add_action( 'wp', 'justice_theme_maybe_render_not_found_rescue_route', -10000 );

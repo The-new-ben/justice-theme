@@ -98,8 +98,14 @@ function justice_theme_should_render_checkout_compliance_fallback(): bool {
 		}
 	}
 
-	if ( function_exists( 'WC' ) && WC() && isset( WC()->cart ) && WC()->cart && ! WC()->cart->is_empty() ) {
-		return false;
+	foreach ( array_keys( $_COOKIE ) as $cookie_name ) {
+		if (
+			'woocommerce_items_in_cart' === $cookie_name ||
+			'woocommerce_cart_hash' === $cookie_name ||
+			0 === strpos( $cookie_name, 'wp_woocommerce_session_' )
+		) {
+			return false;
+		}
 	}
 
 	return true;

@@ -3136,3 +3136,9 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: exact public business address is still required before final re-check submission; live deployment/uPress pull and public verification still need to happen for this patch.
 - COMPLETION ASSESSMENT: Grow website checklist fix 92%; automated recurring payment readiness 72%; first-payment readiness 67%.
 - OWNER CAN NOTICE AFTER DEPLOY: opening `/checkout/` while not paying should show a Jus-Tice customer details form and required terms approval checkbox; checkout with a product should still go through WooCommerce.
+
+## 2026-05-20 GROW/MESHULAM CHECKOUT CACHE FOLLOW-UP
+- LIVE FINDING: after deploying `f150c7f`, uPress Git showed the correct commit, but public `/checkout/` still rendered the WooCommerce empty-cart page and did not expose the reviewer compliance form.
+- CODE UPDATED: checkout fallback detection now uses payment/order query parameters and WooCommerce cart cookies instead of the server-side cart object. This should let reviewers with no cart see the compliance form while preserving real buyer checkout sessions.
+- BLOCKED: exact public business address is still required before final Grow/Meshulam re-check; deployment and public verification for this follow-up patch still need to happen.
+- COMPLETION ASSESSMENT: Grow website checklist fix 94%; automated recurring payment readiness 73%; first-payment readiness 68%.

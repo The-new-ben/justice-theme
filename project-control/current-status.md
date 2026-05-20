@@ -4,10 +4,11 @@
 - CODED: `inc/lead-crm.php` now renders `Supplier marketplace pipeline` below the lawyer sales pipeline in Justice CRM.
 - CODED: the new panel shows open suppliers, outreach-ready suppliers, approved partners and suppliers with a real commercial model set.
 - CODED: the supplier table shows category, revenue model, priority, status, service area, contact, source link and Open/Website actions.
-- VERIFIED: `php -l inc/lead-crm.php` passed and `git diff --check` is clean except the expected Windows line-ending warning.
+- VERIFIED: `php -l inc/lead-crm.php`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `dcd9605 Show supplier pipeline in CRM`.
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that the second revenue line, supplier/provider deals sold to vendors who want lawyer exposure, is no longer buried in a separate admin list.
 - COMPLETION ASSESSMENT: supplier CRM visibility moved from 45% to 65%; supplier marketplace operating system moved from 42% to 50%; lawyer monetization system moved from 72% to 74%; live supplier revenue remains 0% until real supplier prospects and commercial terms are added.
 - OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Justice CRM -> Supplier marketplace pipeline.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `dcd9605 Show supplier pipeline in CRM` is `HEAD -> main, origin/main`.
 - SAFETY: admin display only. No supplier record was created, no supplier was contacted, no public page changed, no payment setting changed, and no client charge happened.
 
 ## LATEST WORK STATUS - 2026-05-20 22:34 Asia/Jerusalem

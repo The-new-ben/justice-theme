@@ -8,7 +8,7 @@
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is paid-lawyer retention value: lawyers can now operate leads inside the private zone instead of only looking at them.
 - COMPLETION ASSESSMENT: lawyer private zone moved from 59% to 63%; Clio-lite lead dashboard moved from 28% to 40%; paid-lawyer retention value moved from 52% to 56%. Remaining blockers: live QA with a lawyer user and real assigned lead, per-lead detail pages, automatic WhatsApp/SMS notifications, and payment activation.
 - OWNER-VISIBLE AFTER DEPLOY: logged-in lawyers on `/lawyer-dashboard/` will see Update controls beside Recent leads, and stage changes will refresh the pipeline.
-- UPRESS: pending code deploy/pull for this commit.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `c55302e Let lawyers update lead pipeline stage` is `HEAD -> main, origin/main`.
 - SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
 
 ## LATEST WORK STATUS - 2026-05-20 19:22 Asia/Jerusalem

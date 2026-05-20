@@ -16,18 +16,40 @@ function justice_theme_register_lawyer_activation_meta(): void {
 		'activation_owner_note' => 'string',
 		'payment_path'            => 'string',
 		'payment_followup_status' => 'string',
+		'google_business_profile_url' => 'string',
+		'google_place_id'             => 'string',
+		'google_review_request_url'   => 'string',
+		'google_review_count'         => 'integer',
+		'latest_review_date'          => 'string',
+		'review_display_enabled'      => 'string',
 	);
 
 	foreach ( $fields as $key => $type ) {
 		register_post_meta( 'justice_lawyer', $key, array(
 			'single'            => true,
 			'type'              => $type,
-			'sanitize_callback' => 'activation_owner_note' === $key ? 'sanitize_textarea_field' : 'sanitize_text_field',
+			'sanitize_callback' => justice_theme_lawyer_activation_meta_sanitizer( $key ),
 			'show_in_rest'      => false,
 		) );
 	}
 }
 add_action( 'init', 'justice_theme_register_lawyer_activation_meta' );
+
+function justice_theme_lawyer_activation_meta_sanitizer( string $key ): string {
+	if ( 'activation_owner_note' === $key ) {
+		return 'sanitize_textarea_field';
+	}
+
+	if ( in_array( $key, array( 'google_business_profile_url', 'google_review_request_url' ), true ) ) {
+		return 'esc_url_raw';
+	}
+
+	if ( 'google_review_count' === $key ) {
+		return 'absint';
+	}
+
+	return 'sanitize_text_field';
+}
 
 function justice_theme_handle_lawyer_registration(): void {
 	if ( ! isset( $_POST['justice_lawyer_registration_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_registration_nonce'] ) ), 'justice_lawyer_registration' ) ) {
@@ -352,6 +374,15 @@ function justice_theme_lawyer_activation_meta_box(): void {
 		'side',
 		'high'
 	);
+
+	add_meta_box(
+		'justice_theme_lawyer_reputation',
+		'Jus-Tice Reputation Sources',
+		'justice_theme_render_lawyer_reputation_box',
+		'justice_lawyer',
+		'normal',
+		'default'
+	);
 }
 add_action( 'add_meta_boxes', 'justice_theme_lawyer_activation_meta_box' );
 
@@ -392,6 +423,53 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 	<?php
 }
 
+function justice_theme_render_lawyer_reputation_box( WP_Post $post ): void {
+	wp_nonce_field( 'justice_theme_lawyer_reputation', 'justice_theme_lawyer_reputation_nonce' );
+
+	$business_url       = (string) get_post_meta( $post->ID, 'google_business_profile_url', true );
+	$place_id           = (string) get_post_meta( $post->ID, 'google_place_id', true );
+	$review_request_url = (string) get_post_meta( $post->ID, 'google_review_request_url', true );
+	$review_count       = (string) get_post_meta( $post->ID, 'google_review_count', true );
+	$latest_review_date = (string) get_post_meta( $post->ID, 'latest_review_date', true );
+	$display_enabled    = (string) get_post_meta( $post->ID, 'review_display_enabled', true );
+	?>
+	<p>Owner-only source fields for reputation/review workflows. Do not copy Google review text into public pages from here. Use these fields to connect review links, freshness and future Google Business Profile API/OAuth work.</p>
+	<table class="form-table" role="presentation">
+		<tr>
+			<th scope="row"><label for="justice-google-business-profile-url">Google Business profile URL</label></th>
+			<td><input id="justice-google-business-profile-url" type="url" name="google_business_profile_url" value="<?php echo esc_attr( $business_url ); ?>" class="regular-text" placeholder="https://maps.google.com/..."></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="justice-google-place-id">Google Place ID</label></th>
+			<td><input id="justice-google-place-id" type="text" name="google_place_id" value="<?php echo esc_attr( $place_id ); ?>" class="regular-text" placeholder="ChIJ..."></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="justice-google-review-request-url">Google review request URL</label></th>
+			<td><input id="justice-google-review-request-url" type="url" name="google_review_request_url" value="<?php echo esc_attr( $review_request_url ); ?>" class="regular-text" placeholder="https://search.google.com/local/writereview?placeid=..."></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="justice-google-review-count">Google review count</label></th>
+			<td><input id="justice-google-review-count" type="number" min="0" step="1" name="google_review_count" value="<?php echo esc_attr( $review_count ); ?>" class="small-text"></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="justice-latest-review-date">Latest review date</label></th>
+			<td><input id="justice-latest-review-date" type="date" name="latest_review_date" value="<?php echo esc_attr( $latest_review_date ); ?>"></td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="justice-review-display-enabled">Display approved recommendations</label></th>
+			<td>
+				<select id="justice-review-display-enabled" name="review_display_enabled">
+					<option value="" <?php selected( $display_enabled, '' ); ?>>No / not reviewed</option>
+					<option value="approved" <?php selected( $display_enabled, 'approved' ); ?>>Approved after owner review</option>
+					<option value="disabled" <?php selected( $display_enabled, 'disabled' ); ?>>Disabled</option>
+				</select>
+				<p class="description">This flag is for first-party/display-approved recommendations. Google review text still needs a separate policy/API path.</p>
+			</td>
+		</tr>
+	</table>
+	<?php
+}
+
 function justice_theme_save_lawyer_activation( int $post_id ): void {
 	$nonce = isset( $_POST['justice_theme_lawyer_activation_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_theme_lawyer_activation_nonce'] ) ) : '';
 
@@ -413,6 +491,31 @@ function justice_theme_save_lawyer_activation( int $post_id ): void {
 	update_post_meta( $post_id, 'activation_owner_note', isset( $_POST['activation_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['activation_owner_note'] ) ) : '' );
 }
 add_action( 'save_post_justice_lawyer', 'justice_theme_save_lawyer_activation' );
+
+function justice_theme_save_lawyer_reputation_sources( int $post_id ): void {
+	$nonce = isset( $_POST['justice_theme_lawyer_reputation_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_theme_lawyer_reputation_nonce'] ) ) : '';
+
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'justice_theme_lawyer_reputation' ) ) {
+		return;
+	}
+
+	if ( ! current_user_can( 'edit_post', $post_id ) || ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) ) {
+		return;
+	}
+
+	update_post_meta( $post_id, 'google_business_profile_url', isset( $_POST['google_business_profile_url'] ) ? esc_url_raw( wp_unslash( $_POST['google_business_profile_url'] ) ) : '' );
+	update_post_meta( $post_id, 'google_place_id', isset( $_POST['google_place_id'] ) ? sanitize_text_field( wp_unslash( $_POST['google_place_id'] ) ) : '' );
+	update_post_meta( $post_id, 'google_review_request_url', isset( $_POST['google_review_request_url'] ) ? esc_url_raw( wp_unslash( $_POST['google_review_request_url'] ) ) : '' );
+	update_post_meta( $post_id, 'google_review_count', isset( $_POST['google_review_count'] ) ? absint( wp_unslash( $_POST['google_review_count'] ) ) : 0 );
+	update_post_meta( $post_id, 'latest_review_date', isset( $_POST['latest_review_date'] ) ? sanitize_text_field( wp_unslash( $_POST['latest_review_date'] ) ) : '' );
+
+	$display_enabled = isset( $_POST['review_display_enabled'] ) ? sanitize_key( wp_unslash( $_POST['review_display_enabled'] ) ) : '';
+	if ( ! in_array( $display_enabled, array( '', 'approved', 'disabled' ), true ) ) {
+		$display_enabled = '';
+	}
+	update_post_meta( $post_id, 'review_display_enabled', $display_enabled );
+}
+add_action( 'save_post_justice_lawyer', 'justice_theme_save_lawyer_reputation_sources' );
 
 function justice_theme_apply_lawyer_profile_update(): void {
 	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;

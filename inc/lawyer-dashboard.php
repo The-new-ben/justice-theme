@@ -299,9 +299,13 @@ function justice_theme_lawyer_dashboard_profile_completeness( int $post_id ): in
 }
 
 function justice_theme_lawyer_dashboard_growth_assets( int $post_id, int $lead_count, int $content_request_count, int $profile_views_total ): array {
-	$review_count       = (int) get_post_meta( $post_id, 'review_count', true );
+	$review_count       = (int) get_post_meta( $post_id, 'google_review_count', true );
+	if ( ! $review_count ) {
+		$review_count = (int) get_post_meta( $post_id, 'review_count', true );
+	}
 	$latest_review_date = (string) get_post_meta( $post_id, 'latest_review_date', true );
 	$has_fresh_review   = false;
+	$has_google_source  = (bool) get_post_meta( $post_id, 'google_review_request_url', true ) || (bool) get_post_meta( $post_id, 'google_business_profile_url', true ) || (bool) get_post_meta( $post_id, 'google_place_id', true );
 
 	if ( $latest_review_date ) {
 		$review_timestamp = strtotime( $latest_review_date );
@@ -346,7 +350,7 @@ function justice_theme_lawyer_dashboard_growth_assets( int $post_id, int $lead_c
 		),
 		array(
 			'label' => __( 'Review/recommendation source exists', 'justice-theme' ),
-			'done'  => 0 < $review_count || '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true ),
+			'done'  => $has_google_source || 0 < $review_count || '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true ),
 			'why'   => __( 'Fresh recommendations are a major trust and local SEO signal.', 'justice-theme' ),
 		),
 		array(

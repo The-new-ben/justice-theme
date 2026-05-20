@@ -70,6 +70,13 @@ Competitor/product pattern:
 - The form saves an internal request only.
 - Owner/admin receives a notification.
 - Lawyer Onboarding admin now surfaces pending review campaign requests.
+- Lawyer profile edit screens now have owner-only Google reputation source fields:
+  - Google Business profile URL;
+  - Google Place ID;
+  - Google review request URL;
+  - Google review count;
+  - latest review date;
+  - display-approved recommendations flag.
 - Linear `HAD-72` tracks the next implementation steps.
 
 ## What Is Not Implemented Yet
@@ -92,7 +99,7 @@ Competitor/product pattern:
 
 ## Next Steps
 
-1. Add admin meta fields for Google review URL, Place ID, review count and latest review date.
-2. Build first-party recommendation CPT/moderation.
-3. Add one safe public profile section for approved first-party recommendations.
+1. Build first-party recommendation CPT/moderation.
+2. Add one safe public profile section for approved first-party recommendations.
+3. Add a review-request sender only after owner approval of copy/SMS/email provider.
 4. Later: add Google OAuth/API only for lawyers who grant account access.

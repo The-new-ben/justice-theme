@@ -470,6 +470,12 @@ function justice_theme_render_checkout_compliance_notice(): void {
 		return;
 	}
 
+	static $rendered = false;
+	if ( $rendered ) {
+		return;
+	}
+	$rendered = true;
+
 	?>
 	<section class="jt-checkout-compliance" dir="rtl" style="border:1px solid #dde5ee;border-radius:8px;padding:18px;margin:18px 0;background:#fff;">
 		<h2 style="margin:0 0 10px;font-size:1.2rem;">אישור תקנון ותנאי תשלום</h2>
@@ -485,3 +491,37 @@ add_action( 'woocommerce_before_checkout_form', 'justice_theme_render_checkout_c
 add_action( 'woocommerce_before_checkout_billing_form', 'justice_theme_render_checkout_compliance_notice', 5 );
 add_action( 'woocommerce_after_checkout_form', 'justice_theme_render_checkout_compliance_notice', 5 );
 add_action( 'wp_footer', 'justice_theme_render_checkout_compliance_notice', 5 );
+
+function justice_theme_validate_checkout_compliance_consent( array $data, WP_Error $errors ): void {
+	unset( $data );
+
+	$accepted = isset( $_POST['justice_visible_terms_approval'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_visible_terms_approval'] ) ) : '';
+	if ( 'on' === $accepted ) {
+		return;
+	}
+
+	$errors->add(
+		'justice_terms_approval_required',
+		__( 'יש לאשר את התקנון, מדיניות הביטול, אספקת השירות, האחריות ומדיניות הפרטיות לפני ביצוע התשלום.', 'justice-theme' )
+	);
+}
+add_action( 'woocommerce_after_checkout_validation', 'justice_theme_validate_checkout_compliance_consent', 10, 2 );
+
+function justice_theme_save_checkout_compliance_consent( $order, array $data ): void {
+	unset( $data );
+
+	if ( ! is_object( $order ) || ! method_exists( $order, 'update_meta_data' ) ) {
+		return;
+	}
+
+	$accepted = isset( $_POST['justice_visible_terms_approval'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_visible_terms_approval'] ) ) : '';
+	if ( 'on' !== $accepted ) {
+		return;
+	}
+
+	$order->update_meta_data( '_justice_checkout_terms_approved_at', current_time( 'mysql' ) );
+	$order->update_meta_data( '_justice_checkout_terms_url', home_url( '/sample-terms-and-conditions-template/' ) );
+	$order->update_meta_data( '_justice_checkout_cancellation_url', home_url( '/cancellation/' ) );
+	$order->update_meta_data( '_justice_checkout_privacy_url', home_url( '/privacy/' ) );
+}
+add_action( 'woocommerce_checkout_create_order', 'justice_theme_save_checkout_compliance_consent', 10, 2 );

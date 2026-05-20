@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-20 22:52 Asia/Jerusalem
+- CHECKOUT CONSENT HARDENING FOR GROW APPROVAL: tightened the payment-review checkout consent behavior.
+- RESEARCHED: payment processors commonly require visible business contact details, privacy/terms/cancellation policies, service/delivery policy and an explicit customer acknowledgement before checkout; WooCommerce documentation also recommends terms/privacy checkout links and blocks order placement without terms acceptance. Sources: https://www.allpay.co.il/en/help/site-requirements, https://support.wix.com/en/article/wix-payments-ensuring-your-business-is-ready-for-sales, https://woocommerce.com/document/woocommerce-customizer/checkout/
+- CODED: `inc/payment-compliance-routes.php` now renders the checkout compliance consent block only once per checkout request, even if multiple WooCommerce hooks fire.
+- CODED: checkout submission now has server-side validation requiring the Jus-Tice terms/privacy/cancellation/service-responsibility consent checkbox.
+- CODED: accepted checkout consent is stored on the WooCommerce order with approved-at timestamp and the terms, cancellation and privacy URLs.
+- VERIFIED: `php -l inc/payment-compliance-routes.php` passed and `git diff --check` is clean except the expected Windows line-ending warning.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is payment approval quality: Grow/Meshulam can see a cleaner checkout consent flow and future orders keep an audit trail that the buyer accepted the site policies.
+- COMPLETION ASSESSMENT: Grow/Meshulam website approval readiness moved from 78% to 83%; automated payment readiness moved from 80% to 82%; first paid-lawyer readiness moved from 74% to 76%. External approval/KYC still remains outside the repo.
+- OWNER-VISIBLE AFTER DEPLOY: live WooCommerce checkout will show one terms/privacy/cancellation consent block and reject checkout if it is not accepted.
+- SAFETY: checkout validation code only. No payment gateway settings changed, no order was created, no card was charged, no public CMS page was edited, and no outbound message was sent.
+
 ## LATEST WORK STATUS - 2026-05-20 22:44 Asia/Jerusalem
 - SUPPLIER PIPELINE CRM VISIBILITY: added the supplier/provider marketplace as a visible revenue line inside Justice CRM.
 - RESEARCHED: legal marketplaces monetize adjacent professional services, not only lawyers. Din exposes a broad lawyer-search/directory funnel; expert marketplaces like Synapsis and Legal Experts AI show supplier discovery patterns around verified profiles, specialty filters, credentials, rates and availability. Sources: https://www.din.co.il/default.asp, https://www.joinsynapsis.com/, https://www.legalexperts.ai/

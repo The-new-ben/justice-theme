@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-20 19:41 Asia/Jerusalem
+- LAWYER PRIVATE ZONE / LEAD CONTACT ACTIONS: added direct contact actions to assigned leads inside the lawyer dashboard.
+- RESEARCHED: current 2026 legal intake guidance. Key point: law firms should respond to every lead quickly and use multiple channels; Clio specifically recommends calling every lead within 15 minutes and tracking follow-up in a CRM.
+- CODED: `/lawyer-dashboard/` Recent leads now shows Call, WhatsApp and Email buttons when assigned lead contact data exists. WhatsApp and email open prefilled, lawyer-side messages; nothing is sent automatically.
+- CODED: `assets/css/premium-pass-3.css` now supports the extra private-zone contact action column with mobile fallback inherited from the dashboard grid.
+- VERIFIED: `php -l page-lawyer-dashboard.php` and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is direct lead usability: a paid lawyer can now receive, contact and stage an assigned lead from the private zone.
+- COMPLETION ASSESSMENT: lawyer private zone moved from 63% to 66%; Clio-lite lead dashboard moved from 40% to 47%; paid-lawyer retention value moved from 56% to 60%. Remaining blockers: live QA with a real lawyer user and assigned lead, per-lead detail view, automated lead notifications, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: logged-in lawyers on `/lawyer-dashboard/` will see Call / WhatsApp / Email beside Recent leads when contact data exists.
+- UPRESS: pending code deploy/pull for this commit.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 19:33 Asia/Jerusalem
 - LAWYER PRIVATE ZONE / PIPELINE CONTROL: upgraded the dashboard from a display-only lead pipeline into a usable lightweight CRM workflow.
 - RESEARCHED: Clio's 2026 lead-management guidance. Key point: lead management is the pre-retention sales process; lawyers need a CRM to track follow-up, consultation, and hire/not-fit stages so prospects do not slip through cracks.

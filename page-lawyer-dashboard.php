@@ -504,6 +504,29 @@ if ( $leads && $leads->posts ) {
 							<?php while ( $leads->have_posts() ) : $leads->the_post(); ?>
 								<?php
 								$lead_id             = get_the_ID();
+								$lead_name           = get_post_meta( $lead_id, 'visitor_name', true ) ?: get_the_title();
+								$lead_phone          = (string) ( get_post_meta( $lead_id, 'visitor_phone', true ) ?: get_post_meta( $lead_id, 'lead_phone', true ) );
+								$lead_email          = (string) ( get_post_meta( $lead_id, 'visitor_email', true ) ?: get_post_meta( $lead_id, 'lead_email', true ) );
+								$lead_phone_link     = $lead_phone && function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( $lead_phone ) : '';
+								$lead_phone_link     = $lead_phone_link ?: ( $lead_phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', $lead_phone ) : '' );
+								$lead_whatsapp_link  = $lead_phone && function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( $lead_phone ) : '';
+								if ( $lead_whatsapp_link ) {
+									$lead_whatsapp_link = add_query_arg(
+										'text',
+										sprintf(
+											'שלום %s, קיבלתי את הפנייה שלך דרך Jus-Tice ואשמח לבדוק איך אפשר לעזור.',
+											$lead_name
+										),
+										$lead_whatsapp_link
+									);
+								}
+								$lead_email_link = $lead_email ? add_query_arg(
+									array(
+										'subject' => 'פנייתך דרך Jus-Tice',
+										'body'    => sprintf( "שלום %s,\n\nקיבלתי את הפנייה שלך דרך Jus-Tice ואשמח לבדוק איך אפשר לעזור.\n\nבברכה,\n%s", $lead_name, $dashboard_review_profile_title ?: get_bloginfo( 'name' ) ),
+									),
+									'mailto:' . $lead_email
+								) : '';
 								$current_lead_stage  = sanitize_key( (string) ( get_post_meta( $lead_id, 'follow_up_status', true ) ?: get_post_meta( $lead_id, 'lead_status', true ) ?: 'not_started' ) );
 								if ( ! array_key_exists( $current_lead_stage, $dashboard_lead_stage_options ) && in_array( $current_lead_stage, array( 'new', 'assigned', 'qualified', 'pending', '' ), true ) ) {
 									$current_lead_stage = 'not_started';
@@ -511,10 +534,24 @@ if ( $leads && $leads->posts ) {
 								$current_stage_label = $dashboard_lead_stage_options[ $current_lead_stage ] ?? ( get_post_meta( $lead_id, 'lead_status', true ) ?: 'new' );
 								?>
 								<article>
-									<strong><?php echo esc_html( get_post_meta( $lead_id, 'visitor_name', true ) ?: get_the_title() ); ?></strong>
+									<strong><?php echo esc_html( $lead_name ); ?></strong>
 									<span><?php echo esc_html( get_post_meta( $lead_id, 'legal_area', true ) ?: get_post_meta( $lead_id, 'lead_area', true ) ?: '-' ); ?></span>
 									<span><?php echo esc_html( $current_stage_label ); ?></span>
 									<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+									<div class="lawyer-dashboard-leads__contact">
+										<?php if ( $lead_phone_link ) : ?>
+											<a class="button" href="<?php echo esc_url( $lead_phone_link ); ?>"><?php esc_html_e( 'Call', 'justice-theme' ); ?></a>
+										<?php endif; ?>
+										<?php if ( $lead_whatsapp_link ) : ?>
+											<a class="button" href="<?php echo esc_url( $lead_whatsapp_link ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'WhatsApp', 'justice-theme' ); ?></a>
+										<?php endif; ?>
+										<?php if ( $lead_email_link ) : ?>
+											<a class="button" href="<?php echo esc_url( $lead_email_link ); ?>"><?php esc_html_e( 'Email', 'justice-theme' ); ?></a>
+										<?php endif; ?>
+										<?php if ( ! $lead_phone_link && ! $lead_email_link ) : ?>
+											<span><?php esc_html_e( 'No contact shown', 'justice-theme' ); ?></span>
+										<?php endif; ?>
+									</div>
 									<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="lawyer-dashboard-leads__stage-form">
 										<input type="hidden" name="action" value="justice_lawyer_lead_stage_update">
 										<input type="hidden" name="lead_id" value="<?php echo esc_attr( $lead_id ); ?>">

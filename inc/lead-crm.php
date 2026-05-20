@@ -80,6 +80,8 @@ function justice_theme_render_crm_admin_page(): void {
 		<h2>Recent legal leads</h2>
 		<?php justice_theme_crm_render_table( $leads, 'justice_lead' ); ?>
 
+		<?php justice_theme_crm_render_lawyer_sales_pipeline(); ?>
+
 		<h2 style="margin-top:28px;">Uncovered demand queue</h2>
 		<p>Leads with no clear paid coverage yet. Use this to recruit lawyers for repeated demand before manually giving away calls for free.</p>
 		<div class="justice-crm-cards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0;">
@@ -145,6 +147,204 @@ function justice_theme_crm_render_uncovered_demand_summary(): void {
 	</table>
 	<?php justice_theme_crm_render_uncovered_recruitment_brief( $signals ); ?>
 	<?php
+}
+
+function justice_theme_crm_render_lawyer_sales_pipeline(): void {
+	if ( ! post_type_exists( 'justice_prospect' ) ) {
+		return;
+	}
+
+	$summary   = justice_theme_crm_lawyer_prospect_summary( 250 );
+	$prospects = justice_theme_crm_query_lawyer_prospects( 50 );
+	$all_url   = admin_url( 'edit.php?post_type=justice_prospect' );
+	$new_url   = admin_url( 'post-new.php?post_type=justice_prospect' );
+	?>
+	<h2 style="margin-top:28px;">Lawyer sales pipeline</h2>
+	<p>Track lawyers to contact for paid coverage. This is the owner sales queue, not a public listing.</p>
+	<div class="justice-crm-cards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0;">
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $summary['open_count'] ); ?></strong>
+			<span>Open prospects</span>
+		</div>
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( number_format_i18n( (int) $summary['open_monthly_nis'] ) ); ?> NIS</strong>
+			<span>Open monthly pipeline</span>
+		</div>
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $summary['hot_count'] ); ?></strong>
+			<span>Hot prospects</span>
+		</div>
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $summary['due_count'] ); ?></strong>
+			<span>Due follow-ups</span>
+		</div>
+	</div>
+	<p>
+		<a class="button button-primary" href="<?php echo esc_url( $all_url ); ?>">Open all prospects</a>
+		<a class="button" href="<?php echo esc_url( $new_url ); ?>">Add prospect</a>
+	</p>
+	<?php justice_theme_crm_render_lawyer_prospect_table( $prospects ); ?>
+	<?php
+}
+
+function justice_theme_crm_lawyer_prospect_summary( int $limit ): array {
+	$summary = array(
+		'open_count'       => 0,
+		'open_monthly_nis' => 0,
+		'hot_count'        => 0,
+		'due_count'        => 0,
+	);
+
+	$query = justice_theme_crm_query_lawyer_prospects( $limit );
+	if ( ! $query || ! $query->have_posts() ) {
+		return $summary;
+	}
+
+	$closed_statuses = array( 'won', 'lost' );
+	$today           = current_time( 'Y-m-d' );
+
+	foreach ( $query->posts as $post ) {
+		$post_id  = (int) $post->ID;
+		$status   = (string) get_post_meta( $post_id, 'prospect_outreach_status', true );
+		$priority = (string) get_post_meta( $post_id, 'prospect_priority', true );
+		$next     = (string) get_post_meta( $post_id, 'prospect_next_action_at', true );
+
+		if ( ! in_array( $status, $closed_statuses, true ) ) {
+			$summary['open_count']++;
+			$summary['open_monthly_nis'] += (int) get_post_meta( $post_id, 'prospect_expected_monthly_nis', true );
+		}
+
+		if ( 'hot' === $priority && ! in_array( $status, $closed_statuses, true ) ) {
+			$summary['hot_count']++;
+		}
+
+		if ( $next && $next <= $today && ! in_array( $status, $closed_statuses, true ) ) {
+			$summary['due_count']++;
+		}
+	}
+
+	wp_reset_postdata();
+
+	return $summary;
+}
+
+function justice_theme_crm_query_lawyer_prospects( int $limit ): ?WP_Query {
+	if ( ! post_type_exists( 'justice_prospect' ) ) {
+		return null;
+	}
+
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_prospect',
+		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+		'posts_per_page' => $limit,
+		'orderby'        => 'modified',
+		'order'          => 'DESC',
+		'no_found_rows'  => true,
+	) );
+
+	if ( empty( $query->posts ) ) {
+		return $query;
+	}
+
+	$today = current_time( 'Y-m-d' );
+	$rank  = array(
+		'hot'    => 0,
+		'warm'   => 1,
+		'cold'   => 2,
+		'parked' => 3,
+	);
+
+	usort(
+		$query->posts,
+		static function ( WP_Post $a, WP_Post $b ) use ( $today, $rank ): int {
+			$a_status = (string) get_post_meta( $a->ID, 'prospect_outreach_status', true );
+			$b_status = (string) get_post_meta( $b->ID, 'prospect_outreach_status', true );
+			$a_next   = (string) get_post_meta( $a->ID, 'prospect_next_action_at', true );
+			$b_next   = (string) get_post_meta( $b->ID, 'prospect_next_action_at', true );
+			$a_due    = $a_next && $a_next <= $today && ! in_array( $a_status, array( 'won', 'lost' ), true );
+			$b_due    = $b_next && $b_next <= $today && ! in_array( $b_status, array( 'won', 'lost' ), true );
+
+			if ( $a_due !== $b_due ) {
+				return $a_due ? -1 : 1;
+			}
+
+			$a_priority = $rank[ (string) get_post_meta( $a->ID, 'prospect_priority', true ) ] ?? 2;
+			$b_priority = $rank[ (string) get_post_meta( $b->ID, 'prospect_priority', true ) ] ?? 2;
+			if ( $a_priority !== $b_priority ) {
+				return $a_priority <=> $b_priority;
+			}
+
+			$a_value = (int) get_post_meta( $a->ID, 'prospect_expected_monthly_nis', true );
+			$b_value = (int) get_post_meta( $b->ID, 'prospect_expected_monthly_nis', true );
+			if ( $a_value !== $b_value ) {
+				return $b_value <=> $a_value;
+			}
+
+			return strcmp( (string) $a_next, (string) $b_next );
+		}
+	);
+
+	return $query;
+}
+
+function justice_theme_crm_render_lawyer_prospect_table( ?WP_Query $prospects ): void {
+	if ( ! $prospects || ! $prospects->have_posts() ) {
+		echo '<div class="notice notice-info inline"><p>No lawyer prospects yet. Use the Prospect button on an uncovered lead to create the first one.</p></div>';
+		return;
+	}
+
+	$status_labels   = function_exists( 'justice_theme_lawyer_prospect_statuses' ) ? justice_theme_lawyer_prospect_statuses() : array();
+	$priority_labels = function_exists( 'justice_theme_lawyer_prospect_priorities' ) ? justice_theme_lawyer_prospect_priorities() : array();
+	$plan_labels     = function_exists( 'justice_theme_lawyer_prospect_plan_options' ) ? justice_theme_lawyer_prospect_plan_options() : array();
+	?>
+	<table class="widefat striped">
+		<thead>
+			<tr>
+				<th>Prospect</th>
+				<th>Area / market</th>
+				<th>Target plan</th>
+				<th>Priority</th>
+				<th>Status</th>
+				<th>Expected/mo</th>
+				<th>Next action</th>
+				<th>Source lead</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ( array_slice( $prospects->posts, 0, 12 ) as $post ) : ?>
+				<?php
+				$post_id     = (int) $post->ID;
+				$area        = (string) get_post_meta( $post_id, 'prospect_practice_area', true );
+				$city        = (string) get_post_meta( $post_id, 'prospect_city', true );
+				$plan        = (string) get_post_meta( $post_id, 'prospect_target_plan', true );
+				$priority    = (string) get_post_meta( $post_id, 'prospect_priority', true );
+				$status      = (string) get_post_meta( $post_id, 'prospect_outreach_status', true );
+				$next        = (string) get_post_meta( $post_id, 'prospect_next_action_at', true );
+				$source_lead = (int) get_post_meta( $post_id, 'prospect_source_lead_id', true );
+				?>
+				<tr>
+					<td><strong><?php echo esc_html( get_the_title( $post_id ) ?: '(untitled)' ); ?></strong></td>
+					<td><?php echo esc_html( trim( $area . ' / ' . $city, ' /' ) ?: '-' ); ?></td>
+					<td><?php echo esc_html( ( $plan_labels[ $plan ] ?? $plan ) ?: '-' ); ?></td>
+					<td><?php echo esc_html( ( $priority_labels[ $priority ] ?? $priority ) ?: '-' ); ?></td>
+					<td><?php echo esc_html( ( $status_labels[ $status ] ?? $status ) ?: '-' ); ?></td>
+					<td><?php echo esc_html( number_format_i18n( (int) get_post_meta( $post_id, 'prospect_expected_monthly_nis', true ) ) ); ?> NIS</td>
+					<td><?php echo esc_html( $next ?: '-' ); ?></td>
+					<td>
+						<?php if ( $source_lead ) : ?>
+							<a href="<?php echo esc_url( get_edit_post_link( $source_lead, '' ) ); ?>">#<?php echo esc_html( (string) $source_lead ); ?></a>
+						<?php else : ?>
+							-
+						<?php endif; ?>
+					</td>
+					<td><a class="button" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Open</a></td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<?php
+	wp_reset_postdata();
 }
 
 function justice_theme_crm_render_uncovered_recruitment_brief( array $signals ): void {

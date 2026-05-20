@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-20 20:27 Asia/Jerusalem
+- LAWYER DASHBOARD VALUE SNAPSHOT: added a live monthly value panel to `/lawyer-dashboard/` so lawyers can see this month's assigned leads, first responses, consultations set, retained clients and closed/not-fit outcomes.
+- RESEARCHED: Clio's current Legal Trends material says firms that combine digital client intake tools with their referral/marketing flow see stronger revenue, lead-generation and conversion results; Clio's intake/CRM reporting also emphasizes full-funnel visibility from lead to retained client. Source: https://www.clio.com/about/press/legal-trends-solo-small-law-firms-2025/ and https://www.clio.com/resources/legal-trends/read-online/
+- CODED: `page-lawyer-dashboard.php` now builds monthly funnel metrics from existing assigned lead data and the milestone timestamps already saved by the CRM/dashboard stage workflow.
+- CODED: `assets/css/premium-pass-3.css` now styles the new value snapshot as compact dashboard metric tiles with mobile fallback.
+- VERIFIED: `php -l page-lawyer-dashboard.php` and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is retention/sales proof: a paying lawyer can now see this month's funnel movement instead of only raw lead counts.
+- COMPLETION ASSESSMENT: lawyer private zone moved from 68% to 70%; Clio-lite dashboard moved from 58% to 62%; paid-lawyer reporting/value proof moved from 43% to 50%. Remaining blockers: live QA with an actual lawyer user and assigned lead, automatic monthly email report, lead alert notifications, per-lead detail page, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: logged-in lawyers on `/lawyer-dashboard/` will see `Monthly value snapshot` above Recent leads.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `b408df1 Show monthly lawyer lead value snapshot` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 20:11 Asia/Jerusalem
 - LEAD VALUE REPORTING: added milestone timestamps for the lead funnel so future lawyer reports can measure consultation and retained/lost outcomes, not only raw lead count.
 - RESEARCHED: 2026 law-firm conversion benchmarks and CRM guidance. Key point: firms should track lead-to-consultation and consultation-to-retained conversion separately; raw lead volume is not enough to prove marketing value.

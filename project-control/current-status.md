@@ -3217,3 +3217,12 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: needs real approved recommendation records to be visible; Google official review sync/API is still not built; Grow/Meshulam payment approval is still pending.
 - COMPLETION ASSESSMENT: first-party recommendation storage 65%; public recommendation display 45%; Google review source connection 65%; reputation product revenue readiness 43%.
 - OWNER CAN NOTICE AFTER DEPLOY: on a public lawyer profile, the review section will show approved client recommendations after an admin publishes a linked recommendation with confirmed permission and turns on review display for that lawyer.
+
+## 2026-05-20 LAWYER DASHBOARD REVIEW REQUEST KIT
+- RESEARCH BASIS: BrightLocal 2026 says review freshness is now a major decision factor; Google Business Profile now supports direct review links/QR codes but requires genuine customer experiences and forbids incentives or fake engagement.
+- CODE UPDATED: logged-in lawyer dashboard now builds a ready-to-send review request message when the lawyer has a saved Google review request URL.
+- CODE UPDATED: dashboard shows a WhatsApp share button, direct Google review-link button, and Google profile button when sources exist; if the link is missing, the dashboard gives the lawyer the exact Google Business Profile path to copy it.
+- MONEY IMPACT: this turns the reputation module into an action tool lawyers can use immediately, making it easier to sell review/reputation management before full Google API sync exists.
+- BLOCKED: messages are not sent automatically; the lawyer still needs a real Google review link and should only send to real clients. Grow/Meshulam approval is still pending for automated recurring payments.
+- COMPLETION ASSESSMENT: review request activation 55%; Google review source connection 70%; public recommendation display 45%; reputation product revenue readiness 48%.
+- OWNER CAN NOTICE AFTER DEPLOY: logged-in lawyer dashboard -> Google reviews and recommendations -> Fast review request kit.

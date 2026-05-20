@@ -2284,6 +2284,40 @@
   font-weight: 800;
 }
 
+.lawyer-dashboard-review-kit {
+  display: grid;
+  gap: 0.75rem;
+  margin-top: 1rem;
+  border: 1px solid rgba(197, 164, 92, 0.45);
+  border-radius: 8px;
+  background: #fffaf0;
+  padding: 1rem;
+}
+
+.lawyer-dashboard-review-kit h3 {
+  margin: 0;
+  color: var(--jt-primary-deep);
+}
+
+.lawyer-dashboard-review-kit textarea {
+  width: 100%;
+  min-height: 120px;
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--jt-primary-deep);
+  font: inherit;
+  line-height: 1.65;
+  padding: 0.85rem;
+  resize: vertical;
+}
+
+.lawyer-dashboard-review-kit__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
 .lawyer-dashboard__first-value {
   display: grid;
   grid-template-columns: minmax(0, 1.25fr) minmax(160px, 0.35fr);

@@ -134,6 +134,21 @@ $completed_first_value_steps = count( array_filter( $first_value_steps, static f
 $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 'trialing' ), true )
 	? __( 'תשלום פעיל לפי סטטוס המנוי.', 'justice-theme' )
 	: __( 'תשלום וסליקה עדיין לא פעילים עד אישור מסחרי, חשבוניות וכללי חיוב.', 'justice-theme' );
+$dashboard_google_review_url    = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'google_review_request_url', true ) : '';
+$dashboard_google_business_url  = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'google_business_profile_url', true ) : '';
+$dashboard_review_profile_title = $primary_profile_id ? get_the_title( $primary_profile_id ) : '';
+$dashboard_review_message       = '';
+$dashboard_review_whatsapp_url  = '';
+
+if ( $dashboard_google_review_url ) {
+	$dashboard_review_message = sprintf(
+		/* translators: 1: lawyer/profile name, 2: Google review request URL. */
+		__( 'Hello, this is %1$s. If you were happy with the service, I would appreciate a short Google review here: %2$s Thank you.', 'justice-theme' ),
+		$dashboard_review_profile_title ?: __( 'the firm', 'justice-theme' ),
+		$dashboard_google_review_url
+	);
+	$dashboard_review_whatsapp_url = 'https://wa.me/?text=' . rawurlencode( wp_strip_all_tags( $dashboard_review_message ) );
+}
 ?>
 
 <section class="lawyer-dashboard section">
@@ -341,6 +356,23 @@ $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 
 
 							<button type="submit" class="button button--gold"><?php esc_html_e( 'Request review campaign setup', 'justice-theme' ); ?></button>
 						</form>
+
+						<div class="lawyer-dashboard-review-kit">
+							<h3><?php esc_html_e( 'Fast review request kit', 'justice-theme' ); ?></h3>
+							<?php if ( $dashboard_google_review_url ) : ?>
+								<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Use this with real clients only, after the matter or a meaningful service moment. Do not offer discounts, gifts, or pressure for a positive review.', 'justice-theme' ); ?></p>
+								<textarea readonly rows="4" onclick="this.select()"><?php echo esc_textarea( $dashboard_review_message ); ?></textarea>
+								<div class="lawyer-dashboard-review-kit__actions">
+									<a class="button button--gold" href="<?php echo esc_url( $dashboard_review_whatsapp_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Open WhatsApp message', 'justice-theme' ); ?></a>
+									<a class="button button--outline" href="<?php echo esc_url( $dashboard_google_review_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Open Google review link', 'justice-theme' ); ?></a>
+									<?php if ( $dashboard_google_business_url ) : ?>
+										<a class="button button--outline" href="<?php echo esc_url( $dashboard_google_business_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'View Google profile', 'justice-theme' ); ?></a>
+									<?php endif; ?>
+								</div>
+							<?php else : ?>
+								<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Add your Google review request URL above first. In Google Business Profile, open Reviews, choose Get more reviews, copy the link, paste it here, and submit.', 'justice-theme' ); ?></p>
+							<?php endif; ?>
+						</div>
 					</section>
 
 					<section class="lawyer-dashboard-content-request">

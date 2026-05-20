@@ -489,8 +489,133 @@ function justice_theme_render_lawyer_prospect_outreach_box( WP_Post $post ): voi
 	<textarea id="justice-prospect-email-draft" readonly rows="11" class="large-text"><?php echo esc_textarea( $message['body'] ); ?></textarea>
 	<label for="justice-prospect-call-script" style="display:block;margin-top:12px;"><strong>Call script</strong></label>
 	<textarea id="justice-prospect-call-script" readonly rows="9" class="large-text"><?php echo esc_textarea( $message['call'] ); ?></textarea>
+	<p style="margin-top:14px;"><strong>Pipeline quick actions</strong></p>
+	<p>
+		<?php foreach ( justice_theme_lawyer_prospect_quick_actions() as $action_key => $action ) : ?>
+			<a class="button" href="<?php echo esc_url( justice_theme_lawyer_prospect_quick_action_url( $post->ID, $action_key ) ); ?>"><?php echo esc_html( $action['label'] ); ?></a>
+		<?php endforeach; ?>
+	</p>
 	<?php
 }
+
+function justice_theme_lawyer_prospect_quick_actions(): array {
+	return array(
+		'contacted'     => array(
+			'label'         => 'Mark contacted today',
+			'status'        => 'contacted',
+			'last_contacted' => true,
+			'next_days'     => 2,
+		),
+		'follow_up'     => array(
+			'label'         => 'Set follow-up',
+			'status'        => 'follow_up',
+			'last_contacted' => true,
+			'next_days'     => 3,
+		),
+		'demo_booked'   => array(
+			'label'     => 'Demo booked',
+			'status'    => 'demo_booked',
+			'next_days' => 1,
+		),
+		'proposal_sent' => array(
+			'label'         => 'Proposal sent',
+			'status'        => 'proposal_sent',
+			'last_contacted' => true,
+			'next_days'     => 5,
+		),
+		'won'           => array(
+			'label'      => 'Won / onboarding',
+			'status'     => 'won',
+			'clear_next' => true,
+		),
+		'lost'          => array(
+			'label'      => 'Lost / not fit',
+			'status'     => 'lost',
+			'priority'   => 'parked',
+			'clear_next' => true,
+		),
+	);
+}
+
+function justice_theme_lawyer_prospect_quick_action_url( int $post_id, string $action_key ): string {
+	if ( ! current_user_can( 'edit_post', $post_id ) || ! array_key_exists( $action_key, justice_theme_lawyer_prospect_quick_actions() ) ) {
+		return '';
+	}
+
+	$url = add_query_arg(
+		array(
+			'action'       => 'justice_lawyer_prospect_quick_action',
+			'prospect_id'  => $post_id,
+			'prospect_step' => $action_key,
+		),
+		admin_url( 'admin-post.php' )
+	);
+
+	return wp_nonce_url( $url, 'justice_lawyer_prospect_quick_action_' . $post_id . '_' . $action_key, 'justice_prospect_action_nonce' );
+}
+
+function justice_theme_lawyer_prospect_handle_quick_action(): void {
+	$post_id    = isset( $_GET['prospect_id'] ) ? absint( wp_unslash( $_GET['prospect_id'] ) ) : 0;
+	$action_key = isset( $_GET['prospect_step'] ) ? sanitize_key( wp_unslash( $_GET['prospect_step'] ) ) : '';
+	$actions    = justice_theme_lawyer_prospect_quick_actions();
+
+	if ( ! $post_id || 'justice_prospect' !== get_post_type( $post_id ) || ! current_user_can( 'edit_post', $post_id ) || ! array_key_exists( $action_key, $actions ) ) {
+		wp_die( esc_html__( 'You do not have permission to update this prospect.', 'justice-theme' ) );
+	}
+
+	$nonce = isset( $_GET['justice_prospect_action_nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['justice_prospect_action_nonce'] ) ) : '';
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'justice_lawyer_prospect_quick_action_' . $post_id . '_' . $action_key ) ) {
+		wp_die( esc_html__( 'Security check failed.', 'justice-theme' ) );
+	}
+
+	$action = $actions[ $action_key ];
+	$today  = current_time( 'Y-m-d' );
+
+	update_post_meta( $post_id, 'prospect_outreach_status', $action['status'] );
+
+	if ( ! empty( $action['last_contacted'] ) ) {
+		update_post_meta( $post_id, 'prospect_last_contacted_at', $today );
+	}
+
+	if ( ! empty( $action['priority'] ) ) {
+		update_post_meta( $post_id, 'prospect_priority', sanitize_key( $action['priority'] ) );
+	}
+
+	if ( ! empty( $action['clear_next'] ) ) {
+		delete_post_meta( $post_id, 'prospect_next_action_at' );
+	} elseif ( ! empty( $action['next_days'] ) ) {
+		$next_timestamp = strtotime( '+' . absint( $action['next_days'] ) . ' days', current_time( 'timestamp' ) );
+		update_post_meta( $post_id, 'prospect_next_action_at', $next_timestamp ? wp_date( 'Y-m-d', $next_timestamp ) : $today );
+	}
+
+	$note     = (string) get_post_meta( $post_id, 'prospect_owner_note', true );
+	$log_line = sprintf( '[%s] Quick action: %s.', $today, $action['label'] );
+	update_post_meta( $post_id, 'prospect_owner_note', trim( $note . "\n" . $log_line ) );
+
+	$redirect = add_query_arg(
+		'justice_prospect_quick_action',
+		$action_key,
+		get_edit_post_link( $post_id, '' )
+	);
+	wp_safe_redirect( $redirect );
+	exit;
+}
+add_action( 'admin_post_justice_lawyer_prospect_quick_action', 'justice_theme_lawyer_prospect_handle_quick_action' );
+
+function justice_theme_lawyer_prospect_quick_action_notice(): void {
+	if ( empty( $_GET['justice_prospect_quick_action'] ) ) {
+		return;
+	}
+
+	$action_key = sanitize_key( wp_unslash( $_GET['justice_prospect_quick_action'] ) );
+	$actions    = justice_theme_lawyer_prospect_quick_actions();
+	if ( ! array_key_exists( $action_key, $actions ) ) {
+		return;
+	}
+
+	echo '<div class="notice notice-success is-dismissible"><p>' . esc_html( 'Prospect updated: ' . $actions[ $action_key ]['label'] ) . '</p></div>';
+}
+add_action( 'admin_notices', 'justice_theme_lawyer_prospect_quick_action_notice' );
 
 function justice_theme_save_lawyer_prospect_details( int $post_id ): void {
 	$nonce = isset( $_POST['justice_theme_lawyer_prospect_details_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_theme_lawyer_prospect_details_nonce'] ) ) : '';

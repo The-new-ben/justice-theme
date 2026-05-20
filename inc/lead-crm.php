@@ -338,7 +338,15 @@ function justice_theme_crm_render_lawyer_prospect_table( ?WP_Query $prospects ):
 							-
 						<?php endif; ?>
 					</td>
-					<td><a class="button" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Open</a></td>
+					<td>
+						<div style="display:flex;gap:4px;flex-wrap:wrap;min-width:150px;">
+							<a class="button" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Open</a>
+							<?php if ( function_exists( 'justice_theme_lawyer_prospect_quick_action_url' ) ) : ?>
+								<a class="button" href="<?php echo esc_url( justice_theme_lawyer_prospect_quick_action_url( $post_id, 'contacted' ) ); ?>">Contacted</a>
+								<a class="button" href="<?php echo esc_url( justice_theme_lawyer_prospect_quick_action_url( $post_id, 'follow_up' ) ); ?>">Follow-up</a>
+							<?php endif; ?>
+						</div>
+					</td>
 				</tr>
 			<?php endforeach; ?>
 		</tbody>

@@ -4,10 +4,12 @@
 - CODED: `inc/payment-compliance-routes.php` now renders the checkout compliance consent block only once per checkout request, even if multiple WooCommerce hooks fire.
 - CODED: checkout submission now has server-side validation requiring the Jus-Tice terms/privacy/cancellation/service-responsibility consent checkbox.
 - CODED: accepted checkout consent is stored on the WooCommerce order with approved-at timestamp and the terms, cancellation and privacy URLs.
-- VERIFIED: `php -l inc/payment-compliance-routes.php` passed and `git diff --check` is clean except the expected Windows line-ending warning.
+- VERIFIED: `php -l inc/payment-compliance-routes.php`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `dd94a9d Harden checkout policy consent`.
+- LIVE CHECK: terms, privacy, cancellation and checkout URLs all return HTTP 200. Terms/privacy/cancellation are not noindexed and show business name, email, phone and policy cross-links. Checkout returns 200, shows business/contact/policy links and the `justice_visible_terms_approval` consent checkbox; checkout remains noindexed, which is normal for checkout pages and not a payment-review blocker.
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is payment approval quality: Grow/Meshulam can see a cleaner checkout consent flow and future orders keep an audit trail that the buyer accepted the site policies.
 - COMPLETION ASSESSMENT: Grow/Meshulam website approval readiness moved from 78% to 83%; automated payment readiness moved from 80% to 82%; first paid-lawyer readiness moved from 74% to 76%. External approval/KYC still remains outside the repo.
 - OWNER-VISIBLE AFTER DEPLOY: live WooCommerce checkout will show one terms/privacy/cancellation consent block and reject checkout if it is not accepted.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `dd94a9d Harden checkout policy consent` is `HEAD -> main, origin/main`.
 - SAFETY: checkout validation code only. No payment gateway settings changed, no order was created, no card was charged, no public CMS page was edited, and no outbound message was sent.
 
 ## LATEST WORK STATUS - 2026-05-20 22:44 Asia/Jerusalem

@@ -419,17 +419,9 @@ function justice_theme_is_checkout_compliance_context(): bool {
 }
 
 function justice_theme_render_checkout_compliance_notice(): void {
-	static $rendered = false;
-
-	if ( $rendered ) {
-		return;
-	}
-
 	if ( ! justice_theme_is_checkout_compliance_context() ) {
 		return;
 	}
-
-	$rendered = true;
 
 	?>
 	<section class="jt-checkout-compliance" dir="rtl" style="border:1px solid #dde5ee;border-radius:8px;padding:18px;margin:18px 0;background:#fff;">

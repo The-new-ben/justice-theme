@@ -279,6 +279,15 @@ function justice_theme_lawyer_prospect_meta_boxes(): void {
 		'normal',
 		'high'
 	);
+
+	add_meta_box(
+		'justice_theme_lawyer_prospect_outreach',
+		__( 'Manual Outreach Kit', 'justice-theme' ),
+		'justice_theme_render_lawyer_prospect_outreach_box',
+		'justice_prospect',
+		'normal',
+		'default'
+	);
 }
 add_action( 'add_meta_boxes', 'justice_theme_lawyer_prospect_meta_boxes' );
 
@@ -366,6 +375,120 @@ function justice_theme_render_lawyer_prospect_details_box( WP_Post $post ): void
 			<td><textarea id="justice-prospect-owner-note" name="prospect_owner_note" rows="4" class="large-text"><?php echo esc_textarea( justice_theme_lawyer_prospect_form_value( $post, 'prospect_owner_note' ) ); ?></textarea></td>
 		</tr>
 	</table>
+	<?php
+}
+
+function justice_theme_lawyer_prospect_display_value( int $post_id, string $key ): string {
+	$value = (string) get_post_meta( $post_id, $key, true );
+	if ( '' !== $value ) {
+		return $value;
+	}
+
+	return '';
+}
+
+function justice_theme_lawyer_prospect_normalized_phone( string $phone ): string {
+	$digits = preg_replace( '/[^0-9+]/', '', $phone );
+	if ( ! $digits ) {
+		return '';
+	}
+
+	if ( 0 === strpos( $digits, '0' ) ) {
+		return '972' . substr( $digits, 1 );
+	}
+
+	if ( 0 === strpos( $digits, '+972' ) ) {
+		return '972' . substr( $digits, 4 );
+	}
+
+	return ltrim( $digits, '+' );
+}
+
+function justice_theme_lawyer_prospect_outreach_message( WP_Post $post ): array {
+	$post_id        = (int) $post->ID;
+	$contact_name   = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_contact_name' );
+	$firm_name      = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_firm_name' );
+	$area           = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_practice_area' ) ?: 'your practice area';
+	$city           = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_city' ) ?: 'your market';
+	$target_plan    = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_target_plan' ) ?: 'lead_partner';
+	$demand_signal  = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_demand_signal' );
+	$expected_value = (int) get_post_meta( $post_id, 'prospect_expected_monthly_nis', true );
+	$plan_label     = justice_theme_lawyer_prospect_plan_options()[ $target_plan ] ?? 'Lead Partner';
+	$recipient      = $contact_name ?: ( $firm_name ?: 'there' );
+	$registration   = add_query_arg(
+		array(
+			'plan_interest' => $target_plan,
+			'payment_path'  => 'manual_invoice',
+		),
+		home_url( '/lawyer-registration/' )
+	);
+
+	$subject = sprintf( 'Jus-Tice paid coverage fit: %s / %s', $area, $city );
+	$body    = sprintf(
+		"Hi %s,\n\nI am Ben from Jus-Tice. We are seeing legal-search demand for %s in %s, and I am checking whether your office is a fit for paid coverage on the platform.\n\nSignal we are tracking: %s\n\nThe offer is transparent: a professional profile, dashboard, and lead-handling path under the %s plan. We do not promise results, case volume, or outcomes. We first check license, practice fit, and response speed.\n\nIf this is relevant, please open this short form and we will review fit:\n%s\n\nBest,\nBen / Jus-Tice",
+		$recipient,
+		$area,
+		$city,
+		$demand_signal ?: 'users are asking for this practice/market and we need verified paid coverage',
+		$plan_label,
+		$registration
+	);
+
+	$call = sprintf(
+		"Call opener:\nHi %s, this is Ben from Jus-Tice. I am calling because we are seeing demand for %s in %s and I want to check if your office wants to be considered for paid coverage.\n\nThree questions:\n1. Is this a practice area you actively want more clients for?\n2. Can someone respond to qualified leads the same day, ideally faster?\n3. If the fit is right, should I send the short partner form?\n\nCompliance line:\nWe do not promise lead volume or outcomes. We are checking transparent paid coverage and fit.",
+		$recipient,
+		$area,
+		$city
+	);
+
+	return array(
+		'subject'        => $subject,
+		'body'           => $body,
+		'call'           => $call,
+		'registration'   => $registration,
+		'expected_value' => $expected_value,
+	);
+}
+
+function justice_theme_render_lawyer_prospect_outreach_box( WP_Post $post ): void {
+	$email   = justice_theme_lawyer_prospect_display_value( $post->ID, 'prospect_contact_email' );
+	$phone   = justice_theme_lawyer_prospect_display_value( $post->ID, 'prospect_contact_phone' );
+	$message = justice_theme_lawyer_prospect_outreach_message( $post );
+
+	$mailto = $email ? add_query_arg(
+		array(
+			'subject' => $message['subject'],
+			'body'    => $message['body'],
+		),
+		'mailto:' . $email
+	) : '';
+
+	$whatsapp_phone = $phone ? justice_theme_lawyer_prospect_normalized_phone( $phone ) : '';
+	$whatsapp       = $whatsapp_phone ? add_query_arg(
+		'text',
+		$message['body'],
+		'https://wa.me/' . $whatsapp_phone
+	) : '';
+	?>
+	<p><strong>Manual-send only.</strong> This kit prepares a compliant first touch. It does not send anything automatically.</p>
+	<p>Keep the message short, tied to the demand signal, and avoid promises about results, exclusivity or lead volume.</p>
+	<p>
+		<?php if ( $mailto ) : ?>
+			<a class="button button-primary" href="<?php echo esc_url( $mailto ); ?>">Open email draft</a>
+		<?php endif; ?>
+		<?php if ( $whatsapp ) : ?>
+			<a class="button" href="<?php echo esc_url( $whatsapp ); ?>" target="_blank" rel="noopener">Open WhatsApp draft</a>
+		<?php endif; ?>
+		<a class="button" href="<?php echo esc_url( $message['registration'] ); ?>" target="_blank" rel="noopener">Partner form</a>
+	</p>
+	<?php if ( ! $mailto && ! $whatsapp ) : ?>
+		<div class="notice notice-warning inline"><p>Add a contact email or phone number to enable outreach draft buttons.</p></div>
+	<?php endif; ?>
+	<p><strong>Expected monthly value:</strong> <?php echo esc_html( number_format_i18n( (int) $message['expected_value'] ) ); ?> NIS</p>
+	<label for="justice-prospect-email-draft"><strong>Email / WhatsApp draft</strong></label>
+	<textarea id="justice-prospect-email-draft" readonly rows="11" class="large-text"><?php echo esc_textarea( $message['body'] ); ?></textarea>
+	<label for="justice-prospect-call-script" style="display:block;margin-top:12px;"><strong>Call script</strong></label>
+	<textarea id="justice-prospect-call-script" readonly rows="9" class="large-text"><?php echo esc_textarea( $message['call'] ); ?></textarea>
 	<?php
 }
 

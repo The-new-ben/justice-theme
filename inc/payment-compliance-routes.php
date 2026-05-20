@@ -17,7 +17,7 @@ function justice_theme_business_name(): string {
 }
 
 function justice_theme_business_address(): string {
-	return trim( (string) justice_theme_option( 'justice_business_address', '' ) );
+	return trim( (string) justice_theme_option( 'justice_business_address', 'רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו' ) );
 }
 
 function justice_theme_payment_compliance_path(): string {

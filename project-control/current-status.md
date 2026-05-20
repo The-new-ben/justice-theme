@@ -3150,3 +3150,11 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - VERIFIED SAFETY: `/checkout/?add-to-cart=999999` bypasses the fallback, so payment/cart query URLs are still left to WooCommerce instead of the reviewer page.
 - BLOCKED BEFORE RESUBMISSION: exact public business address must be saved in the Customizer or the Grow/Meshulam reviewer will still see the address warning.
 - COMPLETION ASSESSMENT: Grow website checklist fix 96%; automated recurring payment readiness 74%; first-payment readiness 69%.
+
+## 2026-05-20 GROW/MESHULAM BUSINESS ADDRESS FIX
+- OWNER INPUT: owner confirmed the public business address as Tel Aviv-Yafo, Raul Wallenberg 18, Tower C, floor 2, same office footprint as Maya Rotenberg.
+- RESEARCH BASIS: Maya Rotenberg's own site lists `רחוב ראול ולנברג 18, מתחם CU (שוק צפון), מגדל C, קומה 2, תל אביב-יפו`; Din, PsakDin and Duns also list Raul Wallenberg 18 / CU / Tower C / floor 2 for the same office.
+- CODE UPDATED: default `justice_business_address` now uses `רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו`, so Grow/Meshulam reviewers see a full address on compliance pages even before a Customizer value is manually saved.
+- MONEY IMPACT: this removes the remaining visible website-address blocker from the Grow/Meshulam checklist.
+- BLOCKED: needs commit/push/uPress pull and live verification before resubmission.
+- COMPLETION ASSESSMENT: Grow website checklist fix 98%; automated recurring payment readiness 76%; first-payment readiness 71%.

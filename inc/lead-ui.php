@@ -103,7 +103,7 @@ function justice_theme_customize_register( $wp_customize ) {
 	) );
 
 	$wp_customize->add_setting( 'justice_business_address', array(
-		'default'           => '',
+		'default'           => 'רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו',
 		'sanitize_callback' => 'sanitize_text_field',
 	) );
 	$wp_customize->add_control( 'justice_business_address', array(

@@ -404,7 +404,12 @@ function justice_theme_render_checkout_compliance_notice(): void {
 		return;
 	}
 
-	if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
+	$is_checkout_context = '/checkout/' === justice_theme_payment_compliance_path();
+	if ( ! $is_checkout_context && function_exists( 'is_checkout' ) && is_checkout() ) {
+		$is_checkout_context = true;
+	}
+
+	if ( ! $is_checkout_context ) {
 		return;
 	}
 

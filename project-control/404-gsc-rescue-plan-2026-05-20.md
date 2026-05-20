@@ -14,6 +14,29 @@ The right rule is:
 - old pages with no traffic, no links and no useful replacement: leave 404;
 - internal broken links: fix the link source.
 
+## Google Rule-Set
+
+Current Google documentation supports this conservative approach:
+
+- If a page moved or has a clear replacement, use a permanent server-side redirect such as `301` or `308`.
+- If the page is removed and there is no similar replacement, return `404` or `410`.
+- If a missing page is redirected to an irrelevant page or served as a normal `200` page, Google may treat it as a soft 404.
+- During URL migrations, Google recommends accurate URL mapping before redirects go live.
+
+Sources:
+
+- Google Search Central, redirects: https://developers.google.com/search/docs/crawling-indexing/301-redirects
+- Google Search Central, site moves with URL changes: https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes
+- Google Search Central, HTTP status codes and soft 404 handling: https://developers.google.com/search/docs/advanced/crawling/http-network-errors
+
+Practical Jus-Tice decision:
+
+- `casino / spam / fake path` -> no redirect to legal pages.
+- `old Hebrew slug with matching English slug` -> exact 301 after live target check.
+- `old case-law numeric URL` -> inspect old inventory first; rebuild or map carefully.
+- `old high-impression URL with no equivalent` -> rebuild the content or route to the closest hub only after review.
+- `internal broken link` -> fix the link source, not only the destination.
+
 ## Live Finding This Cycle
 
 `tools/check-404-routing.ps1` was run against the live site on 2026-05-20.

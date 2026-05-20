@@ -3035,6 +3035,7 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - CREATED: `tools/triage-404-urls.mjs`, a safe GSC/GA4 404 export classifier that separates spam, known redirect candidates, article-prefix candidates, old case/numeric URLs, search-visible unknowns and low-evidence noise.
 - CREATED: `project-control/404-export-template.csv`.
 - TESTED: `node tools/triage-404-urls.mjs project-control/404-export-template.csv --live --out ...` completed successfully.
+- LINEAR: created `HAD-69` for follow-up: `Triage high-volume 404 URLs and execute exact redirects`.
 - MONEY IMPACT: this gives the team a repeatable path to recover lost old-URL demand without creating harmful homepage redirects or spam associations.
 - BLOCKED: exact high-volume 404 list still needs GSC Page Indexing `Not found (404)` export or completed OAuth pull/browser access.
 - COMPLETION ASSESSMENT: live 404 health 85%; exact redirect rescue workflow 55%; real GSC 404 URL inventory 0% blocked by access/export; production redirect fixes 0% until the real URL list is triaged.

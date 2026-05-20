@@ -3142,3 +3142,11 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - CODE UPDATED: checkout fallback detection now uses payment/order query parameters and WooCommerce cart cookies instead of the server-side cart object. This should let reviewers with no cart see the compliance form while preserving real buyer checkout sessions.
 - BLOCKED: exact public business address is still required before final Grow/Meshulam re-check; deployment and public verification for this follow-up patch still need to happen.
 - COMPLETION ASSESSMENT: Grow website checklist fix 94%; automated recurring payment readiness 73%; first-payment readiness 68%.
+
+## 2026-05-20 GROW/MESHULAM LIVE VERIFICATION
+- DEPLOYED: pushed and pulled `81a46e9` to live via uPress Git management for `wp-content/themes/justice-theme`; uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Use cart cookies for checkout reviewer fallback`.
+- VERIFIED LIVE: public `/checkout/` now renders `jt-compliance--checkout`, a customer details form, required `accept_terms` checkbox, and links to `/sample-terms-and-conditions-template/`, `/privacy/`, and `/cancellation/`.
+- VERIFIED LIVE: `/sample-terms-and-conditions-template/` renders `jt-compliance--terms` and still shows the business-address warning; `/privacy/` and `/cancellation/` render the compliance pages.
+- VERIFIED SAFETY: `/checkout/?add-to-cart=999999` bypasses the fallback, so payment/cart query URLs are still left to WooCommerce instead of the reviewer page.
+- BLOCKED BEFORE RESUBMISSION: exact public business address must be saved in the Customizer or the Grow/Meshulam reviewer will still see the address warning.
+- COMPLETION ASSESSMENT: Grow website checklist fix 96%; automated recurring payment readiness 74%; first-payment readiness 69%.

@@ -1,0 +1,11 @@
+priority,subtopic,hebrew_search_terms,source_to_start,why_this_matters,privacy_default,index_default,next_action
+1,child-support,"מזונות ילדים; בעמ 919/15; הפחתת מזונות",court.gov.il,"High user demand and direct connection to divorce/support money pages.",high,hold,"Find 1 recent publication-permitted decision from official source."
+2,parental-responsibility,"אחריות הורית; משמורת; זמני שהות",court.gov.il,"Core family-law commercial intent and Maya authority fit.",high,hold,"Find 1 recent publication-permitted decision from official source."
+3,parental-alienation,"ניכור הורי; סרבנות קשר",court.gov.il,"Strong practical pain point with high consultation potential.",high,hold,"Find 1 recent publication-permitted decision from official source."
+4,property-division,"איזון משאבים; חלוקת רכוש; פירוק שיתוף",court.gov.il,"Connects to high-value divorce and property disputes.",high,hold,"Find 1 recent publication-permitted decision from official source."
+5,prenuptial-agreement,"הסכם ממון; אישור הסכם ממון; ביטול הסכם ממון",court.gov.il,"Supports prenup money page and practical guide cluster.",medium,hold,"Find 1 recent publication-permitted decision from official source."
+6,ketubah,"כתובה; תביעת כתובה; בית דין רבני",gov.il/court.gov.il,"Search demand exists but source route may include rabbinical materials.",high,hold,"Find official source route before selecting a record."
+7,protective-order,"צו הגנה; אלימות במשפחה; צו למניעת הטרדה מאיימת",court.gov.il,"Urgent user intent; requires careful safety language.",high,hold,"Find 1 recent publication-permitted decision from official source."
+8,relocation,"הגירת קטין; מעבר מגורים; משמורת בינלאומית",court.gov.il,"High-value complex family cases and strong authority topic.",high,hold,"Find 1 recent publication-permitted decision from official source."
+9,inheritance-family-overlap,"צוואה; התנגדות לצוואה; סכסוך משפחתי",court.gov.il,"Bridges family and inheritance clusters; good long-tail traffic.",medium,hold,"Find 1 recent publication-permitted decision from official source."
+10,procedure-and-jurisdiction,"בית משפט לענייני משפחה; סמכות; יישוב סכסוך",court.gov.il,"Useful explainer layer for practical guides and internal links.",high,hold,"Find 1 recent publication-permitted decision from official source."

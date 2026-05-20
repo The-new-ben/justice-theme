@@ -133,6 +133,8 @@ function justice_theme_handle_lawyer_profile_update_request(): void {
 
 	$pending = array(
 		'pending_profile_headline'  => isset( $_POST['profile_headline'] ) ? sanitize_text_field( wp_unslash( $_POST['profile_headline'] ) ) : '',
+		'pending_profile_bar_number' => isset( $_POST['profile_bar_number'] ) ? sanitize_text_field( wp_unslash( $_POST['profile_bar_number'] ) ) : '',
+		'pending_profile_website'   => isset( $_POST['profile_website'] ) ? esc_url_raw( wp_unslash( $_POST['profile_website'] ) ) : '',
 		'pending_profile_services'  => isset( $_POST['profile_services'] ) ? sanitize_textarea_field( wp_unslash( $_POST['profile_services'] ) ) : '',
 		'pending_profile_process'   => isset( $_POST['profile_process'] ) ? sanitize_textarea_field( wp_unslash( $_POST['profile_process'] ) ) : '',
 		'pending_profile_video_url' => isset( $_POST['profile_video_url'] ) ? esc_url_raw( wp_unslash( $_POST['profile_video_url'] ) ) : '',
@@ -376,9 +378,11 @@ function justice_theme_notify_lawyer_profile_update_request( int $lawyer_id, arr
 	}
 
 	$message = sprintf(
-		"New staged lawyer mini-site update is waiting for review.\n\nLawyer: %s\nHeadline: %s\nVideo: %s\n\nReview profile: %s",
+		"New staged lawyer mini-site update is waiting for review.\n\nLawyer: %s\nHeadline: %s\nBar number: %s\nWebsite/proof link: %s\nVideo: %s\n\nReview profile: %s",
 		get_the_title( $lawyer_id ),
 		$pending['pending_profile_headline'] ?: '-',
+		$pending['pending_profile_bar_number'] ?: '-',
+		$pending['pending_profile_website'] ?: '-',
 		$pending['pending_profile_video_url'] ?: '-',
 		admin_url( 'post.php?post=' . $lawyer_id . '&action=edit' )
 	);
@@ -503,61 +507,85 @@ function justice_theme_lawyer_dashboard_growth_assets( int $post_id, int $lead_c
 			'label' => __( 'Professional photo is present', 'justice-theme' ),
 			'done'  => has_post_thumbnail( $post_id ),
 			'why'   => __( 'A real photo is a basic trust signal before a user calls.', 'justice-theme' ),
+			'action_label' => __( 'Request profile update', 'justice-theme' ),
+			'action_url'   => home_url( '/lawyer-dashboard/#profile-update-request' ),
 		),
 		array(
 			'label' => __( 'License / Bar number is recorded', 'justice-theme' ),
 			'done'  => (bool) get_post_meta( $post_id, 'bar_number', true ),
 			'why'   => __( 'Legal profiles need verifiable professional identity.', 'justice-theme' ),
+			'action_label' => __( 'Request profile update', 'justice-theme' ),
+			'action_url'   => home_url( '/lawyer-dashboard/#profile-update-request' ),
 		),
 		array(
 			'label' => __( 'Website or external proof link is recorded', 'justice-theme' ),
 			'done'  => (bool) get_post_meta( $post_id, 'website', true ),
 			'why'   => __( 'External proof supports authority and user confidence.', 'justice-theme' ),
+			'action_label' => __( 'Request profile update', 'justice-theme' ),
+			'action_url'   => home_url( '/lawyer-dashboard/#profile-update-request' ),
 		),
 		array(
 			'label' => __( 'Services and process are explained', 'justice-theme' ),
 			'done'  => (bool) get_post_meta( $post_id, 'profile_services', true ) && (bool) get_post_meta( $post_id, 'profile_process', true ),
 			'why'   => __( 'Users want to know what happens after they call.', 'justice-theme' ),
+			'action_label' => __( 'Send profile text', 'justice-theme' ),
+			'action_url'   => home_url( '/lawyer-dashboard/#profile-update-request' ),
 		),
 		array(
 			'label' => __( 'FAQ / AI-search answer material exists', 'justice-theme' ),
 			'done'  => (bool) get_post_meta( $post_id, 'profile_faqs', true ),
 			'why'   => __( 'FAQs help search, AI answers and conversion.', 'justice-theme' ),
+			'action_label' => __( 'Add FAQs', 'justice-theme' ),
+			'action_url'   => home_url( '/lawyer-dashboard/#profile-update-request' ),
 		),
 		array(
 			'label' => __( 'Video or personal introduction exists', 'justice-theme' ),
 			'done'  => (bool) get_post_meta( $post_id, 'profile_video_url', true ),
 			'why'   => __( 'Video helps the lawyer feel real before the first call.', 'justice-theme' ),
+			'action_label' => __( 'Add video link', 'justice-theme' ),
+			'action_url'   => home_url( '/lawyer-dashboard/#profile-update-request' ),
 		),
 		array(
 			'label' => __( 'Review/recommendation source exists', 'justice-theme' ),
 			'done'  => $has_google_source || $has_recommendation || 0 < $review_count || '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true ),
 			'why'   => __( 'Fresh recommendations are a major trust and local SEO signal.', 'justice-theme' ),
+			'action_label' => __( 'Add review source', 'justice-theme' ),
+			'action_url'   => home_url( '/lawyer-dashboard/#review-campaign-request' ),
 		),
 		array(
 			'label' => __( 'Fresh recommendation activity exists', 'justice-theme' ),
 			'done'  => $has_fresh_review || $has_fresh_first_party_recommendation || '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true ),
 			'why'   => __( 'Recent reviews usually matter more than old review count.', 'justice-theme' ),
+			'action_label' => __( 'Request review campaign', 'justice-theme' ),
+			'action_url'   => home_url( '/lawyer-dashboard/#review-campaign-request' ),
 		),
 		array(
 			'label' => __( 'Signed content or guide request exists', 'justice-theme' ),
 			'done'  => 0 < $content_request_count,
 			'why'   => __( 'Content connects the lawyer to practice-area authority.', 'justice-theme' ),
+			'action_label' => __( 'Request signed guide', 'justice-theme' ),
+			'action_url'   => home_url( '/lawyer-dashboard/#content-request' ),
 		),
 		array(
 			'label' => __( 'Professional supplier/service need is captured', 'justice-theme' ),
 			'done'  => '1' === (string) get_post_meta( $post_id, 'pending_supplier_request', true ),
 			'why'   => __( 'Useful partner services give lawyers more value and create a second revenue line.', 'justice-theme' ),
+			'action_label' => __( 'Request supplier', 'justice-theme' ),
+			'action_url'   => home_url( '/lawyer-dashboard/#supplier-request' ),
 		),
 		array(
 			'label' => __( 'Measured exposure exists', 'justice-theme' ),
 			'done'  => 0 < $profile_views_total,
 			'why'   => __( 'Paid lawyers need visible proof that the platform is working.', 'justice-theme' ),
+			'action_label' => __( 'Upgrade visibility', 'justice-theme' ),
+			'action_url'   => home_url( '/lawyer-plans/' ),
 		),
 		array(
 			'label' => __( 'Lead flow exists', 'justice-theme' ),
 			'done'  => 0 < $lead_count,
 			'why'   => __( 'Leads are the strongest retention proof once routing is active.', 'justice-theme' ),
+			'action_label' => __( 'View lead plans', 'justice-theme' ),
+			'action_url'   => home_url( '/lawyer-plans/' ),
 		),
 	);
 }

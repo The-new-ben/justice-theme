@@ -106,6 +106,10 @@ $growth_assets          = $primary_profile_id ? justice_theme_lawyer_dashboard_g
 $completed_growth_assets = count( array_filter( $growth_assets, static function ( array $asset ): bool {
 	return ! empty( $asset['done'] );
 } ) );
+$next_growth_asset = array_values( array_filter( $growth_assets, static function ( array $asset ): bool {
+	return empty( $asset['done'] ) && ! empty( $asset['action_url'] ) && ! empty( $asset['action_label'] );
+} ) );
+$next_growth_asset = $next_growth_asset[0] ?? null;
 $first_value_steps      = array(
 	array(
 		'label' => __( 'פרופיל מקושר לחשבון', 'justice-theme' ),
@@ -415,19 +419,31 @@ if ( $leads && $leads->posts ) {
 								<span><?php esc_html_e( 'growth assets ready', 'justice-theme' ); ?></span>
 							</div>
 						</div>
+						<?php if ( $next_growth_asset ) : ?>
+							<div class="lawyer-dashboard-growth__next">
+								<div>
+									<strong><?php esc_html_e( 'Next best action', 'justice-theme' ); ?></strong>
+									<span><?php echo esc_html( $next_growth_asset['label'] ); ?></span>
+								</div>
+								<a class="button button--gold" href="<?php echo esc_url( $next_growth_asset['action_url'] ); ?>"><?php echo esc_html( $next_growth_asset['action_label'] ); ?></a>
+							</div>
+						<?php endif; ?>
 						<?php if ( $growth_assets ) : ?>
 							<ul class="lawyer-dashboard-growth__assets">
 								<?php foreach ( $growth_assets as $asset ) : ?>
 									<li class="<?php echo esc_attr( $asset['done'] ? 'is-complete' : 'is-pending' ); ?>">
 										<strong><?php echo esc_html( $asset['label'] ); ?></strong>
 										<span><?php echo esc_html( $asset['why'] ); ?></span>
+										<?php if ( empty( $asset['done'] ) && ! empty( $asset['action_url'] ) && ! empty( $asset['action_label'] ) ) : ?>
+											<a href="<?php echo esc_url( $asset['action_url'] ); ?>"><?php echo esc_html( $asset['action_label'] ); ?></a>
+										<?php endif; ?>
 									</li>
 								<?php endforeach; ?>
 							</ul>
 						<?php endif; ?>
 					</section>
 
-					<section class="lawyer-dashboard-content-request">
+					<section class="lawyer-dashboard-content-request" id="profile-update-request">
 						<h2><?php esc_html_e( 'בקשת עדכון למיני-סייט', 'justice-theme' ); ?></h2>
 						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'שלחו נוסח חדש לכותרת, שירותים, תהליך עבודה, וידאו או שאלות נפוצות. העדכון נשמר לבדיקה בלבד ולא משנה את הפרופיל הציבורי עד אישור.', 'justice-theme' ); ?></p>
 						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">
@@ -443,6 +459,12 @@ if ( $leads && $leads->posts ) {
 
 							<label for="profile-headline"><?php esc_html_e( 'כותרת ראשית מוצעת', 'justice-theme' ); ?></label>
 							<input id="profile-headline" type="text" name="profile_headline">
+
+							<label for="profile-bar-number"><?php esc_html_e( 'Bar license number', 'justice-theme' ); ?></label>
+							<input id="profile-bar-number" type="text" name="profile_bar_number" inputmode="numeric">
+
+							<label for="profile-website"><?php esc_html_e( 'Website or external proof link', 'justice-theme' ); ?></label>
+							<input id="profile-website" type="url" name="profile_website">
 
 							<label for="profile-services"><?php esc_html_e( 'שירותים מרכזיים', 'justice-theme' ); ?></label>
 							<textarea id="profile-services" name="profile_services" rows="4"></textarea>
@@ -460,7 +482,7 @@ if ( $leads && $leads->posts ) {
 						</form>
 					</section>
 
-					<section class="lawyer-dashboard-content-request">
+					<section class="lawyer-dashboard-content-request" id="review-campaign-request">
 						<h2><?php esc_html_e( 'Google reviews and recommendations', 'justice-theme' ); ?></h2>
 						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Ask Jus-Tice to prepare a review campaign. This does not send messages yet. The owner reviews the request, verifies the Google Business review link, and only then sends approved client requests.', 'justice-theme' ); ?></p>
 						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">
@@ -510,7 +532,7 @@ if ( $leads && $leads->posts ) {
 						</div>
 					</section>
 
-					<section class="lawyer-dashboard-content-request">
+					<section class="lawyer-dashboard-content-request" id="supplier-request">
 						<h2><?php esc_html_e( 'Vetted services for your firm', 'justice-theme' ); ?></h2>
 						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Tell Jus-Tice what professional supplier you need. We use these requests to match lawyers with checked providers and to build partner offers inside the platform. Nothing is sent to a supplier before owner review.', 'justice-theme' ); ?></p>
 						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">
@@ -724,7 +746,7 @@ if ( $leads && $leads->posts ) {
 						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'אין עדיין בקשות תוכן לפרופיל הזה. אפשר לשלוח רעיון למאמר חתום דרך הטופס הבא.', 'justice-theme' ); ?></p>
 					<?php endif; ?>
 
-					<section class="lawyer-dashboard-content-request">
+					<section class="lawyer-dashboard-content-request" id="content-request">
 						<h2><?php esc_html_e( 'בקשת מאמר חתום', 'justice-theme' ); ?></h2>
 						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'שלחו רעיון למאמר או מדריך. הבקשה נשמרת כטיוטה בלבד ותעבור עריכה, בדיקת מקורות ובדיקה משפטית לפני פרסום.', 'justice-theme' ); ?></p>
 						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">

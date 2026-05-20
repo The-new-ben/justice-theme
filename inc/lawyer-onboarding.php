@@ -566,6 +566,8 @@ function justice_theme_apply_lawyer_profile_update(): void {
 
 	$field_map = array(
 		'pending_profile_headline'  => 'profile_headline',
+		'pending_profile_bar_number' => 'bar_number',
+		'pending_profile_website'   => 'website',
 		'pending_profile_services'  => 'profile_services',
 		'pending_profile_process'   => 'profile_process',
 		'pending_profile_video_url' => 'profile_video_url',
@@ -605,6 +607,8 @@ function justice_theme_discard_lawyer_profile_update(): void {
 
 	$pending_keys = array(
 		'pending_profile_headline',
+		'pending_profile_bar_number',
+		'pending_profile_website',
 		'pending_profile_services',
 		'pending_profile_process',
 		'pending_profile_video_url',
@@ -821,6 +825,8 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						}
 						$mini_fields = array(
 							'Headline' => get_post_meta( $post_id, 'profile_headline', true ),
+							'Bar'      => get_post_meta( $post_id, 'bar_number', true ),
+							'Website'  => get_post_meta( $post_id, 'website', true ),
 							'Services' => get_post_meta( $post_id, 'profile_services', true ),
 							'Process'  => get_post_meta( $post_id, 'profile_process', true ),
 							'Video'    => get_post_meta( $post_id, 'profile_video_url', true ),
@@ -828,6 +834,8 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						);
 						$pending_fields = array(
 							'Headline' => get_post_meta( $post_id, 'pending_profile_headline', true ),
+							'Bar'      => get_post_meta( $post_id, 'pending_profile_bar_number', true ),
+							'Website'  => get_post_meta( $post_id, 'pending_profile_website', true ),
 							'Services' => get_post_meta( $post_id, 'pending_profile_services', true ),
 							'Process'  => get_post_meta( $post_id, 'pending_profile_process', true ),
 							'Video'    => get_post_meta( $post_id, 'pending_profile_video_url', true ),

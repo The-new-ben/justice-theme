@@ -398,9 +398,18 @@ function justice_theme_maybe_render_payment_compliance_route(): void {
 add_action( 'template_redirect', 'justice_theme_maybe_render_payment_compliance_route', -3940 );
 
 function justice_theme_render_checkout_compliance_notice(): void {
+	static $rendered = false;
+
+	if ( $rendered ) {
+		return;
+	}
+
 	if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
 		return;
 	}
+
+	$rendered = true;
+
 	?>
 	<section class="jt-checkout-compliance" dir="rtl" style="border:1px solid #dde5ee;border-radius:8px;padding:18px;margin:18px 0;background:#fff;">
 		<h2 style="margin:0 0 10px;font-size:1.2rem;">אישור תקנון ותנאי תשלום</h2>
@@ -414,3 +423,5 @@ function justice_theme_render_checkout_compliance_notice(): void {
 }
 add_action( 'woocommerce_before_checkout_form', 'justice_theme_render_checkout_compliance_notice', 5 );
 add_action( 'woocommerce_before_checkout_billing_form', 'justice_theme_render_checkout_compliance_notice', 5 );
+add_action( 'woocommerce_after_checkout_form', 'justice_theme_render_checkout_compliance_notice', 5 );
+add_action( 'wp_footer', 'justice_theme_render_checkout_compliance_notice', 5 );

@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-20 20:11 Asia/Jerusalem
+- LEAD VALUE REPORTING: added milestone timestamps for the lead funnel so future lawyer reports can measure consultation and retained/lost outcomes, not only raw lead count.
+- RESEARCHED: 2026 law-firm conversion benchmarks and CRM guidance. Key point: firms should track lead-to-consultation and consultation-to-retained conversion separately; raw lead volume is not enough to prove marketing value.
+- CODED: lawyer dashboard stage updates now save `consultation_scheduled_at`, `retained_at`, and `closed_at` when the lead reaches consultation, won, or lost stages.
+- CODED: owner/admin CRM follow-up saves now also sync `lead_status` and the same milestone timestamps, so both update paths support reporting.
+- VERIFIED: `php -l inc/lawyer-dashboard.php`, `php -l inc/lead-crm.php`, and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is value proof: the platform can begin showing lawyers not just leads, but funnel movement toward retained clients.
+- COMPLETION ASSESSMENT: lawyer private zone remains 68%; Clio-lite dashboard moved from 55% to 58%; paid-lawyer reporting/value proof moved from 35% to 43%. Remaining blockers: live QA with real lawyer user/lead, monthly value report UI/email, automatic lead alerts, per-lead detail page, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: stage changes to Consultation/Won/Lost from either `/lawyer-dashboard/` or wp-admin CRM will preserve milestone timestamps for later reports.
+- UPRESS: pending code deploy/pull for this commit.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 20:00 Asia/Jerusalem
 - LEAD CRM CONSISTENCY: synced lawyer dashboard stage updates with the older internal CRM lead status field.
 - RESEARCHED: current 2026 legal CRM/intake guidance. Key point: fast lead response is not enough; the CRM must remain trustworthy and consistent, otherwise teams stop relying on it and leads slip.

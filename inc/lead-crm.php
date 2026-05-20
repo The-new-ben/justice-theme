@@ -686,6 +686,15 @@ function justice_theme_crm_save_lead_disposition( int $post_id ): void {
 	if ( '' === $first_contact_at && in_array( $follow_up, $contacted_steps, true ) ) {
 		$first_contact_at = current_time( 'Y-m-d\TH:i' );
 	}
+	$lead_status_map = array(
+		'not_started'       => 'assigned',
+		'first_attempt'     => 'contacted',
+		'contacted'         => 'contacted',
+		'consult_scheduled' => 'accepted',
+		'not_qualified'     => 'rejected',
+		'won'               => 'converted',
+		'lost'              => 'closed',
+	);
 
 	$coverage_status = isset( $_POST['coverage_status'] ) ? sanitize_key( wp_unslash( $_POST['coverage_status'] ) ) : 'coverage_review';
 	if ( ! array_key_exists( $coverage_status, justice_theme_crm_coverage_status_labels() ) ) {
@@ -695,7 +704,17 @@ function justice_theme_crm_save_lead_disposition( int $post_id ): void {
 	update_post_meta( $post_id, 'lead_quality_override', $quality );
 	update_post_meta( $post_id, 'coverage_status', $coverage_status );
 	update_post_meta( $post_id, 'follow_up_status', $follow_up );
+	update_post_meta( $post_id, 'lead_status', $lead_status_map[ $follow_up ] ?? 'assigned' );
 	update_post_meta( $post_id, 'first_contact_at', $first_contact_at );
+	if ( 'consult_scheduled' === $follow_up && ! get_post_meta( $post_id, 'consultation_scheduled_at', true ) ) {
+		update_post_meta( $post_id, 'consultation_scheduled_at', current_time( 'mysql' ) );
+	}
+	if ( 'won' === $follow_up && ! get_post_meta( $post_id, 'retained_at', true ) ) {
+		update_post_meta( $post_id, 'retained_at', current_time( 'mysql' ) );
+	}
+	if ( in_array( $follow_up, array( 'not_qualified', 'lost' ), true ) && ! get_post_meta( $post_id, 'closed_at', true ) ) {
+		update_post_meta( $post_id, 'closed_at', current_time( 'mysql' ) );
+	}
 	update_post_meta( $post_id, 'customer_success_note', isset( $_POST['customer_success_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['customer_success_note'] ) ) : '' );
 }
 add_action( 'save_post_justice_lead', 'justice_theme_crm_save_lead_disposition' );

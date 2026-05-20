@@ -334,6 +334,15 @@ function justice_theme_handle_lawyer_lead_stage_update(): void {
 	if ( in_array( $selected_stage, array( 'first_attempt', 'contacted', 'consult_scheduled', 'won', 'lost' ), true ) && ! get_post_meta( $lead_id, 'first_contact_at', true ) ) {
 		update_post_meta( $lead_id, 'first_contact_at', current_time( 'Y-m-d\TH:i' ) );
 	}
+	if ( 'consult_scheduled' === $selected_stage && ! get_post_meta( $lead_id, 'consultation_scheduled_at', true ) ) {
+		update_post_meta( $lead_id, 'consultation_scheduled_at', current_time( 'mysql' ) );
+	}
+	if ( 'won' === $selected_stage && ! get_post_meta( $lead_id, 'retained_at', true ) ) {
+		update_post_meta( $lead_id, 'retained_at', current_time( 'mysql' ) );
+	}
+	if ( 'lost' === $selected_stage && ! get_post_meta( $lead_id, 'closed_at', true ) ) {
+		update_post_meta( $lead_id, 'closed_at', current_time( 'mysql' ) );
+	}
 
 	if ( function_exists( 'uje_log' ) ) {
 		uje_log( 'lawyer_lead_stage_update', 'Lawyer updated lead #' . $lead_id . ' stage to ' . $selected_stage );

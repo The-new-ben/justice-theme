@@ -3037,5 +3037,5 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - MONEY IMPACT: Jus-Tice can build a stronger SEO moat and paid-lawyer authority product by connecting official laws/cases to topic hubs, lead intake and verified lawyer reviewers.
 - NEXT SAFE STEP: create a Family Law / Divorce legal-library MVP source map and data model before any import or publication.
 - BLOCKED: private PsakDin login still did not complete inside Codex browser; owner screenshot confirms access exists locally, but Codex only sees the login page. Continue private analysis once the logged-in tab is available to Codex.
-- LINEAR: attempted to create a follow-up issue for the legal-library MVP, but Linear returned a transport/deserialize error. The repo source map is the fallback handoff for now.
+- LINEAR: created `HAD-68` for the implementation follow-up: `Family Law legal-library MVP from official sources`.
 - COMPLETION ASSESSMENT: PsakDin public product understanding 65%; private PsakDin analysis 0% blocked; official-source strategy 55%; legal-library implementation readiness 40%; product/code 0%.

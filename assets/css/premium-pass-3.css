@@ -2868,6 +2868,46 @@
   background: #fbfaf7;
 }
 
+.lawyer-plans-founder {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(240px, 0.55fr);
+  gap: 1rem;
+  align-items: start;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(197, 164, 92, 0.42);
+  border-radius: 8px;
+  background: #fffaf0;
+  padding: clamp(1rem, 2vw, 1.35rem);
+}
+
+.lawyer-plans-founder h2 {
+  margin: 0.25rem 0 0.45rem;
+  color: var(--jt-primary-deep);
+}
+
+.lawyer-plans-founder p {
+  margin: 0;
+  color: var(--jt-muted);
+  line-height: 1.75;
+}
+
+.lawyer-plans-founder ol {
+  display: grid;
+  gap: 0.55rem;
+  margin: 0;
+  padding-inline-start: 1.2rem;
+  color: var(--jt-primary-deep);
+  font-weight: 850;
+  line-height: 1.55;
+}
+
+.lawyer-plans-founder__actions {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
 .lawyer-plans__grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -2951,6 +2991,7 @@
 
 @media (max-width: 760px) {
   .lawyer-plans-hero__grid,
+  .lawyer-plans-founder,
   .lawyer-plans__grid {
     grid-template-columns: 1fr;
   }

@@ -26,6 +26,23 @@ $plans = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_
 
 <section class="lawyer-plans section">
 	<div class="container">
+		<section class="lawyer-plans-founder" aria-labelledby="lawyer-plans-founder-title">
+			<div>
+				<p class="section-header__eyebrow"><?php esc_html_e( 'מסלול שותפי השקה', 'justice-theme' ); ?></p>
+				<h2 id="lawyer-plans-founder-title"><?php esc_html_e( 'רוצים להיות מכוסים בתחום שלכם לפני שהמתחרים נכנסים?', 'justice-theme' ); ?></h2>
+				<p><?php esc_html_e( 'המסלול מתאים לעורכי דין שיכולים לענות מהר לפניות, להשלים פרופיל מקצועי ולעבוד עם דוח ערך חודשי. ההפעלה עוברת בדיקת התאמה, רישיון וגילוי נאות לפני כל פרסום ממומן או ניתוב פניות.', 'justice-theme' ); ?></p>
+			</div>
+			<ol>
+				<li><?php esc_html_e( 'שולחים פרטים ומסלול רצוי.', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'Jus-Tice בודקת התאמה, תחום, עיר וזמינות למענה.', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'אחרי אישור ותשלום, הפרופיל והדאשבורד מתחילים למדוד פניות וערך.', 'justice-theme' ); ?></li>
+			</ol>
+			<div class="lawyer-plans-founder__actions">
+				<a class="button button--gold" href="<?php echo esc_url( justice_theme_plan_manual_activation_url( 'lead_partner' ) ); ?>"><?php esc_html_e( 'בקשת בדיקת שותף לידים', 'justice-theme' ); ?></a>
+				<a class="button button--outline" href="<?php echo esc_url( justice_theme_plan_manual_activation_url( 'pro' ) ); ?>"><?php esc_html_e( 'פתיחת מיני-סייט מקצועי', 'justice-theme' ); ?></a>
+			</div>
+		</section>
+
 		<div class="lawyer-plans__grid">
 			<?php foreach ( $plans as $plan_key => $plan ) : ?>
 				<?php

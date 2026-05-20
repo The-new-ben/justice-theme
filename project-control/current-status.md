@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-20 21:36 Asia/Jerusalem
+- LAWYER SALES CONVERSION: added a founder-partner activation panel to `/lawyer-plans/` so outreach calls can point lawyers to a clearer early-partner path instead of only the pricing cards.
+- RESEARCHED: current 2026 law-firm intake guidance. Clio says client intake should reduce manual work, improve client experience, track where leads come from and show lead/client status; Justia sells premium lawyer visibility by practice area and metro area. Sources: https://www.clio.com/blog/client-intake-law-firms/ and https://www.justia.com/marketing/lawyer-directory/
+- CODED: `page-lawyer-plans.php` now explains the launch-partner flow: submit details, Jus-Tice checks fit/license/area/availability, then profile/dashboard/value tracking starts after approval and payment.
+- CODED: the panel links directly into the existing manual-invoice activation paths for Lead Partner and Pro, without changing payment settings or charging anyone.
+- CODED: `assets/css/premium-pass-3.css` now styles the panel responsively above the plan grid.
+- VERIFIED: `php -l page-lawyer-plans.php`, `git diff --check`, uPress pull, uPress Git log, and live markup check on `https://jus-tice.co.il/lawyer-plans/` all passed.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is sales readiness: the owner can now send one public URL during lawyer outreach that explains the early partner path and captures plan interest.
+- COMPLETION ASSESSMENT: lawyer-plan conversion readiness moved from 55% to 62%; first-lawyer sales readiness moved from 45% to 51%; full automated payment readiness unchanged at 56% because Grow/Meshulam approval is still external.
+- OWNER-VISIBLE AFTER DEPLOY: open `/lawyer-plans/`; the new launch-partner block appears above the pricing cards.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `ddae8fe Add lawyer founder partner activation path` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 20:27 Asia/Jerusalem
 - LAWYER DASHBOARD VALUE SNAPSHOT: added a live monthly value panel to `/lawyer-dashboard/` so lawyers can see this month's assigned leads, first responses, consultations set, retained clients and closed/not-fit outcomes.
 - RESEARCHED: Clio's current Legal Trends material says firms that combine digital client intake tools with their referral/marketing flow see stronger revenue, lead-generation and conversion results; Clio's intake/CRM reporting also emphasizes full-funnel visibility from lead to retained client. Source: https://www.clio.com/about/press/legal-trends-solo-small-law-firms-2025/ and https://www.clio.com/resources/legal-trends/read-online/

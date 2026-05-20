@@ -3106,3 +3106,15 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - COMPLETION ASSESSMENT: supplier strategy 55%; supplier CRM 45%; supplier demand capture 35%; supplier outreach readiness 50%; supplier revenue live 0%.
 - OWNER CAN NOTICE: repo now contains a ready supplier outreach playbook and prospect template for translation/notary, office rooms, legal marketing, legal tech, experts and courier/filing.
 - SAFETY: branch docs only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 GROW/MESHULAM WEBSITE APPROVAL FIX
+- OWNER INPUT: owner shared the Grow/Meshulam failed site-review report and told support the site fixes are in progress.
+- REVIEW FINDING: Grow accepted site activity, phone and content category checks, but rejected missing business address, terms, privacy, cancellation, supply policy, warranty/responsibility, checkout page, and checkout terms checkbox/link.
+- CODE UPDATED: added `inc/payment-compliance-routes.php` with public `/terms/`, `/privacy/`, `/refund-cancellation-policy/`, and fallback `/checkout/` routes.
+- CODE UPDATED: fallback `/checkout/` collects first name, last name, phone without international prefix, country and email, and requires a terms approval checkbox linking to `/terms/`.
+- CODE UPDATED: Customizer now has business name and business address fields for payment compliance; footer and HTML sitemap expose the policy pages; contact page and schema can show the business address once saved.
+- MONEY IMPACT: this directly addresses the payment-provider approval blocker so automated recurring lawyer subscriptions can move forward once the exact public address is saved and the branch is deployed.
+- BLOCKED: exact public business address is still required from owner before re-submitting Grow/Meshulam review; no live deployment/uPress pull yet because this is branch code, not merged to main.
+- COMPLETION ASSESSMENT: Grow website checklist fix 80%; automated recurring payment readiness 68%; first-payment readiness 63%.
+- OWNER CAN NOTICE AFTER MERGE/DEPLOY: `/terms/`, `/privacy/`, `/refund-cancellation-policy/`, `/checkout/`, footer links, and Customizer business address field.
+- SAFETY: branch code/status only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.

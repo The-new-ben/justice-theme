@@ -190,6 +190,14 @@ function justice_theme_legal_service_schema() {
 		return;
 	}
 
+	$address = array(
+		'@type'          => 'PostalAddress',
+		'addressCountry' => 'IL',
+	);
+	if ( function_exists( 'justice_theme_business_address' ) && justice_theme_business_address() ) {
+		$address['streetAddress'] = justice_theme_business_address();
+	}
+
 	justice_theme_print_schema( array(
 		'@context'    => 'https://schema.org',
 		'@type'       => 'LegalService',
@@ -197,10 +205,7 @@ function justice_theme_legal_service_schema() {
 		'url'         => justice_theme_public_url( home_url( '/' ) ),
 		'telephone'   => function_exists( 'justice_theme_public_contact_number' ) ? justice_theme_public_contact_number() : '0525101555',
 		'email'       => 'info@jus-tice.co.il',
-		'address'     => array(
-			'@type'          => 'PostalAddress',
-			'addressCountry' => 'IL',
-		),
+		'address'     => $address,
 		'areaServed'  => array(
 			'@type' => 'Country',
 			'name'  => 'Israel',

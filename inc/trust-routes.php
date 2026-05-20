@@ -263,6 +263,12 @@ function justice_theme_render_trust_route_page( array $config ): void {
 								<span><?php esc_html_e( 'אימייל', 'justice-theme' ); ?></span>
 								<?php echo esc_html( $email ); ?>
 							</a>
+							<?php if ( function_exists( 'justice_theme_business_address' ) && justice_theme_business_address() ) : ?>
+								<a href="<?php echo esc_url( home_url( '/terms/' ) ); ?>">
+									<span><?php esc_html_e( 'כתובת העסק', 'justice-theme' ); ?></span>
+									<?php echo esc_html( justice_theme_business_address() ); ?>
+								</a>
+							<?php endif; ?>
 							<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>">
 								<span><?php esc_html_e( 'אינדקס', 'justice-theme' ); ?></span>
 								<?php esc_html_e( 'חיפוש עורכי דין לפי תחום', 'justice-theme' ); ?>

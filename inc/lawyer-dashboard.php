@@ -161,6 +161,102 @@ function justice_theme_handle_lawyer_profile_update_request(): void {
 }
 add_action( 'admin_post_justice_lawyer_profile_update_request', 'justice_theme_handle_lawyer_profile_update_request' );
 
+function justice_theme_handle_lawyer_review_campaign_request(): void {
+	if ( ! is_user_logged_in() || ! isset( $_POST['justice_lawyer_review_campaign_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_review_campaign_nonce'] ) ), 'justice_lawyer_review_campaign' ) ) {
+		wp_safe_redirect( add_query_arg( 'review_campaign', 'failed', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		wp_safe_redirect( add_query_arg( 'review_campaign', 'blocked', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$user_id    = get_current_user_id();
+	$lawyer_id  = isset( $_POST['lawyer_profile_id'] ) ? absint( $_POST['lawyer_profile_id'] ) : 0;
+	$profile_ok = $lawyer_id && (string) $user_id === (string) get_post_meta( $lawyer_id, 'claimed_by_user_id', true );
+
+	if ( ! $profile_ok ) {
+		wp_safe_redirect( add_query_arg( 'review_campaign', 'missing', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$client_group = isset( $_POST['review_client_group'] ) ? sanitize_text_field( wp_unslash( $_POST['review_client_group'] ) ) : '';
+	$notes        = isset( $_POST['review_campaign_notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['review_campaign_notes'] ) ) : '';
+
+	update_post_meta( $lawyer_id, 'pending_review_campaign_request', '1' );
+	update_post_meta( $lawyer_id, 'latest_review_campaign_client_group', $client_group );
+	update_post_meta( $lawyer_id, 'latest_review_campaign_notes', $notes );
+	update_post_meta( $lawyer_id, 'latest_review_campaign_requested_at', current_time( 'mysql' ) );
+
+	if ( function_exists( 'justice_theme_append_lawyer_internal_note' ) ) {
+		justice_theme_append_lawyer_internal_note( $lawyer_id, 'Lawyer requested review/recommendation campaign setup from dashboard.' );
+	}
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_review_campaign_request', 'New lawyer review campaign request: ' . get_the_title( $lawyer_id ) );
+	}
+
+	justice_theme_notify_lawyer_review_campaign_request( $lawyer_id, $client_group, $notes );
+
+	wp_safe_redirect( add_query_arg( 'review_campaign', 'sent', home_url( '/lawyer-dashboard/' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_lawyer_review_campaign_request', 'justice_theme_handle_lawyer_review_campaign_request' );
+
+function justice_theme_handle_lawyer_supplier_request(): void {
+	if ( ! is_user_logged_in() || ! isset( $_POST['justice_lawyer_supplier_request_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_supplier_request_nonce'] ) ), 'justice_lawyer_supplier_request' ) ) {
+		wp_safe_redirect( add_query_arg( 'supplier_request', 'failed', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		wp_safe_redirect( add_query_arg( 'supplier_request', 'blocked', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$user_id    = get_current_user_id();
+	$lawyer_id  = isset( $_POST['lawyer_profile_id'] ) ? absint( $_POST['lawyer_profile_id'] ) : 0;
+	$profile_ok = $lawyer_id && (string) $user_id === (string) get_post_meta( $lawyer_id, 'claimed_by_user_id', true );
+
+	if ( ! $profile_ok ) {
+		wp_safe_redirect( add_query_arg( 'supplier_request', 'missing', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$category = isset( $_POST['supplier_category'] ) ? sanitize_key( wp_unslash( $_POST['supplier_category'] ) ) : 'other';
+	if ( function_exists( 'justice_theme_lawyer_supplier_categories' ) && ! array_key_exists( $category, justice_theme_lawyer_supplier_categories() ) ) {
+		$category = 'other';
+	}
+
+	$urgency = isset( $_POST['supplier_urgency'] ) ? sanitize_key( wp_unslash( $_POST['supplier_urgency'] ) ) : 'this_month';
+	if ( ! in_array( $urgency, array( 'urgent', 'this_month', 'researching', 'not_sure' ), true ) ) {
+		$urgency = 'this_month';
+	}
+
+	$notes = isset( $_POST['supplier_request_notes'] ) ? sanitize_textarea_field( wp_unslash( $_POST['supplier_request_notes'] ) ) : '';
+
+	update_post_meta( $lawyer_id, 'pending_supplier_request', '1' );
+	update_post_meta( $lawyer_id, 'latest_supplier_request_category', $category );
+	update_post_meta( $lawyer_id, 'latest_supplier_request_urgency', $urgency );
+	update_post_meta( $lawyer_id, 'latest_supplier_request_notes', $notes );
+	update_post_meta( $lawyer_id, 'latest_supplier_request_requested_at', current_time( 'mysql' ) );
+
+	if ( function_exists( 'justice_theme_append_lawyer_internal_note' ) ) {
+		justice_theme_append_lawyer_internal_note( $lawyer_id, 'Lawyer requested a vetted supplier/service: ' . $category . ' (' . $urgency . ').' );
+	}
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_supplier_request', 'New lawyer supplier request: ' . get_the_title( $lawyer_id ) . ' - ' . $category );
+	}
+
+	justice_theme_notify_lawyer_supplier_request( $lawyer_id, $category, $urgency, $notes );
+
+	wp_safe_redirect( add_query_arg( 'supplier_request', 'sent', home_url( '/lawyer-dashboard/' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_lawyer_supplier_request', 'justice_theme_handle_lawyer_supplier_request' );
+
 function justice_theme_connect_content_request_to_lawyer_taxonomy( int $article_id, int $lawyer_id ): void {
 	if ( ! taxonomy_exists( 'practice-areas' ) ) {
 		return;
@@ -213,6 +309,50 @@ function justice_theme_notify_lawyer_content_request( int $article_id, int $lawy
 	wp_mail( $admin_email, 'New lawyer content request draft', $message );
 }
 
+function justice_theme_notify_lawyer_review_campaign_request( int $lawyer_id, string $client_group, string $notes ): void {
+	$admin_email = get_option( 'admin_email' );
+
+	if ( ! $admin_email || ! is_email( $admin_email ) ) {
+		return;
+	}
+
+	$message = sprintf(
+		"New lawyer review/recommendation campaign request.\n\nLawyer: %s\nClient group: %s\nNotes: %s\n\nImportant: do not send SMS/email review requests before owner review and lawyer approval.\n\nReview profile: %s",
+		get_the_title( $lawyer_id ),
+		$client_group ?: '-',
+		$notes ?: '-',
+		admin_url( 'post.php?post=' . $lawyer_id . '&action=edit' )
+	);
+
+	wp_mail( $admin_email, 'New lawyer review campaign request', $message );
+}
+
+function justice_theme_notify_lawyer_supplier_request( int $lawyer_id, string $category, string $urgency, string $notes ): void {
+	$admin_email = get_option( 'admin_email' );
+
+	if ( ! $admin_email || ! is_email( $admin_email ) ) {
+		return;
+	}
+
+	$category_label = $category;
+	if ( function_exists( 'justice_theme_lawyer_supplier_categories' ) ) {
+		$categories     = justice_theme_lawyer_supplier_categories();
+		$category_label = isset( $categories[ $category ] ) ? wp_strip_all_tags( (string) $categories[ $category ] ) : $category;
+	}
+
+	$message = sprintf(
+		"New lawyer supplier/service request.\n\nLawyer: %s\nCategory: %s\nUrgency: %s\nNotes: %s\n\nMoney path: match this request to an approved supplier prospect or use it as evidence for supplier outreach.\n\nReview profile: %s\nSupplier pipeline: %s",
+		get_the_title( $lawyer_id ),
+		$category_label ?: '-',
+		$urgency ?: '-',
+		$notes ?: '-',
+		admin_url( 'post.php?post=' . $lawyer_id . '&action=edit' ),
+		admin_url( 'edit.php?post_type=justice_supplier' )
+	);
+
+	wp_mail( $admin_email, 'New lawyer supplier request', $message );
+}
+
 function justice_theme_lawyer_dashboard_profile_completeness( int $post_id ): int {
 	$fields = array(
 		'lawyer_full_name',
@@ -235,4 +375,90 @@ function justice_theme_lawyer_dashboard_profile_completeness( int $post_id ): in
 	}
 
 	return (int) round( ( $filled / count( $fields ) ) * 100 );
+}
+
+function justice_theme_lawyer_dashboard_growth_assets( int $post_id, int $lead_count, int $content_request_count, int $profile_views_total ): array {
+	$review_count       = (int) get_post_meta( $post_id, 'google_review_count', true );
+	if ( ! $review_count ) {
+		$review_count = (int) get_post_meta( $post_id, 'review_count', true );
+	}
+	$latest_review_date = (string) get_post_meta( $post_id, 'latest_review_date', true );
+	$has_fresh_review   = false;
+	$has_google_source  = (bool) get_post_meta( $post_id, 'google_review_request_url', true ) || (bool) get_post_meta( $post_id, 'google_business_profile_url', true ) || (bool) get_post_meta( $post_id, 'google_place_id', true );
+	$recommendations    = function_exists( 'justice_theme_lawyer_recommendation_counts' ) ? justice_theme_lawyer_recommendation_counts( $post_id ) : array( 'approved_public' => 0, 'fresh_approved' => 0 );
+	$has_recommendation = 0 < (int) $recommendations['approved_public'];
+	$has_fresh_first_party_recommendation = 0 < (int) $recommendations['fresh_approved'];
+
+	if ( $latest_review_date ) {
+		$review_timestamp = strtotime( $latest_review_date );
+		$has_fresh_review = $review_timestamp && $review_timestamp >= strtotime( '-120 days', current_time( 'timestamp' ) );
+	}
+
+	return array(
+		array(
+			'label' => __( 'Profile is claimed and connected to a login', 'justice-theme' ),
+			'done'  => (bool) get_post_meta( $post_id, 'claimed_by_user_id', true ),
+			'why'   => __( 'Claimed profiles are easier to keep accurate and more likely to convert.', 'justice-theme' ),
+		),
+		array(
+			'label' => __( 'Professional photo is present', 'justice-theme' ),
+			'done'  => has_post_thumbnail( $post_id ),
+			'why'   => __( 'A real photo is a basic trust signal before a user calls.', 'justice-theme' ),
+		),
+		array(
+			'label' => __( 'License / Bar number is recorded', 'justice-theme' ),
+			'done'  => (bool) get_post_meta( $post_id, 'bar_number', true ),
+			'why'   => __( 'Legal profiles need verifiable professional identity.', 'justice-theme' ),
+		),
+		array(
+			'label' => __( 'Website or external proof link is recorded', 'justice-theme' ),
+			'done'  => (bool) get_post_meta( $post_id, 'website', true ),
+			'why'   => __( 'External proof supports authority and user confidence.', 'justice-theme' ),
+		),
+		array(
+			'label' => __( 'Services and process are explained', 'justice-theme' ),
+			'done'  => (bool) get_post_meta( $post_id, 'profile_services', true ) && (bool) get_post_meta( $post_id, 'profile_process', true ),
+			'why'   => __( 'Users want to know what happens after they call.', 'justice-theme' ),
+		),
+		array(
+			'label' => __( 'FAQ / AI-search answer material exists', 'justice-theme' ),
+			'done'  => (bool) get_post_meta( $post_id, 'profile_faqs', true ),
+			'why'   => __( 'FAQs help search, AI answers and conversion.', 'justice-theme' ),
+		),
+		array(
+			'label' => __( 'Video or personal introduction exists', 'justice-theme' ),
+			'done'  => (bool) get_post_meta( $post_id, 'profile_video_url', true ),
+			'why'   => __( 'Video helps the lawyer feel real before the first call.', 'justice-theme' ),
+		),
+		array(
+			'label' => __( 'Review/recommendation source exists', 'justice-theme' ),
+			'done'  => $has_google_source || $has_recommendation || 0 < $review_count || '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true ),
+			'why'   => __( 'Fresh recommendations are a major trust and local SEO signal.', 'justice-theme' ),
+		),
+		array(
+			'label' => __( 'Fresh recommendation activity exists', 'justice-theme' ),
+			'done'  => $has_fresh_review || $has_fresh_first_party_recommendation || '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true ),
+			'why'   => __( 'Recent reviews usually matter more than old review count.', 'justice-theme' ),
+		),
+		array(
+			'label' => __( 'Signed content or guide request exists', 'justice-theme' ),
+			'done'  => 0 < $content_request_count,
+			'why'   => __( 'Content connects the lawyer to practice-area authority.', 'justice-theme' ),
+		),
+		array(
+			'label' => __( 'Professional supplier/service need is captured', 'justice-theme' ),
+			'done'  => '1' === (string) get_post_meta( $post_id, 'pending_supplier_request', true ),
+			'why'   => __( 'Useful partner services give lawyers more value and create a second revenue line.', 'justice-theme' ),
+		),
+		array(
+			'label' => __( 'Measured exposure exists', 'justice-theme' ),
+			'done'  => 0 < $profile_views_total,
+			'why'   => __( 'Paid lawyers need visible proof that the platform is working.', 'justice-theme' ),
+		),
+		array(
+			'label' => __( 'Lead flow exists', 'justice-theme' ),
+			'done'  => 0 < $lead_count,
+			'why'   => __( 'Leads are the strongest retention proof once routing is active.', 'justice-theme' ),
+		),
+	);
 }

@@ -101,6 +101,16 @@ function justice_theme_enqueue_assets() {
 		JUSTICE_THEME_VERSION,
 		true
 	);
+
+	if ( is_page_template( 'page-lawyer-registration.php' ) || is_page( 'lawyer-registration' ) ) {
+		wp_enqueue_script(
+			'justice-lawyer-registration-wizard',
+			JUSTICE_THEME_URI . '/assets/js/lawyer-registration-wizard.js',
+			array(),
+			'1.0.0',
+			true
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'justice_theme_enqueue_assets' );
 

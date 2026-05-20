@@ -1,3 +1,43 @@
+## LATEST WORK STATUS - 2026-05-20 11:34 Asia/Jerusalem
+- OWNER WALKTHROUGH: created the plain-English operating guide for the lawyer platform so the owner can understand how to use/administer the system after PR #26 is merged and deployed.
+- RESEARCHED: current SaaS onboarding/activation best practices. Key point: the system should guide lawyers to first value quickly, not overwhelm them with a feature tour; first value for Jus-Tice is profile readiness, reputation source, content, exposure and leads.
+- CREATED: `project-control/lawyer-platform-owner-walkthrough-2026-05-20.md`.
+- UPDATED: PR #26 with the walkthrough.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is operational readiness: the owner now has a clear map for registration, admin review, dashboard use, Google review source fields, first-party recommendations and manual activation while Meshulam is being handled.
+- COMPLETION ASSESSMENT: owner walkthrough clarity 80%; lawyer dashboard value clarity 60%; admin operating system 55%; recommendation/reputation system 48%; paying customer readiness 45%.
+- OWNER-VISIBLE AFTER MERGE/DEPLOY: the dashboard/admin surfaces described in the walkthrough become visible on `/lawyer-dashboard/` and `wp-admin -> Lawyer Onboarding`.
+- UPRESS: no uPress pull yet because this branch is not merged to `main`.
+- SAFETY: repo documentation only in this cycle. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, SMS/email review request, review publication, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 11:18 Asia/Jerusalem
+- GOOGLE REVIEWS / REPUTATION SYSTEM: started turning the lawyer dashboard into an active reputation and authority cockpit, inspired by Justia, Din, PsakDin and LawReviews patterns.
+- RESEARCHED: official Google Business Profile review APIs, Google Maps user-generated-content policy, Google review-link workflows, Justia lawyer profile badges/premium placements/reviews, Din fresh-review/directory/Q&A surfaces, and lawyer reputation-management patterns.
+- CODED: lawyer dashboard now has a reputation/authority growth checklist and a "Google reviews and recommendations" request form. Submitting it saves an internal owner-review request only; it does not send SMS/email or publish reviews.
+- CODED: Lawyer Onboarding admin now includes pending review-campaign requests in the onboarding queue with a Reputation column.
+- CODED: lawyer profile edit screens now include owner-only Google reputation source fields for Google Business profile URL, Place ID, review request URL, review count, latest review date and display-approved recommendation status.
+- CODED: internal first-party recommendation records (`justice_recommendation`) with moderation, permission and lawyer-link fields. These are admin-only and not public by default.
+- CODED: dashboard reputation checklist now recognizes approved first-party recommendations as a real reputation asset.
+- CREATED LINEAR: `HAD-72` - build Google reviews and first-party reputation system.
+- STRATEGIC DECISION: phase 1 stores/uses lawyer Google review links and first-party review workflow; phase 2 can use Google Business Profile API only for lawyers who grant profile access/OAuth; first-party Jus-Tice recommendations remain separate from Google reviews.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that the paid lawyer dashboard now moves closer to a real retention/value system: profile authority, reviews, content, exposure and leads are visible as growth assets.
+- COMPLETION ASSESSMENT: reputation system phase 1 moved from 0% to 48%; lawyer dashboard paid-value system moved from 35% to 49%. Remaining blockers: approved public recommendation display, recommendation request intake/token flow, SMS/email sender approval, Google Business Profile OAuth integration, walkthrough QA, merge/deploy/uPress pull.
+- OWNER-VISIBLE AFTER MERGE/DEPLOY: logged-in lawyers will see the new reputation/authority cockpit and review-campaign request form on `/lawyer-dashboard/`; owner/admin will see review-campaign requests inside Lawyer Onboarding.
+- UPRESS: no uPress pull yet because this branch is not merged to `main`.
+- SAFETY: code and repo docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, SMS/email review request, review publication, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 10:57 Asia/Jerusalem
+- LAWYER ACQUISITION FIRST WAVE: created a practical first-wave sales packet for getting paying lawyers before Meshulam/Grow recurring payments are fully approved.
+- RESEARCHED: current 2026 lawyer marketing guidance and legal-directory patterns. Key point: lawyers buy qualified demand, reputation proof, local SEO/reviews, authority assets and measurable follow-up; they do not care about raw traffic claims.
+- CREATED: `project-control/lawyer-acquisition-first-wave-2026-05-20.md`.
+- CREATED: `project-control/lawyer-acquisition-first-wave-template-2026-05-20.csv`.
+- CREATED LINEAR: `HAD-71` - prepare and run first lawyer acquisition wave.
+- STRATEGIC DECISION: pitch "authority profile + connected content + measurable exposure/lead report" instead of "listing." Use manual invoice/manual activation until Meshulam KYC is complete.
+- HONEST MONEY ASSESSMENT: no money earned this cycle and no outreach was sent. Substantial advancement is that the first lawyer sales motion now has a clear offer, target practice areas, safe promise language and private CRM template.
+- COMPLETION ASSESSMENT: lawyer acquisition strategy 65%; first-wave positioning 70%; actual outreach 0%; paying lawyers 0%; payment automation still blocked by Meshulam/Grow KYC.
+- OWNER-VISIBLE NOW: repo contains the first-wave acquisition packet. It is not visible on the public website.
+- UPRESS: no uPress pull because this is a planning branch and not merged to `main`.
+- SAFETY: repo-only planning. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-19 17:52 Asia/Jerusalem
 - MONEY-QUERY POST-EDIT VERIFICATION: added the after-edit safety checklist for the five PR #9 target pages.
 - RESEARCHED: Google URL Inspection, recrawl and title-link guidance. Key point: after page edits, the right workflow is live inspection, crawl/indexability confirmation, request indexing when appropriate, then 14/28/45-day performance comparison.
@@ -3024,3 +3064,57 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - MONEY IMPACT: validates Jus-Tice's plan ladder and shows the family/divorce cluster should become a guided Israeli law center, not isolated articles.
 - NEXT SAFE CODE STEP: create a family-law/divorce hub rescue package: URL audit, canonical pillar, topic cards, internal links, last-reviewed/reviewer plan, Maya authority block after verification and live link/CTA checker.
 - COMPLETION ASSESSMENT: Justia public content analysis 65%; marketing packaging analysis 60%; family-law SEO rescue readiness 45%; implementation 0%.
+
+## 2026-05-20 LAWYER PLATFORM PRODUCT SPINE
+- OWNER INPUT: owner clarified that lawyer onboarding must become a smart wizard that creates a rich mini-site with minimal owner work, and that supplier/provider monetization for lawyers is now a formal revenue track.
+- RESEARCH BASIS: WordPress.com AI Assistant is useful inspiration but mainly applies to WordPress.com editor/media workflows; AI Engine-style plugins can help with chat/forms/content, but Jus-Tice should keep the commercial onboarding, approval and publication logic first-party. Google Business Profile APIs require authorized locations for review data. Din has supplier categories such as translations/notary/apostille and office rentals for lawyers.
+- CODE UPDATED: `/lawyer-registration/` now loads `assets/js/lawyer-registration-wizard.js`, turning the long registration form into a four-step guided wizard while preserving the existing backend submission and no-JS fallback.
+- CODE UPDATED: added admin-only `justice_supplier` CPT in `inc/lawyer-suppliers.php` for the supplier marketplace pipeline: category, source URL, contact, service area, status, revenue model, priority, offer summary and owner note.
+- LINEAR: created `HAD-73` for the AI-assisted lawyer onboarding wizard and `HAD-74` for the supplier marketplace revenue pipeline.
+- MONEY IMPACT: lawyers should face a more serious onboarding experience, and supplier/provider monetization now has a repo-backed place to collect prospects before public exposure.
+- BLOCKED: automated recurring payments remain blocked until Meshulam/Grow KYC/account recovery is completed by owner; AI drafting still needs provider/API and safety work.
+- COMPLETION ASSESSMENT: lawyer onboarding UX 48%; zero-owner-interference onboarding 35%; supplier marketplace revenue track 18%; admin money-system cleanup 40%; automated AI profile drafting 10%.
+- OWNER CAN NOTICE AFTER MERGE/DEPLOY: `/lawyer-registration/` should feel like a guided wizard; wp-admin should expose `Suppliers` under the lawyer onboarding/admin area.
+- SAFETY: branch code/docs/Linear only; no live CMS/database, supplier, lawyer, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 LAWYER SUPPLIER REQUEST INTAKE
+- RESEARCH BASIS: current onboarding guidance emphasizes fast first value and repeatable next-step actions; legal marketplace/vendor examples show that curated suppliers for lawyers can become a second revenue line when quality and disclosure are controlled.
+- CODE UPDATED: lawyer dashboard now includes a private `Vetted services for your firm` request form.
+- CODE UPDATED: added `justice_lawyer_supplier_request` handler that verifies the logged-in lawyer owns the profile, stores category/urgency/notes on the profile, appends an internal note and emails the owner.
+- CODE UPDATED: growth assets now count captured professional supplier/service needs as a value signal.
+- MONEY IMPACT: this turns supplier monetization from only a prospect CRM into real lawyer demand capture; each request can support supplier outreach and future partner offers.
+- BLOCKED: supplier matching remains manual until approved suppliers and commercial terms exist; automated recurring lawyer payments remain blocked until Meshulam/Grow KYC/account recovery is completed by owner.
+- COMPLETION ASSESSMENT: supplier marketplace revenue track 24%; lawyer dashboard retention/value layer 64%; zero-owner-interference onboarding 36%; first-payment readiness 56%.
+- OWNER CAN NOTICE AFTER MERGE/DEPLOY: logged-in lawyers on `/lawyer-dashboard/` should see `Vetted services for your firm` and can request a supplier match.
+- SAFETY: branch code/docs only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 SUPPLIER PIPELINE ADMIN FILTERS
+- RESEARCH BASIS: 2026 attorney marketplace examples emphasize curated/vetted providers, attorney-focused categories and warm introductions; therefore the supplier CRM must be easy to filter by category, status and priority instead of becoming another flat CMS list.
+- CODE UPDATED: `justice_supplier` wp-admin list now has filters for supplier category, partnership status and priority.
+- MONEY IMPACT: owner can quickly find high-priority outreach-ready suppliers and turn lawyer demand into partner conversations.
+- BLOCKED: real supplier records and commercial terms still need owner/business outreach; automated recurring lawyer payments remain blocked until Meshulam/Grow KYC/account recovery is completed by owner.
+- COMPLETION ASSESSMENT: supplier marketplace revenue track 27%; admin money-system cleanup 42%; lawyer dashboard retention/value layer 64%.
+- OWNER CAN NOTICE AFTER MERGE/DEPLOY: wp-admin supplier list should have dropdown filters for category, status and priority.
+- SAFETY: branch code/docs only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 SUPPLIER MARKETPLACE OUTREACH PLAYBOOK
+- RESEARCH BASIS: 2026 B2B lead generation guidance points toward ICP fit, buying intent and relevant follow-up; legal vendor marketplaces position themselves around curated/vendor networks rather than generic lists.
+- CREATED: `project-control/supplier-marketplace-outreach-playbook-2026-05-20.md`.
+- CREATED: `project-control/supplier-marketplace-prospect-template-2026-05-20.csv`.
+- MONEY IMPACT: supplier monetization now has a practical outbound motion: first 30 prospect categories, qualification questions, scripts, follow-ups and revenue models.
+- BLOCKED: no supplier outreach was sent; real prospect records and commercial terms still need owner/business action; automated recurring lawyer payments remain blocked until Meshulam/Grow KYC/account recovery is completed by owner.
+- COMPLETION ASSESSMENT: supplier strategy 55%; supplier CRM 45%; supplier demand capture 35%; supplier outreach readiness 50%; supplier revenue live 0%.
+- OWNER CAN NOTICE: repo now contains a ready supplier outreach playbook and prospect template for translation/notary, office rooms, legal marketing, legal tech, experts and courier/filing.
+- SAFETY: branch docs only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 GROW/MESHULAM WEBSITE APPROVAL FIX
+- OWNER INPUT: owner shared the Grow/Meshulam failed site-review report and told support the site fixes are in progress.
+- REVIEW FINDING: Grow accepted site activity, phone and content category checks, but rejected missing business address, terms, privacy, cancellation, supply policy, warranty/responsibility, checkout page, and checkout terms checkbox/link.
+- CODE UPDATED: added `inc/payment-compliance-routes.php` with public `/terms/`, `/privacy/`, `/refund-cancellation-policy/`, and fallback `/checkout/` routes.
+- CODE UPDATED: fallback `/checkout/` collects first name, last name, phone without international prefix, country and email, and requires a terms approval checkbox linking to `/terms/`.
+- CODE UPDATED: Customizer now has business name and business address fields for payment compliance; footer and HTML sitemap expose the policy pages; contact page and schema can show the business address once saved.
+- MONEY IMPACT: this directly addresses the payment-provider approval blocker so automated recurring lawyer subscriptions can move forward once the exact public address is saved and the branch is deployed.
+- BLOCKED: exact public business address is still required from owner before re-submitting Grow/Meshulam review; no live deployment/uPress pull yet because this is branch code, not merged to main.
+- COMPLETION ASSESSMENT: Grow website checklist fix 80%; automated recurring payment readiness 68%; first-payment readiness 63%.
+- OWNER CAN NOTICE AFTER MERGE/DEPLOY: `/terms/`, `/privacy/`, `/refund-cancellation-policy/`, `/checkout/`, footer links, and Customizer business address field.
+- SAFETY: branch code/status only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.

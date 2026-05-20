@@ -42,6 +42,8 @@ $justice_theme_files = array(
 	'inc/content-draft-importer.php',
 	'inc/live-content-publication.php',
 	'inc/publication-safety.php',
+	'inc/lawyer-recommendations.php',
+	'inc/lawyer-suppliers.php',
 	'inc/lawyer-onboarding.php',
 	'inc/lawyer-dashboard.php',
 	'inc/lawyer-plans.php',
@@ -53,6 +55,7 @@ $justice_theme_files = array(
 	'inc/sitemap.php',
 	'inc/html-sitemap.php',
 	'inc/trust-routes.php',
+	'inc/payment-compliance-routes.php',
 	'inc/url-redirects.php',
 );
 

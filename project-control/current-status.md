@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-20 19:22 Asia/Jerusalem
+- LAWYER PRIVATE ZONE / CLIO-LITE: added a first visual lead pipeline to the lawyer dashboard so paid lawyers can see where assigned leads stand instead of only reading a flat recent-leads list.
+- RESEARCHED: current 2026 law-firm CRM/intake guidance. Key point: legal CRMs that stick show a visible pipeline and source/conversion metrics; lawyers need to see inquiry -> response -> consultation -> retained progress without digging in email or wp-admin.
+- CODED: `/lawyer-dashboard/` now builds a private lead pipeline from assigned lead follow-up/status data: New, First response, Consultation, Won, and Not fit.
+- CODED: `assets/css/premium-pass-3.css` now styles the pipeline as compact dashboard stage cards with mobile fallback.
+- VERIFIED: `php -l page-lawyer-dashboard.php` and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is lawyer subscription value: the private zone now looks more like a paid lead cockpit and less like a simple list.
+- COMPLETION ASSESSMENT: lawyer private zone moved from 55% to 59%; Clio-lite lead dashboard moved from 15% to 28%; paid-lawyer retention value moved from 49% to 52%. Remaining blockers: lead stage update buttons inside the lawyer dashboard, live QA with a lawyer user, per-lead contact visibility rules, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: logged-in lawyers on `/lawyer-dashboard/` will see a `Lead pipeline` block above Recent leads.
+- UPRESS: pending code deploy/pull for this commit.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 17:31 Asia/Jerusalem
 - LEAD RESPONSE SPEED / OPERATOR UX: added one-click contact actions directly inside the lead CRM table.
 - RESEARCHED: current 2026 legal intake guidance. Key point: law-firm lead conversion depends on immediate, multi-channel response; call/text/WhatsApp/email actions should be available from the intake system instead of buried in separate screens.

@@ -2555,6 +2555,76 @@
   gap: 0.65rem;
 }
 
+.lawyer-dashboard-pipeline {
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  background: #fff;
+  padding: 1rem;
+  margin-bottom: 1.2rem;
+}
+
+.lawyer-dashboard-pipeline__header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 0.9rem;
+}
+
+.lawyer-dashboard-pipeline__header h2 {
+  margin: 0.2rem 0 0;
+  color: var(--jt-primary-deep);
+  font-size: 1.2rem;
+}
+
+.lawyer-dashboard-pipeline__header span {
+  border-radius: 999px;
+  background: #edf6f3;
+  color: var(--jt-primary-deep);
+  padding: 0.35rem 0.7rem;
+  font-size: 0.82rem;
+  font-weight: 900;
+  white-space: nowrap;
+}
+
+.lawyer-dashboard-pipeline__stages {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 0.65rem;
+}
+
+.lawyer-dashboard-pipeline__stages article {
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  background: #f8fafc;
+  padding: 0.75rem;
+  min-height: 7.5rem;
+}
+
+.lawyer-dashboard-pipeline__stages strong,
+.lawyer-dashboard-pipeline__stages span,
+.lawyer-dashboard-pipeline__stages small {
+  display: block;
+}
+
+.lawyer-dashboard-pipeline__stages strong {
+  color: var(--jt-primary-deep);
+  font-size: 1.7rem;
+  line-height: 1;
+}
+
+.lawyer-dashboard-pipeline__stages span {
+  margin-top: 0.3rem;
+  color: var(--jt-primary-deep);
+  font-weight: 900;
+}
+
+.lawyer-dashboard-pipeline__stages small {
+  margin-top: 0.55rem;
+  color: var(--jt-muted);
+  line-height: 1.4;
+}
+
 .lawyer-dashboard-leads article,
 .lawyer-dashboard-content-list article {
   display: grid;
@@ -2622,10 +2692,19 @@
   .lawyer-dashboard__summary,
   .lawyer-dashboard__first-value,
   .lawyer-dashboard-growth__header,
+  .lawyer-dashboard-pipeline__header,
   .lawyer-dashboard-profile dl,
   .lawyer-dashboard-leads article,
   .lawyer-dashboard-content-list article,
   .lawyer-dashboard__first-value-note {
+    grid-template-columns: 1fr;
+  }
+
+  .lawyer-dashboard-pipeline__header {
+    display: grid;
+  }
+
+  .lawyer-dashboard-pipeline__stages {
     grid-template-columns: 1fr;
   }
 

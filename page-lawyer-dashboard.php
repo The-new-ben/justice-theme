@@ -149,6 +149,57 @@ if ( $dashboard_google_review_url ) {
 	);
 	$dashboard_review_whatsapp_url = 'https://wa.me/?text=' . rawurlencode( wp_strip_all_tags( $dashboard_review_message ) );
 }
+
+$lead_pipeline = array(
+	'new'          => array(
+		'label'    => __( 'New', 'justice-theme' ),
+		'statuses' => array( 'new', 'assigned', 'qualified', 'pending', 'not_started', '' ),
+		'count'    => 0,
+		'latest'   => '',
+	),
+	'response'     => array(
+		'label'    => __( 'First response', 'justice-theme' ),
+		'statuses' => array( 'first_attempt', 'contacted', 'in_progress' ),
+		'count'    => 0,
+		'latest'   => '',
+	),
+	'consultation' => array(
+		'label'    => __( 'Consultation', 'justice-theme' ),
+		'statuses' => array( 'consult_scheduled', 'consultation_scheduled', 'meeting_scheduled', 'pending_retainer' ),
+		'count'    => 0,
+		'latest'   => '',
+	),
+	'won'          => array(
+		'label'    => __( 'Won', 'justice-theme' ),
+		'statuses' => array( 'won', 'converted', 'closed', 'retained' ),
+		'count'    => 0,
+		'latest'   => '',
+	),
+	'not_fit'      => array(
+		'label'    => __( 'Not fit', 'justice-theme' ),
+		'statuses' => array( 'lost', 'not_qualified', 'rejected', 'spam' ),
+		'count'    => 0,
+		'latest'   => '',
+	),
+);
+
+if ( $leads && $leads->posts ) {
+	foreach ( $leads->posts as $lead_post ) {
+		$lead_stage_status = sanitize_key( (string) ( get_post_meta( $lead_post->ID, 'follow_up_status', true ) ?: get_post_meta( $lead_post->ID, 'lead_status', true ) ) );
+		$lead_stage_key    = 'new';
+		foreach ( $lead_pipeline as $stage_key => $stage ) {
+			if ( in_array( $lead_stage_status, $stage['statuses'], true ) ) {
+				$lead_stage_key = $stage_key;
+				break;
+			}
+		}
+
+		$lead_pipeline[ $lead_stage_key ]['count']++;
+		if ( '' === $lead_pipeline[ $lead_stage_key ]['latest'] ) {
+			$lead_pipeline[ $lead_stage_key ]['latest'] = get_the_title( $lead_post );
+		}
+	}
+}
 ?>
 
 <section class="lawyer-dashboard section">
@@ -412,6 +463,25 @@ if ( $dashboard_google_review_url ) {
 
 							<button type="submit" class="button button--gold"><?php esc_html_e( 'Request matched provider', 'justice-theme' ); ?></button>
 						</form>
+					</section>
+
+					<section class="lawyer-dashboard-pipeline" aria-labelledby="lawyer-dashboard-pipeline-title">
+						<div class="lawyer-dashboard-pipeline__header">
+							<div>
+								<p class="section-header__eyebrow"><?php esc_html_e( 'Lead pipeline', 'justice-theme' ); ?></p>
+								<h2 id="lawyer-dashboard-pipeline-title"><?php esc_html_e( 'Where your leads stand now', 'justice-theme' ); ?></h2>
+							</div>
+							<span><?php printf( esc_html__( '%s assigned leads', 'justice-theme' ), esc_html( (string) $lead_count ) ); ?></span>
+						</div>
+						<div class="lawyer-dashboard-pipeline__stages">
+							<?php foreach ( $lead_pipeline as $stage ) : ?>
+								<article>
+									<strong><?php echo esc_html( (string) $stage['count'] ); ?></strong>
+									<span><?php echo esc_html( $stage['label'] ); ?></span>
+									<small><?php echo $stage['latest'] ? esc_html( $stage['latest'] ) : esc_html__( 'No leads in this stage', 'justice-theme' ); ?></small>
+								</article>
+							<?php endforeach; ?>
+						</div>
 					</section>
 
 					<h2><?php esc_html_e( 'Recent leads', 'justice-theme' ); ?></h2>

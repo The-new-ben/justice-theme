@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-20 22:06 Asia/Jerusalem
+- CRM TO LAWYER-PROSPECT BRIDGE: connected uncovered demand in Justice CRM to the new Lawyer Prospects pipeline.
+- RESEARCHED: current legal lead-management guidance says intake systems should track lead source, status, follow-up and conversion by channel; Justia's 2026 directory material reinforces that lawyers buy visibility by practice area and metro area, which matches our area/city prospect pipeline. Sources: https://www.clio.com/blog/lead-management-best-practices-law-firms/ and https://onward.justia.com/how-to-maximize-the-benefits-of-your-justia-lawyer-directory-profile/
+- CODED: Justice CRM lead rows now include a `Prospect` action for legal leads, and the uncovered-demand summary has a `Create prospect` button for the latest demand signal.
+- CODED: clicking the button opens a new Lawyer Prospect draft prefilled from the source lead: title, practice area, market, target plan, priority, demand signal, expected monthly NIS and source lead link.
+- VERIFIED: `php -l inc/lead-crm.php`, `php -l inc/lawyer-prospects.php`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `bdba3f2 Bridge uncovered leads to lawyer prospects`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is speed-to-sales: an uncovered lead can now become a prepared lawyer recruitment record in one click, instead of being manually retyped or forgotten.
+- COMPLETION ASSESSMENT: uncovered-demand-to-sales workflow moved from 35% to 55%; lawyer outreach operating system moved from 35% to 45%; first-lawyer sales readiness moved from 60% to 63%; automated payment readiness unchanged at 80%.
+- OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Justice CRM -> Recent legal leads / Uncovered demand queue -> `Prospect` or `Create prospect`.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `bdba3f2 Bridge uncovered leads to lawyer prospects` is `HEAD -> main, origin/main`.
+- SAFETY: admin workflow only. It does not create a prospect until an admin saves the new draft, and it sends no outreach, changes no payment settings, charges no card, and publishes no public content.
+
 ## LATEST WORK STATUS - 2026-05-20 21:58 Asia/Jerusalem
 - LAWYER OUTREACH PIPELINE: added an admin-only prospect pipeline so uncovered demand and target lawyer lists can become structured sales work.
 - RESEARCHED: current legal intake and directory monetization patterns. Clio emphasizes tracking lead source, status, follow-up and conversion; Justia Premium Placements sells lawyer visibility by practice area and metro area. Sources: https://www.clio.com/blog/client-intake-law-firms/ and https://www.justia.com/marketing/lawyer-directory/
@@ -3404,3 +3416,13 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: still needs real prospects entered and outreach performed; no automatic outbound messages were sent; Grow/Meshulam approval still controls automated recurring payment collection.
 - COMPLETION ASSESSMENT: lawyer outreach operating system 35%; first-lawyer sales readiness 60%; paid coverage pipeline 35%; automated payment readiness unchanged at 80%.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Lawyer Prospects.
+
+## 2026-05-20 CRM TO LAWYER-PROSPECT BRIDGE
+- RESEARCH BASIS: current legal lead-management guidance says firms need source/status/follow-up/conversion tracking; Justia's 2026 directory marketing reinforces paid visibility by practice area and metro area.
+- CODE UPDATED: Justice CRM lead rows now include a `Prospect` action, and uncovered-demand summary rows include `Create prospect` for the latest lead behind the demand signal.
+- CODE UPDATED: new Lawyer Prospect drafts opened from CRM are prefilled from the source lead: title, practice area, market, target plan, priority, expected monthly NIS, demand signal, owner note and source lead ID.
+- DEPLOYED: pushed `bdba3f2 Bridge uncovered leads to lawyer prospects` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
+- MONEY IMPACT: this reduces the manual work needed to convert real demand into paid lawyer coverage outreach.
+- BLOCKED: requires owner/admin to save prospects and perform outreach; no automatic lawyer messages were sent; payment automation still depends on Grow/Meshulam approval.
+- COMPLETION ASSESSMENT: uncovered-demand-to-sales workflow 55%; lawyer outreach operating system 45%; first-lawyer sales readiness 63%; automated payment readiness 80%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Justice CRM -> `Prospect` / `Create prospect`.

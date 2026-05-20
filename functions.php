@@ -55,6 +55,7 @@ $justice_theme_files = array(
 	'inc/practice-area-icons.php',
 	'inc/sitemap.php',
 	'inc/html-sitemap.php',
+	'inc/not-found-rescue.php',
 	'inc/trust-routes.php',
 	'inc/payment-compliance-routes.php',
 	'inc/url-redirects.php',

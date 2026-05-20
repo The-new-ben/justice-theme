@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-20 23:33 Asia/Jerusalem
+- LOST VISITOR RESCUE ROUTE: respected the owner's temporary decision to keep the 404-to-home plugin for logging, and added a better future target page for lost visitors.
+- RESEARCHED: Google says useful custom 404 experiences should keep the same site look, explain the missing page clearly, include popular links/search, and return real redirects only when content has a clear replacement. UX research similarly treats 404 recovery as navigation/search plus clear next actions, not a dead end. Sources: https://developers.google.com/search/docs/advanced/crawling/http-network-errors, https://developers.google.com/search/blog/2008/08/make-your-404-pages-more-useful, https://www.uxpin.com/studio/blog/404-page-best-practices/
+- CODED: `inc/not-found-rescue.php` adds `/not-found-help/` and `/404-help/` as a noindex, follow rescue route with legal search, high-value practice links, lawyer directory/site-map links and the lead form.
+- CODED: `functions.php` now loads the new rescue route before the trust/payment virtual pages.
+- VERIFIED: `php -l inc/not-found-rescue.php` and `php -l functions.php` passed before commit.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is conversion recovery: when the 404 plugin is reconfigured later, lost visitors can become search users or leads instead of being dumped on the homepage with no context.
+- COMPLETION ASSESSMENT: 404 recovery system moved from 30% to 58%; traffic/ranking recovery moved from 32% to 33%; lead capture readiness moved from 70% to 72%. Still blocked: plugin must be pointed to `/not-found-help/` later, and we still need a weekly export from the plugin log to identify exact redirect candidates.
+- OWNER-VISIBLE AFTER DEPLOY: `/not-found-help/` and `/404-help/` should show the new lost-visitor rescue page.
+- SAFETY: repo route only. No plugin settings changed, no public CMS page was created, no 404 plugin log was touched, no GSC validation was clicked, no outreach was sent, no payment setting changed and no client charge happened.
+
 ## LATEST WORK STATUS - 2026-05-20 23:24 Asia/Jerusalem
 - GSC 404 LIVE AUDIT: checked the exact Search Console 404 examples the owner shared instead of adding broad redirects.
 - RESEARCHED: Google's own guidance says use 3XX/301 redirects when a page moved or has a clear replacement, but real missing/no-replacement URLs can stay 404/410; generic fake-valid redirects can create poor crawl signals. Sources: https://support.google.com/webmasters/answer/7440203, https://developers.google.com/search/docs/crawling-indexing/301-redirects, https://developers.google.com/search/docs/crawling-indexing/troubleshoot-crawling-errors

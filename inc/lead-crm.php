@@ -519,7 +519,7 @@ function justice_theme_crm_response_sla_badge( int $post_id, string $status ): a
 	$first_contact   = trim( (string) get_post_meta( $post_id, 'first_contact_at', true ) );
 	$manual_followup = get_post_meta( $post_id, 'follow_up_status', true );
 	$closed_statuses = array( 'converted', 'closed', 'rejected' );
-	$contacted_steps = array( 'contacted', 'consult_scheduled', 'not_qualified', 'won', 'lost' );
+	$contacted_steps = array( 'first_attempt', 'contacted', 'consult_scheduled', 'not_qualified', 'won', 'lost' );
 
 	if ( $first_contact || in_array( $manual_followup, $contacted_steps, true ) ) {
 		return array(
@@ -545,7 +545,7 @@ function justice_theme_crm_response_sla_badge( int $post_id, string $status ): a
 
 	$minutes_old = max( 0, (int) floor( ( time() - $created_at ) / MINUTE_IN_SECONDS ) );
 	$urgency     = strtolower( (string) get_post_meta( $post_id, 'urgency', true ) );
-	$is_urgent   = in_array( $urgency, array( 'high', 'urgent', '׳“׳—׳•׳£' ), true );
+	$is_urgent   = in_array( $urgency, array( 'high', 'urgent', 'דחוף' ), true );
 
 	if ( $is_urgent && $minutes_old > 15 ) {
 		return array(
@@ -681,6 +681,11 @@ function justice_theme_crm_save_lead_disposition( int $post_id ): void {
 	if ( ! in_array( $follow_up, array( 'not_started', 'first_attempt', 'contacted', 'consult_scheduled', 'not_qualified', 'won', 'lost' ), true ) ) {
 		$follow_up = 'not_started';
 	}
+	$contacted_steps  = array( 'first_attempt', 'contacted', 'consult_scheduled', 'not_qualified', 'won', 'lost' );
+	$first_contact_at = isset( $_POST['first_contact_at'] ) ? sanitize_text_field( wp_unslash( $_POST['first_contact_at'] ) ) : '';
+	if ( '' === $first_contact_at && in_array( $follow_up, $contacted_steps, true ) ) {
+		$first_contact_at = current_time( 'Y-m-d\TH:i' );
+	}
 
 	$coverage_status = isset( $_POST['coverage_status'] ) ? sanitize_key( wp_unslash( $_POST['coverage_status'] ) ) : 'coverage_review';
 	if ( ! array_key_exists( $coverage_status, justice_theme_crm_coverage_status_labels() ) ) {
@@ -690,7 +695,7 @@ function justice_theme_crm_save_lead_disposition( int $post_id ): void {
 	update_post_meta( $post_id, 'lead_quality_override', $quality );
 	update_post_meta( $post_id, 'coverage_status', $coverage_status );
 	update_post_meta( $post_id, 'follow_up_status', $follow_up );
-	update_post_meta( $post_id, 'first_contact_at', isset( $_POST['first_contact_at'] ) ? sanitize_text_field( wp_unslash( $_POST['first_contact_at'] ) ) : '' );
+	update_post_meta( $post_id, 'first_contact_at', $first_contact_at );
 	update_post_meta( $post_id, 'customer_success_note', isset( $_POST['customer_success_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['customer_success_note'] ) ) : '' );
 }
 add_action( 'save_post_justice_lead', 'justice_theme_crm_save_lead_disposition' );

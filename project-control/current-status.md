@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-20 17:22 Asia/Jerusalem
+- LEAD RESPONSE SPEED: tightened the internal CRM response clock so leads marked as first attempt/contacted now automatically receive a first-contact timestamp when the owner does not type one manually.
+- RESEARCHED: current 2026 legal intake guidance. Key point: for law firms, speed-to-lead is one of the highest-leverage conversion factors; web traffic only becomes money when the first human response is fast and tracked.
+- CODED: `inc/lead-crm.php` now treats "first attempt" as a logged response in the Response SLA badge, auto-stamps `first_contact_at` for attempted/contacted follow-up statuses, and fixes a corrupted Hebrew urgent-value check so urgent leads do not silently look normal.
+- VERIFIED: `php -l inc/lead-crm.php` passes.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is conversion infrastructure: the CRM now measures first response more reliably, which supports lawyer value reporting and reduces lost client calls.
+- COMPLETION ASSESSMENT: lead CRM response tracking moved from 62% to 68%; intake-to-revenue system moved from 50% to 52%. Remaining blockers: live follow-up workflow QA with a real test lead, SMS/WhatsApp automation, owner/operator response discipline, and paid lawyer onboarding.
+- OWNER-VISIBLE AFTER DEPLOY: in wp-admin lead CRM, setting a lead follow-up to "First attempt" or later will immediately change the Response SLA badge to "Contact logged" and save the first contact time automatically.
+- UPRESS: pending code deploy/pull for this commit.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 11:34 Asia/Jerusalem
 - OWNER WALKTHROUGH: created the plain-English operating guide for the lawyer platform so the owner can understand how to use/administer the system after PR #26 is merged and deployed.
 - RESEARCHED: current SaaS onboarding/activation best practices. Key point: the system should guide lawyers to first value quickly, not overwhelm them with a feature tour; first value for Jus-Tice is profile readiness, reputation source, content, exposure and leads.

@@ -446,16 +446,3 @@ add_action( 'woocommerce_before_checkout_form', 'justice_theme_render_checkout_c
 add_action( 'woocommerce_before_checkout_billing_form', 'justice_theme_render_checkout_compliance_notice', 5 );
 add_action( 'woocommerce_after_checkout_form', 'justice_theme_render_checkout_compliance_notice', 5 );
 add_action( 'wp_footer', 'justice_theme_render_checkout_compliance_notice', 5 );
-
-function justice_theme_prepend_checkout_compliance_notice_to_content( string $content ): string {
-	if ( ! justice_theme_is_checkout_compliance_context() || ! in_the_loop() || ! is_main_query() ) {
-		return $content;
-	}
-
-	ob_start();
-	justice_theme_render_checkout_compliance_notice();
-	$notice = ob_get_clean();
-
-	return $notice ? $notice . $content : $content;
-}
-add_filter( 'the_content', 'justice_theme_prepend_checkout_compliance_notice_to_content', 8 );

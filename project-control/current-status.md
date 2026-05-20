@@ -3024,3 +3024,18 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - MONEY IMPACT: validates Jus-Tice's plan ladder and shows the family/divorce cluster should become a guided Israeli law center, not isolated articles.
 - NEXT SAFE CODE STEP: create a family-law/divorce hub rescue package: URL audit, canonical pillar, topic cards, internal links, last-reviewed/reviewer plan, Maya authority block after verification and live link/CTA checker.
 - COMPLETION ASSESSMENT: Justia public content analysis 65%; marketing packaging analysis 60%; family-law SEO rescue readiness 45%; implementation 0%.
+
+## 2026-05-20 404 / REDIRECT RESCUE WORKFLOW
+- OWNER INPUT: owner reported many users reaching non-existing pages in Analytics and asked whether this is missing 301s or something Google will naturally fix.
+- RESEARCH BASIS: Google link/crawl guidance supports accurate crawlable routes and status handling; missing real pages with value need exact relevant redirects, while spam/noise URLs should not be redirected to the homepage.
+- LIVE VERIFIED: `tools/check-404-routing.ps1` passed. Random fake URLs and invalid post queries now return real HTTP 404; homepage, `/articles/`, `/lawyers/`, robots and sitemap remain healthy.
+- INTERPRETATION: the old all-404-to-homepage behavior appears fixed. The current risk is not generic 404 handling; it is missing exact 301s for valuable legacy URLs plus spam/casino URLs that should stay 404/410.
+- GSC STATUS: local GSC OAuth token was missing on this machine; `npm install` was run in `tools/gsc`; read-only GSC pull opened Google OAuth and is waiting for owner/browser approval on localhost port 3333.
+- CREATED: `project-control/404-gsc-rescue-plan-2026-05-20.md`.
+- CREATED: `tools/triage-404-urls.mjs`, a safe GSC/GA4 404 export classifier that separates spam, known redirect candidates, article-prefix candidates, old case/numeric URLs, search-visible unknowns and low-evidence noise.
+- CREATED: `project-control/404-export-template.csv`.
+- TESTED: `node tools/triage-404-urls.mjs project-control/404-export-template.csv --live --out ...` completed successfully.
+- LINEAR: created `HAD-69` for follow-up: `Triage high-volume 404 URLs and execute exact redirects`.
+- MONEY IMPACT: this gives the team a repeatable path to recover lost old-URL demand without creating harmful homepage redirects or spam associations.
+- BLOCKED: exact high-volume 404 list still needs GSC Page Indexing `Not found (404)` export or completed OAuth pull/browser access.
+- COMPLETION ASSESSMENT: live 404 health 85%; exact redirect rescue workflow 55%; real GSC 404 URL inventory 0% blocked by access/export; production redirect fixes 0% until the real URL list is triaged.

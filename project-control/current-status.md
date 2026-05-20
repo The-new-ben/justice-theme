@@ -4,11 +4,11 @@
 - CODED: `inc/lawyer-dashboard.php` now gives each missing growth asset a direct action: profile update, review campaign, signed guide request, supplier request, visibility upgrade or lead-plan view.
 - CODED: `page-lawyer-dashboard.php` now shows a clear `Next best action` panel above the reputation/authority checklist, adds action links to each pending item, and anchors every dashboard form so buttons jump to the right place.
 - CODED: the profile update request now captures Bar license number and website/external proof link, and `inc/lawyer-onboarding.php` lets the owner review/apply/discard those staged trust fields without changing the public profile automatically.
-- VERIFIED: `php -l inc/lawyer-dashboard.php`, `php -l inc/lawyer-onboarding.php`, `php -l page-lawyer-dashboard.php`, and `git diff --check` passed before commit.
+- VERIFIED: `php -l inc/lawyer-dashboard.php`, `php -l inc/lawyer-onboarding.php`, `php -l page-lawyer-dashboard.php`, and `git diff --check` passed before commit. After deploy, live CSS contains `lawyer-dashboard-growth__next` and `/lawyer-dashboard/` returns HTTP 200.
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is customer activation and retention: a lawyer who enters the private area now sees exactly what is missing and where to submit it, making paid profile completion faster and easier to sell.
 - COMPLETION ASSESSMENT: lawyer dashboard operating value moved from 66% to 70%; lawyer onboarding/private-area readiness moved from 62% to 66%; first paid-lawyer readiness moved from 79% to 80%. Still blocked: real lawyer usage, owner license/profile review, and Grow/Meshulam external payment approval.
 - OWNER-VISIBLE AFTER DEPLOY: logged-in `/lawyer-dashboard/` reputation and authority cockpit should show `Next best action` plus action links on missing items; the profile update form should include Bar license number and external proof link.
-- UPRESS: pending after this commit is pushed; must pull the latest main in uPress Git Manager before calling this live.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `d70e71c Guide lawyer dashboard next actions` is `HEAD -> main, origin/main`.
 - SAFETY: repo code/status only. No public lawyer profile changed, no CMS page was edited, no outreach was sent, no review was requested, no Google API was called, no payment setting changed and no client charge happened.
 
 ## LATEST WORK STATUS - 2026-05-20 23:33 Asia/Jerusalem

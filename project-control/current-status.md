@@ -6,7 +6,7 @@
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is conversion infrastructure: the CRM now measures first response more reliably, which supports lawyer value reporting and reduces lost client calls.
 - COMPLETION ASSESSMENT: lead CRM response tracking moved from 62% to 68%; intake-to-revenue system moved from 50% to 52%. Remaining blockers: live follow-up workflow QA with a real test lead, SMS/WhatsApp automation, owner/operator response discipline, and paid lawyer onboarding.
 - OWNER-VISIBLE AFTER DEPLOY: in wp-admin lead CRM, setting a lead follow-up to "First attempt" or later will immediately change the Response SLA badge to "Contact logged" and save the first contact time automatically.
-- UPRESS: pending code deploy/pull for this commit.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `c6a25a6 Track lead first response time` is `HEAD -> main, origin/main`.
 - SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
 
 ## LATEST WORK STATUS - 2026-05-20 11:34 Asia/Jerusalem

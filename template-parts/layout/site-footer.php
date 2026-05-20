@@ -93,9 +93,9 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
 
 	<div class="container" style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem;">
 		<div style="display: flex; gap: 1.5rem; margin-bottom: 1rem;">
-			<a href="<?php echo esc_url( home_url( '/terms/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">תנאי שימוש</a>
+			<a href="<?php echo esc_url( home_url( '/sample-terms-and-conditions-template/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">תנאי שימוש</a>
 			<a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">מדיניות פרטיות</a>
-			<a href="<?php echo esc_url( home_url( '/refund-cancellation-policy/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">ביטול ואספקה</a>
+			<a href="<?php echo esc_url( home_url( '/cancellation/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">ביטול ואספקה</a>
 			<a href="<?php echo esc_url( home_url( '/editorial-policy/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">מדיניות עריכה</a>
 			<a href="<?php echo esc_url( home_url( '/accessibility/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">הצהרת נגישות</a>
 		</div>

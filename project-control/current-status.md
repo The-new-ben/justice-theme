@@ -3118,3 +3118,13 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - COMPLETION ASSESSMENT: Grow website checklist fix 80%; automated recurring payment readiness 68%; first-payment readiness 63%.
 - OWNER CAN NOTICE AFTER MERGE/DEPLOY: `/terms/`, `/privacy/`, `/refund-cancellation-policy/`, `/checkout/`, footer links, and Customizer business address field.
 - SAFETY: branch code/status only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 GROW/MESHULAM LIVE DEPLOYMENT AND ROUTE PATCH
+- DEPLOYED: PR #26 was squash-merged to GitHub `main` as commit `20913a4` (`Prepare first lawyer acquisition wave`), then Codex opened uPress File Manager for `wp-content/themes/justice-theme`, opened Git management and ran Pull.
+- VERIFIED UPRESS: uPress Git log shows top commit `(HEAD -> main, origin/main, origin/HEAD) Prepare first lawyer acquisition wave`.
+- LIVE FINDING: `/privacy/` renders the new compliance route, but `/terms/` and `/refund-cancellation-policy/` were still redirected to homepage by the live 404/redirect layer because those slugs were not existing WordPress objects.
+- CODE PATCHED: compliance pages now render on existing live slugs `/sample-terms-and-conditions-template/` for Terms and `/cancellation/` for cancellation/supply/warranty, while `/terms/` and `/refund-cancellation-policy/` redirect to those working slugs.
+- CODE PATCHED: WooCommerce checkout now gets a visible terms/privacy/cancellation approval box via WooCommerce hooks, because the live site has a real `/checkout/` WooCommerce page and the fallback route does not override it.
+- BLOCKED: this second patch still needs commit/push and another uPress pull; exact public business address is still required before Grow/Meshulam re-check.
+- COMPLETION ASSESSMENT: Grow website checklist fix 88%; automated recurring payment readiness 70%; first-payment readiness 65%.
+- OWNER CAN NOTICE AFTER NEXT PULL: footer policy links should point to working pages, `/sample-terms-and-conditions-template/` should show the real terms, `/cancellation/` should show service/cancellation responsibility policy, and checkout should show a terms approval box.

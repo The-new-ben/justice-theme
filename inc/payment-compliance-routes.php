@@ -29,14 +29,17 @@ function justice_theme_payment_compliance_path(): string {
 
 function justice_theme_payment_compliance_config( string $path ): ?array {
 	$routes = array(
-		'/terms/'                       => array(
+		'/sample-terms-and-conditions-template/' => array(
 			'slug'        => 'terms',
 			'title'       => 'תקנון ותנאי שימוש',
 			'eyebrow'     => 'תנאי השירות של Jus-Tice',
 			'description' => 'תנאי שימוש, רכישת שירותים דיגיטליים, ביטול עסקה, אחריות, פרטיות ומגבלות שימוש באתר.',
 		),
+		'/terms/'                       => array(
+			'redirect' => home_url( '/sample-terms-and-conditions-template/' ),
+		),
 		'/terms-and-conditions/'        => array(
-			'redirect' => home_url( '/terms/' ),
+			'redirect' => home_url( '/sample-terms-and-conditions-template/' ),
 		),
 		'/privacy/'                     => array(
 			'slug'        => 'privacy',
@@ -47,11 +50,14 @@ function justice_theme_payment_compliance_config( string $path ): ?array {
 		'/privacy-policy/'              => array(
 			'redirect' => home_url( '/privacy/' ),
 		),
-		'/refund-cancellation-policy/'  => array(
+		'/cancellation/'                => array(
 			'slug'        => 'refund',
 			'title'       => 'ביטול עסקה, אספקת שירות ואחריות',
 			'eyebrow'     => 'מדיניות שירותים דיגיטליים',
 			'description' => 'כללי ביטול, אספקה, הפעלת מנוי, אחריות שירות ומגבלות השירותים הדיגיטליים של Jus-Tice.',
+		),
+		'/refund-cancellation-policy/'  => array(
+			'redirect' => home_url( '/cancellation/' ),
 		),
 		'/checkout/'                    => array(
 			'slug'        => 'checkout',
@@ -77,7 +83,8 @@ function justice_theme_payment_compliance_prepare( array $config ): void {
 	$title       = trim( wp_strip_all_tags( (string) ( $config['title'] ?? '' ) ) );
 	$desc        = trim( wp_strip_all_tags( (string) ( $config['description'] ?? '' ) ) );
 	$canonical   = home_url( '/' . trim( (string) ( $config['slug'] ?? '' ), '/' ) . '/' );
-	$canonical   = 'refund' === ( $config['slug'] ?? '' ) ? home_url( '/refund-cancellation-policy/' ) : $canonical;
+	$canonical   = 'terms' === ( $config['slug'] ?? '' ) ? home_url( '/sample-terms-and-conditions-template/' ) : $canonical;
+	$canonical   = 'refund' === ( $config['slug'] ?? '' ) ? home_url( '/cancellation/' ) : $canonical;
 	$canonical   = 'checkout' === ( $config['slug'] ?? '' ) ? home_url( '/checkout/' ) : $canonical;
 
 	add_filter(
@@ -198,7 +205,7 @@ function justice_theme_payment_compliance_render_body( string $slug ): void {
 				<label>אימייל<input type="email" name="email" autocomplete="email" required></label>
 				<label class="jt-compliance-checkbox">
 					<input type="checkbox" name="accept_terms" value="1" required>
-					<span>קראתי ואני מאשר/ת את <a href="<?php echo esc_url( home_url( '/terms/' ) ); ?>" target="_blank" rel="noopener">התקנון ותנאי השימוש</a>, כולל מדיניות הביטול, אספקת השירות והפרטיות.</span>
+					<span>קראתי ואני מאשר/ת את <a href="<?php echo esc_url( home_url( '/sample-terms-and-conditions-template/' ) ); ?>" target="_blank" rel="noopener">התקנון ותנאי השימוש</a>, כולל מדיניות הביטול, אספקת השירות והפרטיות.</span>
 				</label>
 				<button class="button button--gold" type="submit">המשך להרשמה והפעלת מסלול</button>
 			</form>
@@ -218,7 +225,7 @@ function justice_theme_payment_compliance_render_body( string $slug ): void {
 		<h2>שירותים בתשלום לעורכי דין</h2>
 		<p>המסלולים בתשלום כוללים שירותים דיגיטליים כגון פרופיל מקצועי, מיני-סייט, חשיפה באתר, דוחות ערך, כלי מוניטין ופניות בהתאם למסלול שנבחר. כל פרסום ממומן יסומן בהתאם לכללי לשכת עורכי הדין.</p>
 		<h2>מדיניות ביטול ואספקה</h2>
-		<p>אספקת השירות תחל לאחר אישור התשלום או החשבונית, ובכפוף למסירת פרטים ואישור פרסום. ביטול מנוי יחול על חיובים עתידיים בהתאם לדין. לפרטים מלאים ראו <a href="<?php echo esc_url( home_url( '/refund-cancellation-policy/' ) ); ?>">מדיניות ביטול, אספקת שירות ואחריות</a>.</p>
+		<p>אספקת השירות תחל לאחר אישור התשלום או החשבונית, ובכפוף למסירת פרטים ואישור פרסום. ביטול מנוי יחול על חיובים עתידיים בהתאם לדין. לפרטים מלאים ראו <a href="<?php echo esc_url( home_url( '/cancellation/' ) ); ?>">מדיניות ביטול, אספקת שירות ואחריות</a>.</p>
 		<h2>אחריות</h2>
 		<p>Jus-Tice אינה מתחייבת לכמות פניות, דירוגים, מיקום בתוצאות חיפוש, תוצאה משפטית או תוצאה עסקית. האחריות לשירות משפטי מקצועי חלה על עורך הדין המספק את השירות.</p>
 		<h2>פרטיות</h2>
@@ -389,3 +396,21 @@ function justice_theme_maybe_render_payment_compliance_route(): void {
 	exit;
 }
 add_action( 'template_redirect', 'justice_theme_maybe_render_payment_compliance_route', -3940 );
+
+function justice_theme_render_checkout_compliance_notice(): void {
+	if ( ! function_exists( 'is_checkout' ) || ! is_checkout() ) {
+		return;
+	}
+	?>
+	<section class="jt-checkout-compliance" dir="rtl" style="border:1px solid #dde5ee;border-radius:8px;padding:18px;margin:18px 0;background:#fff;">
+		<h2 style="margin:0 0 10px;font-size:1.2rem;">אישור תקנון ותנאי תשלום</h2>
+		<p style="margin:0 0 12px;color:#42526b;line-height:1.7;">לפני ביצוע תשלום יש לקרוא ולאשר את התקנון, מדיניות הביטול, אספקת השירות, האחריות והפרטיות.</p>
+		<label style="display:flex;gap:10px;align-items:flex-start;font-weight:700;">
+			<input type="checkbox" name="justice_visible_terms_approval" required style="margin-top:0.35em;">
+			<span>קראתי ואני מאשר/ת את <a href="<?php echo esc_url( home_url( '/sample-terms-and-conditions-template/' ) ); ?>" target="_blank" rel="noopener">התקנון ותנאי השימוש</a>, כולל <a href="<?php echo esc_url( home_url( '/cancellation/' ) ); ?>" target="_blank" rel="noopener">מדיניות הביטול ואספקת השירות</a> ואת <a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>" target="_blank" rel="noopener">מדיניות הפרטיות</a>.</span>
+		</label>
+	</section>
+	<?php
+}
+add_action( 'woocommerce_before_checkout_form', 'justice_theme_render_checkout_compliance_notice', 5 );
+add_action( 'woocommerce_before_checkout_billing_form', 'justice_theme_render_checkout_compliance_notice', 5 );

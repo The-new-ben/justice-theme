@@ -264,7 +264,7 @@ function justice_theme_render_trust_route_page( array $config ): void {
 								<?php echo esc_html( $email ); ?>
 							</a>
 							<?php if ( function_exists( 'justice_theme_business_address' ) && justice_theme_business_address() ) : ?>
-								<a href="<?php echo esc_url( home_url( '/terms/' ) ); ?>">
+								<a href="<?php echo esc_url( home_url( '/sample-terms-and-conditions-template/' ) ); ?>">
 									<span><?php esc_html_e( 'כתובת העסק', 'justice-theme' ); ?></span>
 									<?php echo esc_html( justice_theme_business_address() ); ?>
 								</a>

@@ -732,6 +732,26 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 				$name    = get_post_meta( $post_id, 'visitor_name', true ) ?: get_post_meta( $post_id, 'lead_name', true ) ?: get_the_title();
 				$phone   = get_post_meta( $post_id, 'visitor_phone', true ) ?: get_post_meta( $post_id, 'lead_phone', true );
 				$email   = get_post_meta( $post_id, 'visitor_email', true ) ?: get_post_meta( $post_id, 'lead_email', true );
+				$phone_link = $phone && function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) $phone ) : '';
+				$phone_link = $phone_link ?: ( $phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', (string) $phone ) : '' );
+				$whatsapp_link = $phone && function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) $phone ) : '';
+				if ( $whatsapp_link ) {
+					$whatsapp_link = add_query_arg(
+						'text',
+						sprintf(
+							'שלום %s, כאן Jus-Tice. קיבלנו את הפנייה שלך ונשמח לעזור לחבר אותך לעורך דין מתאים. אפשר לשוחח עכשיו?',
+							$name
+						),
+						$whatsapp_link
+					);
+				}
+				$email_link = $email ? add_query_arg(
+					array(
+						'subject' => 'פנייתך ל-Jus-Tice',
+						'body'    => sprintf( "שלום %s,\n\nקיבלנו את הפנייה שלך ב-Jus-Tice ונשמח לעזור לחבר אותך לעורך דין מתאים.\n\nבברכה,\nJus-Tice", $name ),
+					),
+					'mailto:' . $email
+				) : '';
 				$area    = get_post_meta( $post_id, 'legal_area', true ) ?: get_post_meta( $post_id, 'lead_area', true );
 				$ai_area = get_post_meta( $post_id, 'ai_detected_area', true );
 				$area_display = function_exists( 'justice_theme_lead_area_label' ) ? justice_theme_lead_area_label( $ai_area ?: $area ) : ( $ai_area ?: $area );
@@ -745,7 +765,7 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 				?>
 				<tr>
 					<td><strong><?php echo esc_html( $name ); ?></strong></td>
-					<td><?php echo $phone ? '<a href="tel:' . esc_attr( preg_replace( '/[^0-9+]/', '', $phone ) ) . '">' . esc_html( $phone ) . '</a>' : '-'; ?></td>
+					<td><?php echo $phone_link ? '<a href="' . esc_url( $phone_link ) . '">' . esc_html( $phone ) . '</a>' : '-'; ?></td>
 					<td><?php echo $email ? '<a href="mailto:' . esc_attr( $email ) . '">' . esc_html( $email ) . '</a>' : '-'; ?></td>
 					<td><?php echo esc_html( $tool_id ? get_the_title( $tool_id ) : ( $area_display ?: '-' ) ); ?></td>
 					<td><?php echo esc_html( $status ); ?></td>
@@ -755,7 +775,20 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 					<td><span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $response_sla['style'] ); ?>"><?php echo esc_html( $response_sla['label'] ); ?></span></td>
 					<td><?php echo $source ? '<a href="' . esc_url( $source ) . '" target="_blank" rel="noopener">source</a>' : '-'; ?></td>
 					<td><?php echo esc_html( get_the_date( 'd/m/Y H:i', $post_id ) ); ?></td>
-					<td><a class="button button-primary" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Open</a></td>
+					<td>
+						<div style="display:flex;gap:4px;flex-wrap:wrap;min-width:180px;">
+							<a class="button button-primary" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Open</a>
+							<?php if ( $phone_link ) : ?>
+								<a class="button" href="<?php echo esc_url( $phone_link ); ?>">Call</a>
+							<?php endif; ?>
+							<?php if ( $whatsapp_link ) : ?>
+								<a class="button" href="<?php echo esc_url( $whatsapp_link ); ?>" target="_blank" rel="noopener">WhatsApp</a>
+							<?php endif; ?>
+							<?php if ( $email_link ) : ?>
+								<a class="button" href="<?php echo esc_url( $email_link ); ?>">Email</a>
+							<?php endif; ?>
+						</div>
+					</td>
 				</tr>
 			<?php endwhile; ?>
 		</tbody>

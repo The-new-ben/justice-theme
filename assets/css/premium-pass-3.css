@@ -2651,6 +2651,29 @@
   font-size: 0.82rem;
 }
 
+.lawyer-dashboard-leads__next-action {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.lawyer-dashboard-leads__next-action.is-urgent {
+  color: #991b1b;
+}
+
+.lawyer-dashboard-leads__next-action.is-fresh {
+  color: #166534;
+}
+
+.lawyer-dashboard-leads__next-action.is-working {
+  color: #3730a3;
+}
+
+.lawyer-dashboard-leads__next-action.is-muted {
+  color: var(--jt-muted);
+}
+
 .lawyer-dashboard-leads__stage-form {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;

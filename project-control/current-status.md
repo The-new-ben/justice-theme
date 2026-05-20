@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-20 19:51 Asia/Jerusalem
+- LAWYER PRIVATE ZONE / NEXT ACTIONS: added response urgency and next-action guidance to the private lead pipeline.
+- RESEARCHED: current 2026 legal intake guidance. Key point: Clio recommends calling every lead within 15 minutes; faster intake response is a major conversion lever, so the dashboard should show which leads need response now.
+- CODED: `/lawyer-dashboard/` pipeline summary now shows assigned leads, leads needing response, and overdue responses.
+- CODED: each Recent lead now shows a next-action label: Call within 15 min, Call now - overdue, Follow up / book consult, Prepare consultation, Client retained, or Closed.
+- VERIFIED: `php -l page-lawyer-dashboard.php` and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is conversion discipline: paid lawyers can see what to do next and which leads are slipping.
+- COMPLETION ASSESSMENT: lawyer private zone moved from 66% to 68%; Clio-lite lead dashboard moved from 47% to 53%; paid-lawyer retention value moved from 60% to 62%. Remaining blockers: live QA with real lawyer user/lead, automatic lead alerts, per-lead detail page, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: logged-in lawyers on `/lawyer-dashboard/` will see response-needed/overdue counts in the pipeline header and next-action labels beside Recent leads.
+- UPRESS: pending code deploy/pull for this commit.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 19:41 Asia/Jerusalem
 - LAWYER PRIVATE ZONE / LEAD CONTACT ACTIONS: added direct contact actions to assigned leads inside the lawyer dashboard.
 - RESEARCHED: current 2026 legal intake guidance. Key point: law firms should respond to every lead quickly and use multiple channels; Clio specifically recommends calling every lead within 15 minutes and tracking follow-up in a CRM.

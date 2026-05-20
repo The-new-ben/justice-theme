@@ -190,10 +190,21 @@ $lead_pipeline = array(
 		'latest'   => '',
 	),
 );
+$lead_response_needed_count = 0;
+$lead_response_overdue_count = 0;
 
 if ( $leads && $leads->posts ) {
 	foreach ( $leads->posts as $lead_post ) {
 		$lead_stage_status = sanitize_key( (string) ( get_post_meta( $lead_post->ID, 'follow_up_status', true ) ?: get_post_meta( $lead_post->ID, 'lead_status', true ) ) );
+		$lead_created_at   = (int) get_post_time( 'U', true, $lead_post->ID );
+		$lead_minutes_old  = $lead_created_at ? max( 0, (int) floor( ( time() - $lead_created_at ) / MINUTE_IN_SECONDS ) ) : 0;
+		if ( in_array( $lead_stage_status, array( '', 'new', 'assigned', 'qualified', 'pending', 'not_started' ), true ) ) {
+			$lead_response_needed_count++;
+			if ( $lead_minutes_old > 15 ) {
+				$lead_response_overdue_count++;
+			}
+		}
+
 		$lead_stage_key    = 'new';
 		foreach ( $lead_pipeline as $stage_key => $stage ) {
 			if ( in_array( $lead_stage_status, $stage['statuses'], true ) ) {
@@ -485,7 +496,7 @@ if ( $leads && $leads->posts ) {
 								<p class="section-header__eyebrow"><?php esc_html_e( 'Lead pipeline', 'justice-theme' ); ?></p>
 								<h2 id="lawyer-dashboard-pipeline-title"><?php esc_html_e( 'Where your leads stand now', 'justice-theme' ); ?></h2>
 							</div>
-							<span><?php printf( esc_html__( '%s assigned leads', 'justice-theme' ), esc_html( (string) $lead_count ) ); ?></span>
+							<span><?php printf( esc_html__( '%1$s assigned leads · %2$s need response · %3$s overdue', 'justice-theme' ), esc_html( (string) $lead_count ), esc_html( (string) $lead_response_needed_count ), esc_html( (string) $lead_response_overdue_count ) ); ?></span>
 						</div>
 						<div class="lawyer-dashboard-pipeline__stages">
 							<?php foreach ( $lead_pipeline as $stage ) : ?>
@@ -532,11 +543,32 @@ if ( $leads && $leads->posts ) {
 									$current_lead_stage = 'not_started';
 								}
 								$current_stage_label = $dashboard_lead_stage_options[ $current_lead_stage ] ?? ( get_post_meta( $lead_id, 'lead_status', true ) ?: 'new' );
+								$lead_created_at     = (int) get_post_time( 'U', true, $lead_id );
+								$lead_minutes_old    = $lead_created_at ? max( 0, (int) floor( ( time() - $lead_created_at ) / MINUTE_IN_SECONDS ) ) : 0;
+								$lead_next_action    = __( 'Track', 'justice-theme' );
+								$lead_action_class   = 'is-muted';
+								if ( in_array( $current_lead_stage, array( 'not_started', 'new', 'assigned', 'qualified', 'pending', '' ), true ) ) {
+									$lead_next_action  = $lead_minutes_old > 15 ? __( 'Call now - overdue', 'justice-theme' ) : __( 'Call within 15 min', 'justice-theme' );
+									$lead_action_class = $lead_minutes_old > 15 ? 'is-urgent' : 'is-fresh';
+								} elseif ( in_array( $current_lead_stage, array( 'first_attempt', 'contacted' ), true ) ) {
+									$lead_next_action  = __( 'Follow up / book consult', 'justice-theme' );
+									$lead_action_class = 'is-working';
+								} elseif ( 'consult_scheduled' === $current_lead_stage ) {
+									$lead_next_action  = __( 'Prepare consultation', 'justice-theme' );
+									$lead_action_class = 'is-working';
+								} elseif ( 'won' === $current_lead_stage ) {
+									$lead_next_action = __( 'Client retained', 'justice-theme' );
+								} elseif ( 'lost' === $current_lead_stage ) {
+									$lead_next_action = __( 'Closed', 'justice-theme' );
+								}
 								?>
 								<article>
 									<strong><?php echo esc_html( $lead_name ); ?></strong>
 									<span><?php echo esc_html( get_post_meta( $lead_id, 'legal_area', true ) ?: get_post_meta( $lead_id, 'lead_area', true ) ?: '-' ); ?></span>
-									<span><?php echo esc_html( $current_stage_label ); ?></span>
+									<span>
+										<?php echo esc_html( $current_stage_label ); ?>
+										<small class="lawyer-dashboard-leads__next-action <?php echo esc_attr( $lead_action_class ); ?>"><?php echo esc_html( $lead_next_action ); ?></small>
+									</span>
 									<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
 									<div class="lawyer-dashboard-leads__contact">
 										<?php if ( $lead_phone_link ) : ?>

@@ -3013,3 +3013,14 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - MONEY IMPACT: reinforces that Jus-Tice paid lawyer value must include authority assets and content/media proof, not just a profile and raw leads.
 - NEXT SAFE CODE STEP: include an `Authority Assets` checklist inside the same private `Reputation And Value` dashboard panel planned in `HAD-66`.
 - COMPLETION ASSESSMENT: private PsakDin analysis 0% blocked; public PsakDin product analysis 45%; competitive profile/authority pattern captured 50%.
+
+## 2026-05-20 JUSTIA FAMILY LAW CENTER ANALYSIS
+- OWNER INPUT: owner provided `https://www.justia.com/family/divorce/` as a model for content/SEO inspiration.
+- SAFETY: public research only; no account login, form submission, payment, outreach or account action was performed.
+- CREATED: `project-control/justia-family-law-center-analysis-2026-05-20.md`.
+- LINEAR: created `HAD-67` for implementation follow-up: `Build Family Law Center / Divorce hub from Justia analysis`.
+- RESEARCH BASIS: Justia's divorce page behaves as a law center hub with plain-language guide content, internal links, topic cards, FAQs, popular topics, last-reviewed signal and lawyer/resource paths.
+- COMMERCIAL FINDING: Justia packages lawyer monetization as directory + premium placement + SEO + websites + blogs + PPC + Google Business Profile + social media + analytics.
+- MONEY IMPACT: validates Jus-Tice's plan ladder and shows the family/divorce cluster should become a guided Israeli law center, not isolated articles.
+- NEXT SAFE CODE STEP: create a family-law/divorce hub rescue package: URL audit, canonical pillar, topic cards, internal links, last-reviewed/reviewer plan, Maya authority block after verification and live link/CTA checker.
+- COMPLETION ASSESSMENT: Justia public content analysis 65%; marketing packaging analysis 60%; family-law SEO rescue readiness 45%; implementation 0%.

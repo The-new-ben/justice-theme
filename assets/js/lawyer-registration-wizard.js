@@ -56,8 +56,8 @@
 			{
 				title: 'Practice fit',
 				kicker: 'Step 2',
-				description: 'Practice area, locations, languages, website and plan interest.',
-				fields: ['practice_area', 'cities_served', 'languages', 'website', 'plan_interest']
+				description: 'Practice area, locations, languages, website, plan interest and response availability.',
+				fields: ['practice_area', 'cities_served', 'languages', 'website', 'plan_interest', 'lead_response_commitment']
 			},
 			{
 				title: 'Mini-site material',

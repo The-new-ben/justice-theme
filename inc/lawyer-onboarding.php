@@ -16,6 +16,7 @@ function justice_theme_register_lawyer_activation_meta(): void {
 		'activation_owner_note' => 'string',
 		'payment_path'            => 'string',
 		'payment_followup_status' => 'string',
+		'lead_response_commitment' => 'string',
 		'google_business_profile_url' => 'string',
 		'google_place_id'             => 'string',
 		'google_review_request_url'   => 'string',
@@ -34,6 +35,16 @@ function justice_theme_register_lawyer_activation_meta(): void {
 	}
 }
 add_action( 'init', 'justice_theme_register_lawyer_activation_meta' );
+
+function justice_theme_lawyer_response_commitment_options(): array {
+	return array(
+		''              => 'Not provided',
+		'within_15_min' => 'Can respond within 15 minutes during business hours',
+		'same_day'      => 'Can respond same business day',
+		'next_day'      => 'Usually next business day',
+		'not_sure'      => 'Needs response process setup',
+	);
+}
 
 function justice_theme_lawyer_activation_meta_sanitizer( string $key ): string {
 	if ( 'activation_owner_note' === $key ) {
@@ -85,6 +96,11 @@ function justice_theme_handle_lawyer_registration(): void {
 	$area       = isset( $_POST['practice_area'] ) ? sanitize_key( wp_unslash( $_POST['practice_area'] ) ) : '';
 	$plan         = isset( $_POST['plan_interest'] ) ? sanitize_key( wp_unslash( $_POST['plan_interest'] ) ) : 'free';
 	$payment_path = isset( $_POST['payment_path'] ) ? sanitize_key( wp_unslash( $_POST['payment_path'] ) ) : '';
+	$response_commitment = isset( $_POST['lead_response_commitment'] ) ? sanitize_key( wp_unslash( $_POST['lead_response_commitment'] ) ) : '';
+
+	if ( ! array_key_exists( $response_commitment, justice_theme_lawyer_response_commitment_options() ) ) {
+		$response_commitment = '';
+	}
 
 	if ( 'manual_invoice' !== $payment_path ) {
 		$payment_path = '';
@@ -116,6 +132,10 @@ function justice_theme_handle_lawyer_registration(): void {
 		$internal_notes .= "\nManual invoice path requested. Create Morning invoice/payment instructions after review, then activate only after payment confirmation.";
 	}
 
+	if ( $response_commitment ) {
+		$internal_notes .= "\nLead response commitment: " . justice_theme_lawyer_response_commitment_options()[ $response_commitment ];
+	}
+
 	$meta = array(
 		'lawyer_full_name'     => $name,
 		'firm_name'            => $firm,
@@ -137,6 +157,7 @@ function justice_theme_handle_lawyer_registration(): void {
 		'subscription_status'  => 'pending',
 		'payment_path'            => $manual_payment ? 'manual_invoice' : '',
 		'payment_followup_status' => $manual_payment ? 'invoice_requested' : '',
+		'lead_response_commitment' => $response_commitment,
 		'verification_status'  => 'pending',
 		'profile_status'       => 'pending',
 		'activation_status'    => 'registered',
@@ -247,7 +268,7 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 
 	$subject = 'New lawyer registration pending review';
 	$message = sprintf(
-		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nHeadline: %s\nVideo: %s\n\nReview: %s",
+		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nLead response: %s\nHeadline: %s\nVideo: %s\n\nReview: %s",
 		$meta['lawyer_full_name'] ?: '-',
 		$meta['firm_name'] ?: '-',
 		$meta['phone'] ?: '-',
@@ -255,6 +276,7 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 		$meta['plan_type'] ?: '-',
 		$meta['payment_path'] ?: '-',
 		$meta['payment_followup_status'] ?: '-',
+		justice_theme_lawyer_response_commitment_options()[ $meta['lead_response_commitment'] ?? '' ] ?? '-',
 		$meta['profile_headline'] ?: '-',
 		$meta['profile_video_url'] ?: '-',
 		admin_url( 'post.php?post=' . $post_id . '&action=edit' )
@@ -395,6 +417,8 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 	$payment_path   = (string) get_post_meta( $post->ID, 'payment_path', true );
 	$payment_status = (string) get_post_meta( $post->ID, 'payment_followup_status', true );
 	$payment_badge  = justice_theme_lawyer_payment_followup_badge( $payment_path, $payment_status );
+	$response_commitment = (string) get_post_meta( $post->ID, 'lead_response_commitment', true );
+	$response_options    = justice_theme_lawyer_response_commitment_options();
 	?>
 	<p>
 		<strong>Payment follow-up</strong><br>
@@ -402,6 +426,10 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 			<?php echo esc_html( $payment_badge['label'] ); ?>
 		</span><br>
 		<small><?php echo esc_html( $payment_badge['note'] ); ?></small>
+	</p>
+	<p>
+		<strong>Lead response fit</strong><br>
+		<small><?php echo esc_html( $response_options[ $response_commitment ] ?? $response_options[''] ); ?></small>
 	</p>
 	<p>
 		<label for="justice-lawyer-activation-status"><strong>Activation status</strong></label>

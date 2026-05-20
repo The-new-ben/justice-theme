@@ -58,6 +58,16 @@ if ( ! in_array( $selected_plan_interest, $allowed_plan_interests, true ) ) {
 if ( 'manual_invoice' !== $selected_payment_path ) {
 	$selected_payment_path = '';
 }
+
+$registration_plans = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_plans() : array();
+$selected_plan       = $registration_plans[ $selected_plan_interest ] ?? array();
+
+if ( $selected_plan && function_exists( 'justice_theme_lawyer_plan_public_overrides' ) ) {
+	$selected_plan_override = justice_theme_lawyer_plan_public_overrides( $selected_plan_interest );
+	if ( ! empty( $selected_plan_override['price'] ) ) {
+		$selected_plan['price'] = $selected_plan_override['price'];
+	}
+}
 ?>
 
 <section class="lawyer-registration-hero section">
@@ -94,6 +104,20 @@ if ( 'manual_invoice' !== $selected_payment_path ) {
 
 			<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
 				<div class="legaltool-request__notice"><?php esc_html_e( 'בקשת המסלול תטופל ידנית: לאחר בדיקת התאמה נשלח חשבונית/דרישת תשלום ונפעיל את המסלול לאחר אישור תשלום.', 'justice-theme' ); ?></div>
+			<?php endif; ?>
+
+			<?php if ( $selected_plan ) : ?>
+				<section class="lawyer-registration-plan-context" aria-label="<?php esc_attr_e( 'Selected plan summary', 'justice-theme' ); ?>">
+					<div>
+						<span><?php esc_html_e( 'המסלול שנבחר', 'justice-theme' ); ?></span>
+						<strong><?php echo esc_html( $selected_plan['label'] ?? $selected_plan_interest ); ?></strong>
+					</div>
+					<div>
+						<span><?php esc_html_e( 'מחיר', 'justice-theme' ); ?></span>
+						<strong><?php echo esc_html( $selected_plan['price'] ?? '-' ); ?></strong>
+					</div>
+					<p><?php echo 'manual_invoice' === $selected_payment_path ? esc_html__( 'השליחה תיצור בקשת בדיקת התאמה וחשבונית ידנית. לא יתבצע חיוב אוטומטי מהטופס הזה.', 'justice-theme' ) : esc_html__( 'השליחה יוצרת פרופיל טיוטה לבדיקה. תשלום אוטומטי ייפתח רק כאשר הסליקה והמוצרים יהיו פעילים.', 'justice-theme' ); ?></p>
+				</section>
 			<?php endif; ?>
 
 			<form class="lawyer-registration-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
@@ -171,6 +195,16 @@ if ( 'manual_invoice' !== $selected_payment_path ) {
 							<option value="featured"><?php esc_html_e( 'חשיפה מוגברת', 'justice-theme' ); ?></option>
 							<option value="lead_partner"><?php esc_html_e( 'שיתוף לידים', 'justice-theme' ); ?></option>
 							<option value="full_service"><?php esc_html_e( 'שירות מלא', 'justice-theme' ); ?></option>
+						</select>
+					</label>
+					<label>
+						<span><?php esc_html_e( 'זמינות למענה לפניות', 'justice-theme' ); ?></span>
+						<select name="lead_response_commitment">
+							<option value=""><?php esc_html_e( 'בחרו זמינות', 'justice-theme' ); ?></option>
+							<option value="within_15_min"><?php esc_html_e( 'אפשר לענות בתוך 15 דקות בשעות פעילות', 'justice-theme' ); ?></option>
+							<option value="same_day"><?php esc_html_e( 'אפשר לענות באותו יום עבודה', 'justice-theme' ); ?></option>
+							<option value="next_day"><?php esc_html_e( 'בדרך כלל ביום העבודה הבא', 'justice-theme' ); ?></option>
+							<option value="not_sure"><?php esc_html_e( 'צריך לתאם תהליך מענה', 'justice-theme' ); ?></option>
 						</select>
 					</label>
 					<label class="lawyer-registration-form__full">

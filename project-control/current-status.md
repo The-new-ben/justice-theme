@@ -4,6 +4,8 @@
 - CREATED: `project-control/court-verdict-library-mission-2026-05-20.md`.
 - CREATED: `project-control/court-verdict-library-fields-2026-05-20.csv`.
 - CREATED: `project-control/court-verdict-library-pilot-template-2026-05-20.csv`.
+- CREATED: `project-control/court-verdict-library-family-pilot-search-queue-2026-05-20.csv`.
+- REFINED: the verdict pilot now has 10 first search topics: child support, parental responsibility, parental alienation, property division, prenup, ketubah, protective orders, relocation, inheritance overlap and family procedure/jurisdiction.
 - CREATED LINEAR: `HAD-70` - official-source court verdict library pilot.
 - STRATEGIC DECISION: start with a manual 10-record family-law pilot before any scraper/importer. This protects privacy, publication restrictions and quality, especially around family/minor-sensitive rulings.
 - HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that the verdict-library moat now has a safe build path tied to SEO traffic, lawyer authority value and subscription retention.

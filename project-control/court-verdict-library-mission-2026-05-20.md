@@ -143,5 +143,8 @@ Create the intake schema and 10-record manual pilot for family law. Do not scrap
 ## Pilot Template
 
 - `project-control/court-verdict-library-pilot-template-2026-05-20.csv`
+- `project-control/court-verdict-library-family-pilot-search-queue-2026-05-20.csv`
 
 This starts with 10 empty official-source family-law rows. Each row is defaulted to `hold` and `high` privacy risk until a human review proves it is safe to publish.
+
+The search queue lists the first 10 family-law topics to collect from official sources. It prioritizes topics that can support money pages, user lead intent and Maya Rotenberg's family-law authority.

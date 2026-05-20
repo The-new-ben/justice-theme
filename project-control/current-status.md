@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-20 22:44 Asia/Jerusalem
+- SUPPLIER PIPELINE CRM VISIBILITY: added the supplier/provider marketplace as a visible revenue line inside Justice CRM.
+- RESEARCHED: legal marketplaces monetize adjacent professional services, not only lawyers. Din exposes a broad lawyer-search/directory funnel; expert marketplaces like Synapsis and Legal Experts AI show supplier discovery patterns around verified profiles, specialty filters, credentials, rates and availability. Sources: https://www.din.co.il/default.asp, https://www.joinsynapsis.com/, https://www.legalexperts.ai/
+- CODED: `inc/lead-crm.php` now renders `Supplier marketplace pipeline` below the lawyer sales pipeline in Justice CRM.
+- CODED: the new panel shows open suppliers, outreach-ready suppliers, approved partners and suppliers with a real commercial model set.
+- CODED: the supplier table shows category, revenue model, priority, status, service area, contact, source link and Open/Website actions.
+- VERIFIED: `php -l inc/lead-crm.php` passed and `git diff --check` is clean except the expected Windows line-ending warning.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that the second revenue line, supplier/provider deals sold to vendors who want lawyer exposure, is no longer buried in a separate admin list.
+- COMPLETION ASSESSMENT: supplier CRM visibility moved from 45% to 65%; supplier marketplace operating system moved from 42% to 50%; lawyer monetization system moved from 72% to 74%; live supplier revenue remains 0% until real supplier prospects and commercial terms are added.
+- OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Justice CRM -> Supplier marketplace pipeline.
+- SAFETY: admin display only. No supplier record was created, no supplier was contacted, no public page changed, no payment setting changed, and no client charge happened.
+
 ## LATEST WORK STATUS - 2026-05-20 22:34 Asia/Jerusalem
 - PROSPECT FOLLOW-UP QUICK ACTIONS: added one-click admin status actions so lawyer outreach records can move after a call/email instead of staying stale.
 - RESEARCHED: 2026 B2B follow-up guidance emphasizes multi-touch outreach, logging outcomes in the CRM, and scheduling the next attempt; HubSpot also frames modern sequences around task reminders, calls and CRM-connected stopping rules. Sources: https://syncgtm.com/blog/follow-up-calls and https://blog.hubspot.com/sales/sales-sequence

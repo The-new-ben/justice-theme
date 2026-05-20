@@ -81,6 +81,7 @@ function justice_theme_render_crm_admin_page(): void {
 		<?php justice_theme_crm_render_table( $leads, 'justice_lead' ); ?>
 
 		<?php justice_theme_crm_render_lawyer_sales_pipeline(); ?>
+		<?php justice_theme_crm_render_supplier_pipeline(); ?>
 
 		<h2 style="margin-top:28px;">Uncovered demand queue</h2>
 		<p>Leads with no clear paid coverage yet. Use this to recruit lawyers for repeated demand before manually giving away calls for free.</p>
@@ -344,6 +345,232 @@ function justice_theme_crm_render_lawyer_prospect_table( ?WP_Query $prospects ):
 							<?php if ( function_exists( 'justice_theme_lawyer_prospect_quick_action_url' ) ) : ?>
 								<a class="button" href="<?php echo esc_url( justice_theme_lawyer_prospect_quick_action_url( $post_id, 'contacted' ) ); ?>">Contacted</a>
 								<a class="button" href="<?php echo esc_url( justice_theme_lawyer_prospect_quick_action_url( $post_id, 'follow_up' ) ); ?>">Follow-up</a>
+							<?php endif; ?>
+						</div>
+					</td>
+				</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+	<?php
+	wp_reset_postdata();
+}
+
+function justice_theme_crm_render_supplier_pipeline(): void {
+	if ( ! post_type_exists( 'justice_supplier' ) ) {
+		return;
+	}
+
+	$summary   = justice_theme_crm_supplier_summary( 250 );
+	$suppliers = justice_theme_crm_query_suppliers( 50 );
+	$all_url   = admin_url( 'edit.php?post_type=justice_supplier' );
+	$new_url   = admin_url( 'post-new.php?post_type=justice_supplier' );
+	?>
+	<h2 style="margin-top:28px;">Supplier marketplace pipeline</h2>
+	<p>Track lawyer-facing suppliers and service providers that can become listing, lead-fee, affiliate or sponsorship revenue.</p>
+	<div class="justice-crm-cards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0;">
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $summary['open_count'] ); ?></strong>
+			<span>Open suppliers</span>
+		</div>
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $summary['outreach_ready_count'] ); ?></strong>
+			<span>Outreach ready</span>
+		</div>
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $summary['approved_count'] ); ?></strong>
+			<span>Approved partners</span>
+		</div>
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $summary['commercial_model_count'] ); ?></strong>
+			<span>Revenue model set</span>
+		</div>
+	</div>
+	<p>
+		<a class="button button-primary" href="<?php echo esc_url( $all_url ); ?>">Open all suppliers</a>
+		<a class="button" href="<?php echo esc_url( $new_url ); ?>">Add supplier</a>
+	</p>
+	<?php justice_theme_crm_render_supplier_table( $suppliers ); ?>
+	<?php
+}
+
+function justice_theme_crm_supplier_summary( int $limit ): array {
+	$summary = array(
+		'open_count'             => 0,
+		'outreach_ready_count'   => 0,
+		'approved_count'         => 0,
+		'commercial_model_count' => 0,
+	);
+
+	$query = justice_theme_crm_query_suppliers( $limit );
+	if ( ! $query || ! $query->have_posts() ) {
+		return $summary;
+	}
+
+	$commercial_models = array( 'monthly_listing', 'lead_fee', 'affiliate', 'sponsorship' );
+
+	foreach ( $query->posts as $post ) {
+		$post_id = (int) $post->ID;
+		$status  = (string) get_post_meta( $post_id, 'supplier_partnership_status', true );
+		$revenue = (string) get_post_meta( $post_id, 'supplier_revenue_model', true );
+
+		if ( 'rejected' !== $status ) {
+			$summary['open_count']++;
+		}
+
+		if ( 'outreach' === $status ) {
+			$summary['outreach_ready_count']++;
+		}
+
+		if ( 'approved' === $status ) {
+			$summary['approved_count']++;
+		}
+
+		if ( in_array( $revenue, $commercial_models, true ) ) {
+			$summary['commercial_model_count']++;
+		}
+	}
+
+	wp_reset_postdata();
+
+	return $summary;
+}
+
+function justice_theme_crm_query_suppliers( int $limit ): ?WP_Query {
+	if ( ! post_type_exists( 'justice_supplier' ) ) {
+		return null;
+	}
+
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_supplier',
+		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+		'posts_per_page' => $limit,
+		'orderby'        => 'modified',
+		'order'          => 'DESC',
+		'no_found_rows'  => true,
+	) );
+
+	if ( empty( $query->posts ) ) {
+		return $query;
+	}
+
+	$status_rank = array(
+		'outreach'    => 0,
+		'negotiating' => 1,
+		'contacted'   => 2,
+		'research'    => 3,
+		'approved'    => 4,
+		'rejected'    => 5,
+	);
+	$priority_rank = array(
+		'high'   => 0,
+		'medium' => 1,
+		'low'    => 2,
+	);
+	$revenue_rank = array(
+		'monthly_listing' => 0,
+		'lead_fee'        => 1,
+		'affiliate'       => 2,
+		'sponsorship'     => 3,
+		'barter'          => 4,
+		'unknown'         => 5,
+	);
+
+	usort(
+		$query->posts,
+		static function ( WP_Post $a, WP_Post $b ) use ( $status_rank, $priority_rank, $revenue_rank ): int {
+			$a_status = $status_rank[ (string) get_post_meta( $a->ID, 'supplier_partnership_status', true ) ] ?? 3;
+			$b_status = $status_rank[ (string) get_post_meta( $b->ID, 'supplier_partnership_status', true ) ] ?? 3;
+			if ( $a_status !== $b_status ) {
+				return $a_status <=> $b_status;
+			}
+
+			$a_priority = $priority_rank[ (string) get_post_meta( $a->ID, 'supplier_priority', true ) ] ?? 1;
+			$b_priority = $priority_rank[ (string) get_post_meta( $b->ID, 'supplier_priority', true ) ] ?? 1;
+			if ( $a_priority !== $b_priority ) {
+				return $a_priority <=> $b_priority;
+			}
+
+			$a_revenue = $revenue_rank[ (string) get_post_meta( $a->ID, 'supplier_revenue_model', true ) ] ?? 5;
+			$b_revenue = $revenue_rank[ (string) get_post_meta( $b->ID, 'supplier_revenue_model', true ) ] ?? 5;
+			if ( $a_revenue !== $b_revenue ) {
+				return $a_revenue <=> $b_revenue;
+			}
+
+			return strcmp( (string) $b->post_modified, (string) $a->post_modified );
+		}
+	);
+
+	return $query;
+}
+
+function justice_theme_crm_render_supplier_table( ?WP_Query $suppliers ): void {
+	if ( ! $suppliers || ! $suppliers->have_posts() ) {
+		echo '<div class="notice notice-info inline"><p>No suppliers yet. Add researched vendors here before any public supplier marketplace is exposed.</p></div>';
+		return;
+	}
+
+	$category_labels = function_exists( 'justice_theme_lawyer_supplier_categories' ) ? justice_theme_lawyer_supplier_categories() : array();
+	$status_labels   = function_exists( 'justice_theme_lawyer_supplier_statuses' ) ? justice_theme_lawyer_supplier_statuses() : array();
+	$revenue_labels  = function_exists( 'justice_theme_lawyer_supplier_revenue_models' ) ? justice_theme_lawyer_supplier_revenue_models() : array();
+	?>
+	<table class="widefat striped">
+		<thead>
+			<tr>
+				<th>Supplier</th>
+				<th>Category</th>
+				<th>Revenue model</th>
+				<th>Priority</th>
+				<th>Status</th>
+				<th>Service area</th>
+				<th>Contact</th>
+				<th>Source</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php foreach ( array_slice( $suppliers->posts, 0, 12 ) as $post ) : ?>
+				<?php
+				$post_id      = (int) $post->ID;
+				$category     = (string) get_post_meta( $post_id, 'supplier_category', true );
+				$revenue      = (string) get_post_meta( $post_id, 'supplier_revenue_model', true );
+				$priority     = (string) get_post_meta( $post_id, 'supplier_priority', true );
+				$status       = (string) get_post_meta( $post_id, 'supplier_partnership_status', true );
+				$service_area = (string) get_post_meta( $post_id, 'supplier_service_area', true );
+				$contact_name = (string) get_post_meta( $post_id, 'supplier_contact_name', true );
+				$phone        = (string) get_post_meta( $post_id, 'supplier_contact_phone', true );
+				$email        = (string) get_post_meta( $post_id, 'supplier_contact_email', true );
+				$website      = (string) get_post_meta( $post_id, 'supplier_website', true );
+				$source       = (string) get_post_meta( $post_id, 'supplier_source_url', true );
+				?>
+				<tr>
+					<td><strong><?php echo esc_html( get_the_title( $post_id ) ?: '(untitled)' ); ?></strong></td>
+					<td><?php echo esc_html( ( $category_labels[ $category ] ?? $category ) ?: '-' ); ?></td>
+					<td><?php echo esc_html( ( $revenue_labels[ $revenue ] ?? $revenue ) ?: '-' ); ?></td>
+					<td><?php echo esc_html( $priority ?: '-' ); ?></td>
+					<td><?php echo esc_html( ( $status_labels[ $status ] ?? $status ) ?: '-' ); ?></td>
+					<td><?php echo esc_html( $service_area ?: '-' ); ?></td>
+					<td>
+						<?php echo esc_html( $contact_name ?: '-' ); ?>
+						<?php if ( $phone ) : ?>
+							<br><a href="<?php echo esc_url( 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ) ); ?>"><?php echo esc_html( $phone ); ?></a>
+						<?php endif; ?>
+						<?php if ( $email ) : ?>
+							<br><a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a>
+						<?php endif; ?>
+					</td>
+					<td>
+						<?php if ( $source ) : ?>
+							<a href="<?php echo esc_url( $source ); ?>" target="_blank" rel="noopener">source</a>
+						<?php else : ?>
+							-
+						<?php endif; ?>
+					</td>
+					<td>
+						<div style="display:flex;gap:4px;flex-wrap:wrap;min-width:150px;">
+							<a class="button" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Open</a>
+							<?php if ( $website ) : ?>
+								<a class="button" href="<?php echo esc_url( $website ); ?>" target="_blank" rel="noopener">Website</a>
 							<?php endif; ?>
 						</div>
 					</td>

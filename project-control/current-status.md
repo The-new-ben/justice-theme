@@ -3096,3 +3096,13 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - COMPLETION ASSESSMENT: supplier marketplace revenue track 27%; admin money-system cleanup 42%; lawyer dashboard retention/value layer 64%.
 - OWNER CAN NOTICE AFTER MERGE/DEPLOY: wp-admin supplier list should have dropdown filters for category, status and priority.
 - SAFETY: branch code/docs only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 SUPPLIER MARKETPLACE OUTREACH PLAYBOOK
+- RESEARCH BASIS: 2026 B2B lead generation guidance points toward ICP fit, buying intent and relevant follow-up; legal vendor marketplaces position themselves around curated/vendor networks rather than generic lists.
+- CREATED: `project-control/supplier-marketplace-outreach-playbook-2026-05-20.md`.
+- CREATED: `project-control/supplier-marketplace-prospect-template-2026-05-20.csv`.
+- MONEY IMPACT: supplier monetization now has a practical outbound motion: first 30 prospect categories, qualification questions, scripts, follow-ups and revenue models.
+- BLOCKED: no supplier outreach was sent; real prospect records and commercial terms still need owner/business action; automated recurring lawyer payments remain blocked until Meshulam/Grow KYC/account recovery is completed by owner.
+- COMPLETION ASSESSMENT: supplier strategy 55%; supplier CRM 45%; supplier demand capture 35%; supplier outreach readiness 50%; supplier revenue live 0%.
+- OWNER CAN NOTICE: repo now contains a ready supplier outreach playbook and prospect template for translation/notary, office rooms, legal marketing, legal tech, experts and courier/filing.
+- SAFETY: branch docs only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.

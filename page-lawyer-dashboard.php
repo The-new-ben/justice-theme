@@ -102,6 +102,10 @@ $primary_profile_id     = $profile_ids ? (int) $profile_ids[0] : 0;
 $primary_completeness   = $primary_profile_id ? justice_theme_lawyer_dashboard_profile_completeness( $primary_profile_id ) : 0;
 $activation_status      = $primary_profile_id ? ( get_post_meta( $primary_profile_id, 'activation_status', true ) ?: 'registered' ) : 'registered';
 $subscription_status    = $primary_profile_id ? ( get_post_meta( $primary_profile_id, 'subscription_status', true ) ?: 'pending' ) : 'pending';
+$growth_assets          = $primary_profile_id ? justice_theme_lawyer_dashboard_growth_assets( $primary_profile_id, $lead_count, $content_request_count, $profile_views_total ) : array();
+$completed_growth_assets = count( array_filter( $growth_assets, static function ( array $asset ): bool {
+	return ! empty( $asset['done'] );
+} ) );
 $first_value_steps      = array(
 	array(
 		'label' => __( 'פרופיל מקושר לחשבון', 'justice-theme' ),
@@ -197,6 +201,12 @@ $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 
 
 			<div class="lawyer-dashboard__grid">
 				<div class="lawyer-dashboard__main">
+					<?php if ( isset( $_GET['review_campaign'] ) && 'sent' === $_GET['review_campaign'] ) : ?>
+						<div class="legaltool-request__notice"><?php esc_html_e( 'Review campaign request saved. Nothing will be sent to clients until owner review and lawyer approval.', 'justice-theme' ); ?></div>
+					<?php elseif ( isset( $_GET['review_campaign'] ) ) : ?>
+						<div class="lawyer-registration__error"><?php esc_html_e( 'Review campaign request was not saved. Please choose a linked profile.', 'justice-theme' ); ?></div>
+					<?php endif; ?>
+
 					<?php if ( isset( $_GET['content_request'] ) && 'sent' === $_GET['content_request'] ) : ?>
 						<div class="legaltool-request__notice"><?php esc_html_e( 'בקשת התוכן התקבלה כטיוטה ותיבדק לפני כל פרסום.', 'justice-theme' ); ?></div>
 					<?php elseif ( isset( $_GET['content_request'] ) ) : ?>
@@ -237,6 +247,30 @@ $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 
 						</article>
 					<?php endwhile; wp_reset_postdata(); ?>
 
+					<section class="lawyer-dashboard-growth" aria-labelledby="lawyer-dashboard-growth-title">
+						<div class="lawyer-dashboard-growth__header">
+							<div>
+								<p class="section-header__eyebrow"><?php esc_html_e( 'Reputation and authority cockpit', 'justice-theme' ); ?></p>
+								<h2 id="lawyer-dashboard-growth-title"><?php esc_html_e( 'What makes this profile sell?', 'justice-theme' ); ?></h2>
+								<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Inspired by leading lawyer platforms: claimed profile, real photo, external proof, fresh reviews, practical FAQs, content, exposure and leads. We track only real signals.', 'justice-theme' ); ?></p>
+							</div>
+							<div class="lawyer-dashboard-growth__score">
+								<strong><?php echo esc_html( $completed_growth_assets . '/' . count( $growth_assets ) ); ?></strong>
+								<span><?php esc_html_e( 'growth assets ready', 'justice-theme' ); ?></span>
+							</div>
+						</div>
+						<?php if ( $growth_assets ) : ?>
+							<ul class="lawyer-dashboard-growth__assets">
+								<?php foreach ( $growth_assets as $asset ) : ?>
+									<li class="<?php echo esc_attr( $asset['done'] ? 'is-complete' : 'is-pending' ); ?>">
+										<strong><?php echo esc_html( $asset['label'] ); ?></strong>
+										<span><?php echo esc_html( $asset['why'] ); ?></span>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+						<?php endif; ?>
+					</section>
+
 					<section class="lawyer-dashboard-content-request">
 						<h2><?php esc_html_e( 'בקשת עדכון למיני-סייט', 'justice-theme' ); ?></h2>
 						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'שלחו נוסח חדש לכותרת, שירותים, תהליך עבודה, וידאו או שאלות נפוצות. העדכון נשמר לבדיקה בלבד ולא משנה את הפרופיל הציבורי עד אישור.', 'justice-theme' ); ?></p>
@@ -267,6 +301,30 @@ $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 
 							<textarea id="profile-faqs" name="profile_faqs" rows="4"></textarea>
 
 							<button type="submit" class="button button--gold"><?php esc_html_e( 'שליחת בקשת עדכון', 'justice-theme' ); ?></button>
+						</form>
+					</section>
+
+					<section class="lawyer-dashboard-content-request">
+						<h2><?php esc_html_e( 'Google reviews and recommendations', 'justice-theme' ); ?></h2>
+						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Ask Jus-Tice to prepare a review campaign. This does not send messages yet. The owner reviews the request, verifies the Google Business review link, and only then sends approved client requests.', 'justice-theme' ); ?></p>
+						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">
+							<input type="hidden" name="action" value="justice_lawyer_review_campaign_request">
+							<?php wp_nonce_field( 'justice_lawyer_review_campaign', 'justice_lawyer_review_campaign_nonce' ); ?>
+
+							<label for="review-profile"><?php esc_html_e( 'Linked profile', 'justice-theme' ); ?></label>
+							<select id="review-profile" name="lawyer_profile_id" required>
+								<?php foreach ( $profile_ids as $profile_id ) : ?>
+									<option value="<?php echo esc_attr( $profile_id ); ?>"><?php echo esc_html( get_the_title( $profile_id ) ); ?></option>
+								<?php endforeach; ?>
+							</select>
+
+							<label for="review-client-group"><?php esc_html_e( 'Who should receive the first request?', 'justice-theme' ); ?></label>
+							<input id="review-client-group" type="text" name="review_client_group" placeholder="<?php esc_attr_e( 'Example: clients from the last 90 days after closed matters', 'justice-theme' ); ?>">
+
+							<label for="review-campaign-notes"><?php esc_html_e( 'Notes for the owner', 'justice-theme' ); ?></label>
+							<textarea id="review-campaign-notes" name="review_campaign_notes" rows="4" placeholder="<?php esc_attr_e( 'Add Google Business link, preferred wording, or sensitive cases to avoid.', 'justice-theme' ); ?>"></textarea>
+
+							<button type="submit" class="button button--gold"><?php esc_html_e( 'Request review campaign setup', 'justice-theme' ); ?></button>
 						</form>
 					</section>
 

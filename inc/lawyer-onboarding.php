@@ -581,6 +581,10 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 				'key'   => 'pending_content_review',
 				'value' => '1',
 			),
+			array(
+				'key'   => 'pending_review_campaign_request',
+				'value' => '1',
+			),
 		),
 	) );
 	?>
@@ -610,6 +614,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						<th>Mini-site Content</th>
 						<th>Pending Update</th>
 						<th>Content Request</th>
+						<th>Reputation</th>
 						<th>Recent Notes</th>
 						<th>Status</th>
 						<th>Submitted</th>
@@ -631,8 +636,11 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$first_value_at     = get_post_meta( $post_id, 'first_value_at', true );
 						$has_pending_update = '1' === (string) get_post_meta( $post_id, 'pending_profile_review', true );
 						$has_pending_content = '1' === (string) get_post_meta( $post_id, 'pending_content_review', true );
+						$has_pending_review_campaign = '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true );
 						$content_article_id = (int) get_post_meta( $post_id, 'latest_content_request_article_id', true );
 						$content_topic      = (string) get_post_meta( $post_id, 'latest_content_request_topic', true );
+						$review_client_group = (string) get_post_meta( $post_id, 'latest_review_campaign_client_group', true );
+						$review_campaign_at  = (string) get_post_meta( $post_id, 'latest_review_campaign_requested_at', true );
 						$mini_fields = array(
 							'Headline' => get_post_meta( $post_id, 'profile_headline', true ),
 							'Services' => get_post_meta( $post_id, 'profile_services', true ),
@@ -713,6 +721,17 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 										<a href="<?php echo esc_url( get_edit_post_link( $content_article_id, '' ) ); ?>">Review draft</a>
 									<?php endif; ?>
 									<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=justice_mark_lawyer_content_reviewed&lawyer_id=' . $post_id ), 'justice_mark_lawyer_content_reviewed_' . $post_id ) ); ?>">Mark reviewed</a>
+								<?php else : ?>
+									-
+								<?php endif; ?>
+							</td>
+							<td>
+								<?php if ( $has_pending_review_campaign ) : ?>
+									<span style="display:inline-block;margin:0 0 4px 4px;padding:2px 7px;border-radius:999px;background:#fef3c7;color:#92400e;font-size:12px;">Review campaign requested</span>
+									<p style="margin:0 0 6px;"><strong>Client group:</strong> <?php echo esc_html( $review_client_group ?: '-' ); ?></p>
+									<?php if ( $review_campaign_at ) : ?>
+										<small><?php echo esc_html( $review_campaign_at ); ?></small>
+									<?php endif; ?>
 								<?php else : ?>
 									-
 								<?php endif; ?>

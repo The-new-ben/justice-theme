@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-20 11:18 Asia/Jerusalem
+- GOOGLE REVIEWS / REPUTATION SYSTEM: started turning the lawyer dashboard into an active reputation and authority cockpit, inspired by Justia, Din, PsakDin and LawReviews patterns.
+- RESEARCHED: official Google Business Profile review APIs, Google Maps user-generated-content policy, Google review-link workflows, Justia lawyer profile badges/premium placements/reviews, Din fresh-review/directory/Q&A surfaces, and lawyer reputation-management patterns.
+- CODED: lawyer dashboard now has a reputation/authority growth checklist and a "Google reviews and recommendations" request form. Submitting it saves an internal owner-review request only; it does not send SMS/email or publish reviews.
+- CODED: Lawyer Onboarding admin now includes pending review-campaign requests in the onboarding queue with a Reputation column.
+- CREATED LINEAR: `HAD-72` - build Google reviews and first-party reputation system.
+- STRATEGIC DECISION: phase 1 stores/uses lawyer Google review links and first-party review workflow; phase 2 can use Google Business Profile API only for lawyers who grant profile access/OAuth; first-party Jus-Tice recommendations remain separate from Google reviews.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that the paid lawyer dashboard now moves closer to a real retention/value system: profile authority, reviews, content, exposure and leads are visible as growth assets.
+- COMPLETION ASSESSMENT: reputation system phase 1 moved from 0% to 28%; lawyer dashboard paid-value system moved from 35% to 44%. Remaining blockers: Google review-link fields on lawyer profiles, first-party review CPT/moderation, SMS/email sender approval, Google Business Profile OAuth integration, walkthrough QA, merge/deploy/uPress pull.
+- OWNER-VISIBLE AFTER MERGE/DEPLOY: logged-in lawyers will see the new reputation/authority cockpit and review-campaign request form on `/lawyer-dashboard/`; owner/admin will see review-campaign requests inside Lawyer Onboarding.
+- UPRESS: no uPress pull yet because this branch is not merged to `main`.
+- SAFETY: code and repo docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, SMS/email review request, review publication, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 10:57 Asia/Jerusalem
 - LAWYER ACQUISITION FIRST WAVE: created a practical first-wave sales packet for getting paying lawyers before Meshulam/Grow recurring payments are fully approved.
 - RESEARCHED: current 2026 lawyer marketing guidance and legal-directory patterns. Key point: lawyers buy qualified demand, reputation proof, local SEO/reviews, authority assets and measurable follow-up; they do not care about raw traffic claims.

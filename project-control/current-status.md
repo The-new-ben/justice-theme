@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-20 21:58 Asia/Jerusalem
+- LAWYER OUTREACH PIPELINE: added an admin-only prospect pipeline so uncovered demand and target lawyer lists can become structured sales work.
+- RESEARCHED: current legal intake and directory monetization patterns. Clio emphasizes tracking lead source, status, follow-up and conversion; Justia Premium Placements sells lawyer visibility by practice area and metro area. Sources: https://www.clio.com/blog/client-intake-law-firms/ and https://www.justia.com/marketing/lawyer-directory/
+- CODED: new `justice_prospect` admin post type under Lawyer Onboarding for lawyer sales prospects.
+- CODED: each prospect stores practice area, city, target plan, priority, outreach status, response-fit commitment, source URL, demand signal, expected monthly NIS value, contact details and next action date.
+- VERIFIED: `php -l functions.php`, `php -l inc/lawyer-prospects.php`, staged diff check, GitHub push, uPress pull, and uPress Git log showing `4633c9c Add lawyer outreach prospect pipeline`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is sales operations: repeated calls like "I need a Thailand lawyer" can now become a trackable recruiting list for paid coverage instead of disappearing into memory.
+- COMPLETION ASSESSMENT: lawyer outreach operating system moved to 35%; first-lawyer sales readiness moved from 55% to 60%; paid coverage pipeline moved to 35%; automated payment readiness unchanged at 80% because Grow/Meshulam is still external.
+- OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Lawyer Prospects.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `4633c9c Add lawyer outreach prospect pipeline` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only. No live wp-admin record, public CMS database content, lawyer profile, lead record, user, payment setting, GA4/GSC setting, redirect, sitemap, social account, outbound message, payment action, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-20 21:49 Asia/Jerusalem
 - LAWYER REGISTRATION QUALIFICATION: tightened the handoff from `/lawyer-plans/` to `/lawyer-registration/` so paid-plan prospects see the selected plan/price and tell us how fast they can respond to leads.
 - RESEARCHED: current 2026 legal intake guidance. Clio emphasizes tracking lead source/status/conversion and says the intake process starts the moment a prospect reaches out; Justia sells premium visibility by practice area and metro area, so availability/coverage fit matters before selling placement. Sources: https://www.clio.com/blog/client-intake-law-firms/ and https://www.justia.com/marketing/lawyer-directory/
@@ -3382,3 +3394,13 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: still needs real live lead submissions to measure route success and response times; Grow/Meshulam approval still blocks automated recurring subscription payments.
 - COMPLETION ASSESSMENT: lead capture reliability 88%; lead routing reliability 72%; lawyer-value delivery 58%; paid lead monetization 38%.
 - OWNER CAN NOTICE AFTER DEPLOY: new leads from public lawyer profiles should route using the assigned lawyer and normalized practice slug, with routing metadata visible in Justice CRM.
+
+## 2026-05-20 LAWYER OUTREACH PROSPECT PIPELINE
+- RESEARCH BASIS: Clio intake guidance frames lead source, lead status, follow-up timing and conversion tracking as core legal intake operations; Justia Premium Placements shows the market already sells practice-area and metro-position visibility to lawyers.
+- CODE UPDATED: added an admin-only `justice_prospect` post type under Lawyer Onboarding for lawyer sales prospects.
+- CODE UPDATED: each prospect can now store practice area, city, target plan, priority, outreach status, response-fit commitment, source URL, demand signal, expected monthly NIS value, contact details and next action date.
+- DEPLOYED: pushed `4633c9c Add lawyer outreach prospect pipeline` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Add lawyer outreach prospect pipeline`.
+- MONEY IMPACT: this does not create revenue by itself, but it turns repeated uncovered demand into a trackable sales pipeline so the owner can recruit lawyers in exact practice/city gaps instead of handling every call manually.
+- BLOCKED: still needs real prospects entered and outreach performed; no automatic outbound messages were sent; Grow/Meshulam approval still controls automated recurring payment collection.
+- COMPLETION ASSESSMENT: lawyer outreach operating system 35%; first-lawyer sales readiness 60%; paid coverage pipeline 35%; automated payment readiness unchanged at 80%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Lawyer Prospects.

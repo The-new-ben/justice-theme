@@ -306,6 +306,9 @@ function justice_theme_lawyer_dashboard_growth_assets( int $post_id, int $lead_c
 	$latest_review_date = (string) get_post_meta( $post_id, 'latest_review_date', true );
 	$has_fresh_review   = false;
 	$has_google_source  = (bool) get_post_meta( $post_id, 'google_review_request_url', true ) || (bool) get_post_meta( $post_id, 'google_business_profile_url', true ) || (bool) get_post_meta( $post_id, 'google_place_id', true );
+	$recommendations    = function_exists( 'justice_theme_lawyer_recommendation_counts' ) ? justice_theme_lawyer_recommendation_counts( $post_id ) : array( 'approved_public' => 0, 'fresh_approved' => 0 );
+	$has_recommendation = 0 < (int) $recommendations['approved_public'];
+	$has_fresh_first_party_recommendation = 0 < (int) $recommendations['fresh_approved'];
 
 	if ( $latest_review_date ) {
 		$review_timestamp = strtotime( $latest_review_date );
@@ -350,12 +353,12 @@ function justice_theme_lawyer_dashboard_growth_assets( int $post_id, int $lead_c
 		),
 		array(
 			'label' => __( 'Review/recommendation source exists', 'justice-theme' ),
-			'done'  => $has_google_source || 0 < $review_count || '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true ),
+			'done'  => $has_google_source || $has_recommendation || 0 < $review_count || '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true ),
 			'why'   => __( 'Fresh recommendations are a major trust and local SEO signal.', 'justice-theme' ),
 		),
 		array(
 			'label' => __( 'Fresh recommendation activity exists', 'justice-theme' ),
-			'done'  => $has_fresh_review || '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true ),
+			'done'  => $has_fresh_review || $has_fresh_first_party_recommendation || '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true ),
 			'why'   => __( 'Recent reviews usually matter more than old review count.', 'justice-theme' ),
 		),
 		array(

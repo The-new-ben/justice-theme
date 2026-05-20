@@ -77,6 +77,9 @@ Competitor/product pattern:
   - Google review count;
   - latest review date;
   - display-approved recommendations flag.
+- Added internal `justice_recommendation` records for first-party Jus-Tice recommendations.
+- Recommendation records are admin-only by default and include lawyer link, client display name, source type, source URL, permission status, moderation status, owner note and received date.
+- The dashboard growth checklist now counts approved first-party recommendations as a reputation asset.
 - Linear `HAD-72` tracks the next implementation steps.
 
 ## What Is Not Implemented Yet
@@ -93,13 +96,13 @@ Competitor/product pattern:
 
 - Research clarity: 70%.
 - Phase 1 dashboard workflow: 35%.
-- First-party review system: 0%.
+- First-party review system: 22%.
 - Google Business Profile API integration: 0%.
 - Revenue impact today: indirect but important. This is one of the things lawyers will pay for and renew for because it creates ongoing visible value.
 
 ## Next Steps
 
-1. Build first-party recommendation CPT/moderation.
-2. Add one safe public profile section for approved first-party recommendations.
+1. Add one safe public profile section for approved first-party recommendations.
+2. Add a recommendation request intake form/token flow.
 3. Add a review-request sender only after owner approval of copy/SMS/email provider.
 4. Later: add Google OAuth/API only for lawyers who grant account access.

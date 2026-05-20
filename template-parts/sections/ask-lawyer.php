@@ -55,6 +55,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 						<option value="traffic-law"><?php esc_html_e( 'תעבורה', 'justice-theme' ); ?></option>
 						<option value="labor-law"><?php esc_html_e( 'דיני עבודה', 'justice-theme' ); ?></option>
 						<option value="inheritance-law"><?php esc_html_e( 'ירושה וצוואות', 'justice-theme' ); ?></option>
+						<option value="thailand-law"><?php esc_html_e( 'תאילנד / משפט בינלאומי', 'justice-theme' ); ?></option>
 						<option value="general"><?php esc_html_e( 'אחר / לא בטוח', 'justice-theme' ); ?></option>
 					</select>
 				</div>

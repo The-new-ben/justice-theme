@@ -43,12 +43,12 @@ function justice_theme_classify_lead_on_save( int $post_id, WP_Post $post, bool 
 }
 add_action( 'save_post_justice_lead', 'justice_theme_classify_lead_on_save', 20, 3 );
 
-function justice_theme_update_lead_coverage_status_on_save( int $post_id, WP_Post $post, bool $update ): void {
+function justice_theme_update_lead_coverage_status_on_save( int $post_id, WP_Post $post, bool $update, bool $force = false ): void {
 	if ( wp_is_post_revision( $post_id ) || 'justice_lead' !== $post->post_type ) {
 		return;
 	}
 
-	if ( $update && get_post_meta( $post_id, 'coverage_status', true ) ) {
+	if ( ! $force && $update && get_post_meta( $post_id, 'coverage_status', true ) ) {
 		return;
 	}
 
@@ -79,6 +79,30 @@ function justice_theme_update_lead_coverage_status_on_save( int $post_id, WP_Pos
 	}
 }
 add_action( 'save_post_justice_lead', 'justice_theme_update_lead_coverage_status_on_save', 40, 3 );
+
+function justice_theme_refresh_lead_classification_after_meta_write( $meta_id, int $post_id, string $meta_key, $meta_value ): void {
+	$post = get_post( $post_id );
+	if ( ! $post || 'justice_lead' !== $post->post_type || wp_is_post_revision( $post_id ) ) {
+		return;
+	}
+
+	if ( 'message' === $meta_key ) {
+		justice_theme_classify_lead_on_save( $post_id, $post, true );
+		justice_theme_update_lead_coverage_status_on_save( $post_id, $post, true, true );
+		return;
+	}
+
+	if ( 'assigned_lawyer_id' === $meta_key && (int) $meta_value > 0 ) {
+		justice_theme_update_lead_coverage_status_on_save( $post_id, $post, true, true );
+		return;
+	}
+
+	if ( 'routing_completed' === $meta_key && $meta_value ) {
+		justice_theme_update_lead_coverage_status_on_save( $post_id, $post, true, true );
+	}
+}
+add_action( 'added_post_meta', 'justice_theme_refresh_lead_classification_after_meta_write', 20, 4 );
+add_action( 'updated_post_meta', 'justice_theme_refresh_lead_classification_after_meta_write', 20, 4 );
 
 function justice_theme_rule_based_lead_classification( string $text, string $area, string $message ): array {
 	$normalized_area = justice_theme_normalize_lead_area( $area );

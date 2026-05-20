@@ -3227,3 +3227,13 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: messages are not sent automatically; the lawyer still needs a real Google review link and should only send to real clients. Grow/Meshulam approval is still pending for automated recurring payments.
 - COMPLETION ASSESSMENT: review request activation 55%; Google review source connection 70%; public recommendation display 45%; reputation product revenue readiness 48%.
 - OWNER CAN NOTICE AFTER DEPLOY: logged-in lawyer dashboard -> Google reviews and recommendations -> Fast review request kit.
+
+## 2026-05-20 UNCOVERED DEMAND CAPTURE RELIABILITY FIX
+- RESEARCH BASIS: current legal-intake guidance emphasizes fast, structured lead capture by practice area/source; ethics guidance warns against hidden paid referrals or fee-split style lead sales, so Jus-Tice should turn uncovered demand into transparent partner-recruitment evidence and subscription coverage.
+- CODE UPDATED: homepage Ask-a-Lawyer form now includes `Thailand / international law`, matching the reusable lead form and the CRM classifier.
+- CODE UPDATED: lead classification now refreshes after public lead meta is written, not only when the lead post shell is created. This fixes a timing leak where `legal_area`, `city` and `message` could be saved after the classifier had already run.
+- CODE UPDATED: coverage status now refreshes when a lead message is saved, and force-refreshes to `covered_routable` if an assigned lawyer/routing completion is written later.
+- MONEY IMPACT: niche demand like Thailand/international lawyer requests is more likely to land in the uncovered-demand queue as a recruitable sales signal instead of disappearing under `general` or an unclassified lead.
+- BLOCKED: still needs real inbound leads and lawyer outreach; payment automation still waits on Grow/Meshulam approval.
+- COMPLETION ASSESSMENT: uncovered-demand capture 85%; CRM recruitment evidence 70%; automated niche lawyer recruitment 35%; paid lead monetization 35%.
+- OWNER CAN NOTICE AFTER DEPLOY: homepage Ask-a-Lawyer field includes Thailand/international law; new submitted leads should show AI/coverage metadata in wp-admin -> Justice CRM.

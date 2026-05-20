@@ -3198,3 +3198,11 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: official Google review sync still needs a Google Cloud/OAuth/API decision and Business Profile access; public first-party recommendation display still needs a focused build; recurring payments still wait for Grow/Meshulam approval.
 - COMPLETION ASSESSMENT: Google review source capture 60%; Google API sync 10%; first-party recommendation storage 55%; public reputation display 20%; reputation product revenue readiness 35%.
 - OWNER CAN NOTICE AFTER DEPLOY: logged-in lawyer dashboard, section `Google reviews and recommendations`, now has separate fields for Google Business URL, Google review request URL and Place ID.
+
+## 2026-05-20 REPUTATION ADMIN QUEUE VISIBILITY
+- RESEARCH BASIS: BrightLocal 2026 emphasizes review recency and response handling; Google allows real review requests through a business link/QR code but prohibits incentives and fake/misleading reviews.
+- CODE UPDATED: Lawyer Onboarding admin queue now surfaces the Google Business profile link, Google review request link and Place ID for pending review-campaign requests, with missing-source warnings.
+- MONEY IMPACT: owner/admin can now process review campaign requests without opening each lawyer profile first, making the reputation product operational for sales and retention.
+- BLOCKED: needs commit/push/uPress pull/live verification; first-party public recommendation display and official Google API sync still need focused builds.
+- COMPLETION ASSESSMENT: review source capture 65%; admin reputation operations 45%; Google API sync 10%; public reputation display 20%; reputation product revenue readiness 38%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Reputation column will show Google profile/review links for lawyers who requested a review campaign.

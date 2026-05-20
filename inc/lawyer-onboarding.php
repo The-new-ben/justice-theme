@@ -744,6 +744,18 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$content_topic      = (string) get_post_meta( $post_id, 'latest_content_request_topic', true );
 						$review_client_group = (string) get_post_meta( $post_id, 'latest_review_campaign_client_group', true );
 						$review_campaign_at  = (string) get_post_meta( $post_id, 'latest_review_campaign_requested_at', true );
+						$review_business_url = (string) get_post_meta( $post_id, 'latest_review_campaign_google_business_url', true );
+						if ( ! $review_business_url ) {
+							$review_business_url = (string) get_post_meta( $post_id, 'google_business_profile_url', true );
+						}
+						$review_request_url = (string) get_post_meta( $post_id, 'latest_review_campaign_google_review_url', true );
+						if ( ! $review_request_url ) {
+							$review_request_url = (string) get_post_meta( $post_id, 'google_review_request_url', true );
+						}
+						$review_place_id = (string) get_post_meta( $post_id, 'latest_review_campaign_google_place_id', true );
+						if ( ! $review_place_id ) {
+							$review_place_id = (string) get_post_meta( $post_id, 'google_place_id', true );
+						}
 						$mini_fields = array(
 							'Headline' => get_post_meta( $post_id, 'profile_headline', true ),
 							'Services' => get_post_meta( $post_id, 'profile_services', true ),
@@ -832,6 +844,19 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 								<?php if ( $has_pending_review_campaign ) : ?>
 									<span style="display:inline-block;margin:0 0 4px 4px;padding:2px 7px;border-radius:999px;background:#fef3c7;color:#92400e;font-size:12px;">Review campaign requested</span>
 									<p style="margin:0 0 6px;"><strong>Client group:</strong> <?php echo esc_html( $review_client_group ?: '-' ); ?></p>
+									<?php if ( $review_business_url ) : ?>
+										<p style="margin:0 0 6px;"><strong>Google profile:</strong> <a href="<?php echo esc_url( $review_business_url ); ?>" target="_blank" rel="noopener noreferrer">Open</a></p>
+									<?php else : ?>
+										<p style="margin:0 0 6px;color:#8a6d3b;"><strong>Google profile:</strong> missing</p>
+									<?php endif; ?>
+									<?php if ( $review_request_url ) : ?>
+										<p style="margin:0 0 6px;"><strong>Review request link:</strong> <a href="<?php echo esc_url( $review_request_url ); ?>" target="_blank" rel="noopener noreferrer">Open</a></p>
+									<?php else : ?>
+										<p style="margin:0 0 6px;color:#8a6d3b;"><strong>Review request link:</strong> missing</p>
+									<?php endif; ?>
+									<?php if ( $review_place_id ) : ?>
+										<p style="margin:0 0 6px;"><strong>Place ID:</strong> <code><?php echo esc_html( $review_place_id ); ?></code></p>
+									<?php endif; ?>
 									<?php if ( $review_campaign_at ) : ?>
 										<small><?php echo esc_html( $review_campaign_at ); ?></small>
 									<?php endif; ?>

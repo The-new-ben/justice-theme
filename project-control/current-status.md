@@ -3064,3 +3064,15 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - MONEY IMPACT: validates Jus-Tice's plan ladder and shows the family/divorce cluster should become a guided Israeli law center, not isolated articles.
 - NEXT SAFE CODE STEP: create a family-law/divorce hub rescue package: URL audit, canonical pillar, topic cards, internal links, last-reviewed/reviewer plan, Maya authority block after verification and live link/CTA checker.
 - COMPLETION ASSESSMENT: Justia public content analysis 65%; marketing packaging analysis 60%; family-law SEO rescue readiness 45%; implementation 0%.
+
+## 2026-05-20 LAWYER PLATFORM PRODUCT SPINE
+- OWNER INPUT: owner clarified that lawyer onboarding must become a smart wizard that creates a rich mini-site with minimal owner work, and that supplier/provider monetization for lawyers is now a formal revenue track.
+- RESEARCH BASIS: WordPress.com AI Assistant is useful inspiration but mainly applies to WordPress.com editor/media workflows; AI Engine-style plugins can help with chat/forms/content, but Jus-Tice should keep the commercial onboarding, approval and publication logic first-party. Google Business Profile APIs require authorized locations for review data. Din has supplier categories such as translations/notary/apostille and office rentals for lawyers.
+- CODE UPDATED: `/lawyer-registration/` now loads `assets/js/lawyer-registration-wizard.js`, turning the long registration form into a four-step guided wizard while preserving the existing backend submission and no-JS fallback.
+- CODE UPDATED: added admin-only `justice_supplier` CPT in `inc/lawyer-suppliers.php` for the supplier marketplace pipeline: category, source URL, contact, service area, status, revenue model, priority, offer summary and owner note.
+- LINEAR: created `HAD-73` for the AI-assisted lawyer onboarding wizard and `HAD-74` for the supplier marketplace revenue pipeline.
+- MONEY IMPACT: lawyers should face a more serious onboarding experience, and supplier/provider monetization now has a repo-backed place to collect prospects before public exposure.
+- BLOCKED: automated recurring payments remain blocked until Meshulam/Grow KYC/account recovery is completed by owner; AI drafting still needs provider/API and safety work.
+- COMPLETION ASSESSMENT: lawyer onboarding UX 48%; zero-owner-interference onboarding 35%; supplier marketplace revenue track 18%; admin money-system cleanup 40%; automated AI profile drafting 10%.
+- OWNER CAN NOTICE AFTER MERGE/DEPLOY: `/lawyer-registration/` should feel like a guided wizard; wp-admin should expose `Suppliers` under the lawyer onboarding/admin area.
+- SAFETY: branch code/docs/Linear only; no live CMS/database, supplier, lawyer, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.

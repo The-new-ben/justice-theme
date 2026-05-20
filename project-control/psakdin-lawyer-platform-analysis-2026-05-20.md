@@ -4,7 +4,7 @@ Status: COMPETITIVE INTELLIGENCE / PARTIAL ACCESS
 
 ## Scope And Safety
 
-The owner authorized read-only inspection of PsakDin. Login was attempted with owner-provided credentials, but PsakDin returned a wrong username/password message. No additional guesses were attempted. No profile edits, payments, messages, registrations, subscriptions, content edits, or form submissions were performed.
+The owner authorized read-only inspection of PsakDin. Earlier login attempts returned a wrong username/password message. After the owner supplied an updated password, the browser automation could not type into the login fields because of a local input/clipboard limitation, so private account inspection remains blocked. No additional guesses were attempted. No profile edits, payments, messages, registrations, subscriptions, content edits, or form submissions were performed.
 
 Because private access was blocked, this analysis is based on public PsakDin pages plus the visible login/product surface.
 
@@ -116,7 +116,7 @@ Add PsakDin findings to the same next implementation path as Din:
 
 ## Completion Assessment
 
-- Private PsakDin account analysis: blocked by failed login, 0%.
+- Private PsakDin account analysis: blocked by browser login/input limitation, 0%.
 - Public PsakDin product analysis: 45%.
 - Competitive authority/profile pattern captured: 50%.
 - Jus-Tice implementation from this analysis: 0%.
@@ -124,5 +124,14 @@ Add PsakDin findings to the same next implementation path as Din:
 
 ## Next Step
 
-If the owner logs into PsakDin manually or provides corrected credentials, continue private read-only analysis. Otherwise, proceed with the combined Din/PsakDin lesson: build the lawyer dashboard as a retention and upgrade engine.
+If the owner logs into PsakDin manually in the Codex browser, continue private read-only analysis. Otherwise, proceed with the combined Din/PsakDin lesson: build the lawyer dashboard as a retention and upgrade engine.
 
+## 2026-05-20 Deep Product Addendum
+
+Reference: `project-control/psakdin-legal-library-strategy-2026-05-20.md`.
+
+PsakDin should also be treated as a legal-library competitor, not only a lawyer-profile competitor. Its major moat is the combination of court decisions, magazine analysis, forms, forums, video, providers and lawyer search. Jus-Tice should not copy its text or scrape its database. The safer path is to build from official Israeli sources, create original summaries and connect every legal item to topic hubs, lead intake and verified lawyer authority.
+
+First recommended cluster: Family Law / Divorce.
+
+First safe deliverable: a source map and data model, not a mass import.

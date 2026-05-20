@@ -3024,3 +3024,18 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - MONEY IMPACT: validates Jus-Tice's plan ladder and shows the family/divorce cluster should become a guided Israeli law center, not isolated articles.
 - NEXT SAFE CODE STEP: create a family-law/divorce hub rescue package: URL audit, canonical pillar, topic cards, internal links, last-reviewed/reviewer plan, Maya authority block after verification and live link/CTA checker.
 - COMPLETION ASSESSMENT: Justia public content analysis 65%; marketing packaging analysis 60%; family-law SEO rescue readiness 45%; implementation 0%.
+
+## 2026-05-20 PSAKDIN LEGAL LIBRARY STRATEGY
+- OWNER INPUT: owner emphasized PsakDin as a model for future verdicts, rulings and laws content, with official/government sources preferred for free legal content.
+- ACCESS STATUS: owner screenshot shows a logged-in PsakDin account, but Codex browser still only had a login page. Earlier credential attempts returned wrong username/password; after the owner supplied an updated password, browser automation could not type into the login fields because of a local input/clipboard limitation. No further guesses were attempted.
+- SAFETY: read-only public PsakDin section review plus official-source research; no PsakDin forms, messages, profile edits, payments, searches with private data, or submissions were performed.
+- PUBLIC SECTIONS REVIEWED: PsakDin court search, magazine, forms, forums, Live/video and legal-service providers.
+- OFFICIAL SOURCES REVIEWED: Israeli Judiciary spokesperson decisions, Freedom of Information case-law index, Knesset/National Legislation Database, gov.il legislation service.
+- CREATED: `project-control/psakdin-legal-library-strategy-2026-05-20.md`.
+- CREATED: `project-control/family-law-library-map-2026-05-20.csv` with 10 official-source candidates and privacy/publication guardrails.
+- PRODUCT FINDING: PsakDin's durable moat is a legal-library ecosystem: judgments + magazine interpretation + forms + forums + video + providers + lawyer search.
+- MONEY IMPACT: Jus-Tice can build a stronger SEO moat and paid-lawyer authority product by connecting official laws/cases to topic hubs, lead intake and verified lawyer reviewers.
+- NEXT SAFE STEP: create a Family Law / Divorce legal-library MVP source map and data model before any import or publication.
+- BLOCKED: private PsakDin login still did not complete inside Codex browser; owner screenshot confirms access exists locally, but Codex only sees the login page. Continue private analysis once the logged-in tab is available to Codex.
+- LINEAR: created `HAD-68` for the implementation follow-up: `Family Law legal-library MVP from official sources`.
+- COMPLETION ASSESSMENT: PsakDin public product understanding 65%; private PsakDin analysis 0% blocked; official-source strategy 55%; legal-library implementation readiness 40%; product/code 0%.

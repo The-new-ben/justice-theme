@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-20 22:34 Asia/Jerusalem
+- PROSPECT FOLLOW-UP QUICK ACTIONS: added one-click admin status actions so lawyer outreach records can move after a call/email instead of staying stale.
+- RESEARCHED: 2026 B2B follow-up guidance emphasizes multi-touch outreach, logging outcomes in the CRM, and scheduling the next attempt; HubSpot also frames modern sequences around task reminders, calls and CRM-connected stopping rules. Sources: https://syncgtm.com/blog/follow-up-calls and https://blog.hubspot.com/sales/sales-sequence
+- CODED: Lawyer Prospect outreach kit now includes quick actions: contacted today, set follow-up, demo booked, proposal sent, won/onboarding, and lost/not fit.
+- CODED: quick actions are nonce-protected admin links that update status, last-contact date, next-action date, priority for lost records, and append a small owner-note log line.
+- CODED: Justice CRM lawyer sales pipeline table now exposes `Contacted` and `Follow-up` buttons next to open prospects.
+- VERIFIED: `php -l inc/lawyer-prospects.php`, `php -l inc/lead-crm.php`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `7302293 Add prospect follow-up quick actions`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is pipeline discipline: after outreach, the owner can immediately update the record and next follow-up date, reducing the chance that a possible paying lawyer is forgotten.
+- COMPLETION ASSESSMENT: lawyer outreach operating system moved from 60% to 66%; paid coverage pipeline moved from 48% to 52%; first-lawyer sales readiness moved from 69% to 72%; automated payment readiness unchanged at 80%.
+- OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Lawyer Prospects -> Manual Outreach Kit quick actions; also wp-admin -> Justice CRM -> Lawyer sales pipeline action buttons.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `7302293 Add prospect follow-up quick actions` is `HEAD -> main, origin/main`.
+- SAFETY: admin action links only. No action was clicked, no prospect was updated, no outreach was sent, no public content changed, and no payment settings or charges changed.
+
 ## LATEST WORK STATUS - 2026-05-20 22:23 Asia/Jerusalem
 - LAWYER PROSPECT OUTREACH KIT: added manual email, WhatsApp and call drafts to each Lawyer Prospect so the owner can start outreach from the prospect record.
 - RESEARCHED: 2026 B2B outreach guidance says sequences should be multi-channel, personalized to a real signal and short around one pain point; Justia's lawyer marketing model sells paid visibility by practice/market, so our pitch should anchor on the exact demand gap instead of generic directory promotion. Sources: https://blog.hubspot.com/sales/sales-sequence and https://www.justia.com/marketing/lawyer-directory/
@@ -3470,3 +3483,14 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: owner/admin still needs to review and send outreach; Grow/Meshulam approval still controls automated recurring payment collection.
 - COMPLETION ASSESSMENT: lawyer outreach operating system 60%; paid coverage pipeline 48%; first-lawyer sales readiness 69%; automated payment readiness 80%.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Lawyer Prospects -> Manual Outreach Kit.
+
+## 2026-05-20 PROSPECT FOLLOW-UP QUICK ACTIONS
+- RESEARCH BASIS: 2026 follow-up guidance emphasizes multi-touch outreach, CRM outcome logging and scheduling the next attempt so warm prospects do not disappear after one contact.
+- CODE UPDATED: Lawyer Prospect outreach kit now has quick action buttons for contacted, follow-up, demo booked, proposal sent, won/onboarding and lost/not fit.
+- CODE UPDATED: quick actions are nonce-protected admin links that update status, last-contact date, next-action date and owner-note history.
+- CODE UPDATED: Justice CRM lawyer sales pipeline table now has `Contacted` and `Follow-up` buttons next to open prospects.
+- DEPLOYED: pushed `7302293 Add prospect follow-up quick actions` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
+- MONEY IMPACT: this improves sales discipline after outreach and reduces forgotten paying-lawyer opportunities.
+- BLOCKED: owner/admin still needs to actually contact prospects and click the relevant action after real activity; no automated outreach was added.
+- COMPLETION ASSESSMENT: lawyer outreach operating system 66%; paid coverage pipeline 52%; first-lawyer sales readiness 72%; automated payment readiness 80%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Prospects -> Manual Outreach Kit quick actions, and wp-admin -> Justice CRM -> Lawyer sales pipeline action buttons.

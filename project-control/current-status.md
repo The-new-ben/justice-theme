@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-21 22:36 Asia/Jerusalem
+- FAMILY/DIVORCE OWNER REVIEW PACKET: converted the seven locally merged Family/Divorce upload candidates into a controlled owner/legal/source review gate.
+- CREATED: `project-control/family-divorce-owner-review-packet-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-owner-review-packet-2026-05-21.csv`.
+- VERIFIED LOCAL: the packet covers `7` target URLs: `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/` and `/child-custody/`.
+- VERIFIED LOCAL: all `7` drafts are listed with current static QA status `PASS`; draft word counts are `2,106`, `1,656`, `1,834`, `1,851`, `1,793`, `1,650` and `1,748`.
+- FIXED: the packet explicitly records that the three high-risk merge blockers are resolved locally: `/divorce-property-division/`, `/child-custody/` and `/child-support/`.
+- READY: Family/Divorce is now ready for owner page-by-page decisions of `APPROVE`, `EDIT`, `HOLD` or `LEGAL_REVIEW_REQUIRED`.
+- BLOCKED: no CMS upload is approved until owner/legal/source approval and actual WordPress editor/database backup are complete; GSC API/export remains required before URL migration, redirects, canonical/noindex or sitemap actions.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 22:32 Asia/Jerusalem
 - FAMILY/DIVORCE CHILD-SUPPORT MERGE DECISIONS + DRAFT MERGE: resolved all `/child-support/` current-live candidate rows and applied the approved draft edits locally.
 - TOOLING FIXED: created `tools/resolve-family-divorce-child-support-merge.mjs`.

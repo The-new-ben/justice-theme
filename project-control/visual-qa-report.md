@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce Owner Review Packet
+- CREATED / VERIFIED LOCAL: `project-control/family-divorce-owner-review-packet-2026-05-21.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-divorce-owner-review-packet-2026-05-21.csv`.
+- VERIFIED LOCAL: packet covers `7` locally merged upload candidates and all seven retain static QA `PASS`.
+- FIXED / VERIFIED LOCAL: the packet records the resolved high-risk merge blockers for `/divorce-property-division/`, `/child-custody/` and `/child-support/`.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this cycle created a local owner review packet only and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/legal/source approval, CMS backup, approved upload and route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce Child-Support Merge Decisions And Draft Merge
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/resolve-family-divorce-child-support-merge.mjs`.
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/apply-family-divorce-child-support-draft-merges.mjs`.

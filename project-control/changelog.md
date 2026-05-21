@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce owner review packet
+
+- CREATED: `project-control/family-divorce-owner-review-packet-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-owner-review-packet-2026-05-21.csv`.
+- VERIFIED LOCAL: packet covers `7` locally merged Family/Divorce upload candidates.
+- VERIFIED LOCAL: all seven page rows reference static QA `PASS` from `reports/family-divorce-public-body-static-qa-2026-05-21.csv`.
+- VERIFIED LOCAL: packet records that `/divorce-property-division/`, `/child-custody/` and `/child-support/` high-risk merge blockers are resolved locally.
+- READY: owner can now mark each page as `APPROVE`, `EDIT`, `HOLD` or `LEGAL_REVIEW_REQUIRED`.
+- BLOCKED: no CMS upload is approved until owner/legal/source approval and actual WordPress editor/database backup are complete.
+- BLOCKED: redirects, URL migration, canonical/noindex and sitemap decisions still require GSC API/export and separate approval.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce child-support merge decisions and draft merge
 
 - TOOLING FIXED: added `tools/resolve-family-divorce-child-support-merge.mjs`.

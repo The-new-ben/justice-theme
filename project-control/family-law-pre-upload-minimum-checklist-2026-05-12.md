@@ -8,6 +8,12 @@ This checklist defines the minimum safe gate before Family/Divorce moves from pl
 ## Current Position
 
 LATEST 2026-05-21 UPDATE:
+- `project-control/family-divorce-owner-review-packet-2026-05-21.md` now gives the owner/legal/source review gate for all seven locally merged Family/Divorce upload candidates.
+- `project-control/family-divorce-owner-review-packet-2026-05-21.csv` now gives the page-by-page approval worksheet.
+- VERIFIED LOCAL: the packet covers `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/` and `/child-custody/`.
+- VERIFIED LOCAL: all seven page rows retain static QA `PASS`.
+- READY: owner can mark each page `APPROVE`, `EDIT`, `HOLD` or `LEGAL_REVIEW_REQUIRED`.
+- BLOCKED: CMS upload is still blocked until owner/legal/source approval and actual WordPress editor/database backup are complete.
 - `tools/resolve-family-divorce-child-support-merge.mjs` now resolves all current-live candidate rows for `/child-support/`.
 - `tools/apply-family-divorce-child-support-draft-merges.mjs` now applies the four approved `/child-support/` draft merges.
 - VERIFIED LOCAL: `35` `/child-support/` live rows resolved: `4` merge into draft, `25` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
@@ -169,7 +175,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 58. Apply the six approved `/divorce-property-division/` draft merges and rerun static QA before upload approval. - COMPLETED / VERIFIED LOCAL.
 59. Resolve `/child-custody/` high-risk merge rows and apply approved draft edits before upload approval. - COMPLETED / VERIFIED LOCAL.
 60. Resolve `/child-support/` high-risk merge rows before that draft moves to owner upload review. - COMPLETED / VERIFIED LOCAL.
-61. Prepare the owner/legal/source review packet for the seven locally merged Family/Divorce drafts before any CMS upload.
+61. Prepare the owner/legal/source review packet for the seven locally merged Family/Divorce drafts before any CMS upload. - COMPLETED / VERIFIED LOCAL.
+62. Owner must mark each of the seven packet rows as `APPROVE`, `EDIT`, `HOLD` or `LEGAL_REVIEW_REQUIRED` before CMS backup or upload work starts.
 
 ## Current Recommendation
 

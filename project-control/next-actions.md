@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-OWNER-REVIEW-PACKET-001: Prepare owner/legal/source review packet
+**Status:** COMPLETED / VERIFIED LOCAL / READY FOR OWNER REVIEW / NO PUBLIC CHANGES
+**Why:** The seven Family/Divorce upload candidates now have static QA, live public snapshots and resolved high-risk merge blockers. The next safe step is an explicit owner/legal/source decision packet before any CMS overwrite/update.
+**Actions:**
+1. DONE: created `project-control/family-divorce-owner-review-packet-2026-05-21.md`.
+2. DONE: created `project-control/family-divorce-owner-review-packet-2026-05-21.csv`.
+3. VERIFIED LOCAL: packet covers `7` target URLs and maps each one to its current public-body draft.
+4. VERIFIED LOCAL: all `7` rows show static QA `PASS`.
+5. VERIFIED LOCAL: packet records the resolved high-risk merge blockers for `/divorce-property-division/`, `/child-custody/` and `/child-support/`.
+6. READY: owner can now mark each page `APPROVE`, `EDIT`, `HOLD` or `LEGAL_REVIEW_REQUIRED`.
+7. BLOCKED: CMS upload still requires explicit owner/legal/source approval and actual WordPress editor/database backup.
+8. BLOCKED: URL migration, redirects, noindex, canonical and sitemap decisions still require GSC API/export and separate approval.
+9. NEXT: owner reviews the seven page rows, then CMS operator prepares editor/database backup for only the approved pages.
+
 ### ACTION-FAMILY-DIVORCE-CHILD-SUPPORT-MERGE-AND-DRAFT-001: Resolve and apply child-support merge rows
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / NO PUBLIC CHANGES
 **Why:** `/child-support/` was the last high-risk Family/Divorce page with unresolved live-candidate rows. Resolving and applying safe draft merges removes the final high-risk merge blocker before owner upload review.

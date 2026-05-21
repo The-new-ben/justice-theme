@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-21 12:55 Asia/Jerusalem
+- PLAN PAYMENT MAPPING SCREEN: added a safe admin screen for the exact post-Grow step: mapping the four paid lawyer plans to WooCommerce subscription products.
+- RESEARCHED: WooCommerce Subscriptions documentation says subscriptions are sold through subscription products, and those products generate recurring orders on their schedule. WooCommerce also documents that subscription gateways must support recurring payments for automatic renewals. Sources: https://woocommerce.com/document/subscriptions/creating-subscription-products/ and https://woocommerce.com/document/subscriptions/payment-gateways/
+- CODED: `inc/lawyer-plans.php` now has `Lawyer Onboarding -> Plan Payments`, showing WooCommerce, Subscriptions and enabled-gateway readiness.
+- CODED: the screen lets an admin paste/save the product IDs for Pro, Featured, Lead Partner and Full Service, then shows whether each product is found, subscription-like, purchasable and checkout-ready.
+- VERIFIED: `php -l inc/lawyer-plans.php` and `git diff --check` passed before commit.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is reducing the next payment setup bottleneck: after Grow approves, product mapping can be done from wp-admin without guessing option names or running WP-CLI.
+- COMPLETION ASSESSMENT: automated payment readiness moved from 84% to 86%; first paid-lawyer readiness moved from 82% to 83%; owner self-service for payment setup moved from 30% to 55%. Still blocked: Grow re-check approval, real WooCommerce subscription products, gateway connection and payment smoke test.
+- OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Plan Payments.
+- UPRESS: pending after commit/push.
+- SAFETY: repo code/status only. No card charged, no payment gateway setting changed, no WooCommerce product created, no product ID mapped, no CMS page edited, and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 12:47 Asia/Jerusalem
 - GROW CHECKOUT APPROVAL FIX: Grow account creation is complete, the checkout fixes are live, and the site was submitted back to Grow for review.
 - RESEARCHED: the Grow report for `https://jus-tice.co.il` marks terms page, business address, phone, cancellation, privacy, supply policy and product responsibility as passed. The only failed items are: checkout page exists, terms approval checkbox on checkout, and a terms link inside that checkout approval. WooCommerce checkout guidance confirms billing/customer fields such as `billing_first_name`, `billing_last_name`, `billing_email`, `billing_phone` and country are checkout field surfaces. Sources: Grow report link from owner, https://developer.woocommerce.com/docs/customizing-checkout-fields-using-actions-and-filters/

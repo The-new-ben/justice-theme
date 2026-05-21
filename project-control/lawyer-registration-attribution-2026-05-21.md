@@ -55,6 +55,9 @@ This change makes the lawyer registration form preserve campaign/source data wit
 - `php -l template-parts/sections/lawyer-cta.php` passed.
 - `php -l inc/enqueue.php` passed.
 - `git diff --check` passed.
+- uPress Git log shows `0449321 Capture lawyer attribution from URL hash` as `HEAD -> main, origin/main`.
+- Live homepage returns 200, no page-level `noindex`, and the lawyer CTA link includes homepage attribution tags.
+- Live registration URL with outreach query fields and UTM values in the URL hash renders the wizard, has no page-level `noindex`, and creates hidden fields for `utm_source`, `utm_medium`, `utm_campaign`, `outreach_segment`, `outreach_city`, `outreach_practice` and the full landing URL.
 
 ### Money Assessment
 
@@ -70,4 +73,4 @@ Still blocked: Grow/Meshulam final approval, product/payment mapping, real outre
 
 ### Owner-Visible Change
 
-After deployment, open the lawyer registration URL with UTM/outreach parameters and inspect the page source or form fields. The values should travel into submitted draft lawyer records and appear in Lawyer Onboarding.
+Open the lawyer registration URL with UTM/outreach parameters and inspect the form fields. The values travel into hidden fields and should be stored on submitted draft lawyer records in Lawyer Onboarding.

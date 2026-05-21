@@ -8,11 +8,13 @@
 - CODED: `assets/js/lawyer-registration-wizard.js` now fills missing attribution hidden fields from both query string and URL hash, because live redirects can move unknown UTM parameters into the hash.
 - CODED: `inc/enqueue.php` bumps the wizard script to `1.2.0` for cache busting.
 - DOCUMENTED: added `project-control/lawyer-registration-attribution-2026-05-21.md`.
-- VERIFIED: `php -l inc/lawyer-onboarding.php`, `php -l page-lawyer-registration.php`, `php -l template-parts/sections/lawyer-cta.php`, `php -l inc/enqueue.php`, and `git diff --check` passed.
+- VERIFIED: `php -l inc/lawyer-onboarding.php`, `php -l page-lawyer-registration.php`, `php -l template-parts/sections/lawyer-cta.php`, `php -l inc/enqueue.php`, and `git diff --check` passed. uPress Git log shows `0449321 Capture lawyer attribution from URL hash` as `HEAD -> main, origin/main`.
+- LIVE CHECK: homepage returns 200, no page-level `noindex`, and the lawyer CTA link includes homepage attribution tags.
+- LIVE CHECK: a tagged lawyer registration URL with outreach query fields and UTM values in the URL hash renders the wizard, has no page-level `noindex`, and fills hidden fields for `utm_source`, `utm_medium`, `utm_campaign`, `outreach_segment`, `outreach_city`, `outreach_practice` and the full landing URL.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is sales measurement: first lawyer outreach can now be tracked by message/source/city/practice instead of becoming anonymous form traffic.
 - COMPLETION ASSESSMENT: lawyer outreach measurement readiness moved from 15% to 45%; first paid-lawyer readiness moved from 87% to 88%; homepage-to-lawyer-subscription path remains 82% but now carries attribution tags.
 - OWNER-VISIBLE AFTER DEPLOY: use a lawyer-registration URL with `utm_source`, `outreach_segment`, `outreach_city` or `outreach_practice`; submitted drafts should preserve those values in Lawyer Onboarding.
-- SAFETY: repo theme code/docs only so far. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created, no lawyer/lead record created and no outreach sent.
+- SAFETY: repo theme code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created, no lawyer/lead record created and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 15:47 Asia/Jerusalem
 - HOMEPAGE LAWYER ACQUISITION: connected the homepage to the stronger paid-lawyer onboarding path so lawyers can clearly start a lead-partner fit check from the front page.

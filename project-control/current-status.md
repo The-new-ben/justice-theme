@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-21 20:42 Asia/Jerusalem
+- PROTECTED PRACTICE ROUTE EARLY RENDER: added a repo-side mitigation for priority routes that may be intercepted by later WordPress redirect plugins.
+- CODE FIXED: `inc/practice-landing.php` now resolves controlled practice route templates through one helper and renders them at `template_redirect` priority `-999999`.
+- CODE FIXED: controlled practice route output now exits before later `template_redirect` handlers and sends `X-Justice-Route-Guard: controlled-practice-early-render`.
+- CODE FIXED: `inc/html-sitemap.php` now renders `/site-map/` at `template_redirect` priority `-999999`.
+- UPDATED: deployment marker to `2026-05-21-protected-route-early-render-v1`.
+- CREATED: `project-control/protected-practice-route-early-render-2026-05-21.md`.
+- CREATED: `project-control/protected-practice-route-early-render-2026-05-21.csv`.
+- VERIFIED LOCAL: `php -l inc/practice-landing.php`, `php -l inc/html-sitemap.php` and `php -l functions.php` passed.
+- NOT LIVE VERIFIED: public server still needs uPress Git pull/cache clear; if initial `301` to `/` remains after deploy, blocker is server/CDN/plugin redirect before the theme can render.
+- BLOCKED REMAINING: `/contact/` and `/about/` are not fixed by this practice-route patch and still need CMS route restore, explicit theme route or redirect-rule cleanup.
+- SAFETY: no CMS page body, database row, title/H1/meta, public slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 20:32 Asia/Jerusalem
 - PUBLIC ROUTE HOME REDIRECT TRIAGE: reviewed `12` priority public URLs with an enhanced checker that records initial redirects before following them.
 - TOOLING FIXED: `tools/check-live-traffic-priority.mjs` now records `initialHttp` and `redirectLocation`, and flags `initial_redirect_301_to_/` separately from final-path mismatch.

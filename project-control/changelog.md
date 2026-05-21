@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Protected practice route early render
+
+- CODE FIXED: `inc/practice-landing.php` now uses one controlled-route template resolver for practice-route templates.
+- CODE FIXED: controlled practice routes render at `template_redirect` priority `-999999` and exit before later WordPress redirect plugins.
+- CODE FIXED: early controlled practice route output sends `X-Justice-Route-Guard: controlled-practice-early-render`.
+- CODE FIXED: `inc/html-sitemap.php` now renders `/site-map/` at priority `-999999`.
+- UPDATED: deployment marker to `2026-05-21-protected-route-early-render-v1`.
+- CREATED: `project-control/protected-practice-route-early-render-2026-05-21.md`.
+- CREATED: `project-control/protected-practice-route-early-render-2026-05-21.csv`.
+- VERIFIED LOCAL: PHP lint passed for `inc/practice-landing.php`, `inc/html-sitemap.php` and `functions.php`.
+- NOT LIVE VERIFIED: uPress pull/cache clear and route checker rerun are still required.
+- SAFETY: no CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Public route home redirect triage
 
 - TOOLING FIXED: `tools/check-live-traffic-priority.mjs` now records initial manual redirect status/location before following redirects.

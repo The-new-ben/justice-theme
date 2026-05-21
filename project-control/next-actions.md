@@ -6,6 +6,22 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PROTECTED-PRACTICE-ROUTE-EARLY-RENDER-001: Render controlled money routes before later redirect plugins
+**Status:** CODE FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED
+**Why:** The route triage proved several priority URLs are being redirected to the homepage before users or Google see route content. The repo-side mitigation is to render known controlled routes at a very early WordPress lifecycle point, while still recognizing server/CDN redirects may require admin cleanup.
+**Actions:**
+1. DONE: updated `inc/practice-landing.php` with a shared controlled route template resolver.
+2. DONE: controlled practice routes now render at `template_redirect` priority `-999999` and exit before later redirect plugins.
+3. DONE: controlled early route output sends `X-Justice-Route-Guard: controlled-practice-early-render`.
+4. DONE: updated `inc/html-sitemap.php` so `/site-map/` renders at priority `-999999`.
+5. DONE: updated deployment marker to `2026-05-21-protected-route-early-render-v1`.
+6. DONE: created `project-control/protected-practice-route-early-render-2026-05-21.md`.
+7. DONE: created `project-control/protected-practice-route-early-render-2026-05-21.csv`.
+8. VERIFIED LOCAL: PHP lint passed for `inc/practice-landing.php`, `inc/html-sitemap.php` and `functions.php`.
+9. NEXT: after uPress pull/cache clear, rerun `node tools/check-live-traffic-priority.mjs`.
+10. BLOCKED: if `/site-map/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/` or `/inheritance-lawyer/` still show initial `301` to `/`, inspect server/CDN/plugin redirect rules because PHP theme code is not getting control.
+11. REMAINS BLOCKED: `/contact/` and `/about/` need CMS route restore, explicit theme routes or redirect-rule cleanup.
+
 ### ACTION-PUBLIC-ROUTE-HOME-REDIRECT-TRIAGE-001: Record initial redirect blockers for priority public routes
 **Status:** COMPLETED / VERIFIED LIVE / BLOCKED BY REDIRECT LAYER
 **Why:** The stricter traffic checker exposed homepage fallback on several money/trust routes. The next useful step was to separate initial redirect failures from final HTTP `200` homepage HTML so deployment/server cleanup can target the right layer.

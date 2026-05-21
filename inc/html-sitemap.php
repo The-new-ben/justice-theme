@@ -32,7 +32,7 @@ function justice_theme_maybe_render_html_sitemap(): void {
 	justice_theme_render_html_sitemap_page();
 	exit;
 }
-add_action( 'template_redirect', 'justice_theme_maybe_render_html_sitemap', -4000 );
+add_action( 'template_redirect', 'justice_theme_maybe_render_html_sitemap', -999999 );
 
 /**
  * Get published post IDs for a sitemap section.

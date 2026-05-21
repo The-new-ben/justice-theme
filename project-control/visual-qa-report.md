@@ -2,6 +2,14 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Protected Practice Route Early Render QA
+- CODE FIXED / NOT LIVE VERIFIED: controlled practice routes now render at `template_redirect` priority `-999999` and exit before later redirect plugins.
+- CODE FIXED / NOT LIVE VERIFIED: `/site-map/` renderer now runs at `template_redirect` priority `-999999`.
+- VERIFIED LOCAL: `php -l inc/practice-landing.php`, `php -l inc/html-sitemap.php` and `php -l functions.php` passed.
+- NOT VISUALLY VERIFIED: public screenshots are still blocked until uPress pull/cache clear and route final-path checks pass.
+- NEXT QA: after deploy, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/`, `/inheritance-lawyer/` and `/site-map/` should return initial `200`; if not, inspect server/CDN/plugin redirect rules.
+- SAFETY: no CMS page, database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment or admin setting changed.
+
 ## 2026-05-21 Public Route Home Redirect Triage
 - TOOLING FIXED / VERIFIED LOCAL: `tools/check-live-traffic-priority.mjs` now records `initialHttp` and `redirectLocation` before following redirects.
 - VERIFIED LIVE: `/`, `/articles/`, `/family-law/`, `/lawyers/?area=family-law`, `/criminal-defense-attorney/` and `/traffic-lawyer/` returned initial `200`.

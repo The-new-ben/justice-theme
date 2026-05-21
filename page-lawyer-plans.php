@@ -43,7 +43,41 @@ $plans = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_
 			</div>
 		</section>
 
-		<div class="lawyer-plans__grid">
+		<section class="lawyer-plans-system" aria-labelledby="lawyer-plans-system-title">
+			<div class="lawyer-plans-system__intro">
+				<p class="section-header__eyebrow"><?php esc_html_e( 'מה עורך הדין מקבל בפועל', 'justice-theme' ); ?></p>
+				<h2 id="lawyer-plans-system-title"><?php esc_html_e( 'מערכת מכירה ולא רק עוד כרטיס באינדקס', 'justice-theme' ); ?></h2>
+				<p><?php esc_html_e( 'המסלול בנוי כדי שעורך הדין יראה ללקוחות מדויקים, יקבל פניות מדידות, ויוכל להבין מאיפה מגיע הערך העסקי.', 'justice-theme' ); ?></p>
+			</div>
+			<div class="lawyer-plans-system__grid">
+				<article>
+					<strong><?php esc_html_e( '01', 'justice-theme' ); ?></strong>
+					<h3><?php esc_html_e( 'מיני-סייט עשיר', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'פרופיל עם תחומי עיסוק, שאלות נפוצות, מאמרים, מיקום, וחומרי אמון שמחזקים המרה.', 'justice-theme' ); ?></p>
+				</article>
+				<article>
+					<strong><?php esc_html_e( '02', 'justice-theme' ); ?></strong>
+					<h3><?php esc_html_e( 'פניות מדידות', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'כל פנייה נרשמת עם תחום, עיר, מקור הגעה, מסלול וסטטוס כדי לבדוק איכות ולא רק כמות.', 'justice-theme' ); ?></p>
+				</article>
+				<article>
+					<strong><?php esc_html_e( '03', 'justice-theme' ); ?></strong>
+					<h3><?php esc_html_e( 'דוח ערך חודשי', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'העורך מקבל תמונה ברורה: חשיפה, קליקים, פניות, מקורות והמלצות לשיפור.', 'justice-theme' ); ?></p>
+				</article>
+				<article>
+					<strong><?php esc_html_e( '04', 'justice-theme' ); ?></strong>
+					<h3><?php esc_html_e( 'בקרה וגילוי נאות', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'אין הבטחת תוצאות, אין דירוג מזויף, וכל חשיפה ממומנת תסומן בצורה ברורה.', 'justice-theme' ); ?></p>
+				</article>
+			</div>
+			<div class="lawyer-plans-system__actions">
+				<a class="button button--gold" href="<?php echo esc_url( justice_theme_plan_manual_activation_url( 'lead_partner' ) ); ?>"><?php esc_html_e( 'בדיקת התאמה לשותפות לידים', 'justice-theme' ); ?></a>
+				<a class="button button--outline" href="#lawyer-plans-pricing"><?php esc_html_e( 'השוואת מסלולים', 'justice-theme' ); ?></a>
+			</div>
+		</section>
+
+		<div id="lawyer-plans-pricing" class="lawyer-plans__grid">
 			<?php foreach ( $plans as $plan_key => $plan ) : ?>
 				<?php
 				$public_override = function_exists( 'justice_theme_lawyer_plan_public_overrides' ) ? justice_theme_lawyer_plan_public_overrides( $plan_key ) : array();

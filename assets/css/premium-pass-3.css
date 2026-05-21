@@ -3072,6 +3072,70 @@
   gap: 0.65rem;
 }
 
+.lawyer-plans-system {
+  display: grid;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(7, 21, 47, 0.12);
+  border-radius: 8px;
+  background: #fff;
+  padding: clamp(1rem, 2vw, 1.35rem);
+  box-shadow: 0 14px 38px rgba(7, 21, 47, 0.08);
+}
+
+.lawyer-plans-system__intro {
+  max-width: 820px;
+}
+
+.lawyer-plans-system__intro h2 {
+  margin: 0.25rem 0 0.45rem;
+  color: var(--jt-primary-deep);
+}
+
+.lawyer-plans-system__intro p {
+  margin: 0;
+  color: var(--jt-muted);
+  line-height: 1.75;
+}
+
+.lawyer-plans-system__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.lawyer-plans-system__grid article {
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  background: #fbfaf7;
+  padding: 0.95rem;
+}
+
+.lawyer-plans-system__grid strong {
+  display: inline-flex;
+  color: var(--jt-accent);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.lawyer-plans-system__grid h3 {
+  margin: 0.35rem 0 0.45rem;
+  color: var(--jt-primary-deep);
+  font-size: 1rem;
+}
+
+.lawyer-plans-system__grid p {
+  margin: 0;
+  color: var(--jt-muted);
+  line-height: 1.65;
+}
+
+.lawyer-plans-system__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
 .lawyer-plans__grid {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
@@ -3148,6 +3212,10 @@
 }
 
 @media (max-width: 1180px) {
+  .lawyer-plans-system__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .lawyer-plans__grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -3156,6 +3224,7 @@
 @media (max-width: 760px) {
   .lawyer-plans-hero__grid,
   .lawyer-plans-founder,
+  .lawyer-plans-system__grid,
   .lawyer-plans__grid {
     grid-template-columns: 1fr;
   }

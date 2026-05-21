@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-21 14:12 Asia/Jerusalem
+- HOMEPAGE MOBILE QA: checked the live homepage after the money-intent pyramid deploy, focusing on mobile because Google uses mobile-first indexing and urgent legal leads often come from phones.
+- RESEARCHED: Google Search Central mobile-first indexing guidance says Google uses the mobile version of content for indexing and recommends mobile-friendly responsive design. Current legal website conversion guidance emphasizes visible CTAs, mobile usability and clear practice-area navigation. Sources: https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing, https://growlaw.co/blog/law-firm-website-ux-best-practices, https://www.simplelaw.com/blog/conversion-strategies-for-law-firm-websites
+- AUDITED: created `project-control/visual-evidence/homepage-intent-pyramid-qa-2026-05-21.json` plus desktop/mobile screenshots for the live homepage section.
+- FOUND: mobile and desktop both show the new section with 6 cards, no page-level horizontal overflow, customer strip still present, find-lawyer guide still present, ask-lawyer path still present, and no public Grow wording.
+- CODED: improved `.homepage-intent-card` title and related-guide links in `assets/css/premium-pass-4.css` so mobile taps have larger block/flex hit areas.
+- DOCUMENTED: added `project-control/homepage-intent-mobile-qa-2026-05-21.md`.
+- VERIFIED LOCAL: `git diff --check` passed with only expected line-ending warnings.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is mobile conversion confidence on the homepage path that routes visitors to high-value practice areas, lawyer profiles and lead capture.
+- COMPLETION ASSESSMENT: traffic-to-lead conversion readiness moved from 54% to 55%; mobile homepage confidence moved from 62% to 70%. Still blocked: real analytics/GSC impact, Grow approval, mapped paid products and real paid lawyer users.
+- OWNER-VISIBLE AFTER DEPLOY: homepage intent cards should feel easier to tap on mobile, especially the title and related-guide links.
+- SAFETY: repo code/status/evidence only. No 301 redirect package touched, no Grow action taken, no card charged, no payment gateway setting changed, no public CMS page edited, no product created, and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 13:57 Asia/Jerusalem
 - HOMEPAGE SEO PYRAMID: kept the separate 301 redirect package untouched and treated Grow as waiting; used the owner's Green Invoice/Morning digital-payments guide as FYI for the payment track only.
 - RESEARCHED: Google Search Central says Google understands site importance from crawlable links between pages and recommends linking important categories/products from the homepage. Justia surfaces lawyer search by practice area and location; FindLaw separates "Find a Lawyer" from legal learning; Israeli competitors iLaw and LawZone emphasize practice-area search, lawyer matching and inquiry forms. Sources: https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure, https://www.justia.com/lawyers/, https://www.findlaw.com/, https://www.ilaw.co.il/, https://lawzone.co.il/, https://www.clio.com/blog/best-lawyer-directories/, https://www.greeninvoice.co.il/magazine/digital-payments-guide/

@@ -654,6 +654,9 @@
   line-height: 1.4;
 }
 .homepage-intent-card h3 a {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
   color: var(--jt-primary-deep, #07152f);
   text-decoration: none;
 }
@@ -708,6 +711,9 @@
   padding: 0;
 }
 .homepage-intent-card__links a {
+  display: flex;
+  align-items: center;
+  min-height: 36px;
   color: var(--jt-muted, #6b7280);
   font-size: 0.86rem;
   line-height: 1.5;

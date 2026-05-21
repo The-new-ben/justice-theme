@@ -1,0 +1,682 @@
+{
+  "checkedAt": "2026-05-21T11:11:12.687Z",
+  "url": "https://jus-tice.co.il/?homepage_mobile_qa=882f4ee",
+  "sourceCommit": "882f4ee Add homepage money intent pyramid",
+  "results": [
+    {
+      "viewport": {
+        "name": "mobile",
+        "width": 390,
+        "height": 844,
+        "isMobile": true
+      },
+      "screenshot": "C:\\Users\\janana\\jutice-theme\\project-control\\visual-evidence\\homepage-intent-pyramid-mobile-2026-05-21.png",
+      "data": {
+        "title": "עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ",
+        "viewportWidth": 390,
+        "clientWidth": 390,
+        "scrollWidth": 390,
+        "bodyScrollWidth": 390,
+        "horizontalOverflow": false,
+        "hasSection": true,
+        "cardCount": 6,
+        "hasCustomerStrip": true,
+        "hasFindGuide": true,
+        "hasAskLawyer": true,
+        "mentionsGrow": false,
+        "firstViewportHasLeadForm": true,
+        "badTapTargets": [
+          {
+            "text": "עורך דין פלילי",
+            "href": "https://jus-tice.co.il/criminal-defense-attorney/",
+            "width": 93,
+            "height": 22
+          },
+          {
+            "text": "אלימות במשפחה | צו הגנה, זכויות, עונשים והגנה משפטית",
+            "href": "https://jus-tice.co.il/domestic-violence/",
+            "width": 291,
+            "height": 18
+          },
+          {
+            "text": "עבירות מין | סוגי עבירות, עונשים, הגנה וזכויות",
+            "href": "https://jus-tice.co.il/sex-offenses/",
+            "width": 226,
+            "height": 18
+          },
+          {
+            "text": "עורך דין משפחה וגירושין",
+            "href": "https://jus-tice.co.il/divorce-lawyer/",
+            "width": 162,
+            "height": 22
+          },
+          {
+            "text": "עורך דין מקרקעין",
+            "href": "https://jus-tice.co.il/lawyers/?area=real-estate-law",
+            "width": 113,
+            "height": 22
+          },
+          {
+            "text": "חוזה מכר דירה",
+            "href": "https://jus-tice.co.il/lawyers/?area=real-estate-law",
+            "width": 78,
+            "height": 18
+          },
+          {
+            "text": "ליקויי בנייה",
+            "href": "https://jus-tice.co.il/lawyers/?area=real-estate-law",
+            "width": 56,
+            "height": 18
+          },
+          {
+            "text": "מס שבח ורכישה",
+            "href": "https://jus-tice.co.il/lawyers/?area=real-estate-law",
+            "width": 83,
+            "height": 18
+          },
+          {
+            "text": "עורך דין רשלנות רפואית",
+            "href": "https://jus-tice.co.il/lawyers/?area=medical-malpractice-law",
+            "width": 158,
+            "height": 22
+          },
+          {
+            "text": "מהי רשלנות רפואית",
+            "href": "https://jus-tice.co.il/what-is-medical-malpractice-definition-examples/",
+            "width": 101,
+            "height": 18
+          },
+          {
+            "text": "רשלנות בניתוח",
+            "href": "https://jus-tice.co.il/surgical-errors-medical-malpractice/",
+            "width": 76,
+            "height": 18
+          },
+          {
+            "text": "פגיעות לידה",
+            "href": "https://jus-tice.co.il/birth-injury/",
+            "width": 63,
+            "height": 18
+          },
+          {
+            "text": "עורך דין דיני עבודה",
+            "href": "https://jus-tice.co.il/lawyers/?area=labor-law",
+            "width": 126,
+            "height": 22
+          },
+          {
+            "text": "זכויות עובדים",
+            "href": "https://jus-tice.co.il/lawyers/?area=labor-law",
+            "width": 68,
+            "height": 18
+          },
+          {
+            "text": "פיטורים שלא כדין",
+            "href": "https://jus-tice.co.il/lawyers/?area=labor-law",
+            "width": 91,
+            "height": 18
+          },
+          {
+            "text": "הסכם עבודה",
+            "href": "https://jus-tice.co.il/lawyers/?area=labor-law",
+            "width": 67,
+            "height": 18
+          },
+          {
+            "text": "עורך דין נזיקין ותאונות",
+            "href": "https://jus-tice.co.il/lawyers/?area=personal-injury-law",
+            "width": 150,
+            "height": 22
+          },
+          {
+            "text": "תאונת דרכים",
+            "href": "https://jus-tice.co.il/lawyers/?area=personal-injury-law",
+            "width": 68,
+            "height": 18
+          },
+          {
+            "text": "תאונת עבודה",
+            "href": "https://jus-tice.co.il/lawyers/?area=personal-injury-law",
+            "width": 68,
+            "height": 18
+          },
+          {
+            "text": "ביטוח לאומי",
+            "href": "https://jus-tice.co.il/lawyers/?area=personal-injury-law",
+            "width": 61,
+            "height": 18
+          }
+        ],
+        "overflowing": [
+          {
+            "tag": "NAV",
+            "className": "pojo-a11y-toolbar-right",
+            "text": "פתח סרגל נגישות\n\nכלי נגישות\n\nהגדל טקסט\nהקטן טקסט\nגווני אפור\nניגודיות גבוהה\nניגוד",
+            "left": 390,
+            "right": 570,
+            "width": 180
+          },
+          {
+            "tag": "DIV",
+            "className": "pojo-a11y-toolbar-overlay",
+            "text": "כלי נגישות\n\nהגדל טקסט\nהקטן טקסט\nגווני אפור\nניגודיות גבוהה\nניגודיות הפוכה\nרקע בהי",
+            "left": 390,
+            "right": 570,
+            "width": 180
+          },
+          {
+            "tag": "DIV",
+            "className": "pojo-a11y-toolbar-inner",
+            "text": "כלי נגישות\n\nהגדל טקסט\nהקטן טקסט\nגווני אפור\nניגודיות גבוהה\nניגודיות הפוכה\nרקע בהי",
+            "left": 391,
+            "right": 569,
+            "width": 178
+          },
+          {
+            "tag": "P",
+            "className": "pojo-a11y-toolbar-title",
+            "text": "כלי נגישות",
+            "left": 391,
+            "right": 569,
+            "width": 178
+          },
+          {
+            "tag": "UL",
+            "className": "pojo-a11y-toolbar-items pojo-a11y-tools",
+            "text": "הגדל טקסט\nהקטן טקסט\nגווני אפור\nניגודיות גבוהה\nניגודיות הפוכה\nרקע בהיר\nהדגשת קישו",
+            "left": 391,
+            "right": 569,
+            "width": 178
+          },
+          {
+            "tag": "LI",
+            "className": "pojo-a11y-toolbar-item",
+            "text": "הגדל טקסט",
+            "left": 391,
+            "right": 569,
+            "width": 178
+          },
+          {
+            "tag": "A",
+            "className": "pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-plus",
+            "text": "הגדל טקסט",
+            "left": 391,
+            "right": 569,
+            "width": 178
+          },
+          {
+            "tag": "SPAN",
+            "className": "pojo-a11y-toolbar-icon",
+            "text": "",
+            "left": 538,
+            "right": 557,
+            "width": 19
+          },
+          {
+            "tag": "svg",
+            "className": "[object SVGAnimatedString]",
+            "text": "",
+            "left": 538,
+            "right": 557,
+            "width": 19
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "text": "",
+            "left": 544,
+            "right": 556,
+            "width": 12
+          },
+          {
+            "tag": "SPAN",
+            "className": "pojo-a11y-toolbar-text",
+            "text": "הגדל טקסט",
+            "left": 482,
+            "right": 538,
+            "width": 56
+          },
+          {
+            "tag": "LI",
+            "className": "pojo-a11y-toolbar-item",
+            "text": "הקטן טקסט",
+            "left": 391,
+            "right": 569,
+            "width": 178
+          },
+          {
+            "tag": "A",
+            "className": "pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-minus",
+            "text": "הקטן טקסט",
+            "left": 391,
+            "right": 569,
+            "width": 178
+          },
+          {
+            "tag": "SPAN",
+            "className": "pojo-a11y-toolbar-icon",
+            "text": "",
+            "left": 538,
+            "right": 557,
+            "width": 19
+          },
+          {
+            "tag": "svg",
+            "className": "[object SVGAnimatedString]",
+            "text": "",
+            "left": 538,
+            "right": 557,
+            "width": 19
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "text": "",
+            "left": 544,
+            "right": 556,
+            "width": 12
+          },
+          {
+            "tag": "SPAN",
+            "className": "pojo-a11y-toolbar-text",
+            "text": "הקטן טקסט",
+            "left": 483,
+            "right": 538,
+            "width": 55
+          },
+          {
+            "tag": "LI",
+            "className": "pojo-a11y-toolbar-item",
+            "text": "גווני אפור",
+            "left": 391,
+            "right": 569,
+            "width": 178
+          },
+          {
+            "tag": "A",
+            "className": "pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-grayscale",
+            "text": "גווני אפור",
+            "left": 391,
+            "right": 569,
+            "width": 178
+          },
+          {
+            "tag": "SPAN",
+            "className": "pojo-a11y-toolbar-icon",
+            "text": "",
+            "left": 538,
+            "right": 557,
+            "width": 19
+          }
+        ],
+        "firstFiveLinks": [
+          {
+            "text": "חיפוש עורכי דין",
+            "href": "https://jus-tice.co.il/lawyers/"
+          },
+          {
+            "text": "עורך דין פלילי",
+            "href": "https://jus-tice.co.il/criminal-defense-attorney/"
+          },
+          {
+            "text": "קריאת מדריך",
+            "href": "https://jus-tice.co.il/criminal-defense-attorney/"
+          },
+          {
+            "text": "פרופילים בתחום",
+            "href": "https://jus-tice.co.il/lawyers/?area=criminal-law"
+          },
+          {
+            "text": "אלימות במשפחה | צו הגנה, זכויות, עונשים והגנה משפטית",
+            "href": "https://jus-tice.co.il/domestic-violence/"
+          }
+        ]
+      }
+    },
+    {
+      "viewport": {
+        "name": "desktop",
+        "width": 1365,
+        "height": 900,
+        "isMobile": false
+      },
+      "screenshot": "C:\\Users\\janana\\jutice-theme\\project-control\\visual-evidence\\homepage-intent-pyramid-desktop-2026-05-21.png",
+      "data": {
+        "title": "עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ",
+        "viewportWidth": 1365,
+        "clientWidth": 1365,
+        "scrollWidth": 1365,
+        "bodyScrollWidth": 1365,
+        "horizontalOverflow": false,
+        "hasSection": true,
+        "cardCount": 6,
+        "hasCustomerStrip": true,
+        "hasFindGuide": true,
+        "hasAskLawyer": true,
+        "mentionsGrow": false,
+        "firstViewportHasLeadForm": true,
+        "badTapTargets": [
+          {
+            "text": "עורך דין פלילי",
+            "href": "https://jus-tice.co.il/criminal-defense-attorney/",
+            "width": 93,
+            "height": 22
+          },
+          {
+            "text": "אלימות במשפחה | צו הגנה, זכויות, עונשים והגנה משפטית",
+            "href": "https://jus-tice.co.il/domestic-violence/",
+            "width": 291,
+            "height": 18
+          },
+          {
+            "text": "עבירות מין | סוגי עבירות, עונשים, הגנה וזכויות",
+            "href": "https://jus-tice.co.il/sex-offenses/",
+            "width": 226,
+            "height": 18
+          },
+          {
+            "text": "עורך דין משפחה וגירושין",
+            "href": "https://jus-tice.co.il/divorce-lawyer/",
+            "width": 162,
+            "height": 22
+          },
+          {
+            "text": "מדריך לאישור הסכם גירושין בבתי הדין הרבניים – 55 כללים מעשיים",
+            "href": "https://jus-tice.co.il/rabbinical-agreement-approval/",
+            "width": 343,
+            "height": 18
+          },
+          {
+            "text": "עורך דין מקרקעין",
+            "href": "https://jus-tice.co.il/lawyers/?area=real-estate-law",
+            "width": 113,
+            "height": 22
+          },
+          {
+            "text": "חוזה מכר דירה",
+            "href": "https://jus-tice.co.il/lawyers/?area=real-estate-law",
+            "width": 78,
+            "height": 18
+          },
+          {
+            "text": "ליקויי בנייה",
+            "href": "https://jus-tice.co.il/lawyers/?area=real-estate-law",
+            "width": 56,
+            "height": 18
+          },
+          {
+            "text": "מס שבח ורכישה",
+            "href": "https://jus-tice.co.il/lawyers/?area=real-estate-law",
+            "width": 83,
+            "height": 18
+          },
+          {
+            "text": "עורך דין רשלנות רפואית",
+            "href": "https://jus-tice.co.il/lawyers/?area=medical-malpractice-law",
+            "width": 158,
+            "height": 22
+          },
+          {
+            "text": "מהי רשלנות רפואית",
+            "href": "https://jus-tice.co.il/what-is-medical-malpractice-definition-examples/",
+            "width": 101,
+            "height": 18
+          },
+          {
+            "text": "רשלנות בניתוח",
+            "href": "https://jus-tice.co.il/surgical-errors-medical-malpractice/",
+            "width": 76,
+            "height": 18
+          },
+          {
+            "text": "פגיעות לידה",
+            "href": "https://jus-tice.co.il/birth-injury/",
+            "width": 63,
+            "height": 18
+          },
+          {
+            "text": "עורך דין דיני עבודה",
+            "href": "https://jus-tice.co.il/lawyers/?area=labor-law",
+            "width": 126,
+            "height": 22
+          },
+          {
+            "text": "זכויות עובדים",
+            "href": "https://jus-tice.co.il/lawyers/?area=labor-law",
+            "width": 68,
+            "height": 18
+          },
+          {
+            "text": "פיטורים שלא כדין",
+            "href": "https://jus-tice.co.il/lawyers/?area=labor-law",
+            "width": 91,
+            "height": 18
+          },
+          {
+            "text": "הסכם עבודה",
+            "href": "https://jus-tice.co.il/lawyers/?area=labor-law",
+            "width": 67,
+            "height": 18
+          },
+          {
+            "text": "עורך דין נזיקין ותאונות",
+            "href": "https://jus-tice.co.il/lawyers/?area=personal-injury-law",
+            "width": 150,
+            "height": 22
+          },
+          {
+            "text": "תאונת דרכים",
+            "href": "https://jus-tice.co.il/lawyers/?area=personal-injury-law",
+            "width": 68,
+            "height": 18
+          },
+          {
+            "text": "תאונת עבודה",
+            "href": "https://jus-tice.co.il/lawyers/?area=personal-injury-law",
+            "width": 68,
+            "height": 18
+          },
+          {
+            "text": "ביטוח לאומי",
+            "href": "https://jus-tice.co.il/lawyers/?area=personal-injury-law",
+            "width": 61,
+            "height": 18
+          }
+        ],
+        "overflowing": [
+          {
+            "tag": "NAV",
+            "className": "pojo-a11y-toolbar-right",
+            "text": "פתח סרגל נגישות\n\nכלי נגישות\n\nהגדל טקסט\nהקטן טקסט\nגווני אפור\nניגודיות גבוהה\nניגוד",
+            "left": 1365,
+            "right": 1545,
+            "width": 180
+          },
+          {
+            "tag": "DIV",
+            "className": "pojo-a11y-toolbar-overlay",
+            "text": "כלי נגישות\n\nהגדל טקסט\nהקטן טקסט\nגווני אפור\nניגודיות גבוהה\nניגודיות הפוכה\nרקע בהי",
+            "left": 1365,
+            "right": 1545,
+            "width": 180
+          },
+          {
+            "tag": "DIV",
+            "className": "pojo-a11y-toolbar-inner",
+            "text": "כלי נגישות\n\nהגדל טקסט\nהקטן טקסט\nגווני אפור\nניגודיות גבוהה\nניגודיות הפוכה\nרקע בהי",
+            "left": 1366,
+            "right": 1544,
+            "width": 178
+          },
+          {
+            "tag": "P",
+            "className": "pojo-a11y-toolbar-title",
+            "text": "כלי נגישות",
+            "left": 1366,
+            "right": 1544,
+            "width": 178
+          },
+          {
+            "tag": "UL",
+            "className": "pojo-a11y-toolbar-items pojo-a11y-tools",
+            "text": "הגדל טקסט\nהקטן טקסט\nגווני אפור\nניגודיות גבוהה\nניגודיות הפוכה\nרקע בהיר\nהדגשת קישו",
+            "left": 1366,
+            "right": 1544,
+            "width": 178
+          },
+          {
+            "tag": "LI",
+            "className": "pojo-a11y-toolbar-item",
+            "text": "הגדל טקסט",
+            "left": 1366,
+            "right": 1544,
+            "width": 178
+          },
+          {
+            "tag": "A",
+            "className": "pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-plus",
+            "text": "הגדל טקסט",
+            "left": 1366,
+            "right": 1544,
+            "width": 178
+          },
+          {
+            "tag": "SPAN",
+            "className": "pojo-a11y-toolbar-icon",
+            "text": "",
+            "left": 1510,
+            "right": 1529,
+            "width": 19
+          },
+          {
+            "tag": "svg",
+            "className": "[object SVGAnimatedString]",
+            "text": "",
+            "left": 1510,
+            "right": 1529,
+            "width": 19
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "text": "",
+            "left": 1516,
+            "right": 1528,
+            "width": 12
+          },
+          {
+            "tag": "SPAN",
+            "className": "pojo-a11y-toolbar-text",
+            "text": "הגדל טקסט",
+            "left": 1454,
+            "right": 1510,
+            "width": 56
+          },
+          {
+            "tag": "LI",
+            "className": "pojo-a11y-toolbar-item",
+            "text": "הקטן טקסט",
+            "left": 1366,
+            "right": 1544,
+            "width": 178
+          },
+          {
+            "tag": "A",
+            "className": "pojo-a11y-toolbar-link pojo-a11y-btn-resize-font pojo-a11y-btn-resize-minus",
+            "text": "הקטן טקסט",
+            "left": 1366,
+            "right": 1544,
+            "width": 178
+          },
+          {
+            "tag": "SPAN",
+            "className": "pojo-a11y-toolbar-icon",
+            "text": "",
+            "left": 1510,
+            "right": 1529,
+            "width": 19
+          },
+          {
+            "tag": "svg",
+            "className": "[object SVGAnimatedString]",
+            "text": "",
+            "left": 1510,
+            "right": 1529,
+            "width": 19
+          },
+          {
+            "tag": "path",
+            "className": "[object SVGAnimatedString]",
+            "text": "",
+            "left": 1516,
+            "right": 1528,
+            "width": 12
+          },
+          {
+            "tag": "SPAN",
+            "className": "pojo-a11y-toolbar-text",
+            "text": "הקטן טקסט",
+            "left": 1455,
+            "right": 1510,
+            "width": 55
+          },
+          {
+            "tag": "LI",
+            "className": "pojo-a11y-toolbar-item",
+            "text": "גווני אפור",
+            "left": 1366,
+            "right": 1544,
+            "width": 178
+          },
+          {
+            "tag": "A",
+            "className": "pojo-a11y-toolbar-link pojo-a11y-btn-background-group pojo-a11y-btn-grayscale",
+            "text": "גווני אפור",
+            "left": 1366,
+            "right": 1544,
+            "width": 178
+          },
+          {
+            "tag": "SPAN",
+            "className": "pojo-a11y-toolbar-icon",
+            "text": "",
+            "left": 1510,
+            "right": 1529,
+            "width": 19
+          }
+        ],
+        "firstFiveLinks": [
+          {
+            "text": "חיפוש עורכי דין",
+            "href": "https://jus-tice.co.il/lawyers/"
+          },
+          {
+            "text": "עורך דין פלילי",
+            "href": "https://jus-tice.co.il/criminal-defense-attorney/"
+          },
+          {
+            "text": "קריאת מדריך",
+            "href": "https://jus-tice.co.il/criminal-defense-attorney/"
+          },
+          {
+            "text": "פרופילים בתחום",
+            "href": "https://jus-tice.co.il/lawyers/?area=criminal-law"
+          },
+          {
+            "text": "אלימות במשפחה | צו הגנה, זכויות, עונשים והגנה משפטית",
+            "href": "https://jus-tice.co.il/domestic-violence/"
+          }
+        ]
+      }
+    }
+  ],
+  "assessment": {
+    "mobilePass": true,
+    "desktopPass": true,
+    "notes": [
+      "The new section remains crawlable with ordinary anchor links.",
+      "The existing how-to-choose/find-lawyer guide remains present.",
+      "No public Grow wording was exposed on the homepage."
+    ]
+  }
+}

@@ -559,6 +559,37 @@ function justice_theme_lawyer_outreach_link_args(): array {
 	);
 }
 
+function justice_theme_lawyer_outreach_message_template( string $variant, string $practice_label, string $city_label, string $registration_url, string $personal_note = '' ): string {
+	$templates = array(
+		'message_a' => sprintf(
+			"שלום, אני בונה ב-Jus-Tice מסלול שותפי לידים לעורכי דין בתחום %s באזור %s.\nאנחנו פותחים מספר מקומות לבדיקה מוקדמת: מיני-סייט, פניות מדידות ודוח ערך חודשי. אין חיוב מהטופס ואין התחייבות.\nאם מתאים, אפשר להשאיר פרטים כאן:\n%s\nאם זה לא רלוונטי, כתבו לי להסיר ולא אפנה שוב.",
+			$practice_label,
+			$city_label,
+			$registration_url
+		),
+		'message_b' => sprintf(
+			"שלום, אני מחפש כמה עורכי דין מתאימים לעלייה מוקדמת ב-Jus-Tice בתחום %s ב-%s.\nהמטרה היא לבנות לכם עמוד מקצועי שמודד חשיפה, פניות ומקור הגעה, ולא רק עוד כרטיס אינדקס.\nבדיקת התאמה קצרה כאן:\n%s\nאם לא מתאים, כתבו להסיר ואעצור כאן.",
+			$practice_label,
+			$city_label,
+			$registration_url
+		),
+		'message_c' => sprintf(
+			"שלום, Jus-Tice מכינה מסלול לעורכי דין שרוצים לקבל נראות ופניות מדידות בתחום %s באזור %s.\nבשלב הראשון אנחנו בוחרים מעט שותפים כדי לבדוק התאמה, זמינות ותחום. אין תשלום דרך הטופס עצמו.\nאפשר להתחיל כאן:\n%s\nאם אינכם רוצים שאפנה שוב, כתבו להסיר.",
+			$practice_label,
+			$city_label,
+			$registration_url
+		),
+	);
+
+	$message = $templates[ $variant ] ?? $templates['message_a'];
+
+	if ( '' !== trim( $personal_note ) ) {
+		$message = trim( $personal_note ) . "\n\n" . $message;
+	}
+
+	return $message;
+}
+
 function justice_theme_render_lawyer_outreach_links_page(): void {
 	if ( ! current_user_can( 'edit_pages' ) ) {
 		wp_die( esc_html__( 'You do not have permission to access outreach links.', 'justice-theme' ) );
@@ -569,16 +600,15 @@ function justice_theme_render_lawyer_outreach_links_page(): void {
 	$registration_url = add_query_arg( $args, home_url( '/lawyer-registration/' ) );
 	$practice_label   = str_replace( '-', ' ', $args['outreach_practice'] ?? 'your practice area' );
 	$city_label       = str_replace( '-', ' ', $args['outreach_city'] ?? 'your city' );
-	$message_template = sprintf(
-		"שלום, אני בונה ב-Jus-Tice מסלול שותפי לידים לעורכי דין בתחום %s באזור %s.\nאנחנו פותחים מספר מקומות לבדיקה מוקדמת: מיני-סייט, פניות מדידות ודוח ערך חודשי. אין חיוב מהטופס ואין התחייבות.\nאם מתאים, אפשר להשאיר פרטים כאן:\n%s",
-		$practice_label,
-		$city_label,
-		$registration_url
-	);
+	$personal_note    = justice_theme_lawyer_outreach_builder_value( 'outreach_personal_note', '' );
+	$message_template = justice_theme_lawyer_outreach_message_template( $args['utm_content'] ?? 'message_a', $practice_label, $city_label, $registration_url, $personal_note );
 	?>
 	<div class="wrap">
 		<h1>Lawyer Outreach Links</h1>
 		<p>Create tracked registration links before messaging lawyers. Keep each batch small, personal and relevant. Use lowercase campaign IDs so Analytics does not split one campaign into multiple rows. If someone asks not to be contacted, stop contacting them.</p>
+		<div class="notice notice-warning inline">
+			<p><strong>Manual outreach only:</strong> this screen creates copyable drafts. It does not send bulk email or SMS. Contact only relevant lawyers, personalize the opening line, and respect every removal request.</p>
+		</div>
 		<form method="get" action="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>" style="max-width:960px;background:#fff;border:1px solid #dcdcde;padding:18px 20px;margin:18px 0;">
 			<input type="hidden" name="page" value="justice-lawyer-outreach-links">
 			<table class="form-table" role="presentation">
@@ -618,7 +648,15 @@ function justice_theme_render_lawyer_outreach_links_page(): void {
 				</tr>
 				<tr>
 					<th scope="row"><label for="justice-outreach-content">Message variant</label></th>
-					<td><input id="justice-outreach-content" type="text" name="utm_content" value="<?php echo esc_attr( $args['utm_content'] ?? '' ); ?>" class="regular-text" placeholder="message_a"></td>
+					<td>
+						<input id="justice-outreach-content" type="text" name="utm_content" value="<?php echo esc_attr( $args['utm_content'] ?? '' ); ?>" class="regular-text" placeholder="message_a" list="justice-outreach-content-options">
+						<datalist id="justice-outreach-content-options">
+							<option value="message_a">
+							<option value="message_b">
+							<option value="message_c">
+						</datalist>
+						<p class="description">Use message_a, message_b or message_c to switch the copied draft while keeping the same tracking structure.</p>
+					</td>
 				</tr>
 				<tr>
 					<th scope="row"><label for="justice-outreach-segment">Segment</label></th>
@@ -631,6 +669,13 @@ function justice_theme_render_lawyer_outreach_links_page(): void {
 				<tr>
 					<th scope="row"><label for="justice-outreach-practice">Practice</label></th>
 					<td><input id="justice-outreach-practice" type="text" name="outreach_practice" value="<?php echo esc_attr( $args['outreach_practice'] ?? '' ); ?>" class="regular-text" placeholder="family-law"></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="justice-outreach-personal-note">Personal opening line</label></th>
+					<td>
+						<textarea id="justice-outreach-personal-note" name="outreach_personal_note" rows="2" class="large-text" style="max-width:720px;" placeholder="Example: I saw your family-law articles and thought this may fit your Tel Aviv work."><?php echo esc_textarea( $personal_note ); ?></textarea>
+						<p class="description">This is copied into the message only. It is not added to the registration link.</p>
+					</td>
 				</tr>
 			</table>
 			<?php submit_button( 'Build tracked link', 'primary', 'submit', false ); ?>
@@ -649,6 +694,8 @@ function justice_theme_render_lawyer_outreach_links_page(): void {
 			<li>Start with 10 to 20 lawyers per segment.</li>
 			<li>Use one clear segment per batch, such as family law in Tel Aviv.</li>
 			<li>Change only one thing between batches: city, practice, source or message variant.</li>
+			<li>Personalize the first sentence so the lawyer understands why they were contacted.</li>
+			<li>Do not use this as a bulk sender; copy and send manually only when the contact is relevant.</li>
 			<li>Watch Lawyer Onboarding -> Source after real submissions arrive.</li>
 		</ul>
 	</div>

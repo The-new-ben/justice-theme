@@ -6,9 +6,11 @@
 - CODED: removed public WooCommerce/Morning vendor wording from the plan-page copy and replaced it with clean billing-readiness language.
 - CODED: `assets/css/premium-pass-3.css` styles the new section across desktop and mobile.
 - VERIFIED: `php -l page-lawyer-plans.php` passed, `git diff --check` passed with only the existing Windows line-ending warning, and `page-lawyer-plans.php` no longer contains public WooCommerce/Morning/Grow/Meshulam wording.
+- DEPLOYED: pushed `27c7065 Strengthen lawyer plans sales page` and `92d0f03 Hide payment vendor wording on lawyer plans`; uPress Git pull succeeded and the uPress log shows `92d0f03` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: `/lawyer-plans/?qa=plans-sales-final-202605211633` returns the live page, the new sales-system section is present, there is no page-level `noindex`, no public Grow/Meshulam/WooCommerce/Morning wording was found, and desktop page width stayed within the viewport.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is sales conversion: lawyers now see a clearer product reason to leave details before billing is active.
 - COMPLETION ASSESSMENT: lawyer plan conversion readiness moved from 64% to 70%; first paid-lawyer readiness moved from 89% to 90%; homepage-to-lawyer-subscription path remains 82% until real outreach/signups arrive.
-- OWNER-VISIBLE AFTER DEPLOY: `/lawyer-plans/`, above the plan cards.
+- OWNER-VISIBLE: `/lawyer-plans/`, above the plan cards.
 - SAFETY: repo theme code/docs only. No public CMS database page edited, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/order record created and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 16:15 Asia/Jerusalem

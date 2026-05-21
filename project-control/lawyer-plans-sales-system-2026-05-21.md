@@ -29,6 +29,9 @@ Sources:
 - `php -l page-lawyer-plans.php` passed.
 - `git diff --check` passed, with only the existing Windows line-ending warning.
 - `rg "WooCommerce|Morning|Grow|Meshulam" page-lawyer-plans.php` found no public plan-page vendor wording.
+- Pushed `27c7065 Strengthen lawyer plans sales page` and `92d0f03 Hide payment vendor wording on lawyer plans`.
+- uPress Git pull succeeded; uPress log shows `92d0f03 Hide payment vendor wording on lawyer plans` as `HEAD -> main, origin/main, origin/HEAD`.
+- Live `/lawyer-plans/?qa=plans-sales-final-202605211633` returns the plan page, includes the new `lawyer-plans-system` section, has no page-level `noindex`, includes no public Grow/Meshulam/WooCommerce/Morning wording, and has no obvious desktop page-width overflow.
 
 ## Completion Assessment
 - Materially advanced: the public lawyer sales page now communicates product value more clearly before asking for signup.

@@ -1,12 +1,14 @@
-## LATEST WORK STATUS - 2026-05-21 18:55 Asia/Jerusalem
+## LATEST WORK STATUS - 2026-05-21 19:01 Asia/Jerusalem
 - LEGALTECH SAFE LINK CLEANUP: removed the remaining theme-level raw `/legal-tools/` links from fallback navigation and LegalTech/pillar templates until the archive route is verified live.
 - RESEARCHED: Google Search Central says crawlable internal links help Google and users understand pages, and Google warns against redirecting missing-file traffic to the homepage because it can create weak soft-404 style signals. Sources: https://developers.google.com/search/docs/crawling-indexing/links-crawlable, https://developers.google.com/search/blog/2005/09/verifying-your-site-trouble-with-404, https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes
 - CODED: `template-parts/layout/site-header.php` fallback menu now uses `justice_theme_safe_public_link( '/legal-tools/', '/#ask-lawyer' )`.
 - CODED: `single-justice_legal_tool.php` now keeps the "all tools" button on the safe fallback until `/legal-tools/` is a verified public archive.
 - CODED: `page-legal-pillar.php` now renders `pillar_legaltech_url` only when the target path is published, so future pillar pages do not promote unpublished LegalTech tools.
-- VERIFIED: `php -l template-parts/layout/site-header.php`, `php -l single-justice_legal_tool.php`, `php -l page-legal-pillar.php` and `git diff --check` passed with only the existing Windows line-ending warning. Push/uPress pull and live safety checks are next in this cycle.
+- VERIFIED: `php -l template-parts/layout/site-header.php`, `php -l single-justice_legal_tool.php`, `php -l page-legal-pillar.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `07d052a Keep LegalTech archive links on safe fallback`; uPress Pull Git succeeded and the uPress log showed `07d052a` as live HEAD.
+- LIVE CHECK: cache-busted homepage returns 200, contains `legaltech-tools` and `AI Console`, has no page-level `noindex`, does not expose a direct `/legal-tools/` archive link, and keeps the safe `#ask-lawyer` fallback. Live `/legal-tools/` still returns 301 to the homepage, so the archive remains intentionally unpromoted.
 - HONEST MONEY ASSESSMENT: no revenue, no outreach and no product record created. Material advancement is reducing internal-link waste around the new product layer so the homepage/pillar funnel stays cleaner for users and Google.
-- COMPLETION ASSESSMENT: homepage money-machine readiness is expected to move from 86% to 87% after verification; LegalTech product-path readiness is expected to move from 42% to 44%; first paid-lawyer readiness remains about 90% until real outreach/signups or Grow/payment setup moves.
+- COMPLETION ASSESSMENT: homepage money-machine readiness moved from 86% to 87%; LegalTech product-path readiness moved from 42% to 44%; first paid-lawyer readiness remains about 90% until real outreach/signups or Grow/payment setup moves.
 - OWNER-VISIBLE AFTER DEPLOY: mostly invisible safety cleanup; it affects fallback header navigation, future LegalTech single pages and future legal pillar product CTAs.
 - SAFETY: repo theme code/docs only. No public CMS database page edited, no product record created, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no lawyer/lead/prospect/order record created and no outreach sent.
 

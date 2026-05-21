@@ -25,7 +25,10 @@ Sources:
 - `php -l single-justice_legal_tool.php` passed.
 - `php -l page-legal-pillar.php` passed.
 - `git diff --check` passed with only the existing Windows line-ending warning.
-- Deployment and live checks are next in this cycle.
+- Pushed `07d052a Keep LegalTech archive links on safe fallback`.
+- uPress Pull Git succeeded; the uPress log showed `07d052a` as `(HEAD -> main, origin/main, origin/HEAD)`.
+- Live homepage smoke check returned 200, contained `legaltech-tools` and `AI Console`, had no page-level `noindex`, did not expose a direct `/legal-tools/` archive link, and still had the safe `#ask-lawyer` fallback.
+- Live `/legal-tools/` still returns 301 to the homepage, confirming the archive should remain unpromoted until its route/CMS state is fixed later.
 
 ## Owner Impact
 

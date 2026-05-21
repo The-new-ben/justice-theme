@@ -21,6 +21,7 @@ define( 'JUSTICE_CORE_DIR', plugin_dir_path( __FILE__ ) );
 define( 'JUSTICE_CORE_URL', plugin_dir_url( __FILE__ ) );
 
 $justice_core_files = array(
+	'includes/redirects-301.php',
 	'includes/security.php',
 	'includes/logger.php',
 	'includes/cpt-articles.php',
@@ -41,7 +42,7 @@ $justice_core_files = array(
 
 
 foreach ( $justice_core_files as $justice_core_file ) {
-	$justice_core_path = JUSTICE_CORE_DIR . $justice_core_file;
+	$justice_core_path = __DIR__ . '/' . $justice_core_file;
 	if ( file_exists( $justice_core_path ) ) {
 		require_once $justice_core_path;
 	}
@@ -61,13 +62,17 @@ function justice_core_activate() {
 		}
 	}
 	flush_rewrite_rules();
-	justice_core_log( 'activated', 'Justice Core v4.0.0 activated.' );
+	if ( function_exists( 'justice_core_log' ) ) {
+		justice_core_log( 'activated', 'Justice Core v4.1.0 activated.' );
+	}
 }
 
 register_deactivation_hook( __FILE__, 'justice_core_deactivate' );
 function justice_core_deactivate() {
 	flush_rewrite_rules();
-	justice_core_log( 'deactivated', 'Justice Core v4.0.0 deactivated.' );
+	if ( function_exists( 'justice_core_log' ) ) {
+		justice_core_log( 'deactivated', 'Justice Core v4.1.0 deactivated.' );
+	}
 }
 
 /**

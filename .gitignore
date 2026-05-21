@@ -4,6 +4,8 @@
 # Environment / credentials
 .env*
 credentials/
+justice-theme/tools/gsc/gsc-token.json
+justice-theme/tools/gsc/wp-app-password.json
 
 # OS files
 Thumbs.db
@@ -13,6 +15,7 @@ Thumbs.db
 rename.php
 wpjson-dump.txt
 justice-installer.php
+temp_*.html
 
 # IDE
 .vscode/
@@ -21,4 +24,26 @@ justice-installer.php
 # Legacy plugin folders (do not push to repo)
 justice-core-v3/
 justice-portal/
+
+# Test/temp scripts (not production)
+test-*.php
+test_*/
+
+# Archives (too large for git)
+*.rar
+
+# Extracted archive folders (raw dumps, not canonical)
+extracted-project-control/
+extracted-project-control-codex/
+
+# Non-canonical folders
+aero-index/
+arch-archive/
+backup-assets/
+ultra-justice/
+ultra-justice-engine/
+jt-deploy/
+
+# Node modules
+node_modules/
 

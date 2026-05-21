@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Public route home redirect triage
+
+- TOOLING FIXED: `tools/check-live-traffic-priority.mjs` now records initial manual redirect status/location before following redirects.
+- CREATED: `project-control/public-route-home-redirect-triage-2026-05-21.md`.
+- CREATED: `project-control/public-route-home-redirect-triage-2026-05-21.csv`.
+- GENERATED: `reports/traffic-priority-audit-2026-05-21-route-home-redirects.csv`.
+- VERIFIED LIVE: `/`, `/articles/`, `/family-law/`, `/lawyers/?area=family-law`, `/criminal-defense-attorney/` and `/traffic-lawyer/` returned initial `200`.
+- BLOCKED LIVE: `/site-map/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/`, `/inheritance-lawyer/`, `/contact/` and `/about/` returned initial `301` to `https://jus-tice.co.il`.
+- VERIFIED LOCAL: `node --check tools/check-live-traffic-priority.mjs` passed after the checker update.
+- SAFETY: no CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Real estate guide redirect guard
 
 - CODE FIXED: `inc/routing-guards.php` now blocks WordPress-level `wp_redirect` and `redirect_canonical` conflicts from `/real-estate-lawyer-guide/` to `/` or `/real-estate-attorney`.

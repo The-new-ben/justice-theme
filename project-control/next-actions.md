@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-PUBLIC-ROUTE-HOME-REDIRECT-TRIAGE-001: Record initial redirect blockers for priority public routes
+**Status:** COMPLETED / VERIFIED LIVE / BLOCKED BY REDIRECT LAYER
+**Why:** The stricter traffic checker exposed homepage fallback on several money/trust routes. The next useful step was to separate initial redirect failures from final HTTP `200` homepage HTML so deployment/server cleanup can target the right layer.
+**Actions:**
+1. DONE: updated `tools/check-live-traffic-priority.mjs` to record initial manual redirect status and location.
+2. DONE: created `project-control/public-route-home-redirect-triage-2026-05-21.md`.
+3. DONE: created `project-control/public-route-home-redirect-triage-2026-05-21.csv`.
+4. GENERATED: `reports/traffic-priority-audit-2026-05-21-route-home-redirects.csv`.
+5. VERIFIED LIVE: `6` priority URLs returned initial `200`: `/`, `/articles/`, `/family-law/`, `/lawyers/?area=family-law`, `/criminal-defense-attorney/`, `/traffic-lawyer/`.
+6. BLOCKED LIVE: `6` priority URLs returned initial `301` to `/`: `/site-map/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/`, `/inheritance-lawyer/`, `/contact/`, `/about/`.
+7. VERIFIED LOCAL: `node --check tools/check-live-traffic-priority.mjs` passed.
+8. NEXT: after uPress pull/cache clear, rerun the checker. If the same initial `301` persists, remove the stale home-redirect rule from uPress/server/plugin/permalink manager.
+9. BLOCKED: no content upload or support-link publication should depend on the blocked routes until each returns initial `200` on its own final path.
+
 ### ACTION-REAL-ESTATE-GUIDE-REDIRECT-GUARD-001: Guard recovered guide route from stale redirects
 **Status:** CODE FIXED / NOT LIVE VERIFIED / BLOCKED LIVE BEFORE DEPLOY
 **Why:** The real-estate public edit package excluded `/real-estate-lawyer-guide/` because the live URL resolves away from the controlled guide route. This must be repaired before the guide can join the real-estate internal-link/upload batch.

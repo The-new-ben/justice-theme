@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-21 20:32 Asia/Jerusalem
+- PUBLIC ROUTE HOME REDIRECT TRIAGE: reviewed `12` priority public URLs with an enhanced checker that records initial redirects before following them.
+- TOOLING FIXED: `tools/check-live-traffic-priority.mjs` now records `initialHttp` and `redirectLocation`, and flags `initial_redirect_301_to_/` separately from final-path mismatch.
+- CREATED: `project-control/public-route-home-redirect-triage-2026-05-21.md`.
+- CREATED: `project-control/public-route-home-redirect-triage-2026-05-21.csv`.
+- GENERATED: `reports/traffic-priority-audit-2026-05-21-route-home-redirects.csv`.
+- VERIFIED LIVE: `/`, `/articles/`, `/family-law/`, `/lawyers/?area=family-law`, `/criminal-defense-attorney/` and `/traffic-lawyer/` returned initial `200` and stayed on their intended route.
+- BLOCKED LIVE: `/site-map/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/`, `/inheritance-lawyer/`, `/contact/` and `/about/` returned initial `301` to `https://jus-tice.co.il`, then served homepage HTML after following redirects.
+- VERIFIED LOCAL: `node --check tools/check-live-traffic-priority.mjs` passed after the checker update.
+- NEXT: after uPress pull/cache clear, rerun the checker; if these six still return initial `301` to `/`, inspect uPress/server/Redirection-plugin/Permalink Manager rules.
+- SAFETY: no CMS page body, database row, title/H1/meta, public slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 20:24 Asia/Jerusalem
 - REAL-ESTATE GUIDE REDIRECT GUARD: investigated the `/real-estate-lawyer-guide/` route regression that was blocking the real-estate public edit package.
 - BLOCKED LIVE: trailing-slash `/real-estate-lawyer-guide/` currently redirects to the homepage before the controlled guide template renders.

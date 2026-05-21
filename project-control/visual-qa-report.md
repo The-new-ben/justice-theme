@@ -2,6 +2,14 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Public Route Home Redirect Triage
+- TOOLING FIXED / VERIFIED LOCAL: `tools/check-live-traffic-priority.mjs` now records `initialHttp` and `redirectLocation` before following redirects.
+- VERIFIED LIVE: `/`, `/articles/`, `/family-law/`, `/lawyers/?area=family-law`, `/criminal-defense-attorney/` and `/traffic-lawyer/` returned initial `200`.
+- BLOCKED LIVE: `/site-map/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/`, `/inheritance-lawyer/`, `/contact/` and `/about/` returned initial `301` to the homepage.
+- NOT VISUALLY VERIFIED: screenshots are not useful for the blocked six because they resolve to homepage HTML.
+- NEXT QA: after deployment/cache clear or redirect-rule cleanup, rerun `node tools/check-live-traffic-priority.mjs`; capture screenshots only for routes that return initial `200` and stay on their own final path.
+- SAFETY: no CMS page, database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment or admin setting changed.
+
 ## 2026-05-21 Real Estate Guide Redirect Guard QA
 - BLOCKED LIVE: `/real-estate-lawyer-guide/` currently redirects to the homepage before the controlled guide template renders.
 - BLOCKED LIVE: `/real-estate-lawyer-guide` currently redirects to `http://jus-tice.co.il/real-estate-attorney`.

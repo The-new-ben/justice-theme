@@ -182,10 +182,63 @@ function justice_theme_lawyer_prospect_lead_market_label( int $lead_id ): string
 	return justice_theme_lawyer_prospect_lead_meta_first( $lead_id, array( 'city', 'lead_city', 'jurisdiction', 'country', 'lead_country' ) );
 }
 
+function justice_theme_lawyer_prospect_request_prefill( string $key ): string {
+	if ( ! isset( $_GET[ $key ] ) ) {
+		return '';
+	}
+
+	$value = wp_unslash( $_GET[ $key ] );
+	if ( is_array( $value ) ) {
+		return '';
+	}
+
+	$value = trim( (string) $value );
+	if ( '' === $value ) {
+		return '';
+	}
+
+	if ( 'prospect_source_url' === $key ) {
+		return esc_url_raw( $value );
+	}
+
+	if ( 'prospect_expected_monthly_nis' === $key || 'prospect_source_lead_id' === $key ) {
+		return (string) absint( $value );
+	}
+
+	if ( in_array( $key, array( 'prospect_demand_signal', 'prospect_owner_note' ), true ) ) {
+		return sanitize_textarea_field( $value );
+	}
+
+	$value = sanitize_text_field( $value );
+
+	if ( 'prospect_target_plan' === $key && ! array_key_exists( $value, justice_theme_lawyer_prospect_plan_options() ) ) {
+		return '';
+	}
+
+	if ( 'prospect_priority' === $key && ! array_key_exists( $value, justice_theme_lawyer_prospect_priorities() ) ) {
+		return '';
+	}
+
+	if ( 'prospect_outreach_status' === $key && ! array_key_exists( $value, justice_theme_lawyer_prospect_statuses() ) ) {
+		return '';
+	}
+
+	if ( 'prospect_response_fit' === $key && ! array_key_exists( $value, justice_theme_lawyer_prospect_response_fit_options() ) ) {
+		return '';
+	}
+
+	return $value;
+}
+
 function justice_theme_lawyer_prospect_form_value( WP_Post $post, string $key ): string {
 	$saved = (string) get_post_meta( $post->ID, $key, true );
 	if ( '' !== $saved || 'auto-draft' !== $post->post_status ) {
 		return $saved;
+	}
+
+	$request_prefill = justice_theme_lawyer_prospect_request_prefill( $key );
+	if ( '' !== $request_prefill ) {
+		return $request_prefill;
 	}
 
 	$lead_id = justice_theme_lawyer_prospect_prefill_lead_id();
@@ -240,6 +293,12 @@ function justice_theme_lawyer_prospect_default_title( string $title, WP_Post $po
 		return $title;
 	}
 
+	$prefill_area = justice_theme_lawyer_prospect_request_prefill( 'prospect_practice_area' );
+	$prefill_city = justice_theme_lawyer_prospect_request_prefill( 'prospect_city' );
+	if ( $prefill_area || $prefill_city ) {
+		return trim( 'Recruit coverage: ' . ( $prefill_area ?: 'Manual outreach' ) . ( $prefill_city ? ' / ' . $prefill_city : '' ) );
+	}
+
 	$lead_id = justice_theme_lawyer_prospect_prefill_lead_id();
 	if ( ! $lead_id ) {
 		return $title;
@@ -255,6 +314,16 @@ add_filter( 'default_title', 'justice_theme_lawyer_prospect_default_title', 10, 
 function justice_theme_lawyer_prospect_default_content( string $content, WP_Post $post ): string {
 	if ( 'justice_prospect' !== $post->post_type || '' !== $content ) {
 		return $content;
+	}
+
+	$prefill_source = justice_theme_lawyer_prospect_request_prefill( 'prospect_source_url' );
+	$prefill_signal = justice_theme_lawyer_prospect_request_prefill( 'prospect_demand_signal' );
+	if ( $prefill_source || $prefill_signal ) {
+		return sprintf(
+			"Source: Outreach Links batch\nRegistration URL: %s\n\nDemand signal: %s\n\nUse this record to contact one relevant lawyer manually, then mark Contacted, Follow-up, Demo, Proposal, Won or Lost. Do not promise outcomes, exclusivity or lead volume without approved plan language.",
+			$prefill_source ?: '-',
+			$prefill_signal ?: '-'
+		);
 	}
 
 	$lead_id = justice_theme_lawyer_prospect_prefill_lead_id();
@@ -412,16 +481,28 @@ function justice_theme_lawyer_prospect_outreach_message( WP_Post $post ): array 
 	$city           = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_city' ) ?: 'your market';
 	$target_plan    = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_target_plan' ) ?: 'lead_partner';
 	$demand_signal  = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_demand_signal' );
+	$source_url     = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_source_url' );
 	$expected_value = (int) get_post_meta( $post_id, 'prospect_expected_monthly_nis', true );
 	$plan_label     = justice_theme_lawyer_prospect_plan_options()[ $target_plan ] ?? 'Lead Partner';
 	$recipient      = $contact_name ?: ( $firm_name ?: 'there' );
-	$registration   = add_query_arg(
-		array(
-			'plan_interest' => $target_plan,
-			'payment_path'  => 'manual_invoice',
-		),
-		home_url( '/lawyer-registration/' )
+	$area_slug      = sanitize_title( $area );
+	$city_slug      = sanitize_title( $city );
+	$tracking_args  = array(
+		'plan_interest'     => $target_plan,
+		'payment_path'      => 'manual_invoice',
+		'utm_source'        => 'prospect_pipeline',
+		'utm_medium'        => 'manual_outreach',
+		'utm_campaign'      => 'prospect_' . $post_id,
+		'utm_content'       => sanitize_key( $target_plan . '_manual_message' ),
+		'outreach_segment'  => trim( ( $area_slug ?: 'manual-practice' ) . '_' . ( $city_slug ?: 'manual-city' ), '_' ),
+		'outreach_city'     => $city_slug ?: 'manual-city',
+		'outreach_practice' => $area_slug ?: 'manual-practice',
 	);
+	$registration   = add_query_arg( $tracking_args, home_url( '/lawyer-registration/' ) );
+
+	if ( $source_url && false !== strpos( $source_url, '/lawyer-registration/' ) ) {
+		$registration = esc_url_raw( $source_url );
+	}
 
 	$subject = sprintf( 'Jus-Tice paid coverage fit: %s / %s', $area, $city );
 	$body    = sprintf(

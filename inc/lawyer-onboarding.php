@@ -517,6 +517,22 @@ function justice_theme_lawyer_outreach_select_options(): array {
 	);
 }
 
+function justice_theme_lawyer_outreach_prospect_plan( string $plan ): string {
+	return in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true ) ? $plan : 'unknown';
+}
+
+function justice_theme_lawyer_outreach_expected_monthly_nis( string $plan ): int {
+	$values = array(
+		'pro'          => 499,
+		'featured'     => 1490,
+		'lead_partner' => 1490,
+		'full_service' => 2990,
+		'free'         => 0,
+	);
+
+	return $values[ $plan ] ?? 1490;
+}
+
 function justice_theme_lawyer_outreach_link_args(): array {
 	$options = justice_theme_lawyer_outreach_select_options();
 
@@ -602,6 +618,30 @@ function justice_theme_render_lawyer_outreach_links_page(): void {
 	$city_label       = str_replace( '-', ' ', $args['outreach_city'] ?? 'your city' );
 	$personal_note    = justice_theme_lawyer_outreach_builder_value( 'outreach_personal_note', '' );
 	$message_template = justice_theme_lawyer_outreach_message_template( $args['utm_content'] ?? 'message_a', $practice_label, $city_label, $registration_url, $personal_note );
+	$prospect_plan    = justice_theme_lawyer_outreach_prospect_plan( $args['plan_interest'] ?? 'lead_partner' );
+	$demand_signal    = sprintf(
+		'Manual outreach batch: %s / %s via %s %s. Registration link keeps UTM tracking. Track first contact, next follow-up, and outcome in Lawyer Prospects.',
+		$args['outreach_practice'] ?? '-',
+		$args['outreach_city'] ?? '-',
+		$args['utm_source'] ?? '-',
+		$args['utm_campaign'] ?? '-'
+	);
+	$prospect_url     = add_query_arg(
+		array(
+			'post_type'                     => 'justice_prospect',
+			'prospect_practice_area'        => $practice_label,
+			'prospect_city'                 => $city_label,
+			'prospect_target_plan'          => $prospect_plan,
+			'prospect_priority'             => 'warm',
+			'prospect_outreach_status'      => 'ready',
+			'prospect_source_url'           => $registration_url,
+			'prospect_expected_monthly_nis' => justice_theme_lawyer_outreach_expected_monthly_nis( $args['plan_interest'] ?? 'lead_partner' ),
+			'prospect_demand_signal'        => $demand_signal,
+			'prospect_owner_note'           => 'Created from Outreach Links. Add one specific lawyer, contact manually, then use quick actions for follow-up.',
+		),
+		admin_url( 'post-new.php' )
+	);
+	$prospect_pipeline_url = admin_url( 'edit.php?post_type=justice_prospect' );
 	?>
 	<div class="wrap">
 		<h1>Lawyer Outreach Links</h1>
@@ -689,12 +729,21 @@ function justice_theme_render_lawyer_outreach_links_page(): void {
 		<textarea id="justice-outreach-message" readonly rows="7" style="width:100%;max-width:960px;"><?php echo esc_textarea( $message_template ); ?></textarea>
 		<p><button type="button" class="button" data-copy-target="justice-outreach-message">Copy message</button></p>
 
+		<h2>Prospect pipeline handoff</h2>
+		<p>Create one prospect record for each lawyer before or immediately after the first manual message. This keeps follow-up, value and outcome visible instead of living in memory.</p>
+		<p>
+			<a class="button button-primary" href="<?php echo esc_url( $prospect_url ); ?>">Add prospect with these batch defaults</a>
+			<a class="button" href="<?php echo esc_url( $prospect_pipeline_url ); ?>">Open prospect pipeline</a>
+		</p>
+		<p class="description">The button opens a prefilled admin draft only. It does not create a record or send outreach until you save/contact manually.</p>
+
 		<h2>Batch rule</h2>
 		<ul>
 			<li>Start with 10 to 20 lawyers per segment.</li>
 			<li>Use one clear segment per batch, such as family law in Tel Aviv.</li>
 			<li>Change only one thing between batches: city, practice, source or message variant.</li>
 			<li>Personalize the first sentence so the lawyer understands why they were contacted.</li>
+			<li>Create a prospect record before sending or immediately after the first reply.</li>
 			<li>Do not use this as a bulk sender; copy and send manually only when the contact is relevant.</li>
 			<li>Watch Lawyer Onboarding -> Source after real submissions arrive.</li>
 		</ul>

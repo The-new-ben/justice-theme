@@ -27,6 +27,9 @@ Sources:
 ## Verification
 - `php -l inc/lawyer-onboarding.php` passed.
 - `git diff --check` passed, with only the existing Windows line-ending warning.
+- Pushed commit `075b98e`.
+- uPress Git pull succeeded; uPress log shows `075b98e Add lawyer outreach link builder` as `HEAD -> main, origin/main, origin/HEAD`.
+- Live admin URL redirects to WordPress login in the current browser, which is safe/expected for an owner-only screen. Visual admin-screen verification still needs an authenticated WordPress admin session.
 
 ## Completion Assessment
 - Materially advanced: the owner can now create measurable lawyer outreach links without editing URLs by hand.

@@ -5,9 +5,11 @@
 - CODED: the screen builds a `/lawyer-registration/` URL with plan interest, source, medium, campaign, message variant, segment, city and practice.
 - CODED: the screen creates a short Hebrew outreach message draft and copy buttons for the URL/message.
 - VERIFIED: `php -l inc/lawyer-onboarding.php` passed and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `075b98e Add lawyer outreach link builder`; uPress Git pull succeeded and the uPress log shows `075b98e` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: direct access to the owner-only admin URL redirects to WordPress login in the current browser, so the screen is not public. Visual admin-screen verification still needs an authenticated WordPress admin session.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is sales execution: the owner can now start small, measurable lawyer outreach batches instead of sending untracked signup links.
 - COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 45% to 55%; first paid-lawyer readiness moved from 88% to 89%; homepage-to-lawyer-subscription path remains 82% until real outreach and submissions arrive.
-- OWNER-VISIBLE AFTER DEPLOY: WordPress admin -> Lawyer Onboarding -> Outreach Links.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Outreach Links.
 - SAFETY: repo theme code/docs only. No public CMS page edited, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead record created and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 16:01 Asia/Jerusalem

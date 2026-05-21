@@ -1,3 +1,18 @@
+## LATEST WORK STATUS - 2026-05-21 15:42 Asia/Jerusalem
+- LAWYER ONBOARDING CONVERSION: polished the lawyer registration flow so it feels like a guided paid-product onboarding path, not a raw form.
+- RESEARCHED: Clio Grow emphasizes lead performance, pipeline health and value tracking; Justia emphasizes complete lawyer profiles, premium visibility and traffic stats; current conversion guidance emphasizes clear next steps after submission, reassurance and mobile usability. Sources: https://help.clio.com/hc/en-us/articles/14353490331035-Clio-Grow-Dashboard, https://www.justia.com/marketing/lawyer-directory/, https://www.simplelaw.com/blog/conversion-strategies-for-law-firm-websites
+- CODED: `assets/js/lawyer-registration-wizard.js` now shows Hebrew wizard steps and buttons, adds a final "what happens after submission" summary, and removes English wizard leftovers.
+- CODED: `page-lawyer-registration.php` now includes a server-rendered after-submission section explaining license/practice review, mini-site preparation, and activation/measurement.
+- CODED: `assets/css/premium-pass-3.css` styles the new onboarding summary/next-step section and fixes the hidden anti-spam field so it no longer creates horizontal overflow.
+- CODED: `inc/enqueue.php` bumps registration JS and CSS versions so the deployed assets are cache-busted.
+- DOCUMENTED: added `project-control/lawyer-onboarding-conversion-polish-2026-05-21.md`.
+- VERIFIED: `php -l page-lawyer-registration.php`, `php -l inc/enqueue.php`, and `git diff --check` passed. uPress Git log shows `7abb331 Prevent lawyer registration horizontal overflow` as `HEAD -> main, origin/main`.
+- LIVE CHECK: `/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice` returns 200, no page-level `noindex`, Hebrew wizard copy is visible, no English wizard leftovers were found, manual invoice wording is present, the new after-submission section is present, the wizard reaches the final review step with dummy required fields, and checked viewport overflow is fixed.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is lawyer acquisition trust: the signup path now explains the product journey from registration to profile, dashboard, lead handling and payment activation.
+- COMPLETION ASSESSMENT: lawyer onboarding conversion readiness moved from 62% to 70%; first paid-lawyer readiness moved from 84% to 86%; homepage-to-lawyer-subscription path moved from 72% to 77%. Still blocked: Grow/Meshulam final approval, WooCommerce subscription product mapping, real outreach and first paid lawyer.
+- OWNER-VISIBLE AFTER DEPLOY: visit `/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice`; the wizard should be Hebrew, clearer, and free of horizontal page overflow.
+- SAFETY: repo theme code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created, no lawyer/lead record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 15:29 Asia/Jerusalem
 - PRACTICE TERM LINK ALIASES: cleaned the remaining generated practice-area links that diluted homepage/internal authority across older duplicate taxonomy URLs.
 - RESEARCHED: Google Search Central says internal links should point to the preferred canonical URL when duplicates exist, and crawlable internal links with clear anchor text help Google find and understand important pages. Sources: https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls and https://developers.google.com/search/docs/crawling-indexing/links-crawlable

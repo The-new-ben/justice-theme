@@ -1,0 +1,61 @@
+{
+  "generatedAt": "2026-05-21T20:18:31.858Z",
+  "targetCount": 7,
+  "staticPassCount": 7,
+  "livePassCount": 7,
+  "supportMetadataMismatchCount": 6,
+  "protectedSourceRedirectConflicts": 5,
+  "bodyUploadReadiness": "READY_AFTER_OWNER_APPROVAL_AND_WORDPRESS_BACKUP",
+  "urlMigrationReadiness": "BLOCKED_GSC_EXPORT_AND_PROTECTED_REDIRECT_REVIEW",
+  "estimatedContentUploadReadiness": "BODY_PACKAGE_HIGH; EXECUTION_BLOCKED_BY_OWNER_APPROVAL_BACKUP_AND_GSC_FOR_URL_ACTIONS",
+  "gates": [
+    {
+      "gate": "protected_source_redirects",
+      "status": "BLOCKED",
+      "evidence": "5 protected source URLs redirect to homepage in latest live pre-upload guard",
+      "next_step": "Resolve after GSC API export before any URL migration, redirect, canonical/noindex or sitemap action"
+    },
+    {
+      "gate": "gsc_family_divorce_export",
+      "status": "TOOL_READY_API_BLOCKED",
+      "evidence": "Focused export runner exists",
+      "next_step": "Owner supplies rotated local credentials and runs read-only export"
+    },
+    {
+      "gate": "public_upload",
+      "status": "BLOCKED",
+      "evidence": "No owner/legal/source approval and no WordPress rollback backup in repo",
+      "next_step": "Do not edit public CMS until approvals and backups exist"
+    },
+    {
+      "gate": "metadata_package_currentness",
+      "status": "REVIEW_REQUIRED",
+      "evidence": "6 Wave 1B metadata word counts differ from current static QA",
+      "next_step": "Keep metadata text package, but use current QA word counts in upload status docs"
+    },
+    {
+      "gate": "owner_review_packet",
+      "status": "READY_FOR_OWNER",
+      "evidence": "11 owner packet rows found",
+      "next_step": "Owner marks APPROVE, EDIT, HOLD or LEGAL_REVIEW_REQUIRED per page"
+    },
+    {
+      "gate": "cms_operator_runbook",
+      "status": "READY_FOR_OPERATOR_AFTER_APPROVAL",
+      "evidence": "13 runbook rows found",
+      "next_step": "Operator updates existing pages only after approval and backup"
+    },
+    {
+      "gate": "clean_public_body_static_qa",
+      "status": "VERIFIED",
+      "evidence": "7/7 target drafts PASS",
+      "next_step": "Use current static QA counts, not older metadata-package word counts"
+    },
+    {
+      "gate": "live_target_backup",
+      "status": "VERIFIED",
+      "evidence": "7/7 live target snapshots PASS",
+      "next_step": "Still export actual WordPress editor/database rollback material before CMS edits"
+    }
+  ]
+}

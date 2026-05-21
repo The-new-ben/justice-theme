@@ -1,6 +1,21 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce upload readiness dashboard
+
+- TOOLING FIXED: created `tools/check-family-divorce-upload-readiness.mjs`.
+- GENERATED: `reports/family-divorce-upload-readiness-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-upload-readiness-2026-05-21.json`.
+- CREATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.csv`.
+- VERIFIED LOCAL: `node --check tools/check-family-divorce-upload-readiness.mjs` passed.
+- VERIFIED LOCAL: `node tools/check-family-divorce-upload-readiness.mjs` passed.
+- VERIFIED: `7/7` current public-body drafts pass static QA and `7/7` target URLs have live public backups.
+- REVIEW REQUIRED: `6` Wave 1B support metadata word counts differ from current static-QA counts after later merge work.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database rollback material.
+- BLOCKED: URL migration, redirects, canonicals, noindex and sitemap actions still require GSC API export and protected-source redirect review.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - GSC Family/Divorce export runner
 
 - TOOLING FIXED: created `tools/gsc/gsc-family-divorce-export.js`.

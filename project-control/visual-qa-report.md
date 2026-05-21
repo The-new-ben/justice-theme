@@ -2,6 +2,19 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce Upload Readiness Dashboard
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/check-family-divorce-upload-readiness.mjs`.
+- GENERATED / VERIFIED LOCAL: `reports/family-divorce-upload-readiness-2026-05-21.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/family-divorce-upload-readiness-2026-05-21.json`.
+- CREATED / VERIFIED LOCAL: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.csv`.
+- VERIFIED LOCAL: `7/7` current Family/Divorce public-body drafts pass static QA.
+- VERIFIED LOCAL: `7/7` target URLs have live public backups.
+- REVIEW REQUIRED: older Wave 1B metadata word-count fields are stale compared with current static-QA counts.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local readiness tooling/reporting and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/legal/source approval, WordPress backup, approved CMS update and post-upload route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 GSC Family/Divorce Export Runner
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/gsc/gsc-family-divorce-export.js`.
 - FIXED / VERIFIED LOCAL: runner supports credential and token paths outside the repo and includes `--dry-run`.

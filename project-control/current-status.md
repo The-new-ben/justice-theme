@@ -1,3 +1,18 @@
+## LATEST WORK STATUS - 2026-05-21 23:16 Asia/Jerusalem
+- FAMILY/DIVORCE UPLOAD READINESS DASHBOARD: consolidated the first upload cluster gates into one repeatable checker/report.
+- TOOLING FIXED: created `tools/check-family-divorce-upload-readiness.mjs`.
+- GENERATED: `reports/family-divorce-upload-readiness-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-upload-readiness-2026-05-21.json`.
+- CREATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.csv`.
+- VERIFIED LOCAL: `node --check tools/check-family-divorce-upload-readiness.mjs` passed.
+- VERIFIED LOCAL: `node tools/check-family-divorce-upload-readiness.mjs` passed.
+- VERIFIED: `7/7` Family/Divorce drafts pass static QA and `7/7` target URLs have live public backups.
+- REVIEW REQUIRED: the older Wave 1B support metadata package has `6` stale word-count fields compared with current merged static-QA counts; use current static QA counts for upload status.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup.
+- BLOCKED: URL migration, redirects, canonical/noindex and sitemap actions still require GSC API export plus review of `5` protected source homepage redirects.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 23:08 Asia/Jerusalem
 - GSC FAMILY/DIVORCE EXPORT RUNNER: prepared a focused read-only Search Console runner for the first controlled Family/Divorce URL/cannibalization risk check.
 - TOOLING FIXED: created `tools/gsc/gsc-family-divorce-export.js`.

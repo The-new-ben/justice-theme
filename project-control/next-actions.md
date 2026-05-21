@@ -6,6 +6,23 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-UPLOAD-READINESS-DASHBOARD-001: Consolidate upload readiness gates
+**Status:** COMPLETED / VERIFIED LOCAL / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** Family/Divorce had the content drafts, owner packet, metadata packages, runbook, live snapshots and GSC runner spread across many files. The operator needs one current readiness view before any CMS work.
+**Actions:**
+1. DONE: created `tools/check-family-divorce-upload-readiness.mjs`.
+2. DONE: generated `reports/family-divorce-upload-readiness-2026-05-21.csv`.
+3. DONE: generated `reports/family-divorce-upload-readiness-2026-05-21.json`.
+4. DONE: created `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.md`.
+5. DONE: created `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.csv`.
+6. VERIFIED LOCAL: `node --check tools/check-family-divorce-upload-readiness.mjs` passed.
+7. VERIFIED LOCAL: `node tools/check-family-divorce-upload-readiness.mjs` passed.
+8. VERIFIED: `7/7` target drafts pass static QA and `7/7` target URLs have live public backups.
+9. REVIEW REQUIRED: `6` Wave 1B support metadata word counts are stale versus current merged static-QA counts.
+10. BLOCKED: owner/legal/source approval and actual WordPress editor/database rollback material are still required before public CMS upload.
+11. BLOCKED: GSC API export and protected-source redirect review are still required before URL migration, redirects, canonical/noindex or sitemap changes.
+12. NEXT: run real GSC export after owner credentials, then convert output into protected URL/cannibalization decision map.
+
 ### ACTION-GSC-FAMILY-DIVORCE-EXPORT-RUNNER-001: Prepare focused Family/Divorce GSC export runner
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / API EXECUTION BLOCKED UNTIL OWNER CREDENTIAL SETUP
 **Why:** Family/Divorce URL migration, redirect, canonical/noindex and sitemap decisions need read-only Search Console query/page data, but credentials must stay outside Git and the export needs to be scoped to the first upload cluster.

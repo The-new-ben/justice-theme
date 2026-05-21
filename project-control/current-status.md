@@ -5,10 +5,11 @@
 - FOUND: mobile and desktop both show the new section with 6 cards, no page-level horizontal overflow, customer strip still present, find-lawyer guide still present, ask-lawyer path still present, and no public Grow wording.
 - CODED: improved `.homepage-intent-card` title and related-guide links in `assets/css/premium-pass-4.css` so mobile taps have larger block/flex hit areas.
 - DOCUMENTED: added `project-control/homepage-intent-mobile-qa-2026-05-21.md`.
-- VERIFIED LOCAL: `git diff --check` passed with only expected line-ending warnings.
+- VERIFIED: `git diff --check` passed with only expected line-ending warnings. After deploy, uPress Git log shows `3cf8e7d Improve homepage intent mobile tap targets` as `HEAD -> main, origin/main`; live optimized CSS contains the new `min-height:36px` tap-target rules.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is mobile conversion confidence on the homepage path that routes visitors to high-value practice areas, lawyer profiles and lead capture.
 - COMPLETION ASSESSMENT: traffic-to-lead conversion readiness moved from 54% to 55%; mobile homepage confidence moved from 62% to 70%. Still blocked: real analytics/GSC impact, Grow approval, mapped paid products and real paid lawyer users.
 - OWNER-VISIBLE AFTER DEPLOY: homepage intent cards should feel easier to tap on mobile, especially the title and related-guide links.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `3cf8e7d Improve homepage intent mobile tap targets` is `HEAD -> main, origin/main`.
 - SAFETY: repo code/status/evidence only. No 301 redirect package touched, no Grow action taken, no card charged, no payment gateway setting changed, no public CMS page edited, no product created, and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 13:57 Asia/Jerusalem

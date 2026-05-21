@@ -1,3 +1,19 @@
+## LATEST WORK STATUS - 2026-05-21 15:15 Asia/Jerusalem
+- MONEY-TOPIC LINK HYGIENE: cleaned public template links so major money topics point to current live hubs, not future/dead slugs or noindex filtered-directory fallbacks.
+- RESEARCHED: Google Search Central recommends using the preferred/canonical URL consistently in internal links and says crawlable links with descriptive anchor text help users and Google understand linked pages. Sources: https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls and https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- FOUND: `/real-estate-lawyer/`, `/employment-lawyer/` and `/personal-injury-lawyer/` return 404 today, while the current safe targets are `/practice-areas/real-estate-law/`, `/practice-areas/labor-law/` and `/tort-lawyer/`.
+- FOUND: `/medical-malpractice-lawyer/` is live and indexable, but some templates used a helper that could fall back to a noindex filtered lawyer-directory URL.
+- CODED: updated header topic strip, footer practice links, featured pillar cards, topic clusters, homepage medical-malpractice guide link, lost-visitor rescue links and draft seed links to the current live hubs.
+- DOCUMENTED: added `project-control/money-topic-link-canonical-cleanup-2026-05-21.md`.
+- VERIFIED: PHP lint passed for all changed PHP files and `git diff --check` passed. uPress Git log shows `4c276b4 Point money topic links to live hubs` as `HEAD -> main, origin/main`.
+- LIVE CHECK: homepage no-cache response returns 200 and includes `/practice-areas/real-estate-law/`, `/practice-areas/labor-law/`, `/tort-lawyer/` and `/medical-malpractice-lawyer/`; it no longer includes `/real-estate-lawyer/`, `/employment-lawyer/` or `/personal-injury-lawyer/`.
+- LIVE CHECK: `/not-found-help/` returns 200 with `X-Justice-Route: not-found-rescue`; no-cache response includes the new real-estate, labor and tort hub links.
+- RESIDUAL FINDING: related-term output still exposes older 200 taxonomy URLs: `/practice-areas/real-estate/`, `/practice-areas/personal-injury/` and `/practice-areas/israeli-labor-law/`. They are not 404s, so this is a later taxonomy alias/duplicate cleanup task.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is SEO and conversion hygiene: public navigation now sends authority and users toward current indexable money hubs instead of dead/future targets.
+- COMPLETION ASSESSMENT: public money-link hygiene moved from 74% to 83%; homepage-to-money-hub SEO chain moved from 82% to 85%; first paid-lawyer readiness remains around 84% because Grow/payment approval and real sales are still the bottleneck.
+- OWNER-VISIBLE AFTER DEPLOY: header topic strip, homepage practice cards, footer practice links and `/not-found-help/` should now guide users to the current live hubs for real estate, labor, torts and medical malpractice.
+- SAFETY: repo theme code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 15:03 Asia/Jerusalem
 - PRACTICE MONEY HUB SEO: strengthened the two indexable practice hubs that the homepage now links to for real-estate and labor-law intent.
 - RESEARCHED: Google Search Central says Google understands site structure through internal links and important categories should be reachable from prominent links; Google also uses page titles and prominent headings to understand/search-display page topics. Sources: https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure, https://developers.google.com/search/docs/appearance/title-link, https://developers.google.com/search/docs/fundamentals/seo-starter-guide

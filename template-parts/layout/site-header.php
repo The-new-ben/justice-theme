@@ -173,7 +173,7 @@ function justice_theme_fallback_menu() {
 		</li>
 
 		<li class="menu-item"><a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>">מאמרים משפטיים</a></li>
-		<li class="menu-item"><a href="<?php echo esc_url( home_url( '/legal-tools/' ) ); ?>">כלים משפטיים</a></li>
+		<li class="menu-item"><a href="<?php echo esc_url( justice_theme_safe_public_link( '/legal-tools/', '/#ask-lawyer' ) ); ?>">כלים משפטיים</a></li>
 		<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>">הצטרפות עורכי דין</a></li>
 		<li class="menu-item menu-item--cta"><a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>">מצאו עורך דין</a></li>
 	</ul>

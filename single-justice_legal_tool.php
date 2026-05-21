@@ -27,7 +27,7 @@ while ( have_posts() ) :
 					<p><?php echo esc_html( get_the_excerpt() ?: 'מסלול דיגיטלי לאיסוף מידע, בניית טיוטה וסיכום לעורך דין, עם בדיקה אנושית לפני שימוש משפטי מחייב.' ); ?></p>
 					<div class="legaltool-single__actions">
 						<a class="button button--gold" href="#tool-request">התחלת תהליך</a>
-						<a class="button button--ghost" href="<?php echo esc_url( home_url( '/legal-tools/' ) ); ?>">כל הכלים</a>
+						<a class="button button--ghost" href="<?php echo esc_url( justice_theme_safe_public_link( '/legal-tools/', '/#ask-lawyer' ) ); ?>">כל הכלים</a>
 					</div>
 				</div>
 

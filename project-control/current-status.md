@@ -5,10 +5,12 @@
 - CODED: the column displays expected monthly NIS or `Not set`.
 - CODED: `Monthly value` is sortable by numeric value, and `Next action` is sortable by date.
 - VERIFIED: `php -l inc/lawyer-prospects.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `36dccca Add prospect monthly value column`; uPress Git pull succeeded and the uPress log shows `36dccca` as live HEAD before this documentation correction.
+- LIVE CHECK: unauthenticated access to a value-sorted private prospect list redirects to WordPress login, then uPress Login Protector; the monthly-value column is not public.
 - HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is money-priority triage before manual lawyer outreach.
 - COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 85% to 86%; prospect follow-up/readiness discipline moved from 89% to 90%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
 - OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Monthly value column.
-- SAFETY: repo theme admin code/docs only at this log point. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 18:20 Asia/Jerusalem
 - LAWYER PROSPECT CONTACT COLUMN: added a private list-level contact column so the owner can see whether prospects are reachable without opening each record.

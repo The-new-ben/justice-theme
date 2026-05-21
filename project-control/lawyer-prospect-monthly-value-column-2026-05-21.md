@@ -24,6 +24,9 @@ Sources:
 ## Verification
 - `php -l inc/lawyer-prospects.php` passed.
 - `git diff --check` passed with only the existing Windows line-ending warning.
+- Pushed `36dccca Add prospect monthly value column`.
+- uPress Git pull succeeded; uPress Git log shows `36dccca Add prospect monthly value column` as HEAD before this documentation correction.
+- Public unauthenticated admin URL check for a value-sorted prospect list redirects to `wp-login.php`; the follow-up request hit uPress Login Protector and did not expose the private list.
 
 ## Completion Assessment
 - Materially advanced: the owner can now sort lawyer prospects by revenue potential instead of treating all prospects equally.
@@ -34,7 +37,7 @@ Sources:
 - Owner-visible after WordPress admin login: Lawyer Onboarding -> Lawyer Prospects -> Monthly value column.
 
 ## Safety
-- Repo theme admin code/docs only until uPress pull.
+- Repo theme admin code/docs plus uPress pull/live login-gate check only.
 - No public CMS database page edited.
 - No public page changed.
 - No 301 redirect package touched.

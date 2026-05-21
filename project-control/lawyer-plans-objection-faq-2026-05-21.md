@@ -30,13 +30,16 @@ Sources:
 - `php -l page-lawyer-plans.php` passed.
 - `rg "WooCommerce|Morning|Grow|Meshulam" page-lawyer-plans.php` found no public vendor wording.
 - `git diff --check` passed, with only the existing Windows line-ending warning.
+- Pushed `112baa2 Add lawyer plans objection FAQ`.
+- uPress Git pull succeeded; uPress log shows `112baa2 Add lawyer plans objection FAQ` as `HEAD -> main, origin/main, origin/HEAD`.
+- Live `/lawyer-plans/?qa=plans-faq-202605211645` includes the FAQ section with 4 questions, has no page-level `noindex`, includes no public Grow/Meshulam/WooCommerce/Morning wording, and has no obvious desktop page-width overflow.
 
 ## Completion Assessment
 - Materially advanced: `/lawyer-plans/` now answers lawyer objections before signup, making the sales path more self-service.
 - Still blocked: external Grow/payment approval, payment products, real outreach, first signup, first paid subscription.
 - Lawyer plan conversion readiness: 70% -> 74%.
 - First paid-lawyer readiness: remains 90% until real outreach or payment setup moves.
-- Owner-visible after deploy: `/lawyer-plans/`, below the plan/compliance blocks.
+- Owner-visible: `/lawyer-plans/`, below the plan/compliance blocks.
 
 ## Safety
 - Repo theme code/docs only.

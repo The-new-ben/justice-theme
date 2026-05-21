@@ -4,9 +4,11 @@
 - CODED: `page-lawyer-plans.php` was rebuilt cleanly with readable Hebrew copy, safe URL fallbacks, and the new FAQ section after plan/compliance content.
 - CODED: `assets/css/premium-pass-3.css` now styles the FAQ with responsive two-column/one-column behavior.
 - VERIFIED: `php -l page-lawyer-plans.php` passed, `git diff --check` passed with only the existing Windows line-ending warning, and `page-lawyer-plans.php` contains no public WooCommerce/Morning/Grow/Meshulam wording.
+- DEPLOYED: pushed `112baa2 Add lawyer plans objection FAQ`; uPress Git pull succeeded and the uPress log shows `112baa2` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: `/lawyer-plans/?qa=plans-faq-202605211645` includes the FAQ with four questions, has no page-level `noindex`, includes no public Grow/Meshulam/WooCommerce/Morning wording, and desktop page width stayed within the viewport.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is conversion clarity: the plan page now handles likely lawyer objections before a sales call.
 - COMPLETION ASSESSMENT: lawyer plan conversion readiness moved from 70% to 74%; first paid-lawyer readiness remains about 90%; homepage-to-lawyer-subscription path remains 82% until real outreach/signups arrive.
-- OWNER-VISIBLE AFTER DEPLOY: `/lawyer-plans/`, below the plan/compliance blocks.
+- OWNER-VISIBLE: `/lawyer-plans/`, below the plan/compliance blocks.
 - SAFETY: repo theme code/docs only. No public CMS database page edited, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/order record created and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 16:28 Asia/Jerusalem

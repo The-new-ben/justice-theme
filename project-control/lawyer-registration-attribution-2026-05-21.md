@@ -38,6 +38,8 @@ This change makes the lawyer registration form preserve campaign/source data wit
   - `utm_medium=site_cta`
   - `utm_campaign=lawyer_acquisition`
   - `outreach_segment=homepage_lawyer_cta`
+- The registration wizard JavaScript also reads attribution from the URL hash as a fallback, because live redirects can preserve unknown UTM parameters after `#` instead of leaving them in the query string.
+- `inc/enqueue.php` bumped the lawyer registration wizard version to `1.2.0` so the fallback ships past cache.
 - Submitted lawyer drafts store attribution in post meta.
 - Admin notification email includes attribution and landing-page context.
 - Lawyer Onboarding admin table now has a Source column with attribution summary and landing-page link.
@@ -51,6 +53,7 @@ This change makes the lawyer registration form preserve campaign/source data wit
 - `php -l inc/lawyer-onboarding.php` passed.
 - `php -l page-lawyer-registration.php` passed.
 - `php -l template-parts/sections/lawyer-cta.php` passed.
+- `php -l inc/enqueue.php` passed.
 - `git diff --check` passed.
 
 ### Money Assessment

@@ -33,6 +33,80 @@
 		});
 	}
 
+	function ensureHiddenField(form, name, value, overwrite) {
+		if (!value) {
+			return;
+		}
+
+		var field = form.querySelector('input[name="' + name + '"]');
+		if (!field) {
+			field = document.createElement('input');
+			field.type = 'hidden';
+			field.name = name;
+			form.appendChild(field);
+		}
+
+		if (overwrite || !field.value) {
+			field.value = value;
+		}
+	}
+
+	function readUrlAttribution() {
+		var params = new URLSearchParams(window.location.search || '');
+		var hash = window.location.hash ? window.location.hash.replace(/^#/, '') : '';
+
+		if (hash) {
+			if (hash.indexOf('?') !== -1) {
+				hash = hash.split('?').pop();
+			}
+
+			var hashParams = new URLSearchParams(hash);
+			hashParams.forEach(function (value, key) {
+				if (!params.has(key)) {
+					params.set(key, value);
+				}
+			});
+		}
+
+		var aliases = {
+			source: 'utm_source',
+			medium: 'utm_medium',
+			campaign: 'utm_campaign',
+			segment: 'outreach_segment',
+			city: 'outreach_city',
+			practice: 'outreach_practice'
+		};
+
+		Object.keys(aliases).forEach(function (alias) {
+			if (params.has(alias) && !params.has(aliases[alias])) {
+				params.set(aliases[alias], params.get(alias));
+			}
+		});
+
+		return params;
+	}
+
+	function syncAttributionFields(form) {
+		var params = readUrlAttribution();
+		var keys = [
+			'utm_source',
+			'utm_medium',
+			'utm_campaign',
+			'utm_content',
+			'utm_term',
+			'outreach_segment',
+			'outreach_city',
+			'outreach_practice'
+		];
+
+		keys.forEach(function (key) {
+			ensureHiddenField(form, key, params.get(key) || '', false);
+		});
+
+		ensureHiddenField(form, 'registration_landing_url', window.location.href, true);
+		ensureHiddenField(form, 'registration_referrer_url', document.referrer || '', false);
+	}
+
 	document.addEventListener('DOMContentLoaded', function () {
 		var form = document.querySelector('.lawyer-registration-form');
 		if (!form || form.dataset.wizardReady) {
@@ -45,6 +119,7 @@
 		}
 
 		form.dataset.wizardReady = '1';
+		syncAttributionFields(form);
 
 		var wizardConfig = [
 			{

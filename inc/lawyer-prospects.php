@@ -759,6 +759,29 @@ function justice_theme_lawyer_prospect_admin_columns( array $columns ): array {
 add_filter( 'manage_justice_prospect_posts_columns', 'justice_theme_lawyer_prospect_admin_columns' );
 
 function justice_theme_lawyer_prospect_due_meta_clause( string $filter ): array {
+	if ( 'unscheduled' === $filter ) {
+		return array(
+			'relation' => 'AND',
+			array(
+				'key'     => 'prospect_outreach_status',
+				'value'   => array( 'won', 'lost' ),
+				'compare' => 'NOT IN',
+			),
+			array(
+				'relation' => 'OR',
+				array(
+					'key'     => 'prospect_next_action_at',
+					'compare' => 'NOT EXISTS',
+				),
+				array(
+					'key'     => 'prospect_next_action_at',
+					'value'   => '',
+					'compare' => '=',
+				),
+			),
+		);
+	}
+
 	$today = current_time( 'Y-m-d' );
 
 	$compare = '<=';
@@ -800,10 +823,11 @@ function justice_theme_lawyer_prospect_due_views( array $views ): array {
 	$current = isset( $_GET['justice_prospect_due_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_prospect_due_filter'] ) ) : '';
 	$base    = admin_url( 'edit.php?post_type=justice_prospect' );
 	$items   = array(
-		'due'      => __( 'Due now', 'justice-theme' ),
-		'overdue'  => __( 'Overdue', 'justice-theme' ),
-		'today'    => __( 'Today', 'justice-theme' ),
-		'upcoming' => __( 'Upcoming', 'justice-theme' ),
+		'due'         => __( 'Due now', 'justice-theme' ),
+		'overdue'     => __( 'Overdue', 'justice-theme' ),
+		'unscheduled' => __( 'Needs scheduling', 'justice-theme' ),
+		'today'       => __( 'Today', 'justice-theme' ),
+		'upcoming'    => __( 'Upcoming', 'justice-theme' ),
 	);
 
 	foreach ( $items as $key => $label ) {
@@ -944,11 +968,16 @@ function justice_theme_lawyer_prospect_admin_filter_query( WP_Query $query ): vo
 	}
 
 	$due_filter = isset( $_GET['justice_prospect_due_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_prospect_due_filter'] ) ) : '';
-	if ( in_array( $due_filter, array( 'due', 'overdue', 'today', 'upcoming' ), true ) ) {
+	if ( in_array( $due_filter, array( 'due', 'overdue', 'unscheduled', 'today', 'upcoming' ), true ) ) {
 		$meta_query[] = justice_theme_lawyer_prospect_due_meta_clause( $due_filter );
-		$query->set( 'meta_key', 'prospect_next_action_at' );
-		$query->set( 'orderby', 'meta_value' );
-		$query->set( 'order', 'ASC' );
+		if ( 'unscheduled' === $due_filter ) {
+			$query->set( 'orderby', 'modified' );
+			$query->set( 'order', 'DESC' );
+		} else {
+			$query->set( 'meta_key', 'prospect_next_action_at' );
+			$query->set( 'orderby', 'meta_value' );
+			$query->set( 'order', 'ASC' );
+		}
 	}
 
 	if ( ! empty( $meta_query ) ) {

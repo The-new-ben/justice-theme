@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-21 18:00 Asia/Jerusalem
+- LAWYER PROSPECT NEEDS-SCHEDULING VIEW: added a private CRM view for active lawyer prospects that have no next action date.
+- RESEARCHED: Salesforce warns that unclear next actions create fuzzy pipeline data and says healthy pipelines need prospects moving on a set time frame; HubSpot frames task queues and due dates as the way to keep action items organized. Sources: https://www.salesforce.com/ca/sales/team-productivity/sales-productivity-pitfalls/, https://www.salesforce.com/sales/pipeline, https://www.hubspot.com/products/task-management
+- CODED: `inc/lawyer-prospects.php` now supports `justice_prospect_due_filter=unscheduled` and adds a "Needs scheduling" list view.
+- CODED: the unscheduled view excludes `won` and `lost` records because those intentionally clear follow-up dates.
+- CODED: `inc/lawyer-onboarding.php` now shows a "Needs scheduling" card and makes unscheduled active prospects a next-best-action priority after overdue/due work.
+- VERIFIED: `php -l inc/lawyer-prospects.php`, `php -l inc/lawyer-onboarding.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is preventing active lawyer prospects from stalling without a next action.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 80% to 82%; prospect follow-up readiness moved from 82% to 86%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Needs scheduling; also Lawyer Onboarding -> Lawyer sales command center.
+- SAFETY: repo theme admin code/docs only at this log point. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 17:50 Asia/Jerusalem
 - LAWYER SALES NEXT BEST ACTION: upgraded the private Lawyer sales command center from raw counts to a clear first action.
 - RESEARCHED: Salesforce says pipeline stages identify next best steps and pipeline management should keep interactions/reminders in the CRM; HubSpot frames its task dashboard as a command center for tasks, meetings and contact details. Sources: https://www.salesforce.com/sales/pipeline/, https://www.salesforce.com/sales/pipeline/management/, https://www.hubspot.com/products/task-management

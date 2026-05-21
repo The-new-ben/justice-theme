@@ -1203,7 +1203,7 @@ function justice_theme_lawyer_onboarding_prospect_value( array $statuses ): int 
 	return $total;
 }
 
-function justice_theme_lawyer_onboarding_sales_next_action( int $overdue_count, int $due_count, int $hot_count, int $proposal_count, int $active_value, array $links ): array {
+function justice_theme_lawyer_onboarding_sales_next_action( int $overdue_count, int $due_count, int $unscheduled_count, int $hot_count, int $proposal_count, int $active_value, array $links ): array {
 	if ( $overdue_count > 0 ) {
 		return array(
 			'label'  => 'Next best action',
@@ -1221,6 +1221,16 @@ function justice_theme_lawyer_onboarding_sales_next_action( int $overdue_count, 
 			'body'   => sprintf( 'There are %s prospects due now. Move each one to contacted, proposal, won, lost or a new follow-up date.', number_format_i18n( $due_count ) ),
 			'url'    => $links['due'],
 			'button' => 'Open due prospects',
+		);
+	}
+
+	if ( $unscheduled_count > 0 ) {
+		return array(
+			'label'  => 'Next best action',
+			'title'  => 'Schedule every active prospect',
+			'body'   => sprintf( '%s active prospects have no next action date. Set a follow-up or move each one to won/lost so the pipeline stays honest.', number_format_i18n( $unscheduled_count ) ),
+			'url'    => $links['unscheduled'],
+			'button' => 'Open unscheduled prospects',
 		);
 	}
 
@@ -1271,20 +1281,22 @@ function justice_theme_render_lawyer_onboarding_sales_command_center(): void {
 	$active_statuses = array( 'ready', 'contacted', 'follow_up', 'demo_booked', 'proposal_sent' );
 	$due_count       = function_exists( 'justice_theme_lawyer_prospect_due_count' ) ? justice_theme_lawyer_prospect_due_count( 'due' ) : 0;
 	$overdue_count   = function_exists( 'justice_theme_lawyer_prospect_due_count' ) ? justice_theme_lawyer_prospect_due_count( 'overdue' ) : 0;
+	$unscheduled_count = function_exists( 'justice_theme_lawyer_prospect_due_count' ) ? justice_theme_lawyer_prospect_due_count( 'unscheduled' ) : 0;
 	$hot_count       = justice_theme_lawyer_onboarding_prospect_count( 'prospect_priority', 'hot' );
 	$proposal_count  = justice_theme_lawyer_onboarding_prospect_count( 'prospect_outreach_status', 'proposal_sent' );
 	$active_value    = justice_theme_lawyer_onboarding_prospect_value( $active_statuses );
 	$won_value       = justice_theme_lawyer_onboarding_prospect_value( array( 'won' ) );
 	$links           = array(
-		'due'       => add_query_arg( 'justice_prospect_due_filter', 'due', admin_url( 'edit.php?post_type=justice_prospect' ) ),
-		'overdue'   => add_query_arg( 'justice_prospect_due_filter', 'overdue', admin_url( 'edit.php?post_type=justice_prospect' ) ),
-		'hot'       => add_query_arg( 'justice_prospect_priority_filter', 'hot', admin_url( 'edit.php?post_type=justice_prospect' ) ),
-		'proposal'  => add_query_arg( 'justice_prospect_status_filter', 'proposal_sent', admin_url( 'edit.php?post_type=justice_prospect' ) ),
-		'outreach'  => admin_url( 'admin.php?page=justice-lawyer-outreach-links' ),
-		'prospects' => admin_url( 'edit.php?post_type=justice_prospect' ),
-		'new'       => admin_url( 'post-new.php?post_type=justice_prospect' ),
+		'due'         => add_query_arg( 'justice_prospect_due_filter', 'due', admin_url( 'edit.php?post_type=justice_prospect' ) ),
+		'overdue'     => add_query_arg( 'justice_prospect_due_filter', 'overdue', admin_url( 'edit.php?post_type=justice_prospect' ) ),
+		'unscheduled' => add_query_arg( 'justice_prospect_due_filter', 'unscheduled', admin_url( 'edit.php?post_type=justice_prospect' ) ),
+		'hot'         => add_query_arg( 'justice_prospect_priority_filter', 'hot', admin_url( 'edit.php?post_type=justice_prospect' ) ),
+		'proposal'    => add_query_arg( 'justice_prospect_status_filter', 'proposal_sent', admin_url( 'edit.php?post_type=justice_prospect' ) ),
+		'outreach'    => admin_url( 'admin.php?page=justice-lawyer-outreach-links' ),
+		'prospects'   => admin_url( 'edit.php?post_type=justice_prospect' ),
+		'new'         => admin_url( 'post-new.php?post_type=justice_prospect' ),
 	);
-	$next_action     = justice_theme_lawyer_onboarding_sales_next_action( $overdue_count, $due_count, $hot_count, $proposal_count, $active_value, $links );
+	$next_action     = justice_theme_lawyer_onboarding_sales_next_action( $overdue_count, $due_count, $unscheduled_count, $hot_count, $proposal_count, $active_value, $links );
 	?>
 	<div style="max-width:1200px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:18px 20px;margin:18px 0;">
 		<h2 style="margin-top:0;">Lawyer sales command center</h2>
@@ -1295,7 +1307,7 @@ function justice_theme_render_lawyer_onboarding_sales_command_center(): void {
 			<p style="margin:0 0 12px;max-width:760px;"><?php echo esc_html( $next_action['body'] ); ?></p>
 			<p style="margin:0;">
 				<a class="button button-primary" href="<?php echo esc_url( $next_action['url'] ); ?>"><?php echo esc_html( $next_action['button'] ); ?></a>
-				<span style="display:inline-block;margin:6px 0 0 8px;color:#475569;">Order: overdue -> due -> proposals -> hot prospects -> new outreach.</span>
+				<span style="display:inline-block;margin:6px 0 0 8px;color:#475569;">Order: overdue -> due -> needs scheduling -> proposals -> hot prospects -> new outreach.</span>
 			</p>
 		</div>
 		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:16px 0;">
@@ -1308,6 +1320,11 @@ function justice_theme_render_lawyer_onboarding_sales_command_center(): void {
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $due_count ) ); ?></strong>
 				<span>Due now</span>
 				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $links['due'] ); ?>">Open due list</a></p>
+			</div>
+			<div style="border:1px solid #e0d2ff;background:#fbf8ff;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $unscheduled_count ) ); ?></strong>
+				<span>Needs scheduling</span>
+				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $links['unscheduled'] ); ?>">Open unscheduled</a></p>
 			</div>
 			<div style="border:1px solid #d6e4ff;background:#f7faff;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $hot_count ) ); ?></strong>

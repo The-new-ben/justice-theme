@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-21 17:31 Asia/Jerusalem
+- LAWYER OUTREACH -> PROSPECT PIPELINE: connected the owner-only Outreach Links screen to the private Lawyer Prospects CRM so each manual lawyer message can become a tracked follow-up record.
+- RESEARCHED: Clio Grow tracks marketing sources on contacts/matters and reports source, status, estimated value, conversion rate, revenue and pipeline value. Sources: https://help.clio.com/hc/en-us/articles/25315194374299-Clio-Grow-Marketing-Sources, https://help.clio.com/hc/en-us/articles/29739406189339-Clio-Grow-Reports
+- CODED: `inc/lawyer-onboarding.php` now shows a "Prospect pipeline handoff" section on Lawyer Onboarding -> Outreach Links with buttons to add a prefilled prospect draft or open the prospect pipeline.
+- CODED: `inc/lawyer-prospects.php` now accepts safe query-string prefill for new prospect drafts and keeps UTM/outreach attribution in private prospect outreach messages.
+- CODED: the Outreach Links batch rule now tells the owner to create a prospect record before sending or immediately after the first reply.
+- VERIFIED: `php -l inc/lawyer-onboarding.php`, `php -l inc/lawyer-prospects.php`, and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `4327606 Connect outreach links to prospect pipeline`; uPress Git pull succeeded and the uPress log shows `4327606` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: direct unauthenticated access to `wp-admin/admin.php?page=justice-lawyer-outreach-links` redirects to WordPress login; the follow-up request hit the uPress login protector challenge and did not expose the admin tool publicly.
+- HONEST MONEY ASSESSMENT: no revenue earned yet, no outreach sent and no prospect saved. Material advancement is sales discipline: the first manual lawyer batch can now move from message -> tracked prospect -> follow-up -> signup/won/lost.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 63% to 70%; prospect follow-up readiness moved from 45% to 62%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Outreach Links -> "Add prospect with these batch defaults"; also Lawyer Onboarding -> Lawyer Prospects.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 17:16 Asia/Jerusalem
 - LAWYER OUTREACH LAUNCH DRAFTS: strengthened the owner-only Outreach Links screen so the first lawyer sales batch can be small, personal, tracked and safer.
 - RESEARCHED: Google Analytics says campaign URLs should use consistent `utm_source`, `utm_medium`, `utm_campaign` and `utm_content` for message variants; Israeli anti-spam commentary around section 30A warns that commercial email/SMS outreach has consent/unsubscribe risk. Sources: https://support.google.com/analytics/answer/10917952, https://www.law.co.il/en/news/2016/08/19/israeli-anti-spam-law-amended-for-first-time/

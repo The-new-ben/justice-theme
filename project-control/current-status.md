@@ -1,3 +1,20 @@
+## LATEST WORK STATUS - 2026-05-21 23:49 Asia/Jerusalem
+- FAMILY/DIVORCE PROTECTED URL OWNER REVIEW PACKET: converted the protected URL decision-map baseline into owner-review rows without approving URL changes.
+- TOOLING FIXED: created `tools/build-family-divorce-protected-url-review-packet.mjs`.
+- GENERATED: `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.json`.
+- CREATED: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/build-family-divorce-protected-url-review-packet.mjs` passed.
+- VERIFIED LOCAL: `node tools/build-family-divorce-protected-url-review-packet.mjs` generated `18` review rows.
+- VERIFIED LOCAL: packet contains `5` P0 restore-or-targeted-301 conflict rows, `1` P0 keep-asset-live row and `18` high-risk baseline rows.
+- BLOCKED: all packet rows remain `BLOCKED_FOCUSED_GSC_EXPORT_REQUIRED`; cached GSC baseline is not final.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup.
+- BLOCKED: URL migration, redirects, canonical/noindex and sitemap actions still require focused GSC API export and final owner review.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 23:40 Asia/Jerusalem
 - FAMILY/DIVORCE GSC DECISION MAP BASELINE: prepared the post-GSC URL/cannibalization decision-map workflow before owner credentials are available.
 - TOOLING FIXED: created `tools/build-family-divorce-gsc-decision-map.mjs`.

@@ -1,6 +1,20 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce protected URL owner review packet
+
+- TOOLING FIXED: created `tools/build-family-divorce-protected-url-review-packet.mjs`.
+- GENERATED: `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.json`.
+- CREATED: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/build-family-divorce-protected-url-review-packet.mjs` passed.
+- VERIFIED LOCAL: generated `18` protected URL review rows with `5` P0 restore-or-targeted-301 conflicts and `1` P0 keep-asset-live row.
+- BLOCKED: packet is not final; focused GSC API export and owner approval are required before any URL, redirect, canonical, noindex or sitemap action.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce GSC decision map baseline
 
 - TOOLING FIXED: created `tools/build-family-divorce-gsc-decision-map.mjs`.

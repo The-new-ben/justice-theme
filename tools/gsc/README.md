@@ -48,6 +48,7 @@ After the export, build the protected URL / cannibalization decision map:
 
 ```powershell
 node tools/build-family-divorce-gsc-decision-map.mjs --gscDir="reports/gsc/family-divorce-YYYY-MM-DD"
+node tools/build-family-divorce-protected-url-review-packet.mjs
 ```
 
 Without `--gscDir`, the decision-map builder can use the older cached `reports/gsc/` CSVs as a baseline only. Treat that baseline as `NOT_FINAL` until the focused export is reviewed.

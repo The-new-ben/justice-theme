@@ -2,6 +2,17 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce Protected URL Owner Review Packet
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/build-family-divorce-protected-url-review-packet.mjs`.
+- GENERATED / VERIFIED LOCAL: `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.json`.
+- CREATED / VERIFIED LOCAL: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+- VERIFIED LOCAL: packet generated `18` rows: `5` P0 restore-or-targeted-301 conflicts, `1` P0 keep-asset-live row and `18` high-risk baseline rows.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local GSC/reporting preparation and no public UI changed.
+- BLOCKED: focused GSC export and owner approval remain required before URL migration or public CMS execution.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce GSC Decision Map Baseline
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/build-family-divorce-gsc-decision-map.mjs`.
 - GENERATED / VERIFIED LOCAL: `reports/family-divorce-gsc-decision-map-2026-05-21.csv`.

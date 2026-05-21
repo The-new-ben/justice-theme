@@ -6,6 +6,22 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-PROTECTED-URL-OWNER-REVIEW-PACKET-001: Prepare protected URL owner review packet
+**Status:** COMPLETED / VERIFIED LOCAL / NOT FINAL / FOCUSED GSC EXPORT BLOCKED / NO PUBLIC CHANGES
+**Why:** The protected URL decision map identified `18` high-risk protected source/asset URLs. The owner needs one packet with explicit keep, restore, targeted-301 or hold options before any URL migration decision.
+**Actions:**
+1. DONE: created `tools/build-family-divorce-protected-url-review-packet.mjs`.
+2. DONE: generated `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+3. DONE: generated `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.json`.
+4. DONE: created `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.md`.
+5. DONE: created `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+6. DONE: updated `tools/gsc/README.md`.
+7. DONE: updated `project-control/gsc-api-setup-guide.md`.
+8. VERIFIED LOCAL: `node --check tools/build-family-divorce-protected-url-review-packet.mjs` passed.
+9. VERIFIED LOCAL: packet generated `18` rows: `5` P0 restore-or-targeted-301 conflicts, `1` P0 keep-asset-live row and `12` keep-live/review-later rows.
+10. BLOCKED: all rows require focused GSC export before final owner URL decisions.
+11. NEXT: after focused GSC export, rerun decision map and protected URL review packet, then owner marks `RESTORE_CURRENT_URL`, `TARGETED_301_TO_MAPPED_TARGET`, `KEEP_LIVE`, `MERGE_AND_301_AFTER_APPROVAL`, `KEEP_ASSET_LIVE` or `HOLD_FOR_MANUAL_REVIEW`.
+
 ### ACTION-FAMILY-DIVORCE-GSC-DECISION-MAP-BASELINE-001: Prepare post-GSC URL/cannibalization decision map
 **Status:** COMPLETED / VERIFIED LOCAL / NOT FINAL / FOCUSED GSC EXPORT BLOCKED / NO PUBLIC CHANGES
 **Why:** The focused GSC export is blocked by owner credentials, but the project can still prepare the parser and decision-map workflow so export data converts directly into protected URL, redirect, cannibalization and sitemap review rows.

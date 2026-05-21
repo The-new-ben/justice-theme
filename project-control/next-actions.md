@@ -6,6 +6,26 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-CHILD-SUPPORT-MERGE-AND-DRAFT-001: Resolve and apply child-support merge rows
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** `/child-support/` was the last high-risk Family/Divorce page with unresolved live-candidate rows. Resolving and applying safe draft merges removes the final high-risk merge blocker before owner upload review.
+**Actions:**
+1. DONE: created `tools/resolve-family-divorce-child-support-merge.mjs`.
+2. DONE: generated `reports/family-divorce-child-support-merge-decisions-2026-05-21.csv`.
+3. DONE: created `project-control/family-divorce-child-support-merge-decisions-2026-05-21.md`.
+4. DONE: created `project-control/family-divorce-child-support-merge-decisions-2026-05-21.csv`.
+5. VERIFIED LOCAL: resolved all `35` current-live candidate rows for `/child-support/`: `4` merge, `25` covered/no action and `6` skip.
+6. DONE: created `tools/apply-family-divorce-child-support-draft-merges.mjs`.
+7. FIXED: applied four approved public-facing edits to `content-drafts/child-support-public-body-he.md`.
+8. DONE: created `project-control/family-divorce-child-support-draft-merge-2026-05-21.md`.
+9. DONE: created `project-control/family-divorce-child-support-draft-merge-2026-05-21.csv`.
+10. VERIFIED LOCAL: all four approved insertion blocks are present in the edited draft.
+11. VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce public-body drafts passed.
+12. VERIFIED: `/child-support/` now passes static QA with `1,650` words, all required links, no internal markers, no fake-trust hits and disclaimer status `PASS`.
+13. FIXED: high-risk merge rows are now resolved for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+14. NEXT: prepare the owner/legal/source review packet for the locally merged seven-page Family/Divorce upload candidates.
+15. BLOCKED: do not upload any Family/Divorce page until owner/legal/source approval and actual WordPress editor/database backup are complete.
+
 ### ACTION-FAMILY-DIVORCE-CHILD-CUSTODY-MERGE-AND-DRAFT-001: Resolve and apply child-custody merge rows
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / NO PUBLIC CHANGES
 **Why:** `/child-custody/` was the remaining high-risk Family/Divorce page with the largest unresolved live-candidate set after property division. Resolving and applying safe draft merges reduces blind-overwrite risk.

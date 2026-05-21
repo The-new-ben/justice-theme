@@ -16,7 +16,10 @@
 - VERIFIED LOCAL: `/child-custody/` live candidate rows were resolved in `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.md`.
 - RESULT: `35` `/child-custody/` live rows resolved into `9` merge edits, `20` covered/no-action rows and `6` UI/CTA/taxonomy/related-link skips.
 - FIXED / VERIFIED LOCAL: `/child-custody/` nine approved draft edits were applied and static QA still passes.
-- STILL BLOCKED: `/child-support/` still needs row-level merge decisions.
+- VERIFIED LOCAL: `/child-support/` live candidate rows were resolved in `project-control/family-divorce-child-support-merge-decisions-2026-05-21.md`.
+- RESULT: `35` `/child-support/` live rows resolved into `4` merge edits, `25` covered/no-action rows and `6` UI/CTA/taxonomy/related-link skips.
+- FIXED / VERIFIED LOCAL: `/child-support/` four approved draft edits were applied and static QA still passes.
+- FIXED: all three high-risk pages now have row-level merge decisions and applied approved draft merges.
 - STILL BLOCKED: owner/legal/source approval and actual WordPress editor/database backup are required before any CMS upload.
 
 ## Batch Completed
@@ -57,7 +60,8 @@ Priority order:
 
 - READY: high-risk merge worksheet exists.
 - READY: draft base sections and live-only candidate sections are separated for operator review.
-- BLOCKED: these three pages should not be uploaded until `REVIEW_FOR_MERGE` and `PARTIAL_OVERLAP_REVIEW` rows are resolved into keep/merge/rewrite/skip decisions.
+- FIXED: `REVIEW_FOR_MERGE` and `PARTIAL_OVERLAP_REVIEW` rows for all three high-risk pages have been resolved into merge, covered/no-action or skip decisions.
+- READY FOR NEXT GATE: owner/legal/source review can now evaluate the locally merged drafts as the controlled upload candidates.
 - STILL REQUIRED: WordPress editor/database backup before CMS execution.
 - STILL REQUIRED: owner/legal/source approval.
 

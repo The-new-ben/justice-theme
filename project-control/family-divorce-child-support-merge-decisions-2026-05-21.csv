@@ -1,0 +1,6 @@
+target,reviewedLiveRows,mergeIntoDraft,coveredNoAction,skippedUiOrRelated,verificationStatus,nextStep
+"/child-support/","35","4","25","6","VERIFIED LOCAL","Apply four concise draft merges, rerun static QA and keep page blocked from CMS upload until owner/legal/source approval."
+"/child-support/","","","","","MERGE_REQUIRED","What child support includes: Add concise wording that a good agreement should distinguish the monthly amount, separately split expenses, documentation, pre-approval and later changes."
+"/child-support/","","","","","MERGE_REQUIRED","Documents to prepare: Add relevant messages/requests about expenses, refusals to pay and missing-document tracking to the preparation list."
+"/child-support/","","","","","MERGE_REQUIRED","Extraordinary expenses: Add practical mechanics for receipts, response time, dispute mechanism and urgent medical expense handling."
+"/child-support/","","","","","MERGE_REQUIRED","Changing child support: Add a short pre-change checklist: parenting time, needs, earning capacity, update mechanism and housing/living costs."

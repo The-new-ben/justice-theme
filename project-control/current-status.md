@@ -1,3 +1,20 @@
+## LATEST WORK STATUS - 2026-05-21 22:32 Asia/Jerusalem
+- FAMILY/DIVORCE CHILD-SUPPORT MERGE DECISIONS + DRAFT MERGE: resolved all `/child-support/` current-live candidate rows and applied the approved draft edits locally.
+- TOOLING FIXED: created `tools/resolve-family-divorce-child-support-merge.mjs`.
+- TOOLING FIXED: created `tools/apply-family-divorce-child-support-draft-merges.mjs`.
+- CONTENT FIXED: updated `content-drafts/child-support-public-body-he.md` with the approved included-vs-separate expense, extraordinary-expense mechanics, change-of-support checklist and evidence/communications additions.
+- GENERATED: `reports/family-divorce-child-support-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-support-merge-decisions-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-support-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-support-draft-merge-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-support-draft-merge-2026-05-21.csv`.
+- VERIFIED LOCAL: all `35` current-live candidate rows resolved: `4` merge into draft, `25` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
+- VERIFIED LOCAL: all four approved insertion blocks are present in the draft.
+- VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce drafts pass static QA and `/child-support/` now reports `1,650` words.
+- FIXED: the three high-risk Family/Divorce merge blockers (`/child-support/`, `/child-custody/`, `/divorce-property-division/`) now all have row-level decisions and applied approved draft merges.
+- BLOCKED: no CMS upload is approved until owner/legal/source approval and actual WordPress editor/database backup are complete; GSC API/export remains required before URL migration, redirects, canonical/noindex or sitemap actions.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 22:14 Asia/Jerusalem
 - FAMILY/DIVORCE CHILD-CUSTODY MERGE DECISIONS + DRAFT MERGE: resolved all `/child-custody/` current-live candidate rows and applied the approved draft edits locally.
 - TOOLING FIXED: created `tools/resolve-family-divorce-child-custody-merge.mjs`.

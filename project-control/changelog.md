@@ -1,6 +1,24 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce child-support merge decisions and draft merge
+
+- TOOLING FIXED: added `tools/resolve-family-divorce-child-support-merge.mjs`.
+- TOOLING FIXED: added `tools/apply-family-divorce-child-support-draft-merges.mjs`.
+- CONTENT FIXED: applied the four approved `/child-support/` merge edits to `content-drafts/child-support-public-body-he.md`.
+- GENERATED: `reports/family-divorce-child-support-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-support-merge-decisions-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-support-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-support-draft-merge-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-support-draft-merge-2026-05-21.csv`.
+- VERIFIED LOCAL: `35` live rows resolved into `4` draft merges, `25` covered/no-action rows and `6` UI/CTA/taxonomy/related-link skips.
+- VERIFIED LOCAL: all four approved insertion blocks are present in the edited public-body draft.
+- VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce public-body drafts passed static QA.
+- VERIFIED: `/child-support/` now passes static QA with `1,650` words, all required links, no internal markers, no fake-trust hits and disclaimer status `PASS`.
+- FIXED: all three high-risk Family/Divorce pages now have row-level merge decisions and applied approved draft merges.
+- BLOCKED: CMS upload still requires owner/legal/source approval and actual WordPress editor/database backup.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce child-custody merge decisions and draft merge
 
 - TOOLING FIXED: added `tools/resolve-family-divorce-child-custody-merge.mjs`.

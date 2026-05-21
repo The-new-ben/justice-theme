@@ -1,0 +1,7 @@
+item,status,verification,next_step
+child_support_merge_decisions,VERIFIED,VERIFIED LOCAL 35 live rows resolved into 4 merge 25 covered/no-action and 6 skip rows,Keep decision worksheet with upload package
+child_support_draft_merges,FIXED,VERIFIED LOCAL four approved merge inserts applied to content-drafts/child-support-public-body-he.md,Owner/legal/source approval before CMS upload
+insertion_presence,VERIFIED,VERIFIED LOCAL four approved insertion blocks present after applying merge script,Keep script idempotent for audit/replay
+static_qa,VERIFIED,VERIFIED LOCAL all seven Family Divorce public-body drafts pass static QA after edit,Use report before owner upload review
+child_support_upload,BLOCKED,NOT VERIFIED no CMS upload or WordPress backup completed,Export actual WordPress editor/database content before CMS execution
+high_risk_merge_blocker,FIXED,VERIFIED LOCAL child-support child-custody and property-division merge rows are resolved and approved draft merges are applied,Move Family Divorce to owner/legal/source approval and CMS backup gate

@@ -2,6 +2,19 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce Child-Support Merge Decisions And Draft Merge
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/resolve-family-divorce-child-support-merge.mjs`.
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/apply-family-divorce-child-support-draft-merges.mjs`.
+- CONTENT FIXED / VERIFIED LOCAL: applied the four approved `/child-support/` draft merges.
+- VERIFIED LOCAL: resolved all `35` current-live candidate rows for `/child-support/`: `4` merge, `25` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
+- VERIFIED LOCAL: all four approved insertion blocks are present in `content-drafts/child-support-public-body-he.md`.
+- VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce public-body drafts passed static QA.
+- VERIFIED: `/child-support/` passes static QA with `1,650` words, all required links, no internal markers, no fake-trust hits and disclaimer status `PASS`.
+- FIXED: all three high-risk Family/Divorce merge blockers are now resolved locally.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was a local content-draft edit only and no public UI changed.
+- BLOCKED: owner/legal/source approval and actual WordPress editor/database backup are still required before CMS upload; GSC API/export remains required before URL migration or redirect/canonical/noindex/sitemap actions.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce Child-Custody Merge Decisions And Draft Merge
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/resolve-family-divorce-child-custody-merge.mjs`.
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/apply-family-divorce-child-custody-draft-merges.mjs`.

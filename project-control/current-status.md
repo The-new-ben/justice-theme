@@ -5,10 +5,12 @@
 - CODED: the unscheduled view excludes `won` and `lost` records because those intentionally clear follow-up dates.
 - CODED: `inc/lawyer-onboarding.php` now shows a "Needs scheduling" card and makes unscheduled active prospects a next-best-action priority after overdue/due work.
 - VERIFIED: `php -l inc/lawyer-prospects.php`, `php -l inc/lawyer-onboarding.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `e0ddcf3 Add unscheduled lawyer prospect view`; uPress Git pull succeeded and the uPress log shows `e0ddcf3` as live HEAD before this documentation correction.
+- LIVE CHECK: unauthenticated access to the `Needs scheduling` admin list redirects to WordPress login, then uPress Login Protector; the private prospect list is not public.
 - HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is preventing active lawyer prospects from stalling without a next action.
 - COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 80% to 82%; prospect follow-up readiness moved from 82% to 86%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
 - OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Needs scheduling; also Lawyer Onboarding -> Lawyer sales command center.
-- SAFETY: repo theme admin code/docs only at this log point. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 17:50 Asia/Jerusalem
 - LAWYER SALES NEXT BEST ACTION: upgraded the private Lawyer sales command center from raw counts to a clear first action.

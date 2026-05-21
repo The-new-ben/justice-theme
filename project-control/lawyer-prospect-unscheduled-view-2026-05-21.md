@@ -28,6 +28,9 @@ Sources:
 - `php -l inc/lawyer-prospects.php` passed.
 - `php -l inc/lawyer-onboarding.php` passed.
 - `git diff --check` passed with only the existing Windows line-ending warning.
+- Pushed `e0ddcf3 Add unscheduled lawyer prospect view`.
+- uPress Git pull succeeded; uPress Git log shows `e0ddcf3 Add unscheduled lawyer prospect view` as HEAD before this documentation correction.
+- Public unauthenticated admin URL check for the `Needs scheduling` list redirects to `wp-login.php`; the follow-up request hit uPress Login Protector and did not expose the private list.
 
 ## Completion Assessment
 - Materially advanced: the owner can now find active prospects with no next step before they stall.
@@ -38,7 +41,7 @@ Sources:
 - Owner-visible after WordPress admin login: Lawyer Onboarding -> Lawyer Prospects -> Needs scheduling; also Lawyer Onboarding -> Lawyer sales command center.
 
 ## Safety
-- Repo theme admin code/docs only until uPress pull.
+- Repo theme admin code/docs plus uPress pull/live login-gate check only.
 - No public CMS database page edited.
 - No public page changed.
 - No 301 redirect package touched.

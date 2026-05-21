@@ -53,6 +53,34 @@ $home_intent_article_query = static function ( string $slug, int $limit = 2 ): a
 	);
 };
 
+$home_intent_fallback_links = static function ( array $fallbacks, string $default_url ): array {
+	$links = array();
+	$seen  = array();
+
+	foreach ( $fallbacks as $fallback ) {
+		$label = isset( $fallback['label'] ) ? (string) $fallback['label'] : '';
+		$path  = isset( $fallback['url'] ) ? (string) $fallback['url'] : '';
+
+		if ( '' === $label || '' === $path || ! justice_theme_public_path_is_published( $path ) ) {
+			continue;
+		}
+
+		$url = justice_theme_safe_public_link( $path, $default_url );
+
+		if ( isset( $seen[ $url ] ) ) {
+			continue;
+		}
+
+		$seen[ $url ] = true;
+		$links[]      = array(
+			'label' => $label,
+			'url'   => $url,
+		);
+	}
+
+	return $links;
+};
+
 $home_intent_links = array(
 	array(
 		'title'       => __( 'עורך דין פלילי', 'justice-theme' ),
@@ -154,7 +182,7 @@ $home_intent_links = array(
 				$related_count  = count( $related_posts );
 				$directory_url  = $intent['lawyers_url'];
 				$primary_url    = $intent['guide_url'];
-				$fallback_links = $intent['fallbacks'];
+				$fallback_links = $home_intent_fallback_links( $intent['fallbacks'], $primary_url );
 				?>
 				<article class="homepage-intent-card">
 					<div class="homepage-intent-card__top">
@@ -176,10 +204,12 @@ $home_intent_links = array(
 								<?php foreach ( $related_posts as $related_post ) : ?>
 									<li><a href="<?php echo esc_url( justice_theme_public_permalink( (int) $related_post->ID ) ); ?>"><?php echo esc_html( get_the_title( $related_post ) ); ?></a></li>
 								<?php endforeach; ?>
-							<?php else : ?>
+							<?php elseif ( ! empty( $fallback_links ) ) : ?>
 								<?php foreach ( $fallback_links as $fallback ) : ?>
-									<li><a href="<?php echo esc_url( justice_theme_safe_public_link( $fallback['url'], $primary_url ) ); ?>"><?php echo esc_html( $fallback['label'] ); ?></a></li>
+									<li><a href="<?php echo esc_url( $fallback['url'] ); ?>"><?php echo esc_html( $fallback['label'] ); ?></a></li>
 								<?php endforeach; ?>
+							<?php else : ?>
+								<li><a href="<?php echo esc_url( $directory_url ); ?>"><?php esc_html_e( 'חיפוש פרופילים בתחום זה', 'justice-theme' ); ?></a></li>
 							<?php endif; ?>
 						</ul>
 					</div>

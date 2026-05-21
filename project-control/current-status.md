@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-21 14:35 Asia/Jerusalem
+- HOMEPAGE LINK QUALITY: tightened the new money-intent homepage section so related-guide labels only point to real published support pages.
+- RESEARCHED: Google Search Central link guidance says crawlable internal links and descriptive relevant anchor text help users and Google understand the site. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable?hl=en
+- FOUND: the section already uses published CMS articles first, but unpublished planned fallback guide paths could fall back to the same primary or directory URL. That was safe technically but weak for trust because different labels could lead to one generic destination.
+- CODED: `template-parts/sections/homepage-intent-pyramid.php` now filters fallback guide links through published-path checks and deduplicates URLs. If no real support link exists, it shows one honest practice-area profile-search link.
+- DOCUMENTED: added `project-control/homepage-intent-link-quality-2026-05-21.md`.
+- VERIFIED: pending final live deploy and homepage check.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is homepage trust and SEO hygiene on the high-money practice cards.
+- COMPLETION ASSESSMENT: homepage SEO/link-quality readiness moved from 70% to 73%; traffic-to-lead conversion readiness remains 55% until real analytics prove lift. Still blocked: GSC/Analytics impact, Grow approval/product mapping and real paid lawyer users.
+- OWNER-VISIBLE AFTER DEPLOY: homepage related-guide links should no longer show unpublished planned article labels that all land on the same generic page.
+- SAFETY: repo code/docs only so far. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 14:12 Asia/Jerusalem
 - HOMEPAGE MOBILE QA: checked the live homepage after the money-intent pyramid deploy, focusing on mobile because Google uses mobile-first indexing and urgent legal leads often come from phones.
 - RESEARCHED: Google Search Central mobile-first indexing guidance says Google uses the mobile version of content for indexing and recommends mobile-friendly responsive design. Current legal website conversion guidance emphasizes visible CTAs, mobile usability and clear practice-area navigation. Sources: https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing, https://growlaw.co/blog/law-firm-website-ux-best-practices, https://www.simplelaw.com/blog/conversion-strategies-for-law-firm-websites

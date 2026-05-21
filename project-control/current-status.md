@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-21 14:59 Asia/Jerusalem
+- HOMEPAGE GOOGLEBOT JOURNEY: ran a live homepage check with a smartphone Googlebot-style user agent after the homepage SEO changes.
+- RESEARCHED: Google Search Central mobile-first indexing guidance says Google mainly uses the mobile version for indexing/ranking and needs access to the same content, links and structured data. Source: https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing
+- AUDITED: homepage returns content, canonical is `https://jus-tice.co.il/`, no homepage `noindex`, H1 count is 1, customer strip present, money-intent pyramid present, `#homepage-intent-pyramid` anchor present, find-lawyer guide present, ask-lawyer path present, and homepage intent `ItemList` has 6 items.
+- AUDITED: `robots.txt` returns 200 with sitemap, and `sitemap_index.xml` returns 200 with 7 HTTPS sitemap URLs and 0 HTTP sitemap URLs.
+- FOUND: real-estate, labor-law and personal-injury homepage guide/title destinations were landing on filtered lawyer directory URLs that return 200 but are `noindex`. Good for conversion, weak as main SEO guide targets.
+- CODED: changed those three homepage guide/title destinations to indexable pages while keeping the profile buttons on filtered lawyer-directory URLs: real estate -> `/practice-areas/real-estate-law/`, labor law -> `/practice-areas/labor-law/`, personal injury -> `/tort-lawyer/`.
+- DOCUMENTED: added `project-control/homepage-googlebot-journey-2026-05-21.md`.
+- VERIFIED: pending deploy and live recheck.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is homepage crawl quality: the homepage now points its main guide actions at indexable legal destinations instead of noindex filters.
+- COMPLETION ASSESSMENT: homepage Googlebot/indexing confidence moved from 70% to 78%; homepage SEO/root readiness moved from 75% to 78%. Still blocked: live deployment verification, GSC/Analytics impact, Grow approval/product mapping and paid lawyer users.
+- OWNER-VISIBLE AFTER DEPLOY: on the homepage, real-estate/labor/personal-injury card title and guide buttons should open legal content pages; profile buttons still open filtered lawyer lists.
+- SAFETY: repo code/docs only so far. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 14:49 Asia/Jerusalem
 - HOMEPAGE STRUCTURED DATA: added a safe JSON-LD `ItemList` for the six visible money-intent cards on the homepage.
 - RESEARCHED: Google Search Central structured-data guidance says JSON-LD is recommended, structured data must describe visible content, and multiple visible items can be marked up when it helps Google understand the page. Sources: https://developers.google.com/search/docs/appearance/structured-data/sd-policies and https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data

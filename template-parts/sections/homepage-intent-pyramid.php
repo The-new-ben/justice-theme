@@ -127,7 +127,7 @@ $home_intent_links = array(
 		'intent'      => __( 'קניית דירה, מכירת נכס, חוזה מכר, טאבו, ליקויי בנייה ומיסוי מקרקעין.', 'justice-theme' ),
 		'slug'        => 'real-estate-law',
 		'priority'    => __( 'כסף גדול', 'justice-theme' ),
-		'guide_url'   => justice_theme_safe_public_link( '/real-estate-lawyer/', '/lawyers/?area=real-estate-law' ),
+		'guide_url'   => home_url( '/practice-areas/real-estate-law/' ),
 		'lawyers_url' => home_url( '/lawyers/?area=real-estate-law' ),
 		'fallbacks'   => array(
 			array( 'label' => __( 'חוזה מכר דירה', 'justice-theme' ), 'url' => '/real-estate-contract-review/' ),
@@ -153,7 +153,7 @@ $home_intent_links = array(
 		'intent'      => __( 'פיטורים, שימוע, זכויות עובדים, חוזה עבודה, שעות נוספות ופנסיה.', 'justice-theme' ),
 		'slug'        => 'labor-law',
 		'priority'    => __( 'מתמשך', 'justice-theme' ),
-		'guide_url'   => justice_theme_safe_public_link( '/employment-lawyer/', '/lawyers/?area=labor-law' ),
+		'guide_url'   => home_url( '/practice-areas/labor-law/' ),
 		'lawyers_url' => home_url( '/lawyers/?area=labor-law' ),
 		'fallbacks'   => array(
 			array( 'label' => __( 'זכויות עובדים', 'justice-theme' ), 'url' => '/employee-rights/' ),
@@ -166,7 +166,7 @@ $home_intent_links = array(
 		'intent'      => __( 'תאונת דרכים, תאונת עבודה, פציעה, ביטוח לאומי או תביעת פיצויים.', 'justice-theme' ),
 		'slug'        => 'personal-injury-law',
 		'priority'    => __( 'פיצוי', 'justice-theme' ),
-		'guide_url'   => justice_theme_safe_public_link( '/personal-injury-lawyer/', '/lawyers/?area=personal-injury-law' ),
+		'guide_url'   => home_url( '/tort-lawyer/' ),
 		'lawyers_url' => home_url( '/lawyers/?area=personal-injury-law' ),
 		'fallbacks'   => array(
 			array( 'label' => __( 'תאונת דרכים', 'justice-theme' ), 'url' => '/car-accident-lawyer/' ),

@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-21 17:16 Asia/Jerusalem
+- LAWYER OUTREACH LAUNCH DRAFTS: strengthened the owner-only Outreach Links screen so the first lawyer sales batch can be small, personal, tracked and safer.
+- RESEARCHED: Google Analytics says campaign URLs should use consistent `utm_source`, `utm_medium`, `utm_campaign` and `utm_content` for message variants; Israeli anti-spam commentary around section 30A warns that commercial email/SMS outreach has consent/unsubscribe risk. Sources: https://support.google.com/analytics/answer/10917952, https://www.law.co.il/en/news/2016/08/19/israeli-anti-spam-law-amended-for-first-time/
+- CODED: `inc/lawyer-onboarding.php` now gives the owner-only outreach builder three message variants, a personal opening line field, and a manual-outreach warning.
+- CODED: the personal opening line is copied into the message only and is not added to the tracked registration URL.
+- CODED: the owner-only batch rule now says to start with 10-20 lawyers, use one segment, change one variable at a time, personalize the first sentence, avoid bulk sending and watch Lawyer Onboarding source data.
+- VERIFIED: `php -l inc/lawyer-onboarding.php` passed and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `45d817a Improve lawyer outreach launch drafts`; uPress Git pull succeeded and the uPress log shows `45d817a` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: direct access to `wp-admin/admin.php?page=justice-lawyer-outreach-links` redirects to WordPress login, includes `noindex`, and does not expose the outreach screen text publicly.
+- HONEST MONEY ASSESSMENT: no revenue earned yet and no outreach sent. Material advancement is execution readiness for the first tracked lawyer sales batch.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 55% to 63%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Outreach Links.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/order record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 17:02 Asia/Jerusalem
 - LAWYER PLANS FAQ SCHEMA: added FAQPage JSON-LD to `/lawyer-plans/` so the existing lawyer objections are machine-readable as well as visible.
 - RESEARCHED: Google's FAQPage guidance was updated with FAQ rich-result deprecation from May 7, 2026, but still documents `FAQPage`, `Question` and `Answer`; Google's structured-data policies require markup to match visible page content and avoid hidden/misleading content. Sources: https://developers.google.com/search/docs/appearance/structured-data/faqpage, https://developers.google.com/search/docs/appearance/structured-data/sd-policies, https://developers.google.com/search/blog/2023/08/howto-faq-changes

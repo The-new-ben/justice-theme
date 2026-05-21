@@ -681,6 +681,27 @@ function justice_theme_money_query_intro( $content ) {
 add_filter( 'the_content', 'justice_theme_money_query_intro', 6 );
 
 /**
+ * Return focused SEO copy for high-value practice taxonomy pages.
+ *
+ * @param string $term_slug Practice-area term slug.
+ * @return array
+ */
+function justice_theme_practice_area_seo_override( string $term_slug ): array {
+	$overrides = array(
+		'real-estate-law' => array(
+			'title'       => 'עורך דין מקרקעין ונדל״ן | מדריכים, מאמרים ועורכי דין',
+			'description' => 'מידע על קניית דירה, מכירת נכס, חוזה מכר, טאבו, מס שבח והתחדשות עירונית, עם מדריכים ופנייה מסודרת לעורך דין מקרקעין.',
+		),
+		'labor-law'       => array(
+			'title'       => 'עורך דין דיני עבודה | זכויות עובדים, פיטורים ושימוע',
+			'description' => 'מידע לעובדים ולמעסיקים בנושא פיטורים, שימוע, זכויות עובדים, שכר, חוזה עבודה ופנסיה, עם מדריכים ופנייה לעורך דין דיני עבודה.',
+		),
+	);
+
+	return $overrides[ $term_slug ] ?? array();
+}
+
+/**
  * Build the public-facing SEO title for the current request.
  *
  * Shared by WordPress core title parts and common SEO plugin filters so archive
@@ -737,7 +758,12 @@ function justice_theme_contextual_seo_title(): string {
 
 	if ( is_tax( 'practice-areas' ) ) {
 		$term = get_queried_object();
-		if ( $term ) {
+		if ( $term instanceof WP_Term ) {
+			$practice_area_seo = justice_theme_practice_area_seo_override( $term->slug );
+			if ( ! empty( $practice_area_seo['title'] ) ) {
+				return $practice_area_seo['title'];
+			}
+
 			return 'עורך דין ' . $term->name . ' | מדריך, מאמרים ועורכי דין';
 		}
 	}
@@ -878,6 +904,16 @@ function justice_theme_filter_plugin_seo_description( $description ) {
 		$custom_description = get_post_meta( get_the_ID(), 'seo_description', true );
 		if ( $custom_description ) {
 			return wp_strip_all_tags( $custom_description );
+		}
+	}
+
+	if ( is_tax( 'practice-areas' ) ) {
+		$term = get_queried_object();
+		if ( $term instanceof WP_Term ) {
+			$practice_area_seo = justice_theme_practice_area_seo_override( $term->slug );
+			if ( ! empty( $practice_area_seo['description'] ) ) {
+				return wp_strip_all_tags( $practice_area_seo['description'] );
+			}
 		}
 	}
 

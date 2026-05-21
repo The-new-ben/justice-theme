@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-21 17:48 Asia/Jerusalem
+- LAWYER SALES COMMAND CENTER: added one top-level owner view inside Lawyer Onboarding for daily lawyer sales execution.
+- RESEARCHED: HubSpot task guidance uses record-linked due dates, reminders, priority and follow-up work; Salesforce pipeline guidance stresses clear next steps, regular pipeline review and automation. Sources: https://knowledge.hubspot.com/tasks/create-tasks, https://www.salesforce.com/sales/pipeline/management/
+- CODED: `inc/lawyer-onboarding.php` now renders command-center cards for overdue follow-ups, due now, hot prospects, proposals sent, active monthly pipeline and won monthly value.
+- CODED: the command center links directly to Due, Overdue, Hot, Proposal, Outreach Links, Add manual prospect and All prospects.
+- VERIFIED: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `d0b61d0 Show lawyer sales command center`; uPress Git pull succeeded and the uPress log showed `d0b61d0` as the live code commit before this documentation update.
+- LIVE CHECK: unauthenticated admin URL redirects to WordPress login, then uPress Login Protector; the command center is not public.
+- HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is owner execution visibility.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 74% to 78%; prospect follow-up readiness moved from 72% to 78%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> top Lawyer sales command center.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 17:35 Asia/Jerusalem
 - LAWYER PROSPECT FOLLOW-UP VIEWS: added due/overdue follow-up views and list-level quick actions to the private Lawyer Prospects admin list.
 - RESEARCHED: HubSpot tasks use record-linked due dates, reminders, priority and follow-up creation; Salesforce's 2026 pipeline guidance stresses clear next steps, regular reviews and automation because leads do not close by themselves. Sources: https://knowledge.hubspot.com/tasks/create-tasks, https://www.salesforce.com/sales/pipeline/management/

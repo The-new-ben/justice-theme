@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-21 21:42 Asia/Jerusalem
+- FAMILY/DIVORCE HIGH-RISK MERGE REVIEW: prepared the first side-by-side merge worksheet for the three highest-retention-risk pages: `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- TOOLING FIXED: created `tools/prepare-family-divorce-merge-review.mjs`.
+- VERIFIED LOCAL: generated `reports/family-divorce-high-risk-merge-review-2026-05-21.csv` with `165` section rows.
+- CREATED: `project-control/family-divorce-high-risk-merge-review-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-high-risk-merge-review-2026-05-21.csv`.
+- VERIFIED: worksheet includes `60` draft base sections, `30` live sections marked `REVIEW_FOR_MERGE`, `46` live sections marked `PARTIAL_OVERLAP_REVIEW` and `29` live sections marked `COVERED_BY_DRAFT`.
+- BLOCKED: these three pages should not be uploaded until all `REVIEW_FOR_MERGE` and `PARTIAL_OVERLAP_REVIEW` rows are resolved into keep/merge/rewrite/skip decisions.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 21:32 Asia/Jerusalem
 - FAMILY/DIVORCE LIVE VS DRAFT COMPARISON: compared the seven clean public-body drafts against the seven live public text snapshots before any CMS overwrite.
 - TOOLING FIXED: created `tools/compare-family-divorce-live-vs-drafts.mjs`.

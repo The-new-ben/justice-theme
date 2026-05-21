@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce high-risk merge review
+
+- TOOLING FIXED: added `tools/prepare-family-divorce-merge-review.mjs`.
+- VERIFIED LOCAL: generated a merge-review worksheet for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- GENERATED: `reports/family-divorce-high-risk-merge-review-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-high-risk-merge-review-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-high-risk-merge-review-2026-05-21.csv`.
+- VERIFIED: worksheet contains `165` rows: `60` draft base sections, `30` live sections marked `REVIEW_FOR_MERGE`, `46` marked `PARTIAL_OVERLAP_REVIEW` and `29` marked `COVERED_BY_DRAFT`.
+- BLOCKED: no direct overwrite is approved for the three high-risk pages until review rows are resolved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce live vs draft comparison
 
 - TOOLING FIXED: added `tools/compare-family-divorce-live-vs-drafts.mjs`.

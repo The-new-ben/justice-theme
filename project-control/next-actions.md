@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-HIGH-RISK-MERGE-REVIEW-001: Prepare merge worksheet for highest-risk pages
+**Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** The live-vs-draft comparison showed the largest overwrite risk on `/child-support/`, `/child-custody/` and `/divorce-property-division/`. These pages need section-level review before CMS upload.
+**Actions:**
+1. DONE: created `tools/prepare-family-divorce-merge-review.mjs`.
+2. DONE: generated `reports/family-divorce-high-risk-merge-review-2026-05-21.csv`.
+3. DONE: created `project-control/family-divorce-high-risk-merge-review-2026-05-21.md`.
+4. DONE: created `project-control/family-divorce-high-risk-merge-review-2026-05-21.csv`.
+5. VERIFIED LOCAL: worksheet contains `165` rows across the three high-risk pages.
+6. VERIFIED: `60` rows are draft base sections, `30` live sections require merge review, `46` live sections require partial-overlap review and `29` live sections appear covered by draft.
+7. NEXT: resolve `REVIEW_FOR_MERGE` and `PARTIAL_OVERLAP_REVIEW` rows into keep/merge/rewrite/skip decisions, starting with `/divorce-property-division/`.
+8. BLOCKED: do not upload these three pages as direct overwrites.
+
 ### ACTION-FAMILY-DIVORCE-LIVE-VS-DRAFT-COMPARE-001: Compare live snapshots against clean drafts before overwrite
 **Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
 **Why:** The seven target pages are already live and indexable. The clean drafts passed static QA, but upload approval needs proof that a CMS overwrite will not discard stronger current-live sections.

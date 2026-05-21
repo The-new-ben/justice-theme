@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce High-Risk Merge Review
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/prepare-family-divorce-merge-review.mjs`.
+- VERIFIED LOCAL: generated `165` section-level merge-review rows for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- VERIFIED: worksheet includes `60` draft base sections, `30` live sections marked `REVIEW_FOR_MERGE`, `46` marked `PARTIAL_OVERLAP_REVIEW` and `29` marked `COVERED_BY_DRAFT`.
+- BLOCKED: these three pages should not be uploaded until review rows are resolved into keep/merge/rewrite/skip decisions.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was content-merge planning only and no public UI changed.
+- NEXT QA: after resolved merge decisions and approved CMS update, rerun content/route QA and capture screenshots.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce Live vs Draft Comparison
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/compare-family-divorce-live-vs-drafts.mjs`.
 - VERIFIED LOCAL: compared seven live public text snapshots against seven clean public-body drafts.

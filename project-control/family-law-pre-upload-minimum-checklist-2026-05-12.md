@@ -8,6 +8,9 @@ This checklist defines the minimum safe gate before Family/Divorce moves from pl
 ## Current Position
 
 LATEST 2026-05-21 UPDATE:
+- `tools/prepare-family-divorce-merge-review.mjs` now creates a section-level merge-review worksheet for the three high-risk Family/Divorce pages: `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- VERIFIED LOCAL: `165` rows generated across the three pages: `60` draft base sections, `30` live sections requiring merge review, `46` partial-overlap review rows and `29` covered rows.
+- BLOCKED: these three high-risk pages cannot be uploaded until merge rows are resolved into keep, merge, rewrite or skip decisions.
 - `tools/compare-family-divorce-live-vs-drafts.mjs` now compares the seven live public snapshots against the seven clean public-body drafts.
 - VERIFIED LOCAL: live snapshots total `19,236` words; clean drafts total `11,673` words; net draft reduction is `-7,563` words.
 - BLOCKED: no blind overwrite is approved; all seven pages need page-by-page merge review, with high priority for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
@@ -71,6 +74,7 @@ VERIFIED:
 - The live pre-upload guard now confirms `5` protected Family/Divorce source URLs redirect to homepage and must be resolved or intentionally mapped before URL migration.
 - Public text snapshots now preserve the current live target-page content for side-by-side comparison before approved overwrite/update.
 - Live-vs-draft comparison now confirms that all seven pages require merge review before any upload because the clean drafts are materially shorter than the current live pages.
+- The high-risk merge worksheet now gives section-level review rows for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
 
 NOT VERIFIED:
 - GSC API export.
@@ -137,6 +141,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 53. Export actual WordPress editor/database content before CMS execution; the public text snapshot is not sufficient as rollback backup.
 54. Complete side-by-side merge review for all seven target pages before owner approves CMS overwrite/update.
 55. Prioritize merge review for `/child-support/`, `/child-custody/` and `/divorce-property-division/` because their draft/live ratios are below or around `0.60`.
+56. Resolve high-risk merge-review rows for `/child-support/`, `/child-custody/` and `/divorce-property-division/` before CMS upload.
+57. Convert each `REVIEW_FOR_MERGE` and `PARTIAL_OVERLAP_REVIEW` row into keep, merge, rewrite or skip decisions.
 
 ## Current Recommendation
 

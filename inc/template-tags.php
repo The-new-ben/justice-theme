@@ -76,14 +76,27 @@ function justice_theme_public_path_is_published( string $path ): bool {
 		return true;
 	}
 
-	$post_types = array_values( array_filter( array( 'page', 'articles', 'post' ), 'post_type_exists' ) );
+	$post_types = array_values( array_filter( array( 'page', 'articles', 'post', 'justice_legal_tool' ), 'post_type_exists' ) );
 	if ( empty( $post_types ) ) {
 		$post_types = array( 'page', 'post' );
 	}
 
 	$post = get_page_by_path( $slug, OBJECT, $post_types );
 
-	return $post instanceof WP_Post && 'publish' === get_post_status( $post );
+	if ( $post instanceof WP_Post && 'publish' === get_post_status( $post ) ) {
+		return true;
+	}
+
+	if ( post_type_exists( 'justice_legal_tool' ) ) {
+		if ( 0 === strpos( $slug, 'legal-tools/' ) ) {
+			$tool_slug = trim( substr( $slug, strlen( 'legal-tools/' ) ), '/' );
+			$tool      = $tool_slug ? get_page_by_path( $tool_slug, OBJECT, 'justice_legal_tool' ) : null;
+
+			return $tool instanceof WP_Post && 'publish' === get_post_status( $tool );
+		}
+	}
+
+	return false;
 }
 
 /**

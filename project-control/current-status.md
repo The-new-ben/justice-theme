@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-21 18:41 Asia/Jerusalem
+- HOMEPAGE LEGALTECH PRODUCT GATEWAY: connected the existing LegalTech/tools section into the homepage so the page now points users toward document/intake products as well as lawyers and articles.
+- RESEARCHED: Google Search Central says navigation and cross-page links help Google understand site structure and important products; LegalZoom's official help content shows attorney-drafted templates/document flows as a legal-service product model; FindLaw sells legal directory value through visibility, contact paths and search optimization. Sources: https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure, https://help.legalzoom.com/docs/creating-documents, https://www.findlaw.com/lawyer-marketing/services/legal-directory-advertising/findlaw-premium-profile/
+- CODED: `front-page.php` now renders `template-parts/sections/legaltech-tools.php` after featured lawyers and before the lawyer acquisition CTA.
+- CODED: `inc/template-tags.php` now treats published `justice_legal_tool` CMS records as safe public destinations, including tool URLs under `/legal-tools/{tool}/`.
+- SAFETY DECISION: the `/legal-tools/` archive route itself is not promoted as safe yet because the current pre-deploy live check shows it redirects to the homepage.
+- VERIFIED: `php -l front-page.php`, `php -l inc\template-tags.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- HONEST MONEY ASSESSMENT: no revenue, no CMS product records and no outreach. Material advancement is exposing the future LegalTech/form/intake product layer on the homepage and improving safe CMS linking for that product line.
+- COMPLETION ASSESSMENT: homepage money-machine readiness moved from 84% to 86%; LegalTech product-path readiness moved from 35% to 42%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER DEPLOY: homepage, below featured lawyers and above the lawyer acquisition section.
+- SAFETY: repo theme code/docs only. No public CMS database page edited, no product record created, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no lawyer/lead/prospect/order record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 18:29 Asia/Jerusalem
 - LAWYER PROSPECT MONTHLY VALUE COLUMN: added a private sortable monthly-value column so the owner can prioritize higher-value lawyer prospects.
 - RESEARCHED: Pipedrive guidance says deal value can be used for sorting to focus on high-revenue opportunities; Pipedrive deal management shows value and priority as core pipeline details visible at a glance. Sources: https://support.pipedrive.com/en/article/how-are-deals-ordered-in-the-pipeline-view, https://www.pipedrive.com/en/products/sales/deal-management/

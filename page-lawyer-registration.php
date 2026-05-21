@@ -262,4 +262,27 @@ if ( $selected_plan && function_exists( 'justice_theme_lawyer_plan_public_overri
 	</div>
 </section>
 
+<section class="lawyer-registration-next section" aria-labelledby="lawyer-registration-next-title">
+	<div class="container lawyer-registration-next__inner">
+		<div>
+			<p class="section-header__eyebrow"><?php esc_html_e( 'אחרי השליחה', 'justice-theme' ); ?></p>
+			<h2 id="lawyer-registration-next-title"><?php esc_html_e( 'כך הופכים הרשמה לפרופיל שמוכן לקבל לקוחות', 'justice-theme' ); ?></h2>
+		</div>
+		<ol class="lawyer-registration-next__steps">
+			<li>
+				<strong><?php esc_html_e( 'בדיקת התאמה', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'בודקים רישיון, תחום, אזורי שירות, זמינות למענה וכללי פרסום לפני פרסום או ניתוב פניות.', 'justice-theme' ); ?></span>
+			</li>
+			<li>
+				<strong><?php esc_html_e( 'בניית מיני-סייט', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'החומר מהטופס הופך לטיוטת פרופיל עם שירותים, תהליך עבודה, שאלות נפוצות ונכסי אמון לבדיקה.', 'justice-theme' ); ?></span>
+			</li>
+			<li>
+				<strong><?php esc_html_e( 'הפעלה ומדידה', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'אחרי אישור ותשלום, הפרופיל מתחבר לדאשבורד, סטטוס פניות, בקשות תוכן ודוח ערך חודשי.', 'justice-theme' ); ?></span>
+			</li>
+		</ol>
+	</div>
+</section>
+
 <?php get_footer(); ?>

@@ -48,33 +48,33 @@
 
 		var wizardConfig = [
 			{
-				title: 'Basics',
-				kicker: 'Step 1',
-				description: 'Name, firm, license and direct contact details.',
+				title: 'פרטים בסיסיים',
+				kicker: 'שלב 1',
+				description: 'שם, משרד, מספר רישיון ופרטי קשר ישירים כדי שנוכל לבדוק התאמה ולחזור אליכם.',
 				fields: ['lawyer_full_name', 'firm_name', 'bar_number', 'phone', 'email', 'whatsapp']
 			},
 			{
-				title: 'Practice fit',
-				kicker: 'Step 2',
-				description: 'Practice area, locations, languages, website, plan interest and response availability.',
+				title: 'התאמת תחום',
+				kicker: 'שלב 2',
+				description: 'תחום עיסוק, אזורי שירות, שפות, אתר קיים, מסלול רצוי וזמינות למענה לפניות.',
 				fields: ['practice_area', 'cities_served', 'languages', 'website', 'plan_interest', 'lead_response_commitment']
 			},
 			{
-				title: 'Mini-site material',
-				kicker: 'Step 3',
-				description: 'The material that becomes the lawyer profile, services, process, video and FAQs.',
+				title: 'חומר למיני-סייט',
+				kicker: 'שלב 3',
+				description: 'הטקסטים שמהם נבנה פרופיל מקצועי: תיאור, כותרת, שירותים, תהליך עבודה, וידאו ושאלות נפוצות.',
 				fields: ['bio_short', 'profile_headline', 'profile_services', 'profile_process', 'profile_video_url', 'profile_faqs']
 			},
 			{
-				title: 'Trust sources',
-				kicker: 'Step 4',
-				description: 'Google Business and review links help the owner verify reputation assets before publishing.',
+				title: 'נכסי אמון',
+				kicker: 'שלב 4',
+				description: 'קישורי Google Business וביקורות עוזרים לנו לאמת נכסי מוניטין לפני הצגה או קמפיין המלצות.',
 				fields: ['google_business_profile_url', 'google_review_request_url']
 			},
 			{
-				title: 'Review',
-				kicker: 'Step 5',
-				description: 'Submit for owner review. Nothing goes public before license and ethics review.',
+				title: 'בדיקה ושליחה',
+				kicker: 'שלב 5',
+				description: 'שליחה לבדיקה. שום דבר לא מתפרסם אוטומטית לפני בדיקת רישיון, התאמה, תוכן וכללי פרסום.',
 				fields: []
 			}
 		];
@@ -85,7 +85,7 @@
 
 		var intro = document.createElement('div');
 		intro.className = 'lawyer-registration-wizard__intro';
-		intro.innerHTML = '<strong>Smart onboarding path</strong><span>The form is split into a guided flow so the lawyer understands what to prepare. AI drafting can be connected behind this flow later without changing the business process.</span>';
+		intro.innerHTML = '<strong>מסלול הצטרפות חכם</strong><span>הטופס מחולק לשלבים קצרים כדי להכין פרופיל, תוכן, נכסי אמון ומסלול מסחרי בלי להציף אתכם בפרטים מיותרים.</span>';
 		wizard.appendChild(intro);
 
 		var nav = document.createElement('ol');
@@ -130,6 +130,11 @@
 			finalFields.appendChild(submit);
 		}
 
+		var finalSummary = document.createElement('div');
+		finalSummary.className = 'lawyer-registration-wizard__summary';
+		finalSummary.innerHTML = '<strong>מה קורה אחרי השליחה?</strong><ul><li>נבדוק רישיון, תחום, אזורי שירות וזמינות למענה.</li><li>נכין את הפרופיל והמיני-סייט לבדיקה לפני פרסום.</li><li>אם נבחר מסלול בתשלום, נשלח הוראות תשלום או נפעיל תשלום אוטומטי רק כשהסליקה מאושרת.</li></ul>';
+		finalStep.insertBefore(finalSummary, finalFields);
+
 		stepElements.forEach(function (step, index) {
 			var controls = document.createElement('div');
 			controls.className = 'lawyer-registration-wizard__controls';
@@ -138,7 +143,7 @@
 				var back = document.createElement('button');
 				back.type = 'button';
 				back.className = 'button button--outline';
-				back.textContent = 'Back';
+				back.textContent = 'חזרה';
 				back.addEventListener('click', function () {
 					setStep(index - 1, stepElements, navItems);
 				});
@@ -149,7 +154,7 @@
 				var next = document.createElement('button');
 				next.type = 'button';
 				next.className = 'button button--gold';
-				next.textContent = 'Next';
+				next.textContent = 'המשך';
 				next.addEventListener('click', function () {
 					if (canLeaveStep(step)) {
 						setStep(index + 1, stepElements, navItems);

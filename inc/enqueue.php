@@ -35,7 +35,7 @@ function justice_theme_enqueue_assets() {
 		'justice-premium-3',
 		JUSTICE_THEME_URI . '/assets/css/premium-pass-3.css',
 		array( 'justice-premium-2' ),
-		'3.0.0'
+		'3.0.1'
 	);
 
 	wp_enqueue_style(
@@ -107,7 +107,7 @@ function justice_theme_enqueue_assets() {
 			'justice-lawyer-registration-wizard',
 			JUSTICE_THEME_URI . '/assets/js/lawyer-registration-wizard.js',
 			array(),
-			'1.0.0',
+			'1.1.0',
 			true
 		);
 	}

@@ -2163,6 +2163,30 @@
   grid-column: 1 / -1;
 }
 
+.lawyer-registration-wizard__summary {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 0.65rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.lawyer-registration-wizard__summary strong {
+  color: #0f172a;
+  font-size: 1.05rem;
+}
+
+.lawyer-registration-wizard__summary ul {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding-inline-start: 1.2rem;
+  color: #475569;
+  line-height: 1.55;
+}
+
 .lawyer-registration-wizard__controls {
   display: flex;
   justify-content: space-between;
@@ -2180,10 +2204,73 @@
   font-weight: 900;
 }
 
+.lawyer-registration-next {
+  background: #f8fafc;
+}
+
+.lawyer-registration-next__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.4fr);
+  gap: 2rem;
+  align-items: start;
+}
+
+.lawyer-registration-next h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  line-height: 1.2;
+}
+
+.lawyer-registration-next__steps {
+  display: grid;
+  gap: 0.9rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: lawyer-next-step;
+}
+
+.lawyer-registration-next__steps li {
+  counter-increment: lawyer-next-step;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.25rem 0.9rem;
+  padding: 1rem;
+  border: 1px solid rgba(15, 23, 42, 0.1);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.06);
+}
+
+.lawyer-registration-next__steps li::before {
+  content: counter(lawyer-next-step);
+  grid-row: span 2;
+  display: inline-grid;
+  place-items: center;
+  width: 2.15rem;
+  height: 2.15rem;
+  border-radius: 999px;
+  background: #c5a35b;
+  color: #0f172a;
+  font-weight: 900;
+}
+
+.lawyer-registration-next__steps strong {
+  color: #0f172a;
+  font-size: 1.05rem;
+}
+
+.lawyer-registration-next__steps span {
+  color: #475569;
+  line-height: 1.55;
+}
+
 @media (max-width: 900px) {
   .lawyer-registration-hero__grid,
   .lawyer-registration__grid,
   .lawyer-registration-plan-context,
+  .lawyer-registration-next__inner,
   .lawyer-registration-form__grid,
   .lawyer-registration-wizard__fields {
     grid-template-columns: 1fr;

@@ -1149,6 +1149,126 @@ function justice_theme_lawyer_onboarding_sales_priority( string $plan ): array {
 	);
 }
 
+function justice_theme_lawyer_onboarding_prospect_count( string $meta_key, $value ): int {
+	if ( ! post_type_exists( 'justice_prospect' ) ) {
+		return 0;
+	}
+
+	$query_args = array(
+		'post_type'      => 'justice_prospect',
+		'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+		'posts_per_page' => 1,
+		'fields'         => 'ids',
+		'meta_query'     => array(
+			array(
+				'key'   => $meta_key,
+				'value' => $value,
+			),
+		),
+	);
+
+	if ( is_array( $value ) ) {
+		$query_args['meta_query'][0]['compare'] = 'IN';
+	}
+
+	$query = new WP_Query( $query_args );
+
+	return (int) $query->found_posts;
+}
+
+function justice_theme_lawyer_onboarding_prospect_value( array $statuses ): int {
+	if ( ! post_type_exists( 'justice_prospect' ) ) {
+		return 0;
+	}
+
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_prospect',
+		'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+		'posts_per_page' => 500,
+		'fields'         => 'ids',
+		'meta_query'     => array(
+			array(
+				'key'     => 'prospect_outreach_status',
+				'value'   => $statuses,
+				'compare' => 'IN',
+			),
+		),
+	) );
+
+	$total = 0;
+	foreach ( $query->posts as $post_id ) {
+		$total += absint( get_post_meta( (int) $post_id, 'prospect_expected_monthly_nis', true ) );
+	}
+
+	return $total;
+}
+
+function justice_theme_render_lawyer_onboarding_sales_command_center(): void {
+	if ( ! post_type_exists( 'justice_prospect' ) ) {
+		return;
+	}
+
+	$active_statuses = array( 'ready', 'contacted', 'follow_up', 'demo_booked', 'proposal_sent' );
+	$due_count       = function_exists( 'justice_theme_lawyer_prospect_due_count' ) ? justice_theme_lawyer_prospect_due_count( 'due' ) : 0;
+	$overdue_count   = function_exists( 'justice_theme_lawyer_prospect_due_count' ) ? justice_theme_lawyer_prospect_due_count( 'overdue' ) : 0;
+	$hot_count       = justice_theme_lawyer_onboarding_prospect_count( 'prospect_priority', 'hot' );
+	$proposal_count  = justice_theme_lawyer_onboarding_prospect_count( 'prospect_outreach_status', 'proposal_sent' );
+	$active_value    = justice_theme_lawyer_onboarding_prospect_value( $active_statuses );
+	$won_value       = justice_theme_lawyer_onboarding_prospect_value( array( 'won' ) );
+	$links           = array(
+		'due'       => add_query_arg( 'justice_prospect_due_filter', 'due', admin_url( 'edit.php?post_type=justice_prospect' ) ),
+		'overdue'   => add_query_arg( 'justice_prospect_due_filter', 'overdue', admin_url( 'edit.php?post_type=justice_prospect' ) ),
+		'hot'       => add_query_arg( 'justice_prospect_priority_filter', 'hot', admin_url( 'edit.php?post_type=justice_prospect' ) ),
+		'proposal'  => add_query_arg( 'justice_prospect_status_filter', 'proposal_sent', admin_url( 'edit.php?post_type=justice_prospect' ) ),
+		'outreach'  => admin_url( 'admin.php?page=justice-lawyer-outreach-links' ),
+		'prospects' => admin_url( 'edit.php?post_type=justice_prospect' ),
+		'new'       => admin_url( 'post-new.php?post_type=justice_prospect' ),
+	);
+	?>
+	<div style="max-width:1200px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:18px 20px;margin:18px 0;">
+		<h2 style="margin-top:0;">Lawyer sales command center</h2>
+		<p style="margin-top:0;">Daily operating view for turning manual outreach into paid lawyer coverage. Work overdue and due prospects first, then create the next small outreach batch.</p>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:16px 0;">
+			<div style="border:1px solid #f1c0c0;background:#fff7f7;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $overdue_count ) ); ?></strong>
+				<span>Overdue follow-ups</span>
+				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $links['overdue'] ); ?>">Open overdue</a></p>
+			</div>
+			<div style="border:1px solid #f5d58c;background:#fffaf0;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $due_count ) ); ?></strong>
+				<span>Due now</span>
+				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $links['due'] ); ?>">Open due list</a></p>
+			</div>
+			<div style="border:1px solid #d6e4ff;background:#f7faff;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $hot_count ) ); ?></strong>
+				<span>Hot prospects</span>
+				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $links['hot'] ); ?>">Open hot list</a></p>
+			</div>
+			<div style="border:1px solid #d4e8d4;background:#f7fff7;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $proposal_count ) ); ?></strong>
+				<span>Proposal sent</span>
+				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $links['proposal'] ); ?>">Open proposals</a></p>
+			</div>
+			<div style="border:1px solid #dcdcde;background:#fbfbfb;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:24px;line-height:1;"><?php echo esc_html( number_format_i18n( $active_value ) ); ?> NIS</strong>
+				<span>Active monthly pipeline</span>
+				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $links['prospects'] ); ?>">Open pipeline</a></p>
+			</div>
+			<div style="border:1px solid #dcdcde;background:#fbfbfb;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:24px;line-height:1;"><?php echo esc_html( number_format_i18n( $won_value ) ); ?> NIS</strong>
+				<span>Won monthly value</span>
+				<p style="margin:8px 0 0;">Update after real wins.</p>
+			</div>
+		</div>
+		<p>
+			<a class="button button-primary" href="<?php echo esc_url( $links['outreach'] ); ?>">Build tracked outreach link</a>
+			<a class="button" href="<?php echo esc_url( $links['new'] ); ?>">Add manual prospect</a>
+			<a class="button" href="<?php echo esc_url( $links['prospects'] ); ?>">Open all prospects</a>
+		</p>
+	</div>
+	<?php
+}
+
 function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	if ( ! current_user_can( 'edit_pages' ) ) {
 		wp_die( esc_html__( 'You do not have permission to access this page.', 'justice-theme' ) );
@@ -1205,6 +1325,8 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php if ( isset( $_GET['review_campaign'] ) && 'marked' === $_GET['review_campaign'] ) : ?>
 			<div class="notice notice-success is-dismissible"><p>Review campaign request flag cleared for the lawyer profile.</p></div>
 		<?php endif; ?>
+
+		<?php justice_theme_render_lawyer_onboarding_sales_command_center(); ?>
 
 		<?php if ( $pending->have_posts() ) : ?>
 			<table class="widefat striped">

@@ -83,6 +83,9 @@ MUST PASS BEFORE CMS UPDATE:
 9. After upload, run fetch checks for HTTP status, final path, title, H1, canonical, robots, body text and broken links.
 10. After upload, capture desktop/mobile screenshots only after the page stays on its own final path.
 
+OPERATOR WORKFLOW:
+- After approval, use `project-control/family-divorce-cms-operator-runbook-2026-05-21.md` and `project-control/family-divorce-cms-operator-runbook-2026-05-21.csv` for the execution checklist.
+
 ## Recommended Upload Sequencing
 
 RECOMMENDED:

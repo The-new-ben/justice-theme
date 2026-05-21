@@ -2,6 +2,14 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce CMS Operator Runbook
+- CREATED / VERIFIED LOCAL: `project-control/family-divorce-cms-operator-runbook-2026-05-21.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-divorce-cms-operator-runbook-2026-05-21.csv`.
+- VERIFIED PLANNING: runbook covers `7` target pages and requires backup, update-existing-page-only execution, post-upload route/source/link checks and visual screenshots after approved upload.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this cycle created an operator runbook only and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/legal/source approval, CMS backup, approved upload and route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce Owner Review Packet
 - CREATED / VERIFIED LOCAL: `project-control/family-divorce-owner-review-packet-2026-05-21.md`.
 - CREATED / VERIFIED LOCAL: `project-control/family-divorce-owner-review-packet-2026-05-21.csv`.

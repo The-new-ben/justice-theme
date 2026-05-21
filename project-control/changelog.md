@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce CMS operator runbook
+
+- CREATED: `project-control/family-divorce-cms-operator-runbook-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-cms-operator-runbook-2026-05-21.csv`.
+- VERIFIED LOCAL: runbook covers all `7` Family/Divorce owner-review targets.
+- VERIFIED PLANNING: runbook requires actual WordPress editor/database backup before each approved edit.
+- VERIFIED PLANNING: runbook explicitly blocks duplicate pages, slug changes, redirects, noindex/canonical changes, sitemap changes and protected asset edits during body upload.
+- READY: after owner/legal/source approval, the CMS operator has a controlled update-existing-page-only workflow.
+- BLOCKED: no CMS execution is approved until owner/legal/source approval and actual WordPress editor/database backup are complete.
+- BLOCKED: redirects, URL migration, canonical/noindex and sitemap decisions still require GSC API/export and separate approval.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce owner review packet
 
 - CREATED: `project-control/family-divorce-owner-review-packet-2026-05-21.md`.

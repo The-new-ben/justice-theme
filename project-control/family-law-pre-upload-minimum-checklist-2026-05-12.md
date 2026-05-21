@@ -8,6 +8,10 @@ This checklist defines the minimum safe gate before Family/Divorce moves from pl
 ## Current Position
 
 LATEST 2026-05-21 UPDATE:
+- `project-control/family-divorce-cms-operator-runbook-2026-05-21.md` now defines the seven-page CMS operator workflow after approval.
+- `project-control/family-divorce-cms-operator-runbook-2026-05-21.csv` now gives the operator checklist rows for approval, backup, page updates, post-upload QA and GSC boundary.
+- VERIFIED PLANNING: the runbook requires actual WordPress editor/database rollback material before editing each approved page.
+- VERIFIED PLANNING: the runbook blocks duplicate pages, slug changes, redirects, noindex/canonical changes, sitemap changes and protected asset edits during the body upload batch.
 - `project-control/family-divorce-owner-review-packet-2026-05-21.md` now gives the owner/legal/source review gate for all seven locally merged Family/Divorce upload candidates.
 - `project-control/family-divorce-owner-review-packet-2026-05-21.csv` now gives the page-by-page approval worksheet.
 - VERIFIED LOCAL: the packet covers `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/` and `/child-custody/`.
@@ -177,6 +181,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 60. Resolve `/child-support/` high-risk merge rows before that draft moves to owner upload review. - COMPLETED / VERIFIED LOCAL.
 61. Prepare the owner/legal/source review packet for the seven locally merged Family/Divorce drafts before any CMS upload. - COMPLETED / VERIFIED LOCAL.
 62. Owner must mark each of the seven packet rows as `APPROVE`, `EDIT`, `HOLD` or `LEGAL_REVIEW_REQUIRED` before CMS backup or upload work starts.
+63. Prepare a seven-page CMS operator runbook that separates approved body updates from redirects, URL migration, noindex/canonical changes, sitemap changes and protected asset edits. - COMPLETED / VERIFIED LOCAL.
+64. After owner approval, operator must follow the runbook for only approved pages and capture actual WordPress editor/database rollback material before each edit.
 
 ## Current Recommendation
 

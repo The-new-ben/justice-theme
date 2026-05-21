@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-21 22:45 Asia/Jerusalem
+- FAMILY/DIVORCE CMS OPERATOR RUNBOOK: created a seven-page CMS execution runbook for the approved upload stage without authorizing public changes.
+- CREATED: `project-control/family-divorce-cms-operator-runbook-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-cms-operator-runbook-2026-05-21.csv`.
+- VERIFIED LOCAL: the runbook covers the same `7` Family/Divorce target pages as the owner review packet and maps each page to its current static-QA-clean public-body draft.
+- VERIFIED PLANNING: the runbook separates approved body/metadata updates from URL migration, redirects, noindex, canonical retirement, sitemap changes and protected old URL/asset decisions.
+- READY: once owner/legal/source approval exists, the CMS operator has a step-by-step backup, update-existing-page-only, post-upload QA and rollback boundary.
+- BLOCKED: CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup; GSC API/export remains required before URL migration, redirects, canonical/noindex or sitemap actions.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 22:36 Asia/Jerusalem
 - FAMILY/DIVORCE OWNER REVIEW PACKET: converted the seven locally merged Family/Divorce upload candidates into a controlled owner/legal/source review gate.
 - CREATED: `project-control/family-divorce-owner-review-packet-2026-05-21.md`.

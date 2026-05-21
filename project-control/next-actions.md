@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-CMS-OPERATOR-RUNBOOK-001: Prepare seven-page CMS operator runbook
+**Status:** COMPLETED / VERIFIED LOCAL / EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The owner review packet answers which pages need approval. The CMS operator also needs a single execution boundary that prevents accidental duplicate pages, URL migration, redirects, noindex/canonical changes or protected asset edits during body upload.
+**Actions:**
+1. DONE: created `project-control/family-divorce-cms-operator-runbook-2026-05-21.md`.
+2. DONE: created `project-control/family-divorce-cms-operator-runbook-2026-05-21.csv`.
+3. VERIFIED LOCAL: runbook covers `7` target pages and points each page to its approved-source draft file after approval.
+4. VERIFIED PLANNING: runbook requires actual WordPress editor/database rollback material before each approved edit.
+5. VERIFIED PLANNING: runbook blocks duplicate pages, slug changes, redirects, noindex changes, canonical changes, sitemap changes and protected asset edits.
+6. BLOCKED: CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup.
+7. BLOCKED: URL migration, redirects, noindex, canonical and sitemap decisions still require GSC API/export and separate approval.
+8. NEXT: owner reviews the seven packet rows; after approval, operator follows this runbook for only the approved pages.
+
 ### ACTION-FAMILY-DIVORCE-OWNER-REVIEW-PACKET-001: Prepare owner/legal/source review packet
 **Status:** COMPLETED / VERIFIED LOCAL / READY FOR OWNER REVIEW / NO PUBLIC CHANGES
 **Why:** The seven Family/Divorce upload candidates now have static QA, live public snapshots and resolved high-risk merge blockers. The next safe step is an explicit owner/legal/source decision packet before any CMS overwrite/update.

@@ -119,11 +119,11 @@ function justice_theme_get_pillar_article_seed_drafts(): array {
 			'cluster'       => 'real-estate-law',
 			'practice_area' => 'real-estate-law',
 			'intent'        => 'high-value-commercial',
-			'pillar_url'    => '/real-estate-lawyer/',
+			'pillar_url'    => '/practice-areas/real-estate-law/',
 			'excerpt'       => 'טיוטת מדריך לרוכשים, מוכרים ומשקיעים לפני חוזה מכר, רישום זכויות ובדיקת סיכונים.',
 			'content'       => justice_theme_build_seed_article_content(
 				'עורך דין מקרקעין',
-				'/real-estate-lawyer/',
+				'/practice-areas/real-estate-law/',
 				array(
 					'בדיקות לפני חתימה על חוזה',
 					'רישום זכויות, הערות אזהרה ומשכנתאות',
@@ -138,11 +138,11 @@ function justice_theme_get_pillar_article_seed_drafts(): array {
 			'cluster'       => 'labor-law',
 			'practice_area' => 'labor-law',
 			'intent'        => 'commercial-informational',
-			'pillar_url'    => '/employment-lawyer/',
+			'pillar_url'    => '/practice-areas/labor-law/',
 			'excerpt'       => 'טיוטת מדריך לזכויות עובדים, שימוע, פיטורים, חוזה עבודה ופנייה מסודרת לייעוץ.',
 			'content'       => justice_theme_build_seed_article_content(
 				'עורך דין דיני עבודה',
-				'/employment-lawyer/',
+				'/practice-areas/labor-law/',
 				array(
 					'מצבים נפוצים שמצריכים בדיקה משפטית',
 					'איסוף תלושים, הסכמים, מכתבים והתכתבויות',

@@ -69,10 +69,10 @@ $justice_address  = function_exists( 'justice_theme_business_address' ) ? justic
 			<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.8rem;">
 				<li><a href="<?php echo esc_url( home_url( '/family-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני משפחה וגירושין</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/criminal-defense-attorney/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">משפט פלילי</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/real-estate/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מקרקעין ונדל"ן</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/personal-injury/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">נזיקין ותאונות</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=medical-malpractice' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">רשלנות רפואית</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/israeli-labor-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני עבודה</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/practice-areas/real-estate-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מקרקעין ונדל"ן</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/tort-lawyer/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">נזיקין ותאונות</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/medical-malpractice-lawyer/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">רשלנות רפואית</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/practice-areas/labor-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני עבודה</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/traffic-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">תעבורה</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/tax-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני מיסים</a></li>
 			</ul>

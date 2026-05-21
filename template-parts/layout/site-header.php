@@ -21,15 +21,15 @@ $justice_topic_links = array(
 	),
 	array(
 		'label' => __( 'עורך דין מקרקעין', 'justice-theme' ),
-		'url'   => justice_theme_safe_public_link( '/real-estate-lawyer/', '/lawyers/?area=real-estate-law' ),
+		'url'   => home_url( '/practice-areas/real-estate-law/' ),
 	),
 	array(
 		'label' => __( 'רשלנות רפואית', 'justice-theme' ),
-		'url'   => justice_theme_safe_public_link( '/medical-malpractice-lawyer/', '/lawyers/?area=medical-malpractice-law' ),
+		'url'   => home_url( '/medical-malpractice-lawyer/' ),
 	),
 	array(
 		'label' => __( 'נזיקין ותאונות', 'justice-theme' ),
-		'url'   => justice_theme_safe_public_link( '/personal-injury-lawyer/', '/lawyers/?area=personal-injury-law' ),
+		'url'   => home_url( '/tort-lawyer/' ),
 	),
 	array(
 		'label' => __( 'תעבורה', 'justice-theme' ),
@@ -37,7 +37,7 @@ $justice_topic_links = array(
 	),
 	array(
 		'label' => __( 'עבודה', 'justice-theme' ),
-		'url'   => justice_theme_safe_public_link( '/employment-lawyer/', '/lawyers/?area=labor-law' ),
+		'url'   => home_url( '/practice-areas/labor-law/' ),
 	),
 	array(
 		'label' => __( 'ירושה וצוואות', 'justice-theme' ),

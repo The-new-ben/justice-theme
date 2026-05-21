@@ -140,7 +140,7 @@ $home_intent_links = array(
 		'intent'      => __( 'אבחון שגוי, ניתוח, לידה, טיפול רפואי או נזק רפואי שמצריך בדיקה מקצועית.', 'justice-theme' ),
 		'slug'        => 'medical-malpractice-law',
 		'priority'    => __( 'תביעה מורכבת', 'justice-theme' ),
-		'guide_url'   => justice_theme_safe_public_link( '/medical-malpractice-lawyer/', '/lawyers/?area=medical-malpractice-law' ),
+		'guide_url'   => home_url( '/medical-malpractice-lawyer/' ),
 		'lawyers_url' => home_url( '/lawyers/?area=medical-malpractice-law' ),
 		'fallbacks'   => array(
 			array( 'label' => __( 'מהי רשלנות רפואית', 'justice-theme' ), 'url' => '/what-is-medical-malpractice-definition-examples/' ),

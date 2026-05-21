@@ -33,13 +33,13 @@ $topics = array(
 	array(
 		'title' => 'מקרקעין',
 		'slug'  => 'real-estate-law',
-		'url'   => justice_theme_safe_public_link( '/real-estate-lawyer/', '/lawyers/?area=real-estate-law' ),
+		'url'   => home_url( '/practice-areas/real-estate-law/' ),
 		'links' => array(),
 	),
 	array(
 		'title' => 'רשלנות רפואית',
 		'slug'  => 'medical-malpractice-law',
-		'url'   => justice_theme_safe_public_link( '/medical-malpractice-lawyer/', '/lawyers/?area=medical-malpractice-law' ),
+		'url'   => home_url( '/medical-malpractice-lawyer/' ),
 		'links' => array(
 			array( 'label' => 'עורך דין רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
 			array( 'label' => 'פגיעות לידה', 'url' => '/birth-injury/' ),
@@ -51,9 +51,9 @@ $topics = array(
 	array(
 		'title' => 'נזיקין ותאונות',
 		'slug'  => 'personal-injury-law',
-		'url'   => justice_theme_safe_public_link( '/personal-injury-lawyer/', '/lawyers/?area=personal-injury-law' ),
+		'url'   => home_url( '/tort-lawyer/' ),
 		'links' => array(
-			array( 'label' => 'עורך דין נזיקין', 'url' => '/personal-injury-lawyer/' ),
+			array( 'label' => 'עורך דין נזיקין', 'url' => '/tort-lawyer/' ),
 			array( 'label' => 'תאונת דרכים', 'url' => '/car-accident-lawyer/' ),
 			array( 'label' => 'תאונת עבודה', 'url' => '/work-accident/' ),
 			array( 'label' => 'ביטוח לאומי', 'url' => '/national-insurance/' ),
@@ -68,9 +68,9 @@ $topics = array(
 	array(
 		'title' => 'דיני עבודה',
 		'slug'  => 'labor-law',
-		'url'   => justice_theme_safe_public_link( '/employment-lawyer/', '/lawyers/?area=labor-law' ),
+		'url'   => home_url( '/practice-areas/labor-law/' ),
 		'links' => array(
-			array( 'label' => 'עורך דין דיני עבודה', 'url' => '/employment-lawyer/' ),
+			array( 'label' => 'עורך דין דיני עבודה', 'url' => '/practice-areas/labor-law/' ),
 			array( 'label' => 'זכויות עובדים', 'url' => '/employee-rights/' ),
 			array( 'label' => 'פיטורים', 'url' => '/wrongful-termination/' ),
 			array( 'label' => 'הסכם עבודה', 'url' => '/employment-agreement/' ),

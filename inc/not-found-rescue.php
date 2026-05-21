@@ -97,15 +97,15 @@ function justice_theme_render_not_found_rescue_route(): void {
 		),
 		array(
 			'label' => 'מקרקעין ונדל"ן',
-			'url'   => justice_theme_safe_public_link( '/real-estate-lawyer/', '/lawyers/?area=real-estate-law' ),
+			'url'   => home_url( '/practice-areas/real-estate-law/' ),
 		),
 		array(
 			'label' => 'נזיקין ותאונות',
-			'url'   => justice_theme_safe_public_link( '/personal-injury-lawyer/', '/lawyers/?area=personal-injury-law' ),
+			'url'   => home_url( '/tort-lawyer/' ),
 		),
 		array(
 			'label' => 'דיני עבודה',
-			'url'   => justice_theme_safe_public_link( '/employment-lawyer/', '/lawyers/?area=labor-law' ),
+			'url'   => home_url( '/practice-areas/labor-law/' ),
 		),
 		array(
 			'label' => 'מיסים',

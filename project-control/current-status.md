@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-21 16:15 Asia/Jerusalem
+- LAWYER OUTREACH LINK BUILDER: added an owner-only WordPress admin screen to create tracked lawyer-registration links for targeted lawyer sales batches.
+- RESEARCHED: Google Analytics campaign-link guidance says referral/ad campaign URLs should carry UTM parameters, and Google recommends using source, medium and campaign consistently so acquisition reports can attribute traffic correctly. Sources: https://support.google.com/analytics/answer/10917952 and https://support.google.com/analytics/answer/15567068
+- CODED: `inc/lawyer-onboarding.php` now adds Lawyer Onboarding -> Outreach Links in wp-admin.
+- CODED: the screen builds a `/lawyer-registration/` URL with plan interest, source, medium, campaign, message variant, segment, city and practice.
+- CODED: the screen creates a short Hebrew outreach message draft and copy buttons for the URL/message.
+- VERIFIED: `php -l inc/lawyer-onboarding.php` passed and `git diff --check` passed with only the existing Windows line-ending warning.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is sales execution: the owner can now start small, measurable lawyer outreach batches instead of sending untracked signup links.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 45% to 55%; first paid-lawyer readiness moved from 88% to 89%; homepage-to-lawyer-subscription path remains 82% until real outreach and submissions arrive.
+- OWNER-VISIBLE AFTER DEPLOY: WordPress admin -> Lawyer Onboarding -> Outreach Links.
+- SAFETY: repo theme code/docs only. No public CMS page edited, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 16:01 Asia/Jerusalem
 - LAWYER OUTREACH ATTRIBUTION: added campaign/source tracking to the lawyer registration path so outreach can be measured by source, segment, city and practice.
 - RESEARCHED: Clio Grow tracks marketing sources from outreach and online channels on contacts/matters, and its reports expose source, referral, status and revenue data to show where profit originates. Sources: https://help.clio.com/hc/en-us/articles/25315194374299-Clio-Grow-Marketing-Sources, https://help.clio.com/hc/en-us/articles/29739406189339-Clio-Grow-Reports

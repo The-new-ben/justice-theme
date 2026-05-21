@@ -472,8 +472,206 @@ function justice_theme_lawyer_onboarding_admin_menu(): void {
 		'dashicons-businessperson',
 		26
 	);
+
+	add_submenu_page(
+		'justice-lawyer-onboarding',
+		'Outreach Links',
+		'Outreach Links',
+		'edit_pages',
+		'justice-lawyer-outreach-links',
+		'justice_theme_render_lawyer_outreach_links_page'
+	);
 }
 add_action( 'admin_menu', 'justice_theme_lawyer_onboarding_admin_menu' );
+
+function justice_theme_lawyer_outreach_builder_value( string $key, string $default = '' ): string {
+	return isset( $_GET[ $key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $key ] ) ) : $default;
+}
+
+function justice_theme_lawyer_outreach_builder_key_value( string $key, string $default = '' ): string {
+	return sanitize_key( justice_theme_lawyer_outreach_builder_value( $key, $default ) );
+}
+
+function justice_theme_lawyer_outreach_select_options(): array {
+	return array(
+		'plan_interest' => array(
+			'lead_partner' => 'Lead partner',
+			'pro'          => 'Professional mini-site',
+			'featured'     => 'Featured visibility',
+			'full_service' => 'Full service',
+			'free'         => 'Free profile',
+		),
+		'utm_source'    => array(
+			'whatsapp' => 'WhatsApp',
+			'email'    => 'Email',
+			'phone'    => 'Phone follow-up',
+			'linkedin' => 'LinkedIn',
+			'referral' => 'Referral',
+		),
+		'utm_medium'    => array(
+			'direct_message' => 'Direct message',
+			'manual_email'   => 'Manual email',
+			'call_followup'  => 'Call follow-up',
+			'social_dm'      => 'Social DM',
+		),
+	);
+}
+
+function justice_theme_lawyer_outreach_link_args(): array {
+	$options = justice_theme_lawyer_outreach_select_options();
+
+	$plan = justice_theme_lawyer_outreach_builder_value( 'plan_interest', 'lead_partner' );
+	if ( ! array_key_exists( $plan, $options['plan_interest'] ) ) {
+		$plan = 'lead_partner';
+	}
+
+	$source = justice_theme_lawyer_outreach_builder_value( 'utm_source', 'whatsapp' );
+	if ( ! array_key_exists( $source, $options['utm_source'] ) ) {
+		$source = 'whatsapp';
+	}
+
+	$medium = justice_theme_lawyer_outreach_builder_value( 'utm_medium', 'direct_message' );
+	if ( ! array_key_exists( $medium, $options['utm_medium'] ) ) {
+		$medium = 'direct_message';
+	}
+
+	$args = array(
+		'plan_interest'     => $plan,
+		'pre_checkout'      => '1',
+		'utm_source'        => $source,
+		'utm_medium'        => $medium,
+		'utm_campaign'      => justice_theme_lawyer_outreach_builder_key_value( 'utm_campaign', 'founder_batch_01' ),
+		'utm_content'       => justice_theme_lawyer_outreach_builder_key_value( 'utm_content', 'message_a' ),
+		'outreach_segment'  => justice_theme_lawyer_outreach_builder_key_value( 'outreach_segment', 'family_law_tel_aviv' ),
+		'outreach_city'     => justice_theme_lawyer_outreach_builder_key_value( 'outreach_city', 'tel-aviv' ),
+		'outreach_practice' => justice_theme_lawyer_outreach_builder_key_value( 'outreach_practice', 'family-law' ),
+	);
+
+	if ( 'free' !== $plan ) {
+		$args['payment_path'] = 'manual_invoice';
+	}
+
+	return array_filter(
+		$args,
+		static function ( $value ): bool {
+			return '' !== (string) $value;
+		}
+	);
+}
+
+function justice_theme_render_lawyer_outreach_links_page(): void {
+	if ( ! current_user_can( 'edit_pages' ) ) {
+		wp_die( esc_html__( 'You do not have permission to access outreach links.', 'justice-theme' ) );
+	}
+
+	$options          = justice_theme_lawyer_outreach_select_options();
+	$args             = justice_theme_lawyer_outreach_link_args();
+	$registration_url = add_query_arg( $args, home_url( '/lawyer-registration/' ) );
+	$practice_label   = str_replace( '-', ' ', $args['outreach_practice'] ?? 'your practice area' );
+	$city_label       = str_replace( '-', ' ', $args['outreach_city'] ?? 'your city' );
+	$message_template = sprintf(
+		"שלום, אני בונה ב-Jus-Tice מסלול שותפי לידים לעורכי דין בתחום %s באזור %s.\nאנחנו פותחים מספר מקומות לבדיקה מוקדמת: מיני-סייט, פניות מדידות ודוח ערך חודשי. אין חיוב מהטופס ואין התחייבות.\nאם מתאים, אפשר להשאיר פרטים כאן:\n%s",
+		$practice_label,
+		$city_label,
+		$registration_url
+	);
+	?>
+	<div class="wrap">
+		<h1>Lawyer Outreach Links</h1>
+		<p>Create tracked registration links before messaging lawyers. Keep each batch small, personal and relevant. Use lowercase campaign IDs so Analytics does not split one campaign into multiple rows. If someone asks not to be contacted, stop contacting them.</p>
+		<form method="get" action="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>" style="max-width:960px;background:#fff;border:1px solid #dcdcde;padding:18px 20px;margin:18px 0;">
+			<input type="hidden" name="page" value="justice-lawyer-outreach-links">
+			<table class="form-table" role="presentation">
+				<tr>
+					<th scope="row"><label for="justice-outreach-plan">Plan</label></th>
+					<td>
+						<select id="justice-outreach-plan" name="plan_interest">
+							<?php foreach ( $options['plan_interest'] as $value => $label ) : ?>
+								<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $args['plan_interest'] ?? '', $value ); ?>><?php echo esc_html( $label ); ?></option>
+							<?php endforeach; ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="justice-outreach-source">Source</label></th>
+					<td>
+						<select id="justice-outreach-source" name="utm_source">
+							<?php foreach ( $options['utm_source'] as $value => $label ) : ?>
+								<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $args['utm_source'] ?? '', $value ); ?>><?php echo esc_html( $label ); ?></option>
+							<?php endforeach; ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="justice-outreach-medium">Medium</label></th>
+					<td>
+						<select id="justice-outreach-medium" name="utm_medium">
+							<?php foreach ( $options['utm_medium'] as $value => $label ) : ?>
+								<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $args['utm_medium'] ?? '', $value ); ?>><?php echo esc_html( $label ); ?></option>
+							<?php endforeach; ?>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="justice-outreach-campaign">Campaign</label></th>
+					<td><input id="justice-outreach-campaign" type="text" name="utm_campaign" value="<?php echo esc_attr( $args['utm_campaign'] ?? '' ); ?>" class="regular-text" placeholder="founder_batch_01"></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="justice-outreach-content">Message variant</label></th>
+					<td><input id="justice-outreach-content" type="text" name="utm_content" value="<?php echo esc_attr( $args['utm_content'] ?? '' ); ?>" class="regular-text" placeholder="message_a"></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="justice-outreach-segment">Segment</label></th>
+					<td><input id="justice-outreach-segment" type="text" name="outreach_segment" value="<?php echo esc_attr( $args['outreach_segment'] ?? '' ); ?>" class="regular-text" placeholder="family_law_tel_aviv"></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="justice-outreach-city">City</label></th>
+					<td><input id="justice-outreach-city" type="text" name="outreach_city" value="<?php echo esc_attr( $args['outreach_city'] ?? '' ); ?>" class="regular-text" placeholder="tel-aviv"></td>
+				</tr>
+				<tr>
+					<th scope="row"><label for="justice-outreach-practice">Practice</label></th>
+					<td><input id="justice-outreach-practice" type="text" name="outreach_practice" value="<?php echo esc_attr( $args['outreach_practice'] ?? '' ); ?>" class="regular-text" placeholder="family-law"></td>
+				</tr>
+			</table>
+			<?php submit_button( 'Build tracked link', 'primary', 'submit', false ); ?>
+		</form>
+
+		<h2>Tracked registration URL</h2>
+		<p><input id="justice-outreach-generated-url" type="url" readonly value="<?php echo esc_attr( $registration_url ); ?>" style="width:100%;max-width:960px;font-family:monospace;"></p>
+		<p><button type="button" class="button" data-copy-target="justice-outreach-generated-url">Copy URL</button></p>
+
+		<h2>Message draft</h2>
+		<textarea id="justice-outreach-message" readonly rows="7" style="width:100%;max-width:960px;"><?php echo esc_textarea( $message_template ); ?></textarea>
+		<p><button type="button" class="button" data-copy-target="justice-outreach-message">Copy message</button></p>
+
+		<h2>Batch rule</h2>
+		<ul>
+			<li>Start with 10 to 20 lawyers per segment.</li>
+			<li>Use one clear segment per batch, such as family law in Tel Aviv.</li>
+			<li>Change only one thing between batches: city, practice, source or message variant.</li>
+			<li>Watch Lawyer Onboarding -> Source after real submissions arrive.</li>
+		</ul>
+	</div>
+	<script>
+	document.addEventListener('click', function (event) {
+		var button = event.target.closest('[data-copy-target]');
+		if (!button || !navigator.clipboard) {
+			return;
+		}
+		var target = document.getElementById(button.getAttribute('data-copy-target'));
+		if (!target) {
+			return;
+		}
+		navigator.clipboard.writeText(target.value).then(function () {
+			button.textContent = 'Copied';
+			setTimeout(function () {
+				button.textContent = button.getAttribute('data-copy-target') === 'justice-outreach-message' ? 'Copy message' : 'Copy URL';
+			}, 1400);
+		});
+	});
+	</script>
+	<?php
+}
 
 function justice_theme_append_lawyer_internal_note( int $post_id, string $note ): void {
 	$existing = trim( (string) get_post_meta( $post_id, 'internal_notes', true ) );

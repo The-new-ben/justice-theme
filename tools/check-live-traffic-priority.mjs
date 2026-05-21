@@ -66,6 +66,7 @@ const checks = [
     path: '/real-estate-lawyer-guide/',
     role: 'real estate lawyer guide recovery path',
     mustStatus: 200,
+    mustFinalPath: '/real-estate-lawyer-guide/',
     mustIncludeAny: ['מקרקעין', 'נדל', 'עורך דין', 'real estate'],
     maxBytes: 500000,
   },
@@ -155,6 +156,11 @@ function missingAnyGroup(haystack, needles = []) {
   return needles.length > 0 && !hasAny(haystack, needles);
 }
 
+function normalizePathname(pathname) {
+  const normalized = `/${String(pathname || '').replace(/^\/+|\/+$/g, '')}/`;
+  return normalized === '//' ? '/' : normalized;
+}
+
 function csvValue(value) {
   return `"${String(value ?? '').replace(/"/g, '""')}"`;
 }
@@ -176,12 +182,17 @@ async function runCheck(check) {
   const canonical = extractCanonical(body);
   const robots = robotsState(body);
   const links = countLinks(body);
+  const finalPath = normalizePathname(new URL(response.url).pathname);
   const issues = [];
   const titleAndH1 = `${title} ${h1}`;
   const expectedStatus = check.mustStatus || 200;
+  const expectedFinalPath = check.mustFinalPath || new URL(check.path, BASE_URL).pathname;
 
   if (response.status !== expectedStatus) {
     issues.push(`http_${response.status}_expected_${expectedStatus}`);
+  }
+  if (finalPath !== normalizePathname(expectedFinalPath)) {
+    issues.push(`final_path_${finalPath}_expected_${normalizePathname(expectedFinalPath)}`);
   }
   if (robots.includes('noindex') && check.allowNoindex !== true) {
     issues.push('noindex_present');

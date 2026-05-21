@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-21 20:24 Asia/Jerusalem
+- REAL-ESTATE GUIDE REDIRECT GUARD: investigated the `/real-estate-lawyer-guide/` route regression that was blocking the real-estate public edit package.
+- BLOCKED LIVE: trailing-slash `/real-estate-lawyer-guide/` currently redirects to the homepage before the controlled guide template renders.
+- BLOCKED LIVE: no-slash `/real-estate-lawyer-guide` currently redirects to `http://jus-tice.co.il/real-estate-attorney`.
+- CODE FIXED: `inc/routing-guards.php` now blocks WordPress-level `wp_redirect` and `redirect_canonical` conflicts from the guide route to `/` or `/real-estate-attorney`.
+- TOOLING FIXED: `tools/check-live-traffic-priority.mjs` now requires route checks to finish on their expected final path, preventing homepage fallback false positives.
+- CREATED: `project-control/real-estate-guide-redirect-guard-2026-05-21.md`.
+- CREATED: `project-control/real-estate-guide-redirect-guard-2026-05-21.csv`.
+- GENERATED: `reports/traffic-priority-audit-2026-05-21-real-estate-guide-redirect-guard.csv`.
+- VERIFIED LOCAL: `php -l inc/routing-guards.php`, `php -l functions.php`, and `node --check tools/check-live-traffic-priority.mjs` passed.
+- NOT LIVE VERIFIED: public server needs uPress Git pull/cache clear before this guard can be tested live; if the redirect is server/plugin-level before WordPress filters, owner/admin must remove the stale redirect rule.
+- ROUTE QA BACKLOG: the tightened checker also exposes current homepage-fallback final-path failures for `/site-map/`, `/medical-malpractice-lawyer/`, `/inheritance-lawyer/`, `/contact/` and `/about/`; those were not fixed in this cycle.
+- SAFETY: no CMS page body, database row, title/H1/meta, public slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 20:45 Asia/Jerusalem
 - REAL-ESTATE PUBLIC EDIT PACKAGE: prepared the owner-approved CMS execution package for the Israeli real-estate support-to-hub batch without publishing anything.
 - CREATED: `project-control/real-estate-public-edit-package-2026-05-21.md`.

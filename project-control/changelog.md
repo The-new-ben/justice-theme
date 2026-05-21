@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Real estate guide redirect guard
+
+- CODE FIXED: `inc/routing-guards.php` now blocks WordPress-level `wp_redirect` and `redirect_canonical` conflicts from `/real-estate-lawyer-guide/` to `/` or `/real-estate-attorney`.
+- TOOLING FIXED: `tools/check-live-traffic-priority.mjs` now requires route checks to finish on their expected final path.
+- UPDATED: deployment marker to `2026-05-21-real-estate-guide-redirect-guard-v1`.
+- CREATED: `project-control/real-estate-guide-redirect-guard-2026-05-21.md`.
+- CREATED: `project-control/real-estate-guide-redirect-guard-2026-05-21.csv`.
+- GENERATED: `reports/traffic-priority-audit-2026-05-21-real-estate-guide-redirect-guard.csv`.
+- VERIFIED LOCAL: PHP lint passed for `inc/routing-guards.php` and `functions.php`; JS syntax check passed for `tools/check-live-traffic-priority.mjs`.
+- NOT LIVE VERIFIED: public server still needs uPress Git pull/cache clear. If the route still redirects before the theme marker appears, the blocker is likely a server/plugin redirect rule outside this theme guard.
+- ROUTE QA BACKLOG: the stricter checker currently flags `/site-map/`, `/medical-malpractice-lawyer/`, `/inheritance-lawyer/`, `/contact/` and `/about/` as homepage-fallback final-path failures in addition to `/real-estate-lawyer-guide/`.
+- SAFETY: no CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Real estate public edit package
 
 - CREATED: `project-control/real-estate-public-edit-package-2026-05-21.md`.

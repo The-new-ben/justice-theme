@@ -2,6 +2,17 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Real Estate Guide Redirect Guard QA
+- BLOCKED LIVE: `/real-estate-lawyer-guide/` currently redirects to the homepage before the controlled guide template renders.
+- BLOCKED LIVE: `/real-estate-lawyer-guide` currently redirects to `http://jus-tice.co.il/real-estate-attorney`.
+- CODE FIXED / NOT LIVE VERIFIED: `inc/routing-guards.php` now blocks WordPress-level guide-route redirects to `/` and `/real-estate-attorney`.
+- TOOLING FIXED: `tools/check-live-traffic-priority.mjs` now flags route checks when final path does not match the expected path.
+- ROUTE QA BACKLOG: the tightened checker also flags `/site-map/`, `/medical-malpractice-lawyer/`, `/inheritance-lawyer/`, `/contact/` and `/about/` as current homepage-fallback final-path failures.
+- VERIFIED LOCAL: `php -l inc/routing-guards.php`, `php -l functions.php`, and `node --check tools/check-live-traffic-priority.mjs` passed.
+- NOT VISUALLY VERIFIED: no browser screenshot was useful before deploy because the public route still resolves away from the guide page.
+- NEXT QA: after uPress pull/cache clear, rerun the traffic checker and capture a visual screenshot only after the URL stays on `/real-estate-lawyer-guide/`.
+- SAFETY: no CMS page, database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, payment or admin setting changed.
+
 ## 2026-05-21 Real Estate Public Edit Package Live Check
 - VERIFIED LIVE / READ ONLY: `/real-estate-attorney/` returned `200`, stayed on its own URL and self-canonicalized.
 - VERIFIED LIVE / READ ONLY: `/lawyer-for-buying-or-selling-a-house/`, `/registration-of-real-estate-israel/`, `/land-appreciation-tax/`, `/real-estate-lawyer-cost-2025/` and `/real-estate-appraiser/` returned `200` and self-canonicalized.

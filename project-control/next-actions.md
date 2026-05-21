@@ -6,6 +6,22 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-REAL-ESTATE-GUIDE-REDIRECT-GUARD-001: Guard recovered guide route from stale redirects
+**Status:** CODE FIXED / NOT LIVE VERIFIED / BLOCKED LIVE BEFORE DEPLOY
+**Why:** The real-estate public edit package excluded `/real-estate-lawyer-guide/` because the live URL resolves away from the controlled guide route. This must be repaired before the guide can join the real-estate internal-link/upload batch.
+**Actions:**
+1. DONE: created `project-control/real-estate-guide-redirect-guard-2026-05-21.md`.
+2. DONE: created `project-control/real-estate-guide-redirect-guard-2026-05-21.csv`.
+3. FIXED: `inc/routing-guards.php` blocks WordPress-level redirects from `/real-estate-lawyer-guide/` to `/` or `/real-estate-attorney`.
+4. FIXED: `tools/check-live-traffic-priority.mjs` now requires route checks to finish on their expected final path.
+5. VERIFIED LOCAL: `php -l inc/routing-guards.php` passed.
+6. VERIFIED LOCAL: `php -l functions.php` passed.
+7. VERIFIED LOCAL: `node --check tools/check-live-traffic-priority.mjs` passed.
+8. NOT LIVE VERIFIED: public route still needs uPress pull/cache clear and post-deploy final-path check.
+9. NEXT: after deploy, rerun `node tools/check-live-traffic-priority.mjs`; if the route still redirects before the new marker appears, inspect uPress/server/Redirection-plugin rules.
+10. BLOCKED: do not include `/real-estate-lawyer-guide/` in CMS/internal-link publication until it returns `200` on its own final path.
+11. ROUTE QA BACKLOG: the stricter checker also flags `/site-map/`, `/medical-malpractice-lawyer/`, `/inheritance-lawyer/`, `/contact/` and `/about/` as homepage-fallback final-path failures on the current live server.
+
 ### ACTION-REAL-ESTATE-PUBLIC-EDIT-PACKAGE-001: Prepare exact public edit package for Israeli real-estate hub
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED LIVE CHECKS
 **Why:** T361/T351 had mapped the real-estate hub and support roles. The next useful non-CMS step was exact owner-approval text and link placement so a later upload can be done as one controlled batch.

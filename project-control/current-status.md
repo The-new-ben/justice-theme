@@ -3,11 +3,12 @@
 - RESEARCHED: Google Search Central structured-data guidance says JSON-LD is recommended, structured data must describe visible content, and multiple visible items can be marked up when it helps Google understand the page. Sources: https://developers.google.com/search/docs/appearance/structured-data/sd-policies and https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
 - CODED: `template-parts/sections/homepage-intent-pyramid.php` now gives the section a real anchor ID and prints an `ItemList` whose six items use the same visible card titles, descriptions and safe destination URLs already on the page.
 - DOCUMENTED: added `project-control/homepage-intent-structured-data-2026-05-21.md`.
-- VERIFIED: `php -l template-parts/sections/homepage-intent-pyramid.php` and `git diff --check` passed before commit.
+- VERIFIED: `php -l template-parts/sections/homepage-intent-pyramid.php` and `git diff --check` passed before commit. uPress Git log shows `010d946 Add homepage intent structured data` as `HEAD -> main, origin/main`. Live homepage check shows one `ItemList` with six items, six visible cards with matching names, customer strip present, find-lawyer guide present, and no review/rating claims in the intent schema.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is SEO clarity: the homepage now describes the six high-value legal paths in crawlable links and matching structured data.
-- COMPLETION ASSESSMENT: homepage structured-data readiness moved from 55% to 62%; homepage SEO/root readiness moved from 73% to 75%. Still blocked: live deployment verification, real GSC/Analytics impact, Grow approval/product mapping and paid lawyer users.
+- COMPLETION ASSESSMENT: homepage structured-data readiness moved from 55% to 62%; homepage SEO/root readiness moved from 73% to 75%. Still blocked: real GSC/Analytics impact, Grow approval/product mapping and paid lawyer users.
 - OWNER-VISIBLE AFTER DEPLOY: no visual design change expected, except the money-intent section has a stable `#homepage-intent-pyramid` anchor for direct links.
-- SAFETY: repo code/docs only so far. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `010d946 Add homepage intent structured data` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 14:35 Asia/Jerusalem
 - HOMEPAGE LINK QUALITY: tightened the new money-intent homepage section so related-guide labels only point to real published support pages.

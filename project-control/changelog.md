@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - First-party recommendation display guard
+
+- CODE FIXED: `inc/lawyer-recommendations.php` now centralizes recommendation source types and validates saved source type values.
+- CODE FIXED: public recommendation count/list queries now require linked lawyer ID, `approved_public`, `confirmed` permission and `recommendation_source_type=first_party` by default.
+- CODE FIXED: Google-linked/manual-import recommendation records stay reference-only by default and do not appear in the public lawyer profile recommendation list.
+- CREATED: `project-control/public-recommendations-display-guard-2026-05-21.md`.
+- CREATED: `project-control/public-recommendations-display-guard-2026-05-21.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- NOT LIVE VERIFIED: public server behavior still needs uPress pull/cache refresh and an approved first-party recommendation test record.
+- BLOCKED: recommendation request token/intake flow, Google API, outbound SMS/email, public review schema and AggregateRating remain blocked.
+- SAFETY: repo theme code/docs only. No Google API connection, Google review import, outbound review request, public schema, CMS database row, recommendation/lawyer/customer record, payment setting, redirect, sitemap or outreach message changed.
+
 ## 2026-05-21 - Lawyer platform owner walkthrough completion
 
 - UPDATED: `project-control/lawyer-platform-owner-walkthrough-2026-05-20.md`.

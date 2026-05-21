@@ -80,6 +80,8 @@ Competitor/product pattern:
 - Added internal `justice_recommendation` records for first-party Jus-Tice recommendations.
 - Recommendation records are admin-only by default and include lawyer link, client display name, source type, source URL, permission status, moderation status, owner note and received date.
 - The dashboard growth checklist now counts approved first-party recommendations as a reputation asset.
+- 2026-05-21 FIXED: public recommendation count/list queries now require `recommendation_source_type=first_party` by default in addition to `approved_public` moderation and `confirmed` permission.
+- 2026-05-21 FIXED: Google-linked/manual-import recommendation records remain reference-only by default and do not appear in the public lawyer-profile recommendation display.
 - Linear `HAD-72` tracks the next implementation steps.
 
 ## What Is Not Implemented Yet
@@ -88,7 +90,7 @@ Competitor/product pattern:
 - No Google OAuth.
 - No review import.
 - No SMS/email sending.
-- No first-party public review display.
+- No recommendation request token/intake flow.
 - No public review schema.
 - No automatic client outreach.
 
@@ -102,7 +104,7 @@ Competitor/product pattern:
 
 ## Next Steps
 
-1. Add one safe public profile section for approved first-party recommendations.
-2. Add a recommendation request intake form/token flow.
+1. Add a recommendation request intake form/token flow.
+2. Run authenticated admin QA and public-profile QA with a real approved first-party test record.
 3. Add a review-request sender only after owner approval of copy/SMS/email provider.
 4. Later: add Google OAuth/API only for lawyers who grant account access.

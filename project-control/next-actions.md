@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FIRST-PARTY-RECOMMENDATION-DISPLAY-GUARD-001: Restrict public recommendations to approved first-party sources
+**Status:** COMPLETED / CODE FIXED / NOT LIVE VERIFIED
+**Why:** T367 had a first-party recommendation CPT and profile display path, but public queries needed a stricter source guard so Google-linked/manual-imported records cannot accidentally become public recommendation content.
+**Actions:**
+1. DONE: updated `inc/lawyer-recommendations.php`.
+2. DONE: created `project-control/public-recommendations-display-guard-2026-05-21.md`.
+3. DONE: created `project-control/public-recommendations-display-guard-2026-05-21.csv`.
+4. VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+5. VERIFIED: public recommendation queries now require linked lawyer ID, `approved_public`, `confirmed` permission and `recommendation_source_type=first_party` by default.
+6. BLOCKED: live/public verification requires uPress pull/cache refresh and a real approved first-party recommendation test record.
+7. NEXT: build recommendation request token/intake flow, then run authenticated owner QA.
+8. BLOCKED: no Google API connection, Google review import, outbound SMS/email, public review schema, AggregateRating, CMS database row, recommendation/lawyer/customer record, payment setting, redirect, sitemap or outreach message was changed.
+
 ### ACTION-LAWYER-PLATFORM-OWNER-WALKTHROUGH-001: Complete live-aware owner guide for lawyer platform
 **Status:** COMPLETED / VERIFIED DOCS / READ-ONLY LIVE CHECKS
 **Why:** The owner walkthrough still described a PR-era state, while the live repo now includes Lawyer Onboarding command center, prospect follow-up views, Outreach Links handoff, reputation workflow and LegalTech lead-form prefill.

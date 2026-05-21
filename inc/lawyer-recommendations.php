@@ -95,6 +95,46 @@ function justice_theme_recommendation_moderation_options(): array {
 	);
 }
 
+function justice_theme_recommendation_source_type_options(): array {
+	return array(
+		'first_party'   => __( 'First-party Jus-Tice recommendation', 'justice-theme' ),
+		'google_link'   => __( 'Google link/reference only', 'justice-theme' ),
+		'manual_import' => __( 'Manual import / not public by default', 'justice-theme' ),
+		'other'         => __( 'Other / review before display', 'justice-theme' ),
+	);
+}
+
+function justice_theme_public_recommendation_source_types(): array {
+	$allowed = apply_filters( 'justice_theme_public_recommendation_source_types', array( 'first_party' ) );
+	$allowed = array_values( array_unique( array_map( 'sanitize_key', (array) $allowed ) ) );
+	$allowed = array_values( array_intersect( $allowed, array_keys( justice_theme_recommendation_source_type_options() ) ) );
+
+	return $allowed ?: array( 'first_party' );
+}
+
+function justice_theme_lawyer_public_recommendation_meta_query( int $lawyer_id ): array {
+	return array(
+		'relation' => 'AND',
+		array(
+			'key'   => 'recommended_lawyer_id',
+			'value' => (string) $lawyer_id,
+		),
+		array(
+			'key'   => 'recommendation_moderation',
+			'value' => 'approved_public',
+		),
+		array(
+			'key'   => 'recommendation_permission',
+			'value' => 'confirmed',
+		),
+		array(
+			'key'     => 'recommendation_source_type',
+			'value'   => justice_theme_public_recommendation_source_types(),
+			'compare' => 'IN',
+		),
+	);
+}
+
 function justice_theme_recommendation_meta_boxes(): void {
 	add_meta_box(
 		'justice_theme_recommendation_details',
@@ -160,10 +200,11 @@ function justice_theme_render_recommendation_details_box( WP_Post $post ): void 
 			<th scope="row"><label for="justice-recommendation-source-type">Source type</label></th>
 			<td>
 				<select id="justice-recommendation-source-type" name="recommendation_source_type">
-					<?php foreach ( array( 'first_party', 'google_link', 'manual_import', 'other' ) as $type ) : ?>
-						<option value="<?php echo esc_attr( $type ); ?>" <?php selected( $source_type ?: 'first_party', $type ); ?>><?php echo esc_html( $type ); ?></option>
+					<?php foreach ( justice_theme_recommendation_source_type_options() as $type => $label ) : ?>
+						<option value="<?php echo esc_attr( $type ); ?>" <?php selected( $source_type ?: 'first_party', $type ); ?>><?php echo esc_html( $label ); ?></option>
 					<?php endforeach; ?>
 				</select>
+				<p class="description">Only first-party Jus-Tice recommendations are public by default. Google links stay external/reference-only unless policy changes are explicitly approved.</p>
 			</td>
 		</tr>
 		<tr>
@@ -229,11 +270,16 @@ function justice_theme_save_recommendation_details( int $post_id ): void {
 		$permission = 'unknown';
 	}
 
+	$source_type = isset( $_POST['recommendation_source_type'] ) ? sanitize_key( wp_unslash( $_POST['recommendation_source_type'] ) ) : 'first_party';
+	if ( ! array_key_exists( $source_type, justice_theme_recommendation_source_type_options() ) ) {
+		$source_type = 'first_party';
+	}
+
 	update_post_meta( $post_id, 'recommended_lawyer_id', isset( $_POST['recommended_lawyer_id'] ) ? absint( wp_unslash( $_POST['recommended_lawyer_id'] ) ) : 0 );
 	update_post_meta( $post_id, 'client_display_name', isset( $_POST['client_display_name'] ) ? sanitize_text_field( wp_unslash( $_POST['client_display_name'] ) ) : '' );
 	update_post_meta( $post_id, 'client_relationship', isset( $_POST['client_relationship'] ) ? sanitize_text_field( wp_unslash( $_POST['client_relationship'] ) ) : '' );
 	update_post_meta( $post_id, 'recommendation_rating', $rating );
-	update_post_meta( $post_id, 'recommendation_source_type', isset( $_POST['recommendation_source_type'] ) ? sanitize_key( wp_unslash( $_POST['recommendation_source_type'] ) ) : 'first_party' );
+	update_post_meta( $post_id, 'recommendation_source_type', $source_type );
 	update_post_meta( $post_id, 'recommendation_source_url', isset( $_POST['recommendation_source_url'] ) ? esc_url_raw( wp_unslash( $_POST['recommendation_source_url'] ) ) : '' );
 	update_post_meta( $post_id, 'recommendation_received_at', isset( $_POST['recommendation_received_at'] ) ? sanitize_text_field( wp_unslash( $_POST['recommendation_received_at'] ) ) : '' );
 	update_post_meta( $post_id, 'recommendation_permission', $permission );
@@ -253,21 +299,7 @@ function justice_theme_lawyer_recommendation_counts( int $lawyer_id ): array {
 			'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
 			'posts_per_page' => 1,
 			'fields'         => 'ids',
-			'meta_query'     => array(
-				'relation' => 'AND',
-				array(
-					'key'   => 'recommended_lawyer_id',
-					'value' => (string) $lawyer_id,
-				),
-				array(
-					'key'   => 'recommendation_moderation',
-					'value' => 'approved_public',
-				),
-				array(
-					'key'   => 'recommendation_permission',
-					'value' => 'confirmed',
-				),
-			),
+			'meta_query'     => justice_theme_lawyer_public_recommendation_meta_query( $lawyer_id ),
 		)
 	);
 
@@ -282,21 +314,7 @@ function justice_theme_lawyer_recommendation_counts( int $lawyer_id ): array {
 					'after' => '120 days ago',
 				),
 			),
-			'meta_query'     => array(
-				'relation' => 'AND',
-				array(
-					'key'   => 'recommended_lawyer_id',
-					'value' => (string) $lawyer_id,
-				),
-				array(
-					'key'   => 'recommendation_moderation',
-					'value' => 'approved_public',
-				),
-				array(
-					'key'   => 'recommendation_permission',
-					'value' => 'confirmed',
-				),
-			),
+			'meta_query'     => justice_theme_lawyer_public_recommendation_meta_query( $lawyer_id ),
 		)
 	);
 
@@ -319,21 +337,7 @@ function justice_theme_lawyer_public_recommendations( int $lawyer_id, int $limit
 			'orderby'             => 'date',
 			'order'               => 'DESC',
 			'ignore_sticky_posts' => true,
-			'meta_query'          => array(
-				'relation' => 'AND',
-				array(
-					'key'   => 'recommended_lawyer_id',
-					'value' => (string) $lawyer_id,
-				),
-				array(
-					'key'   => 'recommendation_moderation',
-					'value' => 'approved_public',
-				),
-				array(
-					'key'   => 'recommendation_permission',
-					'value' => 'confirmed',
-				),
-			),
+			'meta_query'          => justice_theme_lawyer_public_recommendation_meta_query( $lawyer_id ),
 		)
 	);
 

@@ -11,7 +11,36 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
-## Priority Cycle 37 - Lawyer Platform Owner Walkthrough Completion
+## Priority Cycle 40 - First-Party Recommendation Display Guard
+
+Research reviewed:
+- Google Business Profile prohibited/restricted content policy covers review manipulation and fake engagement risk. Source: https://support.google.com/business/answer/2622994
+- Google Business Profile API policy requires proper purpose/consent and limits automated/programmatic use. Source: https://developers.google.com/my-business/content/policies
+- Repo T367 state already had first-party recommendation records and a public profile display path, but token intake and full live QA remained blocked.
+
+Business interpretation:
+- Reputation is one of the paid-lawyer retention assets, but public review display must be narrower than generic review importing.
+- The safe next move was to ensure only first-party Jus-Tice recommendations can appear publicly by default, while Google links remain reference-only.
+
+Implemented in this cycle:
+- Updated `inc/lawyer-recommendations.php`.
+- Created `project-control/public-recommendations-display-guard-2026-05-21.md`.
+- Created `project-control/public-recommendations-display-guard-2026-05-21.csv`.
+- Updated `current-status.md`, `next-actions.md`, `changelog.md`, `visual-qa-report.md`, this loop and `task-board.csv`.
+
+Verification:
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- VERIFIED CODE: public recommendation queries now require linked lawyer ID, `approved_public`, `confirmed` permission and `recommendation_source_type=first_party` by default.
+- NOT LIVE VERIFIED: public server behavior requires uPress pull/cache refresh and a real approved first-party recommendation test record.
+
+Next step:
+- Build the recommendation request token/intake flow.
+- Run authenticated admin QA after owner access is available.
+
+Safety:
+- Repo theme code/docs only. No Google API connection, Google review import, outbound review request, public review schema, CMS database row, recommendation/lawyer/customer record, payment setting, redirect, sitemap or outreach message was changed.
+
+## Priority Cycle 39 - Lawyer Platform Owner Walkthrough Completion
 
 Research reviewed:
 - Existing repo docs for lawyer acquisition first wave, Google reviews/reputation, LegalTech prefill and the prior owner walkthrough.

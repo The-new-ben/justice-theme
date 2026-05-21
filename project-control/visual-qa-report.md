@@ -2,6 +2,13 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 First-Party Recommendation Display Guard QA
+- CODE FIXED / NOT LIVE VERIFIED: public recommendation queries now require `recommendation_source_type=first_party` in addition to linked lawyer ID, `approved_public` moderation and `confirmed` permission.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- NOT LIVE VERIFIED: public profile behavior still requires uPress pull/cache refresh and a real approved first-party recommendation record.
+- NOT AUTHENTICATED VERIFIED: the WordPress admin source-type selector was not visually checked because no authenticated admin session was available.
+- SAFETY: no Google API, Google review import, outbound message, public review schema, CMS database row, recommendation/lawyer/customer record or public page content was changed.
+
 ## 2026-05-21 Lawyer Platform Owner Walkthrough Live Boundary Check
 - VERIFIED LIVE: `/`, `/lawyer-plans/`, `/lawyer-registration/`, `/lawyer-dashboard/` and `/lawyers/` returned `200`.
 - VERIFIED LIVE: `/legal-tools/` resolved to the homepage, so direct LegalTech archive promotion remains blocked until real archive/tool records are verified.

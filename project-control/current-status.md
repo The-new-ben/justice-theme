@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-21 20:02 Asia/Jerusalem
+- FIRST-PARTY RECOMMENDATION PUBLIC DISPLAY GUARD: tightened the public recommendation query so lawyer profiles can only show owner-approved first-party Jus-Tice recommendations by default.
+- RESEARCHED: Google Business Profile prohibited/restricted content policy covers review manipulation and fake engagement risk; Google Business Profile API policy requires proper purpose/consent and limits automated/programmatic use. Sources: https://support.google.com/business/answer/2622994 and https://developers.google.com/my-business/content/policies
+- CODED: `inc/lawyer-recommendations.php` now centralizes recommendation source type options, validates saved source types and uses one shared public meta-query guard.
+- CODED: public recommendation counts and public recommendation lists now require linked lawyer ID, `approved_public`, `confirmed` permission and `recommendation_source_type=first_party` by default.
+- CODED: admin source labels now make Google links/reference records explicitly non-public by default.
+- CREATED: `project-control/public-recommendations-display-guard-2026-05-21.md`.
+- CREATED: `project-control/public-recommendations-display-guard-2026-05-21.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- NOT LIVE VERIFIED: public server behavior still requires uPress pull/cache refresh and a real approved first-party recommendation record to test the profile section.
+- BLOCKED: recommendation request token/intake flow remains the next T367 subtask; Google API, outbound SMS/email, public review schema and AggregateRating remain blocked.
+- SAFETY: repo theme code/docs only. No Google API connection, no Google review import, no outbound review request, no public schema, no CMS database row, no recommendation/lawyer/customer record, no payment setting, no redirect, no sitemap and no outreach message changed.
+
 ## LATEST WORK STATUS - 2026-05-21 19:44 Asia/Jerusalem
 - LAWYER PLATFORM OWNER WALKTHROUGH: updated the stale PR-era guide into a live-aware owner operating guide for the current lawyer sales, prospect, reputation and LegalTech lead-intent system.
 - UPDATED: `project-control/lawyer-platform-owner-walkthrough-2026-05-20.md`.

@@ -24,6 +24,9 @@ Sources:
 ## Verification
 - `php -l inc/lawyer-prospects.php` passed.
 - `git diff --check` passed with only the existing Windows line-ending warning.
+- Pushed `33848ba Add prospect contact column`.
+- uPress Git pull succeeded; uPress Git log shows `33848ba Add prospect contact column` as HEAD before this documentation correction.
+- Public unauthenticated admin URL check redirects to `wp-login.php`; the follow-up request hit uPress Login Protector and did not expose the private prospect list.
 
 ## Completion Assessment
 - Materially advanced: the owner can now scan prospect reachability at list level before opening records.
@@ -34,7 +37,7 @@ Sources:
 - Owner-visible after WordPress admin login: Lawyer Onboarding -> Lawyer Prospects -> Contact column.
 
 ## Safety
-- Repo theme admin code/docs only until uPress pull.
+- Repo theme admin code/docs plus uPress pull/live login-gate check only.
 - No public CMS database page edited.
 - No public page changed.
 - No 301 redirect package touched.

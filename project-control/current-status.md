@@ -4,10 +4,12 @@
 - CODED: `inc/lawyer-prospects.php` now adds a `Contact` column to the private `justice_prospect` list.
 - CODED: the column shows email as `mailto:`, phone as `tel:`, and `Missing email + phone` when no contact channel exists.
 - VERIFIED: `php -l inc/lawyer-prospects.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `33848ba Add prospect contact column`; uPress Git pull succeeded and the uPress log shows `33848ba` as live HEAD before this documentation correction.
+- LIVE CHECK: unauthenticated access to the private prospect list redirects to WordPress login, then uPress Login Protector; the contact column is not public.
 - HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is faster prospect triage before manual lawyer outreach.
 - COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 84% to 85%; prospect follow-up/readiness discipline moved from 88% to 89%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
 - OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Contact column.
-- SAFETY: repo theme admin code/docs only at this log point. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 18:11 Asia/Jerusalem
 - LAWYER PROSPECT CONTACT-DETAILS VIEW: added a private CRM view for active lawyer prospects that have no email and no phone.

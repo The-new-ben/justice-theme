@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-21 15:29 Asia/Jerusalem
+- PRACTICE TERM LINK ALIASES: cleaned the remaining generated practice-area links that diluted homepage/internal authority across older duplicate taxonomy URLs.
+- RESEARCHED: Google Search Central says internal links should point to the preferred canonical URL when duplicates exist, and crawlable internal links with clear anchor text help Google find and understand important pages. Sources: https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls and https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- FOUND: after the previous money-topic cleanup, live homepage still rendered older 200 taxonomy links from generated term output: `/practice-areas/real-estate/`, `/practice-areas/personal-injury/`, `/practice-areas/tort-law/` and `/practice-areas/israeli-labor-law/`.
+- CODED: `inc/template-tags.php` now maps those older term slugs to the preferred live hubs when public templates render a term link: real estate -> `/practice-areas/real-estate-law/`, injury/tort -> `/tort-lawyer/`, labor -> `/practice-areas/labor-law/`.
+- CODED: `template-parts/sections/hero.php` now uses `justice_theme_public_term_link()` for homepage hero popular-practice links instead of calling WordPress term URLs directly.
+- DOCUMENTED: added `project-control/practice-term-link-alias-cleanup-2026-05-21.md`.
+- VERIFIED: `php -l inc/template-tags.php`, `php -l template-parts/sections/hero.php` and `git diff --check` passed. uPress Git log shows `d80e576 Route homepage hero terms through public links` as `HEAD -> main, origin/main`.
+- LIVE CHECK: homepage, `/practice-areas/real-estate-law/`, `/practice-areas/labor-law/` and `/articles/` all return 200 with no page-level `noindex`; cache-busted HTML contains `/practice-areas/real-estate-law/`, `/practice-areas/labor-law/` and `/tort-lawyer/`, and contains zero links to the targeted duplicate term URLs.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is homepage SEO authority hygiene: generated CMS links now reinforce current money hubs instead of splitting signals across duplicate taxonomy URLs.
+- COMPLETION ASSESSMENT: public money-link hygiene moved from 83% to 88%; homepage-to-money-hub SEO chain moved from 85% to 88%; first paid-lawyer readiness remains around 84% because Grow/payment approval, product mapping and paying lawyers are still the bottleneck.
+- OWNER-VISIBLE AFTER DEPLOY: homepage hero popular practice links and generated practice-area links should now open the preferred real-estate, labor and tort/injury hubs.
+- SAFETY: repo theme code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 15:15 Asia/Jerusalem
 - MONEY-TOPIC LINK HYGIENE: cleaned public template links so major money topics point to current live hubs, not future/dead slugs or noindex filtered-directory fallbacks.
 - RESEARCHED: Google Search Central recommends using the preferred/canonical URL consistently in internal links and says crawlable links with descriptive anchor text help users and Google understand linked pages. Sources: https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls and https://developers.google.com/search/docs/crawling-indexing/links-crawlable

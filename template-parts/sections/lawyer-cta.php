@@ -8,41 +8,70 @@
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+$lead_partner_url = function_exists( 'justice_theme_plan_manual_activation_url' )
+	? justice_theme_plan_manual_activation_url( 'lead_partner' )
+	: add_query_arg(
+		array(
+			'plan_interest' => 'lead_partner',
+			'pre_checkout'  => '1',
+			'payment_path'  => 'manual_invoice',
+		),
+		home_url( '/lawyer-registration/' )
+	);
+
+$plans_url = home_url( '/lawyer-plans/' );
 ?>
 
-<section class="lawyer-cta section">
+<section class="lawyer-cta section" aria-labelledby="lawyer-cta-title">
 	<div class="container lawyer-cta__inner">
 		<div class="lawyer-cta__content">
-			<p class="section-header__eyebrow"><?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?></p>
-			<h2><?php esc_html_e( 'עורכי דין? הצטרפו למערכת Jus-Tice', 'justice-theme' ); ?></h2>
-			<p><?php esc_html_e( 'קבלו חשיפה לאלפי גולשים המחפשים ייצוג משפטי. פרופיל מקצועי, מאמרים בשמכם, קבלת פניות ממוקדות ומערכת ניהול לידים — הכל במקום אחד.', 'justice-theme' ); ?></p>
+			<p class="section-header__eyebrow"><?php esc_html_e( 'לעורכי דין ומשרדים', 'justice-theme' ); ?></p>
+			<h2 id="lawyer-cta-title"><?php esc_html_e( 'המסלול העסקי לעורכי דין שרוצים פניות מדידות', 'justice-theme' ); ?></h2>
+			<p><?php esc_html_e( 'Jus-Tice מחברת בין תוכן משפטי, פרופיל מקצועי וניהול פניות. ההצטרפות עוברת בדיקת התאמה, רישיון וזמינות למענה; אין חיוב אוטומטי מהטופס ואין הבטחה לתוצאה משפטית או עסקית.', 'justice-theme' ); ?></p>
 		</div>
 
 		<div class="lawyer-cta__features">
 			<div class="lawyer-cta__feature">
-				<span class="lawyer-cta__icon" aria-hidden="true">👤</span>
-				<h3><?php esc_html_e( 'פרופיל מקצועי', 'justice-theme' ); ?></h3>
-				<p><?php esc_html_e( 'דף עורך דין מותאם עם תחומי התמחות, ניסיון, ותמונה מקצועית.', 'justice-theme' ); ?></p>
+				<span class="lawyer-cta__icon" aria-hidden="true">01</span>
+				<h3><?php esc_html_e( 'מיני-סייט שמוכר אמון', 'justice-theme' ); ?></h3>
+				<p><?php esc_html_e( 'פרופיל עשיר עם תחומי התמחות, אזורי שירות, ניסיון, תוכן מקצועי וקריאה ברורה לפנייה.', 'justice-theme' ); ?></p>
 			</div>
 			<div class="lawyer-cta__feature">
-				<span class="lawyer-cta__icon" aria-hidden="true">📩</span>
-				<h3><?php esc_html_e( 'קבלת פניות', 'justice-theme' ); ?></h3>
-				<p><?php esc_html_e( 'פניות ממוקדות מגולשים הזקוקים לייצוג בדיוק בתחום שלכם.', 'justice-theme' ); ?></p>
+				<span class="lawyer-cta__icon" aria-hidden="true">02</span>
+				<h3><?php esc_html_e( 'פניות עם סטטוס ברור', 'justice-theme' ); ?></h3>
+				<p><?php esc_html_e( 'כל פנייה נשמרת, מקבלת תחום וסטטוס, ומכינה את הדרך לאזור אישי עם מעקב אחרי טיפול והמרות.', 'justice-theme' ); ?></p>
 			</div>
 			<div class="lawyer-cta__feature">
-				<span class="lawyer-cta__icon" aria-hidden="true">📊</span>
-				<h3><?php esc_html_e( 'ניהול ובקרה', 'justice-theme' ); ?></h3>
-				<p><?php esc_html_e( 'לוח בקרה אישי: פניות, מאמרים, תשלומים וסטטיסטיקות.', 'justice-theme' ); ?></p>
+				<span class="lawyer-cta__icon" aria-hidden="true">03</span>
+				<h3><?php esc_html_e( 'דוח ערך חודשי', 'justice-theme' ); ?></h3>
+				<p><?php esc_html_e( 'המסלול נבנה סביב מדידה: חשיפה, פניות, תחומי פעילות ותיעוד ערך כדי שעורך הדין יבין מה עובד.', 'justice-theme' ); ?></p>
 			</div>
 		</div>
 
+		<ol class="lawyer-cta__pipeline" aria-label="<?php esc_attr_e( 'שלבי הצטרפות לעורכי דין', 'justice-theme' ); ?>">
+			<li>
+				<strong><?php esc_html_e( 'בדיקה', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'רישיון, תחום, עיר וזמינות', 'justice-theme' ); ?></span>
+			</li>
+			<li>
+				<strong><?php esc_html_e( 'הקמה', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'פרופיל, תוכן ומסלול פניות', 'justice-theme' ); ?></span>
+			</li>
+			<li>
+				<strong><?php esc_html_e( 'מדידה', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'פניות, סטטוסים ודוח ערך', 'justice-theme' ); ?></span>
+			</li>
+		</ol>
+
 		<div class="lawyer-cta__actions">
-			<a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" class="button button--gold">
-				<?php esc_html_e( 'הצטרפות למערכת', 'justice-theme' ); ?>
+			<a href="<?php echo esc_url( $lead_partner_url ); ?>" class="button button--gold">
+				<?php esc_html_e( 'בקשת בדיקת שותף לידים', 'justice-theme' ); ?>
 			</a>
-			<a href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>" class="button button--outline-light">
-				<?php esc_html_e( 'מידע על התוכניות', 'justice-theme' ); ?>
+			<a href="<?php echo esc_url( $plans_url ); ?>" class="button button--outline">
+				<?php esc_html_e( 'השוואת מסלולים', 'justice-theme' ); ?>
 			</a>
+			<small class="lawyer-cta__note"><?php esc_html_e( 'מסלול בתשלום מופעל רק אחרי בדיקה, אישור ידני ותשלום מאושר.', 'justice-theme' ); ?></small>
 		</div>
 	</div>
 </section>

@@ -23,6 +23,8 @@ get_header();
 
 <?php get_template_part( 'template-parts/sections/featured-lawyers' ); ?>
 
+<?php get_template_part( 'template-parts/sections/lawyer-cta' ); ?>
+
 <?php get_template_part( 'template-parts/sections/latest-articles' ); ?>
 
 <?php get_template_part( 'template-parts/sections/ask-lawyer' ); ?>

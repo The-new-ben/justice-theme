@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-21 15:47 Asia/Jerusalem
+- HOMEPAGE LAWYER ACQUISITION: connected the homepage to the stronger paid-lawyer onboarding path so lawyers can clearly start a lead-partner fit check from the front page.
+- RESEARCHED: Justia monetizes premium lawyer visibility with enhanced profiles, contact forms, traffic stats and monthly reporting; Clio Grow sells lawyers on organized lead stages, source tracking, conversion and value reporting. Sources: https://www.justia.com/marketing/lawyer-directory/, https://www.clio.com/grow/, https://help.clio.com/hc/en-us/articles/29739406189339-Clio-Grow-Reports
+- CODED: `front-page.php` now loads `template-parts/sections/lawyer-cta.php` after featured lawyers and before latest articles.
+- CODED: `template-parts/sections/lawyer-cta.php` now presents a serious business offer: mini-site/profile, lead status tracking, monthly value reporting, eligibility check, setup and measurement.
+- CODED: the primary CTA points to the existing lead-partner registration URL, and the secondary CTA points to `/lawyer-plans/`.
+- CODED: `assets/css/main.css` supports the new three-step pipeline, mobile stacking and numbered badges.
+- DOCUMENTED: added `project-control/homepage-lawyer-acquisition-cta-2026-05-21.md`.
+- VERIFIED: `php -l front-page.php`, `php -l template-parts/sections/lawyer-cta.php`, and `git diff --check` passed.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is that lawyer prospects now have a direct homepage route into the paid-product onboarding path.
+- COMPLETION ASSESSMENT: homepage-to-lawyer-subscription path moved from 77% to 82%; first paid-lawyer readiness moved from 86% to 87%; overall homepage money-machine readiness moved from 78% to 82%. Still blocked: Grow/Meshulam final approval, payment product mapping, real lawyer outreach and first paid lawyer.
+- OWNER-VISIBLE AFTER DEPLOY: homepage should show the lawyer business CTA between featured lawyers and latest articles; its main button should open the lead-partner registration wizard.
+- SAFETY: repo theme code/docs only so far. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created, no lawyer/lead record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 15:42 Asia/Jerusalem
 - LAWYER ONBOARDING CONVERSION: polished the lawyer registration flow so it feels like a guided paid-product onboarding path, not a raw form.
 - RESEARCHED: Clio Grow emphasizes lead performance, pipeline health and value tracking; Justia emphasizes complete lawyer profiles, premium visibility and traffic stats; current conversion guidance emphasizes clear next steps after submission, reassurance and mobile usability. Sources: https://help.clio.com/hc/en-us/articles/14353490331035-Clio-Grow-Dashboard, https://www.justia.com/marketing/lawyer-directory/, https://www.simplelaw.com/blog/conversion-strategies-for-law-firm-websites

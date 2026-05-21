@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Lawyer Platform Owner Walkthrough Live Boundary Check
+- VERIFIED LIVE: `/`, `/lawyer-plans/`, `/lawyer-registration/`, `/lawyer-dashboard/` and `/lawyers/` returned `200`.
+- VERIFIED LIVE: `/legal-tools/` resolved to the homepage, so direct LegalTech archive promotion remains blocked until real archive/tool records are verified.
+- VERIFIED SOURCE: homepage HTML contains `legaltech-tools`, `AI Console`, `ask-lawyer` and `data-lead-message`.
+- VERIFIED SOURCE: homepage HTML has no direct `/legal-tools/` archive link and no page-level `noindex`.
+- VERIFIED PRIVATE: unauthenticated Lawyer Onboarding, Lawyer Prospects and Outreach Links admin URLs redirect to WordPress login.
+- NOT VERIFIED: no authenticated admin screenshot was captured in this cycle because no WordPress admin session was available.
+- SAFETY: read-only public/private boundary QA only; no CMS, database, payment, lawyer, lead, prospect, product, redirect, sitemap, taxonomy or outreach change was made.
+
 ## 2026-05-11 Criminal Law Primary URL Live Check
 - VERIFIED LIVE: `/criminal-defense-attorney/` returns `200 OK`, self-canonicalizes, is indexable and has criminal-lawyer title/H1 signals.
 - VERIFIED LIVE: `/criminal-defense-attorney-roles-and-responsibilities/` returns `200 OK`, self-canonicalizes and behaves as a support page.

@@ -11,6 +11,35 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 37 - Lawyer Platform Owner Walkthrough Completion
+
+Research reviewed:
+- Existing repo docs for lawyer acquisition first wave, Google reviews/reputation, LegalTech prefill and the prior owner walkthrough.
+- Live public URL checks for the current lawyer-platform surfaces.
+- Private-boundary checks for Lawyer Onboarding, Lawyer Prospects and Outreach Links.
+
+Business interpretation:
+- The code now has enough private admin workflow to support a first manual sales cycle, but the owner-facing guide was still written as if PR #26 had not been deployed.
+- The safest high-value task was not another feature. It was closing the operating gap: what the owner should open first, what is live, what remains blocked and what must not be promoted yet.
+
+Implemented in this cycle:
+- Updated `project-control/lawyer-platform-owner-walkthrough-2026-05-20.md`.
+- Marked task-board item `T368` completed.
+- Updated `current-status.md`, `next-actions.md`, `changelog.md`, this execution loop and `task-board.csv`.
+
+Verification:
+- VERIFIED LIVE: `/`, `/lawyer-plans/`, `/lawyer-registration/`, `/lawyer-dashboard/` and `/lawyers/` returned 200.
+- VERIFIED LIVE: `/legal-tools/` still resolved to the homepage, so direct archive promotion remains blocked.
+- VERIFIED LIVE: homepage source contains `legaltech-tools`, `AI Console`, `ask-lawyer` and `data-lead-message`; no direct `/legal-tools/` archive link and no page-level `noindex` were found.
+- VERIFIED PRIVATE: unauthenticated Lawyer Onboarding, Lawyer Prospects and Outreach Links admin URLs redirect to WordPress login.
+
+Next step:
+- Owner runs one authenticated WordPress admin walkthrough using the guide.
+- Then choose either first controlled 10-20 lawyer outreach batch or reputation/public-profile display gate.
+
+Safety:
+- Repo documentation and read-only live/private-boundary checks only. No public CMS page, database row, lawyer, lead, prospect, product, payment, redirect, sitemap, taxonomy, title/H1/meta or outreach message was changed.
+
 ## Priority Cycle 36 - Spam Footprint Discovery Queue
 
 Research reviewed:

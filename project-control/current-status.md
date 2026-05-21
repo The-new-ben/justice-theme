@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-21 19:44 Asia/Jerusalem
+- LAWYER PLATFORM OWNER WALKTHROUGH: updated the stale PR-era guide into a live-aware owner operating guide for the current lawyer sales, prospect, reputation and LegalTech lead-intent system.
+- UPDATED: `project-control/lawyer-platform-owner-walkthrough-2026-05-20.md`.
+- VERIFIED LIVE: `/`, `/lawyer-plans/`, `/lawyer-registration/`, `/lawyer-dashboard/` and `/lawyers/` returned `200`.
+- VERIFIED LIVE: `/legal-tools/` still resolves to the homepage, so the guide keeps it blocked from promotion as a finished product archive.
+- VERIFIED LIVE: the homepage source contains `legaltech-tools`, `AI Console`, `ask-lawyer` and `data-lead-message`; it has no direct `/legal-tools/` archive link and no page-level `noindex`.
+- VERIFIED PRIVATE: unauthenticated `wp-admin` access to Lawyer Onboarding, Lawyer Prospects and Outreach Links redirects to WordPress login.
+- COMPLETED: task-board item `T368` is now marked completed because the owner walkthrough now reflects deployed public URLs, private admin surfaces, prospect follow-up views, outreach-link handoff, reputation workflow and LegalTech prefill behavior.
+- BLOCKED: authenticated WordPress admin walkthrough, real outreach, real payment, real lawyer activation and real LegalTech archive/product records still require owner action/access.
+- SAFETY: repo documentation and read-only public/private boundary checks only. No public CMS page, database row, lawyer, lead, prospect, product, payment, redirect, sitemap, taxonomy, title/H1/meta or outreach message was changed.
+
 ## LATEST WORK STATUS - 2026-05-21 19:14 Asia/Jerusalem
 - LEGALTECH CONTEXTUAL INTAKE PREFILL: made the homepage LegalTech/product cards prepare the existing lead form with product context instead of dropping every click into a generic blank form.
 - RESEARCHED: Baymard form-field research recommends reducing irrelevant form effort, using smart defaults and keeping prefilled values editable; this fits LegalTech product clicks because the user already showed intent by choosing a tool. Source: https://baymard.com/learn/input-fields

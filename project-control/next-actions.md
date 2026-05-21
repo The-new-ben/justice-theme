@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-LAWYER-PLATFORM-OWNER-WALKTHROUGH-001: Complete live-aware owner guide for lawyer platform
+**Status:** COMPLETED / VERIFIED DOCS / READ-ONLY LIVE CHECKS
+**Why:** The owner walkthrough still described a PR-era state, while the live repo now includes Lawyer Onboarding command center, prospect follow-up views, Outreach Links handoff, reputation workflow and LegalTech lead-form prefill.
+**Actions:**
+1. DONE: updated `project-control/lawyer-platform-owner-walkthrough-2026-05-20.md`.
+2. VERIFIED LIVE: `/`, `/lawyer-plans/`, `/lawyer-registration/`, `/lawyer-dashboard/` and `/lawyers/` returned `200`.
+3. VERIFIED LIVE: `/legal-tools/` still resolves to the homepage, so direct LegalTech archive promotion remains blocked.
+4. VERIFIED LIVE: homepage source contains `legaltech-tools`, `AI Console`, `ask-lawyer` and `data-lead-message`; it has no direct `/legal-tools/` archive link and no page-level `noindex`.
+5. VERIFIED PRIVATE: unauthenticated access to Lawyer Onboarding, Lawyer Prospects and Outreach Links redirects to WordPress login.
+6. COMPLETED: task-board item `T368`.
+7. NEXT: owner should run one authenticated admin walkthrough, then either start the first controlled 10-20 lawyer outreach batch or keep preparing the reputation/public-profile display gate.
+8. BLOCKED: no public CMS page, database row, lawyer, lead, prospect, product, payment, redirect, sitemap, taxonomy, title/H1/meta or outreach message was changed.
+
 ### ACTION-WAVE-1B-SUPPORT-METADATA-PACKAGE-001: Prepare metadata for six Family/Divorce support pages
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING
 **Why:** All six support bodies are clean, but support pages also need exact title/H1/meta/taxonomy boundaries before any future support upload.

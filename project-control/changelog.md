@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Lawyer platform owner walkthrough completion
+
+- UPDATED: `project-control/lawyer-platform-owner-walkthrough-2026-05-20.md`.
+- VERIFIED / DOCS: completed the owner walkthrough for the deployed lawyer platform state, including public URLs, private admin command center, prospect follow-up views, outreach links, reputation workflow, manual activation rules and LegalTech lead-intent handling.
+- VERIFIED LIVE: `/`, `/lawyer-plans/`, `/lawyer-registration/`, `/lawyer-dashboard/` and `/lawyers/` returned `200`.
+- VERIFIED LIVE: `/legal-tools/` still resolves to the homepage, so direct promotion remains blocked until real tool records and archive behavior are verified.
+- VERIFIED LIVE: homepage source contains `legaltech-tools`, `AI Console`, `ask-lawyer` and `data-lead-message`; it has no direct `/legal-tools/` archive link and no page-level `noindex`.
+- VERIFIED PRIVATE: unauthenticated access to Lawyer Onboarding, Lawyer Prospects and Outreach Links redirects to WordPress login.
+- COMPLETED: task-board item `T368`.
+- BLOCKED: authenticated admin walkthrough, real outreach, first payment, lawyer activation and real LegalTech product archive require owner action/access.
+- SAFETY: repo documentation and read-only live/private-boundary checks only. No public CMS page, database row, lawyer, lead, prospect, product, payment, redirect, sitemap, taxonomy, title/H1/meta or outreach message was changed.
+
 ## 2026-05-12 - Wave 1B support metadata package
 
 - CREATED: `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.md`.

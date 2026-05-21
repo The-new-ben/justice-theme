@@ -1,0 +1,7 @@
+page_id,path,old_words,new_words,status
+FD-W1B-META-001,/consensual-divorce/,1875,1656,FIXED
+FD-W1B-META-002,/divorce-mediation/,2059,1834,FIXED
+FD-W1B-META-003,/divorce-property-division/,1874,1851,FIXED
+FD-W1B-META-004,/family-dispute-resolution/,1992,1793,FIXED
+FD-W1B-META-005,/child-support/,1729,1650,FIXED
+FD-W1B-META-006,/child-custody/,1693,1748,FIXED

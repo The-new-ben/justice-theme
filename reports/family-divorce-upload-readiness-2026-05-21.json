@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-05-21T20:18:31.858Z",
+  "generatedAt": "2026-05-21T20:27:01.725Z",
   "targetCount": 7,
   "staticPassCount": 7,
   "livePassCount": 7,
-  "supportMetadataMismatchCount": 6,
+  "supportMetadataMismatchCount": 0,
   "protectedSourceRedirectConflicts": 5,
   "bodyUploadReadiness": "READY_AFTER_OWNER_APPROVAL_AND_WORDPRESS_BACKUP",
   "urlMigrationReadiness": "BLOCKED_GSC_EXPORT_AND_PROTECTED_REDIRECT_REVIEW",
@@ -28,12 +28,6 @@
       "next_step": "Do not edit public CMS until approvals and backups exist"
     },
     {
-      "gate": "metadata_package_currentness",
-      "status": "REVIEW_REQUIRED",
-      "evidence": "6 Wave 1B metadata word counts differ from current static QA",
-      "next_step": "Keep metadata text package, but use current QA word counts in upload status docs"
-    },
-    {
       "gate": "owner_review_packet",
       "status": "READY_FOR_OWNER",
       "evidence": "11 owner packet rows found",
@@ -56,6 +50,12 @@
       "status": "VERIFIED",
       "evidence": "7/7 live target snapshots PASS",
       "next_step": "Still export actual WordPress editor/database rollback material before CMS edits"
+    },
+    {
+      "gate": "metadata_package_currentness",
+      "status": "VERIFIED",
+      "evidence": "0 Wave 1B metadata word counts differ from current static QA",
+      "next_step": "Use synced metadata package plus current static QA for upload status docs"
     }
   ]
 }

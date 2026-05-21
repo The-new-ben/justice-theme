@@ -203,7 +203,9 @@ function main() {
       gate: 'metadata_package_currentness',
       status: supportMetadataMismatchCount ? 'REVIEW_REQUIRED' : 'VERIFIED',
       evidence: `${supportMetadataMismatchCount} Wave 1B metadata word counts differ from current static QA`,
-      next_step: 'Keep metadata text package, but use current QA word counts in upload status docs',
+      next_step: supportMetadataMismatchCount
+        ? 'Sync metadata word counts or use current QA counts in upload status docs'
+        : 'Use synced metadata package plus current static QA for upload status docs',
     },
     {
       gate: 'protected_source_redirects',

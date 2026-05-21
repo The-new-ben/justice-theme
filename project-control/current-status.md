@@ -1,3 +1,25 @@
+## LATEST WORK STATUS - 2026-05-21 23:30 Asia/Jerusalem
+- FAMILY/DIVORCE WAVE 1B METADATA SYNC: closed the stale word-count review item from the upload readiness dashboard.
+- TOOLING FIXED: created `tools/sync-family-divorce-wave1b-metadata-counts.mjs`.
+- FIXED: synced `6/6` Wave 1B support metadata word counts to the current static-QA counts.
+- GENERATED: `reports/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+- UPDATED: `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv`.
+- UPDATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.md`.
+- UPDATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.csv`.
+- UPDATED: `reports/family-divorce-upload-readiness-2026-05-21.csv`.
+- UPDATED: `reports/family-divorce-upload-readiness-2026-05-21.json`.
+- VERIFIED LOCAL: `node --check tools/sync-family-divorce-wave1b-metadata-counts.mjs` passed.
+- VERIFIED LOCAL: `node tools/sync-family-divorce-wave1b-metadata-counts.mjs` fixed `6` rows and skipped `0`.
+- VERIFIED LOCAL: `node --check tools/check-family-divorce-upload-readiness.mjs` passed.
+- VERIFIED LOCAL: `node tools/check-family-divorce-upload-readiness.mjs` passed.
+- VERIFIED: Wave 1B metadata word-count mismatches are now `0`.
+- VERIFIED: `7/7` Family/Divorce drafts still pass static QA and `7/7` target URLs still have live public backups.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup.
+- BLOCKED: URL migration, redirects, canonical/noindex and sitemap actions still require GSC API export plus review of `5` protected source homepage redirects.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 23:16 Asia/Jerusalem
 - FAMILY/DIVORCE UPLOAD READINESS DASHBOARD: consolidated the first upload cluster gates into one repeatable checker/report.
 - TOOLING FIXED: created `tools/check-family-divorce-upload-readiness.mjs`.
@@ -8,7 +30,7 @@
 - VERIFIED LOCAL: `node --check tools/check-family-divorce-upload-readiness.mjs` passed.
 - VERIFIED LOCAL: `node tools/check-family-divorce-upload-readiness.mjs` passed.
 - VERIFIED: `7/7` Family/Divorce drafts pass static QA and `7/7` target URLs have live public backups.
-- REVIEW REQUIRED: the older Wave 1B support metadata package has `6` stale word-count fields compared with current merged static-QA counts; use current static QA counts for upload status.
+- FIXED LATER: the older Wave 1B support metadata package had `6` stale word-count fields; the follow-up sync cycle brought the mismatch count to `0`.
 - BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup.
 - BLOCKED: URL migration, redirects, canonical/noindex and sitemap actions still require GSC API export plus review of `5` protected source homepage redirects.
 - SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.

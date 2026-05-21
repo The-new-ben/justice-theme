@@ -18,6 +18,7 @@ This dashboard consolidates the current Family/Divorce upload gates after the la
 - VERIFIED: the owner review packet exists and covers the upload target set.
 - VERIFIED: the CMS operator runbook exists and requires update-existing-page-only execution.
 - VERIFIED: the focused Family/Divorce GSC export runner exists.
+- VERIFIED: the Wave 1B support metadata package now has `0` word-count mismatches against current static QA.
 
 ## Ready
 
@@ -48,17 +49,17 @@ Current body QA counts:
 - BLOCKED: URL migration, redirects, canonicals, noindex and sitemap actions still require the real GSC API export.
 - BLOCKED: `5` protected Family/Divorce source URLs still redirect to the homepage in the latest pre-upload guard and must not be retired blindly.
 
-## Review Required
+## Fixed Since Initial Dashboard
 
-- REVIEW REQUIRED: the older Wave 1B support metadata package has `6` stale word-count fields compared with the current merged static-QA counts.
-- The metadata text can still be used as the planning source, but operator/status docs should rely on `reports/family-divorce-public-body-static-qa-2026-05-21.csv` for current body counts.
+- FIXED: the older Wave 1B support metadata package had `6` stale word-count fields; all `6` were synced to the current merged static-QA counts.
+- VERIFIED: `reports/family-divorce-upload-readiness-2026-05-21.json` now reports `supportMetadataMismatchCount: 0`.
 
 ## Estimated Readiness
 
 - Content-body upload package: high readiness, pending owner/legal/source approval and WordPress backup.
 - Public CMS execution: blocked.
 - URL migration / redirect / canonical / sitemap readiness: blocked until GSC export and protected-source redirect review.
-- Overall Family/Divorce content-upload readiness: approximately `80-85%` for body upload preparation; lower for full SEO-safe migration because GSC and redirect decisions remain open.
+- Overall Family/Divorce content-upload readiness: approximately `85%` for body upload preparation; lower for full SEO-safe migration because GSC and redirect decisions remain open.
 
 ## Next Step
 

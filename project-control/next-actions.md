@@ -6,6 +6,23 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-WAVE1B-METADATA-SYNC-001: Sync stale support metadata word counts
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** The upload readiness dashboard found `6` stale Wave 1B support metadata word-count fields after later merge work. This was a planning artifact, but it could confuse owner review and CMS upload status.
+**Actions:**
+1. DONE: created `tools/sync-family-divorce-wave1b-metadata-counts.mjs`.
+2. FIXED: updated only the trusted early `words` column in `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv`.
+3. DONE: generated `reports/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+4. DONE: created `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.md`.
+5. DONE: created `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+6. VERIFIED LOCAL: `node --check tools/sync-family-divorce-wave1b-metadata-counts.mjs` passed.
+7. VERIFIED LOCAL: sync script fixed `6` rows and skipped `0`.
+8. VERIFIED LOCAL: reran `tools/check-family-divorce-upload-readiness.mjs`; Wave 1B metadata mismatches are now `0`.
+9. VERIFIED: `7/7` target drafts still pass static QA and `7/7` target URLs still have live public backups.
+10. BLOCKED: owner/legal/source approval and actual WordPress editor/database rollback material are still required before public CMS upload.
+11. BLOCKED: GSC API export and protected-source redirect review are still required before URL migration, redirects, canonical/noindex or sitemap changes.
+12. NEXT: run real GSC export after owner credentials, then convert output into protected URL/cannibalization decision map.
+
 ### ACTION-FAMILY-DIVORCE-UPLOAD-READINESS-DASHBOARD-001: Consolidate upload readiness gates
 **Status:** COMPLETED / VERIFIED LOCAL / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** Family/Divorce had the content drafts, owner packet, metadata packages, runbook, live snapshots and GSC runner spread across many files. The operator needs one current readiness view before any CMS work.
@@ -18,7 +35,7 @@
 6. VERIFIED LOCAL: `node --check tools/check-family-divorce-upload-readiness.mjs` passed.
 7. VERIFIED LOCAL: `node tools/check-family-divorce-upload-readiness.mjs` passed.
 8. VERIFIED: `7/7` target drafts pass static QA and `7/7` target URLs have live public backups.
-9. REVIEW REQUIRED: `6` Wave 1B support metadata word counts are stale versus current merged static-QA counts.
+9. FIXED LATER: the `6` stale Wave 1B support metadata word counts were synced in `ACTION-FAMILY-DIVORCE-WAVE1B-METADATA-SYNC-001`.
 10. BLOCKED: owner/legal/source approval and actual WordPress editor/database rollback material are still required before public CMS upload.
 11. BLOCKED: GSC API export and protected-source redirect review are still required before URL migration, redirects, canonical/noindex or sitemap changes.
 12. NEXT: run real GSC export after owner credentials, then convert output into protected URL/cannibalization decision map.

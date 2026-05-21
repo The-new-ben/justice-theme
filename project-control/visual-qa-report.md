@@ -2,6 +2,18 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce Wave 1B Metadata Word-Count Sync
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/sync-family-divorce-wave1b-metadata-counts.mjs`.
+- FIXED / VERIFIED LOCAL: synced `6/6` stale Wave 1B support metadata word-count fields to current static-QA counts.
+- GENERATED / VERIFIED LOCAL: `reports/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+- CREATED / VERIFIED LOCAL: `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+- VERIFIED LOCAL: reran the upload readiness checker; Wave 1B metadata mismatches are now `0`.
+- VERIFIED LOCAL: `7/7` current Family/Divorce public-body drafts still pass static QA and `7/7` target URLs still have live public backups.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local metadata/reporting cleanup and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/legal/source approval, WordPress backup, approved CMS update and post-upload route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce Upload Readiness Dashboard
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/check-family-divorce-upload-readiness.mjs`.
 - GENERATED / VERIFIED LOCAL: `reports/family-divorce-upload-readiness-2026-05-21.csv`.
@@ -10,7 +22,7 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - CREATED / VERIFIED LOCAL: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.csv`.
 - VERIFIED LOCAL: `7/7` current Family/Divorce public-body drafts pass static QA.
 - VERIFIED LOCAL: `7/7` target URLs have live public backups.
-- REVIEW REQUIRED: older Wave 1B metadata word-count fields are stale compared with current static-QA counts.
+- FIXED LATER: older Wave 1B metadata word-count fields were stale compared with current static-QA counts; the follow-up sync reduced mismatches to `0`.
 - NOT VISUALLY VERIFIED: no screenshots were taken because this was local readiness tooling/reporting and no public UI changed.
 - BLOCKED: public screenshots remain pending until owner/legal/source approval, WordPress backup, approved CMS update and post-upload route/content QA.
 - SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.

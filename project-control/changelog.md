@@ -1,6 +1,23 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce Wave 1B metadata word-count sync
+
+- TOOLING FIXED: created `tools/sync-family-divorce-wave1b-metadata-counts.mjs`.
+- FIXED: synced `6/6` stale Wave 1B support metadata word counts to the current static-QA counts.
+- GENERATED: `reports/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+- UPDATED: `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv`.
+- UPDATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.md`.
+- UPDATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.csv`.
+- VERIFIED LOCAL: sync script fixed `6` rows and skipped `0`.
+- VERIFIED LOCAL: reran upload readiness checker; Wave 1B metadata word-count mismatches are now `0`.
+- VERIFIED: `7/7` current public-body drafts still pass static QA and `7/7` target URLs still have live public backups.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database rollback material.
+- BLOCKED: URL migration, redirects, canonicals, noindex and sitemap actions still require GSC API export and protected-source redirect review.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce upload readiness dashboard
 
 - TOOLING FIXED: created `tools/check-family-divorce-upload-readiness.mjs`.
@@ -11,7 +28,7 @@
 - VERIFIED LOCAL: `node --check tools/check-family-divorce-upload-readiness.mjs` passed.
 - VERIFIED LOCAL: `node tools/check-family-divorce-upload-readiness.mjs` passed.
 - VERIFIED: `7/7` current public-body drafts pass static QA and `7/7` target URLs have live public backups.
-- REVIEW REQUIRED: `6` Wave 1B support metadata word counts differ from current static-QA counts after later merge work.
+- FIXED LATER: the `6` Wave 1B support metadata word-count mismatches were synced in the follow-up metadata cycle.
 - BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database rollback material.
 - BLOCKED: URL migration, redirects, canonicals, noindex and sitemap actions still require GSC API export and protected-source redirect review.
 - SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.

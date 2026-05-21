@@ -3,11 +3,11 @@
 - RESEARCHED: WooCommerce Subscriptions documentation says subscriptions are sold through subscription products, and those products generate recurring orders on their schedule. WooCommerce also documents that subscription gateways must support recurring payments for automatic renewals. Sources: https://woocommerce.com/document/subscriptions/creating-subscription-products/ and https://woocommerce.com/document/subscriptions/payment-gateways/
 - CODED: `inc/lawyer-plans.php` now has `Lawyer Onboarding -> Plan Payments`, showing WooCommerce, Subscriptions and enabled-gateway readiness.
 - CODED: the screen lets an admin paste/save the product IDs for Pro, Featured, Lead Partner and Full Service, then shows whether each product is found, subscription-like, purchasable and checkout-ready.
-- VERIFIED: `php -l inc/lawyer-plans.php` and `git diff --check` passed before commit.
+- VERIFIED: `php -l inc/lawyer-plans.php` and `git diff --check` passed before commit. After deploy, uPress Git log shows `4870c18 Add lawyer plan payment mapping admin` as `HEAD -> main, origin/main`.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is reducing the next payment setup bottleneck: after Grow approves, product mapping can be done from wp-admin without guessing option names or running WP-CLI.
 - COMPLETION ASSESSMENT: automated payment readiness moved from 84% to 86%; first paid-lawyer readiness moved from 82% to 83%; owner self-service for payment setup moved from 30% to 55%. Still blocked: Grow re-check approval, real WooCommerce subscription products, gateway connection and payment smoke test.
 - OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Plan Payments.
-- UPRESS: pending after commit/push.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `4870c18 Add lawyer plan payment mapping admin` is `HEAD -> main, origin/main`.
 - SAFETY: repo code/status only. No card charged, no payment gateway setting changed, no WooCommerce product created, no product ID mapped, no CMS page edited, and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 12:47 Asia/Jerusalem

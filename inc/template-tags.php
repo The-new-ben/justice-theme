@@ -145,6 +145,34 @@ function justice_theme_public_permalink( int $post_id = 0 ): string {
 }
 
 /**
+ * Return a preferred public URL for older duplicate practice terms.
+ *
+ * This is display-only link hygiene. It does not edit terms, redirects,
+ * canonicals, or stored CMS content.
+ *
+ * @param WP_Term $term Term object.
+ * @return string
+ */
+function justice_theme_preferred_practice_term_url( WP_Term $term ): string {
+	if ( 'practice-areas' !== $term->taxonomy ) {
+		return '';
+	}
+
+	$preferred_paths = array(
+		'real-estate'       => '/practice-areas/real-estate-law/',
+		'personal-injury'   => '/tort-lawyer/',
+		'tort-law'          => '/tort-lawyer/',
+		'israeli-labor-law' => '/practice-areas/labor-law/',
+	);
+
+	if ( ! isset( $preferred_paths[ $term->slug ] ) ) {
+		return '';
+	}
+
+	return home_url( $preferred_paths[ $term->slug ] );
+}
+
+/**
  * Return the current public request URL without query parameters.
  *
  * Useful for virtual theme routes that do not have a WordPress post ID.
@@ -166,6 +194,13 @@ function justice_theme_current_public_url(): string {
  * @return string
  */
 function justice_theme_public_term_link( $term ): string {
+	if ( $term instanceof WP_Term ) {
+		$preferred_url = justice_theme_preferred_practice_term_url( $term );
+		if ( '' !== $preferred_url ) {
+			return justice_theme_public_url( $preferred_url );
+		}
+	}
+
 	$term_link = get_term_link( $term );
 
 	if ( is_wp_error( $term_link ) ) {

@@ -237,21 +237,39 @@ function justice_theme_payment_compliance_render_body( string $slug ): void {
 	}
 
 	if ( 'checkout' === $slug ) {
+		$requested_plan = isset( $_GET['plan_interest'] ) ? sanitize_key( wp_unslash( $_GET['plan_interest'] ) ) : 'pro';
+		$plans          = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_plans() : array();
+
+		if ( empty( $plans[ $requested_plan ] ) || 'free' === $requested_plan ) {
+			$requested_plan = 'pro';
+		}
+
+		$selected_plan       = $plans[ $requested_plan ] ?? array();
+		$plan_overrides      = function_exists( 'justice_theme_lawyer_plan_public_overrides' ) ? justice_theme_lawyer_plan_public_overrides( $requested_plan ) : array();
+		$selected_plan_label = (string) ( $selected_plan['label'] ?? 'Jus-Tice Pro' );
+		$selected_plan_price = (string) ( $plan_overrides['price'] ?? ( $selected_plan['price'] ?? '' ) );
 		?>
 		<section class="jt-compliance-card">
-			<h2>פרטים לפני תשלום או חשבונית</h2>
-			<p>לפני הפעלת מסלול בתשלום, נא למלא פרטי לקוח ולאשר את התקנון. לאחר השלמת תשתית הסליקה, עמוד זה יוביל לתשלום מאובטח. עד אז ניתן להשלים הרשמה ולקבל הפעלה ידנית לאחר אישור.</p>
+			<h2>עמוד תשלום - פרטי לקוח</h2>
+			<p>לפני הפעלת מסלול בתשלום, נא למלא פרטי לקוח ולאשר את התקנון. לאחר מכן נמשיך לתשלום מאובטח, חשבונית והפעלת המסלול לאחר אישור.</p>
+			<div class="jt-compliance-order-summary" aria-label="Selected plan">
+				<strong><?php esc_html_e( 'מסלול נבחר', 'justice-theme' ); ?></strong>
+				<span><?php echo esc_html( $selected_plan_label ); ?></span>
+				<?php if ( $selected_plan_price ) : ?>
+					<small><?php echo esc_html( $selected_plan_price ); ?></small>
+				<?php endif; ?>
+			</div>
 			<form class="jt-compliance-checkout woocommerce-checkout checkout" action="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" method="get">
 				<input type="hidden" name="pre_checkout" value="1">
 				<input type="hidden" name="payment_path" value="manual_invoice">
-				<input type="hidden" name="plan_interest" value="pro">
+				<input type="hidden" name="plan_interest" value="<?php echo esc_attr( $requested_plan ); ?>">
 				<label>שם פרטי<input id="billing_first_name" class="input-text" type="text" name="billing_first_name" autocomplete="given-name" required></label>
 				<label>שם משפחה<input id="billing_last_name" class="input-text" type="text" name="billing_last_name" autocomplete="family-name" required></label>
 				<label>טלפון ללא קידומת בינלאומית<input id="billing_phone" class="input-text" type="tel" name="billing_phone" autocomplete="tel-national" required></label>
 				<label>מדינה<input id="billing_country" class="input-text" type="text" name="billing_country" autocomplete="country-name" value="ישראל" required></label>
 				<label>כתובת מייל<input id="billing_email" class="input-text" type="email" name="billing_email" autocomplete="email" required></label>
-				<label class="jt-compliance-checkbox woocommerce-terms-and-conditions-checkbox-text">
-					<input id="terms" class="input-checkbox" type="checkbox" name="terms" value="on" required>
+				<label class="jt-compliance-checkbox woocommerce-terms-and-conditions-checkbox-text form-row validate-required">
+					<input id="terms" class="woocommerce-form__input woocommerce-form__input-checkbox input-checkbox" type="checkbox" name="terms" value="on" required>
 					<span>קראתי ואני מאשר/ת את <a href="<?php echo esc_url( home_url( '/sample-terms-and-conditions-template/' ) ); ?>" target="_blank" rel="noopener">התקנון ותנאי השימוש</a>, כולל <a href="<?php echo esc_url( home_url( '/cancellation/' ) ); ?>" target="_blank" rel="noopener">מדיניות הביטול, אספקת השירות ואחריות המוצר</a> ואת <a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>" target="_blank" rel="noopener">מדיניות הפרטיות</a>.</span>
 				</label>
 				<button class="button button--gold" type="submit">המשך להרשמה והפעלת מסלול</button>
@@ -368,6 +386,27 @@ function justice_theme_payment_compliance_render_page( array $config ): void {
 		}
 		.jt-compliance-warning {
 			color: #9f1239;
+		}
+		.jt-compliance-order-summary {
+			display: grid;
+			gap: 4px;
+			border: 1px solid #dde5ee;
+			border-radius: 8px;
+			background: #fbfcfe;
+			padding: 14px;
+			margin: 16px 0 18px;
+		}
+		.jt-compliance-order-summary strong {
+			color: #6b778c;
+			font-size: 0.9rem;
+		}
+		.jt-compliance-order-summary span {
+			color: #14213d;
+			font-weight: 900;
+		}
+		.jt-compliance-order-summary small {
+			color: #c1121f;
+			font-weight: 800;
 		}
 		.jt-compliance-checkout {
 			display: grid;

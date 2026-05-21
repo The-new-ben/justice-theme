@@ -151,6 +151,17 @@ function justice_theme_plan_checkout_url( string $plan_key ): string {
 		return add_query_arg( 'add-to-cart', $product_id, wc_get_checkout_url() );
 	}
 
+	if ( 'free' !== $plan_key ) {
+		return add_query_arg(
+			array(
+				'plan_interest' => $plan_key,
+				'pre_checkout'  => '1',
+				'payment_path'  => 'manual_invoice',
+			),
+			home_url( '/checkout/' )
+		);
+	}
+
 	return add_query_arg(
 		array(
 			'plan_interest' => $plan_key,

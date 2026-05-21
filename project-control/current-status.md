@@ -1,14 +1,15 @@
-## LATEST WORK STATUS - 2026-05-21 12:40 Asia/Jerusalem
-- GROW CHECKOUT APPROVAL FIX: Grow account creation is complete, but site approval still failed only on checkout-page items.
+## LATEST WORK STATUS - 2026-05-21 12:47 Asia/Jerusalem
+- GROW CHECKOUT APPROVAL FIX: Grow account creation is complete, the checkout fixes are live, and the site was submitted back to Grow for review.
 - RESEARCHED: the Grow report for `https://jus-tice.co.il` marks terms page, business address, phone, cancellation, privacy, supply policy and product responsibility as passed. The only failed items are: checkout page exists, terms approval checkbox on checkout, and a terms link inside that checkout approval. WooCommerce checkout guidance confirms billing/customer fields such as `billing_first_name`, `billing_last_name`, `billing_email`, `billing_phone` and country are checkout field surfaces. Sources: Grow report link from owner, https://developer.woocommerce.com/docs/customizing-checkout-fields-using-actions-and-filters/
 - CODED: paid plan CTAs now route to `/checkout/?plan_interest=<plan>&pre_checkout=1&payment_path=manual_invoice` when subscription products are not mapped yet, instead of skipping straight to lawyer registration.
 - CODED: the checkout compliance fallback now keeps the selected paid plan visible, preserves the selected `plan_interest`, and uses a WooCommerce-style terms checkbox with a direct terms link.
-- VERIFIED: `php -l inc/lawyer-plans.php`, `php -l inc/payment-compliance-routes.php`, and `git diff --check` passed before commit.
+- VERIFIED: `php -l inc/lawyer-plans.php`, `php -l inc/payment-compliance-routes.php`, and `git diff --check` passed before commit. After uPress pull, live `/lawyer-plans/` contains paid checkout links and live `/checkout/?plan_interest=pro&pre_checkout=1&payment_path=manual_invoice` returns 200 with the selected plan, required billing fields, terms checkbox, and terms link.
+- GROW RESUBMISSION: clicked the Grow report confirmation checkbox and submitted the site for re-check. Grow confirmed: `תודה, האתר נשלח לבדיקה חוזרת בהצלחה! הבדיקה אורכת עד יום עסקים`.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is payment approval readiness: Grow's checker should now see a public paid-plan path that lands on a checkout page with the exact required customer fields and terms checkbox/link.
-- COMPLETION ASSESSMENT: Grow/Meshulam website approval readiness moved from 83% to 91%; automated payment readiness moved from 82% to 84%; first paid-lawyer readiness moved from 80% to 82%. Still blocked: Grow must re-check and approve, then WooCommerce product/gateway mapping and live smoke test must be completed.
+- COMPLETION ASSESSMENT: Grow/Meshulam website approval readiness moved from 83% to 93%; automated payment readiness moved from 82% to 84%; first paid-lawyer readiness moved from 80% to 82%. Still blocked: Grow must re-check and approve, then WooCommerce product/gateway mapping and live smoke test must be completed.
 - OWNER-VISIBLE AFTER DEPLOY: `/lawyer-plans/` paid plan buttons should open `/checkout/` with the selected plan, and `/checkout/?plan_interest=pro` should show required customer fields plus a terms checkbox/link.
-- UPRESS: pending after commit/push.
-- SAFETY: repo code/status only. No card charged, no payment gateway setting changed, no CMS page edited, no product created, no outreach sent and no Grow resubmission clicked yet.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `540bdb4 Fix Grow checkout approval path` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/status plus Grow review resubmission only. No card charged, no payment gateway setting changed, no CMS page edited, no product created, and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-20 23:47 Asia/Jerusalem
 - LAWYER DASHBOARD NEXT BEST ACTION: upgraded the logged-in lawyer private area from a passive checklist into an action-driven activation cockpit.

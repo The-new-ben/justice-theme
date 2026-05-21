@@ -4,11 +4,11 @@
 - CODED: added `template-parts/sections/customer-intake-strip.php`, a three-path homepage band for visitors who need to submit a legal inquiry, read guides first, or compare lawyer profiles.
 - CODED: added the new band immediately after the hero in `front-page.php` and `page-home.php`, so both possible homepage templates get the same customer-ready path.
 - CODED: tightened the hero description to remove unsupported "recommended/leading" wording and add clear no-guarantee/no-personal-advice language.
-- VERIFIED: `php -l front-page.php`, `php -l page-home.php`, `php -l template-parts/sections/hero.php`, `php -l template-parts/sections/customer-intake-strip.php`, and `git diff --check` passed before commit.
+- VERIFIED: `php -l front-page.php`, `php -l page-home.php`, `php -l template-parts/sections/hero.php`, `php -l template-parts/sections/customer-intake-strip.php`, and `git diff --check` passed before commit. After deploy, uPress Git log shows `84ae16c Clarify homepage customer path` as `HEAD -> main, origin/main`; live homepage HTML/browser check shows `customer-intake-strip`, the new safer hero wording and no old "recommended/leading" phrase.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is conversion readiness: homepage visitors now get a clearer path to lead submission, guide consumption or lawyer comparison, with safer legal-advertising language.
 - COMPLETION ASSESSMENT: homepage customer readiness moved from 68% to 74%; lead capture readiness moved from 72% to 74%; traffic-to-lead conversion readiness moved from 45% to 49%. Still blocked: real homepage analytics, paid traffic/leads, Grow approval and deeper homepage visual testing after deploy.
 - OWNER-VISIBLE AFTER DEPLOY: homepage below the hero should show a three-card "fast path for clients" band and the hero copy should no longer use "recommended/leading" lawyer claims.
-- UPRESS: pending after commit/push.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `84ae16c Clarify homepage customer path` is `HEAD -> main, origin/main`.
 - SAFETY: repo code/status only. No 301 redirect package touched, no Grow action taken, no card charged, no payment gateway setting changed, no CMS page edited, no product created, and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 12:55 Asia/Jerusalem

@@ -2,6 +2,14 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce Public Body Static QA
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/check-family-divorce-public-bodies.mjs`.
+- VERIFIED LOCAL: all seven public-body drafts passed static checks for minimum length, required Family/Divorce links, internal markers, fake trust/review/outcome-promise terms and disclaimer signals.
+- FIXED: `content-drafts/divorce-lawyer-public-body-he.md` had one caution sentence adjusted to avoid an outcome-promise phrase.
+- NOT VISUALLY VERIFIED: no public screenshots were taken because no CMS/public upload happened.
+- NOT LEGAL VERIFIED: static QA does not replace owner/legal/source review.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Trust Route Early Render QA
 - CODE FIXED / NOT LIVE VERIFIED: `/contact/`, `/about/` and `/editorial-policy/` now render at `template_redirect` priority `-999999`.
 - CODE FIXED / NOT LIVE VERIFIED: trust-route output now sends `X-Justice-Route-Guard: trust-route-early-render`.

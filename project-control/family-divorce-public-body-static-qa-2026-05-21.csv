@@ -1,0 +1,8 @@
+target,file,status,words,missing_links,internal_hits,fake_trust_hits,disclaimer,next_step
+/divorce-lawyer/,content-drafts/divorce-lawyer-public-body-he.md,PASS,2106,0,0,0,PASS,Owner/legal/source approval plus CMS backup before any upload
+/consensual-divorce/,content-drafts/consensual-divorce-public-body-he.md,PASS,1656,0,0,0,PASS,Hold until Wave 1A result or approve as low-risk Wave 1B support
+/divorce-mediation/,content-drafts/divorce-mediation-public-body-he.md,PASS,1834,0,0,0,PASS,Hold until Wave 1A result or approve as low-risk Wave 1B support
+/divorce-property-division/,content-drafts/divorce-property-division-public-body-he.md,PASS,1647,0,0,0,PASS,Requires stronger property/source review before public upload
+/family-dispute-resolution/,content-drafts/family-dispute-resolution-public-body-he.md,PASS,1793,0,0,0,PASS,Requires owner/source review before public upload
+/child-support/,content-drafts/child-support-public-body-he.md,PASS,1488,0,0,0,PASS,Requires stronger child-support/source review before public upload
+/child-custody/,content-drafts/child-custody-public-body-he.md,PASS,1503,0,0,0,PASS,Requires stronger custody/source review before public upload

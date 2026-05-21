@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce public body static QA
+
+- TOOLING FIXED: added `tools/check-family-divorce-public-bodies.mjs`.
+- FIXED: cleaned one `/divorce-lawyer/` caution sentence in `content-drafts/divorce-lawyer-public-body-he.md` to avoid a risky outcome-promise phrase.
+- VERIFIED LOCAL: all seven Family/Divorce public-body drafts passed static QA for minimum words, required internal links, internal-note markers, fake trust/review/outcome-promise terms and disclaimer signals.
+- GENERATED: `reports/family-divorce-public-body-static-qa-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-public-body-static-qa-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-public-body-static-qa-2026-05-21.csv`.
+- UPDATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md`.
+- NOT LEGAL VERIFIED: static QA does not replace owner/legal/source review.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Trust route early render
 
 - CODE FIXED: `inc/trust-routes.php` now renders `/contact/`, `/about/` and `/editorial-policy/` at `template_redirect` priority `-999999`.

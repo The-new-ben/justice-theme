@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-PUBLIC-BODY-STATIC-QA-001: Add repeatable static QA for Family/Divorce clean bodies
+**Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** Family/Divorce is the first staged content cluster, but upload readiness depends on several clean-body claims spread across docs. A repeatable local checker reduces risk before owner-approved CMS work.
+**Actions:**
+1. DONE: created `tools/check-family-divorce-public-bodies.mjs`.
+2. DONE: checked `7` public-body draft files.
+3. FIXED: removed one risky outcome-promise phrase from `content-drafts/divorce-lawyer-public-body-he.md`.
+4. VERIFIED LOCAL: all seven drafts passed minimum words, required internal links, internal marker, fake trust/review/outcome-promise and disclaimer checks.
+5. GENERATED: `reports/family-divorce-public-body-static-qa-2026-05-21.csv`.
+6. DONE: created `project-control/family-divorce-public-body-static-qa-2026-05-21.md`.
+7. DONE: created `project-control/family-divorce-public-body-static-qa-2026-05-21.csv`.
+8. UPDATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md`.
+9. NEXT: owner/legal/source approval and CMS backup remain required before any upload; GSC API remains required before any URL migration or redirect/canonical/noindex action.
+
 ### ACTION-TRUST-ROUTE-EARLY-RENDER-001: Render trust routes before later redirect plugins
 **Status:** CODE FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED
 **Why:** `/contact/` and `/about/` are lead/trust paths. The latest live route triage reported initial `301` redirects to the homepage even though virtual trust-route content already exists in the theme, so the route renderer needed the same early priority used for protected money routes.
@@ -17,7 +31,7 @@
 5. DONE: created `project-control/trust-route-early-render-2026-05-21.md`.
 6. DONE: created `project-control/trust-route-early-render-2026-05-21.csv`.
 7. VERIFIED LOCAL: `php -l functions.php`, `php -l inc/trust-routes.php`, `node --check tools/check-live-traffic-priority.mjs`, `node --check tools/check-live-trust-routes.mjs`, task-board CSV parse and `git diff --check` passed; `git diff --check` reported normal Windows line-ending warnings only.
-8. NEXT: commit and push.
+8. PUSHED: commit `5576aa1` (`Render trust routes before redirects`) is on `main`.
 9. AFTER DEPLOY: rerun `node tools/check-live-traffic-priority.mjs` and `node tools/check-live-trust-routes.mjs`.
 10. BLOCKED: if `/contact/` or `/about/` still return initial `301` to `/` after deployment, inspect server/CDN/host-panel/early-plugin redirect rules because theme PHP is not getting control.
 

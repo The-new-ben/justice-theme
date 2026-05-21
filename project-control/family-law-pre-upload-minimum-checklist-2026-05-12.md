@@ -7,6 +7,12 @@ This checklist defines the minimum safe gate before Family/Divorce moves from pl
 
 ## Current Position
 
+LATEST 2026-05-21 UPDATE:
+- `tools/check-family-divorce-public-bodies.mjs` now provides repeatable static QA for the seven Family/Divorce public-body drafts.
+- VERIFIED LOCAL: all seven public-body drafts passed the checker after one `/divorce-lawyer/` wording cleanup.
+- GENERATED: `reports/family-divorce-public-body-static-qa-2026-05-21.csv`.
+- STILL BLOCKED: this does not replace owner/legal/source approval, CMS backup, GSC API export before URL actions or post-upload live QA.
+
 VERIFIED:
 - Family/Divorce is the first recommended cluster for staged publishing.
 - `58` URL or URL-reference items are in the current-url readiness queue.

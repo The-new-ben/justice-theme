@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-21 21:03 Asia/Jerusalem
+- FAMILY/DIVORCE PUBLIC BODY STATIC QA: added a repeatable local checker for the seven Family/Divorce public-body drafts before any CMS upload.
+- TOOLING FIXED: created `tools/check-family-divorce-public-bodies.mjs` to verify minimum word counts, required Family/Divorce internal links, internal-note markers, fake trust/review/outcome-promise terms and disclaimer signals.
+- FIXED: cleaned one `/divorce-lawyer/` caution sentence in `content-drafts/divorce-lawyer-public-body-he.md` so the public draft avoids a risky outcome-promise phrase.
+- VERIFIED LOCAL: all seven draft bodies passed static QA: `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/` and `/child-custody/`.
+- GENERATED: `reports/family-divorce-public-body-static-qa-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-public-body-static-qa-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-public-body-static-qa-2026-05-21.csv`.
+- UPDATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md`.
+- NOT LEGAL VERIFIED: this is static upload hygiene only; owner/legal/source approval remains required.
+- BLOCKED: no CMS/public upload, redirect, canonical, noindex, sitemap or URL migration action is approved by this check.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 20:53 Asia/Jerusalem
 - TRUST ROUTE EARLY RENDER: hardened the existing virtual `/contact/`, `/about/` and `/editorial-policy/` trust routes against later WordPress redirect plugins.
 - CODE FIXED: `inc/trust-routes.php` now renders trust routes at `template_redirect` priority `-999999`, matching the protected practice route and HTML sitemap early renderers.

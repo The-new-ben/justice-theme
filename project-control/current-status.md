@@ -1,3 +1,18 @@
+## LATEST WORK STATUS - 2026-05-21 15:03 Asia/Jerusalem
+- PRACTICE MONEY HUB SEO: strengthened the two indexable practice hubs that the homepage now links to for real-estate and labor-law intent.
+- RESEARCHED: Google Search Central says Google understands site structure through internal links and important categories should be reachable from prominent links; Google also uses page titles and prominent headings to understand/search-display page topics. Sources: https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure, https://developers.google.com/search/docs/appearance/title-link, https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+- FOUND: live `/practice-areas/real-estate-law/` and `/practice-areas/labor-law/` were indexable but had weak taxonomy H1s: `מקרקעין` and `עבודה`.
+- CODED: `taxonomy-practice-areas.php` now gives `real-estate-law` and `labor-law` stronger money-intent H1s, intro copy and guide headings while keeping the generic taxonomy template intact for other areas.
+- CODED: `inc/seo.php` now aligns theme/SEO-plugin title and description output for those two taxonomy hubs.
+- DOCUMENTED: added `project-control/practice-taxonomy-money-page-seo-2026-05-21.md`.
+- VERIFIED: `php -l taxonomy-practice-areas.php`, `php -l inc/seo.php`, and `git diff --check` passed. uPress Git log shows `ae0b038 Improve practice taxonomy money pages` as `HEAD -> main, origin/main`.
+- LIVE CHECK: `/practice-areas/real-estate-law/` returns 200, no `noindex`, H1 `עורך דין מקרקעין ונדל״ן`, title `עורך דין מקרקעין ונדל״ן | מדריכים, מאמרים ועורכי דין`, and the new real-estate intro is present.
+- LIVE CHECK: `/practice-areas/labor-law/` returns 200, no `noindex`, H1 `עורך דין דיני עבודה`, title `עורך דין דיני עבודה | זכויות עובדים, פיטורים ושימוע`, and the new labor-law intro is present.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is SEO intent alignment on two homepage-linked money hubs that can attract future real-estate and labor-law leads.
+- COMPLETION ASSESSMENT: real-estate practice hub readiness moved from 42% to 49%; labor-law practice hub readiness moved from 38% to 47%; homepage-to-money-hub SEO chain moved from 78% to 82%. Still blocked: real GSC/Analytics lift, deeper support content, Grow approval/product mapping and actual paid lawyers.
+- OWNER-VISIBLE AFTER DEPLOY: visit `/practice-areas/real-estate-law/` and `/practice-areas/labor-law/`; the top headline and browser title should now use stronger lawyer-search language.
+- SAFETY: repo theme code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 14:59 Asia/Jerusalem
 - HOMEPAGE GOOGLEBOT JOURNEY: ran a live homepage check with a smartphone Googlebot-style user agent after the homepage SEO changes.
 - RESEARCHED: Google Search Central mobile-first indexing guidance says Google mainly uses the mobile version for indexing/ranking and needs access to the same content, links and structured data. Source: https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing

@@ -1,6 +1,23 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce child-custody merge decisions and draft merge
+
+- TOOLING FIXED: added `tools/resolve-family-divorce-child-custody-merge.mjs`.
+- TOOLING FIXED: added `tools/apply-family-divorce-child-custody-draft-merges.mjs`.
+- CONTENT FIXED: applied the nine approved `/child-custody/` merge edits to `content-drafts/child-custody-public-body-he.md`.
+- GENERATED: `reports/family-divorce-child-custody-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-custody-draft-merge-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-custody-draft-merge-2026-05-21.csv`.
+- VERIFIED LOCAL: `35` live rows resolved into `9` draft merges, `20` covered/no-action rows and `6` UI/CTA/taxonomy/related-link skips.
+- VERIFIED LOCAL: all nine insertion IDs are present in the edited public-body draft.
+- VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce public-body drafts passed static QA.
+- VERIFIED: `/child-custody/` now passes static QA with `1,748` words, all required links, no internal markers, no fake-trust hits and disclaimer status `PASS`.
+- BLOCKED: CMS upload still requires owner/legal/source approval and actual WordPress editor/database backup; `/child-support/` still needs row-level merge decisions.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce property-division draft merge
 
 - CONTENT FIXED: applied the six approved `/divorce-property-division/` merge edits to `content-drafts/divorce-property-division-public-body-he.md`.

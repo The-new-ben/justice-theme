@@ -1,3 +1,19 @@
+## LATEST WORK STATUS - 2026-05-21 22:14 Asia/Jerusalem
+- FAMILY/DIVORCE CHILD-CUSTODY MERGE DECISIONS + DRAFT MERGE: resolved all `/child-custody/` current-live candidate rows and applied the approved draft edits locally.
+- TOOLING FIXED: created `tools/resolve-family-divorce-child-custody-merge.mjs`.
+- TOOLING FIXED: created `tools/apply-family-divorce-child-custody-draft-merges.mjs`.
+- CONTENT FIXED: updated `content-drafts/child-custody-public-body-he.md` with the approved communication, professional-factor, parenting-time checklist, lateness/documentation and child-expense boundary additions.
+- GENERATED: `reports/family-divorce-child-custody-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-custody-draft-merge-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-custody-draft-merge-2026-05-21.csv`.
+- VERIFIED LOCAL: all `35` current-live candidate rows resolved: `9` merge into draft, `20` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
+- VERIFIED LOCAL: all nine insertion IDs are present in the draft.
+- VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce drafts pass static QA and `/child-custody/` now reports `1,748` words.
+- BLOCKED: no CMS upload is approved until owner/legal/source approval and actual WordPress editor/database backup are complete; `/child-support/` still needs row-level merge decisions.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 22:02 Asia/Jerusalem
 - FAMILY/DIVORCE PROPERTY-DIVISION DRAFT MERGE: applied the six approved `/divorce-property-division/` merge edits to the clean public-body draft.
 - CONTENT FIXED: updated `content-drafts/divorce-property-division-public-body-he.md` with the approved separate-registration, housing/children, separation-date and prenup/prior-agreement additions.

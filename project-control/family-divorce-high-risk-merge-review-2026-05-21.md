@@ -12,8 +12,12 @@
 
 - VERIFIED LOCAL: `/divorce-property-division/` live candidate rows were resolved in `project-control/family-divorce-property-division-merge-decisions-2026-05-21.md`.
 - RESULT: `35` live rows resolved into `6` merge edits, `23` covered/no-action rows and `6` UI/CTA/taxonomy/related-link skips.
-- STILL BLOCKED: `/child-support/` and `/child-custody/` still need row-level merge decisions.
-- STILL BLOCKED: `/divorce-property-division/` needs the six approved draft edits and static QA rerun before upload approval.
+- FIXED / VERIFIED LOCAL: `/divorce-property-division/` six approved draft edits were applied and static QA still passes.
+- VERIFIED LOCAL: `/child-custody/` live candidate rows were resolved in `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.md`.
+- RESULT: `35` `/child-custody/` live rows resolved into `9` merge edits, `20` covered/no-action rows and `6` UI/CTA/taxonomy/related-link skips.
+- FIXED / VERIFIED LOCAL: `/child-custody/` nine approved draft edits were applied and static QA still passes.
+- STILL BLOCKED: `/child-support/` still needs row-level merge decisions.
+- STILL BLOCKED: owner/legal/source approval and actual WordPress editor/database backup are required before any CMS upload.
 
 ## Batch Completed
 

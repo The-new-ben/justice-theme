@@ -6,6 +6,25 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-CHILD-CUSTODY-MERGE-AND-DRAFT-001: Resolve and apply child-custody merge rows
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** `/child-custody/` was the remaining high-risk Family/Divorce page with the largest unresolved live-candidate set after property division. Resolving and applying safe draft merges reduces blind-overwrite risk.
+**Actions:**
+1. DONE: created `tools/resolve-family-divorce-child-custody-merge.mjs`.
+2. DONE: generated `reports/family-divorce-child-custody-merge-decisions-2026-05-21.csv`.
+3. DONE: created `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.md`.
+4. DONE: created `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.csv`.
+5. VERIFIED LOCAL: resolved all `35` current-live candidate rows for `/child-custody/`: `9` merge, `20` covered/no action and `6` skip.
+6. DONE: created `tools/apply-family-divorce-child-custody-draft-merges.mjs`.
+7. FIXED: applied nine approved public-facing edits to `content-drafts/child-custody-public-body-he.md`.
+8. DONE: created `project-control/family-divorce-child-custody-draft-merge-2026-05-21.md`.
+9. DONE: created `project-control/family-divorce-child-custody-draft-merge-2026-05-21.csv`.
+10. VERIFIED LOCAL: all nine insertion IDs are present in the edited draft.
+11. VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce public-body drafts passed.
+12. VERIFIED: `/child-custody/` now passes static QA with `1,748` words, all required links, no internal markers, no fake-trust hits and disclaimer status `PASS`.
+13. NEXT: resolve `/child-support/` high-risk merge rows.
+14. BLOCKED: do not upload `/child-custody/` until owner/legal/source approval and actual WordPress editor/database backup are complete.
+
 ### ACTION-FAMILY-DIVORCE-PROPERTY-DIVISION-DRAFT-MERGE-001: Apply approved property-division draft edits
 **Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
 **Why:** The previous decision pass approved six concise `/divorce-property-division/` draft merges. Applying them locally moves this support page closer to controlled owner review without risking a blind overwrite.

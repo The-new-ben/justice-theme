@@ -5,10 +5,12 @@
 - CODED: the missing-contact and unscheduled filters exclude `won` and `lost`, while treating missing status as active/research debt.
 - CODED: `inc/lawyer-onboarding.php` now shows a "Needs contact details" card and makes missing contact info a next-best-action priority after overdue/due work.
 - VERIFIED: `php -l inc/lawyer-prospects.php`, `php -l inc/lawyer-onboarding.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `2c8f893 Add prospect contact details view`; uPress Git pull succeeded and the uPress log shows `2c8f893` as live HEAD before this documentation correction.
+- LIVE CHECK: unauthenticated access to the `Needs contact details` admin list redirects to WordPress login, then uPress Login Protector; the private prospect list is not public.
 - HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is separating reachable lawyer prospects from research debt before manual outreach starts.
 - COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 82% to 84%; prospect follow-up/readiness discipline moved from 86% to 88%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
 - OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Needs contact details; also Lawyer Onboarding -> Lawyer sales command center.
-- SAFETY: repo theme admin code/docs only at this log point. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 18:00 Asia/Jerusalem
 - LAWYER PROSPECT NEEDS-SCHEDULING VIEW: added a private CRM view for active lawyer prospects that have no next action date.

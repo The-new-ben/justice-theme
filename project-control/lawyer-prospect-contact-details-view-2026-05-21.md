@@ -28,6 +28,9 @@ Sources:
 - `php -l inc/lawyer-prospects.php` passed.
 - `php -l inc/lawyer-onboarding.php` passed.
 - `git diff --check` passed with only the existing Windows line-ending warning.
+- Pushed `2c8f893 Add prospect contact details view`.
+- uPress Git pull succeeded; uPress Git log shows `2c8f893 Add prospect contact details view` as HEAD before this documentation correction.
+- Public unauthenticated admin URL check for the `Needs contact details` list redirects to `wp-login.php`; the follow-up request hit uPress Login Protector and did not expose the private list.
 
 ## Completion Assessment
 - Materially advanced: the owner can now separate reachable prospects from research debt before the first paid-lawyer outreach batch.
@@ -38,7 +41,7 @@ Sources:
 - Owner-visible after WordPress admin login: Lawyer Onboarding -> Lawyer Prospects -> Needs contact details; also Lawyer Onboarding -> Lawyer sales command center.
 
 ## Safety
-- Repo theme admin code/docs only until uPress pull.
+- Repo theme admin code/docs plus uPress pull/live login-gate check only.
 - No public CMS database page edited.
 - No public page changed.
 - No 301 redirect package touched.

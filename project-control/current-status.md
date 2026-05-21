@@ -3,8 +3,9 @@
 - RESEARCHED: Justia sells premium lawyer directory value through enhanced profiles, contact visibility and reporting; FindLaw frames lawyer marketing around visibility and lead generation, not static listing alone. Sources: https://www.justia.com/marketing/lawyer-directory/ and https://www.findlaw.com/lawyer-marketing/
 - CODED: `page-lawyer-plans.php` now includes a new "what the lawyer receives in practice" section before plan cards.
 - CODED: the section explains rich mini-site/profile, measured inquiries, monthly value reporting and compliant disclosure/no fake ranking.
+- CODED: removed public WooCommerce/Morning vendor wording from the plan-page copy and replaced it with clean billing-readiness language.
 - CODED: `assets/css/premium-pass-3.css` styles the new section across desktop and mobile.
-- VERIFIED: `php -l page-lawyer-plans.php` passed and `git diff --check` passed with only the existing Windows line-ending warning.
+- VERIFIED: `php -l page-lawyer-plans.php` passed, `git diff --check` passed with only the existing Windows line-ending warning, and `page-lawyer-plans.php` no longer contains public WooCommerce/Morning/Grow/Meshulam wording.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is sales conversion: lawyers now see a clearer product reason to leave details before billing is active.
 - COMPLETION ASSESSMENT: lawyer plan conversion readiness moved from 64% to 70%; first paid-lawyer readiness moved from 89% to 90%; homepage-to-lawyer-subscription path remains 82% until real outreach/signups arrive.
 - OWNER-VISIBLE AFTER DEPLOY: `/lawyer-plans/`, above the plan cards.

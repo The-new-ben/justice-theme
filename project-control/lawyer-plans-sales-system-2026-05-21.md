@@ -23,10 +23,12 @@ Sources:
   - compliant disclosure and no fake ranking
 - Added CTAs to the lead-partner fit check and the plan comparison section.
 - Added responsive CSS so the section works on desktop and mobile.
+- Removed public vendor-stack wording from the plan page so lawyers see clean billing-readiness language instead of WooCommerce/Morning implementation details.
 
 ## Verification
 - `php -l page-lawyer-plans.php` passed.
 - `git diff --check` passed, with only the existing Windows line-ending warning.
+- `rg "WooCommerce|Morning|Grow|Meshulam" page-lawyer-plans.php` found no public plan-page vendor wording.
 
 ## Completion Assessment
 - Materially advanced: the public lawyer sales page now communicates product value more clearly before asking for signup.

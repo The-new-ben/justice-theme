@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-21 19:14 Asia/Jerusalem
+- LEGALTECH CONTEXTUAL INTAKE PREFILL: made the homepage LegalTech/product cards prepare the existing lead form with product context instead of dropping every click into a generic blank form.
+- RESEARCHED: Baymard form-field research recommends reducing irrelevant form effort, using smart defaults and keeping prefilled values editable; this fits LegalTech product clicks because the user already showed intent by choosing a tool. Source: https://baymard.com/learn/input-fields
+- CODED: `inc/lead-spam-guard.php` now has safe helpers for allowed lead areas, editable message prefill and contextual ask-lawyer fallback URLs.
+- CODED: `template-parts/sections/ask-lawyer.php` and `template-parts/forms/lead-form.php` can render sanitized `lead_area` and `lead_message` prefill values.
+- CODED: `template-parts/sections/legaltech-tools.php` keeps SEO-clean `#ask-lawyer` fallback links but attaches lead area, starter message, source keyword and UTM data to the LegalTech cards/buttons.
+- CODED: `assets/js/analytics-events.js` applies LegalTech card context to the homepage form on click and tracks `legaltech_tool_click`.
+- VERIFIED: `php -l` passed for the touched PHP files, `node --check assets/js/analytics-events.js` passed, and `git diff --check` passed with only the existing Windows line-ending warning. Push/uPress pull and live checks are next in this cycle.
+- HONEST MONEY ASSESSMENT: no revenue and no outreach yet. Material advancement is making the product block behave more like a conversion funnel while the real LegalTech archive/CPT remains gated.
+- COMPLETION ASSESSMENT: homepage money-machine readiness is expected to move from 87% to 88% after live verification; LegalTech product-path readiness is expected to move from 44% to 47%; first paid-lawyer readiness remains about 90% until real outreach/signups or Grow/payment setup moves.
+- OWNER-VISIBLE AFTER DEPLOY: homepage LegalTech cards and the homepage ask-lawyer form.
+- SAFETY: repo theme code/docs only. No public CMS database page edited, no product record created, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no lawyer/lead/prospect/order record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 19:01 Asia/Jerusalem
 - LEGALTECH SAFE LINK CLEANUP: removed the remaining theme-level raw `/legal-tools/` links from fallback navigation and LegalTech/pillar templates until the archive route is verified live.
 - RESEARCHED: Google Search Central says crawlable internal links help Google and users understand pages, and Google warns against redirecting missing-file traffic to the homepage because it can create weak soft-404 style signals. Sources: https://developers.google.com/search/docs/crawling-indexing/links-crawlable, https://developers.google.com/search/blog/2005/09/verifying-your-site-trouble-with-404, https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes

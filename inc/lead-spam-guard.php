@@ -47,6 +47,77 @@ function justice_theme_render_lead_attribution_fields(): void {
 }
 
 /**
+ * Return the lead areas accepted by public lead forms.
+ *
+ * @return array<int, string>
+ */
+function justice_theme_lead_area_values(): array {
+	return array(
+		'family-law',
+		'criminal-law',
+		'traffic-law',
+		'real-estate-law',
+		'labor-law',
+		'personal-injury-law',
+		'medical-malpractice-law',
+		'inheritance-law',
+		'thailand-law',
+		'general',
+	);
+}
+
+/**
+ * Read a safe area prefill from the current request.
+ */
+function justice_theme_current_lead_prefill_area(): string {
+	$area = isset( $_GET['lead_area'] ) ? sanitize_key( wp_unslash( $_GET['lead_area'] ) ) : '';
+
+	return in_array( $area, justice_theme_lead_area_values(), true ) ? $area : '';
+}
+
+/**
+ * Read a safe editable message prefill from the current request.
+ */
+function justice_theme_current_lead_prefill_message(): string {
+	$message = isset( $_GET['lead_message'] ) ? sanitize_textarea_field( wp_unslash( $_GET['lead_message'] ) ) : '';
+	$message = trim( preg_replace( '/\s+/', ' ', $message ) );
+
+	if ( '' === $message ) {
+		return '';
+	}
+
+	return function_exists( 'mb_substr' ) ? mb_substr( $message, 0, 260, 'UTF-8' ) : substr( $message, 0, 260 );
+}
+
+/**
+ * Build a contextual fallback URL for homepage lead capture.
+ *
+ * @param array<string, string> $args Query arguments.
+ */
+function justice_theme_ask_lawyer_fallback_url( array $args = array() ): string {
+	$query        = array();
+	$query_keys   = array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'source_keyword' );
+	$lead_area    = isset( $args['lead_area'] ) ? sanitize_key( $args['lead_area'] ) : '';
+	$lead_message = isset( $args['lead_message'] ) ? sanitize_textarea_field( $args['lead_message'] ) : '';
+
+	if ( in_array( $lead_area, justice_theme_lead_area_values(), true ) ) {
+		$query['lead_area'] = $lead_area;
+	}
+
+	if ( '' !== trim( $lead_message ) ) {
+		$query['lead_message'] = trim( preg_replace( '/\s+/', ' ', $lead_message ) );
+	}
+
+	foreach ( $query_keys as $key ) {
+		if ( isset( $args[ $key ] ) && '' !== trim( (string) $args[ $key ] ) ) {
+			$query[ $key ] = sanitize_text_field( $args[ $key ] );
+		}
+	}
+
+	return add_query_arg( $query, home_url( '/' ) ) . '#ask-lawyer';
+}
+
+/**
  * Resolve a public source keyword for lead attribution.
  */
 function justice_theme_get_current_lead_source_keyword(): string {

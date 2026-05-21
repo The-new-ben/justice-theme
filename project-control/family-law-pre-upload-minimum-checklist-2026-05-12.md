@@ -8,6 +8,10 @@ This checklist defines the minimum safe gate before Family/Divorce moves from pl
 ## Current Position
 
 LATEST 2026-05-21 UPDATE:
+- `tools/check-family-divorce-live-preupload.mjs` now provides a live read-only pre-upload guard for the seven clean Family/Divorce target slugs and protected P0 source URLs.
+- VERIFIED LIVE / READ ONLY WITH BLOCKERS: `25` URLs checked; `13` pass, `7` are live-present-review target pages, and `5` protected sources redirect to homepage.
+- GENERATED: `reports/family-divorce-live-preupload-2026-05-21.csv`.
+- BLOCKED: the five homepage-redirecting protected sources need restore/update-in-place/documented 301 decisions after GSC API confirmation before Family/Divorce URL migration is approved.
 - `tools/check-family-divorce-public-bodies.mjs` now provides repeatable static QA for the seven Family/Divorce public-body drafts.
 - VERIFIED LOCAL: all seven public-body drafts passed the checker after one `/divorce-lawyer/` wording cleanup.
 - GENERATED: `reports/family-divorce-public-body-static-qa-2026-05-21.csv`.
@@ -57,6 +61,8 @@ VERIFIED:
 - The CMS field map combines backup, body, metadata, taxonomy, related links, schema safety and post-upload QA into one operator worksheet.
 - `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv` now defines a `6`-row metadata package for all six Wave 1B support pages.
 - All six Wave 1B support URLs returned `200` and self-canonicalized during the metadata check.
+- The live pre-upload guard now confirms all seven clean target slugs already return `200` and self-canonicalize, so current live content must be backed up before any overwrite/update.
+- The live pre-upload guard now confirms `5` protected Family/Divorce source URLs redirect to homepage and must be resolved or intentionally mapped before URL migration.
 
 NOT VERIFIED:
 - GSC API export.
@@ -116,6 +122,9 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 46. Approve the `/divorce-lawyer/` CMS upload field map together with the clean body and metadata package before execution.
 47. Prepare exact Wave 1B support-page metadata package before any support upload.
 48. Approve Wave 1B support-page metadata together with support copy and upload scope before execution.
+49. Run the Family/Divorce live pre-upload guard and export the current public-state report before any CMS update.
+50. Backup/export the seven live target pages before any overwrite/update because they are already live and indexable.
+51. Resolve or explicitly map the five protected source homepage redirects before URL migration, redirect, canonical/noindex or sitemap decisions.
 
 ## Current Recommendation
 

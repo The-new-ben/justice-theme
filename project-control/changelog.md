@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce live pre-upload guard
+
+- TOOLING FIXED: added `tools/check-family-divorce-live-preupload.mjs`.
+- VERIFIED LIVE / READ ONLY WITH BLOCKERS: checked `25` Family/Divorce URLs, including `7` clean target pages, `17` protected P0 source URLs and `1` protected DOCX asset.
+- GENERATED: `reports/family-divorce-live-preupload-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-live-preupload-guard-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-live-preupload-guard-2026-05-21.csv`.
+- VERIFIED LIVE: `13` protected source/asset URLs passed reachability checks.
+- LIVE PRESENT REVIEW: all seven clean upload targets already return `200` and self-canonicalize, so current live content must be exported before any CMS update.
+- BLOCKED LIVE: `5` protected source URLs return initial `301` to homepage and need restore/update-in-place/documented 301 decisions after GSC API confirmation.
+- VERIFIED LOCAL: `node --check tools/check-family-divorce-live-preupload.mjs` passed.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce public body static QA
 
 - TOOLING FIXED: added `tools/check-family-divorce-public-bodies.mjs`.

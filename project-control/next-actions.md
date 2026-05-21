@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-LIVE-PREUPLOAD-GUARD-001: Check live Family/Divorce targets and protected sources before upload
+**Status:** COMPLETED / VERIFIED LIVE READ ONLY WITH BLOCKERS / NO PUBLIC CHANGES
+**Why:** Family/Divorce is the first staged upload cluster. Before updating live pages or planning redirects, the team needs a current public-state guard for target slugs and P0 traffic sources.
+**Actions:**
+1. DONE: created `tools/check-family-divorce-live-preupload.mjs`.
+2. DONE: checked `25` live URLs: `7` clean targets, `17` protected P0 source URLs and `1` protected DOCX asset.
+3. GENERATED: `reports/family-divorce-live-preupload-2026-05-21.csv`.
+4. DONE: created `project-control/family-divorce-live-preupload-guard-2026-05-21.md`.
+5. DONE: created `project-control/family-divorce-live-preupload-guard-2026-05-21.csv`.
+6. VERIFIED LIVE: `13` protected source/asset URLs passed live reachability checks.
+7. LIVE PRESENT REVIEW: all `7` clean target slugs already return `200` and self-canonicalize; backup/export current live content before any CMS update.
+8. BLOCKED LIVE: `5` protected source URLs return initial `301` to homepage and need restore/update-in-place/documented 301 decisions after GSC API confirmation.
+9. VERIFIED LOCAL: `node --check tools/check-family-divorce-live-preupload.mjs` passed.
+10. NEXT: investigate the five homepage redirects before approving Family/Divorce URL migration, sitemap changes, canonical/noindex decisions or CMS overwrite.
+
 ### ACTION-FAMILY-DIVORCE-PUBLIC-BODY-STATIC-QA-001: Add repeatable static QA for Family/Divorce clean bodies
 **Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
 **Why:** Family/Divorce is the first staged content cluster, but upload readiness depends on several clean-body claims spread across docs. A repeatable local checker reduces risk before owner-approved CMS work.

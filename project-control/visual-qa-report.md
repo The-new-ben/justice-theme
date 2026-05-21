@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce Live Pre-Upload Guard
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/check-family-divorce-live-preupload.mjs`.
+- VERIFIED LIVE / READ ONLY WITH BLOCKERS: checked `25` Family/Divorce URLs and generated `reports/family-divorce-live-preupload-2026-05-21.csv`.
+- VERIFIED LIVE: `13` protected source/asset URLs remain reachable.
+- LIVE PRESENT REVIEW: all `7` clean upload targets return `200` on their own final paths and self-canonicalize; current live content must be backed up before overwrite/update.
+- BLOCKED LIVE: `5` protected source URLs return initial `301` to homepage and should not be lost during Family/Divorce upload planning.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this cycle was route/SEO pre-upload QA only and no public content changed.
+- NEXT QA: after redirect cleanup or GSC-confirmed mapping decisions, rerun the checker and only then capture screenshots for the updated Family/Divorce pages.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce Public Body Static QA
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/check-family-divorce-public-bodies.mjs`.
 - VERIFIED LOCAL: all seven public-body drafts passed static checks for minimum length, required Family/Divorce links, internal markers, fake trust/review/outcome-promise terms and disclaimer signals.

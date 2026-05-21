@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-21 21:16 Asia/Jerusalem
+- FAMILY/DIVORCE LIVE PRE-UPLOAD GUARD: added a read-only live checker for the first controlled Family/Divorce upload cluster.
+- TOOLING FIXED: created `tools/check-family-divorce-live-preupload.mjs` to record initial redirects, final paths, HTTP status, content type, canonical, robots, title, H1 and byte size.
+- VERIFIED LIVE / READ ONLY WITH BLOCKERS: checked `25` URLs: `7` clean target pages, `17` protected P0 source URLs and `1` protected DOCX asset.
+- GENERATED: `reports/family-divorce-live-preupload-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-live-preupload-guard-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-live-preupload-guard-2026-05-21.csv`.
+- VERIFIED: `13` protected source/asset URLs passed live reachability checks.
+- LIVE PRESENT REVIEW: all `7` clean upload targets already return `200` on their own final paths, so they need current-live backup/export before any CMS overwrite.
+- BLOCKED LIVE: `5` protected source URLs return initial `301` to homepage: child support calculator Hebrew URL, updated divorce guide Hebrew URL, recommended divorce lawyer Hebrew URL, divorce mediation Hebrew URL and `/what-is-child-custody/`.
+- NEXT: investigate those five redirects and decide restore/update-in-place/documented 301 after GSC API confirmation; do not approve Family/Divorce URL migration until this is resolved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 21:03 Asia/Jerusalem
 - FAMILY/DIVORCE PUBLIC BODY STATIC QA: added a repeatable local checker for the seven Family/Divorce public-body drafts before any CMS upload.
 - TOOLING FIXED: created `tools/check-family-divorce-public-bodies.mjs` to verify minimum word counts, required Family/Divorce internal links, internal-note markers, fake trust/review/outcome-promise terms and disclaimer signals.

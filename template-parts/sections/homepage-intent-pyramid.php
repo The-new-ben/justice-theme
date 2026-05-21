@@ -81,6 +81,20 @@ $home_intent_fallback_links = static function ( array $fallbacks, string $defaul
 	return $links;
 };
 
+$home_intent_schema_item = static function ( array $intent, int $position ): array {
+	return array(
+		'@type'    => 'ListItem',
+		'position' => $position,
+		'item'     => array(
+			'@type'       => 'WebPage',
+			'@id'         => esc_url_raw( $intent['guide_url'] ),
+			'url'         => esc_url_raw( $intent['guide_url'] ),
+			'name'        => wp_strip_all_tags( (string) $intent['title'] ),
+			'description' => wp_strip_all_tags( (string) $intent['intent'] ),
+		),
+	);
+};
+
 $home_intent_links = array(
 	array(
 		'title'       => __( 'עורך דין פלילי', 'justice-theme' ),
@@ -163,7 +177,7 @@ $home_intent_links = array(
 );
 ?>
 
-<section class="homepage-intent-pyramid section" aria-labelledby="homepage-intent-pyramid-title">
+<section class="homepage-intent-pyramid section" id="homepage-intent-pyramid" aria-labelledby="homepage-intent-pyramid-title">
 	<div class="container">
 		<div class="section-header section-header--split">
 			<div>
@@ -231,3 +245,25 @@ $home_intent_links = array(
 		</div>
 	</div>
 </section>
+
+<?php
+if ( function_exists( 'justice_theme_print_schema' ) ) {
+	$home_intent_schema_items = array();
+
+	foreach ( array_values( $home_intent_links ) as $home_intent_position => $home_intent_item ) {
+		$home_intent_schema_items[] = $home_intent_schema_item( $home_intent_item, $home_intent_position + 1 );
+	}
+
+	justice_theme_print_schema(
+		array(
+			'@context'        => 'https://schema.org',
+			'@type'           => 'ItemList',
+			'@id'             => esc_url_raw( home_url( '/#homepage-intent-pyramid' ) ),
+			'name'            => wp_strip_all_tags( __( 'מסלולי חיפוש משפטיים מרכזיים', 'justice-theme' ) ),
+			'description'     => wp_strip_all_tags( __( 'תחומי משפט מרכזיים שמחברים בין מדריכים, פרופילים ופנייה משפטית מסודרת.', 'justice-theme' ) ),
+			'numberOfItems'   => count( $home_intent_schema_items ),
+			'itemListElement' => $home_intent_schema_items,
+		)
+	);
+}
+?>

@@ -5,6 +5,8 @@
 - CODED: `inc/template-tags.php` now treats published `justice_legal_tool` CMS records as safe public destinations, including tool URLs under `/legal-tools/{tool}/`.
 - SAFETY DECISION: the `/legal-tools/` archive route itself is not promoted as safe yet because the current pre-deploy live check shows it redirects to the homepage.
 - VERIFIED: `php -l front-page.php`, `php -l inc\template-tags.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `ca98eb9 Add homepage LegalTech product gateway`; uPress Pull Git succeeded and the uPress log shows `ca98eb9` as live HEAD.
+- LIVE CHECK: cache-busted homepage returns 200, contains `legaltech-tools` and `AI Console`, has no page-level `noindex`, does not link to `/legal-tools/`, and keeps LegalTech cards on the safe `#ask-lawyer` fallback.
 - HONEST MONEY ASSESSMENT: no revenue, no CMS product records and no outreach. Material advancement is exposing the future LegalTech/form/intake product layer on the homepage and improving safe CMS linking for that product line.
 - COMPLETION ASSESSMENT: homepage money-machine readiness moved from 84% to 86%; LegalTech product-path readiness moved from 35% to 42%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
 - OWNER-VISIBLE AFTER DEPLOY: homepage, below featured lawyers and above the lawyer acquisition section.

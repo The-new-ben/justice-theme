@@ -33,6 +33,8 @@ This supports three goals at once: qualified user demand, future legal-form/tool
 - `php -l inc\template-tags.php` passed.
 - `git diff --check` passed with only the existing Windows line-ending warning.
 - Pre-deploy live check confirmed `/legal-tools/` currently redirects to the homepage, so the archive route was not promoted as safe yet.
+- Deployed code commit `ca98eb9` with uPress Pull Git; uPress Git log showed `ca98eb9 Add homepage LegalTech product gateway` as live HEAD.
+- Live homepage check confirmed `legaltech-tools` and `AI Console` are present, page-level `noindex` is absent, `/legal-tools/` archive links are absent, and the safe `#ask-lawyer` fallback is present.
 
 ## Honest Assessment
 This does not create revenue by itself and it does not seed or publish any LegalTech CMS products. It makes the public homepage ready to show the product layer and keeps future CMS LegalTech links safer when real tool pages are published.

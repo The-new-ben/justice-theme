@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-21 17:02 Asia/Jerusalem
+- LAWYER PLANS FAQ SCHEMA: added FAQPage JSON-LD to `/lawyer-plans/` so the existing lawyer objections are machine-readable as well as visible.
+- RESEARCHED: Google's FAQPage guidance was updated with FAQ rich-result deprecation from May 7, 2026, but still documents `FAQPage`, `Question` and `Answer`; Google's structured-data policies require markup to match visible page content and avoid hidden/misleading content. Sources: https://developers.google.com/search/docs/appearance/structured-data/faqpage, https://developers.google.com/search/docs/appearance/structured-data/sd-policies, https://developers.google.com/search/blog/2023/08/howto-faq-changes
+- CODED: `page-lawyer-plans.php` now prints a FAQPage schema block for the four visible lawyer-plan FAQ answers.
+- VERIFIED: `php -l page-lawyer-plans.php` passed, `git diff --check` passed with only the existing Windows line-ending warning, and `page-lawyer-plans.php` contains no public WooCommerce/Morning/Grow/Meshulam wording.
+- DEPLOYED: pushed `921656c Add lawyer plans FAQ schema`; uPress Git pull succeeded and the uPress log shows `921656c` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: `/lawyer-plans/?qa=faq-schema-202605211705` has four visible FAQ items, one FAQPage schema with four questions, no page-level `noindex`, no public payment-vendor wording, and desktop page width stayed within the viewport.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is SEO/AI clarity: the subscription objections now line up for users and crawlers.
+- COMPLETION ASSESSMENT: lawyer plan SEO clarity moved from 68% to 73%; lawyer plan conversion readiness remains 74%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE: `/lawyer-plans/`; the schema is in the page source, while the matching FAQ remains visible below the plan/compliance blocks.
+- SAFETY: repo theme code/docs plus uPress pull/live read-only verification only. No public CMS database page edited, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/order record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 16:44 Asia/Jerusalem
 - LAWYER PLAN OBJECTION FAQ: added a conversion FAQ to `/lawyer-plans/` so lawyers understand quality, payment readiness, limits and activation requirements before leaving details.
 - RESEARCHED: FindLaw sells premium profiles around online presence, credibility, easy contact, detailed reporting and monthly performance reports; Justia compares paid tiers by premium visibility, prominent contact info, practice FAQs and traffic statistics; Lawzana frames lawyer reporting around profile views, lead conversions and marketing performance. Sources: https://www.findlaw.com/lawyer-marketing/services/legal-directory-advertising/findlaw-premium-profile/, https://www.justia.com/marketing/lawyer-directory/, https://lawzana.com/support/lawyers/reporting-and-analytics

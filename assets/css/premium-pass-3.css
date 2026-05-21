@@ -3211,6 +3211,46 @@
   line-height: 1.75;
 }
 
+.lawyer-plans-faq {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  background: #fff;
+  padding: clamp(1rem, 2vw, 1.35rem);
+}
+
+.lawyer-plans-faq h2 {
+  margin: 0.25rem 0 0;
+  color: var(--jt-primary-deep);
+}
+
+.lawyer-plans-faq__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.lawyer-plans-faq details {
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  background: #fbfaf7;
+  padding: 0.9rem 1rem;
+}
+
+.lawyer-plans-faq summary {
+  cursor: pointer;
+  color: var(--jt-primary-deep);
+  font-weight: 900;
+}
+
+.lawyer-plans-faq p {
+  margin: 0.65rem 0 0;
+  color: var(--jt-muted);
+  line-height: 1.7;
+}
+
 @media (max-width: 1180px) {
   .lawyer-plans-system__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -3225,6 +3265,7 @@
   .lawyer-plans-hero__grid,
   .lawyer-plans-founder,
   .lawyer-plans-system__grid,
+  .lawyer-plans-faq__grid,
   .lawyer-plans__grid {
     grid-template-columns: 1fr;
   }

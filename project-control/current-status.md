@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-21 16:44 Asia/Jerusalem
+- LAWYER PLAN OBJECTION FAQ: added a conversion FAQ to `/lawyer-plans/` so lawyers understand quality, payment readiness, limits and activation requirements before leaving details.
+- RESEARCHED: FindLaw sells premium profiles around online presence, credibility, easy contact, detailed reporting and monthly performance reports; Justia compares paid tiers by premium visibility, prominent contact info, practice FAQs and traffic statistics; Lawzana frames lawyer reporting around profile views, lead conversions and marketing performance. Sources: https://www.findlaw.com/lawyer-marketing/services/legal-directory-advertising/findlaw-premium-profile/, https://www.justia.com/marketing/lawyer-directory/, https://lawzana.com/support/lawyers/reporting-and-analytics
+- CODED: `page-lawyer-plans.php` was rebuilt cleanly with readable Hebrew copy, safe URL fallbacks, and the new FAQ section after plan/compliance content.
+- CODED: `assets/css/premium-pass-3.css` now styles the FAQ with responsive two-column/one-column behavior.
+- VERIFIED: `php -l page-lawyer-plans.php` passed, `git diff --check` passed with only the existing Windows line-ending warning, and `page-lawyer-plans.php` contains no public WooCommerce/Morning/Grow/Meshulam wording.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is conversion clarity: the plan page now handles likely lawyer objections before a sales call.
+- COMPLETION ASSESSMENT: lawyer plan conversion readiness moved from 70% to 74%; first paid-lawyer readiness remains about 90%; homepage-to-lawyer-subscription path remains 82% until real outreach/signups arrive.
+- OWNER-VISIBLE AFTER DEPLOY: `/lawyer-plans/`, below the plan/compliance blocks.
+- SAFETY: repo theme code/docs only. No public CMS database page edited, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/order record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 16:28 Asia/Jerusalem
 - LAWYER PLAN SALES PAGE: strengthened `/lawyer-plans/` so it explains the actual business system lawyers receive, not only pricing/cards.
 - RESEARCHED: Justia sells premium lawyer directory value through enhanced profiles, contact visibility and reporting; FindLaw frames lawyer marketing around visibility and lead generation, not static listing alone. Sources: https://www.justia.com/marketing/lawyer-directory/ and https://www.findlaw.com/lawyer-marketing/

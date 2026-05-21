@@ -6,11 +6,14 @@
 - CODED: the primary CTA points to the existing lead-partner registration URL, and the secondary CTA points to `/lawyer-plans/`.
 - CODED: `assets/css/main.css` supports the new three-step pipeline, mobile stacking and numbered badges.
 - DOCUMENTED: added `project-control/homepage-lawyer-acquisition-cta-2026-05-21.md`.
-- VERIFIED: `php -l front-page.php`, `php -l template-parts/sections/lawyer-cta.php`, and `git diff --check` passed.
+- VERIFIED: `php -l front-page.php`, `php -l template-parts/sections/lawyer-cta.php`, and `git diff --check` passed. uPress Git log shows `0d9c367 Add homepage lawyer acquisition CTA` as `HEAD -> main, origin/main`.
+- LIVE CHECK: homepage returns 200, no page-level `noindex`, shows the lawyer CTA, has no public Grow/Meshulam wording, and its main button opens `/lawyer-registration/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice`.
+- LIVE CHECK: mobile verification shows no actual horizontal page scroll; `documentElement.scrollWidth` equals the viewport. The only wider `body.scrollWidth` reading is from the existing fixed accessibility toolbar panel.
+- LIVE CHECK: the lead-partner registration URL returns 200, no page-level `noindex`, and the registration wizard is present.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is that lawyer prospects now have a direct homepage route into the paid-product onboarding path.
 - COMPLETION ASSESSMENT: homepage-to-lawyer-subscription path moved from 77% to 82%; first paid-lawyer readiness moved from 86% to 87%; overall homepage money-machine readiness moved from 78% to 82%. Still blocked: Grow/Meshulam final approval, payment product mapping, real lawyer outreach and first paid lawyer.
 - OWNER-VISIBLE AFTER DEPLOY: homepage should show the lawyer business CTA between featured lawyers and latest articles; its main button should open the lead-partner registration wizard.
-- SAFETY: repo theme code/docs only so far. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created, no lawyer/lead record created and no outreach sent.
+- SAFETY: repo theme code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created, no lawyer/lead record created and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 15:42 Asia/Jerusalem
 - LAWYER ONBOARDING CONVERSION: polished the lawyer registration flow so it feels like a guided paid-product onboarding path, not a raw form.

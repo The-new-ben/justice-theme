@@ -31,6 +31,10 @@ This change connects the homepage to the improved lawyer onboarding flow and pre
 - `php -l front-page.php` passed.
 - `php -l template-parts/sections/lawyer-cta.php` passed.
 - `git diff --check` passed.
+- uPress Git log shows `0d9c367` as `HEAD -> main, origin/main`.
+- Live homepage returns 200, no page-level `noindex`, shows the lawyer CTA, and the main button points to the lead-partner registration URL.
+- Live mobile check shows no actual horizontal page scroll; the large `body.scrollWidth` value comes from the existing accessibility toolbar fixed off-canvas panel, while `documentElement.scrollWidth` equals the viewport.
+- Lead-partner registration URL returns 200, no page-level `noindex`, and the registration wizard is present.
 
 ### Money Assessment
 
@@ -46,4 +50,4 @@ Still blocked: Grow/Meshulam final approval, payment product mapping, a real out
 
 ### Owner-Visible Change
 
-After deployment, the homepage should show a lawyer business CTA between featured lawyers and latest articles. The primary button should open the lead-partner registration wizard.
+The homepage shows a lawyer business CTA between featured lawyers and latest articles. The primary button opens the lead-partner registration wizard.

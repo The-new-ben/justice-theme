@@ -2,6 +2,17 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 GSC Family/Divorce Export Runner
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/gsc/gsc-family-divorce-export.js`.
+- FIXED / VERIFIED LOCAL: runner supports credential and token paths outside the repo and includes `--dry-run`.
+- CREATED / VERIFIED LOCAL: `project-control/gsc-family-divorce-export-runner-2026-05-21.md`.
+- CREATED / VERIFIED LOCAL: `project-control/gsc-family-divorce-export-runner-2026-05-21.csv`.
+- VERIFIED LOCAL: `node --check tools/gsc/gsc-family-divorce-export.js` passed.
+- VERIFIED LOCAL: `node tools/gsc/gsc-family-divorce-export.js --dry-run` passed and made no API call.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was read-only tooling/docs preparation and no public UI changed.
+- BLOCKED / OWNER ACTION: real GSC export still requires owner credential rotation/setup and local OAuth/token paths.
+- SAFETY: credential contents were not printed; no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 GSC Credential Hygiene
 - FIXED / VERIFIED LOCAL: `tools/gsc/oauth-client.json` was removed from Git tracking and remains a local ignored file.
 - FIXED / VERIFIED LOCAL: `.gitignore` now ignores local GSC OAuth client/token credential JSON files.

@@ -6,6 +6,23 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-GSC-FAMILY-DIVORCE-EXPORT-RUNNER-001: Prepare focused Family/Divorce GSC export runner
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / API EXECUTION BLOCKED UNTIL OWNER CREDENTIAL SETUP
+**Why:** Family/Divorce URL migration, redirect, canonical/noindex and sitemap decisions need read-only Search Console query/page data, but credentials must stay outside Git and the export needs to be scoped to the first upload cluster.
+**Actions:**
+1. DONE: created `tools/gsc/gsc-family-divorce-export.js`.
+2. FIXED: runner supports credential and token paths through `GSC_OAUTH_CLIENT_PATH` and `GSC_TOKEN_PATH`.
+3. FIXED: runner supports `--dry-run` so local path/scope checks can run without reading credential contents, opening OAuth or calling the API.
+4. VERIFIED LOCAL: `node --check tools/gsc/gsc-family-divorce-export.js` passed.
+5. VERIFIED LOCAL: `node tools/gsc/gsc-family-divorce-export.js --dry-run` passed.
+6. VERIFIED LOCAL: dry run reported `7` clean Family/Divorce upload targets, `18` protected source/asset paths and `18` query terms.
+7. CREATED: `project-control/gsc-family-divorce-export-runner-2026-05-21.md`.
+8. CREATED: `project-control/gsc-family-divorce-export-runner-2026-05-21.csv`.
+9. UPDATED: `tools/gsc/README.md`.
+10. UPDATED: `project-control/gsc-api-setup-guide.md`.
+11. BLOCKED / OWNER ACTION: rotate or create the OAuth Desktop client if needed, set local credential/token paths, then run the real export.
+12. NEXT: run `node tools/gsc/gsc-family-divorce-export.js` after owner credential setup and use outputs for Family/Divorce protected URL, cannibalization, redirect and sitemap decisions.
+
 ### ACTION-GSC-CREDENTIAL-HYGIENE-001: Remove tracked local OAuth client from Git
 **Status:** COMPLETED / FIXED IN REPO / OWNER ROTATION RECOMMENDED / NO PUBLIC CHANGES
 **Why:** `tools/gsc/oauth-client.json` was tracked in Git, conflicting with the credential-safety rule in the GSC API setup guide. Search Console credentials must stay local and ignored.

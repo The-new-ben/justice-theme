@@ -8,6 +8,12 @@ LATEST 2026-05-21 SECURITY NOTE:
 - If that old tracked OAuth client was real, create a new OAuth Desktop client in Google Cloud and delete or rotate the old one before using API exports.
 - Keep future credential JSON files outside Git. If local tooling needs `tools/gsc/oauth-client.json`, keep it as a local ignored file only.
 
+LATEST 2026-05-21 RUNNER NOTE:
+- `tools/gsc/gsc-family-divorce-export.js` is now ready for the first Family/Divorce read-only export.
+- It supports local credential paths outside the repo through `GSC_OAUTH_CLIENT_PATH` and `GSC_TOKEN_PATH`.
+- Dry run command: `node tools/gsc/gsc-family-divorce-export.js --dry-run`
+- Real export command after owner credential setup: `node tools/gsc/gsc-family-divorce-export.js`
+
 This guide explains how to connect Google Search Console API for Jus-Tice so we can export query/page data quickly instead of doing slow browser checks.
 
 ## Why We Need This
@@ -73,6 +79,17 @@ Then Codex can run a local read-only export script. The first run will open a Go
 Token storage should also stay outside the repo, for example:
 `C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json`
 
+PowerShell command to use after credentials are saved:
+
+```powershell
+$env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
+$env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+node tools/gsc/gsc-family-divorce-export.js --dry-run
+node tools/gsc/gsc-family-divorce-export.js
+```
+
+Use `--dry-run` first. It should show `credentialFileExists: true`. It does not read credential contents, open OAuth or call the API.
+
 ## What We Can Export
 
 Main export:
@@ -112,9 +129,11 @@ Useful filters:
 
 Create these outputs first:
 
-1. `project-control/gsc-api-family-divorce-query-page-export-YYYY-MM-DD.csv`
-2. `project-control/gsc-api-family-divorce-risk-map-YYYY-MM-DD.csv`
-3. `project-control/gsc-api-family-divorce-protected-url-list-YYYY-MM-DD.csv`
+1. `reports/gsc/family-divorce-YYYY-MM-DD/family-divorce-query-page.csv`
+2. `reports/gsc/family-divorce-YYYY-MM-DD/family-divorce-pages.csv`
+3. `reports/gsc/family-divorce-YYYY-MM-DD/family-divorce-cannibalization.csv`
+4. `reports/gsc/family-divorce-YYYY-MM-DD/family-divorce-protected-sources.csv`
+5. `reports/gsc/family-divorce-YYYY-MM-DD/family-divorce-summary.json`
 
 Questions to answer:
 - Does `/divorce-lawyer/` already get impressions?

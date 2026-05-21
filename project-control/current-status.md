@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-21 23:08 Asia/Jerusalem
+- GSC FAMILY/DIVORCE EXPORT RUNNER: prepared a focused read-only Search Console runner for the first controlled Family/Divorce URL/cannibalization risk check.
+- TOOLING FIXED: created `tools/gsc/gsc-family-divorce-export.js`.
+- FIXED: the runner supports `GSC_OAUTH_CLIENT_PATH` and `GSC_TOKEN_PATH`, so owner credentials can stay outside Git.
+- FIXED: added `--dry-run` support that verifies scope and paths without reading credential contents, opening OAuth or calling the API.
+- CREATED: `project-control/gsc-family-divorce-export-runner-2026-05-21.md`.
+- CREATED: `project-control/gsc-family-divorce-export-runner-2026-05-21.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/gsc/gsc-family-divorce-export.js` passed.
+- VERIFIED LOCAL: `node tools/gsc/gsc-family-divorce-export.js --dry-run` passed and reported `7` target paths, `18` protected source/asset paths and `18` query terms.
+- BLOCKED / OWNER ACTION: actual GSC API export still requires owner credential rotation/setup and local paths for OAuth client/token.
+- SAFETY: no credential contents were printed; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 22:56 Asia/Jerusalem
 - GSC CREDENTIAL HYGIENE: removed the tracked local Search Console OAuth client JSON from Git tracking while leaving the local ignored file in place.
 - FIXED: `tools/gsc/oauth-client.json` is no longer tracked in Git.

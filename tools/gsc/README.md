@@ -29,6 +29,21 @@ node gsc-pull.js
 
 No browser needed: token auto-refreshes.
 
+## Family / Divorce First Export
+
+Use this runner for the first controlled Family/Divorce upload risk check. It supports credential paths outside the repo and a safe dry run.
+
+PowerShell:
+
+```powershell
+$env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
+$env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+node tools/gsc/gsc-family-divorce-export.js --dry-run
+node tools/gsc/gsc-family-divorce-export.js
+```
+
+Outputs save under `reports/gsc/family-divorce-YYYY-MM-DD/`.
+
 ## Output
 
 Reports saved to `reports/gsc/`:

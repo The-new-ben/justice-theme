@@ -1,6 +1,20 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - GSC Family/Divorce export runner
+
+- TOOLING FIXED: created `tools/gsc/gsc-family-divorce-export.js`.
+- FIXED: runner supports credential and token paths outside the repo through `GSC_OAUTH_CLIENT_PATH` and `GSC_TOKEN_PATH`.
+- FIXED: added `--dry-run` mode for path/scope verification without reading credential contents, opening OAuth or calling the API.
+- CREATED: `project-control/gsc-family-divorce-export-runner-2026-05-21.md`.
+- CREATED: `project-control/gsc-family-divorce-export-runner-2026-05-21.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/gsc/gsc-family-divorce-export.js` passed.
+- VERIFIED LOCAL: `node tools/gsc/gsc-family-divorce-export.js --dry-run` passed and reported `7` targets, `18` protected source/asset paths and `18` query terms.
+- BLOCKED / OWNER ACTION: actual GSC export still requires owner credential rotation/setup and local credential/token paths.
+- SAFETY: credential contents were not printed; no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - GSC credential hygiene
 
 - FIXED: removed `tools/gsc/oauth-client.json` from Git tracking with `git rm --cached` while leaving the local file in the workspace.

@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-21 18:11 Asia/Jerusalem
+- LAWYER PROSPECT CONTACT-DETAILS VIEW: added a private CRM view for active lawyer prospects that have no email and no phone.
+- RESEARCHED: HubSpot contact management emphasizes complete contact records, calls, emails and follow-ups inside the CRM; HubSpot enrichment frames blank contact/company fields as sales friction; Salesforce sales data guidance frames quality data as the foundation for faster revenue decisions. Sources: https://www.hubspot.com/products/crm/contact-management, https://www.hubspot.com/products/artificial-intelligence/use-cases/enrich-contact-data, https://www.salesforce.com/sales/data/
+- CODED: `inc/lawyer-prospects.php` now supports `justice_prospect_contact_filter=missing` and adds a "Needs contact details" list view.
+- CODED: the missing-contact and unscheduled filters exclude `won` and `lost`, while treating missing status as active/research debt.
+- CODED: `inc/lawyer-onboarding.php` now shows a "Needs contact details" card and makes missing contact info a next-best-action priority after overdue/due work.
+- VERIFIED: `php -l inc/lawyer-prospects.php`, `php -l inc/lawyer-onboarding.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is separating reachable lawyer prospects from research debt before manual outreach starts.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 82% to 84%; prospect follow-up/readiness discipline moved from 86% to 88%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Needs contact details; also Lawyer Onboarding -> Lawyer sales command center.
+- SAFETY: repo theme admin code/docs only at this log point. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 18:00 Asia/Jerusalem
 - LAWYER PROSPECT NEEDS-SCHEDULING VIEW: added a private CRM view for active lawyer prospects that have no next action date.
 - RESEARCHED: Salesforce warns that unclear next actions create fuzzy pipeline data and says healthy pipelines need prospects moving on a set time frame; HubSpot frames task queues and due dates as the way to keep action items organized. Sources: https://www.salesforce.com/ca/sales/team-productivity/sales-productivity-pitfalls/, https://www.salesforce.com/sales/pipeline, https://www.hubspot.com/products/task-management

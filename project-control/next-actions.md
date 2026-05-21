@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-RECOMMENDATION-TOKEN-SAFETY-CHECKER-001: Add static safety checker for token intake
+**Status:** COMPLETED / TOOLING FIXED / VERIFIED LOCAL
+**Why:** Authenticated token QA is blocked by owner/admin access. The repo still needed a repeatable local guard so future recommendation, schema or SMS work cannot accidentally publish first-party submissions or add review schema too early.
+**Actions:**
+1. DONE: created `tools/check-recommendation-token-safety.mjs`.
+2. DONE: created `project-control/recommendation-token-safety-checker-2026-05-21.md`.
+3. DONE: created `project-control/recommendation-token-safety-checker-2026-05-21.csv`.
+4. VERIFIED LOCAL: `node --check tools/check-recommendation-token-safety.mjs` passed.
+5. VERIFIED LOCAL: `node tools/check-recommendation-token-safety.mjs` passed.
+6. VERIFIED LOCAL: checker confirms token submissions are draft-only, first-party, confirmed, `draft_review`, and do not set `approved_public`.
+7. VERIFIED LOCAL: checker confirms no `AggregateRating` or Review schema is added by the token flow.
+8. NEXT: run this checker before uPress pull and before any future reputation/schema/SMS change.
+9. BLOCKED: authenticated admin create-link QA, live token form QA, database write verification and email delivery verification still require owner/admin access.
+
 ### ACTION-FIRST-PARTY-RECOMMENDATION-TOKEN-INTAKE-001: Add owner-controlled recommendation intake links
 **Status:** COMPLETED / CODE FIXED / NOT LIVE VERIFIED
 **Why:** T367 needed a safe first-party recommendation intake flow after the display guard. The system must collect real recommendations as drafts without publishing, importing Google review text or sending client messages automatically.

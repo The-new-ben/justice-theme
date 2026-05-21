@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Recommendation token safety checker
+
+- TOOLING FIXED: added `tools/check-recommendation-token-safety.mjs`.
+- CREATED: `project-control/recommendation-token-safety-checker-2026-05-21.md`.
+- CREATED: `project-control/recommendation-token-safety-checker-2026-05-21.csv`.
+- VERIFIED LOCAL: `node --check tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: `node tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: checker confirms private token CPT, hashed tokens, noindex token form, honeypot, draft-only first-party submission, `confirmed` permission, `draft_review` moderation, no `approved_public` on submission, public guard source filtering and no Review/AggregateRating schema.
+- SAFETY: tooling/docs only. No live CMS database row, Google API, Google import, outbound client message, public schema, payment setting, redirect or sitemap changed.
+
 ## 2026-05-21 - First-party recommendation token intake
 
 - CODE FIXED: `inc/lawyer-recommendations.php` now registers private `justice_reco_token` records for one-time first-party recommendation intake links.

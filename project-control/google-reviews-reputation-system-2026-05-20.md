@@ -84,6 +84,7 @@ Competitor/product pattern:
 - 2026-05-21 FIXED: Google-linked/manual-import recommendation records remain reference-only by default and do not appear in the public lawyer-profile recommendation display.
 - 2026-05-21 FIXED: owner/admin can create one-time first-party recommendation intake links for lawyer profiles.
 - 2026-05-21 FIXED: token submissions create draft first-party recommendation records only; public display still requires owner approval and the public display guard.
+- 2026-05-21 VERIFIED TOOLING: `tools/check-recommendation-token-safety.mjs` now checks the token flow for private CPT posture, hashed tokens, noindex intake, draft-only submissions, moderation safety, public display guard requirements and absence of Review/AggregateRating schema.
 - Linear `HAD-72` tracks the next implementation steps.
 
 ## What Is Not Implemented Yet

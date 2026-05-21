@@ -2,6 +2,14 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Recommendation Token Safety Checker QA
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/check-recommendation-token-safety.mjs`.
+- VERIFIED LOCAL: `node --check tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: `node tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: checker reports PASS for private token CPT, hashed token storage, noindex token form, honeypot, draft-only recommendation creation, `first_party`, `confirmed`, `draft_review`, no submission-level `approved_public`, source-filtered public guard and no Review/AggregateRating schema.
+- NOT LIVE VERIFIED: this is static source QA only, not authenticated admin or browser form QA.
+- SAFETY: no public page, CMS database row, Google API, outbound client message, public schema, redirect, sitemap or payment changed.
+
 ## 2026-05-21 First-Party Recommendation Token Intake QA
 - CODE FIXED / NOT LIVE VERIFIED: owner/admin can create a one-time first-party recommendation link for a lawyer profile.
 - CODE FIXED / NOT LIVE VERIFIED: public token URL renders a standalone Hebrew `noindex,nofollow` intake form and saves valid submissions as draft recommendations only.

@@ -1,0 +1,6 @@
+id,area,status,decision,verification,next_step,notes
+REP-CHECK-001,tooling,FIXED,Static recommendation token safety checker added,VERIFIED LOCAL,Run before uPress pull and future reputation changes,Reads PHP source directly
+REP-CHECK-002,token-safety,FIXED,Checker verifies private token CPT hashed tokens noindex form honeypot and one-time token use,VERIFIED LOCAL,Keep checker in T367 verification path,Does not replace authenticated admin QA
+REP-CHECK-003,moderation-safety,FIXED,Checker verifies submissions create draft first-party draft_review records and do not set approved_public,VERIFIED LOCAL,Run after any recommendation moderation change,Protects against accidental public display
+REP-CHECK-004,schema-safety,FIXED,Checker verifies no AggregateRating or Review schema was added in token flow,VERIFIED LOCAL,Keep schema blocked until real approval workflow is proven,No schema added
+REP-CHECK-005,live-qa,BLOCKED,Checker cannot verify live admin click-through database writes or email delivery,NOT VERIFIED,Run authenticated owner QA after uPress pull,Owner/admin access required

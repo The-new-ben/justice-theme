@@ -11,6 +11,34 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 42 - Recommendation Token Safety Checker
+
+Research reviewed:
+- Current T367 token intake implementation and public display guard.
+- Existing repo tooling pattern for local/live check scripts.
+
+Business interpretation:
+- Authenticated owner QA remains blocked, but the recommendation system now has enough moving pieces that future edits could accidentally weaken moderation.
+- A static checker is useful because it is cheap to run before uPress pull and before later schema/SMS work.
+
+Implemented in this cycle:
+- Created `tools/check-recommendation-token-safety.mjs`.
+- Created `project-control/recommendation-token-safety-checker-2026-05-21.md`.
+- Created `project-control/recommendation-token-safety-checker-2026-05-21.csv`.
+- Updated `current-status.md`, `next-actions.md`, `changelog.md`, `visual-qa-report.md`, this loop and `task-board.csv`.
+
+Verification:
+- VERIFIED LOCAL: `node --check tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: `node tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+
+Next step:
+- Run uPress pull when available, then authenticated owner QA for create-link, token submission, draft record review, manual approval and public display.
+
+Safety:
+- Tooling/docs only. No live CMS database row, Google API, Google import, outbound client SMS/email, public review schema, AggregateRating, payment setting, redirect or sitemap was changed.
+
 ## Priority Cycle 41 - First-Party Recommendation Token Intake
 
 Research reviewed:

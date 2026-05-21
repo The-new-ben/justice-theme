@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-21 20:32 Asia/Jerusalem
+- RECOMMENDATION TOKEN SAFETY CHECKER: added a repeatable static regression checker for the first-party recommendation token flow while authenticated/live QA remains blocked.
+- CODED: `tools/check-recommendation-token-safety.mjs` verifies private token CPT posture, hashed tokens, noindex public token form, honeypot, draft-only recommendation creation, `first_party` source type, `confirmed` permission, `draft_review` moderation and no accidental `approved_public`.
+- CODED: the checker also verifies that the public display guard still requires `approved_public`, `confirmed` and source-type filtering, and that no `AggregateRating` or Review schema was added in the token flow.
+- CREATED: `project-control/recommendation-token-safety-checker-2026-05-21.md`.
+- CREATED: `project-control/recommendation-token-safety-checker-2026-05-21.csv`.
+- VERIFIED LOCAL: `node --check tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: `node tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+- NOT LIVE VERIFIED: authenticated admin click-through, live token submission, draft record creation and email delivery still require owner/admin access after uPress pull.
+- SAFETY: tooling/docs only. No live CMS database row, no lawyer/customer/recommendation record, no Google data, no outbound client message, no public schema, no payment setting, no redirect and no sitemap changed.
+
 ## LATEST WORK STATUS - 2026-05-21 20:18 Asia/Jerusalem
 - FIRST-PARTY RECOMMENDATION TOKEN INTAKE: added the missing owner-controlled link flow for collecting real client recommendations without automatic public display.
 - CODED: `inc/lawyer-recommendations.php` now registers private `justice_reco_token` records, stores only hashed tokens, creates 30-day one-time intake links, renders a noindex Hebrew public intake form and saves valid submissions as draft first-party recommendations.

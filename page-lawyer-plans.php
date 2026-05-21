@@ -9,6 +9,25 @@ get_header();
 
 $plans = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_plans() : array();
 
+$lawyer_plans_faq_schema_items = array(
+	array(
+		'question' => __( 'איך יודעים שהפניות איכותיות?', 'justice-theme' ),
+		'answer'   => __( 'כל פנייה נשמרת עם תחום, עיר, מקור הגעה וסטטוס. המדידה עוזרת להבדיל בין חשיפה כללית לבין פניות שבאמת מתאימות לתחום העבודה שלכם.', 'justice-theme' ),
+	),
+	array(
+		'question' => __( 'אפשר להתחיל לפני סליקה חודשית אוטומטית?', 'justice-theme' ),
+		'answer'   => __( 'כן. הטופס יוצר בקשת בדיקת התאמה בלבד. אם יש התאמה, אפשר לבצע הפעלה ידנית וחשבונית לאחר אישור מסלול ותשלום.', 'justice-theme' ),
+	),
+	array(
+		'question' => __( 'האם יש התחייבות לכמות פניות או תיקים?', 'justice-theme' ),
+		'answer'   => __( 'לא. אין הבטחה לתוצאה משפטית או עסקית. המסלולים מציגים מכסת פניות מקסימלית, מדידה ודוח ערך, בכפוף לביקוש אמיתי ולכללי הפרסום.', 'justice-theme' ),
+	),
+	array(
+		'question' => __( 'מה נדרש מעורך הדין כדי להתחיל?', 'justice-theme' ),
+		'answer'   => __( 'רישיון פעיל, תחומי עיסוק ברורים, אזורי שירות, זמינות למענה וחומרי פרופיל בסיסיים. ככל שהפרופיל שלם יותר, קל יותר להפוך חשיפה לפנייה.', 'justice-theme' ),
+	),
+);
+
 $manual_activation_url = static function ( string $plan_key ): string {
 	if ( function_exists( 'justice_theme_plan_manual_activation_url' ) ) {
 		return justice_theme_plan_manual_activation_url( $plan_key );
@@ -186,5 +205,40 @@ $plan_checkout_url = static function ( string $plan_key ) use ( $manual_activati
 		</section>
 	</div>
 </section>
+
+<?php
+if ( function_exists( 'justice_theme_print_schema' ) && ! empty( $lawyer_plans_faq_schema_items ) ) {
+	$lawyer_plans_faq_questions = array();
+
+	foreach ( $lawyer_plans_faq_schema_items as $faq_item ) {
+		$question = isset( $faq_item['question'] ) ? trim( wp_strip_all_tags( $faq_item['question'] ) ) : '';
+		$answer   = isset( $faq_item['answer'] ) ? trim( wp_strip_all_tags( $faq_item['answer'] ) ) : '';
+
+		if ( '' === $question || '' === $answer ) {
+			continue;
+		}
+
+		$lawyer_plans_faq_questions[] = array(
+			'@type'          => 'Question',
+			'name'           => $question,
+			'acceptedAnswer' => array(
+				'@type' => 'Answer',
+				'text'  => $answer,
+			),
+		);
+	}
+
+	if ( ! empty( $lawyer_plans_faq_questions ) ) {
+		justice_theme_print_schema(
+			array(
+				'@context'   => 'https://schema.org',
+				'@type'      => 'FAQPage',
+				'@id'        => justice_theme_public_url( home_url( '/lawyer-plans/#lawyer-plans-faq-schema' ) ),
+				'mainEntity' => $lawyer_plans_faq_questions,
+			)
+		);
+	}
+}
+?>
 
 <?php get_footer(); ?>

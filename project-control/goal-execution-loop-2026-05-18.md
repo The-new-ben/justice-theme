@@ -11,6 +11,35 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 41 - First-Party Recommendation Token Intake
+
+Research reviewed:
+- Existing T367 reputation docs and the completed public recommendation display guard.
+- Current lawyer dashboard request flow, Lawyer Onboarding admin table and first-party recommendation CPT.
+
+Business interpretation:
+- The reputation system is more valuable when the owner can collect real client proof, but it must not become automatic review publishing.
+- The safe next move was a controlled token flow that creates draft first-party recommendation records only.
+
+Implemented in this cycle:
+- Updated `inc/lawyer-recommendations.php`.
+- Updated `inc/lawyer-onboarding.php`.
+- Created `project-control/first-party-recommendation-token-intake-2026-05-21.md`.
+- Created `project-control/first-party-recommendation-token-intake-2026-05-21.csv`.
+- Updated `current-status.md`, `next-actions.md`, `changelog.md`, `visual-qa-report.md`, this loop and `task-board.csv`.
+
+Verification:
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+- VERIFIED LOCAL: `git diff --check` passed with normal Windows line-ending warnings only.
+- NOT LIVE VERIFIED: authenticated admin click-through, live token submission and public profile display QA require owner/admin access and a real approved first-party test record.
+
+Next step:
+- Run one controlled owner QA path: create a token, submit a safe test recommendation, verify draft moderation, manually approve, then confirm public profile display.
+
+Safety:
+- Repo theme code/docs only. No live CMS database row, Google API, Google import, outbound client SMS/email, public review schema, AggregateRating, payment setting, redirect or sitemap was changed.
+
 ## Priority Cycle 40 - First-Party Recommendation Display Guard
 
 Research reviewed:

@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 First-Party Recommendation Token Intake QA
+- CODE FIXED / NOT LIVE VERIFIED: owner/admin can create a one-time first-party recommendation link for a lawyer profile.
+- CODE FIXED / NOT LIVE VERIFIED: public token URL renders a standalone Hebrew `noindex,nofollow` intake form and saves valid submissions as draft recommendations only.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+- VERIFIED LOCAL: `git diff --check` passed with normal Windows line-ending warnings only.
+- NOT AUTHENTICATED VERIFIED: WordPress admin create-link button and admin notice were not visually checked because no authenticated admin session was available.
+- NOT LIVE VERIFIED: token form rendering/submission and public-profile display were not tested on the public server in this cycle.
+- SAFETY: no live CMS database row, Google API, Google import, outbound client message, public review schema, AggregateRating, payment, redirect or sitemap changed.
+
 ## 2026-05-21 First-Party Recommendation Display Guard QA
 - CODE FIXED / NOT LIVE VERIFIED: public recommendation queries now require `recommendation_source_type=first_party` in addition to linked lawyer ID, `approved_public` moderation and `confirmed` permission.
 - VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.

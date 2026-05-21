@@ -82,6 +82,8 @@ Competitor/product pattern:
 - The dashboard growth checklist now counts approved first-party recommendations as a reputation asset.
 - 2026-05-21 FIXED: public recommendation count/list queries now require `recommendation_source_type=first_party` by default in addition to `approved_public` moderation and `confirmed` permission.
 - 2026-05-21 FIXED: Google-linked/manual-import recommendation records remain reference-only by default and do not appear in the public lawyer-profile recommendation display.
+- 2026-05-21 FIXED: owner/admin can create one-time first-party recommendation intake links for lawyer profiles.
+- 2026-05-21 FIXED: token submissions create draft first-party recommendation records only; public display still requires owner approval and the public display guard.
 - Linear `HAD-72` tracks the next implementation steps.
 
 ## What Is Not Implemented Yet
@@ -90,7 +92,7 @@ Competitor/product pattern:
 - No Google OAuth.
 - No review import.
 - No SMS/email sending.
-- No recommendation request token/intake flow.
+- No authenticated live QA of the recommendation request token/intake flow.
 - No public review schema.
 - No automatic client outreach.
 
@@ -98,13 +100,13 @@ Competitor/product pattern:
 
 - Research clarity: 70%.
 - Phase 1 dashboard workflow: 35%.
-- First-party review system: 22%.
+- First-party review system: 45%.
 - Google Business Profile API integration: 0%.
 - Revenue impact today: indirect but important. This is one of the things lawyers will pay for and renew for because it creates ongoing visible value.
 
 ## Next Steps
 
-1. Add a recommendation request intake form/token flow.
-2. Run authenticated admin QA and public-profile QA with a real approved first-party test record.
+1. Run authenticated admin QA for recommendation token creation and the noindex public token form.
+2. Run public-profile QA with a real approved first-party test record.
 3. Add a review-request sender only after owner approval of copy/SMS/email provider.
 4. Later: add Google OAuth/API only for lawyers who grant account access.

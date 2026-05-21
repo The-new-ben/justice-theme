@@ -1429,6 +1429,17 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php if ( isset( $_GET['review_campaign'] ) && 'marked' === $_GET['review_campaign'] ) : ?>
 			<div class="notice notice-success is-dismissible"><p>Review campaign request flag cleared for the lawyer profile.</p></div>
 		<?php endif; ?>
+		<?php if ( isset( $_GET['recommendation_token'] ) && 'created' === $_GET['recommendation_token'] && function_exists( 'justice_theme_admin_latest_recommendation_token_link' ) ) : ?>
+			<?php $recommendation_token_link = justice_theme_admin_latest_recommendation_token_link(); ?>
+			<div class="notice notice-success is-dismissible">
+				<p><strong>First-party recommendation link created.</strong> Send this only to a real client after lawyer/owner approval. It creates a draft recommendation for review, not a public review.</p>
+				<?php if ( $recommendation_token_link ) : ?>
+					<p><input type="url" class="large-text code" readonly onclick="this.select()" value="<?php echo esc_attr( $recommendation_token_link ); ?>"></p>
+				<?php endif; ?>
+			</div>
+		<?php elseif ( isset( $_GET['recommendation_token'] ) && 'failed' === $_GET['recommendation_token'] ) : ?>
+			<div class="notice notice-error is-dismissible"><p>Recommendation link creation failed. Check permissions and try again.</p></div>
+		<?php endif; ?>
 
 		<?php justice_theme_render_lawyer_onboarding_sales_command_center(); ?>
 
@@ -1624,6 +1635,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 							<td><?php echo esc_html( get_the_date() ); ?></td>
 							<td>
 								<a class="button button-primary" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Review</a>
+								<?php if ( function_exists( 'justice_theme_lawyer_recommendation_token_create_admin_url' ) ) : ?>
+									<a class="button" href="<?php echo esc_url( justice_theme_lawyer_recommendation_token_create_admin_url( $post_id ) ); ?>">Create recommendation link</a>
+								<?php endif; ?>
 								<?php if ( $has_pending_update ) : ?>
 									<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=justice_apply_lawyer_profile_update&lawyer_id=' . $post_id ), 'justice_apply_lawyer_profile_update_' . $post_id ) ); ?>">Apply pending update</a>
 									<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=justice_discard_lawyer_profile_update&lawyer_id=' . $post_id ), 'justice_discard_lawyer_profile_update_' . $post_id ) ); ?>">Discard pending update</a>

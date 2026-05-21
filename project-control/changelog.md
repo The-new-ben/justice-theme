@@ -1,6 +1,21 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - First-party recommendation token intake
+
+- CODE FIXED: `inc/lawyer-recommendations.php` now registers private `justice_reco_token` records for one-time first-party recommendation intake links.
+- CODE FIXED: recommendation tokens store hashed token values, linked lawyer ID, status, expiry, creator and submitted recommendation ID.
+- CODE FIXED: public token URLs render a standalone Hebrew `noindex,nofollow` intake form at `/?justice_recommendation_token=...`.
+- CODE FIXED: valid token submissions create draft `justice_recommendation` records with `first_party`, `confirmed` permission and `draft_review` moderation.
+- CODE FIXED: Lawyer Onboarding now has a `Create recommendation link` action and an admin-only notice with the generated link.
+- CREATED: `project-control/first-party-recommendation-token-intake-2026-05-21.md`.
+- CREATED: `project-control/first-party-recommendation-token-intake-2026-05-21.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+- VERIFIED LOCAL: `git diff --check` passed with normal Windows line-ending warnings only.
+- NOT LIVE VERIFIED: authenticated admin click-through, uPress pull, token form submission and public-profile display QA still need owner/admin access and a real approved first-party test record.
+- SAFETY: repo theme code/docs only. No Google API connection, Google import, outbound client message, public schema, CMS database row, lawyer/customer/recommendation record, payment setting, redirect or sitemap changed in this cycle.
+
 ## 2026-05-21 - First-party recommendation display guard
 
 - CODE FIXED: `inc/lawyer-recommendations.php` now centralizes recommendation source types and validates saved source type values.

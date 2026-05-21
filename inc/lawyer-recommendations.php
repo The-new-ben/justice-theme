@@ -135,6 +135,454 @@ function justice_theme_lawyer_public_recommendation_meta_query( int $lawyer_id )
 	);
 }
 
+function justice_theme_register_lawyer_recommendation_token_cpt(): void {
+	$labels = array(
+		'name'          => __( 'Recommendation Tokens', 'justice-theme' ),
+		'singular_name' => __( 'Recommendation Token', 'justice-theme' ),
+		'edit_item'     => __( 'Edit Recommendation Token', 'justice-theme' ),
+		'menu_name'     => __( 'Recommendation Tokens', 'justice-theme' ),
+	);
+
+	register_post_type(
+		'justice_reco_token',
+		array(
+			'labels'          => $labels,
+			'public'          => false,
+			'show_ui'         => true,
+			'show_in_menu'    => 'justice-lawyer-onboarding',
+			'supports'        => array( 'title' ),
+			'capability_type' => 'post',
+			'map_meta_cap'    => true,
+			'has_archive'     => false,
+			'rewrite'         => false,
+			'show_in_rest'    => false,
+		)
+	);
+}
+add_action( 'init', 'justice_theme_register_lawyer_recommendation_token_cpt' );
+
+function justice_theme_register_lawyer_recommendation_token_meta(): void {
+	$fields = array(
+		'recommendation_token_lawyer_id'                     => 'integer',
+		'recommendation_token_hash'                          => 'string',
+		'recommendation_token_status'                        => 'string',
+		'recommendation_token_expires_at'                    => 'string',
+		'recommendation_token_used_at'                       => 'string',
+		'recommendation_token_created_by'                    => 'integer',
+		'recommendation_token_submitted_recommendation_id'   => 'integer',
+	);
+
+	foreach ( $fields as $key => $type ) {
+		register_post_meta(
+			'justice_reco_token',
+			$key,
+			array(
+				'single'            => true,
+				'type'              => $type,
+				'sanitize_callback' => in_array( $type, array( 'integer' ), true ) ? 'absint' : 'sanitize_text_field',
+				'show_in_rest'      => false,
+			)
+		);
+	}
+}
+add_action( 'init', 'justice_theme_register_lawyer_recommendation_token_meta' );
+
+function justice_theme_recommendation_token_hash( string $token ): string {
+	return hash( 'sha256', $token );
+}
+
+function justice_theme_lawyer_recommendation_token_url( string $token ): string {
+	return add_query_arg(
+		'justice_recommendation_token',
+		rawurlencode( $token ),
+		home_url( '/' )
+	);
+}
+
+function justice_theme_lawyer_recommendation_token_create_admin_url( int $lawyer_id ): string {
+	return wp_nonce_url(
+		admin_url( 'admin-post.php?action=justice_create_lawyer_recommendation_token&lawyer_id=' . $lawyer_id ),
+		'justice_create_lawyer_recommendation_token_' . $lawyer_id
+	);
+}
+
+function justice_theme_create_lawyer_recommendation_token( int $lawyer_id, int $valid_days = 30 ): array {
+	if ( ! $lawyer_id || 'justice_lawyer' !== get_post_type( $lawyer_id ) || ! post_type_exists( 'justice_reco_token' ) ) {
+		return array( 'error' => 'invalid_lawyer' );
+	}
+
+	$valid_days = max( 1, min( 90, $valid_days ) );
+	$token      = wp_generate_password( 40, false, false );
+	$expires_at = gmdate( 'Y-m-d H:i:s', time() + ( DAY_IN_SECONDS * $valid_days ) );
+	$token_id   = wp_insert_post(
+		array(
+			'post_type'   => 'justice_reco_token',
+			'post_status' => 'publish',
+			'post_title'  => sprintf(
+				'Recommendation link - %s - %s',
+				get_the_title( $lawyer_id ),
+				gmdate( 'Y-m-d' )
+			),
+			'meta_input'  => array(
+				'recommendation_token_lawyer_id'   => $lawyer_id,
+				'recommendation_token_hash'        => justice_theme_recommendation_token_hash( $token ),
+				'recommendation_token_status'      => 'active',
+				'recommendation_token_expires_at'  => $expires_at,
+				'recommendation_token_created_by'  => get_current_user_id(),
+			),
+		)
+	);
+
+	if ( ! $token_id || is_wp_error( $token_id ) ) {
+		return array( 'error' => 'insert_failed' );
+	}
+
+	return array(
+		'token_id'   => (int) $token_id,
+		'token'      => $token,
+		'url'        => justice_theme_lawyer_recommendation_token_url( $token ),
+		'expires_at' => $expires_at,
+	);
+}
+
+function justice_theme_handle_create_lawyer_recommendation_token(): void {
+	$lawyer_id = isset( $_GET['lawyer_id'] ) ? absint( wp_unslash( $_GET['lawyer_id'] ) ) : 0;
+
+	if ( ! $lawyer_id || ! current_user_can( 'edit_post', $lawyer_id ) || ! check_admin_referer( 'justice_create_lawyer_recommendation_token_' . $lawyer_id ) ) {
+		wp_safe_redirect( add_query_arg( 'recommendation_token', 'failed', admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ) );
+		exit;
+	}
+
+	$result = justice_theme_create_lawyer_recommendation_token( $lawyer_id );
+	if ( ! empty( $result['error'] ) || empty( $result['url'] ) ) {
+		wp_safe_redirect( add_query_arg( 'recommendation_token', 'failed', admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ) );
+		exit;
+	}
+
+	set_transient( 'justice_recommendation_token_link_' . get_current_user_id(), (string) $result['url'], 15 * MINUTE_IN_SECONDS );
+
+	if ( function_exists( 'justice_theme_append_lawyer_internal_note' ) ) {
+		justice_theme_append_lawyer_internal_note( $lawyer_id, 'Owner created a one-time first-party recommendation intake link. The link expires at ' . $result['expires_at'] . ' UTC.' );
+	}
+
+	wp_safe_redirect(
+		add_query_arg(
+			array(
+				'recommendation_token' => 'created',
+				'lawyer_id'            => $lawyer_id,
+			),
+			admin_url( 'admin.php?page=justice-lawyer-onboarding' )
+		)
+	);
+	exit;
+}
+add_action( 'admin_post_justice_create_lawyer_recommendation_token', 'justice_theme_handle_create_lawyer_recommendation_token' );
+
+function justice_theme_admin_latest_recommendation_token_link(): string {
+	return (string) get_transient( 'justice_recommendation_token_link_' . get_current_user_id() );
+}
+
+function justice_theme_recommendation_token_from_request( string $raw_token ): array {
+	$token = preg_replace( '/[^A-Za-z0-9]/', '', $raw_token );
+	if ( ! $token || strlen( $token ) < 32 || ! post_type_exists( 'justice_reco_token' ) ) {
+		return array();
+	}
+
+	$query = new WP_Query(
+		array(
+			'post_type'      => 'justice_reco_token',
+			'post_status'    => 'publish',
+			'posts_per_page' => 1,
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+			'meta_query'     => array(
+				array(
+					'key'   => 'recommendation_token_hash',
+					'value' => justice_theme_recommendation_token_hash( $token ),
+				),
+			),
+		)
+	);
+
+	if ( empty( $query->posts ) ) {
+		return array();
+	}
+
+	$token_id  = (int) $query->posts[0];
+	$lawyer_id = (int) get_post_meta( $token_id, 'recommendation_token_lawyer_id', true );
+
+	if ( ! $lawyer_id || 'justice_lawyer' !== get_post_type( $lawyer_id ) ) {
+		return array();
+	}
+
+	return array(
+		'token_id'   => $token_id,
+		'lawyer_id'  => $lawyer_id,
+		'status'     => (string) get_post_meta( $token_id, 'recommendation_token_status', true ),
+		'expires_at' => (string) get_post_meta( $token_id, 'recommendation_token_expires_at', true ),
+	);
+}
+
+function justice_theme_recommendation_token_is_active( array $record ): bool {
+	if ( empty( $record['token_id'] ) || empty( $record['lawyer_id'] ) || 'active' !== (string) ( $record['status'] ?? '' ) ) {
+		return false;
+	}
+
+	$expires_at = isset( $record['expires_at'] ) ? strtotime( (string) $record['expires_at'] ) : 0;
+	return $expires_at && $expires_at > time();
+}
+
+function justice_theme_handle_lawyer_recommendation_intake(): void {
+	if ( empty( $_GET['justice_recommendation_token'] ) ) {
+		return;
+	}
+
+	$raw_token = sanitize_text_field( wp_unslash( $_GET['justice_recommendation_token'] ) );
+	$record    = justice_theme_recommendation_token_from_request( $raw_token );
+	$submitted = isset( $_GET['recommendation_submitted'] ) && '1' === (string) $_GET['recommendation_submitted'];
+
+	if ( empty( $record ) ) {
+		justice_theme_render_lawyer_recommendation_intake_page( array(), $raw_token, array(), false, 'invalid' );
+		exit;
+	}
+
+	if ( $submitted && 'used' === (string) $record['status'] ) {
+		justice_theme_render_lawyer_recommendation_intake_page( $record, $raw_token, array(), true );
+		exit;
+	}
+
+	if ( 'POST' === (string) ( $_SERVER['REQUEST_METHOD'] ?? '' ) ) {
+		$errors = justice_theme_process_lawyer_recommendation_intake_submission( $record, $raw_token );
+		if ( empty( $errors ) ) {
+			wp_safe_redirect( add_query_arg( 'recommendation_submitted', '1', justice_theme_lawyer_recommendation_token_url( $raw_token ) ) );
+			exit;
+		}
+
+		justice_theme_render_lawyer_recommendation_intake_page( $record, $raw_token, $errors );
+		exit;
+	}
+
+	if ( ! justice_theme_recommendation_token_is_active( $record ) ) {
+		justice_theme_render_lawyer_recommendation_intake_page( $record, $raw_token, array(), false, 'expired' );
+		exit;
+	}
+
+	justice_theme_render_lawyer_recommendation_intake_page( $record, $raw_token );
+	exit;
+}
+add_action( 'template_redirect', 'justice_theme_handle_lawyer_recommendation_intake' );
+
+function justice_theme_process_lawyer_recommendation_intake_submission( array $record, string $raw_token ): array {
+	$token_id  = (int) ( $record['token_id'] ?? 0 );
+	$lawyer_id = (int) ( $record['lawyer_id'] ?? 0 );
+	$errors    = array();
+
+	if ( ! justice_theme_recommendation_token_is_active( $record ) ) {
+		return array( __( 'The recommendation link is no longer active.', 'justice-theme' ) );
+	}
+
+	$nonce = isset( $_POST['justice_recommendation_intake_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_recommendation_intake_nonce'] ) ) : '';
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'justice_recommendation_intake_' . $token_id ) ) {
+		return array( __( 'The form session expired. Please reload the page and try again.', 'justice-theme' ) );
+	}
+
+	if ( ! empty( $_POST['recommendation_website'] ) ) {
+		update_post_meta( $token_id, 'recommendation_token_status', 'used' );
+		update_post_meta( $token_id, 'recommendation_token_used_at', current_time( 'mysql' ) );
+		return array();
+	}
+
+	$client_name  = isset( $_POST['client_display_name'] ) ? sanitize_text_field( wp_unslash( $_POST['client_display_name'] ) ) : '';
+	$relationship = isset( $_POST['client_relationship'] ) ? sanitize_text_field( wp_unslash( $_POST['client_relationship'] ) ) : '';
+	$body         = isset( $_POST['recommendation_body'] ) ? sanitize_textarea_field( wp_unslash( $_POST['recommendation_body'] ) ) : '';
+	$rating       = isset( $_POST['recommendation_rating'] ) ? absint( wp_unslash( $_POST['recommendation_rating'] ) ) : 0;
+	$permission   = ! empty( $_POST['recommendation_permission_confirmed'] );
+
+	if ( $rating > 5 ) {
+		$rating = 5;
+	}
+
+	$body_length = function_exists( 'mb_strlen' ) ? mb_strlen( $body, 'UTF-8' ) : strlen( $body );
+
+	if ( '' === $client_name ) {
+		$errors[] = __( 'Please add a display name or initials.', 'justice-theme' );
+	}
+
+	if ( $body_length < 20 ) {
+		$errors[] = __( 'Please add a recommendation of at least 20 characters.', 'justice-theme' );
+	}
+
+	if ( $body_length > 2000 ) {
+		$errors[] = __( 'Please shorten the recommendation to 2,000 characters or less.', 'justice-theme' );
+	}
+
+	if ( ! $permission ) {
+		$errors[] = __( 'Please confirm that Jus-Tice may review and display the recommendation.', 'justice-theme' );
+	}
+
+	if ( ! empty( $errors ) ) {
+		return $errors;
+	}
+
+	$recommendation_id = wp_insert_post(
+		array(
+			'post_type'    => 'justice_recommendation',
+			'post_status'  => 'draft',
+			'post_title'   => sprintf( 'Recommendation for %s - %s', get_the_title( $lawyer_id ), current_time( 'Y-m-d H:i' ) ),
+			'post_content' => $body,
+		)
+	);
+
+	if ( ! $recommendation_id || is_wp_error( $recommendation_id ) ) {
+		return array( __( 'The recommendation could not be saved. Please try again later.', 'justice-theme' ) );
+	}
+
+	update_post_meta( $recommendation_id, 'recommended_lawyer_id', $lawyer_id );
+	update_post_meta( $recommendation_id, 'client_display_name', $client_name );
+	update_post_meta( $recommendation_id, 'client_relationship', $relationship );
+	update_post_meta( $recommendation_id, 'recommendation_rating', $rating );
+	update_post_meta( $recommendation_id, 'recommendation_source_type', 'first_party' );
+	update_post_meta( $recommendation_id, 'recommendation_received_at', current_time( 'Y-m-d' ) );
+	update_post_meta( $recommendation_id, 'recommendation_permission', 'confirmed' );
+	update_post_meta( $recommendation_id, 'recommendation_moderation', 'draft_review' );
+	update_post_meta( $recommendation_id, 'recommendation_owner_note', 'Submitted via one-time first-party recommendation token #' . $token_id . '. Owner approval is required before any public display.' );
+
+	update_post_meta( $token_id, 'recommendation_token_status', 'used' );
+	update_post_meta( $token_id, 'recommendation_token_used_at', current_time( 'mysql' ) );
+	update_post_meta( $token_id, 'recommendation_token_submitted_recommendation_id', (int) $recommendation_id );
+
+	if ( function_exists( 'justice_theme_append_lawyer_internal_note' ) ) {
+		justice_theme_append_lawyer_internal_note( $lawyer_id, 'First-party recommendation submitted through token #' . $token_id . '. Review draft recommendation #' . $recommendation_id . ' before public display.' );
+	}
+
+	justice_theme_notify_lawyer_recommendation_submission( (int) $recommendation_id, $lawyer_id, $client_name );
+
+	return array();
+}
+
+function justice_theme_notify_lawyer_recommendation_submission( int $recommendation_id, int $lawyer_id, string $client_name ): void {
+	$admin_email = get_option( 'admin_email' );
+
+	if ( ! $admin_email || ! is_email( $admin_email ) ) {
+		return;
+	}
+
+	$message = sprintf(
+		"New first-party lawyer recommendation is waiting for owner review.\n\nLawyer: %s\nClient display name: %s\n\nReview recommendation: %s\n\nImportant: keep it private unless permission, ethics and owner review are complete.",
+		get_the_title( $lawyer_id ),
+		$client_name ?: '-',
+		admin_url( 'post.php?post=' . $recommendation_id . '&action=edit' )
+	);
+
+	wp_mail( $admin_email, 'New lawyer recommendation waiting for review', $message );
+}
+
+function justice_theme_render_lawyer_recommendation_intake_page( array $record, string $raw_token, array $errors = array(), bool $submitted = false, string $state = 'active' ): void {
+	$lawyer_id    = (int) ( $record['lawyer_id'] ?? 0 );
+	$lawyer_title = $lawyer_id ? get_the_title( $lawyer_id ) : '';
+	$page_title   = $submitted ? 'ההמלצה התקבלה' : 'שליחת המלצה לעורך דין';
+
+	status_header( 'invalid' === $state ? 404 : 200 );
+	nocache_headers();
+	header( 'Content-Type: text/html; charset=' . get_bloginfo( 'charset' ) );
+	?>
+	<!doctype html>
+	<html <?php language_attributes(); ?> dir="rtl">
+	<head>
+		<meta charset="<?php bloginfo( 'charset' ); ?>">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="robots" content="noindex,nofollow">
+		<title><?php echo esc_html( $page_title ); ?> | Jus-Tice</title>
+		<style>
+			body{margin:0;background:#f4f7fb;color:#13233d;font-family:Arial,"Helvetica Neue",sans-serif;line-height:1.65}
+			.recommendation-intake{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:32px 16px}
+			.recommendation-intake__card{width:min(720px,100%);background:#fff;border:1px solid #d9e2ef;border-radius:12px;box-shadow:0 24px 70px rgba(19,35,61,.12);padding:28px}
+			.recommendation-intake__brand{font-weight:800;color:#9f1d35;margin:0 0 8px}
+			.recommendation-intake h1{font-size:clamp(1.8rem,4vw,2.6rem);line-height:1.2;margin:0 0 10px;color:#071d3a}
+			.recommendation-intake p{margin:0 0 16px}
+			.recommendation-intake label{display:block;font-weight:700;margin:14px 0 6px}
+			.recommendation-intake input,.recommendation-intake select,.recommendation-intake textarea{box-sizing:border-box;width:100%;border:1px solid #c9d4e5;border-radius:8px;padding:11px 12px;font:inherit}
+			.recommendation-intake textarea{resize:vertical}
+			.recommendation-intake__check{display:flex;gap:10px;align-items:flex-start;margin:16px 0}
+			.recommendation-intake__check input{width:auto;margin-top:7px}
+			.recommendation-intake__actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:18px}
+			.recommendation-intake button,.recommendation-intake .button{border:0;border-radius:999px;background:#9f1d35;color:#fff;padding:11px 20px;font-weight:800;text-decoration:none;cursor:pointer}
+			.recommendation-intake .button--muted{background:#eef2f7;color:#13233d}
+			.recommendation-intake__errors{background:#fff3f4;border:1px solid #efb7c0;color:#7d1026;border-radius:8px;padding:12px 16px;margin:0 0 16px}
+			.recommendation-intake__fineprint{color:#66758a;font-size:.92rem}
+			.recommendation-intake__hidden{position:absolute;right:-9999px;opacity:0}
+		</style>
+	</head>
+	<body>
+		<main class="recommendation-intake" role="main">
+			<section class="recommendation-intake__card" aria-labelledby="recommendation-intake-title">
+				<p class="recommendation-intake__brand">Jus-Tice</p>
+				<?php if ( $submitted ) : ?>
+					<h1 id="recommendation-intake-title">תודה, ההמלצה התקבלה לבדיקה</h1>
+					<p>ההמלצה נשמרה כממתינה לבדיקה. היא לא תוצג באתר לפני בדיקת בעל האתר ואישור התאמה לפרסום.</p>
+					<p class="recommendation-intake__fineprint">אם כללתם בטעות מידע אישי, פרטי תיק חסויים או פרט שאינו מיועד לפרסום, פנו אלינו כדי להסיר או לערוך אותו לפני פרסום.</p>
+					<div class="recommendation-intake__actions">
+						<a class="button button--muted" href="<?php echo esc_url( home_url( '/' ) ); ?>">חזרה לאתר</a>
+					</div>
+				<?php elseif ( 'invalid' === $state || 'expired' === $state || ! justice_theme_recommendation_token_is_active( $record ) ) : ?>
+					<h1 id="recommendation-intake-title">הקישור אינו פעיל</h1>
+					<p>קישור ההמלצה אינו תקין, פג תוקף או כבר נוצל. ניתן לבקש מעורך הדין קישור חדש.</p>
+					<div class="recommendation-intake__actions">
+						<a class="button button--muted" href="<?php echo esc_url( home_url( '/' ) ); ?>">חזרה לאתר</a>
+					</div>
+				<?php else : ?>
+					<h1 id="recommendation-intake-title">שליחת המלצה עבור <?php echo esc_html( $lawyer_title ); ?></h1>
+					<p>המלצה זו נשלחת ישירות ל-Jus-Tice לבדיקה. אל תכללו פרטים חסויים, מספרי תיקים, מידע רפואי, שמות צדדים אחרים או כל פרט שאינו מיועד לפרסום.</p>
+					<?php if ( ! empty( $errors ) ) : ?>
+						<div class="recommendation-intake__errors">
+							<?php foreach ( $errors as $error ) : ?>
+								<p><?php echo esc_html( $error ); ?></p>
+							<?php endforeach; ?>
+						</div>
+					<?php endif; ?>
+					<form method="post" action="<?php echo esc_url( justice_theme_lawyer_recommendation_token_url( $raw_token ) ); ?>">
+						<?php wp_nonce_field( 'justice_recommendation_intake_' . (int) $record['token_id'], 'justice_recommendation_intake_nonce' ); ?>
+						<label class="recommendation-intake__hidden" for="recommendation-website">Website</label>
+						<input class="recommendation-intake__hidden" id="recommendation-website" type="text" name="recommendation_website" tabindex="-1" autocomplete="off">
+
+						<label for="client-display-name">שם לתצוגה או ראשי תיבות</label>
+						<input id="client-display-name" type="text" name="client_display_name" maxlength="80" required>
+
+						<label for="client-relationship">הקשר לשירות המשפטי</label>
+						<input id="client-relationship" type="text" name="client_relationship" maxlength="120" placeholder="לדוגמה: לקוח/ה לשעבר, ייעוץ נקודתי, ליווי בהליך">
+
+						<label for="recommendation-rating">דירוג אופציונלי</label>
+						<select id="recommendation-rating" name="recommendation_rating">
+							<option value="0">ללא דירוג</option>
+							<option value="5">5</option>
+							<option value="4">4</option>
+							<option value="3">3</option>
+							<option value="2">2</option>
+							<option value="1">1</option>
+						</select>
+
+						<label for="recommendation-body">ההמלצה</label>
+						<textarea id="recommendation-body" name="recommendation_body" rows="7" maxlength="2000" required></textarea>
+
+						<label class="recommendation-intake__check">
+							<input type="checkbox" name="recommendation_permission_confirmed" value="1" required>
+							<span>אני מאשר/ת ל-Jus-Tice לבדוק את ההמלצה ולשקול פרסום שלה באתר לאחר עריכה ובדיקת התאמה. ידוע לי שההמלצה לא תפורסם אוטומטית.</span>
+						</label>
+
+						<p class="recommendation-intake__fineprint">שליחת ההמלצה אינה מבטיחה פרסום, דירוג או הצגה בפרופיל. Jus-Tice רשאית שלא לפרסם המלצות שאינן מתאימות, כוללות מידע חסוי או דורשות הבהרה.</p>
+						<div class="recommendation-intake__actions">
+							<button type="submit">שליחת ההמלצה לבדיקה</button>
+							<a class="button button--muted" href="<?php echo esc_url( home_url( '/' ) ); ?>">ביטול</a>
+						</div>
+					</form>
+				<?php endif; ?>
+			</section>
+		</main>
+	</body>
+	</html>
+	<?php
+}
+
 function justice_theme_recommendation_meta_boxes(): void {
 	add_meta_box(
 		'justice_theme_recommendation_details',

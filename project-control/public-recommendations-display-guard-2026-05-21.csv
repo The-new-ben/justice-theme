@@ -4,4 +4,4 @@ REP-GUARD-002,google-reviews,FIXED,Google-linked recommendation records are refe
 REP-GUARD-003,public-query,FIXED,Public recommendation queries require first_party source type by default,VERIFIED LOCAL,Rerun after uPress pull and with a real approved first-party test record,Not live verified
 REP-GUARD-004,permission,FIXED,Public recommendation queries still require confirmed permission and approved_public moderation,VERIFIED LOCAL,Keep owner review mandatory before public display,No outbound request sent
 REP-GUARD-005,schema,BLOCKED,Review and AggregateRating schema remain blocked,VERIFIED DOCS,Revisit only after policy and verified public display are approved,No schema added
-REP-GUARD-006,intake-token,BLOCKED,Recommendation request token/intake flow is not implemented yet,NOT VERIFIED,Build token flow as next T367 subtask,No public intake endpoint added
+REP-GUARD-006,intake-token,FIXED,Recommendation request token/intake flow now exists but is not live/authenticated verified,VERIFIED LOCAL,Run authenticated admin and public token submission QA after uPress pull,No live recommendation record created in this cycle

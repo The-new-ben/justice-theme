@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FIRST-PARTY-RECOMMENDATION-TOKEN-INTAKE-001: Add owner-controlled recommendation intake links
+**Status:** COMPLETED / CODE FIXED / NOT LIVE VERIFIED
+**Why:** T367 needed a safe first-party recommendation intake flow after the display guard. The system must collect real recommendations as drafts without publishing, importing Google review text or sending client messages automatically.
+**Actions:**
+1. DONE: updated `inc/lawyer-recommendations.php`.
+2. DONE: updated `inc/lawyer-onboarding.php`.
+3. DONE: created `project-control/first-party-recommendation-token-intake-2026-05-21.md`.
+4. DONE: created `project-control/first-party-recommendation-token-intake-2026-05-21.csv`.
+5. VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+6. VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+7. VERIFIED LOCAL: token submissions create draft first-party recommendations only; public display still requires manual `approved_public`, `confirmed`, `first_party`, published post and profile display opt-in.
+8. BLOCKED: authenticated admin create-link QA, live token form QA and public profile display QA require uPress pull/cache refresh plus owner/admin access.
+9. NEXT: run one controlled owner QA path with a real approved lawyer profile and a safe first-party test recommendation.
+10. BLOCKED: no Google API, Google OAuth, Google import, outbound client SMS/email, public Review schema, AggregateRating, live CMS record, redirect, sitemap or payment setting changed.
+
 ### ACTION-FIRST-PARTY-RECOMMENDATION-DISPLAY-GUARD-001: Restrict public recommendations to approved first-party sources
 **Status:** COMPLETED / CODE FIXED / NOT LIVE VERIFIED
 **Why:** T367 had a first-party recommendation CPT and profile display path, but public queries needed a stricter source guard so Google-linked/manual-imported records cannot accidentally become public recommendation content.

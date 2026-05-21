@@ -1,0 +1,7 @@
+id,area,status,decision,verification,next_step,notes
+REP-TOKEN-001,token-records,FIXED,Admin-only recommendation token CPT added with hashed tokens and expiry,VERIFIED LOCAL,Run authenticated admin create-link QA,Plain token is shown once through admin notice and not stored
+REP-TOKEN-002,admin-action,FIXED,Lawyer Onboarding can create one-time recommendation links,VERIFIED LOCAL,Owner clicks Create recommendation link for a real approved lawyer,Requires WordPress admin session
+REP-TOKEN-003,public-intake,FIXED,Noindex public token form collects first-party recommendations,VERIFIED LOCAL,Submit a test recommendation after deployment,Uses query URL not a crawlable archive route
+REP-TOKEN-004,moderation,FIXED,Submissions become draft recommendations with draft_review moderation,VERIFIED LOCAL,Owner approves only after ethics and permission review,No automatic public display
+REP-TOKEN-005,public-display,FIXED,Existing public display guard still blocks draft/unapproved records,VERIFIED LOCAL,Test with one manually approved first-party record,No Review or AggregateRating schema added
+REP-TOKEN-006,live-qa,BLOCKED,Authenticated admin and live token submission QA not yet run,NOT VERIFIED,Run after uPress pull and owner/admin access,No live CMS database row created in this cycle

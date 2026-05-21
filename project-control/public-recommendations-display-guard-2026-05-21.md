@@ -58,7 +58,7 @@ VERIFIED in code:
 
 ## Remaining Work
 
-- Build the recommendation request token/intake flow.
+- Run authenticated QA for the recommendation request token/intake flow.
 - Add owner-approved public profile section QA after real approved first-party recommendation records exist.
 - Decide separately whether Google Business Profile API is worth connecting for metadata only.
 - Keep review schema blocked until source policy, permission workflow and public display rules are fully approved.

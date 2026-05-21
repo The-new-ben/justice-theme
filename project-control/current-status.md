@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-21 20:18 Asia/Jerusalem
+- FIRST-PARTY RECOMMENDATION TOKEN INTAKE: added the missing owner-controlled link flow for collecting real client recommendations without automatic public display.
+- CODED: `inc/lawyer-recommendations.php` now registers private `justice_reco_token` records, stores only hashed tokens, creates 30-day one-time intake links, renders a noindex Hebrew public intake form and saves valid submissions as draft first-party recommendations.
+- CODED: valid submissions set `recommendation_source_type=first_party`, `recommendation_permission=confirmed` and `recommendation_moderation=draft_review`; the token is marked used and owner notification is sent for review.
+- CODED: `inc/lawyer-onboarding.php` now exposes a `Create recommendation link` action and shows the generated link in an admin-only notice.
+- CREATED: `project-control/first-party-recommendation-token-intake-2026-05-21.md`.
+- CREATED: `project-control/first-party-recommendation-token-intake-2026-05-21.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+- VERIFIED LOCAL: `git diff --check` passed with normal Windows line-ending warnings only.
+- NOT LIVE VERIFIED: authenticated admin click-through, uPress pull, live token submission and public profile display QA still require owner/admin access and a real approved first-party test record.
+- BLOCKED: Google API, Google OAuth, Google review import, outbound client SMS/email, public Review schema and AggregateRating remain blocked.
+- SAFETY: repo theme code/docs only. No live CMS database row, no lawyer/customer/recommendation record, no Google data, no outbound client message, no public schema, no payment setting, no redirect and no sitemap changed in this cycle.
+
 ## LATEST WORK STATUS - 2026-05-21 20:02 Asia/Jerusalem
 - FIRST-PARTY RECOMMENDATION PUBLIC DISPLAY GUARD: tightened the public recommendation query so lawyer profiles can only show owner-approved first-party Jus-Tice recommendations by default.
 - RESEARCHED: Google Business Profile prohibited/restricted content policy covers review manipulation and fake engagement risk; Google Business Profile API policy requires proper purpose/consent and limits automated/programmatic use. Sources: https://support.google.com/business/answer/2622994 and https://developers.google.com/my-business/content/policies

@@ -1,0 +1,6 @@
+item,status,verification,next_step
+property_division_draft_merges,FIXED,VERIFIED LOCAL six approved merge inserts applied to content-drafts/divorce-property-division-public-body-he.md,Owner/legal/source approval before CMS upload
+insertion_presence,VERIFIED,VERIFIED LOCAL six insertion IDs present after applying merge script,Keep script idempotent for audit/replay
+static_qa,VERIFIED,VERIFIED LOCAL all seven Family Divorce public-body drafts pass static QA after edit,Use report before owner upload review
+property_division_upload,BLOCKED,NOT VERIFIED no CMS upload or WordPress backup completed,Export actual WordPress editor/database content before CMS execution
+remaining_high_risk_pages,BLOCKED,NOT VERIFIED child-support and child-custody row-level merge decisions still pending,Resolve child-custody and child-support merge rows next

@@ -8,6 +8,9 @@ This checklist defines the minimum safe gate before Family/Divorce moves from pl
 ## Current Position
 
 LATEST 2026-05-21 UPDATE:
+- `tools/apply-family-divorce-property-division-draft-merges.mjs` now applies the six approved `/divorce-property-division/` draft merges.
+- VERIFIED LOCAL: all six insertion IDs are present in the edited draft.
+- VERIFIED LOCAL: all seven Family/Divorce public-body drafts pass static QA after the edit; `/divorce-property-division/` passes with `1,851` words.
 - `tools/resolve-family-divorce-property-division-merge.mjs` now resolves all current-live candidate rows for `/divorce-property-division/`.
 - VERIFIED LOCAL: `35` live rows resolved: `6` merge into draft, `23` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
 - BLOCKED: `/divorce-property-division/` still needs six concise draft edits, static QA rerun and owner/legal/source approval before CMS upload.
@@ -79,6 +82,7 @@ VERIFIED:
 - Live-vs-draft comparison now confirms that all seven pages require merge review before any upload because the clean drafts are materially shorter than the current live pages.
 - The high-risk merge worksheet now gives section-level review rows for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
 - `/divorce-property-division/` current-live candidate rows now have final merge/no-action/skip decisions.
+- `/divorce-property-division/` six approved merge edits are now applied to the clean public-body draft and the full seven-page static QA still passes.
 
 NOT VERIFIED:
 - GSC API export.
@@ -147,7 +151,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 55. Prioritize merge review for `/child-support/`, `/child-custody/` and `/divorce-property-division/` because their draft/live ratios are below or around `0.60`.
 56. Resolve high-risk merge-review rows for `/child-support/`, `/child-custody/` and `/divorce-property-division/` before CMS upload.
 57. Convert each `REVIEW_FOR_MERGE` and `PARTIAL_OVERLAP_REVIEW` row into keep, merge, rewrite or skip decisions.
-58. Apply the six approved `/divorce-property-division/` draft merges and rerun static QA before upload approval.
+58. Apply the six approved `/divorce-property-division/` draft merges and rerun static QA before upload approval. - COMPLETED / VERIFIED LOCAL.
+59. Resolve `/child-custody/` and `/child-support/` high-risk merge rows before those drafts move to owner upload review.
 
 ## Current Recommendation
 

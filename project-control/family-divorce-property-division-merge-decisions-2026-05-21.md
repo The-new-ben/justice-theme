@@ -8,6 +8,13 @@
 - CREATED: `project-control/family-divorce-property-division-merge-decisions-2026-05-21.csv`.
 - NOT PUBLISHED: this is a pre-upload decision layer only; no public page body or CMS field changed.
 
+## Follow-Up Resolution
+
+- FIXED / VERIFIED LOCAL: the six approved draft merges were applied in `content-drafts/divorce-property-division-public-body-he.md`.
+- VERIFIED LOCAL: see `project-control/family-divorce-property-division-draft-merge-2026-05-21.md`.
+- VERIFIED LOCAL: all seven Family/Divorce public-body drafts still pass static QA after the edit.
+- STILL BLOCKED: owner/legal/source approval and actual WordPress editor/database backup are required before CMS upload.
+
 ## Batch Completed
 
 Reviewed `35` current-live candidate rows for `/divorce-property-division/`.

@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-PROPERTY-DIVISION-DRAFT-MERGE-001: Apply approved property-division draft edits
+**Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** The previous decision pass approved six concise `/divorce-property-division/` draft merges. Applying them locally moves this support page closer to controlled owner review without risking a blind overwrite.
+**Actions:**
+1. DONE: created `tools/apply-family-divorce-property-division-draft-merges.mjs`.
+2. DONE: applied six approved public-facing edits to `content-drafts/divorce-property-division-public-body-he.md`.
+3. DONE: created `project-control/family-divorce-property-division-draft-merge-2026-05-21.md`.
+4. DONE: created `project-control/family-divorce-property-division-draft-merge-2026-05-21.csv`.
+5. VERIFIED LOCAL: all six insertion IDs are present in the edited draft.
+6. VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce public-body drafts passed.
+7. VERIFIED: `/divorce-property-division/` now passes static QA with `1,851` words, all required links, no internal markers, no fake-trust hits and disclaimer status `PASS`.
+8. NEXT: resolve `/child-custody/` and `/child-support/` high-risk merge rows.
+9. BLOCKED: do not upload `/divorce-property-division/` until owner/legal/source approval and actual WordPress editor/database backup are complete.
+
 ### ACTION-FAMILY-DIVORCE-PROPERTY-DIVISION-MERGE-DECISIONS-001: Resolve property-division live merge rows
 **Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
 **Why:** `/divorce-property-division/` had the largest number of live-only candidate rows in the high-risk merge worksheet and should be resolved first before any CMS overwrite is approved.

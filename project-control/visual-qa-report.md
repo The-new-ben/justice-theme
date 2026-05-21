@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce Property-Division Draft Merge
+- CONTENT FIXED / VERIFIED LOCAL: applied the six approved `/divorce-property-division/` draft merges.
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/apply-family-divorce-property-division-draft-merges.mjs`.
+- VERIFIED LOCAL: all six insertion IDs are present in `content-drafts/divorce-property-division-public-body-he.md`.
+- VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce public-body drafts passed static QA.
+- VERIFIED: `/divorce-property-division/` passes static QA with `1,851` words, all required links, no internal markers, no fake-trust hits and disclaimer status `PASS`.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was a local content-draft edit only and no public UI changed.
+- BLOCKED: owner/legal/source approval and actual WordPress editor/database backup are still required before CMS upload.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce Property-Division Merge Decisions
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/resolve-family-divorce-property-division-merge.mjs`.
 - VERIFIED LOCAL: resolved all `35` current-live candidate rows for `/divorce-property-division/`.

@@ -752,6 +752,7 @@ function justice_theme_lawyer_prospect_admin_columns( array $columns ): array {
 	$columns['prospect_plan']     = __( 'Target plan', 'justice-theme' );
 	$columns['prospect_status']   = __( 'Status', 'justice-theme' );
 	$columns['prospect_priority'] = __( 'Priority', 'justice-theme' );
+	$columns['prospect_contact']  = __( 'Contact', 'justice-theme' );
 	$columns['prospect_next']     = __( 'Next action', 'justice-theme' );
 	$columns['prospect_actions']  = __( 'Quick actions', 'justice-theme' );
 	return $columns;
@@ -939,6 +940,28 @@ function justice_theme_lawyer_prospect_admin_column( string $column, int $post_i
 	if ( 'prospect_priority' === $column ) {
 		$priority = (string) get_post_meta( $post_id, 'prospect_priority', true );
 		echo esc_html( justice_theme_lawyer_prospect_priorities()[ $priority ] ?? $priority );
+	}
+
+	if ( 'prospect_contact' === $column ) {
+		$email = (string) get_post_meta( $post_id, 'prospect_contact_email', true );
+		$phone = (string) get_post_meta( $post_id, 'prospect_contact_phone', true );
+
+		if ( ! $email && ! $phone ) {
+			echo '<strong style="color:#b32d2e;">' . esc_html__( 'Missing email + phone', 'justice-theme' ) . '</strong>';
+			return;
+		}
+
+		if ( $email ) {
+			echo '<a href="' . esc_url( 'mailto:' . $email ) . '">' . esc_html( $email ) . '</a>';
+		}
+
+		if ( $email && $phone ) {
+			echo '<br>';
+		}
+
+		if ( $phone ) {
+			echo '<a href="' . esc_url( 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ) ) . '">' . esc_html( $phone ) . '</a>';
+		}
 	}
 
 	if ( 'prospect_next' === $column ) {

@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-21 18:20 Asia/Jerusalem
+- LAWYER PROSPECT CONTACT COLUMN: added a private list-level contact column so the owner can see whether prospects are reachable without opening each record.
+- RESEARCHED: Pipedrive contact-management guidance emphasizes keeping contact info and deals together so teams can follow up while prospects are warm; Clio Grow API fields include email and phone number for lead/contact records. Sources: https://www.pipedrive.com/en/crm/solutions/crm-for-contact-managers, https://docs.developers.clio.com/clio-grow/api-reference/
+- CODED: `inc/lawyer-prospects.php` now adds a `Contact` column to the private `justice_prospect` list.
+- CODED: the column shows email as `mailto:`, phone as `tel:`, and `Missing email + phone` when no contact channel exists.
+- VERIFIED: `php -l inc/lawyer-prospects.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is faster prospect triage before manual lawyer outreach.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 84% to 85%; prospect follow-up/readiness discipline moved from 88% to 89%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Contact column.
+- SAFETY: repo theme admin code/docs only at this log point. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 18:11 Asia/Jerusalem
 - LAWYER PROSPECT CONTACT-DETAILS VIEW: added a private CRM view for active lawyer prospects that have no email and no phone.
 - RESEARCHED: HubSpot contact management emphasizes complete contact records, calls, emails and follow-ups inside the CRM; HubSpot enrichment frames blank contact/company fields as sales friction; Salesforce sales data guidance frames quality data as the foundation for faster revenue decisions. Sources: https://www.hubspot.com/products/crm/contact-management, https://www.hubspot.com/products/artificial-intelligence/use-cases/enrich-contact-data, https://www.salesforce.com/sales/data/

@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-REAL-ESTATE-PUBLIC-EDIT-PACKAGE-001: Prepare exact public edit package for Israeli real-estate hub
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED LIVE CHECKS
+**Why:** T361/T351 had mapped the real-estate hub and support roles. The next useful non-CMS step was exact owner-approval text and link placement so a later upload can be done as one controlled batch.
+**Actions:**
+1. DONE: created `project-control/real-estate-public-edit-package-2026-05-21.md`.
+2. DONE: created `project-control/real-estate-public-edit-package-2026-05-21.csv`.
+3. VERIFIED LIVE: `/real-estate-attorney/` returned `200`, stayed on its own URL and self-canonicalized.
+4. VERIFIED LIVE: five safe support URLs returned `200`, self-canonicalized and had `0` sampled links to `/real-estate-attorney/`.
+5. BLOCKED LIVE: `/real-estate-lawyer-guide/` currently resolves to homepage URL/canonical and must not be used in the edit batch until route QA is repaired.
+6. READY: exact Hebrew insert text is prepared for hub intro/navigation plus support-to-hub links from purchase/sale, registration, land-appreciation-tax, cost and appraiser pages.
+7. HOLD: family-overlap real-estate pages and foreign-investment pages are excluded from the first Israeli real-estate lawyer batch.
+8. NEXT: owner approves the exact insert package, then execute CMS edits one page at a time with before/after backups and post-upload fetch checks.
+9. BLOCKED: no public CMS body/title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap, lawyer, lead, payment, GSC/GA4 or wp-admin setting was changed.
+
 ### ACTION-RECOMMENDATION-TOKEN-SAFETY-CHECKER-001: Add static safety checker for token intake
 **Status:** COMPLETED / TOOLING FIXED / VERIFIED LOCAL
 **Why:** Authenticated token QA is blocked by owner/admin access. The repo still needed a repeatable local guard so future recommendation, schema or SMS work cannot accidentally publish first-party submissions or add review schema too early.

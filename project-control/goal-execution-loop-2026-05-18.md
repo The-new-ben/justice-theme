@@ -11,6 +11,35 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 43 - Real Estate Public Edit Package
+
+Research reviewed:
+- Existing real-estate consolidation packet and support-to-hub map from 2026-05-18.
+- Live read-only fetch of the hub and six support URLs.
+
+Business interpretation:
+- Reputation QA is blocked by authenticated owner/admin access.
+- The next unblocked SEO/content step is preparing the exact real-estate CMS edit batch so future upload work can happen as a controlled system instead of ad hoc article edits.
+- The live route check found `/real-estate-lawyer-guide/` currently resolves to homepage URL/canonical, so that page must be excluded until route QA is repaired.
+
+Implemented in this cycle:
+- Created `project-control/real-estate-public-edit-package-2026-05-21.md`.
+- Created `project-control/real-estate-public-edit-package-2026-05-21.csv`.
+- Updated `current-status.md`, `next-actions.md`, `changelog.md`, `visual-qa-report.md`, this loop and `task-board.csv`.
+
+Verification:
+- VERIFIED LIVE: `/real-estate-attorney/` returned 200 and self-canonicalized.
+- VERIFIED LIVE: `/lawyer-for-buying-or-selling-a-house/`, `/registration-of-real-estate-israel/`, `/land-appreciation-tax/`, `/real-estate-lawyer-cost-2025/` and `/real-estate-appraiser/` returned 200 and self-canonicalized.
+- BLOCKED LIVE: `/real-estate-lawyer-guide/` resolved to homepage URL/canonical.
+- VERIFIED PLANNING: package includes exact Hebrew insert text, anchors, placement guidance, hold items, redirect/canonical notes and post-upload checks.
+
+Next step:
+- Owner approves exact insert package, then CMS operator edits hub plus five support pages one at a time with backups and post-upload fetch checks.
+- Separately repair/recheck `/real-estate-lawyer-guide/` before using it in the public link graph.
+
+Safety:
+- Repo docs and read-only public checks only. No live CMS database row, article body, title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap, lawyer, lead, payment, GA4/GSC, wp-admin setting or uPress deployment was changed.
+
 ## Priority Cycle 42 - Recommendation Token Safety Checker
 
 Research reviewed:

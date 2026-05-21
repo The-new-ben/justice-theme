@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Real estate public edit package
+
+- CREATED: `project-control/real-estate-public-edit-package-2026-05-21.md`.
+- CREATED: `project-control/real-estate-public-edit-package-2026-05-21.csv`.
+- VERIFIED / REVIEW ONLY: prepared exact Hebrew CMS insert text and internal-link placement for `/real-estate-attorney/` plus five safe support pages.
+- VERIFIED LIVE: `/real-estate-attorney/`, `/lawyer-for-buying-or-selling-a-house/`, `/registration-of-real-estate-israel/`, `/land-appreciation-tax/`, `/real-estate-lawyer-cost-2025/` and `/real-estate-appraiser/` returned `200` and self-canonicalized.
+- BLOCKED LIVE: `/real-estate-lawyer-guide/` currently resolves to homepage URL/canonical, so it is excluded until route QA is repaired.
+- SAFETY: repo docs and read-only public checks only. No CMS content, title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap, lawyer, lead, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Recommendation token safety checker
 
 - TOOLING FIXED: added `tools/check-recommendation-token-safety.mjs`.

@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Real Estate Public Edit Package Live Check
+- VERIFIED LIVE / READ ONLY: `/real-estate-attorney/` returned `200`, stayed on its own URL and self-canonicalized.
+- VERIFIED LIVE / READ ONLY: `/lawyer-for-buying-or-selling-a-house/`, `/registration-of-real-estate-israel/`, `/land-appreciation-tax/`, `/real-estate-lawyer-cost-2025/` and `/real-estate-appraiser/` returned `200` and self-canonicalized.
+- VERIFIED SOURCE: sampled support pages currently showed `0` links to `/real-estate-attorney/`, confirming the planned support-to-hub link batch is still needed.
+- BLOCKED LIVE: `/real-estate-lawyer-guide/` returned `200` but resolved to homepage URL/canonical, so it is not visually/SEO safe for promotion yet.
+- CREATED: `project-control/real-estate-public-edit-package-2026-05-21.md`.
+- CREATED: `project-control/real-estate-public-edit-package-2026-05-21.csv`.
+- NOT PUBLISHED: this was a read-only live check and repo documentation package only.
+- SAFETY: no public CMS body/title/H1/meta, URL, redirect, canonical, noindex, taxonomy, sitemap, lawyer, lead, payment or admin setting changed.
+
 ## 2026-05-21 Recommendation Token Safety Checker QA
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/check-recommendation-token-safety.mjs`.
 - VERIFIED LOCAL: `node --check tools/check-recommendation-token-safety.mjs` passed.

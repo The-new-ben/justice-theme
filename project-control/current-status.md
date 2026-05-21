@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-21 20:45 Asia/Jerusalem
+- REAL-ESTATE PUBLIC EDIT PACKAGE: prepared the owner-approved CMS execution package for the Israeli real-estate support-to-hub batch without publishing anything.
+- CREATED: `project-control/real-estate-public-edit-package-2026-05-21.md`.
+- CREATED: `project-control/real-estate-public-edit-package-2026-05-21.csv`.
+- VERIFIED LIVE: `/real-estate-attorney/` returned `200`, stayed on its own URL, self-canonicalized and already has `3` hub self/related links in the sampled HTML.
+- VERIFIED LIVE: `/lawyer-for-buying-or-selling-a-house/`, `/registration-of-real-estate-israel/`, `/land-appreciation-tax/`, `/real-estate-lawyer-cost-2025/` and `/real-estate-appraiser/` returned `200`, self-canonicalized and currently have `0` sampled body/source links to `/real-estate-attorney/`.
+- BLOCKED LIVE: `/real-estate-lawyer-guide/` returned `200` but resolved to the homepage URL/canonical, so it is excluded from the public edit batch until route QA is repaired.
+- READY AFTER OWNER APPROVAL: exact Hebrew insert text is prepared for the hub intro/navigation and five safe support pages.
+- HOLD: shared-apartment partition, marital property agreement and spouse property registration remain blocked for Family/Divorce coordination; foreign-investment pages remain de-emphasized.
+- SAFETY: repo documentation and read-only public checks only. No public CMS page/body/title/H1/meta, database row, URL slug, redirect, canonical, noindex, taxonomy, sitemap, lawyer, lead, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 20:32 Asia/Jerusalem
 - RECOMMENDATION TOKEN SAFETY CHECKER: added a repeatable static regression checker for the first-party recommendation token flow while authenticated/live QA remains blocked.
 - CODED: `tools/check-recommendation-token-safety.mjs` verifies private token CPT posture, hashed tokens, noindex public token form, honeypot, draft-only recommendation creation, `first_party` source type, `confirmed` permission, `draft_review` moderation and no accidental `approved_public`.

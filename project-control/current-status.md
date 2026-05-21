@@ -6,11 +6,12 @@
 - FOUND: real-estate, labor-law and personal-injury homepage guide/title destinations were landing on filtered lawyer directory URLs that return 200 but are `noindex`. Good for conversion, weak as main SEO guide targets.
 - CODED: changed those three homepage guide/title destinations to indexable pages while keeping the profile buttons on filtered lawyer-directory URLs: real estate -> `/practice-areas/real-estate-law/`, labor law -> `/practice-areas/labor-law/`, personal injury -> `/tort-lawyer/`.
 - DOCUMENTED: added `project-control/homepage-googlebot-journey-2026-05-21.md`.
-- VERIFIED: pending deploy and live recheck.
+- VERIFIED: `php -l template-parts/sections/homepage-intent-pyramid.php` and `git diff --check` passed before commit. uPress Git log shows `14f6fa9 Point homepage guides to indexable paths` as `HEAD -> main, origin/main`. Live homepage check confirms real-estate, labor and personal-injury guide/title links are visible, the matching `ItemList` schema URLs updated, and all three guide targets return 200 with no `noindex`.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is homepage crawl quality: the homepage now points its main guide actions at indexable legal destinations instead of noindex filters.
-- COMPLETION ASSESSMENT: homepage Googlebot/indexing confidence moved from 70% to 78%; homepage SEO/root readiness moved from 75% to 78%. Still blocked: live deployment verification, GSC/Analytics impact, Grow approval/product mapping and paid lawyer users.
+- COMPLETION ASSESSMENT: homepage Googlebot/indexing confidence moved from 70% to 78%; homepage SEO/root readiness moved from 75% to 78%. Still blocked: GSC/Analytics impact, Grow approval/product mapping and paid lawyer users.
 - OWNER-VISIBLE AFTER DEPLOY: on the homepage, real-estate/labor/personal-injury card title and guide buttons should open legal content pages; profile buttons still open filtered lawyer lists.
-- SAFETY: repo code/docs only so far. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `14f6fa9 Point homepage guides to indexable paths` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 14:49 Asia/Jerusalem
 - HOMEPAGE STRUCTURED DATA: added a safe JSON-LD `ItemList` for the six visible money-intent cards on the homepage.

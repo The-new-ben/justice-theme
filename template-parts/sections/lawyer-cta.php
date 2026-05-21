@@ -19,6 +19,15 @@ $lead_partner_url = function_exists( 'justice_theme_plan_manual_activation_url' 
 		),
 		home_url( '/lawyer-registration/' )
 	);
+$lead_partner_url = add_query_arg(
+	array(
+		'utm_source'       => 'homepage',
+		'utm_medium'       => 'site_cta',
+		'utm_campaign'     => 'lawyer_acquisition',
+		'outreach_segment' => 'homepage_lawyer_cta',
+	),
+	$lead_partner_url
+);
 
 $plans_url = home_url( '/lawyer-plans/' );
 ?>

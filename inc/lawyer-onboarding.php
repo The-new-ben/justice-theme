@@ -23,6 +23,16 @@ function justice_theme_register_lawyer_activation_meta(): void {
 		'google_review_count'         => 'integer',
 		'latest_review_date'          => 'string',
 		'review_display_enabled'      => 'string',
+		'utm_source'                  => 'string',
+		'utm_medium'                  => 'string',
+		'utm_campaign'                => 'string',
+		'utm_content'                 => 'string',
+		'utm_term'                    => 'string',
+		'outreach_segment'            => 'string',
+		'outreach_city'               => 'string',
+		'outreach_practice'           => 'string',
+		'registration_landing_url'    => 'string',
+		'registration_referrer_url'   => 'string',
 	);
 
 	foreach ( $fields as $key => $type ) {
@@ -51,7 +61,7 @@ function justice_theme_lawyer_activation_meta_sanitizer( string $key ): string {
 		return 'sanitize_textarea_field';
 	}
 
-	if ( in_array( $key, array( 'google_business_profile_url', 'google_review_request_url' ), true ) ) {
+	if ( in_array( $key, array( 'google_business_profile_url', 'google_review_request_url', 'registration_landing_url', 'registration_referrer_url' ), true ) ) {
 		return 'esc_url_raw';
 	}
 
@@ -60,6 +70,130 @@ function justice_theme_lawyer_activation_meta_sanitizer( string $key ): string {
 	}
 
 	return 'sanitize_text_field';
+}
+
+function justice_theme_lawyer_registration_attribution_keys(): array {
+	return array(
+		'utm_source',
+		'utm_medium',
+		'utm_campaign',
+		'utm_content',
+		'utm_term',
+		'outreach_segment',
+		'outreach_city',
+		'outreach_practice',
+		'registration_landing_url',
+		'registration_referrer_url',
+	);
+}
+
+function justice_theme_lawyer_registration_request_value( string $key ): string {
+	return isset( $_GET[ $key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $key ] ) ) : '';
+}
+
+function justice_theme_lawyer_registration_current_url(): string {
+	$request_uri = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+	if ( '' === $request_uri ) {
+		return home_url( '/lawyer-registration/' );
+	}
+
+	return esc_url_raw( home_url( $request_uri ) );
+}
+
+function justice_theme_lawyer_registration_referrer_url(): string {
+	$referrer = isset( $_SERVER['HTTP_REFERER'] ) ? (string) wp_unslash( $_SERVER['HTTP_REFERER'] ) : '';
+	return $referrer ? esc_url_raw( $referrer ) : '';
+}
+
+function justice_theme_lawyer_registration_attribution_from_request(): array {
+	$attribution = array(
+		'utm_source'                => justice_theme_lawyer_registration_request_value( 'utm_source' ),
+		'utm_medium'                => justice_theme_lawyer_registration_request_value( 'utm_medium' ),
+		'utm_campaign'              => justice_theme_lawyer_registration_request_value( 'utm_campaign' ),
+		'utm_content'               => justice_theme_lawyer_registration_request_value( 'utm_content' ),
+		'utm_term'                  => justice_theme_lawyer_registration_request_value( 'utm_term' ),
+		'outreach_segment'          => justice_theme_lawyer_registration_request_value( 'outreach_segment' ),
+		'outreach_city'             => justice_theme_lawyer_registration_request_value( 'outreach_city' ),
+		'outreach_practice'         => justice_theme_lawyer_registration_request_value( 'outreach_practice' ),
+		'registration_landing_url'  => justice_theme_lawyer_registration_current_url(),
+		'registration_referrer_url' => justice_theme_lawyer_registration_referrer_url(),
+	);
+
+	$aliases = array(
+		'source'   => 'utm_source',
+		'medium'   => 'utm_medium',
+		'campaign' => 'utm_campaign',
+		'segment'  => 'outreach_segment',
+		'city'     => 'outreach_city',
+		'practice' => 'outreach_practice',
+	);
+
+	foreach ( $aliases as $query_key => $target_key ) {
+		if ( '' === $attribution[ $target_key ] ) {
+			$attribution[ $target_key ] = justice_theme_lawyer_registration_request_value( $query_key );
+		}
+	}
+
+	return $attribution;
+}
+
+function justice_theme_lawyer_registration_attribution_from_post(): array {
+	$attribution = array();
+
+	foreach ( justice_theme_lawyer_registration_attribution_keys() as $key ) {
+		$value = '';
+		if ( isset( $_POST[ $key ] ) ) {
+			$value = in_array( $key, array( 'registration_landing_url', 'registration_referrer_url' ), true )
+				? esc_url_raw( wp_unslash( $_POST[ $key ] ) )
+				: sanitize_text_field( wp_unslash( $_POST[ $key ] ) );
+		}
+		$attribution[ $key ] = $value;
+	}
+
+	return $attribution;
+}
+
+function justice_theme_render_lawyer_registration_attribution_fields( array $attribution ): void {
+	foreach ( justice_theme_lawyer_registration_attribution_keys() as $key ) {
+		if ( empty( $attribution[ $key ] ) ) {
+			continue;
+		}
+		printf(
+			'<input type="hidden" name="%s" value="%s">' . "\n",
+			esc_attr( $key ),
+			esc_attr( $attribution[ $key ] )
+		);
+	}
+}
+
+function justice_theme_lawyer_registration_attribution_summary( array $attribution ): string {
+	$summary_keys = array(
+		'utm_source',
+		'utm_medium',
+		'utm_campaign',
+		'outreach_segment',
+		'outreach_city',
+		'outreach_practice',
+	);
+	$parts = array();
+
+	foreach ( $summary_keys as $key ) {
+		if ( ! empty( $attribution[ $key ] ) ) {
+			$parts[] = $key . '=' . $attribution[ $key ];
+		}
+	}
+
+	return implode( '; ', $parts );
+}
+
+function justice_theme_lawyer_registration_attribution_for_post( int $post_id ): array {
+	$attribution = array();
+
+	foreach ( justice_theme_lawyer_registration_attribution_keys() as $key ) {
+		$attribution[ $key ] = (string) get_post_meta( $post_id, $key, true );
+	}
+
+	return $attribution;
 }
 
 function justice_theme_handle_lawyer_registration(): void {
@@ -99,6 +233,7 @@ function justice_theme_handle_lawyer_registration(): void {
 	$response_commitment = isset( $_POST['lead_response_commitment'] ) ? sanitize_key( wp_unslash( $_POST['lead_response_commitment'] ) ) : '';
 	$google_business_url = isset( $_POST['google_business_profile_url'] ) ? esc_url_raw( wp_unslash( $_POST['google_business_profile_url'] ) ) : '';
 	$google_review_url   = isset( $_POST['google_review_request_url'] ) ? esc_url_raw( wp_unslash( $_POST['google_review_request_url'] ) ) : '';
+	$attribution         = justice_theme_lawyer_registration_attribution_from_post();
 
 	if ( ! array_key_exists( $response_commitment, justice_theme_lawyer_response_commitment_options() ) ) {
 		$response_commitment = '';
@@ -142,7 +277,12 @@ function justice_theme_handle_lawyer_registration(): void {
 		$internal_notes .= "\nGoogle reputation sources supplied during registration. Verify ownership and policy compliance before public display or review outreach.";
 	}
 
-	$meta = array(
+	$attribution_summary = justice_theme_lawyer_registration_attribution_summary( $attribution );
+	if ( $attribution_summary ) {
+		$internal_notes .= "\nAttribution: " . $attribution_summary;
+	}
+
+	$meta = array_merge( array(
 		'lawyer_full_name'     => $name,
 		'firm_name'            => $firm,
 		'bar_number'           => $bar_number,
@@ -175,7 +315,7 @@ function justice_theme_handle_lawyer_registration(): void {
 		'source_type'          => 'registration',
 		'lead_routing_enabled' => false,
 		'internal_notes'       => $internal_notes,
-	);
+	), $attribution );
 
 	foreach ( $meta as $key => $value ) {
 		update_post_meta( $post_id, $key, $value );
@@ -276,7 +416,7 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 
 	$subject = 'New lawyer registration pending review';
 	$message = sprintf(
-		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nLead response: %s\nHeadline: %s\nVideo: %s\nGoogle Business: %s\nGoogle review link: %s\n\nReview: %s",
+		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nLead response: %s\nAttribution: %s\nLanding page: %s\nHeadline: %s\nVideo: %s\nGoogle Business: %s\nGoogle review link: %s\n\nReview: %s",
 		$meta['lawyer_full_name'] ?: '-',
 		$meta['firm_name'] ?: '-',
 		$meta['phone'] ?: '-',
@@ -285,6 +425,8 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 		$meta['payment_path'] ?: '-',
 		$meta['payment_followup_status'] ?: '-',
 		justice_theme_lawyer_response_commitment_options()[ $meta['lead_response_commitment'] ?? '' ] ?? '-',
+		justice_theme_lawyer_registration_attribution_summary( $meta ) ?: '-',
+		$meta['registration_landing_url'] ?: '-',
 		$meta['profile_headline'] ?: '-',
 		$meta['profile_video_url'] ?: '-',
 		$meta['google_business_profile_url'] ?: '-',
@@ -779,6 +921,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						<th>Phone</th>
 						<th>Email</th>
 						<th>Plan</th>
+						<th>Source</th>
 						<th>Sales Priority</th>
 						<th>Payment Follow-up</th>
 						<th>Mini-site Content</th>
@@ -797,6 +940,8 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$post_id = get_the_ID();
 						$status  = get_post_meta( $post_id, 'profile_status', true ) ?: get_post_status( $post_id );
 						$plan    = (string) get_post_meta( $post_id, 'plan_type', true );
+						$registration_attribution = justice_theme_lawyer_registration_attribution_for_post( $post_id );
+						$attribution_summary      = justice_theme_lawyer_registration_attribution_summary( $registration_attribution );
 						$sales_priority = justice_theme_lawyer_onboarding_sales_priority( $plan );
 						$activation_status = (string) get_post_meta( $post_id, 'activation_status', true ) ?: 'registered';
 						$activation_badge  = justice_theme_lawyer_activation_badge( $activation_status );
@@ -853,6 +998,16 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 								<strong><?php echo esc_html( justice_theme_lawyer_onboarding_plan_label( $plan ) ); ?></strong>
 								<?php if ( $plan ) : ?>
 									<br><small><?php echo esc_html( $plan ); ?></small>
+								<?php endif; ?>
+							</td>
+							<td>
+								<?php if ( $attribution_summary ) : ?>
+									<small><?php echo esc_html( $attribution_summary ); ?></small>
+								<?php else : ?>
+									-
+								<?php endif; ?>
+								<?php if ( ! empty( $registration_attribution['registration_landing_url'] ) ) : ?>
+									<br><a href="<?php echo esc_url( $registration_attribution['registration_landing_url'] ); ?>" target="_blank" rel="noopener noreferrer">landing</a>
 								<?php endif; ?>
 							</td>
 							<td>

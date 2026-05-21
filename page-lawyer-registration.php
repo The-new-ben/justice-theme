@@ -68,6 +68,10 @@ if ( $selected_plan && function_exists( 'justice_theme_lawyer_plan_public_overri
 		$selected_plan['price'] = $selected_plan_override['price'];
 	}
 }
+
+$registration_attribution = function_exists( 'justice_theme_lawyer_registration_attribution_from_request' )
+	? justice_theme_lawyer_registration_attribution_from_request()
+	: array();
 ?>
 
 <section class="lawyer-registration-hero section">
@@ -125,6 +129,11 @@ if ( $selected_plan && function_exists( 'justice_theme_lawyer_plan_public_overri
 				<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
 					<input type="hidden" name="payment_path" value="manual_invoice">
 				<?php endif; ?>
+				<?php
+				if ( function_exists( 'justice_theme_render_lawyer_registration_attribution_fields' ) ) {
+					justice_theme_render_lawyer_registration_attribution_fields( $registration_attribution );
+				}
+				?>
 				<?php wp_nonce_field( 'justice_lawyer_registration', 'justice_lawyer_registration_nonce' ); ?>
 				<p class="lawyer-registration-form__trap">
 					<label>Website <input type="text" name="website_url_confirm" tabindex="-1" autocomplete="off"></label>

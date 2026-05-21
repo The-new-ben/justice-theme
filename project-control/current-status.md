@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-21 16:01 Asia/Jerusalem
+- LAWYER OUTREACH ATTRIBUTION: added campaign/source tracking to the lawyer registration path so outreach can be measured by source, segment, city and practice.
+- RESEARCHED: Clio Grow tracks marketing sources from outreach and online channels on contacts/matters, and its reports expose source, referral, status and revenue data to show where profit originates. Sources: https://help.clio.com/hc/en-us/articles/25315194374299-Clio-Grow-Marketing-Sources, https://help.clio.com/hc/en-us/articles/29739406189339-Clio-Grow-Reports
+- CODED: `page-lawyer-registration.php` now renders hidden attribution fields from UTM/outreach query parameters.
+- CODED: `inc/lawyer-onboarding.php` now sanitizes, stores and summarizes attribution fields on submitted lawyer drafts; admin notification emails include attribution and landing-page context.
+- CODED: the Lawyer Onboarding admin table now has a Source column so future registrations show their source/campaign context.
+- CODED: `template-parts/sections/lawyer-cta.php` now appends homepage CTA attribution tags to the lead-partner registration URL.
+- DOCUMENTED: added `project-control/lawyer-registration-attribution-2026-05-21.md`.
+- VERIFIED: `php -l inc/lawyer-onboarding.php`, `php -l page-lawyer-registration.php`, `php -l template-parts/sections/lawyer-cta.php`, and `git diff --check` passed.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is sales measurement: first lawyer outreach can now be tracked by message/source/city/practice instead of becoming anonymous form traffic.
+- COMPLETION ASSESSMENT: lawyer outreach measurement readiness moved from 15% to 45%; first paid-lawyer readiness moved from 87% to 88%; homepage-to-lawyer-subscription path remains 82% but now carries attribution tags.
+- OWNER-VISIBLE AFTER DEPLOY: use a lawyer-registration URL with `utm_source`, `outreach_segment`, `outreach_city` or `outreach_practice`; submitted drafts should preserve those values in Lawyer Onboarding.
+- SAFETY: repo theme code/docs only so far. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created, no lawyer/lead record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 15:47 Asia/Jerusalem
 - HOMEPAGE LAWYER ACQUISITION: connected the homepage to the stronger paid-lawyer onboarding path so lawyers can clearly start a lead-partner fit check from the front page.
 - RESEARCHED: Justia monetizes premium lawyer visibility with enhanced profiles, contact forms, traffic stats and monthly reporting; Clio Grow sells lawyers on organized lead stages, source tracking, conversion and value reporting. Sources: https://www.justia.com/marketing/lawyer-directory/, https://www.clio.com/grow/, https://help.clio.com/hc/en-us/articles/29739406189339-Clio-Grow-Reports

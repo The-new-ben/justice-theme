@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-21 17:35 Asia/Jerusalem
+- LAWYER PROSPECT FOLLOW-UP VIEWS: added due/overdue follow-up views and list-level quick actions to the private Lawyer Prospects admin list.
+- RESEARCHED: HubSpot tasks use record-linked due dates, reminders, priority and follow-up creation; Salesforce's 2026 pipeline guidance stresses clear next steps, regular reviews and automation because leads do not close by themselves. Sources: https://knowledge.hubspot.com/tasks/create-tasks, https://www.salesforce.com/sales/pipeline/management/
+- CODED: `inc/lawyer-prospects.php` now adds Due now, Overdue, Today and Upcoming views on the `justice_prospect` list using `prospect_next_action_at`.
+- CODED: the Next action column now labels records as Overdue, Due today, Scheduled or No date set.
+- CODED: the prospect list now shows quick action buttons for Contacted today, Set follow-up, Proposal sent, Won/onboarding and Lost/not fit.
+- VERIFIED: `php -l inc/lawyer-prospects.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `a8a9493 Show due follow-ups in lawyer prospect list`; uPress Git pull succeeded and the uPress log shows `a8a9493` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: direct unauthenticated access to `wp-admin/edit.php?post_type=justice_prospect&justice_prospect_due_filter=due` redirects to WordPress login; the follow-up request hit the uPress login protector challenge and did not expose the private list publicly.
+- HONEST MONEY ASSESSMENT: no revenue earned yet, no outreach sent and no prospect updated. Material advancement is daily sales execution: the owner can now see due lawyer follow-ups and update status without opening every prospect.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 70% to 74%; prospect follow-up readiness moved from 62% to 72%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Due now / Overdue / Today / Upcoming.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 17:31 Asia/Jerusalem
 - LAWYER OUTREACH -> PROSPECT PIPELINE: connected the owner-only Outreach Links screen to the private Lawyer Prospects CRM so each manual lawyer message can become a tracked follow-up record.
 - RESEARCHED: Clio Grow tracks marketing sources on contacts/matters and reports source, status, estimated value, conversion rate, revenue and pipeline value. Sources: https://help.clio.com/hc/en-us/articles/25315194374299-Clio-Grow-Marketing-Sources, https://help.clio.com/hc/en-us/articles/29739406189339-Clio-Grow-Reports

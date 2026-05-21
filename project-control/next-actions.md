@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-LIVE-VS-DRAFT-COMPARE-001: Compare live snapshots against clean drafts before overwrite
+**Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** The seven target pages are already live and indexable. The clean drafts passed static QA, but upload approval needs proof that a CMS overwrite will not discard stronger current-live sections.
+**Actions:**
+1. DONE: created `tools/compare-family-divorce-live-vs-drafts.mjs`.
+2. DONE: compared seven live public snapshots against seven clean public-body drafts.
+3. GENERATED: `reports/family-divorce-live-vs-draft-comparison-2026-05-21.csv`.
+4. DONE: created `project-control/family-divorce-live-vs-draft-comparison-2026-05-21.md`.
+5. DONE: created `project-control/family-divorce-live-vs-draft-comparison-2026-05-21.csv`.
+6. VERIFIED: live snapshots total `19,236` words; drafts total `11,673` words; draft reduction is `-7,563` words.
+7. BLOCKED: no blind overwrite; all seven pages require page-by-page merge review.
+8. HIGH PRIORITY MERGE REVIEW: `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+9. NEXT: run side-by-side merge review and produce final keep/merge/rewrite decisions before CMS upload approval.
+
 ### ACTION-FAMILY-DIVORCE-LIVE-TARGET-BACKUP-001: Export public snapshots of live target pages before overwrite
 **Status:** COMPLETED / VERIFIED LIVE READ ONLY / NO PUBLIC CHANGES
 **Why:** The live pre-upload guard proved all seven Family/Divorce target slugs already exist and self-canonicalize. Before any CMS overwrite/update, the current live public content needs a local comparison snapshot.

@@ -8,6 +8,9 @@ This checklist defines the minimum safe gate before Family/Divorce moves from pl
 ## Current Position
 
 LATEST 2026-05-21 UPDATE:
+- `tools/compare-family-divorce-live-vs-drafts.mjs` now compares the seven live public snapshots against the seven clean public-body drafts.
+- VERIFIED LOCAL: live snapshots total `19,236` words; clean drafts total `11,673` words; net draft reduction is `-7,563` words.
+- BLOCKED: no blind overwrite is approved; all seven pages need page-by-page merge review, with high priority for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
 - `tools/export-family-divorce-live-targets.mjs` now exports public text snapshots and metadata for the seven live Family/Divorce target pages before overwrite/update.
 - VERIFIED LIVE / READ ONLY: all seven target pages exported as `PASS`, capturing `19,236` words in `reports/family-divorce-live-target-backup-2026-05-21/`.
 - STILL REQUIRED: actual WordPress editor/database export before any CMS update; the snapshot is public text backup only.
@@ -67,6 +70,7 @@ VERIFIED:
 - The live pre-upload guard now confirms all seven clean target slugs already return `200` and self-canonicalize, so current live content must be backed up before any overwrite/update.
 - The live pre-upload guard now confirms `5` protected Family/Divorce source URLs redirect to homepage and must be resolved or intentionally mapped before URL migration.
 - Public text snapshots now preserve the current live target-page content for side-by-side comparison before approved overwrite/update.
+- Live-vs-draft comparison now confirms that all seven pages require merge review before any upload because the clean drafts are materially shorter than the current live pages.
 
 NOT VERIFIED:
 - GSC API export.
@@ -131,6 +135,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 51. Resolve or explicitly map the five protected source homepage redirects before URL migration, redirect, canonical/noindex or sitemap decisions.
 52. Compare approved replacement bodies against the public live target snapshots and keep/merge any stronger current-live sections before upload.
 53. Export actual WordPress editor/database content before CMS execution; the public text snapshot is not sufficient as rollback backup.
+54. Complete side-by-side merge review for all seven target pages before owner approves CMS overwrite/update.
+55. Prioritize merge review for `/child-support/`, `/child-custody/` and `/divorce-property-division/` because their draft/live ratios are below or around `0.60`.
 
 ## Current Recommendation
 

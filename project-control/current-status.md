@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-21 21:32 Asia/Jerusalem
+- FAMILY/DIVORCE LIVE VS DRAFT COMPARISON: compared the seven clean public-body drafts against the seven live public text snapshots before any CMS overwrite.
+- TOOLING FIXED: created `tools/compare-family-divorce-live-vs-drafts.mjs`.
+- VERIFIED LOCAL: the comparison reviewed `7` target pages and generated `reports/family-divorce-live-vs-draft-comparison-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-live-vs-draft-comparison-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-live-vs-draft-comparison-2026-05-21.csv`.
+- VERIFIED: live snapshots total `19,236` words; clean draft bodies total `11,673` words; net draft reduction is `-7,563` words.
+- BLOCKED: no Family/Divorce page should be uploaded as a blind overwrite; all seven need merge review, with HIGH priority for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- READY: the next content-readiness step is side-by-side merge review to keep or merge stronger current-live sections into the approved drafts.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 21:22 Asia/Jerusalem
 - FAMILY/DIVORCE LIVE TARGET BACKUP: exported public text snapshots and metadata for the seven live Family/Divorce target pages before any CMS overwrite.
 - TOOLING FIXED: created `tools/export-family-divorce-live-targets.mjs` to fetch title, H1, meta description, canonical, robots, final path and primary page text.

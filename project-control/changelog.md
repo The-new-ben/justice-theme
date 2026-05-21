@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce live vs draft comparison
+
+- TOOLING FIXED: added `tools/compare-family-divorce-live-vs-drafts.mjs`.
+- VERIFIED LOCAL: compared seven live public snapshots against seven clean public-body drafts.
+- GENERATED: `reports/family-divorce-live-vs-draft-comparison-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-live-vs-draft-comparison-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-live-vs-draft-comparison-2026-05-21.csv`.
+- VERIFIED: live snapshots total `19,236` words; clean draft bodies total `11,673` words; net draft reduction is `-7,563` words.
+- BLOCKED: all seven pages need merge review before upload; no blind CMS overwrite is approved.
+- HIGH PRIORITY: `/child-support/`, `/child-custody/` and `/divorce-property-division/` have the largest retention risk.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce live target backup
 
 - TOOLING FIXED: added `tools/export-family-divorce-live-targets.mjs`.

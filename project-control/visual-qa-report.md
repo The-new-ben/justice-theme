@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce Live vs Draft Comparison
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/compare-family-divorce-live-vs-drafts.mjs`.
+- VERIFIED LOCAL: compared seven live public text snapshots against seven clean public-body drafts.
+- VERIFIED: live snapshots total `19,236` words; drafts total `11,673` words; net draft reduction is `-7,563` words.
+- BLOCKED: no blind overwrite; all seven pages require merge review before upload.
+- HIGH PRIORITY MERGE REVIEW: `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was text comparison only and no public UI changed.
+- NEXT QA: after merge review and approved CMS update, rerun live route/content QA and capture screenshots.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce Live Target Backup
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/export-family-divorce-live-targets.mjs`.
 - VERIFIED LIVE / READ ONLY: all seven Family/Divorce target pages returned `200`, stayed on their own final paths and exported as `PASS`.

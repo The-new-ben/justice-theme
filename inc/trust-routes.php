@@ -70,6 +70,10 @@ function justice_theme_prepare_trust_route( array $config ): void {
 
 	status_header( 200 );
 
+	if ( ! headers_sent() ) {
+		header( 'X-Justice-Route-Guard: trust-route-early-render', true );
+	}
+
 	$title         = trim( wp_strip_all_tags( (string) ( $config['title'] ?? '' ) ) );
 	$description   = trim( wp_strip_all_tags( (string) ( $config['description'] ?? '' ) ) );
 	$canonical_url = justice_theme_public_url( (string) ( $config['canonical'] ?? home_url( '/' ) ) );
@@ -337,6 +341,10 @@ function justice_theme_render_trust_route_page( array $config ): void {
 
 /**
  * Serve lightweight trust pages before redirect helpers can convert them to 404s.
+ *
+ * This runs at the same earliest priority as the controlled money-route and
+ * HTML-sitemap renderers. It can beat WordPress-level redirect plugins, but it
+ * cannot beat server/CDN redirects that fire before PHP handles the request.
  */
 function justice_theme_maybe_render_trust_route(): void {
 	$config = justice_theme_get_trust_route_config( justice_theme_trust_route_request_path() );
@@ -349,4 +357,4 @@ function justice_theme_maybe_render_trust_route(): void {
 	justice_theme_render_trust_route_page( $config );
 	exit;
 }
-add_action( 'template_redirect', 'justice_theme_maybe_render_trust_route', -3950 );
+add_action( 'template_redirect', 'justice_theme_maybe_render_trust_route', -999999 );

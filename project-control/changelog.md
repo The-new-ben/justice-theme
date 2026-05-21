@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Trust route early render
+
+- CODE FIXED: `inc/trust-routes.php` now renders `/contact/`, `/about/` and `/editorial-policy/` at `template_redirect` priority `-999999`.
+- CODE FIXED: trust-route responses send `X-Justice-Route-Guard: trust-route-early-render`.
+- UPDATED: deployment marker to `2026-05-21-trust-route-early-render-v1`.
+- CREATED: `project-control/trust-route-early-render-2026-05-21.md`.
+- CREATED: `project-control/trust-route-early-render-2026-05-21.csv`.
+- VERIFIED LOCAL: PHP lint passed for `functions.php` and `inc/trust-routes.php`; JS syntax passed for the traffic-priority and trust-route checkers; task-board CSV parse and `git diff --check` passed with normal Windows line-ending warnings only.
+- NOT LIVE VERIFIED: uPress pull/cache clear and fresh route checks are still required.
+- SAFETY: no CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Protected practice route early render
 
 - CODE FIXED: `inc/practice-landing.php` now uses one controlled-route template resolver for practice-route templates.

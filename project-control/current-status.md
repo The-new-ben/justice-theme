@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-21 20:53 Asia/Jerusalem
+- TRUST ROUTE EARLY RENDER: hardened the existing virtual `/contact/`, `/about/` and `/editorial-policy/` trust routes against later WordPress redirect plugins.
+- CODE FIXED: `inc/trust-routes.php` now renders trust routes at `template_redirect` priority `-999999`, matching the protected practice route and HTML sitemap early renderers.
+- CODE FIXED: trust-route responses now send `X-Justice-Route-Guard: trust-route-early-render`.
+- UPDATED: deployment marker to `2026-05-21-trust-route-early-render-v1`.
+- CREATED: `project-control/trust-route-early-render-2026-05-21.md`.
+- CREATED: `project-control/trust-route-early-render-2026-05-21.csv`.
+- VERIFIED LOCAL: `php -l functions.php`, `php -l inc/trust-routes.php`, `node --check tools/check-live-traffic-priority.mjs`, `node --check tools/check-live-trust-routes.mjs`, task-board CSV parse and `git diff --check` passed; `git diff --check` reported normal Windows line-ending warnings only.
+- NOT LIVE VERIFIED: public server still needs uPress Git pull/cache clear; if `/contact/` or `/about/` still return an initial `301` to `/`, the blocker is server/CDN/host-panel/early-plugin redirect behavior before the theme can render.
+- SAFETY: no CMS page body, database row, title/H1/meta, public slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 20:42 Asia/Jerusalem
 - PROTECTED PRACTICE ROUTE EARLY RENDER: added a repo-side mitigation for priority routes that may be intercepted by later WordPress redirect plugins.
 - CODE FIXED: `inc/practice-landing.php` now resolves controlled practice route templates through one helper and renders them at `template_redirect` priority `-999999`.

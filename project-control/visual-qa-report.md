@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Trust Route Early Render QA
+- CODE FIXED / NOT LIVE VERIFIED: `/contact/`, `/about/` and `/editorial-policy/` now render at `template_redirect` priority `-999999`.
+- CODE FIXED / NOT LIVE VERIFIED: trust-route output now sends `X-Justice-Route-Guard: trust-route-early-render`.
+- VERIFIED LOCAL: PHP lint passed for `functions.php` and `inc/trust-routes.php`; JS syntax passed for the traffic-priority and trust-route checkers; task-board CSV parse and `git diff --check` passed with normal Windows line-ending warnings only.
+- NOT VISUALLY VERIFIED: public screenshots are not useful until uPress pull/cache clear and the routes stop returning initial `301` to homepage.
+- NEXT QA: after deploy, `/contact/` and `/about/` should return initial `200`, stay on their own final paths and remain indexable.
+- BLOCKED: if initial `301` remains after deploy, inspect server/CDN/host-panel/early-plugin redirect rules.
+- SAFETY: no CMS page, database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment or admin setting changed.
+
 ## 2026-05-21 Protected Practice Route Early Render QA
 - CODE FIXED / NOT LIVE VERIFIED: controlled practice routes now render at `template_redirect` priority `-999999` and exit before later redirect plugins.
 - CODE FIXED / NOT LIVE VERIFIED: `/site-map/` renderer now runs at `template_redirect` priority `-999999`.

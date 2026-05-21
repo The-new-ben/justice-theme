@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-TRUST-ROUTE-EARLY-RENDER-001: Render trust routes before later redirect plugins
+**Status:** CODE FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED
+**Why:** `/contact/` and `/about/` are lead/trust paths. The latest live route triage reported initial `301` redirects to the homepage even though virtual trust-route content already exists in the theme, so the route renderer needed the same early priority used for protected money routes.
+**Actions:**
+1. DONE: reviewed the existing virtual trust-route handler for `/contact/`, `/about/` and `/editorial-policy/`.
+2. DONE: changed `inc/trust-routes.php` to render at `template_redirect` priority `-999999`.
+3. DONE: added `X-Justice-Route-Guard: trust-route-early-render` to trust-route responses.
+4. DONE: updated deployment marker to `2026-05-21-trust-route-early-render-v1`.
+5. DONE: created `project-control/trust-route-early-render-2026-05-21.md`.
+6. DONE: created `project-control/trust-route-early-render-2026-05-21.csv`.
+7. VERIFIED LOCAL: `php -l functions.php`, `php -l inc/trust-routes.php`, `node --check tools/check-live-traffic-priority.mjs`, `node --check tools/check-live-trust-routes.mjs`, task-board CSV parse and `git diff --check` passed; `git diff --check` reported normal Windows line-ending warnings only.
+8. NEXT: commit and push.
+9. AFTER DEPLOY: rerun `node tools/check-live-traffic-priority.mjs` and `node tools/check-live-trust-routes.mjs`.
+10. BLOCKED: if `/contact/` or `/about/` still return initial `301` to `/` after deployment, inspect server/CDN/host-panel/early-plugin redirect rules because theme PHP is not getting control.
+
 ### ACTION-PROTECTED-PRACTICE-ROUTE-EARLY-RENDER-001: Render controlled money routes before later redirect plugins
 **Status:** CODE FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED
 **Why:** The route triage proved several priority URLs are being redirected to the homepage before users or Google see route content. The repo-side mitigation is to render known controlled routes at a very early WordPress lifecycle point, while still recognizing server/CDN redirects may require admin cleanup.
@@ -20,7 +35,7 @@
 8. VERIFIED LOCAL: PHP lint passed for `inc/practice-landing.php`, `inc/html-sitemap.php` and `functions.php`.
 9. NEXT: after uPress pull/cache clear, rerun `node tools/check-live-traffic-priority.mjs`.
 10. BLOCKED: if `/site-map/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/` or `/inheritance-lawyer/` still show initial `301` to `/`, inspect server/CDN/plugin redirect rules because PHP theme code is not getting control.
-11. REMAINS BLOCKED: `/contact/` and `/about/` need CMS route restore, explicit theme routes or redirect-rule cleanup.
+11. UPDATED: `/contact/` and `/about/` are now handled by ACTION-TRUST-ROUTE-EARLY-RENDER-001; live verification remains blocked until uPress pull/cache clear.
 
 ### ACTION-PUBLIC-ROUTE-HOME-REDIRECT-TRIAGE-001: Record initial redirect blockers for priority public routes
 **Status:** COMPLETED / VERIFIED LIVE / BLOCKED BY REDIRECT LAYER

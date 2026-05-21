@@ -1,0 +1,6 @@
+id,item,status,details,next_step,safety
+1,route_batch,FIXED,"Reviewed and hardened /contact/ /about/ and /editorial-policy/ virtual trust routes","Deploy via uPress pull/cache clear then rerun live route checks","Repo theme code only"
+2,hook_priority,FIXED,"inc/trust-routes.php now renders at template_redirect priority -999999","Verify initial 200 on contact/about after deployment","No CMS or redirect-rule edit"
+3,response_marker,FIXED,"Trust route responses send X-Justice-Route-Guard: trust-route-early-render","Use header marker to distinguish theme-rendered content from homepage fallback","No public content publication"
+4,deployment_marker,FIXED,"functions.php marker updated to 2026-05-21-trust-route-early-render-v1","Confirm marker appears after pull/cache clear","Theme marker only"
+5,live_status,NOT VERIFIED,"Public server still needs deployment before the code can affect live routes","If initial 301 remains after deploy inspect server CDN host or early plugin redirect rules","No destructive action taken"

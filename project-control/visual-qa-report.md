@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce Live Target Backup
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/export-family-divorce-live-targets.mjs`.
+- VERIFIED LIVE / READ ONLY: all seven Family/Divorce target pages returned `200`, stayed on their own final paths and exported as `PASS`.
+- GENERATED: `reports/family-divorce-live-target-backup-2026-05-21/` with a manifest and seven public-text snapshots.
+- VERIFIED: captured `19,236` words of current live public text before any CMS overwrite/update.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this cycle captured text/metadata snapshots and did not change public UI.
+- NOT A DB BACKUP: WordPress editor/database export is still required before CMS edits.
+- NEXT QA: compare these snapshots against the approved replacement drafts, then capture screenshots only after an approved staging/public update.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce Live Pre-Upload Guard
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/check-family-divorce-live-preupload.mjs`.
 - VERIFIED LIVE / READ ONLY WITH BLOCKERS: checked `25` Family/Divorce URLs and generated `reports/family-divorce-live-preupload-2026-05-21.csv`.

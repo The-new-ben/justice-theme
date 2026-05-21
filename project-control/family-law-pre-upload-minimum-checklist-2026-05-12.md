@@ -8,6 +8,9 @@ This checklist defines the minimum safe gate before Family/Divorce moves from pl
 ## Current Position
 
 LATEST 2026-05-21 UPDATE:
+- `tools/export-family-divorce-live-targets.mjs` now exports public text snapshots and metadata for the seven live Family/Divorce target pages before overwrite/update.
+- VERIFIED LIVE / READ ONLY: all seven target pages exported as `PASS`, capturing `19,236` words in `reports/family-divorce-live-target-backup-2026-05-21/`.
+- STILL REQUIRED: actual WordPress editor/database export before any CMS update; the snapshot is public text backup only.
 - `tools/check-family-divorce-live-preupload.mjs` now provides a live read-only pre-upload guard for the seven clean Family/Divorce target slugs and protected P0 source URLs.
 - VERIFIED LIVE / READ ONLY WITH BLOCKERS: `25` URLs checked; `13` pass, `7` are live-present-review target pages, and `5` protected sources redirect to homepage.
 - GENERATED: `reports/family-divorce-live-preupload-2026-05-21.csv`.
@@ -63,6 +66,7 @@ VERIFIED:
 - All six Wave 1B support URLs returned `200` and self-canonicalized during the metadata check.
 - The live pre-upload guard now confirms all seven clean target slugs already return `200` and self-canonicalize, so current live content must be backed up before any overwrite/update.
 - The live pre-upload guard now confirms `5` protected Family/Divorce source URLs redirect to homepage and must be resolved or intentionally mapped before URL migration.
+- Public text snapshots now preserve the current live target-page content for side-by-side comparison before approved overwrite/update.
 
 NOT VERIFIED:
 - GSC API export.
@@ -125,6 +129,8 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 49. Run the Family/Divorce live pre-upload guard and export the current public-state report before any CMS update.
 50. Backup/export the seven live target pages before any overwrite/update because they are already live and indexable.
 51. Resolve or explicitly map the five protected source homepage redirects before URL migration, redirect, canonical/noindex or sitemap decisions.
+52. Compare approved replacement bodies against the public live target snapshots and keep/merge any stronger current-live sections before upload.
+53. Export actual WordPress editor/database content before CMS execution; the public text snapshot is not sufficient as rollback backup.
 
 ## Current Recommendation
 

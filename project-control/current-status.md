@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-21 21:22 Asia/Jerusalem
+- FAMILY/DIVORCE LIVE TARGET BACKUP: exported public text snapshots and metadata for the seven live Family/Divorce target pages before any CMS overwrite.
+- TOOLING FIXED: created `tools/export-family-divorce-live-targets.mjs` to fetch title, H1, meta description, canonical, robots, final path and primary page text.
+- VERIFIED LIVE / READ ONLY: all seven target URLs returned `200`, stayed on their own final paths and exported as `PASS`.
+- GENERATED: `reports/family-divorce-live-target-backup-2026-05-21/` with `manifest.csv`, `README.md` and seven `.txt` public-text snapshots.
+- CREATED: `project-control/family-divorce-live-target-backup-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-live-target-backup-2026-05-21.csv`.
+- VERIFIED: captured `19,236` words of current live public text across `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/` and `/child-custody/`.
+- NOT A DB BACKUP: this is a public HTML/text snapshot; actual WordPress editor/database export is still required before CMS edits.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 21:16 Asia/Jerusalem
 - FAMILY/DIVORCE LIVE PRE-UPLOAD GUARD: added a read-only live checker for the first controlled Family/Divorce upload cluster.
 - TOOLING FIXED: created `tools/check-family-divorce-live-preupload.mjs` to record initial redirects, final paths, HTTP status, content type, canonical, robots, title, H1 and byte size.

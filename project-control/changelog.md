@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce live target backup
+
+- TOOLING FIXED: added `tools/export-family-divorce-live-targets.mjs`.
+- VERIFIED LIVE / READ ONLY: exported metadata and public text snapshots for seven live Family/Divorce target pages.
+- GENERATED: `reports/family-divorce-live-target-backup-2026-05-21/manifest.csv`.
+- GENERATED: seven public-text snapshot files under `reports/family-divorce-live-target-backup-2026-05-21/`.
+- CREATED: `project-control/family-divorce-live-target-backup-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-live-target-backup-2026-05-21.csv`.
+- VERIFIED: all seven target pages returned `200`, stayed on their own final paths and exported as `PASS`.
+- VERIFIED: captured `19,236` words of current live public text for comparison before CMS overwrite/update.
+- NOT A DB BACKUP: actual WordPress editor/database export is still required before live edits.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce live pre-upload guard
 
 - TOOLING FIXED: added `tools/check-family-divorce-live-preupload.mjs`.

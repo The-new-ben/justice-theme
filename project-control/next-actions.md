@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-LIVE-TARGET-BACKUP-001: Export public snapshots of live target pages before overwrite
+**Status:** COMPLETED / VERIFIED LIVE READ ONLY / NO PUBLIC CHANGES
+**Why:** The live pre-upload guard proved all seven Family/Divorce target slugs already exist and self-canonicalize. Before any CMS overwrite/update, the current live public content needs a local comparison snapshot.
+**Actions:**
+1. DONE: created `tools/export-family-divorce-live-targets.mjs`.
+2. DONE: exported public text snapshots and metadata for `7` target pages.
+3. GENERATED: `reports/family-divorce-live-target-backup-2026-05-21/manifest.csv`.
+4. GENERATED: seven public-text snapshot files under `reports/family-divorce-live-target-backup-2026-05-21/`.
+5. DONE: created `project-control/family-divorce-live-target-backup-2026-05-21.md`.
+6. DONE: created `project-control/family-divorce-live-target-backup-2026-05-21.csv`.
+7. VERIFIED LIVE: all seven pages returned `200`, stayed on their own final paths and exported as `PASS`.
+8. VERIFIED: captured `19,236` words of current live public text.
+9. LIMIT: this is not a WordPress database/editor backup; CMS export remains required before edits.
+10. NEXT: compare approved replacement bodies against these snapshots and keep/merge any current-live sections that are stronger than the new drafts.
+
 ### ACTION-FAMILY-DIVORCE-LIVE-PREUPLOAD-GUARD-001: Check live Family/Divorce targets and protected sources before upload
 **Status:** COMPLETED / VERIFIED LIVE READ ONLY WITH BLOCKERS / NO PUBLIC CHANGES
 **Why:** Family/Divorce is the first staged upload cluster. Before updating live pages or planning redirects, the team needs a current public-state guard for target slugs and P0 traffic sources.

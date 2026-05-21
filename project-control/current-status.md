@@ -5,10 +5,11 @@
 - CODED: each intent card links to the safe pillar/hub URL, filtered lawyer directory URL, and two related CMS articles when taxonomy content exists, falling back to safe planned links only when needed.
 - CODED: added a lawyer-side path from the homepage to plans, registration and dashboard so the same page now serves both lead demand and lawyer subscription demand.
 - CODED: inserted the section after the customer path strip in both `front-page.php` and `page-home.php`; the existing "how to choose lawyer" section remains unchanged.
-- VERIFIED LOCAL: `php -l` passed for the new section plus both homepage templates, and `git diff --check` passed with only expected line-ending warnings.
+- VERIFIED: `php -l` passed for the new section plus both homepage templates, and `git diff --check` passed with only expected line-ending warnings. After deploy, uPress Git log shows `882f4ee Add homepage money intent pyramid` as `HEAD -> main, origin/main`; live homepage HTML/browser checks show `homepage-intent-pyramid`, six intent cards, the existing customer strip and find-lawyer guide, no horizontal overflow on desktop, and no public Grow wording.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is SEO and conversion architecture: the homepage now pushes internal authority toward the money topics and gives users/lawyers clearer next actions.
-- COMPLETION ASSESSMENT: homepage SEO hierarchy moved from 55% to 66%; traffic-to-lead conversion readiness moved from 49% to 54%; first paid-lawyer readiness moved from 83% to 84%. Still blocked: live visual QA, real GSC/analytics impact, Grow approval and paid product mapping.
+- COMPLETION ASSESSMENT: homepage SEO hierarchy moved from 55% to 66%; traffic-to-lead conversion readiness moved from 49% to 54%; first paid-lawyer readiness moved from 83% to 84%. Still blocked: deeper mobile visual QA, real GSC/analytics impact, Grow approval and paid product mapping.
 - OWNER-VISIBLE AFTER DEPLOY: homepage should show a new "search by legal intent" section below the first customer path, with six money-topic cards and lawyer plan/register/dashboard buttons.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `882f4ee Add homepage money intent pyramid` is `HEAD -> main, origin/main`.
 - SAFETY: repo code/status only. No 301 redirect package touched, no Grow action taken, no card charged, no payment gateway setting changed, no public CMS page edited, no product created, and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 13:45 Asia/Jerusalem

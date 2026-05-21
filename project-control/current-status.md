@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-21 17:50 Asia/Jerusalem
+- LAWYER SALES NEXT BEST ACTION: upgraded the private Lawyer sales command center from raw counts to a clear first action.
+- RESEARCHED: Salesforce says pipeline stages identify next best steps and pipeline management should keep interactions/reminders in the CRM; HubSpot frames its task dashboard as a command center for tasks, meetings and contact details. Sources: https://www.salesforce.com/sales/pipeline/, https://www.salesforce.com/sales/pipeline/management/, https://www.hubspot.com/products/task-management
+- CODED: `inc/lawyer-onboarding.php` now adds `justice_theme_lawyer_onboarding_sales_next_action()` and a "Next best action" card.
+- CODED: the action order is overdue follow-ups, due follow-ups, proposals, hot prospects, active pipeline review, then new outreach batch.
+- VERIFIED: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is owner execution clarity: the dashboard now says what to work first.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 78% to 80%; prospect follow-up readiness moved from 78% to 82%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer sales command center -> Next best action card.
+- SAFETY: repo theme admin code/docs only at this log point. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 17:48 Asia/Jerusalem
 - LAWYER SALES COMMAND CENTER: added one top-level owner view inside Lawyer Onboarding for daily lawyer sales execution.
 - RESEARCHED: HubSpot task guidance uses record-linked due dates, reminders, priority and follow-up work; Salesforce pipeline guidance stresses clear next steps, regular pipeline review and automation. Sources: https://knowledge.hubspot.com/tasks/create-tasks, https://www.salesforce.com/sales/pipeline/management/

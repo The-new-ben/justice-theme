@@ -1203,6 +1203,66 @@ function justice_theme_lawyer_onboarding_prospect_value( array $statuses ): int 
 	return $total;
 }
 
+function justice_theme_lawyer_onboarding_sales_next_action( int $overdue_count, int $due_count, int $hot_count, int $proposal_count, int $active_value, array $links ): array {
+	if ( $overdue_count > 0 ) {
+		return array(
+			'label'  => 'Next best action',
+			'title'  => 'Work overdue follow-ups first',
+			'body'   => sprintf( 'There are %s overdue lawyer follow-ups. Protect trust and pipeline accuracy before starting new outreach.', number_format_i18n( $overdue_count ) ),
+			'url'    => $links['overdue'],
+			'button' => 'Open overdue follow-ups',
+		);
+	}
+
+	if ( $due_count > 0 ) {
+		return array(
+			'label'  => 'Next best action',
+			'title'  => 'Clear today\'s due follow-ups',
+			'body'   => sprintf( 'There are %s prospects due now. Move each one to contacted, proposal, won, lost or a new follow-up date.', number_format_i18n( $due_count ) ),
+			'url'    => $links['due'],
+			'button' => 'Open due prospects',
+		);
+	}
+
+	if ( $proposal_count > 0 ) {
+		return array(
+			'label'  => 'Next best action',
+			'title'  => 'Convert open proposals',
+			'body'   => sprintf( '%s proposal-stage prospects need a clear answer: won, next follow-up, or not a fit.', number_format_i18n( $proposal_count ) ),
+			'url'    => $links['proposal'],
+			'button' => 'Open proposals',
+		);
+	}
+
+	if ( $hot_count > 0 ) {
+		return array(
+			'label'  => 'Next best action',
+			'title'  => 'Call hot prospects',
+			'body'   => sprintf( '%s hot prospects are ready for a direct owner touch. Prioritize high-value plan fit and response speed.', number_format_i18n( $hot_count ) ),
+			'url'    => $links['hot'],
+			'button' => 'Open hot prospects',
+		);
+	}
+
+	if ( $active_value > 0 ) {
+		return array(
+			'label'  => 'Next best action',
+			'title'  => 'Review active pipeline',
+			'body'   => sprintf( 'There is %s NIS in active monthly pipeline. Check for stuck records and set the next action date on every serious prospect.', number_format_i18n( $active_value ) ),
+			'url'    => $links['prospects'],
+			'button' => 'Open pipeline',
+		);
+	}
+
+	return array(
+		'label'  => 'Next best action',
+		'title'  => 'Create the first tracked outreach batch',
+		'body'   => 'No active prospect pressure is visible yet. Build one small tracked batch, create one prospect record per lawyer, then follow up from this dashboard.',
+		'url'    => $links['outreach'],
+		'button' => 'Build outreach link',
+	);
+}
+
 function justice_theme_render_lawyer_onboarding_sales_command_center(): void {
 	if ( ! post_type_exists( 'justice_prospect' ) ) {
 		return;
@@ -1224,10 +1284,20 @@ function justice_theme_render_lawyer_onboarding_sales_command_center(): void {
 		'prospects' => admin_url( 'edit.php?post_type=justice_prospect' ),
 		'new'       => admin_url( 'post-new.php?post_type=justice_prospect' ),
 	);
+	$next_action     = justice_theme_lawyer_onboarding_sales_next_action( $overdue_count, $due_count, $hot_count, $proposal_count, $active_value, $links );
 	?>
 	<div style="max-width:1200px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:18px 20px;margin:18px 0;">
 		<h2 style="margin-top:0;">Lawyer sales command center</h2>
 		<p style="margin-top:0;">Daily operating view for turning manual outreach into paid lawyer coverage. Work overdue and due prospects first, then create the next small outreach batch.</p>
+		<div style="border:1px solid #bfd7ff;background:#f6f9ff;border-radius:8px;padding:16px;margin:16px 0;">
+			<p style="margin:0 0 6px;color:#1d4ed8;font-weight:700;text-transform:uppercase;letter-spacing:.02em;"><?php echo esc_html( $next_action['label'] ); ?></p>
+			<h3 style="margin:0 0 6px;font-size:20px;"><?php echo esc_html( $next_action['title'] ); ?></h3>
+			<p style="margin:0 0 12px;max-width:760px;"><?php echo esc_html( $next_action['body'] ); ?></p>
+			<p style="margin:0;">
+				<a class="button button-primary" href="<?php echo esc_url( $next_action['url'] ); ?>"><?php echo esc_html( $next_action['button'] ); ?></a>
+				<span style="display:inline-block;margin:6px 0 0 8px;color:#475569;">Order: overdue -> due -> proposals -> hot prospects -> new outreach.</span>
+			</p>
+		</div>
 		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;margin:16px 0;">
 			<div style="border:1px solid #f1c0c0;background:#fff7f7;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $overdue_count ) ); ?></strong>

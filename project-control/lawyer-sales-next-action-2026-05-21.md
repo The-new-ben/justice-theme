@@ -26,6 +26,9 @@ Sources:
 ## Verification
 - `php -l inc/lawyer-onboarding.php` passed.
 - `git diff --check` passed with only the existing Windows line-ending warning.
+- Pushed `867d59c Add lawyer sales next best action`.
+- uPress Git pull succeeded; uPress Git log shows `867d59c Add lawyer sales next best action` as HEAD before this documentation correction.
+- Public unauthenticated admin URL check redirects to `wp-login.php`; the follow-up request hit uPress Login Protector and did not expose the admin page.
 
 ## Completion Assessment
 - Materially advanced: the owner now gets a simple operating instruction, not only dashboard numbers.
@@ -36,7 +39,7 @@ Sources:
 - Owner-visible after WordPress admin login: Lawyer Onboarding -> Lawyer sales command center -> Next best action card.
 
 ## Safety
-- Repo theme admin code/docs only until uPress pull.
+- Repo theme admin code/docs plus uPress pull/live login-gate check only.
 - No public CMS database page edited.
 - No public page changed.
 - No 301 redirect package touched.

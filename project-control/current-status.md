@@ -4,10 +4,12 @@
 - CODED: `inc/lawyer-onboarding.php` now adds `justice_theme_lawyer_onboarding_sales_next_action()` and a "Next best action" card.
 - CODED: the action order is overdue follow-ups, due follow-ups, proposals, hot prospects, active pipeline review, then new outreach batch.
 - VERIFIED: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `867d59c Add lawyer sales next best action`; uPress Git pull succeeded and the uPress log shows `867d59c` as live HEAD before this documentation correction.
+- LIVE CHECK: unauthenticated admin URL redirects to WordPress login, then uPress Login Protector; the next-action card is not public.
 - HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is owner execution clarity: the dashboard now says what to work first.
 - COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 78% to 80%; prospect follow-up readiness moved from 78% to 82%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
 - OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer sales command center -> Next best action card.
-- SAFETY: repo theme admin code/docs only at this log point. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 17:48 Asia/Jerusalem
 - LAWYER SALES COMMAND CENTER: added one top-level owner view inside Lawyer Onboarding for daily lawyer sales execution.

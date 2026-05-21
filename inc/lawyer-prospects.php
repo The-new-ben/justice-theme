@@ -750,6 +750,7 @@ add_action( 'save_post_justice_prospect', 'justice_theme_save_lawyer_prospect_de
 function justice_theme_lawyer_prospect_admin_columns( array $columns ): array {
 	$columns['prospect_area']     = __( 'Area / city', 'justice-theme' );
 	$columns['prospect_plan']     = __( 'Target plan', 'justice-theme' );
+	$columns['prospect_value']    = __( 'Monthly value', 'justice-theme' );
 	$columns['prospect_status']   = __( 'Status', 'justice-theme' );
 	$columns['prospect_priority'] = __( 'Priority', 'justice-theme' );
 	$columns['prospect_contact']  = __( 'Contact', 'justice-theme' );
@@ -758,6 +759,13 @@ function justice_theme_lawyer_prospect_admin_columns( array $columns ): array {
 	return $columns;
 }
 add_filter( 'manage_justice_prospect_posts_columns', 'justice_theme_lawyer_prospect_admin_columns' );
+
+function justice_theme_lawyer_prospect_sortable_columns( array $columns ): array {
+	$columns['prospect_value'] = 'prospect_expected_monthly_nis';
+	$columns['prospect_next']  = 'prospect_next_action_at';
+	return $columns;
+}
+add_filter( 'manage_edit-justice_prospect_sortable_columns', 'justice_theme_lawyer_prospect_sortable_columns' );
 
 function justice_theme_lawyer_prospect_due_meta_clause( string $filter ): array {
 	if ( 'unscheduled' === $filter ) {
@@ -932,6 +940,11 @@ function justice_theme_lawyer_prospect_admin_column( string $column, int $post_i
 		echo esc_html( justice_theme_lawyer_prospect_plan_options()[ $plan ] ?? $plan );
 	}
 
+	if ( 'prospect_value' === $column ) {
+		$value = absint( get_post_meta( $post_id, 'prospect_expected_monthly_nis', true ) );
+		echo $value ? esc_html( number_format_i18n( $value ) . ' NIS' ) : esc_html__( 'Not set', 'justice-theme' );
+	}
+
 	if ( 'prospect_status' === $column ) {
 		$status = (string) get_post_meta( $post_id, 'prospect_outreach_status', true );
 		echo esc_html( justice_theme_lawyer_prospect_statuses()[ $status ] ?? $status );
@@ -1043,6 +1056,9 @@ function justice_theme_lawyer_prospect_admin_filter_query( WP_Query $query ): vo
 		return;
 	}
 
+	$orderby       = (string) $query->get( 'orderby' );
+	$value_sort    = 'prospect_expected_monthly_nis' === $orderby;
+	$next_date_sort = 'prospect_next_action_at' === $orderby;
 	$filter_map = array(
 		'justice_prospect_status_filter'   => 'prospect_outreach_status',
 		'justice_prospect_plan_filter'     => 'prospect_target_plan',
@@ -1070,7 +1086,9 @@ function justice_theme_lawyer_prospect_admin_filter_query( WP_Query $query ): vo
 	$due_filter = isset( $_GET['justice_prospect_due_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_prospect_due_filter'] ) ) : '';
 	if ( in_array( $due_filter, array( 'due', 'overdue', 'unscheduled', 'today', 'upcoming' ), true ) ) {
 		$meta_query[] = justice_theme_lawyer_prospect_due_meta_clause( $due_filter );
-		if ( 'unscheduled' === $due_filter ) {
+		if ( $value_sort || $next_date_sort ) {
+			// Explicit owner sorting below should win over the default due-view order.
+		} elseif ( 'unscheduled' === $due_filter ) {
 			$query->set( 'orderby', 'modified' );
 			$query->set( 'order', 'DESC' );
 		} else {
@@ -1081,6 +1099,14 @@ function justice_theme_lawyer_prospect_admin_filter_query( WP_Query $query ): vo
 	} elseif ( 'missing' === $contact_filter ) {
 		$query->set( 'orderby', 'modified' );
 		$query->set( 'order', 'DESC' );
+	}
+
+	if ( $value_sort ) {
+		$query->set( 'meta_key', 'prospect_expected_monthly_nis' );
+		$query->set( 'orderby', 'meta_value_num' );
+	} elseif ( $next_date_sort ) {
+		$query->set( 'meta_key', 'prospect_next_action_at' );
+		$query->set( 'orderby', 'meta_value' );
 	}
 
 	if ( ! empty( $meta_query ) ) {

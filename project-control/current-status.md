@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-21 18:29 Asia/Jerusalem
+- LAWYER PROSPECT MONTHLY VALUE COLUMN: added a private sortable monthly-value column so the owner can prioritize higher-value lawyer prospects.
+- RESEARCHED: Pipedrive guidance says deal value can be used for sorting to focus on high-revenue opportunities; Pipedrive deal management shows value and priority as core pipeline details visible at a glance. Sources: https://support.pipedrive.com/en/article/how-are-deals-ordered-in-the-pipeline-view, https://www.pipedrive.com/en/products/sales/deal-management/
+- CODED: `inc/lawyer-prospects.php` now adds a `Monthly value` column to the private `justice_prospect` list.
+- CODED: the column displays expected monthly NIS or `Not set`.
+- CODED: `Monthly value` is sortable by numeric value, and `Next action` is sortable by date.
+- VERIFIED: `php -l inc/lawyer-prospects.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is money-priority triage before manual lawyer outreach.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 85% to 86%; prospect follow-up/readiness discipline moved from 89% to 90%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Monthly value column.
+- SAFETY: repo theme admin code/docs only at this log point. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
 ## LATEST WORK STATUS - 2026-05-21 18:20 Asia/Jerusalem
 - LAWYER PROSPECT CONTACT COLUMN: added a private list-level contact column so the owner can see whether prospects are reachable without opening each record.
 - RESEARCHED: Pipedrive contact-management guidance emphasizes keeping contact info and deals together so teams can follow up while prospects are warm; Clio Grow API fields include email and phone number for lead/contact records. Sources: https://www.pipedrive.com/en/crm/solutions/crm-for-contact-managers, https://docs.developers.clio.com/clio-grow/api-reference/

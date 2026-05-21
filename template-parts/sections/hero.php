@@ -163,8 +163,7 @@ $hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
 			<ul class="hero__quick-links">
 				<?php 
 					foreach ( $popular_terms as $pterm ) : 
-						$pterm_link = get_term_link( $pterm );
-						$pterm_url  = is_wp_error( $pterm_link ) ? '' : justice_theme_public_url( (string) $pterm_link );
+						$pterm_url = justice_theme_public_term_link( $pterm );
 				?>
 					<li>
 						<a href="<?php echo esc_url( $pterm_url ); ?>">

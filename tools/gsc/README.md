@@ -44,6 +44,14 @@ node tools/gsc/gsc-family-divorce-export.js
 
 Outputs save under `reports/gsc/family-divorce-YYYY-MM-DD/`.
 
+After the export, build the protected URL / cannibalization decision map:
+
+```powershell
+node tools/build-family-divorce-gsc-decision-map.mjs --gscDir="reports/gsc/family-divorce-YYYY-MM-DD"
+```
+
+Without `--gscDir`, the decision-map builder can use the older cached `reports/gsc/` CSVs as a baseline only. Treat that baseline as `NOT_FINAL` until the focused export is reviewed.
+
 ## Output
 
 Reports saved to `reports/gsc/`:

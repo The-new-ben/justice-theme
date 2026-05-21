@@ -13,6 +13,7 @@ LATEST 2026-05-21 RUNNER NOTE:
 - It supports local credential paths outside the repo through `GSC_OAUTH_CLIENT_PATH` and `GSC_TOKEN_PATH`.
 - Dry run command: `node tools/gsc/gsc-family-divorce-export.js --dry-run`
 - Real export command after owner credential setup: `node tools/gsc/gsc-family-divorce-export.js`
+- Post-export decision-map command: `node tools/build-family-divorce-gsc-decision-map.mjs --gscDir=reports/gsc/family-divorce-YYYY-MM-DD`
 
 This guide explains how to connect Google Search Console API for Jus-Tice so we can export query/page data quickly instead of doing slow browser checks.
 
@@ -86,6 +87,7 @@ $env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth
 $env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
 node tools/gsc/gsc-family-divorce-export.js --dry-run
 node tools/gsc/gsc-family-divorce-export.js
+node tools/build-family-divorce-gsc-decision-map.mjs --gscDir="reports/gsc/family-divorce-YYYY-MM-DD"
 ```
 
 Use `--dry-run` first. It should show `credentialFileExists: true`. It does not read credential contents, open OAuth or call the API.

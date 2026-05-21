@@ -2,6 +2,21 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce GSC Decision Map Baseline
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/build-family-divorce-gsc-decision-map.mjs`.
+- GENERATED / VERIFIED LOCAL: `reports/family-divorce-gsc-decision-map-2026-05-21.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/family-divorce-protected-url-decision-map-2026-05-21.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/family-divorce-cannibalization-decision-map-2026-05-21.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/family-divorce-gsc-decision-map-2026-05-21.json`.
+- CREATED / VERIFIED LOCAL: `project-control/family-divorce-gsc-decision-map-2026-05-21.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-divorce-gsc-decision-map-2026-05-21.csv`.
+- UPDATED / VERIFIED LOCAL: `tools/gsc/README.md` and `project-control/gsc-api-setup-guide.md` now reference the post-export decision-map command.
+- VERIFIED LOCAL: baseline run generated `7` target rows, `18` protected source/asset rows and `40` cannibalization rows.
+- VERIFIED LOCAL: all `18` protected source/asset rows are high-risk in cached GSC baseline data.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local GSC/reporting preparation and no public UI changed.
+- BLOCKED: focused GSC export and owner approval remain required before URL migration or public CMS execution.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce Wave 1B Metadata Word-Count Sync
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/sync-family-divorce-wave1b-metadata-counts.mjs`.
 - FIXED / VERIFIED LOCAL: synced `6/6` stale Wave 1B support metadata word-count fields to current static-QA counts.

@@ -1,3 +1,23 @@
+## LATEST WORK STATUS - 2026-05-21 23:40 Asia/Jerusalem
+- FAMILY/DIVORCE GSC DECISION MAP BASELINE: prepared the post-GSC URL/cannibalization decision-map workflow before owner credentials are available.
+- TOOLING FIXED: created `tools/build-family-divorce-gsc-decision-map.mjs`.
+- GENERATED: `reports/family-divorce-gsc-decision-map-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-protected-url-decision-map-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-cannibalization-decision-map-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-gsc-decision-map-2026-05-21.json`.
+- CREATED: `project-control/family-divorce-gsc-decision-map-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-gsc-decision-map-2026-05-21.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/build-family-divorce-gsc-decision-map.mjs` passed.
+- VERIFIED LOCAL: `node tools/build-family-divorce-gsc-decision-map.mjs` passed using `FALLBACK_EXISTING_GSC_CACHE_NOT_FINAL`.
+- VERIFIED LOCAL: generated `7` clean target rows, `18` protected source/asset rows and `40` cannibalization baseline rows.
+- VERIFIED LOCAL: cached GSC data found all `18` protected source/asset URLs and marks all `18` as high-risk.
+- BLOCKED: `5` protected source URLs still redirect to the homepage and have cached GSC value; final action requires focused GSC export plus restore-or-targeted-301 review.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup.
+- BLOCKED: URL migration, redirects, canonical/noindex and sitemap actions still require focused GSC API export and final decision review.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 23:30 Asia/Jerusalem
 - FAMILY/DIVORCE WAVE 1B METADATA SYNC: closed the stale word-count review item from the upload readiness dashboard.
 - TOOLING FIXED: created `tools/sync-family-divorce-wave1b-metadata-counts.mjs`.

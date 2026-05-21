@@ -1,6 +1,24 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce GSC decision map baseline
+
+- TOOLING FIXED: created `tools/build-family-divorce-gsc-decision-map.mjs`.
+- GENERATED: `reports/family-divorce-gsc-decision-map-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-protected-url-decision-map-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-cannibalization-decision-map-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-gsc-decision-map-2026-05-21.json`.
+- CREATED: `project-control/family-divorce-gsc-decision-map-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-gsc-decision-map-2026-05-21.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/build-family-divorce-gsc-decision-map.mjs` passed.
+- VERIFIED LOCAL: baseline run used existing cached GSC CSVs and is marked `FALLBACK_EXISTING_GSC_CACHE_NOT_FINAL`.
+- VERIFIED LOCAL: generated `7` clean target rows, `18` protected source/asset rows and `40` cannibalization baseline rows.
+- VERIFIED LOCAL: all `18` protected source/asset URLs have cached GSC rows and are high-risk in the baseline.
+- BLOCKED: final URL migration, redirects, canonicals, noindex and sitemap decisions still require the focused GSC API export.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce Wave 1B metadata word-count sync
 
 - TOOLING FIXED: created `tools/sync-family-divorce-wave1b-metadata-counts.mjs`.

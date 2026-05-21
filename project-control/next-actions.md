@@ -6,6 +6,25 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-GSC-DECISION-MAP-BASELINE-001: Prepare post-GSC URL/cannibalization decision map
+**Status:** COMPLETED / VERIFIED LOCAL / NOT FINAL / FOCUSED GSC EXPORT BLOCKED / NO PUBLIC CHANGES
+**Why:** The focused GSC export is blocked by owner credentials, but the project can still prepare the parser and decision-map workflow so export data converts directly into protected URL, redirect, cannibalization and sitemap review rows.
+**Actions:**
+1. DONE: created `tools/build-family-divorce-gsc-decision-map.mjs`.
+2. DONE: generated `reports/family-divorce-gsc-decision-map-2026-05-21.csv`.
+3. DONE: generated `reports/family-divorce-protected-url-decision-map-2026-05-21.csv`.
+4. DONE: generated `reports/family-divorce-cannibalization-decision-map-2026-05-21.csv`.
+5. DONE: generated `reports/family-divorce-gsc-decision-map-2026-05-21.json`.
+6. DONE: created `project-control/family-divorce-gsc-decision-map-2026-05-21.md`.
+7. DONE: created `project-control/family-divorce-gsc-decision-map-2026-05-21.csv`.
+8. DONE: updated `tools/gsc/README.md`.
+9. DONE: updated `project-control/gsc-api-setup-guide.md`.
+10. VERIFIED LOCAL: `node --check tools/build-family-divorce-gsc-decision-map.mjs` passed.
+11. VERIFIED LOCAL: baseline run generated `7` target rows, `18` protected source/asset rows and `40` cannibalization rows.
+12. VERIFIED LOCAL: all `18` protected source/asset URLs have cached GSC rows and are high-risk in the baseline.
+13. BLOCKED: baseline input mode is `FALLBACK_EXISTING_GSC_CACHE_NOT_FINAL`; final decisions require the focused owner-authorized export.
+14. NEXT: after owner credentials, run `node tools/gsc/gsc-family-divorce-export.js`, then rerun `node tools/build-family-divorce-gsc-decision-map.mjs --gscDir=reports/gsc/family-divorce-YYYY-MM-DD`.
+
 ### ACTION-FAMILY-DIVORCE-WAVE1B-METADATA-SYNC-001: Sync stale support metadata word counts
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / NO PUBLIC CHANGES
 **Why:** The upload readiness dashboard found `6` stale Wave 1B support metadata word-count fields after later merge work. This was a planning artifact, but it could confuse owner review and CMS upload status.

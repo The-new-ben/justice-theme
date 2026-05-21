@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-PROPERTY-DIVISION-MERGE-DECISIONS-001: Resolve property-division live merge rows
+**Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** `/divorce-property-division/` had the largest number of live-only candidate rows in the high-risk merge worksheet and should be resolved first before any CMS overwrite is approved.
+**Actions:**
+1. DONE: created `tools/resolve-family-divorce-property-division-merge.mjs`.
+2. DONE: generated `reports/family-divorce-property-division-merge-decisions-2026-05-21.csv`.
+3. DONE: created `project-control/family-divorce-property-division-merge-decisions-2026-05-21.md`.
+4. DONE: created `project-control/family-divorce-property-division-merge-decisions-2026-05-21.csv`.
+5. VERIFIED LOCAL: resolved all `35` current-live candidate rows for `/divorce-property-division/`.
+6. VERIFIED: `6` rows require concise draft merges, `23` rows are covered/no action and `6` rows are UI/CTA/taxonomy/related-link fragments to skip.
+7. NEXT: apply the six concise merges to `content-drafts/divorce-property-division-public-body-he.md`, then rerun public-body static QA.
+8. BLOCKED: do not upload `/divorce-property-division/` until draft edits, static QA, owner/legal/source approval and CMS backup are complete.
+
 ### ACTION-FAMILY-DIVORCE-HIGH-RISK-MERGE-REVIEW-001: Prepare merge worksheet for highest-risk pages
 **Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
 **Why:** The live-vs-draft comparison showed the largest overwrite risk on `/child-support/`, `/child-custody/` and `/divorce-property-division/`. These pages need section-level review before CMS upload.

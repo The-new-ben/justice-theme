@@ -8,6 +8,13 @@
 - CREATED: `project-control/family-divorce-high-risk-merge-review-2026-05-21.csv`.
 - NOT PUBLISHED: this is a review worksheet only; no public page body or CMS field changed.
 
+## Follow-Up Resolution
+
+- VERIFIED LOCAL: `/divorce-property-division/` live candidate rows were resolved in `project-control/family-divorce-property-division-merge-decisions-2026-05-21.md`.
+- RESULT: `35` live rows resolved into `6` merge edits, `23` covered/no-action rows and `6` UI/CTA/taxonomy/related-link skips.
+- STILL BLOCKED: `/child-support/` and `/child-custody/` still need row-level merge decisions.
+- STILL BLOCKED: `/divorce-property-division/` needs the six approved draft edits and static QA rerun before upload approval.
+
 ## Batch Completed
 
 Reviewed the three pages that the live-vs-draft comparison marked as highest risk:

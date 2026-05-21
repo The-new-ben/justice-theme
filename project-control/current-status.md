@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-21 21:53 Asia/Jerusalem
+- FAMILY/DIVORCE PROPERTY-DIVISION MERGE DECISIONS: resolved the live-candidate decision layer for `/divorce-property-division/`, the highest-risk page from the high-risk merge worksheet.
+- TOOLING FIXED: created `tools/resolve-family-divorce-property-division-merge.mjs`.
+- VERIFIED LOCAL: generated `reports/family-divorce-property-division-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-property-division-merge-decisions-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-property-division-merge-decisions-2026-05-21.csv`.
+- VERIFIED: all `35` current-live candidate rows for `/divorce-property-division/` have final decisions: `6` merge into draft, `23` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
+- BLOCKED: `/divorce-property-division/` still needs the six concise draft edits applied and static QA rerun before owner/legal/source approval or CMS upload.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 21:42 Asia/Jerusalem
 - FAMILY/DIVORCE HIGH-RISK MERGE REVIEW: prepared the first side-by-side merge worksheet for the three highest-retention-risk pages: `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
 - TOOLING FIXED: created `tools/prepare-family-divorce-merge-review.mjs`.

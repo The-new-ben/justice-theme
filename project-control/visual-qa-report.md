@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 Family/Divorce Property-Division Merge Decisions
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/resolve-family-divorce-property-division-merge.mjs`.
+- VERIFIED LOCAL: resolved all `35` current-live candidate rows for `/divorce-property-division/`.
+- VERIFIED: decision output is `6` merge into draft, `23` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
+- BLOCKED: `/divorce-property-division/` still needs six concise draft edits and static QA rerun before owner/legal/source approval or CMS upload.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was content-merge planning only and no public UI changed.
+- NEXT QA: after draft merges and approved CMS update, rerun content/route QA and capture screenshots.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce High-Risk Merge Review
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/prepare-family-divorce-merge-review.mjs`.
 - VERIFIED LOCAL: generated `165` section-level merge-review rows for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.

@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - Family/Divorce property-division merge decisions
+
+- TOOLING FIXED: added `tools/resolve-family-divorce-property-division-merge.mjs`.
+- VERIFIED LOCAL: resolved all `/divorce-property-division/` live candidate rows from the high-risk merge worksheet.
+- GENERATED: `reports/family-divorce-property-division-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-property-division-merge-decisions-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-property-division-merge-decisions-2026-05-21.csv`.
+- VERIFIED: `35` live rows resolved into `6` draft merges, `23` covered/no-action rows and `6` UI/CTA/taxonomy/related-link skips.
+- BLOCKED: `/divorce-property-division/` still needs the six concise draft edits, static QA rerun, owner/legal/source approval and CMS backup before upload.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce high-risk merge review
 
 - TOOLING FIXED: added `tools/prepare-family-divorce-merge-review.mjs`.

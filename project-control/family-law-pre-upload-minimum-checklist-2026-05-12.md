@@ -8,6 +8,9 @@ This checklist defines the minimum safe gate before Family/Divorce moves from pl
 ## Current Position
 
 LATEST 2026-05-21 UPDATE:
+- `tools/resolve-family-divorce-property-division-merge.mjs` now resolves all current-live candidate rows for `/divorce-property-division/`.
+- VERIFIED LOCAL: `35` live rows resolved: `6` merge into draft, `23` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
+- BLOCKED: `/divorce-property-division/` still needs six concise draft edits, static QA rerun and owner/legal/source approval before CMS upload.
 - `tools/prepare-family-divorce-merge-review.mjs` now creates a section-level merge-review worksheet for the three high-risk Family/Divorce pages: `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
 - VERIFIED LOCAL: `165` rows generated across the three pages: `60` draft base sections, `30` live sections requiring merge review, `46` partial-overlap review rows and `29` covered rows.
 - BLOCKED: these three high-risk pages cannot be uploaded until merge rows are resolved into keep, merge, rewrite or skip decisions.
@@ -75,6 +78,7 @@ VERIFIED:
 - Public text snapshots now preserve the current live target-page content for side-by-side comparison before approved overwrite/update.
 - Live-vs-draft comparison now confirms that all seven pages require merge review before any upload because the clean drafts are materially shorter than the current live pages.
 - The high-risk merge worksheet now gives section-level review rows for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- `/divorce-property-division/` current-live candidate rows now have final merge/no-action/skip decisions.
 
 NOT VERIFIED:
 - GSC API export.
@@ -143,6 +147,7 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 55. Prioritize merge review for `/child-support/`, `/child-custody/` and `/divorce-property-division/` because their draft/live ratios are below or around `0.60`.
 56. Resolve high-risk merge-review rows for `/child-support/`, `/child-custody/` and `/divorce-property-division/` before CMS upload.
 57. Convert each `REVIEW_FOR_MERGE` and `PARTIAL_OVERLAP_REVIEW` row into keep, merge, rewrite or skip decisions.
+58. Apply the six approved `/divorce-property-division/` draft merges and rerun static QA before upload approval.
 
 ## Current Recommendation
 

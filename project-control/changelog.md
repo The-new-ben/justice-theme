@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-21 - GSC credential hygiene
+
+- FIXED: removed `tools/gsc/oauth-client.json` from Git tracking with `git rm --cached` while leaving the local file in the workspace.
+- FIXED: updated `.gitignore` to ignore local GSC OAuth client files, token files and common Google credential JSON names.
+- FIXED: updated `tools/gsc/README.md` with credential-safety and rotation guidance.
+- CREATED: `project-control/gsc-credential-hygiene-2026-05-21.md`.
+- CREATED: `project-control/gsc-credential-hygiene-2026-05-21.csv`.
+- VERIFIED LOCAL: local `tools/gsc/oauth-client.json` is ignored after removal from tracking.
+- BLOCKED / OWNER ACTION: if the removed tracked OAuth client was real, create a new OAuth Desktop client in Google Cloud and delete/rotate the old one.
+- SAFETY: credential contents were not printed; no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce CMS operator runbook
 
 - CREATED: `project-control/family-divorce-cms-operator-runbook-2026-05-21.md`.

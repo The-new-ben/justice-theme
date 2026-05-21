@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-21 22:56 Asia/Jerusalem
+- GSC CREDENTIAL HYGIENE: removed the tracked local Search Console OAuth client JSON from Git tracking while leaving the local ignored file in place.
+- FIXED: `tools/gsc/oauth-client.json` is no longer tracked in Git.
+- FIXED: `.gitignore` now ignores `tools/gsc/oauth-client.json`, OAuth client JSON variants, token JSON and common Google credential JSON names under `tools/gsc/`.
+- FIXED: `tools/gsc/README.md` now documents local credential safety and rotation guidance.
+- CREATED: `project-control/gsc-credential-hygiene-2026-05-21.md`.
+- CREATED: `project-control/gsc-credential-hygiene-2026-05-21.csv`.
+- VERIFIED LOCAL: the local credential file is ignored after removal from Git tracking.
+- BLOCKED / OWNER ACTION: if the removed tracked OAuth client was real, create a new OAuth Desktop client in Google Cloud and delete/rotate the old one before using GSC API exports.
+- SAFETY: credential contents were not printed; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 22:45 Asia/Jerusalem
 - FAMILY/DIVORCE CMS OPERATOR RUNBOOK: created a seven-page CMS execution runbook for the approved upload stage without authorizing public changes.
 - CREATED: `project-control/family-divorce-cms-operator-runbook-2026-05-21.md`.

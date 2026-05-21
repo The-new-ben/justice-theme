@@ -3,6 +3,11 @@
 Date: 2026-05-12
 Status: READY FOR OWNER SETUP / READ-ONLY RECOMMENDED
 
+LATEST 2026-05-21 SECURITY NOTE:
+- `tools/gsc/oauth-client.json` was removed from Git tracking and is now ignored locally.
+- If that old tracked OAuth client was real, create a new OAuth Desktop client in Google Cloud and delete or rotate the old one before using API exports.
+- Keep future credential JSON files outside Git. If local tooling needs `tools/gsc/oauth-client.json`, keep it as a local ignored file only.
+
 This guide explains how to connect Google Search Console API for Jus-Tice so we can export query/page data quickly instead of doing slow browser checks.
 
 ## Why We Need This

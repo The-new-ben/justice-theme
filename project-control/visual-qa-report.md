@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-21 GSC Credential Hygiene
+- FIXED / VERIFIED LOCAL: `tools/gsc/oauth-client.json` was removed from Git tracking and remains a local ignored file.
+- FIXED / VERIFIED LOCAL: `.gitignore` now ignores local GSC OAuth client/token credential JSON files.
+- CREATED / VERIFIED LOCAL: `project-control/gsc-credential-hygiene-2026-05-21.md`.
+- CREATED / VERIFIED LOCAL: `project-control/gsc-credential-hygiene-2026-05-21.csv`.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was credential hygiene and documentation only.
+- BLOCKED / OWNER ACTION: if the removed OAuth client was real, rotate or recreate it in Google Cloud before the next GSC API export.
+- SAFETY: credential contents were not printed; no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce CMS Operator Runbook
 - CREATED / VERIFIED LOCAL: `project-control/family-divorce-cms-operator-runbook-2026-05-21.md`.
 - CREATED / VERIFIED LOCAL: `project-control/family-divorce-cms-operator-runbook-2026-05-21.csv`.

@@ -6,6 +6,20 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-GSC-CREDENTIAL-HYGIENE-001: Remove tracked local OAuth client from Git
+**Status:** COMPLETED / FIXED IN REPO / OWNER ROTATION RECOMMENDED / NO PUBLIC CHANGES
+**Why:** `tools/gsc/oauth-client.json` was tracked in Git, conflicting with the credential-safety rule in the GSC API setup guide. Search Console credentials must stay local and ignored.
+**Actions:**
+1. FIXED: removed `tools/gsc/oauth-client.json` from Git tracking with `git rm --cached`.
+2. FIXED: kept the local file in place so local tooling is not broken.
+3. FIXED: updated `.gitignore` for OAuth client JSON, token JSON and common Google credential JSON names under `tools/gsc/`.
+4. FIXED: updated `tools/gsc/README.md` with credential-safety instructions.
+5. CREATED: `project-control/gsc-credential-hygiene-2026-05-21.md`.
+6. CREATED: `project-control/gsc-credential-hygiene-2026-05-21.csv`.
+7. VERIFIED LOCAL: the local credential file is now ignored after removal from tracking.
+8. BLOCKED / OWNER ACTION: rotate or recreate the OAuth Desktop client in Google Cloud if the removed tracked file contained a real secret.
+9. NEXT: after owner sets up/rotates credentials, run the first read-only Family/Divorce GSC API export.
+
 ### ACTION-FAMILY-DIVORCE-CMS-OPERATOR-RUNBOOK-001: Prepare seven-page CMS operator runbook
 **Status:** COMPLETED / VERIFIED LOCAL / EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** The owner review packet answers which pages need approval. The CMS operator also needs a single execution boundary that prevents accidental duplicate pages, URL migration, redirects, noindex/canonical changes or protected asset edits during body upload.

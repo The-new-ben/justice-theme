@@ -5,9 +5,12 @@
 - CODED: `template-parts/sections/ask-lawyer.php` and `template-parts/forms/lead-form.php` can render sanitized `lead_area` and `lead_message` prefill values.
 - CODED: `template-parts/sections/legaltech-tools.php` keeps SEO-clean `#ask-lawyer` fallback links but attaches lead area, starter message, source keyword and UTM data to the LegalTech cards/buttons.
 - CODED: `assets/js/analytics-events.js` applies LegalTech card context to the homepage form on click and tracks `legaltech_tool_click`.
-- VERIFIED: `php -l` passed for the touched PHP files, `node --check assets/js/analytics-events.js` passed, and `git diff --check` passed with only the existing Windows line-ending warning. Push/uPress pull and live checks are next in this cycle.
+- VERIFIED: `php -l` passed for the touched PHP files, `node --check assets/js/analytics-events.js` passed, and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `4f4da66 Prefill lead form from LegalTech clicks`; uPress Pull Git succeeded and the uPress log showed `4f4da66` as live HEAD.
+- LIVE CHECK: cache-busted homepage returns 200, contains LegalTech contextual data attributes, has no direct `/legal-tools/` archive link and has no page-level `noindex`; live JavaScript contains `applyLeadPrefillFromLink`, `legaltech_tool_click` and the hidden-field helper.
+- LIVE CLICK CHECK: clicking the real-estate LegalTech card scrolls to `#ask-lawyer`, selects `real-estate-law`, fills the editable starter message, and records `source_keyword` plus `utm_medium=legaltech_gateway`.
 - HONEST MONEY ASSESSMENT: no revenue and no outreach yet. Material advancement is making the product block behave more like a conversion funnel while the real LegalTech archive/CPT remains gated.
-- COMPLETION ASSESSMENT: homepage money-machine readiness is expected to move from 87% to 88% after live verification; LegalTech product-path readiness is expected to move from 44% to 47%; first paid-lawyer readiness remains about 90% until real outreach/signups or Grow/payment setup moves.
+- COMPLETION ASSESSMENT: homepage money-machine readiness moved from 87% to 88%; LegalTech product-path readiness moved from 44% to 47%; first paid-lawyer readiness remains about 90% until real outreach/signups or Grow/payment setup moves.
 - OWNER-VISIBLE AFTER DEPLOY: homepage LegalTech cards and the homepage ask-lawyer form.
 - SAFETY: repo theme code/docs only. No public CMS database page edited, no product record created, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no lawyer/lead/prospect/order record created and no outreach sent.
 

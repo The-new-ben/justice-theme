@@ -10,6 +10,7 @@ Baymard's form-field research says forms convert better when irrelevant effort i
 
 Source:
 - https://baymard.com/learn/input-fields
+- https://developers.google.com/search/docs/fundamentals/seo-starter-guide
 
 ## What Changed
 
@@ -26,7 +27,11 @@ Source:
 - `php -l template-parts/sections/legaltech-tools.php` passed.
 - `node --check assets/js/analytics-events.js` passed.
 - `git diff --check` passed with only existing Windows line-ending warnings.
-- Deployment and live checks are next in this cycle.
+- Pushed `4f4da66 Prefill lead form from LegalTech clicks`.
+- uPress Pull Git succeeded and the uPress log showed `4f4da66` as live HEAD.
+- Cache-busted live homepage returns 200, contains LegalTech contextual data attributes, has no direct `/legal-tools/` archive link and has no page-level `noindex`.
+- Live JavaScript contains `applyLeadPrefillFromLink`, `legaltech_tool_click` and the hidden-field helper.
+- Live click check passed: the real-estate LegalTech card scrolls to `#ask-lawyer`, selects `real-estate-law`, fills the editable starter message, and writes `source_keyword` plus `utm_medium=legaltech_gateway`.
 
 ## Owner Impact
 

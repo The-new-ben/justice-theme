@@ -4,11 +4,12 @@
 - FOUND: the section already uses published CMS articles first, but unpublished planned fallback guide paths could fall back to the same primary or directory URL. That was safe technically but weak for trust because different labels could lead to one generic destination.
 - CODED: `template-parts/sections/homepage-intent-pyramid.php` now filters fallback guide links through published-path checks and deduplicates URLs. If no real support link exists, it shows one honest practice-area profile-search link.
 - DOCUMENTED: added `project-control/homepage-intent-link-quality-2026-05-21.md`.
-- VERIFIED: pending final live deploy and homepage check.
+- VERIFIED: `php -l template-parts/sections/homepage-intent-pyramid.php` and `git diff --check` passed before commit. uPress Git log shows `de83fab Improve homepage intent fallback links` as `HEAD -> main, origin/main`. Live homepage check shows six intent cards, zero duplicate related URLs per card, customer strip present, find-lawyer guide present and no public Grow/Meshulam wording.
 - HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is homepage trust and SEO hygiene on the high-money practice cards.
 - COMPLETION ASSESSMENT: homepage SEO/link-quality readiness moved from 70% to 73%; traffic-to-lead conversion readiness remains 55% until real analytics prove lift. Still blocked: GSC/Analytics impact, Grow approval/product mapping and real paid lawyer users.
-- OWNER-VISIBLE AFTER DEPLOY: homepage related-guide links should no longer show unpublished planned article labels that all land on the same generic page.
-- SAFETY: repo code/docs only so far. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+- OWNER-VISIBLE AFTER DEPLOY: homepage related-guide links no longer show unpublished planned article labels that all land on the same generic page.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `de83fab Improve homepage intent fallback links` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
 
 ## LATEST WORK STATUS - 2026-05-21 14:12 Asia/Jerusalem
 - HOMEPAGE MOBILE QA: checked the live homepage after the money-intent pyramid deploy, focusing on mobile because Google uses mobile-first indexing and urgent legal leads often come from phones.

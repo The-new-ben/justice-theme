@@ -2,6 +2,17 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Criminal GSC Export Runner
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/gsc/gsc-criminal-export.js`.
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/gsc/run-criminal-gsc-export.ps1`.
+- CREATED / VERIFIED LOCAL: `project-control/gsc-criminal-export-runner-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/gsc-criminal-export-runner-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check and direct/wrapper dry runs passed without OAuth browser and without GSC API call.
+- VERIFIED LOCAL: dry-run scope includes `5` Criminal targets, `20` protected/support paths and `27` query terms.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local GSC tooling/reporting preparation only; no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/legal/source approval, WordPress backup, approved CMS update and post-upload route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Criminal First-Upload Metadata Package
 - CREATED / VERIFIED PLANNING: `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
 - CREATED / VERIFIED PLANNING: `project-control/criminal-first-upload-metadata-package-2026-05-22.csv`.

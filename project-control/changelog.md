@@ -1,6 +1,20 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Criminal GSC export runner
+
+- TOOLING FIXED: created `tools/gsc/gsc-criminal-export.js`.
+- TOOLING FIXED: created `tools/gsc/run-criminal-gsc-export.ps1`.
+- CREATED: `project-control/gsc-criminal-export-runner-2026-05-22.md`.
+- CREATED: `project-control/gsc-criminal-export-runner-2026-05-22.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/gsc/gsc-criminal-export.js` passed.
+- VERIFIED LOCAL: direct dry run and PowerShell wrapper dry run passed without OAuth browser and without GSC API call.
+- VERIFIED LOCAL: dry-run scope includes `5` Criminal first-upload targets, `20` protected/support/route-risk paths and `27` query terms.
+- BLOCKED: real Criminal GSC export requires owner OAuth/GSC approval before any URL migration, redirect, canonical, noindex or sitemap decision.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Criminal first-upload metadata package
 
 - CREATED: `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.

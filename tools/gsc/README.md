@@ -64,6 +64,35 @@ node tools/build-family-divorce-protected-url-review-packet.mjs --reportDate="YY
 
 Without `--gscDir`, the decision-map builder can use the older cached `reports/gsc/` CSVs as a baseline only. Treat that baseline as `NOT_FINAL` until the focused export is reviewed.
 
+## Criminal Law First Export
+
+Use this runner for the controlled Criminal Law upload risk check. It exports the five Criminal first-upload current URLs, protected/support pages, route-fallback candidates and Criminal query terms without changing the site.
+
+PowerShell:
+
+```powershell
+$env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
+$env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+.\tools\gsc\run-criminal-gsc-export.ps1 -DryRun
+.\tools\gsc\run-criminal-gsc-export.ps1
+```
+
+Manual commands:
+
+```powershell
+node tools/gsc/gsc-criminal-export.js --dry-run
+node tools/gsc/gsc-criminal-export.js
+```
+
+Outputs save under `reports/gsc/criminal-law-YYYY-MM-DD/`:
+- `criminal-law-pages.csv`
+- `criminal-law-query-page.csv`
+- `criminal-law-cannibalization.csv`
+- `criminal-law-protected-sources.csv`
+- `criminal-law-summary.json`
+
+Review the export before any Criminal clean-slug migration, redirect, canonical, noindex or sitemap decision.
+
 ## Output
 
 Reports saved to `reports/gsc/`:

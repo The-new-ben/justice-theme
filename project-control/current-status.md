@@ -1,3 +1,18 @@
+## LATEST WORK STATUS - 2026-05-22 15:09 Asia/Jerusalem
+- CRIMINAL GSC EXPORT RUNNER: prepared a focused read-only Search Console export workflow for the Criminal first-upload cluster.
+- CREATED: `tools/gsc/gsc-criminal-export.js`.
+- CREATED: `tools/gsc/run-criminal-gsc-export.ps1`.
+- CREATED: `project-control/gsc-criminal-export-runner-2026-05-22.md`.
+- CREATED: `project-control/gsc-criminal-export-runner-2026-05-22.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/gsc/gsc-criminal-export.js` passed.
+- VERIFIED LOCAL: `node tools/gsc/gsc-criminal-export.js --dry-run` passed without reading credential contents, opening OAuth or calling GSC API.
+- VERIFIED LOCAL: `.\tools\gsc\run-criminal-gsc-export.ps1 -DryRun` passed without reading credential contents, opening OAuth or calling GSC API.
+- VERIFIED LOCAL: dry run scope is `5` Criminal first-upload target URLs, `20` protected/support/route-risk paths and `27` Criminal query terms.
+- BLOCKED: real API export still requires owner OAuth/GSC approval; no Criminal URL migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, CMS upload, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 14:55 Asia/Jerusalem
 - CRIMINAL FIRST-UPLOAD METADATA PACKAGE: prepared field-level CMS metadata for the five Criminal current-URL first-upload pages.
 - CREATED: `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.

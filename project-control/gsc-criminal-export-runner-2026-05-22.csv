@@ -1,0 +1,9 @@
+check_id,area,status,evidence,next_step
+GSC-CRIM-RUNNER-001,script,FIXED,tools/gsc/gsc-criminal-export.js created,Run dry-run before owner OAuth export
+GSC-CRIM-RUNNER-002,wrapper,FIXED,tools/gsc/run-criminal-gsc-export.ps1 created,Use wrapper for owner-approved export
+GSC-CRIM-RUNNER-003,target_scope,VERIFIED_LOCAL,5 Criminal first-upload current URLs included,Review after real GSC export
+GSC-CRIM-RUNNER-004,protected_scope,VERIFIED_LOCAL,20 protected support or redirect-risk paths included,Review before any redirect canonical noindex or sitemap decision
+GSC-CRIM-RUNNER-005,query_scope,VERIFIED_LOCAL,27 Criminal query terms included,Review query/page ownership after export
+GSC-CRIM-RUNNER-006,dry_run,VERIFIED_LOCAL,node tools/gsc/gsc-criminal-export.js --dry-run passed without OAuth/API call,Owner supplies credentials for real export
+GSC-CRIM-RUNNER-007,wrapper_dry_run,VERIFIED_LOCAL,.\tools\gsc\run-criminal-gsc-export.ps1 -DryRun passed without OAuth/API call,Run full wrapper only after owner approval
+GSC-CRIM-RUNNER-008,public_execution,BLOCKED,No CMS URL redirect canonical noindex sitemap taxonomy or internal-link action approved,Keep repo-only until approvals and export review

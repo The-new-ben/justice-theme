@@ -4,6 +4,23 @@
 
 ---
 
+### ACTION-GSC-CRIMINAL-EXPORT-RUNNER-001: Prepare Criminal Law GSC export runner
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / API EXECUTION BLOCKED UNTIL OWNER CREDENTIAL SETUP / NO PUBLIC CHANGES
+**Why:** The Criminal first-upload package now has drafts, owner review, operator runbook and metadata. Before URL migration or redirect decisions, it needs a focused read-only GSC export for current targets, protected/support pages and Criminal query/page ownership.
+**Actions:**
+1. DONE: created `tools/gsc/gsc-criminal-export.js`.
+2. DONE: created `tools/gsc/run-criminal-gsc-export.ps1`.
+3. DONE: created `project-control/gsc-criminal-export-runner-2026-05-22.md`.
+4. DONE: created `project-control/gsc-criminal-export-runner-2026-05-22.csv`.
+5. DONE: updated `tools/gsc/README.md`.
+6. DONE: updated `project-control/gsc-api-setup-guide.md`.
+7. VERIFIED LOCAL: `node --check tools/gsc/gsc-criminal-export.js` passed.
+8. VERIFIED LOCAL: `node tools/gsc/gsc-criminal-export.js --dry-run` passed without OAuth browser or GSC API call.
+9. VERIFIED LOCAL: `.\tools\gsc\run-criminal-gsc-export.ps1 -DryRun` passed without OAuth browser or GSC API call.
+10. VERIFIED LOCAL: dry-run scope includes `5` target paths, `20` protected/support paths and `27` Criminal query terms.
+11. BLOCKED: real focused GSC export still requires owner credential setup and OAuth approval.
+12. NEXT: after owner credentials, run `.\tools\gsc\run-criminal-gsc-export.ps1`, then review `criminal-law-query-page.csv`, `criminal-law-cannibalization.csv` and `criminal-law-protected-sources.csv` before any URL decision.
+
 ### ACTION-CRIMINAL-FIRST-UPLOAD-METADATA-PACKAGE-001: Prepare Criminal CMS metadata package
 **Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER REVIEW / EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** The Criminal operator runbook requires approved field values before any CMS update. A metadata package prevents ad hoc title/meta/breadcrumb/link decisions during upload and keeps current URLs separate from later slug migration.

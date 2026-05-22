@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-22 21:55 Asia/Jerusalem
+- PRIORITY PAGES CMS ROLLBACK CAPTURE TEMPLATE: added the exact pre-edit backup worksheet for the priority-page repair packet.
+- CREATED: `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.csv`.
+- FIXED PLANNING: documented exact capture fields for article IDs `19261` and `19279` before duplicate body/content H1 repair.
+- BLOCKED PLANNING: documented related-asset capture requirements before any clean-slug decision for `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/`.
+- VERIFIED LOCAL: rollback capture CSV parses with `10` rows.
+- NOT LIVE VERIFIED: no wp-admin repair, REST write, redirect, canonical/noindex, sitemap, taxonomy, internal-link, GSC/GA4, screenshot or uPress action happened.
+- SAFETY: no public CMS page/article body, database row, URL slug, redirect, canonical/noindex, taxonomy, sitemap, lawyer profile, lead, CRM record, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 21:46 Asia/Jerusalem
 - PRIORITY PAGES CMS REPAIR PACKET: converted the live read-only priority page findings into exact owner/operator CMS repair instructions without performing public changes.
 - CREATED: `project-control/priority-pages-cms-repair-packet-2026-05-22.md`.

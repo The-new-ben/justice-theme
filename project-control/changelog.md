@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Priority pages CMS rollback capture template
+
+- CREATED: `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.csv`.
+- FIXED PLANNING: added exact pre-edit capture requirements for article IDs `19261` and `19279` before duplicate body/content H1 repair.
+- FIXED PLANNING: added related-asset review capture requirements before any clean-slug decision for diagnosis, joint custody, medication errors and pension split targets.
+- VERIFIED LOCAL: rollback capture CSV parses with `10` rows.
+- NOT LIVE VERIFIED: no WordPress REST write, public page/article update, redirect, canonical/noindex, sitemap, GSC/GA4 action, screenshot or uPress deployment was executed.
+- SAFETY: no public CMS content, article body, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
 ## 2026-05-22 - Priority pages CMS repair packet
 
 - CREATED: `project-control/priority-pages-cms-repair-packet-2026-05-22.md`.

@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-PRIORITY-PAGES-CMS-ROLLBACK-CAPTURE-001: Prepare pre-edit rollback worksheet for priority page repairs
+**Status:** FIXED / VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the repair packet identifies what to fix, but the operator still needs a precise backup/capture worksheet before touching WordPress editor fields.
+**Actions:**
+1. DONE: created `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.md`.
+2. DONE: created `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.csv`.
+3. FIXED PLANNING: documented required capture fields for article IDs `19261` and `19279` before duplicate body/content H1 repair.
+4. FIXED PLANNING: documented related-asset capture requirements for article ID `8271`, article ID `5405`, page ID `19215`, and pension-related article IDs `8252`, `7048`, `11205`.
+5. BLOCKED PLANNING: clean-slug creation, redirect, canonical/noindex, sitemap, taxonomy and internal-link actions remain blocked until owner approval and source/GSC/legal decisions.
+6. VERIFIED LOCAL: rollback capture CSV parses with `10` rows.
+7. NOT LIVE VERIFIED: no public CMS edit, REST write, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4, screenshot or uPress action happened.
+8. NEXT: owner/operator records approval scope and rollback storage path, captures the required fields, then repairs only approved duplicate body H1s on article IDs `19261` and `19279`.
+
 ### ACTION-PRIORITY-PAGES-CMS-REPAIR-PACKET-001: Prepare controlled CMS repair packet for six priority slugs
 **Status:** FIXED / VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
 **Why:** live QA now identifies the actual source for the two working priority URLs and confirms the four missing clean slugs have no public object. The next public step needs exact operator instructions so repairs do not create duplicates or modify the wrong content type.

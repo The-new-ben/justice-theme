@@ -66,6 +66,14 @@ Without `--gscDir`, the decision-map builder can use the older cached `reports/g
 
 ## Priority Cluster Export
 
+Before the first real export, run the local preflight. It checks paths, local packages, Git hygiene and optional dry-run wiring without opening OAuth or calling GSC:
+
+```powershell
+$env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
+$env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+.\tools\gsc\check-gsc-oauth-preflight.ps1 -RunPriorityDryRun
+```
+
 After owner OAuth setup, this runner executes the three upload-blocking focused exports in sequence:
 
 - Family/Divorce

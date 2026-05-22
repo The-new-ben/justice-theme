@@ -21,6 +21,7 @@ LATEST 2026-05-21 RUNNER NOTE:
 - FIXED 2026-05-22: Medical Malpractice now has a focused read-only export runner: `.\tools\gsc\run-medical-malpractice-gsc-export.ps1 -DryRun`, then `.\tools\gsc\run-medical-malpractice-gsc-export.ps1` after owner OAuth approval.
 - FIXED 2026-05-22: the Medical Malpractice full wrapper builds `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv`, `reports/medical-malpractice-protected-url-decision-map-YYYY-MM-DD.csv`, `reports/medical-malpractice-cannibalization-decision-map-YYYY-MM-DD.csv` and `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.json`.
 - FIXED 2026-05-22: priority cluster runner now runs Family/Divorce, Criminal Law and Medical Malpractice in one read-only workflow: `.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -DryRun`, then `.\tools\gsc\run-priority-cluster-gsc-exports.ps1` after owner OAuth approval.
+- FIXED 2026-05-22: GSC OAuth preflight checker is available at `.\tools\gsc\check-gsc-oauth-preflight.ps1 -RunPriorityDryRun` to validate credential paths, ignored-token hygiene, local packages and priority runner wiring before any OAuth browser or API call.
 
 This guide explains how to connect Google Search Console API for Jus-Tice so we can export query/page data quickly instead of doing slow browser checks.
 
@@ -155,6 +156,7 @@ Priority cluster dry run and export:
 ```powershell
 $env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
 $env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+.\tools\gsc\check-gsc-oauth-preflight.ps1 -RunPriorityDryRun
 .\tools\gsc\run-priority-cluster-gsc-exports.ps1 -DryRun
 .\tools\gsc\run-priority-cluster-gsc-exports.ps1
 ```

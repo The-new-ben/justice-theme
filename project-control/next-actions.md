@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-GSC-OAUTH-PREFLIGHT-001: Add local GSC OAuth preflight checker
+**Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / OWNER OAUTH BLOCKED / NO PUBLIC CHANGES
+**Why:** The next owner-controlled blocker is GSC OAuth setup. A preflight checker reduces setup failures by validating credential paths, token hygiene, Node dependencies and priority-runner wiring before any OAuth browser or Search Console API call.
+**Actions:**
+1. DONE: created `tools/gsc/check-gsc-oauth-preflight.ps1`.
+2. DONE: created `project-control/gsc-oauth-preflight-runbook-2026-05-22.md`.
+3. DONE: created `project-control/gsc-oauth-preflight-runbook-2026-05-22.csv`.
+4. DONE: updated `tools/gsc/README.md`.
+5. DONE: updated `project-control/gsc-api-setup-guide.md`.
+6. VERIFIED LOCAL: running without credential env vars returns `BLOCKED_PRECHECK` for missing OAuth and token paths.
+7. VERIFIED LOCAL: running with local ignored paths and `-RunPriorityDryRun` returns `VERIFIED_PRECHECK_READY`.
+8. VERIFIED LOCAL: dry-run wiring covered Family/Divorce, Criminal Law and Medical Malpractice and opened no OAuth browser, made no API call and changed no public site data.
+9. NEXT: owner creates/saves OAuth Desktop credentials outside Git, sets `GSC_OAUTH_CLIENT_PATH` and `GSC_TOKEN_PATH`, runs the preflight, then runs the priority cluster export.
+
 ### ACTION-PRIORITY-OWNER-ACTION-QUEUE-001: Consolidate upload-blocking owner/operator gates
 **Status:** COMPLETED / VERIFIED LOCAL / BLOCKED BEFORE CONTENT UPLOAD / NO PUBLIC CHANGES
 **Why:** Family/Divorce, Criminal Law and Medical Malpractice now have multiple planning packets, GSC runners and review gates. The next useful acceleration is a single owner/operator queue that tells exactly what must happen before any content upload, URL migration, redirect, canonical/noindex, sitemap or internal-link action.

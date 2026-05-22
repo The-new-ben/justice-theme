@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 GSC OAuth Preflight Checker
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/gsc/check-gsc-oauth-preflight.ps1`.
+- CREATED / VERIFIED PLANNING: `project-control/gsc-oauth-preflight-runbook-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/gsc-oauth-preflight-runbook-2026-05-22.csv`.
+- VERIFIED LOCAL: missing credential/token paths return `BLOCKED_PRECHECK`.
+- VERIFIED LOCAL: with local ignored OAuth paths, `-RunPriorityDryRun` returns `VERIFIED_PRECHECK_READY`.
+- VERIFIED LOCAL: Family/Divorce, Criminal Law and Medical Malpractice dry-runs completed without OAuth browser or GSC API call.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was local setup tooling only and no public UI changed.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Priority Owner Action Queue
 - TOOLING FIXED / VERIFIED LOCAL: created `tools/build-priority-owner-action-queue.mjs`.
 - GENERATED / VERIFIED LOCAL: `reports/priority-owner-action-queue-2026-05-22.csv`.

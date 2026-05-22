@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - GSC OAuth preflight checker
+
+- TOOLING FIXED: created `tools/gsc/check-gsc-oauth-preflight.ps1`.
+- CREATED: `project-control/gsc-oauth-preflight-runbook-2026-05-22.md`.
+- CREATED: `project-control/gsc-oauth-preflight-runbook-2026-05-22.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: missing credential/token paths produce `BLOCKED_PRECHECK`.
+- VERIFIED LOCAL: local ignored OAuth path plus `-RunPriorityDryRun` produces `VERIFIED_PRECHECK_READY` and dry-runs Family/Divorce, Criminal Law and Medical Malpractice.
+- BLOCKED: real Search Console export still requires owner OAuth setup and owner approval of the first OAuth screen.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC write, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Priority owner action queue
 
 - TOOLING FIXED: created `tools/build-priority-owner-action-queue.mjs`.

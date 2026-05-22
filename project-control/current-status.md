@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-22 18:18 Asia/Jerusalem
+- GSC OAUTH PREFLIGHT: added a local setup checker so the owner can validate GSC credential paths, token hygiene, dependencies and priority-runner wiring before the first real OAuth/API export.
+- CREATED: `tools/gsc/check-gsc-oauth-preflight.ps1`.
+- CREATED: `project-control/gsc-oauth-preflight-runbook-2026-05-22.md`.
+- CREATED: `project-control/gsc-oauth-preflight-runbook-2026-05-22.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: preflight without credential env vars correctly returns `BLOCKED_PRECHECK` for missing OAuth and token paths.
+- VERIFIED LOCAL: preflight with the local ignored OAuth client and `-RunPriorityDryRun` returned `VERIFIED_PRECHECK_READY` and dry-ran Family/Divorce, Criminal Law and Medical Malpractice without opening OAuth or calling GSC.
+- BLOCKED OWNER SETUP: real GSC export still requires owner-created OAuth Desktop credentials and owner approval of the first OAuth screen.
+- SAFETY: this cycle made repo-only tooling/docs changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC API write, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 18:08 Asia/Jerusalem
 - PRIORITY OWNER ACTION QUEUE: consolidated the upload-blocking owner/operator gates across Family/Divorce, Criminal Law, Medical Malpractice and GSC into one action queue.
 - CREATED: `tools/build-priority-owner-action-queue.mjs`.

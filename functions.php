@@ -27,6 +27,7 @@ $justice_theme_files = array(
 	'inc/spam-url-guards.php',
 	'inc/diagnostics.php',
 	'inc/schema.php',
+	'inc/eeat.php',
 	'inc/seo.php',
 	'inc/accessibility.php',
 	'inc/related-content.php',

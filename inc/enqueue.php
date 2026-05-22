@@ -78,6 +78,17 @@ function justice_theme_enqueue_assets() {
 		);
 	}
 
+	// E-E-A-T components — author byline, trust badges, legal citations, disclaimer.
+	// Loads on all singular pages with substantial legal content.
+	if ( is_singular() ) {
+		wp_enqueue_style(
+			'justice-eeat',
+			JUSTICE_THEME_URI . '/assets/css/eeat.css',
+			array( 'justice-main' ),
+			'1.0.0'
+		);
+	}
+
 	wp_enqueue_script(
 		'justice-navigation',
 		JUSTICE_THEME_URI . '/assets/js/navigation.js',

@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-CONTENT-UPLOAD-GOVERNANCE-CHECKLIST-001: Convert staged publishing strategy into a hard upload gate
+**Status:** COMPLETED / VERIFIED PLANNING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CHANGES
+**Why:** Cluster-by-cluster publishing is the right operating model, but it needs one non-ambiguous gate so faster Family/Divorce, Criminal and Medical work does not accidentally approve URL migration, redirects, canonicals/noindex, sitemap, taxonomy or internal-link changes.
+**Actions:**
+1. DONE: created `project-control/content-upload-governance-checklist-2026-05-22.md`.
+2. DONE: created `project-control/content-upload-governance-checklist-2026-05-22.csv`.
+3. DONE: updated `project-control/priority-owner-action-queue-2026-05-22.md`.
+4. DONE: updated `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md`.
+5. VERIFIED PLANNING: checklist defines `15` gates from cluster selection through rollback/hold.
+6. VERIFIED PLANNING: checklist keeps current-URL visible repair/current-URL updates separate from later clean English slug migration.
+7. VERIFIED PLANNING: Family/Divorce remains first, with only narrow current-URL visible repair as the first safe public-action candidate after owner approval, rollback backup, focused GSC and post-repair QA.
+8. BLOCKED PUBLIC EXECUTION: `0` clusters are approved for upload by this checklist.
+9. NEXT: use this checklist during the Family/Divorce owner review after GSC OAuth/export and before any public CMS work.
+
 ### ACTION-CRIMINAL-SOURCE-LEGAL-REVIEW-WORKSHEET-001: Add page-level review gate for Criminal first-upload drafts
 **Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER LEGAL SOURCE REVIEW / EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** The Criminal first-upload draft and metadata set is complete, but it needed a page-level owner/legal/source worksheet like the Medical Malpractice gate before any current-URL CMS update can be considered.

@@ -5,6 +5,16 @@ Status: VERIFIED / REVIEW ONLY / NO PUBLIC CHANGES
 
 This document records the strategy shift from slow sitewide auditing toward staged, cluster-by-cluster publishing. It does not approve public uploads, redirects, URL changes, canonicals, sitemap changes, CMS writes, taxonomy changes, lawyer cards, reviews, ratings, schema, CRM changes or wp-admin settings.
 
+## Governance Update - 2026-05-22
+
+VERIFIED PLANNING:
+- `project-control/content-upload-governance-checklist-2026-05-22.md` is the active pre-upload checklist for this staged strategy.
+- It defines `15` gates covering cluster selection, current URL inventory, strong-page protection, metadata, source/legal review, focused GSC evidence, rollback backup, execution boundaries, post-update QA, monitoring and later migration approval.
+
+BLOCKED:
+- The governance checklist approves `0` clusters for public upload by itself.
+- Clean English slug migration, redirects, canonicals/noindex, sitemap changes, taxonomy cleanup and broad internal-link rewrites remain separate approval phases after focused GSC review.
+
 ## Decision
 
 VERIFIED:

@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-22 18:58 Asia/Jerusalem
+- CONTENT UPLOAD GOVERNANCE CHECKLIST: converted the staged cluster-by-cluster publishing strategy into one hard pre-upload gate.
+- CREATED: `project-control/content-upload-governance-checklist-2026-05-22.md`.
+- CREATED: `project-control/content-upload-governance-checklist-2026-05-22.csv`.
+- UPDATED: `project-control/priority-owner-action-queue-2026-05-22.md`.
+- UPDATED: `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md`.
+- VERIFIED PLANNING: checklist defines `15` gates from cluster selection through rollback/hold and separates current-URL updates from later migration.
+- VERIFIED PLANNING: Family/Divorce remains the first recommended controlled domain, but only narrow current-URL visible repair is a first safe public-action candidate after owner approval, rollback backup, focused GSC and post-repair QA.
+- BLOCKED PUBLIC EXECUTION: `0` clusters are upload-approved; clean slugs, redirects, canonicals/noindex, sitemap, taxonomy, broad internal links, lawyer cards, lead/CRM and uPress actions remain blocked.
+- NEXT: owner completes GSC OAuth/export, then uses this checklist with the Family/Divorce approval and rollback packets before any public CMS work.
+- SAFETY: this cycle made repo-only docs changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC API call, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 18:49 Asia/Jerusalem
 - CRIMINAL SOURCE/LEGAL REVIEW WORKSHEET: added the missing page-level approval gate for the completed Criminal first-upload draft set.
 - CREATED: `project-control/criminal-source-legal-review-worksheet-2026-05-22.md`.

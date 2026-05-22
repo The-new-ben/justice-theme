@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Content Upload Governance Checklist
+- CREATED / VERIFIED PLANNING: `project-control/content-upload-governance-checklist-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/content-upload-governance-checklist-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/priority-owner-action-queue-2026-05-22.md`.
+- UPDATED / VERIFIED PLANNING: `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md`.
+- VERIFIED PLANNING: checklist defines `15` upload governance gates and approves `0` clusters for public upload.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was local governance documentation and no public UI changed.
+- BLOCKED PUBLIC EXECUTION: no CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy, internal-link, lawyer, lead, CRM or uPress action is approved.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment, GSC API call or admin setting changed.
+
 ## 2026-05-22 Criminal Source/Legal Review Worksheet
 - CREATED / VERIFIED PLANNING: `project-control/criminal-source-legal-review-worksheet-2026-05-22.md`.
 - CREATED / VERIFIED LOCAL: `project-control/criminal-source-legal-review-worksheet-2026-05-22.csv`.

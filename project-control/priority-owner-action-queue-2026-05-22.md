@@ -9,6 +9,7 @@ Status: BLOCKED_BEFORE_CONTENT_UPLOAD / NO PUBLIC CHANGES
 - BLOCKED: 10/10 action rows are blocked until owner/operator prerequisites are completed.
 - NEXT OWNER ACTION: Complete read-only GSC OAuth setup outside Git, then run the priority cluster export runner.
 - UPLOAD READINESS: no priority cluster is approved for public content upload from this queue alone.
+- GOVERNANCE UPDATE: `project-control/content-upload-governance-checklist-2026-05-22.md` is now the master pre-upload checklist for cluster selection, current-URL updates, rollback, QA, monitoring and later migration approval.
 
 ## Queue
 

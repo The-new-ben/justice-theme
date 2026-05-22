@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Content upload governance checklist
+
+- CREATED: `project-control/content-upload-governance-checklist-2026-05-22.md`.
+- CREATED: `project-control/content-upload-governance-checklist-2026-05-22.csv`.
+- UPDATED: `project-control/priority-owner-action-queue-2026-05-22.md`.
+- UPDATED: `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md`.
+- VERIFIED PLANNING: checklist defines `15` required or conditional gates before public content upload or repair.
+- VERIFIED PLANNING: checklist separates current-URL body/visible repair work from later clean English slug, redirect, canonical/noindex, sitemap and taxonomy migration.
+- BLOCKED: `0` clusters are upload-approved; Family/Divorce still requires owner approval, actual CMS rollback backup, focused GSC and post-repair QA.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC API call, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Criminal source/legal review worksheet
 
 - CREATED: `project-control/criminal-source-legal-review-worksheet-2026-05-22.md`.

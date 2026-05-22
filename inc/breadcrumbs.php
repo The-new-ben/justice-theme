@@ -447,6 +447,12 @@ function justice_theme_get_breadcrumb_items() {
 			'real-estate-lawyer-akko'      => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 			'criminal-lawyer-nazareth'     => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
 			'landlord-rights-israel'       => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			// Batch 36
+			'criminal-lawyer-lod'          => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'family-law-lod'               => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'tenant-rights-israel'         => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'work-accident-guide'          => array( 'name' => 'נזקי גוף', 'url' => '/personal-injury-claim/' ),
+			'construction-permit-violation' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

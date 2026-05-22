@@ -2,6 +2,17 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Criminal Owner Review Packet
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/build-criminal-owner-review-packet.mjs`.
+- GENERATED / VERIFIED LOCAL: `reports/criminal-owner-review-packet-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/criminal-owner-review-packet-2026-05-22.json`.
+- CREATED / VERIFIED LOCAL: `project-control/criminal-owner-review-packet-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/criminal-owner-review-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: packet generated `5` Criminal current-URL owner-review rows, all pending owner decision and not upload-approved.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local review-packet/reporting work only; no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/legal/source approval, WordPress backup, approved CMS update and post-upload route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Criminal First-Upload Draft Closure
 - CONTENT FIXED / VERIFIED LOCAL: created `content-drafts/indictment-supporting-he.md`.
 - CONTENT FIXED / VERIFIED LOCAL: created `content-drafts/drug-offenses-supporting-he.md`.

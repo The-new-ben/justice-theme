@@ -4408,3 +4408,16 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: owner/admin still needs to actually contact prospects and click the relevant action after real activity; no automated outreach was added.
 - COMPLETION ASSESSMENT: lawyer outreach operating system 66%; paid coverage pipeline 52%; first-lawyer sales readiness 72%; automated payment readiness 80%.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Prospects -> Manual Outreach Kit quick actions, and wp-admin -> Justice CRM -> Lawyer sales pipeline action buttons.
+## LATEST WORK STATUS - 2026-05-22 14:38 Asia/Jerusalem
+- CRIMINAL OWNER REVIEW PACKET: converted the five current-URL Criminal first-upload targets into a controlled owner/legal/source review gate.
+- TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.
+- GENERATED: `reports/criminal-owner-review-packet-2026-05-22.csv`.
+- GENERATED: `reports/criminal-owner-review-packet-2026-05-22.json`.
+- CREATED: `project-control/criminal-owner-review-packet-2026-05-22.md`.
+- CREATED: `project-control/criminal-owner-review-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-owner-review-packet.mjs` passed.
+- VERIFIED LOCAL: packet generation produced `5` review rows, all `READY_FOR_OWNER_LEGAL_SOURCE_REVIEW_NOT_UPLOAD`.
+- VERIFIED LOCAL: all `5` rows remain `PENDING_OWNER_DECISION`; `0` rows are approved for upload.
+- READY FOR OWNER REVIEW / NOT UPLOAD: `/criminal-defense-attorney/` is the first recommended Criminal review target, followed by police investigation, pretrial detention, indictment and drug offenses.
+- BLOCKED: Criminal CMS upload, English slug migration, redirects, canonicals/noindex, sitemap, taxonomy, related-card/internal-link writes, lawyer cards, schema and CRM changes remain unapproved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.

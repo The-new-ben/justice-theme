@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Criminal owner review packet
+
+- TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.
+- GENERATED: `reports/criminal-owner-review-packet-2026-05-22.csv`.
+- GENERATED: `reports/criminal-owner-review-packet-2026-05-22.json`.
+- CREATED: `project-control/criminal-owner-review-packet-2026-05-22.md`.
+- CREATED: `project-control/criminal-owner-review-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-owner-review-packet.mjs` passed.
+- VERIFIED LOCAL: packet generated `5` owner-review rows covering the Criminal first-upload current-URL targets.
+- VERIFIED LOCAL: all rows remain `PENDING_OWNER_DECISION` and `READY_FOR_OWNER_LEGAL_SOURCE_REVIEW_NOT_UPLOAD`.
+- BLOCKED: Criminal public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap, related/internal-link writes, lawyer cards, schema and CRM changes remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Criminal first-upload draft closure
 
 - CONTENT FIXED / REVIEW ONLY: created `content-drafts/indictment-supporting-he.md`.

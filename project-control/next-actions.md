@@ -6,6 +6,22 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CRIMINAL-OWNER-REVIEW-PACKET-001: Prepare Criminal owner review packet
+**Status:** COMPLETED / VERIFIED LOCAL / READY FOR OWNER REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** Criminal first-upload draft coverage is now complete, but public CMS upload must still be gated by owner/legal/source approval, current-URL strategy, anti-cannibalization controls and rollback backup.
+**Actions:**
+1. DONE: created `tools/build-criminal-owner-review-packet.mjs`.
+2. DONE: generated `reports/criminal-owner-review-packet-2026-05-22.csv`.
+3. DONE: generated `reports/criminal-owner-review-packet-2026-05-22.json`.
+4. DONE: created `project-control/criminal-owner-review-packet-2026-05-22.md`.
+5. DONE: created `project-control/criminal-owner-review-packet-2026-05-22.csv`.
+6. VERIFIED LOCAL: `node --check tools/build-criminal-owner-review-packet.mjs` passed.
+7. VERIFIED LOCAL: generated packet covers `5` Criminal first-upload current-URL targets.
+8. VERIFIED LOCAL: all `5` rows are `READY_FOR_OWNER_LEGAL_SOURCE_REVIEW_NOT_UPLOAD` and `PENDING_OWNER_DECISION`.
+9. READY: owner can mark each page `APPROVE_CURRENT_URL_UPDATE`, `EDIT_REQUIRED`, `HOLD` or `LEGAL_REVIEW_REQUIRED`.
+10. BLOCKED: no CMS upload, English slug migration, redirects, canonicals, noindex, sitemap, taxonomy, related-card/internal-link writes, lawyer cards, schema or CRM action is approved.
+11. NEXT: owner reviews `/criminal-defense-attorney/` first, then the four support pages, before any CMS operator runbook is prepared or executed.
+
 ### ACTION-CRIMINAL-FIRST-UPLOAD-DRAFT-CLOSURE-001: Complete missing Criminal first-upload support drafts
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / READY FOR OWNER REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** The Criminal/Traffic readiness dashboard showed `2/5` missing Criminal first-upload drafts. Closing this gap is the highest-value unblocked repo-only step before owner review, because it prepares the Criminal cluster as a coherent current-URL upload package without touching live URLs or the CMS.
@@ -23,7 +39,7 @@
 11. VERIFIED LOCAL: dashboard still consolidates `57` rows and Criminal first-upload draft coverage is now `5/5`, with `0` missing drafts.
 12. READY: the Criminal current-URL first-upload package is ready for owner/legal/source review.
 13. BLOCKED: no CMS upload, slug migration, redirects, canonicals, noindex, sitemap, taxonomy or internal-link writes are approved.
-14. NEXT: prepare or run the Criminal owner review packet for the five current-URL targets, starting with `/criminal-defense-attorney/`.
+14. FIXED LATER: `ACTION-CRIMINAL-OWNER-REVIEW-PACKET-001` created the five-page owner/legal/source review packet.
 
 ### ACTION-CRIMINAL-TRAFFIC-READINESS-DASHBOARD-001: Consolidate next content-upload cluster evidence
 **Status:** COMPLETED / VERIFIED LOCAL / REVIEW ONLY / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES

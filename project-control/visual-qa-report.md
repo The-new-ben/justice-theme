@@ -2,6 +2,17 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Project Timing And Acceleration Estimate
+- CREATED / VERIFIED PLANNING: `project-control/project-timing-acceleration-resources-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/project-timing-acceleration-resources-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/content-upload-governance-checklist-2026-05-22.md`.
+- UPDATED / VERIFIED PLANNING: `project-control/priority-owner-action-queue-2026-05-22.md`.
+- VERIFIED PLANNING: estimate separates visible repair, current-URL content update, SEO migration and full legacy cleanup.
+- VERIFIED PLANNING: Family/Divorce first repair remains the fastest safe first public-action candidate after owner approval, rollback backup and GSC/substitute evidence.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was repo-only timing documentation and no public UI changed.
+- BLOCKED PUBLIC EXECUTION: no CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy, internal-link write, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin or uPress action is approved.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment, GSC API call or admin setting changed.
+
 ## 2026-05-22 Google Business Marketing Ecosystem Strategy
 - CREATED / VERIFIED RESEARCH: `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.md`.
 - CREATED / VERIFIED PLANNING: `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.csv`.

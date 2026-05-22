@@ -15,6 +15,16 @@ The working strategy remains:
 - Do not let weak old pages freeze the entire project.
 - Do not publish duplicate or cannibalizing pages.
 
+## Timing Addendum
+
+VERIFIED PLANNING:
+- `project-control/project-timing-acceleration-resources-2026-05-22.md` is the current timing and acceleration packet for staged content upload.
+- First narrow Family/Divorce visible repair is estimated at `0.5-1 operator day` after owner approval, actual CMS rollback backup and focused GSC or owner-approved substitute.
+- Complete Family/Divorce controlled current-URL upload is estimated at `2-4 operator days` after owner/legal/source decisions, focused GSC evidence and rollback backup.
+
+BLOCKED:
+- These estimates do not approve upload or migration. They only define likely work duration after the gates in this checklist are satisfied.
+
 ## Primary Rule
 
 VERIFIED:

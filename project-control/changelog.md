@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Project timing and acceleration estimate
+
+- CREATED: `project-control/project-timing-acceleration-resources-2026-05-22.md`.
+- CREATED: `project-control/project-timing-acceleration-resources-2026-05-22.csv`.
+- UPDATED: `project-control/content-upload-governance-checklist-2026-05-22.md`.
+- UPDATED: `project-control/priority-owner-action-queue-2026-05-22.md`.
+- VERIFIED PLANNING: first narrow Family/Divorce visible repair is estimated at `0.5-1 operator day` after owner approval, CMS rollback backup and focused GSC or owner-approved substitute.
+- VERIFIED PLANNING: complete Family/Divorce controlled current-URL upload package is estimated at `2-4 operator days` after owner/legal/source decisions, GSC evidence and rollback backup.
+- VERIFIED PLANNING: all priority clusters can likely reach controlled upload-ready state in `2-4 focused weeks` if owner/GSC/CMS gates are available, or `4-8+ calendar weeks` under current blocker pattern.
+- BLOCKED: the estimate does not approve public CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy, internal-link write, lawyer card, lead/CRM, payment, GA4/GSC setting, wp-admin or uPress action.
+- SAFETY: no public CMS content, database row, lawyer record, lead record, prospect record, payment setting, Google account setting, GA4/GSC setting, URL, redirect, canonical/noindex, taxonomy, sitemap, wp-admin setting, uPress deployment or outreach message was changed.
+
 ## 2026-05-22 - Google Business marketing ecosystem strategy
 
 - CREATED: `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.md`.

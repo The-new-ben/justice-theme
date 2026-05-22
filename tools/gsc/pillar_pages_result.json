@@ -1,0 +1,30 @@
+[
+  {
+    "action": "CREATED",
+    "http": 201,
+    "id": 20244,
+    "slug": "criminal-record-deletion",
+    "url": "https://jus-tice.co.il/criminal-record-deletion/"
+  },
+  {
+    "action": "CREATED",
+    "http": 201,
+    "id": 20245,
+    "slug": "police-investigation-rights",
+    "url": "https://jus-tice.co.il/police-investigation-rights/"
+  },
+  {
+    "action": "CREATED",
+    "http": 201,
+    "id": 20246,
+    "slug": "prenuptial-agreement",
+    "url": "https://jus-tice.co.il/prenuptial-agreement/"
+  },
+  {
+    "action": "CREATED",
+    "http": 201,
+    "id": 20247,
+    "slug": "alimony-israel",
+    "url": "https://jus-tice.co.il/alimony-israel/"
+  }
+]

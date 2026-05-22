@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-22 16:17 Asia/Jerusalem
+- MEDICAL MALPRACTICE FIRST-UPLOAD METADATA PACKAGE: prepared current-URL-only field metadata for the first Medical Malpractice upload-review set.
+- CREATED: `project-control/medical-malpractice-first-upload-metadata-package-2026-05-22.md`.
+- CREATED: `project-control/medical-malpractice-first-upload-metadata-package-2026-05-22.csv`.
+- VERIFIED LOCAL: metadata CSV parses and contains `9` page rows with `0` upload-approved rows.
+- VERIFIED PLANNING: package covers `/medical-malpractice-lawyer/`, protected cost support, definition/common-errors/comparison support, anesthesia/surgery support, `/birth-injury/` and the protected high-visibility old birth/pregnancy page.
+- VERIFIED PLANNING: every row keeps current URLs only and blocks clean slugs, redirects, canonical/noindex changes, sitemap changes, taxonomy edits, related-card writes, schema expansion and CMS execution until owner/GSC/source/legal gates clear.
+- READY FOR OWNER REVIEW / NOT EXECUTION: owner can approve, edit, hold or send each row to legal/source review before any CMS operator action.
+- BLOCKED: Medical Malpractice upload still requires authoritative CMS record decision for `/medical-malpractice-lawyer/`, focused GSC export, source/legal/privacy review, rollback evidence and explicit CMS upload approval.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 16:08 Asia/Jerusalem
 - MEDICAL MALPRACTICE CMS IDENTITY OPERATOR RUNBOOK: prepared the inspection-only operator workflow for the `/medical-malpractice-lawyer/` duplicate CMS identity blocker.
 - CREATED: `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.md`.

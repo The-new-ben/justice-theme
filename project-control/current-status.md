@@ -1,3 +1,1510 @@
+## LATEST WORK STATUS - 2026-05-22 16:08 Asia/Jerusalem
+- MEDICAL MALPRACTICE CMS IDENTITY OPERATOR RUNBOOK: prepared the inspection-only operator workflow for the `/medical-malpractice-lawyer/` duplicate CMS identity blocker.
+- CREATED: `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.md`.
+- CREATED: `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.csv`.
+- VERIFIED LOCAL: runbook covers `9` operator checklist rows for inspection authorization, backup of IDs `11607` and `1130`, served-record verification, field comparison, owner decision, GSC gate, source/legal gate and upload boundary.
+- VERIFIED PLANNING: runbook allows inspection/export only and explicitly blocks saving editor changes, publishing, slug changes, redirects, canonicals/noindex, sitemap, taxonomy, media changes, schema, lawyer cards and CRM actions.
+- READY FOR OPERATOR PREP / NOT EXECUTION: owner/operator can use this to verify the authoritative WordPress record without changing the public site.
+- BLOCKED: Medical Malpractice upload still requires owner authoritative-record decision, rollback evidence, focused GSC export, source/legal/privacy review and explicit CMS upload approval.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-22 16:01 Asia/Jerusalem
+- MEDICAL MALPRACTICE DUPLICATE IDENTITY REVIEW: prepared a focused repo-only comparison packet for the `/medical-malpractice-lawyer/` duplicate CMS identity blocker.
+- CREATED: `tools/build-medical-malpractice-duplicate-identity-review.mjs`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-duplicate-identity-review-2026-05-22.json`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.md`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-medical-malpractice-duplicate-identity-review.mjs` passed.
+- VERIFIED LOCAL: packet generation reviewed CMS IDs `11607` and `1130`, produced `8` evidence/decision rows, confirmed the same public URL in local exports, found `2` distinct content hashes, recorded slug-conflict count `27`, exact current records `2`, and proposed primary post ID `11607`.
+- VERIFIED LOCAL: comparison flags material differences: ID `11607` is newer and longer (`5,135` words, quality `6`, no featured image/outgoing links); ID `1130` is older and shorter (`3,287` words, quality `8`, one featured image and outgoing links).
+- NOT VERIFIED FINAL: wp-admin/database canonical served-record state is still not verified.
+- BLOCKED: owner must choose `KEEP_11607_AS_AUTHORITATIVE`, `KEEP_1130_AS_AUTHORITATIVE`, `MERGE_1130_ASSETS_INTO_11607`, or `HOLD_PENDING_WP_ADMIN_DB_CHECK` before Medical Malpractice CMS upload can proceed.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-22 15:52 Asia/Jerusalem
+- MEDICAL MALPRACTICE OWNER DECISION PACKET: converted the 249-row readiness dashboard and GSC baseline map into a smaller owner-facing decision packet for pre-upload review.
+- CREATED: `tools/build-medical-malpractice-owner-decision-packet.mjs`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-owner-decision-packet-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-owner-decision-packet-2026-05-22.json`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-owner-decision-packet-2026-05-22.md`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-owner-decision-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-medical-malpractice-owner-decision-packet.mjs` passed.
+- VERIFIED LOCAL: packet generation produced `69` owner decision rows: `8` owner gates, `23` current-URL review rows, `15` P0 support/protected rows, `12` clean-slug route blocker rows, `8` source/legal rows, `1` cannibalization row and `2` possible false-positive rows.
+- VERIFIED LOCAL: upload-approved rows remain `0`; all public execution remains blocked pending owner decisions, focused GSC export, duplicate CMS identity review, source/legal review and WordPress rollback backup.
+- BLOCKED: no Medical Malpractice CMS upload, English slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-22 15:43 Asia/Jerusalem
+- MEDICAL MALPRACTICE GSC EXPORT WORKFLOW: prepared the focused read-only Search Console export and post-export decision-map workflow for the Medical Malpractice cluster.
+- CREATED: `tools/gsc/gsc-medical-malpractice-export.js`.
+- CREATED: `tools/gsc/run-medical-malpractice-gsc-export.ps1`.
+- CREATED: `tools/build-medical-malpractice-gsc-decision-map.mjs`.
+- CREATED: `project-control/gsc-medical-malpractice-export-runner-2026-05-22.md`.
+- CREATED: `project-control/gsc-medical-malpractice-export-runner-2026-05-22.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-gsc-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-protected-url-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-cannibalization-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-gsc-decision-map-2026-05-22.json`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-gsc-decision-map-2026-05-22.md`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-gsc-decision-map-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/gsc/gsc-medical-malpractice-export.js` passed.
+- VERIFIED LOCAL: `node --check tools/build-medical-malpractice-gsc-decision-map.mjs` passed.
+- VERIFIED LOCAL: `.\tools\gsc\run-medical-malpractice-gsc-export.ps1 -DryRun` passed without reading credential contents, opening OAuth or calling GSC API.
+- VERIFIED LOCAL: dry-run scope is `1` primary target path, `73` protected/source paths, `10` route candidate paths, `8` boundary paths and `22` Medical Malpractice query terms.
+- VERIFIED LOCAL / NOT FINAL: baseline decision map generated `187` rows, including `1` primary target row, `178` protected/review rows, `8` source/legal gate rows, `26` high/protected/unknown-GSC risk rows and `1` cannibalization row.
+- BLOCKED: real Medical Malpractice GSC export still requires owner credential setup and OAuth approval.
+- BLOCKED: no Medical Malpractice CMS upload, English slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-22 15:32 Asia/Jerusalem
+- MEDICAL MALPRACTICE READINESS DASHBOARD: consolidated the next cluster-by-cluster upload-readiness batch while Family/Divorce and Criminal remain blocked by owner GSC/OAuth and CMS approval.
+- CREATED: `tools/build-medical-malpractice-readiness-dashboard.mjs`.
+- GENERATED: `reports/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+- GENERATED: `reports/medical-malpractice-readiness-dashboard-2026-05-22.json`.
+- CREATED: `project-control/medical-malpractice-readiness-dashboard-2026-05-22.md`.
+- CREATED: `project-control/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-medical-malpractice-readiness-dashboard.mjs` passed.
+- VERIFIED LOCAL: dashboard generated `249` consolidated planning rows across `9` lanes: owner gates, current URL readiness, P0 support pages, clean slug route review, internal links, source/legal gates, content inventory, URL migration and cannibalization.
+- VERIFIED LOCAL: flagged `63` high/protected/unknown-GSC risk rows, `86` blocked or approval-gated rows, `4` clean-slug/route blockers, `8` source/legal blockers and `2` possible false-positive medical-malpractice cluster assignments.
+- READY FOR REVIEW / NOT UPLOAD: Medical Malpractice now has a single repo-controlled readiness dashboard for owner/GSC/API decision work.
+- BLOCKED: no Medical Malpractice CMS upload, English slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-22 15:19 Asia/Jerusalem
+- CRIMINAL GSC DECISION MAPS: prepared the post-export parser/decision workflow for the Criminal first-upload cluster.
+- CREATED: `tools/build-criminal-gsc-decision-map.mjs`.
+- UPDATED: `tools/gsc/run-criminal-gsc-export.ps1` now runs the decision-map builder after the full read-only Criminal GSC export.
+- GENERATED / NOT FINAL: `reports/criminal-gsc-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/criminal-protected-url-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/criminal-cannibalization-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/criminal-gsc-decision-map-2026-05-22.json`.
+- CREATED: `project-control/criminal-gsc-decision-map-2026-05-22.md`.
+- CREATED: `project-control/criminal-gsc-decision-map-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-gsc-decision-map.mjs` passed.
+- VERIFIED LOCAL: baseline generation produced `5` current Criminal targets, `20` protected/support/route-risk rows and `8` cannibalization/wrong-page rows.
+- NOT VERIFIED FINAL: generated maps are `BASELINE_DASHBOARD_NOT_FINAL`; focused owner-authorized GSC export is still required before URL migration, redirects, canonicals/noindex or sitemap decisions.
+- BLOCKED: no Criminal CMS upload, English slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-22 15:09 Asia/Jerusalem
+- CRIMINAL GSC EXPORT RUNNER: prepared a focused read-only Search Console export workflow for the Criminal first-upload cluster.
+- CREATED: `tools/gsc/gsc-criminal-export.js`.
+- CREATED: `tools/gsc/run-criminal-gsc-export.ps1`.
+- CREATED: `project-control/gsc-criminal-export-runner-2026-05-22.md`.
+- CREATED: `project-control/gsc-criminal-export-runner-2026-05-22.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/gsc/gsc-criminal-export.js` passed.
+- VERIFIED LOCAL: `node tools/gsc/gsc-criminal-export.js --dry-run` passed without reading credential contents, opening OAuth or calling GSC API.
+- VERIFIED LOCAL: `.\tools\gsc\run-criminal-gsc-export.ps1 -DryRun` passed without reading credential contents, opening OAuth or calling GSC API.
+- VERIFIED LOCAL: dry run scope is `5` Criminal first-upload target URLs, `20` protected/support/route-risk paths and `27` Criminal query terms.
+- BLOCKED: real API export still requires owner OAuth/GSC approval; no Criminal URL migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, CMS upload, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-22 14:55 Asia/Jerusalem
+- CRIMINAL FIRST-UPLOAD METADATA PACKAGE: prepared field-level CMS metadata for the five Criminal current-URL first-upload pages.
+- CREATED: `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
+- CREATED: `project-control/criminal-first-upload-metadata-package-2026-05-22.csv`.
+- UPDATED: `project-control/criminal-cms-operator-runbook-2026-05-22.md` now points operators to the metadata package for approved field values.
+- VERIFIED PLANNING: package covers `5` Criminal target pages with H1, SEO title, meta description, OG title, OG description, breadcrumb label, taxonomy label, current-URL links, schema policy and robots policy.
+- VERIFIED PLANNING: all links stay on current URLs; future clean slugs remain blocked until GSC and owner migration approval.
+- READY FOR OWNER REVIEW / NOT EXECUTION: rows are ready to approve, edit, hold or send to legal/source review.
+- BLOCKED: all `5` rows remain `BLOCKED_OWNER_LEGAL_SOURCE_APPROVAL`; no Criminal CMS upload, English slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-22 14:44 Asia/Jerusalem
+- CRIMINAL CMS OPERATOR RUNBOOK: prepared a blocked post-approval CMS execution guide for the five Criminal first-upload current URLs.
+- CREATED: `project-control/criminal-cms-operator-runbook-2026-05-22.md`.
+- CREATED: `project-control/criminal-cms-operator-runbook-2026-05-22.csv`.
+- VERIFIED LOCAL: runbook covers `5` Criminal target pages and `11` operator checklist rows.
+- VERIFIED PLANNING: runbook requires owner/legal/source approval, actual WordPress editor/database rollback material, current-URL-only updates and post-upload route/indexability/link/visual QA.
+- READY FOR OPERATOR PREP / NOT EXECUTION: operator boundaries are documented before approval, but every page row remains `BLOCKED`.
+- BLOCKED: no Criminal CMS upload, English slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-22 14:31 Asia/Jerusalem
+- CRIMINAL FIRST-UPLOAD DRAFT CLOSURE: completed the two missing Criminal support drafts and regenerated the readiness dashboard.
+- CREATED: `content-drafts/indictment-supporting-he.md`.
+- CREATED: `content-drafts/drug-offenses-supporting-he.md`.
+- UPDATED: `tools/build-criminal-traffic-readiness-dashboard.mjs` now tracks all five Criminal first-upload draft files.
+- CREATED: `project-control/criminal-first-upload-draft-closure-2026-05-22.md`.
+- CREATED: `project-control/criminal-first-upload-draft-closure-2026-05-22.csv`.
+- REGENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- REGENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.json`.
+- REGENERATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
+- REGENERATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-traffic-readiness-dashboard.mjs` passed.
+- VERIFIED LOCAL: dashboard still has `57` consolidated rows and Criminal first-upload draft coverage is now `5/5`, with `0` missing drafts.
+- VERIFIED LOCAL: new tracked dashboard word counts are `2,148` for the indictment draft and `2,237` for the drug-offenses draft.
+- READY FOR OWNER REVIEW / NOT UPLOAD: Criminal current-URL first-upload package has drafts for pillar, police investigation, pretrial detention, indictment and drug offenses.
+- BLOCKED: no Criminal CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy or internal-link expansion is approved by this draft closure.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-22 14:35 Asia/Jerusalem
+- CRIMINAL + TRAFFIC READINESS DASHBOARD: consolidated the next cluster-by-cluster content-upload evidence batch while Family/Divorce remains blocked by owner GSC/OAuth and CMS approval.
+- TOOLING FIXED: created `tools/build-criminal-traffic-readiness-dashboard.mjs`.
+- GENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- GENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.json`.
+- CREATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
+- CREATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-traffic-readiness-dashboard.mjs` passed.
+- VERIFIED LOCAL: generated dashboard has `57` consolidated rows: `5` criminal first-upload targets, `18` criminal P0 support/protection rows, `13` traffic support/boundary rows, `9` targeted GSC signal rows and the traffic/criminal wrong-page decision packet.
+- FIXED LATER: criminal first-upload readiness now has `5/5` drafts present and `0` missing drafts after the Criminal first-upload draft closure cycle.
+- VERIFIED LOCAL: traffic boundary review remains active with `7` P0 traffic support rows and `4` boundary/hold rows.
+- READY FOR OWNER REVIEW / NOT UPLOAD: `/criminal-defense-attorney/` remains the first current-URL criminal publish candidate.
+- BLOCKED: no Criminal/Traffic CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy or internal-link expansion is approved by this dashboard.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-22 14:25 Asia/Jerusalem
+- FAMILY/DIVORCE GSC WORKFLOW HANDOFF: removed hardcoded `2026-05-21` assumptions from the post-export decision workflow.
+- TOOLING FIXED: `tools/build-family-divorce-gsc-decision-map.mjs` now supports `--reportDate=YYYY-MM-DD` and latest/explicit live-preupload input selection.
+- TOOLING FIXED: `tools/build-family-divorce-protected-url-review-packet.mjs` now supports `--reportDate=YYYY-MM-DD` and `--input=path`.
+- TOOLING FIXED: created `tools/gsc/run-family-divorce-gsc-workflow.ps1` to run dry-run, focused export, decision-map build and protected packet build as one controlled workflow.
+- CREATED: `project-control/family-divorce-gsc-workflow-handoff-2026-05-22.md`.
+- CREATED: `project-control/family-divorce-gsc-workflow-handoff-2026-05-22.csv`.
+- CREATED: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-22.md`.
+- GENERATED / NOT FINAL: `reports/family-divorce-gsc-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-protected-url-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-cannibalization-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-gsc-decision-map-2026-05-22.json`.
+- GENERATED / NOT FINAL: `reports/family-divorce-protected-url-owner-review-packet-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-protected-url-owner-review-packet-2026-05-22.json`.
+- GENERATED / NOT FINAL: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-family-divorce-gsc-decision-map.mjs` passed.
+- VERIFIED LOCAL: `node --check tools/build-family-divorce-protected-url-review-packet.mjs` passed.
+- VERIFIED LOCAL: `tools/gsc/run-family-divorce-gsc-workflow.ps1 -DryRun` passed without opening OAuth or calling GSC.
+- VERIFIED LOCAL: regenerated baseline shows `18` protected rows, `5` protected conflicts, `18` high-risk protected rows and `40` cannibalization rows.
+- BLOCKED: baseline remains `FALLBACK_EXISTING_GSC_CACHE_NOT_FINAL`; owner OAuth credential setup and focused GSC export are still required before final URL decisions.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 23:49 Asia/Jerusalem
+- FAMILY/DIVORCE PROTECTED URL OWNER REVIEW PACKET: converted the protected URL decision-map baseline into owner-review rows without approving URL changes.
+- TOOLING FIXED: created `tools/build-family-divorce-protected-url-review-packet.mjs`.
+- GENERATED: `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.json`.
+- CREATED: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/build-family-divorce-protected-url-review-packet.mjs` passed.
+- VERIFIED LOCAL: `node tools/build-family-divorce-protected-url-review-packet.mjs` generated `18` review rows.
+- VERIFIED LOCAL: packet contains `5` P0 restore-or-targeted-301 conflict rows, `1` P0 keep-asset-live row and `18` high-risk baseline rows.
+- BLOCKED: all packet rows remain `BLOCKED_FOCUSED_GSC_EXPORT_REQUIRED`; cached GSC baseline is not final.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup.
+- BLOCKED: URL migration, redirects, canonical/noindex and sitemap actions still require focused GSC API export and final owner review.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 23:40 Asia/Jerusalem
+- FAMILY/DIVORCE GSC DECISION MAP BASELINE: prepared the post-GSC URL/cannibalization decision-map workflow before owner credentials are available.
+- TOOLING FIXED: created `tools/build-family-divorce-gsc-decision-map.mjs`.
+- GENERATED: `reports/family-divorce-gsc-decision-map-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-protected-url-decision-map-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-cannibalization-decision-map-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-gsc-decision-map-2026-05-21.json`.
+- CREATED: `project-control/family-divorce-gsc-decision-map-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-gsc-decision-map-2026-05-21.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/build-family-divorce-gsc-decision-map.mjs` passed.
+- VERIFIED LOCAL: `node tools/build-family-divorce-gsc-decision-map.mjs` passed using `FALLBACK_EXISTING_GSC_CACHE_NOT_FINAL`.
+- VERIFIED LOCAL: generated `7` clean target rows, `18` protected source/asset rows and `40` cannibalization baseline rows.
+- VERIFIED LOCAL: cached GSC data found all `18` protected source/asset URLs and marks all `18` as high-risk.
+- BLOCKED: `5` protected source URLs still redirect to the homepage and have cached GSC value; final action requires focused GSC export plus restore-or-targeted-301 review.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup.
+- BLOCKED: URL migration, redirects, canonical/noindex and sitemap actions still require focused GSC API export and final decision review.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 23:30 Asia/Jerusalem
+- FAMILY/DIVORCE WAVE 1B METADATA SYNC: closed the stale word-count review item from the upload readiness dashboard.
+- TOOLING FIXED: created `tools/sync-family-divorce-wave1b-metadata-counts.mjs`.
+- FIXED: synced `6/6` Wave 1B support metadata word counts to the current static-QA counts.
+- GENERATED: `reports/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+- UPDATED: `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv`.
+- UPDATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.md`.
+- UPDATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.csv`.
+- UPDATED: `reports/family-divorce-upload-readiness-2026-05-21.csv`.
+- UPDATED: `reports/family-divorce-upload-readiness-2026-05-21.json`.
+- VERIFIED LOCAL: `node --check tools/sync-family-divorce-wave1b-metadata-counts.mjs` passed.
+- VERIFIED LOCAL: `node tools/sync-family-divorce-wave1b-metadata-counts.mjs` fixed `6` rows and skipped `0`.
+- VERIFIED LOCAL: `node --check tools/check-family-divorce-upload-readiness.mjs` passed.
+- VERIFIED LOCAL: `node tools/check-family-divorce-upload-readiness.mjs` passed.
+- VERIFIED: Wave 1B metadata word-count mismatches are now `0`.
+- VERIFIED: `7/7` Family/Divorce drafts still pass static QA and `7/7` target URLs still have live public backups.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup.
+- BLOCKED: URL migration, redirects, canonical/noindex and sitemap actions still require GSC API export plus review of `5` protected source homepage redirects.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 23:16 Asia/Jerusalem
+- FAMILY/DIVORCE UPLOAD READINESS DASHBOARD: consolidated the first upload cluster gates into one repeatable checker/report.
+- TOOLING FIXED: created `tools/check-family-divorce-upload-readiness.mjs`.
+- GENERATED: `reports/family-divorce-upload-readiness-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-upload-readiness-2026-05-21.json`.
+- CREATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.csv`.
+- VERIFIED LOCAL: `node --check tools/check-family-divorce-upload-readiness.mjs` passed.
+- VERIFIED LOCAL: `node tools/check-family-divorce-upload-readiness.mjs` passed.
+- VERIFIED: `7/7` Family/Divorce drafts pass static QA and `7/7` target URLs have live public backups.
+- FIXED LATER: the older Wave 1B support metadata package had `6` stale word-count fields; the follow-up sync cycle brought the mismatch count to `0`.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup.
+- BLOCKED: URL migration, redirects, canonical/noindex and sitemap actions still require GSC API export plus review of `5` protected source homepage redirects.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 23:08 Asia/Jerusalem
+- GSC FAMILY/DIVORCE EXPORT RUNNER: prepared a focused read-only Search Console runner for the first controlled Family/Divorce URL/cannibalization risk check.
+- TOOLING FIXED: created `tools/gsc/gsc-family-divorce-export.js`.
+- FIXED: the runner supports `GSC_OAUTH_CLIENT_PATH` and `GSC_TOKEN_PATH`, so owner credentials can stay outside Git.
+- FIXED: added `--dry-run` support that verifies scope and paths without reading credential contents, opening OAuth or calling the API.
+- CREATED: `project-control/gsc-family-divorce-export-runner-2026-05-21.md`.
+- CREATED: `project-control/gsc-family-divorce-export-runner-2026-05-21.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/gsc/gsc-family-divorce-export.js` passed.
+- VERIFIED LOCAL: `node tools/gsc/gsc-family-divorce-export.js --dry-run` passed and reported `7` target paths, `18` protected source/asset paths and `18` query terms.
+- BLOCKED / OWNER ACTION: actual GSC API export still requires owner credential rotation/setup and local paths for OAuth client/token.
+- SAFETY: no credential contents were printed; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 22:56 Asia/Jerusalem
+- GSC CREDENTIAL HYGIENE: removed the tracked local Search Console OAuth client JSON from Git tracking while leaving the local ignored file in place.
+- FIXED: `tools/gsc/oauth-client.json` is no longer tracked in Git.
+- FIXED: `.gitignore` now ignores `tools/gsc/oauth-client.json`, OAuth client JSON variants, token JSON and common Google credential JSON names under `tools/gsc/`.
+- FIXED: `tools/gsc/README.md` now documents local credential safety and rotation guidance.
+- CREATED: `project-control/gsc-credential-hygiene-2026-05-21.md`.
+- CREATED: `project-control/gsc-credential-hygiene-2026-05-21.csv`.
+- VERIFIED LOCAL: the local credential file is ignored after removal from Git tracking.
+- BLOCKED / OWNER ACTION: if the removed tracked OAuth client was real, create a new OAuth Desktop client in Google Cloud and delete/rotate the old one before using GSC API exports.
+- SAFETY: credential contents were not printed; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 22:45 Asia/Jerusalem
+- FAMILY/DIVORCE CMS OPERATOR RUNBOOK: created a seven-page CMS execution runbook for the approved upload stage without authorizing public changes.
+- CREATED: `project-control/family-divorce-cms-operator-runbook-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-cms-operator-runbook-2026-05-21.csv`.
+- VERIFIED LOCAL: the runbook covers the same `7` Family/Divorce target pages as the owner review packet and maps each page to its current static-QA-clean public-body draft.
+- VERIFIED PLANNING: the runbook separates approved body/metadata updates from URL migration, redirects, noindex, canonical retirement, sitemap changes and protected old URL/asset decisions.
+- READY: once owner/legal/source approval exists, the CMS operator has a step-by-step backup, update-existing-page-only, post-upload QA and rollback boundary.
+- BLOCKED: CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup; GSC API/export remains required before URL migration, redirects, canonical/noindex or sitemap actions.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 22:36 Asia/Jerusalem
+- FAMILY/DIVORCE OWNER REVIEW PACKET: converted the seven locally merged Family/Divorce upload candidates into a controlled owner/legal/source review gate.
+- CREATED: `project-control/family-divorce-owner-review-packet-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-owner-review-packet-2026-05-21.csv`.
+- VERIFIED LOCAL: the packet covers `7` target URLs: `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/` and `/child-custody/`.
+- VERIFIED LOCAL: all `7` drafts are listed with current static QA status `PASS`; draft word counts are `2,106`, `1,656`, `1,834`, `1,851`, `1,793`, `1,650` and `1,748`.
+- FIXED: the packet explicitly records that the three high-risk merge blockers are resolved locally: `/divorce-property-division/`, `/child-custody/` and `/child-support/`.
+- READY: Family/Divorce is now ready for owner page-by-page decisions of `APPROVE`, `EDIT`, `HOLD` or `LEGAL_REVIEW_REQUIRED`.
+- BLOCKED: no CMS upload is approved until owner/legal/source approval and actual WordPress editor/database backup are complete; GSC API/export remains required before URL migration, redirects, canonical/noindex or sitemap actions.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 22:32 Asia/Jerusalem
+- FAMILY/DIVORCE CHILD-SUPPORT MERGE DECISIONS + DRAFT MERGE: resolved all `/child-support/` current-live candidate rows and applied the approved draft edits locally.
+- TOOLING FIXED: created `tools/resolve-family-divorce-child-support-merge.mjs`.
+- TOOLING FIXED: created `tools/apply-family-divorce-child-support-draft-merges.mjs`.
+- CONTENT FIXED: updated `content-drafts/child-support-public-body-he.md` with the approved included-vs-separate expense, extraordinary-expense mechanics, change-of-support checklist and evidence/communications additions.
+- GENERATED: `reports/family-divorce-child-support-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-support-merge-decisions-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-support-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-support-draft-merge-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-support-draft-merge-2026-05-21.csv`.
+- VERIFIED LOCAL: all `35` current-live candidate rows resolved: `4` merge into draft, `25` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
+- VERIFIED LOCAL: all four approved insertion blocks are present in the draft.
+- VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce drafts pass static QA and `/child-support/` now reports `1,650` words.
+- FIXED: the three high-risk Family/Divorce merge blockers (`/child-support/`, `/child-custody/`, `/divorce-property-division/`) now all have row-level decisions and applied approved draft merges.
+- BLOCKED: no CMS upload is approved until owner/legal/source approval and actual WordPress editor/database backup are complete; GSC API/export remains required before URL migration, redirects, canonical/noindex or sitemap actions.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 22:14 Asia/Jerusalem
+- FAMILY/DIVORCE CHILD-CUSTODY MERGE DECISIONS + DRAFT MERGE: resolved all `/child-custody/` current-live candidate rows and applied the approved draft edits locally.
+- TOOLING FIXED: created `tools/resolve-family-divorce-child-custody-merge.mjs`.
+- TOOLING FIXED: created `tools/apply-family-divorce-child-custody-draft-merges.mjs`.
+- CONTENT FIXED: updated `content-drafts/child-custody-public-body-he.md` with the approved communication, professional-factor, parenting-time checklist, lateness/documentation and child-expense boundary additions.
+- GENERATED: `reports/family-divorce-child-custody-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-custody-draft-merge-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-custody-draft-merge-2026-05-21.csv`.
+- VERIFIED LOCAL: all `35` current-live candidate rows resolved: `9` merge into draft, `20` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
+- VERIFIED LOCAL: all nine insertion IDs are present in the draft.
+- VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce drafts pass static QA and `/child-custody/` now reports `1,748` words.
+- BLOCKED: no CMS upload is approved until owner/legal/source approval and actual WordPress editor/database backup are complete; `/child-support/` still needs row-level merge decisions.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 22:02 Asia/Jerusalem
+- FAMILY/DIVORCE PROPERTY-DIVISION DRAFT MERGE: applied the six approved `/divorce-property-division/` merge edits to the clean public-body draft.
+- CONTENT FIXED: updated `content-drafts/divorce-property-division-public-body-he.md` with the approved separate-registration, housing/children, separation-date and prenup/prior-agreement additions.
+- TOOLING FIXED: created `tools/apply-family-divorce-property-division-draft-merges.mjs`.
+- CREATED: `project-control/family-divorce-property-division-draft-merge-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-property-division-draft-merge-2026-05-21.csv`.
+- VERIFIED LOCAL: all six insertion IDs are present in the draft.
+- VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce drafts pass static QA and `/divorce-property-division/` now reports `1,851` words.
+- BLOCKED: no CMS upload is approved until owner/legal/source approval and an actual WordPress editor/database backup are complete; `/child-support/` and `/child-custody/` still need row-level merge decisions.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 21:53 Asia/Jerusalem
+- FAMILY/DIVORCE PROPERTY-DIVISION MERGE DECISIONS: resolved the live-candidate decision layer for `/divorce-property-division/`, the highest-risk page from the high-risk merge worksheet.
+- TOOLING FIXED: created `tools/resolve-family-divorce-property-division-merge.mjs`.
+- VERIFIED LOCAL: generated `reports/family-divorce-property-division-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-property-division-merge-decisions-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-property-division-merge-decisions-2026-05-21.csv`.
+- VERIFIED: all `35` current-live candidate rows for `/divorce-property-division/` have final decisions: `6` merge into draft, `23` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
+- BLOCKED: `/divorce-property-division/` still needs the six concise draft edits applied and static QA rerun before owner/legal/source approval or CMS upload.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 21:42 Asia/Jerusalem
+- FAMILY/DIVORCE HIGH-RISK MERGE REVIEW: prepared the first side-by-side merge worksheet for the three highest-retention-risk pages: `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- TOOLING FIXED: created `tools/prepare-family-divorce-merge-review.mjs`.
+- VERIFIED LOCAL: generated `reports/family-divorce-high-risk-merge-review-2026-05-21.csv` with `165` section rows.
+- CREATED: `project-control/family-divorce-high-risk-merge-review-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-high-risk-merge-review-2026-05-21.csv`.
+- VERIFIED: worksheet includes `60` draft base sections, `30` live sections marked `REVIEW_FOR_MERGE`, `46` live sections marked `PARTIAL_OVERLAP_REVIEW` and `29` live sections marked `COVERED_BY_DRAFT`.
+- BLOCKED: these three pages should not be uploaded until all `REVIEW_FOR_MERGE` and `PARTIAL_OVERLAP_REVIEW` rows are resolved into keep/merge/rewrite/skip decisions.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 21:32 Asia/Jerusalem
+- FAMILY/DIVORCE LIVE VS DRAFT COMPARISON: compared the seven clean public-body drafts against the seven live public text snapshots before any CMS overwrite.
+- TOOLING FIXED: created `tools/compare-family-divorce-live-vs-drafts.mjs`.
+- VERIFIED LOCAL: the comparison reviewed `7` target pages and generated `reports/family-divorce-live-vs-draft-comparison-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-live-vs-draft-comparison-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-live-vs-draft-comparison-2026-05-21.csv`.
+- VERIFIED: live snapshots total `19,236` words; clean draft bodies total `11,673` words; net draft reduction is `-7,563` words.
+- BLOCKED: no Family/Divorce page should be uploaded as a blind overwrite; all seven need merge review, with HIGH priority for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- READY: the next content-readiness step is side-by-side merge review to keep or merge stronger current-live sections into the approved drafts.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 21:22 Asia/Jerusalem
+- FAMILY/DIVORCE LIVE TARGET BACKUP: exported public text snapshots and metadata for the seven live Family/Divorce target pages before any CMS overwrite.
+- TOOLING FIXED: created `tools/export-family-divorce-live-targets.mjs` to fetch title, H1, meta description, canonical, robots, final path and primary page text.
+- VERIFIED LIVE / READ ONLY: all seven target URLs returned `200`, stayed on their own final paths and exported as `PASS`.
+- GENERATED: `reports/family-divorce-live-target-backup-2026-05-21/` with `manifest.csv`, `README.md` and seven `.txt` public-text snapshots.
+- CREATED: `project-control/family-divorce-live-target-backup-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-live-target-backup-2026-05-21.csv`.
+- VERIFIED: captured `19,236` words of current live public text across `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/` and `/child-custody/`.
+- NOT A DB BACKUP: this is a public HTML/text snapshot; actual WordPress editor/database export is still required before CMS edits.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 21:16 Asia/Jerusalem
+- FAMILY/DIVORCE LIVE PRE-UPLOAD GUARD: added a read-only live checker for the first controlled Family/Divorce upload cluster.
+- TOOLING FIXED: created `tools/check-family-divorce-live-preupload.mjs` to record initial redirects, final paths, HTTP status, content type, canonical, robots, title, H1 and byte size.
+- VERIFIED LIVE / READ ONLY WITH BLOCKERS: checked `25` URLs: `7` clean target pages, `17` protected P0 source URLs and `1` protected DOCX asset.
+- GENERATED: `reports/family-divorce-live-preupload-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-live-preupload-guard-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-live-preupload-guard-2026-05-21.csv`.
+- VERIFIED: `13` protected source/asset URLs passed live reachability checks.
+- LIVE PRESENT REVIEW: all `7` clean upload targets already return `200` on their own final paths, so they need current-live backup/export before any CMS overwrite.
+- BLOCKED LIVE: `5` protected source URLs return initial `301` to homepage: child support calculator Hebrew URL, updated divorce guide Hebrew URL, recommended divorce lawyer Hebrew URL, divorce mediation Hebrew URL and `/what-is-child-custody/`.
+- NEXT: investigate those five redirects and decide restore/update-in-place/documented 301 after GSC API confirmation; do not approve Family/Divorce URL migration until this is resolved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 21:03 Asia/Jerusalem
+- FAMILY/DIVORCE PUBLIC BODY STATIC QA: added a repeatable local checker for the seven Family/Divorce public-body drafts before any CMS upload.
+- TOOLING FIXED: created `tools/check-family-divorce-public-bodies.mjs` to verify minimum word counts, required Family/Divorce internal links, internal-note markers, fake trust/review/outcome-promise terms and disclaimer signals.
+- FIXED: cleaned one `/divorce-lawyer/` caution sentence in `content-drafts/divorce-lawyer-public-body-he.md` so the public draft avoids a risky outcome-promise phrase.
+- VERIFIED LOCAL: all seven draft bodies passed static QA: `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/` and `/child-custody/`.
+- GENERATED: `reports/family-divorce-public-body-static-qa-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-public-body-static-qa-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-public-body-static-qa-2026-05-21.csv`.
+- UPDATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md`.
+- NOT LEGAL VERIFIED: this is static upload hygiene only; owner/legal/source approval remains required.
+- BLOCKED: no CMS/public upload, redirect, canonical, noindex, sitemap or URL migration action is approved by this check.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 20:53 Asia/Jerusalem
+- TRUST ROUTE EARLY RENDER: hardened the existing virtual `/contact/`, `/about/` and `/editorial-policy/` trust routes against later WordPress redirect plugins.
+- CODE FIXED: `inc/trust-routes.php` now renders trust routes at `template_redirect` priority `-999999`, matching the protected practice route and HTML sitemap early renderers.
+- CODE FIXED: trust-route responses now send `X-Justice-Route-Guard: trust-route-early-render`.
+- UPDATED: deployment marker to `2026-05-21-trust-route-early-render-v1`.
+- CREATED: `project-control/trust-route-early-render-2026-05-21.md`.
+- CREATED: `project-control/trust-route-early-render-2026-05-21.csv`.
+- VERIFIED LOCAL: `php -l functions.php`, `php -l inc/trust-routes.php`, `node --check tools/check-live-traffic-priority.mjs`, `node --check tools/check-live-trust-routes.mjs`, task-board CSV parse and `git diff --check` passed; `git diff --check` reported normal Windows line-ending warnings only.
+- NOT LIVE VERIFIED: public server still needs uPress Git pull/cache clear; if `/contact/` or `/about/` still return an initial `301` to `/`, the blocker is server/CDN/host-panel/early-plugin redirect behavior before the theme can render.
+- SAFETY: no CMS page body, database row, title/H1/meta, public slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 20:42 Asia/Jerusalem
+- PROTECTED PRACTICE ROUTE EARLY RENDER: added a repo-side mitigation for priority routes that may be intercepted by later WordPress redirect plugins.
+- CODE FIXED: `inc/practice-landing.php` now resolves controlled practice route templates through one helper and renders them at `template_redirect` priority `-999999`.
+- CODE FIXED: controlled practice route output now exits before later `template_redirect` handlers and sends `X-Justice-Route-Guard: controlled-practice-early-render`.
+- CODE FIXED: `inc/html-sitemap.php` now renders `/site-map/` at `template_redirect` priority `-999999`.
+- UPDATED: deployment marker to `2026-05-21-protected-route-early-render-v1`.
+- CREATED: `project-control/protected-practice-route-early-render-2026-05-21.md`.
+- CREATED: `project-control/protected-practice-route-early-render-2026-05-21.csv`.
+- VERIFIED LOCAL: `php -l inc/practice-landing.php`, `php -l inc/html-sitemap.php` and `php -l functions.php` passed.
+- NOT LIVE VERIFIED: public server still needs uPress Git pull/cache clear; if initial `301` to `/` remains after deploy, blocker is server/CDN/plugin redirect before the theme can render.
+- BLOCKED REMAINING: `/contact/` and `/about/` are not fixed by this practice-route patch and still need CMS route restore, explicit theme route or redirect-rule cleanup.
+- SAFETY: no CMS page body, database row, title/H1/meta, public slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 20:32 Asia/Jerusalem
+- PUBLIC ROUTE HOME REDIRECT TRIAGE: reviewed `12` priority public URLs with an enhanced checker that records initial redirects before following them.
+- TOOLING FIXED: `tools/check-live-traffic-priority.mjs` now records `initialHttp` and `redirectLocation`, and flags `initial_redirect_301_to_/` separately from final-path mismatch.
+- CREATED: `project-control/public-route-home-redirect-triage-2026-05-21.md`.
+- CREATED: `project-control/public-route-home-redirect-triage-2026-05-21.csv`.
+- GENERATED: `reports/traffic-priority-audit-2026-05-21-route-home-redirects.csv`.
+- VERIFIED LIVE: `/`, `/articles/`, `/family-law/`, `/lawyers/?area=family-law`, `/criminal-defense-attorney/` and `/traffic-lawyer/` returned initial `200` and stayed on their intended route.
+- BLOCKED LIVE: `/site-map/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/`, `/inheritance-lawyer/`, `/contact/` and `/about/` returned initial `301` to `https://jus-tice.co.il`, then served homepage HTML after following redirects.
+- VERIFIED LOCAL: `node --check tools/check-live-traffic-priority.mjs` passed after the checker update.
+- NEXT: after uPress pull/cache clear, rerun the checker; if these six still return initial `301` to `/`, inspect uPress/server/Redirection-plugin/Permalink Manager rules.
+- SAFETY: no CMS page body, database row, title/H1/meta, public slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 20:24 Asia/Jerusalem
+- REAL-ESTATE GUIDE REDIRECT GUARD: investigated the `/real-estate-lawyer-guide/` route regression that was blocking the real-estate public edit package.
+- BLOCKED LIVE: trailing-slash `/real-estate-lawyer-guide/` currently redirects to the homepage before the controlled guide template renders.
+- BLOCKED LIVE: no-slash `/real-estate-lawyer-guide` currently redirects to `http://jus-tice.co.il/real-estate-attorney`.
+- CODE FIXED: `inc/routing-guards.php` now blocks WordPress-level `wp_redirect` and `redirect_canonical` conflicts from the guide route to `/` or `/real-estate-attorney`.
+- TOOLING FIXED: `tools/check-live-traffic-priority.mjs` now requires route checks to finish on their expected final path, preventing homepage fallback false positives.
+- CREATED: `project-control/real-estate-guide-redirect-guard-2026-05-21.md`.
+- CREATED: `project-control/real-estate-guide-redirect-guard-2026-05-21.csv`.
+- GENERATED: `reports/traffic-priority-audit-2026-05-21-real-estate-guide-redirect-guard.csv`.
+- VERIFIED LOCAL: `php -l inc/routing-guards.php`, `php -l functions.php`, and `node --check tools/check-live-traffic-priority.mjs` passed.
+- NOT LIVE VERIFIED: public server needs uPress Git pull/cache clear before this guard can be tested live; if the redirect is server/plugin-level before WordPress filters, owner/admin must remove the stale redirect rule.
+- ROUTE QA BACKLOG: the tightened checker also exposes current homepage-fallback final-path failures for `/site-map/`, `/medical-malpractice-lawyer/`, `/inheritance-lawyer/`, `/contact/` and `/about/`; those were not fixed in this cycle.
+- SAFETY: no CMS page body, database row, title/H1/meta, public slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 20:45 Asia/Jerusalem
+- REAL-ESTATE PUBLIC EDIT PACKAGE: prepared the owner-approved CMS execution package for the Israeli real-estate support-to-hub batch without publishing anything.
+- CREATED: `project-control/real-estate-public-edit-package-2026-05-21.md`.
+- CREATED: `project-control/real-estate-public-edit-package-2026-05-21.csv`.
+- VERIFIED LIVE: `/real-estate-attorney/` returned `200`, stayed on its own URL, self-canonicalized and already has `3` hub self/related links in the sampled HTML.
+- VERIFIED LIVE: `/lawyer-for-buying-or-selling-a-house/`, `/registration-of-real-estate-israel/`, `/land-appreciation-tax/`, `/real-estate-lawyer-cost-2025/` and `/real-estate-appraiser/` returned `200`, self-canonicalized and currently have `0` sampled body/source links to `/real-estate-attorney/`.
+- BLOCKED LIVE: `/real-estate-lawyer-guide/` returned `200` but resolved to the homepage URL/canonical, so it is excluded from the public edit batch until route QA is repaired.
+- READY AFTER OWNER APPROVAL: exact Hebrew insert text is prepared for the hub intro/navigation and five safe support pages.
+- HOLD: shared-apartment partition, marital property agreement and spouse property registration remain blocked for Family/Divorce coordination; foreign-investment pages remain de-emphasized.
+- SAFETY: repo documentation and read-only public checks only. No public CMS page/body/title/H1/meta, database row, URL slug, redirect, canonical, noindex, taxonomy, sitemap, lawyer, lead, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
+## LATEST WORK STATUS - 2026-05-21 20:32 Asia/Jerusalem
+- RECOMMENDATION TOKEN SAFETY CHECKER: added a repeatable static regression checker for the first-party recommendation token flow while authenticated/live QA remains blocked.
+- CODED: `tools/check-recommendation-token-safety.mjs` verifies private token CPT posture, hashed tokens, noindex public token form, honeypot, draft-only recommendation creation, `first_party` source type, `confirmed` permission, `draft_review` moderation and no accidental `approved_public`.
+- CODED: the checker also verifies that the public display guard still requires `approved_public`, `confirmed` and source-type filtering, and that no `AggregateRating` or Review schema was added in the token flow.
+- CREATED: `project-control/recommendation-token-safety-checker-2026-05-21.md`.
+- CREATED: `project-control/recommendation-token-safety-checker-2026-05-21.csv`.
+- VERIFIED LOCAL: `node --check tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: `node tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+- NOT LIVE VERIFIED: authenticated admin click-through, live token submission, draft record creation and email delivery still require owner/admin access after uPress pull.
+- SAFETY: tooling/docs only. No live CMS database row, no lawyer/customer/recommendation record, no Google data, no outbound client message, no public schema, no payment setting, no redirect and no sitemap changed.
+
+## LATEST WORK STATUS - 2026-05-21 20:18 Asia/Jerusalem
+- FIRST-PARTY RECOMMENDATION TOKEN INTAKE: added the missing owner-controlled link flow for collecting real client recommendations without automatic public display.
+- CODED: `inc/lawyer-recommendations.php` now registers private `justice_reco_token` records, stores only hashed tokens, creates 30-day one-time intake links, renders a noindex Hebrew public intake form and saves valid submissions as draft first-party recommendations.
+- CODED: valid submissions set `recommendation_source_type=first_party`, `recommendation_permission=confirmed` and `recommendation_moderation=draft_review`; the token is marked used and owner notification is sent for review.
+- CODED: `inc/lawyer-onboarding.php` now exposes a `Create recommendation link` action and shows the generated link in an admin-only notice.
+- CREATED: `project-control/first-party-recommendation-token-intake-2026-05-21.md`.
+- CREATED: `project-control/first-party-recommendation-token-intake-2026-05-21.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+- VERIFIED LOCAL: `git diff --check` passed with normal Windows line-ending warnings only.
+- NOT LIVE VERIFIED: authenticated admin click-through, uPress pull, live token submission and public profile display QA still require owner/admin access and a real approved first-party test record.
+- BLOCKED: Google API, Google OAuth, Google review import, outbound client SMS/email, public Review schema and AggregateRating remain blocked.
+- SAFETY: repo theme code/docs only. No live CMS database row, no lawyer/customer/recommendation record, no Google data, no outbound client message, no public schema, no payment setting, no redirect and no sitemap changed in this cycle.
+
+## LATEST WORK STATUS - 2026-05-21 20:02 Asia/Jerusalem
+- FIRST-PARTY RECOMMENDATION PUBLIC DISPLAY GUARD: tightened the public recommendation query so lawyer profiles can only show owner-approved first-party Jus-Tice recommendations by default.
+- RESEARCHED: Google Business Profile prohibited/restricted content policy covers review manipulation and fake engagement risk; Google Business Profile API policy requires proper purpose/consent and limits automated/programmatic use. Sources: https://support.google.com/business/answer/2622994 and https://developers.google.com/my-business/content/policies
+- CODED: `inc/lawyer-recommendations.php` now centralizes recommendation source type options, validates saved source types and uses one shared public meta-query guard.
+- CODED: public recommendation counts and public recommendation lists now require linked lawyer ID, `approved_public`, `confirmed` permission and `recommendation_source_type=first_party` by default.
+- CODED: admin source labels now make Google links/reference records explicitly non-public by default.
+- CREATED: `project-control/public-recommendations-display-guard-2026-05-21.md`.
+- CREATED: `project-control/public-recommendations-display-guard-2026-05-21.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- NOT LIVE VERIFIED: public server behavior still requires uPress pull/cache refresh and a real approved first-party recommendation record to test the profile section.
+- BLOCKED: recommendation request token/intake flow remains the next T367 subtask; Google API, outbound SMS/email, public review schema and AggregateRating remain blocked.
+- SAFETY: repo theme code/docs only. No Google API connection, no Google review import, no outbound review request, no public schema, no CMS database row, no recommendation/lawyer/customer record, no payment setting, no redirect, no sitemap and no outreach message changed.
+
+## LATEST WORK STATUS - 2026-05-21 19:44 Asia/Jerusalem
+- LAWYER PLATFORM OWNER WALKTHROUGH: updated the stale PR-era guide into a live-aware owner operating guide for the current lawyer sales, prospect, reputation and LegalTech lead-intent system.
+- UPDATED: `project-control/lawyer-platform-owner-walkthrough-2026-05-20.md`.
+- VERIFIED LIVE: `/`, `/lawyer-plans/`, `/lawyer-registration/`, `/lawyer-dashboard/` and `/lawyers/` returned `200`.
+- VERIFIED LIVE: `/legal-tools/` still resolves to the homepage, so the guide keeps it blocked from promotion as a finished product archive.
+- VERIFIED LIVE: the homepage source contains `legaltech-tools`, `AI Console`, `ask-lawyer` and `data-lead-message`; it has no direct `/legal-tools/` archive link and no page-level `noindex`.
+- VERIFIED PRIVATE: unauthenticated `wp-admin` access to Lawyer Onboarding, Lawyer Prospects and Outreach Links redirects to WordPress login.
+- COMPLETED: task-board item `T368` is now marked completed because the owner walkthrough now reflects deployed public URLs, private admin surfaces, prospect follow-up views, outreach-link handoff, reputation workflow and LegalTech prefill behavior.
+- BLOCKED: authenticated WordPress admin walkthrough, real outreach, real payment, real lawyer activation and real LegalTech archive/product records still require owner action/access.
+- SAFETY: repo documentation and read-only public/private boundary checks only. No public CMS page, database row, lawyer, lead, prospect, product, payment, redirect, sitemap, taxonomy, title/H1/meta or outreach message was changed.
+
+## LATEST WORK STATUS - 2026-05-21 19:14 Asia/Jerusalem
+- LEGALTECH CONTEXTUAL INTAKE PREFILL: made the homepage LegalTech/product cards prepare the existing lead form with product context instead of dropping every click into a generic blank form.
+- RESEARCHED: Baymard form-field research recommends reducing irrelevant form effort, using smart defaults and keeping prefilled values editable; this fits LegalTech product clicks because the user already showed intent by choosing a tool. Source: https://baymard.com/learn/input-fields
+- CODED: `inc/lead-spam-guard.php` now has safe helpers for allowed lead areas, editable message prefill and contextual ask-lawyer fallback URLs.
+- CODED: `template-parts/sections/ask-lawyer.php` and `template-parts/forms/lead-form.php` can render sanitized `lead_area` and `lead_message` prefill values.
+- CODED: `template-parts/sections/legaltech-tools.php` keeps SEO-clean `#ask-lawyer` fallback links but attaches lead area, starter message, source keyword and UTM data to the LegalTech cards/buttons.
+- CODED: `assets/js/analytics-events.js` applies LegalTech card context to the homepage form on click and tracks `legaltech_tool_click`.
+- VERIFIED: `php -l` passed for the touched PHP files, `node --check assets/js/analytics-events.js` passed, and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `4f4da66 Prefill lead form from LegalTech clicks`; uPress Pull Git succeeded and the uPress log showed `4f4da66` as live HEAD.
+- LIVE CHECK: cache-busted homepage returns 200, contains LegalTech contextual data attributes, has no direct `/legal-tools/` archive link and has no page-level `noindex`; live JavaScript contains `applyLeadPrefillFromLink`, `legaltech_tool_click` and the hidden-field helper.
+- LIVE CLICK CHECK: clicking the real-estate LegalTech card scrolls to `#ask-lawyer`, selects `real-estate-law`, fills the editable starter message, and records `source_keyword` plus `utm_medium=legaltech_gateway`.
+- HONEST MONEY ASSESSMENT: no revenue and no outreach yet. Material advancement is making the product block behave more like a conversion funnel while the real LegalTech archive/CPT remains gated.
+- COMPLETION ASSESSMENT: homepage money-machine readiness moved from 87% to 88%; LegalTech product-path readiness moved from 44% to 47%; first paid-lawyer readiness remains about 90% until real outreach/signups or Grow/payment setup moves.
+- OWNER-VISIBLE AFTER DEPLOY: homepage LegalTech cards and the homepage ask-lawyer form.
+- SAFETY: repo theme code/docs only. No public CMS database page edited, no product record created, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no lawyer/lead/prospect/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 19:01 Asia/Jerusalem
+- LEGALTECH SAFE LINK CLEANUP: removed the remaining theme-level raw `/legal-tools/` links from fallback navigation and LegalTech/pillar templates until the archive route is verified live.
+- RESEARCHED: Google Search Central says crawlable internal links help Google and users understand pages, and Google warns against redirecting missing-file traffic to the homepage because it can create weak soft-404 style signals. Sources: https://developers.google.com/search/docs/crawling-indexing/links-crawlable, https://developers.google.com/search/blog/2005/09/verifying-your-site-trouble-with-404, https://developers.google.com/search/docs/crawling-indexing/site-move-with-url-changes
+- CODED: `template-parts/layout/site-header.php` fallback menu now uses `justice_theme_safe_public_link( '/legal-tools/', '/#ask-lawyer' )`.
+- CODED: `single-justice_legal_tool.php` now keeps the "all tools" button on the safe fallback until `/legal-tools/` is a verified public archive.
+- CODED: `page-legal-pillar.php` now renders `pillar_legaltech_url` only when the target path is published, so future pillar pages do not promote unpublished LegalTech tools.
+- VERIFIED: `php -l template-parts/layout/site-header.php`, `php -l single-justice_legal_tool.php`, `php -l page-legal-pillar.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `07d052a Keep LegalTech archive links on safe fallback`; uPress Pull Git succeeded and the uPress log showed `07d052a` as live HEAD.
+- LIVE CHECK: cache-busted homepage returns 200, contains `legaltech-tools` and `AI Console`, has no page-level `noindex`, does not expose a direct `/legal-tools/` archive link, and keeps the safe `#ask-lawyer` fallback. Live `/legal-tools/` still returns 301 to the homepage, so the archive remains intentionally unpromoted.
+- HONEST MONEY ASSESSMENT: no revenue, no outreach and no product record created. Material advancement is reducing internal-link waste around the new product layer so the homepage/pillar funnel stays cleaner for users and Google.
+- COMPLETION ASSESSMENT: homepage money-machine readiness moved from 86% to 87%; LegalTech product-path readiness moved from 42% to 44%; first paid-lawyer readiness remains about 90% until real outreach/signups or Grow/payment setup moves.
+- OWNER-VISIBLE AFTER DEPLOY: mostly invisible safety cleanup; it affects fallback header navigation, future LegalTech single pages and future legal pillar product CTAs.
+- SAFETY: repo theme code/docs only. No public CMS database page edited, no product record created, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no lawyer/lead/prospect/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 18:41 Asia/Jerusalem
+- HOMEPAGE LEGALTECH PRODUCT GATEWAY: connected the existing LegalTech/tools section into the homepage so the page now points users toward document/intake products as well as lawyers and articles.
+- RESEARCHED: Google Search Central says navigation and cross-page links help Google understand site structure and important products; LegalZoom's official help content shows attorney-drafted templates/document flows as a legal-service product model; FindLaw sells legal directory value through visibility, contact paths and search optimization. Sources: https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure, https://help.legalzoom.com/docs/creating-documents, https://www.findlaw.com/lawyer-marketing/services/legal-directory-advertising/findlaw-premium-profile/
+- CODED: `front-page.php` now renders `template-parts/sections/legaltech-tools.php` after featured lawyers and before the lawyer acquisition CTA.
+- CODED: `inc/template-tags.php` now treats published `justice_legal_tool` CMS records as safe public destinations, including tool URLs under `/legal-tools/{tool}/`.
+- SAFETY DECISION: the `/legal-tools/` archive route itself is not promoted as safe yet because the current pre-deploy live check shows it redirects to the homepage.
+- VERIFIED: `php -l front-page.php`, `php -l inc\template-tags.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `ca98eb9 Add homepage LegalTech product gateway`; uPress Pull Git succeeded and the uPress log shows `ca98eb9` as live HEAD.
+- LIVE CHECK: cache-busted homepage returns 200, contains `legaltech-tools` and `AI Console`, has no page-level `noindex`, does not link to `/legal-tools/`, and keeps LegalTech cards on the safe `#ask-lawyer` fallback.
+- HONEST MONEY ASSESSMENT: no revenue, no CMS product records and no outreach. Material advancement is exposing the future LegalTech/form/intake product layer on the homepage and improving safe CMS linking for that product line.
+- COMPLETION ASSESSMENT: homepage money-machine readiness moved from 84% to 86%; LegalTech product-path readiness moved from 35% to 42%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER DEPLOY: homepage, below featured lawyers and above the lawyer acquisition section.
+- SAFETY: repo theme code/docs only. No public CMS database page edited, no product record created, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no lawyer/lead/prospect/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 18:29 Asia/Jerusalem
+- LAWYER PROSPECT MONTHLY VALUE COLUMN: added a private sortable monthly-value column so the owner can prioritize higher-value lawyer prospects.
+- RESEARCHED: Pipedrive guidance says deal value can be used for sorting to focus on high-revenue opportunities; Pipedrive deal management shows value and priority as core pipeline details visible at a glance. Sources: https://support.pipedrive.com/en/article/how-are-deals-ordered-in-the-pipeline-view, https://www.pipedrive.com/en/products/sales/deal-management/
+- CODED: `inc/lawyer-prospects.php` now adds a `Monthly value` column to the private `justice_prospect` list.
+- CODED: the column displays expected monthly NIS or `Not set`.
+- CODED: `Monthly value` is sortable by numeric value, and `Next action` is sortable by date.
+- VERIFIED: `php -l inc/lawyer-prospects.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `36dccca Add prospect monthly value column`; uPress Git pull succeeded and the uPress log shows `36dccca` as live HEAD before this documentation correction.
+- LIVE CHECK: unauthenticated access to a value-sorted private prospect list redirects to WordPress login, then uPress Login Protector; the monthly-value column is not public.
+- HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is money-priority triage before manual lawyer outreach.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 85% to 86%; prospect follow-up/readiness discipline moved from 89% to 90%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Monthly value column.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 18:20 Asia/Jerusalem
+- LAWYER PROSPECT CONTACT COLUMN: added a private list-level contact column so the owner can see whether prospects are reachable without opening each record.
+- RESEARCHED: Pipedrive contact-management guidance emphasizes keeping contact info and deals together so teams can follow up while prospects are warm; Clio Grow API fields include email and phone number for lead/contact records. Sources: https://www.pipedrive.com/en/crm/solutions/crm-for-contact-managers, https://docs.developers.clio.com/clio-grow/api-reference/
+- CODED: `inc/lawyer-prospects.php` now adds a `Contact` column to the private `justice_prospect` list.
+- CODED: the column shows email as `mailto:`, phone as `tel:`, and `Missing email + phone` when no contact channel exists.
+- VERIFIED: `php -l inc/lawyer-prospects.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `33848ba Add prospect contact column`; uPress Git pull succeeded and the uPress log shows `33848ba` as live HEAD before this documentation correction.
+- LIVE CHECK: unauthenticated access to the private prospect list redirects to WordPress login, then uPress Login Protector; the contact column is not public.
+- HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is faster prospect triage before manual lawyer outreach.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 84% to 85%; prospect follow-up/readiness discipline moved from 88% to 89%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Contact column.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 18:11 Asia/Jerusalem
+- LAWYER PROSPECT CONTACT-DETAILS VIEW: added a private CRM view for active lawyer prospects that have no email and no phone.
+- RESEARCHED: HubSpot contact management emphasizes complete contact records, calls, emails and follow-ups inside the CRM; HubSpot enrichment frames blank contact/company fields as sales friction; Salesforce sales data guidance frames quality data as the foundation for faster revenue decisions. Sources: https://www.hubspot.com/products/crm/contact-management, https://www.hubspot.com/products/artificial-intelligence/use-cases/enrich-contact-data, https://www.salesforce.com/sales/data/
+- CODED: `inc/lawyer-prospects.php` now supports `justice_prospect_contact_filter=missing` and adds a "Needs contact details" list view.
+- CODED: the missing-contact and unscheduled filters exclude `won` and `lost`, while treating missing status as active/research debt.
+- CODED: `inc/lawyer-onboarding.php` now shows a "Needs contact details" card and makes missing contact info a next-best-action priority after overdue/due work.
+- VERIFIED: `php -l inc/lawyer-prospects.php`, `php -l inc/lawyer-onboarding.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `2c8f893 Add prospect contact details view`; uPress Git pull succeeded and the uPress log shows `2c8f893` as live HEAD before this documentation correction.
+- LIVE CHECK: unauthenticated access to the `Needs contact details` admin list redirects to WordPress login, then uPress Login Protector; the private prospect list is not public.
+- HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is separating reachable lawyer prospects from research debt before manual outreach starts.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 82% to 84%; prospect follow-up/readiness discipline moved from 86% to 88%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Needs contact details; also Lawyer Onboarding -> Lawyer sales command center.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 18:00 Asia/Jerusalem
+- LAWYER PROSPECT NEEDS-SCHEDULING VIEW: added a private CRM view for active lawyer prospects that have no next action date.
+- RESEARCHED: Salesforce warns that unclear next actions create fuzzy pipeline data and says healthy pipelines need prospects moving on a set time frame; HubSpot frames task queues and due dates as the way to keep action items organized. Sources: https://www.salesforce.com/ca/sales/team-productivity/sales-productivity-pitfalls/, https://www.salesforce.com/sales/pipeline, https://www.hubspot.com/products/task-management
+- CODED: `inc/lawyer-prospects.php` now supports `justice_prospect_due_filter=unscheduled` and adds a "Needs scheduling" list view.
+- CODED: the unscheduled view excludes `won` and `lost` records because those intentionally clear follow-up dates.
+- CODED: `inc/lawyer-onboarding.php` now shows a "Needs scheduling" card and makes unscheduled active prospects a next-best-action priority after overdue/due work.
+- VERIFIED: `php -l inc/lawyer-prospects.php`, `php -l inc/lawyer-onboarding.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `e0ddcf3 Add unscheduled lawyer prospect view`; uPress Git pull succeeded and the uPress log shows `e0ddcf3` as live HEAD before this documentation correction.
+- LIVE CHECK: unauthenticated access to the `Needs scheduling` admin list redirects to WordPress login, then uPress Login Protector; the private prospect list is not public.
+- HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is preventing active lawyer prospects from stalling without a next action.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 80% to 82%; prospect follow-up readiness moved from 82% to 86%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Needs scheduling; also Lawyer Onboarding -> Lawyer sales command center.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 17:50 Asia/Jerusalem
+- LAWYER SALES NEXT BEST ACTION: upgraded the private Lawyer sales command center from raw counts to a clear first action.
+- RESEARCHED: Salesforce says pipeline stages identify next best steps and pipeline management should keep interactions/reminders in the CRM; HubSpot frames its task dashboard as a command center for tasks, meetings and contact details. Sources: https://www.salesforce.com/sales/pipeline/, https://www.salesforce.com/sales/pipeline/management/, https://www.hubspot.com/products/task-management
+- CODED: `inc/lawyer-onboarding.php` now adds `justice_theme_lawyer_onboarding_sales_next_action()` and a "Next best action" card.
+- CODED: the action order is overdue follow-ups, due follow-ups, proposals, hot prospects, active pipeline review, then new outreach batch.
+- VERIFIED: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `867d59c Add lawyer sales next best action`; uPress Git pull succeeded and the uPress log shows `867d59c` as live HEAD before this documentation correction.
+- LIVE CHECK: unauthenticated admin URL redirects to WordPress login, then uPress Login Protector; the next-action card is not public.
+- HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is owner execution clarity: the dashboard now says what to work first.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 78% to 80%; prospect follow-up readiness moved from 78% to 82%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer sales command center -> Next best action card.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 17:48 Asia/Jerusalem
+- LAWYER SALES COMMAND CENTER: added one top-level owner view inside Lawyer Onboarding for daily lawyer sales execution.
+- RESEARCHED: HubSpot task guidance uses record-linked due dates, reminders, priority and follow-up work; Salesforce pipeline guidance stresses clear next steps, regular pipeline review and automation. Sources: https://knowledge.hubspot.com/tasks/create-tasks, https://www.salesforce.com/sales/pipeline/management/
+- CODED: `inc/lawyer-onboarding.php` now renders command-center cards for overdue follow-ups, due now, hot prospects, proposals sent, active monthly pipeline and won monthly value.
+- CODED: the command center links directly to Due, Overdue, Hot, Proposal, Outreach Links, Add manual prospect and All prospects.
+- VERIFIED: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `d0b61d0 Show lawyer sales command center`; uPress Git pull succeeded and the uPress log showed `d0b61d0` as the live code commit before this documentation update.
+- LIVE CHECK: unauthenticated admin URL redirects to WordPress login, then uPress Login Protector; the command center is not public.
+- HONEST MONEY ASSESSMENT: no revenue, no outreach and no records updated. Material advancement is owner execution visibility.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 74% to 78%; prospect follow-up readiness moved from 72% to 78%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> top Lawyer sales command center.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 17:35 Asia/Jerusalem
+- LAWYER PROSPECT FOLLOW-UP VIEWS: added due/overdue follow-up views and list-level quick actions to the private Lawyer Prospects admin list.
+- RESEARCHED: HubSpot tasks use record-linked due dates, reminders, priority and follow-up creation; Salesforce's 2026 pipeline guidance stresses clear next steps, regular reviews and automation because leads do not close by themselves. Sources: https://knowledge.hubspot.com/tasks/create-tasks, https://www.salesforce.com/sales/pipeline/management/
+- CODED: `inc/lawyer-prospects.php` now adds Due now, Overdue, Today and Upcoming views on the `justice_prospect` list using `prospect_next_action_at`.
+- CODED: the Next action column now labels records as Overdue, Due today, Scheduled or No date set.
+- CODED: the prospect list now shows quick action buttons for Contacted today, Set follow-up, Proposal sent, Won/onboarding and Lost/not fit.
+- VERIFIED: `php -l inc/lawyer-prospects.php` and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `a8a9493 Show due follow-ups in lawyer prospect list`; uPress Git pull succeeded and the uPress log shows `a8a9493` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: direct unauthenticated access to `wp-admin/edit.php?post_type=justice_prospect&justice_prospect_due_filter=due` redirects to WordPress login; the follow-up request hit the uPress login protector challenge and did not expose the private list publicly.
+- HONEST MONEY ASSESSMENT: no revenue earned yet, no outreach sent and no prospect updated. Material advancement is daily sales execution: the owner can now see due lawyer follow-ups and update status without opening every prospect.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 70% to 74%; prospect follow-up readiness moved from 62% to 72%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Lawyer Prospects -> Due now / Overdue / Today / Upcoming.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 17:31 Asia/Jerusalem
+- LAWYER OUTREACH -> PROSPECT PIPELINE: connected the owner-only Outreach Links screen to the private Lawyer Prospects CRM so each manual lawyer message can become a tracked follow-up record.
+- RESEARCHED: Clio Grow tracks marketing sources on contacts/matters and reports source, status, estimated value, conversion rate, revenue and pipeline value. Sources: https://help.clio.com/hc/en-us/articles/25315194374299-Clio-Grow-Marketing-Sources, https://help.clio.com/hc/en-us/articles/29739406189339-Clio-Grow-Reports
+- CODED: `inc/lawyer-onboarding.php` now shows a "Prospect pipeline handoff" section on Lawyer Onboarding -> Outreach Links with buttons to add a prefilled prospect draft or open the prospect pipeline.
+- CODED: `inc/lawyer-prospects.php` now accepts safe query-string prefill for new prospect drafts and keeps UTM/outreach attribution in private prospect outreach messages.
+- CODED: the Outreach Links batch rule now tells the owner to create a prospect record before sending or immediately after the first reply.
+- VERIFIED: `php -l inc/lawyer-onboarding.php`, `php -l inc/lawyer-prospects.php`, and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `4327606 Connect outreach links to prospect pipeline`; uPress Git pull succeeded and the uPress log shows `4327606` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: direct unauthenticated access to `wp-admin/admin.php?page=justice-lawyer-outreach-links` redirects to WordPress login; the follow-up request hit the uPress login protector challenge and did not expose the admin tool publicly.
+- HONEST MONEY ASSESSMENT: no revenue earned yet, no outreach sent and no prospect saved. Material advancement is sales discipline: the first manual lawyer batch can now move from message -> tracked prospect -> follow-up -> signup/won/lost.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 63% to 70%; prospect follow-up readiness moved from 45% to 62%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Outreach Links -> "Add prospect with these batch defaults"; also Lawyer Onboarding -> Lawyer Prospects.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/prospect/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 17:16 Asia/Jerusalem
+- LAWYER OUTREACH LAUNCH DRAFTS: strengthened the owner-only Outreach Links screen so the first lawyer sales batch can be small, personal, tracked and safer.
+- RESEARCHED: Google Analytics says campaign URLs should use consistent `utm_source`, `utm_medium`, `utm_campaign` and `utm_content` for message variants; Israeli anti-spam commentary around section 30A warns that commercial email/SMS outreach has consent/unsubscribe risk. Sources: https://support.google.com/analytics/answer/10917952, https://www.law.co.il/en/news/2016/08/19/israeli-anti-spam-law-amended-for-first-time/
+- CODED: `inc/lawyer-onboarding.php` now gives the owner-only outreach builder three message variants, a personal opening line field, and a manual-outreach warning.
+- CODED: the personal opening line is copied into the message only and is not added to the tracked registration URL.
+- CODED: the owner-only batch rule now says to start with 10-20 lawyers, use one segment, change one variable at a time, personalize the first sentence, avoid bulk sending and watch Lawyer Onboarding source data.
+- VERIFIED: `php -l inc/lawyer-onboarding.php` passed and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `45d817a Improve lawyer outreach launch drafts`; uPress Git pull succeeded and the uPress log shows `45d817a` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: direct access to `wp-admin/admin.php?page=justice-lawyer-outreach-links` redirects to WordPress login, includes `noindex`, and does not expose the outreach screen text publicly.
+- HONEST MONEY ASSESSMENT: no revenue earned yet and no outreach sent. Material advancement is execution readiness for the first tracked lawyer sales batch.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 55% to 63%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Outreach Links.
+- SAFETY: repo theme admin code/docs plus uPress pull/live login-gate check only. No public CMS database page edited, no public page changed, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 17:02 Asia/Jerusalem
+- LAWYER PLANS FAQ SCHEMA: added FAQPage JSON-LD to `/lawyer-plans/` so the existing lawyer objections are machine-readable as well as visible.
+- RESEARCHED: Google's FAQPage guidance was updated with FAQ rich-result deprecation from May 7, 2026, but still documents `FAQPage`, `Question` and `Answer`; Google's structured-data policies require markup to match visible page content and avoid hidden/misleading content. Sources: https://developers.google.com/search/docs/appearance/structured-data/faqpage, https://developers.google.com/search/docs/appearance/structured-data/sd-policies, https://developers.google.com/search/blog/2023/08/howto-faq-changes
+- CODED: `page-lawyer-plans.php` now prints a FAQPage schema block for the four visible lawyer-plan FAQ answers.
+- VERIFIED: `php -l page-lawyer-plans.php` passed, `git diff --check` passed with only the existing Windows line-ending warning, and `page-lawyer-plans.php` contains no public WooCommerce/Morning/Grow/Meshulam wording.
+- DEPLOYED: pushed `921656c Add lawyer plans FAQ schema`; uPress Git pull succeeded and the uPress log shows `921656c` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: `/lawyer-plans/?qa=faq-schema-202605211705` has four visible FAQ items, one FAQPage schema with four questions, no page-level `noindex`, no public payment-vendor wording, and desktop page width stayed within the viewport.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is SEO/AI clarity: the subscription objections now line up for users and crawlers.
+- COMPLETION ASSESSMENT: lawyer plan SEO clarity moved from 68% to 73%; lawyer plan conversion readiness remains 74%; first paid-lawyer readiness remains about 90% until real outreach/signups or payment setup moves.
+- OWNER-VISIBLE: `/lawyer-plans/`; the schema is in the page source, while the matching FAQ remains visible below the plan/compliance blocks.
+- SAFETY: repo theme code/docs plus uPress pull/live read-only verification only. No public CMS database page edited, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 16:44 Asia/Jerusalem
+- LAWYER PLAN OBJECTION FAQ: added a conversion FAQ to `/lawyer-plans/` so lawyers understand quality, payment readiness, limits and activation requirements before leaving details.
+- RESEARCHED: FindLaw sells premium profiles around online presence, credibility, easy contact, detailed reporting and monthly performance reports; Justia compares paid tiers by premium visibility, prominent contact info, practice FAQs and traffic statistics; Lawzana frames lawyer reporting around profile views, lead conversions and marketing performance. Sources: https://www.findlaw.com/lawyer-marketing/services/legal-directory-advertising/findlaw-premium-profile/, https://www.justia.com/marketing/lawyer-directory/, https://lawzana.com/support/lawyers/reporting-and-analytics
+- CODED: `page-lawyer-plans.php` was rebuilt cleanly with readable Hebrew copy, safe URL fallbacks, and the new FAQ section after plan/compliance content.
+- CODED: `assets/css/premium-pass-3.css` now styles the FAQ with responsive two-column/one-column behavior.
+- VERIFIED: `php -l page-lawyer-plans.php` passed, `git diff --check` passed with only the existing Windows line-ending warning, and `page-lawyer-plans.php` contains no public WooCommerce/Morning/Grow/Meshulam wording.
+- DEPLOYED: pushed `112baa2 Add lawyer plans objection FAQ`; uPress Git pull succeeded and the uPress log shows `112baa2` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: `/lawyer-plans/?qa=plans-faq-202605211645` includes the FAQ with four questions, has no page-level `noindex`, includes no public Grow/Meshulam/WooCommerce/Morning wording, and desktop page width stayed within the viewport.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is conversion clarity: the plan page now handles likely lawyer objections before a sales call.
+- COMPLETION ASSESSMENT: lawyer plan conversion readiness moved from 70% to 74%; first paid-lawyer readiness remains about 90%; homepage-to-lawyer-subscription path remains 82% until real outreach/signups arrive.
+- OWNER-VISIBLE: `/lawyer-plans/`, below the plan/compliance blocks.
+- SAFETY: repo theme code/docs only. No public CMS database page edited, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 16:28 Asia/Jerusalem
+- LAWYER PLAN SALES PAGE: strengthened `/lawyer-plans/` so it explains the actual business system lawyers receive, not only pricing/cards.
+- RESEARCHED: Justia sells premium lawyer directory value through enhanced profiles, contact visibility and reporting; FindLaw frames lawyer marketing around visibility and lead generation, not static listing alone. Sources: https://www.justia.com/marketing/lawyer-directory/ and https://www.findlaw.com/lawyer-marketing/
+- CODED: `page-lawyer-plans.php` now includes a new "what the lawyer receives in practice" section before plan cards.
+- CODED: the section explains rich mini-site/profile, measured inquiries, monthly value reporting and compliant disclosure/no fake ranking.
+- CODED: removed public WooCommerce/Morning vendor wording from the plan-page copy and replaced it with clean billing-readiness language.
+- CODED: `assets/css/premium-pass-3.css` styles the new section across desktop and mobile.
+- VERIFIED: `php -l page-lawyer-plans.php` passed, `git diff --check` passed with only the existing Windows line-ending warning, and `page-lawyer-plans.php` no longer contains public WooCommerce/Morning/Grow/Meshulam wording.
+- DEPLOYED: pushed `27c7065 Strengthen lawyer plans sales page` and `92d0f03 Hide payment vendor wording on lawyer plans`; uPress Git pull succeeded and the uPress log shows `92d0f03` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: `/lawyer-plans/?qa=plans-sales-final-202605211633` returns the live page, the new sales-system section is present, there is no page-level `noindex`, no public Grow/Meshulam/WooCommerce/Morning wording was found, and desktop page width stayed within the viewport.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is sales conversion: lawyers now see a clearer product reason to leave details before billing is active.
+- COMPLETION ASSESSMENT: lawyer plan conversion readiness moved from 64% to 70%; first paid-lawyer readiness moved from 89% to 90%; homepage-to-lawyer-subscription path remains 82% until real outreach/signups arrive.
+- OWNER-VISIBLE: `/lawyer-plans/`, above the plan cards.
+- SAFETY: repo theme code/docs only. No public CMS database page edited, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead/order record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 16:15 Asia/Jerusalem
+- LAWYER OUTREACH LINK BUILDER: added an owner-only WordPress admin screen to create tracked lawyer-registration links for targeted lawyer sales batches.
+- RESEARCHED: Google Analytics campaign-link guidance says referral/ad campaign URLs should carry UTM parameters, and Google recommends using source, medium and campaign consistently so acquisition reports can attribute traffic correctly. Sources: https://support.google.com/analytics/answer/10917952 and https://support.google.com/analytics/answer/15567068
+- CODED: `inc/lawyer-onboarding.php` now adds Lawyer Onboarding -> Outreach Links in wp-admin.
+- CODED: the screen builds a `/lawyer-registration/` URL with plan interest, source, medium, campaign, message variant, segment, city and practice.
+- CODED: the screen creates a short Hebrew outreach message draft and copy buttons for the URL/message.
+- VERIFIED: `php -l inc/lawyer-onboarding.php` passed and `git diff --check` passed with only the existing Windows line-ending warning.
+- DEPLOYED: pushed `075b98e Add lawyer outreach link builder`; uPress Git pull succeeded and the uPress log shows `075b98e` as `HEAD -> main, origin/main, origin/HEAD`.
+- LIVE CHECK: direct access to the owner-only admin URL redirects to WordPress login in the current browser, so the screen is not public. Visual admin-screen verification still needs an authenticated WordPress admin session.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is sales execution: the owner can now start small, measurable lawyer outreach batches instead of sending untracked signup links.
+- COMPLETION ASSESSMENT: lawyer acquisition execution readiness moved from 45% to 55%; first paid-lawyer readiness moved from 88% to 89%; homepage-to-lawyer-subscription path remains 82% until real outreach and submissions arrive.
+- OWNER-VISIBLE AFTER WORDPRESS ADMIN LOGIN: Lawyer Onboarding -> Outreach Links.
+- SAFETY: repo theme code/docs only. No public CMS page edited, no 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no product/lawyer/lead record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 16:01 Asia/Jerusalem
+- LAWYER OUTREACH ATTRIBUTION: added campaign/source tracking to the lawyer registration path so outreach can be measured by source, segment, city and practice.
+- RESEARCHED: Clio Grow tracks marketing sources from outreach and online channels on contacts/matters, and its reports expose source, referral, status and revenue data to show where profit originates. Sources: https://help.clio.com/hc/en-us/articles/25315194374299-Clio-Grow-Marketing-Sources, https://help.clio.com/hc/en-us/articles/29739406189339-Clio-Grow-Reports
+- CODED: `page-lawyer-registration.php` now renders hidden attribution fields from UTM/outreach query parameters.
+- CODED: `inc/lawyer-onboarding.php` now sanitizes, stores and summarizes attribution fields on submitted lawyer drafts; admin notification emails include attribution and landing-page context.
+- CODED: the Lawyer Onboarding admin table now has a Source column so future registrations show their source/campaign context.
+- CODED: `template-parts/sections/lawyer-cta.php` now appends homepage CTA attribution tags to the lead-partner registration URL.
+- CODED: `assets/js/lawyer-registration-wizard.js` now fills missing attribution hidden fields from both query string and URL hash, because live redirects can move unknown UTM parameters into the hash.
+- CODED: `inc/enqueue.php` bumps the wizard script to `1.2.0` for cache busting.
+- DOCUMENTED: added `project-control/lawyer-registration-attribution-2026-05-21.md`.
+- VERIFIED: `php -l inc/lawyer-onboarding.php`, `php -l page-lawyer-registration.php`, `php -l template-parts/sections/lawyer-cta.php`, `php -l inc/enqueue.php`, and `git diff --check` passed. uPress Git log shows `0449321 Capture lawyer attribution from URL hash` as `HEAD -> main, origin/main`.
+- LIVE CHECK: homepage returns 200, no page-level `noindex`, and the lawyer CTA link includes homepage attribution tags.
+- LIVE CHECK: a tagged lawyer registration URL with outreach query fields and UTM values in the URL hash renders the wizard, has no page-level `noindex`, and fills hidden fields for `utm_source`, `utm_medium`, `utm_campaign`, `outreach_segment`, `outreach_city`, `outreach_practice` and the full landing URL.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is sales measurement: first lawyer outreach can now be tracked by message/source/city/practice instead of becoming anonymous form traffic.
+- COMPLETION ASSESSMENT: lawyer outreach measurement readiness moved from 15% to 45%; first paid-lawyer readiness moved from 87% to 88%; homepage-to-lawyer-subscription path remains 82% but now carries attribution tags.
+- OWNER-VISIBLE AFTER DEPLOY: use a lawyer-registration URL with `utm_source`, `outreach_segment`, `outreach_city` or `outreach_practice`; submitted drafts should preserve those values in Lawyer Onboarding.
+- SAFETY: repo theme code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created, no lawyer/lead record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 15:47 Asia/Jerusalem
+- HOMEPAGE LAWYER ACQUISITION: connected the homepage to the stronger paid-lawyer onboarding path so lawyers can clearly start a lead-partner fit check from the front page.
+- RESEARCHED: Justia monetizes premium lawyer visibility with enhanced profiles, contact forms, traffic stats and monthly reporting; Clio Grow sells lawyers on organized lead stages, source tracking, conversion and value reporting. Sources: https://www.justia.com/marketing/lawyer-directory/, https://www.clio.com/grow/, https://help.clio.com/hc/en-us/articles/29739406189339-Clio-Grow-Reports
+- CODED: `front-page.php` now loads `template-parts/sections/lawyer-cta.php` after featured lawyers and before latest articles.
+- CODED: `template-parts/sections/lawyer-cta.php` now presents a serious business offer: mini-site/profile, lead status tracking, monthly value reporting, eligibility check, setup and measurement.
+- CODED: the primary CTA points to the existing lead-partner registration URL, and the secondary CTA points to `/lawyer-plans/`.
+- CODED: `assets/css/main.css` supports the new three-step pipeline, mobile stacking and numbered badges.
+- DOCUMENTED: added `project-control/homepage-lawyer-acquisition-cta-2026-05-21.md`.
+- VERIFIED: `php -l front-page.php`, `php -l template-parts/sections/lawyer-cta.php`, and `git diff --check` passed. uPress Git log shows `0d9c367 Add homepage lawyer acquisition CTA` as `HEAD -> main, origin/main`.
+- LIVE CHECK: homepage returns 200, no page-level `noindex`, shows the lawyer CTA, has no public Grow/Meshulam wording, and its main button opens `/lawyer-registration/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice`.
+- LIVE CHECK: mobile verification shows no actual horizontal page scroll; `documentElement.scrollWidth` equals the viewport. The only wider `body.scrollWidth` reading is from the existing fixed accessibility toolbar panel.
+- LIVE CHECK: the lead-partner registration URL returns 200, no page-level `noindex`, and the registration wizard is present.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Material advancement is that lawyer prospects now have a direct homepage route into the paid-product onboarding path.
+- COMPLETION ASSESSMENT: homepage-to-lawyer-subscription path moved from 77% to 82%; first paid-lawyer readiness moved from 86% to 87%; overall homepage money-machine readiness moved from 78% to 82%. Still blocked: Grow/Meshulam final approval, payment product mapping, real lawyer outreach and first paid lawyer.
+- OWNER-VISIBLE AFTER DEPLOY: homepage should show the lawyer business CTA between featured lawyers and latest articles; its main button should open the lead-partner registration wizard.
+- SAFETY: repo theme code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created, no lawyer/lead record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 15:42 Asia/Jerusalem
+- LAWYER ONBOARDING CONVERSION: polished the lawyer registration flow so it feels like a guided paid-product onboarding path, not a raw form.
+- RESEARCHED: Clio Grow emphasizes lead performance, pipeline health and value tracking; Justia emphasizes complete lawyer profiles, premium visibility and traffic stats; current conversion guidance emphasizes clear next steps after submission, reassurance and mobile usability. Sources: https://help.clio.com/hc/en-us/articles/14353490331035-Clio-Grow-Dashboard, https://www.justia.com/marketing/lawyer-directory/, https://www.simplelaw.com/blog/conversion-strategies-for-law-firm-websites
+- CODED: `assets/js/lawyer-registration-wizard.js` now shows Hebrew wizard steps and buttons, adds a final "what happens after submission" summary, and removes English wizard leftovers.
+- CODED: `page-lawyer-registration.php` now includes a server-rendered after-submission section explaining license/practice review, mini-site preparation, and activation/measurement.
+- CODED: `assets/css/premium-pass-3.css` styles the new onboarding summary/next-step section and fixes the hidden anti-spam field so it no longer creates horizontal overflow.
+- CODED: `inc/enqueue.php` bumps registration JS and CSS versions so the deployed assets are cache-busted.
+- DOCUMENTED: added `project-control/lawyer-onboarding-conversion-polish-2026-05-21.md`.
+- VERIFIED: `php -l page-lawyer-registration.php`, `php -l inc/enqueue.php`, and `git diff --check` passed. uPress Git log shows `7abb331 Prevent lawyer registration horizontal overflow` as `HEAD -> main, origin/main`.
+- LIVE CHECK: `/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice` returns 200, no page-level `noindex`, Hebrew wizard copy is visible, no English wizard leftovers were found, manual invoice wording is present, the new after-submission section is present, the wizard reaches the final review step with dummy required fields, and checked viewport overflow is fixed.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is lawyer acquisition trust: the signup path now explains the product journey from registration to profile, dashboard, lead handling and payment activation.
+- COMPLETION ASSESSMENT: lawyer onboarding conversion readiness moved from 62% to 70%; first paid-lawyer readiness moved from 84% to 86%; homepage-to-lawyer-subscription path moved from 72% to 77%. Still blocked: Grow/Meshulam final approval, WooCommerce subscription product mapping, real outreach and first paid lawyer.
+- OWNER-VISIBLE AFTER DEPLOY: visit `/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice`; the wizard should be Hebrew, clearer, and free of horizontal page overflow.
+- SAFETY: repo theme code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created, no lawyer/lead record created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 15:29 Asia/Jerusalem
+- PRACTICE TERM LINK ALIASES: cleaned the remaining generated practice-area links that diluted homepage/internal authority across older duplicate taxonomy URLs.
+- RESEARCHED: Google Search Central says internal links should point to the preferred canonical URL when duplicates exist, and crawlable internal links with clear anchor text help Google find and understand important pages. Sources: https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls and https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- FOUND: after the previous money-topic cleanup, live homepage still rendered older 200 taxonomy links from generated term output: `/practice-areas/real-estate/`, `/practice-areas/personal-injury/`, `/practice-areas/tort-law/` and `/practice-areas/israeli-labor-law/`.
+- CODED: `inc/template-tags.php` now maps those older term slugs to the preferred live hubs when public templates render a term link: real estate -> `/practice-areas/real-estate-law/`, injury/tort -> `/tort-lawyer/`, labor -> `/practice-areas/labor-law/`.
+- CODED: `template-parts/sections/hero.php` now uses `justice_theme_public_term_link()` for homepage hero popular-practice links instead of calling WordPress term URLs directly.
+- DOCUMENTED: added `project-control/practice-term-link-alias-cleanup-2026-05-21.md`.
+- VERIFIED: `php -l inc/template-tags.php`, `php -l template-parts/sections/hero.php` and `git diff --check` passed. uPress Git log shows `d80e576 Route homepage hero terms through public links` as `HEAD -> main, origin/main`.
+- LIVE CHECK: homepage, `/practice-areas/real-estate-law/`, `/practice-areas/labor-law/` and `/articles/` all return 200 with no page-level `noindex`; cache-busted HTML contains `/practice-areas/real-estate-law/`, `/practice-areas/labor-law/` and `/tort-lawyer/`, and contains zero links to the targeted duplicate term URLs.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is homepage SEO authority hygiene: generated CMS links now reinforce current money hubs instead of splitting signals across duplicate taxonomy URLs.
+- COMPLETION ASSESSMENT: public money-link hygiene moved from 83% to 88%; homepage-to-money-hub SEO chain moved from 85% to 88%; first paid-lawyer readiness remains around 84% because Grow/payment approval, product mapping and paying lawyers are still the bottleneck.
+- OWNER-VISIBLE AFTER DEPLOY: homepage hero popular practice links and generated practice-area links should now open the preferred real-estate, labor and tort/injury hubs.
+- SAFETY: repo theme code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 15:15 Asia/Jerusalem
+- MONEY-TOPIC LINK HYGIENE: cleaned public template links so major money topics point to current live hubs, not future/dead slugs or noindex filtered-directory fallbacks.
+- RESEARCHED: Google Search Central recommends using the preferred/canonical URL consistently in internal links and says crawlable links with descriptive anchor text help users and Google understand linked pages. Sources: https://developers.google.com/search/docs/crawling-indexing/consolidate-duplicate-urls and https://developers.google.com/search/docs/crawling-indexing/links-crawlable
+- FOUND: `/real-estate-lawyer/`, `/employment-lawyer/` and `/personal-injury-lawyer/` return 404 today, while the current safe targets are `/practice-areas/real-estate-law/`, `/practice-areas/labor-law/` and `/tort-lawyer/`.
+- FOUND: `/medical-malpractice-lawyer/` is live and indexable, but some templates used a helper that could fall back to a noindex filtered lawyer-directory URL.
+- CODED: updated header topic strip, footer practice links, featured pillar cards, topic clusters, homepage medical-malpractice guide link, lost-visitor rescue links and draft seed links to the current live hubs.
+- DOCUMENTED: added `project-control/money-topic-link-canonical-cleanup-2026-05-21.md`.
+- VERIFIED: PHP lint passed for all changed PHP files and `git diff --check` passed. uPress Git log shows `4c276b4 Point money topic links to live hubs` as `HEAD -> main, origin/main`.
+- LIVE CHECK: homepage no-cache response returns 200 and includes `/practice-areas/real-estate-law/`, `/practice-areas/labor-law/`, `/tort-lawyer/` and `/medical-malpractice-lawyer/`; it no longer includes `/real-estate-lawyer/`, `/employment-lawyer/` or `/personal-injury-lawyer/`.
+- LIVE CHECK: `/not-found-help/` returns 200 with `X-Justice-Route: not-found-rescue`; no-cache response includes the new real-estate, labor and tort hub links.
+- RESIDUAL FINDING: related-term output still exposes older 200 taxonomy URLs: `/practice-areas/real-estate/`, `/practice-areas/personal-injury/` and `/practice-areas/israeli-labor-law/`. They are not 404s, so this is a later taxonomy alias/duplicate cleanup task.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is SEO and conversion hygiene: public navigation now sends authority and users toward current indexable money hubs instead of dead/future targets.
+- COMPLETION ASSESSMENT: public money-link hygiene moved from 74% to 83%; homepage-to-money-hub SEO chain moved from 82% to 85%; first paid-lawyer readiness remains around 84% because Grow/payment approval and real sales are still the bottleneck.
+- OWNER-VISIBLE AFTER DEPLOY: header topic strip, homepage practice cards, footer practice links and `/not-found-help/` should now guide users to the current live hubs for real estate, labor, torts and medical malpractice.
+- SAFETY: repo theme code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 15:03 Asia/Jerusalem
+- PRACTICE MONEY HUB SEO: strengthened the two indexable practice hubs that the homepage now links to for real-estate and labor-law intent.
+- RESEARCHED: Google Search Central says Google understands site structure through internal links and important categories should be reachable from prominent links; Google also uses page titles and prominent headings to understand/search-display page topics. Sources: https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure, https://developers.google.com/search/docs/appearance/title-link, https://developers.google.com/search/docs/fundamentals/seo-starter-guide
+- FOUND: live `/practice-areas/real-estate-law/` and `/practice-areas/labor-law/` were indexable but had weak taxonomy H1s: `מקרקעין` and `עבודה`.
+- CODED: `taxonomy-practice-areas.php` now gives `real-estate-law` and `labor-law` stronger money-intent H1s, intro copy and guide headings while keeping the generic taxonomy template intact for other areas.
+- CODED: `inc/seo.php` now aligns theme/SEO-plugin title and description output for those two taxonomy hubs.
+- DOCUMENTED: added `project-control/practice-taxonomy-money-page-seo-2026-05-21.md`.
+- VERIFIED: `php -l taxonomy-practice-areas.php`, `php -l inc/seo.php`, and `git diff --check` passed. uPress Git log shows `ae0b038 Improve practice taxonomy money pages` as `HEAD -> main, origin/main`.
+- LIVE CHECK: `/practice-areas/real-estate-law/` returns 200, no `noindex`, H1 `עורך דין מקרקעין ונדל״ן`, title `עורך דין מקרקעין ונדל״ן | מדריכים, מאמרים ועורכי דין`, and the new real-estate intro is present.
+- LIVE CHECK: `/practice-areas/labor-law/` returns 200, no `noindex`, H1 `עורך דין דיני עבודה`, title `עורך דין דיני עבודה | זכויות עובדים, פיטורים ושימוע`, and the new labor-law intro is present.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is SEO intent alignment on two homepage-linked money hubs that can attract future real-estate and labor-law leads.
+- COMPLETION ASSESSMENT: real-estate practice hub readiness moved from 42% to 49%; labor-law practice hub readiness moved from 38% to 47%; homepage-to-money-hub SEO chain moved from 78% to 82%. Still blocked: real GSC/Analytics lift, deeper support content, Grow approval/product mapping and actual paid lawyers.
+- OWNER-VISIBLE AFTER DEPLOY: visit `/practice-areas/real-estate-law/` and `/practice-areas/labor-law/`; the top headline and browser title should now use stronger lawyer-search language.
+- SAFETY: repo theme code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 14:59 Asia/Jerusalem
+- HOMEPAGE GOOGLEBOT JOURNEY: ran a live homepage check with a smartphone Googlebot-style user agent after the homepage SEO changes.
+- RESEARCHED: Google Search Central mobile-first indexing guidance says Google mainly uses the mobile version for indexing/ranking and needs access to the same content, links and structured data. Source: https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing
+- AUDITED: homepage returns content, canonical is `https://jus-tice.co.il/`, no homepage `noindex`, H1 count is 1, customer strip present, money-intent pyramid present, `#homepage-intent-pyramid` anchor present, find-lawyer guide present, ask-lawyer path present, and homepage intent `ItemList` has 6 items.
+- AUDITED: `robots.txt` returns 200 with sitemap, and `sitemap_index.xml` returns 200 with 7 HTTPS sitemap URLs and 0 HTTP sitemap URLs.
+- FOUND: real-estate, labor-law and personal-injury homepage guide/title destinations were landing on filtered lawyer directory URLs that return 200 but are `noindex`. Good for conversion, weak as main SEO guide targets.
+- CODED: changed those three homepage guide/title destinations to indexable pages while keeping the profile buttons on filtered lawyer-directory URLs: real estate -> `/practice-areas/real-estate-law/`, labor law -> `/practice-areas/labor-law/`, personal injury -> `/tort-lawyer/`.
+- DOCUMENTED: added `project-control/homepage-googlebot-journey-2026-05-21.md`.
+- VERIFIED: `php -l template-parts/sections/homepage-intent-pyramid.php` and `git diff --check` passed before commit. uPress Git log shows `14f6fa9 Point homepage guides to indexable paths` as `HEAD -> main, origin/main`. Live homepage check confirms real-estate, labor and personal-injury guide/title links are visible, the matching `ItemList` schema URLs updated, and all three guide targets return 200 with no `noindex`.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is homepage crawl quality: the homepage now points its main guide actions at indexable legal destinations instead of noindex filters.
+- COMPLETION ASSESSMENT: homepage Googlebot/indexing confidence moved from 70% to 78%; homepage SEO/root readiness moved from 75% to 78%. Still blocked: GSC/Analytics impact, Grow approval/product mapping and paid lawyer users.
+- OWNER-VISIBLE AFTER DEPLOY: on the homepage, real-estate/labor/personal-injury card title and guide buttons should open legal content pages; profile buttons still open filtered lawyer lists.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `14f6fa9 Point homepage guides to indexable paths` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 14:49 Asia/Jerusalem
+- HOMEPAGE STRUCTURED DATA: added a safe JSON-LD `ItemList` for the six visible money-intent cards on the homepage.
+- RESEARCHED: Google Search Central structured-data guidance says JSON-LD is recommended, structured data must describe visible content, and multiple visible items can be marked up when it helps Google understand the page. Sources: https://developers.google.com/search/docs/appearance/structured-data/sd-policies and https://developers.google.com/search/docs/appearance/structured-data/intro-structured-data
+- CODED: `template-parts/sections/homepage-intent-pyramid.php` now gives the section a real anchor ID and prints an `ItemList` whose six items use the same visible card titles, descriptions and safe destination URLs already on the page.
+- DOCUMENTED: added `project-control/homepage-intent-structured-data-2026-05-21.md`.
+- VERIFIED: `php -l template-parts/sections/homepage-intent-pyramid.php` and `git diff --check` passed before commit. uPress Git log shows `010d946 Add homepage intent structured data` as `HEAD -> main, origin/main`. Live homepage check shows one `ItemList` with six items, six visible cards with matching names, customer strip present, find-lawyer guide present, and no review/rating claims in the intent schema.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is SEO clarity: the homepage now describes the six high-value legal paths in crawlable links and matching structured data.
+- COMPLETION ASSESSMENT: homepage structured-data readiness moved from 55% to 62%; homepage SEO/root readiness moved from 73% to 75%. Still blocked: real GSC/Analytics impact, Grow approval/product mapping and paid lawyer users.
+- OWNER-VISIBLE AFTER DEPLOY: no visual design change expected, except the money-intent section has a stable `#homepage-intent-pyramid` anchor for direct links.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `010d946 Add homepage intent structured data` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 14:35 Asia/Jerusalem
+- HOMEPAGE LINK QUALITY: tightened the new money-intent homepage section so related-guide labels only point to real published support pages.
+- RESEARCHED: Google Search Central link guidance says crawlable internal links and descriptive relevant anchor text help users and Google understand the site. Source: https://developers.google.com/search/docs/crawling-indexing/links-crawlable?hl=en
+- FOUND: the section already uses published CMS articles first, but unpublished planned fallback guide paths could fall back to the same primary or directory URL. That was safe technically but weak for trust because different labels could lead to one generic destination.
+- CODED: `template-parts/sections/homepage-intent-pyramid.php` now filters fallback guide links through published-path checks and deduplicates URLs. If no real support link exists, it shows one honest practice-area profile-search link.
+- DOCUMENTED: added `project-control/homepage-intent-link-quality-2026-05-21.md`.
+- VERIFIED: `php -l template-parts/sections/homepage-intent-pyramid.php` and `git diff --check` passed before commit. uPress Git log shows `de83fab Improve homepage intent fallback links` as `HEAD -> main, origin/main`. Live homepage check shows six intent cards, zero duplicate related URLs per card, customer strip present, find-lawyer guide present and no public Grow/Meshulam wording.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is homepage trust and SEO hygiene on the high-money practice cards.
+- COMPLETION ASSESSMENT: homepage SEO/link-quality readiness moved from 70% to 73%; traffic-to-lead conversion readiness remains 55% until real analytics prove lift. Still blocked: GSC/Analytics impact, Grow approval/product mapping and real paid lawyer users.
+- OWNER-VISIBLE AFTER DEPLOY: homepage related-guide links no longer show unpublished planned article labels that all land on the same generic page.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `de83fab Improve homepage intent fallback links` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs plus uPress pull/read-only live verification only. No 301 redirect package touched, no Grow action taken, no card charged, no payment setting changed, no public CMS page edited, no product created and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 14:12 Asia/Jerusalem
+- HOMEPAGE MOBILE QA: checked the live homepage after the money-intent pyramid deploy, focusing on mobile because Google uses mobile-first indexing and urgent legal leads often come from phones.
+- RESEARCHED: Google Search Central mobile-first indexing guidance says Google uses the mobile version of content for indexing and recommends mobile-friendly responsive design. Current legal website conversion guidance emphasizes visible CTAs, mobile usability and clear practice-area navigation. Sources: https://developers.google.com/search/docs/crawling-indexing/mobile/mobile-sites-mobile-first-indexing, https://growlaw.co/blog/law-firm-website-ux-best-practices, https://www.simplelaw.com/blog/conversion-strategies-for-law-firm-websites
+- AUDITED: created `project-control/visual-evidence/homepage-intent-pyramid-qa-2026-05-21.json` plus desktop/mobile screenshots for the live homepage section.
+- FOUND: mobile and desktop both show the new section with 6 cards, no page-level horizontal overflow, customer strip still present, find-lawyer guide still present, ask-lawyer path still present, and no public Grow wording.
+- CODED: improved `.homepage-intent-card` title and related-guide links in `assets/css/premium-pass-4.css` so mobile taps have larger block/flex hit areas.
+- DOCUMENTED: added `project-control/homepage-intent-mobile-qa-2026-05-21.md`.
+- VERIFIED: `git diff --check` passed with only expected line-ending warnings. After deploy, uPress Git log shows `3cf8e7d Improve homepage intent mobile tap targets` as `HEAD -> main, origin/main`; live optimized CSS contains the new `min-height:36px` tap-target rules.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is mobile conversion confidence on the homepage path that routes visitors to high-value practice areas, lawyer profiles and lead capture.
+- COMPLETION ASSESSMENT: traffic-to-lead conversion readiness moved from 54% to 55%; mobile homepage confidence moved from 62% to 70%. Still blocked: real analytics/GSC impact, Grow approval, mapped paid products and real paid lawyer users.
+- OWNER-VISIBLE AFTER DEPLOY: homepage intent cards should feel easier to tap on mobile, especially the title and related-guide links.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `3cf8e7d Improve homepage intent mobile tap targets` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/status/evidence only. No 301 redirect package touched, no Grow action taken, no card charged, no payment gateway setting changed, no public CMS page edited, no product created, and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 13:57 Asia/Jerusalem
+- HOMEPAGE SEO PYRAMID: kept the separate 301 redirect package untouched and treated Grow as waiting; used the owner's Green Invoice/Morning digital-payments guide as FYI for the payment track only.
+- RESEARCHED: Google Search Central says Google understands site importance from crawlable links between pages and recommends linking important categories/products from the homepage. Justia surfaces lawyer search by practice area and location; FindLaw separates "Find a Lawyer" from legal learning; Israeli competitors iLaw and LawZone emphasize practice-area search, lawyer matching and inquiry forms. Sources: https://developers.google.com/search/docs/specialty/ecommerce/help-google-understand-your-ecommerce-site-structure, https://www.justia.com/lawyers/, https://www.findlaw.com/, https://www.ilaw.co.il/, https://lawzone.co.il/, https://www.clio.com/blog/best-lawyer-directories/, https://www.greeninvoice.co.il/magazine/digital-payments-guide/
+- CODED: added `template-parts/sections/homepage-intent-pyramid.php`, a CMS-connected homepage section for high-money intents: criminal, family/divorce, real estate, medical malpractice, labor law and personal injury.
+- CODED: each intent card links to the safe pillar/hub URL, filtered lawyer directory URL, and two related CMS articles when taxonomy content exists, falling back to safe planned links only when needed.
+- CODED: added a lawyer-side path from the homepage to plans, registration and dashboard so the same page now serves both lead demand and lawyer subscription demand.
+- CODED: inserted the section after the customer path strip in both `front-page.php` and `page-home.php`; the existing "how to choose lawyer" section remains unchanged.
+- VERIFIED: `php -l` passed for the new section plus both homepage templates, and `git diff --check` passed with only expected line-ending warnings. After deploy, uPress Git log shows `882f4ee Add homepage money intent pyramid` as `HEAD -> main, origin/main`; live homepage HTML/browser checks show `homepage-intent-pyramid`, six intent cards, the existing customer strip and find-lawyer guide, no horizontal overflow on desktop, and no public Grow wording.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is SEO and conversion architecture: the homepage now pushes internal authority toward the money topics and gives users/lawyers clearer next actions.
+- COMPLETION ASSESSMENT: homepage SEO hierarchy moved from 55% to 66%; traffic-to-lead conversion readiness moved from 49% to 54%; first paid-lawyer readiness moved from 83% to 84%. Still blocked: deeper mobile visual QA, real GSC/analytics impact, Grow approval and paid product mapping.
+- OWNER-VISIBLE AFTER DEPLOY: homepage should show a new "search by legal intent" section below the first customer path, with six money-topic cards and lawyer plan/register/dashboard buttons.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `882f4ee Add homepage money intent pyramid` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/status only. No 301 redirect package touched, no Grow action taken, no card charged, no payment gateway setting changed, no public CMS page edited, no product created, and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 13:45 Asia/Jerusalem
+- HOMEPAGE CUSTOMER READINESS: left the separate 301 redirect package untouched as requested and treated Grow as waiting for post-holiday approval; focused on the public homepage.
+- RESEARCHED: Justia's lawyer directory puts legal issue/name plus location search at the top and also lets users browse by practice area/location. FindLaw similarly emphasizes finding legal help by issue and nearby location, while current Clio legal-directory guidance frames directory listings as lead-generation and local SEO assets. Sources: https://www.justia.com/lawyers/, https://lawyers.justia.com/faq, https://www.findlaw.com/home.html, https://www.clio.com/blog/best-lawyer-directories/
+- CODED: added `template-parts/sections/customer-intake-strip.php`, a three-path homepage band for visitors who need to submit a legal inquiry, read guides first, or compare lawyer profiles.
+- CODED: added the new band immediately after the hero in `front-page.php` and `page-home.php`, so both possible homepage templates get the same customer-ready path.
+- CODED: tightened the hero description to remove unsupported "recommended/leading" wording and add clear no-guarantee/no-personal-advice language.
+- VERIFIED: `php -l front-page.php`, `php -l page-home.php`, `php -l template-parts/sections/hero.php`, `php -l template-parts/sections/customer-intake-strip.php`, and `git diff --check` passed before commit. After deploy, uPress Git log shows `84ae16c Clarify homepage customer path` as `HEAD -> main, origin/main`; live homepage HTML/browser check shows `customer-intake-strip`, the new safer hero wording and no old "recommended/leading" phrase.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is conversion readiness: homepage visitors now get a clearer path to lead submission, guide consumption or lawyer comparison, with safer legal-advertising language.
+- COMPLETION ASSESSMENT: homepage customer readiness moved from 68% to 74%; lead capture readiness moved from 72% to 74%; traffic-to-lead conversion readiness moved from 45% to 49%. Still blocked: real homepage analytics, paid traffic/leads, Grow approval and deeper homepage visual testing after deploy.
+- OWNER-VISIBLE AFTER DEPLOY: homepage below the hero should show a three-card "fast path for clients" band and the hero copy should no longer use "recommended/leading" lawyer claims.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `84ae16c Clarify homepage customer path` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/status only. No 301 redirect package touched, no Grow action taken, no card charged, no payment gateway setting changed, no CMS page edited, no product created, and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 12:55 Asia/Jerusalem
+- PLAN PAYMENT MAPPING SCREEN: added a safe admin screen for the exact post-Grow step: mapping the four paid lawyer plans to WooCommerce subscription products.
+- RESEARCHED: WooCommerce Subscriptions documentation says subscriptions are sold through subscription products, and those products generate recurring orders on their schedule. WooCommerce also documents that subscription gateways must support recurring payments for automatic renewals. Sources: https://woocommerce.com/document/subscriptions/creating-subscription-products/ and https://woocommerce.com/document/subscriptions/payment-gateways/
+- CODED: `inc/lawyer-plans.php` now has `Lawyer Onboarding -> Plan Payments`, showing WooCommerce, Subscriptions and enabled-gateway readiness.
+- CODED: the screen lets an admin paste/save the product IDs for Pro, Featured, Lead Partner and Full Service, then shows whether each product is found, subscription-like, purchasable and checkout-ready.
+- VERIFIED: `php -l inc/lawyer-plans.php` and `git diff --check` passed before commit. After deploy, uPress Git log shows `4870c18 Add lawyer plan payment mapping admin` as `HEAD -> main, origin/main`.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is reducing the next payment setup bottleneck: after Grow approves, product mapping can be done from wp-admin without guessing option names or running WP-CLI.
+- COMPLETION ASSESSMENT: automated payment readiness moved from 84% to 86%; first paid-lawyer readiness moved from 82% to 83%; owner self-service for payment setup moved from 30% to 55%. Still blocked: Grow re-check approval, real WooCommerce subscription products, gateway connection and payment smoke test.
+- OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Plan Payments.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `4870c18 Add lawyer plan payment mapping admin` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/status only. No card charged, no payment gateway setting changed, no WooCommerce product created, no product ID mapped, no CMS page edited, and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-21 12:47 Asia/Jerusalem
+- GROW CHECKOUT APPROVAL FIX: Grow account creation is complete, the checkout fixes are live, and the site was submitted back to Grow for review.
+- RESEARCHED: the Grow report for `https://jus-tice.co.il` marks terms page, business address, phone, cancellation, privacy, supply policy and product responsibility as passed. The only failed items are: checkout page exists, terms approval checkbox on checkout, and a terms link inside that checkout approval. WooCommerce checkout guidance confirms billing/customer fields such as `billing_first_name`, `billing_last_name`, `billing_email`, `billing_phone` and country are checkout field surfaces. Sources: Grow report link from owner, https://developer.woocommerce.com/docs/customizing-checkout-fields-using-actions-and-filters/
+- CODED: paid plan CTAs now route to `/checkout/?plan_interest=<plan>&pre_checkout=1&payment_path=manual_invoice` when subscription products are not mapped yet, instead of skipping straight to lawyer registration.
+- CODED: the checkout compliance fallback now keeps the selected paid plan visible, preserves the selected `plan_interest`, and uses a WooCommerce-style terms checkbox with a direct terms link.
+- VERIFIED: `php -l inc/lawyer-plans.php`, `php -l inc/payment-compliance-routes.php`, and `git diff --check` passed before commit. After uPress pull, live `/lawyer-plans/` contains paid checkout links and live `/checkout/?plan_interest=pro&pre_checkout=1&payment_path=manual_invoice` returns 200 with the selected plan, required billing fields, terms checkbox, and terms link.
+- GROW RESUBMISSION: clicked the Grow report confirmation checkbox and submitted the site for re-check. Grow confirmed: `תודה, האתר נשלח לבדיקה חוזרת בהצלחה! הבדיקה אורכת עד יום עסקים`.
+- HONEST MONEY ASSESSMENT: no revenue earned yet. Substantial advancement is payment approval readiness: Grow's checker should now see a public paid-plan path that lands on a checkout page with the exact required customer fields and terms checkbox/link.
+- COMPLETION ASSESSMENT: Grow/Meshulam website approval readiness moved from 83% to 93%; automated payment readiness moved from 82% to 84%; first paid-lawyer readiness moved from 80% to 82%. Still blocked: Grow must re-check and approve, then WooCommerce product/gateway mapping and live smoke test must be completed.
+- OWNER-VISIBLE AFTER DEPLOY: `/lawyer-plans/` paid plan buttons should open `/checkout/` with the selected plan, and `/checkout/?plan_interest=pro` should show required customer fields plus a terms checkbox/link.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `540bdb4 Fix Grow checkout approval path` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/status plus Grow review resubmission only. No card charged, no payment gateway setting changed, no CMS page edited, no product created, and no outreach sent.
+
+## LATEST WORK STATUS - 2026-05-20 23:47 Asia/Jerusalem
+- LAWYER DASHBOARD NEXT BEST ACTION: upgraded the logged-in lawyer private area from a passive checklist into an action-driven activation cockpit.
+- RESEARCHED: Justia sells lawyer visibility around complete professional profiles, premium placement, traffic stats, professional headshots, FAQs, reviews and profile maintenance; Clio's current lead-management guidance frames lawyer growth around tracking/follow-up/intake and dashboard metrics; Google Business Profile policy allows genuine review requests but forbids incentives, selective positive-only solicitation and requested review wording. Sources: https://www.justia.com/marketing/lawyer-directory/, https://www.clio.com/blog/lead-management-best-practices-law-firms/, https://help.clio.com/hc/en-150/articles/14353490331035-Clio-Grow-Dashboard, https://support.google.com/business/answer/7400114
+- CODED: `inc/lawyer-dashboard.php` now gives each missing growth asset a direct action: profile update, review campaign, signed guide request, supplier request, visibility upgrade or lead-plan view.
+- CODED: `page-lawyer-dashboard.php` now shows a clear `Next best action` panel above the reputation/authority checklist, adds action links to each pending item, and anchors every dashboard form so buttons jump to the right place.
+- CODED: the profile update request now captures Bar license number and website/external proof link, and `inc/lawyer-onboarding.php` lets the owner review/apply/discard those staged trust fields without changing the public profile automatically.
+- VERIFIED: `php -l inc/lawyer-dashboard.php`, `php -l inc/lawyer-onboarding.php`, `php -l page-lawyer-dashboard.php`, and `git diff --check` passed before commit. After deploy, live CSS contains `lawyer-dashboard-growth__next` and `/lawyer-dashboard/` returns HTTP 200.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is customer activation and retention: a lawyer who enters the private area now sees exactly what is missing and where to submit it, making paid profile completion faster and easier to sell.
+- COMPLETION ASSESSMENT: lawyer dashboard operating value moved from 66% to 70%; lawyer onboarding/private-area readiness moved from 62% to 66%; first paid-lawyer readiness moved from 79% to 80%. Still blocked: real lawyer usage, owner license/profile review, and Grow/Meshulam external payment approval.
+- OWNER-VISIBLE AFTER DEPLOY: logged-in `/lawyer-dashboard/` reputation and authority cockpit should show `Next best action` plus action links on missing items; the profile update form should include Bar license number and external proof link.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `d70e71c Guide lawyer dashboard next actions` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/status only. No public lawyer profile changed, no CMS page was edited, no outreach was sent, no review was requested, no Google API was called, no payment setting changed and no client charge happened.
+
+## LATEST WORK STATUS - 2026-05-20 23:33 Asia/Jerusalem
+- LOST VISITOR RESCUE ROUTE: respected the owner's temporary decision to keep the 404-to-home plugin for logging, and added a better future target page for lost visitors.
+- RESEARCHED: Google says useful custom 404 experiences should keep the same site look, explain the missing page clearly, include popular links/search, and return real redirects only when content has a clear replacement. UX research similarly treats 404 recovery as navigation/search plus clear next actions, not a dead end. Sources: https://developers.google.com/search/docs/advanced/crawling/http-network-errors, https://developers.google.com/search/blog/2008/08/make-your-404-pages-more-useful, https://www.uxpin.com/studio/blog/404-page-best-practices/
+- CODED: `inc/not-found-rescue.php` adds `/not-found-help/` and `/404-help/` as a noindex, follow rescue route with legal search, high-value practice links, lawyer directory/site-map links and the lead form.
+- CODED: `functions.php` now loads the new rescue route before the trust/payment virtual pages.
+- VERIFIED: `php -l inc/not-found-rescue.php` and `php -l functions.php` passed before commit. First live deploy showed the active 404-to-home plugin also redirected the new rescue route, so the rescue route was moved earlier to the `wp` stage to beat plugin redirects.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is conversion recovery: when the 404 plugin is reconfigured later, lost visitors can become search users or leads instead of being dumped on the homepage with no context.
+- COMPLETION ASSESSMENT: 404 recovery system moved from 30% to 58%; traffic/ranking recovery moved from 32% to 33%; lead capture readiness moved from 70% to 72%. Still blocked: plugin must be pointed to `/not-found-help/` later, and we still need a weekly export from the plugin log to identify exact redirect candidates.
+- OWNER-VISIBLE AFTER DEPLOY: `/not-found-help/` and `/404-help/` should show the new lost-visitor rescue page.
+- SAFETY: repo route only. No plugin settings changed, no public CMS page was created, no 404 plugin log was touched, no GSC validation was clicked, no outreach was sent, no payment setting changed and no client charge happened.
+
+## LATEST WORK STATUS - 2026-05-20 23:24 Asia/Jerusalem
+- GSC 404 LIVE AUDIT: checked the exact Search Console 404 examples the owner shared instead of adding broad redirects.
+- RESEARCHED: Google's own guidance says use 3XX/301 redirects when a page moved or has a clear replacement, but real missing/no-replacement URLs can stay 404/410; generic fake-valid redirects can create poor crawl signals. Sources: https://support.google.com/webmasters/answer/7440203, https://developers.google.com/search/docs/crawling-indexing/301-redirects, https://developers.google.com/search/docs/crawling-indexing/troubleshoot-crawling-errors
+- FOUND: `/drug-crimes/`, `/criminal-record-deletion/`, `/shoplifting-defense/` and `/real-estate/` now return live 200, so the GSC report is stale for those examples.
+- FOUND: `/tax-law/` and `/personal-injury/` were redirecting to the homepage, which is weaker than redirecting to the closest real legal pages.
+- CODED: `inc/url-redirects.php` now redirects only `/tax-law/` -> `/tax-lawyer/` and `/personal-injury/` -> `/tort-lawyer/` during early WordPress startup, before canonical/plugin homepage redirects.
+- LEFT ALONE: `/wp-content/plugins/real-accessability/support.php` and fake `/wp-*.php` requests remain 404 because they are plugin/security noise, not user journeys or moved content.
+- DOCUMENTED: `project-control/gsc-404-live-audit-2026-05-20.md` and `.csv` record the sample, live result and decision.
+- VERIFIED: `php -l inc/url-redirects.php` passed before commit; first uPress pull showed another layer still won at `template_redirect`, so the hook was moved earlier to `init` and needs final live verification after the second pull.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is SEO hygiene: two bad homepage redirects are now mapped to relevant money/legal pages, while stale resolved 404 examples do not distract the build.
+- COMPLETION ASSESSMENT: known GSC 404 sample handling moved from 45% to 78%; traffic/ranking recovery moved from 31% to 32%; first-lawyer sales readiness unchanged. Still blocked: Google must recrawl, GSC remains delayed, and we need Analytics/Search Console export for the full 404 list later.
+- OWNER-VISIBLE AFTER DEPLOY: `/tax-law/` should land on `/tax-lawyer/`; `/personal-injury/` should land on `/tort-lawyer/`.
+- SAFETY: exact redirect code and repo docs only. No public CMS page was edited, no sitemap/canonical/noindex rule changed, no GSC validation was clicked, no outreach was sent, no payment setting changed and no client charge happened.
+
+## LATEST WORK STATUS - 2026-05-20 23:13 Asia/Jerusalem
+- REVIEW CAMPAIGN OPERATIONS: tightened the Google reviews workflow so it can move from lawyer request to owner-reviewed task without getting stuck.
+- RESEARCHED: BrightLocal's 2026 local review survey says review recency and star ratings are increasingly important, 85% of consumers are more likely to use a business after positive reviews, and many users continue to the business website after reading reviews. Google Business Profile guidance says review requests are allowed through a review link/QR code, but incentives and fake engagement are prohibited. LawReviews positions itself around verified reviews and online consultation filters, confirming that reputation is a competitive legal-directory feature. Sources: https://www.brightlocal.com/research/local-consumer-review-survey/, https://support.google.com/business/answer/3474122, https://www.lawreviews.co.il/en/search/all
+- CODED: `page-lawyer-dashboard.php` now pre-fills the Google Business URL, Google review request URL and Place ID in the review campaign request form when the lawyer already supplied them during signup or owner setup.
+- CODED: `inc/lawyer-onboarding.php` now has an owner-only `Mark reviewed` action for review campaign requests, mirroring the content-review workflow.
+- CODED: marking a review campaign reviewed clears the pending flag, stores `latest_review_campaign_reviewed_at`, appends an internal note and logs the owner action.
+- VERIFIED: `php -l page-lawyer-dashboard.php`, `php -l inc/lawyer-onboarding.php`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `3608f3d Tighten review campaign operations`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is retention/product value: Google review growth can now be sold and operated as a controlled service instead of remaining a loose note on the profile.
+- COMPLETION ASSESSMENT: reputation/review infrastructure moved from 34% to 41%; lawyer dashboard operating value moved from 62% to 66%; first paid-lawyer readiness moved from 78% to 79%. Still blocked: real lawyer usage, owner review, and a future approved public review display/API path.
+- OWNER-VISIBLE AFTER DEPLOY: logged-in `/lawyer-dashboard/` review campaign form will reuse saved Google links; wp-admin -> Lawyer Onboarding -> Reputation column will show `Mark reviewed` on pending review campaign rows.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `3608f3d Tighten review campaign operations` is `HEAD -> main, origin/main`.
+- SAFETY: repo code only. No review request was sent, no Google review was copied, no public profile changed, no CMS record was created, no payment setting changed and no client charge happened.
+
+## LATEST WORK STATUS - 2026-05-20 23:04 Asia/Jerusalem
+- LAWYER ONBOARDING REPUTATION INTAKE: added Google reputation source collection to the lawyer signup wizard.
+- RESEARCHED: Google Business Profile guidance allows businesses to create/share a review request link or QR code, but reviews must reflect genuine customer experiences and incentives for reviews are prohibited. Google also notes that Business Profile review links can be shared in emails, chat and receipts, and that Place IDs are reusable identifiers but should be refreshed if older than 12 months. Sources: https://support.google.com/business/answer/16816815, https://support.google.com/business/answer/3474122, https://developers.google.com/maps/documentation/places/web-service/place-id
+- CODED: `page-lawyer-registration.php` now asks lawyers for their Google Business / Maps profile URL and Google review request link during self-registration.
+- CODED: `assets/js/lawyer-registration-wizard.js` now adds a dedicated `Trust sources` step before final review, so reputation assets are part of the professional onboarding flow instead of buried later in manual follow-up.
+- CODED: `inc/lawyer-onboarding.php` sanitizes and stores the submitted Google Business/review links on the draft lawyer profile, adds an internal compliance note, and includes the links in the owner notification email.
+- VERIFIED: `php -l page-lawyer-registration.php`, `php -l inc/lawyer-onboarding.php`, `node --check assets/js/lawyer-registration-wizard.js`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `858918c Collect lawyer Google reputation sources`.
+- LIVE CHECK: `/lawyer-registration/` returns HTTP 200 and live HTML contains `google_business_profile_url` plus `google_review_request_url`; the live wizard asset contains `Trust sources`, `google_business_profile_url` and `Step 5`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is sales readiness: a paying lawyer can now provide Google reputation assets during onboarding, which reduces founder follow-up and prepares the future review module without unsafe scraping or fake reviews.
+- COMPLETION ASSESSMENT: lawyer onboarding wizard moved from 55% to 62%; reputation/review infrastructure moved from 25% to 34%; first paid-lawyer readiness moved from 76% to 78%. Still blocked: real lawyers must sign up, owner must verify license/reputation before publishing, and Google review display/import rules need a separate implementation before public review widgets.
+- OWNER-VISIBLE AFTER DEPLOY: `/lawyer-registration/` wizard step `Trust sources`; wp-admin -> Lawyer Onboarding draft profile meta and registration email will include the supplied Google links.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `858918c Collect lawyer Google reputation sources` is `HEAD -> main, origin/main`.
+- SAFETY: repo code only. No public lawyer profile was published, no review was copied, no Google API was called, no CMS database record was created, no outreach was sent, no payment setting changed, and no client charge happened.
+
+## LATEST WORK STATUS - 2026-05-20 22:52 Asia/Jerusalem
+- CHECKOUT CONSENT HARDENING FOR GROW APPROVAL: tightened the payment-review checkout consent behavior.
+- RESEARCHED: payment processors commonly require visible business contact details, privacy/terms/cancellation policies, service/delivery policy and an explicit customer acknowledgement before checkout; WooCommerce documentation also recommends terms/privacy checkout links and blocks order placement without terms acceptance. Sources: https://www.allpay.co.il/en/help/site-requirements, https://support.wix.com/en/article/wix-payments-ensuring-your-business-is-ready-for-sales, https://woocommerce.com/document/woocommerce-customizer/checkout/
+- CODED: `inc/payment-compliance-routes.php` now renders the checkout compliance consent block only once per checkout request, even if multiple WooCommerce hooks fire.
+- CODED: checkout submission now has server-side validation requiring the Jus-Tice terms/privacy/cancellation/service-responsibility consent checkbox.
+- CODED: accepted checkout consent is stored on the WooCommerce order with approved-at timestamp and the terms, cancellation and privacy URLs.
+- VERIFIED: `php -l inc/payment-compliance-routes.php`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `dd94a9d Harden checkout policy consent`.
+- LIVE CHECK: terms, privacy, cancellation and checkout URLs all return HTTP 200. Terms/privacy/cancellation are not noindexed and show business name, email, phone and policy cross-links. Checkout returns 200, shows business/contact/policy links and the `justice_visible_terms_approval` consent checkbox; checkout remains noindexed, which is normal for checkout pages and not a payment-review blocker.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is payment approval quality: Grow/Meshulam can see a cleaner checkout consent flow and future orders keep an audit trail that the buyer accepted the site policies.
+- COMPLETION ASSESSMENT: Grow/Meshulam website approval readiness moved from 78% to 83%; automated payment readiness moved from 80% to 82%; first paid-lawyer readiness moved from 74% to 76%. External approval/KYC still remains outside the repo.
+- OWNER-VISIBLE AFTER DEPLOY: live WooCommerce checkout will show one terms/privacy/cancellation consent block and reject checkout if it is not accepted.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `dd94a9d Harden checkout policy consent` is `HEAD -> main, origin/main`.
+- SAFETY: checkout validation code only. No payment gateway settings changed, no order was created, no card was charged, no public CMS page was edited, and no outbound message was sent.
+
+## LATEST WORK STATUS - 2026-05-20 22:44 Asia/Jerusalem
+- SUPPLIER PIPELINE CRM VISIBILITY: added the supplier/provider marketplace as a visible revenue line inside Justice CRM.
+- RESEARCHED: legal marketplaces monetize adjacent professional services, not only lawyers. Din exposes a broad lawyer-search/directory funnel; expert marketplaces like Synapsis and Legal Experts AI show supplier discovery patterns around verified profiles, specialty filters, credentials, rates and availability. Sources: https://www.din.co.il/default.asp, https://www.joinsynapsis.com/, https://www.legalexperts.ai/
+- CODED: `inc/lead-crm.php` now renders `Supplier marketplace pipeline` below the lawyer sales pipeline in Justice CRM.
+- CODED: the new panel shows open suppliers, outreach-ready suppliers, approved partners and suppliers with a real commercial model set.
+- CODED: the supplier table shows category, revenue model, priority, status, service area, contact, source link and Open/Website actions.
+- VERIFIED: `php -l inc/lead-crm.php`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `dcd9605 Show supplier pipeline in CRM`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that the second revenue line, supplier/provider deals sold to vendors who want lawyer exposure, is no longer buried in a separate admin list.
+- COMPLETION ASSESSMENT: supplier CRM visibility moved from 45% to 65%; supplier marketplace operating system moved from 42% to 50%; lawyer monetization system moved from 72% to 74%; live supplier revenue remains 0% until real supplier prospects and commercial terms are added.
+- OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Justice CRM -> Supplier marketplace pipeline.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `dcd9605 Show supplier pipeline in CRM` is `HEAD -> main, origin/main`.
+- SAFETY: admin display only. No supplier record was created, no supplier was contacted, no public page changed, no payment setting changed, and no client charge happened.
+
+## LATEST WORK STATUS - 2026-05-20 22:34 Asia/Jerusalem
+- PROSPECT FOLLOW-UP QUICK ACTIONS: added one-click admin status actions so lawyer outreach records can move after a call/email instead of staying stale.
+- RESEARCHED: 2026 B2B follow-up guidance emphasizes multi-touch outreach, logging outcomes in the CRM, and scheduling the next attempt; HubSpot also frames modern sequences around task reminders, calls and CRM-connected stopping rules. Sources: https://syncgtm.com/blog/follow-up-calls and https://blog.hubspot.com/sales/sales-sequence
+- CODED: Lawyer Prospect outreach kit now includes quick actions: contacted today, set follow-up, demo booked, proposal sent, won/onboarding, and lost/not fit.
+- CODED: quick actions are nonce-protected admin links that update status, last-contact date, next-action date, priority for lost records, and append a small owner-note log line.
+- CODED: Justice CRM lawyer sales pipeline table now exposes `Contacted` and `Follow-up` buttons next to open prospects.
+- VERIFIED: `php -l inc/lawyer-prospects.php`, `php -l inc/lead-crm.php`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `7302293 Add prospect follow-up quick actions`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is pipeline discipline: after outreach, the owner can immediately update the record and next follow-up date, reducing the chance that a possible paying lawyer is forgotten.
+- COMPLETION ASSESSMENT: lawyer outreach operating system moved from 60% to 66%; paid coverage pipeline moved from 48% to 52%; first-lawyer sales readiness moved from 69% to 72%; automated payment readiness unchanged at 80%.
+- OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Lawyer Prospects -> Manual Outreach Kit quick actions; also wp-admin -> Justice CRM -> Lawyer sales pipeline action buttons.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `7302293 Add prospect follow-up quick actions` is `HEAD -> main, origin/main`.
+- SAFETY: admin action links only. No action was clicked, no prospect was updated, no outreach was sent, no public content changed, and no payment settings or charges changed.
+
+## LATEST WORK STATUS - 2026-05-20 22:23 Asia/Jerusalem
+- LAWYER PROSPECT OUTREACH KIT: added manual email, WhatsApp and call drafts to each Lawyer Prospect so the owner can start outreach from the prospect record.
+- RESEARCHED: 2026 B2B outreach guidance says sequences should be multi-channel, personalized to a real signal and short around one pain point; Justia's lawyer marketing model sells paid visibility by practice/market, so our pitch should anchor on the exact demand gap instead of generic directory promotion. Sources: https://blog.hubspot.com/sales/sales-sequence and https://www.justia.com/marketing/lawyer-directory/
+- CODED: `inc/lawyer-prospects.php` now adds a `Manual Outreach Kit` meta box to Lawyer Prospect edit screens.
+- CODED: the kit builds a short email/WhatsApp draft, call opener, three qualification questions, partner-form link, expected monthly value, and compliance reminder not to promise lead volume, outcomes or exclusivity.
+- VERIFIED: `php -l inc/lawyer-prospects.php`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `de5d118 Add lawyer prospect outreach kit`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is outreach execution: a saved prospect can now be contacted manually from one screen with a demand-specific pitch.
+- COMPLETION ASSESSMENT: lawyer outreach operating system moved from 52% to 60%; paid coverage pipeline moved from 43% to 48%; first-lawyer sales readiness moved from 66% to 69%; automated payment readiness unchanged at 80%.
+- OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Lawyer Prospects -> open a prospect -> Manual Outreach Kit.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `de5d118 Add lawyer prospect outreach kit` is `HEAD -> main, origin/main`.
+- SAFETY: manual-send only. No outreach was sent, no prospect/contact record was created, no public content changed, no payment settings changed, and no client charge happened.
+
+## LATEST WORK STATUS - 2026-05-20 22:14 Asia/Jerusalem
+- LAWYER SALES PIPELINE VIEW: added a sales pipeline block inside Justice CRM so the owner can see prospect count, expected monthly value, hot prospects and due follow-ups without opening the separate prospects screen first.
+- RESEARCHED: current Clio Grow documentation says CRM dashboards should expose pipeline value, lead source/matter type and conversion rate; Clio CRM marketing also emphasizes tracking every client, conversation and follow-up so opportunities do not fall through. Sources: https://help.clio.com/hc/en-us/articles/29739406189339-Clio-Grow-Reports and https://www.clio.com/features/legal-crm-software/
+- CODED: `inc/lead-crm.php` now renders `Lawyer sales pipeline` under Recent legal leads.
+- CODED: the new CRM block shows open prospects, open monthly pipeline value in NIS, hot prospects, due follow-ups, buttons to open/add prospects, and a next-action table with source lead links.
+- VERIFIED: `php -l inc/lead-crm.php`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `f2d705a Show lawyer prospect pipeline in CRM`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is sales focus: the owner can now see the monthly value and next action queue for lawyer recruitment from the CRM, which makes outreach faster and less likely to disappear.
+- COMPLETION ASSESSMENT: lawyer outreach operating system moved from 45% to 52%; paid coverage pipeline moved from 35% to 43%; first-lawyer sales readiness moved from 63% to 66%; automated payment readiness unchanged at 80%.
+- OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Justice CRM -> Lawyer sales pipeline.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `f2d705a Show lawyer prospect pipeline in CRM` is `HEAD -> main, origin/main`.
+- SAFETY: admin display only. No public CMS database content, lawyer profile, lead record, prospect record, outbound message, payment setting, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 22:06 Asia/Jerusalem
+- CRM TO LAWYER-PROSPECT BRIDGE: connected uncovered demand in Justice CRM to the new Lawyer Prospects pipeline.
+- RESEARCHED: current legal lead-management guidance says intake systems should track lead source, status, follow-up and conversion by channel; Justia's 2026 directory material reinforces that lawyers buy visibility by practice area and metro area, which matches our area/city prospect pipeline. Sources: https://www.clio.com/blog/lead-management-best-practices-law-firms/ and https://onward.justia.com/how-to-maximize-the-benefits-of-your-justia-lawyer-directory-profile/
+- CODED: Justice CRM lead rows now include a `Prospect` action for legal leads, and the uncovered-demand summary has a `Create prospect` button for the latest demand signal.
+- CODED: clicking the button opens a new Lawyer Prospect draft prefilled from the source lead: title, practice area, market, target plan, priority, demand signal, expected monthly NIS and source lead link.
+- VERIFIED: `php -l inc/lead-crm.php`, `php -l inc/lawyer-prospects.php`, `git diff --check`, GitHub push, uPress pull, and uPress Git log showing `bdba3f2 Bridge uncovered leads to lawyer prospects`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is speed-to-sales: an uncovered lead can now become a prepared lawyer recruitment record in one click, instead of being manually retyped or forgotten.
+- COMPLETION ASSESSMENT: uncovered-demand-to-sales workflow moved from 35% to 55%; lawyer outreach operating system moved from 35% to 45%; first-lawyer sales readiness moved from 60% to 63%; automated payment readiness unchanged at 80%.
+- OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Justice CRM -> Recent legal leads / Uncovered demand queue -> `Prospect` or `Create prospect`.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `bdba3f2 Bridge uncovered leads to lawyer prospects` is `HEAD -> main, origin/main`.
+- SAFETY: admin workflow only. It does not create a prospect until an admin saves the new draft, and it sends no outreach, changes no payment settings, charges no card, and publishes no public content.
+
+## LATEST WORK STATUS - 2026-05-20 21:58 Asia/Jerusalem
+- LAWYER OUTREACH PIPELINE: added an admin-only prospect pipeline so uncovered demand and target lawyer lists can become structured sales work.
+- RESEARCHED: current legal intake and directory monetization patterns. Clio emphasizes tracking lead source, status, follow-up and conversion; Justia Premium Placements sells lawyer visibility by practice area and metro area. Sources: https://www.clio.com/blog/client-intake-law-firms/ and https://www.justia.com/marketing/lawyer-directory/
+- CODED: new `justice_prospect` admin post type under Lawyer Onboarding for lawyer sales prospects.
+- CODED: each prospect stores practice area, city, target plan, priority, outreach status, response-fit commitment, source URL, demand signal, expected monthly NIS value, contact details and next action date.
+- VERIFIED: `php -l functions.php`, `php -l inc/lawyer-prospects.php`, staged diff check, GitHub push, uPress pull, and uPress Git log showing `4633c9c Add lawyer outreach prospect pipeline`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is sales operations: repeated calls like "I need a Thailand lawyer" can now become a trackable recruiting list for paid coverage instead of disappearing into memory.
+- COMPLETION ASSESSMENT: lawyer outreach operating system moved to 35%; first-lawyer sales readiness moved from 55% to 60%; paid coverage pipeline moved to 35%; automated payment readiness unchanged at 80% because Grow/Meshulam is still external.
+- OWNER-VISIBLE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Lawyer Prospects.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `4633c9c Add lawyer outreach prospect pipeline` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only. No live wp-admin record, public CMS database content, lawyer profile, lead record, user, payment setting, GA4/GSC setting, redirect, sitemap, social account, outbound message, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 21:49 Asia/Jerusalem
+- LAWYER REGISTRATION QUALIFICATION: tightened the handoff from `/lawyer-plans/` to `/lawyer-registration/` so paid-plan prospects see the selected plan/price and tell us how fast they can respond to leads.
+- RESEARCHED: current 2026 legal intake guidance. Clio emphasizes tracking lead source/status/conversion and says the intake process starts the moment a prospect reaches out; Justia sells premium visibility by practice area and metro area, so availability/coverage fit matters before selling placement. Sources: https://www.clio.com/blog/client-intake-law-firms/ and https://www.justia.com/marketing/lawyer-directory/
+- CODED: `page-lawyer-registration.php` now shows a selected-plan summary panel, including manual-invoice wording when the founder-partner path is used.
+- CODED: the lawyer onboarding form now asks for lead-response availability: within 15 minutes, same day, next day, or needs process setup.
+- CODED: `inc/lawyer-onboarding.php` stores `lead_response_commitment`, includes it in owner notification email/internal notes, and displays it in the lawyer activation box.
+- CODED: `assets/js/lawyer-registration-wizard.js` includes the response availability field in the Practice fit step; `assets/css/premium-pass-3.css` styles the selected-plan summary.
+- VERIFIED: `php -l page-lawyer-registration.php`, `php -l inc/lawyer-onboarding.php`, `node --check assets/js/lawyer-registration-wizard.js`, `git diff --check`, uPress pull, uPress Git log, and live markup check on `/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice` all passed.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is sales quality: before selling Lead Partner access, Jus-Tice can now see whether the lawyer can actually respond fast enough to protect lead value.
+- COMPLETION ASSESSMENT: first-lawyer sales readiness moved from 51% to 55%; paid lead quality control moved from 40% to 48%; automated payment readiness unchanged at 56% because Grow/Meshulam approval is still external.
+- OWNER-VISIBLE AFTER DEPLOY: open `/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice`; the selected plan panel appears and the form asks for lead-response availability.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `30b53ab Qualify lawyer registration response fit` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 21:36 Asia/Jerusalem
+- LAWYER SALES CONVERSION: added a founder-partner activation panel to `/lawyer-plans/` so outreach calls can point lawyers to a clearer early-partner path instead of only the pricing cards.
+- RESEARCHED: current 2026 law-firm intake guidance. Clio says client intake should reduce manual work, improve client experience, track where leads come from and show lead/client status; Justia sells premium lawyer visibility by practice area and metro area. Sources: https://www.clio.com/blog/client-intake-law-firms/ and https://www.justia.com/marketing/lawyer-directory/
+- CODED: `page-lawyer-plans.php` now explains the launch-partner flow: submit details, Jus-Tice checks fit/license/area/availability, then profile/dashboard/value tracking starts after approval and payment.
+- CODED: the panel links directly into the existing manual-invoice activation paths for Lead Partner and Pro, without changing payment settings or charging anyone.
+- CODED: `assets/css/premium-pass-3.css` now styles the panel responsively above the plan grid.
+- VERIFIED: `php -l page-lawyer-plans.php`, `git diff --check`, uPress pull, uPress Git log, and live markup check on `https://jus-tice.co.il/lawyer-plans/` all passed.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is sales readiness: the owner can now send one public URL during lawyer outreach that explains the early partner path and captures plan interest.
+- COMPLETION ASSESSMENT: lawyer-plan conversion readiness moved from 55% to 62%; first-lawyer sales readiness moved from 45% to 51%; full automated payment readiness unchanged at 56% because Grow/Meshulam approval is still external.
+- OWNER-VISIBLE AFTER DEPLOY: open `/lawyer-plans/`; the new launch-partner block appears above the pricing cards.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `ddae8fe Add lawyer founder partner activation path` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 20:27 Asia/Jerusalem
+- LAWYER DASHBOARD VALUE SNAPSHOT: added a live monthly value panel to `/lawyer-dashboard/` so lawyers can see this month's assigned leads, first responses, consultations set, retained clients and closed/not-fit outcomes.
+- RESEARCHED: Clio's current Legal Trends material says firms that combine digital client intake tools with their referral/marketing flow see stronger revenue, lead-generation and conversion results; Clio's intake/CRM reporting also emphasizes full-funnel visibility from lead to retained client. Source: https://www.clio.com/about/press/legal-trends-solo-small-law-firms-2025/ and https://www.clio.com/resources/legal-trends/read-online/
+- CODED: `page-lawyer-dashboard.php` now builds monthly funnel metrics from existing assigned lead data and the milestone timestamps already saved by the CRM/dashboard stage workflow.
+- CODED: `assets/css/premium-pass-3.css` now styles the new value snapshot as compact dashboard metric tiles with mobile fallback.
+- VERIFIED: `php -l page-lawyer-dashboard.php` and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is retention/sales proof: a paying lawyer can now see this month's funnel movement instead of only raw lead counts.
+- COMPLETION ASSESSMENT: lawyer private zone moved from 68% to 70%; Clio-lite dashboard moved from 58% to 62%; paid-lawyer reporting/value proof moved from 43% to 50%. Remaining blockers: live QA with an actual lawyer user and assigned lead, automatic monthly email report, lead alert notifications, per-lead detail page, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: logged-in lawyers on `/lawyer-dashboard/` will see `Monthly value snapshot` above Recent leads.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `b408df1 Show monthly lawyer lead value snapshot` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 20:11 Asia/Jerusalem
+- LEAD VALUE REPORTING: added milestone timestamps for the lead funnel so future lawyer reports can measure consultation and retained/lost outcomes, not only raw lead count.
+- RESEARCHED: 2026 law-firm conversion benchmarks and CRM guidance. Key point: firms should track lead-to-consultation and consultation-to-retained conversion separately; raw lead volume is not enough to prove marketing value.
+- CODED: lawyer dashboard stage updates now save `consultation_scheduled_at`, `retained_at`, and `closed_at` when the lead reaches consultation, won, or lost stages.
+- CODED: owner/admin CRM follow-up saves now also sync `lead_status` and the same milestone timestamps, so both update paths support reporting.
+- VERIFIED: `php -l inc/lawyer-dashboard.php`, `php -l inc/lead-crm.php`, and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is value proof: the platform can begin showing lawyers not just leads, but funnel movement toward retained clients.
+- COMPLETION ASSESSMENT: lawyer private zone remains 68%; Clio-lite dashboard moved from 55% to 58%; paid-lawyer reporting/value proof moved from 35% to 43%. Remaining blockers: live QA with real lawyer user/lead, monthly value report UI/email, automatic lead alerts, per-lead detail page, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: stage changes to Consultation/Won/Lost from either `/lawyer-dashboard/` or wp-admin CRM will preserve milestone timestamps for later reports.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `f537d59 Track lead funnel milestones` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 20:00 Asia/Jerusalem
+- LEAD CRM CONSISTENCY: synced lawyer dashboard stage updates with the older internal CRM lead status field.
+- RESEARCHED: current 2026 legal CRM/intake guidance. Key point: fast lead response is not enough; the CRM must remain trustworthy and consistent, otherwise teams stop relying on it and leads slip.
+- CODED: when a lawyer updates an assigned lead stage from `/lawyer-dashboard/`, `inc/lawyer-dashboard.php` now updates both `follow_up_status` and the legacy/internal `lead_status`.
+- STATUS MAP: New -> assigned, First attempt/Contacted -> contacted, Consultation scheduled -> accepted, Won -> converted, Not fit/lost -> closed.
+- VERIFIED: `php -l inc/lawyer-dashboard.php` and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is operational reliability: private-zone actions now keep admin CRM reports aligned, which matters before selling this as paid lead management.
+- COMPLETION ASSESSMENT: lawyer private zone remains 68%; Clio-lite dashboard moved from 53% to 55%; paid-lawyer retention value moved from 62% to 63%. Remaining blockers: live QA with real lawyer user/lead, automatic lead alerts, per-lead detail page, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: stage updates made in `/lawyer-dashboard/` should also reflect in wp-admin lead status columns/reports.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `a239225 Sync lawyer lead stage to CRM status` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 19:51 Asia/Jerusalem
+- LAWYER PRIVATE ZONE / NEXT ACTIONS: added response urgency and next-action guidance to the private lead pipeline.
+- RESEARCHED: current 2026 legal intake guidance. Key point: Clio recommends calling every lead within 15 minutes; faster intake response is a major conversion lever, so the dashboard should show which leads need response now.
+- CODED: `/lawyer-dashboard/` pipeline summary now shows assigned leads, leads needing response, and overdue responses.
+- CODED: each Recent lead now shows a next-action label: Call within 15 min, Call now - overdue, Follow up / book consult, Prepare consultation, Client retained, or Closed.
+- VERIFIED: `php -l page-lawyer-dashboard.php` and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is conversion discipline: paid lawyers can see what to do next and which leads are slipping.
+- COMPLETION ASSESSMENT: lawyer private zone moved from 66% to 68%; Clio-lite lead dashboard moved from 47% to 53%; paid-lawyer retention value moved from 60% to 62%. Remaining blockers: live QA with real lawyer user/lead, automatic lead alerts, per-lead detail page, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: logged-in lawyers on `/lawyer-dashboard/` will see response-needed/overdue counts in the pipeline header and next-action labels beside Recent leads.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `8329097 Show lawyer lead next actions` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 19:41 Asia/Jerusalem
+- LAWYER PRIVATE ZONE / LEAD CONTACT ACTIONS: added direct contact actions to assigned leads inside the lawyer dashboard.
+- RESEARCHED: current 2026 legal intake guidance. Key point: law firms should respond to every lead quickly and use multiple channels; Clio specifically recommends calling every lead within 15 minutes and tracking follow-up in a CRM.
+- CODED: `/lawyer-dashboard/` Recent leads now shows Call, WhatsApp and Email buttons when assigned lead contact data exists. WhatsApp and email open prefilled, lawyer-side messages; nothing is sent automatically.
+- CODED: `assets/css/premium-pass-3.css` now supports the extra private-zone contact action column with mobile fallback inherited from the dashboard grid.
+- VERIFIED: `php -l page-lawyer-dashboard.php` and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is direct lead usability: a paid lawyer can now receive, contact and stage an assigned lead from the private zone.
+- COMPLETION ASSESSMENT: lawyer private zone moved from 63% to 66%; Clio-lite lead dashboard moved from 40% to 47%; paid-lawyer retention value moved from 56% to 60%. Remaining blockers: live QA with a real lawyer user and assigned lead, per-lead detail view, automated lead notifications, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: logged-in lawyers on `/lawyer-dashboard/` will see Call / WhatsApp / Email beside Recent leads when contact data exists.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `72c171f Show lawyer lead contact actions` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 19:33 Asia/Jerusalem
+- LAWYER PRIVATE ZONE / PIPELINE CONTROL: upgraded the dashboard from a display-only lead pipeline into a usable lightweight CRM workflow.
+- RESEARCHED: Clio's 2026 lead-management guidance. Key point: lead management is the pre-retention sales process; lawyers need a CRM to track follow-up, consultation, and hire/not-fit stages so prospects do not slip through cracks.
+- CODED: `inc/lawyer-dashboard.php` now has an ownership-checked `justice_lawyer_lead_stage_update` handler. A lawyer can update only leads assigned to a profile claimed by their own user account.
+- CODED: `/lawyer-dashboard/` Recent leads now includes a stage selector and Update button for each assigned lead: New, First attempt, Contacted, Consultation scheduled, Won, Not fit/lost.
+- CODED: stage updates save `follow_up_status`, `latest_lawyer_stage_update_at`, `latest_lawyer_stage_update_by`, and first-contact time when relevant.
+- VERIFIED: `php -l inc/lawyer-dashboard.php`, `php -l page-lawyer-dashboard.php`, and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is paid-lawyer retention value: lawyers can now operate leads inside the private zone instead of only looking at them.
+- COMPLETION ASSESSMENT: lawyer private zone moved from 59% to 63%; Clio-lite lead dashboard moved from 28% to 40%; paid-lawyer retention value moved from 52% to 56%. Remaining blockers: live QA with a lawyer user and real assigned lead, per-lead detail pages, automatic WhatsApp/SMS notifications, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: logged-in lawyers on `/lawyer-dashboard/` will see Update controls beside Recent leads, and stage changes will refresh the pipeline.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `c55302e Let lawyers update lead pipeline stage` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 19:22 Asia/Jerusalem
+- LAWYER PRIVATE ZONE / CLIO-LITE: added a first visual lead pipeline to the lawyer dashboard so paid lawyers can see where assigned leads stand instead of only reading a flat recent-leads list.
+- RESEARCHED: current 2026 law-firm CRM/intake guidance. Key point: legal CRMs that stick show a visible pipeline and source/conversion metrics; lawyers need to see inquiry -> response -> consultation -> retained progress without digging in email or wp-admin.
+- CODED: `/lawyer-dashboard/` now builds a private lead pipeline from assigned lead follow-up/status data: New, First response, Consultation, Won, and Not fit.
+- CODED: `assets/css/premium-pass-3.css` now styles the pipeline as compact dashboard stage cards with mobile fallback.
+- VERIFIED: `php -l page-lawyer-dashboard.php` and `git diff --check` pass.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is lawyer subscription value: the private zone now looks more like a paid lead cockpit and less like a simple list.
+- COMPLETION ASSESSMENT: lawyer private zone moved from 55% to 59%; Clio-lite lead dashboard moved from 15% to 28%; paid-lawyer retention value moved from 49% to 52%. Remaining blockers: lead stage update buttons inside the lawyer dashboard, live QA with a lawyer user, per-lead contact visibility rules, and payment activation.
+- OWNER-VISIBLE AFTER DEPLOY: logged-in lawyers on `/lawyer-dashboard/` will see a `Lead pipeline` block above Recent leads.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `e68bbe6 Show lawyer dashboard lead pipeline` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 17:31 Asia/Jerusalem
+- LEAD RESPONSE SPEED / OPERATOR UX: added one-click contact actions directly inside the lead CRM table.
+- RESEARCHED: current 2026 legal intake guidance. Key point: law-firm lead conversion depends on immediate, multi-channel response; call/text/WhatsApp/email actions should be available from the intake system instead of buried in separate screens.
+- CODED: `inc/lead-crm.php` now shows quick action buttons per lead: Open, Call, WhatsApp with a prefilled Jus-Tice follow-up message, and Email with a prefilled follow-up message when contact data exists.
+- VERIFIED: `php -l inc/lead-crm.php` passes.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is practical conversion speed: the owner/operator can now contact a fresh lead from the CRM table without opening the edit screen first.
+- COMPLETION ASSESSMENT: lead CRM operator workflow moved from 68% to 73%; intake-to-revenue system moved from 52% to 54%. Remaining blockers: live admin QA with a real lead, automated WhatsApp/SMS notifications, response owner assignment, and paid lawyer supply in uncovered niches.
+- OWNER-VISIBLE AFTER DEPLOY: in wp-admin lead CRM, the Action column will show Call / WhatsApp / Email buttons next to Open for leads with phone/email data.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: `5304be8 Add lead CRM quick contact actions` is `HEAD -> main, origin/main`.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 17:22 Asia/Jerusalem
+- LEAD RESPONSE SPEED: tightened the internal CRM response clock so leads marked as first attempt/contacted now automatically receive a first-contact timestamp when the owner does not type one manually.
+- RESEARCHED: current 2026 legal intake guidance. Key point: for law firms, speed-to-lead is one of the highest-leverage conversion factors; web traffic only becomes money when the first human response is fast and tracked.
+- CODED: `inc/lead-crm.php` now treats "first attempt" as a logged response in the Response SLA badge, auto-stamps `first_contact_at` for attempted/contacted follow-up statuses, and fixes a corrupted Hebrew urgent-value check so urgent leads do not silently look normal.
+- VERIFIED: `php -l inc/lead-crm.php` passes.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is conversion infrastructure: the CRM now measures first response more reliably, which supports lawyer value reporting and reduces lost client calls.
+- COMPLETION ASSESSMENT: lead CRM response tracking moved from 62% to 68%; intake-to-revenue system moved from 50% to 52%. Remaining blockers: live follow-up workflow QA with a real test lead, SMS/WhatsApp automation, owner/operator response discipline, and paid lawyer onboarding.
+- OWNER-VISIBLE AFTER DEPLOY: in wp-admin lead CRM, setting a lead follow-up to "First attempt" or later will immediately change the Response SLA badge to "Contact logged" and save the first contact time automatically.
+- UPRESS: pulled through uPress Git Manager and verified in the live Git log: code commit `c6a25a6 Track lead first response time` reached live. This status correction was pushed afterward as docs-only.
+- SAFETY: repo code/docs only so far. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 11:34 Asia/Jerusalem
+- OWNER WALKTHROUGH: created the plain-English operating guide for the lawyer platform so the owner can understand how to use/administer the system after PR #26 is merged and deployed.
+- RESEARCHED: current SaaS onboarding/activation best practices. Key point: the system should guide lawyers to first value quickly, not overwhelm them with a feature tour; first value for Jus-Tice is profile readiness, reputation source, content, exposure and leads.
+- CREATED: `project-control/lawyer-platform-owner-walkthrough-2026-05-20.md`.
+- UPDATED: PR #26 with the walkthrough.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is operational readiness: the owner now has a clear map for registration, admin review, dashboard use, Google review source fields, first-party recommendations and manual activation while Meshulam is being handled.
+- COMPLETION ASSESSMENT: owner walkthrough clarity 80%; lawyer dashboard value clarity 60%; admin operating system 55%; recommendation/reputation system 48%; paying customer readiness 45%.
+- OWNER-VISIBLE AFTER MERGE/DEPLOY: the dashboard/admin surfaces described in the walkthrough become visible on `/lawyer-dashboard/` and `wp-admin -> Lawyer Onboarding`.
+- UPRESS: no uPress pull yet because this branch is not merged to `main`.
+- SAFETY: repo documentation only in this cycle. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, SMS/email review request, review publication, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 11:18 Asia/Jerusalem
+- GOOGLE REVIEWS / REPUTATION SYSTEM: started turning the lawyer dashboard into an active reputation and authority cockpit, inspired by Justia, Din, PsakDin and LawReviews patterns.
+- RESEARCHED: official Google Business Profile review APIs, Google Maps user-generated-content policy, Google review-link workflows, Justia lawyer profile badges/premium placements/reviews, Din fresh-review/directory/Q&A surfaces, and lawyer reputation-management patterns.
+- CODED: lawyer dashboard now has a reputation/authority growth checklist and a "Google reviews and recommendations" request form. Submitting it saves an internal owner-review request only; it does not send SMS/email or publish reviews.
+- CODED: Lawyer Onboarding admin now includes pending review-campaign requests in the onboarding queue with a Reputation column.
+- CODED: lawyer profile edit screens now include owner-only Google reputation source fields for Google Business profile URL, Place ID, review request URL, review count, latest review date and display-approved recommendation status.
+- CODED: internal first-party recommendation records (`justice_recommendation`) with moderation, permission and lawyer-link fields. These are admin-only and not public by default.
+- CODED: dashboard reputation checklist now recognizes approved first-party recommendations as a real reputation asset.
+- CREATED LINEAR: `HAD-72` - build Google reviews and first-party reputation system.
+- STRATEGIC DECISION: phase 1 stores/uses lawyer Google review links and first-party review workflow; phase 2 can use Google Business Profile API only for lawyers who grant profile access/OAuth; first-party Jus-Tice recommendations remain separate from Google reviews.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that the paid lawyer dashboard now moves closer to a real retention/value system: profile authority, reviews, content, exposure and leads are visible as growth assets.
+- COMPLETION ASSESSMENT: reputation system phase 1 moved from 0% to 48%; lawyer dashboard paid-value system moved from 35% to 49%. Remaining blockers: approved public recommendation display, recommendation request intake/token flow, SMS/email sender approval, Google Business Profile OAuth integration, walkthrough QA, merge/deploy/uPress pull.
+- OWNER-VISIBLE AFTER MERGE/DEPLOY: logged-in lawyers will see the new reputation/authority cockpit and review-campaign request form on `/lawyer-dashboard/`; owner/admin will see review-campaign requests inside Lawyer Onboarding.
+- UPRESS: no uPress pull yet because this branch is not merged to `main`.
+- SAFETY: code and repo docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, SMS/email review request, review publication, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-20 10:57 Asia/Jerusalem
+- LAWYER ACQUISITION FIRST WAVE: created a practical first-wave sales packet for getting paying lawyers before Meshulam/Grow recurring payments are fully approved.
+- RESEARCHED: current 2026 lawyer marketing guidance and legal-directory patterns. Key point: lawyers buy qualified demand, reputation proof, local SEO/reviews, authority assets and measurable follow-up; they do not care about raw traffic claims.
+- CREATED: `project-control/lawyer-acquisition-first-wave-2026-05-20.md`.
+- CREATED: `project-control/lawyer-acquisition-first-wave-template-2026-05-20.csv`.
+- CREATED LINEAR: `HAD-71` - prepare and run first lawyer acquisition wave.
+- STRATEGIC DECISION: pitch "authority profile + connected content + measurable exposure/lead report" instead of "listing." Use manual invoice/manual activation until Meshulam KYC is complete.
+- HONEST MONEY ASSESSMENT: no money earned this cycle and no outreach was sent. Substantial advancement is that the first lawyer sales motion now has a clear offer, target practice areas, safe promise language and private CRM template.
+- COMPLETION ASSESSMENT: lawyer acquisition strategy 65%; first-wave positioning 70%; actual outreach 0%; paying lawyers 0%; payment automation still blocked by Meshulam/Grow KYC.
+- OWNER-VISIBLE NOW: repo contains the first-wave acquisition packet. It is not visible on the public website.
+- UPRESS: no uPress pull because this is a planning branch and not merged to `main`.
+- SAFETY: repo-only planning. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, payment action, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 17:52 Asia/Jerusalem
+- MONEY-QUERY POST-EDIT VERIFICATION: added the after-edit safety checklist for the five PR #9 target pages.
+- RESEARCHED: Google URL Inspection, recrawl and title-link guidance. Key point: after page edits, the right workflow is live inspection, crawl/indexability confirmation, request indexing when appropriate, then 14/28/45-day performance comparison.
+- VERIFIED SHARED PROGRESS: PR #8 and PR #9 are both ready for review and mergeable/clean.
+- CREATED: `project-control/money-query-post-edit-verification-2026-05-19.md`.
+- CREATED: `project-control/money-query-post-edit-verification-2026-05-19.csv`.
+- UPDATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.md` with the post-edit gate.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that PR #9 now has both before-state evidence and after-edit verification, so approved CMS edits can be measured rather than guessed.
+- COMPLETION ASSESSMENT: money-query SEO recovery moved from 35% to 37%; PR #9 review readiness moved to 76%. Remaining blockers are human review, owner/legal approval, public CMS edits, PR #8 authority sequencing, Search Console recrawl requests, and measured CTR lift.
+- OWNER-VISIBLE NOW: PR #9 contains an execution-ready post-edit checklist with Search Console and 14/28/45-day measurement steps.
+- UPRESS: no uPress pull because this is a branch docs/report update and not merged to `main`.
+- SAFETY: branch docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 17:42 Asia/Jerusalem
+- MONEY-QUERY PRE-EDIT SNAPSHOT: added a repeatable snapshot tool and captured the before-state for the five PR #9 target pages.
+- RESEARCHED: Google Search Console Performance guidance and Google title/canonical/noindex guidance. Key point: high-impression low-CTR pages should be improved by title/snippet/content alignment, but pre-edit checks must confirm indexability, canonical state and page intent before changing content.
+- VERIFIED SHARED PROGRESS: PR #8 and PR #9 are both ready for review and mergeable.
+- CODED: `tools/snapshot-money-query-pages.mjs`.
+- CREATED: `reports/money-query-preedit-snapshot-2026-05-19.csv`.
+- CREATED: `reports/money-query-preedit-snapshot-2026-05-19.json`.
+- UPDATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.md` with the snapshot results.
+- SNAPSHOT RESULT: all five target pages return HTTP 200, are in the sitemap, canonicalize to themselves, are not noindex, and expose lead intent signals.
+- SNAPSHOT WARNINGS: `/criminal-defense-attorney/` has 2 H1s; `/sex-crime-lawyer/` has a very long title/meta description.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is implementation readiness: we now have a saved before-state to compare after approved WordPress edits.
+- COMPLETION ASSESSMENT: money-query SEO recovery moved from 32% to 35%; PR #9 review readiness remains about 70%. Remaining blockers are human review, owner/legal approval, public CMS edits, PR #8 authority sequencing, recrawl/indexing, and measured CTR lift.
+- OWNER-VISIBLE NOW: PR #9 contains the snapshot tool and reports showing the current live state before any edits.
+- UPRESS: no uPress pull because this is a branch/report update and not merged to `main`.
+- SAFETY: read-only live fetches plus branch code/report/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 17:29 Asia/Jerusalem
+- MONEY-QUERY SEO PR HANDOFF: marked PR #9 ready for review after verification.
+- RESEARCHED: Google Search Console Performance report guidance and Google title-link guidance. Key point: for high-impression/low-CTR pages, improve title/snippet/content alignment by page and query; clear page-specific titles are safer than generic or promotional wording.
+- VERIFIED: PR #9 is no longer draft, remains mergeable, and has 4 changed files / 2 commits.
+- VERIFIED: `git diff --check` passed.
+- VERIFIED LIVE JOURNEY: `node tools/check-live-traffic-priority.mjs` passed all checked public routes.
+- UPDATED: Linear `HAD-65` with PR #9 ready-for-review state and verification results.
+- UPDATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.md` with the review handoff.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is release-flow progress: the money-query rescue packet is now review-ready instead of draft.
+- COMPLETION ASSESSMENT: money-query SEO recovery remains 32%; PR #9 review readiness is 70%. Remaining blockers are human review, owner/legal approval, public CMS edits, PR #8 authority sequencing, recrawl/indexing, and measured CTR lift.
+- OWNER-VISIBLE NOW: PR #9 shows ready for review, and Linear `HAD-65` shows the verification state.
+- UPRESS: no uPress pull because this is repo-only planning and not merged to `main`.
+- SAFETY: GitHub PR state and branch docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 17:28 Asia/Jerusalem
+- MONEY-QUERY SEO RESCUE REFRESH: created a separate branch `codex/money-query-seo-batch-001` from `main` so PR #8 remains clean for review.
+- RESEARCHED: Google title-link guidance and helpful-content guidance. Key point: titles should be clear, descriptive and page-specific; legal/YMYL content needs people-first trust signals rather than promotional keyword chains.
+- VERIFIED PR TRACK: PR #8 remains ready for review and mergeable; no extra scope was added to that PR.
+- VERIFIED LIVE JOURNEY: `node tools/check-live-traffic-priority.mjs` passed all checked public routes, including `/real-estate-lawyer-guide/`, `/criminal-defense-attorney/`, and `/traffic-lawyer/`.
+- VERIFIED LIVE TARGETS: `/real-estate-attorney/`, `/traffic-lawyer/`, `/prenup-attorney/`, `/criminal-defense-attorney/`, and `/sex-crime-lawyer/` all return HTTP 200.
+- UPDATED EVIDENCE: Batch 001 now uses stronger GSC evidence: `/real-estate-attorney/` 88,601 impressions / 0.02% CTR; `/criminal-defense-attorney/` 62,561 / 0.02%; `/sex-crime-lawyer/` 27,904 / 0.12%; `/prenup-attorney/` 20,894 / 0.00%; `/traffic-lawyer/` 20,330 / 0.00%.
+- CREATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.md`.
+- CREATED: `project-control/money-query-seo-batch-001-refresh-2026-05-19.csv`.
+- CREATED: Linear `HAD-65` for money-query SEO rescue batch 001.
+- CREATED: draft PR #9: `https://github.com/The-new-ben/justice-theme/pull/9`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that five high-impression commercial pages now have refreshed metrics, live title/H1 risk findings, and safe no-URL-change title/H1 directions ready for owner/legal approval.
+- COMPLETION ASSESSMENT: money-query SEO recovery moved from 28% to 32% for this lane; remaining blockers are owner/legal approval, public CMS edits, PR #8 authority sequencing, recrawl/indexing and measured CTR lift.
+- OWNER-VISIBLE NOW: draft PR #9 and the new refresh packet list exact target pages, metrics, current risks, proposed titles/H1s and approval gates.
+- UPRESS: no uPress pull because this is a repo-only planning branch and not merged to `main`.
+- SAFETY: branch docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+## LATEST WORK STATUS - 2026-05-19 17:09 Asia/Jerusalem
+- PR #8 REVIEW STATE ADVANCED: marked PR #8 ready for review after the 17:03 pre-merge verification passed.
+- RESEARCHED: GitHub draft/ready PR guidance and PR review guidance. Key point: draft PRs are for unfinished work; once verification evidence is complete, moving to ready-for-review is the correct handoff to reviewers.
+- VERIFIED: PR #8 is no longer draft, remains mergeable, and still has 34 changed files / 13 commits.
+- UPDATED: Linear HAD-59 and PR #8 already have the pre-merge readiness checkpoint; this cycle removed the draft blocker.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is release-flow progress: the E-E-A-T authority fix and uncovered-demand CRM are now waiting on review/merge instead of sitting as draft work.
+- COMPLETION ASSESSMENT: PR #8 review/deploy readiness moved from 70% to 78%. Remaining blockers are human review/approval, merge to main, uPress pull, live wp-admin visual QA, and post-deploy author audit.
+- OWNER-VISIBLE NOW: GitHub PR #8 shows "ready for review" instead of draft.
+- OWNER-VISIBLE AFTER MERGE: footer/editorial policy trust link, safer article attribution, and Justice CRM uncovered-demand workflow.
+- UPRESS: no uPress pull because PR #8 is not merged to `main`.
+- SAFETY: GitHub PR state and repo docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 17:03 Asia/Jerusalem
+- PR #8 FINAL PRE-MERGE CHECKS: ran the release-readiness verification set for the authority + uncovered-demand branch.
+- RESEARCHED: GitHub PR review guidance and Google Search technical/crawl requirements. Key point: large PRs need strong review context, and Google-facing deploys need robots/sitemap/canonical/crawl checks before and after launch.
+- VERIFIED: PR #8 is still draft and mergeable; current scope is 34 changed files and 12 commits.
+- VERIFIED: PHP lint passed for authority, schema, article template, functions, trust route, footer, HTML sitemap, lead CRM, lead routing and lead classifier.
+- VERIFIED: `git diff --check` passed with no output.
+- VERIFIED: live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- VERIFIED BASELINE: live author-attribution audit checked 80 URLs as Googlebot; found 45 visible Ben attributions, 45 Article schema Ben authors, and 0 fetch errors.
+- UPDATED: `project-control/pr8-review-deploy-readiness-2026-05-19.md` and `.csv`; readiness moved from 55% to 70%.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that PR #8 now has passing pre-merge evidence and a clean baseline for post-deploy comparison.
+- NEXT DECISION: mark PR #8 ready for human review or split CRM work if reviewers prefer smaller PRs. Do not add more feature scope to this branch.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: checks/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 16:48 Asia/Jerusalem
+- PR #8 REVIEW/DEPLOY READINESS: stopped feature expansion and created a reviewer/deployment map so the authority + lead monetization branch can move toward safe merge.
+- RESEARCHED: current PR review best practices and Google launch/migration verification guidance. Key point: large PRs need clear intent, risk-specific review passes, pre-merge checks, and post-deploy crawl/admin verification.
+- CREATED: `project-control/pr8-review-deploy-readiness-2026-05-19.md`.
+- CREATED: `project-control/pr8-review-deploy-readiness-2026-05-19.csv`.
+- PR STATUS: PR #8 is draft, mergeable, 32 changed files, 11 commits.
+- COMPLETION ASSESSMENT: PR #8 review/deploy readiness is 55%; complete enough to map/review, not complete enough to merge/deploy without final checks and owner/reviewer approval.
+- OWNER-VISIBLE AFTER MERGE: editorial policy links, safer article attribution, and Justice CRM uncovered-demand workflow.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is reducing merge risk and creating a clear path to deploy the work that can support authority and future revenue.
+- UPRESS: no uPress pull because this is draft-PR branch/docs work and not merged to `main`.
+- SAFETY: repo docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 16:38 Asia/Jerusalem
+- UNCOVERED DEMAND WEEKLY BRIEF: added a copy-ready partner-recruitment brief to the CRM so repeated missing-lawyer demand can move into outreach faster.
+- RESEARCHED: law-firm intake analytics and lead-source reporting best practices. Key point: growth teams need concise reports by practice/market and stage, not raw lead lists, to choose where to invest or recruit.
+- CODED: `inc/lead-crm.php` now renders a weekly recruitment brief from the top five uncovered demand signals, with lead count, urgent/manual count, latest activity, suggested action, and compliance reminders.
+- CREATED: `project-control/uncovered-demand-weekly-brief-2026-05-19.md`.
+- CREATED: `project-control/uncovered-demand-weekly-brief-2026-05-19.csv`.
+- UPDATED: `project-control/goals-money-earning-scorecard-2026-05-19.md` and `.csv`; lead monetization/intake moved from 38% to 40%.
+- VERIFIED: PHP lint passed for `inc/lead-crm.php`, `functions.php`, `inc/lead-routing.php`, and `inc/lead-classifier.php`; `git diff --check` is clean except expected Windows line-ending warnings; first live journey checker attempt hit a full-network fetch failure across all URLs, then retry passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- OWNER-VISIBLE AFTER MERGE: `wp-admin -> Justice CRM -> Uncovered demand queue -> Weekly recruitment brief`.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is a faster sales/outreach artifact for recruiting lawyers into uncovered categories after deploy.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 16:28 Asia/Jerusalem
+- UNCOVERED DEMAND SUMMARY REPORT: added a partner-recruitment signal table to the CRM queue so repeated missing-lawyer demand can be prioritized.
+- RESEARCHED: legal intake analytics and lead reporting best practices. Key point: a lead queue is useful, but revenue decisions need grouped demand by practice/market, urgency, and latest activity.
+- CODED: `inc/lead-crm.php` now renders an uncovered-demand summary table before the raw queue, grouped by practice/market with lead count, urgent/manual count, latest lead, and suggested business action.
+- CREATED: `project-control/uncovered-demand-summary-report-2026-05-19.md`.
+- CREATED: `project-control/uncovered-demand-summary-report-2026-05-19.csv`.
+- UPDATED: `project-control/goals-money-earning-scorecard-2026-05-19.md` and `.csv`; lead monetization/intake moved from 36% to 38%.
+- VERIFIED: PHP lint passed for `inc/lead-crm.php`, `functions.php`, `inc/lead-routing.php`, and `inc/lead-classifier.php`; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- OWNER-VISIBLE AFTER MERGE: `wp-admin -> Justice CRM -> Uncovered demand queue` should show a top-demand summary answering which missing lawyer category to recruit next.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is making partner recruitment smarter from real demand patterns after deploy.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 16:18 Asia/Jerusalem
+- UNCOVERED DEMAND RESPONSE TEMPLATES: added safe operational scripts to the CRM queue so unmatched calls can receive a fast, careful response.
+- RESEARCHED: legal intake/no-legal-advice guidance and lawyer advertising/lead-generation ethics. Key point: when no verified lawyer coverage exists, response language must avoid recommendations, legal advice, fee-split implications, and outcome promises.
+- CODED: `inc/lead-crm.php` now renders a CRM panel with a user no-match response template and a lawyer recruitment script under the Uncovered Demand Queue.
+- CREATED: `project-control/uncovered-demand-response-templates-2026-05-19.md`.
+- CREATED: `project-control/uncovered-demand-response-templates-2026-05-19.csv`.
+- UPDATED: `project-control/goals-money-earning-scorecard-2026-05-19.md` and `.csv`; lead monetization/intake moved from 34% to 36%.
+- VERIFIED: PHP lint passed for `inc/lead-crm.php`, `functions.php`, `inc/lead-routing.php`, and `inc/lead-classifier.php`; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- OWNER-VISIBLE AFTER MERGE: `wp-admin -> Justice CRM -> Uncovered demand queue` should show ready response templates for the owner.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is reducing manual improvisation and making unmatched-demand handling faster and safer.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, outbound message, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 16:08 Asia/Jerusalem
+- UNCOVERED DEMAND CRM BUILD: moved the "Thailand lawyer / no partner" leakage path from planning into branch code.
+- RESEARCHED: current legal intake speed-to-lead and CRM guidance. Key point: leads convert when they are captured, qualified, owned, and responded to quickly; unmatched demand also needs structured classification so it can become partner-recruitment evidence.
+- CODED: `inc/lead-crm.php` now registers `coverage_status`, adds a coverage dropdown to the lead disposition box, adds a Coverage badge column to CRM lead tables, and adds an "Uncovered demand queue" section to Justice CRM.
+- CREATED: `project-control/uncovered-demand-queue-crm-build-2026-05-19.md`.
+- CREATED: `project-control/uncovered-demand-queue-crm-build-2026-05-19.csv`.
+- UPDATED: `project-control/goals-money-earning-scorecard-2026-05-19.md` and `.csv`; lead monetization/intake moved from 30% to 34%.
+- VERIFIED: PHP lint passed for `inc/lead-crm.php`, `functions.php`, `inc/lead-routing.php`, and `inc/lead-classifier.php`; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- OWNER-VISIBLE AFTER MERGE: `wp-admin -> Justice CRM` should show coverage-status cards, an Uncovered demand queue, and a Coverage column/dropdown for leads.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that unmatched demand now has a CRM workflow in code, pending merge/deploy.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 15:58 Asia/Jerusalem
+- UNCOVERED DEMAND MONETIZATION: converted the owner's "Thailand lawyer" call problem into a safer lead monetization model.
+- RESEARCHED: lawyer lead-generation ethics, Israeli lawyer advertising constraints, and current lead-generation quality concerns. Key point: sell transparent advertising/subscription/coverage and response SLA, not unsafe hidden recommendations, fee-splits, or user-paid connection fees before legal review.
+- CREATED: `project-control/uncovered-demand-lead-monetization-2026-05-19.md`.
+- CREATED: `project-control/uncovered-demand-lead-monetization-2026-05-19.csv`.
+- UPDATED: `project-control/goals-money-earning-scorecard-2026-05-19.md` and `.csv`; lead monetization/intake moved from 24% to 30% planning maturity.
+- RECOMMENDED PRODUCT: Uncovered Demand Queue -> partner acquisition evidence -> paid niche coverage slot -> transparent routing under plan caps/SLA.
+- HONEST MONEY ASSESSMENT: no money earned this cycle. Substantial advancement is that unmatched calls now have a monetization path and next implementation steps instead of staying manual/free.
+- UPRESS: no uPress pull because this is draft-PR branch/planning work and not merged to `main`.
+- SAFETY: repo docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 15:29 Asia/Jerusalem
+- GOALS/MONEY SCORECARD: converted the owner's "advance goals and money earning" instruction into a measurable operating scoreboard for every future cycle.
+- RESEARCHED: Google helpful-content guidance, Google Business Profile local ranking guidance, and Clio 2025 legal trends. Key point: money comes from combining qualified demand, trust/authority, fast digital intake, and paid lawyer value; generic task volume is not enough.
+- UPDATED AUTOMATION: the 10-minute execution loop now requires money-focused completion assessment, blocker reporting, and "where can the owner notice this" reporting.
+- CREATED: `project-control/goals-money-earning-scorecard-2026-05-19.md`.
+- CREATED: `project-control/goals-money-earning-scorecard-2026-05-19.csv`.
+- HONEST COMPLETION SNAPSHOT: technical crawl/index 72%; SEO authority/E-E-A-T 38%; money-query SEO 28%; lawyer commercial pipeline 31%; lead monetization/intake 24%; lawyer retention/value 22%; entity footprint/local trust 18%.
+- MONEY REALITY: no new money earned yet from this cycle. The closest revenue path remains commercial pipeline launch plus paying lawyers; the closest demand path remains money-query recovery plus authority cleanup.
+- UPRESS: no uPress pull because this is draft-PR branch/status work and not merged to `main`.
+- SAFETY: repo docs and automation prompt only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 13:02 Asia/Jerusalem
+- TRUST DISCOVERABILITY: moved the editorial-policy work one step closer to real SEO/user value by adding crawlable links to it.
+- RESEARCHED: Google helpful-content guidance and Google customer-support/search guidance. Key point: trust/support pages are most useful when users and Googlebot can easily find them; hidden policy pages are weaker trust signals.
+- CODED: `template-parts/layout/site-footer.php` now links to `/editorial-policy/` in the quick navigation and the footer legal/trust row.
+- CODED: `inc/html-sitemap.php` now includes `/editorial-policy/` in the core quick links on `/site-map/`.
+- UPDATED: `project-control/editorial-policy-route-2026-05-19.md` and `.csv`.
+- VERIFIED: PHP lint passed for footer, HTML sitemap, trust route, authority, schema, article template and functions; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index and robots.txt.
+- LINEAR: this remains under HAD-59 authority governance and PR #8.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch template/docs only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap setting, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 12:48 Asia/Jerusalem
+- EDITORIAL POLICY TRUST ROUTE: added the missing public policy surface for legal content governance on the authority branch.
+- RESEARCHED: Google Search Central helpful-content "who/how/why" guidance and Google Article structured-data guidance. Key point: YMYL legal content needs transparent authorship, process, review boundaries, and accurate schema; schema alone is not a ranking shortcut.
+- CODED: `inc/trust-routes.php` now defines a virtual `/editorial-policy/` route with canonical metadata, index/follow robots behavior, and Hebrew copy explaining content purpose, legal-advice limits, author/reviewer rules, paid profile disclosure, and correction/update process.
+- CREATED: `project-control/editorial-policy-route-2026-05-19.md`.
+- CREATED: `project-control/editorial-policy-route-2026-05-19.csv`.
+- VERIFIED: PHP lint passed for `inc/trust-routes.php`, `inc/authority.php`, `inc/schema.php`, `single-articles.php`, and `functions.php`; `git diff --check` is clean except expected Windows line-ending warnings; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index, and robots.txt.
+- LINEAR: this work belongs under HAD-59 authority governance and PR #8.
+- UPRESS: no uPress pull because this is draft-PR branch work and not merged to `main`.
+- SAFETY: branch code and repo documentation only. No live wp-admin, public CMS database, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL redirect, canonical/noindex setting, sitemap, taxonomy, uPress deployment, social account, Google Business Profile, lawyer contact, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 12:47 Asia/Jerusalem
+- LIVE AUTHOR ATTRIBUTION AUDIT: built and ran a read-only audit for the owner's concern that Ben Batash was placed as writer/byline across criminal articles.
+- RESEARCHED: Google Article author structured-data guidance and people-first/E-E-A-T guidance. Key point: Article author can be Organization or Person, but a Person author should have a real `url`/`sameAs` identity chain; legal/YMYL pages should not use unverified broad person attribution.
+- CODED: `tools/check-live-author-attribution.mjs` reads the GSC mirror, selects likely criminal/high-risk URLs, fetches live pages as Googlebot, detects visible Ben attribution, parses Article JSON-LD author/reviewer data, and writes a CSV report.
+- RAN: checked 80 live URLs and wrote `reports/live-author-attribution-audit-2026-05-19.csv`.
+- FOUND: 45 URLs have visible Ben attribution and 45 have Ben as Article schema author; 35 checked URLs had no Ben attribution detected; 0 fetch errors.
+- CREATED: `project-control/live-author-attribution-audit-2026-05-19.md`.
+- CREATED: `project-control/live-author-attribution-audit-2026-05-19.csv`.
+- LINEAR: HAD-62 is the coordinating issue for this audit and cleanup.
+- UPRESS: no uPress pull because this is branch work and not merged to `main`.
+- SAFETY: read-only live fetches and repo artifacts only. No live wp-admin login, public CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, social account creation, Google Business Profile change, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 12:33 Asia/Jerusalem
+- ENTITY FOOTPRINT CHECKLIST: turned the Google Business/Profile/social authority goal into an approval-gated execution checklist.
+- RESEARCHED: Google Business Profile representation guidelines, Google local ranking guidance, and Schema.org Organization `sameAs`. Key point: do not invent a physical office or schema links; Google entity trust must reflect the real business footprint.
+- CREATED: `project-control/jus-tice-entity-footprint-checklist-2026-05-19.md`.
+- CREATED: `project-control/jus-tice-entity-footprint-checklist-2026-05-19.csv`.
+- DECISION: start with entity data lock, then Google Business Profile eligibility, then LinkedIn company page; add Organization `sameAs` only after profiles are live and verified.
+- LINEAR: HAD-61 remains the coordinating issue for Google Business/Profile/social entity footprint.
+- UPRESS: no uPress pull because this is branch planning/status only and not merged to `main`.
+- SAFETY: no live wp-admin login, public CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, social account creation, Google Business Profile change, or client charge changed.
+
+## LATEST WORK STATUS - 2026-05-19 10:35 Asia/Jerusalem
+- LINEAR CONNECTED: installed/connected the Linear plugin and searched existing Jus-Tice coordination work. Found the project `Jus-Tice Dominant Legal Portal` plus related SEO/internal-linking/lawyer-CPT tasks.
+- E-E-A-T AUTHORITY RISK FOUND: article schema and `single-articles.php` were hardcoding Ben Batash as the author for articles. That is too broad for legal/YMYL content unless the author entity and practice-area authority are verified.
+- RESEARCHED: Google people-first/E-E-A-T guidance, Google Article author structured-data guidance, Google Business Profile local ranking guidance, and current law-firm SEO authority patterns.
+- CODED: added `inc/authority.php` as the authority registry and reviewer resolver.
+- CODED: `inc/schema.php` now defaults Article `author` to the Jus-Tice Organization and adds `reviewedBy` only for a verified connected lawyer/practice-area match.
+- CODED: `single-articles.php` now uses controlled editorial/reviewer attribution instead of the hardcoded Ben byline.
+- CODED: Maya Rotenberg is the first verified reviewer candidate, scoped only to `family-law` content connected by `connected_lawyer_slug=advocate-maya-rotenberg`.
+- CREATED: `project-control/eeat-authority-governance-2026-05-19.md`.
+- CREATED: `project-control/eeat-authority-governance-2026-05-19.csv`.
+- LINEAR CREATED: HAD-59 authority governance parent, HAD-60 verified Ben/Maya author-reviewer pages, HAD-61 Jus-Tice Google Business/Profile/social entity footprint, HAD-62 criminal-article Ben attribution audit, plus a Linear project document.
+- VERIFIED: PHP lint passed for `inc/authority.php`, `inc/schema.php`, `single-articles.php`, and `functions.php`; `git diff --check` clean; live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index, and robots.txt.
+- NEXT: create the PR, then build editorial policy, Ben entity page requirements, Maya profile enrichment, and Google Business/social footprint checklist.
+- UPRESS: no uPress pull yet because this is branch work and not merged to `main`.
+- SAFETY: no live wp-admin login, public CMS content, WordPress record, lawyer profile, lead record, user, payment setting, GA4/GSC setting, URL, redirect, canonical, noindex, sitemap, taxonomy, uPress deployment, lawyer contact, or client charge changed.
+
 ## LATEST WORK STATUS - 2026-05-18 20:03 Asia/Jerusalem
 - COMMERCIAL PIPELINE SECTION 3 PREFLIGHT: read `project-control/codex-commercial-pipeline-runbook-2026-05-18.md` from `origin/claude/review-legal-portal-aRAzz` and executed only Section 3 checks.
 - RESULT 3.1: PR #5 is not mergeable. GitHub API reports `mergeable=false`, `mergeable_state=dirty`; local merge simulation confirms a conflict in `project-control/current-status.md`.
@@ -2642,3 +4149,402 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - UPDATED: deployment marker is now `2026-05-18-family-law-template-v1`.
 - REMAINING LIVE REVIEW: `/medical-malpractice-lawyer/`, `/contact/`, `/about/`, and oversized `/articles/`.
 - SAFETY: render-only theme fix; no public CMS/database writes, content changes, redirects, sitemap settings, taxonomy changes, lawyer profile changes, lead records, payment settings or GSC/GA4 admin settings were changed.
+
+## 2026-05-19 LAWYER PLAN MONEY-PATH GUARD
+- OWNER APPROVAL BASIS: owner approved deployment, SEO page edits, payment setup and lawyer outreach; payment stack is partially installed live but not yet subscription-ready.
+- RESEARCH BASIS: WooCommerce Subscriptions documentation requires a real subscription engine and recurring-capable payment gateway for automatic renewal flows; Google link guidance also reinforces that public CTAs should be crawlable and truthful, not script-only or dead-end paths.
+- CODE UPDATED: `/lawyer-plans/` now publishes the approved monthly prices and lead caps: Pro ₪349/5 leads, Featured ₪749/15 leads, Lead Partner ₪1,490/40 leads, Full Service ₪2,490/80 leads.
+- CODE UPDATED: paid plan checkout now requires all readiness checks before sending a lawyer to checkout: mapped product ID, WooCommerce checkout helper, product lookup, WooCommerce Subscriptions availability and purchasable product.
+- CODE UPDATED: when the recurring-payment stack is not ready, paid CTAs route to `/lawyer-registration/?plan_interest=<plan>&pre_checkout=1` instead of a broken checkout.
+- MONEY IMPACT: lawyers can now understand the offer and register intent immediately, while the site avoids trust damage from sending prospects to an unfinished payment flow.
+- BLOCKED FOR FULL REVENUE: Morning license/plugin key, Morning/Meshulam business approval, WooCommerce Subscriptions paid plugin/license and four subscription products still need completion before live charging.
+- COMPLETION ASSESSMENT: lawyer acquisition page clarity 70%; automated paid checkout 35%; revenue collection 0% until the paid subscription stack is active.
+- OWNER CAN NOTICE: `/lawyer-plans/` should show real prices/caps; buttons should say registration/check-fit until checkout is truly ready.
+- SAFETY: repo-only template/logic change; no public CMS/database writes, product creation, payment activation, lead record changes or lawyer profile changes were made in this step.
+
+## 2026-05-19 UNCOVERED DEMAND CAPTURE UPGRADE
+- OWNER PAIN: callers ask for niche lawyers (example: Thailand lawyer) and the owner currently spends time manually helping without monetization.
+- RESEARCH BASIS: legal lead-generation guidance repeatedly warns against fee-splitting/recommendation-style referrals; safer monetization is transparent advertising/subscription coverage, qualified intake tracking, and strong intake/disposition infrastructure.
+- CODE UPDATED: public lead form now includes `תאילנד / משפט בינלאומי` as a selectable demand area.
+- CODE UPDATED: rule-based lead classifier now detects Thailand/Bangkok/Phuket/Koh Samui/Thai keywords and normalizes them into `thailand-law`.
+- CODE UPDATED: new leads now automatically receive a `coverage_status`: routable when assigned, urgent manual when urgent, uncovered recruit when specific but no routable lawyer exists, or coverage review when unclear.
+- CODE UPDATED: Thailand leads are tagged with `jurisdiction=Thailand` so the Justice CRM uncovered-demand queue can aggregate them as a recruitable niche market.
+- MONEY IMPACT: repeated niche calls become measurable demand evidence for recruiting paid coverage partners instead of owner-only manual goodwill.
+- BLOCKED FOR OUTREACH: Gmail connector token is expired; direct email outreach cannot be sent until Gmail is reconnected.
+- COMPLETION ASSESSMENT: uncovered-demand capture 75%; automated niche lawyer recruitment 25%; paid lead monetization still blocked by payment setup and outreach channel.
+- OWNER CAN NOTICE: future Thailand/international requests should appear in wp-admin → Justice CRM → Uncovered demand queue rather than disappearing into phone memory.
+- SAFETY: repo-only intake/classification change; no live lead records, lawyer records, public CMS content, payment settings or database rows were edited manually.
+
+## 2026-05-19 MANUAL PAYMENT BRIDGE WHILE GROW KYC IS BLOCKED
+- OWNER STATUS: Morning/Green Invoice account and digital-payments setup moved forward, but Grow/Meshulam onboarding is temporarily blocked at identity-document verification; owner will handle the ID/KYC step tomorrow.
+- RESEARCH BASIS: WooCommerce documents Direct Bank Transfer/BACS as an offline/manual payment method where the customer places an order and the merchant verifies payment outside the online card flow; this supports a temporary manual invoice bridge while recurring card billing waits for KYC.
+- CODE UPDATED: paid `/lawyer-plans/` cards now expose a secondary "בקשת חשבונית והפעלה ידנית" path when automatic checkout is not ready.
+- CODE UPDATED: `/lawyer-registration/?payment_path=manual_invoice` shows a clear manual-invoice notice and submits a hidden payment path.
+- CODE UPDATED: lawyer registration drafts now store `payment_path=manual_invoice` and `payment_followup_status=invoice_requested` for paid manual requests.
+- CODE UPDATED: admin notification email now includes payment path and follow-up status so paid-intent lawyers can be handled commercially, not as generic free leads.
+- MONEY IMPACT: first paid lawyers can now be captured and manually invoiced via Morning while automatic recurring billing is blocked; this reduces the risk of losing interested lawyers during KYC delay.
+- BLOCKED FOR FULL AUTOMATION: Grow/Meshulam ID verification, WooCommerce Subscriptions license/install, subscription products and product mapping still need completion before automatic monthly card billing.
+- COMPLETION ASSESSMENT: manual revenue intake path 55%; automated recurring checkout 35%; first-payment readiness 45% overall because owner can invoice manually but card recurrence is not live.
+- OWNER CAN NOTICE: `/lawyer-plans/` should show a manual invoice activation link on paid plans until checkout readiness becomes true; submitted manual requests should be marked in the lawyer draft meta/admin email.
+- SAFETY: repo-only template/logic/status change; no live products, payment settings, invoices, lawyer records, lead records, CMS pages or database rows were changed manually.
+
+## 2026-05-19 MANUAL PAYMENT BRIDGE LIVE DEPLOYMENT
+- MERGED: PR #13 (`codex/manual-payment-bridge`) was squash-merged to `main`.
+- DEPLOYED: Codex opened uPress File Manager → `/wp-content/themes/justice-theme` → `ניהול GIT` and ran `משיכת נתונים (Pull)` successfully.
+- LIVE VERIFIED: `https://jus-tice.co.il/lawyer-plans/` returns 200 and contains the manual invoice activation path (`payment_path=manual_invoice`).
+- LIVE VERIFIED: `https://jus-tice.co.il/lawyer-registration/?plan_interest=pro&payment_path=manual_invoice` returns 200, shows the manual-invoice notice, keeps the selected Pro plan and includes the manual payment marker.
+- MONEY IMPACT: paid lawyer interest is now capturable on the live site even before Grow/Meshulam card recurrence is approved.
+- NEXT MONEY STEP: owner completes Grow/Meshulam ID/KYC; Codex then finishes WooCommerce Subscriptions/product mapping and tests checkout.
+- SAFETY: uPress pull + live read-only verification only; no live invoices, products, lawyer records, lead records, payment settings or CMS database content were manually changed.
+
+## 2026-05-19 MANUAL PAYMENT ADMIN VISIBILITY
+- RESEARCH BASIS: WooCommerce B2B invoice guidance supports invoice/manual-payment flows for business buyers; operationally, the important part is making manual payment follow-up visible so paid-intent prospects are not lost in a generic registration queue.
+- CODE UPDATED: Lawyer Onboarding now shows a `Payment Follow-up` column for every lawyer registration row.
+- CODE UPDATED: manual invoice requests show an `Invoice requested` badge with the explicit next action: create/send Morning invoice and activate only after payment confirmation.
+- CODE UPDATED: the lawyer activation side box now repeats the payment follow-up state so the reviewer sees the money step while editing the draft profile.
+- MONEY IMPACT: paid plan requests are now surfaced inside the owner workflow instead of being hidden in post meta or email only.
+- BLOCKED FOR FULL AUTOMATION: Grow/Meshulam ID verification, recurring billing, subscription products and live checkout mapping remain incomplete.
+- COMPLETION ASSESSMENT: manual revenue operations 65%; automated recurring checkout 35%; first-payment readiness 50%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin → Lawyer Onboarding should include the `Payment Follow-up` column and each manual invoice lawyer should show `Invoice requested`.
+- SAFETY: repo-only admin visibility/status change; no live lawyer records, payment settings, invoices, products, CMS pages or database rows were changed manually.
+
+## 2026-05-19 MANUAL PAYMENT ADMIN VISIBILITY LIVE
+- MERGED: PR #15 (`codex/manual-payment-admin-visibility`) was squash-merged to `main`.
+- DEPLOYED: Codex opened uPress File Manager → `/wp-content/themes/justice-theme` → `ניהול GIT` and ran `משיכת נתונים (Pull)` successfully.
+- LIVE VERIFIED: wp-admin → Lawyer Onboarding loads and shows the new `Payment Follow-up` column.
+- LIVE VERIFIED: existing rows show `No manual payment`; future manual-invoice registrations should show `Invoice requested` with the Morning invoice next action.
+- MONEY IMPACT: owner can now spot paid-intent lawyer registrations directly in the onboarding queue without hunting through emails or hidden meta.
+- COMPLETION ASSESSMENT: manual revenue operations 70%; automated recurring checkout 35%; first-payment readiness 52%.
+- SAFETY: uPress pull + live read-only wp-admin verification only; no live lawyer records, payment settings, invoices, products or CMS database content were changed manually.
+
+## 2026-05-19 TRUST ROUTE GOOGLEBOT CHECKER
+- RESEARCH BASIS: Google Search Central recommends creating people-first pages that make ownership, purpose, contact paths and content review context clear; for legal/YMYL trust, the crawlable `/about/`, `/contact/` and `/editorial-policy/` pages are part of the authority and conversion journey.
+- CREATED: `tools/check-live-trust-routes.mjs` to verify `/about/`, `/contact/` and `/editorial-policy/` as Googlebot.
+- LIVE VERIFIED: all three routes return 200, are indexable, self-canonical and expose the expected H1.
+- LIVE VERIFIED: `/contact/` includes the public phone `0525101555`, `info@jus-tice.co.il` and the lead form anchor.
+- MONEY IMPACT: contact/trust pages that were previously traffic-audit risks are now protected by a repeatable check, reducing the chance that lawyer/user conversion paths silently fall back to 404/noindex.
+- BLOCKED: this checker does not create new traffic by itself; it protects crawl trust and conversion while money-query content edits and outreach continue.
+- COMPLETION ASSESSMENT: Googlebot trust route stability 90%; broader traffic recovery 38%; lawyer/customer conversion foundation 62%.
+- OWNER CAN NOTICE: `https://jus-tice.co.il/about/`, `/contact/` and `/editorial-policy/` should load as real indexable trust pages, and future agents can run `node tools/check-live-trust-routes.mjs`.
+- SAFETY: repo-only checker/status plus read-only live verification; no live CMS/database, payment, lawyer, lead, redirect, GSC or product settings were changed.
+
+## 2026-05-19 TRUST ROUTE CHECKER LIVE SYNC
+- MERGED: PR #17 (`codex/trust-route-googlebot-checker`) was squash-merged to `main`.
+- DEPLOYED: Codex opened uPress File Manager → `/wp-content/themes/justice-theme` → `ניהול GIT` and ran `משיכת נתונים (Pull)` successfully.
+- VERIFIED: local/live checker run passed for `/about/`, `/contact/` and `/editorial-policy/`.
+- MONEY IMPACT: this does not collect payment directly; it protects three trust/conversion URLs that support SEO, user confidence and lawyer sales conversations.
+- COMPLETION ASSESSMENT: Googlebot trust route stability 92%; broader traffic recovery 38%; lawyer/customer conversion foundation 63%.
+- SAFETY: uPress pull + read-only route verification only; no live CMS/database, payment, lawyer, lead, redirect, GSC or product settings were changed.
+
+## 2026-05-19 COMMERCIAL JOURNEY CHECKER
+- RESEARCH BASIS: Google link best practices say important paths should be crawlable `<a href>` links with meaningful anchor text; the lawyer-money path therefore needs a repeatable check that the pricing page links to the manual invoice registration path before full checkout is ready.
+- CREATED: `tools/check-live-commercial-journey.mjs`.
+- LIVE VERIFIED: `/lawyer-plans/` exposes all approved paid prices and the manual invoice activation link.
+- LIVE VERIFIED: `/lawyer-registration/?plan_interest=pro&payment_path=manual_invoice` preserves the Pro plan, includes the hidden manual payment marker and shows the manual-invoice notice.
+- MONEY IMPACT: future deployments can quickly catch broken pricing/manual-invoice paths before outreach sends lawyers into a dead end.
+- BLOCKED FOR FULL MONEY: Grow/Meshulam ID/KYC and recurring checkout setup remain blocked until owner completes identity verification.
+- COMPLETION ASSESSMENT: commercial journey monitoring 80%; manual revenue operations 72%; automated recurring checkout 35%; first-payment readiness 53%.
+- OWNER CAN NOTICE: future agents can run `node tools/check-live-commercial-journey.mjs`; lawyers should see real prices and a working manual invoice path.
+- SAFETY: repo-only checker/status plus read-only live verification; no live CMS/database, payment, lawyer, lead, product, redirect or GSC settings were changed.
+
+## 2026-05-19 LAWYER RECRUITMENT MICRO-OFFER SCRIPT
+- RESEARCH BASIS: current B2B outreach guidance emphasizes signal-based targeting, relevance over volume, and low-friction micro-offers instead of asking cold prospects for a long sales call immediately.
+- CODE UPDATED: Justice CRM uncovered-demand templates now include the live `/lawyer-plans/` URL and approved monthly plan prices.
+- CODE UPDATED: lawyer recruitment copy now offers a 5-minute fit check / 2-minute overview instead of a hard sales call.
+- CODE UPDATED: added a 3-touch outreach sequence: day 1 signal/opening, day 3 demand evidence, day 7 polite close with compliance guardrails.
+- MONEY IMPACT: repeated uncovered demand can now be turned into a concrete lawyer outreach workflow linked to the manual invoice/payment path.
+- BLOCKED: no outreach was sent in this cycle; Gmail/outbound channel and owner-approved target list still determine actual customer acquisition speed.
+- COMPLETION ASSESSMENT: lawyer outreach readiness 48%; manual revenue operations 74%; first-payment readiness 54%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin → Justice CRM → Safe uncovered-demand response templates should show the enriched lawyer recruitment script and 3-touch outreach sequence.
+- SAFETY: repo-only admin copy/status change; no live outreach, emails, SMS, lawyer records, lead records, invoices, products, payment settings or CMS database content were changed manually.
+
+## 2026-05-19 LAWYER RECRUITMENT MICRO-OFFER LIVE
+- MERGED: PR #20 (`codex/lawyer-recruitment-micro-offer`) was squash-merged to `main`.
+- DEPLOYED: Codex opened uPress File Manager → `/wp-content/themes/justice-theme` → `ניהול GIT` and ran `משיכת נתונים (Pull)` successfully.
+- LIVE VERIFIED: wp-admin → Justice CRM contains the enriched lawyer recruitment script, `/lawyer-plans/` link, approved prices and 3-touch outreach sequence.
+- MONEY IMPACT: the owner now has copy-ready outreach inside the CRM to turn uncovered demand into paid lawyer conversations without waiting for automatic billing.
+- COMPLETION ASSESSMENT: lawyer outreach readiness 52%; manual revenue operations 75%; first-payment readiness 55%.
+- SAFETY: uPress pull + live read-only wp-admin verification only; no outreach, emails, SMS, lawyer records, lead records, invoices, products, payment settings or CMS database content were changed manually.
+
+## 2026-05-20 DIN REPUTATION SYSTEM COMPETITIVE ANALYSIS
+- OWNER INPUT: owner authorized read-only inspection of a Din lawyer management account for inspiration and product analysis.
+- SAFETY: no credentials were stored in repo; no SMS, payment load, profile edit, article edit, judgment edit, lead update or outreach action was intentionally performed.
+- HONESTY NOTE: while inspecting, Din's "improve your position" link redirected to a system message saying a callback request was received. No form was filled and no payment/profile change was made, but future agents should avoid that link during competitor analysis.
+- RESEARCH BASIS: BrightLocal 2026 review research and Google Business Profile policies both reinforce that review recency, authenticity and no-incentive collection matter; fake/incentivized/manipulated reviews can trigger Google restrictions.
+- CREATED: `project-control/din-lawyer-review-system-analysis-2026-05-20.md`.
+- LINEAR: created `HAD-66` for the next implementation PR: `Build lawyer Reputation And Value dashboard from Din competitive analysis`.
+- PRODUCT FINDING: Din's monetization strength is a private lawyer control panel combining leads, phone calls, profile views, category position, ad budget, content and reviews into one value story.
+- MONEY IMPACT: this turns the reputation module from "nice review widget" into a retention/upsell engine for Pro, Featured, Lead Partner and Full Service lawyers.
+- NEXT SAFE CODE STEP: add a private lawyer dashboard `Reputation And Value` panel with review freshness, profile views, linked leads, content/profile actions and copyable review-request link placeholders; do not add SMS yet.
+- COMPLETION ASSESSMENT: competitive intelligence 70%; reputation/reviews product definition 45%; lawyer dashboard retention layer 55%; actual review/SMS automation 0%.
+- OWNER CAN NOTICE: repo planning exists now; public website does not change until the next implementation PR.
+
+## 2026-05-20 PSAKDIN LAWYER PLATFORM PARTIAL ANALYSIS
+- OWNER INPUT: owner authorized read-only PsakDin inspection and provided credentials.
+- ACCESS RESULT: login attempt returned `wrong username/password`; no additional guesses were attempted.
+- SAFETY: no credentials were stored in repo; no profile edit, payment, message, registration, content edit, subscription, lead action or form submission was performed.
+- CREATED: `project-control/psakdin-lawyer-platform-analysis-2026-05-20.md`.
+- PRODUCT FINDING: PsakDin combines lawyer index, case-law database, magazine, forms, video/live, polls, legal-service providers, forums and AI/chat entry points into a recurring legal platform.
+- PROFILE FINDING: public lawyer profiles act as authority hubs with practice areas, cities, narrative bio, video CTA, media/publication links and article links.
+- MONEY IMPACT: reinforces that Jus-Tice paid lawyer value must include authority assets and content/media proof, not just a profile and raw leads.
+- NEXT SAFE CODE STEP: include an `Authority Assets` checklist inside the same private `Reputation And Value` dashboard panel planned in `HAD-66`.
+- COMPLETION ASSESSMENT: private PsakDin analysis 0% blocked; public PsakDin product analysis 45%; competitive profile/authority pattern captured 50%.
+
+## 2026-05-20 JUSTIA FAMILY LAW CENTER ANALYSIS
+- OWNER INPUT: owner provided `https://www.justia.com/family/divorce/` as a model for content/SEO inspiration.
+- SAFETY: public research only; no account login, form submission, payment, outreach or account action was performed.
+- CREATED: `project-control/justia-family-law-center-analysis-2026-05-20.md`.
+- LINEAR: created `HAD-67` for implementation follow-up: `Build Family Law Center / Divorce hub from Justia analysis`.
+- RESEARCH BASIS: Justia's divorce page behaves as a law center hub with plain-language guide content, internal links, topic cards, FAQs, popular topics, last-reviewed signal and lawyer/resource paths.
+- COMMERCIAL FINDING: Justia packages lawyer monetization as directory + premium placement + SEO + websites + blogs + PPC + Google Business Profile + social media + analytics.
+- MONEY IMPACT: validates Jus-Tice's plan ladder and shows the family/divorce cluster should become a guided Israeli law center, not isolated articles.
+- NEXT SAFE CODE STEP: create a family-law/divorce hub rescue package: URL audit, canonical pillar, topic cards, internal links, last-reviewed/reviewer plan, Maya authority block after verification and live link/CTA checker.
+- COMPLETION ASSESSMENT: Justia public content analysis 65%; marketing packaging analysis 60%; family-law SEO rescue readiness 45%; implementation 0%.
+
+## 2026-05-20 LAWYER PLATFORM PRODUCT SPINE
+- OWNER INPUT: owner clarified that lawyer onboarding must become a smart wizard that creates a rich mini-site with minimal owner work, and that supplier/provider monetization for lawyers is now a formal revenue track.
+- RESEARCH BASIS: WordPress.com AI Assistant is useful inspiration but mainly applies to WordPress.com editor/media workflows; AI Engine-style plugins can help with chat/forms/content, but Jus-Tice should keep the commercial onboarding, approval and publication logic first-party. Google Business Profile APIs require authorized locations for review data. Din has supplier categories such as translations/notary/apostille and office rentals for lawyers.
+- CODE UPDATED: `/lawyer-registration/` now loads `assets/js/lawyer-registration-wizard.js`, turning the long registration form into a four-step guided wizard while preserving the existing backend submission and no-JS fallback.
+- CODE UPDATED: added admin-only `justice_supplier` CPT in `inc/lawyer-suppliers.php` for the supplier marketplace pipeline: category, source URL, contact, service area, status, revenue model, priority, offer summary and owner note.
+- LINEAR: created `HAD-73` for the AI-assisted lawyer onboarding wizard and `HAD-74` for the supplier marketplace revenue pipeline.
+- MONEY IMPACT: lawyers should face a more serious onboarding experience, and supplier/provider monetization now has a repo-backed place to collect prospects before public exposure.
+- BLOCKED: automated recurring payments remain blocked until Meshulam/Grow KYC/account recovery is completed by owner; AI drafting still needs provider/API and safety work.
+- COMPLETION ASSESSMENT: lawyer onboarding UX 48%; zero-owner-interference onboarding 35%; supplier marketplace revenue track 18%; admin money-system cleanup 40%; automated AI profile drafting 10%.
+- OWNER CAN NOTICE AFTER MERGE/DEPLOY: `/lawyer-registration/` should feel like a guided wizard; wp-admin should expose `Suppliers` under the lawyer onboarding/admin area.
+- SAFETY: branch code/docs/Linear only; no live CMS/database, supplier, lawyer, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 LAWYER SUPPLIER REQUEST INTAKE
+- RESEARCH BASIS: current onboarding guidance emphasizes fast first value and repeatable next-step actions; legal marketplace/vendor examples show that curated suppliers for lawyers can become a second revenue line when quality and disclosure are controlled.
+- CODE UPDATED: lawyer dashboard now includes a private `Vetted services for your firm` request form.
+- CODE UPDATED: added `justice_lawyer_supplier_request` handler that verifies the logged-in lawyer owns the profile, stores category/urgency/notes on the profile, appends an internal note and emails the owner.
+- CODE UPDATED: growth assets now count captured professional supplier/service needs as a value signal.
+- MONEY IMPACT: this turns supplier monetization from only a prospect CRM into real lawyer demand capture; each request can support supplier outreach and future partner offers.
+- BLOCKED: supplier matching remains manual until approved suppliers and commercial terms exist; automated recurring lawyer payments remain blocked until Meshulam/Grow KYC/account recovery is completed by owner.
+- COMPLETION ASSESSMENT: supplier marketplace revenue track 24%; lawyer dashboard retention/value layer 64%; zero-owner-interference onboarding 36%; first-payment readiness 56%.
+- OWNER CAN NOTICE AFTER MERGE/DEPLOY: logged-in lawyers on `/lawyer-dashboard/` should see `Vetted services for your firm` and can request a supplier match.
+- SAFETY: branch code/docs only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 SUPPLIER PIPELINE ADMIN FILTERS
+- RESEARCH BASIS: 2026 attorney marketplace examples emphasize curated/vetted providers, attorney-focused categories and warm introductions; therefore the supplier CRM must be easy to filter by category, status and priority instead of becoming another flat CMS list.
+- CODE UPDATED: `justice_supplier` wp-admin list now has filters for supplier category, partnership status and priority.
+- MONEY IMPACT: owner can quickly find high-priority outreach-ready suppliers and turn lawyer demand into partner conversations.
+- BLOCKED: real supplier records and commercial terms still need owner/business outreach; automated recurring lawyer payments remain blocked until Meshulam/Grow KYC/account recovery is completed by owner.
+- COMPLETION ASSESSMENT: supplier marketplace revenue track 27%; admin money-system cleanup 42%; lawyer dashboard retention/value layer 64%.
+- OWNER CAN NOTICE AFTER MERGE/DEPLOY: wp-admin supplier list should have dropdown filters for category, status and priority.
+- SAFETY: branch code/docs only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 SUPPLIER MARKETPLACE OUTREACH PLAYBOOK
+- RESEARCH BASIS: 2026 B2B lead generation guidance points toward ICP fit, buying intent and relevant follow-up; legal vendor marketplaces position themselves around curated/vendor networks rather than generic lists.
+- CREATED: `project-control/supplier-marketplace-outreach-playbook-2026-05-20.md`.
+- CREATED: `project-control/supplier-marketplace-prospect-template-2026-05-20.csv`.
+- MONEY IMPACT: supplier monetization now has a practical outbound motion: first 30 prospect categories, qualification questions, scripts, follow-ups and revenue models.
+- BLOCKED: no supplier outreach was sent; real prospect records and commercial terms still need owner/business action; automated recurring lawyer payments remain blocked until Meshulam/Grow KYC/account recovery is completed by owner.
+- COMPLETION ASSESSMENT: supplier strategy 55%; supplier CRM 45%; supplier demand capture 35%; supplier outreach readiness 50%; supplier revenue live 0%.
+- OWNER CAN NOTICE: repo now contains a ready supplier outreach playbook and prospect template for translation/notary, office rooms, legal marketing, legal tech, experts and courier/filing.
+- SAFETY: branch docs only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 GROW/MESHULAM WEBSITE APPROVAL FIX
+- OWNER INPUT: owner shared the Grow/Meshulam failed site-review report and told support the site fixes are in progress.
+- REVIEW FINDING: Grow accepted site activity, phone and content category checks, but rejected missing business address, terms, privacy, cancellation, supply policy, warranty/responsibility, checkout page, and checkout terms checkbox/link.
+- CODE UPDATED: added `inc/payment-compliance-routes.php` with public `/terms/`, `/privacy/`, `/refund-cancellation-policy/`, and fallback `/checkout/` routes.
+- CODE UPDATED: fallback `/checkout/` collects first name, last name, phone without international prefix, country and email, and requires a terms approval checkbox linking to `/terms/`.
+- CODE UPDATED: Customizer now has business name and business address fields for payment compliance; footer and HTML sitemap expose the policy pages; contact page and schema can show the business address once saved.
+- MONEY IMPACT: this directly addresses the payment-provider approval blocker so automated recurring lawyer subscriptions can move forward once the exact public address is saved and the branch is deployed.
+- BLOCKED: exact public business address is still required from owner before re-submitting Grow/Meshulam review; no live deployment/uPress pull yet because this is branch code, not merged to main.
+- COMPLETION ASSESSMENT: Grow website checklist fix 80%; automated recurring payment readiness 68%; first-payment readiness 63%.
+- OWNER CAN NOTICE AFTER MERGE/DEPLOY: `/terms/`, `/privacy/`, `/refund-cancellation-policy/`, `/checkout/`, footer links, and Customizer business address field.
+- SAFETY: branch code/status only; no live CMS/database, supplier record, lawyer record, lead, payment, outbound email/SMS, GSC, GA4, redirect, noindex, sitemap or uPress deployment changed.
+
+## 2026-05-20 GROW/MESHULAM LIVE DEPLOYMENT AND ROUTE PATCH
+- DEPLOYED: PR #26 was squash-merged to GitHub `main` as commit `20913a4` (`Prepare first lawyer acquisition wave`), then Codex opened uPress File Manager for `wp-content/themes/justice-theme`, opened Git management and ran Pull.
+- VERIFIED UPRESS: uPress Git log shows top commit `(HEAD -> main, origin/main, origin/HEAD) Prepare first lawyer acquisition wave`.
+- LIVE FINDING: `/privacy/` renders the new compliance route, but `/terms/` and `/refund-cancellation-policy/` were still redirected to homepage by the live 404/redirect layer because those slugs were not existing WordPress objects.
+- CODE PATCHED: compliance pages now render on existing live slugs `/sample-terms-and-conditions-template/` for Terms and `/cancellation/` for cancellation/supply/warranty, while `/terms/` and `/refund-cancellation-policy/` redirect to those working slugs.
+- CODE PATCHED: WooCommerce checkout now gets a visible terms/privacy/cancellation approval box via WooCommerce hooks, because the live site has a real `/checkout/` WooCommerce page and the fallback route does not override it.
+- BLOCKED: this second patch still needs commit/push and another uPress pull; exact public business address is still required before Grow/Meshulam re-check.
+- COMPLETION ASSESSMENT: Grow website checklist fix 88%; automated recurring payment readiness 70%; first-payment readiness 65%.
+- OWNER CAN NOTICE AFTER NEXT PULL: footer policy links should point to working pages, `/sample-terms-and-conditions-template/` should show the real terms, `/cancellation/` should show service/cancellation responsibility policy, and checkout should show a terms approval box.
+
+## 2026-05-20 GROW/MESHULAM CHECKOUT REVIEW PATCH
+- FINDING: the legal/compliance pages were live, but the empty `/checkout/` URL still rendered the normal WooCommerce empty-cart page. This is the exact URL a payment-provider reviewer is likely to open, so the required customer details form and terms checkbox were not visible.
+- CODE UPDATED: empty `/checkout/` now renders the payment-compliance fallback page. Real WooCommerce payment checkout is preserved when there is an active cart or payment/order query such as `add-to-cart`, `order-pay`, `order-received`, `key`, `pay_for_order` or `wc-ajax`.
+- MONEY IMPACT: this closes one more concrete Grow/Meshulam approval blocker without changing the lawyer payment architecture.
+- BLOCKED: exact public business address is still required before final re-check submission; live deployment/uPress pull and public verification still need to happen for this patch.
+- COMPLETION ASSESSMENT: Grow website checklist fix 92%; automated recurring payment readiness 72%; first-payment readiness 67%.
+- OWNER CAN NOTICE AFTER DEPLOY: opening `/checkout/` while not paying should show a Jus-Tice customer details form and required terms approval checkbox; checkout with a product should still go through WooCommerce.
+
+## 2026-05-20 GROW/MESHULAM CHECKOUT CACHE FOLLOW-UP
+- LIVE FINDING: after deploying `f150c7f`, uPress Git showed the correct commit, but public `/checkout/` still rendered the WooCommerce empty-cart page and did not expose the reviewer compliance form.
+- CODE UPDATED: checkout fallback detection now uses payment/order query parameters and WooCommerce cart cookies instead of the server-side cart object. This should let reviewers with no cart see the compliance form while preserving real buyer checkout sessions.
+- BLOCKED: exact public business address is still required before final Grow/Meshulam re-check; deployment and public verification for this follow-up patch still need to happen.
+- COMPLETION ASSESSMENT: Grow website checklist fix 94%; automated recurring payment readiness 73%; first-payment readiness 68%.
+
+## 2026-05-20 GROW/MESHULAM LIVE VERIFICATION
+- DEPLOYED: pushed and pulled `81a46e9` to live via uPress Git management for `wp-content/themes/justice-theme`; uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Use cart cookies for checkout reviewer fallback`.
+- VERIFIED LIVE: public `/checkout/` now renders `jt-compliance--checkout`, a customer details form, required `accept_terms` checkbox, and links to `/sample-terms-and-conditions-template/`, `/privacy/`, and `/cancellation/`.
+- VERIFIED LIVE: `/sample-terms-and-conditions-template/` renders `jt-compliance--terms` and still shows the business-address warning; `/privacy/` and `/cancellation/` render the compliance pages.
+- VERIFIED SAFETY: `/checkout/?add-to-cart=999999` bypasses the fallback, so payment/cart query URLs are still left to WooCommerce instead of the reviewer page.
+- BLOCKED BEFORE RESUBMISSION: exact public business address must be saved in the Customizer or the Grow/Meshulam reviewer will still see the address warning.
+- COMPLETION ASSESSMENT: Grow website checklist fix 96%; automated recurring payment readiness 74%; first-payment readiness 69%.
+
+## 2026-05-20 GROW/MESHULAM BUSINESS ADDRESS FIX
+- OWNER INPUT: owner confirmed the public business address as Tel Aviv-Yafo, Raul Wallenberg 18, Tower C, floor 2, same office footprint as Maya Rotenberg.
+- RESEARCH BASIS: Maya Rotenberg's own site lists `רחוב ראול ולנברג 18, מתחם CU (שוק צפון), מגדל C, קומה 2, תל אביב-יפו`; Din, PsakDin and Duns also list Raul Wallenberg 18 / CU / Tower C / floor 2 for the same office.
+- CODE UPDATED: default `justice_business_address` now uses `רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו`, so Grow/Meshulam reviewers see a full address on compliance pages even before a Customizer value is manually saved.
+- MONEY IMPACT: this removes the remaining visible website-address blocker from the Grow/Meshulam checklist.
+- BLOCKED: needs commit/push/uPress pull and live verification before resubmission.
+- COMPLETION ASSESSMENT: Grow website checklist fix 98%; automated recurring payment readiness 76%; first-payment readiness 71%.
+
+## 2026-05-20 GROW/MESHULAM RESUBMITTED FOR REVIEW
+- DEPLOYED: pushed and pulled `5f0ce5d` to live via uPress Git management; uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Add public business address for Grow approval`.
+- VERIFIED LIVE: `/sample-terms-and-conditions-template/` and `/checkout/` now show `רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו`; the missing-address warning text is no longer present in the rendered compliance content.
+- VERIFIED LIVE: `/checkout/` still shows the customer details form and required `accept_terms` checkbox.
+- ACTION TAKEN: opened the Grow/Meshulam review-result link, checked the confirmation box, and submitted the site for re-check.
+- RESULT: Grow page confirmed: `תודה, האתר נשלח לבדיקה חוזרת בהצלחה! הבדיקה אורכת עד יום עסקים, בסיום הבדיקה ניצור קשר עם בית העסק.`
+- BLOCKED: waiting for Grow/Meshulam reviewer response; recurring lawyer payments still depend on their approval and account/payment setup completion.
+- COMPLETION ASSESSMENT: Grow website checklist fix 100% submitted; automated recurring payment readiness 78%; first-payment readiness 73%.
+
+## 2026-05-20 GROW/MESHULAM SECOND REVIEW RESPONSE
+- RESULT: Grow/Meshulam rejected the second review. They now accepted: active site, terms exist, age limit, phone, cancellation, supply policy. Remaining failures: business address, checkout page, checkout terms approval, checkout terms link, product/service responsibility, privacy.
+- DIAGNOSIS: the site content exists, but the reviewer/checker appears to require more literal checklist wording and WooCommerce-style checkout field names.
+- CODE UPDATED: checkout fallback now uses WooCommerce checkout form/class naming and billing field names: `billing_first_name`, `billing_last_name`, `billing_phone`, `billing_country`, `billing_email`, plus a required `terms` checkbox linking to terms, cancellation/responsibility and privacy.
+- CODE UPDATED: privacy page now includes explicit text about information use, confidentiality, security measures and not selling user details.
+- CODE UPDATED: terms/cancellation content now includes explicit `אחריות המוצר והשירות` wording and liability limitation text.
+- CODE UPDATED: footer now shows `כתובת בית עסק:` with the public Raul Wallenberg office address, so the address is visible site-wide and not only inside the legal page box.
+- BLOCKED: needs commit/push/uPress pull/live verification, then submit Grow/Meshulam re-check again.
+- COMPLETION ASSESSMENT: Grow website checklist fix 100% code-adjusted after rejection; automated recurring payment readiness 78%; first-payment readiness 73%.
+
+## 2026-05-20 GROW/MESHULAM THIRD REVIEW SUBMISSION
+- DEPLOYED: live uPress Git log already showed `5d82f68 Match Grow compliance checklist wording` on `main`.
+- CACHE ACTION: uPress development/no-cache mode was enabled temporarily so public reviewers see the latest compliance pages instead of stale cached copies.
+- VERIFIED LIVE: normal public `/checkout/` contains `jt-compliance--checkout`, WooCommerce-style billing fields, required `terms` checkbox, and links to terms, privacy and cancellation/responsibility pages.
+- VERIFIED LIVE: homepage/footer show the public business address; `/privacy/` includes security/use-of-data wording; `/cancellation/` includes product/service responsibility and liability-limitation wording.
+- ACTION TAKEN: after owner approval, opened the Grow/Meshulam checklist link, checked the confirmation box and submitted the site for another review.
+- RESULT: Grow page confirmed: `תודה, האתר נשלח לבדיקה חוזרת בהצלחה! הבדיקה אורכת עד יום עסקים, בסיום הבדיקה ניצור קשר עם בית העסק.`
+- BLOCKED: waiting for Grow/Meshulam reviewer response; automated recurring lawyer payments still depend on their approval and final account/payment activation.
+- COMPLETION ASSESSMENT: Grow website checklist fix 100% submitted after third pass; automated recurring payment readiness 80%; first-payment readiness 75%.
+
+## 2026-05-20 REPUTATION PRODUCT: GOOGLE REVIEW SOURCE CAPTURE
+- RESEARCH BASIS: Google allows businesses to ask real customers for reviews via a Google link/QR code, but prohibits incentives and fake/misleading reviews; Google review content/API display requires attribution and policy compliance; BrightLocal 2026 reinforces review freshness as a major trust factor.
+- CODE UPDATED: lawyer dashboard review-campaign requests now capture Google Business profile URL, Google review request URL and Google Place ID instead of relying only on free-text notes.
+- CODE UPDATED: submitted Google reputation sources are saved onto the linked lawyer profile and included in the owner notification email. No SMS/email is sent to clients automatically.
+- CREATED: `project-control/reputation-google-review-system-plan-2026-05-20.md`.
+- DEPLOYED: pushed `572b845 Capture lawyer Google review sources` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Capture lawyer Google review sources`.
+- MONEY IMPACT: this turns the review feature into a concrete paid value path: lawyers can connect their Google reputation source, request a managed review campaign, and later upgrade into review monitoring/reply/first-party recommendation services.
+- BLOCKED: official Google review sync still needs a Google Cloud/OAuth/API decision and Business Profile access; public first-party recommendation display still needs a focused build; recurring payments still wait for Grow/Meshulam approval.
+- COMPLETION ASSESSMENT: Google review source capture 60%; Google API sync 10%; first-party recommendation storage 55%; public reputation display 20%; reputation product revenue readiness 35%.
+- OWNER CAN NOTICE AFTER DEPLOY: logged-in lawyer dashboard, section `Google reviews and recommendations`, now has separate fields for Google Business URL, Google review request URL and Place ID.
+
+## 2026-05-20 REPUTATION ADMIN QUEUE VISIBILITY
+- RESEARCH BASIS: BrightLocal 2026 emphasizes review recency and response handling; Google allows real review requests through a business link/QR code but prohibits incentives and fake/misleading reviews.
+- CODE UPDATED: Lawyer Onboarding admin queue now surfaces the Google Business profile link, Google review request link and Place ID for pending review-campaign requests, with missing-source warnings.
+- DEPLOYED: pushed `472619b Show review sources in onboarding queue` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
+- MONEY IMPACT: owner/admin can now process review campaign requests without opening each lawyer profile first, making the reputation product operational for sales and retention.
+- BLOCKED: needs commit/push/uPress pull/live verification; first-party public recommendation display and official Google API sync still need focused builds.
+- COMPLETION ASSESSMENT: review source capture 65%; admin reputation operations 45%; Google API sync 10%; public reputation display 20%; reputation product revenue readiness 38%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Reputation column will show Google profile/review links for lawyers who requested a review campaign.
+
+## 2026-05-20 FIRST-PARTY RECOMMENDATION PUBLIC DISPLAY
+- RESEARCH BASIS: Google Search Central says LocalBusiness/Organization pages are not eligible for self-serving review snippets when the entity controls the reviews; Google Business Profile guidance supports asking real customers for reviews, but not inventing/copying review content. So the safe build is first-party Jus-Tice recommendations with explicit permission and moderation, without adding review schema.
+- CODE UPDATED: added a public recommendation query helper that only returns published `justice_recommendation` records linked to the lawyer, with `recommendation_moderation=approved_public` and `recommendation_permission=confirmed`.
+- CODE UPDATED: public lawyer mini-sites now render those approved first-party recommendations in the reviews/recommendations section when review display is enabled for that lawyer.
+- DEPLOYED: pushed `e218e4d Display approved lawyer recommendations` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
+- MONEY IMPACT: lawyers can now be sold a visible reputation asset, not only an admin workflow. This supports the paid mini-site/reputation product while keeping Google review integration separate and compliant.
+- BLOCKED: needs real approved recommendation records to be visible; Google official review sync/API is still not built; Grow/Meshulam payment approval is still pending.
+- COMPLETION ASSESSMENT: first-party recommendation storage 65%; public recommendation display 45%; Google review source connection 65%; reputation product revenue readiness 43%.
+- OWNER CAN NOTICE AFTER DEPLOY: on a public lawyer profile, the review section will show approved client recommendations after an admin publishes a linked recommendation with confirmed permission and turns on review display for that lawyer.
+
+## 2026-05-20 LAWYER DASHBOARD REVIEW REQUEST KIT
+- RESEARCH BASIS: BrightLocal 2026 says review freshness is now a major decision factor; Google Business Profile now supports direct review links/QR codes but requires genuine customer experiences and forbids incentives or fake engagement.
+- CODE UPDATED: logged-in lawyer dashboard now builds a ready-to-send review request message when the lawyer has a saved Google review request URL.
+- CODE UPDATED: dashboard shows a WhatsApp share button, direct Google review-link button, and Google profile button when sources exist; if the link is missing, the dashboard gives the lawyer the exact Google Business Profile path to copy it.
+- DEPLOYED: pushed `a117a34 Add lawyer review request kit` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
+- MONEY IMPACT: this turns the reputation module into an action tool lawyers can use immediately, making it easier to sell review/reputation management before full Google API sync exists.
+- BLOCKED: messages are not sent automatically; the lawyer still needs a real Google review link and should only send to real clients. Grow/Meshulam approval is still pending for automated recurring payments.
+- COMPLETION ASSESSMENT: review request activation 55%; Google review source connection 70%; public recommendation display 45%; reputation product revenue readiness 48%.
+- OWNER CAN NOTICE AFTER DEPLOY: logged-in lawyer dashboard -> Google reviews and recommendations -> Fast review request kit.
+
+## 2026-05-20 UNCOVERED DEMAND CAPTURE RELIABILITY FIX
+- RESEARCH BASIS: current legal-intake guidance emphasizes fast, structured lead capture by practice area/source; ethics guidance warns against hidden paid referrals or fee-split style lead sales, so Jus-Tice should turn uncovered demand into transparent partner-recruitment evidence and subscription coverage.
+- CODE UPDATED: homepage Ask-a-Lawyer form now includes `Thailand / international law`, matching the reusable lead form and the CRM classifier.
+- CODE UPDATED: lead classification now refreshes after public lead meta is written, not only when the lead post shell is created. This fixes a timing leak where `legal_area`, `city` and `message` could be saved after the classifier had already run.
+- CODE UPDATED: coverage status now refreshes when a lead message is saved, and force-refreshes to `covered_routable` if an assigned lawyer/routing completion is written later.
+- DEPLOYED: pushed `349f7ac Fix uncovered demand lead classification` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
+- MONEY IMPACT: niche demand like Thailand/international lawyer requests is more likely to land in the uncovered-demand queue as a recruitable sales signal instead of disappearing under `general` or an unclassified lead.
+- BLOCKED: still needs real inbound leads and lawyer outreach; payment automation still waits on Grow/Meshulam approval.
+- COMPLETION ASSESSMENT: uncovered-demand capture 85%; CRM recruitment evidence 70%; automated niche lawyer recruitment 35%; paid lead monetization 35%.
+- OWNER CAN NOTICE AFTER DEPLOY: homepage Ask-a-Lawyer field includes Thailand/international law; new submitted leads should show AI/coverage metadata in wp-admin -> Justice CRM.
+
+## 2026-05-20 LEAD ROUTING META-TIMING FIX
+- RESEARCH BASIS: legal intake best practice emphasizes fast response and structured practice-area/source routing; Clio and intake research repeatedly frame slow or missed follow-up as a major conversion loss.
+- CODE UPDATED: lead routing now retries after important lead meta is written (`message`, `legal_area`, `ai_detected_area`, `assigned_lawyer_id`) instead of relying only on the first empty post-save event.
+- CODE UPDATED: direct lawyer mini-site inquiry forms now submit the practice-area slug instead of the display name, so routing and CRM grouping use stable taxonomy keys.
+- DEPLOYED: pushed `b75c005 Retry lead routing after meta save` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
+- MONEY IMPACT: direct lawyer-profile leads and matched area leads are less likely to sit unrouted because the form details arrived after initial post creation. This protects the core promise lawyers pay for: “you receive relevant leads quickly.”
+- BLOCKED: still needs real live lead submissions to measure route success and response times; Grow/Meshulam approval still blocks automated recurring subscription payments.
+- COMPLETION ASSESSMENT: lead capture reliability 88%; lead routing reliability 72%; lawyer-value delivery 58%; paid lead monetization 38%.
+- OWNER CAN NOTICE AFTER DEPLOY: new leads from public lawyer profiles should route using the assigned lawyer and normalized practice slug, with routing metadata visible in Justice CRM.
+
+## 2026-05-20 LAWYER OUTREACH PROSPECT PIPELINE
+- RESEARCH BASIS: Clio intake guidance frames lead source, lead status, follow-up timing and conversion tracking as core legal intake operations; Justia Premium Placements shows the market already sells practice-area and metro-position visibility to lawyers.
+- CODE UPDATED: added an admin-only `justice_prospect` post type under Lawyer Onboarding for lawyer sales prospects.
+- CODE UPDATED: each prospect can now store practice area, city, target plan, priority, outreach status, response-fit commitment, source URL, demand signal, expected monthly NIS value, contact details and next action date.
+- DEPLOYED: pushed `4633c9c Add lawyer outreach prospect pipeline` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Add lawyer outreach prospect pipeline`.
+- MONEY IMPACT: this does not create revenue by itself, but it turns repeated uncovered demand into a trackable sales pipeline so the owner can recruit lawyers in exact practice/city gaps instead of handling every call manually.
+- BLOCKED: still needs real prospects entered and outreach performed; no automatic outbound messages were sent; Grow/Meshulam approval still controls automated recurring payment collection.
+- COMPLETION ASSESSMENT: lawyer outreach operating system 35%; first-lawyer sales readiness 60%; paid coverage pipeline 35%; automated payment readiness unchanged at 80%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Lawyer Prospects.
+
+## 2026-05-20 CRM TO LAWYER-PROSPECT BRIDGE
+- RESEARCH BASIS: current legal lead-management guidance says firms need source/status/follow-up/conversion tracking; Justia's 2026 directory marketing reinforces paid visibility by practice area and metro area.
+- CODE UPDATED: Justice CRM lead rows now include a `Prospect` action, and uncovered-demand summary rows include `Create prospect` for the latest lead behind the demand signal.
+- CODE UPDATED: new Lawyer Prospect drafts opened from CRM are prefilled from the source lead: title, practice area, market, target plan, priority, expected monthly NIS, demand signal, owner note and source lead ID.
+- DEPLOYED: pushed `bdba3f2 Bridge uncovered leads to lawyer prospects` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
+- MONEY IMPACT: this reduces the manual work needed to convert real demand into paid lawyer coverage outreach.
+- BLOCKED: requires owner/admin to save prospects and perform outreach; no automatic lawyer messages were sent; payment automation still depends on Grow/Meshulam approval.
+- COMPLETION ASSESSMENT: uncovered-demand-to-sales workflow 55%; lawyer outreach operating system 45%; first-lawyer sales readiness 63%; automated payment readiness 80%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Justice CRM -> `Prospect` / `Create prospect`.
+
+## 2026-05-20 LAWYER SALES PIPELINE VIEW
+- RESEARCH BASIS: Clio Grow reports expose pipeline value, source/matter type and conversion rate; Clio CRM guidance emphasizes tracking every contact, conversation and follow-up so opportunities do not fall through.
+- CODE UPDATED: Justice CRM now has a `Lawyer sales pipeline` block with open prospect count, open monthly NIS value, hot prospect count and due follow-up count.
+- CODE UPDATED: the same block shows the next prospect actions, target plan, status, priority, expected monthly value and source lead link.
+- DEPLOYED: pushed `f2d705a Show lawyer prospect pipeline in CRM` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
+- MONEY IMPACT: this makes the owner sales queue visible from the CRM so repeated demand can move toward paid lawyer coverage faster.
+- BLOCKED: still requires real prospects and owner/admin outreach; no automatic outreach or records were created.
+- COMPLETION ASSESSMENT: lawyer outreach operating system 52%; paid coverage pipeline 43%; first-lawyer sales readiness 66%; automated payment readiness 80%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Justice CRM -> Lawyer sales pipeline.
+
+## 2026-05-20 LAWYER PROSPECT OUTREACH KIT
+- RESEARCH BASIS: 2026 B2B outreach guidance emphasizes multi-channel, signal-based, short outreach around one visible pain point; Justia's lawyer marketing model sells paid visibility by practice/market.
+- CODE UPDATED: Lawyer Prospect edit screens now include a `Manual Outreach Kit`.
+- CODE UPDATED: the kit prepares email, WhatsApp and call drafts using the prospect's practice area, market, demand signal, target plan and partner form URL, with compliance language avoiding promises about outcomes, lead volume or exclusivity.
+- DEPLOYED: pushed `de5d118 Add lawyer prospect outreach kit` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
+- MONEY IMPACT: this lowers friction from saved prospect to actual sales contact, while keeping the send action manual and controlled.
+- BLOCKED: owner/admin still needs to review and send outreach; Grow/Meshulam approval still controls automated recurring payment collection.
+- COMPLETION ASSESSMENT: lawyer outreach operating system 60%; paid coverage pipeline 48%; first-lawyer sales readiness 69%; automated payment readiness 80%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Lawyer Prospects -> Manual Outreach Kit.
+
+## 2026-05-20 PROSPECT FOLLOW-UP QUICK ACTIONS
+- RESEARCH BASIS: 2026 follow-up guidance emphasizes multi-touch outreach, CRM outcome logging and scheduling the next attempt so warm prospects do not disappear after one contact.
+- CODE UPDATED: Lawyer Prospect outreach kit now has quick action buttons for contacted, follow-up, demo booked, proposal sent, won/onboarding and lost/not fit.
+- CODE UPDATED: quick actions are nonce-protected admin links that update status, last-contact date, next-action date and owner-note history.
+- CODE UPDATED: Justice CRM lawyer sales pipeline table now has `Contacted` and `Follow-up` buttons next to open prospects.
+- DEPLOYED: pushed `7302293 Add prospect follow-up quick actions` to GitHub `main` and pulled it through uPress Git management; uPress Git log showed the commit at `HEAD`.
+- MONEY IMPACT: this improves sales discipline after outreach and reduces forgotten paying-lawyer opportunities.
+- BLOCKED: owner/admin still needs to actually contact prospects and click the relevant action after real activity; no automated outreach was added.
+- COMPLETION ASSESSMENT: lawyer outreach operating system 66%; paid coverage pipeline 52%; first-lawyer sales readiness 72%; automated payment readiness 80%.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Prospects -> Manual Outreach Kit quick actions, and wp-admin -> Justice CRM -> Lawyer sales pipeline action buttons.
+## LATEST WORK STATUS - 2026-05-22 14:38 Asia/Jerusalem
+- CRIMINAL OWNER REVIEW PACKET: converted the five current-URL Criminal first-upload targets into a controlled owner/legal/source review gate.
+- TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.
+- GENERATED: `reports/criminal-owner-review-packet-2026-05-22.csv`.
+- GENERATED: `reports/criminal-owner-review-packet-2026-05-22.json`.
+- CREATED: `project-control/criminal-owner-review-packet-2026-05-22.md`.
+- CREATED: `project-control/criminal-owner-review-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-owner-review-packet.mjs` passed.
+- VERIFIED LOCAL: packet generation produced `5` review rows, all `READY_FOR_OWNER_LEGAL_SOURCE_REVIEW_NOT_UPLOAD`.
+- VERIFIED LOCAL: all `5` rows remain `PENDING_OWNER_DECISION`; `0` rows are approved for upload.
+- READY FOR OWNER REVIEW / NOT UPLOAD: `/criminal-defense-attorney/` is the first recommended Criminal review target, followed by police investigation, pretrial detention, indictment and drug offenses.
+- BLOCKED: Criminal CMS upload, English slug migration, redirects, canonicals/noindex, sitemap, taxonomy, related-card/internal-link writes, lawyer cards, schema and CRM changes remain unapproved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.

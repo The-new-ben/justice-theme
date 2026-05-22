@@ -107,6 +107,10 @@ function justice_theme_article_schema() {
 		),
 	);
 
+	if ( $reviewer ) {
+		$schema['reviewedBy'] = $reviewer;
+	}
+
 	$description = get_post_meta( get_the_ID(), 'seo_description', true );
 	$keywords    = get_post_meta( get_the_ID(), 'secondary_keywords', true );
 	if ( $description ) {

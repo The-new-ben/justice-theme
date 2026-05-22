@@ -3,6 +3,24 @@
 Date: 2026-05-12
 Status: READY FOR OWNER SETUP / READ-ONLY RECOMMENDED
 
+LATEST 2026-05-21 SECURITY NOTE:
+- `tools/gsc/oauth-client.json` was removed from Git tracking and is now ignored locally.
+- If that old tracked OAuth client was real, create a new OAuth Desktop client in Google Cloud and delete or rotate the old one before using API exports.
+- Keep future credential JSON files outside Git. If local tooling needs `tools/gsc/oauth-client.json`, keep it as a local ignored file only.
+
+LATEST 2026-05-21 RUNNER NOTE:
+- `tools/gsc/gsc-family-divorce-export.js` is now ready for the first Family/Divorce read-only export.
+- It supports local credential paths outside the repo through `GSC_OAUTH_CLIENT_PATH` and `GSC_TOKEN_PATH`.
+- Preferred dry run command: `.\tools\gsc\run-family-divorce-gsc-workflow.ps1 -DryRun`
+- Preferred full workflow command after owner credential setup: `.\tools\gsc\run-family-divorce-gsc-workflow.ps1`
+- Manual post-export decision-map command: `node tools/build-family-divorce-gsc-decision-map.mjs --gscDir=reports/gsc/family-divorce-YYYY-MM-DD --reportDate=YYYY-MM-DD`
+- Manual protected URL review-packet command: `node tools/build-family-divorce-protected-url-review-packet.mjs --reportDate=YYYY-MM-DD --input=reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv`
+- FIXED 2026-05-22: downstream decision-map and protected-packet scripts now use explicit/dynamic report dates instead of hardcoded `2026-05-21` filenames.
+- FIXED 2026-05-22: Criminal Law now has a focused read-only export runner: `.\tools\gsc\run-criminal-gsc-export.ps1 -DryRun`, then `.\tools\gsc\run-criminal-gsc-export.ps1` after owner OAuth approval.
+- FIXED 2026-05-22: the Criminal full wrapper now also builds `reports/criminal-gsc-decision-map-YYYY-MM-DD.csv`, `reports/criminal-protected-url-decision-map-YYYY-MM-DD.csv`, `reports/criminal-cannibalization-decision-map-YYYY-MM-DD.csv` and `reports/criminal-gsc-decision-map-YYYY-MM-DD.json`.
+- FIXED 2026-05-22: Medical Malpractice now has a focused read-only export runner: `.\tools\gsc\run-medical-malpractice-gsc-export.ps1 -DryRun`, then `.\tools\gsc\run-medical-malpractice-gsc-export.ps1` after owner OAuth approval.
+- FIXED 2026-05-22: the Medical Malpractice full wrapper builds `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv`, `reports/medical-malpractice-protected-url-decision-map-YYYY-MM-DD.csv`, `reports/medical-malpractice-cannibalization-decision-map-YYYY-MM-DD.csv` and `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.json`.
+
 This guide explains how to connect Google Search Console API for Jus-Tice so we can export query/page data quickly instead of doing slow browser checks.
 
 ## Why We Need This
@@ -68,6 +86,69 @@ Then Codex can run a local read-only export script. The first run will open a Go
 Token storage should also stay outside the repo, for example:
 `C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json`
 
+PowerShell command to use after credentials are saved:
+
+```powershell
+$env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
+$env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+.\tools\gsc\run-family-divorce-gsc-workflow.ps1 -DryRun
+.\tools\gsc\run-family-divorce-gsc-workflow.ps1
+```
+
+Use `--dry-run` first. It should show `credentialFileExists: true`. It does not read credential contents, open OAuth or call the API.
+
+If the export already exists and only the decision files need rebuilding:
+
+```powershell
+.\tools\gsc\run-family-divorce-gsc-workflow.ps1 -SkipExport -OutputDir "reports\gsc\family-divorce-YYYY-MM-DD" -ReportDate "YYYY-MM-DD"
+```
+
+Criminal Law dry run and export:
+
+```powershell
+$env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
+$env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+.\tools\gsc\run-criminal-gsc-export.ps1 -DryRun
+.\tools\gsc\run-criminal-gsc-export.ps1
+```
+
+Criminal outputs save under `reports/gsc/criminal-law-YYYY-MM-DD/`.
+
+The Criminal wrapper also creates root-level decision outputs:
+- `reports/criminal-gsc-decision-map-YYYY-MM-DD.csv`
+- `reports/criminal-protected-url-decision-map-YYYY-MM-DD.csv`
+- `reports/criminal-cannibalization-decision-map-YYYY-MM-DD.csv`
+- `reports/criminal-gsc-decision-map-YYYY-MM-DD.json`
+
+Manual rebuild after an existing Criminal export:
+
+```powershell
+node tools/build-criminal-gsc-decision-map.mjs --gscDir="reports/gsc/criminal-law-YYYY-MM-DD" --reportDate="YYYY-MM-DD"
+```
+
+Medical Malpractice dry run and export:
+
+```powershell
+$env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
+$env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+.\tools\gsc\run-medical-malpractice-gsc-export.ps1 -DryRun
+.\tools\gsc\run-medical-malpractice-gsc-export.ps1
+```
+
+Medical Malpractice outputs save under `reports/gsc/medical-malpractice-YYYY-MM-DD/`.
+
+The Medical Malpractice wrapper also creates root-level decision outputs:
+- `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv`
+- `reports/medical-malpractice-protected-url-decision-map-YYYY-MM-DD.csv`
+- `reports/medical-malpractice-cannibalization-decision-map-YYYY-MM-DD.csv`
+- `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.json`
+
+Manual rebuild after an existing Medical Malpractice export:
+
+```powershell
+node tools/build-medical-malpractice-gsc-decision-map.mjs --gscDir="reports/gsc/medical-malpractice-YYYY-MM-DD" --reportDate="YYYY-MM-DD"
+```
+
 ## What We Can Export
 
 Main export:
@@ -107,9 +188,11 @@ Useful filters:
 
 Create these outputs first:
 
-1. `project-control/gsc-api-family-divorce-query-page-export-YYYY-MM-DD.csv`
-2. `project-control/gsc-api-family-divorce-risk-map-YYYY-MM-DD.csv`
-3. `project-control/gsc-api-family-divorce-protected-url-list-YYYY-MM-DD.csv`
+1. `reports/gsc/family-divorce-YYYY-MM-DD/family-divorce-query-page.csv`
+2. `reports/gsc/family-divorce-YYYY-MM-DD/family-divorce-pages.csv`
+3. `reports/gsc/family-divorce-YYYY-MM-DD/family-divorce-cannibalization.csv`
+4. `reports/gsc/family-divorce-YYYY-MM-DD/family-divorce-protected-sources.csv`
+5. `reports/gsc/family-divorce-YYYY-MM-DD/family-divorce-summary.json`
 
 Questions to answer:
 - Does `/divorce-lawyer/` already get impressions?

@@ -1,0 +1,9 @@
+item,status,evidence,next_step
+tool,FIXED,Created tools/build-family-divorce-gsc-decision-map.mjs,Rerun after focused GSC export with --gscDir
+baseline_input,NOT_FINAL,Used existing cached reports/gsc CSV files because focused owner-authorized export is still blocked by credentials,Run focused GSC export before final URL migration decisions
+target_rows,VERIFIED_LOCAL,7 clean target rows generated,Owner approval and WordPress backup still required before CMS body upload
+protected_rows,VERIFIED_LOCAL,18 protected source or asset rows generated,Review each before redirect retirement canonical noindex or sitemap action
+protected_conflicts,BLOCKED,5 protected source URLs still redirect to homepage,Focused GSC export plus restore-or-targeted-301 review required
+protected_high_risk,VERIFIED_LOCAL,18 protected source or asset rows have cached GSC value,Do not treat old protected URLs as disposable
+cannibalization_rows,VERIFIED_LOCAL,40 cached query groups require review,Use focused export to finalize anti-cannibalization decisions
+public_execution,BLOCKED,No owner approval WordPress backup or final focused GSC export exists,No public CMS URL redirect canonical noindex taxonomy or sitemap action

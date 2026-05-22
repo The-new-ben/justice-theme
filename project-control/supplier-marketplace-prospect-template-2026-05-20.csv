@@ -1,0 +1,7 @@
+category,target_count,ideal_supplier,first_offer,revenue_model,priority,notes
+translation_notary,8,Certified translation/notary/apostille provider,Fast document translation for legal filings,monthly_listing_or_warm_intro,high,Good first category because lawyers often need urgent document work
+office_space,6,Office or meeting-room provider near courts,Hourly meeting room for client meetings,monthly_listing,high,Strong fit for solo lawyers and young firms
+legal_marketing,5,Video/branding/legal marketing agency,Profile video or mini-site polish package,monthly_listing_or_sponsorship,medium,Must avoid claims that violate lawyer advertising rules
+legal_tech,5,CRM/intake/automation provider,Intake and follow-up setup for law firms,affiliate_or_warm_intro,medium,Good upsell for lawyers who start receiving leads
+expert_witness,3,Expert witness/private investigator network,Checked professional expert referral,warm_intro,medium,Needs strong quality control and conflict checks
+courier_filing,3,Court courier/filing operator,Court filing and document delivery package,warm_intro_or_monthly_listing,medium,Useful operational service for busy lawyers

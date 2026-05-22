@@ -221,6 +221,32 @@ Full service:
 - media/video;
 - monthly SEO and reputation report.
 
+## 2026-05-20 Din Competitive Intelligence Addendum
+
+Status: ADDED TO ROADMAP - NOT IMPLEMENTED.
+
+Reference: `project-control/din-lawyer-review-system-analysis-2026-05-20.md`.
+
+The Din account inspection confirmed that the review product should be part of a broader lawyer value dashboard, not a standalone widget. The commercial pattern to copy carefully is:
+
+- review freshness warnings;
+- review request workflow;
+- profile views;
+- phone/email lead history;
+- category/region position;
+- paid exposure budget;
+- profile/content management;
+- monthly proof of value.
+
+Near-term Jus-Tice priority:
+
+1. Add a private `Reputation And Value` dashboard panel.
+2. Show review freshness and copyable review-request link placeholders.
+3. Keep public ratings/schema disabled until source, moderation and compliance rules are implemented.
+4. Add SMS only after owner approves provider, cost, consent text and throttling.
+
+Money reason: this gives paying lawyers a reason to log in, see progress, ask for help, renew, and upgrade.
+
 ### Vendor Strategy
 
 Podium, Birdeye and ReviewTrackers show that businesses pay for review collection, response management, reporting and AI summaries. Jus-Tice should copy the workflow logic, not the widgets:

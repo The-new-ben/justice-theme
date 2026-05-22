@@ -72,6 +72,67 @@
 		}
 	}
 
+	function setOrCreateHidden(form, name, value) {
+		var field;
+
+		if (!value) {
+			return;
+		}
+
+		field = form.querySelector('input[name="' + name + '"]');
+
+		if (!field) {
+			field = document.createElement('input');
+			field.type = 'hidden';
+			field.name = name;
+			form.appendChild(field);
+		}
+
+		field.value = value;
+	}
+
+	function applyLeadPrefillFromLink(link) {
+		var form;
+		var area;
+		var message;
+		var areaField;
+		var messageField;
+
+		if (!link || !link.dataset) {
+			return false;
+		}
+
+		if (!link.dataset.leadArea && !link.dataset.leadMessage && !link.dataset.leadSourceKeyword) {
+			return false;
+		}
+
+		form = document.querySelector('#ask-lawyer form');
+
+		if (!form) {
+			return false;
+		}
+
+		area = link.dataset.leadArea || '';
+		message = link.dataset.leadMessage || '';
+		areaField = form.querySelector('[name="lead_area"]');
+		messageField = form.querySelector('[name="lead_message"]');
+
+		if (area && areaField) {
+			areaField.value = area;
+		}
+
+		if (message && messageField) {
+			messageField.value = message;
+		}
+
+		setOrCreateHidden(form, 'source_keyword', link.dataset.leadSourceKeyword || '');
+		setOrCreateHidden(form, 'utm_source', link.dataset.leadUtmSource || '');
+		setOrCreateHidden(form, 'utm_medium', link.dataset.leadUtmMedium || '');
+		setOrCreateHidden(form, 'utm_campaign', link.dataset.leadUtmCampaign || '');
+
+		return true;
+	}
+
 	function trackSuccessFromQuery() {
 		var query = new URLSearchParams(window.location.search);
 
@@ -156,6 +217,8 @@
 			return;
 		}
 
+		var appliedLeadPrefill = applyLeadPrefillFromLink(link);
+
 		var href = link.getAttribute('href') || '';
 		var lowerHref = href.toLowerCase();
 		var params = {
@@ -170,6 +233,15 @@
 			planInterest = linkUrl.searchParams.get('plan_interest') || '';
 		} catch (error) {
 			linkUrl = null;
+		}
+
+		if (appliedLeadPrefill && linkUrl && '#ask-lawyer' === linkUrl.hash && '/' === linkUrl.pathname && '/' === window.location.pathname) {
+			event.preventDefault();
+			document.getElementById('ask-lawyer').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+			if (window.history && window.history.pushState) {
+				window.history.pushState(null, '', '#ask-lawyer');
+			}
 		}
 
 		if (planInterest) {
@@ -195,6 +267,14 @@
 
 		if (link.closest('.justice-content-lawyer-cta') || '#lead-form' === href || '#practice-lead-form' === href || '#lawyer-inquiry' === href) {
 			track('article_cta_click', params);
+			return;
+		}
+
+		if (link.closest('.legaltech-tools')) {
+			track('legaltech_tool_click', Object.assign({}, params, {
+				legal_area: link.dataset.leadArea || '',
+				source_keyword: link.dataset.leadSourceKeyword || ''
+			}));
 			return;
 		}
 

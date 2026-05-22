@@ -61,21 +61,21 @@ function justice_theme_city_practice_seed_pages(): array {
 			'excerpt'  => 'טיוטת עמוד עיר ותחום למקרקעין בחיפה.',
 			'city'     => 'haifa',
 			'practice' => 'real-estate-law',
-			'content'  => justice_theme_city_practice_content( 'מקרקעין', 'חיפה', '/real-estate-lawyer/' ),
+			'content'  => justice_theme_city_practice_content( 'מקרקעין', 'חיפה', '/practice-areas/real-estate-law/' ),
 		),
 		'employment-lawyer-tel-aviv' => array(
 			'title'    => 'עורך דין דיני עבודה בתל אביב',
 			'excerpt'  => 'טיוטת עמוד עיר ותחום לדיני עבודה בתל אביב.',
 			'city'     => 'tel-aviv',
 			'practice' => 'labor-law',
-			'content'  => justice_theme_city_practice_content( 'דיני עבודה', 'תל אביב', '/employment-lawyer/' ),
+			'content'  => justice_theme_city_practice_content( 'דיני עבודה', 'תל אביב', '/practice-areas/labor-law/' ),
 		),
 		'personal-injury-lawyer-rishon-lezion' => array(
 			'title'    => 'עורך דין נזיקין בראשון לציון',
 			'excerpt'  => 'טיוטת עמוד עיר ותחום לנזיקין בראשון לציון.',
 			'city'     => 'rishon-lezion',
 			'practice' => 'torts',
-			'content'  => justice_theme_city_practice_content( 'נזיקין', 'ראשון לציון', '/personal-injury-lawyer/' ),
+			'content'  => justice_theme_city_practice_content( 'נזיקין', 'ראשון לציון', '/tort-lawyer/' ),
 		),
 	);
 }

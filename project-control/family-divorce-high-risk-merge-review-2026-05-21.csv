@@ -1,0 +1,5 @@
+target,draft_sections,live_candidates,keep_draft_base,review_for_merge,partial_overlap_review,covered_by_draft,verification_status,next_step
+/child-support/,18,35,18,4,17,14,VERIFIED LOCAL,Resolve merge worksheet rows before CMS upload
+/child-custody/,20,35,20,11,15,9,VERIFIED LOCAL,Resolve merge worksheet rows before CMS upload
+/divorce-property-division/,22,35,22,15,14,6,VERIFIED LOCAL,Resolve merge worksheet rows before CMS upload
+TOTAL,60,105,60,30,46,29,VERIFIED LOCAL,No blind overwrite; convert review rows into keep merge rewrite or skip decisions

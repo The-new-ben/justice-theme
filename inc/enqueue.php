@@ -35,7 +35,7 @@ function justice_theme_enqueue_assets() {
 		'justice-premium-3',
 		JUSTICE_THEME_URI . '/assets/css/premium-pass-3.css',
 		array( 'justice-premium-2' ),
-		'3.0.0'
+		'3.0.2'
 	);
 
 	wp_enqueue_style(
@@ -101,6 +101,16 @@ function justice_theme_enqueue_assets() {
 		JUSTICE_THEME_VERSION,
 		true
 	);
+
+	if ( is_page_template( 'page-lawyer-registration.php' ) || is_page( 'lawyer-registration' ) ) {
+		wp_enqueue_script(
+			'justice-lawyer-registration-wizard',
+			JUSTICE_THEME_URI . '/assets/js/lawyer-registration-wizard.js',
+			array(),
+			'1.2.0',
+			true
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'justice_theme_enqueue_assets' );
 

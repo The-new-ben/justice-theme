@@ -69,6 +69,41 @@ function justice_theme_lawyer_plans(): array {
 	);
 }
 
+function justice_theme_lawyer_plan_public_overrides( string $plan_key ): array {
+	$overrides = array(
+		'pro'          => array(
+			'price'           => '₪349 לחודש כולל מע"מ',
+			'features_append' => array(
+				'עד 5 פניות תואמות בחודש',
+				'דוח חשיפה חודשי לעורך הדין',
+			),
+		),
+		'featured'     => array(
+			'price'           => '₪749 לחודש כולל מע"מ',
+			'features_append' => array(
+				'עד 15 פניות תואמות בחודש',
+				'מיקום מועדף עם גילוי "פרופיל ממומן"',
+			),
+		),
+		'lead_partner' => array(
+			'price'           => '₪1,490 לחודש כולל מע"מ',
+			'features_append' => array(
+				'עד 40 פניות תואמות בחודש',
+				'תיעדוף ניתוב לפי תחום, עיר וזמינות',
+			),
+		),
+		'full_service' => array(
+			'price'           => '₪2,490 לחודש כולל מע"מ',
+			'features_append' => array(
+				'עד 80 פניות תואמות בחודש',
+				'ניהול תוכן, אופטימיזציה ודוח ערך חודשי',
+			),
+		),
+	);
+
+	return $overrides[ $plan_key ] ?? array();
+}
+
 function justice_theme_plan_product_id( string $plan_key ): int {
 	$product_ids = get_option( 'justice_lawyer_plan_product_ids', array() );
 
@@ -79,14 +114,76 @@ function justice_theme_plan_product_id( string $plan_key ): int {
 	return absint( $product_ids[ $plan_key ] );
 }
 
+function justice_theme_paid_lawyer_plan_keys(): array {
+	return array( 'pro', 'featured', 'lead_partner', 'full_service' );
+}
+
+function justice_theme_plan_checkout_ready( string $plan_key ): bool {
+	$product_id = justice_theme_plan_product_id( $plan_key );
+
+	if ( ! $product_id || ! function_exists( 'wc_get_checkout_url' ) || ! function_exists( 'wc_get_product' ) ) {
+		return false;
+	}
+
+	if ( ! class_exists( 'WC_Subscriptions' ) && ! function_exists( 'wcs_get_subscriptions' ) ) {
+		return false;
+	}
+
+	$product = wc_get_product( $product_id );
+
+	if ( ! $product || ! $product->is_purchasable() ) {
+		return false;
+	}
+
+	return true;
+}
+
+function justice_theme_any_paid_plan_checkout_ready(): bool {
+	foreach ( justice_theme_paid_lawyer_plan_keys() as $plan_key ) {
+		if ( justice_theme_plan_checkout_ready( $plan_key ) ) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 function justice_theme_plan_checkout_url( string $plan_key ): string {
 	$product_id = justice_theme_plan_product_id( $plan_key );
 
-	if ( $product_id && function_exists( 'wc_get_checkout_url' ) ) {
+	if ( $product_id && justice_theme_plan_checkout_ready( $plan_key ) ) {
 		return add_query_arg( 'add-to-cart', $product_id, wc_get_checkout_url() );
 	}
 
-	return add_query_arg( 'plan_interest', $plan_key, home_url( '/lawyer-registration/' ) );
+	if ( 'free' !== $plan_key ) {
+		return add_query_arg(
+			array(
+				'plan_interest' => $plan_key,
+				'pre_checkout'  => '1',
+				'payment_path'  => 'manual_invoice',
+			),
+			home_url( '/checkout/' )
+		);
+	}
+
+	return add_query_arg(
+		array(
+			'plan_interest' => $plan_key,
+			'pre_checkout'  => '1',
+		),
+		home_url( '/lawyer-registration/' )
+	);
+}
+
+function justice_theme_plan_manual_activation_url( string $plan_key ): string {
+	return add_query_arg(
+		array(
+			'plan_interest' => $plan_key,
+			'pre_checkout'  => '1',
+			'payment_path'  => 'manual_invoice',
+		),
+		home_url( '/lawyer-registration/' )
+	);
 }
 
 function justice_theme_seed_lawyer_plans_page(): void {
@@ -113,3 +210,250 @@ function justice_theme_seed_lawyer_plans_page(): void {
 	update_option( 'justice_lawyer_plans_page_seeded_v1', 1, false );
 }
 add_action( 'admin_init', 'justice_theme_seed_lawyer_plans_page' );
+
+function justice_theme_register_lawyer_plan_payment_admin_page(): void {
+	add_submenu_page(
+		'justice-lawyer-onboarding',
+		'Lawyer Plan Payments',
+		'Plan Payments',
+		'manage_options',
+		'justice-lawyer-plan-payments',
+		'justice_theme_render_lawyer_plan_payment_admin_page'
+	);
+}
+add_action( 'admin_menu', 'justice_theme_register_lawyer_plan_payment_admin_page' );
+
+function justice_theme_handle_lawyer_plan_payment_admin_save(): void {
+	if ( ! isset( $_POST['justice_lawyer_plan_product_ids_nonce'] ) ) {
+		return;
+	}
+
+	if (
+		! current_user_can( 'manage_options' ) ||
+		! wp_verify_nonce(
+			sanitize_text_field( wp_unslash( $_POST['justice_lawyer_plan_product_ids_nonce'] ) ),
+			'justice_lawyer_plan_product_ids'
+		)
+	) {
+		return;
+	}
+
+	$product_ids = array();
+	$posted_ids  = isset( $_POST['justice_lawyer_plan_product_ids'] ) && is_array( $_POST['justice_lawyer_plan_product_ids'] )
+		? wp_unslash( $_POST['justice_lawyer_plan_product_ids'] )
+		: array();
+
+	foreach ( justice_theme_paid_lawyer_plan_keys() as $plan_key ) {
+		$product_ids[ $plan_key ] = isset( $posted_ids[ $plan_key ] ) ? absint( $posted_ids[ $plan_key ] ) : 0;
+	}
+
+	update_option( 'justice_lawyer_plan_product_ids', $product_ids, false );
+
+	add_settings_error(
+		'justice_lawyer_plan_product_ids',
+		'justice_lawyer_plan_product_ids_saved',
+		'Lawyer plan product mapping saved.',
+		'updated'
+	);
+}
+add_action( 'admin_init', 'justice_theme_handle_lawyer_plan_payment_admin_save' );
+
+function justice_theme_lawyer_plan_product_status( string $plan_key ): array {
+	$product_id = justice_theme_plan_product_id( $plan_key );
+
+	$status = array(
+		'product_id'       => $product_id,
+		'title'            => '',
+		'edit_url'         => '',
+		'product_type'     => '',
+		'post_status'      => '',
+		'is_purchasable'   => false,
+		'is_subscription'  => false,
+		'checkout_ready'   => justice_theme_plan_checkout_ready( $plan_key ),
+		'message'          => '',
+	);
+
+	if ( ! $product_id ) {
+		$status['message'] = 'Missing product ID.';
+		return $status;
+	}
+
+	if ( ! function_exists( 'wc_get_product' ) ) {
+		$status['message'] = 'WooCommerce product API is not available.';
+		return $status;
+	}
+
+	$product = wc_get_product( $product_id );
+
+	if ( ! $product ) {
+		$status['message'] = 'Product ID was not found.';
+		return $status;
+	}
+
+	$status['title']          = $product->get_name();
+	$status['edit_url']       = get_edit_post_link( $product_id, '' ) ?: '';
+	$status['product_type']   = $product->get_type();
+	$status['post_status']    = get_post_status( $product_id ) ?: '';
+	$status['is_purchasable'] = $product->is_purchasable();
+
+	if ( class_exists( 'WC_Subscriptions_Product' ) && method_exists( 'WC_Subscriptions_Product', 'is_subscription' ) ) {
+		$status['is_subscription'] = (bool) WC_Subscriptions_Product::is_subscription( $product );
+	} else {
+		$status['is_subscription'] = in_array( $product->get_type(), array( 'subscription', 'variable-subscription', 'subscription_variation' ), true );
+	}
+
+	if ( ! $status['is_subscription'] ) {
+		$status['message'] = 'Product exists, but is not detected as a subscription product.';
+	} elseif ( ! $status['is_purchasable'] ) {
+		$status['message'] = 'Product exists, but is not purchasable.';
+	} elseif ( ! $status['checkout_ready'] ) {
+		$status['message'] = 'Product exists, but checkout readiness is still incomplete.';
+	} else {
+		$status['message'] = 'Ready for checkout.';
+	}
+
+	return $status;
+}
+
+function justice_theme_lawyer_plan_payment_requirement_rows(): array {
+	$gateway_ids = array();
+
+	if ( function_exists( 'WC' ) && WC() && method_exists( WC(), 'payment_gateways' ) && WC()->payment_gateways() ) {
+		$available_gateways = WC()->payment_gateways()->payment_gateways();
+
+		foreach ( $available_gateways as $gateway_id => $gateway ) {
+			if ( ! empty( $gateway->enabled ) && 'yes' === $gateway->enabled ) {
+				$gateway_ids[] = (string) $gateway_id;
+			}
+		}
+	}
+
+	return array(
+		array(
+			'label' => 'WooCommerce active',
+			'ready' => function_exists( 'wc_get_checkout_url' ) && function_exists( 'wc_get_product' ),
+			'note'  => function_exists( 'wc_get_checkout_url' ) ? 'Checkout API available.' : 'Install/activate WooCommerce before product mapping can work.',
+		),
+		array(
+			'label' => 'WooCommerce Subscriptions active',
+			'ready' => class_exists( 'WC_Subscriptions' ) || function_exists( 'wcs_get_subscriptions' ) || class_exists( 'WC_Subscriptions_Product' ),
+			'note'  => 'Required for monthly recurring lawyer plans.',
+		),
+		array(
+			'label' => 'Enabled payment gateways',
+			'ready' => ! empty( $gateway_ids ),
+			'note'  => empty( $gateway_ids ) ? 'No enabled gateway detected yet.' : implode( ', ', $gateway_ids ),
+		),
+	);
+}
+
+function justice_theme_render_lawyer_plan_payment_admin_page(): void {
+	if ( ! current_user_can( 'manage_options' ) ) {
+		wp_die( esc_html__( 'You do not have permission to manage lawyer plan payments.', 'justice-theme' ) );
+	}
+
+	$plans            = justice_theme_lawyer_plans();
+	$requirement_rows = justice_theme_lawyer_plan_payment_requirement_rows();
+	?>
+	<div class="wrap">
+		<h1>Lawyer Plan Payments</h1>
+		<p>This screen prepares the four paid lawyer plans for WooCommerce Subscriptions and the Grow/Morning gateway. It does not charge anyone.</p>
+
+		<?php settings_errors( 'justice_lawyer_plan_product_ids' ); ?>
+
+		<h2>Activation Readiness</h2>
+		<table class="widefat striped" style="max-width: 980px;">
+			<thead>
+				<tr>
+					<th scope="col">Requirement</th>
+					<th scope="col">Status</th>
+					<th scope="col">Details</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ( $requirement_rows as $row ) : ?>
+					<tr>
+						<td><?php echo esc_html( $row['label'] ); ?></td>
+						<td><?php echo $row['ready'] ? 'Ready' : 'Missing'; ?></td>
+						<td><?php echo esc_html( $row['note'] ); ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+
+		<form method="post" style="margin-top: 24px;">
+			<?php wp_nonce_field( 'justice_lawyer_plan_product_ids', 'justice_lawyer_plan_product_ids_nonce' ); ?>
+			<h2>Paid Plan Product Mapping</h2>
+			<p>Create each plan as a published monthly subscription product, then paste its product ID here.</p>
+			<table class="widefat striped" style="max-width: 1180px;">
+				<thead>
+					<tr>
+						<th scope="col">Plan</th>
+						<th scope="col">Public price</th>
+						<th scope="col">Product ID</th>
+						<th scope="col">Product status</th>
+						<th scope="col">Checkout URL</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ( justice_theme_paid_lawyer_plan_keys() as $plan_key ) : ?>
+						<?php
+						$plan            = $plans[ $plan_key ] ?? array();
+						$override        = justice_theme_lawyer_plan_public_overrides( $plan_key );
+						$product_status  = justice_theme_lawyer_plan_product_status( $plan_key );
+						$checkout_url    = justice_theme_plan_checkout_url( $plan_key );
+						$product_details = array_filter(
+							array(
+								$product_status['title'],
+								$product_status['product_type'] ? 'type: ' . $product_status['product_type'] : '',
+								$product_status['post_status'] ? 'status: ' . $product_status['post_status'] : '',
+							)
+						);
+						?>
+						<tr>
+							<td>
+								<strong><?php echo esc_html( $plan['label'] ?? $plan_key ); ?></strong><br>
+								<code><?php echo esc_html( $plan_key ); ?></code>
+							</td>
+							<td><?php echo esc_html( $override['price'] ?? ( $plan['price'] ?? '' ) ); ?></td>
+							<td>
+								<input
+									type="number"
+									min="0"
+									name="justice_lawyer_plan_product_ids[<?php echo esc_attr( $plan_key ); ?>]"
+									value="<?php echo esc_attr( (string) $product_status['product_id'] ); ?>"
+									style="width: 120px;"
+								>
+							</td>
+							<td>
+								<strong><?php echo $product_status['checkout_ready'] ? 'Ready' : 'Not ready'; ?></strong><br>
+								<?php echo esc_html( $product_status['message'] ); ?>
+								<?php if ( $product_details ) : ?>
+									<br><small><?php echo esc_html( implode( ' | ', $product_details ) ); ?></small>
+								<?php endif; ?>
+								<?php if ( $product_status['edit_url'] ) : ?>
+									<br><a href="<?php echo esc_url( $product_status['edit_url'] ); ?>">Edit product</a>
+								<?php endif; ?>
+							</td>
+							<td>
+								<a href="<?php echo esc_url( $checkout_url ); ?>" target="_blank" rel="noopener">Open checkout path</a>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+
+			<?php submit_button( 'Save product mapping' ); ?>
+		</form>
+
+		<h2>Post-Grow Approval Checklist</h2>
+		<ol>
+			<li>Create four published monthly subscription products in WooCommerce: Pro, Featured, Lead Partner, and Full Service.</li>
+			<li>Use the approved prices including VAT: 349, 749, 1490, and 2490 ILS per month.</li>
+			<li>Enable the Grow/Morning gateway only after account approval and gateway connection are complete.</li>
+			<li>Paste the four product IDs above and verify every row says Ready.</li>
+			<li>Run sandbox or controlled live smoke test before selling to the first lawyer.</li>
+		</ol>
+	</div>
+	<?php
+}

@@ -1,0 +1,10 @@
+id,area,status,evidence,next_step,notes
+1,live_failure,BLOCKED,"/real-estate-lawyer-guide/ redirected to homepage before patch","Deploy guard and retest final path","Route is excluded from public edit batch until PASS"
+2,live_failure,BLOCKED,"/real-estate-lawyer-guide redirected to http://jus-tice.co.il/real-estate-attorney before patch","After deploy verify no-slash request only resolves to itself or trailing slash","Observed redirect suggests stale redirect/canonical conflict"
+3,theme_guard,FIXED,"inc/routing-guards.php blocks guide-route redirects to / and /real-estate-attorney through wp_redirect and redirect_canonical","Pull latest Git to live server","Cannot stop server-level redirects that run before WordPress"
+4,deploy_marker,FIXED,"JUSTICE_DEPLOY_MARKER set to 2026-05-21-real-estate-guide-redirect-guard-v1","Verify marker after uPress pull","Marker confirms theme code loaded"
+5,checker,FIXED,"tools/check-live-traffic-priority.mjs now requires each route check to finish on its expected final path","Run checker after uPress pull/cache clear","Prevents homepage fallback from passing as a false positive"
+6,local_php,VERIFIED,"php -l inc/routing-guards.php and php -l functions.php passed","Keep lint in deployment checklist","Local syntax only"
+7,local_js,VERIFIED,"node --check tools/check-live-traffic-priority.mjs passed","Keep checker in deployment checklist","Static JS syntax only"
+8,live_checker,NOT VERIFIED,"Live traffic checker currently reports final-path failures for /site-map/ /medical-malpractice-lawyer/ /real-estate-lawyer-guide/ /inheritance-lawyer/ /contact/ and /about/","Retest after deploy; if still failing inspect server/plugin redirect rules","Existing unrelated /inheritance-lawyer/ H1 review also remains in checker output"
+9,cms_publish_gate,BLOCKED,"Guide route still cannot be included in public real-estate upload batch","Wait for route PASS before adding support-to-hub links from this page","No CMS/public route action executed"

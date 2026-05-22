@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'JUSTICE_THEME_VERSION', '1.1.0' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-05-18-brand-favicon-spam-guard-v1' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-05-21-trust-route-early-render-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -20,6 +20,7 @@ $justice_theme_files = array(
 	'inc/enqueue.php',
 	'inc/menu-seed.php',
 	'inc/template-tags.php',
+	'inc/authority.php',
 	'inc/lawyer-rest-guards.php',
 	'inc/breadcrumbs.php',
 	'inc/routing-guards.php',
@@ -41,6 +42,9 @@ $justice_theme_files = array(
 	'inc/content-draft-importer.php',
 	'inc/live-content-publication.php',
 	'inc/publication-safety.php',
+	'inc/lawyer-recommendations.php',
+	'inc/lawyer-suppliers.php',
+	'inc/lawyer-prospects.php',
 	'inc/lawyer-onboarding.php',
 	'inc/lawyer-dashboard.php',
 	'inc/lawyer-plans.php',
@@ -51,7 +55,9 @@ $justice_theme_files = array(
 	'inc/practice-area-icons.php',
 	'inc/sitemap.php',
 	'inc/html-sitemap.php',
+	'inc/not-found-rescue.php',
 	'inc/trust-routes.php',
+	'inc/payment-compliance-routes.php',
 	'inc/url-redirects.php',
 );
 

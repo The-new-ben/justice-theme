@@ -1,0 +1,5 @@
+item,status,evidence,next_action,safety
+uncovered_demand_queue,defined,"Structured model for requests such as Thailand lawyer","Add CRM coverage_status and admin/report view","Planning only no live lead data changed"
+recommended_revenue_model,defined,"Subscription/coverage slot with capped leads and SLA","Connect to lawyer plan tiers and recruitment script","Avoids fee split and recommendation claims"
+unsafe_models,blocked,"User connection fee fee-split broad recommendation and multi-sell urgent lead are flagged","Require legal/compliance review before any such product","No payment or public promise changed"
+lead_monetization_completion,updated,"Planning maturity moved from 24% to 30%","Implement coverage_status and queue report","No live CRM database mutation"

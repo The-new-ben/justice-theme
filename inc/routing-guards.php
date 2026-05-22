@@ -86,6 +86,104 @@ function justice_theme_is_home_redirect_target( string $location ): bool {
 }
 
 /**
+ * Check whether the active request is the controlled real-estate guide route.
+ *
+ * @param string $requested_url Optional requested URL. Falls back to REQUEST_URI.
+ * @return bool
+ */
+function justice_theme_is_real_estate_guide_request_path( string $requested_url = '' ): bool {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
+		return false;
+	}
+
+	$path_source = $requested_url;
+
+	if ( '' === $path_source ) {
+		$path_source = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+	}
+
+	$home_path    = justice_theme_normalize_route_path( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ) );
+	$request_path = justice_theme_normalize_route_path( (string) wp_parse_url( $path_source, PHP_URL_PATH ) );
+	$request_path = justice_theme_strip_home_path_prefix( $request_path, $home_path );
+
+	return '/real-estate-lawyer-guide' === $request_path;
+}
+
+/**
+ * Check whether a redirect target matches the observed guide-route conflicts.
+ *
+ * @param string $location Redirect location.
+ * @return bool
+ */
+function justice_theme_is_real_estate_guide_conflict_redirect_target( string $location ): bool {
+	if ( '' === $location ) {
+		return false;
+	}
+
+	$home_url      = home_url( '/' );
+	$home_host     = wp_parse_url( $home_url, PHP_URL_HOST );
+	$location_host = wp_parse_url( $location, PHP_URL_HOST );
+
+	if ( $home_host && $location_host && strtolower( $home_host ) !== strtolower( $location_host ) ) {
+		return false;
+	}
+
+	$home_path     = justice_theme_normalize_route_path( (string) wp_parse_url( $home_url, PHP_URL_PATH ) );
+	$location_path = justice_theme_normalize_route_path( (string) wp_parse_url( $location, PHP_URL_PATH ) );
+	$location_path = justice_theme_strip_home_path_prefix( $location_path, $home_path );
+
+	return in_array( $location_path, array( '/', '/real-estate-attorney' ), true );
+}
+
+/**
+ * Protect the recovered guide route from stale home/hub redirects.
+ *
+ * @param string|false $location Redirect location.
+ * @param int          $status   Redirect status.
+ * @return string|false
+ */
+function justice_theme_block_real_estate_guide_conflict_wp_redirect( $location, ?int $status ) {
+	unset( $status );
+
+	if ( ! is_string( $location ) || '' === $location ) {
+		return $location;
+	}
+
+	if (
+		justice_theme_is_real_estate_guide_request_path()
+		&& justice_theme_is_real_estate_guide_conflict_redirect_target( $location )
+	) {
+		return false;
+	}
+
+	return $location;
+}
+add_filter( 'wp_redirect', 'justice_theme_block_real_estate_guide_conflict_wp_redirect', -100, 2 );
+
+/**
+ * Protect the recovered guide route from stale canonical home/hub redirects.
+ *
+ * @param string|false $redirect_url  Proposed canonical redirect URL.
+ * @param string       $requested_url Requested URL.
+ * @return string|false
+ */
+function justice_theme_block_real_estate_guide_conflict_canonical_redirect( $redirect_url, ?string $requested_url ) {
+	if ( null === $requested_url || empty( $redirect_url ) ) {
+		return $redirect_url;
+	}
+
+	if (
+		justice_theme_is_real_estate_guide_request_path( $requested_url )
+		&& justice_theme_is_real_estate_guide_conflict_redirect_target( (string) $redirect_url )
+	) {
+		return false;
+	}
+
+	return $redirect_url;
+}
+add_filter( 'redirect_canonical', 'justice_theme_block_real_estate_guide_conflict_canonical_redirect', -100, 2 );
+
+/**
  * Prevent plugins or core helpers from redirecting arbitrary misses to home.
  *
  * @param string|false $location Redirect location.

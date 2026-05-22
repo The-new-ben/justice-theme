@@ -4,7 +4,612 @@
 
 ---
 
+### ACTION-MEDICAL-MALPRACTICE-CMS-IDENTITY-OPERATOR-RUNBOOK-001: Prepare inspection-only operator runbook for duplicate CMS identity
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OPERATOR PREP / EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The duplicate identity review identified the blocker, but the operator still needs exact inspection, backup and decision steps before any Medical Malpractice upload. This runbook converts the blocker into a controlled wp-admin/database verification workflow without authorizing public changes.
+**Actions:**
+1. DONE: created `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.md`.
+2. DONE: created `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.csv`.
+3. VERIFIED LOCAL: CSV contains `9` operator checklist rows.
+4. VERIFIED PLANNING: runbook covers inspection authorization, rollback evidence for IDs `11607` and `1130`, served-record verification, field comparison, allowed owner decisions, GSC gate, source/legal gate and upload boundary.
+5. VERIFIED PLANNING: runbook blocks editor saves, publishing, slug changes, redirects, canonical/noindex changes, sitemap changes, taxonomy edits, media changes, schema, lawyer-card changes and CRM changes.
+6. BLOCKED: owner/operator must still verify wp-admin/database served-record state and choose an allowed authoritative-record decision before upload.
+7. NEXT: owner/operator uses the runbook to record `KEEP_11607_AS_AUTHORITATIVE`, `KEEP_1130_AS_AUTHORITATIVE`, `MERGE_1130_ASSETS_INTO_11607` or `HOLD_PENDING_WP_ADMIN_DB_CHECK`; then focused GSC and source/legal gates remain required before public CMS work.
+
+### ACTION-MEDICAL-MALPRACTICE-DUPLICATE-IDENTITY-REVIEW-001: Resolve planning evidence for `/medical-malpractice-lawyer/` duplicate CMS identity
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NOT FINAL UNTIL WP-ADMIN-DB CHECK / OWNER REVIEW BLOCKED / NO PUBLIC CHANGES
+**Why:** Medical Malpractice upload is blocked by two local export records, IDs `11607` and `1130`, resolving to the same public URL. Before any body, title, metadata, internal-link, taxonomy or URL work, the owner/operator needs a focused comparison packet showing which record may be authoritative and what assets must not be lost.
+**Actions:**
+1. DONE: created `tools/build-medical-malpractice-duplicate-identity-review.mjs`.
+2. DONE: generated `reports/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+3. DONE: generated `reports/medical-malpractice-duplicate-identity-review-2026-05-22.json`.
+4. DONE: created `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.md`.
+5. DONE: created `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+6. VERIFIED LOCAL: `node --check tools/build-medical-malpractice-duplicate-identity-review.mjs` passed.
+7. VERIFIED LOCAL: generated `8` evidence/decision rows for IDs `11607` and `1130`.
+8. VERIFIED LOCAL: local export confirms both IDs share `http://jus-tice.co.il/medical-malpractice-lawyer/`, have `2` distinct content hashes, slug-conflict count `27`, exact current record count `2`, and proposed primary post ID `11607`.
+9. VERIFIED LOCAL: ID `11607` is newer/longer but lower heuristic quality and has no detected media/outgoing links; ID `1130` is older/shorter but has higher heuristic quality, a featured image and outgoing links.
+10. BLOCKED: wp-admin/database served-record state, rollback backup, owner decision, focused GSC export and source/legal review are still required before CMS upload.
+11. NEXT: owner/operator chooses `KEEP_11607_AS_AUTHORITATIVE`, `KEEP_1130_AS_AUTHORITATIVE`, `MERGE_1130_ASSETS_INTO_11607`, or `HOLD_PENDING_WP_ADMIN_DB_CHECK`; do not upload Medical Malpractice until this is resolved.
+
+### ACTION-MEDICAL-MALPRACTICE-OWNER-DECISION-PACKET-001: Build owner decision packet from readiness and GSC baseline maps
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NOT FINAL BASELINE / OWNER REVIEW BLOCKED / NO PUBLIC CHANGES
+**Why:** The Medical Malpractice readiness dashboard is useful but too large for owner execution decisions. The next unblocked repo-only step is to convert it into a controlled owner decision packet that separates duplicate identity, protected pages, clean-slug blockers, source/legal gates, false positives and cannibalization before any CMS upload or URL migration.
+**Actions:**
+1. DONE: created `tools/build-medical-malpractice-owner-decision-packet.mjs`.
+2. DONE: generated `reports/medical-malpractice-owner-decision-packet-2026-05-22.csv`.
+3. DONE: generated `reports/medical-malpractice-owner-decision-packet-2026-05-22.json`.
+4. DONE: created `project-control/medical-malpractice-owner-decision-packet-2026-05-22.md`.
+5. DONE: created `project-control/medical-malpractice-owner-decision-packet-2026-05-22.csv`.
+6. VERIFIED LOCAL: `node --check tools/build-medical-malpractice-owner-decision-packet.mjs` passed.
+7. VERIFIED LOCAL: generated `69` owner decision rows: `8` owner gates, `23` current-URL review rows, `15` P0 support/protected rows, `12` clean-slug route blocker rows, `8` source/legal rows, `1` cannibalization row and `2` possible false-positive rows.
+8. VERIFIED LOCAL: upload-approved rows remain `0`; all rows remain review-only until owner decisions, source/legal review, focused GSC export and WordPress rollback backup exist.
+9. BLOCKED: no CMS upload, slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, lawyer-card, schema or CRM change is approved.
+10. NEXT: owner reviews the decision packet and marks rows `APPROVE_CURRENT_URL_UPDATE`, `EDIT_REQUIRED`, `HOLD`, `LEGAL_REVIEW_REQUIRED`, `PROTECT_ONLY` or `REMOVE_FROM_CLUSTER`; then run focused Medical Malpractice GSC export before URL decisions.
+
+### ACTION-GSC-MEDICAL-MALPRACTICE-EXPORT-RUNNER-001: Prepare Medical Malpractice GSC export and decision maps
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NOT FINAL BASELINE / API EXECUTION BLOCKED UNTIL OWNER CREDENTIAL SETUP / NO PUBLIC CHANGES
+**Why:** The Medical Malpractice readiness dashboard identified protected support pages, clean slug blockers, source/legal gates and duplicate pillar identity risk. Before any upload or URL migration, the cluster needs a focused read-only GSC export and decision-map workflow.
+**Actions:**
+1. DONE: created `tools/gsc/gsc-medical-malpractice-export.js`.
+2. DONE: created `tools/gsc/run-medical-malpractice-gsc-export.ps1`.
+3. DONE: created `tools/build-medical-malpractice-gsc-decision-map.mjs`.
+4. DONE: created `project-control/gsc-medical-malpractice-export-runner-2026-05-22.md`.
+5. DONE: created `project-control/gsc-medical-malpractice-export-runner-2026-05-22.csv`.
+6. DONE: updated `tools/gsc/README.md`.
+7. DONE: updated `project-control/gsc-api-setup-guide.md`.
+8. DONE / NOT FINAL: generated `reports/medical-malpractice-gsc-decision-map-2026-05-22.csv`.
+9. DONE / NOT FINAL: generated `reports/medical-malpractice-protected-url-decision-map-2026-05-22.csv`.
+10. DONE / NOT FINAL: generated `reports/medical-malpractice-cannibalization-decision-map-2026-05-22.csv`.
+11. DONE / NOT FINAL: generated `reports/medical-malpractice-gsc-decision-map-2026-05-22.json`.
+12. DONE / NOT FINAL: created `project-control/medical-malpractice-gsc-decision-map-2026-05-22.md`.
+13. DONE / NOT FINAL: created `project-control/medical-malpractice-gsc-decision-map-2026-05-22.csv`.
+14. VERIFIED LOCAL: Node syntax checks passed for export and decision-map scripts.
+15. VERIFIED LOCAL: PowerShell dry run passed without OAuth browser or GSC API call.
+16. VERIFIED LOCAL: dry-run scope includes `1` primary target path, `73` protected/source paths, `10` route candidate paths, `8` boundary paths and `22` Medical Malpractice query terms.
+17. VERIFIED LOCAL / NOT FINAL: baseline decision map generated `187` rows, `178` protected rows, `8` source/legal gate rows and `1` cannibalization row.
+18. BLOCKED: real focused GSC export still requires owner credential setup and OAuth approval.
+19. NEXT: after owner credentials, run `.\tools\gsc\run-medical-malpractice-gsc-export.ps1`, then review decision maps before any CMS upload, URL migration, redirect, canonical, noindex, sitemap, taxonomy or internal-link action.
+
+### ACTION-MEDICAL-MALPRACTICE-READINESS-DASHBOARD-001: Consolidate Medical Malpractice upload-readiness evidence
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / REVIEW ONLY / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** Family/Divorce and Criminal are prepared up to owner GSC/OAuth and CMS approval gates. The next high-value unblocked repo-only step is to prepare Medical Malpractice as the next controlled cluster without approving URL migrations or public changes.
+**Actions:**
+1. DONE: created `tools/build-medical-malpractice-readiness-dashboard.mjs`.
+2. DONE: generated `reports/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+3. DONE: generated `reports/medical-malpractice-readiness-dashboard-2026-05-22.json`.
+4. DONE: created `project-control/medical-malpractice-readiness-dashboard-2026-05-22.md`.
+5. DONE: created `project-control/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+6. VERIFIED LOCAL: `node --check tools/build-medical-malpractice-readiness-dashboard.mjs` passed.
+7. VERIFIED LOCAL: dashboard consolidates `249` rows across `9` lanes, including owner gates, current URL readiness, P0 support pages, clean slug route review, internal links, source/legal gates, content inventory, URL migration and cannibalization.
+8. VERIFIED LOCAL: flagged `63` high/protected/unknown-GSC risk rows, `86` blocked or approval-gated rows, `4` clean-slug/route blockers, `8` source/legal blockers and `2` possible false-positive medical-malpractice cluster assignments.
+9. BLOCKED: upload is not ready until duplicate `/medical-malpractice-lawyer/` CMS identity, focused GSC export, source/legal/privacy review, anti-cannibalization roles, internal links, redirects, canonicals and sitemap decisions are approved.
+10. NEXT: prepare the focused Medical Malpractice GSC API export and owner-facing decision packet from this dashboard; do not publish or redirect yet.
+
+### ACTION-CRIMINAL-GSC-DECISION-MAP-001: Prepare Criminal post-GSC decision maps
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NOT FINAL BASELINE / FOCUSED GSC EXPORT BLOCKED / NO PUBLIC CHANGES
+**Why:** The Criminal GSC export runner needs an immediate parser that turns export rows into protected URL, wrong-page, cannibalization, redirect/canonical/noindex and sitemap review decisions before any migration or CMS execution.
+**Actions:**
+1. DONE: created `tools/build-criminal-gsc-decision-map.mjs`.
+2. DONE: updated `tools/gsc/run-criminal-gsc-export.ps1` so the full read-only export automatically builds decision maps for the same report date.
+3. DONE: generated `reports/criminal-gsc-decision-map-2026-05-22.csv`.
+4. DONE: generated `reports/criminal-protected-url-decision-map-2026-05-22.csv`.
+5. DONE: generated `reports/criminal-cannibalization-decision-map-2026-05-22.csv`.
+6. DONE: generated `reports/criminal-gsc-decision-map-2026-05-22.json`.
+7. DONE: created `project-control/criminal-gsc-decision-map-2026-05-22.md`.
+8. DONE: created `project-control/criminal-gsc-decision-map-2026-05-22.csv`.
+9. VERIFIED LOCAL: `node --check tools/build-criminal-gsc-decision-map.mjs` passed.
+10. VERIFIED LOCAL: baseline run generated `5` target rows, `20` protected/support/route-risk rows and `8` cannibalization/wrong-page rows.
+11. NOT VERIFIED FINAL: all generated rows are baseline-only until the focused owner-authorized Criminal GSC export runs.
+12. BLOCKED: real focused GSC export still requires owner credential setup and OAuth approval.
+13. NEXT: after owner credentials, run `.\tools\gsc\run-criminal-gsc-export.ps1`, then review `reports/criminal-gsc-decision-map-YYYY-MM-DD.csv`, `reports/criminal-protected-url-decision-map-YYYY-MM-DD.csv` and `reports/criminal-cannibalization-decision-map-YYYY-MM-DD.csv` before any URL, redirect, canonical, noindex or sitemap decision.
+
+### ACTION-GSC-CRIMINAL-EXPORT-RUNNER-001: Prepare Criminal Law GSC export runner
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / API EXECUTION BLOCKED UNTIL OWNER CREDENTIAL SETUP / NO PUBLIC CHANGES
+**Why:** The Criminal first-upload package now has drafts, owner review, operator runbook and metadata. Before URL migration or redirect decisions, it needs a focused read-only GSC export for current targets, protected/support pages and Criminal query/page ownership.
+**Actions:**
+1. DONE: created `tools/gsc/gsc-criminal-export.js`.
+2. DONE: created `tools/gsc/run-criminal-gsc-export.ps1`.
+3. DONE: created `project-control/gsc-criminal-export-runner-2026-05-22.md`.
+4. DONE: created `project-control/gsc-criminal-export-runner-2026-05-22.csv`.
+5. DONE: updated `tools/gsc/README.md`.
+6. DONE: updated `project-control/gsc-api-setup-guide.md`.
+7. VERIFIED LOCAL: `node --check tools/gsc/gsc-criminal-export.js` passed.
+8. VERIFIED LOCAL: `node tools/gsc/gsc-criminal-export.js --dry-run` passed without OAuth browser or GSC API call.
+9. VERIFIED LOCAL: `.\tools\gsc\run-criminal-gsc-export.ps1 -DryRun` passed without OAuth browser or GSC API call.
+10. VERIFIED LOCAL: dry-run scope includes `5` target paths, `20` protected/support paths and `27` Criminal query terms.
+11. BLOCKED: real focused GSC export still requires owner credential setup and OAuth approval.
+12. NEXT: after owner credentials, run `.\tools\gsc\run-criminal-gsc-export.ps1`, then review `criminal-law-query-page.csv`, `criminal-law-cannibalization.csv` and `criminal-law-protected-sources.csv` before any URL decision.
+
+### ACTION-CRIMINAL-FIRST-UPLOAD-METADATA-PACKAGE-001: Prepare Criminal CMS metadata package
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER REVIEW / EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The Criminal operator runbook requires approved field values before any CMS update. A metadata package prevents ad hoc title/meta/breadcrumb/link decisions during upload and keeps current URLs separate from later slug migration.
+**Actions:**
+1. DONE: created `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
+2. DONE: created `project-control/criminal-first-upload-metadata-package-2026-05-22.csv`.
+3. DONE: updated `project-control/criminal-cms-operator-runbook-2026-05-22.md` so operators use this package for approved field values.
+4. VERIFIED PLANNING: package covers `5` Criminal first-upload current URLs.
+5. VERIFIED PLANNING: rows include H1, SEO title, meta description, OG title, OG description, breadcrumb label, taxonomy label, primary/secondary current-URL links, schema policy and robots policy.
+6. VERIFIED PLANNING: all future clean slugs are marked blocked until GSC and owner migration approval.
+7. BLOCKED: all rows remain `BLOCKED_OWNER_LEGAL_SOURCE_APPROVAL`; none are upload-approved.
+8. NEXT: owner reviews metadata row by row, then the CMS operator can apply approved current-URL-only values using the Criminal CMS operator runbook.
+
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
+
+### ACTION-CRIMINAL-CMS-OPERATOR-RUNBOOK-001: Prepare Criminal CMS operator runbook
+**Status:** COMPLETED / VERIFIED LOCAL / READY FOR OPERATOR PREP / EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** Once the owner approves any Criminal page, the operator needs a strict current-URL-only runbook that separates body upload from slug migration, redirects, canonicals, noindex, sitemap, taxonomy and related-card work.
+**Actions:**
+1. DONE: created `project-control/criminal-cms-operator-runbook-2026-05-22.md`.
+2. DONE: created `project-control/criminal-cms-operator-runbook-2026-05-22.csv`.
+3. VERIFIED LOCAL: runbook covers `5` Criminal first-upload current-URL targets.
+4. VERIFIED LOCAL: CSV contains `11` operator checklist rows.
+5. VERIFIED PLANNING: runbook requires owner/legal/source approval, actual WordPress editor/database rollback backup and post-upload route/indexability/link/visual QA.
+6. VERIFIED PLANNING: runbook blocks duplicate clean-slug pages, slug changes, redirects, noindex, canonical migration, sitemap changes, taxonomy changes, related-card writes, protected URL edits and fake trust/rating claims.
+7. BLOCKED: no CMS execution is approved until owner decisions are set to `APPROVE_CURRENT_URL_UPDATE` page by page.
+8. NEXT: owner reviews the five Criminal rows; after approval, operator follows this runbook for approved current URLs only.
+
+### ACTION-CRIMINAL-OWNER-REVIEW-PACKET-001: Prepare Criminal owner review packet
+**Status:** COMPLETED / VERIFIED LOCAL / READY FOR OWNER REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** Criminal first-upload draft coverage is now complete, but public CMS upload must still be gated by owner/legal/source approval, current-URL strategy, anti-cannibalization controls and rollback backup.
+**Actions:**
+1. DONE: created `tools/build-criminal-owner-review-packet.mjs`.
+2. DONE: generated `reports/criminal-owner-review-packet-2026-05-22.csv`.
+3. DONE: generated `reports/criminal-owner-review-packet-2026-05-22.json`.
+4. DONE: created `project-control/criminal-owner-review-packet-2026-05-22.md`.
+5. DONE: created `project-control/criminal-owner-review-packet-2026-05-22.csv`.
+6. VERIFIED LOCAL: `node --check tools/build-criminal-owner-review-packet.mjs` passed.
+7. VERIFIED LOCAL: generated packet covers `5` Criminal first-upload current-URL targets.
+8. VERIFIED LOCAL: all `5` rows are `READY_FOR_OWNER_LEGAL_SOURCE_REVIEW_NOT_UPLOAD` and `PENDING_OWNER_DECISION`.
+9. READY: owner can mark each page `APPROVE_CURRENT_URL_UPDATE`, `EDIT_REQUIRED`, `HOLD` or `LEGAL_REVIEW_REQUIRED`.
+10. BLOCKED: no CMS upload, English slug migration, redirects, canonicals, noindex, sitemap, taxonomy, related-card/internal-link writes, lawyer cards, schema or CRM action is approved.
+11. FIXED LATER: `ACTION-CRIMINAL-CMS-OPERATOR-RUNBOOK-001` prepared the execution-blocked operator runbook; owner review is still required before any CMS execution.
+
+### ACTION-CRIMINAL-FIRST-UPLOAD-DRAFT-CLOSURE-001: Complete missing Criminal first-upload support drafts
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / READY FOR OWNER REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The Criminal/Traffic readiness dashboard showed `2/5` missing Criminal first-upload drafts. Closing this gap is the highest-value unblocked repo-only step before owner review, because it prepares the Criminal cluster as a coherent current-URL upload package without touching live URLs or the CMS.
+**Actions:**
+1. DONE: created `content-drafts/indictment-supporting-he.md`.
+2. DONE: created `content-drafts/drug-offenses-supporting-he.md`.
+3. DONE: updated `tools/build-criminal-traffic-readiness-dashboard.mjs` so all five Criminal first-upload targets map to draft files.
+4. DONE: regenerated `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+5. DONE: regenerated `reports/criminal-traffic-readiness-dashboard-2026-05-22.json`.
+6. DONE: regenerated `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
+7. DONE: regenerated `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+8. DONE: created `project-control/criminal-first-upload-draft-closure-2026-05-22.md`.
+9. DONE: created `project-control/criminal-first-upload-draft-closure-2026-05-22.csv`.
+10. VERIFIED LOCAL: `node --check tools/build-criminal-traffic-readiness-dashboard.mjs` passed.
+11. VERIFIED LOCAL: dashboard still consolidates `57` rows and Criminal first-upload draft coverage is now `5/5`, with `0` missing drafts.
+12. READY: the Criminal current-URL first-upload package is ready for owner/legal/source review.
+13. BLOCKED: no CMS upload, slug migration, redirects, canonicals, noindex, sitemap, taxonomy or internal-link writes are approved.
+14. FIXED LATER: `ACTION-CRIMINAL-OWNER-REVIEW-PACKET-001` created the five-page owner/legal/source review packet.
+
+### ACTION-CRIMINAL-TRAFFIC-READINESS-DASHBOARD-001: Consolidate next content-upload cluster evidence
+**Status:** COMPLETED / VERIFIED LOCAL / REVIEW ONLY / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** Family/Divorce upload execution is blocked by owner GSC/OAuth and CMS approval. The next safe progress is to prepare Criminal/Traffic as a controlled cluster package without approving URL migrations or public changes.
+**Actions:**
+1. DONE: created `tools/build-criminal-traffic-readiness-dashboard.mjs`.
+2. DONE: generated `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+3. DONE: generated `reports/criminal-traffic-readiness-dashboard-2026-05-22.json`.
+4. DONE: created `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
+5. DONE: created `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+6. VERIFIED LOCAL: dashboard consolidates `57` rows: `5` criminal first-upload targets, `18` criminal P0 support/protection rows, `13` traffic support/boundary rows, `9` targeted GSC signal rows and the wrong-page decision packet.
+7. FIXED LATER: `ACTION-CRIMINAL-FIRST-UPLOAD-DRAFT-CLOSURE-001` created indictment and drug-offenses drafts; current dashboard now shows `5/5` criminal first-upload drafts present and `0` missing.
+8. VERIFIED LOCAL: `/criminal-defense-attorney/` is the first current-URL criminal publish candidate, but it is owner-review-ready only, not upload-approved.
+9. BLOCKED: Criminal/Traffic public CMS upload, clean-slug migration, redirects, canonical/noindex, sitemap, taxonomy and related/internal-link writes remain unapproved.
+10. NEXT: run owner/legal/source review on the five current-URL Criminal targets before any public upload.
+
+### ACTION-FAMILY-DIVORCE-GSC-WORKFLOW-HANDOFF-001: Make focused GSC workflow date-safe and one-command
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / API EXECUTION BLOCKED UNTIL OWNER CREDENTIAL SETUP / NO PUBLIC CHANGES
+**Why:** The Family/Divorce GSC export handoff was ready, but the downstream decision-map and protected URL packet scripts still used hardcoded `2026-05-21` filenames. That could create stale or overwritten review files after a real export.
+**Actions:**
+1. DONE: updated `tools/build-family-divorce-gsc-decision-map.mjs` to support `--reportDate=YYYY-MM-DD`.
+2. DONE: updated `tools/build-family-divorce-gsc-decision-map.mjs` to use the latest `family-divorce-live-preupload-YYYY-MM-DD.csv` by default or an explicit `--livePreupload=path`.
+3. DONE: updated `tools/build-family-divorce-protected-url-review-packet.mjs` to support `--reportDate=YYYY-MM-DD` and `--input=path`.
+4. DONE: created `tools/gsc/run-family-divorce-gsc-workflow.ps1`.
+5. DONE: updated `tools/gsc/README.md` and `project-control/gsc-api-setup-guide.md` with the wrapper command and manual fallback commands.
+6. DONE: created `project-control/family-divorce-gsc-workflow-handoff-2026-05-22.md`.
+7. DONE: created `project-control/family-divorce-gsc-workflow-handoff-2026-05-22.csv`.
+8. DONE: regenerated current-date baseline outputs under `2026-05-22`.
+9. VERIFIED LOCAL: Node syntax checks passed for both downstream scripts.
+10. VERIFIED LOCAL: `tools/gsc/run-family-divorce-gsc-workflow.ps1 -DryRun` passed without OAuth browser or GSC API call.
+11. VERIFIED LOCAL: regenerated baseline still reports `18` protected rows, `5` protected conflicts and `40` cannibalization rows.
+12. BLOCKED: real focused GSC export still requires owner credential setup and OAuth approval.
+13. NEXT: after owner credentials, run `.\tools\gsc\run-family-divorce-gsc-workflow.ps1`, then review generated decision-map and protected URL packet before any URL action.
+
+### ACTION-FAMILY-DIVORCE-PROTECTED-URL-OWNER-REVIEW-PACKET-001: Prepare protected URL owner review packet
+**Status:** COMPLETED / VERIFIED LOCAL / NOT FINAL / FOCUSED GSC EXPORT BLOCKED / NO PUBLIC CHANGES
+**Why:** The protected URL decision map identified `18` high-risk protected source/asset URLs. The owner needs one packet with explicit keep, restore, targeted-301 or hold options before any URL migration decision.
+**Actions:**
+1. DONE: created `tools/build-family-divorce-protected-url-review-packet.mjs`.
+2. DONE: generated `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+3. DONE: generated `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.json`.
+4. DONE: created `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.md`.
+5. DONE: created `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+6. DONE: updated `tools/gsc/README.md`.
+7. DONE: updated `project-control/gsc-api-setup-guide.md`.
+8. VERIFIED LOCAL: `node --check tools/build-family-divorce-protected-url-review-packet.mjs` passed.
+9. VERIFIED LOCAL: packet generated `18` rows: `5` P0 restore-or-targeted-301 conflicts, `1` P0 keep-asset-live row and `12` keep-live/review-later rows.
+10. BLOCKED: all rows require focused GSC export before final owner URL decisions.
+11. NEXT: after focused GSC export, rerun decision map and protected URL review packet, then owner marks `RESTORE_CURRENT_URL`, `TARGETED_301_TO_MAPPED_TARGET`, `KEEP_LIVE`, `MERGE_AND_301_AFTER_APPROVAL`, `KEEP_ASSET_LIVE` or `HOLD_FOR_MANUAL_REVIEW`.
+
+### ACTION-FAMILY-DIVORCE-GSC-DECISION-MAP-BASELINE-001: Prepare post-GSC URL/cannibalization decision map
+**Status:** COMPLETED / VERIFIED LOCAL / NOT FINAL / FOCUSED GSC EXPORT BLOCKED / NO PUBLIC CHANGES
+**Why:** The focused GSC export is blocked by owner credentials, but the project can still prepare the parser and decision-map workflow so export data converts directly into protected URL, redirect, cannibalization and sitemap review rows.
+**Actions:**
+1. DONE: created `tools/build-family-divorce-gsc-decision-map.mjs`.
+2. DONE: generated `reports/family-divorce-gsc-decision-map-2026-05-21.csv`.
+3. DONE: generated `reports/family-divorce-protected-url-decision-map-2026-05-21.csv`.
+4. DONE: generated `reports/family-divorce-cannibalization-decision-map-2026-05-21.csv`.
+5. DONE: generated `reports/family-divorce-gsc-decision-map-2026-05-21.json`.
+6. DONE: created `project-control/family-divorce-gsc-decision-map-2026-05-21.md`.
+7. DONE: created `project-control/family-divorce-gsc-decision-map-2026-05-21.csv`.
+8. DONE: updated `tools/gsc/README.md`.
+9. DONE: updated `project-control/gsc-api-setup-guide.md`.
+10. VERIFIED LOCAL: `node --check tools/build-family-divorce-gsc-decision-map.mjs` passed.
+11. VERIFIED LOCAL: baseline run generated `7` target rows, `18` protected source/asset rows and `40` cannibalization rows.
+12. VERIFIED LOCAL: all `18` protected source/asset URLs have cached GSC rows and are high-risk in the baseline.
+13. BLOCKED: baseline input mode is `FALLBACK_EXISTING_GSC_CACHE_NOT_FINAL`; final decisions require the focused owner-authorized export.
+14. NEXT: after owner credentials, run `node tools/gsc/gsc-family-divorce-export.js`, then rerun `node tools/build-family-divorce-gsc-decision-map.mjs --gscDir=reports/gsc/family-divorce-YYYY-MM-DD`.
+
+### ACTION-FAMILY-DIVORCE-WAVE1B-METADATA-SYNC-001: Sync stale support metadata word counts
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** The upload readiness dashboard found `6` stale Wave 1B support metadata word-count fields after later merge work. This was a planning artifact, but it could confuse owner review and CMS upload status.
+**Actions:**
+1. DONE: created `tools/sync-family-divorce-wave1b-metadata-counts.mjs`.
+2. FIXED: updated only the trusted early `words` column in `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv`.
+3. DONE: generated `reports/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+4. DONE: created `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.md`.
+5. DONE: created `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+6. VERIFIED LOCAL: `node --check tools/sync-family-divorce-wave1b-metadata-counts.mjs` passed.
+7. VERIFIED LOCAL: sync script fixed `6` rows and skipped `0`.
+8. VERIFIED LOCAL: reran `tools/check-family-divorce-upload-readiness.mjs`; Wave 1B metadata mismatches are now `0`.
+9. VERIFIED: `7/7` target drafts still pass static QA and `7/7` target URLs still have live public backups.
+10. BLOCKED: owner/legal/source approval and actual WordPress editor/database rollback material are still required before public CMS upload.
+11. BLOCKED: GSC API export and protected-source redirect review are still required before URL migration, redirects, canonical/noindex or sitemap changes.
+12. NEXT: run real GSC export after owner credentials, then convert output into protected URL/cannibalization decision map.
+
+### ACTION-FAMILY-DIVORCE-UPLOAD-READINESS-DASHBOARD-001: Consolidate upload readiness gates
+**Status:** COMPLETED / VERIFIED LOCAL / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** Family/Divorce had the content drafts, owner packet, metadata packages, runbook, live snapshots and GSC runner spread across many files. The operator needs one current readiness view before any CMS work.
+**Actions:**
+1. DONE: created `tools/check-family-divorce-upload-readiness.mjs`.
+2. DONE: generated `reports/family-divorce-upload-readiness-2026-05-21.csv`.
+3. DONE: generated `reports/family-divorce-upload-readiness-2026-05-21.json`.
+4. DONE: created `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.md`.
+5. DONE: created `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.csv`.
+6. VERIFIED LOCAL: `node --check tools/check-family-divorce-upload-readiness.mjs` passed.
+7. VERIFIED LOCAL: `node tools/check-family-divorce-upload-readiness.mjs` passed.
+8. VERIFIED: `7/7` target drafts pass static QA and `7/7` target URLs have live public backups.
+9. FIXED LATER: the `6` stale Wave 1B support metadata word counts were synced in `ACTION-FAMILY-DIVORCE-WAVE1B-METADATA-SYNC-001`.
+10. BLOCKED: owner/legal/source approval and actual WordPress editor/database rollback material are still required before public CMS upload.
+11. BLOCKED: GSC API export and protected-source redirect review are still required before URL migration, redirects, canonical/noindex or sitemap changes.
+12. NEXT: run real GSC export after owner credentials, then convert output into protected URL/cannibalization decision map.
+
+### ACTION-GSC-FAMILY-DIVORCE-EXPORT-RUNNER-001: Prepare focused Family/Divorce GSC export runner
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / API EXECUTION BLOCKED UNTIL OWNER CREDENTIAL SETUP
+**Why:** Family/Divorce URL migration, redirect, canonical/noindex and sitemap decisions need read-only Search Console query/page data, but credentials must stay outside Git and the export needs to be scoped to the first upload cluster.
+**Actions:**
+1. DONE: created `tools/gsc/gsc-family-divorce-export.js`.
+2. FIXED: runner supports credential and token paths through `GSC_OAUTH_CLIENT_PATH` and `GSC_TOKEN_PATH`.
+3. FIXED: runner supports `--dry-run` so local path/scope checks can run without reading credential contents, opening OAuth or calling the API.
+4. VERIFIED LOCAL: `node --check tools/gsc/gsc-family-divorce-export.js` passed.
+5. VERIFIED LOCAL: `node tools/gsc/gsc-family-divorce-export.js --dry-run` passed.
+6. VERIFIED LOCAL: dry run reported `7` clean Family/Divorce upload targets, `18` protected source/asset paths and `18` query terms.
+7. CREATED: `project-control/gsc-family-divorce-export-runner-2026-05-21.md`.
+8. CREATED: `project-control/gsc-family-divorce-export-runner-2026-05-21.csv`.
+9. UPDATED: `tools/gsc/README.md`.
+10. UPDATED: `project-control/gsc-api-setup-guide.md`.
+11. BLOCKED / OWNER ACTION: rotate or create the OAuth Desktop client if needed, set local credential/token paths, then run the real export.
+12. NEXT: run `node tools/gsc/gsc-family-divorce-export.js` after owner credential setup and use outputs for Family/Divorce protected URL, cannibalization, redirect and sitemap decisions.
+
+### ACTION-GSC-CREDENTIAL-HYGIENE-001: Remove tracked local OAuth client from Git
+**Status:** COMPLETED / FIXED IN REPO / OWNER ROTATION RECOMMENDED / NO PUBLIC CHANGES
+**Why:** `tools/gsc/oauth-client.json` was tracked in Git, conflicting with the credential-safety rule in the GSC API setup guide. Search Console credentials must stay local and ignored.
+**Actions:**
+1. FIXED: removed `tools/gsc/oauth-client.json` from Git tracking with `git rm --cached`.
+2. FIXED: kept the local file in place so local tooling is not broken.
+3. FIXED: updated `.gitignore` for OAuth client JSON, token JSON and common Google credential JSON names under `tools/gsc/`.
+4. FIXED: updated `tools/gsc/README.md` with credential-safety instructions.
+5. CREATED: `project-control/gsc-credential-hygiene-2026-05-21.md`.
+6. CREATED: `project-control/gsc-credential-hygiene-2026-05-21.csv`.
+7. VERIFIED LOCAL: the local credential file is now ignored after removal from tracking.
+8. BLOCKED / OWNER ACTION: rotate or recreate the OAuth Desktop client in Google Cloud if the removed tracked file contained a real secret.
+9. NEXT: after owner sets up/rotates credentials, run the first read-only Family/Divorce GSC API export.
+
+### ACTION-FAMILY-DIVORCE-CMS-OPERATOR-RUNBOOK-001: Prepare seven-page CMS operator runbook
+**Status:** COMPLETED / VERIFIED LOCAL / EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The owner review packet answers which pages need approval. The CMS operator also needs a single execution boundary that prevents accidental duplicate pages, URL migration, redirects, noindex/canonical changes or protected asset edits during body upload.
+**Actions:**
+1. DONE: created `project-control/family-divorce-cms-operator-runbook-2026-05-21.md`.
+2. DONE: created `project-control/family-divorce-cms-operator-runbook-2026-05-21.csv`.
+3. VERIFIED LOCAL: runbook covers `7` target pages and points each page to its approved-source draft file after approval.
+4. VERIFIED PLANNING: runbook requires actual WordPress editor/database rollback material before each approved edit.
+5. VERIFIED PLANNING: runbook blocks duplicate pages, slug changes, redirects, noindex changes, canonical changes, sitemap changes and protected asset edits.
+6. BLOCKED: CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup.
+7. BLOCKED: URL migration, redirects, noindex, canonical and sitemap decisions still require GSC API/export and separate approval.
+8. NEXT: owner reviews the seven packet rows; after approval, operator follows this runbook for only the approved pages.
+
+### ACTION-FAMILY-DIVORCE-OWNER-REVIEW-PACKET-001: Prepare owner/legal/source review packet
+**Status:** COMPLETED / VERIFIED LOCAL / READY FOR OWNER REVIEW / NO PUBLIC CHANGES
+**Why:** The seven Family/Divorce upload candidates now have static QA, live public snapshots and resolved high-risk merge blockers. The next safe step is an explicit owner/legal/source decision packet before any CMS overwrite/update.
+**Actions:**
+1. DONE: created `project-control/family-divorce-owner-review-packet-2026-05-21.md`.
+2. DONE: created `project-control/family-divorce-owner-review-packet-2026-05-21.csv`.
+3. VERIFIED LOCAL: packet covers `7` target URLs and maps each one to its current public-body draft.
+4. VERIFIED LOCAL: all `7` rows show static QA `PASS`.
+5. VERIFIED LOCAL: packet records the resolved high-risk merge blockers for `/divorce-property-division/`, `/child-custody/` and `/child-support/`.
+6. READY: owner can now mark each page `APPROVE`, `EDIT`, `HOLD` or `LEGAL_REVIEW_REQUIRED`.
+7. BLOCKED: CMS upload still requires explicit owner/legal/source approval and actual WordPress editor/database backup.
+8. BLOCKED: URL migration, redirects, noindex, canonical and sitemap decisions still require GSC API/export and separate approval.
+9. NEXT: owner reviews the seven page rows, then CMS operator prepares editor/database backup for only the approved pages.
+
+### ACTION-FAMILY-DIVORCE-CHILD-SUPPORT-MERGE-AND-DRAFT-001: Resolve and apply child-support merge rows
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** `/child-support/` was the last high-risk Family/Divorce page with unresolved live-candidate rows. Resolving and applying safe draft merges removes the final high-risk merge blocker before owner upload review.
+**Actions:**
+1. DONE: created `tools/resolve-family-divorce-child-support-merge.mjs`.
+2. DONE: generated `reports/family-divorce-child-support-merge-decisions-2026-05-21.csv`.
+3. DONE: created `project-control/family-divorce-child-support-merge-decisions-2026-05-21.md`.
+4. DONE: created `project-control/family-divorce-child-support-merge-decisions-2026-05-21.csv`.
+5. VERIFIED LOCAL: resolved all `35` current-live candidate rows for `/child-support/`: `4` merge, `25` covered/no action and `6` skip.
+6. DONE: created `tools/apply-family-divorce-child-support-draft-merges.mjs`.
+7. FIXED: applied four approved public-facing edits to `content-drafts/child-support-public-body-he.md`.
+8. DONE: created `project-control/family-divorce-child-support-draft-merge-2026-05-21.md`.
+9. DONE: created `project-control/family-divorce-child-support-draft-merge-2026-05-21.csv`.
+10. VERIFIED LOCAL: all four approved insertion blocks are present in the edited draft.
+11. VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce public-body drafts passed.
+12. VERIFIED: `/child-support/` now passes static QA with `1,650` words, all required links, no internal markers, no fake-trust hits and disclaimer status `PASS`.
+13. FIXED: high-risk merge rows are now resolved for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+14. NEXT: prepare the owner/legal/source review packet for the locally merged seven-page Family/Divorce upload candidates.
+15. BLOCKED: do not upload any Family/Divorce page until owner/legal/source approval and actual WordPress editor/database backup are complete.
+
+### ACTION-FAMILY-DIVORCE-CHILD-CUSTODY-MERGE-AND-DRAFT-001: Resolve and apply child-custody merge rows
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** `/child-custody/` was the remaining high-risk Family/Divorce page with the largest unresolved live-candidate set after property division. Resolving and applying safe draft merges reduces blind-overwrite risk.
+**Actions:**
+1. DONE: created `tools/resolve-family-divorce-child-custody-merge.mjs`.
+2. DONE: generated `reports/family-divorce-child-custody-merge-decisions-2026-05-21.csv`.
+3. DONE: created `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.md`.
+4. DONE: created `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.csv`.
+5. VERIFIED LOCAL: resolved all `35` current-live candidate rows for `/child-custody/`: `9` merge, `20` covered/no action and `6` skip.
+6. DONE: created `tools/apply-family-divorce-child-custody-draft-merges.mjs`.
+7. FIXED: applied nine approved public-facing edits to `content-drafts/child-custody-public-body-he.md`.
+8. DONE: created `project-control/family-divorce-child-custody-draft-merge-2026-05-21.md`.
+9. DONE: created `project-control/family-divorce-child-custody-draft-merge-2026-05-21.csv`.
+10. VERIFIED LOCAL: all nine insertion IDs are present in the edited draft.
+11. VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce public-body drafts passed.
+12. VERIFIED: `/child-custody/` now passes static QA with `1,748` words, all required links, no internal markers, no fake-trust hits and disclaimer status `PASS`.
+13. NEXT: resolve `/child-support/` high-risk merge rows.
+14. BLOCKED: do not upload `/child-custody/` until owner/legal/source approval and actual WordPress editor/database backup are complete.
+
+### ACTION-FAMILY-DIVORCE-PROPERTY-DIVISION-DRAFT-MERGE-001: Apply approved property-division draft edits
+**Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** The previous decision pass approved six concise `/divorce-property-division/` draft merges. Applying them locally moves this support page closer to controlled owner review without risking a blind overwrite.
+**Actions:**
+1. DONE: created `tools/apply-family-divorce-property-division-draft-merges.mjs`.
+2. DONE: applied six approved public-facing edits to `content-drafts/divorce-property-division-public-body-he.md`.
+3. DONE: created `project-control/family-divorce-property-division-draft-merge-2026-05-21.md`.
+4. DONE: created `project-control/family-divorce-property-division-draft-merge-2026-05-21.csv`.
+5. VERIFIED LOCAL: all six insertion IDs are present in the edited draft.
+6. VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce public-body drafts passed.
+7. VERIFIED: `/divorce-property-division/` now passes static QA with `1,851` words, all required links, no internal markers, no fake-trust hits and disclaimer status `PASS`.
+8. NEXT: resolve `/child-custody/` and `/child-support/` high-risk merge rows.
+9. BLOCKED: do not upload `/divorce-property-division/` until owner/legal/source approval and actual WordPress editor/database backup are complete.
+
+### ACTION-FAMILY-DIVORCE-PROPERTY-DIVISION-MERGE-DECISIONS-001: Resolve property-division live merge rows
+**Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** `/divorce-property-division/` had the largest number of live-only candidate rows in the high-risk merge worksheet and should be resolved first before any CMS overwrite is approved.
+**Actions:**
+1. DONE: created `tools/resolve-family-divorce-property-division-merge.mjs`.
+2. DONE: generated `reports/family-divorce-property-division-merge-decisions-2026-05-21.csv`.
+3. DONE: created `project-control/family-divorce-property-division-merge-decisions-2026-05-21.md`.
+4. DONE: created `project-control/family-divorce-property-division-merge-decisions-2026-05-21.csv`.
+5. VERIFIED LOCAL: resolved all `35` current-live candidate rows for `/divorce-property-division/`.
+6. VERIFIED: `6` rows require concise draft merges, `23` rows are covered/no action and `6` rows are UI/CTA/taxonomy/related-link fragments to skip.
+7. NEXT: apply the six concise merges to `content-drafts/divorce-property-division-public-body-he.md`, then rerun public-body static QA.
+8. BLOCKED: do not upload `/divorce-property-division/` until draft edits, static QA, owner/legal/source approval and CMS backup are complete.
+
+### ACTION-FAMILY-DIVORCE-HIGH-RISK-MERGE-REVIEW-001: Prepare merge worksheet for highest-risk pages
+**Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** The live-vs-draft comparison showed the largest overwrite risk on `/child-support/`, `/child-custody/` and `/divorce-property-division/`. These pages need section-level review before CMS upload.
+**Actions:**
+1. DONE: created `tools/prepare-family-divorce-merge-review.mjs`.
+2. DONE: generated `reports/family-divorce-high-risk-merge-review-2026-05-21.csv`.
+3. DONE: created `project-control/family-divorce-high-risk-merge-review-2026-05-21.md`.
+4. DONE: created `project-control/family-divorce-high-risk-merge-review-2026-05-21.csv`.
+5. VERIFIED LOCAL: worksheet contains `165` rows across the three high-risk pages.
+6. VERIFIED: `60` rows are draft base sections, `30` live sections require merge review, `46` live sections require partial-overlap review and `29` live sections appear covered by draft.
+7. NEXT: resolve `REVIEW_FOR_MERGE` and `PARTIAL_OVERLAP_REVIEW` rows into keep/merge/rewrite/skip decisions, starting with `/divorce-property-division/`.
+8. BLOCKED: do not upload these three pages as direct overwrites.
+
+### ACTION-FAMILY-DIVORCE-LIVE-VS-DRAFT-COMPARE-001: Compare live snapshots against clean drafts before overwrite
+**Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** The seven target pages are already live and indexable. The clean drafts passed static QA, but upload approval needs proof that a CMS overwrite will not discard stronger current-live sections.
+**Actions:**
+1. DONE: created `tools/compare-family-divorce-live-vs-drafts.mjs`.
+2. DONE: compared seven live public snapshots against seven clean public-body drafts.
+3. GENERATED: `reports/family-divorce-live-vs-draft-comparison-2026-05-21.csv`.
+4. DONE: created `project-control/family-divorce-live-vs-draft-comparison-2026-05-21.md`.
+5. DONE: created `project-control/family-divorce-live-vs-draft-comparison-2026-05-21.csv`.
+6. VERIFIED: live snapshots total `19,236` words; drafts total `11,673` words; draft reduction is `-7,563` words.
+7. BLOCKED: no blind overwrite; all seven pages require page-by-page merge review.
+8. HIGH PRIORITY MERGE REVIEW: `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+9. NEXT: run side-by-side merge review and produce final keep/merge/rewrite decisions before CMS upload approval.
+
+### ACTION-FAMILY-DIVORCE-LIVE-TARGET-BACKUP-001: Export public snapshots of live target pages before overwrite
+**Status:** COMPLETED / VERIFIED LIVE READ ONLY / NO PUBLIC CHANGES
+**Why:** The live pre-upload guard proved all seven Family/Divorce target slugs already exist and self-canonicalize. Before any CMS overwrite/update, the current live public content needs a local comparison snapshot.
+**Actions:**
+1. DONE: created `tools/export-family-divorce-live-targets.mjs`.
+2. DONE: exported public text snapshots and metadata for `7` target pages.
+3. GENERATED: `reports/family-divorce-live-target-backup-2026-05-21/manifest.csv`.
+4. GENERATED: seven public-text snapshot files under `reports/family-divorce-live-target-backup-2026-05-21/`.
+5. DONE: created `project-control/family-divorce-live-target-backup-2026-05-21.md`.
+6. DONE: created `project-control/family-divorce-live-target-backup-2026-05-21.csv`.
+7. VERIFIED LIVE: all seven pages returned `200`, stayed on their own final paths and exported as `PASS`.
+8. VERIFIED: captured `19,236` words of current live public text.
+9. LIMIT: this is not a WordPress database/editor backup; CMS export remains required before edits.
+10. NEXT: compare approved replacement bodies against these snapshots and keep/merge any current-live sections that are stronger than the new drafts.
+
+### ACTION-FAMILY-DIVORCE-LIVE-PREUPLOAD-GUARD-001: Check live Family/Divorce targets and protected sources before upload
+**Status:** COMPLETED / VERIFIED LIVE READ ONLY WITH BLOCKERS / NO PUBLIC CHANGES
+**Why:** Family/Divorce is the first staged upload cluster. Before updating live pages or planning redirects, the team needs a current public-state guard for target slugs and P0 traffic sources.
+**Actions:**
+1. DONE: created `tools/check-family-divorce-live-preupload.mjs`.
+2. DONE: checked `25` live URLs: `7` clean targets, `17` protected P0 source URLs and `1` protected DOCX asset.
+3. GENERATED: `reports/family-divorce-live-preupload-2026-05-21.csv`.
+4. DONE: created `project-control/family-divorce-live-preupload-guard-2026-05-21.md`.
+5. DONE: created `project-control/family-divorce-live-preupload-guard-2026-05-21.csv`.
+6. VERIFIED LIVE: `13` protected source/asset URLs passed live reachability checks.
+7. LIVE PRESENT REVIEW: all `7` clean target slugs already return `200` and self-canonicalize; backup/export current live content before any CMS update.
+8. BLOCKED LIVE: `5` protected source URLs return initial `301` to homepage and need restore/update-in-place/documented 301 decisions after GSC API confirmation.
+9. VERIFIED LOCAL: `node --check tools/check-family-divorce-live-preupload.mjs` passed.
+10. NEXT: investigate the five homepage redirects before approving Family/Divorce URL migration, sitemap changes, canonical/noindex decisions or CMS overwrite.
+
+### ACTION-FAMILY-DIVORCE-PUBLIC-BODY-STATIC-QA-001: Add repeatable static QA for Family/Divorce clean bodies
+**Status:** COMPLETED / VERIFIED LOCAL / NO PUBLIC CHANGES
+**Why:** Family/Divorce is the first staged content cluster, but upload readiness depends on several clean-body claims spread across docs. A repeatable local checker reduces risk before owner-approved CMS work.
+**Actions:**
+1. DONE: created `tools/check-family-divorce-public-bodies.mjs`.
+2. DONE: checked `7` public-body draft files.
+3. FIXED: removed one risky outcome-promise phrase from `content-drafts/divorce-lawyer-public-body-he.md`.
+4. VERIFIED LOCAL: all seven drafts passed minimum words, required internal links, internal marker, fake trust/review/outcome-promise and disclaimer checks.
+5. GENERATED: `reports/family-divorce-public-body-static-qa-2026-05-21.csv`.
+6. DONE: created `project-control/family-divorce-public-body-static-qa-2026-05-21.md`.
+7. DONE: created `project-control/family-divorce-public-body-static-qa-2026-05-21.csv`.
+8. UPDATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md`.
+9. NEXT: owner/legal/source approval and CMS backup remain required before any upload; GSC API remains required before any URL migration or redirect/canonical/noindex action.
+
+### ACTION-TRUST-ROUTE-EARLY-RENDER-001: Render trust routes before later redirect plugins
+**Status:** CODE FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED
+**Why:** `/contact/` and `/about/` are lead/trust paths. The latest live route triage reported initial `301` redirects to the homepage even though virtual trust-route content already exists in the theme, so the route renderer needed the same early priority used for protected money routes.
+**Actions:**
+1. DONE: reviewed the existing virtual trust-route handler for `/contact/`, `/about/` and `/editorial-policy/`.
+2. DONE: changed `inc/trust-routes.php` to render at `template_redirect` priority `-999999`.
+3. DONE: added `X-Justice-Route-Guard: trust-route-early-render` to trust-route responses.
+4. DONE: updated deployment marker to `2026-05-21-trust-route-early-render-v1`.
+5. DONE: created `project-control/trust-route-early-render-2026-05-21.md`.
+6. DONE: created `project-control/trust-route-early-render-2026-05-21.csv`.
+7. VERIFIED LOCAL: `php -l functions.php`, `php -l inc/trust-routes.php`, `node --check tools/check-live-traffic-priority.mjs`, `node --check tools/check-live-trust-routes.mjs`, task-board CSV parse and `git diff --check` passed; `git diff --check` reported normal Windows line-ending warnings only.
+8. PUSHED: commit `5576aa1` (`Render trust routes before redirects`) is on `main`.
+9. AFTER DEPLOY: rerun `node tools/check-live-traffic-priority.mjs` and `node tools/check-live-trust-routes.mjs`.
+10. BLOCKED: if `/contact/` or `/about/` still return initial `301` to `/` after deployment, inspect server/CDN/host-panel/early-plugin redirect rules because theme PHP is not getting control.
+
+### ACTION-PROTECTED-PRACTICE-ROUTE-EARLY-RENDER-001: Render controlled money routes before later redirect plugins
+**Status:** CODE FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED
+**Why:** The route triage proved several priority URLs are being redirected to the homepage before users or Google see route content. The repo-side mitigation is to render known controlled routes at a very early WordPress lifecycle point, while still recognizing server/CDN redirects may require admin cleanup.
+**Actions:**
+1. DONE: updated `inc/practice-landing.php` with a shared controlled route template resolver.
+2. DONE: controlled practice routes now render at `template_redirect` priority `-999999` and exit before later redirect plugins.
+3. DONE: controlled early route output sends `X-Justice-Route-Guard: controlled-practice-early-render`.
+4. DONE: updated `inc/html-sitemap.php` so `/site-map/` renders at priority `-999999`.
+5. DONE: updated deployment marker to `2026-05-21-protected-route-early-render-v1`.
+6. DONE: created `project-control/protected-practice-route-early-render-2026-05-21.md`.
+7. DONE: created `project-control/protected-practice-route-early-render-2026-05-21.csv`.
+8. VERIFIED LOCAL: PHP lint passed for `inc/practice-landing.php`, `inc/html-sitemap.php` and `functions.php`.
+9. NEXT: after uPress pull/cache clear, rerun `node tools/check-live-traffic-priority.mjs`.
+10. BLOCKED: if `/site-map/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/` or `/inheritance-lawyer/` still show initial `301` to `/`, inspect server/CDN/plugin redirect rules because PHP theme code is not getting control.
+11. UPDATED: `/contact/` and `/about/` are now handled by ACTION-TRUST-ROUTE-EARLY-RENDER-001; live verification remains blocked until uPress pull/cache clear.
+
+### ACTION-PUBLIC-ROUTE-HOME-REDIRECT-TRIAGE-001: Record initial redirect blockers for priority public routes
+**Status:** COMPLETED / VERIFIED LIVE / BLOCKED BY REDIRECT LAYER
+**Why:** The stricter traffic checker exposed homepage fallback on several money/trust routes. The next useful step was to separate initial redirect failures from final HTTP `200` homepage HTML so deployment/server cleanup can target the right layer.
+**Actions:**
+1. DONE: updated `tools/check-live-traffic-priority.mjs` to record initial manual redirect status and location.
+2. DONE: created `project-control/public-route-home-redirect-triage-2026-05-21.md`.
+3. DONE: created `project-control/public-route-home-redirect-triage-2026-05-21.csv`.
+4. GENERATED: `reports/traffic-priority-audit-2026-05-21-route-home-redirects.csv`.
+5. VERIFIED LIVE: `6` priority URLs returned initial `200`: `/`, `/articles/`, `/family-law/`, `/lawyers/?area=family-law`, `/criminal-defense-attorney/`, `/traffic-lawyer/`.
+6. BLOCKED LIVE: `6` priority URLs returned initial `301` to `/`: `/site-map/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/`, `/inheritance-lawyer/`, `/contact/`, `/about/`.
+7. VERIFIED LOCAL: `node --check tools/check-live-traffic-priority.mjs` passed.
+8. NEXT: after uPress pull/cache clear, rerun the checker. If the same initial `301` persists, remove the stale home-redirect rule from uPress/server/plugin/permalink manager.
+9. BLOCKED: no content upload or support-link publication should depend on the blocked routes until each returns initial `200` on its own final path.
+
+### ACTION-REAL-ESTATE-GUIDE-REDIRECT-GUARD-001: Guard recovered guide route from stale redirects
+**Status:** CODE FIXED / NOT LIVE VERIFIED / BLOCKED LIVE BEFORE DEPLOY
+**Why:** The real-estate public edit package excluded `/real-estate-lawyer-guide/` because the live URL resolves away from the controlled guide route. This must be repaired before the guide can join the real-estate internal-link/upload batch.
+**Actions:**
+1. DONE: created `project-control/real-estate-guide-redirect-guard-2026-05-21.md`.
+2. DONE: created `project-control/real-estate-guide-redirect-guard-2026-05-21.csv`.
+3. FIXED: `inc/routing-guards.php` blocks WordPress-level redirects from `/real-estate-lawyer-guide/` to `/` or `/real-estate-attorney`.
+4. FIXED: `tools/check-live-traffic-priority.mjs` now requires route checks to finish on their expected final path.
+5. VERIFIED LOCAL: `php -l inc/routing-guards.php` passed.
+6. VERIFIED LOCAL: `php -l functions.php` passed.
+7. VERIFIED LOCAL: `node --check tools/check-live-traffic-priority.mjs` passed.
+8. NOT LIVE VERIFIED: public route still needs uPress pull/cache clear and post-deploy final-path check.
+9. NEXT: after deploy, rerun `node tools/check-live-traffic-priority.mjs`; if the route still redirects before the new marker appears, inspect uPress/server/Redirection-plugin rules.
+10. BLOCKED: do not include `/real-estate-lawyer-guide/` in CMS/internal-link publication until it returns `200` on its own final path.
+11. ROUTE QA BACKLOG: the stricter checker also flags `/site-map/`, `/medical-malpractice-lawyer/`, `/inheritance-lawyer/`, `/contact/` and `/about/` as homepage-fallback final-path failures on the current live server.
+
+### ACTION-REAL-ESTATE-PUBLIC-EDIT-PACKAGE-001: Prepare exact public edit package for Israeli real-estate hub
+**Status:** COMPLETED / REVIEW ONLY / VERIFIED LIVE CHECKS
+**Why:** T361/T351 had mapped the real-estate hub and support roles. The next useful non-CMS step was exact owner-approval text and link placement so a later upload can be done as one controlled batch.
+**Actions:**
+1. DONE: created `project-control/real-estate-public-edit-package-2026-05-21.md`.
+2. DONE: created `project-control/real-estate-public-edit-package-2026-05-21.csv`.
+3. VERIFIED LIVE: `/real-estate-attorney/` returned `200`, stayed on its own URL and self-canonicalized.
+4. VERIFIED LIVE: five safe support URLs returned `200`, self-canonicalized and had `0` sampled links to `/real-estate-attorney/`.
+5. BLOCKED LIVE: `/real-estate-lawyer-guide/` currently resolves to homepage URL/canonical and must not be used in the edit batch until route QA is repaired.
+6. READY: exact Hebrew insert text is prepared for hub intro/navigation plus support-to-hub links from purchase/sale, registration, land-appreciation-tax, cost and appraiser pages.
+7. HOLD: family-overlap real-estate pages and foreign-investment pages are excluded from the first Israeli real-estate lawyer batch.
+8. NEXT: owner approves the exact insert package, then execute CMS edits one page at a time with before/after backups and post-upload fetch checks.
+9. BLOCKED: no public CMS body/title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap, lawyer, lead, payment, GSC/GA4 or wp-admin setting was changed.
+
+### ACTION-RECOMMENDATION-TOKEN-SAFETY-CHECKER-001: Add static safety checker for token intake
+**Status:** COMPLETED / TOOLING FIXED / VERIFIED LOCAL
+**Why:** Authenticated token QA is blocked by owner/admin access. The repo still needed a repeatable local guard so future recommendation, schema or SMS work cannot accidentally publish first-party submissions or add review schema too early.
+**Actions:**
+1. DONE: created `tools/check-recommendation-token-safety.mjs`.
+2. DONE: created `project-control/recommendation-token-safety-checker-2026-05-21.md`.
+3. DONE: created `project-control/recommendation-token-safety-checker-2026-05-21.csv`.
+4. VERIFIED LOCAL: `node --check tools/check-recommendation-token-safety.mjs` passed.
+5. VERIFIED LOCAL: `node tools/check-recommendation-token-safety.mjs` passed.
+6. VERIFIED LOCAL: checker confirms token submissions are draft-only, first-party, confirmed, `draft_review`, and do not set `approved_public`.
+7. VERIFIED LOCAL: checker confirms no `AggregateRating` or Review schema is added by the token flow.
+8. NEXT: run this checker before uPress pull and before any future reputation/schema/SMS change.
+9. BLOCKED: authenticated admin create-link QA, live token form QA, database write verification and email delivery verification still require owner/admin access.
+
+### ACTION-FIRST-PARTY-RECOMMENDATION-TOKEN-INTAKE-001: Add owner-controlled recommendation intake links
+**Status:** COMPLETED / CODE FIXED / NOT LIVE VERIFIED
+**Why:** T367 needed a safe first-party recommendation intake flow after the display guard. The system must collect real recommendations as drafts without publishing, importing Google review text or sending client messages automatically.
+**Actions:**
+1. DONE: updated `inc/lawyer-recommendations.php`.
+2. DONE: updated `inc/lawyer-onboarding.php`.
+3. DONE: created `project-control/first-party-recommendation-token-intake-2026-05-21.md`.
+4. DONE: created `project-control/first-party-recommendation-token-intake-2026-05-21.csv`.
+5. VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+6. VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+7. VERIFIED LOCAL: token submissions create draft first-party recommendations only; public display still requires manual `approved_public`, `confirmed`, `first_party`, published post and profile display opt-in.
+8. BLOCKED: authenticated admin create-link QA, live token form QA and public profile display QA require uPress pull/cache refresh plus owner/admin access.
+9. NEXT: run one controlled owner QA path with a real approved lawyer profile and a safe first-party test recommendation.
+10. BLOCKED: no Google API, Google OAuth, Google import, outbound client SMS/email, public Review schema, AggregateRating, live CMS record, redirect, sitemap or payment setting changed.
+
+### ACTION-FIRST-PARTY-RECOMMENDATION-DISPLAY-GUARD-001: Restrict public recommendations to approved first-party sources
+**Status:** COMPLETED / CODE FIXED / NOT LIVE VERIFIED
+**Why:** T367 had a first-party recommendation CPT and profile display path, but public queries needed a stricter source guard so Google-linked/manual-imported records cannot accidentally become public recommendation content.
+**Actions:**
+1. DONE: updated `inc/lawyer-recommendations.php`.
+2. DONE: created `project-control/public-recommendations-display-guard-2026-05-21.md`.
+3. DONE: created `project-control/public-recommendations-display-guard-2026-05-21.csv`.
+4. VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+5. VERIFIED: public recommendation queries now require linked lawyer ID, `approved_public`, `confirmed` permission and `recommendation_source_type=first_party` by default.
+6. BLOCKED: live/public verification requires uPress pull/cache refresh and a real approved first-party recommendation test record.
+7. NEXT: build recommendation request token/intake flow, then run authenticated owner QA.
+8. BLOCKED: no Google API connection, Google review import, outbound SMS/email, public review schema, AggregateRating, CMS database row, recommendation/lawyer/customer record, payment setting, redirect, sitemap or outreach message was changed.
+
+### ACTION-LAWYER-PLATFORM-OWNER-WALKTHROUGH-001: Complete live-aware owner guide for lawyer platform
+**Status:** COMPLETED / VERIFIED DOCS / READ-ONLY LIVE CHECKS
+**Why:** The owner walkthrough still described a PR-era state, while the live repo now includes Lawyer Onboarding command center, prospect follow-up views, Outreach Links handoff, reputation workflow and LegalTech lead-form prefill.
+**Actions:**
+1. DONE: updated `project-control/lawyer-platform-owner-walkthrough-2026-05-20.md`.
+2. VERIFIED LIVE: `/`, `/lawyer-plans/`, `/lawyer-registration/`, `/lawyer-dashboard/` and `/lawyers/` returned `200`.
+3. VERIFIED LIVE: `/legal-tools/` still resolves to the homepage, so direct LegalTech archive promotion remains blocked.
+4. VERIFIED LIVE: homepage source contains `legaltech-tools`, `AI Console`, `ask-lawyer` and `data-lead-message`; it has no direct `/legal-tools/` archive link and no page-level `noindex`.
+5. VERIFIED PRIVATE: unauthenticated access to Lawyer Onboarding, Lawyer Prospects and Outreach Links redirects to WordPress login.
+6. COMPLETED: task-board item `T368`.
+7. NEXT: owner should run one authenticated admin walkthrough, then either start the first controlled 10-20 lawyer outreach batch or keep preparing the reputation/public-profile display gate.
+8. BLOCKED: no public CMS page, database row, lawyer, lead, prospect, product, payment, redirect, sitemap, taxonomy, title/H1/meta or outreach message was changed.
 
 ### ACTION-WAVE-1B-SUPPORT-METADATA-PACKAGE-001: Prepare metadata for six Family/Divorce support pages
 **Status:** COMPLETED / REVIEW ONLY / VERIFIED PLANNING

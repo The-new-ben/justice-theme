@@ -1,0 +1,12 @@
+metric,value
+checked_urls,80
+visible_ben_attribution_yes,45
+schema_ben_author_yes,45
+no_ben_attribution_detected,35
+fetch_errors,0
+report_path,reports/live-author-attribution-audit-2026-05-19.csv
+script_path,tools/check-live-author-attribution.mjs
+primary_linear_issue,HAD-62
+recommended_next_action,"Merge/deploy PR #8 after review, rerun audit, then treat remaining Ben attribution as CMS/plugin/template cleanup"
+public_changes,no
+upress_pull_needed,no

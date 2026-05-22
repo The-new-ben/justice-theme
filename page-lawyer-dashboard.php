@@ -102,6 +102,14 @@ $primary_profile_id     = $profile_ids ? (int) $profile_ids[0] : 0;
 $primary_completeness   = $primary_profile_id ? justice_theme_lawyer_dashboard_profile_completeness( $primary_profile_id ) : 0;
 $activation_status      = $primary_profile_id ? ( get_post_meta( $primary_profile_id, 'activation_status', true ) ?: 'registered' ) : 'registered';
 $subscription_status    = $primary_profile_id ? ( get_post_meta( $primary_profile_id, 'subscription_status', true ) ?: 'pending' ) : 'pending';
+$growth_assets          = $primary_profile_id ? justice_theme_lawyer_dashboard_growth_assets( $primary_profile_id, $lead_count, $content_request_count, $profile_views_total ) : array();
+$completed_growth_assets = count( array_filter( $growth_assets, static function ( array $asset ): bool {
+	return ! empty( $asset['done'] );
+} ) );
+$next_growth_asset = array_values( array_filter( $growth_assets, static function ( array $asset ): bool {
+	return empty( $asset['done'] ) && ! empty( $asset['action_url'] ) && ! empty( $asset['action_label'] );
+} ) );
+$next_growth_asset = $next_growth_asset[0] ?? null;
 $first_value_steps      = array(
 	array(
 		'label' => __( 'פרופיל מקושר לחשבון', 'justice-theme' ),
@@ -130,6 +138,150 @@ $completed_first_value_steps = count( array_filter( $first_value_steps, static f
 $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 'trialing' ), true )
 	? __( 'תשלום פעיל לפי סטטוס המנוי.', 'justice-theme' )
 	: __( 'תשלום וסליקה עדיין לא פעילים עד אישור מסחרי, חשבוניות וכללי חיוב.', 'justice-theme' );
+$dashboard_google_review_url    = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'google_review_request_url', true ) : '';
+$dashboard_google_business_url  = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'google_business_profile_url', true ) : '';
+$dashboard_review_profile_title = $primary_profile_id ? get_the_title( $primary_profile_id ) : '';
+$dashboard_review_message       = '';
+$dashboard_review_whatsapp_url  = '';
+$dashboard_lead_stage_options   = function_exists( 'justice_theme_lawyer_dashboard_lead_stage_options' ) ? justice_theme_lawyer_dashboard_lead_stage_options() : array(
+	'not_started'       => __( 'New', 'justice-theme' ),
+	'first_attempt'     => __( 'First attempt', 'justice-theme' ),
+	'contacted'         => __( 'Contacted', 'justice-theme' ),
+	'consult_scheduled' => __( 'Consultation scheduled', 'justice-theme' ),
+	'won'               => __( 'Won', 'justice-theme' ),
+	'lost'              => __( 'Not fit / lost', 'justice-theme' ),
+);
+
+if ( $dashboard_google_review_url ) {
+	$dashboard_review_message = sprintf(
+		/* translators: 1: lawyer/profile name, 2: Google review request URL. */
+		__( 'Hello, this is %1$s. If you were happy with the service, I would appreciate a short Google review here: %2$s Thank you.', 'justice-theme' ),
+		$dashboard_review_profile_title ?: __( 'the firm', 'justice-theme' ),
+		$dashboard_google_review_url
+	);
+	$dashboard_review_whatsapp_url = 'https://wa.me/?text=' . rawurlencode( wp_strip_all_tags( $dashboard_review_message ) );
+}
+
+$lead_pipeline = array(
+	'new'          => array(
+		'label'    => __( 'New', 'justice-theme' ),
+		'statuses' => array( 'new', 'assigned', 'qualified', 'pending', 'not_started', '' ),
+		'count'    => 0,
+		'latest'   => '',
+	),
+	'response'     => array(
+		'label'    => __( 'First response', 'justice-theme' ),
+		'statuses' => array( 'first_attempt', 'contacted', 'in_progress' ),
+		'count'    => 0,
+		'latest'   => '',
+	),
+	'consultation' => array(
+		'label'    => __( 'Consultation', 'justice-theme' ),
+		'statuses' => array( 'consult_scheduled', 'consultation_scheduled', 'meeting_scheduled', 'pending_retainer' ),
+		'count'    => 0,
+		'latest'   => '',
+	),
+	'won'          => array(
+		'label'    => __( 'Won', 'justice-theme' ),
+		'statuses' => array( 'won', 'converted', 'closed', 'retained' ),
+		'count'    => 0,
+		'latest'   => '',
+	),
+	'not_fit'      => array(
+		'label'    => __( 'Not fit', 'justice-theme' ),
+		'statuses' => array( 'lost', 'not_qualified', 'rejected', 'spam' ),
+		'count'    => 0,
+		'latest'   => '',
+	),
+);
+$lead_response_needed_count = 0;
+$lead_response_overdue_count = 0;
+$lead_value_now             = current_datetime();
+$lead_value_month_start     = $lead_value_now->modify( 'first day of this month' )->setTime( 0, 0, 0 )->getTimestamp();
+$lead_value_month_end       = $lead_value_now->getTimestamp();
+$lead_value_window_label    = date_i18n( 'F Y', $lead_value_month_end );
+$lead_value_metrics         = array(
+	'assigned'       => 0,
+	'first_response' => 0,
+	'consultations'  => 0,
+	'retained'       => 0,
+	'closed'         => 0,
+);
+$lead_value_metric_ids      = ( post_type_exists( 'justice_lead' ) && $profile_ids )
+	? get_posts( array(
+		'post_type'      => 'justice_lead',
+		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+		'posts_per_page' => 200,
+		'fields'         => 'ids',
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'meta_query'     => array(
+			array(
+				'key'     => 'assigned_lawyer_id',
+				'value'   => $profile_ids,
+				'compare' => 'IN',
+			),
+		),
+	) )
+	: array();
+$lead_value_in_window       = static function ( $timestamp ) use ( $lead_value_month_start, $lead_value_month_end ): bool {
+	if ( ! $timestamp ) {
+		return false;
+	}
+
+	if ( ! is_numeric( $timestamp ) ) {
+		$timestamp = strtotime( (string) $timestamp );
+	}
+
+	$timestamp = (int) $timestamp;
+	return $timestamp >= $lead_value_month_start && $timestamp <= $lead_value_month_end;
+};
+
+foreach ( $lead_value_metric_ids as $lead_metric_id ) {
+	$lead_metric_id = (int) $lead_metric_id;
+	if ( $lead_value_in_window( get_post_time( 'U', true, $lead_metric_id ) ) ) {
+		$lead_value_metrics['assigned']++;
+	}
+	if ( $lead_value_in_window( get_post_meta( $lead_metric_id, 'first_contact_at', true ) ) ) {
+		$lead_value_metrics['first_response']++;
+	}
+	if ( $lead_value_in_window( get_post_meta( $lead_metric_id, 'consultation_scheduled_at', true ) ) ) {
+		$lead_value_metrics['consultations']++;
+	}
+	if ( $lead_value_in_window( get_post_meta( $lead_metric_id, 'retained_at', true ) ) ) {
+		$lead_value_metrics['retained']++;
+	}
+	if ( $lead_value_in_window( get_post_meta( $lead_metric_id, 'closed_at', true ) ) ) {
+		$lead_value_metrics['closed']++;
+	}
+}
+
+if ( $leads && $leads->posts ) {
+	foreach ( $leads->posts as $lead_post ) {
+		$lead_stage_status = sanitize_key( (string) ( get_post_meta( $lead_post->ID, 'follow_up_status', true ) ?: get_post_meta( $lead_post->ID, 'lead_status', true ) ) );
+		$lead_created_at   = (int) get_post_time( 'U', true, $lead_post->ID );
+		$lead_minutes_old  = $lead_created_at ? max( 0, (int) floor( ( time() - $lead_created_at ) / MINUTE_IN_SECONDS ) ) : 0;
+		if ( in_array( $lead_stage_status, array( '', 'new', 'assigned', 'qualified', 'pending', 'not_started' ), true ) ) {
+			$lead_response_needed_count++;
+			if ( $lead_minutes_old > 15 ) {
+				$lead_response_overdue_count++;
+			}
+		}
+
+		$lead_stage_key    = 'new';
+		foreach ( $lead_pipeline as $stage_key => $stage ) {
+			if ( in_array( $lead_stage_status, $stage['statuses'], true ) ) {
+				$lead_stage_key = $stage_key;
+				break;
+			}
+		}
+
+		$lead_pipeline[ $lead_stage_key ]['count']++;
+		if ( '' === $lead_pipeline[ $lead_stage_key ]['latest'] ) {
+			$lead_pipeline[ $lead_stage_key ]['latest'] = get_the_title( $lead_post );
+		}
+	}
+}
 ?>
 
 <section class="lawyer-dashboard section">
@@ -197,6 +349,24 @@ $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 
 
 			<div class="lawyer-dashboard__grid">
 				<div class="lawyer-dashboard__main">
+					<?php if ( isset( $_GET['review_campaign'] ) && 'sent' === $_GET['review_campaign'] ) : ?>
+						<div class="legaltool-request__notice"><?php esc_html_e( 'Review campaign request saved. Nothing will be sent to clients until owner review and lawyer approval.', 'justice-theme' ); ?></div>
+					<?php elseif ( isset( $_GET['review_campaign'] ) ) : ?>
+						<div class="lawyer-registration__error"><?php esc_html_e( 'Review campaign request was not saved. Please choose a linked profile.', 'justice-theme' ); ?></div>
+					<?php endif; ?>
+
+					<?php if ( isset( $_GET['supplier_request'] ) && 'sent' === $_GET['supplier_request'] ) : ?>
+						<div class="legaltool-request__notice"><?php esc_html_e( 'Supplier/service request saved. Jus-Tice will match it only after owner review and supplier quality check.', 'justice-theme' ); ?></div>
+					<?php elseif ( isset( $_GET['supplier_request'] ) ) : ?>
+						<div class="lawyer-registration__error"><?php esc_html_e( 'Supplier/service request was not saved. Please choose a linked profile.', 'justice-theme' ); ?></div>
+					<?php endif; ?>
+
+					<?php if ( isset( $_GET['lead_stage'] ) && 'updated' === $_GET['lead_stage'] ) : ?>
+						<div class="legaltool-request__notice"><?php esc_html_e( 'Lead stage updated. The pipeline and first-response tracking will refresh from this status.', 'justice-theme' ); ?></div>
+					<?php elseif ( isset( $_GET['lead_stage'] ) ) : ?>
+						<div class="lawyer-registration__error"><?php esc_html_e( 'Lead stage was not updated. Only assigned leads can be changed from this dashboard.', 'justice-theme' ); ?></div>
+					<?php endif; ?>
+
 					<?php if ( isset( $_GET['content_request'] ) && 'sent' === $_GET['content_request'] ) : ?>
 						<div class="legaltool-request__notice"><?php esc_html_e( 'בקשת התוכן התקבלה כטיוטה ותיבדק לפני כל פרסום.', 'justice-theme' ); ?></div>
 					<?php elseif ( isset( $_GET['content_request'] ) ) : ?>
@@ -237,7 +407,43 @@ $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 
 						</article>
 					<?php endwhile; wp_reset_postdata(); ?>
 
-					<section class="lawyer-dashboard-content-request">
+					<section class="lawyer-dashboard-growth" aria-labelledby="lawyer-dashboard-growth-title">
+						<div class="lawyer-dashboard-growth__header">
+							<div>
+								<p class="section-header__eyebrow"><?php esc_html_e( 'Reputation and authority cockpit', 'justice-theme' ); ?></p>
+								<h2 id="lawyer-dashboard-growth-title"><?php esc_html_e( 'What makes this profile sell?', 'justice-theme' ); ?></h2>
+								<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Inspired by leading lawyer platforms: claimed profile, real photo, external proof, fresh reviews, practical FAQs, content, exposure and leads. We track only real signals.', 'justice-theme' ); ?></p>
+							</div>
+							<div class="lawyer-dashboard-growth__score">
+								<strong><?php echo esc_html( $completed_growth_assets . '/' . count( $growth_assets ) ); ?></strong>
+								<span><?php esc_html_e( 'growth assets ready', 'justice-theme' ); ?></span>
+							</div>
+						</div>
+						<?php if ( $next_growth_asset ) : ?>
+							<div class="lawyer-dashboard-growth__next">
+								<div>
+									<strong><?php esc_html_e( 'Next best action', 'justice-theme' ); ?></strong>
+									<span><?php echo esc_html( $next_growth_asset['label'] ); ?></span>
+								</div>
+								<a class="button button--gold" href="<?php echo esc_url( $next_growth_asset['action_url'] ); ?>"><?php echo esc_html( $next_growth_asset['action_label'] ); ?></a>
+							</div>
+						<?php endif; ?>
+						<?php if ( $growth_assets ) : ?>
+							<ul class="lawyer-dashboard-growth__assets">
+								<?php foreach ( $growth_assets as $asset ) : ?>
+									<li class="<?php echo esc_attr( $asset['done'] ? 'is-complete' : 'is-pending' ); ?>">
+										<strong><?php echo esc_html( $asset['label'] ); ?></strong>
+										<span><?php echo esc_html( $asset['why'] ); ?></span>
+										<?php if ( empty( $asset['done'] ) && ! empty( $asset['action_url'] ) && ! empty( $asset['action_label'] ) ) : ?>
+											<a href="<?php echo esc_url( $asset['action_url'] ); ?>"><?php echo esc_html( $asset['action_label'] ); ?></a>
+										<?php endif; ?>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+						<?php endif; ?>
+					</section>
+
+					<section class="lawyer-dashboard-content-request" id="profile-update-request">
 						<h2><?php esc_html_e( 'בקשת עדכון למיני-סייט', 'justice-theme' ); ?></h2>
 						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'שלחו נוסח חדש לכותרת, שירותים, תהליך עבודה, וידאו או שאלות נפוצות. העדכון נשמר לבדיקה בלבד ולא משנה את הפרופיל הציבורי עד אישור.', 'justice-theme' ); ?></p>
 						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">
@@ -253,6 +459,12 @@ $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 
 
 							<label for="profile-headline"><?php esc_html_e( 'כותרת ראשית מוצעת', 'justice-theme' ); ?></label>
 							<input id="profile-headline" type="text" name="profile_headline">
+
+							<label for="profile-bar-number"><?php esc_html_e( 'Bar license number', 'justice-theme' ); ?></label>
+							<input id="profile-bar-number" type="text" name="profile_bar_number" inputmode="numeric">
+
+							<label for="profile-website"><?php esc_html_e( 'Website or external proof link', 'justice-theme' ); ?></label>
+							<input id="profile-website" type="url" name="profile_website">
 
 							<label for="profile-services"><?php esc_html_e( 'שירותים מרכזיים', 'justice-theme' ); ?></label>
 							<textarea id="profile-services" name="profile_services" rows="4"></textarea>
@@ -270,16 +482,233 @@ $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 
 						</form>
 					</section>
 
-					<h2><?php esc_html_e( 'לידים אחרונים', 'justice-theme' ); ?></h2>
+					<section class="lawyer-dashboard-content-request" id="review-campaign-request">
+						<h2><?php esc_html_e( 'Google reviews and recommendations', 'justice-theme' ); ?></h2>
+						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Ask Jus-Tice to prepare a review campaign. This does not send messages yet. The owner reviews the request, verifies the Google Business review link, and only then sends approved client requests.', 'justice-theme' ); ?></p>
+						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">
+							<input type="hidden" name="action" value="justice_lawyer_review_campaign_request">
+							<?php wp_nonce_field( 'justice_lawyer_review_campaign', 'justice_lawyer_review_campaign_nonce' ); ?>
+
+							<label for="review-profile"><?php esc_html_e( 'Linked profile', 'justice-theme' ); ?></label>
+							<select id="review-profile" name="lawyer_profile_id" required>
+								<?php foreach ( $profile_ids as $profile_id ) : ?>
+									<option value="<?php echo esc_attr( $profile_id ); ?>"><?php echo esc_html( get_the_title( $profile_id ) ); ?></option>
+								<?php endforeach; ?>
+							</select>
+
+							<label for="review-client-group"><?php esc_html_e( 'Who should receive the first request?', 'justice-theme' ); ?></label>
+							<input id="review-client-group" type="text" name="review_client_group" placeholder="<?php esc_attr_e( 'Example: clients from the last 90 days after closed matters', 'justice-theme' ); ?>">
+
+							<label for="review-google-business-profile-url"><?php esc_html_e( 'Google Business profile URL', 'justice-theme' ); ?></label>
+							<input id="review-google-business-profile-url" type="url" name="google_business_profile_url" value="<?php echo esc_attr( $dashboard_google_business_url ); ?>" placeholder="<?php esc_attr_e( 'Paste the public Google Maps / Business profile link', 'justice-theme' ); ?>">
+
+							<label for="review-google-request-url"><?php esc_html_e( 'Google review request URL', 'justice-theme' ); ?></label>
+							<input id="review-google-request-url" type="url" name="google_review_request_url" value="<?php echo esc_attr( $dashboard_google_review_url ); ?>" placeholder="<?php esc_attr_e( 'Example: https://search.google.com/local/writereview?placeid=...', 'justice-theme' ); ?>">
+
+							<label for="review-google-place-id"><?php esc_html_e( 'Google Place ID', 'justice-theme' ); ?></label>
+							<input id="review-google-place-id" type="text" name="google_place_id" value="<?php echo esc_attr( $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'google_place_id', true ) : '' ); ?>" placeholder="<?php esc_attr_e( 'Optional: ChIJ...', 'justice-theme' ); ?>">
+
+							<label for="review-campaign-notes"><?php esc_html_e( 'Notes for the owner', 'justice-theme' ); ?></label>
+							<textarea id="review-campaign-notes" name="review_campaign_notes" rows="4" placeholder="<?php esc_attr_e( 'Add Google Business link, preferred wording, or sensitive cases to avoid.', 'justice-theme' ); ?>"></textarea>
+
+							<button type="submit" class="button button--gold"><?php esc_html_e( 'Request review campaign setup', 'justice-theme' ); ?></button>
+						</form>
+
+						<div class="lawyer-dashboard-review-kit">
+							<h3><?php esc_html_e( 'Fast review request kit', 'justice-theme' ); ?></h3>
+							<?php if ( $dashboard_google_review_url ) : ?>
+								<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Use this with real clients only, after the matter or a meaningful service moment. Do not offer discounts, gifts, or pressure for a positive review.', 'justice-theme' ); ?></p>
+								<textarea readonly rows="4" onclick="this.select()"><?php echo esc_textarea( $dashboard_review_message ); ?></textarea>
+								<div class="lawyer-dashboard-review-kit__actions">
+									<a class="button button--gold" href="<?php echo esc_url( $dashboard_review_whatsapp_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Open WhatsApp message', 'justice-theme' ); ?></a>
+									<a class="button button--outline" href="<?php echo esc_url( $dashboard_google_review_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'Open Google review link', 'justice-theme' ); ?></a>
+									<?php if ( $dashboard_google_business_url ) : ?>
+										<a class="button button--outline" href="<?php echo esc_url( $dashboard_google_business_url ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'View Google profile', 'justice-theme' ); ?></a>
+									<?php endif; ?>
+								</div>
+							<?php else : ?>
+								<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Add your Google review request URL above first. In Google Business Profile, open Reviews, choose Get more reviews, copy the link, paste it here, and submit.', 'justice-theme' ); ?></p>
+							<?php endif; ?>
+						</div>
+					</section>
+
+					<section class="lawyer-dashboard-content-request" id="supplier-request">
+						<h2><?php esc_html_e( 'Vetted services for your firm', 'justice-theme' ); ?></h2>
+						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Tell Jus-Tice what professional supplier you need. We use these requests to match lawyers with checked providers and to build partner offers inside the platform. Nothing is sent to a supplier before owner review.', 'justice-theme' ); ?></p>
+						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">
+							<input type="hidden" name="action" value="justice_lawyer_supplier_request">
+							<?php wp_nonce_field( 'justice_lawyer_supplier_request', 'justice_lawyer_supplier_request_nonce' ); ?>
+
+							<label for="supplier-profile"><?php esc_html_e( 'Linked profile', 'justice-theme' ); ?></label>
+							<select id="supplier-profile" name="lawyer_profile_id" required>
+								<?php foreach ( $profile_ids as $profile_id ) : ?>
+									<option value="<?php echo esc_attr( $profile_id ); ?>"><?php echo esc_html( get_the_title( $profile_id ) ); ?></option>
+								<?php endforeach; ?>
+							</select>
+
+							<label for="supplier-category"><?php esc_html_e( 'Service needed', 'justice-theme' ); ?></label>
+							<select id="supplier-category" name="supplier_category" required>
+								<?php
+								$supplier_categories = function_exists( 'justice_theme_lawyer_supplier_categories' ) ? justice_theme_lawyer_supplier_categories() : array( 'other' => __( 'Other', 'justice-theme' ) );
+								foreach ( $supplier_categories as $category_key => $category_label ) :
+									?>
+									<option value="<?php echo esc_attr( $category_key ); ?>"><?php echo esc_html( $category_label ); ?></option>
+								<?php endforeach; ?>
+							</select>
+
+							<label for="supplier-urgency"><?php esc_html_e( 'Urgency', 'justice-theme' ); ?></label>
+							<select id="supplier-urgency" name="supplier_urgency">
+								<option value="urgent"><?php esc_html_e( 'Urgent', 'justice-theme' ); ?></option>
+								<option value="this_month"><?php esc_html_e( 'This month', 'justice-theme' ); ?></option>
+								<option value="researching"><?php esc_html_e( 'Researching options', 'justice-theme' ); ?></option>
+								<option value="not_sure"><?php esc_html_e( 'Not sure yet', 'justice-theme' ); ?></option>
+							</select>
+
+							<label for="supplier-request-notes"><?php esc_html_e( 'What do you need?', 'justice-theme' ); ?></label>
+							<textarea id="supplier-request-notes" name="supplier_request_notes" rows="4" placeholder="<?php esc_attr_e( 'Example: certified translation for court documents, shared office room in Tel Aviv, video production, expert witness, CRM setup.', 'justice-theme' ); ?>"></textarea>
+
+							<button type="submit" class="button button--gold"><?php esc_html_e( 'Request matched provider', 'justice-theme' ); ?></button>
+						</form>
+					</section>
+
+					<section class="lawyer-dashboard-pipeline" aria-labelledby="lawyer-dashboard-pipeline-title">
+						<div class="lawyer-dashboard-pipeline__header">
+							<div>
+								<p class="section-header__eyebrow"><?php esc_html_e( 'Lead pipeline', 'justice-theme' ); ?></p>
+								<h2 id="lawyer-dashboard-pipeline-title"><?php esc_html_e( 'Where your leads stand now', 'justice-theme' ); ?></h2>
+							</div>
+							<span><?php printf( esc_html__( '%1$s assigned leads · %2$s need response · %3$s overdue', 'justice-theme' ), esc_html( (string) $lead_count ), esc_html( (string) $lead_response_needed_count ), esc_html( (string) $lead_response_overdue_count ) ); ?></span>
+						</div>
+						<div class="lawyer-dashboard-pipeline__stages">
+							<?php foreach ( $lead_pipeline as $stage ) : ?>
+								<article>
+									<strong><?php echo esc_html( (string) $stage['count'] ); ?></strong>
+									<span><?php echo esc_html( $stage['label'] ); ?></span>
+									<small><?php echo $stage['latest'] ? esc_html( $stage['latest'] ) : esc_html__( 'No leads in this stage', 'justice-theme' ); ?></small>
+								</article>
+							<?php endforeach; ?>
+						</div>
+					</section>
+
+					<section class="lawyer-dashboard-value-snapshot" aria-labelledby="lawyer-dashboard-value-snapshot-title">
+						<div class="lawyer-dashboard-pipeline__header">
+							<div>
+								<p class="section-header__eyebrow"><?php esc_html_e( 'Monthly value snapshot', 'justice-theme' ); ?></p>
+								<h2 id="lawyer-dashboard-value-snapshot-title"><?php printf( esc_html__( 'What Jus-Tice created in %s', 'justice-theme' ), esc_html( $lead_value_window_label ) ); ?></h2>
+							</div>
+							<span><?php esc_html_e( 'Visible proof for your next report', 'justice-theme' ); ?></span>
+						</div>
+						<div class="lawyer-dashboard-value-snapshot__grid">
+							<article>
+								<strong><?php echo esc_html( (string) $lead_value_metrics['assigned'] ); ?></strong>
+								<span><?php esc_html_e( 'Assigned leads', 'justice-theme' ); ?></span>
+							</article>
+							<article>
+								<strong><?php echo esc_html( (string) $lead_value_metrics['first_response'] ); ?></strong>
+								<span><?php esc_html_e( 'First responses', 'justice-theme' ); ?></span>
+							</article>
+							<article>
+								<strong><?php echo esc_html( (string) $lead_value_metrics['consultations'] ); ?></strong>
+								<span><?php esc_html_e( 'Consultations set', 'justice-theme' ); ?></span>
+							</article>
+							<article>
+								<strong><?php echo esc_html( (string) $lead_value_metrics['retained'] ); ?></strong>
+								<span><?php esc_html_e( 'Clients retained', 'justice-theme' ); ?></span>
+							</article>
+							<article>
+								<strong><?php echo esc_html( (string) $lead_value_metrics['closed'] ); ?></strong>
+								<span><?php esc_html_e( 'Closed / not fit', 'justice-theme' ); ?></span>
+							</article>
+						</div>
+					</section>
+
+					<h2><?php esc_html_e( 'Recent leads', 'justice-theme' ); ?></h2>
 					<?php if ( $leads && $leads->have_posts() ) : ?>
 						<div class="lawyer-dashboard-leads">
 							<?php while ( $leads->have_posts() ) : $leads->the_post(); ?>
-								<?php $lead_id = get_the_ID(); ?>
+								<?php
+								$lead_id             = get_the_ID();
+								$lead_name           = get_post_meta( $lead_id, 'visitor_name', true ) ?: get_the_title();
+								$lead_phone          = (string) ( get_post_meta( $lead_id, 'visitor_phone', true ) ?: get_post_meta( $lead_id, 'lead_phone', true ) );
+								$lead_email          = (string) ( get_post_meta( $lead_id, 'visitor_email', true ) ?: get_post_meta( $lead_id, 'lead_email', true ) );
+								$lead_phone_link     = $lead_phone && function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( $lead_phone ) : '';
+								$lead_phone_link     = $lead_phone_link ?: ( $lead_phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', $lead_phone ) : '' );
+								$lead_whatsapp_link  = $lead_phone && function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( $lead_phone ) : '';
+								if ( $lead_whatsapp_link ) {
+									$lead_whatsapp_link = add_query_arg(
+										'text',
+										sprintf(
+											'שלום %s, קיבלתי את הפנייה שלך דרך Jus-Tice ואשמח לבדוק איך אפשר לעזור.',
+											$lead_name
+										),
+										$lead_whatsapp_link
+									);
+								}
+								$lead_email_link = $lead_email ? add_query_arg(
+									array(
+										'subject' => 'פנייתך דרך Jus-Tice',
+										'body'    => sprintf( "שלום %s,\n\nקיבלתי את הפנייה שלך דרך Jus-Tice ואשמח לבדוק איך אפשר לעזור.\n\nבברכה,\n%s", $lead_name, $dashboard_review_profile_title ?: get_bloginfo( 'name' ) ),
+									),
+									'mailto:' . $lead_email
+								) : '';
+								$current_lead_stage  = sanitize_key( (string) ( get_post_meta( $lead_id, 'follow_up_status', true ) ?: get_post_meta( $lead_id, 'lead_status', true ) ?: 'not_started' ) );
+								if ( ! array_key_exists( $current_lead_stage, $dashboard_lead_stage_options ) && in_array( $current_lead_stage, array( 'new', 'assigned', 'qualified', 'pending', '' ), true ) ) {
+									$current_lead_stage = 'not_started';
+								}
+								$current_stage_label = $dashboard_lead_stage_options[ $current_lead_stage ] ?? ( get_post_meta( $lead_id, 'lead_status', true ) ?: 'new' );
+								$lead_created_at     = (int) get_post_time( 'U', true, $lead_id );
+								$lead_minutes_old    = $lead_created_at ? max( 0, (int) floor( ( time() - $lead_created_at ) / MINUTE_IN_SECONDS ) ) : 0;
+								$lead_next_action    = __( 'Track', 'justice-theme' );
+								$lead_action_class   = 'is-muted';
+								if ( in_array( $current_lead_stage, array( 'not_started', 'new', 'assigned', 'qualified', 'pending', '' ), true ) ) {
+									$lead_next_action  = $lead_minutes_old > 15 ? __( 'Call now - overdue', 'justice-theme' ) : __( 'Call within 15 min', 'justice-theme' );
+									$lead_action_class = $lead_minutes_old > 15 ? 'is-urgent' : 'is-fresh';
+								} elseif ( in_array( $current_lead_stage, array( 'first_attempt', 'contacted' ), true ) ) {
+									$lead_next_action  = __( 'Follow up / book consult', 'justice-theme' );
+									$lead_action_class = 'is-working';
+								} elseif ( 'consult_scheduled' === $current_lead_stage ) {
+									$lead_next_action  = __( 'Prepare consultation', 'justice-theme' );
+									$lead_action_class = 'is-working';
+								} elseif ( 'won' === $current_lead_stage ) {
+									$lead_next_action = __( 'Client retained', 'justice-theme' );
+								} elseif ( 'lost' === $current_lead_stage ) {
+									$lead_next_action = __( 'Closed', 'justice-theme' );
+								}
+								?>
 								<article>
-									<strong><?php echo esc_html( get_post_meta( $lead_id, 'visitor_name', true ) ?: get_the_title() ); ?></strong>
+									<strong><?php echo esc_html( $lead_name ); ?></strong>
 									<span><?php echo esc_html( get_post_meta( $lead_id, 'legal_area', true ) ?: get_post_meta( $lead_id, 'lead_area', true ) ?: '-' ); ?></span>
-									<span><?php echo esc_html( get_post_meta( $lead_id, 'lead_status', true ) ?: 'new' ); ?></span>
+									<span>
+										<?php echo esc_html( $current_stage_label ); ?>
+										<small class="lawyer-dashboard-leads__next-action <?php echo esc_attr( $lead_action_class ); ?>"><?php echo esc_html( $lead_next_action ); ?></small>
+									</span>
 									<time datetime="<?php echo esc_attr( get_the_date( DATE_W3C ) ); ?>"><?php echo esc_html( get_the_date() ); ?></time>
+									<div class="lawyer-dashboard-leads__contact">
+										<?php if ( $lead_phone_link ) : ?>
+											<a class="button" href="<?php echo esc_url( $lead_phone_link ); ?>"><?php esc_html_e( 'Call', 'justice-theme' ); ?></a>
+										<?php endif; ?>
+										<?php if ( $lead_whatsapp_link ) : ?>
+											<a class="button" href="<?php echo esc_url( $lead_whatsapp_link ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'WhatsApp', 'justice-theme' ); ?></a>
+										<?php endif; ?>
+										<?php if ( $lead_email_link ) : ?>
+											<a class="button" href="<?php echo esc_url( $lead_email_link ); ?>"><?php esc_html_e( 'Email', 'justice-theme' ); ?></a>
+										<?php endif; ?>
+										<?php if ( ! $lead_phone_link && ! $lead_email_link ) : ?>
+											<span><?php esc_html_e( 'No contact shown', 'justice-theme' ); ?></span>
+										<?php endif; ?>
+									</div>
+									<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="lawyer-dashboard-leads__stage-form">
+										<input type="hidden" name="action" value="justice_lawyer_lead_stage_update">
+										<input type="hidden" name="lead_id" value="<?php echo esc_attr( $lead_id ); ?>">
+										<?php wp_nonce_field( 'justice_lawyer_lead_stage_update', 'justice_lawyer_lead_stage_nonce' ); ?>
+										<label class="screen-reader-text" for="lead-stage-<?php echo esc_attr( $lead_id ); ?>"><?php esc_html_e( 'Update lead stage', 'justice-theme' ); ?></label>
+										<select id="lead-stage-<?php echo esc_attr( $lead_id ); ?>" name="lead_stage">
+											<?php foreach ( $dashboard_lead_stage_options as $stage_key => $stage_label ) : ?>
+												<option value="<?php echo esc_attr( $stage_key ); ?>" <?php selected( $current_lead_stage, $stage_key ); ?>><?php echo esc_html( $stage_label ); ?></option>
+											<?php endforeach; ?>
+										</select>
+										<button type="submit" class="button"><?php esc_html_e( 'Update', 'justice-theme' ); ?></button>
+									</form>
 								</article>
 							<?php endwhile; wp_reset_postdata(); ?>
 						</div>
@@ -317,7 +746,7 @@ $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 
 						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'אין עדיין בקשות תוכן לפרופיל הזה. אפשר לשלוח רעיון למאמר חתום דרך הטופס הבא.', 'justice-theme' ); ?></p>
 					<?php endif; ?>
 
-					<section class="lawyer-dashboard-content-request">
+					<section class="lawyer-dashboard-content-request" id="content-request">
 						<h2><?php esc_html_e( 'בקשת מאמר חתום', 'justice-theme' ); ?></h2>
 						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'שלחו רעיון למאמר או מדריך. הבקשה נשמרת כטיוטה בלבד ותעבור עריכה, בדיקת מקורות ובדיקה משפטית לפני פרסום.', 'justice-theme' ); ?></p>
 						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">

@@ -49,10 +49,29 @@ $core_city_options = array(
 
 $allowed_plan_interests = array( 'free', 'pro', 'featured', 'lead_partner', 'full_service' );
 $selected_plan_interest = isset( $_GET['plan_interest'] ) ? sanitize_key( wp_unslash( $_GET['plan_interest'] ) ) : 'free';
+$selected_payment_path  = isset( $_GET['payment_path'] ) ? sanitize_key( wp_unslash( $_GET['payment_path'] ) ) : '';
 
 if ( ! in_array( $selected_plan_interest, $allowed_plan_interests, true ) ) {
 	$selected_plan_interest = 'free';
 }
+
+if ( 'manual_invoice' !== $selected_payment_path ) {
+	$selected_payment_path = '';
+}
+
+$registration_plans = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_plans() : array();
+$selected_plan       = $registration_plans[ $selected_plan_interest ] ?? array();
+
+if ( $selected_plan && function_exists( 'justice_theme_lawyer_plan_public_overrides' ) ) {
+	$selected_plan_override = justice_theme_lawyer_plan_public_overrides( $selected_plan_interest );
+	if ( ! empty( $selected_plan_override['price'] ) ) {
+		$selected_plan['price'] = $selected_plan_override['price'];
+	}
+}
+
+$registration_attribution = function_exists( 'justice_theme_lawyer_registration_attribution_from_request' )
+	? justice_theme_lawyer_registration_attribution_from_request()
+	: array();
 ?>
 
 <section class="lawyer-registration-hero section">
@@ -87,8 +106,34 @@ if ( ! in_array( $selected_plan_interest, $allowed_plan_interests, true ) ) {
 				<div class="lawyer-registration__error"><?php esc_html_e( 'חסרים פרטים או שהשליחה נכשלה. בדקו את הטופס ונסו שוב.', 'justice-theme' ); ?></div>
 			<?php endif; ?>
 
+			<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
+				<div class="legaltool-request__notice"><?php esc_html_e( 'בקשת המסלול תטופל ידנית: לאחר בדיקת התאמה נשלח חשבונית/דרישת תשלום ונפעיל את המסלול לאחר אישור תשלום.', 'justice-theme' ); ?></div>
+			<?php endif; ?>
+
+			<?php if ( $selected_plan ) : ?>
+				<section class="lawyer-registration-plan-context" aria-label="<?php esc_attr_e( 'Selected plan summary', 'justice-theme' ); ?>">
+					<div>
+						<span><?php esc_html_e( 'המסלול שנבחר', 'justice-theme' ); ?></span>
+						<strong><?php echo esc_html( $selected_plan['label'] ?? $selected_plan_interest ); ?></strong>
+					</div>
+					<div>
+						<span><?php esc_html_e( 'מחיר', 'justice-theme' ); ?></span>
+						<strong><?php echo esc_html( $selected_plan['price'] ?? '-' ); ?></strong>
+					</div>
+					<p><?php echo 'manual_invoice' === $selected_payment_path ? esc_html__( 'השליחה תיצור בקשת בדיקת התאמה וחשבונית ידנית. לא יתבצע חיוב אוטומטי מהטופס הזה.', 'justice-theme' ) : esc_html__( 'השליחה יוצרת פרופיל טיוטה לבדיקה. תשלום אוטומטי ייפתח רק כאשר הסליקה והמוצרים יהיו פעילים.', 'justice-theme' ); ?></p>
+				</section>
+			<?php endif; ?>
+
 			<form class="lawyer-registration-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="justice_lawyer_registration">
+				<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
+					<input type="hidden" name="payment_path" value="manual_invoice">
+				<?php endif; ?>
+				<?php
+				if ( function_exists( 'justice_theme_render_lawyer_registration_attribution_fields' ) ) {
+					justice_theme_render_lawyer_registration_attribution_fields( $registration_attribution );
+				}
+				?>
 				<?php wp_nonce_field( 'justice_lawyer_registration', 'justice_lawyer_registration_nonce' ); ?>
 				<p class="lawyer-registration-form__trap">
 					<label>Website <input type="text" name="website_url_confirm" tabindex="-1" autocomplete="off"></label>
@@ -161,6 +206,16 @@ if ( ! in_array( $selected_plan_interest, $allowed_plan_interests, true ) ) {
 							<option value="full_service"><?php esc_html_e( 'שירות מלא', 'justice-theme' ); ?></option>
 						</select>
 					</label>
+					<label>
+						<span><?php esc_html_e( 'זמינות למענה לפניות', 'justice-theme' ); ?></span>
+						<select name="lead_response_commitment">
+							<option value=""><?php esc_html_e( 'בחרו זמינות', 'justice-theme' ); ?></option>
+							<option value="within_15_min"><?php esc_html_e( 'אפשר לענות בתוך 15 דקות בשעות פעילות', 'justice-theme' ); ?></option>
+							<option value="same_day"><?php esc_html_e( 'אפשר לענות באותו יום עבודה', 'justice-theme' ); ?></option>
+							<option value="next_day"><?php esc_html_e( 'בדרך כלל ביום העבודה הבא', 'justice-theme' ); ?></option>
+							<option value="not_sure"><?php esc_html_e( 'צריך לתאם תהליך מענה', 'justice-theme' ); ?></option>
+						</select>
+					</label>
 					<label class="lawyer-registration-form__full">
 						<span><?php esc_html_e( 'תיאור קצר', 'justice-theme' ); ?></span>
 						<textarea name="bio_short" rows="5" placeholder="<?php esc_attr_e( 'ספרו בקצרה על תחומי העיסוק, ניסיון, קהל יעד ומה תרצו להציג בפרופיל.', 'justice-theme' ); ?>"></textarea>
@@ -180,6 +235,14 @@ if ( ! in_array( $selected_plan_interest, $allowed_plan_interests, true ) ) {
 					<label>
 						<span><?php esc_html_e( 'קישור לווידאו היכרות', 'justice-theme' ); ?></span>
 						<input type="url" name="profile_video_url" placeholder="https://">
+					</label>
+					<label>
+						<span>Google Business / Maps profile</span>
+						<input type="url" name="google_business_profile_url" placeholder="https://maps.google.com/...">
+					</label>
+					<label>
+						<span>Google review request link</span>
+						<input type="url" name="google_review_request_url" placeholder="https://search.google.com/local/writereview?...">
 					</label>
 					<label class="lawyer-registration-form__full">
 						<span><?php esc_html_e( 'שאלות נפוצות שתרצו לענות עליהן', 'justice-theme' ); ?></span>
@@ -205,6 +268,29 @@ if ( ! in_array( $selected_plan_interest, $allowed_plan_interests, true ) ) {
 				<li><?php esc_html_e( 'תשתית לתוכן, וידאו, ביקורות מאושרות וכלים משפטיים.', 'justice-theme' ); ?></li>
 			</ul>
 		</aside>
+	</div>
+</section>
+
+<section class="lawyer-registration-next section" aria-labelledby="lawyer-registration-next-title">
+	<div class="container lawyer-registration-next__inner">
+		<div>
+			<p class="section-header__eyebrow"><?php esc_html_e( 'אחרי השליחה', 'justice-theme' ); ?></p>
+			<h2 id="lawyer-registration-next-title"><?php esc_html_e( 'כך הופכים הרשמה לפרופיל שמוכן לקבל לקוחות', 'justice-theme' ); ?></h2>
+		</div>
+		<ol class="lawyer-registration-next__steps">
+			<li>
+				<strong><?php esc_html_e( 'בדיקת התאמה', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'בודקים רישיון, תחום, אזורי שירות, זמינות למענה וכללי פרסום לפני פרסום או ניתוב פניות.', 'justice-theme' ); ?></span>
+			</li>
+			<li>
+				<strong><?php esc_html_e( 'בניית מיני-סייט', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'החומר מהטופס הופך לטיוטת פרופיל עם שירותים, תהליך עבודה, שאלות נפוצות ונכסי אמון לבדיקה.', 'justice-theme' ); ?></span>
+			</li>
+			<li>
+				<strong><?php esc_html_e( 'הפעלה ומדידה', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'אחרי אישור ותשלום, הפרופיל מתחבר לדאשבורד, סטטוס פניות, בקשות תוכן ודוח ערך חודשי.', 'justice-theme' ); ?></span>
+			</li>
+		</ol>
 	</div>
 </section>
 

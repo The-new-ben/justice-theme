@@ -14,7 +14,8 @@ while ( have_posts() ) :
 	$keyword     = get_post_meta( $page_id, 'pillar_keyword', true ) ?: get_the_title();
 	$cluster     = get_post_meta( $page_id, 'pillar_cluster', true );
 	$summary     = get_post_meta( $page_id, 'pillar_summary', true ) ?: get_the_excerpt();
-	$tool_url    = get_post_meta( $page_id, 'pillar_legaltech_url', true );
+	$tool_url    = trim( (string) get_post_meta( $page_id, 'pillar_legaltech_url', true ) );
+	$tool_url    = $tool_url && justice_theme_public_path_is_published( $tool_url ) ? justice_theme_safe_public_link( $tool_url ) : '';
 	$lawyer_area = get_post_meta( $page_id, 'pillar_lawyer_area', true );
 	$topics_raw  = get_post_meta( $page_id, 'pillar_supporting_topics', true );
 	$topics      = array_filter( array_map( 'trim', preg_split( '/\r\n|\r|\n/', (string) $topics_raw ) ) );

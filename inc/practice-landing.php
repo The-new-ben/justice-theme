@@ -435,30 +435,68 @@ function justice_theme_maybe_prepare_family_law_practice_route(): void {
 add_action( 'template_redirect', 'justice_theme_maybe_prepare_family_law_practice_route', -3500 );
 
 /**
+ * Get the controlled practice-route template for the current request.
+ *
+ * @return string
+ */
+function justice_theme_get_controlled_practice_route_template(): string {
+	if ( justice_theme_is_family_law_practice_route() ) {
+		$practice_template = locate_template( 'practice-family-law-route.php' );
+		return $practice_template ?: '';
+	}
+
+	if ( justice_theme_is_medical_malpractice_practice_route() ) {
+		$practice_template = locate_template( 'practice-medical-malpractice-route.php' );
+		return $practice_template ?: '';
+	}
+
+	if ( justice_theme_is_real_estate_lawyer_guide_route() ) {
+		$practice_template = locate_template( 'practice-real-estate-guide-route.php' );
+		return $practice_template ?: '';
+	}
+
+	if ( justice_theme_is_inheritance_lawyer_practice_route() ) {
+		$practice_template = locate_template( 'practice-inheritance-lawyer-route.php' );
+		return $practice_template ?: '';
+	}
+
+	return '';
+}
+
+/**
+ * Render controlled practice routes before later redirect plugins can run.
+ */
+function justice_theme_render_controlled_practice_route_before_redirect_plugins(): void {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
+		return;
+	}
+
+	$practice_template = justice_theme_get_controlled_practice_route_template();
+
+	if ( '' === $practice_template ) {
+		return;
+	}
+
+	if ( ! headers_sent() ) {
+		header( 'X-Justice-Route-Guard: controlled-practice-early-render', true );
+	}
+
+	include $practice_template;
+	exit;
+}
+add_action( 'template_redirect', 'justice_theme_render_controlled_practice_route_before_redirect_plugins', -999999 );
+
+/**
  * Use the controlled practice template for /family-law/ even if a post owns it.
  *
  * @param string $template Template path selected by WordPress.
  * @return string
  */
 function justice_theme_use_family_law_practice_template( string $template ): string {
-	if ( justice_theme_is_family_law_practice_route() ) {
-		$practice_template = locate_template( 'practice-family-law-route.php' );
-		return $practice_template ?: $template;
-	}
+	$practice_template = justice_theme_get_controlled_practice_route_template();
 
-	if ( justice_theme_is_medical_malpractice_practice_route() ) {
-		$practice_template = locate_template( 'practice-medical-malpractice-route.php' );
-		return $practice_template ?: $template;
-	}
-
-	if ( justice_theme_is_real_estate_lawyer_guide_route() ) {
-		$practice_template = locate_template( 'practice-real-estate-guide-route.php' );
-		return $practice_template ?: $template;
-	}
-
-	if ( justice_theme_is_inheritance_lawyer_practice_route() ) {
-		$practice_template = locate_template( 'practice-inheritance-lawyer-route.php' );
-		return $practice_template ?: $template;
+	if ( '' !== $practice_template ) {
+		return $practice_template;
 	}
 
 	return $template;

@@ -13,11 +13,19 @@ get_header();
 
 <?php get_template_part( 'template-parts/sections/hero' ); ?>
 
+<?php get_template_part( 'template-parts/sections/customer-intake-strip' ); ?>
+
+<?php get_template_part( 'template-parts/sections/homepage-intent-pyramid' ); ?>
+
 <?php get_template_part( 'template-parts/sections/practice-areas-grid' ); ?>
 
 <?php get_template_part( 'template-parts/sections/find-lawyer-guide' ); ?>
 
 <?php get_template_part( 'template-parts/sections/featured-lawyers' ); ?>
+
+<?php get_template_part( 'template-parts/sections/legaltech-tools' ); ?>
+
+<?php get_template_part( 'template-parts/sections/lawyer-cta' ); ?>
 
 <?php get_template_part( 'template-parts/sections/latest-articles' ); ?>
 

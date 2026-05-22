@@ -1,0 +1,9 @@
+id,area,status,evidence,next_step,notes
+1,practice_route_resolver,FIXED,"Shared resolver added for controlled practice templates","Verify after deploy with traffic checker","Covers family law medical malpractice real estate guide inheritance"
+2,practice_route_early_render,FIXED,"Controlled practice routes render at template_redirect priority -999999 and exit","Pull latest Git on uPress and clear cache","Can beat later WordPress redirect plugins"
+3,route_guard_header,FIXED,"Early controlled route responses add X-Justice-Route-Guard controlled-practice-early-render","Confirm header after deploy if route returns 200","Header is diagnostic only"
+4,html_sitemap_priority,FIXED,"/site-map/ renderer priority moved from -4000 to -999999","Retest /site-map/ after deploy","Can beat later WordPress redirect plugins"
+5,deployment_marker,FIXED,"JUSTICE_DEPLOY_MARKER set to 2026-05-21-protected-route-early-render-v1","Confirm marker on live homepage after pull","Marker confirms new code loaded"
+6,php_lint,VERIFIED,"php -l passed for inc/practice-landing.php inc/html-sitemap.php and functions.php","Keep lint in deployment checklist","Local syntax only"
+7,live_routes,NOT VERIFIED,"Public server still needs uPress pull/cache clear","Run node tools/check-live-traffic-priority.mjs after deploy","If initial 301 remains the blocker is likely server/CDN/plugin redirect before theme"
+8,contact_about,BLOCKED,"/contact/ and /about/ are not fixed by this early practice-route patch","Handle via CMS route restore explicit theme routes or redirect-rule cleanup","No static contact/about pages created"

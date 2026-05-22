@@ -1,0 +1,22 @@
+{
+  "generatedAt": "2026-05-21T20:40:40.836Z",
+  "inputMode": "FALLBACK_EXISTING_GSC_CACHE_NOT_FINAL",
+  "inputDir": "C:\\Users\\janana\\jutice-theme\\reports\\gsc",
+  "targetRows": 7,
+  "protectedRows": 18,
+  "protectedConflicts": 5,
+  "protectedHighRisk": 18,
+  "cannibalizationRows": 40,
+  "finality": "NOT_FINAL_BASELINE_FROM_EXISTING_CACHE_RUN_FOCUSED_GSC_EXPORT_NEXT",
+  "blockers": [
+    "owner_legal_source_approval_required_before_cms_upload",
+    "wordpress_backup_required_before_cms_upload",
+    "focused_gsc_export_required_before_url_migration_redirect_canonical_noindex_sitemap_actions"
+  ],
+  "outputs": {
+    "decisionMap": "reports\\family-divorce-gsc-decision-map-2026-05-21.csv",
+    "protectedUrlDecisionMap": "reports\\family-divorce-protected-url-decision-map-2026-05-21.csv",
+    "cannibalizationDecisionMap": "reports\\family-divorce-cannibalization-decision-map-2026-05-21.csv",
+    "summary": "reports\\family-divorce-gsc-decision-map-2026-05-21.json"
+  }
+}

@@ -32,7 +32,7 @@ function justice_theme_maybe_render_html_sitemap(): void {
 	justice_theme_render_html_sitemap_page();
 	exit;
 }
-add_action( 'template_redirect', 'justice_theme_maybe_render_html_sitemap', -4000 );
+add_action( 'template_redirect', 'justice_theme_maybe_render_html_sitemap', -999999 );
 
 /**
  * Get published post IDs for a sitemap section.
@@ -480,6 +480,10 @@ function justice_theme_render_html_sitemap_page(): void {
 					<a href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>"><?php esc_html_e( 'התייעצות משפטית', 'justice-theme' ); ?></a>
 					<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"><?php esc_html_e( 'יצירת קשר', 'justice-theme' ); ?></a>
 					<a href="<?php echo esc_url( home_url( '/about/' ) ); ?>"><?php esc_html_e( 'אודות Jus-Tice', 'justice-theme' ); ?></a>
+					<a href="<?php echo esc_url( home_url( '/editorial-policy/' ) ); ?>"><?php esc_html_e( 'מדיניות עריכה', 'justice-theme' ); ?></a>
+					<a href="<?php echo esc_url( home_url( '/sample-terms-and-conditions-template/' ) ); ?>"><?php esc_html_e( 'תקנון ותנאי שימוש', 'justice-theme' ); ?></a>
+					<a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>"><?php esc_html_e( 'מדיניות פרטיות', 'justice-theme' ); ?></a>
+					<a href="<?php echo esc_url( home_url( '/cancellation/' ) ); ?>"><?php esc_html_e( 'ביטול עסקה ואספקת שירות', 'justice-theme' ); ?></a>
 					<a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>"><?php esc_html_e( 'הצטרפות עורכי דין', 'justice-theme' ); ?></a>
 					<a href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>"><?php esc_html_e( 'מסלולים לעורכי דין', 'justice-theme' ); ?></a>
 				</nav>

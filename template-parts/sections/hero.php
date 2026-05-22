@@ -59,7 +59,7 @@ $hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
 			</h1>
 
 			<p class="hero__description">
-				<?php esc_html_e( 'מחפשים עורך דין? במדריך המשפטי שלנו תמצאו עורכי דין מומלצים ומשרדי עורכי דין מובילים בכל תחומי המשפט בישראל, לרבות: דיני משפחה, נזיקין, מקרקעין, דיני עבודה, פלילי, הוצאה לפועל, תעבורה, משפט מסחרי ועוד. בצעו חיפוש עורך דין מקצועי לפי התמחות, עיר או יישוב וקבלו מענה לכל סוגיה משפטית.', 'justice-theme' ); ?>
+				<?php esc_html_e( 'מחפשים עורך דין? התחילו מחיפוש לפי תחום משפטי, עיר או שם עורך דין. Jus-Tice מרכז מידע משפטי, מדריכים ופרופילים של עורכי דין כדי לעזור לכם להבין את האפשרויות ולפנות בצורה מסודרת. אין באתר הבטחה לתוצאה, דירוג מקצועי או ייעוץ משפטי אישי.', 'justice-theme' ); ?>
 			</p>
 
 			<form class="hero-search" role="search" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ); ?>" id="hero-search-form">
@@ -163,8 +163,7 @@ $hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
 			<ul class="hero__quick-links">
 				<?php 
 					foreach ( $popular_terms as $pterm ) : 
-						$pterm_link = get_term_link( $pterm );
-						$pterm_url  = is_wp_error( $pterm_link ) ? '' : justice_theme_public_url( (string) $pterm_link );
+						$pterm_url = justice_theme_public_term_link( $pterm );
 				?>
 					<li>
 						<a href="<?php echo esc_url( $pterm_url ); ?>">

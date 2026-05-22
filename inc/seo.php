@@ -568,6 +568,140 @@ function justice_theme_include_articles_in_practice_area_archive( $query ) {
 add_action( 'pre_get_posts', 'justice_theme_include_articles_in_practice_area_archive' );
 
 /**
+ * Money-query SEO rescue overrides for pages that already earn impressions.
+ *
+ * These five URLs are commercial entry points. The CMS still contains older
+ * title patterns such as "recommended" and price-first phrasing, so the theme
+ * keeps public titles/descriptions aligned with the current rescue strategy
+ * while the content team continues deeper rewrites in WordPress.
+ *
+ * @return array<string,array<string,string>>
+ */
+function justice_theme_money_query_seo_map(): array {
+	return array(
+		'real-estate-attorney'     => array(
+			'title'       => 'עורך דין מקרקעין: קנייה, מכירה, חוזים ומיסוי',
+			'seo_title'   => 'עורך דין מקרקעין בישראל: קנייה, מכירה, חוזים ומיסוי | Jus-Tice',
+			'description' => 'מדריך מעשי לבחירת עורך דין מקרקעין בישראל: קניית דירה, מכירת נכס, חוזה, מיסוי, בדיקות לפני חתימה ומתי צריך ליווי משפטי דחוף.',
+			'intro'       => '<p style="text-align: justify;"><strong>עורך דין מקרקעין</strong> יכול למנוע טעויות יקרות בעסקאות דירה, מכירת נכס, חוזה מכר, מיסוי מקרקעין ורישום זכויות. במדריך הזה תמצאו סדר פעולות ברור: מה לבדוק לפני חתימה, אילו מסמכים לבקש, מתי לעצור עסקה, ואיך לבחור עורך דין שמתאים לסוג הנכס והסיכון.</p>',
+		),
+		'criminal-defense-attorney' => array(
+			'title'       => 'עורך דין פלילי: חקירה, מעצר, כתב אישום וייצוג',
+			'seo_title'   => 'עורך דין פלילי: חקירה, מעצר, כתב אישום וייצוג | Jus-Tice',
+			'description' => 'מדריך לבחירת עורך דין פלילי בישראל: חקירה במשטרה, מעצר, כתב אישום, שימוע וזכויות חשוד או נאשם לפני החלטה על ייצוג.',
+			'intro'       => '<p style="text-align: justify;"><strong>עורך דין פלילי</strong> נדרש מהרגע שבו יש זימון לחקירה, חשש למעצר, שימוע לפני כתב אישום או הליך פלילי פעיל. כאן תמצאו מדריך מעשי שמסביר מה לעשות לפני שמדברים עם המשטרה, אילו זכויות אסור לוותר עליהן, ואיך לבחור ייצוג מתאים לפי סוג העבירה והדחיפות.</p>',
+		),
+		'sex-crime-lawyer'         => array(
+			'title'       => 'עורך דין עבירות מין: חקירה, כתב אישום וזכויות בהליך',
+			'seo_title'   => 'עורך דין עבירות מין: חקירה, כתב אישום וזכויות בהליך | Jus-Tice',
+			'description' => 'מידע משפטי זהיר על עבירות מין: חקירה, תלונה, כתב אישום, זכויות חשוד או נפגע, ומה לבדוק לפני בחירת עורך דין פלילי בתחום רגיש.',
+			'intro'       => '<p style="text-align: justify;"><strong>עורך דין עבירות מין</strong> מטפל באחד התחומים הרגישים ביותר במשפט הפלילי: חקירה, תלונה, עימות, כתב אישום, ראיות דיגיטליות וזכויות הצדדים. המדריך נועד לעשות סדר ראשוני, בזהירות וללא הבטחות תוצאה, כדי להבין מה חשוב לבדוק לפני קבלת החלטות.</p>',
+		),
+		'prenup-attorney'          => array(
+			'title'       => 'עורך דין הסכם ממון: לפני נישואין, ידועים בציבור ודירה',
+			'seo_title'   => 'עורך דין הסכם ממון: לפני נישואין, ידועים בציבור ודירה | Jus-Tice',
+			'description' => 'מדריך להסכם ממון בישראל: לפני נישואין, ידועים בציבור, דירה, עסק משפחתי, אישור הסכם ומה לשאול עורך דין לפני חתימה.',
+			'intro'       => '<p style="text-align: justify;"><strong>עורך דין הסכם ממון</strong> עוזר לבני זוג להסדיר רכוש, דירה, עסק, חובות וזכויות לפני נישואין, במהלך הקשר או אצל ידועים בציבור. מדריך זה מסביר מה כדאי לכלול בהסכם, מתי נדרש אישור רשמי, ואילו שאלות לשאול לפני חתימה.</p>',
+		),
+		'traffic-lawyer'           => array(
+			'title'       => 'עורך דין תעבורה: שלילה, נקודות, נהיגה בשכרות וקנסות',
+			'seo_title'   => 'עורך דין תעבורה: שלילה, נקודות, נהיגה בשכרות וקנסות | Jus-Tice',
+			'description' => 'מדריך לבחירת עורך דין תעבורה בישראל: שלילת רישיון, נקודות, נהיגה בשכרות, תאונת דרכים, דוח תנועה וזימון לבית משפט.',
+			'intro'       => '<p style="text-align: justify;"><strong>עורך דין תעבורה</strong> יכול להשפיע על התוצאה כאשר יש שלילת רישיון, נקודות, נהיגה בשכרות, תאונת דרכים, דוח תנועה או זימון לבית משפט. במדריך הזה תמצאו סדר פעולות ברור: מה לבדוק מיד, מתי לפנות לייעוץ, ואיך להתכונן לפני דיון או חקירה.</p>',
+		),
+	);
+}
+
+/**
+ * Return the active money-query override for the current singular article.
+ *
+ * @return array<string,string>|null
+ */
+function justice_theme_current_money_query_seo(): ?array {
+	if ( ! is_singular( 'articles' ) ) {
+		return null;
+	}
+
+	$post = get_post();
+	if ( ! $post instanceof WP_Post ) {
+		return null;
+	}
+
+	$map = justice_theme_money_query_seo_map();
+
+	return $map[ $post->post_name ] ?? null;
+}
+
+/**
+ * Public title override for selected money-query articles.
+ *
+ * @param string $title   Current title.
+ * @param int    $post_id Post ID.
+ * @return string
+ */
+function justice_theme_money_query_public_title( $title, $post_id = 0 ) {
+	if ( is_admin() || ! in_the_loop() ) {
+		return $title;
+	}
+
+	$post = get_post( $post_id );
+	if ( ! $post instanceof WP_Post || 'articles' !== $post->post_type ) {
+		return $title;
+	}
+
+	$map = justice_theme_money_query_seo_map();
+
+	return $map[ $post->post_name ]['title'] ?? $title;
+}
+add_filter( 'the_title', 'justice_theme_money_query_public_title', 20, 2 );
+
+/**
+ * Replace the first paragraph on selected money pages with a search-intent intro.
+ *
+ * @param string $content Post content.
+ * @return string
+ */
+function justice_theme_money_query_intro( $content ) {
+	$override = justice_theme_current_money_query_seo();
+	if ( ! $override || ! is_main_query() || ! in_the_loop() ) {
+		return $content;
+	}
+
+	$intro = $override['intro'];
+	if ( str_contains( $content, wp_strip_all_tags( $intro ) ) ) {
+		return $content;
+	}
+
+	if ( preg_match( '/<p[\s\S]*?<\/p>/i', $content ) ) {
+		return preg_replace( '/<p[\s\S]*?<\/p>/i', $intro, $content, 1 );
+	}
+
+	return $intro . "\n" . $content;
+}
+add_filter( 'the_content', 'justice_theme_money_query_intro', 6 );
+
+/**
+ * Return focused SEO copy for high-value practice taxonomy pages.
+ *
+ * @param string $term_slug Practice-area term slug.
+ * @return array
+ */
+function justice_theme_practice_area_seo_override( string $term_slug ): array {
+	$overrides = array(
+		'real-estate-law' => array(
+			'title'       => 'עורך דין מקרקעין ונדל״ן | מדריכים, מאמרים ועורכי דין',
+			'description' => 'מידע על קניית דירה, מכירת נכס, חוזה מכר, טאבו, מס שבח והתחדשות עירונית, עם מדריכים ופנייה מסודרת לעורך דין מקרקעין.',
+		),
+		'labor-law'       => array(
+			'title'       => 'עורך דין דיני עבודה | זכויות עובדים, פיטורים ושימוע',
+			'description' => 'מידע לעובדים ולמעסיקים בנושא פיטורים, שימוע, זכויות עובדים, שכר, חוזה עבודה ופנסיה, עם מדריכים ופנייה לעורך דין דיני עבודה.',
+		),
+	);
+
+	return $overrides[ $term_slug ] ?? array();
+}
+
+/**
  * Build the public-facing SEO title for the current request.
  *
  * Shared by WordPress core title parts and common SEO plugin filters so archive
@@ -577,6 +711,11 @@ add_action( 'pre_get_posts', 'justice_theme_include_articles_in_practice_area_ar
  * @return string
  */
 function justice_theme_contextual_seo_title(): string {
+	$money_query_override = justice_theme_current_money_query_seo();
+	if ( $money_query_override ) {
+		return $money_query_override['seo_title'];
+	}
+
 	if ( is_front_page() ) {
 		return 'עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ';
 	}
@@ -619,7 +758,12 @@ function justice_theme_contextual_seo_title(): string {
 
 	if ( is_tax( 'practice-areas' ) ) {
 		$term = get_queried_object();
-		if ( $term ) {
+		if ( $term instanceof WP_Term ) {
+			$practice_area_seo = justice_theme_practice_area_seo_override( $term->slug );
+			if ( ! empty( $practice_area_seo['title'] ) ) {
+				return $practice_area_seo['title'];
+			}
+
 			return 'עורך דין ' . $term->name . ' | מדריך, מאמרים ועורכי דין';
 		}
 	}
@@ -751,10 +895,25 @@ add_filter( 'aioseo_title', 'justice_theme_filter_plugin_seo_title' );
  * @return string
  */
 function justice_theme_filter_plugin_seo_description( $description ) {
+	$money_query_override = justice_theme_current_money_query_seo();
+	if ( $money_query_override ) {
+		return wp_strip_all_tags( $money_query_override['description'] );
+	}
+
 	if ( is_singular() ) {
 		$custom_description = get_post_meta( get_the_ID(), 'seo_description', true );
 		if ( $custom_description ) {
 			return wp_strip_all_tags( $custom_description );
+		}
+	}
+
+	if ( is_tax( 'practice-areas' ) ) {
+		$term = get_queried_object();
+		if ( $term instanceof WP_Term ) {
+			$practice_area_seo = justice_theme_practice_area_seo_override( $term->slug );
+			if ( ! empty( $practice_area_seo['description'] ) ) {
+				return wp_strip_all_tags( $practice_area_seo['description'] );
+			}
 		}
 	}
 

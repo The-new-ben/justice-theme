@@ -21,15 +21,15 @@ $justice_topic_links = array(
 	),
 	array(
 		'label' => __( 'עורך דין מקרקעין', 'justice-theme' ),
-		'url'   => justice_theme_safe_public_link( '/real-estate-lawyer/', '/lawyers/?area=real-estate-law' ),
+		'url'   => home_url( '/practice-areas/real-estate-law/' ),
 	),
 	array(
 		'label' => __( 'רשלנות רפואית', 'justice-theme' ),
-		'url'   => justice_theme_safe_public_link( '/medical-malpractice-lawyer/', '/lawyers/?area=medical-malpractice-law' ),
+		'url'   => home_url( '/medical-malpractice-lawyer/' ),
 	),
 	array(
 		'label' => __( 'נזיקין ותאונות', 'justice-theme' ),
-		'url'   => justice_theme_safe_public_link( '/personal-injury-lawyer/', '/lawyers/?area=personal-injury-law' ),
+		'url'   => home_url( '/tort-lawyer/' ),
 	),
 	array(
 		'label' => __( 'תעבורה', 'justice-theme' ),
@@ -37,7 +37,7 @@ $justice_topic_links = array(
 	),
 	array(
 		'label' => __( 'עבודה', 'justice-theme' ),
-		'url'   => justice_theme_safe_public_link( '/employment-lawyer/', '/lawyers/?area=labor-law' ),
+		'url'   => home_url( '/practice-areas/labor-law/' ),
 	),
 	array(
 		'label' => __( 'ירושה וצוואות', 'justice-theme' ),
@@ -173,7 +173,7 @@ function justice_theme_fallback_menu() {
 		</li>
 
 		<li class="menu-item"><a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>">מאמרים משפטיים</a></li>
-		<li class="menu-item"><a href="<?php echo esc_url( home_url( '/legal-tools/' ) ); ?>">כלים משפטיים</a></li>
+		<li class="menu-item"><a href="<?php echo esc_url( justice_theme_safe_public_link( '/legal-tools/', '/#ask-lawyer' ) ); ?>">כלים משפטיים</a></li>
 		<li class="menu-item"><a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>">הצטרפות עורכי דין</a></li>
 		<li class="menu-item menu-item--cta"><a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>">מצאו עורך דין</a></li>
 	</ul>

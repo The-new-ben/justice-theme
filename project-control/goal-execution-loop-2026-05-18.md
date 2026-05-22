@@ -11,6 +11,150 @@ Owner instruction:
 - After deployable code is pushed, pull Git in uPress for `jus-tice.co.il` and record success/blockers.
 - Primary business goal: make lawyers see Jus-Tice, register, pay, receive ongoing value, stay satisfied, and upgrade over time.
 
+## Priority Cycle 43 - Real Estate Public Edit Package
+
+Research reviewed:
+- Existing real-estate consolidation packet and support-to-hub map from 2026-05-18.
+- Live read-only fetch of the hub and six support URLs.
+
+Business interpretation:
+- Reputation QA is blocked by authenticated owner/admin access.
+- The next unblocked SEO/content step is preparing the exact real-estate CMS edit batch so future upload work can happen as a controlled system instead of ad hoc article edits.
+- The live route check found `/real-estate-lawyer-guide/` currently resolves to homepage URL/canonical, so that page must be excluded until route QA is repaired.
+
+Implemented in this cycle:
+- Created `project-control/real-estate-public-edit-package-2026-05-21.md`.
+- Created `project-control/real-estate-public-edit-package-2026-05-21.csv`.
+- Updated `current-status.md`, `next-actions.md`, `changelog.md`, `visual-qa-report.md`, this loop and `task-board.csv`.
+
+Verification:
+- VERIFIED LIVE: `/real-estate-attorney/` returned 200 and self-canonicalized.
+- VERIFIED LIVE: `/lawyer-for-buying-or-selling-a-house/`, `/registration-of-real-estate-israel/`, `/land-appreciation-tax/`, `/real-estate-lawyer-cost-2025/` and `/real-estate-appraiser/` returned 200 and self-canonicalized.
+- BLOCKED LIVE: `/real-estate-lawyer-guide/` resolved to homepage URL/canonical.
+- VERIFIED PLANNING: package includes exact Hebrew insert text, anchors, placement guidance, hold items, redirect/canonical notes and post-upload checks.
+
+Next step:
+- Owner approves exact insert package, then CMS operator edits hub plus five support pages one at a time with backups and post-upload fetch checks.
+- Separately repair/recheck `/real-estate-lawyer-guide/` before using it in the public link graph.
+
+Safety:
+- Repo docs and read-only public checks only. No live CMS database row, article body, title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap, lawyer, lead, payment, GA4/GSC, wp-admin setting or uPress deployment was changed.
+
+## Priority Cycle 42 - Recommendation Token Safety Checker
+
+Research reviewed:
+- Current T367 token intake implementation and public display guard.
+- Existing repo tooling pattern for local/live check scripts.
+
+Business interpretation:
+- Authenticated owner QA remains blocked, but the recommendation system now has enough moving pieces that future edits could accidentally weaken moderation.
+- A static checker is useful because it is cheap to run before uPress pull and before later schema/SMS work.
+
+Implemented in this cycle:
+- Created `tools/check-recommendation-token-safety.mjs`.
+- Created `project-control/recommendation-token-safety-checker-2026-05-21.md`.
+- Created `project-control/recommendation-token-safety-checker-2026-05-21.csv`.
+- Updated `current-status.md`, `next-actions.md`, `changelog.md`, `visual-qa-report.md`, this loop and `task-board.csv`.
+
+Verification:
+- VERIFIED LOCAL: `node --check tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: `node tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+
+Next step:
+- Run uPress pull when available, then authenticated owner QA for create-link, token submission, draft record review, manual approval and public display.
+
+Safety:
+- Tooling/docs only. No live CMS database row, Google API, Google import, outbound client SMS/email, public review schema, AggregateRating, payment setting, redirect or sitemap was changed.
+
+## Priority Cycle 41 - First-Party Recommendation Token Intake
+
+Research reviewed:
+- Existing T367 reputation docs and the completed public recommendation display guard.
+- Current lawyer dashboard request flow, Lawyer Onboarding admin table and first-party recommendation CPT.
+
+Business interpretation:
+- The reputation system is more valuable when the owner can collect real client proof, but it must not become automatic review publishing.
+- The safe next move was a controlled token flow that creates draft first-party recommendation records only.
+
+Implemented in this cycle:
+- Updated `inc/lawyer-recommendations.php`.
+- Updated `inc/lawyer-onboarding.php`.
+- Created `project-control/first-party-recommendation-token-intake-2026-05-21.md`.
+- Created `project-control/first-party-recommendation-token-intake-2026-05-21.csv`.
+- Updated `current-status.md`, `next-actions.md`, `changelog.md`, `visual-qa-report.md`, this loop and `task-board.csv`.
+
+Verification:
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+- VERIFIED LOCAL: `git diff --check` passed with normal Windows line-ending warnings only.
+- NOT LIVE VERIFIED: authenticated admin click-through, live token submission and public profile display QA require owner/admin access and a real approved first-party test record.
+
+Next step:
+- Run one controlled owner QA path: create a token, submit a safe test recommendation, verify draft moderation, manually approve, then confirm public profile display.
+
+Safety:
+- Repo theme code/docs only. No live CMS database row, Google API, Google import, outbound client SMS/email, public review schema, AggregateRating, payment setting, redirect or sitemap was changed.
+
+## Priority Cycle 40 - First-Party Recommendation Display Guard
+
+Research reviewed:
+- Google Business Profile prohibited/restricted content policy covers review manipulation and fake engagement risk. Source: https://support.google.com/business/answer/2622994
+- Google Business Profile API policy requires proper purpose/consent and limits automated/programmatic use. Source: https://developers.google.com/my-business/content/policies
+- Repo T367 state already had first-party recommendation records and a public profile display path, but token intake and full live QA remained blocked.
+
+Business interpretation:
+- Reputation is one of the paid-lawyer retention assets, but public review display must be narrower than generic review importing.
+- The safe next move was to ensure only first-party Jus-Tice recommendations can appear publicly by default, while Google links remain reference-only.
+
+Implemented in this cycle:
+- Updated `inc/lawyer-recommendations.php`.
+- Created `project-control/public-recommendations-display-guard-2026-05-21.md`.
+- Created `project-control/public-recommendations-display-guard-2026-05-21.csv`.
+- Updated `current-status.md`, `next-actions.md`, `changelog.md`, `visual-qa-report.md`, this loop and `task-board.csv`.
+
+Verification:
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- VERIFIED CODE: public recommendation queries now require linked lawyer ID, `approved_public`, `confirmed` permission and `recommendation_source_type=first_party` by default.
+- NOT LIVE VERIFIED: public server behavior requires uPress pull/cache refresh and a real approved first-party recommendation test record.
+
+Next step:
+- Build the recommendation request token/intake flow.
+- Run authenticated admin QA after owner access is available.
+
+Safety:
+- Repo theme code/docs only. No Google API connection, Google review import, outbound review request, public review schema, CMS database row, recommendation/lawyer/customer record, payment setting, redirect, sitemap or outreach message was changed.
+
+## Priority Cycle 39 - Lawyer Platform Owner Walkthrough Completion
+
+Research reviewed:
+- Existing repo docs for lawyer acquisition first wave, Google reviews/reputation, LegalTech prefill and the prior owner walkthrough.
+- Live public URL checks for the current lawyer-platform surfaces.
+- Private-boundary checks for Lawyer Onboarding, Lawyer Prospects and Outreach Links.
+
+Business interpretation:
+- The code now has enough private admin workflow to support a first manual sales cycle, but the owner-facing guide was still written as if PR #26 had not been deployed.
+- The safest high-value task was not another feature. It was closing the operating gap: what the owner should open first, what is live, what remains blocked and what must not be promoted yet.
+
+Implemented in this cycle:
+- Updated `project-control/lawyer-platform-owner-walkthrough-2026-05-20.md`.
+- Marked task-board item `T368` completed.
+- Updated `current-status.md`, `next-actions.md`, `changelog.md`, this execution loop and `task-board.csv`.
+
+Verification:
+- VERIFIED LIVE: `/`, `/lawyer-plans/`, `/lawyer-registration/`, `/lawyer-dashboard/` and `/lawyers/` returned 200.
+- VERIFIED LIVE: `/legal-tools/` still resolved to the homepage, so direct archive promotion remains blocked.
+- VERIFIED LIVE: homepage source contains `legaltech-tools`, `AI Console`, `ask-lawyer` and `data-lead-message`; no direct `/legal-tools/` archive link and no page-level `noindex` were found.
+- VERIFIED PRIVATE: unauthenticated Lawyer Onboarding, Lawyer Prospects and Outreach Links admin URLs redirect to WordPress login.
+
+Next step:
+- Owner runs one authenticated WordPress admin walkthrough using the guide.
+- Then choose either first controlled 10-20 lawyer outreach batch or reputation/public-profile display gate.
+
+Safety:
+- Repo documentation and read-only live/private-boundary checks only. No public CMS page, database row, lawyer, lead, prospect, product, payment, redirect, sitemap, taxonomy, title/H1/meta or outreach message was changed.
+
 ## Priority Cycle 36 - Spam Footprint Discovery Queue
 
 Research reviewed:

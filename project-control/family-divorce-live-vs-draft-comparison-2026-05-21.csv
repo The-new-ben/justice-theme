@@ -1,0 +1,9 @@
+target,liveWords,draftWords,wordDelta,draftToLiveRatio,decision,next_step
+/divorce-lawyer/,3407,2070,-1337,0.61,MERGE_REVIEW_REQUIRED,Compare live snapshot before overwrite and keep or merge stronger current-live sections
+/consensual-divorce/,2645,1628,-1017,0.62,MERGE_REVIEW_REQUIRED,Compare live snapshot before overwrite and keep or merge stronger current-live sections
+/divorce-mediation/,2690,1764,-926,0.66,MERGE_REVIEW_REQUIRED,Compare live snapshot before overwrite and keep or merge stronger current-live sections
+/divorce-property-division/,2639,1574,-1065,0.60,MERGE_REVIEW_REQUIRED_HIGH,High-priority merge review before overwrite
+/family-dispute-resolution/,2297,1728,-569,0.75,MERGE_REVIEW_REQUIRED,Compare live snapshot before overwrite and keep or merge stronger current-live sections
+/child-support/,2963,1446,-1517,0.49,MERGE_REVIEW_REQUIRED_HIGH,High-priority merge review before overwrite
+/child-custody/,2595,1463,-1132,0.56,MERGE_REVIEW_REQUIRED_HIGH,High-priority merge review before overwrite
+TOTAL,19236,11673,-7563,0.61,MERGE_REVIEW_REQUIRED,No blind overwrite; run page-by-page merge review before CMS upload

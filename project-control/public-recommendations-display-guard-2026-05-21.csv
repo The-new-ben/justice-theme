@@ -1,0 +1,7 @@
+id,area,status,decision,verification,next_step,notes
+REP-GUARD-001,source-types,FIXED,Public recommendation source types are centralized in code,VERIFIED LOCAL,Use source labels in admin when creating recommendation records,No database records changed
+REP-GUARD-002,google-reviews,FIXED,Google-linked recommendation records are reference-only by default,VERIFIED LOCAL,Keep Google review text out of public profile display unless explicit policy changes are approved,No Google API connection or review import
+REP-GUARD-003,public-query,FIXED,Public recommendation queries require first_party source type by default,VERIFIED LOCAL,Rerun after uPress pull and with a real approved first-party test record,Not live verified
+REP-GUARD-004,permission,FIXED,Public recommendation queries still require confirmed permission and approved_public moderation,VERIFIED LOCAL,Keep owner review mandatory before public display,No outbound request sent
+REP-GUARD-005,schema,BLOCKED,Review and AggregateRating schema remain blocked,VERIFIED DOCS,Revisit only after policy and verified public display are approved,No schema added
+REP-GUARD-006,intake-token,FIXED,Recommendation request token/intake flow now exists but is not live/authenticated verified,VERIFIED LOCAL,Run authenticated admin and public token submission QA after uPress pull,No live recommendation record created in this cycle

@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2026-05-22T12:24:16.981Z",
+  "inputMode": "BASELINE_DASHBOARD_NOT_FINAL",
+  "inputDir": "C:\\Users\\janana\\jutice-theme\\reports\\gsc",
+  "reportDate": "2026-05-22",
+  "dashboard": "project-control\\criminal-traffic-readiness-dashboard-2026-05-22.csv",
+  "targetRows": 5,
+  "protectedRows": 20,
+  "supportRows": 16,
+  "routeRiskRows": 4,
+  "highRiskProtectedRows": 11,
+  "cannibalizationRows": 8,
+  "finality": "NOT_FINAL_BASELINE_FROM_DASHBOARD_RUN_FOCUSED_GSC_EXPORT_NEXT",
+  "blockers": [
+    "owner_legal_source_approval_required_before_cms_upload",
+    "wordpress_backup_required_before_cms_upload",
+    "focused_gsc_export_required_before_url_migration_redirect_canonical_noindex_sitemap_actions"
+  ],
+  "outputs": {
+    "decisionMap": "reports\\criminal-gsc-decision-map-2026-05-22.csv",
+    "protectedUrlDecisionMap": "reports\\criminal-protected-url-decision-map-2026-05-22.csv",
+    "cannibalizationDecisionMap": "reports\\criminal-cannibalization-decision-map-2026-05-22.csv",
+    "summary": "reports\\criminal-gsc-decision-map-2026-05-22.json"
+  }
+}

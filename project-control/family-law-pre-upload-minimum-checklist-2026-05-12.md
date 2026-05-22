@@ -7,6 +7,52 @@ This checklist defines the minimum safe gate before Family/Divorce moves from pl
 
 ## Current Position
 
+LATEST 2026-05-21 UPDATE:
+- `project-control/family-divorce-cms-operator-runbook-2026-05-21.md` now defines the seven-page CMS operator workflow after approval.
+- `project-control/family-divorce-cms-operator-runbook-2026-05-21.csv` now gives the operator checklist rows for approval, backup, page updates, post-upload QA and GSC boundary.
+- VERIFIED PLANNING: the runbook requires actual WordPress editor/database rollback material before editing each approved page.
+- VERIFIED PLANNING: the runbook blocks duplicate pages, slug changes, redirects, noindex/canonical changes, sitemap changes and protected asset edits during the body upload batch.
+- `project-control/family-divorce-owner-review-packet-2026-05-21.md` now gives the owner/legal/source review gate for all seven locally merged Family/Divorce upload candidates.
+- `project-control/family-divorce-owner-review-packet-2026-05-21.csv` now gives the page-by-page approval worksheet.
+- VERIFIED LOCAL: the packet covers `/divorce-lawyer/`, `/consensual-divorce/`, `/divorce-mediation/`, `/divorce-property-division/`, `/family-dispute-resolution/`, `/child-support/` and `/child-custody/`.
+- VERIFIED LOCAL: all seven page rows retain static QA `PASS`.
+- READY: owner can mark each page `APPROVE`, `EDIT`, `HOLD` or `LEGAL_REVIEW_REQUIRED`.
+- BLOCKED: CMS upload is still blocked until owner/legal/source approval and actual WordPress editor/database backup are complete.
+- `tools/resolve-family-divorce-child-support-merge.mjs` now resolves all current-live candidate rows for `/child-support/`.
+- `tools/apply-family-divorce-child-support-draft-merges.mjs` now applies the four approved `/child-support/` draft merges.
+- VERIFIED LOCAL: `35` `/child-support/` live rows resolved: `4` merge into draft, `25` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
+- VERIFIED LOCAL: all four approved `/child-support/` insertion blocks are present in the edited draft.
+- VERIFIED LOCAL: all seven Family/Divorce public-body drafts pass static QA after the edit; `/child-support/` passes with `1,650` words.
+- FIXED: `/child-support/`, `/child-custody/` and `/divorce-property-division/` high-risk merge rows are now resolved and approved draft merges are applied.
+- `tools/resolve-family-divorce-child-custody-merge.mjs` now resolves all current-live candidate rows for `/child-custody/`.
+- `tools/apply-family-divorce-child-custody-draft-merges.mjs` now applies the nine approved `/child-custody/` draft merges.
+- VERIFIED LOCAL: `35` `/child-custody/` live rows resolved: `9` merge into draft, `20` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
+- VERIFIED LOCAL: all nine `/child-custody/` insertion IDs are present in the edited draft.
+- VERIFIED LOCAL: all seven Family/Divorce public-body drafts pass static QA after the edit; `/child-custody/` passes with `1,748` words.
+- `tools/apply-family-divorce-property-division-draft-merges.mjs` now applies the six approved `/divorce-property-division/` draft merges.
+- VERIFIED LOCAL: all six insertion IDs are present in the edited draft.
+- VERIFIED LOCAL: all seven Family/Divorce public-body drafts pass static QA after the edit; `/divorce-property-division/` passes with `1,851` words.
+- `tools/resolve-family-divorce-property-division-merge.mjs` now resolves all current-live candidate rows for `/divorce-property-division/`.
+- VERIFIED LOCAL: `35` live rows resolved: `6` merge into draft, `23` covered/no action and `6` skip as UI/CTA/taxonomy/related-link fragments.
+- VERIFIED LOCAL: `/divorce-property-division/` approved draft edits are applied and static QA rerun passed.
+- `tools/prepare-family-divorce-merge-review.mjs` now creates a section-level merge-review worksheet for the three high-risk Family/Divorce pages: `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- VERIFIED LOCAL: `165` rows generated across the three pages: `60` draft base sections, `30` live sections requiring merge review, `46` partial-overlap review rows and `29` covered rows.
+- FIXED: these three high-risk pages now have merge rows resolved into merge, covered/no-action or skip decisions, and approved draft merges are applied.
+- `tools/compare-family-divorce-live-vs-drafts.mjs` now compares the seven live public snapshots against the seven clean public-body drafts.
+- VERIFIED LOCAL: live snapshots total `19,236` words; clean drafts total `11,673` words; net draft reduction is `-7,563` words.
+- BLOCKED: no blind overwrite is approved; all seven pages need page-by-page merge review, with high priority for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- `tools/export-family-divorce-live-targets.mjs` now exports public text snapshots and metadata for the seven live Family/Divorce target pages before overwrite/update.
+- VERIFIED LIVE / READ ONLY: all seven target pages exported as `PASS`, capturing `19,236` words in `reports/family-divorce-live-target-backup-2026-05-21/`.
+- STILL REQUIRED: actual WordPress editor/database export before any CMS update; the snapshot is public text backup only.
+- `tools/check-family-divorce-live-preupload.mjs` now provides a live read-only pre-upload guard for the seven clean Family/Divorce target slugs and protected P0 source URLs.
+- VERIFIED LIVE / READ ONLY WITH BLOCKERS: `25` URLs checked; `13` pass, `7` are live-present-review target pages, and `5` protected sources redirect to homepage.
+- GENERATED: `reports/family-divorce-live-preupload-2026-05-21.csv`.
+- BLOCKED: the five homepage-redirecting protected sources need restore/update-in-place/documented 301 decisions after GSC API confirmation before Family/Divorce URL migration is approved.
+- `tools/check-family-divorce-public-bodies.mjs` now provides repeatable static QA for the seven Family/Divorce public-body drafts.
+- VERIFIED LOCAL: all seven public-body drafts passed the checker after one `/divorce-lawyer/` wording cleanup.
+- GENERATED: `reports/family-divorce-public-body-static-qa-2026-05-21.csv`.
+- STILL BLOCKED: this does not replace owner/legal/source approval, CMS backup, GSC API export before URL actions or post-upload live QA.
+
 VERIFIED:
 - Family/Divorce is the first recommended cluster for staged publishing.
 - `58` URL or URL-reference items are in the current-url readiness queue.
@@ -36,8 +82,8 @@ VERIFIED:
 - The clean divorce-property-division body scan found no internal planning notes, no fake-trust/rating language and all required Family/Divorce related paths.
 - `content-drafts/family-dispute-resolution-public-body-he.md` contains a `1,992`-word public Hebrew body for `/family-dispute-resolution/`.
 - The clean family-dispute-resolution body scan found no internal planning notes, no fake-trust/rating language and all required Family/Divorce related paths.
-- `content-drafts/child-support-public-body-he.md` contains a `1,729`-word public Hebrew body for `/child-support/`.
-- The clean child-support body scan found no internal planning notes, no fake-trust/rating language, no fixed calculator promise and all required Family/Divorce related paths.
+- `content-drafts/child-support-public-body-he.md` contains a locally merged public Hebrew body for `/child-support/`; the current static QA count is `1,650` words.
+- The clean child-support body scan found no internal planning notes, no fake-trust/rating language, no fixed calculator promise and all required Family/Divorce related paths after the approved merge edits.
 - `content-drafts/child-custody-public-body-he.md` contains a `1,693`-word public Hebrew body for `/child-custody/`.
 - The clean child-custody body scan found no internal planning notes, no fake-trust/rating language, no custody-result promises and all required Family/Divorce related paths.
 - `project-control/family-divorce-wave-1b-support-approval-package-2026-05-12.csv` now defines a `16`-row owner/legal/source approval gate for all six Wave 1B support bodies.
@@ -51,6 +97,17 @@ VERIFIED:
 - The CMS field map combines backup, body, metadata, taxonomy, related links, schema safety and post-upload QA into one operator worksheet.
 - `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv` now defines a `6`-row metadata package for all six Wave 1B support pages.
 - All six Wave 1B support URLs returned `200` and self-canonicalized during the metadata check.
+- The live pre-upload guard now confirms all seven clean target slugs already return `200` and self-canonicalize, so current live content must be backed up before any overwrite/update.
+- The live pre-upload guard now confirms `5` protected Family/Divorce source URLs redirect to homepage and must be resolved or intentionally mapped before URL migration.
+- Public text snapshots now preserve the current live target-page content for side-by-side comparison before approved overwrite/update.
+- Live-vs-draft comparison now confirms that all seven pages require merge review before any upload because the clean drafts are materially shorter than the current live pages.
+- The high-risk merge worksheet now gives section-level review rows for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- `/divorce-property-division/` current-live candidate rows now have final merge/no-action/skip decisions.
+- `/divorce-property-division/` six approved merge edits are now applied to the clean public-body draft and the full seven-page static QA still passes.
+- `/child-custody/` current-live candidate rows now have final merge/no-action/skip decisions.
+- `/child-custody/` nine approved merge edits are now applied to the clean public-body draft and the full seven-page static QA still passes.
+- `/child-support/` current-live candidate rows now have final merge/no-action/skip decisions.
+- `/child-support/` four approved merge edits are now applied to the clean public-body draft and the full seven-page static QA still passes.
 
 NOT VERIFIED:
 - GSC API export.
@@ -110,6 +167,22 @@ MUST PASS BEFORE PUBLIC UPLOAD:
 46. Approve the `/divorce-lawyer/` CMS upload field map together with the clean body and metadata package before execution.
 47. Prepare exact Wave 1B support-page metadata package before any support upload.
 48. Approve Wave 1B support-page metadata together with support copy and upload scope before execution.
+49. Run the Family/Divorce live pre-upload guard and export the current public-state report before any CMS update.
+50. Backup/export the seven live target pages before any overwrite/update because they are already live and indexable.
+51. Resolve or explicitly map the five protected source homepage redirects before URL migration, redirect, canonical/noindex or sitemap decisions.
+52. Compare approved replacement bodies against the public live target snapshots and keep/merge any stronger current-live sections before upload.
+53. Export actual WordPress editor/database content before CMS execution; the public text snapshot is not sufficient as rollback backup.
+54. Complete side-by-side merge review for all seven target pages before owner approves CMS overwrite/update.
+55. Prioritize merge review for `/child-support/`, `/child-custody/` and `/divorce-property-division/` because their draft/live ratios are below or around `0.60`.
+56. Resolve high-risk merge-review rows for `/child-support/`, `/child-custody/` and `/divorce-property-division/` before CMS upload.
+57. Convert each `REVIEW_FOR_MERGE` and `PARTIAL_OVERLAP_REVIEW` row into keep, merge, rewrite or skip decisions.
+58. Apply the six approved `/divorce-property-division/` draft merges and rerun static QA before upload approval. - COMPLETED / VERIFIED LOCAL.
+59. Resolve `/child-custody/` high-risk merge rows and apply approved draft edits before upload approval. - COMPLETED / VERIFIED LOCAL.
+60. Resolve `/child-support/` high-risk merge rows before that draft moves to owner upload review. - COMPLETED / VERIFIED LOCAL.
+61. Prepare the owner/legal/source review packet for the seven locally merged Family/Divorce drafts before any CMS upload. - COMPLETED / VERIFIED LOCAL.
+62. Owner must mark each of the seven packet rows as `APPROVE`, `EDIT`, `HOLD` or `LEGAL_REVIEW_REQUIRED` before CMS backup or upload work starts.
+63. Prepare a seven-page CMS operator runbook that separates approved body updates from redirects, URL migration, noindex/canonical changes, sitemap changes and protected asset edits. - COMPLETED / VERIFIED LOCAL.
+64. After owner approval, operator must follow the runbook for only approved pages and capture actual WordPress editor/database rollback material before each edit.
 
 ## Current Recommendation
 

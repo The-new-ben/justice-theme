@@ -97,6 +97,29 @@ function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool 
 // Priority 30 = runs after the lead classifier (priority 20).
 add_action( 'save_post_justice_lead', 'justice_theme_route_lead_to_lawyers', 30, 3 );
 
+function justice_theme_route_lead_after_meta_write( $meta_id, int $post_id, string $meta_key, $meta_value ): void {
+	if ( ! in_array( $meta_key, array( 'message', 'legal_area', 'ai_detected_area', 'assigned_lawyer_id' ), true ) ) {
+		return;
+	}
+
+	$post = get_post( $post_id );
+	if ( ! $post || 'justice_lead' !== $post->post_type || wp_is_post_revision( $post_id ) ) {
+		return;
+	}
+
+	if ( get_post_meta( $post_id, 'routing_completed', true ) ) {
+		return;
+	}
+
+	if ( 'assigned_lawyer_id' !== $meta_key && ! empty( $_POST['assigned_lawyer_id'] ) ) {
+		return;
+	}
+
+	justice_theme_route_lead_to_lawyers( $post_id, $post, true );
+}
+add_action( 'added_post_meta', 'justice_theme_route_lead_after_meta_write', 30, 4 );
+add_action( 'updated_post_meta', 'justice_theme_route_lead_after_meta_write', 30, 4 );
+
 /**
  * Find published lawyers who serve a given practice area and have routing enabled.
  *

@@ -66,6 +66,7 @@ const checks = [
     path: '/real-estate-lawyer-guide/',
     role: 'real estate lawyer guide recovery path',
     mustStatus: 200,
+    mustFinalPath: '/real-estate-lawyer-guide/',
     mustIncludeAny: ['מקרקעין', 'נדל', 'עורך דין', 'real estate'],
     maxBytes: 500000,
   },
@@ -155,33 +156,73 @@ function missingAnyGroup(haystack, needles = []) {
   return needles.length > 0 && !hasAny(haystack, needles);
 }
 
+function normalizePathname(pathname) {
+  const normalized = `/${String(pathname || '').replace(/^\/+|\/+$/g, '')}/`;
+  return normalized === '//' ? '/' : normalized;
+}
+
 function csvValue(value) {
   return `"${String(value ?? '').replace(/"/g, '""')}"`;
 }
 
+function requestHeaders(check) {
+  return {
+    'User-Agent': check.journey === 'googlebot'
+      ? 'Googlebot/2.1 (+http://www.google.com/bot.html)'
+      : 'Jus-Tice-Traffic-Priority-Checker/1.0',
+    Accept: 'text/html,*/*',
+  };
+}
+
+function isRedirectStatus(status) {
+  return status >= 300 && status < 400;
+}
+
+function redirectIssueTarget(location) {
+  if (!location) {
+    return 'missing_location';
+  }
+
+  try {
+    const url = new URL(location, BASE_URL);
+    return normalizePathname(url.pathname);
+  } catch {
+    return String(location).replace(/\s+/g, '_').slice(0, 120);
+  }
+}
+
 async function runCheck(check) {
   const url = absoluteUrl(check.path);
-  const response = await fetch(url, {
-    redirect: 'follow',
-    headers: {
-      'User-Agent': check.journey === 'googlebot'
-        ? 'Googlebot/2.1 (+http://www.google.com/bot.html)'
-        : 'Jus-Tice-Traffic-Priority-Checker/1.0',
-      Accept: 'text/html,*/*',
-    },
+  const headers = requestHeaders(check);
+  const initialResponse = await fetch(url, {
+    redirect: 'manual',
+    headers,
   });
+  const initialHttp = initialResponse.status;
+  const redirectLocation = initialResponse.headers.get('location') || '';
+  const response = isRedirectStatus(initialHttp)
+    ? await fetch(url, { redirect: 'follow', headers })
+    : initialResponse;
   const body = await response.text();
   const title = extractTag(body, 'title');
   const h1 = extractTag(body, 'h1');
   const canonical = extractCanonical(body);
   const robots = robotsState(body);
   const links = countLinks(body);
+  const finalPath = normalizePathname(new URL(response.url).pathname);
   const issues = [];
   const titleAndH1 = `${title} ${h1}`;
   const expectedStatus = check.mustStatus || 200;
+  const expectedFinalPath = check.mustFinalPath || new URL(check.path, BASE_URL).pathname;
 
+  if (isRedirectStatus(initialHttp)) {
+    issues.push(`initial_redirect_${initialHttp}_to_${redirectIssueTarget(redirectLocation)}`);
+  }
   if (response.status !== expectedStatus) {
     issues.push(`http_${response.status}_expected_${expectedStatus}`);
+  }
+  if (finalPath !== normalizePathname(expectedFinalPath)) {
+    issues.push(`final_path_${finalPath}_expected_${normalizePathname(expectedFinalPath)}`);
   }
   if (robots.includes('noindex') && check.allowNoindex !== true) {
     issues.push('noindex_present');
@@ -224,7 +265,9 @@ async function runCheck(check) {
     path: check.path,
     role: check.role,
     status: issues.length ? 'REVIEW' : 'PASS',
+    initialHttp,
     http: response.status,
+    redirectLocation,
     bytes: body.length,
     links,
     title,
@@ -247,7 +290,9 @@ for (const check of checks) {
       path: check.path,
       role: check.role,
       status: 'REVIEW',
+      initialHttp: 0,
       http: 0,
+      redirectLocation: '',
       bytes: 0,
       links: 0,
       title: '',
@@ -264,6 +309,7 @@ console.table(results.map((result) => ({
   status: result.status,
   priority: result.priority,
   path: result.path,
+  initial: result.initialHttp,
   http: result.http,
   bytes: result.bytes,
   links: result.links,
@@ -271,7 +317,7 @@ console.table(results.map((result) => ({
 })));
 
 if (WRITE_REPORT) {
-  const headers = ['journey', 'priority', 'path', 'role', 'status', 'http', 'bytes', 'links', 'title', 'h1', 'canonical', 'robots', 'finalUrl', 'issues'];
+  const headers = ['journey', 'priority', 'path', 'role', 'status', 'initialHttp', 'http', 'redirectLocation', 'bytes', 'links', 'title', 'h1', 'canonical', 'robots', 'finalUrl', 'issues'];
   const csv = [
     headers.join(','),
     ...results.map((row) => headers.map((header) => csvValue(row[header])).join(',')),

@@ -13,6 +13,23 @@ $term_slug  = $term instanceof WP_Term ? $term->slug : '';
 $term_desc  = $term instanceof WP_Term ? $term->description : '';
 $clean_name = trim( str_replace( array( 'עורכי דין דיני ', 'עורכי דין ', 'דיני ' ), '', $term_name ) );
 
+$practice_area_seo_overrides = array(
+	'real-estate-law' => array(
+		'title'          => __( 'עורך דין מקרקעין ונדל״ן', 'justice-theme' ),
+		'display_area'   => __( 'מקרקעין ונדל״ן', 'justice-theme' ),
+		'description'    => __( 'מרכז מידע לקניית דירה, מכירת נכס, חוזה מכר, רישום בטאבו, ליקויי בנייה, מס שבח והתחדשות עירונית. אפשר לקרוא מדריכים, להבין מה להכין לפני חתימה ולפנות לעורך דין מקרקעין בצורה מסודרת.', 'justice-theme' ),
+		'guides_heading' => __( 'מדריכים בנושא מקרקעין ונדל״ן', 'justice-theme' ),
+	),
+	'labor-law' => array(
+		'title'          => __( 'עורך דין דיני עבודה', 'justice-theme' ),
+		'display_area'   => __( 'דיני עבודה', 'justice-theme' ),
+		'description'    => __( 'מרכז מידע לעובדים ולמעסיקים בנושא פיטורים, שימוע, זכויות עובדים, שכר, חוזה עבודה, שעות נוספות ופנסיה. אפשר להבין את הצעדים הראשונים, לאסוף מסמכים ולפנות לעורך דין דיני עבודה לפי צורך.', 'justice-theme' ),
+		'guides_heading' => __( 'מדריכים בנושא דיני עבודה', 'justice-theme' ),
+	),
+);
+
+$practice_area_seo = $practice_area_seo_overrides[ $term_slug ] ?? array();
+
 $lawyers = null;
 if ( post_type_exists( 'justice_lawyer' ) && $term_slug ) {
 	$lawyers = new WP_Query( array(
@@ -50,7 +67,10 @@ $related_terms = get_terms( array(
 	'number'     => 8,
 ) );
 
-$display_area        = $clean_name ?: $term_name;
+$display_area        = $practice_area_seo['display_area'] ?? ( $clean_name ?: $term_name );
+$hero_title          = $practice_area_seo['title'] ?? $display_area;
+$hero_description    = $practice_area_seo['description'] ?? '';
+$guides_heading      = $practice_area_seo['guides_heading'] ?? __( 'מדריכים ומאמרים בתחום', 'justice-theme' );
 $lawyer_archive_link = justice_theme_public_url( (string) ( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ) );
 $filtered_lawyers    = $term_slug ? add_query_arg( 'area', $term_slug, $lawyer_archive_link ) : $lawyer_archive_link;
 $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-theme' );
@@ -60,13 +80,15 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 	<div class="container practice-hub-hero__grid">
 		<div>
 			<p class="section-header__eyebrow"><?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?></p>
-			<h1><?php echo esc_html( $clean_name ?: $term_name ); ?></h1>
+			<h1><?php echo esc_html( $hero_title ); ?></h1>
 			<?php if ( $term_desc ) : ?>
 				<div class="practice-hub-hero__description">
 					<?php echo wp_kses_post( wpautop( $term_desc ) ); ?>
 				</div>
+			<?php elseif ( $hero_description ) : ?>
+				<p><?php echo esc_html( $hero_description ); ?></p>
 			<?php else : ?>
-				<p><?php echo esc_html( sprintf( 'מרכז מידע, עורכי דין וכלים דיגיטליים בתחום %s. העמוד נועד לעזור להבין את הבעיה, לקרוא מדריכים רלוונטיים ולהשאיר פנייה מסודרת.', $clean_name ?: $term_name ) ); ?></p>
+				<p><?php echo esc_html( sprintf( 'מרכז מידע, עורכי דין וכלים דיגיטליים בתחום %s. העמוד נועד לעזור להבין את הבעיה, לקרוא מדריכים רלוונטיים ולהשאיר פנייה מסודרת.', $display_area ) ); ?></p>
 			<?php endif; ?>
 			<div class="practice-hub-hero__actions">
 				<a class="button button--gold" href="#practice-lawyers"><?php esc_html_e( 'עורכי דין בתחום', 'justice-theme' ); ?></a>
@@ -113,7 +135,7 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 			<div class="section-header section-header--split">
 				<div>
 					<p class="section-header__eyebrow"><?php esc_html_e( 'עורכי דין', 'justice-theme' ); ?></p>
-					<h2><?php echo esc_html( sprintf( 'עורכי דין בתחום %s', $clean_name ?: $term_name ) ); ?></h2>
+					<h2><?php echo esc_html( sprintf( 'עורכי דין בתחום %s', $display_area ) ); ?></h2>
 				</div>
 				<a class="button button--primary" href="<?php echo esc_url( $filtered_lawyers ); ?>"><?php esc_html_e( 'כל הפרופילים', 'justice-theme' ); ?></a>
 			</div>
@@ -146,7 +168,7 @@ $lead_area_label     = $display_area ?: __( 'התחום המשפטי', 'justice-
 		<div class="section-header section-header--split">
 			<div>
 				<p class="section-header__eyebrow"><?php esc_html_e( 'מדריכים', 'justice-theme' ); ?></p>
-				<h2><?php esc_html_e( 'מדריכים ומאמרים בתחום', 'justice-theme' ); ?></h2>
+				<h2><?php echo esc_html( $guides_heading ); ?></h2>
 			</div>
 			<a class="button button--ghost" href="<?php echo esc_url( justice_theme_public_url( (string) get_post_type_archive_link( 'articles' ) ) ); ?>"><?php esc_html_e( 'כל המאמרים', 'justice-theme' ); ?></a>
 		</div>

@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 $justice_phone    = justice_theme_option( 'justice_phone', '0525101555' );
 $justice_email    = justice_theme_option( 'justice_email', 'info@jus-tice.co.il' );
 $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
+$justice_address  = function_exists( 'justice_theme_business_address' ) ? justice_theme_business_address() : justice_theme_option( 'justice_business_address', 'רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו' );
 ?>
 
 <footer class="site-footer" role="contentinfo" style="background: var(--jt-primary-deep); color: #fff; padding-top: 5rem; padding-bottom: 2rem; border-top: 4px solid var(--jt-accent);">
@@ -52,6 +53,12 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
 					</a>
 				<?php endif; ?>
 			</div>
+			<?php if ( $justice_address ) : ?>
+				<p class="footer-business-address" style="margin: 1rem 0 0; color: rgba(255,255,255,0.7); line-height: 1.7; font-size: 0.95rem;">
+					<strong style="color: #fff;"><?php esc_html_e( 'כתובת בית עסק:', 'justice-theme' ); ?></strong>
+					<?php echo esc_html( $justice_address ); ?>
+				</p>
+			<?php endif; ?>
 		</section>
 
 		<section class="site-footer__section">
@@ -62,10 +69,10 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
 			<ul style="list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:0.8rem;">
 				<li><a href="<?php echo esc_url( home_url( '/family-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני משפחה וגירושין</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/criminal-defense-attorney/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">משפט פלילי</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/real-estate/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מקרקעין ונדל"ן</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/personal-injury/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">נזיקין ותאונות</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/lawyers/?area=medical-malpractice' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">רשלנות רפואית</a></li>
-				<li><a href="<?php echo esc_url( home_url( '/israeli-labor-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני עבודה</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/practice-areas/real-estate-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">מקרקעין ונדל"ן</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/tort-lawyer/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">נזיקין ותאונות</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/medical-malpractice-lawyer/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">רשלנות רפואית</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/practice-areas/labor-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני עבודה</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/traffic-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">תעבורה</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/tax-law/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">דיני מיסים</a></li>
 			</ul>
@@ -82,6 +89,7 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
 				<li><a href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none; transition: color 0.2s;">התייעצות משפטית</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">יצירת קשר</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/about/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">אודות Jus-Tice</a></li>
+				<li><a href="<?php echo esc_url( home_url( '/editorial-policy/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מדיניות עריכה</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>" style="color: var(--jt-accent); font-weight: 700; text-decoration: none;">הצטרפות עורכי דין &larr;</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מסלולים לעורכי דין</a></li>
 				<li><a href="<?php echo esc_url( home_url( '/lawyer-dashboard/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">אזור אישי לעורכי דין</a></li>
@@ -92,8 +100,10 @@ $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
 
 	<div class="container" style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem;">
 		<div style="display: flex; gap: 1.5rem; margin-bottom: 1rem;">
-			<a href="<?php echo esc_url( home_url( '/terms/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">תנאי שימוש</a>
+			<a href="<?php echo esc_url( home_url( '/sample-terms-and-conditions-template/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">תנאי שימוש</a>
 			<a href="<?php echo esc_url( home_url( '/privacy/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">מדיניות פרטיות</a>
+			<a href="<?php echo esc_url( home_url( '/cancellation/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">ביטול ואספקה</a>
+			<a href="<?php echo esc_url( home_url( '/editorial-policy/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">מדיניות עריכה</a>
 			<a href="<?php echo esc_url( home_url( '/accessibility/' ) ); ?>" style="color: rgba(255,255,255,0.5); font-size: 0.9rem; text-decoration: none;">הצהרת נגישות</a>
 		</div>
 		<p style="color: rgba(255,255,255,0.4); font-size: 0.85rem; max-width: 800px; line-height: 1.6; margin: 0;">

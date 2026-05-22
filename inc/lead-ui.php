@@ -91,6 +91,28 @@ function justice_theme_customize_register( $wp_customize ) {
 		'type'    => 'email',
 	) );
 
+	$wp_customize->add_setting( 'justice_business_name', array(
+		'default'           => 'Jus-Tice Israel',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'justice_business_name', array(
+		'label'       => __( 'שם העסק לסליקה', 'justice-theme' ),
+		'description' => __( 'שם העסק שיופיע בתקנון, פרטיות ועמודי סליקה.', 'justice-theme' ),
+		'section'     => 'justice_contact',
+		'type'        => 'text',
+	) );
+
+	$wp_customize->add_setting( 'justice_business_address', array(
+		'default'           => 'רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו',
+		'sanitize_callback' => 'sanitize_text_field',
+	) );
+	$wp_customize->add_control( 'justice_business_address', array(
+		'label'       => __( 'כתובת העסק לסליקה', 'justice-theme' ),
+		'description' => __( 'כתובת מלאה הנדרשת לאישור Grow/Meshulam. חובה לעדכן לפני שליחה חוזרת לבדיקה.', 'justice-theme' ),
+		'section'     => 'justice_contact',
+		'type'        => 'text',
+	) );
+
 	$wp_customize->add_setting( 'justice_whatsapp', array(
 		'default'           => '0525101555',
 		'sanitize_callback' => 'sanitize_text_field',

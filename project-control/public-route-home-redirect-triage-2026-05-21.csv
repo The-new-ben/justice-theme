@@ -1,0 +1,13 @@
+id,path,status,initial_http,redirect_location,final_path,impact,next_step,notes
+1,/,VERIFIED,200,,/,Homepage route passes,Keep monitoring after deployments,No redirect issue observed
+2,/articles/,VERIFIED,200,,/articles/,Article discovery route passes,Keep monitoring after deployments,No redirect issue observed
+3,/family-law/,VERIFIED,200,,/family-law/,Family law hub passes,Keep monitoring before Family/Divorce upload,No redirect issue observed
+4,/lawyers/?area=family-law,VERIFIED,200,,/lawyers/,Family lawyer filtered directory passes,Keep monitoring before lawyer acquisition,Query-string route final path normalized to /lawyers/
+5,/criminal-defense-attorney/,VERIFIED,200,,/criminal-defense-attorney/,Criminal commercial hub passes,Keep monitoring before criminal cluster upload,No redirect issue observed
+6,/traffic-lawyer/,VERIFIED,200,,/traffic-lawyer/,Traffic commercial hub passes,Keep monitoring before traffic cluster upload,No redirect issue observed
+7,/site-map/,BLOCKED,301,https://jus-tice.co.il,/,HTML sitemap route redirects to homepage,After deploy/cache clear inspect uPress/plugin redirect layer if still failing,Do not treat final 200 homepage as sitemap PASS
+8,/medical-malpractice-lawyer/,BLOCKED,301,https://jus-tice.co.il,/,Medical malpractice money route redirects to homepage,After deploy/cache clear inspect uPress/plugin redirect layer if still failing,Do not publish support links to this route until final path passes
+9,/real-estate-lawyer-guide/,BLOCKED,301,https://jus-tice.co.il,/,Real-estate guide route redirects to homepage,After deploy/cache clear inspect uPress/plugin redirect layer if still failing,Excluded from real-estate edit package until PASS
+10,/inheritance-lawyer/,BLOCKED,301,https://jus-tice.co.il,/,Inheritance/wills money route redirects to homepage,After deploy/cache clear inspect uPress/plugin redirect layer if still failing,Support-to-hub publication blocked until route passes
+11,/contact/,BLOCKED,301,https://jus-tice.co.il,/,Contact/trust route redirects to homepage,After deploy/cache clear inspect uPress/plugin redirect layer if still failing,Lead/trust UX degraded
+12,/about/,BLOCKED,301,https://jus-tice.co.il,/,About/E-E-A-T route redirects to homepage,After deploy/cache clear inspect uPress/plugin redirect layer if still failing,Trust/E-E-A-T route degraded

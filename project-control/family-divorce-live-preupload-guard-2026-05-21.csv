@@ -1,0 +1,10 @@
+scope,total_urls,pass,live_present_review,conflict,verification_status,next_step,notes
+family_divorce_live_preupload,25,13,7,5,VERIFIED LIVE READ ONLY WITH BLOCKERS,Resolve five protected source homepage redirects before approving URL migration or CMS upload,Report generated at reports/family-divorce-live-preupload-2026-05-21.csv
+clean_targets,7,0,7,0,LIVE_PRESENT_REVIEW,Backup current live title H1 meta body canonical and links before update,All seven clean target slugs already return 200 and self-canonicalize
+protected_sources,17,12,0,5,BLOCKED LIVE,Investigate redirect records or deleted/source posts and decide restore update-in-place or 301 map,Five protected P0 source URLs redirect to homepage
+protected_asset,1,1,0,0,VERIFIED LIVE,Keep asset alive during upload and redirect planning,DOCX divorce agreement asset returned 200
+conflict_child_support_calculator,1,0,0,1,BLOCKED LIVE,Do not lose traffic source; restore or map with documented 301 after GSC confirmation,Initial 301 to homepage
+conflict_updated_divorce_guide,1,0,0,1,BLOCKED LIVE,Do not lose traffic source; restore or map with documented 301 after GSC confirmation,Initial 301 to homepage
+conflict_recommended_divorce_lawyer_hebrew,1,0,0,1,BLOCKED LIVE,Rewrite trust-risk content or map intentionally after GSC confirmation,Initial 301 to homepage
+conflict_divorce_mediation_hebrew,1,0,0,1,BLOCKED LIVE,Restore or map to divorce mediation/support target after GSC confirmation,Initial 301 to homepage
+conflict_what_is_child_custody,1,0,0,1,BLOCKED LIVE,Restore or map to child-custody target after GSC confirmation,Initial 301 to homepage

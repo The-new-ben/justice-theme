@@ -1,6 +1,526 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Medical Malpractice CMS identity operator runbook
+
+- CREATED: `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.md`.
+- CREATED: `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.csv`.
+- VERIFIED LOCAL: runbook CSV contains `9` operator checklist rows.
+- VERIFIED PLANNING: runbook covers inspection authorization, rollback evidence for IDs `11607` and `1130`, served-record verification, field comparison, allowed owner decisions, focused GSC gate, source/legal gate and upload boundary.
+- BLOCKED: runbook does not authorize CMS upload, editor saves, slug changes, redirects, canonical/noindex changes, sitemap changes, taxonomy edits, media changes, schema, lawyer-card changes or CRM changes.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-22 - Medical Malpractice duplicate identity review
+
+- TOOLING FIXED: created `tools/build-medical-malpractice-duplicate-identity-review.mjs`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-duplicate-identity-review-2026-05-22.json`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.md`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed and packet generation produced `8` evidence/decision rows.
+- VERIFIED LOCAL: IDs `11607` and `1130` share the same public URL in local exports, have `2` distinct content hashes, slug-conflict count `27`, exact current record count `2`, and proposed primary post ID `11607`.
+- VERIFIED LOCAL: ID `11607` is newer and longer but lacks media/outgoing links; ID `1130` is older and shorter but has higher heuristic quality, a featured image and outgoing links.
+- NOT VERIFIED FINAL: wp-admin/database served-record state and owner authoritative-record decision are still required before Medical Malpractice upload.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-22 - Medical Malpractice owner decision packet
+
+- TOOLING FIXED: created `tools/build-medical-malpractice-owner-decision-packet.mjs`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-owner-decision-packet-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-owner-decision-packet-2026-05-22.json`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-owner-decision-packet-2026-05-22.md`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-owner-decision-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed and packet generation produced `69` owner decision rows.
+- VERIFIED LOCAL: packet includes `8` owner gates, `23` current-URL review rows, `15` P0 support/protected rows, `12` clean-slug route blocker rows, `8` source/legal rows, `1` cannibalization row and `2` possible false-positive rows.
+- NOT VERIFIED FINAL: packet remains baseline-only until focused Medical Malpractice GSC export, owner review, duplicate CMS identity review and source/legal review are complete.
+- BLOCKED: Medical Malpractice public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap, related/internal-link writes, lawyer cards, schema and CRM changes remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-22 - Medical Malpractice GSC export workflow
+
+- TOOLING FIXED: created `tools/gsc/gsc-medical-malpractice-export.js`.
+- TOOLING FIXED: created `tools/gsc/run-medical-malpractice-gsc-export.ps1`.
+- TOOLING FIXED: created `tools/build-medical-malpractice-gsc-decision-map.mjs`.
+- CREATED: `project-control/gsc-medical-malpractice-export-runner-2026-05-22.md`.
+- CREATED: `project-control/gsc-medical-malpractice-export-runner-2026-05-22.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-gsc-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-protected-url-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-cannibalization-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-gsc-decision-map-2026-05-22.json`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-gsc-decision-map-2026-05-22.md`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-gsc-decision-map-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax checks passed and PowerShell dry run passed without OAuth browser and without GSC API call.
+- VERIFIED LOCAL: dry-run scope includes `1` primary target path, `73` protected/source paths, `10` route candidates, `8` boundary paths and `22` Medical Malpractice query terms.
+- VERIFIED LOCAL / NOT FINAL: baseline decision map generated `187` rows, `178` protected rows, `8` source/legal gate rows and `1` cannibalization row.
+- BLOCKED: real Medical Malpractice GSC export requires owner OAuth/GSC approval before URL migration, redirect, canonical, noindex, sitemap, taxonomy, CMS upload or internal-link decisions.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-22 - Medical Malpractice readiness dashboard
+
+- TOOLING FIXED: created `tools/build-medical-malpractice-readiness-dashboard.mjs`.
+- GENERATED: `reports/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+- GENERATED: `reports/medical-malpractice-readiness-dashboard-2026-05-22.json`.
+- CREATED: `project-control/medical-malpractice-readiness-dashboard-2026-05-22.md`.
+- CREATED: `project-control/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-medical-malpractice-readiness-dashboard.mjs` passed.
+- VERIFIED LOCAL: dashboard generated `249` consolidated planning rows across `9` lanes.
+- VERIFIED LOCAL: flagged `63` high/protected/unknown-GSC risk rows, `86` blocked or approval-gated rows, `4` clean-slug/route blockers, `8` source/legal blockers and `2` possible false-positive medical-malpractice cluster assignments.
+- BLOCKED: Medical Malpractice public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap, related/internal-link writes, lawyer cards, schema and CRM changes remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-22 - Criminal GSC decision maps
+
+- TOOLING FIXED: created `tools/build-criminal-gsc-decision-map.mjs`.
+- TOOLING FIXED: updated `tools/gsc/run-criminal-gsc-export.ps1` so a full Criminal export also builds decision maps.
+- GENERATED / NOT FINAL: `reports/criminal-gsc-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/criminal-protected-url-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/criminal-cannibalization-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/criminal-gsc-decision-map-2026-05-22.json`.
+- CREATED: `project-control/criminal-gsc-decision-map-2026-05-22.md`.
+- CREATED: `project-control/criminal-gsc-decision-map-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-gsc-decision-map.mjs` passed.
+- VERIFIED LOCAL: baseline run generated `5` Criminal target rows, `20` protected/support/route-risk rows and `8` cannibalization/wrong-page rows.
+- NOT VERIFIED FINAL: current maps are baseline-only and still require the focused owner-authorized GSC export before URL migration, redirect, canonical, noindex or sitemap decisions.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-22 - Criminal GSC export runner
+
+- TOOLING FIXED: created `tools/gsc/gsc-criminal-export.js`.
+- TOOLING FIXED: created `tools/gsc/run-criminal-gsc-export.ps1`.
+- CREATED: `project-control/gsc-criminal-export-runner-2026-05-22.md`.
+- CREATED: `project-control/gsc-criminal-export-runner-2026-05-22.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/gsc/gsc-criminal-export.js` passed.
+- VERIFIED LOCAL: direct dry run and PowerShell wrapper dry run passed without OAuth browser and without GSC API call.
+- VERIFIED LOCAL: dry-run scope includes `5` Criminal first-upload targets, `20` protected/support/route-risk paths and `27` query terms.
+- BLOCKED: real Criminal GSC export requires owner OAuth/GSC approval before any URL migration, redirect, canonical, noindex or sitemap decision.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-22 - Criminal first-upload metadata package
+
+- CREATED: `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
+- CREATED: `project-control/criminal-first-upload-metadata-package-2026-05-22.csv`.
+- UPDATED: `project-control/criminal-cms-operator-runbook-2026-05-22.md` now references the metadata package as the source for approved field values.
+- VERIFIED PLANNING: package covers `5` Criminal current-URL first-upload targets with H1, SEO title, meta description, OG title, OG description, breadcrumb label, taxonomy label, internal links, schema policy and robots policy.
+- VERIFIED PLANNING: all internal links remain current-URL-only; future English slugs remain blocked until GSC and owner migration approval.
+- BLOCKED: all metadata rows remain `BLOCKED_OWNER_LEGAL_SOURCE_APPROVAL`; Criminal public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap, related/internal-link writes, lawyer cards, schema and CRM changes remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-22 - Criminal CMS operator runbook
+
+- CREATED: `project-control/criminal-cms-operator-runbook-2026-05-22.md`.
+- CREATED: `project-control/criminal-cms-operator-runbook-2026-05-22.csv`.
+- VERIFIED LOCAL: runbook covers `5` Criminal first-upload current-URL targets and `11` operator checklist rows.
+- VERIFIED PLANNING: runbook requires owner/legal/source approval, actual WordPress editor/database rollback material and post-upload route/indexability/link/visual QA.
+- BLOCKED: Criminal public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap, related/internal-link writes, lawyer cards, schema and CRM changes remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-22 - Criminal owner review packet
+
+- TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.
+- GENERATED: `reports/criminal-owner-review-packet-2026-05-22.csv`.
+- GENERATED: `reports/criminal-owner-review-packet-2026-05-22.json`.
+- CREATED: `project-control/criminal-owner-review-packet-2026-05-22.md`.
+- CREATED: `project-control/criminal-owner-review-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-owner-review-packet.mjs` passed.
+- VERIFIED LOCAL: packet generated `5` owner-review rows covering the Criminal first-upload current-URL targets.
+- VERIFIED LOCAL: all rows remain `PENDING_OWNER_DECISION` and `READY_FOR_OWNER_LEGAL_SOURCE_REVIEW_NOT_UPLOAD`.
+- BLOCKED: Criminal public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap, related/internal-link writes, lawyer cards, schema and CRM changes remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-22 - Criminal first-upload draft closure
+
+- CONTENT FIXED / REVIEW ONLY: created `content-drafts/indictment-supporting-he.md`.
+- CONTENT FIXED / REVIEW ONLY: created `content-drafts/drug-offenses-supporting-he.md`.
+- TOOLING FIXED: updated `tools/build-criminal-traffic-readiness-dashboard.mjs` to track all five Criminal first-upload draft files.
+- CREATED: `project-control/criminal-first-upload-draft-closure-2026-05-22.md`.
+- CREATED: `project-control/criminal-first-upload-draft-closure-2026-05-22.csv`.
+- REGENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- REGENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.json`.
+- REGENERATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
+- REGENERATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-traffic-readiness-dashboard.mjs` passed.
+- VERIFIED LOCAL: Criminal first-upload draft coverage is now `5/5`, with `0` missing drafts.
+- VERIFIED LOCAL: new tracked dashboard word counts are `2,148` for indictment and `2,237` for drug offenses.
+- BLOCKED: Criminal public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap and internal-link expansion remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-22 - Criminal/Traffic readiness dashboard
+
+- TOOLING FIXED: created `tools/build-criminal-traffic-readiness-dashboard.mjs`.
+- GENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- GENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.json`.
+- CREATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
+- CREATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-traffic-readiness-dashboard.mjs` passed.
+- VERIFIED LOCAL: dashboard generated `57` rows, including `5` criminal first-upload targets, `18` criminal P0 support/protection rows, `13` traffic support/boundary rows, `9` targeted GSC signal rows and the traffic/criminal wrong-page decision packet.
+- FIXED LATER: criminal first-upload readiness is now `5/5` drafts present and `0/5` missing after the Criminal first-upload draft closure cycle.
+- BLOCKED: Criminal/Traffic public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap and internal-link expansion remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-22 - Family/Divorce GSC workflow handoff
+
+- TOOLING FIXED: `tools/build-family-divorce-gsc-decision-map.mjs` now supports `--reportDate=YYYY-MM-DD` and latest/explicit live-preupload input selection.
+- TOOLING FIXED: `tools/build-family-divorce-protected-url-review-packet.mjs` now supports `--reportDate=YYYY-MM-DD` and `--input=path`.
+- TOOLING FIXED: created `tools/gsc/run-family-divorce-gsc-workflow.ps1` for one-command dry run, focused export, decision-map generation and protected URL review-packet generation.
+- UPDATED: `tools/gsc/README.md` and `project-control/gsc-api-setup-guide.md`.
+- CREATED: `project-control/family-divorce-gsc-workflow-handoff-2026-05-22.md`.
+- CREATED: `project-control/family-divorce-gsc-workflow-handoff-2026-05-22.csv`.
+- CREATED: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-22.md`.
+- GENERATED / NOT FINAL: `reports/family-divorce-gsc-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-protected-url-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-cannibalization-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-gsc-decision-map-2026-05-22.json`.
+- GENERATED / NOT FINAL: `reports/family-divorce-protected-url-owner-review-packet-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-protected-url-owner-review-packet-2026-05-22.json`.
+- GENERATED / NOT FINAL: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax checks passed for both downstream scripts.
+- VERIFIED LOCAL: GSC workflow PowerShell dry run completed without opening OAuth and without calling the API.
+- VERIFIED LOCAL: current-date cached baseline still reports `18` protected rows, `5` protected conflicts, `18` high-risk protected rows and `40` cannibalization rows.
+- BLOCKED: final URL migration, redirects, canonicals, noindex and sitemap decisions still require focused GSC API export and owner approval.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce protected URL owner review packet
+
+- TOOLING FIXED: created `tools/build-family-divorce-protected-url-review-packet.mjs`.
+- GENERATED: `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.json`.
+- CREATED: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/build-family-divorce-protected-url-review-packet.mjs` passed.
+- VERIFIED LOCAL: generated `18` protected URL review rows with `5` P0 restore-or-targeted-301 conflicts and `1` P0 keep-asset-live row.
+- BLOCKED: packet is not final; focused GSC API export and owner approval are required before any URL, redirect, canonical, noindex or sitemap action.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce GSC decision map baseline
+
+- TOOLING FIXED: created `tools/build-family-divorce-gsc-decision-map.mjs`.
+- GENERATED: `reports/family-divorce-gsc-decision-map-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-protected-url-decision-map-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-cannibalization-decision-map-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-gsc-decision-map-2026-05-21.json`.
+- CREATED: `project-control/family-divorce-gsc-decision-map-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-gsc-decision-map-2026-05-21.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/build-family-divorce-gsc-decision-map.mjs` passed.
+- VERIFIED LOCAL: baseline run used existing cached GSC CSVs and is marked `FALLBACK_EXISTING_GSC_CACHE_NOT_FINAL`.
+- VERIFIED LOCAL: generated `7` clean target rows, `18` protected source/asset rows and `40` cannibalization baseline rows.
+- VERIFIED LOCAL: all `18` protected source/asset URLs have cached GSC rows and are high-risk in the baseline.
+- BLOCKED: final URL migration, redirects, canonicals, noindex and sitemap decisions still require the focused GSC API export.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce Wave 1B metadata word-count sync
+
+- TOOLING FIXED: created `tools/sync-family-divorce-wave1b-metadata-counts.mjs`.
+- FIXED: synced `6/6` stale Wave 1B support metadata word counts to the current static-QA counts.
+- GENERATED: `reports/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-wave1b-metadata-word-count-sync-2026-05-21.csv`.
+- UPDATED: `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv`.
+- UPDATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.md`.
+- UPDATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.csv`.
+- VERIFIED LOCAL: sync script fixed `6` rows and skipped `0`.
+- VERIFIED LOCAL: reran upload readiness checker; Wave 1B metadata word-count mismatches are now `0`.
+- VERIFIED: `7/7` current public-body drafts still pass static QA and `7/7` target URLs still have live public backups.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database rollback material.
+- BLOCKED: URL migration, redirects, canonicals, noindex and sitemap actions still require GSC API export and protected-source redirect review.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce upload readiness dashboard
+
+- TOOLING FIXED: created `tools/check-family-divorce-upload-readiness.mjs`.
+- GENERATED: `reports/family-divorce-upload-readiness-2026-05-21.csv`.
+- GENERATED: `reports/family-divorce-upload-readiness-2026-05-21.json`.
+- CREATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-upload-readiness-dashboard-2026-05-21.csv`.
+- VERIFIED LOCAL: `node --check tools/check-family-divorce-upload-readiness.mjs` passed.
+- VERIFIED LOCAL: `node tools/check-family-divorce-upload-readiness.mjs` passed.
+- VERIFIED: `7/7` current public-body drafts pass static QA and `7/7` target URLs have live public backups.
+- FIXED LATER: the `6` Wave 1B support metadata word-count mismatches were synced in the follow-up metadata cycle.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database rollback material.
+- BLOCKED: URL migration, redirects, canonicals, noindex and sitemap actions still require GSC API export and protected-source redirect review.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - GSC Family/Divorce export runner
+
+- TOOLING FIXED: created `tools/gsc/gsc-family-divorce-export.js`.
+- FIXED: runner supports credential and token paths outside the repo through `GSC_OAUTH_CLIENT_PATH` and `GSC_TOKEN_PATH`.
+- FIXED: added `--dry-run` mode for path/scope verification without reading credential contents, opening OAuth or calling the API.
+- CREATED: `project-control/gsc-family-divorce-export-runner-2026-05-21.md`.
+- CREATED: `project-control/gsc-family-divorce-export-runner-2026-05-21.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: `node --check tools/gsc/gsc-family-divorce-export.js` passed.
+- VERIFIED LOCAL: `node tools/gsc/gsc-family-divorce-export.js --dry-run` passed and reported `7` targets, `18` protected source/asset paths and `18` query terms.
+- BLOCKED / OWNER ACTION: actual GSC export still requires owner credential rotation/setup and local credential/token paths.
+- SAFETY: credential contents were not printed; no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - GSC credential hygiene
+
+- FIXED: removed `tools/gsc/oauth-client.json` from Git tracking with `git rm --cached` while leaving the local file in the workspace.
+- FIXED: updated `.gitignore` to ignore local GSC OAuth client files, token files and common Google credential JSON names.
+- FIXED: updated `tools/gsc/README.md` with credential-safety and rotation guidance.
+- CREATED: `project-control/gsc-credential-hygiene-2026-05-21.md`.
+- CREATED: `project-control/gsc-credential-hygiene-2026-05-21.csv`.
+- VERIFIED LOCAL: local `tools/gsc/oauth-client.json` is ignored after removal from tracking.
+- BLOCKED / OWNER ACTION: if the removed tracked OAuth client was real, create a new OAuth Desktop client in Google Cloud and delete/rotate the old one.
+- SAFETY: credential contents were not printed; no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce CMS operator runbook
+
+- CREATED: `project-control/family-divorce-cms-operator-runbook-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-cms-operator-runbook-2026-05-21.csv`.
+- VERIFIED LOCAL: runbook covers all `7` Family/Divorce owner-review targets.
+- VERIFIED PLANNING: runbook requires actual WordPress editor/database backup before each approved edit.
+- VERIFIED PLANNING: runbook explicitly blocks duplicate pages, slug changes, redirects, noindex/canonical changes, sitemap changes and protected asset edits during body upload.
+- READY: after owner/legal/source approval, the CMS operator has a controlled update-existing-page-only workflow.
+- BLOCKED: no CMS execution is approved until owner/legal/source approval and actual WordPress editor/database backup are complete.
+- BLOCKED: redirects, URL migration, canonical/noindex and sitemap decisions still require GSC API/export and separate approval.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce owner review packet
+
+- CREATED: `project-control/family-divorce-owner-review-packet-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-owner-review-packet-2026-05-21.csv`.
+- VERIFIED LOCAL: packet covers `7` locally merged Family/Divorce upload candidates.
+- VERIFIED LOCAL: all seven page rows reference static QA `PASS` from `reports/family-divorce-public-body-static-qa-2026-05-21.csv`.
+- VERIFIED LOCAL: packet records that `/divorce-property-division/`, `/child-custody/` and `/child-support/` high-risk merge blockers are resolved locally.
+- READY: owner can now mark each page as `APPROVE`, `EDIT`, `HOLD` or `LEGAL_REVIEW_REQUIRED`.
+- BLOCKED: no CMS upload is approved until owner/legal/source approval and actual WordPress editor/database backup are complete.
+- BLOCKED: redirects, URL migration, canonical/noindex and sitemap decisions still require GSC API/export and separate approval.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce child-support merge decisions and draft merge
+
+- TOOLING FIXED: added `tools/resolve-family-divorce-child-support-merge.mjs`.
+- TOOLING FIXED: added `tools/apply-family-divorce-child-support-draft-merges.mjs`.
+- CONTENT FIXED: applied the four approved `/child-support/` merge edits to `content-drafts/child-support-public-body-he.md`.
+- GENERATED: `reports/family-divorce-child-support-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-support-merge-decisions-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-support-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-support-draft-merge-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-support-draft-merge-2026-05-21.csv`.
+- VERIFIED LOCAL: `35` live rows resolved into `4` draft merges, `25` covered/no-action rows and `6` UI/CTA/taxonomy/related-link skips.
+- VERIFIED LOCAL: all four approved insertion blocks are present in the edited public-body draft.
+- VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce public-body drafts passed static QA.
+- VERIFIED: `/child-support/` now passes static QA with `1,650` words, all required links, no internal markers, no fake-trust hits and disclaimer status `PASS`.
+- FIXED: all three high-risk Family/Divorce pages now have row-level merge decisions and applied approved draft merges.
+- BLOCKED: CMS upload still requires owner/legal/source approval and actual WordPress editor/database backup.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce child-custody merge decisions and draft merge
+
+- TOOLING FIXED: added `tools/resolve-family-divorce-child-custody-merge.mjs`.
+- TOOLING FIXED: added `tools/apply-family-divorce-child-custody-draft-merges.mjs`.
+- CONTENT FIXED: applied the nine approved `/child-custody/` merge edits to `content-drafts/child-custody-public-body-he.md`.
+- GENERATED: `reports/family-divorce-child-custody-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-custody-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-child-custody-draft-merge-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-child-custody-draft-merge-2026-05-21.csv`.
+- VERIFIED LOCAL: `35` live rows resolved into `9` draft merges, `20` covered/no-action rows and `6` UI/CTA/taxonomy/related-link skips.
+- VERIFIED LOCAL: all nine insertion IDs are present in the edited public-body draft.
+- VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce public-body drafts passed static QA.
+- VERIFIED: `/child-custody/` now passes static QA with `1,748` words, all required links, no internal markers, no fake-trust hits and disclaimer status `PASS`.
+- BLOCKED: CMS upload still requires owner/legal/source approval and actual WordPress editor/database backup; `/child-support/` still needs row-level merge decisions.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce property-division draft merge
+
+- CONTENT FIXED: applied the six approved `/divorce-property-division/` merge edits to `content-drafts/divorce-property-division-public-body-he.md`.
+- TOOLING FIXED: added `tools/apply-family-divorce-property-division-draft-merges.mjs`.
+- CREATED: `project-control/family-divorce-property-division-draft-merge-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-property-division-draft-merge-2026-05-21.csv`.
+- VERIFIED LOCAL: all six insertion IDs are present in the edited public-body draft.
+- VERIFIED LOCAL: reran `tools/check-family-divorce-public-bodies.mjs`; all seven Family/Divorce public-body drafts passed static QA.
+- VERIFIED: `/divorce-property-division/` now passes static QA with `1,851` words, all required links, no internal markers, no fake-trust hits and disclaimer status `PASS`.
+- BLOCKED: CMS upload still requires owner/legal/source approval and actual WordPress editor/database backup.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce property-division merge decisions
+
+- TOOLING FIXED: added `tools/resolve-family-divorce-property-division-merge.mjs`.
+- VERIFIED LOCAL: resolved all `/divorce-property-division/` live candidate rows from the high-risk merge worksheet.
+- GENERATED: `reports/family-divorce-property-division-merge-decisions-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-property-division-merge-decisions-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-property-division-merge-decisions-2026-05-21.csv`.
+- VERIFIED: `35` live rows resolved into `6` draft merges, `23` covered/no-action rows and `6` UI/CTA/taxonomy/related-link skips.
+- BLOCKED: `/divorce-property-division/` still needs the six concise draft edits, static QA rerun, owner/legal/source approval and CMS backup before upload.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce high-risk merge review
+
+- TOOLING FIXED: added `tools/prepare-family-divorce-merge-review.mjs`.
+- VERIFIED LOCAL: generated a merge-review worksheet for `/child-support/`, `/child-custody/` and `/divorce-property-division/`.
+- GENERATED: `reports/family-divorce-high-risk-merge-review-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-high-risk-merge-review-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-high-risk-merge-review-2026-05-21.csv`.
+- VERIFIED: worksheet contains `165` rows: `60` draft base sections, `30` live sections marked `REVIEW_FOR_MERGE`, `46` marked `PARTIAL_OVERLAP_REVIEW` and `29` marked `COVERED_BY_DRAFT`.
+- BLOCKED: no direct overwrite is approved for the three high-risk pages until review rows are resolved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce live vs draft comparison
+
+- TOOLING FIXED: added `tools/compare-family-divorce-live-vs-drafts.mjs`.
+- VERIFIED LOCAL: compared seven live public snapshots against seven clean public-body drafts.
+- GENERATED: `reports/family-divorce-live-vs-draft-comparison-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-live-vs-draft-comparison-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-live-vs-draft-comparison-2026-05-21.csv`.
+- VERIFIED: live snapshots total `19,236` words; clean draft bodies total `11,673` words; net draft reduction is `-7,563` words.
+- BLOCKED: all seven pages need merge review before upload; no blind CMS overwrite is approved.
+- HIGH PRIORITY: `/child-support/`, `/child-custody/` and `/divorce-property-division/` have the largest retention risk.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce live target backup
+
+- TOOLING FIXED: added `tools/export-family-divorce-live-targets.mjs`.
+- VERIFIED LIVE / READ ONLY: exported metadata and public text snapshots for seven live Family/Divorce target pages.
+- GENERATED: `reports/family-divorce-live-target-backup-2026-05-21/manifest.csv`.
+- GENERATED: seven public-text snapshot files under `reports/family-divorce-live-target-backup-2026-05-21/`.
+- CREATED: `project-control/family-divorce-live-target-backup-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-live-target-backup-2026-05-21.csv`.
+- VERIFIED: all seven target pages returned `200`, stayed on their own final paths and exported as `PASS`.
+- VERIFIED: captured `19,236` words of current live public text for comparison before CMS overwrite/update.
+- NOT A DB BACKUP: actual WordPress editor/database export is still required before live edits.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce live pre-upload guard
+
+- TOOLING FIXED: added `tools/check-family-divorce-live-preupload.mjs`.
+- VERIFIED LIVE / READ ONLY WITH BLOCKERS: checked `25` Family/Divorce URLs, including `7` clean target pages, `17` protected P0 source URLs and `1` protected DOCX asset.
+- GENERATED: `reports/family-divorce-live-preupload-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-live-preupload-guard-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-live-preupload-guard-2026-05-21.csv`.
+- VERIFIED LIVE: `13` protected source/asset URLs passed reachability checks.
+- LIVE PRESENT REVIEW: all seven clean upload targets already return `200` and self-canonicalize, so current live content must be exported before any CMS update.
+- BLOCKED LIVE: `5` protected source URLs return initial `301` to homepage and need restore/update-in-place/documented 301 decisions after GSC API confirmation.
+- VERIFIED LOCAL: `node --check tools/check-family-divorce-live-preupload.mjs` passed.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Family/Divorce public body static QA
+
+- TOOLING FIXED: added `tools/check-family-divorce-public-bodies.mjs`.
+- FIXED: cleaned one `/divorce-lawyer/` caution sentence in `content-drafts/divorce-lawyer-public-body-he.md` to avoid a risky outcome-promise phrase.
+- VERIFIED LOCAL: all seven Family/Divorce public-body drafts passed static QA for minimum words, required internal links, internal-note markers, fake trust/review/outcome-promise terms and disclaimer signals.
+- GENERATED: `reports/family-divorce-public-body-static-qa-2026-05-21.csv`.
+- CREATED: `project-control/family-divorce-public-body-static-qa-2026-05-21.md`.
+- CREATED: `project-control/family-divorce-public-body-static-qa-2026-05-21.csv`.
+- UPDATED: `project-control/family-law-pre-upload-minimum-checklist-2026-05-12.md`.
+- NOT LEGAL VERIFIED: static QA does not replace owner/legal/source review.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Trust route early render
+
+- CODE FIXED: `inc/trust-routes.php` now renders `/contact/`, `/about/` and `/editorial-policy/` at `template_redirect` priority `-999999`.
+- CODE FIXED: trust-route responses send `X-Justice-Route-Guard: trust-route-early-render`.
+- UPDATED: deployment marker to `2026-05-21-trust-route-early-render-v1`.
+- CREATED: `project-control/trust-route-early-render-2026-05-21.md`.
+- CREATED: `project-control/trust-route-early-render-2026-05-21.csv`.
+- VERIFIED LOCAL: PHP lint passed for `functions.php` and `inc/trust-routes.php`; JS syntax passed for the traffic-priority and trust-route checkers; task-board CSV parse and `git diff --check` passed with normal Windows line-ending warnings only.
+- NOT LIVE VERIFIED: uPress pull/cache clear and fresh route checks are still required.
+- SAFETY: no CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Protected practice route early render
+
+- CODE FIXED: `inc/practice-landing.php` now uses one controlled-route template resolver for practice-route templates.
+- CODE FIXED: controlled practice routes render at `template_redirect` priority `-999999` and exit before later WordPress redirect plugins.
+- CODE FIXED: early controlled practice route output sends `X-Justice-Route-Guard: controlled-practice-early-render`.
+- CODE FIXED: `inc/html-sitemap.php` now renders `/site-map/` at priority `-999999`.
+- UPDATED: deployment marker to `2026-05-21-protected-route-early-render-v1`.
+- CREATED: `project-control/protected-practice-route-early-render-2026-05-21.md`.
+- CREATED: `project-control/protected-practice-route-early-render-2026-05-21.csv`.
+- VERIFIED LOCAL: PHP lint passed for `inc/practice-landing.php`, `inc/html-sitemap.php` and `functions.php`.
+- NOT LIVE VERIFIED: uPress pull/cache clear and route checker rerun are still required.
+- SAFETY: no CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Public route home redirect triage
+
+- TOOLING FIXED: `tools/check-live-traffic-priority.mjs` now records initial manual redirect status/location before following redirects.
+- CREATED: `project-control/public-route-home-redirect-triage-2026-05-21.md`.
+- CREATED: `project-control/public-route-home-redirect-triage-2026-05-21.csv`.
+- GENERATED: `reports/traffic-priority-audit-2026-05-21-route-home-redirects.csv`.
+- VERIFIED LIVE: `/`, `/articles/`, `/family-law/`, `/lawyers/?area=family-law`, `/criminal-defense-attorney/` and `/traffic-lawyer/` returned initial `200`.
+- BLOCKED LIVE: `/site-map/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/`, `/inheritance-lawyer/`, `/contact/` and `/about/` returned initial `301` to `https://jus-tice.co.il`.
+- VERIFIED LOCAL: `node --check tools/check-live-traffic-priority.mjs` passed after the checker update.
+- SAFETY: no CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Real estate guide redirect guard
+
+- CODE FIXED: `inc/routing-guards.php` now blocks WordPress-level `wp_redirect` and `redirect_canonical` conflicts from `/real-estate-lawyer-guide/` to `/` or `/real-estate-attorney`.
+- TOOLING FIXED: `tools/check-live-traffic-priority.mjs` now requires route checks to finish on their expected final path.
+- UPDATED: deployment marker to `2026-05-21-real-estate-guide-redirect-guard-v1`.
+- CREATED: `project-control/real-estate-guide-redirect-guard-2026-05-21.md`.
+- CREATED: `project-control/real-estate-guide-redirect-guard-2026-05-21.csv`.
+- GENERATED: `reports/traffic-priority-audit-2026-05-21-real-estate-guide-redirect-guard.csv`.
+- VERIFIED LOCAL: PHP lint passed for `inc/routing-guards.php` and `functions.php`; JS syntax check passed for `tools/check-live-traffic-priority.mjs`.
+- NOT LIVE VERIFIED: public server still needs uPress Git pull/cache clear. If the route still redirects before the theme marker appears, the blocker is likely a server/plugin redirect rule outside this theme guard.
+- ROUTE QA BACKLOG: the stricter checker currently flags `/site-map/`, `/medical-malpractice-lawyer/`, `/inheritance-lawyer/`, `/contact/` and `/about/` as homepage-fallback final-path failures in addition to `/real-estate-lawyer-guide/`.
+- SAFETY: no CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Real estate public edit package
+
+- CREATED: `project-control/real-estate-public-edit-package-2026-05-21.md`.
+- CREATED: `project-control/real-estate-public-edit-package-2026-05-21.csv`.
+- VERIFIED / REVIEW ONLY: prepared exact Hebrew CMS insert text and internal-link placement for `/real-estate-attorney/` plus five safe support pages.
+- VERIFIED LIVE: `/real-estate-attorney/`, `/lawyer-for-buying-or-selling-a-house/`, `/registration-of-real-estate-israel/`, `/land-appreciation-tax/`, `/real-estate-lawyer-cost-2025/` and `/real-estate-appraiser/` returned `200` and self-canonicalized.
+- BLOCKED LIVE: `/real-estate-lawyer-guide/` currently resolves to homepage URL/canonical, so it is excluded until route QA is repaired.
+- SAFETY: repo docs and read-only public checks only. No CMS content, title/H1/meta, URL slug, redirect, canonical, noindex, taxonomy, sitemap, lawyer, lead, payment, GA4/GSC, wp-admin or uPress change was made.
+
+## 2026-05-21 - Recommendation token safety checker
+
+- TOOLING FIXED: added `tools/check-recommendation-token-safety.mjs`.
+- CREATED: `project-control/recommendation-token-safety-checker-2026-05-21.md`.
+- CREATED: `project-control/recommendation-token-safety-checker-2026-05-21.csv`.
+- VERIFIED LOCAL: `node --check tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: `node tools/check-recommendation-token-safety.mjs` passed.
+- VERIFIED LOCAL: checker confirms private token CPT, hashed tokens, noindex token form, honeypot, draft-only first-party submission, `confirmed` permission, `draft_review` moderation, no `approved_public` on submission, public guard source filtering and no Review/AggregateRating schema.
+- SAFETY: tooling/docs only. No live CMS database row, Google API, Google import, outbound client message, public schema, payment setting, redirect or sitemap changed.
+
+## 2026-05-21 - First-party recommendation token intake
+
+- CODE FIXED: `inc/lawyer-recommendations.php` now registers private `justice_reco_token` records for one-time first-party recommendation intake links.
+- CODE FIXED: recommendation tokens store hashed token values, linked lawyer ID, status, expiry, creator and submitted recommendation ID.
+- CODE FIXED: public token URLs render a standalone Hebrew `noindex,nofollow` intake form at `/?justice_recommendation_token=...`.
+- CODE FIXED: valid token submissions create draft `justice_recommendation` records with `first_party`, `confirmed` permission and `draft_review` moderation.
+- CODE FIXED: Lawyer Onboarding now has a `Create recommendation link` action and an admin-only notice with the generated link.
+- CREATED: `project-control/first-party-recommendation-token-intake-2026-05-21.md`.
+- CREATED: `project-control/first-party-recommendation-token-intake-2026-05-21.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+- VERIFIED LOCAL: `git diff --check` passed with normal Windows line-ending warnings only.
+- NOT LIVE VERIFIED: authenticated admin click-through, uPress pull, token form submission and public-profile display QA still need owner/admin access and a real approved first-party test record.
+- SAFETY: repo theme code/docs only. No Google API connection, Google import, outbound client message, public schema, CMS database row, lawyer/customer/recommendation record, payment setting, redirect or sitemap changed in this cycle.
+
+## 2026-05-21 - First-party recommendation display guard
+
+- CODE FIXED: `inc/lawyer-recommendations.php` now centralizes recommendation source types and validates saved source type values.
+- CODE FIXED: public recommendation count/list queries now require linked lawyer ID, `approved_public`, `confirmed` permission and `recommendation_source_type=first_party` by default.
+- CODE FIXED: Google-linked/manual-import recommendation records stay reference-only by default and do not appear in the public lawyer profile recommendation list.
+- CREATED: `project-control/public-recommendations-display-guard-2026-05-21.md`.
+- CREATED: `project-control/public-recommendations-display-guard-2026-05-21.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-recommendations.php` passed.
+- NOT LIVE VERIFIED: public server behavior still needs uPress pull/cache refresh and an approved first-party recommendation test record.
+- BLOCKED: recommendation request token/intake flow, Google API, outbound SMS/email, public review schema and AggregateRating remain blocked.
+- SAFETY: repo theme code/docs only. No Google API connection, Google review import, outbound review request, public schema, CMS database row, recommendation/lawyer/customer record, payment setting, redirect, sitemap or outreach message changed.
+
+## 2026-05-21 - Lawyer platform owner walkthrough completion
+
+- UPDATED: `project-control/lawyer-platform-owner-walkthrough-2026-05-20.md`.
+- VERIFIED / DOCS: completed the owner walkthrough for the deployed lawyer platform state, including public URLs, private admin command center, prospect follow-up views, outreach links, reputation workflow, manual activation rules and LegalTech lead-intent handling.
+- VERIFIED LIVE: `/`, `/lawyer-plans/`, `/lawyer-registration/`, `/lawyer-dashboard/` and `/lawyers/` returned `200`.
+- VERIFIED LIVE: `/legal-tools/` still resolves to the homepage, so direct promotion remains blocked until real tool records and archive behavior are verified.
+- VERIFIED LIVE: homepage source contains `legaltech-tools`, `AI Console`, `ask-lawyer` and `data-lead-message`; it has no direct `/legal-tools/` archive link and no page-level `noindex`.
+- VERIFIED PRIVATE: unauthenticated access to Lawyer Onboarding, Lawyer Prospects and Outreach Links redirects to WordPress login.
+- COMPLETED: task-board item `T368`.
+- BLOCKED: authenticated admin walkthrough, real outreach, first payment, lawyer activation and real LegalTech product archive require owner action/access.
+- SAFETY: repo documentation and read-only live/private-boundary checks only. No public CMS page, database row, lawyer, lead, prospect, product, payment, redirect, sitemap, taxonomy, title/H1/meta or outreach message was changed.
+
 ## 2026-05-12 - Wave 1B support metadata package
 
 - CREATED: `project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.md`.

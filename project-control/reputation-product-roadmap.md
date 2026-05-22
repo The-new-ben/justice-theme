@@ -178,6 +178,24 @@ Implementation status: NOT IMPLEMENTED.
 
 ### Reputation Management Product Layer
 
+## 2026-05-22 Google Business Marketing Ecosystem Addendum
+
+Evidence:
+- `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.md`.
+- `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.csv`.
+
+VERIFIED PLANNING:
+- Reputation product packaging should include Google Business Profile setup status, review link readiness, review freshness, first-party recommendation status, profile completeness and lead/contact attribution.
+- Google Business Profile metrics should feed monthly value reports only after owner/lawyer access and measurement fields are ready.
+- API sync remains Phase 3 or later; manual/source-verified evidence remains the MVP.
+
+PHASE UPDATE:
+- Phase 1 now includes GBP URL, Place ID, review request URL, review count, latest review date, source status, UTM convention and GA4 event plan.
+- Phase 4 monthly reporting should include profile views, contact clicks, lead submits, review-link clicks, first-party recommendation count, profile completeness and content exposure.
+
+BLOCKED:
+- No public rating/review UI, Google API sync, review schema, SMS/email sender, account edit or lawyer profile edit is approved by this addendum.
+
 The module should become part of the lawyer monetization path, not just a profile widget.
 
 Product capabilities to plan:

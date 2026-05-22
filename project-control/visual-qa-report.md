@@ -2,6 +2,20 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Google Business Marketing Ecosystem Strategy
+- CREATED / VERIFIED RESEARCH: `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/google-reviews-integration-plan.md`.
+- UPDATED / VERIFIED PLANNING: `project-control/google-reviews-reputation-system-2026-05-20.md`.
+- UPDATED / VERIFIED PLANNING: `project-control/reputation-product-roadmap.md`.
+- UPDATED / VERIFIED PLANNING: `project-control/ga4-analytics-review.md`.
+- UPDATED / VERIFIED PLANNING: `project-control/lawyer-acquisition-first-wave-2026-05-20.md`.
+- VERIFIED RESEARCH: official Google guidance reviewed for profile edits, local ranking, review requests/replies, performance metrics, Performance API and Reviews API.
+- VERIFIED PLANNING: strategy connects GBP, GA4 events, lead tracking, lawyer onboarding, review/reputation workflow, off-site visibility and monthly lawyer reporting.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was repo-only strategy documentation and no public UI/account changed.
+- BLOCKED ACCOUNT/PUBLIC EXECUTION: no Google Business Profile setting, GA4 setting, GSC setting, OAuth/API flow, review import, SMS/email outreach, lawyer profile edit, public review display, schema, CRM, wp-admin or uPress action is approved.
+- SAFETY: no public page, CMS database row, lawyer record, lead record, prospect record, payment setting, Google account setting, redirect, sitemap, taxonomy, GSC/GA4 setting or admin setting changed.
+
 ## 2026-05-22 Homepage Line-By-Line Business Review
 - CREATED / VERIFIED LOCAL: `project-control/homepage-line-by-line-business-review-2026-05-22.md`.
 - CREATED / VERIFIED LOCAL: `project-control/homepage-line-by-line-business-review-2026-05-22.csv`.

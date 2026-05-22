@@ -92,6 +92,7 @@ Full read-only export after credentials:
 $env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
 $env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
 .\tools\gsc\run-priority-cluster-gsc-exports.ps1
+.\tools\gsc\check-priority-gsc-export-output.ps1 -WriteReport
 ```
 
 Single cluster:
@@ -103,6 +104,8 @@ Single cluster:
 ```
 
 Review all generated decision maps before any CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy or internal-link action.
+
+The validator is intentionally strict. It blocks missing focused export folders, missing required files, malformed CSV headers, empty page/query/protected-source exports and decision maps that still come from baseline cache/dashboard data instead of `FOCUSED_GSC_EXPORT`.
 
 ## Criminal Law First Export
 

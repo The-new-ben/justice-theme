@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - GSC priority export output validator
+
+- TOOLING FIXED: created `tools/gsc/check-priority-gsc-export-output.ps1`.
+- CREATED: `project-control/gsc-priority-export-output-validator-2026-05-22.md`.
+- CREATED: `project-control/gsc-priority-export-output-validator-2026-05-22.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: validator ran for Family/Divorce, Criminal Law and Medical Malpractice.
+- VERIFIED LOCAL: current result is `BLOCKED_EXPORT_VALIDATION` with `9` verified rows and `21` blocked rows because focused export folders are not present yet.
+- VERIFIED LOCAL: existing decision-map CSV files parse, but their summaries are blocked as baseline/cache/dashboard maps rather than `FOCUSED_GSC_EXPORT`.
+- BLOCKED: real Search Console export still requires owner OAuth setup; validator must pass before decision maps are used for upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy or internal-link decisions.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC API call, wp-admin or uPress change was made.
+
 ## 2026-05-22 - GSC OAuth preflight checker
 
 - TOOLING FIXED: created `tools/gsc/check-gsc-oauth-preflight.ps1`.

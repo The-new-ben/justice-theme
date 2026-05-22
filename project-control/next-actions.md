@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-GSC-PRIORITY-OUTPUT-VALIDATOR-001: Validate priority GSC export outputs before upload decisions
+**Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / BLOCKED UNTIL REAL GSC EXPORT / NO PUBLIC CHANGES
+**Why:** After OAuth setup, the next failure mode is using missing, malformed or baseline-only Search Console artifacts as if they were real focused export evidence. A strict output validator makes the owner/operator gate fast and explicit before CMS upload or URL decisions.
+**Actions:**
+1. DONE: created `tools/gsc/check-priority-gsc-export-output.ps1`.
+2. DONE: created `project-control/gsc-priority-export-output-validator-2026-05-22.md`.
+3. DONE: created `project-control/gsc-priority-export-output-validator-2026-05-22.csv`.
+4. DONE: updated `tools/gsc/README.md`.
+5. DONE: updated `project-control/gsc-api-setup-guide.md`.
+6. VERIFIED LOCAL: validator ran for Family/Divorce, Criminal Law and Medical Malpractice.
+7. VERIFIED LOCAL: current result is `BLOCKED_EXPORT_VALIDATION` with `21` blocked rows because real focused export folders are still missing.
+8. VERIFIED LOCAL: existing decision-map CSVs parse, but their summaries are blocked as baseline/cache/dashboard maps, not `FOCUSED_GSC_EXPORT`.
+9. NEXT: after owner OAuth setup, run `.\tools\gsc\run-priority-cluster-gsc-exports.ps1`, then `.\tools\gsc\check-priority-gsc-export-output.ps1 -WriteReport`. Do not treat decision maps as upload evidence until the validator returns `VERIFIED_EXPORT_OUTPUTS_READY_FOR_OWNER_REVIEW`.
+
 ### ACTION-GSC-OAUTH-PREFLIGHT-001: Add local GSC OAuth preflight checker
 **Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / OWNER OAUTH BLOCKED / NO PUBLIC CHANGES
 **Why:** The next owner-controlled blocker is GSC OAuth setup. A preflight checker reduces setup failures by validating credential paths, token hygiene, Node dependencies and priority-runner wiring before any OAuth browser or Search Console API call.

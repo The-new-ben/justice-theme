@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-22 18:33 Asia/Jerusalem
+- GSC PRIORITY EXPORT OUTPUT VALIDATOR: added a local validator for the real priority GSC export outputs after owner OAuth setup.
+- CREATED: `tools/gsc/check-priority-gsc-export-output.ps1`.
+- CREATED: `project-control/gsc-priority-export-output-validator-2026-05-22.md`.
+- CREATED: `project-control/gsc-priority-export-output-validator-2026-05-22.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- VERIFIED LOCAL: validator ran for Family/Divorce, Criminal Law and Medical Malpractice and correctly returned `BLOCKED_EXPORT_VALIDATION` because focused export folders are not present yet.
+- VERIFIED LOCAL: existing baseline/cache/dashboard decision-map CSVs parse, but their summaries remain `BLOCKED_DECISION_MAP_NOT_FOCUSED`, so they are not approved as upload evidence.
+- BLOCKED OWNER SETUP: owner still needs to finish read-only GSC OAuth setup and run the priority cluster export before any CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy or internal-link action.
+- SAFETY: this cycle made repo-only tooling/docs/report changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC API call, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 18:18 Asia/Jerusalem
 - GSC OAUTH PREFLIGHT: added a local setup checker so the owner can validate GSC credential paths, token hygiene, dependencies and priority-runner wiring before the first real OAuth/API export.
 - CREATED: `tools/gsc/check-gsc-oauth-preflight.ps1`.

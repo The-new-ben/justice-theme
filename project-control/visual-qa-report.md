@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 GSC Priority Export Output Validator
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/gsc/check-priority-gsc-export-output.ps1`.
+- CREATED / VERIFIED LOCAL: `project-control/gsc-priority-export-output-validator-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/gsc-priority-export-output-validator-2026-05-22.csv`.
+- VERIFIED LOCAL: validator ran for Family/Divorce, Criminal Law and Medical Malpractice and returned `BLOCKED_EXPORT_VALIDATION`.
+- VERIFIED LOCAL: existing baseline/cache/dashboard decision-map CSVs parse, but their summaries are blocked until rebuilt from `FOCUSED_GSC_EXPORT`.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was local GSC output tooling only and no public UI changed.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment, GSC API call or admin setting changed.
+
 ## 2026-05-22 GSC OAuth Preflight Checker
 - TOOLING FIXED / VERIFIED LOCAL: created `tools/gsc/check-gsc-oauth-preflight.ps1`.
 - CREATED / VERIFIED PLANNING: `project-control/gsc-oauth-preflight-runbook-2026-05-22.md`.

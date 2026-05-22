@@ -221,3 +221,23 @@ VERIFIED:
 BLOCKED:
 - No public homepage implementation is approved yet.
 - Sitemap, canonical, redirects, robots/noindex, title/H1/meta, menu and CMS/database changes remain blocked.
+
+## 2026-05-22 Homepage Line-By-Line Business Review
+
+Evidence:
+- `project-control/homepage-line-by-line-business-review-2026-05-22.md`.
+- `project-control/homepage-line-by-line-business-review-2026-05-22.csv`.
+
+VERIFIED LOCAL:
+- `front-page.php` and the 12 current homepage section templates were reviewed.
+- The homepage stack already supports the broad portal strategy and should not be rebuilt before a smaller QA batch.
+
+RECOMMENDED:
+- Use no-URL-change copy/link QA as the next homepage execution packet.
+- Keep hero/search, intake, intent pyramid, practice areas, find-lawyer guide, lawyer CTA, ask-lawyer and final CTA.
+- Keep featured lawyers gated and do not show unapproved, fake, unlabelled or over-promising profiles.
+- Replace latest-only article exposure later with curated cluster guides after upload governance clears.
+- Improve trust copy later with editorial/source/sponsored-placement/no-advice process language.
+
+BLOCKED:
+- No homepage template, copy, title/H1/meta, link, URL, redirect, canonical/noindex, sitemap, taxonomy, lawyer card, lead/CRM, payment, wp-admin or uPress action is approved by this review.

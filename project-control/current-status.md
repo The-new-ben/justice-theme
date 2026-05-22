@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-22 19:31 Asia/Jerusalem
+- HOMEPAGE LINE-BY-LINE BUSINESS REVIEW: completed T243 as a repo-only section-by-section review of the current homepage stack.
+- CREATED: `project-control/homepage-line-by-line-business-review-2026-05-22.md`.
+- CREATED: `project-control/homepage-line-by-line-business-review-2026-05-22.csv`.
+- UPDATED: `project-control/homepage-seo-strategy.md`.
+- UPDATED: `project-control/homepage-seo-design-alignment.md`.
+- VERIFIED LOCAL: reviewed `front-page.php` and the 12 included section templates from hero through final CTA.
+- VERIFIED PLANNING: current homepage structure is directionally correct; next work should be a no-URL-change copy/link QA batch, not a rebuild.
+- VERIFIED PLANNING: highest homepage risks are featured-lawyer approval/labeling, latest-article leakage to weak pages, taxonomy-count practice ordering, trust-process copy, lead delivery/consent QA and exact route verification.
+- BLOCKED PUBLIC EXECUTION: no homepage template, copy, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lawyer card, lead/CRM, payment, wp-admin or uPress change is approved.
+- NEXT: owner-approved no-URL-change homepage copy/link QA focused on hero/search, intent pyramid, practice-area priority, featured lawyer boundaries, latest-articles replacement plan, trust copy and final CTA wording.
+- SAFETY: this cycle made repo-only docs changes; no public CMS page body, database row, lawyer record, lead record, prospect record, payment setting, URL, redirect, canonical, noindex, taxonomy, sitemap, GA4/GSC setting, wp-admin setting, uPress deployment or outreach message changed.
+
 ## LATEST WORK STATUS - 2026-05-22 19:18 Asia/Jerusalem
 - HOMEPAGE COMPETITOR-ALIGNED STRATEGY: completed the queued T244 research/strategy pass without changing the homepage.
 - CREATED: `project-control/homepage-competitor-aligned-strategy-2026-05-22.md`.

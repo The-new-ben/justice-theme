@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-HOMEPAGE-LINE-BY-LINE-BUSINESS-REVIEW-001: Complete section-by-section homepage business and SEO review
+**Status:** COMPLETED / VERIFIED LOCAL / VERIFIED PLANNING / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** T243 required a line-by-line homepage review for Google signal, user legal-help signal, lawyer onboarding signal, links, CTAs and mobile/business structure after the competitor-aligned strategy pass.
+**Actions:**
+1. DONE: created `project-control/homepage-line-by-line-business-review-2026-05-22.md`.
+2. DONE: created `project-control/homepage-line-by-line-business-review-2026-05-22.csv`.
+3. DONE: updated `project-control/homepage-seo-strategy.md`.
+4. DONE: updated `project-control/homepage-seo-design-alignment.md`.
+5. VERIFIED LOCAL: reviewed `front-page.php` and the 12 included section templates.
+6. VERIFIED PLANNING: homepage stack is directionally correct and should not be rebuilt before a smaller copy/link QA batch.
+7. VERIFIED PLANNING: highest risks are featured-lawyer approval/labeling, chronological latest-article leakage, taxonomy-count ordering, trust-process copy and lead/route QA.
+8. BLOCKED PUBLIC EXECUTION: no homepage template, copy, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lawyer card, lead/CRM, payment, wp-admin or uPress action is approved.
+9. NEXT: if owner approves, prepare exact no-URL-change copy/link QA for hero/search, intent pyramid, practice-area priority, featured lawyer boundaries, latest-articles replacement plan, trust copy and final CTA wording.
+
 ### ACTION-HOMEPAGE-COMPETITOR-ALIGNED-STRATEGY-001: Complete competitor-aligned homepage strategy pass
 **Status:** COMPLETED / VERIFIED RESEARCH / VERIFIED LOCAL / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** The homepage already has a strong portal stack, but T244 required current competitor alignment so later homepage edits follow proven legal portal patterns without copying or adding clutter.

@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Homepage line-by-line business review
+
+- CREATED: `project-control/homepage-line-by-line-business-review-2026-05-22.md`.
+- CREATED: `project-control/homepage-line-by-line-business-review-2026-05-22.csv`.
+- UPDATED: `project-control/homepage-seo-strategy.md`.
+- UPDATED: `project-control/homepage-seo-design-alignment.md`.
+- VERIFIED LOCAL: reviewed `front-page.php` and the 12 current homepage section templates.
+- VERIFIED PLANNING: current homepage structure is strong enough for controlled refinement; no rebuild is recommended.
+- VERIFIED PLANNING: next homepage action should be no-URL-change copy/link QA, with special controls for featured lawyers, latest articles, practice-area ordering, trust-process language and lead/route verification.
+- BLOCKED: no homepage template, copy, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lawyer card, lead/CRM, payment, wp-admin or uPress action was approved.
+- SAFETY: no public CMS content, database row, lawyer record, lead record, prospect record, payment setting, URL, redirect, canonical/noindex, taxonomy, sitemap, GA4/GSC setting, wp-admin setting, uPress deployment or outreach message was changed.
+
 ## 2026-05-22 - Homepage competitor-aligned strategy
 
 - CREATED: `project-control/homepage-competitor-aligned-strategy-2026-05-22.md`.

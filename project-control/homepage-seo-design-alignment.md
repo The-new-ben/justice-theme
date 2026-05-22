@@ -216,3 +216,23 @@ VISUAL VERIFIED:
 FOLLOW-UP CODE FIXED / NOT LIVE VERIFIED:
 - Traffic fallback now avoids `/traffic-law/` because it redirects to homepage.
 - LegalTech/AI links now fall back to `/#ask-lawyer` until actual `/legal-tools/` pages are published.
+
+## 2026-05-22 Line-By-Line Business Review Overlay
+
+Evidence:
+- `project-control/homepage-line-by-line-business-review-2026-05-22.md`.
+- `project-control/homepage-line-by-line-business-review-2026-05-22.csv`.
+
+VERIFIED LOCAL:
+- Current `front-page.php` uses 12 section templates from hero/search through final CTA.
+- The design/SEO issue is not missing page structure; the issue is controlled section refinement.
+
+DESIGN RULE:
+- Keep one clear job per section.
+- Do not add another decorative homepage layer before copy/link QA.
+- Keep lawyer proof gated until profiles are real, approved and commercially labelled when needed.
+- Replace latest-only article cards later with curated cluster proof.
+- Turn trust from generic counts into process-based trust after owner approval.
+
+BLOCKED:
+- No public homepage template, copy, visual, link, title/H1/meta, taxonomy, sitemap, URL, CMS, lead/CRM or uPress change was executed by this overlay.

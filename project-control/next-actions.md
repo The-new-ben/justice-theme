@@ -6,6 +6,19 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CRIMINAL-CMS-OPERATOR-RUNBOOK-001: Prepare Criminal CMS operator runbook
+**Status:** COMPLETED / VERIFIED LOCAL / READY FOR OPERATOR PREP / EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** Once the owner approves any Criminal page, the operator needs a strict current-URL-only runbook that separates body upload from slug migration, redirects, canonicals, noindex, sitemap, taxonomy and related-card work.
+**Actions:**
+1. DONE: created `project-control/criminal-cms-operator-runbook-2026-05-22.md`.
+2. DONE: created `project-control/criminal-cms-operator-runbook-2026-05-22.csv`.
+3. VERIFIED LOCAL: runbook covers `5` Criminal first-upload current-URL targets.
+4. VERIFIED LOCAL: CSV contains `11` operator checklist rows.
+5. VERIFIED PLANNING: runbook requires owner/legal/source approval, actual WordPress editor/database rollback backup and post-upload route/indexability/link/visual QA.
+6. VERIFIED PLANNING: runbook blocks duplicate clean-slug pages, slug changes, redirects, noindex, canonical migration, sitemap changes, taxonomy changes, related-card writes, protected URL edits and fake trust/rating claims.
+7. BLOCKED: no CMS execution is approved until owner decisions are set to `APPROVE_CURRENT_URL_UPDATE` page by page.
+8. NEXT: owner reviews the five Criminal rows; after approval, operator follows this runbook for approved current URLs only.
+
 ### ACTION-CRIMINAL-OWNER-REVIEW-PACKET-001: Prepare Criminal owner review packet
 **Status:** COMPLETED / VERIFIED LOCAL / READY FOR OWNER REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** Criminal first-upload draft coverage is now complete, but public CMS upload must still be gated by owner/legal/source approval, current-URL strategy, anti-cannibalization controls and rollback backup.
@@ -20,7 +33,7 @@
 8. VERIFIED LOCAL: all `5` rows are `READY_FOR_OWNER_LEGAL_SOURCE_REVIEW_NOT_UPLOAD` and `PENDING_OWNER_DECISION`.
 9. READY: owner can mark each page `APPROVE_CURRENT_URL_UPDATE`, `EDIT_REQUIRED`, `HOLD` or `LEGAL_REVIEW_REQUIRED`.
 10. BLOCKED: no CMS upload, English slug migration, redirects, canonicals, noindex, sitemap, taxonomy, related-card/internal-link writes, lawyer cards, schema or CRM action is approved.
-11. NEXT: owner reviews `/criminal-defense-attorney/` first, then the four support pages, before any CMS operator runbook is prepared or executed.
+11. FIXED LATER: `ACTION-CRIMINAL-CMS-OPERATOR-RUNBOOK-001` prepared the execution-blocked operator runbook; owner review is still required before any CMS execution.
 
 ### ACTION-CRIMINAL-FIRST-UPLOAD-DRAFT-CLOSURE-001: Complete missing Criminal first-upload support drafts
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / READY FOR OWNER REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES

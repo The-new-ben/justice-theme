@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Criminal CMS operator runbook
+
+- CREATED: `project-control/criminal-cms-operator-runbook-2026-05-22.md`.
+- CREATED: `project-control/criminal-cms-operator-runbook-2026-05-22.csv`.
+- VERIFIED LOCAL: runbook covers `5` Criminal first-upload current-URL targets and `11` operator checklist rows.
+- VERIFIED PLANNING: runbook requires owner/legal/source approval, actual WordPress editor/database rollback material and post-upload route/indexability/link/visual QA.
+- BLOCKED: Criminal public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap, related/internal-link writes, lawyer cards, schema and CRM changes remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Criminal owner review packet
 
 - TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.

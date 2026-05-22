@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Criminal CMS Operator Runbook
+- CREATED / VERIFIED LOCAL: `project-control/criminal-cms-operator-runbook-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/criminal-cms-operator-runbook-2026-05-22.csv`.
+- VERIFIED LOCAL: runbook covers `5` Criminal current-URL targets and `11` operator checklist rows.
+- VERIFIED PLANNING: runbook requires owner/legal/source approval, actual WordPress rollback backup and post-upload desktop/mobile screenshots after approved CMS updates.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local operator-runbook work only; no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/legal/source approval, WordPress backup, approved CMS update and post-upload route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Criminal Owner Review Packet
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/build-criminal-owner-review-packet.mjs`.
 - GENERATED / VERIFIED LOCAL: `reports/criminal-owner-review-packet-2026-05-22.csv`.

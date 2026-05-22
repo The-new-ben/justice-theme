@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-22 14:44 Asia/Jerusalem
+- CRIMINAL CMS OPERATOR RUNBOOK: prepared a blocked post-approval CMS execution guide for the five Criminal first-upload current URLs.
+- CREATED: `project-control/criminal-cms-operator-runbook-2026-05-22.md`.
+- CREATED: `project-control/criminal-cms-operator-runbook-2026-05-22.csv`.
+- VERIFIED LOCAL: runbook covers `5` Criminal target pages and `11` operator checklist rows.
+- VERIFIED PLANNING: runbook requires owner/legal/source approval, actual WordPress editor/database rollback material, current-URL-only updates and post-upload route/indexability/link/visual QA.
+- READY FOR OPERATOR PREP / NOT EXECUTION: operator boundaries are documented before approval, but every page row remains `BLOCKED`.
+- BLOCKED: no Criminal CMS upload, English slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 14:31 Asia/Jerusalem
 - CRIMINAL FIRST-UPLOAD DRAFT CLOSURE: completed the two missing Criminal support drafts and regenerated the readiness dashboard.
 - CREATED: `content-drafts/indictment-supporting-he.md`.

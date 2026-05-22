@@ -60,18 +60,21 @@ function justice_eeat_author_registry() {
 			'name'         => 'עו"ד שרון נהרי',
 			'slug'         => 'sharon-nahari',
 			'wp_post_id'   => 19309,
-			'title'        => 'עורך דין פלילי | משפט פלילי וצווארון לבן',
-			'bar_member'   => 'לשכת עורכי הדין בישראל',
-			// Bar number: researching via israelbar.org.il — update when confirmed
-			'bar_number'   => '', // TODO: confirm from israelbar.org.il search
+			// jobTitle must reflect licensed role for YMYL
+			'title'        => 'עורך דין פלילי | משפט פלילי, טקסים וצווארון לבן',
+			'bar_member'   => 'לשכת עורכי הדין בישראל מחוז תל אביב',
+			// IBA card: admitted 30/11/1997. Bar number in IBA URL pending extraction.
+			// Update: go to israelbar.org.il, search Sharon Nahari, copy the LawyerID from URL
+			'bar_number'   => '', // TODO: extract from israelbar.org.il URL (page shown in screenshot)
 			'law_school'   => 'הפקולטה למשפטים',
-			'experience'   => '27+',
+			'experience'   => '28+',
+			// IBA practice areas: מיסים, משפט פלילי, צווארון לבן
 			'same_as'      => array(
-				'https://www.linkedin.com/in/sharon-nahari-attorney',
-				'https://din.co.il/lawyer/sharon-nahari',
+				'https://nahari-law.co.il',
+				'https://naharilawfirm.com',
 				'https://www.israelbar.org.il',
 			),
-			'areas'        => array( 'criminal-law', 'criminal-defense', 'police-records', 'white-collar', 'drug-offenses' ),
+			'areas'        => array( 'criminal-law', 'criminal-defense', 'police-records', 'white-collar', 'tax-law', 'extradition' ),
 		),
 		// Medical malpractice: authored by Jus-Tice team, reviewed by Maya Rotenberg
 		// Reviewer must have credentials matching topic — attorneys review all YMYL content

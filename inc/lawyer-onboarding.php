@@ -33,6 +33,15 @@ function justice_theme_register_lawyer_activation_meta(): void {
 		'outreach_practice'           => 'string',
 		'registration_landing_url'    => 'string',
 		'registration_referrer_url'   => 'string',
+		'account_continuation_status' => 'string',
+		'registration_photo_attachment_id' => 'integer',
+		'registration_logo_attachment_id' => 'integer',
+		'registration_document_attachment_id' => 'integer',
+		'registration_video_attachment_id' => 'integer',
+		'pending_upload_review'       => 'string',
+		'registration_upload_notes'   => 'string',
+		'pending_ai_profile_draft_review' => 'string',
+		'profile_ai_draft_sections'   => 'string',
 	);
 
 	foreach ( $fields as $key => $type ) {
@@ -57,7 +66,7 @@ function justice_theme_lawyer_response_commitment_options(): array {
 }
 
 function justice_theme_lawyer_activation_meta_sanitizer( string $key ): string {
-	if ( 'activation_owner_note' === $key ) {
+	if ( in_array( $key, array( 'activation_owner_note', 'registration_upload_notes', 'profile_ai_draft_sections' ), true ) ) {
 		return 'sanitize_textarea_field';
 	}
 
@@ -65,7 +74,7 @@ function justice_theme_lawyer_activation_meta_sanitizer( string $key ): string {
 		return 'esc_url_raw';
 	}
 
-	if ( 'google_review_count' === $key ) {
+	if ( in_array( $key, array( 'google_review_count', 'registration_photo_attachment_id', 'registration_logo_attachment_id', 'registration_document_attachment_id', 'registration_video_attachment_id' ), true ) ) {
 		return 'absint';
 	}
 
@@ -196,6 +205,178 @@ function justice_theme_lawyer_registration_attribution_for_post( int $post_id ):
 	return $attribution;
 }
 
+function justice_theme_lawyer_registration_upload_fields(): array {
+	$five_mb       = 5 * 1024 * 1024;
+	$twentyfive_mb = 25 * 1024 * 1024;
+
+	return array(
+		'profile_photo_upload' => array(
+			'label'    => 'Profile photo',
+			'meta_key' => 'registration_photo_attachment_id',
+			'max_size' => $five_mb,
+			'mimes'    => array(
+				'jpg|jpeg' => 'image/jpeg',
+				'png'      => 'image/png',
+				'webp'     => 'image/webp',
+			),
+		),
+		'profile_logo_upload'  => array(
+			'label'    => 'Firm logo',
+			'meta_key' => 'registration_logo_attachment_id',
+			'max_size' => $five_mb,
+			'mimes'    => array(
+				'jpg|jpeg' => 'image/jpeg',
+				'png'      => 'image/png',
+				'webp'     => 'image/webp',
+			),
+		),
+		'profile_document_upload' => array(
+			'label'    => 'Public document or firm brochure',
+			'meta_key' => 'registration_document_attachment_id',
+			'max_size' => $five_mb,
+			'mimes'    => array(
+				'pdf'      => 'application/pdf',
+				'jpg|jpeg' => 'image/jpeg',
+				'png'      => 'image/png',
+				'webp'     => 'image/webp',
+			),
+		),
+		'profile_video_upload' => array(
+			'label'    => 'Intro video file',
+			'meta_key' => 'registration_video_attachment_id',
+			'max_size' => $twentyfive_mb,
+			'mimes'    => array(
+				'mp4'  => 'video/mp4',
+				'webm' => 'video/webm',
+				'mov'  => 'video/quicktime',
+			),
+		),
+	);
+}
+
+function justice_theme_handle_lawyer_registration_uploads( int $post_id ): array {
+	$results = array(
+		'uploaded' => array(),
+		'blocked'  => array(),
+	);
+
+	if ( empty( $_FILES ) ) {
+		return $results;
+	}
+
+	if ( ! function_exists( 'media_handle_upload' ) ) {
+		require_once ABSPATH . 'wp-admin/includes/file.php';
+		require_once ABSPATH . 'wp-admin/includes/media.php';
+		require_once ABSPATH . 'wp-admin/includes/image.php';
+	}
+
+	$wp_limit = function_exists( 'wp_max_upload_size' ) ? (int) wp_max_upload_size() : PHP_INT_MAX;
+
+	foreach ( justice_theme_lawyer_registration_upload_fields() as $field => $config ) {
+		if ( empty( $_FILES[ $field ] ) || ! is_array( $_FILES[ $field ] ) ) {
+			continue;
+		}
+
+		$file = $_FILES[ $field ];
+		$error = isset( $file['error'] ) ? (int) $file['error'] : UPLOAD_ERR_NO_FILE;
+
+		if ( UPLOAD_ERR_NO_FILE === $error ) {
+			continue;
+		}
+
+		$label = (string) $config['label'];
+		$limit = min( (int) $config['max_size'], $wp_limit );
+		$size  = isset( $file['size'] ) ? (int) $file['size'] : 0;
+
+		if ( UPLOAD_ERR_OK !== $error ) {
+			$results['blocked'][] = sprintf( '%s upload failed with code %s.', $label, $error );
+			continue;
+		}
+
+		if ( $size > $limit ) {
+			$results['blocked'][] = sprintf( '%s exceeded the %s MB upload limit.', $label, round( $limit / 1024 / 1024, 1 ) );
+			continue;
+		}
+
+		$attachment_id = media_handle_upload(
+			$field,
+			$post_id,
+			array(
+				'post_title' => get_the_title( $post_id ) . ' - ' . $label,
+			),
+			array(
+				'test_form' => false,
+				'mimes'     => $config['mimes'],
+			)
+		);
+
+		if ( is_wp_error( $attachment_id ) ) {
+			$results['blocked'][] = sprintf( '%s upload was blocked: %s', $label, $attachment_id->get_error_message() );
+			continue;
+		}
+
+		update_post_meta( $post_id, (string) $config['meta_key'], (int) $attachment_id );
+		$results['uploaded'][] = array(
+			'label'         => $label,
+			'attachment_id' => (int) $attachment_id,
+			'url'           => wp_get_attachment_url( (int) $attachment_id ) ?: '',
+		);
+	}
+
+	return $results;
+}
+
+function justice_theme_lawyer_registration_upload_notes( array $upload_results ): string {
+	$lines = array();
+
+	foreach ( $upload_results['uploaded'] ?? array() as $upload ) {
+		$lines[] = sprintf( 'Uploaded for owner review: %s (#%s).', $upload['label'] ?? 'file', $upload['attachment_id'] ?? '-' );
+	}
+
+	foreach ( $upload_results['blocked'] ?? array() as $blocked ) {
+		$lines[] = 'Blocked upload: ' . $blocked;
+	}
+
+	return implode( "\n", $lines );
+}
+
+function justice_theme_lawyer_registration_assistant_draft( array $meta, array $upload_results = array() ): string {
+	$lines = array(
+		'AI-assistant profile draft scaffold - owner/legal/ethics review required before public use.',
+		'',
+		'Suggested headline:',
+		$meta['profile_headline'] ?: trim( sprintf( '%s%s', $meta['firm_name'] ? $meta['firm_name'] . ' - ' : '', $meta['lawyer_full_name'] ?? '' ) ),
+		'',
+		'Public summary source:',
+		$meta['bio_short'] ?: 'No short bio supplied. Owner should request a factual practice summary before publishing.',
+		'',
+		'Services to shape into profile sections:',
+		$meta['profile_services'] ?: 'No service list supplied.',
+		'',
+		'Work process to shape into profile sections:',
+		$meta['profile_process'] ?: 'No process text supplied.',
+		'',
+		'FAQ material:',
+		$meta['profile_faqs'] ?: 'No FAQ material supplied.',
+		'',
+		'Trust and evidence checklist:',
+		'- Verify bar number and identity before publishing.',
+		'- Check every specialty, experience and outcome-related claim.',
+		'- Review Google Business/review links before any reputation workflow.',
+		'- Do not use uploaded files as private identity storage; verify license externally from the bar number.',
+	);
+
+	if ( ! empty( $upload_results['uploaded'] ) ) {
+		$lines[] = '- Uploaded assets are attached to the draft and pending owner review.';
+	}
+
+	if ( ! empty( $upload_results['blocked'] ) ) {
+		$lines[] = '- Some uploads were blocked; contact the lawyer if the material is required.';
+	}
+
+	return trim( implode( "\n", $lines ) );
+}
+
 function justice_theme_handle_lawyer_registration(): void {
 	if ( ! isset( $_POST['justice_lawyer_registration_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_registration_nonce'] ) ), 'justice_lawyer_registration' ) ) {
 		wp_safe_redirect( add_query_arg( 'registration', 'failed', home_url( '/lawyer-registration/' ) ) );
@@ -234,6 +415,7 @@ function justice_theme_handle_lawyer_registration(): void {
 	$google_business_url = isset( $_POST['google_business_profile_url'] ) ? esc_url_raw( wp_unslash( $_POST['google_business_profile_url'] ) ) : '';
 	$google_review_url   = isset( $_POST['google_review_request_url'] ) ? esc_url_raw( wp_unslash( $_POST['google_review_request_url'] ) ) : '';
 	$attribution         = justice_theme_lawyer_registration_attribution_from_post();
+	$account_status      = is_user_logged_in() ? 'linked_current_user' : 'needs_owner_invite';
 
 	if ( ! array_key_exists( $response_commitment, justice_theme_lawyer_response_commitment_options() ) ) {
 		$response_commitment = '';
@@ -277,6 +459,10 @@ function justice_theme_handle_lawyer_registration(): void {
 		$internal_notes .= "\nGoogle reputation sources supplied during registration. Verify ownership and policy compliance before public display or review outreach.";
 	}
 
+	$internal_notes .= is_user_logged_in()
+		? "\nAccount continuation: registration linked to the current logged-in user for dashboard follow-up."
+		: "\nAccount continuation: no logged-in user. Owner should invite or claim an account before dashboard access.";
+
 	$attribution_summary = justice_theme_lawyer_registration_attribution_summary( $attribution );
 	if ( $attribution_summary ) {
 		$internal_notes .= "\nAttribution: " . $attribution_summary;
@@ -311,6 +497,7 @@ function justice_theme_handle_lawyer_registration(): void {
 		'activation_status'    => 'registered',
 		'first_value_at'       => '',
 		'activation_owner_note' => '',
+		'account_continuation_status' => $account_status,
 		'claimed_by_user_id'   => is_user_logged_in() ? get_current_user_id() : 0,
 		'source_type'          => 'registration',
 		'lead_routing_enabled' => false,
@@ -319,6 +506,29 @@ function justice_theme_handle_lawyer_registration(): void {
 
 	foreach ( $meta as $key => $value ) {
 		update_post_meta( $post_id, $key, $value );
+	}
+
+	$upload_results = justice_theme_handle_lawyer_registration_uploads( $post_id );
+	$upload_notes   = justice_theme_lawyer_registration_upload_notes( $upload_results );
+
+	if ( $upload_notes ) {
+		update_post_meta( $post_id, 'pending_upload_review', '1' );
+		update_post_meta( $post_id, 'registration_upload_notes', $upload_notes );
+		justice_theme_append_lawyer_internal_note( $post_id, $upload_notes );
+		$meta['pending_upload_review']     = '1';
+		$meta['registration_upload_notes'] = $upload_notes;
+	} else {
+		$meta['pending_upload_review']     = '';
+		$meta['registration_upload_notes'] = '';
+	}
+
+	$assistant_draft = justice_theme_lawyer_registration_assistant_draft( $meta, $upload_results );
+	if ( $assistant_draft ) {
+		update_post_meta( $post_id, 'pending_ai_profile_draft_review', '1' );
+		update_post_meta( $post_id, 'profile_ai_draft_sections', $assistant_draft );
+		justice_theme_append_lawyer_internal_note( $post_id, 'AI-assistant profile draft scaffold generated for owner review. No public profile text changed automatically.' );
+		$meta['pending_ai_profile_draft_review'] = '1';
+		$meta['profile_ai_draft_sections']       = $assistant_draft;
 	}
 
 	if ( $area && taxonomy_exists( 'practice-areas' ) ) {
@@ -416,7 +626,7 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 
 	$subject = 'New lawyer registration pending review';
 	$message = sprintf(
-		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nLead response: %s\nAttribution: %s\nLanding page: %s\nHeadline: %s\nVideo: %s\nGoogle Business: %s\nGoogle review link: %s\n\nReview: %s",
+		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nLead response: %s\nAccount continuation: %s\nAttribution: %s\nLanding page: %s\nHeadline: %s\nVideo: %s\nGoogle Business: %s\nGoogle review link: %s\nUploads: %s\nAI draft: %s\n\nReview: %s",
 		$meta['lawyer_full_name'] ?: '-',
 		$meta['firm_name'] ?: '-',
 		$meta['phone'] ?: '-',
@@ -425,12 +635,15 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 		$meta['payment_path'] ?: '-',
 		$meta['payment_followup_status'] ?: '-',
 		justice_theme_lawyer_response_commitment_options()[ $meta['lead_response_commitment'] ?? '' ] ?? '-',
+		$meta['account_continuation_status'] ?: '-',
 		justice_theme_lawyer_registration_attribution_summary( $meta ) ?: '-',
 		$meta['registration_landing_url'] ?: '-',
 		$meta['profile_headline'] ?: '-',
 		$meta['profile_video_url'] ?: '-',
 		$meta['google_business_profile_url'] ?: '-',
 		$meta['google_review_request_url'] ?: '-',
+		$meta['registration_upload_notes'] ?: 'None',
+		! empty( $meta['pending_ai_profile_draft_review'] ) ? 'Ready for owner review' : 'Not generated',
 		admin_url( 'post.php?post=' . $post_id . '&action=edit' )
 	);
 
@@ -1113,6 +1326,50 @@ function justice_theme_mark_lawyer_review_campaign_reviewed(): void {
 }
 add_action( 'admin_post_justice_mark_lawyer_review_campaign_reviewed', 'justice_theme_mark_lawyer_review_campaign_reviewed' );
 
+function justice_theme_mark_lawyer_registration_assets_reviewed(): void {
+	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
+
+	if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to mark these registration assets reviewed.', 'justice-theme' ) );
+	}
+
+	check_admin_referer( 'justice_mark_lawyer_registration_assets_reviewed_' . $post_id );
+
+	delete_post_meta( $post_id, 'pending_upload_review' );
+	update_post_meta( $post_id, 'latest_registration_assets_reviewed_at', current_time( 'mysql' ) );
+	justice_theme_append_lawyer_internal_note( $post_id, 'Owner marked registration uploads/assets as reviewed. No public asset display changed automatically.' );
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_registration_assets_reviewed', 'Marked lawyer registration assets reviewed: ' . get_the_title( $post_id ) );
+	}
+
+	wp_safe_redirect( add_query_arg( 'asset_review', 'marked', admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_mark_lawyer_registration_assets_reviewed', 'justice_theme_mark_lawyer_registration_assets_reviewed' );
+
+function justice_theme_mark_lawyer_ai_profile_draft_reviewed(): void {
+	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
+
+	if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to mark this AI profile draft reviewed.', 'justice-theme' ) );
+	}
+
+	check_admin_referer( 'justice_mark_lawyer_ai_profile_draft_reviewed_' . $post_id );
+
+	delete_post_meta( $post_id, 'pending_ai_profile_draft_review' );
+	update_post_meta( $post_id, 'latest_ai_profile_draft_reviewed_at', current_time( 'mysql' ) );
+	justice_theme_append_lawyer_internal_note( $post_id, 'Owner marked AI-assistant profile draft scaffold as reviewed. No public profile text changed automatically.' );
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_ai_profile_draft_reviewed', 'Marked lawyer AI profile draft reviewed: ' . get_the_title( $post_id ) );
+	}
+
+	wp_safe_redirect( add_query_arg( 'ai_draft_review', 'marked', admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_mark_lawyer_ai_profile_draft_reviewed', 'justice_theme_mark_lawyer_ai_profile_draft_reviewed' );
+
 function justice_theme_lawyer_onboarding_plan_label( string $plan ): string {
 	if ( function_exists( 'justice_theme_lawyer_plans' ) ) {
 		$plans = justice_theme_lawyer_plans();
@@ -1412,6 +1669,14 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 				'key'   => 'pending_review_campaign_request',
 				'value' => '1',
 			),
+			array(
+				'key'   => 'pending_upload_review',
+				'value' => '1',
+			),
+			array(
+				'key'   => 'pending_ai_profile_draft_review',
+				'value' => '1',
+			),
 		),
 	) );
 	?>
@@ -1428,6 +1693,12 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php endif; ?>
 		<?php if ( isset( $_GET['review_campaign'] ) && 'marked' === $_GET['review_campaign'] ) : ?>
 			<div class="notice notice-success is-dismissible"><p>Review campaign request flag cleared for the lawyer profile.</p></div>
+		<?php endif; ?>
+		<?php if ( isset( $_GET['asset_review'] ) && 'marked' === $_GET['asset_review'] ) : ?>
+			<div class="notice notice-success is-dismissible"><p>Registration upload review flag cleared for the lawyer profile.</p></div>
+		<?php endif; ?>
+		<?php if ( isset( $_GET['ai_draft_review'] ) && 'marked' === $_GET['ai_draft_review'] ) : ?>
+			<div class="notice notice-success is-dismissible"><p>AI-assistant profile draft review flag cleared for the lawyer profile.</p></div>
 		<?php endif; ?>
 		<?php if ( isset( $_GET['recommendation_token'] ) && 'created' === $_GET['recommendation_token'] && function_exists( 'justice_theme_admin_latest_recommendation_token_link' ) ) : ?>
 			<?php $recommendation_token_link = justice_theme_admin_latest_recommendation_token_link(); ?>
@@ -1456,6 +1727,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						<th>Sales Priority</th>
 						<th>Payment Follow-up</th>
 						<th>Mini-site Content</th>
+						<th>Assets / AI Draft</th>
 						<th>Pending Update</th>
 						<th>Content Request</th>
 						<th>Reputation</th>
@@ -1483,6 +1755,11 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$has_pending_update = '1' === (string) get_post_meta( $post_id, 'pending_profile_review', true );
 						$has_pending_content = '1' === (string) get_post_meta( $post_id, 'pending_content_review', true );
 						$has_pending_review_campaign = '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true );
+						$has_pending_upload_review = '1' === (string) get_post_meta( $post_id, 'pending_upload_review', true );
+						$has_pending_ai_draft = '1' === (string) get_post_meta( $post_id, 'pending_ai_profile_draft_review', true );
+						$account_status = (string) get_post_meta( $post_id, 'account_continuation_status', true );
+						$upload_notes = (string) get_post_meta( $post_id, 'registration_upload_notes', true );
+						$ai_profile_draft = (string) get_post_meta( $post_id, 'profile_ai_draft_sections', true );
 						$content_article_id = (int) get_post_meta( $post_id, 'latest_content_request_article_id', true );
 						$content_topic      = (string) get_post_meta( $post_id, 'latest_content_request_topic', true );
 						$review_client_group = (string) get_post_meta( $post_id, 'latest_review_campaign_client_group', true );
@@ -1507,6 +1784,12 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 							'Process'  => get_post_meta( $post_id, 'profile_process', true ),
 							'Video'    => get_post_meta( $post_id, 'profile_video_url', true ),
 							'FAQ'      => get_post_meta( $post_id, 'profile_faqs', true ),
+						);
+						$upload_fields = array(
+							'Photo'   => (int) get_post_meta( $post_id, 'registration_photo_attachment_id', true ),
+							'Logo'    => (int) get_post_meta( $post_id, 'registration_logo_attachment_id', true ),
+							'Document' => (int) get_post_meta( $post_id, 'registration_document_attachment_id', true ),
+							'Video'   => (int) get_post_meta( $post_id, 'registration_video_attachment_id', true ),
 						);
 						$pending_fields = array(
 							'Headline' => get_post_meta( $post_id, 'pending_profile_headline', true ),
@@ -1573,6 +1856,38 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 										<?php echo esc_html( $label . ': ' . ( $value ? 'YES' : 'NO' ) ); ?>
 									</span>
 								<?php endforeach; ?>
+							</td>
+							<td>
+								<?php if ( $account_status ) : ?>
+									<p style="margin:0 0 6px;"><strong>Account:</strong> <?php echo esc_html( str_replace( '_', ' ', $account_status ) ); ?></p>
+								<?php endif; ?>
+								<?php foreach ( $upload_fields as $label => $attachment_id ) : ?>
+									<span style="display:inline-block;margin:0 0 4px 4px;padding:2px 7px;border-radius:999px;background:<?php echo $attachment_id ? '#e7f0ff' : '#f1f1f1'; ?>;color:<?php echo $attachment_id ? '#16427a' : '#666'; ?>;font-size:12px;">
+										<?php echo esc_html( $label . ': ' . ( $attachment_id ? 'YES' : 'NO' ) ); ?>
+									</span>
+									<?php if ( $attachment_id ) : ?>
+										<a href="<?php echo esc_url( get_edit_post_link( $attachment_id, '' ) ); ?>">review</a>
+									<?php endif; ?>
+								<?php endforeach; ?>
+								<?php if ( $has_pending_upload_review ) : ?>
+									<p style="margin:6px 0;">
+										<span style="display:inline-block;padding:2px 7px;border-radius:999px;background:#fef3c7;color:#92400e;font-size:12px;">Upload review</span>
+									</p>
+									<?php if ( $upload_notes ) : ?>
+										<p style="margin:0 0 6px;"><?php echo esc_html( wp_html_excerpt( $upload_notes, 150, '...' ) ); ?></p>
+									<?php endif; ?>
+									<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=justice_mark_lawyer_registration_assets_reviewed&lawyer_id=' . $post_id ), 'justice_mark_lawyer_registration_assets_reviewed_' . $post_id ) ); ?>">Mark assets reviewed</a>
+								<?php endif; ?>
+								<?php if ( $has_pending_ai_draft && $ai_profile_draft ) : ?>
+									<p style="margin:8px 0 6px;">
+										<span style="display:inline-block;padding:2px 7px;border-radius:999px;background:#eef2ff;color:#3730a3;font-size:12px;">AI draft review</span>
+									</p>
+									<p style="margin:0 0 6px;"><?php echo esc_html( wp_html_excerpt( $ai_profile_draft, 180, '...' ) ); ?></p>
+									<a class="button" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=justice_mark_lawyer_ai_profile_draft_reviewed&lawyer_id=' . $post_id ), 'justice_mark_lawyer_ai_profile_draft_reviewed_' . $post_id ) ); ?>">Mark draft reviewed</a>
+								<?php endif; ?>
+								<?php if ( ! $account_status && ! $upload_notes && ! $ai_profile_draft ) : ?>
+									-
+								<?php endif; ?>
 							</td>
 							<td>
 								<?php if ( $has_pending_update ) : ?>

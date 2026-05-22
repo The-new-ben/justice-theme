@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-LAWYER-ONBOARDING-UPLOAD-AI-QUEUE-001: Add uploads, account continuation and AI draft queue to lawyer onboarding
+**Status:** COMPLETED / FIXED CODE / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC AUTO-PUBLISH
+**Why:** T369 required the onboarding wizard to move beyond a guided form toward account continuation, file/photo/video upload, AI draft generation and owner approval queue.
+**Actions:**
+1. DONE: updated `page-lawyer-registration.php` with multipart form handling and optional profile photo, logo, public-safe document and intro-video fields.
+2. DONE: updated `inc/lawyer-onboarding.php` with upload handling, attachment metadata, `pending_upload_review`, `account_continuation_status`, AI-assistant draft scaffold storage and admin mark-reviewed actions.
+3. DONE: updated `assets/js/lawyer-registration-wizard.js` so the new asset fields stay in the trust-assets wizard step.
+4. DONE: updated `assets/css/premium-pass-3.css` for file-field notes.
+5. DONE: created `project-control/lawyer-onboarding-upload-ai-queue-2026-05-22.md`.
+6. DONE: created `project-control/lawyer-onboarding-upload-ai-queue-2026-05-22.csv`.
+7. VERIFIED LOCAL: PHP lint passed for changed PHP, node check passed for wizard JS and `git diff --check` passed.
+8. NOT LIVE VERIFIED: live form submission, upload handling and admin queue screenshots still require authenticated/staging WordPress.
+9. NEXT: deploy/pull to staging or uPress, submit a no-file registration and a public-safe file registration, then verify draft profile metadata and Lawyer Onboarding review actions.
+
 ### ACTION-PROJECT-TIMING-ACCELERATION-001: Maintain content upload timing and acceleration estimate
 **Status:** COMPLETED / VERIFIED PLANNING / ESTIMATE ONLY / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** T247 needed a blocker-aware answer to the overall content upload timing question so the project can keep momentum without treating full legacy migration as a prerequisite for Family/Divorce publication.

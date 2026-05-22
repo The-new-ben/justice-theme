@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Lawyer onboarding upload and AI queue
+
+- UPDATED: `page-lawyer-registration.php` now supports optional profile photo, logo, public-safe document and intro-video upload fields.
+- UPDATED: `inc/lawyer-onboarding.php` now handles optional uploads, stores attachment IDs on the draft lawyer profile, marks upload review, stores account-continuation status and creates a deterministic AI-assistant draft scaffold for owner review.
+- UPDATED: `assets/js/lawyer-registration-wizard.js` keeps the new asset fields inside the trust-assets wizard step.
+- UPDATED: `assets/css/premium-pass-3.css` adds file-field note styling.
+- UPDATED: `project-control/lawyer-onboarding-workflow.md`.
+- CREATED: `project-control/lawyer-onboarding-upload-ai-queue-2026-05-22.md`.
+- CREATED: `project-control/lawyer-onboarding-upload-ai-queue-2026-05-22.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php`, `php -l page-lawyer-registration.php`, `node --check assets/js/lawyer-registration-wizard.js` and `git diff --check` passed.
+- NOT LIVE VERIFIED: no live registration submission, file upload, admin queue screenshot or public lawyer profile check was executed.
+- SAFETY: no profile is auto-published, no upload is auto-displayed, no generated draft text is used publicly, and no public CMS/database/profile/lead/payment/outreach/URL/redirect/canonical/noindex/taxonomy/sitemap/GA4/GSC/wp-admin/uPress action was executed.
+
 ## 2026-05-22 - Project timing and acceleration estimate
 
 - CREATED: `project-control/project-timing-acceleration-resources-2026-05-22.md`.

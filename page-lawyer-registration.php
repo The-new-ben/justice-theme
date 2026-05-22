@@ -100,6 +100,9 @@ $registration_attribution = function_exists( 'justice_theme_lawyer_registration_
 
 			<?php if ( isset( $_GET['registration'] ) && 'sent' === $_GET['registration'] ) : ?>
 				<div class="legaltool-request__notice"><?php esc_html_e( 'הטופס התקבל. הפרופיל ייבדק לפני פרסום.', 'justice-theme' ); ?></div>
+				<?php if ( is_user_logged_in() ) : ?>
+					<div class="legaltool-request__notice"><a href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-dashboard/' ) ) ); ?>"><?php esc_html_e( 'המשך לאזור האישי', 'justice-theme' ); ?></a></div>
+				<?php endif; ?>
 			<?php elseif ( isset( $_GET['registration'] ) && 'blocked' === $_GET['registration'] ) : ?>
 				<div class="lawyer-registration__error"><?php esc_html_e( 'מערכת פרופילי עורכי הדין אינה פעילה כרגע. נסו שוב מאוחר יותר.', 'justice-theme' ); ?></div>
 			<?php elseif ( isset( $_GET['registration'] ) ) : ?>
@@ -124,7 +127,7 @@ $registration_attribution = function_exists( 'justice_theme_lawyer_registration_
 				</section>
 			<?php endif; ?>
 
-			<form class="lawyer-registration-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+			<form class="lawyer-registration-form" method="post" enctype="multipart/form-data" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="justice_lawyer_registration">
 				<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
 					<input type="hidden" name="payment_path" value="manual_invoice">
@@ -239,6 +242,26 @@ $registration_attribution = function_exists( 'justice_theme_lawyer_registration_
 					<label>
 						<span>Google Business / Maps profile</span>
 						<input type="url" name="google_business_profile_url" placeholder="https://maps.google.com/...">
+					</label>
+					<label>
+						<span><?php esc_html_e( 'תמונת פרופיל', 'justice-theme' ); ?></span>
+						<input type="file" name="profile_photo_upload" accept="image/jpeg,image/png,image/webp">
+						<small class="lawyer-registration-form__file-note"><?php esc_html_e( 'נשמר לבדיקה פנימית ולא מתפרסם אוטומטית.', 'justice-theme' ); ?></small>
+					</label>
+					<label>
+						<span><?php esc_html_e( 'לוגו משרד', 'justice-theme' ); ?></span>
+						<input type="file" name="profile_logo_upload" accept="image/jpeg,image/png,image/webp">
+						<small class="lawyer-registration-form__file-note"><?php esc_html_e( 'אופציונלי. יוצג רק אחרי אישור בעל האתר.', 'justice-theme' ); ?></small>
+					</label>
+					<label>
+						<span><?php esc_html_e( 'קובץ ציבורי / מצגת משרד', 'justice-theme' ); ?></span>
+						<input type="file" name="profile_document_upload" accept="application/pdf,image/jpeg,image/png,image/webp">
+						<small class="lawyer-registration-form__file-note"><?php esc_html_e( 'אין להעלות מסמכי זיהוי פרטיים. רישיון נבדק לפי מספר הרישיון.', 'justice-theme' ); ?></small>
+					</label>
+					<label>
+						<span><?php esc_html_e( 'קובץ וידאו היכרות', 'justice-theme' ); ?></span>
+						<input type="file" name="profile_video_upload" accept="video/mp4,video/webm,video/quicktime">
+						<small class="lawyer-registration-form__file-note"><?php esc_html_e( 'אפשר גם להשאיר רק קישור וידאו.', 'justice-theme' ); ?></small>
 					</label>
 					<label>
 						<span>Google review request link</span>

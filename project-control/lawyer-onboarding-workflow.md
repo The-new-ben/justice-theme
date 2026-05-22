@@ -29,6 +29,15 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
 - Submitted city text is mapped to existing/core `city` taxonomy terms when possible, so draft profiles can later work with directory filters after approval.
 - Registration form now suggests the core city names with a browser datalist to improve city-taxonomy matching without forcing a restrictive selector.
 - Registration form now has canonical practice-area fallback options if taxonomy terms are unavailable, preventing empty primary-area submissions during setup.
+- Registration now supports optional public-safe asset uploads:
+  - profile photo
+  - firm logo
+  - public document / firm brochure
+  - intro video file
+- Uploads are attached to the draft lawyer profile, marked `pending_upload_review = 1`, and are not displayed publicly by the registration flow.
+- Registration now stores `account_continuation_status` so logged-in submissions can continue through the dashboard while logged-out submissions are marked for owner invite/claim handling.
+- A deterministic AI-assistant profile draft scaffold is generated into `profile_ai_draft_sections` and marked `pending_ai_profile_draft_review = 1`.
+- Lawyer Onboarding admin now surfaces upload-review and AI-draft-review flags and includes nonce-protected mark-reviewed actions.
 - No profile is published automatically.
 
 ## Review Workflow
@@ -63,14 +72,15 @@ Allow lawyers to submit themselves with minimal owner effort while keeping profi
 - Do not claim “verified” unless verified.
 - Do not accept misleading specialist claims without review.
 - Every paid/sponsored placement must be labeled clearly.
+- Do not use the normal WordPress media library as private identity/license-document storage. Sensitive license or ID material should stay outside normal public media paths; verify license details from the bar-number field and owner workflow.
 
 ## Automation Roadmap
 
 1. Add admin dashboard queue for pending lawyer registrations.
 2. Add automated email to owner on new submission.
 3. Add lawyer login/profile editor.
-4. Add upload workflow for photo, logo, license and videos.
-5. Add AI profile assistant that turns form answers into draft profile sections.
+4. FIXED: Add upload workflow for photo, logo, public-safe document and videos.
+5. FIXED: Add AI profile assistant scaffold that turns form answers into draft profile sections for owner review.
 6. Add plan selection and billing.
 7. Add lead inbox and lead status tracking.
 8. Add content request flow where lawyers can request articles under their name.

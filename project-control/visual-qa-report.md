@@ -2,6 +2,18 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Lawyer Onboarding Upload And AI Queue
+- UPDATED / VERIFIED LOCAL: `page-lawyer-registration.php`.
+- UPDATED / VERIFIED LOCAL: `inc/lawyer-onboarding.php`.
+- UPDATED / VERIFIED LOCAL: `assets/js/lawyer-registration-wizard.js`.
+- UPDATED / VERIFIED LOCAL: `assets/css/premium-pass-3.css`.
+- CREATED / VERIFIED PLANNING: `project-control/lawyer-onboarding-upload-ai-queue-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/lawyer-onboarding-upload-ai-queue-2026-05-22.csv`.
+- VERIFIED LOCAL: PHP lint passed for changed PHP and node syntax check passed for the wizard JS.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this needs authenticated/staging WordPress form submission and admin queue access.
+- BLOCKED LIVE QA: live upload handling, admin review flags and public non-display need a staging/uPress pull and authenticated verification.
+- SAFETY: no public lawyer profile, attachment display, profile copy, lead routing, payment, outreach, URL, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Project Timing And Acceleration Estimate
 - CREATED / VERIFIED PLANNING: `project-control/project-timing-acceleration-resources-2026-05-22.md`.
 - CREATED / VERIFIED LOCAL: `project-control/project-timing-acceleration-resources-2026-05-22.csv`.

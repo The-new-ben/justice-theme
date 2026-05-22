@@ -2036,6 +2036,19 @@
   font: inherit;
 }
 
+.lawyer-registration-form input[type="file"] {
+  padding: 0.7rem;
+  background: #fff;
+}
+
+.lawyer-registration-form__file-note {
+  display: block;
+  margin-top: 0.35rem;
+  color: var(--jt-muted);
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
 .lawyer-registration-form__full {
   grid-column: 1 / -1;
 }

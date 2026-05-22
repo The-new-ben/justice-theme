@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-AUTHORITY-PERSON-PROFILE-SCHEMA-GATE-001: Gate lawyer schema and add verified Maya Person schema
+**Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / BEN ENTITY BLOCKED
+**Why:** T315 still needed the Maya profile enrichment path and a guard against schema leakage from unapproved lawyer/demo profiles.
+**Actions:**
+1. DONE: updated `inc/authority.php` with a verified-person resolver for approved lawyer profiles.
+2. DONE: updated `inc/schema.php` so `justice_lawyer` schema is gated behind public profile approval.
+3. DONE: updated `inc/schema.php` with a verified Person schema output path that uses the central authority registry.
+4. DONE: updated `inc/schema.php` so lawyer schema `sameAs` URLs can use website, source URL, social URLs and `profile_public_sources`.
+5. DONE: updated `tools/check-eeat-authority-safety.mjs` from `6` checks to `11` checks.
+6. DONE: created `project-control/authority-person-profile-schema-gate-2026-05-22.md`.
+7. DONE: created `project-control/authority-person-profile-schema-gate-2026-05-22.csv`.
+8. VERIFIED LOCAL: PHP lint passed for `inc/authority.php` and `inc/schema.php`; node syntax and authority safety checker passed with `11/11 VERIFIED`.
+9. BLOCKED: Ben remains outside the verified person registry and `/about/ben-batash/` was not created until owner supplies verified facts, external links and role wording.
+10. NEXT: after deploy/pull/cache clear, resolve the Maya redirect loop, then validate live Maya JSON-LD/Rich Results and screenshots.
+
 ### ACTION-LAWYER-ONBOARDING-UPLOAD-AI-QUEUE-001: Add uploads, account continuation and AI draft queue to lawyer onboarding
 **Status:** COMPLETED / FIXED CODE / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC AUTO-PUBLISH
 **Why:** T369 required the onboarding wizard to move beyond a guided form toward account continuation, file/photo/video upload, AI draft generation and owner approval queue.

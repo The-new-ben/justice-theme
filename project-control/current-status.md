@@ -1,3 +1,19 @@
+# LATEST WORK STATUS - 2026-05-22 20:58 Asia/Jerusalem
+- AUTHORITY PERSON PROFILE SCHEMA GATE: advanced T315 by gating lawyer schema behind public-profile approval and adding a verified Person schema path for Maya Rotenberg through the authority registry.
+- UPDATED: `inc/authority.php`.
+- UPDATED: `inc/schema.php`.
+- UPDATED: `tools/check-eeat-authority-safety.mjs`.
+- UPDATED: `project-control/eeat-authority-governance-2026-05-19.md`.
+- CREATED: `project-control/authority-person-profile-schema-gate-2026-05-22.md`.
+- CREATED: `project-control/authority-person-profile-schema-gate-2026-05-22.csv`.
+- GENERATED: `reports/eeat-authority-safety-2026-05-22.csv`.
+- GENERATED: `reports/eeat-authority-safety-2026-05-22.json`.
+- VERIFIED LOCAL: `php -l inc/authority.php`, `php -l inc/schema.php`, `node --check tools/check-eeat-authority-safety.mjs`, `node tools/check-eeat-authority-safety.mjs` and `git diff --check` passed.
+- VERIFIED LOCAL: authority safety checker returned `11/11 VERIFIED`.
+- BLOCKED: Ben entity page/schema remains blocked until owner supplies verified facts, external links and approved role wording; no `/about/ben-batash/` route was created.
+- NOT LIVE VERIFIED: live Maya profile JSON-LD/Rich Results/screenshots still require uPress pull/cache clear and Maya redirect-loop/admin-permalink resolution.
+- SAFETY: no public CMS page body, database row, lawyer profile, author page, Google Business/social profile, lead/CRM record, payment setting, outreach, URL, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 20:25 Asia/Jerusalem
 - E-E-A-T AUTHORITY SAFETY HARDENING: advanced T315 by removing the remaining hardcoded article-author schema risk and disabling legacy automatic E-E-A-T byline/schema injection by default.
 - UPDATED: `inc/schema.php`.

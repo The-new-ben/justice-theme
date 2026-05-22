@@ -5,3 +5,8 @@ EEAT-003,reviewer-schema,VERIFIED,Article reviewedBy is sourced only from the ve
 EEAT-004,legacy-eeat,VERIFIED,Legacy E-E-A-T auto-injection has an explicit opt-in gate.
 EEAT-005,legacy-eeat,VERIFIED,Legacy E-E-A-T gate defaults to false.
 EEAT-006,legacy-eeat,VERIFIED,Legacy Person schema and content injection paths call the opt-in gate.
+EEAT-007,lawyer-schema,VERIFIED,Lawyer profile schema is gated behind public profile approval.
+EEAT-008,lawyer-person-schema,VERIFIED,Verified lawyer Person schema is emitted only through the authority registry helper.
+EEAT-009,lawyer-person-schema,VERIFIED,"Verified person profiles resolve from the authority registry, including the Maya profile fallback."
+EEAT-010,lawyer-schema,VERIFIED,Lawyer schema sameAs URLs are gathered from approved profile source/social fields.
+EEAT-011,ben-entity,VERIFIED,Ben is not in the verified person authority registry until owner facts and external links are supplied.

@@ -36,6 +36,36 @@
       "area": "legacy-eeat",
       "status": "VERIFIED",
       "detail": "Legacy Person schema and content injection paths call the opt-in gate."
+    },
+    {
+      "id": "EEAT-007",
+      "area": "lawyer-schema",
+      "status": "VERIFIED",
+      "detail": "Lawyer profile schema is gated behind public profile approval."
+    },
+    {
+      "id": "EEAT-008",
+      "area": "lawyer-person-schema",
+      "status": "VERIFIED",
+      "detail": "Verified lawyer Person schema is emitted only through the authority registry helper."
+    },
+    {
+      "id": "EEAT-009",
+      "area": "lawyer-person-schema",
+      "status": "VERIFIED",
+      "detail": "Verified person profiles resolve from the authority registry, including the Maya profile fallback."
+    },
+    {
+      "id": "EEAT-010",
+      "area": "lawyer-schema",
+      "status": "VERIFIED",
+      "detail": "Lawyer schema sameAs URLs are gathered from approved profile source/social fields."
+    },
+    {
+      "id": "EEAT-011",
+      "area": "ben-entity",
+      "status": "VERIFIED",
+      "detail": "Ben is not in the verified person authority registry until owner facts and external links are supplied."
     }
   ]
 }

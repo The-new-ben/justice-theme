@@ -398,12 +398,61 @@ add_action( 'wp_head', 'justice_theme_collection_page_schema', 22 );
 /**
  * Attorney schema for lawyer mini-site pages.
  */
+function justice_theme_schema_urls_from_text( string $raw ): array {
+	if ( '' === trim( $raw ) ) {
+		return array();
+	}
+
+	preg_match_all( '~https?://[^\s|<>"\']+~i', $raw, $matches );
+
+	if ( empty( $matches[0] ) ) {
+		return array();
+	}
+
+	$urls = array();
+
+	foreach ( $matches[0] as $url ) {
+		$url    = rtrim( $url, ".,;:)]}\r\n\t " );
+		$scheme = strtolower( (string) wp_parse_url( $url, PHP_URL_SCHEME ) );
+
+		if ( ! in_array( $scheme, array( 'http', 'https' ), true ) ) {
+			continue;
+		}
+
+		$urls[] = esc_url_raw( $url );
+	}
+
+	return array_values( array_unique( array_filter( $urls ) ) );
+}
+
+function justice_theme_lawyer_schema_same_as_urls( int $post_id ): array {
+	$raw_values = array();
+
+	foreach ( array( 'website', 'source_url', 'linkedin_url', 'facebook_url', 'instagram_url', 'youtube_url', 'profile_public_sources' ) as $key ) {
+		$value = get_post_meta( $post_id, $key, true );
+		if ( is_string( $value ) && '' !== trim( $value ) ) {
+			$raw_values[] = $value;
+		}
+	}
+
+	return justice_theme_schema_urls_from_text( implode( "\n", $raw_values ) );
+}
+
 function justice_theme_lawyer_schema() {
 	if ( ! is_singular( 'justice_lawyer' ) ) {
 		return;
 	}
 
 	$post_id = get_the_ID();
+
+	if (
+		function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+		&& ! justice_theme_lawyer_profile_is_public_approved( $post_id )
+		&& ! current_user_can( 'edit_post', $post_id )
+	) {
+		return;
+	}
+
 	$phone   = get_post_meta( $post_id, 'phone', true );
 	$phone   = function_exists( 'justice_theme_lawyer_public_phone_value' ) ? justice_theme_lawyer_public_phone_value( (string) $phone ) : $phone;
 	$email   = get_post_meta( $post_id, 'email', true );
@@ -412,12 +461,14 @@ function justice_theme_lawyer_schema() {
 	$address = get_post_meta( $post_id, 'office_address', true );
 	$areas   = get_the_terms( $post_id, 'practice-areas' );
 	$cities  = get_the_terms( $post_id, 'city' );
+	$url     = esc_url_raw( justice_theme_public_permalink( $post_id ) );
 
 	$schema = array(
 		'@context' => 'https://schema.org',
 		'@type'    => 'Attorney',
+		'@id'      => trailingslashit( $url ) . '#attorney',
 		'name'     => wp_strip_all_tags( get_the_title( $post_id ) ),
-		'url'      => esc_url_raw( justice_theme_public_permalink( $post_id ) ),
+		'url'      => $url,
 	);
 
 	if ( $firm ) {
@@ -435,8 +486,9 @@ function justice_theme_lawyer_schema() {
 		$schema['email'] = sanitize_email( $email );
 	}
 
-	if ( $website ) {
-		$schema['sameAs'] = array( esc_url_raw( $website ) );
+	$same_as = justice_theme_lawyer_schema_same_as_urls( $post_id );
+	if ( ! empty( $same_as ) ) {
+		$schema['sameAs'] = $same_as;
 	}
 
 	if ( $address ) {
@@ -474,3 +526,55 @@ function justice_theme_lawyer_schema() {
 }
 add_action( 'wp_head', 'justice_theme_lawyer_schema', 20 );
 
+/**
+ * Verified Person schema for approved lawyer profiles in the authority registry.
+ */
+function justice_theme_lawyer_person_schema() {
+	if ( ! is_singular( 'justice_lawyer' ) ) {
+		return;
+	}
+
+	$post_id = get_the_ID();
+
+	if (
+		function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+		&& ! justice_theme_lawyer_profile_is_public_approved( $post_id )
+		&& ! current_user_can( 'edit_post', $post_id )
+	) {
+		return;
+	}
+
+	if (
+		! function_exists( 'justice_theme_authority_verified_person_slug_for_post' )
+		|| ! function_exists( 'justice_theme_authority_get_verified_person_schema' )
+	) {
+		return;
+	}
+
+	$person_slug = justice_theme_authority_verified_person_slug_for_post( $post_id );
+	if ( '' === $person_slug ) {
+		return;
+	}
+
+	$schema = justice_theme_authority_get_verified_person_schema( $person_slug );
+	if ( empty( $schema ) ) {
+		return;
+	}
+
+	$schema['@context'] = 'https://schema.org';
+	$same_as           = justice_theme_lawyer_schema_same_as_urls( $post_id );
+
+	if ( ! empty( $same_as ) ) {
+		$schema['sameAs'] = $same_as;
+	}
+
+	if ( has_post_thumbnail( $post_id ) ) {
+		$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post_id ), 'full' );
+		if ( ! empty( $image[0] ) ) {
+			$schema['image'] = esc_url_raw( $image[0] );
+		}
+	}
+
+	justice_theme_print_schema( $schema );
+}
+add_action( 'wp_head', 'justice_theme_lawyer_person_schema', 21 );

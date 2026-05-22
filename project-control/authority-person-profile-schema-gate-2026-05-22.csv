@@ -1,0 +1,8 @@
+id,area,status,detail,next_step
+AUTH-PERSON-001,lawyer-schema,FIXED,"justice_lawyer schema is gated behind public profile approval","Deploy/pull only after owner approval and verify no demo profile schema leaks"
+AUTH-PERSON-002,attorney-schema,FIXED,"Approved lawyer pages now receive a stable Attorney schema @id","Validate live JSON-LD after uPress pull/cache clear"
+AUTH-PERSON-003,person-schema,FIXED,"Verified Person schema is emitted only through the authority registry helper","Verify Maya profile JSON-LD after live route is stable"
+AUTH-PERSON-004,maya-profile,FIXED,"Maya can resolve to the authority registry by canonical slug or clear title match","Resolve live Maya Permalink Manager redirect loop before screenshot/Rich Results QA"
+AUTH-PERSON-005,same-as,FIXED,"sameAs URLs are assembled from website source social and profile_public_sources fields","Confirm each live URL before relying on it as authority evidence"
+AUTH-PERSON-006,ben-entity,BLOCKED,"Ben remains outside the verified person registry until owner facts and external links are supplied","Owner supplies approved facts links role wording and evidence before any public Ben page/schema"
+AUTH-PERSON-007,public-execution,NOT_CHANGED,"No public CMS URL redirect canonical noindex sitemap taxonomy lawyer lead payment GSC GA4 wp-admin or uPress change was made","Keep public execution blocked until owner deploy/QA approval"

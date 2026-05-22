@@ -2,6 +2,19 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Authority Person Profile Schema Gate
+- UPDATED / VERIFIED LOCAL: `inc/authority.php`.
+- UPDATED / VERIFIED LOCAL: `inc/schema.php`.
+- UPDATED / VERIFIED LOCAL: `tools/check-eeat-authority-safety.mjs`.
+- CREATED / VERIFIED PLANNING: `project-control/authority-person-profile-schema-gate-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/authority-person-profile-schema-gate-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/eeat-authority-safety-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/eeat-authority-safety-2026-05-22.json`.
+- VERIFIED LOCAL: PHP lint passed and authority safety checker returned `11/11 VERIFIED`.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was code-level schema gating and no public deployment happened.
+- BLOCKED LIVE QA: after deployment, resolve the Maya redirect loop, verify `/lawyers/advocate-maya-rotenberg/`, inspect JSON-LD/Rich Results and capture public profile screenshots.
+- SAFETY: no public lawyer profile, author page, article body, CMS database row, Google Business/social profile, lead, CRM, payment, URL, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 setting or admin setting changed.
+
 ## 2026-05-22 E-E-A-T Authority Safety Hardening
 - UPDATED / VERIFIED LOCAL: `inc/schema.php`.
 - UPDATED / VERIFIED LOCAL: `inc/eeat.php`.

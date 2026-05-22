@@ -477,6 +477,12 @@ function justice_theme_get_breadcrumb_items() {
 			'family-law-rosh-haayin'       => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'tax-evasion-defense'          => array( 'name' => 'מיסוי', 'url' => '/tax-lawyer-israel/' ),
 			'criminal-lawyer-bnei-brak'    => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			// Batch 41
+			'real-estate-lawyer-bnei-brak' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'family-law-bnei-brak'         => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'guardianship-adult-israel'    => array( 'name' => 'זכויות', 'url' => '/disability-rights-israel/' ),
+			'money-laundering-defense'     => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'startup-equity-israel'        => array( 'name' => 'דיני חברות', 'url' => '/corporate-law-israel/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

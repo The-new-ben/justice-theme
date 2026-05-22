@@ -459,6 +459,12 @@ function justice_theme_get_breadcrumb_items() {
 			'inheritance-dispute'          => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'criminal-lawyer-ashkelon'     => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
 			'real-estate-lawyer-yavne'     => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			// Batch 38
+			'commercial-lease-israel'      => array( 'name' => 'דיני חוזים', 'url' => '/contract-law-israel/' ),
+			'drug-offense-guide'           => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'property-division-divorce'    => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'family-law-ashkelon'          => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'real-estate-lawyer-rehovot'   => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

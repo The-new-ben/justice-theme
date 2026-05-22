@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-CRIMINAL-FIRST-UPLOAD-METADATA-PACKAGE-001: Prepare Criminal CMS metadata package
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER REVIEW / EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The Criminal operator runbook requires approved field values before any CMS update. A metadata package prevents ad hoc title/meta/breadcrumb/link decisions during upload and keeps current URLs separate from later slug migration.
+**Actions:**
+1. DONE: created `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
+2. DONE: created `project-control/criminal-first-upload-metadata-package-2026-05-22.csv`.
+3. DONE: updated `project-control/criminal-cms-operator-runbook-2026-05-22.md` so operators use this package for approved field values.
+4. VERIFIED PLANNING: package covers `5` Criminal first-upload current URLs.
+5. VERIFIED PLANNING: rows include H1, SEO title, meta description, OG title, OG description, breadcrumb label, taxonomy label, primary/secondary current-URL links, schema policy and robots policy.
+6. VERIFIED PLANNING: all future clean slugs are marked blocked until GSC and owner migration approval.
+7. BLOCKED: all rows remain `BLOCKED_OWNER_LEGAL_SOURCE_APPROVAL`; none are upload-approved.
+8. NEXT: owner reviews metadata row by row, then the CMS operator can apply approved current-URL-only values using the Criminal CMS operator runbook.
+
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
 ### ACTION-CRIMINAL-CMS-OPERATOR-RUNBOOK-001: Prepare Criminal CMS operator runbook

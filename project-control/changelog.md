@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Criminal first-upload metadata package
+
+- CREATED: `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
+- CREATED: `project-control/criminal-first-upload-metadata-package-2026-05-22.csv`.
+- UPDATED: `project-control/criminal-cms-operator-runbook-2026-05-22.md` now references the metadata package as the source for approved field values.
+- VERIFIED PLANNING: package covers `5` Criminal current-URL first-upload targets with H1, SEO title, meta description, OG title, OG description, breadcrumb label, taxonomy label, internal links, schema policy and robots policy.
+- VERIFIED PLANNING: all internal links remain current-URL-only; future English slugs remain blocked until GSC and owner migration approval.
+- BLOCKED: all metadata rows remain `BLOCKED_OWNER_LEGAL_SOURCE_APPROVAL`; Criminal public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap, related/internal-link writes, lawyer cards, schema and CRM changes remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Criminal CMS operator runbook
 
 - CREATED: `project-control/criminal-cms-operator-runbook-2026-05-22.md`.

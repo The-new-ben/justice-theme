@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Criminal First-Upload Metadata Package
+- CREATED / VERIFIED PLANNING: `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/criminal-first-upload-metadata-package-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/criminal-cms-operator-runbook-2026-05-22.md` now references the metadata package for approved field values.
+- VERIFIED PLANNING: package covers `5` Criminal current-URL targets and keeps future clean slugs blocked until GSC and owner migration approval.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local metadata planning only; no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/legal/source approval, WordPress backup, approved CMS update and post-upload route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Criminal CMS Operator Runbook
 - CREATED / VERIFIED LOCAL: `project-control/criminal-cms-operator-runbook-2026-05-22.md`.
 - CREATED / VERIFIED LOCAL: `project-control/criminal-cms-operator-runbook-2026-05-22.csv`.

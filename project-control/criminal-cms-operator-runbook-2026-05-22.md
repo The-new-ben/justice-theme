@@ -21,6 +21,8 @@ Primary source packet:
 Readiness evidence:
 - `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`
 - `project-control/criminal-first-upload-draft-closure-2026-05-22.md`
+- `project-control/criminal-first-upload-metadata-package-2026-05-22.md`
+- `project-control/criminal-first-upload-metadata-package-2026-05-22.csv`
 - `project-control/criminal-law-source-legal-checklist-2026-05-11.csv`
 
 ## Execution Boundary
@@ -28,7 +30,7 @@ Readiness evidence:
 ALLOWED AFTER APPROVAL:
 - Update an existing approved current URL.
 - Replace or edit only approved body content from the matching draft file.
-- Apply approved title/H1/meta/taxonomy/related-link values only when an approved metadata package exists.
+- Apply only owner-approved title/H1/meta/taxonomy/related-link values from `project-control/criminal-first-upload-metadata-package-2026-05-22.csv`.
 - Capture actual WordPress editor/database rollback material before editing.
 - Run post-upload route, content, link, indexability and visual QA.
 

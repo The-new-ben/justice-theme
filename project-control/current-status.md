@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-22 14:55 Asia/Jerusalem
+- CRIMINAL FIRST-UPLOAD METADATA PACKAGE: prepared field-level CMS metadata for the five Criminal current-URL first-upload pages.
+- CREATED: `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
+- CREATED: `project-control/criminal-first-upload-metadata-package-2026-05-22.csv`.
+- UPDATED: `project-control/criminal-cms-operator-runbook-2026-05-22.md` now points operators to the metadata package for approved field values.
+- VERIFIED PLANNING: package covers `5` Criminal target pages with H1, SEO title, meta description, OG title, OG description, breadcrumb label, taxonomy label, current-URL links, schema policy and robots policy.
+- VERIFIED PLANNING: all links stay on current URLs; future clean slugs remain blocked until GSC and owner migration approval.
+- READY FOR OWNER REVIEW / NOT EXECUTION: rows are ready to approve, edit, hold or send to legal/source review.
+- BLOCKED: all `5` rows remain `BLOCKED_OWNER_LEGAL_SOURCE_APPROVAL`; no Criminal CMS upload, English slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 14:44 Asia/Jerusalem
 - CRIMINAL CMS OPERATOR RUNBOOK: prepared a blocked post-approval CMS execution guide for the five Criminal first-upload current URLs.
 - CREATED: `project-control/criminal-cms-operator-runbook-2026-05-22.md`.

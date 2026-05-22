@@ -55,6 +55,11 @@ Build the first-party Jus-Tice lawyer operating system:
   - The request stores private profile meta and emails the owner.
   - Nothing is sent to suppliers before owner review.
   - These requests become buying-intent proof for supplier outreach.
+- Added 2026-05-22 supplier marketplace research package.
+  - `project-control/supplier-marketplace-prospect-research-2026-05-22.md`.
+  - `project-control/supplier-marketplace-prospect-research-2026-05-22.csv`.
+  - Maps 30 research-only candidates across translation/notary, office space, legal marketing, legal tech, courier/filing and expert/private-investigation categories.
+  - Keeps all candidates admin-only until owner verification, approval and disclosure.
 
 ## Linear coordination
 
@@ -65,7 +70,7 @@ Build the first-party Jus-Tice lawyer operating system:
 
 - Lawyer onboarding UX: 35% -> 48%.
 - Zero-owner-interference onboarding: 25% -> 35%.
-- Supplier marketplace revenue track: 0% -> 24%.
+- Supplier marketplace revenue track: 0% -> 32%.
 - Admin money-system cleanup: 35% -> 40%.
 - Automated AI profile drafting: 0% -> 10% defined, not built.
 

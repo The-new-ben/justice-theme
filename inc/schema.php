@@ -74,6 +74,17 @@ function justice_theme_article_schema() {
 	global $post;
 
 	$home_url = justice_theme_public_url( home_url( '/' ) );
+	$author   = function_exists( 'justice_theme_authority_organization_schema' )
+		? justice_theme_authority_organization_schema()
+		: array(
+			'@type' => 'Organization',
+			'@id'   => $home_url . '#organization',
+			'name'  => get_bloginfo( 'name' ) ?: 'Jus-Tice',
+			'url'   => $home_url,
+		);
+	$reviewer = function_exists( 'justice_theme_authority_article_reviewer_schema' )
+		? justice_theme_authority_article_reviewer_schema( get_the_ID() )
+		: null;
 
 	$schema = array(
 		'@context'         => 'https://schema.org',
@@ -84,17 +95,7 @@ function justice_theme_article_schema() {
 		'dateModified'     => get_the_modified_date( DATE_W3C ),
 		'inLanguage'       => 'he',
 		'mainEntityOfPage' => esc_url_raw( justice_theme_public_permalink( get_the_ID() ) ),
-		'author'           => array(
-			'@type'  => 'Person',
-			'@id'    => $home_url . '#author-ben-btesh',
-			'name'   => 'עו"ד בן בטש',
-			'url'    => $home_url,
-			'jobTitle' => 'עורך דין',
-			'memberOf' => array(
-				'@type' => 'Organization',
-				'name'  => 'לשכת עורכי הדין בישראל',
-			),
-		),
+		'author'           => $author,
 		'publisher'        => array(
 			'@type' => 'LegalService',
 			'@id'   => $home_url . '#organization',

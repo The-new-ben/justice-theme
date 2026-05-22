@@ -75,6 +75,19 @@ Start with categories that lawyers buy frequently and that do not create legal e
 5. Expert witnesses/private investigators - 3 prospects.
 6. Courier/filing/court operations - 3 prospects.
 
+## 2026-05-22 first research queue
+
+VERIFIED_RESEARCH: the first 30 research-only candidates are now mapped in:
+
+- `project-control/supplier-marketplace-prospect-research-2026-05-22.md`
+- `project-control/supplier-marketplace-prospect-research-2026-05-22.csv`
+
+The queue uses current public PsakDin, Din and provider/company pages as source evidence. It is not an endorsement list and it is not approved for automated outreach.
+
+Owner rule: before changing any candidate from `research` to `outreach`, verify direct contact through the supplier's own public site or another owner-approved contact channel. Do not scrape competitor listing contact fields into an outbound campaign.
+
+Dashboard rule: no provider can appear in the lawyer dashboard until the supplier is approved, paid-placement disclosure is written where relevant, and lawyer details are not sent automatically.
+
 ## Outreach script
 
 Subject:

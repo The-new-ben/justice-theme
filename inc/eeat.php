@@ -19,6 +19,17 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+/**
+ * Legacy E-E-A-T auto-injection is opt-in only.
+ *
+ * The current safe authority layer lives in inc/authority.php. This module
+ * still contains an older registry, so broad automatic Person schema/byline
+ * injection must stay disabled unless a reviewed rollout explicitly enables it.
+ */
+function justice_eeat_legacy_auto_injection_enabled(): bool {
+	return (bool) apply_filters( 'justice_theme_enable_legacy_eeat_auto_injection', false );
+}
+
 // ============================================================================
 // AUTHOR REGISTRY — Maps practice areas to named attorneys
 // ============================================================================
@@ -353,6 +364,10 @@ function justice_eeat_article_schema( $post_id, $author ) {
  * Runs on front page to pre-declare entities for cross-page linking.
  */
 function justice_eeat_person_entities_schema() {
+	if ( ! justice_eeat_legacy_auto_injection_enabled() ) {
+		return;
+	}
+
 	if ( ! is_front_page() ) {
 		return;
 	}
@@ -669,6 +684,10 @@ function justice_eeat_default_sources( $area ) {
  * @return string Modified content with E-E-A-T elements.
  */
 function justice_eeat_inject_content_signals( $content ) {
+	if ( ! justice_eeat_legacy_auto_injection_enabled() ) {
+		return $content;
+	}
+
 	if ( ! is_singular() || is_admin() ) {
 		return $content;
 	}

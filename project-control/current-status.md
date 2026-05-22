@@ -1,3 +1,29 @@
+# LATEST WORK STATUS - 2026-05-22 20:25 Asia/Jerusalem
+- E-E-A-T AUTHORITY SAFETY HARDENING: advanced T315 by removing the remaining hardcoded article-author schema risk and disabling legacy automatic E-E-A-T byline/schema injection by default.
+- UPDATED: `inc/schema.php`.
+- UPDATED: `inc/eeat.php`.
+- CREATED: `tools/check-eeat-authority-safety.mjs`.
+- CREATED: `project-control/eeat-authority-safety-hardening-2026-05-22.md`.
+- CREATED: `project-control/eeat-authority-safety-hardening-2026-05-22.csv`.
+- GENERATED: `reports/eeat-authority-safety-2026-05-22.csv`.
+- GENERATED: `reports/eeat-authority-safety-2026-05-22.json`.
+- VERIFIED LOCAL: `php -l inc/schema.php`, `php -l inc/eeat.php`, `node --check tools/check-eeat-authority-safety.mjs` and `node tools/check-eeat-authority-safety.mjs` passed.
+- VERIFIED LOCAL: authority safety checker returned `6/6 VERIFIED`.
+- NOT LIVE VERIFIED: no live JSON-LD/Rich Results check, public article screenshot, wp-admin setting, CMS content change or uPress deployment was executed.
+- SAFETY: no public CMS page body, database row, lawyer profile, author page, Google Business/social profile, lead/CRM record, payment setting, outreach, URL, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+# LATEST WORK STATUS - 2026-05-22 20:14 Asia/Jerusalem
+- SUPPLIER MARKETPLACE PROSPECT RESEARCH: completed T370 repo-side prospect/exposure package for the first controlled supplier marketplace pipeline.
+- CREATED: `project-control/supplier-marketplace-prospect-research-2026-05-22.md`.
+- CREATED: `project-control/supplier-marketplace-prospect-research-2026-05-22.csv`.
+- UPDATED: `project-control/supplier-marketplace-outreach-playbook-2026-05-20.md`.
+- UPDATED: `project-control/lawyer-platform-product-spine-2026-05-20.md`.
+- VERIFIED RESEARCH: reviewed current public PsakDin/Din/provider/company pages and created `30` research-only supplier candidate rows across translation/notary, office space, legal marketing, legal tech, courier/filing and expert/private-investigation categories.
+- VERIFIED LOCAL: prospect CSV parses with `30` rows: `8` translation/notary, `6` office-space, `5` legal-marketing, `5` legal-tech, `3` courier/filing and `3` expert/private-investigation.
+- VERIFIED PLANNING: dashboard exposure is explicitly admin-only until supplier status is `approved`, owner evidence is recorded, paid placement disclosure is written and no lawyer data is auto-sent.
+- NOT LIVE VERIFIED: no wp-admin Supplier record, dashboard supplier offer, public supplier page, outreach message or lawyer introduction was created.
+- SAFETY: no public CMS page body, database row, supplier record, lawyer record, lead record, payment setting, outreach, URL, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 20:08 Asia/Jerusalem
 - LAWYER ONBOARDING UPLOAD + AI QUEUE: completed T369 implementation slice for account-continuation status, optional public-safe uploads, AI-assistant draft scaffold and owner review queue flags.
 - CREATED: `project-control/lawyer-onboarding-upload-ai-queue-2026-05-22.md`.

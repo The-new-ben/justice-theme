@@ -18,6 +18,34 @@
 8. NOT LIVE VERIFIED: live form submission, upload handling and admin queue screenshots still require authenticated/staging WordPress.
 9. NEXT: deploy/pull to staging or uPress, submit a no-file registration and a public-safe file registration, then verify draft profile metadata and Lawyer Onboarding review actions.
 
+### ACTION-EEAT-AUTHORITY-SAFETY-HARDENING-001: Remove unsafe named-author fallback paths
+**Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC CMS CHANGE
+**Why:** T315 had a safer authority registry, but active legacy code still allowed hardcoded person schema/byline output outside the verified reviewer path.
+**Actions:**
+1. DONE: updated `inc/schema.php` so Article schema author defaults to the organization authority helper.
+2. DONE: updated `inc/schema.php` so `reviewedBy` uses only `justice_theme_authority_article_reviewer_schema()`.
+3. DONE: updated `inc/eeat.php` so legacy E-E-A-T automatic Person schema/byline injection is disabled by default.
+4. DONE: created `tools/check-eeat-authority-safety.mjs`.
+5. DONE: created `project-control/eeat-authority-safety-hardening-2026-05-22.md`.
+6. DONE: created `project-control/eeat-authority-safety-hardening-2026-05-22.csv`.
+7. VERIFIED LOCAL: PHP lint passed for changed PHP files and checker returned `6/6 VERIFIED`.
+8. NOT LIVE VERIFIED: live article JSON-LD, Rich Results and public screenshots still require deploy/pull and cache clear.
+9. NEXT: build `/about/editorial-policy/`, Ben entity page and Maya profile enrichment only after owner-approved facts and external links.
+
+### ACTION-SUPPLIER-MARKETPLACE-PROSPECT-RESEARCH-001: Complete first 30 supplier research queue and exposure rules
+**Status:** COMPLETED / VERIFIED RESEARCH / VERIFIED LOCAL CSV / READY FOR OWNER ENTRY / NO OUTREACH
+**Why:** T370 needed the supplier marketplace pipeline to move from generic categories into an owner-usable first prospect queue with strict rules before any lawyer-dashboard or public exposure.
+**Actions:**
+1. DONE: created `project-control/supplier-marketplace-prospect-research-2026-05-22.md`.
+2. DONE: created `project-control/supplier-marketplace-prospect-research-2026-05-22.csv`.
+3. DONE: updated `project-control/supplier-marketplace-outreach-playbook-2026-05-20.md`.
+4. DONE: updated `project-control/lawyer-platform-product-spine-2026-05-20.md`.
+5. VERIFIED RESEARCH: reviewed current public PsakDin, Din and provider/company pages for translation/notary, office-space, legal-marketing, legal-tech, courier/filing and expert/private-investigation candidates.
+6. VERIFIED LOCAL: CSV parses with `30` rows and expected category counts.
+7. VERIFIED PLANNING: no supplier can appear in the lawyer dashboard until status is `approved`, owner evidence exists, paid placement disclosure is written and lawyer data sharing stays owner-reviewed.
+8. NOT LIVE VERIFIED: no live Supplier CPT record, dashboard offer, public supplier page or outreach message was created.
+9. NEXT OWNER ACTION: choose the first 10 candidates, verify direct source/contact outside competitor listings, then manually enter approved research records in wp-admin `Suppliers`.
+
 ### ACTION-PROJECT-TIMING-ACCELERATION-001: Maintain content upload timing and acceleration estimate
 **Status:** COMPLETED / VERIFIED PLANNING / ESTIMATE ONLY / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** T247 needed a blocker-aware answer to the overall content upload timing question so the project can keep momentum without treating full legacy migration as a prerequisite for Family/Divorce publication.

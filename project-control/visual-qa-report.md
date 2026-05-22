@@ -2,6 +2,30 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 E-E-A-T Authority Safety Hardening
+- UPDATED / VERIFIED LOCAL: `inc/schema.php`.
+- UPDATED / VERIFIED LOCAL: `inc/eeat.php`.
+- CREATED / VERIFIED LOCAL: `tools/check-eeat-authority-safety.mjs`.
+- CREATED / VERIFIED PLANNING: `project-control/eeat-authority-safety-hardening-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/eeat-authority-safety-hardening-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/eeat-authority-safety-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/eeat-authority-safety-2026-05-22.json`.
+- VERIFIED LOCAL: PHP lint passed and authority safety checker returned `6/6 VERIFIED`.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was code-level schema/byline hardening and no public deployment happened.
+- BLOCKED LIVE QA: after deployment, verify article JSON-LD/Rich Results and public article header attribution.
+- SAFETY: no public article body, lawyer profile, author page, CMS database row, Google Business/social profile, lead, CRM, payment, URL, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 setting or admin setting changed.
+
+## 2026-05-22 Supplier Marketplace Prospect Research
+- CREATED / VERIFIED RESEARCH: `project-control/supplier-marketplace-prospect-research-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/supplier-marketplace-prospect-research-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/supplier-marketplace-outreach-playbook-2026-05-20.md`.
+- UPDATED / VERIFIED PLANNING: `project-control/lawyer-platform-product-spine-2026-05-20.md`.
+- VERIFIED LOCAL: prospect CSV parsed with `30` rows and expected category distribution.
+- VERIFIED PLANNING: supplier exposure rules keep all candidates admin-only until approval, disclosure and owner-reviewed lawyer consent.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was repo-only research/planning and no public/admin UI changed.
+- BLOCKED LIVE QA: first live verification requires owner entry of research records into wp-admin `Suppliers` after direct source/contact verification.
+- SAFETY: no public supplier page, CMS database row, dashboard offer, lawyer record, lead record, payment setting, outreach, URL, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 setting or admin setting changed.
+
 ## 2026-05-22 Lawyer Onboarding Upload And AI Queue
 - UPDATED / VERIFIED LOCAL: `page-lawyer-registration.php`.
 - UPDATED / VERIFIED LOCAL: `inc/lawyer-onboarding.php`.

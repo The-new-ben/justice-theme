@@ -1,0 +1,7 @@
+item,status,verification,next_step,notes
+article_schema_author,FIXED,VERIFIED_LOCAL,Deploy/pull later and validate live JSON-LD,"Article author now uses organization authority helper instead of hardcoded person."
+article_schema_reviewer,FIXED,VERIFIED_LOCAL,Use connected_lawyer_slug and content_cluster only after verified reviewer approval,"reviewedBy now comes from the verified authority helper."
+hardcoded_ben_schema,FIXED,VERIFIED_LOCAL,Keep checker in regression path,"Old #author-ben-btesh schema block removed."
+legacy_eeat_auto_injection,FIXED,VERIFIED_LOCAL,Do not enable filter until registry is reviewed,"Legacy E-E-A-T byline/schema injection defaults to disabled."
+regression_checker,FIXED,VERIFIED_LOCAL,Run before authority/schema deploys,"tools/check-eeat-authority-safety.mjs generated 6/6 VERIFIED report."
+live_schema_validation,BLOCKED,NOT_LIVE_VERIFIED,Run after uPress pull/deploy and public page cache clear,"No public CMS or deployment action was executed."

@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 GSC Priority Cluster Export Runner
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/gsc/run-priority-cluster-gsc-exports.ps1`.
+- CREATED / VERIFIED PLANNING: `project-control/gsc-priority-cluster-export-runner-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/gsc-priority-cluster-export-runner-2026-05-22.csv`.
+- VERIFIED LOCAL: `.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -DryRun` completed for Family/Divorce, Criminal Law and Medical Malpractice.
+- VERIFIED LOCAL: dry run opened no OAuth browser, made no GSC API call and made no public site change.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was local GSC tooling only and no public UI changed.
+- BLOCKED: real export and final decision maps remain pending owner OAuth setup.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Family Law Live Repair Readiness Gate
 - TOOLING FIXED / VERIFIED LOCAL: created `tools/build-family-law-live-repair-readiness-gate.mjs`.
 - GENERATED / VERIFIED LOCAL: `reports/family-law-live-repair-readiness-gate-2026-05-22.csv`.

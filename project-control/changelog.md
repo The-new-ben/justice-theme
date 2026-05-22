@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - GSC priority cluster export runner
+
+- TOOLING FIXED: created `tools/gsc/run-priority-cluster-gsc-exports.ps1`.
+- CREATED: `project-control/gsc-priority-cluster-export-runner-2026-05-22.md`.
+- CREATED: `project-control/gsc-priority-cluster-export-runner-2026-05-22.csv`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- UPDATED: `tools/gsc/README.md`.
+- VERIFIED LOCAL: priority runner dry-run completed Family/Divorce, Criminal Law and Medical Malpractice without opening OAuth or calling GSC.
+- VERIFIED LOCAL: dry-run scope covers `7` Family/Divorce target paths, `5` Criminal target paths, `1` Medical Malpractice primary target and `67` query terms.
+- BLOCKED: real API export remains blocked until owner OAuth setup; generated maps must be reviewed before any CMS upload, redirect, canonical/noindex, sitemap, taxonomy or internal-link action.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Family Law live repair readiness gate
 
 - TOOLING FIXED: created `tools/build-family-law-live-repair-readiness-gate.mjs`.

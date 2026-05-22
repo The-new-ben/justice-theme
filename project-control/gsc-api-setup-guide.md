@@ -20,6 +20,7 @@ LATEST 2026-05-21 RUNNER NOTE:
 - FIXED 2026-05-22: the Criminal full wrapper now also builds `reports/criminal-gsc-decision-map-YYYY-MM-DD.csv`, `reports/criminal-protected-url-decision-map-YYYY-MM-DD.csv`, `reports/criminal-cannibalization-decision-map-YYYY-MM-DD.csv` and `reports/criminal-gsc-decision-map-YYYY-MM-DD.json`.
 - FIXED 2026-05-22: Medical Malpractice now has a focused read-only export runner: `.\tools\gsc\run-medical-malpractice-gsc-export.ps1 -DryRun`, then `.\tools\gsc\run-medical-malpractice-gsc-export.ps1` after owner OAuth approval.
 - FIXED 2026-05-22: the Medical Malpractice full wrapper builds `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv`, `reports/medical-malpractice-protected-url-decision-map-YYYY-MM-DD.csv`, `reports/medical-malpractice-cannibalization-decision-map-YYYY-MM-DD.csv` and `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.json`.
+- FIXED 2026-05-22: priority cluster runner now runs Family/Divorce, Criminal Law and Medical Malpractice in one read-only workflow: `.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -DryRun`, then `.\tools\gsc\run-priority-cluster-gsc-exports.ps1` after owner OAuth approval.
 
 This guide explains how to connect Google Search Console API for Jus-Tice so we can export query/page data quickly instead of doing slow browser checks.
 
@@ -147,6 +148,25 @@ Manual rebuild after an existing Medical Malpractice export:
 
 ```powershell
 node tools/build-medical-malpractice-gsc-decision-map.mjs --gscDir="reports/gsc/medical-malpractice-YYYY-MM-DD" --reportDate="YYYY-MM-DD"
+```
+
+Priority cluster dry run and export:
+
+```powershell
+$env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
+$env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -DryRun
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1
+```
+
+Use this when the owner wants to unblock the main upload sequence in one pass. It runs Family/Divorce, Criminal Law and Medical Malpractice sequentially, then leaves the generated decision maps for review before any upload, redirect, canonical/noindex, sitemap, taxonomy or internal-link action.
+
+Single-cluster examples:
+
+```powershell
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -Clusters family -DryRun
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -Clusters criminal -DryRun
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -Clusters medical -DryRun
 ```
 
 ## What We Can Export

@@ -64,6 +64,38 @@ node tools/build-family-divorce-protected-url-review-packet.mjs --reportDate="YY
 
 Without `--gscDir`, the decision-map builder can use the older cached `reports/gsc/` CSVs as a baseline only. Treat that baseline as `NOT_FINAL` until the focused export is reviewed.
 
+## Priority Cluster Export
+
+After owner OAuth setup, this runner executes the three upload-blocking focused exports in sequence:
+
+- Family/Divorce
+- Criminal Law
+- Medical Malpractice
+
+Dry run:
+
+```powershell
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -DryRun
+```
+
+Full read-only export after credentials:
+
+```powershell
+$env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
+$env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1
+```
+
+Single cluster:
+
+```powershell
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -Clusters family
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -Clusters criminal
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -Clusters medical
+```
+
+Review all generated decision maps before any CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy or internal-link action.
+
 ## Criminal Law First Export
 
 Use this runner for the controlled Criminal Law upload risk check. It exports the five Criminal first-upload current URLs, protected/support pages, route-fallback candidates and Criminal query terms without changing the site.

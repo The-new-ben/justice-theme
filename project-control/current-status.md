@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-22 18:00 Asia/Jerusalem
+- GSC PRIORITY CLUSTER EXPORT RUNNER: added a one-command read-only workflow for the main upload-blocking clusters after owner OAuth setup.
+- CREATED: `tools/gsc/run-priority-cluster-gsc-exports.ps1`.
+- CREATED: `project-control/gsc-priority-cluster-export-runner-2026-05-22.md`.
+- CREATED: `project-control/gsc-priority-cluster-export-runner-2026-05-22.csv`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- UPDATED: `tools/gsc/README.md`.
+- VERIFIED LOCAL: `.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -DryRun` completed for Family/Divorce, Criminal Law and Medical Malpractice with no OAuth browser and no GSC API call.
+- VERIFIED LOCAL: dry-run scope covers `7` Family/Divorce target paths, `5` Criminal target paths, `1` Medical Malpractice primary target, `111` protected/source paths, `10` Medical Malpractice route candidates, `8` Medical Malpractice boundary paths and `67` query terms.
+- READY FOR OWNER OAUTH / NOT EXECUTION: after credentials are set outside Git, the owner can run one command to generate all three priority decision-map batches.
+- BLOCKED: real exports still require owner OAuth approval; no generated GSC decision maps from live API data should be treated as final until that run completes.
+- SAFETY: this cycle made repo-only tooling/docs changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 17:51 Asia/Jerusalem
 - FAMILY LAW LIVE REPAIR READINESS GATE: consolidated the Family/Divorce live repair evidence into one go/no-go dashboard before any content upload or public repair.
 - CREATED: `tools/build-family-law-live-repair-readiness-gate.mjs`.

@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-GSC-PRIORITY-CLUSTER-RUNNER-001: Add one-command runner for priority GSC exports
+**Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL DRY RUN / OWNER OAUTH BLOCKED / NO PUBLIC CHANGES
+**Why:** Family/Divorce, Criminal Law and Medical Malpractice all need focused GSC data before URL, redirect, canonical, noindex, sitemap and upload decisions. Running them one by one is slower and easier to miss, so a single priority runner reduces operator friction after OAuth setup.
+**Actions:**
+1. DONE: created `tools/gsc/run-priority-cluster-gsc-exports.ps1`.
+2. DONE: created `project-control/gsc-priority-cluster-export-runner-2026-05-22.md`.
+3. DONE: created `project-control/gsc-priority-cluster-export-runner-2026-05-22.csv`.
+4. DONE: updated `project-control/gsc-api-setup-guide.md`.
+5. DONE: updated `tools/gsc/README.md`.
+6. VERIFIED LOCAL: dry run completed for Family/Divorce, Criminal Law and Medical Malpractice without OAuth browser or GSC API call.
+7. VERIFIED LOCAL: dry-run scope covers `7` Family/Divorce targets, `5` Criminal targets, `1` Medical Malpractice primary target and `67` query terms.
+8. BLOCKED: full GSC export still requires owner OAuth setup and read-only Search Console access.
+9. NEXT: after owner credentials are saved outside Git, run `.\tools\gsc\run-priority-cluster-gsc-exports.ps1`, then review generated decision maps before any public action.
+
 ### ACTION-FAMILY-LAW-LIVE-REPAIR-READINESS-GATE-001: Consolidate live repair go/no-go gate
 **Status:** COMPLETED / VERIFIED LOCAL / BLOCKED NOT READY FOR CONTENT UPLOAD / NO PUBLIC CHANGES
 **Why:** The Family/Divorce visible repair package now has safety checks, diagnostics, field map, backup template, owner worksheet and operator packet. The next useful control artifact is a single readiness gate showing whether the cluster is safe to upload or repair publicly.

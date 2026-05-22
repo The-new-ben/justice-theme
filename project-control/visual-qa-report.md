@@ -2,6 +2,17 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Supplier Marketplace Prospect Research
+- CREATED / VERIFIED RESEARCH: `project-control/supplier-marketplace-prospect-research-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/supplier-marketplace-prospect-research-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/supplier-marketplace-outreach-playbook-2026-05-20.md`.
+- UPDATED / VERIFIED PLANNING: `project-control/lawyer-platform-product-spine-2026-05-20.md`.
+- VERIFIED LOCAL: prospect CSV parsed with `30` rows and expected category distribution.
+- VERIFIED PLANNING: supplier exposure rules keep all candidates admin-only until approval, disclosure and owner-reviewed lawyer consent.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was repo-only research/planning and no public/admin UI changed.
+- BLOCKED LIVE QA: first live verification requires owner entry of research records into wp-admin `Suppliers` after direct source/contact verification.
+- SAFETY: no public supplier page, CMS database row, dashboard offer, lawyer record, lead record, payment setting, outreach, URL, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 setting or admin setting changed.
+
 ## 2026-05-22 Lawyer Onboarding Upload And AI Queue
 - UPDATED / VERIFIED LOCAL: `page-lawyer-registration.php`.
 - UPDATED / VERIFIED LOCAL: `inc/lawyer-onboarding.php`.

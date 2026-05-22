@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Supplier marketplace prospect research and exposure rules
+
+- CREATED: `project-control/supplier-marketplace-prospect-research-2026-05-22.md`.
+- CREATED: `project-control/supplier-marketplace-prospect-research-2026-05-22.csv`.
+- UPDATED: `project-control/supplier-marketplace-outreach-playbook-2026-05-20.md`.
+- UPDATED: `project-control/lawyer-platform-product-spine-2026-05-20.md`.
+- VERIFIED RESEARCH: reviewed current public PsakDin, Din and provider/company pages for a first supplier prospect queue.
+- VERIFIED LOCAL: prospect CSV parses with `30` rows across translation/notary, office-space, legal-marketing, legal-tech, courier/filing and expert/private-investigation categories.
+- VERIFIED PLANNING: dashboard exposure rules require approved supplier status, owner evidence, paid-placement disclosure and no automatic lawyer data transfer.
+- NOT LIVE VERIFIED: no supplier records, public supplier pages, dashboard offers, outreach messages or lawyer introductions were created.
+- SAFETY: no public CMS content, database row, supplier record, lawyer record, lead record, prospect record, payment setting, URL, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting, uPress deployment or outreach message was changed.
+
 ## 2026-05-22 - Lawyer onboarding upload and AI queue
 
 - UPDATED: `page-lawyer-registration.php` now supports optional profile photo, logo, public-safe document and intro-video upload fields.

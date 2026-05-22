@@ -18,6 +18,20 @@
 8. NOT LIVE VERIFIED: live form submission, upload handling and admin queue screenshots still require authenticated/staging WordPress.
 9. NEXT: deploy/pull to staging or uPress, submit a no-file registration and a public-safe file registration, then verify draft profile metadata and Lawyer Onboarding review actions.
 
+### ACTION-SUPPLIER-MARKETPLACE-PROSPECT-RESEARCH-001: Complete first 30 supplier research queue and exposure rules
+**Status:** COMPLETED / VERIFIED RESEARCH / VERIFIED LOCAL CSV / READY FOR OWNER ENTRY / NO OUTREACH
+**Why:** T370 needed the supplier marketplace pipeline to move from generic categories into an owner-usable first prospect queue with strict rules before any lawyer-dashboard or public exposure.
+**Actions:**
+1. DONE: created `project-control/supplier-marketplace-prospect-research-2026-05-22.md`.
+2. DONE: created `project-control/supplier-marketplace-prospect-research-2026-05-22.csv`.
+3. DONE: updated `project-control/supplier-marketplace-outreach-playbook-2026-05-20.md`.
+4. DONE: updated `project-control/lawyer-platform-product-spine-2026-05-20.md`.
+5. VERIFIED RESEARCH: reviewed current public PsakDin, Din and provider/company pages for translation/notary, office-space, legal-marketing, legal-tech, courier/filing and expert/private-investigation candidates.
+6. VERIFIED LOCAL: CSV parses with `30` rows and expected category counts.
+7. VERIFIED PLANNING: no supplier can appear in the lawyer dashboard until status is `approved`, owner evidence exists, paid placement disclosure is written and lawyer data sharing stays owner-reviewed.
+8. NOT LIVE VERIFIED: no live Supplier CPT record, dashboard offer, public supplier page or outreach message was created.
+9. NEXT OWNER ACTION: choose the first 10 candidates, verify direct source/contact outside competitor listings, then manually enter approved research records in wp-admin `Suppliers`.
+
 ### ACTION-PROJECT-TIMING-ACCELERATION-001: Maintain content upload timing and acceleration estimate
 **Status:** COMPLETED / VERIFIED PLANNING / ESTIMATE ONLY / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** T247 needed a blocker-aware answer to the overall content upload timing question so the project can keep momentum without treating full legacy migration as a prerequisite for Family/Divorce publication.

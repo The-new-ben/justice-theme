@@ -63,6 +63,7 @@ function justice_theme_print_breadcrumb_schema( $items ) {
 
 /**
  * Article schema on singular pages.
+ * Includes @id linking to sitewide Person and Organization entities.
  */
 function justice_theme_article_schema() {
 	$is_repo_cluster_page = is_page() && get_post_meta( get_the_ID(), 'content_status', true );
@@ -72,22 +73,37 @@ function justice_theme_article_schema() {
 
 	global $post;
 
+	$home_url = justice_theme_public_url( home_url( '/' ) );
+
 	$schema = array(
 		'@context'         => 'https://schema.org',
 		'@type'            => 'Article',
+		'@id'              => esc_url_raw( justice_theme_public_permalink( get_the_ID() ) ) . '#article',
 		'headline'         => wp_strip_all_tags( get_the_title() ),
 		'datePublished'    => get_the_date( DATE_W3C ),
 		'dateModified'     => get_the_modified_date( DATE_W3C ),
+		'inLanguage'       => 'he',
 		'mainEntityOfPage' => esc_url_raw( justice_theme_public_permalink( get_the_ID() ) ),
 		'author'           => array(
-			'@type' => 'Person',
-			'name'  => 'עו״ד בן בטש',
-			'url'   => justice_theme_public_url( home_url( '/' ) ),
+			'@type'  => 'Person',
+			'@id'    => $home_url . '#author-ben-btesh',
+			'name'   => 'עו"ד בן בטש',
+			'url'    => $home_url,
+			'jobTitle' => 'עורך דין',
+			'memberOf' => array(
+				'@type' => 'Organization',
+				'name'  => 'לשכת עורכי הדין בישראל',
+			),
 		),
 		'publisher'        => array(
-			'@type' => 'Organization',
+			'@type' => 'LegalService',
+			'@id'   => $home_url . '#organization',
 			'name'  => get_bloginfo( 'name' ),
-			'url'   => justice_theme_public_url( home_url( '/' ) ),
+			'url'   => $home_url,
+			'logo'  => array(
+				'@type' => 'ImageObject',
+				'url'   => $home_url . 'wp-content/uploads/logo.png',
+			),
 		),
 	);
 
@@ -103,7 +119,10 @@ function justice_theme_article_schema() {
 	if ( has_post_thumbnail( $post ) ) {
 		$image = wp_get_attachment_image_src( get_post_thumbnail_id( $post ), 'full' );
 		if ( ! empty( $image[0] ) ) {
-			$schema['image'] = esc_url_raw( $image[0] );
+			$schema['image'] = array(
+				'@type' => 'ImageObject',
+				'url'   => esc_url_raw( $image[0] ),
+			);
 		}
 	}
 
@@ -172,20 +191,60 @@ function justice_theme_faq_schema() {
 add_action( 'wp_head', 'justice_theme_faq_schema', 21 );
 
 /**
- * LegalService schema on front page.
+ * Practice area → LegalService type mapping.
+ *
+ * @return array Slug => service type label.
+ */
+function justice_theme_practice_area_service_map() {
+	return array(
+		'criminal-defense-attorney'                    => array( 'label' => 'משפט פלילי', 'en' => 'Criminal Law' ),
+		'lawyer-divorce-guide-proceedings-costs-rights' => array( 'label' => 'דיני משפחה וגירושין', 'en' => 'Family Law' ),
+		'family-law'                                   => array( 'label' => 'דיני משפחה', 'en' => 'Family Law' ),
+		'real-estate-attorney'                         => array( 'label' => 'דיני מקרקעין', 'en' => 'Real Estate Law' ),
+		'medical-malpractice-lawyer'                   => array( 'label' => 'רשלנות רפואית', 'en' => 'Medical Malpractice' ),
+		'police-records-data-deletion'                 => array( 'label' => 'מחיקת רישום פלילי', 'en' => 'Criminal Record Expungement' ),
+		'inheritance-lawyer'                           => array( 'label' => 'דיני ירושה וצוואות', 'en' => 'Inheritance Law' ),
+		'real-estate-lawyer-guide'                     => array( 'label' => 'דיני מקרקעין', 'en' => 'Real Estate Law' ),
+	);
+}
+
+/**
+ * LegalService + WebSite @graph schema.
+ * Fires on front page and all practice area pillar pages.
  */
 function justice_theme_legal_service_schema() {
-	if ( ! is_front_page() ) {
+	$home_url     = justice_theme_public_url( home_url( '/' ) );
+	$is_front     = is_front_page();
+	$current_slug = '';
+
+	if ( is_page() ) {
+		$current_slug = get_post_field( 'post_name', get_queried_object_id() );
+	} elseif ( function_exists( 'justice_theme_current_practice_slug' ) ) {
+		$current_slug = justice_theme_current_practice_slug();
+	}
+
+	$practice_map   = justice_theme_practice_area_service_map();
+	$is_pillar_page = isset( $practice_map[ $current_slug ] );
+
+	if ( ! $is_front && ! $is_pillar_page ) {
 		return;
 	}
 
-	justice_theme_print_schema( array(
-		'@context'    => 'https://schema.org',
+	$phone = function_exists( 'justice_theme_public_contact_number' ) ? justice_theme_public_contact_number() : '0525101555';
+
+	// Base organization entity — same @id on every page for Google entity consolidation.
+	$org = array(
 		'@type'       => 'LegalService',
-		'name'        => 'ג\'סטיס - פורטל משפטי',
-		'url'         => justice_theme_public_url( home_url( '/' ) ),
-		'telephone'   => function_exists( 'justice_theme_public_contact_number' ) ? justice_theme_public_contact_number() : '0525101555',
+		'@id'         => $home_url . '#organization',
+		'name'        => 'Jus-Tice — פורטל משפטי ישראלי',
+		'alternateName' => array( 'ג\'סטיס', 'Justice Legal Portal Israel' ),
+		'url'         => $home_url,
+		'telephone'   => $phone,
 		'email'       => 'info@jus-tice.co.il',
+		'logo'        => array(
+			'@type' => 'ImageObject',
+			'url'   => $home_url . 'wp-content/uploads/logo.png',
+		),
 		'address'     => array(
 			'@type'          => 'PostalAddress',
 			'addressCountry' => 'IL',
@@ -194,41 +253,142 @@ function justice_theme_legal_service_schema() {
 			'@type' => 'Country',
 			'name'  => 'Israel',
 		),
+		'inLanguage'  => 'he',
 		'knowsAbout'  => array(
-			'Criminal Law',
-			'Family Law',
-			'Real Estate Law',
-			'Labor Law',
-			'Tort Law',
-			'Traffic Law',
-			'Inheritance Law',
+			'משפט פלילי', 'דיני משפחה', 'גירושין', 'מקרקעין',
+			'רשלנות רפואית', 'דיני ירושה', 'צוואות', 'דיני עבודה',
+			'Criminal Law', 'Family Law', 'Real Estate Law', 'Inheritance Law',
 		),
-		'description' => 'פורטל משפטי מוביל בישראל. מדריכים מקצועיים, מאגר עורכי דין וייעוץ משפטי בכל תחומי המשפט.',
+		'description' => 'פורטל משפטי מוביל בישראל — מדריכים מקצועיים, מאגר עורכי דין, מחשבונים משפטיים וייעוץ בכל תחומי המשפט.',
+	);
+
+	// On pillar pages, add the specific service type as a named service.
+	if ( $is_pillar_page && ! $is_front ) {
+		$svc    = $practice_map[ $current_slug ];
+		$org['serviceType']   = $svc['label'];
+		$org['hasOfferCatalog'] = array(
+			'@type'           => 'OfferCatalog',
+			'name'            => 'שירותי ' . $svc['label'],
+			'itemListElement' => array(
+				array(
+					'@type'       => 'Offer',
+					'itemOffered' => array(
+						'@type' => 'Service',
+						'name'  => 'ייצוג משפטי ב' . $svc['label'],
+					),
+				),
+			),
+		);
+	}
+
+	$website = array(
+		'@type'           => 'WebSite',
+		'@id'             => $home_url . '#website',
+		'url'             => $home_url,
+		'name'            => get_bloginfo( 'name' ),
+		'inLanguage'      => 'he',
+		'publisher'       => array( '@id' => $home_url . '#organization' ),
+		'potentialAction' => array(
+			'@type'       => 'SearchAction',
+			'target'      => array(
+				'@type'       => 'EntryPoint',
+				'urlTemplate' => $home_url . '?s={search_term_string}',
+			),
+			'query-input' => 'required name=search_term_string',
+		),
+	);
+
+	// Output as @graph for proper entity consolidation.
+	justice_theme_print_schema( array(
+		'@context' => 'https://schema.org',
+		'@graph'   => array( $org, $website ),
 	) );
 }
 add_action( 'wp_head', 'justice_theme_legal_service_schema', 20 );
 
 /**
- * WebSite schema on front page.
+ * CollectionPage + ItemList schema for lawyer directory/listing pages.
+ * Fires on practice area pages and lawyer archive pages.
  */
-function justice_theme_website_schema() {
-	if ( ! is_front_page() ) {
+function justice_theme_collection_page_schema() {
+	$current_slug = '';
+	if ( is_page() ) {
+		$current_slug = get_post_field( 'post_name', get_queried_object_id() );
+	} elseif ( function_exists( 'justice_theme_current_practice_slug' ) ) {
+		$current_slug = justice_theme_current_practice_slug();
+	}
+
+	$practice_map = justice_theme_practice_area_service_map();
+	if ( ! isset( $practice_map[ $current_slug ] ) ) {
 		return;
 	}
 
-	justice_theme_print_schema( array(
-		'@context'        => 'https://schema.org',
-		'@type'           => 'WebSite',
-		'name'            => get_bloginfo( 'name' ),
-		'url'             => justice_theme_public_url( home_url( '/' ) ),
-		'potentialAction' => array(
-			'@type'       => 'SearchAction',
-			'target'      => justice_theme_public_url( home_url( '/?s={search_term_string}' ) ),
-			'query-input' => 'required name=search_term_string',
+	$svc          = $practice_map[ $current_slug ];
+	$home_url     = justice_theme_public_url( home_url( '/' ) );
+	$current_url  = function_exists( 'justice_theme_current_public_url' ) ? justice_theme_current_public_url() : $home_url;
+
+	// Query featured lawyers for this practice area to populate ItemList.
+	$lawyer_args = array(
+		'post_type'      => 'justice_lawyer',
+		'posts_per_page' => 5,
+		'post_status'    => 'publish',
+		'tax_query'      => array(
+			array(
+				'taxonomy' => 'practice-areas',
+				'field'    => 'slug',
+				'terms'    => $current_slug,
+			),
 		),
-	) );
+	);
+	$lawyers = get_posts( $lawyer_args );
+
+	$list_items = array();
+	foreach ( $lawyers as $i => $lawyer ) {
+		$firm_name = get_post_meta( $lawyer->ID, 'firm_name', true );
+		$phone     = get_post_meta( $lawyer->ID, 'phone', true );
+		$address   = get_post_meta( $lawyer->ID, 'office_address', true );
+		$item      = array(
+			'@type'    => 'ListItem',
+			'position' => $i + 1,
+			'item'     => array(
+				'@type'       => 'LegalService',
+				'name'        => wp_strip_all_tags( get_the_title( $lawyer->ID ) ) . ( $firm_name ? ' — ' . wp_strip_all_tags( $firm_name ) : '' ),
+				'url'         => esc_url_raw( justice_theme_public_permalink( $lawyer->ID ) ),
+				'serviceType' => $svc['label'],
+				'areaServed'  => array( '@type' => 'Country', 'name' => 'Israel' ),
+				'address'     => array(
+					'@type'          => 'PostalAddress',
+					'streetAddress'  => $address ? wp_strip_all_tags( $address ) : '',
+					'addressCountry' => 'IL',
+				),
+			),
+		);
+		if ( $phone ) {
+			$item['item']['telephone'] = wp_strip_all_tags( $phone );
+		}
+		$list_items[] = $item;
+	}
+
+	$schema = array(
+		'@context'   => 'https://schema.org',
+		'@type'      => 'CollectionPage',
+		'@id'        => $current_url . '#collection',
+		'name'       => 'עורכי דין מומלצים ב' . $svc['label'] . ' | Jus-Tice',
+		'url'        => $current_url,
+		'publisher'  => array( '@id' => $home_url . '#organization' ),
+		'inLanguage' => 'he',
+	);
+
+	if ( ! empty( $list_items ) ) {
+		$schema['mainEntity'] = array(
+			'@type'           => 'ItemList',
+			'itemListElement' => $list_items,
+		);
+	}
+
+	justice_theme_print_schema( $schema );
 }
-add_action( 'wp_head', 'justice_theme_website_schema', 20 );
+add_action( 'wp_head', 'justice_theme_collection_page_schema', 22 );
 
 /**
  * Attorney schema for lawyer mini-site pages.

@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Homepage Competitor-Aligned Strategy
+- CREATED / VERIFIED RESEARCH: `project-control/homepage-competitor-aligned-strategy-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/homepage-competitor-aligned-strategy-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/homepage-seo-strategy.md`.
+- UPDATED / VERIFIED PLANNING: `project-control/homepage-seo-design-alignment.md`.
+- VERIFIED LOCAL: `front-page.php` section order was reviewed and no rebuild was recommended.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was strategy/research only and no public homepage changed.
+- BLOCKED PUBLIC EXECUTION: no homepage template, copy, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lawyer card, lead/CRM, payment, wp-admin or uPress action is approved.
+- SAFETY: no public page, CMS database row, lawyer record, lead record, prospect record, payment setting, redirect, sitemap, taxonomy, GSC API call or admin setting changed.
+
 ## 2026-05-22 Lawyer Prospect Private List Validator
 - TOOLING FIXED / VERIFIED LOCAL: created `tools/validate-lawyer-prospect-private-list.ps1`.
 - CREATED / VERIFIED PLANNING: `project-control/lawyer-prospect-private-list-validator-2026-05-22.md`.

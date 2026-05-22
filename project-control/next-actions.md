@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-HOMEPAGE-COMPETITOR-ALIGNED-STRATEGY-001: Complete competitor-aligned homepage strategy pass
+**Status:** COMPLETED / VERIFIED RESEARCH / VERIFIED LOCAL / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The homepage already has a strong portal stack, but T244 required current competitor alignment so later homepage edits follow proven legal portal patterns without copying or adding clutter.
+**Actions:**
+1. DONE: created `project-control/homepage-competitor-aligned-strategy-2026-05-22.md`.
+2. DONE: created `project-control/homepage-competitor-aligned-strategy-2026-05-22.csv`.
+3. DONE: updated `project-control/homepage-seo-strategy.md`.
+4. DONE: updated `project-control/homepage-seo-design-alignment.md`.
+5. VERIFIED RESEARCH: reviewed current Din, PsakDin, Mishpati and Justia source pages/search results.
+6. VERIFIED LOCAL: `front-page.php` already has the right broad structure; next work should refine section jobs, not rebuild.
+7. RECOMMENDED: keep search-first directory entry, curated commercial priority, editorial proof, measured lawyer value and clear paid-placement boundaries.
+8. BLOCKED PUBLIC EXECUTION: no homepage template, copy, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lawyer card, lead/CRM, payment, wp-admin or uPress action is approved.
+9. NEXT: owner-approved no-URL-change copy/link QA for hero, trust/disclaimer, curated guides, featured lawyers fallback and lawyer CTA.
+
 ### ACTION-LAWYER-PROSPECT-PRIVATE-LIST-VALIDATOR-001: Validate owner-filled first-20 lawyer prospect CSV outside Git
 **Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / PRIVATE DATA NOT STORED / NO OUTREACH
 **Why:** T366 was blocked on the owner creating a private first-20 lawyer prospect list. The repo should not contain real lawyer names, phone numbers, emails or contact-source notes, so the useful repo-side work is a validator that checks the private file without committing private data.

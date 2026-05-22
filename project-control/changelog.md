@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Homepage competitor-aligned strategy
+
+- CREATED: `project-control/homepage-competitor-aligned-strategy-2026-05-22.md`.
+- CREATED: `project-control/homepage-competitor-aligned-strategy-2026-05-22.csv`.
+- UPDATED: `project-control/homepage-seo-strategy.md`.
+- UPDATED: `project-control/homepage-seo-design-alignment.md`.
+- VERIFIED RESEARCH: reviewed current legal portal/directory patterns from Din, PsakDin, Mishpati and Justia.
+- VERIFIED LOCAL: `front-page.php` has a strong 12-section homepage stack, so the recommendation is controlled refinement rather than rebuild.
+- BLOCKED: no homepage template, copy, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lawyer card, lead/CRM, payment, wp-admin or uPress action was approved.
+- SAFETY: no public CMS content, database row, lawyer record, lead record, prospect record, payment setting, URL, redirect, canonical/noindex, taxonomy, sitemap, GA4/GSC setting, wp-admin setting, uPress deployment or outreach message was changed.
+
 ## 2026-05-22 - Lawyer prospect private list validator
 
 - TOOLING FIXED: created `tools/validate-lawyer-prospect-private-list.ps1`.

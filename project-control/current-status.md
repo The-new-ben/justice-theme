@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-22 19:18 Asia/Jerusalem
+- HOMEPAGE COMPETITOR-ALIGNED STRATEGY: completed the queued T244 research/strategy pass without changing the homepage.
+- CREATED: `project-control/homepage-competitor-aligned-strategy-2026-05-22.md`.
+- CREATED: `project-control/homepage-competitor-aligned-strategy-2026-05-22.csv`.
+- UPDATED: `project-control/homepage-seo-strategy.md`.
+- UPDATED: `project-control/homepage-seo-design-alignment.md`.
+- VERIFIED RESEARCH: reviewed current Din, PsakDin, Mishpati and Justia directory/portal patterns for search-first discovery, category navigation, editorial proof, profile value, paid-placement boundaries and reporting.
+- VERIFIED LOCAL: `front-page.php` already has a strong 12-section stack; recommendation is controlled refinement, not another homepage rebuild.
+- BLOCKED PUBLIC EXECUTION: no homepage template, copy, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lawyer card, lead/CRM, payment, wp-admin or uPress change is approved.
+- NEXT: if owner approves, prepare a no-URL-change homepage copy/link QA for hero, trust, curated guides, featured lawyers fallback and lawyer CTA.
+- SAFETY: this cycle made repo-only docs changes; no public CMS page body, database row, lawyer record, lead record, prospect record, payment setting, URL, redirect, canonical, noindex, taxonomy, sitemap, GA4/GSC setting, wp-admin setting, uPress deployment or outreach message changed.
+
 ## LATEST WORK STATUS - 2026-05-22 19:08 Asia/Jerusalem
 - LAWYER PROSPECT PRIVATE LIST VALIDATOR: added a local checker for the owner-filled first-20 lawyer acquisition CSV while keeping private lawyer/contact data out of Git.
 - CREATED: `tools/validate-lawyer-prospect-private-list.ps1`.

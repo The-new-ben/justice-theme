@@ -157,6 +157,27 @@ BLOCKED:
 - No public homepage implementation may run until the owner approves the checklist, section order and link map.
 - URL, redirect, canonical, sitemap, robots/noindex, title/H1/meta, menu, CMS/database, CRM, review/rating and fake-data changes remain out of scope.
 
+## 2026-05-22 Competitor-Aligned Overlay
+
+Evidence:
+- `project-control/homepage-competitor-aligned-strategy-2026-05-22.md`.
+- `project-control/homepage-competitor-aligned-strategy-2026-05-22.csv`.
+
+VERIFIED:
+- Competitor alignment supports the existing `front-page.php` direction.
+- The next homepage batch should be no-URL-change refinement, not a new layout.
+
+DESIGN RULE:
+- Each homepage section must have one job:
+  - hero/search: directory entry;
+  - intent/practice cards: controlled commercial/legal-field routing;
+  - articles: curated cluster proof;
+  - lawyer CTA: paid profile/reporting path;
+  - trust: editorial and sponsored-placement boundaries.
+
+BLOCKED:
+- No public template, copy, card, visual, link, title/H1/meta, taxonomy, sitemap, URL or CMS change was executed by this overlay.
+
 ## 2026-05-10 No-URL-Change Link Safety Batch
 
 CODE FIXED:

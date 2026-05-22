@@ -1,3 +1,21 @@
+## LATEST WORK STATUS - 2026-05-22 14:31 Asia/Jerusalem
+- CRIMINAL FIRST-UPLOAD DRAFT CLOSURE: completed the two missing Criminal support drafts and regenerated the readiness dashboard.
+- CREATED: `content-drafts/indictment-supporting-he.md`.
+- CREATED: `content-drafts/drug-offenses-supporting-he.md`.
+- UPDATED: `tools/build-criminal-traffic-readiness-dashboard.mjs` now tracks all five Criminal first-upload draft files.
+- CREATED: `project-control/criminal-first-upload-draft-closure-2026-05-22.md`.
+- CREATED: `project-control/criminal-first-upload-draft-closure-2026-05-22.csv`.
+- REGENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- REGENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.json`.
+- REGENERATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
+- REGENERATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-traffic-readiness-dashboard.mjs` passed.
+- VERIFIED LOCAL: dashboard still has `57` consolidated rows and Criminal first-upload draft coverage is now `5/5`, with `0` missing drafts.
+- VERIFIED LOCAL: new tracked dashboard word counts are `2,148` for the indictment draft and `2,237` for the drug-offenses draft.
+- READY FOR OWNER REVIEW / NOT UPLOAD: Criminal current-URL first-upload package has drafts for pillar, police investigation, pretrial detention, indictment and drug offenses.
+- BLOCKED: no Criminal CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy or internal-link expansion is approved by this draft closure.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 14:35 Asia/Jerusalem
 - CRIMINAL + TRAFFIC READINESS DASHBOARD: consolidated the next cluster-by-cluster content-upload evidence batch while Family/Divorce remains blocked by owner GSC/OAuth and CMS approval.
 - TOOLING FIXED: created `tools/build-criminal-traffic-readiness-dashboard.mjs`.
@@ -7,7 +25,7 @@
 - CREATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
 - VERIFIED LOCAL: `node --check tools/build-criminal-traffic-readiness-dashboard.mjs` passed.
 - VERIFIED LOCAL: generated dashboard has `57` consolidated rows: `5` criminal first-upload targets, `18` criminal P0 support/protection rows, `13` traffic support/boundary rows, `9` targeted GSC signal rows and the traffic/criminal wrong-page decision packet.
-- VERIFIED LOCAL: criminal first-upload readiness currently has `3/5` drafts present (`/criminal-defense-attorney/`, police investigation, pretrial detention) and `2/5` missing drafts (indictment, drug offenses).
+- FIXED LATER: criminal first-upload readiness now has `5/5` drafts present and `0` missing drafts after the Criminal first-upload draft closure cycle.
 - VERIFIED LOCAL: traffic boundary review remains active with `7` P0 traffic support rows and `4` boundary/hold rows.
 - READY FOR OWNER REVIEW / NOT UPLOAD: `/criminal-defense-attorney/` remains the first current-URL criminal publish candidate.
 - BLOCKED: no Criminal/Traffic CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy or internal-link expansion is approved by this dashboard.

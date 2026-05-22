@@ -29,6 +29,16 @@ const DRAFTS = [
     targetId: 'CRIM-UPLOAD-PKG-003',
     file: path.join(ROOT, 'content-drafts', 'pretrial-detention-supporting-he.md'),
   },
+  {
+    key: 'indictment',
+    targetId: 'CRIM-UPLOAD-PKG-004',
+    file: path.join(ROOT, 'content-drafts', 'indictment-supporting-he.md'),
+  },
+  {
+    key: 'drug_offenses',
+    targetId: 'CRIM-UPLOAD-PKG-005',
+    file: path.join(ROOT, 'content-drafts', 'drug-offenses-supporting-he.md'),
+  },
 ];
 
 const REQUIRED_SOURCES = [

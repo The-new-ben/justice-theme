@@ -1,6 +1,23 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Criminal first-upload draft closure
+
+- CONTENT FIXED / REVIEW ONLY: created `content-drafts/indictment-supporting-he.md`.
+- CONTENT FIXED / REVIEW ONLY: created `content-drafts/drug-offenses-supporting-he.md`.
+- TOOLING FIXED: updated `tools/build-criminal-traffic-readiness-dashboard.mjs` to track all five Criminal first-upload draft files.
+- CREATED: `project-control/criminal-first-upload-draft-closure-2026-05-22.md`.
+- CREATED: `project-control/criminal-first-upload-draft-closure-2026-05-22.csv`.
+- REGENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- REGENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.json`.
+- REGENERATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
+- REGENERATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-traffic-readiness-dashboard.mjs` passed.
+- VERIFIED LOCAL: Criminal first-upload draft coverage is now `5/5`, with `0` missing drafts.
+- VERIFIED LOCAL: new tracked dashboard word counts are `2,148` for indictment and `2,237` for drug offenses.
+- BLOCKED: Criminal public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap and internal-link expansion remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Criminal/Traffic readiness dashboard
 
 - TOOLING FIXED: created `tools/build-criminal-traffic-readiness-dashboard.mjs`.
@@ -10,7 +27,7 @@
 - CREATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
 - VERIFIED LOCAL: `node --check tools/build-criminal-traffic-readiness-dashboard.mjs` passed.
 - VERIFIED LOCAL: dashboard generated `57` rows, including `5` criminal first-upload targets, `18` criminal P0 support/protection rows, `13` traffic support/boundary rows, `9` targeted GSC signal rows and the traffic/criminal wrong-page decision packet.
-- VERIFIED LOCAL: criminal first-upload readiness is `3/5` drafts present and `2/5` drafts missing.
+- FIXED LATER: criminal first-upload readiness is now `5/5` drafts present and `0/5` missing after the Criminal first-upload draft closure cycle.
 - BLOCKED: Criminal/Traffic public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap and internal-link expansion remain unapproved.
 - SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
 

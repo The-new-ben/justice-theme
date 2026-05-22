@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Criminal First-Upload Draft Closure
+- CONTENT FIXED / VERIFIED LOCAL: created `content-drafts/indictment-supporting-he.md`.
+- CONTENT FIXED / VERIFIED LOCAL: created `content-drafts/drug-offenses-supporting-he.md`.
+- TOOLING FIXED / VERIFIED LOCAL: `tools/build-criminal-traffic-readiness-dashboard.mjs` now tracks all five Criminal first-upload draft files.
+- GENERATED / VERIFIED LOCAL: Criminal/Traffic readiness dashboard regenerated for `2026-05-22`.
+- VERIFIED LOCAL: Criminal first-upload package now has `5/5` long-form drafts present and `0` missing drafts.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local content-draft and reporting work only; no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/legal/source approval, WordPress backup, approved CMS update and post-upload route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Criminal/Traffic Readiness Dashboard
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/build-criminal-traffic-readiness-dashboard.mjs`.
 - GENERATED / VERIFIED LOCAL: `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
@@ -9,7 +19,7 @@ Status: PARTIAL VISUAL QA COMPLETED.
 - CREATED / VERIFIED LOCAL: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
 - CREATED / VERIFIED LOCAL: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
 - VERIFIED LOCAL: dashboard generated `57` consolidated rows, including `5` criminal first-upload targets, `18` criminal P0 support/protection rows, `13` traffic support/boundary rows and `9` targeted GSC rows.
-- VERIFIED LOCAL: criminal first-upload package currently has `3/5` long-form drafts present and `2/5` missing drafts.
+- FIXED LATER / VERIFIED LOCAL: criminal first-upload package now has `5/5` long-form drafts present and `0` missing drafts after the Criminal first-upload draft closure cycle.
 - NOT VISUALLY VERIFIED: no screenshots were taken because this was local SEO/content readiness reporting and no public UI changed.
 - BLOCKED: public screenshots remain pending until owner/legal/source approval, WordPress backup, approved CMS update and post-upload route/content QA.
 - SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.

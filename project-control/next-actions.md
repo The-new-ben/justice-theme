@@ -6,6 +6,25 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CRIMINAL-FIRST-UPLOAD-DRAFT-CLOSURE-001: Complete missing Criminal first-upload support drafts
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / READY FOR OWNER REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The Criminal/Traffic readiness dashboard showed `2/5` missing Criminal first-upload drafts. Closing this gap is the highest-value unblocked repo-only step before owner review, because it prepares the Criminal cluster as a coherent current-URL upload package without touching live URLs or the CMS.
+**Actions:**
+1. DONE: created `content-drafts/indictment-supporting-he.md`.
+2. DONE: created `content-drafts/drug-offenses-supporting-he.md`.
+3. DONE: updated `tools/build-criminal-traffic-readiness-dashboard.mjs` so all five Criminal first-upload targets map to draft files.
+4. DONE: regenerated `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+5. DONE: regenerated `reports/criminal-traffic-readiness-dashboard-2026-05-22.json`.
+6. DONE: regenerated `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
+7. DONE: regenerated `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+8. DONE: created `project-control/criminal-first-upload-draft-closure-2026-05-22.md`.
+9. DONE: created `project-control/criminal-first-upload-draft-closure-2026-05-22.csv`.
+10. VERIFIED LOCAL: `node --check tools/build-criminal-traffic-readiness-dashboard.mjs` passed.
+11. VERIFIED LOCAL: dashboard still consolidates `57` rows and Criminal first-upload draft coverage is now `5/5`, with `0` missing drafts.
+12. READY: the Criminal current-URL first-upload package is ready for owner/legal/source review.
+13. BLOCKED: no CMS upload, slug migration, redirects, canonicals, noindex, sitemap, taxonomy or internal-link writes are approved.
+14. NEXT: prepare or run the Criminal owner review packet for the five current-URL targets, starting with `/criminal-defense-attorney/`.
+
 ### ACTION-CRIMINAL-TRAFFIC-READINESS-DASHBOARD-001: Consolidate next content-upload cluster evidence
 **Status:** COMPLETED / VERIFIED LOCAL / REVIEW ONLY / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** Family/Divorce upload execution is blocked by owner GSC/OAuth and CMS approval. The next safe progress is to prepare Criminal/Traffic as a controlled cluster package without approving URL migrations or public changes.
@@ -16,10 +35,10 @@
 4. DONE: created `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
 5. DONE: created `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
 6. VERIFIED LOCAL: dashboard consolidates `57` rows: `5` criminal first-upload targets, `18` criminal P0 support/protection rows, `13` traffic support/boundary rows, `9` targeted GSC signal rows and the wrong-page decision packet.
-7. VERIFIED LOCAL: `3/5` criminal first-upload drafts are present and long-form; indictment and drug-offenses drafts are still missing.
+7. FIXED LATER: `ACTION-CRIMINAL-FIRST-UPLOAD-DRAFT-CLOSURE-001` created indictment and drug-offenses drafts; current dashboard now shows `5/5` criminal first-upload drafts present and `0` missing.
 8. VERIFIED LOCAL: `/criminal-defense-attorney/` is the first current-URL criminal publish candidate, but it is owner-review-ready only, not upload-approved.
 9. BLOCKED: Criminal/Traffic public CMS upload, clean-slug migration, redirects, canonical/noindex, sitemap, taxonomy and related/internal-link writes remain unapproved.
-10. NEXT: draft/prepare the missing indictment and drug-offenses supports or run owner review on the current-URL criminal pillar before any public upload.
+10. NEXT: run owner/legal/source review on the five current-URL Criminal targets before any public upload.
 
 ### ACTION-FAMILY-DIVORCE-GSC-WORKFLOW-HANDOFF-001: Make focused GSC workflow date-safe and one-command
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / API EXECUTION BLOCKED UNTIL OWNER CREDENTIAL SETUP / NO PUBLIC CHANGES

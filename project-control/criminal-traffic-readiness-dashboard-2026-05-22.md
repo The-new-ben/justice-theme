@@ -8,8 +8,8 @@
 ## Batch Completed
 - Total rows consolidated: 57
 - Criminal first-upload targets reviewed: 5
-- Criminal first-upload targets with drafts present: 3
-- Criminal first-upload targets still missing drafts: 2
+- Criminal first-upload targets with drafts present: 5
+- Criminal first-upload targets still missing drafts: 0
 - Criminal support/protected rows reviewed: 18 (18 P0)
 - Traffic support/boundary rows reviewed: 13 (7 P0)
 - Targeted GSC signal rows included: 9
@@ -26,14 +26,11 @@
 | CRIM-UPLOAD-PKG-001 | P1 | /criminal-defense-attorney/ | current_planning_pillar | DRAFT_PRESENT_LONG_FORM (5390) | READY_FOR_OWNER_REVIEW_NOT_UPLOAD |
 | CRIM-UPLOAD-PKG-002 | P2 | /%D7%94%D7%9B%D7%A0%D7%94-%D7%9C%D7%97%D7%A7%D7%99%D7%A8%D7%94-%D7%91%D7%9E%D7%A9%D7%98%D7%A8%D7%94/ | core_support_police_investigation | DRAFT_PRESENT_LONG_FORM (3724) | READY_FOR_OWNER_REVIEW_NOT_UPLOAD |
 | CRIM-UPLOAD-PKG-003 | P3 | /detention-before-charge-or-trial/ | core_support_detention_group | DRAFT_PRESENT_LONG_FORM (3733) | READY_FOR_OWNER_REVIEW_NOT_UPLOAD |
-| CRIM-UPLOAD-PKG-004 | P4 | /articles/%D7%9E%D7%97%D7%99%D7%A7%D7%AA-%D7%9B%D7%AA%D7%91-%D7%90%D7%99%D7%A9%D7%95%D7%9D-%D7%97%D7%96%D7%A8%D7%94-%D7%9E%D7%9B%D7%AA%D7%91-%D7%90%D7%99%D7%A9%D7%95%D7%9D-%D7%91%D7%99%D7%98%D7%95%D7%9C/ | core_support_indictment | MISSING_DRAFT | READY_FOR_OWNER_REVIEW_NOT_UPLOAD |
-| CRIM-UPLOAD-PKG-005 | P5 | /drug-offenses-criminal-lawyer/ | core_support_drug_offenses | MISSING_DRAFT | READY_FOR_OWNER_REVIEW_NOT_UPLOAD |
+| CRIM-UPLOAD-PKG-004 | P4 | /articles/%D7%9E%D7%97%D7%99%D7%A7%D7%AA-%D7%9B%D7%AA%D7%91-%D7%90%D7%99%D7%A9%D7%95%D7%9D-%D7%97%D7%96%D7%A8%D7%94-%D7%9E%D7%9B%D7%AA%D7%91-%D7%90%D7%99%D7%A9%D7%95%D7%9D-%D7%91%D7%99%D7%98%D7%95%D7%9C/ | core_support_indictment | DRAFT_PRESENT_LONG_FORM (2148) | READY_FOR_OWNER_REVIEW_NOT_UPLOAD |
+| CRIM-UPLOAD-PKG-005 | P5 | /drug-offenses-criminal-lawyer/ | core_support_drug_offenses | DRAFT_PRESENT_LONG_FORM (2237) | READY_FOR_OWNER_REVIEW_NOT_UPLOAD |
 
 ## Missing First-Upload Drafts
-| Target | Current URL | Role | Next step |
-| --- | --- | --- | --- |
-| CRIM-UPLOAD-PKG-004 | /articles/%D7%9E%D7%97%D7%99%D7%A7%D7%AA-%D7%9B%D7%AA%D7%91-%D7%90%D7%99%D7%A9%D7%95%D7%9D-%D7%97%D7%96%D7%A8%D7%94-%D7%9E%D7%9B%D7%AA%D7%91-%D7%90%D7%99%D7%A9%D7%95%D7%9D-%D7%91%D7%99%D7%98%D7%95%D7%9C/ | core_support_indictment | Draft indictment support after legal/source review |
-| CRIM-UPLOAD-PKG-005 | /drug-offenses-criminal-lawyer/ | core_support_drug_offenses | Draft drug offenses after source/legal consolidation review |
+- VERIFIED: no missing first-upload drafts.
 
 ## Top Criminal Support / Protection Rows
 | Priority | Source | Clicks | Impr. | Role | Risk |

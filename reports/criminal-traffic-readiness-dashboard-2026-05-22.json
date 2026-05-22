@@ -1,11 +1,11 @@
 {
   "summary": {
-    "generatedAt": "2026-05-22T11:18:13.306Z",
+    "generatedAt": "2026-05-22T11:29:18.761Z",
     "finality": "REVIEW_ONLY_NO_PUBLIC_CHANGES",
     "totalRows": 57,
     "criminalUploadTargets": 5,
-    "criminalUploadTargetsWithDraft": 3,
-    "criminalUploadTargetsMissingDraft": 2,
+    "criminalUploadTargetsWithDraft": 5,
+    "criminalUploadTargetsMissingDraft": 0,
     "criminalSupportRows": 18,
     "criminalP0SupportRows": 18,
     "trafficSupportRows": 13,
@@ -36,6 +36,20 @@
         "file": "content-drafts\\pretrial-detention-supporting-he.md",
         "status": "DRAFT_PRESENT_LONG_FORM",
         "wordCount": 3733
+      },
+      {
+        "key": "indictment",
+        "targetId": "CRIM-UPLOAD-PKG-004",
+        "file": "content-drafts\\indictment-supporting-he.md",
+        "status": "DRAFT_PRESENT_LONG_FORM",
+        "wordCount": 2148
+      },
+      {
+        "key": "drug_offenses",
+        "targetId": "CRIM-UPLOAD-PKG-005",
+        "file": "content-drafts\\drug-offenses-supporting-he.md",
+        "status": "DRAFT_PRESENT_LONG_FORM",
+        "wordCount": 2237
       }
     ],
     "firstPublishCandidate": "/criminal-defense-attorney/",
@@ -136,8 +150,8 @@
       "traffic_risk": "UNKNOWN_NEEDS_GSC",
       "gsc_clicks": "",
       "gsc_impressions": "",
-      "content_draft_status": "MISSING_DRAFT",
-      "draft_word_count": 0,
+      "content_draft_status": "DRAFT_PRESENT_LONG_FORM",
+      "draft_word_count": 2148,
       "source_legal_status": "PARTIAL_VERIFIED",
       "internal_link_status": "LINK_MAP_AVAILABLE",
       "url_action_status": "NO_URL_CHANGE_APPROVED; FUTURE_SLUG_BLOCKED",
@@ -160,8 +174,8 @@
       "traffic_risk": "UNKNOWN_NEEDS_GSC",
       "gsc_clicks": "",
       "gsc_impressions": "",
-      "content_draft_status": "MISSING_DRAFT",
-      "draft_word_count": 0,
+      "content_draft_status": "DRAFT_PRESENT_LONG_FORM",
+      "draft_word_count": 2237,
       "source_legal_status": "PARTIAL_VERIFIED",
       "internal_link_status": "LINK_MAP_AVAILABLE",
       "url_action_status": "NO_URL_CHANGE_APPROVED; FUTURE_SLUG_BLOCKED",

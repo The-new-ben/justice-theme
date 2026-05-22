@@ -14,6 +14,8 @@ This packet converts the live Family/Divorce safety findings into an execution c
 - `project-control/family-law-visible-repair-field-map-2026-05-22.csv`
 - `project-control/family-law-live-repair-cms-backup-template-2026-05-22.md`
 - `project-control/family-law-live-repair-cms-backup-template-2026-05-22.csv`
+- `project-control/family-law-live-repair-owner-approval-2026-05-22.md`
+- `project-control/family-law-live-repair-owner-approval-2026-05-22.csv`
 - `project-control/family-law-live-publish-safety-review-2026-05-22.md`
 - `project-control/family-divorce-gsc-workflow-handoff-2026-05-22.md`
 - `project-control/family-divorce-cms-operator-runbook-2026-05-21.md`

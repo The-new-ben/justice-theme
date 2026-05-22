@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family Law owner approval worksheet
+
+- CREATED: `project-control/family-law-live-repair-owner-approval-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-repair-owner-approval-2026-05-22.csv`.
+- UPDATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md` now links to the owner approval worksheet.
+- VERIFIED LOCAL: owner-approval CSV parses and contains `13` rows.
+- VERIFIED PLANNING: worksheet defines owner decisions for visible current-URL repair, CMS backup, `/divorce-agreement/` shortcode/PDF/H1 repair, H1 repairs on the two divorce-lawyer candidates and support pages, GSC-gated SEO consolidation, protected assets and post-repair QA.
+- VERIFIED PLANNING: worksheet explicitly blocks full content upload, URL migration, redirects, canonicals/noindex, sitemap changes, taxonomy edits, related-card writes, protected-asset changes, lawyer-card changes, lead/CRM changes and uPress deployment.
+- BLOCKED: actual owner approval, WordPress rollback material, focused GSC, public repair execution and post-repair live QA remain required before Family/Divorce can be marked upload-safe.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Family Law CMS backup template
 
 - CREATED: `project-control/family-law-live-repair-cms-backup-template-2026-05-22.md`.

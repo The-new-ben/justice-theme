@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-FAMILY-LAW-LIVE-REPAIR-OWNER-APPROVAL-001: Prepare owner approval worksheet for visible repair
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The repair packet, field map and backup template are ready, but the owner still needs a narrow approval sheet that cannot be mistaken for full content upload, URL migration or SEO consolidation approval.
+**Actions:**
+1. DONE: created `project-control/family-law-live-repair-owner-approval-2026-05-22.md`.
+2. DONE: created `project-control/family-law-live-repair-owner-approval-2026-05-22.csv`.
+3. DONE: linked the approval worksheet from `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+4. VERIFIED LOCAL: CSV parses and contains `13` approval/gate rows.
+5. VERIFIED PLANNING: worksheet covers the global visible-repair scope, backup requirement, `/divorce-agreement/` shortcode/PDF/H1 repairs, H1 repairs for both divorce-lawyer candidates and support pages, GSC-gated SEO consolidation, protected assets and post-repair QA.
+6. VERIFIED PLANNING: owner approval language explicitly blocks URL migration, redirects, canonicals/noindex, sitemap, taxonomy, related-card writes, protected-asset handling, full content upload, lawyer, lead, CRM and uPress changes.
+7. BLOCKED: no public CMS edit, PDF upload, URL change, redirect, canonical/noindex, sitemap, taxonomy, related-card, lawyer, lead or CRM action is approved by this worksheet.
+8. NEXT: owner records approval or hold; if approved, operator captures actual CMS rollback material, repairs only approved visible current-URL defects, reruns safety/diagnostics scripts and captures screenshots.
+
 ### ACTION-FAMILY-LAW-LIVE-REPAIR-CMS-BACKUP-TEMPLATE-001: Prepare CMS rollback backup template for visible repair
 **Status:** COMPLETED / VERIFIED PLANNING / READY FOR OPERATOR PREP / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** The visible repair field map is ready, but public execution must still be blocked until an operator captures exact rollback material from WordPress. This template defines the minimum backup evidence needed before touching live Family/Divorce pages.

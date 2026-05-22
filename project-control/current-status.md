@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-22 17:38 Asia/Jerusalem
+- FAMILY LAW OWNER APPROVAL WORKSHEET: created a narrow owner decision sheet for the May 22 live Family/Divorce visible repair batch.
+- CREATED: `project-control/family-law-live-repair-owner-approval-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-repair-owner-approval-2026-05-22.csv`.
+- UPDATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md` now links to the owner approval worksheet as source evidence.
+- VERIFIED LOCAL: owner-approval CSV parses and contains `13` rows: `10` owner-decision-pending visible repair/backup rows, `2` GSC/owner-decision blocked SEO/protected-asset rows and `1` post-repair QA row blocked until repair.
+- VERIFIED PLANNING: worksheet separates `APPROVE_VISIBLE_REPAIR_ONLY` from full content upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy, related-card, protected-asset and CRM changes.
+- READY FOR OWNER REVIEW / NOT EXECUTION: owner can approve or hold the visible current-URL repair batch without accidentally approving SEO consolidation or upload.
+- BLOCKED: actual WordPress rollback material, owner approval, focused GSC, public repair execution and post-repair screenshots/checks are still required before marking Family/Divorce upload-safe.
+- SAFETY: this cycle made repo-only planning/docs changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 17:29 Asia/Jerusalem
 - FAMILY LAW CMS BACKUP TEMPLATE: prepared the rollback-capture worksheet needed before any approved live Family/Divorce visible repair.
 - CREATED: `project-control/family-law-live-repair-cms-backup-template-2026-05-22.md`.

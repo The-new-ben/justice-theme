@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-22 23:20 Asia/Jerusalem
+- FAMILY/DIVORCE OWNER WORDING APPROVAL PACKET: converted the draft enhancement readiness gate into explicit owner approve/edit/hold decisions before any legal body-copy edits.
+- CREATED: `project-control/family-law-owner-wording-approval-2026-05-22.md`.
+- CREATED: `project-control/family-law-owner-wording-approval-2026-05-22.csv`.
+- FIXED PLANNING: isolated the five ready wording modules from agreement/PDF, CTA/lawyer matching, Maya fact and GSC/canonical dependency rows.
+- VERIFIED LOCAL: owner wording CSV parses with `9` rows.
+- OWNER DECISION PENDING: owner must approve, edit or hold cost, process, document checklist, mediation risk and children decision-table wording before any Family/Divorce draft body copy is edited.
+- BLOCKED PUBLIC EXECUTION: agreement/PDF language, lawyer matching CTA, Maya fact language, canonical/noindex/redirect/sitemap/taxonomy decisions, CMS upload and live repair remain blocked by their separate gates.
+- NOT PUBLISHED: no public CMS record, page body, title, H1, meta, URL slug, redirect, canonical/noindex, taxonomy, sitemap, media/PDF asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 23:10 Asia/Jerusalem
 - FAMILY/DIVORCE DRAFT ENHANCEMENT READINESS GATE: added a generated checker for the draft enhancement queue so future work can verify target draft files and source artifacts before editing legal copy.
 - CREATED: `tools/check-family-law-draft-enhancement-readiness.mjs`.

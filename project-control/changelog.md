@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family Law owner wording approval packet
+
+- CREATED: `project-control/family-law-owner-wording-approval-2026-05-22.md`.
+- CREATED: `project-control/family-law-owner-wording-approval-2026-05-22.csv`.
+- FIXED PLANNING: converted the Family/Divorce draft enhancement readiness rows into explicit owner approve/edit/hold decisions.
+- FIXED PLANNING: isolated five owner-wording-ready modules from agreement/PDF, CTA/lawyer matching, Maya fact and GSC/live repair dependency rows.
+- VERIFIED LOCAL: owner wording approval CSV parses with `9` rows.
+- BLOCKED OWNER DECISION: no Family/Divorce draft body-copy edit should happen until owner decisions are recorded for cost, process, document checklist, mediation risk and children modules.
+- BLOCKED PUBLIC EXECUTION: no public CMS edit, URL/SEO migration, media/PDF change, lawyer-card change, lead/CRM action, GSC/GA4 setting, wp-admin setting or uPress deployment is authorized by this packet.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media/PDF asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 - Family Law draft enhancement readiness gate
 
 - CREATED: `tools/check-family-law-draft-enhancement-readiness.mjs`.

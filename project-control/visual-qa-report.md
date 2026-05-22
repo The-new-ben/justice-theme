@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Family Law Owner Wording Approval Packet
+- CREATED / VERIFIED LOCAL: `project-control/family-law-owner-wording-approval-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-owner-wording-approval-2026-05-22.csv`.
+- FIXED PLANNING: five ready wording modules are separated from agreement/PDF, CTA/lawyer matching, Maya fact and GSC/live repair dependencies.
+- VERIFIED LOCAL: owner wording CSV parses with `9` rows.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was repo-only planning and no public repair/upload happened.
+- BLOCKED LIVE QA: Family/Divorce still needs owner wording approval, CMS rollback backup, visible live repair, focused GSC export, Maya route/schema verification and post-repair screenshots before upload.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media/PDF asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Family Law Draft Enhancement Readiness Gate
 - CREATED / VERIFIED LOCAL: `tools/check-family-law-draft-enhancement-readiness.mjs`.
 - CREATED / VERIFIED LOCAL: `project-control/family-law-draft-enhancement-readiness-2026-05-22.md`.

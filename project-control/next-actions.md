@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-FAMILY-LAW-OWNER-WORDING-APPROVAL-001: Prepare owner wording approval packet for Family/Divorce draft modules
+**Status:** FIXED PLANNING / VERIFIED LOCAL / OWNER DECISION PENDING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the readiness gate identified five draft modules ready for owner wording review; the next safe step is a precise approval packet before any legal body-copy edit.
+**Actions:**
+1. DONE: reviewed `project-control/family-law-draft-enhancement-readiness-2026-05-22.csv` and the draft enhancement queue.
+2. DONE: created `project-control/family-law-owner-wording-approval-2026-05-22.md`.
+3. DONE: created `project-control/family-law-owner-wording-approval-2026-05-22.csv`.
+4. FIXED PLANNING: separated ready cost, process, document checklist, mediation risk and children decision-table modules from blocked agreement/PDF, CTA/lawyer matching, Maya fact and GSC/live repair dependencies.
+5. VERIFIED LOCAL: owner wording CSV parses with `9` rows.
+6. BLOCKED OWNER DECISION: do not edit Family/Divorce draft body copy until owner records approve/edit/hold decisions for the five ready modules.
+7. BLOCKED PUBLIC EXECUTION: do not publish, repair, redirect, delete or change canonicals/noindex/sitemap/taxonomy from this approval packet.
+8. NEXT: owner records approve/edit/hold wording decisions; then edit only the listed existing draft files and rerun `tools/check-family-divorce-public-bodies.mjs`.
+
 ### ACTION-FAMILY-LAW-DRAFT-ENHANCEMENT-READINESS-001: Add generated readiness gate for draft enhancement queue
 **Status:** FIXED / VERIFIED LOCAL / BLOCKED OWNER WORDING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
 **Why:** the draft enhancement queue needs repeatable validation so future runs do not edit legal copy against missing draft files or stale planning artifacts.

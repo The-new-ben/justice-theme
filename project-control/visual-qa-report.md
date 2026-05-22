@@ -2,6 +2,17 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Criminal Source/Legal Review Worksheet
+- CREATED / VERIFIED PLANNING: `project-control/criminal-source-legal-review-worksheet-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/criminal-source-legal-review-worksheet-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
+- UPDATED / VERIFIED PLANNING: `project-control/criminal-owner-review-packet-2026-05-22.md`.
+- VERIFIED PLANNING: worksheet covers five Criminal current-URL pages plus one cluster-wide disclaimer/lead/schema gate.
+- VERIFIED PLANNING: `0/6` rows are approved for upload.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was a local approval worksheet and no public UI changed.
+- BLOCKED PUBLIC EXECUTION: no CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy, internal-link, lawyer, lead, CRM or uPress action is approved.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment, GSC API call or admin setting changed.
+
 ## 2026-05-22 GSC Owner Execution Packet
 - CREATED / VERIFIED PLANNING: `project-control/gsc-owner-execution-packet-2026-05-22.md`.
 - CREATED / VERIFIED LOCAL: `project-control/gsc-owner-execution-packet-2026-05-22.csv`.

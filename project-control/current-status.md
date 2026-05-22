@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-22 18:49 Asia/Jerusalem
+- CRIMINAL SOURCE/LEGAL REVIEW WORKSHEET: added the missing page-level approval gate for the completed Criminal first-upload draft set.
+- CREATED: `project-control/criminal-source-legal-review-worksheet-2026-05-22.md`.
+- CREATED: `project-control/criminal-source-legal-review-worksheet-2026-05-22.csv`.
+- UPDATED: `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
+- UPDATED: `project-control/criminal-owner-review-packet-2026-05-22.md`.
+- VERIFIED PLANNING: worksheet covers five Criminal current-URL first-upload pages plus one cluster-wide disclaimer/lead/schema gate.
+- VERIFIED PLANNING: `0/6` rows are approved for upload; all require owner/legal/source approval and WordPress rollback backup before CMS execution.
+- BLOCKED PUBLIC EXECUTION: clean slugs, redirects, canonicals/noindex, sitemap, taxonomy, internal-link writes, lawyer cards, lead/CRM and uPress actions remain blocked.
+- NEXT: owner reviews Criminal rows and marks each `APPROVE_CURRENT_URL_UPDATE`, `EDIT_REQUIRED`, `HOLD` or `LEGAL_REVIEW_REQUIRED`; focused GSC is still required before any URL migration.
+- SAFETY: this cycle made repo-only docs changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC API call, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 18:39 Asia/Jerusalem
 - GSC OWNER EXECUTION PACKET: created a single owner/operator command packet for tomorrow's Search Console API setup and priority export run.
 - CREATED: `project-control/gsc-owner-execution-packet-2026-05-22.md`.

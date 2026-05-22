@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-CRIMINAL-SOURCE-LEGAL-REVIEW-WORKSHEET-001: Add page-level review gate for Criminal first-upload drafts
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER LEGAL SOURCE REVIEW / EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The Criminal first-upload draft and metadata set is complete, but it needed a page-level owner/legal/source worksheet like the Medical Malpractice gate before any current-URL CMS update can be considered.
+**Actions:**
+1. DONE: created `project-control/criminal-source-legal-review-worksheet-2026-05-22.md`.
+2. DONE: created `project-control/criminal-source-legal-review-worksheet-2026-05-22.csv`.
+3. DONE: linked the worksheet from `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
+4. DONE: linked the worksheet from `project-control/criminal-owner-review-packet-2026-05-22.md`.
+5. VERIFIED PLANNING: worksheet covers `/criminal-defense-attorney/`, the police-investigation current URL, `/detention-before-charge-or-trial/`, the current indictment article, `/drug-offenses-criminal-lawyer/` and a cluster-wide disclaimer/lead/schema gate.
+6. VERIFIED PLANNING: `0/6` rows are approved for upload.
+7. VERIFIED PLANNING: rows isolate allowed claims, blocked claims, source status, risk level and required pre-upload checks.
+8. BLOCKED: owner/legal/source review, WordPress rollback backup and focused GSC remain required before public CMS work.
+9. BLOCKED PUBLIC EXECUTION: this does not approve CMS upload, URL migration, redirects, canonicals/noindex, sitemap, taxonomy, internal-link writes, lawyer, lead, CRM or uPress action.
+10. NEXT: owner marks each Criminal row `APPROVE_CURRENT_URL_UPDATE`, `EDIT_REQUIRED`, `HOLD` or `LEGAL_REVIEW_REQUIRED`.
+
 ### ACTION-GSC-OWNER-EXECUTION-PACKET-001: Prepare one ordered owner command packet for GSC setup/export/validation
 **Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER SETUP / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** The GSC setup guide, preflight, priority runner and output validator now exist, but the owner needs one ordered command path that avoids partial or out-of-order execution before upload decisions.

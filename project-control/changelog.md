@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Criminal source/legal review worksheet
+
+- CREATED: `project-control/criminal-source-legal-review-worksheet-2026-05-22.md`.
+- CREATED: `project-control/criminal-source-legal-review-worksheet-2026-05-22.csv`.
+- UPDATED: `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
+- UPDATED: `project-control/criminal-owner-review-packet-2026-05-22.md`.
+- VERIFIED PLANNING: worksheet covers five Criminal first-upload current URLs plus one cluster-wide disclaimer/lead/schema gate.
+- VERIFIED PLANNING: `0/6` rows are approved for upload; all rows still require owner/legal/source review.
+- BLOCKED: focused Criminal GSC export and WordPress rollback backup remain required before public CMS work.
+- BLOCKED PUBLIC EXECUTION: no CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy, internal-link, lawyer, lead, CRM or uPress action was approved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC API call, wp-admin or uPress change was made.
+
 ## 2026-05-22 - GSC owner execution packet
 
 - CREATED: `project-control/gsc-owner-execution-packet-2026-05-22.md`.

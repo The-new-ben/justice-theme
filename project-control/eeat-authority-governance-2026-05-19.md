@@ -160,3 +160,25 @@ CREATED: `tools/check-eeat-authority-safety.mjs`.
 VERIFIED LOCAL: checker generated `reports/eeat-authority-safety-2026-05-22.csv` and returned `6/6 VERIFIED`.
 
 NOT LIVE VERIFIED: public JSON-LD/Rich Results validation and screenshots still require deploy/pull and cache clear.
+
+## 2026-05-22 Lawyer Person Profile Schema Gate
+
+FIXED / VERIFIED LOCAL: `justice_lawyer` schema now returns nothing for unapproved public profiles unless the current user can edit that profile.
+
+FIXED / VERIFIED LOCAL: approved lawyer pages now receive a stable `Attorney` schema `@id`.
+
+FIXED / VERIFIED LOCAL: verified lawyer `Person` schema is emitted only through the central authority registry, currently limited to Maya Rotenberg.
+
+FIXED / VERIFIED LOCAL: Maya can resolve to the verified authority registry by canonical slug or clear title match, so the schema path is ready after the live slug/permalink issue is resolved.
+
+FIXED / VERIFIED LOCAL: lawyer schema `sameAs` URLs can be assembled from approved CMS fields: website, source URL, social URLs and `profile_public_sources`.
+
+CREATED: `project-control/authority-person-profile-schema-gate-2026-05-22.md`.
+
+CREATED: `project-control/authority-person-profile-schema-gate-2026-05-22.csv`.
+
+VERIFIED LOCAL: checker now returns `11/11 VERIFIED`.
+
+BLOCKED: Ben Batash remains outside the verified person registry and no `/about/ben-batash/` route was created. Owner-supplied facts, external profile links and approved role wording are required first.
+
+NOT LIVE VERIFIED: live Maya profile JSON-LD, Rich Results and screenshots still require uPress pull/cache clear and resolution of the Maya redirect loop.

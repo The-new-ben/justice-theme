@@ -1,0 +1,11 @@
+check_id,scope,status,risk,evidence,next_step
+CTRL-BREADCRUMB-SLUG-HELPER,controlled_route_breadcrumbs,VERIFIED,HIGH,Dedicated controlled route slug helper exists.,Keep as protected breadcrumb baseline.
+CTRL-BREADCRUMB-ITEMS-HELPER,controlled_route_breadcrumbs,VERIFIED,HIGH,Dedicated controlled route breadcrumb item helper exists.,Keep as protected breadcrumb baseline.
+CTRL-BREADCRUMB-CONFIG-SOURCE,controlled_route_breadcrumbs,VERIFIED,CRITICAL,Breadcrumb current label comes from existing practice landing config.,Keep as protected breadcrumb baseline.
+CTRL-BREADCRUMB-BEFORE-ARTICLE,query_fallback_order,VERIFIED,HIGH,Controlled route fallback runs before article/singular fallbacks.,Keep route breadcrumb fallback before query fallback handling.
+CTRL-BREADCRUMB-BEFORE-404,query_fallback_order,VERIFIED,CRITICAL,Controlled route fallback runs before 404 fallback.,Keep route breadcrumb fallback before query fallback handling.
+CTRL-BREADCRUMB-SCHEMA-WIRED,schema_output,VERIFIED,HIGH,BreadcrumbList schema remains wired to rendered breadcrumb items.,Keep as protected breadcrumb baseline.
+CTRL-BREADCRUMB-FAMILY,family_law_route,VERIFIED,CRITICAL,/family-law/ maps to family-law in breadcrumbs and practice landing config.,Keep route in sync with controlled practice landing config.
+CTRL-BREADCRUMB-MEDMAL,medical_malpractice_route,VERIFIED,CRITICAL,/medical-malpractice-lawyer/ maps to medical-malpractice in breadcrumbs and practice landing config.,Keep route in sync with controlled practice landing config.
+CTRL-BREADCRUMB-REALESTATE,real_estate_route,VERIFIED,HIGH,/real-estate-lawyer-guide/ maps to real-estate-law in breadcrumbs and practice landing config.,Keep route in sync with controlled practice landing config.
+CTRL-BREADCRUMB-INHERITANCE,inheritance_route,VERIFIED,HIGH,/inheritance-lawyer/ maps to inheritance in breadcrumbs and practice landing config.,Keep route in sync with controlled practice landing config.

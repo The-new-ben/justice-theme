@@ -36,6 +36,31 @@ function justice_theme_authority_verified_people(): array {
 	);
 }
 
+function justice_theme_authority_verified_person_slug_for_post( int $post_id ): string {
+	if ( ! $post_id || 'justice_lawyer' !== get_post_type( $post_id ) ) {
+		return '';
+	}
+
+	$people = justice_theme_authority_verified_people();
+	$slug   = sanitize_title( (string) get_post_field( 'post_name', $post_id ) );
+
+	if ( $slug && ! empty( $people[ $slug ] ) ) {
+		return $slug;
+	}
+
+	$title = get_the_title( $post_id );
+
+	if (
+		! empty( $people['advocate-maya-rotenberg'] )
+		&& false !== mb_strpos( $title, rawurldecode( '%D7%9E%D7%90%D7%99%D7%94' ) )
+		&& false !== mb_strpos( $title, rawurldecode( '%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92' ) )
+	) {
+		return 'advocate-maya-rotenberg';
+	}
+
+	return '';
+}
+
 function justice_theme_authority_get_verified_person_schema( string $slug ): ?array {
 	$slug   = sanitize_title( $slug );
 	$people = justice_theme_authority_verified_people();

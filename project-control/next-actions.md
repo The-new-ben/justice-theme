@@ -4,6 +4,35 @@
 
 ---
 
+### ACTION-CONTROLLED-ROUTE-BREADCRUMB-SAFETY-001: Bind protected practice-route breadcrumbs to route config
+**Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC CMS CHANGE
+**Why:** T418 protected the money routes from redirect-plugin collapse, but the visible breadcrumb and BreadcrumbList schema still needed to be protected from stale WordPress query ownership or 404 fallbacks.
+**Actions:**
+1. DONE: updated `inc/breadcrumbs.php` with a controlled practice route breadcrumb slug map.
+2. DONE: updated `inc/breadcrumbs.php` so controlled route breadcrumbs use `justice_theme_get_practice_landing_config()`.
+3. DONE: placed the controlled route breadcrumb fallback before article/page/archive/404 query fallbacks.
+4. DONE: created `tools/check-controlled-route-breadcrumb-safety.mjs`.
+5. DONE: created `project-control/controlled-route-breadcrumb-safety-2026-05-22.md`.
+6. DONE: created `project-control/controlled-route-breadcrumb-safety-2026-05-22.csv`.
+7. VERIFIED LOCAL: `php -l inc/breadcrumbs.php`, node syntax check and controlled-route breadcrumb checker passed with `10/10 VERIFIED`.
+8. NOT LIVE VERIFIED: public breadcrumb UI and BreadcrumbList schema still require uPress pull, cache clear and live route/screenshot verification.
+9. NEXT: after deploy, rerun traffic-priority and breadcrumb-schema checks on `/family-law/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/` and `/inheritance-lawyer/`.
+
+### ACTION-AUTHORITY-PERSON-PROFILE-SCHEMA-GATE-001: Gate lawyer schema and add verified Maya Person schema
+**Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / BEN ENTITY BLOCKED
+**Why:** T315 still needed the Maya profile enrichment path and a guard against schema leakage from unapproved lawyer/demo profiles.
+**Actions:**
+1. DONE: updated `inc/authority.php` with a verified-person resolver for approved lawyer profiles.
+2. DONE: updated `inc/schema.php` so `justice_lawyer` schema is gated behind public profile approval.
+3. DONE: updated `inc/schema.php` with a verified Person schema output path that uses the central authority registry.
+4. DONE: updated `inc/schema.php` so lawyer schema `sameAs` URLs can use website, source URL, social URLs and `profile_public_sources`.
+5. DONE: updated `tools/check-eeat-authority-safety.mjs` from `6` checks to `11` checks.
+6. DONE: created `project-control/authority-person-profile-schema-gate-2026-05-22.md`.
+7. DONE: created `project-control/authority-person-profile-schema-gate-2026-05-22.csv`.
+8. VERIFIED LOCAL: PHP lint passed for `inc/authority.php` and `inc/schema.php`; node syntax and authority safety checker passed with `11/11 VERIFIED`.
+9. BLOCKED: Ben remains outside the verified person registry and `/about/ben-batash/` was not created until owner supplies verified facts, external links and role wording.
+10. NEXT: after deploy/pull/cache clear, resolve the Maya redirect loop, then validate live Maya JSON-LD/Rich Results and screenshots.
+
 ### ACTION-LAWYER-ONBOARDING-UPLOAD-AI-QUEUE-001: Add uploads, account continuation and AI draft queue to lawyer onboarding
 **Status:** COMPLETED / FIXED CODE / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC AUTO-PUBLISH
 **Why:** T369 required the onboarding wizard to move beyond a guided form toward account continuation, file/photo/video upload, AI draft generation and owner approval queue.

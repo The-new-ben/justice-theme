@@ -1,6 +1,42 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Controlled route breadcrumb safety
+
+- UPDATED: `inc/breadcrumbs.php`.
+- CREATED: `tools/check-controlled-route-breadcrumb-safety.mjs`.
+- CREATED: `project-control/controlled-route-breadcrumb-safety-2026-05-22.md`.
+- CREATED: `project-control/controlled-route-breadcrumb-safety-2026-05-22.csv`.
+- GENERATED: `reports/controlled-route-breadcrumb-safety-2026-05-22.csv`.
+- GENERATED: `reports/controlled-route-breadcrumb-safety-2026-05-22.json`.
+- FIXED: controlled practice routes now resolve breadcrumb labels from the same route config used by their protected templates.
+- FIXED: `/family-law/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/` and `/inheritance-lawyer/` are checked before stale page/article/archive/404 query fallbacks.
+- VERIFIED LOCAL: `php -l inc/breadcrumbs.php`, `node --check tools/check-controlled-route-breadcrumb-safety.mjs`, `node tools/check-controlled-route-breadcrumb-safety.mjs --reportDate=2026-05-22` and `git diff --check` passed.
+- VERIFIED LOCAL: controlled route breadcrumb checker returned `10/10 VERIFIED`.
+- NOT LIVE VERIFIED: no public breadcrumb screenshot, live JSON-LD check, wp-admin setting or uPress deployment was executed.
+- SAFETY: no public CMS content, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
+## 2026-05-22 - Authority person profile schema gate
+
+- UPDATED: `inc/authority.php`.
+- UPDATED: `inc/schema.php`.
+- UPDATED: `tools/check-eeat-authority-safety.mjs`.
+- UPDATED: `project-control/eeat-authority-governance-2026-05-19.md`.
+- CREATED: `project-control/authority-person-profile-schema-gate-2026-05-22.md`.
+- CREATED: `project-control/authority-person-profile-schema-gate-2026-05-22.csv`.
+- GENERATED: `reports/eeat-authority-safety-2026-05-22.csv`.
+- GENERATED: `reports/eeat-authority-safety-2026-05-22.json`.
+- FIXED: `justice_lawyer` schema is gated behind public profile approval.
+- FIXED: approved lawyer pages now get a stable `Attorney` schema `@id`.
+- FIXED: verified lawyer `Person` schema is emitted only through the authority registry helper.
+- FIXED: Maya Rotenberg can resolve to the verified authority registry by canonical slug or title match.
+- FIXED: lawyer schema `sameAs` URLs can be assembled from approved website, source, social and `profile_public_sources` fields.
+- VERIFIED LOCAL: `php -l inc/authority.php`, `php -l inc/schema.php`, `node --check tools/check-eeat-authority-safety.mjs`, `node tools/check-eeat-authority-safety.mjs` and `git diff --check` passed.
+- VERIFIED LOCAL: authority safety checker returned `11/11 VERIFIED`.
+- BLOCKED: Ben entity page/schema remains blocked until owner facts, external links and approved role wording exist.
+- NOT LIVE VERIFIED: no live Maya JSON-LD/Rich Results check, public screenshot, wp-admin setting or uPress deployment was executed.
+- SAFETY: no public CMS content, database row, lawyer profile, author page, Google Business/social profile, lead, CRM, payment, URL, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 setting or admin setting changed.
+
 ## 2026-05-22 - E-E-A-T authority safety hardening
 
 - UPDATED: `inc/schema.php`.

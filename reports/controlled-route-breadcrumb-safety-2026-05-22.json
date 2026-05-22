@@ -1,0 +1,82 @@
+[
+  {
+    "check_id": "CTRL-BREADCRUMB-SLUG-HELPER",
+    "scope": "controlled_route_breadcrumbs",
+    "risk": "HIGH",
+    "status": "VERIFIED",
+    "evidence": "Dedicated controlled route slug helper exists.",
+    "next_step": "Keep as protected breadcrumb baseline."
+  },
+  {
+    "check_id": "CTRL-BREADCRUMB-ITEMS-HELPER",
+    "scope": "controlled_route_breadcrumbs",
+    "risk": "HIGH",
+    "status": "VERIFIED",
+    "evidence": "Dedicated controlled route breadcrumb item helper exists.",
+    "next_step": "Keep as protected breadcrumb baseline."
+  },
+  {
+    "check_id": "CTRL-BREADCRUMB-CONFIG-SOURCE",
+    "scope": "controlled_route_breadcrumbs",
+    "risk": "CRITICAL",
+    "status": "VERIFIED",
+    "evidence": "Breadcrumb current label comes from existing practice landing config.",
+    "next_step": "Keep as protected breadcrumb baseline."
+  },
+  {
+    "check_id": "CTRL-BREADCRUMB-BEFORE-ARTICLE",
+    "scope": "query_fallback_order",
+    "risk": "HIGH",
+    "status": "VERIFIED",
+    "evidence": "Controlled route fallback runs before article/singular fallbacks.",
+    "next_step": "Keep route breadcrumb fallback before query fallback handling."
+  },
+  {
+    "check_id": "CTRL-BREADCRUMB-BEFORE-404",
+    "scope": "query_fallback_order",
+    "risk": "CRITICAL",
+    "status": "VERIFIED",
+    "evidence": "Controlled route fallback runs before 404 fallback.",
+    "next_step": "Keep route breadcrumb fallback before query fallback handling."
+  },
+  {
+    "check_id": "CTRL-BREADCRUMB-SCHEMA-WIRED",
+    "scope": "schema_output",
+    "risk": "HIGH",
+    "status": "VERIFIED",
+    "evidence": "BreadcrumbList schema remains wired to rendered breadcrumb items.",
+    "next_step": "Keep as protected breadcrumb baseline."
+  },
+  {
+    "check_id": "CTRL-BREADCRUMB-FAMILY",
+    "scope": "family_law_route",
+    "risk": "CRITICAL",
+    "status": "VERIFIED",
+    "evidence": "/family-law/ maps to family-law in breadcrumbs and practice landing config.",
+    "next_step": "Keep route in sync with controlled practice landing config."
+  },
+  {
+    "check_id": "CTRL-BREADCRUMB-MEDMAL",
+    "scope": "medical_malpractice_route",
+    "risk": "CRITICAL",
+    "status": "VERIFIED",
+    "evidence": "/medical-malpractice-lawyer/ maps to medical-malpractice in breadcrumbs and practice landing config.",
+    "next_step": "Keep route in sync with controlled practice landing config."
+  },
+  {
+    "check_id": "CTRL-BREADCRUMB-REALESTATE",
+    "scope": "real_estate_route",
+    "risk": "HIGH",
+    "status": "VERIFIED",
+    "evidence": "/real-estate-lawyer-guide/ maps to real-estate-law in breadcrumbs and practice landing config.",
+    "next_step": "Keep route in sync with controlled practice landing config."
+  },
+  {
+    "check_id": "CTRL-BREADCRUMB-INHERITANCE",
+    "scope": "inheritance_route",
+    "risk": "HIGH",
+    "status": "VERIFIED",
+    "evidence": "/inheritance-lawyer/ maps to inheritance in breadcrumbs and practice landing config.",
+    "next_step": "Keep route in sync with controlled practice landing config."
+  }
+]

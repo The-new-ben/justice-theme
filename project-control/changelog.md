@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Medical Malpractice readiness dashboard
+
+- TOOLING FIXED: created `tools/build-medical-malpractice-readiness-dashboard.mjs`.
+- GENERATED: `reports/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+- GENERATED: `reports/medical-malpractice-readiness-dashboard-2026-05-22.json`.
+- CREATED: `project-control/medical-malpractice-readiness-dashboard-2026-05-22.md`.
+- CREATED: `project-control/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-medical-malpractice-readiness-dashboard.mjs` passed.
+- VERIFIED LOCAL: dashboard generated `249` consolidated planning rows across `9` lanes.
+- VERIFIED LOCAL: flagged `63` high/protected/unknown-GSC risk rows, `86` blocked or approval-gated rows, `4` clean-slug/route blockers, `8` source/legal blockers and `2` possible false-positive medical-malpractice cluster assignments.
+- BLOCKED: Medical Malpractice public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap, related/internal-link writes, lawyer cards, schema and CRM changes remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Criminal GSC decision maps
 
 - TOOLING FIXED: created `tools/build-criminal-gsc-decision-map.mjs`.

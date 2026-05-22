@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-MEDICAL-MALPRACTICE-READINESS-DASHBOARD-001: Consolidate Medical Malpractice upload-readiness evidence
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / REVIEW ONLY / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** Family/Divorce and Criminal are prepared up to owner GSC/OAuth and CMS approval gates. The next high-value unblocked repo-only step is to prepare Medical Malpractice as the next controlled cluster without approving URL migrations or public changes.
+**Actions:**
+1. DONE: created `tools/build-medical-malpractice-readiness-dashboard.mjs`.
+2. DONE: generated `reports/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+3. DONE: generated `reports/medical-malpractice-readiness-dashboard-2026-05-22.json`.
+4. DONE: created `project-control/medical-malpractice-readiness-dashboard-2026-05-22.md`.
+5. DONE: created `project-control/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+6. VERIFIED LOCAL: `node --check tools/build-medical-malpractice-readiness-dashboard.mjs` passed.
+7. VERIFIED LOCAL: dashboard consolidates `249` rows across `9` lanes, including owner gates, current URL readiness, P0 support pages, clean slug route review, internal links, source/legal gates, content inventory, URL migration and cannibalization.
+8. VERIFIED LOCAL: flagged `63` high/protected/unknown-GSC risk rows, `86` blocked or approval-gated rows, `4` clean-slug/route blockers, `8` source/legal blockers and `2` possible false-positive medical-malpractice cluster assignments.
+9. BLOCKED: upload is not ready until duplicate `/medical-malpractice-lawyer/` CMS identity, focused GSC export, source/legal/privacy review, anti-cannibalization roles, internal links, redirects, canonicals and sitemap decisions are approved.
+10. NEXT: prepare the focused Medical Malpractice GSC API export and owner-facing decision packet from this dashboard; do not publish or redirect yet.
+
 ### ACTION-CRIMINAL-GSC-DECISION-MAP-001: Prepare Criminal post-GSC decision maps
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / NOT FINAL BASELINE / FOCUSED GSC EXPORT BLOCKED / NO PUBLIC CHANGES
 **Why:** The Criminal GSC export runner needs an immediate parser that turns export rows into protected URL, wrong-page, cannibalization, redirect/canonical/noindex and sitemap review decisions before any migration or CMS execution.

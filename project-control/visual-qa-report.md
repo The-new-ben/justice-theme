@@ -2,6 +2,18 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Medical Malpractice Readiness Dashboard
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/build-medical-malpractice-readiness-dashboard.mjs`.
+- GENERATED / VERIFIED LOCAL: `reports/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/medical-malpractice-readiness-dashboard-2026-05-22.json`.
+- CREATED / VERIFIED LOCAL: `project-control/medical-malpractice-readiness-dashboard-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed and dashboard generated `249` consolidated rows across `9` planning lanes.
+- VERIFIED LOCAL: dashboard flagged `63` high/protected/unknown-GSC risk rows, `86` blocked or approval-gated rows, `4` clean-slug/route blockers, `8` source/legal blockers and `2` possible false-positive cluster assignments.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local SEO/content readiness reporting only; no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/legal/source approval, WordPress backup, approved CMS update and post-upload route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Criminal GSC Decision Maps
 - TOOLING FIXED / VERIFIED LOCAL: created `tools/build-criminal-gsc-decision-map.mjs`.
 - TOOLING FIXED / VERIFIED LOCAL: updated `tools/gsc/run-criminal-gsc-export.ps1` so a full Criminal export also builds decision maps.

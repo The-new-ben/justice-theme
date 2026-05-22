@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-22 15:32 Asia/Jerusalem
+- MEDICAL MALPRACTICE READINESS DASHBOARD: consolidated the next cluster-by-cluster upload-readiness batch while Family/Divorce and Criminal remain blocked by owner GSC/OAuth and CMS approval.
+- CREATED: `tools/build-medical-malpractice-readiness-dashboard.mjs`.
+- GENERATED: `reports/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+- GENERATED: `reports/medical-malpractice-readiness-dashboard-2026-05-22.json`.
+- CREATED: `project-control/medical-malpractice-readiness-dashboard-2026-05-22.md`.
+- CREATED: `project-control/medical-malpractice-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-medical-malpractice-readiness-dashboard.mjs` passed.
+- VERIFIED LOCAL: dashboard generated `249` consolidated planning rows across `9` lanes: owner gates, current URL readiness, P0 support pages, clean slug route review, internal links, source/legal gates, content inventory, URL migration and cannibalization.
+- VERIFIED LOCAL: flagged `63` high/protected/unknown-GSC risk rows, `86` blocked or approval-gated rows, `4` clean-slug/route blockers, `8` source/legal blockers and `2` possible false-positive medical-malpractice cluster assignments.
+- READY FOR REVIEW / NOT UPLOAD: Medical Malpractice now has a single repo-controlled readiness dashboard for owner/GSC/API decision work.
+- BLOCKED: no Medical Malpractice CMS upload, English slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 15:19 Asia/Jerusalem
 - CRIMINAL GSC DECISION MAPS: prepared the post-export parser/decision workflow for the Criminal first-upload cluster.
 - CREATED: `tools/build-criminal-gsc-decision-map.mjs`.

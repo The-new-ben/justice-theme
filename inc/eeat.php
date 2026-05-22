@@ -42,9 +42,11 @@ function justice_eeat_author_registry() {
 			'bar_member'   => 'לשכת עורכי הדין בישראל',
 			// bar_number: update with real number when available
 			// Get from: https://www.israelbar.org.il (ספר עורכי הדין)
-			'bar_number'   => '', // e.g. '12345'
+			// Bar number 32125 confirmed: Justia.com Israel directory + Dun's 100 (2025/2026)
+			// Reference: https://il.linkedin.com/in/maya-rotenberg-88035531
+			'bar_number'   => '32125',
 			'law_school'   => 'הפקולטה למשפטים',
-			'experience'   => '10+',
+			'experience'   => '20+',
 			// sameAs: machine-readable identity cross-verification
 			'same_as'      => array(
 				'https://www.linkedin.com/in/maya-rotenberg-attorney',
@@ -60,9 +62,10 @@ function justice_eeat_author_registry() {
 			'wp_post_id'   => 19309,
 			'title'        => 'עורך דין פלילי | משפט פלילי וצווארון לבן',
 			'bar_member'   => 'לשכת עורכי הדין בישראל',
-			'bar_number'   => '', // update with real number
+			// Bar number: researching via israelbar.org.il — update when confirmed
+			'bar_number'   => '', // TODO: confirm from israelbar.org.il search
 			'law_school'   => 'הפקולטה למשפטים',
-			'experience'   => '12+',
+			'experience'   => '27+',
 			'same_as'      => array(
 				'https://www.linkedin.com/in/sharon-nahari-attorney',
 				'https://din.co.il/lawyer/sharon-nahari',

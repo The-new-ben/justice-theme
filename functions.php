@@ -22,6 +22,7 @@ $justice_theme_files = array(
 	'inc/template-tags.php',
 	'inc/authority.php',
 	'inc/lawyer-rest-guards.php',
+	'inc/lawyer-visibility.php',
 	'inc/breadcrumbs.php',
 	'inc/routing-guards.php',
 	'inc/spam-url-guards.php',

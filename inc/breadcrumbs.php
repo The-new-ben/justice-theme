@@ -188,9 +188,51 @@ function justice_theme_get_breadcrumb_items() {
 	}
 
 	if ( is_page() || is_single() ) {
-		$title = trim( wp_strip_all_tags( get_the_title() ) );
+		$post_id = get_queried_object_id();
+		$title   = trim( wp_strip_all_tags( get_the_title() ) );
 		if ( '' === $title ) {
 			$title = justice_theme_get_fallback_breadcrumb_name();
+		}
+
+		// Pillar-level middle crumb: map page slugs to their parent pillar
+		$slug_to_pillar = array(
+			// Family law cluster
+			'lawyer-divorce-guide-proceedings-costs-rights' => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'divorce-agreement'     => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'child-support'         => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'child-custody'         => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'consensual-divorce'    => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'divorce-mediation'     => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'divorce-property-division' => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'family-dispute-resolution' => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'divorce-lawyer'        => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			// Criminal law cluster
+			'criminal-defense-attorney' => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'criminal-record-deletion'  => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'criminal-lawyer-cost'      => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'police-investigation-rights' => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'plea-bargain'              => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			// Medical malpractice cluster
+			'birth-injury'              => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			'surgical-errors-medical-malpractice' => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			'anesthesia-medical-malpractice'      => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			'what-is-medical-malpractice-definition-examples' => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			// Real estate cluster
+			'real-estate-attorney'      => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'buying-apartment'          => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			// Inheritance cluster
+			'inheritance'               => array( 'name' => 'ירושה וצוואות', 'url' => '/inheritance-lawyer/' ),
+			'will-and-testament'        => array( 'name' => 'ירושה וצוואות', 'url' => '/inheritance-lawyer/' ),
+			'will-probate-objection'    => array( 'name' => 'ירושה וצוואות', 'url' => '/inheritance-lawyer/' ),
+		);
+
+		$page_slug = get_post_field( 'post_name', $post_id );
+		if ( isset( $slug_to_pillar[ $page_slug ] ) ) {
+			$pillar = $slug_to_pillar[ $page_slug ];
+			$items[] = array(
+				'name' => $pillar['name'],
+				'url'  => justice_theme_public_url( home_url( $pillar['url'] ) ),
+			);
 		}
 
 		$items[] = array(

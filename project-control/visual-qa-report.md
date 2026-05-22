@@ -2,6 +2,19 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Priority Pages Live Read-Only QA
+- CREATED / VERIFIED LOCAL: `tools/check-priority-pages-live-readonly.mjs`.
+- CREATED / VERIFIED PLANNING: `project-control/priority-pages-live-readonly-2026-05-22.md`.
+- CREATED / VERIFIED LIVE READ-ONLY: `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/priority-pages-live-readonly-2026-05-22.json`.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` and `/plea-bargain/` return HTTP `200`, canonical to themselves, index/follow and no mojibake markers.
+- BLOCKED LIVE QA: `/criminal-lawyer-cost/` and `/plea-bargain/` have duplicate H1s.
+- BLOCKED LIVE QA: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` return HTTP `404`, have no canonical and expose `noindex`.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+- NEXT VISUAL QA: inspect the two HTTP `200` pages for duplicate title/body H1 source and capture mobile/desktop screenshots after repair; inspect the four `404` slugs after CMS rollback capture and restoration.
+- SAFETY: no public page body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 WP REST Publisher Safety
 - UPDATED / VERIFIED LOCAL: `reports/semrush/build-priority-pages.js`.
 - CREATED / VERIFIED LOCAL: `tools/check-wp-rest-publisher-safety.mjs`.

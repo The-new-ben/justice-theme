@@ -1,3 +1,17 @@
+# LATEST WORK STATUS - 2026-05-22 21:18 Asia/Jerusalem
+- PRIORITY PAGES LIVE READ-ONLY QA: checked the six pages from the recent WP REST priority-page publish commit against the public site without making any public changes.
+- CREATED: `tools/check-priority-pages-live-readonly.mjs`.
+- CREATED: `project-control/priority-pages-live-readonly-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED: `reports/priority-pages-live-readonly-2026-05-22.json`.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` and `/plea-bargain/` return HTTP `200`, have index/follow robots and no mojibake markers, but both are BLOCKED by duplicate H1s.
+- BLOCKED LIVE READ-ONLY: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` return HTTP `404`, have no canonical and expose `noindex`.
+- VERIFIED LOCAL: `node --check tools/check-priority-pages-live-readonly.mjs` and `node tools/check-priority-pages-live-readonly.mjs --reportDate=2026-05-22` passed.
+- VERIFIED LIVE READ-ONLY: checker result is `0/6 VERIFIED`; this is a QA finding, not a script failure.
+- NOT SCREENSHOT VERIFIED: screenshots were not captured because Playwright is not installed in this repo environment.
+- SAFETY: no public CMS page body, database row, URL slug, redirect, canonical/noindex, taxonomy, sitemap, lawyer profile, lead, CRM record, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 21:07 Asia/Jerusalem
 - WP REST PUBLISHER SAFETY: hardened the newly merged priority-page publisher so it cannot write to live WordPress on normal execution.
 - UPDATED: `reports/semrush/build-priority-pages.js`.

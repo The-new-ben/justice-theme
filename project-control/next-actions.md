@@ -4,6 +4,22 @@
 
 ---
 
+### ACTION-PRIORITY-PAGES-LIVE-READONLY-QA-001: Verify six recently published priority pages
+**Status:** VERIFIED LIVE READ-ONLY / BLOCKED PUBLIC QA / NO PUBLIC CMS CHANGE
+**Why:** commit `c2c317f` reported six priority cluster pages published via WP REST API; before treating them as complete, the public URLs need read-only verification for status, H1, canonical/noindex, internal links, schema and encoding.
+**Actions:**
+1. DONE: created `tools/check-priority-pages-live-readonly.mjs`.
+2. DONE: created `project-control/priority-pages-live-readonly-2026-05-22.md`.
+3. DONE: created `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+4. GENERATED: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+5. GENERATED: `reports/priority-pages-live-readonly-2026-05-22.json`.
+6. VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` returns `200` but is BLOCKED by duplicate H1s.
+7. VERIFIED LIVE READ-ONLY: `/plea-bargain/` returns `200` but is BLOCKED by duplicate H1s.
+8. BLOCKED LIVE READ-ONLY: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` return `404` with no canonical and `noindex`.
+9. VERIFIED LOCAL: node syntax and live read-only checker passed; checker output is `0/6 VERIFIED`.
+10. NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+11. NEXT: before any repair, capture CMS rollback material for the six slugs; then fix the four missing/404 pages and duplicate H1 template/body issue on the two live pages; rerun live QA and capture screenshots in a browser-capable environment.
+
 ### ACTION-WP-REST-PUBLISHER-SAFETY-001: Require explicit opt-in before priority-page publisher writes to WordPress
 **Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC CMS CHANGE THIS CYCLE
 **Why:** `reports/semrush/build-priority-pages.js` was introduced as a WP REST publisher for six priority cluster pages; repo scripts that can publish live pages must default to no-write behavior and must not contain machine-specific credential paths.

@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-22 19:08 Asia/Jerusalem
+- LAWYER PROSPECT PRIVATE LIST VALIDATOR: added a local checker for the owner-filled first-20 lawyer acquisition CSV while keeping private lawyer/contact data out of Git.
+- CREATED: `tools/validate-lawyer-prospect-private-list.ps1`.
+- CREATED: `project-control/lawyer-prospect-private-list-validator-2026-05-22.md`.
+- CREATED: `project-control/lawyer-prospect-private-list-validator-2026-05-22.csv`.
+- GENERATED: `reports/lawyer-prospect-private-list-template-validation-2026-05-22.csv`.
+- UPDATED: `project-control/lawyer-acquisition-first-wave-2026-05-20.md`.
+- VERIFIED LOCAL: template validation ran in `-TemplateMode` against `project-control/lawyer-acquisition-first-wave-template-2026-05-20.csv` and returned `VERIFIED_PRIVATE_LIST_STRUCTURE` with `20` rows, `0` errors and `0` warnings.
+- VERIFIED PRIVACY: filled private prospect CSVs are blocked from repo-local paths by default; sanitized reports contain issue codes only, not lawyer names or contact details.
+- NEXT OWNER ACTION: copy the first-wave template outside Git, fill the real first 20 lawyers privately, validate it, then enter reachable prospects manually in WordPress admin.
+- SAFETY: this cycle made repo-only tooling/docs/report changes; no public CMS page body, database row, lawyer record, lead record, prospect record, payment setting, URL, redirect, canonical, noindex, taxonomy, sitemap, GA4/GSC setting, wp-admin setting, uPress deployment or outreach message changed.
+
 ## LATEST WORK STATUS - 2026-05-22 18:58 Asia/Jerusalem
 - CONTENT UPLOAD GOVERNANCE CHECKLIST: converted the staged cluster-by-cluster publishing strategy into one hard pre-upload gate.
 - CREATED: `project-control/content-upload-governance-checklist-2026-05-22.md`.

@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Lawyer prospect private list validator
+
+- TOOLING FIXED: created `tools/validate-lawyer-prospect-private-list.ps1`.
+- CREATED: `project-control/lawyer-prospect-private-list-validator-2026-05-22.md`.
+- CREATED: `project-control/lawyer-prospect-private-list-validator-2026-05-22.csv`.
+- GENERATED: `reports/lawyer-prospect-private-list-template-validation-2026-05-22.csv`.
+- UPDATED: `project-control/lawyer-acquisition-first-wave-2026-05-20.md`.
+- VERIFIED LOCAL: first-wave template validation passed in `-TemplateMode` with `20` rows, `0` errors and `0` warnings.
+- VERIFIED PRIVACY: private filled CSVs are blocked from repo-local paths by default, and reports contain only row numbers/issue codes.
+- BLOCKED: actual first-20 prospect names/contact details remain owner-private and must be filled outside Git.
+- SAFETY: no public CMS content, database row, lawyer record, lead record, prospect record, payment setting, URL, redirect, canonical/noindex, taxonomy, sitemap, GA4/GSC setting, wp-admin setting, uPress deployment or outreach message was changed.
+
 ## 2026-05-22 - Content upload governance checklist
 
 - CREATED: `project-control/content-upload-governance-checklist-2026-05-22.md`.

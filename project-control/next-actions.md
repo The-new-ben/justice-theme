@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-LAWYER-PROSPECT-PRIVATE-LIST-VALIDATOR-001: Validate owner-filled first-20 lawyer prospect CSV outside Git
+**Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / PRIVATE DATA NOT STORED / NO OUTREACH
+**Why:** T366 was blocked on the owner creating a private first-20 lawyer prospect list. The repo should not contain real lawyer names, phone numbers, emails or contact-source notes, so the useful repo-side work is a validator that checks the private file without committing private data.
+**Actions:**
+1. DONE: created `tools/validate-lawyer-prospect-private-list.ps1`.
+2. DONE: created `project-control/lawyer-prospect-private-list-validator-2026-05-22.md`.
+3. DONE: created `project-control/lawyer-prospect-private-list-validator-2026-05-22.csv`.
+4. DONE: generated sanitized validation report `reports/lawyer-prospect-private-list-template-validation-2026-05-22.csv`.
+5. DONE: updated `project-control/lawyer-acquisition-first-wave-2026-05-20.md`.
+6. VERIFIED LOCAL: blank first-wave template passed validation in `-TemplateMode` with `20` rows, `0` errors and `0` warnings.
+7. VERIFIED PRIVACY: the script blocks filled private CSV paths inside the repo by default and report output includes row numbers/issue codes only.
+8. BLOCKED OWNER ACTION: owner still needs to fill the real first-20 list outside Git and manually enter validated prospects in WordPress admin.
+9. BLOCKED PUBLIC EXECUTION: no prospect record, lawyer record, lead record, payment setting, CRM action or outreach message was created.
+
 ### ACTION-CONTENT-UPLOAD-GOVERNANCE-CHECKLIST-001: Convert staged publishing strategy into a hard upload gate
 **Status:** COMPLETED / VERIFIED PLANNING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CHANGES
 **Why:** Cluster-by-cluster publishing is the right operating model, but it needs one non-ambiguous gate so faster Family/Divorce, Criminal and Medical work does not accidentally approve URL migration, redirects, canonicals/noindex, sitemap, taxonomy or internal-link changes.

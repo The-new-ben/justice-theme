@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Lawyer Prospect Private List Validator
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/validate-lawyer-prospect-private-list.ps1`.
+- CREATED / VERIFIED PLANNING: `project-control/lawyer-prospect-private-list-validator-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/lawyer-prospect-private-list-validator-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/lawyer-prospect-private-list-template-validation-2026-05-22.csv`.
+- VERIFIED LOCAL: blank first-wave template passed validation in `-TemplateMode` with `20` rows, `0` errors and `0` warnings.
+- VERIFIED PRIVACY: validation reports contain no private lawyer names, emails, phones or contact-source values.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was local private-list validation tooling and no public UI changed.
+- SAFETY: no public page, CMS database row, lawyer record, lead record, prospect record, payment setting, redirect, sitemap, taxonomy, GSC API call or admin setting changed.
+
 ## 2026-05-22 Content Upload Governance Checklist
 - CREATED / VERIFIED PLANNING: `project-control/content-upload-governance-checklist-2026-05-22.md`.
 - CREATED / VERIFIED LOCAL: `project-control/content-upload-governance-checklist-2026-05-22.csv`.

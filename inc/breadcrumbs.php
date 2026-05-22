@@ -410,6 +410,12 @@ function justice_theme_get_breadcrumb_items() {
 			'criminal-appeal-process'      => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
 			'tax-lawyer-israel'            => array( 'name' => 'מיסוי', 'url' => '/tax-lawyer-israel/' ),
 			'real-estate-tax-israel'       => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			// Batches 28-29
+			'divorce-children-emotional'   => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'eviction-notice-israel'       => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'tenant-eviction-defense'      => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'partner-dispute-business'     => array( 'name' => 'דיני חברות', 'url' => '/corporate-law-israel/' ),
+			'elder-law-israel'             => array( 'name' => 'זכויות', 'url' => '/disability-rights-israel/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

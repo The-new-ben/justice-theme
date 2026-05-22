@@ -38,17 +38,7 @@ $lead_prefill_message = function_exists( 'justice_theme_current_lead_prefill_mes
 		<p class="lead-form__field">
 			<label for="lead-area"><?php esc_html_e( 'תחום משפטי', 'justice-theme' ); ?></label>
 			<select id="lead-area" name="lead_area" required>
-				<option value="" <?php selected( $lead_prefill_area, '' ); ?>><?php esc_html_e( 'בחרו תחום משפטי', 'justice-theme' ); ?></option>
-				<option value="family-law" <?php selected( $lead_prefill_area, 'family-law' ); ?>><?php esc_html_e( 'דיני משפחה', 'justice-theme' ); ?></option>
-				<option value="criminal-law" <?php selected( $lead_prefill_area, 'criminal-law' ); ?>><?php esc_html_e( 'משפט פלילי', 'justice-theme' ); ?></option>
-				<option value="traffic-law" <?php selected( $lead_prefill_area, 'traffic-law' ); ?>><?php esc_html_e( 'דיני תעבורה', 'justice-theme' ); ?></option>
-				<option value="real-estate-law" <?php selected( $lead_prefill_area, 'real-estate-law' ); ?>><?php esc_html_e( 'מקרקעין ונדל״ן', 'justice-theme' ); ?></option>
-				<option value="labor-law" <?php selected( $lead_prefill_area, 'labor-law' ); ?>><?php esc_html_e( 'דיני עבודה', 'justice-theme' ); ?></option>
-				<option value="personal-injury-law" <?php selected( $lead_prefill_area, 'personal-injury-law' ); ?>><?php esc_html_e( 'נזיקין ותאונות', 'justice-theme' ); ?></option>
-				<option value="medical-malpractice-law" <?php selected( $lead_prefill_area, 'medical-malpractice-law' ); ?>><?php esc_html_e( 'רשלנות רפואית', 'justice-theme' ); ?></option>
-				<option value="inheritance-law" <?php selected( $lead_prefill_area, 'inheritance-law' ); ?>><?php esc_html_e( 'ירושה וצוואות', 'justice-theme' ); ?></option>
-				<option value="thailand-law" <?php selected( $lead_prefill_area, 'thailand-law' ); ?>><?php esc_html_e( 'תאילנד / משפט בינלאומי', 'justice-theme' ); ?></option>
-				<option value="general" <?php selected( $lead_prefill_area, 'general' ); ?>><?php esc_html_e( 'אחר / לא בטוח', 'justice-theme' ); ?></option>
+				<?php justice_theme_render_lead_area_options( $lead_prefill_area ); ?>
 			</select>
 		</p>
 

@@ -48,6 +48,14 @@
     "next_step": "Keep as protected breadcrumb baseline."
   },
   {
+    "check_id": "CTRL-BREADCRUMB-YOAST-STALENESS-FILTER",
+    "scope": "controlled_route_schema",
+    "risk": "CRITICAL",
+    "status": "VERIFIED",
+    "evidence": "Controlled practice routes remove stale SEO-plugin BreadcrumbList nodes.",
+    "next_step": "Keep as protected breadcrumb baseline."
+  },
+  {
     "check_id": "CTRL-BREADCRUMB-FAMILY",
     "scope": "family_law_route",
     "risk": "CRITICAL",

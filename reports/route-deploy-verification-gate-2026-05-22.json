@@ -1,0 +1,137 @@
+{
+  "summary": {
+    "report_date": "2026-05-22",
+    "expected_marker": "2026-05-22-route-deploy-verification-gate-v1",
+    "overall_status": "VERIFIED LOCAL / BLOCKED LIVE QA / NO PUBLIC CMS CHANGE",
+    "total_checks": 14,
+    "verified_rows": 12,
+    "blocked_rows": 1,
+    "not_verified_rows": 1,
+    "live_traffic_report": "reports/route-deploy-live-traffic-priority-2026-05-22.csv",
+    "live_traffic_total": 12,
+    "live_traffic_pass": 12,
+    "live_traffic_review": 0,
+    "live_trust_report": "reports/route-deploy-live-trust-routes-2026-05-22.csv",
+    "live_trust_total": 3,
+    "live_trust_pass": 3,
+    "live_trust_review": 0,
+    "live_controlled_breadcrumb_report": "reports/route-deploy-live-controlled-breadcrumbs-2026-05-22.csv",
+    "live_controlled_breadcrumb_total": 4,
+    "live_controlled_breadcrumb_pass": 3,
+    "live_controlled_breadcrumb_review": 1
+  },
+  "checks": [
+    {
+      "check_id": "ROUTE-DEPLOY-001",
+      "scope": "runtime deploy marker",
+      "status": "VERIFIED LOCAL",
+      "risk": "Operators need one current runtime marker before trusting post-deploy route results.",
+      "evidence": "functions.php exposes runtime marker 2026-05-22-route-deploy-verification-gate-v1.",
+      "next_step": "After uPress pull/cache clear, confirm the meta marker on a public HTML response."
+    },
+    {
+      "check_id": "ROUTE-DEPLOY-002",
+      "scope": "static deploy marker",
+      "status": "VERIFIED LOCAL",
+      "risk": "Static theme-file checks need to distinguish old cache from the current route gate bundle.",
+      "evidence": "deployment-marker.txt records static marker 2026-05-22-route-deploy-verification-gate-v1.",
+      "next_step": "After uPress pull/cache clear, fetch /wp-content/themes/justice-theme/deployment-marker.txt with a cache-busting query."
+    },
+    {
+      "check_id": "ROUTE-DEPLOY-003",
+      "scope": "protected practice early render",
+      "status": "VERIFIED LOCAL",
+      "risk": "Money-route templates must render before late WordPress redirect plugins.",
+      "evidence": "inc/practice-landing.php has the early controlled practice route renderer and guard header.",
+      "next_step": "Run the live traffic checker after deploy for /family-law/, /medical-malpractice-lawyer/, /real-estate-lawyer-guide/ and /inheritance-lawyer/."
+    },
+    {
+      "check_id": "ROUTE-DEPLOY-004",
+      "scope": "HTML sitemap early render",
+      "status": "VERIFIED LOCAL",
+      "risk": "/site-map/ must not collapse to the homepage before crawlers can use it.",
+      "evidence": "inc/html-sitemap.php renders the HTML sitemap route at the earliest route priority.",
+      "next_step": "Run the live traffic checker after deploy and require /site-map/ initial HTTP 200."
+    },
+    {
+      "check_id": "ROUTE-DEPLOY-005",
+      "scope": "trust route early render",
+      "status": "VERIFIED LOCAL",
+      "risk": "Trust and lead routes must not redirect to the homepage after CMS/page absence.",
+      "evidence": "inc/trust-routes.php renders /about/, /contact/ and /editorial-policy/ early with a guard header.",
+      "next_step": "Run the trust-route checker after deploy and require about/contact/editorial-policy PASS."
+    },
+    {
+      "check_id": "ROUTE-DEPLOY-006",
+      "scope": "real estate guide redirect guard",
+      "status": "VERIFIED LOCAL",
+      "risk": "The real estate guide route must not be sent to the homepage or stale attorney hub.",
+      "evidence": "inc/routing-guards.php blocks known WordPress-level conflict redirects for /real-estate-lawyer-guide/.",
+      "next_step": "If live traffic still redirects before the marker appears, inspect uPress/server/CDN/plugin redirect rules."
+    },
+    {
+      "check_id": "ROUTE-DEPLOY-007",
+      "scope": "traffic checker final-path coverage",
+      "status": "VERIFIED LOCAL",
+      "risk": "The live checker must fail homepage-collapse and stale-final-path regressions.",
+      "evidence": "tools/check-live-traffic-priority.mjs checks final path and includes the protected/trust route set.",
+      "next_step": "Run with JUSTICE_WRITE_REPORT=1 after every deploy until all critical route rows PASS."
+    },
+    {
+      "check_id": "ROUTE-DEPLOY-008",
+      "scope": "trust checker coverage",
+      "status": "VERIFIED LOCAL",
+      "risk": "Trust routes need a focused checker in addition to broad traffic QA.",
+      "evidence": "tools/check-live-trust-routes.mjs covers about/contact/editorial-policy route content, canonical, robots and H1 expectations.",
+      "next_step": "Run the trust checker after deploy and capture failures before changing redirect rules."
+    },
+    {
+      "check_id": "ROUTE-DEPLOY-009",
+      "scope": "breadcrumb checker coverage",
+      "status": "VERIFIED LOCAL",
+      "risk": "Route repairs must preserve breadcrumb schema on crawl hubs and money pages.",
+      "evidence": "Live breadcrumb tooling covers broad crawl seeds and a focused controlled-route set; source removes stale SEO-plugin BreadcrumbList nodes on controlled routes.",
+      "next_step": "After deploy, run a focused breadcrumb report for controlled routes before promotion."
+    },
+    {
+      "check_id": "ROUTE-DEPLOY-010",
+      "scope": "task board route blockers tracked",
+      "status": "VERIFIED LOCAL",
+      "risk": "Open route tasks need to remain visible until public server verification passes.",
+      "evidence": "task-board.csv still tracks T416, T418 and T419 as not live verified / deploy blocked.",
+      "next_step": "Mark route tasks complete only after live marker and route checkers pass."
+    },
+    {
+      "check_id": "ROUTE-DEPLOY-011",
+      "scope": "live traffic read-only report",
+      "status": "VERIFIED LIVE READ-ONLY",
+      "risk": "Public route state is the real acceptance test; source checks alone are insufficient.",
+      "evidence": "Live traffic report reports/route-deploy-live-traffic-priority-2026-05-22.csv has 12/12 PASS and 0 REVIEW rows.",
+      "next_step": "After uPress pull/cache clear, rerun JUSTICE_WRITE_REPORT=1 with tools/check-live-traffic-priority.mjs and regenerate this gate."
+    },
+    {
+      "check_id": "ROUTE-DEPLOY-012",
+      "scope": "live trust route read-only report",
+      "status": "VERIFIED LIVE READ-ONLY",
+      "risk": "/editorial-policy/ is not in the broad traffic checker and needs focused live trust-route verification.",
+      "evidence": "Live trust report reports/route-deploy-live-trust-routes-2026-05-22.csv has 3/3 PASS and 0 REVIEW rows.",
+      "next_step": "After uPress pull/cache clear, rerun JUSTICE_WRITE_REPORT=1 with tools/check-live-trust-routes.mjs and regenerate this gate."
+    },
+    {
+      "check_id": "ROUTE-DEPLOY-013",
+      "scope": "live controlled-route breadcrumb report",
+      "status": "BLOCKED LIVE QA",
+      "risk": "Controlled money routes need live BreadcrumbList proof, not only source-level routing proof.",
+      "evidence": "Live controlled breadcrumb report reports/route-deploy-live-controlled-breadcrumbs-2026-05-22.csv has 3/4 PASS and 1 REVIEW rows; sample blockers: /family-law/: breadcrumb_1_wrong_last_name",
+      "next_step": "After uPress pull/cache clear, rerun JUSTICE_WRITE_REPORT=1 with tools/check-live-controlled-route-breadcrumbs.mjs and regenerate this gate."
+    },
+    {
+      "check_id": "ROUTE-DEPLOY-014",
+      "scope": "visual screenshot verification",
+      "status": "NOT VERIFIED",
+      "risk": "Visual proof is still required for public route promotion.",
+      "evidence": "No desktop/mobile screenshot evidence was captured in this repo-only gate.",
+      "next_step": "Capture desktop/mobile screenshots for /family-law/, /medical-malpractice-lawyer/, /real-estate-lawyer-guide/, /inheritance-lawyer/, /contact/ and /about/ after live route checks pass."
+    }
+  ]
+}

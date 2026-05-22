@@ -1,0 +1,11 @@
+check_id,scope,status,risk,evidence,next_step
+WP-REST-PUBLISH-DRY-RUN-DEFAULT,publisher_execution,VERIFIED,CRITICAL,Publisher defaults to dry-run unless --publish is present.,Keep publisher guarded behind explicit opt-in.
+WP-REST-PUBLISH-BLOCKS-BEFORE-REQUEST,publisher_execution,VERIFIED,CRITICAL,Dry-run guard runs before the first WordPress REST lookup or write.,Keep publisher guarded behind explicit opt-in.
+WP-REST-PUBLISH-NO-HARDCODED-CREDS,credential_hygiene,VERIFIED,CRITICAL,Publisher no longer contains the previous machine-specific app-password file path.,Keep publisher guarded behind explicit opt-in.
+WP-REST-PUBLISH-ENV-CREDENTIAL,credential_hygiene,VERIFIED,HIGH,Publisher requires WP_APP_PASSWORD_PATH only when publishing is explicitly requested.,Keep publisher guarded behind explicit opt-in.
+WP-REST-PUBLISH-AUTH-DEFERRED,credential_hygiene,VERIFIED,HIGH,"Authorization header is assembled lazily from the explicit credential file, not at module load.",Keep publisher guarded behind explicit opt-in.
+WP-REST-PUBLISH-CREDENTIAL-PREFLIGHT,credential_hygiene,VERIFIED,HIGH,Publish mode validates credentials once before any page upsert loop starts.,Keep publisher guarded behind explicit opt-in.
+WP-REST-PUBLISH-HELP-TEXT,operator_safety,VERIFIED,MEDIUM,Operator help documents dry-run default and required publish credentials.,Keep publisher guarded behind explicit opt-in.
+WP-REST-PUBLISH-DRY-RUN-RESULTS,operator_safety,VERIFIED,MEDIUM,Dry-run output returns structured per-page results without live writes.,Keep publisher guarded behind explicit opt-in.
+WP-REST-PUBLISH-ERROR-EXIT,operator_safety,VERIFIED,MEDIUM,Publisher exits non-zero on runtime failure.,Keep publisher guarded behind explicit opt-in.
+WP-REST-PUBLISH-TARGET-SITE,publisher_scope,VERIFIED,MEDIUM,Publisher target host remains explicit and reviewable.,Keep publisher guarded behind explicit opt-in.

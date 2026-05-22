@@ -1,0 +1,5 @@
+path,status,http,finalUrl,breadcrumbLists,breadcrumbItems,lastName,lastUrl,issues
+"/family-law/","REVIEW","200","https://jus-tice.co.il/family-law/","2","5|2","השופטת עפרה גיא: פסק דין בעניין תביעות רכושיות של בני זוג שנפרדו (תלה""מ 66529-11-19) | דיני משפחה וגירושין","- | https://jus-tice.co.il/family-law/","breadcrumb_1_wrong_last_name"
+"/medical-malpractice-lawyer/","PASS","200","https://jus-tice.co.il/medical-malpractice-lawyer/","2","2|2","עורך דין רשלנות רפואית | פיצויים, זכויות והליך התביעה 2025 | Jus-Tice | רשלנות רפואית","- | https://jus-tice.co.il/medical-malpractice-lawyer/","-"
+"/real-estate-lawyer-guide/","PASS","200","https://jus-tice.co.il/real-estate-lawyer-guide/","2","2|2","מדריך עורך דין מקרקעין | מקרקעין ונדל""ן","- | https://jus-tice.co.il/real-estate-lawyer-guide/","-"
+"/inheritance-lawyer/","PASS","200","https://jus-tice.co.il/inheritance-lawyer/","2","2|2","עורך דין ירושה וצוואות | ירושה וצוואות","- | https://jus-tice.co.il/inheritance-lawyer/","-"

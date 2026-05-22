@@ -1,6 +1,205 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family Law owner wording approval packet
+
+- CREATED: `project-control/family-law-owner-wording-approval-2026-05-22.md`.
+- CREATED: `project-control/family-law-owner-wording-approval-2026-05-22.csv`.
+- FIXED PLANNING: converted the Family/Divorce draft enhancement readiness rows into explicit owner approve/edit/hold decisions.
+- FIXED PLANNING: isolated five owner-wording-ready modules from agreement/PDF, CTA/lawyer matching, Maya fact and GSC/live repair dependency rows.
+- VERIFIED LOCAL: owner wording approval CSV parses with `9` rows.
+- BLOCKED OWNER DECISION: no Family/Divorce draft body-copy edit should happen until owner decisions are recorded for cost, process, document checklist, mediation risk and children modules.
+- BLOCKED PUBLIC EXECUTION: no public CMS edit, URL/SEO migration, media/PDF change, lawyer-card change, lead/CRM action, GSC/GA4 setting, wp-admin setting or uPress deployment is authorized by this packet.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media/PDF asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 - Family Law draft enhancement readiness gate
+
+- CREATED: `tools/check-family-law-draft-enhancement-readiness.mjs`.
+- CREATED: `project-control/family-law-draft-enhancement-readiness-2026-05-22.md`.
+- CREATED: `project-control/family-law-draft-enhancement-readiness-2026-05-22.csv`.
+- GENERATED: `reports/family-law-draft-enhancement-readiness-2026-05-22.csv`.
+- GENERATED: `reports/family-law-draft-enhancement-readiness-2026-05-22.json`.
+- FIXED: normalized `project-control/family-law-draft-enhancement-queue-2026-05-22.csv` row `FL-DRAFT-ENH-007` to keep strict CSV parsing at `12` columns.
+- VERIFIED LOCAL: `node --check tools/check-family-law-draft-enhancement-readiness.mjs` passed.
+- VERIFIED LOCAL: readiness checker reviewed `12` queue rows with `0` missing repo artifacts; `5` rows are ready for owner wording review, `6` rows remain blocked by live/GSC/Maya/lead dependencies and `1` row is post-upload backlog.
+- BLOCKED OWNER WORDING: Family/Divorce draft body-copy edits remain held until owner-approved wording exists.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media/PDF asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 - Family Law draft enhancement queue
+
+- CREATED: `project-control/family-law-draft-enhancement-queue-2026-05-22.md`.
+- CREATED: `project-control/family-law-draft-enhancement-queue-2026-05-22.csv`.
+- FIXED PLANNING: converted competitor gaps into exact draft/source targets for costs, process, document checklist, agreement/template policy, mediation, children, CTA, FAQ/schema, E-E-A-T, cluster structure, live repair and post-upload calculator backlog.
+- VERIFIED LOCAL: draft enhancement queue CSV parses with `12` rows.
+- BLOCKED OWNER WORDING: body-copy edits remain held until owner-approved wording exists for cost/process/document/agreement/CTA modules.
+- BLOCKED PUBLIC EXECUTION: Family/Divorce upload remains blocked by visible live defects, CMS rollback backup, focused GSC export, Maya route/schema verification and post-repair QA.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media/PDF asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 - Family Law competitor gap analysis
+
+- CREATED: `project-control/family-law-competitor-gap-analysis-2026-05-22.md`.
+- CREATED: `project-control/family-law-competitor-gap-analysis-2026-05-22.csv`.
+- VERIFIED RESEARCH: compared Family/Divorce upload package against current competitor evidence for cost, process, agreement, mediation, custody/support, lawyer connection, CTAs and structure.
+- FIXED PLANNING: identified pre-upload improvements for cost framing, process path, document checklist, agreement/PDF policy and CTA/lawyer connection.
+- BLOCKED PUBLIC EXECUTION: Family/Divorce remains blocked until owner approval, CMS rollback backup, visible live repair, focused GSC evidence and post-repair QA.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 - Route deploy verification gate and controlled breadcrumb filter
+
+- UPDATED: `functions.php`.
+- UPDATED: `deployment-marker.txt`.
+- UPDATED: `inc/breadcrumbs.php`.
+- UPDATED: `tools/check-controlled-route-breadcrumb-safety.mjs`.
+- UPDATED: `tools/check-live-trust-routes.mjs`.
+- CREATED: `tools/check-live-controlled-route-breadcrumbs.mjs`.
+- CREATED: `tools/build-route-deploy-verification-gate.mjs`.
+- CREATED: `project-control/route-deploy-verification-gate-2026-05-22.md`.
+- CREATED: `project-control/route-deploy-verification-gate-2026-05-22.csv`.
+- GENERATED: `reports/route-deploy-verification-gate-2026-05-22.csv` and `reports/route-deploy-verification-gate-2026-05-22.json`.
+- GENERATED: `reports/route-deploy-live-traffic-priority-2026-05-22.csv`, `reports/route-deploy-live-trust-routes-2026-05-22.csv` and `reports/route-deploy-live-controlled-breadcrumbs-2026-05-22.csv`.
+- FIXED: controlled practice routes now filter stale Yoast BreadcrumbList nodes, leaving the theme-controlled BreadcrumbList generated from route config.
+- VERIFIED LIVE READ-ONLY: traffic checker returned `12/12` PASS and trust checker returned `3/3` PASS.
+- BLOCKED LIVE QA: controlled breadcrumb checker returned `3/4` PASS because `/family-law/` still exposes one stale article BreadcrumbList live before this new filter is deployed.
+- VERIFIED LOCAL: PHP lint, node syntax checks, route gate generation and controlled-route breadcrumb safety checker passed.
+- SAFETY: no public CMS record, page body, lawyer profile, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 - Maya lawyer mini-site readiness
+
+- UPDATED: `single-justice_lawyer.php`.
+- CREATED: `tools/check-maya-lawyer-mini-site-readiness.mjs`.
+- CREATED: `project-control/maya-lawyer-mini-site-readiness-2026-05-22.md`.
+- CREATED: `project-control/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+- GENERATED: `reports/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+- GENERATED: `reports/maya-lawyer-mini-site-readiness-2026-05-22.json`.
+- FIXED: related-article lookup on lawyer mini-sites now includes the shared authority person slug, so Maya Rotenberg content connected to `advocate-maya-rotenberg` can attach even while legacy slug handling remains.
+- VERIFIED LOCAL: `php -l single-justice_lawyer.php`, `node --check tools/check-maya-lawyer-mini-site-readiness.mjs` and `node tools/check-maya-lawyer-mini-site-readiness.mjs --reportDate=2026-05-22` passed.
+- VERIFIED LOCAL: readiness report generated `13` checks with `12` verified source checks, `1` blocked live route check and `1` not-verified screenshot check.
+- BLOCKED LIVE QA: public Maya route verification and screenshots still wait for deployment/uPress cache control.
+- SAFETY: no public CMS record, lawyer profile data, URL slug, redirect, canonical/noindex, taxonomy, sitemap, media asset, live lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
+## 2026-05-22 - Priority pages CMS repair readiness gate
+
+- CREATED: `tools/build-priority-page-cms-repair-readiness-gate.mjs`.
+- CREATED: `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.json`.
+- FIXED: consolidated live QA, repair packet, owner approval, rollback capture and publisher safety into one generated readiness gate.
+- VERIFIED LOCAL: `node --check tools/build-priority-page-cms-repair-readiness-gate.mjs` and `node tools/build-priority-page-cms-repair-readiness-gate.mjs --reportDate=2026-05-22` passed.
+- BLOCKED PUBLIC EXECUTION: readiness result is `BLOCKED_NOT_READY_FOR_PUBLIC_CMS_REPAIR`; `7/7` gates remain blocked.
+- SAFETY: no public CMS content, article body, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
+## 2026-05-22 - Priority pages CMS owner approval worksheet
+
+- CREATED: `project-control/priority-pages-cms-owner-approval-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-cms-owner-approval-2026-05-22.csv`.
+- FIXED PLANNING: added explicit approval language for duplicate body/content H1 repair only on `/criminal-lawyer-cost/` article ID `19261` and `/plea-bargain/` article ID `19279`.
+- BLOCKED PUBLIC EXECUTION: clean-slug creation, page publisher use and SEO migration remain held until separate owner/GSC/source/legal decisions.
+- VERIFIED LOCAL: owner approval CSV parses with `11` rows.
+- NOT LIVE VERIFIED: no WordPress REST write, public page/article update, redirect, canonical/noindex, sitemap, GSC/GA4 action, screenshot or uPress deployment was executed.
+- SAFETY: no public CMS content, article body, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
+## 2026-05-22 - Priority pages CMS rollback capture template
+
+- CREATED: `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.csv`.
+- FIXED PLANNING: added exact pre-edit capture requirements for article IDs `19261` and `19279` before duplicate body/content H1 repair.
+- FIXED PLANNING: added related-asset review capture requirements before any clean-slug decision for diagnosis, joint custody, medication errors and pension split targets.
+- VERIFIED LOCAL: rollback capture CSV parses with `10` rows.
+- NOT LIVE VERIFIED: no WordPress REST write, public page/article update, redirect, canonical/noindex, sitemap, GSC/GA4 action, screenshot or uPress deployment was executed.
+- SAFETY: no public CMS content, article body, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
+## 2026-05-22 - Priority pages CMS repair packet
+
+- CREATED: `project-control/priority-pages-cms-repair-packet-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-cms-repair-packet-2026-05-22.csv`.
+- FIXED PLANNING: documented that `/criminal-lawyer-cost/` and `/plea-bargain/` must be repaired as `articles` CPT records, not through the page publisher.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` maps to public `articles` ID `19261`; `/plea-bargain/` maps to public `articles` ID `19279`.
+- BLOCKED PUBLIC EXECUTION: four missing clean slugs stay blocked until owner approval, focused GSC where needed, source/legal review and anti-cannibalization decisions.
+- VERIFIED LOCAL: repair packet CSV parses with `10` rows.
+- NOT LIVE VERIFIED: no WordPress REST write, public page/article update, redirect, canonical/noindex, sitemap, GSC/GA4 action, screenshot or uPress deployment was executed.
+- SAFETY: no public CMS content, article body, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
+## 2026-05-22 - Priority pages custom REST source diagnostics
+
+- UPDATED: `tools/check-priority-pages-live-readonly.mjs`.
+- UPDATED: `project-control/priority-pages-live-readonly-2026-05-22.md`.
+- UPDATED: `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+- UPDATED: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+- UPDATED: `reports/priority-pages-live-readonly-2026-05-22.json`.
+- FIXED: checker now discovers the public REST type surface and checks `pages`, `posts` and `articles` for each priority slug.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` maps to public `articles` CPT ID `19261`.
+- VERIFIED LIVE READ-ONLY: `/plea-bargain/` maps to public `articles` CPT ID `19279`.
+- BLOCKED LIVE READ-ONLY: four missing priority slugs have no public `pages`, `posts` or `articles` hit and still return HTTP `404`, missing canonical and `noindex`.
+- VERIFIED LOCAL: `node --check tools/check-priority-pages-live-readonly.mjs`, `node tools/check-priority-pages-live-readonly.mjs --reportDate=2026-05-22` and generated CSV/JSON inspection passed.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+- SAFETY: no public CMS content, article body, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
+## 2026-05-22 - Priority pages H1 and REST diagnostics
+
+- UPDATED: `tools/check-priority-pages-live-readonly.mjs`.
+- UPDATED: `project-control/priority-pages-live-readonly-2026-05-22.md`.
+- UPDATED: `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+- UPDATED: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+- UPDATED: `reports/priority-pages-live-readonly-2026-05-22.json`.
+- FIXED: live read-only checker now captures duplicate H1 source text, class, id and nearby context.
+- FIXED: live read-only checker now probes public `wp/v2/pages` and `wp/v2/posts` for each target slug.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` and `/plea-bargain/` each have a template H1 plus a duplicate body/content H1.
+- VERIFIED LIVE READ-ONLY: all six target slugs return `200/0` through public `wp/v2/pages` and `200/0` through public `wp/v2/posts`.
+- BLOCKED LIVE READ-ONLY: four target slugs still return HTTP `404` with missing canonical and `noindex`.
+- VERIFIED LOCAL: `node --check tools/check-priority-pages-live-readonly.mjs`, `node tools/check-priority-pages-live-readonly.mjs --reportDate=2026-05-22` and generated CSV/JSON inspection passed.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+- SAFETY: no public CMS content, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
+## 2026-05-22 - Priority pages live read-only QA
+
+- CREATED: `tools/check-priority-pages-live-readonly.mjs`.
+- CREATED: `project-control/priority-pages-live-readonly-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED: `reports/priority-pages-live-readonly-2026-05-22.json`.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` and `/plea-bargain/` return HTTP `200`, index/follow and no mojibake markers.
+- BLOCKED LIVE READ-ONLY: `/criminal-lawyer-cost/` and `/plea-bargain/` both have duplicate H1s.
+- BLOCKED LIVE READ-ONLY: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` return HTTP `404`, have no canonical and expose `noindex`.
+- VERIFIED LOCAL: `node --check tools/check-priority-pages-live-readonly.mjs`, `node tools/check-priority-pages-live-readonly.mjs --reportDate=2026-05-22` and `git diff --check` passed.
+- VERIFIED LIVE READ-ONLY: checker output is `0/6 VERIFIED`; this is a post-publish QA finding.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+- SAFETY: no public CMS content, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
+## 2026-05-22 - WP REST publisher safety
+
+- UPDATED: `reports/semrush/build-priority-pages.js`.
+- CREATED: `tools/check-wp-rest-publisher-safety.mjs`.
+- CREATED: `project-control/wp-rest-publisher-safety-2026-05-22.md`.
+- CREATED: `project-control/wp-rest-publisher-safety-2026-05-22.csv`.
+- GENERATED: `reports/wp-rest-publisher-safety-2026-05-22.csv`.
+- GENERATED: `reports/wp-rest-publisher-safety-2026-05-22.json`.
+- FIXED: the six-page WP REST publisher now defaults to dry-run and requires explicit `--publish` for writes.
+- FIXED: removed the hardcoded machine-specific WordPress app-password path; publish mode now requires `WP_APP_PASSWORD_PATH` outside Git.
+- FIXED: publish mode preflights credentials before any page upsert loop starts.
+- VERIFIED LOCAL: `node --check reports/semrush/build-priority-pages.js`, `node --check tools/check-wp-rest-publisher-safety.mjs`, publisher dry-run and safety checker passed.
+- VERIFIED LOCAL: publisher safety checker returned `10/10 VERIFIED`.
+- VERIFIED LOCAL: `--publish` without `WP_APP_PASSWORD_PATH` exits before page loop/write.
+- NOT LIVE VERIFIED: no WordPress REST write, public page update, screenshot, wp-admin action, redirect, canonical/noindex, sitemap, GSC/GA4 action or uPress deployment was executed.
+- SAFETY: no public CMS content, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
+## 2026-05-22 - Lead area vocabulary safety
+
+- UPDATED: `inc/lead-spam-guard.php`.
+- UPDATED: `template-parts/forms/lead-form.php`.
+- UPDATED: `template-parts/sections/ask-lawyer.php`.
+- CREATED: `tools/check-lead-area-vocabulary-safety.mjs`.
+- CREATED: `project-control/lead-area-vocabulary-safety-2026-05-22.md`.
+- CREATED: `project-control/lead-area-vocabulary-safety-2026-05-22.csv`.
+- GENERATED: `reports/lead-area-vocabulary-safety-2026-05-22.csv`.
+- GENERATED: `reports/lead-area-vocabulary-safety-2026-05-22.json`.
+- FIXED: public lead-area options now render from one canonical helper instead of two duplicated public form option blocks.
+- FIXED: accepted public `lead_area` values now derive from the same option keys used by the forms.
+- VERIFIED LOCAL: PHP lint passed for changed PHP files; node syntax and `node tools/check-lead-area-vocabulary-safety.mjs --reportDate=2026-05-22` passed.
+- VERIFIED LOCAL: lead-area vocabulary checker returned `11/11 VERIFIED`.
+- NOT LIVE VERIFIED: no public form screenshot, live lead submission, CRM record, email notification or routing assignment was executed.
+- SAFETY: no public CMS content, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
 ## 2026-05-22 - Controlled route breadcrumb safety
 
 - UPDATED: `inc/breadcrumbs.php`.

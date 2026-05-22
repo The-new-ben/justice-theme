@@ -1,12 +1,44 @@
 /**
- * Priority Pages Build — Part 2: Divorce Pension + Publisher
- * Publishes all 6 pages to jus-tice.co.il via WP REST API
+ * Priority Pages Build - Part 2: Divorce Pension + Publisher
+ *
+ * Safety: this script is a dry run unless --publish is provided.
+ * For publishing, set WP_APP_PASSWORD_PATH to a local JSON file outside Git:
+ * { "username": "...", "app_password": "..." }
  */
 const https = require('https');
 const fs = require('fs');
 
-const creds = JSON.parse(fs.readFileSync('c:/Users/pro/justice/justice-theme/tools/gsc/wp-app-password.json', 'utf8'));
-const auth = Buffer.from(creds.username + ':' + creds.app_password).toString('base64');
+const args = new Set(process.argv.slice(2));
+const publish = args.has('--publish');
+let authHeader = '';
+
+if (args.has('--help') || args.has('-h')) {
+  console.log('Usage: WP_APP_PASSWORD_PATH=path/to/local-wp-credentials.json node reports/semrush/build-priority-pages.js --publish');
+  console.log('Default without --publish: dry run, no WordPress REST API writes.');
+  process.exit(0);
+}
+
+function getAuthHeader() {
+  if (authHeader) {
+    return authHeader;
+  }
+
+  const credentialPath = process.env.WP_APP_PASSWORD_PATH;
+
+  if (!credentialPath) {
+    throw new Error('WP_APP_PASSWORD_PATH is required when --publish is used.');
+  }
+
+  const creds = JSON.parse(fs.readFileSync(credentialPath, 'utf8'));
+
+  if (!creds.username || !creds.app_password) {
+    throw new Error('WP_APP_PASSWORD_PATH must contain username and app_password.');
+  }
+
+  authHeader = 'Basic ' + Buffer.from(creds.username + ':' + creds.app_password).toString('base64');
+
+  return authHeader;
+}
 
 function wpRequest(method, path, body) {
   return new Promise((resolve, reject) => {
@@ -14,7 +46,7 @@ function wpRequest(method, path, body) {
     const opts = {
       hostname: 'jus-tice.co.il', port: 443, path, method,
       headers: Object.assign(
-        { Authorization: 'Basic ' + auth, 'Content-Type': 'application/json' },
+        { Authorization: getAuthHeader(), 'Content-Type': 'application/json' },
         bodyStr ? { 'Content-Length': Buffer.byteLength(bodyStr) } : {}
       )
     };
@@ -29,6 +61,19 @@ function wpRequest(method, path, body) {
 }
 
 async function upsert(slug, title, content, meta) {
+  if (!publish) {
+    console.log(`\n[${slug}] DRY RUN only. Add --publish and WP_APP_PASSWORD_PATH to write via WP REST API.`);
+    return {
+      slug,
+      action: 'dry-run',
+      status: 'DRY_RUN',
+      id: null,
+      title,
+      contentLength: content.length,
+      metaKeys: Object.keys(meta || {}),
+    };
+  }
+
   console.log(`\n[${slug}] Checking if exists...`);
   const find = await wpRequest('GET', `/wp-json/wp/v2/pages?slug=${encodeURIComponent(slug)}&status=any&per_page=1`);
   const existing = Array.isArray(find.body) ? find.body[0] : null;
@@ -47,6 +92,13 @@ async function upsert(slug, title, content, meta) {
 }
 
 async function main() {
+  if (publish) {
+    getAuthHeader();
+    console.log('PUBLISH MODE enabled. Writing to jus-tice.co.il through WP REST API.');
+  } else {
+    console.log('DRY RUN MODE. No WordPress REST API writes will be made.');
+  }
+
   const results = [];
 
   // ── P1.1 CRIMINAL LAWYER COST ──────────────────────────────
@@ -461,4 +513,7 @@ async function main() {
   console.log('All done!');
 }
 
-main().catch(console.error);
+main().catch((error) => {
+  console.error(error);
+  process.exitCode = 1;
+});

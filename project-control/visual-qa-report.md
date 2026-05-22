@@ -2,6 +2,173 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Family Law Owner Wording Approval Packet
+- CREATED / VERIFIED LOCAL: `project-control/family-law-owner-wording-approval-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-owner-wording-approval-2026-05-22.csv`.
+- FIXED PLANNING: five ready wording modules are separated from agreement/PDF, CTA/lawyer matching, Maya fact and GSC/live repair dependencies.
+- VERIFIED LOCAL: owner wording CSV parses with `9` rows.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was repo-only planning and no public repair/upload happened.
+- BLOCKED LIVE QA: Family/Divorce still needs owner wording approval, CMS rollback backup, visible live repair, focused GSC export, Maya route/schema verification and post-repair screenshots before upload.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media/PDF asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 Family Law Draft Enhancement Readiness Gate
+- CREATED / VERIFIED LOCAL: `tools/check-family-law-draft-enhancement-readiness.mjs`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-draft-enhancement-readiness-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-draft-enhancement-readiness-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/family-law-draft-enhancement-readiness-2026-05-22.csv` and `.json`.
+- FIXED / VERIFIED LOCAL: queue CSV row `FL-DRAFT-ENH-007` now has the expected `12` columns under strict parsing.
+- VERIFIED LOCAL: checker reviewed `12` queue rows with `0` missing repo artifacts.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was repo-only planning/tooling and no public repair/upload happened.
+- BLOCKED LIVE QA: Family/Divorce still needs owner wording approval, CMS rollback backup, visible live repair, focused GSC export, Maya route/schema verification and post-repair screenshots before upload.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media/PDF asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 Family Law Draft Enhancement Queue
+- CREATED / FIXED PLANNING: `project-control/family-law-draft-enhancement-queue-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-draft-enhancement-queue-2026-05-22.csv`.
+- FIXED PLANNING: competitor gaps are now mapped to exact Family/Divorce draft/source targets before any body-copy edit or upload.
+- VERIFIED LOCAL: queue CSV parses with `12` rows.
+- NOT SCREENSHOT VERIFIED: no desktop/mobile screenshots were captured because this was repo-only planning and no public repair/upload happened.
+- BLOCKED LIVE QA: Family/Divorce still needs owner wording approval, CMS rollback backup, visible live repair, focused GSC export, Maya route/schema verification and post-repair screenshots before upload.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media/PDF asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 Family Law Competitor Gap Analysis
+- CREATED / VERIFIED RESEARCH: `project-control/family-law-competitor-gap-analysis-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-competitor-gap-analysis-2026-05-22.csv`.
+- VERIFIED RESEARCH: current competitor evidence shows stronger practical coverage around costs, process, agreements/templates, mediation, children/custody/support, lawyer conversion and CTAs.
+- NOT SCREENSHOT VERIFIED: no desktop/mobile screenshots were captured because this was repo-only research and no public repair/upload happened.
+- BLOCKED LIVE QA: Family/Divorce still needs owner approval, CMS rollback backup, visible live repair, focused GSC export and post-repair screenshots before upload.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 Route Deploy Verification Gate
+- UPDATED / VERIFIED LOCAL: `functions.php`, `deployment-marker.txt`, `inc/breadcrumbs.php`, `tools/check-controlled-route-breadcrumb-safety.mjs`, `tools/check-live-trust-routes.mjs`.
+- CREATED / VERIFIED LOCAL: `tools/check-live-controlled-route-breadcrumbs.mjs`.
+- CREATED / VERIFIED LOCAL: `tools/build-route-deploy-verification-gate.mjs`.
+- CREATED / VERIFIED LOCAL: `project-control/route-deploy-verification-gate-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/route-deploy-verification-gate-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/route-deploy-verification-gate-2026-05-22.csv` and `.json`.
+- VERIFIED LIVE READ-ONLY: route traffic report returned `12/12` PASS across homepage, sitemap, article hub, family, medical malpractice, real estate guide, criminal, traffic, inheritance, contact and about routes.
+- VERIFIED LIVE READ-ONLY: trust route report returned `3/3` PASS and confirmed `trust-route-early-render` headers for `/about/`, `/contact/` and `/editorial-policy/`.
+- BLOCKED LIVE QA: controlled breadcrumb report returned `3/4` PASS; `/family-law/` still has one stale article BreadcrumbList live until the new controlled-route Yoast filter deploys and cache clears.
+- NOT SCREENSHOT VERIFIED: no desktop/mobile screenshots were captured in this cycle.
+- SAFETY: no public CMS record, page body, lawyer profile, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 Maya Lawyer Mini-site Readiness
+- UPDATED / VERIFIED LOCAL: `single-justice_lawyer.php`.
+- CREATED / VERIFIED LOCAL: `tools/check-maya-lawyer-mini-site-readiness.mjs`.
+- CREATED / VERIFIED LOCAL: `project-control/maya-lawyer-mini-site-readiness-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/maya-lawyer-mini-site-readiness-2026-05-22.json`.
+- FIXED / VERIFIED LOCAL: Maya related-article lookup now includes the shared authority person slug from `justice_theme_authority_verified_person_slug_for_post()`.
+- VERIFIED LOCAL: readiness report generated `13` checks with `12` verified source checks, `1` blocked live route check and `1` not-verified screenshot check.
+- BLOCKED LIVE QA: `/lawyers/advocate-maya-rotenberg/` still needs deployment/uPress cache control, HTTP/canonical/robots/schema/content verification and desktop/mobile screenshots.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this cycle was repo-only and the live route is still gated.
+- SAFETY: no public lawyer profile, CMS database row, URL slug, redirect, canonical/noindex, taxonomy, sitemap, media asset, live lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 Priority Pages CMS Repair Readiness Gate
+- CREATED / VERIFIED LOCAL: `tools/build-priority-page-cms-repair-readiness-gate.mjs`.
+- CREATED / VERIFIED LOCAL: `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.json`.
+- BLOCKED LIVE QA: readiness gate remains `BLOCKED_NOT_READY_FOR_PUBLIC_CMS_REPAIR`; no visual screenshots were captured because no approved public repair happened.
+- NEXT VISUAL QA: after owner approval and article H1 repair, rerun priority live QA and capture desktop/mobile screenshots where available.
+- SAFETY: no public page/article body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 Priority Pages CMS Owner Approval Worksheet
+- CREATED / VERIFIED PLANNING: `project-control/priority-pages-cms-owner-approval-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/priority-pages-cms-owner-approval-2026-05-22.csv`.
+- FIXED PLANNING: approval scope is limited to duplicate body/content H1 repair on article IDs `19261` and `19279` after rollback capture.
+- BLOCKED LIVE QA: no screenshot capture was performed because this cycle was repo-only and no public repair happened.
+- NEXT VISUAL QA: after owner approval and repair, rerun priority live QA and capture before/after desktop/mobile screenshots where available.
+- SAFETY: no public page/article body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 Priority Pages CMS Rollback Capture Template
+- CREATED / VERIFIED PLANNING: `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.csv`.
+- FIXED PLANNING: template requires pre-repair screenshots where available, current checker evidence, full editor/body backup and SEO field backup before any H1 repair.
+- BLOCKED LIVE QA: no screenshot capture was performed because this cycle was repo-only and no public repair happened.
+- NEXT VISUAL QA: after approved repair, capture before/after desktop/mobile screenshots for `/criminal-lawyer-cost/` and `/plea-bargain/`, then rerun the priority live checker.
+- SAFETY: no public page/article body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 Priority Pages CMS Repair Packet
+- CREATED / VERIFIED PLANNING: `project-control/priority-pages-cms-repair-packet-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/priority-pages-cms-repair-packet-2026-05-22.csv`.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` is public `articles` ID `19261`; `/plea-bargain/` is public `articles` ID `19279`.
+- BLOCKED LIVE QA: both live article URLs still need duplicate body/content H1 repair after rollback capture.
+- BLOCKED LIVE QA: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` remain 404/noindex until approved object repair or creation.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this cycle was planning-only and no public repair happened.
+- NEXT VISUAL QA: after approved CMS repair, rerun the priority live checker and capture desktop/mobile screenshots for repaired URLs in a browser-capable environment.
+- SAFETY: no public page/article body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 Priority Pages Custom REST Source Diagnostics
+- UPDATED / VERIFIED LOCAL: `tools/check-priority-pages-live-readonly.mjs`.
+- UPDATED / VERIFIED LIVE READ-ONLY: `project-control/priority-pages-live-readonly-2026-05-22.md`.
+- UPDATED / VERIFIED LIVE READ-ONLY: `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/priority-pages-live-readonly-2026-05-22.json`.
+- VERIFIED LIVE READ-ONLY: public REST discovery is available and the checker now checks `pages`, `posts` and `articles`.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` is public `articles` ID `19261`; `/plea-bargain/` is public `articles` ID `19279`.
+- BLOCKED LIVE QA: the two live article URLs remain blocked by duplicate body/content H1s.
+- BLOCKED LIVE QA: the four missing priority slugs have no public `pages`, `posts` or `articles` hit and still return HTTP `404`, missing canonical and `noindex`.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+- NEXT VISUAL QA: after rollback capture and content-source repair, capture desktop/mobile screenshots for article IDs `19261` and `19279`, then for the four restored/created slugs.
+- SAFETY: no public page/article body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 Priority Pages H1/REST Diagnostics
+- UPDATED / VERIFIED LOCAL: `tools/check-priority-pages-live-readonly.mjs`.
+- UPDATED / VERIFIED LIVE READ-ONLY: `project-control/priority-pages-live-readonly-2026-05-22.md`.
+- UPDATED / VERIFIED LIVE READ-ONLY: `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/priority-pages-live-readonly-2026-05-22.json`.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` and `/plea-bargain/` each have duplicate H1s from template title plus body/content heading.
+- VERIFIED LIVE READ-ONLY: the duplicate template H1 uses class `single-article__title`; the second H1 has no class/id and appears inside the article body content.
+- BLOCKED LIVE QA: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` still return HTTP `404`, have no canonical and expose `noindex`.
+- VERIFIED LIVE READ-ONLY: all six target slugs return `200/0` from both public `wp/v2/pages` and public `wp/v2/posts`.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+- NEXT VISUAL QA: after wp-admin source identification and rollback capture, repair duplicate body H1s/restored slugs, then capture desktop/mobile screenshots for all six pages.
+- SAFETY: no public page body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 Priority Pages Live Read-Only QA
+- CREATED / VERIFIED LOCAL: `tools/check-priority-pages-live-readonly.mjs`.
+- CREATED / VERIFIED PLANNING: `project-control/priority-pages-live-readonly-2026-05-22.md`.
+- CREATED / VERIFIED LIVE READ-ONLY: `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/priority-pages-live-readonly-2026-05-22.json`.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` and `/plea-bargain/` return HTTP `200`, canonical to themselves, index/follow and no mojibake markers.
+- BLOCKED LIVE QA: `/criminal-lawyer-cost/` and `/plea-bargain/` have duplicate H1s.
+- BLOCKED LIVE QA: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` return HTTP `404`, have no canonical and expose `noindex`.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+- NEXT VISUAL QA: inspect the two HTTP `200` pages for duplicate title/body H1 source and capture mobile/desktop screenshots after repair; inspect the four `404` slugs after CMS rollback capture and restoration.
+- SAFETY: no public page body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 WP REST Publisher Safety
+- UPDATED / VERIFIED LOCAL: `reports/semrush/build-priority-pages.js`.
+- CREATED / VERIFIED LOCAL: `tools/check-wp-rest-publisher-safety.mjs`.
+- CREATED / VERIFIED PLANNING: `project-control/wp-rest-publisher-safety-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/wp-rest-publisher-safety-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/wp-rest-publisher-safety-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/wp-rest-publisher-safety-2026-05-22.json`.
+- VERIFIED LOCAL: node syntax checks passed, default publisher run produced only `DRY_RUN` rows, and publisher safety checker returned `10/10 VERIFIED`.
+- VERIFIED LOCAL: `--publish` without `WP_APP_PASSWORD_PATH` exits before a page loop/write.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because no public deployment or WordPress REST write happened in this cycle.
+- BLOCKED LIVE QA: if the six published pages are to remain live, operator must separately verify live HTTP status, rendered Hebrew text, H1/title, canonical/noindex state, internal links, schema and mobile screenshots.
+- SAFETY: no public page body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, live lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
+## 2026-05-22 Lead Area Vocabulary Safety
+- UPDATED / VERIFIED LOCAL: `inc/lead-spam-guard.php`.
+- UPDATED / VERIFIED LOCAL: `template-parts/forms/lead-form.php`.
+- UPDATED / VERIFIED LOCAL: `template-parts/sections/ask-lawyer.php`.
+- CREATED / VERIFIED LOCAL: `tools/check-lead-area-vocabulary-safety.mjs`.
+- CREATED / VERIFIED PLANNING: `project-control/lead-area-vocabulary-safety-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/lead-area-vocabulary-safety-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/lead-area-vocabulary-safety-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/lead-area-vocabulary-safety-2026-05-22.json`.
+- VERIFIED LOCAL: PHP lint passed and lead-area vocabulary checker returned `11/11 VERIFIED`.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because no public deployment, uPress cache clear or controlled lead submission happened.
+- BLOCKED LIVE QA: after deployment, verify both public lead forms visually, submit controlled test leads for `medical-malpractice-law` and `personal-injury-law`, then check CRM/routing fields.
+- SAFETY: no public page body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, live lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Controlled Route Breadcrumb Safety
 - UPDATED / VERIFIED LOCAL: `inc/breadcrumbs.php`.
 - CREATED / VERIFIED LOCAL: `tools/check-controlled-route-breadcrumb-safety.mjs`.

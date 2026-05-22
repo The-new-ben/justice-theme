@@ -113,6 +113,39 @@ function justice_theme_get_controlled_practice_breadcrumb_items( array $base_ite
 }
 
 /**
+ * Remove stale SEO-plugin BreadcrumbList schema on controlled practice routes.
+ *
+ * Yoast may build breadcrumbs from the underlying queried object before the
+ * controlled route template renders. The theme prints a controlled BreadcrumbList
+ * from the route config, so stale plugin BreadcrumbList nodes are removed only
+ * for these virtual money routes.
+ *
+ * @param array $graph Schema graph.
+ * @return array
+ */
+function justice_theme_filter_controlled_practice_yoast_breadcrumb_schema( $graph ): array {
+	if ( '' === justice_theme_get_controlled_practice_breadcrumb_slug() || ! is_array( $graph ) ) {
+		return is_array( $graph ) ? $graph : array();
+	}
+
+	return array_values(
+		array_filter(
+			$graph,
+			static function ( $piece ): bool {
+				if ( ! is_array( $piece ) ) {
+					return true;
+				}
+
+				$types = isset( $piece['@type'] ) ? (array) $piece['@type'] : array();
+
+				return ! in_array( 'BreadcrumbList', $types, true );
+			}
+		)
+	);
+}
+add_filter( 'wpseo_schema_graph', 'justice_theme_filter_controlled_practice_yoast_breadcrumb_schema', PHP_INT_MAX );
+
+/**
  * Build breadcrumb items array.
  *
  * @return array

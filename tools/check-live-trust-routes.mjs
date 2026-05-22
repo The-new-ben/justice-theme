@@ -1,4 +1,9 @@
-const BASE_URL = 'https://jus-tice.co.il';
+import { mkdir, writeFile } from 'node:fs/promises';
+import { dirname, resolve } from 'node:path';
+
+const BASE_URL = process.env.JUSTICE_BASE_URL || 'https://jus-tice.co.il';
+const REPORT_PATH = process.env.JUSTICE_TRUST_REPORT || 'reports/trust-route-audit.csv';
+const WRITE_REPORT = process.env.JUSTICE_WRITE_REPORT === '1';
 
 const routes = [
   {
@@ -42,6 +47,7 @@ async function checkRoute(route) {
   });
 
   const body = await response.text();
+  const routeGuard = response.headers.get('x-justice-route-guard') || '-';
   const canonical = textFromMatch(body, /<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)/i);
   const robots = textFromMatch(body, /<meta[^>]+name=["']robots["'][^>]+content=["']([^"']+)/i);
   const h1 = textFromMatch(body, /<h1[^>]*>(.*?)<\/h1>/i);
@@ -63,6 +69,7 @@ async function checkRoute(route) {
     canonical,
     robots: robots || '-',
     h1,
+    routeGuard,
     missing: missing.join('|') || '-',
     bytes: body.length,
   };
@@ -83,6 +90,7 @@ for (const route of routes) {
       canonical: '',
       robots: '',
       h1: '',
+      routeGuard: '',
       missing: route.required.join('|'),
       bytes: 0,
       warning: error instanceof Error ? error.message : String(error),
@@ -91,6 +99,22 @@ for (const route of routes) {
 }
 
 console.table(results);
+
+function csvValue(value) {
+  return `"${String(value ?? '').replace(/"/g, '""')}"`;
+}
+
+if (WRITE_REPORT) {
+  const headers = ['route', 'name', 'status', 'http', 'finalUrl', 'canonical', 'robots', 'h1', 'routeGuard', 'missing', 'bytes', 'warning'];
+  const csv = [
+    headers.join(','),
+    ...results.map((row) => headers.map((header) => csvValue(row[header])).join(',')),
+  ].join('\n') + '\n';
+  const target = resolve(REPORT_PATH);
+  await mkdir(dirname(target), { recursive: true });
+  await writeFile(target, csv, 'utf8');
+  console.log(`Wrote ${target}`);
+}
 
 if (results.some((result) => result.status !== 'PASS')) {
   process.exitCode = 1;

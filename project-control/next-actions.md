@@ -4,6 +4,227 @@
 
 ---
 
+### ACTION-FAMILY-LAW-OWNER-WORDING-APPROVAL-001: Prepare owner wording approval packet for Family/Divorce draft modules
+**Status:** FIXED PLANNING / VERIFIED LOCAL / OWNER DECISION PENDING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the readiness gate identified five draft modules ready for owner wording review; the next safe step is a precise approval packet before any legal body-copy edit.
+**Actions:**
+1. DONE: reviewed `project-control/family-law-draft-enhancement-readiness-2026-05-22.csv` and the draft enhancement queue.
+2. DONE: created `project-control/family-law-owner-wording-approval-2026-05-22.md`.
+3. DONE: created `project-control/family-law-owner-wording-approval-2026-05-22.csv`.
+4. FIXED PLANNING: separated ready cost, process, document checklist, mediation risk and children decision-table modules from blocked agreement/PDF, CTA/lawyer matching, Maya fact and GSC/live repair dependencies.
+5. VERIFIED LOCAL: owner wording CSV parses with `9` rows.
+6. BLOCKED OWNER DECISION: do not edit Family/Divorce draft body copy until owner records approve/edit/hold decisions for the five ready modules.
+7. BLOCKED PUBLIC EXECUTION: do not publish, repair, redirect, delete or change canonicals/noindex/sitemap/taxonomy from this approval packet.
+8. NEXT: owner records approve/edit/hold wording decisions; then edit only the listed existing draft files and rerun `tools/check-family-divorce-public-bodies.mjs`.
+
+### ACTION-FAMILY-LAW-DRAFT-ENHANCEMENT-READINESS-001: Add generated readiness gate for draft enhancement queue
+**Status:** FIXED / VERIFIED LOCAL / BLOCKED OWNER WORDING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the draft enhancement queue needs repeatable validation so future runs do not edit legal copy against missing draft files or stale planning artifacts.
+**Actions:**
+1. DONE: created `tools/check-family-law-draft-enhancement-readiness.mjs`.
+2. DONE: generated `project-control/family-law-draft-enhancement-readiness-2026-05-22.md`.
+3. DONE: generated `project-control/family-law-draft-enhancement-readiness-2026-05-22.csv`.
+4. GENERATED: `reports/family-law-draft-enhancement-readiness-2026-05-22.csv`.
+5. GENERATED: `reports/family-law-draft-enhancement-readiness-2026-05-22.json`.
+6. FIXED: normalized queue row `FL-DRAFT-ENH-007` so strict CSV parsing sees all `12` columns.
+7. VERIFIED LOCAL: node syntax passed; checker reviewed `12` rows with `0` missing repo artifacts.
+8. VERIFIED LOCAL: readiness distribution is `5` ready for owner wording, `6` blocked by external/live dependencies and `1` backlog item.
+9. NEXT: owner approves cost/process/document/agreement/CTA wording; then edit seven existing public-body drafts only and rerun static QA.
+
+### ACTION-FAMILY-LAW-DRAFT-ENHANCEMENT-QUEUE-001: Map Family/Divorce competitor gaps to draft edit queue
+**Status:** FIXED PLANNING / VERIFIED LOCAL / BLOCKED OWNER WORDING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the competitor gap packet identified practical additions, but the next safe step is a controlled draft-by-draft queue before anyone edits legal copy or uploads content.
+**Actions:**
+1. DONE: reviewed the Family Law competitor gap analysis and current Family/Divorce QA blockers.
+2. DONE: created `project-control/family-law-draft-enhancement-queue-2026-05-22.md`.
+3. DONE: created `project-control/family-law-draft-enhancement-queue-2026-05-22.csv`.
+4. FIXED PLANNING: mapped cost, process, document, agreement/template, mediation, children, CTA, FAQ/schema, E-E-A-T, structure, live repair and calculator backlog items to exact draft/source targets.
+5. VERIFIED LOCAL: queue CSV parses with `12` rows.
+6. BLOCKED OWNER WORDING: do not edit body copy until owner approves cost/process/document/agreement/CTA wording.
+7. BLOCKED PUBLIC EXECUTION: do not publish, repair, redirect, delete or change canonicals/noindex/sitemap/taxonomy from this queue.
+8. NEXT: after owner wording approval, edit the seven existing public-body drafts only, rerun `tools/check-family-divorce-public-bodies.mjs`, then update upload readiness for owner review.
+
+### ACTION-FAMILY-LAW-COMPETITOR-GAP-001: Compare Family/Divorce cluster against current competitors
+**Status:** FIXED PLANNING / VERIFIED RESEARCH / VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the Family/Divorce cluster is the first controlled upload candidate, but owner review needs a practical competitor gap matrix before upload decisions.
+**Actions:**
+1. DONE: reviewed current Family/Divorce readiness and live safety artifacts.
+2. DONE: checked current competitor evidence for family/divorce lawyer, cost, process, agreement, mediation, child support/custody and directory intent.
+3. DONE: created `project-control/family-law-competitor-gap-analysis-2026-05-22.md`.
+4. DONE: created `project-control/family-law-competitor-gap-analysis-2026-05-22.csv`.
+5. VERIFIED RESEARCH: competitors are stronger on explicit cost framing, process navigation, agreement/template guidance, named lawyer authority and direct CTAs.
+6. VERIFIED LOCAL: Jus-Tice has a strong seven-page draft base, but public execution remains blocked by live visible defects, missing PDF asset, owner/legal approval, CMS rollback backup and focused GSC evidence.
+7. NEXT: add approved cost/process/document/agreement/CTA enhancements to drafts, then repair visible live defects only after owner approval and rollback backup; do not publish, redirect, delete or change canonicals/noindex/sitemap.
+
+### ACTION-ROUTE-DEPLOY-VERIFICATION-GATE-001: Consolidate critical route deploy QA and block stale breadcrumbs
+**Status:** FIXED / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY PARTIAL / BLOCKED FAMILY BREADCRUMB LIVE QA / NO PUBLIC CMS CHANGE
+**Why:** T416, T418 and T419 were code-fixed but still scattered as deploy-blocked tasks. The live routes now need one gate that proves traffic/trust routes pass and catches stale breadcrumb schema before promotion.
+**Actions:**
+1. DONE: updated `functions.php` and `deployment-marker.txt` to marker `2026-05-22-route-deploy-verification-gate-v1`.
+2. DONE: added controlled-route Yoast BreadcrumbList filter in `inc/breadcrumbs.php`.
+3. DONE: updated `tools/check-controlled-route-breadcrumb-safety.mjs`; local checker now returns `11/11 VERIFIED`.
+4. DONE: updated `tools/check-live-trust-routes.mjs` to write CSV and capture route guard headers.
+5. DONE: created `tools/check-live-controlled-route-breadcrumbs.mjs`.
+6. DONE: created `tools/build-route-deploy-verification-gate.mjs`.
+7. GENERATED: `project-control/route-deploy-verification-gate-2026-05-22.md` and `.csv`.
+8. GENERATED: `reports/route-deploy-verification-gate-2026-05-22.csv` and `.json`.
+9. VERIFIED LIVE READ-ONLY: traffic checker `12/12` PASS; trust checker `3/3` PASS.
+10. BLOCKED LIVE QA: controlled breadcrumb checker `3/4` PASS; `/family-law/` has stale article BreadcrumbList until deploy/cache clear.
+11. NEXT: deploy/pull/cache clear, rerun traffic, trust and controlled breadcrumb checkers, regenerate the gate, then capture desktop/mobile screenshots before marking route tasks complete.
+
+### ACTION-MAYA-LAWYER-MINI-SITE-READINESS-001: Prepare Maya lawyer mini-site readiness gate
+**Status:** FIXED / VERIFIED LOCAL / BLOCKED LIVE QA / NO PUBLIC CMS CHANGE
+**Why:** the priority-page CMS workflow is blocked by the readiness gate, while the Maya lawyer mini-site remains a high-value repo-side task that can be made safer before any public profile action.
+**Actions:**
+1. DONE: updated `single-justice_lawyer.php` so related-article lookup includes `justice_theme_authority_verified_person_slug_for_post()`.
+2. DONE: created `tools/check-maya-lawyer-mini-site-readiness.mjs`.
+3. DONE: generated `project-control/maya-lawyer-mini-site-readiness-2026-05-22.md`.
+4. DONE: generated `project-control/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+5. GENERATED: `reports/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+6. GENERATED: `reports/maya-lawyer-mini-site-readiness-2026-05-22.json`.
+7. FIXED / VERIFIED LOCAL: PHP lint, node syntax and readiness generation passed.
+8. VERIFIED LOCAL: readiness report produced `13` checks with `12` verified source checks, `1` blocked live route check and `1` not-verified screenshot check.
+9. BLOCKED LIVE QA: `/lawyers/advocate-maya-rotenberg/` still needs deployment/uPress cache control, HTTP/canonical/robots/schema/content verification and screenshots.
+10. NEXT: after deploy/cache clear, verify the Maya public route, related articles, anonymous REST behavior, JSON-LD and desktop/mobile screenshots before any redirect/profile migration/public upload decision.
+
+### ACTION-PRIORITY-PAGES-CMS-READINESS-GATE-001: Add generated go/no-go gate for priority page CMS repair
+**Status:** FIXED / VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the repair packet, rollback template and owner approval worksheet are useful individually, but public execution needs one consolidated go/no-go report before anyone touches WordPress.
+**Actions:**
+1. DONE: created `tools/build-priority-page-cms-repair-readiness-gate.mjs`.
+2. DONE: generated `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.md`.
+3. DONE: generated `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+4. GENERATED: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+5. GENERATED: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.json`.
+6. VERIFIED LOCAL: node syntax passed and gate generation completed.
+7. VERIFIED LOCAL: gate reviewed `51` source rows and produced `7` gate rows.
+8. BLOCKED: readiness result is `BLOCKED_NOT_READY_FOR_PUBLIC_CMS_REPAIR`; all `7` gates are blocked with `28` blocked markers and `17` pending markers.
+9. NOT LIVE VERIFIED: no public CMS edit, REST write, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4, screenshot or uPress action happened.
+10. NEXT: owner records approve/hold language; if approved, operator captures rollback and repairs only duplicate body H1s on article IDs `19261` and `19279`, then reruns priority live QA.
+
+### ACTION-PRIORITY-PAGES-CMS-OWNER-APPROVAL-001: Prepare owner approval worksheet for priority page CMS repairs
+**Status:** FIXED / VERIFIED LOCAL / OWNER DECISION PENDING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the repair packet and rollback worksheet are ready, but public execution still needs a precise owner decision that cannot be mistaken for clean-slug creation or SEO migration approval.
+**Actions:**
+1. DONE: created `project-control/priority-pages-cms-owner-approval-2026-05-22.md`.
+2. DONE: created `project-control/priority-pages-cms-owner-approval-2026-05-22.csv`.
+3. FIXED PLANNING: worksheet allows only `APPROVE_ARTICLE_H1_REPAIR_ONLY` for `/criminal-lawyer-cost/` article ID `19261` and `/plea-bargain/` article ID `19279`, after rollback capture.
+4. BLOCKED PLANNING: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` remain held for GSC/source/legal/cannibalization decisions.
+5. BLOCKED PLANNING: page publisher use remains held because it writes to `wp/v2/pages`, not the live article CPT repair targets.
+6. VERIFIED LOCAL: owner approval CSV parses with `11` rows.
+7. NOT LIVE VERIFIED: no public CMS edit, REST write, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4, screenshot or uPress action happened.
+8. NEXT: owner records approve/hold language; if approved, operator captures rollback from the rollback template, repairs only duplicate body H1s on article IDs `19261` and `19279`, then reruns priority live QA.
+
+### ACTION-PRIORITY-PAGES-CMS-ROLLBACK-CAPTURE-001: Prepare pre-edit rollback worksheet for priority page repairs
+**Status:** FIXED / VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the repair packet identifies what to fix, but the operator still needs a precise backup/capture worksheet before touching WordPress editor fields.
+**Actions:**
+1. DONE: created `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.md`.
+2. DONE: created `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.csv`.
+3. FIXED PLANNING: documented required capture fields for article IDs `19261` and `19279` before duplicate body/content H1 repair.
+4. FIXED PLANNING: documented related-asset capture requirements for article ID `8271`, article ID `5405`, page ID `19215`, and pension-related article IDs `8252`, `7048`, `11205`.
+5. BLOCKED PLANNING: clean-slug creation, redirect, canonical/noindex, sitemap, taxonomy and internal-link actions remain blocked until owner approval and source/GSC/legal decisions.
+6. VERIFIED LOCAL: rollback capture CSV parses with `10` rows.
+7. NOT LIVE VERIFIED: no public CMS edit, REST write, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4, screenshot or uPress action happened.
+8. NEXT: owner/operator records approval scope and rollback storage path, captures the required fields, then repairs only approved duplicate body H1s on article IDs `19261` and `19279`.
+
+### ACTION-PRIORITY-PAGES-CMS-REPAIR-PACKET-001: Prepare controlled CMS repair packet for six priority slugs
+**Status:** FIXED / VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** live QA now identifies the actual source for the two working priority URLs and confirms the four missing clean slugs have no public object. The next public step needs exact operator instructions so repairs do not create duplicates or modify the wrong content type.
+**Actions:**
+1. DONE: created `project-control/priority-pages-cms-repair-packet-2026-05-22.md`.
+2. DONE: created `project-control/priority-pages-cms-repair-packet-2026-05-22.csv`.
+3. VERIFIED LIVE READ-ONLY SOURCE MAP: `/criminal-lawyer-cost/` maps to public `articles` CPT ID `19261`.
+4. VERIFIED LIVE READ-ONLY SOURCE MAP: `/plea-bargain/` maps to public `articles` CPT ID `19279`.
+5. FIXED PLANNING: first safe repair is duplicate body/content H1 cleanup on article IDs `19261` and `19279`, after rollback capture.
+6. BLOCKED PLANNING: four 404 clean slugs remain blocked until owner approval, focused GSC where needed, source/legal review and anti-cannibalization decisions.
+7. VERIFIED LOCAL RISK: `reports/semrush/build-priority-pages.js` writes to `wp/v2/pages`; do not use it to repair live `articles` CPT records.
+8. VERIFIED LOCAL: repair packet CSV parses with `10` rows.
+9. NOT LIVE VERIFIED: no public CMS edit, REST write, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4, screenshot or uPress action happened.
+10. NEXT: owner/operator captures rollback material, then repairs only duplicate body H1s on article IDs `19261` and `19279`; keep the four 404 clean slugs blocked until explicit object decisions are approved.
+
+### ACTION-PRIORITY-PAGES-CUSTOM-REST-SOURCE-DIAGNOSTICS-001: Identify priority slugs through public custom REST collections
+**Status:** FIXED / VERIFIED LIVE READ-ONLY / BLOCKED PUBLIC QA / NO PUBLIC CMS CHANGE
+**Why:** the six priority slugs were invisible through normal `wp/v2/pages` and `wp/v2/posts`, but the two HTTP `200` URLs could still be custom content records. Repair should target the real content source, not guess.
+**Actions:**
+1. DONE: updated `tools/check-priority-pages-live-readonly.mjs` to discover and check the priority public content collections `pages`, `posts` and `articles`.
+2. DONE: regenerated `project-control/priority-pages-live-readonly-2026-05-22.md`.
+3. DONE: regenerated `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+4. GENERATED: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+5. GENERATED: `reports/priority-pages-live-readonly-2026-05-22.json`.
+6. VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` is public `articles` CPT ID `19261`.
+7. VERIFIED LIVE READ-ONLY: `/plea-bargain/` is public `articles` CPT ID `19279`.
+8. BLOCKED LIVE READ-ONLY: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` have no public hit in `pages`, `posts` or `articles`.
+9. VERIFIED LOCAL: node syntax and live read-only checker passed; checker output remains `0/6 VERIFIED`.
+10. NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+11. NEXT: after rollback capture, repair duplicate body/content H1s on article IDs `19261` and `19279`; for the four missing slugs, restore/create the correct `articles` records or approved content objects before any redirect/canonical decision.
+
+### ACTION-PRIORITY-PAGES-H1-REST-DIAGNOSTICS-001: Add exact duplicate-H1 and REST visibility diagnostics
+**Status:** FIXED / VERIFIED LIVE READ-ONLY / BLOCKED PUBLIC QA / NO PUBLIC CMS CHANGE
+**Why:** the first post-publish QA showed duplicate H1s and four 404s, but repair needs exact evidence about whether the duplicate H1 is template/body content and whether the six slugs exist through normal public WordPress REST page/post lookup.
+**Actions:**
+1. DONE: updated `tools/check-priority-pages-live-readonly.mjs` with H1 source, class, id and context extraction.
+2. DONE: added read-only public REST probes for `wp/v2/pages?slug=...` and `wp/v2/posts?slug=...`.
+3. DONE: regenerated `project-control/priority-pages-live-readonly-2026-05-22.md`.
+4. DONE: regenerated `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+5. GENERATED: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+6. GENERATED: `reports/priority-pages-live-readonly-2026-05-22.json`.
+7. VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` and `/plea-bargain/` each have one template H1 with class `single-article__title` and one duplicate body/content H1.
+8. VERIFIED LIVE READ-ONLY: all six target slugs return `200/0` from public `wp/v2/pages` and `200/0` from public `wp/v2/posts`.
+9. BLOCKED LIVE READ-ONLY: the four missing priority slugs still return `404`, missing canonical and `noindex`.
+10. VERIFIED LOCAL: node syntax and live read-only checker passed; checker output remains `0/6 VERIFIED`.
+11. NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+12. NEXT: in wp-admin, first identify the actual content type/source for the two HTTP `200` URLs and the four missing slugs, then capture rollback material before repairing duplicate body H1s or restoring missing objects.
+
+### ACTION-PRIORITY-PAGES-LIVE-READONLY-QA-001: Verify six recently published priority pages
+**Status:** VERIFIED LIVE READ-ONLY / BLOCKED PUBLIC QA / NO PUBLIC CMS CHANGE
+**Why:** commit `c2c317f` reported six priority cluster pages published via WP REST API; before treating them as complete, the public URLs need read-only verification for status, H1, canonical/noindex, internal links, schema and encoding.
+**Actions:**
+1. DONE: created `tools/check-priority-pages-live-readonly.mjs`.
+2. DONE: created `project-control/priority-pages-live-readonly-2026-05-22.md`.
+3. DONE: created `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+4. GENERATED: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+5. GENERATED: `reports/priority-pages-live-readonly-2026-05-22.json`.
+6. VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` returns `200` but is BLOCKED by duplicate H1s.
+7. VERIFIED LIVE READ-ONLY: `/plea-bargain/` returns `200` but is BLOCKED by duplicate H1s.
+8. BLOCKED LIVE READ-ONLY: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` return `404` with no canonical and `noindex`.
+9. VERIFIED LOCAL: node syntax and live read-only checker passed; checker output is `0/6 VERIFIED`.
+10. NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+11. NEXT: before any repair, capture CMS rollback material for the six slugs; then fix the four missing/404 pages and duplicate H1 template/body issue on the two live pages; rerun live QA and capture screenshots in a browser-capable environment.
+
+### ACTION-WP-REST-PUBLISHER-SAFETY-001: Require explicit opt-in before priority-page publisher writes to WordPress
+**Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC CMS CHANGE THIS CYCLE
+**Why:** `reports/semrush/build-priority-pages.js` was introduced as a WP REST publisher for six priority cluster pages; repo scripts that can publish live pages must default to no-write behavior and must not contain machine-specific credential paths.
+**Actions:**
+1. DONE: changed `reports/semrush/build-priority-pages.js` so normal execution is dry-run only.
+2. DONE: added explicit `--publish` requirement before any WP REST lookup or write.
+3. DONE: removed the hardcoded local app-password JSON path.
+4. DONE: required `WP_APP_PASSWORD_PATH` for publish mode, pointing to a local credential file outside Git.
+5. DONE: added publish-mode credential preflight before the first page upsert loop.
+6. DONE: created `tools/check-wp-rest-publisher-safety.mjs`.
+7. DONE: created `project-control/wp-rest-publisher-safety-2026-05-22.md`.
+8. DONE: created `project-control/wp-rest-publisher-safety-2026-05-22.csv`.
+9. VERIFIED LOCAL: node syntax checks, default dry-run and publisher safety checker passed with `10/10 VERIFIED`.
+10. VERIFIED LOCAL: `--publish` without `WP_APP_PASSWORD_PATH` exits before a page loop/write.
+11. NOT LIVE VERIFIED: no live WordPress write, screenshot, GSC/GA4 action, redirect, canonical/noindex or sitemap action was executed.
+12. NEXT: if owner approves future publishing, capture rollback material first, run with `--publish` only from an authorized operator shell, then run live URL/content/schema/screenshot checks for all six pages.
+
+### ACTION-LEAD-AREA-VOCABULARY-SAFETY-001: Centralize public lead-area options for forms, validation and routing
+**Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC CMS CHANGE
+**Why:** public lead forms, validation, classifier aliases, CRM labels and routing all depend on the same legal-area slug vocabulary; duplicated form option blocks increase the risk of misrouted leads and inconsistent reporting.
+**Actions:**
+1. DONE: added `justice_theme_lead_area_options()` in `inc/lead-spam-guard.php` as the canonical public lead-area option set.
+2. DONE: changed `justice_theme_lead_area_values()` to derive accepted values from the canonical option keys.
+3. DONE: added `justice_theme_render_lead_area_options()` for public lead-area `<select>` rendering.
+4. DONE: updated `template-parts/forms/lead-form.php` to use the shared renderer.
+5. DONE: updated `template-parts/sections/ask-lawyer.php` to use the shared renderer with its shorter placeholder.
+6. DONE: created `tools/check-lead-area-vocabulary-safety.mjs`.
+7. DONE: created `project-control/lead-area-vocabulary-safety-2026-05-22.md`.
+8. DONE: created `project-control/lead-area-vocabulary-safety-2026-05-22.csv`.
+9. VERIFIED LOCAL: PHP lint, node syntax check and lead-area vocabulary checker passed with `11/11 VERIFIED`.
+10. NOT LIVE VERIFIED: live form rendering and lead routing still require deployment/pull, cache clear and a controlled test submission.
+11. NEXT: after deploy, submit controlled leads for `medical-malpractice-law` and `personal-injury-law`, then verify `legal_area`, `ai_detected_area`, CRM label and assigned-lawyer routing.
+
 ### ACTION-CONTROLLED-ROUTE-BREADCRUMB-SAFETY-001: Bind protected practice-route breadcrumbs to route config
 **Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC CMS CHANGE
 **Why:** T418 protected the money routes from redirect-plugin collapse, but the visible breadcrumb and BreadcrumbList schema still needed to be protected from stale WordPress query ownership or 404 fallbacks.

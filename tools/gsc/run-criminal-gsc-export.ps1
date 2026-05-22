@@ -44,8 +44,15 @@ try {
 
   Invoke-Checked @("node", $exportArgs[0], $exportArgs[1])
 
+  Invoke-Checked @(
+    "node",
+    "tools/build-criminal-gsc-decision-map.mjs",
+    "--gscDir=$OutputDir",
+    "--reportDate=$ReportDate"
+  )
+
   Write-Host "VERIFIED: Criminal Law GSC export completed for $ReportDate."
-  Write-Host "VERIFY NEXT: review $OutputDir\criminal-law-query-page.csv, $OutputDir\criminal-law-cannibalization.csv and $OutputDir\criminal-law-protected-sources.csv before any URL decision."
+  Write-Host "VERIFY NEXT: review reports\criminal-gsc-decision-map-$ReportDate.csv, reports\criminal-cannibalization-decision-map-$ReportDate.csv and reports\criminal-protected-url-decision-map-$ReportDate.csv before any URL decision."
 } finally {
   Pop-Location
 }

@@ -4,6 +4,24 @@
 
 ---
 
+### ACTION-CRIMINAL-GSC-DECISION-MAP-001: Prepare Criminal post-GSC decision maps
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NOT FINAL BASELINE / FOCUSED GSC EXPORT BLOCKED / NO PUBLIC CHANGES
+**Why:** The Criminal GSC export runner needs an immediate parser that turns export rows into protected URL, wrong-page, cannibalization, redirect/canonical/noindex and sitemap review decisions before any migration or CMS execution.
+**Actions:**
+1. DONE: created `tools/build-criminal-gsc-decision-map.mjs`.
+2. DONE: updated `tools/gsc/run-criminal-gsc-export.ps1` so the full read-only export automatically builds decision maps for the same report date.
+3. DONE: generated `reports/criminal-gsc-decision-map-2026-05-22.csv`.
+4. DONE: generated `reports/criminal-protected-url-decision-map-2026-05-22.csv`.
+5. DONE: generated `reports/criminal-cannibalization-decision-map-2026-05-22.csv`.
+6. DONE: generated `reports/criminal-gsc-decision-map-2026-05-22.json`.
+7. DONE: created `project-control/criminal-gsc-decision-map-2026-05-22.md`.
+8. DONE: created `project-control/criminal-gsc-decision-map-2026-05-22.csv`.
+9. VERIFIED LOCAL: `node --check tools/build-criminal-gsc-decision-map.mjs` passed.
+10. VERIFIED LOCAL: baseline run generated `5` target rows, `20` protected/support/route-risk rows and `8` cannibalization/wrong-page rows.
+11. NOT VERIFIED FINAL: all generated rows are baseline-only until the focused owner-authorized Criminal GSC export runs.
+12. BLOCKED: real focused GSC export still requires owner credential setup and OAuth approval.
+13. NEXT: after owner credentials, run `.\tools\gsc\run-criminal-gsc-export.ps1`, then review `reports/criminal-gsc-decision-map-YYYY-MM-DD.csv`, `reports/criminal-protected-url-decision-map-YYYY-MM-DD.csv` and `reports/criminal-cannibalization-decision-map-YYYY-MM-DD.csv` before any URL, redirect, canonical, noindex or sitemap decision.
+
 ### ACTION-GSC-CRIMINAL-EXPORT-RUNNER-001: Prepare Criminal Law GSC export runner
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / API EXECUTION BLOCKED UNTIL OWNER CREDENTIAL SETUP / NO PUBLIC CHANGES
 **Why:** The Criminal first-upload package now has drafts, owner review, operator runbook and metadata. Before URL migration or redirect decisions, it needs a focused read-only GSC export for current targets, protected/support pages and Criminal query/page ownership.

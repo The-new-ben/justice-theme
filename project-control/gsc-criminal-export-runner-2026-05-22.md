@@ -2,6 +2,7 @@
 
 ## Status
 - FIXED / VERIFIED LOCAL: a focused read-only Criminal Law Search Console export runner now exists.
+- FIXED / VERIFIED LOCAL: the full wrapper now also builds Criminal decision maps after the export.
 - PUBLIC EXECUTION BLOCKED: this does not approve CMS upload, URL migration, redirects, canonical changes, noindex changes, sitemap edits, taxonomy edits or internal-link writes.
 - API EXECUTION BLOCKED: real export still requires owner OAuth/GSC token approval.
 
@@ -25,6 +26,13 @@ After owner credentials are configured, the runner creates:
 - `criminal-law-summary.json`
 - `gsc-sites-visible.csv`
 
+The wrapper then creates:
+
+- `reports/criminal-gsc-decision-map-YYYY-MM-DD.csv`
+- `reports/criminal-protected-url-decision-map-YYYY-MM-DD.csv`
+- `reports/criminal-cannibalization-decision-map-YYYY-MM-DD.csv`
+- `reports/criminal-gsc-decision-map-YYYY-MM-DD.json`
+
 ## Commands
 Dry run:
 
@@ -45,6 +53,7 @@ Manual node command:
 ```powershell
 node tools/gsc/gsc-criminal-export.js --dry-run
 node tools/gsc/gsc-criminal-export.js
+node tools/build-criminal-gsc-decision-map.mjs --gscDir="reports/gsc/criminal-law-YYYY-MM-DD" --reportDate="YYYY-MM-DD"
 ```
 
 ## Verification
@@ -53,6 +62,8 @@ node tools/gsc/gsc-criminal-export.js
 - VERIFIED LOCAL: `.\tools\gsc\run-criminal-gsc-export.ps1 -DryRun` passed.
 - VERIFIED LOCAL: dry run reported `5` target paths, `20` protected/support paths and `27` query terms.
 - VERIFIED LOCAL: dry run did not read credential contents, open OAuth browser or call GSC API.
+- VERIFIED LOCAL: `node --check tools/build-criminal-gsc-decision-map.mjs` passed.
+- VERIFIED LOCAL: baseline decision-map generation produced `5` target rows, `20` protected/support/route-risk rows and `8` cannibalization/wrong-page rows.
 
 ## How To Use The Export
 Review these files before any Criminal URL decision:

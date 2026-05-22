@@ -77,11 +77,18 @@ $env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
 .\tools\gsc\run-criminal-gsc-export.ps1
 ```
 
+The full wrapper now runs the read-only export and then builds the Criminal decision maps for the same report date:
+- `reports/criminal-gsc-decision-map-YYYY-MM-DD.csv`
+- `reports/criminal-protected-url-decision-map-YYYY-MM-DD.csv`
+- `reports/criminal-cannibalization-decision-map-YYYY-MM-DD.csv`
+- `reports/criminal-gsc-decision-map-YYYY-MM-DD.json`
+
 Manual commands:
 
 ```powershell
 node tools/gsc/gsc-criminal-export.js --dry-run
 node tools/gsc/gsc-criminal-export.js
+node tools/build-criminal-gsc-decision-map.mjs --gscDir="reports/gsc/criminal-law-YYYY-MM-DD" --reportDate="YYYY-MM-DD"
 ```
 
 Outputs save under `reports/gsc/criminal-law-YYYY-MM-DD/`:
@@ -92,6 +99,8 @@ Outputs save under `reports/gsc/criminal-law-YYYY-MM-DD/`:
 - `criminal-law-summary.json`
 
 Review the export before any Criminal clean-slug migration, redirect, canonical, noindex or sitemap decision.
+
+Without `--gscDir`, the Criminal decision-map builder can use the readiness dashboard and older cached GSC CSVs as a baseline only. Treat that baseline as `NOT_FINAL` until the focused Criminal export is reviewed.
 
 ## Output
 

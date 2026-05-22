@@ -1,3 +1,19 @@
+## LATEST WORK STATUS - 2026-05-22 15:19 Asia/Jerusalem
+- CRIMINAL GSC DECISION MAPS: prepared the post-export parser/decision workflow for the Criminal first-upload cluster.
+- CREATED: `tools/build-criminal-gsc-decision-map.mjs`.
+- UPDATED: `tools/gsc/run-criminal-gsc-export.ps1` now runs the decision-map builder after the full read-only Criminal GSC export.
+- GENERATED / NOT FINAL: `reports/criminal-gsc-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/criminal-protected-url-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/criminal-cannibalization-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/criminal-gsc-decision-map-2026-05-22.json`.
+- CREATED: `project-control/criminal-gsc-decision-map-2026-05-22.md`.
+- CREATED: `project-control/criminal-gsc-decision-map-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-gsc-decision-map.mjs` passed.
+- VERIFIED LOCAL: baseline generation produced `5` current Criminal targets, `20` protected/support/route-risk rows and `8` cannibalization/wrong-page rows.
+- NOT VERIFIED FINAL: generated maps are `BASELINE_DASHBOARD_NOT_FINAL`; focused owner-authorized GSC export is still required before URL migration, redirects, canonicals/noindex or sitemap decisions.
+- BLOCKED: no Criminal CMS upload, English slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 15:09 Asia/Jerusalem
 - CRIMINAL GSC EXPORT RUNNER: prepared a focused read-only Search Console export workflow for the Criminal first-upload cluster.
 - CREATED: `tools/gsc/gsc-criminal-export.js`.

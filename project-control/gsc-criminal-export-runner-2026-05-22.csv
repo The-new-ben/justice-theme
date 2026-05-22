@@ -7,3 +7,5 @@ GSC-CRIM-RUNNER-005,query_scope,VERIFIED_LOCAL,27 Criminal query terms included,
 GSC-CRIM-RUNNER-006,dry_run,VERIFIED_LOCAL,node tools/gsc/gsc-criminal-export.js --dry-run passed without OAuth/API call,Owner supplies credentials for real export
 GSC-CRIM-RUNNER-007,wrapper_dry_run,VERIFIED_LOCAL,.\tools\gsc\run-criminal-gsc-export.ps1 -DryRun passed without OAuth/API call,Run full wrapper only after owner approval
 GSC-CRIM-RUNNER-008,public_execution,BLOCKED,No CMS URL redirect canonical noindex sitemap taxonomy or internal-link action approved,Keep repo-only until approvals and export review
+GSC-CRIM-RUNNER-009,decision_map_wrapper,FIXED,Full wrapper now calls tools/build-criminal-gsc-decision-map.mjs after export,Review generated root-level decision maps before URL or CMS decisions
+GSC-CRIM-RUNNER-010,decision_map_baseline,VERIFIED_LOCAL,Baseline builder run generated 5 target rows 20 protected rows and 8 cannibalization rows,Replace baseline with focused export after owner OAuth approval

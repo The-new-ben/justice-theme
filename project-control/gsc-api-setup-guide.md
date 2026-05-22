@@ -17,6 +17,7 @@ LATEST 2026-05-21 RUNNER NOTE:
 - Manual protected URL review-packet command: `node tools/build-family-divorce-protected-url-review-packet.mjs --reportDate=YYYY-MM-DD --input=reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv`
 - FIXED 2026-05-22: downstream decision-map and protected-packet scripts now use explicit/dynamic report dates instead of hardcoded `2026-05-21` filenames.
 - FIXED 2026-05-22: Criminal Law now has a focused read-only export runner: `.\tools\gsc\run-criminal-gsc-export.ps1 -DryRun`, then `.\tools\gsc\run-criminal-gsc-export.ps1` after owner OAuth approval.
+- FIXED 2026-05-22: the Criminal full wrapper now also builds `reports/criminal-gsc-decision-map-YYYY-MM-DD.csv`, `reports/criminal-protected-url-decision-map-YYYY-MM-DD.csv`, `reports/criminal-cannibalization-decision-map-YYYY-MM-DD.csv` and `reports/criminal-gsc-decision-map-YYYY-MM-DD.json`.
 
 This guide explains how to connect Google Search Console API for Jus-Tice so we can export query/page data quickly instead of doing slow browser checks.
 
@@ -110,6 +111,18 @@ $env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
 ```
 
 Criminal outputs save under `reports/gsc/criminal-law-YYYY-MM-DD/`.
+
+The Criminal wrapper also creates root-level decision outputs:
+- `reports/criminal-gsc-decision-map-YYYY-MM-DD.csv`
+- `reports/criminal-protected-url-decision-map-YYYY-MM-DD.csv`
+- `reports/criminal-cannibalization-decision-map-YYYY-MM-DD.csv`
+- `reports/criminal-gsc-decision-map-YYYY-MM-DD.json`
+
+Manual rebuild after an existing Criminal export:
+
+```powershell
+node tools/build-criminal-gsc-decision-map.mjs --gscDir="reports/gsc/criminal-law-YYYY-MM-DD" --reportDate="YYYY-MM-DD"
+```
 
 ## What We Can Export
 

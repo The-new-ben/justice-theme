@@ -1,6 +1,21 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Criminal GSC decision maps
+
+- TOOLING FIXED: created `tools/build-criminal-gsc-decision-map.mjs`.
+- TOOLING FIXED: updated `tools/gsc/run-criminal-gsc-export.ps1` so a full Criminal export also builds decision maps.
+- GENERATED / NOT FINAL: `reports/criminal-gsc-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/criminal-protected-url-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/criminal-cannibalization-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/criminal-gsc-decision-map-2026-05-22.json`.
+- CREATED: `project-control/criminal-gsc-decision-map-2026-05-22.md`.
+- CREATED: `project-control/criminal-gsc-decision-map-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-gsc-decision-map.mjs` passed.
+- VERIFIED LOCAL: baseline run generated `5` Criminal target rows, `20` protected/support/route-risk rows and `8` cannibalization/wrong-page rows.
+- NOT VERIFIED FINAL: current maps are baseline-only and still require the focused owner-authorized GSC export before URL migration, redirect, canonical, noindex or sitemap decisions.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Criminal GSC export runner
 
 - TOOLING FIXED: created `tools/gsc/gsc-criminal-export.js`.

@@ -1,0 +1,8 @@
+check_id,area,status,evidence,next_step
+CRIM-GSC-MAP-001,builder,FIXED,tools/build-criminal-gsc-decision-map.mjs created,Run after focused Criminal GSC export
+CRIM-GSC-MAP-002,wrapper,FIXED,tools/gsc/run-criminal-gsc-export.ps1 now runs the decision-map builder after full export,Use wrapper after owner OAuth approval
+CRIM-GSC-MAP-003,target_rows,VERIFIED_LOCAL,5 Criminal first-upload target rows generated,Owner/legal/source review and rollback backup still required before CMS upload
+CRIM-GSC-MAP-004,protected_rows,VERIFIED_LOCAL,20 protected/support/route-risk rows generated including 11 high-risk baseline rows,Review before any redirect canonical noindex sitemap or slug migration decision
+CRIM-GSC-MAP-005,cannibalization_rows,VERIFIED_LOCAL,8 cannibalization/wrong-page rows generated,Confirm with focused GSC export before merge redirect canonical noindex or page-retirement action
+CRIM-GSC-MAP-006,finality,NOT_VERIFIED_FINAL,Current run is BASELINE_DASHBOARD_NOT_FINAL and all rows are NOT_FINAL_BASELINE_PENDING_FOCUSED_GSC_EXPORT,Run owner-authorized focused Criminal GSC export
+CRIM-GSC-MAP-007,public_execution,BLOCKED,No CMS URL redirect canonical noindex sitemap taxonomy related-link lawyer lead CRM payment wp-admin or uPress action approved,Keep repo-only until focused GSC export and owner approvals are complete

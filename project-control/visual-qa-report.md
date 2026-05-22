@@ -2,6 +2,21 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Criminal GSC Decision Maps
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/build-criminal-gsc-decision-map.mjs`.
+- TOOLING FIXED / VERIFIED LOCAL: updated `tools/gsc/run-criminal-gsc-export.ps1` so a full Criminal export also builds decision maps.
+- GENERATED / VERIFIED LOCAL / NOT FINAL: `reports/criminal-gsc-decision-map-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL / NOT FINAL: `reports/criminal-protected-url-decision-map-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL / NOT FINAL: `reports/criminal-cannibalization-decision-map-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL / NOT FINAL: `reports/criminal-gsc-decision-map-2026-05-22.json`.
+- CREATED / VERIFIED LOCAL: `project-control/criminal-gsc-decision-map-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/criminal-gsc-decision-map-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed and baseline generation produced `5` target rows, `20` protected/support/route-risk rows and `8` cannibalization/wrong-page rows.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local GSC tooling/reporting preparation only; no public UI changed.
+- NOT VERIFIED FINAL: current maps are baseline-only until owner-authorized focused Criminal GSC export runs.
+- BLOCKED: public screenshots remain pending until owner/legal/source approval, WordPress backup, approved CMS update and post-upload route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Criminal GSC Export Runner
 - TOOLING FIXED / VERIFIED LOCAL: created `tools/gsc/gsc-criminal-export.js`.
 - TOOLING FIXED / VERIFIED LOCAL: created `tools/gsc/run-criminal-gsc-export.ps1`.

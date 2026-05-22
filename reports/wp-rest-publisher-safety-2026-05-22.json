@@ -1,0 +1,82 @@
+[
+  {
+    "check_id": "WP-REST-PUBLISH-DRY-RUN-DEFAULT",
+    "scope": "publisher_execution",
+    "status": "VERIFIED",
+    "risk": "CRITICAL",
+    "evidence": "Publisher defaults to dry-run unless --publish is present.",
+    "next_step": "Keep publisher guarded behind explicit opt-in."
+  },
+  {
+    "check_id": "WP-REST-PUBLISH-BLOCKS-BEFORE-REQUEST",
+    "scope": "publisher_execution",
+    "status": "VERIFIED",
+    "risk": "CRITICAL",
+    "evidence": "Dry-run guard runs before the first WordPress REST lookup or write.",
+    "next_step": "Keep publisher guarded behind explicit opt-in."
+  },
+  {
+    "check_id": "WP-REST-PUBLISH-NO-HARDCODED-CREDS",
+    "scope": "credential_hygiene",
+    "status": "VERIFIED",
+    "risk": "CRITICAL",
+    "evidence": "Publisher no longer contains the previous machine-specific app-password file path.",
+    "next_step": "Keep publisher guarded behind explicit opt-in."
+  },
+  {
+    "check_id": "WP-REST-PUBLISH-ENV-CREDENTIAL",
+    "scope": "credential_hygiene",
+    "status": "VERIFIED",
+    "risk": "HIGH",
+    "evidence": "Publisher requires WP_APP_PASSWORD_PATH only when publishing is explicitly requested.",
+    "next_step": "Keep publisher guarded behind explicit opt-in."
+  },
+  {
+    "check_id": "WP-REST-PUBLISH-AUTH-DEFERRED",
+    "scope": "credential_hygiene",
+    "status": "VERIFIED",
+    "risk": "HIGH",
+    "evidence": "Authorization header is assembled lazily from the explicit credential file, not at module load.",
+    "next_step": "Keep publisher guarded behind explicit opt-in."
+  },
+  {
+    "check_id": "WP-REST-PUBLISH-CREDENTIAL-PREFLIGHT",
+    "scope": "credential_hygiene",
+    "status": "VERIFIED",
+    "risk": "HIGH",
+    "evidence": "Publish mode validates credentials once before any page upsert loop starts.",
+    "next_step": "Keep publisher guarded behind explicit opt-in."
+  },
+  {
+    "check_id": "WP-REST-PUBLISH-HELP-TEXT",
+    "scope": "operator_safety",
+    "status": "VERIFIED",
+    "risk": "MEDIUM",
+    "evidence": "Operator help documents dry-run default and required publish credentials.",
+    "next_step": "Keep publisher guarded behind explicit opt-in."
+  },
+  {
+    "check_id": "WP-REST-PUBLISH-DRY-RUN-RESULTS",
+    "scope": "operator_safety",
+    "status": "VERIFIED",
+    "risk": "MEDIUM",
+    "evidence": "Dry-run output returns structured per-page results without live writes.",
+    "next_step": "Keep publisher guarded behind explicit opt-in."
+  },
+  {
+    "check_id": "WP-REST-PUBLISH-ERROR-EXIT",
+    "scope": "operator_safety",
+    "status": "VERIFIED",
+    "risk": "MEDIUM",
+    "evidence": "Publisher exits non-zero on runtime failure.",
+    "next_step": "Keep publisher guarded behind explicit opt-in."
+  },
+  {
+    "check_id": "WP-REST-PUBLISH-TARGET-SITE",
+    "scope": "publisher_scope",
+    "status": "VERIFIED",
+    "risk": "MEDIUM",
+    "evidence": "Publisher target host remains explicit and reviewable.",
+    "next_step": "Keep publisher guarded behind explicit opt-in."
+  }
+]

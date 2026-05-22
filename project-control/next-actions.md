@@ -4,6 +4,23 @@
 
 ---
 
+### ACTION-WP-REST-PUBLISHER-SAFETY-001: Require explicit opt-in before priority-page publisher writes to WordPress
+**Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC CMS CHANGE THIS CYCLE
+**Why:** `reports/semrush/build-priority-pages.js` was introduced as a WP REST publisher for six priority cluster pages; repo scripts that can publish live pages must default to no-write behavior and must not contain machine-specific credential paths.
+**Actions:**
+1. DONE: changed `reports/semrush/build-priority-pages.js` so normal execution is dry-run only.
+2. DONE: added explicit `--publish` requirement before any WP REST lookup or write.
+3. DONE: removed the hardcoded local app-password JSON path.
+4. DONE: required `WP_APP_PASSWORD_PATH` for publish mode, pointing to a local credential file outside Git.
+5. DONE: added publish-mode credential preflight before the first page upsert loop.
+6. DONE: created `tools/check-wp-rest-publisher-safety.mjs`.
+7. DONE: created `project-control/wp-rest-publisher-safety-2026-05-22.md`.
+8. DONE: created `project-control/wp-rest-publisher-safety-2026-05-22.csv`.
+9. VERIFIED LOCAL: node syntax checks, default dry-run and publisher safety checker passed with `10/10 VERIFIED`.
+10. VERIFIED LOCAL: `--publish` without `WP_APP_PASSWORD_PATH` exits before a page loop/write.
+11. NOT LIVE VERIFIED: no live WordPress write, screenshot, GSC/GA4 action, redirect, canonical/noindex or sitemap action was executed.
+12. NEXT: if owner approves future publishing, capture rollback material first, run with `--publish` only from an authorized operator shell, then run live URL/content/schema/screenshot checks for all six pages.
+
 ### ACTION-LEAD-AREA-VOCABULARY-SAFETY-001: Centralize public lead-area options for forms, validation and routing
 **Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC CMS CHANGE
 **Why:** public lead forms, validation, classifier aliases, CRM labels and routing all depend on the same legal-area slug vocabulary; duplicated form option blocks increase the risk of misrouted leads and inconsistent reporting.

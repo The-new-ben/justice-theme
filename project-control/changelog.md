@@ -1,6 +1,23 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - WP REST publisher safety
+
+- UPDATED: `reports/semrush/build-priority-pages.js`.
+- CREATED: `tools/check-wp-rest-publisher-safety.mjs`.
+- CREATED: `project-control/wp-rest-publisher-safety-2026-05-22.md`.
+- CREATED: `project-control/wp-rest-publisher-safety-2026-05-22.csv`.
+- GENERATED: `reports/wp-rest-publisher-safety-2026-05-22.csv`.
+- GENERATED: `reports/wp-rest-publisher-safety-2026-05-22.json`.
+- FIXED: the six-page WP REST publisher now defaults to dry-run and requires explicit `--publish` for writes.
+- FIXED: removed the hardcoded machine-specific WordPress app-password path; publish mode now requires `WP_APP_PASSWORD_PATH` outside Git.
+- FIXED: publish mode preflights credentials before any page upsert loop starts.
+- VERIFIED LOCAL: `node --check reports/semrush/build-priority-pages.js`, `node --check tools/check-wp-rest-publisher-safety.mjs`, publisher dry-run and safety checker passed.
+- VERIFIED LOCAL: publisher safety checker returned `10/10 VERIFIED`.
+- VERIFIED LOCAL: `--publish` without `WP_APP_PASSWORD_PATH` exits before page loop/write.
+- NOT LIVE VERIFIED: no WordPress REST write, public page update, screenshot, wp-admin action, redirect, canonical/noindex, sitemap, GSC/GA4 action or uPress deployment was executed.
+- SAFETY: no public CMS content, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
 ## 2026-05-22 - Lead area vocabulary safety
 
 - UPDATED: `inc/lead-spam-guard.php`.

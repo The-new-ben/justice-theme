@@ -1,3 +1,19 @@
+# LATEST WORK STATUS - 2026-05-22 21:07 Asia/Jerusalem
+- WP REST PUBLISHER SAFETY: hardened the newly merged priority-page publisher so it cannot write to live WordPress on normal execution.
+- UPDATED: `reports/semrush/build-priority-pages.js`.
+- CREATED: `tools/check-wp-rest-publisher-safety.mjs`.
+- CREATED: `project-control/wp-rest-publisher-safety-2026-05-22.md`.
+- CREATED: `project-control/wp-rest-publisher-safety-2026-05-22.csv`.
+- GENERATED: `reports/wp-rest-publisher-safety-2026-05-22.csv`.
+- GENERATED: `reports/wp-rest-publisher-safety-2026-05-22.json`.
+- FIXED: publisher now defaults to dry-run; live publishing requires explicit `--publish`.
+- FIXED: removed the hardcoded machine-specific app-password path and requires `WP_APP_PASSWORD_PATH` outside Git for publish mode.
+- VERIFIED LOCAL: `node --check reports/semrush/build-priority-pages.js`, `node --check tools/check-wp-rest-publisher-safety.mjs`, `node tools/check-wp-rest-publisher-safety.mjs --reportDate=2026-05-22` and default publisher dry-run passed.
+- VERIFIED LOCAL: publisher safety checker returned `10/10 VERIFIED`.
+- VERIFIED LOCAL: `node reports/semrush/build-priority-pages.js --publish` exits before any page loop/write when `WP_APP_PASSWORD_PATH` is missing.
+- NOT LIVE VERIFIED: no WordPress REST write, wp-admin action, public page update, redirect, sitemap, GSC/GA4 action or screenshot was performed in this cycle.
+- SAFETY: no public CMS page body, database row, URL slug, redirect, canonical/noindex, taxonomy, sitemap, lawyer profile, live lead, CRM record, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 20:59 Asia/Jerusalem
 - LEAD AREA VOCABULARY SAFETY: advanced lead/CRM routing reliability by centralizing public lead-area options into one canonical helper and replacing duplicated option blocks in both public lead forms.
 - UPDATED: `inc/lead-spam-guard.php`.

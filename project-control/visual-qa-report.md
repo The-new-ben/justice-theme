@@ -2,6 +2,19 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 WP REST Publisher Safety
+- UPDATED / VERIFIED LOCAL: `reports/semrush/build-priority-pages.js`.
+- CREATED / VERIFIED LOCAL: `tools/check-wp-rest-publisher-safety.mjs`.
+- CREATED / VERIFIED PLANNING: `project-control/wp-rest-publisher-safety-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/wp-rest-publisher-safety-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/wp-rest-publisher-safety-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/wp-rest-publisher-safety-2026-05-22.json`.
+- VERIFIED LOCAL: node syntax checks passed, default publisher run produced only `DRY_RUN` rows, and publisher safety checker returned `10/10 VERIFIED`.
+- VERIFIED LOCAL: `--publish` without `WP_APP_PASSWORD_PATH` exits before a page loop/write.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because no public deployment or WordPress REST write happened in this cycle.
+- BLOCKED LIVE QA: if the six published pages are to remain live, operator must separately verify live HTTP status, rendered Hebrew text, H1/title, canonical/noindex state, internal links, schema and mobile screenshots.
+- SAFETY: no public page body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, live lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Lead Area Vocabulary Safety
 - UPDATED / VERIFIED LOCAL: `inc/lead-spam-guard.php`.
 - UPDATED / VERIFIED LOCAL: `template-parts/forms/lead-form.php`.

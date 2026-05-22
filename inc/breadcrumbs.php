@@ -355,6 +355,50 @@ function justice_theme_get_breadcrumb_items() {
 			'insurance-claim-dispute'      => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
 			// Personal injury
 			'personal-injury-israel'       => array( 'name' => 'נזקי גוף', 'url' => '/personal-injury-israel/' ),
+			'personal-injury-car-accident' => array( 'name' => 'נזקי גוף', 'url' => '/personal-injury-israel/' ),
+			'personal-injury-slip-fall'    => array( 'name' => 'נזקי גוף', 'url' => '/personal-injury-israel/' ),
+			// Immigration cluster
+			'immigration-lawyer-israel'    => array( 'name' => 'הגירה', 'url' => '/immigration-lawyer-israel/' ),
+			'immigration-lawyer-cost'      => array( 'name' => 'הגירה', 'url' => '/immigration-lawyer-israel/' ),
+			// Copyright / IP cluster
+			'copyright-infringement-israel' => array( 'name' => 'קניין רוחני', 'url' => '/copyright-infringement-israel/' ),
+			'trademark-registration-israel' => array( 'name' => 'קניין רוחני', 'url' => '/copyright-infringement-israel/' ),
+			// Corporate / contract cluster
+			'corporate-law-israel'         => array( 'name' => 'דיני חברות', 'url' => '/corporate-law-israel/' ),
+			'contract-law-israel'          => array( 'name' => 'דיני חוזים', 'url' => '/contract-law-israel/' ),
+			'startup-lawyer-israel'        => array( 'name' => 'דיני חברות', 'url' => '/corporate-law-israel/' ),
+			// Consumer / civil cluster
+			'internet-defamation-israel'   => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			'class-action-lawsuit'         => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			'debt-collection-israel'       => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			'writ-of-execution-israel'     => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			// Mediation / ADR
+			'mediation-israel'             => array( 'name' => 'גישור', 'url' => '/mediation-israel/' ),
+			// Family law batches 15-24
+			'child-abduction-hague'        => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'surrogacy-israel'             => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'adoption-israel-guide'        => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'divorce-pension-split'        => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'divorce-spousal-support'      => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'child-support-calculation'    => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'prenuptial-agreement-cost'    => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'restraining-order-violation'  => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'will-executor-israel'         => array( 'name' => 'ירושה וצוואות', 'url' => '/inheritance-lawyer/' ),
+			// Criminal batches 15-24
+			'criminal-record-israel'       => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'sexual-harassment-complaint'  => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			// Real estate batches 15-24
+			'real-estate-tax-israel'       => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			// Labor batches 15-24
+			'employment-contract-guide'    => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'workplace-safety-israel'      => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			// Mental health / disability
+			'mental-health-law-israel'     => array( 'name' => 'זכויות', 'url' => '/disability-rights-israel/' ),
+			'disability-rights-israel'     => array( 'name' => 'זכויות', 'url' => '/disability-rights-israel/' ),
+			// Legal aid / cost
+			'legal-aid-israel'             => array( 'name' => 'זכויות', 'url' => '/disability-rights-israel/' ),
+			'law-suit-cost-israel'         => array( 'name' => 'זכויות', 'url' => '/consumer-rights-israel/' ),
+			'medical-malpractice-cost'     => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

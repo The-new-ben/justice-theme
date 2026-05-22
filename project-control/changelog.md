@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family Law draft enhancement queue
+
+- CREATED: `project-control/family-law-draft-enhancement-queue-2026-05-22.md`.
+- CREATED: `project-control/family-law-draft-enhancement-queue-2026-05-22.csv`.
+- FIXED PLANNING: converted competitor gaps into exact draft/source targets for costs, process, document checklist, agreement/template policy, mediation, children, CTA, FAQ/schema, E-E-A-T, cluster structure, live repair and post-upload calculator backlog.
+- VERIFIED LOCAL: draft enhancement queue CSV parses with `12` rows.
+- BLOCKED OWNER WORDING: body-copy edits remain held until owner-approved wording exists for cost/process/document/agreement/CTA modules.
+- BLOCKED PUBLIC EXECUTION: Family/Divorce upload remains blocked by visible live defects, CMS rollback backup, focused GSC export, Maya route/schema verification and post-repair QA.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media/PDF asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 - Family Law competitor gap analysis
 
 - CREATED: `project-control/family-law-competitor-gap-analysis-2026-05-22.md`.

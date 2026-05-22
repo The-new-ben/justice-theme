@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Family Law Draft Enhancement Queue
+- CREATED / FIXED PLANNING: `project-control/family-law-draft-enhancement-queue-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-draft-enhancement-queue-2026-05-22.csv`.
+- FIXED PLANNING: competitor gaps are now mapped to exact Family/Divorce draft/source targets before any body-copy edit or upload.
+- VERIFIED LOCAL: queue CSV parses with `12` rows.
+- NOT SCREENSHOT VERIFIED: no desktop/mobile screenshots were captured because this was repo-only planning and no public repair/upload happened.
+- BLOCKED LIVE QA: Family/Divorce still needs owner wording approval, CMS rollback backup, visible live repair, focused GSC export, Maya route/schema verification and post-repair screenshots before upload.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media/PDF asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Family Law Competitor Gap Analysis
 - CREATED / VERIFIED RESEARCH: `project-control/family-law-competitor-gap-analysis-2026-05-22.md`.
 - CREATED / VERIFIED LOCAL: `project-control/family-law-competitor-gap-analysis-2026-05-22.csv`.

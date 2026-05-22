@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-FAMILY-LAW-DRAFT-ENHANCEMENT-QUEUE-001: Map Family/Divorce competitor gaps to draft edit queue
+**Status:** FIXED PLANNING / VERIFIED LOCAL / BLOCKED OWNER WORDING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the competitor gap packet identified practical additions, but the next safe step is a controlled draft-by-draft queue before anyone edits legal copy or uploads content.
+**Actions:**
+1. DONE: reviewed the Family Law competitor gap analysis and current Family/Divorce QA blockers.
+2. DONE: created `project-control/family-law-draft-enhancement-queue-2026-05-22.md`.
+3. DONE: created `project-control/family-law-draft-enhancement-queue-2026-05-22.csv`.
+4. FIXED PLANNING: mapped cost, process, document, agreement/template, mediation, children, CTA, FAQ/schema, E-E-A-T, structure, live repair and calculator backlog items to exact draft/source targets.
+5. VERIFIED LOCAL: queue CSV parses with `12` rows.
+6. BLOCKED OWNER WORDING: do not edit body copy until owner approves cost/process/document/agreement/CTA wording.
+7. BLOCKED PUBLIC EXECUTION: do not publish, repair, redirect, delete or change canonicals/noindex/sitemap/taxonomy from this queue.
+8. NEXT: after owner wording approval, edit the seven existing public-body drafts only, rerun `tools/check-family-divorce-public-bodies.mjs`, then update upload readiness for owner review.
+
 ### ACTION-FAMILY-LAW-COMPETITOR-GAP-001: Compare Family/Divorce cluster against current competitors
 **Status:** FIXED PLANNING / VERIFIED RESEARCH / VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
 **Why:** the Family/Divorce cluster is the first controlled upload candidate, but owner review needs a practical competitor gap matrix before upload decisions.

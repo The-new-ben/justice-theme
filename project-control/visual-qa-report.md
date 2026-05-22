@@ -2,6 +2,18 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Family Law Live Publish Safety Review
+- FIXED REPO SAFETY: `reports/semrush/publish-family-law-pages.js` defaults to dry-run mode and requires explicit live-write env vars before WordPress REST writes.
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-publish-safety-review-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-publish-safety-review-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed and dry run made no credential or network request.
+- VERIFIED LIVE READ-ONLY: checked `9` public URLs/resources.
+- VERIFIED LIVE: `/lawyer-divorce-guide-proceedings-costs-rights/`, `/divorce-agreement/`, `/divorce-lawyer/`, `/child-support/`, `/child-custody/` and `/divorce-mediation/` returned HTTP 200 with Hebrew rendering and no replacement characters detected.
+- BLOCKED LIVE: `/lawyer-divorce-guide-proceedings-costs-rights/` and `/divorce-lawyer/` are both indexable self-canonical divorce-lawyer pages.
+- BLOCKED LIVE: `/divorce-agreement/` exposes raw `justice_pdf_download` and `justice_contact_form` shortcodes; tested PDF upload paths returned 404.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was source/HTML read-only safety QA and no public UI was changed in this cycle.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Medical Malpractice Source / Legal Review Worksheet
 - CREATED / VERIFIED PLANNING: `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.md`.
 - CREATED / VERIFIED PLANNING: `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.csv`.

@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-22 16:43 Asia/Jerusalem
+- FAMILY LAW LIVE PUBLISH SAFETY REVIEW: hardened the Family Law REST publisher and documented live safety blockers caused by the already-public Family/Divorce pages.
+- FIXED REPO SAFETY: `reports/semrush/publish-family-law-pages.js` now defaults to dry-run mode and requires `ALLOW_WP_PUBLISH=YES` plus `WP_APP_PASSWORD_JSON` before any live WordPress write.
+- CREATED: `project-control/family-law-live-publish-safety-review-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-publish-safety-review-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check reports/semrush/publish-family-law-pages.js` passed.
+- VERIFIED LOCAL: dry run parsed the Family Law JSON and reported the two planned pages without reading credentials or making a network request.
+- VERIFIED LOCAL: live-write guard rejects `ALLOW_WP_PUBLISH=YES` when `WP_APP_PASSWORD_JSON` is missing, before any request can be made.
+- VERIFIED LIVE READ-ONLY: checked `9` public URLs/resources; the two published Family pages and the main support URLs return HTTP 200 with Hebrew rendering and no replacement characters detected.
+- VERIFIED LIVE CONFLICT: `/lawyer-divorce-guide-proceedings-costs-rights/` and `/divorce-lawyer/` are both live, index/follow and self-canonical, creating a high-priority divorce-lawyer cannibalization/URL-strategy blocker.
+- BLOCKED LIVE: `/divorce-agreement/` exposes raw `justice_pdf_download` and `justice_contact_form` shortcodes in public HTML; tested `divorce-agreement-template-2025.pdf` upload paths returned 404.
+- BLOCKED: no redirect, canonical/noindex, deletion, slug migration or further Family publish should run until owner URL decision, focused GSC export, shortcode/PDF repair and source/legal review are complete.
+- SAFETY: this cycle made repo-only safety/docs changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 16:27 Asia/Jerusalem
 - MEDICAL MALPRACTICE SOURCE / LEGAL REVIEW WORKSHEET: prepared the page-level review gate for the first Medical Malpractice upload-review set.
 - CREATED: `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.md`.

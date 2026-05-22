@@ -1,19 +1,47 @@
 /**
  * Publish family law pages from fixed JSON + inline divorce agreement content.
+ *
+ * Safety default: dry-run only. Live WordPress writes require:
+ *   ALLOW_WP_PUBLISH=YES
+ *   WP_APP_PASSWORD_JSON=/path/to/wp-app-password.json
  */
 const https = require('https');
 const fs = require('fs');
+const path = require('path');
 
-const creds = JSON.parse(fs.readFileSync('c:/Users/pro/justice/justice-theme/tools/gsc/wp-app-password.json', 'utf8'));
-const auth = Buffer.from(creds.username + ':' + creds.app_password).toString('base64');
+const DRY_RUN = process.env.ALLOW_WP_PUBLISH !== 'YES';
+const WORDPRESS_HOST = process.env.WP_HOST || 'jus-tice.co.il';
+const BASE_DIR = process.env.JUSTICE_THEME_DIR || process.cwd();
+const pagesPath = process.env.FAMILY_LAW_PAGES_JSON || path.join(BASE_DIR, 'reports', 'semrush', 'family-law-pages-fixed.json');
+const credsPath = process.env.WP_APP_PASSWORD_JSON;
+const publishStatus = process.env.WP_PAGE_STATUS || 'publish';
+
+let authHeader;
+
+function getAuthHeader() {
+  if (DRY_RUN) {
+    throw new Error('wpRequest called while DRY_RUN=true. Refusing network request.');
+  }
+  if (authHeader) return authHeader;
+  if (!credsPath) {
+    throw new Error('Refusing live publish: set WP_APP_PASSWORD_JSON and ALLOW_WP_PUBLISH=YES explicitly.');
+  }
+
+  const creds = JSON.parse(fs.readFileSync(credsPath, 'utf8'));
+  if (!creds.username || !creds.app_password) {
+    throw new Error('WP_APP_PASSWORD_JSON must contain username and app_password.');
+  }
+  authHeader = 'Basic ' + Buffer.from(creds.username + ':' + creds.app_password).toString('base64');
+  return authHeader;
+}
 
 function wpRequest(method, path, body) {
   return new Promise((resolve, reject) => {
     const bodyStr = body ? JSON.stringify(body) : null;
     const opts = {
-      hostname: 'jus-tice.co.il', port: 443, path, method,
+      hostname: WORDPRESS_HOST, port: 443, path, method,
       headers: Object.assign(
-        { 'Authorization': 'Basic ' + auth, 'Content-Type': 'application/json' },
+        { 'Authorization': getAuthHeader(), 'Content-Type': 'application/json' },
         bodyStr ? { 'Content-Length': Buffer.byteLength(bodyStr) } : {}
       )
     };
@@ -215,17 +243,27 @@ const DIVORCE_AGREEMENT_CONTENT = `<!-- wp:heading {"level":1} -->
 <!-- /wp:paragraph -->`;
 
 async function publishPage(slug, title, seoTitle, seoDesc, focusKw, content) {
-  console.log(`\n--- Publishing: ${slug} ---`);
-  const find = await wpRequest('GET', `/wp-json/wp/v2/pages?slug=${encodeURIComponent(slug)}&status=any&per_page=3`);
-  const existing = Array.isArray(find.body) ? find.body[0] : null;
-
   const payload = {
     title: seoTitle,
     slug,
     content,
-    status: 'publish',
+    status: publishStatus,
     meta: { seo_title: seoTitle, seo_description: seoDesc, pillar_keyword: focusKw },
   };
+
+  console.log(`\n--- ${DRY_RUN ? 'Dry run' : 'Publishing'}: ${slug} ---`);
+  console.log(`  Title: ${title}`);
+  console.log(`  Status: ${payload.status}`);
+  console.log(`  Focus keyword: ${focusKw}`);
+  console.log(`  Content length: ${content.length} chars`);
+
+  if (DRY_RUN) {
+    console.log(`  DRY_RUN: no WordPress credentials read and no network request made.`);
+    return { status: 'DRY_RUN', body: { link: `https://${WORDPRESS_HOST}/${slug}/` }, payload };
+  }
+
+  const find = await wpRequest('GET', `/wp-json/wp/v2/pages?slug=${encodeURIComponent(slug)}&status=any&per_page=3`);
+  const existing = Array.isArray(find.body) ? find.body[0] : null;
 
   let result;
   if (existing) {
@@ -240,7 +278,21 @@ async function publishPage(slug, title, seoTitle, seoDesc, focusKw, content) {
 }
 
 async function main() {
-  const pages = JSON.parse(fs.readFileSync('c:/Users/pro/justice/justice-theme/reports/semrush/family-law-pages-fixed.json', 'utf8'));
+  if (!DRY_RUN && !credsPath) {
+    throw new Error('Refusing live publish: set WP_APP_PASSWORD_JSON and ALLOW_WP_PUBLISH=YES explicitly.');
+  }
+
+  console.log(`Mode: ${DRY_RUN ? 'DRY_RUN' : 'LIVE_WRITE'}`);
+  console.log(`Pages JSON: ${pagesPath}`);
+  if (!DRY_RUN) {
+    console.log(`WordPress host: ${WORDPRESS_HOST}`);
+    console.log(`Credential file: ${credsPath}`);
+  }
+
+  const pages = JSON.parse(fs.readFileSync(pagesPath, 'utf8'));
+  if (!Array.isArray(pages) || !pages[0]) {
+    throw new Error('Family Law pages JSON must be an array with at least one page.');
+  }
   
   // Publish divorce pillar (page 1 from fixed JSON)
   const p1 = pages[0];
@@ -264,7 +316,7 @@ async function main() {
     DIVORCE_AGREEMENT_CONTENT
   );
 
-  console.log('\n✅ All pages published.');
+  console.log(`\nDone. ${DRY_RUN ? 'Dry-run completed with no public changes.' : 'Live WordPress writes completed.'}`);
 }
 
 main().catch(console.error);

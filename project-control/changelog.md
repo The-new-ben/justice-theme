@@ -1,6 +1,21 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family Law live publish safety review
+
+- FIXED REPO SAFETY: `reports/semrush/publish-family-law-pages.js` now defaults to dry-run mode.
+- FIXED REPO SAFETY: live WordPress writes require `ALLOW_WP_PUBLISH=YES` and `WP_APP_PASSWORD_JSON`.
+- FIXED REPO SAFETY: Family Law pages JSON path is now env/repo-relative instead of a hardcoded user-machine path.
+- CREATED: `project-control/family-law-live-publish-safety-review-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-publish-safety-review-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed.
+- VERIFIED LOCAL: dry run parsed the Family Law JSON and reported the two planned pages without reading credentials or making a network request.
+- VERIFIED LOCAL: live-write guard rejects `ALLOW_WP_PUBLISH=YES` when `WP_APP_PASSWORD_JSON` is missing, before any request can be made.
+- VERIFIED LIVE READ-ONLY: checked `9` public URLs/resources for the already-live Family/Divorce pages and their support/PDF targets.
+- VERIFIED LIVE CONFLICT: `/lawyer-divorce-guide-proceedings-costs-rights/` and `/divorce-lawyer/` are both live, index/follow and self-canonical, so divorce-lawyer URL/cannibalization remains blocked.
+- BLOCKED LIVE: `/divorce-agreement/` exposes raw `justice_pdf_download` and `justice_contact_form` shortcodes; tested PDF upload paths return 404.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Medical Malpractice source/legal review worksheet
 
 - CREATED: `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.md`.

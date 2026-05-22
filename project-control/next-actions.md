@@ -4,6 +4,22 @@
 
 ---
 
+### ACTION-FAMILY-LAW-LIVE-PUBLISH-SAFETY-001: Harden Family Law publisher and isolate live blockers
+**Status:** COMPLETED / FIXED REPO SAFETY / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / PUBLIC EXECUTION BLOCKED
+**Why:** A recent Family Law publishing artifact can create or update production WordPress pages and the live site now has two indexable divorce-lawyer URLs plus a divorce-agreement page with broken public shortcodes. This must be controlled before more cluster upload work.
+**Actions:**
+1. DONE: hardened `reports/semrush/publish-family-law-pages.js` so normal execution is dry-run only.
+2. DONE: live writes now require `ALLOW_WP_PUBLISH=YES` and `WP_APP_PASSWORD_JSON`.
+3. DONE: replaced hardcoded user-machine paths with repo-relative/env-driven paths.
+4. DONE: created `project-control/family-law-live-publish-safety-review-2026-05-22.md`.
+5. DONE: created `project-control/family-law-live-publish-safety-review-2026-05-22.csv`.
+6. VERIFIED LOCAL: Node syntax check passed.
+7. VERIFIED LOCAL: dry run reported the two Family pages without reading credentials or making a network request.
+8. VERIFIED LIVE READ-ONLY: `9` public URLs/resources were checked.
+9. BLOCKED: `/lawyer-divorce-guide-proceedings-costs-rights/` and `/divorce-lawyer/` are both live, indexable and self-canonical.
+10. BLOCKED: `/divorce-agreement/` exposes raw shortcode output and the referenced PDF asset was not found at tested upload paths.
+11. NEXT: owner decides the divorce-lawyer canonical URL strategy, then run focused GSC export before any redirect/canonical/noindex/slug action; separately repair the divorce-agreement shortcode/PDF issue before treating the page as final.
+
 ### ACTION-MEDICAL-MALPRACTICE-SOURCE-LEGAL-WORKSHEET-001: Prepare page-level source/legal/privacy review gate
 **Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER LEGAL SOURCE REVIEW / EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** The Medical Malpractice metadata package needed a page-level source/legal/privacy worksheet before any upload approval. This reduces the risk of publishing unsupported medical causation, deadline, fee, expert-opinion, birth/pregnancy or sensitive health-data claims.

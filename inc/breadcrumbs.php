@@ -435,6 +435,12 @@ function justice_theme_get_breadcrumb_items() {
 			'child-welfare-law-israel'     => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'divorce-financial-planning'   => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'employment-contract-termination' => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			// Batch 34
+			'real-estate-developer-defect' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'criminal-lawyer-hadera'       => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'family-law-hadera'            => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'copyright-music-israel'       => array( 'name' => 'קניין רוחני', 'url' => '/intellectual-property-israel/' ),
+			'startup-investment-lawyer'    => array( 'name' => 'דיני חברות', 'url' => '/corporate-law-israel/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

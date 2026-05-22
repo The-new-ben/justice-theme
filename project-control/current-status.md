@@ -1,3 +1,18 @@
+# LATEST WORK STATUS - 2026-05-22 21:28 Asia/Jerusalem
+- PRIORITY PAGES H1/REST DIAGNOSTICS: expanded the read-only priority-page QA checker so blocked rows now show duplicate H1 source/class/context and public WP REST page/post visibility.
+- UPDATED: `tools/check-priority-pages-live-readonly.mjs`.
+- UPDATED: `project-control/priority-pages-live-readonly-2026-05-22.md`.
+- UPDATED: `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+- UPDATED: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+- UPDATED: `reports/priority-pages-live-readonly-2026-05-22.json`.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` and `/plea-bargain/` still return HTTP `200`, but both have two H1s: one template title H1 with class `single-article__title` and one body/content H1 with the same text.
+- BLOCKED LIVE READ-ONLY: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` still return HTTP `404`, missing canonical and `noindex`.
+- VERIFIED LIVE READ-ONLY: public REST checks return `200/0` for both `wp/v2/pages?slug=...` and `wp/v2/posts?slug=...` on all six target slugs, so the objects are not visible through normal public page/post REST lookup.
+- VERIFIED LOCAL: `node --check tools/check-priority-pages-live-readonly.mjs` and `node tools/check-priority-pages-live-readonly.mjs --reportDate=2026-05-22` passed.
+- VERIFIED LIVE READ-ONLY: checker result remains `0/6 VERIFIED`; this is a QA finding, not a script failure.
+- NOT SCREENSHOT VERIFIED: screenshots were not captured because Playwright is not installed in this repo environment.
+- SAFETY: no public CMS page body, database row, URL slug, redirect, canonical/noindex, taxonomy, sitemap, lawyer profile, lead, CRM record, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 21:18 Asia/Jerusalem
 - PRIORITY PAGES LIVE READ-ONLY QA: checked the six pages from the recent WP REST priority-page publish commit against the public site without making any public changes.
 - CREATED: `tools/check-priority-pages-live-readonly.mjs`.

@@ -4,6 +4,23 @@
 
 ---
 
+### ACTION-PRIORITY-PAGES-H1-REST-DIAGNOSTICS-001: Add exact duplicate-H1 and REST visibility diagnostics
+**Status:** FIXED / VERIFIED LIVE READ-ONLY / BLOCKED PUBLIC QA / NO PUBLIC CMS CHANGE
+**Why:** the first post-publish QA showed duplicate H1s and four 404s, but repair needs exact evidence about whether the duplicate H1 is template/body content and whether the six slugs exist through normal public WordPress REST page/post lookup.
+**Actions:**
+1. DONE: updated `tools/check-priority-pages-live-readonly.mjs` with H1 source, class, id and context extraction.
+2. DONE: added read-only public REST probes for `wp/v2/pages?slug=...` and `wp/v2/posts?slug=...`.
+3. DONE: regenerated `project-control/priority-pages-live-readonly-2026-05-22.md`.
+4. DONE: regenerated `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+5. GENERATED: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+6. GENERATED: `reports/priority-pages-live-readonly-2026-05-22.json`.
+7. VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` and `/plea-bargain/` each have one template H1 with class `single-article__title` and one duplicate body/content H1.
+8. VERIFIED LIVE READ-ONLY: all six target slugs return `200/0` from public `wp/v2/pages` and `200/0` from public `wp/v2/posts`.
+9. BLOCKED LIVE READ-ONLY: the four missing priority slugs still return `404`, missing canonical and `noindex`.
+10. VERIFIED LOCAL: node syntax and live read-only checker passed; checker output remains `0/6 VERIFIED`.
+11. NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+12. NEXT: in wp-admin, first identify the actual content type/source for the two HTTP `200` URLs and the four missing slugs, then capture rollback material before repairing duplicate body H1s or restoring missing objects.
+
 ### ACTION-PRIORITY-PAGES-LIVE-READONLY-QA-001: Verify six recently published priority pages
 **Status:** VERIFIED LIVE READ-ONLY / BLOCKED PUBLIC QA / NO PUBLIC CMS CHANGE
 **Why:** commit `c2c317f` reported six priority cluster pages published via WP REST API; before treating them as complete, the public URLs need read-only verification for status, H1, canonical/noindex, internal links, schema and encoding.

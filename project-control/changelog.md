@@ -1,6 +1,22 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Priority pages H1 and REST diagnostics
+
+- UPDATED: `tools/check-priority-pages-live-readonly.mjs`.
+- UPDATED: `project-control/priority-pages-live-readonly-2026-05-22.md`.
+- UPDATED: `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+- UPDATED: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+- UPDATED: `reports/priority-pages-live-readonly-2026-05-22.json`.
+- FIXED: live read-only checker now captures duplicate H1 source text, class, id and nearby context.
+- FIXED: live read-only checker now probes public `wp/v2/pages` and `wp/v2/posts` for each target slug.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` and `/plea-bargain/` each have a template H1 plus a duplicate body/content H1.
+- VERIFIED LIVE READ-ONLY: all six target slugs return `200/0` through public `wp/v2/pages` and `200/0` through public `wp/v2/posts`.
+- BLOCKED LIVE READ-ONLY: four target slugs still return HTTP `404` with missing canonical and `noindex`.
+- VERIFIED LOCAL: `node --check tools/check-priority-pages-live-readonly.mjs`, `node tools/check-priority-pages-live-readonly.mjs --reportDate=2026-05-22` and generated CSV/JSON inspection passed.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+- SAFETY: no public CMS content, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
 ## 2026-05-22 - Priority pages live read-only QA
 
 - CREATED: `tools/check-priority-pages-live-readonly.mjs`.

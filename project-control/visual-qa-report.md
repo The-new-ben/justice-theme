@@ -2,6 +2,20 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Priority Pages H1/REST Diagnostics
+- UPDATED / VERIFIED LOCAL: `tools/check-priority-pages-live-readonly.mjs`.
+- UPDATED / VERIFIED LIVE READ-ONLY: `project-control/priority-pages-live-readonly-2026-05-22.md`.
+- UPDATED / VERIFIED LIVE READ-ONLY: `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/priority-pages-live-readonly-2026-05-22.json`.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` and `/plea-bargain/` each have duplicate H1s from template title plus body/content heading.
+- VERIFIED LIVE READ-ONLY: the duplicate template H1 uses class `single-article__title`; the second H1 has no class/id and appears inside the article body content.
+- BLOCKED LIVE QA: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` still return HTTP `404`, have no canonical and expose `noindex`.
+- VERIFIED LIVE READ-ONLY: all six target slugs return `200/0` from both public `wp/v2/pages` and public `wp/v2/posts`.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+- NEXT VISUAL QA: after wp-admin source identification and rollback capture, repair duplicate body H1s/restored slugs, then capture desktop/mobile screenshots for all six pages.
+- SAFETY: no public page body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Priority Pages Live Read-Only QA
 - CREATED / VERIFIED LOCAL: `tools/check-priority-pages-live-readonly.mjs`.
 - CREATED / VERIFIED PLANNING: `project-control/priority-pages-live-readonly-2026-05-22.md`.

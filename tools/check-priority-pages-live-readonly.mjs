@@ -125,6 +125,39 @@ function extractAllTags(html, tag) {
     .filter(Boolean);
 }
 
+function pickAttribute(openTag, name) {
+  const safeName = name.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+  const match = String(openTag || '').match(new RegExp(`\\b${safeName}=["']([^"']*)["']`, 'i'));
+  return match ? decodeEntities(match[1]) : '';
+}
+
+function compactHtmlContext(html, index, length) {
+  const start = Math.max(0, index - 220);
+  const end = Math.min(html.length, index + length + 220);
+  let snippet = html.slice(start, end);
+  const firstClose = snippet.indexOf('>');
+  const firstOpen = snippet.indexOf('<');
+  if (start > 0 && firstClose !== -1 && (firstOpen === -1 || firstClose < firstOpen)) {
+    snippet = snippet.slice(firstClose + 1);
+  }
+  return stripTags(snippet).replace(/<[^>]*$/, '').slice(0, 360);
+}
+
+function extractAllTagDetails(html, tag) {
+  return [...html.matchAll(new RegExp(`<${tag}\\b([^>]*)>([\\s\\S]*?)<\\/${tag}>`, 'gi'))]
+    .map((match) => {
+      const openTag = `<${tag}${match[1] || ''}>`;
+      const text = stripTags(match[2]);
+      return {
+        text,
+        className: pickAttribute(openTag, 'class'),
+        id: pickAttribute(openTag, 'id'),
+        context: compactHtmlContext(html, match.index || 0, match[0].length),
+      };
+    })
+    .filter((detail) => detail.text || detail.className || detail.id);
+}
+
 function extractCanonical(html) {
   const match = html.match(/<link[^>]+rel=["']canonical["'][^>]+href=["']([^"']+)["']/i)
     || html.match(/<link[^>]+href=["']([^"']+)["'][^>]+rel=["']canonical["']/i);
@@ -197,6 +230,16 @@ function mojibakeHits(html) {
   return markers.filter((marker) => html.includes(marker));
 }
 
+function stableMojibakeHits(html) {
+  const markers = [
+    { label: 'replacement_character', pattern: /\uFFFD/ },
+    { label: 'latin1_misdecoded_hebrew_x', pattern: /\u00D7[\u0080-\u00FF\u2010-\u202F]/ },
+    { label: 'latin1_misdecoded_hebrew_y', pattern: /\u00D6[\u0080-\u00FF\u2010-\u202F]/ },
+    { label: 'html_entity_replacement', pattern: /&#65533;|&amp;#65533;/i },
+  ];
+  return markers.filter((marker) => marker.pattern.test(html)).map((marker) => marker.label);
+}
+
 function hebrewCharacterCount(value) {
   return (String(value || '').match(/[\u0590-\u05FF]/g) || []).length;
 }
@@ -217,7 +260,7 @@ function writeText(filePath, text) {
   writeFileSync(filePath, text, 'utf8');
 }
 
-async function fetchWithTimeout(url) {
+async function fetchWithTimeout(url, accept = 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8') {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), TIMEOUT_MS);
   try {
@@ -226,7 +269,7 @@ async function fetchWithTimeout(url) {
       signal: controller.signal,
       headers: {
         'User-Agent': 'Jus-Tice-Priority-Pages-Live-Readonly-QA/1.0',
-        Accept: 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+        Accept: accept,
         'Cache-Control': 'no-cache',
       },
     });
@@ -235,24 +278,74 @@ async function fetchWithTimeout(url) {
   }
 }
 
+function slugFromPath(inputPath) {
+  return String(inputPath || '').replace(/^\/+|\/+$/g, '').split('/').filter(Boolean).pop() || '';
+}
+
+async function inspectRestCollection(baseUrl, collection, slug) {
+  const url = new URL(`/wp-json/wp/v2/${collection}`, baseUrl);
+  url.searchParams.set('slug', slug);
+  url.searchParams.set('_fields', 'id,slug,status,link,title');
+
+  try {
+    const response = await fetchWithTimeout(url.toString(), 'application/json,*/*;q=0.8');
+    const body = await response.text();
+    let data = null;
+    try {
+      data = JSON.parse(body);
+    } catch {
+      return {
+        status: response.status,
+        count: '',
+        ids: '',
+        links: '',
+        issue: `rest_${collection}_unparseable_json`,
+      };
+    }
+
+    const items = Array.isArray(data) ? data : [];
+    return {
+      status: response.status,
+      count: items.length,
+      ids: items.map((item) => item.id).filter(Boolean).join(' | '),
+      links: items.map((item) => item.link).filter(Boolean).join(' | '),
+      issue: response.status === 200 ? '' : `rest_${collection}_http_${response.status}`,
+    };
+  } catch (error) {
+    return {
+      status: 0,
+      count: '',
+      ids: '',
+      links: '',
+      issue: `rest_${collection}_fetch_error_${error.name || 'unknown'}`,
+    };
+  }
+}
+
 async function inspectPage(baseUrl, page) {
   const targetUrl = absoluteUrl(baseUrl, page.path);
+  const slug = slugFromPath(page.path);
   const issues = [];
 
   try {
-    const response = await fetchWithTimeout(targetUrl);
+    const [response, restPages, restPosts] = await Promise.all([
+      fetchWithTimeout(targetUrl),
+      inspectRestCollection(baseUrl, 'pages', slug),
+      inspectRestCollection(baseUrl, 'posts', slug),
+    ]);
     const contentType = response.headers.get('content-type') || '';
     const html = contentType.toLowerCase().includes('text/html') ? await response.text() : '';
     const visibleText = stripTags(html);
     const title = extractTag(html, 'title');
-    const h1Texts = extractAllTags(html, 'h1');
+    const h1Details = extractAllTagDetails(html, 'h1');
+    const h1Texts = h1Details.map((detail) => detail.text).filter(Boolean);
     const canonical = extractCanonical(html);
     const robots = extractRobots(html);
     const hrefPaths = extractHrefs(html).map((href) => normalizePathFromHref(baseUrl, href)).filter(Boolean);
     const missingPillarLinks = page.expectedPillarLinks.filter((linkPath) => !hrefPaths.includes(linkPath));
     const missingTerms = page.expectedTerms.filter((term) => !visibleText.includes(term) && !title.includes(term));
     const schemaTypes = jsonLdTypes(html);
-    const mojibake = mojibakeHits(html);
+    const mojibake = stableMojibakeHits(html);
     const hebrewChars = hebrewCharacterCount(visibleText);
     const expectedCanonical = absoluteUrl(baseUrl, page.path);
     const contentChecksEligible = response.status === 200 && contentType.toLowerCase().includes('text/html');
@@ -271,6 +364,11 @@ async function inspectPage(baseUrl, page) {
     if (contentChecksEligible && !schemaTypes.some((type) => ['Article', 'WebPage', 'NewsArticle', 'BlogPosting'].includes(type))) {
       issues.push('missing_page_or_article_jsonld');
     }
+    if (restPages.issue) issues.push(restPages.issue);
+    if (restPosts.issue) issues.push(restPosts.issue);
+    if (restPages.status === 200 && restPosts.status === 200 && !Number(restPages.count) && !Number(restPosts.count)) {
+      issues.push('public_rest_empty_pages_posts');
+    }
 
     return {
       check_id: page.id,
@@ -285,8 +383,18 @@ async function inspectPage(baseUrl, page) {
       title,
       h1_count: h1Texts.length,
       h1_texts: h1Texts.join(' | '),
+      h1_sources: h1Details.map((detail) => `${detail.text || '-'} [class=${detail.className || '-'} id=${detail.id || '-'}]`).join(' | '),
+      h1_contexts: h1Details.map((detail) => detail.context).filter(Boolean).join(' | '),
       canonical,
       robots,
+      rest_pages_status: restPages.status,
+      rest_pages_count: restPages.count,
+      rest_pages_ids: restPages.ids,
+      rest_pages_links: restPages.links,
+      rest_posts_status: restPosts.status,
+      rest_posts_count: restPosts.count,
+      rest_posts_ids: restPosts.ids,
+      rest_posts_links: restPosts.links,
       expected_pillar_links: page.expectedPillarLinks.join(' | '),
       missing_pillar_links: missingPillarLinks.join(' | '),
       expected_terms: page.expectedTerms.join(' | '),
@@ -314,8 +422,18 @@ async function inspectPage(baseUrl, page) {
       title: '',
       h1_count: '',
       h1_texts: '',
+      h1_sources: '',
+      h1_contexts: '',
       canonical: '',
       robots: '',
+      rest_pages_status: '',
+      rest_pages_count: '',
+      rest_pages_ids: '',
+      rest_pages_links: '',
+      rest_posts_status: '',
+      rest_posts_count: '',
+      rest_posts_ids: '',
+      rest_posts_links: '',
       expected_pillar_links: page.expectedPillarLinks.join(' | '),
       missing_pillar_links: page.expectedPillarLinks.join(' | '),
       expected_terms: page.expectedTerms.join(' | '),
@@ -341,6 +459,7 @@ function buildSummary(rows) {
     noindex_pages: rows.filter((row) => String(row.robots).includes('noindex')).length,
     h1_issue_pages: rows.filter((row) => Number(row.h1_count) !== 1).length,
     mojibake_pages: rows.filter((row) => row.mojibake_markers).length,
+    public_rest_empty_pages_posts: rows.filter((row) => Number(row.rest_pages_count) === 0 && Number(row.rest_posts_count) === 0).length,
     public_change_status: 'NO_PUBLIC_CHANGES_READ_ONLY_LIVE_QA',
   };
 }
@@ -359,6 +478,7 @@ function buildMarkdown(reportDate, baseUrl, rows, summary) {
     `- H1 ISSUE PAGES: ${summary.h1_issue_pages}.`,
     `- NOINDEX PAGES: ${summary.noindex_pages}.`,
     `- MOJIBAKE PAGES: ${summary.mojibake_pages}.`,
+    `- PUBLIC REST EMPTY PAGES/POSTS: ${summary.public_rest_empty_pages_posts}/${summary.total_pages}.`,
     '- SCREENSHOTS: NOT CAPTURED because Playwright is not installed in this repo environment.',
     '- SAFETY: no CMS write, redirect, canonical/noindex, sitemap, taxonomy, media, CRM, wp-admin or uPress action was made.',
     '',
@@ -370,6 +490,32 @@ function buildMarkdown(reportDate, baseUrl, rows, summary) {
 
   rows.forEach((row) => {
     lines.push(`| ${row.target_path} | ${row.status} | ${row.http_status} | ${row.h1_count || '-'} | ${row.issues.replace(/\|/g, '/') || '-'} |`);
+  });
+
+  lines.push(
+    '',
+    '## Duplicate H1 Diagnostics',
+    '',
+    '| Page | H1 Sources | H1 Contexts |',
+    '| --- | --- | --- |'
+  );
+
+  rows
+    .filter((row) => Number(row.h1_count) !== 1)
+    .forEach((row) => {
+      lines.push(`| ${row.target_path} | ${(row.h1_sources || '-').replace(/\|/g, '/')} | ${(row.h1_contexts || '-').replace(/\|/g, '/')} |`);
+    });
+
+  lines.push(
+    '',
+    '## Public REST Visibility',
+    '',
+    '| Page | wp/v2/pages | Page IDs | wp/v2/posts | Post IDs |',
+    '| --- | --- | --- | --- | --- |'
+  );
+
+  rows.forEach((row) => {
+    lines.push(`| ${row.target_path} | ${row.rest_pages_status}/${row.rest_pages_count} | ${row.rest_pages_ids || '-'} | ${row.rest_posts_status}/${row.rest_posts_count} | ${row.rest_posts_ids || '-'} |`);
   });
 
   lines.push(
@@ -407,8 +553,18 @@ async function main() {
     'title',
     'h1_count',
     'h1_texts',
+    'h1_sources',
+    'h1_contexts',
     'canonical',
     'robots',
+    'rest_pages_status',
+    'rest_pages_count',
+    'rest_pages_ids',
+    'rest_pages_links',
+    'rest_posts_status',
+    'rest_posts_count',
+    'rest_posts_ids',
+    'rest_posts_links',
     'expected_pillar_links',
     'missing_pillar_links',
     'expected_terms',

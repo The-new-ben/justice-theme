@@ -1,0 +1,117 @@
+{
+  "summary": {
+    "report_date": "2026-05-22",
+    "overall_status": "FIXED / VERIFIED LOCAL / BLOCKED LIVE QA / NO PUBLIC CMS CHANGE",
+    "total_checks": 13,
+    "fixed_rows": 1,
+    "verified_rows": 12,
+    "blocked_rows": 1,
+    "not_verified_rows": 1
+  },
+  "checks": [
+    {
+      "check_id": "MAYA-MINI-001",
+      "scope": "single lawyer profile public gate",
+      "status": "VERIFIED LOCAL",
+      "risk": "Unapproved, seed or demo lawyer profiles must not render as public mini-sites.",
+      "evidence": "single-justice_lawyer.php blocks unapproved public requests with 404 handling before template output.",
+      "next_step": "Keep this guard in place before any profile publishing or route repair."
+    },
+    {
+      "check_id": "MAYA-MINI-002",
+      "scope": "Maya related-article slug resolution",
+      "status": "FIXED / VERIFIED LOCAL",
+      "risk": "Maya articles can fail to attach if the profile still has a Hebrew legacy slug.",
+      "evidence": "single-justice_lawyer.php now adds the shared authority person slug into related article lookup.",
+      "next_step": "After deployment, verify Maya profile related articles include content connected to advocate-maya-rotenberg."
+    },
+    {
+      "check_id": "MAYA-MINI-003",
+      "scope": "connected lawyer article query",
+      "status": "VERIFIED LOCAL",
+      "risk": "The mini-site needs a deterministic CMS field connection to supporting articles.",
+      "evidence": "single-justice_lawyer.php queries published articles by connected_lawyer_slug, including backtick-wrapped values.",
+      "next_step": "Keep the connected_lawyer_slug field populated on approved supporting articles."
+    },
+    {
+      "check_id": "MAYA-MINI-004",
+      "scope": "no fake ratings or recommendations",
+      "status": "VERIFIED LOCAL",
+      "risk": "Ratings, reviews and testimonials must not be invented for authority or conversion.",
+      "evidence": "single-justice_lawyer.php shows ratings/recommendations only after explicit CMS review signals and real counts.",
+      "next_step": "Before publishing, confirm Maya has approved review/recommendation data or leave those modules empty."
+    },
+    {
+      "check_id": "MAYA-MINI-005",
+      "scope": "profile view tracking gate",
+      "status": "VERIFIED LOCAL",
+      "risk": "View counters must not inflate during QA, crawls or logged-in editing.",
+      "evidence": "single-justice_lawyer.php keeps profile view tracking disabled by default and excludes bots/logged-in/admin-like views.",
+      "next_step": "Only enable tracking after live QA and analytics expectations are defined."
+    },
+    {
+      "check_id": "MAYA-MINI-006",
+      "scope": "lead form routing and spam guards",
+      "status": "VERIFIED LOCAL",
+      "risk": "Mini-site leads must route to the profile while retaining spam and attribution controls.",
+      "evidence": "single-justice_lawyer.php includes assigned_lawyer_id, nonce, spam fields and attribution fields in the inquiry form.",
+      "next_step": "After deploy, submit one controlled test lead only in an approved staging/live QA window."
+    },
+    {
+      "check_id": "MAYA-MINI-007",
+      "scope": "lawyer archive public filtering",
+      "status": "VERIFIED LOCAL",
+      "risk": "The public lawyer directory must not list unapproved or seed profiles.",
+      "evidence": "archive-justice_lawyer.php limits public directory output to approved lawyer IDs.",
+      "next_step": "After deploy, confirm the directory excludes seed/demo lawyers and includes only approved profiles."
+    },
+    {
+      "check_id": "MAYA-MINI-008",
+      "scope": "public REST output guards",
+      "status": "VERIFIED LOCAL",
+      "risk": "REST endpoints must not leak private lawyer meta or expose unapproved profiles.",
+      "evidence": "inc/lawyer-rest-guards.php filters collections, blocks unapproved item reads and strips sensitive public response fields.",
+      "next_step": "After deploy, read-only check anonymous REST for Maya and one unapproved profile ID."
+    },
+    {
+      "check_id": "MAYA-MINI-009",
+      "scope": "Attorney and Person schema gates",
+      "status": "VERIFIED LOCAL",
+      "risk": "Schema should strengthen verified authority without creating schema for unapproved profiles.",
+      "evidence": "inc/schema.php gates Attorney/Person schema behind public approval and inc/authority.php contains the Maya authority registry entry.",
+      "next_step": "After deploy, inspect JSON-LD on /lawyers/advocate-maya-rotenberg/ and run Rich Results validation."
+    },
+    {
+      "check_id": "MAYA-MINI-010",
+      "scope": "Maya slug/profile migrations are opt-in",
+      "status": "VERIFIED LOCAL",
+      "risk": "Live profile data migrations must not run automatically without owner approval.",
+      "evidence": "inc/live-migrations.php keeps Maya slug, mini-site and source bootstraps behind false-by-default filters.",
+      "next_step": "Do not enable these filters until owner approves the exact live migration step and rollback capture exists."
+    },
+    {
+      "check_id": "MAYA-MINI-011",
+      "scope": "Maya identity helper",
+      "status": "VERIFIED LOCAL",
+      "risk": "Maya profile lookup must tolerate legacy Hebrew slugs during the transition.",
+      "evidence": "inc/template-tags.php can resolve Maya by canonical slug, legacy Hebrew slugs and title search before public approval checks.",
+      "next_step": "Use this helper for route/schema/article connections instead of adding new one-off Maya matchers."
+    },
+    {
+      "check_id": "MAYA-MINI-012",
+      "scope": "public live profile verification",
+      "status": "BLOCKED",
+      "risk": "The public Maya route cannot be treated as upload-ready until live redirect/cache behavior is confirmed.",
+      "evidence": "Existing authority gate records NOT LIVE VERIFIED and calls out the Maya redirect loop/live route check.",
+      "next_step": "After uPress pull/deploy/cache clear, open /lawyers/advocate-maya-rotenberg/ and verify HTTP status, canonical, robots, schema and visible content."
+    },
+    {
+      "check_id": "MAYA-MINI-013",
+      "scope": "visual screenshots",
+      "status": "NOT VERIFIED",
+      "risk": "Premium visual QA still needs rendered desktop/mobile evidence after deploy.",
+      "evidence": "visual-qa-report.md still requires Maya public profile screenshots after deployment/live route repair.",
+      "next_step": "Capture desktop/mobile screenshots after the live route is fixed; do not rely only on code inspection."
+    }
+  ]
+}

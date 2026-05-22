@@ -128,7 +128,10 @@ $social_links = array_filter(
 );
 
 $lawyer_profile_slug      = get_post_field( 'post_name', $lawyer_id );
-$connected_article_slugs = array_filter( array( $lawyer_profile_slug ) );
+$authority_person_slug    = function_exists( 'justice_theme_authority_verified_person_slug_for_post' )
+	? justice_theme_authority_verified_person_slug_for_post( $lawyer_id )
+	: '';
+$connected_article_slugs = array_filter( array( $lawyer_profile_slug, $authority_person_slug ) );
 
 if ( false !== mb_strpos( get_the_title( $lawyer_id ), 'מאיה' ) && false !== mb_strpos( get_the_title( $lawyer_id ), 'רוטנברג' ) ) {
 	$connected_article_slugs[] = 'advocate-maya-rotenberg';

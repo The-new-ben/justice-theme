@@ -1,6 +1,20 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Maya lawyer mini-site readiness
+
+- UPDATED: `single-justice_lawyer.php`.
+- CREATED: `tools/check-maya-lawyer-mini-site-readiness.mjs`.
+- CREATED: `project-control/maya-lawyer-mini-site-readiness-2026-05-22.md`.
+- CREATED: `project-control/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+- GENERATED: `reports/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+- GENERATED: `reports/maya-lawyer-mini-site-readiness-2026-05-22.json`.
+- FIXED: related-article lookup on lawyer mini-sites now includes the shared authority person slug, so Maya Rotenberg content connected to `advocate-maya-rotenberg` can attach even while legacy slug handling remains.
+- VERIFIED LOCAL: `php -l single-justice_lawyer.php`, `node --check tools/check-maya-lawyer-mini-site-readiness.mjs` and `node tools/check-maya-lawyer-mini-site-readiness.mjs --reportDate=2026-05-22` passed.
+- VERIFIED LOCAL: readiness report generated `13` checks with `12` verified source checks, `1` blocked live route check and `1` not-verified screenshot check.
+- BLOCKED LIVE QA: public Maya route verification and screenshots still wait for deployment/uPress cache control.
+- SAFETY: no public CMS record, lawyer profile data, URL slug, redirect, canonical/noindex, taxonomy, sitemap, media asset, live lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
 ## 2026-05-22 - Priority pages CMS repair readiness gate
 
 - CREATED: `tools/build-priority-page-cms-repair-readiness-gate.mjs`.

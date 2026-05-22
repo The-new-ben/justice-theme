@@ -2,6 +2,19 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Maya Lawyer Mini-site Readiness
+- UPDATED / VERIFIED LOCAL: `single-justice_lawyer.php`.
+- CREATED / VERIFIED LOCAL: `tools/check-maya-lawyer-mini-site-readiness.mjs`.
+- CREATED / VERIFIED LOCAL: `project-control/maya-lawyer-mini-site-readiness-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/maya-lawyer-mini-site-readiness-2026-05-22.json`.
+- FIXED / VERIFIED LOCAL: Maya related-article lookup now includes the shared authority person slug from `justice_theme_authority_verified_person_slug_for_post()`.
+- VERIFIED LOCAL: readiness report generated `13` checks with `12` verified source checks, `1` blocked live route check and `1` not-verified screenshot check.
+- BLOCKED LIVE QA: `/lawyers/advocate-maya-rotenberg/` still needs deployment/uPress cache control, HTTP/canonical/robots/schema/content verification and desktop/mobile screenshots.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this cycle was repo-only and the live route is still gated.
+- SAFETY: no public lawyer profile, CMS database row, URL slug, redirect, canonical/noindex, taxonomy, sitemap, media asset, live lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Priority Pages CMS Repair Readiness Gate
 - CREATED / VERIFIED LOCAL: `tools/build-priority-page-cms-repair-readiness-gate.mjs`.
 - CREATED / VERIFIED LOCAL: `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.md`.

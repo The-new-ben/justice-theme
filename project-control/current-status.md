@@ -1,3 +1,16 @@
+# LATEST WORK STATUS - 2026-05-22 22:29 Asia/Jerusalem
+- MAYA LAWYER MINI-SITE READINESS: tightened the single lawyer profile template so related-article lookup now includes the shared authority person slug for Maya Rotenberg.
+- UPDATED: `single-justice_lawyer.php`.
+- CREATED: `tools/check-maya-lawyer-mini-site-readiness.mjs`.
+- CREATED: `project-control/maya-lawyer-mini-site-readiness-2026-05-22.md`.
+- CREATED: `project-control/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+- GENERATED: `reports/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+- GENERATED: `reports/maya-lawyer-mini-site-readiness-2026-05-22.json`.
+- FIXED / VERIFIED LOCAL: `php -l single-justice_lawyer.php`, `node --check tools/check-maya-lawyer-mini-site-readiness.mjs` and `node tools/check-maya-lawyer-mini-site-readiness.mjs --reportDate=2026-05-22` passed.
+- VERIFIED LOCAL: readiness report produced `13` checks: `12` verified source checks, `1` blocked live route check and `1` not-verified screenshot check.
+- BLOCKED LIVE QA: `/lawyers/advocate-maya-rotenberg/` still needs deployment/uPress cache control, HTTP/canonical/robots/schema/content verification and desktop/mobile screenshots.
+- SAFETY: no public CMS record, lawyer profile data, URL slug, redirect, canonical/noindex, sitemap, taxonomy, media asset, live lead, CRM record, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 22:15 Asia/Jerusalem
 - PRIORITY PAGES CMS REPAIR READINESS GATE: added a generated go/no-go gate that consolidates live QA, repair packet, rollback capture, owner approval and publisher safety before any public CMS repair.
 - CREATED: `tools/build-priority-page-cms-repair-readiness-gate.mjs`.

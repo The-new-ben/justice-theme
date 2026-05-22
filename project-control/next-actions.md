@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-MAYA-LAWYER-MINI-SITE-READINESS-001: Prepare Maya lawyer mini-site readiness gate
+**Status:** FIXED / VERIFIED LOCAL / BLOCKED LIVE QA / NO PUBLIC CMS CHANGE
+**Why:** the priority-page CMS workflow is blocked by the readiness gate, while the Maya lawyer mini-site remains a high-value repo-side task that can be made safer before any public profile action.
+**Actions:**
+1. DONE: updated `single-justice_lawyer.php` so related-article lookup includes `justice_theme_authority_verified_person_slug_for_post()`.
+2. DONE: created `tools/check-maya-lawyer-mini-site-readiness.mjs`.
+3. DONE: generated `project-control/maya-lawyer-mini-site-readiness-2026-05-22.md`.
+4. DONE: generated `project-control/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+5. GENERATED: `reports/maya-lawyer-mini-site-readiness-2026-05-22.csv`.
+6. GENERATED: `reports/maya-lawyer-mini-site-readiness-2026-05-22.json`.
+7. FIXED / VERIFIED LOCAL: PHP lint, node syntax and readiness generation passed.
+8. VERIFIED LOCAL: readiness report produced `13` checks with `12` verified source checks, `1` blocked live route check and `1` not-verified screenshot check.
+9. BLOCKED LIVE QA: `/lawyers/advocate-maya-rotenberg/` still needs deployment/uPress cache control, HTTP/canonical/robots/schema/content verification and screenshots.
+10. NEXT: after deploy/cache clear, verify the Maya public route, related articles, anonymous REST behavior, JSON-LD and desktop/mobile screenshots before any redirect/profile migration/public upload decision.
+
 ### ACTION-PRIORITY-PAGES-CMS-READINESS-GATE-001: Add generated go/no-go gate for priority page CMS repair
 **Status:** FIXED / VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
 **Why:** the repair packet, rollback template and owner approval worksheet are useful individually, but public execution needs one consolidated go/no-go report before anyone touches WordPress.

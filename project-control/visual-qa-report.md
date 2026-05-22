@@ -2,6 +2,18 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Controlled Route Breadcrumb Safety
+- UPDATED / VERIFIED LOCAL: `inc/breadcrumbs.php`.
+- CREATED / VERIFIED LOCAL: `tools/check-controlled-route-breadcrumb-safety.mjs`.
+- CREATED / VERIFIED PLANNING: `project-control/controlled-route-breadcrumb-safety-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/controlled-route-breadcrumb-safety-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/controlled-route-breadcrumb-safety-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/controlled-route-breadcrumb-safety-2026-05-22.json`.
+- VERIFIED LOCAL: PHP lint passed and controlled route breadcrumb checker returned `10/10 VERIFIED`.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because no public deployment or uPress cache clear happened.
+- BLOCKED LIVE QA: after deployment, verify breadcrumb UI and BreadcrumbList JSON-LD for `/family-law/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/` and `/inheritance-lawyer/`.
+- SAFETY: no public page body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Authority Person Profile Schema Gate
 - UPDATED / VERIFIED LOCAL: `inc/authority.php`.
 - UPDATED / VERIFIED LOCAL: `inc/schema.php`.

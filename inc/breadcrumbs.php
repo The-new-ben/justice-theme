@@ -66,6 +66,53 @@ function justice_theme_breadcrumbs() {
 }
 
 /**
+ * Get the practice config slug for a controlled virtual practice route.
+ *
+ * @return string
+ */
+function justice_theme_get_controlled_practice_breadcrumb_slug(): string {
+	if ( ! function_exists( 'justice_theme_practice_landing_request_path' ) ) {
+		return '';
+	}
+
+	$request_path = justice_theme_practice_landing_request_path();
+	$route_map    = array(
+		'/family-law/'                 => 'family-law',
+		'/medical-malpractice-lawyer/' => 'medical-malpractice',
+		'/real-estate-lawyer-guide/'   => 'real-estate-law',
+		'/inheritance-lawyer/'         => 'inheritance',
+	);
+
+	return isset( $route_map[ $request_path ] ) ? $route_map[ $request_path ] : '';
+}
+
+/**
+ * Build breadcrumbs for controlled virtual practice routes before query fallbacks.
+ *
+ * @param array $base_items Home breadcrumb item.
+ * @return array
+ */
+function justice_theme_get_controlled_practice_breadcrumb_items( array $base_items ): array {
+	$practice_slug = justice_theme_get_controlled_practice_breadcrumb_slug();
+
+	if ( '' === $practice_slug || ! function_exists( 'justice_theme_get_practice_landing_config' ) ) {
+		return array();
+	}
+
+	$config = justice_theme_get_practice_landing_config( $practice_slug );
+	if ( empty( $config['title'] ) ) {
+		return array();
+	}
+
+	$base_items[] = array(
+		'name' => (string) $config['title'],
+		'url'  => '',
+	);
+
+	return $base_items;
+}
+
+/**
  * Build breadcrumb items array.
  *
  * @return array
@@ -85,6 +132,11 @@ function justice_theme_get_breadcrumb_items() {
 		);
 
 		return $items;
+	}
+
+	$controlled_practice_items = justice_theme_get_controlled_practice_breadcrumb_items( $items );
+	if ( ! empty( $controlled_practice_items ) ) {
+		return $controlled_practice_items;
 	}
 
 	if ( is_singular( 'articles' ) ) {

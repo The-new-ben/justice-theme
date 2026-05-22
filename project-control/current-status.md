@@ -1,3 +1,17 @@
+# LATEST WORK STATUS - 2026-05-22 20:44 Asia/Jerusalem
+- CONTROLLED ROUTE BREADCRUMB SAFETY: advanced T418 by binding protected practice route breadcrumbs to the existing practice landing config before normal WordPress query fallbacks can supply stale page, article or 404 labels.
+- UPDATED: `inc/breadcrumbs.php`.
+- CREATED: `tools/check-controlled-route-breadcrumb-safety.mjs`.
+- CREATED: `project-control/controlled-route-breadcrumb-safety-2026-05-22.md`.
+- CREATED: `project-control/controlled-route-breadcrumb-safety-2026-05-22.csv`.
+- GENERATED: `reports/controlled-route-breadcrumb-safety-2026-05-22.csv`.
+- GENERATED: `reports/controlled-route-breadcrumb-safety-2026-05-22.json`.
+- VERIFIED LOCAL: `php -l inc/breadcrumbs.php`, `node --check tools/check-controlled-route-breadcrumb-safety.mjs`, `node tools/check-controlled-route-breadcrumb-safety.mjs --reportDate=2026-05-22` passed.
+- VERIFIED LOCAL: controlled route breadcrumb checker returned `10/10 VERIFIED`.
+- VERIFIED LOCAL: `/family-law/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/` and `/inheritance-lawyer/` map to their protected practice config before 404/page/article fallbacks.
+- NOT LIVE VERIFIED: public breadcrumb UI and BreadcrumbList schema still require uPress pull/cache clear and a live route/screenshot rerun.
+- SAFETY: no public CMS page body, database row, URL slug, redirect, canonical/noindex, taxonomy, sitemap, lawyer profile, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 20:58 Asia/Jerusalem
 - AUTHORITY PERSON PROFILE SCHEMA GATE: advanced T315 by gating lawyer schema behind public-profile approval and adding a verified Person schema path for Maya Rotenberg through the authority registry.
 - UPDATED: `inc/authority.php`.

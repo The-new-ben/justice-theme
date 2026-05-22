@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-CONTROLLED-ROUTE-BREADCRUMB-SAFETY-001: Bind protected practice-route breadcrumbs to route config
+**Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC CMS CHANGE
+**Why:** T418 protected the money routes from redirect-plugin collapse, but the visible breadcrumb and BreadcrumbList schema still needed to be protected from stale WordPress query ownership or 404 fallbacks.
+**Actions:**
+1. DONE: updated `inc/breadcrumbs.php` with a controlled practice route breadcrumb slug map.
+2. DONE: updated `inc/breadcrumbs.php` so controlled route breadcrumbs use `justice_theme_get_practice_landing_config()`.
+3. DONE: placed the controlled route breadcrumb fallback before article/page/archive/404 query fallbacks.
+4. DONE: created `tools/check-controlled-route-breadcrumb-safety.mjs`.
+5. DONE: created `project-control/controlled-route-breadcrumb-safety-2026-05-22.md`.
+6. DONE: created `project-control/controlled-route-breadcrumb-safety-2026-05-22.csv`.
+7. VERIFIED LOCAL: `php -l inc/breadcrumbs.php`, node syntax check and controlled-route breadcrumb checker passed with `10/10 VERIFIED`.
+8. NOT LIVE VERIFIED: public breadcrumb UI and BreadcrumbList schema still require uPress pull, cache clear and live route/screenshot verification.
+9. NEXT: after deploy, rerun traffic-priority and breadcrumb-schema checks on `/family-law/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/` and `/inheritance-lawyer/`.
+
 ### ACTION-AUTHORITY-PERSON-PROFILE-SCHEMA-GATE-001: Gate lawyer schema and add verified Maya Person schema
 **Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / BEN ENTITY BLOCKED
 **Why:** T315 still needed the Maya profile enrichment path and a guard against schema leakage from unapproved lawyer/demo profiles.

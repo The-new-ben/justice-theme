@@ -1,6 +1,21 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Controlled route breadcrumb safety
+
+- UPDATED: `inc/breadcrumbs.php`.
+- CREATED: `tools/check-controlled-route-breadcrumb-safety.mjs`.
+- CREATED: `project-control/controlled-route-breadcrumb-safety-2026-05-22.md`.
+- CREATED: `project-control/controlled-route-breadcrumb-safety-2026-05-22.csv`.
+- GENERATED: `reports/controlled-route-breadcrumb-safety-2026-05-22.csv`.
+- GENERATED: `reports/controlled-route-breadcrumb-safety-2026-05-22.json`.
+- FIXED: controlled practice routes now resolve breadcrumb labels from the same route config used by their protected templates.
+- FIXED: `/family-law/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/` and `/inheritance-lawyer/` are checked before stale page/article/archive/404 query fallbacks.
+- VERIFIED LOCAL: `php -l inc/breadcrumbs.php`, `node --check tools/check-controlled-route-breadcrumb-safety.mjs`, `node tools/check-controlled-route-breadcrumb-safety.mjs --reportDate=2026-05-22` and `git diff --check` passed.
+- VERIFIED LOCAL: controlled route breadcrumb checker returned `10/10 VERIFIED`.
+- NOT LIVE VERIFIED: no public breadcrumb screenshot, live JSON-LD check, wp-admin setting or uPress deployment was executed.
+- SAFETY: no public CMS content, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
 ## 2026-05-22 - Authority person profile schema gate
 
 - UPDATED: `inc/authority.php`.

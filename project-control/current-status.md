@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-22 18:08 Asia/Jerusalem
+- PRIORITY OWNER ACTION QUEUE: consolidated the upload-blocking owner/operator gates across Family/Divorce, Criminal Law, Medical Malpractice and GSC into one action queue.
+- CREATED: `tools/build-priority-owner-action-queue.mjs`.
+- GENERATED: `reports/priority-owner-action-queue-2026-05-22.csv`.
+- GENERATED: `reports/priority-owner-action-queue-2026-05-22.json`.
+- CREATED: `project-control/priority-owner-action-queue-2026-05-22.md`.
+- CREATED: `project-control/priority-owner-action-queue-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed and queue generation produced `10` owner/operator action rows from `139` reviewed source rows.
+- VERIFIED LOCAL: all `10/10` action rows are `BLOCKED` until owner/operator prerequisites are completed.
+- NEXT OWNER ACTION: complete read-only GSC OAuth setup outside Git, then run `.\tools\gsc\run-priority-cluster-gsc-exports.ps1`.
+- BLOCKED: no priority cluster is approved for public content upload; Family/Divorce still needs owner visible-repair decision, actual CMS rollback backup, focused GSC, approved visible repairs and post-repair QA.
+- SAFETY: this cycle made repo-only tooling/docs/report changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 18:00 Asia/Jerusalem
 - GSC PRIORITY CLUSTER EXPORT RUNNER: added a one-command read-only workflow for the main upload-blocking clusters after owner OAuth setup.
 - CREATED: `tools/gsc/run-priority-cluster-gsc-exports.ps1`.

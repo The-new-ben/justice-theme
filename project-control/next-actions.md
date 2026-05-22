@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-PRIORITY-OWNER-ACTION-QUEUE-001: Consolidate upload-blocking owner/operator gates
+**Status:** COMPLETED / VERIFIED LOCAL / BLOCKED BEFORE CONTENT UPLOAD / NO PUBLIC CHANGES
+**Why:** Family/Divorce, Criminal Law and Medical Malpractice now have multiple planning packets, GSC runners and review gates. The next useful acceleration is a single owner/operator queue that tells exactly what must happen before any content upload, URL migration, redirect, canonical/noindex, sitemap or internal-link action.
+**Actions:**
+1. DONE: created `tools/build-priority-owner-action-queue.mjs`.
+2. DONE: generated `reports/priority-owner-action-queue-2026-05-22.csv`.
+3. DONE: generated `reports/priority-owner-action-queue-2026-05-22.json`.
+4. DONE: created `project-control/priority-owner-action-queue-2026-05-22.md`.
+5. DONE: created `project-control/priority-owner-action-queue-2026-05-22.csv`.
+6. VERIFIED LOCAL: Node syntax check passed.
+7. VERIFIED LOCAL: queue generation produced `10` owner/operator action rows from `139` reviewed source rows.
+8. BLOCKED: all `10/10` action rows remain blocked until owner/operator prerequisites clear.
+9. NEXT: owner completes read-only GSC OAuth setup outside Git, runs the priority cluster export runner, then reviews Family/Divorce visible-repair approval and CMS rollback evidence before any public action.
+
 ### ACTION-GSC-PRIORITY-CLUSTER-RUNNER-001: Add one-command runner for priority GSC exports
 **Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL DRY RUN / OWNER OAUTH BLOCKED / NO PUBLIC CHANGES
 **Why:** Family/Divorce, Criminal Law and Medical Malpractice all need focused GSC data before URL, redirect, canonical, noindex, sitemap and upload decisions. Running them one by one is slower and easier to miss, so a single priority runner reduces operator friction after OAuth setup.

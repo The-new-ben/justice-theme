@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Priority owner action queue
+
+- TOOLING FIXED: created `tools/build-priority-owner-action-queue.mjs`.
+- GENERATED: `reports/priority-owner-action-queue-2026-05-22.csv`.
+- GENERATED: `reports/priority-owner-action-queue-2026-05-22.json`.
+- CREATED: `project-control/priority-owner-action-queue-2026-05-22.md`.
+- CREATED: `project-control/priority-owner-action-queue-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed and queue generation produced `10` owner/operator action rows from `139` reviewed source rows.
+- BLOCKED: all `10/10` action rows remain blocked; no priority cluster is approved for public content upload.
+- NEXT: owner completes read-only GSC OAuth setup outside Git, then runs the priority cluster export runner and reviews the resulting decision maps before any CMS upload, URL, redirect, canonical/noindex, sitemap, taxonomy or internal-link action.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - GSC priority cluster export runner
 
 - TOOLING FIXED: created `tools/gsc/run-priority-cluster-gsc-exports.ps1`.

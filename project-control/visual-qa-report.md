@@ -2,6 +2,17 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Priority Owner Action Queue
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/build-priority-owner-action-queue.mjs`.
+- GENERATED / VERIFIED LOCAL: `reports/priority-owner-action-queue-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/priority-owner-action-queue-2026-05-22.json`.
+- CREATED / VERIFIED LOCAL: `project-control/priority-owner-action-queue-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/priority-owner-action-queue-2026-05-22.csv`.
+- VERIFIED LOCAL: queue consolidates `10` owner/operator action rows from `139` reviewed source rows.
+- BLOCKED: all `10/10` action rows remain blocked before content upload.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was local tooling/reporting only and no public UI changed.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 GSC Priority Cluster Export Runner
 - TOOLING FIXED / VERIFIED LOCAL: created `tools/gsc/run-priority-cluster-gsc-exports.ps1`.
 - CREATED / VERIFIED PLANNING: `project-control/gsc-priority-cluster-export-runner-2026-05-22.md`.

@@ -483,6 +483,12 @@ function justice_theme_get_breadcrumb_items() {
 			'guardianship-adult-israel'    => array( 'name' => 'זכויות', 'url' => '/disability-rights-israel/' ),
 			'money-laundering-defense'     => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
 			'startup-equity-israel'        => array( 'name' => 'דיני חברות', 'url' => '/corporate-law-israel/' ),
+			// Batch 42
+			'employment-sexual-harassment' => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'data-privacy-israel'          => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			'real-estate-lawyer-kfar-yona' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'criminal-lawyer-kiryat-gat'   => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'child-support-calculation'    => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Criminal/Traffic readiness dashboard
+
+- TOOLING FIXED: created `tools/build-criminal-traffic-readiness-dashboard.mjs`.
+- GENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- GENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.json`.
+- CREATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
+- CREATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-traffic-readiness-dashboard.mjs` passed.
+- VERIFIED LOCAL: dashboard generated `57` rows, including `5` criminal first-upload targets, `18` criminal P0 support/protection rows, `13` traffic support/boundary rows, `9` targeted GSC signal rows and the traffic/criminal wrong-page decision packet.
+- VERIFIED LOCAL: criminal first-upload readiness is `3/5` drafts present and `2/5` drafts missing.
+- BLOCKED: Criminal/Traffic public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap and internal-link expansion remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Family/Divorce GSC workflow handoff
 
 - TOOLING FIXED: `tools/build-family-divorce-gsc-decision-map.mjs` now supports `--reportDate=YYYY-MM-DD` and latest/explicit live-preupload input selection.

@@ -1,3 +1,18 @@
+## LATEST WORK STATUS - 2026-05-22 14:35 Asia/Jerusalem
+- CRIMINAL + TRAFFIC READINESS DASHBOARD: consolidated the next cluster-by-cluster content-upload evidence batch while Family/Divorce remains blocked by owner GSC/OAuth and CMS approval.
+- TOOLING FIXED: created `tools/build-criminal-traffic-readiness-dashboard.mjs`.
+- GENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- GENERATED: `reports/criminal-traffic-readiness-dashboard-2026-05-22.json`.
+- CREATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
+- CREATED: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-criminal-traffic-readiness-dashboard.mjs` passed.
+- VERIFIED LOCAL: generated dashboard has `57` consolidated rows: `5` criminal first-upload targets, `18` criminal P0 support/protection rows, `13` traffic support/boundary rows, `9` targeted GSC signal rows and the traffic/criminal wrong-page decision packet.
+- VERIFIED LOCAL: criminal first-upload readiness currently has `3/5` drafts present (`/criminal-defense-attorney/`, police investigation, pretrial detention) and `2/5` missing drafts (indictment, drug offenses).
+- VERIFIED LOCAL: traffic boundary review remains active with `7` P0 traffic support rows and `4` boundary/hold rows.
+- READY FOR OWNER REVIEW / NOT UPLOAD: `/criminal-defense-attorney/` remains the first current-URL criminal publish candidate.
+- BLOCKED: no Criminal/Traffic CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy or internal-link expansion is approved by this dashboard.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 14:25 Asia/Jerusalem
 - FAMILY/DIVORCE GSC WORKFLOW HANDOFF: removed hardcoded `2026-05-21` assumptions from the post-export decision workflow.
 - TOOLING FIXED: `tools/build-family-divorce-gsc-decision-map.mjs` now supports `--reportDate=YYYY-MM-DD` and latest/explicit live-preupload input selection.

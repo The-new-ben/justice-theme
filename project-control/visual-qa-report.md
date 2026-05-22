@@ -2,6 +2,18 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Criminal/Traffic Readiness Dashboard
+- TOOLING FIXED / VERIFIED LOCAL: added `tools/build-criminal-traffic-readiness-dashboard.mjs`.
+- GENERATED / VERIFIED LOCAL: `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/criminal-traffic-readiness-dashboard-2026-05-22.json`.
+- CREATED / VERIFIED LOCAL: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+- VERIFIED LOCAL: dashboard generated `57` consolidated rows, including `5` criminal first-upload targets, `18` criminal P0 support/protection rows, `13` traffic support/boundary rows and `9` targeted GSC rows.
+- VERIFIED LOCAL: criminal first-upload package currently has `3/5` long-form drafts present and `2/5` missing drafts.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local SEO/content readiness reporting and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/legal/source approval, WordPress backup, approved CMS update and post-upload route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Family/Divorce GSC Workflow Handoff
 - TOOLING FIXED / VERIFIED LOCAL: `tools/build-family-divorce-gsc-decision-map.mjs` now supports dynamic report dates and latest/explicit live-preupload input.
 - TOOLING FIXED / VERIFIED LOCAL: `tools/build-family-divorce-protected-url-review-packet.mjs` now supports dynamic report dates and explicit protected-decision input.

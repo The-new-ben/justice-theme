@@ -6,6 +6,21 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-CRIMINAL-TRAFFIC-READINESS-DASHBOARD-001: Consolidate next content-upload cluster evidence
+**Status:** COMPLETED / VERIFIED LOCAL / REVIEW ONLY / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** Family/Divorce upload execution is blocked by owner GSC/OAuth and CMS approval. The next safe progress is to prepare Criminal/Traffic as a controlled cluster package without approving URL migrations or public changes.
+**Actions:**
+1. DONE: created `tools/build-criminal-traffic-readiness-dashboard.mjs`.
+2. DONE: generated `reports/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+3. DONE: generated `reports/criminal-traffic-readiness-dashboard-2026-05-22.json`.
+4. DONE: created `project-control/criminal-traffic-readiness-dashboard-2026-05-22.md`.
+5. DONE: created `project-control/criminal-traffic-readiness-dashboard-2026-05-22.csv`.
+6. VERIFIED LOCAL: dashboard consolidates `57` rows: `5` criminal first-upload targets, `18` criminal P0 support/protection rows, `13` traffic support/boundary rows, `9` targeted GSC signal rows and the wrong-page decision packet.
+7. VERIFIED LOCAL: `3/5` criminal first-upload drafts are present and long-form; indictment and drug-offenses drafts are still missing.
+8. VERIFIED LOCAL: `/criminal-defense-attorney/` is the first current-URL criminal publish candidate, but it is owner-review-ready only, not upload-approved.
+9. BLOCKED: Criminal/Traffic public CMS upload, clean-slug migration, redirects, canonical/noindex, sitemap, taxonomy and related/internal-link writes remain unapproved.
+10. NEXT: draft/prepare the missing indictment and drug-offenses supports or run owner review on the current-URL criminal pillar before any public upload.
+
 ### ACTION-FAMILY-DIVORCE-GSC-WORKFLOW-HANDOFF-001: Make focused GSC workflow date-safe and one-command
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / API EXECUTION BLOCKED UNTIL OWNER CREDENTIAL SETUP / NO PUBLIC CHANGES
 **Why:** The Family/Divorce GSC export handoff was ready, but the downstream decision-map and protected URL packet scripts still used hardcoded `2026-05-21` filenames. That could create stale or overwritten review files after a real export.

@@ -1,6 +1,25 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Route deploy verification gate and controlled breadcrumb filter
+
+- UPDATED: `functions.php`.
+- UPDATED: `deployment-marker.txt`.
+- UPDATED: `inc/breadcrumbs.php`.
+- UPDATED: `tools/check-controlled-route-breadcrumb-safety.mjs`.
+- UPDATED: `tools/check-live-trust-routes.mjs`.
+- CREATED: `tools/check-live-controlled-route-breadcrumbs.mjs`.
+- CREATED: `tools/build-route-deploy-verification-gate.mjs`.
+- CREATED: `project-control/route-deploy-verification-gate-2026-05-22.md`.
+- CREATED: `project-control/route-deploy-verification-gate-2026-05-22.csv`.
+- GENERATED: `reports/route-deploy-verification-gate-2026-05-22.csv` and `reports/route-deploy-verification-gate-2026-05-22.json`.
+- GENERATED: `reports/route-deploy-live-traffic-priority-2026-05-22.csv`, `reports/route-deploy-live-trust-routes-2026-05-22.csv` and `reports/route-deploy-live-controlled-breadcrumbs-2026-05-22.csv`.
+- FIXED: controlled practice routes now filter stale Yoast BreadcrumbList nodes, leaving the theme-controlled BreadcrumbList generated from route config.
+- VERIFIED LIVE READ-ONLY: traffic checker returned `12/12` PASS and trust checker returned `3/3` PASS.
+- BLOCKED LIVE QA: controlled breadcrumb checker returned `3/4` PASS because `/family-law/` still exposes one stale article BreadcrumbList live before this new filter is deployed.
+- VERIFIED LOCAL: PHP lint, node syntax checks, route gate generation and controlled-route breadcrumb safety checker passed.
+- SAFETY: no public CMS record, page body, lawyer profile, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 - Maya lawyer mini-site readiness
 
 - UPDATED: `single-justice_lawyer.php`.

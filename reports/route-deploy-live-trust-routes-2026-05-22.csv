@@ -1,0 +1,4 @@
+route,name,status,http,finalUrl,canonical,robots,h1,routeGuard,missing,bytes,warning
+"/about/","About trust page","PASS","200","https://jus-tice.co.il/about/","https://jus-tice.co.il/about/","index, follow, max-image-preview:large","אודות Jus-Tice","trust-route-early-render","-","77081",""
+"/contact/","Contact conversion page","PASS","200","https://jus-tice.co.il/contact/","https://jus-tice.co.il/contact/","index, follow, max-image-preview:large","יצירת קשר","trust-route-early-render","-","77469",""
+"/editorial-policy/","Editorial policy E-E-A-T page","PASS","200","https://jus-tice.co.il/editorial-policy/","https://jus-tice.co.il/editorial-policy/","index, follow, max-image-preview:large","מדיניות עריכה ובדיקת תוכן","trust-route-early-render","-","77594",""

@@ -238,6 +238,15 @@ const rows = [
     'BreadcrumbList schema remains wired to rendered breadcrumb items.',
     'Restore BreadcrumbList output from rendered breadcrumb items.'
   ),
+  checkContains(
+    'CTRL-BREADCRUMB-YOAST-STALENESS-FILTER',
+    'controlled_route_schema',
+    'CRITICAL',
+    breadcrumbs,
+    'justice_theme_filter_controlled_practice_yoast_breadcrumb_schema',
+    'Controlled practice routes remove stale SEO-plugin BreadcrumbList nodes.',
+    'Add a controlled-route wpseo_schema_graph filter that removes stale BreadcrumbList nodes.'
+  ),
   ...routeMappingRows(breadcrumbs, practiceLanding),
 ];
 

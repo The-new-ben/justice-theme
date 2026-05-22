@@ -16,6 +16,7 @@ This check protects the controlled money routes from inheriting wrong breadcrumb
 | CTRL-BREADCRUMB-BEFORE-ARTICLE | VERIFIED | HIGH | Controlled route fallback runs before article/singular fallbacks. |
 | CTRL-BREADCRUMB-BEFORE-404 | VERIFIED | CRITICAL | Controlled route fallback runs before 404 fallback. |
 | CTRL-BREADCRUMB-SCHEMA-WIRED | VERIFIED | HIGH | BreadcrumbList schema remains wired to rendered breadcrumb items. |
+| CTRL-BREADCRUMB-YOAST-STALENESS-FILTER | VERIFIED | CRITICAL | Controlled practice routes remove stale SEO-plugin BreadcrumbList nodes. |
 | CTRL-BREADCRUMB-FAMILY | VERIFIED | CRITICAL | /family-law/ maps to family-law in breadcrumbs and practice landing config. |
 | CTRL-BREADCRUMB-MEDMAL | VERIFIED | CRITICAL | /medical-malpractice-lawyer/ maps to medical-malpractice in breadcrumbs and practice landing config. |
 | CTRL-BREADCRUMB-REALESTATE | VERIFIED | HIGH | /real-estate-lawyer-guide/ maps to real-estate-law in breadcrumbs and practice landing config. |

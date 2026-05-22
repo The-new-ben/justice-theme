@@ -4,6 +4,22 @@
 
 ---
 
+### ACTION-ROUTE-DEPLOY-VERIFICATION-GATE-001: Consolidate critical route deploy QA and block stale breadcrumbs
+**Status:** FIXED / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY PARTIAL / BLOCKED FAMILY BREADCRUMB LIVE QA / NO PUBLIC CMS CHANGE
+**Why:** T416, T418 and T419 were code-fixed but still scattered as deploy-blocked tasks. The live routes now need one gate that proves traffic/trust routes pass and catches stale breadcrumb schema before promotion.
+**Actions:**
+1. DONE: updated `functions.php` and `deployment-marker.txt` to marker `2026-05-22-route-deploy-verification-gate-v1`.
+2. DONE: added controlled-route Yoast BreadcrumbList filter in `inc/breadcrumbs.php`.
+3. DONE: updated `tools/check-controlled-route-breadcrumb-safety.mjs`; local checker now returns `11/11 VERIFIED`.
+4. DONE: updated `tools/check-live-trust-routes.mjs` to write CSV and capture route guard headers.
+5. DONE: created `tools/check-live-controlled-route-breadcrumbs.mjs`.
+6. DONE: created `tools/build-route-deploy-verification-gate.mjs`.
+7. GENERATED: `project-control/route-deploy-verification-gate-2026-05-22.md` and `.csv`.
+8. GENERATED: `reports/route-deploy-verification-gate-2026-05-22.csv` and `.json`.
+9. VERIFIED LIVE READ-ONLY: traffic checker `12/12` PASS; trust checker `3/3` PASS.
+10. BLOCKED LIVE QA: controlled breadcrumb checker `3/4` PASS; `/family-law/` has stale article BreadcrumbList until deploy/cache clear.
+11. NEXT: deploy/pull/cache clear, rerun traffic, trust and controlled breadcrumb checkers, regenerate the gate, then capture desktop/mobile screenshots before marking route tasks complete.
+
 ### ACTION-MAYA-LAWYER-MINI-SITE-READINESS-001: Prepare Maya lawyer mini-site readiness gate
 **Status:** FIXED / VERIFIED LOCAL / BLOCKED LIVE QA / NO PUBLIC CMS CHANGE
 **Why:** the priority-page CMS workflow is blocked by the readiness gate, while the Maya lawyer mini-site remains a high-value repo-side task that can be made safer before any public profile action.

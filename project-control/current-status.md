@@ -1,3 +1,20 @@
+# LATEST WORK STATUS - 2026-05-22 22:43 Asia/Jerusalem
+- ROUTE DEPLOY VERIFICATION GATE: consolidated T416/T418/T419 into one generated deploy/live QA gate and added focused live breadcrumb checking for controlled money routes.
+- UPDATED: `functions.php` runtime marker to `2026-05-22-route-deploy-verification-gate-v1`.
+- UPDATED: `deployment-marker.txt` static marker to `2026-05-22-route-deploy-verification-gate-v1`.
+- UPDATED / FIXED: `inc/breadcrumbs.php` now removes stale Yoast BreadcrumbList schema on controlled practice routes, so old queried articles cannot add duplicate breadcrumb JSON-LD.
+- UPDATED: `tools/check-live-trust-routes.mjs` can now write CSV reports and records the `X-Justice-Route-Guard` header.
+- CREATED: `tools/check-live-controlled-route-breadcrumbs.mjs`.
+- CREATED: `tools/build-route-deploy-verification-gate.mjs`.
+- CREATED: `project-control/route-deploy-verification-gate-2026-05-22.md`.
+- CREATED: `project-control/route-deploy-verification-gate-2026-05-22.csv`.
+- GENERATED: `reports/route-deploy-verification-gate-2026-05-22.csv`, `reports/route-deploy-verification-gate-2026-05-22.json`, `reports/route-deploy-live-traffic-priority-2026-05-22.csv`, `reports/route-deploy-live-trust-routes-2026-05-22.csv`, `reports/route-deploy-live-controlled-breadcrumbs-2026-05-22.csv`.
+- VERIFIED LIVE READ-ONLY: traffic checker returned `12/12` PASS and trust checker returned `3/3` PASS.
+- BLOCKED LIVE QA: focused controlled breadcrumb checker returned `3/4` PASS; `/family-law/` still shows a stale article BreadcrumbList live until the new filter deploys and cache clears.
+- VERIFIED LOCAL: `php -l functions.php`, `php -l inc/breadcrumbs.php`, node syntax checks and controlled-route breadcrumb safety checker passed; source checker now returns `11/11 VERIFIED`.
+- NOT SCREENSHOT VERIFIED: no desktop/mobile route screenshots captured in this cycle.
+- SAFETY: no public CMS record, page body, lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 22:29 Asia/Jerusalem
 - MAYA LAWYER MINI-SITE READINESS: tightened the single lawyer profile template so related-article lookup now includes the shared authority person slug for Maya Rotenberg.
 - UPDATED: `single-justice_lawyer.php`.

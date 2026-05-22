@@ -2,6 +2,19 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Route Deploy Verification Gate
+- UPDATED / VERIFIED LOCAL: `functions.php`, `deployment-marker.txt`, `inc/breadcrumbs.php`, `tools/check-controlled-route-breadcrumb-safety.mjs`, `tools/check-live-trust-routes.mjs`.
+- CREATED / VERIFIED LOCAL: `tools/check-live-controlled-route-breadcrumbs.mjs`.
+- CREATED / VERIFIED LOCAL: `tools/build-route-deploy-verification-gate.mjs`.
+- CREATED / VERIFIED LOCAL: `project-control/route-deploy-verification-gate-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/route-deploy-verification-gate-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/route-deploy-verification-gate-2026-05-22.csv` and `.json`.
+- VERIFIED LIVE READ-ONLY: route traffic report returned `12/12` PASS across homepage, sitemap, article hub, family, medical malpractice, real estate guide, criminal, traffic, inheritance, contact and about routes.
+- VERIFIED LIVE READ-ONLY: trust route report returned `3/3` PASS and confirmed `trust-route-early-render` headers for `/about/`, `/contact/` and `/editorial-policy/`.
+- BLOCKED LIVE QA: controlled breadcrumb report returned `3/4` PASS; `/family-law/` still has one stale article BreadcrumbList live until the new controlled-route Yoast filter deploys and cache clears.
+- NOT SCREENSHOT VERIFIED: no desktop/mobile screenshots were captured in this cycle.
+- SAFETY: no public CMS record, page body, lawyer profile, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Maya Lawyer Mini-site Readiness
 - UPDATED / VERIFIED LOCAL: `single-justice_lawyer.php`.
 - CREATED / VERIFIED LOCAL: `tools/check-maya-lawyer-mini-site-readiness.mjs`.

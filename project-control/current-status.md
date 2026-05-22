@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-22 21:46 Asia/Jerusalem
+- PRIORITY PAGES CMS REPAIR PACKET: converted the live read-only priority page findings into exact owner/operator CMS repair instructions without performing public changes.
+- CREATED: `project-control/priority-pages-cms-repair-packet-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-cms-repair-packet-2026-05-22.csv`.
+- VERIFIED LIVE READ-ONLY SOURCE MAP: `/criminal-lawyer-cost/` is public `articles` CPT ID `19261`; `/plea-bargain/` is public `articles` CPT ID `19279`.
+- FIXED PLANNING: the packet identifies the safe first repair as body/content duplicate H1 cleanup on those two `articles` records only, after rollback capture.
+- BLOCKED PLANNING: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` must not be blindly created because related current assets, GSC risk, source/legal review or content-type decisions are still unresolved.
+- VERIFIED LOCAL RISK: `reports/semrush/build-priority-pages.js` writes to `wp/v2/pages`, so it must not be used to repair the two live `articles` CPT records.
+- VERIFIED LOCAL: repair packet CSV parses with `10` rows.
+- NOT LIVE VERIFIED: no wp-admin repair, REST write, redirect, canonical/noindex, sitemap, taxonomy, internal-link, GSC/GA4, screenshot or uPress action happened.
+- SAFETY: no public CMS page/article body, database row, URL slug, redirect, canonical/noindex, taxonomy, sitemap, lawyer profile, lead, CRM record, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 21:40 Asia/Jerusalem
 - PRIORITY PAGES CUSTOM REST SOURCE DIAGNOSTICS: expanded the read-only priority-page checker from page/post REST only to page/post/article REST lookup so the operator can identify the actual source type before repair.
 - UPDATED: `tools/check-priority-pages-live-readonly.mjs`.

@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Priority Pages CMS Repair Packet
+- CREATED / VERIFIED PLANNING: `project-control/priority-pages-cms-repair-packet-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/priority-pages-cms-repair-packet-2026-05-22.csv`.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` is public `articles` ID `19261`; `/plea-bargain/` is public `articles` ID `19279`.
+- BLOCKED LIVE QA: both live article URLs still need duplicate body/content H1 repair after rollback capture.
+- BLOCKED LIVE QA: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` remain 404/noindex until approved object repair or creation.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this cycle was planning-only and no public repair happened.
+- NEXT VISUAL QA: after approved CMS repair, rerun the priority live checker and capture desktop/mobile screenshots for repaired URLs in a browser-capable environment.
+- SAFETY: no public page/article body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Priority Pages Custom REST Source Diagnostics
 - UPDATED / VERIFIED LOCAL: `tools/check-priority-pages-live-readonly.mjs`.
 - UPDATED / VERIFIED LIVE READ-ONLY: `project-control/priority-pages-live-readonly-2026-05-22.md`.

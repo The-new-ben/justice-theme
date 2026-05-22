@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Priority pages CMS repair packet
+
+- CREATED: `project-control/priority-pages-cms-repair-packet-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-cms-repair-packet-2026-05-22.csv`.
+- FIXED PLANNING: documented that `/criminal-lawyer-cost/` and `/plea-bargain/` must be repaired as `articles` CPT records, not through the page publisher.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` maps to public `articles` ID `19261`; `/plea-bargain/` maps to public `articles` ID `19279`.
+- BLOCKED PUBLIC EXECUTION: four missing clean slugs stay blocked until owner approval, focused GSC where needed, source/legal review and anti-cannibalization decisions.
+- VERIFIED LOCAL: repair packet CSV parses with `10` rows.
+- NOT LIVE VERIFIED: no WordPress REST write, public page/article update, redirect, canonical/noindex, sitemap, GSC/GA4 action, screenshot or uPress deployment was executed.
+- SAFETY: no public CMS content, article body, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
 ## 2026-05-22 - Priority pages custom REST source diagnostics
 
 - UPDATED: `tools/check-priority-pages-live-readonly.mjs`.

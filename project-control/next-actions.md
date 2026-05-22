@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-PRIORITY-PAGES-CMS-REPAIR-PACKET-001: Prepare controlled CMS repair packet for six priority slugs
+**Status:** FIXED / VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** live QA now identifies the actual source for the two working priority URLs and confirms the four missing clean slugs have no public object. The next public step needs exact operator instructions so repairs do not create duplicates or modify the wrong content type.
+**Actions:**
+1. DONE: created `project-control/priority-pages-cms-repair-packet-2026-05-22.md`.
+2. DONE: created `project-control/priority-pages-cms-repair-packet-2026-05-22.csv`.
+3. VERIFIED LIVE READ-ONLY SOURCE MAP: `/criminal-lawyer-cost/` maps to public `articles` CPT ID `19261`.
+4. VERIFIED LIVE READ-ONLY SOURCE MAP: `/plea-bargain/` maps to public `articles` CPT ID `19279`.
+5. FIXED PLANNING: first safe repair is duplicate body/content H1 cleanup on article IDs `19261` and `19279`, after rollback capture.
+6. BLOCKED PLANNING: four 404 clean slugs remain blocked until owner approval, focused GSC where needed, source/legal review and anti-cannibalization decisions.
+7. VERIFIED LOCAL RISK: `reports/semrush/build-priority-pages.js` writes to `wp/v2/pages`; do not use it to repair live `articles` CPT records.
+8. VERIFIED LOCAL: repair packet CSV parses with `10` rows.
+9. NOT LIVE VERIFIED: no public CMS edit, REST write, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4, screenshot or uPress action happened.
+10. NEXT: owner/operator captures rollback material, then repairs only duplicate body H1s on article IDs `19261` and `19279`; keep the four 404 clean slugs blocked until explicit object decisions are approved.
+
 ### ACTION-PRIORITY-PAGES-CUSTOM-REST-SOURCE-DIAGNOSTICS-001: Identify priority slugs through public custom REST collections
 **Status:** FIXED / VERIFIED LIVE READ-ONLY / BLOCKED PUBLIC QA / NO PUBLIC CMS CHANGE
 **Why:** the six priority slugs were invisible through normal `wp/v2/pages` and `wp/v2/posts`, but the two HTTP `200` URLs could still be custom content records. Repair should target the real content source, not guess.

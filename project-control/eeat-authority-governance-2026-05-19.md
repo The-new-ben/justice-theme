@@ -148,3 +148,15 @@ Create and connect the Jus-Tice entity footprint:
 - Live journey checker passed homepage, lawyer directory, sample article, lawyer registration, plan-intent registration, sitemap index, and robots.txt.
 - No public CMS/database changes were made.
 - No uPress pull should happen until PR review/merge.
+
+## 2026-05-22 Safety Hardening Update
+
+FIXED / VERIFIED LOCAL: `inc/schema.php` now defaults Article `author` to the Jus-Tice organization authority helper and defines `reviewedBy` only through `justice_theme_authority_article_reviewer_schema()`.
+
+FIXED / VERIFIED LOCAL: legacy `inc/eeat.php` automatic Person schema/byline injection is disabled by default behind `justice_theme_enable_legacy_eeat_auto_injection`.
+
+CREATED: `tools/check-eeat-authority-safety.mjs`.
+
+VERIFIED LOCAL: checker generated `reports/eeat-authority-safety-2026-05-22.csv` and returned `6/6 VERIFIED`.
+
+NOT LIVE VERIFIED: public JSON-LD/Rich Results validation and screenshots still require deploy/pull and cache clear.

@@ -1,0 +1,41 @@
+{
+  "generated_at": "2026-05-22",
+  "checks": [
+    {
+      "id": "EEAT-001",
+      "area": "article-schema",
+      "status": "VERIFIED",
+      "detail": "Article schema does not contain the old hardcoded Ben Person @id."
+    },
+    {
+      "id": "EEAT-002",
+      "area": "article-schema",
+      "status": "VERIFIED",
+      "detail": "Article author is sourced from the safe organization authority helper."
+    },
+    {
+      "id": "EEAT-003",
+      "area": "reviewer-schema",
+      "status": "VERIFIED",
+      "detail": "Article reviewedBy is sourced only from the verified reviewer helper."
+    },
+    {
+      "id": "EEAT-004",
+      "area": "legacy-eeat",
+      "status": "VERIFIED",
+      "detail": "Legacy E-E-A-T auto-injection has an explicit opt-in gate."
+    },
+    {
+      "id": "EEAT-005",
+      "area": "legacy-eeat",
+      "status": "VERIFIED",
+      "detail": "Legacy E-E-A-T gate defaults to false."
+    },
+    {
+      "id": "EEAT-006",
+      "area": "legacy-eeat",
+      "status": "VERIFIED",
+      "detail": "Legacy Person schema and content injection paths call the opt-in gate."
+    }
+  ]
+}

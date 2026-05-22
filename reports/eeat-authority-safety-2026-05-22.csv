@@ -1,0 +1,7 @@
+id,area,status,detail
+EEAT-001,article-schema,VERIFIED,Article schema does not contain the old hardcoded Ben Person @id.
+EEAT-002,article-schema,VERIFIED,Article author is sourced from the safe organization authority helper.
+EEAT-003,reviewer-schema,VERIFIED,Article reviewedBy is sourced only from the verified reviewer helper.
+EEAT-004,legacy-eeat,VERIFIED,Legacy E-E-A-T auto-injection has an explicit opt-in gate.
+EEAT-005,legacy-eeat,VERIFIED,Legacy E-E-A-T gate defaults to false.
+EEAT-006,legacy-eeat,VERIFIED,Legacy Person schema and content injection paths call the opt-in gate.

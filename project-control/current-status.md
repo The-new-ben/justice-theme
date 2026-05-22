@@ -1,3 +1,17 @@
+# LATEST WORK STATUS - 2026-05-22 20:25 Asia/Jerusalem
+- E-E-A-T AUTHORITY SAFETY HARDENING: advanced T315 by removing the remaining hardcoded article-author schema risk and disabling legacy automatic E-E-A-T byline/schema injection by default.
+- UPDATED: `inc/schema.php`.
+- UPDATED: `inc/eeat.php`.
+- CREATED: `tools/check-eeat-authority-safety.mjs`.
+- CREATED: `project-control/eeat-authority-safety-hardening-2026-05-22.md`.
+- CREATED: `project-control/eeat-authority-safety-hardening-2026-05-22.csv`.
+- GENERATED: `reports/eeat-authority-safety-2026-05-22.csv`.
+- GENERATED: `reports/eeat-authority-safety-2026-05-22.json`.
+- VERIFIED LOCAL: `php -l inc/schema.php`, `php -l inc/eeat.php`, `node --check tools/check-eeat-authority-safety.mjs` and `node tools/check-eeat-authority-safety.mjs` passed.
+- VERIFIED LOCAL: authority safety checker returned `6/6 VERIFIED`.
+- NOT LIVE VERIFIED: no live JSON-LD/Rich Results check, public article screenshot, wp-admin setting, CMS content change or uPress deployment was executed.
+- SAFETY: no public CMS page body, database row, lawyer profile, author page, Google Business/social profile, lead/CRM record, payment setting, outreach, URL, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 20:14 Asia/Jerusalem
 - SUPPLIER MARKETPLACE PROSPECT RESEARCH: completed T370 repo-side prospect/exposure package for the first controlled supplier marketplace pipeline.
 - CREATED: `project-control/supplier-marketplace-prospect-research-2026-05-22.md`.

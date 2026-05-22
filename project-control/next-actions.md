@@ -18,6 +18,20 @@
 8. NOT LIVE VERIFIED: live form submission, upload handling and admin queue screenshots still require authenticated/staging WordPress.
 9. NEXT: deploy/pull to staging or uPress, submit a no-file registration and a public-safe file registration, then verify draft profile metadata and Lawyer Onboarding review actions.
 
+### ACTION-EEAT-AUTHORITY-SAFETY-HARDENING-001: Remove unsafe named-author fallback paths
+**Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC CMS CHANGE
+**Why:** T315 had a safer authority registry, but active legacy code still allowed hardcoded person schema/byline output outside the verified reviewer path.
+**Actions:**
+1. DONE: updated `inc/schema.php` so Article schema author defaults to the organization authority helper.
+2. DONE: updated `inc/schema.php` so `reviewedBy` uses only `justice_theme_authority_article_reviewer_schema()`.
+3. DONE: updated `inc/eeat.php` so legacy E-E-A-T automatic Person schema/byline injection is disabled by default.
+4. DONE: created `tools/check-eeat-authority-safety.mjs`.
+5. DONE: created `project-control/eeat-authority-safety-hardening-2026-05-22.md`.
+6. DONE: created `project-control/eeat-authority-safety-hardening-2026-05-22.csv`.
+7. VERIFIED LOCAL: PHP lint passed for changed PHP files and checker returned `6/6 VERIFIED`.
+8. NOT LIVE VERIFIED: live article JSON-LD, Rich Results and public screenshots still require deploy/pull and cache clear.
+9. NEXT: build `/about/editorial-policy/`, Ben entity page and Maya profile enrichment only after owner-approved facts and external links.
+
 ### ACTION-SUPPLIER-MARKETPLACE-PROSPECT-RESEARCH-001: Complete first 30 supplier research queue and exposure rules
 **Status:** COMPLETED / VERIFIED RESEARCH / VERIFIED LOCAL CSV / READY FOR OWNER ENTRY / NO OUTREACH
 **Why:** T370 needed the supplier marketplace pipeline to move from generic categories into an owner-usable first prospect queue with strict rules before any lawyer-dashboard or public exposure.

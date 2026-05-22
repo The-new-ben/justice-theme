@@ -1,6 +1,22 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - E-E-A-T authority safety hardening
+
+- UPDATED: `inc/schema.php`.
+- UPDATED: `inc/eeat.php`.
+- CREATED: `tools/check-eeat-authority-safety.mjs`.
+- CREATED: `project-control/eeat-authority-safety-hardening-2026-05-22.md`.
+- CREATED: `project-control/eeat-authority-safety-hardening-2026-05-22.csv`.
+- GENERATED: `reports/eeat-authority-safety-2026-05-22.csv`.
+- GENERATED: `reports/eeat-authority-safety-2026-05-22.json`.
+- FIXED: Article schema no longer uses the old hardcoded Ben person author block; it now defaults to the Jus-Tice organization authority helper.
+- FIXED: `reviewedBy` now comes only from `justice_theme_authority_article_reviewer_schema()`.
+- FIXED: legacy `inc/eeat.php` automatic Person schema/byline injection is opt-in and disabled by default.
+- VERIFIED LOCAL: `php -l inc/schema.php`, `php -l inc/eeat.php`, `node --check tools/check-eeat-authority-safety.mjs` and `node tools/check-eeat-authority-safety.mjs` passed.
+- NOT LIVE VERIFIED: no live JSON-LD/Rich Results check, article screenshot, wp-admin setting or uPress deployment was executed.
+- SAFETY: no public CMS content, database row, lawyer profile, author page, Google Business/social profile, lead record, CRM record, payment setting, URL, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting, uPress deployment or outreach message was changed.
+
 ## 2026-05-22 - Supplier marketplace prospect research and exposure rules
 
 - CREATED: `project-control/supplier-marketplace-prospect-research-2026-05-22.md`.

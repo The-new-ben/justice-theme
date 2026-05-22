@@ -465,6 +465,12 @@ function justice_theme_get_breadcrumb_items() {
 			'property-division-divorce'    => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'family-law-ashkelon'          => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'real-estate-lawyer-rehovot'   => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			// Batch 39
+			'bankruptcy-individual-israel' => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			'criminal-lawyer-rosh-haayin'  => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'real-estate-lawyer-rosh-haayin' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'trade-secret-law-israel'      => array( 'name' => 'קניין רוחני', 'url' => '/intellectual-property-israel/' ),
+			'debt-collection-israel'       => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

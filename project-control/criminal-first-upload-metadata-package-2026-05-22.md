@@ -51,6 +51,7 @@
 ## Ready
 - VERIFIED: five Criminal drafts exist and have mapped current URLs.
 - VERIFIED: metadata rows exist for H1, SEO title, meta description, OG title, OG description, breadcrumb label, taxonomy label, current-url links, schema and robots policy.
+- VERIFIED: `project-control/criminal-source-legal-review-worksheet-2026-05-22.md` now provides the matching page-level owner/legal/source gate.
 - READY FOR OWNER REVIEW: the owner can approve, edit, hold or request legal/source review per row.
 - READY FOR OPERATOR PREP: after approval, the CMS operator can use this package together with `project-control/criminal-cms-operator-runbook-2026-05-22.md`.
 

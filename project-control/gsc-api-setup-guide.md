@@ -20,6 +20,10 @@ LATEST 2026-05-21 RUNNER NOTE:
 - FIXED 2026-05-22: the Criminal full wrapper now also builds `reports/criminal-gsc-decision-map-YYYY-MM-DD.csv`, `reports/criminal-protected-url-decision-map-YYYY-MM-DD.csv`, `reports/criminal-cannibalization-decision-map-YYYY-MM-DD.csv` and `reports/criminal-gsc-decision-map-YYYY-MM-DD.json`.
 - FIXED 2026-05-22: Medical Malpractice now has a focused read-only export runner: `.\tools\gsc\run-medical-malpractice-gsc-export.ps1 -DryRun`, then `.\tools\gsc\run-medical-malpractice-gsc-export.ps1` after owner OAuth approval.
 - FIXED 2026-05-22: the Medical Malpractice full wrapper builds `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv`, `reports/medical-malpractice-protected-url-decision-map-YYYY-MM-DD.csv`, `reports/medical-malpractice-cannibalization-decision-map-YYYY-MM-DD.csv` and `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.json`.
+- FIXED 2026-05-22: priority cluster runner now runs Family/Divorce, Criminal Law and Medical Malpractice in one read-only workflow: `.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -DryRun`, then `.\tools\gsc\run-priority-cluster-gsc-exports.ps1` after owner OAuth approval.
+- FIXED 2026-05-22: GSC OAuth preflight checker is available at `.\tools\gsc\check-gsc-oauth-preflight.ps1 -RunPriorityDryRun` to validate credential paths, ignored-token hygiene, local packages and priority runner wiring before any OAuth browser or API call.
+- FIXED 2026-05-22: priority export output validator is available at `.\tools\gsc\check-priority-gsc-export-output.ps1 -WriteReport` to block missing/malformed export outputs and baseline-only decision maps before any upload decision.
+- READY 2026-05-22: owner/operator command packet is available at `project-control/gsc-owner-execution-packet-2026-05-22.md`. Use it as the ordered setup/export/validation checklist tomorrow.
 
 This guide explains how to connect Google Search Console API for Jus-Tice so we can export query/page data quickly instead of doing slow browser checks.
 
@@ -149,6 +153,34 @@ Manual rebuild after an existing Medical Malpractice export:
 node tools/build-medical-malpractice-gsc-decision-map.mjs --gscDir="reports/gsc/medical-malpractice-YYYY-MM-DD" --reportDate="YYYY-MM-DD"
 ```
 
+Priority cluster dry run and export:
+
+```powershell
+$env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
+$env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+.\tools\gsc\check-gsc-oauth-preflight.ps1 -RunPriorityDryRun
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -DryRun
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1
+.\tools\gsc\check-priority-gsc-export-output.ps1 -WriteReport
+```
+
+Use this when the owner wants to unblock the main upload sequence in one pass. It runs Family/Divorce, Criminal Law and Medical Malpractice sequentially, then leaves the generated decision maps for review before any upload, redirect, canonical/noindex, sitemap, taxonomy or internal-link action.
+
+The validator must return `VERIFIED_EXPORT_OUTPUTS_READY_FOR_OWNER_REVIEW` before decision maps are treated as real GSC evidence. It blocks if:
+- the focused export folder for the date is missing,
+- any required export CSV or JSON summary is missing,
+- required CSV columns are missing,
+- page/query/protected-source exports are empty,
+- the decision-map summary still says baseline/cache/dashboard input instead of `FOCUSED_GSC_EXPORT`.
+
+Single-cluster examples:
+
+```powershell
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -Clusters family -DryRun
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -Clusters criminal -DryRun
+.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -Clusters medical -DryRun
+```
+
 ## What We Can Export
 
 Main export:
@@ -242,12 +274,13 @@ Do not:
 
 ## Tomorrow Checklist
 
-1. Confirm which Google account has Search Console access.
-2. Confirm `https://jus-tice.co.il/` is visible in that Search Console account.
-3. Create or choose Google Cloud project.
-4. Enable Search Console API.
-5. Create OAuth Desktop app credentials.
-6. Save credential JSON outside the repo.
-7. Give Codex the local file path only.
-8. Approve the OAuth screen when Codex runs the first export.
-9. Verify the first CSV export opens and contains `query`, `page`, `clicks`, `impressions`, `ctr`, `position`.
+1. Open `project-control/gsc-owner-execution-packet-2026-05-22.md`.
+2. Confirm which Google account has Search Console access.
+3. Confirm `https://jus-tice.co.il/` is visible in that Search Console account.
+4. Create or choose Google Cloud project.
+5. Enable Search Console API.
+6. Create OAuth Desktop app credentials.
+7. Save credential JSON outside the repo.
+8. Give Codex the local file path only.
+9. Approve the OAuth screen when Codex runs the first export.
+10. Verify the first CSV export opens and contains `query`, `page`, `clicks`, `impressions`, `ctr`, `position`.

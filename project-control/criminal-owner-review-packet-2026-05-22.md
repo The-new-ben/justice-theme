@@ -69,6 +69,8 @@ MUST PASS BEFORE CMS UPDATE:
 - `reports/criminal-owner-review-packet-2026-05-22.csv`
 - `reports/criminal-owner-review-packet-2026-05-22.json`
 - `project-control/criminal-owner-review-packet-2026-05-22.csv`
+- `project-control/criminal-source-legal-review-worksheet-2026-05-22.md`
+- `project-control/criminal-source-legal-review-worksheet-2026-05-22.csv`
 
 ## Safety
 No public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment was changed.

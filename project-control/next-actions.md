@@ -4,6 +4,262 @@
 
 ---
 
+### ACTION-HOMEPAGE-COMPETITOR-ALIGNED-STRATEGY-001: Complete competitor-aligned homepage strategy pass
+**Status:** COMPLETED / VERIFIED RESEARCH / VERIFIED LOCAL / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The homepage already has a strong portal stack, but T244 required current competitor alignment so later homepage edits follow proven legal portal patterns without copying or adding clutter.
+**Actions:**
+1. DONE: created `project-control/homepage-competitor-aligned-strategy-2026-05-22.md`.
+2. DONE: created `project-control/homepage-competitor-aligned-strategy-2026-05-22.csv`.
+3. DONE: updated `project-control/homepage-seo-strategy.md`.
+4. DONE: updated `project-control/homepage-seo-design-alignment.md`.
+5. VERIFIED RESEARCH: reviewed current Din, PsakDin, Mishpati and Justia source pages/search results.
+6. VERIFIED LOCAL: `front-page.php` already has the right broad structure; next work should refine section jobs, not rebuild.
+7. RECOMMENDED: keep search-first directory entry, curated commercial priority, editorial proof, measured lawyer value and clear paid-placement boundaries.
+8. BLOCKED PUBLIC EXECUTION: no homepage template, copy, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lawyer card, lead/CRM, payment, wp-admin or uPress action is approved.
+9. NEXT: owner-approved no-URL-change copy/link QA for hero, trust/disclaimer, curated guides, featured lawyers fallback and lawyer CTA.
+
+### ACTION-LAWYER-PROSPECT-PRIVATE-LIST-VALIDATOR-001: Validate owner-filled first-20 lawyer prospect CSV outside Git
+**Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / PRIVATE DATA NOT STORED / NO OUTREACH
+**Why:** T366 was blocked on the owner creating a private first-20 lawyer prospect list. The repo should not contain real lawyer names, phone numbers, emails or contact-source notes, so the useful repo-side work is a validator that checks the private file without committing private data.
+**Actions:**
+1. DONE: created `tools/validate-lawyer-prospect-private-list.ps1`.
+2. DONE: created `project-control/lawyer-prospect-private-list-validator-2026-05-22.md`.
+3. DONE: created `project-control/lawyer-prospect-private-list-validator-2026-05-22.csv`.
+4. DONE: generated sanitized validation report `reports/lawyer-prospect-private-list-template-validation-2026-05-22.csv`.
+5. DONE: updated `project-control/lawyer-acquisition-first-wave-2026-05-20.md`.
+6. VERIFIED LOCAL: blank first-wave template passed validation in `-TemplateMode` with `20` rows, `0` errors and `0` warnings.
+7. VERIFIED PRIVACY: the script blocks filled private CSV paths inside the repo by default and report output includes row numbers/issue codes only.
+8. BLOCKED OWNER ACTION: owner still needs to fill the real first-20 list outside Git and manually enter validated prospects in WordPress admin.
+9. BLOCKED PUBLIC EXECUTION: no prospect record, lawyer record, lead record, payment setting, CRM action or outreach message was created.
+
+### ACTION-CONTENT-UPLOAD-GOVERNANCE-CHECKLIST-001: Convert staged publishing strategy into a hard upload gate
+**Status:** COMPLETED / VERIFIED PLANNING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CHANGES
+**Why:** Cluster-by-cluster publishing is the right operating model, but it needs one non-ambiguous gate so faster Family/Divorce, Criminal and Medical work does not accidentally approve URL migration, redirects, canonicals/noindex, sitemap, taxonomy or internal-link changes.
+**Actions:**
+1. DONE: created `project-control/content-upload-governance-checklist-2026-05-22.md`.
+2. DONE: created `project-control/content-upload-governance-checklist-2026-05-22.csv`.
+3. DONE: updated `project-control/priority-owner-action-queue-2026-05-22.md`.
+4. DONE: updated `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md`.
+5. VERIFIED PLANNING: checklist defines `15` gates from cluster selection through rollback/hold.
+6. VERIFIED PLANNING: checklist keeps current-URL visible repair/current-URL updates separate from later clean English slug migration.
+7. VERIFIED PLANNING: Family/Divorce remains first, with only narrow current-URL visible repair as the first safe public-action candidate after owner approval, rollback backup, focused GSC and post-repair QA.
+8. BLOCKED PUBLIC EXECUTION: `0` clusters are approved for upload by this checklist.
+9. NEXT: use this checklist during the Family/Divorce owner review after GSC OAuth/export and before any public CMS work.
+
+### ACTION-CRIMINAL-SOURCE-LEGAL-REVIEW-WORKSHEET-001: Add page-level review gate for Criminal first-upload drafts
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER LEGAL SOURCE REVIEW / EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The Criminal first-upload draft and metadata set is complete, but it needed a page-level owner/legal/source worksheet like the Medical Malpractice gate before any current-URL CMS update can be considered.
+**Actions:**
+1. DONE: created `project-control/criminal-source-legal-review-worksheet-2026-05-22.md`.
+2. DONE: created `project-control/criminal-source-legal-review-worksheet-2026-05-22.csv`.
+3. DONE: linked the worksheet from `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
+4. DONE: linked the worksheet from `project-control/criminal-owner-review-packet-2026-05-22.md`.
+5. VERIFIED PLANNING: worksheet covers `/criminal-defense-attorney/`, the police-investigation current URL, `/detention-before-charge-or-trial/`, the current indictment article, `/drug-offenses-criminal-lawyer/` and a cluster-wide disclaimer/lead/schema gate.
+6. VERIFIED PLANNING: `0/6` rows are approved for upload.
+7. VERIFIED PLANNING: rows isolate allowed claims, blocked claims, source status, risk level and required pre-upload checks.
+8. BLOCKED: owner/legal/source review, WordPress rollback backup and focused GSC remain required before public CMS work.
+9. BLOCKED PUBLIC EXECUTION: this does not approve CMS upload, URL migration, redirects, canonicals/noindex, sitemap, taxonomy, internal-link writes, lawyer, lead, CRM or uPress action.
+10. NEXT: owner marks each Criminal row `APPROVE_CURRENT_URL_UPDATE`, `EDIT_REQUIRED`, `HOLD` or `LEGAL_REVIEW_REQUIRED`.
+
+### ACTION-GSC-OWNER-EXECUTION-PACKET-001: Prepare one ordered owner command packet for GSC setup/export/validation
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER SETUP / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The GSC setup guide, preflight, priority runner and output validator now exist, but the owner needs one ordered command path that avoids partial or out-of-order execution before upload decisions.
+**Actions:**
+1. DONE: created `project-control/gsc-owner-execution-packet-2026-05-22.md`.
+2. DONE: created `project-control/gsc-owner-execution-packet-2026-05-22.csv`.
+3. DONE: linked the packet from `project-control/gsc-api-setup-guide.md`.
+4. DONE: linked the packet from `tools/gsc/README.md`.
+5. VERIFIED PLANNING: packet covers credential storage outside Git, `GSC_OAUTH_CLIENT_PATH`, `GSC_TOKEN_PATH`, preflight, priority dry run, real read-only export and strict output validation.
+6. VERIFIED PLANNING: success state is `VERIFIED_EXPORT_OUTPUTS_READY_FOR_OWNER_REVIEW`.
+7. BLOCKED: real export still requires owner OAuth setup and Search Console access to `https://jus-tice.co.il/`.
+8. BLOCKED PUBLIC EXECUTION: this does not approve CMS upload, URL migration, redirects, canonicals/noindex, sitemap, taxonomy, internal-link writes, lawyer, lead, CRM or uPress action.
+9. NEXT: owner follows the packet commands; if validator passes, review Family/Divorce visible repair approval and CMS rollback evidence before any public action.
+
+### ACTION-GSC-PRIORITY-OUTPUT-VALIDATOR-001: Validate priority GSC export outputs before upload decisions
+**Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / BLOCKED UNTIL REAL GSC EXPORT / NO PUBLIC CHANGES
+**Why:** After OAuth setup, the next failure mode is using missing, malformed or baseline-only Search Console artifacts as if they were real focused export evidence. A strict output validator makes the owner/operator gate fast and explicit before CMS upload or URL decisions.
+**Actions:**
+1. DONE: created `tools/gsc/check-priority-gsc-export-output.ps1`.
+2. DONE: created `project-control/gsc-priority-export-output-validator-2026-05-22.md`.
+3. DONE: created `project-control/gsc-priority-export-output-validator-2026-05-22.csv`.
+4. DONE: updated `tools/gsc/README.md`.
+5. DONE: updated `project-control/gsc-api-setup-guide.md`.
+6. VERIFIED LOCAL: validator ran for Family/Divorce, Criminal Law and Medical Malpractice.
+7. VERIFIED LOCAL: current result is `BLOCKED_EXPORT_VALIDATION` with `21` blocked rows because real focused export folders are still missing.
+8. VERIFIED LOCAL: existing decision-map CSVs parse, but their summaries are blocked as baseline/cache/dashboard maps, not `FOCUSED_GSC_EXPORT`.
+9. NEXT: after owner OAuth setup, run `.\tools\gsc\run-priority-cluster-gsc-exports.ps1`, then `.\tools\gsc\check-priority-gsc-export-output.ps1 -WriteReport`. Do not treat decision maps as upload evidence until the validator returns `VERIFIED_EXPORT_OUTPUTS_READY_FOR_OWNER_REVIEW`.
+
+### ACTION-GSC-OAUTH-PREFLIGHT-001: Add local GSC OAuth preflight checker
+**Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / OWNER OAUTH BLOCKED / NO PUBLIC CHANGES
+**Why:** The next owner-controlled blocker is GSC OAuth setup. A preflight checker reduces setup failures by validating credential paths, token hygiene, Node dependencies and priority-runner wiring before any OAuth browser or Search Console API call.
+**Actions:**
+1. DONE: created `tools/gsc/check-gsc-oauth-preflight.ps1`.
+2. DONE: created `project-control/gsc-oauth-preflight-runbook-2026-05-22.md`.
+3. DONE: created `project-control/gsc-oauth-preflight-runbook-2026-05-22.csv`.
+4. DONE: updated `tools/gsc/README.md`.
+5. DONE: updated `project-control/gsc-api-setup-guide.md`.
+6. VERIFIED LOCAL: running without credential env vars returns `BLOCKED_PRECHECK` for missing OAuth and token paths.
+7. VERIFIED LOCAL: running with local ignored paths and `-RunPriorityDryRun` returns `VERIFIED_PRECHECK_READY`.
+8. VERIFIED LOCAL: dry-run wiring covered Family/Divorce, Criminal Law and Medical Malpractice and opened no OAuth browser, made no API call and changed no public site data.
+9. NEXT: owner creates/saves OAuth Desktop credentials outside Git, sets `GSC_OAUTH_CLIENT_PATH` and `GSC_TOKEN_PATH`, runs the preflight, then runs the priority cluster export.
+
+### ACTION-PRIORITY-OWNER-ACTION-QUEUE-001: Consolidate upload-blocking owner/operator gates
+**Status:** COMPLETED / VERIFIED LOCAL / BLOCKED BEFORE CONTENT UPLOAD / NO PUBLIC CHANGES
+**Why:** Family/Divorce, Criminal Law and Medical Malpractice now have multiple planning packets, GSC runners and review gates. The next useful acceleration is a single owner/operator queue that tells exactly what must happen before any content upload, URL migration, redirect, canonical/noindex, sitemap or internal-link action.
+**Actions:**
+1. DONE: created `tools/build-priority-owner-action-queue.mjs`.
+2. DONE: generated `reports/priority-owner-action-queue-2026-05-22.csv`.
+3. DONE: generated `reports/priority-owner-action-queue-2026-05-22.json`.
+4. DONE: created `project-control/priority-owner-action-queue-2026-05-22.md`.
+5. DONE: created `project-control/priority-owner-action-queue-2026-05-22.csv`.
+6. VERIFIED LOCAL: Node syntax check passed.
+7. VERIFIED LOCAL: queue generation produced `10` owner/operator action rows from `139` reviewed source rows.
+8. BLOCKED: all `10/10` action rows remain blocked until owner/operator prerequisites clear.
+9. NEXT: owner completes read-only GSC OAuth setup outside Git, runs the priority cluster export runner, then reviews Family/Divorce visible-repair approval and CMS rollback evidence before any public action.
+
+### ACTION-GSC-PRIORITY-CLUSTER-RUNNER-001: Add one-command runner for priority GSC exports
+**Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL DRY RUN / OWNER OAUTH BLOCKED / NO PUBLIC CHANGES
+**Why:** Family/Divorce, Criminal Law and Medical Malpractice all need focused GSC data before URL, redirect, canonical, noindex, sitemap and upload decisions. Running them one by one is slower and easier to miss, so a single priority runner reduces operator friction after OAuth setup.
+**Actions:**
+1. DONE: created `tools/gsc/run-priority-cluster-gsc-exports.ps1`.
+2. DONE: created `project-control/gsc-priority-cluster-export-runner-2026-05-22.md`.
+3. DONE: created `project-control/gsc-priority-cluster-export-runner-2026-05-22.csv`.
+4. DONE: updated `project-control/gsc-api-setup-guide.md`.
+5. DONE: updated `tools/gsc/README.md`.
+6. VERIFIED LOCAL: dry run completed for Family/Divorce, Criminal Law and Medical Malpractice without OAuth browser or GSC API call.
+7. VERIFIED LOCAL: dry-run scope covers `7` Family/Divorce targets, `5` Criminal targets, `1` Medical Malpractice primary target and `67` query terms.
+8. BLOCKED: full GSC export still requires owner OAuth setup and read-only Search Console access.
+9. NEXT: after owner credentials are saved outside Git, run `.\tools\gsc\run-priority-cluster-gsc-exports.ps1`, then review generated decision maps before any public action.
+
+### ACTION-FAMILY-LAW-LIVE-REPAIR-READINESS-GATE-001: Consolidate live repair go/no-go gate
+**Status:** COMPLETED / VERIFIED LOCAL / BLOCKED NOT READY FOR CONTENT UPLOAD / NO PUBLIC CHANGES
+**Why:** The Family/Divorce visible repair package now has safety checks, diagnostics, field map, backup template, owner worksheet and operator packet. The next useful control artifact is a single readiness gate showing whether the cluster is safe to upload or repair publicly.
+**Actions:**
+1. DONE: created `tools/build-family-law-live-repair-readiness-gate.mjs`.
+2. DONE: generated `reports/family-law-live-repair-readiness-gate-2026-05-22.csv`.
+3. DONE: generated `reports/family-law-live-repair-readiness-gate-2026-05-22.json`.
+4. DONE: created `project-control/family-law-live-repair-readiness-gate-2026-05-22.md`.
+5. DONE: created `project-control/family-law-live-repair-readiness-gate-2026-05-22.csv`.
+6. DONE: linked the readiness gate from `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+7. VERIFIED LOCAL: Node syntax check passed and the gate generated `8` critical gate rows from `95` reviewed source rows.
+8. VERIFIED LOCAL: all `8/8` gates are `BLOCKED`; the consolidated source artifacts contain `123` blocked markers and `31` pending markers.
+9. BLOCKED: Family/Divorce is not upload-safe until owner approval, actual CMS rollback backup, focused GSC export, approved visible repair execution and post-repair QA are complete.
+10. NEXT: owner records approval/hold, operator captures WordPress rollback material, then only approved current-URL visible repairs can be executed and rechecked.
+
+### ACTION-FAMILY-LAW-LIVE-REPAIR-OWNER-APPROVAL-001: Prepare owner approval worksheet for visible repair
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The repair packet, field map and backup template are ready, but the owner still needs a narrow approval sheet that cannot be mistaken for full content upload, URL migration or SEO consolidation approval.
+**Actions:**
+1. DONE: created `project-control/family-law-live-repair-owner-approval-2026-05-22.md`.
+2. DONE: created `project-control/family-law-live-repair-owner-approval-2026-05-22.csv`.
+3. DONE: linked the approval worksheet from `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+4. VERIFIED LOCAL: CSV parses and contains `13` approval/gate rows.
+5. VERIFIED PLANNING: worksheet covers the global visible-repair scope, backup requirement, `/divorce-agreement/` shortcode/PDF/H1 repairs, H1 repairs for both divorce-lawyer candidates and support pages, GSC-gated SEO consolidation, protected assets and post-repair QA.
+6. VERIFIED PLANNING: owner approval language explicitly blocks URL migration, redirects, canonicals/noindex, sitemap, taxonomy, related-card writes, protected-asset handling, full content upload, lawyer, lead, CRM and uPress changes.
+7. BLOCKED: no public CMS edit, PDF upload, URL change, redirect, canonical/noindex, sitemap, taxonomy, related-card, lawyer, lead or CRM action is approved by this worksheet.
+8. NEXT: owner records approval or hold; if approved, operator captures actual CMS rollback material, repairs only approved visible current-URL defects, reruns safety/diagnostics scripts and captures screenshots.
+
+### ACTION-FAMILY-LAW-LIVE-REPAIR-CMS-BACKUP-TEMPLATE-001: Prepare CMS rollback backup template for visible repair
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OPERATOR PREP / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The visible repair field map is ready, but public execution must still be blocked until an operator captures exact rollback material from WordPress. This template defines the minimum backup evidence needed before touching live Family/Divorce pages.
+**Actions:**
+1. DONE: created `project-control/family-law-live-repair-cms-backup-template-2026-05-22.md`.
+2. DONE: created `project-control/family-law-live-repair-cms-backup-template-2026-05-22.csv`.
+3. DONE: linked the backup template from `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+4. VERIFIED LOCAL: CSV parses and contains `14` backup/checklist rows.
+5. VERIFIED PLANNING: worksheet covers owner authorization, rollback storage hygiene, six affected current URLs, `/divorce-agreement/` shortcode/PDF media capture, divorce-lawyer SEO field freeze, visual baseline, post-repair QA, rollback method and repo-boundary safety.
+6. VERIFIED PLANNING: per-page backup requires post ID, title, slug, permalink, body, SEO fields, canonical, robots, taxonomy, media, related fields, revision ID, screenshots, owner decision and rollback location.
+7. BLOCKED: this does not approve public CMS edits, PDF uploads, URL changes, redirects, canonical/noindex changes, sitemap changes, taxonomy edits, internal-link rewrites, lawyer, lead or CRM action.
+8. NEXT: owner approves or holds visible current-URL repairs; if approved, operator captures this rollback material first, repairs only approved visible defects, reruns safety/diagnostics scripts and captures screenshots.
+
+### ACTION-FAMILY-LAW-VISIBLE-REPAIR-FIELD-MAP-001: Prepare exact field-level visible repair map
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The diagnostics identify live H1 and shortcode/PDF issues, but an operator needs exact field-level instructions before opening the CMS. This map tells which H1 to keep, which headings to demote/remove, and how to handle the broken agreement page CTA/PDF.
+**Actions:**
+1. DONE: created `project-control/family-law-visible-repair-field-map-2026-05-22.md`.
+2. DONE: created `project-control/family-law-visible-repair-field-map-2026-05-22.csv`.
+3. DONE: linked the field map from `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+4. VERIFIED LOCAL: CSV parses and contains `10` rows.
+5. VERIFIED PLANNING: `8` rows are `BLOCKED_OWNER_APPROVAL`, `1` row is `BLOCKED_GSC_OWNER_DECISION`, and `1` row is `BLOCKED_UNTIL_REPAIR`.
+6. VERIFIED PLANNING: field map covers `/divorce-agreement/`, `/divorce-lawyer/`, `/lawyer-divorce-guide-proceedings-costs-rights/`, `/child-support/`, `/child-custody/` and `/divorce-mediation/`.
+7. BLOCKED: no public H1, shortcode, PDF, URL, canonical, redirect, noindex, sitemap, taxonomy, related-card, lawyer, lead or CRM action is approved.
+8. NEXT: owner reviews visible repair approval; after approval and CMS rollback backup, operator repairs current URLs only, reruns safety/diagnostics scripts and captures screenshots.
+
+### ACTION-FAMILY-LAW-LIVE-REPAIR-DIAGNOSTICS-001: Capture exact live repair diagnostics
+**Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / PUBLIC EXECUTION BLOCKED
+**Why:** The repair packet identified which pages are blocked, but the operator also needs exact live H1 texts, raw shortcode context, canonical/robots state and PDF candidate status before touching the CMS.
+**Actions:**
+1. DONE: created `tools/extract-family-law-live-repair-diagnostics.mjs`.
+2. DONE: generated `reports/family-law-live-repair-diagnostics-2026-05-22.csv`.
+3. DONE: generated `reports/family-law-live-repair-diagnostics-2026-05-22.json`.
+4. DONE: created `project-control/family-law-live-repair-diagnostics-2026-05-22.md`.
+5. DONE: created `project-control/family-law-live-repair-diagnostics-2026-05-22.csv`.
+6. DONE: linked diagnostics from `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+7. VERIFIED LOCAL: Node syntax check passed.
+8. VERIFIED LIVE READ-ONLY: fetched `6` Family/Divorce HTML pages and `3` PDF candidates.
+9. VERIFIED LIVE READ-ONLY: diagnostics produced `9` rows, with `6` H1 issue rows, `1` raw-shortcode row and `0` working PDF candidates.
+10. BLOCKED: this does not approve CMS repair, PDF upload, redirect, canonical/noindex, sitemap, taxonomy, related-card, lawyer, lead or CRM action.
+11. NEXT: owner/operator uses the diagnostics after approval and rollback backup to repair `/divorce-agreement/` shortcode/PDF issues and H1/template issues; run focused GSC before divorce-lawyer canonical consolidation.
+
+### ACTION-FAMILY-LAW-LIVE-REPAIR-OPERATOR-PACKET-001: Prepare controlled live repair packet
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER OPERATOR REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The live safety checker identified concrete production defects, but the previous Family/Divorce upload runbook covered planned content upload, not repair of already-live shortcode/PDF/H1/canonical blockers. This packet separates visible current-URL repairs from SEO consolidation.
+**Actions:**
+1. DONE: created `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+2. DONE: created `project-control/family-law-live-repair-operator-packet-2026-05-22.csv`.
+3. VERIFIED LOCAL: CSV parses and contains `20` operator rows.
+4. VERIFIED PLANNING: `1` row is `READY_FOR_OPERATOR_PREP`; `19` rows remain `BLOCKED`.
+5. VERIFIED PLANNING: visible repair work is limited to existing URLs after owner approval and CMS rollback backup.
+6. VERIFIED PLANNING: `/divorce-agreement/` shortcode/PDF repair and H1/template repairs are separated from canonical/redirect/noindex/sitemap decisions.
+7. BLOCKED: divorce-lawyer canonical consolidation remains blocked until focused Family/Divorce GSC export and owner decision.
+8. BLOCKED: no public CMS edit, PDF upload, URL change, redirect, canonical/noindex, sitemap, taxonomy, related-card, lawyer, lead or CRM action is approved.
+9. NEXT: owner chooses whether to approve visible current-URL repairs only; if approved, operator captures rollback material, repairs `/divorce-agreement/` and H1/template issues, reruns `tools/check-family-law-live-safety.mjs`, then captures screenshots.
+
+### ACTION-FAMILY-LAW-LIVE-SAFETY-CHECKER-001: Add repeatable live-read-only Family Law safety checker
+**Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / PUBLIC EXECUTION BLOCKED
+**Why:** The Family/Divorce cluster now has already-live public pages with duplicate pillar risk, shortcode/PDF failure and H1/template hygiene issues. Before further upload, the blockers need a repeatable read-only checker so repairs can be verified consistently.
+**Actions:**
+1. DONE: created `tools/check-family-law-live-safety.mjs`.
+2. DONE: generated `reports/family-law-live-safety-check-2026-05-22.csv`.
+3. DONE: generated `reports/family-law-live-safety-check-2026-05-22.json`.
+4. DONE: created `project-control/family-law-live-safety-check-2026-05-22.md`.
+5. DONE: created `project-control/family-law-live-safety-check-2026-05-22.csv`.
+6. VERIFIED LOCAL: Node syntax check passed.
+7. VERIFIED LIVE READ-ONLY: checker fetched `6` public Family/Divorce HTML URLs and `3` PDF asset candidate URLs.
+8. BLOCKED: checker produced `11/11` blocked-or-review rows and `8` critical blockers.
+9. BLOCKED: `/lawyer-divorce-guide-proceedings-costs-rights/` and `/divorce-lawyer/` are both indexable self-canonical divorce-lawyer candidates.
+10. BLOCKED: `/divorce-agreement/` exposes raw shortcodes and no tested PDF candidate works.
+11. NEXT: run focused Family/Divorce GSC export, owner chooses canonical divorce-lawyer URL, then repair shortcode/PDF/H1 issues and rerun the checker before any further public upload, redirect, canonical/noindex or sitemap action.
+
+### ACTION-FAMILY-LAW-LIVE-PUBLISH-SAFETY-001: Harden Family Law publisher and isolate live blockers
+**Status:** COMPLETED / FIXED REPO SAFETY / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / PUBLIC EXECUTION BLOCKED
+**Why:** A recent Family Law publishing artifact can create or update production WordPress pages and the live site now has two indexable divorce-lawyer URLs plus a divorce-agreement page with broken public shortcodes. This must be controlled before more cluster upload work.
+**Actions:**
+1. DONE: hardened `reports/semrush/publish-family-law-pages.js` so normal execution is dry-run only.
+2. DONE: live writes now require `ALLOW_WP_PUBLISH=YES` and `WP_APP_PASSWORD_JSON`.
+3. DONE: replaced hardcoded user-machine paths with repo-relative/env-driven paths.
+4. DONE: created `project-control/family-law-live-publish-safety-review-2026-05-22.md`.
+5. DONE: created `project-control/family-law-live-publish-safety-review-2026-05-22.csv`.
+6. VERIFIED LOCAL: Node syntax check passed.
+7. VERIFIED LOCAL: dry run reported the two Family pages without reading credentials or making a network request.
+8. VERIFIED LIVE READ-ONLY: `9` public URLs/resources were checked.
+9. BLOCKED: `/lawyer-divorce-guide-proceedings-costs-rights/` and `/divorce-lawyer/` are both live, indexable and self-canonical.
+10. BLOCKED: `/divorce-agreement/` exposes raw shortcode output and the referenced PDF asset was not found at tested upload paths.
+11. NEXT: owner decides the divorce-lawyer canonical URL strategy, then run focused GSC export before any redirect/canonical/noindex/slug action; separately repair the divorce-agreement shortcode/PDF issue before treating the page as final.
+
+### ACTION-MEDICAL-MALPRACTICE-SOURCE-LEGAL-WORKSHEET-001: Prepare page-level source/legal/privacy review gate
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER LEGAL SOURCE REVIEW / EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The Medical Malpractice metadata package needed a page-level source/legal/privacy worksheet before any upload approval. This reduces the risk of publishing unsupported medical causation, deadline, fee, expert-opinion, birth/pregnancy or sensitive health-data claims.
+**Actions:**
+1. DONE: created `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.md`.
+2. DONE: created `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.csv`.
+3. VERIFIED LOCAL: CSV parses and contains `10` review rows.
+4. VERIFIED LOCAL: rows cover `9` first-upload metadata pages and `1` cluster-wide privacy/lead-form gate.
+5. VERIFIED PLANNING: `0/10` rows are approved for upload.
+6. VERIFIED PLANNING: each row defines source anchors, allowed-after-review language, blocked claims/actions, privacy risk, reviewer decision and next step.
+7. BLOCKED: owner/legal/source/privacy review, duplicate `/medical-malpractice-lawyer/` CMS identity decision, focused GSC export and WordPress rollback backup are still required before public CMS work.
+8. NEXT: owner assigns reviewers and marks rows `APPROVE_CURRENT_URL_UPDATE`, `EDIT_REQUIRED`, `HOLD`, `LEGAL_REVIEW_REQUIRED` or `PRIVACY_REVIEW_REQUIRED`; no upload until all blockers are cleared.
+
 ### ACTION-MEDICAL-MALPRACTICE-FIRST-UPLOAD-METADATA-PACKAGE-001: Prepare current-URL-only metadata package
 **Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER REVIEW / EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** Medical Malpractice now has readiness, owner decision, GSC workflow, duplicate identity and operator-runbook artifacts, but it still needed field-level CMS values so owner/legal/source review can happen without ad hoc title, meta, breadcrumb, schema or internal-link decisions during upload.

@@ -86,6 +86,24 @@ Do not store private personal data in this repo. Use this only as the structure 
 - next follow-up date;
 - owner notes.
 
+## Private List Validation - 2026-05-22
+
+VERIFIED LOCAL:
+- `tools/validate-lawyer-prospect-private-list.ps1` validates the first-wave CSV structure and allowed values.
+- `project-control/lawyer-prospect-private-list-validator-2026-05-22.md` explains the owner workflow.
+- Template validation passed with `20` rows, `0` errors and `0` warnings.
+
+OWNER ACTION:
+- Copy `project-control/lawyer-acquisition-first-wave-template-2026-05-20.csv` outside Git.
+- Fill the real first 20 prospects privately.
+- Run the validator against the private file.
+- Enter only validated reachable prospects into WordPress admin manually.
+
+BLOCKED:
+- Do not commit a filled prospect list.
+- Do not store private lawyer names, phones, emails or contact-source notes in this repo.
+- Do not send outreach before owner approval.
+
 ## Outreach Message Angle
 
 Keep it simple:
@@ -105,5 +123,5 @@ Do not promise leads until a matching supply/demand route exists for that practi
 
 ## Next Action
 
-Create the private first-20 prospect list outside the repo. Start with family, criminal, traffic and real estate lawyers. Use manual activation until Meshulam approval is complete.
+Create the private first-20 prospect list outside the repo, validate it with `tools/validate-lawyer-prospect-private-list.ps1`, then manually enter reachable prospects in WordPress admin. Start with family, criminal, traffic and real estate lawyers. Use manual activation until Meshulam approval is complete.
 

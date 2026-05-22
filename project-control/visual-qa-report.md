@@ -2,6 +2,193 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Homepage Competitor-Aligned Strategy
+- CREATED / VERIFIED RESEARCH: `project-control/homepage-competitor-aligned-strategy-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/homepage-competitor-aligned-strategy-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/homepage-seo-strategy.md`.
+- UPDATED / VERIFIED PLANNING: `project-control/homepage-seo-design-alignment.md`.
+- VERIFIED LOCAL: `front-page.php` section order was reviewed and no rebuild was recommended.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was strategy/research only and no public homepage changed.
+- BLOCKED PUBLIC EXECUTION: no homepage template, copy, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lawyer card, lead/CRM, payment, wp-admin or uPress action is approved.
+- SAFETY: no public page, CMS database row, lawyer record, lead record, prospect record, payment setting, redirect, sitemap, taxonomy, GSC API call or admin setting changed.
+
+## 2026-05-22 Lawyer Prospect Private List Validator
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/validate-lawyer-prospect-private-list.ps1`.
+- CREATED / VERIFIED PLANNING: `project-control/lawyer-prospect-private-list-validator-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/lawyer-prospect-private-list-validator-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/lawyer-prospect-private-list-template-validation-2026-05-22.csv`.
+- VERIFIED LOCAL: blank first-wave template passed validation in `-TemplateMode` with `20` rows, `0` errors and `0` warnings.
+- VERIFIED PRIVACY: validation reports contain no private lawyer names, emails, phones or contact-source values.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was local private-list validation tooling and no public UI changed.
+- SAFETY: no public page, CMS database row, lawyer record, lead record, prospect record, payment setting, redirect, sitemap, taxonomy, GSC API call or admin setting changed.
+
+## 2026-05-22 Content Upload Governance Checklist
+- CREATED / VERIFIED PLANNING: `project-control/content-upload-governance-checklist-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/content-upload-governance-checklist-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/priority-owner-action-queue-2026-05-22.md`.
+- UPDATED / VERIFIED PLANNING: `project-control/cluster-by-cluster-publishing-strategy-2026-05-12.md`.
+- VERIFIED PLANNING: checklist defines `15` upload governance gates and approves `0` clusters for public upload.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was local governance documentation and no public UI changed.
+- BLOCKED PUBLIC EXECUTION: no CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy, internal-link, lawyer, lead, CRM or uPress action is approved.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment, GSC API call or admin setting changed.
+
+## 2026-05-22 Criminal Source/Legal Review Worksheet
+- CREATED / VERIFIED PLANNING: `project-control/criminal-source-legal-review-worksheet-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/criminal-source-legal-review-worksheet-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/criminal-first-upload-metadata-package-2026-05-22.md`.
+- UPDATED / VERIFIED PLANNING: `project-control/criminal-owner-review-packet-2026-05-22.md`.
+- VERIFIED PLANNING: worksheet covers five Criminal current-URL pages plus one cluster-wide disclaimer/lead/schema gate.
+- VERIFIED PLANNING: `0/6` rows are approved for upload.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was a local approval worksheet and no public UI changed.
+- BLOCKED PUBLIC EXECUTION: no CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy, internal-link, lawyer, lead, CRM or uPress action is approved.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment, GSC API call or admin setting changed.
+
+## 2026-05-22 GSC Owner Execution Packet
+- CREATED / VERIFIED PLANNING: `project-control/gsc-owner-execution-packet-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/gsc-owner-execution-packet-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/gsc-api-setup-guide.md`.
+- UPDATED / VERIFIED PLANNING: `tools/gsc/README.md`.
+- VERIFIED PLANNING: packet sequences read-only GSC setup, dry run, export and validator checks before any cluster upload decision.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was a local owner execution packet and no public UI changed.
+- BLOCKED PUBLIC EXECUTION: no CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy, internal-link, lawyer, lead, CRM or uPress action is approved.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment, GSC API call or admin setting changed.
+
+## 2026-05-22 GSC Priority Export Output Validator
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/gsc/check-priority-gsc-export-output.ps1`.
+- CREATED / VERIFIED LOCAL: `project-control/gsc-priority-export-output-validator-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/gsc-priority-export-output-validator-2026-05-22.csv`.
+- VERIFIED LOCAL: validator ran for Family/Divorce, Criminal Law and Medical Malpractice and returned `BLOCKED_EXPORT_VALIDATION`.
+- VERIFIED LOCAL: existing baseline/cache/dashboard decision-map CSVs parse, but their summaries are blocked until rebuilt from `FOCUSED_GSC_EXPORT`.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was local GSC output tooling only and no public UI changed.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment, GSC API call or admin setting changed.
+
+## 2026-05-22 GSC OAuth Preflight Checker
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/gsc/check-gsc-oauth-preflight.ps1`.
+- CREATED / VERIFIED PLANNING: `project-control/gsc-oauth-preflight-runbook-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/gsc-oauth-preflight-runbook-2026-05-22.csv`.
+- VERIFIED LOCAL: missing credential/token paths return `BLOCKED_PRECHECK`.
+- VERIFIED LOCAL: with local ignored OAuth paths, `-RunPriorityDryRun` returns `VERIFIED_PRECHECK_READY`.
+- VERIFIED LOCAL: Family/Divorce, Criminal Law and Medical Malpractice dry-runs completed without OAuth browser or GSC API call.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was local setup tooling only and no public UI changed.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
+## 2026-05-22 Priority Owner Action Queue
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/build-priority-owner-action-queue.mjs`.
+- GENERATED / VERIFIED LOCAL: `reports/priority-owner-action-queue-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/priority-owner-action-queue-2026-05-22.json`.
+- CREATED / VERIFIED LOCAL: `project-control/priority-owner-action-queue-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/priority-owner-action-queue-2026-05-22.csv`.
+- VERIFIED LOCAL: queue consolidates `10` owner/operator action rows from `139` reviewed source rows.
+- BLOCKED: all `10/10` action rows remain blocked before content upload.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was local tooling/reporting only and no public UI changed.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
+## 2026-05-22 GSC Priority Cluster Export Runner
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/gsc/run-priority-cluster-gsc-exports.ps1`.
+- CREATED / VERIFIED PLANNING: `project-control/gsc-priority-cluster-export-runner-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/gsc-priority-cluster-export-runner-2026-05-22.csv`.
+- VERIFIED LOCAL: `.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -DryRun` completed for Family/Divorce, Criminal Law and Medical Malpractice.
+- VERIFIED LOCAL: dry run opened no OAuth browser, made no GSC API call and made no public site change.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was local GSC tooling only and no public UI changed.
+- BLOCKED: real export and final decision maps remain pending owner OAuth setup.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
+## 2026-05-22 Family Law Live Repair Readiness Gate
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/build-family-law-live-repair-readiness-gate.mjs`.
+- GENERATED / VERIFIED LOCAL: `reports/family-law-live-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/family-law-live-repair-readiness-gate-2026-05-22.json`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-live-repair-readiness-gate-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-live-repair-readiness-gate-2026-05-22.csv`.
+- VERIFIED LOCAL: readiness gate consolidates `95` reviewed source rows into `8` critical gate rows.
+- BLOCKED: all `8/8` gates remain blocked, so Family/Divorce is not upload-safe.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was a local readiness gate and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/operator executes approved current-URL repairs and the safety/diagnostics scripts pass.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
+## 2026-05-22 Family Law Owner Approval Worksheet
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-owner-approval-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-owner-approval-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/family-law-live-repair-operator-packet-2026-05-22.md` now links to the owner approval worksheet.
+- VERIFIED LOCAL: CSV parses and contains `13` approval/gate rows.
+- VERIFIED PLANNING: worksheet limits possible approval to current-URL visible repair only and keeps SEO consolidation, protected assets and full upload blocked.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was a local approval worksheet and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/operator executes approved current-URL repairs and the safety/diagnostics scripts pass.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
+## 2026-05-22 Family Law CMS Backup Template
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-cms-backup-template-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-cms-backup-template-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/family-law-live-repair-operator-packet-2026-05-22.md` now links to the backup template.
+- VERIFIED LOCAL: CSV parses and contains `14` backup/checklist rows.
+- VERIFIED PLANNING: template defines rollback capture fields and screenshot requirements before approved visible repair on the six affected Family/Divorce URLs.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was a local backup template and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/operator executes approved current-URL repairs and the safety/diagnostics scripts pass.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
+## 2026-05-22 Family Law Visible Repair Field Map
+- CREATED / VERIFIED PLANNING: `project-control/family-law-visible-repair-field-map-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/family-law-visible-repair-field-map-2026-05-22.csv`.
+- VERIFIED LOCAL: CSV parses and contains `10` field-level repair rows.
+- VERIFIED PLANNING: map defines the intended H1 to keep per affected page and the H1 blocks to demote/remove before visual QA.
+- VERIFIED PLANNING: `/divorce-agreement/` PDF/shortcode handling is separated from heading repair.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was a local field map and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/operator executes approved current-URL repairs and the safety/diagnostics scripts pass.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
+## 2026-05-22 Family Law Live Repair Diagnostics
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/extract-family-law-live-repair-diagnostics.mjs`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/family-law-live-repair-diagnostics-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/family-law-live-repair-diagnostics-2026-05-22.json`.
+- CREATED / VERIFIED LIVE READ-ONLY: `project-control/family-law-live-repair-diagnostics-2026-05-22.md`.
+- CREATED / VERIFIED LIVE READ-ONLY: `project-control/family-law-live-repair-diagnostics-2026-05-22.csv`.
+- VERIFIED LIVE READ-ONLY: fetched `6` HTML pages and `3` PDF candidates; captured exact H1 texts, raw shortcode context, canonical/robots state and PDF status for repair planning.
+- BLOCKED LIVE: diagnostics still show `6` H1 issue rows, `1` raw-shortcode row and `0` working PDF candidates.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was HTML/resource diagnostics only and no public UI changed.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
+## 2026-05-22 Family Law Live Repair Operator Packet
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-operator-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: CSV parses and contains `20` operator rows, with `19` still blocked until owner approval, CMS rollback backup, focused GSC where needed and post-repair QA.
+- VERIFIED PLANNING: packet requires rerunning `tools/check-family-law-live-safety.mjs` and capturing desktop/mobile screenshots after any approved public repair.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was a local repair planning packet and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/operator executes approved visible repairs and the route/status/canonical/robots checks pass.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
+## 2026-05-22 Family Law Live Safety Checker
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/check-family-law-live-safety.mjs`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/family-law-live-safety-check-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/family-law-live-safety-check-2026-05-22.json`.
+- CREATED / VERIFIED LIVE READ-ONLY: `project-control/family-law-live-safety-check-2026-05-22.md`.
+- CREATED / VERIFIED LIVE READ-ONLY: `project-control/family-law-live-safety-check-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed.
+- VERIFIED LIVE READ-ONLY: checker fetched `6` public Family/Divorce HTML pages and `3` PDF asset candidates.
+- BLOCKED LIVE: `11/11` rows require repair/review; `8` are critical.
+- BLOCKED LIVE: duplicate self-canonical divorce-lawyer pillar candidates, raw `/divorce-agreement/` shortcodes, missing PDF candidates and multi-H1/template issues remain unresolved.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was public HTML/resource safety checking and no public UI was changed in this cycle.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
+## 2026-05-22 Family Law Live Publish Safety Review
+- FIXED REPO SAFETY: `reports/semrush/publish-family-law-pages.js` defaults to dry-run mode and requires explicit live-write env vars before WordPress REST writes.
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-publish-safety-review-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-publish-safety-review-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed and dry run made no credential or network request.
+- VERIFIED LIVE READ-ONLY: checked `9` public URLs/resources.
+- VERIFIED LIVE: `/lawyer-divorce-guide-proceedings-costs-rights/`, `/divorce-agreement/`, `/divorce-lawyer/`, `/child-support/`, `/child-custody/` and `/divorce-mediation/` returned HTTP 200 with Hebrew rendering and no replacement characters detected.
+- BLOCKED LIVE: `/lawyer-divorce-guide-proceedings-costs-rights/` and `/divorce-lawyer/` are both indexable self-canonical divorce-lawyer pages.
+- BLOCKED LIVE: `/divorce-agreement/` exposes raw `justice_pdf_download` and `justice_contact_form` shortcodes; tested PDF upload paths returned 404.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was source/HTML read-only safety QA and no public UI was changed in this cycle.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
+## 2026-05-22 Medical Malpractice Source / Legal Review Worksheet
+- CREATED / VERIFIED PLANNING: `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.csv`.
+- VERIFIED LOCAL: CSV parses and contains `10` review rows with `0` rows approved for upload.
+- VERIFIED PLANNING: worksheet blocks public CMS/editor, URL, redirect, canonical/noindex, sitemap, taxonomy, schema, related-card, lead-form privacy and CRM changes until owner/source/legal/privacy/GSC gates clear.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local source/legal worksheet preparation only; no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/legal/source/privacy approval, WordPress backup, approved CMS update and post-upload route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Medical Malpractice First-Upload Metadata Package
 - CREATED / VERIFIED PLANNING: `project-control/medical-malpractice-first-upload-metadata-package-2026-05-22.md`.
 - CREATED / VERIFIED PLANNING: `project-control/medical-malpractice-first-upload-metadata-package-2026-05-22.csv`.

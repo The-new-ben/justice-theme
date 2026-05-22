@@ -1,0 +1,11 @@
+id,check,status,owner,next_step,notes
+GSC-PREFLIGHT-001,node_runtime,VERIFIED_LOCAL,Codex,Run preflight again after owner credential paths are set,Checks Node availability before export tooling runs
+GSC-PREFLIGHT-002,gsc_node_dependencies,VERIFIED_LOCAL,Codex,Run npm install from tools/gsc only if this becomes blocked,Checks googleapis and open packages
+GSC-PREFLIGHT-003,priority_runner,VERIFIED_LOCAL,Codex,Use run-priority-cluster-gsc-exports.ps1 only after preflight is clean,Confirms priority runner exists
+GSC-PREFLIGHT-004,oauth_client_file,BLOCKED_OWNER_SETUP,Owner,Set GSC_OAUTH_CLIENT_PATH to the Google OAuth Desktop client JSON path outside Git,Preflight validates existence but does not print secrets
+GSC-PREFLIGHT-005,oauth_client_shape,BLOCKED_OWNER_SETUP,Owner,Use a Google Cloud OAuth Desktop client JSON,Preflight validates expected fields without printing client_id or client_secret
+GSC-PREFLIGHT-006,oauth_client_git_tracking,BLOCKED_OWNER_SETUP,Owner,Keep credential file outside Git or ignored if local-only inside repo,Tracked credentials require rotation
+GSC-PREFLIGHT-007,token_path,BLOCKED_OWNER_SETUP,Owner,Set GSC_TOKEN_PATH to a local token JSON path outside Git,First real OAuth run creates or refreshes the token
+GSC-PREFLIGHT-008,token_git_tracking,BLOCKED_OWNER_SETUP,Owner,Keep token outside Git or ignored if local-only inside repo,Tracked tokens require revocation
+GSC-PREFLIGHT-009,priority_runner_dry_run,VERIFIED_LOCAL,Codex,Run check-gsc-oauth-preflight.ps1 -RunPriorityDryRun after paths are set,Confirms Family Criminal and Medical workflows dry-run without OAuth or API calls
+GSC-PREFLIGHT-010,real_gsc_export,BLOCKED_OWNER_OAUTH,Owner,After clean preflight run .\tools\gsc\run-priority-cluster-gsc-exports.ps1,Real export remains owner-approved read-only API work

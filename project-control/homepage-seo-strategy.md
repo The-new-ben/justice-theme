@@ -148,6 +148,27 @@ ADDED 2026-05-10:
 
 Status: PLANNED / NOT LIVE EXECUTED.
 
+## 2026-05-22 Competitor-Aligned Homepage Strategy
+
+Evidence:
+- `project-control/homepage-competitor-aligned-strategy-2026-05-22.md`.
+- `project-control/homepage-competitor-aligned-strategy-2026-05-22.csv`.
+
+VERIFIED RESEARCH:
+- Current Din, PsakDin, Mishpati and Justia pages/search results still support the core homepage direction: search-first discovery, practice/category navigation, editorial proof, lawyer profile value, paid-placement clarity and reporting.
+
+VERIFIED LOCAL:
+- `front-page.php` already has a strong portal stack: hero, intake, intent pyramid, practice areas, find-lawyer guide, featured lawyers, LegalTech, lawyer CTA, latest articles, ask lawyer, trust and final CTA.
+
+RECOMMENDED:
+- Do not rebuild the homepage.
+- Refine section roles and copy.
+- Move later from latest-only article exposure toward curated cluster guides.
+- Keep paid lawyer messaging around profile, visibility, contact path and monthly reporting, not guaranteed leads.
+
+BLOCKED:
+- No public homepage copy, template, title/H1/meta, link, URL, redirect, canonical/noindex, sitemap, taxonomy, lawyer card, lead/CRM, payment or uPress action is approved by this strategy.
+
 ## 2026-05-11 Homepage Line-By-Line Review
 
 Evidence:

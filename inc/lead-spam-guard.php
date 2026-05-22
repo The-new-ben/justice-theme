@@ -47,23 +47,48 @@ function justice_theme_render_lead_attribution_fields(): void {
 }
 
 /**
+ * Return public lead-area options in display order.
+ *
+ * @return array<string, string>
+ */
+function justice_theme_lead_area_options(): array {
+	return array(
+		'family-law'              => __( 'משפחה וגירושין', 'justice-theme' ),
+		'criminal-law'            => __( 'משפט פלילי', 'justice-theme' ),
+		'real-estate-law'         => __( 'מקרקעין ונדל״ן', 'justice-theme' ),
+		'medical-malpractice-law' => __( 'רשלנות רפואית', 'justice-theme' ),
+		'personal-injury-law'     => __( 'נזיקין ותאונות', 'justice-theme' ),
+		'traffic-law'             => __( 'תעבורה', 'justice-theme' ),
+		'labor-law'               => __( 'דיני עבודה', 'justice-theme' ),
+		'inheritance-law'         => __( 'ירושה וצוואות', 'justice-theme' ),
+		'thailand-law'            => __( 'תאילנד / משפט בינלאומי', 'justice-theme' ),
+		'general'                 => __( 'אחר / לא בטוח', 'justice-theme' ),
+	);
+}
+
+/**
  * Return the lead areas accepted by public lead forms.
  *
  * @return array<int, string>
  */
 function justice_theme_lead_area_values(): array {
-	return array(
-		'family-law',
-		'criminal-law',
-		'traffic-law',
-		'real-estate-law',
-		'labor-law',
-		'personal-injury-law',
-		'medical-malpractice-law',
-		'inheritance-law',
-		'thailand-law',
-		'general',
-	);
+	return array_keys( justice_theme_lead_area_options() );
+}
+
+/**
+ * Render a lead-area select option set from the canonical public vocabulary.
+ *
+ * @param string $selected    Selected area slug.
+ * @param string $placeholder Placeholder label.
+ */
+function justice_theme_render_lead_area_options( string $selected = '', string $placeholder = '' ): void {
+	$placeholder = '' !== $placeholder ? $placeholder : __( 'בחרו תחום משפטי', 'justice-theme' );
+	?>
+	<option value="" <?php selected( $selected, '' ); ?>><?php echo esc_html( $placeholder ); ?></option>
+	<?php foreach ( justice_theme_lead_area_options() as $area_value => $area_label ) : ?>
+		<option value="<?php echo esc_attr( $area_value ); ?>" <?php selected( $selected, $area_value ); ?>><?php echo esc_html( $area_label ); ?></option>
+	<?php endforeach; ?>
+	<?php
 }
 
 /**

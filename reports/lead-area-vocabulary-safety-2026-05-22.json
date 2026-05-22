@@ -1,0 +1,90 @@
+[
+  {
+    "check_id": "LEAD-AREA-CANONICAL-OPTIONS",
+    "scope": "lead_area_vocabulary",
+    "status": "VERIFIED",
+    "risk": "CRITICAL",
+    "evidence": "Canonical public lead-area option helper exists with all accepted commercial/legal area slugs.",
+    "next_step": "Keep as controlled lead-area vocabulary baseline."
+  },
+  {
+    "check_id": "LEAD-AREA-VALUES-DERIVED",
+    "scope": "lead_area_validation",
+    "status": "VERIFIED",
+    "risk": "CRITICAL",
+    "evidence": "Accepted public lead_area values are derived from canonical option keys.",
+    "next_step": "Keep as controlled lead-area vocabulary baseline."
+  },
+  {
+    "check_id": "LEAD-AREA-RENDERER",
+    "scope": "lead_area_forms",
+    "status": "VERIFIED",
+    "risk": "HIGH",
+    "evidence": "Shared select-option renderer loops over canonical lead-area options.",
+    "next_step": "Keep as controlled lead-area vocabulary baseline."
+  },
+  {
+    "check_id": "LEAD-AREA-ASK-FORM",
+    "scope": "ask_lawyer_form",
+    "status": "VERIFIED",
+    "risk": "HIGH",
+    "evidence": "Ask-lawyer form uses the shared lead-area renderer and has no hardcoded legal-area options.",
+    "next_step": "Keep as controlled lead-area vocabulary baseline."
+  },
+  {
+    "check_id": "LEAD-AREA-GLOBAL-FORM",
+    "scope": "lead_form_template",
+    "status": "VERIFIED",
+    "risk": "HIGH",
+    "evidence": "Reusable lead form uses the shared lead-area renderer and has no hardcoded legal-area options.",
+    "next_step": "Keep as controlled lead-area vocabulary baseline."
+  },
+  {
+    "check_id": "LEAD-AREA-INCLUDE-ORDER",
+    "scope": "theme_bootstrap",
+    "status": "VERIFIED",
+    "risk": "HIGH",
+    "evidence": "Lead spam guard loads before lead UI, CRM, classifier, and routing files.",
+    "next_step": "Keep as controlled lead-area vocabulary baseline."
+  },
+  {
+    "check_id": "LEAD-AREA-NORMALIZER-ALIASES",
+    "scope": "lead_classifier",
+    "status": "VERIFIED",
+    "risk": "CRITICAL",
+    "evidence": "Legacy and shorthand lead_area aliases normalize into canonical routing slugs.",
+    "next_step": "Keep as controlled lead-area vocabulary baseline."
+  },
+  {
+    "check_id": "LEAD-AREA-LABELS",
+    "scope": "lead_crm_display",
+    "status": "VERIFIED",
+    "risk": "HIGH",
+    "evidence": "CRM/display label helper covers canonical public lead-area slugs.",
+    "next_step": "Keep as controlled lead-area vocabulary baseline."
+  },
+  {
+    "check_id": "LEAD-AREA-ROUTING-FALLBACK",
+    "scope": "lead_routing",
+    "status": "VERIFIED",
+    "risk": "CRITICAL",
+    "evidence": "Lead routing prefers AI-detected area, falls back to legal_area, and searches lawyers by area.",
+    "next_step": "Keep as controlled lead-area vocabulary baseline."
+  },
+  {
+    "check_id": "LEAD-AREA-CRM-FALLBACK",
+    "scope": "lead_crm",
+    "status": "VERIFIED",
+    "risk": "HIGH",
+    "evidence": "CRM display falls back through ai_detected_area, legal_area, lead_area and formats through the label helper.",
+    "next_step": "Keep as controlled lead-area vocabulary baseline."
+  },
+  {
+    "check_id": "LEAD-AREA-HOMEPAGE-INTENT",
+    "scope": "homepage_intent_links",
+    "status": "VERIFIED",
+    "risk": "MEDIUM",
+    "evidence": "Homepage intent cards use canonical lead-area slugs in lawyer-directory links.",
+    "next_step": "Keep as controlled lead-area vocabulary baseline."
+  }
+]

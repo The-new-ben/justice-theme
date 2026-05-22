@@ -1,3 +1,19 @@
+# LATEST WORK STATUS - 2026-05-22 20:59 Asia/Jerusalem
+- LEAD AREA VOCABULARY SAFETY: advanced lead/CRM routing reliability by centralizing public lead-area options into one canonical helper and replacing duplicated option blocks in both public lead forms.
+- UPDATED: `inc/lead-spam-guard.php`.
+- UPDATED: `template-parts/forms/lead-form.php`.
+- UPDATED: `template-parts/sections/ask-lawyer.php`.
+- CREATED: `tools/check-lead-area-vocabulary-safety.mjs`.
+- CREATED: `project-control/lead-area-vocabulary-safety-2026-05-22.md`.
+- CREATED: `project-control/lead-area-vocabulary-safety-2026-05-22.csv`.
+- GENERATED: `reports/lead-area-vocabulary-safety-2026-05-22.csv`.
+- GENERATED: `reports/lead-area-vocabulary-safety-2026-05-22.json`.
+- FIXED: accepted public `lead_area` values now derive from the same canonical option set used to render forms.
+- VERIFIED LOCAL: `php -l inc/lead-spam-guard.php`, `php -l template-parts/forms/lead-form.php`, `php -l template-parts/sections/ask-lawyer.php`, `node --check tools/check-lead-area-vocabulary-safety.mjs` and `node tools/check-lead-area-vocabulary-safety.mjs --reportDate=2026-05-22` passed.
+- VERIFIED LOCAL: lead-area vocabulary checker returned `11/11 VERIFIED`.
+- NOT LIVE VERIFIED: live form rendering, controlled lead submission, CRM label display and lawyer routing still require uPress pull/cache clear and an approved test lead.
+- SAFETY: no public CMS page body, database row, URL slug, redirect, canonical/noindex, taxonomy, sitemap, lawyer profile, live lead, CRM record, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 20:44 Asia/Jerusalem
 - CONTROLLED ROUTE BREADCRUMB SAFETY: advanced T418 by binding protected practice route breadcrumbs to the existing practice landing config before normal WordPress query fallbacks can supply stale page, article or 404 labels.
 - UPDATED: `inc/breadcrumbs.php`.

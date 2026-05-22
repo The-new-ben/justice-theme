@@ -2,6 +2,20 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Lead Area Vocabulary Safety
+- UPDATED / VERIFIED LOCAL: `inc/lead-spam-guard.php`.
+- UPDATED / VERIFIED LOCAL: `template-parts/forms/lead-form.php`.
+- UPDATED / VERIFIED LOCAL: `template-parts/sections/ask-lawyer.php`.
+- CREATED / VERIFIED LOCAL: `tools/check-lead-area-vocabulary-safety.mjs`.
+- CREATED / VERIFIED PLANNING: `project-control/lead-area-vocabulary-safety-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/lead-area-vocabulary-safety-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/lead-area-vocabulary-safety-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/lead-area-vocabulary-safety-2026-05-22.json`.
+- VERIFIED LOCAL: PHP lint passed and lead-area vocabulary checker returned `11/11 VERIFIED`.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because no public deployment, uPress cache clear or controlled lead submission happened.
+- BLOCKED LIVE QA: after deployment, verify both public lead forms visually, submit controlled test leads for `medical-malpractice-law` and `personal-injury-law`, then check CRM/routing fields.
+- SAFETY: no public page body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, live lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Controlled Route Breadcrumb Safety
 - UPDATED / VERIFIED LOCAL: `inc/breadcrumbs.php`.
 - CREATED / VERIFIED LOCAL: `tools/check-controlled-route-breadcrumb-safety.mjs`.

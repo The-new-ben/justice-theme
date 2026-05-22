@@ -1,6 +1,23 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Lead area vocabulary safety
+
+- UPDATED: `inc/lead-spam-guard.php`.
+- UPDATED: `template-parts/forms/lead-form.php`.
+- UPDATED: `template-parts/sections/ask-lawyer.php`.
+- CREATED: `tools/check-lead-area-vocabulary-safety.mjs`.
+- CREATED: `project-control/lead-area-vocabulary-safety-2026-05-22.md`.
+- CREATED: `project-control/lead-area-vocabulary-safety-2026-05-22.csv`.
+- GENERATED: `reports/lead-area-vocabulary-safety-2026-05-22.csv`.
+- GENERATED: `reports/lead-area-vocabulary-safety-2026-05-22.json`.
+- FIXED: public lead-area options now render from one canonical helper instead of two duplicated public form option blocks.
+- FIXED: accepted public `lead_area` values now derive from the same option keys used by the forms.
+- VERIFIED LOCAL: PHP lint passed for changed PHP files; node syntax and `node tools/check-lead-area-vocabulary-safety.mjs --reportDate=2026-05-22` passed.
+- VERIFIED LOCAL: lead-area vocabulary checker returned `11/11 VERIFIED`.
+- NOT LIVE VERIFIED: no public form screenshot, live lead submission, CRM record, email notification or routing assignment was executed.
+- SAFETY: no public CMS content, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
 ## 2026-05-22 - Controlled route breadcrumb safety
 
 - UPDATED: `inc/breadcrumbs.php`.

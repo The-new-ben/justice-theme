@@ -4,6 +4,22 @@
 
 ---
 
+### ACTION-LEAD-AREA-VOCABULARY-SAFETY-001: Centralize public lead-area options for forms, validation and routing
+**Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC CMS CHANGE
+**Why:** public lead forms, validation, classifier aliases, CRM labels and routing all depend on the same legal-area slug vocabulary; duplicated form option blocks increase the risk of misrouted leads and inconsistent reporting.
+**Actions:**
+1. DONE: added `justice_theme_lead_area_options()` in `inc/lead-spam-guard.php` as the canonical public lead-area option set.
+2. DONE: changed `justice_theme_lead_area_values()` to derive accepted values from the canonical option keys.
+3. DONE: added `justice_theme_render_lead_area_options()` for public lead-area `<select>` rendering.
+4. DONE: updated `template-parts/forms/lead-form.php` to use the shared renderer.
+5. DONE: updated `template-parts/sections/ask-lawyer.php` to use the shared renderer with its shorter placeholder.
+6. DONE: created `tools/check-lead-area-vocabulary-safety.mjs`.
+7. DONE: created `project-control/lead-area-vocabulary-safety-2026-05-22.md`.
+8. DONE: created `project-control/lead-area-vocabulary-safety-2026-05-22.csv`.
+9. VERIFIED LOCAL: PHP lint, node syntax check and lead-area vocabulary checker passed with `11/11 VERIFIED`.
+10. NOT LIVE VERIFIED: live form rendering and lead routing still require deployment/pull, cache clear and a controlled test submission.
+11. NEXT: after deploy, submit controlled leads for `medical-malpractice-law` and `personal-injury-law`, then verify `legal_area`, `ai_detected_area`, CRM label and assigned-lawyer routing.
+
 ### ACTION-CONTROLLED-ROUTE-BREADCRUMB-SAFETY-001: Bind protected practice-route breadcrumbs to route config
 **Status:** FIXED / VERIFIED LOCAL / NOT LIVE VERIFIED / NO PUBLIC CMS CHANGE
 **Why:** T418 protected the money routes from redirect-plugin collapse, but the visible breadcrumb and BreadcrumbList schema still needed to be protected from stale WordPress query ownership or 404 fallbacks.

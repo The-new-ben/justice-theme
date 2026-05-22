@@ -1,0 +1,12 @@
+check_id,scope,status,risk,evidence,next_step
+LEAD-AREA-CANONICAL-OPTIONS,lead_area_vocabulary,VERIFIED,CRITICAL,Canonical public lead-area option helper exists with all accepted commercial/legal area slugs.,Keep as controlled lead-area vocabulary baseline.
+LEAD-AREA-VALUES-DERIVED,lead_area_validation,VERIFIED,CRITICAL,Accepted public lead_area values are derived from canonical option keys.,Keep as controlled lead-area vocabulary baseline.
+LEAD-AREA-RENDERER,lead_area_forms,VERIFIED,HIGH,Shared select-option renderer loops over canonical lead-area options.,Keep as controlled lead-area vocabulary baseline.
+LEAD-AREA-ASK-FORM,ask_lawyer_form,VERIFIED,HIGH,Ask-lawyer form uses the shared lead-area renderer and has no hardcoded legal-area options.,Keep as controlled lead-area vocabulary baseline.
+LEAD-AREA-GLOBAL-FORM,lead_form_template,VERIFIED,HIGH,Reusable lead form uses the shared lead-area renderer and has no hardcoded legal-area options.,Keep as controlled lead-area vocabulary baseline.
+LEAD-AREA-INCLUDE-ORDER,theme_bootstrap,VERIFIED,HIGH,"Lead spam guard loads before lead UI, CRM, classifier, and routing files.",Keep as controlled lead-area vocabulary baseline.
+LEAD-AREA-NORMALIZER-ALIASES,lead_classifier,VERIFIED,CRITICAL,Legacy and shorthand lead_area aliases normalize into canonical routing slugs.,Keep as controlled lead-area vocabulary baseline.
+LEAD-AREA-LABELS,lead_crm_display,VERIFIED,HIGH,CRM/display label helper covers canonical public lead-area slugs.,Keep as controlled lead-area vocabulary baseline.
+LEAD-AREA-ROUTING-FALLBACK,lead_routing,VERIFIED,CRITICAL,"Lead routing prefers AI-detected area, falls back to legal_area, and searches lawyers by area.",Keep as controlled lead-area vocabulary baseline.
+LEAD-AREA-CRM-FALLBACK,lead_crm,VERIFIED,HIGH,"CRM display falls back through ai_detected_area, legal_area, lead_area and formats through the label helper.",Keep as controlled lead-area vocabulary baseline.
+LEAD-AREA-HOMEPAGE-INTENT,homepage_intent_links,VERIFIED,MEDIUM,Homepage intent cards use canonical lead-area slugs in lawyer-directory links.,Keep as controlled lead-area vocabulary baseline.

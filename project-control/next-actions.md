@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-MEDICAL-MALPRACTICE-FIRST-UPLOAD-METADATA-PACKAGE-001: Prepare current-URL-only metadata package
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER REVIEW / EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** Medical Malpractice now has readiness, owner decision, GSC workflow, duplicate identity and operator-runbook artifacts, but it still needed field-level CMS values so owner/legal/source review can happen without ad hoc title, meta, breadcrumb, schema or internal-link decisions during upload.
+**Actions:**
+1. DONE: created `project-control/medical-malpractice-first-upload-metadata-package-2026-05-22.md`.
+2. DONE: created `project-control/medical-malpractice-first-upload-metadata-package-2026-05-22.csv`.
+3. VERIFIED LOCAL: CSV parses and contains `9` metadata rows.
+4. VERIFIED LOCAL: `0/9` rows are upload-approved.
+5. VERIFIED PLANNING: rows cover the duplicate pillar candidate, protected cost support, informational support, surgery/anesthesia support, birth-injury parent support and protected old birth/pregnancy asset.
+6. VERIFIED PLANNING: rows keep current URLs only and block future clean slugs, redirects, canonicals/noindex, sitemap changes, taxonomy edits, related-card writes, schema expansion and CMS execution.
+7. BLOCKED: owner/legal/source review, authoritative `/medical-malpractice-lawyer/` CMS identity decision, focused GSC export and WordPress rollback backup are still required before public CMS work.
+8. NEXT: owner marks each row `APPROVE_CURRENT_URL_UPDATE`, `EDIT_REQUIRED`, `HOLD` or `LEGAL_REVIEW_REQUIRED`; do not upload until the duplicate identity and GSC gates are resolved.
+
 ### ACTION-MEDICAL-MALPRACTICE-CMS-IDENTITY-OPERATOR-RUNBOOK-001: Prepare inspection-only operator runbook for duplicate CMS identity
 **Status:** COMPLETED / VERIFIED PLANNING / READY FOR OPERATOR PREP / EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** The duplicate identity review identified the blocker, but the operator still needs exact inspection, backup and decision steps before any Medical Malpractice upload. This runbook converts the blocker into a controlled wp-admin/database verification workflow without authorizing public changes.

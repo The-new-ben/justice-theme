@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Medical Malpractice first-upload metadata package
+
+- CREATED: `project-control/medical-malpractice-first-upload-metadata-package-2026-05-22.md`.
+- CREATED: `project-control/medical-malpractice-first-upload-metadata-package-2026-05-22.csv`.
+- VERIFIED LOCAL: metadata CSV parses and contains `9` page-level rows with `0` rows approved for upload.
+- VERIFIED PLANNING: package proposes current-URL-only H1, SEO title, meta description, OG, breadcrumb, taxonomy, related-link, schema and robots policies for the duplicate pillar candidate, cost support, informational support, surgery/anesthesia support and birth/pregnancy support assets.
+- BLOCKED: package does not authorize CMS upload, slug changes, redirects, canonical/noindex changes, sitemap changes, taxonomy edits, media changes, schema expansion, lawyer-card changes or CRM changes.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Medical Malpractice CMS identity operator runbook
 
 - CREATED: `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.md`.

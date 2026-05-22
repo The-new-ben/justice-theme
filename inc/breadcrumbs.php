@@ -453,6 +453,12 @@ function justice_theme_get_breadcrumb_items() {
 			'tenant-rights-israel'         => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 			'work-accident-guide'          => array( 'name' => 'נזקי גוף', 'url' => '/personal-injury-claim/' ),
 			'construction-permit-violation' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			// Batch 37
+			'non-compete-agreement-israel' => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'age-discrimination-work'      => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'inheritance-dispute'          => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'criminal-lawyer-ashkelon'     => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'real-estate-lawyer-yavne'     => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

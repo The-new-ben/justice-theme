@@ -1,3 +1,19 @@
+## LATEST WORK STATUS - 2026-05-22 16:51 Asia/Jerusalem
+- FAMILY LAW LIVE SAFETY CHECKER: added a repeatable read-only checker for the already-live Family/Divorce pages and PDF asset candidates.
+- CREATED: `tools/check-family-law-live-safety.mjs`.
+- GENERATED: `reports/family-law-live-safety-check-2026-05-22.csv`.
+- GENERATED: `reports/family-law-live-safety-check-2026-05-22.json`.
+- CREATED: `project-control/family-law-live-safety-check-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-safety-check-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/check-family-law-live-safety.mjs` passed.
+- VERIFIED LIVE READ-ONLY: checker fetched `6` public Family/Divorce HTML URLs and `3` PDF asset candidate URLs; no CMS write, credential, wp-admin, redirect, canonical/noindex, taxonomy, sitemap, media, CRM or uPress action was made.
+- BLOCKED LIVE: generated `11` safety rows, `0` verified rows, `11` blocked/review rows and `8` critical blockers.
+- BLOCKED LIVE: `/lawyer-divorce-guide-proceedings-costs-rights/` and `/divorce-lawyer/` remain two indexable self-canonical divorce-lawyer pillar candidates.
+- BLOCKED LIVE: `/divorce-agreement/` still exposes raw `justice_pdf_download` and `justice_contact_form` shortcode text, and no tested `divorce-agreement-template-2025.pdf` candidate returned a working PDF.
+- BLOCKED LIVE: all checked Family/Divorce HTML pages currently need H1/template review before the cluster can be marked upload-safe.
+- NEXT: run focused Family/Divorce GSC export, make owner canonical URL decision, repair shortcode/PDF/H1 issues, then rerun `node tools/check-family-law-live-safety.mjs --reportDate=YYYY-MM-DD` before any further upload, redirect, canonical/noindex or sitemap action.
+- SAFETY: this cycle made repo-only tooling/docs/report changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 16:43 Asia/Jerusalem
 - FAMILY LAW LIVE PUBLISH SAFETY REVIEW: hardened the Family Law REST publisher and documented live safety blockers caused by the already-public Family/Divorce pages.
 - FIXED REPO SAFETY: `reports/semrush/publish-family-law-pages.js` now defaults to dry-run mode and requires `ALLOW_WP_PUBLISH=YES` plus `WP_APP_PASSWORD_JSON` before any live WordPress write.

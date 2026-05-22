@@ -2,6 +2,19 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Family Law Live Safety Checker
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/check-family-law-live-safety.mjs`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/family-law-live-safety-check-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/family-law-live-safety-check-2026-05-22.json`.
+- CREATED / VERIFIED LIVE READ-ONLY: `project-control/family-law-live-safety-check-2026-05-22.md`.
+- CREATED / VERIFIED LIVE READ-ONLY: `project-control/family-law-live-safety-check-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed.
+- VERIFIED LIVE READ-ONLY: checker fetched `6` public Family/Divorce HTML pages and `3` PDF asset candidates.
+- BLOCKED LIVE: `11/11` rows require repair/review; `8` are critical.
+- BLOCKED LIVE: duplicate self-canonical divorce-lawyer pillar candidates, raw `/divorce-agreement/` shortcodes, missing PDF candidates and multi-H1/template issues remain unresolved.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was public HTML/resource safety checking and no public UI was changed in this cycle.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Family Law Live Publish Safety Review
 - FIXED REPO SAFETY: `reports/semrush/publish-family-law-pages.js` defaults to dry-run mode and requires explicit live-write env vars before WordPress REST writes.
 - CREATED / VERIFIED PLANNING: `project-control/family-law-live-publish-safety-review-2026-05-22.md`.

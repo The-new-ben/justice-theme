@@ -1,6 +1,20 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family Law live safety checker
+
+- TOOLING FIXED: created `tools/check-family-law-live-safety.mjs`.
+- GENERATED: `reports/family-law-live-safety-check-2026-05-22.csv`.
+- GENERATED: `reports/family-law-live-safety-check-2026-05-22.json`.
+- CREATED: `project-control/family-law-live-safety-check-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-safety-check-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed.
+- VERIFIED LIVE READ-ONLY: checker fetched `6` Family/Divorce HTML pages and `3` PDF asset candidate URLs.
+- BLOCKED LIVE: generated `11` rows, with `0` verified rows, `11` blocked/review rows and `8` critical blockers.
+- BLOCKED LIVE: duplicate indexable self-canonical divorce-lawyer pillar candidates remain live.
+- BLOCKED LIVE: `/divorce-agreement/` exposes raw shortcodes and the PDF asset gate remains blocked.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Family Law live publish safety review
 
 - FIXED REPO SAFETY: `reports/semrush/publish-family-law-pages.js` now defaults to dry-run mode.

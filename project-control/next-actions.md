@@ -4,6 +4,22 @@
 
 ---
 
+### ACTION-FAMILY-LAW-LIVE-SAFETY-CHECKER-001: Add repeatable live-read-only Family Law safety checker
+**Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / PUBLIC EXECUTION BLOCKED
+**Why:** The Family/Divorce cluster now has already-live public pages with duplicate pillar risk, shortcode/PDF failure and H1/template hygiene issues. Before further upload, the blockers need a repeatable read-only checker so repairs can be verified consistently.
+**Actions:**
+1. DONE: created `tools/check-family-law-live-safety.mjs`.
+2. DONE: generated `reports/family-law-live-safety-check-2026-05-22.csv`.
+3. DONE: generated `reports/family-law-live-safety-check-2026-05-22.json`.
+4. DONE: created `project-control/family-law-live-safety-check-2026-05-22.md`.
+5. DONE: created `project-control/family-law-live-safety-check-2026-05-22.csv`.
+6. VERIFIED LOCAL: Node syntax check passed.
+7. VERIFIED LIVE READ-ONLY: checker fetched `6` public Family/Divorce HTML URLs and `3` PDF asset candidate URLs.
+8. BLOCKED: checker produced `11/11` blocked-or-review rows and `8` critical blockers.
+9. BLOCKED: `/lawyer-divorce-guide-proceedings-costs-rights/` and `/divorce-lawyer/` are both indexable self-canonical divorce-lawyer candidates.
+10. BLOCKED: `/divorce-agreement/` exposes raw shortcodes and no tested PDF candidate works.
+11. NEXT: run focused Family/Divorce GSC export, owner chooses canonical divorce-lawyer URL, then repair shortcode/PDF/H1 issues and rerun the checker before any further public upload, redirect, canonical/noindex or sitemap action.
+
 ### ACTION-FAMILY-LAW-LIVE-PUBLISH-SAFETY-001: Harden Family Law publisher and isolate live blockers
 **Status:** COMPLETED / FIXED REPO SAFETY / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / PUBLIC EXECUTION BLOCKED
 **Why:** A recent Family Law publishing artifact can create or update production WordPress pages and the live site now has two indexable divorce-lawyer URLs plus a divorce-agreement page with broken public shortcodes. This must be controlled before more cluster upload work.

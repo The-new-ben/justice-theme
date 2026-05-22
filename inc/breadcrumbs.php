@@ -423,6 +423,12 @@ function justice_theme_get_breadcrumb_items() {
 			'divorce-process-steps'        => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'business-visa-israel'         => array( 'name' => 'הגירה', 'url' => '/immigration-lawyer-israel/' ),
 			'legal-costs-who-pays'         => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			// Batch 32 — statistics pages
+			'divorce-statistics-israel'    => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'lawyer-discipline-israel'     => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			'medical-malpractice-statistics' => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			'real-estate-market-statistics' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'criminal-law-statistics-israel' => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

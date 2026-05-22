@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Family Law CMS Backup Template
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-cms-backup-template-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-cms-backup-template-2026-05-22.csv`.
+- UPDATED / VERIFIED PLANNING: `project-control/family-law-live-repair-operator-packet-2026-05-22.md` now links to the backup template.
+- VERIFIED LOCAL: CSV parses and contains `14` backup/checklist rows.
+- VERIFIED PLANNING: template defines rollback capture fields and screenshot requirements before approved visible repair on the six affected Family/Divorce URLs.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was a local backup template and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/operator executes approved current-URL repairs and the safety/diagnostics scripts pass.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Family Law Visible Repair Field Map
 - CREATED / VERIFIED PLANNING: `project-control/family-law-visible-repair-field-map-2026-05-22.md`.
 - CREATED / VERIFIED PLANNING: `project-control/family-law-visible-repair-field-map-2026-05-22.csv`.

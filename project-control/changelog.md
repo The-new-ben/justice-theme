@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family Law CMS backup template
+
+- CREATED: `project-control/family-law-live-repair-cms-backup-template-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-repair-cms-backup-template-2026-05-22.csv`.
+- UPDATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md` now links to the rollback backup template.
+- VERIFIED LOCAL: backup-template CSV parses and contains `14` rows.
+- VERIFIED PLANNING: template defines required rollback capture fields for `/divorce-agreement/`, `/divorce-lawyer/`, `/lawyer-divorce-guide-proceedings-costs-rights/`, `/child-support/`, `/child-custody/` and `/divorce-mediation/`.
+- VERIFIED PLANNING: template separates visible repair backup from GSC-gated divorce-lawyer canonical/redirect/noindex/sitemap decisions.
+- BLOCKED: actual WordPress rollback material, owner approval and post-repair live QA remain required before public repair execution can be marked safe.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Family Law visible repair field map
 
 - CREATED: `project-control/family-law-visible-repair-field-map-2026-05-22.md`.

@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-FAMILY-LAW-LIVE-REPAIR-CMS-BACKUP-TEMPLATE-001: Prepare CMS rollback backup template for visible repair
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OPERATOR PREP / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The visible repair field map is ready, but public execution must still be blocked until an operator captures exact rollback material from WordPress. This template defines the minimum backup evidence needed before touching live Family/Divorce pages.
+**Actions:**
+1. DONE: created `project-control/family-law-live-repair-cms-backup-template-2026-05-22.md`.
+2. DONE: created `project-control/family-law-live-repair-cms-backup-template-2026-05-22.csv`.
+3. DONE: linked the backup template from `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+4. VERIFIED LOCAL: CSV parses and contains `14` backup/checklist rows.
+5. VERIFIED PLANNING: worksheet covers owner authorization, rollback storage hygiene, six affected current URLs, `/divorce-agreement/` shortcode/PDF media capture, divorce-lawyer SEO field freeze, visual baseline, post-repair QA, rollback method and repo-boundary safety.
+6. VERIFIED PLANNING: per-page backup requires post ID, title, slug, permalink, body, SEO fields, canonical, robots, taxonomy, media, related fields, revision ID, screenshots, owner decision and rollback location.
+7. BLOCKED: this does not approve public CMS edits, PDF uploads, URL changes, redirects, canonical/noindex changes, sitemap changes, taxonomy edits, internal-link rewrites, lawyer, lead or CRM action.
+8. NEXT: owner approves or holds visible current-URL repairs; if approved, operator captures this rollback material first, repairs only approved visible defects, reruns safety/diagnostics scripts and captures screenshots.
+
 ### ACTION-FAMILY-LAW-VISIBLE-REPAIR-FIELD-MAP-001: Prepare exact field-level visible repair map
 **Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** The diagnostics identify live H1 and shortcode/PDF issues, but an operator needs exact field-level instructions before opening the CMS. This map tells which H1 to keep, which headings to demote/remove, and how to handle the broken agreement page CTA/PDF.

@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-22 17:29 Asia/Jerusalem
+- FAMILY LAW CMS BACKUP TEMPLATE: prepared the rollback-capture worksheet needed before any approved live Family/Divorce visible repair.
+- CREATED: `project-control/family-law-live-repair-cms-backup-template-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-repair-cms-backup-template-2026-05-22.csv`.
+- UPDATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md` now links to the backup template as required source evidence.
+- VERIFIED LOCAL: backup-template CSV parses and contains `14` rows covering owner authorization, safe rollback storage, six affected page backups, `/divorce-agreement/` shortcode/PDF media capture, divorce-lawyer SEO field freeze, visual baseline, post-repair QA, rollback method and repo-boundary safety.
+- VERIFIED PLANNING: backup fields require post ID, title, slug, body, SEO title, meta description, canonical, robots, taxonomy, featured image, related fields, revision ID, screenshots, owner decision and rollback location before any edit.
+- READY FOR OPERATOR PREP / NOT EXECUTION: the operator now has the exact backup fields to capture after owner approval, but no public CMS edit is approved yet.
+- BLOCKED: actual WordPress rollback material, owner approval, focused GSC and post-repair screenshots/checks are still required before marking Family/Divorce upload-safe.
+- SAFETY: this cycle made repo-only planning/docs changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 17:20 Asia/Jerusalem
 - FAMILY LAW VISIBLE REPAIR FIELD MAP: converted the live diagnostics into exact owner/operator field instructions for H1 repair, `/divorce-agreement/` shortcode/PDF handling and post-repair verification.
 - CREATED: `project-control/family-law-visible-repair-field-map-2026-05-22.md`.

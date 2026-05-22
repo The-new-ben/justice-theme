@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Priority pages CMS repair readiness gate
+
+- CREATED: `tools/build-priority-page-cms-repair-readiness-gate.mjs`.
+- CREATED: `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.json`.
+- FIXED: consolidated live QA, repair packet, owner approval, rollback capture and publisher safety into one generated readiness gate.
+- VERIFIED LOCAL: `node --check tools/build-priority-page-cms-repair-readiness-gate.mjs` and `node tools/build-priority-page-cms-repair-readiness-gate.mjs --reportDate=2026-05-22` passed.
+- BLOCKED PUBLIC EXECUTION: readiness result is `BLOCKED_NOT_READY_FOR_PUBLIC_CMS_REPAIR`; `7/7` gates remain blocked.
+- SAFETY: no public CMS content, article body, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
 ## 2026-05-22 - Priority pages CMS owner approval worksheet
 
 - CREATED: `project-control/priority-pages-cms-owner-approval-2026-05-22.md`.

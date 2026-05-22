@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Priority Pages CMS Repair Readiness Gate
+- CREATED / VERIFIED LOCAL: `tools/build-priority-page-cms-repair-readiness-gate.mjs`.
+- CREATED / VERIFIED LOCAL: `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.json`.
+- BLOCKED LIVE QA: readiness gate remains `BLOCKED_NOT_READY_FOR_PUBLIC_CMS_REPAIR`; no visual screenshots were captured because no approved public repair happened.
+- NEXT VISUAL QA: after owner approval and article H1 repair, rerun priority live QA and capture desktop/mobile screenshots where available.
+- SAFETY: no public page/article body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Priority Pages CMS Owner Approval Worksheet
 - CREATED / VERIFIED PLANNING: `project-control/priority-pages-cms-owner-approval-2026-05-22.md`.
 - CREATED / VERIFIED LOCAL: `project-control/priority-pages-cms-owner-approval-2026-05-22.csv`.

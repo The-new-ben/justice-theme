@@ -1,3 +1,16 @@
+# LATEST WORK STATUS - 2026-05-22 22:15 Asia/Jerusalem
+- PRIORITY PAGES CMS REPAIR READINESS GATE: added a generated go/no-go gate that consolidates live QA, repair packet, rollback capture, owner approval and publisher safety before any public CMS repair.
+- CREATED: `tools/build-priority-page-cms-repair-readiness-gate.mjs`.
+- CREATED: `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.json`.
+- VERIFIED LOCAL: `node --check tools/build-priority-page-cms-repair-readiness-gate.mjs` passed.
+- VERIFIED LOCAL: readiness gate generated `7` gate rows from `51` reviewed source rows.
+- BLOCKED: readiness result is `BLOCKED_NOT_READY_FOR_PUBLIC_CMS_REPAIR`; `7/7` gates remain blocked with `28` blocked markers and `17` pending markers.
+- NOT LIVE VERIFIED: no wp-admin repair, REST write, redirect, canonical/noindex, sitemap, taxonomy, internal-link, GSC/GA4, screenshot or uPress action happened.
+- SAFETY: no public CMS page/article body, database row, URL slug, redirect, canonical/noindex, taxonomy, sitemap, lawyer profile, lead, CRM record, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 22:05 Asia/Jerusalem
 - PRIORITY PAGES CMS OWNER APPROVAL WORKSHEET: added a narrow approval sheet for the two live article H1 repairs and the four blocked clean-slug decisions.
 - CREATED: `project-control/priority-pages-cms-owner-approval-2026-05-22.md`.

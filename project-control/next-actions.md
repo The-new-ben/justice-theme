@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-PRIORITY-PAGES-CMS-READINESS-GATE-001: Add generated go/no-go gate for priority page CMS repair
+**Status:** FIXED / VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the repair packet, rollback template and owner approval worksheet are useful individually, but public execution needs one consolidated go/no-go report before anyone touches WordPress.
+**Actions:**
+1. DONE: created `tools/build-priority-page-cms-repair-readiness-gate.mjs`.
+2. DONE: generated `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.md`.
+3. DONE: generated `project-control/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+4. GENERATED: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.csv`.
+5. GENERATED: `reports/priority-pages-cms-repair-readiness-gate-2026-05-22.json`.
+6. VERIFIED LOCAL: node syntax passed and gate generation completed.
+7. VERIFIED LOCAL: gate reviewed `51` source rows and produced `7` gate rows.
+8. BLOCKED: readiness result is `BLOCKED_NOT_READY_FOR_PUBLIC_CMS_REPAIR`; all `7` gates are blocked with `28` blocked markers and `17` pending markers.
+9. NOT LIVE VERIFIED: no public CMS edit, REST write, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4, screenshot or uPress action happened.
+10. NEXT: owner records approve/hold language; if approved, operator captures rollback and repairs only duplicate body H1s on article IDs `19261` and `19279`, then reruns priority live QA.
+
 ### ACTION-PRIORITY-PAGES-CMS-OWNER-APPROVAL-001: Prepare owner approval worksheet for priority page CMS repairs
 **Status:** FIXED / VERIFIED LOCAL / OWNER DECISION PENDING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
 **Why:** the repair packet and rollback worksheet are ready, but public execution still needs a precise owner decision that cannot be mistaken for clean-slug creation or SEO migration approval.

@@ -144,7 +144,7 @@
 				title: 'נכסי אמון',
 				kicker: 'שלב 4',
 				description: 'קישורי Google Business וביקורות עוזרים לנו לאמת נכסי מוניטין לפני הצגה או קמפיין המלצות.',
-				fields: ['google_business_profile_url', 'google_review_request_url']
+				fields: ['google_business_profile_url', 'google_review_request_url', 'profile_photo_upload', 'profile_logo_upload', 'profile_document_upload', 'profile_video_upload']
 			},
 			{
 				title: 'בדיקה ושליחה',

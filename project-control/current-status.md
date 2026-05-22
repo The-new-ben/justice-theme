@@ -1,3 +1,16 @@
+# LATEST WORK STATUS - 2026-05-22 20:08 Asia/Jerusalem
+- LAWYER ONBOARDING UPLOAD + AI QUEUE: completed T369 implementation slice for account-continuation status, optional public-safe uploads, AI-assistant draft scaffold and owner review queue flags.
+- CREATED: `project-control/lawyer-onboarding-upload-ai-queue-2026-05-22.md`.
+- CREATED: `project-control/lawyer-onboarding-upload-ai-queue-2026-05-22.csv`.
+- UPDATED: `page-lawyer-registration.php`.
+- UPDATED: `inc/lawyer-onboarding.php`.
+- UPDATED: `assets/js/lawyer-registration-wizard.js`.
+- UPDATED: `assets/css/premium-pass-3.css`.
+- UPDATED: `project-control/lawyer-onboarding-workflow.md`.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php`, `php -l page-lawyer-registration.php`, `node --check assets/js/lawyer-registration-wizard.js` and `git diff --check` passed.
+- NOT LIVE VERIFIED: no live registration submission, file upload, admin queue screenshot or public lawyer profile check was executed.
+- SAFETY: uploads are owner-review material only; AI scaffold is not public copy; no public CMS page body, live lawyer profile, public attachment display, lead routing, payment, outreach, URL, redirect, canonical, noindex, taxonomy, sitemap, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 19:50 Asia/Jerusalem
 - PROJECT TIMING AND ACCELERATION ESTIMATE: completed T247 as a repo-only timing packet for staged content upload, acceleration resources and blocker-aware schedule ranges.
 - CREATED: `project-control/project-timing-acceleration-resources-2026-05-22.md`.

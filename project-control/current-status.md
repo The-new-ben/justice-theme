@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-22 16:27 Asia/Jerusalem
+- MEDICAL MALPRACTICE SOURCE / LEGAL REVIEW WORKSHEET: prepared the page-level review gate for the first Medical Malpractice upload-review set.
+- CREATED: `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.md`.
+- CREATED: `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.csv`.
+- VERIFIED LOCAL: worksheet CSV parses and contains `10` review rows: `9` metadata pages plus `1` cluster-wide privacy/lead-form gate.
+- VERIFIED PLANNING: all rows keep upload status at `NOT_APPROVED_FOR_UPLOAD` and isolate allowed-after-review language, blocked claims/actions, privacy risk, source anchors and next reviewer decisions.
+- VERIFIED PLANNING: birth/pregnancy, surgery/anesthesia and cluster-wide health-detail intake are marked high or very high risk.
+- READY FOR OWNER/LEGAL/SOURCE REVIEW / NOT EXECUTION: owner can now assign page rows to approve, edit, hold or source/legal/privacy review without changing the public site.
+- BLOCKED: Medical Malpractice upload still requires authoritative CMS record decision for `/medical-malpractice-lawyer/`, focused GSC export, legal/source/privacy review, rollback evidence and explicit CMS upload approval.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 16:17 Asia/Jerusalem
 - MEDICAL MALPRACTICE FIRST-UPLOAD METADATA PACKAGE: prepared current-URL-only field metadata for the first Medical Malpractice upload-review set.
 - CREATED: `project-control/medical-malpractice-first-upload-metadata-package-2026-05-22.md`.

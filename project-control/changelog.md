@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Medical Malpractice source/legal review worksheet
+
+- CREATED: `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.md`.
+- CREATED: `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.csv`.
+- VERIFIED LOCAL: worksheet CSV parses and contains `10` page/source review rows: `9` first-upload metadata pages plus `1` cluster-wide privacy/lead-form gate.
+- VERIFIED PLANNING: all rows remain `NOT_APPROVED_FOR_UPLOAD` and define source anchors, allowed-after-review language, blocked claims/actions, privacy risk, reviewer decision status and next step.
+- BLOCKED: worksheet does not authorize CMS upload, source/legal approval, medical claims, lead-form privacy changes, slug changes, redirects, canonical/noindex changes, sitemap changes, taxonomy edits, media changes, schema expansion, lawyer-card changes or CRM changes.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Medical Malpractice first-upload metadata package
 
 - CREATED: `project-control/medical-malpractice-first-upload-metadata-package-2026-05-22.md`.

@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Medical Malpractice Source / Legal Review Worksheet
+- CREATED / VERIFIED PLANNING: `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.csv`.
+- VERIFIED LOCAL: CSV parses and contains `10` review rows with `0` rows approved for upload.
+- VERIFIED PLANNING: worksheet blocks public CMS/editor, URL, redirect, canonical/noindex, sitemap, taxonomy, schema, related-card, lead-form privacy and CRM changes until owner/source/legal/privacy/GSC gates clear.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local source/legal worksheet preparation only; no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/legal/source/privacy approval, WordPress backup, approved CMS update and post-upload route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Medical Malpractice First-Upload Metadata Package
 - CREATED / VERIFIED PLANNING: `project-control/medical-malpractice-first-upload-metadata-package-2026-05-22.md`.
 - CREATED / VERIFIED PLANNING: `project-control/medical-malpractice-first-upload-metadata-package-2026-05-22.csv`.

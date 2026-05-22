@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-MEDICAL-MALPRACTICE-SOURCE-LEGAL-WORKSHEET-001: Prepare page-level source/legal/privacy review gate
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER LEGAL SOURCE REVIEW / EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The Medical Malpractice metadata package needed a page-level source/legal/privacy worksheet before any upload approval. This reduces the risk of publishing unsupported medical causation, deadline, fee, expert-opinion, birth/pregnancy or sensitive health-data claims.
+**Actions:**
+1. DONE: created `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.md`.
+2. DONE: created `project-control/medical-malpractice-source-legal-review-worksheet-2026-05-22.csv`.
+3. VERIFIED LOCAL: CSV parses and contains `10` review rows.
+4. VERIFIED LOCAL: rows cover `9` first-upload metadata pages and `1` cluster-wide privacy/lead-form gate.
+5. VERIFIED PLANNING: `0/10` rows are approved for upload.
+6. VERIFIED PLANNING: each row defines source anchors, allowed-after-review language, blocked claims/actions, privacy risk, reviewer decision and next step.
+7. BLOCKED: owner/legal/source/privacy review, duplicate `/medical-malpractice-lawyer/` CMS identity decision, focused GSC export and WordPress rollback backup are still required before public CMS work.
+8. NEXT: owner assigns reviewers and marks rows `APPROVE_CURRENT_URL_UPDATE`, `EDIT_REQUIRED`, `HOLD`, `LEGAL_REVIEW_REQUIRED` or `PRIVACY_REVIEW_REQUIRED`; no upload until all blockers are cleared.
+
 ### ACTION-MEDICAL-MALPRACTICE-FIRST-UPLOAD-METADATA-PACKAGE-001: Prepare current-URL-only metadata package
 **Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER REVIEW / EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** Medical Malpractice now has readiness, owner decision, GSC workflow, duplicate identity and operator-runbook artifacts, but it still needed field-level CMS values so owner/legal/source review can happen without ad hoc title, meta, breadcrumb, schema or internal-link decisions during upload.

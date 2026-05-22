@@ -4,6 +4,22 @@
 
 ---
 
+### ACTION-GOOGLE-BUSINESS-MARKETING-ECOSYSTEM-001: Complete Google Business marketing ecosystem strategy
+**Status:** COMPLETED / VERIFIED RESEARCH / VERIFIED PLANNING / ACCOUNT EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** T246 required one strategy connecting Google Business Profile, GA4 events, lead tracking, lawyer onboarding funnel, campaign readiness and off-site visibility before any account or public implementation work.
+**Actions:**
+1. DONE: created `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.md`.
+2. DONE: created `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.csv`.
+3. DONE: updated `project-control/google-reviews-integration-plan.md`.
+4. DONE: updated `project-control/google-reviews-reputation-system-2026-05-20.md`.
+5. DONE: updated `project-control/reputation-product-roadmap.md`.
+6. DONE: updated `project-control/ga4-analytics-review.md`.
+7. DONE: updated `project-control/lawyer-acquisition-first-wave-2026-05-20.md`.
+8. VERIFIED RESEARCH: reviewed official Google Business Profile guidance for profile edits, local ranking, review requests/replies, performance metrics, Performance API and Reviews API.
+9. VERIFIED PLANNING: safest MVP remains source-verified/manual GBP data and review links, with first-party recommendations kept separate from Google content.
+10. BLOCKED ACCOUNT EXECUTION: no Google Business Profile setting, GA4 setting, GSC setting, OAuth/API connection, review import, SMS/email outreach, public review display, schema, CRM, wp-admin or uPress action is approved.
+11. NEXT: create owner-private GBP evidence checklist outside Git if account screenshots/exports are involved; repo-side next safe task is GA4 event/UTM implementation planning for GBP and reputation flows.
+
 ### ACTION-HOMEPAGE-LINE-BY-LINE-BUSINESS-REVIEW-001: Complete section-by-section homepage business and SEO review
 **Status:** COMPLETED / VERIFIED LOCAL / VERIFIED PLANNING / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** T243 required a line-by-line homepage review for Google signal, user legal-help signal, lawyer onboarding signal, links, CTAs and mobile/business structure after the competitor-aligned strategy pass.

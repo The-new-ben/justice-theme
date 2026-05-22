@@ -1,6 +1,20 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Google Business marketing ecosystem strategy
+
+- CREATED: `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.md`.
+- CREATED: `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.csv`.
+- UPDATED: `project-control/google-reviews-integration-plan.md`.
+- UPDATED: `project-control/google-reviews-reputation-system-2026-05-20.md`.
+- UPDATED: `project-control/reputation-product-roadmap.md`.
+- UPDATED: `project-control/ga4-analytics-review.md`.
+- UPDATED: `project-control/lawyer-acquisition-first-wave-2026-05-20.md`.
+- VERIFIED RESEARCH: reviewed current official Google Business Profile guidance for review requests/replies, profile edits, local ranking, performance metrics, Performance API and Reviews API.
+- VERIFIED PLANNING: strategy connects GBP, GA4 events, lead tracking, lawyer onboarding, review/reputation workflow, off-site visibility and monthly lawyer reporting.
+- BLOCKED: no Google Business Profile setting, GA4 setting, GSC setting, OAuth/API flow, review import, SMS/email outreach, lawyer profile edit, public review display, schema, CRM, wp-admin or uPress action was approved.
+- SAFETY: no public CMS content, database row, lawyer record, lead record, prospect record, payment setting, Google account setting, GA4/GSC setting, URL, redirect, canonical/noindex, taxonomy, sitemap, wp-admin setting, uPress deployment or outreach message was changed.
+
 ## 2026-05-22 - Homepage line-by-line business review
 
 - CREATED: `project-control/homepage-line-by-line-business-review-2026-05-22.md`.

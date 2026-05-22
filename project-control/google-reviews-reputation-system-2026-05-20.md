@@ -111,3 +111,21 @@ Competitor/product pattern:
 2. Run public-profile QA with a real approved first-party test record.
 3. Add a review-request sender only after owner approval of copy/SMS/email provider.
 4. Later: add Google OAuth/API only for lawyers who grant account access.
+
+## 2026-05-22 Marketing Ecosystem Addendum
+
+Evidence:
+- `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.md`.
+- `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.csv`.
+
+VERIFIED PLANNING:
+- Google Business Profile should be part of the paid lawyer growth loop, not a standalone review widget.
+- The full loop is: verified GBP/profile source data -> GA4/UTM/lead attribution -> safe review request workflow -> first-party recommendations -> lawyer dashboard/monthly report.
+- The first-wave lawyer workflow should collect GBP URL, Place ID, review request URL, review count, latest review date, service area, website URL and source status where available.
+- Google-sourced review data remains source-disclosed and separate from Jus-Tice first-party recommendations.
+
+NEXT PRODUCT STEP:
+- Add GA4 event and UTM implementation planning for review-link clicks, lawyer profile contact clicks, phone/WhatsApp clicks, lead submits and lawyer signup steps.
+
+BLOCKED:
+- No public review display, Google API sync, SMS/email outreach, schema, lawyer profile edit, CRM change or account change is approved by this addendum.

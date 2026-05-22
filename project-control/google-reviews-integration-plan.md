@@ -179,6 +179,26 @@ Rules:
 
 ### Manual MVP Boundary
 
+## 2026-05-22 Google Business Ecosystem Addendum
+
+Evidence:
+- `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.md`.
+- `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.csv`.
+
+VERIFIED RESEARCH:
+- Google Business Profile guidance still supports asking real customers for reviews by link or QR code, while blocking incentives, fake/misleading reviews and pressure to change or remove reviews.
+- Google Business Profile performance can show profile views/searches/actions such as calls, website clicks, directions, messages and search terms where available.
+- Business Profile Performance API and Reviews API are later automation paths for managed/verified locations, but they require approved access, OAuth and owner/lawyer authorization.
+
+UPDATED DECISION:
+- Keep the manual/source-verified Google link MVP as the first release.
+- Add Google Business Profile evidence capture to lawyer onboarding and first-wave prospect qualification.
+- Keep Google review content separate from Jus-Tice first-party recommendations.
+- Use GA4 events and UTM fields before any marketing campaign is started.
+
+BLOCKED:
+- No Google Business Profile edit, API/OAuth connection, review import, SMS/email sending, public rating display or review schema is approved by this addendum.
+
 Manual MVP is the safest launch path:
 - admin verifies the lawyer Google Maps profile;
 - admin stores Google profile/review URL;

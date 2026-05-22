@@ -155,3 +155,26 @@ Use GSC for:
 - URL migration risk
 - cannibalization evidence
 
+## 2026-05-22 Google Business / Reputation Measurement Addendum
+
+Evidence:
+- `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.md`.
+- `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.csv`.
+
+VERIFIED PLANNING:
+- Google Business Profile and review/reputation work should not launch until GA4 and UTM measurement can distinguish profile traffic, review-link clicks, lawyer contact clicks, lead submits and lawyer signup steps.
+
+Recommended additional key events:
+- `lawyer_profile_contact_click`
+- `review_link_click`
+- `lawyer_onboarding_step_complete`
+
+Recommended campaign/source conventions:
+- `utm_source=google_business_profile`
+- `utm_source=google_maps`
+- `utm_source=first_wave_outreach`
+- `utm_medium=organic|profile|sms|email|whatsapp|site_cta`
+- `utm_campaign=brand_profile|lawyer_profile|review_request|lawyer_acquisition`
+
+BLOCKED:
+- No GA4 setting, tag, key event, account link or public tracking change is approved by this addendum.

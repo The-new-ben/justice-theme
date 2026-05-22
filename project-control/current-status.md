@@ -1,3 +1,18 @@
+## LATEST WORK STATUS - 2026-05-22 19:40 Asia/Jerusalem
+- GOOGLE BUSINESS MARKETING ECOSYSTEM STRATEGY: completed T246 as a repo-only strategy packet connecting Google Business Profile, reviews, GA4 events, lead tracking, lawyer onboarding and off-site visibility.
+- CREATED: `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.md`.
+- CREATED: `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.csv`.
+- UPDATED: `project-control/google-reviews-integration-plan.md`.
+- UPDATED: `project-control/google-reviews-reputation-system-2026-05-20.md`.
+- UPDATED: `project-control/reputation-product-roadmap.md`.
+- UPDATED: `project-control/ga4-analytics-review.md`.
+- UPDATED: `project-control/lawyer-acquisition-first-wave-2026-05-20.md`.
+- VERIFIED RESEARCH: reviewed current official Google Business Profile guidance for review requests/replies, profile edits, local ranking, performance metrics, Performance API and Reviews API.
+- VERIFIED PLANNING: safest path remains manual/source-verified GBP and review-link data first, first-party recommendations second, API/OAuth later after owner/lawyer authorization.
+- BLOCKED PUBLIC EXECUTION: no Google Business Profile setting, GA4 setting, GSC setting, API/OAuth flow, review import, SMS/email outreach, lawyer profile edit, public review display, schema, CRM, wp-admin or uPress action is approved.
+- NEXT: create an owner-private Google Business evidence checklist outside Git if account screenshots/exports are involved; repo-side next safe task is GA4 event/UTM implementation planning for GBP and reputation flows.
+- SAFETY: this cycle made repo-only docs changes; no public CMS page body, database row, lawyer record, lead record, prospect record, payment setting, Google account setting, GA4/GSC setting, URL, redirect, canonical, noindex, taxonomy, sitemap, wp-admin setting, uPress deployment or outreach message changed.
+
 ## LATEST WORK STATUS - 2026-05-22 19:31 Asia/Jerusalem
 - HOMEPAGE LINE-BY-LINE BUSINESS REVIEW: completed T243 as a repo-only section-by-section review of the current homepage stack.
 - CREATED: `project-control/homepage-line-by-line-business-review-2026-05-22.md`.

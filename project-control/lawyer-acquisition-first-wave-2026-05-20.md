@@ -125,3 +125,21 @@ Do not promise leads until a matching supply/demand route exists for that practi
 
 Create the private first-20 prospect list outside the repo, validate it with `tools/validate-lawyer-prospect-private-list.ps1`, then manually enter reachable prospects in WordPress admin. Start with family, criminal, traffic and real estate lawyers. Use manual activation until Meshulam approval is complete.
 
+## 2026-05-22 Google Business Ecosystem Addendum
+
+Evidence:
+- `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.md`.
+- `project-control/google-business-marketing-ecosystem-strategy-2026-05-22.csv`.
+
+VERIFIED PLANNING:
+- First-wave prospect qualification should include public Google Business / Google Maps presence where available.
+- The private first-20 list should keep Google review count, latest review date, GBP URL, website URL, service area and likely reputation gap as owner-private data.
+- Do not commit filled prospect lists or account screenshots to Git.
+
+Sales positioning update:
+- Offer a practical authority and reputation setup path: profile, content links, GBP/review-link readiness, lead tracking and first monthly value report.
+- Do not sell guaranteed rankings, guaranteed leads, fake reviews or pay-for-review activity.
+
+BLOCKED:
+- No outreach, prospect record, lawyer profile edit, Google account action, review request sending, payment action or CRM change is approved by this addendum.
+

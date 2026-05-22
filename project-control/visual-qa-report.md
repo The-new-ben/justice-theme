@@ -2,6 +2,18 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Family/Divorce GSC Workflow Handoff
+- TOOLING FIXED / VERIFIED LOCAL: `tools/build-family-divorce-gsc-decision-map.mjs` now supports dynamic report dates and latest/explicit live-preupload input.
+- TOOLING FIXED / VERIFIED LOCAL: `tools/build-family-divorce-protected-url-review-packet.mjs` now supports dynamic report dates and explicit protected-decision input.
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/gsc/run-family-divorce-gsc-workflow.ps1`.
+- GENERATED / NOT FINAL: 2026-05-22 cached-baseline GSC decision-map, protected URL decision-map, cannibalization decision-map and protected URL owner-review packet.
+- VERIFIED LOCAL: `node --check` passed for both downstream scripts.
+- VERIFIED LOCAL: PowerShell workflow dry run completed without OAuth browser and without GSC API call.
+- VERIFIED LOCAL: refreshed baseline still has `18` protected rows, `5` protected conflicts, `18` high-risk protected rows and `40` cannibalization rows.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local GSC workflow/reporting preparation and no public UI changed.
+- BLOCKED: focused GSC export and owner approval remain required before URL migration or public CMS execution.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-21 Family/Divorce Protected URL Owner Review Packet
 - TOOLING FIXED / VERIFIED LOCAL: added `tools/build-family-divorce-protected-url-review-packet.mjs`.
 - GENERATED / VERIFIED LOCAL: `reports/family-divorce-protected-url-owner-review-packet-2026-05-21.csv`.

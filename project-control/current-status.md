@@ -1,3 +1,26 @@
+## LATEST WORK STATUS - 2026-05-22 14:25 Asia/Jerusalem
+- FAMILY/DIVORCE GSC WORKFLOW HANDOFF: removed hardcoded `2026-05-21` assumptions from the post-export decision workflow.
+- TOOLING FIXED: `tools/build-family-divorce-gsc-decision-map.mjs` now supports `--reportDate=YYYY-MM-DD` and latest/explicit live-preupload input selection.
+- TOOLING FIXED: `tools/build-family-divorce-protected-url-review-packet.mjs` now supports `--reportDate=YYYY-MM-DD` and `--input=path`.
+- TOOLING FIXED: created `tools/gsc/run-family-divorce-gsc-workflow.ps1` to run dry-run, focused export, decision-map build and protected packet build as one controlled workflow.
+- CREATED: `project-control/family-divorce-gsc-workflow-handoff-2026-05-22.md`.
+- CREATED: `project-control/family-divorce-gsc-workflow-handoff-2026-05-22.csv`.
+- CREATED: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-22.md`.
+- GENERATED / NOT FINAL: `reports/family-divorce-gsc-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-protected-url-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-cannibalization-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-gsc-decision-map-2026-05-22.json`.
+- GENERATED / NOT FINAL: `reports/family-divorce-protected-url-owner-review-packet-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-protected-url-owner-review-packet-2026-05-22.json`.
+- GENERATED / NOT FINAL: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-family-divorce-gsc-decision-map.mjs` passed.
+- VERIFIED LOCAL: `node --check tools/build-family-divorce-protected-url-review-packet.mjs` passed.
+- VERIFIED LOCAL: `tools/gsc/run-family-divorce-gsc-workflow.ps1 -DryRun` passed without opening OAuth or calling GSC.
+- VERIFIED LOCAL: regenerated baseline shows `18` protected rows, `5` protected conflicts, `18` high-risk protected rows and `40` cannibalization rows.
+- BLOCKED: baseline remains `FALLBACK_EXISTING_GSC_CACHE_NOT_FINAL`; owner OAuth credential setup and focused GSC export are still required before final URL decisions.
+- BLOCKED: public CMS execution still requires owner/legal/source approval and actual WordPress editor/database backup.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-21 23:49 Asia/Jerusalem
 - FAMILY/DIVORCE PROTECTED URL OWNER REVIEW PACKET: converted the protected URL decision-map baseline into owner-review rows without approving URL changes.
 - TOOLING FIXED: created `tools/build-family-divorce-protected-url-review-packet.mjs`.

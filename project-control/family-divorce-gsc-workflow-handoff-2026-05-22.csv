@@ -1,0 +1,5 @@
+id,item,status,verification,next_step
+FD-GSC-WF-001,Dynamic report date support,FIXED,"VERIFIED LOCAL: decision-map and protected-packet scripts accept --reportDate","Use the same report date for export decision-map packet and owner review"
+FD-GSC-WF-002,One-command GSC workflow wrapper,FIXED,"VERIFIED LOCAL: PowerShell dry run completed without OAuth/API call","After owner credentials run .\tools\gsc\run-family-divorce-gsc-workflow.ps1"
+FD-GSC-WF-003,2026-05-22 baseline decision map,NOT FINAL,"VERIFIED LOCAL: generated 18 protected rows 5 conflicts 40 cannibalization rows from cached GSC data","Replace with focused GSC export output after owner OAuth approval"
+FD-GSC-WF-004,Public execution,BLOCKED,"NOT VERIFIED: no CMS or URL action executed","Wait for focused GSC export owner decisions legal/source approval and WordPress rollback backup"

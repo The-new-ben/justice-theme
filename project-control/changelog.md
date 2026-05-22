@@ -1,6 +1,28 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family/Divorce GSC workflow handoff
+
+- TOOLING FIXED: `tools/build-family-divorce-gsc-decision-map.mjs` now supports `--reportDate=YYYY-MM-DD` and latest/explicit live-preupload input selection.
+- TOOLING FIXED: `tools/build-family-divorce-protected-url-review-packet.mjs` now supports `--reportDate=YYYY-MM-DD` and `--input=path`.
+- TOOLING FIXED: created `tools/gsc/run-family-divorce-gsc-workflow.ps1` for one-command dry run, focused export, decision-map generation and protected URL review-packet generation.
+- UPDATED: `tools/gsc/README.md` and `project-control/gsc-api-setup-guide.md`.
+- CREATED: `project-control/family-divorce-gsc-workflow-handoff-2026-05-22.md`.
+- CREATED: `project-control/family-divorce-gsc-workflow-handoff-2026-05-22.csv`.
+- CREATED: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-22.md`.
+- GENERATED / NOT FINAL: `reports/family-divorce-gsc-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-protected-url-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-cannibalization-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-gsc-decision-map-2026-05-22.json`.
+- GENERATED / NOT FINAL: `reports/family-divorce-protected-url-owner-review-packet-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/family-divorce-protected-url-owner-review-packet-2026-05-22.json`.
+- GENERATED / NOT FINAL: `project-control/family-divorce-protected-url-owner-review-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax checks passed for both downstream scripts.
+- VERIFIED LOCAL: GSC workflow PowerShell dry run completed without opening OAuth and without calling the API.
+- VERIFIED LOCAL: current-date cached baseline still reports `18` protected rows, `5` protected conflicts, `18` high-risk protected rows and `40` cannibalization rows.
+- BLOCKED: final URL migration, redirects, canonicals, noindex and sitemap decisions still require focused GSC API export and owner approval.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-21 - Family/Divorce protected URL owner review packet
 
 - TOOLING FIXED: created `tools/build-family-divorce-protected-url-review-packet.mjs`.

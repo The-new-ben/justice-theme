@@ -6,6 +6,24 @@
 
 ## ACTIVE SEO ARCHITECTURE SEQUENCE - 2026-05-10
 
+### ACTION-FAMILY-DIVORCE-GSC-WORKFLOW-HANDOFF-001: Make focused GSC workflow date-safe and one-command
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / API EXECUTION BLOCKED UNTIL OWNER CREDENTIAL SETUP / NO PUBLIC CHANGES
+**Why:** The Family/Divorce GSC export handoff was ready, but the downstream decision-map and protected URL packet scripts still used hardcoded `2026-05-21` filenames. That could create stale or overwritten review files after a real export.
+**Actions:**
+1. DONE: updated `tools/build-family-divorce-gsc-decision-map.mjs` to support `--reportDate=YYYY-MM-DD`.
+2. DONE: updated `tools/build-family-divorce-gsc-decision-map.mjs` to use the latest `family-divorce-live-preupload-YYYY-MM-DD.csv` by default or an explicit `--livePreupload=path`.
+3. DONE: updated `tools/build-family-divorce-protected-url-review-packet.mjs` to support `--reportDate=YYYY-MM-DD` and `--input=path`.
+4. DONE: created `tools/gsc/run-family-divorce-gsc-workflow.ps1`.
+5. DONE: updated `tools/gsc/README.md` and `project-control/gsc-api-setup-guide.md` with the wrapper command and manual fallback commands.
+6. DONE: created `project-control/family-divorce-gsc-workflow-handoff-2026-05-22.md`.
+7. DONE: created `project-control/family-divorce-gsc-workflow-handoff-2026-05-22.csv`.
+8. DONE: regenerated current-date baseline outputs under `2026-05-22`.
+9. VERIFIED LOCAL: Node syntax checks passed for both downstream scripts.
+10. VERIFIED LOCAL: `tools/gsc/run-family-divorce-gsc-workflow.ps1 -DryRun` passed without OAuth browser or GSC API call.
+11. VERIFIED LOCAL: regenerated baseline still reports `18` protected rows, `5` protected conflicts and `40` cannibalization rows.
+12. BLOCKED: real focused GSC export still requires owner credential setup and OAuth approval.
+13. NEXT: after owner credentials, run `.\tools\gsc\run-family-divorce-gsc-workflow.ps1`, then review generated decision-map and protected URL packet before any URL action.
+
 ### ACTION-FAMILY-DIVORCE-PROTECTED-URL-OWNER-REVIEW-PACKET-001: Prepare protected URL owner review packet
 **Status:** COMPLETED / VERIFIED LOCAL / NOT FINAL / FOCUSED GSC EXPORT BLOCKED / NO PUBLIC CHANGES
 **Why:** The protected URL decision map identified `18` high-risk protected source/asset URLs. The owner needs one packet with explicit keep, restore, targeted-301 or hold options before any URL migration decision.

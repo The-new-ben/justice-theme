@@ -11,10 +11,11 @@ LATEST 2026-05-21 SECURITY NOTE:
 LATEST 2026-05-21 RUNNER NOTE:
 - `tools/gsc/gsc-family-divorce-export.js` is now ready for the first Family/Divorce read-only export.
 - It supports local credential paths outside the repo through `GSC_OAUTH_CLIENT_PATH` and `GSC_TOKEN_PATH`.
-- Dry run command: `node tools/gsc/gsc-family-divorce-export.js --dry-run`
-- Real export command after owner credential setup: `node tools/gsc/gsc-family-divorce-export.js`
-- Post-export decision-map command: `node tools/build-family-divorce-gsc-decision-map.mjs --gscDir=reports/gsc/family-divorce-YYYY-MM-DD`
-- Protected URL review-packet command: `node tools/build-family-divorce-protected-url-review-packet.mjs`
+- Preferred dry run command: `.\tools\gsc\run-family-divorce-gsc-workflow.ps1 -DryRun`
+- Preferred full workflow command after owner credential setup: `.\tools\gsc\run-family-divorce-gsc-workflow.ps1`
+- Manual post-export decision-map command: `node tools/build-family-divorce-gsc-decision-map.mjs --gscDir=reports/gsc/family-divorce-YYYY-MM-DD --reportDate=YYYY-MM-DD`
+- Manual protected URL review-packet command: `node tools/build-family-divorce-protected-url-review-packet.mjs --reportDate=YYYY-MM-DD --input=reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv`
+- FIXED 2026-05-22: downstream decision-map and protected-packet scripts now use explicit/dynamic report dates instead of hardcoded `2026-05-21` filenames.
 
 This guide explains how to connect Google Search Console API for Jus-Tice so we can export query/page data quickly instead of doing slow browser checks.
 
@@ -86,13 +87,17 @@ PowerShell command to use after credentials are saved:
 ```powershell
 $env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
 $env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
-node tools/gsc/gsc-family-divorce-export.js --dry-run
-node tools/gsc/gsc-family-divorce-export.js
-node tools/build-family-divorce-gsc-decision-map.mjs --gscDir="reports/gsc/family-divorce-YYYY-MM-DD"
-node tools/build-family-divorce-protected-url-review-packet.mjs
+.\tools\gsc\run-family-divorce-gsc-workflow.ps1 -DryRun
+.\tools\gsc\run-family-divorce-gsc-workflow.ps1
 ```
 
 Use `--dry-run` first. It should show `credentialFileExists: true`. It does not read credential contents, open OAuth or call the API.
+
+If the export already exists and only the decision files need rebuilding:
+
+```powershell
+.\tools\gsc\run-family-divorce-gsc-workflow.ps1 -SkipExport -OutputDir "reports\gsc\family-divorce-YYYY-MM-DD" -ReportDate "YYYY-MM-DD"
+```
 
 ## What We Can Export
 

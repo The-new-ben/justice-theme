@@ -1,15 +1,79 @@
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), '..');
-const TODAY = '2026-05-21';
 
-const INPUT = path.join(ROOT, 'reports', 'family-divorce-protected-url-decision-map-2026-05-21.csv');
-const REPORT_CSV = path.join(ROOT, 'reports', `family-divorce-protected-url-owner-review-packet-${TODAY}.csv`);
-const REPORT_JSON = path.join(ROOT, 'reports', `family-divorce-protected-url-owner-review-packet-${TODAY}.json`);
-const PROJECT_CSV = path.join(ROOT, 'project-control', `family-divorce-protected-url-owner-review-packet-${TODAY}.csv`);
+function dateDaysAgo(daysAgo) {
+  return new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+}
+
+function findLatestReportFile(pattern) {
+  const reportsDir = path.join(ROOT, 'reports');
+  try {
+    return readdirSync(reportsDir)
+      .filter((fileName) => pattern.test(fileName))
+      .sort()
+      .reverse()
+      .map((fileName) => path.join(reportsDir, fileName))[0] || '';
+  } catch (_err) {
+    return '';
+  }
+}
+
+function parseArgs() {
+  const args = {
+    reportDate: process.env.REPORT_DATE || dateDaysAgo(0),
+    input: process.env.FAMILY_DIVORCE_PROTECTED_DECISION_CSV || '',
+  };
+
+  process.argv.slice(2).forEach((arg) => {
+    if (arg.startsWith('--reportDate=')) args.reportDate = arg.slice('--reportDate='.length);
+    else if (arg.startsWith('--input=')) args.input = arg.slice('--input='.length);
+    else if (arg === '--help' || arg === '-h') args.help = true;
+    else throw new Error(`Unknown argument: ${arg}`);
+  });
+
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(args.reportDate)) {
+    throw new Error('--reportDate must be YYYY-MM-DD');
+  }
+  const sameDateInput = path.join(ROOT, 'reports', `family-divorce-protected-url-decision-map-${args.reportDate}.csv`);
+  args.input = args.input
+    ? path.resolve(args.input)
+    : existsSync(sameDateInput)
+      ? sameDateInput
+      : findLatestReportFile(/^family-divorce-protected-url-decision-map-\d{4}-\d{2}-\d{2}\.csv$/);
+  if (!args.input || !existsSync(args.input)) {
+    throw new Error('No family-divorce-protected-url-decision-map-YYYY-MM-DD.csv input found; pass --input=path');
+  }
+  return args;
+}
+
+function buildFiles(reportDate) {
+  return {
+    reportCsv: path.join(ROOT, 'reports', `family-divorce-protected-url-owner-review-packet-${reportDate}.csv`),
+    reportJson: path.join(ROOT, 'reports', `family-divorce-protected-url-owner-review-packet-${reportDate}.json`),
+    projectCsv: path.join(ROOT, 'project-control', `family-divorce-protected-url-owner-review-packet-${reportDate}.csv`),
+  };
+}
+
+function printHelp() {
+  console.log(`Family/Divorce protected URL owner review packet
+
+Usage:
+  node tools/build-family-divorce-protected-url-review-packet.mjs
+  node tools/build-family-divorce-protected-url-review-packet.mjs --reportDate=YYYY-MM-DD --input=reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv
+
+Inputs:
+  reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv
+
+Outputs:
+  reports/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.csv
+  reports/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.json
+  project-control/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.csv
+`);
+}
 
 function parseCsvLine(line) {
   const values = [];
@@ -110,7 +174,14 @@ function sortRows(left, right) {
 }
 
 function main() {
-  const rows = readCsv(INPUT).sort(sortRows);
+  const args = parseArgs();
+  if (args.help) {
+    printHelp();
+    return;
+  }
+
+  const files = buildFiles(args.reportDate);
+  const rows = readCsv(args.input).sort(sortRows);
   const packetRows = rows.map((row, index) => ({
     review_id: `FD-PURL-${String(index + 1).padStart(3, '0')}`,
     priority: priority(row),
@@ -158,16 +229,17 @@ function main() {
   ];
 
   const csv = toCsv(packetRows, columns);
-  mkdirSync(path.dirname(REPORT_CSV), { recursive: true });
-  mkdirSync(path.dirname(PROJECT_CSV), { recursive: true });
-  writeFileSync(REPORT_CSV, csv, 'utf8');
-  writeFileSync(PROJECT_CSV, csv, 'utf8');
+  mkdirSync(path.dirname(files.reportCsv), { recursive: true });
+  mkdirSync(path.dirname(files.projectCsv), { recursive: true });
+  writeFileSync(files.reportCsv, csv, 'utf8');
+  writeFileSync(files.projectCsv, csv, 'utf8');
 
   const summary = {
     generatedAt: new Date().toISOString(),
-    input: path.relative(ROOT, INPUT),
-    reportCsv: path.relative(ROOT, REPORT_CSV),
-    projectCsv: path.relative(ROOT, PROJECT_CSV),
+    reportDate: args.reportDate,
+    input: path.relative(ROOT, args.input),
+    reportCsv: path.relative(ROOT, files.reportCsv),
+    projectCsv: path.relative(ROOT, files.projectCsv),
     rowCount: packetRows.length,
     conflictRows: packetRows.filter((row) => row.live_status === 'CONFLICT').length,
     assetRows: packetRows.filter((row) => row.group === 'protected_asset').length,
@@ -180,11 +252,11 @@ function main() {
     finality: 'NOT_FINAL_CACHED_GSC_BASELINE_FOCUSED_EXPORT_REQUIRED',
     safety: 'No public URL, redirect, canonical, noindex, sitemap or CMS change.',
   };
-  writeFileSync(REPORT_JSON, JSON.stringify(summary, null, 2), 'utf8');
+  writeFileSync(files.reportJson, JSON.stringify(summary, null, 2), 'utf8');
 
-  console.log(`Wrote ${path.relative(ROOT, REPORT_CSV)}`);
-  console.log(`Wrote ${path.relative(ROOT, PROJECT_CSV)}`);
-  console.log(`Wrote ${path.relative(ROOT, REPORT_JSON)}`);
+  console.log(`Wrote ${path.relative(ROOT, files.reportCsv)}`);
+  console.log(`Wrote ${path.relative(ROOT, files.projectCsv)}`);
+  console.log(`Wrote ${path.relative(ROOT, files.reportJson)}`);
   console.log(`Rows: ${summary.rowCount}`);
   console.log(`Conflicts: ${summary.conflictRows}`);
   console.log(`High risk: ${summary.highRiskRows}`);

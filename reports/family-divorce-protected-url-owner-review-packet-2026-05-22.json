@@ -1,0 +1,20 @@
+{
+  "generatedAt": "2026-05-22T11:07:41.445Z",
+  "reportDate": "2026-05-22",
+  "input": "reports\\family-divorce-protected-url-decision-map-2026-05-22.csv",
+  "reportCsv": "reports\\family-divorce-protected-url-owner-review-packet-2026-05-22.csv",
+  "projectCsv": "project-control\\family-divorce-protected-url-owner-review-packet-2026-05-22.csv",
+  "rowCount": 18,
+  "conflictRows": 5,
+  "assetRows": 1,
+  "highRiskRows": 18,
+  "blockedRows": 18,
+  "priorityCounts": {
+    "P0_RESTORE_OR_TARGETED_301_REVIEW": 5,
+    "P0_KEEP_ASSET_LIVE": 1,
+    "P1_KEEP_LIVE_REVIEW_MERGE_LATER": 11,
+    "P2_KEEP_LIVE_CONFIRM_AFTER_GSC": 1
+  },
+  "finality": "NOT_FINAL_CACHED_GSC_BASELINE_FOCUSED_EXPORT_REQUIRED",
+  "safety": "No public URL, redirect, canonical, noindex, sitemap or CMS change."
+}

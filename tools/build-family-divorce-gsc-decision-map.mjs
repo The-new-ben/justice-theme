@@ -1,20 +1,10 @@
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, readdirSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), '..');
-const TODAY = '2026-05-21';
 const DEFAULT_GSC_DIR = path.join(ROOT, 'reports', 'gsc');
-const OUT_PREFIX = `family-divorce-gsc-decision-map-${TODAY}`;
-
-const FILES = {
-  livePreupload: path.join(ROOT, 'reports', 'family-divorce-live-preupload-2026-05-21.csv'),
-  outputCsv: path.join(ROOT, 'reports', `${OUT_PREFIX}.csv`),
-  protectedCsv: path.join(ROOT, 'reports', `family-divorce-protected-url-decision-map-${TODAY}.csv`),
-  cannibalizationCsv: path.join(ROOT, 'reports', `family-divorce-cannibalization-decision-map-${TODAY}.csv`),
-  outputJson: path.join(ROOT, 'reports', `${OUT_PREFIX}.json`),
-};
 
 const TARGET_PATHS = [
   '/divorce-lawyer/',
@@ -50,16 +40,57 @@ const SOURCE_TARGET_MAP = new Map([
 function parseArgs() {
   const args = {
     gscDir: process.env.GSC_DECISION_INPUT_DIR || DEFAULT_GSC_DIR,
+    reportDate: process.env.REPORT_DATE || dateDaysAgo(0),
+    livePreupload: process.env.FAMILY_DIVORCE_LIVE_PREUPLOAD_CSV || '',
   };
 
   process.argv.slice(2).forEach((arg) => {
     if (arg.startsWith('--gscDir=')) args.gscDir = arg.slice('--gscDir='.length);
+    else if (arg.startsWith('--reportDate=')) args.reportDate = arg.slice('--reportDate='.length);
+    else if (arg.startsWith('--livePreupload=')) args.livePreupload = arg.slice('--livePreupload='.length);
     else if (arg === '--help' || arg === '-h') args.help = true;
     else throw new Error(`Unknown argument: ${arg}`);
   });
 
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(args.reportDate)) {
+    throw new Error('--reportDate must be YYYY-MM-DD');
+  }
   args.gscDir = path.resolve(args.gscDir);
+  args.livePreupload = args.livePreupload
+    ? path.resolve(args.livePreupload)
+    : findLatestReportFile(/^family-divorce-live-preupload-\d{4}-\d{2}-\d{2}\.csv$/);
+  if (!args.livePreupload) {
+    throw new Error('No family-divorce-live-preupload-YYYY-MM-DD.csv file found; pass --livePreupload=path');
+  }
   return args;
+}
+
+function dateDaysAgo(daysAgo) {
+  return new Date(Date.now() - daysAgo * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+}
+
+function findLatestReportFile(pattern) {
+  const reportsDir = path.join(ROOT, 'reports');
+  try {
+    return readdirSync(reportsDir)
+      .filter((fileName) => pattern.test(fileName))
+      .sort()
+      .reverse()
+      .map((fileName) => path.join(reportsDir, fileName))[0] || '';
+  } catch (_err) {
+    return '';
+  }
+}
+
+function buildFiles(reportDate, livePreupload) {
+  const outPrefix = `family-divorce-gsc-decision-map-${reportDate}`;
+  return {
+    livePreupload,
+    outputCsv: path.join(ROOT, 'reports', `${outPrefix}.csv`),
+    protectedCsv: path.join(ROOT, 'reports', `family-divorce-protected-url-decision-map-${reportDate}.csv`),
+    cannibalizationCsv: path.join(ROOT, 'reports', `family-divorce-cannibalization-decision-map-${reportDate}.csv`),
+    outputJson: path.join(ROOT, 'reports', `${outPrefix}.json`),
+  };
 }
 
 function printHelp() {
@@ -68,16 +99,17 @@ function printHelp() {
 Usage:
   node tools/build-family-divorce-gsc-decision-map.mjs
   node tools/build-family-divorce-gsc-decision-map.mjs --gscDir=reports/gsc/family-divorce-YYYY-MM-DD
+  node tools/build-family-divorce-gsc-decision-map.mjs --reportDate=YYYY-MM-DD --livePreupload=reports/family-divorce-live-preupload-YYYY-MM-DD.csv
 
 Inputs:
   Focused export: family-divorce-pages.csv, family-divorce-query-page.csv, family-divorce-cannibalization.csv
   Fallback cache: performance-pages.csv, query-page-combined.csv, cannibalization-report.csv
 
 Outputs:
-  reports/family-divorce-gsc-decision-map-${TODAY}.csv
-  reports/family-divorce-protected-url-decision-map-${TODAY}.csv
-  reports/family-divorce-cannibalization-decision-map-${TODAY}.csv
-  reports/family-divorce-gsc-decision-map-${TODAY}.json
+  reports/family-divorce-gsc-decision-map-YYYY-MM-DD.csv
+  reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv
+  reports/family-divorce-cannibalization-decision-map-YYYY-MM-DD.csv
+  reports/family-divorce-gsc-decision-map-YYYY-MM-DD.json
 `);
 }
 
@@ -349,8 +381,9 @@ function main() {
     return;
   }
 
+  const files = buildFiles(args.reportDate, args.livePreupload);
   const inputs = resolveInputFiles(args.gscDir);
-  const liveRows = readCsv(FILES.livePreupload);
+  const liveRows = readCsv(files.livePreupload);
   const pageRows = readCsv(inputs.pages);
   const cannibalizationInputRows = readCsv(inputs.cannibalization);
   const queryPageRows = readCsv(inputs.queryPage);
@@ -363,7 +396,7 @@ function main() {
     : buildCannibalizationRowsFromQueryPage(queryPageRows);
   const decisionRows = [...targetRows, ...protectedRows];
 
-  writeCsv(FILES.outputCsv, decisionRows, [
+  writeCsv(files.outputCsv, decisionRows, [
     'group',
     'path',
     'mapped_target',
@@ -377,7 +410,7 @@ function main() {
     'required_before_action',
     'status',
   ]);
-  writeCsv(FILES.protectedCsv, protectedRows, [
+  writeCsv(files.protectedCsv, protectedRows, [
     'group',
     'path',
     'mapped_target',
@@ -391,7 +424,7 @@ function main() {
     'required_before_action',
     'status',
   ]);
-  writeCsv(FILES.cannibalizationCsv, cannibalizationRows, [
+  writeCsv(files.cannibalizationCsv, cannibalizationRows, [
     'query',
     'page_count',
     'total_clicks',
@@ -407,6 +440,8 @@ function main() {
     generatedAt: new Date().toISOString(),
     inputMode: inputs.mode,
     inputDir: args.gscDir,
+    reportDate: args.reportDate,
+    livePreupload: path.relative(ROOT, files.livePreupload),
     targetRows: targetRows.length,
     protectedRows: protectedRows.length,
     protectedConflicts: protectedRows.filter((row) => row.live_status === 'CONFLICT').length,
@@ -421,19 +456,19 @@ function main() {
       'focused_gsc_export_required_before_url_migration_redirect_canonical_noindex_sitemap_actions',
     ],
     outputs: {
-      decisionMap: path.relative(ROOT, FILES.outputCsv),
-      protectedUrlDecisionMap: path.relative(ROOT, FILES.protectedCsv),
-      cannibalizationDecisionMap: path.relative(ROOT, FILES.cannibalizationCsv),
-      summary: path.relative(ROOT, FILES.outputJson),
+      decisionMap: path.relative(ROOT, files.outputCsv),
+      protectedUrlDecisionMap: path.relative(ROOT, files.protectedCsv),
+      cannibalizationDecisionMap: path.relative(ROOT, files.cannibalizationCsv),
+      summary: path.relative(ROOT, files.outputJson),
     },
   };
 
-  writeFileSync(FILES.outputJson, JSON.stringify(summary, null, 2), 'utf8');
+  writeFileSync(files.outputJson, JSON.stringify(summary, null, 2), 'utf8');
 
-  console.log(`Wrote ${path.relative(ROOT, FILES.outputCsv)}`);
-  console.log(`Wrote ${path.relative(ROOT, FILES.protectedCsv)}`);
-  console.log(`Wrote ${path.relative(ROOT, FILES.cannibalizationCsv)}`);
-  console.log(`Wrote ${path.relative(ROOT, FILES.outputJson)}`);
+  console.log(`Wrote ${path.relative(ROOT, files.outputCsv)}`);
+  console.log(`Wrote ${path.relative(ROOT, files.protectedCsv)}`);
+  console.log(`Wrote ${path.relative(ROOT, files.cannibalizationCsv)}`);
+  console.log(`Wrote ${path.relative(ROOT, files.outputJson)}`);
   console.log(`Input mode: ${summary.inputMode}`);
   console.log(`Protected rows: ${summary.protectedRows}`);
   console.log(`Protected conflicts: ${summary.protectedConflicts}`);

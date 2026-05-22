@@ -44,11 +44,22 @@ node tools/gsc/gsc-family-divorce-export.js
 
 Outputs save under `reports/gsc/family-divorce-YYYY-MM-DD/`.
 
+One-command workflow after credentials are configured:
+
+```powershell
+$env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
+$env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+.\tools\gsc\run-family-divorce-gsc-workflow.ps1 -DryRun
+.\tools\gsc\run-family-divorce-gsc-workflow.ps1
+```
+
+This wrapper runs the focused export, builds the Family/Divorce GSC decision map, then rebuilds the protected URL owner-review packet for the same report date. Use `-SkipExport -OutputDir "reports\gsc\family-divorce-YYYY-MM-DD" -ReportDate "YYYY-MM-DD"` to rebuild decision files from an existing focused export without calling GSC again.
+
 After the export, build the protected URL / cannibalization decision map:
 
 ```powershell
-node tools/build-family-divorce-gsc-decision-map.mjs --gscDir="reports/gsc/family-divorce-YYYY-MM-DD"
-node tools/build-family-divorce-protected-url-review-packet.mjs
+node tools/build-family-divorce-gsc-decision-map.mjs --gscDir="reports/gsc/family-divorce-YYYY-MM-DD" --reportDate="YYYY-MM-DD"
+node tools/build-family-divorce-protected-url-review-packet.mjs --reportDate="YYYY-MM-DD" --input="reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv"
 ```
 
 Without `--gscDir`, the decision-map builder can use the older cached `reports/gsc/` CSVs as a baseline only. Treat that baseline as `NOT_FINAL` until the focused export is reviewed.

@@ -88,25 +88,47 @@ if ( post_type_exists( 'articles' ) ) {
 		</div>
 	</section>
 
-	<section class="practice-hub-intent section" aria-label="<?php esc_attr_e( 'הכוונה לפי צורך משפטי', 'justice-theme' ); ?>">
-		<div class="container practice-hub-intent__grid">
-			<article class="practice-hub-intent__card">
-				<span><?php esc_html_e( 'המצב', 'justice-theme' ); ?></span>
-				<h2><?php echo esc_html( sprintf( 'מה חשוב להבין בנושא %s?', $title ) ); ?></h2>
-				<p><?php esc_html_e( 'השלב הראשון הוא להפריד בין מידע כללי לבין החלטה משפטית אישית. כאן מרוכזים המסלול, השאלות והקישורים שצריכים להוביל לפנייה נכונה יותר.', 'justice-theme' ); ?></p>
-			</article>
-
-			<article class="practice-hub-intent__card">
-				<span><?php esc_html_e( 'הדחיפות', 'justice-theme' ); ?></span>
-				<h2><?php esc_html_e( 'מתי לא להסתפק בקריאה?', 'justice-theme' ); ?></h2>
-				<p><?php esc_html_e( 'כאשר יש מועד קרוב, מסמך לחתימה, הליך פתוח, ילדים, נכס, חקירה, פגיעה או סיכון כספי, כדאי לקבל בדיקה פרטנית ולא להישען רק על מדריך כללי.', 'justice-theme' ); ?></p>
-			</article>
-
-			<article class="practice-hub-intent__card">
-				<span><?php esc_html_e( 'ההכנה', 'justice-theme' ); ?></span>
-				<h2><?php esc_html_e( 'מה להכין לפני הפנייה?', 'justice-theme' ); ?></h2>
-				<p><?php esc_html_e( 'רשימת אירועים, מסמכים, מועדים, פרטי הצדדים, עיר רלוונטית, רמת דחיפות ושאלות מרכזיות. ככל שהפנייה מסודרת יותר, קל יותר להבין מה הצעד הבא.', 'justice-theme' ); ?></p>
-			</article>
+	<?php
+	// Keyword-specific context strip — signals topical relevance to Googlebot.
+	// Each practice area has its own signals; generic text is removed.
+	$practice_signals = array(
+		'family-law'          => array(
+			array( 'icon' => '&#9878;', 'label' => 'גירושין', 'text' => 'הסכם גירושין, גט, חלוקת רכוש ופנסיה' ),
+			array( 'icon' => '&#9829;', 'label' => 'ילדים', 'text' => 'מזונות 919/15, משמורת, זמני שהות' ),
+			array( 'icon' => '&#9993;', 'label' => 'ייצוג', 'text' => 'בית דין רבני, בית משפט משפחה, גישור' ),
+		),
+		'criminal-law'        => array(
+			array( 'icon' => '&#9878;', 'label' => 'חקירה', 'text' => 'זכויות נחקר, שתיקה, עיכוב הליכים' ),
+			array( 'icon' => '&#9877;', 'label' => 'הגנה', 'text' => 'כתב אישום, שימוע, עסקת טיעון' ),
+			array( 'icon' => '&#9993;', 'label' => 'ייצוג', 'text' => 'מעצר, דיון, ערעור, מחיקת רישום פלילי' ),
+		),
+		'medical-malpractice' => array(
+			array( 'icon' => '&#9877;', 'label' => 'רשלנות', 'text' => 'אבחון שגוי, ניתוח, לידה, הרדמה' ),
+			array( 'icon' => '&#9878;', 'label' => 'הוכחה', 'text' => 'חוות דעת מומחה, תיק רפואי, קשר סיבתי' ),
+			array( 'icon' => '&#9993;', 'label' => 'פיצויים', 'text' => 'כאב וסבל, אובדן כושר, הוצאות עתידיות' ),
+		),
+		'real-estate-law'     => array(
+			array( 'icon' => '&#9878;', 'label' => 'עסקה', 'text' => 'חוזה מכר, בדיקת טאבו, נסח רישום' ),
+			array( 'icon' => '&#9877;', 'label' => 'מיסוי', 'text' => 'מס רכישה, מס שבח, פטורים' ),
+			array( 'icon' => '&#9993;', 'label' => 'ליווי', 'text' => 'מו"מ, חתימה, רישום זכויות בטאבו' ),
+		),
+		'inheritance'         => array(
+			array( 'icon' => '&#9878;', 'label' => 'ירושה', 'text' => 'צו ירושה, חלוקת עיזבון, יורשים' ),
+			array( 'icon' => '&#9877;', 'label' => 'צוואה', 'text' => 'כתיבת צוואה, קיום צוואה, התנגדות' ),
+			array( 'icon' => '&#9993;', 'label' => 'ניהול', 'text' => 'מנהל עיזבון, חלוקת נכסים, מסים' ),
+		),
+	);
+	$signals = $practice_signals[ $term_slug ] ?? $practice_signals[ 'family-law' ];
+	?>
+	<section class="practice-signals section" aria-label="<?php echo esc_attr( sprintf( '%s — תחומי עיסוק', $title ) ); ?>">
+		<div class="container practice-signals__grid">
+			<?php foreach ( $signals as $signal ) : ?>
+			<div class="practice-signals__item">
+				<span class="practice-signals__icon" aria-hidden="true"><?php echo $signal['icon']; // phpcs:ignore ?></span>
+				<strong class="practice-signals__label"><?php echo esc_html( $signal['label'] ); ?></strong>
+				<p class="practice-signals__text"><?php echo esc_html( $signal['text'] ); ?></p>
+			</div>
+			<?php endforeach; ?>
 		</div>
 	</section>
 
@@ -128,12 +150,15 @@ if ( post_type_exists( 'articles' ) ) {
 				<?php endif; ?>
 
 				<?php
-				$page_content = $page_id > 0 ? trim( wp_strip_all_tags( get_post_field( 'post_content', $page_id ) ) ) : '';
-				if ( $page_content ) :
+				// Render full Gutenberg pillar content as the primary body.
+				// This is the main SEO content — keyword-rich, 5,000+ words.
+				// The 'תוכן נוסף' heading is removed (it sent a low-quality signal
+				// to Googlebot and broke the content hierarchy).
+				$page_raw_content = $page_id > 0 ? get_post_field( 'post_content', $page_id ) : '';
+				if ( trim( wp_strip_all_tags( $page_raw_content ) ) ) :
 					?>
-					<div class="practice-landing__cms-content">
-						<h2><?php esc_html_e( 'תוכן נוסף מהמערכת', 'justice-theme' ); ?></h2>
-						<?php echo apply_filters( 'the_content', get_post_field( 'post_content', $page_id ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+					<div class="practice-landing__pillar-content">
+						<?php echo apply_filters( 'the_content', $page_raw_content ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 					</div>
 				<?php endif; ?>
 			</div>

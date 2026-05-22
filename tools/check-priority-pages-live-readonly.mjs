@@ -6,6 +6,23 @@ const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), '..');
 const DEFAULT_BASE_URL = process.env.JUSTICE_BASE_URL || 'https://jus-tice.co.il';
 const TIMEOUT_MS = Number(process.env.JUSTICE_FETCH_TIMEOUT_MS || 20000);
+const REST_COLLECTION_TIMEOUT_MS = Number(process.env.JUSTICE_REST_COLLECTION_TIMEOUT_MS || 10000);
+const FALLBACK_CONTENT_REST_COLLECTIONS = [
+  'pages',
+  'posts',
+  'articles',
+];
+const NON_CONTENT_REST_COLLECTIONS = new Set([
+  'media',
+  'menu-items',
+  'blocks',
+  'templates',
+  'template-parts',
+  'global-styles',
+  'navigation',
+  'font-families',
+  'font-families/(?P<font_family_id>[\\d]+)/font-faces',
+]);
 
 const pages = [
   {
@@ -278,6 +295,44 @@ async function fetchWithTimeout(url, accept = 'text/html,application/xhtml+xml,a
   }
 }
 
+async function fetchJsonWithTimeout(url, timeoutMs = REST_COLLECTION_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    const response = await fetch(url, {
+      redirect: 'follow',
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'Jus-Tice-Priority-Pages-Live-Readonly-QA/1.0',
+        Accept: 'application/json,*/*;q=0.8',
+        'Cache-Control': 'no-cache',
+      },
+    });
+    const body = await response.text();
+    try {
+      return {
+        status: response.status,
+        data: JSON.parse(body),
+        issue: '',
+      };
+    } catch {
+      return {
+        status: response.status,
+        data: null,
+        issue: 'unparseable_json',
+      };
+    }
+  } catch (error) {
+    return {
+      status: 0,
+      data: null,
+      issue: `fetch_error_${error.name || 'unknown'}`,
+    };
+  } finally {
+    clearTimeout(timeout);
+  }
+}
+
 function slugFromPath(inputPath) {
   return String(inputPath || '').replace(/^\/+|\/+$/g, '').split('/').filter(Boolean).pop() || '';
 }
@@ -287,52 +342,73 @@ async function inspectRestCollection(baseUrl, collection, slug) {
   url.searchParams.set('slug', slug);
   url.searchParams.set('_fields', 'id,slug,status,link,title');
 
-  try {
-    const response = await fetchWithTimeout(url.toString(), 'application/json,*/*;q=0.8');
-    const body = await response.text();
-    let data = null;
-    try {
-      data = JSON.parse(body);
-    } catch {
-      return {
-        status: response.status,
-        count: '',
-        ids: '',
-        links: '',
-        issue: `rest_${collection}_unparseable_json`,
-      };
-    }
-
-    const items = Array.isArray(data) ? data : [];
+  const result = await fetchJsonWithTimeout(url.toString());
+  if (result.issue) {
     return {
-      status: response.status,
-      count: items.length,
-      ids: items.map((item) => item.id).filter(Boolean).join(' | '),
-      links: items.map((item) => item.link).filter(Boolean).join(' | '),
-      issue: response.status === 200 ? '' : `rest_${collection}_http_${response.status}`,
-    };
-  } catch (error) {
-    return {
-      status: 0,
+      collection,
+      status: result.status,
       count: '',
       ids: '',
       links: '',
-      issue: `rest_${collection}_fetch_error_${error.name || 'unknown'}`,
+      issue: `rest_${collection}_${result.issue}`,
     };
   }
+
+  const items = Array.isArray(result.data) ? result.data : [];
+  return {
+    collection,
+    status: result.status,
+    count: items.length,
+    ids: items.map((item) => item.id).filter(Boolean).join(' | '),
+    links: items.map((item) => item.link).filter(Boolean).join(' | '),
+    issue: result.status === 200 ? '' : `rest_${collection}_http_${result.status}`,
+  };
 }
 
-async function inspectPage(baseUrl, page) {
+async function discoverContentRestCollections(baseUrl) {
+  const result = await fetchJsonWithTimeout(new URL('/wp-json/wp/v2/types', baseUrl).toString());
+  if (result.status !== 200 || !result.data || 'object' !== typeof result.data) {
+    return {
+      status: result.status,
+      collections: FALLBACK_CONTENT_REST_COLLECTIONS,
+      issue: result.issue ? `types_${result.issue}` : `types_http_${result.status}`,
+    };
+  }
+
+  const collections = Object.values(result.data)
+    .map((type) => type && type.rest_base)
+    .filter(Boolean)
+    .filter((collection) => !NON_CONTENT_REST_COLLECTIONS.has(collection));
+  const priorityCollections = FALLBACK_CONTENT_REST_COLLECTIONS.filter((collection) => collections.includes(collection));
+
+  return {
+    status: result.status,
+    collections: priorityCollections.length ? priorityCollections : FALLBACK_CONTENT_REST_COLLECTIONS,
+    issue: '',
+  };
+}
+
+async function inspectPage(baseUrl, page, restCollections) {
   const targetUrl = absoluteUrl(baseUrl, page.path);
   const slug = slugFromPath(page.path);
   const issues = [];
 
   try {
-    const [response, restPages, restPosts] = await Promise.all([
+    const [response, ...restResults] = await Promise.all([
       fetchWithTimeout(targetUrl),
-      inspectRestCollection(baseUrl, 'pages', slug),
-      inspectRestCollection(baseUrl, 'posts', slug),
+      ...restCollections.map((collection) => inspectRestCollection(baseUrl, collection, slug)),
     ]);
+    const emptyRestResult = (collection) => ({
+      collection,
+      status: '',
+      count: '',
+      ids: '',
+      links: '',
+      issue: '',
+    });
+    const restPages = restResults.find((result) => result.collection === 'pages') || emptyRestResult('pages');
+    const restPosts = restResults.find((result) => result.collection === 'posts') || emptyRestResult('posts');
+    const restHits = restResults.filter((result) => result.status === 200 && Number(result.count) > 0);
     const contentType = response.headers.get('content-type') || '';
     const html = contentType.toLowerCase().includes('text/html') ? await response.text() : '';
     const visibleText = stripTags(html);
@@ -366,8 +442,8 @@ async function inspectPage(baseUrl, page) {
     }
     if (restPages.issue) issues.push(restPages.issue);
     if (restPosts.issue) issues.push(restPosts.issue);
-    if (restPages.status === 200 && restPosts.status === 200 && !Number(restPages.count) && !Number(restPosts.count)) {
-      issues.push('public_rest_empty_pages_posts');
+    if (!restHits.length) {
+      issues.push('public_rest_empty_content_collections');
     }
 
     return {
@@ -395,6 +471,10 @@ async function inspectPage(baseUrl, page) {
       rest_posts_count: restPosts.count,
       rest_posts_ids: restPosts.ids,
       rest_posts_links: restPosts.links,
+      rest_collection_statuses: restResults.map((result) => `${result.collection}=${result.status}/${result.count}`).join(' | '),
+      public_rest_hit_collections: restHits.map((result) => result.collection).join(' | '),
+      public_rest_hit_ids: restHits.map((result) => `${result.collection}:${result.ids}`).join(' | '),
+      public_rest_hit_links: restHits.map((result) => `${result.collection}:${result.links}`).join(' | '),
       expected_pillar_links: page.expectedPillarLinks.join(' | '),
       missing_pillar_links: missingPillarLinks.join(' | '),
       expected_terms: page.expectedTerms.join(' | '),
@@ -434,6 +514,10 @@ async function inspectPage(baseUrl, page) {
       rest_posts_count: '',
       rest_posts_ids: '',
       rest_posts_links: '',
+      rest_collection_statuses: '',
+      public_rest_hit_collections: '',
+      public_rest_hit_ids: '',
+      public_rest_hit_links: '',
       expected_pillar_links: page.expectedPillarLinks.join(' | '),
       missing_pillar_links: page.expectedPillarLinks.join(' | '),
       expected_terms: page.expectedTerms.join(' | '),
@@ -460,11 +544,13 @@ function buildSummary(rows) {
     h1_issue_pages: rows.filter((row) => Number(row.h1_count) !== 1).length,
     mojibake_pages: rows.filter((row) => row.mojibake_markers).length,
     public_rest_empty_pages_posts: rows.filter((row) => Number(row.rest_pages_count) === 0 && Number(row.rest_posts_count) === 0).length,
+    public_rest_content_hits: rows.filter((row) => row.public_rest_hit_collections).length,
+    public_rest_empty_content_collections: rows.filter((row) => !row.public_rest_hit_collections).length,
     public_change_status: 'NO_PUBLIC_CHANGES_READ_ONLY_LIVE_QA',
   };
 }
 
-function buildMarkdown(reportDate, baseUrl, rows, summary) {
+function buildMarkdown(reportDate, baseUrl, rows, summary, restDiscovery) {
   const lines = [
     `# Priority Pages Live Read-Only QA - ${reportDate}`,
     '',
@@ -479,8 +565,12 @@ function buildMarkdown(reportDate, baseUrl, rows, summary) {
     `- NOINDEX PAGES: ${summary.noindex_pages}.`,
     `- MOJIBAKE PAGES: ${summary.mojibake_pages}.`,
     `- PUBLIC REST EMPTY PAGES/POSTS: ${summary.public_rest_empty_pages_posts}/${summary.total_pages}.`,
+    `- PUBLIC CONTENT REST HITS: ${summary.public_rest_content_hits}/${summary.total_pages}.`,
+    `- PUBLIC CONTENT REST EMPTY: ${summary.public_rest_empty_content_collections}/${summary.total_pages}.`,
     '- SCREENSHOTS: NOT CAPTURED because Playwright is not installed in this repo environment.',
     '- SAFETY: no CMS write, redirect, canonical/noindex, sitemap, taxonomy, media, CRM, wp-admin or uPress action was made.',
+    `- REST COLLECTION DISCOVERY: HTTP ${restDiscovery.status}; ${restDiscovery.collections.length} content collections checked.`,
+    restDiscovery.issue ? `- REST COLLECTION DISCOVERY ISSUE: ${restDiscovery.issue}.` : '',
     '',
     '## Results',
     '',
@@ -510,20 +600,20 @@ function buildMarkdown(reportDate, baseUrl, rows, summary) {
     '',
     '## Public REST Visibility',
     '',
-    '| Page | wp/v2/pages | Page IDs | wp/v2/posts | Post IDs |',
-    '| --- | --- | --- | --- | --- |'
+    '| Page | wp/v2/pages | Page IDs | wp/v2/posts | Post IDs | Content Hits | Hit IDs |',
+    '| --- | --- | --- | --- | --- | --- | --- |'
   );
 
   rows.forEach((row) => {
-    lines.push(`| ${row.target_path} | ${row.rest_pages_status}/${row.rest_pages_count} | ${row.rest_pages_ids || '-'} | ${row.rest_posts_status}/${row.rest_posts_count} | ${row.rest_posts_ids || '-'} |`);
+    lines.push(`| ${row.target_path} | ${row.rest_pages_status}/${row.rest_pages_count} | ${row.rest_pages_ids || '-'} | ${row.rest_posts_status}/${row.rest_posts_count} | ${row.rest_posts_ids || '-'} | ${row.public_rest_hit_collections || '-'} | ${row.public_rest_hit_ids || '-'} |`);
   });
 
   lines.push(
     '',
     '## Next',
     '',
-    '1. If a row is BLOCKED, inspect the live page in a browser and capture rollback material before any CMS edit.',
-    '2. For VERIFIED rows, keep monitoring after cache clears and attach GSC page/query evidence when owner OAuth export is available.',
+    '1. If a row has a Content Hit, use the listed content type and ID for rollback capture and repair; do not guess from URL alone.',
+    '2. If a row has no Content Hit, restore or create the approved content object before any redirect/canonical/noindex/sitemap decision.',
     '3. Capture mobile/desktop screenshots in a browser-capable environment before marking these pages visually verified.'
   );
 
@@ -537,7 +627,8 @@ async function main() {
     return;
   }
 
-  const rows = await Promise.all(pages.map((page) => inspectPage(args.baseUrl, page)));
+  const restDiscovery = await discoverContentRestCollections(args.baseUrl);
+  const rows = await Promise.all(pages.map((page) => inspectPage(args.baseUrl, page, restDiscovery.collections)));
   const summary = buildSummary(rows);
   const outputs = outputFiles(args.reportDate);
   const columns = [
@@ -565,6 +656,10 @@ async function main() {
     'rest_posts_count',
     'rest_posts_ids',
     'rest_posts_links',
+    'rest_collection_statuses',
+    'public_rest_hit_collections',
+    'public_rest_hit_ids',
+    'public_rest_hit_links',
     'expected_pillar_links',
     'missing_pillar_links',
     'expected_terms',
@@ -583,10 +678,11 @@ async function main() {
     reportDate: args.reportDate,
     generated_at: new Date().toISOString(),
     baseUrl: args.baseUrl,
+    restDiscovery,
     summary,
     rows,
   }, null, 2) + '\n');
-  writeText(outputs.projectMd, buildMarkdown(args.reportDate, args.baseUrl, rows, summary));
+  writeText(outputs.projectMd, buildMarkdown(args.reportDate, args.baseUrl, rows, summary, restDiscovery));
 
   console.table(rows.map(({ check_id, status, http_status, h1_count }) => ({ check_id, status, http_status, h1_count })));
   console.log(`Priority pages live read-only QA: ${summary.verified_pages}/${summary.total_pages} VERIFIED`);

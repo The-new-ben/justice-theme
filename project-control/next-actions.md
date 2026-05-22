@@ -4,6 +4,22 @@
 
 ---
 
+### ACTION-PRIORITY-PAGES-CUSTOM-REST-SOURCE-DIAGNOSTICS-001: Identify priority slugs through public custom REST collections
+**Status:** FIXED / VERIFIED LIVE READ-ONLY / BLOCKED PUBLIC QA / NO PUBLIC CMS CHANGE
+**Why:** the six priority slugs were invisible through normal `wp/v2/pages` and `wp/v2/posts`, but the two HTTP `200` URLs could still be custom content records. Repair should target the real content source, not guess.
+**Actions:**
+1. DONE: updated `tools/check-priority-pages-live-readonly.mjs` to discover and check the priority public content collections `pages`, `posts` and `articles`.
+2. DONE: regenerated `project-control/priority-pages-live-readonly-2026-05-22.md`.
+3. DONE: regenerated `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+4. GENERATED: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+5. GENERATED: `reports/priority-pages-live-readonly-2026-05-22.json`.
+6. VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` is public `articles` CPT ID `19261`.
+7. VERIFIED LIVE READ-ONLY: `/plea-bargain/` is public `articles` CPT ID `19279`.
+8. BLOCKED LIVE READ-ONLY: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` have no public hit in `pages`, `posts` or `articles`.
+9. VERIFIED LOCAL: node syntax and live read-only checker passed; checker output remains `0/6 VERIFIED`.
+10. NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+11. NEXT: after rollback capture, repair duplicate body/content H1s on article IDs `19261` and `19279`; for the four missing slugs, restore/create the correct `articles` records or approved content objects before any redirect/canonical decision.
+
 ### ACTION-PRIORITY-PAGES-H1-REST-DIAGNOSTICS-001: Add exact duplicate-H1 and REST visibility diagnostics
 **Status:** FIXED / VERIFIED LIVE READ-ONLY / BLOCKED PUBLIC QA / NO PUBLIC CMS CHANGE
 **Why:** the first post-publish QA showed duplicate H1s and four 404s, but repair needs exact evidence about whether the duplicate H1 is template/body content and whether the six slugs exist through normal public WordPress REST page/post lookup.

@@ -1,3 +1,19 @@
+# LATEST WORK STATUS - 2026-05-22 21:40 Asia/Jerusalem
+- PRIORITY PAGES CUSTOM REST SOURCE DIAGNOSTICS: expanded the read-only priority-page checker from page/post REST only to page/post/article REST lookup so the operator can identify the actual source type before repair.
+- UPDATED: `tools/check-priority-pages-live-readonly.mjs`.
+- UPDATED: `project-control/priority-pages-live-readonly-2026-05-22.md`.
+- UPDATED: `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+- UPDATED: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+- UPDATED: `reports/priority-pages-live-readonly-2026-05-22.json`.
+- VERIFIED LIVE READ-ONLY: public REST collection discovery returned HTTP `200`; the checker now verifies `pages`, `posts` and `articles`.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` maps to public `articles` CPT ID `19261`.
+- VERIFIED LIVE READ-ONLY: `/plea-bargain/` maps to public `articles` CPT ID `19279`.
+- BLOCKED LIVE READ-ONLY: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` have no public hit in `pages`, `posts` or `articles`, and still return HTTP `404`, missing canonical and `noindex`.
+- VERIFIED LOCAL: `node --check tools/check-priority-pages-live-readonly.mjs` and `node tools/check-priority-pages-live-readonly.mjs --reportDate=2026-05-22` passed.
+- VERIFIED LIVE READ-ONLY: checker result remains `0/6 VERIFIED`; the two live article rows are blocked only by duplicate H1s, and the four missing rows are blocked by 404/noindex/no source hit.
+- NOT SCREENSHOT VERIFIED: screenshots were not captured because Playwright is not installed in this repo environment.
+- SAFETY: no public CMS page/article body, database row, URL slug, redirect, canonical/noindex, taxonomy, sitemap, lawyer profile, lead, CRM record, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 21:28 Asia/Jerusalem
 - PRIORITY PAGES H1/REST DIAGNOSTICS: expanded the read-only priority-page QA checker so blocked rows now show duplicate H1 source/class/context and public WP REST page/post visibility.
 - UPDATED: `tools/check-priority-pages-live-readonly.mjs`.

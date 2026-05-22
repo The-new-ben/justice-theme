@@ -1,7 +1,16 @@
 {
   "reportDate": "2026-05-22",
-  "generated_at": "2026-05-22T18:30:23.412Z",
+  "generated_at": "2026-05-22T18:41:58.773Z",
   "baseUrl": "https://jus-tice.co.il",
+  "restDiscovery": {
+    "status": 200,
+    "collections": [
+      "pages",
+      "posts",
+      "articles"
+    ],
+    "issue": ""
+  },
   "summary": {
     "total_pages": 6,
     "verified_pages": 0,
@@ -11,6 +20,8 @@
     "h1_issue_pages": 2,
     "mojibake_pages": 0,
     "public_rest_empty_pages_posts": 6,
+    "public_rest_content_hits": 2,
+    "public_rest_empty_content_collections": 4,
     "public_change_status": "NO_PUBLIC_CHANGES_READ_ONLY_LIVE_QA"
   },
   "rows": [
@@ -39,6 +50,10 @@
       "rest_posts_count": 0,
       "rest_posts_ids": "",
       "rest_posts_links": "",
+      "rest_collection_statuses": "pages=200/0 | posts=200/0 | articles=200/1",
+      "public_rest_hit_collections": "articles",
+      "public_rest_hit_ids": "articles:19261",
+      "public_rest_hit_links": "articles:https://jus-tice.co.il/criminal-lawyer-cost/",
       "expected_pillar_links": "/criminal-defense-attorney/",
       "missing_pillar_links": "",
       "expected_terms": "עלות | פלילי",
@@ -47,7 +62,7 @@
       "hebrew_character_count": 5849,
       "mojibake_markers": "",
       "screenshot_status": "NOT_CAPTURED_PLAYWRIGHT_NOT_INSTALLED",
-      "issues": "h1_count_2;public_rest_empty_pages_posts",
+      "issues": "h1_count_2",
       "next_step": "Review live page in browser/wp-admin, capture rollback material before any edit, then repair only the listed issue."
     },
     {
@@ -75,6 +90,10 @@
       "rest_posts_count": 0,
       "rest_posts_ids": "",
       "rest_posts_links": "",
+      "rest_collection_statuses": "pages=200/0 | posts=200/0 | articles=200/1",
+      "public_rest_hit_collections": "articles",
+      "public_rest_hit_ids": "articles:19279",
+      "public_rest_hit_links": "articles:https://jus-tice.co.il/plea-bargain/",
       "expected_pillar_links": "/criminal-defense-attorney/",
       "missing_pillar_links": "",
       "expected_terms": "טיעון",
@@ -83,7 +102,7 @@
       "hebrew_character_count": 4678,
       "mojibake_markers": "",
       "screenshot_status": "NOT_CAPTURED_PLAYWRIGHT_NOT_INSTALLED",
-      "issues": "h1_count_2;public_rest_empty_pages_posts",
+      "issues": "h1_count_2",
       "next_step": "Review live page in browser/wp-admin, capture rollback material before any edit, then repair only the listed issue."
     },
     {
@@ -111,6 +130,10 @@
       "rest_posts_count": 0,
       "rest_posts_ids": "",
       "rest_posts_links": "",
+      "rest_collection_statuses": "pages=200/0 | posts=200/0 | articles=200/0",
+      "public_rest_hit_collections": "",
+      "public_rest_hit_ids": "",
+      "public_rest_hit_links": "",
       "expected_pillar_links": "/medical-malpractice-lawyer/",
       "missing_pillar_links": "",
       "expected_terms": "רשלנות | אבחון",
@@ -119,7 +142,7 @@
       "hebrew_character_count": 1249,
       "mojibake_markers": "",
       "screenshot_status": "NOT_CAPTURED_PLAYWRIGHT_NOT_INSTALLED",
-      "issues": "http_404;missing_canonical;noindex_detected;public_rest_empty_pages_posts",
+      "issues": "http_404;missing_canonical;noindex_detected;public_rest_empty_content_collections",
       "next_step": "Review live page in browser/wp-admin, capture rollback material before any edit, then repair only the listed issue."
     },
     {
@@ -147,6 +170,10 @@
       "rest_posts_count": 0,
       "rest_posts_ids": "",
       "rest_posts_links": "",
+      "rest_collection_statuses": "pages=200/0 | posts=200/0 | articles=200/0",
+      "public_rest_hit_collections": "",
+      "public_rest_hit_ids": "",
+      "public_rest_hit_links": "",
       "expected_pillar_links": "/family-law/",
       "missing_pillar_links": "",
       "expected_terms": "משמורת | משותפת",
@@ -155,7 +182,7 @@
       "hebrew_character_count": 1249,
       "mojibake_markers": "",
       "screenshot_status": "NOT_CAPTURED_PLAYWRIGHT_NOT_INSTALLED",
-      "issues": "http_404;missing_canonical;noindex_detected;public_rest_empty_pages_posts",
+      "issues": "http_404;missing_canonical;noindex_detected;public_rest_empty_content_collections",
       "next_step": "Review live page in browser/wp-admin, capture rollback material before any edit, then repair only the listed issue."
     },
     {
@@ -183,6 +210,10 @@
       "rest_posts_count": 0,
       "rest_posts_ids": "",
       "rest_posts_links": "",
+      "rest_collection_statuses": "pages=200/0 | posts=200/0 | articles=200/0",
+      "public_rest_hit_collections": "",
+      "public_rest_hit_ids": "",
+      "public_rest_hit_links": "",
       "expected_pillar_links": "/medical-malpractice-lawyer/",
       "missing_pillar_links": "",
       "expected_terms": "רשלנות | תרופות",
@@ -191,7 +222,7 @@
       "hebrew_character_count": 1249,
       "mojibake_markers": "",
       "screenshot_status": "NOT_CAPTURED_PLAYWRIGHT_NOT_INSTALLED",
-      "issues": "http_404;missing_canonical;noindex_detected;public_rest_empty_pages_posts",
+      "issues": "http_404;missing_canonical;noindex_detected;public_rest_empty_content_collections",
       "next_step": "Review live page in browser/wp-admin, capture rollback material before any edit, then repair only the listed issue."
     },
     {
@@ -219,6 +250,10 @@
       "rest_posts_count": 0,
       "rest_posts_ids": "",
       "rest_posts_links": "",
+      "rest_collection_statuses": "pages=200/0 | posts=200/0 | articles=200/0",
+      "public_rest_hit_collections": "",
+      "public_rest_hit_ids": "",
+      "public_rest_hit_links": "",
       "expected_pillar_links": "/family-law/ | /divorce-agreement/",
       "missing_pillar_links": "/divorce-agreement/",
       "expected_terms": "פנסיה | גירושין",
@@ -227,7 +262,7 @@
       "hebrew_character_count": 1249,
       "mojibake_markers": "",
       "screenshot_status": "NOT_CAPTURED_PLAYWRIGHT_NOT_INSTALLED",
-      "issues": "http_404;missing_canonical;noindex_detected;public_rest_empty_pages_posts",
+      "issues": "http_404;missing_canonical;noindex_detected;public_rest_empty_content_collections",
       "next_step": "Review live page in browser/wp-admin, capture rollback material before any edit, then repair only the listed issue."
     }
   ]

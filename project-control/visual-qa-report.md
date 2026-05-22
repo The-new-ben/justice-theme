@@ -2,6 +2,20 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Priority Pages Custom REST Source Diagnostics
+- UPDATED / VERIFIED LOCAL: `tools/check-priority-pages-live-readonly.mjs`.
+- UPDATED / VERIFIED LIVE READ-ONLY: `project-control/priority-pages-live-readonly-2026-05-22.md`.
+- UPDATED / VERIFIED LIVE READ-ONLY: `project-control/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/priority-pages-live-readonly-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/priority-pages-live-readonly-2026-05-22.json`.
+- VERIFIED LIVE READ-ONLY: public REST discovery is available and the checker now checks `pages`, `posts` and `articles`.
+- VERIFIED LIVE READ-ONLY: `/criminal-lawyer-cost/` is public `articles` ID `19261`; `/plea-bargain/` is public `articles` ID `19279`.
+- BLOCKED LIVE QA: the two live article URLs remain blocked by duplicate body/content H1s.
+- BLOCKED LIVE QA: the four missing priority slugs have no public `pages`, `posts` or `articles` hit and still return HTTP `404`, missing canonical and `noindex`.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because Playwright is not installed in this repo environment.
+- NEXT VISUAL QA: after rollback capture and content-source repair, capture desktop/mobile screenshots for article IDs `19261` and `19279`, then for the four restored/created slugs.
+- SAFETY: no public page/article body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Priority Pages H1/REST Diagnostics
 - UPDATED / VERIFIED LOCAL: `tools/check-priority-pages-live-readonly.mjs`.
 - UPDATED / VERIFIED LIVE READ-ONLY: `project-control/priority-pages-live-readonly-2026-05-22.md`.

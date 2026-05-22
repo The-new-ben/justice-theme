@@ -11,19 +11,23 @@
 - NOINDEX PAGES: 4.
 - MOJIBAKE PAGES: 0.
 - PUBLIC REST EMPTY PAGES/POSTS: 6/6.
+- PUBLIC CONTENT REST HITS: 2/6.
+- PUBLIC CONTENT REST EMPTY: 4/6.
 - SCREENSHOTS: NOT CAPTURED because Playwright is not installed in this repo environment.
 - SAFETY: no CMS write, redirect, canonical/noindex, sitemap, taxonomy, media, CRM, wp-admin or uPress action was made.
+- REST COLLECTION DISCOVERY: HTTP 200; 3 content collections checked.
+
 
 ## Results
 
 | Page | Status | HTTP | H1 Count | Issues |
 | --- | --- | --- | --- | --- |
-| /criminal-lawyer-cost/ | BLOCKED | 200 | 2 | h1_count_2;public_rest_empty_pages_posts |
-| /plea-bargain/ | BLOCKED | 200 | 2 | h1_count_2;public_rest_empty_pages_posts |
-| /medical-malpractice-diagnosis-errors/ | BLOCKED | 404 | 1 | http_404;missing_canonical;noindex_detected;public_rest_empty_pages_posts |
-| /joint-custody/ | BLOCKED | 404 | 1 | http_404;missing_canonical;noindex_detected;public_rest_empty_pages_posts |
-| /medication-errors-malpractice/ | BLOCKED | 404 | 1 | http_404;missing_canonical;noindex_detected;public_rest_empty_pages_posts |
-| /divorce-pension-split/ | BLOCKED | 404 | 1 | http_404;missing_canonical;noindex_detected;public_rest_empty_pages_posts |
+| /criminal-lawyer-cost/ | BLOCKED | 200 | 2 | h1_count_2 |
+| /plea-bargain/ | BLOCKED | 200 | 2 | h1_count_2 |
+| /medical-malpractice-diagnosis-errors/ | BLOCKED | 404 | 1 | http_404;missing_canonical;noindex_detected;public_rest_empty_content_collections |
+| /joint-custody/ | BLOCKED | 404 | 1 | http_404;missing_canonical;noindex_detected;public_rest_empty_content_collections |
+| /medication-errors-malpractice/ | BLOCKED | 404 | 1 | http_404;missing_canonical;noindex_detected;public_rest_empty_content_collections |
+| /divorce-pension-split/ | BLOCKED | 404 | 1 | http_404;missing_canonical;noindex_detected;public_rest_empty_content_collections |
 
 ## Duplicate H1 Diagnostics
 
@@ -34,17 +38,17 @@
 
 ## Public REST Visibility
 
-| Page | wp/v2/pages | Page IDs | wp/v2/posts | Post IDs |
-| --- | --- | --- | --- | --- |
-| /criminal-lawyer-cost/ | 200/0 | - | 200/0 | - |
-| /plea-bargain/ | 200/0 | - | 200/0 | - |
-| /medical-malpractice-diagnosis-errors/ | 200/0 | - | 200/0 | - |
-| /joint-custody/ | 200/0 | - | 200/0 | - |
-| /medication-errors-malpractice/ | 200/0 | - | 200/0 | - |
-| /divorce-pension-split/ | 200/0 | - | 200/0 | - |
+| Page | wp/v2/pages | Page IDs | wp/v2/posts | Post IDs | Content Hits | Hit IDs |
+| --- | --- | --- | --- | --- | --- | --- |
+| /criminal-lawyer-cost/ | 200/0 | - | 200/0 | - | articles | articles:19261 |
+| /plea-bargain/ | 200/0 | - | 200/0 | - | articles | articles:19279 |
+| /medical-malpractice-diagnosis-errors/ | 200/0 | - | 200/0 | - | - | - |
+| /joint-custody/ | 200/0 | - | 200/0 | - | - | - |
+| /medication-errors-malpractice/ | 200/0 | - | 200/0 | - | - | - |
+| /divorce-pension-split/ | 200/0 | - | 200/0 | - | - | - |
 
 ## Next
 
-1. If a row is BLOCKED, inspect the live page in a browser and capture rollback material before any CMS edit.
-2. For VERIFIED rows, keep monitoring after cache clears and attach GSC page/query evidence when owner OAuth export is available.
+1. If a row has a Content Hit, use the listed content type and ID for rollback capture and repair; do not guess from URL alone.
+2. If a row has no Content Hit, restore or create the approved content object before any redirect/canonical/noindex/sitemap decision.
 3. Capture mobile/desktop screenshots in a browser-capable environment before marking these pages visually verified.

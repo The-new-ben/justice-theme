@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Family Law Visible Repair Field Map
+- CREATED / VERIFIED PLANNING: `project-control/family-law-visible-repair-field-map-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/family-law-visible-repair-field-map-2026-05-22.csv`.
+- VERIFIED LOCAL: CSV parses and contains `10` field-level repair rows.
+- VERIFIED PLANNING: map defines the intended H1 to keep per affected page and the H1 blocks to demote/remove before visual QA.
+- VERIFIED PLANNING: `/divorce-agreement/` PDF/shortcode handling is separated from heading repair.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was a local field map and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/operator executes approved current-URL repairs and the safety/diagnostics scripts pass.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Family Law Live Repair Diagnostics
 - TOOLING FIXED / VERIFIED LOCAL: created `tools/extract-family-law-live-repair-diagnostics.mjs`.
 - GENERATED / VERIFIED LIVE READ-ONLY: `reports/family-law-live-repair-diagnostics-2026-05-22.csv`.

@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family Law visible repair field map
+
+- CREATED: `project-control/family-law-visible-repair-field-map-2026-05-22.md`.
+- CREATED: `project-control/family-law-visible-repair-field-map-2026-05-22.csv`.
+- UPDATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md` now links to the field map.
+- VERIFIED LOCAL: field-map CSV parses and contains `10` rows.
+- VERIFIED PLANNING: `8` rows remain blocked by owner approval, `1` by focused GSC/owner SEO decision and `1` by post-repair verification.
+- VERIFIED PLANNING: map defines intended H1s to keep, extra H1s to demote/remove, and `/divorce-agreement/` shortcode/PDF handling.
+- BLOCKED: no public CMS edit, PDF upload, redirect, canonical/noindex, slug, sitemap, taxonomy, related-card, lawyer, lead, CRM or wp-admin action is approved by this map.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Family Law live repair diagnostics
 
 - TOOLING FIXED: created `tools/extract-family-law-live-repair-diagnostics.mjs`.

@@ -1,3 +1,15 @@
+## LATEST WORK STATUS - 2026-05-22 17:20 Asia/Jerusalem
+- FAMILY LAW VISIBLE REPAIR FIELD MAP: converted the live diagnostics into exact owner/operator field instructions for H1 repair, `/divorce-agreement/` shortcode/PDF handling and post-repair verification.
+- CREATED: `project-control/family-law-visible-repair-field-map-2026-05-22.md`.
+- CREATED: `project-control/family-law-visible-repair-field-map-2026-05-22.csv`.
+- UPDATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md` now links to the field map as source evidence.
+- VERIFIED LOCAL: field-map CSV parses and contains `10` rows: `8` `BLOCKED_OWNER_APPROVAL`, `1` `BLOCKED_GSC_OWNER_DECISION` and `1` `BLOCKED_UNTIL_REPAIR`.
+- VERIFIED PLANNING: field map identifies the intended H1 to keep for each affected URL and the extra H1 blocks to demote/remove.
+- VERIFIED PLANNING: `/divorce-agreement/` now has separate owner-review rows for H1 repair, raw shortcode repair and PDF promise removal/verification.
+- READY FOR OWNER REVIEW / NOT EXECUTION: operator can use this field map after owner approval and CMS rollback backup; no public edit is approved yet.
+- BLOCKED: divorce-lawyer canonical/redirect/noindex/sitemap decisions remain blocked until focused GSC export and owner canonical decision.
+- SAFETY: this cycle made repo-only planning/docs changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 17:10 Asia/Jerusalem
 - FAMILY LAW LIVE REPAIR DIAGNOSTICS: added and ran a read-only live diagnostics extractor so the operator can see exact H1 texts, shortcode context, canonical/robots state and PDF candidate status before any CMS repair.
 - CREATED: `tools/extract-family-law-live-repair-diagnostics.mjs`.

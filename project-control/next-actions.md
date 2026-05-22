@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-FAMILY-LAW-VISIBLE-REPAIR-FIELD-MAP-001: Prepare exact field-level visible repair map
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The diagnostics identify live H1 and shortcode/PDF issues, but an operator needs exact field-level instructions before opening the CMS. This map tells which H1 to keep, which headings to demote/remove, and how to handle the broken agreement page CTA/PDF.
+**Actions:**
+1. DONE: created `project-control/family-law-visible-repair-field-map-2026-05-22.md`.
+2. DONE: created `project-control/family-law-visible-repair-field-map-2026-05-22.csv`.
+3. DONE: linked the field map from `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+4. VERIFIED LOCAL: CSV parses and contains `10` rows.
+5. VERIFIED PLANNING: `8` rows are `BLOCKED_OWNER_APPROVAL`, `1` row is `BLOCKED_GSC_OWNER_DECISION`, and `1` row is `BLOCKED_UNTIL_REPAIR`.
+6. VERIFIED PLANNING: field map covers `/divorce-agreement/`, `/divorce-lawyer/`, `/lawyer-divorce-guide-proceedings-costs-rights/`, `/child-support/`, `/child-custody/` and `/divorce-mediation/`.
+7. BLOCKED: no public H1, shortcode, PDF, URL, canonical, redirect, noindex, sitemap, taxonomy, related-card, lawyer, lead or CRM action is approved.
+8. NEXT: owner reviews visible repair approval; after approval and CMS rollback backup, operator repairs current URLs only, reruns safety/diagnostics scripts and captures screenshots.
+
 ### ACTION-FAMILY-LAW-LIVE-REPAIR-DIAGNOSTICS-001: Capture exact live repair diagnostics
 **Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / PUBLIC EXECUTION BLOCKED
 **Why:** The repair packet identified which pages are blocked, but the operator also needs exact live H1 texts, raw shortcode context, canonical/robots state and PDF candidate status before touching the CMS.

@@ -399,6 +399,17 @@ function justice_theme_get_breadcrumb_items() {
 			'legal-aid-israel'             => array( 'name' => 'זכויות', 'url' => '/disability-rights-israel/' ),
 			'law-suit-cost-israel'         => array( 'name' => 'זכויות', 'url' => '/consumer-rights-israel/' ),
 			'medical-malpractice-cost'     => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			// Batches 25-27
+			'medical-negligence-pregnancy' => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			'worker-rights-fired-immediately' => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'overtime-pay-israel'          => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'workplace-harassment-guide'   => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'divorce-custody-agreement'    => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'guardianship-adult-israel'    => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'fraud-victim-guide'           => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			'criminal-appeal-process'      => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'tax-lawyer-israel'            => array( 'name' => 'מיסוי', 'url' => '/tax-lawyer-israel/' ),
+			'real-estate-tax-israel'       => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

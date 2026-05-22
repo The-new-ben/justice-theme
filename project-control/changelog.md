@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family Law draft enhancement readiness gate
+
+- CREATED: `tools/check-family-law-draft-enhancement-readiness.mjs`.
+- CREATED: `project-control/family-law-draft-enhancement-readiness-2026-05-22.md`.
+- CREATED: `project-control/family-law-draft-enhancement-readiness-2026-05-22.csv`.
+- GENERATED: `reports/family-law-draft-enhancement-readiness-2026-05-22.csv`.
+- GENERATED: `reports/family-law-draft-enhancement-readiness-2026-05-22.json`.
+- FIXED: normalized `project-control/family-law-draft-enhancement-queue-2026-05-22.csv` row `FL-DRAFT-ENH-007` to keep strict CSV parsing at `12` columns.
+- VERIFIED LOCAL: `node --check tools/check-family-law-draft-enhancement-readiness.mjs` passed.
+- VERIFIED LOCAL: readiness checker reviewed `12` queue rows with `0` missing repo artifacts; `5` rows are ready for owner wording review, `6` rows remain blocked by live/GSC/Maya/lead dependencies and `1` row is post-upload backlog.
+- BLOCKED OWNER WORDING: Family/Divorce draft body-copy edits remain held until owner-approved wording exists.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media/PDF asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 - Family Law draft enhancement queue
 
 - CREATED: `project-control/family-law-draft-enhancement-queue-2026-05-22.md`.

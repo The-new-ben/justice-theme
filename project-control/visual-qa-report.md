@@ -2,6 +2,17 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Family Law Draft Enhancement Readiness Gate
+- CREATED / VERIFIED LOCAL: `tools/check-family-law-draft-enhancement-readiness.mjs`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-draft-enhancement-readiness-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-draft-enhancement-readiness-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/family-law-draft-enhancement-readiness-2026-05-22.csv` and `.json`.
+- FIXED / VERIFIED LOCAL: queue CSV row `FL-DRAFT-ENH-007` now has the expected `12` columns under strict parsing.
+- VERIFIED LOCAL: checker reviewed `12` queue rows with `0` missing repo artifacts.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was repo-only planning/tooling and no public repair/upload happened.
+- BLOCKED LIVE QA: Family/Divorce still needs owner wording approval, CMS rollback backup, visible live repair, focused GSC export, Maya route/schema verification and post-repair screenshots before upload.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media/PDF asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Family Law Draft Enhancement Queue
 - CREATED / FIXED PLANNING: `project-control/family-law-draft-enhancement-queue-2026-05-22.md`.
 - CREATED / VERIFIED LOCAL: `project-control/family-law-draft-enhancement-queue-2026-05-22.csv`.

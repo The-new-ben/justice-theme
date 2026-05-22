@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-FAMILY-LAW-DRAFT-ENHANCEMENT-READINESS-001: Add generated readiness gate for draft enhancement queue
+**Status:** FIXED / VERIFIED LOCAL / BLOCKED OWNER WORDING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the draft enhancement queue needs repeatable validation so future runs do not edit legal copy against missing draft files or stale planning artifacts.
+**Actions:**
+1. DONE: created `tools/check-family-law-draft-enhancement-readiness.mjs`.
+2. DONE: generated `project-control/family-law-draft-enhancement-readiness-2026-05-22.md`.
+3. DONE: generated `project-control/family-law-draft-enhancement-readiness-2026-05-22.csv`.
+4. GENERATED: `reports/family-law-draft-enhancement-readiness-2026-05-22.csv`.
+5. GENERATED: `reports/family-law-draft-enhancement-readiness-2026-05-22.json`.
+6. FIXED: normalized queue row `FL-DRAFT-ENH-007` so strict CSV parsing sees all `12` columns.
+7. VERIFIED LOCAL: node syntax passed; checker reviewed `12` rows with `0` missing repo artifacts.
+8. VERIFIED LOCAL: readiness distribution is `5` ready for owner wording, `6` blocked by external/live dependencies and `1` backlog item.
+9. NEXT: owner approves cost/process/document/agreement/CTA wording; then edit seven existing public-body drafts only and rerun static QA.
+
 ### ACTION-FAMILY-LAW-DRAFT-ENHANCEMENT-QUEUE-001: Map Family/Divorce competitor gaps to draft edit queue
 **Status:** FIXED PLANNING / VERIFIED LOCAL / BLOCKED OWNER WORDING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
 **Why:** the competitor gap packet identified practical additions, but the next safe step is a controlled draft-by-draft queue before anyone edits legal copy or uploads content.

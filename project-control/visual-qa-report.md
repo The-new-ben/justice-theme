@@ -2,6 +2,14 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Family Law Competitor Gap Analysis
+- CREATED / VERIFIED RESEARCH: `project-control/family-law-competitor-gap-analysis-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-competitor-gap-analysis-2026-05-22.csv`.
+- VERIFIED RESEARCH: current competitor evidence shows stronger practical coverage around costs, process, agreements/templates, mediation, children/custody/support, lawyer conversion and CTAs.
+- NOT SCREENSHOT VERIFIED: no desktop/mobile screenshots were captured because this was repo-only research and no public repair/upload happened.
+- BLOCKED LIVE QA: Family/Divorce still needs owner approval, CMS rollback backup, visible live repair, focused GSC export and post-repair screenshots before upload.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Route Deploy Verification Gate
 - UPDATED / VERIFIED LOCAL: `functions.php`, `deployment-marker.txt`, `inc/breadcrumbs.php`, `tools/check-controlled-route-breadcrumb-safety.mjs`, `tools/check-live-trust-routes.mjs`.
 - CREATED / VERIFIED LOCAL: `tools/check-live-controlled-route-breadcrumbs.mjs`.

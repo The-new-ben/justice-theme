@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-FAMILY-LAW-COMPETITOR-GAP-001: Compare Family/Divorce cluster against current competitors
+**Status:** FIXED PLANNING / VERIFIED RESEARCH / VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the Family/Divorce cluster is the first controlled upload candidate, but owner review needs a practical competitor gap matrix before upload decisions.
+**Actions:**
+1. DONE: reviewed current Family/Divorce readiness and live safety artifacts.
+2. DONE: checked current competitor evidence for family/divorce lawyer, cost, process, agreement, mediation, child support/custody and directory intent.
+3. DONE: created `project-control/family-law-competitor-gap-analysis-2026-05-22.md`.
+4. DONE: created `project-control/family-law-competitor-gap-analysis-2026-05-22.csv`.
+5. VERIFIED RESEARCH: competitors are stronger on explicit cost framing, process navigation, agreement/template guidance, named lawyer authority and direct CTAs.
+6. VERIFIED LOCAL: Jus-Tice has a strong seven-page draft base, but public execution remains blocked by live visible defects, missing PDF asset, owner/legal approval, CMS rollback backup and focused GSC evidence.
+7. NEXT: add approved cost/process/document/agreement/CTA enhancements to drafts, then repair visible live defects only after owner approval and rollback backup; do not publish, redirect, delete or change canonicals/noindex/sitemap.
+
 ### ACTION-ROUTE-DEPLOY-VERIFICATION-GATE-001: Consolidate critical route deploy QA and block stale breadcrumbs
 **Status:** FIXED / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY PARTIAL / BLOCKED FAMILY BREADCRUMB LIVE QA / NO PUBLIC CMS CHANGE
 **Why:** T416, T418 and T419 were code-fixed but still scattered as deploy-blocked tasks. The live routes now need one gate that proves traffic/trust routes pass and catches stale breadcrumb schema before promotion.

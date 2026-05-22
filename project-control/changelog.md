@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family Law competitor gap analysis
+
+- CREATED: `project-control/family-law-competitor-gap-analysis-2026-05-22.md`.
+- CREATED: `project-control/family-law-competitor-gap-analysis-2026-05-22.csv`.
+- VERIFIED RESEARCH: compared Family/Divorce upload package against current competitor evidence for cost, process, agreement, mediation, custody/support, lawyer connection, CTAs and structure.
+- FIXED PLANNING: identified pre-upload improvements for cost framing, process path, document checklist, agreement/PDF policy and CTA/lawyer connection.
+- BLOCKED PUBLIC EXECUTION: Family/Divorce remains blocked until owner approval, CMS rollback backup, visible live repair, focused GSC evidence and post-repair QA.
+- SAFETY: no public CMS record, page body, title, H1, meta, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 - Route deploy verification gate and controlled breadcrumb filter
 
 - UPDATED: `functions.php`.

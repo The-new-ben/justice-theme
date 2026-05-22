@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-22 22:51 Asia/Jerusalem
+- FAMILY/DIVORCE COMPETITOR GAP ANALYSIS: created a current repo-only competitor gap packet for the first controlled Family Law upload cluster.
+- CREATED: `project-control/family-law-competitor-gap-analysis-2026-05-22.md`.
+- CREATED: `project-control/family-law-competitor-gap-analysis-2026-05-22.csv`.
+- VERIFIED RESEARCH: compared Jus-Tice Family/Divorce package against current competitor evidence from specialist family firms, agreement/cost guides and directory/price pages.
+- VERIFIED LOCAL: matrix covers costs, process, FAQs, documents/templates, mediation, children/custody/support, agreements, lawyer connection, CTAs, structure, E-E-A-T and tools/calculators.
+- FIXED PLANNING: first upload should add/tighten cost, process, document, agreement and CTA modules before owner approval.
+- BLOCKED LIVE QA: Family/Divorce remains blocked by duplicate H1s, raw shortcode/PDF issues, missing PDF asset and divorce-pillar canonical conflict until owner approval, CMS rollback backup, visible repair and focused GSC export.
+- NOT PUBLISHED: no public CMS record, page body, title, H1, meta, URL slug, redirect, canonical/noindex, taxonomy, sitemap, media asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 22:43 Asia/Jerusalem
 - ROUTE DEPLOY VERIFICATION GATE: consolidated T416/T418/T419 into one generated deploy/live QA gate and added focused live breadcrumb checking for controlled money routes.
 - UPDATED: `functions.php` runtime marker to `2026-05-22-route-deploy-verification-gate-v1`.

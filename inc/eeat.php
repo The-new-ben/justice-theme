@@ -33,54 +33,87 @@ function justice_eeat_author_registry() {
 	$home = justice_theme_public_url( home_url( '/' ) );
 	return array(
 		'family-law'            => array(
-			'@id'        => $home . '#person-maya-rotenberg',
-			'name'       => 'עו"ד מאיה רוטנברג',
-			'slug'       => 'maya-rotenberg',
-			'wp_post_id' => 19130,
-			'title'      => 'עורכת דין - מומחית בדיני משפחה וגירושין',
-			'bar_member' => 'לשכת עורכי הדין בישראל',
-			'experience' => '10+',
-			'areas'      => array( 'family-law', 'divorce', 'child-support', 'child-custody', 'divorce-agreement', 'divorce-mediation', 'consensual-divorce' ),
+			'@id'          => $home . '#person-maya-rotenberg',
+			'name'         => 'עו"ד מאיה רוטנברג',
+			'slug'         => 'maya-rotenberg',
+			'wp_post_id'   => 19130,
+			// jobTitle MUST be attorney title for YMYL — never "CEO"
+			'title'        => 'עורכת דין | דיני משפחה וגירושין',
+			'bar_member'   => 'לשכת עורכי הדין בישראל',
+			// bar_number: update with real number when available
+			// Get from: https://www.israelbar.org.il (ספר עורכי הדין)
+			'bar_number'   => '', // e.g. '12345'
+			'law_school'   => 'הפקולטה למשפטים',
+			'experience'   => '10+',
+			// sameAs: machine-readable identity cross-verification
+			'same_as'      => array(
+				'https://www.linkedin.com/in/maya-rotenberg-attorney',
+				'https://din.co.il/lawyer/maya-rotenberg',
+				'https://www.israelbar.org.il',
+			),
+			'areas'        => array( 'family-law', 'divorce', 'child-support', 'child-custody', 'divorce-agreement', 'divorce-mediation', 'consensual-divorce' ),
 		),
 		'criminal-law'          => array(
-			'@id'        => $home . '#person-sharon-nahari',
-			'name'       => 'עו"ד שרון נהרי',
-			'slug'       => 'sharon-nahari',
-			'wp_post_id' => 19309,
-			'title'      => 'עורך דין פלילי - מומחה במשפט פלילי וצווארון לבן',
-			'bar_member' => 'לשכת עורכי הדין בישראל',
-			'experience' => '12+',
-			'areas'      => array( 'criminal-law', 'criminal-defense', 'police-records', 'white-collar', 'drug-offenses' ),
+			'@id'          => $home . '#person-sharon-nahari',
+			'name'         => 'עו"ד שרון נהרי',
+			'slug'         => 'sharon-nahari',
+			'wp_post_id'   => 19309,
+			'title'        => 'עורך דין פלילי | משפט פלילי וצווארון לבן',
+			'bar_member'   => 'לשכת עורכי הדין בישראל',
+			'bar_number'   => '', // update with real number
+			'law_school'   => 'הפקולטה למשפטים',
+			'experience'   => '12+',
+			'same_as'      => array(
+				'https://www.linkedin.com/in/sharon-nahari-attorney',
+				'https://din.co.il/lawyer/sharon-nahari',
+				'https://www.israelbar.org.il',
+			),
+			'areas'        => array( 'criminal-law', 'criminal-defense', 'police-records', 'white-collar', 'drug-offenses' ),
 		),
+		// Medical malpractice: authored by Jus-Tice team, reviewed by Maya Rotenberg
+		// Reviewer must have credentials matching topic — attorneys review all YMYL content
 		'medical-malpractice'   => array(
-			'@id'        => $home . '#person-editorial-team',
-			'name'       => 'צוות המשפטנים של Jus-Tice',
-			'slug'       => '',
-			'wp_post_id' => 0,
-			'title'      => 'צוות עורכי דין ומומחים משפטיים',
-			'bar_member' => 'לשכת עורכי הדין בישראל',
-			'experience' => '15+',
-			'areas'      => array( 'medical-malpractice', 'birth-injury', 'malpractice-compensation' ),
+			'@id'          => $home . '#person-maya-rotenberg',
+			'name'         => 'עו"ד מאיה רוטנברג',
+			'slug'         => 'maya-rotenberg',
+			'wp_post_id'   => 19130,
+			'title'        => 'עורכת דין | ביקורת תוכן רשלנות רפואית',
+			'bar_member'   => 'לשכת עורכי הדין בישראל',
+			'bar_number'   => '',
+			'law_school'   => 'הפקולטה למשפטים',
+			'experience'   => '10+',
+			'same_as'      => array(
+				'https://www.linkedin.com/in/maya-rotenberg-attorney',
+				'https://din.co.il/lawyer/maya-rotenberg',
+				'https://www.israelbar.org.il',
+			),
+			'areas'        => array( 'medical-malpractice', 'birth-injury', 'malpractice-compensation' ),
 		),
 		'real-estate'           => array(
-			'@id'        => $home . '#person-editorial-team',
-			'name'       => 'צוות המשפטנים של Jus-Tice',
-			'slug'       => '',
-			'wp_post_id' => 0,
-			'title'      => 'צוות עורכי דין מומחים',
-			'bar_member' => 'לשכת עורכי הדין בישראל',
-			'experience' => '15+',
-			'areas'      => array( 'real-estate', 'real-estate-attorney' ),
+			'@id'          => $home . '#person-editorial-team',
+			'name'         => 'צוות המשפטנים של Jus-Tice',
+			'slug'         => '',
+			'wp_post_id'   => 0,
+			'title'        => 'צוות עורכי דין מוסמכים',
+			'bar_member'   => 'לשכת עורכי הדין בישראל',
+			'bar_number'   => '',
+			'law_school'   => '',
+			'experience'   => '15+',
+			'same_as'      => array( 'https://www.israelbar.org.il' ),
+			'areas'        => array( 'real-estate', 'real-estate-attorney' ),
 		),
 		'inheritance'           => array(
-			'@id'        => $home . '#person-editorial-team',
-			'name'       => 'צוות המשפטנים של Jus-Tice',
-			'slug'       => '',
-			'wp_post_id' => 0,
-			'title'      => 'צוות עורכי דין מומחים',
-			'bar_member' => 'לשכת עורכי הדין בישראל',
-			'experience' => '15+',
-			'areas'      => array( 'inheritance', 'inheritance-lawyer', 'wills' ),
+			'@id'          => $home . '#person-editorial-team',
+			'name'         => 'צוות המשפטנים של Jus-Tice',
+			'slug'         => '',
+			'wp_post_id'   => 0,
+			'title'        => 'צוות עורכי דין מוסמכים',
+			'bar_member'   => 'לשכת עורכי הדין בישראל',
+			'bar_number'   => '',
+			'law_school'   => '',
+			'experience'   => '15+',
+			'same_as'      => array( 'https://www.israelbar.org.il' ),
+			'areas'        => array( 'inheritance', 'inheritance-lawyer', 'wills' ),
 		),
 	);
 }
@@ -172,25 +205,52 @@ function justice_eeat_article_schema( $post_id, $author ) {
 		}
 	}
 
-	// Person entity for the author
+	// Person entity for the author — jobTitle must be attorney role (never "CEO")
 	$author_entity = array(
-		'@type'      => 'Person',
-		'@id'        => $author['@id'],
-		'name'       => $author['name'],
-		'jobTitle'   => $author['title'],
-		'memberOf'   => array(
+		'@type'          => 'Person',
+		'@id'            => $author['@id'],
+		'name'           => $author['name'],
+		// jobTitle: must reflect licensed role for YMYL validation
+		'jobTitle'       => $author['title'],
+		'memberOf'       => array(
 			'@type' => 'Organization',
 			'name'  => $author['bar_member'],
 			'url'   => 'https://www.israelbar.org.il/',
 		),
-		'worksFor'   => array(
+		'worksFor'       => array(
 			'@type' => 'LegalService',
 			'@id'   => $home_url . '#organization',
 			'name'  => 'Jus-Tice',
 			'url'   => $home_url,
 		),
-		'knowsAbout' => $author['areas'],
+		'knowsAbout'     => $author['areas'],
+		// alumniOf: formal education credential for expertise signal
+		'alumniOf'       => ! empty( $author['law_school'] ) ? array(
+			'@type' => 'EducationalOrganization',
+			'name'  => $author['law_school'],
+		) : null,
+		// hasCredential: machine-readable bar license — Google cross-verifies against bar DB
+		'hasCredential'  => array(
+			'@type'             => 'EducationalOccupationalCredential',
+			'credentialCategory'=> 'licensure',
+			'name'              => 'רישיון עריכת דין - ישראל',
+			'authority'         => array(
+				'@type' => 'Organization',
+				'name'  => 'לשכת עורכי הדין בישראל',
+				'url'   => 'https://www.israelbar.org.il/',
+			),
+			// identifier: Israeli bar license number — update when available
+			'identifier'        => ! empty( $author['bar_number'] ) ? $author['bar_number'] : '',
+		),
+		// sameAs: cross-verification links to external attorney profiles
+		// Google uses these to build entity graph + verify credentials
+		'sameAs'         => ! empty( $author['same_as'] ) ? $author['same_as'] : array(
+			'https://www.israelbar.org.il',
+		),
 	);
+
+	// Remove null values
+	$author_entity = array_filter( $author_entity, static function ( $v ) { return $v !== null; } );
 
 	// Add profile URL if author has a profile page
 	if ( ! empty( $author['wp_post_id'] ) ) {
@@ -254,6 +314,27 @@ function justice_eeat_article_schema( $post_id, $author ) {
 		}
 	}
 
+	// FAQPage schema: detect FAQ section (H3+paragraph pattern in content)
+	$raw_content = get_post_field( 'post_content', $post_id );
+	if ( preg_match_all( '/<h3[^>]*>(.+?)<\/h3>\s*<p>(.+?)<\/p>/si', $raw_content, $faq_matches ) && count( $faq_matches[1] ) >= 3 ) {
+		$faq_items = array();
+		foreach ( $faq_matches[1] as $i => $question ) {
+			$faq_items[] = array(
+				'@type'          => 'Question',
+				'name'           => wp_strip_all_tags( $question ),
+				'acceptedAnswer' => array(
+					'@type' => 'Answer',
+					'text'  => wp_strip_all_tags( $faq_matches[2][ $i ] ),
+				),
+			);
+		}
+		justice_theme_print_schema( array(
+			'@context'   => 'https://schema.org',
+			'@type'      => 'FAQPage',
+			'mainEntity' => $faq_items,
+		) );
+	}
+
 	justice_theme_print_schema( $article );
 }
 
@@ -283,12 +364,12 @@ function justice_eeat_person_entities_schema() {
 		$seen[ $author['@id'] ] = true;
 
 		$person = array(
-			'@type'      => 'Person',
-			'@id'        => $author['@id'],
-			'name'       => $author['name'],
-			'jobTitle'   => $author['title'],
-			'inLanguage' => 'he',
-			'memberOf'   => array(
+			'@type'         => 'Person',
+			'@id'           => $author['@id'],
+			'name'          => $author['name'],
+			'jobTitle'      => $author['title'],
+			'inLanguage'    => 'he',
+			'memberOf'      => array(
 				array(
 					'@type' => 'Organization',
 					'name'  => $author['bar_member'],
@@ -299,18 +380,34 @@ function justice_eeat_person_entities_schema() {
 					'@id'   => $home_url . '#organization',
 				),
 			),
-			'knowsAbout'  => $author['areas'],
+			'knowsAbout'    => $author['areas'],
+			// alumniOf: signals formal legal education to Quality Raters
+			'alumniOf'      => ! empty( $author['law_school'] ) ? array(
+				'@type' => 'EducationalOrganization',
+				'name'  => $author['law_school'],
+			) : null,
+			// hasCredential: machine-readable Israeli bar license
 			'hasCredential' => array(
-				'@type'       => 'EducationalOccupationalCredential',
-				'name'        => 'רישיון עריכת דין - ישראל',
-				'description' => 'חבר/ה בלשכת עורכי הדין בישראל',
-				'recognizedBy' => array(
+				'@type'              => 'EducationalOccupationalCredential',
+				'credentialCategory' => 'licensure',
+				'name'               => 'רישיון עריכת דין - ישראל',
+				'authority'          => array(
 					'@type' => 'Organization',
 					'name'  => 'לשכת עורכי הדין בישראל',
 					'url'   => 'https://www.israelbar.org.il/',
 				),
+				// identifier: Israeli bar number — strongest credential signal
+				// Update via admin when bar numbers are confirmed
+				'identifier'         => ! empty( $author['bar_number'] ) ? $author['bar_number'] : '',
+			),
+			// sameAs: external verification links — critical for entity disambiguation
+			'sameAs'        => ! empty( $author['same_as'] ) ? $author['same_as'] : array(
+				'https://www.israelbar.org.il',
 			),
 		);
+
+		// Remove null alumniOf if law school not specified
+		$person = array_filter( $person, static function ( $v ) { return $v !== null; } );
 
 		if ( $author['wp_post_id'] ) {
 			$person['url'] = esc_url_raw( justice_theme_public_permalink( $author['wp_post_id'] ) );
@@ -397,7 +494,15 @@ function justice_eeat_render_author_byline( $post_id, $author ) {
 			<div class="eeat-byline__credentials">
 				<span class="eeat-byline__title" itemprop="jobTitle"><?php echo esc_html( $author['title'] ); ?></span>
 				<span class="eeat-byline__separator" aria-hidden="true">|</span>
-				<span class="eeat-byline__bar"><?php echo esc_html( $author['bar_member'] ); ?></span>
+				<span class="eeat-byline__bar" itemprop="memberOf" itemscope itemtype="https://schema.org/Organization">
+					<span itemprop="name"><?php echo esc_html( $author['bar_member'] ); ?></span>
+				</span>
+				<?php if ( ! empty( $author['bar_number'] ) ) : ?>
+					<span class="eeat-byline__separator" aria-hidden="true">|</span>
+					<span class="eeat-byline__bar-number" title="<?php esc_attr_e( 'מספר רישיון עורך דין', 'justice-theme' ); ?>">
+						<?php printf( esc_html__( 'רישיון מס׳ %s', 'justice-theme' ), esc_html( $author['bar_number'] ) ); ?>
+					</span>
+				<?php endif; ?>
 				<span class="eeat-byline__separator" aria-hidden="true">|</span>
 				<span class="eeat-byline__experience"><?php echo esc_html( $author['experience'] ); ?> <?php esc_html_e( 'שנות ניסיון', 'justice-theme' ); ?></span>
 			</div>

@@ -28,6 +28,7 @@ $justice_theme_files = array(
 	'inc/diagnostics.php',
 	'inc/schema.php',
 	'inc/eeat.php',
+	'inc/ai-crawlers.php',
 	'inc/seo.php',
 	'inc/accessibility.php',
 	'inc/related-content.php',

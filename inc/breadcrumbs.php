@@ -308,7 +308,53 @@ function justice_theme_get_breadcrumb_items() {
 			// Inheritance cluster
 			'inheritance'               => array( 'name' => 'ירושה וצוואות', 'url' => '/inheritance-lawyer/' ),
 			'will-and-testament'        => array( 'name' => 'ירושה וצוואות', 'url' => '/inheritance-lawyer/' ),
-			'will-probate-objection'    => array( 'name' => 'ירושה וצוואות', 'url' => '/inheritance-lawyer/' ),
+			'will-probate-objection'       => array( 'name' => 'ירושה וצוואות', 'url' => '/inheritance-lawyer/' ),
+			'inheritance-lawyer-guide'     => array( 'name' => 'ירושה וצוואות', 'url' => '/inheritance-lawyer/' ),
+			'inheritance-tax-israel'       => array( 'name' => 'ירושה וצוואות', 'url' => '/inheritance-lawyer/' ),
+			'inheritance-dispute'          => array( 'name' => 'ירושה וצוואות', 'url' => '/inheritance-lawyer/' ),
+			// Family law cluster — batch 5-12 additions
+			'cohabiting-couples-rights'    => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'child-custody-guide'          => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'divorce-women-rights-israel'  => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'restraining-order-israel'     => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'prenuptial-agreement-guide'   => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'custody-modification-israel'  => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'guardianship-israel'          => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'power-of-attorney-guide'      => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			// Criminal cluster — batch 5-12 additions
+			'criminal-sentencing-israel'   => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'traffic-offense-points'       => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'fraud-offenses-israel'        => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'criminal-appeal-guide'        => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'white-collar-crime-israel'    => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'drug-offenses-israel'         => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'criminal-rights-arrest'       => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			// Medical malpractice — batch 5-12 additions
+			'medical-malpractice-surgery'  => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			'medical-malpractice-haifa'    => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			'medical-malpractice-tel-aviv' => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			'birth-injury-compensation'    => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			'medical-malpractice-diagnosis-errors' => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			'medication-errors-malpractice'        => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
+			// Real estate — batch 5-12 additions
+			'real-estate-developer-dispute' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'tenant-rights-israel'          => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'landlord-rights-israel'        => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'commercial-lease-israel'       => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'real-estate-contract-review'   => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			// Labor law cluster
+			'labor-law-employee-rights'    => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'wrongful-dismissal-guide'     => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'employment-rights-pregnancy'  => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'sexual-harassment-work'       => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'workplace-accident-guide'     => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'discrimination-at-work'       => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			// Consumer / cross-pillar
+			'consumer-rights-israel'       => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			'small-claims-court-israel'    => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			'insurance-claim-dispute'      => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			// Personal injury
+			'personal-injury-israel'       => array( 'name' => 'נזקי גוף', 'url' => '/personal-injury-israel/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

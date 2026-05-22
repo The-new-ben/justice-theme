@@ -66,6 +66,12 @@ Without `--gscDir`, the decision-map builder can use the older cached `reports/g
 
 ## Priority Cluster Export
 
+Owner-facing command packet:
+
+- `project-control/gsc-owner-execution-packet-2026-05-22.md`
+
+Use the packet for the ordered owner flow: credential paths, preflight, dry run, read-only export, strict output validation, and the explicit no-public-change boundary.
+
 Before the first real export, run the local preflight. It checks paths, local packages, Git hygiene and optional dry-run wiring without opening OAuth or calling GSC:
 
 ```powershell

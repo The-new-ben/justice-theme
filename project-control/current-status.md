@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-22 18:39 Asia/Jerusalem
+- GSC OWNER EXECUTION PACKET: created a single owner/operator command packet for tomorrow's Search Console API setup and priority export run.
+- CREATED: `project-control/gsc-owner-execution-packet-2026-05-22.md`.
+- CREATED: `project-control/gsc-owner-execution-packet-2026-05-22.csv`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- UPDATED: `tools/gsc/README.md`.
+- VERIFIED PLANNING: packet sequences credential storage outside Git, env vars, OAuth preflight, priority dry run, real read-only export and strict output validation.
+- BLOCKED PUBLIC EXECUTION: CMS upload, URL migration, redirects, canonicals/noindex, sitemap, taxonomy, internal links, lawyer, lead, CRM and uPress actions remain blocked until separate owner approval and rollback evidence.
+- NEXT OWNER ACTION: save OAuth Desktop credentials outside Git, set `GSC_OAUTH_CLIENT_PATH` and `GSC_TOKEN_PATH`, then run the packet commands.
+- SAFETY: this cycle made repo-only docs changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC API call, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 18:33 Asia/Jerusalem
 - GSC PRIORITY EXPORT OUTPUT VALIDATOR: added a local validator for the real priority GSC export outputs after owner OAuth setup.
 - CREATED: `tools/gsc/check-priority-gsc-export-output.ps1`.

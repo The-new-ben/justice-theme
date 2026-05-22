@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-GSC-OWNER-EXECUTION-PACKET-001: Prepare one ordered owner command packet for GSC setup/export/validation
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER SETUP / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The GSC setup guide, preflight, priority runner and output validator now exist, but the owner needs one ordered command path that avoids partial or out-of-order execution before upload decisions.
+**Actions:**
+1. DONE: created `project-control/gsc-owner-execution-packet-2026-05-22.md`.
+2. DONE: created `project-control/gsc-owner-execution-packet-2026-05-22.csv`.
+3. DONE: linked the packet from `project-control/gsc-api-setup-guide.md`.
+4. DONE: linked the packet from `tools/gsc/README.md`.
+5. VERIFIED PLANNING: packet covers credential storage outside Git, `GSC_OAUTH_CLIENT_PATH`, `GSC_TOKEN_PATH`, preflight, priority dry run, real read-only export and strict output validation.
+6. VERIFIED PLANNING: success state is `VERIFIED_EXPORT_OUTPUTS_READY_FOR_OWNER_REVIEW`.
+7. BLOCKED: real export still requires owner OAuth setup and Search Console access to `https://jus-tice.co.il/`.
+8. BLOCKED PUBLIC EXECUTION: this does not approve CMS upload, URL migration, redirects, canonicals/noindex, sitemap, taxonomy, internal-link writes, lawyer, lead, CRM or uPress action.
+9. NEXT: owner follows the packet commands; if validator passes, review Family/Divorce visible repair approval and CMS rollback evidence before any public action.
+
 ### ACTION-GSC-PRIORITY-OUTPUT-VALIDATOR-001: Validate priority GSC export outputs before upload decisions
 **Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / BLOCKED UNTIL REAL GSC EXPORT / NO PUBLIC CHANGES
 **Why:** After OAuth setup, the next failure mode is using missing, malformed or baseline-only Search Console artifacts as if they were real focused export evidence. A strict output validator makes the owner/operator gate fast and explicit before CMS upload or URL decisions.

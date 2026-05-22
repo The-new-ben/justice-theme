@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - GSC owner execution packet
+
+- CREATED: `project-control/gsc-owner-execution-packet-2026-05-22.md`.
+- CREATED: `project-control/gsc-owner-execution-packet-2026-05-22.csv`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- UPDATED: `tools/gsc/README.md`.
+- VERIFIED PLANNING: packet gives one ordered sequence for credential env vars, OAuth preflight, priority dry run, real read-only export and strict output validation.
+- BLOCKED: real Search Console export still requires owner OAuth setup and property access.
+- BLOCKED PUBLIC EXECUTION: packet explicitly blocks CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy, internal-link, lawyer, lead, CRM and uPress actions.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC API call, wp-admin or uPress change was made.
+
 ## 2026-05-22 - GSC priority export output validator
 
 - TOOLING FIXED: created `tools/gsc/check-priority-gsc-export-output.ps1`.

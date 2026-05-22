@@ -23,6 +23,7 @@ LATEST 2026-05-21 RUNNER NOTE:
 - FIXED 2026-05-22: priority cluster runner now runs Family/Divorce, Criminal Law and Medical Malpractice in one read-only workflow: `.\tools\gsc\run-priority-cluster-gsc-exports.ps1 -DryRun`, then `.\tools\gsc\run-priority-cluster-gsc-exports.ps1` after owner OAuth approval.
 - FIXED 2026-05-22: GSC OAuth preflight checker is available at `.\tools\gsc\check-gsc-oauth-preflight.ps1 -RunPriorityDryRun` to validate credential paths, ignored-token hygiene, local packages and priority runner wiring before any OAuth browser or API call.
 - FIXED 2026-05-22: priority export output validator is available at `.\tools\gsc\check-priority-gsc-export-output.ps1 -WriteReport` to block missing/malformed export outputs and baseline-only decision maps before any upload decision.
+- READY 2026-05-22: owner/operator command packet is available at `project-control/gsc-owner-execution-packet-2026-05-22.md`. Use it as the ordered setup/export/validation checklist tomorrow.
 
 This guide explains how to connect Google Search Console API for Jus-Tice so we can export query/page data quickly instead of doing slow browser checks.
 
@@ -273,12 +274,13 @@ Do not:
 
 ## Tomorrow Checklist
 
-1. Confirm which Google account has Search Console access.
-2. Confirm `https://jus-tice.co.il/` is visible in that Search Console account.
-3. Create or choose Google Cloud project.
-4. Enable Search Console API.
-5. Create OAuth Desktop app credentials.
-6. Save credential JSON outside the repo.
-7. Give Codex the local file path only.
-8. Approve the OAuth screen when Codex runs the first export.
-9. Verify the first CSV export opens and contains `query`, `page`, `clicks`, `impressions`, `ctr`, `position`.
+1. Open `project-control/gsc-owner-execution-packet-2026-05-22.md`.
+2. Confirm which Google account has Search Console access.
+3. Confirm `https://jus-tice.co.il/` is visible in that Search Console account.
+4. Create or choose Google Cloud project.
+5. Enable Search Console API.
+6. Create OAuth Desktop app credentials.
+7. Save credential JSON outside the repo.
+8. Give Codex the local file path only.
+9. Approve the OAuth screen when Codex runs the first export.
+10. Verify the first CSV export opens and contains `query`, `page`, `clicks`, `impressions`, `ctr`, `position`.

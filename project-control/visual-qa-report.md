@@ -2,6 +2,15 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Family Law Live Repair Operator Packet
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+- CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-operator-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: CSV parses and contains `20` operator rows, with `19` still blocked until owner approval, CMS rollback backup, focused GSC where needed and post-repair QA.
+- VERIFIED PLANNING: packet requires rerunning `tools/check-family-law-live-safety.mjs` and capturing desktop/mobile screenshots after any approved public repair.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was a local repair planning packet and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/operator executes approved visible repairs and the route/status/canonical/robots checks pass.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Family Law Live Safety Checker
 - TOOLING FIXED / VERIFIED LOCAL: created `tools/check-family-law-live-safety.mjs`.
 - GENERATED / VERIFIED LIVE READ-ONLY: `reports/family-law-live-safety-check-2026-05-22.csv`.

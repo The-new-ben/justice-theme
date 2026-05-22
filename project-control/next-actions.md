@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-FAMILY-LAW-LIVE-REPAIR-OPERATOR-PACKET-001: Prepare controlled live repair packet
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER OPERATOR REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The live safety checker identified concrete production defects, but the previous Family/Divorce upload runbook covered planned content upload, not repair of already-live shortcode/PDF/H1/canonical blockers. This packet separates visible current-URL repairs from SEO consolidation.
+**Actions:**
+1. DONE: created `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+2. DONE: created `project-control/family-law-live-repair-operator-packet-2026-05-22.csv`.
+3. VERIFIED LOCAL: CSV parses and contains `20` operator rows.
+4. VERIFIED PLANNING: `1` row is `READY_FOR_OPERATOR_PREP`; `19` rows remain `BLOCKED`.
+5. VERIFIED PLANNING: visible repair work is limited to existing URLs after owner approval and CMS rollback backup.
+6. VERIFIED PLANNING: `/divorce-agreement/` shortcode/PDF repair and H1/template repairs are separated from canonical/redirect/noindex/sitemap decisions.
+7. BLOCKED: divorce-lawyer canonical consolidation remains blocked until focused Family/Divorce GSC export and owner decision.
+8. BLOCKED: no public CMS edit, PDF upload, URL change, redirect, canonical/noindex, sitemap, taxonomy, related-card, lawyer, lead or CRM action is approved.
+9. NEXT: owner chooses whether to approve visible current-URL repairs only; if approved, operator captures rollback material, repairs `/divorce-agreement/` and H1/template issues, reruns `tools/check-family-law-live-safety.mjs`, then captures screenshots.
+
 ### ACTION-FAMILY-LAW-LIVE-SAFETY-CHECKER-001: Add repeatable live-read-only Family Law safety checker
 **Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / PUBLIC EXECUTION BLOCKED
 **Why:** The Family/Divorce cluster now has already-live public pages with duplicate pillar risk, shortcode/PDF failure and H1/template hygiene issues. Before further upload, the blockers need a repeatable read-only checker so repairs can be verified consistently.

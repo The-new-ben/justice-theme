@@ -1,3 +1,14 @@
+## LATEST WORK STATUS - 2026-05-22 17:00 Asia/Jerusalem
+- FAMILY LAW LIVE REPAIR OPERATOR PACKET: converted the measured live Family/Divorce blockers into an owner/operator repair packet without authorizing public execution.
+- CREATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: repair CSV parses and contains `20` operator rows: `1` row `READY_FOR_OPERATOR_PREP` and `19` rows `BLOCKED`.
+- VERIFIED PLANNING: packet separates visible current-URL repairs from SEO consolidation; shortcode/PDF/H1 repairs can be approved separately, but divorce-lawyer canonical/redirect/noindex/sitemap decisions remain blocked until focused Family/Divorce GSC export and owner decision.
+- VERIFIED PLANNING: packet defines exact repair order: CMS rollback backup, GSC gate for SEO decisions, owner canonical decision, `/divorce-agreement/` shortcode/PDF repair, H1/template repair, rerun safety checker, then desktop/mobile screenshots.
+- READY FOR OWNER/OPERATOR REVIEW / NOT EXECUTION: owner can now choose `APPROVE_VISIBLE_REPAIR_ONLY`, `HOLD_PUBLIC_REPAIR`, `LEGAL_SOURCE_REVIEW_REQUIRED`, or keep SEO consolidation at `HOLD_PENDING_GSC`.
+- BLOCKED: no Family/Divorce public edit, PDF upload, redirect, canonical/noindex, slug, sitemap, taxonomy, related-card, lawyer, lead or CRM action is approved by this packet.
+- SAFETY: this cycle made repo-only planning/docs changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 16:51 Asia/Jerusalem
 - FAMILY LAW LIVE SAFETY CHECKER: added a repeatable read-only checker for the already-live Family/Divorce pages and PDF asset candidates.
 - CREATED: `tools/check-family-law-live-safety.mjs`.

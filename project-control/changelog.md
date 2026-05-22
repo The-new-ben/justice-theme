@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family Law live repair operator packet
+
+- CREATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: repair CSV parses and contains `20` operator rows: `1` ready-for-operator-prep row and `19` blocked rows.
+- VERIFIED PLANNING: packet separates visible current-URL repair approval from SEO consolidation approval.
+- VERIFIED PLANNING: `/divorce-agreement/` shortcode/PDF repair, H1/template repair, GSC gate, owner canonical decision, checker rerun and screenshot QA are now explicit operator steps.
+- BLOCKED: no public CMS edit, PDF upload, redirect, canonical/noindex, slug, sitemap, taxonomy, related-card, lawyer, lead, CRM or wp-admin action is approved by this packet.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Family Law live safety checker
 
 - TOOLING FIXED: created `tools/check-family-law-live-safety.mjs`.

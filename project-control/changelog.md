@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Medical Malpractice CMS identity operator runbook
+
+- CREATED: `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.md`.
+- CREATED: `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.csv`.
+- VERIFIED LOCAL: runbook CSV contains `9` operator checklist rows.
+- VERIFIED PLANNING: runbook covers inspection authorization, rollback evidence for IDs `11607` and `1130`, served-record verification, field comparison, allowed owner decisions, focused GSC gate, source/legal gate and upload boundary.
+- BLOCKED: runbook does not authorize CMS upload, editor saves, slug changes, redirects, canonical/noindex changes, sitemap changes, taxonomy edits, media changes, schema, lawyer-card changes or CRM changes.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Medical Malpractice duplicate identity review
 
 - TOOLING FIXED: created `tools/build-medical-malpractice-duplicate-identity-review.mjs`.

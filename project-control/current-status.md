@@ -1,3 +1,13 @@
+## LATEST WORK STATUS - 2026-05-22 16:08 Asia/Jerusalem
+- MEDICAL MALPRACTICE CMS IDENTITY OPERATOR RUNBOOK: prepared the inspection-only operator workflow for the `/medical-malpractice-lawyer/` duplicate CMS identity blocker.
+- CREATED: `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.md`.
+- CREATED: `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.csv`.
+- VERIFIED LOCAL: runbook covers `9` operator checklist rows for inspection authorization, backup of IDs `11607` and `1130`, served-record verification, field comparison, owner decision, GSC gate, source/legal gate and upload boundary.
+- VERIFIED PLANNING: runbook allows inspection/export only and explicitly blocks saving editor changes, publishing, slug changes, redirects, canonicals/noindex, sitemap, taxonomy, media changes, schema, lawyer cards and CRM actions.
+- READY FOR OPERATOR PREP / NOT EXECUTION: owner/operator can use this to verify the authoritative WordPress record without changing the public site.
+- BLOCKED: Medical Malpractice upload still requires owner authoritative-record decision, rollback evidence, focused GSC export, source/legal/privacy review and explicit CMS upload approval.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 16:01 Asia/Jerusalem
 - MEDICAL MALPRACTICE DUPLICATE IDENTITY REVIEW: prepared a focused repo-only comparison packet for the `/medical-malpractice-lawyer/` duplicate CMS identity blocker.
 - CREATED: `tools/build-medical-malpractice-duplicate-identity-review.mjs`.

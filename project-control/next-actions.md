@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-MEDICAL-MALPRACTICE-CMS-IDENTITY-OPERATOR-RUNBOOK-001: Prepare inspection-only operator runbook for duplicate CMS identity
+**Status:** COMPLETED / VERIFIED PLANNING / READY FOR OPERATOR PREP / EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** The duplicate identity review identified the blocker, but the operator still needs exact inspection, backup and decision steps before any Medical Malpractice upload. This runbook converts the blocker into a controlled wp-admin/database verification workflow without authorizing public changes.
+**Actions:**
+1. DONE: created `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.md`.
+2. DONE: created `project-control/medical-malpractice-cms-identity-operator-runbook-2026-05-22.csv`.
+3. VERIFIED LOCAL: CSV contains `9` operator checklist rows.
+4. VERIFIED PLANNING: runbook covers inspection authorization, rollback evidence for IDs `11607` and `1130`, served-record verification, field comparison, allowed owner decisions, GSC gate, source/legal gate and upload boundary.
+5. VERIFIED PLANNING: runbook blocks editor saves, publishing, slug changes, redirects, canonical/noindex changes, sitemap changes, taxonomy edits, media changes, schema, lawyer-card changes and CRM changes.
+6. BLOCKED: owner/operator must still verify wp-admin/database served-record state and choose an allowed authoritative-record decision before upload.
+7. NEXT: owner/operator uses the runbook to record `KEEP_11607_AS_AUTHORITATIVE`, `KEEP_1130_AS_AUTHORITATIVE`, `MERGE_1130_ASSETS_INTO_11607` or `HOLD_PENDING_WP_ADMIN_DB_CHECK`; then focused GSC and source/legal gates remain required before public CMS work.
+
 ### ACTION-MEDICAL-MALPRACTICE-DUPLICATE-IDENTITY-REVIEW-001: Resolve planning evidence for `/medical-malpractice-lawyer/` duplicate CMS identity
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / NOT FINAL UNTIL WP-ADMIN-DB CHECK / OWNER REVIEW BLOCKED / NO PUBLIC CHANGES
 **Why:** Medical Malpractice upload is blocked by two local export records, IDs `11607` and `1130`, resolving to the same public URL. Before any body, title, metadata, internal-link, taxonomy or URL work, the owner/operator needs a focused comparison packet showing which record may be authoritative and what assets must not be lost.

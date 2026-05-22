@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-22 22:05 Asia/Jerusalem
+- PRIORITY PAGES CMS OWNER APPROVAL WORKSHEET: added a narrow approval sheet for the two live article H1 repairs and the four blocked clean-slug decisions.
+- CREATED: `project-control/priority-pages-cms-owner-approval-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-cms-owner-approval-2026-05-22.csv`.
+- FIXED PLANNING: owner can approve `APPROVE_ARTICLE_H1_REPAIR_ONLY` for `/criminal-lawyer-cost/` article ID `19261` and `/plea-bargain/` article ID `19279` after rollback capture.
+- BLOCKED PLANNING: clean-slug creation and SEO migration remain explicitly held for `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/`.
+- VERIFIED LOCAL: owner approval CSV parses with `11` rows.
+- NOT LIVE VERIFIED: no wp-admin repair, REST write, redirect, canonical/noindex, sitemap, taxonomy, internal-link, GSC/GA4, screenshot or uPress action happened.
+- SAFETY: no public CMS page/article body, database row, URL slug, redirect, canonical/noindex, taxonomy, sitemap, lawyer profile, lead, CRM record, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 21:55 Asia/Jerusalem
 - PRIORITY PAGES CMS ROLLBACK CAPTURE TEMPLATE: added the exact pre-edit backup worksheet for the priority-page repair packet.
 - CREATED: `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.md`.

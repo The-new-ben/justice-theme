@@ -2,6 +2,14 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Priority Pages CMS Owner Approval Worksheet
+- CREATED / VERIFIED PLANNING: `project-control/priority-pages-cms-owner-approval-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/priority-pages-cms-owner-approval-2026-05-22.csv`.
+- FIXED PLANNING: approval scope is limited to duplicate body/content H1 repair on article IDs `19261` and `19279` after rollback capture.
+- BLOCKED LIVE QA: no screenshot capture was performed because this cycle was repo-only and no public repair happened.
+- NEXT VISUAL QA: after owner approval and repair, rerun priority live QA and capture before/after desktop/mobile screenshots where available.
+- SAFETY: no public page/article body, CMS database row, URL slug, redirect, canonical/noindex, sitemap, taxonomy, lawyer, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Priority Pages CMS Rollback Capture Template
 - CREATED / VERIFIED PLANNING: `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.md`.
 - CREATED / VERIFIED LOCAL: `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.csv`.

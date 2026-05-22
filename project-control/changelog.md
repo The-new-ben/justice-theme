@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Priority pages CMS owner approval worksheet
+
+- CREATED: `project-control/priority-pages-cms-owner-approval-2026-05-22.md`.
+- CREATED: `project-control/priority-pages-cms-owner-approval-2026-05-22.csv`.
+- FIXED PLANNING: added explicit approval language for duplicate body/content H1 repair only on `/criminal-lawyer-cost/` article ID `19261` and `/plea-bargain/` article ID `19279`.
+- BLOCKED PUBLIC EXECUTION: clean-slug creation, page publisher use and SEO migration remain held until separate owner/GSC/source/legal decisions.
+- VERIFIED LOCAL: owner approval CSV parses with `11` rows.
+- NOT LIVE VERIFIED: no WordPress REST write, public page/article update, redirect, canonical/noindex, sitemap, GSC/GA4 action, screenshot or uPress deployment was executed.
+- SAFETY: no public CMS content, article body, database row, lawyer profile, lead, CRM, payment, URL slug, redirect, canonical/noindex, taxonomy, sitemap, GSC/GA4 setting, wp-admin setting or uPress deployment was changed.
+
 ## 2026-05-22 - Priority pages CMS rollback capture template
 
 - CREATED: `project-control/priority-pages-cms-rollback-capture-template-2026-05-22.md`.

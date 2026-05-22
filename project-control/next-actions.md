@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-PRIORITY-PAGES-CMS-OWNER-APPROVAL-001: Prepare owner approval worksheet for priority page CMS repairs
+**Status:** FIXED / VERIFIED LOCAL / OWNER DECISION PENDING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
+**Why:** the repair packet and rollback worksheet are ready, but public execution still needs a precise owner decision that cannot be mistaken for clean-slug creation or SEO migration approval.
+**Actions:**
+1. DONE: created `project-control/priority-pages-cms-owner-approval-2026-05-22.md`.
+2. DONE: created `project-control/priority-pages-cms-owner-approval-2026-05-22.csv`.
+3. FIXED PLANNING: worksheet allows only `APPROVE_ARTICLE_H1_REPAIR_ONLY` for `/criminal-lawyer-cost/` article ID `19261` and `/plea-bargain/` article ID `19279`, after rollback capture.
+4. BLOCKED PLANNING: `/medical-malpractice-diagnosis-errors/`, `/joint-custody/`, `/medication-errors-malpractice/` and `/divorce-pension-split/` remain held for GSC/source/legal/cannibalization decisions.
+5. BLOCKED PLANNING: page publisher use remains held because it writes to `wp/v2/pages`, not the live article CPT repair targets.
+6. VERIFIED LOCAL: owner approval CSV parses with `11` rows.
+7. NOT LIVE VERIFIED: no public CMS edit, REST write, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4, screenshot or uPress action happened.
+8. NEXT: owner records approve/hold language; if approved, operator captures rollback from the rollback template, repairs only duplicate body H1s on article IDs `19261` and `19279`, then reruns priority live QA.
+
 ### ACTION-PRIORITY-PAGES-CMS-ROLLBACK-CAPTURE-001: Prepare pre-edit rollback worksheet for priority page repairs
 **Status:** FIXED / VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
 **Why:** the repair packet identifies what to fix, but the operator still needs a precise backup/capture worksheet before touching WordPress editor fields.

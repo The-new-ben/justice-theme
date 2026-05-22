@@ -1,3 +1,18 @@
+## LATEST WORK STATUS - 2026-05-22 17:10 Asia/Jerusalem
+- FAMILY LAW LIVE REPAIR DIAGNOSTICS: added and ran a read-only live diagnostics extractor so the operator can see exact H1 texts, shortcode context, canonical/robots state and PDF candidate status before any CMS repair.
+- CREATED: `tools/extract-family-law-live-repair-diagnostics.mjs`.
+- GENERATED: `reports/family-law-live-repair-diagnostics-2026-05-22.csv`.
+- GENERATED: `reports/family-law-live-repair-diagnostics-2026-05-22.json`.
+- CREATED: `project-control/family-law-live-repair-diagnostics-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-repair-diagnostics-2026-05-22.csv`.
+- UPDATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md` now links to the diagnostics outputs as source evidence.
+- VERIFIED LOCAL: `node --check tools/extract-family-law-live-repair-diagnostics.mjs` passed.
+- VERIFIED LIVE READ-ONLY: diagnostics fetched `6` public Family/Divorce HTML pages and `3` PDF candidates; no CMS write, credential, wp-admin, redirect, canonical/noindex, taxonomy, sitemap, media, CRM or uPress action was made.
+- VERIFIED LIVE READ-ONLY: generated `9` diagnostic rows; all `9` have repair issues, including `6` H1 issue rows, `1` raw-shortcode row and `0` working PDF candidates.
+- READY FOR OPERATOR REVIEW / NOT EXECUTION: exact live H1 texts and `/divorce-agreement/` shortcode context are now captured for the owner/operator repair packet.
+- BLOCKED: public repairs still require owner approval, CMS rollback backup, and focused GSC before any divorce-lawyer canonical/redirect/noindex/sitemap action.
+- SAFETY: this cycle made repo-only tooling/docs/report changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 17:00 Asia/Jerusalem
 - FAMILY LAW LIVE REPAIR OPERATOR PACKET: converted the measured live Family/Divorce blockers into an owner/operator repair packet without authorizing public execution.
 - CREATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.

@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family Law live repair diagnostics
+
+- TOOLING FIXED: created `tools/extract-family-law-live-repair-diagnostics.mjs`.
+- GENERATED: `reports/family-law-live-repair-diagnostics-2026-05-22.csv`.
+- GENERATED: `reports/family-law-live-repair-diagnostics-2026-05-22.json`.
+- CREATED: `project-control/family-law-live-repair-diagnostics-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-repair-diagnostics-2026-05-22.csv`.
+- UPDATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md` now links the diagnostics evidence.
+- VERIFIED LOCAL: Node syntax check passed.
+- VERIFIED LIVE READ-ONLY: diagnostics fetched `6` Family/Divorce HTML pages and `3` PDF candidates.
+- VERIFIED LIVE READ-ONLY: produced `9` diagnostic rows; all have issues, with `6` H1 issue rows, `1` raw-shortcode row and `0` working PDF candidates.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Family Law live repair operator packet
 
 - CREATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.

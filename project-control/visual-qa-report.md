@@ -2,6 +2,17 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Family Law Live Repair Diagnostics
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/extract-family-law-live-repair-diagnostics.mjs`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/family-law-live-repair-diagnostics-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/family-law-live-repair-diagnostics-2026-05-22.json`.
+- CREATED / VERIFIED LIVE READ-ONLY: `project-control/family-law-live-repair-diagnostics-2026-05-22.md`.
+- CREATED / VERIFIED LIVE READ-ONLY: `project-control/family-law-live-repair-diagnostics-2026-05-22.csv`.
+- VERIFIED LIVE READ-ONLY: fetched `6` HTML pages and `3` PDF candidates; captured exact H1 texts, raw shortcode context, canonical/robots state and PDF status for repair planning.
+- BLOCKED LIVE: diagnostics still show `6` H1 issue rows, `1` raw-shortcode row and `0` working PDF candidates.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was HTML/resource diagnostics only and no public UI changed.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Family Law Live Repair Operator Packet
 - CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
 - CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-operator-packet-2026-05-22.csv`.

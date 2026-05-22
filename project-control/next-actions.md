@@ -4,6 +4,22 @@
 
 ---
 
+### ACTION-FAMILY-LAW-LIVE-REPAIR-DIAGNOSTICS-001: Capture exact live repair diagnostics
+**Status:** COMPLETED / FIXED TOOLING / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / PUBLIC EXECUTION BLOCKED
+**Why:** The repair packet identified which pages are blocked, but the operator also needs exact live H1 texts, raw shortcode context, canonical/robots state and PDF candidate status before touching the CMS.
+**Actions:**
+1. DONE: created `tools/extract-family-law-live-repair-diagnostics.mjs`.
+2. DONE: generated `reports/family-law-live-repair-diagnostics-2026-05-22.csv`.
+3. DONE: generated `reports/family-law-live-repair-diagnostics-2026-05-22.json`.
+4. DONE: created `project-control/family-law-live-repair-diagnostics-2026-05-22.md`.
+5. DONE: created `project-control/family-law-live-repair-diagnostics-2026-05-22.csv`.
+6. DONE: linked diagnostics from `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+7. VERIFIED LOCAL: Node syntax check passed.
+8. VERIFIED LIVE READ-ONLY: fetched `6` Family/Divorce HTML pages and `3` PDF candidates.
+9. VERIFIED LIVE READ-ONLY: diagnostics produced `9` rows, with `6` H1 issue rows, `1` raw-shortcode row and `0` working PDF candidates.
+10. BLOCKED: this does not approve CMS repair, PDF upload, redirect, canonical/noindex, sitemap, taxonomy, related-card, lawyer, lead or CRM action.
+11. NEXT: owner/operator uses the diagnostics after approval and rollback backup to repair `/divorce-agreement/` shortcode/PDF issues and H1/template issues; run focused GSC before divorce-lawyer canonical consolidation.
+
 ### ACTION-FAMILY-LAW-LIVE-REPAIR-OPERATOR-PACKET-001: Prepare controlled live repair packet
 **Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER OPERATOR REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** The live safety checker identified concrete production defects, but the previous Family/Divorce upload runbook covered planned content upload, not repair of already-live shortcode/PDF/H1/canonical blockers. This packet separates visible current-URL repairs from SEO consolidation.

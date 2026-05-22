@@ -17,3 +17,5 @@ Thumbs.db
 
 # Local emergency/export workspaces
 justice_theme_emergency_master_2026_05_13/
+
+tools/autonomous-heartbeat/node_modules/

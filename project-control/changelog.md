@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Medical Malpractice duplicate identity review
+
+- TOOLING FIXED: created `tools/build-medical-malpractice-duplicate-identity-review.mjs`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-duplicate-identity-review-2026-05-22.json`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.md`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed and packet generation produced `8` evidence/decision rows.
+- VERIFIED LOCAL: IDs `11607` and `1130` share the same public URL in local exports, have `2` distinct content hashes, slug-conflict count `27`, exact current record count `2`, and proposed primary post ID `11607`.
+- VERIFIED LOCAL: ID `11607` is newer and longer but lacks media/outgoing links; ID `1130` is older and shorter but has higher heuristic quality, a featured image and outgoing links.
+- NOT VERIFIED FINAL: wp-admin/database served-record state and owner authoritative-record decision are still required before Medical Malpractice upload.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Medical Malpractice owner decision packet
 
 - TOOLING FIXED: created `tools/build-medical-malpractice-owner-decision-packet.mjs`.

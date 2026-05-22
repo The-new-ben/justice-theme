@@ -2,6 +2,18 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Medical Malpractice Duplicate Identity Review
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/build-medical-malpractice-duplicate-identity-review.mjs`.
+- GENERATED / VERIFIED LOCAL / NOT FINAL: `reports/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL / NOT FINAL: `reports/medical-malpractice-duplicate-identity-review-2026-05-22.json`.
+- CREATED / VERIFIED LOCAL / NOT FINAL: `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL / NOT FINAL: `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+- VERIFIED LOCAL: packet generation reviewed IDs `11607` and `1130`, produced `8` rows, confirmed same public URL in local exports and identified `2` distinct content hashes.
+- NOT VISUALLY VERIFIED: no screenshots were taken because this was local export/reporting preparation only; no public UI changed.
+- NOT VERIFIED FINAL: wp-admin/database served-record state and owner authoritative-record decision are still required before public action.
+- BLOCKED: public screenshots remain pending until owner/legal/source approval, WordPress backup, approved CMS update and post-upload route/content QA.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Medical Malpractice Owner Decision Packet
 - TOOLING FIXED / VERIFIED LOCAL: created `tools/build-medical-malpractice-owner-decision-packet.mjs`.
 - GENERATED / VERIFIED LOCAL / NOT FINAL: `reports/medical-malpractice-owner-decision-packet-2026-05-22.csv`.

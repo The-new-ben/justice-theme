@@ -1,3 +1,17 @@
+## LATEST WORK STATUS - 2026-05-22 16:01 Asia/Jerusalem
+- MEDICAL MALPRACTICE DUPLICATE IDENTITY REVIEW: prepared a focused repo-only comparison packet for the `/medical-malpractice-lawyer/` duplicate CMS identity blocker.
+- CREATED: `tools/build-medical-malpractice-duplicate-identity-review.mjs`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-duplicate-identity-review-2026-05-22.json`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.md`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-medical-malpractice-duplicate-identity-review.mjs` passed.
+- VERIFIED LOCAL: packet generation reviewed CMS IDs `11607` and `1130`, produced `8` evidence/decision rows, confirmed the same public URL in local exports, found `2` distinct content hashes, recorded slug-conflict count `27`, exact current records `2`, and proposed primary post ID `11607`.
+- VERIFIED LOCAL: comparison flags material differences: ID `11607` is newer and longer (`5,135` words, quality `6`, no featured image/outgoing links); ID `1130` is older and shorter (`3,287` words, quality `8`, one featured image and outgoing links).
+- NOT VERIFIED FINAL: wp-admin/database canonical served-record state is still not verified.
+- BLOCKED: owner must choose `KEEP_11607_AS_AUTHORITATIVE`, `KEEP_1130_AS_AUTHORITATIVE`, `MERGE_1130_ASSETS_INTO_11607`, or `HOLD_PENDING_WP_ADMIN_DB_CHECK` before Medical Malpractice CMS upload can proceed.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 15:52 Asia/Jerusalem
 - MEDICAL MALPRACTICE OWNER DECISION PACKET: converted the 249-row readiness dashboard and GSC baseline map into a smaller owner-facing decision packet for pre-upload review.
 - CREATED: `tools/build-medical-malpractice-owner-decision-packet.mjs`.

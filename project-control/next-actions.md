@@ -4,6 +4,22 @@
 
 ---
 
+### ACTION-MEDICAL-MALPRACTICE-DUPLICATE-IDENTITY-REVIEW-001: Resolve planning evidence for `/medical-malpractice-lawyer/` duplicate CMS identity
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NOT FINAL UNTIL WP-ADMIN-DB CHECK / OWNER REVIEW BLOCKED / NO PUBLIC CHANGES
+**Why:** Medical Malpractice upload is blocked by two local export records, IDs `11607` and `1130`, resolving to the same public URL. Before any body, title, metadata, internal-link, taxonomy or URL work, the owner/operator needs a focused comparison packet showing which record may be authoritative and what assets must not be lost.
+**Actions:**
+1. DONE: created `tools/build-medical-malpractice-duplicate-identity-review.mjs`.
+2. DONE: generated `reports/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+3. DONE: generated `reports/medical-malpractice-duplicate-identity-review-2026-05-22.json`.
+4. DONE: created `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.md`.
+5. DONE: created `project-control/medical-malpractice-duplicate-identity-review-2026-05-22.csv`.
+6. VERIFIED LOCAL: `node --check tools/build-medical-malpractice-duplicate-identity-review.mjs` passed.
+7. VERIFIED LOCAL: generated `8` evidence/decision rows for IDs `11607` and `1130`.
+8. VERIFIED LOCAL: local export confirms both IDs share `http://jus-tice.co.il/medical-malpractice-lawyer/`, have `2` distinct content hashes, slug-conflict count `27`, exact current record count `2`, and proposed primary post ID `11607`.
+9. VERIFIED LOCAL: ID `11607` is newer/longer but lower heuristic quality and has no detected media/outgoing links; ID `1130` is older/shorter but has higher heuristic quality, a featured image and outgoing links.
+10. BLOCKED: wp-admin/database served-record state, rollback backup, owner decision, focused GSC export and source/legal review are still required before CMS upload.
+11. NEXT: owner/operator chooses `KEEP_11607_AS_AUTHORITATIVE`, `KEEP_1130_AS_AUTHORITATIVE`, `MERGE_1130_ASSETS_INTO_11607`, or `HOLD_PENDING_WP_ADMIN_DB_CHECK`; do not upload Medical Malpractice until this is resolved.
+
 ### ACTION-MEDICAL-MALPRACTICE-OWNER-DECISION-PACKET-001: Build owner decision packet from readiness and GSC baseline maps
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / NOT FINAL BASELINE / OWNER REVIEW BLOCKED / NO PUBLIC CHANGES
 **Why:** The Medical Malpractice readiness dashboard is useful but too large for owner execution decisions. The next unblocked repo-only step is to convert it into a controlled owner decision packet that separates duplicate identity, protected pages, clean-slug blockers, source/legal gates, false positives and cannibalization before any CMS upload or URL migration.

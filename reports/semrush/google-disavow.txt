@@ -1,0 +1,21 @@
+# jus-tice.co.il — Google Search Console Toxic Link Disavow File
+# Generated: 2026-05-22
+# Source: SEMrush backlink audit
+# Reason: Casino/spam anchor text links damaging site E-E-A-T signals
+#
+# How to submit:
+# 1. Go to: https://search.google.com/search-console/disavow-links?resource_id=sc-domain%3Ajus-tice.co.il
+# 2. Upload this file
+# 3. Wait 2-4 weeks for Google to process
+#
+# Toxic domains identified from SEMrush backlink report:
+
+domain:best-casino-payid-australia.com
+domain:moscowtimes.top
+domain:ilhanogullari.com
+domain:andiparques.com
+domain:assa.com.py
+domain:skaade-fotografi.dk
+
+# Casino-specific URLs found in anchor text analysis:
+https://kasyno-mostbet.pl/

@@ -4,6 +4,30 @@
 
 ---
 
+### ACTION-GSC-MEDICAL-MALPRACTICE-EXPORT-RUNNER-001: Prepare Medical Malpractice GSC export and decision maps
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NOT FINAL BASELINE / API EXECUTION BLOCKED UNTIL OWNER CREDENTIAL SETUP / NO PUBLIC CHANGES
+**Why:** The Medical Malpractice readiness dashboard identified protected support pages, clean slug blockers, source/legal gates and duplicate pillar identity risk. Before any upload or URL migration, the cluster needs a focused read-only GSC export and decision-map workflow.
+**Actions:**
+1. DONE: created `tools/gsc/gsc-medical-malpractice-export.js`.
+2. DONE: created `tools/gsc/run-medical-malpractice-gsc-export.ps1`.
+3. DONE: created `tools/build-medical-malpractice-gsc-decision-map.mjs`.
+4. DONE: created `project-control/gsc-medical-malpractice-export-runner-2026-05-22.md`.
+5. DONE: created `project-control/gsc-medical-malpractice-export-runner-2026-05-22.csv`.
+6. DONE: updated `tools/gsc/README.md`.
+7. DONE: updated `project-control/gsc-api-setup-guide.md`.
+8. DONE / NOT FINAL: generated `reports/medical-malpractice-gsc-decision-map-2026-05-22.csv`.
+9. DONE / NOT FINAL: generated `reports/medical-malpractice-protected-url-decision-map-2026-05-22.csv`.
+10. DONE / NOT FINAL: generated `reports/medical-malpractice-cannibalization-decision-map-2026-05-22.csv`.
+11. DONE / NOT FINAL: generated `reports/medical-malpractice-gsc-decision-map-2026-05-22.json`.
+12. DONE / NOT FINAL: created `project-control/medical-malpractice-gsc-decision-map-2026-05-22.md`.
+13. DONE / NOT FINAL: created `project-control/medical-malpractice-gsc-decision-map-2026-05-22.csv`.
+14. VERIFIED LOCAL: Node syntax checks passed for export and decision-map scripts.
+15. VERIFIED LOCAL: PowerShell dry run passed without OAuth browser or GSC API call.
+16. VERIFIED LOCAL: dry-run scope includes `1` primary target path, `73` protected/source paths, `10` route candidate paths, `8` boundary paths and `22` Medical Malpractice query terms.
+17. VERIFIED LOCAL / NOT FINAL: baseline decision map generated `187` rows, `178` protected rows, `8` source/legal gate rows and `1` cannibalization row.
+18. BLOCKED: real focused GSC export still requires owner credential setup and OAuth approval.
+19. NEXT: after owner credentials, run `.\tools\gsc\run-medical-malpractice-gsc-export.ps1`, then review decision maps before any CMS upload, URL migration, redirect, canonical, noindex, sitemap, taxonomy or internal-link action.
+
 ### ACTION-MEDICAL-MALPRACTICE-READINESS-DASHBOARD-001: Consolidate Medical Malpractice upload-readiness evidence
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / REVIEW ONLY / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** Family/Divorce and Criminal are prepared up to owner GSC/OAuth and CMS approval gates. The next high-value unblocked repo-only step is to prepare Medical Malpractice as the next controlled cluster without approving URL migrations or public changes.

@@ -18,6 +18,8 @@ LATEST 2026-05-21 RUNNER NOTE:
 - FIXED 2026-05-22: downstream decision-map and protected-packet scripts now use explicit/dynamic report dates instead of hardcoded `2026-05-21` filenames.
 - FIXED 2026-05-22: Criminal Law now has a focused read-only export runner: `.\tools\gsc\run-criminal-gsc-export.ps1 -DryRun`, then `.\tools\gsc\run-criminal-gsc-export.ps1` after owner OAuth approval.
 - FIXED 2026-05-22: the Criminal full wrapper now also builds `reports/criminal-gsc-decision-map-YYYY-MM-DD.csv`, `reports/criminal-protected-url-decision-map-YYYY-MM-DD.csv`, `reports/criminal-cannibalization-decision-map-YYYY-MM-DD.csv` and `reports/criminal-gsc-decision-map-YYYY-MM-DD.json`.
+- FIXED 2026-05-22: Medical Malpractice now has a focused read-only export runner: `.\tools\gsc\run-medical-malpractice-gsc-export.ps1 -DryRun`, then `.\tools\gsc\run-medical-malpractice-gsc-export.ps1` after owner OAuth approval.
+- FIXED 2026-05-22: the Medical Malpractice full wrapper builds `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv`, `reports/medical-malpractice-protected-url-decision-map-YYYY-MM-DD.csv`, `reports/medical-malpractice-cannibalization-decision-map-YYYY-MM-DD.csv` and `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.json`.
 
 This guide explains how to connect Google Search Console API for Jus-Tice so we can export query/page data quickly instead of doing slow browser checks.
 
@@ -122,6 +124,29 @@ Manual rebuild after an existing Criminal export:
 
 ```powershell
 node tools/build-criminal-gsc-decision-map.mjs --gscDir="reports/gsc/criminal-law-YYYY-MM-DD" --reportDate="YYYY-MM-DD"
+```
+
+Medical Malpractice dry run and export:
+
+```powershell
+$env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
+$env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+.\tools\gsc\run-medical-malpractice-gsc-export.ps1 -DryRun
+.\tools\gsc\run-medical-malpractice-gsc-export.ps1
+```
+
+Medical Malpractice outputs save under `reports/gsc/medical-malpractice-YYYY-MM-DD/`.
+
+The Medical Malpractice wrapper also creates root-level decision outputs:
+- `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv`
+- `reports/medical-malpractice-protected-url-decision-map-YYYY-MM-DD.csv`
+- `reports/medical-malpractice-cannibalization-decision-map-YYYY-MM-DD.csv`
+- `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.json`
+
+Manual rebuild after an existing Medical Malpractice export:
+
+```powershell
+node tools/build-medical-malpractice-gsc-decision-map.mjs --gscDir="reports/gsc/medical-malpractice-YYYY-MM-DD" --reportDate="YYYY-MM-DD"
 ```
 
 ## What We Can Export

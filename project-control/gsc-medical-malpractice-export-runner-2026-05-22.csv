@@ -1,0 +1,7 @@
+item,status,details,next_step
+runner,FIXED / VERIFIED LOCAL,tools/gsc/run-medical-malpractice-gsc-export.ps1 created and dry-run verified,Run after owner credentials are configured
+export_script,FIXED / VERIFIED LOCAL,tools/gsc/gsc-medical-malpractice-export.js created; scope is driven by latest Medical Malpractice readiness dashboard,Use dry run before real OAuth/GSC export
+decision_builder,FIXED / VERIFIED LOCAL,tools/build-medical-malpractice-gsc-decision-map.mjs created and baseline generated,Rerun after focused GSC export
+dry_run,VERIFIED LOCAL,1 primary target path; 73 protected paths; 10 route candidates; 8 boundary paths; 22 query terms; no API call,Owner sets OAuth client/token paths
+baseline_decision_map,NOT FINAL / VERIFIED LOCAL,187 decision rows; 178 protected rows; 1 cannibalization row; 26 high/protected/unknown-GSC risk rows,Use only as baseline until focused GSC export
+public_changes,BLOCKED,No CMS upload URL migration redirect canonical noindex sitemap taxonomy internal-link lawyer lead CRM or deployment change,Owner approval required before any execution

@@ -102,6 +102,44 @@ Review the export before any Criminal clean-slug migration, redirect, canonical,
 
 Without `--gscDir`, the Criminal decision-map builder can use the readiness dashboard and older cached GSC CSVs as a baseline only. Treat that baseline as `NOT_FINAL` until the focused Criminal export is reviewed.
 
+## Medical Malpractice First Export
+
+Use this runner for the controlled Medical Malpractice upload risk check. It reads the latest `medical-malpractice-readiness-dashboard-YYYY-MM-DD.csv` to scope the primary pillar, protected/support pages, route candidates and boundary exclusions.
+
+PowerShell:
+
+```powershell
+$env:GSC_OAUTH_CLIENT_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-oauth-client.json"
+$env:GSC_TOKEN_PATH="C:\Users\janana\Documents\jus-tice-secrets\gsc-token.json"
+.\tools\gsc\run-medical-malpractice-gsc-export.ps1 -DryRun
+.\tools\gsc\run-medical-malpractice-gsc-export.ps1
+```
+
+The full wrapper runs the read-only export and then builds Medical Malpractice decision maps for the same report date:
+- `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv`
+- `reports/medical-malpractice-protected-url-decision-map-YYYY-MM-DD.csv`
+- `reports/medical-malpractice-cannibalization-decision-map-YYYY-MM-DD.csv`
+- `reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.json`
+
+Manual commands:
+
+```powershell
+node tools/gsc/gsc-medical-malpractice-export.js --dry-run
+node tools/gsc/gsc-medical-malpractice-export.js
+node tools/build-medical-malpractice-gsc-decision-map.mjs --gscDir="reports/gsc/medical-malpractice-YYYY-MM-DD" --reportDate="YYYY-MM-DD"
+```
+
+Outputs save under `reports/gsc/medical-malpractice-YYYY-MM-DD/`:
+- `medical-malpractice-pages.csv`
+- `medical-malpractice-query-page.csv`
+- `medical-malpractice-cannibalization.csv`
+- `medical-malpractice-protected-sources.csv`
+- `medical-malpractice-summary.json`
+
+Review the export before any Medical Malpractice clean-slug migration, redirect, canonical, noindex, sitemap, taxonomy or internal-link decision.
+
+Without `--gscDir`, the Medical Malpractice decision-map builder uses the readiness dashboard as a baseline only. Treat that baseline as `NOT_FINAL` until the focused Medical Malpractice export is reviewed.
+
 ## Output
 
 Reports saved to `reports/gsc/`:

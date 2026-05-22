@@ -1,6 +1,27 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Medical Malpractice GSC export workflow
+
+- TOOLING FIXED: created `tools/gsc/gsc-medical-malpractice-export.js`.
+- TOOLING FIXED: created `tools/gsc/run-medical-malpractice-gsc-export.ps1`.
+- TOOLING FIXED: created `tools/build-medical-malpractice-gsc-decision-map.mjs`.
+- CREATED: `project-control/gsc-medical-malpractice-export-runner-2026-05-22.md`.
+- CREATED: `project-control/gsc-medical-malpractice-export-runner-2026-05-22.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-gsc-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-protected-url-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-cannibalization-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-gsc-decision-map-2026-05-22.json`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-gsc-decision-map-2026-05-22.md`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-gsc-decision-map-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax checks passed and PowerShell dry run passed without OAuth browser and without GSC API call.
+- VERIFIED LOCAL: dry-run scope includes `1` primary target path, `73` protected/source paths, `10` route candidates, `8` boundary paths and `22` Medical Malpractice query terms.
+- VERIFIED LOCAL / NOT FINAL: baseline decision map generated `187` rows, `178` protected rows, `8` source/legal gate rows and `1` cannibalization row.
+- BLOCKED: real Medical Malpractice GSC export requires owner OAuth/GSC approval before URL migration, redirect, canonical, noindex, sitemap, taxonomy, CMS upload or internal-link decisions.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Medical Malpractice readiness dashboard
 
 - TOOLING FIXED: created `tools/build-medical-malpractice-readiness-dashboard.mjs`.

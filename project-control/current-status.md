@@ -1,3 +1,27 @@
+## LATEST WORK STATUS - 2026-05-22 15:43 Asia/Jerusalem
+- MEDICAL MALPRACTICE GSC EXPORT WORKFLOW: prepared the focused read-only Search Console export and post-export decision-map workflow for the Medical Malpractice cluster.
+- CREATED: `tools/gsc/gsc-medical-malpractice-export.js`.
+- CREATED: `tools/gsc/run-medical-malpractice-gsc-export.ps1`.
+- CREATED: `tools/build-medical-malpractice-gsc-decision-map.mjs`.
+- CREATED: `project-control/gsc-medical-malpractice-export-runner-2026-05-22.md`.
+- CREATED: `project-control/gsc-medical-malpractice-export-runner-2026-05-22.csv`.
+- UPDATED: `tools/gsc/README.md`.
+- UPDATED: `project-control/gsc-api-setup-guide.md`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-gsc-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-protected-url-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-cannibalization-decision-map-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-gsc-decision-map-2026-05-22.json`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-gsc-decision-map-2026-05-22.md`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-gsc-decision-map-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/gsc/gsc-medical-malpractice-export.js` passed.
+- VERIFIED LOCAL: `node --check tools/build-medical-malpractice-gsc-decision-map.mjs` passed.
+- VERIFIED LOCAL: `.\tools\gsc\run-medical-malpractice-gsc-export.ps1 -DryRun` passed without reading credential contents, opening OAuth or calling GSC API.
+- VERIFIED LOCAL: dry-run scope is `1` primary target path, `73` protected/source paths, `10` route candidate paths, `8` boundary paths and `22` Medical Malpractice query terms.
+- VERIFIED LOCAL / NOT FINAL: baseline decision map generated `187` rows, including `1` primary target row, `178` protected/review rows, `8` source/legal gate rows, `26` high/protected/unknown-GSC risk rows and `1` cannibalization row.
+- BLOCKED: real Medical Malpractice GSC export still requires owner credential setup and OAuth approval.
+- BLOCKED: no Medical Malpractice CMS upload, English slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 15:32 Asia/Jerusalem
 - MEDICAL MALPRACTICE READINESS DASHBOARD: consolidated the next cluster-by-cluster upload-readiness batch while Family/Divorce and Criminal remain blocked by owner GSC/OAuth and CMS approval.
 - CREATED: `tools/build-medical-malpractice-readiness-dashboard.mjs`.

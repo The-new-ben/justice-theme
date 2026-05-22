@@ -471,6 +471,12 @@ function justice_theme_get_breadcrumb_items() {
 			'real-estate-lawyer-rosh-haayin' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 			'trade-secret-law-israel'      => array( 'name' => 'קניין רוחני', 'url' => '/intellectual-property-israel/' ),
 			'debt-collection-israel'       => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			// Batch 40
+			'copyright-software-israel'    => array( 'name' => 'קניין רוחני', 'url' => '/intellectual-property-israel/' ),
+			'real-estate-lawyer-holon'     => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'family-law-rosh-haayin'       => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'tax-evasion-defense'          => array( 'name' => 'מיסוי', 'url' => '/tax-lawyer-israel/' ),
+			'criminal-lawyer-bnei-brak'    => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

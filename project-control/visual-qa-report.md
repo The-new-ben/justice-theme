@@ -2,6 +2,18 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Family Law Live Repair Readiness Gate
+- TOOLING FIXED / VERIFIED LOCAL: created `tools/build-family-law-live-repair-readiness-gate.mjs`.
+- GENERATED / VERIFIED LOCAL: `reports/family-law-live-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/family-law-live-repair-readiness-gate-2026-05-22.json`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-live-repair-readiness-gate-2026-05-22.md`.
+- CREATED / VERIFIED LOCAL: `project-control/family-law-live-repair-readiness-gate-2026-05-22.csv`.
+- VERIFIED LOCAL: readiness gate consolidates `95` reviewed source rows into `8` critical gate rows.
+- BLOCKED: all `8/8` gates remain blocked, so Family/Divorce is not upload-safe.
+- NOT SCREENSHOT VERIFIED: no screenshots were captured because this was a local readiness gate and no public UI changed.
+- BLOCKED: public screenshots remain pending until owner/operator executes approved current-URL repairs and the safety/diagnostics scripts pass.
+- SAFETY: no public page, CMS database row, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap, media asset, lawyer, lead, CRM, payment or admin setting changed.
+
 ## 2026-05-22 Family Law Owner Approval Worksheet
 - CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-owner-approval-2026-05-22.md`.
 - CREATED / VERIFIED PLANNING: `project-control/family-law-live-repair-owner-approval-2026-05-22.csv`.

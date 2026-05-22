@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Family Law live repair readiness gate
+
+- TOOLING FIXED: created `tools/build-family-law-live-repair-readiness-gate.mjs`.
+- GENERATED: `reports/family-law-live-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED: `reports/family-law-live-repair-readiness-gate-2026-05-22.json`.
+- CREATED: `project-control/family-law-live-repair-readiness-gate-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-repair-readiness-gate-2026-05-22.csv`.
+- UPDATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md` now links the readiness gate.
+- VERIFIED LOCAL: Node syntax check passed and the generated gate has `8` critical rows from `95` reviewed source rows.
+- BLOCKED: all `8/8` gate rows remain blocked; owner approval, real WordPress rollback backup, focused GSC, public repair execution and post-repair QA are still required.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Family Law owner approval worksheet
 
 - CREATED: `project-control/family-law-live-repair-owner-approval-2026-05-22.md`.

@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-22 17:51 Asia/Jerusalem
+- FAMILY LAW LIVE REPAIR READINESS GATE: consolidated the Family/Divorce live repair evidence into one go/no-go dashboard before any content upload or public repair.
+- CREATED: `tools/build-family-law-live-repair-readiness-gate.mjs`.
+- GENERATED: `reports/family-law-live-repair-readiness-gate-2026-05-22.csv`.
+- GENERATED: `reports/family-law-live-repair-readiness-gate-2026-05-22.json`.
+- CREATED: `project-control/family-law-live-repair-readiness-gate-2026-05-22.md`.
+- CREATED: `project-control/family-law-live-repair-readiness-gate-2026-05-22.csv`.
+- UPDATED: `project-control/family-law-live-repair-operator-packet-2026-05-22.md` now links to the readiness gate as source evidence.
+- VERIFIED LOCAL: Node syntax check passed and the gate generated `8` critical gate rows from `95` reviewed source rows.
+- VERIFIED LOCAL: all `8/8` gates are currently `BLOCKED`; the source artifacts contain `123` blocked markers and `31` pending markers.
+- BLOCKED: Family/Divorce is procedurally prepared but not upload-safe; owner approval, actual CMS rollback backup, focused GSC export, visible current-URL repair execution and post-repair screenshots/checks remain required.
+- SAFETY: this cycle made repo-only tooling/docs/report changes; no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, media asset, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 17:38 Asia/Jerusalem
 - FAMILY LAW OWNER APPROVAL WORKSHEET: created a narrow owner decision sheet for the May 22 live Family/Divorce visible repair batch.
 - CREATED: `project-control/family-law-live-repair-owner-approval-2026-05-22.md`.

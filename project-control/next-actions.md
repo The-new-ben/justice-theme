@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-FAMILY-LAW-LIVE-REPAIR-READINESS-GATE-001: Consolidate live repair go/no-go gate
+**Status:** COMPLETED / VERIFIED LOCAL / BLOCKED NOT READY FOR CONTENT UPLOAD / NO PUBLIC CHANGES
+**Why:** The Family/Divorce visible repair package now has safety checks, diagnostics, field map, backup template, owner worksheet and operator packet. The next useful control artifact is a single readiness gate showing whether the cluster is safe to upload or repair publicly.
+**Actions:**
+1. DONE: created `tools/build-family-law-live-repair-readiness-gate.mjs`.
+2. DONE: generated `reports/family-law-live-repair-readiness-gate-2026-05-22.csv`.
+3. DONE: generated `reports/family-law-live-repair-readiness-gate-2026-05-22.json`.
+4. DONE: created `project-control/family-law-live-repair-readiness-gate-2026-05-22.md`.
+5. DONE: created `project-control/family-law-live-repair-readiness-gate-2026-05-22.csv`.
+6. DONE: linked the readiness gate from `project-control/family-law-live-repair-operator-packet-2026-05-22.md`.
+7. VERIFIED LOCAL: Node syntax check passed and the gate generated `8` critical gate rows from `95` reviewed source rows.
+8. VERIFIED LOCAL: all `8/8` gates are `BLOCKED`; the consolidated source artifacts contain `123` blocked markers and `31` pending markers.
+9. BLOCKED: Family/Divorce is not upload-safe until owner approval, actual CMS rollback backup, focused GSC export, approved visible repair execution and post-repair QA are complete.
+10. NEXT: owner records approval/hold, operator captures WordPress rollback material, then only approved current-URL visible repairs can be executed and rechecked.
+
 ### ACTION-FAMILY-LAW-LIVE-REPAIR-OWNER-APPROVAL-001: Prepare owner approval worksheet for visible repair
 **Status:** COMPLETED / VERIFIED PLANNING / READY FOR OWNER REVIEW / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** The repair packet, field map and backup template are ready, but the owner still needs a narrow approval sheet that cannot be mistaken for full content upload, URL migration or SEO consolidation approval.

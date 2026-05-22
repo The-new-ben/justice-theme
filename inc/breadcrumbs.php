@@ -416,6 +416,13 @@ function justice_theme_get_breadcrumb_items() {
 			'tenant-eviction-defense'      => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 			'partner-dispute-business'     => array( 'name' => 'דיני חברות', 'url' => '/corporate-law-israel/' ),
 			'elder-law-israel'             => array( 'name' => 'זכויות', 'url' => '/disability-rights-israel/' ),
+			// Batches 30-31
+			'immigration-asylum-israel'    => array( 'name' => 'הגירה', 'url' => '/immigration-lawyer-israel/' ),
+			'domestic-violence-legal-guide' => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'sexual-offense-defense'       => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'divorce-process-steps'        => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'business-visa-israel'         => array( 'name' => 'הגירה', 'url' => '/immigration-lawyer-israel/' ),
+			'legal-costs-who-pays'         => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

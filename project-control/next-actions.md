@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-PROJECT-TIMING-ACCELERATION-001: Maintain content upload timing and acceleration estimate
+**Status:** COMPLETED / VERIFIED PLANNING / ESTIMATE ONLY / PUBLIC EXECUTION BLOCKED / NO PUBLIC CHANGES
+**Why:** T247 needed a blocker-aware answer to the overall content upload timing question so the project can keep momentum without treating full legacy migration as a prerequisite for Family/Divorce publication.
+**Actions:**
+1. DONE: created `project-control/project-timing-acceleration-resources-2026-05-22.md`.
+2. DONE: created `project-control/project-timing-acceleration-resources-2026-05-22.csv`.
+3. DONE: updated the upload governance and owner action queue references.
+4. VERIFIED PLANNING: first narrow Family/Divorce visible repair is about `0.5-1 operator day` after owner approval, actual CMS rollback backup and focused GSC or owner-approved substitute.
+5. VERIFIED PLANNING: complete Family/Divorce controlled current-URL upload package is about `2-4 operator days` after owner/legal/source decisions, GSC evidence and rollback backup.
+6. VERIFIED PLANNING: all priority clusters to controlled upload-ready state are about `2-4 focused weeks` if owner/GSC/CMS gates are available, or `4-8+ calendar weeks` under current blocker pattern.
+7. BLOCKED PUBLIC EXECUTION: the estimate does not approve CMS upload, URL migration, redirect, canonical/noindex, sitemap, taxonomy, internal-link write, lawyer card, lead/CRM, payment, GA4/GSC setting, wp-admin or uPress action.
+8. NEXT: owner completes GSC OAuth/API setup and selects whether to start with Family/Divorce visible repair or broader current-URL body updates after approval and rollback backup.
+
 ### ACTION-GOOGLE-BUSINESS-MARKETING-ECOSYSTEM-001: Complete Google Business marketing ecosystem strategy
 **Status:** COMPLETED / VERIFIED RESEARCH / VERIFIED PLANNING / ACCOUNT EXECUTION BLOCKED / NO PUBLIC CHANGES
 **Why:** T246 required one strategy connecting Google Business Profile, GA4 events, lead tracking, lawyer onboarding funnel, campaign readiness and off-site visibility before any account or public implementation work.

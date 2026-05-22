@@ -10,6 +10,7 @@ Status: BLOCKED_BEFORE_CONTENT_UPLOAD / NO PUBLIC CHANGES
 - NEXT OWNER ACTION: Complete read-only GSC OAuth setup outside Git, then run the priority cluster export runner.
 - UPLOAD READINESS: no priority cluster is approved for public content upload from this queue alone.
 - GOVERNANCE UPDATE: `project-control/content-upload-governance-checklist-2026-05-22.md` is now the master pre-upload checklist for cluster selection, current-URL updates, rollback, QA, monitoring and later migration approval.
+- TIMING UPDATE: `project-control/project-timing-acceleration-resources-2026-05-22.md` estimates first narrow Family/Divorce visible repair at `0.5-1 operator day` after gates clear, complete Family/Divorce current-URL upload at `2-4 operator days`, and all priority clusters to controlled upload-ready state at `2-4 focused weeks` if owner/GSC/CMS gates are available.
 
 ## Queue
 

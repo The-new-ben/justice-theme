@@ -429,6 +429,12 @@ function justice_theme_get_breadcrumb_items() {
 			'medical-malpractice-statistics' => array( 'name' => 'רשלנות רפואית', 'url' => '/medical-malpractice-lawyer/' ),
 			'real-estate-market-statistics' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 			'criminal-law-statistics-israel' => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			// Batch 33
+			'real-estate-lawyer-raanana'   => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'family-law-raanana'           => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'child-welfare-law-israel'     => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'divorce-financial-planning'   => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'employment-contract-termination' => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

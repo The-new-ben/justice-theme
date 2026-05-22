@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-MEDICAL-MALPRACTICE-OWNER-DECISION-PACKET-001: Build owner decision packet from readiness and GSC baseline maps
+**Status:** COMPLETED / FIXED / VERIFIED LOCAL / NOT FINAL BASELINE / OWNER REVIEW BLOCKED / NO PUBLIC CHANGES
+**Why:** The Medical Malpractice readiness dashboard is useful but too large for owner execution decisions. The next unblocked repo-only step is to convert it into a controlled owner decision packet that separates duplicate identity, protected pages, clean-slug blockers, source/legal gates, false positives and cannibalization before any CMS upload or URL migration.
+**Actions:**
+1. DONE: created `tools/build-medical-malpractice-owner-decision-packet.mjs`.
+2. DONE: generated `reports/medical-malpractice-owner-decision-packet-2026-05-22.csv`.
+3. DONE: generated `reports/medical-malpractice-owner-decision-packet-2026-05-22.json`.
+4. DONE: created `project-control/medical-malpractice-owner-decision-packet-2026-05-22.md`.
+5. DONE: created `project-control/medical-malpractice-owner-decision-packet-2026-05-22.csv`.
+6. VERIFIED LOCAL: `node --check tools/build-medical-malpractice-owner-decision-packet.mjs` passed.
+7. VERIFIED LOCAL: generated `69` owner decision rows: `8` owner gates, `23` current-URL review rows, `15` P0 support/protected rows, `12` clean-slug route blocker rows, `8` source/legal rows, `1` cannibalization row and `2` possible false-positive rows.
+8. VERIFIED LOCAL: upload-approved rows remain `0`; all rows remain review-only until owner decisions, source/legal review, focused GSC export and WordPress rollback backup exist.
+9. BLOCKED: no CMS upload, slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, lawyer-card, schema or CRM change is approved.
+10. NEXT: owner reviews the decision packet and marks rows `APPROVE_CURRENT_URL_UPDATE`, `EDIT_REQUIRED`, `HOLD`, `LEGAL_REVIEW_REQUIRED`, `PROTECT_ONLY` or `REMOVE_FROM_CLUSTER`; then run focused Medical Malpractice GSC export before URL decisions.
+
 ### ACTION-GSC-MEDICAL-MALPRACTICE-EXPORT-RUNNER-001: Prepare Medical Malpractice GSC export and decision maps
 **Status:** COMPLETED / FIXED / VERIFIED LOCAL / NOT FINAL BASELINE / API EXECUTION BLOCKED UNTIL OWNER CREDENTIAL SETUP / NO PUBLIC CHANGES
 **Why:** The Medical Malpractice readiness dashboard identified protected support pages, clean slug blockers, source/legal gates and duplicate pillar identity risk. Before any upload or URL migration, the cluster needs a focused read-only GSC export and decision-map workflow.

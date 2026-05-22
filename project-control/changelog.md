@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Medical Malpractice owner decision packet
+
+- TOOLING FIXED: created `tools/build-medical-malpractice-owner-decision-packet.mjs`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-owner-decision-packet-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-owner-decision-packet-2026-05-22.json`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-owner-decision-packet-2026-05-22.md`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-owner-decision-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: Node syntax check passed and packet generation produced `69` owner decision rows.
+- VERIFIED LOCAL: packet includes `8` owner gates, `23` current-URL review rows, `15` P0 support/protected rows, `12` clean-slug route blocker rows, `8` source/legal rows, `1` cannibalization row and `2` possible false-positive rows.
+- NOT VERIFIED FINAL: packet remains baseline-only until focused Medical Malpractice GSC export, owner review, duplicate CMS identity review and source/legal review are complete.
+- BLOCKED: Medical Malpractice public CMS upload, clean-slug migration, redirects, canonicals, noindex, taxonomy, sitemap, related/internal-link writes, lawyer cards, schema and CRM changes remain unapproved.
+- SAFETY: no public CMS content, database row, title/H1/meta, URL slug, live redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC, wp-admin or uPress change was made.
+
 ## 2026-05-22 - Medical Malpractice GSC export workflow
 
 - TOOLING FIXED: created `tools/gsc/gsc-medical-malpractice-export.js`.

@@ -1,3 +1,16 @@
+## LATEST WORK STATUS - 2026-05-22 15:52 Asia/Jerusalem
+- MEDICAL MALPRACTICE OWNER DECISION PACKET: converted the 249-row readiness dashboard and GSC baseline map into a smaller owner-facing decision packet for pre-upload review.
+- CREATED: `tools/build-medical-malpractice-owner-decision-packet.mjs`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-owner-decision-packet-2026-05-22.csv`.
+- GENERATED / NOT FINAL: `reports/medical-malpractice-owner-decision-packet-2026-05-22.json`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-owner-decision-packet-2026-05-22.md`.
+- CREATED / NOT FINAL: `project-control/medical-malpractice-owner-decision-packet-2026-05-22.csv`.
+- VERIFIED LOCAL: `node --check tools/build-medical-malpractice-owner-decision-packet.mjs` passed.
+- VERIFIED LOCAL: packet generation produced `69` owner decision rows: `8` owner gates, `23` current-URL review rows, `15` P0 support/protected rows, `12` clean-slug route blocker rows, `8` source/legal rows, `1` cannibalization row and `2` possible false-positive rows.
+- VERIFIED LOCAL: upload-approved rows remain `0`; all public execution remains blocked pending owner decisions, focused GSC export, duplicate CMS identity review, source/legal review and WordPress rollback backup.
+- BLOCKED: no Medical Malpractice CMS upload, English slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, lawyer-card, schema or CRM change is approved.
+- SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
+
 ## LATEST WORK STATUS - 2026-05-22 15:43 Asia/Jerusalem
 - MEDICAL MALPRACTICE GSC EXPORT WORKFLOW: prepared the focused read-only Search Console export and post-export decision-map workflow for the Medical Malpractice cluster.
 - CREATED: `tools/gsc/gsc-medical-malpractice-export.js`.

@@ -519,6 +519,12 @@ function justice_theme_get_breadcrumb_items() {
 			'real-estate-lawyer-dimona'       => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 			'overtime-pay-israel'             => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
 			'real-estate-statistics-2025'     => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			// Batch 48 — MILESTONE 250 pages
+			'criminal-lawyer-tiberias'        => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'real-estate-lawyer-tiberias'     => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'family-law-tiberias'             => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'military-criminal-defense'       => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'property-tax-arnona-israel'      => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

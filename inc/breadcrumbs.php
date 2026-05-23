@@ -531,6 +531,12 @@ function justice_theme_get_breadcrumb_items() {
 			'family-law-eilat'                => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'breach-of-contract-israel'       => array( 'name' => 'דיני חוזים', 'url' => '/contract-law-israel/' ),
 			'consumer-rights-statistics'      => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			// Batch 50 — Golden Milestone
+			'labor-law-statistics-2025'       => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'criminal-law-statistics-2025'    => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'family-law-statistics-2025'      => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'real-estate-lawyer-herzliya'     => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'real-estate-lawyer-raanana'      => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

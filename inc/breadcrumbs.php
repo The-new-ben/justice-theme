@@ -525,6 +525,12 @@ function justice_theme_get_breadcrumb_items() {
 			'family-law-tiberias'             => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'military-criminal-defense'       => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
 			'property-tax-arnona-israel'      => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			// Batch 49
+			'criminal-lawyer-eilat'           => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'real-estate-lawyer-eilat'        => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'family-law-eilat'                => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'breach-of-contract-israel'       => array( 'name' => 'דיני חוזים', 'url' => '/contract-law-israel/' ),
+			'consumer-rights-statistics'      => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

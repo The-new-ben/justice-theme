@@ -513,6 +513,12 @@ function justice_theme_get_breadcrumb_items() {
 			'family-law-beit-shemesh'        => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'wrongful-termination-israel'    => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
 			'minimum-wage-israel-2025'       => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			// Batch 47
+			'real-estate-lawyer-beit-shemesh' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'criminal-lawyer-dimona'          => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'real-estate-lawyer-dimona'       => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'overtime-pay-israel'             => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'real-estate-statistics-2025'     => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

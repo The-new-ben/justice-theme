@@ -501,6 +501,12 @@ function justice_theme_get_breadcrumb_items() {
 			'family-law-ramle'             => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'criminal-record-expungement'  => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
 			'speeding-ticket-guide'        => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			// Batch 45
+			'legal-aid-israel'             => array( 'name' => 'זכויות צרכן', 'url' => '/consumer-rights-israel/' ),
+			'real-estate-lawyer-migdal-haemek' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'family-law-carmiel'           => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'sexual-offense-victim'        => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'court-appeal-israel'          => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

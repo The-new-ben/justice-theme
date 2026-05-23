@@ -507,6 +507,12 @@ function justice_theme_get_breadcrumb_items() {
 			'family-law-carmiel'           => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'sexual-offense-victim'        => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
 			'court-appeal-israel'          => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			// Batch 46
+			'real-estate-lawyer-beit-shean'  => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'criminal-lawyer-beit-shemesh'   => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'family-law-beit-shemesh'        => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'wrongful-termination-israel'    => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
+			'minimum-wage-israel-2025'       => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

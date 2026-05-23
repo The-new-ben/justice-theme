@@ -62,6 +62,7 @@ $justice_theme_files = array(
 	'inc/trust-routes.php',
 	'inc/payment-compliance-routes.php',
 	'inc/url-redirects.php',
+	'inc/admin-dashboard.php',
 );
 
 

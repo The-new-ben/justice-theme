@@ -495,6 +495,12 @@ function justice_theme_get_breadcrumb_items() {
 			'family-law-kiryat-gat'        => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'employment-subcontractor'     => array( 'name' => 'דיני עבודה', 'url' => '/labor-law-employee-rights/' ),
 			'drunk-driving-defense'        => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			// Batch 44
+			'real-estate-lawyer-carmiel'   => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'criminal-lawyer-ramle'        => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'family-law-ramle'             => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'criminal-record-expungement'  => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'speeding-ticket-guide'        => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

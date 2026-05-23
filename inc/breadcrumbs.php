@@ -543,6 +543,12 @@ function justice_theme_get_breadcrumb_items() {
 			'real-estate-lawyer-givatayim'    => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 			'family-law-givatayim'            => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'real-estate-lawyer-rishon-lezion' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			// Batch 52
+			'criminal-lawyer-rishon-lezion'   => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'family-law-rishon-lezion'        => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'real-estate-lawyer-petah-tikva'  => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'real-estate-lawyer-bat-yam'      => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'family-law-bat-yam'              => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

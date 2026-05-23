@@ -537,6 +537,12 @@ function justice_theme_get_breadcrumb_items() {
 			'family-law-statistics-2025'      => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
 			'real-estate-lawyer-herzliya'     => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 			'real-estate-lawyer-raanana'      => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			// Batch 51
+			'criminal-lawyer-raanana'         => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'criminal-lawyer-herzliya'        => array( 'name' => 'משפט פלילי', 'url' => '/criminal-defense-attorney/' ),
+			'real-estate-lawyer-givatayim'    => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
+			'family-law-givatayim'            => array( 'name' => 'דיני משפחה', 'url' => '/family-law/' ),
+			'real-estate-lawyer-rishon-lezion' => array( 'name' => 'עורך דין מקרקעין', 'url' => '/real-estate-lawyer-guide/' ),
 		);
 
 		$page_slug = get_post_field( 'post_name', $post_id );

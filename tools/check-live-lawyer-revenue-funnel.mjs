@@ -52,10 +52,17 @@ const checks = [
 	{
 		id: 'checkout-compliance-fallback',
 		name: 'Checkout path exposes Grow-required fields and terms approval',
-		url: '/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&codex_check=grow_checkout',
+		url: '/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&utm_source=lawyer_plans&utm_medium=plan_page&utm_campaign=lawyer_acquisition&utm_content=pricing_card_lead_partner&outreach_segment=plans_page&codex_check=grow_checkout',
 		type: 'page',
 		required: [
 			'woocommerce-checkout',
+			'name="plan_interest" value="lead_partner"',
+			'name="payment_path" value="manual_invoice"',
+			'name="utm_source" value="lawyer_plans"',
+			'name="utm_medium" value="plan_page"',
+			'name="utm_campaign" value="lawyer_acquisition"',
+			'name="utm_content" value="pricing_card_lead_partner"',
+			'name="outreach_segment" value="plans_page"',
 			'billing_first_name',
 			'billing_last_name',
 			'billing_phone',

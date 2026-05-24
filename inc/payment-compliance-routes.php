@@ -248,6 +248,21 @@ function justice_theme_payment_compliance_render_body( string $slug ): void {
 		$plan_overrides      = function_exists( 'justice_theme_lawyer_plan_public_overrides' ) ? justice_theme_lawyer_plan_public_overrides( $requested_plan ) : array();
 		$selected_plan_label = (string) ( $selected_plan['label'] ?? 'Jus-Tice Pro' );
 		$selected_plan_price = (string) ( $plan_overrides['price'] ?? ( $selected_plan['price'] ?? '' ) );
+		$checkout_attribution_defaults = array(
+			'utm_source'       => 'checkout_fallback',
+			'utm_medium'       => 'manual_invoice',
+			'utm_campaign'     => 'lawyer_acquisition',
+			'utm_content'      => 'checkout_' . $requested_plan,
+			'outreach_segment' => 'checkout_fallback',
+			'outreach_city'     => '',
+			'outreach_practice' => '',
+		);
+		$checkout_attribution = array();
+		foreach ( $checkout_attribution_defaults as $attribution_key => $fallback_value ) {
+			$checkout_attribution[ $attribution_key ] = isset( $_GET[ $attribution_key ] )
+				? sanitize_text_field( wp_unslash( $_GET[ $attribution_key ] ) )
+				: $fallback_value;
+		}
 		?>
 		<section class="jt-compliance-card">
 			<h2>עמוד תשלום - פרטי לקוח</h2>
@@ -263,6 +278,11 @@ function justice_theme_payment_compliance_render_body( string $slug ): void {
 				<input type="hidden" name="pre_checkout" value="1">
 				<input type="hidden" name="payment_path" value="manual_invoice">
 				<input type="hidden" name="plan_interest" value="<?php echo esc_attr( $requested_plan ); ?>">
+				<?php foreach ( $checkout_attribution as $attribution_key => $attribution_value ) : ?>
+					<?php if ( '' !== $attribution_value ) : ?>
+						<input type="hidden" name="<?php echo esc_attr( $attribution_key ); ?>" value="<?php echo esc_attr( $attribution_value ); ?>">
+					<?php endif; ?>
+				<?php endforeach; ?>
 				<label>שם פרטי<input id="billing_first_name" class="input-text" type="text" name="billing_first_name" autocomplete="given-name" required></label>
 				<label>שם משפחה<input id="billing_last_name" class="input-text" type="text" name="billing_last_name" autocomplete="family-name" required></label>
 				<label>טלפון ללא קידומת בינלאומית<input id="billing_phone" class="input-text" type="tel" name="billing_phone" autocomplete="tel-national" required></label>

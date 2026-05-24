@@ -422,6 +422,10 @@ function justice_theme_render_lawyer_plan_payment_admin_page(): void {
 		admin_url( 'admin.php' )
 	);
 	$manual_signup_url = justice_theme_plan_manual_activation_url( 'lead_partner' );
+	$grow_checkout_url = justice_theme_plan_pre_checkout_url( 'lead_partner' );
+	$grow_terms_url    = home_url( '/sample-terms-and-conditions-template/' );
+	$grow_cancel_url   = home_url( '/cancellation/' );
+	$grow_privacy_url  = home_url( '/privacy/' );
 	?>
 	<div class="wrap">
 		<h1>Lawyer Plan Payments</h1>
@@ -449,6 +453,21 @@ function justice_theme_render_lawyer_plan_payment_admin_page(): void {
 			<p style="margin:0;">
 				<a class="button button-primary" href="<?php echo esc_url( $invoice_queue_url ); ?>">Open invoice queue</a>
 				<a class="button" href="<?php echo esc_url( $manual_signup_url ); ?>" target="_blank" rel="noopener">Test manual paid signup</a>
+			</p>
+		</div>
+		<div style="max-width:1180px;border:1px solid #c3c4c7;background:#fff;border-right:4px solid #2271b1;border-radius:8px;padding:14px 16px;margin:0 0 24px;">
+			<h2 style="margin-top:0;">Grow Approval Handoff</h2>
+			<p style="margin:0 0 10px;">Grow re-check was submitted after the checkout route repair. Keep automatic recurring charges off until Grow approval, gateway connection and product mapping are all verified.</p>
+			<ol style="margin-top:0;">
+				<li>When Grow replies, rerun the live compliance checker before touching gateway settings: <code>node tools/check-grow-payment-compliance.mjs</code>.</li>
+				<li>Confirm the public checkout still shows customer fields, terms checkbox and terms link.</li>
+				<li>Only after approval, create/map subscription products and run one controlled checkout smoke test.</li>
+			</ol>
+			<p style="margin:0;">
+				<a class="button" href="<?php echo esc_url( $grow_checkout_url ); ?>" target="_blank" rel="noopener">Open Grow checkout path</a>
+				<a class="button" href="<?php echo esc_url( $grow_terms_url ); ?>" target="_blank" rel="noopener">Terms</a>
+				<a class="button" href="<?php echo esc_url( $grow_cancel_url ); ?>" target="_blank" rel="noopener">Cancellation</a>
+				<a class="button" href="<?php echo esc_url( $grow_privacy_url ); ?>" target="_blank" rel="noopener">Privacy</a>
 			</p>
 		</div>
 

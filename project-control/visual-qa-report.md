@@ -2,6 +2,20 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-24 Maya Lawyer Live Refresh and CMS Activation Packet
+- REGENERATED / VERIFIED LIVE READ-ONLY PARTIAL: `project-control/maya-lawyer-live-readonly-2026-05-24.md`.
+- REGENERATED / VERIFIED LIVE READ-ONLY PARTIAL: `project-control/maya-lawyer-live-readonly-2026-05-24.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY PARTIAL: `reports/maya-lawyer-live-readonly-2026-05-24.csv` and `.json`.
+- CREATED / VERIFIED LOCAL: `tools/build-maya-lawyer-cms-activation-packet.mjs`.
+- CREATED / VERIFIED LOCAL: `project-control/maya-lawyer-cms-activation-packet-2026-05-24.md`.
+- CREATED / VERIFIED LOCAL: `project-control/maya-lawyer-cms-activation-packet-2026-05-24.csv`.
+- GENERATED / VERIFIED LOCAL: `reports/maya-lawyer-cms-activation-packet-2026-05-24.csv` and `.json`.
+- VERIFIED LIVE READ-ONLY PARTIAL: anonymous REST type discovery exposes `justice_lawyer`.
+- BLOCKED LIVE QA: `/lawyers/advocate-maya-rotenberg/` still returns HTTP `404`, no canonical, `noindex, follow`, 404 page title/H1 and anonymous Maya slug lookup count `0`.
+- NOT SCREENSHOT VERIFIED: no desktop/mobile screenshots were captured because the Maya profile route is still blocked before visible mini-site QA.
+- FIXED PLANNING: packet defines the owner/operator activation order before screenshots can be captured.
+- SAFETY: no public CMS record, lawyer profile data, page body, title, H1, meta, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media asset, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-24 Route Deploy Live and Screenshot QA Closure
 - UPDATED / VERIFIED LOCAL: `tools/build-route-deploy-verification-gate.mjs` now verifies screenshot PNG evidence and dimensions.
 - CREATED / VERIFIED LIVE READ-ONLY: `project-control/route-deploy-verification-gate-2026-05-24.md`.

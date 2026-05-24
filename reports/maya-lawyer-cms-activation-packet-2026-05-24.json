@@ -1,0 +1,138 @@
+{
+  "summary": {
+    "report_date": "2026-05-24",
+    "source_date": "2026-05-22",
+    "overall_status": "BLOCKED PUBLIC CMS ACTIVATION / VERIFIED LOCAL PACKET / NO PUBLIC CHANGES",
+    "total_rows": 9,
+    "blocked_rows": 7,
+    "not_verified_rows": 1,
+    "verified_rows": 6,
+    "target_path": "/lawyers/advocate-maya-rotenberg/",
+    "target_slug": "advocate-maya-rotenberg",
+    "sourceChecks": {
+      "templateApprovalGate": true,
+      "slugMigrationFilters": true,
+      "minisiteBootstrap": true,
+      "publicSourcesBootstrap": true
+    }
+  },
+  "rows": [
+    {
+      "packet_id": "MAYA-CMS-001",
+      "lane": "current_live_blocker",
+      "priority": "CRITICAL",
+      "status": "BLOCKED LIVE QA",
+      "evidence": "HTTP 404; REST slug count 0; verified rows 1/7",
+      "source": "reports/maya-lawyer-live-readonly-2026-05-24.json",
+      "owner_action": "Decide whether to activate the Maya profile now or keep it held.",
+      "operator_action": "Do not publish, redirect, canonicalize, or create a duplicate while current live QA is blocked.",
+      "verification_required": "Rerun node tools/check-maya-lawyer-live-readonly.mjs --reportDate=2026-05-24",
+      "blocked_actions": "NO_PUBLIC_CMS_WRITE; NO_DUPLICATE_LAWYER_PROFILE; NO_URL_MIGRATION; NO_REDIRECT; NO_CANONICAL_OR_NOINDEX_CHANGE; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE; NO_MEDIA_OR_REVIEW_CLAIM; NO_LEAD_OR_CRM_CHANGE; NO_UPRESS_DEPLOY_OR_CACHE_CHANGE",
+      "notes": "Target route: https://jus-tice.co.il/lawyers/advocate-maya-rotenberg/"
+    },
+    {
+      "packet_id": "MAYA-CMS-002",
+      "lane": "existing_profile_confirmation",
+      "priority": "CRITICAL",
+      "status": "BLOCKED ADMIN CONFIRMATION",
+      "evidence": "1 prior migration-map row(s); candidate profile IDs: 19130",
+      "source": "project-control/url-migration-map.csv",
+      "owner_action": "Confirm the correct existing justice_lawyer record in wp-admin or database before any new record is created.",
+      "operator_action": "If candidate ID 19130 or another Maya record exists, repair that record only; create no duplicate profile.",
+      "verification_required": "Authenticated wp-admin or WP-CLI confirmation of post type, ID, title, status, slug, and current meta.",
+      "blocked_actions": "NO_PUBLIC_CMS_WRITE; NO_DUPLICATE_LAWYER_PROFILE; NO_URL_MIGRATION; NO_REDIRECT; NO_CANONICAL_OR_NOINDEX_CHANGE; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE; NO_MEDIA_OR_REVIEW_CLAIM; NO_LEAD_OR_CRM_CHANGE; NO_UPRESS_DEPLOY_OR_CACHE_CHANGE",
+      "notes": "Anonymous REST currently returns zero records for the approved English slug, so admin confirmation is required."
+    },
+    {
+      "packet_id": "MAYA-CMS-003",
+      "lane": "rollback_capture",
+      "priority": "CRITICAL",
+      "status": "BLOCKED ROLLBACK REQUIRED",
+      "evidence": "No rollback capture artifact for the live Maya CMS record exists in this repo packet.",
+      "source": "project-control/maya-lawyer-live-readonly-2026-05-24.csv",
+      "owner_action": "Approve a rollback storage location and activation window.",
+      "operator_action": "Before any write, export current post fields, meta, taxonomies, permalink-manager/redirect rules, SEO fields, and screenshots where available.",
+      "verification_required": "Store rollback evidence path in project-control before enabling any migration filter or wp-admin edit.",
+      "blocked_actions": "NO_PUBLIC_CMS_WRITE; NO_DUPLICATE_LAWYER_PROFILE; NO_URL_MIGRATION; NO_REDIRECT; NO_CANONICAL_OR_NOINDEX_CHANGE; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE; NO_MEDIA_OR_REVIEW_CLAIM; NO_LEAD_OR_CRM_CHANGE; NO_UPRESS_DEPLOY_OR_CACHE_CHANGE",
+      "notes": "Capture profile_status, verification_status, source_type, source_url, subscription_status, website, public sources, social URLs, image fields, and internal_notes."
+    },
+    {
+      "packet_id": "MAYA-CMS-004",
+      "lane": "public_approval_signals",
+      "priority": "CRITICAL",
+      "status": "VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION",
+      "evidence": "justice_theme_lawyer_profile_is_public_approved requires publish status, non-seed signals, and approval metadata.",
+      "source": "inc/template-tags.php",
+      "owner_action": "Approve exact public profile status and verified source fields; do not mark fake, seed, demo, or test records public.",
+      "operator_action": "Set only truthful approval fields after owner review; do not set subscription_status=active unless commercially true.",
+      "verification_required": "After edit, anonymous public route and REST must show exactly one approved Maya profile and no unapproved profile leakage.",
+      "blocked_actions": "NO_PUBLIC_CMS_WRITE; NO_DUPLICATE_LAWYER_PROFILE; NO_URL_MIGRATION; NO_REDIRECT; NO_CANONICAL_OR_NOINDEX_CHANGE; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE; NO_MEDIA_OR_REVIEW_CLAIM; NO_LEAD_OR_CRM_CHANGE; NO_UPRESS_DEPLOY_OR_CACHE_CHANGE",
+      "notes": "The template still blocks seed/demo/test/fake signals even for the Maya identity."
+    },
+    {
+      "packet_id": "MAYA-CMS-005",
+      "lane": "opt_in_slug_migration",
+      "priority": "CRITICAL",
+      "status": "VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION",
+      "evidence": "Slug migration and old-slug redirect filters are false by default.",
+      "source": "inc/live-migrations.php",
+      "owner_action": "Approve the English slug migration and old Hebrew URL redirect only after rollback capture.",
+      "operator_action": "Enable one scoped migration window if needed; verify the profile exists before enabling redirect.",
+      "verification_required": "After migration, /lawyers/advocate-maya-rotenberg/ must be HTTP 200 and old Hebrew URL may 301 only to the verified English URL.",
+      "blocked_actions": "NO_PUBLIC_CMS_WRITE; NO_DUPLICATE_LAWYER_PROFILE; NO_URL_MIGRATION; NO_REDIRECT; NO_CANONICAL_OR_NOINDEX_CHANGE; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE; NO_MEDIA_OR_REVIEW_CLAIM; NO_LEAD_OR_CRM_CHANGE; NO_UPRESS_DEPLOY_OR_CACHE_CHANGE",
+      "notes": "Use code filters only with an owner-approved deploy plan; this packet does not enable them."
+    },
+    {
+      "packet_id": "MAYA-CMS-006",
+      "lane": "minisite_bootstrap_fields",
+      "priority": "CRITICAL",
+      "status": "VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION",
+      "evidence": "Mini-site bootstrap is false by default, targets Maya only, writes empty fields, and avoids invented ratings/reviews/photos/payments.",
+      "source": "inc/live-migrations.php",
+      "owner_action": "Approve or edit the profile wording and decide which empty fields may be filled.",
+      "operator_action": "If approved, fill only empty fields on the confirmed Maya record; leave ratings, reviews, photos, bar/license numbers, and payments untouched unless verified.",
+      "verification_required": "After activation, inspect visible sections, lead form routing fields, related articles, and schema output.",
+      "blocked_actions": "NO_PUBLIC_CMS_WRITE; NO_DUPLICATE_LAWYER_PROFILE; NO_URL_MIGRATION; NO_REDIRECT; NO_CANONICAL_OR_NOINDEX_CHANGE; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE; NO_MEDIA_OR_REVIEW_CLAIM; NO_LEAD_OR_CRM_CHANGE; NO_UPRESS_DEPLOY_OR_CACHE_CHANGE",
+      "notes": "Readiness rows: 12 verified, 1 blocked, 1 not verified."
+    },
+    {
+      "packet_id": "MAYA-CMS-007",
+      "lane": "public_source_transparency",
+      "priority": "CRITICAL",
+      "status": "VERIFIED LOCAL / BLOCKED PUBLIC EXECUTION",
+      "evidence": "Public-source bootstrap is false by default and stores editable source references only where empty.",
+      "source": "inc/live-migrations.php",
+      "owner_action": "Confirm which public source URLs may be displayed and used in sameAs/profile context.",
+      "operator_action": "Do not add unreviewed awards, ratings, reviews, case wins, or license claims.",
+      "verification_required": "After activation, check source links, sameAs extraction, Attorney/Person schema, and no fake review/rating schema.",
+      "blocked_actions": "NO_PUBLIC_CMS_WRITE; NO_DUPLICATE_LAWYER_PROFILE; NO_URL_MIGRATION; NO_REDIRECT; NO_CANONICAL_OR_NOINDEX_CHANGE; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE; NO_MEDIA_OR_REVIEW_CLAIM; NO_LEAD_OR_CRM_CHANGE; NO_UPRESS_DEPLOY_OR_CACHE_CHANGE",
+      "notes": "Public source references do not replace owner/legal review."
+    },
+    {
+      "packet_id": "MAYA-CMS-008",
+      "lane": "post_activation_live_qa",
+      "priority": "CRITICAL",
+      "status": "NOT VERIFIED",
+      "evidence": "The current route is still not eligible for screenshot or Rich Results QA.",
+      "source": "reports/maya-lawyer-live-readonly-2026-05-24.json; project-control/maya-lawyer-mini-site-readiness-2026-05-22.csv",
+      "owner_action": "Approve a live QA window after the record, slug, approval fields, and cache state are controlled.",
+      "operator_action": "Rerun live checker, capture desktop/mobile screenshots, inspect JSON-LD, and validate public REST behavior.",
+      "verification_required": "Require HTTP 200, self-canonical, index/follow, one REST record, Attorney/Person schema, profile content, and desktop/mobile screenshots.",
+      "blocked_actions": "NO_PUBLIC_CMS_WRITE; NO_DUPLICATE_LAWYER_PROFILE; NO_URL_MIGRATION; NO_REDIRECT; NO_CANONICAL_OR_NOINDEX_CHANGE; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE; NO_MEDIA_OR_REVIEW_CLAIM; NO_LEAD_OR_CRM_CHANGE; NO_UPRESS_DEPLOY_OR_CACHE_CHANGE",
+      "notes": "Until this row is verified, do not use the Maya mini-site as Family/Divorce upload support evidence."
+    },
+    {
+      "packet_id": "MAYA-CMS-009",
+      "lane": "repo_safety_closeout",
+      "priority": "HIGH",
+      "status": "VERIFIED LOCAL / NO PUBLIC CHANGES",
+      "evidence": "This packet and the current read-only check only wrote repo reports and project-control documents.",
+      "source": "project-control/maya-lawyer-cms-activation-packet-2026-05-24.csv",
+      "owner_action": "None required for repo artifact generation.",
+      "operator_action": "Keep public execution blocked until the owner/operator actions above are complete.",
+      "verification_required": "CSV parse, node syntax, and generated packet rows must pass locally.",
+      "blocked_actions": "NO_PUBLIC_CMS_WRITE; NO_DUPLICATE_LAWYER_PROFILE; NO_URL_MIGRATION; NO_REDIRECT; NO_CANONICAL_OR_NOINDEX_CHANGE; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE; NO_MEDIA_OR_REVIEW_CLAIM; NO_LEAD_OR_CRM_CHANGE; NO_UPRESS_DEPLOY_OR_CACHE_CHANGE",
+      "notes": "No public CMS, wp-admin, uPress, redirect, canonical, noindex, taxonomy, sitemap, lead, CRM, payment, GA4, or GSC change was performed."
+    }
+  ]
+}

@@ -1,3 +1,22 @@
+# LATEST WORK STATUS - 2026-05-24 11:49 Asia/Jerusalem
+- MAYA LAWYER LIVE REFRESH + CMS ACTIVATION PACKET: reran the focused public read-only Maya route check and converted the still-blocked state into an exact owner/operator activation gate.
+- REGENERATED: `project-control/maya-lawyer-live-readonly-2026-05-24.md`.
+- REGENERATED: `project-control/maya-lawyer-live-readonly-2026-05-24.csv`.
+- GENERATED: `reports/maya-lawyer-live-readonly-2026-05-24.csv`.
+- GENERATED: `reports/maya-lawyer-live-readonly-2026-05-24.json`.
+- CREATED: `tools/build-maya-lawyer-cms-activation-packet.mjs`.
+- CREATED: `project-control/maya-lawyer-cms-activation-packet-2026-05-24.md`.
+- CREATED: `project-control/maya-lawyer-cms-activation-packet-2026-05-24.csv`.
+- GENERATED: `reports/maya-lawyer-cms-activation-packet-2026-05-24.csv`.
+- GENERATED: `reports/maya-lawyer-cms-activation-packet-2026-05-24.json`.
+- VERIFIED LOCAL: `node --check tools/check-maya-lawyer-live-readonly.mjs` passed.
+- VERIFIED LOCAL: `node --check tools/build-maya-lawyer-cms-activation-packet.mjs` passed.
+- VERIFIED LIVE READ-ONLY PARTIAL: current public QA still finds `justice_lawyer` REST type exposed but `/lawyers/advocate-maya-rotenberg/` returns HTTP `404`, has no canonical, exposes `noindex, follow`, renders the 404 page, and `justice_lawyer?slug=advocate-maya-rotenberg` returns `0` records.
+- FIXED PLANNING: the packet records `9` activation rows, including admin confirmation for the existing Maya profile candidate, rollback capture, public approval signals, false-by-default migration filters, mini-site bootstrap, public source transparency and post-activation live QA.
+- BLOCKED PUBLIC CMS ACTIVATION: owner/operator must confirm the existing `justice_lawyer` record, capture rollback material, approve exact profile status/source fields and rerun live QA before any public profile, slug, redirect, canonical/noindex, taxonomy, sitemap, lead or CRM change.
+- NOT SCREENSHOT VERIFIED: no desktop/mobile Maya screenshots were captured because the route is still HTTP `404`.
+- SAFETY: no public CMS record, lawyer profile data, page body, title, H1, meta, URL slug, redirect, canonical/noindex, taxonomy, sitemap, media asset, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-24 11:40 Asia/Jerusalem
 - ROUTE DEPLOY LIVE + SCREENSHOT QA CLOSURE: reran the critical route gate after deployment/cache time and closed the remaining T416/T418/T419 live blockers.
 - UPDATED: `tools/build-route-deploy-verification-gate.mjs` now verifies desktop/mobile screenshot evidence from `project-control/visual-evidence/route-deploy-{date}`.

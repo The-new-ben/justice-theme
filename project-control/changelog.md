@@ -1,6 +1,23 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Maya lawyer live refresh and CMS activation packet
+
+- REGENERATED: `project-control/maya-lawyer-live-readonly-2026-05-24.md`.
+- REGENERATED: `project-control/maya-lawyer-live-readonly-2026-05-24.csv`.
+- GENERATED: `reports/maya-lawyer-live-readonly-2026-05-24.csv`.
+- GENERATED: `reports/maya-lawyer-live-readonly-2026-05-24.json`.
+- CREATED: `tools/build-maya-lawyer-cms-activation-packet.mjs`.
+- CREATED: `project-control/maya-lawyer-cms-activation-packet-2026-05-24.md`.
+- CREATED: `project-control/maya-lawyer-cms-activation-packet-2026-05-24.csv`.
+- GENERATED: `reports/maya-lawyer-cms-activation-packet-2026-05-24.csv`.
+- GENERATED: `reports/maya-lawyer-cms-activation-packet-2026-05-24.json`.
+- VERIFIED LOCAL: `node --check tools/check-maya-lawyer-live-readonly.mjs` and `node --check tools/build-maya-lawyer-cms-activation-packet.mjs` passed.
+- VERIFIED LIVE READ-ONLY PARTIAL: `justice_lawyer` REST type exists, but `/lawyers/advocate-maya-rotenberg/` remains HTTP `404`, no canonical, `noindex, follow`, 404 title/H1 and REST slug count `0`.
+- FIXED PLANNING: packet converts the blocked route into explicit owner/operator gates for existing profile confirmation, rollback capture, approval signals, false-by-default migration filters, mini-site fields, public sources and post-activation QA.
+- BLOCKED PUBLIC CMS ACTIVATION: no public profile, slug, redirect, canonical/noindex, taxonomy, sitemap, lead, CRM, wp-admin or uPress action is approved by this packet.
+- SAFETY: no public CMS record, lawyer profile data, page body, title, H1, meta, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media asset, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-24 - Route deploy live and screenshot QA closure
 
 - UPDATED: `tools/build-route-deploy-verification-gate.mjs` now verifies desktop/mobile screenshot PNG evidence.

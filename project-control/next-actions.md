@@ -4,6 +4,22 @@
 
 ---
 
+### ACTION-MAYA-LAWYER-CMS-ACTIVATION-PACKET-001: Refresh Maya live status and prepare owner/operator CMS activation packet
+**Status:** FIXED PLANNING / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY PARTIAL / BLOCKED PUBLIC CMS ACTIVATION / NO PUBLIC CMS CHANGE
+**Why:** the Maya Rotenberg mini-site remains high-value, but current public evidence shows the approved English profile route is not live and anonymous REST returns no Maya slug record. The next safe step is a precise activation packet, not a blind profile creation or redirect.
+**Actions:**
+1. DONE: reran `tools/check-maya-lawyer-live-readonly.mjs` for `2026-05-24`.
+2. GENERATED: `project-control/maya-lawyer-live-readonly-2026-05-24.md` and `.csv`.
+3. GENERATED: `reports/maya-lawyer-live-readonly-2026-05-24.csv` and `.json`.
+4. DONE: created `tools/build-maya-lawyer-cms-activation-packet.mjs`.
+5. GENERATED: `project-control/maya-lawyer-cms-activation-packet-2026-05-24.md` and `.csv`.
+6. GENERATED: `reports/maya-lawyer-cms-activation-packet-2026-05-24.csv` and `.json`.
+7. VERIFIED LOCAL: node syntax passed for both Maya scripts.
+8. VERIFIED LIVE READ-ONLY PARTIAL: `justice_lawyer` REST type exists, but `/lawyers/advocate-maya-rotenberg/` remains HTTP `404`, no canonical, `noindex, follow`, 404 title/H1 and REST slug count `0`.
+9. FIXED PLANNING: activation packet has `9` rows covering current blocker, existing profile confirmation, rollback capture, public approval signals, opt-in slug migration, mini-site bootstrap fields, public sources and post-activation QA.
+10. BLOCKED PUBLIC CMS ACTIVATION: owner/operator must confirm the existing profile candidate, capture rollback, approve exact profile/source fields and rerun live QA before any public CMS, slug, redirect, canonical/noindex, taxonomy, sitemap, lead, CRM or uPress action.
+11. NEXT: after owner approval, operator confirms the existing `justice_lawyer` record in wp-admin or WP-CLI, repairs that record only, then reruns the live checker and captures desktop/mobile screenshots.
+
 ### ACTION-ROUTE-DEPLOY-LIVE-SCREENSHOT-CLOSURE-001: Close T416/T418/T419 with current live route and screenshot evidence
 **Status:** FIXED / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / VERIFIED SCREENSHOTS / NO PUBLIC CMS CHANGE
 **Why:** the prior route deploy gate was blocked by stale `/family-law/` breadcrumb schema and missing screenshots; current public read-only checks now prove the route package is deployed and visually captured.

@@ -4,7 +4,9 @@
 
 The investor demo is no longer blocked by uPress deployment for the account-invite path. The live site now serves the account-invite deployment marker, and a fresh real lawyer registration was submitted after the pull.
 
-This is still not a fully automated paid-subscription business. Real recurring payment, branded automatic invoices and real refund execution remain blocked until the owner creates/tests the real Grow/Morning payment path and maps recurring products/gateway behavior.
+The real-payment story advanced: a real one-time Grow Payment Link was created in the `Jus-Tice Israel` Grow account and verified as opening a branded `₪1` secure payment page. This proves provider-side payment-link creation is available now, but the `₪1` link still needs to be paid and verified in Grow transactions/receipts.
+
+This is still not a fully automated paid-subscription business. Real recurring payment, branded automatic invoices and real refund execution remain blocked until recurring products/gateway behavior are mapped and smoke-tested.
 
 ## Live Proof Completed
 
@@ -17,6 +19,8 @@ This is still not a fully automated paid-subscription business. Real recurring p
 | Grow compliance route check | PASS 8/8 | `project-control/grow-payment-compliance-live-2026-05-24.md` |
 | Medical-malpractice demo lead | PASS | WordPress admin should show lead `INVESTOR DEMO - Medical Malpractice Lead` |
 | Owner email summary | SENT | Gmail sent message `Significant advance: live lawyer registration now tests account invite path` to `info@jus-tice.co.il` |
+| Real Grow payment link | CREATED / VERIFIED OPEN | `Grow > Payment Links` row `Jus-Tice Investor Demo Payment Test`; full link sent by email with subject `REAL Grow payment link ready: Jus-Tice investor demo 1 NIS smoke test` |
+| Real Grow payment page | PASS | The `pay.grow.link` URL opens a `Jus-Tice Israel` page for `Jus-Tice investor demo real payment smoke test`, total `₪1`, with secure payment button |
 
 ## Expected Email To Check Now
 
@@ -45,23 +49,27 @@ If the email does not appear:
 8. Show the medical-malpractice demo lead in CRM and, if assigned, in the lawyer dashboard.
 9. Submit one service request: invoice copy, downgrade, cancellation, refund or complaint.
 10. Return to owner queue and show the request captured for follow-up.
-11. Explain payment truthfully: manual Grow/Morning payment link works once created; automatic recurring payment is approval/product-mapping gated.
+11. Show the real Grow `₪1` payment link email and/or opened payment page.
+12. Explain payment truthfully: one-time provider payment links now work; automatic recurring payment is still product/gateway lifecycle work.
 
 ## Non-Negotiable Blockers
 
 | Blocker | Investor-safe answer |
 |---|---|
-| Real Grow/Morning payment link not created in this tool session | The owner must create the real provider payment link, paste it into the lawyer profile, tick `Send this payment link by email now`, and save. |
-| No verified real payment yet | Do not claim payment is completed. Demo the compliant manual payment-link handoff and say the real payment smoke test is the next controlled step. |
+| Real Grow payment link not paid yet | A real `₪1` provider link exists and opens; pay it once, then verify the transaction/receipt in Grow before claiming paid proof. |
+| Link not attached to lawyer profile yet | Paste the real link into the lawyer profile, tick `Send this payment link by email now`, and save if the demo needs WordPress-to-lawyer handoff proof. |
+| No verified real payment yet | Do not claim payment is completed. Demo the real link and say the controlled payment smoke test is ready for the owner to pay. |
 | Automatic recurring billing not mapped | Say recurring billing is the final gateway/product layer after Grow/Meshulam approval and WooCommerce subscription mapping. |
 | Automatic refund execution not live | Show the refund request captured in the service desk; do not claim money moves automatically. |
 
 ## Completion Assessment
 
 - Live acquisition, registration, account invite, manual invoice path, dashboard gate, service desk, lead capture and reporting checks: about 85% demo-ready.
-- Full money collection with a real provider link: about 65% until the real Grow/Morning link is created and sent.
+- Full money collection with a real provider link: about 75% now that the real `₪1` link exists and opens; about 82%-85% after the owner pays it and the Grow transaction/receipt is visible.
 - Full SaaS subscription lifecycle with automatic upgrades, downgrades, cancellation and refunds: about 45% until recurring products/gateway support are configured and smoke-tested.
 
 ## Immediate Owner Action
 
-Create one real Grow/Morning payment link for the demo lawyer, paste it into the lawyer admin record, tick `Send this payment link by email now`, save, then pay the small controlled amount from the owner card/account if you want true real-payment proof.
+Open the email `REAL Grow payment link ready: Jus-Tice investor demo 1 NIS smoke test`, pay the `₪1` link, then verify the transaction and receipt in `Grow > Transactions` / `Payment Links`.
+
+If the investor needs to see WordPress handoff too, paste the same link into the demo lawyer admin record, tick `Send this payment link by email now`, save, and show the email delivery metadata in Lawyer Onboarding.

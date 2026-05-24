@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Real Grow payment link smoke test
+
+- CREATED: one real one-time Grow Payment Link inside the `Jus-Tice Israel` Grow account for `₪1` investor-demo payment proof.
+- VERIFIED: the provider URL opens a real branded `Jus-Tice Israel` checkout page with secure payment button.
+- EMAIL SENT: full link sent to `info@jus-tice.co.il` and `benbetesh@gmail.com` with subject `REAL Grow payment link ready: Jus-Tice investor demo 1 NIS smoke test`.
+- CREATED: `project-control/grow-real-payment-link-smoke-test-2026-05-24.md`.
+- CREATED: `project-control/grow-real-payment-link-smoke-test-2026-05-24.csv`.
+- UPDATED: `project-control/investor-demo-war-room-live-status-2026-05-24.md` and `.csv`.
+- BLOCKED: the `₪1` link still needs to be paid and verified in Grow transactions/receipts; the link has not yet been pasted into a lawyer profile or sent through the WordPress admin checkbox.
+- SAFETY: real provider link creation and owner email only under emergency owner approval; no CMS database content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting changed.
+
 # 2026-05-24 - Investor demo war room live status
 
 - CREATED: `project-control/investor-demo-war-room-live-status-2026-05-24.md`.

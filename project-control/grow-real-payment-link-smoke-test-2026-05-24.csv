@@ -1,0 +1,11 @@
+item,status,proof,next_action
+grow_login,PASS,"Logged in to Grow account 10182706 as Jus-Tice Israel","None"
+payment_link_created,PASS,"Created one-time Payment Link for Jus-Tice Investor Demo Payment Test","None"
+amount,PASS,"Provider page shows total ₪1","Pay once for controlled smoke test"
+provider_page_opens,PASS,"pay.grow.link opens branded Jus-Tice Israel secure payment page","Use page in investor demo"
+owner_email_sent,PASS,"Full link sent to info@jus-tice.co.il and benbetesh@gmail.com","Open email subject REAL Grow payment link ready"
+repo_link_storage,REDACTED,"Full URL intentionally not stored in repo; redacted marker kept","Use Gmail for full URL"
+payment_completed,NOT_YET,"No real charge verified yet","Owner pays ₪1 link"
+transaction_visible,NOT_YET,"Transaction/receipt not checked because payment has not been completed","After payment check Grow Transactions and Payment Links"
+wordpress_handoff,READY_NOT_DONE,"Manual payment link admin field and send checkbox exist, but link was not pasted into lawyer profile","Paste link into demo lawyer profile and send if needed"
+recurring_subscription_lifecycle,BLOCKED,"One-time link proves provider collection only, not recurring subscription lifecycle","Map recurring products/gateway after approval"

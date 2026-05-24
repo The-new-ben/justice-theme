@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-24 21:38 Asia/Jerusalem
+- REAL GROW PAYMENT LINK CREATED: created a real one-time Grow Payment Link inside the `Jus-Tice Israel` Grow account for the investor smoke test.
+- LINK DETAILS: one-time `₪1` charge, customer label `Jus-Tice Investor Demo Payment Test`, description `Jus-Tice investor demo real payment smoke test`; full URL was sent by email and is intentionally not stored in this repo.
+- EMAIL SENT: sent the full payment link to `info@jus-tice.co.il` and `benbetesh@gmail.com` with subject `REAL Grow payment link ready: Jus-Tice investor demo 1 NIS smoke test`.
+- VERIFIED LIVE PROVIDER PAGE: the `pay.grow.link` URL opens a real branded `Jus-Tice Israel` payment page showing `₪1` and a secure payment button.
+- CREATED: `project-control/grow-real-payment-link-smoke-test-2026-05-24.md`.
+- CREATED: `project-control/grow-real-payment-link-smoke-test-2026-05-24.csv`.
+- UPDATED: `project-control/investor-demo-war-room-live-status-2026-05-24.md` and `.csv`.
+- STILL BLOCKED: no actual payment has been completed yet; the link has not yet been pasted into a lawyer profile and sent through the WordPress admin checkbox; automatic recurring subscription, upgrade/downgrade payment changes and refund execution remain gateway/product-lifecycle work.
+- COMPLETION: full money collection proof moved from about 65% to about 75%; after the owner pays the `₪1` link and Grow shows the transaction/receipt, it should move to about 82%-85%.
+- SAFETY: this cycle created one real provider payment link and sent the link by email under the owner's emergency approval; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting was changed.
+
 # LATEST WORK STATUS - 2026-05-24 21:11 Asia/Jerusalem
 - INVESTOR DEMO WAR ROOM LIVE STATUS: consolidated the current live truth after the owner's uPress pull so tomorrow's investor demo has one reliable control sheet instead of stale blocker notes.
 - CREATED: `project-control/investor-demo-war-room-live-status-2026-05-24.md`.
@@ -5,8 +17,8 @@
 - VERIFIED LIVE READ-ONLY / LIVE FORM WRITE: deployment marker passed `2/2`; lawyer revenue funnel passed `10/10`; Grow compliance passed `8/8`; fresh lawyer registration after uPress pull returned `registration=sent`.
 - REAL DEMO DATA CREATED WITH OWNER EMERGENCY APPROVAL: draft lawyer registration `INVESTOR DEMO Account Invite Lawyer 20260524180553` and earlier medical-malpractice demo lead `INVESTOR DEMO - Medical Malpractice Lead` were submitted through public live forms and clearly marked as demo.
 - EMAIL SENT: sent owner-facing summary to `info@jus-tice.co.il` with the subject `Significant advance: live lawyer registration now tests account invite path`.
-- STILL BLOCKED: owner must check inbox for the WordPress account setup/password email; real Grow/Morning payment link still must be created in the provider account, pasted into the lawyer profile, emailed through the admin checkbox, and paid in one controlled smoke test.
-- COMPLETION: registration + dashboard invite path is about 85% investor-demo ready; full money collection remains about 65% until the real Grow/Morning payment link and one real payment test are completed.
+- STILL BLOCKED AT 21:11: owner must check inbox for the WordPress account setup/password email; this payment-link blocker was superseded by the 21:38 Grow link creation, but the link still needs payment verification and optional WordPress profile handoff.
+- COMPLETION AT 21:11: registration + dashboard invite path was about 85% investor-demo ready; full money collection was about 65% before the real Grow link was created at 21:38.
 - SAFETY: no content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution or GSC/GA4 setting changed in this documentation cycle.
 
 # LATEST WORK STATUS - 2026-05-24 20:29 Asia/Jerusalem

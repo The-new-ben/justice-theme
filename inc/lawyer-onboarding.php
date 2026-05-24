@@ -2278,6 +2278,213 @@ function justice_theme_lawyer_onboarding_money_label( int $amount ): string {
 	return number_format_i18n( max( 0, $amount ) ) . ' NIS/mo';
 }
 
+function justice_theme_lawyer_onboarding_source_filter_keys(): array {
+	return array(
+		'outreach_segment'  => 'Segment',
+		'utm_content'       => 'Message',
+		'outreach_city'     => 'City',
+		'outreach_practice' => 'Practice',
+		'utm_campaign'      => 'Campaign',
+		'utm_source'        => 'Source',
+	);
+}
+
+function justice_theme_lawyer_onboarding_source_filter_url( string $source_key, string $source_value ): string {
+	return add_query_arg(
+		array(
+			'page'         => 'justice-lawyer-onboarding',
+			'source_key'   => $source_key,
+			'source_value' => $source_value,
+		),
+		admin_url( 'admin.php' )
+	);
+}
+
+function justice_theme_lawyer_onboarding_compact_terms( array $values, int $limit = 3 ): string {
+	$values = array_values( array_unique( array_filter( array_map( 'strval', $values ) ) ) );
+
+	if ( empty( $values ) ) {
+		return '-';
+	}
+
+	$visible = array_slice( $values, 0, $limit );
+	$extra   = count( $values ) - count( $visible );
+	$label   = implode( ', ', $visible );
+
+	if ( $extra > 0 ) {
+		$label .= ' +' . $extra;
+	}
+
+	return $label;
+}
+
+function justice_theme_lawyer_onboarding_source_key_for_post( int $post_id ): array {
+	$priority_keys = array( 'outreach_segment', 'utm_content', 'outreach_city', 'outreach_practice', 'utm_campaign', 'utm_source' );
+
+	foreach ( $priority_keys as $key ) {
+		$value = (string) get_post_meta( $post_id, $key, true );
+
+		if ( '' !== $value ) {
+			return array( $key, $value );
+		}
+	}
+
+	return array( 'utm_source', 'direct_or_unknown' );
+}
+
+function justice_theme_lawyer_onboarding_source_performance_rows(): array {
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		return array();
+	}
+
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_lawyer',
+		'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+		'posts_per_page' => 500,
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+		'meta_query'     => array(
+			'relation' => 'OR',
+			array(
+				'key'   => 'source_type',
+				'value' => 'registration',
+			),
+			array(
+				'key'   => 'payment_path',
+				'value' => 'manual_invoice',
+			),
+			array(
+				'key'     => 'payment_followup_status',
+				'compare' => 'EXISTS',
+			),
+		),
+	) );
+
+	$rows = array();
+
+	foreach ( $query->posts as $post_id ) {
+		$post_id = (int) $post_id;
+		list( $source_key, $source_value ) = justice_theme_lawyer_onboarding_source_key_for_post( $post_id );
+		$row_key = $source_key . '|' . $source_value;
+
+		if ( ! isset( $rows[ $row_key ] ) ) {
+			$rows[ $row_key ] = array(
+				'source_key'        => $source_key,
+				'source_value'      => $source_value,
+				'count'             => 0,
+				'monthly_value'     => 0,
+				'invoice_requested' => 0,
+				'invoice_sent'      => 0,
+				'payment_confirmed' => 0,
+				'payment_blocked'   => 0,
+				'payment_cancelled' => 0,
+				'manual_invoice'    => 0,
+				'cities'            => array(),
+				'practices'         => array(),
+				'messages'          => array(),
+				'latest_timestamp'  => 0,
+			);
+		}
+
+		$plan            = (string) get_post_meta( $post_id, 'plan_type', true );
+		$payment_path    = (string) get_post_meta( $post_id, 'payment_path', true );
+		$payment_status  = (string) get_post_meta( $post_id, 'payment_followup_status', true );
+		$latest_time     = get_post_time( 'U', true, $post_id );
+		$expected_monthly = justice_theme_lawyer_outreach_expected_monthly_nis( $plan );
+
+		$rows[ $row_key ]['count']++;
+		$rows[ $row_key ]['monthly_value'] += $expected_monthly;
+		$rows[ $row_key ]['latest_timestamp'] = max( $rows[ $row_key ]['latest_timestamp'], $latest_time );
+		$rows[ $row_key ]['cities'][]          = (string) get_post_meta( $post_id, 'outreach_city', true );
+		$rows[ $row_key ]['practices'][]       = (string) get_post_meta( $post_id, 'outreach_practice', true );
+		$rows[ $row_key ]['messages'][]        = (string) get_post_meta( $post_id, 'utm_content', true );
+
+		if ( 'manual_invoice' === $payment_path ) {
+			$rows[ $row_key ]['manual_invoice']++;
+		}
+
+		if ( isset( $rows[ $row_key ][ $payment_status ] ) ) {
+			$rows[ $row_key ][ $payment_status ]++;
+		}
+	}
+
+	usort(
+		$rows,
+		static function ( array $a, array $b ): int {
+			if ( $a['monthly_value'] === $b['monthly_value'] ) {
+				return $b['count'] <=> $a['count'];
+			}
+
+			return $b['monthly_value'] <=> $a['monthly_value'];
+		}
+	);
+
+	return array_slice( $rows, 0, 8 );
+}
+
+function justice_theme_render_lawyer_onboarding_source_performance(): void {
+	$rows        = justice_theme_lawyer_onboarding_source_performance_rows();
+	$filter_keys = justice_theme_lawyer_onboarding_source_filter_keys();
+
+	?>
+	<div style="max-width:1200px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:18px 20px;margin:18px 0;">
+		<h2 style="margin-top:0;">Source performance board</h2>
+		<p style="margin-top:0;">Use this to decide which lawyer outreach segment, message, city or practice area deserves the next call batch. It mirrors the intake-reporting pattern used by serious legal CRMs: source, value and follow-up status in one view.</p>
+		<?php if ( empty( $rows ) ) : ?>
+			<div style="border:1px solid #dcdcde;background:#fbfbfb;border-radius:8px;padding:14px;">
+				<strong>No attributed paid-lawyer registrations yet.</strong>
+				<p style="margin:6px 0 0;">Create the next tracked outreach link, then watch this board after the first submissions arrive.</p>
+			</div>
+		<?php else : ?>
+			<table class="widefat striped" style="margin-top:12px;">
+				<thead>
+					<tr>
+						<th>Source bucket</th>
+						<th>Registrations</th>
+						<th>Expected MRR</th>
+						<th>Payment queue</th>
+						<th>City / practice / message</th>
+						<th>Latest</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ( $rows as $row ) : ?>
+						<?php
+						$latest_label = $row['latest_timestamp'] ? wp_date( 'Y-m-d H:i', (int) $row['latest_timestamp'] ) : '-';
+						$payment_bits = array(
+							'requested ' . number_format_i18n( (int) $row['invoice_requested'] ),
+							'sent ' . number_format_i18n( (int) $row['invoice_sent'] ),
+							'paid ' . number_format_i18n( (int) $row['payment_confirmed'] ),
+							'blocked ' . number_format_i18n( (int) $row['payment_blocked'] ),
+						);
+						?>
+						<tr>
+							<td>
+								<strong><?php echo esc_html( $row['source_value'] ); ?></strong><br>
+								<small><?php echo esc_html( $filter_keys[ $row['source_key'] ] ?? $row['source_key'] ); ?></small>
+							</td>
+							<td><?php echo esc_html( number_format_i18n( (int) $row['count'] ) ); ?></td>
+							<td><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( (int) $row['monthly_value'] ) ); ?></td>
+							<td><?php echo esc_html( implode( ' / ', $payment_bits ) ); ?></td>
+							<td>
+								<small>
+									City: <?php echo esc_html( justice_theme_lawyer_onboarding_compact_terms( $row['cities'] ) ); ?><br>
+									Practice: <?php echo esc_html( justice_theme_lawyer_onboarding_compact_terms( $row['practices'] ) ); ?><br>
+									Message: <?php echo esc_html( justice_theme_lawyer_onboarding_compact_terms( $row['messages'] ) ); ?>
+								</small>
+							</td>
+							<td><?php echo esc_html( $latest_label ); ?></td>
+							<td><a class="button button-small" href="<?php echo esc_url( justice_theme_lawyer_onboarding_source_filter_url( $row['source_key'], $row['source_value'] ) ); ?>">Open source</a></td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		<?php endif; ?>
+	</div>
+	<?php
+}
+
 function justice_theme_lawyer_onboarding_payment_due_meta_query( string $mode ): array {
 	$now  = current_time( 'mysql' );
 	$soon = wp_date( 'Y-m-d H:i:s', current_time( 'timestamp' ) + 2 * DAY_IN_SECONDS );
@@ -2564,10 +2771,18 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	);
 	$payment_queue = isset( $_GET['payment_queue'] ) ? sanitize_key( wp_unslash( $_GET['payment_queue'] ) ) : '';
 	$payment_due   = isset( $_GET['payment_due'] ) ? sanitize_key( wp_unslash( $_GET['payment_due'] ) ) : '';
+	$source_key    = isset( $_GET['source_key'] ) ? sanitize_key( wp_unslash( $_GET['source_key'] ) ) : '';
+	$source_value  = isset( $_GET['source_value'] ) ? sanitize_text_field( wp_unslash( $_GET['source_value'] ) ) : '';
+	$source_filter_keys = justice_theme_lawyer_onboarding_source_filter_keys();
 	$meta_query    = $registration_review_meta_query;
 
 	if ( ! in_array( $payment_due, array( 'overdue', 'due_soon' ), true ) ) {
 		$payment_due = '';
+	}
+
+	if ( ! array_key_exists( $source_key, $source_filter_keys ) || '' === $source_value ) {
+		$source_key   = '';
+		$source_value = '';
 	}
 
 	if ( in_array( $payment_due, array( 'overdue', 'due_soon' ), true ) ) {
@@ -2606,6 +2821,17 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 			array(
 				'key'   => 'payment_followup_status',
 				'value' => $payment_queue,
+			),
+		);
+	}
+
+	if ( $source_key && $source_value ) {
+		$meta_query = array(
+			'relation' => 'AND',
+			$meta_query,
+			array(
+				'key'   => $source_key,
+				'value' => $source_value,
 			),
 		);
 	}
@@ -2655,6 +2881,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php endif; ?>
 
 		<?php justice_theme_render_lawyer_onboarding_payment_command_center(); ?>
+		<?php justice_theme_render_lawyer_onboarding_source_performance(); ?>
 		<?php justice_theme_render_lawyer_onboarding_sales_command_center(); ?>
 
 		<?php if ( $payment_queue ) : ?>
@@ -2662,6 +2889,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php endif; ?>
 		<?php if ( $payment_due ) : ?>
 			<div class="notice notice-info inline"><p>Showing only lawyer registrations with payment follow-up due filter: <?php echo esc_html( 'overdue' === $payment_due ? 'overdue' : 'due within 48 hours' ); ?>. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
+		<?php endif; ?>
+		<?php if ( $source_key && $source_value ) : ?>
+			<div class="notice notice-info inline"><p>Showing only lawyer registrations from <?php echo esc_html( $source_filter_keys[ $source_key ] ); ?>: <?php echo esc_html( $source_value ); ?>. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
 		<?php endif; ?>
 
 		<?php if ( $pending->have_posts() ) : ?>

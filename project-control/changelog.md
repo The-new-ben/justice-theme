@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Investor demo readiness gate
+
+- CREATED: `tools/check-investor-demo-readiness.mjs`.
+- GENERATED: `project-control/investor-demo-readiness-2026-05-24.md` and `.csv`.
+- GENERATED: `reports/investor-demo-readiness-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: Node syntax passed.
+- VERIFIED LIVE READ-ONLY: readiness gate returned `PASS_WITH_DISCLOSED_BLOCKERS` with 11 live/source checks passed, 0 repair checks, 2 demo-data items and 3 external payment blockers.
+- SAFETY: read-only public route/source checks and report generation only; no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, refund, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Lawyer service request desk
 
 - UPDATED: `inc/lawyer-dashboard.php` now stores lawyer service requests for billing, invoice copy, upgrades, downgrades, cancellation, refunds, complaints, lead quality and technical support.

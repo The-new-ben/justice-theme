@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-24 18:50 Asia/Jerusalem
+- INVESTOR DEMO READINESS GATE: added one read-only command that separates live-ready demo proof from demo-data needs and external payment blockers.
+- CREATED: `tools/check-investor-demo-readiness.mjs`.
+- CREATED / GENERATED: `project-control/investor-demo-readiness-2026-05-24.md`, `project-control/investor-demo-readiness-2026-05-24.csv`, `reports/investor-demo-readiness-2026-05-24.json` and `reports/investor-demo-readiness-2026-05-24.csv`.
+- VERIFIED: `node --check tools/check-investor-demo-readiness.mjs` passed.
+- VERIFIED LIVE READ-ONLY: investor demo readiness gate returned `PASS_WITH_DISCLOSED_BLOCKERS`: 11 live/source checks passed, 0 repair checks, 2 demo-data requirements and 3 external payment blockers.
+- OWNER ACTION BEFORE INVESTOR: prepare one claimed demo lawyer profile and one assigned medical-malpractice demo lead. Do not fake real recurring payment, branded automatic invoice or refund execution; demo the manual payment-link path and service-desk request capture honestly.
+- BLOCKED: Grow/Meshulam approval plus product/gateway/subscription mapping still block true automatic recurring lawyer charges, automatic invoices and refund execution.
+- SAFETY: read-only public route/source checks and report generation only; no public CMS/database write, content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, refund, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 18:40 Asia/Jerusalem
 - INVESTOR DEMO EMERGENCY PATH: added and deployed the missing lawyer private-area service desk for subscription lifecycle and support scenarios.
 - UPDATED: `inc/lawyer-dashboard.php` now accepts nonce-protected lawyer service requests for billing question, invoice copy, upgrade, downgrade, cancellation, refund request, complaint, lead quality, technical issue and other support.

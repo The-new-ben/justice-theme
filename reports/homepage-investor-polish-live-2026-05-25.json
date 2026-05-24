@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-05-24T21:12:22.546Z",
+  "startedAt": "2026-05-24T21:14:44.322Z",
   "runDate": "2026-05-25",
   "baseUrl": "https://jus-tice.co.il",
   "expectedMarker": "2026-05-25-owner-demo-payment-playbook-v1",
@@ -12,9 +12,9 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 130240,
-      "durationMs": 1472,
-      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779657142546",
-      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779657142546",
+      "durationMs": 1400,
+      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779657284322",
+      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779657284322",
       "missing": [
         "2026-05-25-owner-demo-payment-playbook-v1"
       ]
@@ -25,9 +25,9 @@
       "status": "PASS",
       "http": 200,
       "bytes": 130240,
-      "durationMs": 1021,
-      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779657142546",
-      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779657142546",
+      "durationMs": 1090,
+      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779657284322",
+      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779657284322",
       "missing": []
     },
     {
@@ -36,9 +36,9 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 192,
-      "durationMs": 9,
-      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779657142546",
-      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779657142546",
+      "durationMs": 10,
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779657284322",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779657284322",
       "missing": [
         "justice-theme-deployment-marker=2026-05-25-owner-demo-payment-playbook-v1",
         "expected-github-main-commit=owner-demo-payment-playbook-v1"
@@ -50,9 +50,9 @@
       "status": "PASS",
       "http": 200,
       "bytes": 38529,
-      "durationMs": 10,
-      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779657142546",
-      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779657142546",
+      "durationMs": 12,
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779657284322",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779657284322",
       "missing": []
     }
   ]

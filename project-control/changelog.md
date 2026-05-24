@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Post-push live report refresh
+
+- REFRESHED: May 25 homepage investor polish and investor demo readiness reports after commit `b9604e3`.
+- VERIFIED LIVE: public investor routes continue to pass on production.
+- BLOCKED: latest payment-playbook marker still needs uPress Pull Git/cache refresh; demo data and payment-provider execution remain external.
+- SAFETY: report/status refresh only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Owner demo payment playbook v1
 
 - ADDED: real payment-link playbook and demo-data checklist to the admin-only investor demo control panel.

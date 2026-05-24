@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-25 00:45 Asia/Jerusalem
+- POST-PUSH LIVE RECHECK: refreshed the May 25 investor readiness reports after commit `b9604e3`.
+- VERIFIED LIVE: homepage lawyer entrypoints, paid plan routing, checkout compliance, registration prefill, logged-out dashboard gate, service desk CSS and Grow policy pages are still passing on production.
+- EXPECTED LIVE MARKER GAP: production still shows the previous marker, so the new admin-only payment-playbook marker `2026-05-25-owner-demo-payment-playbook-v1` still needs uPress Pull Git/cache refresh before it is live.
+- STILL BLOCKED: claimed demo lawyer profile, assigned medical-malpractice lead, real recurring charge, automatic branded invoice and real refund execution remain outside the repo and must not be faked.
+- COMPLETION: public investor route readiness remains about 95%; full end-to-end demo readiness remains about 78% until live pull, demo data and payment-provider test are done.
+- SAFETY: read-only live checks and report refresh only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 00:35 Asia/Jerusalem
 - OWNER DEMO PAYMENT PLAYBOOK V1: added the missing operator instructions directly inside the admin-only investor demo panel, after live checks showed the deployed routes now pass.
 - UPDATED: `inc/lawyer-onboarding.php` now includes a real Morning/Grow payment-link playbook and a demo-data checklist for claimed lawyer profile plus assigned medical-malpractice lead.

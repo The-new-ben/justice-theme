@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Investor demo live rehearsal gate
+
+- RERAN: `node tools/check-investor-demo-readiness.mjs`.
+- RESULT: `PASS_WITH_DISCLOSED_BLOCKERS`.
+- PASSED: `11/11` live/source checks.
+- RECORDED: updated `project-control/investor-demo-readiness-2026-05-24.md`, `project-control/investor-demo-readiness-2026-05-24.csv`, `reports/investor-demo-readiness-2026-05-24.json`, and `reports/investor-demo-readiness-2026-05-24.csv`.
+- STILL NEEDED: claimed demo lawyer dashboard access and assigned medical-malpractice lead walkthrough.
+- BLOCKED: NIS 1 payment/receipt proof, recurring debit authorization, automatic invoice/receipt and real refund execution.
+- SAFETY: read-only checks only; no public CMS/database or payment-provider write occurred.
+
 # 2026-05-24 - Investor demo master runbook
 
 - CREATED: `project-control/investor-demo-master-runbook-2026-05-24.md`.

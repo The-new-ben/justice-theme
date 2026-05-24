@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-24 22:19 Asia/Jerusalem
+- INVESTOR DEMO LIVE REHEARSAL GATE: reran `node tools/check-investor-demo-readiness.mjs` against the live public site and local source markers.
+- RESULT: `PASS_WITH_DISCLOSED_BLOCKERS`.
+- PASSED: `11/11` live/source checks. Homepage lawyer entrypoints, lawyer plans, checkout/manual invoice route, registration prefill, dashboard gate, service desk CSS, Grow policy page, service-request source, dashboard source, owner queue source and investor matrix all passed.
+- STILL NEEDED: `2` demo-data items: claimed demo lawyer profile/dashboard access and assigned medical-malpractice lead walkthrough.
+- STILL BLOCKED: `3` external payment items: real recurring charge, automatic branded invoice/receipt, real refund execution.
+- MATERIAL ADVANCE: this converts the demo from a plan into a fresh read-only rehearsal result; no repair checks are failing right now.
+- OWNER P0: pay the real Grow NIS 1 link and verify the transaction/receipt; prepare login credentials for one claimed demo lawyer before the investor sits down.
+- COMPLETION: live/code demo path is about 90%; money proof remains 75% until NIS 1 is paid; recurring/refund automation remains provider-blocked around 45%.
+- SAFETY: read-only public route checks plus local source/report checks only; no CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 22:17 Asia/Jerusalem
 - INVESTOR DEMO MASTER RUNBOOK: created a practical no-fluff runbook for tomorrow's investor demo that separates real working paths from provider-blocked paths.
 - RESEARCH BASIS: WooCommerce Subscriptions' subscriber account model, WooCommerce renewal recovery, Grow Payment Links sharing, and Morning/Green Invoice digital payment docs support the safest demo framing: real one-time payment link now, recurring only after provider authorization.

@@ -90,3 +90,15 @@ Use `project-control/investor-demo-master-runbook-2026-05-24.md` as the controll
 - Recovery lines for investor questions.
 - Tonight's P0 owner actions.
 - Honest pass/yellow/block status for each commercial scenario.
+
+## Fresh Live Rehearsal Gate
+
+The latest read-only rehearsal gate is `project-control/investor-demo-readiness-2026-05-24.md`.
+
+- Status: `PASS_WITH_DISCLOSED_BLOCKERS`.
+- Passed: `11/11` live/source checks.
+- Checks needing repair: `0`.
+- Demo-data items still needed: claimed demo lawyer dashboard access and assigned medical-malpractice lead walkthrough.
+- External blockers still disclosed: recurring debit authorization, automatic branded invoice/receipt proof and real refund execution.
+
+Investor-safe meaning: the live/code journey is not currently failing the checked routes, but the demo must still disclose payment-provider blockers and must not fake recurring billing, invoice proof or refund execution.

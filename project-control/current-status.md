@@ -4,7 +4,9 @@
 - UPDATED: `assets/css/premium-pass-3.css` adds responsive styling for `.lawyer-dashboard-plan-status`.
 - UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` now checks the deployed CSS marker for the plan/payment card.
 - CREATED: `project-control/lawyer-dashboard-plan-payment-status-2026-05-24.md`.
-- VERIFICATION: pending local lint/checks, commit/push and uPress pull.
+- VERIFIED LOCAL: `php -l page-lawyer-dashboard.php`, `node --check tools/check-live-lawyer-revenue-funnel.mjs` and `git diff --check` passed.
+- DEPLOYED: committed/pushed `d877749`; uPress Git pull log showed `Show lawyer plan payment status` as live HEAD.
+- VERIFIED LIVE READ-ONLY: live dashboard returned 200, live CSS contains `.lawyer-dashboard-plan-status`, logged-out dashboard gate still renders and no `X-Robots-Tag` noindex header was present.
 - SAFETY: display/CSS only and reads existing profile metadata; no CMS database write, public content, redirect/canonical/noindex/sitemap/taxonomy change, payment, invoice, charge, product, gateway, lawyer record, lead record, CRM, email/SMS or GSC/GA4 setting changed.
 
 # LATEST WORK STATUS - 2026-05-24 15:57 Asia/Jerusalem

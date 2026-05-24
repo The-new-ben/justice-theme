@@ -31,9 +31,13 @@ The lawyer private area should not only show profile and lead data. A lawyer who
 
 ## Verification
 
-Pending:
+Completed:
 
 - `php -l page-lawyer-dashboard.php`
 - `node --check tools/check-live-lawyer-revenue-funnel.mjs`
 - `git diff --check`
-- uPress pull after commit/push because this is public theme code.
+- Commit `d877749` pushed to `origin/main`.
+- uPress Git pull log showed `Show lawyer plan payment status` as the live HEAD.
+- Live `/lawyer-dashboard/` returned HTTP 200.
+- Live `premium-pass-3.css` contains `.lawyer-dashboard-plan-status`.
+- Logged-out dashboard gate still renders, and no `X-Robots-Tag` noindex header was present.

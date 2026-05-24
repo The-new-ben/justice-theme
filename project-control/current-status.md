@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-24 20:29 Asia/Jerusalem
+- PAYMENT HANDOFF DEPLOYMENT GATE: added an exact live marker check so tomorrow's demo cannot accidentally rely on payment-handoff code that is only pushed to GitHub.
+- RESEARCH BASIS: for real payment links, current best practice is to prove the customer can reach a real payment action through a shareable provider link or account payment page; because our new handoff is admin-side PHP, a public deployment marker is the safest read-only way to prove uPress pulled the relevant code.
+- UPDATED: `functions.php` and `deployment-marker.txt` now use `2026-05-24-lawyer-payment-handoff-v1`.
+- CREATED: `tools/check-payment-handoff-live-deployment.mjs` plus live report files under `project-control/` and `reports/`.
+- VERIFIED LOCAL: `php -l functions.php` and `node --check tools/check-payment-handoff-live-deployment.mjs` passed.
+- VERIFIED LIVE READ-ONLY: the new checker correctly returns `REVIEW 0/2` right now because production still serves the old marker. This confirms the uPress pull blocker is real and visible.
+- BLOCKED: uPress must pull latest GitHub `main` before relying on the email/WhatsApp payment-handoff features in the investor demo.
+- SAFETY: marker/checker/reporting only; no public CMS/database write, content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, payment, invoice, charge, refund, lawyer record, lead, CRM record, email/SMS/WhatsApp send or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 20:19 Asia/Jerusalem
 - WHATSAPP PAYMENT HANDOFF: added one-click WhatsApp sharing for the same real manual invoice/payment-link message used in the admin queue.
 - RESEARCH BASIS: Grow explicitly positions Payment Links as shareable through WhatsApp, email and SMS; WooCommerce Subscriptions documents manual/failed renewal recovery as a customer Pay action reached from a link or account area rather than a silent/fake charge.

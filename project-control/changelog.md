@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Payment handoff deployment gate
+
+- UPDATED: `functions.php` deployment marker to `2026-05-24-lawyer-payment-handoff-v1`.
+- UPDATED: `deployment-marker.txt` static marker to the same payment-handoff marker.
+- CREATED: `tools/check-payment-handoff-live-deployment.mjs`.
+- GENERATED: `project-control/payment-handoff-live-deployment-2026-05-24.md` and `.csv`.
+- GENERATED: `reports/payment-handoff-live-deployment-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: PHP syntax and Node syntax passed.
+- VERIFIED LIVE READ-ONLY: checker returned `REVIEW 0/2`, proving production has not yet pulled the payment-handoff marker.
+- SAFETY: marker/checker/reporting only; no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway setting, payment, invoice, charge, refund, lawyer record, lead, CRM record, email/SMS/WhatsApp send or GSC/GA4 setting changed.
+
 ## 2026-05-24 - WhatsApp payment handoff
 
 - UPDATED: `inc/lawyer-onboarding.php` now builds WhatsApp payment-handoff URLs from lawyer WhatsApp/phone metadata and the existing manual invoice/payment-link message.

@@ -1,0 +1,37 @@
+{
+  "startedAt": "2026-05-24T17:29:48.818Z",
+  "runDate": "2026-05-24",
+  "baseUrl": "https://jus-tice.co.il",
+  "expectedMarker": "2026-05-24-lawyer-payment-handoff-v1",
+  "passCount": 0,
+  "reviewCount": 2,
+  "results": [
+    {
+      "id": "homepage-runtime-marker",
+      "name": "Homepage runtime deployment marker",
+      "status": "REVIEW",
+      "http": 200,
+      "bytes": 127969,
+      "durationMs": 1272,
+      "url": "https://jus-tice.co.il/?payment_handoff_marker_check=1779643788822",
+      "finalUrl": "https://jus-tice.co.il/?payment_handoff_marker_check=1779643788822",
+      "missing": [
+        "2026-05-24-lawyer-payment-handoff-v1"
+      ]
+    },
+    {
+      "id": "static-theme-marker",
+      "name": "Static theme deployment marker",
+      "status": "REVIEW",
+      "http": 200,
+      "bytes": 194,
+      "durationMs": 23,
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?payment_handoff_marker_check=1779643788822",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?payment_handoff_marker_check=1779643788822",
+      "missing": [
+        "justice-theme-deployment-marker=2026-05-24-lawyer-payment-handoff-v1",
+        "expected-github-main-commit=lawyer-payment-handoff-v1"
+      ]
+    }
+  ]
+}

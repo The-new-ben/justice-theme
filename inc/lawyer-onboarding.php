@@ -2405,6 +2405,46 @@ function justice_theme_lawyer_onboarding_billing_meta_query( string $status ): a
 	return $base;
 }
 
+function justice_theme_lawyer_onboarding_payment_link_meta_query( string $status ): array {
+	$base = array(
+		'relation' => 'AND',
+		array(
+			'key'   => 'payment_path',
+			'value' => 'manual_invoice',
+		),
+		array(
+			'key'     => 'payment_followup_status',
+			'value'   => array( 'invoice_requested', 'invoice_sent' ),
+			'compare' => 'IN',
+		),
+	);
+
+	if ( 'ready' === $status ) {
+		$base[] = array(
+			'key'     => 'manual_payment_link_url',
+			'value'   => '',
+			'compare' => '!=',
+		);
+
+		return $base;
+	}
+
+	$base[] = justice_theme_lawyer_onboarding_billing_meta_query( 'ready' );
+	$base[] = array(
+		'relation' => 'OR',
+		array(
+			'key'     => 'manual_payment_link_url',
+			'compare' => 'NOT EXISTS',
+		),
+		array(
+			'key'   => 'manual_payment_link_url',
+			'value' => '',
+		),
+	);
+
+	return $base;
+}
+
 function justice_theme_lawyer_onboarding_source_filter_keys(): array {
 	return array(
 		'outreach_segment'  => 'Segment',
@@ -2811,6 +2851,8 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$payment_due_soon_count = justice_theme_lawyer_onboarding_payment_due_count( 'due_soon' );
 	$billing_missing_count  = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_billing_meta_query( 'missing' ) );
 	$billing_ready_count    = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_billing_meta_query( 'ready' ) );
+	$payment_link_needed_count = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_payment_link_meta_query( 'needed' ) );
+	$payment_link_ready_count  = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_payment_link_meta_query( 'ready' ) );
 	$invoice_requested_value = justice_theme_lawyer_onboarding_monthly_value( array(
 		array(
 			'key'   => 'payment_followup_status',
@@ -2839,6 +2881,8 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$payment_due_soon_value  = justice_theme_lawyer_onboarding_payment_due_value( 'due_soon' );
 	$billing_missing_value   = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_billing_meta_query( 'missing' ) );
 	$billing_ready_value     = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_billing_meta_query( 'ready' ) );
+	$payment_link_needed_value = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_payment_link_meta_query( 'needed' ) );
+	$payment_link_ready_value  = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_payment_link_meta_query( 'ready' ) );
 	$queue_url               = add_query_arg(
 		array(
 			'page'          => 'justice-lawyer-onboarding',
@@ -2881,6 +2925,20 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 		),
 		admin_url( 'admin.php' )
 	);
+	$payment_link_needed_url = add_query_arg(
+		array(
+			'page'                => 'justice-lawyer-onboarding',
+			'payment_link_status' => 'needed',
+		),
+		admin_url( 'admin.php' )
+	);
+	$payment_link_ready_url  = add_query_arg(
+		array(
+			'page'                => 'justice-lawyer-onboarding',
+			'payment_link_status' => 'ready',
+		),
+		admin_url( 'admin.php' )
+	);
 	$all_url                 = admin_url( 'admin.php?page=justice-lawyer-onboarding' );
 	$invoice_requested_export_url = justice_theme_lawyer_payment_queue_export_url( 'invoice_requested' );
 	$invoice_sent_export_url      = justice_theme_lawyer_payment_queue_export_url( 'invoice_sent' );
@@ -2906,6 +2964,13 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 		$next_money_button = 'Open missing billing';
 		$next_money_value = $billing_missing_value;
 		$next_money_value_note = 'needs billing details';
+	} elseif ( $payment_link_needed_count ) {
+		$next_money_title  = 'Create payment links';
+		$next_money_body   = 'These manual-invoice registrations already have billing identity and invoice email, but no saved Grow/Morning payment link. Create the link, paste it into the lawyer record, then mark invoice sent.';
+		$next_money_url    = $payment_link_needed_url;
+		$next_money_button = 'Open link-needed queue';
+		$next_money_value = $payment_link_needed_value;
+		$next_money_value_note = 'ready for link';
 	} elseif ( $invoice_requested_count ) {
 		$next_money_title  = 'Send or chase manual invoices';
 		$next_money_body   = 'Open the invoice queue, verify the lawyer and plan, send Morning/Grow/manual payment instructions, then activate only after payment confirmation.';
@@ -2969,6 +3034,18 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 				<span>Billing ready</span>
 				<small style="display:block;margin-top:6px;color:#166534;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $billing_ready_value ) ); ?> invoice-ready</small>
 				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $billing_ready_url ); ?>">Open billing ready</a></p>
+			</div>
+			<div style="border:1px solid #f5d58c;background:#fffaf0;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $payment_link_needed_count ) ); ?></strong>
+				<span>Needs payment link</span>
+				<small style="display:block;margin-top:6px;color:#92400e;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $payment_link_needed_value ) ); ?> ready for link</small>
+				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $payment_link_needed_url ); ?>">Open link-needed</a></p>
+			</div>
+			<div style="border:1px solid #d4e8d4;background:#f7fff7;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $payment_link_ready_count ) ); ?></strong>
+				<span>Payment link ready</span>
+				<small style="display:block;margin-top:6px;color:#166534;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $payment_link_ready_value ) ); ?> link attached</small>
+				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $payment_link_ready_url ); ?>">Open link ready</a></p>
 			</div>
 			<div style="border:1px solid #d6e4ff;background:#f7faff;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $invoice_sent_count ) ); ?></strong>
@@ -3043,6 +3120,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	$payment_queue = isset( $_GET['payment_queue'] ) ? sanitize_key( wp_unslash( $_GET['payment_queue'] ) ) : '';
 	$payment_due   = isset( $_GET['payment_due'] ) ? sanitize_key( wp_unslash( $_GET['payment_due'] ) ) : '';
 	$billing_status = isset( $_GET['billing_status'] ) ? sanitize_key( wp_unslash( $_GET['billing_status'] ) ) : '';
+	$payment_link_status = isset( $_GET['payment_link_status'] ) ? sanitize_key( wp_unslash( $_GET['payment_link_status'] ) ) : '';
 	$source_key    = isset( $_GET['source_key'] ) ? sanitize_key( wp_unslash( $_GET['source_key'] ) ) : '';
 	$source_value  = isset( $_GET['source_value'] ) ? sanitize_text_field( wp_unslash( $_GET['source_value'] ) ) : '';
 	$source_filter_keys = justice_theme_lawyer_onboarding_source_filter_keys();
@@ -3054,6 +3132,10 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 
 	if ( ! in_array( $billing_status, array( 'missing', 'ready' ), true ) ) {
 		$billing_status = '';
+	}
+
+	if ( ! in_array( $payment_link_status, array( 'needed', 'ready' ), true ) ) {
+		$payment_link_status = '';
 	}
 
 	if ( ! array_key_exists( $source_key, $source_filter_keys ) || '' === $source_value ) {
@@ -3106,6 +3188,14 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 			'relation' => 'AND',
 			$meta_query,
 			justice_theme_lawyer_onboarding_billing_meta_query( $billing_status ),
+		);
+	}
+
+	if ( $payment_link_status ) {
+		$meta_query = array(
+			'relation' => 'AND',
+			$meta_query,
+			justice_theme_lawyer_onboarding_payment_link_meta_query( $payment_link_status ),
 		);
 	}
 
@@ -3176,6 +3266,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php endif; ?>
 		<?php if ( $billing_status ) : ?>
 			<div class="notice notice-info inline"><p>Showing only manual-invoice lawyer registrations with billing status: <?php echo esc_html( 'ready' === $billing_status ? 'billing ready' : 'missing billing details' ); ?>. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
+		<?php endif; ?>
+		<?php if ( $payment_link_status ) : ?>
+			<div class="notice notice-info inline"><p>Showing only manual-invoice lawyer registrations with payment-link status: <?php echo esc_html( 'ready' === $payment_link_status ? 'payment link ready' : 'needs payment link' ); ?>. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
 		<?php endif; ?>
 		<?php if ( $source_key && $source_value ) : ?>
 			<div class="notice notice-info inline"><p>Showing only lawyer registrations from <?php echo esc_html( $source_filter_keys[ $source_key ] ); ?>: <?php echo esc_html( $source_value ); ?>. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>

@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-MAYA-LAWYER-LIVE-READONLY-QA-001: Add focused live smoke checker for Maya lawyer mini-site
+**Status:** FIXED / VERIFIED LIVE READ-ONLY PARTIAL / BLOCKED LIVE QA / NOT SCREENSHOT VERIFIED / NO PUBLIC CMS CHANGE
+**Why:** the Maya mini-site readiness packet required live route/canonical/robots/schema/profile checks, but there was no focused read-only checker capturing the current public failure mode.
+**Actions:**
+1. DONE: created `tools/check-maya-lawyer-live-readonly.mjs`.
+2. DONE: generated `project-control/maya-lawyer-live-readonly-2026-05-22.md`.
+3. DONE: generated `project-control/maya-lawyer-live-readonly-2026-05-22.csv`.
+4. GENERATED: `reports/maya-lawyer-live-readonly-2026-05-22.csv`.
+5. GENERATED: `reports/maya-lawyer-live-readonly-2026-05-22.json`.
+6. VERIFIED LOCAL: `node --check tools/check-maya-lawyer-live-readonly.mjs` passed.
+7. VERIFIED LIVE READ-ONLY PARTIAL: anonymous REST type discovery exposes `justice_lawyer`.
+8. BLOCKED LIVE QA: `/lawyers/advocate-maya-rotenberg/` returns HTTP `404`, has no canonical, exposes `noindex, follow`, renders the 404 page and the anonymous Maya slug lookup returns `0` records.
+9. NEXT: after owner-approved profile route/cache/CMS setup, rerun this checker; require HTTP 200, self-canonical, index/follow, one public Maya profile record, Attorney/Person schema and desktop/mobile screenshots.
+
 ### ACTION-FAMILY-LAW-OWNER-WORDING-APPROVAL-001: Prepare owner wording approval packet for Family/Divorce draft modules
 **Status:** FIXED PLANNING / VERIFIED LOCAL / OWNER DECISION PENDING / BLOCKED PUBLIC EXECUTION / NO PUBLIC CMS CHANGE
 **Why:** the readiness gate identified five draft modules ready for owner wording review; the next safe step is a precise approval packet before any legal body-copy edit.

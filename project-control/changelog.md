@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-22 - Maya lawyer live read-only QA
+
+- CREATED: `tools/check-maya-lawyer-live-readonly.mjs`.
+- CREATED: `project-control/maya-lawyer-live-readonly-2026-05-22.md`.
+- CREATED: `project-control/maya-lawyer-live-readonly-2026-05-22.csv`.
+- GENERATED: `reports/maya-lawyer-live-readonly-2026-05-22.csv`.
+- GENERATED: `reports/maya-lawyer-live-readonly-2026-05-22.json`.
+- VERIFIED LOCAL: `node --check tools/check-maya-lawyer-live-readonly.mjs` passed.
+- VERIFIED LIVE READ-ONLY PARTIAL: anonymous WordPress REST type discovery exposes `justice_lawyer`.
+- BLOCKED LIVE QA: `/lawyers/advocate-maya-rotenberg/` returns HTTP `404`, has no canonical, exposes `noindex, follow`, renders the 404 page and anonymous `justice_lawyer?slug=advocate-maya-rotenberg` returns `0` records.
+- NOT SCREENSHOT VERIFIED: no browser screenshots were captured because the route is not yet live-ready.
+- SAFETY: no public CMS record, lawyer profile data, page body, title, H1, meta, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media asset, lawyer card, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 - Family Law owner wording approval packet
 
 - CREATED: `project-control/family-law-owner-wording-approval-2026-05-22.md`.

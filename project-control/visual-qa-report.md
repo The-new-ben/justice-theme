@@ -2,6 +2,16 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-22 Maya Lawyer Live Read-Only QA
+- CREATED / VERIFIED LOCAL: `tools/check-maya-lawyer-live-readonly.mjs`.
+- CREATED / VERIFIED LIVE READ-ONLY PARTIAL: `project-control/maya-lawyer-live-readonly-2026-05-22.md`.
+- CREATED / VERIFIED LIVE READ-ONLY PARTIAL: `project-control/maya-lawyer-live-readonly-2026-05-22.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY PARTIAL: `reports/maya-lawyer-live-readonly-2026-05-22.csv` and `.json`.
+- VERIFIED LIVE READ-ONLY PARTIAL: anonymous REST type discovery exposes `justice_lawyer`.
+- BLOCKED LIVE QA: `/lawyers/advocate-maya-rotenberg/` still returns HTTP `404`, no canonical, `noindex, follow`, 404 page title/H1 and anonymous Maya slug lookup count `0`.
+- NOT SCREENSHOT VERIFIED: no desktop/mobile screenshots were captured because the Maya profile route is still blocked before visible mini-site QA.
+- SAFETY: no public CMS record, lawyer profile data, page body, title, H1, meta, URL redirect rule, canonical/noindex setting, taxonomy, sitemap setting, media asset, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Family Law Owner Wording Approval Packet
 - CREATED / VERIFIED LOCAL: `project-control/family-law-owner-wording-approval-2026-05-22.md`.
 - CREATED / VERIFIED LOCAL: `project-control/family-law-owner-wording-approval-2026-05-22.csv`.

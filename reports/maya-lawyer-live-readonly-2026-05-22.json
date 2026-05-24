@@ -1,0 +1,117 @@
+{
+  "summary": {
+    "report_date": "2026-05-22",
+    "overall_status": "BLOCKED LIVE QA / VERIFIED LIVE READ-ONLY PARTIAL / NO PUBLIC CHANGES",
+    "total_rows": 7,
+    "verified_rows": 1,
+    "blocked_rows": 5,
+    "not_verified_rows": 1
+  },
+  "pageEvidence": {
+    "http_status": 404,
+    "final_url": "https://jus-tice.co.il/lawyers/advocate-maya-rotenberg/",
+    "content_type": "text/html; charset=UTF-8",
+    "title": "Page not found | Jus-Tice.co.il",
+    "h1_count": 1,
+    "h1_texts": "העמוד לא נמצא",
+    "canonical": "",
+    "robots": "noindex, follow",
+    "schema_types": "WebSite | BreadcrumbList",
+    "hebrew_character_count": 1249,
+    "body_contains_slug": "yes",
+    "rest_type_http": 200,
+    "rest_type_base": "justice_lawyer",
+    "rest_slug_http": 200,
+    "rest_slug_count": 0,
+    "rest_slug_ids": "",
+    "rest_slug_links": ""
+  },
+  "restDiscovery": {
+    "http": 200,
+    "restBase": "justice_lawyer",
+    "found": true,
+    "issue": ""
+  },
+  "restLookup": {
+    "http": 200,
+    "count": 0,
+    "ids": "",
+    "links": "",
+    "issue": ""
+  },
+  "rows": [
+    {
+      "check_id": "MAYA-LIVE-001",
+      "scope": "profile route status and final path",
+      "status": "BLOCKED LIVE QA",
+      "evidence": "HTTP 404; final URL https://jus-tice.co.il/lawyers/advocate-maya-rotenberg/",
+      "issues": "http_404",
+      "next_step": "After deploy/cache control, require HTTP 200 on the canonical Maya profile path.",
+      "http_status": 404,
+      "final_url": "https://jus-tice.co.il/lawyers/advocate-maya-rotenberg/",
+      "content_type": "text/html; charset=UTF-8",
+      "title": "Page not found | Jus-Tice.co.il",
+      "h1_count": 1,
+      "h1_texts": "העמוד לא נמצא",
+      "canonical": "",
+      "robots": "noindex, follow",
+      "schema_types": "WebSite | BreadcrumbList",
+      "hebrew_character_count": 1249,
+      "body_contains_slug": "yes",
+      "rest_type_http": 200,
+      "rest_type_base": "justice_lawyer",
+      "rest_slug_http": 200,
+      "rest_slug_count": 0,
+      "rest_slug_ids": "",
+      "rest_slug_links": ""
+    },
+    {
+      "check_id": "MAYA-LIVE-002",
+      "scope": "canonical and robots",
+      "status": "BLOCKED LIVE QA",
+      "evidence": "canonical=-; robots=noindex, follow",
+      "issues": "canonical_missing_or_mismatch;noindex_detected",
+      "next_step": "Require self-canonical and index/follow only after profile approval and route repair."
+    },
+    {
+      "check_id": "MAYA-LIVE-003",
+      "scope": "visible profile identity",
+      "status": "BLOCKED LIVE QA",
+      "evidence": "title=Page not found | Jus-Tice.co.il; h1=העמוד לא נמצא",
+      "issues": "page_not_found_title;not_profile_http_200",
+      "next_step": "Open the rendered profile after route repair and verify Maya profile content, not a 404 or homepage fallback."
+    },
+    {
+      "check_id": "MAYA-LIVE-004",
+      "scope": "Attorney or Person JSON-LD",
+      "status": "BLOCKED LIVE QA",
+      "evidence": "schema_types=WebSite | BreadcrumbList",
+      "issues": "route_not_eligible_for_schema_until_http_200",
+      "next_step": "After profile route repair, inspect JSON-LD and run Rich Results validation."
+    },
+    {
+      "check_id": "MAYA-LIVE-005",
+      "scope": "anonymous lawyer REST type discovery",
+      "status": "VERIFIED LIVE READ-ONLY",
+      "evidence": "types_http=200; rest_base=justice_lawyer",
+      "issues": "-",
+      "next_step": "Keep anonymous REST type discovery available only with public response guards."
+    },
+    {
+      "check_id": "MAYA-LIVE-006",
+      "scope": "anonymous Maya REST slug lookup",
+      "status": "BLOCKED LIVE QA",
+      "evidence": "rest_http=200; count=0; ids=-; links=-",
+      "issues": "rest_count_0",
+      "next_step": "After route/profile approval, require exactly one public approved Maya profile record or keep public route blocked."
+    },
+    {
+      "check_id": "MAYA-LIVE-007",
+      "scope": "desktop and mobile screenshot evidence",
+      "status": "NOT VERIFIED",
+      "evidence": "Node fetch check does not capture rendered screenshots.",
+      "issues": "not_screenshot_verified",
+      "next_step": "Capture desktop and mobile screenshots after live route checks pass."
+    }
+  ]
+}

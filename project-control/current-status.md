@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-22 23:32 Asia/Jerusalem
+- MAYA LAWYER LIVE READ-ONLY QA: added a focused public smoke checker for `/lawyers/advocate-maya-rotenberg/` and generated a current route/REST report.
+- CREATED: `tools/check-maya-lawyer-live-readonly.mjs`.
+- CREATED: `project-control/maya-lawyer-live-readonly-2026-05-22.md`.
+- CREATED: `project-control/maya-lawyer-live-readonly-2026-05-22.csv`.
+- GENERATED: `reports/maya-lawyer-live-readonly-2026-05-22.csv`.
+- GENERATED: `reports/maya-lawyer-live-readonly-2026-05-22.json`.
+- VERIFIED LIVE READ-ONLY PARTIAL: anonymous `wp/v2/types` exposes `justice_lawyer`.
+- BLOCKED LIVE QA: `/lawyers/advocate-maya-rotenberg/` returns HTTP `404`, has no canonical, exposes `noindex, follow`, renders the site 404 title/H1 and anonymous `justice_lawyer?slug=advocate-maya-rotenberg` returns `0` records.
+- NOT SCREENSHOT VERIFIED: no desktop/mobile screenshots were captured because the profile route is not yet HTTP 200/live-ready.
+- NOT PUBLISHED: no public CMS record, lawyer profile data, page body, title, H1, meta, URL slug, redirect, canonical/noindex, taxonomy, sitemap, media asset, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 23:20 Asia/Jerusalem
 - FAMILY/DIVORCE OWNER WORDING APPROVAL PACKET: converted the draft enhancement readiness gate into explicit owner approve/edit/hold decisions before any legal body-copy edits.
 - CREATED: `project-control/family-law-owner-wording-approval-2026-05-22.md`.

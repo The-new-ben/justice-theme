@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Header lawyer revenue links
+
+- UPDATED: `template-parts/layout/site-header.php` now labels the desktop lawyer plan CTA as `מסלולים לעורכי דין` and the portal CTA as `אזור אישי`.
+- UPDATED: `assets/css/premium-pass-3.css` adds full/short header-label switching so mobile keeps compact labels.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` verifies the clearer header text and CSS markers.
+- CREATED: `project-control/header-lawyer-revenue-links-2026-05-24.md`.
+- REGENERATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md` and `.csv`.
+- REGENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: PHP syntax, Node syntax and `git diff --check` passed.
+- DEPLOYED: `090aa6c Clarify header lawyer revenue links` was pushed and pulled through uPress; uPress log showed it as live `HEAD`.
+- VERIFIED LIVE READ-ONLY: full lawyer revenue funnel check passed `8/8`.
+- SAFETY: no CMS database write, public content, redirect/canonical/noindex/sitemap/taxonomy change, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Lawyer registration paid state gate
 
 - UPDATED: `page-lawyer-registration.php` now renders the selected plan option server-side for all lawyer registration plan interests.

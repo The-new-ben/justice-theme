@@ -1,3 +1,17 @@
+# LATEST WORK STATUS - 2026-05-24 16:32 Asia/Jerusalem
+- HEADER LAWYER REVENUE LINKS: made the top-of-site lawyer path more explicit for subscription sales and retention.
+- RESEARCH BASIS: Justia sells lawyer visibility through free/enhanced profiles and paid premium placements by practice/metro; Clio frames intake/reporting value through a dashboard/portal.
+- UPDATED: `template-parts/layout/site-header.php` changes the desktop lawyer CTAs to `מסלולים לעורכי דין` and `אזור אישי`, with compact mobile labels `מסלולים` and `כניסה`.
+- UPDATED: `assets/css/premium-pass-3.css` adds full/short label switching for the sticky header.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` now verifies the clearer homepage/header text and header label CSS markers.
+- CREATED: `project-control/header-lawyer-revenue-links-2026-05-24.md`.
+- GENERATED / UPDATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md`, `project-control/lawyer-revenue-funnel-live-2026-05-24.csv`, `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `reports/lawyer-revenue-funnel-live-2026-05-24.csv`.
+- VERIFIED LOCAL: `php -l template-parts/layout/site-header.php`, `node --check tools/check-live-lawyer-revenue-funnel.mjs` and `git diff --check` passed.
+- DEPLOYED: committed/pushed `090aa6c`; uPress Git pull log showed `Clarify header lawyer revenue links` as live HEAD.
+- VERIFIED LIVE READ-ONLY: the full lawyer revenue funnel check passed `8/8`.
+- BLOCKED: automated recurring lawyer payments still require Grow/Meshulam approval plus gateway/product mapping.
+- SAFETY: theme display/CSS/checker/docs and read-only live checks only; no CMS database write, public content, redirect/canonical/noindex/sitemap/taxonomy change, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 16:24 Asia/Jerusalem
 - LAWYER REGISTRATION PAID STATE GATE: hardened the paid lawyer signup path so a Lead Partner/manual-invoice visitor cannot silently fall back to the free plan if JavaScript is unavailable.
 - UPDATED: `page-lawyer-registration.php` now renders the selected `plan_interest` option server-side with WordPress `selected()` attributes.

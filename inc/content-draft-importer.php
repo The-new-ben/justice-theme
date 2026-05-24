@@ -537,13 +537,25 @@ function justice_theme_markdown_draft_to_html( string $raw ): string {
 }
 
 function justice_theme_markdown_inline_to_html( string $text ): string {
-	$parts = preg_split( '/(`\/[^`]+`)/u', $text, -1, PREG_SPLIT_DELIM_CAPTURE );
+	$parts = preg_split( '/(\[[^\]\r\n]+\]\((?:\/[^)\s]*|https?:\/\/(?:www\.)?jus-tice\.co\.il\/[^)\s]*)\)|`\/[^`]+`)/u', $text, -1, PREG_SPLIT_DELIM_CAPTURE );
 	if ( false === $parts ) {
 		return esc_html( $text );
 	}
 
 	$html = '';
 	foreach ( $parts as $part ) {
+		if ( preg_match( '/^\[([^\]\r\n]+)\]\((\/[^)\s]*|https?:\/\/(?:www\.)?jus-tice\.co\.il\/[^)\s]*)\)$/u', $part, $matches ) ) {
+			$label = trim( wp_strip_all_tags( $matches[1] ) );
+			$url   = trim( $matches[2] );
+
+			if ( 0 === strpos( $url, '/' ) ) {
+				$url = home_url( '/' . trim( $url, '/' ) . '/' );
+			}
+
+			$html .= '<a href="' . esc_url( justice_theme_public_url( $url ) ) . '">' . esc_html( $label ) . '</a>';
+			continue;
+		}
+
 		if ( preg_match( '/^`(\/[^`]+)`$/u', $part, $matches ) ) {
 			$path  = '/' . trim( $matches[1], '/' ) . '/';
 			$html .= '<a href="' . esc_url( home_url( $path ) ) . '">' . esc_html( $path ) . '</a>';

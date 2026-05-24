@@ -53,6 +53,7 @@ $justice_theme_files = array(
 	'inc/lawyer-plans.php',
 	'inc/taxonomy-seed.php',
 	'inc/city-practice-pages.php',
+	'inc/local-money-routes.php',
 	'inc/cleanup.php',
 	'inc/live-migrations.php',
 	'inc/practice-area-icons.php',

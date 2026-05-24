@@ -18,6 +18,7 @@ if ( is_array( $justice_real_estate_config ) ) {
 	$justice_real_estate_config['keyword']    = 'עורך דין מקרקעין';
 	$justice_real_estate_config['summary']    = 'מרכז מידע מעשי על קנייה ומכירת דירה, חוזי מכר, רישום זכויות, מיסוי מקרקעין, איחור במסירה ובדיקות משפטיות לפני עסקת נדל"ן.';
 	$justice_real_estate_config['supporting'] = array(
+		array( 'label' => 'עורך דין מקרקעין במודיעין', 'url' => '/real-estate-lawyer-modiin/' ),
 		array( 'label' => 'עורך דין קניית דירה ומכירת דירה', 'url' => '/lawyer-for-buying-or-selling-a-house/' ),
 		array( 'label' => 'רישום זכויות מקרקעין בישראל', 'url' => '/registration-of-real-estate-israel/' ),
 		array( 'label' => 'מס שבח מקרקעין', 'url' => '/land-appreciation-tax/' ),

@@ -114,6 +114,17 @@ function justice_theme_render_sitemap_articles() {
 	// Homepage as first entry.
 	$xml .= justice_theme_sitemap_url_entry( home_url( '/' ), '1.0', 'weekly' );
 
+	if ( function_exists( 'justice_theme_local_money_route_sitemap_entries' ) ) {
+		foreach ( justice_theme_local_money_route_sitemap_entries() as $entry ) {
+			$xml .= justice_theme_sitemap_url_entry(
+				(string) ( $entry['loc'] ?? '' ),
+				(string) ( $entry['priority'] ?? '0.7' ),
+				(string) ( $entry['changefreq'] ?? 'monthly' ),
+				(string) ( $entry['lastmod'] ?? '' )
+			);
+		}
+	}
+
 	$articles = get_posts( array(
 		'post_type'      => 'articles',
 		'post_status'    => 'publish',

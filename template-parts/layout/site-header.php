@@ -107,6 +107,15 @@ $justice_topic_links = array(
 				?>
 			</nav>
 
+			<div class="site-header__lawyer-actions" aria-label="<?php esc_attr_e( 'אזור עורכי דין', 'justice-theme' ); ?>">
+				<a class="site-header__lawyer-link site-header__lawyer-link--plans" href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>">
+					<?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?>
+				</a>
+				<a class="site-header__lawyer-link" href="<?php echo esc_url( home_url( '/lawyer-dashboard/' ) ); ?>">
+					<?php esc_html_e( 'כניסה', 'justice-theme' ); ?>
+				</a>
+			</div>
+
 			<?php if ( $justice_phone ) : ?>
 				<a class="site-header__cta button button--gold" href="<?php echo esc_url( 'tel:' . preg_replace( '/[^0-9+]/', '', $justice_phone ) ); ?>">
 					<?php echo esc_html( $justice_phone ); ?>

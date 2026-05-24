@@ -1,3 +1,3 @@
 id,status,http,bytes,durationMs,missing,url,finalUrl
-homepage-runtime-marker,PASS,200,127961,1216,-,https://jus-tice.co.il/?payment_handoff_marker_check=1779644564317,https://jus-tice.co.il/?payment_handoff_marker_check=1779644564317
-static-theme-marker,PASS,200,178,9,-,https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?payment_handoff_marker_check=1779644564317,https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?payment_handoff_marker_check=1779644564317
+homepage-runtime-marker,REVIEW,200,127961,1361,2026-05-24-lawyer-account-invite-v1,https://jus-tice.co.il/?payment_handoff_marker_check=1779644989135,https://jus-tice.co.il/?payment_handoff_marker_check=1779644989135
+static-theme-marker,REVIEW,200,178,10,justice-theme-deployment-marker=2026-05-24-lawyer-account-invite-v1,https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?payment_handoff_marker_check=1779644989135,https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?payment_handoff_marker_check=1779644989135

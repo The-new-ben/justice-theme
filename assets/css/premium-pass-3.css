@@ -3032,6 +3032,57 @@
   font-weight: 900;
 }
 
+.lawyer-dashboard-service-request__self-help {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.lawyer-dashboard-service-request__self-help article {
+  display: grid;
+  gap: 0.55rem;
+  align-content: start;
+  border: 1px solid rgba(153, 27, 27, 0.14);
+  border-radius: 8px;
+  background: #fff;
+  padding: 0.9rem;
+}
+
+.lawyer-dashboard-service-request__self-help strong {
+  color: var(--jt-primary-deep);
+  font-size: 0.98rem;
+}
+
+.lawyer-dashboard-service-request__self-help p {
+  margin: 0;
+  color: var(--jt-muted);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
+.lawyer-dashboard-service-request__self-help article > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.42rem;
+}
+
+.lawyer-dashboard-service-request__self-help .button {
+  min-height: 34px;
+  padding: 0.42rem 0.62rem;
+  border: 1px solid rgba(153, 27, 27, 0.18);
+  background: #fff7f7;
+  color: var(--jt-primary-deep);
+  font-size: 0.78rem;
+  box-shadow: none;
+}
+
+.lawyer-dashboard-service-request__self-help .button:hover,
+.lawyer-dashboard-service-request__self-help .button:focus-visible {
+  border-color: rgba(153, 27, 27, 0.38);
+  background: rgba(153, 27, 27, 0.08);
+}
+
 .lawyer-dashboard-service-request__form textarea {
   min-height: 140px;
 }
@@ -3273,6 +3324,7 @@
   .lawyer-dashboard__first-value,
   .lawyer-dashboard-growth__header,
   .lawyer-dashboard-service-request__header,
+  .lawyer-dashboard-service-request__self-help,
   .lawyer-dashboard-pipeline__header,
   .lawyer-dashboard-profile dl,
   .lawyer-dashboard-leads article,

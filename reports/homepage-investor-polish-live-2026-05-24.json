@@ -1,8 +1,8 @@
 {
-  "startedAt": "2026-05-24T19:51:41.498Z",
+  "startedAt": "2026-05-24T20:03:57.842Z",
   "runDate": "2026-05-24",
   "baseUrl": "https://jus-tice.co.il",
-  "expectedMarker": "2026-05-24-investor-revenue-polish-v2",
+  "expectedMarker": "2026-05-24-lawyer-self-service-support-v1",
   "passCount": 0,
   "reviewCount": 4,
   "results": [
@@ -12,11 +12,11 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 127962,
-      "durationMs": 1207,
-      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779652301498",
-      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779652301498",
+      "durationMs": 1127,
+      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779653037845",
+      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779653037845",
       "missing": [
-        "2026-05-24-investor-revenue-polish-v2"
+        "2026-05-24-lawyer-self-service-support-v1"
       ]
     },
     {
@@ -25,9 +25,9 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 127962,
-      "durationMs": 1011,
-      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779652301498",
-      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779652301498",
+      "durationMs": 1000,
+      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779653037845",
+      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779653037845",
       "missing": [
         "hero__lawyer-access",
         "homepage-lawyer-revenue",
@@ -41,12 +41,12 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 177,
-      "durationMs": 8,
-      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779652301498",
-      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779652301498",
+      "durationMs": 12,
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779653037845",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779653037845",
       "missing": [
-        "justice-theme-deployment-marker=2026-05-24-investor-revenue-polish-v2",
-        "expected-github-main-commit=f0238bc-investor-revenue-polish-v2"
+        "justice-theme-deployment-marker=2026-05-24-lawyer-self-service-support-v1",
+        "expected-github-main-commit=lawyer-self-service-support-v1"
       ]
     },
     {
@@ -55,9 +55,9 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 31715,
-      "durationMs": 38,
-      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779652301498",
-      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779652301498",
+      "durationMs": 15,
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779653037845",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779653037845",
       "missing": [
         "Version: 4.3.2",
         ".hero__lawyer-access",

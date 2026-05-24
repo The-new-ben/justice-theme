@@ -1,3 +1,16 @@
+# LATEST WORK STATUS - 2026-05-24 23:04 Asia/Jerusalem
+- LAWYER SELF-SERVICE SUPPORT V1: added guided service-request shortcuts inside the lawyer dashboard so lawyers can resolve common billing, invoice, plan-change, cancellation, refund, complaint and lead-quality issues from structured buttons instead of calling the owner.
+- RESEARCH BASIS: current 2026 SaaS/customer-portal guidance emphasizes one clear primary action, visible billing inside the portal, self-service plan/cancel/invoice controls, and contextual support that reduces repetitive tickets.
+- UPDATED: `page-lawyer-dashboard.php` defines `dashboard_service_self_help` groups and renders structured shortcut buttons above the service request form.
+- UPDATED: `assets/css/premium-pass-3.css` styles the self-help cards and makes them responsive.
+- UPDATED: `tools/check-investor-demo-readiness.mjs` expects the new self-help marker in dashboard source checks.
+- UPDATED: `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs` to marker `2026-05-24-lawyer-self-service-support-v1`.
+- MATERIAL ADVANCE: this directly supports the investor requirement for complaints, upgrades, downgrades, cancellations, refunds, invoice copies and support to be captured inside the system with owner-reviewable data.
+- VERIFIED LOCAL: PHP lint passed for `page-lawyer-dashboard.php` and `functions.php`; Node syntax passed for affected checker scripts; live marker check still correctly reports REVIEW because production has not pulled the code.
+- STILL BLOCKED: uPress Pull Git/cache refresh is required before the dashboard self-service polish and marker are live; Grow recurring debit remains provider-authorisation blocked.
+- COMPLETION: lawyer customer-service/self-service readiness moved from about 82% to about 88% locally; live completion remains blocked by deployment verification and demo account/data.
+- SAFETY: theme/template/CSS/checker/marker changes only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 22:51 Asia/Jerusalem
 - DEPLOYMENT PROOF MARKER V2: updated the public deployment marker so the next uPress Pull Git can prove the full investor revenue polish bundle, including the latest lawyer-plans decision flow, not only the earlier homepage strip.
 - UPDATED: `functions.php` marker to `2026-05-24-investor-revenue-polish-v2`.

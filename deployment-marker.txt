@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-24-investor-revenue-polish-v2
-expected-github-main-commit=f0238bc-investor-revenue-polish-v2
+justice-theme-deployment-marker=2026-05-24-lawyer-self-service-support-v1
+expected-github-main-commit=lawyer-self-service-support-v1
 purpose=public-static-file-check-for-upress-theme-sync

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Lawyer self-service support v1
+
+- ADDED: dashboard self-help service request cards for payment/invoice, plan changes, cancellation, refund, complaint and lead-quality issues.
+- UPDATED: `page-lawyer-dashboard.php`, `assets/css/premium-pass-3.css`, `tools/check-investor-demo-readiness.mjs`, `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs`.
+- RESEARCH BASIS: current SaaS customer-portal guidance emphasizes contextual self-service, visible billing, plan/cancel/invoice controls and structured support to reduce owner tickets.
+- VERIFIED LOCAL: PHP syntax passed for touched PHP files; Node syntax passed for checker scripts; live marker check still returns REVIEW because uPress has not pulled.
+- BLOCKED: requires push plus uPress Pull Git/cache refresh before it is live; Grow recurring debit remains provider-approval blocked.
+- SAFETY: code/CSS/checker/marker only; no public CMS/database or provider setting changed.
+
 # 2026-05-24 - Investor revenue polish deployment marker v2
 
 - UPDATED: `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs`.

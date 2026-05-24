@@ -228,6 +228,23 @@ $dashboard_lead_stage_options   = function_exists( 'justice_theme_lawyer_dashboa
 	'lost'              => __( 'Not fit / lost', 'justice-theme' ),
 );
 $dashboard_service_presets = function_exists( 'justice_theme_lawyer_dashboard_service_presets' ) ? justice_theme_lawyer_dashboard_service_presets() : array();
+$dashboard_service_self_help = array(
+	array(
+		'title'       => __( 'Payment and invoices', 'justice-theme' ),
+		'description' => __( 'Need to pay, get a link, or receive an invoice/receipt copy? Start here before sending a free-text message.', 'justice-theme' ),
+		'presets'     => array( 'payment_link', 'invoice' ),
+	),
+	array(
+		'title'       => __( 'Plan changes', 'justice-theme' ),
+		'description' => __( 'Upgrade, downgrade or cancel requests are recorded with timing and desired plan so billing is not handled by memory.', 'justice-theme' ),
+		'presets'     => array( 'upgrade', 'downgrade', 'cancel' ),
+	),
+	array(
+		'title'       => __( 'Lead quality and refund review', 'justice-theme' ),
+		'description' => __( 'Use a structured request when a lead was not relevant, a complaint needs review, or refund eligibility should be checked.', 'justice-theme' ),
+		'presets'     => array( 'lead_quality', 'complaint', 'refund' ),
+	),
+);
 
 if ( $dashboard_google_review_url ) {
 	$dashboard_review_message = sprintf(
@@ -883,6 +900,25 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 									<?php endif; ?>
 								</dl>
 							<?php endif; ?>
+						</div>
+						<div class="lawyer-dashboard-service-request__self-help" aria-label="<?php esc_attr_e( 'Guided service request shortcuts', 'justice-theme' ); ?>">
+							<?php foreach ( $dashboard_service_self_help as $self_help_group ) : ?>
+								<article>
+									<strong><?php echo esc_html( $self_help_group['title'] ); ?></strong>
+									<p><?php echo esc_html( $self_help_group['description'] ); ?></p>
+									<div>
+										<?php foreach ( $self_help_group['presets'] as $preset_key ) : ?>
+											<?php
+											if ( empty( $dashboard_service_presets[ $preset_key ] ) ) {
+												continue;
+											}
+											$preset = $dashboard_service_presets[ $preset_key ];
+											?>
+											<button type="button" class="button" data-service-request-preset="<?php echo esc_attr( $preset_key ); ?>" data-request-type="<?php echo esc_attr( $preset['type'] ); ?>" data-request-urgency="<?php echo esc_attr( $preset['urgency'] ); ?>" data-request-plan="<?php echo esc_attr( $preset['desired_plan'] ); ?>" data-request-subject="<?php echo esc_attr( $preset['subject'] ); ?>" data-request-message="<?php echo esc_attr( $preset['message'] ); ?>"><?php echo esc_html( $preset['label'] ); ?></button>
+										<?php endforeach; ?>
+									</div>
+								</article>
+							<?php endforeach; ?>
 						</div>
 						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form lawyer-dashboard-service-request__form">
 							<input type="hidden" name="action" value="justice_lawyer_service_request">

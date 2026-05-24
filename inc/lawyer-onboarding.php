@@ -1105,6 +1105,91 @@ function justice_theme_lawyer_payment_followup_badge( string $payment_path, stri
 	);
 }
 
+function justice_theme_set_lawyer_payment_followup_status( int $post_id, string $followup_status, string $source_note ): bool {
+	$followup_status = sanitize_key( $followup_status );
+	$options         = justice_theme_lawyer_payment_followup_options();
+
+	if ( ! array_key_exists( $followup_status, $options ) ) {
+		$followup_status = '';
+	}
+
+	$previous_payment_status = (string) get_post_meta( $post_id, 'payment_followup_status', true );
+	update_post_meta( $post_id, 'payment_followup_status', $followup_status );
+
+	if ( $followup_status === $previous_payment_status ) {
+		return false;
+	}
+
+	if ( $followup_status ) {
+		$timestamp_meta = array(
+			'invoice_sent'      => 'invoice_sent_at',
+			'payment_confirmed' => 'payment_confirmed_at',
+			'payment_blocked'   => 'payment_blocked_at',
+			'payment_cancelled' => 'payment_cancelled_at',
+		);
+
+		if ( isset( $timestamp_meta[ $followup_status ] ) ) {
+			$meta_key = $timestamp_meta[ $followup_status ];
+			if ( '' === (string) get_post_meta( $post_id, $meta_key, true ) ) {
+				update_post_meta( $post_id, $meta_key, current_time( 'mysql' ) );
+			}
+		}
+
+		justice_theme_append_lawyer_internal_note( $post_id, sprintf( 'Payment follow-up changed to %s. Source: %s.', $options[ $followup_status ], $source_note ) );
+	}
+
+	return true;
+}
+
+function justice_theme_lawyer_payment_followup_quick_actions( string $payment_path, string $followup_status ): array {
+	if ( 'manual_invoice' !== $payment_path && '' === $followup_status ) {
+		return array();
+	}
+
+	if ( '' === $followup_status ) {
+		return array(
+			'invoice_requested' => 'Mark invoice requested',
+		);
+	}
+
+	if ( 'invoice_requested' === $followup_status ) {
+		return array(
+			'invoice_sent'    => 'Mark invoice sent',
+			'payment_blocked' => 'Mark blocked',
+		);
+	}
+
+	if ( 'invoice_sent' === $followup_status ) {
+		return array(
+			'payment_confirmed' => 'Mark paid',
+			'payment_blocked'   => 'Mark blocked',
+			'payment_cancelled' => 'Cancel',
+		);
+	}
+
+	if ( 'payment_blocked' === $followup_status ) {
+		return array(
+			'invoice_sent'      => 'Back to invoice sent',
+			'payment_cancelled' => 'Cancel',
+		);
+	}
+
+	if ( 'payment_cancelled' === $followup_status ) {
+		return array(
+			'invoice_requested' => 'Reopen',
+		);
+	}
+
+	return array();
+}
+
+function justice_theme_lawyer_payment_followup_quick_action_url( int $post_id, string $followup_status ): string {
+	return wp_nonce_url(
+		admin_url( 'admin-post.php?action=justice_update_lawyer_payment_followup&lawyer_id=' . $post_id . '&payment_status=' . rawurlencode( $followup_status ) ),
+		'justice_update_lawyer_payment_followup_' . $post_id . '_' . $followup_status
+	);
+}
+
 function justice_theme_lawyer_activation_meta_box(): void {
 	add_meta_box(
 		'justice_theme_lawyer_activation',
@@ -1258,29 +1343,8 @@ function justice_theme_save_lawyer_activation( int $post_id ): void {
 	update_post_meta( $post_id, 'first_value_at', isset( $_POST['first_value_at'] ) ? sanitize_text_field( wp_unslash( $_POST['first_value_at'] ) ) : '' );
 	update_post_meta( $post_id, 'activation_owner_note', isset( $_POST['activation_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['activation_owner_note'] ) ) : '' );
 
-	$previous_payment_status = (string) get_post_meta( $post_id, 'payment_followup_status', true );
 	$payment_followup_status = isset( $_POST['payment_followup_status'] ) ? sanitize_key( wp_unslash( $_POST['payment_followup_status'] ) ) : '';
-	if ( ! array_key_exists( $payment_followup_status, justice_theme_lawyer_payment_followup_options() ) ) {
-		$payment_followup_status = '';
-	}
-	update_post_meta( $post_id, 'payment_followup_status', $payment_followup_status );
-
-	if ( $payment_followup_status && $payment_followup_status !== $previous_payment_status ) {
-		$timestamp_meta = array(
-			'invoice_sent'      => 'invoice_sent_at',
-			'payment_confirmed' => 'payment_confirmed_at',
-			'payment_blocked'   => 'payment_blocked_at',
-			'payment_cancelled' => 'payment_cancelled_at',
-		);
-
-		if ( isset( $timestamp_meta[ $payment_followup_status ] ) ) {
-			$meta_key = $timestamp_meta[ $payment_followup_status ];
-			if ( '' === (string) get_post_meta( $post_id, $meta_key, true ) ) {
-				update_post_meta( $post_id, $meta_key, current_time( 'mysql' ) );
-			}
-			justice_theme_append_lawyer_internal_note( $post_id, 'Payment follow-up changed to ' . justice_theme_lawyer_payment_followup_options()[ $payment_followup_status ] . '.' );
-		}
-	}
+	justice_theme_set_lawyer_payment_followup_status( $post_id, $payment_followup_status, 'lawyer activation box' );
 }
 add_action( 'save_post_justice_lawyer', 'justice_theme_save_lawyer_activation' );
 
@@ -1474,6 +1538,37 @@ function justice_theme_mark_lawyer_ai_profile_draft_reviewed(): void {
 	exit;
 }
 add_action( 'admin_post_justice_mark_lawyer_ai_profile_draft_reviewed', 'justice_theme_mark_lawyer_ai_profile_draft_reviewed' );
+
+function justice_theme_update_lawyer_payment_followup(): void {
+	$post_id          = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
+	$followup_status = isset( $_GET['payment_status'] ) ? sanitize_key( wp_unslash( $_GET['payment_status'] ) ) : '';
+
+	if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to update this payment follow-up.', 'justice-theme' ) );
+	}
+
+	if ( '' === $followup_status || ! array_key_exists( $followup_status, justice_theme_lawyer_payment_followup_options() ) ) {
+		wp_die( esc_html__( 'Invalid payment follow-up status.', 'justice-theme' ) );
+	}
+
+	check_admin_referer( 'justice_update_lawyer_payment_followup_' . $post_id . '_' . $followup_status );
+
+	justice_theme_set_lawyer_payment_followup_status( $post_id, $followup_status, 'Lawyer Onboarding quick action' );
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_payment_followup_updated', 'Updated lawyer payment follow-up to ' . $followup_status . ': ' . get_the_title( $post_id ) );
+	}
+
+	wp_safe_redirect( add_query_arg(
+		array(
+			'payment_followup' => 'updated',
+			'payment_queue'    => $followup_status,
+		),
+		admin_url( 'admin.php?page=justice-lawyer-onboarding' )
+	) );
+	exit;
+}
+add_action( 'admin_post_justice_update_lawyer_payment_followup', 'justice_theme_update_lawyer_payment_followup' );
 
 function justice_theme_lawyer_onboarding_plan_label( string $plan ): string {
 	if ( function_exists( 'justice_theme_lawyer_plans' ) ) {
@@ -1947,6 +2042,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php if ( isset( $_GET['ai_draft_review'] ) && 'marked' === $_GET['ai_draft_review'] ) : ?>
 			<div class="notice notice-success is-dismissible"><p>AI-assistant profile draft review flag cleared for the lawyer profile.</p></div>
 		<?php endif; ?>
+		<?php if ( isset( $_GET['payment_followup'] ) && 'updated' === $_GET['payment_followup'] ) : ?>
+			<div class="notice notice-success is-dismissible"><p>Payment follow-up status updated. Continue the next money action from this filtered queue.</p></div>
+		<?php endif; ?>
 		<?php if ( isset( $_GET['recommendation_token'] ) && 'created' === $_GET['recommendation_token'] && function_exists( 'justice_theme_admin_latest_recommendation_token_link' ) ) : ?>
 			<?php $recommendation_token_link = justice_theme_admin_latest_recommendation_token_link(); ?>
 			<div class="notice notice-success is-dismissible">
@@ -2008,6 +2106,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$payment_confirmed_at = (string) get_post_meta( $post_id, 'payment_confirmed_at', true );
 						$payment_blocked_at   = (string) get_post_meta( $post_id, 'payment_blocked_at', true );
 						$payment_cancelled_at = (string) get_post_meta( $post_id, 'payment_cancelled_at', true );
+						$payment_quick_actions = justice_theme_lawyer_payment_followup_quick_actions( $payment_path, $payment_followup );
 						$has_pending_update = '1' === (string) get_post_meta( $post_id, 'pending_profile_review', true );
 						$has_pending_content = '1' === (string) get_post_meta( $post_id, 'pending_content_review', true );
 						$has_pending_review_campaign = '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true );
@@ -2109,6 +2208,13 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 										<?php if ( $payment_blocked_at ) : ?><li>Blocked: <?php echo esc_html( $payment_blocked_at ); ?></li><?php endif; ?>
 										<?php if ( $payment_cancelled_at ) : ?><li>Cancelled: <?php echo esc_html( $payment_cancelled_at ); ?></li><?php endif; ?>
 									</ul>
+								<?php endif; ?>
+								<?php if ( $payment_quick_actions ) : ?>
+									<p style="margin:8px 0 0;">
+										<?php foreach ( $payment_quick_actions as $next_status => $action_label ) : ?>
+											<a class="button button-small" style="margin:0 4px 4px 0;" href="<?php echo esc_url( justice_theme_lawyer_payment_followup_quick_action_url( $post_id, $next_status ) ); ?>"><?php echo esc_html( $action_label ); ?></a>
+										<?php endforeach; ?>
+									</p>
 								<?php endif; ?>
 							</td>
 							<td>

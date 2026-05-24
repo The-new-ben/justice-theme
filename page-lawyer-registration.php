@@ -50,6 +50,7 @@ $core_city_options = array(
 $allowed_plan_interests = array( 'free', 'pro', 'featured', 'lead_partner', 'full_service' );
 $selected_plan_interest = isset( $_GET['plan_interest'] ) ? sanitize_key( wp_unslash( $_GET['plan_interest'] ) ) : 'free';
 $selected_payment_path  = isset( $_GET['payment_path'] ) ? sanitize_key( wp_unslash( $_GET['payment_path'] ) ) : '';
+$registration_sent      = isset( $_GET['registration'] ) && 'sent' === $_GET['registration'];
 
 if ( ! in_array( $selected_plan_interest, $allowed_plan_interests, true ) ) {
 	$selected_plan_interest = 'free';
@@ -82,6 +83,8 @@ if ( $selected_plan && function_exists( 'justice_theme_lawyer_plan_public_overri
 $registration_attribution = function_exists( 'justice_theme_lawyer_registration_attribution_from_request' )
 	? justice_theme_lawyer_registration_attribution_from_request()
 	: array();
+$registration_dashboard_url = justice_theme_public_url( home_url( '/lawyer-dashboard/' ) );
+$registration_login_url     = wp_login_url( $registration_dashboard_url );
 ?>
 
 <section class="lawyer-registration-hero section">
@@ -108,17 +111,43 @@ $registration_attribution = function_exists( 'justice_theme_lawyer_registration_
 			<h2><?php esc_html_e( 'הרשמה ראשונית', 'justice-theme' ); ?></h2>
 			<p><?php esc_html_e( 'הפרופיל לא מתפרסם אוטומטית. לאחר שליחה הוא נכנס לבדיקה, אימות ועריכה לפני עלייה לאתר.', 'justice-theme' ); ?></p>
 
-			<?php if ( isset( $_GET['registration'] ) && 'sent' === $_GET['registration'] ) : ?>
-				<div class="legaltool-request__notice"><?php esc_html_e( 'הטופס התקבל. הפרופיל ייבדק לפני פרסום.', 'justice-theme' ); ?></div>
-				<?php if ( is_user_logged_in() ) : ?>
-					<div class="legaltool-request__notice"><a href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-dashboard/' ) ) ); ?>"><?php esc_html_e( 'המשך לאזור האישי', 'justice-theme' ); ?></a></div>
-				<?php endif; ?>
+			<?php if ( $registration_sent ) : ?>
+				<div class="lawyer-registration-success" role="status">
+					<span><?php esc_html_e( 'ההרשמה התקבלה', 'justice-theme' ); ?></span>
+					<h3><?php esc_html_e( 'הבקשה נכנסה לתור בדיקה והפעלה', 'justice-theme' ); ?></h3>
+					<p>
+						<?php
+						printf(
+							/* translators: %s: selected lawyer plan label. */
+							esc_html__( 'המסלול שנבחר: %s. הפרופיל לא מתפרסם אוטומטית, וכל מסלול בתשלום מופעל רק אחרי בדיקת התאמה ואישור תשלום.', 'justice-theme' ),
+							esc_html( $selected_plan['label'] ?? $selected_plan_interest )
+						);
+						?>
+					</p>
+					<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
+						<p><?php esc_html_e( 'לא בוצע חיוב אוטומטי. לאחר בדיקת רישיון, תחום וזמינות נשלח חשבונית או הוראות תשלום ידניות, ואז נחבר את הפרופיל לאזור האישי.', 'justice-theme' ); ?></p>
+					<?php endif; ?>
+					<ol>
+						<li><?php esc_html_e( 'בודקים רישיון, פרטי משרד, תחומי עיסוק וכללי פרסום.', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'מסכמים מסלול, חשבונית ותשלום ידני אם מדובר במסלול בתשלום.', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'מחברים את הפרופיל לאזור האישי, ללידים, לתוכן ולבקשות עדכון.', 'justice-theme' ); ?></li>
+					</ol>
+					<div class="lawyer-registration-success__actions">
+						<?php if ( is_user_logged_in() ) : ?>
+							<a class="button button--gold" href="<?php echo esc_url( $registration_dashboard_url ); ?>"><?php esc_html_e( 'המשך לאזור האישי', 'justice-theme' ); ?></a>
+						<?php else : ?>
+							<a class="button button--gold" href="<?php echo esc_url( $registration_login_url ); ?>"><?php esc_html_e( 'כניסה לאזור האישי', 'justice-theme' ); ?></a>
+						<?php endif; ?>
+						<a class="button button--outline" href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-plans/' ) ) ); ?>"><?php esc_html_e( 'צפייה במסלולים', 'justice-theme' ); ?></a>
+					</div>
+				</div>
 			<?php elseif ( isset( $_GET['registration'] ) && 'blocked' === $_GET['registration'] ) : ?>
 				<div class="lawyer-registration__error"><?php esc_html_e( 'מערכת פרופילי עורכי הדין אינה פעילה כרגע. נסו שוב מאוחר יותר.', 'justice-theme' ); ?></div>
 			<?php elseif ( isset( $_GET['registration'] ) ) : ?>
 				<div class="lawyer-registration__error"><?php esc_html_e( 'חסרים פרטים או שהשליחה נכשלה. בדקו את הטופס ונסו שוב.', 'justice-theme' ); ?></div>
 			<?php endif; ?>
 
+			<?php if ( ! $registration_sent ) : ?>
 			<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
 				<div class="legaltool-request__notice"><?php esc_html_e( 'בקשת המסלול תטופל ידנית: לאחר בדיקת התאמה נשלח חשבונית/דרישת תשלום ונפעיל את המסלול לאחר אישור תשלום.', 'justice-theme' ); ?></div>
 			<?php endif; ?>
@@ -288,6 +317,7 @@ $registration_attribution = function_exists( 'justice_theme_lawyer_registration_
 
 				<button class="button button--gold" type="submit"><?php esc_html_e( 'שליחת פרטים לבדיקה', 'justice-theme' ); ?></button>
 			</form>
+			<?php endif; ?>
 		</div>
 
 		<aside class="lawyer-registration__side">

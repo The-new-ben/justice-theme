@@ -2300,6 +2300,18 @@ function justice_theme_lawyer_onboarding_source_filter_url( string $source_key, 
 	);
 }
 
+function justice_theme_lawyer_source_performance_export_url(): string {
+	return wp_nonce_url(
+		add_query_arg(
+			array(
+				'action' => 'justice_export_lawyer_source_performance',
+			),
+			admin_url( 'admin-post.php' )
+		),
+		'justice_export_lawyer_source_performance'
+	);
+}
+
 function justice_theme_lawyer_onboarding_compact_terms( array $values, int $limit = 3 ): string {
 	$values = array_values( array_unique( array_filter( array_map( 'strval', $values ) ) ) );
 
@@ -2318,6 +2330,12 @@ function justice_theme_lawyer_onboarding_compact_terms( array $values, int $limi
 	return $label;
 }
 
+function justice_theme_lawyer_onboarding_export_terms( array $values ): string {
+	$values = array_values( array_unique( array_filter( array_map( 'strval', $values ) ) ) );
+
+	return implode( '; ', $values );
+}
+
 function justice_theme_lawyer_onboarding_source_key_for_post( int $post_id ): array {
 	$priority_keys = array( 'outreach_segment', 'utm_content', 'outreach_city', 'outreach_practice', 'utm_campaign', 'utm_source' );
 
@@ -2332,7 +2350,7 @@ function justice_theme_lawyer_onboarding_source_key_for_post( int $post_id ): ar
 	return array( 'utm_source', 'direct_or_unknown' );
 }
 
-function justice_theme_lawyer_onboarding_source_performance_rows(): array {
+function justice_theme_lawyer_onboarding_source_performance_rows( int $limit = 8 ): array {
 	if ( ! post_type_exists( 'justice_lawyer' ) ) {
 		return array();
 	}
@@ -2419,17 +2437,19 @@ function justice_theme_lawyer_onboarding_source_performance_rows(): array {
 		}
 	);
 
-	return array_slice( $rows, 0, 8 );
+	return $limit > 0 ? array_slice( $rows, 0, $limit ) : $rows;
 }
 
 function justice_theme_render_lawyer_onboarding_source_performance(): void {
 	$rows        = justice_theme_lawyer_onboarding_source_performance_rows();
 	$filter_keys = justice_theme_lawyer_onboarding_source_filter_keys();
+	$export_url  = justice_theme_lawyer_source_performance_export_url();
 
 	?>
 	<div style="max-width:1200px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:18px 20px;margin:18px 0;">
 		<h2 style="margin-top:0;">Source performance board</h2>
 		<p style="margin-top:0;">Use this to decide which lawyer outreach segment, message, city or practice area deserves the next call batch. It mirrors the intake-reporting pattern used by serious legal CRMs: source, value and follow-up status in one view.</p>
+		<p style="margin:0 0 12px;"><a class="button" href="<?php echo esc_url( $export_url ); ?>">Export source performance CSV</a></p>
 		<?php if ( empty( $rows ) ) : ?>
 			<div style="border:1px solid #dcdcde;background:#fbfbfb;border-radius:8px;padding:14px;">
 				<strong>No attributed paid-lawyer registrations yet.</strong>
@@ -2484,6 +2504,93 @@ function justice_theme_render_lawyer_onboarding_source_performance(): void {
 	</div>
 	<?php
 }
+
+function justice_theme_export_lawyer_source_performance(): void {
+	if ( ! current_user_can( 'edit_pages' ) ) {
+		wp_die( esc_html__( 'You do not have permission to export lawyer source performance.', 'justice-theme' ) );
+	}
+
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		wp_die( esc_html__( 'The lawyer post type is not active.', 'justice-theme' ) );
+	}
+
+	check_admin_referer( 'justice_export_lawyer_source_performance' );
+
+	$filename = 'justice-lawyer-source-performance-' . wp_date( 'Y-m-d-His' ) . '.csv';
+
+	nocache_headers();
+	header( 'Content-Type: text/csv; charset=utf-8' );
+	header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+	header( 'X-Robots-Tag: noindex, nofollow', true );
+
+	echo "\xEF\xBB\xBF";
+
+	$output = fopen( 'php://output', 'w' );
+	if ( ! $output ) {
+		exit;
+	}
+
+	fputcsv( $output, array(
+		'source_key',
+		'source_label',
+		'source_value',
+		'registrations',
+		'expected_monthly_nis',
+		'expected_annual_nis',
+		'manual_invoice_count',
+		'invoice_requested',
+		'invoice_sent',
+		'payment_confirmed',
+		'payment_blocked',
+		'payment_cancelled',
+		'cities',
+		'practices',
+		'messages',
+		'latest_submission_at',
+		'admin_filter_url',
+		'next_action',
+	) );
+
+	$filter_keys = justice_theme_lawyer_onboarding_source_filter_keys();
+
+	foreach ( justice_theme_lawyer_onboarding_source_performance_rows( 0 ) as $row ) {
+		$latest_label = $row['latest_timestamp'] ? wp_date( 'Y-m-d H:i', (int) $row['latest_timestamp'] ) : '';
+		$next_action  = 'Repeat or pause this source based on payment follow-up quality; open the filtered queue before creating the next outreach batch.';
+
+		if ( (int) $row['invoice_requested'] > 0 ) {
+			$next_action = 'Open this source and send or chase manual invoices for invoice-requested registrations.';
+		} elseif ( (int) $row['invoice_sent'] > 0 ) {
+			$next_action = 'Open this source and chase sent invoices until paid, blocked, or cancelled.';
+		} elseif ( (int) $row['payment_confirmed'] > 0 ) {
+			$next_action = 'Repeat this source after activation and first-value delivery are confirmed.';
+		}
+
+		fputcsv( $output, array_map( 'justice_theme_lawyer_payment_export_cell', array(
+			$row['source_key'],
+			$filter_keys[ $row['source_key'] ] ?? $row['source_key'],
+			$row['source_value'],
+			$row['count'],
+			$row['monthly_value'],
+			(int) $row['monthly_value'] * 12,
+			$row['manual_invoice'],
+			$row['invoice_requested'],
+			$row['invoice_sent'],
+			$row['payment_confirmed'],
+			$row['payment_blocked'],
+			$row['payment_cancelled'],
+			justice_theme_lawyer_onboarding_export_terms( $row['cities'] ),
+			justice_theme_lawyer_onboarding_export_terms( $row['practices'] ),
+			justice_theme_lawyer_onboarding_export_terms( $row['messages'] ),
+			$latest_label,
+			justice_theme_lawyer_onboarding_source_filter_url( $row['source_key'], $row['source_value'] ),
+			$next_action,
+		) ) );
+	}
+
+	fclose( $output );
+	exit;
+}
+add_action( 'admin_post_justice_export_lawyer_source_performance', 'justice_theme_export_lawyer_source_performance' );
 
 function justice_theme_lawyer_onboarding_payment_due_meta_query( string $mode ): array {
 	$now  = current_time( 'mysql' );

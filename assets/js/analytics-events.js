@@ -91,6 +91,54 @@
 		field.value = value;
 	}
 
+	function getLawyerRevenueDestination(linkUrl) {
+		if (!linkUrl) {
+			return '';
+		}
+
+		var path = linkUrl.pathname || '/';
+		path = path.replace(/\/+$/, '');
+		path = path ? path + '/' : '/';
+
+		if ('/lawyer-plans/' === path) {
+			return 'lawyer_plans';
+		}
+
+		if ('/lawyer-registration/' === path) {
+			return 'lawyer_registration';
+		}
+
+		if ('/lawyer-dashboard/' === path) {
+			return 'lawyer_dashboard';
+		}
+
+		return '';
+	}
+
+	function getLawyerRevenueSurface(link) {
+		if (link.closest('.site-header__lawyer-actions')) {
+			return 'site_header';
+		}
+
+		if (link.closest('.lawyer-cta')) {
+			return 'homepage_lawyer_cta';
+		}
+
+		if (link.closest('.featured-lawyers')) {
+			return 'homepage_featured_lawyer';
+		}
+
+		if (link.closest('.lawyer-plans')) {
+			return 'lawyer_plans_page';
+		}
+
+		if (link.closest('.site-footer')) {
+			return 'site_footer';
+		}
+
+		return 'general';
+	}
+
 	function applyLeadPrefillFromLink(link) {
 		var form;
 		var area;
@@ -227,10 +275,12 @@
 		};
 		var linkUrl;
 		var planInterest = '';
+		var revenueDestination = '';
 
 		try {
 			linkUrl = new URL(href, window.location.href);
 			planInterest = linkUrl.searchParams.get('plan_interest') || '';
+			revenueDestination = getLawyerRevenueDestination(linkUrl);
 		} catch (error) {
 			linkUrl = null;
 		}
@@ -247,6 +297,19 @@
 		if (planInterest) {
 			track('lawyer_plan_click', Object.assign({}, params, {
 				plan_interest: planInterest
+			}));
+		}
+
+		if (revenueDestination) {
+			track('lawyer_revenue_click', Object.assign({}, params, {
+				destination: revenueDestination,
+				surface: getLawyerRevenueSurface(link),
+				plan_interest: planInterest,
+				payment_path: linkUrl ? (linkUrl.searchParams.get('payment_path') || '') : '',
+				outreach_segment: linkUrl ? (linkUrl.searchParams.get('outreach_segment') || '') : '',
+				utm_source: linkUrl ? (linkUrl.searchParams.get('utm_source') || '') : '',
+				utm_medium: linkUrl ? (linkUrl.searchParams.get('utm_medium') || '') : '',
+				utm_campaign: linkUrl ? (linkUrl.searchParams.get('utm_campaign') || '') : ''
 			}));
 		}
 

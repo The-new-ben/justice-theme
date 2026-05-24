@@ -10,6 +10,22 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $justice_phone = justice_theme_option( 'justice_phone', '0525101555' );
+$justice_lawyer_plans_url = add_query_arg(
+	array(
+		'utm_source'   => 'site_header',
+		'utm_medium'   => 'lawyer_cta',
+		'utm_campaign' => 'lawyer_acquisition',
+	),
+	home_url( '/lawyer-plans/' )
+);
+$justice_lawyer_dashboard_url = add_query_arg(
+	array(
+		'utm_source'   => 'site_header',
+		'utm_medium'   => 'lawyer_login',
+		'utm_campaign' => 'lawyer_retention',
+	),
+	home_url( '/lawyer-dashboard/' )
+);
 $justice_topic_links = array(
 	array(
 		'label' => __( 'עורך דין גירושין', 'justice-theme' ),
@@ -108,10 +124,10 @@ $justice_topic_links = array(
 			</nav>
 
 			<div class="site-header__lawyer-actions" aria-label="<?php esc_attr_e( 'אזור עורכי דין', 'justice-theme' ); ?>">
-				<a class="site-header__lawyer-link site-header__lawyer-link--plans" href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>">
+				<a class="site-header__lawyer-link site-header__lawyer-link--plans" href="<?php echo esc_url( $justice_lawyer_plans_url ); ?>">
 					<?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?>
 				</a>
-				<a class="site-header__lawyer-link" href="<?php echo esc_url( home_url( '/lawyer-dashboard/' ) ); ?>">
+				<a class="site-header__lawyer-link" href="<?php echo esc_url( $justice_lawyer_dashboard_url ); ?>">
 					<?php esc_html_e( 'כניסה', 'justice-theme' ); ?>
 				</a>
 			</div>

@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Lawyer registration paid state gate
+
+- UPDATED: `page-lawyer-registration.php` now renders the selected plan option server-side for all lawyer registration plan interests.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` now verifies the paid Lead Partner/manual-invoice registration form state.
+- CREATED: `project-control/lawyer-registration-paid-state-gate-2026-05-24.md`.
+- REGENERATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md` and `.csv`.
+- REGENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: PHP syntax, Node syntax and `git diff --check` passed.
+- DEPLOYED: `6bbf7ae Harden paid lawyer registration state` was pushed and pulled through uPress; uPress log showed it as live `HEAD`.
+- VERIFIED LIVE READ-ONLY: full lawyer revenue funnel check passed `8/8`.
+- SAFETY: no CMS database write, public content, redirect/canonical/noindex/sitemap/taxonomy change, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Maya lawyer live refresh and CMS activation packet
 
 - REGENERATED: `project-control/maya-lawyer-live-readonly-2026-05-24.md`.

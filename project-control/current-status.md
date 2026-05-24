@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-24 16:24 Asia/Jerusalem
+- LAWYER REGISTRATION PAID STATE GATE: hardened the paid lawyer signup path so a Lead Partner/manual-invoice visitor cannot silently fall back to the free plan if JavaScript is unavailable.
+- UPDATED: `page-lawyer-registration.php` now renders the selected `plan_interest` option server-side with WordPress `selected()` attributes.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` now checks the live paid registration form state at `/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice`.
+- GENERATED / UPDATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md`, `project-control/lawyer-revenue-funnel-live-2026-05-24.csv`, `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `reports/lawyer-revenue-funnel-live-2026-05-24.csv`.
+- CREATED: `project-control/lawyer-registration-paid-state-gate-2026-05-24.md`.
+- VERIFIED LOCAL: `php -l page-lawyer-registration.php`, `node --check tools/check-live-lawyer-revenue-funnel.mjs` and `git diff --check` passed.
+- DEPLOYED: committed/pushed `6bbf7ae`; uPress Git pull log showed `Harden paid lawyer registration state` as live HEAD.
+- VERIFIED LIVE READ-ONLY: the full lawyer revenue funnel check passed `8/8`, including the new `registration-paid-manual-form-state` gate.
+- BLOCKED: automated recurring lawyer payments still require Grow/Meshulam approval plus gateway/product mapping.
+- SAFETY: theme code/docs and read-only live checks only; no CMS database write, public content, redirect/canonical/noindex/sitemap/taxonomy change, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 16:09 Asia/Jerusalem
 - LAWYER DASHBOARD PLAN/PAYMENT STATUS: added a logged-in private-area card that tells lawyers their selected plan, payment stage, activation status and next action.
 - UPDATED: `page-lawyer-dashboard.php` now reads existing `plan_type`, `subscription_status`, `payment_path`, `payment_followup_status`, `payment_followup_due_at` and `activation_status` metadata and turns it into a clear next-action card.

@@ -1,3 +1,17 @@
+# LATEST WORK STATUS - 2026-05-24 18:00 Asia/Jerusalem
+- PAYMENT LINK READINESS QUEUE: made the next manual revenue bottleneck visible after billing details are collected.
+- RESEARCH BASIS: Grow Payment Links supports payment requests shared by WhatsApp, email, SMS and other channels; Morning / Green Invoice documents payment links, payment buttons and standing-order links. Jus-Tice now tracks whether billing-ready lawyers still need an actual payment URL.
+- UPDATED: `inc/lawyer-onboarding.php` now adds `Needs payment link` and `Payment link ready` cards to the Lawyer Onboarding paid registration command center.
+- UPDATED: the next money action now prioritizes `Create payment links` after overdue payments and missing billing details.
+- UPDATED: Lawyer Onboarding now supports safe `payment_link_status=needed` and `payment_link_status=ready` admin filters.
+- CREATED: `project-control/payment-link-readiness-queue-2026-05-24.md`.
+- GENERATED / UPDATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md`, `project-control/lawyer-revenue-funnel-live-2026-05-24.csv`, `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `reports/lawyer-revenue-funnel-live-2026-05-24.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed.
+- DEPLOYED: committed/pushed `f02fdfe`; uPress Git pull log showed `Add payment link readiness queue` as live HEAD.
+- VERIFIED LIVE READ-ONLY: the public lawyer revenue funnel check still passed `9/9` after deployment.
+- BLOCKED: automated recurring lawyer payments still require Grow/Meshulam approval plus gateway/product mapping.
+- SAFETY: admin-only reporting/filtering and read-only live checks only; no CMS database write happened during this cycle, and no public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 17:55 Asia/Jerusalem
 - MANUAL PAYMENT LINK HANDOFF: connected the manual invoice path to an actual payment-request URL/reference after the owner creates a Grow/Morning payment link.
 - RESEARCH BASIS: Grow Payment Links supports payment requests shared by WhatsApp, email, SMS and other channels, including recurring-payment links; Morning / Green Invoice documents payment buttons, payment links and standing-order links. Jus-Tice now has a structured place to attach that payment request to the lawyer record.

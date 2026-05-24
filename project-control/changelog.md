@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Payment link readiness queue
+
+- UPDATED: `inc/lawyer-onboarding.php` now adds `Needs payment link` and `Payment link ready` cards to the Lawyer Onboarding paid registration command center.
+- UPDATED: the next money action now prioritizes creating payment links after overdue payment follow-up and missing billing details.
+- UPDATED: Lawyer Onboarding now supports safe `payment_link_status=needed` and `payment_link_status=ready` admin filters.
+- CREATED: `project-control/payment-link-readiness-queue-2026-05-24.md`.
+- REGENERATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md` and `.csv`.
+- REGENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: PHP syntax and `git diff --check` passed.
+- DEPLOYED: `f02fdfe Add payment link readiness queue` was pushed and pulled through uPress; uPress log showed it as live `HEAD`.
+- VERIFIED LIVE READ-ONLY: full public lawyer revenue funnel check passed `9/9`.
+- SAFETY: no CMS database write during this cycle, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Manual payment link handoff
 
 - UPDATED: `inc/lawyer-onboarding.php` now registers/saves `manual_payment_link_url` and `manual_invoice_reference` for lawyer records.

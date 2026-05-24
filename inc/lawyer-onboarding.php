@@ -1503,6 +1503,7 @@ function justice_theme_export_lawyer_payment_queue(): void {
 		'next_action',
 		'invoice_handoff_context',
 		'invoice_handoff_message',
+		'whatsapp_handoff_url',
 	) );
 
 	while ( $query->have_posts() ) {
@@ -1515,6 +1516,7 @@ function justice_theme_export_lawyer_payment_queue(): void {
 		$followup_status   = (string) get_post_meta( $post_id, 'payment_followup_status', true );
 		$followup_due_at   = (string) get_post_meta( $post_id, 'payment_followup_due_at', true );
 		$activation_status = (string) get_post_meta( $post_id, 'activation_status', true );
+		$handoff_message   = justice_theme_lawyer_manual_invoice_message( $post_id );
 
 		$row = array(
 			$post_id,
@@ -1557,7 +1559,8 @@ function justice_theme_export_lawyer_payment_queue(): void {
 			get_edit_post_link( $post_id, '' ),
 			justice_theme_lawyer_payment_export_next_action( $payment_path, $followup_status, $activation_status ),
 			justice_theme_lawyer_manual_invoice_context( $post_id ),
-			justice_theme_lawyer_manual_invoice_message( $post_id ),
+			$handoff_message,
+			justice_theme_lawyer_payment_link_whatsapp_url( $post_id, $handoff_message ),
 		);
 
 		fputcsv( $output, array_map( 'justice_theme_lawyer_payment_export_cell', $row ) );
@@ -1678,6 +1681,29 @@ function justice_theme_lawyer_payment_link_recipient_email( int $post_id ): stri
 	return '';
 }
 
+function justice_theme_lawyer_payment_link_whatsapp_url( int $post_id, string $message ): string {
+	$message = trim( wp_strip_all_tags( $message ) );
+	if ( '' === $message ) {
+		return '';
+	}
+
+	$contact_value = (string) get_post_meta( $post_id, 'whatsapp', true );
+	if ( '' === trim( $contact_value ) ) {
+		$contact_value = (string) get_post_meta( $post_id, 'phone', true );
+	}
+
+	$base_url = '';
+	if ( $contact_value && function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ) {
+		$base_url = justice_theme_lawyer_public_whatsapp_link( $contact_value );
+	}
+
+	if ( ! $base_url ) {
+		$base_url = 'https://wa.me/';
+	}
+
+	return add_query_arg( 'text', $message, $base_url );
+}
+
 function justice_theme_send_lawyer_manual_payment_link_email( int $post_id, string $manual_payment_link ): bool {
 	$manual_payment_link = esc_url_raw( $manual_payment_link );
 	$recipient           = justice_theme_lawyer_payment_link_recipient_email( $post_id );
@@ -1775,6 +1801,8 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 	$payment_confirmed_at = (string) get_post_meta( $post->ID, 'payment_confirmed_at', true );
 	$payment_blocked_at   = (string) get_post_meta( $post->ID, 'payment_blocked_at', true );
 	$payment_cancelled_at = (string) get_post_meta( $post->ID, 'payment_cancelled_at', true );
+	$manual_payment_message = justice_theme_lawyer_manual_invoice_message( $post->ID );
+	$manual_payment_whatsapp_url = justice_theme_lawyer_payment_link_whatsapp_url( $post->ID, $manual_payment_message );
 	$response_commitment = (string) get_post_meta( $post->ID, 'lead_response_commitment', true );
 	$response_options    = justice_theme_lawyer_response_commitment_options();
 	?>
@@ -1810,6 +1838,9 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 		<small>Uses billing invoice email first, then lawyer email. On successful send, the payment follow-up is marked as invoice sent.</small>
 		<?php if ( $payment_link_sent_at || $payment_link_email_result ) : ?>
 			<br><small>Last payment-link email: <?php echo esc_html( $payment_link_email_result ?: 'recorded' ); ?><?php echo $payment_link_sent_at ? esc_html( ' at ' . $payment_link_sent_at ) : ''; ?><?php echo $payment_link_sent_to ? esc_html( ' to ' . $payment_link_sent_to ) : ''; ?></small>
+		<?php endif; ?>
+		<?php if ( $manual_payment_whatsapp_url ) : ?>
+			<br><a href="<?php echo esc_url( $manual_payment_whatsapp_url ); ?>" target="_blank" rel="noopener noreferrer">Open WhatsApp payment message</a>
 		<?php endif; ?>
 	</p>
 	<p>
@@ -3470,6 +3501,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$payment_quick_actions = justice_theme_lawyer_payment_followup_quick_actions( $payment_path, $payment_followup );
 						$payment_handoff_context = justice_theme_lawyer_manual_invoice_context( $post_id );
 						$payment_handoff_message = justice_theme_lawyer_manual_invoice_message( $post_id );
+						$payment_handoff_whatsapp_url = justice_theme_lawyer_payment_link_whatsapp_url( $post_id, $payment_handoff_message );
 						$has_pending_update = '1' === (string) get_post_meta( $post_id, 'pending_profile_review', true );
 						$has_pending_content = '1' === (string) get_post_meta( $post_id, 'pending_content_review', true );
 						$has_pending_review_campaign = '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true );
@@ -3605,6 +3637,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 											<small style="display:block;margin:6px 0;color:#475569;"><?php echo esc_html( $payment_handoff_context ); ?></small>
 										<?php endif; ?>
 										<textarea readonly rows="7" style="width:100%;margin-top:6px;font-size:12px;direction:rtl;"><?php echo esc_textarea( $payment_handoff_message ); ?></textarea>
+										<?php if ( $payment_handoff_whatsapp_url ) : ?>
+											<a class="button button-small" style="margin-top:6px;" href="<?php echo esc_url( $payment_handoff_whatsapp_url ); ?>" target="_blank" rel="noopener noreferrer">Open WhatsApp handoff</a>
+										<?php endif; ?>
 										<small style="display:block;color:#64748b;">Send after license/commercial review. This message does not charge or activate anyone.</small>
 									</details>
 								<?php endif; ?>

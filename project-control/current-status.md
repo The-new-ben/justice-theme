@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-24 20:19 Asia/Jerusalem
+- WHATSAPP PAYMENT HANDOFF: added one-click WhatsApp sharing for the same real manual invoice/payment-link message used in the admin queue.
+- RESEARCH BASIS: Grow explicitly positions Payment Links as shareable through WhatsApp, email and SMS; WooCommerce Subscriptions documents manual/failed renewal recovery as a customer Pay action reached from a link or account area rather than a silent/fake charge.
+- UPDATED: `inc/lawyer-onboarding.php` now builds a WhatsApp handoff URL from the saved lawyer WhatsApp number first, then phone fallback, and falls back to a generic WhatsApp share URL when no direct number exists.
+- UPDATED: the lawyer activation box and Lawyer Onboarding queue now expose `Open WhatsApp payment message` / `Open WhatsApp handoff` when a handoff message exists.
+- UPDATED: manual invoice CSV export now includes `whatsapp_handoff_url` for batch follow-up.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+- BLOCKED: uPress still needs to pull the latest GitHub commits before this and the email handoff are live; real Grow link creation remains an authenticated owner/Grow task.
+- SAFETY: repo code/admin workflow only; no public CMS/database write, content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, payment, invoice, charge, refund, lawyer record, lead, CRM record, email/SMS/WhatsApp send or GSC/GA4 setting changed during implementation.
+
 # LATEST WORK STATUS - 2026-05-24 20:10 Asia/Jerusalem
 - MANUAL PAYMENT LINK EMAIL HANDOFF: added the missing owner action that sends a real saved Grow/Morning payment link to the lawyer from the lawyer admin record.
 - RESEARCH BASIS: Grow documents Payment Links as shareable by email, WhatsApp, SMS, website and landing pages; WooCommerce Subscriptions documents that manual/failed payment recovery depends on emailing the customer and giving them a link to complete payment rather than pretending the charge happened automatically.

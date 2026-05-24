@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - WhatsApp payment handoff
+
+- UPDATED: `inc/lawyer-onboarding.php` now builds WhatsApp payment-handoff URLs from lawyer WhatsApp/phone metadata and the existing manual invoice/payment-link message.
+- UPDATED: lawyer activation box and Lawyer Onboarding queue expose one-click WhatsApp handoff links when a handoff message exists.
+- UPDATED: manual invoice CSV export includes `whatsapp_handoff_url` for batch follow-up.
+- RESEARCH BASIS: Grow Payment Links are shareable through WhatsApp/email/SMS, and WooCommerce manual/failed subscription recovery sends customers to a Pay action rather than pretending automatic payment happened.
+- VERIFIED LOCAL: PHP syntax passed for `inc/lawyer-onboarding.php`.
+- SAFETY: repo code/admin workflow only; no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway setting, payment, invoice, charge, refund, lawyer record, lead, CRM record, email/SMS/WhatsApp send or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Manual payment link email handoff
 
 - UPDATED: `inc/lawyer-onboarding.php` adds an explicit admin checkbox to send the saved Grow/Morning payment link to the lawyer by email.

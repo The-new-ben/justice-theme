@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-24 15:29 Asia/Jerusalem
+- PAID REGISTRATION OWNER ALERT: made future paid lawyer registrations arrive as revenue-action emails, not generic pending-review notices.
+- UPDATED: `inc/lawyer-onboarding.php` now changes paid manual-invoice registration email subjects to include expected monthly value.
+- UPDATED: owner notification body now starts with next action, expected monthly/annual value, invoice due date, invoice queue link and Plan Payments setup link.
+- CREATED: `project-control/paid-registration-owner-alert-2026-05-24.md`.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed.
+- SAFETY: future owner notification text only; no lawyer email, payment, invoice, activation, public CMS record, public lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 15:20 Asia/Jerusalem
 - LAWYER PAYMENT READINESS BOARD: upgraded the owner-only Plan Payments screen from a setup form into a clear revenue-readiness board.
 - UPDATED: `inc/lawyer-plans.php` now summarizes recurring checkout readiness, manual invoice selling availability and ready checkout products before the mapping table.

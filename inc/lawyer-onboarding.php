@@ -648,16 +648,42 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 		return;
 	}
 
-	$subject = 'New lawyer registration pending review';
+	$plan              = $meta['plan_type'] ?? '';
+	$expected_monthly  = justice_theme_lawyer_outreach_expected_monthly_nis( (string) $plan );
+	$payment_path      = $meta['payment_path'] ?? '';
+	$followup_status   = $meta['payment_followup_status'] ?? '';
+	$followup_due_at   = $meta['payment_followup_due_at'] ?? '';
+	$manual_paid       = 'manual_invoice' === $payment_path && 'free' !== $plan;
+	$invoice_queue_url = add_query_arg(
+		array(
+			'page'          => 'justice-lawyer-onboarding',
+			'payment_queue' => $followup_status ?: 'invoice_requested',
+		),
+		admin_url( 'admin.php' )
+	);
+	$plan_payments_url = admin_url( 'admin.php?page=justice-lawyer-plan-payments' );
+	$review_url        = admin_url( 'post.php?post=' . $post_id . '&action=edit' );
+	$next_action       = $manual_paid
+		? 'Verify license/commercial fit, send the manual invoice handoff, then mark invoice sent or paid in Lawyer Onboarding.'
+		: 'Review license, identity, content and plan before publishing or activating profile access.';
+	$subject           = $manual_paid
+		? sprintf( 'Paid lawyer registration needs invoice - %s NIS/mo', number_format_i18n( $expected_monthly ) )
+		: 'New lawyer registration pending review';
 	$message = sprintf(
-		"New lawyer registration draft is waiting for review.\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nLead response: %s\nAccount continuation: %s\nAttribution: %s\nLanding page: %s\nHeadline: %s\nVideo: %s\nGoogle Business: %s\nGoogle review link: %s\nUploads: %s\nAI draft: %s\n\nReview: %s",
+		"New lawyer registration draft is waiting for review.\n\nNext action: %s\nExpected value: %s NIS/mo (%s NIS/year)\nInvoice due: %s\nInvoice queue: %s\nPlan payments setup: %s\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nLead response: %s\nAccount continuation: %s\nAttribution: %s\nLanding page: %s\nHeadline: %s\nVideo: %s\nGoogle Business: %s\nGoogle review link: %s\nUploads: %s\nAI draft: %s\n\nReview: %s",
+		$next_action,
+		number_format_i18n( $expected_monthly ),
+		number_format_i18n( $expected_monthly * 12 ),
+		$followup_due_at ?: '-',
+		$manual_paid ? $invoice_queue_url : '-',
+		$plan_payments_url,
 		$meta['lawyer_full_name'] ?: '-',
 		$meta['firm_name'] ?: '-',
 		$meta['phone'] ?: '-',
 		$meta['email'] ?: '-',
-		$meta['plan_type'] ?: '-',
-		$meta['payment_path'] ?: '-',
-		$meta['payment_followup_status'] ?: '-',
+		$plan ?: '-',
+		$payment_path ?: '-',
+		$followup_status ?: '-',
 		justice_theme_lawyer_response_commitment_options()[ $meta['lead_response_commitment'] ?? '' ] ?? '-',
 		$meta['account_continuation_status'] ?: '-',
 		justice_theme_lawyer_registration_attribution_summary( $meta ) ?: '-',
@@ -668,7 +694,7 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 		$meta['google_review_request_url'] ?: '-',
 		$meta['registration_upload_notes'] ?: 'None',
 		! empty( $meta['pending_ai_profile_draft_review'] ) ? 'Ready for owner review' : 'Not generated',
-		admin_url( 'post.php?post=' . $post_id . '&action=edit' )
+		$review_url
 	);
 
 	wp_mail( $admin_email, $subject, $message );

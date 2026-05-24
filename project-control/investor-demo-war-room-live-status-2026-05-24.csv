@@ -1,0 +1,12 @@
+item,status,proof,owner_action
+deployment_marker,PASS,"Live marker shows 2026-05-24-lawyer-account-invite-v1","None"
+fresh_lawyer_registration,PASS,"Submitted INVESTOR DEMO Account Invite Lawyer 20260524180553 after uPress pull","Find draft profile in WordPress admin"
+account_invite_email,NEEDS_INBOX_CHECK,"Live registration should send setup/reset email to info@jus-tice.co.il","Open inbox and set password"
+lawyer_revenue_funnel,PASS_10_OF_10,"Live checker passed all 10 funnel checks","Use URLs in demo"
+grow_compliance_routes,PASS_8_OF_8,"Live checker passed checkout, terms, cancellation, privacy and business signals","Use compliance pages in demo"
+medical_malpractice_demo_lead,PASS,"Submitted INVESTOR DEMO - Medical Malpractice Lead","Find/assign lead in WordPress admin"
+payment_link,OWNER_BLOCKED,"No real Grow/Morning link available to this tool session","Create real payment link and paste into lawyer profile"
+payment_link_email,READY_AFTER_LINK,"Admin checkbox can send saved link by email","Tick Send this payment link by email now and save"
+real_payment,NOT_DONE,"No real charge verified","Run one controlled payment after real link exists"
+automatic_recurring_billing,BLOCKED,"Needs Grow/Meshulam approval plus WooCommerce product/gateway mapping","Configure after approval"
+refund_execution,BLOCKED_MANUAL,"Service desk captures refund requests; money movement is not automatic","Handle manually through provider until gateway lifecycle is mapped"

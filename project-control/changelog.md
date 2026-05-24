@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Investor demo war room live status
+
+- CREATED: `project-control/investor-demo-war-room-live-status-2026-05-24.md`.
+- CREATED: `project-control/investor-demo-war-room-live-status-2026-05-24.csv`.
+- VERIFIED: uPress pull is now live for `2026-05-24-lawyer-account-invite-v1`, fresh post-pull lawyer registration returned `registration=sent`, lawyer funnel passed `10/10`, Grow compliance passed `8/8`, and owner email summary was sent.
+- BLOCKED: account invite email still needs inbox confirmation; real Grow/Morning payment link and one controlled paid smoke test remain the final investor-demo money proof.
+
 ## 2026-05-24 - Payment handoff deployment gate
 
 - UPDATED: `functions.php` deployment marker to `2026-05-24-lawyer-payment-handoff-v1`.

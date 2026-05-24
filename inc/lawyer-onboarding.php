@@ -49,6 +49,9 @@ function justice_theme_register_lawyer_activation_meta(): void {
 		'registration_upload_notes'   => 'string',
 		'pending_ai_profile_draft_review' => 'string',
 		'profile_ai_draft_sections'   => 'string',
+		'account_user_created_at'     => 'string',
+		'account_invite_sent_at'      => 'string',
+		'account_invite_last_result'  => 'string',
 	);
 
 	foreach ( $fields as $key => $type ) {
@@ -384,6 +387,113 @@ function justice_theme_lawyer_registration_assistant_draft( array $meta, array $
 	return trim( implode( "\n", $lines ) );
 }
 
+function justice_theme_lawyer_registration_unique_username( string $email, string $fallback_name ): string {
+	$email_parts  = explode( '@', $email );
+	$email_prefix = sanitize_user( $email_parts[0] ?? '', true );
+	$name_slug    = sanitize_user( sanitize_title( $fallback_name ), true );
+	$base         = $email_prefix ?: $name_slug ?: 'lawyer';
+	$username     = $base;
+	$index        = 2;
+
+	while ( username_exists( $username ) ) {
+		$username = $base . '-' . $index;
+		++$index;
+	}
+
+	return $username;
+}
+
+function justice_theme_send_lawyer_account_invite( WP_User $user, int $post_id, bool $created ): bool {
+	$key = get_password_reset_key( $user );
+	if ( is_wp_error( $key ) ) {
+		update_post_meta( $post_id, 'account_invite_last_result', 'reset_key_failed' );
+		justice_theme_append_lawyer_internal_note( $post_id, 'Account invite failed: could not create password setup key.' );
+		return false;
+	}
+
+	$reset_url     = network_site_url( 'wp-login.php?action=rp&key=' . rawurlencode( $key ) . '&login=' . rawurlencode( $user->user_login ), 'login' );
+	$dashboard_url = function_exists( 'justice_theme_public_url' )
+		? justice_theme_public_url( home_url( '/lawyer-dashboard/' ) )
+		: home_url( '/lawyer-dashboard/' );
+	$plans_url     = function_exists( 'justice_theme_public_url' )
+		? justice_theme_public_url( home_url( '/lawyer-plans/' ) )
+		: home_url( '/lawyer-plans/' );
+	$subject       = $created ? 'Jus-Tice account setup for your lawyer dashboard' : 'Jus-Tice dashboard login setup';
+	$message       = sprintf(
+		"Hello,\n\nYour Jus-Tice lawyer profile request was received.\n\nSet or reset your password here:\n%s\n\nAfter setting the password, open your lawyer dashboard:\n%s\n\nYou can use the dashboard to prepare profile material, follow assigned leads, request content/profile updates, and submit billing, upgrade, downgrade, cancellation, refund, invoice or complaint requests.\n\nSelected plans are reviewed before publication. Paid plans are activated only after payment approval.\n\nPlan information:\n%s\n\nJus-Tice.co.il",
+		$reset_url,
+		$dashboard_url,
+		$plans_url
+	);
+	$headers       = array(
+		'Content-Type: text/plain; charset=UTF-8',
+		'From: Jus-Tice.co.il <info@jus-tice.co.il>',
+	);
+	$sent          = wp_mail( $user->user_email, $subject, $message, $headers );
+
+	update_post_meta( $post_id, 'account_invite_last_result', $sent ? 'sent' : 'wp_mail_failed' );
+
+	if ( $sent ) {
+		update_post_meta( $post_id, 'account_invite_sent_at', current_time( 'mysql' ) );
+		justice_theme_append_lawyer_internal_note( $post_id, 'Account setup email sent to ' . $user->user_email . '.' );
+	} else {
+		justice_theme_append_lawyer_internal_note( $post_id, 'Account setup email failed through wp_mail for ' . $user->user_email . '.' );
+	}
+
+	return $sent;
+}
+
+function justice_theme_create_or_link_lawyer_registration_account( int $post_id, string $name, string $email ): array {
+	$result = array(
+		'user_id' => 0,
+		'status'  => 'needs_owner_invite',
+	);
+
+	if ( ! is_email( $email ) ) {
+		return $result;
+	}
+
+	$user    = get_user_by( 'email', $email );
+	$created = false;
+
+	if ( ! $user ) {
+		$user_id = wp_insert_user( array(
+			'user_login'   => justice_theme_lawyer_registration_unique_username( $email, $name ),
+			'user_email'   => $email,
+			'display_name' => $name,
+			'nickname'     => $name,
+			'role'         => 'subscriber',
+			'user_pass'    => wp_generate_password( 32, true, true ),
+		) );
+
+		if ( is_wp_error( $user_id ) || ! $user_id ) {
+			update_post_meta( $post_id, 'account_invite_last_result', 'user_create_failed' );
+			justice_theme_append_lawyer_internal_note( $post_id, 'Account creation failed for ' . $email . '.' );
+			return array(
+				'user_id' => 0,
+				'status'  => 'account_create_failed',
+			);
+		}
+
+		$user    = get_user_by( 'id', (int) $user_id );
+		$created = true;
+		update_post_meta( $post_id, 'account_user_created_at', current_time( 'mysql' ) );
+	}
+
+	if ( ! $user instanceof WP_User ) {
+		return $result;
+	}
+
+	$sent = justice_theme_send_lawyer_account_invite( $user, $post_id, $created );
+
+	return array(
+		'user_id' => (int) $user->ID,
+		'status'  => $created
+			? ( $sent ? 'account_created_invite_sent' : 'account_created_invite_failed' )
+			: ( $sent ? 'existing_account_invite_sent' : 'existing_account_invite_failed' ),
+	);
+}
+
 function justice_theme_handle_lawyer_registration(): void {
 	if ( ! isset( $_POST['justice_lawyer_registration_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_registration_nonce'] ) ), 'justice_lawyer_registration' ) ) {
 		wp_safe_redirect( add_query_arg( 'registration', 'failed', home_url( '/lawyer-registration/' ) ) );
@@ -426,7 +536,8 @@ function justice_theme_handle_lawyer_registration(): void {
 	$billing_invoice_email  = isset( $_POST['billing_invoice_email'] ) ? sanitize_email( wp_unslash( $_POST['billing_invoice_email'] ) ) : '';
 	$billing_invoice_address = isset( $_POST['billing_invoice_address'] ) ? sanitize_text_field( wp_unslash( $_POST['billing_invoice_address'] ) ) : '';
 	$attribution         = justice_theme_lawyer_registration_attribution_from_post();
-	$account_status      = is_user_logged_in() ? 'linked_current_user' : 'needs_owner_invite';
+	$account_status      = is_user_logged_in() ? 'linked_current_user' : 'account_invite_pending';
+	$claimed_user_id     = is_user_logged_in() ? get_current_user_id() : 0;
 
 	if ( ! array_key_exists( $response_commitment, justice_theme_lawyer_response_commitment_options() ) ) {
 		$response_commitment = '';
@@ -452,6 +563,12 @@ function justice_theme_handle_lawyer_registration(): void {
 	if ( ! $post_id || is_wp_error( $post_id ) ) {
 		wp_safe_redirect( add_query_arg( 'registration', 'failed', home_url( '/lawyer-registration/' ) ) );
 		exit;
+	}
+
+	if ( ! is_user_logged_in() ) {
+		$account_result  = justice_theme_create_or_link_lawyer_registration_account( (int) $post_id, $name, $email );
+		$account_status  = $account_result['status'];
+		$claimed_user_id = (int) $account_result['user_id'];
 	}
 
 	$plan_type = in_array( $plan, array( 'free', 'pro', 'featured', 'lead_partner', 'full_service' ), true ) ? $plan : 'free';
@@ -493,7 +610,7 @@ function justice_theme_handle_lawyer_registration(): void {
 
 	$internal_notes .= is_user_logged_in()
 		? "\nAccount continuation: registration linked to the current logged-in user for dashboard follow-up."
-		: "\nAccount continuation: no logged-in user. Owner should invite or claim an account before dashboard access.";
+		: "\nAccount continuation: " . str_replace( '_', ' ', $account_status ) . '.';
 
 	$attribution_summary = justice_theme_lawyer_registration_attribution_summary( $attribution );
 	if ( $attribution_summary ) {
@@ -535,7 +652,7 @@ function justice_theme_handle_lawyer_registration(): void {
 		'first_value_at'       => '',
 		'activation_owner_note' => '',
 		'account_continuation_status' => $account_status,
-		'claimed_by_user_id'   => is_user_logged_in() ? get_current_user_id() : 0,
+		'claimed_by_user_id'   => $claimed_user_id,
 		'source_type'          => 'registration',
 		'lead_routing_enabled' => false,
 		'internal_notes'       => $internal_notes,

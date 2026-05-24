@@ -1,6 +1,6 @@
 const BASE_URL = 'https://jus-tice.co.il';
 const TIME_ZONE = 'Asia/Jerusalem';
-const EXPECTED_MARKER = '2026-05-24-lawyer-payment-handoff-v1';
+const EXPECTED_MARKER = '2026-05-24-lawyer-account-invite-v1';
 
 function datedFilePart() {
 	const parts = new Intl.DateTimeFormat( 'en-CA', {

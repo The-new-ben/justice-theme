@@ -151,6 +151,7 @@ $registration_prefill_billing_invoice_address = $registration_request_text( 'bil
 					<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
 						<p><?php esc_html_e( 'לא בוצע חיוב אוטומטי. לאחר בדיקת רישיון, תחום וזמינות נשלח חשבונית או הוראות תשלום ידניות, ואז נחבר את הפרופיל לאזור האישי.', 'justice-theme' ); ?></p>
 					<?php endif; ?>
+					<p><?php esc_html_e( 'Account setup link is sent to the email from the form, so the lawyer can set a password and enter the personal dashboard for profile material, leads and service requests.', 'justice-theme' ); ?></p>
 					<ol>
 						<li><?php esc_html_e( 'בודקים רישיון, פרטי משרד, תחומי עיסוק וכללי פרסום.', 'justice-theme' ); ?></li>
 						<li><?php esc_html_e( 'מסכמים מסלול, חשבונית ותשלום ידני אם מדובר במסלול בתשלום.', 'justice-theme' ); ?></li>

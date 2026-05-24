@@ -51,6 +51,30 @@
 		}
 	}
 
+	function syncPaymentPath(form) {
+		var planField = form.querySelector('[name="plan_interest"]');
+		var paymentField = form.querySelector('input[name="payment_path"]');
+		var paidPlans = {
+			pro: true,
+			featured: true,
+			lead_partner: true,
+			full_service: true
+		};
+
+		if (!planField) {
+			return;
+		}
+
+		if (!paymentField) {
+			paymentField = document.createElement('input');
+			paymentField.type = 'hidden';
+			paymentField.name = 'payment_path';
+			form.appendChild(paymentField);
+		}
+
+		paymentField.value = paidPlans[planField.value] ? 'manual_invoice' : '';
+	}
+
 	function readUrlAttribution() {
 		var params = new URLSearchParams(window.location.search || '');
 		var hash = window.location.hash ? window.location.hash.replace(/^#/, '') : '';
@@ -120,6 +144,14 @@
 
 		form.dataset.wizardReady = '1';
 		syncAttributionFields(form);
+		syncPaymentPath(form);
+
+		var planField = form.querySelector('[name="plan_interest"]');
+		if (planField) {
+			planField.addEventListener('change', function () {
+				syncPaymentPath(form);
+			});
+		}
 
 		var wizardConfig = [
 			{

@@ -59,6 +59,16 @@ if ( 'manual_invoice' !== $selected_payment_path ) {
 	$selected_payment_path = '';
 }
 
+$selected_plan_checkout_ready = 'free' === $selected_plan_interest
+	|| (
+		function_exists( 'justice_theme_plan_checkout_ready' )
+		&& justice_theme_plan_checkout_ready( $selected_plan_interest )
+	);
+
+if ( 'free' !== $selected_plan_interest && ! $selected_plan_checkout_ready ) {
+	$selected_payment_path = 'manual_invoice';
+}
+
 $registration_plans = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_plans() : array();
 $selected_plan       = $registration_plans[ $selected_plan_interest ] ?? array();
 
@@ -129,9 +139,7 @@ $registration_attribution = function_exists( 'justice_theme_lawyer_registration_
 
 			<form class="lawyer-registration-form" method="post" enctype="multipart/form-data" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="justice_lawyer_registration">
-				<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
-					<input type="hidden" name="payment_path" value="manual_invoice">
-				<?php endif; ?>
+				<input type="hidden" name="payment_path" value="<?php echo esc_attr( 'manual_invoice' === $selected_payment_path ? 'manual_invoice' : '' ); ?>">
 				<?php
 				if ( function_exists( 'justice_theme_render_lawyer_registration_attribution_fields' ) ) {
 					justice_theme_render_lawyer_registration_attribution_fields( $registration_attribution );

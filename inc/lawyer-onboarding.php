@@ -443,12 +443,24 @@ function justice_theme_handle_lawyer_registration(): void {
 		exit;
 	}
 
-	$plan_type      = in_array( $plan, array( 'free', 'pro', 'featured', 'lead_partner', 'full_service' ), true ) ? $plan : 'free';
+	$plan_type = in_array( $plan, array( 'free', 'pro', 'featured', 'lead_partner', 'full_service' ), true ) ? $plan : 'free';
+
+	if (
+		'free' !== $plan_type
+		&& '' === $payment_path
+		&& (
+			! function_exists( 'justice_theme_plan_checkout_ready' )
+			|| ! justice_theme_plan_checkout_ready( $plan_type )
+		)
+	) {
+		$payment_path = 'manual_invoice';
+	}
+
 	$manual_payment = 'manual_invoice' === $payment_path && 'free' !== $plan_type;
 	$internal_notes = 'Self-registration submission. Review license, identity, content, ethics and commercial plan before publishing.';
 
 	if ( $manual_payment ) {
-		$internal_notes .= "\nManual invoice path requested. Create Morning invoice/payment instructions after review, then activate only after payment confirmation.";
+		$internal_notes .= "\nManual invoice path requested or automatically assigned because paid checkout is not ready. Create Morning/Grow invoice/payment instructions after review, then activate only after payment confirmation.";
 	}
 
 	if ( $response_commitment ) {
@@ -543,16 +555,16 @@ function justice_theme_handle_lawyer_registration(): void {
 
 	justice_theme_notify_lawyer_registration( $post_id, $meta );
 
-	wp_safe_redirect(
-		add_query_arg(
-			array(
-				'registration'  => 'sent',
-				'plan_interest' => $meta['plan_type'],
-				'payment_path'  => $meta['payment_path'],
-			),
-			home_url( '/lawyer-registration/' )
-		)
+	$redirect_args = array(
+		'registration'  => 'sent',
+		'plan_interest' => $meta['plan_type'],
 	);
+
+	if ( ! empty( $meta['payment_path'] ) ) {
+		$redirect_args['payment_path'] = $meta['payment_path'];
+	}
+
+	wp_safe_redirect( add_query_arg( $redirect_args, home_url( '/lawyer-registration/' ) ) );
 	exit;
 }
 add_action( 'admin_post_justice_lawyer_registration', 'justice_theme_handle_lawyer_registration' );

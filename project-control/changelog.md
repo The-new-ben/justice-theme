@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Checkout lawyer attribution preservation
+
+- UPDATED: `inc/payment-compliance-routes.php` now carries hidden attribution fields through the fallback checkout form.
+- UPDATED: the checkout fallback preserves `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `outreach_segment`, `outreach_city` and `outreach_practice`, with safe manual-invoice defaults when no campaign data exists.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` verifies the paid Lead Partner/manual-invoice checkout path keeps those hidden fields.
+- CREATED: `project-control/checkout-attribution-preservation-2026-05-24.md`.
+- REGENERATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md` and `.csv`.
+- REGENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: PHP syntax, Node syntax and `git diff --check` passed.
+- DEPLOYED: `5cb8761 Preserve checkout lawyer attribution` was pushed and pulled through uPress; uPress log showed it as live `HEAD`.
+- VERIFIED LIVE READ-ONLY: full lawyer revenue funnel check passed `8/8`.
+- SAFETY: no CMS database write, public content, redirect/canonical/noindex/sitemap/taxonomy change, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Header lawyer revenue links
 
 - UPDATED: `template-parts/layout/site-header.php` now labels the desktop lawyer plan CTA as `מסלולים לעורכי דין` and the portal CTA as `אזור אישי`.

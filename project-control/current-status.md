@@ -1,3 +1,16 @@
+# LATEST WORK STATUS - 2026-05-24 16:43 Asia/Jerusalem
+- CHECKOUT ATTRIBUTION PRESERVATION: kept paid-lawyer source data alive through the Grow-compliance checkout fallback into registration.
+- RESEARCH BASIS: Justia monetizes lawyer visibility by practice/metro placement; Clio intake reporting emphasizes lead source, matter type, revenue potential and dashboard visibility.
+- UPDATED: `inc/payment-compliance-routes.php` now renders hidden checkout attribution fields for `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `outreach_segment`, `outreach_city` and `outreach_practice`, preserving incoming values or applying safe manual-invoice defaults.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` now verifies that the checkout fallback keeps the paid `lead_partner` plan, manual-invoice path and plan-page attribution hidden fields.
+- CREATED: `project-control/checkout-attribution-preservation-2026-05-24.md`.
+- GENERATED / UPDATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md`, `project-control/lawyer-revenue-funnel-live-2026-05-24.csv`, `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `reports/lawyer-revenue-funnel-live-2026-05-24.csv`.
+- VERIFIED LOCAL: `php -l inc/payment-compliance-routes.php`, `node --check tools/check-live-lawyer-revenue-funnel.mjs` and `git diff --check` passed.
+- DEPLOYED: committed/pushed `5cb8761`; uPress Git pull log showed `Preserve checkout lawyer attribution` as live HEAD.
+- VERIFIED LIVE READ-ONLY: the full lawyer revenue funnel check passed `8/8`, including the stricter checkout attribution gate.
+- BLOCKED: automated recurring lawyer payments still require Grow/Meshulam approval plus gateway/product mapping.
+- SAFETY: theme checkout-form hidden fields/checker/docs and read-only live checks only; no CMS database write, public content, redirect/canonical/noindex/sitemap/taxonomy change, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 16:32 Asia/Jerusalem
 - HEADER LAWYER REVENUE LINKS: made the top-of-site lawyer path more explicit for subscription sales and retention.
 - RESEARCH BASIS: Justia sells lawyer visibility through free/enhanced profiles and paid premium placements by practice/metro; Clio frames intake/reporting value through a dashboard/portal.

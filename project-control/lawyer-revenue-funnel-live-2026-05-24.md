@@ -1,7 +1,7 @@
 # Lawyer Revenue Funnel Live Check - 2026-05-24
 
 - Status: PASS
-- Started: 2026-05-24T13:30:35.053Z
+- Started: 2026-05-24T13:40:54.233Z
 - Base URL: https://jus-tice.co.il
 - Checks passed: 8/8
 - Checks needing review: 0
@@ -12,7 +12,7 @@
 |---|---:|---:|---|---|---|
 | Homepage exposes lawyer revenue entrypoints | PASS | 200 | - | - | https://jus-tice.co.il/ |
 | Plan page routes paid intent through checkout | PASS | 200 | - | - | https://jus-tice.co.il/lawyer-plans/?codex_check=lawyer_revenue_funnel |
-| Checkout path exposes Grow-required fields and terms approval | PASS | 200 | - | - | https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&codex_check=grow_checkout |
+| Checkout path exposes Grow-required fields and terms approval | PASS | 200 | - | - | https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&utm_source=lawyer_plans&utm_medium=plan_page&utm_campaign=lawyer_acquisition&utm_content=pricing_card_lead_partner&outreach_segment=plans_page&codex_check=grow_checkout |
 | Registration success explains manual activation | PASS | 200 | - | - | https://jus-tice.co.il/lawyer-registration/?registration=sent&plan_interest=pro&payment_path=manual_invoice |
 | Registration form preserves paid manual-invoice plan state | PASS | 200 | - | - | https://jus-tice.co.il/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice |
 | Logged-out dashboard gate offers paid-lawyer path | PASS | 200 | - | - | https://jus-tice.co.il/lawyer-dashboard/?codex_check=lawyer_revenue_funnel |

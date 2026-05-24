@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-24 22:50 Asia/Jerusalem
+- HOMEPAGE PRODUCT-PROOF POLISH: upgraded the lawyer revenue strip from copy-only into a visible product preview showing new leads, payment-link status and service follow-up inside the lawyer personal-area concept.
+- UPDATED: `template-parts/sections/homepage-lawyer-revenue-strip.php` now wraps the proof cards and adds `homepage-lawyer-revenue__mini-dashboard`.
+- UPDATED: `assets/css/premium-pass-4.css` adds the polished dark mini-dashboard panel with responsive mobile stacking.
+- UPDATED: `tools/check-homepage-investor-polish-live.mjs` and `tools/check-investor-demo-readiness.mjs` so investor gates expect the mini-dashboard marker.
+- MATERIAL ADVANCE: the homepage now communicates that Jus-Tice is a working two-sided revenue product, not just a content directory: visitor intake, lawyer signup, private area, leads, payment link and support status are all surfaced.
+- VERIFIED LOCAL: PHP lint passed for the revenue strip; Node syntax passed for both checker scripts; `git diff --check` passed with line-ending warnings only.
+- STILL BLOCKED: live site still requires uPress Pull Git/cache refresh for the pushed homepage polish bundle.
+- COMPLETION: homepage investor/commercial readiness moved from about 86% to about 89% locally; live readiness remains blocked by deployment verification.
+- SAFETY: theme/template/CSS/checker changes only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 22:35 Asia/Jerusalem
 - HOMEPAGE LAWYER ACCESS RAIL: added direct lawyer private-area and plan-entry links inside the hero, immediately under the main visitor CTAs, so the investor can see both sides of the marketplace without hunting.
 - UPDATED: `template-parts/sections/hero.php` adds the visible `לעורכי דין` hero access rail with links to `/lawyer-dashboard/` and `/lawyer-plans/`.

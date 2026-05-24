@@ -138,6 +138,7 @@ const checks = [
 		required: [
 			'hero__lawyer-access',
 			'homepage-lawyer-revenue',
+			'homepage-lawyer-revenue__mini-dashboard',
 			'/lawyer-registration/',
 			'/lawyer-plans/',
 			'/lawyer-dashboard/',
@@ -161,6 +162,7 @@ const checks = [
 			'Version: 4.3.2',
 			'.hero__lawyer-access',
 			'.homepage-lawyer-revenue',
+			'.homepage-lawyer-revenue__mini-dashboard',
 			'.homepage-lawyer-revenue__login',
 		],
 	},

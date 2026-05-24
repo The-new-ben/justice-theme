@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Homepage lawyer product proof polish
+
+- ADDED: mini dashboard preview inside the homepage lawyer revenue strip showing lead, payment and service-follow-up status.
+- UPDATED: `template-parts/sections/homepage-lawyer-revenue-strip.php`, `assets/css/premium-pass-4.css`, `tools/check-homepage-investor-polish-live.mjs`, and `tools/check-investor-demo-readiness.mjs`.
+- VERIFIED LOCAL: PHP syntax passed for the changed template; Node syntax passed for checker scripts; `git diff --check` passed with line-ending warnings only.
+- BLOCKED: requires push plus uPress Pull Git/cache refresh before it is live.
+- SAFETY: code/CSS/checker only; no public CMS/database or provider setting changed.
+
 # 2026-05-24 - Homepage lawyer access rail
 
 - ADDED: visible `לעורכי דין` access rail in the homepage hero with links to the lawyer dashboard and plan page.

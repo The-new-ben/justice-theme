@@ -1,7 +1,7 @@
 # Homepage Investor Polish Live Check - 2026-05-24
 
 - Status: REVIEW
-- Started: 2026-05-24T19:32:32.010Z
+- Started: 2026-05-24T19:38:10.022Z
 - Base URL: https://jus-tice.co.il
 - Expected marker: 2026-05-24-homepage-investor-polish-v1
 - Checks passed: 0/4
@@ -11,10 +11,10 @@
 
 | Check | Status | HTTP | Missing | Final URL |
 |---|---:|---:|---|---|
-| Homepage runtime deployment marker | REVIEW | 200 | 2026-05-24-homepage-investor-polish-v1 | https://jus-tice.co.il/?homepage_investor_polish_check=1779651152011 |
-| Homepage lawyer revenue strip is visible | REVIEW | 200 | hero__lawyer-access<br>homepage-lawyer-revenue<br>utm_medium=revenue_strip | https://jus-tice.co.il/?homepage_investor_polish_check=1779651152011 |
-| Static theme deployment marker | REVIEW | 200 | justice-theme-deployment-marker=2026-05-24-homepage-investor-polish-v1<br>expected-github-main-commit=homepage-investor-polish-v1 | https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779651152011 |
-| Premium polish CSS version is deployed | REVIEW | 200 | Version: 4.3.2<br>.hero__lawyer-access<br>.homepage-lawyer-revenue<br>.homepage-lawyer-revenue__login | https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779651152011 |
+| Homepage runtime deployment marker | REVIEW | 200 | 2026-05-24-homepage-investor-polish-v1 | https://jus-tice.co.il/?homepage_investor_polish_check=1779651490023 |
+| Homepage lawyer revenue strip is visible | REVIEW | 200 | hero__lawyer-access<br>homepage-lawyer-revenue<br>homepage-lawyer-revenue__mini-dashboard<br>utm_medium=revenue_strip | https://jus-tice.co.il/?homepage_investor_polish_check=1779651490023 |
+| Static theme deployment marker | REVIEW | 200 | justice-theme-deployment-marker=2026-05-24-homepage-investor-polish-v1<br>expected-github-main-commit=homepage-investor-polish-v1 | https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779651490023 |
+| Premium polish CSS version is deployed | REVIEW | 200 | Version: 4.3.2<br>.hero__lawyer-access<br>.homepage-lawyer-revenue<br>.homepage-lawyer-revenue__mini-dashboard<br>.homepage-lawyer-revenue__login | https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779651490023 |
 
 ## Owner Meaning
 

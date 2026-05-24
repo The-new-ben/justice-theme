@@ -68,14 +68,31 @@ $signals = array(
 			<p><?php esc_html_e( 'Jus-Tice נבנה כמערכת עסקית לעורכי דין: פרופיל מקצועי, פניות לקוחות, מעקב שירות ותהליך תשלום מבוקר. ההצטרפות עוברת בדיקה לפני הפעלה כדי לשמור על אמון, איכות והתאמה לתחום.', 'justice-theme' ); ?></p>
 		</div>
 
-		<ul class="homepage-lawyer-revenue__signals" aria-label="<?php esc_attr_e( 'יתרונות מסלול עורכי הדין', 'justice-theme' ); ?>">
-			<?php foreach ( $signals as $signal ) : ?>
-				<li>
-					<strong><?php echo esc_html( $signal['label'] ); ?></strong>
-					<span><?php echo esc_html( $signal['value'] ); ?></span>
-				</li>
-			<?php endforeach; ?>
-		</ul>
+		<div class="homepage-lawyer-revenue__proof">
+			<ul class="homepage-lawyer-revenue__signals" aria-label="<?php esc_attr_e( 'יתרונות מסלול עורכי הדין', 'justice-theme' ); ?>">
+				<?php foreach ( $signals as $signal ) : ?>
+					<li>
+						<strong><?php echo esc_html( $signal['label'] ); ?></strong>
+						<span><?php echo esc_html( $signal['value'] ); ?></span>
+					</li>
+				<?php endforeach; ?>
+			</ul>
+
+			<div class="homepage-lawyer-revenue__mini-dashboard" aria-label="<?php esc_attr_e( 'תצוגת אזור אישי לעורך דין', 'justice-theme' ); ?>">
+				<div>
+					<span><?php esc_html_e( 'פניות חדשות', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( '3 בטיפול', 'justice-theme' ); ?></strong>
+				</div>
+				<div>
+					<span><?php esc_html_e( 'תשלום', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'קישור נשלח', 'justice-theme' ); ?></strong>
+				</div>
+				<div>
+					<span><?php esc_html_e( 'שירות', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'מעקב פעיל', 'justice-theme' ); ?></strong>
+				</div>
+			</div>
+		</div>
 
 		<div class="homepage-lawyer-revenue__actions" aria-label="<?php esc_attr_e( 'כניסה והצטרפות לעורכי דין', 'justice-theme' ); ?>">
 			<a class="button button--gold" href="<?php echo esc_url( $registration_url ); ?>">

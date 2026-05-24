@@ -27,6 +27,7 @@ const liveChecks = [
 		required: [
 			'hero__lawyer-access',
 			'homepage-lawyer-revenue',
+			'homepage-lawyer-revenue__mini-dashboard',
 			'/lawyer-plans/',
 			'/lawyer-registration/',
 			'/lawyer-dashboard/',

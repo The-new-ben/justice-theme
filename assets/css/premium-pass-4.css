@@ -692,6 +692,11 @@
   line-height: 1.7;
   font-size: 0.95rem;
 }
+.homepage-lawyer-revenue__proof {
+  display: grid;
+  gap: 0.65rem;
+  min-width: 0;
+}
 .homepage-lawyer-revenue__signals {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -722,6 +727,38 @@
   color: var(--jt-muted, #6b7280);
   font-size: 0.82rem;
   line-height: 1.55;
+}
+.homepage-lawyer-revenue__mini-dashboard {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.5rem;
+  padding: 0.62rem;
+  border: 1px solid rgba(7,21,47,0.08);
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, rgba(7,21,47,0.96), rgba(16,38,74,0.94)),
+    #07152f;
+  box-shadow: 0 14px 34px rgba(7,21,47,0.16);
+}
+.homepage-lawyer-revenue__mini-dashboard div {
+  min-height: 62px;
+  display: grid;
+  align-content: center;
+  gap: 0.24rem;
+  padding: 0.58rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.06);
+}
+.homepage-lawyer-revenue__mini-dashboard span {
+  color: rgba(255,255,255,0.62);
+  font-size: 0.72rem;
+  font-weight: 850;
+}
+.homepage-lawyer-revenue__mini-dashboard strong {
+  color: #fff;
+  font-size: 0.9rem;
+  line-height: 1.25;
 }
 .homepage-lawyer-revenue__actions {
   display: grid;
@@ -763,6 +800,12 @@
     grid-template-columns: 1fr;
   }
   .homepage-lawyer-revenue__signals li {
+    min-height: 0;
+  }
+  .homepage-lawyer-revenue__mini-dashboard {
+    grid-template-columns: 1fr;
+  }
+  .homepage-lawyer-revenue__mini-dashboard div {
     min-height: 0;
   }
 }

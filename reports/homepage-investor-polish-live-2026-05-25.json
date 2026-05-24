@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-05-24T21:39:32.252Z",
+  "startedAt": "2026-05-24T21:49:42.995Z",
   "runDate": "2026-05-25",
   "baseUrl": "https://jus-tice.co.il",
   "expectedMarker": "2026-05-25-competitor-signup-funnel-v1",
@@ -12,9 +12,9 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 130240,
-      "durationMs": 1870,
-      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779658772252",
-      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779658772252",
+      "durationMs": 1885,
+      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779659382995",
+      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779659382995",
       "missing": [
         "2026-05-25-competitor-signup-funnel-v1"
       ]
@@ -25,9 +25,9 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 130240,
-      "durationMs": 1610,
-      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779658772252",
-      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779658772252",
+      "durationMs": 1671,
+      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779659382995",
+      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779659382995",
       "missing": [
         "homepage-lawyer-revenue__account-steps"
       ]
@@ -39,8 +39,8 @@
       "http": 200,
       "bytes": 192,
       "durationMs": 8,
-      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779658772252",
-      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779658772252",
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779659382995",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779659382995",
       "missing": [
         "justice-theme-deployment-marker=2026-05-25-competitor-signup-funnel-v1",
         "expected-github-main-commit=competitor-signup-funnel-v1"
@@ -52,9 +52,9 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 38529,
-      "durationMs": 10,
-      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779658772252",
-      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779658772252",
+      "durationMs": 13,
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779659382995",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779659382995",
       "missing": [
         "Version: 4.3.4",
         ".homepage-lawyer-revenue__account-steps"

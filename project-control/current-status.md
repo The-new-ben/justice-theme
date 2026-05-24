@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-24 20:24 Asia/Jerusalem
+- LAWYER CUSTOMER-SUCCESS COMMAND CENTER: upgraded the lawyer dashboard from scattered controls into a real operating cockpit for payment, urgent lead handling, WhatsApp contact, and lifecycle support.
+- RESEARCH BASIS: current CRM/WhatsApp pipeline guidance emphasizes one shared pipeline, fast response, searchable context and no forgotten follow-ups; billing best practice is self-service lifecycle actions with clear upgrade/downgrade/cancel/refund policies; WooCommerce Subscriptions documents customer upgrade/downgrade/cancel flows through the subscriber view when subscription/gateway support is active; Grow documents real Payment Links as the provider-side way to collect payment links.
+- UPDATED: `page-lawyer-dashboard.php` now adds a customer-success command center with payment action, hottest assigned lead, call/WhatsApp/email buttons and guided support actions.
+- UPDATED: `inc/lawyer-dashboard.php` now includes a real `payment_link_request` service request type plus lifecycle presets for payment link, upgrade, downgrade, cancellation, refund, invoice copy, lead-quality issue and complaint.
+- CREATED: `assets/js/lawyer-dashboard.js` to prefill the real service desk form from lifecycle buttons without submitting or changing account state until the lawyer sends the request.
+- UPDATED: `assets/css/premium-pass-3.css`, `inc/enqueue.php` and `tools/check-live-lawyer-revenue-funnel.mjs` for dashboard command-center styling, cache-busted assets and deployment verification.
+- BLOCKED: real Grow payment links still must be created in Grow/Morning and pasted into the lawyer record; true automatic recurring charges, branded automatic invoices and real refund execution remain blocked until Grow/Meshulam approval plus WooCommerce product/gateway/subscription mapping.
+- SAFETY: theme code/UI only; no public CMS/database write, content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, payment, invoice, charge, refund, lawyer record, lead, CRM record, email/SMS or GSC/GA4 setting changed during implementation.
+
 # LATEST WORK STATUS - 2026-05-24 19:51 Asia/Jerusalem
 - INVESTOR HARD QUESTIONS Q&A: created a meeting-side answer sheet for the questions most likely to expose unfinished payment, traction, moat, legal/compliance and SEO risks.
 - RESEARCH BASIS: current investor diligence guidance groups hard questions around team, market, product, traction, economics, legal/compliance and risk; VC-meeting guidance says investors test traction, moat, unit economics, market and go-to-market; Q&A guidance recommends acknowledging weaknesses, then bridging to mitigation, evidence and next de-risking.

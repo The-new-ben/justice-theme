@@ -227,6 +227,7 @@ $dashboard_lead_stage_options   = function_exists( 'justice_theme_lawyer_dashboa
 	'won'               => __( 'Won', 'justice-theme' ),
 	'lost'              => __( 'Not fit / lost', 'justice-theme' ),
 );
+$dashboard_service_presets = function_exists( 'justice_theme_lawyer_dashboard_service_presets' ) ? justice_theme_lawyer_dashboard_service_presets() : array();
 
 if ( $dashboard_google_review_url ) {
 	$dashboard_review_message = sprintf(
@@ -359,6 +360,67 @@ if ( $leads && $leads->posts ) {
 	}
 }
 
+$dashboard_priority_lead = null;
+if ( $leads && $leads->posts ) {
+	foreach ( $leads->posts as $lead_post ) {
+		$lead_id            = (int) $lead_post->ID;
+		$lead_stage_status = sanitize_key( (string) ( get_post_meta( $lead_id, 'follow_up_status', true ) ?: get_post_meta( $lead_id, 'lead_status', true ) ?: 'not_started' ) );
+		if ( ! array_key_exists( $lead_stage_status, $dashboard_lead_stage_options ) && in_array( $lead_stage_status, array( 'new', 'assigned', 'qualified', 'pending', '' ), true ) ) {
+			$lead_stage_status = 'not_started';
+		}
+
+		$lead_created_at  = (int) get_post_time( 'U', true, $lead_id );
+		$lead_minutes_old = $lead_created_at ? max( 0, (int) floor( ( time() - $lead_created_at ) / MINUTE_IN_SECONDS ) ) : 0;
+		$is_open_stage    = in_array( $lead_stage_status, array( 'not_started', 'new', 'assigned', 'qualified', 'pending', '' ), true );
+		$is_working_stage = in_array( $lead_stage_status, array( 'first_attempt', 'contacted', 'consult_scheduled' ), true );
+
+		if ( ! $is_open_stage && ! $is_working_stage && null !== $dashboard_priority_lead ) {
+			continue;
+		}
+
+		$lead_name          = get_post_meta( $lead_id, 'visitor_name', true ) ?: get_the_title( $lead_id );
+		$lead_phone         = (string) ( get_post_meta( $lead_id, 'visitor_phone', true ) ?: get_post_meta( $lead_id, 'lead_phone', true ) );
+		$lead_email         = (string) ( get_post_meta( $lead_id, 'visitor_email', true ) ?: get_post_meta( $lead_id, 'lead_email', true ) );
+		$lead_phone_link    = $lead_phone && function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( $lead_phone ) : '';
+		$lead_phone_link    = $lead_phone_link ?: ( $lead_phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', $lead_phone ) : '' );
+		$lead_whatsapp_link = $lead_phone && function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( $lead_phone ) : '';
+		if ( $lead_whatsapp_link ) {
+			$lead_whatsapp_link = add_query_arg(
+				'text',
+				sprintf(
+					'שלום %s, קיבלתי את הפנייה שלך דרך Jus-Tice ואשמח לבדוק איך אפשר לעזור.',
+					$lead_name
+				),
+				$lead_whatsapp_link
+			);
+		}
+		$lead_email_link = $lead_email ? add_query_arg(
+			array(
+				'subject' => 'פנייתך דרך Jus-Tice',
+				'body'    => sprintf( "שלום %s,\n\nקיבלתי את הפנייה שלך דרך Jus-Tice ואשמח לבדוק איך אפשר לעזור.\n\nבברכה,\n%s", $lead_name, $dashboard_review_profile_title ?: get_bloginfo( 'name' ) ),
+			),
+			'mailto:' . $lead_email
+		) : '';
+
+		$dashboard_priority_lead = array(
+			'id'            => $lead_id,
+			'name'          => $lead_name,
+			'area'          => get_post_meta( $lead_id, 'legal_area', true ) ?: get_post_meta( $lead_id, 'lead_area', true ) ?: '-',
+			'stage'         => $dashboard_lead_stage_options[ $lead_stage_status ] ?? $lead_stage_status,
+			'next_action'   => $is_open_stage ? ( $lead_minutes_old > 15 ? __( 'Call now - overdue', 'justice-theme' ) : __( 'Call within 15 minutes', 'justice-theme' ) ) : __( 'Continue follow-up', 'justice-theme' ),
+			'minutes_old'   => $lead_minutes_old,
+			'phone_link'    => $lead_phone_link,
+			'whatsapp_link' => $lead_whatsapp_link,
+			'email_link'    => $lead_email_link,
+			'date'          => get_the_date( '', $lead_id ),
+		);
+
+		if ( $is_open_stage ) {
+			break;
+		}
+	}
+}
+
 $dashboard_add_profile_url = justice_theme_public_url( add_query_arg(
 	array(
 		'plan_interest'    => 'pro',
@@ -475,6 +537,65 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 					<?php endif; ?>
 				</dl>
 				<a class="button button--gold<?php echo $primary_manual_payment_link ? ' lawyer-dashboard-plan-status__payment-link' : ''; ?>" href="<?php echo esc_url( $primary_plan_action_url ); ?>"<?php echo $primary_manual_payment_link ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html( $primary_plan_action_label ); ?></a>
+			</section>
+
+			<section class="lawyer-dashboard-command-center" aria-labelledby="lawyer-dashboard-command-center-title">
+				<div class="lawyer-dashboard-command-center__header">
+					<div>
+						<p class="section-header__eyebrow"><?php esc_html_e( 'Customer success command center', 'justice-theme' ); ?></p>
+						<h2 id="lawyer-dashboard-command-center-title"><?php esc_html_e( 'Payment, leads and service in one place', 'justice-theme' ); ?></h2>
+						<p><?php esc_html_e( 'Use this during the real customer journey: pay when a real link exists, contact assigned leads, and submit upgrade, downgrade, cancellation, refund, invoice or complaint requests into the service desk.', 'justice-theme' ); ?></p>
+					</div>
+				</div>
+				<div class="lawyer-dashboard-command-center__grid">
+					<article class="lawyer-dashboard-command-card">
+						<strong><?php esc_html_e( 'Payment action', 'justice-theme' ); ?></strong>
+						<span><?php echo esc_html( $primary_payment_label ); ?></span>
+						<p><?php echo esc_html( $primary_manual_payment_link ? __( 'A real payment link is attached to this account. Open it to complete payment in the provider page.', 'justice-theme' ) : __( 'No real payment link is attached yet. Request it here, then the owner creates the Grow/Morning link and saves it on the lawyer record.', 'justice-theme' ) ); ?></p>
+						<?php if ( $primary_manual_payment_link ) : ?>
+							<a class="button button--gold lawyer-dashboard-command-card__pay" href="<?php echo esc_url( $primary_manual_payment_link ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Pay now', 'justice-theme' ); ?></a>
+						<?php elseif ( isset( $dashboard_service_presets['payment_link'] ) ) : ?>
+							<?php $payment_preset = $dashboard_service_presets['payment_link']; ?>
+							<button type="button" class="button button--gold" data-service-request-preset="payment_link" data-request-type="<?php echo esc_attr( $payment_preset['type'] ); ?>" data-request-urgency="<?php echo esc_attr( $payment_preset['urgency'] ); ?>" data-request-plan="<?php echo esc_attr( $payment_preset['desired_plan'] ); ?>" data-request-subject="<?php echo esc_attr( $payment_preset['subject'] ); ?>" data-request-message="<?php echo esc_attr( $payment_preset['message'] ); ?>"><?php echo esc_html( $payment_preset['label'] ); ?></button>
+						<?php endif; ?>
+					</article>
+
+					<article class="lawyer-dashboard-command-card lawyer-dashboard-command-card--lead">
+						<strong><?php esc_html_e( 'Lead to handle now', 'justice-theme' ); ?></strong>
+						<?php if ( $dashboard_priority_lead ) : ?>
+							<span><?php echo esc_html( $dashboard_priority_lead['name'] ); ?></span>
+							<p><?php echo esc_html( $dashboard_priority_lead['area'] . ' - ' . $dashboard_priority_lead['stage'] . ' - ' . $dashboard_priority_lead['next_action'] ); ?></p>
+							<div class="lawyer-dashboard-command-card__actions">
+								<?php if ( $dashboard_priority_lead['phone_link'] ) : ?>
+									<a class="button" href="<?php echo esc_url( $dashboard_priority_lead['phone_link'] ); ?>"><?php esc_html_e( 'Call', 'justice-theme' ); ?></a>
+								<?php endif; ?>
+								<?php if ( $dashboard_priority_lead['whatsapp_link'] ) : ?>
+									<a class="button" href="<?php echo esc_url( $dashboard_priority_lead['whatsapp_link'] ); ?>" target="_blank" rel="noopener"><?php esc_html_e( 'WhatsApp', 'justice-theme' ); ?></a>
+								<?php endif; ?>
+								<?php if ( $dashboard_priority_lead['email_link'] ) : ?>
+									<a class="button" href="<?php echo esc_url( $dashboard_priority_lead['email_link'] ); ?>"><?php esc_html_e( 'Email', 'justice-theme' ); ?></a>
+								<?php endif; ?>
+							</div>
+							<small><?php printf( esc_html__( 'Lead #%1$s from %2$s', 'justice-theme' ), esc_html( (string) $dashboard_priority_lead['id'] ), esc_html( $dashboard_priority_lead['date'] ) ); ?></small>
+						<?php else : ?>
+							<span><?php esc_html_e( 'No assigned lead waiting', 'justice-theme' ); ?></span>
+							<p><?php esc_html_e( 'When a real lead is assigned, the call, WhatsApp, email and follow-up controls appear here without exposing unassigned leads.', 'justice-theme' ); ?></p>
+						<?php endif; ?>
+					</article>
+
+					<article class="lawyer-dashboard-command-card lawyer-dashboard-command-card--support">
+						<strong><?php esc_html_e( 'Guided support assistant', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'Real request, owner-reviewed action', 'justice-theme' ); ?></span>
+						<p><?php esc_html_e( 'Choose a scenario and the service desk will be prefilled. Nothing is changed or refunded until the request is submitted and reviewed.', 'justice-theme' ); ?></p>
+						<div class="lawyer-dashboard-command-card__actions">
+							<?php foreach ( array( 'upgrade', 'downgrade', 'cancel', 'refund', 'invoice', 'lead_quality', 'complaint' ) as $preset_key ) : ?>
+								<?php if ( empty( $dashboard_service_presets[ $preset_key ] ) ) { continue; } ?>
+								<?php $preset = $dashboard_service_presets[ $preset_key ]; ?>
+								<button type="button" class="button" data-service-request-preset="<?php echo esc_attr( $preset_key ); ?>" data-request-type="<?php echo esc_attr( $preset['type'] ); ?>" data-request-urgency="<?php echo esc_attr( $preset['urgency'] ); ?>" data-request-plan="<?php echo esc_attr( $preset['desired_plan'] ); ?>" data-request-subject="<?php echo esc_attr( $preset['subject'] ); ?>" data-request-message="<?php echo esc_attr( $preset['message'] ); ?>"><?php echo esc_html( $preset['label'] ); ?></button>
+							<?php endforeach; ?>
+						</div>
+					</article>
+				</div>
 			</section>
 
 			<section class="lawyer-dashboard__first-value" aria-labelledby="lawyer-dashboard-first-value-title">

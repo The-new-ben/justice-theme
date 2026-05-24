@@ -164,6 +164,23 @@ const checks = [
 			'.lawyer-dashboard-plan-status__payment-link',
 			'.lawyer-dashboard-service-request',
 			'.lawyer-dashboard-service-request__latest',
+			'.lawyer-dashboard-command-center',
+			'.lawyer-dashboard-command-card',
+		],
+	},
+	{
+		id: 'lawyer-dashboard-support-assistant-js',
+		name: 'Lawyer dashboard support assistant JS is deployed',
+		url: '/wp-content/themes/justice-theme/assets/js/lawyer-dashboard.js?codex_check=lawyer_revenue_funnel',
+		type: 'asset',
+		required: [
+			'data-service-request-preset',
+			'service-request-type',
+			'service-request-urgency',
+			'service-request-desired-plan',
+			'service-request-subject',
+			'service-request-message',
+			'scrollIntoView',
 		],
 	},
 	{

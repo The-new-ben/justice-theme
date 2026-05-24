@@ -35,7 +35,7 @@ function justice_theme_enqueue_assets() {
 		'justice-premium-3',
 		JUSTICE_THEME_URI . '/assets/css/premium-pass-3.css',
 		array( 'justice-premium-2' ),
-		'3.0.5'
+		'3.0.6'
 	);
 
 	wp_enqueue_style(
@@ -119,6 +119,16 @@ function justice_theme_enqueue_assets() {
 			JUSTICE_THEME_URI . '/assets/js/lawyer-registration-wizard.js',
 			array(),
 			'1.2.1',
+			true
+		);
+	}
+
+	if ( is_page_template( 'page-lawyer-dashboard.php' ) || is_page( 'lawyer-dashboard' ) ) {
+		wp_enqueue_script(
+			'justice-lawyer-dashboard',
+			JUSTICE_THEME_URI . '/assets/js/lawyer-dashboard.js',
+			array(),
+			'1.0.1',
 			true
 		);
 	}

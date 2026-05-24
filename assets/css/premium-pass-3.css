@@ -2588,6 +2588,95 @@
   box-shadow: 0 10px 22px rgba(0, 92, 64, 0.2);
 }
 
+.lawyer-dashboard-command-center {
+  border: 1px solid rgba(39, 91, 143, 0.2);
+  border-radius: 8px;
+  background: #f8fafc;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.lawyer-dashboard-command-center__header {
+  margin-bottom: 0.9rem;
+}
+
+.lawyer-dashboard-command-center__header h2 {
+  margin: 0.25rem 0 0.4rem;
+  color: var(--jt-primary-deep);
+}
+
+.lawyer-dashboard-command-center__header p {
+  margin: 0;
+  color: var(--jt-muted);
+  line-height: 1.65;
+}
+
+.lawyer-dashboard-command-center__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.lawyer-dashboard-command-card {
+  display: grid;
+  align-content: start;
+  gap: 0.6rem;
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  background: #fff;
+  padding: 0.9rem;
+}
+
+.lawyer-dashboard-command-card > strong,
+.lawyer-dashboard-command-card > span,
+.lawyer-dashboard-command-card > small {
+  display: block;
+}
+
+.lawyer-dashboard-command-card > strong {
+  color: var(--jt-primary-deep);
+  font-size: 1rem;
+}
+
+.lawyer-dashboard-command-card > span {
+  color: var(--jt-accent);
+  font-weight: 900;
+  line-height: 1.35;
+}
+
+.lawyer-dashboard-command-card p,
+.lawyer-dashboard-command-card small {
+  margin: 0;
+  color: var(--jt-muted);
+  line-height: 1.55;
+}
+
+.lawyer-dashboard-command-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.lawyer-dashboard-command-card__actions .button,
+.lawyer-dashboard-command-card .button {
+  min-height: 2.25rem;
+  padding: 0 0.7rem;
+}
+
+.lawyer-dashboard-command-card__pay {
+  justify-self: start;
+}
+
+.lawyer-dashboard-command-card--lead {
+  border-color: rgba(0, 92, 64, 0.2);
+  background: #f6fffb;
+}
+
+.lawyer-dashboard-command-card--support {
+  border-color: rgba(197, 164, 92, 0.42);
+  background: #fffaf0;
+}
+
 .lawyer-dashboard-review-kit {
   display: grid;
   gap: 0.75rem;
@@ -3180,6 +3269,7 @@
   .lawyer-dashboard__grid,
   .lawyer-dashboard__summary,
   .lawyer-dashboard-plan-status,
+  .lawyer-dashboard-command-center__grid,
   .lawyer-dashboard__first-value,
   .lawyer-dashboard-growth__header,
   .lawyer-dashboard-service-request__header,

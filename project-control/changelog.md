@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Lawyer customer-success command center
+
+- UPDATED: `page-lawyer-dashboard.php` adds a command center for payment action, hottest assigned lead, call/WhatsApp/email contact, and lifecycle support buttons.
+- UPDATED: `inc/lawyer-dashboard.php` adds `payment_link_request` plus guided service presets for payment link, upgrade, downgrade, cancellation, refund, invoice, lead-quality and complaint scenarios.
+- CREATED: `assets/js/lawyer-dashboard.js` to prefill the real service desk form from lifecycle buttons.
+- UPDATED: `assets/css/premium-pass-3.css`, `inc/enqueue.php` and `tools/check-live-lawyer-revenue-funnel.mjs`.
+- RESEARCH BASIS: CRM/WhatsApp lead guidance emphasizes unified pipeline, speed-to-lead, context and follow-up; subscription billing guidance emphasizes customer self-service lifecycle actions and clear upgrade/downgrade/cancel/refund handling.
+- SAFETY: theme code/UI only; no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway setting, payment, invoice, charge, refund, lawyer record, lead, CRM record, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Investor hard questions Q&A
 
 - CREATED: `project-control/investor-hard-questions-qa-2026-05-24.md`.

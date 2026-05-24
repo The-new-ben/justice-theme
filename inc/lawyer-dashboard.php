@@ -288,6 +288,7 @@ add_action( 'admin_post_justice_lawyer_supplier_request', 'justice_theme_handle_
 function justice_theme_lawyer_service_request_options(): array {
 	return array(
 		'billing_question'    => __( 'Billing / payment question', 'justice-theme' ),
+		'payment_link_request' => __( 'Send payment link', 'justice-theme' ),
 		'invoice_copy'        => __( 'Invoice or receipt copy', 'justice-theme' ),
 		'upgrade_plan'        => __( 'Upgrade plan', 'justice-theme' ),
 		'downgrade_plan'      => __( 'Downgrade plan', 'justice-theme' ),
@@ -297,6 +298,75 @@ function justice_theme_lawyer_service_request_options(): array {
 		'lead_quality'        => __( 'Lead quality problem', 'justice-theme' ),
 		'technical_issue'     => __( 'Technical issue', 'justice-theme' ),
 		'other'               => __( 'Other service request', 'justice-theme' ),
+	);
+}
+
+function justice_theme_lawyer_dashboard_service_presets(): array {
+	return array(
+		'payment_link' => array(
+			'label'        => __( 'Send payment link', 'justice-theme' ),
+			'type'         => 'payment_link_request',
+			'urgency'      => 'urgent',
+			'desired_plan' => '',
+			'subject'      => __( 'Please send my payment link', 'justice-theme' ),
+			'message'      => __( 'I want to complete payment for my selected lawyer plan. Please send the Grow/Morning payment link and invoice details.', 'justice-theme' ),
+		),
+		'upgrade'      => array(
+			'label'        => __( 'Upgrade plan', 'justice-theme' ),
+			'type'         => 'upgrade_plan',
+			'urgency'      => 'this_week',
+			'desired_plan' => 'lead_partner',
+			'subject'      => __( 'I want to upgrade my plan', 'justice-theme' ),
+			'message'      => __( 'Please review my account and send the correct upgrade/payment instructions before the next billing cycle.', 'justice-theme' ),
+		),
+		'downgrade'    => array(
+			'label'        => __( 'Downgrade plan', 'justice-theme' ),
+			'type'         => 'downgrade_plan',
+			'urgency'      => 'next_cycle',
+			'desired_plan' => 'pro',
+			'subject'      => __( 'I want to downgrade my plan', 'justice-theme' ),
+			'message'      => __( 'Please review my account and confirm the downgrade terms before the next billing cycle.', 'justice-theme' ),
+		),
+		'cancel'       => array(
+			'label'        => __( 'Cancel subscription', 'justice-theme' ),
+			'type'         => 'cancel_subscription',
+			'urgency'      => 'next_cycle',
+			'desired_plan' => '',
+			'subject'      => __( 'I want to cancel my subscription', 'justice-theme' ),
+			'message'      => __( 'Please review my account, confirm the cancellation date, and explain what happens to my profile and leads.', 'justice-theme' ),
+		),
+		'refund'       => array(
+			'label'        => __( 'Request refund', 'justice-theme' ),
+			'type'         => 'refund_request',
+			'urgency'      => 'urgent',
+			'desired_plan' => '',
+			'subject'      => __( 'I want to request a refund', 'justice-theme' ),
+			'message'      => __( 'Please review the payment, invoice/reference, service issue, and refund eligibility. I understand no refund is executed until owner/provider review.', 'justice-theme' ),
+		),
+		'invoice'      => array(
+			'label'        => __( 'Invoice copy', 'justice-theme' ),
+			'type'         => 'invoice_copy',
+			'urgency'      => 'this_week',
+			'desired_plan' => '',
+			'subject'      => __( 'Please send invoice or receipt copy', 'justice-theme' ),
+			'message'      => __( 'Please send me the invoice/receipt copy for my latest payment. Include the invoice reference if available.', 'justice-theme' ),
+		),
+		'lead_quality' => array(
+			'label'        => __( 'Lead quality issue', 'justice-theme' ),
+			'type'         => 'lead_quality',
+			'urgency'      => 'this_week',
+			'desired_plan' => '',
+			'subject'      => __( 'Lead quality issue', 'justice-theme' ),
+			'message'      => __( 'Please review the lead quality. I will include the lead name, date, and what happened after contact.', 'justice-theme' ),
+		),
+		'complaint'    => array(
+			'label'        => __( 'Complaint', 'justice-theme' ),
+			'type'         => 'complaint',
+			'urgency'      => 'urgent',
+			'desired_plan' => '',
+			'subject'      => __( 'Service complaint', 'justice-theme' ),
+			'message'      => __( 'Please review this service issue and tell me the next action, owner response, and expected resolution time.', 'justice-theme' ),
+		),
 	);
 }
 

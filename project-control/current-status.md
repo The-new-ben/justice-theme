@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-24 15:08 Asia/Jerusalem
+- LAWYER PAYMENT MRR VISIBILITY: made the owner payment queue show expected monthly value, so manual invoice follow-up can be prioritized by money and urgency.
+- UPDATED: `inc/lawyer-onboarding.php` now aligns internal value math with the public lawyer plan prices: 349, 749, 1490 and 2490 NIS per month.
+- UPDATED: the Lawyer Onboarding command center now shows potential, at-risk, scheduled, pending, confirmed and total manual-invoice monthly value.
+- UPDATED: the next-money action box now displays the monthly value of the active queue.
+- UPDATED: onboarding table rows now show each lawyer registration's expected monthly value next to the selected plan.
+- UPDATED: payment queue CSV exports now include `expected_monthly_nis` and `expected_annual_nis`.
+- CREATED: `project-control/lawyer-payment-mrr-visibility-2026-05-24.md`.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed.
+- SAFETY: admin-only operational visibility; no public CMS record, public lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, invoice, email/SMS send, GSC/GA4 setting or wp-admin setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 14:55 Asia/Jerusalem
 - LAWYER PAYMENT FOLLOW-UP SLA: turned manual invoice statuses into an owner-operating queue with due/overdue pressure.
 - UPDATED: `inc/lawyer-onboarding.php` now registers `payment_followup_due_at` for lawyer profiles.

@@ -760,10 +760,10 @@ function justice_theme_lawyer_outreach_prospect_plan( string $plan ): string {
 
 function justice_theme_lawyer_outreach_expected_monthly_nis( string $plan ): int {
 	$values = array(
-		'pro'          => 499,
-		'featured'     => 1490,
+		'pro'          => 349,
+		'featured'     => 749,
 		'lead_partner' => 1490,
-		'full_service' => 2990,
+		'full_service' => 2490,
 		'free'         => 0,
 	);
 
@@ -1390,7 +1390,7 @@ function justice_theme_export_lawyer_payment_queue(): void {
 	$query = new WP_Query( array(
 		'post_type'      => 'justice_lawyer',
 		'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
-		'posts_per_page' => 500,
+		'posts_per_page' => -1,
 		'orderby'        => 'date',
 		'order'          => 'DESC',
 		'meta_query'     => array(
@@ -1421,6 +1421,8 @@ function justice_theme_export_lawyer_payment_queue(): void {
 		'bar_number',
 		'plan_key',
 		'plan_label',
+		'expected_monthly_nis',
+		'expected_annual_nis',
 		'payment_path',
 		'payment_followup_status',
 		'payment_followup_due_at',
@@ -1449,6 +1451,7 @@ function justice_theme_export_lawyer_payment_queue(): void {
 
 		$post_id           = get_the_ID();
 		$plan              = (string) get_post_meta( $post_id, 'plan_type', true );
+		$expected_monthly  = justice_theme_lawyer_outreach_expected_monthly_nis( $plan );
 		$payment_path      = (string) get_post_meta( $post_id, 'payment_path', true );
 		$followup_status   = (string) get_post_meta( $post_id, 'payment_followup_status', true );
 		$followup_due_at   = (string) get_post_meta( $post_id, 'payment_followup_due_at', true );
@@ -1463,6 +1466,8 @@ function justice_theme_export_lawyer_payment_queue(): void {
 			get_post_meta( $post_id, 'bar_number', true ),
 			$plan,
 			justice_theme_lawyer_onboarding_plan_label( $plan ),
+			$expected_monthly,
+			$expected_monthly * 12,
 			$payment_path,
 			$followup_status,
 			$followup_due_at,
@@ -2188,11 +2193,34 @@ function justice_theme_lawyer_onboarding_count_lawyers( array $meta_query ): int
 	return (int) $query->found_posts;
 }
 
-function justice_theme_lawyer_onboarding_payment_due_count( string $mode ): int {
+function justice_theme_lawyer_onboarding_monthly_value( array $meta_query ): int {
 	if ( ! post_type_exists( 'justice_lawyer' ) ) {
 		return 0;
 	}
 
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_lawyer',
+		'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+		'posts_per_page' => 500,
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+		'meta_query'     => $meta_query,
+	) );
+
+	$total = 0;
+
+	foreach ( $query->posts as $post_id ) {
+		$total += justice_theme_lawyer_outreach_expected_monthly_nis( (string) get_post_meta( (int) $post_id, 'plan_type', true ) );
+	}
+
+	return $total;
+}
+
+function justice_theme_lawyer_onboarding_money_label( int $amount ): string {
+	return number_format_i18n( max( 0, $amount ) ) . ' NIS/mo';
+}
+
+function justice_theme_lawyer_onboarding_payment_due_meta_query( string $mode ): array {
 	$now  = current_time( 'mysql' );
 	$soon = wp_date( 'Y-m-d H:i:s', current_time( 'timestamp' ) + 2 * DAY_IN_SECONDS );
 
@@ -2212,23 +2240,35 @@ function justice_theme_lawyer_onboarding_payment_due_count( string $mode ): int 
 		);
 	}
 
+	return array(
+		'relation' => 'AND',
+		array(
+			'key'     => 'payment_followup_status',
+			'value'   => array( 'invoice_requested', 'invoice_sent' ),
+			'compare' => 'IN',
+		),
+		$due_query,
+	);
+}
+
+function justice_theme_lawyer_onboarding_payment_due_count( string $mode ): int {
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		return 0;
+	}
+
 	$query = new WP_Query( array(
 		'post_type'      => 'justice_lawyer',
 		'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
 		'posts_per_page' => 1,
 		'fields'         => 'ids',
-		'meta_query'     => array(
-			'relation' => 'AND',
-			array(
-				'key'     => 'payment_followup_status',
-				'value'   => array( 'invoice_requested', 'invoice_sent' ),
-				'compare' => 'IN',
-			),
-			$due_query,
-		),
+		'meta_query'     => justice_theme_lawyer_onboarding_payment_due_meta_query( $mode ),
 	) );
 
 	return (int) $query->found_posts;
+}
+
+function justice_theme_lawyer_onboarding_payment_due_value( string $mode ): int {
+	return justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_payment_due_meta_query( $mode ) );
 }
 
 function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
@@ -2270,6 +2310,32 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	) );
 	$payment_overdue_count  = justice_theme_lawyer_onboarding_payment_due_count( 'overdue' );
 	$payment_due_soon_count = justice_theme_lawyer_onboarding_payment_due_count( 'due_soon' );
+	$invoice_requested_value = justice_theme_lawyer_onboarding_monthly_value( array(
+		array(
+			'key'   => 'payment_followup_status',
+			'value' => 'invoice_requested',
+		),
+	) );
+	$invoice_sent_value      = justice_theme_lawyer_onboarding_monthly_value( array(
+		array(
+			'key'   => 'payment_followup_status',
+			'value' => 'invoice_sent',
+		),
+	) );
+	$payment_confirmed_value = justice_theme_lawyer_onboarding_monthly_value( array(
+		array(
+			'key'   => 'payment_followup_status',
+			'value' => 'payment_confirmed',
+		),
+	) );
+	$manual_invoice_value    = justice_theme_lawyer_onboarding_monthly_value( array(
+		array(
+			'key'   => 'payment_path',
+			'value' => 'manual_invoice',
+		),
+	) );
+	$payment_overdue_value   = justice_theme_lawyer_onboarding_payment_due_value( 'overdue' );
+	$payment_due_soon_value  = justice_theme_lawyer_onboarding_payment_due_value( 'due_soon' );
 	$queue_url               = add_query_arg(
 		array(
 			'page'          => 'justice-lawyer-onboarding',
@@ -2306,22 +2372,30 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$next_money_body         = 'The payment queue is clear. The next revenue move is focused lawyer outreach or improving the plan-to-registration path.';
 	$next_money_url          = $all_url;
 	$next_money_button       = 'Show all onboarding';
+	$next_money_value        = 0;
+	$next_money_value_note   = '';
 
 	if ( $payment_overdue_count ) {
 		$next_money_title  = 'Work overdue payment follow-ups';
 		$next_money_body   = 'These paid prospects already have a payment follow-up due date behind them. Chase, block, cancel or confirm payment before adding new outreach.';
 		$next_money_url    = $payment_overdue_url;
 		$next_money_button = 'Open overdue payments';
+		$next_money_value = $payment_overdue_value;
+		$next_money_value_note = 'at risk';
 	} elseif ( $invoice_requested_count ) {
 		$next_money_title  = 'Send or chase manual invoices';
 		$next_money_body   = 'Open the invoice queue, verify the lawyer and plan, send Morning/Grow/manual payment instructions, then activate only after payment confirmation.';
 		$next_money_url    = $queue_url;
 		$next_money_button = 'Open invoice queue';
+		$next_money_value = $invoice_requested_value;
+		$next_money_value_note = 'potential';
 	} elseif ( $invoice_sent_count ) {
 		$next_money_title  = 'Chase sent invoices';
 		$next_money_body   = 'These lawyers already received payment instructions. Follow up, confirm payment, then move them toward profile activation and first value.';
 		$next_money_url    = $sent_url;
 		$next_money_button = 'Open sent invoices';
+		$next_money_value = $invoice_sent_value;
+		$next_money_value_note = 'pending';
 	}
 	?>
 	<div style="max-width:1200px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:18px 20px;margin:18px 0;">
@@ -2331,6 +2405,9 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 			<p style="margin:0 0 6px;color:#92400e;font-weight:700;text-transform:uppercase;letter-spacing:.02em;">Next money action</p>
 			<h3 style="margin:0 0 6px;font-size:20px;"><?php echo esc_html( $next_money_title ); ?></h3>
 			<p style="margin:0 0 12px;max-width:820px;"><?php echo esc_html( $next_money_body ); ?></p>
+			<?php if ( $next_money_value ) : ?>
+				<p style="margin:0 0 12px;color:#7c2d12;"><strong>Queue value:</strong> <?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $next_money_value ) ); ?> <?php echo esc_html( $next_money_value_note ); ?></p>
+			<?php endif; ?>
 			<p style="margin:0;">
 				<a class="button button-primary" href="<?php echo esc_url( $next_money_url ); ?>"><?php echo esc_html( $next_money_button ); ?></a>
 				<a class="button" href="<?php echo esc_url( $all_url ); ?>">Show all onboarding</a>
@@ -2343,28 +2420,34 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 			<div style="border:1px solid #f5d58c;background:#fffaf0;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $invoice_requested_count ) ); ?></strong>
 				<span>Invoice requested</span>
+				<small style="display:block;margin-top:6px;color:#92400e;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $invoice_requested_value ) ); ?> potential</small>
 			</div>
 			<div style="border:1px solid #f4b4b4;background:#fff5f5;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $payment_overdue_count ) ); ?></strong>
 				<span>Payment overdue</span>
+				<small style="display:block;margin-top:6px;color:#991b1b;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $payment_overdue_value ) ); ?> at risk</small>
 				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $payment_overdue_url ); ?>">Open overdue</a></p>
 			</div>
 			<div style="border:1px solid #f5d58c;background:#fffaf0;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $payment_due_soon_count ) ); ?></strong>
 				<span>Due within 48h</span>
+				<small style="display:block;margin-top:6px;color:#92400e;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $payment_due_soon_value ) ); ?> scheduled</small>
 				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $payment_due_soon_url ); ?>">Open due soon</a></p>
 			</div>
 			<div style="border:1px solid #d6e4ff;background:#f7faff;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $invoice_sent_count ) ); ?></strong>
 				<span>Invoice sent</span>
+				<small style="display:block;margin-top:6px;color:#16427a;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $invoice_sent_value ) ); ?> pending</small>
 			</div>
 			<div style="border:1px solid #d4e8d4;background:#f7fff7;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $payment_confirmed_count ) ); ?></strong>
 				<span>Payment confirmed</span>
+				<small style="display:block;margin-top:6px;color:#166534;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $payment_confirmed_value ) ); ?> confirmed</small>
 			</div>
 			<div style="border:1px solid #e0d2ff;background:#fbf8ff;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $manual_invoice_count ) ); ?></strong>
 				<span>Manual invoice path</span>
+				<small style="display:block;margin-top:6px;color:#3730a3;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $manual_invoice_value ) ); ?> total path</small>
 			</div>
 			<div style="border:1px solid #d6e4ff;background:#f7faff;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $profile_ready_count ) ); ?></strong>
@@ -2552,6 +2635,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$post_id = get_the_ID();
 						$status  = get_post_meta( $post_id, 'profile_status', true ) ?: get_post_status( $post_id );
 						$plan    = (string) get_post_meta( $post_id, 'plan_type', true );
+						$expected_monthly_value = justice_theme_lawyer_outreach_expected_monthly_nis( $plan );
 						$registration_attribution = justice_theme_lawyer_registration_attribution_for_post( $post_id );
 						$attribution_summary      = justice_theme_lawyer_registration_attribution_summary( $registration_attribution );
 						$sales_priority = justice_theme_lawyer_onboarding_sales_priority( $plan );
@@ -2629,6 +2713,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 								<strong><?php echo esc_html( justice_theme_lawyer_onboarding_plan_label( $plan ) ); ?></strong>
 								<?php if ( $plan ) : ?>
 									<br><small><?php echo esc_html( $plan ); ?></small>
+								<?php endif; ?>
+								<?php if ( $expected_monthly_value ) : ?>
+									<br><small><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $expected_monthly_value ) ); ?></small>
 								<?php endif; ?>
 							</td>
 							<td>

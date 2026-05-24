@@ -139,10 +139,23 @@ const sourceChecks = [
 		ownerAction: 'Explain that upgrade/downgrade/cancel/refund are captured as owner-actionable tickets until recurring billing is approved.',
 	},
 	{
+		id: 'lead-follow-up-notes-source',
+		name: 'Lawyer CRM captures lead follow-up notes',
+		file: 'inc/lawyer-dashboard.php',
+		required: [
+			'lead_follow_up_note',
+			'latest_lawyer_follow_up_note',
+			'latest_lawyer_stage_update_at',
+		],
+		ownerAction: 'After a controlled demo lead exists, update its stage and add a short call result note from the lawyer dashboard.',
+	},
+	{
 		id: 'service-request-dashboard-source',
 		name: 'Lawyer dashboard renders the private service desk',
 		file: 'page-lawyer-dashboard.php',
 		required: [
+			'lead_follow_up_note',
+			'lawyer-dashboard-leads__last-note',
 			'lawyer-dashboard-service-request',
 			'lawyer-dashboard-login-preview',
 			'lawyer-dashboard-service-request__self-help',

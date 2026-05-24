@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Lawyer lead follow-up notes v1
+
+- ADDED: optional `lead_follow_up_note` field to the lawyer dashboard lead-stage update form.
+- UPDATED: `inc/lawyer-dashboard.php` stores the latest lawyer call/follow-up note on the lead; `page-lawyer-dashboard.php` shows the latest report and timestamp.
+- UPDATED: `assets/css/premium-pass-3.css`, `inc/enqueue.php`, `tools/check-investor-demo-readiness.mjs`, `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs`.
+- VERIFIED LOCAL: PHP syntax passed for touched PHP files; Node syntax passed for checker scripts; `git diff --check` passed with line-ending warnings only; refreshed investor-readiness reports show the new source gate passing while live/data/provider blockers remain.
+- BLOCKED: requires push plus uPress Pull Git/cache refresh before it is live; full demo still needs a claimed lawyer and assigned lead.
+- SAFETY: code/CSS/checker/marker only; no public CMS/database or provider setting changed.
+
 # 2026-05-24 - Lawyer dashboard login preview v1
 
 - ADDED: `lawyer-dashboard-login-preview` cards on the logged-out lawyer dashboard gate for mini-site, payment/invoice, leads and lifecycle service requests.

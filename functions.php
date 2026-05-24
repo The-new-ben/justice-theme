@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'JUSTICE_THEME_VERSION', '1.1.0' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-05-24-lawyer-dashboard-login-preview-v1' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-05-24-lead-follow-up-notes-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 

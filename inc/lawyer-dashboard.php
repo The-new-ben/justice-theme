@@ -498,6 +498,7 @@ function justice_theme_handle_lawyer_lead_stage_update(): void {
 	$user_id        = get_current_user_id();
 	$lead_id        = isset( $_POST['lead_id'] ) ? absint( $_POST['lead_id'] ) : 0;
 	$selected_stage = isset( $_POST['lead_stage'] ) ? sanitize_key( wp_unslash( $_POST['lead_stage'] ) ) : 'not_started';
+	$follow_up_note = isset( $_POST['lead_follow_up_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['lead_follow_up_note'] ) ) : '';
 	$stage_options  = justice_theme_lawyer_dashboard_lead_stage_options();
 	$assigned_id    = $lead_id ? (int) get_post_meta( $lead_id, 'assigned_lawyer_id', true ) : 0;
 	$profile_ok     = $assigned_id && 'justice_lawyer' === get_post_type( $assigned_id ) && (string) $user_id === (string) get_post_meta( $assigned_id, 'claimed_by_user_id', true );
@@ -520,6 +521,7 @@ function justice_theme_handle_lawyer_lead_stage_update(): void {
 	update_post_meta( $lead_id, 'lead_status', $lead_status_map[ $selected_stage ] ?? 'assigned' );
 	update_post_meta( $lead_id, 'latest_lawyer_stage_update_at', current_time( 'mysql' ) );
 	update_post_meta( $lead_id, 'latest_lawyer_stage_update_by', (string) $user_id );
+	update_post_meta( $lead_id, 'latest_lawyer_follow_up_note', $follow_up_note );
 
 	if ( in_array( $selected_stage, array( 'first_attempt', 'contacted', 'consult_scheduled', 'won', 'lost' ), true ) && ! get_post_meta( $lead_id, 'first_contact_at', true ) ) {
 		update_post_meta( $lead_id, 'first_contact_at', current_time( 'Y-m-d\TH:i' ) );

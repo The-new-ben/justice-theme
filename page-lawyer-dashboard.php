@@ -1083,6 +1083,8 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 									'mailto:' . $lead_email
 								) : '';
 								$current_lead_stage  = sanitize_key( (string) ( get_post_meta( $lead_id, 'follow_up_status', true ) ?: get_post_meta( $lead_id, 'lead_status', true ) ?: 'not_started' ) );
+								$latest_lead_note     = (string) get_post_meta( $lead_id, 'latest_lawyer_follow_up_note', true );
+								$latest_lead_update   = (string) get_post_meta( $lead_id, 'latest_lawyer_stage_update_at', true );
 								if ( ! array_key_exists( $current_lead_stage, $dashboard_lead_stage_options ) && in_array( $current_lead_stage, array( 'new', 'assigned', 'qualified', 'pending', '' ), true ) ) {
 									$current_lead_stage = 'not_started';
 								}
@@ -1138,8 +1140,21 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 												<option value="<?php echo esc_attr( $stage_key ); ?>" <?php selected( $current_lead_stage, $stage_key ); ?>><?php echo esc_html( $stage_label ); ?></option>
 											<?php endforeach; ?>
 										</select>
+										<label class="screen-reader-text" for="lead-follow-up-note-<?php echo esc_attr( $lead_id ); ?>"><?php esc_html_e( 'Lead follow-up note', 'justice-theme' ); ?></label>
+										<textarea id="lead-follow-up-note-<?php echo esc_attr( $lead_id ); ?>" name="lead_follow_up_note" rows="2" placeholder="<?php esc_attr_e( 'מה קרה בשיחה? לדוגמה: נקבעה שיחת ייעוץ למחר / לא מתאים / צריך מעקב.', 'justice-theme' ); ?>"></textarea>
 										<button type="submit" class="button"><?php esc_html_e( 'Update', 'justice-theme' ); ?></button>
 									</form>
+									<?php if ( $latest_lead_note || $latest_lead_update ) : ?>
+										<p class="lawyer-dashboard-leads__last-note">
+											<?php if ( $latest_lead_note ) : ?>
+												<strong><?php esc_html_e( 'Latest report:', 'justice-theme' ); ?></strong>
+												<?php echo esc_html( $latest_lead_note ); ?>
+											<?php endif; ?>
+											<?php if ( $latest_lead_update ) : ?>
+												<small><?php printf( esc_html__( 'Updated: %s', 'justice-theme' ), esc_html( $latest_lead_update ) ); ?></small>
+											<?php endif; ?>
+										</p>
+									<?php endif; ?>
 								</article>
 							<?php endwhile; wp_reset_postdata(); ?>
 						</div>

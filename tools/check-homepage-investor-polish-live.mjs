@@ -1,6 +1,6 @@
 const BASE_URL = 'https://jus-tice.co.il';
 const TIME_ZONE = 'Asia/Jerusalem';
-const EXPECTED_MARKER = '2026-05-24-lawyer-dashboard-login-preview-v1';
+const EXPECTED_MARKER = '2026-05-24-lead-follow-up-notes-v1';
 
 function datedFilePart() {
 	const parts = new Intl.DateTimeFormat( 'en-CA', {
@@ -151,7 +151,7 @@ const checks = [
 		url: `/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=${ CACHE_BUST }`,
 		required: [
 			`justice-theme-deployment-marker=${ EXPECTED_MARKER }`,
-			'expected-github-main-commit=lawyer-dashboard-login-preview-v1',
+			'expected-github-main-commit=lead-follow-up-notes-v1',
 		],
 	},
 	{

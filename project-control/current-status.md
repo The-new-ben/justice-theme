@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-24 23:38 Asia/Jerusalem
+- LAWYER LEAD FOLLOW-UP NOTES V1: added a short call-result note field to the lawyer dashboard lead stage form so lawyers can report what happened after calling/WhatsApping/emailing a lead.
+- UPDATED: `inc/lawyer-dashboard.php` stores `lead_follow_up_note` as `latest_lawyer_follow_up_note` with the existing stage update timestamp.
+- UPDATED: `page-lawyer-dashboard.php` renders the note input and shows the latest reported note/timestamp under each lead.
+- UPDATED: `assets/css/premium-pass-3.css` styles the richer CRM form and last-note panel; `inc/enqueue.php` bumps the premium-pass-3 asset version to `3.0.8`.
+- UPDATED: `tools/check-investor-demo-readiness.mjs` now checks source support for lead follow-up notes; deployment marker moved to `2026-05-24-lead-follow-up-notes-v1`.
+- MATERIAL ADVANCE: the investor demo can now show real lead follow-up reporting, not only lead contact buttons and a stage dropdown.
+- VERIFIED LOCAL: PHP syntax passed for `inc/lawyer-dashboard.php`, `page-lawyer-dashboard.php`, `functions.php`, and `inc/enqueue.php`; Node syntax passed for affected checkers; `git diff --check` passed with line-ending warnings only; refreshed investor readiness shows the new lead-follow-up source gate passing while live deployment/demo-data/provider blockers remain.
+- STILL BLOCKED: uPress Pull Git/cache refresh is required before this is live; a claimed demo lawyer plus assigned demo lead are still needed for the full CRM walkthrough; Grow recurring debit remains provider-authorisation blocked.
+- COMPLETION: lawyer CRM demo readiness moved from about 82% to about 86% locally; full live investor readiness still depends on deployment, demo data and provider approval.
+- SAFETY: theme/plugin-source/CSS/checker/marker changes only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 23:23 Asia/Jerusalem
 - LAWYER DASHBOARD LOGIN PREVIEW V1: added a logged-out private-area preview so the investor/lawyer can see the product promise before authentication: mini-site updates, manual payment/invoice activation, lead follow-up and lifecycle service requests.
 - UPDATED: `page-lawyer-dashboard.php` renders `lawyer-dashboard-login-preview` cards under the login/plans/registration actions.

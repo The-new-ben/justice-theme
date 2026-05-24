@@ -3350,6 +3350,83 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	<?php
 }
 
+function justice_theme_render_lawyer_onboarding_investor_demo_panel(): void {
+	$demo_links = array(
+		array(
+			'label' => 'Homepage lawyer entrypoints',
+			'url'   => home_url( '/' ),
+			'note'  => 'Show visitor path plus lawyer plans, registration and private-area entry.',
+		),
+		array(
+			'label' => 'Lawyer plans',
+			'url'   => home_url( '/lawyer-plans/' ),
+			'note'  => 'Choose Lead Partner and explain manual payment bridge until recurring approval.',
+		),
+		array(
+			'label' => 'Paid registration prefill',
+			'url'   => add_query_arg(
+				array(
+					'plan_interest' => 'lead_partner',
+					'payment_path'  => 'manual_invoice',
+				),
+				home_url( '/lawyer-registration/' )
+			),
+			'note'  => 'Show lawyer intake, billing details and media/profile material.',
+		),
+		array(
+			'label' => 'Lawyer dashboard gate',
+			'url'   => home_url( '/lawyer-dashboard/' ),
+			'note'  => 'Show private-area promise when logged out; use claimed profile when available.',
+		),
+		array(
+			'label' => 'Justice CRM',
+			'url'   => admin_url( 'admin.php?page=justice-crm' ),
+			'note'  => 'Show lead quality, SLA, lawyer report and prospect creation.',
+		),
+		array(
+			'label' => 'Service requests',
+			'url'   => add_query_arg(
+				array(
+					'page'                   => 'justice-lawyer-onboarding',
+					'service_request_status' => 'pending',
+				),
+				admin_url( 'admin.php' )
+			),
+			'note'  => 'Show refund, cancellation, downgrade, complaint and invoice-copy tickets.',
+		),
+	);
+	?>
+	<div style="max-width:1200px;background:#0f172a;color:#fff;border-radius:8px;padding:18px 20px;margin:18px 0;">
+		<p style="margin:0 0 6px;color:#facc15;font-weight:800;text-transform:uppercase;letter-spacing:.04em;">Investor demo control</p>
+		<h2 style="margin:0 0 8px;color:#fff;">Morning rehearsal links and honest blocker script</h2>
+		<p style="margin:0 0 14px;max-width:920px;color:#dbeafe;">Use this admin-only panel to run the demo in order: public acquisition, plan choice, registration, manual payment handoff, private dashboard, lead CRM reporting and service requests. Do not claim recurring billing, automatic invoices or refunds are live until Grow/Meshulam approval and a controlled transaction pass.</p>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:14px 0;">
+			<?php foreach ( $demo_links as $link ) : ?>
+				<div style="background:#172554;border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:12px;">
+					<strong style="display:block;color:#fff;margin-bottom:6px;"><?php echo esc_html( $link['label'] ); ?></strong>
+					<p style="margin:0 0 10px;color:#bfdbfe;"><?php echo esc_html( $link['note'] ); ?></p>
+					<a class="button button-primary" href="<?php echo esc_url( $link['url'] ); ?>" target="_blank" rel="noopener">Open</a>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:14px;">
+			<div style="background:#111827;border:1px solid rgba(250,204,21,.35);border-radius:8px;padding:12px;">
+				<strong style="display:block;color:#facc15;">Say this if payments come up</strong>
+				<p style="margin:6px 0 0;color:#e5e7eb;">Manual Grow/Morning payment links are the live bridge. Automatic recurring subscriptions, branded invoice automation and refunds stay approval-gated until provider approval and smoke test.</p>
+			</div>
+			<div style="background:#111827;border:1px solid rgba(96,165,250,.35);border-radius:8px;padding:12px;">
+				<strong style="display:block;color:#93c5fd;">Demo data still needed</strong>
+				<p style="margin:6px 0 0;color:#e5e7eb;">One claimed lawyer profile and one assigned medical-malpractice lead are required for the full private dashboard and CRM walkthrough.</p>
+			</div>
+			<div style="background:#111827;border:1px solid rgba(52,211,153,.35);border-radius:8px;padding:12px;">
+				<strong style="display:block;color:#86efac;">Deployment marker</strong>
+				<p style="margin:6px 0 0;color:#e5e7eb;"><?php echo esc_html( defined( 'JUSTICE_DEPLOY_MARKER' ) ? JUSTICE_DEPLOY_MARKER : 'marker unavailable' ); ?></p>
+			</div>
+		</div>
+	</div>
+	<?php
+}
+
 function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	if ( ! current_user_can( 'edit_pages' ) ) {
 		wp_die( esc_html__( 'You do not have permission to access this page.', 'justice-theme' ) );
@@ -3542,6 +3619,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 			<div class="notice notice-error is-dismissible"><p>Recommendation link creation failed. Check permissions and try again.</p></div>
 		<?php endif; ?>
 
+		<?php justice_theme_render_lawyer_onboarding_investor_demo_panel(); ?>
 		<?php justice_theme_render_lawyer_onboarding_payment_command_center(); ?>
 		<?php justice_theme_render_lawyer_onboarding_source_performance(); ?>
 		<?php justice_theme_render_lawyer_onboarding_sales_command_center(); ?>

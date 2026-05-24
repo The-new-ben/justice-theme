@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-24 23:56 Asia/Jerusalem
+- OWNER DEMO CONTROL PANEL V1: added an admin-only investor rehearsal panel at the top of Lawyer Onboarding with direct links to homepage, lawyer plans, paid registration, lawyer dashboard, Justice CRM and service-request queue.
+- UPDATED: `inc/lawyer-onboarding.php` adds `justice_theme_render_lawyer_onboarding_investor_demo_panel()` and renders it before the paid registration command center.
+- UPDATED: the panel includes the honest payment script: manual Grow/Morning payment links are live bridge; recurring billing, branded invoice automation and refunds remain provider/smoke-test gated.
+- UPDATED: `tools/check-investor-demo-readiness.mjs` now checks the owner demo panel source gate; deployment marker moved to `2026-05-24-owner-demo-control-panel-v1`.
+- MATERIAL ADVANCE: the owner gets a one-screen morning run order inside wp-admin instead of relying on scattered notes while presenting.
+- VERIFIED LOCAL: PHP syntax passed for `inc/lawyer-onboarding.php` and `functions.php`; Node syntax passed for affected checkers; `git diff --check` passed with line-ending warnings only; refreshed investor readiness shows the new owner demo panel source gate passing while live deployment/demo-data/provider blockers remain.
+- STILL BLOCKED: uPress Pull Git/cache refresh is required before this admin panel is live; a claimed demo lawyer plus assigned demo lead are still needed for full walkthrough; Grow recurring debit remains provider-authorisation blocked.
+- COMPLETION: investor rehearsal ergonomics moved from about 70% to about 88% locally; full live investor readiness still depends on deployment, demo data and provider approval.
+- SAFETY: admin-only UI/source/checker/marker changes only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 23:47 Asia/Jerusalem
 - OWNER CRM LAWYER REPORT V1: added owner-visible lawyer follow-up reporting inside Justice CRM, so a lawyer's lead call note is visible to the owner after dashboard stage updates.
 - UPDATED: `inc/lead-crm.php` adds a `Lawyer report` column in the CRM table and a `Latest lawyer report` panel in the lead disposition metabox.

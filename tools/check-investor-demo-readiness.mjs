@@ -191,6 +191,18 @@ const sourceChecks = [
 		ownerAction: 'Open Lawyer Onboarding with service_request_status=pending after a controlled request is submitted.',
 	},
 	{
+		id: 'owner-investor-demo-panel-source',
+		name: 'Owner onboarding has investor demo control panel',
+		file: 'inc/lawyer-onboarding.php',
+		required: [
+			'justice_theme_render_lawyer_onboarding_investor_demo_panel',
+			'Investor demo control',
+			'Morning rehearsal links',
+			'Manual Grow/Morning payment links are the live bridge',
+		],
+		ownerAction: 'Open Lawyer Onboarding and use the dark investor demo panel as the morning run order.',
+	},
+	{
 		id: 'investor-matrix-source',
 		name: 'Investor scenario matrix exists',
 		file: 'project-control/investor-demo-emergency-test-matrix-2026-05-24.md',

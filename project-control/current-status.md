@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-24 13:38 Asia/Jerusalem
+- LAWYER DASHBOARD GATE REVENUE SURFACING: upgraded the logged-out lawyer personal-area screen from a basic login wall into a conversion doorway for existing lawyers and new paid-plan prospects.
+- UPDATED: `page-lawyer-dashboard.php` now shows login, plan-selection and fast manual-invoice registration CTAs with `utm_source=lawyer_dashboard_gate`.
+- UPDATED: `assets/css/premium-pass-3.css` adds responsive logged-out gate value points without changing CMS content.
+- UPDATED: `inc/enqueue.php` bumps `justice-premium-3` to version `3.0.3` so the dashboard CSS is not hidden by cache after deployment.
+- CREATED: `project-control/lawyer-dashboard-gate-revenue-surfacing-2026-05-24.md`.
+- VERIFIED LOCAL: `php -l page-lawyer-dashboard.php`, `php -l inc/enqueue.php` and `git diff --check` passed.
+- SAFETY: no public CMS record, page body, lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, GSC/GA4 setting or wp-admin setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 13:27 Asia/Jerusalem
 - LAWYER SIGNUP ATTRIBUTION CLOSURE: connected submitted lawyer registrations back to the paid plan, manual invoice path and campaign/source that produced the signup.
 - UPDATED: `inc/lawyer-onboarding.php` now preserves safe UTM and outreach fields on the successful lawyer-registration redirect.

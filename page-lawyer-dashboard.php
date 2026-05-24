@@ -10,15 +10,43 @@ get_header();
 echo "\n" . '<!-- justice-dashboard-first-value-v1 -->' . "\n";
 
 if ( ! is_user_logged_in() ) :
+	$dashboard_permalink        = justice_theme_public_permalink( get_the_ID() );
+	$dashboard_login_url        = wp_login_url( $dashboard_permalink );
+	$dashboard_plans_url        = justice_theme_public_url( add_query_arg(
+		array(
+			'utm_source'   => 'lawyer_dashboard_gate',
+			'utm_medium'   => 'personal_area',
+			'utm_campaign' => 'lawyer_acquisition',
+		),
+		home_url( '/lawyer-plans/' )
+	) );
+	$dashboard_registration_url = justice_theme_public_url( add_query_arg(
+		array(
+			'plan_interest'    => 'pro',
+			'pre_checkout'     => '1',
+			'payment_path'     => 'manual_invoice',
+			'utm_source'       => 'lawyer_dashboard_gate',
+			'utm_medium'       => 'personal_area',
+			'utm_campaign'     => 'lawyer_acquisition',
+			'outreach_segment' => 'dashboard_logged_out',
+		),
+		home_url( '/lawyer-registration/' )
+	) );
 	?>
 	<section class="lawyer-dashboard lawyer-dashboard--logged-out section">
 		<div class="container lawyer-dashboard__gate">
 			<p class="section-header__eyebrow"><?php esc_html_e( 'אזור אישי לעורכי דין', 'justice-theme' ); ?></p>
 			<h1><?php esc_html_e( 'התחברו כדי לנהל את הנוכחות שלכם ב-Jus-Tice', 'justice-theme' ); ?></h1>
-			<p><?php esc_html_e( 'האזור האישי מיועד לפרופיל, לידים, תוכן, סטטוס מנוי וכלים עתידיים. פרסום ועדכונים מהותיים עוברים בדיקה לפני עלייה לאתר.', 'justice-theme' ); ?></p>
+			<p><?php esc_html_e( 'האזור האישי מרכז את הפרופיל, הלידים, התוכן, סטטוס המנוי ובקשות השירות במקום אחד. פרסום ועדכונים מהותיים עוברים בדיקה לפני עלייה לאתר.', 'justice-theme' ); ?></p>
+			<ul class="lawyer-dashboard__gate-points" aria-label="<?php esc_attr_e( 'מה מחכה באזור האישי', 'justice-theme' ); ?>">
+				<li><?php esc_html_e( 'מעקב אחרי פניות ולידים שהגיעו מהאתר.', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'בקשת עדכונים למיני-סייט, תחומי עיסוק ופרטי קשר בלי כניסה לוורדפרס.', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'בקשות לתוכן חתום, המלצות Google וחיבור לספקים מקצועיים תחת בקרת מערכת.', 'justice-theme' ); ?></li>
+			</ul>
 			<div class="lawyer-dashboard__actions">
-				<a class="button button--gold" href="<?php echo esc_url( wp_login_url( justice_theme_public_permalink( get_the_ID() ) ) ); ?>"><?php esc_html_e( 'התחברות', 'justice-theme' ); ?></a>
-				<a class="button button--outline" href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-registration/' ) ) ); ?>"><?php esc_html_e( 'הצטרפות לעורכי דין', 'justice-theme' ); ?></a>
+				<a class="button button--gold" href="<?php echo esc_url( $dashboard_login_url ); ?>"><?php esc_html_e( 'התחברות לאזור האישי', 'justice-theme' ); ?></a>
+				<a class="button button--outline" href="<?php echo esc_url( $dashboard_plans_url ); ?>"><?php esc_html_e( 'בחירת מסלול לעורך דין', 'justice-theme' ); ?></a>
+				<a class="button button--outline" href="<?php echo esc_url( $dashboard_registration_url ); ?>"><?php esc_html_e( 'בקשת הצטרפות מהירה', 'justice-theme' ); ?></a>
 			</div>
 		</div>
 	</section>

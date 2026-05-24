@@ -1,3 +1,16 @@
+# LATEST WORK STATUS - 2026-05-24 17:13 Asia/Jerusalem
+- LAWYER SOURCE PERFORMANCE BOARD: turned protected signup attribution into an owner-only sales operating view.
+- RESEARCH BASIS: Clio Grow intake/revenue reporting emphasizes filtering by lead source and connecting source/referral data to anticipated value.
+- UPDATED: `inc/lawyer-onboarding.php` now renders a `Source performance board` inside Lawyer Onboarding, grouping registrations/manual-invoice records by outreach segment, message, city, practice, campaign or source.
+- UPDATED: Lawyer Onboarding now supports safe source filters via restricted `source_key` and `source_value` parameters, so the owner can open one winning outreach bucket directly.
+- CREATED: `project-control/lawyer-source-performance-board-2026-05-24.md`.
+- GENERATED / UPDATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md`, `project-control/lawyer-revenue-funnel-live-2026-05-24.csv`, `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `reports/lawyer-revenue-funnel-live-2026-05-24.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed.
+- DEPLOYED: committed/pushed `53f7dac`; uPress Git pull log showed `Add lawyer source performance board` as live HEAD.
+- VERIFIED LIVE READ-ONLY: the public lawyer revenue funnel check still passed `9/9` after deployment.
+- BLOCKED: automated recurring lawyer payments still require Grow/Meshulam approval plus gateway/product mapping.
+- SAFETY: admin-only report UI/filtering and read-only live checks only; no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 17:05 Asia/Jerusalem
 - SIGNUP SUCCESS ATTRIBUTION: kept paid-lawyer campaign, message, city and practice context alive through the registration success step.
 - RESEARCH BASIS: Google Analytics 4 campaign URL guidance documents UTM-based campaign collection, and live Jus-Tice checks showed Yoast moves UTM query parameters into the URL hash on registration-success URLs.

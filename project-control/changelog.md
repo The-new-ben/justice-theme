@@ -1,6 +1,20 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Lawyer source performance board
+
+- UPDATED: `inc/lawyer-onboarding.php` now renders an owner-only `Source performance board` inside Lawyer Onboarding.
+- UPDATED: source buckets group lawyer registrations/manual-invoice records by outreach segment, message variant, city, practice, campaign or source.
+- UPDATED: each source row shows registration count, expected monthly value, payment queue counts, city/practice/message context, latest submission time and an `Open source` filter.
+- UPDATED: Lawyer Onboarding now supports safe source filters restricted to known attribution keys.
+- CREATED: `project-control/lawyer-source-performance-board-2026-05-24.md`.
+- REGENERATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md` and `.csv`.
+- REGENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: PHP syntax and `git diff --check` passed.
+- DEPLOYED: `53f7dac Add lawyer source performance board` was pushed and pulled through uPress; uPress log showed it as live `HEAD`.
+- VERIFIED LIVE READ-ONLY: full public lawyer revenue funnel check passed `9/9`.
+- SAFETY: no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Signup success attribution
 
 - UPDATED: `inc/lawyer-onboarding.php` now carries `utm_content`, `utm_term`, `outreach_city` and `outreach_practice` into the post-submit registration success redirect.

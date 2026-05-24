@@ -3,8 +3,8 @@
  * Controlled local-money support routes.
  *
  * These routes let us publish source-audited support content quickly while the
- * CMS cleanup continues. If a real published CMS item later owns the same slug,
- * the controlled route yields to the CMS item.
+ * CMS cleanup continues. Routes normally yield to a real CMS item, but a route
+ * may opt into force_route when the current CMS item is known thin content.
  *
  * @package JusticeTheme
  */
@@ -32,6 +32,7 @@ function justice_theme_get_local_money_route_configs(): array {
 			'date_published' => '2026-05-24T00:00:00+03:00',
 			'date_modified'  => '2026-05-24T00:00:00+03:00',
 			'priority'       => '0.8',
+			'force_route'    => true,
 		),
 	);
 }
@@ -316,7 +317,12 @@ function justice_theme_local_money_route_faq_schema_items( string $html ): array
  */
 function justice_theme_render_local_money_route(): void {
 	$config = justice_theme_current_local_money_route_config();
-	if ( null === $config || justice_theme_local_money_route_has_published_cms_owner( $config ) ) {
+	if ( null === $config ) {
+		return;
+	}
+
+	$force_route = ! empty( $config['force_route'] );
+	if ( ! $force_route && justice_theme_local_money_route_has_published_cms_owner( $config ) ) {
 		return;
 	}
 
@@ -527,7 +533,8 @@ function justice_theme_local_money_route_sitemap_entries(): array {
 	$entries = array();
 
 	foreach ( justice_theme_get_local_money_route_configs() as $config ) {
-		if ( justice_theme_local_money_route_has_published_cms_owner( $config ) ) {
+		$force_route = ! empty( $config['force_route'] );
+		if ( ! $force_route && justice_theme_local_money_route_has_published_cms_owner( $config ) ) {
 			continue;
 		}
 

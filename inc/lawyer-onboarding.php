@@ -1477,6 +1477,9 @@ function justice_theme_export_lawyer_payment_queue(): void {
 		'payment_followup_due_at',
 		'payment_followup_urgency',
 		'manual_payment_link_url',
+		'manual_payment_link_sent_at',
+		'manual_payment_link_sent_to',
+		'manual_payment_link_email_last_result',
 		'manual_invoice_reference',
 		'activation_status',
 		'billing_legal_name',
@@ -1529,6 +1532,9 @@ function justice_theme_export_lawyer_payment_queue(): void {
 			$followup_due_at,
 			justice_theme_lawyer_payment_due_status_label( $followup_due_at ),
 			get_post_meta( $post_id, 'manual_payment_link_url', true ),
+			get_post_meta( $post_id, 'manual_payment_link_sent_at', true ),
+			get_post_meta( $post_id, 'manual_payment_link_sent_to', true ),
+			get_post_meta( $post_id, 'manual_payment_link_email_last_result', true ),
 			get_post_meta( $post_id, 'manual_invoice_reference', true ),
 			$activation_status,
 			get_post_meta( $post_id, 'billing_legal_name', true ),
@@ -1656,6 +1662,78 @@ function justice_theme_lawyer_manual_invoice_message( int $post_id ): string {
 	return implode( "\n\n", $lines );
 }
 
+function justice_theme_lawyer_payment_link_recipient_email( int $post_id ): string {
+	$candidates = array(
+		(string) get_post_meta( $post_id, 'billing_invoice_email', true ),
+		(string) get_post_meta( $post_id, 'email', true ),
+	);
+
+	foreach ( $candidates as $candidate ) {
+		$email = sanitize_email( $candidate );
+		if ( $email && is_email( $email ) ) {
+			return $email;
+		}
+	}
+
+	return '';
+}
+
+function justice_theme_send_lawyer_manual_payment_link_email( int $post_id, string $manual_payment_link ): bool {
+	$manual_payment_link = esc_url_raw( $manual_payment_link );
+	$recipient           = justice_theme_lawyer_payment_link_recipient_email( $post_id );
+
+	if ( ! $manual_payment_link ) {
+		update_post_meta( $post_id, 'manual_payment_link_email_last_result', 'missing_link' );
+		justice_theme_append_lawyer_internal_note( $post_id, 'Payment link email was requested but no manual payment link was saved.' );
+		return false;
+	}
+
+	if ( ! $recipient ) {
+		update_post_meta( $post_id, 'manual_payment_link_email_last_result', 'missing_recipient' );
+		justice_theme_append_lawyer_internal_note( $post_id, 'Payment link email was requested but no valid lawyer or invoice email exists.' );
+		return false;
+	}
+
+	$message = justice_theme_lawyer_manual_invoice_message( $post_id );
+	if ( ! $message ) {
+		$dashboard = function_exists( 'justice_theme_public_url' )
+			? justice_theme_public_url( home_url( '/lawyer-dashboard/' ) )
+			: home_url( '/lawyer-dashboard/' );
+		$message = implode( "\n\n", array(
+			'Hello,',
+			'Your Jus-Tice lawyer plan payment link is ready.',
+			'Payment link: ' . $manual_payment_link,
+			'After payment is confirmed, the profile activation and lead-service setup continue from your lawyer dashboard:',
+			$dashboard,
+			'For invoice, refund, cancellation, upgrade, downgrade or lead-quality questions, use the service desk inside the dashboard.',
+			'Jus-Tice',
+		) );
+	}
+
+	$sent = wp_mail(
+		$recipient,
+		'Jus-Tice payment link for your lawyer plan',
+		$message,
+		array( 'Content-Type: text/plain; charset=UTF-8' )
+	);
+
+	if ( $sent ) {
+		update_post_meta( $post_id, 'manual_payment_link_sent_at', current_time( 'mysql' ) );
+		update_post_meta( $post_id, 'manual_payment_link_sent_to', $recipient );
+		update_post_meta( $post_id, 'manual_payment_link_email_last_result', 'sent' );
+		$current_payment_status = (string) get_post_meta( $post_id, 'payment_followup_status', true );
+		if ( ! in_array( $current_payment_status, array( 'payment_confirmed', 'payment_cancelled' ), true ) ) {
+			justice_theme_set_lawyer_payment_followup_status( $post_id, 'invoice_sent', 'manual payment link email' );
+		}
+		justice_theme_append_lawyer_internal_note( $post_id, 'Payment link email sent to ' . $recipient . '. Link: ' . $manual_payment_link );
+		return true;
+	}
+
+	update_post_meta( $post_id, 'manual_payment_link_email_last_result', 'wp_mail_failed' );
+	justice_theme_append_lawyer_internal_note( $post_id, 'Payment link email failed through wp_mail for ' . $recipient . '. Link: ' . $manual_payment_link );
+	return false;
+}
+
 function justice_theme_lawyer_activation_meta_box(): void {
 	add_meta_box(
 		'justice_theme_lawyer_activation',
@@ -1690,6 +1768,9 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 	$payment_due_badge = justice_theme_lawyer_payment_due_badge( $payment_due_at );
 	$manual_payment_link = (string) get_post_meta( $post->ID, 'manual_payment_link_url', true );
 	$invoice_reference   = (string) get_post_meta( $post->ID, 'manual_invoice_reference', true );
+	$payment_link_sent_at = (string) get_post_meta( $post->ID, 'manual_payment_link_sent_at', true );
+	$payment_link_sent_to = (string) get_post_meta( $post->ID, 'manual_payment_link_sent_to', true );
+	$payment_link_email_result = (string) get_post_meta( $post->ID, 'manual_payment_link_email_last_result', true );
 	$invoice_sent_at      = (string) get_post_meta( $post->ID, 'invoice_sent_at', true );
 	$payment_confirmed_at = (string) get_post_meta( $post->ID, 'payment_confirmed_at', true );
 	$payment_blocked_at   = (string) get_post_meta( $post->ID, 'payment_blocked_at', true );
@@ -1720,6 +1801,16 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 		<label for="justice-manual-payment-link-url"><strong>Manual payment link</strong></label>
 		<input id="justice-manual-payment-link-url" type="url" name="manual_payment_link_url" value="<?php echo esc_attr( $manual_payment_link ); ?>" placeholder="https://pay.grow.link/..." style="width:100%;">
 		<small>Paste the Grow/Morning payment link after creating it. Lawyers only see this CTA in their private area when a link exists.</small>
+	</p>
+	<p>
+		<label>
+			<input type="checkbox" name="send_manual_payment_link_email" value="1">
+			<strong>Send this payment link by email now</strong>
+		</label><br>
+		<small>Uses billing invoice email first, then lawyer email. On successful send, the payment follow-up is marked as invoice sent.</small>
+		<?php if ( $payment_link_sent_at || $payment_link_email_result ) : ?>
+			<br><small>Last payment-link email: <?php echo esc_html( $payment_link_email_result ?: 'recorded' ); ?><?php echo $payment_link_sent_at ? esc_html( ' at ' . $payment_link_sent_at ) : ''; ?><?php echo $payment_link_sent_to ? esc_html( ' to ' . $payment_link_sent_to ) : ''; ?></small>
+		<?php endif; ?>
 	</p>
 	<p>
 		<label for="justice-manual-invoice-reference"><strong>Invoice/payment reference</strong></label>
@@ -1825,11 +1916,16 @@ function justice_theme_save_lawyer_activation( int $post_id ): void {
 	update_post_meta( $post_id, 'activation_status', $status );
 	update_post_meta( $post_id, 'first_value_at', isset( $_POST['first_value_at'] ) ? sanitize_text_field( wp_unslash( $_POST['first_value_at'] ) ) : '' );
 	update_post_meta( $post_id, 'activation_owner_note', isset( $_POST['activation_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['activation_owner_note'] ) ) : '' );
-	update_post_meta( $post_id, 'manual_payment_link_url', isset( $_POST['manual_payment_link_url'] ) ? esc_url_raw( wp_unslash( $_POST['manual_payment_link_url'] ) ) : '' );
+	$manual_payment_link = isset( $_POST['manual_payment_link_url'] ) ? esc_url_raw( wp_unslash( $_POST['manual_payment_link_url'] ) ) : '';
+	update_post_meta( $post_id, 'manual_payment_link_url', $manual_payment_link );
 	update_post_meta( $post_id, 'manual_invoice_reference', isset( $_POST['manual_invoice_reference'] ) ? sanitize_text_field( wp_unslash( $_POST['manual_invoice_reference'] ) ) : '' );
 
 	$payment_followup_status = isset( $_POST['payment_followup_status'] ) ? sanitize_key( wp_unslash( $_POST['payment_followup_status'] ) ) : '';
 	justice_theme_set_lawyer_payment_followup_status( $post_id, $payment_followup_status, 'lawyer activation box' );
+
+	if ( ! empty( $_POST['send_manual_payment_link_email'] ) ) {
+		justice_theme_send_lawyer_manual_payment_link_email( $post_id, $manual_payment_link );
+	}
 }
 add_action( 'save_post_justice_lawyer', 'justice_theme_save_lawyer_activation' );
 
@@ -3364,6 +3460,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$first_value_at     = get_post_meta( $post_id, 'first_value_at', true );
 						$invoice_sent_at      = (string) get_post_meta( $post_id, 'invoice_sent_at', true );
 						$manual_payment_link  = (string) get_post_meta( $post_id, 'manual_payment_link_url', true );
+						$manual_payment_link_sent_at = (string) get_post_meta( $post_id, 'manual_payment_link_sent_at', true );
+						$manual_payment_link_sent_to = (string) get_post_meta( $post_id, 'manual_payment_link_sent_to', true );
+						$manual_payment_link_email_result = (string) get_post_meta( $post_id, 'manual_payment_link_email_last_result', true );
 						$invoice_reference    = (string) get_post_meta( $post_id, 'manual_invoice_reference', true );
 						$payment_confirmed_at = (string) get_post_meta( $post_id, 'payment_confirmed_at', true );
 						$payment_blocked_at   = (string) get_post_meta( $post_id, 'payment_blocked_at', true );
@@ -3474,6 +3573,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 								<?php endif; ?>
 								<?php if ( $manual_payment_link ) : ?>
 									<br><a href="<?php echo esc_url( $manual_payment_link ); ?>" target="_blank" rel="noopener noreferrer">payment link</a>
+								<?php endif; ?>
+								<?php if ( $manual_payment_link_sent_at || $manual_payment_link_email_result ) : ?>
+									<br><small>Link email: <?php echo esc_html( $manual_payment_link_email_result ?: 'recorded' ); ?><?php echo $manual_payment_link_sent_at ? esc_html( ' at ' . $manual_payment_link_sent_at ) : ''; ?><?php echo $manual_payment_link_sent_to ? esc_html( ' to ' . $manual_payment_link_sent_to ) : ''; ?></small>
 								<?php endif; ?>
 								<?php if ( $invoice_reference ) : ?>
 									<br><small>Ref: <?php echo esc_html( $invoice_reference ); ?></small>

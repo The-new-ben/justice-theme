@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-24 20:10 Asia/Jerusalem
+- MANUAL PAYMENT LINK EMAIL HANDOFF: added the missing owner action that sends a real saved Grow/Morning payment link to the lawyer from the lawyer admin record.
+- RESEARCH BASIS: Grow documents Payment Links as shareable by email, WhatsApp, SMS, website and landing pages; WooCommerce Subscriptions documents that manual/failed payment recovery depends on emailing the customer and giving them a link to complete payment rather than pretending the charge happened automatically.
+- UPDATED: `inc/lawyer-onboarding.php` now has a `Send this payment link by email now` checkbox beside the existing manual payment link field.
+- UPDATED: when checked, the system emails the saved payment link to the billing invoice email first, then the lawyer email fallback; records `manual_payment_link_sent_at`, `manual_payment_link_sent_to` and `manual_payment_link_email_last_result`; and marks payment follow-up as `invoice_sent` unless the deal is already paid or cancelled.
+- UPDATED: Lawyer Onboarding queue and manual invoice CSV export now show payment-link email delivery status for demo/audit proof.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+- BLOCKED: the actual real Grow link still must be created in Grow/Morning by an authenticated owner account, and true automatic recurring charges, automatic branded invoices and refund execution still require Grow/Meshulam approval plus product/gateway/subscription mapping.
+- SAFETY: repo code/admin workflow only; no public CMS/database write, content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, payment, invoice, charge, refund, lawyer record, lead, CRM record, email/SMS or GSC/GA4 setting changed during implementation.
+
 # LATEST WORK STATUS - 2026-05-24 20:24 Asia/Jerusalem
 - LAWYER CUSTOMER-SUCCESS COMMAND CENTER: upgraded the lawyer dashboard from scattered controls into a real operating cockpit for payment, urgent lead handling, WhatsApp contact, and lifecycle support.
 - RESEARCH BASIS: current CRM/WhatsApp pipeline guidance emphasizes one shared pipeline, fast response, searchable context and no forgotten follow-ups; billing best practice is self-service lifecycle actions with clear upgrade/downgrade/cancel/refund policies; WooCommerce Subscriptions documents customer upgrade/downgrade/cancel flows through the subscriber view when subscription/gateway support is active; Grow documents real Payment Links as the provider-side way to collect payment links.

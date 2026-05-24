@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Manual payment link email handoff
+
+- UPDATED: `inc/lawyer-onboarding.php` adds an explicit admin checkbox to send the saved Grow/Morning payment link to the lawyer by email.
+- UPDATED: successful sends store `manual_payment_link_sent_at`, `manual_payment_link_sent_to` and `manual_payment_link_email_last_result`, and move payment follow-up to `invoice_sent` unless already paid/cancelled.
+- UPDATED: Lawyer Onboarding queue and manual invoice CSV export show payment-link email delivery status for demo/audit proof.
+- RESEARCH BASIS: Grow Payment Links are intended to be shared over email/WhatsApp/SMS/site/landing pages; WooCommerce subscription/manual-payment recovery uses customer emails with a link to complete payment rather than fake automatic charging.
+- VERIFIED LOCAL: PHP syntax passed for `inc/lawyer-onboarding.php`.
+- SAFETY: repo code/admin workflow only; no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway setting, payment, invoice, charge, refund, lawyer record, lead, CRM record, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Lawyer customer-success command center
 
 - UPDATED: `page-lawyer-dashboard.php` adds a command center for payment action, hottest assigned lead, call/WhatsApp/email contact, and lifecycle support buttons.

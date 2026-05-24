@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Owner demo payment playbook v1
+
+- ADDED: real payment-link playbook and demo-data checklist to the admin-only investor demo control panel.
+- UPDATED: `inc/lawyer-onboarding.php`, `tools/check-investor-demo-readiness.mjs`, `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs`.
+- RESEARCH BASIS: Morning's current payment-link guide supports creating a fixed-amount payment link from the payment-links area and sharing it digitally; the admin panel now turns that into the owner demo workflow.
+- VERIFIED LIVE BEFORE EDIT: post-pull live checks passed for homepage polish and investor-demo public routes; the remaining readiness rows are demo data and external payment/provider blockers.
+- VERIFIED LOCAL AFTER EDIT: PHP syntax passed for touched PHP files; Node syntax passed for checker scripts; `git diff --check` passed with line-ending warnings only; refreshed readiness report shows the owner demo panel source gate passing.
+- BLOCKED: requires push plus uPress Pull Git/cache refresh before it is live; full demo still needs a claimed lawyer, assigned medical-malpractice lead and real provider-approved payment test.
+- SAFETY: admin UI/checker/marker only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Owner demo deployment warning v1
 
 - ADDED: red first-action deployment warning to the admin-only investor demo control panel.

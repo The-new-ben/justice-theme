@@ -3395,6 +3395,18 @@ function justice_theme_render_lawyer_onboarding_investor_demo_panel(): void {
 			'note'  => 'Show refund, cancellation, downgrade, complaint and invoice-copy tickets.',
 		),
 	);
+	$payment_playbook = array(
+		'Create a fixed-amount Morning payment link: Payments > Payment links > plus button > regular transaction. Use the exact monthly plan amount, not an open-amount link, for the investor payment test.',
+		'Copy the provider link into the lawyer profile field named Manual payment link, save, then use the Send this payment link by email now checkbox from the same lawyer record.',
+		'If recurring billing is asked about, open the Morning standing-order/debit-order flow as the next approval path, but keep the demo claim limited to the real manual payment link until provider approval is complete.',
+		'After payment, record the invoice/reference and payment confirmed date on the lawyer profile before saying the account is activated.',
+	);
+	$demo_data_steps = array(
+		'Create or use one controlled lawyer user email, then make sure one justice_lawyer profile has claimed_by_user_id set to that user ID.',
+		'Use a medical-malpractice profile because the investor scenario is a medical-malpractice lawyer buying leads.',
+		'Create or choose one safe justice_lead record, set assigned_lawyer_id to the demo lawyer profile ID, and keep visitor phone/email as owner-approved test details.',
+		'Log in as the demo lawyer, open the dashboard, update lead stage, add a follow-up note, and submit one refund or complaint service request.',
+	);
 	?>
 	<div style="max-width:1200px;background:#0f172a;color:#fff;border-radius:8px;padding:18px 20px;margin:18px 0;">
 		<p style="margin:0 0 6px;color:#facc15;font-weight:800;text-transform:uppercase;letter-spacing:.04em;">Investor demo control</p>
@@ -3412,6 +3424,25 @@ function justice_theme_render_lawyer_onboarding_investor_demo_panel(): void {
 					<a class="button button-primary" href="<?php echo esc_url( $link['url'] ); ?>" target="_blank" rel="noopener">Open</a>
 				</div>
 			<?php endforeach; ?>
+		</div>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;margin:14px 0;">
+			<div style="background:#0f3b35;border:1px solid rgba(45,212,191,.45);border-radius:8px;padding:12px;">
+				<strong style="display:block;color:#99f6e4;">Real payment-link playbook</strong>
+				<ol style="margin:8px 0 0 18px;color:#d1fae5;">
+					<?php foreach ( $payment_playbook as $step ) : ?>
+						<li style="margin:0 0 6px;"><?php echo esc_html( $step ); ?></li>
+					<?php endforeach; ?>
+				</ol>
+				<p style="margin:10px 0 0;color:#ccfbf1;"><a style="color:#ccfbf1;" href="https://www.greeninvoice.co.il/help-center/create-payment-link/" target="_blank" rel="noopener noreferrer">Morning guide: create a payment link</a></p>
+			</div>
+			<div style="background:#312e81;border:1px solid rgba(165,180,252,.45);border-radius:8px;padding:12px;">
+				<strong style="display:block;color:#c7d2fe;">Demo data checklist</strong>
+				<ol style="margin:8px 0 0 18px;color:#e0e7ff;">
+					<?php foreach ( $demo_data_steps as $step ) : ?>
+						<li style="margin:0 0 6px;"><?php echo esc_html( $step ); ?></li>
+					<?php endforeach; ?>
+				</ol>
+			</div>
 		</div>
 		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:14px;">
 			<div style="background:#111827;border:1px solid rgba(250,204,21,.35);border-radius:8px;padding:12px;">

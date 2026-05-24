@@ -199,6 +199,8 @@ const sourceChecks = [
 			'Investor demo control',
 			'Morning rehearsal links',
 			'First action before opening investor tabs',
+			'Real payment-link playbook',
+			'Demo data checklist',
 			'Manual Grow/Morning payment links are the live bridge',
 		],
 		ownerAction: 'Open Lawyer Onboarding and use the dark investor demo panel as the morning run order.',

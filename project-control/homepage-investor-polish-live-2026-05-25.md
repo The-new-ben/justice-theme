@@ -1,20 +1,20 @@
 # Homepage Investor Polish Live Check - 2026-05-25
 
 - Status: REVIEW
-- Started: 2026-05-24T21:02:32.726Z
+- Started: 2026-05-24T21:12:22.546Z
 - Base URL: https://jus-tice.co.il
-- Expected marker: 2026-05-25-owner-demo-deployment-warning-v1
-- Checks passed: 0/4
-- Checks needing review: 4
+- Expected marker: 2026-05-25-owner-demo-payment-playbook-v1
+- Checks passed: 2/4
+- Checks needing review: 2
 - Scope: read-only homepage and static marker checks only.
 - Safety: no CMS record, payment, invoice, refund, lead, lawyer profile, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or wp-admin setting was changed.
 
 | Check | Status | HTTP | Missing | Final URL |
 |---|---:|---:|---|---|
-| Homepage runtime deployment marker | REVIEW | 200 | 2026-05-25-owner-demo-deployment-warning-v1 | https://jus-tice.co.il/?homepage_investor_polish_check=1779656552726 |
-| Homepage lawyer revenue strip is visible | REVIEW | 200 | hero__lawyer-access<br>homepage-lawyer-revenue<br>homepage-lawyer-revenue__mini-dashboard<br>utm_medium=revenue_strip | https://jus-tice.co.il/?homepage_investor_polish_check=1779656552726 |
-| Static theme deployment marker | REVIEW | 200 | justice-theme-deployment-marker=2026-05-25-owner-demo-deployment-warning-v1<br>expected-github-main-commit=owner-demo-deployment-warning-v1 | https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779656552726 |
-| Premium polish CSS version is deployed | REVIEW | 200 | Version: 4.3.2<br>.hero__lawyer-access<br>.homepage-lawyer-revenue<br>.homepage-lawyer-revenue__mini-dashboard<br>.homepage-lawyer-revenue__login | https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779656552726 |
+| Homepage runtime deployment marker | REVIEW | 200 | 2026-05-25-owner-demo-payment-playbook-v1 | https://jus-tice.co.il/?homepage_investor_polish_check=1779657142546 |
+| Homepage lawyer revenue strip is visible | PASS | 200 | - | https://jus-tice.co.il/?homepage_investor_polish_check=1779657142546 |
+| Static theme deployment marker | REVIEW | 200 | justice-theme-deployment-marker=2026-05-25-owner-demo-payment-playbook-v1<br>expected-github-main-commit=owner-demo-payment-playbook-v1 | https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779657142546 |
+| Premium polish CSS version is deployed | PASS | 200 | - | https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779657142546 |
 
 ## Owner Meaning
 

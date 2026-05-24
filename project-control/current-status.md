@@ -1,3 +1,17 @@
+# LATEST WORK STATUS - 2026-05-25 00:35 Asia/Jerusalem
+- OWNER DEMO PAYMENT PLAYBOOK V1: added the missing operator instructions directly inside the admin-only investor demo panel, after live checks showed the deployed routes now pass.
+- UPDATED: `inc/lawyer-onboarding.php` now includes a real Morning/Grow payment-link playbook and a demo-data checklist for claimed lawyer profile plus assigned medical-malpractice lead.
+- UPDATED: `tools/check-investor-demo-readiness.mjs` now expects the payment playbook and demo-data checklist tokens in the owner demo panel source gate.
+- UPDATED: `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs` to marker `2026-05-25-owner-demo-payment-playbook-v1`.
+- RESEARCH BASIS: Morning's current payment-link guide says a fixed-amount payment link is created from Payments > Payment links and can be sent digitally; the admin panel now tells the owner to use that fixed-amount path for the investor test, then paste the real link into the lawyer record.
+- MATERIAL ADVANCE: the owner no longer has to remember the payment-link steps or demo-data prerequisites during the investor walkthrough; they are visible in wp-admin where the demo starts.
+- VERIFIED LIVE BEFORE EDIT: homepage polish, lawyer entrypoints, plan routing, checkout compliance, registration prefill, dashboard gate, service CSS and policy pages all passed after the uPress pull.
+- VERIFIED LOCAL AFTER EDIT: PHP syntax passed for `inc/lawyer-onboarding.php` and `functions.php`; Node syntax passed for affected checkers; `git diff --check` passed with line-ending warnings only; refreshed readiness report shows all live/source rows passing with only demo-data/provider blockers remaining.
+- LIVE MARKER STATUS: the new `2026-05-25-owner-demo-payment-playbook-v1` marker is not live until this commit is pushed and uPress pulls again, so the marker checker correctly reports REVIEW for this new update.
+- STILL BLOCKED: this new panel update needs push plus another uPress Pull Git/cache refresh before it is live; real demo data still requires owner-approved WP/CMS entries; Grow recurring debit, automatic branded invoice and real refund execution remain provider approval/smoke-test blockers.
+- COMPLETION: live route readiness is now about 95%; full investor demo readiness is about 78% until the demo lawyer, assigned lead and provider/payment-link test are completed.
+- SAFETY: admin-only UI/source/checker/marker changes only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 00:06 Asia/Jerusalem
 - OWNER DEMO DEPLOYMENT WARNING V1: strengthened the admin-only investor demo panel with a red first-action warning to pull Git in uPress and clear cache before opening investor tabs.
 - UPDATED: `inc/lawyer-onboarding.php` now states that skipping the uPress pull can leave homepage, plans, dashboard gate and deployment marker on the older production version.

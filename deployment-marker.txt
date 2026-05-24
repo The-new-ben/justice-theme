@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-24-lawyer-support-sla-v1
-expected-github-main-commit=lawyer-support-sla-v1
+justice-theme-deployment-marker=2026-05-24-lawyer-dashboard-login-preview-v1
+expected-github-main-commit=lawyer-dashboard-login-preview-v1
 purpose=public-static-file-check-for-upress-theme-sync

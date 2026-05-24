@@ -89,6 +89,7 @@ const liveChecks = [
 		url: `/lawyer-dashboard/?investor_demo_check=${ CACHE_BUST }`,
 		required: [
 			'lawyer-dashboard--logged-out',
+			'lawyer-dashboard-login-preview',
 			'/lawyer-plans/',
 			'/lawyer-registration/',
 			'payment_path=manual_invoice',
@@ -143,6 +144,7 @@ const sourceChecks = [
 		file: 'page-lawyer-dashboard.php',
 		required: [
 			'lawyer-dashboard-service-request',
+			'lawyer-dashboard-login-preview',
 			'lawyer-dashboard-service-request__self-help',
 			'latest_service_request_sla',
 			'justice_lawyer_service_request',

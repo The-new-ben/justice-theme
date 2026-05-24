@@ -1,9 +1,9 @@
 # Homepage Investor Polish Live Check - 2026-05-24
 
 - Status: REVIEW
-- Started: 2026-05-24T20:12:04.771Z
+- Started: 2026-05-24T20:25:45.403Z
 - Base URL: https://jus-tice.co.il
-- Expected marker: 2026-05-24-lawyer-support-sla-v1
+- Expected marker: 2026-05-24-lawyer-dashboard-login-preview-v1
 - Checks passed: 0/4
 - Checks needing review: 4
 - Scope: read-only homepage and static marker checks only.
@@ -11,10 +11,10 @@
 
 | Check | Status | HTTP | Missing | Final URL |
 |---|---:|---:|---|---|
-| Homepage runtime deployment marker | REVIEW | 200 | 2026-05-24-lawyer-support-sla-v1 | https://jus-tice.co.il/?homepage_investor_polish_check=1779653524771 |
-| Homepage lawyer revenue strip is visible | REVIEW | 200 | hero__lawyer-access<br>homepage-lawyer-revenue<br>homepage-lawyer-revenue__mini-dashboard<br>utm_medium=revenue_strip | https://jus-tice.co.il/?homepage_investor_polish_check=1779653524771 |
-| Static theme deployment marker | REVIEW | 200 | justice-theme-deployment-marker=2026-05-24-lawyer-support-sla-v1<br>expected-github-main-commit=lawyer-support-sla-v1 | https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779653524771 |
-| Premium polish CSS version is deployed | REVIEW | 200 | Version: 4.3.2<br>.hero__lawyer-access<br>.homepage-lawyer-revenue<br>.homepage-lawyer-revenue__mini-dashboard<br>.homepage-lawyer-revenue__login | https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779653524771 |
+| Homepage runtime deployment marker | REVIEW | 200 | 2026-05-24-lawyer-dashboard-login-preview-v1 | https://jus-tice.co.il/?homepage_investor_polish_check=1779654345403 |
+| Homepage lawyer revenue strip is visible | REVIEW | 200 | hero__lawyer-access<br>homepage-lawyer-revenue<br>homepage-lawyer-revenue__mini-dashboard<br>utm_medium=revenue_strip | https://jus-tice.co.il/?homepage_investor_polish_check=1779654345403 |
+| Static theme deployment marker | REVIEW | 200 | justice-theme-deployment-marker=2026-05-24-lawyer-dashboard-login-preview-v1<br>expected-github-main-commit=lawyer-dashboard-login-preview-v1 | https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779654345403 |
+| Premium polish CSS version is deployed | REVIEW | 200 | Version: 4.3.2<br>.hero__lawyer-access<br>.homepage-lawyer-revenue<br>.homepage-lawyer-revenue__mini-dashboard<br>.homepage-lawyer-revenue__login | https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779654345403 |
 
 ## Owner Meaning
 

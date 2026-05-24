@@ -48,6 +48,28 @@ if ( ! is_user_logged_in() ) :
 				<a class="button button--outline" href="<?php echo esc_url( $dashboard_plans_url ); ?>"><?php esc_html_e( 'בחירת מסלול לעורך דין', 'justice-theme' ); ?></a>
 				<a class="button button--outline" href="<?php echo esc_url( $dashboard_registration_url ); ?>"><?php esc_html_e( 'בקשת הצטרפות מהירה', 'justice-theme' ); ?></a>
 			</div>
+			<div class="lawyer-dashboard-login-preview" aria-label="<?php esc_attr_e( 'תצוגה מקדימה של האזור האישי', 'justice-theme' ); ?>">
+				<article class="lawyer-dashboard-login-preview__card">
+					<span><?php esc_html_e( 'מיני-סייט', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'פרופיל עורך דין שנבנה להמרת תנועה מחיפוש', 'justice-theme' ); ?></strong>
+					<p><?php esc_html_e( 'בקשות לעדכון כותרת, תחומי עיסוק, תהליך עבודה, וידאו ושאלות נפוצות. שינוי ציבורי עולה רק אחרי בדיקה.', 'justice-theme' ); ?></p>
+				</article>
+				<article class="lawyer-dashboard-login-preview__card">
+					<span><?php esc_html_e( 'תשלום וחשבונית', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'הפעלה ידנית עד אישור חיוב מחזורי', 'justice-theme' ); ?></strong>
+					<p><?php esc_html_e( 'האזור האישי מציג סטטוס מסלול, בקשות חשבונית ופעולת תשלום נוכחית בלי לחשוף את ניהול וורדפרס.', 'justice-theme' ); ?></p>
+				</article>
+				<article class="lawyer-dashboard-login-preview__card">
+					<span><?php esc_html_e( 'לידים ומעקב', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'שיחות, WhatsApp ודיווח צנרת במקום אחד', 'justice-theme' ); ?></strong>
+					<p><?php esc_html_e( 'לידים משויכים מופיעים עם פעולות קשר ודיווח סטטוס פשוט, כדי להראות ערך כבר אחרי השיחות הראשונות.', 'justice-theme' ); ?></p>
+				</article>
+				<article class="lawyer-dashboard-login-preview__card">
+					<span><?php esc_html_e( 'שירות ושינויים', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'שדרוג, הורדה, ביטול, החזר ותלונה', 'justice-theme' ); ?></strong>
+					<p><?php esc_html_e( 'שינויי מנוי נשמרים כבקשות שירות לבדיקת בעלים, עם דחיפות ויעד תגובה ברור.', 'justice-theme' ); ?></p>
+				</article>
+			</div>
 		</div>
 	</section>
 	<?php

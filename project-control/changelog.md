@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Lawyer dashboard login preview v1
+
+- ADDED: `lawyer-dashboard-login-preview` cards on the logged-out lawyer dashboard gate for mini-site, payment/invoice, leads and lifecycle service requests.
+- UPDATED: `page-lawyer-dashboard.php`, `assets/css/premium-pass-3.css`, `inc/enqueue.php`, `tools/check-investor-demo-readiness.mjs`, `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs`.
+- VERIFIED LOCAL: PHP syntax passed for touched PHP files; Node syntax passed for checker scripts; `git diff --check` passed with line-ending warnings only; live/readiness reports were refreshed and still show deployment/data/provider blockers.
+- BLOCKED: requires push plus uPress Pull Git/cache refresh before it is live; Grow recurring debit remains provider-approval blocked.
+- SAFETY: code/CSS/checker/marker only; no public CMS/database or provider setting changed.
+
 # 2026-05-24 - Lawyer support SLA v1
 
 - ADDED: `latest_service_request_sla` next-response target in the lawyer dashboard latest service request summary.

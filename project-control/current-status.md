@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-24 23:23 Asia/Jerusalem
+- LAWYER DASHBOARD LOGIN PREVIEW V1: added a logged-out private-area preview so the investor/lawyer can see the product promise before authentication: mini-site updates, manual payment/invoice activation, lead follow-up and lifecycle service requests.
+- UPDATED: `page-lawyer-dashboard.php` renders `lawyer-dashboard-login-preview` cards under the login/plans/registration actions.
+- UPDATED: `assets/css/premium-pass-3.css` styles the preview cards and stacks them on mobile; `inc/enqueue.php` bumps the premium-pass-3 asset version to `3.0.7`.
+- UPDATED: `tools/check-investor-demo-readiness.mjs` expects the preview marker on both the live dashboard gate and source checks.
+- UPDATED: `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs` to marker `2026-05-24-lawyer-dashboard-login-preview-v1`.
+- MATERIAL ADVANCE: the demo no longer depends on explaining a hidden dashboard from memory; the public `/lawyer-dashboard/` gate now previews the actual revenue/customer-service value without exposing admin or fake data.
+- VERIFIED LOCAL: PHP syntax passed for `page-lawyer-dashboard.php`, `functions.php`, and `inc/enqueue.php`; Node syntax passed for affected checkers; `git diff --check` passed with line-ending warnings only; investor readiness source checks pass, while live checks correctly show deployment/data/provider blockers.
+- STILL BLOCKED: uPress Pull Git/cache refresh is required before this is live; Grow recurring debit remains provider-authorisation blocked.
+- COMPLETION: investor-facing lawyer portal story moved from about 90% to about 92% locally; live completion remains blocked by deployment verification and a real claimed demo account.
+- SAFETY: theme/template/CSS/checker/marker changes only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 23:12 Asia/Jerusalem
 - LAWYER SUPPORT SLA V1: added an explicit next-response target to the lawyer dashboard latest service request summary, so cancellation/refund/complaint/payment tickets do not look like a black hole after submission.
 - UPDATED: `page-lawyer-dashboard.php` computes `latest_service_request_sla` from urgency and displays `Next response` beside the latest service request.

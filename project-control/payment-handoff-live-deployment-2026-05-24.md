@@ -1,7 +1,7 @@
 # Payment Handoff Live Deployment Check - 2026-05-24
 
 - Status: REVIEW
-- Started: 2026-05-24T17:49:49.135Z
+- Started: 2026-05-24T17:51:31.682Z
 - Base URL: https://jus-tice.co.il
 - Expected marker: 2026-05-24-lawyer-account-invite-v1
 - Checks passed: 0/2
@@ -11,8 +11,8 @@
 
 | Check | Status | HTTP | Missing | Final URL |
 |---|---:|---:|---|---|
-| Homepage runtime deployment marker | REVIEW | 200 | 2026-05-24-lawyer-account-invite-v1 | https://jus-tice.co.il/?payment_handoff_marker_check=1779644989135 |
-| Static theme deployment marker | REVIEW | 200 | justice-theme-deployment-marker=2026-05-24-lawyer-account-invite-v1 | https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?payment_handoff_marker_check=1779644989135 |
+| Homepage runtime deployment marker | REVIEW | 200 | 2026-05-24-lawyer-account-invite-v1 | https://jus-tice.co.il/?payment_handoff_marker_check=1779645091682 |
+| Static theme deployment marker | REVIEW | 200 | justice-theme-deployment-marker=2026-05-24-lawyer-account-invite-v1 | https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?payment_handoff_marker_check=1779645091682 |
 
 ## Owner Meaning
 

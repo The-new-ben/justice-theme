@@ -77,13 +77,20 @@ const checks = [
 	{
 		id: 'registration-success-manual-invoice-handoff',
 		name: 'Registration success explains manual activation',
-		url: '/lawyer-registration/?registration=sent&plan_interest=pro&payment_path=manual_invoice&utm_source=codex_check&utm_medium=live_funnel&utm_campaign=lawyer_acquisition',
+		url: '/lawyer-registration/?registration=sent&plan_interest=pro&payment_path=manual_invoice&utm_source=codex_check&utm_medium=live_funnel&utm_campaign=lawyer_acquisition&utm_content=founder_primary_pro&utm_term=lawyer_subscriptions&outreach_segment=plans_page&outreach_city=tel-aviv&outreach_practice=real-estate-law',
 		type: 'page',
 		required: [
 			'lawyer-registration-success',
 			'lawyer-registration-success__actions',
 			'/lawyer-plans/',
 			'wp-login.php',
+		],
+		requiredFinalUrl: [
+			'utm_content=founder_primary_pro',
+			'utm_term=lawyer_subscriptions',
+			'outreach_segment=plans_page',
+			'outreach_city=tel-aviv',
+			'outreach_practice=real-estate-law',
 		],
 		absent: [
 			'lawyer-registration-form',
@@ -149,6 +156,10 @@ const checks = [
 			'payment_path',
 			'plan_interest',
 			'outreach_segment',
+			'outreach_city',
+			'outreach_practice',
+			'utm_content',
+			'utm_term',
 		],
 	},
 ];
@@ -195,8 +206,12 @@ async function runCheck( check ) {
 	const { response, body } = await fetchText( check.url );
 	const durationMs = Date.now() - started;
 	const missing = ( check.required || [] ).filter( ( token ) => ! tokenPresent( body, token ) );
+	const missingFinalUrl = ( check.requiredFinalUrl || [] )
+		.filter( ( token ) => ! response.url.includes( token ) )
+		.map( ( token ) => `finalUrl:${ token }` );
 	const unexpected = ( check.absent || [] ).filter( ( token ) => tokenPresent( body, token ) );
-	const passed = response.ok && missing.length === 0 && unexpected.length === 0;
+	const allMissing = [ ...missing, ...missingFinalUrl ];
+	const passed = response.ok && allMissing.length === 0 && unexpected.length === 0;
 
 	return {
 		id: check.id,
@@ -208,7 +223,7 @@ async function runCheck( check ) {
 		durationMs,
 		url,
 		finalUrl: response.url,
-		missing,
+		missing: allMissing,
 		unexpected,
 	};
 }

@@ -570,7 +570,7 @@ function justice_theme_handle_lawyer_registration(): void {
 		$redirect_args['payment_path'] = $meta['payment_path'];
 	}
 
-	foreach ( array( 'utm_source', 'utm_medium', 'utm_campaign', 'outreach_segment' ) as $attribution_key ) {
+	foreach ( array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'outreach_segment', 'outreach_city', 'outreach_practice' ) as $attribution_key ) {
 		if ( ! empty( $meta[ $attribution_key ] ) ) {
 			$redirect_args[ $attribution_key ] = $meta[ $attribution_key ];
 		}

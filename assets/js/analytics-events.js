@@ -195,9 +195,13 @@
 				plan_interest: query.get('plan_interest') || '',
 				payment_path: query.get('payment_path') || '',
 				outreach_segment: query.get('outreach_segment') || '',
+				outreach_city: query.get('outreach_city') || '',
+				outreach_practice: query.get('outreach_practice') || '',
 				utm_source: query.get('utm_source') || '',
 				utm_medium: query.get('utm_medium') || '',
-				utm_campaign: query.get('utm_campaign') || ''
+				utm_campaign: query.get('utm_campaign') || '',
+				utm_content: query.get('utm_content') || '',
+				utm_term: query.get('utm_term') || ''
 			});
 		}
 

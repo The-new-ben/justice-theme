@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Signup success attribution
+
+- UPDATED: `inc/lawyer-onboarding.php` now carries `utm_content`, `utm_term`, `outreach_city` and `outreach_practice` into the post-submit registration success redirect.
+- UPDATED: `assets/js/analytics-events.js` now reads URL hash parameters as a fallback for success-event attribution, matching Yoast's live UTM-to-hash redirect behavior.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` now verifies the registration success UTM hash redirect and richer analytics markers.
+- CREATED: `project-control/signup-success-attribution-2026-05-24.md`.
+- REGENERATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md` and `.csv`.
+- REGENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: PHP syntax, Node syntax and `git diff --check` passed.
+- DEPLOYED: `001d993 Preserve signup success attribution` and `c7a845f Track signup attribution from redirect hash` were pushed and pulled through uPress; uPress log showed `c7a845f` as live `HEAD`.
+- VERIFIED LIVE READ-ONLY: full lawyer revenue funnel check passed `9/9`.
+- SAFETY: no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Checkout registration prefill
 
 - UPDATED: `page-lawyer-registration.php` now pre-fills registration name, phone, email and firm fields from safe request values.

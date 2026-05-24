@@ -1,3 +1,17 @@
+# LATEST WORK STATUS - 2026-05-24 17:05 Asia/Jerusalem
+- SIGNUP SUCCESS ATTRIBUTION: kept paid-lawyer campaign, message, city and practice context alive through the registration success step.
+- RESEARCH BASIS: Google Analytics 4 campaign URL guidance documents UTM-based campaign collection, and live Jus-Tice checks showed Yoast moves UTM query parameters into the URL hash on registration-success URLs.
+- UPDATED: `inc/lawyer-onboarding.php` now carries `utm_content`, `utm_term`, `outreach_city` and `outreach_practice` into the post-submit success redirect.
+- UPDATED: `assets/js/analytics-events.js` now merges URL hash parameters into success-event parameters before firing `lawyer_signup_submit`.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` now verifies Yoast's UTM-to-hash redirect and the deployed analytics markers for the richer attribution fields.
+- CREATED: `project-control/signup-success-attribution-2026-05-24.md`.
+- GENERATED / UPDATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md`, `project-control/lawyer-revenue-funnel-live-2026-05-24.csv`, `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `reports/lawyer-revenue-funnel-live-2026-05-24.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php`, `node --check assets/js/analytics-events.js`, `node --check tools/check-live-lawyer-revenue-funnel.mjs` and `git diff --check` passed.
+- DEPLOYED: committed/pushed `001d993` and `c7a845f`; uPress Git pull log showed `Track signup attribution from redirect hash` as live HEAD.
+- VERIFIED LIVE READ-ONLY: the full lawyer revenue funnel check passed `9/9`, including the new UTM-hash redirect gate.
+- BLOCKED: automated recurring lawyer payments still require Grow/Meshulam approval plus gateway/product mapping.
+- SAFETY: theme redirect-argument/analytics/checker/docs and read-only live checks only; no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 16:52 Asia/Jerusalem
 - CHECKOUT REGISTRATION PREFILL: reduced paid-lawyer signup friction after the Grow-compliance checkout fallback.
 - RESEARCH BASIS: Baymard form-field research recommends prefilling values when users would otherwise retype the same information; Clio intake guidance emphasizes reducing duplicate intake data entry and moving contact information into the pipeline.

@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Investor hard questions Q&A
+
+- CREATED: `project-control/investor-hard-questions-qa-2026-05-24.md`.
+- CREATED: `project-control/investor-hard-questions-qa-2026-05-24.csv`.
+- RESEARCH BASIS: investor diligence and VC-meeting guidance emphasizes questions around traction, market, moat, unit economics, legal/compliance and risk; Q&A guidance recommends acknowledging weaknesses and bridging to mitigation, evidence and next de-risking.
+- SAFETY: planning/Q&A artifacts only; no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, refund, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Investor one-page cheat sheet
 
 - CREATED: `project-control/investor-one-page-cheat-sheet-2026-05-24.md`.

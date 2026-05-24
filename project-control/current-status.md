@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-24 19:51 Asia/Jerusalem
+- INVESTOR HARD QUESTIONS Q&A: created a meeting-side answer sheet for the questions most likely to expose unfinished payment, traction, moat, legal/compliance and SEO risks.
+- RESEARCH BASIS: current investor diligence guidance groups hard questions around team, market, product, traction, economics, legal/compliance and risk; VC-meeting guidance says investors test traction, moat, unit economics, market and go-to-market; Q&A guidance recommends acknowledging weaknesses, then bridging to mitigation, evidence and next de-risking.
+- CREATED: `project-control/investor-hard-questions-qa-2026-05-24.md`.
+- CREATED: `project-control/investor-hard-questions-qa-2026-05-24.csv`.
+- OWNER ACTION BEFORE INVESTOR: keep this Q&A sheet open next to the one-page cheat sheet; use the acknowledge -> proof -> risk -> next-step format, especially on payment, invoices, refunds and SEO timing.
+- BLOCKED: true automatic recurring charges, branded automatic invoices and real refund execution still require Grow/Meshulam approval plus WooCommerce product/gateway/subscription mapping.
+- SAFETY: planning/Q&A artifacts only; no public CMS/database write, content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, refund, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 19:39 Asia/Jerusalem
 - INVESTOR ONE-PAGE CHEAT SHEET: condensed the demo story into a single meeting-side sheet covering story, proof, blockers, payment answer and the ask.
 - RESEARCH BASIS: demo-prep guidance emphasizes one primary workflow, known-good environment and backup plan; SaaS demo guidance emphasizes outcomes over feature tours; investor-ready means reliable flow and honest answers, not production-complete automation.

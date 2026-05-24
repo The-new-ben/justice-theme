@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Lawyer source performance export
+
+- UPDATED: `inc/lawyer-onboarding.php` now adds an `Export source performance CSV` button to the Source performance board.
+- UPDATED: added nonce-protected `justice_export_lawyer_source_performance` admin export.
+- UPDATED: exported rows include source bucket, registration count, expected monthly/annual value, payment status counts, city/practice/message variants, latest submission time, filtered admin URL and next-action recommendation.
+- CREATED: `project-control/lawyer-source-performance-export-2026-05-24.md`.
+- REGENERATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md` and `.csv`.
+- REGENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: PHP syntax and `git diff --check` passed.
+- DEPLOYED: `5ccf3c3 Export lawyer source performance` was pushed and pulled through uPress; uPress log showed it as live `HEAD`.
+- VERIFIED LIVE READ-ONLY: full public lawyer revenue funnel check passed `9/9`.
+- SAFETY: no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Lawyer source performance board
 
 - UPDATED: `inc/lawyer-onboarding.php` now renders an owner-only `Source performance board` inside Lawyer Onboarding.

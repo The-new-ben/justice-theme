@@ -93,13 +93,16 @@ const checks = [
 	{
 		id: 'registration-paid-manual-form-state',
 		name: 'Registration form preserves paid manual-invoice plan state',
-		url: '/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice&utm_source=codex_check&utm_medium=live_funnel&utm_campaign=lawyer_acquisition',
+		url: '/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice&utm_source=codex_check&utm_medium=live_funnel&utm_campaign=lawyer_acquisition&billing_first_name=Codex&billing_last_name=Lawyer&billing_phone=0501234567&billing_email=codex-lawyer@example.com',
 		type: 'page',
 		required: [
 			'lawyer-registration-form',
 			'lawyer-registration-plan-context',
 			'name="payment_path" value="manual_invoice"',
 			'name="plan_interest"',
+			'name="lawyer_full_name" value="Codex Lawyer"',
+			'name="phone" value="0501234567"',
+			'name="email" value="codex-lawyer@example.com"',
 			'data-selected-plan="lead_partner"',
 			'value="lead_partner" selected=\'selected\'',
 			'לא יתבצע חיוב אוטומטי',

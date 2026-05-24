@@ -85,6 +85,26 @@ $registration_attribution = function_exists( 'justice_theme_lawyer_registration_
 	: array();
 $registration_dashboard_url = justice_theme_public_url( home_url( '/lawyer-dashboard/' ) );
 $registration_login_url     = wp_login_url( $registration_dashboard_url );
+
+$registration_request_text = static function ( string $key ): string {
+	return isset( $_GET[ $key ] ) ? sanitize_text_field( wp_unslash( $_GET[ $key ] ) ) : '';
+};
+
+$registration_prefill_full_name = $registration_request_text( 'lawyer_full_name' );
+$registration_billing_names     = array_filter(
+	array(
+		$registration_request_text( 'billing_first_name' ),
+		$registration_request_text( 'billing_last_name' ),
+	)
+);
+
+if ( '' === $registration_prefill_full_name && $registration_billing_names ) {
+	$registration_prefill_full_name = trim( implode( ' ', $registration_billing_names ) );
+}
+
+$registration_prefill_firm  = $registration_request_text( 'firm_name' );
+$registration_prefill_phone = $registration_request_text( 'phone' ) ?: $registration_request_text( 'billing_phone' );
+$registration_prefill_email = sanitize_email( $registration_request_text( 'email' ) ?: $registration_request_text( 'billing_email' ) );
 ?>
 
 <section class="lawyer-registration-hero section">
@@ -182,11 +202,11 @@ $registration_login_url     = wp_login_url( $registration_dashboard_url );
 				<div class="lawyer-registration-form__grid">
 					<label>
 						<span><?php esc_html_e( 'שם מלא', 'justice-theme' ); ?></span>
-						<input type="text" name="lawyer_full_name" required autocomplete="name">
+						<input type="text" name="lawyer_full_name" value="<?php echo esc_attr( $registration_prefill_full_name ); ?>" required autocomplete="name">
 					</label>
 					<label>
 						<span><?php esc_html_e( 'שם משרד', 'justice-theme' ); ?></span>
-						<input type="text" name="firm_name">
+						<input type="text" name="firm_name" value="<?php echo esc_attr( $registration_prefill_firm ); ?>">
 					</label>
 					<label>
 						<span><?php esc_html_e( 'מספר רישיון', 'justice-theme' ); ?></span>
@@ -209,11 +229,11 @@ $registration_login_url     = wp_login_url( $registration_dashboard_url );
 					</label>
 					<label>
 						<span><?php esc_html_e( 'טלפון', 'justice-theme' ); ?></span>
-						<input type="tel" name="phone" required autocomplete="tel">
+						<input type="tel" name="phone" value="<?php echo esc_attr( $registration_prefill_phone ); ?>" required autocomplete="tel">
 					</label>
 					<label>
 						<span><?php esc_html_e( 'אימייל', 'justice-theme' ); ?></span>
-						<input type="email" name="email" required autocomplete="email">
+						<input type="email" name="email" value="<?php echo esc_attr( $registration_prefill_email ); ?>" required autocomplete="email">
 					</label>
 					<label>
 						<span>WhatsApp</span>

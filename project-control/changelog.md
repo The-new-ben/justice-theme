@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Investor demo live data prep runbook
+
+- CREATED: `project-control/investor-demo-live-data-prep-runbook-2026-05-24.md`.
+- CREATED: `project-control/investor-demo-live-data-prep-runbook-2026-05-24.csv`.
+- RESEARCH BASIS: WooCommerce Subscriptions upgrade/downgrade/cancel flows depend on subscription eligibility, completed payment and gateway support, so Jus-Tice should demo lifecycle requests through the service desk until Grow/Meshulam recurring billing is approved.
+- SAFETY: planning/runbook artifacts only; no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, refund, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Investor demo readiness gate
 
 - CREATED: `tools/check-investor-demo-readiness.mjs`.

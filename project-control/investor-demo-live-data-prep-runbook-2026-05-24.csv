@@ -1,0 +1,10 @@
+step,owner_action,expected_proof,status,safety_note
+1,Choose or create demo WordPress lawyer user,User ID exists for demo login,NEEDS_OWNER_APPROVAL,No automated database write from this packet
+2,Choose or create demo justice_lawyer profile,Profile exists and is safe for demo,NEEDS_OWNER_APPROVAL,Do not publish publicly unless approved
+3,Set claimed_by_user_id to demo user ID,Logged-in demo user sees private dashboard,NEEDS_OWNER_APPROVAL,Only link a safe demo profile
+4,Set plan/payment context to Lead Partner manual invoice,Dashboard and owner queue show commercial status,NEEDS_OWNER_APPROVAL,Do not mark real unpaid customers paid
+5,Add manual payment link only if owner-approved real link exists,Complete payment CTA appears when link exists,OPTIONAL_BLOCKED,Payment link depends on Grow/Morning owner action
+6,Submit one service request from demo dashboard,Request appears in service_request_status=pending queue,NEEDS_CONTROLLED_SUBMISSION,Use harmless demo text
+7,Assign or create one medical-malpractice demo lead,Lead card appears in lawyer dashboard,NEEDS_OWNER_APPROVAL,No real private medical facts
+8,Update lead stage in dashboard,Stage changes visibly in CRM,NEEDS_CONTROLLED_SUBMISSION,Use demo lead only
+9,Explain payment honestly,Investor hears approval-gated recurring billing story,READY,Do not fake charge invoice or refund

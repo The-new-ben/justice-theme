@@ -1,3 +1,17 @@
+# LATEST WORK STATUS - 2026-05-24 17:43 Asia/Jerusalem
+- LAWYER BILLING READINESS GATE: made the manual-invoice queue more actionable by separating paid registrations that are invoice-ready from paid registrations still missing billing identity details.
+- RESEARCH BASIS: Grow Payment Links support one-time and recurring payment-link flows shared over WhatsApp, email, SMS and other channels; Morning / Green Invoice similarly documents invoice/payment-button/payment-link/standing-order flows. The manual fallback needs invoice identity and invoice email before payment follow-up is fast.
+- UPDATED: `inc/lawyer-onboarding.php` now adds `Needs billing details` and `Billing ready` cards to the Lawyer Onboarding payment command center.
+- UPDATED: Lawyer Onboarding now supports safe `billing_status=missing` and `billing_status=ready` admin filters.
+- UPDATED: the next money action now prioritizes missing billing details after overdue payment follow-up and before ordinary invoice chasing.
+- CREATED: `project-control/lawyer-billing-readiness-gate-2026-05-24.md`.
+- GENERATED / UPDATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md`, `project-control/lawyer-revenue-funnel-live-2026-05-24.csv`, `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `reports/lawyer-revenue-funnel-live-2026-05-24.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed.
+- DEPLOYED: committed/pushed `fed6aa0`; uPress Git pull log showed `Add lawyer billing readiness gate` as live HEAD.
+- VERIFIED LIVE READ-ONLY: the public lawyer revenue funnel check still passed `9/9` after deployment.
+- BLOCKED: automated recurring lawyer payments still require Grow/Meshulam approval plus gateway/product mapping.
+- SAFETY: admin-only reporting/filtering and read-only live checks only; no CMS database write happened during this cycle, and no public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 17:36 Asia/Jerusalem
 - MANUAL INVOICE BILLING DETAILS: reduced the back-and-forth between paid lawyer signup and manual invoice/payment request.
 - RESEARCH BASIS: Morning / Green Invoice describes digital payment flows using invoice/receipt charging, payment buttons, payment links and recurring-payment links; the manual fallback should collect billing context early so the owner can send the right payment request faster.

@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Lawyer billing readiness gate
+
+- UPDATED: `inc/lawyer-onboarding.php` now adds `Needs billing details` and `Billing ready` cards to the Lawyer Onboarding payment command center.
+- UPDATED: the admin list supports `billing_status=missing` and `billing_status=ready` filters for manual-invoice registrations.
+- UPDATED: the next money action now prioritizes missing billing details after overdue payment follow-up and before ordinary invoice chasing.
+- CREATED: `project-control/lawyer-billing-readiness-gate-2026-05-24.md`.
+- REGENERATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md` and `.csv`.
+- REGENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: PHP syntax and `git diff --check` passed.
+- DEPLOYED: `fed6aa0 Add lawyer billing readiness gate` was pushed and pulled through uPress; uPress log showed it as live `HEAD`.
+- VERIFIED LIVE READ-ONLY: full public lawyer revenue funnel check passed `9/9`.
+- SAFETY: no CMS database write during this cycle, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Manual invoice billing details
 
 - UPDATED: `page-lawyer-registration.php` now shows optional billing details only on paid manual-invoice registration paths.

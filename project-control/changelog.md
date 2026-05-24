@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Grow recurring debit live attempt
+
+- TESTED: real `Grow > הוראות קבע` setup path for a controlled `₪1` monthly recurring debit over `2` charges.
+- RESULT: Grow blocked creation with exact provider message `לקוח אינו מורשה להוראת קבע`.
+- CREATED: `project-control/grow-recurring-debit-live-attempt-2026-05-24.md`.
+- CREATED: `project-control/grow-recurring-debit-live-attempt-2026-05-24.csv`.
+- UPDATED: `project-control/investor-demo-war-room-live-status-2026-05-24.md`.
+- BLOCKED: recurring debit/subscription setup is not currently authorized in Grow for this flow; do not claim recurring billing works in the investor demo.
+- SAFETY: no recurring agreement, charge, invoice, refund, CMS database content, product, gateway setting, lawyer record, lead, CRM, GSC or GA4 setting was created/changed.
+
 # 2026-05-24 - Real Grow payment link smoke test
 
 - CREATED: one real one-time Grow Payment Link inside the `Jus-Tice Israel` Grow account for `₪1` investor-demo payment proof.

@@ -1,0 +1,10 @@
+item,status,proof,next_action
+grow_recurring_screen,PASS,"Opened Grow > הוראות קבע in account 10182706","None"
+attempt_amount,PASS,"Used ₪1 monthly controlled smoke-test amount","None"
+attempt_charge_count,PASS,"Selected 2 monthly charges","None"
+attempt_customer,PASS,"Used Jus-Tice Investor Recurring Test / 0525101555 / benbetesh@gmail.com","None"
+attempt_create_link,BLOCKED,"Clicked recurring setup link flow and Grow returned provider blocker","Ask Grow support to enable/authorize recurring debit"
+provider_message,BLOCKED,"Exact message: לקוח אינו מורשה להוראת קבע","Do not claim recurring billing works"
+recurring_link_created,NO,"No recurring setup link created","Retry only after Grow authorization is fixed"
+money_moved,NO,"No charge occurred","Pay existing one-time ₪1 link instead for money proof"
+investor_demo_wording,READY,"One-time links work; recurring debit tested and blocked by provider authorization","Use honest wording in war-room"

@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-24 21:48 Asia/Jerusalem
+- GROW RECURRING DEBIT LIVE ATTEMPT: tested the real `Grow > הוראות קבע` path for a controlled recurring-payment setup.
+- ATTEMPTED: `₪1` monthly recurring debit, `2` monthly charges, customer `Jus-Tice Investor Recurring Test`, email `benbetesh@gmail.com`, phone `0525101555`, payment method `יצירת לינק חד-פעמי`.
+- RESULT: Grow blocked creation with the exact provider message `לקוח אינו מורשה להוראת קבע`.
+- CREATED: `project-control/grow-recurring-debit-live-attempt-2026-05-24.md`.
+- CREATED: `project-control/grow-recurring-debit-live-attempt-2026-05-24.csv`.
+- UPDATED: `project-control/investor-demo-war-room-live-status-2026-05-24.md`.
+- INVESTOR-SAFE TRUTH: real one-time payment link creation works; recurring debit/subscription setup is not yet enabled/authorized in Grow for this flow and must not be claimed as working.
+- COMPLETION: one-time money collection proof remains about 75% until the `₪1` link is paid; recurring subscription lifecycle remains about 45% and now has a concrete Grow-side blocker instead of a vague unknown.
+- SAFETY: no recurring agreement, charge, invoice, refund, WordPress CMS/database change, product, gateway setting, lawyer record, lead, CRM, GSC or GA4 setting was created/changed by this failed recurring attempt.
+
 # LATEST WORK STATUS - 2026-05-24 21:38 Asia/Jerusalem
 - REAL GROW PAYMENT LINK CREATED: created a real one-time Grow Payment Link inside the `Jus-Tice Israel` Grow account for the investor smoke test.
 - LINK DETAILS: one-time `₪1` charge, customer label `Jus-Tice Investor Demo Payment Test`, description `Jus-Tice investor demo real payment smoke test`; full URL was sent by email and is intentionally not stored in this repo.

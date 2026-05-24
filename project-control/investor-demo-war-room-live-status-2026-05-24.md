@@ -6,6 +6,8 @@ The investor demo is no longer blocked by uPress deployment for the account-invi
 
 The real-payment story advanced: a real one-time Grow Payment Link was created in the `Jus-Tice Israel` Grow account and verified as opening a branded `₪1` secure payment page. This proves provider-side payment-link creation is available now, but the `₪1` link still needs to be paid and verified in Grow transactions/receipts.
 
+The recurring-payment story is now known, not vague: a real Grow `הוראות קבע` attempt was made for a tiny `₪1` monthly / `2` charge test, and Grow blocked creation with the exact message `לקוח אינו מורשה להוראת קבע`. Do not present recurring billing as working until Grow enables/authorizes this path.
+
 This is still not a fully automated paid-subscription business. Real recurring payment, branded automatic invoices and real refund execution remain blocked until recurring products/gateway behavior are mapped and smoke-tested.
 
 ## Live Proof Completed
@@ -21,6 +23,7 @@ This is still not a fully automated paid-subscription business. Real recurring p
 | Owner email summary | SENT | Gmail sent message `Significant advance: live lawyer registration now tests account invite path` to `info@jus-tice.co.il` |
 | Real Grow payment link | CREATED / VERIFIED OPEN | `Grow > Payment Links` row `Jus-Tice Investor Demo Payment Test`; full link sent by email with subject `REAL Grow payment link ready: Jus-Tice investor demo 1 NIS smoke test` |
 | Real Grow payment page | PASS | The `pay.grow.link` URL opens a `Jus-Tice Israel` page for `Jus-Tice investor demo real payment smoke test`, total `₪1`, with secure payment button |
+| Grow recurring debit attempt | BLOCKED BY PROVIDER | `Grow > הוראות קבע` returned `לקוח אינו מורשה להוראת קבע` for a `₪1` monthly / `2` charge test |
 
 ## Expected Email To Check Now
 
@@ -59,14 +62,14 @@ If the email does not appear:
 | Real Grow payment link not paid yet | A real `₪1` provider link exists and opens; pay it once, then verify the transaction/receipt in Grow before claiming paid proof. |
 | Link not attached to lawyer profile yet | Paste the real link into the lawyer profile, tick `Send this payment link by email now`, and save if the demo needs WordPress-to-lawyer handoff proof. |
 | No verified real payment yet | Do not claim payment is completed. Demo the real link and say the controlled payment smoke test is ready for the owner to pay. |
-| Automatic recurring billing not mapped | Say recurring billing is the final gateway/product layer after Grow/Meshulam approval and WooCommerce subscription mapping. |
+| Automatic recurring billing not enabled | Say we tested Grow recurring debit live and Grow returned `לקוח אינו מורשה להוראת קבע`; one-time payment links work, recurring authorization is the next provider enablement step. |
 | Automatic refund execution not live | Show the refund request captured in the service desk; do not claim money moves automatically. |
 
 ## Completion Assessment
 
 - Live acquisition, registration, account invite, manual invoice path, dashboard gate, service desk, lead capture and reporting checks: about 85% demo-ready.
 - Full money collection with a real provider link: about 75% now that the real `₪1` link exists and opens; about 82%-85% after the owner pays it and the Grow transaction/receipt is visible.
-- Full SaaS subscription lifecycle with automatic upgrades, downgrades, cancellation and refunds: about 45% until recurring products/gateway support are configured and smoke-tested.
+- Full SaaS subscription lifecycle with automatic upgrades, downgrades, cancellation and refunds: about 45%; recurring debit now has a concrete Grow authorization blocker, not just an unknown implementation gap.
 
 ## Immediate Owner Action
 

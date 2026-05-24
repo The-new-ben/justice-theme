@@ -1,7 +1,7 @@
 # Lawyer Revenue Funnel Live Check - 2026-05-25
 
 - Status: REVIEW
-- Started: 2026-05-24T21:34:45.833Z
+- Started: 2026-05-24T21:39:32.261Z
 - Base URL: https://jus-tice.co.il
 - Checks passed: 7/10
 - Checks needing review: 3

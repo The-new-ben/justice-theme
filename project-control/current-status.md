@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-24 13:27 Asia/Jerusalem
+- LAWYER SIGNUP ATTRIBUTION CLOSURE: connected submitted lawyer registrations back to the paid plan, manual invoice path and campaign/source that produced the signup.
+- UPDATED: `inc/lawyer-onboarding.php` now preserves safe UTM and outreach fields on the successful lawyer-registration redirect.
+- UPDATED: `assets/js/analytics-events.js` now sends `payment_path`, `outreach_segment`, `utm_source`, `utm_medium`, `utm_campaign` and `registration_result` with `lawyer_signup_submit`.
+- UPDATED: `inc/enqueue.php` bumps `justice-analytics-events` to version `1.1.2`.
+- CREATED: `project-control/lawyer-registration-success-attribution-2026-05-24.md`.
+- VERIFIED LOCAL: `node --check assets/js/analytics-events.js`, `php -l inc/lawyer-onboarding.php`, `php -l inc/enqueue.php` and `git diff --check` passed.
+- SAFETY: no public CMS record, page body, lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, GSC/GA4 setting or wp-admin setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 11:49 Asia/Jerusalem
 - MAYA LAWYER LIVE REFRESH + CMS ACTIVATION PACKET: reran the focused public read-only Maya route check and converted the still-blocked state into an exact owner/operator activation gate.
 - REGENERATED: `project-control/maya-lawyer-live-readonly-2026-05-24.md`.

@@ -191,7 +191,13 @@
 		if ('sent' === query.get('registration')) {
 			track('lawyer_signup_submit', {
 				form_type: 'lawyer_registration',
-				plan_interest: query.get('plan_interest') || ''
+				registration_result: 'sent',
+				plan_interest: query.get('plan_interest') || '',
+				payment_path: query.get('payment_path') || '',
+				outreach_segment: query.get('outreach_segment') || '',
+				utm_source: query.get('utm_source') || '',
+				utm_medium: query.get('utm_medium') || '',
+				utm_campaign: query.get('utm_campaign') || ''
 			});
 		}
 

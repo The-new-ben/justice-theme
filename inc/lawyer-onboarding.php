@@ -16,6 +16,10 @@ function justice_theme_register_lawyer_activation_meta(): void {
 		'activation_owner_note' => 'string',
 		'payment_path'            => 'string',
 		'payment_followup_status' => 'string',
+		'invoice_sent_at'         => 'string',
+		'payment_confirmed_at'    => 'string',
+		'payment_blocked_at'      => 'string',
+		'payment_cancelled_at'    => 'string',
 		'lead_response_commitment' => 'string',
 		'google_business_profile_url' => 'string',
 		'google_place_id'             => 'string',
@@ -1131,6 +1135,10 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 	$payment_path   = (string) get_post_meta( $post->ID, 'payment_path', true );
 	$payment_status = (string) get_post_meta( $post->ID, 'payment_followup_status', true );
 	$payment_badge  = justice_theme_lawyer_payment_followup_badge( $payment_path, $payment_status );
+	$invoice_sent_at      = (string) get_post_meta( $post->ID, 'invoice_sent_at', true );
+	$payment_confirmed_at = (string) get_post_meta( $post->ID, 'payment_confirmed_at', true );
+	$payment_blocked_at   = (string) get_post_meta( $post->ID, 'payment_blocked_at', true );
+	$payment_cancelled_at = (string) get_post_meta( $post->ID, 'payment_cancelled_at', true );
 	$response_commitment = (string) get_post_meta( $post->ID, 'lead_response_commitment', true );
 	$response_options    = justice_theme_lawyer_response_commitment_options();
 	?>
@@ -1150,6 +1158,15 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 		</select>
 		<small>Use this to move manual invoice deals from requested to sent to paid. It is owner-only and never public.</small>
 	</p>
+	<?php if ( $invoice_sent_at || $payment_confirmed_at || $payment_blocked_at || $payment_cancelled_at ) : ?>
+		<p>
+			<strong>Payment timeline</strong><br>
+			<?php if ( $invoice_sent_at ) : ?><small>Invoice sent: <?php echo esc_html( $invoice_sent_at ); ?></small><br><?php endif; ?>
+			<?php if ( $payment_confirmed_at ) : ?><small>Payment confirmed: <?php echo esc_html( $payment_confirmed_at ); ?></small><br><?php endif; ?>
+			<?php if ( $payment_blocked_at ) : ?><small>Payment blocked: <?php echo esc_html( $payment_blocked_at ); ?></small><br><?php endif; ?>
+			<?php if ( $payment_cancelled_at ) : ?><small>Payment cancelled: <?php echo esc_html( $payment_cancelled_at ); ?></small><?php endif; ?>
+		</p>
+	<?php endif; ?>
 	<p>
 		<strong>Lead response fit</strong><br>
 		<small><?php echo esc_html( $response_options[ $response_commitment ] ?? $response_options[''] ); ?></small>
@@ -1241,11 +1258,29 @@ function justice_theme_save_lawyer_activation( int $post_id ): void {
 	update_post_meta( $post_id, 'first_value_at', isset( $_POST['first_value_at'] ) ? sanitize_text_field( wp_unslash( $_POST['first_value_at'] ) ) : '' );
 	update_post_meta( $post_id, 'activation_owner_note', isset( $_POST['activation_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['activation_owner_note'] ) ) : '' );
 
+	$previous_payment_status = (string) get_post_meta( $post_id, 'payment_followup_status', true );
 	$payment_followup_status = isset( $_POST['payment_followup_status'] ) ? sanitize_key( wp_unslash( $_POST['payment_followup_status'] ) ) : '';
 	if ( ! array_key_exists( $payment_followup_status, justice_theme_lawyer_payment_followup_options() ) ) {
 		$payment_followup_status = '';
 	}
 	update_post_meta( $post_id, 'payment_followup_status', $payment_followup_status );
+
+	if ( $payment_followup_status && $payment_followup_status !== $previous_payment_status ) {
+		$timestamp_meta = array(
+			'invoice_sent'      => 'invoice_sent_at',
+			'payment_confirmed' => 'payment_confirmed_at',
+			'payment_blocked'   => 'payment_blocked_at',
+			'payment_cancelled' => 'payment_cancelled_at',
+		);
+
+		if ( isset( $timestamp_meta[ $payment_followup_status ] ) ) {
+			$meta_key = $timestamp_meta[ $payment_followup_status ];
+			if ( '' === (string) get_post_meta( $post_id, $meta_key, true ) ) {
+				update_post_meta( $post_id, $meta_key, current_time( 'mysql' ) );
+			}
+			justice_theme_append_lawyer_internal_note( $post_id, 'Payment follow-up changed to ' . justice_theme_lawyer_payment_followup_options()[ $payment_followup_status ] . '.' );
+		}
+	}
 }
 add_action( 'save_post_justice_lawyer', 'justice_theme_save_lawyer_activation' );
 
@@ -1969,6 +2004,10 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$payment_followup  = (string) get_post_meta( $post_id, 'payment_followup_status', true );
 						$payment_badge     = justice_theme_lawyer_payment_followup_badge( $payment_path, $payment_followup );
 						$first_value_at     = get_post_meta( $post_id, 'first_value_at', true );
+						$invoice_sent_at      = (string) get_post_meta( $post_id, 'invoice_sent_at', true );
+						$payment_confirmed_at = (string) get_post_meta( $post_id, 'payment_confirmed_at', true );
+						$payment_blocked_at   = (string) get_post_meta( $post_id, 'payment_blocked_at', true );
+						$payment_cancelled_at = (string) get_post_meta( $post_id, 'payment_cancelled_at', true );
 						$has_pending_update = '1' === (string) get_post_meta( $post_id, 'pending_profile_review', true );
 						$has_pending_content = '1' === (string) get_post_meta( $post_id, 'pending_content_review', true );
 						$has_pending_review_campaign = '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true );
@@ -2062,6 +2101,14 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 								<p style="margin:0;"><?php echo esc_html( $payment_badge['note'] ); ?></p>
 								<?php if ( $payment_path || $payment_followup ) : ?>
 									<small><?php echo esc_html( trim( $payment_path . ' / ' . $payment_followup, ' /' ) ); ?></small>
+								<?php endif; ?>
+								<?php if ( $invoice_sent_at || $payment_confirmed_at || $payment_blocked_at || $payment_cancelled_at ) : ?>
+									<ul style="margin:6px 0 0;padding-left:16px;color:#475569;font-size:12px;">
+										<?php if ( $invoice_sent_at ) : ?><li>Invoice sent: <?php echo esc_html( $invoice_sent_at ); ?></li><?php endif; ?>
+										<?php if ( $payment_confirmed_at ) : ?><li>Payment confirmed: <?php echo esc_html( $payment_confirmed_at ); ?></li><?php endif; ?>
+										<?php if ( $payment_blocked_at ) : ?><li>Blocked: <?php echo esc_html( $payment_blocked_at ); ?></li><?php endif; ?>
+										<?php if ( $payment_cancelled_at ) : ?><li>Cancelled: <?php echo esc_html( $payment_cancelled_at ); ?></li><?php endif; ?>
+									</ul>
 								<?php endif; ?>
 							</td>
 							<td>

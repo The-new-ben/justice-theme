@@ -1,6 +1,6 @@
 /* ============================================================
    JUS-TICE PREMIUM PASS 4 — SURGICAL VISUAL POLISH
-   Version: 4.3.1 | 2026-05-11
+   Version: 4.3.2 | 2026-05-24
    ============================================================ */
 
 /* ── 1. LOGO POLISH + FASTER RED DOT ────────────────────── */
@@ -604,6 +604,121 @@
 @media (max-width: 900px) {
   .customer-intake-strip__grid {
     grid-template-columns: 1fr;
+  }
+}
+
+/* Homepage lawyer revenue strip */
+.homepage-lawyer-revenue {
+  background: #ffffff;
+  border-block: 1px solid rgba(7,21,47,0.08);
+}
+.homepage-lawyer-revenue__inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.92fr) minmax(220px, 0.55fr);
+  gap: clamp(1rem, 2.5vw, 1.6rem);
+  align-items: center;
+  padding-block: clamp(1.4rem, 3vw, 2rem);
+}
+.homepage-lawyer-revenue__copy {
+  min-width: 0;
+}
+.homepage-lawyer-revenue__eyebrow {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  margin: 0 0 0.55rem;
+  padding: 0.18rem 0.7rem;
+  border: 1px solid rgba(178,58,72,0.18);
+  border-radius: 999px;
+  background: rgba(178,58,72,0.06);
+  color: var(--jt-accent-red, #b23a48);
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+.homepage-lawyer-revenue h2 {
+  margin: 0 0 0.5rem;
+  color: var(--jt-primary-deep, #07152f);
+  font-size: clamp(1.25rem, 2.2vw, 1.7rem);
+  line-height: 1.35;
+}
+.homepage-lawyer-revenue__copy p:last-child {
+  margin: 0;
+  color: var(--jt-muted, #6b7280);
+  line-height: 1.7;
+  font-size: 0.95rem;
+}
+.homepage-lawyer-revenue__signals {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.homepage-lawyer-revenue__signals li {
+  min-height: 116px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid rgba(7,21,47,0.08);
+  border-radius: 8px;
+  background: linear-gradient(180deg, #ffffff 0%, #f8fafc 100%);
+  padding: 0.85rem;
+  box-shadow: 0 8px 24px rgba(7,21,47,0.05);
+}
+.homepage-lawyer-revenue__signals strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: var(--jt-primary-deep, #07152f);
+  font-size: 0.92rem;
+  line-height: 1.35;
+}
+.homepage-lawyer-revenue__signals span {
+  color: var(--jt-muted, #6b7280);
+  font-size: 0.82rem;
+  line-height: 1.55;
+}
+.homepage-lawyer-revenue__actions {
+  display: grid;
+  gap: 0.55rem;
+  justify-items: stretch;
+}
+.homepage-lawyer-revenue__actions .button,
+.homepage-lawyer-revenue__login {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.homepage-lawyer-revenue__login {
+  border: 1px solid rgba(7,21,47,0.12);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--jt-primary-deep, #07152f);
+  font-weight: 900;
+  text-decoration: none;
+}
+.homepage-lawyer-revenue__login:hover,
+.homepage-lawyer-revenue__login:focus-visible {
+  border-color: rgba(178,58,72,0.32);
+  color: var(--jt-accent-red, #b23a48);
+}
+@media (max-width: 1080px) {
+  .homepage-lawyer-revenue__inner {
+    grid-template-columns: 1fr;
+  }
+  .homepage-lawyer-revenue__actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@media (max-width: 720px) {
+  .homepage-lawyer-revenue__signals,
+  .homepage-lawyer-revenue__actions {
+    grid-template-columns: 1fr;
+  }
+  .homepage-lawyer-revenue__signals li {
+    min-height: 0;
   }
 }
 

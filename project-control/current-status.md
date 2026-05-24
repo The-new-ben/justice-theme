@@ -1,3 +1,17 @@
+# LATEST WORK STATUS - 2026-05-24 22:34 Asia/Jerusalem
+- HOMEPAGE INVESTOR POLISH V1: added a new above-the-fold-adjacent lawyer revenue strip after the customer intake strip so the homepage now shows lawyer signup, plans and private-area login as a clear commercial system.
+- UPDATED: `front-page.php` loads `template-parts/sections/homepage-lawyer-revenue-strip.php`.
+- CREATED: `template-parts/sections/homepage-lawyer-revenue-strip.php`.
+- UPDATED: `assets/css/premium-pass-4.css` with polished responsive styling for the new strip and bumped visual polish version to `4.3.2`.
+- UPDATED: `inc/enqueue.php` to serve `premium-pass-4.css` version `4.3.2`.
+- UPDATED: `functions.php` and `deployment-marker.txt` to marker `2026-05-24-homepage-investor-polish-v1`.
+- CREATED: `tools/check-homepage-investor-polish-live.mjs` for post-uPress live proof.
+- UPDATED: `tools/check-investor-demo-readiness.mjs` so future investor readiness gates expect the homepage revenue strip.
+- VERIFIED LOCAL: PHP lint passed for `functions.php`, `front-page.php`, `inc/enqueue.php` and the new section; Node syntax passed for the new live checker; `git diff --check` passed with line-ending warnings only.
+- STILL BLOCKED: live site will not show this polish until GitHub push plus uPress Pull Git/cache refresh.
+- COMPLETION: homepage commercial polish moved from about 70% to about 82% locally; live investor-ready value requires deployment verification.
+- SAFETY: theme/template/CSS/checker changes only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 22:19 Asia/Jerusalem
 - INVESTOR DEMO LIVE REHEARSAL GATE: reran `node tools/check-investor-demo-readiness.mjs` against the live public site and local source markers.
 - RESULT: `PASS_WITH_DISCLOSED_BLOCKERS`.

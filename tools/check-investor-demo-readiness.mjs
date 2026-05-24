@@ -25,9 +25,11 @@ const liveChecks = [
 		name: 'Public visitor can find lawyer revenue paths',
 		url: '/',
 		required: [
+			'homepage-lawyer-revenue',
 			'/lawyer-plans/',
 			'/lawyer-registration/',
 			'/lawyer-dashboard/',
+			'utm_medium=revenue_strip',
 			'utm_campaign=lawyer_acquisition',
 		],
 		ownerAction: 'Open homepage and point to lawyer plans, registration and private-area links.',

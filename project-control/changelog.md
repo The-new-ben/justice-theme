@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Homepage investor polish v1
+
+- ADDED: homepage lawyer revenue strip with direct lawyer registration, plans and private-area login routes.
+- CREATED: `template-parts/sections/homepage-lawyer-revenue-strip.php`.
+- UPDATED: `front-page.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`, `functions.php`, `deployment-marker.txt`, and `tools/check-investor-demo-readiness.mjs`.
+- CREATED: `tools/check-homepage-investor-polish-live.mjs`.
+- VERIFIED LOCAL: PHP lint passed for touched PHP files; Node syntax passed for the new checker; `git diff --check` passed with line-ending warnings only.
+- BLOCKED: requires push plus uPress Pull Git/cache refresh before it is live.
+- SAFETY: code/CSS/checker only; no public CMS/database or provider setting changed.
+
 # 2026-05-24 - Investor demo live rehearsal gate
 
 - RERAN: `node tools/check-investor-demo-readiness.mjs`.

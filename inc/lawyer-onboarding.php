@@ -1196,6 +1196,38 @@ function justice_theme_lawyer_payment_followup_quick_action_url( int $post_id, s
 	);
 }
 
+function justice_theme_lawyer_manual_invoice_message( int $post_id ): string {
+	$payment_path     = (string) get_post_meta( $post_id, 'payment_path', true );
+	$followup_status  = (string) get_post_meta( $post_id, 'payment_followup_status', true );
+	$inactive_statuses = array( 'payment_confirmed', 'payment_cancelled' );
+
+	if ( 'manual_invoice' !== $payment_path || in_array( $followup_status, $inactive_statuses, true ) ) {
+		return '';
+	}
+
+	$name       = wp_strip_all_tags( get_the_title( $post_id ) );
+	$firm       = wp_strip_all_tags( (string) get_post_meta( $post_id, 'firm_name', true ) );
+	$plan       = justice_theme_lawyer_onboarding_plan_label( (string) get_post_meta( $post_id, 'plan_type', true ) );
+	$plan       = wp_strip_all_tags( $plan );
+	$dashboard  = function_exists( 'justice_theme_public_url' )
+		? justice_theme_public_url( home_url( '/lawyer-dashboard/' ) )
+		: home_url( '/lawyer-dashboard/' );
+	$firm_piece = $firm ? ' עבור ' . $firm : '';
+
+	$lines = array(
+		sprintf( 'שלום %s,', $name ?: 'רב' ),
+		'תודה על ההרשמה ל-Jus-Tice.',
+		sprintf( 'קיבלנו את בקשת ההצטרפות למסלול %s%s.', $plan ?: 'עורכי הדין', $firm_piece ),
+		'לפני הפעלה ציבורית אנחנו בודקים רישיון, תחומי עיסוק, זמינות למענה וכללי פרסום.',
+		'בשלב זה לא בוצע חיוב אוטומטי. לאחר אישור התאמה נשלח חשבונית או הוראות תשלום ידניות, ונפעיל את הפרופיל רק לאחר אישור תשלום.',
+		'כדי לזרז את ההפעלה, אפשר להשיב עם מספר רישיון, תחומי עיסוק מרכזיים, ערי שירות וקישור Google Business או אתר משרד אם יש.',
+		'לאחר ההפעלה האזור האישי יהיה כאן: ' . $dashboard,
+		'בברכה, Jus-Tice',
+	);
+
+	return implode( "\n\n", $lines );
+}
+
 function justice_theme_lawyer_activation_meta_box(): void {
 	add_meta_box(
 		'justice_theme_lawyer_activation',
@@ -2113,6 +2145,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$payment_blocked_at   = (string) get_post_meta( $post_id, 'payment_blocked_at', true );
 						$payment_cancelled_at = (string) get_post_meta( $post_id, 'payment_cancelled_at', true );
 						$payment_quick_actions = justice_theme_lawyer_payment_followup_quick_actions( $payment_path, $payment_followup );
+						$payment_handoff_message = justice_theme_lawyer_manual_invoice_message( $post_id );
 						$has_pending_update = '1' === (string) get_post_meta( $post_id, 'pending_profile_review', true );
 						$has_pending_content = '1' === (string) get_post_meta( $post_id, 'pending_content_review', true );
 						$has_pending_review_campaign = '1' === (string) get_post_meta( $post_id, 'pending_review_campaign_request', true );
@@ -2221,6 +2254,13 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 											<a class="button button-small" style="margin:0 4px 4px 0;" href="<?php echo esc_url( justice_theme_lawyer_payment_followup_quick_action_url( $post_id, $next_status ) ); ?>"><?php echo esc_html( $action_label ); ?></a>
 										<?php endforeach; ?>
 									</p>
+								<?php endif; ?>
+								<?php if ( $payment_handoff_message ) : ?>
+									<details style="margin-top:8px;">
+										<summary style="cursor:pointer;font-weight:600;">Copy invoice handoff</summary>
+										<textarea readonly rows="7" style="width:100%;margin-top:6px;font-size:12px;direction:rtl;"><?php echo esc_textarea( $payment_handoff_message ); ?></textarea>
+										<small style="display:block;color:#64748b;">Send after license/commercial review. This message does not charge or activate anyone.</small>
+									</details>
 								<?php endif; ?>
 							</td>
 							<td>

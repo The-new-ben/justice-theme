@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-24 14:18 Asia/Jerusalem
+- LAWYER MANUAL INVOICE HANDOFF: reduced owner friction after paid lawyer registrations by adding a copy-ready manual invoice/customer-success message to the admin payment queue.
+- UPDATED: `inc/lawyer-onboarding.php` now builds a Hebrew handoff message for `payment_path=manual_invoice` rows unless payment is already confirmed or cancelled.
+- UPDATED: `inc/lawyer-onboarding.php` now shows `Copy invoice handoff` in the owner-only Lawyer Onboarding table payment column.
+- CREATED: `project-control/lawyer-manual-invoice-handoff-2026-05-24.md`.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed.
+- SAFETY: no public CMS record, user account, lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, invoice, email/SMS send, GSC/GA4 setting or wp-admin setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 14:08 Asia/Jerusalem
 - LAWYER DASHBOARD EMPTY-STATE ACTIVATION: fixed the logged-in/no-profile dashboard state so a newly invited lawyer account has a clear path to profile request, plan comparison and manual activation.
 - UPDATED: `page-lawyer-dashboard.php` now routes the hero add-profile button and no-profile CTAs through tracked manual-invoice/plan URLs with `utm_source=lawyer_dashboard`.

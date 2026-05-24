@@ -166,6 +166,41 @@ $completed_first_value_steps = count( array_filter( $first_value_steps, static f
 $payment_status_text = in_array( $subscription_status, array( 'active', 'paid', 'trialing' ), true )
 	? __( 'תשלום פעיל לפי סטטוס המנוי.', 'justice-theme' )
 	: __( 'תשלום וסליקה עדיין לא פעילים עד אישור מסחרי, חשבוניות וכללי חיוב.', 'justice-theme' );
+$primary_plan_key           = $primary_profile_id ? ( get_post_meta( $primary_profile_id, 'plan_type', true ) ?: 'free' ) : 'free';
+$primary_payment_path       = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'payment_path', true ) : '';
+$primary_payment_followup   = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'payment_followup_status', true ) : '';
+$primary_payment_due_at     = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'payment_followup_due_at', true ) : '';
+$dashboard_plan_definitions = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_plans() : array();
+$primary_plan_label         = $dashboard_plan_definitions[ $primary_plan_key ]['label'] ?? $primary_plan_key;
+$primary_payment_options    = function_exists( 'justice_theme_lawyer_payment_followup_options' ) ? justice_theme_lawyer_payment_followup_options() : array(
+	'invoice_requested' => __( 'Invoice requested', 'justice-theme' ),
+	'invoice_sent'      => __( 'Invoice sent', 'justice-theme' ),
+	'payment_confirmed' => __( 'Payment confirmed', 'justice-theme' ),
+);
+$primary_payment_label      = $primary_payment_followup && isset( $primary_payment_options[ $primary_payment_followup ] )
+	? $primary_payment_options[ $primary_payment_followup ]
+	: ( $primary_payment_path ? __( 'Manual payment path', 'justice-theme' ) : $subscription_status );
+$primary_plan_next_action   = __( 'Compare plans or request a paid activation review when you are ready to grow the profile.', 'justice-theme' );
+$primary_plan_action_url    = justice_theme_public_url( home_url( '/lawyer-plans/' ) );
+$primary_plan_action_label  = __( 'Compare plans', 'justice-theme' );
+
+if ( in_array( $subscription_status, array( 'active', 'paid', 'trialing' ), true ) ) {
+	$primary_plan_next_action  = __( 'Your paid plan is active. Keep the mini-site fresh and respond quickly to assigned leads.', 'justice-theme' );
+	$primary_plan_action_url   = '#profile-update-request';
+	$primary_plan_action_label = __( 'Request profile update', 'justice-theme' );
+} elseif ( 'payment_confirmed' === $primary_payment_followup ) {
+	$primary_plan_next_action  = __( 'Payment is confirmed. Jus-Tice should now finish activation, routing and first-value checks.', 'justice-theme' );
+	$primary_plan_action_url   = '#content-request';
+	$primary_plan_action_label = __( 'Request first content asset', 'justice-theme' );
+} elseif ( 'invoice_sent' === $primary_payment_followup ) {
+	$primary_plan_next_action  = __( 'Payment instructions were sent. Complete the payment so activation and lead routing can start.', 'justice-theme' );
+	$primary_plan_action_url   = justice_theme_public_url( home_url( '/lawyer-plans/' ) );
+	$primary_plan_action_label = __( 'Review selected plan', 'justice-theme' );
+} elseif ( 'invoice_requested' === $primary_payment_followup || 'manual_invoice' === $primary_payment_path ) {
+	$primary_plan_next_action  = __( 'Your paid-plan request is in manual invoice review while automatic recurring checkout is pending approval.', 'justice-theme' );
+	$primary_plan_action_url   = '#profile-update-request';
+	$primary_plan_action_label = __( 'Prepare profile material', 'justice-theme' );
+}
 $dashboard_google_review_url    = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'google_review_request_url', true ) : '';
 $dashboard_google_business_url  = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'google_business_profile_url', true ) : '';
 $dashboard_review_profile_title = $primary_profile_id ? get_the_title( $primary_profile_id ) : '';
@@ -393,6 +428,35 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 					<span><?php esc_html_e( 'צפיות בפרופיל', 'justice-theme' ); ?></span>
 				</div>
 			</div>
+
+			<section class="lawyer-dashboard-plan-status" aria-labelledby="lawyer-dashboard-plan-status-title">
+				<div>
+					<p class="section-header__eyebrow"><?php esc_html_e( 'Plan and payment', 'justice-theme' ); ?></p>
+					<h2 id="lawyer-dashboard-plan-status-title"><?php esc_html_e( 'Where your commercial activation stands', 'justice-theme' ); ?></h2>
+					<p><?php echo esc_html( $primary_plan_next_action ); ?></p>
+				</div>
+				<dl>
+					<div>
+						<dt><?php esc_html_e( 'Selected plan', 'justice-theme' ); ?></dt>
+						<dd><?php echo esc_html( $primary_plan_label ); ?></dd>
+					</div>
+					<div>
+						<dt><?php esc_html_e( 'Payment stage', 'justice-theme' ); ?></dt>
+						<dd><?php echo esc_html( $primary_payment_label ); ?></dd>
+					</div>
+					<div>
+						<dt><?php esc_html_e( 'Activation', 'justice-theme' ); ?></dt>
+						<dd><?php echo esc_html( $activation_status ); ?></dd>
+					</div>
+					<?php if ( $primary_payment_due_at ) : ?>
+						<div>
+							<dt><?php esc_html_e( 'Follow-up due', 'justice-theme' ); ?></dt>
+							<dd><?php echo esc_html( mysql2date( get_option( 'date_format' ), $primary_payment_due_at ) ); ?></dd>
+						</div>
+					<?php endif; ?>
+				</dl>
+				<a class="button button--gold" href="<?php echo esc_url( $primary_plan_action_url ); ?>"><?php echo esc_html( $primary_plan_action_label ); ?></a>
+			</section>
 
 			<section class="lawyer-dashboard__first-value" aria-labelledby="lawyer-dashboard-first-value-title">
 				<div>

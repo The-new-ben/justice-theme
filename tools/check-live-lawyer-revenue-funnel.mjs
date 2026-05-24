@@ -105,6 +105,7 @@ const checks = [
 			'.lawyer-registration-success',
 			'.lawyer-dashboard__gate-points',
 			'.lawyer-dashboard__empty-steps',
+			'.lawyer-dashboard-plan-status',
 			'.lawyer-plans-founder',
 		],
 	},

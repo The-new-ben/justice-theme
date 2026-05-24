@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-24 16:09 Asia/Jerusalem
+- LAWYER DASHBOARD PLAN/PAYMENT STATUS: added a logged-in private-area card that tells lawyers their selected plan, payment stage, activation status and next action.
+- UPDATED: `page-lawyer-dashboard.php` now reads existing `plan_type`, `subscription_status`, `payment_path`, `payment_followup_status`, `payment_followup_due_at` and `activation_status` metadata and turns it into a clear next-action card.
+- UPDATED: `assets/css/premium-pass-3.css` adds responsive styling for `.lawyer-dashboard-plan-status`.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` now checks the deployed CSS marker for the plan/payment card.
+- CREATED: `project-control/lawyer-dashboard-plan-payment-status-2026-05-24.md`.
+- VERIFICATION: pending local lint/checks, commit/push and uPress pull.
+- SAFETY: display/CSS only and reads existing profile metadata; no CMS database write, public content, redirect/canonical/noindex/sitemap/taxonomy change, payment, invoice, charge, product, gateway, lawyer record, lead record, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 15:57 Asia/Jerusalem
 - GROW APPROVAL HANDOFF: added an owner-only handoff card to Plan Payments so approval does not stall after Grow responds.
 - UPDATED: `inc/lawyer-plans.php` now shows a Grow Approval Handoff card with the exact no-API compliance-check rerun command and direct links to checkout, terms, cancellation and privacy.

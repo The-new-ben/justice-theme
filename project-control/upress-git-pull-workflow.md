@@ -194,6 +194,26 @@ NOT A PAYMENT APPROVAL:
 - Real automatic recurring lawyer charges, automatic invoices and refunds still
   require Grow/Meshulam approval plus product/gateway/subscription mapping.
 
+## 2026-05-24 Pull Blocker - Manual Payment Link Email Handoff
+
+BLOCKED:
+
+- GitHub `main` includes commit `a267a55`
+  (`Add manual payment link email handoff`).
+- This commit adds the owner-side admin action for sending a saved real
+  Grow/Morning payment link to the lawyer by email.
+- Codex could not operate the authenticated uPress File Manager/Git panel in
+  this heartbeat because the browser/uPress control tool was not exposed to the
+  active tool list. This was a tool availability blocker, not a credentials or
+  code blocker.
+
+NEXT ACTION:
+
+- Open uPress for `jus-tice.co.il`.
+- Go to File Manager -> `wp-content/themes/justice-theme`.
+- Open Git management and run Pull Git.
+- Confirm the log shows `a267a55` or a later commit from GitHub `main`.
+
 ## Interpretation
 
 The Git deployment problem is now solved for this cycle.

@@ -1,0 +1,7 @@
+id,type,status,http,bytes,durationMs,missing,unexpected,url,finalUrl
+home-lawyer-revenue-entrypoints,page,PASS,200,127728,1768,-,-,https://jus-tice.co.il/,https://jus-tice.co.il/
+plan-page-manual-invoice-routing,page,PASS,200,66391,1099,-,-,https://jus-tice.co.il/lawyer-plans/?codex_check=lawyer_revenue_funnel,https://jus-tice.co.il/lawyer-plans/?codex_check=lawyer_revenue_funnel
+registration-success-manual-invoice-handoff,page,PASS,200,58005,1759,-,-,https://jus-tice.co.il/lawyer-registration/?registration=sent&plan_interest=pro&payment_path=manual_invoice&utm_source=codex_check&utm_medium=live_funnel&utm_campaign=lawyer_acquisition,https://jus-tice.co.il/lawyer-registration/?registration=sent&plan_interest=pro&payment_path=manual_invoice
+dashboard-gate-paid-lawyer-path,page,PASS,200,56287,1044,-,-,https://jus-tice.co.il/lawyer-dashboard/?codex_check=lawyer_revenue_funnel,https://jus-tice.co.il/lawyer-dashboard/?codex_check=lawyer_revenue_funnel
+premium-css-revenue-ui-markers,asset,PASS,200,89086,16,-,-,https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-3.css?codex_check=lawyer_revenue_funnel,https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-3.css?codex_check=lawyer_revenue_funnel
+analytics-lawyer-revenue-events,asset,PASS,200,9457,33,-,-,https://jus-tice.co.il/wp-content/themes/justice-theme/assets/js/analytics-events.js?codex_check=lawyer_revenue_funnel,https://jus-tice.co.il/wp-content/themes/justice-theme/assets/js/analytics-events.js?codex_check=lawyer_revenue_funnel

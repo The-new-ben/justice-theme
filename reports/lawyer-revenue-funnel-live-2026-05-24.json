@@ -1,0 +1,87 @@
+{
+  "startedAt": "2026-05-24T11:31:16.943Z",
+  "runDate": "2026-05-24",
+  "baseUrl": "https://jus-tice.co.il",
+  "passCount": 6,
+  "reviewCount": 0,
+  "results": [
+    {
+      "id": "home-lawyer-revenue-entrypoints",
+      "name": "Homepage exposes lawyer revenue entrypoints",
+      "type": "page",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 127728,
+      "durationMs": 1768,
+      "url": "https://jus-tice.co.il/",
+      "finalUrl": "https://jus-tice.co.il/",
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "plan-page-manual-invoice-routing",
+      "name": "Plan page routes paid intent to manual invoice",
+      "type": "page",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 66391,
+      "durationMs": 1099,
+      "url": "https://jus-tice.co.il/lawyer-plans/?codex_check=lawyer_revenue_funnel",
+      "finalUrl": "https://jus-tice.co.il/lawyer-plans/?codex_check=lawyer_revenue_funnel",
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "registration-success-manual-invoice-handoff",
+      "name": "Registration success explains manual activation",
+      "type": "page",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 58005,
+      "durationMs": 1759,
+      "url": "https://jus-tice.co.il/lawyer-registration/?registration=sent&plan_interest=pro&payment_path=manual_invoice&utm_source=codex_check&utm_medium=live_funnel&utm_campaign=lawyer_acquisition",
+      "finalUrl": "https://jus-tice.co.il/lawyer-registration/?registration=sent&plan_interest=pro&payment_path=manual_invoice",
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "dashboard-gate-paid-lawyer-path",
+      "name": "Logged-out dashboard gate offers paid-lawyer path",
+      "type": "page",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 56287,
+      "durationMs": 1044,
+      "url": "https://jus-tice.co.il/lawyer-dashboard/?codex_check=lawyer_revenue_funnel",
+      "finalUrl": "https://jus-tice.co.il/lawyer-dashboard/?codex_check=lawyer_revenue_funnel",
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "premium-css-revenue-ui-markers",
+      "name": "Revenue UI CSS markers are deployed",
+      "type": "asset",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 89086,
+      "durationMs": 16,
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-3.css?codex_check=lawyer_revenue_funnel",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-3.css?codex_check=lawyer_revenue_funnel",
+      "missing": [],
+      "unexpected": []
+    },
+    {
+      "id": "analytics-lawyer-revenue-events",
+      "name": "Lawyer revenue analytics events are deployed",
+      "type": "asset",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 9457,
+      "durationMs": 33,
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/js/analytics-events.js?codex_check=lawyer_revenue_funnel",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/js/analytics-events.js?codex_check=lawyer_revenue_funnel",
+      "missing": [],
+      "unexpected": []
+    }
+  ]
+}

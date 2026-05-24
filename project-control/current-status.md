@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-24 14:33 Asia/Jerusalem
+- LAWYER REVENUE FUNNEL LIVE CHECKER: added a repeatable read-only live QA gate for the paid lawyer acquisition path after deployment.
+- CREATED: `tools/check-live-lawyer-revenue-funnel.mjs`.
+- CREATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md`.
+- CREATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.csv`.
+- GENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.json`.
+- GENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.csv`.
+- VERIFIED LOCAL: `node --check tools/check-live-lawyer-revenue-funnel.mjs` passed.
+- VERIFIED LIVE READ-ONLY: 6/6 checks passed for homepage lawyer CTAs, lawyer plans manual-invoice routing, registration success handoff, logged-out dashboard gate, deployed revenue CSS markers and deployed lawyer revenue analytics events.
+- SAFETY: no public CMS record, lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, invoice, email/SMS send, GSC/GA4 setting or wp-admin setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 14:18 Asia/Jerusalem
 - LAWYER MANUAL INVOICE HANDOFF: reduced owner friction after paid lawyer registrations by adding a copy-ready manual invoice/customer-success message to the admin payment queue.
 - UPDATED: `inc/lawyer-onboarding.php` now builds a Hebrew handoff message for `payment_path=manual_invoice` rows unless payment is already confirmed or cancelled.

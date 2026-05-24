@@ -1,36 +1,32 @@
 {
-  "startedAt": "2026-05-24T17:51:31.682Z",
+  "startedAt": "2026-05-24T18:05:25.347Z",
   "runDate": "2026-05-24",
   "baseUrl": "https://jus-tice.co.il",
   "expectedMarker": "2026-05-24-lawyer-account-invite-v1",
-  "passCount": 0,
-  "reviewCount": 2,
+  "passCount": 2,
+  "reviewCount": 0,
   "results": [
     {
       "id": "homepage-runtime-marker",
       "name": "Homepage runtime deployment marker",
-      "status": "REVIEW",
+      "status": "PASS",
       "http": 200,
-      "bytes": 127961,
-      "durationMs": 1231,
-      "url": "https://jus-tice.co.il/?payment_handoff_marker_check=1779645091682",
-      "finalUrl": "https://jus-tice.co.il/?payment_handoff_marker_check=1779645091682",
-      "missing": [
-        "2026-05-24-lawyer-account-invite-v1"
-      ]
+      "bytes": 127960,
+      "durationMs": 1401,
+      "url": "https://jus-tice.co.il/?payment_handoff_marker_check=1779645925348",
+      "finalUrl": "https://jus-tice.co.il/?payment_handoff_marker_check=1779645925348",
+      "missing": []
     },
     {
       "id": "static-theme-marker",
       "name": "Static theme deployment marker",
-      "status": "REVIEW",
+      "status": "PASS",
       "http": 200,
-      "bytes": 178,
-      "durationMs": 11,
-      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?payment_handoff_marker_check=1779645091682",
-      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?payment_handoff_marker_check=1779645091682",
-      "missing": [
-        "justice-theme-deployment-marker=2026-05-24-lawyer-account-invite-v1"
-      ]
+      "bytes": 177,
+      "durationMs": 9,
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?payment_handoff_marker_check=1779645925348",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?payment_handoff_marker_check=1779645925348",
+      "missing": []
     }
   ]
 }

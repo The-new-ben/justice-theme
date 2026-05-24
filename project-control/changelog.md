@@ -1,6 +1,21 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Manual invoice billing details
+
+- UPDATED: `page-lawyer-registration.php` now shows optional billing details only on paid manual-invoice registration paths.
+- UPDATED: `inc/lawyer-onboarding.php` now saves billing legal name, business ID, invoice email and invoice address.
+- UPDATED: owner notification emails, manual invoice handoff context and payment queue CSV exports include the billing fields.
+- UPDATED: `assets/css/premium-pass-3.css` styles the billing-details block.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` verifies the live paid manual-invoice registration path renders and prefills the billing fields.
+- CREATED: `project-control/manual-invoice-billing-details-2026-05-24.md`.
+- REGENERATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md` and `.csv`.
+- REGENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: PHP syntax, Node syntax and `git diff --check` passed.
+- DEPLOYED: `51d3c1d Collect manual invoice billing details` was pushed and pulled through uPress; uPress log showed it as live `HEAD`.
+- VERIFIED LIVE READ-ONLY: full public lawyer revenue funnel check passed `9/9`.
+- SAFETY: no CMS database write during this cycle, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Lawyer source performance export
 
 - UPDATED: `inc/lawyer-onboarding.php` now adds an `Export source performance CSV` button to the Source performance board.

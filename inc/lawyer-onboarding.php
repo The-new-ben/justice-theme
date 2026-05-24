@@ -419,6 +419,10 @@ function justice_theme_handle_lawyer_registration(): void {
 	$response_commitment = isset( $_POST['lead_response_commitment'] ) ? sanitize_key( wp_unslash( $_POST['lead_response_commitment'] ) ) : '';
 	$google_business_url = isset( $_POST['google_business_profile_url'] ) ? esc_url_raw( wp_unslash( $_POST['google_business_profile_url'] ) ) : '';
 	$google_review_url   = isset( $_POST['google_review_request_url'] ) ? esc_url_raw( wp_unslash( $_POST['google_review_request_url'] ) ) : '';
+	$billing_legal_name     = isset( $_POST['billing_legal_name'] ) ? sanitize_text_field( wp_unslash( $_POST['billing_legal_name'] ) ) : '';
+	$billing_business_id    = isset( $_POST['billing_business_id'] ) ? sanitize_text_field( wp_unslash( $_POST['billing_business_id'] ) ) : '';
+	$billing_invoice_email  = isset( $_POST['billing_invoice_email'] ) ? sanitize_email( wp_unslash( $_POST['billing_invoice_email'] ) ) : '';
+	$billing_invoice_address = isset( $_POST['billing_invoice_address'] ) ? sanitize_text_field( wp_unslash( $_POST['billing_invoice_address'] ) ) : '';
 	$attribution         = justice_theme_lawyer_registration_attribution_from_post();
 	$account_status      = is_user_logged_in() ? 'linked_current_user' : 'needs_owner_invite';
 
@@ -466,6 +470,15 @@ function justice_theme_handle_lawyer_registration(): void {
 
 	if ( $manual_payment ) {
 		$internal_notes .= "\nManual invoice path requested or automatically assigned because paid checkout is not ready. Create Morning/Grow invoice/payment instructions after review, then activate only after payment confirmation.";
+
+		if ( $billing_legal_name || $billing_business_id || $billing_invoice_email || $billing_invoice_address ) {
+			$internal_notes .= "\nBilling details supplied: " . implode( ' | ', array_filter( array(
+				$billing_legal_name ? 'legal_name=' . $billing_legal_name : '',
+				$billing_business_id ? 'business_id=' . $billing_business_id : '',
+				$billing_invoice_email ? 'invoice_email=' . $billing_invoice_email : '',
+				$billing_invoice_address ? 'invoice_address=' . $billing_invoice_address : '',
+			) ) );
+		}
 	}
 
 	if ( $response_commitment ) {
@@ -504,6 +517,10 @@ function justice_theme_handle_lawyer_registration(): void {
 		'profile_faqs'         => $faqs,
 		'google_business_profile_url' => $google_business_url,
 		'google_review_request_url'   => $google_review_url,
+		'billing_legal_name'          => $billing_legal_name,
+		'billing_business_id'         => $billing_business_id,
+		'billing_invoice_email'       => $billing_invoice_email,
+		'billing_invoice_address'     => $billing_invoice_address,
 		'plan_type'            => $plan_type,
 		'subscription_status'  => 'pending',
 		'payment_path'            => $manual_payment ? 'manual_invoice' : '',
@@ -670,7 +687,7 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 		? sprintf( 'Paid lawyer registration needs invoice - %s NIS/mo', number_format_i18n( $expected_monthly ) )
 		: 'New lawyer registration pending review';
 	$message = sprintf(
-		"New lawyer registration draft is waiting for review.\n\nNext action: %s\nExpected value: %s NIS/mo (%s NIS/year)\nInvoice due: %s\nInvoice queue: %s\nPlan payments setup: %s\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nLead response: %s\nAccount continuation: %s\nAttribution: %s\nLanding page: %s\nHeadline: %s\nVideo: %s\nGoogle Business: %s\nGoogle review link: %s\nUploads: %s\nAI draft: %s\n\nReview: %s",
+		"New lawyer registration draft is waiting for review.\n\nNext action: %s\nExpected value: %s NIS/mo (%s NIS/year)\nInvoice due: %s\nInvoice queue: %s\nPlan payments setup: %s\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nBilling legal name: %s\nBilling business ID: %s\nBilling invoice email: %s\nBilling invoice address: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nLead response: %s\nAccount continuation: %s\nAttribution: %s\nLanding page: %s\nHeadline: %s\nVideo: %s\nGoogle Business: %s\nGoogle review link: %s\nUploads: %s\nAI draft: %s\n\nReview: %s",
 		$next_action,
 		number_format_i18n( $expected_monthly ),
 		number_format_i18n( $expected_monthly * 12 ),
@@ -681,6 +698,10 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 		$meta['firm_name'] ?: '-',
 		$meta['phone'] ?: '-',
 		$meta['email'] ?: '-',
+		$meta['billing_legal_name'] ?: '-',
+		$meta['billing_business_id'] ?: '-',
+		$meta['billing_invoice_email'] ?: '-',
+		$meta['billing_invoice_address'] ?: '-',
 		$plan ?: '-',
 		$payment_path ?: '-',
 		$followup_status ?: '-',
@@ -1454,6 +1475,10 @@ function justice_theme_export_lawyer_payment_queue(): void {
 		'payment_followup_due_at',
 		'payment_followup_urgency',
 		'activation_status',
+		'billing_legal_name',
+		'billing_business_id',
+		'billing_invoice_email',
+		'billing_invoice_address',
 		'practice_areas',
 		'cities',
 		'utm_source',
@@ -1500,6 +1525,10 @@ function justice_theme_export_lawyer_payment_queue(): void {
 			$followup_due_at,
 			justice_theme_lawyer_payment_due_status_label( $followup_due_at ),
 			$activation_status,
+			get_post_meta( $post_id, 'billing_legal_name', true ),
+			get_post_meta( $post_id, 'billing_business_id', true ),
+			get_post_meta( $post_id, 'billing_invoice_email', true ),
+			get_post_meta( $post_id, 'billing_invoice_address', true ),
 			justice_theme_lawyer_export_term_names( $post_id, 'practice-areas' ),
 			justice_theme_lawyer_export_term_names( $post_id, 'city' ),
 			get_post_meta( $post_id, 'utm_source', true ),
@@ -1553,6 +1582,17 @@ function justice_theme_lawyer_manual_invoice_context( int $post_id ): string {
 
 	if ( $due_at ) {
 		$pieces[] = 'Due: ' . $due_at . ' (' . $due_label . ')';
+	}
+
+	$billing_bits = array_filter( array(
+		(string) get_post_meta( $post_id, 'billing_legal_name', true ),
+		(string) get_post_meta( $post_id, 'billing_business_id', true ),
+		(string) get_post_meta( $post_id, 'billing_invoice_email', true ),
+		(string) get_post_meta( $post_id, 'billing_invoice_address', true ),
+	) );
+
+	if ( $billing_bits ) {
+		$pieces[] = 'Billing: ' . implode( ' / ', $billing_bits );
 	}
 
 	return implode( ' | ', $pieces );

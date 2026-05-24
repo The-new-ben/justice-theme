@@ -2053,6 +2053,26 @@
   grid-column: 1 / -1;
 }
 
+.lawyer-registration-billing-fields {
+  border: 1px solid var(--jt-border);
+  border-radius: 8px;
+  padding: 1rem;
+  margin: 0;
+  background: #f8fafc;
+}
+
+.lawyer-registration-billing-fields legend {
+  padding: 0 0.35rem;
+  color: var(--jt-primary-deep);
+  font-weight: 900;
+}
+
+.lawyer-registration-billing-fields p {
+  margin: 0 0 0.85rem;
+  color: var(--jt-muted);
+  line-height: 1.6;
+}
+
 .lawyer-registration-form__consent {
   grid-template-columns: auto 1fr;
   align-items: start;

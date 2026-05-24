@@ -1,0 +1,11 @@
+minute,screen,show,talk_track,proof_point
+0:00,Homepage,Lawyer CTAs in header/homepage,"This is not only a legal content site. It is becoming a lawyer acquisition and retention platform.",Public entrypoints exist
+1:00,/lawyer-plans/,Lead Partner plan,"The first revenue motion is paid lawyer subscriptions and lead access, not ads.",Paid plan cards and checkout links
+2:00,Checkout fallback,"Required fields, terms, policy links","Until recurring billing approval is final, we route paid intent into a compliant manual invoice/payment-link path.",Grow compliance signals
+3:00,Registration demo context,"Billing fields and selected plan","The lawyer arrives already tagged by plan, source and billing context.",Attribution and billing state preserved
+4:00,Owner Lawyer Onboarding,"Billing/payment/payment-link queues","The owner does not hunt through WordPress. The revenue queue tells them the next money action.",Payment readiness queue
+5:30,Demo lawyer private dashboard,"Plan/payment status, profile, content/service blocks","This is the lawyer private zone. The goal is retention: profile, leads, services, billing and ROI in one place.",Claimed profile required
+7:00,Lead CRM section,"Medical-malpractice demo lead and contact/stage buttons","A lead is not just emailed and forgotten. The lawyer reports contact and outcome, which turns into proof of ROI.",Assigned demo lead required
+8:30,Service desk,"Refund/cancel/downgrade/complaint/invoice request","Before automatic subscription switching is connected, lifecycle requests are captured and visible to the owner.",Service request queue
+10:00,Owner queue again,service_request_status=pending,"This is how we reduce churn and payment disputes while billing automation is being approved.",Pending service request visible
+11:00,Investor readiness gate,PASS_WITH_DISCLOSED_BLOCKERS report,"The public/code checks pass. The disclosed blockers are demo data and payment approval, not the core workflow.","11 pass, 0 repair"

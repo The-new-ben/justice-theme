@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Investor demo talk track
+
+- CREATED: `project-control/investor-demo-talk-track-2026-05-24.md`.
+- CREATED: `project-control/investor-demo-talk-track-2026-05-24.csv`.
+- RESEARCH BASIS: SaaS demo guidance favors outcome/persona/workflow proof over feature tours, and WooCommerce Subscriptions lifecycle flows require subscription/gateway readiness, so Jus-Tice should demo service-desk capture until Grow/Meshulam recurring billing is approved.
+- SAFETY: planning/talk-track artifacts only; no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, refund, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Investor demo live data prep runbook
 
 - CREATED: `project-control/investor-demo-live-data-prep-runbook-2026-05-24.md`.

@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-24 19:20 Asia/Jerusalem
+- INVESTOR DEMO TALK TRACK: created a 12-minute investor-facing script that shows the money workflow instead of touring every feature.
+- RESEARCH BASIS: current SaaS/product demo guidance emphasizes showing outcomes and a specific persona/problem rather than a feature dump; WooCommerce Subscriptions docs confirm upgrade/downgrade/cancel flows depend on subscription/gateway readiness, so Jus-Tice must demo lifecycle requests through the service desk until Grow/Meshulam recurring billing is approved.
+- CREATED: `project-control/investor-demo-talk-track-2026-05-24.md`.
+- CREATED: `project-control/investor-demo-talk-track-2026-05-24.csv`.
+- OWNER ACTION BEFORE INVESTOR: open the listed URLs in tabs, prepare the claimed demo lawyer and safe medical-malpractice demo lead, and use the exact payment-blocker language if asked about real charges/invoices/refunds.
+- BLOCKED: true automatic recurring charges, branded automatic invoices and real refund execution still require Grow/Meshulam approval plus WooCommerce product/gateway/subscription mapping.
+- SAFETY: planning/talk-track artifacts only; no public CMS/database write, content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, refund, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 19:09 Asia/Jerusalem
 - INVESTOR DEMO LIVE DATA PREP: converted the two remaining demo-data blockers into an owner/admin runbook and CSV checklist.
 - RESEARCH BASIS: WooCommerce Subscriptions documents upgrade/downgrade through the customer subscription view and checkout, with eligibility depending on active subscription status, completed payment and gateway support; cancellation/suspension also depends on subscription/gateway support. Jus-Tice should therefore demo upgrade/downgrade/cancel/refund through the deployed service desk until Grow/Meshulam recurring billing is approved.

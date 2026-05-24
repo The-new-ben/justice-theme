@@ -75,6 +75,20 @@ const checks = [
 		],
 	},
 	{
+		id: 'registration-success-utm-hash-redirect',
+		name: 'Registration success keeps UTM attribution in redirect hash',
+		url: '/lawyer-registration/?registration=sent&plan_interest=pro&payment_path=manual_invoice&utm_source=codex_check&utm_medium=live_funnel&utm_campaign=lawyer_acquisition&utm_content=founder_primary_pro&utm_term=lawyer_subscriptions&outreach_segment=plans_page&outreach_city=tel-aviv&outreach_practice=real-estate-law',
+		type: 'redirect',
+		redirect: 'manual',
+		requiredRedirectLocation: [
+			'#utm_source=codex_check',
+			'utm_medium=live_funnel',
+			'utm_campaign=lawyer_acquisition',
+			'utm_content=founder_primary_pro',
+			'utm_term=lawyer_subscriptions',
+		],
+	},
+	{
 		id: 'registration-success-manual-invoice-handoff',
 		name: 'Registration success explains manual activation',
 		url: '/lawyer-registration/?registration=sent&plan_interest=pro&payment_path=manual_invoice&utm_source=codex_check&utm_medium=live_funnel&utm_campaign=lawyer_acquisition&utm_content=founder_primary_pro&utm_term=lawyer_subscriptions&outreach_segment=plans_page&outreach_city=tel-aviv&outreach_practice=real-estate-law',
@@ -86,8 +100,6 @@ const checks = [
 			'wp-login.php',
 		],
 		requiredFinalUrl: [
-			'utm_content=founder_primary_pro',
-			'utm_term=lawyer_subscriptions',
 			'outreach_segment=plans_page',
 			'outreach_city=tel-aviv',
 			'outreach_practice=real-estate-law',
@@ -160,6 +172,7 @@ const checks = [
 			'outreach_practice',
 			'utm_content',
 			'utm_term',
+			'window.location.hash',
 		],
 	},
 ];
@@ -168,13 +181,13 @@ function absoluteUrl( pathOrUrl ) {
 	return new URL( pathOrUrl, BASE_URL ).toString();
 }
 
-async function fetchText( pathOrUrl ) {
+async function fetchText( pathOrUrl, options = {} ) {
 	const controller = new AbortController();
 	const timeout = setTimeout( () => controller.abort(), 25000 );
 
 	try {
 		const response = await fetch( absoluteUrl( pathOrUrl ), {
-			redirect: 'follow',
+			redirect: options.redirect || 'follow',
 			cache: 'no-store',
 			signal: controller.signal,
 			headers: {
@@ -203,15 +216,20 @@ function tokenPresent( body, token ) {
 async function runCheck( check ) {
 	const url = absoluteUrl( check.url );
 	const started = Date.now();
-	const { response, body } = await fetchText( check.url );
+	const { response, body } = await fetchText( check.url, { redirect: check.redirect } );
 	const durationMs = Date.now() - started;
+	const redirectLocation = response.headers.get( 'location' ) || '';
 	const missing = ( check.required || [] ).filter( ( token ) => ! tokenPresent( body, token ) );
 	const missingFinalUrl = ( check.requiredFinalUrl || [] )
 		.filter( ( token ) => ! response.url.includes( token ) )
 		.map( ( token ) => `finalUrl:${ token }` );
+	const missingRedirectLocation = ( check.requiredRedirectLocation || [] )
+		.filter( ( token ) => ! redirectLocation.includes( token ) )
+		.map( ( token ) => `location:${ token }` );
 	const unexpected = ( check.absent || [] ).filter( ( token ) => tokenPresent( body, token ) );
-	const allMissing = [ ...missing, ...missingFinalUrl ];
-	const passed = response.ok && allMissing.length === 0 && unexpected.length === 0;
+	const allMissing = [ ...missing, ...missingFinalUrl, ...missingRedirectLocation ];
+	const httpOk = 'manual' === check.redirect ? response.status >= 300 && response.status < 400 : response.ok;
+	const passed = httpOk && allMissing.length === 0 && unexpected.length === 0;
 
 	return {
 		id: check.id,
@@ -223,6 +241,7 @@ async function runCheck( check ) {
 		durationMs,
 		url,
 		finalUrl: response.url,
+		redirectLocation,
 		missing: allMissing,
 		unexpected,
 	};
@@ -245,6 +264,7 @@ function toCsv( results ) {
 		'unexpected',
 		'url',
 		'finalUrl',
+		'redirectLocation',
 	];
 	const rows = results.map( ( result ) => ( {
 		...result,

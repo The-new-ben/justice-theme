@@ -183,6 +183,13 @@
 
 	function trackSuccessFromQuery() {
 		var query = new URLSearchParams(window.location.search);
+		var hashQuery = new URLSearchParams((window.location.hash || '').replace(/^#/, ''));
+
+		hashQuery.forEach(function(value, key) {
+			if (!query.has(key)) {
+				query.set(key, value);
+			}
+		});
 
 		if ('success' === query.get('lead')) {
 			track('generate_lead', { form_type: 'lead_redirect_success' });

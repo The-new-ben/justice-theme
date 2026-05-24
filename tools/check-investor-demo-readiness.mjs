@@ -42,6 +42,7 @@ const liveChecks = [
 		url: `/lawyer-plans/?investor_demo_check=${ CACHE_BUST }`,
 		required: [
 			'/checkout/',
+			'lawyer-plans-next-steps',
 			'plan_interest=lead_partner',
 			'payment_path=manual_invoice',
 			'utm_source=lawyer_plans',

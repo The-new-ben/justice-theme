@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Lawyer plans decision flow
+
+- ADDED: `lawyer-plans-next-steps` section explaining fit check, payment/invoice, private area and lifecycle service requests before pricing cards.
+- UPDATED: `page-lawyer-plans.php`, `assets/css/premium-pass-4.css`, `tools/check-investor-demo-readiness.mjs`, and `tools/check-live-lawyer-revenue-funnel.mjs`.
+- RESEARCH BASIS: pricing-page conversion guidance favors trust and "what happens next" micro-flow near the buying decision.
+- VERIFIED LOCAL: PHP syntax passed for `page-lawyer-plans.php`; Node syntax passed for checker scripts; `git diff --check` passed with line-ending warnings only.
+- BLOCKED: requires push plus uPress Pull Git/cache refresh before it is live; Grow recurring debit remains provider-approval blocked.
+- SAFETY: code/CSS/checker only; no public CMS/database or provider setting changed.
+
 # 2026-05-24 - Homepage lawyer product proof polish
 
 - ADDED: mini dashboard preview inside the homepage lawyer revenue strip showing lead, payment and service-follow-up status.

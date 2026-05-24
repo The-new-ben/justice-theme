@@ -39,6 +39,7 @@ const checks = [
 		type: 'page',
 		required: [
 			'lawyer-plans-hero',
+			'lawyer-plans-next-steps',
 			'lawyer-plan-card',
 			'/checkout/',
 			'plan_interest=lead_partner',

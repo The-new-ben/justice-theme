@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-24 22:42 Asia/Jerusalem
+- LAWYER PLANS CONVERSION FLOW: added a "what happens after choosing a plan" section to the lawyer plans page so the investor/lawyer sees onboarding, payment, dashboard value and lifecycle support before comparing plans.
+- RESEARCH BASIS: 2026 SaaS pricing-page guidance emphasizes decision flow, trust/risk reversal near the pricing decision, transparent next steps, and self-service lifecycle handling instead of a bare feature table.
+- UPDATED: `page-lawyer-plans.php` adds `lawyer-plans-next-steps` with four operational steps: fit check, payment/invoice, private area and upgrade/downgrade/cancel/refund service requests.
+- UPDATED: `assets/css/premium-pass-4.css` adds responsive polish for the new pricing decision-flow panel.
+- UPDATED: `tools/check-investor-demo-readiness.mjs` and `tools/check-live-lawyer-revenue-funnel.mjs` so demo gates expect the new plan-flow marker.
+- VERIFIED LOCAL: PHP lint passed for `page-lawyer-plans.php`; Node syntax passed for both checker scripts; `git diff --check` passed with line-ending warnings only.
+- STILL BLOCKED: live site requires uPress Pull Git/cache refresh before this is visible; recurring Grow debit remains provider-authorisation blocked, so the page correctly presents manual invoice/payment-link fallback.
+- COMPLETION: lawyer subscription conversion readiness moved from about 86% to about 89% locally; live completion remains blocked by deployment verification and Grow recurring approval.
+- SAFETY: theme/template/CSS/checker changes only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 22:50 Asia/Jerusalem
 - HOMEPAGE PRODUCT-PROOF POLISH: upgraded the lawyer revenue strip from copy-only into a visible product preview showing new leads, payment-link status and service follow-up inside the lawyer personal-area concept.
 - UPDATED: `template-parts/sections/homepage-lawyer-revenue-strip.php` now wraps the proof cards and adds `homepage-lawyer-revenue__mini-dashboard`.

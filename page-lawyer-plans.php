@@ -146,6 +146,32 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 			</div>
 		</section>
 
+		<section class="lawyer-plans-next-steps" aria-labelledby="lawyer-plans-next-steps-title">
+			<div>
+				<p class="section-header__eyebrow"><?php esc_html_e( 'מה קורה אחרי בחירת מסלול', 'justice-theme' ); ?></p>
+				<h2 id="lawyer-plans-next-steps-title"><?php esc_html_e( 'המסלול לא מסתיים בכפתור תשלום', 'justice-theme' ); ?></h2>
+				<p><?php esc_html_e( 'כדי להפוך הרשמה להכנסה יציבה, עורך הדין צריך לראות מה נפתח עבורו, מתי נשלח קישור תשלום, איך מתקבלות פניות ואיך מבקשים שינוי מסלול, ביטול, החזר או חשבונית.', 'justice-theme' ); ?></p>
+			</div>
+			<ol>
+				<li>
+					<strong><?php esc_html_e( 'בדיקת התאמה', 'justice-theme' ); ?></strong>
+					<span><?php esc_html_e( 'אימות רישיון, תחומי עיסוק, אזורי שירות וזמינות למענה.', 'justice-theme' ); ?></span>
+				</li>
+				<li>
+					<strong><?php esc_html_e( 'תשלום וחשבונית', 'justice-theme' ); ?></strong>
+					<span><?php esc_html_e( 'קישור Grow/Morning אמיתי או חשבונית ידנית עד לאישור סליקה חודשית.', 'justice-theme' ); ?></span>
+				</li>
+				<li>
+					<strong><?php esc_html_e( 'אזור אישי', 'justice-theme' ); ?></strong>
+					<span><?php esc_html_e( 'פרופיל, פניות, סטטוס טיפול, דוחות ערך ובקשות שירות במקום אחד.', 'justice-theme' ); ?></span>
+				</li>
+				<li>
+					<strong><?php esc_html_e( 'שינוי או ביטול', 'justice-theme' ); ?></strong>
+					<span><?php esc_html_e( 'שדרוג, הורדה, ביטול, החזר ועותק חשבונית נפתחים כבקשת שירות מתועדת.', 'justice-theme' ); ?></span>
+				</li>
+			</ol>
+		</section>
+
 		<div id="lawyer-plans-pricing" class="lawyer-plans__grid">
 			<?php foreach ( $plans as $plan_key => $plan ) : ?>
 				<?php

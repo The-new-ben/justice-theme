@@ -1,0 +1,11 @@
+tab,purpose,url_or_location,success_check
+1,Homepage entry,https://jus-tice.co.il/,Lawyer plan/private-area links visible
+2,Lawyer plans,https://jus-tice.co.il/lawyer-plans/,Lead Partner paid path visible
+3,Checkout fallback,"https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&utm_source=lawyer_plans&utm_medium=plan_page&utm_campaign=lawyer_acquisition&utm_content=pricing_card_lead_partner&outreach_segment=plans_page","Billing fields, terms and policy links visible"
+4,Registration prefill,"https://jus-tice.co.il/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice&billing_first_name=Investor&billing_last_name=Demo&billing_phone=0501234567&billing_email=investor-demo@example.com&billing_legal_name=Demo+Medical+Law+Ltd&billing_business_id=123456789&billing_invoice_email=billing-demo@example.com&billing_invoice_address=Tel+Aviv",Demo lawyer/billing fields prefilled
+5,Owner onboarding,WordPress admin > Lawyer Onboarding,"Payment, billing and payment-link cards visible"
+6,Demo lawyer dashboard,https://jus-tice.co.il/lawyer-dashboard/ while logged in as demo lawyer,"Real private dashboard, not logged-out gate"
+7,Service request queue,WordPress admin > Lawyer Onboarding with service_request_status=pending,Controlled service request visible
+8,Investor readiness report,project-control/investor-demo-readiness-2026-05-24.md,"PASS_WITH_DISCLOSED_BLOCKERS, 11 pass, 0 repair"
+9,Talk track,project-control/investor-demo-talk-track-2026-05-24.md,Closing line and fallback answers ready
+10,Data prep runbook,project-control/investor-demo-live-data-prep-runbook-2026-05-24.md,Claimed profile and demo lead checklist ready

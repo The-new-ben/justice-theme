@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-24 19:29 Asia/Jerusalem
+- INVESTOR DEMO TAB CHECKLIST: created a ten-tab pre-call checklist and backup pack so tomorrow's live demo is not a tab-hunt.
+- RESEARCH BASIS: current demo-prep guidance recommends a known-good environment, tested screen/audio, one primary workflow and a backup plan; investor-ready is not the same as production-ready, so the flow must be reliable and honest rather than overclaiming unfinished automation.
+- CREATED: `project-control/investor-demo-tab-checklist-2026-05-24.md`.
+- CREATED: `project-control/investor-demo-tab-checklist-2026-05-24.csv`.
+- OWNER ACTION BEFORE INVESTOR: open the ten tabs in order, verify demo lawyer dashboard and service request queue, and keep the payment honesty line visible.
+- BLOCKED: true automatic recurring charges, branded automatic invoices and real refund execution still require Grow/Meshulam approval plus WooCommerce product/gateway/subscription mapping.
+- SAFETY: planning/checklist artifacts only; no public CMS/database write, content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, refund, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 19:20 Asia/Jerusalem
 - INVESTOR DEMO TALK TRACK: created a 12-minute investor-facing script that shows the money workflow instead of touring every feature.
 - RESEARCH BASIS: current SaaS/product demo guidance emphasizes showing outcomes and a specific persona/problem rather than a feature dump; WooCommerce Subscriptions docs confirm upgrade/downgrade/cancel flows depend on subscription/gateway readiness, so Jus-Tice must demo lifecycle requests through the service desk until Grow/Meshulam recurring billing is approved.

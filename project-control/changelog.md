@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Investor demo tab checklist
+
+- CREATED: `project-control/investor-demo-tab-checklist-2026-05-24.md`.
+- CREATED: `project-control/investor-demo-tab-checklist-2026-05-24.csv`.
+- RESEARCH BASIS: demo-prep guidance recommends a known-good environment, pre-opened workflow, clean screen and backup plan; investor-ready is a reliable, honest demo flow rather than production-complete automation.
+- SAFETY: planning/checklist artifacts only; no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, refund, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Investor demo talk track
 
 - CREATED: `project-control/investor-demo-talk-track-2026-05-24.md`.

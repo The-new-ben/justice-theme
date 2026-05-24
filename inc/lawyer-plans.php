@@ -148,6 +148,17 @@ function justice_theme_any_paid_plan_checkout_ready(): bool {
 	return false;
 }
 
+function justice_theme_plan_pre_checkout_url( string $plan_key ): string {
+	return add_query_arg(
+		array(
+			'plan_interest' => $plan_key,
+			'pre_checkout'  => '1',
+			'payment_path'  => 'manual_invoice',
+		),
+		home_url( '/checkout/' )
+	);
+}
+
 function justice_theme_plan_checkout_url( string $plan_key ): string {
 	$product_id = justice_theme_plan_product_id( $plan_key );
 
@@ -156,7 +167,7 @@ function justice_theme_plan_checkout_url( string $plan_key ): string {
 	}
 
 	if ( 'free' !== $plan_key ) {
-		return justice_theme_plan_manual_activation_url( $plan_key );
+		return justice_theme_plan_pre_checkout_url( $plan_key );
 	}
 
 	return add_query_arg(

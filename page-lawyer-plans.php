@@ -107,8 +107,8 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 				<li><?php esc_html_e( 'אחרי אישור ותשלום, הפרופיל והדאשבורד מתחילים למדוד פניות וערך.', 'justice-theme' ); ?></li>
 			</ol>
 			<div class="lawyer-plans-founder__actions">
-				<a class="button button--gold" href="<?php echo esc_url( $manual_activation_url( 'lead_partner', 'founder_primary' ) ); ?>"><?php esc_html_e( 'בקשת בדיקת שותף לידים', 'justice-theme' ); ?></a>
-				<a class="button button--outline" href="<?php echo esc_url( $manual_activation_url( 'pro', 'founder_secondary' ) ); ?>"><?php esc_html_e( 'פתיחת מיני-סייט מקצועי', 'justice-theme' ); ?></a>
+				<a class="button button--gold" href="<?php echo esc_url( $plan_checkout_url( 'lead_partner', 'founder_primary' ) ); ?>"><?php esc_html_e( 'בקשת בדיקת שותף לידים', 'justice-theme' ); ?></a>
+				<a class="button button--outline" href="<?php echo esc_url( $plan_checkout_url( 'pro', 'founder_secondary' ) ); ?>"><?php esc_html_e( 'פתיחת מיני-סייט מקצועי', 'justice-theme' ); ?></a>
 			</div>
 		</section>
 
@@ -141,7 +141,7 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 				</article>
 			</div>
 			<div class="lawyer-plans-system__actions">
-				<a class="button button--gold" href="<?php echo esc_url( $manual_activation_url( 'lead_partner', 'system_primary' ) ); ?>"><?php esc_html_e( 'בדיקת התאמה לשותפות לידים', 'justice-theme' ); ?></a>
+				<a class="button button--gold" href="<?php echo esc_url( $plan_checkout_url( 'lead_partner', 'system_primary' ) ); ?>"><?php esc_html_e( 'בדיקת התאמה לשותפות לידים', 'justice-theme' ); ?></a>
 				<a class="button button--outline" href="#lawyer-plans-pricing"><?php esc_html_e( 'השוואת מסלולים', 'justice-theme' ); ?></a>
 			</div>
 		</section>

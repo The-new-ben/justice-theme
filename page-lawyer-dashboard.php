@@ -170,6 +170,8 @@ $primary_plan_key           = $primary_profile_id ? ( get_post_meta( $primary_pr
 $primary_payment_path       = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'payment_path', true ) : '';
 $primary_payment_followup   = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'payment_followup_status', true ) : '';
 $primary_payment_due_at     = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'payment_followup_due_at', true ) : '';
+$primary_manual_payment_link = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'manual_payment_link_url', true ) : '';
+$primary_invoice_reference  = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'manual_invoice_reference', true ) : '';
 $dashboard_plan_definitions = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_plans() : array();
 $primary_plan_label         = $dashboard_plan_definitions[ $primary_plan_key ]['label'] ?? $primary_plan_key;
 $primary_payment_options    = function_exists( 'justice_theme_lawyer_payment_followup_options' ) ? justice_theme_lawyer_payment_followup_options() : array(
@@ -194,8 +196,8 @@ if ( in_array( $subscription_status, array( 'active', 'paid', 'trialing' ), true
 	$primary_plan_action_label = __( 'Request first content asset', 'justice-theme' );
 } elseif ( 'invoice_sent' === $primary_payment_followup ) {
 	$primary_plan_next_action  = __( 'Payment instructions were sent. Complete the payment so activation and lead routing can start.', 'justice-theme' );
-	$primary_plan_action_url   = justice_theme_public_url( home_url( '/lawyer-plans/' ) );
-	$primary_plan_action_label = __( 'Review selected plan', 'justice-theme' );
+	$primary_plan_action_url   = $primary_manual_payment_link ? $primary_manual_payment_link : justice_theme_public_url( home_url( '/lawyer-plans/' ) );
+	$primary_plan_action_label = $primary_manual_payment_link ? __( 'Complete payment', 'justice-theme' ) : __( 'Review selected plan', 'justice-theme' );
 } elseif ( 'invoice_requested' === $primary_payment_followup || 'manual_invoice' === $primary_payment_path ) {
 	$primary_plan_next_action  = __( 'Your paid-plan request is in manual invoice review while automatic recurring checkout is pending approval.', 'justice-theme' );
 	$primary_plan_action_url   = '#profile-update-request';
@@ -454,8 +456,14 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 							<dd><?php echo esc_html( mysql2date( get_option( 'date_format' ), $primary_payment_due_at ) ); ?></dd>
 						</div>
 					<?php endif; ?>
+					<?php if ( $primary_invoice_reference ) : ?>
+						<div>
+							<dt><?php esc_html_e( 'Payment reference', 'justice-theme' ); ?></dt>
+							<dd><?php echo esc_html( $primary_invoice_reference ); ?></dd>
+						</div>
+					<?php endif; ?>
 				</dl>
-				<a class="button button--gold" href="<?php echo esc_url( $primary_plan_action_url ); ?>"><?php echo esc_html( $primary_plan_action_label ); ?></a>
+				<a class="button button--gold<?php echo $primary_manual_payment_link ? ' lawyer-dashboard-plan-status__payment-link' : ''; ?>" href="<?php echo esc_url( $primary_plan_action_url ); ?>"<?php echo $primary_manual_payment_link ? ' target="_blank" rel="noopener noreferrer"' : ''; ?>><?php echo esc_html( $primary_plan_action_label ); ?></a>
 			</section>
 
 			<section class="lawyer-dashboard__first-value" aria-labelledby="lawyer-dashboard-first-value-title">

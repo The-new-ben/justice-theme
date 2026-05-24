@@ -161,6 +161,7 @@ const checks = [
 			'.site-header__lawyer-label-full',
 			'.site-header__lawyer-label-short',
 			'.lawyer-registration-billing-fields',
+			'.lawyer-dashboard-plan-status__payment-link',
 		],
 	},
 	{

@@ -2584,6 +2584,10 @@
   font-weight: 900;
 }
 
+.lawyer-dashboard-plan-status__payment-link {
+  box-shadow: 0 10px 22px rgba(0, 92, 64, 0.2);
+}
+
 .lawyer-dashboard-review-kit {
   display: grid;
   gap: 0.75rem;

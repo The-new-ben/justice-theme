@@ -1,12 +1,15 @@
-# LATEST WORK STATUS - 2026-05-24 15:40 Asia/Jerusalem
+# LATEST WORK STATUS - 2026-05-24 15:47 Asia/Jerusalem
 - GROW CHECKOUT ROUTING REPAIR: matched the latest Grow failure report to the paid-plan path and repaired the route that could bypass checkout.
 - FINDING: Grow passed the site's general policy/address/phone/cancellation/privacy/service checks, but failed checkout page, checkout terms checkbox and checkout terms-link checks.
 - UPDATED: `inc/lawyer-plans.php` now sends paid plans without ready WooCommerce subscription products to `/checkout/?plan_interest={plan}&pre_checkout=1&payment_path=manual_invoice` instead of direct registration.
 - UPDATED: `page-lawyer-plans.php` now routes the top paid-plan CTAs through the checkout helper while keeping the manual activation link available as the secondary handoff.
 - UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` now verifies the paid-plan checkout route and the Grow-required checkout fields/terms markers.
 - CREATED: `project-control/grow-checkout-routing-repair-2026-05-24.md`.
-- VERIFICATION: pending local lint/checks, deployment and live read-only route check.
-- SAFETY: theme code/docs only; no CMS database write, content publishing, redirect/canonical/noindex/sitemap/taxonomy change, payment, invoice, charge, product, gateway, lawyer record, lead record, CRM, email/SMS or GSC/GA4 setting changed.
+- VERIFIED LOCAL: `php -l inc/lawyer-plans.php`, `php -l page-lawyer-plans.php`, `node --check tools/check-live-lawyer-revenue-funnel.mjs` and `git diff --check` passed.
+- DEPLOYED: committed/pushed `7a2435c` and uPress Git pull log showed `Route paid plans through checkout fallback` as live HEAD.
+- VERIFIED LIVE READ-ONLY: `/lawyer-plans/` returns 200 and exposes `/checkout/`, `plan_interest=lead_partner` and `payment_path=manual_invoice`; `/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice` returns 200 and exposes WooCommerce checkout markers, first name, last name, phone, country, email, terms checkbox, terms link, cancellation link and privacy link.
+- GROW RESUBMISSION: checked the Grow report confirmation box and submitted the site for re-check; Grow displayed the success message that re-check was submitted and can take up to one business day.
+- SAFETY: theme code/docs and Grow re-check submission only; no CMS database write, content publishing, redirect/canonical/noindex/sitemap/taxonomy change, payment, invoice, charge, product, gateway, lawyer record, lead record, CRM, email/SMS or GSC/GA4 setting changed.
 
 # LATEST WORK STATUS - 2026-05-24 15:39 Asia/Jerusalem
 - MANUAL INVOICE HANDOFF CONTEXT: attached plan value, payment status, activation status and due timing to the owner-only copy-ready invoice handoff.

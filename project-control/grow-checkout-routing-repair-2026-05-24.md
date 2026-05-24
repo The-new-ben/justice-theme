@@ -30,14 +30,18 @@ The live `/checkout/` fallback already exposes the required personal-detail fiel
 
 ## Verification
 
-Pending after deployment:
+Completed:
 
 - `php -l inc/lawyer-plans.php`
+- `php -l page-lawyer-plans.php`
 - `node --check tools/check-live-lawyer-revenue-funnel.mjs`
 - `git diff --check`
-- Live read-only check that `/lawyer-plans/` links paid plans through `/checkout/`
-- Live read-only check that `/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice` contains the billing fields and terms approval.
+- Pushed commit `7a2435c` to `origin/main`.
+- uPress Git pull log showed `Route paid plans through checkout fallback` as the live HEAD.
+- Live `/lawyer-plans/` returned HTTP 200 and exposed `/checkout/`, `plan_interest=lead_partner` and `payment_path=manual_invoice`.
+- Live `/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice` returned HTTP 200 and exposed the WooCommerce checkout marker, first name, last name, phone, country, email, terms checkbox, terms link, cancellation link and privacy link.
+- Grow report confirmation checkbox was checked and the site was submitted for re-check. Grow displayed the success message that re-check was submitted and can take up to one business day.
 
 ## Remaining blocker
 
-Grow still needs to re-check and approve the site after the code is deployed. Automatic recurring lawyer payments remain blocked until Grow/Meshulam approval and the real subscription product/gateway setup are complete.
+Grow still needs to complete the re-check and approve the site. Automatic recurring lawyer payments remain blocked until Grow/Meshulam approval and the real subscription product/gateway setup are complete.

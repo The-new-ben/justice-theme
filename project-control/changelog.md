@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Owner demo deployment warning v1
+
+- ADDED: red first-action deployment warning to the admin-only investor demo control panel.
+- UPDATED: `inc/lawyer-onboarding.php`, `tools/check-investor-demo-readiness.mjs`, `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs`.
+- VERIFIED LOCAL: PHP syntax passed for touched PHP files; Node syntax passed for checker scripts; `git diff --check` passed with line-ending warnings only; May 25 live/readiness reports were generated and still show deployment/data/provider blockers.
+- BLOCKED: requires push plus uPress Pull Git/cache refresh before it is live; full demo still needs a claimed lawyer and assigned lead.
+- SAFETY: admin UI/checker/marker only; no public CMS/database or provider setting changed.
+
 # 2026-05-24 - Owner demo control panel v1
 
 - ADDED: admin-only `Investor demo control` panel to Lawyer Onboarding with morning rehearsal links and blocker script.

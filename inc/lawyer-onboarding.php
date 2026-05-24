@@ -3400,6 +3400,10 @@ function justice_theme_render_lawyer_onboarding_investor_demo_panel(): void {
 		<p style="margin:0 0 6px;color:#facc15;font-weight:800;text-transform:uppercase;letter-spacing:.04em;">Investor demo control</p>
 		<h2 style="margin:0 0 8px;color:#fff;">Morning rehearsal links and honest blocker script</h2>
 		<p style="margin:0 0 14px;max-width:920px;color:#dbeafe;">Use this admin-only panel to run the demo in order: public acquisition, plan choice, registration, manual payment handoff, private dashboard, lead CRM reporting and service requests. Do not claim recurring billing, automatic invoices or refunds are live until Grow/Meshulam approval and a controlled transaction pass.</p>
+		<div style="border:1px solid rgba(248,113,113,.45);background:#450a0a;border-radius:8px;padding:12px;margin:0 0 14px;">
+			<strong style="display:block;color:#fecaca;">First action before opening investor tabs</strong>
+			<p style="margin:6px 0 0;color:#fee2e2;">Pull Git in uPress for `wp-content/themes/justice-theme`, clear cache if needed, then rerun the live readiness checks. If this step is skipped, the public homepage, plans, dashboard gate and deployment marker may still show the older production version.</p>
+		</div>
 		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:14px 0;">
 			<?php foreach ( $demo_links as $link ) : ?>
 				<div style="background:#172554;border:1px solid rgba(255,255,255,.16);border-radius:8px;padding:12px;">

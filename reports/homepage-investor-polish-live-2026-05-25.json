@@ -1,0 +1,70 @@
+{
+  "startedAt": "2026-05-24T21:02:32.726Z",
+  "runDate": "2026-05-25",
+  "baseUrl": "https://jus-tice.co.il",
+  "expectedMarker": "2026-05-25-owner-demo-deployment-warning-v1",
+  "passCount": 0,
+  "reviewCount": 4,
+  "results": [
+    {
+      "id": "homepage-runtime-marker",
+      "name": "Homepage runtime deployment marker",
+      "status": "REVIEW",
+      "http": 200,
+      "bytes": 127962,
+      "durationMs": 1253,
+      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779656552726",
+      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779656552726",
+      "missing": [
+        "2026-05-25-owner-demo-deployment-warning-v1"
+      ]
+    },
+    {
+      "id": "homepage-lawyer-revenue-strip",
+      "name": "Homepage lawyer revenue strip is visible",
+      "status": "REVIEW",
+      "http": 200,
+      "bytes": 127962,
+      "durationMs": 1040,
+      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779656552726",
+      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779656552726",
+      "missing": [
+        "hero__lawyer-access",
+        "homepage-lawyer-revenue",
+        "homepage-lawyer-revenue__mini-dashboard",
+        "utm_medium=revenue_strip"
+      ]
+    },
+    {
+      "id": "static-theme-marker",
+      "name": "Static theme deployment marker",
+      "status": "REVIEW",
+      "http": 200,
+      "bytes": 177,
+      "durationMs": 11,
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779656552726",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779656552726",
+      "missing": [
+        "justice-theme-deployment-marker=2026-05-25-owner-demo-deployment-warning-v1",
+        "expected-github-main-commit=owner-demo-deployment-warning-v1"
+      ]
+    },
+    {
+      "id": "premium-css-cache-bust",
+      "name": "Premium polish CSS version is deployed",
+      "status": "REVIEW",
+      "http": 200,
+      "bytes": 31715,
+      "durationMs": 13,
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779656552726",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779656552726",
+      "missing": [
+        "Version: 4.3.2",
+        ".hero__lawyer-access",
+        ".homepage-lawyer-revenue",
+        ".homepage-lawyer-revenue__mini-dashboard",
+        ".homepage-lawyer-revenue__login"
+      ]
+    }
+  ]
+}

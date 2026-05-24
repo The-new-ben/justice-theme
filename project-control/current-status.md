@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 00:06 Asia/Jerusalem
+- OWNER DEMO DEPLOYMENT WARNING V1: strengthened the admin-only investor demo panel with a red first-action warning to pull Git in uPress and clear cache before opening investor tabs.
+- UPDATED: `inc/lawyer-onboarding.php` now states that skipping the uPress pull can leave homepage, plans, dashboard gate and deployment marker on the older production version.
+- UPDATED: `tools/check-investor-demo-readiness.mjs` expects the new deployment-warning text in the owner demo panel source gate.
+- UPDATED: `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs` to marker `2026-05-25-owner-demo-deployment-warning-v1`.
+- MATERIAL ADVANCE: reduces the biggest morning presentation risk: local/pushed work exists, but production is stale because uPress was not pulled.
+- VERIFIED LOCAL: PHP syntax passed for `inc/lawyer-onboarding.php` and `functions.php`; Node syntax passed for affected checkers; `git diff --check` passed with line-ending warnings only; May 25 live/readiness reports were generated and still correctly show production deployment, demo-data and provider blockers.
+- STILL BLOCKED: uPress Pull Git/cache refresh is required before this admin warning and the recent investor polish are live; a claimed demo lawyer plus assigned demo lead are still needed for full walkthrough; Grow recurring debit remains provider-authorisation blocked.
+- COMPLETION: deployment-hand-off clarity moved from about 75% to about 90% locally; full live investor readiness still depends on deployment, demo data and provider approval.
+- SAFETY: admin-only UI/source/checker/marker changes only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 23:56 Asia/Jerusalem
 - OWNER DEMO CONTROL PANEL V1: added an admin-only investor rehearsal panel at the top of Lawyer Onboarding with direct links to homepage, lawyer plans, paid registration, lawyer dashboard, Justice CRM and service-request queue.
 - UPDATED: `inc/lawyer-onboarding.php` adds `justice_theme_render_lawyer_onboarding_investor_demo_panel()` and renders it before the paid registration command center.

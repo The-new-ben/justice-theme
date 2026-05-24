@@ -198,6 +198,7 @@ const sourceChecks = [
 			'justice_theme_render_lawyer_onboarding_investor_demo_panel',
 			'Investor demo control',
 			'Morning rehearsal links',
+			'First action before opening investor tabs',
 			'Manual Grow/Morning payment links are the live bridge',
 		],
 		ownerAction: 'Open Lawyer Onboarding and use the dark investor demo panel as the morning run order.',

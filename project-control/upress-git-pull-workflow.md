@@ -171,6 +171,29 @@ PARTIAL / NOT FIXED BY PULL:
 - `https://jus-tice.co.il/sitemap_index.xml` returns valid XML and points to
   HTTPS child sitemap URLs.
 
+## 2026-05-24 Codex Pull Result - Lawyer Service Desk
+
+VERIFIED:
+
+- GitHub `main` included commit `a254e44`
+  (`Add lawyer service request desk`).
+- Codex opened the authenticated uPress File Manager at
+  `/wp-content/themes/justice-theme`.
+- Codex opened `ניהול GIT`, clicked `משיכת נתונים (Pull)`, then opened
+  `צפיה ביומן פעילות (Log)`.
+- uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Add lawyer
+  service request desk` with commit `a254e44`.
+- Post-pull verification passed:
+  - `node tools/check-live-lawyer-revenue-funnel.mjs` passed `9/9`.
+  - `node tools/check-grow-payment-compliance.mjs` passed `8/8`.
+
+NOT A PAYMENT APPROVAL:
+
+- This pull deploys the lawyer private-area service desk and owner queue
+  reporting only.
+- Real automatic recurring lawyer charges, automatic invoices and refunds still
+  require Grow/Meshulam approval plus product/gateway/subscription mapping.
+
 ## Interpretation
 
 The Git deployment problem is now solved for this cycle.

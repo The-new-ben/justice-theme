@@ -1,3 +1,17 @@
+# LATEST WORK STATUS - 2026-05-24 18:40 Asia/Jerusalem
+- INVESTOR DEMO EMERGENCY PATH: added and deployed the missing lawyer private-area service desk for subscription lifecycle and support scenarios.
+- UPDATED: `inc/lawyer-dashboard.php` now accepts nonce-protected lawyer service requests for billing question, invoice copy, upgrade, downgrade, cancellation, refund request, complaint, lead quality, technical issue and other support.
+- UPDATED: `page-lawyer-dashboard.php` now exposes a logged-in lawyer service desk with request type, urgency, desired plan, subject/details and latest-request status.
+- UPDATED: `inc/lawyer-onboarding.php` now counts pending service requests in the paid-registration command center, prioritizes service requests as a churn/payment-risk next action, supports `service_request_status=pending`, and surfaces the latest request on the lawyer row.
+- UPDATED: `assets/css/premium-pass-3.css` and `tools/check-live-lawyer-revenue-funnel.mjs` now verify the deployed service-desk UI marker.
+- CREATED: `project-control/investor-demo-emergency-test-matrix-2026-05-24.md` with the full tomorrow-demo scenario matrix, demo script, honest blockers and readiness assessment.
+- REGENERATED / UPDATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md`, `project-control/lawyer-revenue-funnel-live-2026-05-24.csv`, `reports/lawyer-revenue-funnel-live-2026-05-24.json`, `reports/lawyer-revenue-funnel-live-2026-05-24.csv`, `project-control/grow-payment-compliance-live-2026-05-24.md`, `project-control/grow-payment-compliance-live-2026-05-24.csv`, `reports/grow-payment-compliance-live-2026-05-24.json` and `reports/grow-payment-compliance-live-2026-05-24.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-dashboard.php`, `php -l page-lawyer-dashboard.php`, `php -l inc/lawyer-onboarding.php`, `node --check tools/check-live-lawyer-revenue-funnel.mjs` and `git diff --check` passed before deployment.
+- DEPLOYED: committed/pushed `a254e44`; uPress Git pull log showed `Add lawyer service request desk` as live `HEAD`.
+- VERIFIED LIVE READ-ONLY: public lawyer revenue funnel passed `9/9`; Grow payment compliance passed `8/8`.
+- BLOCKED: real automatic recurring lawyer charges, automatic invoices and refund execution still require Grow/Meshulam approval plus product/gateway/subscription mapping. Demo can show the truthful manual-payment/invoice-readiness path now, not a fake automated payment processor.
+- SAFETY: code/UI/reporting/read-only live checks only; no public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, refund, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting was changed during this cycle.
+
 # LATEST WORK STATUS - 2026-05-24 18:00 Asia/Jerusalem
 - PAYMENT LINK READINESS QUEUE: made the next manual revenue bottleneck visible after billing details are collected.
 - RESEARCH BASIS: Grow Payment Links supports payment requests shared by WhatsApp, email, SMS and other channels; Morning / Green Invoice documents payment links, payment buttons and standing-order links. Jus-Tice now tracks whether billing-ready lawyers still need an actual payment URL.

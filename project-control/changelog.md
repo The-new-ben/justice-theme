@@ -1,6 +1,22 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Lawyer service request desk
+
+- UPDATED: `inc/lawyer-dashboard.php` now stores lawyer service requests for billing, invoice copy, upgrades, downgrades, cancellation, refunds, complaints, lead quality and technical support.
+- UPDATED: `page-lawyer-dashboard.php` now gives claimed logged-in lawyers a private-area service desk and latest-request status.
+- UPDATED: `inc/lawyer-onboarding.php` now adds pending service requests to the paid registration command center, next-money-action prioritization, admin filtering and lawyer-row context.
+- UPDATED: `assets/css/premium-pass-3.css` and `tools/check-live-lawyer-revenue-funnel.mjs` include deployed service-desk markers.
+- CREATED: `project-control/investor-demo-emergency-test-matrix-2026-05-24.md`.
+- REGENERATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md` and `.csv`.
+- REGENERATED: `project-control/grow-payment-compliance-live-2026-05-24.md` and `.csv`.
+- REGENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `.csv`.
+- REGENERATED: `reports/grow-payment-compliance-live-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: PHP syntax, Node syntax and `git diff --check` passed.
+- DEPLOYED: `a254e44 Add lawyer service request desk` was pushed and pulled through uPress; uPress log showed it as live `HEAD`.
+- VERIFIED LIVE READ-ONLY: public lawyer revenue funnel passed `9/9`; Grow payment compliance passed `8/8`.
+- SAFETY: no CMS database write during this cycle, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, refund, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Payment link readiness queue
 
 - UPDATED: `inc/lawyer-onboarding.php` now adds `Needs payment link` and `Payment link ready` cards to the Lawyer Onboarding paid registration command center.

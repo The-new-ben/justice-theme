@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-05-24T12:48:06.403Z",
+  "startedAt": "2026-05-24T15:40:01.512Z",
   "runDate": "2026-05-24",
   "baseUrl": "https://jus-tice.co.il",
   "passCount": 8,
@@ -10,10 +10,10 @@
       "name": "Checkout page exists and is reachable",
       "status": "PASS",
       "http": 200,
-      "bytes": 79829,
-      "durationMs": 1278,
-      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779626886409",
-      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779626886409",
+      "bytes": 80540,
+      "durationMs": 1094,
+      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779637201512",
+      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779637201512",
       "missing": []
     },
     {
@@ -21,10 +21,10 @@
       "name": "Checkout exposes Grow-required customer fields",
       "status": "PASS",
       "http": 200,
-      "bytes": 79829,
-      "durationMs": 970,
-      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779626886409",
-      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779626886409",
+      "bytes": 80540,
+      "durationMs": 952,
+      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779637201512",
+      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779637201512",
       "missing": []
     },
     {
@@ -32,10 +32,10 @@
       "name": "Checkout exposes terms checkbox and terms link",
       "status": "PASS",
       "http": 200,
-      "bytes": 79829,
-      "durationMs": 975,
-      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779626886409",
-      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779626886409",
+      "bytes": 80540,
+      "durationMs": 894,
+      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779637201512",
+      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779637201512",
       "missing": []
     },
     {
@@ -43,10 +43,10 @@
       "name": "Paid lawyer plan path links to checkout",
       "status": "PASS",
       "http": 200,
-      "bytes": 66314,
-      "durationMs": 1027,
-      "url": "https://jus-tice.co.il/lawyer-plans/?grow_compliance_check=1779626886409",
-      "finalUrl": "https://jus-tice.co.il/lawyer-plans/?grow_compliance_check=1779626886409",
+      "bytes": 66550,
+      "durationMs": 942,
+      "url": "https://jus-tice.co.il/lawyer-plans/?grow_compliance_check=1779637201512",
+      "finalUrl": "https://jus-tice.co.il/lawyer-plans/?grow_compliance_check=1779637201512",
       "missing": []
     },
     {
@@ -54,10 +54,10 @@
       "name": "Terms page remains available",
       "status": "PASS",
       "http": 200,
-      "bytes": 80023,
-      "durationMs": 932,
-      "url": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779626886409",
-      "finalUrl": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779626886409",
+      "bytes": 80271,
+      "durationMs": 965,
+      "url": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779637201512",
+      "finalUrl": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779637201512",
       "missing": []
     },
     {
@@ -65,10 +65,10 @@
       "name": "Cancellation and supply policy remains available",
       "status": "PASS",
       "http": 200,
-      "bytes": 80367,
-      "durationMs": 943,
-      "url": "https://jus-tice.co.il/cancellation/?grow_compliance_check=1779626886409",
-      "finalUrl": "https://jus-tice.co.il/cancellation/?grow_compliance_check=1779626886409",
+      "bytes": 80615,
+      "durationMs": 909,
+      "url": "https://jus-tice.co.il/cancellation/?grow_compliance_check=1779637201512",
+      "finalUrl": "https://jus-tice.co.il/cancellation/?grow_compliance_check=1779637201512",
       "missing": []
     },
     {
@@ -76,10 +76,10 @@
       "name": "Privacy policy remains available",
       "status": "PASS",
       "http": 200,
-      "bytes": 76354,
-      "durationMs": 921,
-      "url": "https://jus-tice.co.il/privacy/?grow_compliance_check=1779626886409",
-      "finalUrl": "https://jus-tice.co.il/privacy/?grow_compliance_check=1779626886409",
+      "bytes": 76602,
+      "durationMs": 899,
+      "url": "https://jus-tice.co.il/privacy/?grow_compliance_check=1779637201512",
+      "finalUrl": "https://jus-tice.co.il/privacy/?grow_compliance_check=1779637201512",
       "missing": []
     },
     {
@@ -87,10 +87,10 @@
       "name": "Business contact signals remain visible",
       "status": "PASS",
       "http": 200,
-      "bytes": 80023,
-      "durationMs": 927,
-      "url": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779626886409",
-      "finalUrl": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779626886409",
+      "bytes": 80271,
+      "durationMs": 925,
+      "url": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779637201512",
+      "finalUrl": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779637201512",
       "missing": []
     }
   ]

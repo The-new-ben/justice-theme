@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Investor one-page cheat sheet
+
+- CREATED: `project-control/investor-one-page-cheat-sheet-2026-05-24.md`.
+- CREATED: `project-control/investor-one-page-cheat-sheet-2026-05-24.csv`.
+- RESEARCH BASIS: demo-prep guidance emphasizes one primary workflow, known-good environment and backup plan; SaaS demo guidance emphasizes outcomes over feature tours; investor-ready requires a reliable honest flow rather than production-complete automation.
+- SAFETY: planning/cheat-sheet artifacts only; no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, refund, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Investor demo tab checklist
 
 - CREATED: `project-control/investor-demo-tab-checklist-2026-05-24.md`.

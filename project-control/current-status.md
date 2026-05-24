@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-24 19:39 Asia/Jerusalem
+- INVESTOR ONE-PAGE CHEAT SHEET: condensed the demo story into a single meeting-side sheet covering story, proof, blockers, payment answer and the ask.
+- RESEARCH BASIS: demo-prep guidance emphasizes one primary workflow, known-good environment and backup plan; SaaS demo guidance emphasizes outcomes over feature tours; investor-ready means reliable flow and honest answers, not production-complete automation.
+- CREATED: `project-control/investor-one-page-cheat-sheet-2026-05-24.md`.
+- CREATED: `project-control/investor-one-page-cheat-sheet-2026-05-24.csv`.
+- OWNER ACTION BEFORE INVESTOR: keep the cheat sheet visible beside the browser tabs, use the exact payment answer if challenged, and anchor the ask around closing payment approval, subscription mapping, lawyer sales and permissioned demo data.
+- BLOCKED: true automatic recurring charges, branded automatic invoices and real refund execution still require Grow/Meshulam approval plus WooCommerce product/gateway/subscription mapping.
+- SAFETY: planning/cheat-sheet artifacts only; no public CMS/database write, content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, refund, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 19:29 Asia/Jerusalem
 - INVESTOR DEMO TAB CHECKLIST: created a ten-tab pre-call checklist and backup pack so tomorrow's live demo is not a tab-hunt.
 - RESEARCH BASIS: current demo-prep guidance recommends a known-good environment, tested screen/audio, one primary workflow and a backup plan; investor-ready is not the same as production-ready, so the flow must be reliable and honest rather than overclaiming unfinished automation.

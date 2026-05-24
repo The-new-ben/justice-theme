@@ -150,6 +150,18 @@ const sourceChecks = [
 		ownerAction: 'After a controlled demo lead exists, update its stage and add a short call result note from the lawyer dashboard.',
 	},
 	{
+		id: 'owner-crm-lawyer-report-source',
+		name: 'Owner CRM shows lawyer follow-up reports',
+		file: 'inc/lead-crm.php',
+		required: [
+			'Latest lawyer report',
+			'latest_lawyer_follow_up_note',
+			'latest_lawyer_stage_update_at',
+			'Lawyer report',
+		],
+		ownerAction: 'Open Justice CRM or the lead edit screen after the lawyer updates a demo lead and show the owner-visible report.',
+	},
+	{
 		id: 'service-request-dashboard-source',
 		name: 'Lawyer dashboard renders the private service desk',
 		file: 'page-lawyer-dashboard.php',

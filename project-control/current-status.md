@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-24 23:47 Asia/Jerusalem
+- OWNER CRM LAWYER REPORT V1: added owner-visible lawyer follow-up reporting inside Justice CRM, so a lawyer's lead call note is visible to the owner after dashboard stage updates.
+- UPDATED: `inc/lead-crm.php` adds a `Lawyer report` column in the CRM table and a `Latest lawyer report` panel in the lead disposition metabox.
+- UPDATED: `tools/check-investor-demo-readiness.mjs` now checks the owner CRM source gate for `latest_lawyer_follow_up_note` and `latest_lawyer_stage_update_at`.
+- UPDATED: `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs` to marker `2026-05-24-owner-crm-lawyer-report-v1`.
+- MATERIAL ADVANCE: the investor demo can now show the complete loop: assigned lead -> lawyer contact/update -> owner sees the lawyer's report in CRM.
+- VERIFIED LOCAL: PHP syntax passed for `inc/lead-crm.php` and `functions.php`; Node syntax passed for affected checkers; `git diff --check` passed with line-ending warnings only; refreshed investor readiness shows the new owner CRM lawyer-report source gate passing while live deployment/demo-data/provider blockers remain.
+- STILL BLOCKED: uPress Pull Git/cache refresh is required before this is live; a claimed demo lawyer plus assigned demo lead are still needed for the full walkthrough; Grow recurring debit remains provider-authorisation blocked.
+- COMPLETION: owner-visible CRM proof moved from about 78% to about 86% locally; full live investor readiness still depends on deployment, demo data and provider approval.
+- SAFETY: admin UI/source/checker/marker changes only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 23:38 Asia/Jerusalem
 - LAWYER LEAD FOLLOW-UP NOTES V1: added a short call-result note field to the lawyer dashboard lead stage form so lawyers can report what happened after calling/WhatsApping/emailing a lead.
 - UPDATED: `inc/lawyer-dashboard.php` stores `lead_follow_up_note` as `latest_lawyer_follow_up_note` with the existing stage update timestamp.

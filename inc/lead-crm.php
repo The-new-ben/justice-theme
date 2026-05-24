@@ -1047,6 +1047,8 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 	$follow_up       = get_post_meta( $post->ID, 'follow_up_status', true ) ?: 'not_started';
 	$first_contact   = get_post_meta( $post->ID, 'first_contact_at', true );
 	$customer_note   = get_post_meta( $post->ID, 'customer_success_note', true );
+	$lawyer_note     = get_post_meta( $post->ID, 'latest_lawyer_follow_up_note', true );
+	$lawyer_update   = get_post_meta( $post->ID, 'latest_lawyer_stage_update_at', true );
 	$quality_options = array(
 		'auto'   => 'Auto score',
 		'high'   => 'High',
@@ -1096,6 +1098,17 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 		<label for="justice-customer-success-note"><strong>Customer-success note</strong></label>
 		<textarea id="justice-customer-success-note" name="customer_success_note" rows="5" style="width:100%;"><?php echo esc_textarea( $customer_note ); ?></textarea>
 	</p>
+	<?php if ( $lawyer_note || $lawyer_update ) : ?>
+		<div style="border:1px solid #dcdcde;border-radius:4px;background:#f6f7f7;padding:8px;margin:10px 0;">
+			<strong style="display:block;margin-bottom:4px;">Latest lawyer report</strong>
+			<?php if ( $lawyer_note ) : ?>
+				<p style="margin:0 0 6px;"><?php echo esc_html( $lawyer_note ); ?></p>
+			<?php endif; ?>
+			<?php if ( $lawyer_update ) : ?>
+				<p style="margin:0;color:#646970;">Updated: <?php echo esc_html( $lawyer_update ); ?></p>
+			<?php endif; ?>
+		</div>
+	<?php endif; ?>
 	<p style="color:#646970;">Owner-only operational fields for monthly value reporting. No public display.</p>
 	<?php
 }
@@ -1178,6 +1191,7 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 				<th>Quality</th>
 				<th>Follow-up</th>
 				<th>Response SLA</th>
+				<th>Lawyer report</th>
 				<th>Source</th>
 				<th>Date</th>
 				<th>Action</th>
@@ -1221,6 +1235,8 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 				$follow_up = 'justice_lead' === $post_type ? justice_theme_crm_follow_up_label( $post_id, $status ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;' );
 				$response_sla = 'justice_lead' === $post_type ? justice_theme_crm_response_sla_badge( $post_id, $status ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;' );
 				$prospect_url = 'justice_lead' === $post_type ? justice_theme_crm_prospect_from_lead_url( $post_id ) : '';
+				$lawyer_report = 'justice_lead' === $post_type ? (string) get_post_meta( $post_id, 'latest_lawyer_follow_up_note', true ) : '';
+				$lawyer_report_at = 'justice_lead' === $post_type ? (string) get_post_meta( $post_id, 'latest_lawyer_stage_update_at', true ) : '';
 				?>
 				<tr>
 					<td><strong><?php echo esc_html( $name ); ?></strong></td>
@@ -1232,6 +1248,16 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 					<td><span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $quality['style'] ); ?>"><?php echo esc_html( $quality['label'] ); ?></span></td>
 					<td><span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $follow_up['style'] ); ?>"><?php echo esc_html( $follow_up['label'] ); ?></span></td>
 					<td><span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $response_sla['style'] ); ?>"><?php echo esc_html( $response_sla['label'] ); ?></span></td>
+					<td>
+						<?php if ( $lawyer_report || $lawyer_report_at ) : ?>
+							<span style="display:block;max-width:220px;"><?php echo esc_html( wp_html_excerpt( $lawyer_report ?: 'Stage updated by lawyer', 110, '...' ) ); ?></span>
+							<?php if ( $lawyer_report_at ) : ?>
+								<small style="color:#646970;"><?php echo esc_html( $lawyer_report_at ); ?></small>
+							<?php endif; ?>
+						<?php else : ?>
+							<span style="color:#646970;">-</span>
+						<?php endif; ?>
+					</td>
 					<td><?php echo $source ? '<a href="' . esc_url( $source ) . '" target="_blank" rel="noopener">source</a>' : '-'; ?></td>
 					<td><?php echo esc_html( get_the_date( 'd/m/Y H:i', $post_id ) ); ?></td>
 					<td>

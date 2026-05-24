@@ -1,5 +1,5 @@
 {
-  "startedAt": "2026-05-24T15:40:01.512Z",
+  "startedAt": "2026-05-24T17:03:28.973Z",
   "runDate": "2026-05-24",
   "baseUrl": "https://jus-tice.co.il",
   "passCount": 8,
@@ -11,9 +11,9 @@
       "status": "PASS",
       "http": 200,
       "bytes": 80540,
-      "durationMs": 1094,
-      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779637201512",
-      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779637201512",
+      "durationMs": 1114,
+      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779642208973",
+      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779642208973",
       "missing": []
     },
     {
@@ -22,9 +22,9 @@
       "status": "PASS",
       "http": 200,
       "bytes": 80540,
-      "durationMs": 952,
-      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779637201512",
-      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779637201512",
+      "durationMs": 893,
+      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779642208973",
+      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779642208973",
       "missing": []
     },
     {
@@ -33,9 +33,9 @@
       "status": "PASS",
       "http": 200,
       "bytes": 80540,
-      "durationMs": 894,
-      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779637201512",
-      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779637201512",
+      "durationMs": 928,
+      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779642208973",
+      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779642208973",
       "missing": []
     },
     {
@@ -44,9 +44,9 @@
       "status": "PASS",
       "http": 200,
       "bytes": 66550,
-      "durationMs": 942,
-      "url": "https://jus-tice.co.il/lawyer-plans/?grow_compliance_check=1779637201512",
-      "finalUrl": "https://jus-tice.co.il/lawyer-plans/?grow_compliance_check=1779637201512",
+      "durationMs": 973,
+      "url": "https://jus-tice.co.il/lawyer-plans/?grow_compliance_check=1779642208973",
+      "finalUrl": "https://jus-tice.co.il/lawyer-plans/?grow_compliance_check=1779642208973",
       "missing": []
     },
     {
@@ -55,9 +55,9 @@
       "status": "PASS",
       "http": 200,
       "bytes": 80271,
-      "durationMs": 965,
-      "url": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779637201512",
-      "finalUrl": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779637201512",
+      "durationMs": 913,
+      "url": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779642208973",
+      "finalUrl": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779642208973",
       "missing": []
     },
     {
@@ -66,9 +66,9 @@
       "status": "PASS",
       "http": 200,
       "bytes": 80615,
-      "durationMs": 909,
-      "url": "https://jus-tice.co.il/cancellation/?grow_compliance_check=1779637201512",
-      "finalUrl": "https://jus-tice.co.il/cancellation/?grow_compliance_check=1779637201512",
+      "durationMs": 899,
+      "url": "https://jus-tice.co.il/cancellation/?grow_compliance_check=1779642208973",
+      "finalUrl": "https://jus-tice.co.il/cancellation/?grow_compliance_check=1779642208973",
       "missing": []
     },
     {
@@ -77,9 +77,9 @@
       "status": "PASS",
       "http": 200,
       "bytes": 76602,
-      "durationMs": 899,
-      "url": "https://jus-tice.co.il/privacy/?grow_compliance_check=1779637201512",
-      "finalUrl": "https://jus-tice.co.il/privacy/?grow_compliance_check=1779637201512",
+      "durationMs": 918,
+      "url": "https://jus-tice.co.il/privacy/?grow_compliance_check=1779642208973",
+      "finalUrl": "https://jus-tice.co.il/privacy/?grow_compliance_check=1779642208973",
       "missing": []
     },
     {
@@ -88,9 +88,9 @@
       "status": "PASS",
       "http": 200,
       "bytes": 80271,
-      "durationMs": 925,
-      "url": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779637201512",
-      "finalUrl": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779637201512",
+      "durationMs": 937,
+      "url": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779642208973",
+      "finalUrl": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779642208973",
       "missing": []
     }
   ]

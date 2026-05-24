@@ -7,6 +7,10 @@
 - UPDATED: `inc/lawyer-dashboard.php` adds `payment_link_request` plus guided service presets for payment link, upgrade, downgrade, cancellation, refund, invoice, lead-quality and complaint scenarios.
 - CREATED: `assets/js/lawyer-dashboard.js` to prefill the real service desk form from lifecycle buttons.
 - UPDATED: `assets/css/premium-pass-3.css`, `inc/enqueue.php` and `tools/check-live-lawyer-revenue-funnel.mjs`.
+- PUSHED: `6680e10 Add lawyer customer success command center`.
+- VERIFIED LIVE READ-ONLY: lawyer revenue funnel passed `10/10`, including the deployed dashboard support assistant JS.
+- VERIFIED LIVE READ-ONLY: Grow payment compliance checker passed `8/8`.
+- DEPLOYMENT NOTE: direct authenticated uPress Pull Git was unavailable in the current execution environment, but public production asset checks confirmed the new JS/CSS are being served.
 - RESEARCH BASIS: CRM/WhatsApp lead guidance emphasizes unified pipeline, speed-to-lead, context and follow-up; subscription billing guidance emphasizes customer self-service lifecycle actions and clear upgrade/downgrade/cancel/refund handling.
 - SAFETY: theme code/UI only; no CMS database write, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway setting, payment, invoice, charge, refund, lawyer record, lead, CRM record, email/SMS or GSC/GA4 setting changed.
 

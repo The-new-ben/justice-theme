@@ -5,6 +5,10 @@
 - UPDATED: `inc/lawyer-dashboard.php` now includes a real `payment_link_request` service request type plus lifecycle presets for payment link, upgrade, downgrade, cancellation, refund, invoice copy, lead-quality issue and complaint.
 - CREATED: `assets/js/lawyer-dashboard.js` to prefill the real service desk form from lifecycle buttons without submitting or changing account state until the lawyer sends the request.
 - UPDATED: `assets/css/premium-pass-3.css`, `inc/enqueue.php` and `tools/check-live-lawyer-revenue-funnel.mjs` for dashboard command-center styling, cache-busted assets and deployment verification.
+- PUSHED: `6680e10 Add lawyer customer success command center`.
+- VERIFIED LIVE READ-ONLY: public lawyer revenue funnel now passes `10/10`, including the deployed dashboard support assistant JS, paid-plan route, checkout compliance fallback, registration handoff, dashboard gate, CSS markers and analytics asset.
+- VERIFIED LIVE READ-ONLY: Grow payment compliance checker passes `8/8` for required checkout fields, terms approval, lawyer-plan entrypoint, terms, cancellation, privacy and business-contact signals.
+- DEPLOYMENT NOTE: authenticated uPress File Manager/Git Pull control was not exposed in this execution environment, so I could not click the uPress Pull Git button myself. Public production assets already serve the new dashboard JS/CSS and the live checker passes, which indicates the pushed code is publicly available.
 - BLOCKED: real Grow payment links still must be created in Grow/Morning and pasted into the lawyer record; true automatic recurring charges, branded automatic invoices and real refund execution remain blocked until Grow/Meshulam approval plus WooCommerce product/gateway/subscription mapping.
 - SAFETY: theme code/UI only; no public CMS/database write, content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, payment, invoice, charge, refund, lawyer record, lead, CRM record, email/SMS or GSC/GA4 setting changed during implementation.
 

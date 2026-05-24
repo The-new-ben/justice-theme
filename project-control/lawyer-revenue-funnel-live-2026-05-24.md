@@ -1,9 +1,9 @@
 # Lawyer Revenue Funnel Live Check - 2026-05-24
 
 - Status: PASS
-- Started: 2026-05-24T15:40:01.512Z
+- Started: 2026-05-24T17:04:49.216Z
 - Base URL: https://jus-tice.co.il
-- Checks passed: 9/9
+- Checks passed: 10/10
 - Checks needing review: 0
 - Scope: read-only public route and static asset checks only.
 - Safety: no CMS record, lawyer profile, payment, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4, email/SMS, or wp-admin setting was changed.
@@ -18,6 +18,7 @@
 | Registration form preserves paid manual-invoice plan state | PASS | 200 | - | - | https://jus-tice.co.il/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice&billing_first_name=Codex&billing_last_name=Lawyer&billing_phone=0501234567&billing_email=codex-lawyer@example.com&billing_legal_name=Codex+Legal+Ltd&billing_business_id=123456789&billing_invoice_email=billing-codex@example.com&billing_invoice_address=Tel+Aviv |
 | Logged-out dashboard gate offers paid-lawyer path | PASS | 200 | - | - | https://jus-tice.co.il/lawyer-dashboard/?codex_check=lawyer_revenue_funnel |
 | Revenue UI CSS markers are deployed | PASS | 200 | - | - | https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-3.css?codex_check=lawyer_revenue_funnel |
+| Lawyer dashboard support assistant JS is deployed | PASS | 200 | - | - | https://jus-tice.co.il/wp-content/themes/justice-theme/assets/js/lawyer-dashboard.js?codex_check=lawyer_revenue_funnel |
 | Lawyer revenue analytics events are deployed | PASS | 200 | - | - | https://jus-tice.co.il/wp-content/themes/justice-theme/assets/js/analytics-events.js?codex_check=lawyer_revenue_funnel |
 
 ## Owner Meaning

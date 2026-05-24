@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-ROUTE-DEPLOY-LIVE-SCREENSHOT-CLOSURE-001: Close T416/T418/T419 with current live route and screenshot evidence
+**Status:** FIXED / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / VERIFIED SCREENSHOTS / NO PUBLIC CMS CHANGE
+**Why:** the prior route deploy gate was blocked by stale `/family-law/` breadcrumb schema and missing screenshots; current public read-only checks now prove the route package is deployed and visually captured.
+**Actions:**
+1. DONE: reran live traffic, trust and controlled breadcrumb checkers for `2026-05-24`.
+2. DONE: captured desktop/mobile screenshots for `/family-law/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/`, `/inheritance-lawyer/`, `/contact/` and `/about/`.
+3. DONE: updated `tools/build-route-deploy-verification-gate.mjs` to verify screenshot PNG presence and dimensions.
+4. GENERATED: `project-control/route-deploy-verification-gate-2026-05-24.md` and `.csv`.
+5. GENERATED: `reports/route-deploy-verification-gate-2026-05-24.csv` and `.json`.
+6. VERIFIED LOCAL: `node --check tools/build-route-deploy-verification-gate.mjs` passed.
+7. VERIFIED LIVE READ-ONLY: traffic checker `12/12` PASS; trust checker `3/3` PASS; controlled breadcrumb checker `4/4` PASS.
+8. VERIFIED SCREENSHOTS: `12/12` PNG files exist with expected desktop/mobile dimensions under `project-control/visual-evidence/route-deploy-2026-05-24/`.
+9. FIXED: task-board rows `T416`, `T418` and `T419` are completed in repo control docs.
+10. NEXT: monitor after header, breadcrumb, route template, redirect plugin or uPress cache changes; Maya lawyer route remains a separate blocked profile/CMS task.
+
 ### ACTION-MAYA-LAWYER-LIVE-READONLY-QA-001: Add focused live smoke checker for Maya lawyer mini-site
 **Status:** FIXED / VERIFIED LIVE READ-ONLY PARTIAL / BLOCKED LIVE QA / NOT SCREENSHOT VERIFIED / NO PUBLIC CMS CHANGE
 **Why:** the Maya mini-site readiness packet required live route/canonical/robots/schema/profile checks, but there was no focused read-only checker capturing the current public failure mode.
@@ -71,7 +86,7 @@
 7. NEXT: add approved cost/process/document/agreement/CTA enhancements to drafts, then repair visible live defects only after owner approval and rollback backup; do not publish, redirect, delete or change canonicals/noindex/sitemap.
 
 ### ACTION-ROUTE-DEPLOY-VERIFICATION-GATE-001: Consolidate critical route deploy QA and block stale breadcrumbs
-**Status:** FIXED / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY PARTIAL / BLOCKED FAMILY BREADCRUMB LIVE QA / NO PUBLIC CMS CHANGE
+**Status:** FIXED / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / VERIFIED SCREENSHOTS / NO PUBLIC CMS CHANGE
 **Why:** T416, T418 and T419 were code-fixed but still scattered as deploy-blocked tasks. The live routes now need one gate that proves traffic/trust routes pass and catches stale breadcrumb schema before promotion.
 **Actions:**
 1. DONE: updated `functions.php` and `deployment-marker.txt` to marker `2026-05-22-route-deploy-verification-gate-v1`.
@@ -82,9 +97,11 @@
 6. DONE: created `tools/build-route-deploy-verification-gate.mjs`.
 7. GENERATED: `project-control/route-deploy-verification-gate-2026-05-22.md` and `.csv`.
 8. GENERATED: `reports/route-deploy-verification-gate-2026-05-22.csv` and `.json`.
-9. VERIFIED LIVE READ-ONLY: traffic checker `12/12` PASS; trust checker `3/3` PASS.
-10. BLOCKED LIVE QA: controlled breadcrumb checker `3/4` PASS; `/family-law/` has stale article BreadcrumbList until deploy/cache clear.
-11. NEXT: deploy/pull/cache clear, rerun traffic, trust and controlled breadcrumb checkers, regenerate the gate, then capture desktop/mobile screenshots before marking route tasks complete.
+9. VERIFIED LIVE READ-ONLY: 2026-05-22 traffic checker `12/12` PASS; trust checker `3/3` PASS.
+10. FIXED / VERIFIED LIVE READ-ONLY: 2026-05-24 controlled breadcrumb checker now returns `4/4` PASS; `/family-law/` no longer exposes the stale article BreadcrumbList.
+11. VERIFIED SCREENSHOTS: 2026-05-24 route screenshot set has `12/12` PNG files for the six critical routes.
+12. FIXED: route task-board rows `T416`, `T418` and `T419` are completed.
+13. NEXT: rerun the route gate after any header, breadcrumb, route template, redirect plugin or uPress cache change.
 
 ### ACTION-MAYA-LAWYER-MINI-SITE-READINESS-001: Prepare Maya lawyer mini-site readiness gate
 **Status:** FIXED / VERIFIED LOCAL / BLOCKED LIVE QA / NO PUBLIC CMS CHANGE

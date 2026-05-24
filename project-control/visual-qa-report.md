@@ -2,6 +2,18 @@
 Date: 2026-05-09
 Status: PARTIAL VISUAL QA COMPLETED.
 
+## 2026-05-24 Route Deploy Live and Screenshot QA Closure
+- UPDATED / VERIFIED LOCAL: `tools/build-route-deploy-verification-gate.mjs` now verifies screenshot PNG evidence and dimensions.
+- CREATED / VERIFIED LIVE READ-ONLY: `project-control/route-deploy-verification-gate-2026-05-24.md`.
+- CREATED / VERIFIED LIVE READ-ONLY: `project-control/route-deploy-verification-gate-2026-05-24.csv`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/route-deploy-verification-gate-2026-05-24.csv` and `.json`.
+- GENERATED / VERIFIED LIVE READ-ONLY: `reports/route-deploy-live-traffic-priority-2026-05-24.csv`, `reports/route-deploy-live-trust-routes-2026-05-24.csv` and `reports/route-deploy-live-controlled-breadcrumbs-2026-05-24.csv`.
+- VERIFIED LIVE READ-ONLY: route traffic report returned `12/12` PASS.
+- VERIFIED LIVE READ-ONLY: trust route report returned `3/3` PASS with `trust-route-early-render` guard headers.
+- FIXED / VERIFIED LIVE READ-ONLY: controlled breadcrumb report returned `4/4` PASS; `/family-law/` no longer shows the stale article BreadcrumbList.
+- VERIFIED SCREENSHOTS: `project-control/visual-evidence/route-deploy-2026-05-24/` contains `12/12` desktop/mobile screenshots for `/family-law/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/`, `/inheritance-lawyer/`, `/contact/` and `/about/`.
+- SAFETY: no public CMS record, page body, lawyer profile, URL redirect rule, canonical/noindex, taxonomy, sitemap setting, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 Maya Lawyer Live Read-Only QA
 - CREATED / VERIFIED LOCAL: `tools/check-maya-lawyer-live-readonly.mjs`.
 - CREATED / VERIFIED LIVE READ-ONLY PARTIAL: `project-control/maya-lawyer-live-readonly-2026-05-22.md`.

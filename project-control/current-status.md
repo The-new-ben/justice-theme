@@ -1,3 +1,20 @@
+# LATEST WORK STATUS - 2026-05-24 11:40 Asia/Jerusalem
+- ROUTE DEPLOY LIVE + SCREENSHOT QA CLOSURE: reran the critical route gate after deployment/cache time and closed the remaining T416/T418/T419 live blockers.
+- UPDATED: `tools/build-route-deploy-verification-gate.mjs` now verifies desktop/mobile screenshot evidence from `project-control/visual-evidence/route-deploy-{date}`.
+- CREATED: `project-control/route-deploy-verification-gate-2026-05-24.md`.
+- CREATED: `project-control/route-deploy-verification-gate-2026-05-24.csv`.
+- GENERATED: `reports/route-deploy-verification-gate-2026-05-24.csv`.
+- GENERATED: `reports/route-deploy-verification-gate-2026-05-24.json`.
+- GENERATED: `reports/route-deploy-live-traffic-priority-2026-05-24.csv`.
+- GENERATED: `reports/route-deploy-live-trust-routes-2026-05-24.csv`.
+- GENERATED: `reports/route-deploy-live-controlled-breadcrumbs-2026-05-24.csv`.
+- CREATED / VERIFIED SCREENSHOTS: `project-control/visual-evidence/route-deploy-2026-05-24/` contains `12/12` desktop/mobile PNG screenshots for `/family-law/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/`, `/inheritance-lawyer/`, `/contact/` and `/about/`.
+- VERIFIED LOCAL: `node --check tools/build-route-deploy-verification-gate.mjs` passed.
+- VERIFIED LIVE READ-ONLY: traffic checker returned `12/12` PASS; trust checker returned `3/3` PASS; controlled breadcrumb checker returned `4/4` PASS.
+- VERIFIED SCREENSHOTS: route gate returned `14/14` verified rows with `0` blocked and `0` not-verified rows.
+- FIXED: task-board rows `T416`, `T418` and `T419` are now marked completed in repo control docs.
+- SAFETY: no public CMS record, page body, lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-22 23:32 Asia/Jerusalem
 - MAYA LAWYER LIVE READ-ONLY QA: added a focused public smoke checker for `/lawyers/advocate-maya-rotenberg/` and generated a current route/REST report.
 - CREATED: `tools/check-maya-lawyer-live-readonly.mjs`.

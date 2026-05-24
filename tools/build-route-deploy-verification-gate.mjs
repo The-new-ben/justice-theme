@@ -31,7 +31,20 @@ const reportDate = args.get( 'reportDate' ) || new Date().toISOString().slice( 0
 const liveTrafficReport = args.get( 'liveTrafficReport' ) || `reports/route-deploy-live-traffic-priority-${ reportDate }.csv`;
 const liveTrustReport = args.get( 'liveTrustReport' ) || `reports/route-deploy-live-trust-routes-${ reportDate }.csv`;
 const liveControlledBreadcrumbReport = args.get( 'liveControlledBreadcrumbReport' ) || `reports/route-deploy-live-controlled-breadcrumbs-${ reportDate }.csv`;
+const screenshotDir = args.get( 'screenshotDir' ) || `project-control/visual-evidence/route-deploy-${ reportDate }`;
 const expectedMarker = '2026-05-22-route-deploy-verification-gate-v1';
+const expectedScreenshotRoutes = [
+	'family-law',
+	'medical-malpractice-lawyer',
+	'real-estate-lawyer-guide',
+	'inheritance-lawyer',
+	'contact',
+	'about',
+];
+const expectedScreenshotViewports = {
+	desktop: { width: 1200, height: 900 },
+	mobile: { width: 320, height: 800 },
+};
 
 const files = {
 	functions: 'functions.php',
@@ -187,6 +200,87 @@ function summarizeStatusReport( text ) {
 	};
 }
 
+async function readPngMetadata( relativePath ) {
+	const buffer = await readFile( path.join( root, relativePath ) );
+
+	if (
+		buffer.length < 24 ||
+		buffer[ 0 ] !== 0x89 ||
+		buffer[ 1 ] !== 0x50 ||
+		buffer[ 2 ] !== 0x4e ||
+		buffer[ 3 ] !== 0x47
+	) {
+		return {
+			valid: false,
+			width: 0,
+			height: 0,
+			bytes: buffer.length,
+			issue: 'not_png',
+		};
+	}
+
+	return {
+		valid: true,
+		width: buffer.readUInt32BE( 16 ),
+		height: buffer.readUInt32BE( 20 ),
+		bytes: buffer.length,
+		issue: '',
+	};
+}
+
+async function summarizeScreenshotEvidence() {
+	const expectedFiles = expectedScreenshotRoutes.flatMap( ( route ) => (
+		Object.entries( expectedScreenshotViewports ).map( ( [ viewport, minimum ] ) => ( {
+			route,
+			viewport,
+			minimum,
+			relativePath: path.join( screenshotDir, `${ route }-${ viewport }.png` ).replaceAll( '\\', '/' ),
+		} ) )
+	) );
+
+	const rows = await Promise.all(
+		expectedFiles.map( async ( file ) => {
+			try {
+				const metadata = await readPngMetadata( file.relativePath );
+				const validDimensions = metadata.valid &&
+					metadata.width >= file.minimum.width &&
+					metadata.height >= file.minimum.height;
+
+				return {
+					...file,
+					...metadata,
+					status: validDimensions ? 'VERIFIED SCREENSHOT' : 'BLOCKED SCREENSHOT QA',
+					issue: metadata.issue || ( validDimensions ? '-' : `dimensions_${ metadata.width }x${ metadata.height }` ),
+				};
+			} catch ( error ) {
+				return {
+					...file,
+					valid: false,
+					width: 0,
+					height: 0,
+					bytes: 0,
+					status: 'BLOCKED SCREENSHOT QA',
+					issue: error && 'ENOENT' === error.code ? 'missing_file' : ( error instanceof Error ? error.message : String( error ) ),
+				};
+			}
+		} )
+	);
+	const blockedRows = rows.filter( ( row ) => 'VERIFIED SCREENSHOT' !== row.status );
+
+	return {
+		present: blockedRows.length < rows.length,
+		total: rows.length,
+		verified: rows.filter( ( row ) => 'VERIFIED SCREENSHOT' === row.status ).length,
+		blocked: blockedRows.length,
+		directory: screenshotDir,
+		dimensions: rows
+			.filter( ( row ) => 'VERIFIED SCREENSHOT' === row.status )
+			.slice( 0, 4 )
+			.map( ( row ) => `${ row.route }-${ row.viewport }: ${ row.width }x${ row.height }` ),
+		blockers: blockedRows.slice( 0, 6 ).map( ( row ) => `${ row.relativePath }: ${ row.issue }` ),
+	};
+}
+
 const source = Object.fromEntries(
 	await Promise.all(
 		Object.entries( files ).map( async ( [ key, relativePath ] ) => [ key, await readText( relativePath ) ] )
@@ -198,6 +292,12 @@ const liveTrustText = await readText( liveTrustReport, true );
 const liveTrust = summarizeStatusReport( liveTrustText );
 const liveControlledBreadcrumbText = await readText( liveControlledBreadcrumbReport, true );
 const liveControlledBreadcrumbs = summarizeStatusReport( liveControlledBreadcrumbText );
+const screenshots = await summarizeScreenshotEvidence();
+const routeTaskIds = [ 'T416', 'T418', 'T419' ];
+const routeTasksPresent = routeTaskIds.every( ( taskId ) => source.taskBoard.includes( taskId ) );
+const routeTasksCompleted = routeTaskIds.every( ( taskId ) => (
+	new RegExp( `^${ taskId },[^\\n]*,COMPLETED,`, 'm' ).test( source.taskBoard )
+) );
 
 const rows = [
 	passFailRow(
@@ -329,19 +429,19 @@ const rows = [
 		'Live breadcrumb tooling or the controlled-route stale BreadcrumbList filter is missing expected coverage.',
 		'After deploy, run a focused breadcrumb report for controlled routes before promotion.'
 	),
-	passFailRow(
+	makeRow(
 		'ROUTE-DEPLOY-010',
-		'task board route blockers tracked',
-		hasAll( source.taskBoard, [
-			'T416',
-			'T418',
-			'T419',
-			'NOT LIVE VERIFIED',
-		] ),
+		'task board route tasks tracked',
+		routeTasksPresent ? 'VERIFIED LOCAL' : 'BLOCKED',
 		'Open route tasks need to remain visible until public server verification passes.',
-		'task-board.csv still tracks T416, T418 and T419 as not live verified / deploy blocked.',
-		'task-board.csv is missing one or more critical route deploy blockers.',
-		'Mark route tasks complete only after live marker and route checkers pass.'
+		routeTasksCompleted
+			? 'task-board.csv tracks T416, T418 and T419 as completed for the verified route gate.'
+			: ( routeTasksPresent
+				? 'task-board.csv still tracks T416, T418 and T419 as open until live route and screenshot checks pass.'
+				: 'task-board.csv is missing one or more critical route deploy tasks.' ),
+		routeTasksCompleted
+			? 'Keep the route gate evidence with the completed task rows and monitor regressions.'
+			: 'Mark route tasks complete only after live marker, route checkers and screenshots pass.'
 	),
 	makeRow(
 		'ROUTE-DEPLOY-011',
@@ -376,23 +476,32 @@ const rows = [
 	makeRow(
 		'ROUTE-DEPLOY-014',
 		'visual screenshot verification',
-		'NOT VERIFIED',
+		screenshots.blocked === 0 ? 'VERIFIED SCREENSHOTS' : 'BLOCKED SCREENSHOT QA',
 		'Visual proof is still required for public route promotion.',
-		'No desktop/mobile screenshot evidence was captured in this repo-only gate.',
-		'Capture desktop/mobile screenshots for /family-law/, /medical-malpractice-lawyer/, /real-estate-lawyer-guide/, /inheritance-lawyer/, /contact/ and /about/ after live route checks pass.'
+		screenshots.blocked === 0
+			? `Screenshot directory ${ screenshotDir } has ${ screenshots.verified }/${ screenshots.total } verified PNG files; sample dimensions: ${ screenshots.dimensions.join( ' | ' ) }.`
+			: `Screenshot directory ${ screenshotDir } has ${ screenshots.verified }/${ screenshots.total } verified PNG files${ screenshots.blockers.length ? `; blockers: ${ screenshots.blockers.join( ' | ' ) }` : '.' }`,
+		screenshots.blocked === 0
+			? 'Keep the desktop/mobile evidence with the route gate and recapture after any header, breadcrumb or route template change.'
+			: 'Capture desktop/mobile screenshots for /family-law/, /medical-malpractice-lawyer/, /real-estate-lawyer-guide/, /inheritance-lawyer/, /contact/ and /about/ after live route checks pass.'
 	),
 ];
+
+const blockedRows = rows.filter( ( row ) => row.status.includes( 'BLOCKED' ) );
+const notVerifiedRows = rows.filter( ( row ) => row.status.includes( 'NOT VERIFIED' ) );
 
 const summary = {
 	report_date: reportDate,
 	expected_marker: expectedMarker,
-	overall_status: rows.some( ( row ) => row.status.includes( 'BLOCKED' ) )
+	overall_status: blockedRows.length
 		? 'VERIFIED LOCAL / BLOCKED LIVE QA / NO PUBLIC CMS CHANGE'
-		: 'VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / NOT SCREENSHOT VERIFIED / NO PUBLIC CMS CHANGE',
+		: ( notVerifiedRows.length
+			? 'VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / NOT SCREENSHOT VERIFIED / NO PUBLIC CMS CHANGE'
+			: 'VERIFIED LOCAL / VERIFIED LIVE READ-ONLY / VERIFIED SCREENSHOTS / NO PUBLIC CMS CHANGE' ),
 	total_checks: rows.length,
 	verified_rows: rows.filter( ( row ) => row.status.includes( 'VERIFIED' ) && ! row.status.includes( 'NOT VERIFIED' ) ).length,
-	blocked_rows: rows.filter( ( row ) => row.status.includes( 'BLOCKED' ) ).length,
-	not_verified_rows: rows.filter( ( row ) => row.status.includes( 'NOT VERIFIED' ) ).length,
+	blocked_rows: blockedRows.length,
+	not_verified_rows: notVerifiedRows.length,
 	live_traffic_report: liveTrafficReport,
 	live_traffic_total: liveTraffic.total,
 	live_traffic_pass: liveTraffic.pass,
@@ -405,6 +514,10 @@ const summary = {
 	live_controlled_breadcrumb_total: liveControlledBreadcrumbs.total,
 	live_controlled_breadcrumb_pass: liveControlledBreadcrumbs.pass,
 	live_controlled_breadcrumb_review: liveControlledBreadcrumbs.review,
+	screenshot_dir: screenshotDir,
+	screenshot_total: screenshots.total,
+	screenshot_verified: screenshots.verified,
+	screenshot_blocked: screenshots.blocked,
 };
 
 const headers = [ 'check_id', 'scope', 'status', 'risk', 'evidence', 'next_step' ];
@@ -423,7 +536,7 @@ Status: ${ summary.overall_status }
 - ${ liveTraffic.present && liveTraffic.review === 0 ? `VERIFIED LIVE READ-ONLY: live traffic report \`${ liveTrafficReport }\` has \`${ liveTraffic.pass }/${ liveTraffic.total }\` PASS rows.` : ( liveTraffic.present ? `BLOCKED LIVE QA: live traffic report \`${ liveTrafficReport }\` currently has \`${ liveTraffic.pass }/${ liveTraffic.total }\` PASS rows and \`${ liveTraffic.review }\` REVIEW rows.` : `BLOCKED LIVE QA: no live traffic report was found at \`${ liveTrafficReport }\`.` ) }
 - ${ liveTrust.present && liveTrust.review === 0 ? `VERIFIED LIVE READ-ONLY: live trust report \`${ liveTrustReport }\` has \`${ liveTrust.pass }/${ liveTrust.total }\` PASS rows.` : ( liveTrust.present ? `BLOCKED LIVE QA: live trust report \`${ liveTrustReport }\` currently has \`${ liveTrust.pass }/${ liveTrust.total }\` PASS rows and \`${ liveTrust.review }\` REVIEW rows.` : `BLOCKED LIVE QA: no live trust report was found at \`${ liveTrustReport }\`.` ) }
 - ${ liveControlledBreadcrumbs.present && liveControlledBreadcrumbs.review === 0 ? `VERIFIED LIVE READ-ONLY: live controlled breadcrumb report \`${ liveControlledBreadcrumbReport }\` has \`${ liveControlledBreadcrumbs.pass }/${ liveControlledBreadcrumbs.total }\` PASS rows.` : ( liveControlledBreadcrumbs.present ? `BLOCKED LIVE QA: live controlled breadcrumb report \`${ liveControlledBreadcrumbReport }\` currently has \`${ liveControlledBreadcrumbs.pass }/${ liveControlledBreadcrumbs.total }\` PASS rows and \`${ liveControlledBreadcrumbs.review }\` REVIEW rows.` : `BLOCKED LIVE QA: no live controlled breadcrumb report was found at \`${ liveControlledBreadcrumbReport }\`.` ) }
-- NOT VERIFIED: desktop/mobile screenshots are still required after live route checks pass.
+- ${ screenshots.blocked === 0 ? `VERIFIED SCREENSHOTS: \`${ screenshotDir }\` has \`${ screenshots.verified }/${ screenshots.total }\` desktop/mobile PNG evidence files.` : `BLOCKED SCREENSHOT QA: \`${ screenshotDir }\` has \`${ screenshots.verified }/${ screenshots.total }\` verified desktop/mobile PNG evidence files.` }
 - SAFETY: no public CMS record, page body, lawyer profile, URL redirect rule, canonical/noindex, taxonomy, sitemap setting, lead, CRM, payment, GSC/GA4, wp-admin setting or uPress deployment was changed.
 
 ## Post-Deploy Commands
@@ -447,8 +560,8 @@ node tools/build-route-deploy-verification-gate.mjs --reportDate=${ reportDate }
 ${ rows.map( ( row ) => `| ${ markdownEscape( row.check_id ) } | ${ markdownEscape( row.scope ) } | ${ markdownEscape( row.status ) } | ${ markdownEscape( row.evidence ) } | ${ markdownEscape( row.next_step ) } |` ).join( '\n' ) }
 
 ## Decision
-- BLOCKED: do not mark T416, T418 or T419 complete until the live marker is visible, the traffic/trust/breadcrumb checks pass and screenshots are captured.
-- READY FOR DEPLOY QA: the repo-side route guard package is ready for uPress pull/cache clear and read-only verification.
+- ${ summary.blocked_rows === 0 && summary.not_verified_rows === 0 ? 'VERIFIED: T416, T418 and T419 route acceptance can be marked complete in repo control docs; keep monitoring for cache or redirect regressions.' : 'BLOCKED: do not mark T416, T418 or T419 complete until the live marker is visible, the traffic/trust/breadcrumb checks pass and screenshots are captured.' }
+- ${ summary.blocked_rows === 0 && summary.not_verified_rows === 0 ? 'READY FOR MONITORING: rerun this gate after any header, breadcrumb, route template, redirect plugin or uPress cache change.' : 'READY FOR DEPLOY QA: the repo-side route guard package is ready for uPress pull/cache clear and read-only verification.' }
 `;
 
 const reportDir = path.join( root, 'reports' );

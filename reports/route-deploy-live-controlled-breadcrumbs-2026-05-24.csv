@@ -1,0 +1,5 @@
+path,status,http,finalUrl,breadcrumbLists,breadcrumbItems,lastName,lastUrl,issues
+"/family-law/","PASS","200","https://jus-tice.co.il/family-law/","1","2","דיני משפחה וגירושין","https://jus-tice.co.il/family-law/","-"
+"/medical-malpractice-lawyer/","PASS","200","https://jus-tice.co.il/medical-malpractice-lawyer/","1","2","רשלנות רפואית","https://jus-tice.co.il/medical-malpractice-lawyer/","-"
+"/real-estate-lawyer-guide/","PASS","200","https://jus-tice.co.il/real-estate-lawyer-guide/","1","2","מקרקעין ונדל""ן","https://jus-tice.co.il/real-estate-lawyer-guide/","-"
+"/inheritance-lawyer/","PASS","200","https://jus-tice.co.il/inheritance-lawyer/","1","2","ירושה וצוואות","https://jus-tice.co.il/inheritance-lawyer/","-"

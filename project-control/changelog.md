@@ -1,6 +1,22 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Route deploy live and screenshot QA closure
+
+- UPDATED: `tools/build-route-deploy-verification-gate.mjs` now verifies desktop/mobile screenshot PNG evidence.
+- CREATED: `project-control/route-deploy-verification-gate-2026-05-24.md`.
+- CREATED: `project-control/route-deploy-verification-gate-2026-05-24.csv`.
+- GENERATED: `reports/route-deploy-verification-gate-2026-05-24.csv`.
+- GENERATED: `reports/route-deploy-verification-gate-2026-05-24.json`.
+- GENERATED: `reports/route-deploy-live-traffic-priority-2026-05-24.csv`.
+- GENERATED: `reports/route-deploy-live-trust-routes-2026-05-24.csv`.
+- GENERATED: `reports/route-deploy-live-controlled-breadcrumbs-2026-05-24.csv`.
+- CREATED / VERIFIED SCREENSHOTS: `project-control/visual-evidence/route-deploy-2026-05-24/` has `12/12` desktop/mobile route screenshots.
+- VERIFIED LOCAL: `node --check tools/build-route-deploy-verification-gate.mjs` passed.
+- VERIFIED LIVE READ-ONLY: traffic `12/12` PASS; trust `3/3` PASS; controlled breadcrumbs `4/4` PASS.
+- FIXED: `T416`, `T418` and `T419` are now completed in `project-control/task-board.csv`.
+- SAFETY: no public CMS record, page body, lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, GSC/GA4 setting, wp-admin setting or uPress deployment changed.
+
 ## 2026-05-22 - Maya lawyer live read-only QA
 
 - CREATED: `tools/check-maya-lawyer-live-readonly.mjs`.

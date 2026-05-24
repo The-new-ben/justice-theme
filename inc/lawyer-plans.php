@@ -340,6 +340,61 @@ function justice_theme_lawyer_plan_payment_requirement_rows(): array {
 	);
 }
 
+function justice_theme_lawyer_plan_payment_readiness_summary( array $requirement_rows ): array {
+	$product_statuses = array();
+	$ready_products   = 0;
+	$missing_products = 0;
+
+	foreach ( justice_theme_paid_lawyer_plan_keys() as $plan_key ) {
+		$product_statuses[ $plan_key ] = justice_theme_lawyer_plan_product_status( $plan_key );
+
+		if ( ! empty( $product_statuses[ $plan_key ]['checkout_ready'] ) ) {
+			$ready_products++;
+		}
+
+		if ( empty( $product_statuses[ $plan_key ]['product_id'] ) ) {
+			$missing_products++;
+		}
+	}
+
+	$total_products     = count( justice_theme_paid_lawyer_plan_keys() );
+	$requirements_ready = true;
+	$requirement_gaps   = array();
+
+	foreach ( $requirement_rows as $row ) {
+		if ( empty( $row['ready'] ) ) {
+			$requirements_ready = false;
+			$requirement_gaps[] = (string) $row['label'];
+		}
+	}
+
+	$automatic_ready     = $requirements_ready && $ready_products === $total_products;
+	$registration_ready  = file_exists( JUSTICE_THEME_DIR . '/page-lawyer-registration.php' );
+	$manual_bridge_ready = $registration_ready;
+	$next_action         = 'Keep selling through manual invoices, then activate lawyers only after payment confirmation.';
+
+	if ( $automatic_ready ) {
+		$next_action = 'Automatic checkout appears ready. Run a controlled checkout smoke test before sending paid traffic.';
+	} elseif ( ! $requirements_ready ) {
+		$next_action = 'Finish the missing recurring-payment requirement: ' . implode( ', ', $requirement_gaps ) . '.';
+	} elseif ( $missing_products > 0 ) {
+		$next_action = 'Create the missing monthly subscription products and paste their IDs below.';
+	} elseif ( $ready_products < $total_products ) {
+		$next_action = 'Fix the mapped products that are not yet subscription/purchasable checkout products.';
+	}
+
+	return array(
+		'automatic_ready'     => $automatic_ready,
+		'manual_bridge_ready' => $manual_bridge_ready,
+		'ready_products'      => $ready_products,
+		'total_products'      => $total_products,
+		'missing_products'    => $missing_products,
+		'requirement_gaps'    => $requirement_gaps,
+		'product_statuses'    => $product_statuses,
+		'next_action'         => $next_action,
+	);
+}
+
 function justice_theme_render_lawyer_plan_payment_admin_page(): void {
 	if ( ! current_user_can( 'manage_options' ) ) {
 		wp_die( esc_html__( 'You do not have permission to manage lawyer plan payments.', 'justice-theme' ) );
@@ -347,12 +402,44 @@ function justice_theme_render_lawyer_plan_payment_admin_page(): void {
 
 	$plans            = justice_theme_lawyer_plans();
 	$requirement_rows = justice_theme_lawyer_plan_payment_requirement_rows();
+	$readiness        = justice_theme_lawyer_plan_payment_readiness_summary( $requirement_rows );
+	$invoice_queue_url = add_query_arg(
+		array(
+			'page'          => 'justice-lawyer-onboarding',
+			'payment_queue' => 'invoice_requested',
+		),
+		admin_url( 'admin.php' )
+	);
+	$manual_signup_url = justice_theme_plan_manual_activation_url( 'lead_partner' );
 	?>
 	<div class="wrap">
 		<h1>Lawyer Plan Payments</h1>
 		<p>This screen prepares the four paid lawyer plans for WooCommerce Subscriptions and the Grow/Morning gateway. It does not charge anyone.</p>
 
 		<?php settings_errors( 'justice_lawyer_plan_product_ids' ); ?>
+
+		<h2>Owner Revenue Status</h2>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;max-width:1180px;margin:14px 0 22px;">
+			<div style="border:1px solid <?php echo $readiness['automatic_ready'] ? '#bbd7b8' : '#f0c36d'; ?>;background:<?php echo $readiness['automatic_ready'] ? '#f4fff3' : '#fffaf0'; ?>;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:18px;">Recurring checkout</strong>
+				<span><?php echo $readiness['automatic_ready'] ? 'Ready for controlled smoke test' : 'Blocked'; ?></span>
+			</div>
+			<div style="border:1px solid <?php echo $readiness['manual_bridge_ready'] ? '#bbd7b8' : '#f4b4b4'; ?>;background:<?php echo $readiness['manual_bridge_ready'] ? '#f4fff3' : '#fff5f5'; ?>;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:18px;">Manual invoice selling</strong>
+				<span><?php echo $readiness['manual_bridge_ready'] ? 'Available now' : 'Blocked'; ?></span>
+			</div>
+			<div style="border:1px solid #d6e4ff;background:#f7faff;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:18px;">Mapped checkout products</strong>
+				<span><?php echo esc_html( number_format_i18n( $readiness['ready_products'] ) . '/' . number_format_i18n( $readiness['total_products'] ) ); ?> ready</span>
+			</div>
+		</div>
+		<div style="max-width:1180px;border:1px solid #d6e4ff;background:#f7faff;border-radius:8px;padding:14px 16px;margin:0 0 24px;">
+			<p style="margin:0 0 8px;"><strong>Next owner action:</strong> <?php echo esc_html( $readiness['next_action'] ); ?></p>
+			<p style="margin:0;">
+				<a class="button button-primary" href="<?php echo esc_url( $invoice_queue_url ); ?>">Open invoice queue</a>
+				<a class="button" href="<?php echo esc_url( $manual_signup_url ); ?>" target="_blank" rel="noopener">Test manual paid signup</a>
+			</p>
+		</div>
 
 		<h2>Activation Readiness</h2>
 		<table class="widefat striped" style="max-width: 980px;">

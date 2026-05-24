@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-24 15:20 Asia/Jerusalem
+- LAWYER PAYMENT READINESS BOARD: upgraded the owner-only Plan Payments screen from a setup form into a clear revenue-readiness board.
+- UPDATED: `inc/lawyer-plans.php` now summarizes recurring checkout readiness, manual invoice selling availability and ready checkout products before the mapping table.
+- UPDATED: the screen now gives the next owner action based on the current blocker: missing WooCommerce/Subs/gateway requirement, missing product IDs, non-purchasable products or controlled checkout smoke test.
+- UPDATED: added quick links from Plan Payments to the invoice queue and a manual paid-signup test path.
+- CREATED: `project-control/lawyer-payment-readiness-board-2026-05-24.md`.
+- VERIFIED LOCAL: `php -l inc/lawyer-plans.php` and `git diff --check` passed.
+- SAFETY: admin-only visibility/navigation; no product, gateway, public CMS record, public lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, invoice, email/SMS send or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 15:08 Asia/Jerusalem
 - LAWYER PAYMENT MRR VISIBILITY: made the owner payment queue show expected monthly value, so manual invoice follow-up can be prioritized by money and urgency.
 - UPDATED: `inc/lawyer-onboarding.php` now aligns internal value math with the public lawyer plan prices: 349, 749, 1490 and 2490 NIS per month.

@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Lawyer support SLA v1
+
+- ADDED: `latest_service_request_sla` next-response target in the lawyer dashboard latest service request summary.
+- UPDATED: `page-lawyer-dashboard.php`, `tools/check-investor-demo-readiness.mjs`, `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs`.
+- VERIFIED LOCAL: PHP syntax passed for touched PHP files; Node syntax passed for checker scripts; live marker check still returns REVIEW because uPress has not pulled.
+- BLOCKED: requires push plus uPress Pull Git/cache refresh before it is live; Grow recurring debit remains provider-approval blocked.
+- SAFETY: code/checker/marker only; no public CMS/database or provider setting changed.
+
 # 2026-05-24 - Lawyer self-service support v1
 
 - ADDED: dashboard self-help service request cards for payment/invoice, plan changes, cancellation, refund, complaint and lead-quality issues.

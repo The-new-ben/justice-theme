@@ -144,6 +144,7 @@ const sourceChecks = [
 		required: [
 			'lawyer-dashboard-service-request',
 			'lawyer-dashboard-service-request__self-help',
+			'latest_service_request_sla',
 			'justice_lawyer_service_request',
 			'desired_plan',
 			'service_request_type',

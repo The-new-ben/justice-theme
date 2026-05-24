@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-24 23:12 Asia/Jerusalem
+- LAWYER SUPPORT SLA V1: added an explicit next-response target to the lawyer dashboard latest service request summary, so cancellation/refund/complaint/payment tickets do not look like a black hole after submission.
+- UPDATED: `page-lawyer-dashboard.php` computes `latest_service_request_sla` from urgency and displays `Next response` beside the latest service request.
+- UPDATED: `tools/check-investor-demo-readiness.mjs` expects the SLA marker in dashboard source checks.
+- UPDATED: `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs` to marker `2026-05-24-lawyer-support-sla-v1`.
+- MATERIAL ADVANCE: lawyers can now see both that their request was captured and when owner review is expected, which is important for investor demo scenarios around complaints, refunds, cancellations and billing disputes.
+- VERIFIED LOCAL: PHP lint passed for `page-lawyer-dashboard.php` and `functions.php`; Node syntax passed for affected checkers; live marker check still correctly reports REVIEW because production has not pulled the code.
+- STILL BLOCKED: uPress Pull Git/cache refresh is required before this is live; Grow recurring debit remains provider-authorisation blocked.
+- COMPLETION: lawyer support lifecycle readiness moved from about 88% to about 90% locally; live completion remains blocked by deployment verification and demo account/data.
+- SAFETY: theme/template/checker/marker changes only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 23:04 Asia/Jerusalem
 - LAWYER SELF-SERVICE SUPPORT V1: added guided service-request shortcuts inside the lawyer dashboard so lawyers can resolve common billing, invoice, plan-change, cancellation, refund, complaint and lead-quality issues from structured buttons instead of calling the owner.
 - RESEARCH BASIS: current 2026 SaaS/customer-portal guidance emphasizes one clear primary action, visible billing inside the portal, self-service plan/cancel/invoice controls, and contextual support that reduces repetitive tickets.

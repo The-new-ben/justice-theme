@@ -183,6 +183,17 @@ $latest_service_request     = $primary_profile_id ? array(
 	'status'        => (string) get_post_meta( $primary_profile_id, 'latest_service_request_status', true ),
 	'submitted_at'  => (string) get_post_meta( $primary_profile_id, 'latest_service_request_submitted_at', true ),
 ) : array();
+$latest_service_request_sla = '';
+
+if ( ! empty( $latest_service_request['id'] ) ) {
+	$latest_service_request_sla = array(
+		'urgent'     => __( 'Owner review target: today.', 'justice-theme' ),
+		'this_week'  => __( 'Owner review target: within 2 business days.', 'justice-theme' ),
+		'next_cycle' => __( 'Owner review target: before the next billing cycle.', 'justice-theme' ),
+		'not_urgent' => __( 'Owner review target: within 5 business days.', 'justice-theme' ),
+	)[ $latest_service_request['urgency'] ] ?? __( 'Owner review target: queued for manual review.', 'justice-theme' );
+}
+
 $dashboard_plan_definitions = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_plans() : array();
 $primary_plan_label         = $dashboard_plan_definitions[ $primary_plan_key ]['label'] ?? $primary_plan_key;
 $primary_payment_options    = function_exists( 'justice_theme_lawyer_payment_followup_options' ) ? justice_theme_lawyer_payment_followup_options() : array(
@@ -892,6 +903,12 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 										<dt><?php esc_html_e( 'Status', 'justice-theme' ); ?></dt>
 										<dd><?php echo esc_html( $latest_service_request['status'] ?: 'open' ); ?></dd>
 									</div>
+									<?php if ( $latest_service_request_sla ) : ?>
+										<div>
+											<dt><?php esc_html_e( 'Next response', 'justice-theme' ); ?></dt>
+											<dd><?php echo esc_html( $latest_service_request_sla ); ?></dd>
+										</div>
+									<?php endif; ?>
 									<?php if ( ! empty( $latest_service_request['submitted_at'] ) ) : ?>
 										<div>
 											<dt><?php esc_html_e( 'Submitted', 'justice-theme' ); ?></dt>

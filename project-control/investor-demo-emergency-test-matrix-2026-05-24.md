@@ -66,7 +66,7 @@ Current best-practice reference: WooCommerce Subscriptions supports customer upg
 | 37 | Lawyer complains about lead quality | Lawyer | Service request saved and owner alerted | Ready after this update |
 | 38 | Lawyer asks for invoice/receipt copy | Lawyer | Service request saved and owner alerted | Ready after this update |
 | 39 | Owner sees pending service requests | Owner | Lawyer Onboarding service-request card/filter | Ready after this update |
-| 40 | Grow compliance re-check | Owner | Live compliance checker passes all checks | Ready; passed before this update |
+| 40 | Grow compliance re-check | Owner | Live compliance checker passes all checks | Ready; passed after production pull |
 
 ## Tomorrow Demo Script
 
@@ -93,4 +93,3 @@ Current best-practice reference: WooCommerce Subscriptions supports customer upg
 ## Immediate Owner-Level Goal
 
 For tomorrow, the safest investor position is: "The platform has the acquisition, onboarding, private area, lead CRM and service desk working. Payment is approval-gated, so we already support a compliant manual payment-link path today and will switch to automatic recurring subscriptions after Grow/Meshulam approval."
-

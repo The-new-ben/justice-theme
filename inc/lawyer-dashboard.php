@@ -285,6 +285,124 @@ function justice_theme_handle_lawyer_supplier_request(): void {
 }
 add_action( 'admin_post_justice_lawyer_supplier_request', 'justice_theme_handle_lawyer_supplier_request' );
 
+function justice_theme_lawyer_service_request_options(): array {
+	return array(
+		'billing_question'    => __( 'Billing / payment question', 'justice-theme' ),
+		'invoice_copy'        => __( 'Invoice or receipt copy', 'justice-theme' ),
+		'upgrade_plan'        => __( 'Upgrade plan', 'justice-theme' ),
+		'downgrade_plan'      => __( 'Downgrade plan', 'justice-theme' ),
+		'cancel_subscription' => __( 'Cancel subscription', 'justice-theme' ),
+		'refund_request'      => __( 'Refund / money-back request', 'justice-theme' ),
+		'complaint'           => __( 'Complaint or service issue', 'justice-theme' ),
+		'lead_quality'        => __( 'Lead quality problem', 'justice-theme' ),
+		'technical_issue'     => __( 'Technical issue', 'justice-theme' ),
+		'other'               => __( 'Other service request', 'justice-theme' ),
+	);
+}
+
+function justice_theme_lawyer_service_request_urgency_options(): array {
+	return array(
+		'urgent'      => __( 'Urgent - today', 'justice-theme' ),
+		'this_week'   => __( 'This week', 'justice-theme' ),
+		'next_cycle'  => __( 'Before next billing cycle', 'justice-theme' ),
+		'not_urgent'  => __( 'Not urgent', 'justice-theme' ),
+	);
+}
+
+function justice_theme_handle_lawyer_service_request(): void {
+	if ( ! is_user_logged_in() || ! isset( $_POST['justice_lawyer_service_request_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['justice_lawyer_service_request_nonce'] ) ), 'justice_lawyer_service_request' ) ) {
+		wp_safe_redirect( add_query_arg( 'service_request', 'failed', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		wp_safe_redirect( add_query_arg( 'service_request', 'blocked', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$user_id    = get_current_user_id();
+	$lawyer_id  = isset( $_POST['lawyer_profile_id'] ) ? absint( $_POST['lawyer_profile_id'] ) : 0;
+	$profile_ok = $lawyer_id && (string) $user_id === (string) get_post_meta( $lawyer_id, 'claimed_by_user_id', true );
+
+	if ( ! $profile_ok ) {
+		wp_safe_redirect( add_query_arg( 'service_request', 'missing', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$request_type = isset( $_POST['service_request_type'] ) ? sanitize_key( wp_unslash( $_POST['service_request_type'] ) ) : 'other';
+	$type_options = justice_theme_lawyer_service_request_options();
+	if ( ! array_key_exists( $request_type, $type_options ) ) {
+		$request_type = 'other';
+	}
+
+	$urgency = isset( $_POST['service_request_urgency'] ) ? sanitize_key( wp_unslash( $_POST['service_request_urgency'] ) ) : 'this_week';
+	$urgency_options = justice_theme_lawyer_service_request_urgency_options();
+	if ( ! array_key_exists( $urgency, $urgency_options ) ) {
+		$urgency = 'this_week';
+	}
+
+	$subject      = isset( $_POST['service_request_subject'] ) ? sanitize_text_field( wp_unslash( $_POST['service_request_subject'] ) ) : '';
+	$message      = isset( $_POST['service_request_message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['service_request_message'] ) ) : '';
+	$desired_plan = isset( $_POST['service_request_desired_plan'] ) ? sanitize_key( wp_unslash( $_POST['service_request_desired_plan'] ) ) : '';
+	$plans        = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_plans() : array();
+
+	if ( $desired_plan && ! array_key_exists( $desired_plan, $plans ) ) {
+		$desired_plan = '';
+	}
+
+	if ( '' === $subject && '' === $message ) {
+		wp_safe_redirect( add_query_arg( 'service_request', 'missing', home_url( '/lawyer-dashboard/' ) ) );
+		exit;
+	}
+
+	$request_id = 'LSR-' . gmdate( 'Ymd-His' ) . '-' . $lawyer_id;
+
+	update_post_meta( $lawyer_id, 'pending_service_request', '1' );
+	update_post_meta( $lawyer_id, 'latest_service_request_id', $request_id );
+	update_post_meta( $lawyer_id, 'latest_service_request_type', $request_type );
+	update_post_meta( $lawyer_id, 'latest_service_request_subject', $subject );
+	update_post_meta( $lawyer_id, 'latest_service_request_message', $message );
+	update_post_meta( $lawyer_id, 'latest_service_request_desired_plan', $desired_plan );
+	update_post_meta( $lawyer_id, 'latest_service_request_urgency', $urgency );
+	update_post_meta( $lawyer_id, 'latest_service_request_status', 'open' );
+	update_post_meta( $lawyer_id, 'latest_service_request_submitted_at', current_time( 'mysql' ) );
+
+	if ( function_exists( 'justice_theme_append_lawyer_internal_note' ) ) {
+		justice_theme_append_lawyer_internal_note(
+			$lawyer_id,
+			sprintf(
+				'Lawyer service request %s: %s / %s. Desired plan: %s.',
+				$request_id,
+				$type_options[ $request_type ],
+				$urgency_options[ $urgency ],
+				$desired_plan ?: '-'
+			)
+		);
+	}
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_service_request', 'New lawyer service request ' . $request_id . ': ' . get_the_title( $lawyer_id ) . ' - ' . $request_type );
+	}
+
+	justice_theme_notify_lawyer_service_request(
+		$lawyer_id,
+		array(
+			'request_id'   => $request_id,
+			'type'         => $request_type,
+			'type_label'   => $type_options[ $request_type ],
+			'urgency'      => $urgency,
+			'urgency_label' => $urgency_options[ $urgency ],
+			'subject'      => $subject,
+			'message'      => $message,
+			'desired_plan' => $desired_plan,
+		)
+	);
+
+	wp_safe_redirect( add_query_arg( 'service_request', 'sent', home_url( '/lawyer-dashboard/#service-request' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_lawyer_service_request', 'justice_theme_handle_lawyer_service_request' );
+
 function justice_theme_lawyer_dashboard_lead_stage_options(): array {
 	return array(
 		'not_started'       => __( 'New', 'justice-theme' ),
@@ -454,6 +572,33 @@ function justice_theme_notify_lawyer_supplier_request( int $lawyer_id, string $c
 	);
 
 	wp_mail( $admin_email, 'New lawyer supplier request', $message );
+}
+
+function justice_theme_notify_lawyer_service_request( int $lawyer_id, array $request ): void {
+	$admin_email = get_option( 'admin_email' );
+
+	if ( ! $admin_email || ! is_email( $admin_email ) ) {
+		return;
+	}
+
+	$plans             = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_plans() : array();
+	$desired_plan      = (string) ( $request['desired_plan'] ?? '' );
+	$desired_plan_name = $desired_plan && isset( $plans[ $desired_plan ]['label'] ) ? wp_strip_all_tags( (string) $plans[ $desired_plan ]['label'] ) : $desired_plan;
+
+	$message = sprintf(
+		"New lawyer service / billing request.\n\nRequest ID: %s\nLawyer: %s\nType: %s\nUrgency: %s\nDesired plan: %s\nSubject: %s\nMessage:\n%s\n\nOwner action: handle this before the next billing cycle if it affects payment, cancellation, downgrade, refund or lead satisfaction.\n\nReview profile: %s\nLawyer onboarding queue: %s",
+		$request['request_id'] ?? '-',
+		get_the_title( $lawyer_id ),
+		$request['type_label'] ?? ( $request['type'] ?? '-' ),
+		$request['urgency_label'] ?? ( $request['urgency'] ?? '-' ),
+		$desired_plan_name ?: '-',
+		$request['subject'] ?? '-',
+		$request['message'] ?? '-',
+		admin_url( 'post.php?post=' . $lawyer_id . '&action=edit' ),
+		admin_url( 'admin.php?page=justice-lawyer-onboarding&service_request_status=pending' )
+	);
+
+	wp_mail( $admin_email, 'New lawyer service request', $message );
 }
 
 function justice_theme_lawyer_dashboard_profile_completeness( int $post_id ): int {

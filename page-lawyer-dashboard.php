@@ -172,6 +172,17 @@ $primary_payment_followup   = $primary_profile_id ? (string) get_post_meta( $pri
 $primary_payment_due_at     = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'payment_followup_due_at', true ) : '';
 $primary_manual_payment_link = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'manual_payment_link_url', true ) : '';
 $primary_invoice_reference  = $primary_profile_id ? (string) get_post_meta( $primary_profile_id, 'manual_invoice_reference', true ) : '';
+$service_request_options    = function_exists( 'justice_theme_lawyer_service_request_options' ) ? justice_theme_lawyer_service_request_options() : array();
+$service_urgency_options    = function_exists( 'justice_theme_lawyer_service_request_urgency_options' ) ? justice_theme_lawyer_service_request_urgency_options() : array();
+$latest_service_request     = $primary_profile_id ? array(
+	'id'            => (string) get_post_meta( $primary_profile_id, 'latest_service_request_id', true ),
+	'type'          => (string) get_post_meta( $primary_profile_id, 'latest_service_request_type', true ),
+	'subject'       => (string) get_post_meta( $primary_profile_id, 'latest_service_request_subject', true ),
+	'desired_plan'  => (string) get_post_meta( $primary_profile_id, 'latest_service_request_desired_plan', true ),
+	'urgency'       => (string) get_post_meta( $primary_profile_id, 'latest_service_request_urgency', true ),
+	'status'        => (string) get_post_meta( $primary_profile_id, 'latest_service_request_status', true ),
+	'submitted_at'  => (string) get_post_meta( $primary_profile_id, 'latest_service_request_submitted_at', true ),
+) : array();
 $dashboard_plan_definitions = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_plans() : array();
 $primary_plan_label         = $dashboard_plan_definitions[ $primary_plan_key ]['label'] ?? $primary_plan_key;
 $primary_payment_options    = function_exists( 'justice_theme_lawyer_payment_followup_options' ) ? justice_theme_lawyer_payment_followup_options() : array(
@@ -506,6 +517,12 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 						<div class="lawyer-registration__error"><?php esc_html_e( 'Supplier/service request was not saved. Please choose a linked profile.', 'justice-theme' ); ?></div>
 					<?php endif; ?>
 
+					<?php if ( isset( $_GET['service_request'] ) && 'sent' === $_GET['service_request'] ) : ?>
+						<div class="legaltool-request__notice"><?php esc_html_e( 'Service request saved. Jus-Tice will review billing, plan, refund, cancellation or support requests before taking account action.', 'justice-theme' ); ?></div>
+					<?php elseif ( isset( $_GET['service_request'] ) ) : ?>
+						<div class="lawyer-registration__error"><?php esc_html_e( 'Service request was not saved. Please choose a linked profile and describe the request.', 'justice-theme' ); ?></div>
+					<?php endif; ?>
+
 					<?php if ( isset( $_GET['lead_stage'] ) && 'updated' === $_GET['lead_stage'] ) : ?>
 						<div class="legaltool-request__notice"><?php esc_html_e( 'Lead stage updated. The pipeline and first-response tracking will refresh from this status.', 'justice-theme' ); ?></div>
 					<?php elseif ( isset( $_GET['lead_stage'] ) ) : ?>
@@ -713,6 +730,79 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 							<textarea id="supplier-request-notes" name="supplier_request_notes" rows="4" placeholder="<?php esc_attr_e( 'Example: certified translation for court documents, shared office room in Tel Aviv, video production, expert witness, CRM setup.', 'justice-theme' ); ?>"></textarea>
 
 							<button type="submit" class="button button--gold"><?php esc_html_e( 'Request matched provider', 'justice-theme' ); ?></button>
+						</form>
+					</section>
+
+					<section class="lawyer-dashboard-service-request" id="service-request">
+						<div class="lawyer-dashboard-service-request__header">
+							<div>
+								<p class="section-header__eyebrow"><?php esc_html_e( 'Service desk', 'justice-theme' ); ?></p>
+								<h2><?php esc_html_e( 'Billing, plan and support requests', 'justice-theme' ); ?></h2>
+								<p class="lawyer-dashboard__muted"><?php esc_html_e( 'Use this for upgrade, downgrade, cancellation, refund, invoice, lead-quality, complaint or technical support scenarios. Requests are saved to the profile and sent to Jus-Tice for owner review before account or payment action.', 'justice-theme' ); ?></p>
+							</div>
+							<?php if ( ! empty( $latest_service_request['id'] ) ) : ?>
+								<dl class="lawyer-dashboard-service-request__latest">
+									<div>
+										<dt><?php esc_html_e( 'Latest request', 'justice-theme' ); ?></dt>
+										<dd><?php echo esc_html( $latest_service_request['id'] ); ?></dd>
+									</div>
+									<div>
+										<dt><?php esc_html_e( 'Type', 'justice-theme' ); ?></dt>
+										<dd><?php echo esc_html( $service_request_options[ $latest_service_request['type'] ] ?? $latest_service_request['type'] ); ?></dd>
+									</div>
+									<div>
+										<dt><?php esc_html_e( 'Status', 'justice-theme' ); ?></dt>
+										<dd><?php echo esc_html( $latest_service_request['status'] ?: 'open' ); ?></dd>
+									</div>
+									<?php if ( ! empty( $latest_service_request['submitted_at'] ) ) : ?>
+										<div>
+											<dt><?php esc_html_e( 'Submitted', 'justice-theme' ); ?></dt>
+											<dd><?php echo esc_html( mysql2date( get_option( 'date_format' ), $latest_service_request['submitted_at'] ) ); ?></dd>
+										</div>
+									<?php endif; ?>
+								</dl>
+							<?php endif; ?>
+						</div>
+						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form lawyer-dashboard-service-request__form">
+							<input type="hidden" name="action" value="justice_lawyer_service_request">
+							<?php wp_nonce_field( 'justice_lawyer_service_request', 'justice_lawyer_service_request_nonce' ); ?>
+
+							<label for="service-profile"><?php esc_html_e( 'Linked profile', 'justice-theme' ); ?></label>
+							<select id="service-profile" name="lawyer_profile_id" required>
+								<?php foreach ( $profile_ids as $profile_id ) : ?>
+									<option value="<?php echo esc_attr( $profile_id ); ?>"><?php echo esc_html( get_the_title( $profile_id ) ); ?></option>
+								<?php endforeach; ?>
+							</select>
+
+							<label for="service-request-type"><?php esc_html_e( 'Request type', 'justice-theme' ); ?></label>
+							<select id="service-request-type" name="service_request_type" required>
+								<?php foreach ( $service_request_options as $type_key => $type_label ) : ?>
+									<option value="<?php echo esc_attr( $type_key ); ?>"><?php echo esc_html( $type_label ); ?></option>
+								<?php endforeach; ?>
+							</select>
+
+							<label for="service-request-urgency"><?php esc_html_e( 'Urgency', 'justice-theme' ); ?></label>
+							<select id="service-request-urgency" name="service_request_urgency">
+								<?php foreach ( $service_urgency_options as $urgency_key => $urgency_label ) : ?>
+									<option value="<?php echo esc_attr( $urgency_key ); ?>"><?php echo esc_html( $urgency_label ); ?></option>
+								<?php endforeach; ?>
+							</select>
+
+							<label for="service-request-desired-plan"><?php esc_html_e( 'Desired plan after this request', 'justice-theme' ); ?></label>
+							<select id="service-request-desired-plan" name="service_request_desired_plan">
+								<option value=""><?php esc_html_e( 'No plan change', 'justice-theme' ); ?></option>
+								<?php foreach ( $dashboard_plan_definitions as $plan_key => $plan_definition ) : ?>
+									<option value="<?php echo esc_attr( $plan_key ); ?>"><?php echo esc_html( $plan_definition['label'] ?? $plan_key ); ?></option>
+								<?php endforeach; ?>
+							</select>
+
+							<label for="service-request-subject"><?php esc_html_e( 'Short subject', 'justice-theme' ); ?></label>
+							<input id="service-request-subject" type="text" name="service_request_subject" required placeholder="<?php esc_attr_e( 'Example: I want to downgrade before next billing cycle', 'justice-theme' ); ?>">
+
+							<label for="service-request-message"><?php esc_html_e( 'Details for Jus-Tice', 'justice-theme' ); ?></label>
+							<textarea id="service-request-message" name="service_request_message" rows="5" required placeholder="<?php esc_attr_e( 'Describe the payment, invoice, refund, cancellation, lead-quality or support issue. Include dates, lead names or invoice reference when relevant.', 'justice-theme' ); ?>"></textarea>
+
+							<button type="submit" class="button button--gold"><?php esc_html_e( 'Send service request', 'justice-theme' ); ?></button>
 						</form>
 					</section>
 

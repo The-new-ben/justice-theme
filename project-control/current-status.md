@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-24 21:59 Asia/Jerusalem
+- GROW RECURRING SUPPORT ESCALATION SENT: emailed `support@grow.business` to request enabling/authorizing recurring debit for Grow account `10182706`.
+- EMAIL SUBJECT: `דחוף: פתיחת הרשאה להוראת קבע בחשבון Grow 10182706 - Jus-Tice Israel`.
+- COPIED: `info@jus-tice.co.il` and `benbetesh@gmail.com`.
+- INCLUDED: account name/number, the tested `₪1` / `2` charge recurring setup, exact provider blocker `לקוח אינו מורשה להוראת קבע`, and request for the missing authorization/document/setup required.
+- CREATED: `project-control/grow-recurring-support-escalation-2026-05-24.md`.
+- CREATED: `project-control/grow-recurring-support-escalation-2026-05-24.csv`.
+- MATERIAL ADVANCE: recurring billing is no longer just documented as blocked; the provider has been contacted with a concrete unblock request before the investor demo.
+- STILL BLOCKED: waiting for Grow response; one-time `₪1` payment link still needs owner payment and transaction/receipt verification.
+- COMPLETION: recurring subscription readiness remains about 45%, but the unblock path is now active with the provider; one-time collection proof remains about 75% until payment is completed.
+- SAFETY: external support email only; no CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 21:48 Asia/Jerusalem
 - GROW RECURRING DEBIT LIVE ATTEMPT: tested the real `Grow > הוראות קבע` path for a controlled recurring-payment setup.
 - ATTEMPTED: `₪1` monthly recurring debit, `2` monthly charges, customer `Jus-Tice Investor Recurring Test`, email `benbetesh@gmail.com`, phone `0525101555`, payment method `יצירת לינק חד-פעמי`.

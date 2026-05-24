@@ -1,0 +1,8 @@
+item,status,proof,next_action
+support_email_sent,PASS,"Email sent to support@grow.business","Wait for Grow reply"
+cc_owner,PASS,"CC info@jus-tice.co.il and benbetesh@gmail.com","Monitor inbox"
+account_identified,PASS,"Included Jus-Tice Israel / Grow account 10182706","None"
+blocker_included,PASS,"Included exact error: לקוח אינו מורשה להוראת קבע","Grow to explain authorization requirements"
+test_flow_included,PASS,"Included ₪1 monthly, 2 charges, recurring setup link attempt","None"
+recurring_enabled,NO,"Provider has not enabled/confirmed recurring debit yet","Retry after Grow response"
+investor_answer_ready,PASS,"Support escalation proves active unblock path","Use in demo if asked about subscriptions"

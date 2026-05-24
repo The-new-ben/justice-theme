@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Grow recurring support escalation
+
+- SENT: support email to `support@grow.business` requesting recurring debit authorization for account `10182706`.
+- SUBJECT: `דחוף: פתיחת הרשאה להוראת קבע בחשבון Grow 10182706 - Jus-Tice Israel`.
+- COPIED: `info@jus-tice.co.il` and `benbetesh@gmail.com`.
+- INCLUDED: exact tested flow and blocker message `לקוח אינו מורשה להוראת קבע`.
+- CREATED: `project-control/grow-recurring-support-escalation-2026-05-24.md`.
+- CREATED: `project-control/grow-recurring-support-escalation-2026-05-24.csv`.
+- BLOCKED: awaiting Grow response; do not claim recurring debit works yet.
+- SAFETY: provider support escalation only; no CMS/database content, product, gateway setting, payment, invoice, refund, lawyer record, lead, CRM, GSC or GA4 setting changed.
+
 # 2026-05-24 - Grow recurring debit live attempt
 
 - TESTED: real `Grow > הוראות קבע` setup path for a controlled `₪1` monthly recurring debit over `2` charges.

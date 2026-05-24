@@ -8,6 +8,8 @@ The real-payment story advanced: a real one-time Grow Payment Link was created i
 
 The recurring-payment story is now known, not vague: a real Grow `הוראות קבע` attempt was made for a tiny `₪1` monthly / `2` charge test, and Grow blocked creation with the exact message `לקוח אינו מורשה להוראת קבע`. Do not present recurring billing as working until Grow enables/authorizes this path.
 
+The provider unblock path is active: a support email was sent to `support@grow.business`, copied to `info@jus-tice.co.il` and `benbetesh@gmail.com`, with account `10182706`, the exact tested setup and the exact blocker message.
+
 This is still not a fully automated paid-subscription business. Real recurring payment, branded automatic invoices and real refund execution remain blocked until recurring products/gateway behavior are mapped and smoke-tested.
 
 ## Live Proof Completed
@@ -24,6 +26,7 @@ This is still not a fully automated paid-subscription business. Real recurring p
 | Real Grow payment link | CREATED / VERIFIED OPEN | `Grow > Payment Links` row `Jus-Tice Investor Demo Payment Test`; full link sent by email with subject `REAL Grow payment link ready: Jus-Tice investor demo 1 NIS smoke test` |
 | Real Grow payment page | PASS | The `pay.grow.link` URL opens a `Jus-Tice Israel` page for `Jus-Tice investor demo real payment smoke test`, total `₪1`, with secure payment button |
 | Grow recurring debit attempt | BLOCKED BY PROVIDER | `Grow > הוראות קבע` returned `לקוח אינו מורשה להוראת קבע` for a `₪1` monthly / `2` charge test |
+| Grow support escalation | SENT | Email sent to `support@grow.business`, copied to owner inboxes, requesting recurring debit authorization for account `10182706` |
 
 ## Expected Email To Check Now
 
@@ -63,6 +66,7 @@ If the email does not appear:
 | Link not attached to lawyer profile yet | Paste the real link into the lawyer profile, tick `Send this payment link by email now`, and save if the demo needs WordPress-to-lawyer handoff proof. |
 | No verified real payment yet | Do not claim payment is completed. Demo the real link and say the controlled payment smoke test is ready for the owner to pay. |
 | Automatic recurring billing not enabled | Say we tested Grow recurring debit live and Grow returned `לקוח אינו מורשה להוראת קבע`; one-time payment links work, recurring authorization is the next provider enablement step. |
+| Investor asks what is being done about recurring billing | Say a concrete escalation has already been sent to Grow support with account number, tested setup and exact error; we are not waiting passively. |
 | Automatic refund execution not live | Show the refund request captured in the service desk; do not claim money moves automatically. |
 
 ## Completion Assessment

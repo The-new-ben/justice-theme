@@ -45,6 +45,7 @@ const liveChecks = [
 			'/checkout/',
 			'lawyer-plans-next-steps',
 			'lawyer-plans-market-proof',
+			'lawyer-plans-market-proof__signup-stages',
 			'plan_interest=lead_partner',
 			'payment_path=manual_invoice',
 			'utm_source=lawyer_plans',
@@ -76,6 +77,7 @@ const liveChecks = [
 		required: [
 			'lawyer-registration-form',
 			'lawyer-registration-account-path',
+			'lawyer-registration-account-path__fields',
 			'lawyer-registration-billing-fields',
 			'name="payment_path" value="manual_invoice"',
 			'name="plan_interest"',

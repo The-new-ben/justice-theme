@@ -41,6 +41,7 @@ const checks = [
 		required: [
 			'lawyer-plans-hero',
 			'lawyer-plans-market-proof',
+			'lawyer-plans-market-proof__signup-stages',
 			'lawyer-plans-next-steps',
 			'lawyer-plan-card',
 			'/checkout/',
@@ -120,6 +121,7 @@ const checks = [
 		required: [
 			'lawyer-registration-form',
 			'lawyer-registration-account-path',
+			'lawyer-registration-account-path__fields',
 			'lawyer-registration-plan-context',
 			'lawyer-registration-billing-fields',
 			'name="payment_path" value="manual_invoice"',

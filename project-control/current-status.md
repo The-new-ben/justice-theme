@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 01:25 Asia/Jerusalem
+- COMPETITOR SIGNUP FUNNEL V1: inspected public signup/login/marketing paths from din.co.il, psakdin.co.il and lawreviews.co.il, then folded the observed funnel patterns into Jus-Tice.
+- HONEST INSPECTION SCOPE: I reached public pages and public form stages only; I did not submit competitor forms, create competitor accounts or access private dashboards.
+- OBSERVED: Din emphasizes fast/free signup, focused exposure, email for inquiries, mobile verification, password, terms, articles, case wins and forums. PsakDin exposes login/registration/subscriber routes and ties lawyers to legal content authority. LawReviews emphasizes reputation, verified reviews, profile richness, contact/appointments and missed-lead tracking.
+- UPDATED: `page-lawyer-plans.php` now includes `lawyer-plans-market-proof__signup-stages`, translating those competitor patterns into a four-stage Jus-Tice account path.
+- UPDATED: `page-lawyer-registration.php` now includes `lawyer-registration-account-path__fields`, explaining why the registration fields matter for activation, measurement and billing.
+- UPDATED: `assets/css/premium-pass-4.css` and `inc/enqueue.php` to CSS version `4.3.4`; marker moved to `2026-05-25-competitor-signup-funnel-v1`.
+- DOCUMENTED: `project-control/competitor-signup-funnel-audit-2026-05-25.md` records exactly what was checked and what was not.
+- STILL BLOCKED: uPress Pull Git/cache refresh is required after push; no real demo lawyer/account/payment/invoice/refund data was created in this repo-safe pass.
+- SAFETY: public theme/template/CSS/checker/docs only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 00:58 Asia/Jerusalem
 - LAWYER ACCOUNT OPENING POLISH V1: sharpened the public lawyer acquisition path around account opening, discoverability, trust profile, measurable leads, dashboard value, payment handoff and lifecycle service.
 - RESEARCH BASIS: current lawyer-index and legal-marketing pages sell intent-time visibility, complete attorney profiles, reviews/trust signals, qualified leads and marketing ROI; current Israeli digital-payment materials sell fast payment links, flexible payment methods and recurring-payment readiness. The site copy now adapts those patterns without copying competitor text verbatim.

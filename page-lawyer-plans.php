@@ -169,6 +169,15 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 					<p><?php esc_html_e( 'המערכת לא עוצרת בליד. עורך הדין רואה מה פתוח, מה טופל, מה דווח ומה צריך שירות או שינוי מסלול.', 'justice-theme' ); ?></p>
 				</article>
 			</div>
+			<div class="lawyer-plans-market-proof__signup-stages">
+				<strong><?php esc_html_e( 'מסלול ההצטרפות שבנינו לפי מה שעובד בשוק', 'justice-theme' ); ?></strong>
+				<ol>
+					<li><?php esc_html_e( 'פתיחה מהירה: שם משרד, אימייל לקבלת פניות, טלפון נייד לאימות, סיסמה ואישור תנאים.', 'justice-theme' ); ?></li>
+					<li><?php esc_html_e( 'פרופיל אמון: תחומים, ערים, ניסיון, תמונה, כתובת, דרכי קשר, מאמרים והצלחות מקצועיות.', 'justice-theme' ); ?></li>
+					<li><?php esc_html_e( 'מוניטין מדיד: חוות דעת, שאלות לקוחות, פניות שלא נענו ומעקב אחר איכות השירות.', 'justice-theme' ); ?></li>
+					<li><?php esc_html_e( 'הפעלה עסקית: קישור תשלום אמיתי או חשבונית ידנית, דוח ערך, שדרוג, הורדה, ביטול והחזר דרך שירות מתועד.', 'justice-theme' ); ?></li>
+				</ol>
+			</div>
 			<div class="lawyer-plans-market-proof__actions">
 				<a class="button button--gold" href="<?php echo esc_url( $plan_checkout_url( 'lead_partner', 'market_proof_primary' ) ); ?>"><?php esc_html_e( 'פתיחת חשבון שותף לידים', 'justice-theme' ); ?></a>
 				<a class="button button--outline" href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-dashboard/' ) ) ); ?>"><?php esc_html_e( 'כניסה לאזור האישי', 'justice-theme' ); ?></a>

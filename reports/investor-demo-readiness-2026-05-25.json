@@ -1,6 +1,6 @@
 {
   "status": "REVIEW",
-  "startedAt": "2026-05-24T21:26:47.118Z",
+  "startedAt": "2026-05-24T21:34:45.757Z",
   "baseUrl": "https://jus-tice.co.il",
   "rows": [
     {
@@ -10,7 +10,7 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 130233,
-      "durationMs": 3421,
+      "durationMs": 1904,
       "evidence": "Missing: homepage-lawyer-revenue__account-steps",
       "ownerAction": "Open homepage and point to lawyer plans, registration and private-area links."
     },
@@ -21,8 +21,8 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 67422,
-      "durationMs": 3314,
-      "evidence": "Missing: lawyer-plans-market-proof",
+      "durationMs": 1675,
+      "evidence": "Missing: lawyer-plans-market-proof | lawyer-plans-market-proof__signup-stages",
       "ownerAction": "Choose Lead Partner and explain this is the compliant fallback until Grow recurring approval lands."
     },
     {
@@ -32,8 +32,8 @@
       "status": "PASS",
       "http": 200,
       "bytes": 80539,
-      "durationMs": 4227,
-      "evidence": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&investor_demo_check=1779658007139",
+      "durationMs": 1622,
+      "evidence": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&investor_demo_check=1779658485833",
       "ownerAction": "Show required fields, terms approval and policy links for Grow review."
     },
     {
@@ -43,8 +43,8 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 69595,
-      "durationMs": 4243,
-      "evidence": "Missing: lawyer-registration-account-path",
+      "durationMs": 1714,
+      "evidence": "Missing: lawyer-registration-account-path | lawyer-registration-account-path__fields",
       "ownerAction": "Use this route to show how a medical-malpractice lawyer arrives with billing context already carried forward."
     },
     {
@@ -54,8 +54,8 @@
       "status": "PASS",
       "http": 200,
       "bytes": 57762,
-      "durationMs": 4353,
-      "evidence": "https://jus-tice.co.il/lawyer-dashboard/?investor_demo_check=1779658007139",
+      "durationMs": 1773,
+      "evidence": "https://jus-tice.co.il/lawyer-dashboard/?investor_demo_check=1779658485833",
       "ownerAction": "If not logged in, show that the private area pushes lawyers back to subscription onboarding."
     },
     {
@@ -65,8 +65,8 @@
       "status": "PASS",
       "http": 200,
       "bytes": 96561,
-      "durationMs": 143,
-      "evidence": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-3.css?investor_demo_check=1779658007139",
+      "durationMs": 120,
+      "evidence": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-3.css?investor_demo_check=1779658485833",
       "ownerAction": "Use a claimed lawyer account to submit one refund/cancel/complaint ticket."
     },
     {
@@ -76,8 +76,8 @@
       "status": "PASS",
       "http": 200,
       "bytes": 80270,
-      "durationMs": 4232,
-      "evidence": "https://jus-tice.co.il/sample-terms-and-conditions-template/?investor_demo_check=1779658007139",
+      "durationMs": 1674,
+      "evidence": "https://jus-tice.co.il/sample-terms-and-conditions-template/?investor_demo_check=1779658485833",
       "ownerAction": "Show business identity, contact details, cancellation and privacy links if the investor asks about payment approval."
     },
     {
@@ -98,7 +98,7 @@
       "status": "PASS",
       "http": "-",
       "bytes": 39974,
-      "durationMs": 15,
+      "durationMs": 11,
       "evidence": "inc/lawyer-dashboard.php",
       "ownerAction": "After a controlled demo lead exists, update its stage and add a short call result note from the lawyer dashboard."
     },
@@ -109,7 +109,7 @@
       "status": "PASS",
       "http": "-",
       "bytes": 54639,
-      "durationMs": 33,
+      "durationMs": 44,
       "evidence": "inc/lead-crm.php",
       "ownerAction": "Open Justice CRM or the lead edit screen after the lawyer updates a demo lead and show the owner-visible report."
     },
@@ -120,7 +120,7 @@
       "status": "PASS",
       "http": "-",
       "bytes": 78059,
-      "durationMs": 29,
+      "durationMs": 18,
       "evidence": "page-lawyer-dashboard.php",
       "ownerAction": "Open the claimed demo lawyer dashboard and show the request form."
     },
@@ -131,7 +131,7 @@
       "status": "PASS",
       "http": "-",
       "bytes": 183549,
-      "durationMs": 41,
+      "durationMs": 28,
       "evidence": "inc/lawyer-onboarding.php",
       "ownerAction": "Open Lawyer Onboarding with service_request_status=pending after a controlled request is submitted."
     },
@@ -142,7 +142,7 @@
       "status": "PASS",
       "http": "-",
       "bytes": 183549,
-      "durationMs": 55,
+      "durationMs": 41,
       "evidence": "inc/lawyer-onboarding.php",
       "ownerAction": "Open Lawyer Onboarding and use the dark investor demo panel as the morning run order."
     },
@@ -153,7 +153,7 @@
       "status": "PASS",
       "http": "-",
       "bytes": 9034,
-      "durationMs": 42,
+      "durationMs": 41,
       "evidence": "project-control/investor-demo-emergency-test-matrix-2026-05-24.md",
       "ownerAction": "Use the matrix as the rehearsal order and keep blockers explicit."
     },

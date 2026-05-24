@@ -1,6 +1,6 @@
 /* ============================================================
    JUS-TICE PREMIUM PASS 4 — SURGICAL VISUAL POLISH
-   Version: 4.3.3 | 2026-05-25
+   Version: 4.3.4 | 2026-05-25
    ============================================================ */
 
 /* ── 1. LOGO POLISH + FASTER RED DOT ────────────────────── */
@@ -1090,16 +1090,59 @@
   flex-wrap: wrap;
   gap: 0.6rem;
 }
+.lawyer-plans-market-proof__signup-stages {
+  display: grid;
+  gap: 0.65rem;
+  border: 1px solid rgba(255,255,255,0.16);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
+  padding: 0.95rem;
+}
+.lawyer-plans-market-proof__signup-stages > strong {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.35;
+}
+.lawyer-plans-market-proof__signup-stages ol {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.55rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: market-signup-stage;
+}
+.lawyer-plans-market-proof__signup-stages li {
+  counter-increment: market-signup-stage;
+  min-height: 116px;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  background: rgba(7,21,47,0.26);
+  padding: 0.8rem;
+  color: rgba(255,255,255,0.82);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+.lawyer-plans-market-proof__signup-stages li::before {
+  content: counter(market-signup-stage, decimal-leading-zero);
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #fde68a;
+  font-size: 0.72rem;
+  font-weight: 900;
+}
 .lawyer-plans-market-proof__actions .button {
   min-height: 44px;
   display: inline-flex;
   align-items: center;
 }
 @media (max-width: 860px) {
-  .lawyer-plans-market-proof__grid {
+  .lawyer-plans-market-proof__grid,
+  .lawyer-plans-market-proof__signup-stages ol {
     grid-template-columns: 1fr;
   }
-  .lawyer-plans-market-proof__grid article {
+  .lawyer-plans-market-proof__grid article,
+  .lawyer-plans-market-proof__signup-stages li {
     min-height: 0;
   }
 }
@@ -1180,6 +1223,22 @@
   color: var(--jt-muted, #6b7280);
   font-size: 0.84rem;
   line-height: 1.55;
+}
+.lawyer-registration-account-path__fields {
+  grid-column: 1 / -1;
+  display: grid;
+  gap: 0.3rem;
+  border: 1px solid rgba(178,58,72,0.16);
+  border-radius: 8px;
+  background: rgba(178,58,72,0.04);
+  padding: 0.85rem;
+}
+.lawyer-registration-account-path__fields strong {
+  color: var(--jt-primary-deep, #07152f);
+}
+.lawyer-registration-account-path__fields p {
+  color: var(--jt-muted, #6b7280);
+  font-size: 0.9rem;
 }
 @media (max-width: 920px) {
   .lawyer-registration-account-path,

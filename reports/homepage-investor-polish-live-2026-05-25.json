@@ -1,8 +1,8 @@
 {
-  "startedAt": "2026-05-24T21:26:47.119Z",
+  "startedAt": "2026-05-24T21:34:45.833Z",
   "runDate": "2026-05-25",
   "baseUrl": "https://jus-tice.co.il",
-  "expectedMarker": "2026-05-25-lawyer-account-opening-polish-v1",
+  "expectedMarker": "2026-05-25-competitor-signup-funnel-v1",
   "passCount": 0,
   "reviewCount": 4,
   "results": [
@@ -12,11 +12,11 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 130240,
-      "durationMs": 3429,
-      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779658007119",
-      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779658007119",
+      "durationMs": 1924,
+      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779658485833",
+      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779658485833",
       "missing": [
-        "2026-05-25-lawyer-account-opening-polish-v1"
+        "2026-05-25-competitor-signup-funnel-v1"
       ]
     },
     {
@@ -25,9 +25,9 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 130240,
-      "durationMs": 1783,
-      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779658007119",
-      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779658007119",
+      "durationMs": 1658,
+      "url": "https://jus-tice.co.il/?homepage_investor_polish_check=1779658485833",
+      "finalUrl": "https://jus-tice.co.il/?homepage_investor_polish_check=1779658485833",
       "missing": [
         "homepage-lawyer-revenue__account-steps"
       ]
@@ -38,12 +38,12 @@
       "status": "REVIEW",
       "http": 200,
       "bytes": 192,
-      "durationMs": 10,
-      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779658007119",
-      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779658007119",
+      "durationMs": 11,
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779658485833",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=1779658485833",
       "missing": [
-        "justice-theme-deployment-marker=2026-05-25-lawyer-account-opening-polish-v1",
-        "expected-github-main-commit=lawyer-account-opening-polish-v1"
+        "justice-theme-deployment-marker=2026-05-25-competitor-signup-funnel-v1",
+        "expected-github-main-commit=competitor-signup-funnel-v1"
       ]
     },
     {
@@ -53,10 +53,10 @@
       "http": 200,
       "bytes": 38529,
       "durationMs": 11,
-      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779658007119",
-      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779658007119",
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779658485833",
+      "finalUrl": "https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=1779658485833",
       "missing": [
-        "Version: 4.3.3",
+        "Version: 4.3.4",
         ".homepage-lawyer-revenue__account-steps"
       ]
     }

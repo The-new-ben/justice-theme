@@ -211,6 +211,10 @@ $registration_prefill_billing_invoice_address = $registration_request_text( 'bil
 						<span><?php esc_html_e( 'באזור האישי מנהלים פניות, סטטוס טיפול, בקשות שירות, שדרוג, ביטול, החזר וחשבוניות.', 'justice-theme' ); ?></span>
 					</li>
 				</ol>
+				<div class="lawyer-registration-account-path__fields">
+					<strong><?php esc_html_e( 'מה חשוב להשלים כבר עכשיו?', 'justice-theme' ); ?></strong>
+					<p><?php esc_html_e( 'שם משרד, אימייל שמקבל פניות, טלפון נייד לאימות, תחומי התמחות, עיר/אזור שירות ופרטי חשבונית. אלה השדות שמאפשרים להפוך הרשמה לחשבון שניתן להפעיל, למדוד ולחייב בצורה מסודרת.', 'justice-theme' ); ?></p>
+				</div>
 			</section>
 
 			<form class="lawyer-registration-form" method="post" enctype="multipart/form-data" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">

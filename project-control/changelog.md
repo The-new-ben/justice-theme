@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Competitor signup funnel v1
+
+- INSPECTED: public signup/marketing paths for din.co.il, psakdin.co.il and lawreviews.co.il.
+- ADDED: `lawyer-plans-market-proof__signup-stages` to make the lawyer plan page show a concrete account-opening path based on competitor patterns.
+- ADDED: `lawyer-registration-account-path__fields` to explain the operational reason for registration fields.
+- UPDATED: `assets/css/premium-pass-4.css`, `inc/enqueue.php`, `functions.php`, `deployment-marker.txt`, and checker scripts.
+- DOCUMENTED: honest public-stage audit in `project-control/competitor-signup-funnel-audit-2026-05-25.md`.
+- SAFETY: repo-only code/docs/checker changes; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Lawyer account opening polish v1
 
 - ADDED: competitor-informed account-opening story across homepage, lawyer plans and lawyer registration.

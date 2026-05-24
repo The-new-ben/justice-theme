@@ -191,6 +191,28 @@ $registration_prefill_billing_invoice_address = $registration_request_text( 'bil
 				</section>
 			<?php endif; ?>
 
+			<section class="lawyer-registration-account-path" aria-labelledby="lawyer-registration-account-path-title">
+				<div>
+					<p class="section-header__eyebrow"><?php esc_html_e( 'פתיחת חשבון עסקי', 'justice-theme' ); ?></p>
+					<h3 id="lawyer-registration-account-path-title"><?php esc_html_e( 'מה נפתח לעורך הדין אחרי שליחת הפרטים?', 'justice-theme' ); ?></h3>
+					<p><?php esc_html_e( 'הטופס הוא תחילת חשבון מנוהל: פרופיל לבדיקה, משתמש לאזור האישי, מסלול תשלום, חומרי אמון, ותשתית לפניות שאפשר למדוד ולנהל.', 'justice-theme' ); ?></p>
+				</div>
+				<ol>
+					<li>
+						<strong><?php esc_html_e( 'חשבון ודאשבורד', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'נשלח קישור להגדרת סיסמה והפרופיל נקשר למשתמש של עורך הדין.', 'justice-theme' ); ?></span>
+					</li>
+					<li>
+						<strong><?php esc_html_e( 'בדיקת התאמה ותשלום', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'מסלול בתשלום מופעל רק אחרי בדיקת רישיון, תחום, זמינות וקישור תשלום או חשבונית אמיתיים.', 'justice-theme' ); ?></span>
+					</li>
+					<li>
+						<strong><?php esc_html_e( 'פניות, שירות ודוח ערך', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'באזור האישי מנהלים פניות, סטטוס טיפול, בקשות שירות, שדרוג, ביטול, החזר וחשבוניות.', 'justice-theme' ); ?></span>
+					</li>
+				</ol>
+			</section>
+
 			<form class="lawyer-registration-form" method="post" enctype="multipart/form-data" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="justice_lawyer_registration">
 				<input type="hidden" name="payment_path" value="<?php echo esc_attr( 'manual_invoice' === $selected_payment_path ? 'manual_invoice' : '' ); ?>">

@@ -1,3 +1,16 @@
+# LATEST WORK STATUS - 2026-05-25 00:58 Asia/Jerusalem
+- LAWYER ACCOUNT OPENING POLISH V1: sharpened the public lawyer acquisition path around account opening, discoverability, trust profile, measurable leads, dashboard value, payment handoff and lifecycle service.
+- RESEARCH BASIS: current lawyer-index and legal-marketing pages sell intent-time visibility, complete attorney profiles, reviews/trust signals, qualified leads and marketing ROI; current Israeli digital-payment materials sell fast payment links, flexible payment methods and recurring-payment readiness. The site copy now adapts those patterns without copying competitor text verbatim.
+- UPDATED: `template-parts/sections/homepage-lawyer-revenue-strip.php` adds a four-step account-opening path directly on the homepage revenue strip.
+- UPDATED: `page-lawyer-plans.php` adds `lawyer-plans-market-proof`, explaining why Jus-Tice is more than a listing card: it is visibility, trust, measured leads and follow-up.
+- UPDATED: `page-lawyer-registration.php` adds `lawyer-registration-account-path` before the form so registration feels like a managed business account, not a loose contact form.
+- UPDATED: `assets/css/premium-pass-4.css` and `inc/enqueue.php` move the polish asset to version `4.3.3`.
+- UPDATED: `functions.php`, `deployment-marker.txt`, and live checkers now expect marker `2026-05-25-lawyer-account-opening-polish-v1`.
+- VERIFIED LOCAL: PHP syntax passed for touched templates and `functions.php`; Node syntax passed for affected checkers; live checkers correctly show REVIEW for the new tokens because production has not pulled this commit yet.
+- STILL BLOCKED: uPress Pull Git/cache refresh is required after push before the new public polish appears live; claimed demo lawyer, assigned medical-malpractice lead, real recurring charge, automatic branded invoice and real refund execution remain outside the repo and must not be faked.
+- COMPLETION: public lawyer conversion story moved from about 85% to about 92% locally; full live investor demo readiness remains about 78% until uPress pull, demo data and provider/payment proof are completed.
+- SAFETY: repo-only theme/template/CSS/checker/report changes; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 00:45 Asia/Jerusalem
 - POST-PUSH LIVE RECHECK: refreshed the May 25 investor readiness reports after commit `b9604e3`.
 - VERIFIED LIVE: homepage lawyer entrypoints, paid plan routing, checkout compliance, registration prefill, logged-out dashboard gate, service desk CSS and Grow policy pages are still passing on production.

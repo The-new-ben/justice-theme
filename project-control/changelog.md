@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer account opening polish v1
+
+- ADDED: competitor-informed account-opening story across homepage, lawyer plans and lawyer registration.
+- UPDATED: `template-parts/sections/homepage-lawyer-revenue-strip.php`, `page-lawyer-plans.php`, `page-lawyer-registration.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`, `functions.php`, `deployment-marker.txt`, and live checker scripts.
+- RESEARCH BASIS: lawyer directories and legal-marketing providers emphasize intent-time visibility, complete profiles, trust signals, qualified leads, ROI and managed follow-up; payment providers emphasize easy payment links and flexible payment methods.
+- VERIFIED LOCAL: PHP syntax passed for touched PHP files; Node syntax passed for checker scripts; live checks correctly show REVIEW for the new public tokens until uPress pulls this commit.
+- BLOCKED: requires push plus uPress Pull Git/cache refresh before it is live; full demo still needs claimed lawyer, assigned medical-malpractice lead and real provider-approved payment/invoice/refund proof.
+- SAFETY: repo code/CSS/checker/reports only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Post-push live report refresh
 
 - REFRESHED: May 25 homepage investor polish and investor demo readiness reports after commit `b9604e3`.

@@ -27,6 +27,7 @@ const liveChecks = [
 		required: [
 			'hero__lawyer-access',
 			'homepage-lawyer-revenue',
+			'homepage-lawyer-revenue__account-steps',
 			'homepage-lawyer-revenue__mini-dashboard',
 			'/lawyer-plans/',
 			'/lawyer-registration/',
@@ -43,6 +44,7 @@ const liveChecks = [
 		required: [
 			'/checkout/',
 			'lawyer-plans-next-steps',
+			'lawyer-plans-market-proof',
 			'plan_interest=lead_partner',
 			'payment_path=manual_invoice',
 			'utm_source=lawyer_plans',
@@ -73,6 +75,7 @@ const liveChecks = [
 		url: `/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice&billing_first_name=Investor&billing_last_name=Demo&billing_phone=0501234567&billing_email=investor-demo@example.com&billing_legal_name=Demo+Medical+Law+Ltd&billing_business_id=123456789&billing_invoice_email=billing-demo@example.com&billing_invoice_address=Tel+Aviv&investor_demo_check=${ CACHE_BUST }`,
 		required: [
 			'lawyer-registration-form',
+			'lawyer-registration-account-path',
 			'lawyer-registration-billing-fields',
 			'name="payment_path" value="manual_invoice"',
 			'name="plan_interest"',

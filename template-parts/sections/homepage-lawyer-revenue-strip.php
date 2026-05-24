@@ -58,14 +58,26 @@ $signals = array(
 		'value' => __( 'קישור תשלום אמיתי והפעלה לאחר אישור', 'justice-theme' ),
 	),
 );
+
+$account_steps = array(
+	__( 'פותחים חשבון', 'justice-theme' ),
+	__( 'משלימים פרופיל', 'justice-theme' ),
+	__( 'מקבלים פניות מדידות', 'justice-theme' ),
+	__( 'מנהלים שירות ותשלום', 'justice-theme' ),
+);
 ?>
 
 <section class="homepage-lawyer-revenue" aria-labelledby="homepage-lawyer-revenue-title">
 	<div class="container homepage-lawyer-revenue__inner">
 		<div class="homepage-lawyer-revenue__copy">
 			<p class="homepage-lawyer-revenue__eyebrow"><?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?></p>
-			<h2 id="homepage-lawyer-revenue-title"><?php esc_html_e( 'אזור אישי, מסלולי הצטרפות ופניות במקום אחד', 'justice-theme' ); ?></h2>
-			<p><?php esc_html_e( 'Jus-Tice נבנה כמערכת עסקית לעורכי דין: פרופיל מקצועי, פניות לקוחות, מעקב שירות ותהליך תשלום מבוקר. ההצטרפות עוברת בדיקה לפני הפעלה כדי לשמור על אמון, איכות והתאמה לתחום.', 'justice-theme' ); ?></p>
+			<h2 id="homepage-lawyer-revenue-title"><?php esc_html_e( 'לקוחות מחפשים עורך דין עכשיו. תנו להם למצוא חשבון מקצועי, לא רק שם ברשימה.', 'justice-theme' ); ?></h2>
+			<p><?php esc_html_e( 'Jus-Tice מחבר בין חשיפה, פרופיל עשיר, פניות מדידות ואזור אישי לעורך הדין. ההצטרפות מתחילה בבדיקת התאמה, ממשיכה בקישור תשלום אמיתי או חשבונית ידנית, ונפתחת לדאשבורד שמרכז פניות, תוכן, שירות ומעקב ערך.', 'justice-theme' ); ?></p>
+			<ol class="homepage-lawyer-revenue__account-steps" aria-label="<?php esc_attr_e( 'מסלול פתיחת חשבון לעורך דין', 'justice-theme' ); ?>">
+				<?php foreach ( $account_steps as $step ) : ?>
+					<li><?php echo esc_html( $step ); ?></li>
+				<?php endforeach; ?>
+			</ol>
 		</div>
 
 		<div class="homepage-lawyer-revenue__proof">

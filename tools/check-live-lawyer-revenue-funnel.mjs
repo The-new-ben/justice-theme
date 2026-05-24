@@ -26,6 +26,7 @@ const checks = [
 			'/lawyer-plans/',
 			'/lawyer-registration/',
 			'/lawyer-dashboard/',
+			'homepage-lawyer-revenue__account-steps',
 			'מסלולים לעורכי דין',
 			'אזור אישי',
 			'utm_source=site_header',
@@ -39,6 +40,7 @@ const checks = [
 		type: 'page',
 		required: [
 			'lawyer-plans-hero',
+			'lawyer-plans-market-proof',
 			'lawyer-plans-next-steps',
 			'lawyer-plan-card',
 			'/checkout/',
@@ -117,6 +119,7 @@ const checks = [
 		type: 'page',
 		required: [
 			'lawyer-registration-form',
+			'lawyer-registration-account-path',
 			'lawyer-registration-plan-context',
 			'lawyer-registration-billing-fields',
 			'name="payment_path" value="manual_invoice"',

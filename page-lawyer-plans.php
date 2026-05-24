@@ -146,6 +146,35 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 			</div>
 		</section>
 
+		<section class="lawyer-plans-market-proof" aria-labelledby="lawyer-plans-market-proof-title">
+			<div class="lawyer-plans-market-proof__intro">
+				<p class="section-header__eyebrow"><?php esc_html_e( 'מה למדנו מאינדקסים ושירותי שיווק לעורכי דין', 'justice-theme' ); ?></p>
+				<h2 id="lawyer-plans-market-proof-title"><?php esc_html_e( 'עורכי דין לא קונים עוד כרטיס. הם קונים מערכת שמביאה אותם לשיחת לקוח.', 'justice-theme' ); ?></h2>
+				<p><?php esc_html_e( 'המסר שעובד אצל פלטפורמות מובילות פשוט: להופיע מול אנשים שמחפשים עורך דין עכשיו, לבנות אמון דרך פרופיל מלא, לאפשר יצירת קשר קלה, למדוד מה עובד, ולהראות שהחשבון מנוהל אחרי ההרשמה. Jus-Tice לוקחת את זה לשוק הישראלי עם מסלול מבוקר, פניות מתועדות ואזור אישי.', 'justice-theme' ); ?></p>
+			</div>
+			<div class="lawyer-plans-market-proof__grid">
+				<article>
+					<span><?php esc_html_e( 'נראות בזמן כוונה', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'לא רק להיות באינדקס', 'justice-theme' ); ?></strong>
+					<p><?php esc_html_e( 'הפרופיל נבנה סביב תחום, עיר, זמינות ותוכן שמסביר למה הלקוח צריך לפנות דווקא עכשיו.', 'justice-theme' ); ?></p>
+				</article>
+				<article>
+					<span><?php esc_html_e( 'פרופיל שמוכר אמון', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'תמונה, שירותים, תהליך, שאלות ותוכן', 'justice-theme' ); ?></strong>
+					<p><?php esc_html_e( 'ככל שהחשבון מלא יותר, קל יותר להפוך חיפוש אנונימי לפנייה עם הקשר משפטי ברור.', 'justice-theme' ); ?></p>
+				</article>
+				<article>
+					<span><?php esc_html_e( 'ניהול אחרי הפנייה', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'דאשבורד, סטטוס, WhatsApp ודוח ערך', 'justice-theme' ); ?></strong>
+					<p><?php esc_html_e( 'המערכת לא עוצרת בליד. עורך הדין רואה מה פתוח, מה טופל, מה דווח ומה צריך שירות או שינוי מסלול.', 'justice-theme' ); ?></p>
+				</article>
+			</div>
+			<div class="lawyer-plans-market-proof__actions">
+				<a class="button button--gold" href="<?php echo esc_url( $plan_checkout_url( 'lead_partner', 'market_proof_primary' ) ); ?>"><?php esc_html_e( 'פתיחת חשבון שותף לידים', 'justice-theme' ); ?></a>
+				<a class="button button--outline" href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-dashboard/' ) ) ); ?>"><?php esc_html_e( 'כניסה לאזור האישי', 'justice-theme' ); ?></a>
+			</div>
+		</section>
+
 		<section class="lawyer-plans-next-steps" aria-labelledby="lawyer-plans-next-steps-title">
 			<div>
 				<p class="section-header__eyebrow"><?php esc_html_e( 'מה קורה אחרי בחירת מסלול', 'justice-theme' ); ?></p>

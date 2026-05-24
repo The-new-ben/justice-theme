@@ -1,6 +1,6 @@
 const BASE_URL = 'https://jus-tice.co.il';
 const TIME_ZONE = 'Asia/Jerusalem';
-const EXPECTED_MARKER = '2026-05-25-owner-demo-payment-playbook-v1';
+const EXPECTED_MARKER = '2026-05-25-lawyer-account-opening-polish-v1';
 
 function datedFilePart() {
 	const parts = new Intl.DateTimeFormat( 'en-CA', {
@@ -138,6 +138,7 @@ const checks = [
 		required: [
 			'hero__lawyer-access',
 			'homepage-lawyer-revenue',
+			'homepage-lawyer-revenue__account-steps',
 			'homepage-lawyer-revenue__mini-dashboard',
 			'/lawyer-registration/',
 			'/lawyer-plans/',
@@ -151,7 +152,7 @@ const checks = [
 		url: `/wp-content/themes/justice-theme/deployment-marker.txt?homepage_investor_polish_check=${ CACHE_BUST }`,
 		required: [
 			`justice-theme-deployment-marker=${ EXPECTED_MARKER }`,
-			'expected-github-main-commit=owner-demo-payment-playbook-v1',
+			'expected-github-main-commit=lawyer-account-opening-polish-v1',
 		],
 	},
 	{
@@ -159,9 +160,10 @@ const checks = [
 		name: 'Premium polish CSS version is deployed',
 		url: `/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=${ CACHE_BUST }`,
 		required: [
-			'Version: 4.3.2',
+			'Version: 4.3.3',
 			'.hero__lawyer-access',
 			'.homepage-lawyer-revenue',
+			'.homepage-lawyer-revenue__account-steps',
 			'.homepage-lawyer-revenue__mini-dashboard',
 			'.homepage-lawyer-revenue__login',
 		],

@@ -82,6 +82,21 @@ const checks = [
 		],
 	},
 	{
+		id: 'registration-paid-manual-form-state',
+		name: 'Registration form preserves paid manual-invoice plan state',
+		url: '/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice&utm_source=codex_check&utm_medium=live_funnel&utm_campaign=lawyer_acquisition',
+		type: 'page',
+		required: [
+			'lawyer-registration-form',
+			'lawyer-registration-plan-context',
+			'name="payment_path" value="manual_invoice"',
+			'name="plan_interest"',
+			'data-selected-plan="lead_partner"',
+			'value="lead_partner" selected=\'selected\'',
+			'לא יתבצע חיוב אוטומטי',
+		],
+	},
+	{
 		id: 'dashboard-gate-paid-lawyer-path',
 		name: 'Logged-out dashboard gate offers paid-lawyer path',
 		url: '/lawyer-dashboard/?codex_check=lawyer_revenue_funnel',
@@ -243,7 +258,7 @@ function toMarkdown( results ) {
 		'## Owner Meaning',
 		'',
 		reviewCount === 0
-			? 'The public lawyer revenue path is currently wired: lawyers can find the paid-plan area, paid intent is routed to manual invoice activation, the post-registration handoff avoids fake automatic-charge language, the dashboard gate exposes the next revenue step, and tracking assets are present.'
+			? 'The public lawyer revenue path is currently wired: lawyers can find the paid-plan area, paid intent is routed to manual invoice activation, the paid registration form preserves manual-invoice plan state, the post-registration handoff avoids fake automatic-charge language, the dashboard gate exposes the next revenue step, and tracking assets are present.'
 			: 'At least one public lawyer revenue path marker was missing or unexpected. Review the table before relying on the live funnel for outreach.',
 		'',
 		'## Rerun',

@@ -239,11 +239,11 @@ $registration_login_url     = wp_login_url( $registration_dashboard_url );
 					<label>
 						<span><?php esc_html_e( 'מסלול שמעניין אותך', 'justice-theme' ); ?></span>
 						<select name="plan_interest" data-selected-plan="<?php echo esc_attr( $selected_plan_interest ); ?>">
-							<option value="free"><?php esc_html_e( 'פרופיל בסיסי', 'justice-theme' ); ?></option>
-							<option value="pro"><?php esc_html_e( 'מיני-סייט מקצועי', 'justice-theme' ); ?></option>
-							<option value="featured"><?php esc_html_e( 'חשיפה מוגברת', 'justice-theme' ); ?></option>
-							<option value="lead_partner"><?php esc_html_e( 'שיתוף לידים', 'justice-theme' ); ?></option>
-							<option value="full_service"><?php esc_html_e( 'שירות מלא', 'justice-theme' ); ?></option>
+							<option value="free"<?php selected( $selected_plan_interest, 'free' ); ?>><?php esc_html_e( 'פרופיל בסיסי', 'justice-theme' ); ?></option>
+							<option value="pro"<?php selected( $selected_plan_interest, 'pro' ); ?>><?php esc_html_e( 'מיני-סייט מקצועי', 'justice-theme' ); ?></option>
+							<option value="featured"<?php selected( $selected_plan_interest, 'featured' ); ?>><?php esc_html_e( 'חשיפה מוגברת', 'justice-theme' ); ?></option>
+							<option value="lead_partner"<?php selected( $selected_plan_interest, 'lead_partner' ); ?>><?php esc_html_e( 'שיתוף לידים', 'justice-theme' ); ?></option>
+							<option value="full_service"<?php selected( $selected_plan_interest, 'full_service' ); ?>><?php esc_html_e( 'שירות מלא', 'justice-theme' ); ?></option>
 						</select>
 					</label>
 					<label>

@@ -1469,6 +1469,7 @@ function justice_theme_export_lawyer_payment_queue(): void {
 		'payment_cancelled_at',
 		'admin_edit_url',
 		'next_action',
+		'invoice_handoff_context',
 		'invoice_handoff_message',
 	) );
 
@@ -1514,6 +1515,7 @@ function justice_theme_export_lawyer_payment_queue(): void {
 			get_post_meta( $post_id, 'payment_cancelled_at', true ),
 			get_edit_post_link( $post_id, '' ),
 			justice_theme_lawyer_payment_export_next_action( $payment_path, $followup_status, $activation_status ),
+			justice_theme_lawyer_manual_invoice_context( $post_id ),
 			justice_theme_lawyer_manual_invoice_message( $post_id ),
 		);
 
@@ -1525,6 +1527,36 @@ function justice_theme_export_lawyer_payment_queue(): void {
 	exit;
 }
 add_action( 'admin_post_justice_export_lawyer_payment_queue', 'justice_theme_export_lawyer_payment_queue' );
+
+function justice_theme_lawyer_manual_invoice_context( int $post_id ): string {
+	$payment_path     = (string) get_post_meta( $post_id, 'payment_path', true );
+	$followup_status  = (string) get_post_meta( $post_id, 'payment_followup_status', true );
+	$inactive_statuses = array( 'payment_confirmed', 'payment_cancelled' );
+
+	if ( 'manual_invoice' !== $payment_path || in_array( $followup_status, $inactive_statuses, true ) ) {
+		return '';
+	}
+
+	$plan_key         = (string) get_post_meta( $post_id, 'plan_type', true );
+	$plan_label       = wp_strip_all_tags( justice_theme_lawyer_onboarding_plan_label( $plan_key ) );
+	$expected_monthly = justice_theme_lawyer_outreach_expected_monthly_nis( $plan_key );
+	$due_at           = (string) get_post_meta( $post_id, 'payment_followup_due_at', true );
+	$due_label        = justice_theme_lawyer_payment_due_status_label( $due_at );
+	$activation       = (string) get_post_meta( $post_id, 'activation_status', true );
+	$pieces           = array(
+		'Plan: ' . ( $plan_label ?: $plan_key ?: '-' ),
+		'Expected: ' . number_format_i18n( $expected_monthly ) . ' NIS/mo',
+		'Annual: ' . number_format_i18n( $expected_monthly * 12 ) . ' NIS',
+		'Payment status: ' . ( $followup_status ?: 'invoice_requested' ),
+		'Activation: ' . ( $activation ?: 'registered' ),
+	);
+
+	if ( $due_at ) {
+		$pieces[] = 'Due: ' . $due_at . ' (' . $due_label . ')';
+	}
+
+	return implode( ' | ', $pieces );
+}
 
 function justice_theme_lawyer_manual_invoice_message( int $post_id ): string {
 	$payment_path     = (string) get_post_meta( $post_id, 'payment_path', true );
@@ -2678,6 +2710,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$payment_blocked_at   = (string) get_post_meta( $post_id, 'payment_blocked_at', true );
 						$payment_cancelled_at = (string) get_post_meta( $post_id, 'payment_cancelled_at', true );
 						$payment_quick_actions = justice_theme_lawyer_payment_followup_quick_actions( $payment_path, $payment_followup );
+						$payment_handoff_context = justice_theme_lawyer_manual_invoice_context( $post_id );
 						$payment_handoff_message = justice_theme_lawyer_manual_invoice_message( $post_id );
 						$has_pending_update = '1' === (string) get_post_meta( $post_id, 'pending_profile_review', true );
 						$has_pending_content = '1' === (string) get_post_meta( $post_id, 'pending_content_review', true );
@@ -2797,6 +2830,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 								<?php if ( $payment_handoff_message ) : ?>
 									<details style="margin-top:8px;">
 										<summary style="cursor:pointer;font-weight:600;">Copy invoice handoff</summary>
+										<?php if ( $payment_handoff_context ) : ?>
+											<small style="display:block;margin:6px 0;color:#475569;"><?php echo esc_html( $payment_handoff_context ); ?></small>
+										<?php endif; ?>
 										<textarea readonly rows="7" style="width:100%;margin-top:6px;font-size:12px;direction:rtl;"><?php echo esc_textarea( $payment_handoff_message ); ?></textarea>
 										<small style="display:block;color:#64748b;">Send after license/commercial review. This message does not charge or activate anyone.</small>
 									</details>

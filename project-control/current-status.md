@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-24 15:39 Asia/Jerusalem
+- MANUAL INVOICE HANDOFF CONTEXT: attached plan value, payment status, activation status and due timing to the owner-only copy-ready invoice handoff.
+- UPDATED: `inc/lawyer-onboarding.php` now builds `invoice_handoff_context` for manual-invoice lawyer registrations.
+- UPDATED: Lawyer Onboarding now shows the compact context line directly above the copy-ready invoice handoff textarea.
+- UPDATED: payment queue CSV exports now include `invoice_handoff_context` before `invoice_handoff_message`.
+- CREATED: `project-control/manual-invoice-handoff-context-2026-05-24.md`.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed.
+- SAFETY: admin-only visibility; no message send, invoice, payment, activation, public CMS record, public lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, CRM or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 15:29 Asia/Jerusalem
 - PAID REGISTRATION OWNER ALERT: made future paid lawyer registrations arrive as revenue-action emails, not generic pending-review notices.
 - UPDATED: `inc/lawyer-onboarding.php` now changes paid manual-invoice registration email subjects to include expected monthly value.

@@ -112,6 +112,51 @@
   .hero-search__actions button { padding: 1.2rem !important; width: 100%; border-radius: 12px !important; }
 }
 .hero__ctas { margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+.hero__lawyer-access {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  min-height: 42px;
+  margin-top: 0.85rem;
+  padding: 0.32rem;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.07);
+  color: rgba(255,255,255,0.84);
+  font-size: 0.86rem;
+  font-weight: 850;
+}
+.hero__lawyer-access span {
+  padding-inline: 0.42rem;
+  color: rgba(255,255,255,0.68);
+}
+.hero__lawyer-access a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 30px;
+  padding: 0.28rem 0.72rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+  text-decoration: none;
+}
+.hero__lawyer-access a:hover,
+.hero__lawyer-access a:focus-visible {
+  background: #fff;
+  color: var(--jt-primary-deep, #07152f);
+}
+@media (max-width: 520px) {
+  .hero__lawyer-access {
+    width: 100%;
+    border-radius: 14px;
+  }
+  .hero__lawyer-access a {
+    flex: 1 1 100%;
+    justify-content: center;
+  }
+}
 
 /* Hero panel chips */
 .hero__panel {

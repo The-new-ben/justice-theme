@@ -122,6 +122,12 @@ $hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
 				</a>
 			</div>
 
+			<div class="hero__lawyer-access" aria-label="<?php esc_attr_e( 'כניסה והצטרפות לעורכי דין', 'justice-theme' ); ?>">
+				<span><?php esc_html_e( 'לעורכי דין:', 'justice-theme' ); ?></span>
+				<a href="<?php echo esc_url( home_url( '/lawyer-dashboard/' ) ); ?>"><?php esc_html_e( 'כניסה לאזור האישי', 'justice-theme' ); ?></a>
+				<a href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>"><?php esc_html_e( 'מסלולי הצטרפות', 'justice-theme' ); ?></a>
+			</div>
+
 			<div class="hero__stats">
 				<?php
 				$total_articles = wp_count_posts( 'articles' );

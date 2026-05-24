@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-24 22:35 Asia/Jerusalem
+- HOMEPAGE LAWYER ACCESS RAIL: added direct lawyer private-area and plan-entry links inside the hero, immediately under the main visitor CTAs, so the investor can see both sides of the marketplace without hunting.
+- UPDATED: `template-parts/sections/hero.php` adds the visible `לעורכי דין` hero access rail with links to `/lawyer-dashboard/` and `/lawyer-plans/`.
+- UPDATED: `assets/css/premium-pass-4.css` adds responsive polished styling for the rail on desktop and mobile.
+- UPDATED: `tools/check-homepage-investor-polish-live.mjs` and `tools/check-investor-demo-readiness.mjs` so future gates expect the hero lawyer access rail, not only the lower revenue strip.
+- RESEARCH BASIS: current SaaS/conversion patterns emphasize clear above-the-fold next action, visible trust/commercial proof, and low-friction entry points; Israeli legal-directory competitors also surface lawyer/public routing on the homepage.
+- VERIFIED LOCAL: PHP lint passed for touched PHP files; Node syntax passed for both checker scripts; `git diff --check` passed with line-ending warnings only.
+- STILL BLOCKED: live site will not show this polish until GitHub push plus uPress Pull Git/cache refresh.
+- COMPLETION: homepage investor/commercial readiness moved from about 82% to about 86% locally; live completion remains blocked by deployment verification.
+- SAFETY: theme/template/CSS/checker changes only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 22:34 Asia/Jerusalem
 - HOMEPAGE INVESTOR POLISH V1: added a new above-the-fold-adjacent lawyer revenue strip after the customer intake strip so the homepage now shows lawyer signup, plans and private-area login as a clear commercial system.
 - UPDATED: `front-page.php` loads `template-parts/sections/homepage-lawyer-revenue-strip.php`.

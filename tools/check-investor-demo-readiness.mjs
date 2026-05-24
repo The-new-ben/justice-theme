@@ -25,6 +25,7 @@ const liveChecks = [
 		name: 'Public visitor can find lawyer revenue paths',
 		url: '/',
 		required: [
+			'hero__lawyer-access',
 			'homepage-lawyer-revenue',
 			'/lawyer-plans/',
 			'/lawyer-registration/',

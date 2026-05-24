@@ -136,6 +136,7 @@ const checks = [
 		name: 'Homepage lawyer revenue strip is visible',
 		url: `/?homepage_investor_polish_check=${ CACHE_BUST }`,
 		required: [
+			'hero__lawyer-access',
 			'homepage-lawyer-revenue',
 			'/lawyer-registration/',
 			'/lawyer-plans/',
@@ -158,6 +159,7 @@ const checks = [
 		url: `/wp-content/themes/justice-theme/assets/css/premium-pass-4.css?homepage_investor_polish_check=${ CACHE_BUST }`,
 		required: [
 			'Version: 4.3.2',
+			'.hero__lawyer-access',
 			'.homepage-lawyer-revenue',
 			'.homepage-lawyer-revenue__login',
 		],

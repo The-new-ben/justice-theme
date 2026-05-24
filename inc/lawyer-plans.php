@@ -156,14 +156,7 @@ function justice_theme_plan_checkout_url( string $plan_key ): string {
 	}
 
 	if ( 'free' !== $plan_key ) {
-		return add_query_arg(
-			array(
-				'plan_interest' => $plan_key,
-				'pre_checkout'  => '1',
-				'payment_path'  => 'manual_invoice',
-			),
-			home_url( '/checkout/' )
-		);
+		return justice_theme_plan_manual_activation_url( $plan_key );
 	}
 
 	return add_query_arg(

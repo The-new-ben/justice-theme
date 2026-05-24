@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-24 15:48 Asia/Jerusalem
+- GROW PAYMENT COMPLIANCE MONITOR: added a repeatable no-API live check for the exact payment-approval markers Grow failed.
+- CREATED: `tools/check-grow-payment-compliance.mjs`.
+- GENERATED: `reports/grow-payment-compliance-live-2026-05-24.json` and `reports/grow-payment-compliance-live-2026-05-24.csv`.
+- GENERATED: `project-control/grow-payment-compliance-live-2026-05-24.md` and `project-control/grow-payment-compliance-live-2026-05-24.csv`.
+- VERIFIED LIVE READ-ONLY: 8/8 checks passed for checkout existence, required customer fields, terms checkbox/link, paid lawyer plan checkout entrypoint, terms page, cancellation/supply page, privacy page and business contact signals.
+- OWNER VALUE: when Grow responds, rerun `node tools/check-grow-payment-compliance.mjs` to prove the public site still satisfies the rejected items before changing payment/gateway settings.
+- SAFETY: read-only public route checks and repo report files only; no CMS database write, content publishing, redirect/canonical/noindex/sitemap/taxonomy change, payment, invoice, charge, product, gateway, lawyer record, lead record, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 15:47 Asia/Jerusalem
 - GROW CHECKOUT ROUTING REPAIR: matched the latest Grow failure report to the paid-plan path and repaired the route that could bypass checkout.
 - FINDING: Grow passed the site's general policy/address/phone/cancellation/privacy/service checks, but failed checkout page, checkout terms checkbox and checkout terms-link checks.

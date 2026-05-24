@@ -1034,8 +1034,19 @@ function justice_theme_lawyer_activation_badge( string $status ): array {
 	return array( 'label' => $label, 'style' => 'background:#f1f5f9;color:#334155;' );
 }
 
+function justice_theme_lawyer_payment_followup_options(): array {
+	return array(
+		''                  => 'No manual payment state',
+		'invoice_requested' => 'Invoice requested',
+		'invoice_sent'      => 'Invoice sent',
+		'payment_confirmed' => 'Payment confirmed',
+		'payment_blocked'   => 'Payment blocked',
+		'payment_cancelled' => 'Payment cancelled',
+	);
+}
+
 function justice_theme_lawyer_payment_followup_badge( string $payment_path, string $followup_status ): array {
-	if ( 'manual_invoice' !== $payment_path ) {
+	if ( 'manual_invoice' !== $payment_path && '' === $followup_status ) {
 		return array(
 			'label' => 'No manual payment',
 			'note'  => 'Use normal checkout or free review path.',
@@ -1048,6 +1059,38 @@ function justice_theme_lawyer_payment_followup_badge( string $payment_path, stri
 			'label' => 'Invoice requested',
 			'note'  => 'Create/send Morning invoice, then activate after payment confirmation.',
 			'style' => 'background:#fef3c7;color:#92400e;',
+		);
+	}
+
+	if ( 'invoice_sent' === $followup_status ) {
+		return array(
+			'label' => 'Invoice sent',
+			'note'  => 'Chase payment confirmation and keep activation pending until paid.',
+			'style' => 'background:#e7f0ff;color:#16427a;',
+		);
+	}
+
+	if ( 'payment_confirmed' === $followup_status ) {
+		return array(
+			'label' => 'Payment confirmed',
+			'note'  => 'Move the lawyer toward profile activation and first value.',
+			'style' => 'background:#ecfdf3;color:#166534;',
+		);
+	}
+
+	if ( 'payment_blocked' === $followup_status ) {
+		return array(
+			'label' => 'Payment blocked',
+			'note'  => 'Resolve payment/account issue before activation.',
+			'style' => 'background:#fef2f2;color:#991b1b;',
+		);
+	}
+
+	if ( 'payment_cancelled' === $followup_status ) {
+		return array(
+			'label' => 'Payment cancelled',
+			'note'  => 'Do not activate paid benefits unless the owner reopens the deal.',
+			'style' => 'background:#f1f5f9;color:#334155;',
 		);
 	}
 
@@ -1097,6 +1140,15 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 			<?php echo esc_html( $payment_badge['label'] ); ?>
 		</span><br>
 		<small><?php echo esc_html( $payment_badge['note'] ); ?></small>
+	</p>
+	<p>
+		<label for="justice-payment-followup-status"><strong>Payment follow-up status</strong></label>
+		<select id="justice-payment-followup-status" name="payment_followup_status" style="width:100%;">
+			<?php foreach ( justice_theme_lawyer_payment_followup_options() as $value => $label ) : ?>
+				<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $payment_status, $value ); ?>><?php echo esc_html( $label ); ?></option>
+			<?php endforeach; ?>
+		</select>
+		<small>Use this to move manual invoice deals from requested to sent to paid. It is owner-only and never public.</small>
 	</p>
 	<p>
 		<strong>Lead response fit</strong><br>
@@ -1188,6 +1240,12 @@ function justice_theme_save_lawyer_activation( int $post_id ): void {
 	update_post_meta( $post_id, 'activation_status', $status );
 	update_post_meta( $post_id, 'first_value_at', isset( $_POST['first_value_at'] ) ? sanitize_text_field( wp_unslash( $_POST['first_value_at'] ) ) : '' );
 	update_post_meta( $post_id, 'activation_owner_note', isset( $_POST['activation_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['activation_owner_note'] ) ) : '' );
+
+	$payment_followup_status = isset( $_POST['payment_followup_status'] ) ? sanitize_key( wp_unslash( $_POST['payment_followup_status'] ) ) : '';
+	if ( ! array_key_exists( $payment_followup_status, justice_theme_lawyer_payment_followup_options() ) ) {
+		$payment_followup_status = '';
+	}
+	update_post_meta( $post_id, 'payment_followup_status', $payment_followup_status );
 }
 add_action( 'save_post_justice_lawyer', 'justice_theme_save_lawyer_activation' );
 
@@ -1665,6 +1723,18 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 			'value' => 'invoice_requested',
 		),
 	) );
+	$invoice_sent_count      = justice_theme_lawyer_onboarding_count_lawyers( array(
+		array(
+			'key'   => 'payment_followup_status',
+			'value' => 'invoice_sent',
+		),
+	) );
+	$payment_confirmed_count = justice_theme_lawyer_onboarding_count_lawyers( array(
+		array(
+			'key'   => 'payment_followup_status',
+			'value' => 'payment_confirmed',
+		),
+	) );
 	$manual_invoice_count    = justice_theme_lawyer_onboarding_count_lawyers( array(
 		array(
 			'key'   => 'payment_path',
@@ -1690,25 +1760,40 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 		),
 		admin_url( 'admin.php' )
 	);
+	$sent_url                = add_query_arg(
+		array(
+			'page'          => 'justice-lawyer-onboarding',
+			'payment_queue' => 'invoice_sent',
+		),
+		admin_url( 'admin.php' )
+	);
 	$all_url                 = admin_url( 'admin.php?page=justice-lawyer-onboarding' );
+	$next_money_title        = 'No invoice-ready paid registration is waiting';
+	$next_money_body         = 'The payment queue is clear. The next revenue move is focused lawyer outreach or improving the plan-to-registration path.';
+	$next_money_url          = $all_url;
+	$next_money_button       = 'Show all onboarding';
+
+	if ( $invoice_requested_count ) {
+		$next_money_title  = 'Send or chase manual invoices';
+		$next_money_body   = 'Open the invoice queue, verify the lawyer and plan, send Morning/Grow/manual payment instructions, then activate only after payment confirmation.';
+		$next_money_url    = $queue_url;
+		$next_money_button = 'Open invoice queue';
+	} elseif ( $invoice_sent_count ) {
+		$next_money_title  = 'Chase sent invoices';
+		$next_money_body   = 'These lawyers already received payment instructions. Follow up, confirm payment, then move them toward profile activation and first value.';
+		$next_money_url    = $sent_url;
+		$next_money_button = 'Open sent invoices';
+	}
 	?>
 	<div style="max-width:1200px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:18px 20px;margin:18px 0;">
 		<h2 style="margin-top:0;">Paid registration command center</h2>
 		<p style="margin-top:0;">Use this panel as the daily payment handoff while automatic recurring checkout is still pending. Every paid registration that cannot go through checkout should become a license review, invoice follow-up and activation decision.</p>
 		<div style="border:1px solid #f5d58c;background:#fffaf0;border-radius:8px;padding:16px;margin:16px 0;">
 			<p style="margin:0 0 6px;color:#92400e;font-weight:700;text-transform:uppercase;letter-spacing:.02em;">Next money action</p>
-			<h3 style="margin:0 0 6px;font-size:20px;"><?php echo $invoice_requested_count ? 'Send or chase manual invoices' : 'No invoice-ready paid registration is waiting'; ?></h3>
-			<p style="margin:0 0 12px;max-width:820px;">
-				<?php
-				echo esc_html(
-					$invoice_requested_count
-						? 'Open the invoice queue, verify the lawyer and plan, send Morning/Grow/manual payment instructions, then activate only after payment confirmation.'
-						: 'The payment queue is clear. The next revenue move is focused lawyer outreach or improving the plan-to-registration path.'
-				);
-				?>
-			</p>
+			<h3 style="margin:0 0 6px;font-size:20px;"><?php echo esc_html( $next_money_title ); ?></h3>
+			<p style="margin:0 0 12px;max-width:820px;"><?php echo esc_html( $next_money_body ); ?></p>
 			<p style="margin:0;">
-				<a class="button button-primary" href="<?php echo esc_url( $queue_url ); ?>">Open invoice queue</a>
+				<a class="button button-primary" href="<?php echo esc_url( $next_money_url ); ?>"><?php echo esc_html( $next_money_button ); ?></a>
 				<a class="button" href="<?php echo esc_url( $all_url ); ?>">Show all onboarding</a>
 			</p>
 		</div>
@@ -1716,6 +1801,14 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 			<div style="border:1px solid #f5d58c;background:#fffaf0;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $invoice_requested_count ) ); ?></strong>
 				<span>Invoice requested</span>
+			</div>
+			<div style="border:1px solid #d6e4ff;background:#f7faff;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $invoice_sent_count ) ); ?></strong>
+				<span>Invoice sent</span>
+			</div>
+			<div style="border:1px solid #d4e8d4;background:#f7fff7;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $payment_confirmed_count ) ); ?></strong>
+				<span>Payment confirmed</span>
 			</div>
 			<div style="border:1px solid #e0d2ff;background:#fbf8ff;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $manual_invoice_count ) ); ?></strong>
@@ -1779,13 +1872,13 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	$payment_queue = isset( $_GET['payment_queue'] ) ? sanitize_key( wp_unslash( $_GET['payment_queue'] ) ) : '';
 	$meta_query    = $registration_review_meta_query;
 
-	if ( 'invoice_requested' === $payment_queue ) {
+	if ( in_array( $payment_queue, array( 'invoice_requested', 'invoice_sent', 'payment_confirmed', 'payment_blocked', 'payment_cancelled' ), true ) ) {
 		$meta_query = array(
 			'relation' => 'AND',
 			$registration_review_meta_query,
 			array(
 				'key'   => 'payment_followup_status',
-				'value' => 'invoice_requested',
+				'value' => $payment_queue,
 			),
 		);
 	}
@@ -1834,8 +1927,8 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php justice_theme_render_lawyer_onboarding_payment_command_center(); ?>
 		<?php justice_theme_render_lawyer_onboarding_sales_command_center(); ?>
 
-		<?php if ( 'invoice_requested' === $payment_queue ) : ?>
-			<div class="notice notice-info inline"><p>Showing only lawyer registrations that need manual invoice follow-up. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
+		<?php if ( $payment_queue ) : ?>
+			<div class="notice notice-info inline"><p>Showing only lawyer registrations with payment status: <?php echo esc_html( justice_theme_lawyer_payment_followup_options()[ $payment_queue ] ?? $payment_queue ); ?>. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
 		<?php endif; ?>
 
 		<?php if ( $pending->have_posts() ) : ?>

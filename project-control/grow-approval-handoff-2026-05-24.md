@@ -20,11 +20,12 @@ The site has been resubmitted to Grow after the checkout route repair, and the l
 
 ## Verification
 
-Pending:
+Completed:
 
 - `php -l inc/lawyer-plans.php`
 - `git diff --check`
-- uPress pull after commit/push because this is theme code used in WordPress admin.
+- Commit `32378a6` pushed to `origin/main`.
+- uPress Git pull log showed `Add Grow approval handoff card` as the live HEAD.
 
 ## Remaining blocker
 

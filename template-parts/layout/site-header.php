@@ -125,10 +125,12 @@ $justice_topic_links = array(
 
 			<div class="site-header__lawyer-actions" aria-label="<?php esc_attr_e( 'אזור עורכי דין', 'justice-theme' ); ?>">
 				<a class="site-header__lawyer-link site-header__lawyer-link--plans" href="<?php echo esc_url( $justice_lawyer_plans_url ); ?>">
-					<?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?>
+					<span class="site-header__lawyer-label-full"><?php esc_html_e( 'מסלולים לעורכי דין', 'justice-theme' ); ?></span>
+					<span class="site-header__lawyer-label-short"><?php esc_html_e( 'מסלולים', 'justice-theme' ); ?></span>
 				</a>
 				<a class="site-header__lawyer-link" href="<?php echo esc_url( $justice_lawyer_dashboard_url ); ?>">
-					<?php esc_html_e( 'כניסה', 'justice-theme' ); ?>
+					<span class="site-header__lawyer-label-full"><?php esc_html_e( 'אזור אישי', 'justice-theme' ); ?></span>
+					<span class="site-header__lawyer-label-short"><?php esc_html_e( 'כניסה', 'justice-theme' ); ?></span>
 				</a>
 			</div>
 

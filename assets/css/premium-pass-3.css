@@ -3684,6 +3684,10 @@
   border-color: #9f101a;
 }
 
+.site-header__lawyer-label-short {
+  display: none;
+}
+
 .site-header__topic-strip {
   position: relative;
   z-index: 90;
@@ -3766,6 +3770,14 @@
     min-height: 2.18rem;
     padding: 0.42rem 0.58rem;
     font-size: 0.78rem;
+  }
+
+  .site-header__lawyer-label-full {
+    display: none;
+  }
+
+  .site-header__lawyer-label-short {
+    display: inline;
   }
 }
 

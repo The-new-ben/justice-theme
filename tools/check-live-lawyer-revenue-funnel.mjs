@@ -26,6 +26,8 @@ const checks = [
 			'/lawyer-plans/',
 			'/lawyer-registration/',
 			'/lawyer-dashboard/',
+			'מסלולים לעורכי דין',
+			'אזור אישי',
 			'utm_source=site_header',
 			'utm_campaign=lawyer_acquisition',
 		],
@@ -122,6 +124,8 @@ const checks = [
 			'.lawyer-dashboard__empty-steps',
 			'.lawyer-dashboard-plan-status',
 			'.lawyer-plans-founder',
+			'.site-header__lawyer-label-full',
+			'.site-header__lawyer-label-short',
 		],
 	},
 	{

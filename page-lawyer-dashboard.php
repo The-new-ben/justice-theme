@@ -310,6 +310,43 @@ if ( $leads && $leads->posts ) {
 		}
 	}
 }
+
+$dashboard_add_profile_url = justice_theme_public_url( add_query_arg(
+	array(
+		'plan_interest'    => 'pro',
+		'pre_checkout'     => '1',
+		'payment_path'     => 'manual_invoice',
+		'utm_source'       => 'lawyer_dashboard',
+		'utm_medium'       => 'personal_area',
+		'utm_campaign'     => 'lawyer_activation',
+		'utm_content'      => 'hero_add_profile',
+		'outreach_segment' => 'dashboard_logged_in',
+	),
+	home_url( '/lawyer-registration/' )
+) );
+$dashboard_empty_registration_url = justice_theme_public_url( add_query_arg(
+	array(
+		'plan_interest'    => 'pro',
+		'pre_checkout'     => '1',
+		'payment_path'     => 'manual_invoice',
+		'utm_source'       => 'lawyer_dashboard',
+		'utm_medium'       => 'personal_area',
+		'utm_campaign'     => 'lawyer_activation',
+		'utm_content'      => 'empty_state_primary',
+		'outreach_segment' => 'dashboard_logged_in_empty',
+	),
+	home_url( '/lawyer-registration/' )
+) );
+$dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
+	array(
+		'utm_source'       => 'lawyer_dashboard',
+		'utm_medium'       => 'personal_area',
+		'utm_campaign'     => 'lawyer_activation',
+		'utm_content'      => 'empty_state_compare_plans',
+		'outreach_segment' => 'dashboard_logged_in_empty',
+	),
+	home_url( '/lawyer-plans/' )
+) );
 ?>
 
 <section class="lawyer-dashboard section">
@@ -320,14 +357,22 @@ if ( $leads && $leads->posts ) {
 				<h1><?php esc_html_e( 'מרכז השליטה לנוכחות, תוכן ולידים', 'justice-theme' ); ?></h1>
 				<p><?php esc_html_e( 'זהו MVP ראשון: צפייה בפרופיל המקושר, סטטוס מסחרי, לידים משויכים ומשימות לשיפור המיני-סייט. עריכה עצמאית, תשלומים ו-AI Console יתווספו בשלבים מבוקרים.', 'justice-theme' ); ?></p>
 			</div>
-			<a class="button button--gold" href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-registration/' ) ) ); ?>"><?php esc_html_e( 'פתיחת פרופיל נוסף', 'justice-theme' ); ?></a>
+			<a class="button button--gold" href="<?php echo esc_url( $dashboard_add_profile_url ); ?>"><?php esc_html_e( 'פתיחת פרופיל נוסף', 'justice-theme' ); ?></a>
 		</header>
 
 		<?php if ( ! $profiles || ! $profiles->have_posts() ) : ?>
 			<div class="lawyer-dashboard__empty">
 				<h2><?php esc_html_e( 'עדיין אין פרופיל מקושר לחשבון הזה', 'justice-theme' ); ?></h2>
-				<p><?php esc_html_e( 'אפשר לשלוח בקשת הצטרפות, או לבקש מצוות האתר לקשר פרופיל קיים לחשבון המשתמש שלכם. פרופיל לא עולה לאוויר בלי בדיקה ואישור.', 'justice-theme' ); ?></p>
-				<a class="button button--gold" href="<?php echo esc_url( justice_theme_public_url( home_url( '/lawyer-registration/' ) ) ); ?>"><?php esc_html_e( 'שליחת בקשת הצטרפות', 'justice-theme' ); ?></a>
+				<p><?php esc_html_e( 'החשבון פעיל, אבל עדיין לא מחובר לפרופיל עורך דין. כדי להתחיל לקבל ערך צריך בקשת פרופיל, בדיקת רישיון, מסלול מסחרי והפעלה ידנית לפני כל פרסום.', 'justice-theme' ); ?></p>
+				<ul class="lawyer-dashboard__empty-steps">
+					<li><?php esc_html_e( 'שולחים בקשת פרופיל עם תחום, עיר, רישיון וחומרי משרד.', 'justice-theme' ); ?></li>
+					<li><?php esc_html_e( 'Jus-Tice בודקת התאמה, פרסום, תשלום ידני וחיבור לחשבון.', 'justice-theme' ); ?></li>
+					<li><?php esc_html_e( 'אחרי אישור, האזור האישי מציג לידים, תוכן, המלצות ודוח ערך.', 'justice-theme' ); ?></li>
+				</ul>
+				<div class="lawyer-dashboard__actions">
+					<a class="button button--gold" href="<?php echo esc_url( $dashboard_empty_registration_url ); ?>"><?php esc_html_e( 'בקשת פרופיל ומסלול', 'justice-theme' ); ?></a>
+					<a class="button button--outline" href="<?php echo esc_url( $dashboard_empty_plans_url ); ?>"><?php esc_html_e( 'השוואת מסלולים', 'justice-theme' ); ?></a>
+				</div>
 			</div>
 		<?php else : ?>
 			<div class="lawyer-dashboard__summary">

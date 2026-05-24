@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-24 14:08 Asia/Jerusalem
+- LAWYER DASHBOARD EMPTY-STATE ACTIVATION: fixed the logged-in/no-profile dashboard state so a newly invited lawyer account has a clear path to profile request, plan comparison and manual activation.
+- UPDATED: `page-lawyer-dashboard.php` now routes the hero add-profile button and no-profile CTAs through tracked manual-invoice/plan URLs with `utm_source=lawyer_dashboard`.
+- UPDATED: `page-lawyer-dashboard.php` now explains the no-profile activation sequence: request, license/commercial review, manual payment/account connection and dashboard value.
+- UPDATED: `assets/css/premium-pass-3.css` adds no-profile step styling.
+- UPDATED: `inc/enqueue.php` bumps `justice-premium-3` to version `3.0.5` so the no-profile styling is not hidden by cache after deployment.
+- CREATED: `project-control/lawyer-dashboard-empty-state-activation-2026-05-24.md`.
+- VERIFIED LOCAL: `php -l page-lawyer-dashboard.php`, `php -l inc/enqueue.php` and `git diff --check` passed.
+- SAFETY: no public CMS record, user account, lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, GSC/GA4 setting or wp-admin setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 13:59 Asia/Jerusalem
 - LAWYER PLANS ATTRIBUTION CLOSURE: closed a measurement gap where plan-page CTAs could reach registration without clearly identifying the plan page as the source.
 - UPDATED: `page-lawyer-plans.php` now adds `utm_source=lawyer_plans`, `utm_medium=plan_page`, `utm_campaign=lawyer_acquisition`, `utm_content` by CTA surface and `outreach_segment=plans_page` to plan-page registration/checkout links.

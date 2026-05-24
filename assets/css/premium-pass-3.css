@@ -2446,6 +2446,19 @@
   flex-wrap: wrap;
 }
 
+.lawyer-dashboard__empty-steps {
+  display: grid;
+  gap: 0.55rem;
+  margin: 1rem 0;
+  padding-inline-start: 1.2rem;
+  color: var(--jt-text);
+  line-height: 1.65;
+}
+
+.lawyer-dashboard__empty .lawyer-dashboard__actions {
+  margin-top: 0.9rem;
+}
+
 .lawyer-dashboard__gate-points {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));

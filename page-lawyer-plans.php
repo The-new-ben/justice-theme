@@ -28,12 +28,25 @@ $lawyer_plans_faq_schema_items = array(
 	),
 );
 
-$manual_activation_url = static function ( string $plan_key ): string {
+$plan_tracking_url = static function ( string $url, string $plan_key, string $surface ): string {
+	return add_query_arg(
+		array(
+			'utm_source'       => 'lawyer_plans',
+			'utm_medium'       => 'plan_page',
+			'utm_campaign'     => 'lawyer_acquisition',
+			'utm_content'      => sanitize_key( $surface . '_' . $plan_key ),
+			'outreach_segment' => 'plans_page',
+		),
+		$url
+	);
+};
+
+$manual_activation_url = static function ( string $plan_key, string $surface = 'manual_activation' ) use ( $plan_tracking_url ): string {
 	if ( function_exists( 'justice_theme_plan_manual_activation_url' ) ) {
-		return justice_theme_plan_manual_activation_url( $plan_key );
+		return $plan_tracking_url( justice_theme_plan_manual_activation_url( $plan_key ), $plan_key, $surface );
 	}
 
-	return add_query_arg(
+	$url = add_query_arg(
 		array(
 			'plan_interest' => $plan_key,
 			'pre_checkout'  => '1',
@@ -41,22 +54,28 @@ $manual_activation_url = static function ( string $plan_key ): string {
 		),
 		home_url( '/lawyer-registration/' )
 	);
+
+	return $plan_tracking_url( $url, $plan_key, $surface );
 };
 
-$plan_checkout_url = static function ( string $plan_key ) use ( $manual_activation_url ): string {
+$plan_checkout_url = static function ( string $plan_key, string $surface = 'pricing_card' ) use ( $manual_activation_url, $plan_tracking_url ): string {
 	if ( function_exists( 'justice_theme_plan_checkout_url' ) ) {
-		return justice_theme_plan_checkout_url( $plan_key );
+		return $plan_tracking_url( justice_theme_plan_checkout_url( $plan_key ), $plan_key, $surface );
 	}
 
 	return 'free' === $plan_key
-		? add_query_arg(
-			array(
-				'plan_interest' => 'free',
-				'pre_checkout'  => '1',
+		? $plan_tracking_url(
+			add_query_arg(
+				array(
+					'plan_interest' => 'free',
+					'pre_checkout'  => '1',
+				),
+				home_url( '/lawyer-registration/' )
 			),
-			home_url( '/lawyer-registration/' )
+			$plan_key,
+			$surface
 		)
-		: $manual_activation_url( $plan_key );
+		: $manual_activation_url( $plan_key, $surface );
 };
 ?>
 
@@ -88,8 +107,8 @@ $plan_checkout_url = static function ( string $plan_key ) use ( $manual_activati
 				<li><?php esc_html_e( 'אחרי אישור ותשלום, הפרופיל והדאשבורד מתחילים למדוד פניות וערך.', 'justice-theme' ); ?></li>
 			</ol>
 			<div class="lawyer-plans-founder__actions">
-				<a class="button button--gold" href="<?php echo esc_url( $manual_activation_url( 'lead_partner' ) ); ?>"><?php esc_html_e( 'בקשת בדיקת שותף לידים', 'justice-theme' ); ?></a>
-				<a class="button button--outline" href="<?php echo esc_url( $manual_activation_url( 'pro' ) ); ?>"><?php esc_html_e( 'פתיחת מיני-סייט מקצועי', 'justice-theme' ); ?></a>
+				<a class="button button--gold" href="<?php echo esc_url( $manual_activation_url( 'lead_partner', 'founder_primary' ) ); ?>"><?php esc_html_e( 'בקשת בדיקת שותף לידים', 'justice-theme' ); ?></a>
+				<a class="button button--outline" href="<?php echo esc_url( $manual_activation_url( 'pro', 'founder_secondary' ) ); ?>"><?php esc_html_e( 'פתיחת מיני-סייט מקצועי', 'justice-theme' ); ?></a>
 			</div>
 		</section>
 
@@ -122,7 +141,7 @@ $plan_checkout_url = static function ( string $plan_key ) use ( $manual_activati
 				</article>
 			</div>
 			<div class="lawyer-plans-system__actions">
-				<a class="button button--gold" href="<?php echo esc_url( $manual_activation_url( 'lead_partner' ) ); ?>"><?php esc_html_e( 'בדיקת התאמה לשותפות לידים', 'justice-theme' ); ?></a>
+				<a class="button button--gold" href="<?php echo esc_url( $manual_activation_url( 'lead_partner', 'system_primary' ) ); ?>"><?php esc_html_e( 'בדיקת התאמה לשותפות לידים', 'justice-theme' ); ?></a>
 				<a class="button button--outline" href="#lawyer-plans-pricing"><?php esc_html_e( 'השוואת מסלולים', 'justice-theme' ); ?></a>
 			</div>
 		</section>
@@ -155,7 +174,7 @@ $plan_checkout_url = static function ( string $plan_key ) use ( $manual_activati
 							<li><?php echo esc_html( $feature ); ?></li>
 						<?php endforeach; ?>
 					</ul>
-					<a class="button button--gold" href="<?php echo esc_url( $plan_checkout_url( $plan_key ) ); ?>">
+					<a class="button button--gold" href="<?php echo esc_url( $plan_checkout_url( $plan_key, 'pricing_card' ) ); ?>">
 						<?php
 						if ( 'free' === $plan_key ) {
 							esc_html_e( 'פתיחת פרופיל', 'justice-theme' );
@@ -167,7 +186,7 @@ $plan_checkout_url = static function ( string $plan_key ) use ( $manual_activati
 						?>
 					</a>
 					<?php if ( $paid_plan && ! $paid_checkout_ready ) : ?>
-						<a class="lawyer-plan-card__manual-link" href="<?php echo esc_url( $manual_activation_url( $plan_key ) ); ?>">
+						<a class="lawyer-plan-card__manual-link" href="<?php echo esc_url( $manual_activation_url( $plan_key, 'pricing_manual_link' ) ); ?>">
 							<?php esc_html_e( 'בקשת חשבונית והפעלה ידנית', 'justice-theme' ); ?>
 						</a>
 					<?php endif; ?>

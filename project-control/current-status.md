@@ -1,3 +1,10 @@
+# LATEST WORK STATUS - 2026-05-24 13:59 Asia/Jerusalem
+- LAWYER PLANS ATTRIBUTION CLOSURE: closed a measurement gap where plan-page CTAs could reach registration without clearly identifying the plan page as the source.
+- UPDATED: `page-lawyer-plans.php` now adds `utm_source=lawyer_plans`, `utm_medium=plan_page`, `utm_campaign=lawyer_acquisition`, `utm_content` by CTA surface and `outreach_segment=plans_page` to plan-page registration/checkout links.
+- CREATED: `project-control/lawyer-plans-attribution-closure-2026-05-24.md`.
+- VERIFIED LOCAL: `php -l page-lawyer-plans.php` and `git diff --check` passed.
+- SAFETY: no public CMS record, page body, lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, GSC/GA4 setting or wp-admin setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 13:49 Asia/Jerusalem
 - LAWYER REGISTRATION SUCCESS HANDOFF: made the post-submit paid/manual-invoice experience customer-ready instead of leaving the lawyer on the same form.
 - UPDATED: `page-lawyer-registration.php` now renders a structured success handoff with selected plan, no-automatic-charge language, review/invoice/dashboard next steps and dashboard/plans CTAs.

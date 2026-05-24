@@ -1,3 +1,20 @@
+# LATEST WORK STATUS - 2026-05-24 17:55 Asia/Jerusalem
+- MANUAL PAYMENT LINK HANDOFF: connected the manual invoice path to an actual payment-request URL/reference after the owner creates a Grow/Morning payment link.
+- RESEARCH BASIS: Grow Payment Links supports payment requests shared by WhatsApp, email, SMS and other channels, including recurring-payment links; Morning / Green Invoice documents payment buttons, payment links and standing-order links. Jus-Tice now has a structured place to attach that payment request to the lawyer record.
+- UPDATED: `inc/lawyer-onboarding.php` registers and saves `manual_payment_link_url` and `manual_invoice_reference` on lawyer records.
+- UPDATED: the Lawyer Activation box now exposes owner-only fields for the manual payment link and invoice/payment reference.
+- UPDATED: payment queue CSV exports, invoice handoff context/message and the Lawyer Onboarding payment column include the saved link/reference.
+- UPDATED: `page-lawyer-dashboard.php` shows a `Complete payment` CTA in the lawyer private area when status is `invoice_sent` and a manual payment link exists.
+- UPDATED: `assets/css/premium-pass-3.css` styles the private-dashboard payment-link CTA marker.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` verifies the deployed CSS marker.
+- CREATED: `project-control/manual-payment-link-handoff-2026-05-24.md`.
+- GENERATED / UPDATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md`, `project-control/lawyer-revenue-funnel-live-2026-05-24.csv`, `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `reports/lawyer-revenue-funnel-live-2026-05-24.csv`.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php`, `php -l page-lawyer-dashboard.php`, `node --check tools/check-live-lawyer-revenue-funnel.mjs` and `git diff --check` passed.
+- DEPLOYED: committed/pushed `7dacc59`; uPress Git pull log showed `Add manual payment link handoff` as live HEAD.
+- VERIFIED LIVE READ-ONLY: the public lawyer revenue funnel check still passed `9/9` after deployment.
+- BLOCKED: automated recurring lawyer payments still require Grow/Meshulam approval plus gateway/product mapping.
+- SAFETY: admin-only metadata fields, export columns, handoff text, private-dashboard conditional display and read-only live checks only; no CMS database write happened during this cycle, and no public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 17:43 Asia/Jerusalem
 - LAWYER BILLING READINESS GATE: made the manual-invoice queue more actionable by separating paid registrations that are invoice-ready from paid registrations still missing billing identity details.
 - RESEARCH BASIS: Grow Payment Links support one-time and recurring payment-link flows shared over WhatsApp, email, SMS and other channels; Morning / Green Invoice similarly documents invoice/payment-button/payment-link/standing-order flows. The manual fallback needs invoice identity and invoice email before payment follow-up is fast.

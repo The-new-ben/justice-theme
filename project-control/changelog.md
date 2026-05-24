@@ -1,6 +1,22 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Manual payment link handoff
+
+- UPDATED: `inc/lawyer-onboarding.php` now registers/saves `manual_payment_link_url` and `manual_invoice_reference` for lawyer records.
+- UPDATED: the Lawyer Activation admin box includes owner-only fields for the payment link and invoice/payment reference.
+- UPDATED: payment queue CSV exports, invoice handoff context/message and the Lawyer Onboarding payment column include the saved link/reference.
+- UPDATED: `page-lawyer-dashboard.php` shows a `Complete payment` CTA when a lawyer is at `invoice_sent` status and a manual payment link exists.
+- UPDATED: `assets/css/premium-pass-3.css` adds the private-dashboard payment-link CTA marker.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` verifies the deployed CSS marker.
+- CREATED: `project-control/manual-payment-link-handoff-2026-05-24.md`.
+- REGENERATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md` and `.csv`.
+- REGENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: PHP syntax, Node syntax and `git diff --check` passed.
+- DEPLOYED: `7dacc59 Add manual payment link handoff` was pushed and pulled through uPress; uPress log showed it as live `HEAD`.
+- VERIFIED LIVE READ-ONLY: full public lawyer revenue funnel check passed `9/9`.
+- SAFETY: no CMS database write during this cycle, public content, redirect rule, canonical/noindex, sitemap, taxonomy, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Lawyer billing readiness gate
 
 - UPDATED: `inc/lawyer-onboarding.php` now adds `Needs billing details` and `Billing ready` cards to the Lawyer Onboarding payment command center.

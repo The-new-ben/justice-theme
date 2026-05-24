@@ -80,3 +80,13 @@ If the email does not appear:
 Open the email `REAL Grow payment link ready: Jus-Tice investor demo 1 NIS smoke test`, pay the `₪1` link, then verify the transaction and receipt in `Grow > Transactions` / `Payment Links`.
 
 If the investor needs to see WordPress handoff too, paste the same link into the demo lawyer admin record, tick `Send this payment link by email now`, save, and show the email delivery metadata in Lawyer Onboarding.
+
+## Master Runbook Added
+
+Use `project-control/investor-demo-master-runbook-2026-05-24.md` as the controlling demo script. It contains:
+
+- Five-minute investor click path.
+- Scenario checklist for signup, dashboard, lead, payment, upgrade, downgrade, cancel, refund and support.
+- Recovery lines for investor questions.
+- Tonight's P0 owner actions.
+- Honest pass/yellow/block status for each commercial scenario.

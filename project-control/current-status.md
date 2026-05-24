@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-24 22:17 Asia/Jerusalem
+- INVESTOR DEMO MASTER RUNBOOK: created a practical no-fluff runbook for tomorrow's investor demo that separates real working paths from provider-blocked paths.
+- RESEARCH BASIS: WooCommerce Subscriptions' subscriber account model, WooCommerce renewal recovery, Grow Payment Links sharing, and Morning/Green Invoice digital payment docs support the safest demo framing: real one-time payment link now, recurring only after provider authorization.
+- CREATED: `project-control/investor-demo-master-runbook-2026-05-24.md`.
+- CREATED: `project-control/investor-demo-master-runbook-2026-05-24.csv`.
+- MATERIAL ADVANCE: tomorrow's demo now has a five-minute click script, scenario checklist, recovery lines for investor questions, and tonight's P0 owner actions.
+- STILL BLOCKED: owner still must pay the real Grow NIS 1 link and verify transaction/receipt; Grow recurring debit remains blocked until Grow authorizes recurring payments for account `10182706`.
+- COMPLETION: investor narrative/control readiness about 88%; one-time payment proof 75% until the link is paid; recurring lifecycle remains about 45%.
+- SAFETY: documentation/runbook only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 21:59 Asia/Jerusalem
 - GROW RECURRING SUPPORT ESCALATION SENT: emailed `support@grow.business` to request enabling/authorizing recurring debit for Grow account `10182706`.
 - EMAIL SUBJECT: `דחוף: פתיחת הרשאה להוראת קבע בחשבון Grow 10182706 - Jus-Tice Israel`.

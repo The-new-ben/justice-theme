@@ -1,0 +1,11 @@
+scenario,status,owner_action,demo_statement,blocked_by
+lawyer_signup,green,"Open /lawyer-registration/ or show existing demo registration","Lawyer registration is live and creates an onboarding record",""
+lawyer_account_invite,yellow_green,"Check inbox for account setup email; use admin reset fallback if needed","Account invite path has been verified after uPress pull","email delivery can still delay demo"
+lawyer_dashboard,yellow_green,"Log in before investor arrives","Dashboard can show profile/payment/leads/service lifecycle","needs prepared credentials"
+medical_malpractice_lead,green,"Open admin/CRM lead record","Lead capture and follow-up can be demonstrated",""
+one_time_grow_payment,yellow_green,"Pay the NIS 1 Grow link and verify transaction/receipt","Real Grow provider payment page exists and opens","payment not yet completed"
+recurring_grow_payment,blocked,"Wait for Grow support reply or enable recurring debit","Recurring debit was tested and blocked by provider authorization","Grow account authorization"
+invoice_receipt,yellow,"After NIS 1 payment, verify Grow/Morning receipt","Invoice/receipt proof follows real payment verification","payment not yet completed"
+upgrade_downgrade,yellow,"Show request capture; do not claim automatic switching","Lifecycle request intake can be demonstrated","subscription engine/provider smoke tests"
+cancel_refund,yellow,"Show request capture and owner follow-up queue","Cancellation/refund requests are captured for handling","automatic money movement not enabled"
+support_complaint,green_yellow,"Show service request path","Support intake works; AI support is planned assistance, not autonomous dispute resolution","AI/payment/legal policy review"

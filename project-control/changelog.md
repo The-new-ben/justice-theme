@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Investor demo master runbook
+
+- CREATED: `project-control/investor-demo-master-runbook-2026-05-24.md`.
+- CREATED: `project-control/investor-demo-master-runbook-2026-05-24.csv`.
+- ADDED: five-minute investor demo script, scenario matrix, recovery lines, tonight's P0 owner actions, and honest completion percentages.
+- RESEARCH BASIS: WooCommerce subscriber account/self-service docs, WooCommerce renewal payment recovery, Grow Payment Links sharing docs, and Morning/Green Invoice digital payment docs.
+- BLOCKED: owner payment/receipt verification and Grow recurring debit authorization remain the two hard money-path blockers.
+- SAFETY: repo documentation only; no public CMS/database or provider setting changed.
+
 # 2026-05-24 - Grow recurring support escalation
 
 - SENT: support email to `support@grow.business` requesting recurring debit authorization for account `10182706`.

@@ -1642,6 +1642,98 @@ function justice_theme_render_lawyer_onboarding_sales_command_center(): void {
 	<?php
 }
 
+function justice_theme_lawyer_onboarding_count_lawyers( array $meta_query ): int {
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		return 0;
+	}
+
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_lawyer',
+		'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+		'posts_per_page' => 1,
+		'fields'         => 'ids',
+		'meta_query'     => $meta_query,
+	) );
+
+	return (int) $query->found_posts;
+}
+
+function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
+	$invoice_requested_count = justice_theme_lawyer_onboarding_count_lawyers( array(
+		array(
+			'key'   => 'payment_followup_status',
+			'value' => 'invoice_requested',
+		),
+	) );
+	$manual_invoice_count    = justice_theme_lawyer_onboarding_count_lawyers( array(
+		array(
+			'key'   => 'payment_path',
+			'value' => 'manual_invoice',
+		),
+	) );
+	$profile_ready_count     = justice_theme_lawyer_onboarding_count_lawyers( array(
+		array(
+			'key'   => 'activation_status',
+			'value' => 'profile_ready',
+		),
+	) );
+	$first_value_count       = justice_theme_lawyer_onboarding_count_lawyers( array(
+		array(
+			'key'   => 'activation_status',
+			'value' => 'first_value',
+		),
+	) );
+	$queue_url               = add_query_arg(
+		array(
+			'page'          => 'justice-lawyer-onboarding',
+			'payment_queue' => 'invoice_requested',
+		),
+		admin_url( 'admin.php' )
+	);
+	$all_url                 = admin_url( 'admin.php?page=justice-lawyer-onboarding' );
+	?>
+	<div style="max-width:1200px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:18px 20px;margin:18px 0;">
+		<h2 style="margin-top:0;">Paid registration command center</h2>
+		<p style="margin-top:0;">Use this panel as the daily payment handoff while automatic recurring checkout is still pending. Every paid registration that cannot go through checkout should become a license review, invoice follow-up and activation decision.</p>
+		<div style="border:1px solid #f5d58c;background:#fffaf0;border-radius:8px;padding:16px;margin:16px 0;">
+			<p style="margin:0 0 6px;color:#92400e;font-weight:700;text-transform:uppercase;letter-spacing:.02em;">Next money action</p>
+			<h3 style="margin:0 0 6px;font-size:20px;"><?php echo $invoice_requested_count ? 'Send or chase manual invoices' : 'No invoice-ready paid registration is waiting'; ?></h3>
+			<p style="margin:0 0 12px;max-width:820px;">
+				<?php
+				echo esc_html(
+					$invoice_requested_count
+						? 'Open the invoice queue, verify the lawyer and plan, send Morning/Grow/manual payment instructions, then activate only after payment confirmation.'
+						: 'The payment queue is clear. The next revenue move is focused lawyer outreach or improving the plan-to-registration path.'
+				);
+				?>
+			</p>
+			<p style="margin:0;">
+				<a class="button button-primary" href="<?php echo esc_url( $queue_url ); ?>">Open invoice queue</a>
+				<a class="button" href="<?php echo esc_url( $all_url ); ?>">Show all onboarding</a>
+			</p>
+		</div>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0;">
+			<div style="border:1px solid #f5d58c;background:#fffaf0;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $invoice_requested_count ) ); ?></strong>
+				<span>Invoice requested</span>
+			</div>
+			<div style="border:1px solid #e0d2ff;background:#fbf8ff;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $manual_invoice_count ) ); ?></strong>
+				<span>Manual invoice path</span>
+			</div>
+			<div style="border:1px solid #d6e4ff;background:#f7faff;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $profile_ready_count ) ); ?></strong>
+				<span>Profile ready</span>
+			</div>
+			<div style="border:1px solid #d4e8d4;background:#f7fff7;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $first_value_count ) ); ?></strong>
+				<span>First value reached</span>
+			</div>
+		</div>
+	</div>
+	<?php
+}
+
 function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	if ( ! current_user_can( 'edit_pages' ) ) {
 		wp_die( esc_html__( 'You do not have permission to access this page.', 'justice-theme' ) );
@@ -1657,39 +1749,54 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		return;
 	}
 
+	$registration_review_meta_query = array(
+		'relation' => 'OR',
+		array(
+			'key'   => 'source_type',
+			'value' => 'registration',
+		),
+		array(
+			'key'   => 'pending_profile_review',
+			'value' => '1',
+		),
+		array(
+			'key'   => 'pending_content_review',
+			'value' => '1',
+		),
+		array(
+			'key'   => 'pending_review_campaign_request',
+			'value' => '1',
+		),
+		array(
+			'key'   => 'pending_upload_review',
+			'value' => '1',
+		),
+		array(
+			'key'   => 'pending_ai_profile_draft_review',
+			'value' => '1',
+		),
+	);
+	$payment_queue = isset( $_GET['payment_queue'] ) ? sanitize_key( wp_unslash( $_GET['payment_queue'] ) ) : '';
+	$meta_query    = $registration_review_meta_query;
+
+	if ( 'invoice_requested' === $payment_queue ) {
+		$meta_query = array(
+			'relation' => 'AND',
+			$registration_review_meta_query,
+			array(
+				'key'   => 'payment_followup_status',
+				'value' => 'invoice_requested',
+			),
+		);
+	}
+
 	$pending = new WP_Query( array(
 		'post_type'      => 'justice_lawyer',
 		'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
 		'posts_per_page' => 50,
 		'orderby'        => 'date',
 		'order'          => 'DESC',
-		'meta_query'     => array(
-			'relation' => 'OR',
-			array(
-				'key'   => 'source_type',
-				'value' => 'registration',
-			),
-			array(
-				'key'   => 'pending_profile_review',
-				'value' => '1',
-			),
-			array(
-				'key'   => 'pending_content_review',
-				'value' => '1',
-			),
-			array(
-				'key'   => 'pending_review_campaign_request',
-				'value' => '1',
-			),
-			array(
-				'key'   => 'pending_upload_review',
-				'value' => '1',
-			),
-			array(
-				'key'   => 'pending_ai_profile_draft_review',
-				'value' => '1',
-			),
-		),
+		'meta_query'     => $meta_query,
 	) );
 	?>
 	<div class="wrap">
@@ -1724,7 +1831,12 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 			<div class="notice notice-error is-dismissible"><p>Recommendation link creation failed. Check permissions and try again.</p></div>
 		<?php endif; ?>
 
+		<?php justice_theme_render_lawyer_onboarding_payment_command_center(); ?>
 		<?php justice_theme_render_lawyer_onboarding_sales_command_center(); ?>
+
+		<?php if ( 'invoice_requested' === $payment_queue ) : ?>
+			<div class="notice notice-info inline"><p>Showing only lawyer registrations that need manual invoice follow-up. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
+		<?php endif; ?>
 
 		<?php if ( $pending->have_posts() ) : ?>
 			<table class="widefat striped">

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-24 - Investor revenue polish deployment marker v2
+
+- UPDATED: `functions.php`, `deployment-marker.txt`, and `tools/check-homepage-investor-polish-live.mjs`.
+- CHANGED: deployment marker from `2026-05-24-homepage-investor-polish-v1` to `2026-05-24-investor-revenue-polish-v2`.
+- CHANGED: static expected commit label to `f0238bc-investor-revenue-polish-v2`.
+- VERIFIED LOCAL: PHP syntax passed for `functions.php`; Node syntax passed for the live checker.
+- VERIFIED LIVE READ-ONLY: checker still returns REVIEW because uPress has not pulled the new marker.
+- SAFETY: marker/checker/reporting only; no public CMS/database or provider setting changed.
+
 # 2026-05-24 - Lawyer plans decision flow
 
 - ADDED: `lawyer-plans-next-steps` section explaining fit check, payment/invoice, private area and lifecycle service requests before pricing cards.

@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-24 22:51 Asia/Jerusalem
+- DEPLOYMENT PROOF MARKER V2: updated the public deployment marker so the next uPress Pull Git can prove the full investor revenue polish bundle, including the latest lawyer-plans decision flow, not only the earlier homepage strip.
+- UPDATED: `functions.php` marker to `2026-05-24-investor-revenue-polish-v2`.
+- UPDATED: `deployment-marker.txt` expected marker and expected commit label to `f0238bc-investor-revenue-polish-v2`.
+- UPDATED: `tools/check-homepage-investor-polish-live.mjs` to verify the new marker and commit label.
+- MATERIAL ADVANCE: after uPress pulls, the live checker will now validate the current pushed bundle rather than giving false confidence from an older marker.
+- VERIFIED LOCAL: PHP lint passed for `functions.php`; Node syntax passed for the homepage live checker; refreshed live check still correctly reports REVIEW because production has not pulled the new marker.
+- STILL BLOCKED: uPress Pull Git/cache refresh is required before the investor homepage/plans polish is live.
+- COMPLETION: deployment proof readiness moved from about 75% to about 90% locally; live proof remains 0/4 until uPress pulls.
+- SAFETY: marker/checker/reporting only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, CRM, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 22:42 Asia/Jerusalem
 - LAWYER PLANS CONVERSION FLOW: added a "what happens after choosing a plan" section to the lawyer plans page so the investor/lawyer sees onboarding, payment, dashboard value and lifecycle support before comparing plans.
 - RESEARCH BASIS: 2026 SaaS pricing-page guidance emphasizes decision flow, trust/risk reversal near the pricing decision, transparent next steps, and self-service lifecycle handling instead of a bare feature table.

@@ -1,7 +1,7 @@
 # Lawyer Revenue Funnel Live Check - 2026-05-24
 
 - Status: PASS
-- Started: 2026-05-24T13:40:54.233Z
+- Started: 2026-05-24T13:50:01.781Z
 - Base URL: https://jus-tice.co.il
 - Checks passed: 8/8
 - Checks needing review: 0
@@ -14,7 +14,7 @@
 | Plan page routes paid intent through checkout | PASS | 200 | - | - | https://jus-tice.co.il/lawyer-plans/?codex_check=lawyer_revenue_funnel |
 | Checkout path exposes Grow-required fields and terms approval | PASS | 200 | - | - | https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&utm_source=lawyer_plans&utm_medium=plan_page&utm_campaign=lawyer_acquisition&utm_content=pricing_card_lead_partner&outreach_segment=plans_page&codex_check=grow_checkout |
 | Registration success explains manual activation | PASS | 200 | - | - | https://jus-tice.co.il/lawyer-registration/?registration=sent&plan_interest=pro&payment_path=manual_invoice |
-| Registration form preserves paid manual-invoice plan state | PASS | 200 | - | - | https://jus-tice.co.il/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice |
+| Registration form preserves paid manual-invoice plan state | PASS | 200 | - | - | https://jus-tice.co.il/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice&billing_first_name=Codex&billing_last_name=Lawyer&billing_phone=0501234567&billing_email=codex-lawyer@example.com |
 | Logged-out dashboard gate offers paid-lawyer path | PASS | 200 | - | - | https://jus-tice.co.il/lawyer-dashboard/?codex_check=lawyer_revenue_funnel |
 | Revenue UI CSS markers are deployed | PASS | 200 | - | - | https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-3.css?codex_check=lawyer_revenue_funnel |
 | Lawyer revenue analytics events are deployed | PASS | 200 | - | - | https://jus-tice.co.il/wp-content/themes/justice-theme/assets/js/analytics-events.js?codex_check=lawyer_revenue_funnel |

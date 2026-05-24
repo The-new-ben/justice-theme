@@ -1,6 +1,19 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+## 2026-05-24 - Checkout registration prefill
+
+- UPDATED: `page-lawyer-registration.php` now pre-fills registration name, phone, email and firm fields from safe request values.
+- UPDATED: checkout `billing_first_name`, `billing_last_name`, `billing_phone` and `billing_email` can now carry into the paid manual-invoice registration form.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` verifies the paid registration form receives the checkout name, phone and email.
+- CREATED: `project-control/checkout-registration-prefill-2026-05-24.md`.
+- REGENERATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md` and `.csv`.
+- REGENERATED: `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `.csv`.
+- VERIFIED LOCAL: PHP syntax, Node syntax and `git diff --check` passed.
+- DEPLOYED: `c9ea012 Prefill registration from checkout details` was pushed and pulled through uPress; uPress log showed it as live `HEAD`.
+- VERIFIED LIVE READ-ONLY: full lawyer revenue funnel check passed `8/8`.
+- SAFETY: no CMS database write, public content, redirect/canonical/noindex/sitemap/taxonomy change, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 ## 2026-05-24 - Checkout lawyer attribution preservation
 
 - UPDATED: `inc/payment-compliance-routes.php` now carries hidden attribution fields through the fallback checkout form.

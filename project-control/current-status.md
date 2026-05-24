@@ -1,3 +1,16 @@
+# LATEST WORK STATUS - 2026-05-24 16:52 Asia/Jerusalem
+- CHECKOUT REGISTRATION PREFILL: reduced paid-lawyer signup friction after the Grow-compliance checkout fallback.
+- RESEARCH BASIS: Baymard form-field research recommends prefilling values when users would otherwise retype the same information; Clio intake guidance emphasizes reducing duplicate intake data entry and moving contact information into the pipeline.
+- UPDATED: `page-lawyer-registration.php` now pre-fills `lawyer_full_name`, `phone`, `email` and `firm_name` from safe request values, including checkout `billing_first_name`, `billing_last_name`, `billing_phone` and `billing_email`.
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` now verifies the paid manual-invoice registration form preserves the selected paid plan and prefilled name, phone and email.
+- CREATED: `project-control/checkout-registration-prefill-2026-05-24.md`.
+- GENERATED / UPDATED: `project-control/lawyer-revenue-funnel-live-2026-05-24.md`, `project-control/lawyer-revenue-funnel-live-2026-05-24.csv`, `reports/lawyer-revenue-funnel-live-2026-05-24.json` and `reports/lawyer-revenue-funnel-live-2026-05-24.csv`.
+- VERIFIED LOCAL: `php -l page-lawyer-registration.php`, `node --check tools/check-live-lawyer-revenue-funnel.mjs` and `git diff --check` passed.
+- DEPLOYED: committed/pushed `c9ea012`; uPress Git pull log showed `Prefill registration from checkout details` as live HEAD.
+- VERIFIED LIVE READ-ONLY: the full lawyer revenue funnel check passed `8/8`, including the stricter registration prefill gate.
+- BLOCKED: automated recurring lawyer payments still require Grow/Meshulam approval plus gateway/product mapping.
+- SAFETY: theme prefill/checker/docs and read-only live checks only; no CMS database write, public content, redirect/canonical/noindex/sitemap/taxonomy change, product, gateway, payment, invoice, charge, lawyer record, lead, CRM, email/SMS or GSC/GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 16:43 Asia/Jerusalem
 - CHECKOUT ATTRIBUTION PRESERVATION: kept paid-lawyer source data alive through the Grow-compliance checkout fallback into registration.
 - RESEARCH BASIS: Justia monetizes lawyer visibility by practice/metro placement; Clio intake reporting emphasizes lead source, matter type, revenue potential and dashboard visibility.

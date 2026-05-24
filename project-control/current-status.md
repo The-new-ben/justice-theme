@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-24 14:45 Asia/Jerusalem
+- LAWYER PAYMENT QUEUE EXPORT: reduced revenue follow-up friction by adding owner-only CSV exports for paid lawyer manual-invoice queues.
+- UPDATED: `inc/lawyer-onboarding.php` now provides nonce-protected admin exports for `invoice_requested`, `invoice_sent` and all `manual_invoice` lawyer registrations.
+- UPDATED: the Lawyer Onboarding payment command center now includes export buttons next to the daily next-money action.
+- UPDATED: exported rows include contact details, plan, payment status, activation status, practice/city, attribution, timestamps, admin edit URL, next action and the copy-ready invoice handoff message.
+- CREATED: `project-control/lawyer-payment-queue-export-2026-05-24.md`.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed.
+- SAFETY: owner/admin only, read-only CSV export, formula-injection guarded; no public CMS record, lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, invoice, email/SMS send, GSC/GA4 setting or wp-admin setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 14:33 Asia/Jerusalem
 - LAWYER REVENUE FUNNEL LIVE CHECKER: added a repeatable read-only live QA gate for the paid lawyer acquisition path after deployment.
 - CREATED: `tools/check-live-lawyer-revenue-funnel.mjs`.

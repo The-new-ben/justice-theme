@@ -1196,6 +1196,213 @@ function justice_theme_lawyer_payment_followup_quick_action_url( int $post_id, s
 	);
 }
 
+function justice_theme_lawyer_payment_queue_export_url( string $payment_queue ): string {
+	$payment_queue = sanitize_key( $payment_queue );
+
+	return wp_nonce_url(
+		add_query_arg(
+			array(
+				'action'        => 'justice_export_lawyer_payment_queue',
+				'payment_queue' => $payment_queue,
+			),
+			admin_url( 'admin-post.php' )
+		),
+		'justice_export_lawyer_payment_queue_' . $payment_queue
+	);
+}
+
+function justice_theme_lawyer_payment_queue_meta_filter( string $payment_queue ): array {
+	if ( 'manual_invoice' === $payment_queue ) {
+		return array(
+			'key'   => 'payment_path',
+			'value' => 'manual_invoice',
+		);
+	}
+
+	return array(
+		'key'   => 'payment_followup_status',
+		'value' => $payment_queue,
+	);
+}
+
+function justice_theme_lawyer_payment_export_next_action( string $payment_path, string $followup_status, string $activation_status ): string {
+	if ( 'invoice_requested' === $followup_status ) {
+		return 'Verify license/commercial fit, create invoice/payment instructions, send handoff message, then mark invoice sent.';
+	}
+
+	if ( 'invoice_sent' === $followup_status ) {
+		return 'Follow up on payment, confirm receipt, then mark paid and continue profile activation.';
+	}
+
+	if ( 'payment_confirmed' === $followup_status ) {
+		return 'Connect/activate the profile, set first-value path, and make sure the lawyer can log in.';
+	}
+
+	if ( 'payment_blocked' === $followup_status ) {
+		return 'Resolve the recorded blocker before sending or chasing payment.';
+	}
+
+	if ( 'payment_cancelled' === $followup_status ) {
+		return 'No active follow-up unless the lawyer reopens the conversation.';
+	}
+
+	if ( 'manual_invoice' === $payment_path ) {
+		return 'Review license/commercial fit and decide whether to request/send a manual invoice.';
+	}
+
+	if ( in_array( $activation_status, array( 'profile_ready', 'first_value' ), true ) ) {
+		return 'Check retention and next value milestone.';
+	}
+
+	return 'Review onboarding status and choose the next commercial action.';
+}
+
+function justice_theme_lawyer_export_term_names( int $post_id, string $taxonomy ): string {
+	if ( ! taxonomy_exists( $taxonomy ) ) {
+		return '';
+	}
+
+	$terms = wp_get_object_terms( $post_id, $taxonomy, array( 'fields' => 'names' ) );
+	if ( is_wp_error( $terms ) || empty( $terms ) ) {
+		return '';
+	}
+
+	return implode( '; ', array_map( 'sanitize_text_field', $terms ) );
+}
+
+function justice_theme_lawyer_payment_export_cell( $value ): string {
+	$text = wp_strip_all_tags( (string) $value );
+	$text = preg_replace( "/\r\n|\r|\n/", ' ', $text );
+	$text = trim( $text );
+
+	if ( '' !== $text && preg_match( '/^[=\-+@]/', $text ) ) {
+		return "'" . $text;
+	}
+
+	return $text;
+}
+
+function justice_theme_export_lawyer_payment_queue(): void {
+	if ( ! current_user_can( 'edit_pages' ) ) {
+		wp_die( esc_html__( 'You do not have permission to export lawyer payment data.', 'justice-theme' ) );
+	}
+
+	if ( ! post_type_exists( 'justice_lawyer' ) ) {
+		wp_die( esc_html__( 'The lawyer post type is not active.', 'justice-theme' ) );
+	}
+
+	$allowed_queues = array_merge( array_keys( justice_theme_lawyer_payment_followup_options() ), array( 'manual_invoice' ) );
+	$payment_queue  = isset( $_GET['payment_queue'] ) ? sanitize_key( wp_unslash( $_GET['payment_queue'] ) ) : 'invoice_requested';
+
+	if ( ! in_array( $payment_queue, $allowed_queues, true ) ) {
+		$payment_queue = 'invoice_requested';
+	}
+
+	check_admin_referer( 'justice_export_lawyer_payment_queue_' . $payment_queue );
+
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_lawyer',
+		'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+		'posts_per_page' => 500,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'meta_query'     => array(
+			justice_theme_lawyer_payment_queue_meta_filter( $payment_queue ),
+		),
+	) );
+
+	$filename = 'justice-lawyer-payment-' . $payment_queue . '-' . wp_date( 'Y-m-d-His' ) . '.csv';
+
+	nocache_headers();
+	header( 'Content-Type: text/csv; charset=utf-8' );
+	header( 'Content-Disposition: attachment; filename="' . $filename . '"' );
+	header( 'X-Robots-Tag: noindex, nofollow', true );
+
+	echo "\xEF\xBB\xBF";
+
+	$output = fopen( 'php://output', 'w' );
+	if ( ! $output ) {
+		exit;
+	}
+
+	fputcsv( $output, array(
+		'lawyer_id',
+		'name',
+		'firm',
+		'phone',
+		'email',
+		'bar_number',
+		'plan_key',
+		'plan_label',
+		'payment_path',
+		'payment_followup_status',
+		'activation_status',
+		'practice_areas',
+		'cities',
+		'utm_source',
+		'utm_medium',
+		'utm_campaign',
+		'utm_content',
+		'outreach_segment',
+		'landing_url',
+		'registration_referrer_url',
+		'invoice_sent_at',
+		'payment_confirmed_at',
+		'payment_blocked_at',
+		'payment_cancelled_at',
+		'admin_edit_url',
+		'next_action',
+		'invoice_handoff_message',
+	) );
+
+	while ( $query->have_posts() ) {
+		$query->the_post();
+
+		$post_id           = get_the_ID();
+		$plan              = (string) get_post_meta( $post_id, 'plan_type', true );
+		$payment_path      = (string) get_post_meta( $post_id, 'payment_path', true );
+		$followup_status   = (string) get_post_meta( $post_id, 'payment_followup_status', true );
+		$activation_status = (string) get_post_meta( $post_id, 'activation_status', true );
+
+		$row = array(
+			$post_id,
+			get_the_title(),
+			get_post_meta( $post_id, 'firm_name', true ),
+			get_post_meta( $post_id, 'phone', true ),
+			get_post_meta( $post_id, 'email', true ),
+			get_post_meta( $post_id, 'bar_number', true ),
+			$plan,
+			justice_theme_lawyer_onboarding_plan_label( $plan ),
+			$payment_path,
+			$followup_status,
+			$activation_status,
+			justice_theme_lawyer_export_term_names( $post_id, 'practice-areas' ),
+			justice_theme_lawyer_export_term_names( $post_id, 'city' ),
+			get_post_meta( $post_id, 'utm_source', true ),
+			get_post_meta( $post_id, 'utm_medium', true ),
+			get_post_meta( $post_id, 'utm_campaign', true ),
+			get_post_meta( $post_id, 'utm_content', true ),
+			get_post_meta( $post_id, 'outreach_segment', true ),
+			get_post_meta( $post_id, 'registration_landing_url', true ),
+			get_post_meta( $post_id, 'registration_referrer_url', true ),
+			get_post_meta( $post_id, 'invoice_sent_at', true ),
+			get_post_meta( $post_id, 'payment_confirmed_at', true ),
+			get_post_meta( $post_id, 'payment_blocked_at', true ),
+			get_post_meta( $post_id, 'payment_cancelled_at', true ),
+			get_edit_post_link( $post_id, '' ),
+			justice_theme_lawyer_payment_export_next_action( $payment_path, $followup_status, $activation_status ),
+			justice_theme_lawyer_manual_invoice_message( $post_id ),
+		);
+
+		fputcsv( $output, array_map( 'justice_theme_lawyer_payment_export_cell', $row ) );
+	}
+
+	wp_reset_postdata();
+	fclose( $output );
+	exit;
+}
+add_action( 'admin_post_justice_export_lawyer_payment_queue', 'justice_theme_export_lawyer_payment_queue' );
+
 function justice_theme_lawyer_manual_invoice_message( int $post_id ): string {
 	$payment_path     = (string) get_post_meta( $post_id, 'payment_path', true );
 	$followup_status  = (string) get_post_meta( $post_id, 'payment_followup_status', true );
@@ -1936,6 +2143,9 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 		admin_url( 'admin.php' )
 	);
 	$all_url                 = admin_url( 'admin.php?page=justice-lawyer-onboarding' );
+	$invoice_requested_export_url = justice_theme_lawyer_payment_queue_export_url( 'invoice_requested' );
+	$invoice_sent_export_url      = justice_theme_lawyer_payment_queue_export_url( 'invoice_sent' );
+	$manual_invoice_export_url    = justice_theme_lawyer_payment_queue_export_url( 'manual_invoice' );
 	$next_money_title        = 'No invoice-ready paid registration is waiting';
 	$next_money_body         = 'The payment queue is clear. The next revenue move is focused lawyer outreach or improving the plan-to-registration path.';
 	$next_money_url          = $all_url;
@@ -1963,6 +2173,9 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 			<p style="margin:0;">
 				<a class="button button-primary" href="<?php echo esc_url( $next_money_url ); ?>"><?php echo esc_html( $next_money_button ); ?></a>
 				<a class="button" href="<?php echo esc_url( $all_url ); ?>">Show all onboarding</a>
+				<a class="button" href="<?php echo esc_url( $invoice_requested_export_url ); ?>">Export invoice queue CSV</a>
+				<a class="button" href="<?php echo esc_url( $invoice_sent_export_url ); ?>">Export sent invoices CSV</a>
+				<a class="button" href="<?php echo esc_url( $manual_invoice_export_url ); ?>">Export all manual invoice CSV</a>
 			</p>
 		</div>
 		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:16px 0;">

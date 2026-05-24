@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-24 14:55 Asia/Jerusalem
+- LAWYER PAYMENT FOLLOW-UP SLA: turned manual invoice statuses into an owner-operating queue with due/overdue pressure.
+- UPDATED: `inc/lawyer-onboarding.php` now registers `payment_followup_due_at` for lawyer profiles.
+- UPDATED: new paid manual registrations get an invoice-requested due date 1 day out; invoice-sent status gets a chase date 2 days out; terminal states clear the due date.
+- UPDATED: Lawyer Onboarding command center now prioritizes overdue payment follow-ups before new invoice work and includes overdue/due-within-48h cards and filters.
+- UPDATED: payment badges in the activation box and onboarding table now show due/overdue timing.
+- UPDATED: payment queue CSV exports now include `payment_followup_due_at` and `payment_followup_urgency`.
+- CREATED: `project-control/lawyer-payment-followup-sla-2026-05-24.md`.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed.
+- SAFETY: admin-only operational metadata; no public CMS record, public lawyer profile, URL slug, redirect rule, canonical/noindex setting, taxonomy, sitemap setting, lead, CRM, payment, invoice, email/SMS send, GSC/GA4 setting or wp-admin setting changed.
+
 # LATEST WORK STATUS - 2026-05-24 14:45 Asia/Jerusalem
 - LAWYER PAYMENT QUEUE EXPORT: reduced revenue follow-up friction by adding owner-only CSV exports for paid lawyer manual-invoice queues.
 - UPDATED: `inc/lawyer-onboarding.php` now provides nonce-protected admin exports for `invoice_requested`, `invoice_sent` and all `manual_invoice` lawyer registrations.

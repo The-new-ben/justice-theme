@@ -94,6 +94,15 @@ $primary_area      = ( ! empty( $areas ) && ! is_wp_error( $areas ) ) ? $areas[0
 $primary_city      = ( ! empty( $cities ) && ! is_wp_error( $cities ) ) ? $cities[0] : null;
 $phone_link        = function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) $phone ) : '';
 $whatsapp_link     = function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) $whatsapp ) : '';
+$claim_url         = add_query_arg(
+	array(
+		'claim_profile_id' => $lawyer_id,
+		'claim_profile'    => get_post_field( 'post_name', $lawyer_id ),
+		'plan_interest'    => 'featured',
+		'source'           => 'public_profile_claim_upgrade',
+	),
+	home_url( '/lawyer-registration/' )
+);
 
 $views = (int) $meta( 'profile_views', 0 );
 $user_agent = isset( $_SERVER['HTTP_USER_AGENT'] ) ? strtolower( sanitize_text_field( wp_unslash( $_SERVER['HTTP_USER_AGENT'] ) ) ) : '';
@@ -142,10 +151,29 @@ $requires_fact_gate         = $is_maya_profile
 	|| $is_seed_data
 	|| in_array( $source_type, array( 'public_index', 'import' ), true );
 $show_freeform_profile_facts = ! $requires_fact_gate || $profile_is_fact_checked;
-$show_profile_marketing_modules = ! $requires_fact_gate || $profile_is_fact_checked || $is_paid;
+$show_profile_marketing_modules = ! $requires_fact_gate || $profile_is_fact_checked;
 $show_verified_profile_badge = $is_verified && $show_freeform_profile_facts;
-$can_show_profile_articles = ( $is_paid || $is_verified ) && ! $is_maya_profile;
+$can_show_profile_articles = $show_freeform_profile_facts && ( $is_paid || $is_verified ) && ! $is_maya_profile;
 $connected_article_slugs = array_filter( array( $lawyer_profile_slug, $authority_person_slug ) );
+
+if ( ! $show_freeform_profile_facts ) {
+	$safe_profile_context = array_filter(
+		array(
+			$primary_area ? $primary_area->name : '',
+			$primary_city ? $primary_city->name : '',
+		)
+	);
+	$profile_subtitle = ! empty( $safe_profile_context )
+		? sprintf(
+			/* translators: %s: safe public practice/location context. */
+			__( 'כרטיס מקצועי בבדיקת מקורות: %s. פרטי רקע, ניסיון, ביקורות ותוכן חתום יוצגו רק לאחר אימות.', 'justice-theme' ),
+			implode( ' · ', $safe_profile_context )
+		)
+		: __( 'כרטיס מקצועי בבדיקת מקורות. פרטי רקע, ניסיון, ביקורות ותוכן חתום יוצגו רק לאחר אימות.', 'justice-theme' );
+	$show_rating                   = false;
+	$show_testimonials             = false;
+	$show_approved_recommendations = false;
+}
 
 if ( false !== mb_strpos( get_the_title( $lawyer_id ), 'מאיה' ) && false !== mb_strpos( get_the_title( $lawyer_id ), 'רוטנברג' ) ) {
 	// Do not force legacy person-specific content onto an unverified profile.
@@ -200,7 +228,7 @@ if ( ! $related_articles->have_posts() && $primary_area && $can_show_profile_art
 }
 
 $has_related_articles = $related_articles instanceof WP_Query && $related_articles->have_posts();
-$has_media_module     = $video_url || ! empty( $media_items );
+$has_media_module     = $show_freeform_profile_facts && ( $video_url || ! empty( $media_items ) );
 $show_articles_panel  = $has_related_articles || ! $requires_fact_gate;
 $show_reviews_panel   = $show_rating || $show_approved_recommendations || $show_testimonials || ! $requires_fact_gate;
 $show_profile_photo   = has_post_thumbnail( $lawyer_id )
@@ -341,12 +369,13 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 							<div class="lawyer-mini-profile-gate">
 								<strong><?php esc_html_e( 'פרטי הרקע המלאים בבדיקת מקורות', 'justice-theme' ); ?></strong>
 								<p><?php esc_html_e( 'אנחנו לא מציגים השכלה, הסמכות, דירוגים או סיפורי הצלחה לפני בדיקה ואישור. בשלב זה מוצגים רק תחומי פעילות, עיר, מקורות ציבוריים ודרכי פנייה שניתן לערוך מתוך ה-CMS.', 'justice-theme' ); ?></p>
+								<a class="button button--ghost" href="<?php echo esc_url( $claim_url ); ?>"><?php esc_html_e( 'זה הפרופיל שלך? עדכון ואימות פרטים', 'justice-theme' ); ?></a>
 							</div>
 						<?php endif; ?>
 					</div>
 				</section>
 
-				<?php if ( $approach || ! empty( $process_steps ) ) : ?>
+				<?php if ( $show_freeform_profile_facts && ( $approach || ! empty( $process_steps ) ) ) : ?>
 					<section class="lawyer-mini-panel lawyer-mini-editorial">
 						<h2><?php echo esc_html( $approach_title ); ?></h2>
 						<?php if ( $approach ) : ?>
@@ -368,7 +397,7 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 					</section>
 				<?php endif; ?>
 
-				<?php if ( ! empty( $services ) ) : ?>
+				<?php if ( $show_freeform_profile_facts && ! empty( $services ) ) : ?>
 					<section class="lawyer-mini-panel">
 						<h2>שירותים משפטיים מרכזיים</h2>
 						<div class="lawyer-mini-service-grid">
@@ -384,7 +413,7 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 					</section>
 				<?php endif; ?>
 
-				<?php if ( $video_url ) : ?>
+				<?php if ( $show_freeform_profile_facts && $video_url ) : ?>
 					<section class="lawyer-mini-panel lawyer-mini-video">
 						<h2>וידאו היכרות</h2>
 						<div class="lawyer-mini-video__frame">
@@ -424,7 +453,7 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 				</section>
 				<?php endif; ?>
 
-				<?php if ( ! empty( $media_items ) ) : ?>
+				<?php if ( $show_freeform_profile_facts && ! empty( $media_items ) ) : ?>
 					<section class="lawyer-mini-panel">
 						<h2>וידאו, הופעות ועדכונים</h2>
 						<div class="lawyer-mini-media-list">
@@ -481,7 +510,7 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 				</section>
 				<?php endif; ?>
 
-				<?php if ( ! empty( $faqs ) ) : ?>
+				<?php if ( $show_freeform_profile_facts && ! empty( $faqs ) ) : ?>
 					<section class="lawyer-mini-panel">
 						<h2>שאלות נפוצות</h2>
 						<div class="lawyer-mini-faqs">
@@ -497,7 +526,7 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 					</section>
 				<?php endif; ?>
 
-				<?php if ( $cta_title || $cta_text ) : ?>
+				<?php if ( $show_freeform_profile_facts && ( $cta_title || $cta_text ) ) : ?>
 					<section class="lawyer-mini-panel lawyer-mini-final-cta">
 						<h2><?php echo esc_html( $cta_title ?: 'רוצים לבדוק את הצעד הבא?' ); ?></h2>
 						<?php if ( $cta_text ) : ?>

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer public profile claim safety
+
+- UPDATED: `single-justice_lawyer.php` and `template-parts/cards/lawyer-card.php`.
+- ADDED: `project-control/lawyer-public-profile-claim-safety-2026-05-25.md`.
+- PURPOSE: prevent unverified profile claims from appearing in homepage cards or mini-site sections while still keeping safe contact/source/claim paths visible.
+- IMPLEMENTATION: fact-gated profiles now suppress unverified rich profile sections, signed-article panels, video/media, FAQs, marketing CTA, ratings/recommendations, card bios, years of experience, languages and verified badges until fact review is approved/source-checked/owner-approved/lawyer-approved.
+- VERIFIED LOCAL: `php -l single-justice_lawyer.php` and `php -l template-parts/cards/lawyer-card.php` passed.
+- SAFETY: no CMS database write, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-25 - Lawyer profile fact review admin control
 
 - UPDATED: `inc/lawyer-visibility.php`.

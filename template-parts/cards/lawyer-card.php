@@ -92,6 +92,13 @@ $is_maya_profile = 'advocate-maya-rotenberg' === get_post_field( 'post_name', $l
 		false !== mb_strpos( get_the_title( $lawyer_id ), rawurldecode( '%D7%9E%D7%90%D7%99%D7%94' ) )
 		&& false !== mb_strpos( get_the_title( $lawyer_id ), rawurldecode( '%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92' ) )
 	);
+$profile_fact_review_status = sanitize_key( (string) get_post_meta( $lawyer_id, 'profile_fact_review_status', true ) );
+$profile_is_fact_checked    = in_array( $profile_fact_review_status, array( 'approved', 'source_checked', 'owner_approved', 'lawyer_approved' ), true );
+$requires_fact_gate         = $is_maya_profile
+	|| $is_seed_data
+	|| in_array( strtolower( (string) $source_type ), array( 'public_index', 'import' ), true );
+$show_profile_claims        = ! $requires_fact_gate || $profile_is_fact_checked;
+$show_rating                = $show_rating && $show_profile_claims;
 $show_thumbnail  = $has_thumbnail
 	&& ! $is_seed_data
 	&& ! $is_maya_profile
@@ -148,7 +155,7 @@ $claim_url       = add_query_arg(
 			<h3 class="lawyer-card__name">
 				<a href="<?php echo esc_url( $lawyer_url ); ?>"><?php the_title(); ?></a>
 			</h3>
-			<?php if ( 'verified' === $verified ) : ?>
+			<?php if ( 'verified' === $verified && $show_profile_claims ) : ?>
 				<span class="lawyer-card__status">מאומת</span>
 			<?php elseif ( $is_basic_public ) : ?>
 				<span class="lawyer-card__status lawyer-card__status--basic"><?php esc_html_e( 'כרטיס בסיסי', 'justice-theme' ); ?></span>
@@ -167,19 +174,24 @@ $claim_url       = add_query_arg(
 			</p>
 		<?php endif; ?>
 
-		<?php if ( $bio_short ) : ?>
+		<?php if ( $show_profile_claims && $bio_short ) : ?>
 			<p class="lawyer-card__summary"><?php echo esc_html( wp_trim_words( $bio_short, 24, '...' ) ); ?></p>
+		<?php elseif ( $requires_fact_gate && ! $profile_is_fact_checked ) : ?>
+			<p class="lawyer-card__summary"><?php esc_html_e( 'פרטי הרקע, הניסיון והביקורות בכרטיס הזה ממתינים לבדיקת מקורות או לאישור בעל הפרופיל.', 'justice-theme' ); ?></p>
 		<?php endif; ?>
 
 		<div class="lawyer-card__proof">
-			<?php if ( $experience ) : ?>
+			<?php if ( $show_profile_claims && $experience ) : ?>
 				<span><?php echo esc_html( $experience ); ?> שנות ניסיון</span>
 			<?php endif; ?>
-			<?php if ( $languages ) : ?>
+			<?php if ( $show_profile_claims && $languages ) : ?>
 				<span><?php echo esc_html( $languages ); ?></span>
 			<?php endif; ?>
 			<?php if ( $show_rating ) : ?>
 				<span><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?> / 5</span>
+			<?php endif; ?>
+			<?php if ( $requires_fact_gate && ! $profile_is_fact_checked ) : ?>
+				<span><?php esc_html_e( 'פרטי רקע בבדיקת מקורות', 'justice-theme' ); ?></span>
 			<?php endif; ?>
 			<?php if ( $is_basic_public ) : ?>
 				<span><?php esc_html_e( 'כרטיס ציבורי לא מאומת', 'justice-theme' ); ?></span>

@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 15:27 Asia/Jerusalem
+- LAWYER PUBLIC PROFILE CLAIM SAFETY TIGHTENED: unverified/fact-gated lawyer mini-sites and homepage/directory cards no longer show rich profile claims before source review.
+- UPDATED: `single-justice_lawyer.php` and `template-parts/cards/lawyer-card.php`.
+- ADDED: `project-control/lawyer-public-profile-claim-safety-2026-05-25.md`.
+- MATERIAL ADVANCE: this directly addresses the owner/investor complaint that a profile could look premium while facts were inaccurate. After deploy, Maya/public-index/import/seed-like cards show a source-review message instead of unverified short bios, years of experience, languages, ratings, verified badges, videos, services, FAQs, signed articles, or marketing CTAs. The mini-site keeps safe contact/source/profile-claim paths visible.
+- RESEARCH BASIS: checked current public patterns from LawReviews, Justia directory and Justia Connect featured-review guidance; the rule is to separate profile depth/reviews from unverified claims. Implementation is original and does not copy competitor lawyer data, photos, ratings, reviews or text.
+- VERIFIED LOCAL / PUSH PENDING / DEPLOY BLOCKED: `php -l single-justice_lawyer.php`, `php -l template-parts/cards/lawyer-card.php`, and `git diff --check` passed. Production is still behind until uPress Pull Git succeeds.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves trust and profile-claim conversion readiness, but it does not prove payment, invoice, refund, subscription, lead delivery, or CRM monetization.
+- SAFETY: repo display logic and docs only; no live CMS database edit, competitor lawyer/profile import, competitor asset/content copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 15:12 Asia/Jerusalem
 - LAWYER FACT-REVIEW ADMIN CONTROL ADDED: the CMS now has an explicit owner control for whether premium lawyer profile facts are pending, source-checked, owner-approved, lawyer-approved, approved, held, or rejected.
 - UPDATED: `inc/lawyer-visibility.php`.

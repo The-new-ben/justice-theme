@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Jus-Tice Investor Demo Launchpad - 2026-05-25</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--ink: #07152f;
+			--muted: #5b6475;
+			--line: #d7dde8;
+			--accent: #b23a48;
+			--gold: #c99a2e;
+			--ok: #0f766e;
+			--warn: #a16207;
+			--bg: #f5f7fb;
+			--panel: #fff;
+		}
+		* { box-sizing: border-box; }
+		body {
+			margin: 0;
+			background: var(--bg);
+			color: var(--ink);
+			font-family: Arial, Helvetica, sans-serif;
+			line-height: 1.55;
+		}
+		main {
+			width: min(1160px, calc(100% - 32px));
+			margin: 0 auto;
+			padding: 28px 0 42px;
+		}
+		header {
+			display: grid;
+			gap: 10px;
+			padding: 24px;
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			background: linear-gradient(135deg, #07152f, #12305a);
+			color: #fff;
+			box-shadow: 0 16px 42px rgba(7,21,47,.16);
+		}
+		h1, h2, h3, p { margin-top: 0; }
+		h1 { margin-bottom: 4px; font-size: clamp(1.7rem, 4vw, 3rem); line-height: 1.15; }
+		header p { max-width: 900px; margin-bottom: 0; color: #dbeafe; }
+		.status {
+			display: grid;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			gap: 10px;
+			margin: 16px 0;
+		}
+		.badge {
+			min-height: 74px;
+			display: grid;
+			align-content: center;
+			gap: 4px;
+			padding: 12px;
+			border: 1px solid var(--line);
+			border-radius: 10px;
+			background: var(--panel);
+		}
+		.badge strong { font-size: .82rem; text-transform: uppercase; letter-spacing: .02em; color: var(--muted); }
+		.badge span { font-size: 1.05rem; font-weight: 800; }
+		.badge--ok span { color: var(--ok); }
+		.badge--warn span { color: var(--warn); }
+		.grid {
+			display: grid;
+			grid-template-columns: 1.25fr .75fr;
+			gap: 16px;
+			align-items: start;
+		}
+		.panel {
+			border: 1px solid var(--line);
+			border-radius: 12px;
+			background: var(--panel);
+			padding: 18px;
+			box-shadow: 0 10px 28px rgba(7,21,47,.06);
+		}
+		.steps {
+			display: grid;
+			gap: 10px;
+			margin: 0;
+			padding: 0;
+			list-style: none;
+			counter-reset: demo-step;
+		}
+		.steps li {
+			counter-increment: demo-step;
+			display: grid;
+			grid-template-columns: 40px 1fr auto;
+			gap: 12px;
+			align-items: center;
+			padding: 12px;
+			border: 1px solid var(--line);
+			border-radius: 10px;
+			background: #fbfcff;
+		}
+		.steps li::before {
+			content: counter(demo-step, decimal-leading-zero);
+			display: grid;
+			place-items: center;
+			width: 36px;
+			height: 36px;
+			border-radius: 999px;
+			background: rgba(178,58,72,.1);
+			color: var(--accent);
+			font-weight: 900;
+		}
+		.steps h3 { margin: 0 0 2px; font-size: 1rem; }
+		.steps p { margin: 0; color: var(--muted); font-size: .92rem; }
+		a.button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 40px;
+			padding: 8px 12px;
+			border-radius: 8px;
+			background: var(--ink);
+			color: #fff;
+			font-weight: 800;
+			text-decoration: none;
+			white-space: nowrap;
+		}
+		a.button--gold { background: var(--gold); color: #111827; }
+		a.button--outline {
+			background: #fff;
+			color: var(--ink);
+			border: 1px solid var(--line);
+		}
+		.script {
+			display: grid;
+			gap: 10px;
+		}
+		.script blockquote {
+			margin: 0;
+			padding: 12px;
+			border-right: 4px solid var(--gold);
+			border-radius: 8px;
+			background: #fff8e6;
+			color: #1f2937;
+		}
+		.warn {
+			border-color: rgba(161,98,7,.35);
+			background: #fffbeb;
+		}
+		.warn h2 { color: var(--warn); }
+		.files {
+			display: grid;
+			gap: 8px;
+		}
+		.files a {
+			display: block;
+			padding: 10px 12px;
+			border: 1px solid var(--line);
+			border-radius: 8px;
+			color: var(--ink);
+			text-decoration: none;
+			font-weight: 700;
+			background: #fbfcff;
+		}
+		@media (max-width: 900px) {
+			.status, .grid { grid-template-columns: 1fr; }
+			.steps li { grid-template-columns: 40px 1fr; }
+			.steps a { grid-column: 1 / -1; }
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<header>
+			<h1>Jus-Tice Investor Demo Launchpad</h1>
+			<p>Use this as the morning control screen. It keeps the story honest: the lawyer acquisition and service workflow is live; recurring billing, automatic branded invoices and real refunds remain provider-gated.</p>
+		</header>
+
+		<section class="status" aria-label="Current demo status">
+			<div class="badge badge--ok"><strong>Homepage</strong><span>PASS</span></div>
+			<div class="badge badge--ok"><strong>Revenue Funnel</strong><span>10/10 PASS</span></div>
+			<div class="badge badge--ok"><strong>Investor Gate</strong><span>14 PASS</span></div>
+			<div class="badge badge--warn"><strong>Disclosure</strong><span>2 demo-data + 3 provider blockers</span></div>
+		</section>
+
+		<div class="grid">
+			<section class="panel">
+				<h2>Open Tabs In Order</h2>
+				<ol class="steps">
+					<li>
+						<div>
+							<h3>Homepage</h3>
+							<p>Point to lawyer entrypoints and the lawyer revenue strip.</p>
+						</div>
+						<a class="button" href="https://jus-tice.co.il/" target="_blank" rel="noopener">Open</a>
+					</li>
+					<li>
+						<div>
+							<h3>Lawyer Plans</h3>
+							<p>Show account-opening path: visibility, trust profile, measured leads, follow-up.</p>
+						</div>
+						<a class="button" href="https://jus-tice.co.il/lawyer-plans/" target="_blank" rel="noopener">Open</a>
+					</li>
+					<li>
+						<div>
+							<h3>Checkout Fallback</h3>
+							<p>Show billing fields, terms, cancellation and privacy links.</p>
+						</div>
+						<a class="button button--gold" href="https://jus-tice.co.il/checkout/?plan_interest=lead_partner&amp;pre_checkout=1&amp;payment_path=manual_invoice" target="_blank" rel="noopener">Open</a>
+					</li>
+					<li>
+						<div>
+							<h3>Paid Registration Prefill</h3>
+							<p>Show preserved plan, manual-invoice and billing context.</p>
+						</div>
+						<a class="button" href="https://jus-tice.co.il/lawyer-registration/?plan_interest=lead_partner&amp;payment_path=manual_invoice&amp;billing_first_name=Investor&amp;billing_last_name=Demo&amp;billing_phone=0501234567&amp;billing_email=investor-demo@example.com&amp;billing_legal_name=Demo+Medical+Law+Ltd&amp;billing_business_id=123456789&amp;billing_invoice_email=billing-demo@example.com&amp;billing_invoice_address=Tel+Aviv" target="_blank" rel="noopener">Open</a>
+					</li>
+					<li>
+						<div>
+							<h3>Lawyer Dashboard Gate</h3>
+							<p>Show private-area product promise before login.</p>
+						</div>
+						<a class="button" href="https://jus-tice.co.il/lawyer-dashboard/" target="_blank" rel="noopener">Open</a>
+					</li>
+					<li>
+						<div>
+							<h3>Owner Onboarding Admin</h3>
+							<p>Show investor panel, payment-link playbook, queues and demo-data checklist.</p>
+						</div>
+						<a class="button button--outline" href="https://jus-tice.co.il/wp-admin/admin.php?page=justice-lawyer-onboarding" target="_blank" rel="noopener">Open</a>
+					</li>
+				</ol>
+			</section>
+
+			<aside class="panel script">
+				<h2>Exact Line</h2>
+				<blockquote>The acquisition, onboarding, checkout fallback, private dashboard, lead CRM, follow-up notes and service-request flow are live. Payment automation is approval-gated, so the live bridge today is a real manual Morning/Grow payment link or invoice.</blockquote>
+
+				<div class="panel warn">
+					<h2>Do Not Claim</h2>
+					<p>Do not claim recurring billing, automatic branded invoices or automatic refunds are live until Grow/Meshulam approval and a controlled transaction pass.</p>
+				</div>
+
+				<h2>Files</h2>
+				<div class="files">
+					<a href="./investor-demo-scenario-script-2026-05-25.md">Scenario script</a>
+					<a href="./investor-demo-morning-control-sheet-2026-05-25.md">Morning control sheet</a>
+					<a href="./investor-demo-data-seed-packet-ascii-2026-05-25.md">ASCII demo data</a>
+					<a href="./investor-demo-readiness-2026-05-25.md">Readiness report</a>
+				</div>
+			</aside>
+		</div>
+	</main>
+</body>
+</html>

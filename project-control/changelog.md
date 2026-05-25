@@ -1,6 +1,12 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor demo launchpad
+
+- ADDED: `project-control/investor-demo-launchpad-2026-05-25.html` with clickable demo tabs, status badges, exact investor line and supporting file links.
+- PURPOSE: give the owner one non-technical local control screen for the morning investor walkthrough.
+- SAFETY: local HTML artifact only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Investor scenario script
 
 - ADDED: `project-control/investor-demo-scenario-script-2026-05-25.md` with the first-person medical-malpractice lawyer demo story, talk tracks and panic lines.

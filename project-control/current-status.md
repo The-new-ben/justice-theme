@@ -1,3 +1,10 @@
+# LATEST WORK STATUS - 2026-05-25 05:11 Asia/Jerusalem
+- INVESTOR DEMO LAUNCHPAD: added a local HTML launchpad with clickable morning demo tabs, status badges, exact investor line, do-not-claim warning and links to the supporting scripts/reports.
+- ADDED: `project-control/investor-demo-launchpad-2026-05-25.html`.
+- MATERIAL ADVANCE: the owner can open one local file and run the investor demo from a polished, non-technical control screen instead of hunting through Markdown files.
+- STILL BLOCKED: live claimed-lawyer login, assigned lead and real payment/refund execution require owner-approved data/provider actions.
+- SAFETY: local project-control HTML artifact only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 04:56 Asia/Jerusalem
 - INVESTOR SCENARIO SCRIPT: added a first-person walkthrough script for the exact medical-malpractice lawyer journey the owner described: discovery, plan choice, payment fallback, registration, dashboard, owner admin, assigned lead, service request and close.
 - ADDED: `project-control/investor-demo-scenario-script-2026-05-25.md` with talk tracks and panic lines for payment/refund/fake-data questions.

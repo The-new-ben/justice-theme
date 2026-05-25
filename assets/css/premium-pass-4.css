@@ -1388,6 +1388,71 @@
   }
 }
 
+/* Bituach Leumi appeal funnel. */
+.btl-appeal-hero {
+  background: linear-gradient(135deg, #07152f 0%, #10264a 58%, #203b6a 100%);
+  color: #fff;
+}
+.btl-appeal-hero h1,
+.btl-appeal-hero p {
+  color: #fff;
+}
+.btl-appeal-hero__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: clamp(1.2rem, 3vw, 2rem);
+  align-items: center;
+}
+.btl-appeal-calculator {
+  display: grid;
+  gap: 1rem;
+  margin: 1.5rem 0;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border: 1px solid rgba(7,21,47,0.1);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 16px 40px rgba(7,21,47,0.08);
+}
+.btl-appeal-calculator__form {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.85rem;
+}
+.btl-appeal-calculator__form label,
+.btl-appeal-form label {
+  display: grid;
+  gap: 0.35rem;
+  color: var(--jt-primary-deep, #07152f);
+  font-weight: 800;
+}
+.btl-appeal-calculator__form input {
+  min-height: 44px;
+  border: 1px solid rgba(7,21,47,0.15);
+  border-radius: 8px;
+  padding: 0.7rem 0.8rem;
+  color: var(--jt-primary-deep, #07152f);
+}
+.btl-appeal-calculator__result {
+  padding: 0.95rem;
+  border-radius: 8px;
+  background: rgba(178,58,72,0.08);
+  border: 1px solid rgba(178,58,72,0.16);
+}
+.btl-appeal-calculator__result strong {
+  display: block;
+  color: var(--jt-primary-deep, #07152f);
+  font-size: clamp(1.08rem, 2vw, 1.35rem);
+}
+.btl-appeal-calculator__result p {
+  margin: 0.35rem 0 0;
+}
+@media (max-width: 900px) {
+  .btl-appeal-hero__grid,
+  .btl-appeal-calculator__form {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Homepage lawyer revenue strip */
 .homepage-lawyer-revenue {
   background: #ffffff;

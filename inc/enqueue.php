@@ -132,6 +132,16 @@ function justice_theme_enqueue_assets() {
 			true
 		);
 	}
+
+	if ( function_exists( 'justice_theme_is_btl_appeal_route' ) && justice_theme_is_btl_appeal_route() ) {
+		wp_enqueue_script(
+			'justice-bituach-leumi-appeal-calculator',
+			JUSTICE_THEME_URI . '/assets/js/bituach-leumi-appeal-calculator.js',
+			array(),
+			'1.0.0',
+			true
+		);
+	}
 }
 add_action( 'wp_enqueue_scripts', 'justice_theme_enqueue_assets' );
 

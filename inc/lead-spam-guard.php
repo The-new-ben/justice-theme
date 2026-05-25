@@ -61,6 +61,7 @@ function justice_theme_lead_area_options(): array {
 		'traffic-law'             => __( 'תעבורה', 'justice-theme' ),
 		'labor-law'               => __( 'דיני עבודה', 'justice-theme' ),
 		'inheritance-law'         => __( 'ירושה וצוואות', 'justice-theme' ),
+		'national-insurance'      => __( 'ביטוח לאומי', 'justice-theme' ),
 		'thailand-law'            => __( 'תאילנד / משפט בינלאומי', 'justice-theme' ),
 		'general'                 => __( 'אחר / לא בטוח', 'justice-theme' ),
 	);

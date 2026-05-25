@@ -90,6 +90,32 @@ if ( empty( $tools ) ) {
 		),
 	);
 }
+
+$has_btl_appeal_tool = false;
+foreach ( $tools as $tool ) {
+	if ( ! empty( $tool['area'] ) && 'national-insurance' === $tool['area'] ) {
+		$has_btl_appeal_tool = true;
+		break;
+	}
+}
+
+if ( ! $has_btl_appeal_tool ) {
+	array_unshift(
+		$tools,
+		array(
+			'title'   => 'מחשבון ערעור ביטוח לאומי',
+			'text'    => 'בדיקת פער כספי, דחיפות ומסמכים לפני פנייה לעורך דין בתחום ביטוח לאומי.',
+			'url'     => home_url( '/bituach-leumi-appeal-guide/' ),
+			'type'    => 'Appeal calculator',
+			'price'   => 'בדיקה ראשונית',
+			'area'    => 'national-insurance',
+			'message' => 'אני רוצה לבדוק ערעור על החלטת ביטוח לאומי. הרקע בקצרה: ',
+			'keyword' => 'ערעור ביטוח לאומי',
+		)
+	);
+
+	$tools = array_slice( $tools, 0, 6 );
+}
 ?>
 
 <section class="legaltech-tools section" id="legaltech-tools">

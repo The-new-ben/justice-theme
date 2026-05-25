@@ -124,6 +124,9 @@ Already shipped:
   `project-control/btl-specialist-prospect-shortlist-2026-05-26.md` and `.csv`
   collect source-linked candidates for manual verification. No public profile,
   database record or outreach was created from this pack.
+- Source-pack candidates are now visible in the private Bituach Leumi CRM panel,
+  with "Add private prospect" buttons that prefill private draft fields but do
+  not create records until the owner saves them.
 
 Remaining:
 

@@ -410,6 +410,11 @@ function justice_theme_lawyer_prospect_default_title( string $title, WP_Post $po
 
 	$prefill_area = justice_theme_lawyer_prospect_request_prefill( 'prospect_practice_area' );
 	$prefill_city = justice_theme_lawyer_prospect_request_prefill( 'prospect_city' );
+	$prefill_firm = justice_theme_lawyer_prospect_request_prefill( 'prospect_firm_name' );
+	if ( $prefill_firm ) {
+		return trim( 'BTL prospect: ' . $prefill_firm );
+	}
+
 	if ( $prefill_area || $prefill_city ) {
 		return trim( 'Recruit coverage: ' . ( $prefill_area ?: 'Manual outreach' ) . ( $prefill_city ? ' / ' . $prefill_city : '' ) );
 	}

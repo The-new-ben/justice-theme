@@ -264,6 +264,7 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 		</div>
 	<?php endif; ?>
 	<?php justice_theme_crm_render_btl_candidate_tracker( $btl_needles ); ?>
+	<?php justice_theme_crm_render_btl_source_pack_candidates(); ?>
 	<?php justice_theme_crm_render_btl_outreach_pack(); ?>
 	<?php
 }
@@ -343,6 +344,127 @@ function justice_theme_crm_render_btl_candidate_tracker( array $needles ): void 
 		<?php endif; ?>
 	</div>
 	<?php
+}
+
+function justice_theme_crm_render_btl_source_pack_candidates(): void {
+	$rows = justice_theme_crm_read_btl_source_pack( 10 );
+	?>
+	<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;margin:12px 0 20px;">
+		<h3 style="margin-top:0;">Source-pack candidates</h3>
+		<p style="margin-top:0;color:#646970;">Private candidate list from the repo source pack. Buttons prefill a private prospect draft; they do not create a record until the owner saves it.</p>
+		<?php if ( empty( $rows ) ) : ?>
+			<div class="notice notice-info inline"><p>No source-pack candidates loaded from the repo CSV.</p></div>
+		<?php else : ?>
+			<table class="widefat striped">
+				<thead>
+					<tr>
+						<th>Candidate</th>
+						<th>Focus</th>
+						<th>Priority</th>
+						<th>Evidence</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ( $rows as $row ) : ?>
+						<tr>
+							<td>
+								<strong><?php echo esc_html( $row['candidate'] ?? '' ); ?></strong>
+								<?php if ( ! empty( $row['geo_hint'] ) ) : ?>
+									<br><small><?php echo esc_html( $row['geo_hint'] ); ?></small>
+								<?php endif; ?>
+								<?php if ( ! empty( $row['source_url'] ) ) : ?>
+									<br><a href="<?php echo esc_url( $row['source_url'] ); ?>" target="_blank" rel="noopener">Open source</a>
+								<?php endif; ?>
+							</td>
+							<td><?php echo esc_html( $row['apparent_focus'] ?? '' ); ?></td>
+							<td><?php echo esc_html( $row['priority'] ?? '' ); ?></td>
+							<td><?php echo esc_html( $row['source_evidence_summary'] ?? '' ); ?></td>
+							<td>
+								<a class="button button-small" href="<?php echo esc_url( justice_theme_crm_btl_source_candidate_prefill_url( $row ) ); ?>">Add private prospect</a>
+								<br><small><?php echo esc_html( $row['verification_status'] ?? 'not_verified' ); ?></small>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		<?php endif; ?>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_read_btl_source_pack( int $limit = 10 ): array {
+	$path = JUSTICE_THEME_DIR . '/project-control/btl-specialist-prospect-shortlist-2026-05-26.csv';
+	if ( ! is_readable( $path ) ) {
+		return array();
+	}
+
+	$handle = fopen( $path, 'r' );
+	if ( ! $handle ) {
+		return array();
+	}
+
+	$headers = fgetcsv( $handle, 0, ',', '"', '\\' );
+	if ( ! is_array( $headers ) ) {
+		fclose( $handle );
+		return array();
+	}
+
+	$rows = array();
+	while ( ( $data = fgetcsv( $handle, 0, ',', '"', '\\' ) ) !== false ) {
+		if ( count( $data ) !== count( $headers ) ) {
+			continue;
+		}
+
+		$row = array_combine( $headers, $data );
+		if ( empty( $row['candidate'] ) || empty( $row['source_url'] ) ) {
+			continue;
+		}
+
+		$rows[] = $row;
+	}
+	fclose( $handle );
+
+	usort(
+		$rows,
+		static function ( array $a, array $b ): int {
+			$priority_order = array( 'high' => 0, 'medium' => 1, 'low' => 2 );
+			$a_priority     = $priority_order[ strtolower( (string) ( $a['priority'] ?? '' ) ) ] ?? 3;
+			$b_priority     = $priority_order[ strtolower( (string) ( $b['priority'] ?? '' ) ) ] ?? 3;
+
+			if ( $a_priority !== $b_priority ) {
+				return $a_priority <=> $b_priority;
+			}
+
+			return strcmp( (string) ( $a['candidate'] ?? '' ), (string) ( $b['candidate'] ?? '' ) );
+		}
+	);
+
+	return array_slice( $rows, 0, $limit );
+}
+
+function justice_theme_crm_btl_source_candidate_prefill_url( array $row ): string {
+	$is_high = 'high' === strtolower( (string) ( $row['priority'] ?? '' ) );
+	$city    = trim( (string) ( $row['geo_hint'] ?? '' ) ) ?: 'ישראל';
+	$signal  = 'BTL source-pack candidate: ' . (string) ( $row['source_evidence_summary'] ?? '' );
+	$note    = 'From private BTL source pack. Do not route until license/status, niche experience, same-day response and manual-payment acceptance are verified. Source action: ' . (string) ( $row['crm_action'] ?? '' );
+
+	return add_query_arg(
+		array(
+			'post_type'                     => 'justice_prospect',
+			'prospect_firm_name'            => (string) ( $row['candidate'] ?? '' ),
+			'prospect_practice_area'        => 'ביטוח לאומי',
+			'prospect_city'                 => $city,
+			'prospect_target_plan'          => $is_high ? 'lead_partner' : 'featured',
+			'prospect_priority'             => $is_high ? 'hot' : 'warm',
+			'prospect_outreach_status'      => 'research',
+			'prospect_source_url'           => (string) ( $row['source_url'] ?? '' ),
+			'prospect_expected_monthly_nis' => $is_high ? '1490' : '749',
+			'prospect_demand_signal'        => substr( $signal, 0, 450 ),
+			'prospect_owner_note'           => substr( $note, 0, 450 ),
+		),
+		admin_url( 'post-new.php' )
+	);
 }
 
 function justice_theme_crm_render_btl_outreach_pack(): void {

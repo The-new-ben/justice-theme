@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor morning go/no-go
+
+- ADDED: `tools/check-investor-morning-go-no-go.mjs`.
+- GENERATED: `project-control/investor-morning-go-no-go-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/investor-morning-go-no-go-2026-05-25.json` and `.csv`.
+- VERIFIED: live lawyer revenue funnel 10/10 PASS, investor readiness `PASS_WITH_DISCLOSED_BLOCKERS`, launchpad pack PASS and payment-overclaim PASS.
+- DECISION: `GO_WITH_DISCLOSED_BLOCKERS` for an honest investor demo.
+- SAFETY: read-only live checks and local report artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Investor payment overclaim checker
 
 - ADDED: `tools/check-investor-payment-overclaim.mjs`.

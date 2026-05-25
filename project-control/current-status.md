@@ -1,3 +1,16 @@
+# LATEST WORK STATUS - 2026-05-25 06:02 Asia/Jerusalem
+- INVESTOR MORNING GO/NO-GO: refreshed the live revenue funnel, investor readiness, launchpad pack and payment-overclaim gates, then generated a single go/no-go report for the meeting.
+- ADDED: `tools/check-investor-morning-go-no-go.mjs`.
+- GENERATED: `project-control/investor-morning-go-no-go-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/investor-morning-go-no-go-2026-05-25.json` and `.csv`.
+- VERIFIED LIVE: lawyer revenue funnel remains 10/10 PASS.
+- VERIFIED LIVE/SOURCE: investor readiness remains `PASS_WITH_DISCLOSED_BLOCKERS`.
+- VERIFIED LOCAL: launchpad pack remains PASS and payment-overclaim checker remains PASS.
+- DECISION: `GO_WITH_DISCLOSED_BLOCKERS` for an honest investor demo.
+- STILL BLOCKED: claimed demo lawyer, assigned medical-malpractice lead, real provider payment, branded invoice and refund execution require explicit owner/provider-approved live actions.
+- COMPLETION: investor operator readiness moves to about 92%; full real-money lifecycle proof remains provider/data gated.
+- SAFETY: read-only live checks plus local checker/report artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 05:52 Asia/Jerusalem
 - INVESTOR PAYMENT OVERCLAIM CHECKER: added and ran a local guard that scans the investor demo pack for unsafe payment, recurring-billing, invoice, refund and fake-data claims.
 - RESEARCH BASIS: Stripe Customer Portal and Chargebee Self-Serve Portal docs confirm that mature billing portals expose billing details, payment methods, invoices, subscription state and cancellation/change paths; Jus-Tice must not overclaim those provider-managed actions before Grow/Meshulam proof.

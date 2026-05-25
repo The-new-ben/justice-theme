@@ -1,0 +1,60 @@
+{
+  "status": "GO_WITH_DISCLOSED_BLOCKERS",
+  "startedAt": "2026-05-25T03:04:21.859Z",
+  "runDate": "2026-05-25",
+  "inputs": {
+    "revenueFunnel": "reports/lawyer-revenue-funnel-live-2026-05-25.json",
+    "investorReadiness": "reports/investor-demo-readiness-2026-05-25.json",
+    "launchpadPack": "reports/investor-launchpad-pack-2026-05-25.json",
+    "paymentOverclaim": "reports/investor-payment-overclaim-2026-05-25.json"
+  },
+  "totals": {
+    "revenuePass": 10,
+    "revenueTotal": 10,
+    "readinessPass": 14,
+    "readinessReview": 0,
+    "demoDataBlockers": 2,
+    "externalBlockers": 3,
+    "launchpadFilePass": 7,
+    "launchpadFileTotal": 7,
+    "launchpadTokenPass": 14,
+    "launchpadTokenTotal": 14,
+    "honestyPass": 3,
+    "honestyTotal": 3,
+    "overclaimPass": 8,
+    "overclaimTotal": 8,
+    "go": true
+  },
+  "rows": [
+    {
+      "area": "Public revenue funnel",
+      "status": "GO",
+      "proof": "10/10 live checks PASS",
+      "blocker_or_next_step": "Open homepage, lawyer plans, checkout fallback, registration prefill and dashboard gate from the launchpad."
+    },
+    {
+      "area": "Investor readiness",
+      "status": "PASS_WITH_DISCLOSED_BLOCKERS",
+      "proof": "14 source/live checks PASS",
+      "blocker_or_next_step": "2 demo-data blockers and 3 provider/payment blockers must be disclosed."
+    },
+    {
+      "area": "Launchpad pack",
+      "status": "PASS",
+      "proof": "7/7 files, 14/14 tokens PASS",
+      "blocker_or_next_step": "Use the local launchpad as the meeting control screen."
+    },
+    {
+      "area": "Payment honesty",
+      "status": "PASS",
+      "proof": "3/3 honesty markers, 8/8 overclaim scans PASS",
+      "blocker_or_next_step": "Use manual Grow/Morning payment-link language until provider proof exists."
+    },
+    {
+      "area": "Real-money proof",
+      "status": "DISCLOSE_BLOCKER",
+      "proof": "Service/request capture is ready; actual money movement remains provider-approved.",
+      "blocker_or_next_step": "Real low-amount payment, branded invoice and refund execution require explicit owner/provider-approved action."
+    }
+  ]
+}

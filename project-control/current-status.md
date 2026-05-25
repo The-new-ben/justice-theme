@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 15:39 Asia/Jerusalem
+- HOMEPAGE LAWYER SHOWCASE QUALITY GATE ADDED: the homepage no longer promotes Maya, seed/demo/test-like, imported, or public-index lawyer profiles unless their profile facts are approved/source-checked/owner-approved/lawyer-approved.
+- UPDATED: `template-parts/sections/featured-lawyers.php`, `assets/css/premium-pass-4.css`, and `inc/enqueue.php`.
+- ADDED: `project-control/homepage-lawyer-showcase-quality-gate-2026-05-25.md`.
+- MATERIAL ADVANCE: this addresses the investor-facing homepage quality problem directly. The full directory can still contain controlled/basic cards, but the homepage showcase now behaves like a premium surface and holds unsafe profiles out of first impression placement.
+- RESEARCH BASIS: checked current public direction from Din, Justia and Avvo context. The standard is broad directory coverage plus contact/claim paths, but homepage promotion requires trust governance. Implementation is original and does not copy competitor lawyer data, photos, ratings, reviews or text.
+- VERIFIED LOCAL / PUSH PENDING / DEPLOY BLOCKED: `php -l template-parts/sections/featured-lawyers.php`, `php -l inc/enqueue.php`, and `git diff --check` passed. Production is still behind until uPress Pull Git succeeds.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves homepage trust and sponsored-slot conversion readiness, but it does not prove payment, invoice, refund, subscription, lead delivery, or CRM monetization.
+- SAFETY: repo display logic and docs only; no live CMS database edit, competitor lawyer/profile import, competitor asset/content copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 15:27 Asia/Jerusalem
 - LAWYER PUBLIC PROFILE CLAIM SAFETY TIGHTENED: unverified/fact-gated lawyer mini-sites and homepage/directory cards no longer show rich profile claims before source review.
 - UPDATED: `single-justice_lawyer.php` and `template-parts/cards/lawyer-card.php`.

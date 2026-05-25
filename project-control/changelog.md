@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Homepage lawyer showcase quality gate
+
+- UPDATED: `template-parts/sections/featured-lawyers.php`, `assets/css/premium-pass-4.css`, and `inc/enqueue.php`.
+- ADDED: `project-control/homepage-lawyer-showcase-quality-gate-2026-05-25.md`.
+- PURPOSE: prevent unsafe imported/basic/seed-like lawyer profiles from being elevated on the homepage before source and profile fact review.
+- IMPLEMENTATION: added a homepage promotion gate for Maya, seed/demo/test-like, imported and public-index profiles unless `profile_fact_review_status` is approved/source-checked/owner-approved/lawyer-approved; added a quality-note count when profiles are held back.
+- VERIFIED LOCAL: `php -l template-parts/sections/featured-lawyers.php` and `php -l inc/enqueue.php` passed.
+- SAFETY: no CMS database write, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-25 - Lawyer public profile claim safety
 
 - UPDATED: `single-justice_lawyer.php` and `template-parts/cards/lawyer-card.php`.

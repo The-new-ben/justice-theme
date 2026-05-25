@@ -38,7 +38,70 @@ if ( ! function_exists( 'justice_theme_homepage_lawyer_showcase_score' ) ) {
 	}
 }
 
+if ( ! function_exists( 'justice_theme_homepage_lawyer_fact_status_is_approved' ) ) {
+	/**
+	 * Check if profile facts are approved for homepage promotion.
+	 *
+	 * @param int $post_id Lawyer profile ID.
+	 * @return bool
+	 */
+	function justice_theme_homepage_lawyer_fact_status_is_approved( int $post_id ): bool {
+		$status = sanitize_key( (string) get_post_meta( $post_id, 'profile_fact_review_status', true ) );
+
+		if ( function_exists( 'justice_lawyer_fact_review_status_is_approved' ) ) {
+			return justice_lawyer_fact_review_status_is_approved( $status );
+		}
+
+		return in_array( $status, array( 'approved', 'source_checked', 'owner_approved', 'lawyer_approved' ), true );
+	}
+}
+
+if ( ! function_exists( 'justice_theme_homepage_lawyer_requires_fact_gate' ) ) {
+	/**
+	 * Detect profiles that must not be homepage-promoted before fact review.
+	 *
+	 * @param int $post_id Lawyer profile ID.
+	 * @return bool
+	 */
+	function justice_theme_homepage_lawyer_requires_fact_gate( int $post_id ): bool {
+		$source_type    = strtolower( (string) get_post_meta( $post_id, 'source_type', true ) );
+		$internal_notes = strtolower( (string) get_post_meta( $post_id, 'internal_notes', true ) );
+		$slug           = (string) get_post_field( 'post_name', $post_id );
+		$title          = get_the_title( $post_id );
+		$is_maya        = 'advocate-maya-rotenberg' === $slug
+			|| (
+				false !== mb_strpos( $title, rawurldecode( '%D7%9E%D7%90%D7%99%D7%94' ) )
+				&& false !== mb_strpos( $title, rawurldecode( '%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92' ) )
+			);
+		$is_seed_like   = 'seed' === $source_type
+			|| false !== strpos( $internal_notes, 'seed' )
+			|| false !== strpos( $internal_notes, 'demo' )
+			|| false !== strpos( $internal_notes, 'test data' )
+			|| false !== strpos( $internal_notes, 'fake' )
+			|| false !== strpos( $internal_notes, 'fictional' );
+
+		return $is_maya || $is_seed_like || in_array( $source_type, array( 'public_index', 'import' ), true );
+	}
+}
+
+if ( ! function_exists( 'justice_theme_homepage_lawyer_is_showcase_safe' ) ) {
+	/**
+	 * Keep the homepage from elevating unverified imported/basic profiles.
+	 *
+	 * @param int $post_id Lawyer profile ID.
+	 * @return bool
+	 */
+	function justice_theme_homepage_lawyer_is_showcase_safe( int $post_id ): bool {
+		if ( justice_theme_homepage_lawyer_requires_fact_gate( $post_id ) ) {
+			return justice_theme_homepage_lawyer_fact_status_is_approved( $post_id );
+		}
+
+		return true;
+	}
+}
+
 $showcase_lawyer_ids = array();
+$showcase_hold_count = 0;
 
 if ( post_type_exists( 'justice_lawyer' ) ) {
 	$candidate_ids = get_posts(
@@ -60,6 +123,11 @@ if ( post_type_exists( 'justice_lawyer' ) ) {
 			function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
 			&& ! justice_theme_lawyer_profile_is_public_approved( $candidate_id )
 		) {
+			continue;
+		}
+
+		if ( ! justice_theme_homepage_lawyer_is_showcase_safe( $candidate_id ) ) {
+			++$showcase_hold_count;
 			continue;
 		}
 
@@ -134,6 +202,17 @@ $registration_url = add_query_arg(
 						<li><?php esc_html_e( 'עורך דין יכול לתבוע כרטיס, להשלים פרטים, ולשדרג למסלול שמייצר פניות.', 'justice-theme' ); ?></li>
 						<li><?php esc_html_e( 'הסדר בדף הבית נקבע לפי סטטוס מנוי, אימות וציון עדיפות.', 'justice-theme' ); ?></li>
 					</ul>
+					<?php if ( $showcase_hold_count > 0 ) : ?>
+						<p class="featured-lawyers__quality-note">
+							<?php
+							printf(
+								/* translators: %d: number of held profiles. */
+								esc_html__( '%d כרטיסים לא עולים לדף הבית עד בדיקת מקורות, תמונה ואישור פרטי הפרופיל.', 'justice-theme' ),
+								(int) $showcase_hold_count
+							);
+							?>
+						</p>
+					<?php endif; ?>
 					<a class="button button--primary" href="<?php echo esc_url( $registration_url ); ?>">
 						<?php esc_html_e( 'הצטרפות למסלול ממומן', 'justice-theme' ); ?>
 					</a>

@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-25 16:08 Asia/Jerusalem
+- OWNER SERVICE-REQUEST ACTIONS ADDED: Lawyer Onboarding now has one-click owner actions for lawyer service/billing/refund/cancellation/complaint requests.
+- UPDATED: `inc/lawyer-onboarding.php`.
+- ADDED: `project-control/lawyer-onboarding-service-request-owner-actions-2026-05-25.md`.
+- MATERIAL ADVANCE: the private lawyer service desk now connects to an owner-side workflow. A submitted service request can be marked in review, resolved, blocked or reopened from the admin queue, with unresolved requests kept in the pending service queue and resolved requests removed from it.
+- VERIFIED LOCAL / PUSHED / DEPLOY BLOCKED: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed; production still needs uPress Pull Git because Codex still has no active browser pane for uPress.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves support/retention and investor-demo credibility, but it does not prove payment, invoice, refund, subscription, lead delivery or CRM monetization.
+- SAFETY: repo admin workflow/docs only; no live CMS database edit, public content change, competitor import/copy, payment, invoice, refund, email to customer, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 15:58 Asia/Jerusalem
 - LAWYER DASHBOARD SERVICE STATUS SURFACED: the top dashboard command center now echoes the latest service/billing/refund/complaint request status, type and response target when a lawyer has submitted one.
 - UPDATED: `page-lawyer-dashboard.php`, `assets/css/premium-pass-3.css`, and `inc/enqueue.php`.

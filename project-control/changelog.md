@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer onboarding service request owner actions
+
+- UPDATED: `inc/lawyer-onboarding.php`.
+- ADDED: `project-control/lawyer-onboarding-service-request-owner-actions-2026-05-25.md`.
+- PURPOSE: make dashboard-submitted billing/support/refund/complaint requests actionable from the owner/admin queue.
+- IMPLEMENTATION: registered service-request meta, added service-request status options, quick-action URLs and admin-post handler, and exposed row actions for in-review/resolved/blocked/reopen states.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed.
+- SAFETY: no CMS database write during deployment, public content change, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-25 - Lawyer dashboard service status command center
 
 - UPDATED: `page-lawyer-dashboard.php`, `assets/css/premium-pass-3.css`, and `inc/enqueue.php`.

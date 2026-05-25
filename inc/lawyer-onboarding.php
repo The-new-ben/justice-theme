@@ -51,6 +51,18 @@ function justice_theme_register_lawyer_activation_meta(): void {
 		'registration_upload_notes'   => 'string',
 		'pending_ai_profile_draft_review' => 'string',
 		'profile_ai_draft_sections'   => 'string',
+		'pending_service_request'      => 'string',
+		'latest_service_request_id'    => 'string',
+		'latest_service_request_type'  => 'string',
+		'latest_service_request_subject' => 'string',
+		'latest_service_request_message' => 'string',
+		'latest_service_request_desired_plan' => 'string',
+		'latest_service_request_urgency' => 'string',
+		'latest_service_request_status' => 'string',
+		'latest_service_request_submitted_at' => 'string',
+		'latest_service_request_in_review_at' => 'string',
+		'latest_service_request_resolved_at' => 'string',
+		'latest_service_request_blocked_at' => 'string',
 		'account_user_created_at'     => 'string',
 		'account_invite_sent_at'      => 'string',
 		'account_invite_last_result'  => 'string',
@@ -78,7 +90,7 @@ function justice_theme_lawyer_response_commitment_options(): array {
 }
 
 function justice_theme_lawyer_activation_meta_sanitizer( string $key ): string {
-	if ( in_array( $key, array( 'activation_owner_note', 'registration_upload_notes', 'profile_ai_draft_sections' ), true ) ) {
+	if ( in_array( $key, array( 'activation_owner_note', 'registration_upload_notes', 'profile_ai_draft_sections', 'latest_service_request_message' ), true ) ) {
 		return 'sanitize_textarea_field';
 	}
 
@@ -1523,6 +1535,62 @@ function justice_theme_lawyer_payment_followup_quick_action_url( int $post_id, s
 	);
 }
 
+function justice_theme_lawyer_service_request_status_options(): array {
+	return array(
+		'open'      => 'Open',
+		'in_review' => 'In review',
+		'resolved'  => 'Resolved',
+		'blocked'   => 'Blocked',
+	);
+}
+
+function justice_theme_lawyer_service_request_quick_actions( string $service_status ): array {
+	$service_status = sanitize_key( $service_status ?: 'open' );
+
+	if ( in_array( $service_status, array( '', 'open' ), true ) ) {
+		return array(
+			'in_review' => 'Mark in review',
+			'resolved'  => 'Resolve',
+			'blocked'   => 'Block',
+		);
+	}
+
+	if ( 'in_review' === $service_status ) {
+		return array(
+			'resolved' => 'Resolve',
+			'blocked'  => 'Block',
+			'open'     => 'Reopen',
+		);
+	}
+
+	if ( 'blocked' === $service_status ) {
+		return array(
+			'in_review' => 'Back to review',
+			'resolved'  => 'Resolve',
+			'open'      => 'Reopen',
+		);
+	}
+
+	if ( 'resolved' === $service_status ) {
+		return array(
+			'open' => 'Reopen',
+		);
+	}
+
+	return array(
+		'in_review' => 'Mark in review',
+	);
+}
+
+function justice_theme_lawyer_service_request_quick_action_url( int $post_id, string $service_status ): string {
+	$service_status = sanitize_key( $service_status );
+
+	return wp_nonce_url(
+		admin_url( 'admin-post.php?action=justice_update_lawyer_service_request_status&lawyer_id=' . $post_id . '&service_status=' . rawurlencode( $service_status ) ),
+		'justice_update_lawyer_service_request_status_' . $post_id . '_' . $service_status
+	);
+}
+
 function justice_theme_lawyer_payment_queue_export_url( string $payment_queue ): string {
 	$payment_queue = sanitize_key( $payment_queue );
 
@@ -2385,6 +2453,69 @@ function justice_theme_update_lawyer_payment_followup(): void {
 	exit;
 }
 add_action( 'admin_post_justice_update_lawyer_payment_followup', 'justice_theme_update_lawyer_payment_followup' );
+
+function justice_theme_update_lawyer_service_request_status(): void {
+	$post_id        = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
+	$service_status = isset( $_GET['service_status'] ) ? sanitize_key( wp_unslash( $_GET['service_status'] ) ) : '';
+	$options        = justice_theme_lawyer_service_request_status_options();
+
+	if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to update this service request.', 'justice-theme' ) );
+	}
+
+	if ( ! array_key_exists( $service_status, $options ) ) {
+		wp_die( esc_html__( 'Invalid service request status.', 'justice-theme' ) );
+	}
+
+	check_admin_referer( 'justice_update_lawyer_service_request_status_' . $post_id . '_' . $service_status );
+
+	$previous_status = (string) get_post_meta( $post_id, 'latest_service_request_status', true );
+	update_post_meta( $post_id, 'latest_service_request_status', $service_status );
+
+	if ( 'resolved' === $service_status ) {
+		delete_post_meta( $post_id, 'pending_service_request' );
+	} else {
+		update_post_meta( $post_id, 'pending_service_request', '1' );
+	}
+
+	$timestamp_meta = array(
+		'in_review' => 'latest_service_request_in_review_at',
+		'resolved'  => 'latest_service_request_resolved_at',
+		'blocked'   => 'latest_service_request_blocked_at',
+	);
+
+	if ( isset( $timestamp_meta[ $service_status ] ) && '' === (string) get_post_meta( $post_id, $timestamp_meta[ $service_status ], true ) ) {
+		update_post_meta( $post_id, $timestamp_meta[ $service_status ], current_time( 'mysql' ) );
+	}
+
+	if ( $service_status !== $previous_status ) {
+		justice_theme_append_lawyer_internal_note(
+			$post_id,
+			sprintf(
+				'Service request status changed from %s to %s from Lawyer Onboarding.',
+				$previous_status ?: 'open',
+				$options[ $service_status ]
+			)
+		);
+	}
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_service_request_status_updated', 'Updated lawyer service request to ' . $service_status . ': ' . get_the_title( $post_id ) );
+	}
+
+	$redirect_args = array(
+		'page'                     => 'justice-lawyer-onboarding',
+		'service_request_followup' => 'updated',
+	);
+
+	if ( 'resolved' !== $service_status ) {
+		$redirect_args['service_request_status'] = 'pending';
+	}
+
+	wp_safe_redirect( add_query_arg( $redirect_args, admin_url( 'admin.php' ) ) );
+	exit;
+}
+add_action( 'admin_post_justice_update_lawyer_service_request_status', 'justice_theme_update_lawyer_service_request_status' );
 
 function justice_theme_lawyer_onboarding_plan_label( string $plan ): string {
 	if ( function_exists( 'justice_theme_lawyer_plans' ) ) {
@@ -3804,6 +3935,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php if ( isset( $_GET['payment_followup'] ) && 'updated' === $_GET['payment_followup'] ) : ?>
 			<div class="notice notice-success is-dismissible"><p>Payment follow-up status updated. Continue the next money action from this filtered queue.</p></div>
 		<?php endif; ?>
+		<?php if ( isset( $_GET['service_request_followup'] ) && 'updated' === $_GET['service_request_followup'] ) : ?>
+			<div class="notice notice-success is-dismissible"><p>Service request status updated. Continue owner review, billing/refund handling or customer-success follow-up from this queue.</p></div>
+		<?php endif; ?>
 		<?php if ( isset( $_GET['recommendation_token'] ) && 'created' === $_GET['recommendation_token'] && function_exists( 'justice_theme_admin_latest_recommendation_token_link' ) ) : ?>
 			<?php $recommendation_token_link = justice_theme_admin_latest_recommendation_token_link(); ?>
 			<div class="notice notice-success is-dismissible">
@@ -3908,6 +4042,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$service_request_type = (string) get_post_meta( $post_id, 'latest_service_request_type', true );
 						$service_request_subject = (string) get_post_meta( $post_id, 'latest_service_request_subject', true );
 						$service_request_status = (string) get_post_meta( $post_id, 'latest_service_request_status', true );
+						$service_request_status_options = justice_theme_lawyer_service_request_status_options();
+						$service_request_status_label = $service_request_status_options[ $service_request_status ?: 'open' ] ?? ( $service_request_status ?: 'open' );
+						$service_request_quick_actions = $service_request_id ? justice_theme_lawyer_service_request_quick_actions( $service_request_status ) : array();
 						$upload_notes = (string) get_post_meta( $post_id, 'registration_upload_notes', true );
 						$ai_profile_draft = (string) get_post_meta( $post_id, 'profile_ai_draft_sections', true );
 						$content_article_id = (int) get_post_meta( $post_id, 'latest_content_request_article_id', true );
@@ -4069,9 +4206,16 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 								<?php if ( $service_request_id ) : ?>
 									<div style="margin:0 0 8px;padding:8px;border-radius:6px;background:#fff5f5;border:1px solid #f4b4b4;color:#7f1d1d;">
 										<strong>Service request:</strong> <?php echo esc_html( $service_request_id ); ?><br>
-										<small><?php echo esc_html( trim( $service_request_type . ' / ' . ( $service_request_status ?: 'open' ), ' /' ) ); ?></small>
+										<small><?php echo esc_html( trim( $service_request_type . ' / ' . $service_request_status_label, ' /' ) ); ?></small>
 										<?php if ( $service_request_subject ) : ?>
 											<br><small><?php echo esc_html( $service_request_subject ); ?></small>
+										<?php endif; ?>
+										<?php if ( $service_request_quick_actions ) : ?>
+											<p style="margin:8px 0 0;">
+												<?php foreach ( $service_request_quick_actions as $next_service_status => $action_label ) : ?>
+													<a class="button button-small" style="margin:0 4px 4px 0;" href="<?php echo esc_url( justice_theme_lawyer_service_request_quick_action_url( $post_id, $next_service_status ) ); ?>"><?php echo esc_html( $action_label ); ?></a>
+												<?php endforeach; ?>
+											</p>
 										<?php endif; ?>
 									</div>
 								<?php endif; ?>

@@ -158,6 +158,7 @@ $can_show_profile_articles = $show_freeform_profile_facts && ( $is_paid || $is_v
 $connected_article_slugs = array_filter( array( $lawyer_profile_slug, $authority_person_slug ) );
 $trusted_contact_source = in_array( $source_type, array( 'lawyer_submitted', 'owner_verified', 'verified_public' ), true );
 $show_direct_contact = $show_freeform_profile_facts || $is_paid || $is_verified || $trusted_contact_source;
+$show_profile_claim_banner = ! $is_paid && ( $requires_fact_gate || ! $is_verified );
 
 if ( ! $show_freeform_profile_facts ) {
 	$profile_headline = get_the_title( $lawyer_id );
@@ -383,6 +384,16 @@ if ( $show_profile_photo ) {
 					<?php endif; ?>
 					<a class="button button--gold" href="#lawyer-inquiry">שליחת פנייה</a>
 				</div>
+
+				<?php if ( $show_profile_claim_banner ) : ?>
+					<div class="lawyer-mini-claim-banner" aria-label="<?php esc_attr_e( 'עדכון ואימות פרופיל עורך דין', 'justice-theme' ); ?>">
+						<div>
+							<strong><?php esc_html_e( 'זה הפרופיל שלך?', 'justice-theme' ); ?></strong>
+							<span><?php esc_html_e( 'אפשר לאמת פרטים, להוסיף תמונה, ביקורות, מאמרים וקידום ממומן מתוך מערכת Jus-Tice.', 'justice-theme' ); ?></span>
+						</div>
+						<a href="<?php echo esc_url( $claim_url ); ?>"><?php esc_html_e( 'עדכון פרופיל', 'justice-theme' ); ?></a>
+					</div>
+				<?php endif; ?>
 			</div>
 
 			<aside class="lawyer-mini-hero__panel" aria-label="פרטי עורכת הדין">

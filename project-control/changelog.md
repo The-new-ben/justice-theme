@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer profile claim banner
+
+- UPDATED: `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-profile-claim-banner-2026-05-25.md`.
+- PURPOSE: create a direct claim/update/upgrade path from basic or unverified public lawyer profiles.
+- IMPLEMENTATION: added a hero claim banner for non-paid basic/unverified/fact-gated profiles that points to the existing tracked lawyer registration claim URL; paid profiles do not show the banner.
+- RESEARCH BASIS: checked Justia claim-profile/premium-placement and Avvo claim-profile/rating behavior, plus the current Din/Psakdin/LawReviews profile review; implementation is original and does not copy competitor people, photos, ratings, reviews, contact data or profile text.
+- VERIFIED LOCAL: `php -l single-justice_lawyer.php`, `php -l inc/enqueue.php`, and `git diff --check` passed.
+- SAFETY: no live CMS database write, lawyer/customer/provider creation, competitor import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # 2026-05-25 - Lawyer profile proof strip no placeholder
 
 - UPDATED: `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`.

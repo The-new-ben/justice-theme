@@ -1,6 +1,6 @@
 /* ============================================================
    JUS-TICE PREMIUM PASS 4 — SURGICAL VISUAL POLISH
-   Version: 4.4.1 | 2026-05-25
+   Version: 4.4.2 | 2026-05-25
    ============================================================ */
 
 /* ── 1. LOGO POLISH + FASTER RED DOT ────────────────────── */
@@ -962,6 +962,62 @@
   color: var(--jt-muted, #6b7280);
   font-size: 0.92rem;
   line-height: 1.7;
+}
+
+.lawyer-mini-claim-banner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.8rem;
+  align-items: center;
+  max-width: 680px;
+  margin-top: 1rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.09);
+  color: #fff;
+}
+.lawyer-mini-claim-banner div {
+  min-width: 0;
+  display: grid;
+  gap: 0.18rem;
+}
+.lawyer-mini-claim-banner strong {
+  font-size: 0.92rem;
+  font-weight: 900;
+  line-height: 1.35;
+}
+.lawyer-mini-claim-banner span {
+  color: rgba(255,255,255,0.78);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
+.lawyer-mini-claim-banner a {
+  min-height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.52rem 0.82rem;
+  border-radius: 8px;
+  background: #fff;
+  color: var(--jt-primary-deep, #07152f);
+  font-size: 0.84rem;
+  font-weight: 900;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+}
+.lawyer-mini-claim-banner a:hover,
+.lawyer-mini-claim-banner a:focus-visible {
+  background: #fde68a;
+}
+@media (max-width: 620px) {
+  .lawyer-mini-claim-banner {
+    grid-template-columns: 1fr;
+  }
+  .lawyer-mini-claim-banner a {
+    width: 100%;
+  }
 }
 
 /* Profile proof strip: never show placeholder dashes as investor-facing proof. */

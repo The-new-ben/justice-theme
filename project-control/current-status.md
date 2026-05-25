@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 18:28 Asia/Jerusalem
+- LAWYER PROFILE CLAIM BANNER ADDED: basic/unverified/fact-gated lawyer profiles now have a professional "is this your profile?" claim/update path in the hero.
+- UPDATED: `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-profile-claim-banner-2026-05-25.md`.
+- MATERIAL ADVANCE: this creates a cleaner lawyer subscription conversion path directly from public profiles without adding fake facts or advertising other lawyers inside the profile. Paid profiles do not show the banner.
+- COMPETITOR RESEARCH BASIS: checked current Justia claim-profile/premium-placement and Avvo claim-profile/rating behavior, on top of the existing Din/Psakdin/LawReviews profile-pattern work. Applied the pattern as original UI/copy.
+- VERIFIED LOCAL / DEPLOY PENDING: `php -l single-justice_lawyer.php`, `php -l inc/enqueue.php`, and `git diff --check` passed.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves claim/upgrade readiness, but no lawyer has paid, upgraded, received an invoice, or completed subscription/payment proof.
+- SAFETY: repo display/CSS/docs only; no live CMS database edit, lawyer/customer/provider creation, competitor import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 18:21 Asia/Jerusalem
 - LAWYER PROFILE PROOF STRIP CLEANED: single lawyer profiles no longer show fixed placeholder dashes for missing years/license/review facts.
 - UPDATED: `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`.

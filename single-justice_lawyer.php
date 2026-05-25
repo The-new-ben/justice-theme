@@ -389,7 +389,7 @@ if ( $show_profile_photo ) {
 					<div class="lawyer-mini-claim-banner" aria-label="<?php esc_attr_e( 'עדכון ואימות פרופיל עורך דין', 'justice-theme' ); ?>">
 						<div>
 							<strong><?php esc_html_e( 'זה הפרופיל שלך?', 'justice-theme' ); ?></strong>
-							<span><?php esc_html_e( 'אפשר לאמת פרטים, להוסיף תמונה, ביקורות, מאמרים וקידום ממומן מתוך מערכת Jus-Tice.', 'justice-theme' ); ?></span>
+							<span><?php esc_html_e( 'אפשר לאמת פרטים, להוסיף תמונה, ביקורות ומאמרים מקצועיים, ולבקש הרחבת חשיפה לאחר בדיקה.', 'justice-theme' ); ?></span>
 						</div>
 						<a href="<?php echo esc_url( $claim_url ); ?>"><?php esc_html_e( 'עדכון פרופיל', 'justice-theme' ); ?></a>
 					</div>
@@ -450,7 +450,7 @@ if ( $show_profile_photo ) {
 				<article class="lawyer-mini-engagement__card">
 					<span><?php esc_html_e( 'תוכן', 'justice-theme' ); ?></span>
 					<h3><?php echo esc_html( $has_related_articles ? __( 'לקרוא מאמרים מחוברים לפרופיל', 'justice-theme' ) : __( 'מאמרים חתומים יופיעו לאחר בדיקה', 'justice-theme' ) ); ?></h3>
-					<p><?php echo esc_html( $has_related_articles ? __( 'מאמרים ומדריכים מחוברים לפרופיל דרך CMS, כך שהתוכן המקצועי מחזק גם את הפרופיל וגם את אשכול ה-SEO.', 'justice-theme' ) : __( 'המערכת תומכת במאמרים חתומים, אך הם יוצגו רק לאחר עריכה, בדיקת מקורות ואישור משפטי.', 'justice-theme' ) ); ?></p>
+					<p><?php echo esc_html( $has_related_articles ? __( 'מאמרים ומדריכים מחוברים לפרופיל כדי לעזור למבקר להבין את תחומי המומחיות וסגנון העבודה.', 'justice-theme' ) : __( 'מאמרים חתומים יוצגו רק לאחר עריכה, בדיקת מקורות ואישור משפטי.', 'justice-theme' ) ); ?></p>
 				</article>
 				<article class="lawyer-mini-engagement__card">
 					<span><?php esc_html_e( 'מדיה', 'justice-theme' ); ?></span>
@@ -478,7 +478,7 @@ if ( $show_profile_photo ) {
 						<?php else : ?>
 							<div class="lawyer-mini-profile-gate">
 								<strong><?php esc_html_e( 'פרטי הרקע המלאים בבדיקת מקורות', 'justice-theme' ); ?></strong>
-								<p><?php esc_html_e( 'אנחנו לא מציגים השכלה, הסמכות, דירוגים או סיפורי הצלחה לפני בדיקה ואישור. בשלב זה מוצגים רק תחומי פעילות, עיר, מקורות ציבוריים ודרכי פנייה שניתן לערוך מתוך ה-CMS.', 'justice-theme' ); ?></p>
+								<p><?php esc_html_e( 'אנחנו לא מציגים השכלה, הסמכות, דירוגים או סיפורי הצלחה לפני בדיקה ואישור. בשלב זה מוצגים רק תחומי פעילות, עיר, מקורות ציבוריים ודרכי פנייה שניתן לעדכן לאחר אימות בעל הפרופיל.', 'justice-theme' ); ?></p>
 								<a class="button button--ghost" href="<?php echo esc_url( $claim_url ); ?>"><?php esc_html_e( 'זה הפרופיל שלך? עדכון ואימות פרטים', 'justice-theme' ); ?></a>
 							</div>
 						<?php endif; ?>
@@ -558,7 +558,7 @@ if ( $show_profile_photo ) {
 						</div>
 						<?php wp_reset_postdata(); ?>
 					<?php else : ?>
-						<p class="lawyer-mini-muted">כאן יוצגו מאמרים, מדריכים ועדכונים מקצועיים שחוברו לפרופיל דרך שדה CMS ייעודי. התוכן יעלה רק לאחר בדיקה משפטית ועריכת מקורות.</p>
+						<p class="lawyer-mini-muted">כאן יוצגו מאמרים, מדריכים ועדכונים מקצועיים שחוברו לפרופיל לאחר בדיקה משפטית ועריכת מקורות.</p>
 					<?php endif; ?>
 				</section>
 				<?php endif; ?>

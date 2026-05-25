@@ -158,7 +158,7 @@ $registration_url = add_query_arg(
 
 		<?php if ( ! empty( $showcase_lawyer_ids ) ) : ?>
 			<div class="featured-lawyers__showcase">
-				<div class="featured-lawyers__grid" aria-label="<?php esc_attr_e( 'כרטיסי עורכי דין מתוך מערכת Jus-Tice', 'justice-theme' ); ?>">
+				<div class="featured-lawyers__grid" aria-label="<?php esc_attr_e( 'כרטיסי עורכי דין ב-Jus-Tice', 'justice-theme' ); ?>">
 					<?php
 					foreach ( $showcase_lawyer_ids as $lawyer_id ) :
 						$lawyer_post = get_post( $lawyer_id );
@@ -195,7 +195,7 @@ $registration_url = add_query_arg(
 						</p>
 					<?php endif; ?>
 					<a class="button button--primary" href="<?php echo esc_url( $registration_url ); ?>">
-						<?php esc_html_e( 'הצטרפות למסלול ממומן', 'justice-theme' ); ?>
+						<?php esc_html_e( 'בקשת הרחבת חשיפה', 'justice-theme' ); ?>
 					</a>
 				</aside>
 			</div>

@@ -280,6 +280,7 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 		</div>
 	<?php endif; ?>
 	<?php justice_theme_crm_render_btl_readiness_gate( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_btl_leads, $paid_btl_leads ); ?>
+	<?php justice_theme_crm_render_btl_controlled_test_drill( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_btl_leads, $paid_btl_leads ); ?>
 	<?php justice_theme_crm_render_btl_candidate_tracker( $btl_needles ); ?>
 	<?php justice_theme_crm_render_btl_next_source_actions( $source_pack_rows ); ?>
 	<?php justice_theme_crm_render_btl_source_pack_candidates( $source_pack_rows ); ?>
@@ -309,6 +310,121 @@ function justice_theme_crm_render_btl_readiness_gate( array $source_pack_progres
 		<p style="margin-bottom:0;color:#646970;">Owner-only gate: do not treat this funnel as revenue-ready until verified supply and at least one controlled billable lead test are recorded.</p>
 	</div>
 	<?php
+}
+
+function justice_theme_crm_render_btl_controlled_test_drill( array $source_pack_progress, int $verified_prospects, int $active_specialists, int $target, int $billable_leads, int $paid_leads ): void {
+	$snapshot       = justice_theme_crm_btl_readiness_snapshot_from_counts( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_leads, $paid_leads );
+	$can_start_test = $verified_prospects >= $target && $active_specialists >= $target;
+	$test_url       = add_query_arg(
+		array(
+			'utm_source'   => 'owner_controlled_test',
+			'utm_medium'   => 'justice_crm',
+			'utm_campaign' => 'btl_first_billable_test',
+		),
+		home_url( '/national-insurance-attorney/' )
+	);
+	$lead_queue_url = admin_url( 'edit.php?post_type=justice_lead' );
+	$ready_url      = add_query_arg( 'justice_prospect_verification_filter', 'ready', admin_url( 'edit.php?post_type=justice_prospect' ) );
+	$needs_url      = add_query_arg( 'justice_prospect_verification_filter', 'needs', admin_url( 'edit.php?post_type=justice_prospect' ) );
+	$drill_id       = 'justice-btl-controlled-test-drill-copy';
+	$drill_steps    = justice_theme_crm_btl_controlled_test_drill_copy( $snapshot, $active_specialists, $verified_prospects, $billable_leads, $paid_leads, $test_url );
+	$blocked_style  = 'background:#fff7f7;border-color:#d63638;';
+	$ready_style    = 'background:#f0fff4;border-color:#008a20;';
+	$waiting_style  = 'background:#fffaf0;border-color:#dba617;';
+	$supply_style   = $can_start_test ? $ready_style : $blocked_style;
+	$billing_style  = $billable_leads > 0 ? $ready_style : ( $can_start_test ? $waiting_style : $blocked_style );
+	$payment_style  = $paid_leads > 0 ? $ready_style : $waiting_style;
+	?>
+	<div id="justice-btl-controlled-test-drill" style="background:#fff;border:2px solid #2271b1;border-radius:8px;padding:14px;margin:12px 0 20px;">
+		<h3 style="margin-top:0;">Controlled first billable lead drill</h3>
+		<p style="margin-top:0;color:#646970;">Owner-only runbook for proving the Bituach Leumi funnel with one controlled lead. Do not run it until supply is verified and routable.</p>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0;">
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( $supply_style ); ?>">
+				<strong><?php echo esc_html( $can_start_test ? 'Ready' : 'Blocked' ); ?></strong>
+				<br><span>Specialist supply gate</span>
+				<br><small><?php echo esc_html( sprintf( '%d/%d verified prospects, %d/%d active routable specialists', $verified_prospects, $target, $active_specialists, $target ) ); ?></small>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( $can_start_test ? $waiting_style : $blocked_style ); ?>">
+				<strong><?php echo esc_html( $can_start_test ? 'Ready to test' : 'Wait' ); ?></strong>
+				<br><span>Controlled intake path</span>
+				<br><small><?php echo esc_html( $can_start_test ? 'Use the tagged public route for a consented controlled lead.' : 'Finish supply verification before submitting a test lead.' ); ?></small>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( $billing_style ); ?>">
+				<strong><?php echo esc_html( $billable_leads > 0 ? 'Recorded' : 'Waiting' ); ?></strong>
+				<br><span>Billing queue proof</span>
+				<br><small><?php echo esc_html( sprintf( '%d ready/invoiced/paid Bituach Leumi lead(s)', $billable_leads ) ); ?></small>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( $payment_style ); ?>">
+				<strong><?php echo esc_html( $paid_leads > 0 ? 'Proven' : 'Not proven' ); ?></strong>
+				<br><span>Manual payment proof</span>
+				<br><small><?php echo esc_html( sprintf( '%d paid Bituach Leumi lead(s)', $paid_leads ) ); ?></small>
+			</div>
+		</div>
+		<p style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 10px;">
+			<a class="button button-primary" href="<?php echo esc_url( $test_url ); ?>" target="_blank" rel="noopener">Open controlled intake route</a>
+			<a class="button" href="<?php echo esc_url( $lead_queue_url ); ?>">Open lead CRM</a>
+			<a class="button" href="<?php echo esc_url( $ready_url ); ?>">Ready prospects</a>
+			<a class="button" href="<?php echo esc_url( $needs_url ); ?>">Needs verification</a>
+		</p>
+		<?php if ( ! $can_start_test ) : ?>
+			<div class="notice notice-warning inline">
+				<p><strong>Do not test routing yet.</strong> Create and verify the first three specialist prospects, then activate routable paid coverage before sending a real lead through the funnel.</p>
+			</div>
+		<?php elseif ( 0 === $billable_leads ) : ?>
+			<div class="notice notice-info inline">
+				<p><strong>Supply is ready for a controlled test.</strong> Use a consented test lead, then verify the lead records <code>lead_revenue_model</code>, <code>qualified_lead_billing_status</code>, <code>suggested_lead_price_ils</code> and billable lawyer IDs.</p>
+			</div>
+		<?php elseif ( 0 === $paid_leads ) : ?>
+			<div class="notice notice-warning inline">
+				<p><strong>Billing proof exists, payment proof does not.</strong> Send the manual invoice/payment link, then mark the lead paid only after evidence exists.</p>
+			</div>
+		<?php else : ?>
+			<div class="notice notice-success inline">
+				<p><strong>Revenue loop has proof.</strong> Keep the invoice reference and lead notes attached before scaling this funnel.</p>
+			</div>
+		<?php endif; ?>
+		<label for="<?php echo esc_attr( $drill_id ); ?>"><strong>Copyable controlled-test checklist</strong></label>
+		<textarea id="<?php echo esc_attr( $drill_id ); ?>" rows="10" readonly style="width:100%;margin-top:6px;"><?php echo esc_textarea( $drill_steps ); ?></textarea>
+		<p style="margin:6px 0 0;">
+			<button type="button" class="button" data-justice-copy-target="<?php echo esc_attr( $drill_id ); ?>">Copy test drill</button>
+		</p>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_btl_controlled_test_drill_copy( array $snapshot, int $active_specialists, int $verified_prospects, int $billable_leads, int $paid_leads, string $test_url ): string {
+	$lines = array(
+		'Bituach Leumi controlled first billable lead drill',
+		sprintf( 'Current readiness: %s (%d%% complete)', (string) ( $snapshot['status'] ?? 'Unknown' ), (int) ( $snapshot['percent'] ?? 0 ) ),
+		sprintf( 'Supply: %d active routable specialists, %d verified prospects', $active_specialists, $verified_prospects ),
+		sprintf( 'Billing proof: %d ready/invoiced/paid lead(s), %d paid lead(s)', $billable_leads, $paid_leads ),
+		'',
+		'Before test:',
+		'1. Confirm 3 verified specialists and 3 active routable specialists for national-insurance.',
+		'2. Confirm each routed specialist accepted manual invoice/payment handling.',
+		'3. Confirm no public page promises outcome, ranking, lead volume or compensation.',
+		'',
+		'Controlled intake:',
+		'4. Open: ' . esc_url_raw( $test_url ),
+		'5. Submit only a consented real lead or owner-controlled test lead with valid phone/email.',
+		'6. Include decision date, committee/protocol status, document status and appeal-window urgency.',
+		'',
+		'Proof in CRM:',
+		'7. Lead area must be national-insurance.',
+		'8. lead_revenue_model must be qualified_appeal_lead.',
+		'9. qualified_lead_billing_status must become ready_to_bill after routing.',
+		'10. suggested_lead_price_ils should be 249 unless owner changes the commercial test.',
+		'11. qualified_lead_billable_lawyer_ids must contain the routed lawyer IDs.',
+		'12. Send manual invoice/payment request, then mark invoice_sent/paid only with evidence.',
+		'',
+		'Abort if:',
+		'- No verified/routable specialist coverage exists.',
+		'- The lead is not consented or is not a real controlled test.',
+		'- Any lawyer asks for outcome promises, exclusivity promises or guaranteed lead volume.',
+		'- Payment evidence is missing.',
+	);
+
+	return implode( "\n", $lines );
 }
 
 function justice_theme_crm_btl_readiness_snapshot(): array {

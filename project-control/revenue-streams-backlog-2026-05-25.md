@@ -156,6 +156,10 @@ Already shipped:
   the owner-only lawyer onboarding demo control shows the current Bituach Leumi
   status, completion percentage and Ready/Blocked checks, so the investor story
   stays honest and does not over-claim a funnel before proof.
+- Controlled first billable lead drill added to the private Bituach Leumi CRM
+  panel. It blocks test routing until verified/routable specialist supply
+  exists, gives the tagged intake route, lists the exact CRM fields that prove
+  a billable lead, and keeps the manual invoice/payment proof boundary explicit.
 
 Remaining:
 

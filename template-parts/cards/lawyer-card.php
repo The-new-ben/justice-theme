@@ -85,6 +85,7 @@ $city_name       = ( $cities && ! is_wp_error( $cities ) ) ? justice_theme_lawye
 $area_names      = ( $areas && ! is_wp_error( $areas ) ) ? wp_list_pluck( array_slice( $areas, 0, 3 ), 'name' ) : array();
 $phone_link      = function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) $phone ) : '';
 $whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) $whatsapp ) : '';
+$has_thumbnail   = has_post_thumbnail( $lawyer_id );
 $claim_url       = add_query_arg(
 	array(
 		'claim_profile_id' => $lawyer_id,
@@ -96,32 +97,30 @@ $claim_url       = add_query_arg(
 ?>
 
 <article class="lawyer-card premium-card">
-	<a class="lawyer-card__media" href="<?php echo esc_url( $lawyer_url ); ?>" aria-label="<?php echo esc_attr( sprintf( 'פרופיל עורך הדין %s', get_the_title() ) ); ?>">
-		<?php if ( has_post_thumbnail() ) : ?>
+	<a class="lawyer-card__media<?php echo $has_thumbnail ? '' : ' lawyer-card__media--initials'; ?>" href="<?php echo esc_url( $lawyer_url ); ?>" aria-label="<?php echo esc_attr( sprintf( 'פרופיל עורך הדין %s', get_the_title() ) ); ?>">
+		<?php if ( $has_thumbnail ) : ?>
 			<?php the_post_thumbnail( 'justice-card', array( 'loading' => 'lazy' ) ); ?>
 		<?php else :
-			// Gender-aware default avatar
 			$lawyer_title = get_the_title();
 			$name_parts   = preg_split( '/\s+/', trim( $lawyer_title ) );
-			// Strip common prefixes: עו״ד / עו"ד / עוד / ד״ר / פרופ
-			$prefixes = array( 'עו״ד', 'עו"ד', "עו\xd7\xb3\xd7\x93", 'עוד', 'ד״ר', 'ד"ר', 'פרופ', 'פרופ׳' );
+			$prefixes     = array( 'עו״ד', 'עו"ד', "עו\xd7\xb3\xd7\x93", 'עוד', 'ד״ר', 'ד"ר', 'פרופ', 'פרופ׳' );
 			while ( ! empty( $name_parts ) && in_array( $name_parts[0], $prefixes, true ) ) {
 				array_shift( $name_parts );
 			}
-			$given_name = $name_parts[0] ?? '';
-			// Hebrew female names commonly end with ה or ת
-			$is_female  = ( mb_substr( $given_name, -1 ) === 'ה' || mb_substr( $given_name, -1 ) === 'ת' );
-			// Explicit female name list as safety net
-			$female_names = array( 'מאיה', 'מיה', 'שרה', 'רות', 'נועה', 'דנה', 'מיכל', 'ענת', 'גלית', 'אורית', 'שירה', 'אפרת', 'טלי', 'קרן', 'לימור', 'סיגל', 'אורלי', 'יעל', 'עדי', 'שלי', 'מור', 'רוני', 'נטלי', 'ליאת', 'הדר', 'תמר', 'אילנה', 'רינת' );
-			if ( in_array( $given_name, $female_names, true ) ) {
-				$is_female = true;
+
+			$initials = '';
+			foreach ( array_slice( $name_parts, 0, 2 ) as $name_part ) {
+				$clean_part = preg_replace( '/[^\p{L}\p{N}]+/u', '', (string) $name_part );
+				if ( '' !== $clean_part ) {
+					$initials .= mb_substr( $clean_part, 0, 1 );
+				}
 			}
-			$avatar_file = $is_female ? 'avatar-female.png' : 'avatar-male.png';
+
+			if ( '' === $initials ) {
+				$initials = mb_substr( wp_strip_all_tags( $lawyer_title ), 0, 2 );
+			}
 		?>
-			<img class="lawyer-card__avatar" loading="lazy" decoding="async"
-				src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/' . $avatar_file ); ?>"
-				alt="<?php echo esc_attr( sprintf( __( 'תמונת פרופיל — %s', 'justice-theme' ), $lawyer_title ) ); ?>"
-				width="260" height="260">
+			<span class="lawyer-card__initials" aria-hidden="true"><?php echo esc_html( $initials ); ?></span>
 		<?php endif; ?>
 	</a>
 

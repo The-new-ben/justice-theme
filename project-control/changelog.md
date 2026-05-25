@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Generic image reduction polish
+
+- UPDATED: `template-parts/cards/lawyer-card.php`, `template-parts/cards/article-card.php`, and `assets/css/premium-pass-4.css`.
+- PURPOSE: reduce the generic-image feel on the homepage/directory by replacing no-photo lawyer stock avatars with CMS-derived initials and replacing article fallback images with an intentional editorial legal placeholder.
+- VERIFIED: PHP lint passed for both card templates and `git diff --check` passed.
+- SAFETY: rendering/CSS-only change; no CMS/database record, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed.
+
 # 2026-05-25 - Legal-service supplier CMS candidates
 
 - ADDED: `project-control/legal-service-supplier-cms-index-candidates-2026-05-25.md` and `.csv`.

@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-25 11:16 Asia/Jerusalem
+- VISUAL POLISH / GENERIC IMAGE REDUCTION: replaced generic no-photo lawyer-card avatars with CMS-derived initials cards, and replaced the generic article fallback thumbnail with an editorial legal placeholder driven by the article practice area.
+- UPDATED: `template-parts/cards/lawyer-card.php`, `template-parts/cards/article-card.php`, and `assets/css/premium-pass-4.css`.
+- MATERIAL ADVANCE: public lawyer cards and article cards without real images now look like intentional Jus-Tice directory/editorial surfaces instead of stock/demo imagery, directly addressing the investor feedback about generic thumbnails.
+- VERIFIED LOCAL: `php -l template-parts/cards/lawyer-card.php`, `php -l template-parts/cards/article-card.php`, and `git diff --check` passed.
+- STILL BLOCKED: live CMS creation of additional lawyer/professional records still depends on working WordPress admin access or a working REST application password; uPress SSO opened the user picker but did not leave the in-app browser authenticated.
+- COMPLETION: homepage visual polish moved from about 55% to 62%; CMS-backed customer/professional indexing remains constrained by live CMS access.
+- SAFETY: theme-only rendering/CSS change; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice, refund, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 11:02 Asia/Jerusalem
 - LEGAL-SERVICE SUPPLIER INDEX PACKET: prepared the CMS-backed supplier/professional pipeline requested by the owner, using the existing private `justice_supplier` CMS model rather than hard-coded public cards.
 - ADDED: `project-control/legal-service-supplier-cms-index-candidates-2026-05-25.md` and `.csv`.

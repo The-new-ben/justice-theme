@@ -31,7 +31,17 @@ if ( isset( $args['data_attrs'] ) && is_array( $args['data_attrs'] ) ) {
 		<?php if ( has_post_thumbnail() ) : ?>
 			<?php the_post_thumbnail( 'justice-card', array( 'loading' => 'lazy', 'style' => 'width: 100%; height: 100%; object-fit: cover;' ) ); ?>
 		<?php else : ?>
-			<img src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/article-fallback.png' ); ?>" alt="<?php esc_attr_e( 'מדריך משפטי', 'justice-theme' ); ?>" loading="lazy" style="width: 100%; height: 100%; object-fit: cover; filter: sepia(10%) hue-rotate(-10deg) saturate(80%);">
+			<?php
+			$placeholder_terms   = get_the_terms( $post_id, 'practice-areas' );
+			$placeholder_label   = ( ! empty( $placeholder_terms ) && ! is_wp_error( $placeholder_terms ) ) ? $placeholder_terms[0]->name : get_bloginfo( 'name' );
+			$placeholder_initial = mb_substr( wp_strip_all_tags( (string) $placeholder_label ), 0, 1 );
+			?>
+			<div class="article-card__placeholder article-card__placeholder--legal">
+				<span class="article-card__placeholder-mark"><?php echo esc_html( $placeholder_initial ); ?></span>
+				<span class="article-card__placeholder-label"><?php echo esc_html( $placeholder_label ); ?></span>
+				<span class="article-card__placeholder-line article-card__placeholder-line--wide"></span>
+				<span class="article-card__placeholder-line"></span>
+			</div>
 		<?php endif; ?>
 	</a>
 

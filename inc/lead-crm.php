@@ -209,9 +209,10 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 		return;
 	}
 
+	$btl_needles        = array( 'national-insurance', 'ביטוח לאומי', 'ערר ביטוח לאומי', 'ועדה רפואית' );
 	$active_specialists = justice_theme_crm_count_active_routing_lawyers_for_area( 'national-insurance' );
-	$open_prospects    = justice_theme_crm_count_open_prospects_for_area( array( 'national-insurance', 'ביטוח לאומי', 'ערר ביטוח לאומי', 'ועדה רפואית' ) );
-	$verified_prospects = justice_theme_crm_count_verified_prospects_for_area( array( 'national-insurance', 'ביטוח לאומי', 'ערר ביטוח לאומי', 'ועדה רפואית' ) );
+	$open_prospects    = justice_theme_crm_count_open_prospects_for_area( $btl_needles );
+	$verified_prospects = justice_theme_crm_count_verified_prospects_for_area( $btl_needles );
 	$target            = 3;
 	$coverage_gap      = max( 0, $target - $active_specialists );
 	$prospect_gap      = max( 0, $target - $verified_prospects );
@@ -260,7 +261,85 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 			<p><strong>Coverage ready:</strong> enough specialist coverage exists for the first routing test. Run one real lead and confirm billing status.</p>
 		</div>
 	<?php endif; ?>
+	<?php justice_theme_crm_render_btl_candidate_tracker( $btl_needles ); ?>
 	<?php justice_theme_crm_render_btl_outreach_pack(); ?>
+	<?php
+}
+
+function justice_theme_crm_render_btl_candidate_tracker( array $needles ): void {
+	$prospects = justice_theme_crm_query_prospects_for_area( $needles, 12 );
+	?>
+	<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;margin:12px 0 20px;">
+		<h3 style="margin-top:0;">First 3 specialist tracker</h3>
+		<p style="margin-top:0;color:#646970;">Private supply tracker for the Bituach Leumi funnel. Do not route leads until a prospect shows as ready.</p>
+		<?php if ( empty( $prospects ) ) : ?>
+			<div class="notice notice-warning inline">
+				<p><strong>No matching prospects yet.</strong> Use the Add Bituach Leumi prospect button above, then verify license/status, niche experience, response speed and manual-payment acceptance.</p>
+			</div>
+		<?php else : ?>
+			<table class="widefat striped">
+				<thead>
+					<tr>
+						<th>Prospect</th>
+						<th>Contact</th>
+						<th>Status</th>
+						<th>Verification</th>
+						<th>Next action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ( $prospects as $prospect ) : ?>
+						<?php
+						$post_id       = (int) $prospect->ID;
+						$firm          = (string) get_post_meta( $post_id, 'prospect_firm_name', true );
+						$email         = (string) get_post_meta( $post_id, 'prospect_contact_email', true );
+						$phone         = (string) get_post_meta( $post_id, 'prospect_contact_phone', true );
+						$status        = (string) get_post_meta( $post_id, 'prospect_outreach_status', true );
+						$next_action   = (string) get_post_meta( $post_id, 'prospect_next_action_at', true );
+						$missing       = function_exists( 'justice_theme_lawyer_prospect_verification_missing' ) ? justice_theme_lawyer_prospect_verification_missing( $post_id ) : array( 'verification helper missing' );
+						$status_label  = function_exists( 'justice_theme_lawyer_prospect_statuses' ) ? ( justice_theme_lawyer_prospect_statuses()[ $status ] ?? $status ) : $status;
+						$edit_url      = get_edit_post_link( $post_id, '' );
+						?>
+						<tr>
+							<td>
+								<strong><a href="<?php echo esc_url( $edit_url ); ?>"><?php echo esc_html( get_the_title( $post_id ) ); ?></a></strong>
+								<?php if ( $firm ) : ?>
+									<br><small><?php echo esc_html( $firm ); ?></small>
+								<?php endif; ?>
+							</td>
+							<td>
+								<?php if ( $email ) : ?>
+									<a href="<?php echo esc_url( 'mailto:' . $email ); ?>"><?php echo esc_html( $email ); ?></a>
+								<?php endif; ?>
+								<?php if ( $email && $phone ) : ?>
+									<br>
+								<?php endif; ?>
+								<?php if ( $phone ) : ?>
+									<a href="<?php echo esc_url( 'tel:' . preg_replace( '/[^0-9+]/', '', $phone ) ); ?>"><?php echo esc_html( $phone ); ?></a>
+								<?php endif; ?>
+								<?php if ( ! $email && ! $phone ) : ?>
+									<strong style="color:#b32d2e;">Missing contact</strong>
+								<?php endif; ?>
+							</td>
+							<td><?php echo esc_html( $status_label ?: '-' ); ?></td>
+							<td>
+								<?php if ( empty( $missing ) ) : ?>
+									<strong style="color:#008a20;">Ready for routing</strong>
+								<?php else : ?>
+									<strong style="color:#b32d2e;">Missing:</strong>
+									<br><?php echo esc_html( implode( ', ', $missing ) ); ?>
+								<?php endif; ?>
+							</td>
+							<td>
+								<?php echo esc_html( $next_action ?: 'No date set' ); ?>
+								<br><a class="button button-small" style="margin-top:6px;" href="<?php echo esc_url( $edit_url ); ?>">Open prospect</a>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		<?php endif; ?>
+	</div>
 	<?php
 }
 
@@ -396,6 +475,54 @@ function justice_theme_crm_count_open_prospects_for_area( array $needles ): int 
 	}
 
 	return $count;
+}
+
+function justice_theme_crm_query_prospects_for_area( array $needles, int $limit = 12 ): array {
+	$query = justice_theme_crm_query_lawyer_prospects( 250 );
+	if ( ! $query || empty( $query->posts ) ) {
+		return array();
+	}
+
+	$matches         = array();
+	$closed_statuses = array( 'won', 'lost' );
+
+	foreach ( $query->posts as $post ) {
+		$post_id = (int) $post->ID;
+		$status  = (string) get_post_meta( $post_id, 'prospect_outreach_status', true );
+		if ( in_array( $status, $closed_statuses, true ) ) {
+			continue;
+		}
+
+		$haystack = strtolower(
+			get_the_title( $post_id ) . ' ' .
+			(string) get_post_meta( $post_id, 'prospect_practice_area', true ) . ' ' .
+			(string) get_post_meta( $post_id, 'prospect_demand_signal', true ) . ' ' .
+			(string) get_post_meta( $post_id, 'prospect_owner_note', true )
+		);
+
+		foreach ( $needles as $needle ) {
+			if ( false !== strpos( $haystack, strtolower( (string) $needle ) ) ) {
+				$matches[] = $post;
+				break;
+			}
+		}
+	}
+
+	usort(
+		$matches,
+		static function ( WP_Post $a, WP_Post $b ): int {
+			$a_ready = function_exists( 'justice_theme_lawyer_prospect_is_verified_for_routing' ) && justice_theme_lawyer_prospect_is_verified_for_routing( (int) $a->ID );
+			$b_ready = function_exists( 'justice_theme_lawyer_prospect_is_verified_for_routing' ) && justice_theme_lawyer_prospect_is_verified_for_routing( (int) $b->ID );
+
+			if ( $a_ready !== $b_ready ) {
+				return $a_ready ? -1 : 1;
+			}
+
+			return strcmp( (string) $b->post_modified_gmt, (string) $a->post_modified_gmt );
+		}
+	);
+
+	return array_slice( $matches, 0, $limit );
 }
 
 function justice_theme_crm_count_verified_prospects_for_area( array $needles ): int {

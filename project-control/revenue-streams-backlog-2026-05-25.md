@@ -117,6 +117,9 @@ Already shipped:
 - Prospect verification views added: the private prospect pipeline can now be
   filtered by "Needs verification" and "Ready for routing", and the Bituach
   Leumi supply panel links directly into both views.
+- First-three-specialists tracker added to the private Bituach Leumi CRM panel.
+  It lists matching prospects, contact status, verification gaps, next action
+  dates and direct edit links, with ready prospects sorted first.
 
 Remaining:
 

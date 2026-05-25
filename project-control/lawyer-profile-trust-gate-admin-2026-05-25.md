@@ -35,6 +35,7 @@ Before putting any lawyer into homepage/sponsored/promoted positioning:
 
 ## Verification
 
-- Pending live verification after commit, push, and uPress Pull Git.
-- Expected live proof: admin lawyer list exposes the new `Trust gate` column/filter; public homepage/profile visual protections from the previous cycle remain intact.
-
+- VERIFIED LOCAL: `php -l inc/lawyer-visibility.php` and `git diff --check` passed.
+- DEPLOYED: uPress Pull Git completed and the uPress activity log showed live HEAD `281c188`.
+- VERIFIED LIVE: wp-admin lawyer list loaded with `justice_owner_trust_gate=hold`, exposed the new `Trust gate` column/filter signals, and showed Maya/source-review text.
+- PUBLIC REGRESSION CHECK: homepage first 6 lawyer cards had `overlapping=0`; Maya profile still showed no photo image and no linked article authority.

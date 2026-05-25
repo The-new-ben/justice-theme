@@ -3,6 +3,7 @@
 - UPDATED: `inc/lawyer-visibility.php`.
 - ADDED: `project-control/lawyer-profile-trust-gate-admin-2026-05-25.md`.
 - MATERIAL ADVANCE: after the Maya profile issue, the CMS now gives the owner an operating screen for `Hold before promotion`, `Missing source URL`, `Blocked/unverified media`, `Maya source review`, and `Trust ready`, instead of relying on memory or scattered notes.
+- VERIFIED LOCAL / DEPLOYED / VERIFIED LIVE: PHP lint and diff check passed; pushed commit `281c188`; uPress Pull Git succeeded and uPress log showed live HEAD `281c188`; wp-admin lawyer list exposed `Trust gate`; homepage card overlap stayed `0`; Maya profile still had no photo image and no linked article authority.
 - RESEARCH BASIS: this cycle operationalizes the previous competitor/profile-quality research and live owner feedback; it does not copy competitor photos, reviews, ratings, profile text, or contact details.
 - REVENUE STATUS: realized revenue remains NIS 0. This reduces demo/outreach trust risk but does not prove payment, invoice, refund, subscription, or lead monetization.
 - SAFETY: admin/theme logic and docs only; no CMS database record, competitor asset/content, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.

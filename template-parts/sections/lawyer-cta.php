@@ -43,7 +43,7 @@ $plans_url = home_url( '/lawyer-plans/' );
 		<div class="lawyer-cta__features">
 			<div class="lawyer-cta__feature">
 				<span class="lawyer-cta__icon" aria-hidden="true">01</span>
-				<h3><?php esc_html_e( 'מיני-סייט שמוכר אמון', 'justice-theme' ); ?></h3>
+				<h3><?php esc_html_e( 'פרופיל מקצועי שמוכר אמון', 'justice-theme' ); ?></h3>
 				<p><?php esc_html_e( 'פרופיל עשיר עם תחומי התמחות, אזורי שירות, ניסיון, תוכן מקצועי וקריאה ברורה לפנייה.', 'justice-theme' ); ?></p>
 			</div>
 			<div class="lawyer-cta__feature">

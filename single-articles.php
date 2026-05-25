@@ -21,6 +21,7 @@ while ( have_posts() ) :
 	$content_cluster   = sanitize_key( trim( (string) get_post_meta( get_the_ID(), 'content_cluster', true ), '`' ) );
 	$primary_keyword   = (string) get_post_meta( get_the_ID(), 'primary_keyword', true );
 	$current_slug      = get_post_field( 'post_name', get_the_ID() );
+	$is_lawyer_selection_guide = 'find-lawyer-how-to-find-good-attorney' === $current_slug;
 	$show_internal_review_status = current_user_can( 'edit_post', get_the_ID() );
 	$article_contextual_cta = function_exists( 'justice_theme_get_contextual_article_lead_cta' )
 		? justice_theme_get_contextual_article_lead_cta( get_the_ID(), $primary_term )
@@ -115,6 +116,35 @@ while ( have_posts() ) :
 		</section>
 
 		<?php endif; ?>
+		<?php if ( $is_lawyer_selection_guide ) : ?>
+			<section class="lawyer-selection-integrated-panel" aria-label="<?php esc_attr_e( 'מסלול בחירת עורך דין', 'justice-theme' ); ?>">
+				<div class="container">
+					<div class="lawyer-selection-integrated-panel__header">
+						<span><?php esc_html_e( 'מדריך בחירה מחובר לאינדקס', 'justice-theme' ); ?></span>
+						<h2><?php esc_html_e( 'כך בודקים עורך דין לפני שמשאירים פנייה', 'justice-theme' ); ?></h2>
+						<p><?php esc_html_e( 'המסלול הזה משלב את מה שעובד באינדקסים חזקים: חיפוש לפי תחום ואזור, קריאת פרופיל מקצועי, סימון פרטים מאומתים, ורק אז פנייה קצרה עם הקשר ברור. בלי דירוג מומצא ובלי עובדות שלא נבדקו.', 'justice-theme' ); ?></p>
+					</div>
+					<div class="lawyer-selection-integrated-panel__grid">
+						<article>
+							<strong><?php esc_html_e( '1. התאמה משפטית', 'justice-theme' ); ?></strong>
+							<span><?php esc_html_e( 'בחרו תחום מדויק: גירושין ודיני משפחה יחד, מקרקעין ומיסוי מקרקעין יחד, או פלילי לפי סוג ההליך. כך לא מפצלים איתותי SEO ולא שולחים את הפנייה לאדם הלא נכון.', 'justice-theme' ); ?></span>
+						</article>
+						<article>
+							<strong><?php esc_html_e( '2. סימני אמון', 'justice-theme' ); ?></strong>
+							<span><?php esc_html_e( 'בדקו האם יש תמונה אמיתית, עיר פעילות, שפות, תחומי עיסוק, מאמרים מחוברים וביקורות מאומתות. אם פרט לא אומת, הוא צריך להופיע בזהירות או לא להופיע בכלל.', 'justice-theme' ); ?></span>
+						</article>
+						<article>
+							<strong><?php esc_html_e( '3. פנייה קצרה וחכמה', 'justice-theme' ); ?></strong>
+							<span><?php esc_html_e( 'פנייה טובה כוללת עיר, דחיפות, תחום משפטי ותיאור עובדתי קצר. זה מעלה את הסיכוי לקבל תגובה רלוונטית ומונע בזבוז זמן גם לגולש וגם לבעל המקצוע.', 'justice-theme' ); ?></span>
+						</article>
+					</div>
+					<div class="lawyer-selection-integrated-panel__actions">
+						<a class="button button--primary" href="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ); ?>"><?php esc_html_e( 'מעבר למדריך עורכי הדין', 'justice-theme' ); ?></a>
+						<a class="button button--ghost" href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>"><?php esc_html_e( 'לעורכי דין: עדכון או קידום פרופיל', 'justice-theme' ); ?></a>
+					</div>
+				</div>
+			</section>
+		<?php endif; ?>
 		<div class="container single-article__layout">
 			
 			<div class="single-article__main">
@@ -168,7 +198,7 @@ while ( have_posts() ) :
 						$firm     = get_post_meta( $connected_lawyer->ID, 'firm_name', true );
 						$headline = get_post_meta( $connected_lawyer->ID, 'profile_headline', true );
 						?>
-						<h2 style="font-size: 1.25rem; color: var(--color-primary-deep); margin-bottom: 1rem;"><?php esc_html_e( 'עורכת הדין המחוברת למדריך', 'justice-theme' ); ?></h2>
+						<h2 style="font-size: 1.25rem; color: var(--color-primary-deep); margin-bottom: 1rem;"><?php esc_html_e( 'פרופיל מקצועי מחובר למדריך', 'justice-theme' ); ?></h2>
 						<div style="display: flex; align-items: center; gap: 0.9rem; margin-bottom: 1rem;">
 							<?php if ( has_post_thumbnail( $connected_lawyer->ID ) ) : ?>
 								<?php echo get_the_post_thumbnail( $connected_lawyer->ID, 'thumbnail', array( 'style' => 'width: 58px; height: 58px; border-radius: 50%; object-fit: cover;' ) ); ?>
@@ -187,10 +217,10 @@ while ( have_posts() ) :
 						<?php if ( $headline ) : ?>
 							<p style="color: var(--color-muted); margin-bottom: 1.5rem;"><?php echo esc_html( wp_trim_words( $headline, 24, '...' ) ); ?></p>
 						<?php else : ?>
-							<p style="color: var(--color-muted); margin-bottom: 1.5rem;"><?php esc_html_e( 'מיני-סייט מקצועי עם מאמרים, פרטי קשר וטופס פנייה מובנה.', 'justice-theme' ); ?></p>
+							<p style="color: var(--color-muted); margin-bottom: 1.5rem;"><?php esc_html_e( 'פרופיל מקצועי עם מאמרים, פרטי קשר וטופס פנייה מובנה.', 'justice-theme' ); ?></p>
 						<?php endif; ?>
 						<a class="button button--primary" href="<?php echo esc_url( justice_theme_public_permalink( $connected_lawyer->ID ) ); ?>" style="width: 100%; text-align: center; margin-bottom: 0.75rem;">
-							<?php esc_html_e( 'מעבר למיני-סייט', 'justice-theme' ); ?>
+							<?php esc_html_e( 'מעבר לפרופיל', 'justice-theme' ); ?>
 						</a>
 						<a class="button button--ghost" href="<?php echo esc_url( $article_contextual_cta['url'] ); ?>" style="width: 100%; text-align: center;">
 							<?php echo esc_html( $article_contextual_cta['button'] ); ?>

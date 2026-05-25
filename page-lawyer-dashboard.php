@@ -40,7 +40,7 @@ if ( ! is_user_logged_in() ) :
 			<p><?php esc_html_e( 'האזור האישי מרכז את הפרופיל, הלידים, התוכן, סטטוס המנוי ובקשות השירות במקום אחד. פרסום ועדכונים מהותיים עוברים בדיקה לפני עלייה לאתר.', 'justice-theme' ); ?></p>
 			<ul class="lawyer-dashboard__gate-points" aria-label="<?php esc_attr_e( 'מה מחכה באזור האישי', 'justice-theme' ); ?>">
 				<li><?php esc_html_e( 'מעקב אחרי פניות ולידים שהגיעו מהאתר.', 'justice-theme' ); ?></li>
-				<li><?php esc_html_e( 'בקשת עדכונים למיני-סייט, תחומי עיסוק ופרטי קשר בלי כניסה לוורדפרס.', 'justice-theme' ); ?></li>
+				<li><?php esc_html_e( 'בקשת עדכונים לפרופיל המקצועי, תחומי עיסוק ופרטי קשר בלי כניסה לוורדפרס.', 'justice-theme' ); ?></li>
 				<li><?php esc_html_e( 'בקשות לתוכן חתום, המלצות Google וחיבור לספקים מקצועיים תחת בקרת מערכת.', 'justice-theme' ); ?></li>
 			</ul>
 			<div class="lawyer-dashboard__actions">
@@ -50,7 +50,7 @@ if ( ! is_user_logged_in() ) :
 			</div>
 			<div class="lawyer-dashboard-login-preview" aria-label="<?php esc_attr_e( 'תצוגה מקדימה של האזור האישי', 'justice-theme' ); ?>">
 				<article class="lawyer-dashboard-login-preview__card">
-					<span><?php esc_html_e( 'מיני-סייט', 'justice-theme' ); ?></span>
+					<span><?php esc_html_e( 'פרופיל מקצועי', 'justice-theme' ); ?></span>
 					<strong><?php esc_html_e( 'פרופיל עורך דין שנבנה להמרת תנועה מחיפוש', 'justice-theme' ); ?></strong>
 					<p><?php esc_html_e( 'בקשות לעדכון כותרת, תחומי עיסוק, תהליך עבודה, וידאו ושאלות נפוצות. שינוי ציבורי עולה רק אחרי בדיקה.', 'justice-theme' ); ?></p>
 				</article>
@@ -515,7 +515,7 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 			<div>
 				<p class="section-header__eyebrow"><?php esc_html_e( 'אזור אישי לעורכי דין', 'justice-theme' ); ?></p>
 				<h1><?php esc_html_e( 'מרכז השליטה לנוכחות, תוכן ולידים', 'justice-theme' ); ?></h1>
-				<p><?php esc_html_e( 'זהו MVP ראשון: צפייה בפרופיל המקושר, סטטוס מסחרי, לידים משויכים ומשימות לשיפור המיני-סייט. עריכה עצמאית, תשלומים ו-AI Console יתווספו בשלבים מבוקרים.', 'justice-theme' ); ?></p>
+				<p><?php esc_html_e( 'זהו MVP ראשון: צפייה בפרופיל המקושר, סטטוס מסחרי, לידים משויכים ומשימות לשיפור הפרופיל המקצועי. עריכה עצמאית, תשלומים ו-AI Console יתווספו בשלבים מבוקרים.', 'justice-theme' ); ?></p>
 			</div>
 			<a class="button button--gold" href="<?php echo esc_url( $dashboard_add_profile_url ); ?>"><?php esc_html_e( 'פתיחת פרופיל נוסף', 'justice-theme' ); ?></a>
 		</header>
@@ -726,7 +726,7 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 
 					<h2><?php esc_html_e( 'הפרופילים שלי', 'justice-theme' ); ?></h2>
 					<?php if ( isset( $_GET['profile_update'] ) && 'sent' === $_GET['profile_update'] ) : ?>
-						<div class="legaltool-request__notice"><?php esc_html_e( 'בקשת עדכון המיני-סייט נשמרה לבדיקה. שום שינוי ציבורי לא יפורסם לפני אישור.', 'justice-theme' ); ?></div>
+						<div class="legaltool-request__notice"><?php esc_html_e( 'בקשת עדכון הפרופיל המקצועי נשמרה לבדיקה. שום שינוי ציבורי לא יפורסם לפני אישור.', 'justice-theme' ); ?></div>
 					<?php elseif ( isset( $_GET['profile_update'] ) ) : ?>
 						<div class="lawyer-registration__error"><?php esc_html_e( 'בקשת עדכון הפרופיל לא נשלחה. בדקו שנבחר פרופיל מקושר.', 'justice-theme' ); ?></div>
 					<?php endif; ?>
@@ -795,7 +795,7 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 					</section>
 
 					<section class="lawyer-dashboard-content-request" id="profile-update-request">
-						<h2><?php esc_html_e( 'בקשת עדכון למיני-סייט', 'justice-theme' ); ?></h2>
+						<h2><?php esc_html_e( 'בקשת עדכון לפרופיל המקצועי', 'justice-theme' ); ?></h2>
 						<p class="lawyer-dashboard__muted"><?php esc_html_e( 'שלחו נוסח חדש לכותרת, שירותים, תהליך עבודה, וידאו או שאלות נפוצות. העדכון נשמר לבדיקה בלבד ולא משנה את הפרופיל הציבורי עד אישור.', 'justice-theme' ); ?></p>
 						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" class="ask-lawyer__form">
 							<input type="hidden" name="action" value="justice_lawyer_profile_update_request">
@@ -1253,7 +1253,7 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 						</ul>
 					</section>
 
-					<h2><?php esc_html_e( 'מה יעלה את הערך של המיני-סייט?', 'justice-theme' ); ?></h2>
+					<h2><?php esc_html_e( 'מה יעלה את הערך של הפרופיל המקצועי?', 'justice-theme' ); ?></h2>
 					<ul>
 						<li><?php esc_html_e( 'תמונה מקצועית, לוגו משרד וביוגרפיה ממוקדת.', 'justice-theme' ); ?></li>
 						<li><?php esc_html_e( 'וידאו קצר שמסביר את הגישה המקצועית.', 'justice-theme' ); ?></li>

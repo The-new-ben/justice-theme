@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer selection on-page integration
+
+- UPDATED: `/lawyers/` archive, existing lawyer-selection article template, lawyer profile template, family practice lawyer block, lawyer CTA, lawyer plans, registration, dashboard, onboarding and payment-compliance copy.
+- ADDED: `project-control/lawyer-selection-onpage-integration-2026-05-25.md`.
+- ADDED: `tools/check-live-draft-push-public-exposure.mjs`.
+- GENERATED: `project-control/live-draft-push-risk-alert-2026-05-25.md` and `reports/live-draft-push-public-exposure-2026-05-25.json`.
+- PURPOSE: use the external SEO/Gemini/competitor research to improve actual on-page conversion surfaces instead of dumping raw research into the repo.
+- IMPLEMENTATION: kept `/find-lawyer-how-to-find-good-attorney/` as the protected existing guide route, added selection/trust/upgrade panels to the guide and lawyer directory, and standardized lawyer product language around "professional profile" rather than "mini-site".
+- VERIFIED: PHP lint passed for all changed PHP files, `git diff --check` passed, and claimed draft IDs `20563-20568` are not publicly exposed in unauthenticated checks (`REST 401`, public query `404`).
+- REVENUE STATUS: realized recurring revenue remains NIS 0; this improves claim/upgrade/sponsored conversion readiness only.
+- SAFETY: no CMS database write, public page publish, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # 2026-05-25 - SEO pack cannibalization gate
 
 - ADDED: `tools/check-seo-pack-cannibalization-gate.mjs`.

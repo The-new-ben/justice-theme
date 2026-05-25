@@ -83,7 +83,7 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 	<div class="container lawyer-plans-hero__grid">
 		<div>
 			<p class="section-header__eyebrow"><?php esc_html_e( 'מסלולים לעורכי דין', 'justice-theme' ); ?></p>
-			<h1><?php esc_html_e( 'מיני-סייט, תוכן, לידים וכלים במקום אחד', 'justice-theme' ); ?></h1>
+			<h1><?php esc_html_e( 'פרופיל מקצועי, תוכן, לידים וכלים במקום אחד', 'justice-theme' ); ?></h1>
 			<p><?php esc_html_e( 'Jus-Tice נבנית כמערכת מסחרית לעורכי דין: פרופיל מקצועי, תוכן, חשיפה, פניות ודוחות ערך. המחירים פורסמו כדי לאפשר מכירה ושיחות לקוח ברורות; מעבר לתשלום חודשי אוטומטי ייפתח רק לאחר שהסליקה והמוצרים יהיו מאושרים ופעילים בפועל.', 'justice-theme' ); ?></p>
 		</div>
 		<aside>
@@ -108,7 +108,7 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 			</ol>
 			<div class="lawyer-plans-founder__actions">
 				<a class="button button--gold" href="<?php echo esc_url( $plan_checkout_url( 'lead_partner', 'founder_primary' ) ); ?>"><?php esc_html_e( 'בקשת בדיקת שותף לידים', 'justice-theme' ); ?></a>
-				<a class="button button--outline" href="<?php echo esc_url( $plan_checkout_url( 'pro', 'founder_secondary' ) ); ?>"><?php esc_html_e( 'פתיחת מיני-סייט מקצועי', 'justice-theme' ); ?></a>
+				<a class="button button--outline" href="<?php echo esc_url( $plan_checkout_url( 'pro', 'founder_secondary' ) ); ?>"><?php esc_html_e( 'פתיחת פרופיל מקצועי מורחב', 'justice-theme' ); ?></a>
 			</div>
 		</section>
 
@@ -121,7 +121,7 @@ $plan_checkout_url = static function ( string $plan_key, string $surface = 'pric
 			<div class="lawyer-plans-system__grid">
 				<article>
 					<strong><?php esc_html_e( '01', 'justice-theme' ); ?></strong>
-					<h3><?php esc_html_e( 'מיני-סייט עשיר', 'justice-theme' ); ?></h3>
+					<h3><?php esc_html_e( 'פרופיל מקצועי עשיר', 'justice-theme' ); ?></h3>
 					<p><?php esc_html_e( 'פרופיל עם תחומי עיסוק, שאלות נפוצות, מאמרים, מיקום וחומרי אמון שמחזקים המרה.', 'justice-theme' ); ?></p>
 				</article>
 				<article>

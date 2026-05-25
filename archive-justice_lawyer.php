@@ -301,6 +301,32 @@ $approved_count = (int) $lawyers->found_posts;
 				</div>
 			</div>
 
+			<section class="directory-comparison-playbook" aria-label="<?php esc_attr_e( 'בדיקת התאמה לפני בחירת עורך דין', 'justice-theme' ); ?>">
+				<div class="directory-comparison-playbook__header">
+					<span><?php esc_html_e( 'בהשראת דפוסי חיפוש באינדקסים משפטיים מובילים', 'justice-theme' ); ?></span>
+					<h2><?php esc_html_e( 'מה כדאי לבדוק לפני שבוחרים פרופיל?', 'justice-theme' ); ?></h2>
+					<p><?php esc_html_e( 'העמוד הזה לא מסתפק ברשימת שמות. הוא מכוון את הגולש לבדוק תחום, אזור, סימני אימות ויכולת פנייה, כדי שהאינדקס ירגיש רציני כמו אתרי עורכי הדין החזקים בישראל בלי להציג עובדות שלא נבדקו.', 'justice-theme' ); ?></p>
+				</div>
+				<div class="directory-comparison-playbook__grid">
+					<article>
+						<strong><?php esc_html_e( 'התאמת תחום ועיר', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'כמו באינדקסים תחרותיים, נקודת הפתיחה היא סינון לפי תחום משפטי ואזור שירות. אם התחום קרוב, למשל גירושין ודיני משפחה, הוא צריך להופיע יחד ולא להתפצל למסלולים מבלבלים.', 'justice-theme' ); ?></span>
+					</article>
+					<article>
+						<strong><?php esc_html_e( 'אמון בלי המצאות', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'תמונה, ביקורות, השכלה, תיקים או הופעות במדיה מוצגים רק כאשר הם קיימים ומאומתים. בפרופילים בסיסיים עדיף להציג פחות, אבל נכון.', 'justice-theme' ); ?></span>
+					</article>
+					<article>
+						<strong><?php esc_html_e( 'מסלול שדרוג ברור', 'justice-theme' ); ?></strong>
+						<span><?php esc_html_e( 'פרופיל בסיסי יכול להפוך לפרופיל מורחב עם תמונה, מאמרים, ביקורות מאומתות, קישורי מדיה ומיקום ממומן, הכל מנוהל מה-CMS ולא מקוד קשיח.', 'justice-theme' ); ?></span>
+					</article>
+				</div>
+				<div class="directory-comparison-playbook__actions">
+					<a class="button button--primary" href="<?php echo esc_url( home_url( '/find-lawyer-how-to-find-good-attorney/' ) ); ?>"><?php esc_html_e( 'איך לבחור עורך דין נכון', 'justice-theme' ); ?></a>
+					<a class="button button--ghost" href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>"><?php esc_html_e( 'לבעלי מקצוע: ניהול ושדרוג פרופיל', 'justice-theme' ); ?></a>
+				</div>
+			</section>
+
 			<!-- Filter bar -->
 			<form class="directory-filters" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ); ?>">
 				<div class="directory-filters__fields">

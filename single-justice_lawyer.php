@@ -356,7 +356,7 @@ if ( $show_profile_photo ) {
 		<div class="container lawyer-mini-hero__grid">
 			<div class="lawyer-mini-hero__content">
 				<div class="lawyer-mini-hero__kicker">
-					<span>מיני-סייט משפטי</span>
+					<span>פרופיל מקצועי</span>
 					<?php if ( $show_verified_profile_badge ) : ?>
 						<strong>פרופיל מאומת</strong>
 					<?php endif; ?>
@@ -377,7 +377,7 @@ if ( $show_profile_photo ) {
 
 				<div class="lawyer-mini-hero__actions">
 					<?php if ( $phone_link ) : ?>
-						<a class="button button--primary" href="<?php echo esc_url( $phone_link ); ?>" itemprop="telephone">שיחה לעורכת הדין</a>
+						<a class="button button--primary" href="<?php echo esc_url( $phone_link ); ?>" itemprop="telephone">שיחה ישירה</a>
 					<?php endif; ?>
 					<?php if ( $whatsapp_link ) : ?>
 						<a class="button button--ghost" href="<?php echo esc_url( $whatsapp_link ); ?>" target="_blank" rel="noopener">WhatsApp</a>
@@ -396,7 +396,7 @@ if ( $show_profile_photo ) {
 				<?php endif; ?>
 			</div>
 
-			<aside class="lawyer-mini-hero__panel" aria-label="פרטי עורכת הדין">
+			<aside class="lawyer-mini-hero__panel" aria-label="פרטי הפרופיל">
 				<div class="lawyer-mini-hero__photo">
 					<?php if ( $show_profile_photo ) : ?>
 						<?php the_post_thumbnail( 'large', array( 'itemprop' => 'image' ) ); ?>
@@ -432,11 +432,11 @@ if ( $show_profile_photo ) {
 	</section>
 
 	<?php if ( $show_profile_marketing_modules ) : ?>
-	<section class="section lawyer-mini-engagement" aria-label="<?php esc_attr_e( 'אפשרויות במיני-סייט', 'justice-theme' ); ?>">
+	<section class="section lawyer-mini-engagement" aria-label="<?php esc_attr_e( 'אפשרויות בפרופיל', 'justice-theme' ); ?>">
 		<div class="container">
 			<div class="section-header section-header--split">
 				<div>
-					<p class="section-header__eyebrow"><?php esc_html_e( 'מיני-סייט פעיל', 'justice-theme' ); ?></p>
+					<p class="section-header__eyebrow"><?php esc_html_e( 'פרופיל פעיל', 'justice-theme' ); ?></p>
 					<h2><?php esc_html_e( 'מה אפשר לעשות דרך הפרופיל הזה?', 'justice-theme' ); ?></h2>
 				</div>
 				<a class="button button--ghost" href="#lawyer-inquiry"><?php esc_html_e( 'השארת פנייה', 'justice-theme' ); ?></a>
@@ -450,11 +450,11 @@ if ( $show_profile_photo ) {
 				<article class="lawyer-mini-engagement__card">
 					<span><?php esc_html_e( 'תוכן', 'justice-theme' ); ?></span>
 					<h3><?php echo esc_html( $has_related_articles ? __( 'לקרוא מאמרים מחוברים לפרופיל', 'justice-theme' ) : __( 'מאמרים חתומים יופיעו לאחר בדיקה', 'justice-theme' ) ); ?></h3>
-					<p><?php echo esc_html( $has_related_articles ? __( 'מאמרים ומדריכים מחוברים לפרופיל דרך CMS, כך שהתוכן המקצועי מחזק גם את המיני-סייט וגם את אשכול ה-SEO.', 'justice-theme' ) : __( 'המערכת תומכת במאמרים חתומים, אך הם יוצגו רק לאחר עריכה, בדיקת מקורות ואישור משפטי.', 'justice-theme' ) ); ?></p>
+					<p><?php echo esc_html( $has_related_articles ? __( 'מאמרים ומדריכים מחוברים לפרופיל דרך CMS, כך שהתוכן המקצועי מחזק גם את הפרופיל וגם את אשכול ה-SEO.', 'justice-theme' ) : __( 'המערכת תומכת במאמרים חתומים, אך הם יוצגו רק לאחר עריכה, בדיקת מקורות ואישור משפטי.', 'justice-theme' ) ); ?></p>
 				</article>
 				<article class="lawyer-mini-engagement__card">
 					<span><?php esc_html_e( 'מדיה', 'justice-theme' ); ?></span>
-					<h3><?php echo esc_html( $has_media_module ? __( 'לצפות בווידאו ועדכונים', 'justice-theme' ) : __( 'וידאו וקישורי מדיה זמינים כחלק מהמיני-סייט', 'justice-theme' ) ); ?></h3>
+					<h3><?php echo esc_html( $has_media_module ? __( 'לצפות בווידאו ועדכונים', 'justice-theme' ) : __( 'וידאו וקישורי מדיה זמינים כחלק מהפרופיל', 'justice-theme' ) ); ?></h3>
 					<p><?php echo esc_html( $has_media_module ? __( 'סרטונים, הופעות ועדכונים מחוברים לפרופיל ומאפשרים למבקר להבין את סגנון העבודה לפני יצירת קשר.', 'justice-theme' ) : __( 'כאשר בעל הפרופיל מוסיף וידאו או קישורים מאושרים, הם מופיעים כאן כחלק ממסלול ההיכרות.', 'justice-theme' ) ); ?></p>
 				</article>
 				<article class="lawyer-mini-engagement__card">
@@ -471,7 +471,7 @@ if ( $show_profile_photo ) {
 		<div class="container lawyer-mini-body__grid">
 			<main class="lawyer-mini-body__main">
 				<section class="lawyer-mini-panel">
-					<h2>על עורכת הדין</h2>
+					<h2>על הפרופיל המקצועי</h2>
 					<div class="entry-content" itemprop="description">
 						<?php if ( $show_freeform_profile_facts ) : ?>
 							<?php the_content(); ?>

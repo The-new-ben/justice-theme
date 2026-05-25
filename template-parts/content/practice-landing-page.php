@@ -177,9 +177,9 @@ if ( post_type_exists( 'articles' ) ) {
 				<div class="section-header section-header--split">
 					<div>
 						<p class="section-header__eyebrow"><?php esc_html_e( 'פרופיל מקצועי מחובר', 'justice-theme' ); ?></p>
-						<h2><?php esc_html_e( 'עורכת דין בתחום המשפחה', 'justice-theme' ); ?></h2>
+						<h2><?php esc_html_e( 'פרופיל מקצועי בתחום המשפחה', 'justice-theme' ); ?></h2>
 					</div>
-					<a class="button button--primary" href="<?php echo esc_url( justice_theme_public_permalink( $featured_lawyer->ID ) ); ?>"><?php esc_html_e( 'כניסה למיני-סייט', 'justice-theme' ); ?></a>
+					<a class="button button--primary" href="<?php echo esc_url( justice_theme_public_permalink( $featured_lawyer->ID ) ); ?>"><?php esc_html_e( 'כניסה לפרופיל', 'justice-theme' ); ?></a>
 				</div>
 				<div class="lawyers-grid lawyers-grid--single">
 					<?php

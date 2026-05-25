@@ -157,7 +157,7 @@ if ( $registration_claim_profile ) {
 		<div>
 			<p class="section-header__eyebrow"><?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?></p>
 			<h1><?php esc_html_e( 'בנו נוכחות דיגיטלית שמייצרת פניות, אמון ותוכן מקצועי', 'justice-theme' ); ?></h1>
-			<p><?php esc_html_e( 'Jus-Tice נבנית כפלטפורמה לעורכי דין: מיני-סייט מקצועי, תוכן חתום על שמכם, פניות מסודרות, כלים משפטיים ויכולת לגדול למסלולי פרסום ולידים.', 'justice-theme' ); ?></p>
+			<p><?php esc_html_e( 'Jus-Tice נבנית כפלטפורמה לעורכי דין: פרופיל מקצועי מורחב, תוכן חתום על שמכם, פניות מסודרות, כלים משפטיים ויכולת לגדול למסלולי פרסום ולידים.', 'justice-theme' ); ?></p>
 		</div>
 		<aside class="lawyer-registration-hero__panel">
 			<strong><?php esc_html_e( 'מה מקבלים בהמשך הדרך?', 'justice-theme' ); ?></strong>
@@ -347,7 +347,7 @@ if ( $registration_claim_profile ) {
 						<span><?php esc_html_e( 'מסלול שמעניין אותך', 'justice-theme' ); ?></span>
 						<select name="plan_interest" data-selected-plan="<?php echo esc_attr( $selected_plan_interest ); ?>">
 							<option value="free"<?php selected( $selected_plan_interest, 'free' ); ?>><?php esc_html_e( 'פרופיל בסיסי', 'justice-theme' ); ?></option>
-							<option value="pro"<?php selected( $selected_plan_interest, 'pro' ); ?>><?php esc_html_e( 'מיני-סייט מקצועי', 'justice-theme' ); ?></option>
+							<option value="pro"<?php selected( $selected_plan_interest, 'pro' ); ?>><?php esc_html_e( 'פרופיל מקצועי מורחב', 'justice-theme' ); ?></option>
 							<option value="featured"<?php selected( $selected_plan_interest, 'featured' ); ?>><?php esc_html_e( 'חשיפה מוגברת', 'justice-theme' ); ?></option>
 							<option value="lead_partner"<?php selected( $selected_plan_interest, 'lead_partner' ); ?>><?php esc_html_e( 'שיתוף לידים', 'justice-theme' ); ?></option>
 							<option value="full_service"<?php selected( $selected_plan_interest, 'full_service' ); ?>><?php esc_html_e( 'שירות מלא', 'justice-theme' ); ?></option>
@@ -394,7 +394,7 @@ if ( $registration_claim_profile ) {
 						<input type="text" name="profile_headline" placeholder="<?php esc_attr_e( 'לדוגמה: ליווי אישי בהליכי גירושין, הסכמות וזמני שהות', 'justice-theme' ); ?>">
 					</label>
 					<label class="lawyer-registration-form__full">
-						<span><?php esc_html_e( 'שירותים מרכזיים למיני-סייט', 'justice-theme' ); ?></span>
+						<span><?php esc_html_e( 'שירותים מרכזיים לפרופיל המקצועי', 'justice-theme' ); ?></span>
 						<textarea name="profile_services" rows="4" placeholder="<?php esc_attr_e( 'כל שורה: שם השירות | הסבר קצר. לדוגמה: גירושין בהסכמה | בניית הסכם מאוזן לפני אישור בית משפט', 'justice-theme' ); ?>"></textarea>
 					</label>
 					<label class="lawyer-registration-form__full">
@@ -473,7 +473,7 @@ if ( $registration_claim_profile ) {
 				<span><?php esc_html_e( 'בודקים רישיון, תחום, אזורי שירות, זמינות למענה וכללי פרסום לפני פרסום או ניתוב פניות.', 'justice-theme' ); ?></span>
 			</li>
 			<li>
-				<strong><?php esc_html_e( 'בניית מיני-סייט', 'justice-theme' ); ?></strong>
+				<strong><?php esc_html_e( 'בניית פרופיל מקצועי', 'justice-theme' ); ?></strong>
 				<span><?php esc_html_e( 'החומר מהטופס הופך לטיוטת פרופיל עם שירותים, תהליך עבודה, שאלות נפוצות ונכסי אמון לבדיקה.', 'justice-theme' ); ?></span>
 			</li>
 			<li>

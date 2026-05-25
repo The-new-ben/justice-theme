@@ -1,0 +1,125 @@
+{
+  "generated_at": "2026-05-25T16:43:50.248Z",
+  "site": "https://jus-tice.co.il",
+  "checked_ids": [
+    20563,
+    20564,
+    20565,
+    20566,
+    20567,
+    20568
+  ],
+  "source_of_ids": "user pasted another-agent report claiming WordPress draft IDs 20563-20568",
+  "public_exposure_detected": false,
+  "exposed_ids": [],
+  "checks": [
+    {
+      "id": 20563,
+      "restArticle": {
+        "url": "https://jus-tice.co.il/wp-json/wp/v2/articles/20563",
+        "status": 401,
+        "finalUrl": "https://jus-tice.co.il/wp-json/wp/v2/articles/20563",
+        "contentType": "application/json; charset=UTF-8",
+        "bodyPreview": "{\"code\":\"rest_forbidden\",\"message\":\"\\u05d0\\u05d9\\u05df \\u05dc\\u05da \\u05d4\\u05e8\\u05e9\\u05d0\\u05d5\\u05ea \\u05dc\\u05e2\\u05e9\\u05d5\\u05ea \\u05d0\\u05ea \\u05d6\\u05d4.\",\"data\":{\"status\":401}}"
+      },
+      "publicQuery": {
+        "url": "https://jus-tice.co.il/?p=20563",
+        "status": 404,
+        "finalUrl": "https://jus-tice.co.il/?p=20563",
+        "contentType": "text/html; charset=UTF-8",
+        "bodyPreview": "﻿<!doctype html><html dir=\"rtl\" lang=\"he-IL\" dir=\"rtl\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"theme-color\" content=\"#07152f\"><meta name=\"justice-theme-version\" content=\"1.1.0\" /><meta name=\"justice-deployment-marker\" content=\"2026-05-25-competitor-signup-funnel-v1\" /><meta name='robots' content='noindex, follow' /><link media=\"all\" href=\"https://jus-tice.co.il/wp-content/cache/autoptimize/css/autoptimize_6484a47e56d10593dfa2343"
+      }
+    },
+    {
+      "id": 20564,
+      "restArticle": {
+        "url": "https://jus-tice.co.il/wp-json/wp/v2/articles/20564",
+        "status": 401,
+        "finalUrl": "https://jus-tice.co.il/wp-json/wp/v2/articles/20564",
+        "contentType": "application/json; charset=UTF-8",
+        "bodyPreview": "{\"code\":\"rest_forbidden\",\"message\":\"\\u05d0\\u05d9\\u05df \\u05dc\\u05da \\u05d4\\u05e8\\u05e9\\u05d0\\u05d5\\u05ea \\u05dc\\u05e2\\u05e9\\u05d5\\u05ea \\u05d0\\u05ea \\u05d6\\u05d4.\",\"data\":{\"status\":401}}"
+      },
+      "publicQuery": {
+        "url": "https://jus-tice.co.il/?p=20564",
+        "status": 404,
+        "finalUrl": "https://jus-tice.co.il/?p=20564",
+        "contentType": "text/html; charset=UTF-8",
+        "bodyPreview": "﻿<!doctype html><html dir=\"rtl\" lang=\"he-IL\" dir=\"rtl\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"theme-color\" content=\"#07152f\"><meta name=\"justice-theme-version\" content=\"1.1.0\" /><meta name=\"justice-deployment-marker\" content=\"2026-05-25-competitor-signup-funnel-v1\" /><meta name='robots' content='noindex, follow' /><link media=\"all\" href=\"https://jus-tice.co.il/wp-content/cache/autoptimize/css/autoptimize_6484a47e56d10593dfa2343"
+      }
+    },
+    {
+      "id": 20565,
+      "restArticle": {
+        "url": "https://jus-tice.co.il/wp-json/wp/v2/articles/20565",
+        "status": 401,
+        "finalUrl": "https://jus-tice.co.il/wp-json/wp/v2/articles/20565",
+        "contentType": "application/json; charset=UTF-8",
+        "bodyPreview": "{\"code\":\"rest_forbidden\",\"message\":\"\\u05d0\\u05d9\\u05df \\u05dc\\u05da \\u05d4\\u05e8\\u05e9\\u05d0\\u05d5\\u05ea \\u05dc\\u05e2\\u05e9\\u05d5\\u05ea \\u05d0\\u05ea \\u05d6\\u05d4.\",\"data\":{\"status\":401}}"
+      },
+      "publicQuery": {
+        "url": "https://jus-tice.co.il/?p=20565",
+        "status": 404,
+        "finalUrl": "https://jus-tice.co.il/?p=20565",
+        "contentType": "text/html; charset=UTF-8",
+        "bodyPreview": "﻿<!doctype html><html dir=\"rtl\" lang=\"he-IL\" dir=\"rtl\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"theme-color\" content=\"#07152f\"><meta name=\"justice-theme-version\" content=\"1.1.0\" /><meta name=\"justice-deployment-marker\" content=\"2026-05-25-competitor-signup-funnel-v1\" /><meta name='robots' content='noindex, follow' /><link media=\"all\" href=\"https://jus-tice.co.il/wp-content/cache/autoptimize/css/autoptimize_6484a47e56d10593dfa2343"
+      }
+    },
+    {
+      "id": 20566,
+      "restArticle": {
+        "url": "https://jus-tice.co.il/wp-json/wp/v2/articles/20566",
+        "status": 401,
+        "finalUrl": "https://jus-tice.co.il/wp-json/wp/v2/articles/20566",
+        "contentType": "application/json; charset=UTF-8",
+        "bodyPreview": "{\"code\":\"rest_forbidden\",\"message\":\"\\u05d0\\u05d9\\u05df \\u05dc\\u05da \\u05d4\\u05e8\\u05e9\\u05d0\\u05d5\\u05ea \\u05dc\\u05e2\\u05e9\\u05d5\\u05ea \\u05d0\\u05ea \\u05d6\\u05d4.\",\"data\":{\"status\":401}}"
+      },
+      "publicQuery": {
+        "url": "https://jus-tice.co.il/?p=20566",
+        "status": 404,
+        "finalUrl": "https://jus-tice.co.il/?p=20566",
+        "contentType": "text/html; charset=UTF-8",
+        "bodyPreview": "﻿<!doctype html><html dir=\"rtl\" lang=\"he-IL\" dir=\"rtl\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"theme-color\" content=\"#07152f\"><meta name=\"justice-theme-version\" content=\"1.1.0\" /><meta name=\"justice-deployment-marker\" content=\"2026-05-25-competitor-signup-funnel-v1\" /><meta name='robots' content='noindex, follow' /><link media=\"all\" href=\"https://jus-tice.co.il/wp-content/cache/autoptimize/css/autoptimize_6484a47e56d10593dfa2343"
+      }
+    },
+    {
+      "id": 20567,
+      "restArticle": {
+        "url": "https://jus-tice.co.il/wp-json/wp/v2/articles/20567",
+        "status": 401,
+        "finalUrl": "https://jus-tice.co.il/wp-json/wp/v2/articles/20567",
+        "contentType": "application/json; charset=UTF-8",
+        "bodyPreview": "{\"code\":\"rest_forbidden\",\"message\":\"\\u05d0\\u05d9\\u05df \\u05dc\\u05da \\u05d4\\u05e8\\u05e9\\u05d0\\u05d5\\u05ea \\u05dc\\u05e2\\u05e9\\u05d5\\u05ea \\u05d0\\u05ea \\u05d6\\u05d4.\",\"data\":{\"status\":401}}"
+      },
+      "publicQuery": {
+        "url": "https://jus-tice.co.il/?p=20567",
+        "status": 404,
+        "finalUrl": "https://jus-tice.co.il/?p=20567",
+        "contentType": "text/html; charset=UTF-8",
+        "bodyPreview": "﻿<!doctype html><html dir=\"rtl\" lang=\"he-IL\" dir=\"rtl\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"theme-color\" content=\"#07152f\"><meta name=\"justice-theme-version\" content=\"1.1.0\" /><meta name=\"justice-deployment-marker\" content=\"2026-05-25-competitor-signup-funnel-v1\" /><meta name='robots' content='noindex, follow' /><link media=\"all\" href=\"https://jus-tice.co.il/wp-content/cache/autoptimize/css/autoptimize_6484a47e56d10593dfa2343"
+      }
+    },
+    {
+      "id": 20568,
+      "restArticle": {
+        "url": "https://jus-tice.co.il/wp-json/wp/v2/articles/20568",
+        "status": 401,
+        "finalUrl": "https://jus-tice.co.il/wp-json/wp/v2/articles/20568",
+        "contentType": "application/json; charset=UTF-8",
+        "bodyPreview": "{\"code\":\"rest_forbidden\",\"message\":\"\\u05d0\\u05d9\\u05df \\u05dc\\u05da \\u05d4\\u05e8\\u05e9\\u05d0\\u05d5\\u05ea \\u05dc\\u05e2\\u05e9\\u05d5\\u05ea \\u05d0\\u05ea \\u05d6\\u05d4.\",\"data\":{\"status\":401}}"
+      },
+      "publicQuery": {
+        "url": "https://jus-tice.co.il/?p=20568",
+        "status": 404,
+        "finalUrl": "https://jus-tice.co.il/?p=20568",
+        "contentType": "text/html; charset=UTF-8",
+        "bodyPreview": "﻿<!doctype html><html dir=\"rtl\" lang=\"he-IL\" dir=\"rtl\"><head><meta charset=\"UTF-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"><meta name=\"theme-color\" content=\"#07152f\"><meta name=\"justice-theme-version\" content=\"1.1.0\" /><meta name=\"justice-deployment-marker\" content=\"2026-05-25-competitor-signup-funnel-v1\" /><meta name='robots' content='noindex, follow' /><link media=\"all\" href=\"https://jus-tice.co.il/wp-content/cache/autoptimize/css/autoptimize_6484a47e56d10593dfa2343"
+      }
+    }
+  ],
+  "interpretation": "No public exposure detected from unauthenticated REST/article checks. Keep claimed imported drafts unpublished until reviewed for accuracy and brand fit.",
+  "boundaries": {
+    "cms_login_used": false,
+    "cms_write_performed": false,
+    "redirects_or_canonicals_changed": false
+  }
+}

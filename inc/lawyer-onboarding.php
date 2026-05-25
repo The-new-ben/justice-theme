@@ -1067,7 +1067,7 @@ function justice_theme_lawyer_outreach_link_args(): array {
 function justice_theme_lawyer_outreach_message_template( string $variant, string $practice_label, string $city_label, string $registration_url, string $personal_note = '' ): string {
 	$templates = array(
 		'message_a' => sprintf(
-			"שלום, אני בונה ב-Jus-Tice מסלול שותפי לידים לעורכי דין בתחום %s באזור %s.\nאנחנו פותחים מספר מקומות לבדיקה מוקדמת: מיני-סייט, פניות מדידות ודוח ערך חודשי. אין חיוב מהטופס ואין התחייבות.\nאם מתאים, אפשר להשאיר פרטים כאן:\n%s\nאם זה לא רלוונטי, כתבו לי להסיר ולא אפנה שוב.",
+			"שלום, אני בונה ב-Jus-Tice מסלול שותפי לידים לעורכי דין בתחום %s באזור %s.\nאנחנו פותחים מספר מקומות לבדיקה מוקדמת: פרופיל מקצועי מורחב, פניות מדידות ודוח ערך חודשי. אין חיוב מהטופס ואין התחייבות.\nאם מתאים, אפשר להשאיר פרטים כאן:\n%s\nאם זה לא רלוונטי, כתבו לי להסיר ולא אפנה שוב.",
 			$practice_label,
 			$city_label,
 			$registration_url

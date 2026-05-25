@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 17:18 Asia/Jerusalem
+- LAWYER CARD MEDIA OVERLAP HARDENING: tightened the public lawyer-card CSS so CMS photos, initials, badges, long names and CTA buttons stay inside the card and do not crowd or cover text.
+- UPDATED: `assets/css/premium-pass-4.css`, `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-card-media-overlap-hardening-2026-05-25.md`.
+- MATERIAL ADVANCE: this directly targets the investor-visible complaint that lawyer index/homepage card imagery looked unprofessional or overlapped text. The fix is a layout guard around dynamic CMS content, not a fake profile/photo/content layer.
+- RESEARCH BASIS: checked current public direction from Psakdin, LawReviews, Justia and Avvo: dense lawyer cards need robust media/text containment, and profile depth/reviews must be separated from unverified/basic profiles.
+- VERIFIED LOCAL / DEPLOY PENDING: `php -l inc/enqueue.php` and `git diff --check` passed; after uPress Pull Git, visually check `/lawyers/?justice_readonly=1` and homepage lawyer cards on desktop/mobile.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves investor trust and lawyer upgrade conversion readiness, but it does not prove payment, invoice, refund, subscription, lead delivery or CRM monetization.
+- SAFETY: repo CSS/enqueue/docs only; no live CMS database edit, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 17:04 Asia/Jerusalem
 - HOMEPAGE LAWYER REVENUE STRIP HONESTY PASS: removed hard-coded live-like mini-dashboard claims from the homepage lawyer revenue strip and replaced them with a truthful capability path.
 - UPDATED: `template-parts/sections/homepage-lawyer-revenue-strip.php`.

@@ -984,6 +984,84 @@
   font-size: clamp(2rem, 5vw, 3.8rem);
 }
 
+/* Presentation hardening: keep CMS media, badges and CTAs inside lawyer cards. */
+.lawyers-grid .lawyer-card,
+.featured-lawyers__grid .lawyer-card {
+  isolation: isolate;
+  grid-auto-rows: auto;
+}
+
+.lawyers-grid .lawyer-card__media,
+.featured-lawyers__grid .lawyer-card__media {
+  display: grid;
+  place-items: center;
+  min-width: 0;
+  overflow: hidden;
+  text-decoration: none;
+  z-index: 0;
+}
+
+.lawyers-grid .lawyer-card__photo,
+.featured-lawyers__grid .lawyer-card__photo {
+  max-width: 100%;
+  min-width: 100%;
+}
+
+.lawyers-grid .lawyer-card__body,
+.featured-lawyers__grid .lawyer-card__body {
+  position: relative;
+  z-index: 1;
+}
+
+.lawyers-grid .lawyer-card__top,
+.featured-lawyers__grid .lawyer-card__top {
+  min-width: 0;
+}
+
+.lawyers-grid .lawyer-card__name,
+.featured-lawyers__grid .lawyer-card__name {
+  flex: 1 1 10rem;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.lawyers-grid .lawyer-card__status,
+.featured-lawyers__grid .lawyer-card__status {
+  flex: 0 1 auto;
+  max-width: 100%;
+}
+
+.lawyers-grid .lawyer-card__firm,
+.lawyers-grid .lawyer-card__meta,
+.lawyers-grid .lawyer-card__summary,
+.featured-lawyers__grid .lawyer-card__firm,
+.featured-lawyers__grid .lawyer-card__meta,
+.featured-lawyers__grid .lawyer-card__summary {
+  overflow-wrap: anywhere;
+}
+
+.lawyers-grid .lawyer-card__claim,
+.featured-lawyers__grid .lawyer-card__claim {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.lawyers-grid .lawyer-card__claim span,
+.featured-lawyers__grid .lawyer-card__claim span {
+  overflow-wrap: anywhere;
+}
+
+.lawyers-grid .lawyer-card__actions .button,
+.featured-lawyers__grid .lawyer-card__actions .button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  max-width: 100%;
+  white-space: normal;
+  line-height: 1.35;
+}
+
 @media (max-width: 480px) {
   .lawyers-grid .lawyer-card,
   .featured-lawyers__grid .lawyer-card {

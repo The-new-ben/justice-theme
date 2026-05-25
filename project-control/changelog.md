@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer card media overlap hardening
+
+- UPDATED: `assets/css/premium-pass-4.css`, `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-card-media-overlap-hardening-2026-05-25.md`.
+- PURPOSE: prevent CMS-sourced lawyer-card images, badges, long names and CTAs from crowding or covering text on homepage/directory cards.
+- IMPLEMENTATION: added containment and wrapping guards for card media, body, names, status badges, claim blocks and buttons; bumped `premium-pass-4.css` to `4.3.9`.
+- RESEARCH BASIS: checked Psakdin, LawReviews, Justia and Avvo public directory/profile patterns; implementation is original and does not copy competitor lawyer data, photos, ratings, reviews, contact data or text.
+- SAFETY: no CMS database write, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # 2026-05-25 - Homepage lawyer revenue strip honesty pass
 
 - UPDATED: `template-parts/sections/homepage-lawyer-revenue-strip.php`.

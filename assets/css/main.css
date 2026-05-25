@@ -342,6 +342,11 @@ h1, h2, h3, h4, h5, h6 { color: var(--color-heading); font-weight: 800; margin-t
 .editorial-note { margin-top: 3rem; padding: 1.5rem; background: var(--color-bg-alt); border-radius: var(--radius-sm); border-inline-start: 4px solid var(--color-primary); }
 .editorial-note h2 { margin: 0 0 0.5rem; font-size: 1.1rem; color: var(--color-heading); }
 .editorial-note p { margin: 0; color: var(--color-text); font-size: 0.95rem; }
+.single-article__lead-cta { margin-top: 2rem; padding: 1.5rem; border: 1px solid rgba(178,58,72,0.18); border-radius: var(--radius-md); background: linear-gradient(135deg, rgba(178,58,72,0.07), rgba(82,114,178,0.08)); }
+.single-article__lead-cta h2,
+.single-article__lead-cta h3 { margin: 0 0 0.75rem; font-size: 1.2rem; line-height: 1.35; color: var(--color-heading); }
+.single-article__lead-cta p { margin: 0 0 1.2rem; color: var(--color-text); font-size: 1rem; line-height: 1.7; }
+.single-article__lead-cta .button { width: fit-content; max-width: 100%; }
 
 /* Sticky Box */
 .sticky-box { position: sticky; top: 6rem; background: var(--color-bg-alt); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 1.5rem; }

@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 17:47 Asia/Jerusalem
+- ARTICLE LEAD CTA CONTEXTUALIZED: regular posts and custom `articles` pages now use a contextual post-content lead path instead of generic marketing copy.
+- UPDATED: `inc/template-tags.php`, `single.php`, `single-articles.php`, `assets/css/main.css`.
+- ADDED: `project-control/article-contextual-lead-cta-2026-05-25.md`.
+- MATERIAL ADVANCE: this addresses the owner/investor concern that article pages should not open with sales language that can dilute legal relevance. The legal content remains first; the CTA appears after content/editorial note and passes the article topic, slug and campaign context into the `#ask-lawyer` lead form.
+- SEO/CONTENT LOGIC: divorce and family-law article signals are now intentionally consolidated into the same `family-law` lead path, matching the owner's point that `עורך דין גירושין` and `עורך דין לענייני משפחה` should be treated together in the user journey.
+- RESEARCH BASIS: checked Google Search Central guidance on people-first helpful content and the SEO Starter Guide. Applied here by keeping the page focused on useful legal content first and making the conversion action contextual rather than generic.
+- VERIFIED LOCAL / DEPLOY PENDING: `php -l inc/template-tags.php`, `php -l single.php`, `php -l single-articles.php`, and `git diff --check` passed; after uPress Pull Git, visually check an `articles` page and a normal post for a contextual post-content CTA and a URL carrying lead context.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves article-to-lead qualification and attribution, but it does not prove payment, invoice, refund, subscription, lead delivery or CRM monetization.
+- SAFETY: repo template/CSS/docs only; no live CMS database edit, public content migration, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 17:31 Asia/Jerusalem
 - LAWYER PROFILE PRODUCT-COPY SUPPRESSION: the single lawyer mini-site no longer shows the generic platform explainer block by default.
 - UPDATED: `single-justice_lawyer.php`.

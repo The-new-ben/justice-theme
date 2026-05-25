@@ -9,6 +9,15 @@ get_header();
 
 while ( have_posts() ) :
 	the_post();
+
+	$article_contextual_cta = function_exists( 'justice_theme_get_contextual_article_lead_cta' )
+		? justice_theme_get_contextual_article_lead_cta( get_the_ID() )
+		: array(
+			'url'    => home_url( '/#ask-lawyer' ),
+			'title'  => __( 'צריכים בדיקה אישית אחרי הקריאה?', 'justice-theme' ),
+			'text'   => __( 'אם אחרי הקריאה נשארה שאלה, אפשר להשאיר פנייה קצרה עם התחום, העיר והדחיפות.', 'justice-theme' ),
+			'button' => __( 'שליחת פנייה עם הקשר מהמאמר', 'justice-theme' ),
+		);
 	?>
 
 	<article <?php post_class( 'single-article' ); ?>>
@@ -59,9 +68,9 @@ while ( have_posts() ) :
 			</div>
 
 			<div class="single-article__lead-cta">
-				<h3><?php esc_html_e( 'לא בטוחים לאיזה עורך דין לפנות?', 'justice-theme' ); ?></h3>
-				<p><?php esc_html_e( 'פנו אלינו ונעזור לכם למצוא את הייצוג המשפטי המתאים למקרה שלכם.', 'justice-theme' ); ?></p>
-				<a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>" class="button button--primary"><?php esc_html_e( 'שליחת פנייה להתאמה ראשונית', 'justice-theme' ); ?></a>
+				<h3><?php echo esc_html( $article_contextual_cta['title'] ); ?></h3>
+				<p><?php echo esc_html( $article_contextual_cta['text'] ); ?></p>
+				<a href="<?php echo esc_url( $article_contextual_cta['url'] ); ?>" class="button button--primary"><?php echo esc_html( $article_contextual_cta['button'] ); ?></a>
 			</div>
 		</div>
 	</article>

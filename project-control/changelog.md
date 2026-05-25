@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Article contextual lead CTA
+
+- UPDATED: `inc/template-tags.php`, `single.php`, `single-articles.php`, `assets/css/main.css`.
+- ADDED: `project-control/article-contextual-lead-cta-2026-05-25.md`.
+- PURPOSE: keep article pages legally relevant and people-first while still converting qualified readers into leads.
+- IMPLEMENTATION: added a shared helper that maps article practice area, content cluster, slug and keyword signals into the public lead-area vocabulary; connected both article templates to contextual `#ask-lawyer` links; added a post-content CTA block to `single-articles.php`; removed the generic bottom CTA from custom article pages.
+- SEO/CONTENT LOGIC: consolidates divorce and family-law signals into the same `family-law` lead path while preserving separate page content and slugs.
+- RESEARCH BASIS: checked Google Search Central people-first content guidance and the SEO Starter Guide; implementation keeps marketing after article content and makes the CTA contextual instead of generic.
+- VERIFIED LOCAL: `php -l inc/template-tags.php`, `php -l single.php`, `php -l single-articles.php`, and `git diff --check` passed.
+- SAFETY: no CMS database write, public content migration, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # 2026-05-25 - Lawyer profile product-copy suppression
 
 - UPDATED: `single-justice_lawyer.php`.

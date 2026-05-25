@@ -60,6 +60,178 @@ function justice_theme_get_primary_practice_area( $post_id = 0 ) {
 }
 
 /**
+ * Map article taxonomy and cluster signals to the public lead-area vocabulary.
+ *
+ * @param int          $post_id      Post ID.
+ * @param WP_Term|null $primary_term Primary practice-area term.
+ * @return string
+ */
+function justice_theme_get_article_lead_area( $post_id = 0, $primary_term = null ): string {
+	$post_id      = $post_id ? absint( $post_id ) : get_the_ID();
+	$primary_term = $primary_term instanceof WP_Term ? $primary_term : justice_theme_get_primary_practice_area( $post_id );
+	$area_slug    = $primary_term instanceof WP_Term ? sanitize_key( $primary_term->slug ) : '';
+	$cluster_slug = sanitize_key( trim( (string) get_post_meta( $post_id, 'content_cluster', true ), '`' ) );
+	$post_slug    = sanitize_key( get_post_field( 'post_name', $post_id ) );
+	$keyword      = trim( (string) get_post_meta( $post_id, 'primary_keyword', true ), '` ' );
+
+	$accepted = function_exists( 'justice_theme_lead_area_values' ) ? justice_theme_lead_area_values() : array();
+	foreach ( array( $area_slug, $cluster_slug ) as $candidate ) {
+		if ( $candidate && in_array( $candidate, $accepted, true ) ) {
+			return $candidate;
+		}
+	}
+
+	$aliases = array(
+		'family-law' => array(
+			'family-law',
+			'family-lawyer',
+			'divorce',
+			'divorce-law',
+			'divorce-lawyer',
+			'consensual-divorce',
+			'divorce-mediation',
+			'child-support',
+			'child-custody',
+			'divorce-property-division',
+			'domestic-violence',
+			'alimony',
+			'custody',
+		),
+		'criminal-law' => array(
+			'criminal',
+			'criminal-law',
+			'criminal-defense',
+			'arrest',
+			'indictment',
+		),
+		'real-estate-law' => array(
+			'real-estate',
+			'real-estate-law',
+			'real-estate-lawyer',
+			'apartment',
+			'property',
+		),
+		'medical-malpractice-law' => array(
+			'medical-malpractice',
+			'medical-malpractice-law',
+		),
+		'personal-injury-law' => array(
+			'personal-injury',
+			'personal-injury-law',
+			'tort',
+			'accident',
+		),
+		'traffic-law' => array(
+			'traffic',
+			'traffic-law',
+		),
+		'labor-law' => array(
+			'labor',
+			'labor-law',
+			'employment',
+		),
+		'inheritance-law' => array(
+			'inheritance',
+			'inheritance-law',
+			'wills',
+			'probate',
+		),
+		'thailand-law' => array(
+			'thailand',
+			'thailand-law',
+		),
+	);
+
+	foreach ( array_filter( array( $area_slug, $cluster_slug, $post_slug ) ) as $source_slug ) {
+		foreach ( $aliases as $lead_area => $source_aliases ) {
+			if ( in_array( $source_slug, $source_aliases, true ) && in_array( $lead_area, $accepted, true ) ) {
+				return $lead_area;
+			}
+		}
+	}
+
+	$keyword_checks = array(
+		'family-law'              => array( 'גירוש', 'משפחה', 'מזונות', 'משמורת', 'הסדרי שהות' ),
+		'criminal-law'            => array( 'פלילי', 'מעצר', 'כתב אישום', 'חקירה' ),
+		'real-estate-law'         => array( 'מקרקעין', 'נדל', 'דירה', 'טאבו' ),
+		'medical-malpractice-law' => array( 'רשלנות רפואית' ),
+		'personal-injury-law'     => array( 'נזיקין', 'תאונה', 'פיצויים' ),
+		'traffic-law'             => array( 'תעבורה', 'נהיגה' ),
+		'labor-law'               => array( 'דיני עבודה', 'פיטורים', 'שכר' ),
+		'inheritance-law'         => array( 'ירושה', 'צוואה', 'צוואות' ),
+		'thailand-law'            => array( 'תאילנד' ),
+	);
+
+	foreach ( $keyword_checks as $lead_area => $needles ) {
+		if ( ! in_array( $lead_area, $accepted, true ) ) {
+			continue;
+		}
+		foreach ( $needles as $needle ) {
+			$keyword_position = function_exists( 'mb_strpos' ) ? mb_strpos( $keyword, $needle ) : strpos( $keyword, $needle );
+			if ( '' !== $keyword && false !== $keyword_position ) {
+				return $lead_area;
+			}
+		}
+	}
+
+	return '';
+}
+
+/**
+ * Build a contextual, post-content lead CTA for article templates.
+ *
+ * @param int          $post_id      Post ID.
+ * @param WP_Term|null $primary_term Primary practice-area term.
+ * @return array{url:string,title:string,text:string,button:string,lead_area:string,area_label:string}
+ */
+function justice_theme_get_contextual_article_lead_cta( $post_id = 0, $primary_term = null ): array {
+	$post_id      = $post_id ? absint( $post_id ) : get_the_ID();
+	$primary_term = $primary_term instanceof WP_Term ? $primary_term : justice_theme_get_primary_practice_area( $post_id );
+	$area_label   = $primary_term instanceof WP_Term ? $primary_term->name : '';
+	$area_slug    = $primary_term instanceof WP_Term ? sanitize_key( $primary_term->slug ) : '';
+	$lead_area    = justice_theme_get_article_lead_area( $post_id, $primary_term );
+	$lead_message = sprintf(
+		/* translators: %s: article title. */
+		__( 'קראתי את המאמר "%s" ואני רוצה לבדוק האם המקרה שלי מתאים לפנייה לעורך דין.', 'justice-theme' ),
+		get_the_title( $post_id )
+	);
+	$url          = function_exists( 'justice_theme_ask_lawyer_fallback_url' )
+		? justice_theme_ask_lawyer_fallback_url(
+			array(
+				'lead_area'      => $lead_area,
+				'lead_message'   => $lead_message,
+				'utm_source'     => 'article_contextual_cta',
+				'utm_medium'     => is_singular( 'articles' ) ? 'single_articles' : 'single_post',
+				'utm_campaign'   => 'content_to_lead',
+				'utm_term'       => $area_slug,
+				'source_keyword' => get_post_field( 'post_name', $post_id ),
+			)
+		)
+		: home_url( '/#ask-lawyer' );
+
+	return array(
+		'url'        => $url,
+		'title'      => $area_label
+			? sprintf(
+				/* translators: %s: legal practice area. */
+				__( 'צריכים בדיקה אישית בתחום %s?', 'justice-theme' ),
+				$area_label
+			)
+			: __( 'צריכים בדיקה אישית אחרי הקריאה?', 'justice-theme' ),
+		'text'       => $area_label
+			? sprintf(
+				/* translators: %s: legal practice area. */
+				__( 'אם אחרי הקריאה נשארה שאלה בתחום %s, אפשר להשאיר פנייה קצרה עם התחום, העיר והדחיפות. אין בכך ייעוץ משפטי, אלא פתיחה מסודרת של בדיקת התאמה.', 'justice-theme' ),
+				$area_label
+			)
+			: __( 'אם אחרי הקריאה נשארה שאלה, אפשר להשאיר פנייה קצרה עם התחום, העיר והדחיפות. אין בכך ייעוץ משפטי, אלא פתיחה מסודרת של בדיקת התאמה.', 'justice-theme' ),
+		'button'     => __( 'שליחת פנייה עם הקשר מהמאמר', 'justice-theme' ),
+		'lead_area'  => $lead_area,
+		'area_label' => $area_label,
+	);
+}
+
+/**
  * Check whether a clean public path already has published WordPress content.
  *
  * Used by homepage/header hub links so planned English pillar URLs do not send

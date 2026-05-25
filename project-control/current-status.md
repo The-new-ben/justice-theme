@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 05:22 Asia/Jerusalem
+- INVESTOR PAYMENT LIFECYCLE PLAYBOOK: added a morning-demo playbook that maps best-practice billing portal expectations to the exact Jus-Tice payment, lead, support, cancellation, upgrade, downgrade, invoice and refund paths.
+- RESEARCH BASIS: Stripe Billing Customer Portal, Stripe subscription-change docs and Chargebee Self-Serve Portal all emphasize customer-managed billing details, invoices, payment methods, subscription changes and cancellation/refund lifecycle visibility.
+- ADDED: `project-control/investor-payment-lifecycle-playbook-2026-05-25.md`.
+- ADDED: `project-control/investor-payment-lifecycle-playbook-2026-05-25.csv`.
+- MATERIAL ADVANCE: the investor demo now has an honest real-money lifecycle story: what is live, what can be captured in the system, what must be executed manually, and what remains provider-gated.
+- STILL BLOCKED: real low-amount payment, branded invoice, refund execution, claimed demo lawyer and assigned demo lead require explicit owner/provider-approved actions.
+- COMPLETION: route/product proof remains about 98%; full real-money lifecycle proof remains about 86% until provider test and demo data are executed.
+- SAFETY: documentation/playbook only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 05:11 Asia/Jerusalem
 - INVESTOR DEMO LAUNCHPAD: added a local HTML launchpad with clickable morning demo tabs, status badges, exact investor line, do-not-claim warning and links to the supporting scripts/reports.
 - ADDED: `project-control/investor-demo-launchpad-2026-05-25.html`.

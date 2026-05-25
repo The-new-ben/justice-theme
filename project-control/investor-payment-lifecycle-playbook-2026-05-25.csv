@@ -1,0 +1,15 @@
+scenario,best_practice_expectation,jus_tice_demo_path_today,honest_status,next_demo_action
+Lawyer discovers product,Clear account-opening CTA and pricing entry,Homepage lawyer strip to lawyer plans,Live public path verified,Open homepage from launchpad
+Lawyer chooses plan,Transparent plan next steps and billing handoff,Lawyer plans to checkout or registration,Live public path verified,Show account-opening stages
+Lawyer pays,Secure payment page receipt invoice audit trail,Manual Grow/Morning payment link sent by owner after approval,Provider/manual bridge not fully automatic,Create low-amount real provider link only with owner approval
+Lawyer creates account,Required profile and business fields,Lawyer registration with plan prefill,Live public path verified,Open registration prefill
+Lawyer enters private area,Dashboard with profile leads billing/service status,Lawyer dashboard claimed account command center,Needs controlled claimed demo lawyer,Create/approve demo lawyer before investor
+Lawyer receives lead,Lead card call WhatsApp email stage update,Assigned lead in dashboard and owner CRM report,Needs controlled demo lead,Create/approve medical-malpractice demo lead
+Lawyer reports call outcome,Lead follow-up and owner-visible status,Lead stage update and follow-up note,Code path exists demo needs data,Use demo lead
+Lawyer requests invoice copy,Self-service request capture,Dashboard service request invoice copy,Captured internally automatic invoice provider-gated,Show service request queue
+Lawyer upgrades,Portal-style plan-change request,Dashboard service request upgrade,Captured internally owner/provider execution,Show support lifecycle
+Lawyer downgrades,Portal-style plan-change request with term rules,Dashboard service request downgrade,Captured internally owner/provider execution,Show support lifecycle
+Lawyer cancels,Clear cancellation request and confirmation path,Dashboard service request cancellation,Captured internally owner/provider execution,Show support lifecycle
+Lawyer asks refund,Refund request reason and support follow-up,Dashboard service request refund,Captured internally real refund provider-gated,Show support lifecycle and disclose provider gate
+Lawyer complains,Support intake with SLA and queue visibility,Dashboard service request and owner queue,Code path exists,Show complaint/support request
+Lawyer asks technical help,Contextual support from account area,Dashboard technical support request,Code path exists,Show support lifecycle

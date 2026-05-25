@@ -140,6 +140,9 @@ Already shipped:
   it surfaces the next three non-duplicated source-pack candidates, with
   Create private prospect, Open source, copy-ready verification brief and
   exact manual checks before routing.
+- Private prospect draft prefill tightened for source-pack conversions:
+  source-pack draft links now prefill next action date, response-fit status and
+  the verification-note field, not only the source URL and owner note.
 
 Remaining:
 

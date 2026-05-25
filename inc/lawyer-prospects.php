@@ -320,7 +320,7 @@ function justice_theme_lawyer_prospect_request_prefill( string $key ): string {
 		return (string) absint( $value );
 	}
 
-	if ( in_array( $key, array( 'prospect_demand_signal', 'prospect_owner_note' ), true ) ) {
+	if ( in_array( $key, array( 'prospect_demand_signal', 'prospect_owner_note', 'prospect_verification_note' ), true ) ) {
 		return sanitize_textarea_field( $value );
 	}
 

@@ -608,10 +608,12 @@ function justice_theme_crm_btl_source_candidate_verification_brief( array $row )
 }
 
 function justice_theme_crm_btl_source_candidate_prefill_url( array $row ): string {
-	$is_high = 'high' === strtolower( (string) ( $row['priority'] ?? '' ) );
-	$city    = trim( (string) ( $row['geo_hint'] ?? '' ) ) ?: 'ישראל';
-	$signal  = 'BTL source-pack candidate: ' . (string) ( $row['source_evidence_summary'] ?? '' );
-	$note    = 'From private BTL source pack. Do not route until license/status, niche experience, same-day response and manual-payment acceptance are verified. Source action: ' . (string) ( $row['crm_action'] ?? '' );
+	$is_high           = 'high' === strtolower( (string) ( $row['priority'] ?? '' ) );
+	$city              = trim( (string) ( $row['geo_hint'] ?? '' ) ) ?: 'ישראל';
+	$signal            = 'BTL source-pack candidate: ' . (string) ( $row['source_evidence_summary'] ?? '' );
+	$note              = 'From private BTL source pack. Do not route until license/status, niche experience, same-day response and manual-payment acceptance are verified. Source action: ' . (string) ( $row['crm_action'] ?? '' );
+	$verification_note = justice_theme_crm_btl_source_candidate_verification_brief( $row );
+	$next_action       = wp_date( 'Y-m-d', current_time( 'timestamp' ) + DAY_IN_SECONDS );
 
 	return add_query_arg(
 		array(
@@ -624,8 +626,11 @@ function justice_theme_crm_btl_source_candidate_prefill_url( array $row ): strin
 			'prospect_outreach_status'      => 'research',
 			'prospect_source_url'           => (string) ( $row['source_url'] ?? '' ),
 			'prospect_expected_monthly_nis' => $is_high ? '1490' : '749',
+			'prospect_next_action_at'       => $next_action,
+			'prospect_response_fit'         => 'not_sure',
 			'prospect_demand_signal'        => substr( $signal, 0, 450 ),
 			'prospect_owner_note'           => substr( $note, 0, 450 ),
+			'prospect_verification_note'    => substr( $verification_note, 0, 900 ),
 		),
 		admin_url( 'post-new.php' )
 	);

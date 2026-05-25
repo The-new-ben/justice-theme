@@ -28,5 +28,6 @@ The owner needs investor-safe revenue language. The system already tracks invoic
 
 ## Verification
 
-- Pending live verification after commit, push and uPress Pull Git.
-
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed.
+- DEPLOYED: uPress Pull Git completed and the uPress activity log showed live HEAD `bbb32c6`.
+- VERIFIED LIVE: wp-admin `Lawyer Onboarding` loaded the `Paid registration command center` with the new proof strip, `Manual payment bridge`, and `Provider claim boundary`.

@@ -3,7 +3,7 @@
 - UPDATED: `inc/lawyer-onboarding.php`.
 - ADDED: `project-control/lawyer-onboarding-revenue-proof-strip-2026-05-25.md`.
 - MATERIAL ADVANCE: the investor/payment demo now has an admin-visible honesty boundary: confirmed paid profiles, confirmed monthly plan value, manual-invoice count, saved payment-link count, and a warning not to claim automatic recurring billing/refunds/invoice automation until Grow/Morning/Woo passes a controlled paid smoke test.
-- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed. Live deployment and wp-admin verification still need to complete in this cycle.
+- VERIFIED LOCAL / DEPLOYED / VERIFIED LIVE: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed; pushed commit `bbb32c6`; uPress Pull Git succeeded and uPress log showed live HEAD `bbb32c6`; wp-admin `Lawyer Onboarding` exposed the new proof strip, manual payment bridge, and provider claim boundary.
 - REVENUE STATUS: realized revenue remains NIS 0 unless the live admin count shows owner-confirmed paid profiles backed by real provider/accounting proof. This change makes that truth visible; it does not create payment proof.
 - SAFETY: admin/theme logic and docs only; no CMS database record, email/WhatsApp send, payment link, provider setting, WooCommerce product/subscription, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
 

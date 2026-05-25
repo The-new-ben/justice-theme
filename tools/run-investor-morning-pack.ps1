@@ -11,6 +11,7 @@ Set-Location $repoRoot
 $checks = @(
 	'tools\check-live-lawyer-revenue-funnel.mjs',
 	'tools\check-investor-demo-readiness.mjs',
+	'tools\check-lawyer-signup-conversion-standard.mjs',
 	'tools\check-first-paid-lawyer-sales-pack.mjs',
 	'tools\check-investor-launchpad-pack.mjs',
 	'tools\check-investor-payment-overclaim.mjs',

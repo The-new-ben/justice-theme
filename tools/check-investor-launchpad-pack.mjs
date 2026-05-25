@@ -85,6 +85,11 @@ const requiredFiles = [
 		reason: 'Competitor-informed signup and revenue-flow standard for lawyer acquisition.',
 	},
 	{
+		id: 'lawyer-signup-conversion-standard',
+		path: 'project-control/lawyer-signup-conversion-standard-2026-05-25.md',
+		reason: 'Repeatable live audit of the competitor-informed lawyer signup conversion standard.',
+	},
+	{
 		id: 'ascii-demo-data',
 		path: 'project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md',
 		reason: 'Copy-safe demo lawyer and lead fields if Hebrew rendering is risky.',
@@ -130,6 +135,8 @@ const launchpadTokens = [
 	'./first-cohort-lawyer-offer-sheet-he-2026-05-25.html',
 	'./first-paid-lawyer-sales-pack-2026-05-25.md',
 	'./lawyer-signup-competitor-patterns-2026-05-25.md',
+	'./lawyer-signup-conversion-standard-2026-05-25.md',
+	'check-lawyer-signup-conversion-standard.mjs',
 	'tools\\run-investor-morning-pack.ps1',
 	'Do not claim recurring billing',
 ];

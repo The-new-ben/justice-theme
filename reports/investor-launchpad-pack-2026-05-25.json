@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "startedAt": "2026-05-25T05:19:21.816Z",
+  "startedAt": "2026-05-25T05:28:24.206Z",
   "runDate": "2026-05-25",
   "sourceBasis": [
     {
@@ -103,6 +103,12 @@
       "id": "lawyer-signup-competitor-patterns",
       "path": "project-control/lawyer-signup-competitor-patterns-2026-05-25.md",
       "reason": "Competitor-informed signup and revenue-flow standard for lawyer acquisition.",
+      "status": "PASS"
+    },
+    {
+      "id": "lawyer-signup-conversion-standard",
+      "path": "project-control/lawyer-signup-conversion-standard-2026-05-25.md",
+      "reason": "Repeatable live audit of the competitor-informed lawyer signup conversion standard.",
       "status": "PASS"
     },
     {
@@ -221,6 +227,14 @@
     },
     {
       "token": "./lawyer-signup-competitor-patterns-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "./lawyer-signup-conversion-standard-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "check-lawyer-signup-conversion-standard.mjs",
       "status": "PASS"
     },
     {

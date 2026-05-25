@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer signup conversion standard checker
+
+- ADDED: `tools/check-lawyer-signup-conversion-standard.mjs`.
+- GENERATED: `project-control/lawyer-signup-conversion-standard-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/lawyer-signup-conversion-standard-2026-05-25.json` and `.csv`.
+- UPDATED: `tools/run-investor-morning-pack.ps1` so the morning refresh checks the competitor-informed lawyer signup standard.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` and `tools/check-investor-launchpad-pack.mjs` to link and require the standard check.
+- PURPOSE: turn the competitor signup standard into a repeatable live-funnel audit for entrypoints, signup, payment bridge, dashboard, support and telemetry.
+- SAFETY: read-only public route/static asset checks and local reports only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Lawyer signup competitor pattern map
 
 - ADDED: `project-control/lawyer-signup-competitor-patterns-2026-05-25.md`.

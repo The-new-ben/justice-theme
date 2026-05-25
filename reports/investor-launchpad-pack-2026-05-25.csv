@@ -14,6 +14,7 @@ file,first-cohort-lawyer-offer-sheet,PASS,project-control/first-cohort-lawyer-of
 file,first-cohort-lawyer-offer-sheet-he-html,PASS,project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html,Browser-ready Hebrew sales one-pager for showing/sending the first-cohort offer to lawyers.
 file,first-paid-lawyer-sales-pack-check,PASS,project-control/first-paid-lawyer-sales-pack-2026-05-25.md,Repeatable QA gate for first-cohort lawyer sales collateral.
 file,lawyer-signup-competitor-patterns,PASS,project-control/lawyer-signup-competitor-patterns-2026-05-25.md,Competitor-informed signup and revenue-flow standard for lawyer acquisition.
+file,lawyer-signup-conversion-standard,PASS,project-control/lawyer-signup-conversion-standard-2026-05-25.md,Repeatable live audit of the competitor-informed lawyer signup conversion standard.
 file,ascii-demo-data,PASS,project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md,Copy-safe demo lawyer and lead fields if Hebrew rendering is risky.
 file,readiness-report,PASS,project-control/investor-demo-readiness-2026-05-25.md,Readiness status and remaining blockers.
 file,revenue-funnel-report,PASS,project-control/lawyer-revenue-funnel-live-2026-05-25.md,Live public lawyer funnel verification.
@@ -41,5 +42,7 @@ launchpad_token,./first-cohort-lawyer-offer-sheet-2026-05-25.md,PASS,project-con
 launchpad_token,./first-cohort-lawyer-offer-sheet-he-2026-05-25.html,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,./first-paid-lawyer-sales-pack-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,./lawyer-signup-competitor-patterns-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
+launchpad_token,./lawyer-signup-conversion-standard-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
+launchpad_token,check-lawyer-signup-conversion-standard.mjs,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,tools\run-investor-morning-pack.ps1,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,Do not claim recurring billing,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present

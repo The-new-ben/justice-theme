@@ -37,6 +37,25 @@ Child issues created:
 - `HAD-85` - Legal Q&A and court-ruling SEO moat
 - `HAD-86` - Employment and real-estate due-diligence tool funnels
 
+## Original Research Packets
+
+The source reports are preserved under `project-control/research-originals/` so
+remote teams and future agents can inspect the original strategic material
+instead of relying only on this distilled backlog.
+
+- `project-control/research-originals/README.md`
+- `project-control/research-originals/2026-05-25-investor-critical-review-original.md`
+- `project-control/research-originals/2026-05-25-revenue-plays-original.md`
+- `project-control/research-originals/2026-05-25-deep-research-revenue-plays-original.md`
+
+Remote continuation rule:
+
+- Read this file first for current execution order.
+- Then read the matching original packet before changing scope.
+- Then update the matching Linear issue so the work does not disappear into chat.
+- Do not publish public content, create URLs, alter SEO controls or launch paid
+  API work from the original packets without the relevant guard issue.
+
 ## WordPress Infrastructure Added
 
 Owner-only admin page:
@@ -169,4 +188,3 @@ Best structure:
 - Bituach Leumi revenue loop: 62%
 - Calculator anti-cannibalization: 20%
 - Payment/Grow readiness: still blocked by KYC/payment setup
-

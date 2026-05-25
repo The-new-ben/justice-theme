@@ -1,6 +1,6 @@
 {
   "status": "GO_WITH_DISCLOSED_BLOCKERS",
-  "startedAt": "2026-05-25T03:04:21.859Z",
+  "startedAt": "2026-05-25T03:13:50.840Z",
   "runDate": "2026-05-25",
   "inputs": {
     "revenueFunnel": "reports/lawyer-revenue-funnel-live-2026-05-25.json",
@@ -15,10 +15,10 @@
     "readinessReview": 0,
     "demoDataBlockers": 2,
     "externalBlockers": 3,
-    "launchpadFilePass": 7,
-    "launchpadFileTotal": 7,
-    "launchpadTokenPass": 14,
-    "launchpadTokenTotal": 14,
+    "launchpadFilePass": 8,
+    "launchpadFileTotal": 8,
+    "launchpadTokenPass": 15,
+    "launchpadTokenTotal": 15,
     "honestyPass": 3,
     "honestyTotal": 3,
     "overclaimPass": 8,
@@ -41,7 +41,7 @@
     {
       "area": "Launchpad pack",
       "status": "PASS",
-      "proof": "7/7 files, 14/14 tokens PASS",
+      "proof": "8/8 files, 15/15 tokens PASS",
       "blocker_or_next_step": "Use the local launchpad as the meeting control screen."
     },
     {

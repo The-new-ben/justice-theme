@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 06:12 Asia/Jerusalem
+- INVESTOR MORNING REFRESH SCRIPT: added a one-command PowerShell runner for the owner to refresh the live revenue funnel, investor readiness, launchpad pack, payment-overclaim gate and final go/no-go report before the meeting.
+- ADDED: `tools/run-investor-morning-pack.ps1`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to show the morning refresh command and link to the script.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` so the launchpad pack also proves the refresh script is present.
+- VERIFIED LIVE/LOCAL: `tools/run-investor-morning-pack.ps1` completed end to end; live revenue funnel 10/10 PASS, investor readiness `PASS_WITH_DISCLOSED_BLOCKERS`, launchpad pack 8/8 files and 15/15 tokens PASS, payment-overclaim PASS and go/no-go `GO_WITH_DISCLOSED_BLOCKERS`.
+- MATERIAL ADVANCE: the owner no longer needs to remember multiple commands; the morning control screen now tells them exactly how to refresh all proof and the script has been proven once.
+- STILL BLOCKED: claimed demo lawyer, assigned medical-malpractice lead, real provider payment, branded invoice and refund execution require explicit owner/provider-approved live actions.
+- COMPLETION: investor operator readiness moves to about 93%; full real-money lifecycle proof remains provider/data gated.
+- SAFETY: local script/checker/launchpad artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 06:02 Asia/Jerusalem
 - INVESTOR MORNING GO/NO-GO: refreshed the live revenue funnel, investor readiness, launchpad pack and payment-overclaim gates, then generated a single go/no-go report for the meeting.
 - ADDED: `tools/check-investor-morning-go-no-go.mjs`.

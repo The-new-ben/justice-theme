@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "startedAt": "2026-05-25T03:03:03.552Z",
+  "startedAt": "2026-05-25T03:13:50.603Z",
   "runDate": "2026-05-25",
   "sourceBasis": [
     {
@@ -56,6 +56,12 @@
       "path": "project-control/lawyer-revenue-funnel-live-2026-05-25.md",
       "reason": "Live public lawyer funnel verification.",
       "status": "PASS"
+    },
+    {
+      "id": "morning-refresh-script",
+      "path": "tools/run-investor-morning-pack.ps1",
+      "reason": "One command to refresh all morning demo gates before the meeting.",
+      "status": "PASS"
     }
   ],
   "tokenResults": [
@@ -109,6 +115,10 @@
     },
     {
       "token": "./investor-payment-lifecycle-playbook-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "tools\\run-investor-morning-pack.ps1",
       "status": "PASS"
     },
     {

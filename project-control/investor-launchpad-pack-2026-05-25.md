@@ -1,9 +1,9 @@
 # Investor Launchpad Pack Check - 2026-05-25
 
 - Status: PASS
-- Started: 2026-05-25T03:03:03.552Z
-- Files present: 7/7
-- Launchpad tokens present: 14/14
+- Started: 2026-05-25T03:13:50.603Z
+- Files present: 8/8
+- Launchpad tokens present: 15/15
 - Scope: local investor-demo control artifacts only.
 - Safety: no public CMS/database content, payment, invoice, refund, lawyer record, lead, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting was changed.
 
@@ -23,6 +23,7 @@
 | project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md | PASS | Copy-safe demo lawyer and lead fields if Hebrew rendering is risky. |
 | project-control/investor-demo-readiness-2026-05-25.md | PASS | Readiness status and remaining blockers. |
 | project-control/lawyer-revenue-funnel-live-2026-05-25.md | PASS | Live public lawyer funnel verification. |
+| tools/run-investor-morning-pack.ps1 | PASS | One command to refresh all morning demo gates before the meeting. |
 
 ## Launchpad Tokens
 
@@ -41,6 +42,7 @@
 | `https://jus-tice.co.il/lawyer-dashboard/` | PASS |
 | `https://jus-tice.co.il/wp-admin/admin.php?page=justice-lawyer-onboarding` | PASS |
 | `./investor-payment-lifecycle-playbook-2026-05-25.md` | PASS |
+| `tools\run-investor-morning-pack.ps1` | PASS |
 | `Do not claim recurring billing` | PASS |
 
 ## Completion Assessment

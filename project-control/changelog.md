@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor morning refresh script
+
+- ADDED: `tools/run-investor-morning-pack.ps1`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` with the exact morning refresh command and script link.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` to include the refresh script in the launchpad pack.
+- PURPOSE: give the owner one command to refresh all investor morning gates before the meeting.
+- SAFETY: local script/checker/launchpad artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Investor morning go/no-go
 
 - ADDED: `tools/check-investor-morning-go-no-go.mjs`.

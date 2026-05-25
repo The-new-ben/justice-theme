@@ -44,6 +44,11 @@ const requiredFiles = [
 		path: 'project-control/lawyer-revenue-funnel-live-2026-05-25.md',
 		reason: 'Live public lawyer funnel verification.',
 	},
+	{
+		id: 'morning-refresh-script',
+		path: 'tools/run-investor-morning-pack.ps1',
+		reason: 'One command to refresh all morning demo gates before the meeting.',
+	},
 ];
 
 const launchpadTokens = [
@@ -60,6 +65,7 @@ const launchpadTokens = [
 	'https://jus-tice.co.il/lawyer-dashboard/',
 	'https://jus-tice.co.il/wp-admin/admin.php?page=justice-lawyer-onboarding',
 	'./investor-payment-lifecycle-playbook-2026-05-25.md',
+	'tools\\run-investor-morning-pack.ps1',
 	'Do not claim recurring billing',
 ];
 

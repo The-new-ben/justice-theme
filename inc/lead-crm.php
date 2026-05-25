@@ -29,6 +29,11 @@ function justice_theme_crm_register_lead_meta(): void {
 		'follow_up_status'          => 'string',
 		'first_contact_at'          => 'string',
 		'customer_success_note'     => 'string',
+		'qualified_lead_billing_status' => 'string',
+		'qualified_lead_invoice_reference' => 'string',
+		'qualified_lead_billed_at'  => 'string',
+		'qualified_lead_paid_at'    => 'string',
+		'qualified_lead_owner_note' => 'string',
 	);
 
 	foreach ( $fields as $key => $type ) {
@@ -50,6 +55,7 @@ function justice_theme_render_crm_admin_page(): void {
 	$lead_counts = justice_theme_crm_count_by_status( 'justice_lead', 'lead_status' );
 	$coverage_counts = justice_theme_crm_count_by_status( 'justice_lead', 'coverage_status' );
 	$tool_counts = post_type_exists( 'justice_legal_request' ) ? justice_theme_crm_count_by_status( 'justice_legal_request', 'status' ) : array();
+	$qualified_revenue = justice_theme_crm_qualified_lead_revenue_snapshot();
 	$leads       = justice_theme_crm_query_items( 'justice_lead', 15 );
 	$uncovered_demand = justice_theme_crm_query_uncovered_demand( 15 );
 	$requests    = post_type_exists( 'justice_legal_request' ) ? justice_theme_crm_query_items( 'justice_legal_request', 10 ) : null;
@@ -74,6 +80,11 @@ function justice_theme_render_crm_admin_page(): void {
 			<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) array_sum( $tool_counts ) ); ?></strong>
 				<span>LegalTech requests</span>
+			</div>
+			<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:24px;">₪<?php echo esc_html( number_format_i18n( $qualified_revenue['open_value'] ) ); ?></strong>
+				<span>Qualified lead billing queue</span>
+				<small style="display:block;color:#646970;margin-top:4px;"><?php echo esc_html( sprintf( '%d open / %d paid', $qualified_revenue['open_count'], $qualified_revenue['paid_count'] ) ); ?></small>
 			</div>
 		</div>
 
@@ -807,6 +818,60 @@ function justice_theme_crm_count_by_status( string $post_type, string $meta_key 
 	return $counts;
 }
 
+/**
+ * Snapshot qualified lead revenue that is waiting to be billed or already paid.
+ *
+ * @return array{open_count:int,open_value:int,paid_count:int,paid_value:int}
+ */
+function justice_theme_crm_qualified_lead_revenue_snapshot(): array {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return array(
+			'open_count' => 0,
+			'open_value' => 0,
+			'paid_count' => 0,
+			'paid_value' => 0,
+		);
+	}
+
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_lead',
+		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+		'posts_per_page' => 200,
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+		'meta_query'     => array(
+			array(
+				'key'     => 'lead_revenue_model',
+				'compare' => 'EXISTS',
+			),
+		),
+	) );
+
+	$snapshot = array(
+		'open_count' => 0,
+		'open_value' => 0,
+		'paid_count' => 0,
+		'paid_value' => 0,
+	);
+
+	foreach ( $query->posts ?: array() as $post_id ) {
+		$status = (string) get_post_meta( (int) $post_id, 'qualified_lead_billing_status', true );
+		$price  = absint( get_post_meta( (int) $post_id, 'suggested_lead_price_ils', true ) );
+
+		if ( in_array( $status, array( 'ready_to_bill', 'invoice_sent' ), true ) ) {
+			$snapshot['open_count']++;
+			$snapshot['open_value'] += $price;
+		}
+
+		if ( 'paid' === $status ) {
+			$snapshot['paid_count']++;
+			$snapshot['paid_value'] += $price;
+		}
+	}
+
+	return $snapshot;
+}
+
 function justice_theme_crm_status_labels(): array {
 	return array(
 		'new'       => 'New',
@@ -1049,6 +1114,14 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 	$customer_note   = get_post_meta( $post->ID, 'customer_success_note', true );
 	$lawyer_note     = get_post_meta( $post->ID, 'latest_lawyer_follow_up_note', true );
 	$lawyer_update   = get_post_meta( $post->ID, 'latest_lawyer_stage_update_at', true );
+	$revenue_model   = get_post_meta( $post->ID, 'lead_revenue_model', true );
+	$suggested_price = get_post_meta( $post->ID, 'suggested_lead_price_ils', true );
+	$revenue_notes   = get_post_meta( $post->ID, 'lead_revenue_notes', true );
+	$billing_status  = get_post_meta( $post->ID, 'qualified_lead_billing_status', true ) ?: 'not_ready';
+	$invoice_ref     = get_post_meta( $post->ID, 'qualified_lead_invoice_reference', true );
+	$billed_at       = get_post_meta( $post->ID, 'qualified_lead_billed_at', true );
+	$paid_at         = get_post_meta( $post->ID, 'qualified_lead_paid_at', true );
+	$billing_note    = get_post_meta( $post->ID, 'qualified_lead_owner_note', true );
 	$quality_options = array(
 		'auto'   => 'Auto score',
 		'high'   => 'High',
@@ -1065,6 +1138,10 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 		'won'               => 'Won',
 		'lost'              => 'Lost',
 	);
+	$billing_options = justice_theme_crm_qualified_lead_billing_labels();
+	if ( ! array_key_exists( $billing_status, $billing_options ) ) {
+		$billing_status = 'not_ready';
+	}
 	?>
 	<p>
 		<label for="justice-lead-quality"><strong>Lead quality</strong></label>
@@ -1098,6 +1175,43 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 		<label for="justice-customer-success-note"><strong>Customer-success note</strong></label>
 		<textarea id="justice-customer-success-note" name="customer_success_note" rows="5" style="width:100%;"><?php echo esc_textarea( $customer_note ); ?></textarea>
 	</p>
+	<?php if ( $revenue_model || $suggested_price ) : ?>
+		<div style="border:1px solid #dcdcde;border-radius:4px;background:#fff;padding:8px;margin:10px 0;">
+			<strong style="display:block;margin-bottom:6px;">Qualified lead billing</strong>
+			<p style="margin:0 0 8px;color:#646970;">
+				Model: <?php echo esc_html( $revenue_model ?: 'manual' ); ?>
+				<?php if ( $revenue_notes ) : ?>
+					<br><?php echo esc_html( $revenue_notes ); ?>
+				<?php endif; ?>
+			</p>
+			<p>
+				<label for="justice-qualified-lead-billing-status"><strong>Billing status</strong></label>
+				<select id="justice-qualified-lead-billing-status" name="qualified_lead_billing_status" style="width:100%;">
+					<?php foreach ( $billing_options as $value => $label ) : ?>
+						<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $billing_status, $value ); ?>><?php echo esc_html( $label ); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</p>
+			<p>
+				<label for="justice-suggested-lead-price-ils"><strong>Suggested price ILS</strong></label>
+				<input id="justice-suggested-lead-price-ils" type="number" min="0" name="suggested_lead_price_ils" value="<?php echo esc_attr( $suggested_price ); ?>" style="width:100%;">
+			</p>
+			<p>
+				<label for="justice-qualified-lead-invoice-reference"><strong>Invoice/payment reference</strong></label>
+				<input id="justice-qualified-lead-invoice-reference" type="text" name="qualified_lead_invoice_reference" value="<?php echo esc_attr( $invoice_ref ); ?>" style="width:100%;" placeholder="Morning/Grow invoice, payment link, or owner note">
+			</p>
+			<?php if ( $billed_at || $paid_at ) : ?>
+				<p style="margin:0 0 8px;color:#646970;">
+					<?php if ( $billed_at ) : ?>Billed: <?php echo esc_html( $billed_at ); ?><br><?php endif; ?>
+					<?php if ( $paid_at ) : ?>Paid: <?php echo esc_html( $paid_at ); ?><?php endif; ?>
+				</p>
+			<?php endif; ?>
+			<p>
+				<label for="justice-qualified-lead-owner-note"><strong>Billing owner note</strong></label>
+				<textarea id="justice-qualified-lead-owner-note" name="qualified_lead_owner_note" rows="3" style="width:100%;"><?php echo esc_textarea( $billing_note ); ?></textarea>
+			</p>
+		</div>
+	<?php endif; ?>
 	<?php if ( $lawyer_note || $lawyer_update ) : ?>
 		<div style="border:1px solid #dcdcde;border-radius:4px;background:#f6f7f7;padding:8px;margin:10px 0;">
 			<strong style="display:block;margin-bottom:4px;">Latest lawyer report</strong>
@@ -1168,6 +1282,40 @@ function justice_theme_crm_save_lead_disposition( int $post_id ): void {
 		update_post_meta( $post_id, 'closed_at', current_time( 'mysql' ) );
 	}
 	update_post_meta( $post_id, 'customer_success_note', isset( $_POST['customer_success_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['customer_success_note'] ) ) : '' );
+
+	$billing_options = justice_theme_crm_qualified_lead_billing_labels();
+	$billing_status  = isset( $_POST['qualified_lead_billing_status'] ) ? sanitize_key( wp_unslash( $_POST['qualified_lead_billing_status'] ) ) : 'not_ready';
+	if ( ! array_key_exists( $billing_status, $billing_options ) ) {
+		$billing_status = 'not_ready';
+	}
+
+	$previous_billing_status = (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true );
+	update_post_meta( $post_id, 'qualified_lead_billing_status', $billing_status );
+	update_post_meta( $post_id, 'suggested_lead_price_ils', isset( $_POST['suggested_lead_price_ils'] ) ? (string) absint( wp_unslash( $_POST['suggested_lead_price_ils'] ) ) : '' );
+	update_post_meta( $post_id, 'qualified_lead_invoice_reference', isset( $_POST['qualified_lead_invoice_reference'] ) ? sanitize_text_field( wp_unslash( $_POST['qualified_lead_invoice_reference'] ) ) : '' );
+	update_post_meta( $post_id, 'qualified_lead_owner_note', isset( $_POST['qualified_lead_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['qualified_lead_owner_note'] ) ) : '' );
+
+	if ( 'invoice_sent' === $billing_status && 'invoice_sent' !== $previous_billing_status && ! get_post_meta( $post_id, 'qualified_lead_billed_at', true ) ) {
+		update_post_meta( $post_id, 'qualified_lead_billed_at', current_time( 'mysql' ) );
+	}
+
+	if ( 'paid' === $billing_status && 'paid' !== $previous_billing_status && ! get_post_meta( $post_id, 'qualified_lead_paid_at', true ) ) {
+		if ( ! get_post_meta( $post_id, 'qualified_lead_billed_at', true ) ) {
+			update_post_meta( $post_id, 'qualified_lead_billed_at', current_time( 'mysql' ) );
+		}
+		update_post_meta( $post_id, 'qualified_lead_paid_at', current_time( 'mysql' ) );
+	}
+}
+
+function justice_theme_crm_qualified_lead_billing_labels(): array {
+	return array(
+		'not_ready'     => 'Not ready',
+		'ready_to_bill' => 'Ready to bill',
+		'invoice_sent'  => 'Invoice sent',
+		'paid'          => 'Paid',
+		'disputed'      => 'Disputed',
+		'waived'        => 'Waived',
+	);
 }
 add_action( 'save_post_justice_lead', 'justice_theme_crm_save_lead_disposition' );
 

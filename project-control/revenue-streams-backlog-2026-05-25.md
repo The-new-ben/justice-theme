@@ -163,6 +163,9 @@ Already shipped:
 - Private Bituach Leumi intent ownership map added to the CRM panel so future
   work knows which URL owns appeal, service, directory and legacy calculator
   intent before creating, updating or briefing any public content.
+- Qualified lead payment proof gate added to the private lead edit screen:
+  owner can store a payment evidence URL, the billing queue shows proof links,
+  and a lead cannot be saved as Paid without an invoice/reference or evidence.
 
 Remaining:
 

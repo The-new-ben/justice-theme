@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-26-btl-intent-map-v1
-expected-github-main-commit=btl-intent-map-v1
+justice-theme-deployment-marker=2026-05-26-qualified-lead-proof-gate-v1
+expected-github-main-commit=qualified-lead-proof-gate-v1
 purpose=public-static-file-check-for-upress-theme-sync

@@ -35,6 +35,7 @@ function justice_theme_crm_register_lead_meta(): void {
 		'qualified_lead_paid_at'    => 'string',
 		'qualified_lead_ready_at'   => 'string',
 		'qualified_lead_billable_lawyer_ids' => 'string',
+		'qualified_lead_payment_evidence_url' => 'string',
 		'qualified_lead_owner_note' => 'string',
 	);
 
@@ -2013,7 +2014,9 @@ function justice_theme_crm_render_qualified_lead_billing_queue(): void {
 				$billing       = justice_theme_crm_qualified_lead_billing_badge( $post_id );
 				$ready_at      = (string) get_post_meta( $post_id, 'qualified_lead_ready_at', true );
 				$billed_at     = (string) get_post_meta( $post_id, 'qualified_lead_billed_at', true );
+				$paid_at       = (string) get_post_meta( $post_id, 'qualified_lead_paid_at', true );
 				$invoice_ref   = (string) get_post_meta( $post_id, 'qualified_lead_invoice_reference', true );
+				$evidence_url  = (string) get_post_meta( $post_id, 'qualified_lead_payment_evidence_url', true );
 				$lawyer_ids    = justice_theme_crm_parse_id_list( (string) get_post_meta( $post_id, 'qualified_lead_billable_lawyer_ids', true ) );
 				$lawyer_labels = justice_theme_crm_lawyer_link_labels( $lawyer_ids );
 				$lawyer_actions = justice_theme_crm_billable_lawyer_contact_actions( $lawyer_ids, $post_id );
@@ -2051,8 +2054,14 @@ function justice_theme_crm_render_qualified_lead_billing_queue(): void {
 						<?php if ( $billed_at ) : ?>
 							<strong>Invoice sent:</strong> <?php echo esc_html( $billed_at ); ?><br>
 						<?php endif; ?>
+						<?php if ( $paid_at ) : ?>
+							<strong>Paid:</strong> <?php echo esc_html( $paid_at ); ?><br>
+						<?php endif; ?>
 						<?php if ( $invoice_ref ) : ?>
-							<small><?php echo esc_html( $invoice_ref ); ?></small>
+							<small><?php echo esc_html( $invoice_ref ); ?></small><br>
+						<?php endif; ?>
+						<?php if ( $evidence_url ) : ?>
+							<a href="<?php echo esc_url( $evidence_url ); ?>" target="_blank" rel="noopener">Payment proof</a>
 						<?php endif; ?>
 					</td>
 					<td>
@@ -2437,6 +2446,7 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 	$revenue_notes   = get_post_meta( $post->ID, 'lead_revenue_notes', true );
 	$billing_status  = get_post_meta( $post->ID, 'qualified_lead_billing_status', true ) ?: 'not_ready';
 	$invoice_ref     = get_post_meta( $post->ID, 'qualified_lead_invoice_reference', true );
+	$evidence_url    = get_post_meta( $post->ID, 'qualified_lead_payment_evidence_url', true );
 	$billed_at       = get_post_meta( $post->ID, 'qualified_lead_billed_at', true );
 	$paid_at         = get_post_meta( $post->ID, 'qualified_lead_paid_at', true );
 	$billing_note    = get_post_meta( $post->ID, 'qualified_lead_owner_note', true );
@@ -2518,6 +2528,14 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 				<label for="justice-qualified-lead-invoice-reference"><strong>Invoice/payment reference</strong></label>
 				<input id="justice-qualified-lead-invoice-reference" type="text" name="qualified_lead_invoice_reference" value="<?php echo esc_attr( $invoice_ref ); ?>" style="width:100%;" placeholder="Morning/Grow invoice, payment link, or owner note">
 			</p>
+			<p>
+				<label for="justice-qualified-lead-payment-evidence-url"><strong>Payment evidence URL</strong></label>
+				<input id="justice-qualified-lead-payment-evidence-url" type="url" name="qualified_lead_payment_evidence_url" value="<?php echo esc_attr( $evidence_url ); ?>" style="width:100%;" placeholder="Private invoice receipt, bank/payment proof, or owner evidence URL">
+			</p>
+			<div style="border:1px solid #dcdcde;border-radius:4px;background:#f6f7f7;padding:8px;margin:8px 0;">
+				<strong style="display:block;margin-bottom:4px;">Payment proof gate</strong>
+				<small style="display:block;color:#646970;">A lead should be marked Paid only after an invoice/reference or evidence URL exists. If Paid is saved without proof, the status is held at Invoice sent.</small>
+			</div>
 			<?php if ( $billed_at || $paid_at ) : ?>
 				<p style="margin:0 0 8px;color:#646970;">
 					<?php if ( $billed_at ) : ?>Billed: <?php echo esc_html( $billed_at ); ?><br><?php endif; ?>
@@ -2608,10 +2626,19 @@ function justice_theme_crm_save_lead_disposition( int $post_id ): void {
 	}
 
 	$previous_billing_status = (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true );
+	$invoice_reference       = isset( $_POST['qualified_lead_invoice_reference'] ) ? sanitize_text_field( wp_unslash( $_POST['qualified_lead_invoice_reference'] ) ) : '';
+	$payment_evidence_url    = isset( $_POST['qualified_lead_payment_evidence_url'] ) ? esc_url_raw( wp_unslash( $_POST['qualified_lead_payment_evidence_url'] ) ) : '';
+	$owner_note              = isset( $_POST['qualified_lead_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['qualified_lead_owner_note'] ) ) : '';
+	if ( 'paid' === $billing_status && '' === $invoice_reference && '' === $payment_evidence_url ) {
+		$billing_status = 'invoice_sent';
+		$owner_note     = trim( $owner_note . "\nPayment status was held at Invoice sent because Paid requires an invoice/payment reference or payment evidence URL." );
+	}
+
 	update_post_meta( $post_id, 'qualified_lead_billing_status', $billing_status );
 	update_post_meta( $post_id, 'suggested_lead_price_ils', isset( $_POST['suggested_lead_price_ils'] ) ? (string) absint( wp_unslash( $_POST['suggested_lead_price_ils'] ) ) : '' );
-	update_post_meta( $post_id, 'qualified_lead_invoice_reference', isset( $_POST['qualified_lead_invoice_reference'] ) ? sanitize_text_field( wp_unslash( $_POST['qualified_lead_invoice_reference'] ) ) : '' );
-	update_post_meta( $post_id, 'qualified_lead_owner_note', isset( $_POST['qualified_lead_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['qualified_lead_owner_note'] ) ) : '' );
+	update_post_meta( $post_id, 'qualified_lead_invoice_reference', $invoice_reference );
+	update_post_meta( $post_id, 'qualified_lead_payment_evidence_url', $payment_evidence_url );
+	update_post_meta( $post_id, 'qualified_lead_owner_note', $owner_note );
 
 	if ( 'invoice_sent' === $billing_status && 'invoice_sent' !== $previous_billing_status && ! get_post_meta( $post_id, 'qualified_lead_billed_at', true ) ) {
 		update_post_meta( $post_id, 'qualified_lead_billed_at', current_time( 'mysql' ) );

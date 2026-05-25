@@ -122,7 +122,24 @@ if ( function_exists( 'justice_theme_lawyer_profile_is_public_approved' ) ) {
 	}
 }
 
+usort(
+	$approved_lawyer_ids,
+	static function ( int $left, int $right ): int {
+		$left_score  = function_exists( 'justice_theme_lawyer_profile_sort_score' ) ? justice_theme_lawyer_profile_sort_score( $left ) : (int) get_post_meta( $left, 'priority_score', true );
+		$right_score = function_exists( 'justice_theme_lawyer_profile_sort_score' ) ? justice_theme_lawyer_profile_sort_score( $right ) : (int) get_post_meta( $right, 'priority_score', true );
+
+		$score_delta = $right_score <=> $left_score;
+		if ( 0 !== $score_delta ) {
+			return $score_delta;
+		}
+
+		return (int) get_post_modified_time( 'U', true, $right ) <=> (int) get_post_modified_time( 'U', true, $left );
+	}
+);
+
+unset( $args['meta_query'], $args['meta_key'] );
 $args['post__in'] = ! empty( $approved_lawyer_ids ) ? $approved_lawyer_ids : array( 0 );
+$args['orderby']  = 'post__in';
 
 $lawyers = new WP_Query( $args );
 $public_lawyer_posts = $lawyers->posts;

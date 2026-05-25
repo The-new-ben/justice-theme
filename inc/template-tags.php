@@ -389,6 +389,30 @@ function justice_theme_lawyer_profile_is_public_approved( int $post_id = 0 ): bo
 }
 
 /**
+ * Score a public lawyer card for sponsored/featured directory ordering.
+ *
+ * @param int $post_id Lawyer post ID.
+ * @return int
+ */
+function justice_theme_lawyer_profile_sort_score( int $post_id ): int {
+	$plan         = strtolower( (string) get_post_meta( $post_id, 'plan_type', true ) );
+	$subscription = strtolower( (string) get_post_meta( $post_id, 'subscription_status', true ) );
+	$verified     = strtolower( (string) get_post_meta( $post_id, 'verification_status', true ) );
+	$priority     = (int) get_post_meta( $post_id, 'priority_score', true );
+	$is_paid      = 'active' === $subscription && in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
+
+	if ( $is_paid ) {
+		$priority += 1000;
+	}
+
+	if ( 'verified' === $verified ) {
+		$priority += 100;
+	}
+
+	return $priority;
+}
+
+/**
  * Keep only digits from a lawyer contact field.
  *
  * @param string $value Raw contact field value.

@@ -6,6 +6,7 @@
 - UPDATED: `template-parts/sections/featured-lawyers.php`, `inc/lawyer-visibility.php`, `inc/template-tags.php`, `justice-core/includes/cpt-lawyers.php`, `template-parts/cards/lawyer-card.php`, and `assets/css/premium-pass-4.css`.
 - PURPOSE: make indexed competitor-inspired lawyer/professional cards CMS-controlled instead of hard-coded, with homepage sponsored/basic ordering and wp-admin batch show/hide/upgrade controls.
 - IMPLEMENTATION: homepage now queries public-approved `justice_lawyer` profiles, ranks active paid/sponsored and verified profiles above public-basic cards, and renders actual card components.
+- ARCHIVE FIX: `/lawyers/` now orders the already-approved ID list directly, avoiding the old `priority_score` meta query that could drop public-basic cards from the visible directory.
 - ADMIN CONTROL: bulk actions can show, hide, reset automatic visibility, mark sponsored/top, or mark basic/unclaimed on many lawyer cards at once.
 - PROFESSIONAL SAFETY: `professional_type` meta allows legal-service professionals such as rabbinical advocates/mediators to be identified without calling them lawyers in card accessibility labels.
 - RESEARCH BASIS: public LawReviews, Din and PsakDin surfaces reviewed for search/profile/review/contact/category patterns; implementation is original and avoids copied photos/reviews/ratings.

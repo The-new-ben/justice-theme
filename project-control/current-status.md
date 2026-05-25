@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-25 16:43 Asia/Jerusalem
+- MANUAL PAYMENT-LINK QUEUE EMAIL ACTION ADDED: Lawyer Onboarding now lets the owner send/resend a saved Grow/Morning manual payment link directly from the payment queue.
+- UPDATED: `inc/lawyer-onboarding.php`.
+- ADDED: `project-control/manual-payment-link-queue-email-action-2026-05-25.md`.
+- MATERIAL ADVANCE: once a real provider link is pasted onto a lawyer profile, the owner can send it from the onboarding queue, record the send result, and move the deal into invoice-sent follow-up without opening the edit screen. The action uses existing recipient rules, internal notes and payment status meta.
+- VERIFIED LOCAL / DEPLOY BLOCKED: `php -l inc/lawyer-onboarding.php` passed; production still needs uPress Pull Git because Codex still has no active browser pane for uPress.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves the real payment-link handoff path, but it does not prove payment, invoice, refund, subscription, lead delivery or CRM monetization.
+- SAFETY: repo admin workflow/docs only; no email sent, no payment link/invoice/refund/recurring billing/provider setting created or changed, and no public CMS database edit, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 16:32 Asia/Jerusalem
 - GROW/MORNING PROVIDER STATUS PANEL ADDED: Lawyer Onboarding now has an admin-only payment route matrix and a copyable Hebrew reply to Grow support.
 - UPDATED: `inc/lawyer-onboarding.php`.

@@ -1535,6 +1535,13 @@ function justice_theme_lawyer_payment_followup_quick_action_url( int $post_id, s
 	);
 }
 
+function justice_theme_lawyer_manual_payment_link_email_url( int $post_id ): string {
+	return wp_nonce_url(
+		admin_url( 'admin-post.php?action=justice_send_lawyer_manual_payment_link&lawyer_id=' . $post_id ),
+		'justice_send_lawyer_manual_payment_link_' . $post_id
+	);
+}
+
 function justice_theme_lawyer_service_request_status_options(): array {
 	return array(
 		'open'      => 'Open',
@@ -2453,6 +2460,36 @@ function justice_theme_update_lawyer_payment_followup(): void {
 	exit;
 }
 add_action( 'admin_post_justice_update_lawyer_payment_followup', 'justice_theme_update_lawyer_payment_followup' );
+
+function justice_theme_send_lawyer_manual_payment_link_from_queue(): void {
+	$post_id = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
+
+	if ( ! $post_id || ! current_user_can( 'edit_post', $post_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to send this payment link.', 'justice-theme' ) );
+	}
+
+	check_admin_referer( 'justice_send_lawyer_manual_payment_link_' . $post_id );
+
+	$manual_payment_link = (string) get_post_meta( $post_id, 'manual_payment_link_url', true );
+	$sent                = justice_theme_send_lawyer_manual_payment_link_email( $post_id, $manual_payment_link );
+	$result              = $sent ? 'sent' : ( (string) get_post_meta( $post_id, 'manual_payment_link_email_last_result', true ) ?: 'failed' );
+
+	if ( function_exists( 'uje_log' ) ) {
+		uje_log( 'lawyer_manual_payment_link_email_' . $result, 'Manual payment link email ' . $result . ': ' . get_the_title( $post_id ) );
+	}
+
+	wp_safe_redirect(
+		add_query_arg(
+			array(
+				'payment_link_email'  => $result,
+				'payment_link_status' => 'ready',
+			),
+			admin_url( 'admin.php?page=justice-lawyer-onboarding' )
+		)
+	);
+	exit;
+}
+add_action( 'admin_post_justice_send_lawyer_manual_payment_link', 'justice_theme_send_lawyer_manual_payment_link_from_queue' );
 
 function justice_theme_update_lawyer_service_request_status(): void {
 	$post_id        = isset( $_GET['lawyer_id'] ) ? absint( $_GET['lawyer_id'] ) : 0;
@@ -4018,6 +4055,10 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php if ( $payment_link_status ) : ?>
 			<div class="notice notice-info inline"><p>Showing only manual-invoice lawyer registrations with payment-link status: <?php echo esc_html( 'ready' === $payment_link_status ? 'payment link ready' : 'needs payment link' ); ?>. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
 		<?php endif; ?>
+		<?php if ( isset( $_GET['payment_link_email'] ) ) : ?>
+			<?php $payment_link_email_result = sanitize_key( wp_unslash( $_GET['payment_link_email'] ) ); ?>
+			<div class="notice <?php echo 'sent' === $payment_link_email_result ? 'notice-success' : 'notice-error'; ?> is-dismissible"><p>Payment-link email result: <?php echo esc_html( str_replace( '_', ' ', $payment_link_email_result ) ); ?>.</p></div>
+		<?php endif; ?>
 		<?php if ( $service_request_status ) : ?>
 			<div class="notice notice-info inline"><p>Showing only lawyer registrations with open service, billing, refund, cancellation, downgrade, complaint or support requests. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
 		<?php endif; ?>
@@ -4201,6 +4242,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 								<?php endif; ?>
 								<?php if ( $manual_payment_link ) : ?>
 									<br><a href="<?php echo esc_url( $manual_payment_link ); ?>" target="_blank" rel="noopener noreferrer">payment link</a>
+									<br><a class="button button-small" style="margin-top:6px;" href="<?php echo esc_url( justice_theme_lawyer_manual_payment_link_email_url( $post_id ) ); ?>" onclick="return confirm('<?php echo esc_js( __( 'Send the saved payment link by email now?', 'justice-theme' ) ); ?>');"><?php echo $manual_payment_link_sent_at ? esc_html__( 'Resend payment link email', 'justice-theme' ) : esc_html__( 'Send payment link email', 'justice-theme' ); ?></a>
 								<?php endif; ?>
 								<?php if ( $manual_payment_link_sent_at || $manual_payment_link_email_result ) : ?>
 									<br><small>Link email: <?php echo esc_html( $manual_payment_link_email_result ?: 'recorded' ); ?><?php echo $manual_payment_link_sent_at ? esc_html( ' at ' . $manual_payment_link_sent_at ) : ''; ?><?php echo $manual_payment_link_sent_to ? esc_html( ' to ' . $manual_payment_link_sent_to ) : ''; ?></small>

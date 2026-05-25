@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Manual payment-link queue email action
+
+- UPDATED: `inc/lawyer-onboarding.php`.
+- ADDED: `project-control/manual-payment-link-queue-email-action-2026-05-25.md`.
+- PURPOSE: let the owner send or resend a saved manual Grow/Morning payment link from Lawyer Onboarding instead of opening each lawyer profile edit screen.
+- IMPLEMENTATION: added a nonce-protected admin-post action, a queue-row send/resend button with confirmation, result notice, and reuse of the existing payment-link email function and payment follow-up meta.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+- SAFETY: no email sent, CMS database write, payment link, invoice, refund, recurring billing, provider setting, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed during this repo update.
+
 # 2026-05-25 - Grow/Morning provider status panel
 
 - UPDATED: `inc/lawyer-onboarding.php`.

@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer profile proof strip no placeholder
+
+- UPDATED: `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-profile-proof-strip-no-placeholder-2026-05-25.md`.
+- PURPOSE: remove fake-looking empty proof metrics from lawyer profile pages while keeping profile proof dense and useful.
+- IMPLEMENTATION: replaced fixed years/license/status/reviews tiles with a dynamic list of available allowed CMS signals; fact-gated profiles now show safe context and source-review status instead of placeholder dashes.
+- RESEARCH BASIS: applied current competitor profile-pattern research from Din, Psakdin, LawReviews, Avvo and Justia; implementation is original and does not copy competitor people, photos, ratings, reviews, contact data or profile text.
+- VERIFIED LOCAL: `php -l single-justice_lawyer.php`, `php -l inc/enqueue.php`, and `git diff --check` passed.
+- SAFETY: no live CMS database write, lawyer/customer/provider creation, competitor import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # 2026-05-25 - Legal service providers public gate
 
 - UPDATED: `inc/lawyer-suppliers.php`, `front-page.php`, `page-home.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`.

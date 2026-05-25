@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 18:21 Asia/Jerusalem
+- LAWYER PROFILE PROOF STRIP CLEANED: single lawyer profiles no longer show fixed placeholder dashes for missing years/license/review facts.
+- UPDATED: `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-profile-proof-strip-no-placeholder-2026-05-25.md`.
+- MATERIAL ADVANCE: profile pages now show a dynamic proof strip built only from available and allowed CMS signals. Fact-gated/basic profiles show safe signals like status, practice area, city and public source count instead of fake-looking empty facts.
+- COMPETITOR RESEARCH BASIS: applied the current profile-pattern research from Din, Psakdin, LawReviews, Avvo and Justia: proof should be dense, specific and gated, not padded with missing claims.
+- VERIFIED LOCAL / DEPLOY PENDING: `php -l single-justice_lawyer.php`, `php -l inc/enqueue.php`, and `git diff --check` passed.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves lawyer trust/upgrade conversion readiness, but does not prove payment, invoice, refund, subscription, lead delivery or CRM monetization.
+- SAFETY: repo display/CSS/docs only; no live CMS database edit, lawyer/customer/provider creation, competitor import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 18:11 Asia/Jerusalem
 - LEGAL SERVICE PROVIDERS PUBLIC GATE ADDED: the existing `justice_supplier` CMS pipeline can now power a controlled public homepage section, but only after explicit public approval and source checks.
 - UPDATED: `inc/lawyer-suppliers.php`, `front-page.php`, `page-home.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`.

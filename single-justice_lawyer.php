@@ -256,6 +256,85 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 		|| $is_verified
 		|| in_array( $source_type, array( 'lawyer_submitted', 'owner_verified', 'verified_public' ), true )
 	);
+$public_source_count = count(
+	array_filter(
+		$public_sources,
+		static function ( array $row ): bool {
+			return ! empty( $row[0] ) && ! empty( $row[1] );
+		}
+	)
+);
+$profile_proof_items = array();
+
+if ( $show_freeform_profile_facts && $experience ) {
+	$profile_proof_items[] = array(
+		'value' => $experience,
+		'label' => __( 'שנות ניסיון', 'justice-theme' ),
+	);
+}
+
+if ( $show_freeform_profile_facts && $bar_num ) {
+	$profile_proof_items[] = array(
+		'value' => $bar_num,
+		'label' => __( 'מספר רישיון', 'justice-theme' ),
+	);
+}
+
+if ( $show_verified_profile_badge ) {
+	$profile_proof_items[] = array(
+		'value' => __( 'מאומת', 'justice-theme' ),
+		'label' => __( 'סטטוס פרופיל', 'justice-theme' ),
+	);
+} elseif ( $profile_is_fact_checked ) {
+	$profile_proof_items[] = array(
+		'value' => __( 'מקור נבדק', 'justice-theme' ),
+		'label' => __( 'סטטוס פרופיל', 'justice-theme' ),
+	);
+} else {
+	$profile_proof_items[] = array(
+		'value' => __( 'בבדיקת מקור', 'justice-theme' ),
+		'label' => __( 'סטטוס פרופיל', 'justice-theme' ),
+	);
+}
+
+if ( $primary_area ) {
+	$profile_proof_items[] = array(
+		'value' => $primary_area->name,
+		'label' => __( 'תחום מרכזי', 'justice-theme' ),
+	);
+}
+
+if ( $primary_city ) {
+	$profile_proof_items[] = array(
+		'value' => $primary_city->name,
+		'label' => __( 'אזור פעילות', 'justice-theme' ),
+	);
+}
+
+if ( $show_rating ) {
+	$profile_proof_items[] = array(
+		'value' => number_format_i18n( $average_rating, 1 ),
+		'label' => sprintf(
+			/* translators: %s: approved review count. */
+			__( '%s ביקורות מאושרות', 'justice-theme' ),
+			number_format_i18n( $review_count )
+		),
+	);
+} elseif ( $reviews_enabled && $show_freeform_profile_facts ) {
+	$profile_proof_items[] = array(
+		'value' => __( 'בבקרה', 'justice-theme' ),
+		'label' => __( 'ביקורות לקוחות', 'justice-theme' ),
+	);
+}
+
+if ( $public_source_count > 0 ) {
+	$profile_proof_items[] = array(
+		'value' => number_format_i18n( $public_source_count ),
+		'label' => __( 'מקורות ציבוריים', 'justice-theme' ),
+	);
+}
+
+$profile_proof_items = array_slice( $profile_proof_items, 0, 4 );
 $profile_shell_classes = array( 'lawyer-mini-site' );
 
 if ( ! $show_freeform_profile_facts ) {
@@ -332,22 +411,12 @@ if ( $show_profile_photo ) {
 
 	<section class="section lawyer-mini-proof">
 		<div class="container lawyer-mini-proof__grid">
-			<div class="lawyer-mini-proof__item">
-				<strong><?php echo $experience ? esc_html( $experience ) : '-'; ?></strong>
-				<span>שנות ניסיון</span>
-			</div>
-			<div class="lawyer-mini-proof__item">
-				<strong><?php echo $bar_num ? esc_html( $bar_num ) : '-'; ?></strong>
-				<span>מספר רישיון</span>
-			</div>
-			<div class="lawyer-mini-proof__item">
-				<strong><?php echo esc_html( $show_verified_profile_badge ? __( 'מאומת', 'justice-theme' ) : __( 'בבדיקה', 'justice-theme' ) ); ?></strong>
-				<span>סטטוס פרופיל</span>
-			</div>
-			<div class="lawyer-mini-proof__item">
-				<strong><?php echo esc_html( $show_rating ? number_format_i18n( $average_rating, 1 ) : ( $requires_fact_gate ? __( 'לא מוצג', 'justice-theme' ) : __( 'בקרוב', 'justice-theme' ) ) ); ?></strong>
-				<span>ביקורות מאושרות</span>
-			</div>
+			<?php foreach ( $profile_proof_items as $proof_item ) : ?>
+				<div class="lawyer-mini-proof__item">
+					<strong><?php echo esc_html( (string) $proof_item['value'] ); ?></strong>
+					<span><?php echo esc_html( (string) $proof_item['label'] ); ?></span>
+				</div>
+			<?php endforeach; ?>
 		</div>
 	</section>
 

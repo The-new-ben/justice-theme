@@ -147,6 +147,11 @@ Already shipped:
   the next three candidates can now be copied as a TSV working sheet with
   candidate, source, focus, evidence, missing checks, next action date and the
   no-publish/no-routing boundary.
+- Bituach Leumi revenue-readiness gate added to the private CRM panel:
+  readiness is now calculated from source-pack loading, private prospect
+  creation, verified prospects, active routable specialists, first billable
+  test lead and paid lead proof. The panel explicitly blocks treating the
+  funnel as revenue-ready before the evidence exists.
 
 Remaining:
 
@@ -156,6 +161,8 @@ Remaining:
   rows.
 - Run a real test lead.
 - Mark first billable qualified lead in CRM.
+- Move the private readiness gate from "Not ready" to "Ready for first
+  controlled paid-lead test", then to "Revenue loop proven".
 - Use manual invoice/payment path until Grow/Meshulam is ready.
 - Confirm final intent split between `/bituach-leumi-appeal-guide/`,
   `/national-insurance-attorney/`, old Bituach Leumi calculator URLs and the

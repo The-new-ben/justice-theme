@@ -223,6 +223,8 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 	$source_pack_path       = 'project-control/btl-specialist-prospect-shortlist-2026-05-26.md';
 	$source_pack_rows       = justice_theme_crm_read_btl_source_pack( 100 );
 	$source_pack_progress   = justice_theme_crm_btl_source_pack_progress( $source_pack_rows );
+	$billable_btl_leads     = justice_theme_crm_count_btl_billable_leads( $btl_needles, array( 'ready_to_bill', 'invoice_sent', 'paid' ) );
+	$paid_btl_leads         = justice_theme_crm_count_btl_billable_leads( $btl_needles, array( 'paid' ) );
 	?>
 	<h2 style="margin-top:28px;">Bituach Leumi specialist supply</h2>
 	<p>Owner-only coverage check for the active appeal funnel. The first goal is three specialist lawyers who can receive and pay for qualified appeal leads.</p>
@@ -277,10 +279,82 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 			<p><strong>Coverage ready:</strong> enough specialist coverage exists for the first routing test. Run one real lead and confirm billing status.</p>
 		</div>
 	<?php endif; ?>
+	<?php justice_theme_crm_render_btl_readiness_gate( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_btl_leads, $paid_btl_leads ); ?>
 	<?php justice_theme_crm_render_btl_candidate_tracker( $btl_needles ); ?>
 	<?php justice_theme_crm_render_btl_next_source_actions( $source_pack_rows ); ?>
 	<?php justice_theme_crm_render_btl_source_pack_candidates( $source_pack_rows ); ?>
 	<?php justice_theme_crm_render_btl_outreach_pack(); ?>
+	<?php
+}
+
+function justice_theme_crm_render_btl_readiness_gate( array $source_pack_progress, int $verified_prospects, int $active_specialists, int $target, int $billable_leads, int $paid_leads ): void {
+	$checks = array(
+		array(
+			'label' => 'Source pack loaded',
+			'met'   => (int) ( $source_pack_progress['total'] ?? 0 ) >= $target,
+			'detail' => sprintf( '%d candidates loaded', (int) ( $source_pack_progress['total'] ?? 0 ) ),
+		),
+		array(
+			'label' => 'Private prospects created',
+			'met'   => (int) ( $source_pack_progress['created'] ?? 0 ) >= $target,
+			'detail' => sprintf( '%d/%d created from source pack', (int) ( $source_pack_progress['created'] ?? 0 ), $target ),
+		),
+		array(
+			'label' => 'Prospects verified for routing',
+			'met'   => $verified_prospects >= $target,
+			'detail' => sprintf( '%d/%d verified', $verified_prospects, $target ),
+		),
+		array(
+			'label' => 'Active routable specialists',
+			'met'   => $active_specialists >= $target,
+			'detail' => sprintf( '%d/%d active', $active_specialists, $target ),
+		),
+		array(
+			'label' => 'First billable Bituach Leumi test lead',
+			'met'   => $billable_leads > 0,
+			'detail' => sprintf( '%d recorded as ready/invoiced/paid', $billable_leads ),
+		),
+		array(
+			'label' => 'Payment loop proven',
+			'met'   => $paid_leads > 0,
+			'detail' => sprintf( '%d paid Bituach Leumi lead(s)', $paid_leads ),
+		),
+	);
+	$met_count = 0;
+	foreach ( $checks as $check ) {
+		if ( ! empty( $check['met'] ) ) {
+			$met_count++;
+		}
+	}
+	$total   = count( $checks );
+	$percent = (int) round( ( $met_count / max( 1, $total ) ) * 100 );
+	$status  = 'Not ready for paid lead routing';
+	$style   = 'border-color:#d63638;background:#fff7f7;';
+
+	if ( $met_count >= 4 && 0 === $paid_leads ) {
+		$status = 'Ready for first controlled paid-lead test';
+		$style  = 'border-color:#dba617;background:#fffaf0;';
+	}
+
+	if ( $paid_leads > 0 && $met_count === $total ) {
+		$status = 'Revenue loop proven';
+		$style  = 'border-color:#008a20;background:#f0fff4;';
+	}
+	?>
+	<div style="border:2px solid #d63638;border-radius:8px;padding:14px;margin:12px 0 20px;<?php echo esc_attr( $style ); ?>">
+		<h3 style="margin-top:0;">Bituach Leumi revenue-readiness gate</h3>
+		<p style="margin-top:0;"><strong><?php echo esc_html( $status ); ?></strong> · <?php echo esc_html( (string) $percent ); ?>% complete</p>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">
+			<?php foreach ( $checks as $check ) : ?>
+				<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:10px;">
+					<strong style="color:<?php echo esc_attr( $check['met'] ? '#008a20' : '#b32d2e' ); ?>;"><?php echo $check['met'] ? 'Ready' : 'Blocked'; ?></strong>
+					<br><span><?php echo esc_html( $check['label'] ); ?></span>
+					<br><small style="color:#646970;"><?php echo esc_html( $check['detail'] ); ?></small>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<p style="margin-bottom:0;color:#646970;">Owner-only gate: do not treat this funnel as revenue-ready until verified supply and at least one controlled billable lead test are recorded.</p>
+	</div>
 	<?php
 }
 
@@ -906,6 +980,53 @@ function justice_theme_crm_count_verified_prospects_for_area( array $needles ): 
 		}
 
 		$count++;
+	}
+
+	return $count;
+}
+
+function justice_theme_crm_count_btl_billable_leads( array $needles, array $billing_statuses ): int {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return 0;
+	}
+
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_lead',
+		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+		'posts_per_page' => 250,
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+		'meta_query'     => array(
+			array(
+				'key'     => 'lead_revenue_model',
+				'compare' => 'EXISTS',
+			),
+		),
+	) );
+
+	$count = 0;
+	foreach ( $query->posts ?: array() as $post_id ) {
+		$post_id = (int) $post_id;
+		$status  = (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true );
+		if ( ! in_array( $status, $billing_statuses, true ) ) {
+			continue;
+		}
+
+		$haystack = strtolower(
+			get_the_title( $post_id ) . ' ' .
+			(string) get_post_meta( $post_id, 'legal_area', true ) . ' ' .
+			(string) get_post_meta( $post_id, 'lead_area', true ) . ' ' .
+			(string) get_post_meta( $post_id, 'ai_detected_area', true ) . ' ' .
+			(string) get_post_meta( $post_id, 'message', true ) . ' ' .
+			(string) get_post_meta( $post_id, 'qualified_lead_owner_note', true )
+		);
+
+		foreach ( $needles as $needle ) {
+			if ( false !== strpos( $haystack, strtolower( (string) $needle ) ) ) {
+				$count++;
+				break;
+			}
+		}
 	}
 
 	return $count;

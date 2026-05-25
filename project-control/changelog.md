@@ -1,6 +1,20 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - CMS-backed basic lawyer cards
+
+- ADDED: `project-control/competitor-success-replication-plan-2026-05-25.md`.
+- ADDED: `project-control/public-basic-lawyer-cms-import-candidates-2026-05-25.md` and `.csv`.
+- ADDED: `tools/check-live-cms-indexed-customers.mjs`.
+- GENERATED: `project-control/live-cms-indexed-customers-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/live-cms-indexed-customers-2026-05-25.json` and `.csv`.
+- SAVED VISUAL: `project-control/visual-evidence/lawyer-directory-current-cms-cards-2026-05-25.png`.
+- UPDATED: `template-parts/cards/lawyer-card.php`, `justice-core/includes/cpt-lawyers.php`, and `assets/css/premium-pass-4.css`.
+- PURPOSE: move competitor-inspired lawyer indexing from hard-coded talk to CMS-backed `justice_lawyer` cards with safe unclaimed/basic labels.
+- LIVE FACT: live directory currently has 1 public CMS lawyer record and 1 visible card; candidate packet has 14 safe review/import candidates.
+- BLOCKED: live CMS creation is blocked until the owner clears the uPress/F5 image-code challenge or provides a working REST application password.
+- SAFETY: no new live CMS/database record, supplier record, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed.
+
 # 2026-05-25 - Investor live-room runbook
 
 - ADDED: `project-control/investor-live-room-runbook-2026-05-25.md`.

@@ -65,12 +65,19 @@ $plan            = get_post_meta( $lawyer_id, 'plan_type', true );
 $subscription    = get_post_meta( $lawyer_id, 'subscription_status', true );
 $verified        = get_post_meta( $lawyer_id, 'verification_status', true );
 $source_type     = get_post_meta( $lawyer_id, 'source_type', true );
+$profile_status  = get_post_meta( $lawyer_id, 'profile_status', true );
+$claimed_user_id = (int) get_post_meta( $lawyer_id, 'claimed_by_user_id', true );
 $internal_notes  = get_post_meta( $lawyer_id, 'internal_notes', true );
 $review_count    = (int) get_post_meta( $lawyer_id, 'review_count', true );
 $average_rating  = (float) get_post_meta( $lawyer_id, 'average_rating', true );
 $reviews_enabled = in_array( strtolower( (string) get_post_meta( $lawyer_id, 'review_display_enabled', true ) ), array( '1', 'yes', 'true', 'enabled', 'approved' ), true );
 $is_seed_data    = 'seed' === $source_type || false !== stripos( (string) $internal_notes, 'SEED_DATA' );
 $is_paid         = ! $is_seed_data && 'active' === $subscription && in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
+$is_basic_public = ! $is_seed_data
+	&& 0 === $claimed_user_id
+	&& 'verified' !== $verified
+	&& in_array( strtolower( (string) $source_type ), array( 'public_index', 'import' ), true )
+	&& in_array( strtolower( (string) $profile_status ), array( 'public', 'published' ), true );
 $show_rating     = $reviews_enabled && ! $is_seed_data && $review_count > 0 && $average_rating > 0;
 $cities          = get_the_terms( $lawyer_id, 'city' );
 $areas           = get_the_terms( $lawyer_id, 'practice-areas' );
@@ -78,6 +85,14 @@ $city_name       = ( $cities && ! is_wp_error( $cities ) ) ? justice_theme_lawye
 $area_names      = ( $areas && ! is_wp_error( $areas ) ) ? wp_list_pluck( array_slice( $areas, 0, 3 ), 'name' ) : array();
 $phone_link      = function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) $phone ) : '';
 $whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) $whatsapp ) : '';
+$claim_url       = add_query_arg(
+	array(
+		'claim_profile_id' => $lawyer_id,
+		'plan_interest'    => 'free',
+		'source'           => 'public_card',
+	),
+	home_url( '/lawyer-registration/' )
+);
 ?>
 
 <article class="lawyer-card premium-card">
@@ -117,6 +132,8 @@ $whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' 
 			</h3>
 			<?php if ( 'verified' === $verified ) : ?>
 				<span class="lawyer-card__status">מאומת</span>
+			<?php elseif ( $is_basic_public ) : ?>
+				<span class="lawyer-card__status lawyer-card__status--basic"><?php esc_html_e( 'כרטיס בסיסי', 'justice-theme' ); ?></span>
 			<?php elseif ( $is_paid ) : ?>
 				<span class="lawyer-card__status lawyer-card__status--sponsored">ממומן</span>
 			<?php endif; ?>
@@ -146,14 +163,19 @@ $whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' 
 			<?php if ( $show_rating ) : ?>
 				<span><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?> / 5</span>
 			<?php endif; ?>
+			<?php if ( $is_basic_public ) : ?>
+				<span><?php esc_html_e( 'כרטיס ציבורי לא מאומת', 'justice-theme' ); ?></span>
+			<?php endif; ?>
 		</div>
 
 		<div class="lawyer-card__actions">
-			<a class="button button--primary" href="<?php echo esc_url( $lawyer_url ); ?>">צפייה בפרופיל</a>
+			<a class="button button--primary" href="<?php echo esc_url( $lawyer_url ); ?>"><?php echo $is_basic_public ? esc_html__( 'צפייה בכרטיס', 'justice-theme' ) : esc_html__( 'צפייה בפרופיל', 'justice-theme' ); ?></a>
 			<?php if ( $whatsapp_link ) : ?>
 				<a class="button button--ghost" href="<?php echo esc_url( $whatsapp_link ); ?>" target="_blank" rel="noopener">וואטסאפ</a>
 			<?php elseif ( $phone_link ) : ?>
 				<a class="button button--ghost" href="<?php echo esc_url( $phone_link ); ?>">שיחה</a>
+			<?php elseif ( $is_basic_public ) : ?>
+				<a class="button button--ghost" href="<?php echo esc_url( $claim_url ); ?>"><?php esc_html_e( 'תביעת כרטיס', 'justice-theme' ); ?></a>
 			<?php else : ?>
 				<a class="button button--ghost" href="<?php echo esc_url( add_query_arg( 'lawyer_id', $lawyer_id, home_url( '/contact/' ) ) ); ?>">שליחת פנייה</a>
 			<?php endif; ?>

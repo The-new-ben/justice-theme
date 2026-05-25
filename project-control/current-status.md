@@ -1,3 +1,20 @@
+# LATEST WORK STATUS - 2026-05-25 10:45 Asia/Jerusalem
+- CMS-BACKED BASIC LAWYER CARDS: added support for a safe `public_index` / `public` unclaimed lawyer-card state in the existing `justice_lawyer` CMS model.
+- ADDED: `project-control/competitor-success-replication-plan-2026-05-25.md`.
+- ADDED: `project-control/public-basic-lawyer-cms-import-candidates-2026-05-25.md` and `.csv` with 14 CMS-ready basic lawyer-card candidates from public LawReviews/PsakDin/Jus-Tice sources.
+- ADDED: `tools/check-live-cms-indexed-customers.mjs`.
+- GENERATED: `project-control/live-cms-indexed-customers-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/live-cms-indexed-customers-2026-05-25.json` and `.csv`.
+- SAVED VISUAL: `project-control/visual-evidence/lawyer-directory-current-cms-cards-2026-05-25.png`.
+- UPDATED: `template-parts/cards/lawyer-card.php` to show "כרטיס בסיסי" and "כרטיס ציבורי לא מאומת" for unclaimed public-index cards.
+- UPDATED: `justice-core/includes/cpt-lawyers.php` so CMS admins can choose `public_index`, `public`, and `published` values without custom-field hacks.
+- UPDATED: `assets/css/premium-pass-4.css` for the basic-card badge.
+- LIVE FACTS: current public REST `justice_lawyer` count is 1 and visible live directory card count is 1; public legal-service/supplier cards are not exposed yet.
+- EMAIL: Grow/Morning recurring-billing reply was sent in the live thread; owner-pasted update says the site is approved for clearing, so payment is now plugin/API setup plus real transaction proof, not site-approval blocked.
+- BLOCKED: WordPress CMS login is currently stopped at the uPress/F5 image-code challenge; I cannot solve or bypass it. Owner must enter the image code in the visible browser once, or provide a working REST application password, before live CMS records can be created.
+- COMPLETION: CMS-backed basic-card infrastructure is about 75%; live indexed customer count remains 1 until CMS access is cleared and approved records are created.
+- SAFETY: no new CMS/database lawyer record, supplier record, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting was changed.
+
 # LATEST WORK STATUS - 2026-05-25 08:56 Asia/Jerusalem
 - INVESTOR LIVE-ROOM RUNBOOK: added a timed 10-minute owner/operator flow for the investor meeting, with exact screens, spoken lines, no-claim boundaries and owner-only live payment actions.
 - RESEARCH BASIS: 2026 SaaS demo/onboarding guidance emphasizes buyer-problem framing, one workflow, early value, immediate proof and a clear next step.

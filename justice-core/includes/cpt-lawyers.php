@@ -169,7 +169,7 @@ function uje_lawyer_column_content( $column, $post_id ) {
 
 		case 'lawyer_status':
 			$status = get_post_meta( $post_id, 'profile_status', true );
-			$labels = array( 'draft' => '׳˜׳™׳•׳˜׳”', 'imported' => '׳™׳•׳‘׳', 'pending' => '׳׳׳×׳™׳', 'active' => '׳₪׳¢׳™׳', 'suspended' => '׳׳•׳©׳¢׳”' );
+			$labels = array( 'draft' => '׳˜׳™׳•׳˜׳”', 'imported' => '׳™׳•׳‘׳', 'pending' => '׳׳׳×׳™׳', 'public' => 'Public basic', 'published' => 'Published public', 'active' => '׳₪׳¢׳™׳', 'suspended' => '׳׳•׳©׳¢׳”' );
 			echo esc_html( isset( $labels[ $status ] ) ? $labels[ $status ] : ( $status ?: 'ג€”' ) );
 			break;
 
@@ -281,9 +281,9 @@ function uje_lawyer_commercial_box( $post ) {
 		array( 'key' => 'featured_on_front',   'label' => 'הצגה בעמוד הבית',       'type' => 'checkbox' ),
 		array( 'key' => 'review_count',        'label' => 'מספר ביקורות מאושרות',  'type' => 'number' ),
 		array( 'key' => 'average_rating',      'label' => 'דירוג ממוצע מאושר',     'type' => 'number', 'step' => '0.1', 'min' => '0', 'max' => '5' ),
-		array( 'key' => 'profile_status',      'label' => '׳¡׳˜׳˜׳•׳¡ ׳₪׳¨׳•׳₪׳™׳',     'type' => 'select', 'options' => array( 'draft' => '׳˜׳™׳•׳˜׳”', 'imported' => '׳™׳•׳‘׳', 'pending' => '׳׳׳×׳™׳ ׳׳׳™׳©׳•׳¨', 'active' => '׳₪׳¢׳™׳', 'suspended' => '׳׳•׳©׳¢׳”' ) ),
+		array( 'key' => 'profile_status',      'label' => '׳¡׳˜׳˜׳•׳¡ ׳₪׳¨׳•׳₪׳™׳',     'type' => 'select', 'options' => array( 'draft' => '׳˜׳™׳•׳˜׳”', 'imported' => '׳™׳•׳‘׳', 'pending' => '׳׳׳×׳™׳ ׳׳׳™׳©׳•׳¨', 'public' => 'Public basic card', 'published' => 'Published public card', 'active' => '׳₪׳¢׳™׳', 'suspended' => '׳׳•׳©׳¢׳”' ) ),
 		array( 'key' => 'source_url',          'label' => '׳׳§׳•׳¨',             'type' => 'url' ),
-		array( 'key' => 'source_type',         'label' => '׳¡׳•׳’ ׳׳§׳•׳¨',          'type' => 'select', 'options' => array( 'manual' => '׳™׳“׳ ׳™', 'import' => '׳™׳™׳‘׳•׳', 'registration' => '׳”׳¨׳©׳׳”', 'seed' => '׳–׳¨׳¢ ׳׳‘׳“׳™׳§׳”' ) ),
+		array( 'key' => 'source_type',         'label' => '׳¡׳•׳’ ׳׳§׳•׳¨',          'type' => 'select', 'options' => array( 'manual' => '׳™׳“׳ ׳™', 'import' => '׳™׳™׳‘׳•׳', 'public_index' => 'Public index source', 'registration' => '׳”׳¨׳©׳׳”', 'seed' => '׳–׳¨׳¢ ׳׳‘׳“׳™׳§׳”' ) ),
 		array( 'key' => 'internal_notes',      'label' => '׳”׳¢׳¨׳•׳× ׳₪׳ ׳™׳׳™׳•׳×',     'type' => 'textarea' ),
 	);
 	uje_render_meta_fields( $post, $fields );

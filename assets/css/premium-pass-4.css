@@ -567,6 +567,7 @@
   background: rgba(0,128,0,0.1); color: #0a7d0a;
 }
 .lawyer-card__status--sponsored { background: rgba(178,58,72,0.1); color: var(--jt-accent-red); }
+.lawyer-card__status--basic { background: rgba(15, 118, 110, 0.1); color: #0f766e; }
 .lawyer-card__firm { font-size: 0.85rem; color: var(--jt-muted, #6b7280); margin: 0 0 0.3rem; }
 .lawyer-card__meta { font-size: 0.82rem; color: var(--jt-muted, #6b7280); margin: 0 0 0.5rem; }
 .lawyer-card__summary { font-size: 0.88rem; line-height: 1.6; margin: 0 0 0.8rem; color: var(--color-text); }

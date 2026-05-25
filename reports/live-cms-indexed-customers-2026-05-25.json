@@ -1,0 +1,29 @@
+{
+  "runDate": "2026-05-25",
+  "scope": "Read-only live public CMS/index inspection",
+  "rest": {
+    "status": 200,
+    "totalHeader": "1",
+    "countReturned": 1,
+    "profiles": [
+      {
+        "id": 19309,
+        "slug": "advocate-sharon-nahari",
+        "title": "עו&quot;ד שרון נהרי",
+        "link": "https://jus-tice.co.il/lawyers/advocate-sharon-nahari/"
+      }
+    ]
+  },
+  "archive": {
+    "status": 200,
+    "visibleCardCount": 1,
+    "visibleCards": [
+      "עו&quot;ד מאיה רוטנברג מאומת משרד רוטנברג — דיני משפחה תל אביב · דיני משפחה מומחית בדיני משפחה, גירושין, משמורת ילדים וחלוקת רכוש. מעל 18 שנות ניסיון בייצוג בבתי משפט לענייני משפחה ובבתי דין רבניי 20 שנות ניסיון צפייה בפרופיל שיחה"
+    ]
+  },
+  "legalServices": {
+    "publicSupplierMarketplace": "not_public",
+    "note": "The theme has an internal justice_supplier CMS pipeline, but it is intentionally admin-only and not indexed publicly."
+  },
+  "safety": "No CMS/database write, public content change, lawyer profile creation, supplier creation, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed."
+}

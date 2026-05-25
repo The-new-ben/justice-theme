@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer claim admin queue
+
+- UPDATED: `inc/lawyer-onboarding.php`.
+- ADDED: `project-control/lawyer-claim-admin-queue-2026-05-25.md`.
+- GENERATED: `reports/lawyer-claim-admin-queue-2026-05-25.json`.
+- PURPOSE: make public-card claim submissions visible and actionable inside the owner onboarding/payment workflow.
+- IMPLEMENTATION: added claim-target resolution helpers, a `claim_queue=1` filter on Lawyer Onboarding, a `Public card claims` command-center tile, claim target links in admin rows and side boxes, and claim context inside admin notification emails.
+- SAFETY: admin/workflow-only change; no CMS records created, no public visibility changed, no copied competitor content, and no payment/invoice/refund/redirect/canonical/noindex/sitemap/taxonomy/provider setting changed.
+
 # 2026-05-25 - Lawyer registration claim context
 
 - UPDATED: `page-lawyer-registration.php`, `inc/lawyer-onboarding.php`, and `assets/css/premium-pass-4.css`.

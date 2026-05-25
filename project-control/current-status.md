@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 13:28 Asia/Jerusalem
+- CLAIM ADMIN QUEUE ADDED: `Lawyer Onboarding` now has a `claim_queue=1` path for public-card claim registrations, and admin rows/side boxes resolve the claimed public card with public/edit links.
+- UPDATED: `inc/lawyer-onboarding.php`.
+- ADDED: `project-control/lawyer-claim-admin-queue-2026-05-25.md`.
+- GENERATED: `reports/lawyer-claim-admin-queue-2026-05-25.json`.
+- MATERIAL ADVANCE: a lawyer who clicks "this is my card" now enters an owner-visible claim queue instead of becoming a generic registration. The operator can verify identity, open the exact card, then connect the deal to featured/sponsored upgrade handling.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed. JSON parse, `git diff --check`, commit/push and live post-pull verification still need to complete for this cycle.
+- REVENUE STATUS: realized revenue remains NIS 0. This reduces follow-up leakage but does not prove payment.
+- SAFETY: admin/workflow-only change; no new CMS lawyer/professional records were created; no public visibility changes, competitor photos/reviews/ratings/contact details, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 13:15 Asia/Jerusalem
 - CLAIM/UPGRADE REGISTRATION CONTEXT ADDED: `/lawyer-registration/` now recognizes `claim_profile_id` and `claim_profile` from public lawyer/professional cards and shows a contextual "claim existing card" panel before the account-opening form.
 - UPDATED: `page-lawyer-registration.php`, `inc/lawyer-onboarding.php`, and `assets/css/premium-pass-4.css`.

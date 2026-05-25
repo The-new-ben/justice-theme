@@ -223,6 +223,59 @@ function justice_theme_lawyer_registration_attribution_for_post( int $post_id ):
 	return $attribution;
 }
 
+function justice_theme_lawyer_claim_target_from_attribution( array $attribution ): array {
+	$claim_profile_id   = absint( $attribution['claim_profile_id'] ?? 0 );
+	$claim_profile_slug = sanitize_title( (string) ( $attribution['claim_profile'] ?? '' ) );
+	$claim_profile      = null;
+
+	if ( $claim_profile_id ) {
+		$candidate = get_post( $claim_profile_id );
+		if ( $candidate instanceof WP_Post && 'justice_lawyer' === $candidate->post_type ) {
+			$claim_profile = $candidate;
+		}
+	}
+
+	if ( ! $claim_profile && $claim_profile_slug ) {
+		$candidate = get_page_by_path( $claim_profile_slug, OBJECT, 'justice_lawyer' );
+		if ( $candidate instanceof WP_Post ) {
+			$claim_profile = $candidate;
+		}
+	}
+
+	if ( ! $claim_profile instanceof WP_Post ) {
+		return array(
+			'id'         => 0,
+			'slug'       => $claim_profile_slug,
+			'title'      => '',
+			'edit_url'   => '',
+			'public_url' => '',
+			'status'     => '',
+		);
+	}
+
+	return array(
+		'id'         => (int) $claim_profile->ID,
+		'slug'       => (string) $claim_profile->post_name,
+		'title'      => get_the_title( $claim_profile ),
+		'edit_url'   => get_edit_post_link( (int) $claim_profile->ID, '' ) ?: '',
+		'public_url' => get_permalink( $claim_profile ) ?: '',
+		'status'     => (string) get_post_meta( (int) $claim_profile->ID, 'profile_status', true ),
+	);
+}
+
+function justice_theme_lawyer_claim_target_for_post( int $post_id ): array {
+	return justice_theme_lawyer_claim_target_from_attribution( justice_theme_lawyer_registration_attribution_for_post( $post_id ) );
+}
+
+function justice_theme_lawyer_claim_queue_meta_query(): array {
+	return array(
+		'key'     => 'claim_profile_id',
+		'value'   => 0,
+		'compare' => '>',
+		'type'    => 'NUMERIC',
+	);
+}
+
 function justice_theme_lawyer_registration_upload_fields(): array {
 	$five_mb       = 5 * 1024 * 1024;
 	$twentyfive_mb = 25 * 1024 * 1024;
@@ -594,6 +647,7 @@ function justice_theme_handle_lawyer_registration(): void {
 
 	$manual_payment = 'manual_invoice' === $payment_path && 'free' !== $plan_type;
 	$internal_notes = 'Self-registration submission. Review license, identity, content, ethics and commercial plan before publishing.';
+	$claim_target   = justice_theme_lawyer_claim_target_from_attribution( $attribution );
 
 	if ( $manual_payment ) {
 		$internal_notes .= "\nManual invoice path requested or automatically assigned because paid checkout is not ready. Create Morning/Grow invoice/payment instructions after review, then activate only after payment confirmation.";
@@ -623,6 +677,14 @@ function justice_theme_handle_lawyer_registration(): void {
 	$attribution_summary = justice_theme_lawyer_registration_attribution_summary( $attribution );
 	if ( $attribution_summary ) {
 		$internal_notes .= "\nAttribution: " . $attribution_summary;
+	}
+
+	if ( ! empty( $claim_target['id'] ) ) {
+		$internal_notes .= sprintf(
+			"\nClaim request: this registration is asking to take over public card #%s (%s). Verify identity/authority before changing the public card or connecting paid placement.",
+			$claim_target['id'],
+			$claim_target['title'] ?: $claim_target['slug']
+		);
 	}
 
 	$meta = array_merge( array(
@@ -798,6 +860,7 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 	$followup_status   = $meta['payment_followup_status'] ?? '';
 	$followup_due_at   = $meta['payment_followup_due_at'] ?? '';
 	$manual_paid       = 'manual_invoice' === $payment_path && 'free' !== $plan;
+	$claim_target      = justice_theme_lawyer_claim_target_from_attribution( $meta );
 	$invoice_queue_url = add_query_arg(
 		array(
 			'page'          => 'justice-lawyer-onboarding',
@@ -814,7 +877,7 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 		? sprintf( 'Paid lawyer registration needs invoice - %s NIS/mo', number_format_i18n( $expected_monthly ) )
 		: 'New lawyer registration pending review';
 	$message = sprintf(
-		"New lawyer registration draft is waiting for review.\n\nNext action: %s\nExpected value: %s NIS/mo (%s NIS/year)\nInvoice due: %s\nInvoice queue: %s\nPlan payments setup: %s\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nBilling legal name: %s\nBilling business ID: %s\nBilling invoice email: %s\nBilling invoice address: %s\nPlan interest: %s\nPayment path: %s\nPayment follow-up: %s\nLead response: %s\nAccount continuation: %s\nAttribution: %s\nLanding page: %s\nHeadline: %s\nVideo: %s\nGoogle Business: %s\nGoogle review link: %s\nUploads: %s\nAI draft: %s\n\nReview: %s",
+		"New lawyer registration draft is waiting for review.\n\nNext action: %s\nExpected value: %s NIS/mo (%s NIS/year)\nInvoice due: %s\nInvoice queue: %s\nPlan payments setup: %s\n\nName: %s\nFirm: %s\nPhone: %s\nEmail: %s\nBilling legal name: %s\nBilling business ID: %s\nBilling invoice email: %s\nBilling invoice address: %s\nPlan interest: %s\nClaim target: %s\nClaim public card: %s\nClaim admin edit: %s\nPayment path: %s\nPayment follow-up: %s\nLead response: %s\nAccount continuation: %s\nAttribution: %s\nLanding page: %s\nHeadline: %s\nVideo: %s\nGoogle Business: %s\nGoogle review link: %s\nUploads: %s\nAI draft: %s\n\nReview: %s",
 		$next_action,
 		number_format_i18n( $expected_monthly ),
 		number_format_i18n( $expected_monthly * 12 ),
@@ -830,6 +893,9 @@ function justice_theme_notify_lawyer_registration( int $post_id, array $meta ): 
 		$meta['billing_invoice_email'] ?: '-',
 		$meta['billing_invoice_address'] ?: '-',
 		$plan ?: '-',
+		! empty( $claim_target['id'] ) ? sprintf( '#%s - %s', $claim_target['id'], $claim_target['title'] ?: $claim_target['slug'] ) : '-',
+		$claim_target['public_url'] ?: '-',
+		$claim_target['edit_url'] ?: '-',
 		$payment_path ?: '-',
 		$followup_status ?: '-',
 		justice_theme_lawyer_response_commitment_options()[ $meta['lead_response_commitment'] ?? '' ] ?? '-',
@@ -1926,11 +1992,24 @@ function justice_theme_render_lawyer_activation_box( WP_Post $post ): void {
 	$payment_confirmed_at = (string) get_post_meta( $post->ID, 'payment_confirmed_at', true );
 	$payment_blocked_at   = (string) get_post_meta( $post->ID, 'payment_blocked_at', true );
 	$payment_cancelled_at = (string) get_post_meta( $post->ID, 'payment_cancelled_at', true );
+	$claim_target         = justice_theme_lawyer_claim_target_for_post( $post->ID );
 	$manual_payment_message = justice_theme_lawyer_manual_invoice_message( $post->ID );
 	$manual_payment_whatsapp_url = justice_theme_lawyer_payment_link_whatsapp_url( $post->ID, $manual_payment_message );
 	$response_commitment = (string) get_post_meta( $post->ID, 'lead_response_commitment', true );
 	$response_options    = justice_theme_lawyer_response_commitment_options();
 	?>
+	<?php if ( ! empty( $claim_target['id'] ) ) : ?>
+		<p style="border:1px solid #f0c36d;background:#fff8e5;border-radius:6px;padding:8px;">
+			<strong>Public card claim</strong><br>
+			<small>This registration asks to take over card #<?php echo esc_html( (string) $claim_target['id'] ); ?>: <?php echo esc_html( $claim_target['title'] ?: $claim_target['slug'] ); ?>. Verify identity before changing the public card.</small><br>
+			<?php if ( $claim_target['public_url'] ) : ?>
+				<a href="<?php echo esc_url( $claim_target['public_url'] ); ?>" target="_blank" rel="noopener noreferrer">Open public card</a>
+			<?php endif; ?>
+			<?php if ( $claim_target['edit_url'] ) : ?>
+				<?php echo $claim_target['public_url'] ? ' | ' : ''; ?><a href="<?php echo esc_url( $claim_target['edit_url'] ); ?>">Edit claimed card</a>
+			<?php endif; ?>
+		</p>
+	<?php endif; ?>
 	<p>
 		<strong>Payment follow-up</strong><br>
 		<span style="display:inline-block;margin:4px 0;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $payment_badge['style'] ); ?>">
@@ -3115,6 +3194,7 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$payment_link_needed_count = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_payment_link_meta_query( 'needed' ) );
 	$payment_link_ready_count  = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_payment_link_meta_query( 'ready' ) );
 	$service_request_count     = justice_theme_lawyer_onboarding_count_lawyers( justice_theme_lawyer_onboarding_service_request_meta_query() );
+	$public_card_claim_count   = justice_theme_lawyer_onboarding_count_lawyers( array( justice_theme_lawyer_claim_queue_meta_query() ) );
 	$invoice_requested_value = justice_theme_lawyer_onboarding_monthly_value( array(
 		array(
 			'key'   => 'payment_followup_status',
@@ -3146,6 +3226,7 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$payment_link_needed_value = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_payment_link_meta_query( 'needed' ) );
 	$payment_link_ready_value  = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_payment_link_meta_query( 'ready' ) );
 	$service_request_value     = justice_theme_lawyer_onboarding_monthly_value( justice_theme_lawyer_onboarding_service_request_meta_query() );
+	$public_card_claim_value   = justice_theme_lawyer_onboarding_monthly_value( array( justice_theme_lawyer_claim_queue_meta_query() ) );
 	$queue_url               = add_query_arg(
 		array(
 			'page'          => 'justice-lawyer-onboarding',
@@ -3209,6 +3290,13 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 		),
 		admin_url( 'admin.php' )
 	);
+	$public_card_claim_url   = add_query_arg(
+		array(
+			'page'        => 'justice-lawyer-onboarding',
+			'claim_queue' => '1',
+		),
+		admin_url( 'admin.php' )
+	);
 	$all_url                 = admin_url( 'admin.php?page=justice-lawyer-onboarding' );
 	$invoice_requested_export_url = justice_theme_lawyer_payment_queue_export_url( 'invoice_requested' );
 	$invoice_sent_export_url      = justice_theme_lawyer_payment_queue_export_url( 'invoice_sent' );
@@ -3234,6 +3322,13 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 		$next_money_button = 'Open service requests';
 		$next_money_value = $service_request_value;
 		$next_money_value_note = 'retention risk';
+	} elseif ( $public_card_claim_count ) {
+		$next_money_title  = 'Review public card claims';
+		$next_money_body   = 'These lawyers arrived from public cards and are asking to claim ownership. Verify identity, connect the right card, then move strong fits into featured or sponsored placement.';
+		$next_money_url    = $public_card_claim_url;
+		$next_money_button = 'Open claim queue';
+		$next_money_value = $public_card_claim_value;
+		$next_money_value_note = 'claim pipeline';
 	} elseif ( $billing_missing_count ) {
 		$next_money_title  = 'Collect missing invoice details';
 		$next_money_body   = 'Some manual-invoice registrations are missing billing legal name or invoice email. Collect those before sending payment links or invoices.';
@@ -3299,6 +3394,12 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 				<span>Service requests</span>
 				<small style="display:block;margin-top:6px;color:#991b1b;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $service_request_value ) ); ?> retention risk</small>
 				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $service_request_url ); ?>">Open service requests</a></p>
+			</div>
+			<div style="border:1px solid #f0c36d;background:#fff8e5;border-radius:8px;padding:14px;">
+				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $public_card_claim_count ) ); ?></strong>
+				<span>Public card claims</span>
+				<small style="display:block;margin-top:6px;color:#7c4a03;"><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $public_card_claim_value ) ); ?> claim pipeline</small>
+				<p style="margin:8px 0 0;"><a href="<?php echo esc_url( $public_card_claim_url ); ?>">Open claim queue</a></p>
 			</div>
 			<div style="border:1px solid #f5d58c;background:#fffaf0;border-radius:8px;padding:14px;">
 				<strong style="display:block;font-size:26px;line-height:1;"><?php echo esc_html( number_format_i18n( $payment_due_soon_count ) ); ?></strong>
@@ -3380,6 +3481,17 @@ function justice_theme_render_lawyer_onboarding_investor_demo_panel(): void {
 				home_url( '/lawyer-registration/' )
 			),
 			'note'  => 'Show lawyer intake, billing details and media/profile material.',
+		),
+		array(
+			'label' => 'Public card claim queue',
+			'url'   => add_query_arg(
+				array(
+					'page'        => 'justice-lawyer-onboarding',
+					'claim_queue' => '1',
+				),
+				admin_url( 'admin.php' )
+			),
+			'note'  => 'Show claimed public cards and the identity-review step before upgrade or sponsored placement.',
 		),
 		array(
 			'label' => 'Lawyer dashboard gate',
@@ -3517,6 +3629,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 	$billing_status = isset( $_GET['billing_status'] ) ? sanitize_key( wp_unslash( $_GET['billing_status'] ) ) : '';
 	$payment_link_status = isset( $_GET['payment_link_status'] ) ? sanitize_key( wp_unslash( $_GET['payment_link_status'] ) ) : '';
 	$service_request_status = isset( $_GET['service_request_status'] ) ? sanitize_key( wp_unslash( $_GET['service_request_status'] ) ) : '';
+	$claim_queue  = isset( $_GET['claim_queue'] ) ? sanitize_key( wp_unslash( $_GET['claim_queue'] ) ) : '';
 	$source_key    = isset( $_GET['source_key'] ) ? sanitize_key( wp_unslash( $_GET['source_key'] ) ) : '';
 	$source_value  = isset( $_GET['source_value'] ) ? sanitize_text_field( wp_unslash( $_GET['source_value'] ) ) : '';
 	$source_filter_keys = justice_theme_lawyer_onboarding_source_filter_keys();
@@ -3536,6 +3649,10 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 
 	if ( 'pending' !== $service_request_status ) {
 		$service_request_status = '';
+	}
+
+	if ( '1' !== $claim_queue ) {
+		$claim_queue = '';
 	}
 
 	if ( ! array_key_exists( $source_key, $source_filter_keys ) || '' === $source_value ) {
@@ -3604,6 +3721,14 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 			'relation' => 'AND',
 			$meta_query,
 			justice_theme_lawyer_onboarding_service_request_meta_query(),
+		);
+	}
+
+	if ( $claim_queue ) {
+		$meta_query = array(
+			'relation' => 'AND',
+			$meta_query,
+			justice_theme_lawyer_claim_queue_meta_query(),
 		);
 	}
 
@@ -3682,6 +3807,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 		<?php if ( $service_request_status ) : ?>
 			<div class="notice notice-info inline"><p>Showing only lawyer registrations with open service, billing, refund, cancellation, downgrade, complaint or support requests. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
 		<?php endif; ?>
+		<?php if ( $claim_queue ) : ?>
+			<div class="notice notice-info inline"><p>Showing only lawyer registrations that came from a public-card claim/upgrade path. Verify identity before changing the existing public card. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
+		<?php endif; ?>
 		<?php if ( $source_key && $source_value ) : ?>
 			<div class="notice notice-info inline"><p>Showing only lawyer registrations from <?php echo esc_html( $source_filter_keys[ $source_key ] ); ?>: <?php echo esc_html( $source_value ); ?>. <a href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding' ) ); ?>">Clear filter</a>.</p></div>
 		<?php endif; ?>
@@ -3718,6 +3846,7 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 						$expected_monthly_value = justice_theme_lawyer_outreach_expected_monthly_nis( $plan );
 						$registration_attribution = justice_theme_lawyer_registration_attribution_for_post( $post_id );
 						$attribution_summary      = justice_theme_lawyer_registration_attribution_summary( $registration_attribution );
+						$claim_target             = justice_theme_lawyer_claim_target_from_attribution( $registration_attribution );
 						$sales_priority = justice_theme_lawyer_onboarding_sales_priority( $plan );
 						$activation_status = (string) get_post_meta( $post_id, 'activation_status', true ) ?: 'registered';
 						$activation_badge  = justice_theme_lawyer_activation_badge( $activation_status );
@@ -3817,6 +3946,18 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 								<?php endif; ?>
 								<?php if ( ! empty( $registration_attribution['registration_landing_url'] ) ) : ?>
 									<br><a href="<?php echo esc_url( $registration_attribution['registration_landing_url'] ); ?>" target="_blank" rel="noopener noreferrer">landing</a>
+								<?php endif; ?>
+								<?php if ( ! empty( $claim_target['id'] ) ) : ?>
+									<div style="margin-top:8px;padding:8px;border-radius:6px;background:#fff8e5;border:1px solid #f0c36d;color:#7c4a03;">
+										<strong>Claiming public card</strong><br>
+										<small>#<?php echo esc_html( (string) $claim_target['id'] ); ?> - <?php echo esc_html( $claim_target['title'] ?: $claim_target['slug'] ); ?></small>
+										<?php if ( $claim_target['public_url'] ) : ?>
+											<br><a href="<?php echo esc_url( $claim_target['public_url'] ); ?>" target="_blank" rel="noopener noreferrer">public card</a>
+										<?php endif; ?>
+										<?php if ( $claim_target['edit_url'] ) : ?>
+											<?php echo $claim_target['public_url'] ? ' | ' : '<br>'; ?><a href="<?php echo esc_url( $claim_target['edit_url'] ); ?>">edit card</a>
+										<?php endif; ?>
+									</div>
 								<?php endif; ?>
 							</td>
 							<td>
@@ -3994,6 +4135,9 @@ function justice_theme_render_lawyer_onboarding_admin_page(): void {
 							<td><?php echo esc_html( get_the_date() ); ?></td>
 							<td>
 								<a class="button button-primary" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Review</a>
+								<?php if ( ! empty( $claim_target['edit_url'] ) ) : ?>
+									<a class="button" href="<?php echo esc_url( $claim_target['edit_url'] ); ?>">Review claimed card</a>
+								<?php endif; ?>
 								<?php if ( function_exists( 'justice_theme_lawyer_recommendation_token_create_admin_url' ) ) : ?>
 									<a class="button" href="<?php echo esc_url( justice_theme_lawyer_recommendation_token_create_admin_url( $post_id ) ); ?>">Create recommendation link</a>
 								<?php endif; ?>

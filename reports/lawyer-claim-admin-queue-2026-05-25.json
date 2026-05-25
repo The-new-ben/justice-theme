@@ -1,0 +1,33 @@
+{
+  "report": "lawyer-claim-admin-queue",
+  "date": "2026-05-25",
+  "local_time": "13:28 Asia/Jerusalem",
+  "material_advance": [
+    "Added helper functions to resolve claim_profile_id or claim_profile into the existing public justice_lawyer card.",
+    "Added a public-card claim queue filter to Lawyer Onboarding using claim_queue=1.",
+    "Added a Public card claims tile to the paid registration command center.",
+    "Added claim target links to registration notification emails, activation side box and onboarding table rows."
+  ],
+  "changed_files": [
+    "inc/lawyer-onboarding.php"
+  ],
+  "admin_paths": [
+    "/wp-admin/admin.php?page=justice-lawyer-onboarding",
+    "/wp-admin/admin.php?page=justice-lawyer-onboarding&claim_queue=1"
+  ],
+  "safety": {
+    "created_or_published_cms_records": false,
+    "changed_public_visibility": false,
+    "copied_competitor_photos": false,
+    "copied_competitor_reviews": false,
+    "copied_competitor_contact_details": false,
+    "changed_payment_invoice_refund_settings": false,
+    "changed_redirects_canonicals_noindex_sitemaps_taxonomies": false
+  },
+  "completion": {
+    "public_card_claim_upgrade_funnel_percent": 89,
+    "cms_lawyer_index_system_percent": 87,
+    "indexed_public_basic_records": 20,
+    "realized_revenue_nis": 0
+  }
+}

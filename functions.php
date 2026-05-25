@@ -10,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 define( 'JUSTICE_THEME_VERSION', '1.1.0' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-05-25-btl-appeal-funnel-v1' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-05-25-revenue-streams-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -51,6 +51,7 @@ $justice_theme_files = array(
 	'inc/lawyer-onboarding.php',
 	'inc/lawyer-dashboard.php',
 	'inc/lawyer-plans.php',
+	'inc/revenue-streams.php',
 	'inc/taxonomy-seed.php',
 	'inc/city-practice-pages.php',
 	'inc/local-money-routes.php',

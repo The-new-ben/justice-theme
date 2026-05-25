@@ -522,15 +522,19 @@ function justice_theme_crm_render_supplier_table( ?WP_Query $suppliers ): void {
 	}
 
 	$category_labels = function_exists( 'justice_theme_lawyer_supplier_categories' ) ? justice_theme_lawyer_supplier_categories() : array();
+	$type_labels     = function_exists( 'justice_theme_lawyer_supplier_provider_types' ) ? justice_theme_lawyer_supplier_provider_types() : array();
 	$status_labels   = function_exists( 'justice_theme_lawyer_supplier_statuses' ) ? justice_theme_lawyer_supplier_statuses() : array();
 	$revenue_labels  = function_exists( 'justice_theme_lawyer_supplier_revenue_models' ) ? justice_theme_lawyer_supplier_revenue_models() : array();
+	$bid_labels      = function_exists( 'justice_theme_lawyer_supplier_bid_models' ) ? justice_theme_lawyer_supplier_bid_models() : array();
 	?>
 	<table class="widefat striped">
 		<thead>
 			<tr>
 				<th>Supplier</th>
+				<th>Provider type</th>
 				<th>Category</th>
 				<th>Revenue model</th>
+				<th>Bid model / floor</th>
 				<th>Priority</th>
 				<th>Status</th>
 				<th>Service area</th>
@@ -544,7 +548,10 @@ function justice_theme_crm_render_supplier_table( ?WP_Query $suppliers ): void {
 				<?php
 				$post_id      = (int) $post->ID;
 				$category     = (string) get_post_meta( $post_id, 'supplier_category', true );
+				$type         = (string) get_post_meta( $post_id, 'supplier_provider_type', true );
 				$revenue      = (string) get_post_meta( $post_id, 'supplier_revenue_model', true );
+				$bid_model    = (string) get_post_meta( $post_id, 'supplier_bid_model', true );
+				$min_price    = absint( get_post_meta( $post_id, 'supplier_min_price_ils', true ) );
 				$priority     = (string) get_post_meta( $post_id, 'supplier_priority', true );
 				$status       = (string) get_post_meta( $post_id, 'supplier_partnership_status', true );
 				$service_area = (string) get_post_meta( $post_id, 'supplier_service_area', true );
@@ -556,8 +563,15 @@ function justice_theme_crm_render_supplier_table( ?WP_Query $suppliers ): void {
 				?>
 				<tr>
 					<td><strong><?php echo esc_html( get_the_title( $post_id ) ?: '(untitled)' ); ?></strong></td>
+					<td><?php echo esc_html( ( $type_labels[ $type ] ?? $type ) ?: '-' ); ?></td>
 					<td><?php echo esc_html( ( $category_labels[ $category ] ?? $category ) ?: '-' ); ?></td>
 					<td><?php echo esc_html( ( $revenue_labels[ $revenue ] ?? $revenue ) ?: '-' ); ?></td>
+					<td>
+						<?php echo esc_html( ( $bid_labels[ $bid_model ] ?? $bid_model ) ?: '-' ); ?>
+						<?php if ( $min_price ) : ?>
+							<br><small><?php echo esc_html( number_format_i18n( $min_price ) ); ?> NIS floor</small>
+						<?php endif; ?>
+					</td>
 					<td><?php echo esc_html( $priority ?: '-' ); ?></td>
 					<td><?php echo esc_html( ( $status_labels[ $status ] ?? $status ) ?: '-' ); ?></td>
 					<td><?php echo esc_html( $service_area ?: '-' ); ?></td>

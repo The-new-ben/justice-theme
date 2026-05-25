@@ -50,6 +50,12 @@ function justice_theme_register_lawyer_supplier_meta(): void {
 		'supplier_contact_email'      => 'string',
 		'supplier_contact_phone'      => 'string',
 		'supplier_service_area'       => 'string',
+		'supplier_provider_type'      => 'string',
+		'supplier_jurisdictions'      => 'string',
+		'supplier_license_status'     => 'string',
+		'supplier_min_price_ils'      => 'integer',
+		'supplier_response_sla'       => 'string',
+		'supplier_bid_model'          => 'string',
 		'supplier_offer_summary'      => 'string',
 		'supplier_partnership_status' => 'string',
 		'supplier_revenue_model'      => 'string',
@@ -80,6 +86,10 @@ function justice_theme_lawyer_supplier_meta_sanitizer( string $key ): string {
 		return 'esc_url_raw';
 	}
 
+	if ( 'supplier_min_price_ils' === $key ) {
+		return 'absint';
+	}
+
 	if ( in_array( $key, array( 'supplier_offer_summary', 'supplier_owner_note' ), true ) ) {
 		return 'sanitize_textarea_field';
 	}
@@ -95,6 +105,8 @@ function justice_theme_lawyer_supplier_categories(): array {
 		'expert_witness'    => __( 'Expert witnesses / private investigators', 'justice-theme' ),
 		'legal_tech'        => __( 'Legal tech / automation / CRM', 'justice-theme' ),
 		'finance_tax'       => __( 'Finance / accounting / tax', 'justice-theme' ),
+		'immigration'       => __( 'Immigration / citizenship / relocation', 'justice-theme' ),
+		'cross_border'      => __( 'Cross-border tax / EOR / employment', 'justice-theme' ),
 		'courier_filing'    => __( 'Courier / filing / court operations', 'justice-theme' ),
 		'training_events'   => __( 'Training / events / professional education', 'justice-theme' ),
 		'other'             => __( 'Other', 'justice-theme' ),
@@ -118,8 +130,48 @@ function justice_theme_lawyer_supplier_revenue_models(): array {
 		'lead_fee'        => __( 'Lead fee', 'justice-theme' ),
 		'affiliate'       => __( 'Affiliate / referral commission', 'justice-theme' ),
 		'sponsorship'     => __( 'Category sponsorship', 'justice-theme' ),
+		'bid_marketplace' => __( 'Bid / proposal marketplace', 'justice-theme' ),
+		'premium_package' => __( 'Premium packaged consult', 'justice-theme' ),
 		'barter'          => __( 'Barter / strategic value', 'justice-theme' ),
 		'unknown'         => __( 'Unknown', 'justice-theme' ),
+	);
+}
+
+function justice_theme_lawyer_supplier_license_statuses(): array {
+	return array(
+		'unknown'        => __( 'Unknown / needs verification', 'justice-theme' ),
+		'self_reported'  => __( 'Self-reported only', 'justice-theme' ),
+		'source_checked' => __( 'Source checked', 'justice-theme' ),
+		'verified'       => __( 'Verified by owner', 'justice-theme' ),
+		'not_required'   => __( 'License not required for this category', 'justice-theme' ),
+		'rejected'       => __( 'Rejected / not acceptable', 'justice-theme' ),
+	);
+}
+
+function justice_theme_lawyer_supplier_bid_models(): array {
+	return array(
+		'none'             => __( 'No bidding', 'justice-theme' ),
+		'owner_invite'     => __( 'Owner invites selected suppliers', 'justice-theme' ),
+		'open_approved'    => __( 'Approved suppliers can submit proposals', 'justice-theme' ),
+		'fixed_package'    => __( 'Fixed package price', 'justice-theme' ),
+		'sponsored_slot'   => __( 'Sponsored category slot', 'justice-theme' ),
+		'manual_exception' => __( 'Manual exception / custom deal', 'justice-theme' ),
+	);
+}
+
+function justice_theme_lawyer_supplier_provider_types(): array {
+	return array(
+		'lawyer'                 => __( 'Lawyer / law firm', 'justice-theme' ),
+		'cpa_tax'                => __( 'CPA / tax advisor', 'justice-theme' ),
+		'immigration_consultant' => __( 'Immigration / citizenship consultant', 'justice-theme' ),
+		'notary'                 => __( 'Notary / apostille provider', 'justice-theme' ),
+		'mediator'               => __( 'Mediator', 'justice-theme' ),
+		'expert_witness'         => __( 'Expert witness', 'justice-theme' ),
+		'investigator'           => __( 'Private investigator', 'justice-theme' ),
+		'process_server'         => __( 'Process server / courier', 'justice-theme' ),
+		'marketing_vendor'       => __( 'Marketing / growth vendor', 'justice-theme' ),
+		'legal_tech_vendor'      => __( 'LegalTech vendor', 'justice-theme' ),
+		'other'                  => __( 'Other', 'justice-theme' ),
 	);
 }
 
@@ -174,10 +226,24 @@ function justice_theme_render_lawyer_supplier_details_box( WP_Post $post ): void
 	$status   = (string) get_post_meta( $post->ID, 'supplier_partnership_status', true ) ?: 'research';
 	$revenue  = (string) get_post_meta( $post->ID, 'supplier_revenue_model', true ) ?: 'unknown';
 	$priority = (string) get_post_meta( $post->ID, 'supplier_priority', true ) ?: 'medium';
+	$provider_type = (string) get_post_meta( $post->ID, 'supplier_provider_type', true ) ?: 'other';
+	$license_status = (string) get_post_meta( $post->ID, 'supplier_license_status', true ) ?: 'unknown';
+	$bid_model = (string) get_post_meta( $post->ID, 'supplier_bid_model', true ) ?: 'none';
 	$public_visibility = justice_theme_lawyer_supplier_normalize_public_visibility( (string) get_post_meta( $post->ID, 'supplier_public_visibility', true ) );
 	?>
 	<p>Use this as a private pipeline. Do not publish supplier claims or send lawyers to a supplier until terms, disclosure and quality are reviewed.</p>
 	<table class="form-table" role="presentation">
+		<tr>
+			<th scope="row"><label for="justice-supplier-provider-type">Provider type</label></th>
+			<td>
+				<select id="justice-supplier-provider-type" name="supplier_provider_type">
+					<?php foreach ( justice_theme_lawyer_supplier_provider_types() as $value => $label ) : ?>
+						<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $provider_type, $value ); ?>><?php echo esc_html( $label ); ?></option>
+					<?php endforeach; ?>
+				</select>
+				<p class="description">Use this to support immigration, citizenship, tax, notary, mediator, expert and process-server suppliers without mislabeling everyone as a lawyer.</p>
+			</td>
+		</tr>
 		<tr>
 			<th scope="row"><label for="justice-supplier-category">Category</label></th>
 			<td>
@@ -219,6 +285,27 @@ function justice_theme_render_lawyer_supplier_details_box( WP_Post $post ): void
 			</td>
 		</tr>
 		<tr>
+			<th scope="row"><label for="justice-supplier-bid-model">Bid / proposal model</label></th>
+			<td>
+				<select id="justice-supplier-bid-model" name="supplier_bid_model">
+					<?php foreach ( justice_theme_lawyer_supplier_bid_models() as $value => $label ) : ?>
+						<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $bid_model, $value ); ?>><?php echo esc_html( $label ); ?></option>
+					<?php endforeach; ?>
+				</select>
+				<p class="description">Use bidding only with approved suppliers and owner review. Do not expose competing quotes publicly until the workflow is approved.</p>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row"><label for="justice-supplier-license-status">Credential / license status</label></th>
+			<td>
+				<select id="justice-supplier-license-status" name="supplier_license_status">
+					<?php foreach ( justice_theme_lawyer_supplier_license_statuses() as $value => $label ) : ?>
+						<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $license_status, $value ); ?>><?php echo esc_html( $label ); ?></option>
+					<?php endforeach; ?>
+				</select>
+			</td>
+		</tr>
+		<tr>
 			<th scope="row"><label for="justice-supplier-public-visibility">Public visibility</label></th>
 			<td>
 				<select id="justice-supplier-public-visibility" name="supplier_public_visibility">
@@ -236,6 +323,8 @@ function justice_theme_render_lawyer_supplier_details_box( WP_Post $post ): void
 			'supplier_contact_email' => 'Contact email',
 			'supplier_contact_phone' => 'Contact phone',
 			'supplier_service_area'  => 'Service area',
+			'supplier_jurisdictions' => 'Jurisdictions / countries',
+			'supplier_response_sla'  => 'Response SLA',
 			'supplier_public_badge'  => 'Public badge',
 			'supplier_source_url'    => 'Source URL',
 		);
@@ -247,6 +336,13 @@ function justice_theme_render_lawyer_supplier_details_box( WP_Post $post ): void
 				<td><input id="justice-<?php echo esc_attr( $key ); ?>" type="<?php echo esc_attr( $type ); ?>" name="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( (string) get_post_meta( $post->ID, $key, true ) ); ?>" class="regular-text"></td>
 			</tr>
 		<?php endforeach; ?>
+		<tr>
+			<th scope="row"><label for="justice-supplier-min-price-ils">Minimum price ILS</label></th>
+			<td>
+				<input id="justice-supplier-min-price-ils" type="number" min="0" name="supplier_min_price_ils" value="<?php echo esc_attr( (string) absint( get_post_meta( $post->ID, 'supplier_min_price_ils', true ) ) ); ?>" class="regular-text">
+				<p class="description">Internal pricing floor for matching, bidding or packaged consults. Do not show publicly before pricing approval.</p>
+			</td>
+		</tr>
 		<tr>
 			<th scope="row"><label for="justice-supplier-offer-summary">Offer summary</label></th>
 			<td><textarea id="justice-supplier-offer-summary" name="supplier_offer_summary" rows="4" class="large-text"><?php echo esc_textarea( (string) get_post_meta( $post->ID, 'supplier_offer_summary', true ) ); ?></textarea></td>
@@ -290,10 +386,29 @@ function justice_theme_save_lawyer_supplier_details( int $post_id ): void {
 		$priority = 'medium';
 	}
 
+	$provider_type = isset( $_POST['supplier_provider_type'] ) ? sanitize_key( wp_unslash( $_POST['supplier_provider_type'] ) ) : 'other';
+	if ( ! array_key_exists( $provider_type, justice_theme_lawyer_supplier_provider_types() ) ) {
+		$provider_type = 'other';
+	}
+
+	$license_status = isset( $_POST['supplier_license_status'] ) ? sanitize_key( wp_unslash( $_POST['supplier_license_status'] ) ) : 'unknown';
+	if ( ! array_key_exists( $license_status, justice_theme_lawyer_supplier_license_statuses() ) ) {
+		$license_status = 'unknown';
+	}
+
+	$bid_model = isset( $_POST['supplier_bid_model'] ) ? sanitize_key( wp_unslash( $_POST['supplier_bid_model'] ) ) : 'none';
+	if ( ! array_key_exists( $bid_model, justice_theme_lawyer_supplier_bid_models() ) ) {
+		$bid_model = 'none';
+	}
+
 	update_post_meta( $post_id, 'supplier_category', $category );
 	update_post_meta( $post_id, 'supplier_partnership_status', $status );
 	update_post_meta( $post_id, 'supplier_revenue_model', $revenue );
 	update_post_meta( $post_id, 'supplier_priority', $priority );
+	update_post_meta( $post_id, 'supplier_provider_type', $provider_type );
+	update_post_meta( $post_id, 'supplier_license_status', $license_status );
+	update_post_meta( $post_id, 'supplier_bid_model', $bid_model );
+	update_post_meta( $post_id, 'supplier_min_price_ils', isset( $_POST['supplier_min_price_ils'] ) ? absint( wp_unslash( $_POST['supplier_min_price_ils'] ) ) : 0 );
 	update_post_meta(
 		$post_id,
 		'supplier_public_visibility',
@@ -307,6 +422,8 @@ function justice_theme_save_lawyer_supplier_details( int $post_id ): void {
 		'supplier_contact_email',
 		'supplier_contact_phone',
 		'supplier_service_area',
+		'supplier_jurisdictions',
+		'supplier_response_sla',
 		'supplier_public_badge',
 	);
 	foreach ( $text_fields as $key ) {
@@ -322,6 +439,7 @@ add_action( 'save_post_justice_supplier', 'justice_theme_save_lawyer_supplier_de
 
 function justice_theme_lawyer_supplier_admin_columns( array $columns ): array {
 	$columns['supplier_category'] = __( 'Category', 'justice-theme' );
+	$columns['supplier_type']     = __( 'Provider type', 'justice-theme' );
 	$columns['supplier_status']   = __( 'Status', 'justice-theme' );
 	$columns['supplier_revenue']  = __( 'Revenue model', 'justice-theme' );
 	$columns['supplier_priority'] = __( 'Priority', 'justice-theme' );
@@ -334,6 +452,11 @@ function justice_theme_lawyer_supplier_admin_column( string $column, int $post_i
 	if ( 'supplier_category' === $column ) {
 		$category = (string) get_post_meta( $post_id, 'supplier_category', true );
 		echo esc_html( justice_theme_lawyer_supplier_categories()[ $category ] ?? $category );
+	}
+
+	if ( 'supplier_type' === $column ) {
+		$type = (string) get_post_meta( $post_id, 'supplier_provider_type', true );
+		echo esc_html( justice_theme_lawyer_supplier_provider_types()[ $type ] ?? $type );
 	}
 
 	if ( 'supplier_status' === $column ) {
@@ -372,6 +495,12 @@ function justice_theme_lawyer_supplier_admin_filters( string $post_type ): void 
 			'meta'    => 'supplier_category',
 			'current' => isset( $_GET['justice_supplier_category_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_supplier_category_filter'] ) ) : '',
 			'options' => justice_theme_lawyer_supplier_categories(),
+		),
+		'justice_supplier_type_filter' => array(
+			'label'   => __( 'All provider types', 'justice-theme' ),
+			'meta'    => 'supplier_provider_type',
+			'current' => isset( $_GET['justice_supplier_type_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_supplier_type_filter'] ) ) : '',
+			'options' => justice_theme_lawyer_supplier_provider_types(),
 		),
 		'justice_supplier_status_filter' => array(
 			'label'   => __( 'All partnership statuses', 'justice-theme' ),
@@ -415,6 +544,7 @@ function justice_theme_lawyer_supplier_admin_filter_query( WP_Query $query ): vo
 
 	$filter_map = array(
 		'justice_supplier_category_filter' => 'supplier_category',
+		'justice_supplier_type_filter'     => 'supplier_provider_type',
 		'justice_supplier_status_filter'   => 'supplier_partnership_status',
 		'justice_supplier_priority_filter' => 'supplier_priority',
 		'justice_supplier_public_filter'   => 'supplier_public_visibility',

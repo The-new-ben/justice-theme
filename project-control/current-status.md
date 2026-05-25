@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 18:11 Asia/Jerusalem
+- LEGAL SERVICE PROVIDERS PUBLIC GATE ADDED: the existing `justice_supplier` CMS pipeline can now power a controlled public homepage section, but only after explicit public approval and source checks.
+- UPDATED: `inc/lawyer-suppliers.php`, `front-page.php`, `page-home.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`.
+- ADDED: `template-parts/sections/legal-service-providers.php`, `project-control/legal-service-providers-public-gate-2026-05-25.md`.
+- MATERIAL ADVANCE: owner gets CMS-level display controls, filters and bulk actions for legal-service providers/supplier partners. The homepage can now surface approved service-provider cards without hard-coded data or fake competitor imports.
+- COMPETITOR RESEARCH BASIS: checked current public patterns from Din, Psakdin, LawReviews, Avvo and Justia. Applied the structure: category fit, source-gated profile cards, trust language, and conversion path. Did not copy competitor text, people, photos, reviews, ratings or contact data.
+- VERIFIED LOCAL / DEPLOY PENDING: PHP lint passed for supplier CMS, new provider section, both homepage templates and enqueue; `git diff --check` passed.
+- REVENUE STATUS: realized revenue remains NIS 0. This creates inventory for provider listing/sponsorship/lead-fee revenue, but no customer/provider was indexed or sold in this cycle.
+- SAFETY: repo code/docs only; no live CMS database edit, supplier/customer creation, competitor import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 18:06 Asia/Jerusalem
 - SPONSORED PLACEMENT SEPARATED FROM PAYMENT STATUS: lawyer sponsored/top placement is now a CMS placement state, not a fake active subscription.
 - UPDATED: `inc/template-tags.php`, `inc/lawyer-visibility.php`, `template-parts/cards/lawyer-card.php`, `template-parts/sections/featured-lawyers.php`.

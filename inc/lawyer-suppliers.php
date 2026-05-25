@@ -54,6 +54,8 @@ function justice_theme_register_lawyer_supplier_meta(): void {
 		'supplier_partnership_status' => 'string',
 		'supplier_revenue_model'      => 'string',
 		'supplier_priority'           => 'string',
+		'supplier_public_visibility'  => 'string',
+		'supplier_public_badge'       => 'string',
 		'supplier_source_url'         => 'string',
 		'supplier_owner_note'         => 'string',
 	);
@@ -121,6 +123,38 @@ function justice_theme_lawyer_supplier_revenue_models(): array {
 	);
 }
 
+function justice_theme_lawyer_supplier_public_visibility_options(): array {
+	return array(
+		'private' => __( 'Private / internal only', 'justice-theme' ),
+		'show'    => __( 'Approved for public display', 'justice-theme' ),
+		'hide'    => __( 'Hidden from public display', 'justice-theme' ),
+	);
+}
+
+function justice_theme_lawyer_supplier_normalize_public_visibility( string $visibility ): string {
+	$visibility = sanitize_key( $visibility );
+
+	if ( ! array_key_exists( $visibility, justice_theme_lawyer_supplier_public_visibility_options() ) ) {
+		return 'private';
+	}
+
+	return $visibility;
+}
+
+function justice_theme_lawyer_supplier_is_public_ready( int $post_id ): bool {
+	if ( 'justice_supplier' !== get_post_type( $post_id ) || 'publish' !== get_post_status( $post_id ) ) {
+		return false;
+	}
+
+	$visibility = justice_theme_lawyer_supplier_normalize_public_visibility( (string) get_post_meta( $post_id, 'supplier_public_visibility', true ) );
+	$status     = sanitize_key( (string) get_post_meta( $post_id, 'supplier_partnership_status', true ) );
+	$summary    = trim( (string) get_post_meta( $post_id, 'supplier_offer_summary', true ) );
+	$website    = trim( (string) get_post_meta( $post_id, 'supplier_website', true ) );
+	$source_url = trim( (string) get_post_meta( $post_id, 'supplier_source_url', true ) );
+
+	return 'show' === $visibility && 'approved' === $status && '' !== $summary && ( '' !== $website || '' !== $source_url );
+}
+
 function justice_theme_lawyer_supplier_meta_boxes(): void {
 	add_meta_box(
 		'justice_theme_lawyer_supplier_details',
@@ -140,6 +174,7 @@ function justice_theme_render_lawyer_supplier_details_box( WP_Post $post ): void
 	$status   = (string) get_post_meta( $post->ID, 'supplier_partnership_status', true ) ?: 'research';
 	$revenue  = (string) get_post_meta( $post->ID, 'supplier_revenue_model', true ) ?: 'unknown';
 	$priority = (string) get_post_meta( $post->ID, 'supplier_priority', true ) ?: 'medium';
+	$public_visibility = justice_theme_lawyer_supplier_normalize_public_visibility( (string) get_post_meta( $post->ID, 'supplier_public_visibility', true ) );
 	?>
 	<p>Use this as a private pipeline. Do not publish supplier claims or send lawyers to a supplier until terms, disclosure and quality are reviewed.</p>
 	<table class="form-table" role="presentation">
@@ -183,6 +218,17 @@ function justice_theme_render_lawyer_supplier_details_box( WP_Post $post ): void
 				</select>
 			</td>
 		</tr>
+		<tr>
+			<th scope="row"><label for="justice-supplier-public-visibility">Public visibility</label></th>
+			<td>
+				<select id="justice-supplier-public-visibility" name="supplier_public_visibility">
+					<?php foreach ( justice_theme_lawyer_supplier_public_visibility_options() as $value => $label ) : ?>
+						<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $public_visibility, $value ); ?>><?php echo esc_html( $label ); ?></option>
+					<?php endforeach; ?>
+				</select>
+				<p class="description">Public display also requires Partnership status = Approved, an offer summary, and a website or source URL.</p>
+			</td>
+		</tr>
 		<?php
 		$plain_fields = array(
 			'supplier_website'       => 'Website',
@@ -190,6 +236,7 @@ function justice_theme_render_lawyer_supplier_details_box( WP_Post $post ): void
 			'supplier_contact_email' => 'Contact email',
 			'supplier_contact_phone' => 'Contact phone',
 			'supplier_service_area'  => 'Service area',
+			'supplier_public_badge'  => 'Public badge',
 			'supplier_source_url'    => 'Source URL',
 		);
 		foreach ( $plain_fields as $key => $label ) :
@@ -247,12 +294,20 @@ function justice_theme_save_lawyer_supplier_details( int $post_id ): void {
 	update_post_meta( $post_id, 'supplier_partnership_status', $status );
 	update_post_meta( $post_id, 'supplier_revenue_model', $revenue );
 	update_post_meta( $post_id, 'supplier_priority', $priority );
+	update_post_meta(
+		$post_id,
+		'supplier_public_visibility',
+		isset( $_POST['supplier_public_visibility'] )
+			? justice_theme_lawyer_supplier_normalize_public_visibility( (string) wp_unslash( $_POST['supplier_public_visibility'] ) )
+			: 'private'
+	);
 
 	$text_fields = array(
 		'supplier_contact_name',
 		'supplier_contact_email',
 		'supplier_contact_phone',
 		'supplier_service_area',
+		'supplier_public_badge',
 	);
 	foreach ( $text_fields as $key ) {
 		update_post_meta( $post_id, $key, isset( $_POST[ $key ] ) ? sanitize_text_field( wp_unslash( $_POST[ $key ] ) ) : '' );
@@ -270,6 +325,7 @@ function justice_theme_lawyer_supplier_admin_columns( array $columns ): array {
 	$columns['supplier_status']   = __( 'Status', 'justice-theme' );
 	$columns['supplier_revenue']  = __( 'Revenue model', 'justice-theme' );
 	$columns['supplier_priority'] = __( 'Priority', 'justice-theme' );
+	$columns['supplier_public']   = __( 'Public', 'justice-theme' );
 	return $columns;
 }
 add_filter( 'manage_justice_supplier_posts_columns', 'justice_theme_lawyer_supplier_admin_columns' );
@@ -292,6 +348,15 @@ function justice_theme_lawyer_supplier_admin_column( string $column, int $post_i
 
 	if ( 'supplier_priority' === $column ) {
 		echo esc_html( (string) get_post_meta( $post_id, 'supplier_priority', true ) );
+	}
+
+	if ( 'supplier_public' === $column ) {
+		$visibility = justice_theme_lawyer_supplier_normalize_public_visibility( (string) get_post_meta( $post_id, 'supplier_public_visibility', true ) );
+		echo esc_html( justice_theme_lawyer_supplier_public_visibility_options()[ $visibility ] ?? $visibility );
+
+		if ( justice_theme_lawyer_supplier_is_public_ready( $post_id ) ) {
+			echo '<br><strong>' . esc_html__( 'Ready for homepage', 'justice-theme' ) . '</strong>';
+		}
 	}
 }
 add_action( 'manage_justice_supplier_posts_custom_column', 'justice_theme_lawyer_supplier_admin_column', 10, 2 );
@@ -324,6 +389,12 @@ function justice_theme_lawyer_supplier_admin_filters( string $post_type ): void 
 				'low'    => __( 'Low', 'justice-theme' ),
 			),
 		),
+		'justice_supplier_public_filter' => array(
+			'label'   => __( 'All public visibility states', 'justice-theme' ),
+			'meta'    => 'supplier_public_visibility',
+			'current' => isset( $_GET['justice_supplier_public_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_supplier_public_filter'] ) ) : '',
+			'options' => justice_theme_lawyer_supplier_public_visibility_options(),
+		),
 	);
 
 	foreach ( $filters as $name => $filter ) {
@@ -346,6 +417,7 @@ function justice_theme_lawyer_supplier_admin_filter_query( WP_Query $query ): vo
 		'justice_supplier_category_filter' => 'supplier_category',
 		'justice_supplier_status_filter'   => 'supplier_partnership_status',
 		'justice_supplier_priority_filter' => 'supplier_priority',
+		'justice_supplier_public_filter'   => 'supplier_public_visibility',
 	);
 	$meta_query = (array) $query->get( 'meta_query' );
 
@@ -366,3 +438,66 @@ function justice_theme_lawyer_supplier_admin_filter_query( WP_Query $query ): vo
 	}
 }
 add_action( 'pre_get_posts', 'justice_theme_lawyer_supplier_admin_filter_query' );
+
+function justice_theme_lawyer_supplier_bulk_actions( array $actions ): array {
+	$actions['justice_supplier_public_show']    = __( 'Allow public display', 'justice-theme' );
+	$actions['justice_supplier_public_hide']    = __( 'Hide from public display', 'justice-theme' );
+	$actions['justice_supplier_public_private'] = __( 'Set public display to internal only', 'justice-theme' );
+
+	return $actions;
+}
+add_filter( 'bulk_actions-edit-justice_supplier', 'justice_theme_lawyer_supplier_bulk_actions' );
+
+function justice_theme_lawyer_supplier_handle_bulk_action( string $redirect_to, string $action, array $post_ids ): string {
+	$visibility_by_action = array(
+		'justice_supplier_public_show'    => 'show',
+		'justice_supplier_public_hide'    => 'hide',
+		'justice_supplier_public_private' => 'private',
+	);
+
+	if ( ! isset( $visibility_by_action[ $action ] ) ) {
+		return $redirect_to;
+	}
+
+	$updated = 0;
+	foreach ( $post_ids as $post_id ) {
+		$post_id = (int) $post_id;
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			continue;
+		}
+
+		update_post_meta( $post_id, 'supplier_public_visibility', $visibility_by_action[ $action ] );
+		++$updated;
+	}
+
+	return add_query_arg(
+		array(
+			'justice_supplier_public_bulk' => $visibility_by_action[ $action ],
+			'justice_supplier_public_count' => $updated,
+		),
+		$redirect_to
+	);
+}
+add_filter( 'handle_bulk_actions-edit-justice_supplier', 'justice_theme_lawyer_supplier_handle_bulk_action', 10, 3 );
+
+function justice_theme_lawyer_supplier_bulk_notice(): void {
+	if ( empty( $_GET['justice_supplier_public_bulk'] ) || empty( $_GET['justice_supplier_public_count'] ) ) {
+		return;
+	}
+
+	$count      = absint( $_GET['justice_supplier_public_count'] );
+	$visibility = justice_theme_lawyer_supplier_normalize_public_visibility( (string) wp_unslash( $_GET['justice_supplier_public_bulk'] ) );
+
+	printf(
+		'<div class="notice notice-success is-dismissible"><p>%s</p></div>',
+		esc_html(
+			sprintf(
+				/* translators: 1: number of suppliers, 2: public visibility label. */
+				__( 'Updated %1$d supplier visibility records to: %2$s. Public display still requires approved status and source fields.', 'justice-theme' ),
+				$count,
+				justice_theme_lawyer_supplier_public_visibility_options()[ $visibility ] ?? $visibility
+			)
+		)
+	);
+}
+add_action( 'admin_notices', 'justice_theme_lawyer_supplier_bulk_notice' );

@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Legal service providers public gate
+
+- UPDATED: `inc/lawyer-suppliers.php`, `front-page.php`, `page-home.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`.
+- ADDED: `template-parts/sections/legal-service-providers.php`, `project-control/legal-service-providers-public-gate-2026-05-25.md`.
+- PURPOSE: create a real CMS-driven path for legal-service-provider cards and sponsorship inventory without hard-coded demo data.
+- IMPLEMENTATION: added supplier public visibility meta, public readiness helper, edit-screen control, admin list column/filter, bulk visibility actions, homepage section rendering only approved and sourced suppliers, and polished responsive styling.
+- RESEARCH BASIS: checked public patterns from Din, Psakdin, LawReviews, Avvo and Justia; implementation is original and does not copy competitor text, profiles, people, photos, ratings, reviews or contact data.
+- VERIFIED LOCAL: `php -l inc/lawyer-suppliers.php`, `php -l template-parts/sections/legal-service-providers.php`, `php -l front-page.php`, `php -l page-home.php`, `php -l inc/enqueue.php`, and `git diff --check` passed.
+- SAFETY: no live CMS database write, supplier/customer creation, competitor import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # 2026-05-25 - Lawyer sponsored placement payment separation
 
 - UPDATED: `inc/template-tags.php`, `inc/lawyer-visibility.php`, `template-parts/cards/lawyer-card.php`, `template-parts/sections/featured-lawyers.php`.

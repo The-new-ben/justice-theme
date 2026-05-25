@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-25 04:24 Asia/Jerusalem
+- INVESTOR DEMO DATA SEED PACKET: created a copy-ready controlled demo packet for the remaining demo-data blockers without writing any CMS/database records.
+- ADDED: `project-control/investor-demo-data-seed-packet-2026-05-25.md` with the medical-malpractice lawyer persona, profile copy, demo lead, follow-up note, service-request messages, payment-link wording and honest investor script.
+- ADDED: `project-control/investor-demo-data-seed-packet-2026-05-25.csv` for structured copy/paste into owner/admin workflows if live demo data creation is approved.
+- MATERIAL ADVANCE: the demo-data blocker is now operationally precise: owner can create one claimed lawyer and one assigned medical-malpractice lead quickly without inventing details during the investor morning.
+- STILL BLOCKED: no live demo data was created; real recurring charge, automatic branded invoice and real refund execution remain external/payment-provider steps.
+- COMPLETION: route readiness stays about 98%; full investor demo readiness moves from about 82% to about 86% because the demo-data instructions are now concrete, though still not executed.
+- SAFETY: docs/data packet only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 04:03 Asia/Jerusalem
 - POST-UPRESS PULL VERIFICATION: owner pulled latest Git to production; live checks now confirm the competitor signup funnel deployment is active.
 - VERIFIED LIVE: deployment marker `2026-05-25-competitor-signup-funnel-v1`, premium CSS `4.3.4`, homepage lawyer revenue strip, lawyer plans competitor signup stages, paid checkout fallback, registration prefill, logged-out dashboard gate, support CSS, policy pages, dashboard JS and analytics event JS all pass.

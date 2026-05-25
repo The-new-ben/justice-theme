@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor demo data seed packet
+
+- ADDED: `project-control/investor-demo-data-seed-packet-2026-05-25.md` with a controlled medical-malpractice lawyer persona, demo lead, service-request text, payment-link wording and morning demo order.
+- ADDED: `project-control/investor-demo-data-seed-packet-2026-05-25.csv` with structured copy-ready demo fields.
+- PURPOSE: make the remaining claimed-lawyer and assigned-lead blocker executable without improvising during the investor walkthrough.
+- SAFETY: documentation/seed packet only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Competitor signup funnel live verified
 
 - VERIFIED LIVE: uPress pull landed `2026-05-25-competitor-signup-funnel-v1`; homepage marker, static marker, CSS `4.3.4`, homepage lawyer strip, plans signup stages and registration field explanation now pass.

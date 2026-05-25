@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 06:32 Asia/Jerusalem
+- LIVE DATA/PROVIDER ACTION CHECKLIST: added a five-minute owner-side checklist for the five remaining investor blockers: claimed demo lawyer, assigned medical-malpractice lead, real provider payment, branded invoice/receipt proof and refund execution proof.
+- RESEARCH BASIS: HubSpot demo guidance emphasizes value and clear next steps; Stripe Payment Links docs/support confirm the no-code hosted payment-link pattern while recurring billing/invoicing remains provider setup.
+- ADDED: `project-control/investor-live-data-provider-action-checklist-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the checklist.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` so the pack verifies this checklist is present and linked.
+- MATERIAL ADVANCE: the unresolved blockers are now expressed as exact owner/provider actions with pass signals, not vague risks.
+- STILL BLOCKED: actual live data/payment/refund execution requires explicit owner/provider approval.
+- COMPLETION: investor operator readiness moves to about 95%; full real-money lifecycle proof remains provider/data gated.
+- SAFETY: local documentation/checker/launchpad artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 06:22 Asia/Jerusalem
 - INVESTOR FALLBACK ANSWERS: added a concise local sheet for what to say if the homepage is slow, the dashboard needs login, the investor asks for a real payment, or payment/refund/invoice automation is challenged.
 - ADDED: `project-control/investor-demo-fallback-answers-2026-05-25.md`.

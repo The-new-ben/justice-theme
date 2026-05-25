@@ -1,9 +1,9 @@
 # Investor Launchpad Pack Check - 2026-05-25
 
 - Status: PASS
-- Started: 2026-05-25T03:23:29.490Z
-- Files present: 9/9
-- Launchpad tokens present: 16/16
+- Started: 2026-05-25T03:33:59.291Z
+- Files present: 10/10
+- Launchpad tokens present: 17/17
 - Scope: local investor-demo control artifacts only.
 - Safety: no public CMS/database content, payment, invoice, refund, lawyer record, lead, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting was changed.
 
@@ -21,6 +21,7 @@
 | project-control/investor-demo-morning-control-sheet-2026-05-25.md | PASS | Operator tab order and exact talk tracks. |
 | project-control/investor-payment-lifecycle-playbook-2026-05-25.md | PASS | Real-money lifecycle answers for payment, invoice, refund, cancel and plan-change questions. |
 | project-control/investor-demo-fallback-answers-2026-05-25.md | PASS | Controlled answers if a page is slow, a login is missing, or the investor challenges payment proof. |
+| project-control/investor-live-data-provider-action-checklist-2026-05-25.md | PASS | Owner-side steps for the five remaining live-data/provider blockers. |
 | project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md | PASS | Copy-safe demo lawyer and lead fields if Hebrew rendering is risky. |
 | project-control/investor-demo-readiness-2026-05-25.md | PASS | Readiness status and remaining blockers. |
 | project-control/lawyer-revenue-funnel-live-2026-05-25.md | PASS | Live public lawyer funnel verification. |
@@ -44,6 +45,7 @@
 | `https://jus-tice.co.il/wp-admin/admin.php?page=justice-lawyer-onboarding` | PASS |
 | `./investor-payment-lifecycle-playbook-2026-05-25.md` | PASS |
 | `./investor-demo-fallback-answers-2026-05-25.md` | PASS |
+| `./investor-live-data-provider-action-checklist-2026-05-25.md` | PASS |
 | `tools\run-investor-morning-pack.ps1` | PASS |
 | `Do not claim recurring billing` | PASS |
 

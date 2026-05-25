@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "startedAt": "2026-05-25T03:23:29.490Z",
+  "startedAt": "2026-05-25T03:33:59.291Z",
   "runDate": "2026-05-25",
   "sourceBasis": [
     {
@@ -43,6 +43,12 @@
       "id": "fallback-answers",
       "path": "project-control/investor-demo-fallback-answers-2026-05-25.md",
       "reason": "Controlled answers if a page is slow, a login is missing, or the investor challenges payment proof.",
+      "status": "PASS"
+    },
+    {
+      "id": "live-data-provider-checklist",
+      "path": "project-control/investor-live-data-provider-action-checklist-2026-05-25.md",
+      "reason": "Owner-side steps for the five remaining live-data/provider blockers.",
       "status": "PASS"
     },
     {
@@ -125,6 +131,10 @@
     },
     {
       "token": "./investor-demo-fallback-answers-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "./investor-live-data-provider-action-checklist-2026-05-25.md",
       "status": "PASS"
     },
     {

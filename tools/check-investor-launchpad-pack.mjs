@@ -35,6 +35,11 @@ const requiredFiles = [
 		reason: 'Controlled answers if a page is slow, a login is missing, or the investor challenges payment proof.',
 	},
 	{
+		id: 'live-data-provider-checklist',
+		path: 'project-control/investor-live-data-provider-action-checklist-2026-05-25.md',
+		reason: 'Owner-side steps for the five remaining live-data/provider blockers.',
+	},
+	{
 		id: 'ascii-demo-data',
 		path: 'project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md',
 		reason: 'Copy-safe demo lawyer and lead fields if Hebrew rendering is risky.',
@@ -71,6 +76,7 @@ const launchpadTokens = [
 	'https://jus-tice.co.il/wp-admin/admin.php?page=justice-lawyer-onboarding',
 	'./investor-payment-lifecycle-playbook-2026-05-25.md',
 	'./investor-demo-fallback-answers-2026-05-25.md',
+	'./investor-live-data-provider-action-checklist-2026-05-25.md',
 	'tools\\run-investor-morning-pack.ps1',
 	'Do not claim recurring billing',
 ];

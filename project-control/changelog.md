@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor live data/provider action checklist
+
+- ADDED: `project-control/investor-live-data-provider-action-checklist-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the owner-side live action checklist.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` to include the checklist in the verified pack.
+- RESEARCH BASIS: HubSpot demo guidance and Stripe Payment Links documentation/support.
+- PURPOSE: convert the remaining demo-data and payment-provider blockers into exact owner/provider actions with pass signals.
+- SAFETY: local documentation/checker/launchpad artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Investor fallback answers
 
 - ADDED: `project-control/investor-demo-fallback-answers-2026-05-25.md`.

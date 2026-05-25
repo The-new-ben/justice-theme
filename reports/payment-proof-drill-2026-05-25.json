@@ -1,0 +1,71 @@
+{
+  "status": "PASS",
+  "startedAt": "2026-05-25T05:38:01.395Z",
+  "runDate": "2026-05-25",
+  "sourceBasis": [
+    {
+      "name": "Grow fixed-amount payment-link guide",
+      "url": "https://grow.business/fixed-amount-link/",
+      "meaning": "Grow documents creating a one-time fixed-amount payment link and sharing it digitally."
+    },
+    {
+      "name": "Grow payment-page guide",
+      "url": "https://grow.business/payment-page/",
+      "meaning": "Grow positions payment pages/links as a practical online sale path with branding and supported payment methods."
+    },
+    {
+      "name": "Morning / Green Invoice payment API reference",
+      "url": "https://jsapi.apiary.io/apis/greeninvoice/reference/expenses/search-expense-drafts.html",
+      "meaning": "Morning documents payment form flows where a payment can generate a document after payment, when the account has an eligible clearing plugin."
+    }
+  ],
+  "results": [
+    {
+      "id": "real-grow-payment-link-smoke-test",
+      "path": "project-control/grow-real-payment-link-smoke-test-2026-05-24.md",
+      "reason": "Evidence that a real one-time Grow payment link exists and was emailed to the owner.",
+      "tokens": [
+        "Created a real one-time Grow Payment Link",
+        "Full link | Sent by email; intentionally not stored in repo",
+        "Link sent to owner by Gmail | PASS",
+        "Provider payment page opens | PASS",
+        "Branded payment page shows `Jus-Tice Israel` | PASS",
+        "Real payment completed | NOT YET",
+        "Receipt/invoice visible after payment | NOT YET"
+      ],
+      "status": "PASS",
+      "missingTokens": []
+    },
+    {
+      "id": "grow-recurring-debit-live-attempt",
+      "path": "project-control/grow-recurring-debit-live-attempt-2026-05-24.md",
+      "reason": "Evidence that recurring setup was tested live and blocked by provider authorization.",
+      "tokens": [
+        "Attempted a real Grow recurring-debit setup",
+        "Grow did not create the recurring setup link",
+        "Recurring debit / subscription setup is not yet authorized",
+        "No recurring agreement was created",
+        "must not be presented as working"
+      ],
+      "status": "PASS",
+      "missingTokens": []
+    },
+    {
+      "id": "investor-payment-lifecycle-playbook",
+      "path": "project-control/investor-payment-lifecycle-playbook-2026-05-25.md",
+      "reason": "Investor-safe payment, invoice, refund, cancellation and plan-change talk track.",
+      "tokens": [
+        "payment",
+        "invoice",
+        "refund",
+        "cancel",
+        "upgrade",
+        "downgrade",
+        "manual",
+        "recurring"
+      ],
+      "status": "PASS",
+      "missingTokens": []
+    }
+  ]
+}

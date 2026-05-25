@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Payment proof drill checker
+
+- ADDED: `tools/check-payment-proof-drill.mjs`.
+- GENERATED: `project-control/payment-proof-drill-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/payment-proof-drill-2026-05-25.json` and `.csv`.
+- UPDATED: `tools/run-investor-morning-pack.ps1` so the morning refresh checks real payment-proof evidence before the launchpad gate.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` and `tools/check-investor-launchpad-pack.mjs` to link and require the payment proof drill.
+- PURPOSE: keep the investor demo honest by separating the real one-time Grow payment-link proof from the still-blocked recurring debit authorization.
+- SAFETY: local evidence reconciliation and reports only; no provider login, payment link, charge, invoice, refund, CMS/database or provider setting changed.
+
 # 2026-05-25 - Lawyer signup conversion standard checker
 
 - ADDED: `tools/check-lawyer-signup-conversion-standard.mjs`.

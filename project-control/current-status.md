@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-25 08:34 Asia/Jerusalem
+- PAYMENT PROOF DRILL CHECKER: added a repeatable evidence reconciliation for the live Grow one-time payment-link smoke test and the failed Grow recurring-debit attempt.
+- RESEARCH BASIS: Grow's current fixed-amount payment-link guide supports one-time links that can be branded and shared; Morning/Green Invoice payment documentation supports payment-form flows that can generate a document after payment when eligible clearing is connected.
+- ADDED: `tools/check-payment-proof-drill.mjs`.
+- GENERATED: `project-control/payment-proof-drill-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/payment-proof-drill-2026-05-25.json` and `.csv`.
+- UPDATED: `tools/run-investor-morning-pack.ps1`, `project-control/investor-demo-launchpad-2026-05-25.html`, and `tools/check-investor-launchpad-pack.mjs`.
+- MATERIAL ADVANCE: the owner now has one investor-safe payment line: one-time Grow link exists and was emailed; payment/receipt verification is next; recurring debit remains provider-blocked.
+- STILL BLOCKED: paying the existing link, verifying receipt/invoice, real refund execution, recurring authorization and gateway/product mapping require owner/provider-approved live actions.
+- COMPLETION: payment-proof readiness is about 85% for one-time demo proof if the owner pays the existing link; recurring subscription automation remains materially blocked.
+- SAFETY: local evidence reconciliation and reports only; no provider login, payment link, charge, invoice, refund, CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 08:27 Asia/Jerusalem
 - LAWYER SIGNUP CONVERSION STANDARD CHECKER: added a repeatable live audit for the competitor-informed lawyer signup standard, including entrypoints, plan page, registration, checkout/manual payment bridge, dashboard gate, support assistant and telemetry.
 - RESEARCH BASIS: Lawmatics and Clio emphasize instant intake response, follow-up automation, pipeline visibility, scheduling/reminders and one lead timeline; Avvo emphasizes claimed profiles, visibility and urgent-client demand.

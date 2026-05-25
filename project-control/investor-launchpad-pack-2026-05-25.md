@@ -1,9 +1,9 @@
 # Investor Launchpad Pack Check - 2026-05-25
 
 - Status: PASS
-- Started: 2026-05-25T05:28:24.206Z
-- Files present: 20/20
-- Launchpad tokens present: 27/27
+- Started: 2026-05-25T05:38:01.483Z
+- Files present: 21/21
+- Launchpad tokens present: 29/29
 - Scope: local investor-demo control artifacts only.
 - Safety: no public CMS/database content, payment, invoice, refund, lawyer record, lead, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting was changed.
 
@@ -30,6 +30,7 @@
 | project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md | PASS | Concrete plan/pricing offer sheet for converting interested lawyers into first-cohort payments. |
 | project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html | PASS | Browser-ready Hebrew sales one-pager for showing/sending the first-cohort offer to lawyers. |
 | project-control/first-paid-lawyer-sales-pack-2026-05-25.md | PASS | Repeatable QA gate for first-cohort lawyer sales collateral. |
+| project-control/payment-proof-drill-2026-05-25.md | PASS | Reconciles real one-time Grow link proof with recurring-debit provider blocker. |
 | project-control/lawyer-signup-competitor-patterns-2026-05-25.md | PASS | Competitor-informed signup and revenue-flow standard for lawyer acquisition. |
 | project-control/lawyer-signup-conversion-standard-2026-05-25.md | PASS | Repeatable live audit of the competitor-informed lawyer signup conversion standard. |
 | project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md | PASS | Copy-safe demo lawyer and lead fields if Hebrew rendering is risky. |
@@ -63,6 +64,8 @@
 | `./first-cohort-lawyer-offer-sheet-2026-05-25.md` | PASS |
 | `./first-cohort-lawyer-offer-sheet-he-2026-05-25.html` | PASS |
 | `./first-paid-lawyer-sales-pack-2026-05-25.md` | PASS |
+| `./payment-proof-drill-2026-05-25.md` | PASS |
+| `check-payment-proof-drill.mjs` | PASS |
 | `./lawyer-signup-competitor-patterns-2026-05-25.md` | PASS |
 | `./lawyer-signup-conversion-standard-2026-05-25.md` | PASS |
 | `check-lawyer-signup-conversion-standard.mjs` | PASS |

@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "startedAt": "2026-05-25T05:28:24.206Z",
+  "startedAt": "2026-05-25T05:38:01.483Z",
   "runDate": "2026-05-25",
   "sourceBasis": [
     {
@@ -97,6 +97,12 @@
       "id": "first-paid-lawyer-sales-pack-check",
       "path": "project-control/first-paid-lawyer-sales-pack-2026-05-25.md",
       "reason": "Repeatable QA gate for first-cohort lawyer sales collateral.",
+      "status": "PASS"
+    },
+    {
+      "id": "payment-proof-drill",
+      "path": "project-control/payment-proof-drill-2026-05-25.md",
+      "reason": "Reconciles real one-time Grow link proof with recurring-debit provider blocker.",
       "status": "PASS"
     },
     {
@@ -223,6 +229,14 @@
     },
     {
       "token": "./first-paid-lawyer-sales-pack-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "./payment-proof-drill-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "check-payment-proof-drill.mjs",
       "status": "PASS"
     },
     {

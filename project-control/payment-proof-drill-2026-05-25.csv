@@ -1,0 +1,4 @@
+id,status,file,missing_tokens,reason
+real-grow-payment-link-smoke-test,PASS,project-control/grow-real-payment-link-smoke-test-2026-05-24.md,-,Evidence that a real one-time Grow payment link exists and was emailed to the owner.
+grow-recurring-debit-live-attempt,PASS,project-control/grow-recurring-debit-live-attempt-2026-05-24.md,-,Evidence that recurring setup was tested live and blocked by provider authorization.
+investor-payment-lifecycle-playbook,PASS,project-control/investor-payment-lifecycle-playbook-2026-05-25.md,-,"Investor-safe payment, invoice, refund, cancellation and plan-change talk track."

@@ -80,6 +80,11 @@ const requiredFiles = [
 		reason: 'Repeatable QA gate for first-cohort lawyer sales collateral.',
 	},
 	{
+		id: 'payment-proof-drill',
+		path: 'project-control/payment-proof-drill-2026-05-25.md',
+		reason: 'Reconciles real one-time Grow link proof with recurring-debit provider blocker.',
+	},
+	{
 		id: 'lawyer-signup-competitor-patterns',
 		path: 'project-control/lawyer-signup-competitor-patterns-2026-05-25.md',
 		reason: 'Competitor-informed signup and revenue-flow standard for lawyer acquisition.',
@@ -134,6 +139,8 @@ const launchpadTokens = [
 	'./first-cohort-lawyer-offer-sheet-2026-05-25.md',
 	'./first-cohort-lawyer-offer-sheet-he-2026-05-25.html',
 	'./first-paid-lawyer-sales-pack-2026-05-25.md',
+	'./payment-proof-drill-2026-05-25.md',
+	'check-payment-proof-drill.mjs',
 	'./lawyer-signup-competitor-patterns-2026-05-25.md',
 	'./lawyer-signup-conversion-standard-2026-05-25.md',
 	'check-lawyer-signup-conversion-standard.mjs',

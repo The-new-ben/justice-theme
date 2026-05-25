@@ -26,6 +26,7 @@ Owner/investor feedback identified two urgent trust issues:
 - Tightened Maya Rotenberg safety logic: a profile with this identity now needs a stronger approval signal than a generic `public/published` status. Seed/demo/fake-like profiles remain blocked.
 - Removed the forced legacy Maya article attachment from single lawyer profiles.
 - Stopped unverified public-basic profiles from auto-filling unrelated practice-area article modules. Contextual article fallback is now reserved for verified or paid profiles.
+- Stopped the current Maya profile from borrowing connected article authority until the profile facts and media are source-checked.
 
 ## Honest Statement
 

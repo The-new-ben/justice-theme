@@ -131,6 +131,12 @@ $lawyer_profile_slug      = get_post_field( 'post_name', $lawyer_id );
 $authority_person_slug    = function_exists( 'justice_theme_authority_verified_person_slug_for_post' )
 	? justice_theme_authority_verified_person_slug_for_post( $lawyer_id )
 	: '';
+$is_maya_profile          = 'advocate-maya-rotenberg' === $lawyer_profile_slug
+	|| (
+		false !== mb_strpos( get_the_title( $lawyer_id ), rawurldecode( '%D7%9E%D7%90%D7%99%D7%94' ) )
+		&& false !== mb_strpos( get_the_title( $lawyer_id ), rawurldecode( '%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92' ) )
+	);
+$can_show_profile_articles = ( $is_paid || $is_verified ) && ! $is_maya_profile;
 $connected_article_slugs = array_filter( array( $lawyer_profile_slug, $authority_person_slug ) );
 
 if ( false !== mb_strpos( get_the_title( $lawyer_id ), 'מאיה' ) && false !== mb_strpos( get_the_title( $lawyer_id ), 'רוטנברג' ) ) {
@@ -158,9 +164,18 @@ $connected_articles_args = array(
 	),
 );
 
-$related_articles = new WP_Query( $connected_articles_args );
+$related_articles = $can_show_profile_articles
+	? new WP_Query( $connected_articles_args )
+	: new WP_Query(
+		array(
+			'post_type'      => 'articles',
+			'post__in'       => array( 0 ),
+			'posts_per_page' => 1,
+			'no_found_rows'  => true,
+		)
+	);
 
-if ( ! $related_articles->have_posts() && $primary_area && ( $is_paid || $is_verified ) ) {
+if ( ! $related_articles->have_posts() && $primary_area && $can_show_profile_articles ) {
 	$related_articles = new WP_Query( array(
 		'post_type'           => 'articles',
 		'post_status'         => 'publish',
@@ -178,11 +193,6 @@ if ( ! $related_articles->have_posts() && $primary_area && ( $is_paid || $is_ver
 
 $has_related_articles = $related_articles instanceof WP_Query && $related_articles->have_posts();
 $has_media_module     = $video_url || ! empty( $media_items );
-$is_maya_profile      = 'advocate-maya-rotenberg' === $lawyer_profile_slug
-	|| (
-		false !== mb_strpos( get_the_title( $lawyer_id ), rawurldecode( '%D7%9E%D7%90%D7%99%D7%94' ) )
-		&& false !== mb_strpos( get_the_title( $lawyer_id ), rawurldecode( '%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92' ) )
-	);
 $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 	&& ! $is_seed_data
 	&& ! $is_maya_profile

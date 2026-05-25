@@ -2,7 +2,7 @@
 - LAWYER CARD VISUAL/TRUST POLISH: fixed the live homepage/directory card overlap issue where profile media could render wider than its grid track and cover lawyer text.
 - UPDATED: `assets/css/premium-pass-4.css`, `inc/enqueue.php`, `template-parts/cards/lawyer-card.php`, `single-justice_lawyer.php`, and `inc/template-tags.php`.
 - ADDED: `project-control/lawyer-profile-visual-trust-polish-2026-05-25.md`.
-- MATERIAL ADVANCE: public lawyer cards now use bounded portrait media/initials, unverified public-basic cards do not show questionable thumbnails, the questionable Maya image is suppressed until verified/owned media exists, and unverified profiles no longer get unrelated article fallback or forced Maya legacy content.
+- MATERIAL ADVANCE: public lawyer cards now use bounded portrait media/initials, unverified public-basic cards do not show questionable thumbnails, the questionable Maya image is suppressed until verified/owned media exists, and unverified/person-specific Maya content no longer borrows article authority or forced legacy content until source-checked.
 - RESEARCH BASIS: checked current public patterns from Din, PsakDin, LawReviews, Avvo, Justia, and MDN CSS image/aspect-ratio guidance. Implementation is original and does not copy competitor photos, reviews, ratings, or profile text.
 - HONEST LIMITATION: I did not add a real Maya Rotenberg photo because I do not have a verified owned/licensed source. I tightened the system so unverified/fake-looking profile data is not presented as a premium mini-site.
 - REVENUE STATUS: realized revenue remains NIS 0. This improves investor/customer trust in the profile layer but does not prove payment, invoice, refund, or subscription flow.

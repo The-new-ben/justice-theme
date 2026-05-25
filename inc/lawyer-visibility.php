@@ -326,6 +326,155 @@ function justice_lawyer_admin_badge( string $label, string $background = '#f0f0f
 }
 
 /**
+ * Detect the sensitive Maya Rotenberg profile identity.
+ *
+ * @param int $post_id Lawyer profile post ID.
+ * @return bool
+ */
+function justice_lawyer_owner_is_maya_profile( int $post_id ): bool {
+	$slug  = (string) get_post_field( 'post_name', $post_id );
+	$title = get_the_title( $post_id );
+
+	return 'advocate-maya-rotenberg' === $slug
+		|| (
+			false !== mb_strpos( $title, rawurldecode( '%D7%9E%D7%90%D7%99%D7%94' ) )
+			&& false !== mb_strpos( $title, rawurldecode( '%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92' ) )
+		);
+}
+
+/**
+ * Build an owner-facing trust checklist for a lawyer profile.
+ *
+ * @param int $post_id Lawyer profile post ID.
+ * @return array{issues:array<string,string>,signals:array<string,string>,level:string}
+ */
+function justice_lawyer_owner_profile_trust_findings( int $post_id ): array {
+	$source_type       = strtolower( (string) get_post_meta( $post_id, 'source_type', true ) );
+	$source_url        = (string) get_post_meta( $post_id, 'source_url', true );
+	$profile_status    = strtolower( (string) get_post_meta( $post_id, 'profile_status', true ) );
+	$verification      = strtolower( (string) get_post_meta( $post_id, 'verification_status', true ) );
+	$subscription      = strtolower( (string) get_post_meta( $post_id, 'subscription_status', true ) );
+	$plan              = strtolower( (string) get_post_meta( $post_id, 'plan_type', true ) );
+	$claimed_user_id   = (int) get_post_meta( $post_id, 'claimed_by_user_id', true );
+	$internal_notes    = strtolower( (string) get_post_meta( $post_id, 'internal_notes', true ) );
+	$credentials       = trim( (string) get_post_meta( $post_id, 'profile_credentials', true ) );
+	$public_sources    = trim( (string) get_post_meta( $post_id, 'profile_public_sources', true ) );
+	$source_summary    = trim( (string) get_post_meta( $post_id, 'profile_source_summary', true ) );
+	$review_count      = (int) get_post_meta( $post_id, 'review_count', true );
+	$average_rating    = (float) get_post_meta( $post_id, 'average_rating', true );
+	$reviews_enabled   = in_array( strtolower( (string) get_post_meta( $post_id, 'review_display_enabled', true ) ), array( '1', 'yes', 'true', 'enabled', 'approved' ), true );
+	$is_maya_profile   = justice_lawyer_owner_is_maya_profile( $post_id );
+	$is_verified       = 'verified' === $verification;
+	$is_paid           = 'active' === $subscription && in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
+	$is_public_basic   = 0 === $claimed_user_id
+		&& ! $is_verified
+		&& in_array( $source_type, array( 'public_index', 'import' ), true )
+		&& in_array( $profile_status, array( 'public', 'published' ), true );
+	$source_ok         = '' !== $source_url && ! in_array( $source_type, array( '', 'seed' ), true );
+	$notes_seed_like   = false !== strpos( $internal_notes, 'seed' )
+		|| false !== strpos( $internal_notes, 'demo' )
+		|| false !== strpos( $internal_notes, 'test data' )
+		|| false !== strpos( $internal_notes, 'fake' )
+		|| false !== strpos( $internal_notes, 'fictional' );
+	$media_is_safe     = has_post_thumbnail( $post_id )
+		&& ! $is_maya_profile
+		&& (
+			$is_paid
+			|| $is_verified
+			|| in_array( $source_type, array( 'lawyer_submitted', 'owner_verified', 'verified_public' ), true )
+		);
+	$issues            = array();
+	$signals           = array();
+
+	if ( $is_maya_profile ) {
+		$issues['maya_review'] = __( 'Maya profile: source-check facts/media before promotion', 'justice-theme' );
+	}
+
+	if ( 'seed' === $source_type || $notes_seed_like ) {
+		$issues['seed_demo'] = __( 'Seed/demo-like notes or source', 'justice-theme' );
+	}
+
+	if ( ( $is_public_basic || 'public_index' === $source_type || 'import' === $source_type ) && ! $source_ok ) {
+		$issues['missing_source'] = __( 'Missing public source URL', 'justice-theme' );
+	}
+
+	if ( has_post_thumbnail( $post_id ) && ! $media_is_safe ) {
+		$issues['blocked_media'] = __( 'Photo blocked until verified/owned', 'justice-theme' );
+	}
+
+	if ( '' !== $credentials && '' === $public_sources && '' === $source_summary && ! $source_ok ) {
+		$issues['unsourced_credentials'] = __( 'Credentials need source note', 'justice-theme' );
+	}
+
+	if ( ( $review_count > 0 || $average_rating > 0 ) && ! $reviews_enabled ) {
+		$issues['hidden_reviews'] = __( 'Review data is hidden/not approved', 'justice-theme' );
+	}
+
+	if ( $source_ok ) {
+		$signals['source_ok'] = __( 'Source link exists', 'justice-theme' );
+	}
+
+	if ( $is_verified ) {
+		$signals['verified'] = __( 'Verified profile', 'justice-theme' );
+	}
+
+	if ( $is_paid ) {
+		$signals['paid'] = __( 'Paid/active plan', 'justice-theme' );
+	}
+
+	if ( $media_is_safe ) {
+		$signals['media_safe'] = __( 'Photo allowed', 'justice-theme' );
+	} elseif ( ! has_post_thumbnail( $post_id ) ) {
+		$signals['initials'] = __( 'Uses initials/avatar', 'justice-theme' );
+	}
+
+	$level = empty( $issues ) ? 'ready' : 'review';
+	if ( isset( $issues['maya_review'] ) || isset( $issues['seed_demo'] ) || isset( $issues['blocked_media'] ) || isset( $issues['unsourced_credentials'] ) ) {
+		$level = 'hold';
+	}
+
+	return array(
+		'issues'  => $issues,
+		'signals' => $signals,
+		'level'   => $level,
+	);
+}
+
+/**
+ * Check if a profile matches an owner trust-gate filter.
+ *
+ * @param int    $post_id Lawyer profile post ID.
+ * @param string $gate Requested filter gate.
+ * @return bool
+ */
+function justice_lawyer_owner_profile_matches_trust_gate( int $post_id, string $gate ): bool {
+	$findings = justice_lawyer_owner_profile_trust_findings( $post_id );
+	$issues   = $findings['issues'];
+
+	switch ( $gate ) {
+		case 'needs_review':
+			return ! empty( $issues );
+
+		case 'hold':
+			return 'hold' === $findings['level'];
+
+		case 'missing_source':
+			return isset( $issues['missing_source'] );
+
+		case 'blocked_media':
+			return isset( $issues['blocked_media'] );
+
+		case 'maya_review':
+			return isset( $issues['maya_review'] );
+
+		case 'ready':
+			return empty( $issues );
+	}
+
+	return false;
+}
+
+/**
  * Add owner-facing management columns to the lawyer CMS list.
  *
  * @param array<string,string> $columns Existing columns.
@@ -340,6 +489,7 @@ function justice_lawyer_owner_admin_columns( array $columns ): array {
 		if ( 'title' === $key ) {
 			$updated['justice_owner_control'] = __( 'Jus-Tice control', 'justice-theme' );
 			$updated['justice_owner_source']  = __( 'Source / type', 'justice-theme' );
+			$updated['justice_owner_trust']   = __( 'Trust gate', 'justice-theme' );
 		}
 	}
 
@@ -395,6 +545,34 @@ function justice_lawyer_owner_admin_column_content( string $column, int $post_id
 				esc_url( $public_url ),
 				esc_html__( 'Open public card', 'justice-theme' )
 			);
+		}
+
+		return;
+	}
+
+	if ( 'justice_owner_trust' === $column ) {
+		$findings = justice_lawyer_owner_profile_trust_findings( $post_id );
+
+		if ( 'ready' === $findings['level'] ) {
+			justice_lawyer_admin_badge( 'Trust ready', '#d1e7dd', '#0f5132' );
+		} elseif ( 'hold' === $findings['level'] ) {
+			justice_lawyer_admin_badge( 'Hold before promo', '#f8d7da', '#842029' );
+		} else {
+			justice_lawyer_admin_badge( 'Needs review', '#fff3cd', '#664d03' );
+		}
+
+		foreach ( array_slice( $findings['issues'], 0, 4 ) as $issue ) {
+			justice_lawyer_admin_badge( $issue, '#fff3cd', '#664d03' );
+		}
+
+		foreach ( array_slice( $findings['signals'], 0, 3 ) as $signal ) {
+			justice_lawyer_admin_badge( $signal, '#eef2f7', '#243b53' );
+		}
+
+		if ( empty( $findings['issues'] ) ) {
+			echo '<div style="margin-top:4px;color:#0f5132;font-size:11px;">Safe for outreach/promoted review.</div>';
+		} else {
+			echo '<div style="margin-top:4px;color:#646970;font-size:11px;">Verify source, media and factual claims before premium positioning.</div>';
 		}
 
 		return;
@@ -462,6 +640,17 @@ function justice_lawyer_owner_admin_filters( string $post_type ): void {
 				'manual'       => 'manual',
 				'registration' => 'registration',
 				'seed'         => 'seed',
+			),
+		),
+		'justice_owner_trust_gate'        => array(
+			'label'   => __( 'All trust gates', 'justice-theme' ),
+			'options' => array(
+				'needs_review'  => __( 'Needs trust review', 'justice-theme' ),
+				'hold'          => __( 'Hold before promotion', 'justice-theme' ),
+				'missing_source' => __( 'Missing source URL', 'justice-theme' ),
+				'blocked_media' => __( 'Blocked/unverified media', 'justice-theme' ),
+				'maya_review'   => __( 'Maya source review', 'justice-theme' ),
+				'ready'         => __( 'Trust ready', 'justice-theme' ),
 			),
 		),
 		'justice_owner_professional_type' => array(
@@ -581,6 +770,30 @@ function justice_lawyer_owner_admin_filter_query( WP_Query $query ): void {
 			'key'   => $meta_key,
 			'value' => $value,
 		);
+	}
+
+	$trust_gate = isset( $_GET['justice_owner_trust_gate'] ) ? sanitize_key( wp_unslash( $_GET['justice_owner_trust_gate'] ) ) : '';
+	if ( '' !== $trust_gate ) {
+		$all_lawyer_ids = get_posts(
+			array(
+				'post_type'        => 'justice_lawyer',
+				'post_status'      => array( 'publish', 'draft', 'pending', 'private' ),
+				'posts_per_page'   => -1,
+				'fields'           => 'ids',
+				'no_found_rows'    => true,
+				'suppress_filters' => true,
+			)
+		);
+		$matching_ids   = array_values(
+			array_filter(
+				array_map( 'intval', $all_lawyer_ids ),
+				static function ( int $post_id ) use ( $trust_gate ): bool {
+					return justice_lawyer_owner_profile_matches_trust_gate( $post_id, $trust_gate );
+				}
+			)
+		);
+
+		$query->set( 'post__in', ! empty( $matching_ids ) ? $matching_ids : array( 0 ) );
 	}
 
 	if ( ! empty( $meta_query ) ) {

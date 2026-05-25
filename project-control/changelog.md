@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer profile trust gate admin
+
+- UPDATED: `inc/lawyer-visibility.php`.
+- ADDED: `project-control/lawyer-profile-trust-gate-admin-2026-05-25.md`.
+- PURPOSE: make unsafe lawyer/professional records visible in the CMS before they are promoted, after owner feedback that a profile could contain unverified facts/media and still look premium.
+- IMPLEMENTATION: added a `Trust gate` admin column, owner filters for needs review/hold/missing source/blocked media/Maya review/trust ready, and trust findings for seed/demo markers, missing source URLs, blocked thumbnails, unsourced credentials and hidden reviews.
+- SAFETY: admin/theme logic only; no CMS database record, competitor profile copy, photo, review, rating, contact detail, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed.
+
 # 2026-05-25 - Lawyer profile visual trust polish
 
 - UPDATED: `assets/css/premium-pass-4.css`, `inc/enqueue.php`, `template-parts/cards/lawyer-card.php`, `single-justice_lawyer.php`, and `inc/template-tags.php`.

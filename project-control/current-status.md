@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-25 14:20 Asia/Jerusalem
+- LAWYER PROFILE TRUST GATE ADDED: wp-admin lawyer list now has an owner-facing `Trust gate` column and filters to catch profiles that need source/media/fact review before promotion.
+- UPDATED: `inc/lawyer-visibility.php`.
+- ADDED: `project-control/lawyer-profile-trust-gate-admin-2026-05-25.md`.
+- MATERIAL ADVANCE: after the Maya profile issue, the CMS now gives the owner an operating screen for `Hold before promotion`, `Missing source URL`, `Blocked/unverified media`, `Maya source review`, and `Trust ready`, instead of relying on memory or scattered notes.
+- RESEARCH BASIS: this cycle operationalizes the previous competitor/profile-quality research and live owner feedback; it does not copy competitor photos, reviews, ratings, profile text, or contact details.
+- REVENUE STATUS: realized revenue remains NIS 0. This reduces demo/outreach trust risk but does not prove payment, invoice, refund, subscription, or lead monetization.
+- SAFETY: admin/theme logic and docs only; no CMS database record, competitor asset/content, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 13:58 Asia/Jerusalem
 - LAWYER CARD VISUAL/TRUST POLISH: fixed the live homepage/directory card overlap issue where profile media could render wider than its grid track and cover lawyer text.
 - UPDATED: `assets/css/premium-pass-4.css`, `inc/enqueue.php`, `template-parts/cards/lawyer-card.php`, `single-justice_lawyer.php`, and `inc/template-tags.php`.

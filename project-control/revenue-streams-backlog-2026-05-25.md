@@ -182,6 +182,10 @@ Already shipped:
 - Public lawyer-card labels softened away from "unverified" language.
 - Maya legacy URLs redirected to the real lawyer profile path.
 - Homepage reframed to include lawyers and legal professionals.
+- Header/menu resilience tightened for the investor review: desktop navigation
+  no longer wraps into a broken multi-row header, medium-width screens move to
+  the hamburger menu earlier, and the dark topic strip stays horizontally
+  scrollable instead of growing the first screen.
 
 Remaining:
 

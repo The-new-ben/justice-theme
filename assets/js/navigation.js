@@ -24,7 +24,7 @@
 
   // ── Mobile sub-menu accordion ─────────────────────────────
   // On small screens, tapping a parent item toggles children open
-  if ( window.innerWidth <= 768 ) {
+  if ( window.innerWidth <= 1220 ) {
     const parents = document.querySelectorAll(
       '.primary-navigation .menu-item-has-children > a'
     );

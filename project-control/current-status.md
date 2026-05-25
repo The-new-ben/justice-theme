@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-25 07:02 Asia/Jerusalem
+- HEBREW BRIEF COUNT SYNC: corrected the Hebrew Markdown and browser-ready Hebrew brief so the launchpad-pack proof numbers match the latest verified pack count.
+- UPDATED: `project-control/investor-morning-brief-he-2026-05-25.md`.
+- UPDATED: `project-control/investor-morning-brief-he-2026-05-25.html`.
+- MATERIAL ADVANCE: removes a presentation-risk mismatch where the owner could read stale launchpad-pack numbers aloud during the investor meeting.
+- STILL BLOCKED: actual live data/payment/refund execution requires explicit owner/provider approval.
+- COMPLETION: investor operator readiness remains about 96%; wording consistency is cleaner and safer.
+- SAFETY: local documentation only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 06:52 Asia/Jerusalem
 - HEBREW BRIEF HTML: added a browser-ready RTL Hebrew morning brief so the owner can open clean Hebrew wording without terminal encoding problems.
 - ADDED: `project-control/investor-morning-brief-he-2026-05-25.html`.

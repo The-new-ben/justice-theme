@@ -1,6 +1,12 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Hebrew brief count sync
+
+- UPDATED: `project-control/investor-morning-brief-he-2026-05-25.md` and `.html` so the stated launchpad-pack count matches the verified 12/12 files and 19/19 markers.
+- PURPOSE: prevent stale proof numbers from being read aloud in the investor meeting.
+- SAFETY: local documentation only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Hebrew brief HTML
 
 - ADDED: `project-control/investor-morning-brief-he-2026-05-25.html` as a browser-ready RTL version of the Hebrew owner script.

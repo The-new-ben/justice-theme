@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-25 04:56 Asia/Jerusalem
+- INVESTOR SCENARIO SCRIPT: added a first-person walkthrough script for the exact medical-malpractice lawyer journey the owner described: discovery, plan choice, payment fallback, registration, dashboard, owner admin, assigned lead, service request and close.
+- ADDED: `project-control/investor-demo-scenario-script-2026-05-25.md` with talk tracks and panic lines for payment/refund/fake-data questions.
+- ADDED: `project-control/investor-demo-scenario-script-2026-05-25.csv` with the same flow as a compact checklist.
+- MATERIAL ADVANCE: the investor demo can now be narrated as one coherent customer story instead of jumping between technical checks.
+- STILL BLOCKED: live claimed-lawyer login, assigned lead and real payment/refund execution require owner-approved data/provider actions.
+- SAFETY: documentation/script only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 04:46 Asia/Jerusalem
 - ASCII DEMO DATA BACKUP: added an ASCII-only backup for the investor demo seed packet so the owner has safe copy/paste text even if Hebrew renders incorrectly in a terminal, CSV viewer, email client or admin field.
 - ADDED: `project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md` with English demo lawyer, demo lead, service request and payment-link text.

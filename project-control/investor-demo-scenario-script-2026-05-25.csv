@@ -1,0 +1,10 @@
+step,title,url,talk_track
+1,Public Discovery,https://jus-tice.co.il/,"The lawyer business path is visible from the homepage and connects public acquisition to paid lawyer onboarding."
+2,Plan Selection,https://jus-tice.co.il/lawyer-plans/,"The plan page sells a business account path, not just a listing card."
+3,Payment Fallback,https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice,"Recurring billing is approval-gated; manual invoice or real payment link is the live bridge."
+4,Registration Context,https://jus-tice.co.il/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice&billing_first_name=Investor&billing_last_name=Demo&billing_phone=0501234567&billing_email=investor-demo@example.com&billing_legal_name=Demo+Medical+Law+Ltd&billing_business_id=123456789&billing_invoice_email=billing-demo@example.com&billing_invoice_address=Tel+Aviv,"Plan and billing context are preserved into registration."
+5,Private Area Gate,https://jus-tice.co.il/lawyer-dashboard/,"Logged-out users see the product promise; claimed lawyers unlock the private workflow."
+6,Owner Admin,https://jus-tice.co.il/wp-admin/admin.php?page=justice-lawyer-onboarding,"Owner command center manages payment links, queues, demo checklist, and service requests."
+7,Claimed Lawyer Demo,owner-approved-login-required,"Show dashboard, assigned lead, contact actions, lead-stage update, and service request form."
+8,Service Request,owner-approved-login-required,"Submit a lead-quality or refund/cancel ticket and show it enters the owner queue."
+9,Close,none,"The funnel is live; payment automation is the final provider layer after approval."

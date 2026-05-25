@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor scenario script
+
+- ADDED: `project-control/investor-demo-scenario-script-2026-05-25.md` with the first-person medical-malpractice lawyer demo story, talk tracks and panic lines.
+- ADDED: `project-control/investor-demo-scenario-script-2026-05-25.csv` as a compact checklist.
+- PURPOSE: turn the verified routes and seed data into a coherent customer/investor narrative.
+- SAFETY: documentation/script only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - ASCII investor demo data backup
 
 - ADDED: `project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md` and `.csv`.

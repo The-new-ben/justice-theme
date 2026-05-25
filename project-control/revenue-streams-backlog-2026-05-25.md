@@ -114,6 +114,9 @@ Already shipped:
   prospect records now track license check, niche-experience check, response
   commitment and manual-payment readiness before a prospect is treated as ready
   for lead routing.
+- Prospect verification views added: the private prospect pipeline can now be
+  filtered by "Needs verification" and "Ready for routing", and the Bituach
+  Leumi supply panel links directly into both views.
 
 Remaining:
 

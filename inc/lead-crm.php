@@ -217,6 +217,8 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 	$prospect_gap      = max( 0, $target - $verified_prospects );
 	$add_url           = justice_theme_crm_btl_prospect_prefill_url();
 	$pipeline_url      = admin_url( 'edit.php?post_type=justice_prospect' );
+	$needs_verification_url = add_query_arg( 'justice_prospect_verification_filter', 'needs', $pipeline_url );
+	$ready_verification_url = add_query_arg( 'justice_prospect_verification_filter', 'ready', $pipeline_url );
 	?>
 	<h2 style="margin-top:28px;">Bituach Leumi specialist supply</h2>
 	<p>Owner-only coverage check for the active appeal funnel. The first goal is three specialist lawyers who can receive and pay for qualified appeal leads.</p>
@@ -246,6 +248,8 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 	<p>
 		<a class="button button-primary" href="<?php echo esc_url( $add_url ); ?>">Add Bituach Leumi prospect</a>
 		<a class="button" href="<?php echo esc_url( $pipeline_url ); ?>">Open prospect pipeline</a>
+		<a class="button" href="<?php echo esc_url( $needs_verification_url ); ?>">Needs verification</a>
+		<a class="button" href="<?php echo esc_url( $ready_verification_url ); ?>">Ready for routing</a>
 	</p>
 	<?php if ( $coverage_gap > 0 ) : ?>
 		<div class="notice notice-warning inline">

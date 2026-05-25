@@ -175,6 +175,90 @@ function justice_theme_lawyer_prospect_is_verified_for_routing( int $post_id ): 
 	return empty( justice_theme_lawyer_prospect_verification_missing( $post_id ) );
 }
 
+function justice_theme_lawyer_prospect_verification_meta_clause( string $filter ): array {
+	$response_ready = array( 'within_15_min', 'same_day' );
+	$open_statuses  = array(
+		'relation' => 'OR',
+		array(
+			'key'     => 'prospect_outreach_status',
+			'compare' => 'NOT EXISTS',
+		),
+		array(
+			'key'     => 'prospect_outreach_status',
+			'value'   => array( 'won', 'lost' ),
+			'compare' => 'NOT IN',
+		),
+	);
+
+	if ( 'ready' === $filter ) {
+		return array(
+			'relation' => 'AND',
+			$open_statuses,
+			array(
+				'key'   => 'prospect_license_verified',
+				'value' => '1',
+			),
+			array(
+				'key'   => 'prospect_specialty_verified',
+				'value' => '1',
+			),
+			array(
+				'key'     => 'prospect_response_fit',
+				'value'   => $response_ready,
+				'compare' => 'IN',
+			),
+			array(
+				'key'   => 'prospect_payment_path_ready',
+				'value' => '1',
+			),
+		);
+	}
+
+	return array(
+		'relation' => 'AND',
+		$open_statuses,
+		array(
+			'relation' => 'OR',
+			array(
+				'key'     => 'prospect_license_verified',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => 'prospect_license_verified',
+				'value'   => '1',
+				'compare' => '!=',
+			),
+			array(
+				'key'     => 'prospect_specialty_verified',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => 'prospect_specialty_verified',
+				'value'   => '1',
+				'compare' => '!=',
+			),
+			array(
+				'key'     => 'prospect_response_fit',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => 'prospect_response_fit',
+				'value'   => $response_ready,
+				'compare' => 'NOT IN',
+			),
+			array(
+				'key'     => 'prospect_payment_path_ready',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => 'prospect_payment_path_ready',
+				'value'   => '1',
+				'compare' => '!=',
+			),
+		),
+	);
+}
+
 function justice_theme_lawyer_prospect_prefill_lead_id(): int {
 	$lead_id = isset( $_GET['from_lead'] ) ? absint( wp_unslash( $_GET['from_lead'] ) ) : 0;
 	if ( ! $lead_id || 'justice_lead' !== get_post_type( $lead_id ) || ! current_user_can( 'edit_post', $lead_id ) ) {
@@ -937,6 +1021,20 @@ function justice_theme_lawyer_prospect_missing_contact_count(): int {
 	return (int) $query->found_posts;
 }
 
+function justice_theme_lawyer_prospect_verification_count( string $filter ): int {
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_prospect',
+		'post_status'    => array( 'publish', 'draft', 'pending', 'private' ),
+		'posts_per_page' => 1,
+		'fields'         => 'ids',
+		'meta_query'     => array(
+			justice_theme_lawyer_prospect_verification_meta_clause( $filter ),
+		),
+	) );
+
+	return (int) $query->found_posts;
+}
+
 function justice_theme_lawyer_prospect_due_views( array $views ): array {
 	if ( ! current_user_can( 'edit_pages' ) ) {
 		return $views;
@@ -944,6 +1042,7 @@ function justice_theme_lawyer_prospect_due_views( array $views ): array {
 
 	$current_due     = isset( $_GET['justice_prospect_due_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_prospect_due_filter'] ) ) : '';
 	$current_contact = isset( $_GET['justice_prospect_contact_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_prospect_contact_filter'] ) ) : '';
+	$current_verify  = isset( $_GET['justice_prospect_verification_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_prospect_verification_filter'] ) ) : '';
 	$base            = admin_url( 'edit.php?post_type=justice_prospect' );
 	$items           = array(
 		'due'         => __( 'Due now', 'justice-theme' ),
@@ -973,6 +1072,21 @@ function justice_theme_lawyer_prospect_due_views( array $views ): array {
 		esc_html__( 'Needs contact details', 'justice-theme' ),
 		justice_theme_lawyer_prospect_missing_contact_count()
 	);
+
+	$verification_items = array(
+		'needs' => __( 'Needs verification', 'justice-theme' ),
+		'ready' => __( 'Ready for routing', 'justice-theme' ),
+	);
+
+	foreach ( $verification_items as $key => $label ) {
+		$views[ 'justice_prospect_verification_' . $key ] = sprintf(
+			'<a href="%1$s"%2$s>%3$s <span class="count">(%4$d)</span></a>',
+			esc_url( add_query_arg( 'justice_prospect_verification_filter', $key, $base ) ),
+			$current_verify === $key ? ' class="current" aria-current="page"' : '',
+			esc_html( $label ),
+			justice_theme_lawyer_prospect_verification_count( $key )
+		);
+	}
 
 	return $views;
 }
@@ -1144,6 +1258,11 @@ function justice_theme_lawyer_prospect_admin_filter_query( WP_Query $query ): vo
 		$meta_query[] = justice_theme_lawyer_prospect_contact_meta_clause();
 	}
 
+	$verification_filter = isset( $_GET['justice_prospect_verification_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_prospect_verification_filter'] ) ) : '';
+	if ( in_array( $verification_filter, array( 'needs', 'ready' ), true ) ) {
+		$meta_query[] = justice_theme_lawyer_prospect_verification_meta_clause( $verification_filter );
+	}
+
 	$due_filter = isset( $_GET['justice_prospect_due_filter'] ) ? sanitize_key( wp_unslash( $_GET['justice_prospect_due_filter'] ) ) : '';
 	if ( in_array( $due_filter, array( 'due', 'overdue', 'unscheduled', 'today', 'upcoming' ), true ) ) {
 		$meta_query[] = justice_theme_lawyer_prospect_due_meta_clause( $due_filter );
@@ -1157,7 +1276,7 @@ function justice_theme_lawyer_prospect_admin_filter_query( WP_Query $query ): vo
 			$query->set( 'orderby', 'meta_value' );
 			$query->set( 'order', 'ASC' );
 		}
-	} elseif ( 'missing' === $contact_filter ) {
+	} elseif ( 'missing' === $contact_filter || in_array( $verification_filter, array( 'needs', 'ready' ), true ) ) {
 		$query->set( 'orderby', 'modified' );
 		$query->set( 'order', 'DESC' );
 	}

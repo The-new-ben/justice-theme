@@ -1,0 +1,68 @@
+{
+  "generated_at": "2026-05-25 Asia/Jerusalem",
+  "pack_dir": "C:\\Users\\janana\\jutice-theme\\mnt\\documents\\justice",
+  "status": "PASS_WITH_DISCLOSED_PARTIALS",
+  "hard_fails": [],
+  "partials": [
+    "Keyword CPC/KDI remain unavailable because no premium/export source is connected.",
+    "SERP x-ray remains partial and needs real Google IL/Semrush export to be final.",
+    "Rich Results Test was not externally executed."
+  ],
+  "counts": {
+    "keyword_candidates": 240,
+    "competitor_records": 8,
+    "new_pages": 7,
+    "seo_meta_entries": 8,
+    "image_prompts": 11,
+    "research_sources": 59,
+    "homepage_words": 5000
+  },
+  "keyword_metric_summary": {
+    "total": 240,
+    "has_volume": 3,
+    "has_cpc": 0,
+    "has_kdi": 0,
+    "missing_metric_items": 237,
+    "baseline_metric_items": 3
+  },
+  "internal_page_results": [
+    {
+      "file": "internal-pages/divorce-family-lawyer.html",
+      "words": 3786,
+      "pass": true
+    },
+    {
+      "file": "internal-pages/real-estate-lawyer.html",
+      "words": 3684,
+      "pass": true
+    },
+    {
+      "file": "internal-pages/medical-malpractice-lawyer.html",
+      "words": 3709,
+      "pass": true
+    },
+    {
+      "file": "internal-pages/inheritance-wills-lawyer.html",
+      "words": 3648,
+      "pass": true
+    },
+    {
+      "file": "internal-pages/criminal-lawyer.html",
+      "words": 3627,
+      "pass": true
+    },
+    {
+      "file": "internal-pages/employment-lawyer.html",
+      "words": 3684,
+      "pass": true
+    },
+    {
+      "file": "internal-pages/tax-business-lawyer.html",
+      "words": 3679,
+      "pass": true
+    }
+  ],
+  "forbidden_hits": [],
+  "safety_statement": "Validation only. No CMS/database, payment, invoice, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.",
+  "next_gate": "Provide Semrush/Keyword Planner/GSC exports or connected access to turn keyword/SERP partials into final numeric gates."
+}

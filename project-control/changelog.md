@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - SEO pack validation gate
+
+- ADDED: `tools/check-justice-seo-pack.mjs`.
+- ADDED: `project-control/justice-seo-pack-validation-2026-05-25.md`.
+- ADDED: `reports/justice-seo-pack-validation-2026-05-25.json`.
+- PURPOSE: make the SEO/content pack auditable and rerunnable instead of relying on a one-time generation log.
+- RESULT: checker reports `PASS_WITH_DISCLOSED_PARTIALS`, no hard fails, 240 keyword candidates, 8 competitor records, 7 new page plans, 59 research sources, 5,000 homepage words and all 7 internal pages above 3,000 words.
+- HONESTY: the checker keeps CPC/KDI, full SERP x-ray and Rich Results Test as disclosed partials until real exports/tools are available.
+- SAFETY: validation/reporting only; no public CMS database record, public page publish, competitor data import, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # 2026-05-25 - SEO pack and WordPress content drafts
 
 - ADDED: `tools/build-justice-seo-pack.mjs`.

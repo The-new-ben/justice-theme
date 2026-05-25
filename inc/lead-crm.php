@@ -33,6 +33,8 @@ function justice_theme_crm_register_lead_meta(): void {
 		'qualified_lead_invoice_reference' => 'string',
 		'qualified_lead_billed_at'  => 'string',
 		'qualified_lead_paid_at'    => 'string',
+		'qualified_lead_ready_at'   => 'string',
+		'qualified_lead_billable_lawyer_ids' => 'string',
 		'qualified_lead_owner_note' => 'string',
 	);
 
@@ -1333,6 +1335,38 @@ function justice_theme_crm_qualified_lead_billing_labels(): array {
 }
 add_action( 'save_post_justice_lead', 'justice_theme_crm_save_lead_disposition' );
 
+function justice_theme_crm_qualified_lead_billing_badge( int $post_id ): array {
+	$revenue_model = (string) get_post_meta( $post_id, 'lead_revenue_model', true );
+	if ( '' === $revenue_model ) {
+		return array(
+			'label'  => '-',
+			'style'  => 'background:#f1f5f9;color:#334155;',
+			'detail' => '',
+		);
+	}
+
+	$status = (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true );
+	$status = $status ?: 'not_ready';
+	$labels = justice_theme_crm_qualified_lead_billing_labels();
+	$label  = $labels[ $status ] ?? $labels['not_ready'];
+	$price  = absint( get_post_meta( $post_id, 'suggested_lead_price_ils', true ) );
+
+	$styles = array(
+		'not_ready'     => 'background:#fef3c7;color:#92400e;',
+		'ready_to_bill' => 'background:#dcfce7;color:#166534;',
+		'invoice_sent'  => 'background:#dbeafe;color:#1e40af;',
+		'paid'          => 'background:#ecfdf5;color:#047857;',
+		'disputed'      => 'background:#fee2e2;color:#991b1b;',
+		'waived'        => 'background:#f1f5f9;color:#475569;',
+	);
+
+	return array(
+		'label'  => $price ? sprintf( '%s - ₪%s', $label, number_format_i18n( $price ) ) : $label,
+		'style'  => $styles[ $status ] ?? $styles['not_ready'],
+		'detail' => str_replace( '_', ' ', $revenue_model ),
+	);
+}
+
 function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): void {
 	if ( ! $items || ! $items->have_posts() ) {
 		echo '<div class="notice notice-info inline"><p>No records found.</p></div>';
@@ -1352,6 +1386,7 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 				<th>Coverage</th>
 				<th>Quality</th>
 				<th>Follow-up</th>
+				<th>Billing</th>
 				<th>Response SLA</th>
 				<th>Lawyer report</th>
 				<th>Source</th>
@@ -1395,6 +1430,7 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 				$coverage = 'justice_lead' === $post_type ? justice_theme_crm_coverage_badge( $post_id ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;' );
 				$quality = 'justice_lead' === $post_type ? justice_theme_crm_lead_quality( $post_id ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;' );
 				$follow_up = 'justice_lead' === $post_type ? justice_theme_crm_follow_up_label( $post_id, $status ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;' );
+				$billing = 'justice_lead' === $post_type ? justice_theme_crm_qualified_lead_billing_badge( $post_id ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;', 'detail' => '' );
 				$response_sla = 'justice_lead' === $post_type ? justice_theme_crm_response_sla_badge( $post_id, $status ) : array( 'label' => '-', 'style' => 'background:#f1f5f9;color:#334155;' );
 				$prospect_url = 'justice_lead' === $post_type ? justice_theme_crm_prospect_from_lead_url( $post_id ) : '';
 				$lawyer_report = 'justice_lead' === $post_type ? (string) get_post_meta( $post_id, 'latest_lawyer_follow_up_note', true ) : '';
@@ -1409,6 +1445,12 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 					<td><span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $coverage['style'] ); ?>"><?php echo esc_html( $coverage['label'] ); ?></span></td>
 					<td><span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $quality['style'] ); ?>"><?php echo esc_html( $quality['label'] ); ?></span></td>
 					<td><span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $follow_up['style'] ); ?>"><?php echo esc_html( $follow_up['label'] ); ?></span></td>
+					<td>
+						<span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $billing['style'] ); ?>"><?php echo esc_html( $billing['label'] ); ?></span>
+						<?php if ( ! empty( $billing['detail'] ) ) : ?>
+							<small style="display:block;color:#646970;margin-top:3px;"><?php echo esc_html( $billing['detail'] ); ?></small>
+						<?php endif; ?>
+					</td>
 					<td><span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $response_sla['style'] ); ?>"><?php echo esc_html( $response_sla['label'] ); ?></span></td>
 					<td>
 						<?php if ( $lawyer_report || $lawyer_report_at ) : ?>

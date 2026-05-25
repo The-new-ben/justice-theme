@@ -57,6 +57,7 @@ function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool 
 		update_post_meta( $post_id, 'routing_completed', '1' );
 		update_post_meta( $post_id, 'routing_method', 'direct_assignment' );
 		update_post_meta( $post_id, 'lead_status', 'assigned' );
+		justice_theme_mark_qualified_lead_ready_to_bill( $post_id, array( $assigned_lawyer_id ), 'direct_assignment' );
 		return;
 	}
 
@@ -95,6 +96,7 @@ function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool 
 			$area,
 			implode( ', ', array_map( 'get_the_title', $notified_ids ) )
 		) );
+		justice_theme_mark_qualified_lead_ready_to_bill( $post_id, $notified_ids, 'area_match' );
 	}
 }
 // Priority 30 = runs after the lead classifier (priority 20).
@@ -122,6 +124,50 @@ function justice_theme_apply_lead_revenue_hint( int $post_id, string $area ): vo
 		'lead_revenue_notes',
 		'Bituach Leumi appeal lead: verify decision date, committee protocol, medical documents, and consent before lawyer handoff.'
 	);
+}
+
+/**
+ * Move a routed paid-lead product into the owner billing queue.
+ *
+ * @param int    $post_id    Lead post ID.
+ * @param int[]  $lawyer_ids Lawyer IDs that received the lead.
+ * @param string $method     Routing method.
+ */
+function justice_theme_mark_qualified_lead_ready_to_bill( int $post_id, array $lawyer_ids, string $method ): void {
+	$revenue_model = (string) get_post_meta( $post_id, 'lead_revenue_model', true );
+	if ( '' === $revenue_model ) {
+		return;
+	}
+
+	$lawyer_ids = array_values( array_unique( array_filter( array_map( 'absint', $lawyer_ids ) ) ) );
+	if ( empty( $lawyer_ids ) ) {
+		return;
+	}
+
+	$current_status = (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true );
+	if ( in_array( $current_status, array( 'invoice_sent', 'paid', 'disputed', 'waived' ), true ) ) {
+		return;
+	}
+
+	if ( '' === (string) get_post_meta( $post_id, 'suggested_lead_price_ils', true ) ) {
+		update_post_meta( $post_id, 'suggested_lead_price_ils', '249' );
+	}
+
+	update_post_meta( $post_id, 'qualified_lead_billing_status', 'ready_to_bill' );
+	update_post_meta( $post_id, 'qualified_lead_ready_at', current_time( 'mysql' ) );
+	update_post_meta( $post_id, 'qualified_lead_billable_lawyer_ids', implode( ',', $lawyer_ids ) );
+
+	if ( ! get_post_meta( $post_id, 'qualified_lead_owner_note', true ) ) {
+		update_post_meta(
+			$post_id,
+			'qualified_lead_owner_note',
+			sprintf(
+				'Auto-marked ready to bill after %s routing to lawyer ID(s): %s.',
+				sanitize_key( $method ),
+				implode( ', ', $lawyer_ids )
+			)
+		);
+	}
 }
 
 /**

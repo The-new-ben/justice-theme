@@ -367,6 +367,7 @@ function justice_theme_crm_render_btl_source_pack_candidates(): void {
 				</thead>
 				<tbody>
 					<?php foreach ( $rows as $row ) : ?>
+						<?php $brief_id = 'justice-btl-source-brief-' . substr( md5( (string) ( $row['source_url'] ?? '' ) ), 0, 10 ); ?>
 						<tr>
 							<td>
 								<strong><?php echo esc_html( $row['candidate'] ?? '' ); ?></strong>
@@ -383,6 +384,13 @@ function justice_theme_crm_render_btl_source_pack_candidates(): void {
 							<td>
 								<a class="button button-small" href="<?php echo esc_url( justice_theme_crm_btl_source_candidate_prefill_url( $row ) ); ?>">Add private prospect</a>
 								<br><small><?php echo esc_html( $row['verification_status'] ?? 'not_verified' ); ?></small>
+								<details style="margin-top:8px;">
+									<summary style="cursor:pointer;">Verification brief</summary>
+									<textarea id="<?php echo esc_attr( $brief_id ); ?>" rows="7" readonly style="width:100%;margin-top:6px;"><?php echo esc_textarea( justice_theme_crm_btl_source_candidate_verification_brief( $row ) ); ?></textarea>
+									<p style="margin:6px 0 0;">
+										<button type="button" class="button button-small" data-justice-copy-target="<?php echo esc_attr( $brief_id ); ?>">Copy brief</button>
+									</p>
+								</details>
 							</td>
 						</tr>
 					<?php endforeach; ?>
@@ -441,6 +449,17 @@ function justice_theme_crm_read_btl_source_pack( int $limit = 10 ): array {
 	);
 
 	return array_slice( $rows, 0, $limit );
+}
+
+function justice_theme_crm_btl_source_candidate_verification_brief( array $row ): string {
+	return sprintf(
+		"Candidate: %s\nSource: %s\nFocus: %s\nEvidence: %s\n\nVerify before routing:\n1. Israeli Bar/license status and current active status.\n2. Real Bituach Leumi, medical committee, appeal committee or labor-court appeal experience.\n3. Same-day response commitment for urgent appeal-window cases.\n4. Acceptance of the manual invoice/payment path before automation is complete.\n5. Any city, case-type or capacity limits.\n\nSuggested CRM action: %s\n\nBoundary: do not promise ranking, lead volume, compensation amount or legal outcome. Do not publish a public profile or route leads until verification is complete.",
+		(string) ( $row['candidate'] ?? '' ),
+		(string) ( $row['source_url'] ?? '' ),
+		(string) ( $row['apparent_focus'] ?? '' ),
+		(string) ( $row['source_evidence_summary'] ?? '' ),
+		(string) ( $row['crm_action'] ?? '' )
+	);
 }
 
 function justice_theme_crm_btl_source_candidate_prefill_url( array $row ): string {

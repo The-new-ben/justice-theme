@@ -127,6 +127,9 @@ Already shipped:
 - Source-pack candidates are now visible in the private Bituach Leumi CRM panel,
   with "Add private prospect" buttons that prefill private draft fields but do
   not create records until the owner saves them.
+- Each source-pack candidate row now includes a copy-ready verification brief
+  covering source, focus, evidence, five checks before routing and the
+  no-promise/no-public-profile boundary.
 
 Remaining:
 

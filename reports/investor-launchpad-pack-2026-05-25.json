@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "startedAt": "2026-05-25T03:43:35.162Z",
+  "startedAt": "2026-05-25T03:54:05.070Z",
   "runDate": "2026-05-25",
   "sourceBasis": [
     {
@@ -37,6 +37,12 @@
       "id": "hebrew-morning-brief",
       "path": "project-control/investor-morning-brief-he-2026-05-25.md",
       "reason": "Hebrew owner-facing script for pressure moments in the investor meeting.",
+      "status": "PASS"
+    },
+    {
+      "id": "hebrew-morning-brief-html",
+      "path": "project-control/investor-morning-brief-he-2026-05-25.html",
+      "reason": "Browser-ready RTL Hebrew brief that avoids terminal encoding issues.",
       "status": "PASS"
     },
     {
@@ -137,6 +143,10 @@
     },
     {
       "token": "./investor-morning-brief-he-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "./investor-morning-brief-he-2026-05-25.html",
       "status": "PASS"
     },
     {

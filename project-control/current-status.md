@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 06:52 Asia/Jerusalem
+- HEBREW BRIEF HTML: added a browser-ready RTL Hebrew morning brief so the owner can open clean Hebrew wording without terminal encoding problems.
+- ADDED: `project-control/investor-morning-brief-he-2026-05-25.html`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the Hebrew HTML brief.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` so the pack verifies the Hebrew HTML brief is present and linked.
+- MATERIAL ADVANCE: Hebrew meeting script is now readable in a browser with proper RTL layout and does not depend on Markdown/terminal rendering.
+- STILL BLOCKED: actual live data/payment/refund execution requires explicit owner/provider approval.
+- COMPLETION: investor operator readiness stays about 96%, but presentation reliability improves because the Hebrew script is browser-safe.
+- SAFETY: local HTML/documentation/checker/launchpad artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 06:42 Asia/Jerusalem
 - HEBREW INVESTOR MORNING BRIEF: added a Hebrew owner-facing meeting script with the opening line, proof numbers, payment answer, fake-data answer, business answer, blocker-closing steps and do-not-say list.
 - ADDED: `project-control/investor-morning-brief-he-2026-05-25.md`.

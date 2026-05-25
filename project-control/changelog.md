@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Hebrew brief HTML
+
+- ADDED: `project-control/investor-morning-brief-he-2026-05-25.html` as a browser-ready RTL version of the Hebrew owner script.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the Hebrew HTML brief.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` to include the Hebrew HTML brief in the verified pack.
+- PURPOSE: avoid terminal/Markdown encoding issues during the Hebrew investor meeting.
+- SAFETY: local HTML/documentation/checker/launchpad artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Hebrew investor morning brief
 
 - ADDED: `project-control/investor-morning-brief-he-2026-05-25.md`.

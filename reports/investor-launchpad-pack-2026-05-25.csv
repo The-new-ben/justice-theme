@@ -3,6 +3,7 @@ file,launchpad,PASS,project-control/investor-demo-launchpad-2026-05-25.html,Sing
 file,scenario-script,PASS,project-control/investor-demo-scenario-script-2026-05-25.md,First-person medical-malpractice lawyer walkthrough.
 file,morning-control-sheet,PASS,project-control/investor-demo-morning-control-sheet-2026-05-25.md,Operator tab order and exact talk tracks.
 file,hebrew-morning-brief,PASS,project-control/investor-morning-brief-he-2026-05-25.md,Hebrew owner-facing script for pressure moments in the investor meeting.
+file,hebrew-morning-brief-html,PASS,project-control/investor-morning-brief-he-2026-05-25.html,Browser-ready RTL Hebrew brief that avoids terminal encoding issues.
 file,payment-lifecycle-playbook,PASS,project-control/investor-payment-lifecycle-playbook-2026-05-25.md,"Real-money lifecycle answers for payment, invoice, refund, cancel and plan-change questions."
 file,fallback-answers,PASS,project-control/investor-demo-fallback-answers-2026-05-25.md,"Controlled answers if a page is slow, a login is missing, or the investor challenges payment proof."
 file,live-data-provider-checklist,PASS,project-control/investor-live-data-provider-action-checklist-2026-05-25.md,Owner-side steps for the five remaining live-data/provider blockers.
@@ -24,6 +25,7 @@ launchpad_token,https://jus-tice.co.il/lawyer-dashboard/,PASS,project-control/in
 launchpad_token,https://jus-tice.co.il/wp-admin/admin.php?page=justice-lawyer-onboarding,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,./investor-payment-lifecycle-playbook-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,./investor-morning-brief-he-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
+launchpad_token,./investor-morning-brief-he-2026-05-25.html,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,./investor-demo-fallback-answers-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,./investor-live-data-provider-action-checklist-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,tools\run-investor-morning-pack.ps1,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present

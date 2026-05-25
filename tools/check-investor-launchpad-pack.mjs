@@ -30,6 +30,11 @@ const requiredFiles = [
 		reason: 'Hebrew owner-facing script for pressure moments in the investor meeting.',
 	},
 	{
+		id: 'hebrew-morning-brief-html',
+		path: 'project-control/investor-morning-brief-he-2026-05-25.html',
+		reason: 'Browser-ready RTL Hebrew brief that avoids terminal encoding issues.',
+	},
+	{
 		id: 'payment-lifecycle-playbook',
 		path: 'project-control/investor-payment-lifecycle-playbook-2026-05-25.md',
 		reason: 'Real-money lifecycle answers for payment, invoice, refund, cancel and plan-change questions.',
@@ -81,6 +86,7 @@ const launchpadTokens = [
 	'https://jus-tice.co.il/wp-admin/admin.php?page=justice-lawyer-onboarding',
 	'./investor-payment-lifecycle-playbook-2026-05-25.md',
 	'./investor-morning-brief-he-2026-05-25.md',
+	'./investor-morning-brief-he-2026-05-25.html',
 	'./investor-demo-fallback-answers-2026-05-25.md',
 	'./investor-live-data-provider-action-checklist-2026-05-25.md',
 	'tools\\run-investor-morning-pack.ps1',

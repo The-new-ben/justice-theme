@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "startedAt": "2026-05-25T03:33:59.291Z",
+  "startedAt": "2026-05-25T03:43:35.162Z",
   "runDate": "2026-05-25",
   "sourceBasis": [
     {
@@ -31,6 +31,12 @@
       "id": "morning-control-sheet",
       "path": "project-control/investor-demo-morning-control-sheet-2026-05-25.md",
       "reason": "Operator tab order and exact talk tracks.",
+      "status": "PASS"
+    },
+    {
+      "id": "hebrew-morning-brief",
+      "path": "project-control/investor-morning-brief-he-2026-05-25.md",
+      "reason": "Hebrew owner-facing script for pressure moments in the investor meeting.",
       "status": "PASS"
     },
     {
@@ -127,6 +133,10 @@
     },
     {
       "token": "./investor-payment-lifecycle-playbook-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "./investor-morning-brief-he-2026-05-25.md",
       "status": "PASS"
     },
     {

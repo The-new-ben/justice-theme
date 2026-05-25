@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Hebrew investor morning brief
+
+- ADDED: `project-control/investor-morning-brief-he-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the Hebrew brief.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` to include the Hebrew brief in the verified pack.
+- PURPOSE: give the Hebrew-speaking owner pressure-safe investor wording for proof, payment blockers, demo data and next steps.
+- SAFETY: local documentation/checker/launchpad artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Investor live data/provider action checklist
 
 - ADDED: `project-control/investor-live-data-provider-action-checklist-2026-05-25.md`.

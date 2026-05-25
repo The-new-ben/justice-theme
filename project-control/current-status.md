@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 06:42 Asia/Jerusalem
+- HEBREW INVESTOR MORNING BRIEF: added a Hebrew owner-facing meeting script with the opening line, proof numbers, payment answer, fake-data answer, business answer, blocker-closing steps and do-not-say list.
+- ADDED: `project-control/investor-morning-brief-he-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the Hebrew brief.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` so the pack verifies the Hebrew brief is present and linked.
+- MATERIAL ADVANCE: the owner now has pressure-safe Hebrew wording for the investor conversation, reducing the risk of overclaiming or freezing during payment/demo-data questions.
+- STILL BLOCKED: actual live data/payment/refund execution requires explicit owner/provider approval.
+- COMPLETION: investor operator readiness moves to about 96%; full real-money lifecycle proof remains provider/data gated.
+- SAFETY: local documentation/checker/launchpad artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 06:32 Asia/Jerusalem
 - LIVE DATA/PROVIDER ACTION CHECKLIST: added a five-minute owner-side checklist for the five remaining investor blockers: claimed demo lawyer, assigned medical-malpractice lead, real provider payment, branded invoice/receipt proof and refund execution proof.
 - RESEARCH BASIS: HubSpot demo guidance emphasizes value and clear next steps; Stripe Payment Links docs/support confirm the no-code hosted payment-link pattern while recurring billing/invoicing remains provider setup.

@@ -25,6 +25,11 @@ const requiredFiles = [
 		reason: 'Operator tab order and exact talk tracks.',
 	},
 	{
+		id: 'hebrew-morning-brief',
+		path: 'project-control/investor-morning-brief-he-2026-05-25.md',
+		reason: 'Hebrew owner-facing script for pressure moments in the investor meeting.',
+	},
+	{
 		id: 'payment-lifecycle-playbook',
 		path: 'project-control/investor-payment-lifecycle-playbook-2026-05-25.md',
 		reason: 'Real-money lifecycle answers for payment, invoice, refund, cancel and plan-change questions.',
@@ -75,6 +80,7 @@ const launchpadTokens = [
 	'https://jus-tice.co.il/lawyer-dashboard/',
 	'https://jus-tice.co.il/wp-admin/admin.php?page=justice-lawyer-onboarding',
 	'./investor-payment-lifecycle-playbook-2026-05-25.md',
+	'./investor-morning-brief-he-2026-05-25.md',
 	'./investor-demo-fallback-answers-2026-05-25.md',
 	'./investor-live-data-provider-action-checklist-2026-05-25.md',
 	'tools\\run-investor-morning-pack.ps1',

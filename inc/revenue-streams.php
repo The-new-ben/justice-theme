@@ -548,6 +548,8 @@ function justice_theme_render_revenue_streams_admin_page(): void {
 			<p><strong>Execution rule:</strong> finish started work first, especially the Bituach Leumi funnel, before opening large speculative builds. Paid AI/API work stays blocked until explicit owner approval.</p>
 		</div>
 
+		<?php justice_theme_revenue_streams_render_publication_rules(); ?>
+
 		<p>
 			<a class="button button-primary" href="<?php echo esc_url( justice_theme_revenue_streams_linear_url( 'HAD-75' ) ); ?>" target="_blank" rel="noopener">Open parent Linear backlog</a>
 			<a class="button" href="<?php echo esc_url( admin_url( 'admin.php?page=justice-crm' ) ); ?>">Open Justice CRM</a>
@@ -619,6 +621,23 @@ function justice_theme_render_revenue_streams_admin_page(): void {
 				});
 			}());
 		</script>
+	</div>
+	<?php
+}
+
+function justice_theme_revenue_streams_render_publication_rules(): void {
+	$publication_doc = 'project-control/revenue-streams-backlog-2026-05-25.md';
+	?>
+	<div style="background:#fff;border:1px solid #dcdcde;border-left:4px solid #b42318;border-radius:8px;padding:14px;margin:14px 0;">
+		<h2 style="margin:0 0 8px;">Public page publication and email rules</h2>
+		<p style="margin-top:0;">Owner-only guardrail for the exact issue seen on the Bituach Leumi page: public readers must see legal help, not internal revenue logic.</p>
+		<ul style="list-style:disc;margin-inline-start:20px;">
+			<li>Never publish internal phrases such as revenue stream, revenue for Jus-Tice, qualified lead fee, payment-provider setup, Linear, uPress, Grow/Meshulam or owner workflow notes inside visitor-facing pages.</li>
+			<li>Before any public page is published or materially updated, check nearby/synonymous pages and write a cannibalization note for links, merges or owner review.</li>
+			<li>Email the owner only for blockers, public page publications/updates with review URL and cannibalization notes, or concentrated new market/revenue ideas. Do not send hourly progress emails.</li>
+			<li>Public copy must explain user value first: rights, deadlines, documents, risks, lawyer selection and next step. Internal business rationale belongs only in CRM, Linear and repo reports.</li>
+		</ul>
+		<p style="margin-bottom:0;">Canonical report: <code><?php echo esc_html( $publication_doc ); ?></code></p>
 	</div>
 	<?php
 }

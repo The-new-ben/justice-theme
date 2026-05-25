@@ -105,6 +105,11 @@ Already shipped:
 - Owner-only Bituach Leumi recruitment packet in Justice CRM with copy-ready
   initial outreach text, qualification questions and a credential/response
   checklist. It does not send messages automatically.
+- Public publication guard tightened after the Bituach Leumi screenshot issue:
+  visitor-facing content must not expose internal revenue logic, provider setup,
+  Linear/uPress workflow language or "revenue for Jus-Tice" framing. The
+  Revenue Streams admin page now shows the no-hourly-email rule and the
+  publication email/cannibalization obligations.
 
 Remaining:
 

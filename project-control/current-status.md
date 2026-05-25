@@ -1,7 +1,17 @@
+# LATEST WORK STATUS - 2026-05-25 08:16 Asia/Jerusalem
+- LAWYER SIGNUP COMPETITOR PATTERN MAP: inspected public competitor signup/profile surfaces from LawReviews, Psakdin and Din and converted the useful patterns into an original Jus-Tice signup/revenue standard.
+- ADDED: `project-control/lawyer-signup-competitor-patterns-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html`.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs`.
+- MATERIAL ADVANCE: the lawyer subscription path now has a concrete competitor-informed standard for above-fold lawyer CTAs, short signup, profile proof, lead board, manual payment bridge and lifecycle support.
+- STILL BLOCKED: live page copy/layout changes, payment links, invoices, recurring billing, refunds and account activation require owner/provider-approved live execution.
+- COMPLETION: lawyer signup/revenue messaging standard is about 85%; live conversion implementation still needs page-level updates after approval.
+- SAFETY: local research/planning/checker artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 08:04 Asia/Jerusalem
 - MORNING RUNNER SALES-PACK COVERAGE: updated the one-command investor morning refresh runner so it also runs the first-paid-lawyer sales-pack checker before the launchpad/go-no-go gates.
 - UPDATED: `tools/run-investor-morning-pack.ps1`.
-- MATERIAL ADVANCE: the owner’s single refresh command now verifies both investor-demo readiness and first paid-lawyer sales collateral, so lawyer outreach proof cannot silently go stale after the investor meeting.
+- MATERIAL ADVANCE: the owner's single refresh command now verifies both investor-demo readiness and first paid-lawyer sales collateral, so lawyer outreach proof cannot silently go stale after the investor meeting.
 - STILL BLOCKED: actual outreach, payment link sending, invoices and account activation require owner approval/live execution.
 - COMPLETION: investor/operator/sales preparation remains about 98%; actual revenue remains blocked until owner executes outreach and manual payment links.
 - SAFETY: local script/status artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
@@ -1528,7 +1538,6 @@
 - VERIFIED LOCAL: upload-approved rows remain `0`; all public execution remains blocked pending owner decisions, focused GSC export, duplicate CMS identity review, source/legal review and WordPress rollback backup.
 - BLOCKED: no Medical Malpractice CMS upload, English slug migration, redirect, canonical/noindex, sitemap, taxonomy, related-card/internal-link write, lawyer-card, schema or CRM change is approved.
 - SAFETY: no public CMS page body, database row, title/H1/meta, URL slug, redirect rule, canonical setting, noindex setting, taxonomy, sitemap setting, lawyer, lead, CRM, payment, GA4/GSC setting, wp-admin setting or uPress deployment changed.
-
 ## LATEST WORK STATUS - 2026-05-22 15:43 Asia/Jerusalem
 - MEDICAL MALPRACTICE GSC EXPORT WORKFLOW: prepared the focused read-only Search Console export and post-export decision-map workflow for the Medical Malpractice cluster.
 - CREATED: `tools/gsc/gsc-medical-malpractice-export.js`.

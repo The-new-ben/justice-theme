@@ -80,6 +80,11 @@ const requiredFiles = [
 		reason: 'Repeatable QA gate for first-cohort lawyer sales collateral.',
 	},
 	{
+		id: 'lawyer-signup-competitor-patterns',
+		path: 'project-control/lawyer-signup-competitor-patterns-2026-05-25.md',
+		reason: 'Competitor-informed signup and revenue-flow standard for lawyer acquisition.',
+	},
+	{
 		id: 'ascii-demo-data',
 		path: 'project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md',
 		reason: 'Copy-safe demo lawyer and lead fields if Hebrew rendering is risky.',
@@ -124,6 +129,7 @@ const launchpadTokens = [
 	'./first-cohort-lawyer-offer-sheet-2026-05-25.md',
 	'./first-cohort-lawyer-offer-sheet-he-2026-05-25.html',
 	'./first-paid-lawyer-sales-pack-2026-05-25.md',
+	'./lawyer-signup-competitor-patterns-2026-05-25.md',
 	'tools\\run-investor-morning-pack.ps1',
 	'Do not claim recurring billing',
 ];

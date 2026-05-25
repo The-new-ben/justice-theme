@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer signup competitor pattern map
+
+- ADDED: `project-control/lawyer-signup-competitor-patterns-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the competitor-informed signup standard.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` to require the pattern map in the launchpad pack.
+- PURPOSE: convert public competitor research from LawReviews, Psakdin and Din into an original Jus-Tice lawyer signup/revenue standard.
+- SAFETY: local research/planning/checker artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Morning runner sales-pack coverage
 
 - UPDATED: `tools/run-investor-morning-pack.ps1` to run `tools/check-first-paid-lawyer-sales-pack.mjs`.

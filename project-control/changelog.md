@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor live-room runbook
+
+- ADDED: `project-control/investor-live-room-runbook-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the timed runbook.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` to require the runbook in the launchpad pack.
+- RESEARCH BASIS: 2026 demo/onboarding guidance emphasizes buyer-problem framing, one workflow, early value, immediate proof and a clear next step.
+- PURPOSE: give the owner a minute-by-minute operator flow for the investor meeting.
+- SAFETY: local planning/checker/report artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Investor value moment cue card
 
 - ADDED: `project-control/investor-value-moment-cue-card-2026-05-25.html`.

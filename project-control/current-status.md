@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 08:56 Asia/Jerusalem
+- INVESTOR LIVE-ROOM RUNBOOK: added a timed 10-minute owner/operator flow for the investor meeting, with exact screens, spoken lines, no-claim boundaries and owner-only live payment actions.
+- RESEARCH BASIS: 2026 SaaS demo/onboarding guidance emphasizes buyer-problem framing, one workflow, early value, immediate proof and a clear next step.
+- ADDED: `project-control/investor-live-room-runbook-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html`.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs`.
+- MATERIAL ADVANCE: the owner now has a minute-by-minute room script that protects against rambling, feature dumping and payment overclaiming.
+- STILL BLOCKED: claimed demo lawyer, assigned demo lead, paid Grow link verification, automatic invoice proof, refund execution and recurring debit authorization require owner/provider-approved live actions.
+- COMPLETION: investor/demo operating readiness remains about 98%; live money proof becomes stronger after the owner pays/verifies the existing Grow link.
+- SAFETY: local planning/checker/report artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 08:45 Asia/Jerusalem
 - INVESTOR VALUE MOMENT CUE CARD: added a browser-ready Hebrew cue card that compresses the investor demo into one workflow: lawyer value, payment proof, and honest recurring-payment blocker.
 - RESEARCH BASIS: current SaaS demo/onboarding guidance emphasizes one workflow, fast time-to-value, proof immediately after value and a clear next step.

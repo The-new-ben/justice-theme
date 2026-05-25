@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "startedAt": "2026-05-25T05:47:15.375Z",
+  "startedAt": "2026-05-25T05:57:04.704Z",
   "runDate": "2026-05-25",
   "sourceBasis": [
     {
@@ -109,6 +109,12 @@
       "id": "investor-value-moment-cue-card",
       "path": "project-control/investor-value-moment-cue-card-2026-05-25.html",
       "reason": "Browser-ready owner cue card for the investor demo value moment and payment truth line.",
+      "status": "PASS"
+    },
+    {
+      "id": "investor-live-room-runbook",
+      "path": "project-control/investor-live-room-runbook-2026-05-25.md",
+      "reason": "Timed live-room operator sequence for the investor meeting.",
       "status": "PASS"
     },
     {
@@ -243,6 +249,10 @@
     },
     {
       "token": "./investor-value-moment-cue-card-2026-05-25.html",
+      "status": "PASS"
+    },
+    {
+      "token": "./investor-live-room-runbook-2026-05-25.md",
       "status": "PASS"
     },
     {

@@ -90,6 +90,11 @@ const requiredFiles = [
 		reason: 'Browser-ready owner cue card for the investor demo value moment and payment truth line.',
 	},
 	{
+		id: 'investor-live-room-runbook',
+		path: 'project-control/investor-live-room-runbook-2026-05-25.md',
+		reason: 'Timed live-room operator sequence for the investor meeting.',
+	},
+	{
 		id: 'lawyer-signup-competitor-patterns',
 		path: 'project-control/lawyer-signup-competitor-patterns-2026-05-25.md',
 		reason: 'Competitor-informed signup and revenue-flow standard for lawyer acquisition.',
@@ -146,6 +151,7 @@ const launchpadTokens = [
 	'./first-paid-lawyer-sales-pack-2026-05-25.md',
 	'./payment-proof-drill-2026-05-25.md',
 	'./investor-value-moment-cue-card-2026-05-25.html',
+	'./investor-live-room-runbook-2026-05-25.md',
 	'Investor value moment cue card',
 	'check-payment-proof-drill.mjs',
 	'./lawyer-signup-competitor-patterns-2026-05-25.md',

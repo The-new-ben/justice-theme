@@ -1,30 +1,30 @@
 # Investor Demo Readiness Gate - 2026-05-25
 
-- Status: REVIEW
-- Started: 2026-05-24T22:00:14.547Z
+- Status: PASS_WITH_DISCLOSED_BLOCKERS
+- Started: 2026-05-25T01:14:48.806Z
 - Base URL: https://jus-tice.co.il
-- Passed live/source checks: 11
+- Passed live/source checks: 14
 - Demo data items needed: 2
 - External payment blockers: 3
-- Checks needing repair: 3
+- Checks needing repair: 0
 - Scope: read-only public route checks plus local source/report checks. No live CMS/database write is performed.
 - Honesty rule: show manual payment-link readiness and service-ticket capture; do not claim automatic recurring billing, automatic invoices or refunds are live until Grow/Meshulam approval and a controlled transaction pass.
 
 ## Summary
 
-3 readiness checks need repair before the investor demo.
+Live/code checks pass. 2 demo-data items and 3 external payment items must be disclosed, not faked.
 
 ## Demo Rows
 
 | Area | Status | Evidence | Owner action |
 |---|---:|---|---|
-| Public visitor can find lawyer revenue paths | REVIEW | Missing: homepage-lawyer-revenue__account-steps | Open homepage and point to lawyer plans, registration and private-area links. |
-| Paid lawyer plan routes to checkout/manual invoice path | REVIEW | Missing: lawyer-plans-market-proof \| lawyer-plans-market-proof__signup-stages | Choose Lead Partner and explain this is the compliant fallback until Grow recurring approval lands. |
-| Checkout exposes Grow-required customer and policy signals | PASS | https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&investor_demo_check=1779660014576 | Show required fields, terms approval and policy links for Grow review. |
-| Registration preserves paid manual-invoice plan state | REVIEW | Missing: lawyer-registration-account-path \| lawyer-registration-account-path__fields | Use this route to show how a medical-malpractice lawyer arrives with billing context already carried forward. |
-| Logged-out dashboard gate sells the paid lawyer path | PASS | https://jus-tice.co.il/lawyer-dashboard/?investor_demo_check=1779660014576 | If not logged in, show that the private area pushes lawyers back to subscription onboarding. |
-| Private-area service desk UI marker is deployed | PASS | https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-3.css?investor_demo_check=1779660014576 | Use a claimed lawyer account to submit one refund/cancel/complaint ticket. |
-| Grow policy pages remain reachable | PASS | https://jus-tice.co.il/sample-terms-and-conditions-template/?investor_demo_check=1779660014576 | Show business identity, contact details, cancellation and privacy links if the investor asks about payment approval. |
+| Public visitor can find lawyer revenue paths | PASS | https://jus-tice.co.il/ | Open homepage and point to lawyer plans, registration and private-area links. |
+| Paid lawyer plan routes to checkout/manual invoice path | PASS | https://jus-tice.co.il/lawyer-plans/?investor_demo_check=1779671688828 | Choose Lead Partner and explain this is the compliant fallback until Grow recurring approval lands. |
+| Checkout exposes Grow-required customer and policy signals | PASS | https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&investor_demo_check=1779671688828 | Show required fields, terms approval and policy links for Grow review. |
+| Registration preserves paid manual-invoice plan state | PASS | https://jus-tice.co.il/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice&billing_first_name=Investor&billing_last_name=Demo&billing_phone=0501234567&billing_email=investor-demo@example.com&billing_legal_name=Demo+Medical+Law+Ltd&billing_business_id=123456789&billing_invoice_email=billing-demo@example.com&billing_invoice_address=Tel+Aviv&investor_demo_check=1779671688828 | Use this route to show how a medical-malpractice lawyer arrives with billing context already carried forward. |
+| Logged-out dashboard gate sells the paid lawyer path | PASS | https://jus-tice.co.il/lawyer-dashboard/?investor_demo_check=1779671688828 | If not logged in, show that the private area pushes lawyers back to subscription onboarding. |
+| Private-area service desk UI marker is deployed | PASS | https://jus-tice.co.il/wp-content/themes/justice-theme/assets/css/premium-pass-3.css?investor_demo_check=1779671688828 | Use a claimed lawyer account to submit one refund/cancel/complaint ticket. |
+| Grow policy pages remain reachable | PASS | https://jus-tice.co.il/sample-terms-and-conditions-template/?investor_demo_check=1779671688828 | Show business identity, contact details, cancellation and privacy links if the investor asks about payment approval. |
 | Source supports subscription lifecycle service requests | PASS | inc/lawyer-dashboard.php | Explain that upgrade/downgrade/cancel/refund are captured as owner-actionable tickets until recurring billing is approved. |
 | Lawyer CRM captures lead follow-up notes | PASS | inc/lawyer-dashboard.php | After a controlled demo lead exists, update its stage and add a short call result note from the lawyer dashboard. |
 | Owner CRM shows lawyer follow-up reports | PASS | inc/lead-crm.php | Open Justice CRM or the lead edit screen after the lawyer updates a demo lead and show the owner-visible report. |

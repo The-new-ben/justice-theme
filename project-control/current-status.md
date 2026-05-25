@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-25 04:03 Asia/Jerusalem
+- POST-UPRESS PULL VERIFICATION: owner pulled latest Git to production; live checks now confirm the competitor signup funnel deployment is active.
+- VERIFIED LIVE: deployment marker `2026-05-25-competitor-signup-funnel-v1`, premium CSS `4.3.4`, homepage lawyer revenue strip, lawyer plans competitor signup stages, paid checkout fallback, registration prefill, logged-out dashboard gate, support CSS, policy pages, dashboard JS and analytics event JS all pass.
+- VERIFIED INVESTOR GATE: public lawyer entrypoints, paid plan routing, checkout compliance, registration prefill, dashboard gate, service desk/source checks and owner demo panel source checks pass.
+- STILL BLOCKED: claimed demo lawyer profile, assigned medical-malpractice lead, real recurring charge, automatic branded invoice and real refund execution remain external/demo-data/provider steps and were not faked.
+- COMPLETION: live public route readiness is about 98%; full investor demo readiness is about 82% until demo data plus controlled provider/payment proof are completed.
+- SAFETY: read-only live verification and report refresh only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 01:25 Asia/Jerusalem
 - COMPETITOR SIGNUP FUNNEL V1: inspected public signup/login/marketing paths from din.co.il, psakdin.co.il and lawreviews.co.il, then folded the observed funnel patterns into Jus-Tice.
 - HONEST INSPECTION SCOPE: I reached public pages and public form stages only; I did not submit competitor forms, create competitor accounts or access private dashboards.

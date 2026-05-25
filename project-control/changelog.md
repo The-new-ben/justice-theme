@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Competitor signup funnel live verified
+
+- VERIFIED LIVE: uPress pull landed `2026-05-25-competitor-signup-funnel-v1`; homepage marker, static marker, CSS `4.3.4`, homepage lawyer strip, plans signup stages and registration field explanation now pass.
+- VERIFIED LIVE: lawyer revenue funnel checks pass for homepage, plans, checkout, registration success/prefill, dashboard gate, CSS, dashboard JS and analytics JS.
+- VERIFIED LIVE: investor readiness route/source gates pass; only demo-data/provider blockers remain.
+- SAFETY: read-only verification/report refresh only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Competitor signup funnel v1
 
 - INSPECTED: public signup/marketing paths for din.co.il, psakdin.co.il and lawreviews.co.il.

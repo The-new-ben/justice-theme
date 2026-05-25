@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 07:12 Asia/Jerusalem
+- INVESTOR POST-DEMO FOLLOW-UP: added an owner-ready follow-up plan with meeting notes to capture, English/Hebrew recap email templates, follow-up cadence and payment-proof wording.
+- RESEARCH BASIS: HubSpot recap/sales-email guidance and recent investor-follow-up guidance emphasize concise recaps, clear next steps, promised materials within 24 hours and specific asks.
+- ADDED: `project-control/investor-post-demo-follow-up-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the follow-up plan.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` so the pack verifies the follow-up plan is present and linked.
+- MATERIAL ADVANCE: the investor process now covers conversion after the demo, not only the meeting itself.
+- STILL BLOCKED: actual investor email sending and live payment proof require owner approval.
+- COMPLETION: investor meeting operations move to about 97% prepared; conversion depends on capturing objections and sending follow-up within 24 hours.
+- SAFETY: local documentation/checker/launchpad artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 07:02 Asia/Jerusalem
 - HEBREW BRIEF COUNT SYNC: corrected the Hebrew Markdown and browser-ready Hebrew brief so the launchpad-pack proof numbers match the latest verified pack count.
 - UPDATED: `project-control/investor-morning-brief-he-2026-05-25.md`.

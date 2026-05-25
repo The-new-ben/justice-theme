@@ -7,6 +7,7 @@ file,hebrew-morning-brief-html,PASS,project-control/investor-morning-brief-he-20
 file,payment-lifecycle-playbook,PASS,project-control/investor-payment-lifecycle-playbook-2026-05-25.md,"Real-money lifecycle answers for payment, invoice, refund, cancel and plan-change questions."
 file,fallback-answers,PASS,project-control/investor-demo-fallback-answers-2026-05-25.md,"Controlled answers if a page is slow, a login is missing, or the investor challenges payment proof."
 file,live-data-provider-checklist,PASS,project-control/investor-live-data-provider-action-checklist-2026-05-25.md,Owner-side steps for the five remaining live-data/provider blockers.
+file,post-demo-follow-up,PASS,project-control/investor-post-demo-follow-up-2026-05-25.md,Investor recap and next-step templates so demo interest can convert into a concrete follow-up.
 file,ascii-demo-data,PASS,project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md,Copy-safe demo lawyer and lead fields if Hebrew rendering is risky.
 file,readiness-report,PASS,project-control/investor-demo-readiness-2026-05-25.md,Readiness status and remaining blockers.
 file,revenue-funnel-report,PASS,project-control/lawyer-revenue-funnel-live-2026-05-25.md,Live public lawyer funnel verification.
@@ -28,5 +29,6 @@ launchpad_token,./investor-morning-brief-he-2026-05-25.md,PASS,project-control/i
 launchpad_token,./investor-morning-brief-he-2026-05-25.html,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,./investor-demo-fallback-answers-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,./investor-live-data-provider-action-checklist-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
+launchpad_token,./investor-post-demo-follow-up-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,tools\run-investor-morning-pack.ps1,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,Do not claim recurring billing,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present

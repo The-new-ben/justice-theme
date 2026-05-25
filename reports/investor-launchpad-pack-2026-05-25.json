@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "startedAt": "2026-05-25T04:03:39.317Z",
+  "startedAt": "2026-05-25T04:14:18.573Z",
   "runDate": "2026-05-25",
   "sourceBasis": [
     {
@@ -61,6 +61,12 @@
       "id": "live-data-provider-checklist",
       "path": "project-control/investor-live-data-provider-action-checklist-2026-05-25.md",
       "reason": "Owner-side steps for the five remaining live-data/provider blockers.",
+      "status": "PASS"
+    },
+    {
+      "id": "post-demo-follow-up",
+      "path": "project-control/investor-post-demo-follow-up-2026-05-25.md",
+      "reason": "Investor recap and next-step templates so demo interest can convert into a concrete follow-up.",
       "status": "PASS"
     },
     {
@@ -155,6 +161,10 @@
     },
     {
       "token": "./investor-live-data-provider-action-checklist-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "./investor-post-demo-follow-up-2026-05-25.md",
       "status": "PASS"
     },
     {

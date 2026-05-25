@@ -50,6 +50,11 @@ const requiredFiles = [
 		reason: 'Owner-side steps for the five remaining live-data/provider blockers.',
 	},
 	{
+		id: 'post-demo-follow-up',
+		path: 'project-control/investor-post-demo-follow-up-2026-05-25.md',
+		reason: 'Investor recap and next-step templates so demo interest can convert into a concrete follow-up.',
+	},
+	{
 		id: 'ascii-demo-data',
 		path: 'project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md',
 		reason: 'Copy-safe demo lawyer and lead fields if Hebrew rendering is risky.',
@@ -89,6 +94,7 @@ const launchpadTokens = [
 	'./investor-morning-brief-he-2026-05-25.html',
 	'./investor-demo-fallback-answers-2026-05-25.md',
 	'./investor-live-data-provider-action-checklist-2026-05-25.md',
+	'./investor-post-demo-follow-up-2026-05-25.md',
 	'tools\\run-investor-morning-pack.ps1',
 	'Do not claim recurring billing',
 ];

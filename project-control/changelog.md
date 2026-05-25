@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor post-demo follow-up
+
+- ADDED: `project-control/investor-post-demo-follow-up-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the follow-up plan.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` to include the follow-up plan in the verified pack.
+- RESEARCH BASIS: HubSpot recap/sales email guidance and recent investor follow-up guidance.
+- PURPOSE: turn a successful demo into a specific follow-up, ask and next meeting instead of a vague ending.
+- SAFETY: local documentation/checker/launchpad artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Hebrew brief count sync
 
 - UPDATED: `project-control/investor-morning-brief-he-2026-05-25.md` and `.html` so the stated launchpad-pack count matches the verified 12/12 files and 19/19 markers.

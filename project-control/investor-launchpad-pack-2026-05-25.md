@@ -1,9 +1,9 @@
 # Investor Launchpad Pack Check - 2026-05-25
 
 - Status: PASS
-- Started: 2026-05-25T04:03:39.317Z
-- Files present: 12/12
-- Launchpad tokens present: 19/19
+- Started: 2026-05-25T04:14:18.573Z
+- Files present: 13/13
+- Launchpad tokens present: 20/20
 - Scope: local investor-demo control artifacts only.
 - Safety: no public CMS/database content, payment, invoice, refund, lawyer record, lead, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting was changed.
 
@@ -24,6 +24,7 @@
 | project-control/investor-payment-lifecycle-playbook-2026-05-25.md | PASS | Real-money lifecycle answers for payment, invoice, refund, cancel and plan-change questions. |
 | project-control/investor-demo-fallback-answers-2026-05-25.md | PASS | Controlled answers if a page is slow, a login is missing, or the investor challenges payment proof. |
 | project-control/investor-live-data-provider-action-checklist-2026-05-25.md | PASS | Owner-side steps for the five remaining live-data/provider blockers. |
+| project-control/investor-post-demo-follow-up-2026-05-25.md | PASS | Investor recap and next-step templates so demo interest can convert into a concrete follow-up. |
 | project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md | PASS | Copy-safe demo lawyer and lead fields if Hebrew rendering is risky. |
 | project-control/investor-demo-readiness-2026-05-25.md | PASS | Readiness status and remaining blockers. |
 | project-control/lawyer-revenue-funnel-live-2026-05-25.md | PASS | Live public lawyer funnel verification. |
@@ -50,6 +51,7 @@
 | `./investor-morning-brief-he-2026-05-25.html` | PASS |
 | `./investor-demo-fallback-answers-2026-05-25.md` | PASS |
 | `./investor-live-data-provider-action-checklist-2026-05-25.md` | PASS |
+| `./investor-post-demo-follow-up-2026-05-25.md` | PASS |
 | `tools\run-investor-morning-pack.ps1` | PASS |
 | `Do not claim recurring billing` | PASS |
 

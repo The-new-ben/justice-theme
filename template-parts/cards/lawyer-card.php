@@ -87,8 +87,14 @@ $area_names      = ( $areas && ! is_wp_error( $areas ) ) ? wp_list_pluck( array_
 $phone_link      = function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) $phone ) : '';
 $whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) $whatsapp ) : '';
 $has_thumbnail   = has_post_thumbnail( $lawyer_id );
+$is_maya_profile = 'advocate-maya-rotenberg' === get_post_field( 'post_name', $lawyer_id )
+	|| (
+		false !== mb_strpos( get_the_title( $lawyer_id ), rawurldecode( '%D7%9E%D7%90%D7%99%D7%94' ) )
+		&& false !== mb_strpos( get_the_title( $lawyer_id ), rawurldecode( '%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92' ) )
+	);
 $show_thumbnail  = $has_thumbnail
 	&& ! $is_seed_data
+	&& ! $is_maya_profile
 	&& (
 		$is_paid
 		|| 'verified' === strtolower( (string) $verified )

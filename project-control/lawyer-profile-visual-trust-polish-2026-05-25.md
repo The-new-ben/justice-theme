@@ -22,6 +22,7 @@ Owner/investor feedback identified two urgent trust issues:
 - Bumped the CSS asset version so the live site can refresh the corrected layout.
 - Changed public card image policy: unverified public-basic profiles no longer display questionable uploaded thumbnails; they fall back to controlled initials cards unless the profile is paid, verified, lawyer-submitted, owner-verified, or verified-public.
 - Changed single profile hero image policy with the same trust rule.
+- Added a stricter Maya Rotenberg media guard: the current questionable photo is not displayed until an explicitly verified/owned source is supplied.
 - Tightened Maya Rotenberg safety logic: a profile with this identity now needs a stronger approval signal than a generic `public/published` status. Seed/demo/fake-like profiles remain blocked.
 - Removed the forced legacy Maya article attachment from single lawyer profiles.
 - Stopped unverified public-basic profiles from auto-filling unrelated practice-area article modules. Contextual article fallback is now reserved for verified or paid profiles.

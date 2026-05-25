@@ -6,7 +6,7 @@
 - UPDATED: `assets/css/premium-pass-4.css`, `inc/enqueue.php`, `template-parts/cards/lawyer-card.php`, `single-justice_lawyer.php`, and `inc/template-tags.php`.
 - ADDED: `project-control/lawyer-profile-visual-trust-polish-2026-05-25.md`.
 - PURPOSE: address investor/owner feedback that homepage lawyer cards looked broken and that unverified lawyer profiles could look like polished premium profiles with inaccurate facts.
-- IMPLEMENTATION: bounded lawyer card media to a fixed portrait track, prevented text overlap, bumped CSS version, hid questionable thumbnails on unverified public-basic cards, applied the same trust rule to single profile hero photos, tightened Maya identity approval, removed forced Maya article linkage, and reserved unrelated article fallback for verified/paid profiles.
+- IMPLEMENTATION: bounded lawyer card media to a fixed portrait track, prevented text overlap, bumped CSS version, hid questionable thumbnails on unverified public-basic cards, suppressed the current questionable Maya image until verified/owned media exists, applied the same trust rule to single profile hero photos, tightened Maya identity approval, removed forced Maya article linkage, and reserved unrelated article fallback for verified/paid profiles.
 - RESEARCH BASIS: Din, PsakDin, LawReviews, Avvo, Justia, and MDN image/aspect-ratio guidance reviewed; implementation is original and does not copy competitor profile text, photos, reviews, ratings, or contact details.
 - SAFETY: no CMS records, no copied competitor assets/content, no payment/invoice/refund/redirect/canonical/noindex/sitemap/taxonomy/provider setting changed.
 

@@ -178,8 +178,14 @@ if ( ! $related_articles->have_posts() && $primary_area && ( $is_paid || $is_ver
 
 $has_related_articles = $related_articles instanceof WP_Query && $related_articles->have_posts();
 $has_media_module     = $video_url || ! empty( $media_items );
+$is_maya_profile      = 'advocate-maya-rotenberg' === $lawyer_profile_slug
+	|| (
+		false !== mb_strpos( get_the_title( $lawyer_id ), rawurldecode( '%D7%9E%D7%90%D7%99%D7%94' ) )
+		&& false !== mb_strpos( get_the_title( $lawyer_id ), rawurldecode( '%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92' ) )
+	);
 $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 	&& ! $is_seed_data
+	&& ! $is_maya_profile
 	&& (
 		$is_paid
 		|| $is_verified

@@ -3657,6 +3657,7 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 }
 
 function justice_theme_render_lawyer_onboarding_investor_demo_panel(): void {
+	$btl_readiness = function_exists( 'justice_theme_crm_btl_readiness_snapshot' ) ? justice_theme_crm_btl_readiness_snapshot() : array();
 	$demo_links = array(
 		array(
 			'label' => 'Homepage lawyer entrypoints',
@@ -3811,6 +3812,22 @@ function justice_theme_render_lawyer_onboarding_investor_demo_panel(): void {
 					<?php endforeach; ?>
 				</ol>
 			</div>
+			<?php if ( $btl_readiness ) : ?>
+				<div style="background:#29170f;border:1px solid rgba(251,146,60,.45);border-radius:8px;padding:12px;">
+					<strong style="display:block;color:#fed7aa;">Fast revenue proof: Bituach Leumi</strong>
+					<p style="margin:6px 0 10px;color:#ffedd5;"><strong><?php echo esc_html( $btl_readiness['status'] ?? 'Unknown' ); ?></strong> · <?php echo esc_html( (string) ( $btl_readiness['percent'] ?? 0 ) ); ?>% complete</p>
+					<ul style="margin:8px 0 0 18px;color:#fed7aa;">
+						<?php foreach ( array_slice( (array) ( $btl_readiness['checks'] ?? array() ), 0, 6 ) as $check ) : ?>
+							<li style="margin:0 0 5px;">
+								<?php echo ! empty( $check['met'] ) ? 'Ready: ' : 'Blocked: '; ?>
+								<?php echo esc_html( (string) ( $check['label'] ?? '' ) ); ?>
+								<small style="display:block;color:#fdba74;"><?php echo esc_html( (string) ( $check['detail'] ?? '' ) ); ?></small>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+					<p style="margin:10px 0 0;color:#ffedd5;">Demo claim: show this as a controlled revenue experiment, not as a proven recurring revenue line until the gate says revenue loop proven.</p>
+				</div>
+			<?php endif; ?>
 		</div>
 		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin-top:14px;">
 			<div style="background:#111827;border:1px solid rgba(250,204,21,.35);border-radius:8px;padding:12px;">

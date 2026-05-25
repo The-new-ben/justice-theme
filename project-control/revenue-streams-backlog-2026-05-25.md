@@ -152,6 +152,10 @@ Already shipped:
   creation, verified prospects, active routable specialists, first billable
   test lead and paid lead proof. The panel explicitly blocks treating the
   funnel as revenue-ready before the evidence exists.
+- Investor demo panel now mirrors the Bituach Leumi readiness gate:
+  the owner-only lawyer onboarding demo control shows the current Bituach Leumi
+  status, completion percentage and Ready/Blocked checks, so the investor story
+  stays honest and does not over-claim a funnel before proof.
 
 Remaining:
 

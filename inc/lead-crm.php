@@ -288,6 +288,43 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 }
 
 function justice_theme_crm_render_btl_readiness_gate( array $source_pack_progress, int $verified_prospects, int $active_specialists, int $target, int $billable_leads, int $paid_leads ): void {
+	$snapshot = justice_theme_crm_btl_readiness_snapshot_from_counts( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_leads, $paid_leads );
+	$checks   = $snapshot['checks'];
+	$percent  = $snapshot['percent'];
+	$status   = $snapshot['status'];
+	$style    = $snapshot['style'];
+	?>
+	<div style="border:2px solid #d63638;border-radius:8px;padding:14px;margin:12px 0 20px;<?php echo esc_attr( $style ); ?>">
+		<h3 style="margin-top:0;">Bituach Leumi revenue-readiness gate</h3>
+		<p style="margin-top:0;"><strong><?php echo esc_html( $status ); ?></strong> · <?php echo esc_html( (string) $percent ); ?>% complete</p>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">
+			<?php foreach ( $checks as $check ) : ?>
+				<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:10px;">
+					<strong style="color:<?php echo esc_attr( $check['met'] ? '#008a20' : '#b32d2e' ); ?>;"><?php echo $check['met'] ? 'Ready' : 'Blocked'; ?></strong>
+					<br><span><?php echo esc_html( $check['label'] ); ?></span>
+					<br><small style="color:#646970;"><?php echo esc_html( $check['detail'] ); ?></small>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<p style="margin-bottom:0;color:#646970;">Owner-only gate: do not treat this funnel as revenue-ready until verified supply and at least one controlled billable lead test are recorded.</p>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_btl_readiness_snapshot(): array {
+	$target               = 3;
+	$needles              = array( 'national-insurance', 'ביטוח לאומי', 'ערעור ביטוח לאומי', 'ועדה רפואית' );
+	$source_pack_rows     = justice_theme_crm_read_btl_source_pack( 100 );
+	$source_pack_progress = justice_theme_crm_btl_source_pack_progress( $source_pack_rows );
+	$verified_prospects   = justice_theme_crm_count_verified_prospects_for_area( $needles );
+	$active_specialists   = justice_theme_crm_count_active_routing_lawyers_for_area( 'national-insurance' );
+	$billable_leads       = justice_theme_crm_count_btl_billable_leads( $needles, array( 'ready_to_bill', 'invoice_sent', 'paid' ) );
+	$paid_leads           = justice_theme_crm_count_btl_billable_leads( $needles, array( 'paid' ) );
+
+	return justice_theme_crm_btl_readiness_snapshot_from_counts( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_leads, $paid_leads );
+}
+
+function justice_theme_crm_btl_readiness_snapshot_from_counts( array $source_pack_progress, int $verified_prospects, int $active_specialists, int $target, int $billable_leads, int $paid_leads ): array {
 	$checks = array(
 		array(
 			'label' => 'Source pack loaded',
@@ -340,22 +377,15 @@ function justice_theme_crm_render_btl_readiness_gate( array $source_pack_progres
 		$status = 'Revenue loop proven';
 		$style  = 'border-color:#008a20;background:#f0fff4;';
 	}
-	?>
-	<div style="border:2px solid #d63638;border-radius:8px;padding:14px;margin:12px 0 20px;<?php echo esc_attr( $style ); ?>">
-		<h3 style="margin-top:0;">Bituach Leumi revenue-readiness gate</h3>
-		<p style="margin-top:0;"><strong><?php echo esc_html( $status ); ?></strong> · <?php echo esc_html( (string) $percent ); ?>% complete</p>
-		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;">
-			<?php foreach ( $checks as $check ) : ?>
-				<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:10px;">
-					<strong style="color:<?php echo esc_attr( $check['met'] ? '#008a20' : '#b32d2e' ); ?>;"><?php echo $check['met'] ? 'Ready' : 'Blocked'; ?></strong>
-					<br><span><?php echo esc_html( $check['label'] ); ?></span>
-					<br><small style="color:#646970;"><?php echo esc_html( $check['detail'] ); ?></small>
-				</div>
-			<?php endforeach; ?>
-		</div>
-		<p style="margin-bottom:0;color:#646970;">Owner-only gate: do not treat this funnel as revenue-ready until verified supply and at least one controlled billable lead test are recorded.</p>
-	</div>
-	<?php
+
+	return array(
+		'status'    => $status,
+		'style'     => $style,
+		'percent'   => $percent,
+		'met_count' => $met_count,
+		'total'     => $total,
+		'checks'    => $checks,
+	);
 }
 
 function justice_theme_crm_render_btl_candidate_tracker( array $needles ): void {

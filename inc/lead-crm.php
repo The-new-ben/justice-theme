@@ -211,8 +211,10 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 
 	$active_specialists = justice_theme_crm_count_active_routing_lawyers_for_area( 'national-insurance' );
 	$open_prospects    = justice_theme_crm_count_open_prospects_for_area( array( 'national-insurance', 'ביטוח לאומי', 'ערר ביטוח לאומי', 'ועדה רפואית' ) );
+	$verified_prospects = justice_theme_crm_count_verified_prospects_for_area( array( 'national-insurance', 'ביטוח לאומי', 'ערר ביטוח לאומי', 'ועדה רפואית' ) );
 	$target            = 3;
 	$coverage_gap      = max( 0, $target - $active_specialists );
+	$prospect_gap      = max( 0, $target - $verified_prospects );
 	$add_url           = justice_theme_crm_btl_prospect_prefill_url();
 	$pipeline_url      = admin_url( 'edit.php?post_type=justice_prospect' );
 	?>
@@ -226,6 +228,11 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
 			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $open_prospects ); ?></strong>
 			<span>Open Bituach Leumi prospects</span>
+		</div>
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $verified_prospects ); ?></strong>
+			<span>Verified prospect coverage</span>
+			<small style="display:block;color:#646970;margin-top:4px;"><?php echo esc_html( sprintf( '%d still needed', $prospect_gap ) ); ?></small>
 		</div>
 		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
 			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $coverage_gap ); ?></strong>
@@ -382,6 +389,51 @@ function justice_theme_crm_count_open_prospects_for_area( array $needles ): int 
 				break;
 			}
 		}
+	}
+
+	return $count;
+}
+
+function justice_theme_crm_count_verified_prospects_for_area( array $needles ): int {
+	$query = justice_theme_crm_query_lawyer_prospects( 250 );
+	if ( ! $query || empty( $query->posts ) ) {
+		return 0;
+	}
+
+	$count           = 0;
+	$closed_statuses = array( 'won', 'lost' );
+
+	foreach ( $query->posts as $post ) {
+		$post_id = (int) $post->ID;
+		$status  = (string) get_post_meta( $post_id, 'prospect_outreach_status', true );
+		if ( in_array( $status, $closed_statuses, true ) ) {
+			continue;
+		}
+
+		$haystack = strtolower(
+			get_the_title( $post_id ) . ' ' .
+			(string) get_post_meta( $post_id, 'prospect_practice_area', true ) . ' ' .
+			(string) get_post_meta( $post_id, 'prospect_demand_signal', true ) . ' ' .
+			(string) get_post_meta( $post_id, 'prospect_owner_note', true )
+		);
+
+		$matches_area = false;
+		foreach ( $needles as $needle ) {
+			if ( false !== strpos( $haystack, strtolower( (string) $needle ) ) ) {
+				$matches_area = true;
+				break;
+			}
+		}
+
+		if ( ! $matches_area ) {
+			continue;
+		}
+
+		if ( function_exists( 'justice_theme_lawyer_prospect_is_verified_for_routing' ) && ! justice_theme_lawyer_prospect_is_verified_for_routing( $post_id ) ) {
+			continue;
+		}
+
+		$count++;
 	}
 
 	return $count;

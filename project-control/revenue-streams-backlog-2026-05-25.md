@@ -110,6 +110,10 @@ Already shipped:
   Linear/uPress workflow language or "revenue for Jus-Tice" framing. The
   Revenue Streams admin page now shows the no-hourly-email rule and the
   publication email/cannibalization obligations.
+- Private prospect verification added for Bituach Leumi specialist supply:
+  prospect records now track license check, niche-experience check, response
+  commitment and manual-payment readiness before a prospect is treated as ready
+  for lead routing.
 
 Remaining:
 

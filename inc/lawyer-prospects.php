@@ -59,6 +59,10 @@ function justice_theme_register_lawyer_prospect_meta(): void {
 		'prospect_last_contacted_at'   => 'string',
 		'prospect_expected_monthly_nis' => 'integer',
 		'prospect_owner_note'          => 'string',
+		'prospect_license_verified'    => 'string',
+		'prospect_specialty_verified'  => 'string',
+		'prospect_payment_path_ready'  => 'string',
+		'prospect_verification_note'   => 'string',
 	);
 
 	foreach ( $fields as $key => $type ) {
@@ -93,7 +97,7 @@ function justice_theme_lawyer_prospect_meta_sanitizer( string $key ): string {
 		return 'absint';
 	}
 
-	if ( in_array( $key, array( 'prospect_demand_signal', 'prospect_owner_note' ), true ) ) {
+	if ( in_array( $key, array( 'prospect_demand_signal', 'prospect_owner_note', 'prospect_verification_note' ), true ) ) {
 		return 'sanitize_textarea_field';
 	}
 
@@ -142,6 +146,33 @@ function justice_theme_lawyer_prospect_response_fit_options(): array {
 			'next_day'      => 'Usually next business day',
 			'not_sure'      => 'Needs response process setup',
 		);
+}
+
+function justice_theme_lawyer_prospect_verification_missing( int $post_id ): array {
+	$missing = array();
+
+	if ( '1' !== (string) get_post_meta( $post_id, 'prospect_license_verified', true ) ) {
+		$missing[] = __( 'license', 'justice-theme' );
+	}
+
+	if ( '1' !== (string) get_post_meta( $post_id, 'prospect_specialty_verified', true ) ) {
+		$missing[] = __( 'specialty', 'justice-theme' );
+	}
+
+	$response_fit = (string) get_post_meta( $post_id, 'prospect_response_fit', true );
+	if ( ! in_array( $response_fit, array( 'within_15_min', 'same_day' ), true ) ) {
+		$missing[] = __( 'same-day response', 'justice-theme' );
+	}
+
+	if ( '1' !== (string) get_post_meta( $post_id, 'prospect_payment_path_ready', true ) ) {
+		$missing[] = __( 'manual payment path', 'justice-theme' );
+	}
+
+	return $missing;
+}
+
+function justice_theme_lawyer_prospect_is_verified_for_routing( int $post_id ): bool {
+	return empty( justice_theme_lawyer_prospect_verification_missing( $post_id ) );
 }
 
 function justice_theme_lawyer_prospect_prefill_lead_id(): int {
@@ -438,6 +469,19 @@ function justice_theme_render_lawyer_prospect_details_box( WP_Post $post ): void
 		<tr>
 			<th scope="row"><label for="justice-prospect-demand-signal">Demand signal</label></th>
 			<td><textarea id="justice-prospect-demand-signal" name="prospect_demand_signal" rows="4" class="large-text" placeholder="Example: 3 Thailand-law calls this week, no paying coverage partner yet."><?php echo esc_textarea( justice_theme_lawyer_prospect_form_value( $post, 'prospect_demand_signal' ) ); ?></textarea></td>
+		</tr>
+		<tr>
+			<th scope="row">Specialist verification</th>
+			<td>
+				<fieldset>
+					<p style="margin-top:0;color:#646970;">Required before routing Bituach Leumi or other high-risk leads to this prospect. This is private owner data only.</p>
+					<label><input type="checkbox" name="prospect_license_verified" value="1" <?php checked( justice_theme_lawyer_prospect_form_value( $post, 'prospect_license_verified' ), '1' ); ?>> Israeli Bar/license status checked</label><br>
+					<label><input type="checkbox" name="prospect_specialty_verified" value="1" <?php checked( justice_theme_lawyer_prospect_form_value( $post, 'prospect_specialty_verified' ), '1' ); ?>> Relevant niche experience checked</label><br>
+					<label><input type="checkbox" name="prospect_payment_path_ready" value="1" <?php checked( justice_theme_lawyer_prospect_form_value( $post, 'prospect_payment_path_ready' ), '1' ); ?>> Manual invoice/payment path accepted</label>
+				</fieldset>
+				<p><label for="justice-prospect-verification-note"><strong>Verification note</strong></label></p>
+				<textarea id="justice-prospect-verification-note" name="prospect_verification_note" rows="3" class="large-text" placeholder="Record license source, niche proof, response commitment, and any limits before routing leads."><?php echo esc_textarea( justice_theme_lawyer_prospect_form_value( $post, 'prospect_verification_note' ) ); ?></textarea>
+			</td>
 		</tr>
 		<tr>
 			<th scope="row"><label for="justice-prospect-owner-note">Owner note</label></th>
@@ -744,6 +788,11 @@ function justice_theme_save_lawyer_prospect_details( int $post_id ): void {
 	update_post_meta( $post_id, 'prospect_expected_monthly_nis', isset( $_POST['prospect_expected_monthly_nis'] ) ? absint( wp_unslash( $_POST['prospect_expected_monthly_nis'] ) ) : 0 );
 	update_post_meta( $post_id, 'prospect_demand_signal', isset( $_POST['prospect_demand_signal'] ) ? sanitize_textarea_field( wp_unslash( $_POST['prospect_demand_signal'] ) ) : '' );
 	update_post_meta( $post_id, 'prospect_owner_note', isset( $_POST['prospect_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['prospect_owner_note'] ) ) : '' );
+	update_post_meta( $post_id, 'prospect_verification_note', isset( $_POST['prospect_verification_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['prospect_verification_note'] ) ) : '' );
+
+	foreach ( array( 'prospect_license_verified', 'prospect_specialty_verified', 'prospect_payment_path_ready' ) as $checkbox_key ) {
+		update_post_meta( $post_id, $checkbox_key, isset( $_POST[ $checkbox_key ] ) ? '1' : '' );
+	}
 }
 add_action( 'save_post_justice_prospect', 'justice_theme_save_lawyer_prospect_details' );
 
@@ -752,6 +801,7 @@ function justice_theme_lawyer_prospect_admin_columns( array $columns ): array {
 	$columns['prospect_plan']     = __( 'Target plan', 'justice-theme' );
 	$columns['prospect_value']    = __( 'Monthly value', 'justice-theme' );
 	$columns['prospect_status']   = __( 'Status', 'justice-theme' );
+	$columns['prospect_verification'] = __( 'Verification', 'justice-theme' );
 	$columns['prospect_priority'] = __( 'Priority', 'justice-theme' );
 	$columns['prospect_contact']  = __( 'Contact', 'justice-theme' );
 	$columns['prospect_next']     = __( 'Next action', 'justice-theme' );
@@ -948,6 +998,17 @@ function justice_theme_lawyer_prospect_admin_column( string $column, int $post_i
 	if ( 'prospect_status' === $column ) {
 		$status = (string) get_post_meta( $post_id, 'prospect_outreach_status', true );
 		echo esc_html( justice_theme_lawyer_prospect_statuses()[ $status ] ?? $status );
+	}
+
+	if ( 'prospect_verification' === $column ) {
+		$missing = justice_theme_lawyer_prospect_verification_missing( $post_id );
+		if ( empty( $missing ) ) {
+			echo '<strong style="color:#008a20;">' . esc_html__( 'Ready for routing', 'justice-theme' ) . '</strong>';
+			return;
+		}
+
+		echo '<strong style="color:#b32d2e;">' . esc_html__( 'Missing:', 'justice-theme' ) . '</strong><br>';
+		echo esc_html( implode( ', ', $missing ) );
 	}
 
 	if ( 'prospect_priority' === $column ) {

@@ -1,0 +1,140 @@
+{
+  "status": "PASS",
+  "startedAt": "2026-05-25T04:55:35.160Z",
+  "runDate": "2026-05-25",
+  "fileResults": [
+    {
+      "id": "outreach-sprint",
+      "path": "project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md",
+      "reason": "Sales cadence, pipeline stages and scripts.",
+      "status": "PASS"
+    },
+    {
+      "id": "outreach-tracker",
+      "path": "project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv",
+      "reason": "30-row CRM-style tracker for the first cohort.",
+      "status": "PASS"
+    },
+    {
+      "id": "offer-sheet",
+      "path": "project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md",
+      "reason": "English/internal first-cohort offer sheet and objections.",
+      "status": "PASS"
+    },
+    {
+      "id": "hebrew-offer-html",
+      "path": "project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html",
+      "reason": "Browser-ready Hebrew one-pager for lawyer conversations.",
+      "status": "PASS"
+    }
+  ],
+  "tokenResults": [
+    {
+      "id": "price-349",
+      "files": [
+        "project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md",
+        "project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html"
+      ],
+      "tokens": [
+        "349"
+      ],
+      "reason": "Professional mini-site plan price is visible.",
+      "status": "PASS"
+    },
+    {
+      "id": "price-749",
+      "files": [
+        "project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md",
+        "project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html"
+      ],
+      "tokens": [
+        "749"
+      ],
+      "reason": "Featured exposure plan price is visible.",
+      "status": "PASS"
+    },
+    {
+      "id": "price-1490",
+      "files": [
+        "project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md",
+        "project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html"
+      ],
+      "tokens": [
+        "1,490"
+      ],
+      "reason": "Lead partner plan price is visible.",
+      "status": "PASS"
+    },
+    {
+      "id": "price-2490",
+      "files": [
+        "project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md",
+        "project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html"
+      ],
+      "tokens": [
+        "2,490"
+      ],
+      "reason": "Full service plan price is visible.",
+      "status": "PASS"
+    },
+    {
+      "id": "manual-payment-bridge",
+      "files": [
+        "project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md",
+        "project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md",
+        "project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html"
+      ],
+      "tokens": [
+        "manual",
+        "ידני"
+      ],
+      "reason": "First-cohort materials disclose the manual payment bridge.",
+      "status": "PASS"
+    },
+    {
+      "id": "no-guarantee",
+      "files": [
+        "project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md"
+      ],
+      "tokens": [
+        "No fake guarantees"
+      ],
+      "reason": "English/internal sheet avoids fake lead guarantees.",
+      "status": "PASS"
+    },
+    {
+      "id": "hebrew-no-guarantee",
+      "files": [
+        "project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html"
+      ],
+      "tokens": [
+        "לא להבטיח"
+      ],
+      "reason": "Hebrew one-pager avoids fake lead guarantees.",
+      "status": "PASS"
+    },
+    {
+      "id": "cadence",
+      "files": [
+        "project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md"
+      ],
+      "tokens": [
+        "7-Day Outreach Cadence"
+      ],
+      "reason": "Outreach cadence is explicit.",
+      "status": "PASS"
+    },
+    {
+      "id": "tracker-stage",
+      "files": [
+        "project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv"
+      ],
+      "tokens": [
+        "stage"
+      ],
+      "reason": "Tracker contains pipeline stage field.",
+      "status": "PASS"
+    }
+  ],
+  "trackerRows": 30
+}

@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - First paid lawyer sales-pack checker
+
+- ADDED: `tools/check-first-paid-lawyer-sales-pack.mjs`.
+- GENERATED: `project-control/first-paid-lawyer-sales-pack-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/first-paid-lawyer-sales-pack-2026-05-25.json` and `.csv`.
+- VERIFIED: sales pack passes with 4/4 required files, 9/9 sales tokens and 30 tracker rows.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` and `tools/check-investor-launchpad-pack.mjs` to link and require the sales-pack check.
+- PURPOSE: verify first-cohort sales collateral before owner outreach.
+- SAFETY: local checker/report/documentation artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Hebrew lawyer offer HTML
 
 - ADDED: `project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html`.

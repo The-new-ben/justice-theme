@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-25 07:53 Asia/Jerusalem
+- FIRST PAID LAWYER SALES-PACK CHECKER: added a repeatable local QA gate for the first-cohort lawyer sales materials.
+- ADDED: `tools/check-first-paid-lawyer-sales-pack.mjs`.
+- GENERATED: `project-control/first-paid-lawyer-sales-pack-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/first-paid-lawyer-sales-pack-2026-05-25.json` and `.csv`.
+- VERIFIED LOCAL: sales pack is PASS with 4/4 required files, 9/9 sales tokens and 30 tracker rows.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` and `tools/check-investor-launchpad-pack.mjs` so the sales-pack check is linked and verified.
+- MATERIAL ADVANCE: first-cohort sales collateral now has a guard that verifies plan prices, manual payment bridge, no-guarantee language, cadence and tracker before outreach.
+- STILL BLOCKED: actual outreach, payment link sending, invoices and account activation require owner approval/live execution.
+- COMPLETION: first-cohort sales collateral is about 98%; actual revenue remains blocked until owner executes outreach and manual payment links.
+- SAFETY: local checker/report/documentation artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 07:43 Asia/Jerusalem
 - HEBREW LAWYER OFFER HTML: added a browser-ready RTL Hebrew one-pager for first-cohort lawyer sales, with value proposition, plan ladder, WhatsApp close, phone close and boundaries.
 - RESEARCH BASIS: current one-pager guidance from HubSpot, Dock and Qwilr emphasizes concise value, proof points and a clear next step.

@@ -1,0 +1,15 @@
+type,id,status,detail,reason
+file,outreach-sprint,PASS,project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md,"Sales cadence, pipeline stages and scripts."
+file,outreach-tracker,PASS,project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv,30-row CRM-style tracker for the first cohort.
+file,offer-sheet,PASS,project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md,English/internal first-cohort offer sheet and objections.
+file,hebrew-offer-html,PASS,project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html,Browser-ready Hebrew one-pager for lawyer conversations.
+token,price-349,PASS,project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md|project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html,Professional mini-site plan price is visible.
+token,price-749,PASS,project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md|project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html,Featured exposure plan price is visible.
+token,price-1490,PASS,project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md|project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html,Lead partner plan price is visible.
+token,price-2490,PASS,project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md|project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html,Full service plan price is visible.
+token,manual-payment-bridge,PASS,project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md|project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md|project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html,First-cohort materials disclose the manual payment bridge.
+token,no-guarantee,PASS,project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md,English/internal sheet avoids fake lead guarantees.
+token,hebrew-no-guarantee,PASS,project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html,Hebrew one-pager avoids fake lead guarantees.
+token,cadence,PASS,project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md,Outreach cadence is explicit.
+token,tracker-stage,PASS,project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv,Tracker contains pipeline stage field.
+tracker,rows,PASS,30,Tracker should contain at least 30 prospect rows.

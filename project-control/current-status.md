@@ -5,6 +5,7 @@
 - GENERATED: `reports/lawyer-registration-dynamic-billing-fields-2026-05-25.json`.
 - MATERIAL ADVANCE: a lawyer no longer has to arrive through a special paid-plan URL to provide billing details; generic registration can now convert into a paid manual-invoice handoff from inside the same customer journey.
 - VERIFIED LOCAL: `php -l page-lawyer-registration.php`, `php -l inc/enqueue.php`, `node --check assets/js/lawyer-registration-wizard.js`, JSON parse, and `git diff --check` passed.
+- VERIFIED LIVE: uPress Git log shows live HEAD `59a9c8b`; free registration keeps billing fields hidden, paid `plan_interest=featured` exposes required billing fields and `payment_path=manual_invoice`, and browser interaction from the registration wizard reveals the billing fieldset after paid selection.
 - REVENUE STATUS: realized revenue remains NIS 0. This improves the paid signup handoff but does not prove a Grow/Woo payment or invoice.
 - SAFETY: theme/form behavior only; no CMS/database record, competitor content, payment gateway setting, charge, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
 

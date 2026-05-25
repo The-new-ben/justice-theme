@@ -26,8 +26,10 @@ This cycle closes that gap for the investor/customer journey:
 - PASS: Local JS syntax check for `assets/js/lawyer-registration-wizard.js`.
 - PASS: JSON parse for `reports/lawyer-registration-dynamic-billing-fields-2026-05-25.json`.
 - PASS: `git diff --check`.
-- After deploy pull: live read-only HTML check for free and paid registration states.
-- After deploy pull: browser check that selecting a paid plan from the generic registration page reveals the billing fieldset and sets `payment_path=manual_invoice`.
+- PASS: uPress Git log showed live HEAD `59a9c8b`.
+- PASS: Live free/default registration contains the billing fieldset marker but keeps it hidden and does not set `payment_path=manual_invoice`.
+- PASS: Live paid preselected registration with `plan_interest=featured` exposes the billing fieldset, requires billing legal name and invoice email, and sets `payment_path=manual_invoice`.
+- PASS: Browser interaction from the generic registration page changed the plan to `featured`; the wizard set `payment_path=manual_invoice`, revealed billing fields, and made billing legal name plus invoice email required.
 
 ## Honest Revenue Status
 

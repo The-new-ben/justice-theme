@@ -89,6 +89,37 @@ function justice_lawyer_fact_review_status_options(): array {
 }
 
 /**
+ * Return owner-facing sponsored placement states.
+ *
+ * Reserved/top is an ordering and sales pipeline control. It does not mean the
+ * lawyer paid or that subscription_status is active.
+ *
+ * @return array<string,string>
+ */
+function justice_lawyer_sponsored_placement_status_options(): array {
+	return array(
+		'none'     => __( 'None / organic order', 'justice-theme' ),
+		'reserved' => __( 'Reserved top placement - not paid yet', 'justice-theme' ),
+		'active'   => __( 'Active sponsored placement - owner confirmed', 'justice-theme' ),
+		'paused'   => __( 'Paused sponsored placement', 'justice-theme' ),
+		'hold'     => __( 'Hold / do not sponsor', 'justice-theme' ),
+	);
+}
+
+/**
+ * Normalize owner sponsored-placement status.
+ *
+ * @param string $status Raw status.
+ * @return string
+ */
+function justice_lawyer_normalize_sponsored_placement_status( string $status ): string {
+	$status  = sanitize_key( $status );
+	$options = justice_lawyer_sponsored_placement_status_options();
+
+	return isset( $options[ $status ] ) ? $status : 'none';
+}
+
+/**
  * Normalize the lawyer fact review status.
  *
  * @param string $status Raw status value.
@@ -145,6 +176,8 @@ function justice_lawyer_visibility_meta_box_render( WP_Post $post ): void {
 	$subscription   = get_post_meta( $post->ID, 'subscription_status', true );
 	$plan           = get_post_meta( $post->ID, 'plan_type', true );
 	$fact_status    = justice_lawyer_normalize_fact_review_status( (string) get_post_meta( $post->ID, 'profile_fact_review_status', true ) );
+	$sponsor_status = justice_lawyer_normalize_sponsored_placement_status( (string) get_post_meta( $post->ID, 'sponsored_placement_status', true ) );
+	$priority_score = (int) get_post_meta( $post->ID, 'priority_score', true );
 	$is_approved    = function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
 		? justice_theme_lawyer_profile_is_public_approved( $post->ID )
 		: false;
@@ -207,6 +240,24 @@ function justice_lawyer_visibility_meta_box_render( WP_Post $post ): void {
 			Only source checked, owner approved, lawyer approved, or approved unlock free-form biography facts, credentials, review panels and premium mini-site marketing on fact-gated profiles. Leave pending/hold until sources or lawyer approval are real.
 		</p>
 
+		<hr style="margin:12px 0;">
+
+		<label for="sponsored_placement_status" style="font-weight:700;display:block;margin-bottom:6px;">Sponsored / top placement:</label>
+		<select id="sponsored_placement_status" name="sponsored_placement_status" style="width:100%;max-width:100%;">
+			<?php foreach ( justice_lawyer_sponsored_placement_status_options() as $status_value => $status_label ) : ?>
+				<option value="<?php echo esc_attr( $status_value ); ?>" <?php selected( $sponsor_status, $status_value ); ?>>
+					<?php echo esc_html( $status_label ); ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
+
+		<label for="priority_score" style="font-weight:700;display:block;margin:10px 0 6px;">Priority score:</label>
+		<input type="number" id="priority_score" name="priority_score" min="0" max="999" step="1" value="<?php echo esc_attr( (string) $priority_score ); ?>" style="width:100%;max-width:100%;">
+
+		<p style="margin:8px 0 0;color:#646970;font-size:11px;line-height:1.4;">
+			Reserved placement can float a card for sales/demo review without marking payment as active. Only real subscription/payment data should change `subscription_status`.
+		</p>
+
 	</div>
 	<?php
 }
@@ -240,6 +291,19 @@ function justice_lawyer_visibility_meta_box_save( int $post_id ): void {
 		: 'pending';
 
 	update_post_meta( $post_id, 'profile_fact_review_status', $fact_status );
+
+	$sponsor_status = isset( $_POST['sponsored_placement_status'] )
+		? justice_lawyer_normalize_sponsored_placement_status( (string) wp_unslash( $_POST['sponsored_placement_status'] ) )
+		: 'none';
+
+	if ( 'none' === $sponsor_status ) {
+		delete_post_meta( $post_id, 'sponsored_placement_status' );
+	} else {
+		update_post_meta( $post_id, 'sponsored_placement_status', $sponsor_status );
+	}
+
+	$priority_score = isset( $_POST['priority_score'] ) ? absint( wp_unslash( $_POST['priority_score'] ) ) : 0;
+	update_post_meta( $post_id, 'priority_score', min( 999, $priority_score ) );
 }
 add_action( 'save_post', 'justice_lawyer_visibility_meta_box_save' );
 
@@ -257,7 +321,8 @@ function justice_lawyer_bulk_visibility_actions( array $actions ): array {
 	$actions['justice_lawyer_visibility_show']      = __( 'Jus-Tice: show in public index', 'justice-theme' );
 	$actions['justice_lawyer_visibility_hide']      = __( 'Jus-Tice: hide from public index', 'justice-theme' );
 	$actions['justice_lawyer_visibility_auto']      = __( 'Jus-Tice: automatic visibility', 'justice-theme' );
-	$actions['justice_lawyer_mark_sponsored']       = __( 'Jus-Tice: mark sponsored/top', 'justice-theme' );
+	$actions['justice_lawyer_mark_sponsored']       = __( 'Jus-Tice: reserve sponsored/top slot (no payment change)', 'justice-theme' );
+	$actions['justice_lawyer_clear_sponsored']      = __( 'Jus-Tice: clear sponsored/top slot', 'justice-theme' );
 	$actions['justice_lawyer_mark_basic_unclaimed'] = __( 'Jus-Tice: mark basic/unclaimed', 'justice-theme' );
 	$actions['justice_lawyer_facts_source_checked'] = __( 'Jus-Tice: facts source checked', 'justice-theme' );
 	$actions['justice_lawyer_facts_hold']           = __( 'Jus-Tice: hold facts/promotion', 'justice-theme' );
@@ -280,6 +345,7 @@ function justice_lawyer_handle_bulk_visibility_action( string $redirect_to, stri
 		'justice_lawyer_visibility_hide',
 		'justice_lawyer_visibility_auto',
 		'justice_lawyer_mark_sponsored',
+		'justice_lawyer_clear_sponsored',
 		'justice_lawyer_mark_basic_unclaimed',
 		'justice_lawyer_facts_source_checked',
 		'justice_lawyer_facts_hold',
@@ -315,9 +381,12 @@ function justice_lawyer_handle_bulk_visibility_action( string $redirect_to, stri
 			case 'justice_lawyer_mark_sponsored':
 				update_post_meta( $post_id, 'admin_profile_visibility', 'show' );
 				update_post_meta( $post_id, 'profile_status', 'public' );
-				update_post_meta( $post_id, 'plan_type', 'featured' );
-				update_post_meta( $post_id, 'subscription_status', 'active' );
+				update_post_meta( $post_id, 'sponsored_placement_status', 'reserved' );
 				update_post_meta( $post_id, 'priority_score', max( 90, (int) get_post_meta( $post_id, 'priority_score', true ) ) );
+				break;
+
+			case 'justice_lawyer_clear_sponsored':
+				delete_post_meta( $post_id, 'sponsored_placement_status' );
 				break;
 
 			case 'justice_lawyer_mark_basic_unclaimed':
@@ -325,6 +394,7 @@ function justice_lawyer_handle_bulk_visibility_action( string $redirect_to, stri
 				update_post_meta( $post_id, 'profile_status', 'public' );
 				update_post_meta( $post_id, 'plan_type', 'free' );
 				update_post_meta( $post_id, 'subscription_status', 'inactive' );
+				delete_post_meta( $post_id, 'sponsored_placement_status' );
 				update_post_meta( $post_id, 'priority_score', 0 );
 				delete_post_meta( $post_id, 'claimed_by_user_id' );
 				break;
@@ -336,6 +406,7 @@ function justice_lawyer_handle_bulk_visibility_action( string $redirect_to, stri
 			case 'justice_lawyer_facts_hold':
 				update_post_meta( $post_id, 'profile_fact_review_status', 'hold' );
 				update_post_meta( $post_id, 'admin_profile_visibility', 'hide' );
+				update_post_meta( $post_id, 'sponsored_placement_status', 'hold' );
 				break;
 		}
 
@@ -737,6 +808,8 @@ function justice_lawyer_owner_admin_column_content( string $column, int $post_id
 		$plan       = strtolower( (string) get_post_meta( $post_id, 'plan_type', true ) );
 		$status     = strtolower( (string) get_post_meta( $post_id, 'subscription_status', true ) );
 		$priority   = (int) get_post_meta( $post_id, 'priority_score', true );
+		$sponsor_status = justice_lawyer_normalize_sponsored_placement_status( (string) get_post_meta( $post_id, 'sponsored_placement_status', true ) );
+		$sponsor_labels = justice_lawyer_sponsored_placement_status_options();
 		$fact_status = justice_lawyer_normalize_fact_review_status( (string) get_post_meta( $post_id, 'profile_fact_review_status', true ) );
 		$fact_labels = justice_lawyer_fact_review_status_options();
 		$is_public  = function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
@@ -758,8 +831,12 @@ function justice_lawyer_owner_admin_column_content( string $column, int $post_id
 			justice_lawyer_fact_review_status_is_approved( $fact_status ) ? '#0f5132' : ( in_array( $fact_status, array( 'hold', 'rejected' ), true ) ? '#842029' : '#664d03' )
 		);
 
-		if ( 'featured' === $plan || 'lead_partner' === $plan || $priority >= 90 ) {
-			justice_lawyer_admin_badge( 'Sponsored slot', '#f8e7b9', '#5f4300' );
+		if ( 'none' !== $sponsor_status ) {
+			justice_lawyer_admin_badge( 'Sponsor: ' . ( $sponsor_labels[ $sponsor_status ] ?? $sponsor_status ), '#f8e7b9', '#5f4300' );
+		}
+
+		if ( in_array( $plan, array( 'featured', 'lead_partner', 'full_service' ), true ) && 'active' === $status ) {
+			justice_lawyer_admin_badge( 'Paid active plan', '#d1e7dd', '#0f5132' );
 		}
 
 		if ( 'free' === $plan && 'inactive' === $status ) {
@@ -867,6 +944,10 @@ function justice_lawyer_owner_admin_filters( string $post_type ): void {
 				'full_service' => 'full_service',
 			),
 		),
+		'justice_owner_sponsored_status'  => array(
+			'label'   => __( 'All sponsored states', 'justice-theme' ),
+			'options' => justice_lawyer_sponsored_placement_status_options(),
+		),
 		'justice_owner_source_type'       => array(
 			'label'   => __( 'All sources', 'justice-theme' ),
 			'options' => array(
@@ -961,15 +1042,21 @@ function justice_lawyer_owner_admin_filter_query( WP_Query $query ): void {
 			$meta_query[] = array(
 				'relation' => 'OR',
 				array(
-					'key'     => 'plan_type',
-					'value'   => array( 'featured', 'lead_partner', 'full_service' ),
+					'key'     => 'sponsored_placement_status',
+					'value'   => array( 'reserved', 'active' ),
 					'compare' => 'IN',
 				),
 				array(
-					'key'     => 'priority_score',
-					'value'   => 90,
-					'type'    => 'NUMERIC',
-					'compare' => '>=',
+					'relation' => 'AND',
+					array(
+						'key'     => 'plan_type',
+						'value'   => array( 'featured', 'lead_partner', 'full_service' ),
+						'compare' => 'IN',
+					),
+					array(
+						'key'   => 'subscription_status',
+						'value' => 'active',
+					),
 				),
 			);
 			break;
@@ -1017,6 +1104,33 @@ function justice_lawyer_owner_admin_filter_query( WP_Query $query ): void {
 			$meta_query[] = array(
 				'key'   => 'profile_fact_review_status',
 				'value' => $fact_review,
+			);
+		}
+	}
+
+	$sponsored_status = isset( $_GET['justice_owner_sponsored_status'] ) ? sanitize_key( wp_unslash( $_GET['justice_owner_sponsored_status'] ) ) : '';
+	if ( '' !== $sponsored_status ) {
+		$sponsored_status = justice_lawyer_normalize_sponsored_placement_status( $sponsored_status );
+		if ( 'none' === $sponsored_status ) {
+			$meta_query[] = array(
+				'relation' => 'OR',
+				array(
+					'key'     => 'sponsored_placement_status',
+					'compare' => 'NOT EXISTS',
+				),
+				array(
+					'key'   => 'sponsored_placement_status',
+					'value' => '',
+				),
+				array(
+					'key'   => 'sponsored_placement_status',
+					'value' => 'none',
+				),
+			);
+		} else {
+			$meta_query[] = array(
+				'key'   => 'sponsored_placement_status',
+				'value' => $sponsored_status,
 			);
 		}
 	}

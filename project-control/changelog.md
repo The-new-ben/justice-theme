@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer sponsored placement payment separation
+
+- UPDATED: `inc/template-tags.php`, `inc/lawyer-visibility.php`, `template-parts/cards/lawyer-card.php`, `template-parts/sections/featured-lawyers.php`.
+- ADDED: `project-control/lawyer-sponsored-placement-payment-separation-2026-05-25.md`.
+- PURPOSE: let the owner manage sponsored/top placement inventory without pretending a lawyer has paid.
+- IMPLEMENTATION: added `sponsored_placement_status`, owner edit-screen controls, sponsored-state admin filtering, a no-payment-change reserve bulk action, clear-sponsored bulk action, shared directory/homepage sort scoring, and card badges that distinguish real sponsored state from reserved ordering.
+- REVENUE LOGIC: `subscription_status` remains the real payment/subscription signal. Reserved placement is a sales/demo positioning control only.
+- VERIFIED LOCAL: `php -l inc/template-tags.php`, `php -l inc/lawyer-visibility.php`, `php -l template-parts/cards/lawyer-card.php`, `php -l template-parts/sections/featured-lawyers.php`, and `git diff --check` passed.
+- SAFETY: no CMS database write, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # 2026-05-25 - Article contextual lead CTA
 
 - UPDATED: `inc/template-tags.php`, `single.php`, `single-articles.php`, `assets/css/main.css`.

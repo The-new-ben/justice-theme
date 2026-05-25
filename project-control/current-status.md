@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 18:06 Asia/Jerusalem
+- SPONSORED PLACEMENT SEPARATED FROM PAYMENT STATUS: lawyer sponsored/top placement is now a CMS placement state, not a fake active subscription.
+- UPDATED: `inc/template-tags.php`, `inc/lawyer-visibility.php`, `template-parts/cards/lawyer-card.php`, `template-parts/sections/featured-lawyers.php`.
+- ADDED: `project-control/lawyer-sponsored-placement-payment-separation-2026-05-25.md`.
+- MATERIAL ADVANCE: owner can reserve/clear sponsored placement and priority from lawyer edit/bulk controls without changing `subscription_status=active`. Real payment/subscription state stays separate for Grow/Morning/invoice proof.
+- INVESTOR DEMO HONESTY: reserved placement can influence ordering for sales/demo review; public sponsored badge still requires real active paid plan or explicit active sponsored placement, and fact-gated profiles remain restricted.
+- VERIFIED LOCAL / DEPLOY PENDING: `php -l inc/template-tags.php`, `php -l inc/lawyer-visibility.php`, `php -l template-parts/cards/lawyer-card.php`, `php -l template-parts/sections/featured-lawyers.php`, and `git diff --check` passed; after uPress Pull Git, check wp-admin lawyer edit screen and the lawyers list bulk actions.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves sponsored-slot sales readiness and prevents fake payment claims, but it does not prove payment, invoice, refund, subscription, lead delivery or CRM monetization.
+- SAFETY: repo code/docs only; no live CMS database edit, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 17:47 Asia/Jerusalem
 - ARTICLE LEAD CTA CONTEXTUALIZED: regular posts and custom `articles` pages now use a contextual post-content lead path instead of generic marketing copy.
 - UPDATED: `inc/template-tags.php`, `single.php`, `single-articles.php`, `assets/css/main.css`.

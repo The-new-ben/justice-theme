@@ -20,21 +20,9 @@ if ( ! function_exists( 'justice_theme_homepage_lawyer_showcase_score' ) ) {
 	 * @return int
 	 */
 	function justice_theme_homepage_lawyer_showcase_score( int $post_id ): int {
-		$plan         = strtolower( (string) get_post_meta( $post_id, 'plan_type', true ) );
-		$subscription = strtolower( (string) get_post_meta( $post_id, 'subscription_status', true ) );
-		$verified     = strtolower( (string) get_post_meta( $post_id, 'verification_status', true ) );
-		$priority     = (int) get_post_meta( $post_id, 'priority_score', true );
-		$is_paid      = 'active' === $subscription && in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
-
-		if ( $is_paid ) {
-			$priority += 1000;
-		}
-
-		if ( 'verified' === $verified ) {
-			$priority += 100;
-		}
-
-		return $priority;
+		return function_exists( 'justice_theme_lawyer_profile_sort_score' )
+			? justice_theme_lawyer_profile_sort_score( $post_id )
+			: (int) get_post_meta( $post_id, 'priority_score', true );
 	}
 }
 

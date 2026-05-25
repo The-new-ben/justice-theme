@@ -563,20 +563,60 @@ function justice_theme_lawyer_profile_is_public_approved( int $post_id = 0 ): bo
 }
 
 /**
+ * Check if a lawyer has a real active paid plan.
+ *
+ * @param int $post_id Lawyer post ID.
+ * @return bool
+ */
+function justice_theme_lawyer_paid_plan_is_active( int $post_id ): bool {
+	$plan         = strtolower( (string) get_post_meta( $post_id, 'plan_type', true ) );
+	$subscription = strtolower( (string) get_post_meta( $post_id, 'subscription_status', true ) );
+
+	return 'active' === $subscription && in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
+}
+
+/**
+ * Return the controlled sponsored-placement status without implying payment.
+ *
+ * @param int $post_id Lawyer post ID.
+ * @return string
+ */
+function justice_theme_lawyer_sponsored_placement_status( int $post_id ): string {
+	$status = sanitize_key( (string) get_post_meta( $post_id, 'sponsored_placement_status', true ) );
+
+	return in_array( $status, array( 'reserved', 'active', 'paused', 'hold' ), true ) ? $status : 'none';
+}
+
+/**
+ * Check if the public profile should carry a sponsored badge.
+ *
+ * @param int $post_id Lawyer post ID.
+ * @return bool
+ */
+function justice_theme_lawyer_has_public_sponsored_placement( int $post_id ): bool {
+	return justice_theme_lawyer_paid_plan_is_active( $post_id )
+		|| 'active' === justice_theme_lawyer_sponsored_placement_status( $post_id );
+}
+
+/**
  * Score a public lawyer card for sponsored/featured directory ordering.
+ *
+ * Reserved placement changes ordering only; it does not imply payment.
  *
  * @param int $post_id Lawyer post ID.
  * @return int
  */
 function justice_theme_lawyer_profile_sort_score( int $post_id ): int {
-	$plan         = strtolower( (string) get_post_meta( $post_id, 'plan_type', true ) );
-	$subscription = strtolower( (string) get_post_meta( $post_id, 'subscription_status', true ) );
-	$verified     = strtolower( (string) get_post_meta( $post_id, 'verification_status', true ) );
-	$priority     = (int) get_post_meta( $post_id, 'priority_score', true );
-	$is_paid      = 'active' === $subscription && in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
+	$verified       = strtolower( (string) get_post_meta( $post_id, 'verification_status', true ) );
+	$priority       = (int) get_post_meta( $post_id, 'priority_score', true );
+	$sponsor_status = justice_theme_lawyer_sponsored_placement_status( $post_id );
 
-	if ( $is_paid ) {
+	if ( justice_theme_lawyer_paid_plan_is_active( $post_id ) ) {
 		$priority += 1000;
+	} elseif ( 'active' === $sponsor_status ) {
+		$priority += 800;
+	} elseif ( 'reserved' === $sponsor_status ) {
+		$priority += 250;
 	}
 
 	if ( 'verified' === $verified ) {

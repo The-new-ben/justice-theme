@@ -73,7 +73,12 @@ $review_count    = (int) get_post_meta( $lawyer_id, 'review_count', true );
 $average_rating  = (float) get_post_meta( $lawyer_id, 'average_rating', true );
 $reviews_enabled = in_array( strtolower( (string) get_post_meta( $lawyer_id, 'review_display_enabled', true ) ), array( '1', 'yes', 'true', 'enabled', 'approved' ), true );
 $is_seed_data    = 'seed' === $source_type || false !== stripos( (string) $internal_notes, 'SEED_DATA' );
-$is_paid         = ! $is_seed_data && 'active' === $subscription && in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
+$is_paid         = ! $is_seed_data && ( function_exists( 'justice_theme_lawyer_paid_plan_is_active' )
+	? justice_theme_lawyer_paid_plan_is_active( $lawyer_id )
+	: ( 'active' === $subscription && in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true ) ) );
+$sponsor_status  = function_exists( 'justice_theme_lawyer_sponsored_placement_status' ) ? justice_theme_lawyer_sponsored_placement_status( $lawyer_id ) : 'none';
+$has_public_sponsor = ! $is_seed_data && ( function_exists( 'justice_theme_lawyer_has_public_sponsored_placement' ) ? justice_theme_lawyer_has_public_sponsored_placement( $lawyer_id ) : $is_paid );
+$has_reserved_sponsor = ! $is_seed_data && 'reserved' === $sponsor_status;
 $is_basic_public = ! $is_seed_data
 	&& 0 === $claimed_user_id
 	&& 'verified' !== $verified
@@ -133,6 +138,12 @@ if ( $is_basic_public ) {
 
 if ( $is_paid ) {
 	$card_classes[] = 'lawyer-card--paid';
+}
+
+if ( $has_public_sponsor ) {
+	$card_classes[] = 'lawyer-card--sponsored';
+} elseif ( $has_reserved_sponsor ) {
+	$card_classes[] = 'lawyer-card--promoted';
 }
 
 if ( $requires_fact_gate && ! $profile_is_fact_checked ) {
@@ -198,11 +209,15 @@ $claim_url       = add_query_arg(
 			<h3 class="lawyer-card__name">
 				<a href="<?php echo esc_url( $lawyer_url ); ?>"><?php the_title(); ?></a>
 			</h3>
-			<?php if ( 'verified' === $verified && $show_profile_claims ) : ?>
+			<?php if ( $has_public_sponsor && $show_profile_claims ) : ?>
+				<span class="lawyer-card__status lawyer-card__status--sponsored"><?php esc_html_e( 'ממומן', 'justice-theme' ); ?></span>
+			<?php elseif ( $has_reserved_sponsor && $show_profile_claims ) : ?>
+				<span class="lawyer-card__status lawyer-card__status--sponsored"><?php esc_html_e( 'מקודם', 'justice-theme' ); ?></span>
+			<?php elseif ( 'verified' === $verified && $show_profile_claims ) : ?>
 				<span class="lawyer-card__status">מאומת</span>
 			<?php elseif ( $is_basic_public ) : ?>
 				<span class="lawyer-card__status lawyer-card__status--basic"><?php esc_html_e( 'כרטיס בסיסי', 'justice-theme' ); ?></span>
-			<?php elseif ( $is_paid ) : ?>
+			<?php elseif ( $is_paid && ! $has_public_sponsor && ! $has_reserved_sponsor ) : ?>
 				<span class="lawyer-card__status lawyer-card__status--sponsored">ממומן</span>
 			<?php endif; ?>
 		</div>

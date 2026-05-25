@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer trust summary bar
+
+- UPDATED: `inc/lawyer-visibility.php`.
+- ADDED: `project-control/lawyer-profile-trust-summary-bar-2026-05-25.md`.
+- PURPOSE: make the trust gate operational at a glance for the owner before homepage, sponsored, outreach or investor-demo promotion.
+- IMPLEMENTATION: added a wp-admin `Jus-Tice profile trust queue` bar with counts and links for hold, needs review, missing source, blocked media, Maya review and trust ready profiles; reused the same trust-gate logic as the filters.
+- VERIFIED LOCAL: `php -l inc/lawyer-visibility.php` and `git diff --check` passed.
+- SAFETY: admin/theme logic only; no CMS database record, competitor profile copy, photo, review, rating, contact detail, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed.
+
 # 2026-05-25 - Lawyer profile trust gate admin
 
 - UPDATED: `inc/lawyer-visibility.php`.

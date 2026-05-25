@@ -475,6 +475,139 @@ function justice_lawyer_owner_profile_matches_trust_gate( int $post_id, string $
 }
 
 /**
+ * Fetch all lawyer profile IDs that the owner trust tools should inspect.
+ *
+ * @return array<int>
+ */
+function justice_lawyer_owner_all_profile_ids(): array {
+	return array_map(
+		'intval',
+		get_posts(
+			array(
+				'post_type'        => 'justice_lawyer',
+				'post_status'      => array( 'publish', 'draft', 'pending', 'private' ),
+				'posts_per_page'   => -1,
+				'fields'           => 'ids',
+				'no_found_rows'    => true,
+				'suppress_filters' => true,
+			)
+		)
+	);
+}
+
+/**
+ * Count trust states for the owner lawyer list summary.
+ *
+ * @return array<string,int>
+ */
+function justice_lawyer_owner_profile_trust_summary_counts(): array {
+	$counts = array(
+		'total'                  => 0,
+		'ready'                  => 0,
+		'needs_review'           => 0,
+		'hold'                   => 0,
+		'missing_source'         => 0,
+		'blocked_media'          => 0,
+		'maya_review'            => 0,
+		'seed_demo'              => 0,
+		'unsourced_credentials'  => 0,
+		'hidden_reviews'         => 0,
+	);
+
+	foreach ( justice_lawyer_owner_all_profile_ids() as $post_id ) {
+		$findings = justice_lawyer_owner_profile_trust_findings( $post_id );
+		$issues   = $findings['issues'];
+
+		++$counts['total'];
+
+		if ( empty( $issues ) ) {
+			++$counts['ready'];
+		} else {
+			++$counts['needs_review'];
+		}
+
+		if ( 'hold' === $findings['level'] ) {
+			++$counts['hold'];
+		}
+
+		foreach ( array_keys( $issues ) as $issue_key ) {
+			if ( isset( $counts[ $issue_key ] ) ) {
+				++$counts[ $issue_key ];
+			}
+		}
+	}
+
+	return $counts;
+}
+
+/**
+ * Render a summary link for the lawyer trust-gate admin dashboard.
+ *
+ * @param string $label      Link label.
+ * @param int    $count      Count to display.
+ * @param string $gate       Trust gate filter.
+ * @param string $background Background color.
+ * @param string $color      Text color.
+ */
+function justice_lawyer_owner_trust_summary_link( string $label, int $count, string $gate, string $background, string $color ): void {
+	$url = add_query_arg(
+		array(
+			'post_type'                => 'justice_lawyer',
+			'justice_owner_trust_gate' => $gate,
+		),
+		admin_url( 'edit.php' )
+	);
+
+	printf(
+		'<a href="%1$s" style="display:inline-flex;align-items:center;gap:6px;margin:0 6px 6px 0;padding:7px 10px;border-radius:6px;background:%2$s;color:%3$s;text-decoration:none;font-weight:700;"><span>%4$s</span><strong style="font-size:15px;">%5$d</strong></a>',
+		esc_url( $url ),
+		esc_attr( $background ),
+		esc_attr( $color ),
+		esc_html( $label ),
+		$count
+	);
+}
+
+/**
+ * Show owner trust-gate counts above the lawyer CMS table.
+ *
+ * @param string $which Table navigation position.
+ */
+function justice_lawyer_owner_trust_gate_summary_bar( string $which ): void {
+	if ( 'top' !== $which ) {
+		return;
+	}
+
+	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+	if ( ! $screen || 'edit-justice_lawyer' !== $screen->id ) {
+		return;
+	}
+
+	$counts = justice_lawyer_owner_profile_trust_summary_counts();
+
+	echo '<div class="justice-owner-trust-summary" style="clear:both;margin:10px 0 12px;padding:12px;border:1px solid #c3c4c7;border-radius:8px;background:#fff;">';
+	echo '<div style="margin-bottom:8px;font-weight:700;color:#1d2327;">' . esc_html__( 'Jus-Tice profile trust queue', 'justice-theme' ) . '</div>';
+	justice_lawyer_owner_trust_summary_link( __( 'Hold before promotion', 'justice-theme' ), $counts['hold'], 'hold', '#f8d7da', '#842029' );
+	justice_lawyer_owner_trust_summary_link( __( 'Needs review', 'justice-theme' ), $counts['needs_review'], 'needs_review', '#fff3cd', '#664d03' );
+	justice_lawyer_owner_trust_summary_link( __( 'Missing source', 'justice-theme' ), $counts['missing_source'], 'missing_source', '#fde2c2', '#6c3d00' );
+	justice_lawyer_owner_trust_summary_link( __( 'Blocked media', 'justice-theme' ), $counts['blocked_media'], 'blocked_media', '#f8d7da', '#842029' );
+	justice_lawyer_owner_trust_summary_link( __( 'Maya review', 'justice-theme' ), $counts['maya_review'], 'maya_review', '#e7d8ff', '#3b245f' );
+	justice_lawyer_owner_trust_summary_link( __( 'Trust ready', 'justice-theme' ), $counts['ready'], 'ready', '#d1e7dd', '#0f5132' );
+	printf(
+		'<div style="margin-top:4px;color:#646970;font-size:12px;">%s</div>',
+		esc_html(
+			sprintf(
+				/* translators: %d: total lawyer profile count. */
+				__( 'Total profiles checked: %d. Resolve red/yellow items before homepage, sponsored, outreach or investor-demo promotion.', 'justice-theme' ),
+				$counts['total']
+			)
+		)
+	);
+	echo '</div>';
+}
+add_action( 'manage_posts_extra_tablenav', 'justice_lawyer_owner_trust_gate_summary_bar' );
+
+/**
  * Add owner-facing management columns to the lawyer CMS list.
  *
  * @param array<string,string> $columns Existing columns.
@@ -774,19 +907,9 @@ function justice_lawyer_owner_admin_filter_query( WP_Query $query ): void {
 
 	$trust_gate = isset( $_GET['justice_owner_trust_gate'] ) ? sanitize_key( wp_unslash( $_GET['justice_owner_trust_gate'] ) ) : '';
 	if ( '' !== $trust_gate ) {
-		$all_lawyer_ids = get_posts(
-			array(
-				'post_type'        => 'justice_lawyer',
-				'post_status'      => array( 'publish', 'draft', 'pending', 'private' ),
-				'posts_per_page'   => -1,
-				'fields'           => 'ids',
-				'no_found_rows'    => true,
-				'suppress_filters' => true,
-			)
-		);
-		$matching_ids   = array_values(
+		$matching_ids = array_values(
 			array_filter(
-				array_map( 'intval', $all_lawyer_ids ),
+				justice_lawyer_owner_all_profile_ids(),
 				static function ( int $post_id ) use ( $trust_gate ): bool {
 					return justice_lawyer_owner_profile_matches_trust_gate( $post_id, $trust_gate );
 				}

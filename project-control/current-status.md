@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-25 14:29 Asia/Jerusalem
+- LAWYER TRUST SUMMARY BAR ADDED: wp-admin lawyer list now gets a visible `Jus-Tice profile trust queue` bar with counts and quick links for hold/review/source/media/Maya/ready profiles.
+- UPDATED: `inc/lawyer-visibility.php`.
+- ADDED: `project-control/lawyer-profile-trust-summary-bar-2026-05-25.md`.
+- MATERIAL ADVANCE: the owner no longer needs to hunt through filters one-by-one; the CMS now surfaces the size of the profile cleanup queue before sponsored/homepage/outreach promotion.
+- VERIFIED LOCAL: `php -l inc/lawyer-visibility.php` and `git diff --check` passed. Live deployment and wp-admin verification still need to complete in this cycle.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves operator safety and demo credibility but does not prove payment, invoice, refund, subscription, or lead monetization.
+- SAFETY: admin/theme logic and docs only; no CMS database record, competitor asset/content, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 14:20 Asia/Jerusalem
 - LAWYER PROFILE TRUST GATE ADDED: wp-admin lawyer list now has an owner-facing `Trust gate` column and filters to catch profiles that need source/media/fact review before promotion.
 - UPDATED: `inc/lawyer-visibility.php`.

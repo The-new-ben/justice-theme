@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Legal-service supplier CMS candidates
+
+- ADDED: `project-control/legal-service-supplier-cms-index-candidates-2026-05-25.md` and `.csv`.
+- ADDED: `tools/check-legal-service-supplier-index-candidates.mjs`.
+- GENERATED: `project-control/legal-service-supplier-index-candidates-check-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/legal-service-supplier-index-candidates-2026-05-25.json` and `.csv`.
+- PURPOSE: prepare the CMS-backed legal-services/professionals index using the existing private `justice_supplier` model, without hard-coded cards or public exposure.
+- VERIFIED: supplier candidate checker passed with 10 candidates and required category/revenue/safety coverage.
+- SAFETY: repo-only candidate packet/checker; no live CMS record, public supplier page, outreach, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed.
+
 # 2026-05-25 - CMS-backed basic lawyer cards
 
 - ADDED: `project-control/competitor-success-replication-plan-2026-05-25.md`.

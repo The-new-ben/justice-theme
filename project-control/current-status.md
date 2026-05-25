@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-25 11:02 Asia/Jerusalem
+- LEGAL-SERVICE SUPPLIER INDEX PACKET: prepared the CMS-backed supplier/professional pipeline requested by the owner, using the existing private `justice_supplier` CMS model rather than hard-coded public cards.
+- ADDED: `project-control/legal-service-supplier-cms-index-candidates-2026-05-25.md` and `.csv`.
+- ADDED: `tools/check-legal-service-supplier-index-candidates.mjs`.
+- GENERATED: `project-control/legal-service-supplier-index-candidates-check-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/legal-service-supplier-index-candidates-2026-05-25.json` and `.csv`.
+- MATERIAL ADVANCE: 10 legal-service supplier candidates are now ready for internal CMS creation across translation/notary, digital forensics, investigations, legal tech, finance/payment and professional information/training.
+- REVENUE VIEW: current public legal-service index and supplier revenue remain 0; realistic 30-60 day target after outreach is 1-2 lead-fee/affiliate agreements and ₪0-₪2,000/month until actual referrals happen.
+- BLOCKED: live CMS record creation still needs the owner to clear the uPress/F5 image-code challenge or provide a working REST application password; public supplier cards still need owner/compliance approval.
+- COMPLETION: supplier candidate preparation is about 60%; live supplier indexing remains 0% until CMS access is cleared.
+- SAFETY: repo-only supplier candidate packet and checker; no live CMS record, public supplier page, outreach, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 10:45 Asia/Jerusalem
 - CMS-BACKED BASIC LAWYER CARDS: added support for a safe `public_index` / `public` unclaimed lawyer-card state in the existing `justice_lawyer` CMS model.
 - ADDED: `project-control/competitor-success-replication-plan-2026-05-25.md`.

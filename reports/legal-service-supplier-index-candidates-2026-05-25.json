@@ -1,0 +1,48 @@
+{
+  "runDate": "2026-05-25",
+  "status": "PASS",
+  "candidateCount": 10,
+  "checks": [
+    {
+      "id": "row-count",
+      "status": "PASS",
+      "detail": "10 supplier candidates found"
+    },
+    {
+      "id": "required-columns",
+      "status": "PASS",
+      "detail": "All required columns present"
+    },
+    {
+      "id": "category-translation_notary",
+      "status": "PASS",
+      "detail": "translation_notary represented"
+    },
+    {
+      "id": "category-expert_witness",
+      "status": "PASS",
+      "detail": "expert_witness represented"
+    },
+    {
+      "id": "category-legal_tech",
+      "status": "PASS",
+      "detail": "legal_tech represented"
+    },
+    {
+      "id": "category-finance_tax",
+      "status": "PASS",
+      "detail": "finance_tax represented"
+    },
+    {
+      "id": "category-training_events",
+      "status": "PASS",
+      "detail": "training_events represented"
+    },
+    {
+      "id": "markdown-governance",
+      "status": "PASS",
+      "detail": "Governance and revenue tokens present"
+    }
+  ],
+  "safety": "Repo-only supplier candidate validation. No live CMS record, public supplier page, outreach, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed."
+}

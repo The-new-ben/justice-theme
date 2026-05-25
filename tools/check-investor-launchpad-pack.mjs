@@ -30,6 +30,11 @@ const requiredFiles = [
 		reason: 'Real-money lifecycle answers for payment, invoice, refund, cancel and plan-change questions.',
 	},
 	{
+		id: 'fallback-answers',
+		path: 'project-control/investor-demo-fallback-answers-2026-05-25.md',
+		reason: 'Controlled answers if a page is slow, a login is missing, or the investor challenges payment proof.',
+	},
+	{
 		id: 'ascii-demo-data',
 		path: 'project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md',
 		reason: 'Copy-safe demo lawyer and lead fields if Hebrew rendering is risky.',
@@ -65,6 +70,7 @@ const launchpadTokens = [
 	'https://jus-tice.co.il/lawyer-dashboard/',
 	'https://jus-tice.co.il/wp-admin/admin.php?page=justice-lawyer-onboarding',
 	'./investor-payment-lifecycle-playbook-2026-05-25.md',
+	'./investor-demo-fallback-answers-2026-05-25.md',
 	'tools\\run-investor-morning-pack.ps1',
 	'Do not claim recurring billing',
 ];

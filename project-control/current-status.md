@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 06:22 Asia/Jerusalem
+- INVESTOR FALLBACK ANSWERS: added a concise local sheet for what to say if the homepage is slow, the dashboard needs login, the investor asks for a real payment, or payment/refund/invoice automation is challenged.
+- ADDED: `project-control/investor-demo-fallback-answers-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the fallback answers.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` so the launchpad pack verifies the fallback sheet is present and linked.
+- MATERIAL ADVANCE: the owner has controlled, truthful answers for the exact failure/challenge moments that could otherwise derail the meeting.
+- STILL BLOCKED: claimed demo lawyer, assigned medical-malpractice lead, real provider payment, branded invoice and refund execution require explicit owner/provider-approved live actions.
+- COMPLETION: investor operator readiness moves to about 94%; full real-money lifecycle proof remains provider/data gated.
+- SAFETY: local documentation/checker/launchpad artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 06:12 Asia/Jerusalem
 - INVESTOR MORNING REFRESH SCRIPT: added a one-command PowerShell runner for the owner to refresh the live revenue funnel, investor readiness, launchpad pack, payment-overclaim gate and final go/no-go report before the meeting.
 - ADDED: `tools/run-investor-morning-pack.ps1`.

@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor fallback answers
+
+- ADDED: `project-control/investor-demo-fallback-answers-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the fallback answers.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` to include the fallback sheet in the verified pack.
+- PURPOSE: give the owner controlled answers for slow pages, missing login/demo data, real payment questions and automation challenges.
+- SAFETY: local documentation/checker/launchpad artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Investor morning refresh script
 
 - ADDED: `tools/run-investor-morning-pack.ps1`.

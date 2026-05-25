@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "startedAt": "2026-05-25T03:13:50.603Z",
+  "startedAt": "2026-05-25T03:23:29.490Z",
   "runDate": "2026-05-25",
   "sourceBasis": [
     {
@@ -37,6 +37,12 @@
       "id": "payment-lifecycle-playbook",
       "path": "project-control/investor-payment-lifecycle-playbook-2026-05-25.md",
       "reason": "Real-money lifecycle answers for payment, invoice, refund, cancel and plan-change questions.",
+      "status": "PASS"
+    },
+    {
+      "id": "fallback-answers",
+      "path": "project-control/investor-demo-fallback-answers-2026-05-25.md",
+      "reason": "Controlled answers if a page is slow, a login is missing, or the investor challenges payment proof.",
       "status": "PASS"
     },
     {
@@ -115,6 +121,10 @@
     },
     {
       "token": "./investor-payment-lifecycle-playbook-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "./investor-demo-fallback-answers-2026-05-25.md",
       "status": "PASS"
     },
     {

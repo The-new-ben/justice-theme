@@ -1,0 +1,119 @@
+{
+  "status": "PASS",
+  "startedAt": "2026-05-25T02:43:52.978Z",
+  "runDate": "2026-05-25",
+  "sourceBasis": [
+    {
+      "name": "Stripe Billing Customer Portal",
+      "url": "https://docs.stripe.com/billing/subscriptions/customer-portal",
+      "meaning": "Customer billing portals should expose billing details, payment methods, invoices and subscription status."
+    },
+    {
+      "name": "Chargebee Self-Serve Portal",
+      "url": "https://www.chargebee.com/docs/2.0/self-serve-portal.html",
+      "meaning": "Subscription portals commonly support change, pause/resume, cancel/reactivate, invoice download, payment methods and billing address management."
+    }
+  ],
+  "fileResults": [
+    {
+      "id": "launchpad",
+      "path": "project-control/investor-demo-launchpad-2026-05-25.html",
+      "reason": "Single non-technical control screen for the morning investor demo.",
+      "status": "PASS"
+    },
+    {
+      "id": "scenario-script",
+      "path": "project-control/investor-demo-scenario-script-2026-05-25.md",
+      "reason": "First-person medical-malpractice lawyer walkthrough.",
+      "status": "PASS"
+    },
+    {
+      "id": "morning-control-sheet",
+      "path": "project-control/investor-demo-morning-control-sheet-2026-05-25.md",
+      "reason": "Operator tab order and exact talk tracks.",
+      "status": "PASS"
+    },
+    {
+      "id": "payment-lifecycle-playbook",
+      "path": "project-control/investor-payment-lifecycle-playbook-2026-05-25.md",
+      "reason": "Real-money lifecycle answers for payment, invoice, refund, cancel and plan-change questions.",
+      "status": "PASS"
+    },
+    {
+      "id": "ascii-demo-data",
+      "path": "project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md",
+      "reason": "Copy-safe demo lawyer and lead fields if Hebrew rendering is risky.",
+      "status": "PASS"
+    },
+    {
+      "id": "readiness-report",
+      "path": "project-control/investor-demo-readiness-2026-05-25.md",
+      "reason": "Readiness status and remaining blockers.",
+      "status": "PASS"
+    },
+    {
+      "id": "revenue-funnel-report",
+      "path": "project-control/lawyer-revenue-funnel-live-2026-05-25.md",
+      "reason": "Live public lawyer funnel verification.",
+      "status": "PASS"
+    }
+  ],
+  "tokenResults": [
+    {
+      "token": "Jus-Tice Investor Demo Launchpad",
+      "status": "PASS"
+    },
+    {
+      "token": "Homepage</strong><span>PASS</span>",
+      "status": "PASS"
+    },
+    {
+      "token": "Revenue Funnel</strong><span>10/10 PASS</span>",
+      "status": "PASS"
+    },
+    {
+      "token": "Investor Gate</strong><span>14 PASS</span>",
+      "status": "PASS"
+    },
+    {
+      "token": "Payment Lifecycle</strong><span>Playbook ready</span>",
+      "status": "PASS"
+    },
+    {
+      "token": "2 demo-data + 3 provider blockers",
+      "status": "PASS"
+    },
+    {
+      "token": "https://jus-tice.co.il/",
+      "status": "PASS"
+    },
+    {
+      "token": "https://jus-tice.co.il/lawyer-plans/",
+      "status": "PASS"
+    },
+    {
+      "token": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner",
+      "status": "PASS"
+    },
+    {
+      "token": "https://jus-tice.co.il/lawyer-registration/?plan_interest=lead_partner",
+      "status": "PASS"
+    },
+    {
+      "token": "https://jus-tice.co.il/lawyer-dashboard/",
+      "status": "PASS"
+    },
+    {
+      "token": "https://jus-tice.co.il/wp-admin/admin.php?page=justice-lawyer-onboarding",
+      "status": "PASS"
+    },
+    {
+      "token": "./investor-payment-lifecycle-playbook-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "Do not claim recurring billing",
+      "status": "PASS"
+    }
+  ]
+}

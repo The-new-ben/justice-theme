@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor launchpad pack checker
+
+- ADDED: `tools/check-investor-launchpad-pack.mjs`.
+- GENERATED: `project-control/investor-launchpad-pack-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/investor-launchpad-pack-2026-05-25.json` and `.csv`.
+- VERIFIED: 7/7 required investor pack files and 14/14 launchpad tokens pass locally.
+- PURPOSE: prevent the morning investor demo from depending on scattered or missing control files.
+- SAFETY: local checker/report artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Investor launchpad payment link-in
 
 - UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` with a payment lifecycle badge, ordered drill step and supporting-file link.

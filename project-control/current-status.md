@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 05:42 Asia/Jerusalem
+- INVESTOR LAUNCHPAD PACK CHECKER: added and ran a local readiness checker for the morning investor control pack.
+- ADDED: `tools/check-investor-launchpad-pack.mjs`.
+- GENERATED: `project-control/investor-launchpad-pack-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/investor-launchpad-pack-2026-05-25.json` and `.csv`.
+- VERIFIED LOCAL: launchpad pack is PASS with 7/7 required files present and 14/14 launchpad tokens present.
+- MATERIAL ADVANCE: the owner can now prove the local demo pack is coherent before the meeting: launchpad, scenario script, control sheet, payment lifecycle playbook, ASCII demo data, readiness report and live revenue-funnel report are all present and linked.
+- STILL BLOCKED: claimed demo lawyer, assigned medical-malpractice lead, real provider payment, branded invoice and refund execution require explicit owner/provider-approved live actions.
+- COMPLETION: investor operator readiness moves to about 90%; full real-money lifecycle proof remains provider/data gated.
+- SAFETY: local checker/report artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 05:31 Asia/Jerusalem
 - INVESTOR LAUNCHPAD PAYMENT LINK-IN: updated the local demo launchpad so the new payment lifecycle playbook is visible as a status badge, an ordered demo step and a supporting file link.
 - UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html`.

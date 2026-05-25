@@ -90,6 +90,7 @@ while ( have_posts() ) :
 			</div>
 		</header>
 
+		<?php if ( apply_filters( 'justice_theme_show_article_intent_panel', false, get_the_ID() ) ) : ?>
 		<section class="article-intent-panel" aria-label="<?php esc_attr_e( 'מה חשוב להבין לפני קריאת המדריך', 'justice-theme' ); ?>">
 			<div class="article-intent-panel__item">
 				<strong><?php esc_html_e( 'מה הבעיה עכשיו?', 'justice-theme' ); ?></strong>
@@ -105,6 +106,7 @@ while ( have_posts() ) :
 			</div>
 		</section>
 
+		<?php endif; ?>
 		<div class="container single-article__layout">
 			
 			<div class="single-article__main">

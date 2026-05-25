@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-25 11:26 Asia/Jerusalem
+- ARTICLE PAGE RELEVANCE POLISH: disabled the repeated pre-content article intent/marketing panel by default via `justice_theme_show_article_intent_panel`, so article pages now move from title/meta directly into the article body unless an owner/developer explicitly re-enables the panel.
+- UPDATED: `single-articles.php`.
+- MATERIAL ADVANCE: this directly addresses the investor/owner concern that article pages were opening with generic "what to do / when to contact a lawyer / how Jus-Tice helps" marketing text before the real article, which can feel less professional and may dilute above-the-fold topical relevance.
+- VERIFIED LOCAL: `php -l single-articles.php` passed and the default filter value is `false`.
+- STILL BLOCKED: live CMS creation of additional lawyer/professional records still depends on working WordPress admin access or a working REST application password; no new CMS customers/professionals were created in this cycle.
+- COMPLETION: article-page polish moved from about 60% to 66%; homepage/commercial polish remains about 62%; CMS-backed customer/professional indexing remains constrained by live CMS access.
+- SAFETY: theme-only rendering change; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice, refund, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 11:16 Asia/Jerusalem
 - VISUAL POLISH / GENERIC IMAGE REDUCTION: replaced generic no-photo lawyer-card avatars with CMS-derived initials cards, and replaced the generic article fallback thumbnail with an editorial legal placeholder driven by the article practice area.
 - UPDATED: `template-parts/cards/lawyer-card.php`, `template-parts/cards/article-card.php`, and `assets/css/premium-pass-4.css`.

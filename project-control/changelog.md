@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Article page relevance polish
+
+- UPDATED: `single-articles.php`.
+- PURPOSE: remove the repeated pre-content marketing/intent panel from default article rendering so the main legal article body starts immediately after the title and meta block.
+- IMPLEMENTATION: the old `article-intent-panel` remains available behind `justice_theme_show_article_intent_panel` for a narrow approved use case, but the default value is now `false`.
+- VERIFIED: `php -l single-articles.php` passed.
+- SAFETY: theme rendering only; no CMS/database record, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed.
+
 # 2026-05-25 - Generic image reduction polish
 
 - UPDATED: `template-parts/cards/lawyer-card.php`, `template-parts/cards/article-card.php`, and `assets/css/premium-pass-4.css`.

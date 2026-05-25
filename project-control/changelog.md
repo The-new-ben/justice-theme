@@ -1,6 +1,12 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - ASCII investor demo data backup
+
+- ADDED: `project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md` and `.csv`.
+- PURPOSE: provide terminal-safe and admin-safe English demo data if Hebrew text renders incorrectly during urgent investor preparation.
+- SAFETY: documentation/seed packet only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Investor morning control sheet
 
 - ADDED: `project-control/investor-demo-morning-control-sheet-2026-05-25.md` with exact demo tabs, URLs, talk tracks, live-data checklist and payment honesty script.

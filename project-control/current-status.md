@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-25 04:46 Asia/Jerusalem
+- ASCII DEMO DATA BACKUP: added an ASCII-only backup for the investor demo seed packet so the owner has safe copy/paste text even if Hebrew renders incorrectly in a terminal, CSV viewer, email client or admin field.
+- ADDED: `project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md` with English demo lawyer, demo lead, service request and payment-link text.
+- ADDED: `project-control/investor-demo-data-seed-packet-ascii-2026-05-25.csv` with structured ASCII fields.
+- MATERIAL ADVANCE: removes a practical morning risk: corrupted Hebrew display during urgent demo-data creation.
+- STILL BLOCKED: no live demo data was created; owner approval is still required before creating any live lawyer, user, lead, payment link, invoice or service request.
+- SAFETY: documentation/seed packet only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 04:35 Asia/Jerusalem
 - INVESTOR MORNING CONTROL SHEET: added a one-page operator sheet that turns the verified revenue funnel into exact tabs, URLs and talk tracks for the morning investor walkthrough.
 - ADDED: `project-control/investor-demo-morning-control-sheet-2026-05-25.md` with the six-tab demo order, approved live-demo-data checklist, do-not-fake list and exact investor line.

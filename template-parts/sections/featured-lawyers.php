@@ -49,22 +49,8 @@ if ( post_type_exists( 'justice_lawyer' ) ) {
 			'fields'           => 'ids',
 			'no_found_rows'    => true,
 			'suppress_filters' => true,
-			'meta_query'       => array(
-				'relation' => 'OR',
-				array(
-					'key'     => 'priority_score',
-					'compare' => 'EXISTS',
-				),
-				array(
-					'key'     => 'priority_score',
-					'compare' => 'NOT EXISTS',
-				),
-			),
-			'meta_key'         => 'priority_score',
-			'orderby'          => array(
-				'meta_value_num' => 'DESC',
-				'modified'       => 'DESC',
-			),
+			'orderby'          => 'modified',
+			'order'            => 'DESC',
 		)
 	);
 

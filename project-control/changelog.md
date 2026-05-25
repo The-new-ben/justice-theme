@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer dashboard service status command center
+
+- UPDATED: `page-lawyer-dashboard.php`, `assets/css/premium-pass-3.css`, and `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-dashboard-service-status-command-center-2026-05-25.md`.
+- PURPOSE: make submitted billing/support/refund/complaint requests visible in the top lawyer dashboard command center, not only in the lower service-desk section.
+- IMPLEMENTATION: added a compact latest-request status summary to the guided support assistant card and bumped the dashboard CSS asset version.
+- VERIFIED LOCAL: `php -l page-lawyer-dashboard.php`, `php -l inc/enqueue.php`, and `git diff --check` passed.
+- SAFETY: no CMS database write, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-25 - Assigned homepage template lawyer revenue strip
 
 - UPDATED: `page-home.php`.

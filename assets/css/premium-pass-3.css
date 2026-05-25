@@ -2698,6 +2698,37 @@
   gap: 0.4rem;
 }
 
+.lawyer-dashboard-command-card__status {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  border: 1px solid rgba(197, 164, 92, 0.32);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  padding: 0.7rem;
+}
+
+.lawyer-dashboard-command-card__status div {
+  display: grid;
+  grid-template-columns: 78px minmax(0, 1fr);
+  gap: 0.5rem;
+  align-items: start;
+}
+
+.lawyer-dashboard-command-card__status dt {
+  color: var(--jt-muted);
+  font-size: 0.74rem;
+  font-weight: 900;
+}
+
+.lawyer-dashboard-command-card__status dd {
+  margin: 0;
+  color: var(--jt-primary-deep);
+  font-size: 0.82rem;
+  font-weight: 900;
+  line-height: 1.4;
+}
+
 .lawyer-dashboard-command-card__actions .button,
 .lawyer-dashboard-command-card .button {
   min-height: 2.25rem;

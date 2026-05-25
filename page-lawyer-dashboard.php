@@ -637,6 +637,24 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 						<strong><?php esc_html_e( 'Guided support assistant', 'justice-theme' ); ?></strong>
 						<span><?php esc_html_e( 'Real request, owner-reviewed action', 'justice-theme' ); ?></span>
 						<p><?php esc_html_e( 'Choose a scenario and the service desk will be prefilled. Nothing is changed or refunded until the request is submitted and reviewed.', 'justice-theme' ); ?></p>
+						<?php if ( ! empty( $latest_service_request['id'] ) ) : ?>
+							<dl class="lawyer-dashboard-command-card__status" aria-label="<?php esc_attr_e( 'Latest service request status', 'justice-theme' ); ?>">
+								<div>
+									<dt><?php esc_html_e( 'Latest', 'justice-theme' ); ?></dt>
+									<dd><?php echo esc_html( $service_request_options[ $latest_service_request['type'] ] ?? $latest_service_request['type'] ); ?></dd>
+								</div>
+								<div>
+									<dt><?php esc_html_e( 'Status', 'justice-theme' ); ?></dt>
+									<dd><?php echo esc_html( $latest_service_request['status'] ?: 'open' ); ?></dd>
+								</div>
+								<?php if ( $latest_service_request_sla ) : ?>
+									<div>
+										<dt><?php esc_html_e( 'Response', 'justice-theme' ); ?></dt>
+										<dd><?php echo esc_html( $latest_service_request_sla ); ?></dd>
+									</div>
+								<?php endif; ?>
+							</dl>
+						<?php endif; ?>
 						<div class="lawyer-dashboard-command-card__actions">
 							<?php foreach ( array( 'upgrade', 'downgrade', 'cancel', 'refund', 'invoice', 'lead_quality', 'complaint' ) as $preset_key ) : ?>
 								<?php if ( empty( $dashboard_service_presets[ $preset_key ] ) ) { continue; } ?>

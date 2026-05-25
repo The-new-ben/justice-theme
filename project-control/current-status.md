@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-25 15:58 Asia/Jerusalem
+- LAWYER DASHBOARD SERVICE STATUS SURFACED: the top dashboard command center now echoes the latest service/billing/refund/complaint request status, type and response target when a lawyer has submitted one.
+- UPDATED: `page-lawyer-dashboard.php`, `assets/css/premium-pass-3.css`, and `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-dashboard-service-status-command-center-2026-05-25.md`.
+- MATERIAL ADVANCE: the customer-success scenarios the owner asked to demonstrate are now more visible in the first dashboard surface, not only buried inside the service desk. A lawyer/customer can see that an upgrade, downgrade, cancellation, invoice, refund, complaint or lead-quality request is open and owner-reviewed.
+- VERIFIED LOCAL / PUSHED / DEPLOY BLOCKED: `php -l page-lawyer-dashboard.php`, `php -l inc/enqueue.php`, and `git diff --check` passed; production still needs uPress Pull Git because Codex still has no active browser pane for uPress.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves service retention and investor-demo readiness, but does not prove payment, invoice, refund, subscription, lead delivery, or CRM monetization.
+- SAFETY: repo dashboard/CSS/docs only; no live CMS database edit, competitor lawyer/profile import, competitor asset/content copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 15:47 Asia/Jerusalem
 - ASSIGNED HOMEPAGE TEMPLATE REVENUE STRIP ADDED: `page-home.php` now loads the lawyer revenue strip immediately after the customer intake strip, matching the existing `front-page.php` path.
 - UPDATED: `page-home.php`.

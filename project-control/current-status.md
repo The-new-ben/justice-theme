@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 07:33 Asia/Jerusalem
+- FIRST COHORT LAWYER OFFER SHEET: added a concrete first-cohort commercial offer sheet that turns the public plan ladder into a lawyer-facing sales close.
+- RESEARCH BASIS: HubSpot pipeline, sales sequence and sales automation guidance emphasizes clear stages, structured cadence and activity logging.
+- ADDED: `project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the offer sheet.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` so the pack verifies the offer sheet is present and linked.
+- MATERIAL ADVANCE: the outreach sprint now has a concrete "what exactly am I buying?" answer with plan prices, WhatsApp copy, phone close and objection handling.
+- STILL BLOCKED: actual outreach, payment link sending, invoices and account activation require owner approval/live execution.
+- COMPLETION: first-cohort sales material is about 95%; actual revenue remains blocked until owner executes outreach and manual payment links.
+- SAFETY: local documentation/checker/launchpad artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 07:22 Asia/Jerusalem
 - FIRST PAID LAWYER OUTREACH SPRINT: added a revenue-focused first-cohort outreach plan with target cohorts, pipeline stages, 7-day cadence, phone/WhatsApp/email copy, qualification questions and a 30-row CRM tracker.
 - RESEARCH BASIS: HubSpot pipeline, sales sequence and sales automation guidance emphasizes clear pipeline stages, planned multi-touch cadence and activity logging.

@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "startedAt": "2026-05-25T04:24:35.159Z",
+  "startedAt": "2026-05-25T04:34:23.723Z",
   "runDate": "2026-05-25",
   "sourceBasis": [
     {
@@ -79,6 +79,12 @@
       "id": "first-paid-lawyer-outreach-tracker",
       "path": "project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv",
       "reason": "CRM-style tracker for first paid lawyer outreach.",
+      "status": "PASS"
+    },
+    {
+      "id": "first-cohort-lawyer-offer-sheet",
+      "path": "project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md",
+      "reason": "Concrete plan/pricing offer sheet for converting interested lawyers into first-cohort payments.",
       "status": "PASS"
     },
     {
@@ -181,6 +187,10 @@
     },
     {
       "token": "./first-paid-lawyer-outreach-sprint-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "./first-cohort-lawyer-offer-sheet-2026-05-25.md",
       "status": "PASS"
     },
     {

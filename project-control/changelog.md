@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - First cohort lawyer offer sheet
+
+- ADDED: `project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the first-cohort offer sheet.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` to include the offer sheet in the verified pack.
+- PURPOSE: give the owner a concrete plan/pricing sheet, WhatsApp close, phone close and objection answers for first paid lawyer sales.
+- SAFETY: local documentation/checker/launchpad artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - First paid lawyer outreach sprint
 
 - ADDED: `project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md`.

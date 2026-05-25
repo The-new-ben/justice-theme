@@ -65,6 +65,11 @@ const requiredFiles = [
 		reason: 'CRM-style tracker for first paid lawyer outreach.',
 	},
 	{
+		id: 'first-cohort-lawyer-offer-sheet',
+		path: 'project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md',
+		reason: 'Concrete plan/pricing offer sheet for converting interested lawyers into first-cohort payments.',
+	},
+	{
 		id: 'ascii-demo-data',
 		path: 'project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md',
 		reason: 'Copy-safe demo lawyer and lead fields if Hebrew rendering is risky.',
@@ -106,6 +111,7 @@ const launchpadTokens = [
 	'./investor-live-data-provider-action-checklist-2026-05-25.md',
 	'./investor-post-demo-follow-up-2026-05-25.md',
 	'./first-paid-lawyer-outreach-sprint-2026-05-25.md',
+	'./first-cohort-lawyer-offer-sheet-2026-05-25.md',
 	'tools\\run-investor-morning-pack.ps1',
 	'Do not claim recurring billing',
 ];

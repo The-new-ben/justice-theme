@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-25 04:35 Asia/Jerusalem
+- INVESTOR MORNING CONTROL SHEET: added a one-page operator sheet that turns the verified revenue funnel into exact tabs, URLs and talk tracks for the morning investor walkthrough.
+- ADDED: `project-control/investor-demo-morning-control-sheet-2026-05-25.md` with the six-tab demo order, approved live-demo-data checklist, do-not-fake list and exact investor line.
+- ADDED: `project-control/investor-demo-morning-control-sheet-2026-05-25.csv` for quick copy/paste into an owner checklist.
+- MATERIAL ADVANCE: reduces morning presentation risk by putting the live PASS routes, demo-data gap and payment honesty script in one short control sheet.
+- STILL BLOCKED: live demo data and payment-provider execution remain owner/provider steps; no live records or payment actions were performed.
+- SAFETY: documentation/control sheet only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 04:24 Asia/Jerusalem
 - INVESTOR DEMO DATA SEED PACKET: created a copy-ready controlled demo packet for the remaining demo-data blockers without writing any CMS/database records.
 - ADDED: `project-control/investor-demo-data-seed-packet-2026-05-25.md` with the medical-malpractice lawyer persona, profile copy, demo lead, follow-up note, service-request messages, payment-link wording and honest investor script.

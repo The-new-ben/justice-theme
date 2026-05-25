@@ -1,0 +1,7 @@
+step,tab,url,talk_track
+1,Homepage,https://jus-tice.co.il/,"Lawyers can discover the business path from the homepage, not only from hidden admin pages."
+2,Lawyer plans,https://jus-tice.co.il/lawyer-plans/,"The plan page now sells an account-opening path: visibility, trust profile, measurable leads and follow-up."
+3,Checkout fallback,https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice,"Until Grow recurring approval, paid intent is captured through a compliant manual-invoice/payment-link fallback."
+4,Paid registration prefill,https://jus-tice.co.il/lawyer-registration/?plan_interest=lead_partner&payment_path=manual_invoice&billing_first_name=Investor&billing_last_name=Demo&billing_phone=0501234567&billing_email=investor-demo@example.com&billing_legal_name=Demo+Medical+Law+Ltd&billing_business_id=123456789&billing_invoice_email=billing-demo@example.com&billing_invoice_address=Tel+Aviv,"The lawyer does not lose the plan/payment context when continuing to registration."
+5,Dashboard gate,https://jus-tice.co.il/lawyer-dashboard/,"The private area is visible as a product promise and routes unclaimed users back to onboarding."
+6,Owner onboarding,https://jus-tice.co.il/wp-admin/admin.php?page=justice-lawyer-onboarding,"Use the admin-only panel for payment-link steps, payment queue, demo-data checklist and service-request queue."

@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor morning control sheet
+
+- ADDED: `project-control/investor-demo-morning-control-sheet-2026-05-25.md` with exact demo tabs, URLs, talk tracks, live-data checklist and payment honesty script.
+- ADDED: `project-control/investor-demo-morning-control-sheet-2026-05-25.csv` for a compact tab checklist.
+- PURPOSE: make the morning investor walkthrough executable from one sheet now that live route checks pass.
+- SAFETY: documentation/control sheet only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Investor demo data seed packet
 
 - ADDED: `project-control/investor-demo-data-seed-packet-2026-05-25.md` with a controlled medical-malpractice lawyer persona, demo lead, service-request text, payment-link wording and morning demo order.

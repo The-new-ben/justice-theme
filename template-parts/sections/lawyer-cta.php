@@ -9,16 +9,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$lead_partner_url = function_exists( 'justice_theme_plan_manual_activation_url' )
-	? justice_theme_plan_manual_activation_url( 'lead_partner' )
-	: add_query_arg(
-		array(
-			'plan_interest' => 'lead_partner',
-			'pre_checkout'  => '1',
-			'payment_path'  => 'manual_invoice',
-		),
-		home_url( '/lawyer-registration/' )
-	);
+$lead_partner_url = add_query_arg(
+	array(
+		'plan_interest' => 'lead_partner',
+		'pre_checkout'  => '1',
+	),
+	home_url( '/lawyer-registration/' )
+);
 $lead_partner_url = add_query_arg(
 	array(
 		'utm_source'       => 'homepage',

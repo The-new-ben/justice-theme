@@ -26,7 +26,6 @@ $plans_url = add_query_arg(
 $registration_url = add_query_arg(
 	array(
 		'plan_interest'    => 'lead_partner',
-		'payment_path'     => 'manual_invoice',
 		'utm_source'       => 'homepage',
 		'utm_medium'       => 'revenue_strip',
 		'utm_campaign'     => 'lawyer_acquisition',
@@ -35,27 +34,18 @@ $registration_url = add_query_arg(
 	home_url( '/lawyer-registration/' )
 );
 
-$dashboard_url = add_query_arg(
-	array(
-		'utm_source'   => 'homepage',
-		'utm_medium'   => 'revenue_strip',
-		'utm_campaign' => 'lawyer_retention',
-	),
-	home_url( '/lawyer-dashboard/' )
-);
-
 $signals = array(
 	array(
-		'label' => __( 'כרטיס בסיסי נשלט', 'justice-theme' ),
-		'value' => __( 'נראה, מוסתר או מקודם מתוך ה-CMS בלי טקסט קשיח', 'justice-theme' ),
+		'label' => __( 'כרטיס בסיסי באינדקס', 'justice-theme' ),
+		'value' => __( 'פרופיל שמופיע לפי תחום, אזור ושם, עם פרטים זהירים וברורים', 'justice-theme' ),
 	),
 	array(
 		'label' => __( 'פרופיל מאומת', 'justice-theme' ),
 		'value' => __( 'עובדות, תמונה, ביקורות ותוכן נפתחים רק אחרי בדיקה', 'justice-theme' ),
 	),
 	array(
-		'label' => __( 'מסלול הכנסה', 'justice-theme' ),
-		'value' => __( 'שדרוג, קישור תשלום אמיתי ודאשבורד לידים לאחר אישור', 'justice-theme' ),
+		'label' => __( 'חשיפה מורחבת', 'justice-theme' ),
+		'value' => __( 'אפשרות להבלטה מקצועית, פניות מסודרות ותוכן שמחזק אמון', 'justice-theme' ),
 	),
 );
 
@@ -91,7 +81,7 @@ $account_steps = array(
 	__( 'פותחים חשבון', 'justice-theme' ),
 	__( 'משלימים פרופיל', 'justice-theme' ),
 	__( 'מקבלים פניות מדידות', 'justice-theme' ),
-	__( 'מנהלים שירות ותשלום', 'justice-theme' ),
+	__( 'בוחרים מסלול חשיפה', 'justice-theme' ),
 );
 ?>
 
@@ -100,7 +90,7 @@ $account_steps = array(
 		<div class="homepage-lawyer-revenue__copy">
 			<p class="homepage-lawyer-revenue__eyebrow"><?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?></p>
 			<h2 id="homepage-lawyer-revenue-title"><?php esc_html_e( 'לקוחות מחפשים עורך דין עכשיו. תנו להם למצוא חשבון מקצועי, לא רק שם ברשימה.', 'justice-theme' ); ?></h2>
-			<p><?php esc_html_e( 'Jus-Tice מחבר בין חשיפה, פרופיל עשיר, פניות מדידות ואזור אישי לעורך הדין. ההצטרפות מתחילה בבדיקת התאמה, ממשיכה בקישור תשלום אמיתי או חשבונית ידנית, ונפתחת לדאשבורד שמרכז פניות, תוכן, שירות ומעקב ערך.', 'justice-theme' ); ?></p>
+			<p><?php esc_html_e( 'Jus-Tice מחבר בין חיפוש משפטי, פרופילים מקצועיים ופנייה מסודרת. עורך דין יכול לפתוח כרטיס, להשלים פרטים, להציג ניסיון אמיתי, ולבחור מסלול חשיפה לאחר בדיקת התאמה.', 'justice-theme' ); ?></p>
 			<ol class="homepage-lawyer-revenue__account-steps" aria-label="<?php esc_attr_e( 'מסלול פתיחת חשבון לעורך דין', 'justice-theme' ); ?>">
 				<?php foreach ( $account_steps as $step ) : ?>
 					<li><?php echo esc_html( $step ); ?></li>
@@ -118,18 +108,18 @@ $account_steps = array(
 				<?php endforeach; ?>
 			</ul>
 
-			<div class="homepage-lawyer-revenue__mini-dashboard" aria-label="<?php esc_attr_e( 'תצוגת אזור אישי לעורך דין', 'justice-theme' ); ?>">
+			<div class="homepage-lawyer-revenue__mini-dashboard" aria-label="<?php esc_attr_e( 'תצוגת פרופיל עורך דין', 'justice-theme' ); ?>">
 				<div>
 					<span><?php esc_html_e( 'כרטיס ציבורי', 'justice-theme' ); ?></span>
-					<strong><?php esc_html_e( 'מוצג רק לפי בקרת CMS', 'justice-theme' ); ?></strong>
+					<strong><?php esc_html_e( 'מופיע באינדקס לאחר בדיקה', 'justice-theme' ); ?></strong>
 				</div>
 				<div>
-					<span><?php esc_html_e( 'תשלום', 'justice-theme' ); ?></span>
-					<strong><?php esc_html_e( 'Grow/Morning או חשבונית ידנית', 'justice-theme' ); ?></strong>
+					<span><?php esc_html_e( 'חשיפה', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'אפשרות להבלטה מקצועית', 'justice-theme' ); ?></strong>
 				</div>
 				<div>
-					<span><?php esc_html_e( 'אזור אישי', 'justice-theme' ); ?></span>
-					<strong><?php esc_html_e( 'לידים, שירות ושדרוגים', 'justice-theme' ); ?></strong>
+					<span><?php esc_html_e( 'פניות', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'טופס מסודר לפי תחום ועיר', 'justice-theme' ); ?></strong>
 				</div>
 			</div>
 
@@ -140,7 +130,7 @@ $account_steps = array(
 						<strong><?php echo esc_html( $plan_price['value'] ); ?></strong>
 					</div>
 				<?php endforeach; ?>
-				<p><?php esc_html_e( 'הצטרפות בתשלום מתבצעת רק לאחר אישור התאמה, קישור תשלום או חשבונית ידנית, וללא הבטחת תוצאה משפטית או עסקית.', 'justice-theme' ); ?></p>
+				<p><?php esc_html_e( 'המסלולים כפופים לבדיקה, אישור ותנאי השירות. אין התחייבות לכמות פניות, דירוג, או תוצאה משפטית או עסקית.', 'justice-theme' ); ?></p>
 			</div>
 		</div>
 
@@ -150,9 +140,6 @@ $account_steps = array(
 			</a>
 			<a class="button button--outline" href="<?php echo esc_url( $plans_url ); ?>">
 				<?php esc_html_e( 'השוואת מסלולים', 'justice-theme' ); ?>
-			</a>
-			<a class="homepage-lawyer-revenue__login" href="<?php echo esc_url( $dashboard_url ); ?>">
-				<?php esc_html_e( 'כניסה לאזור האישי', 'justice-theme' ); ?>
 			</a>
 		</div>
 	</div>

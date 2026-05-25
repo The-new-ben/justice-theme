@@ -104,7 +104,7 @@ $contact_url     = add_query_arg(
 				<span class="section__eyebrow"><?php esc_html_e( 'אקו-סיסטם משפטי', 'justice-theme' ); ?></span>
 				<h2 id="legal-service-providers-title"><?php esc_html_e( 'נותני שירותים שמחזקים את המשרד', 'justice-theme' ); ?></h2>
 			</div>
-			<p><?php esc_html_e( 'ספקים מקצועיים מוצגים כאן רק אחרי סימון CMS מפורש, אישור שותפות ובדיקת מקור. בלי כרטיסי דמה ובלי הבטחות לא מאומתות.', 'justice-theme' ); ?></p>
+			<p><?php esc_html_e( 'ספקים מקצועיים מוצגים כאן רק אחרי בדיקת מקור ואישור שיתוף פעולה. בלי כרטיסי דמה ובלי הבטחות לא מאומתות.', 'justice-theme' ); ?></p>
 		</div>
 
 		<div class="legal-service-providers__grid">
@@ -133,7 +133,7 @@ $contact_url     = add_query_arg(
 						<?php if ( '' !== $link_url ) : ?>
 							<a href="<?php echo esc_url( $link_url ); ?>" target="_blank" rel="nofollow noopener"><?php esc_html_e( 'בדיקת מקור', 'justice-theme' ); ?></a>
 						<?php endif; ?>
-						<span><?php esc_html_e( 'מנוהל ב-CMS', 'justice-theme' ); ?></span>
+						<span><?php esc_html_e( 'מוצג לאחר בדיקה', 'justice-theme' ); ?></span>
 					</div>
 				</article>
 			<?php endforeach; ?>

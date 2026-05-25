@@ -54,13 +54,6 @@ if ( ! function_exists( 'justice_theme_homepage_lawyer_requires_fact_gate' ) ) {
 	function justice_theme_homepage_lawyer_requires_fact_gate( int $post_id ): bool {
 		$source_type    = strtolower( (string) get_post_meta( $post_id, 'source_type', true ) );
 		$internal_notes = strtolower( (string) get_post_meta( $post_id, 'internal_notes', true ) );
-		$slug           = (string) get_post_field( 'post_name', $post_id );
-		$title          = get_the_title( $post_id );
-		$is_maya        = 'advocate-maya-rotenberg' === $slug
-			|| (
-				false !== mb_strpos( $title, rawurldecode( '%D7%9E%D7%90%D7%99%D7%94' ) )
-				&& false !== mb_strpos( $title, rawurldecode( '%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92' ) )
-			);
 		$is_seed_like   = 'seed' === $source_type
 			|| false !== strpos( $internal_notes, 'seed' )
 			|| false !== strpos( $internal_notes, 'demo' )
@@ -68,7 +61,7 @@ if ( ! function_exists( 'justice_theme_homepage_lawyer_requires_fact_gate' ) ) {
 			|| false !== strpos( $internal_notes, 'fake' )
 			|| false !== strpos( $internal_notes, 'fictional' );
 
-		return $is_maya || $is_seed_like || in_array( $source_type, array( 'public_index', 'import' ), true );
+		return $is_seed_like;
 	}
 }
 
@@ -182,13 +175,13 @@ $registration_url = add_query_arg(
 				</div>
 
 				<aside class="featured-lawyers__value" aria-label="<?php esc_attr_e( 'אפשרויות קידום לעורכי דין', 'justice-theme' ); ?>">
-					<p class="featured-lawyers__value-eyebrow"><?php esc_html_e( 'מודל הכנסה ברור', 'justice-theme' ); ?></p>
-					<h3><?php esc_html_e( 'כרטיס בסיסי מופיע באינדקס. כרטיס ממומן מקבל קדימות, אמון ולידים.', 'justice-theme' ); ?></h3>
+					<p class="featured-lawyers__value-eyebrow"><?php esc_html_e( 'פרופילים שניתן להשוות', 'justice-theme' ); ?></p>
+					<h3><?php esc_html_e( 'כרטיס בסיסי מציג פרטים זהירים. פרופיל מורחב יכול להוסיף אמון, תוכן וחשיפה.', 'justice-theme' ); ?></h3>
 					<ul>
-						<li><?php esc_html_e( 'ניהול מלא מה-CMS: הצגה, הסתרה, כרטיס בסיסי או מיקום ממומן.', 'justice-theme' ); ?></li>
-						<li><?php esc_html_e( 'כרטיסים ציבוריים לא מאומתים מסומנים בבירור, בלי תמונות או ביקורות שהועתקו.', 'justice-theme' ); ?></li>
-						<li><?php esc_html_e( 'עורך דין יכול לתבוע כרטיס, להשלים פרטים, ולשדרג למסלול שמייצר פניות.', 'justice-theme' ); ?></li>
-						<li><?php esc_html_e( 'הסדר בדף הבית נקבע לפי סטטוס מנוי, אימות וציון עדיפות.', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'פרטים בסיסיים מוצגים בזהירות, בלי עובדות לימודים, ניסיון או תמונה שלא נבדקו.', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'ביקורות, מדיה ותוכן מקצועי נכנסים רק אחרי מקור ברור ואישור מתאים.', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'עורך דין יכול לבקש עדכון, הסרה, אימות או הרחבת פרופיל.', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'חשיפה מוגברת מסומנת בצורה נקייה, בלי לפגוע בחוויית החיפוש של הלקוח.', 'justice-theme' ); ?></li>
 					</ul>
 					<?php if ( $showcase_hold_count > 0 ) : ?>
 						<p class="featured-lawyers__quality-note">

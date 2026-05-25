@@ -3929,12 +3929,26 @@
 }
 
 .site-header__main-inner {
-  min-height: 6.25rem;
+  min-height: 5.45rem;
+  gap: 1rem;
+  flex-wrap: nowrap;
+}
+
+.site-branding {
+  flex: 0 0 auto;
+}
+
+.primary-navigation {
+  flex: 1 1 auto;
+  min-width: 0;
 }
 
 .primary-navigation .menu {
   align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   gap: 0.25rem;
+  row-gap: 0.22rem;
 }
 
 .primary-navigation .menu > .menu-item > a {
@@ -3954,6 +3968,7 @@
 }
 
 .site-header__cta.button {
+  flex: 0 0 auto;
   border-radius: 999px;
   box-shadow: 0 12px 28px rgba(217,40,47,0.18);
 }

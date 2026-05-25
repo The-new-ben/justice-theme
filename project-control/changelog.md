@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer profile product-copy suppression
+
+- UPDATED: `single-justice_lawyer.php`.
+- ADDED: `project-control/lawyer-profile-product-copy-suppression-2026-05-25.md`.
+- PURPOSE: make single lawyer profiles feel like dedicated premium lawyer mini-sites rather than generic platform/product explainer pages.
+- IMPLEMENTATION: disabled the generic lawyer-profile engagement overview by default while keeping the profile's facts, services, areas, articles, reviews, sources and inquiry sections; left a developer filter for deliberate reactivation.
+- RESEARCH BASIS: checked Psakdin, LawReviews, Justia and Avvo public profile/directory patterns; implementation is original and does not copy competitor lawyer data, photos, ratings, reviews, contact data or text.
+- SAFETY: no CMS database write, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # 2026-05-25 - Lawyer card media overlap hardening
 
 - UPDATED: `assets/css/premium-pass-4.css`, `inc/enqueue.php`.

@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 17:31 Asia/Jerusalem
+- LAWYER PROFILE PRODUCT-COPY SUPPRESSION: the single lawyer mini-site no longer shows the generic platform explainer block by default.
+- UPDATED: `single-justice_lawyer.php`.
+- ADDED: `project-control/lawyer-profile-product-copy-suppression-2026-05-25.md`.
+- MATERIAL ADVANCE: this addresses the owner feedback that a lawyer profile must feel like the lawyer's own premium profile, not an advertisement for the platform or other lawyers. The profile keeps its owned sections: facts when approved, services, practice areas, articles, reviews, sources and inquiry.
+- RESEARCH BASIS: checked current public direction from Psakdin, LawReviews, Justia and Avvo: strong profiles center details, reviews/contact and topic proof, while product/claim mechanics are separated from the profile body.
+- VERIFIED LOCAL / DEPLOY PENDING: `php -l single-justice_lawyer.php` and `git diff --check` passed; after uPress Pull Git, visually check a lawyer profile and confirm the generic mini-site explainer is gone.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves lawyer upgrade conversion readiness, but it does not prove payment, invoice, refund, subscription, lead delivery or CRM monetization.
+- SAFETY: repo template/docs only; no live CMS database edit, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 17:18 Asia/Jerusalem
 - LAWYER CARD MEDIA OVERLAP HARDENING: tightened the public lawyer-card CSS so CMS photos, initials, badges, long names and CTA buttons stay inside the card and do not crowd or cover text.
 - UPDATED: `assets/css/premium-pass-4.css`, `inc/enqueue.php`.

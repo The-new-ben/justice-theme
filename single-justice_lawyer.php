@@ -151,7 +151,8 @@ $requires_fact_gate         = $is_maya_profile
 	|| $is_seed_data
 	|| in_array( $source_type, array( 'public_index', 'import' ), true );
 $show_freeform_profile_facts = ! $requires_fact_gate || $profile_is_fact_checked;
-$show_profile_marketing_modules = ! $requires_fact_gate || $profile_is_fact_checked;
+$show_profile_marketing_modules = ( ! $requires_fact_gate || $profile_is_fact_checked )
+	&& (bool) apply_filters( 'justice_theme_show_lawyer_profile_engagement_overview', false, $lawyer_id );
 $show_verified_profile_badge = $is_verified && $show_freeform_profile_facts;
 $can_show_profile_articles = $show_freeform_profile_facts && ( $is_paid || $is_verified ) && ! $is_maya_profile;
 $connected_article_slugs = array_filter( array( $lawyer_profile_slug, $authority_person_slug ) );

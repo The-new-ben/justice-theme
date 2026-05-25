@@ -370,6 +370,7 @@ $approved_count = (int) $lawyers->found_posts;
 			<?php if ( ! empty( $public_lawyer_posts ) ) : ?>
 				<div class="lawyers-grid">
 					<?php foreach ( $public_lawyer_posts as $lawyer_post ) : ?>
+						<?php $GLOBALS['post'] = $lawyer_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited ?>
 						<?php setup_postdata( $lawyer_post ); ?>
 						<?php get_template_part( 'template-parts/cards/lawyer-card' ); ?>
 					<?php endforeach; ?>

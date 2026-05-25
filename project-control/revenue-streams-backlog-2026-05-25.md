@@ -160,6 +160,9 @@ Already shipped:
   panel. It blocks test routing until verified/routable specialist supply
   exists, gives the tagged intake route, lists the exact CRM fields that prove
   a billable lead, and keeps the manual invoice/payment proof boundary explicit.
+- Private Bituach Leumi intent ownership map added to the CRM panel so future
+  work knows which URL owns appeal, service, directory and legacy calculator
+  intent before creating, updating or briefing any public content.
 
 Remaining:
 
@@ -172,10 +175,10 @@ Remaining:
 - Move the private readiness gate from "Not ready" to "Ready for first
   controlled paid-lead test", then to "Revenue loop proven".
 - Use manual invoice/payment path until Grow/Meshulam is ready.
-- Confirm final intent split between `/bituach-leumi-appeal-guide/`,
-  `/national-insurance-attorney/`, old Bituach Leumi calculator URLs and the
-  broad national-insurance directory/filter before creating any additional
-  public Bituach Leumi pages.
+- Use the private intent ownership map before changing `/bituach-leumi-appeal-guide/`,
+  `/national-insurance-attorney/`, old Bituach Leumi calculator URLs or the
+  broad national-insurance directory/filter. No public expansion without GSC
+  and source evidence.
 
 ### Public trust and homepage fixes
 

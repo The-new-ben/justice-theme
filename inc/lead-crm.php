@@ -281,6 +281,7 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 	<?php endif; ?>
 	<?php justice_theme_crm_render_btl_readiness_gate( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_btl_leads, $paid_btl_leads ); ?>
 	<?php justice_theme_crm_render_btl_controlled_test_drill( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_btl_leads, $paid_btl_leads ); ?>
+	<?php justice_theme_crm_render_btl_intent_ownership_map(); ?>
 	<?php justice_theme_crm_render_btl_candidate_tracker( $btl_needles ); ?>
 	<?php justice_theme_crm_render_btl_next_source_actions( $source_pack_rows ); ?>
 	<?php justice_theme_crm_render_btl_source_pack_candidates( $source_pack_rows ); ?>
@@ -423,6 +424,104 @@ function justice_theme_crm_btl_controlled_test_drill_copy( array $snapshot, int 
 		'- Any lawyer asks for outcome promises, exclusivity promises or guaranteed lead volume.',
 		'- Payment evidence is missing.',
 	);
+
+	return implode( "\n", $lines );
+}
+
+function justice_theme_crm_render_btl_intent_ownership_map(): void {
+	$rows    = justice_theme_crm_btl_intent_map_rows();
+	$copy_id = 'justice-btl-intent-map-copy';
+	?>
+	<div id="justice-btl-intent-ownership-map" style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;margin:12px 0 20px;">
+		<h3 style="margin-top:0;">Bituach Leumi intent ownership map</h3>
+		<p style="margin-top:0;color:#646970;">Owner-only anti-cannibalization map for the active funnel. Use this before adding, expanding or briefing any Bituach Leumi content.</p>
+		<table class="widefat striped">
+			<thead>
+				<tr>
+					<th>Surface</th>
+					<th>Owns intent</th>
+					<th>Allowed work</th>
+					<th>Do not do</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ( $rows as $row ) : ?>
+					<tr>
+						<td>
+							<strong><?php echo esc_html( $row['label'] ); ?></strong>
+							<br><a href="<?php echo esc_url( $row['url'] ); ?>" target="_blank" rel="noopener"><?php echo esc_html( $row['path'] ); ?></a>
+						</td>
+						<td><?php echo esc_html( $row['intent'] ); ?></td>
+						<td><?php echo esc_html( $row['allowed'] ); ?></td>
+						<td><?php echo esc_html( $row['blocked'] ); ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+		<div class="notice notice-warning inline" style="margin-top:12px;">
+			<p><strong>Boundary:</strong> do not create another public Bituach Leumi page, redirect old URLs, change canonical/noindex/sitemap settings or merge calculator intent until GSC/source evidence is reviewed.</p>
+		</div>
+		<label for="<?php echo esc_attr( $copy_id ); ?>"><strong>Copyable publication/cannibalization note</strong></label>
+		<textarea id="<?php echo esc_attr( $copy_id ); ?>" rows="8" readonly style="width:100%;margin-top:6px;"><?php echo esc_textarea( justice_theme_crm_btl_intent_map_copy( $rows ) ); ?></textarea>
+		<p style="margin:6px 0 0;">
+			<button type="button" class="button" data-justice-copy-target="<?php echo esc_attr( $copy_id ); ?>">Copy intent map</button>
+		</p>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_btl_intent_map_rows(): array {
+	return array(
+		array(
+			'label'   => 'Appeal guide / tool route',
+			'path'    => '/bituach-leumi-appeal-guide/',
+			'url'     => home_url( '/bituach-leumi-appeal-guide/' ),
+			'intent'  => 'Appeal decision, medical committee, documents, urgency and calculator-assisted intake.',
+			'allowed' => 'Improve visitor guidance, FAQ, form clarity, source citations and links to lawyer directory.',
+			'blocked' => 'Do not broaden into every Bituach Leumi benefit or duplicate old calculator intent.',
+		),
+		array(
+			'label'   => 'Service-intent lawyer route',
+			'path'    => '/national-insurance-attorney/',
+			'url'     => home_url( '/national-insurance-attorney/' ),
+			'intent'  => 'Find a Bituach Leumi lawyer for appeal-stage help and urgent routing.',
+			'allowed' => 'Keep focused on choosing counsel, lead qualification and directory handoff.',
+			'blocked' => 'Do not expose revenue logic or turn into a general encyclopedia article.',
+		),
+		array(
+			'label'   => 'Lawyer directory filter',
+			'path'    => '/lawyers/?area=national-insurance',
+			'url'     => home_url( '/lawyers/?area=national-insurance' ),
+			'intent'  => 'Browse available lawyers/professionals for national-insurance matters.',
+			'allowed' => 'Improve verified supply once real specialists are approved.',
+			'blocked' => 'Do not publish unverified profiles or route leads before readiness gates pass.',
+		),
+		array(
+			'label'   => 'Old calculator URL family',
+			'path'    => '/national-insurance-calculator/ and Hebrew aliases',
+			'url'     => home_url( '/national-insurance-calculator/' ),
+			'intent'  => 'Legacy calculator and broad payment-estimation demand.',
+			'allowed' => 'Audit with GSC/source evidence before any merge or rewrite.',
+			'blocked' => 'Do not redirect, canonicalize, noindex, expand or merge from this cycle.',
+		),
+	);
+}
+
+function justice_theme_crm_btl_intent_map_copy( array $rows ): string {
+	$lines = array(
+		'Bituach Leumi anti-cannibalization note',
+		'Use this before publishing or updating any related page.',
+		'',
+	);
+
+	foreach ( $rows as $row ) {
+		$lines[] = sprintf( '%s - %s', (string) $row['path'], (string) $row['intent'] );
+		$lines[] = sprintf( 'Allowed: %s', (string) $row['allowed'] );
+		$lines[] = sprintf( 'Do not: %s', (string) $row['blocked'] );
+		$lines[] = '';
+	}
+
+	$lines[] = 'No new public Bituach Leumi route, redirect, canonical/noindex, sitemap change or calculator merge without owner approval and GSC/source evidence.';
 
 	return implode( "\n", $lines );
 }

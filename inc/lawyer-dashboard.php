@@ -786,7 +786,7 @@ function justice_theme_lawyer_dashboard_growth_assets( int $post_id, int $lead_c
 		array(
 			'label' => __( 'Professional supplier/service need is captured', 'justice-theme' ),
 			'done'  => '1' === (string) get_post_meta( $post_id, 'pending_supplier_request', true ),
-			'why'   => __( 'Useful partner services give lawyers more value and create a second revenue line.', 'justice-theme' ),
+			'why'   => __( 'Useful partner services give lawyers more value and reduce operational friction.', 'justice-theme' ),
 			'action_label' => __( 'Request supplier', 'justice-theme' ),
 			'action_url'   => home_url( '/lawyer-dashboard/#supplier-request' ),
 		),

@@ -1,3 +1,8 @@
+<?php
+http_response_code( 404 );
+header( 'X-Robots-Tag: noindex, nofollow', true );
+exit;
+__halt_compiler();
 # Original Research Packet: Seven Revenue Plays And Supporting Ideas
 
 Date supplied: 2026-05-25

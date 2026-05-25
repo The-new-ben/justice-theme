@@ -1,3 +1,8 @@
+<?php
+http_response_code( 404 );
+header( 'X-Robots-Tag: noindex, nofollow', true );
+exit;
+__halt_compiler();
 # Jus-Tice Research Originals Index
 
 Date: 2026-05-25
@@ -12,16 +17,16 @@ anti-cannibalization review and owner approval.
 
 ## Source Packets
 
-- `2026-05-25-investor-critical-review-original.md`
+- `2026-05-25-investor-critical-review-original.md.php`
   - The critical live-site/investor-readiness review: Maya route, public lawyer
     trust surfaces, homepage intent, lawyer supply-side funnel, payment/Grow
     status, SEO reality and loop-breaking discipline.
-- `2026-05-25-revenue-plays-original.md`
+- `2026-05-25-revenue-plays-original.md.php`
   - The first revenue-play report: Bituach Leumi appeal funnel, severance-pay
     tool, claim-profile conversion, Hebrew legal Q&A, multi-professional
     directory, process-server marketplace, real-estate due-diligence funnel and
     additional revenue ideas.
-- `2026-05-25-deep-research-revenue-plays-original.md`
+- `2026-05-25-deep-research-revenue-plays-original.md.php`
   - The deep-research/global legaltech report: enterprise AI, Pitzuy AI,
     Lawhive-style virtual firm, contract AI, SMB compliance, hostile-act,
     reservist, Aliyah tax, HNW estate, accessibility, property tax, arnona,

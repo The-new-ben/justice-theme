@@ -43,10 +43,10 @@ The source reports are preserved under `project-control/research-originals/` so
 remote teams and future agents can inspect the original strategic material
 instead of relying only on this distilled backlog.
 
-- `project-control/research-originals/README.md`
-- `project-control/research-originals/2026-05-25-investor-critical-review-original.md`
-- `project-control/research-originals/2026-05-25-revenue-plays-original.md`
-- `project-control/research-originals/2026-05-25-deep-research-revenue-plays-original.md`
+- `project-control/research-originals/README.md.php`
+- `project-control/research-originals/2026-05-25-investor-critical-review-original.md.php`
+- `project-control/research-originals/2026-05-25-revenue-plays-original.md.php`
+- `project-control/research-originals/2026-05-25-deep-research-revenue-plays-original.md.php`
 
 Remote continuation rule:
 

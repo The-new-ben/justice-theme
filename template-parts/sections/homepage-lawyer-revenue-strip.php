@@ -123,7 +123,7 @@ $account_steps = array(
 				</div>
 			</div>
 
-			<div class="homepage-lawyer-revenue__pricing" aria-label="<?php esc_attr_e( 'מסלולי הכנסה לעורכי דין', 'justice-theme' ); ?>">
+			<div class="homepage-lawyer-revenue__pricing" aria-label="<?php esc_attr_e( 'מסלולי הצטרפות לעורכי דין', 'justice-theme' ); ?>">
 				<?php foreach ( $plan_prices as $plan_price ) : ?>
 					<div>
 						<span><?php echo esc_html( $plan_price['label'] ); ?></span>

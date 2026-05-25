@@ -1455,10 +1455,61 @@
   color: var(--jt-muted, #6b7280);
   font-size: 0.9rem;
 }
+.lawyer-registration-claim-context {
+  display: grid;
+  grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.1fr) auto;
+  gap: 0.85rem;
+  align-items: center;
+  margin: 1rem 0;
+  border: 1px solid rgba(178,58,72,0.18);
+  border-radius: 10px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.98), rgba(255,248,248,0.96)),
+    #fff;
+  padding: clamp(0.9rem, 1.7vw, 1.12rem);
+  box-shadow: 0 14px 34px rgba(7,21,47,0.06);
+}
+.lawyer-registration-claim-context div {
+  display: grid;
+  gap: 0.2rem;
+}
+.lawyer-registration-claim-context span {
+  color: var(--jt-accent-red, #b23a48);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+.lawyer-registration-claim-context strong {
+  color: var(--jt-primary-deep, #07152f);
+  font-size: 1rem;
+  line-height: 1.35;
+}
+.lawyer-registration-claim-context p {
+  margin: 0;
+  color: var(--jt-muted, #6b7280);
+  font-size: 0.9rem;
+  line-height: 1.65;
+}
+.lawyer-registration-claim-context a {
+  justify-self: end;
+  min-width: 118px;
+  border: 1px solid rgba(7,21,47,0.14);
+  border-radius: 8px;
+  color: var(--jt-primary-deep, #07152f);
+  font-size: 0.84rem;
+  font-weight: 900;
+  line-height: 1.2;
+  padding: 0.72rem 0.9rem;
+  text-align: center;
+  text-decoration: none;
+}
 @media (max-width: 920px) {
   .lawyer-registration-account-path,
+  .lawyer-registration-claim-context,
   .lawyer-registration-account-path ol {
     grid-template-columns: 1fr;
+  }
+  .lawyer-registration-claim-context a {
+    justify-self: stretch;
   }
   .lawyer-registration-account-path li {
     min-height: 0;

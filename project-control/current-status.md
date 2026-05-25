@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 13:15 Asia/Jerusalem
+- CLAIM/UPGRADE REGISTRATION CONTEXT ADDED: `/lawyer-registration/` now recognizes `claim_profile_id` and `claim_profile` from public lawyer/professional cards and shows a contextual "claim existing card" panel before the account-opening form.
+- UPDATED: `page-lawyer-registration.php`, `inc/lawyer-onboarding.php`, and `assets/css/premium-pass-4.css`.
+- ADDED: `project-control/lawyer-registration-claim-context-2026-05-25.md`.
+- GENERATED: `reports/lawyer-registration-claim-context-2026-05-25.json`.
+- MATERIAL ADVANCE: public-basic CMS cards now have a more complete conversion path: card -> claim/upgrade CTA -> registration page naming the selected card -> submission attribution for follow-up.
+- RESEARCH BASIS: checked LawReviews, Din and PsakDin public surfaces again for claim/profile/review/signup positioning; implementation is original and does not copy competitor profile content.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `php -l page-lawyer-registration.php` passed. JSON parse, `git diff --check`, commit/push and live post-pull verification still need to complete for this cycle.
+- REVENUE STATUS: realized revenue remains NIS 0 until claim/upgrade/payment is completed.
+- SAFETY: no new CMS lawyer/professional records were created; no competitor photos/reviews/ratings/contact details copied; no fake phone, WhatsApp, rating, recommendation, verification, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 13:08 Asia/Jerusalem
 - CLAIM/UPGRADE PATH ADDED: public-basic unclaimed lawyer/professional cards now show a small owner-facing prompt asking "זה הכרטיס שלך?" with a claim/upgrade link.
 - UPDATED: `template-parts/cards/lawyer-card.php` and `assets/css/premium-pass-4.css`.

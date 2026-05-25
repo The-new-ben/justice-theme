@@ -38,6 +38,8 @@ function justice_theme_register_lawyer_activation_meta(): void {
 		'outreach_segment'            => 'string',
 		'outreach_city'               => 'string',
 		'outreach_practice'           => 'string',
+		'claim_profile_id'            => 'integer',
+		'claim_profile'               => 'string',
 		'registration_landing_url'    => 'string',
 		'registration_referrer_url'   => 'string',
 		'account_continuation_status' => 'string',
@@ -84,7 +86,7 @@ function justice_theme_lawyer_activation_meta_sanitizer( string $key ): string {
 		return 'esc_url_raw';
 	}
 
-	if ( in_array( $key, array( 'google_review_count', 'registration_photo_attachment_id', 'registration_logo_attachment_id', 'registration_document_attachment_id', 'registration_video_attachment_id' ), true ) ) {
+	if ( in_array( $key, array( 'google_review_count', 'claim_profile_id', 'registration_photo_attachment_id', 'registration_logo_attachment_id', 'registration_document_attachment_id', 'registration_video_attachment_id' ), true ) ) {
 		return 'absint';
 	}
 
@@ -101,6 +103,8 @@ function justice_theme_lawyer_registration_attribution_keys(): array {
 		'outreach_segment',
 		'outreach_city',
 		'outreach_practice',
+		'claim_profile_id',
+		'claim_profile',
 		'registration_landing_url',
 		'registration_referrer_url',
 	);
@@ -134,6 +138,8 @@ function justice_theme_lawyer_registration_attribution_from_request(): array {
 		'outreach_segment'          => justice_theme_lawyer_registration_request_value( 'outreach_segment' ),
 		'outreach_city'             => justice_theme_lawyer_registration_request_value( 'outreach_city' ),
 		'outreach_practice'         => justice_theme_lawyer_registration_request_value( 'outreach_practice' ),
+		'claim_profile_id'          => (string) absint( justice_theme_lawyer_registration_request_value( 'claim_profile_id' ) ),
+		'claim_profile'             => sanitize_title( justice_theme_lawyer_registration_request_value( 'claim_profile' ) ),
 		'registration_landing_url'  => justice_theme_lawyer_registration_current_url(),
 		'registration_referrer_url' => justice_theme_lawyer_registration_referrer_url(),
 	);
@@ -193,6 +199,8 @@ function justice_theme_lawyer_registration_attribution_summary( array $attributi
 		'outreach_segment',
 		'outreach_city',
 		'outreach_practice',
+		'claim_profile_id',
+		'claim_profile',
 	);
 	$parts = array();
 

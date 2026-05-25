@@ -109,6 +109,47 @@ $registration_prefill_billing_legal_name = $registration_request_text( 'billing_
 $registration_prefill_billing_business_id = $registration_request_text( 'billing_business_id' );
 $registration_prefill_billing_invoice_email = sanitize_email( $registration_request_text( 'billing_invoice_email' ) ?: $registration_prefill_email );
 $registration_prefill_billing_invoice_address = $registration_request_text( 'billing_invoice_address' );
+$registration_claim_profile_id   = absint( $registration_request_text( 'claim_profile_id' ) );
+$registration_claim_profile_slug = sanitize_title( $registration_request_text( 'claim_profile' ) );
+$registration_claim_profile      = null;
+
+if ( $registration_claim_profile_id && post_type_exists( 'justice_lawyer' ) ) {
+	$registration_claim_candidate = get_post( $registration_claim_profile_id );
+	if ( $registration_claim_candidate instanceof WP_Post && 'justice_lawyer' === $registration_claim_candidate->post_type ) {
+		$registration_claim_profile = $registration_claim_candidate;
+	}
+}
+
+if ( ! $registration_claim_profile && $registration_claim_profile_slug && post_type_exists( 'justice_lawyer' ) ) {
+	$registration_claim_candidate = get_page_by_path( $registration_claim_profile_slug, OBJECT, 'justice_lawyer' );
+	if ( $registration_claim_candidate instanceof WP_Post ) {
+		$registration_claim_profile = $registration_claim_candidate;
+	}
+}
+
+if (
+	$registration_claim_profile
+	&& function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+	&& ! justice_theme_lawyer_profile_is_public_approved( (int) $registration_claim_profile->ID )
+	&& ! current_user_can( 'edit_post', (int) $registration_claim_profile->ID )
+) {
+	$registration_claim_profile = null;
+}
+
+if ( $registration_claim_profile ) {
+	$registration_claim_profile_id   = (int) $registration_claim_profile->ID;
+	$registration_claim_profile_slug = (string) $registration_claim_profile->post_name;
+	$registration_claim_full_name    = (string) get_post_meta( $registration_claim_profile_id, 'lawyer_full_name', true );
+	$registration_claim_firm         = (string) get_post_meta( $registration_claim_profile_id, 'firm_name', true );
+
+	if ( '' === $registration_prefill_full_name ) {
+		$registration_prefill_full_name = $registration_claim_full_name ?: get_the_title( $registration_claim_profile );
+	}
+
+	if ( '' === $registration_prefill_firm && $registration_claim_firm ) {
+		$registration_prefill_firm = $registration_claim_firm;
+	}
+}
 ?>
 
 <section class="lawyer-registration-hero section">
@@ -173,6 +214,17 @@ $registration_prefill_billing_invoice_address = $registration_request_text( 'bil
 			<?php endif; ?>
 
 			<?php if ( ! $registration_sent ) : ?>
+			<?php if ( $registration_claim_profile ) : ?>
+				<section class="lawyer-registration-claim-context" aria-label="<?php esc_attr_e( 'Claim selected public card', 'justice-theme' ); ?>">
+					<div>
+						<span><?php esc_html_e( 'תביעת כרטיס קיים', 'justice-theme' ); ?></span>
+						<strong><?php echo esc_html( get_the_title( $registration_claim_profile ) ); ?></strong>
+					</div>
+					<p><?php esc_html_e( 'זיהינו שהגעת מכרטיס ציבורי קיים. שליחת הטופס לא משנה את הכרטיס אוטומטית: היא פותחת בדיקת בעלות, אימות פרטים ומסלול שדרוג לחשיפה ממומנת.', 'justice-theme' ); ?></p>
+					<a href="<?php echo esc_url( get_permalink( $registration_claim_profile ) ); ?>"><?php esc_html_e( 'צפייה בכרטיס הנוכחי', 'justice-theme' ); ?></a>
+				</section>
+			<?php endif; ?>
+
 			<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
 				<div class="legaltool-request__notice"><?php esc_html_e( 'בקשת המסלול תטופל ידנית: לאחר בדיקת התאמה נשלח חשבונית/דרישת תשלום ונפעיל את המסלול לאחר אישור תשלום.', 'justice-theme' ); ?></div>
 			<?php endif; ?>
@@ -220,6 +272,10 @@ $registration_prefill_billing_invoice_address = $registration_request_text( 'bil
 			<form class="lawyer-registration-form" method="post" enctype="multipart/form-data" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 				<input type="hidden" name="action" value="justice_lawyer_registration">
 				<input type="hidden" name="payment_path" value="<?php echo esc_attr( 'manual_invoice' === $selected_payment_path ? 'manual_invoice' : '' ); ?>">
+				<?php if ( $registration_claim_profile ) : ?>
+					<input type="hidden" name="claim_profile_id" value="<?php echo esc_attr( (string) $registration_claim_profile_id ); ?>">
+					<input type="hidden" name="claim_profile" value="<?php echo esc_attr( $registration_claim_profile_slug ); ?>">
+				<?php endif; ?>
 				<?php
 				if ( function_exists( 'justice_theme_render_lawyer_registration_attribution_fields' ) ) {
 					justice_theme_render_lawyer_registration_attribution_fields( $registration_attribution );

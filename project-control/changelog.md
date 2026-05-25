@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer registration claim context
+
+- UPDATED: `page-lawyer-registration.php`, `inc/lawyer-onboarding.php`, and `assets/css/premium-pass-4.css`.
+- ADDED: `project-control/lawyer-registration-claim-context-2026-05-25.md`.
+- GENERATED: `reports/lawyer-registration-claim-context-2026-05-25.json`.
+- PURPOSE: close the conversion gap between an unclaimed public card and the lawyer registration/upgrade form.
+- IMPLEMENTATION: registration URLs can now carry `claim_profile_id` and `claim_profile`, resolve the matching public-approved CMS card, show a visible claim context panel, prefill name/firm when available, and preserve claim attribution in the onboarding submission.
+- RESEARCH BASIS: LawReviews, Din and PsakDin surfaces reviewed again for profile value, signup positioning and directory conversion behavior; implementation is original and safe.
+- SAFETY: no new CMS records, no fake contact details/reviews/ratings/verification, no competitor photos/reviews/profile copy copied, and no payment/invoice/refund/redirect/canonical/noindex/sitemap/taxonomy/provider setting changed.
+
 # 2026-05-25 - Public card claim/upgrade CTA
 
 - UPDATED: `template-parts/cards/lawyer-card.php` and `assets/css/premium-pass-4.css`.

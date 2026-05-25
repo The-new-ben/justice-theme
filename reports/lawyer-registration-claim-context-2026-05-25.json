@@ -1,0 +1,37 @@
+{
+  "report": "lawyer-registration-claim-context",
+  "date": "2026-05-25",
+  "local_time": "13:15 Asia/Jerusalem",
+  "material_advance": [
+    "The lawyer registration page now resolves claim_profile_id or claim_profile into a public-approved justice_lawyer card.",
+    "The registration page displays a visible claim context panel naming the selected public card.",
+    "The registration form preserves claim_profile_id and claim_profile through submission attribution.",
+    "Name and firm prefill can come from the selected public card when the incoming URL has no stronger prefill."
+  ],
+  "changed_files": [
+    "page-lawyer-registration.php",
+    "inc/lawyer-onboarding.php",
+    "assets/css/premium-pass-4.css"
+  ],
+  "competitor_sources_checked": [
+    "https://www.lawreviews.co.il/about",
+    "https://www.din.co.il/register.asp",
+    "https://www.psakdin.co.il/Lawyers/1116"
+  ],
+  "live_verification_target": "https://jus-tice.co.il/lawyer-registration/?claim_profile_id=20551&claim_profile=public-basic-israel-ben-baruch-rabbinical-mediator&plan_interest=featured&source=public_card_claim_upgrade",
+  "safety": {
+    "created_or_published_cms_records": false,
+    "copied_competitor_photos": false,
+    "copied_competitor_reviews": false,
+    "copied_competitor_contact_details": false,
+    "added_fake_ratings_or_verification": false,
+    "changed_payment_invoice_refund_settings": false,
+    "changed_redirects_canonicals_noindex_sitemaps_taxonomies": false
+  },
+  "completion": {
+    "public_card_claim_upgrade_funnel_percent": 86,
+    "cms_lawyer_index_system_percent": 86,
+    "indexed_public_basic_records": 20,
+    "realized_revenue_nis": 0
+  }
+}

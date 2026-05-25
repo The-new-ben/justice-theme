@@ -925,6 +925,7 @@ function justice_theme_crm_render_qualified_lead_billing_queue(): void {
 				$invoice_ref   = (string) get_post_meta( $post_id, 'qualified_lead_invoice_reference', true );
 				$lawyer_ids    = justice_theme_crm_parse_id_list( (string) get_post_meta( $post_id, 'qualified_lead_billable_lawyer_ids', true ) );
 				$lawyer_labels = justice_theme_crm_lawyer_link_labels( $lawyer_ids );
+				$lawyer_actions = justice_theme_crm_billable_lawyer_contact_actions( $lawyer_ids, $post_id );
 				$edit_url      = get_edit_post_link( $post_id, '' );
 				$phone_link    = $phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', (string) $phone ) : '';
 				?>
@@ -965,6 +966,13 @@ function justice_theme_crm_render_qualified_lead_billing_queue(): void {
 					</td>
 					<td>
 						<a class="button button-primary" href="<?php echo esc_url( $edit_url ); ?>">Open billing fields</a>
+						<?php if ( $lawyer_actions ) : ?>
+							<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;">
+								<?php foreach ( $lawyer_actions as $action ) : ?>
+									<a class="button" href="<?php echo esc_url( $action['url'] ); ?>"<?php echo ! empty( $action['external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo esc_html( $action['label'] ); ?></a>
+								<?php endforeach; ?>
+							</div>
+						<?php endif; ?>
 						<p style="margin:6px 0 0;color:#646970;">Set status to Invoice sent / Paid after the manual payment link or invoice is handled.</p>
 					</td>
 				</tr>
@@ -1026,6 +1034,69 @@ function justice_theme_crm_lawyer_link_labels( array $lawyer_ids ): array {
 	}
 
 	return $labels;
+}
+
+function justice_theme_crm_billable_lawyer_contact_actions( array $lawyer_ids, int $lead_id ): array {
+	$actions = array();
+	$price   = absint( get_post_meta( $lead_id, 'suggested_lead_price_ils', true ) );
+	$lead    = get_post( $lead_id );
+
+	if ( ! $lead instanceof WP_Post ) {
+		return $actions;
+	}
+
+	$lead_name = get_post_meta( $lead_id, 'visitor_name', true ) ?: get_post_meta( $lead_id, 'lead_name', true ) ?: get_the_title( $lead_id );
+	$area      = get_post_meta( $lead_id, 'legal_area', true ) ?: get_post_meta( $lead_id, 'lead_area', true );
+	$area_name = function_exists( 'justice_theme_lead_area_label' ) ? justice_theme_lead_area_label( (string) $area ) : (string) $area;
+	$subject   = sprintf( 'Jus-Tice: qualified lead billing - %s', $area_name ?: 'legal lead' );
+	$price_row = $price ? sprintf( "Suggested lead price: ₪%s\n", number_format_i18n( $price ) ) : '';
+
+	foreach ( $lawyer_ids as $lawyer_id ) {
+		if ( 'justice_lawyer' !== get_post_type( $lawyer_id ) ) {
+			continue;
+		}
+
+		$lawyer_name = get_the_title( $lawyer_id ) ?: sprintf( 'Lawyer #%d', $lawyer_id );
+		$email       = (string) get_post_meta( $lawyer_id, 'email', true );
+		$whatsapp    = (string) ( get_post_meta( $lawyer_id, 'whatsapp', true ) ?: get_post_meta( $lawyer_id, 'phone', true ) );
+		$message     = sprintf(
+			"שלום %s,\n\nפנייה מוסמכת בתחום %s סומנה כמוכנה לחיוב ב-Jus-Tice.\nשם הפונה: %s\n%s\nנא לאשר קבלה ולעדכן אם לשלוח חשבונית/קישור תשלום ידני.\n\nאין התחייבות לתוצאה משפטית ואין הבטחת הצלחה ללקוח.\nJus-Tice",
+			$lawyer_name,
+			$area_name ?: 'משפט',
+			$lead_name,
+			$price_row
+		);
+
+		if ( $email && is_email( $email ) ) {
+			$actions[] = array(
+				'label'    => sprintf( 'Email %s', wp_html_excerpt( $lawyer_name, 18, '...' ) ),
+				'url'      => add_query_arg(
+					array(
+						'subject' => $subject,
+						'body'    => $message,
+					),
+					'mailto:' . $email
+				),
+				'external' => false,
+			);
+		}
+
+		if ( $whatsapp ) {
+			$wa_url = function_exists( 'justice_theme_lawyer_public_whatsapp_link' )
+				? justice_theme_lawyer_public_whatsapp_link( $whatsapp )
+				: 'https://wa.me/' . preg_replace( '/[^0-9]/', '', $whatsapp );
+
+			if ( $wa_url ) {
+				$actions[] = array(
+					'label'    => sprintf( 'WhatsApp %s', wp_html_excerpt( $lawyer_name, 14, '...' ) ),
+					'url'      => add_query_arg( 'text', $message, $wa_url ),
+					'external' => true,
+				);
+			}
+		}
+	}
+
+	return $actions;
 }
 
 function justice_theme_crm_status_labels(): array {

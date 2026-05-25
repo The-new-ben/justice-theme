@@ -95,6 +95,9 @@ Already shipped:
   exposing internal revenue, CMS, Grow or billing language.
 - Owner-only CRM billing queue for qualified appeal leads that are ready for
   manual invoice/payment follow-up while Grow/Meshulam is not fully active.
+- One-click owner-only email/WhatsApp prompts from the qualified billing queue
+  to billable lawyers. These create manual messages only; they do not send
+  automatically and do not expose this flow publicly.
 
 Remaining:
 

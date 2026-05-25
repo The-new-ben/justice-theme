@@ -461,6 +461,16 @@
   background: rgba(178,58,72,0.09);
   color: var(--jt-accent-red, #b23a48);
 }
+.legal-service-provider-card--placeholder {
+  border-style: dashed;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.96), rgba(248,250,252,0.96)),
+    #fff;
+}
+.legal-service-provider-card--placeholder .legal-service-provider-card__signal {
+  background: rgba(7,21,47,0.08);
+  color: var(--jt-primary-deep, #07152f);
+}
 .legal-service-provider-card h3 {
   margin: 0;
   color: var(--jt-primary-deep, #07152f);

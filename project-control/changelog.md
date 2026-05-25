@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Grow/Morning provider status panel
+
+- UPDATED: `inc/lawyer-onboarding.php`.
+- ADDED: `project-control/grow-morning-provider-status-panel-2026-05-25.md`.
+- PURPOSE: make the payment demo path honest and actionable after Grow/Morning confirmed site approval and asked whether the request is for standing orders through Morning.
+- IMPLEMENTATION: added a provider route matrix for one-time payment links, recurring/standing-order billing, WooCommerce checkout, and Morning API payment form; added a copyable Hebrew reply template for Grow support.
+- RESEARCH BASIS: checked current Morning/Green Invoice API/payment documentation and WooCommerce plugin direction; implementation is admin-only guidance and does not call provider APIs.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` passed.
+- SAFETY: no email sent, CMS database write, payment link, invoice, refund, recurring billing, WooCommerce plugin, provider setting, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-25 - Lawyer index/profile visual trust polish
 
 - UPDATED: `template-parts/cards/lawyer-card.php`, `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, and `inc/enqueue.php`.

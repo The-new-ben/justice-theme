@@ -3681,6 +3681,41 @@ function justice_theme_render_lawyer_onboarding_investor_demo_panel(): void {
 		'If recurring billing is asked about, open the Morning standing-order/debit-order flow as the next approval path, but keep the demo claim limited to the real manual payment link until provider approval is complete.',
 		'After payment, record the invoice/reference and payment confirmed date on the lawyer profile before saying the account is activated.',
 	);
+	$provider_paths   = array(
+		array(
+			'label'  => 'One-time payment link',
+			'status' => 'Demo-ready when a real Morning/Grow link is pasted on the lawyer profile.',
+			'action' => 'Use the manual payment link field, send by email, then mark invoice sent or payment confirmed only after proof.',
+		),
+		array(
+			'label'  => 'Recurring / standing order',
+			'status' => 'Provider-gated. Grow asked whether the request is for standing orders through Morning.',
+			'action' => 'Reply yes, confirm it is for recurring lawyer subscriptions, and ask them to enable the standing-order/direct-debit capability for account 10182706.',
+		),
+		array(
+			'label'  => 'WooCommerce checkout',
+			'status' => 'Optional next route after provider/plugin decision.',
+			'action' => 'Use only after the owner decides to buy/install the Morning/Grow WooCommerce plugin and complete a paid smoke test.',
+		),
+		array(
+			'label'  => 'Morning API payment form',
+			'status' => 'Future integration route, not tonight\'s no-API demo bridge.',
+			'action' => 'Use only with sandbox/production API credentials, server-side implementation and a controlled transaction test.',
+		),
+	);
+	$grow_reply_template = implode(
+		"\n",
+		array(
+			'שלום הילה,',
+			'כן, הכוונה היא להוראות קבע / חיובים חוזרים דרך מערכת Morning/Grow עבור מנויי עורכי דין באתר Jus-Tice.',
+			'אנחנו צריכים לאפשר לחשבון Grow 10182706 להקים הוראות קבע או חיובים חוזרים ללקוחות, בנוסף ללינקי תשלום חד-פעמיים שכבר עובדים.',
+			'מספר עוסק: 027488360.',
+			'שם האתר: Jus-Tice Israel - https://jus-tice.co.il',
+			'אנא עדכנו מה צריך להפעיל בחשבון כדי לאפשר הוראות קבע/חיוב חוזר, והאם נדרש תוסף WooCommerce, טופס סליקה/API, או הגדרת הרשאה מצד Grow/Morning.',
+			'תודה,',
+			'Jus-Tice Israel',
+		)
+	);
 	$demo_data_steps = array(
 		'Create or use one controlled lawyer user email, then make sure one justice_lawyer profile has claimed_by_user_id set to that user ID.',
 		'Use a medical-malpractice profile because the investor scenario is a medical-malpractice lawyer buying leads.',
@@ -3714,6 +3749,22 @@ function justice_theme_render_lawyer_onboarding_investor_demo_panel(): void {
 					<?php endforeach; ?>
 				</ol>
 				<p style="margin:10px 0 0;color:#ccfbf1;"><a style="color:#ccfbf1;" href="https://www.greeninvoice.co.il/help-center/create-payment-link/" target="_blank" rel="noopener noreferrer">Morning guide: create a payment link</a></p>
+			</div>
+			<div style="background:#1e293b;border:1px solid rgba(148,163,184,.5);border-radius:8px;padding:12px;">
+				<strong style="display:block;color:#e2e8f0;">Grow/Morning provider status</strong>
+				<div style="display:grid;gap:8px;margin-top:8px;color:#e5e7eb;">
+					<?php foreach ( $provider_paths as $path ) : ?>
+						<div style="border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:9px;background:rgba(15,23,42,.6);">
+							<strong style="display:block;color:#fff;"><?php echo esc_html( $path['label'] ); ?></strong>
+							<span style="display:block;color:#cbd5e1;"><?php echo esc_html( $path['status'] ); ?></span>
+							<small style="display:block;margin-top:4px;color:#93c5fd;"><?php echo esc_html( $path['action'] ); ?></small>
+						</div>
+					<?php endforeach; ?>
+				</div>
+				<details style="margin-top:10px;">
+					<summary style="cursor:pointer;color:#bfdbfe;font-weight:700;">Copy reply to Grow support</summary>
+					<textarea readonly rows="9" style="width:100%;margin-top:8px;direction:rtl;text-align:right;"><?php echo esc_textarea( $grow_reply_template ); ?></textarea>
+				</details>
 			</div>
 			<div style="background:#312e81;border:1px solid rgba(165,180,252,.45);border-radius:8px;padding:12px;">
 				<strong style="display:block;color:#c7d2fe;">Demo data checklist</strong>

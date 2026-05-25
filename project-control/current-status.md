@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 16:32 Asia/Jerusalem
+- GROW/MORNING PROVIDER STATUS PANEL ADDED: Lawyer Onboarding now has an admin-only payment route matrix and a copyable Hebrew reply to Grow support.
+- UPDATED: `inc/lawyer-onboarding.php`.
+- ADDED: `project-control/grow-morning-provider-status-panel-2026-05-25.md`.
+- MATERIAL ADVANCE: the investor/payment demo now has a clearer owner script: one-time Morning/Grow payment links are the real demo bridge when saved on a lawyer record; recurring/standing-order billing is provider-gated until Grow/Morning enables it and a controlled paid smoke test passes; WooCommerce/API are future integration routes, not the immediate no-API bridge.
+- RESEARCH BASIS: checked current Morning/Green Invoice API/payment docs and WooCommerce plugin direction. Payment-form/API work needs approved credentials/server-side integration, and automatic recurring billing must not be claimed before provider approval.
+- VERIFIED LOCAL / DEPLOY BLOCKED: `php -l inc/lawyer-onboarding.php` passed; production still needs uPress Pull Git because Codex still has no active browser pane for uPress.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves payment handoff accuracy and prevents overclaiming; it does not prove payment, invoice, refund, subscription, lead delivery or CRM monetization.
+- SAFETY: repo admin/docs only; no email sent, no payment link/invoice/refund/recurring billing/Woo/provider setting created or changed, and no public CMS database edit, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 16:25 Asia/Jerusalem
 - LAWYER INDEX/PROFILE VISUAL TRUST POLISH ADDED: lawyer cards now have explicit visual/trust states and fact-gated lawyer mini-sites no longer use unverified marketing headlines or proof-number strips.
 - UPDATED: `template-parts/cards/lawyer-card.php`, `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, and `inc/enqueue.php`.

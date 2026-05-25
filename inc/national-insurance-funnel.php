@@ -38,6 +38,36 @@ function justice_theme_is_btl_appeal_route(): bool {
 }
 
 /**
+ * Return visible and schema FAQ items for the appeal funnel.
+ *
+ * @return array<int,array{question:string,answer:string}>
+ */
+function justice_theme_btl_appeal_faqs(): array {
+	return array(
+		array(
+			'question' => 'כמה זמן יש להגיש ערעור לביטוח לאומי?',
+			'answer'   => 'אין מועד אחד שמתאים לכל סוגי ההחלטות. בנכות מעבודה, למשל, הביטוח הלאומי מציין שיש לשלוח ערעור בכתב בתוך 30 ימים, ואת נימוקי הערעור אפשר למסור בתוך 60 ימים. במסלולים אחרים, כמו ערעור לבית הדין האזורי לעבודה, מופיע מועד של 60 ימים. לכן צריך לבדוק את סוג ההחלטה ואת המסמך שקיבלתם.',
+		),
+		array(
+			'question' => 'האם המחשבון קובע אם הערעור יצליח?',
+			'answer'   => 'לא. המחשבון רק מסדר את הפער הכספי המשוער ואת הדחיפות. הצלחת ערעור תלויה במסמכים רפואיים, פרוטוקול הוועדה, סוג הקצבה, סעיפי הליקוי והאפשרות להראות טעות רפואית או משפטית.',
+		),
+		array(
+			'question' => 'אילו מסמכים כדאי להכין לפני פנייה לעורך דין?',
+			'answer'   => 'כדאי להכין את החלטת הביטוח הלאומי, פרוטוקול הוועדה, מסמכים רפואיים עדכניים, אישורי עבודה או שכר אם הם רלוונטיים, וכל מסמך שמראה שינוי במצב הרפואי או התפקודי.',
+		),
+		array(
+			'question' => 'למה לא להגיש ערעור לבד מיד?',
+			'answer'   => 'לפעמים ערעור יכול לשפר את המצב, אבל במסלולים מסוימים ועדת ערר יכולה גם לבחון מחדש את הקביעה. לכן לפני פעולה כדאי להבין מה בדיוק תוקפים, מה הסיכון, ומה חסר כדי להציג את התמונה נכון.',
+		),
+		array(
+			'question' => 'מה קורה אחרי שמשאירים פנייה דרך Jus-Tice?',
+			'answer'   => 'הפנייה מסווגת כתחום ביטוח לאומי, נשמרת עם פרטי הדחיפות והפער הכספי שהזנתם, ונכנסת למסלול בדיקה כדי להתאים המשך טיפול או עורך דין רלוונטי. אין בכך התחייבות לקבל תיק או הבטחה לתוצאה.',
+		),
+	);
+}
+
+/**
  * Do not override a real CMS page/article if the owner later publishes one.
  */
 function justice_theme_btl_appeal_route_has_published_cms_owner(): bool {
@@ -159,6 +189,28 @@ function justice_theme_print_btl_appeal_schema(): void {
 			),
 		)
 	);
+
+	$faq_entities = array();
+	foreach ( justice_theme_btl_appeal_faqs() as $faq ) {
+		$faq_entities[] = array(
+			'@type'          => 'Question',
+			'name'           => $faq['question'],
+			'acceptedAnswer' => array(
+				'@type' => 'Answer',
+				'text'  => $faq['answer'],
+			),
+		);
+	}
+
+	justice_theme_print_schema(
+		array(
+			'@context'   => 'https://schema.org',
+			'@type'      => 'FAQPage',
+			'@id'        => esc_url_raw( $canonical_url ) . '#faq',
+			'inLanguage' => 'he',
+			'mainEntity' => $faq_entities,
+		)
+	);
 }
 
 /**
@@ -170,6 +222,10 @@ function justice_theme_render_btl_appeal_lead_form(): void {
 		<input type="hidden" name="action" value="justice_submit_lead">
 		<input type="hidden" name="lead_area" value="national-insurance">
 		<input id="btl-appeal-urgency" type="hidden" name="lead_urgency" value="normal">
+		<input type="hidden" name="source_keyword" value="ערעור ביטוח לאומי">
+		<input type="hidden" name="utm_source" value="bituach_leumi_appeal_funnel">
+		<input type="hidden" name="utm_medium" value="legaltech_calculator">
+		<input type="hidden" name="utm_campaign" value="national_insurance_leads">
 		<?php wp_nonce_field( 'justice_submit_lead', 'justice_lead_nonce' ); ?>
 		<?php justice_theme_render_lead_spam_fields(); ?>
 		<?php justice_theme_render_lead_attribution_fields(); ?>
@@ -253,6 +309,21 @@ function justice_theme_render_btl_appeal_route(): void {
 					<p><?php esc_html_e( 'בענפי ביטוח לאומי שונים קיימים מועדים שונים. באתר הביטוח הלאומי מצוין שבנכות מעבודה את הערר יש לשלוח בתוך 30 ימים, ונימוקים ניתן למסור גם בתוך 60 ימים. בנכות כללית ובערעור לבית הדין האזורי לעבודה מופיעים מסלולים שבהם המועד הוא 60 ימים. לכן אין להסתמך על כלל אחד לכל מקרה, אלא לבדוק את סוג ההחלטה והמסמך שהתקבל.', 'justice-theme' ); ?></p>
 					<p><?php esc_html_e( 'הבדיקה הראשונית אינה מבטיחה תוצאה ואינה מחליפה ייעוץ משפטי. היא עוזרת לסדר את הנתונים: אחוזים או סכומים שנקבעו, מה לדעתכם היה צריך להיקבע, כמה חודשים עשויים להיות רלוונטיים, ומה חסר כדי שעורך דין יוכל להעריך את המקרה.', 'justice-theme' ); ?></p>
 
+					<div class="btl-appeal-proof-grid" aria-label="<?php esc_attr_e( 'בדיקות לפני ערעור ביטוח לאומי', 'justice-theme' ); ?>">
+						<article>
+							<strong><?php esc_html_e( 'מועד פעולה', 'justice-theme' ); ?></strong>
+							<span><?php esc_html_e( 'בודקים מתי התקבלה ההחלטה, האם מדובר בערר לוועדה או בערעור לבית הדין, ומה המועד המדויק לפי המסלול.', 'justice-theme' ); ?></span>
+						</article>
+						<article>
+							<strong><?php esc_html_e( 'פער כלכלי', 'justice-theme' ); ?></strong>
+							<span><?php esc_html_e( 'בודקים אם הפער בין ההחלטה לבין התוצאה האפשרית מצדיק בדיקת מסמכים עמוקה יותר.', 'justice-theme' ); ?></span>
+						</article>
+						<article>
+							<strong><?php esc_html_e( 'חומר רפואי', 'justice-theme' ); ?></strong>
+							<span><?php esc_html_e( 'בודקים האם קיימים פרוטוקול ועדה, אבחנות, בדיקות וחוות דעת שיכולים לתמוך בטענה.', 'justice-theme' ); ?></span>
+						</article>
+					</div>
+
 					<div class="btl-appeal-calculator" id="btl-appeal-calculator">
 						<div>
 							<p class="section-header__eyebrow"><?php esc_html_e( 'כלי בדיקה ראשוני', 'justice-theme' ); ?></p>
@@ -282,6 +353,16 @@ function justice_theme_render_btl_appeal_route(): void {
 							<p><?php esc_html_e( 'הזינו נתונים כדי לראות אם יש פער שכדאי לבדוק עם עורך דין.', 'justice-theme' ); ?></p>
 						</div>
 						<a class="button button--primary" href="#btl-appeal-lead"><?php esc_html_e( 'בדיקת הפער עם עורך דין', 'justice-theme' ); ?></a>
+					</div>
+
+					<h2><?php esc_html_e( 'שאלות נפוצות על ערעור ביטוח לאומי', 'justice-theme' ); ?></h2>
+					<div class="btl-appeal-faq">
+						<?php foreach ( justice_theme_btl_appeal_faqs() as $faq ) : ?>
+							<article>
+								<h3><?php echo esc_html( $faq['question'] ); ?></h3>
+								<p><?php echo esc_html( $faq['answer'] ); ?></p>
+							</article>
+						<?php endforeach; ?>
 					</div>
 
 					<h2><?php esc_html_e( 'מקורות בדיקה רשמיים', 'justice-theme' ); ?></h2>

@@ -1446,10 +1446,63 @@
 .btl-appeal-calculator__result p {
   margin: 0.35rem 0 0;
 }
+.btl-appeal-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin: 1.35rem 0 1.6rem;
+}
+.btl-appeal-proof-grid article {
+  min-height: 122px;
+  display: grid;
+  align-content: start;
+  gap: 0.45rem;
+  padding: 1rem;
+  border: 1px solid rgba(7,21,47,0.1);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 10px 28px rgba(7,21,47,0.05);
+}
+.btl-appeal-proof-grid strong {
+  color: var(--jt-primary-deep, #07152f);
+  font-size: 0.98rem;
+  font-weight: 900;
+}
+.btl-appeal-proof-grid span {
+  color: var(--jt-muted, #6b7280);
+  font-size: 0.9rem;
+  line-height: 1.72;
+}
+.btl-appeal-faq {
+  display: grid;
+  gap: 0.75rem;
+  margin: 1rem 0 1.6rem;
+}
+.btl-appeal-faq article {
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(7,21,47,0.1);
+  border-radius: 8px;
+  background: #fff;
+}
+.btl-appeal-faq h3 {
+  margin: 0 0 0.45rem;
+  color: var(--jt-primary-deep, #07152f);
+  font-size: 1rem;
+  line-height: 1.45;
+}
+.btl-appeal-faq p {
+  margin: 0;
+  color: var(--jt-muted, #6b7280);
+  line-height: 1.78;
+}
 @media (max-width: 900px) {
   .btl-appeal-hero__grid,
-  .btl-appeal-calculator__form {
+  .btl-appeal-calculator__form,
+  .btl-appeal-proof-grid {
     grid-template-columns: 1fr;
+  }
+  .btl-appeal-proof-grid article {
+    min-height: 0;
   }
 }
 

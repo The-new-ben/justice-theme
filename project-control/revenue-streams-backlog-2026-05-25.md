@@ -93,6 +93,8 @@ Already shipped:
 - Qualified lead billing queue in CRM
 - Public-facing path chooser that explains the next visitor step without
   exposing internal revenue, CMS, Grow or billing language.
+- Owner-only CRM billing queue for qualified appeal leads that are ready for
+  manual invoice/payment follow-up while Grow/Meshulam is not fully active.
 
 Remaining:
 

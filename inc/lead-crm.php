@@ -90,6 +90,8 @@ function justice_theme_render_crm_admin_page(): void {
 			</div>
 		</div>
 
+		<?php justice_theme_crm_render_qualified_lead_billing_queue(); ?>
+
 		<h2>Recent legal leads</h2>
 		<?php justice_theme_crm_render_table( $leads, 'justice_lead' ); ?>
 
@@ -886,6 +888,144 @@ function justice_theme_crm_qualified_lead_revenue_snapshot(): array {
 	}
 
 	return $snapshot;
+}
+
+function justice_theme_crm_render_qualified_lead_billing_queue(): void {
+	$queue = justice_theme_crm_query_qualified_lead_billing_queue( 12 );
+	?>
+	<h2 style="margin-top:28px;">Qualified lead billing queue</h2>
+	<p>Owner-only queue for billable leads that should be invoiced or followed up manually while Grow/Meshulam is not fully active.</p>
+	<?php if ( ! $queue || ! $queue->have_posts() ) : ?>
+		<div class="notice notice-info inline"><p>No qualified leads are waiting for billing.</p></div>
+		<?php return; ?>
+	<?php endif; ?>
+	<table class="widefat striped" style="margin:12px 0 20px;">
+		<thead>
+			<tr>
+				<th>Lead</th>
+				<th>Area</th>
+				<th>Billing</th>
+				<th>Billable lawyer(s)</th>
+				<th>Ready / invoice</th>
+				<th>Next owner action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php while ( $queue->have_posts() ) : $queue->the_post(); ?>
+				<?php
+				$post_id       = get_the_ID();
+				$name          = get_post_meta( $post_id, 'visitor_name', true ) ?: get_post_meta( $post_id, 'lead_name', true ) ?: get_the_title();
+				$phone         = get_post_meta( $post_id, 'visitor_phone', true ) ?: get_post_meta( $post_id, 'lead_phone', true );
+				$email         = get_post_meta( $post_id, 'visitor_email', true ) ?: get_post_meta( $post_id, 'lead_email', true );
+				$area          = get_post_meta( $post_id, 'legal_area', true ) ?: get_post_meta( $post_id, 'lead_area', true );
+				$area_display  = function_exists( 'justice_theme_lead_area_label' ) ? justice_theme_lead_area_label( (string) $area ) : (string) $area;
+				$billing       = justice_theme_crm_qualified_lead_billing_badge( $post_id );
+				$ready_at      = (string) get_post_meta( $post_id, 'qualified_lead_ready_at', true );
+				$billed_at     = (string) get_post_meta( $post_id, 'qualified_lead_billed_at', true );
+				$invoice_ref   = (string) get_post_meta( $post_id, 'qualified_lead_invoice_reference', true );
+				$lawyer_ids    = justice_theme_crm_parse_id_list( (string) get_post_meta( $post_id, 'qualified_lead_billable_lawyer_ids', true ) );
+				$lawyer_labels = justice_theme_crm_lawyer_link_labels( $lawyer_ids );
+				$edit_url      = get_edit_post_link( $post_id, '' );
+				$phone_link    = $phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', (string) $phone ) : '';
+				?>
+				<tr>
+					<td>
+						<strong><?php echo esc_html( $name ); ?></strong>
+						<?php if ( $phone ) : ?>
+							<br><a href="<?php echo esc_url( $phone_link ); ?>"><?php echo esc_html( $phone ); ?></a>
+						<?php endif; ?>
+						<?php if ( $email ) : ?>
+							<br><a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a>
+						<?php endif; ?>
+					</td>
+					<td><?php echo esc_html( $area_display ?: '-' ); ?></td>
+					<td>
+						<span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $billing['style'] ); ?>"><?php echo esc_html( $billing['label'] ); ?></span>
+						<?php if ( ! empty( $billing['detail'] ) ) : ?>
+							<small style="display:block;color:#646970;margin-top:3px;"><?php echo esc_html( $billing['detail'] ); ?></small>
+						<?php endif; ?>
+					</td>
+					<td>
+						<?php if ( $lawyer_labels ) : ?>
+							<?php echo wp_kses_post( implode( '<br>', $lawyer_labels ) ); ?>
+						<?php else : ?>
+							<span style="color:#646970;">Not linked yet</span>
+						<?php endif; ?>
+					</td>
+					<td>
+						<?php if ( $ready_at ) : ?>
+							<strong>Ready:</strong> <?php echo esc_html( $ready_at ); ?><br>
+						<?php endif; ?>
+						<?php if ( $billed_at ) : ?>
+							<strong>Invoice sent:</strong> <?php echo esc_html( $billed_at ); ?><br>
+						<?php endif; ?>
+						<?php if ( $invoice_ref ) : ?>
+							<small><?php echo esc_html( $invoice_ref ); ?></small>
+						<?php endif; ?>
+					</td>
+					<td>
+						<a class="button button-primary" href="<?php echo esc_url( $edit_url ); ?>">Open billing fields</a>
+						<p style="margin:6px 0 0;color:#646970;">Set status to Invoice sent / Paid after the manual payment link or invoice is handled.</p>
+					</td>
+				</tr>
+			<?php endwhile; ?>
+		</tbody>
+	</table>
+	<?php
+	wp_reset_postdata();
+}
+
+function justice_theme_crm_query_qualified_lead_billing_queue( int $limit ): ?WP_Query {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return null;
+	}
+
+	return new WP_Query( array(
+		'post_type'      => 'justice_lead',
+		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+		'posts_per_page' => $limit,
+		'orderby'        => 'modified',
+		'order'          => 'DESC',
+		'no_found_rows'  => true,
+		'meta_query'     => array(
+			'relation' => 'AND',
+			array(
+				'key'     => 'lead_revenue_model',
+				'compare' => 'EXISTS',
+			),
+			array(
+				'key'     => 'qualified_lead_billing_status',
+				'value'   => array( 'ready_to_bill', 'invoice_sent' ),
+				'compare' => 'IN',
+			),
+		),
+	) );
+}
+
+function justice_theme_crm_parse_id_list( string $value ): array {
+	$ids = array_filter( array_map( 'absint', preg_split( '/[,\\s]+/', $value ) ?: array() ) );
+
+	return array_values( array_unique( $ids ) );
+}
+
+function justice_theme_crm_lawyer_link_labels( array $lawyer_ids ): array {
+	$labels = array();
+
+	foreach ( $lawyer_ids as $lawyer_id ) {
+		if ( 'justice_lawyer' !== get_post_type( $lawyer_id ) ) {
+			continue;
+		}
+
+		$title = get_the_title( $lawyer_id ) ?: sprintf( 'Lawyer #%d', $lawyer_id );
+		$url   = get_edit_post_link( $lawyer_id, '' );
+		if ( $url ) {
+			$labels[] = '<a href="' . esc_url( $url ) . '">' . esc_html( $title ) . '</a>';
+		} else {
+			$labels[] = esc_html( $title );
+		}
+	}
+
+	return $labels;
 }
 
 function justice_theme_crm_status_labels(): array {

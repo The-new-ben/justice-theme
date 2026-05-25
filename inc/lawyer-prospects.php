@@ -58,6 +58,10 @@ function justice_theme_register_lawyer_prospect_meta(): void {
 		'prospect_next_action_at'      => 'string',
 		'prospect_last_contacted_at'   => 'string',
 		'prospect_expected_monthly_nis' => 'integer',
+		'prospect_agreed_lead_fee_ils' => 'integer',
+		'prospect_billing_contact_email' => 'string',
+		'prospect_lead_fee_terms_ready' => 'string',
+		'prospect_terms_note'          => 'string',
 		'prospect_owner_note'          => 'string',
 		'prospect_license_verified'    => 'string',
 		'prospect_specialty_verified'  => 'string',
@@ -85,11 +89,11 @@ function justice_theme_lawyer_prospect_meta_sanitizer( string $key ): string {
 		return 'esc_url_raw';
 	}
 
-	if ( 'prospect_contact_email' === $key ) {
+	if ( in_array( $key, array( 'prospect_contact_email', 'prospect_billing_contact_email' ), true ) ) {
 		return 'sanitize_email';
 	}
 
-	if ( 'prospect_expected_monthly_nis' === $key ) {
+	if ( in_array( $key, array( 'prospect_expected_monthly_nis', 'prospect_agreed_lead_fee_ils' ), true ) ) {
 		return 'absint';
 	}
 
@@ -97,7 +101,7 @@ function justice_theme_lawyer_prospect_meta_sanitizer( string $key ): string {
 		return 'absint';
 	}
 
-	if ( in_array( $key, array( 'prospect_demand_signal', 'prospect_owner_note', 'prospect_verification_note' ), true ) ) {
+	if ( in_array( $key, array( 'prospect_demand_signal', 'prospect_terms_note', 'prospect_owner_note', 'prospect_verification_note' ), true ) ) {
 		return 'sanitize_textarea_field';
 	}
 
@@ -168,6 +172,11 @@ function justice_theme_lawyer_prospect_verification_missing( int $post_id ): arr
 		$missing[] = __( 'manual payment path', 'justice-theme' );
 	}
 
+	$agreed_lead_fee = absint( get_post_meta( $post_id, 'prospect_agreed_lead_fee_ils', true ) );
+	if ( '1' !== (string) get_post_meta( $post_id, 'prospect_lead_fee_terms_ready', true ) || $agreed_lead_fee <= 0 ) {
+		$missing[] = __( 'lead fee terms', 'justice-theme' );
+	}
+
 	return $missing;
 }
 
@@ -210,6 +219,16 @@ function justice_theme_lawyer_prospect_verification_meta_clause( string $filter 
 			array(
 				'key'   => 'prospect_payment_path_ready',
 				'value' => '1',
+			),
+			array(
+				'key'   => 'prospect_lead_fee_terms_ready',
+				'value' => '1',
+			),
+			array(
+				'key'     => 'prospect_agreed_lead_fee_ils',
+				'value'   => 0,
+				'compare' => '>',
+				'type'    => 'NUMERIC',
 			),
 		);
 	}
@@ -254,6 +273,25 @@ function justice_theme_lawyer_prospect_verification_meta_clause( string $filter 
 				'key'     => 'prospect_payment_path_ready',
 				'value'   => '1',
 				'compare' => '!=',
+			),
+			array(
+				'key'     => 'prospect_lead_fee_terms_ready',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => 'prospect_lead_fee_terms_ready',
+				'value'   => '1',
+				'compare' => '!=',
+			),
+			array(
+				'key'     => 'prospect_agreed_lead_fee_ils',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => 'prospect_agreed_lead_fee_ils',
+				'value'   => 0,
+				'compare' => '<=',
+				'type'    => 'NUMERIC',
 			),
 		),
 	);
@@ -555,6 +593,23 @@ function justice_theme_render_lawyer_prospect_details_box( WP_Post $post ): void
 				<td><input id="justice-<?php echo esc_attr( $key ); ?>" type="<?php echo esc_attr( $field['type'] ); ?>" name="<?php echo esc_attr( $key ); ?>" value="<?php echo esc_attr( justice_theme_lawyer_prospect_form_value( $post, $key ) ); ?>" class="regular-text"></td>
 			</tr>
 		<?php endforeach; ?>
+		<tr>
+			<th scope="row">Qualified lead terms</th>
+			<td>
+				<p style="margin-top:0;color:#646970;">Required before routing a paid/qualified lead. This keeps the first billable test honest: price, payer contact and terms must be recorded before the prospect becomes ready.</p>
+				<p>
+					<label for="justice-prospect-agreed-lead-fee-ils"><strong>Agreed lead fee ILS</strong></label><br>
+					<input id="justice-prospect-agreed-lead-fee-ils" type="number" min="0" name="prospect_agreed_lead_fee_ils" value="<?php echo esc_attr( justice_theme_lawyer_prospect_form_value( $post, 'prospect_agreed_lead_fee_ils' ) ); ?>" class="regular-text">
+				</p>
+				<p>
+					<label for="justice-prospect-billing-contact-email"><strong>Billing contact email</strong></label><br>
+					<input id="justice-prospect-billing-contact-email" type="email" name="prospect_billing_contact_email" value="<?php echo esc_attr( justice_theme_lawyer_prospect_form_value( $post, 'prospect_billing_contact_email' ) ); ?>" class="regular-text">
+				</p>
+				<label><input type="checkbox" name="prospect_lead_fee_terms_ready" value="1" <?php checked( justice_theme_lawyer_prospect_form_value( $post, 'prospect_lead_fee_terms_ready' ), '1' ); ?>> Qualified lead price/terms accepted</label>
+				<p><label for="justice-prospect-terms-note"><strong>Terms note</strong></label></p>
+				<textarea id="justice-prospect-terms-note" name="prospect_terms_note" rows="3" class="large-text" placeholder="Record agreed lead price, cap, billing person, invoice path and any limits before routing leads."><?php echo esc_textarea( justice_theme_lawyer_prospect_form_value( $post, 'prospect_terms_note' ) ); ?></textarea>
+			</td>
+		</tr>
 		<tr>
 			<th scope="row"><label for="justice-prospect-demand-signal">Demand signal</label></th>
 			<td><textarea id="justice-prospect-demand-signal" name="prospect_demand_signal" rows="4" class="large-text" placeholder="Example: 3 Thailand-law calls this week, no paying coverage partner yet."><?php echo esc_textarea( justice_theme_lawyer_prospect_form_value( $post, 'prospect_demand_signal' ) ); ?></textarea></td>
@@ -875,11 +930,14 @@ function justice_theme_save_lawyer_prospect_details( int $post_id ): void {
 	update_post_meta( $post_id, 'prospect_source_url', isset( $_POST['prospect_source_url'] ) ? esc_url_raw( wp_unslash( $_POST['prospect_source_url'] ) ) : '' );
 	update_post_meta( $post_id, 'prospect_source_lead_id', isset( $_POST['prospect_source_lead_id'] ) ? absint( wp_unslash( $_POST['prospect_source_lead_id'] ) ) : 0 );
 	update_post_meta( $post_id, 'prospect_expected_monthly_nis', isset( $_POST['prospect_expected_monthly_nis'] ) ? absint( wp_unslash( $_POST['prospect_expected_monthly_nis'] ) ) : 0 );
+	update_post_meta( $post_id, 'prospect_agreed_lead_fee_ils', isset( $_POST['prospect_agreed_lead_fee_ils'] ) ? absint( wp_unslash( $_POST['prospect_agreed_lead_fee_ils'] ) ) : 0 );
+	update_post_meta( $post_id, 'prospect_billing_contact_email', isset( $_POST['prospect_billing_contact_email'] ) ? sanitize_email( wp_unslash( $_POST['prospect_billing_contact_email'] ) ) : '' );
 	update_post_meta( $post_id, 'prospect_demand_signal', isset( $_POST['prospect_demand_signal'] ) ? sanitize_textarea_field( wp_unslash( $_POST['prospect_demand_signal'] ) ) : '' );
+	update_post_meta( $post_id, 'prospect_terms_note', isset( $_POST['prospect_terms_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['prospect_terms_note'] ) ) : '' );
 	update_post_meta( $post_id, 'prospect_owner_note', isset( $_POST['prospect_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['prospect_owner_note'] ) ) : '' );
 	update_post_meta( $post_id, 'prospect_verification_note', isset( $_POST['prospect_verification_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['prospect_verification_note'] ) ) : '' );
 
-	foreach ( array( 'prospect_license_verified', 'prospect_specialty_verified', 'prospect_payment_path_ready' ) as $checkbox_key ) {
+	foreach ( array( 'prospect_license_verified', 'prospect_specialty_verified', 'prospect_payment_path_ready', 'prospect_lead_fee_terms_ready' ) as $checkbox_key ) {
 		update_post_meta( $post_id, $checkbox_key, isset( $_POST[ $checkbox_key ] ) ? '1' : '' );
 	}
 }
@@ -1111,7 +1169,10 @@ function justice_theme_lawyer_prospect_admin_column( string $column, int $post_i
 
 	if ( 'prospect_value' === $column ) {
 		$value = absint( get_post_meta( $post_id, 'prospect_expected_monthly_nis', true ) );
-		echo $value ? esc_html( number_format_i18n( $value ) . ' NIS' ) : esc_html__( 'Not set', 'justice-theme' );
+		$lead_fee = absint( get_post_meta( $post_id, 'prospect_agreed_lead_fee_ils', true ) );
+		echo $value ? esc_html( number_format_i18n( $value ) . ' NIS monthly' ) : esc_html__( 'Monthly not set', 'justice-theme' );
+		echo '<br>';
+		echo $lead_fee ? esc_html( number_format_i18n( $lead_fee ) . ' NIS / lead' ) : esc_html__( 'Lead fee not set', 'justice-theme' );
 	}
 
 	if ( 'prospect_status' === $column ) {

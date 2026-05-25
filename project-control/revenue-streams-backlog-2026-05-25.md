@@ -166,6 +166,10 @@ Already shipped:
 - Qualified lead payment proof gate added to the private lead edit screen:
   owner can store a payment evidence URL, the billing queue shows proof links,
   and a lead cannot be saved as Paid without an invoice/reference or evidence.
+- Prospect lead-terms gate added to the private lawyer prospect screen:
+  a prospect is not "Ready for routing" until an agreed per-lead fee and
+  accepted lead terms are recorded, alongside the existing license, specialty,
+  response-speed and manual-payment checks.
 
 Remaining:
 
@@ -173,6 +177,8 @@ Remaining:
 - Convert the three candidates shown in the next-source action board into
   verified private prospects, then continue through the remaining high-priority
   rows.
+- Record agreed per-lead terms for each selected specialist before routing any
+  qualified lead.
 - Run a real test lead.
 - Mark first billable qualified lead in CRM.
 - Move the private readiness gate from "Not ready" to "Ready for first

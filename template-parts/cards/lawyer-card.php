@@ -87,6 +87,13 @@ $area_names      = ( $areas && ! is_wp_error( $areas ) ) ? wp_list_pluck( array_
 $phone_link      = function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) $phone ) : '';
 $whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) $whatsapp ) : '';
 $has_thumbnail   = has_post_thumbnail( $lawyer_id );
+$show_thumbnail  = $has_thumbnail
+	&& ! $is_seed_data
+	&& (
+		$is_paid
+		|| 'verified' === strtolower( (string) $verified )
+		|| in_array( strtolower( (string) $source_type ), array( 'lawyer_submitted', 'owner_verified', 'verified_public' ), true )
+	);
 $is_legal_provider = in_array( $professional, array( 'rabbinical_advocate', 'mediator', 'legal_service_provider', 'expert_witness' ), true )
 	|| false !== mb_stripos( get_the_title(), 'טוען רבני' )
 	|| false !== mb_stripos( get_the_title(), 'מגשר' );
@@ -103,8 +110,8 @@ $claim_url       = add_query_arg(
 ?>
 
 <article class="lawyer-card premium-card">
-	<a class="lawyer-card__media<?php echo $has_thumbnail ? '' : ' lawyer-card__media--initials'; ?>" href="<?php echo esc_url( $lawyer_url ); ?>" aria-label="<?php echo esc_attr( sprintf( '%s %s', $profile_label, get_the_title() ) ); ?>">
-		<?php if ( $has_thumbnail ) : ?>
+	<a class="lawyer-card__media<?php echo $show_thumbnail ? '' : ' lawyer-card__media--initials'; ?>" href="<?php echo esc_url( $lawyer_url ); ?>" aria-label="<?php echo esc_attr( sprintf( '%s %s', $profile_label, get_the_title() ) ); ?>">
+		<?php if ( $show_thumbnail ) : ?>
 			<?php the_post_thumbnail( 'justice-card', array( 'loading' => 'lazy' ) ); ?>
 		<?php else :
 			$lawyer_title = get_the_title();

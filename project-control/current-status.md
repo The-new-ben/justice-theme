@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 13:58 Asia/Jerusalem
+- LAWYER CARD VISUAL/TRUST POLISH: fixed the live homepage/directory card overlap issue where profile media could render wider than its grid track and cover lawyer text.
+- UPDATED: `assets/css/premium-pass-4.css`, `inc/enqueue.php`, `template-parts/cards/lawyer-card.php`, `single-justice_lawyer.php`, and `inc/template-tags.php`.
+- ADDED: `project-control/lawyer-profile-visual-trust-polish-2026-05-25.md`.
+- MATERIAL ADVANCE: public lawyer cards now use bounded portrait media/initials, unverified public-basic cards do not show questionable thumbnails, and unverified profiles no longer get unrelated article fallback or forced Maya legacy content.
+- RESEARCH BASIS: checked current public patterns from Din, PsakDin, LawReviews, Avvo, Justia, and MDN CSS image/aspect-ratio guidance. Implementation is original and does not copy competitor photos, reviews, ratings, or profile text.
+- HONEST LIMITATION: I did not add a real Maya Rotenberg photo because I do not have a verified owned/licensed source. I tightened the system so unverified/fake-looking profile data is not presented as a premium mini-site.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves investor/customer trust in the profile layer but does not prove payment, invoice, refund, or subscription flow.
+- SAFETY: theme/display logic and docs only; no CMS database record, competitor photo/review/rating/contact copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 13:42 Asia/Jerusalem
 - DYNAMIC PAID BILLING FIELDS ADDED: `/lawyer-registration/` now keeps manual-invoice billing fields in the form markup and reveals them when a lawyer selects a paid plan inside the wizard.
 - UPDATED: `page-lawyer-registration.php`, `assets/js/lawyer-registration-wizard.js`, and `inc/enqueue.php`.

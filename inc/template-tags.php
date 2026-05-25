@@ -332,7 +332,7 @@ function justice_theme_lawyer_profile_is_public_approved( int $post_id = 0 ): bo
 			|| false !== strpos( $maya_seed_haystack, 'not real' )
 			|| false !== strpos( $maya_seed_haystack, 'fictional' )
 			|| false !== strpos( $maya_seed_haystack, 'fake' );
-		$maya_has_approval_signal = in_array( $maya_profile_status, array( 'approved', 'public', 'published', 'active', 'verified' ), true )
+		$maya_has_approval_signal = in_array( $maya_profile_status, array( 'approved', 'active', 'verified' ), true )
 			|| 'active' === $maya_subscription
 			|| ( 'verified' === $maya_verification && '' !== $maya_source_type && 'seed' !== $maya_source_type );
 
@@ -345,6 +345,8 @@ function justice_theme_lawyer_profile_is_public_approved( int $post_id = 0 ): bo
 		) {
 			return false;
 		}
+
+		return true;
 	}
 
 	if (
@@ -354,7 +356,7 @@ function justice_theme_lawyer_profile_is_public_approved( int $post_id = 0 ): bo
 			&& false !== mb_strpos( $title, 'רוטנברג' )
 		)
 	) {
-		return true;
+		return false;
 	}
 
 	$source_type    = strtolower( (string) get_post_meta( $post_id, 'source_type', true ) );

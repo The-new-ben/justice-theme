@@ -134,7 +134,7 @@ $authority_person_slug    = function_exists( 'justice_theme_authority_verified_p
 $connected_article_slugs = array_filter( array( $lawyer_profile_slug, $authority_person_slug ) );
 
 if ( false !== mb_strpos( get_the_title( $lawyer_id ), 'מאיה' ) && false !== mb_strpos( get_the_title( $lawyer_id ), 'רוטנברג' ) ) {
-	$connected_article_slugs[] = 'advocate-maya-rotenberg';
+	// Do not force legacy person-specific content onto an unverified profile.
 }
 
 $connected_article_slugs = array_values( array_unique( array_map( 'sanitize_title', $connected_article_slugs ) ) );
@@ -160,7 +160,7 @@ $connected_articles_args = array(
 
 $related_articles = new WP_Query( $connected_articles_args );
 
-if ( ! $related_articles->have_posts() && $primary_area ) {
+if ( ! $related_articles->have_posts() && $primary_area && ( $is_paid || $is_verified ) ) {
 	$related_articles = new WP_Query( array(
 		'post_type'           => 'articles',
 		'post_status'         => 'publish',
@@ -178,6 +178,13 @@ if ( ! $related_articles->have_posts() && $primary_area ) {
 
 $has_related_articles = $related_articles instanceof WP_Query && $related_articles->have_posts();
 $has_media_module     = $video_url || ! empty( $media_items );
+$show_profile_photo   = has_post_thumbnail( $lawyer_id )
+	&& ! $is_seed_data
+	&& (
+		$is_paid
+		|| $is_verified
+		|| in_array( $source_type, array( 'lawyer_submitted', 'owner_verified', 'verified_public' ), true )
+	);
 ?>
 
 <article class="lawyer-mini-site" itemscope itemtype="https://schema.org/Attorney">
@@ -217,7 +224,7 @@ $has_media_module     = $video_url || ! empty( $media_items );
 
 			<aside class="lawyer-mini-hero__panel" aria-label="פרטי עורכת הדין">
 				<div class="lawyer-mini-hero__photo">
-					<?php if ( has_post_thumbnail() ) : ?>
+					<?php if ( $show_profile_photo ) : ?>
 						<?php the_post_thumbnail( 'large', array( 'itemprop' => 'image' ) ); ?>
 					<?php else : ?>
 						<div class="lawyer-mini-hero__initials" aria-hidden="true"><?php echo esc_html( mb_substr( get_the_title(), 0, 2 ) ); ?></div>

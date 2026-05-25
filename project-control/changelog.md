@@ -1,6 +1,12 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Morning runner sales-pack coverage
+
+- UPDATED: `tools/run-investor-morning-pack.ps1` to run `tools/check-first-paid-lawyer-sales-pack.mjs`.
+- PURPOSE: make the one-command morning refresh cover first paid-lawyer sales collateral as well as investor-demo readiness.
+- SAFETY: local script/status artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - First paid lawyer sales-pack checker
 
 - ADDED: `tools/check-first-paid-lawyer-sales-pack.mjs`.

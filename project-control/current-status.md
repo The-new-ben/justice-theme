@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-25 08:04 Asia/Jerusalem
+- MORNING RUNNER SALES-PACK COVERAGE: updated the one-command investor morning refresh runner so it also runs the first-paid-lawyer sales-pack checker before the launchpad/go-no-go gates.
+- UPDATED: `tools/run-investor-morning-pack.ps1`.
+- MATERIAL ADVANCE: the owner’s single refresh command now verifies both investor-demo readiness and first paid-lawyer sales collateral, so lawyer outreach proof cannot silently go stale after the investor meeting.
+- STILL BLOCKED: actual outreach, payment link sending, invoices and account activation require owner approval/live execution.
+- COMPLETION: investor/operator/sales preparation remains about 98%; actual revenue remains blocked until owner executes outreach and manual payment links.
+- SAFETY: local script/status artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 07:53 Asia/Jerusalem
 - FIRST PAID LAWYER SALES-PACK CHECKER: added a repeatable local QA gate for the first-cohort lawyer sales materials.
 - ADDED: `tools/check-first-paid-lawyer-sales-pack.mjs`.

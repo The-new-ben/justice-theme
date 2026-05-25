@@ -11,6 +11,7 @@ Set-Location $repoRoot
 $checks = @(
 	'tools\check-live-lawyer-revenue-funnel.mjs',
 	'tools\check-investor-demo-readiness.mjs',
+	'tools\check-first-paid-lawyer-sales-pack.mjs',
 	'tools\check-investor-launchpad-pack.mjs',
 	'tools\check-investor-payment-overclaim.mjs',
 	'tools\check-investor-morning-go-no-go.mjs'
@@ -40,6 +41,7 @@ Write-Host "Launchpad: $launchpad"
 Write-Host "Go/no-go:  $goNoGo"
 Write-Host ''
 Write-Host 'Investor line: acquisition, onboarding, checkout fallback, dashboard, lead CRM and service requests are live; payment automation is provider-gated, with manual Grow/Morning payment link as the current bridge.'
+Write-Host 'Sales line: first-cohort lawyer outreach pack is checked for prices, manual payment bridge, no-guarantee language, cadence and tracker before calls.'
 
 if ( $OpenLaunchpad ) {
 	Start-Process $launchpad

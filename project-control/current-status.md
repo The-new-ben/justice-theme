@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 13:08 Asia/Jerusalem
+- CLAIM/UPGRADE PATH ADDED: public-basic unclaimed lawyer/professional cards now show a small owner-facing prompt asking "זה הכרטיס שלך?" with a claim/upgrade link.
+- UPDATED: `template-parts/cards/lawyer-card.php` and `assets/css/premium-pass-4.css`.
+- ADDED: `project-control/public-card-claim-upgrade-cta-2026-05-25.md`.
+- GENERATED: `reports/public-card-claim-upgrade-cta-2026-05-25.json`.
+- MATERIAL ADVANCE: the 20 live public-basic cards now serve the revenue path more directly: visible profile -> claim ownership -> update details -> featured/sponsored upgrade attribution.
+- RESEARCH BASIS: checked LawReviews, Din and PsakDin surfaces again for profile/conversion behavior; implementation is original and does not copy their profile content.
+- VERIFIED LOCAL: `php -l template-parts/cards/lawyer-card.php`, JSON parse for the report, and `git diff --check` passed. Live post-pull visual verification still needs to run for this cycle.
+- REVENUE STATUS: realized revenue remains NIS 0 until claim/upgrade/payment is completed.
+- SAFETY: no competitor photos/reviews/ratings/contact details copied; no fake phone, WhatsApp, rating, recommendation, verification, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 12:58 Asia/Jerusalem
 - CMS OPERATING CONTROL IMPROVED: added owner-facing wp-admin columns and filters to the `justice_lawyer` list so indexed lawyers/professionals can be found, batched, hidden/revealed, and promoted faster from the CMS.
 - UPDATED: `inc/lawyer-visibility.php`.

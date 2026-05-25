@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Public card claim/upgrade CTA
+
+- UPDATED: `template-parts/cards/lawyer-card.php` and `assets/css/premium-pass-4.css`.
+- ADDED: `project-control/public-card-claim-upgrade-cta-2026-05-25.md`.
+- GENERATED: `reports/public-card-claim-upgrade-cta-2026-05-25.json`.
+- PURPOSE: make public-basic unclaimed lawyer/professional cards convert toward ownership claim and sponsored/featured upgrade instead of being passive inventory.
+- IMPLEMENTATION: added a small card-level prompt for unclaimed public cards and changed claim URLs to carry `claim_profile_id`, profile slug, `plan_interest=featured`, and `source=public_card_claim_upgrade`.
+- RESEARCH BASIS: LawReviews, Din and PsakDin surfaces reviewed again for profile/conversion patterns; implementation is original and safe.
+- SAFETY: no fake contact details, reviews, ratings, verification or recommendation added; no competitor photos/reviews/profile copy copied; no payment/invoice/refund/redirect/canonical/noindex/sitemap/taxonomy/provider setting changed.
+
 # 2026-05-25 - Lawyer index CMS management controls
 
 - UPDATED: `inc/lawyer-visibility.php`.

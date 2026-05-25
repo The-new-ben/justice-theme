@@ -94,8 +94,9 @@ $profile_label = $is_legal_provider ? __( 'כרטיס מקצועי', 'justice-th
 $claim_url       = add_query_arg(
 	array(
 		'claim_profile_id' => $lawyer_id,
-		'plan_interest'    => 'free',
-		'source'           => 'public_card',
+		'claim_profile'    => get_post_field( 'post_name', $lawyer_id ),
+		'plan_interest'    => 'featured',
+		'source'           => 'public_card_claim_upgrade',
 	),
 	home_url( '/lawyer-registration/' )
 );
@@ -171,6 +172,14 @@ $claim_url       = add_query_arg(
 				<span><?php esc_html_e( 'כרטיס ציבורי לא מאומת', 'justice-theme' ); ?></span>
 			<?php endif; ?>
 		</div>
+
+		<?php if ( $is_basic_public ) : ?>
+			<div class="lawyer-card__claim">
+				<strong><?php esc_html_e( 'זה הכרטיס שלך?', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'אפשר לתבוע בעלות, לעדכן פרטים ולהתקדם לחשיפה ממומנת.', 'justice-theme' ); ?></span>
+				<a href="<?php echo esc_url( $claim_url ); ?>"><?php esc_html_e( 'התחלת שדרוג', 'justice-theme' ); ?></a>
+			</div>
+		<?php endif; ?>
 
 		<div class="lawyer-card__actions">
 			<a class="button button--primary" href="<?php echo esc_url( $lawyer_url ); ?>"><?php echo $is_basic_public ? esc_html__( 'צפייה בכרטיס', 'justice-theme' ) : esc_html__( 'צפייה בפרופיל', 'justice-theme' ); ?></a>

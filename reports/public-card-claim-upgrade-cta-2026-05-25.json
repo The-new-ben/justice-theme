@@ -1,0 +1,29 @@
+{
+  "report": "public-card-claim-upgrade-cta",
+  "date": "2026-05-25",
+  "material_advance": [
+    "Added an owner-facing claim and sponsored-upgrade prompt to public-basic unclaimed lawyer/professional cards.",
+    "Changed claim URLs to carry claim_profile_id, claim_profile, plan_interest=featured and source=public_card_claim_upgrade for better attribution."
+  ],
+  "changed_files": [
+    "template-parts/cards/lawyer-card.php",
+    "assets/css/premium-pass-4.css"
+  ],
+  "competitor_sources_checked": [
+    "https://www.lawreviews.co.il/",
+    "https://www.din.co.il/",
+    "https://www.psakdin.co.il/default.aspx"
+  ],
+  "safety": {
+    "copied_competitor_photos": false,
+    "copied_competitor_reviews": false,
+    "copied_competitor_contact_details": false,
+    "added_fake_ratings_or_verification": false,
+    "changed_payment_or_indexing_settings": false
+  },
+  "completion": {
+    "lawyer_card_conversion_layer_percent": 78,
+    "cms_lawyer_index_system_percent": 85,
+    "realized_revenue_nis": 0
+  }
+}

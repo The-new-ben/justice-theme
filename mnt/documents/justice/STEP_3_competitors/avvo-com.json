@@ -1,0 +1,47 @@
+{
+  "generated_at": "2026-05-25 Asia/Jerusalem",
+  "source_scope": "public pages and search-result snippets only; no private dashboards, forms, or account creation",
+  "domain": "avvo.com",
+  "urls": [
+    "https://support.avvo.com/hc/en-us/articles/360013500772-What-is-the-Avvo-Rating-"
+  ],
+  "h1_observed": [
+    "What is the Avvo Rating?"
+  ],
+  "patterns": [
+    "claimed profile affects completeness",
+    "unclaimed profile has limited information",
+    "rating governance risk"
+  ],
+  "use_for_justice": [
+    "basic/unclaimed cards must be visibly limited",
+    "avoid fake ratings",
+    "claim/update/remove path"
+  ],
+  "extracted_homepage": {
+    "h1": "What is the Avvo Rating?",
+    "h2_h6_hierarchy": [],
+    "word_count": null,
+    "section_count": null,
+    "image_count": null,
+    "schema_types": [],
+    "trust_signals": [
+      "claimed profile affects completeness",
+      "unclaimed profile has limited information",
+      "rating governance risk"
+    ],
+    "cta_patterns": [
+      "basic/unclaimed cards must be visibly limited",
+      "avoid fake ratings",
+      "claim/update/remove path"
+    ],
+    "internal_link_patterns": [
+      "practice",
+      "city",
+      "profile",
+      "article",
+      "contact or join"
+    ],
+    "status": "PARTIAL_NEEDS_FULL_HTML_SCRAPE_OR_FIRECRAWL"
+  }
+}

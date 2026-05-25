@@ -1,0 +1,74 @@
+[
+  {
+    "url": "/",
+    "title": "עורכי דין בישראל | Jus-Tice",
+    "description": "אינדקס עורכי דין, מדריכים משפטיים ופנייה מסודרת לעורך דין מתאים בישראל.",
+    "canonical": "https://jus-tice.co.il/",
+    "og_title": "עורכי דין בישראל | Jus-Tice",
+    "og_description": "חיפוש עורכי דין, מדריכים וכרטיסי פרופיל עם פנייה מסודרת.",
+    "status": "draft"
+  },
+  {
+    "url": "/divorce-family-lawyer/",
+    "title": "עורך דין גירושין ומשפחה | Jus-Tice",
+    "description": "מדריך לבחירת עורך דין גירושין ודיני משפחה, עלויות, ילדים, רכוש, מזונות ותהליך משפטי בישראל.",
+    "canonical": "https://jus-tice.co.il/divorce-family-lawyer/",
+    "og_title": "עורך דין גירושין ומשפחה | Jus-Tice",
+    "og_description": "מדריך לבחירת עורך דין גירושין ודיני משפחה, עלויות, ילדים, רכוש, מזונות ותהליך משפטי בישראל.",
+    "status": "draft"
+  },
+  {
+    "url": "/real-estate-lawyer/",
+    "title": "עורך דין מקרקעין ונדל\"ן | Jus-Tice",
+    "description": "בדיקת חוזה דירה, טאבו, מס שבח, היטל השבחה, קבלן ורישום זכויות עם עורך דין מקרקעין.",
+    "canonical": "https://jus-tice.co.il/real-estate-lawyer/",
+    "og_title": "עורך דין מקרקעין ונדל\"ן | Jus-Tice",
+    "og_description": "בדיקת חוזה דירה, טאבו, מס שבח, היטל השבחה, קבלן ורישום זכויות עם עורך דין מקרקעין.",
+    "status": "draft"
+  },
+  {
+    "url": "/medical-malpractice-lawyer/",
+    "title": "עורך דין רשלנות רפואית | Jus-Tice",
+    "description": "בדיקת רשלנות רפואית, חוות דעת מומחה, נזקי גוף, פיצוי ותיעוד רפואי לפני תביעה.",
+    "canonical": "https://jus-tice.co.il/medical-malpractice-lawyer/",
+    "og_title": "עורך דין רשלנות רפואית | Jus-Tice",
+    "og_description": "בדיקת רשלנות רפואית, חוות דעת מומחה, נזקי גוף, פיצוי ותיעוד רפואי לפני תביעה.",
+    "status": "draft"
+  },
+  {
+    "url": "/inheritance-wills-lawyer/",
+    "title": "עורך דין ירושה וצוואות | Jus-Tice",
+    "description": "ירושה, צוואה, התנגדות לצוואה, צו קיום צוואה, ייפוי כוח מתמשך וניהול עיזבון.",
+    "canonical": "https://jus-tice.co.il/inheritance-wills-lawyer/",
+    "og_title": "עורך דין ירושה וצוואות | Jus-Tice",
+    "og_description": "ירושה, צוואה, התנגדות לצוואה, צו קיום צוואה, ייפוי כוח מתמשך וניהול עיזבון.",
+    "status": "draft"
+  },
+  {
+    "url": "/criminal-lawyer/",
+    "title": "עורך דין פלילי | Jus-Tice",
+    "description": "חקירה במשטרה, מעצר, כתב אישום, סגירת תיק פלילי ומחיקת רישום פלילי.",
+    "canonical": "https://jus-tice.co.il/criminal-lawyer/",
+    "og_title": "עורך דין פלילי | Jus-Tice",
+    "og_description": "חקירה במשטרה, מעצר, כתב אישום, סגירת תיק פלילי ומחיקת רישום פלילי.",
+    "status": "draft"
+  },
+  {
+    "url": "/employment-lawyer/",
+    "title": "עורך דין דיני עבודה | Jus-Tice",
+    "description": "פיטורים, שימוע, פיצויי פיטורים, הלנת שכר, הטרדה בעבודה וייצוג עובדים או מעסיקים.",
+    "canonical": "https://jus-tice.co.il/employment-lawyer/",
+    "og_title": "עורך דין דיני עבודה | Jus-Tice",
+    "og_description": "פיטורים, שימוע, פיצויי פיטורים, הלנת שכר, הטרדה בעבודה וייצוג עובדים או מעסיקים.",
+    "status": "draft"
+  },
+  {
+    "url": "/tax-business-lawyer/",
+    "title": "עורך דין מיסים ועסקים | Jus-Tice",
+    "description": "מס הכנסה, מע\"מ, חברה בע\"מ, הסכם מייסדים, אופציות לעובדים, גילוי מרצון ותכנון מס.",
+    "canonical": "https://jus-tice.co.il/tax-business-lawyer/",
+    "og_title": "עורך דין מיסים ועסקים | Jus-Tice",
+    "og_description": "מס הכנסה, מע\"מ, חברה בע\"מ, הסכם מייסדים, אופציות לעובדים, גילוי מרצון ותכנון מס.",
+    "status": "draft"
+  }
+]

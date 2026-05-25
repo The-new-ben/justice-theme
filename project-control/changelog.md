@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - SEO pack and WordPress content drafts
+
+- ADDED: `tools/build-justice-seo-pack.mjs`.
+- ADDED: `project-control/justice-seo-pack-2026-05-25.md`.
+- ADDED: `mnt/documents/justice/*` SEO/content pack.
+- PURPOSE: answer the owner request for a full SEO plan, WordPress-ready homepage HTML, 5-10 internal page drafts, competitor-inspired blueprint, image prompts, metadata, schema and roadmap without fabricating SEO metrics.
+- OUTPUT: 240 keyword candidates, competitor files, 5,000-word homepage, 7 internal pages over 3,000 words each, source log with 59 entries, metadata, schema, image prompts, 90-day roadmap and deployment notes.
+- HONESTY: CPC, KD/KDI and full volume values are incomplete because no Semrush, Ahrefs, Firecrawl, Keyword Planner or authenticated GSC export/API is available in this process.
+- VERIFIED LOCAL: generated JSON parsed, homepage/internal word-count gates passed, and generated output has no blocked opener/closer terms and no long dash.
+- SAFETY: local artifacts only; no public CMS database record, public page publish, competitor data import, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # 2026-05-25 - Post-pull investor status refresh
 
 - ADDED: `project-control/investor-post-pull-status-2026-05-25.md`.

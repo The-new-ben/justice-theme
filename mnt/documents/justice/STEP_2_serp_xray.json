@@ -1,0 +1,271 @@
+{
+  "generated_at": "2026-05-25 Asia/Jerusalem",
+  "honest_status": "Partial public web x-ray. Full Google IL top-10 capture, DA/Trust, PAA and related searches require a live SERP export or browser/VPN capture.",
+  "xray": [
+    {
+      "keyword": "עורך דין גירושין ודיני משפחה",
+      "priority_score": null,
+      "priority_status": "BLOCKED_NO_KDI_CPC_VOLUME_EXPORT",
+      "observed_serp_sources": [
+        {
+          "label": "Din advertising advantages",
+          "url": "https://www.din.co.il/whyadv.asp"
+        },
+        {
+          "label": "Din lawyer forum",
+          "url": "https://www.din.co.il/forum/lawyers.asp"
+        },
+        {
+          "label": "Din homepage",
+          "url": "https://www.din.co.il/"
+        },
+        {
+          "label": "Din recommendations",
+          "url": "https://www.din.co.il/recomend.asp"
+        }
+      ],
+      "top_10_urls": [],
+      "serp_features": [
+        "manual public web search snippets observed",
+        "full Google IL incognito/VPN top-10 capture not available in this environment"
+      ],
+      "title_patterns": [
+        "primary keyword first",
+        "specialty plus trust/proof",
+        "cost/process guide where informational-commercial mixed"
+      ],
+      "meta_patterns": [
+        "service plus process",
+        "no guaranteed outcome",
+        "city/practice where relevant"
+      ],
+      "intent": "commercial and urgent family-law hiring",
+      "paa_questions": [
+        "מתי כדאי לפנות אל עורך דין גירושין ודיני משפחה?",
+        "איך בודקים אם עורך הדין מתאים?",
+        "כמה עולה טיפול בתחום עורך דין גירושין ודיני משפחה?",
+        "אילו מסמכים כדאי להכין?"
+      ],
+      "related_searches": [
+        "עורך דין גירושין",
+        "עורך דין לענייני משפחה",
+        "מזונות ילדים",
+        "משמורת ילדים",
+        "חלוקת רכוש"
+      ],
+      "status": "PARTIAL_RESEARCH_ONLY"
+    },
+    {
+      "keyword": "עורך דין מקרקעין",
+      "priority_score": null,
+      "priority_status": "BLOCKED_NO_KDI_CPC_VOLUME_EXPORT",
+      "observed_serp_sources": [
+        {
+          "label": "PsakDin homepage",
+          "url": "https://www.psakdin.co.il/"
+        },
+        {
+          "label": "PsakDin lawyers",
+          "url": "https://www.psakdin.co.il/Lawyers"
+        },
+        {
+          "label": "PsakDin lawyer register",
+          "url": "https://www.psakdin.co.il/Register?UserType=Lawyer"
+        },
+        {
+          "label": "LawReviews homepage",
+          "url": "https://www.lawreviews.co.il/"
+        }
+      ],
+      "top_10_urls": [],
+      "serp_features": [
+        "manual public web search snippets observed",
+        "full Google IL incognito/VPN top-10 capture not available in this environment"
+      ],
+      "title_patterns": [
+        "primary keyword first",
+        "specialty plus trust/proof",
+        "cost/process guide where informational-commercial mixed"
+      ],
+      "meta_patterns": [
+        "service plus process",
+        "no guaranteed outcome",
+        "city/practice where relevant"
+      ],
+      "intent": "commercial real-estate transaction hiring",
+      "paa_questions": [
+        "מתי כדאי לפנות אל עורך דין מקרקעין?",
+        "איך בודקים אם עורך הדין מתאים?",
+        "כמה עולה טיפול בתחום עורך דין מקרקעין?",
+        "אילו מסמכים כדאי להכין?"
+      ],
+      "related_searches": [
+        "עורך דין נדלן",
+        "חוזה מכר דירה",
+        "מס שבח",
+        "היטל השבחה",
+        "טאבו"
+      ],
+      "status": "PARTIAL_RESEARCH_ONLY"
+    },
+    {
+      "keyword": "עורך דין רשלנות רפואית",
+      "priority_score": null,
+      "priority_status": "BLOCKED_NO_KDI_CPC_VOLUME_EXPORT",
+      "observed_serp_sources": [
+        {
+          "label": "LawReviews about",
+          "url": "https://www.lawreviews.co.il/about"
+        },
+        {
+          "label": "LawReviews join",
+          "url": "https://www.lawreviews.co.il/join"
+        },
+        {
+          "label": "LawReviews sample profile",
+          "url": "https://www.lawreviews.co.il/provider/profile-law-reviews"
+        },
+        {
+          "label": "Justia lawyer directory marketing",
+          "url": "https://www.justia.com/marketing/lawyer-directory/"
+        }
+      ],
+      "top_10_urls": [],
+      "serp_features": [
+        "manual public web search snippets observed",
+        "full Google IL incognito/VPN top-10 capture not available in this environment"
+      ],
+      "title_patterns": [
+        "primary keyword first",
+        "specialty plus trust/proof",
+        "cost/process guide where informational-commercial mixed"
+      ],
+      "meta_patterns": [
+        "service plus process",
+        "no guaranteed outcome",
+        "city/practice where relevant"
+      ],
+      "intent": "high-value injury and malpractice hiring",
+      "paa_questions": [
+        "מתי כדאי לפנות אל עורך דין רשלנות רפואית?",
+        "איך בודקים אם עורך הדין מתאים?",
+        "כמה עולה טיפול בתחום עורך דין רשלנות רפואית?",
+        "אילו מסמכים כדאי להכין?"
+      ],
+      "related_searches": [
+        "רשלנות רפואית",
+        "תביעת נזיקין",
+        "נזקי גוף",
+        "חוות דעת רפואית",
+        "תאונת דרכים פיצוי"
+      ],
+      "status": "PARTIAL_RESEARCH_ONLY"
+    },
+    {
+      "keyword": "עורך דין ירושה וצוואות",
+      "priority_score": null,
+      "priority_status": "BLOCKED_NO_KDI_CPC_VOLUME_EXPORT",
+      "observed_serp_sources": [
+        {
+          "label": "Justia lawyers directory",
+          "url": "https://www.justia.com/lawyers"
+        },
+        {
+          "label": "Justia ratings and reviews",
+          "url": "https://lawyers.justia.com/about-the-justia-lawyer-rating-reviews?profile_id=23877"
+        },
+        {
+          "label": "Justia FAQ",
+          "url": "https://lawyers.justia.com/faq"
+        },
+        {
+          "label": "Avvo rating support",
+          "url": "https://support.avvo.com/hc/en-us/articles/360013500772-What-is-the-Avvo-Rating-"
+        }
+      ],
+      "top_10_urls": [],
+      "serp_features": [
+        "manual public web search snippets observed",
+        "full Google IL incognito/VPN top-10 capture not available in this environment"
+      ],
+      "title_patterns": [
+        "primary keyword first",
+        "specialty plus trust/proof",
+        "cost/process guide where informational-commercial mixed"
+      ],
+      "meta_patterns": [
+        "service plus process",
+        "no guaranteed outcome",
+        "city/practice where relevant"
+      ],
+      "intent": "estate dispute and planning hiring",
+      "paa_questions": [
+        "מתי כדאי לפנות אל עורך דין ירושה וצוואות?",
+        "איך בודקים אם עורך הדין מתאים?",
+        "כמה עולה טיפול בתחום עורך דין ירושה וצוואות?",
+        "אילו מסמכים כדאי להכין?"
+      ],
+      "related_searches": [
+        "עורך דין ירושה",
+        "התנגדות לצוואה",
+        "צו ירושה",
+        "צו קיום צוואה",
+        "ייפוי כוח מתמשך"
+      ],
+      "status": "PARTIAL_RESEARCH_ONLY"
+    },
+    {
+      "keyword": "עורך דין פלילי",
+      "priority_score": null,
+      "priority_status": "BLOCKED_NO_KDI_CPC_VOLUME_EXPORT",
+      "observed_serp_sources": [
+        {
+          "label": "Jus-Tice homepage",
+          "url": "https://jus-tice.co.il/"
+        },
+        {
+          "label": "Jus-Tice family law page",
+          "url": "https://jus-tice.co.il/practice-areas/family-law/"
+        },
+        {
+          "label": "Jus-Tice sitemap",
+          "url": "https://jus-tice.co.il/site-map/"
+        },
+        {
+          "label": "Jus-Tice divorce agreement",
+          "url": "https://jus-tice.co.il/what-is-a-divorce-settlement-agreement/"
+        }
+      ],
+      "top_10_urls": [],
+      "serp_features": [
+        "manual public web search snippets observed",
+        "full Google IL incognito/VPN top-10 capture not available in this environment"
+      ],
+      "title_patterns": [
+        "primary keyword first",
+        "specialty plus trust/proof",
+        "cost/process guide where informational-commercial mixed"
+      ],
+      "meta_patterns": [
+        "service plus process",
+        "no guaranteed outcome",
+        "city/practice where relevant"
+      ],
+      "intent": "urgent criminal defense hiring",
+      "paa_questions": [
+        "מתי כדאי לפנות אל עורך דין פלילי?",
+        "איך בודקים אם עורך הדין מתאים?",
+        "כמה עולה טיפול בתחום עורך דין פלילי?",
+        "אילו מסמכים כדאי להכין?"
+      ],
+      "related_searches": [
+        "חקירה במשטרה",
+        "סגירת תיק פלילי",
+        "מחיקת רישום פלילי",
+        "מעצר ימים",
+        "עבירות סמים"
+      ],
+      "status": "PARTIAL_RESEARCH_ONLY"
+    }
+  ]
+}

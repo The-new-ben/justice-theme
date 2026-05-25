@@ -1,0 +1,191 @@
+[
+  {
+    "slug": "/divorce-family-lawyer/",
+    "primary_keyword": "עורך דין גירושין ודיני משפחה",
+    "secondary_keywords": [
+      "עורך דין גירושין",
+      "עורך דין לענייני משפחה",
+      "מזונות ילדים",
+      "משמורת ילדים",
+      "חלוקת רכוש"
+    ],
+    "intent": "commercial and urgent family-law hiring",
+    "conversion_goal": "matched lawyer inquiry, lawyer profile claim or plan upgrade",
+    "target_word_count": 3000,
+    "internal_links_to": [
+      "/real-estate-lawyer/",
+      "/medical-malpractice-lawyer/",
+      "/inheritance-wills-lawyer/",
+      "/criminal-lawyer/",
+      "/employment-lawyer/",
+      "/lawyers/",
+      "/lawyer-registration/",
+      "/lawyer-plans/"
+    ],
+    "title": "עורך דין גירושין ומשפחה | Jus-Tice",
+    "meta": "מדריך לבחירת עורך דין גירושין ודיני משפחה, עלויות, ילדים, רכוש, מזונות ותהליך משפטי בישראל.",
+    "status": "DRAFT_READY_FOR_HUMAN_LEGAL_SEO_REVIEW_NOT_PUBLISHED"
+  },
+  {
+    "slug": "/real-estate-lawyer/",
+    "primary_keyword": "עורך דין מקרקעין",
+    "secondary_keywords": [
+      "עורך דין נדלן",
+      "חוזה מכר דירה",
+      "מס שבח",
+      "היטל השבחה",
+      "טאבו"
+    ],
+    "intent": "commercial real-estate transaction hiring",
+    "conversion_goal": "matched lawyer inquiry, lawyer profile claim or plan upgrade",
+    "target_word_count": 3000,
+    "internal_links_to": [
+      "/divorce-family-lawyer/",
+      "/medical-malpractice-lawyer/",
+      "/inheritance-wills-lawyer/",
+      "/criminal-lawyer/",
+      "/employment-lawyer/",
+      "/lawyers/",
+      "/lawyer-registration/",
+      "/lawyer-plans/"
+    ],
+    "title": "עורך דין מקרקעין ונדל\"ן | Jus-Tice",
+    "meta": "בדיקת חוזה דירה, טאבו, מס שבח, היטל השבחה, קבלן ורישום זכויות עם עורך דין מקרקעין.",
+    "status": "DRAFT_READY_FOR_HUMAN_LEGAL_SEO_REVIEW_NOT_PUBLISHED"
+  },
+  {
+    "slug": "/medical-malpractice-lawyer/",
+    "primary_keyword": "עורך דין רשלנות רפואית",
+    "secondary_keywords": [
+      "רשלנות רפואית",
+      "תביעת נזיקין",
+      "נזקי גוף",
+      "חוות דעת רפואית",
+      "תאונת דרכים פיצוי"
+    ],
+    "intent": "high-value injury and malpractice hiring",
+    "conversion_goal": "matched lawyer inquiry, lawyer profile claim or plan upgrade",
+    "target_word_count": 3000,
+    "internal_links_to": [
+      "/divorce-family-lawyer/",
+      "/real-estate-lawyer/",
+      "/inheritance-wills-lawyer/",
+      "/criminal-lawyer/",
+      "/employment-lawyer/",
+      "/lawyers/",
+      "/lawyer-registration/",
+      "/lawyer-plans/"
+    ],
+    "title": "עורך דין רשלנות רפואית | Jus-Tice",
+    "meta": "בדיקת רשלנות רפואית, חוות דעת מומחה, נזקי גוף, פיצוי ותיעוד רפואי לפני תביעה.",
+    "status": "DRAFT_READY_FOR_HUMAN_LEGAL_SEO_REVIEW_NOT_PUBLISHED"
+  },
+  {
+    "slug": "/inheritance-wills-lawyer/",
+    "primary_keyword": "עורך דין ירושה וצוואות",
+    "secondary_keywords": [
+      "עורך דין ירושה",
+      "התנגדות לצוואה",
+      "צו ירושה",
+      "צו קיום צוואה",
+      "ייפוי כוח מתמשך"
+    ],
+    "intent": "estate dispute and planning hiring",
+    "conversion_goal": "matched lawyer inquiry, lawyer profile claim or plan upgrade",
+    "target_word_count": 3000,
+    "internal_links_to": [
+      "/divorce-family-lawyer/",
+      "/real-estate-lawyer/",
+      "/medical-malpractice-lawyer/",
+      "/criminal-lawyer/",
+      "/employment-lawyer/",
+      "/lawyers/",
+      "/lawyer-registration/",
+      "/lawyer-plans/"
+    ],
+    "title": "עורך דין ירושה וצוואות | Jus-Tice",
+    "meta": "ירושה, צוואה, התנגדות לצוואה, צו קיום צוואה, ייפוי כוח מתמשך וניהול עיזבון.",
+    "status": "DRAFT_READY_FOR_HUMAN_LEGAL_SEO_REVIEW_NOT_PUBLISHED"
+  },
+  {
+    "slug": "/criminal-lawyer/",
+    "primary_keyword": "עורך דין פלילי",
+    "secondary_keywords": [
+      "חקירה במשטרה",
+      "סגירת תיק פלילי",
+      "מחיקת רישום פלילי",
+      "מעצר ימים",
+      "עבירות סמים"
+    ],
+    "intent": "urgent criminal defense hiring",
+    "conversion_goal": "matched lawyer inquiry, lawyer profile claim or plan upgrade",
+    "target_word_count": 3000,
+    "internal_links_to": [
+      "/divorce-family-lawyer/",
+      "/real-estate-lawyer/",
+      "/medical-malpractice-lawyer/",
+      "/inheritance-wills-lawyer/",
+      "/employment-lawyer/",
+      "/lawyers/",
+      "/lawyer-registration/",
+      "/lawyer-plans/"
+    ],
+    "title": "עורך דין פלילי | Jus-Tice",
+    "meta": "חקירה במשטרה, מעצר, כתב אישום, סגירת תיק פלילי ומחיקת רישום פלילי.",
+    "status": "DRAFT_READY_FOR_HUMAN_LEGAL_SEO_REVIEW_NOT_PUBLISHED"
+  },
+  {
+    "slug": "/employment-lawyer/",
+    "primary_keyword": "עורך דין דיני עבודה",
+    "secondary_keywords": [
+      "פיטורים שלא כדין",
+      "שימוע לפני פיטורים",
+      "הלנת שכר",
+      "פיצויי פיטורים",
+      "זכויות עובדים"
+    ],
+    "intent": "employment rights and dispute hiring",
+    "conversion_goal": "matched lawyer inquiry, lawyer profile claim or plan upgrade",
+    "target_word_count": 3000,
+    "internal_links_to": [
+      "/divorce-family-lawyer/",
+      "/real-estate-lawyer/",
+      "/medical-malpractice-lawyer/",
+      "/inheritance-wills-lawyer/",
+      "/criminal-lawyer/",
+      "/lawyers/",
+      "/lawyer-registration/",
+      "/lawyer-plans/"
+    ],
+    "title": "עורך דין דיני עבודה | Jus-Tice",
+    "meta": "פיטורים, שימוע, פיצויי פיטורים, הלנת שכר, הטרדה בעבודה וייצוג עובדים או מעסיקים.",
+    "status": "DRAFT_READY_FOR_HUMAN_LEGAL_SEO_REVIEW_NOT_PUBLISHED"
+  },
+  {
+    "slug": "/tax-business-lawyer/",
+    "primary_keyword": "עורך דין מיסים ועסקים",
+    "secondary_keywords": [
+      "עורך דין מיסים",
+      "מס הכנסה",
+      "מע\"מ",
+      "הסכם מייסדים",
+      "אופציות לעובדים"
+    ],
+    "intent": "business and tax planning or dispute hiring",
+    "conversion_goal": "matched lawyer inquiry, lawyer profile claim or plan upgrade",
+    "target_word_count": 3000,
+    "internal_links_to": [
+      "/divorce-family-lawyer/",
+      "/real-estate-lawyer/",
+      "/medical-malpractice-lawyer/",
+      "/inheritance-wills-lawyer/",
+      "/criminal-lawyer/",
+      "/lawyers/",
+      "/lawyer-registration/",
+      "/lawyer-plans/"
+    ],
+    "title": "עורך דין מיסים ועסקים | Jus-Tice",
+    "meta": "מס הכנסה, מע\"מ, חברה בע\"מ, הסכם מייסדים, אופציות לעובדים, גילוי מרצון ותכנון מס.",
+    "status": "DRAFT_READY_FOR_HUMAN_LEGAL_SEO_REVIEW_NOT_PUBLISHED"
+  }
+]

@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-05-25 Asia/Jerusalem",
+  "source_scope": "public pages and search-result snippets only; no private dashboards, forms, or account creation",
+  "domain": "mishpati.co.il",
+  "urls": [
+    "https://www.mishpati.co.il/find-lawyer/family-law-and-divorce"
+  ],
+  "h1_observed": [
+    "804 עורכי דין דיני משפחה וגירושין"
+  ],
+  "patterns": [
+    "large legal directory",
+    "family and divorce combined"
+  ],
+  "use_for_justice": [
+    "family/divorce combined taxonomy signal",
+    "directory count proof only when real"
+  ],
+  "extracted_homepage": {
+    "h1": "804 עורכי דין דיני משפחה וגירושין",
+    "h2_h6_hierarchy": [],
+    "word_count": null,
+    "section_count": null,
+    "image_count": null,
+    "schema_types": [],
+    "trust_signals": [
+      "large legal directory",
+      "family and divorce combined"
+    ],
+    "cta_patterns": [
+      "family/divorce combined taxonomy signal",
+      "directory count proof only when real"
+    ],
+    "internal_link_patterns": [
+      "practice",
+      "city",
+      "profile",
+      "article",
+      "contact or join"
+    ],
+    "status": "PARTIAL_NEEDS_FULL_HTML_SCRAPE_OR_FIRECRAWL"
+  }
+}

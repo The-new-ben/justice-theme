@@ -1,0 +1,72 @@
+{
+  "generated_at": "2026-05-25 Asia/Jerusalem",
+  "honest_commit_status_at_generation": "not committed yet",
+  "gates": {
+    "keyword_metrics_source": "FAIL_PARTIAL - no Semrush/Ahrefs/Keyword Planner/GSC export connected; do not claim final KD/CPC/volume universe",
+    "no_low_volume_keywords": "PARTIAL - unknown volume is left null, not fabricated",
+    "homepage_word_count": {
+      "file": "homepage.html",
+      "word_count": 5000,
+      "min_words": 5000,
+      "forbidden_hits": [],
+      "pass_words": true
+    },
+    "internal_word_counts": [
+      {
+        "file": "internal-pages/divorce-family-lawyer.html",
+        "word_count": 3786,
+        "min_words": 3000,
+        "forbidden_hits": [],
+        "pass_words": true
+      },
+      {
+        "file": "internal-pages/real-estate-lawyer.html",
+        "word_count": 3684,
+        "min_words": 3000,
+        "forbidden_hits": [],
+        "pass_words": true
+      },
+      {
+        "file": "internal-pages/medical-malpractice-lawyer.html",
+        "word_count": 3709,
+        "min_words": 3000,
+        "forbidden_hits": [],
+        "pass_words": true
+      },
+      {
+        "file": "internal-pages/inheritance-wills-lawyer.html",
+        "word_count": 3648,
+        "min_words": 3000,
+        "forbidden_hits": [],
+        "pass_words": true
+      },
+      {
+        "file": "internal-pages/criminal-lawyer.html",
+        "word_count": 3627,
+        "min_words": 3000,
+        "forbidden_hits": [],
+        "pass_words": true
+      },
+      {
+        "file": "internal-pages/employment-lawyer.html",
+        "word_count": 3684,
+        "min_words": 3000,
+        "forbidden_hits": [],
+        "pass_words": true
+      },
+      {
+        "file": "internal-pages/tax-business-lawyer.html",
+        "word_count": 3679,
+        "min_words": 3000,
+        "forbidden_hits": [],
+        "pass_words": true
+      }
+    ],
+    "forbidden_phrases": [],
+    "faq_schema": "PASS_DRAFT - generated for homepage and internal pages",
+    "internal_links": "PASS_DRAFT - map generated",
+    "title_meta_lengths": "PASS_DRAFT - short draft titles and descriptions generated",
+    "research_sources_count": 59,
+    "rich_results_test": "NOT_RUN - cannot honestly claim external Rich Results Test execution from this script"
+  }
+}

@@ -1,0 +1,150 @@
+{
+  "competitors": [
+    {
+      "domain": "din.co.il",
+      "repeated_pattern": [
+        "broad directory",
+        "profile as digital asset",
+        "articles and forums",
+        "lead promises",
+        "city navigation",
+        "recommendations"
+      ],
+      "used_for_blueprint": [
+        "professional profile asset",
+        "lead-focused lawyer onboarding",
+        "field-city directory",
+        "articles after helpful answer",
+        "recommendation system only after verification"
+      ],
+      "urls_checked_or_logged": [
+        "https://www.din.co.il/",
+        "https://www.din.co.il/whyadv.asp",
+        "https://www.din.co.il/recomend.asp",
+        "https://www.din.co.il/forum/lawyers.asp"
+      ]
+    },
+    {
+      "domain": "psakdin.co.il",
+      "repeated_pattern": [
+        "portal authority",
+        "lawyer index",
+        "case law and magazine adjacency",
+        "registration and login visibility",
+        "legal services navigation"
+      ],
+      "used_for_blueprint": [
+        "legal portal depth",
+        "case-law adjacency where useful",
+        "registration path visible in header",
+        "profile connected to articles and services"
+      ],
+      "urls_checked_or_logged": [
+        "https://www.psakdin.co.il/",
+        "https://www.psakdin.co.il/Lawyers",
+        "https://www.psakdin.co.il/Register?UserType=Lawyer"
+      ]
+    },
+    {
+      "domain": "lawreviews.co.il",
+      "repeated_pattern": [
+        "reviews-first trust",
+        "verified review policy",
+        "join form",
+        "rich profiles",
+        "missed-lead and service quality concept"
+      ],
+      "used_for_blueprint": [
+        "review readiness module",
+        "claim profile",
+        "verified review governance before publishing ratings",
+        "profile completeness checklist"
+      ],
+      "urls_checked_or_logged": [
+        "https://www.lawreviews.co.il/",
+        "https://www.lawreviews.co.il/about",
+        "https://www.lawreviews.co.il/join",
+        "https://www.lawreviews.co.il/provider/profile-law-reviews"
+      ]
+    },
+    {
+      "domain": "justia.com",
+      "repeated_pattern": [
+        "free claim profile",
+        "premium placements",
+        "practice-location directory",
+        "lawyer FAQ"
+      ],
+      "used_for_blueprint": [
+        "claim profile flow",
+        "sponsored placement separated from payment proof",
+        "practice-location taxonomy"
+      ],
+      "urls_checked_or_logged": [
+        "https://www.justia.com/marketing/lawyer-directory/",
+        "https://www.justia.com/lawyers",
+        "https://lawyers.justia.com/faq"
+      ]
+    },
+    {
+      "domain": "avvo.com",
+      "repeated_pattern": [
+        "claimed profile affects completeness",
+        "unclaimed profile has limited information",
+        "rating governance risk"
+      ],
+      "used_for_blueprint": [
+        "basic/unclaimed cards must be visibly limited",
+        "avoid fake ratings",
+        "claim/update/remove path"
+      ],
+      "urls_checked_or_logged": [
+        "https://support.avvo.com/hc/en-us/articles/360013500772-What-is-the-Avvo-Rating-"
+      ]
+    },
+    {
+      "domain": "mishpati.co.il",
+      "repeated_pattern": [
+        "large legal directory",
+        "family and divorce combined"
+      ],
+      "used_for_blueprint": [
+        "family/divorce combined taxonomy signal",
+        "directory count proof only when real"
+      ],
+      "urls_checked_or_logged": [
+        "https://www.mishpati.co.il/find-lawyer/family-law-and-divorce"
+      ]
+    },
+    {
+      "domain": "midrag.co.il",
+      "repeated_pattern": [
+        "cost transparency",
+        "consumer service framing",
+        "practical questions"
+      ],
+      "used_for_blueprint": [
+        "price transparency sections for legal services without fixed false promises"
+      ],
+      "urls_checked_or_logged": [
+        "https://www.midrag.co.il/Content/Tip/14623"
+      ]
+    },
+    {
+      "domain": "gov.il/knesset",
+      "repeated_pattern": [
+        "source authority",
+        "statutory names",
+        "public process pages"
+      ],
+      "used_for_blueprint": [
+        "cite laws and official bodies in content, not as decoration"
+      ],
+      "urls_checked_or_logged": [
+        "https://www.gov.il/he/service/real-estate-first-registration-application",
+        "https://fs.knesset.gov.il/7/law/7_lsr_211750.pdf",
+        "https://fs.knesset.gov.il/6/law/6_lsr_208977.PDF"
+      ]
+    }
+  ]
+}

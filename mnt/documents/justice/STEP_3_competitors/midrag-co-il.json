@@ -1,0 +1,43 @@
+{
+  "generated_at": "2026-05-25 Asia/Jerusalem",
+  "source_scope": "public pages and search-result snippets only; no private dashboards, forms, or account creation",
+  "domain": "midrag.co.il",
+  "urls": [
+    "https://www.midrag.co.il/Content/Tip/14623"
+  ],
+  "h1_observed": [
+    "התנגדות לצוואה | מידע ומחירים להתנגדות לצוואה"
+  ],
+  "patterns": [
+    "cost transparency",
+    "consumer service framing",
+    "practical questions"
+  ],
+  "use_for_justice": [
+    "price transparency sections for legal services without fixed false promises"
+  ],
+  "extracted_homepage": {
+    "h1": "התנגדות לצוואה | מידע ומחירים להתנגדות לצוואה",
+    "h2_h6_hierarchy": [],
+    "word_count": null,
+    "section_count": null,
+    "image_count": null,
+    "schema_types": [],
+    "trust_signals": [
+      "cost transparency",
+      "consumer service framing",
+      "practical questions"
+    ],
+    "cta_patterns": [
+      "price transparency sections for legal services without fixed false promises"
+    ],
+    "internal_link_patterns": [
+      "practice",
+      "city",
+      "profile",
+      "article",
+      "contact or join"
+    ],
+    "status": "PARTIAL_NEEDS_FULL_HTML_SCRAPE_OR_FIRECRAWL"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "generated_at": "2026-05-25 Asia/Jerusalem",
+  "source_scope": "public pages and search-result snippets only; no private dashboards, forms, or account creation",
+  "domain": "gov.il/knesset",
+  "urls": [
+    "https://www.gov.il/he/service/real-estate-first-registration-application",
+    "https://fs.knesset.gov.il/7/law/7_lsr_211750.pdf",
+    "https://fs.knesset.gov.il/6/law/6_lsr_208977.PDF"
+  ],
+  "h1_observed": [
+    "official legal and service references"
+  ],
+  "patterns": [
+    "source authority",
+    "statutory names",
+    "public process pages"
+  ],
+  "use_for_justice": [
+    "cite laws and official bodies in content, not as decoration"
+  ],
+  "extracted_homepage": {
+    "h1": "official legal and service references",
+    "h2_h6_hierarchy": [],
+    "word_count": null,
+    "section_count": null,
+    "image_count": null,
+    "schema_types": [],
+    "trust_signals": [
+      "source authority",
+      "statutory names",
+      "public process pages"
+    ],
+    "cta_patterns": [
+      "cite laws and official bodies in content, not as decoration"
+    ],
+    "internal_link_patterns": [
+      "practice",
+      "city",
+      "profile",
+      "article",
+      "contact or join"
+    ],
+    "status": "PARTIAL_NEEDS_FULL_HTML_SCRAPE_OR_FIRECRAWL"
+  }
+}

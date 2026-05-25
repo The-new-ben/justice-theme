@@ -1,0 +1,47 @@
+[
+  {
+    "file": "PLACEHOLDER_home_hero_legal_marketplace.jpg",
+    "prompt": "Wide clean Hebrew legal marketplace interface, dark navy and white, real product UI, lawyer cards, search fields, no fake faces, professional Israeli legal-tech style",
+    "alt_policy": "Use descriptive Hebrew alt text tied to the section and do not use unlicensed lawyer portraits."
+  },
+  {
+    "file": "PLACEHOLDER_home_real_estate_hub.jpg",
+    "prompt": "Israeli real estate legal dashboard, contract review, land registry, tax chips, lawyer cards, document upload UI, no generic stock people",
+    "alt_policy": "Use descriptive Hebrew alt text tied to the section and do not use unlicensed lawyer portraits."
+  },
+  {
+    "file": "PLACEHOLDER_divorce-family-lawyer_hero.jpg",
+    "prompt": "Professional Hebrew legal-tech UI hero for עורך דין גירושין ודיני משפחה, showing documents, source-gated lawyer cards and action buttons, no fake portrait claims",
+    "alt_policy": "Use descriptive Hebrew alt text tied to the section and do not use unlicensed lawyer portraits."
+  },
+  {
+    "file": "PLACEHOLDER_real-estate-lawyer_hero.jpg",
+    "prompt": "Professional Hebrew legal-tech UI hero for עורך דין מקרקעין, showing documents, source-gated lawyer cards and action buttons, no fake portrait claims",
+    "alt_policy": "Use descriptive Hebrew alt text tied to the section and do not use unlicensed lawyer portraits."
+  },
+  {
+    "file": "PLACEHOLDER_medical-malpractice-lawyer_hero.jpg",
+    "prompt": "Professional Hebrew legal-tech UI hero for עורך דין רשלנות רפואית, showing documents, source-gated lawyer cards and action buttons, no fake portrait claims",
+    "alt_policy": "Use descriptive Hebrew alt text tied to the section and do not use unlicensed lawyer portraits."
+  },
+  {
+    "file": "PLACEHOLDER_inheritance-wills-lawyer_hero.jpg",
+    "prompt": "Professional Hebrew legal-tech UI hero for עורך דין ירושה וצוואות, showing documents, source-gated lawyer cards and action buttons, no fake portrait claims",
+    "alt_policy": "Use descriptive Hebrew alt text tied to the section and do not use unlicensed lawyer portraits."
+  },
+  {
+    "file": "PLACEHOLDER_criminal-lawyer_hero.jpg",
+    "prompt": "Professional Hebrew legal-tech UI hero for עורך דין פלילי, showing documents, source-gated lawyer cards and action buttons, no fake portrait claims",
+    "alt_policy": "Use descriptive Hebrew alt text tied to the section and do not use unlicensed lawyer portraits."
+  },
+  {
+    "file": "PLACEHOLDER_employment-lawyer_hero.jpg",
+    "prompt": "Professional Hebrew legal-tech UI hero for עורך דין דיני עבודה, showing documents, source-gated lawyer cards and action buttons, no fake portrait claims",
+    "alt_policy": "Use descriptive Hebrew alt text tied to the section and do not use unlicensed lawyer portraits."
+  },
+  {
+    "file": "PLACEHOLDER_tax-business-lawyer_hero.jpg",
+    "prompt": "Professional Hebrew legal-tech UI hero for עורך דין מיסים ועסקים, showing documents, source-gated lawyer cards and action buttons, no fake portrait claims",
+    "alt_policy": "Use descriptive Hebrew alt text tied to the section and do not use unlicensed lawyer portraits."
+  }
+]

@@ -1,0 +1,58 @@
+{
+  "generated_at": "2026-05-25 Asia/Jerusalem",
+  "source_scope": "public pages and search-result snippets only; no private dashboards, forms, or account creation",
+  "domain": "lawreviews.co.il",
+  "urls": [
+    "https://www.lawreviews.co.il/",
+    "https://www.lawreviews.co.il/about",
+    "https://www.lawreviews.co.il/join",
+    "https://www.lawreviews.co.il/provider/profile-law-reviews"
+  ],
+  "h1_observed": [
+    "עורכי דין מומלצים: דירוג שקוף לפי חוות דעת",
+    "אודות LawReviews",
+    "public join/profile pages sampled"
+  ],
+  "patterns": [
+    "reviews-first trust",
+    "verified review policy",
+    "join form",
+    "rich profiles",
+    "missed-lead and service quality concept"
+  ],
+  "use_for_justice": [
+    "review readiness module",
+    "claim profile",
+    "verified review governance before publishing ratings",
+    "profile completeness checklist"
+  ],
+  "extracted_homepage": {
+    "h1": "עורכי דין מומלצים: דירוג שקוף לפי חוות דעת",
+    "h2_h6_hierarchy": [],
+    "word_count": null,
+    "section_count": null,
+    "image_count": null,
+    "schema_types": [],
+    "trust_signals": [
+      "reviews-first trust",
+      "verified review policy",
+      "join form",
+      "rich profiles",
+      "missed-lead and service quality concept"
+    ],
+    "cta_patterns": [
+      "review readiness module",
+      "claim profile",
+      "verified review governance before publishing ratings",
+      "profile completeness checklist"
+    ],
+    "internal_link_patterns": [
+      "practice",
+      "city",
+      "profile",
+      "article",
+      "contact or join"
+    ],
+    "status": "PARTIAL_NEEDS_FULL_HTML_SCRAPE_OR_FIRECRAWL"
+  }
+}

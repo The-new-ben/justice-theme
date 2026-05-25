@@ -1,0 +1,63 @@
+{
+  "generated_at": "2026-05-25 Asia/Jerusalem",
+  "source_scope": "public pages and search-result snippets only; no private dashboards, forms, or account creation",
+  "domain": "din.co.il",
+  "urls": [
+    "https://www.din.co.il/",
+    "https://www.din.co.il/whyadv.asp",
+    "https://www.din.co.il/recomend.asp",
+    "https://www.din.co.il/forum/lawyers.asp"
+  ],
+  "h1_observed": [
+    "עורכי דין בישראל, משרדי עורכי דין בכל תחום",
+    "יתרונות הפרסום באתר",
+    "עורכי דין ממליצים על הפרסום באתר שלנו",
+    "פורום עורכי דין"
+  ],
+  "patterns": [
+    "broad directory",
+    "profile as digital asset",
+    "articles and forums",
+    "lead promises",
+    "city navigation",
+    "recommendations"
+  ],
+  "use_for_justice": [
+    "professional profile asset",
+    "lead-focused lawyer onboarding",
+    "field-city directory",
+    "articles after helpful answer",
+    "recommendation system only after verification"
+  ],
+  "extracted_homepage": {
+    "h1": "עורכי דין בישראל, משרדי עורכי דין בכל תחום",
+    "h2_h6_hierarchy": [],
+    "word_count": null,
+    "section_count": null,
+    "image_count": null,
+    "schema_types": [],
+    "trust_signals": [
+      "broad directory",
+      "profile as digital asset",
+      "articles and forums",
+      "lead promises",
+      "city navigation",
+      "recommendations"
+    ],
+    "cta_patterns": [
+      "professional profile asset",
+      "lead-focused lawyer onboarding",
+      "field-city directory",
+      "articles after helpful answer",
+      "recommendation system only after verification"
+    ],
+    "internal_link_patterns": [
+      "practice",
+      "city",
+      "profile",
+      "article",
+      "contact or join"
+    ],
+    "status": "PARTIAL_NEEDS_FULL_HTML_SCRAPE_OR_FIRECRAWL"
+  }
+}

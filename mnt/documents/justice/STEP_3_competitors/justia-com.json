@@ -1,0 +1,52 @@
+{
+  "generated_at": "2026-05-25 Asia/Jerusalem",
+  "source_scope": "public pages and search-result snippets only; no private dashboards, forms, or account creation",
+  "domain": "justia.com",
+  "urls": [
+    "https://www.justia.com/marketing/lawyer-directory/",
+    "https://www.justia.com/lawyers",
+    "https://lawyers.justia.com/faq"
+  ],
+  "h1_observed": [
+    "Justia Lawyer Directory",
+    "Lawyers, Legal Aid & Pro Bono Services"
+  ],
+  "patterns": [
+    "free claim profile",
+    "premium placements",
+    "practice-location directory",
+    "lawyer FAQ"
+  ],
+  "use_for_justice": [
+    "claim profile flow",
+    "sponsored placement separated from payment proof",
+    "practice-location taxonomy"
+  ],
+  "extracted_homepage": {
+    "h1": "Justia Lawyer Directory",
+    "h2_h6_hierarchy": [],
+    "word_count": null,
+    "section_count": null,
+    "image_count": null,
+    "schema_types": [],
+    "trust_signals": [
+      "free claim profile",
+      "premium placements",
+      "practice-location directory",
+      "lawyer FAQ"
+    ],
+    "cta_patterns": [
+      "claim profile flow",
+      "sponsored placement separated from payment proof",
+      "practice-location taxonomy"
+    ],
+    "internal_link_patterns": [
+      "practice",
+      "city",
+      "profile",
+      "article",
+      "contact or join"
+    ],
+    "status": "PARTIAL_NEEDS_FULL_HTML_SCRAPE_OR_FIRECRAWL"
+  }
+}

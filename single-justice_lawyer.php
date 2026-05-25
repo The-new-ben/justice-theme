@@ -40,6 +40,14 @@ $parse_rows = static function ( $raw ) {
 	);
 };
 
+$clean_public_profile_text = static function ( string $value ): string {
+	$value = str_replace( 'ועל שדות CMS הניתנים לעריכה', 'ועל פרטים שניתנים לעדכון לאחר אימות', $value );
+	$value = str_replace( 'שדות CMS הניתנים לעריכה', 'פרטים שניתנים לעדכון לאחר אימות', $value );
+	$value = str_replace( 'CMS', 'מערכת העריכה', $value );
+
+	return $value;
+};
+
 $firm              = $meta( 'firm_name' );
 $bar_num           = $meta( 'bar_number' );
 $phone             = $meta( 'phone' );
@@ -71,7 +79,7 @@ $process_steps     = $parse_rows( $meta( 'profile_process' ) );
 $credentials       = $parse_rows( $meta( 'profile_credentials' ) );
 $media_items       = $parse_rows( $meta( 'profile_media_urls' ) );
 $public_sources    = $parse_rows( $meta( 'profile_public_sources' ) );
-$source_summary    = $meta( 'profile_source_summary' );
+$source_summary    = $clean_public_profile_text( (string) $meta( 'profile_source_summary' ) );
 $faqs              = $parse_rows( $meta( 'profile_faqs' ) );
 $testimonials      = $parse_rows( $meta( 'profile_testimonials' ) );
 $cta_title         = $meta( 'profile_cta_title' );

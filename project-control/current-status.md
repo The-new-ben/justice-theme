@@ -1,4 +1,10 @@
 # LATEST WORK STATUS - 2026-05-25 12:28 Asia/Jerusalem
+- LIVE CMS BATCH 2 COMPLETED: added 11 additional live CMS public-basic records, bringing public REST inventory to 20 records and visible `/lawyers/` cards to 20 unique cards.
+- LEGAL PROFESSIONALS INDEXED: added 5 Din-sourced rabbinical advocate/mediator professional cards with `professional_type=rabbinical_advocate`, plus 6 LawReviews-sourced lawyer/law-firm cards.
+- ADDED: `project-control/live-cms-lawyer-index-batch-2-2026-05-25.md`.
+- GENERATED: `reports/live-cms-lawyer-index-batch-2-2026-05-25.json`.
+- VERIFIED LIVE: homepage showcase shows 6 CMS-backed cards; `/lawyers/?justice_readonly=1` shows 20 unique cards; `/lawyers/public-basic-israel-ben-baruch-rabbinical-mediator/` returns 200 through the CMS fallback.
+- IMPORT INCIDENT FIXED: initial batch write produced mojibake/question-mark titles for the 11 new records; the titles/content/meta were repaired with UTF-8 and verified through REST/live HTML.
 - LIVE PATCH AFTER DEPLOY TEST: homepage now verified at 6 CMS-backed lawyer cards after uPress pull; the archive `/lawyers/` still showed only one card, so `archive-justice_lawyer.php` was adjusted to sort/filter by the approved ID list instead of the old `priority_score` meta query that dropped basic cards.
 - CMS-BACKED LAWYER SHOWCASE CONTROL: replaced the homepage single-lawyer showcase with a dynamic CMS query that ranks public-approved lawyers by paid/sponsored status, verification and `priority_score`, then renders real `justice_lawyer` cards.
 - ADDED ADMIN BULK CONTROL: wp-admin lawyer list now has bulk actions to show, hide, return to automatic visibility, mark sponsored/top, or mark basic/unclaimed. This is the control layer the owner asked for before scaling competitor-inspired indexing.

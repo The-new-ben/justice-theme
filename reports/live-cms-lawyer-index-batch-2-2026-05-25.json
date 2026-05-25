@@ -1,0 +1,38 @@
+{
+  "generated_at": "2026-05-25T12:50:00+03:00",
+  "method": "wordpress_rest_api_application_password",
+  "records_created": 11,
+  "total_public_rest_records_after_batch": 20,
+  "records": [
+    {"id": 20541, "slug": "public-basic-gila-eini", "title": "עו\"ד גילה עיני נוטריון מגשרת", "source": "LawReviews", "professional_type": "lawyer"},
+    {"id": 20542, "slug": "public-basic-dana-nahum-buskila", "title": "עורכת דין דנה נחום בוסקילה", "source": "LawReviews", "professional_type": "lawyer"},
+    {"id": 20543, "slug": "public-basic-meital-yaakobi", "title": "עורכת דין ומגשרת מיטל יעקובי", "source": "LawReviews", "professional_type": "lawyer"},
+    {"id": 20544, "slug": "public-basic-yitzhaki-frid", "title": "משרד עורכי דין יצחקי פריד", "source": "LawReviews", "professional_type": "lawyer"},
+    {"id": 20545, "slug": "public-basic-portnoy-lis-kalfa", "title": "משרד עורכי דין פורטנוי ליס כלפה ושות׳", "source": "LawReviews", "professional_type": "lawyer"},
+    {"id": 20546, "slug": "public-basic-hila-weintraub", "title": "עורכת דין הילה וינטרוב", "source": "LawReviews", "professional_type": "lawyer"},
+    {"id": 20547, "slug": "public-basic-nissim-abergel-rabbinical-mediator", "title": "אברג׳ל נסים - טוען רבני ומגשר משפטי", "source": "Din", "professional_type": "rabbinical_advocate"},
+    {"id": 20548, "slug": "public-basic-david-asor-rabbinical-mediator", "title": "דוד עשור טוען רבני ומגשר", "source": "Din", "professional_type": "rabbinical_advocate"},
+    {"id": 20549, "slug": "public-basic-elhanan-rabinsky-rabbinical-mediator", "title": "טוען רבני ומגשר אלחנן רבינסקי", "source": "Din", "professional_type": "rabbinical_advocate"},
+    {"id": 20550, "slug": "public-basic-david-hassan-rabbinical-advocate", "title": "טוען רבני דוד חסן", "source": "Din", "professional_type": "rabbinical_advocate"},
+    {"id": 20551, "slug": "public-basic-israel-ben-baruch-rabbinical-mediator", "title": "טוען רבני ומגשר ישראל בן ברוך", "source": "Din", "professional_type": "rabbinical_advocate"}
+  ],
+  "verification": {
+    "public_rest_count": 20,
+    "lawyers_archive_visible_unique_cards": 20,
+    "homepage_showcase_cards": 6,
+    "single_profile_fallback_works": true,
+    "utf8_title_repair_applied": true
+  },
+  "revenue": {
+    "realized_mrr_nis": 0,
+    "near_term_target": "1 claimed/sponsored lawyer at ₪349-₪749/month"
+  },
+  "safety": {
+    "copied_competitor_photos": false,
+    "copied_competitor_reviews": false,
+    "copied_competitor_ratings": false,
+    "fake_verification_added": false,
+    "unclaimed_contact_details_added": false,
+    "payments_or_invoices_changed": false
+  }
+}

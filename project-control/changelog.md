@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Live CMS lawyer/professional index batch 2
+
+- CREATED LIVE CMS RECORDS: 11 additional `justice_lawyer` records via WordPress REST/API application password: IDs 20541-20551.
+- ADDED: `project-control/live-cms-lawyer-index-batch-2-2026-05-25.md`.
+- GENERATED: `reports/live-cms-lawyer-index-batch-2-2026-05-25.json`.
+- PURPOSE: move from a single/demo card impression to a real CMS-backed directory with 20 visible cards and claim/upgrade potential.
+- SOURCES: public LawReviews service-search surfaces and public Din profile surfaces for rabbinical advocates/mediators.
+- VERIFIED LIVE: public REST count is 20, `/lawyers/?justice_readonly=1` renders 20 unique cards, homepage renders 6 CMS-backed cards, and a new legal-professional single profile returns 200 through the fallback route.
+- INCIDENT FIXED: first write of the 11 new records produced mojibake/question-mark titles; a UTF-8 REST repair corrected title/content/meta before final verification.
+- SAFETY: public-basic/unverified only; no copied competitor photos/reviews/ratings, no fake verification, no public contact details for unclaimed profiles, no payment/invoice/refund, no redirect/canonical/noindex/sitemap/taxonomy/provider setting changed.
+
 # 2026-05-25 - Dynamic lawyer showcase and bulk index controls
 
 - UPDATED: `template-parts/sections/featured-lawyers.php`, `inc/lawyer-visibility.php`, `inc/template-tags.php`, `justice-core/includes/cpt-lawyers.php`, `template-parts/cards/lawyer-card.php`, and `assets/css/premium-pass-4.css`.

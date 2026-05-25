@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer profile unverified contact gate
+
+- UPDATED: `template-parts/cards/lawyer-card.php`, `single-justice_lawyer.php`.
+- ADDED: `project-control/lawyer-profile-unverified-contact-gate-2026-05-25.md`.
+- PURPOSE: prevent imported/basic/fact-gated lawyer profiles from looking like fully verified premium mini-sites before source review.
+- IMPLEMENTATION: hides firm claims, direct phone/WhatsApp actions, address, license, bar number, email, languages, years and social links on fact-gated cards/profiles unless facts are approved, paid/verified state exists, or the source is trusted.
+- RESEARCH BASIS: checked current LawReviews and Justia profile/review/claim patterns; implementation is original and does not copy competitor lawyers, photos, ratings, reviews, contact data or text.
+- SAFETY: no CMS database write, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-25 - Manual payment-link queue email action
 
 - UPDATED: `inc/lawyer-onboarding.php`.

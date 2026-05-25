@@ -98,7 +98,19 @@ $requires_fact_gate         = $is_maya_profile
 	|| $is_seed_data
 	|| in_array( strtolower( (string) $source_type ), array( 'public_index', 'import' ), true );
 $show_profile_claims        = ! $requires_fact_gate || $profile_is_fact_checked;
+$trusted_contact_source     = in_array( strtolower( (string) $source_type ), array( 'lawyer_submitted', 'owner_verified', 'verified_public' ), true );
+$show_direct_contact        = $show_profile_claims || $is_paid || 'verified' === strtolower( (string) $verified ) || $trusted_contact_source;
 $show_rating                = $show_rating && $show_profile_claims;
+
+if ( ! $show_profile_claims ) {
+	$firm = '';
+}
+
+if ( ! $show_direct_contact ) {
+	$phone_link    = '';
+	$whatsapp_link = '';
+}
+
 $show_thumbnail  = $has_thumbnail
 	&& ! $is_seed_data
 	&& ! $is_maya_profile

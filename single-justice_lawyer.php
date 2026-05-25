@@ -155,6 +155,8 @@ $show_profile_marketing_modules = ! $requires_fact_gate || $profile_is_fact_chec
 $show_verified_profile_badge = $is_verified && $show_freeform_profile_facts;
 $can_show_profile_articles = $show_freeform_profile_facts && ( $is_paid || $is_verified ) && ! $is_maya_profile;
 $connected_article_slugs = array_filter( array( $lawyer_profile_slug, $authority_person_slug ) );
+$trusted_contact_source = in_array( $source_type, array( 'lawyer_submitted', 'owner_verified', 'verified_public' ), true );
+$show_direct_contact = $show_freeform_profile_facts || $is_paid || $is_verified || $trusted_contact_source;
 
 if ( ! $show_freeform_profile_facts ) {
 	$profile_headline = get_the_title( $lawyer_id );
@@ -174,6 +176,19 @@ if ( ! $show_freeform_profile_facts ) {
 	$show_rating                   = false;
 	$show_testimonials             = false;
 	$show_approved_recommendations = false;
+	$firm                          = '';
+	$languages                     = '';
+	$experience                    = '';
+	$bar_num                       = '';
+	$license                       = '';
+	$address                       = '';
+	$email                         = '';
+	$social_links                  = array();
+}
+
+if ( ! $show_direct_contact ) {
+	$phone_link    = '';
+	$whatsapp_link = '';
 }
 
 if ( false !== mb_strpos( get_the_title( $lawyer_id ), 'מאיה' ) && false !== mb_strpos( get_the_title( $lawyer_id ), 'רוטנברג' ) ) {
@@ -587,6 +602,7 @@ if ( $show_profile_photo ) {
 					<?php endif; ?>
 				</section>
 
+				<?php if ( $address || $license || $email ) : ?>
 				<section class="lawyer-mini-sidebox">
 					<h2>פרטים מקצועיים</h2>
 					<dl>
@@ -604,6 +620,7 @@ if ( $show_profile_photo ) {
 						<?php endif; ?>
 					</dl>
 				</section>
+				<?php endif; ?>
 
 				<?php if ( ! empty( $credentials ) && $show_freeform_profile_facts ) : ?>
 					<section class="lawyer-mini-sidebox">

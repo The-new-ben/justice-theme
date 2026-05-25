@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 16:55 Asia/Jerusalem
+- POST-PULL LIVE CHECK: after the owner pulled git, read-only public checks found the live `/lawyers/?justice_readonly=1` page emitting the new lawyer-card trust markers (`lawyer-card--initials`, `lawyer-card--fact-gated`) and the live `premium-pass-4.css?ver=4.3.8` containing the investor polish.
+- UNVERIFIED CONTACT/FACT GATE TIGHTENED: fact-gated lawyer cards and mini-sites no longer show firm/contact/license/social/profile detail signals before fact review, paid/verified status, or a trusted source.
+- UPDATED: `template-parts/cards/lawyer-card.php`, `single-justice_lawyer.php`.
+- ADDED: `project-control/lawyer-profile-unverified-contact-gate-2026-05-25.md`.
+- MATERIAL ADVANCE: this directly addresses the Maya/fake-profile concern. Imported/basic/public profiles can still be visible as controlled claim/update cards, but they should not look like a fully verified premium lawyer site until source review is real.
+- RESEARCH BASIS: checked current LawReviews and Justia profile/review/claim patterns; implementation is original and does not copy competitor lawyers, photos, reviews, ratings, contact details or profile text.
+- VERIFIED LOCAL / DEPLOY PENDING: `php -l template-parts/cards/lawyer-card.php`, `php -l single-justice_lawyer.php`, and `git diff --check` passed; production needs git push and owner/uPress pull after verification.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves trust and conversion readiness, but it does not prove payment, invoice, refund, subscription, lead delivery or CRM monetization.
+- SAFETY: repo display/docs only; no live CMS database edit, competitor data import/copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 16:43 Asia/Jerusalem
 - MANUAL PAYMENT-LINK QUEUE EMAIL ACTION ADDED: Lawyer Onboarding now lets the owner send/resend a saved Grow/Morning manual payment link directly from the payment queue.
 - UPDATED: `inc/lawyer-onboarding.php`.

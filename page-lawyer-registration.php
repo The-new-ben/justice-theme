@@ -363,14 +363,13 @@ if ( $registration_claim_profile ) {
 							<option value="not_sure"><?php esc_html_e( 'צריך לתאם תהליך מענה', 'justice-theme' ); ?></option>
 						</select>
 					</label>
-					<?php if ( 'manual_invoice' === $selected_payment_path ) : ?>
-						<fieldset class="lawyer-registration-form__full lawyer-registration-billing-fields">
+						<fieldset class="lawyer-registration-form__full lawyer-registration-billing-fields" data-manual-billing-fields<?php echo 'manual_invoice' === $selected_payment_path ? '' : ' hidden'; ?>>
 							<legend><?php esc_html_e( 'פרטי חשבונית ותשלום ידני', 'justice-theme' ); ?></legend>
 							<p><?php esc_html_e( 'אפשר להשלים עכשיו כדי שנוכל לשלוח חשבונית או דרישת תשלום מהר יותר. אם חסר פרט, נשלים אותו ידנית לפני חיוב.', 'justice-theme' ); ?></p>
 							<div class="lawyer-registration-form__grid">
 								<label>
 									<span><?php esc_html_e( 'שם לחיוב / שם העסק', 'justice-theme' ); ?></span>
-									<input type="text" name="billing_legal_name" value="<?php echo esc_attr( $registration_prefill_billing_legal_name ); ?>" autocomplete="organization">
+									<input type="text" name="billing_legal_name" value="<?php echo esc_attr( $registration_prefill_billing_legal_name ); ?>" autocomplete="organization" data-manual-billing-required<?php echo 'manual_invoice' === $selected_payment_path ? ' required' : ''; ?>>
 								</label>
 								<label>
 									<span><?php esc_html_e( 'ח.פ / עוסק מורשה / תעודת זהות', 'justice-theme' ); ?></span>
@@ -378,7 +377,7 @@ if ( $registration_claim_profile ) {
 								</label>
 								<label>
 									<span><?php esc_html_e( 'אימייל לחשבונית', 'justice-theme' ); ?></span>
-									<input type="email" name="billing_invoice_email" value="<?php echo esc_attr( $registration_prefill_billing_invoice_email ); ?>" autocomplete="email">
+									<input type="email" name="billing_invoice_email" value="<?php echo esc_attr( $registration_prefill_billing_invoice_email ); ?>" autocomplete="email" data-manual-billing-required<?php echo 'manual_invoice' === $selected_payment_path ? ' required' : ''; ?>>
 								</label>
 								<label>
 									<span><?php esc_html_e( 'כתובת לחשבונית', 'justice-theme' ); ?></span>
@@ -386,7 +385,6 @@ if ( $registration_claim_profile ) {
 								</label>
 							</div>
 						</fieldset>
-					<?php endif; ?>
 					<label class="lawyer-registration-form__full">
 						<span><?php esc_html_e( 'תיאור קצר', 'justice-theme' ); ?></span>
 						<textarea name="bio_short" rows="5" placeholder="<?php esc_attr_e( 'ספרו בקצרה על תחומי העיסוק, ניסיון, קהל יעד ומה תרצו להציג בפרופיל.', 'justice-theme' ); ?>"></textarea>

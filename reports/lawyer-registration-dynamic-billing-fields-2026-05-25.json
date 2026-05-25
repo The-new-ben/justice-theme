@@ -1,0 +1,40 @@
+{
+  "report": "lawyer-registration-dynamic-billing-fields",
+  "date": "2026-05-25",
+  "status": "local_verification_passed_pending_deploy",
+  "material_advance": "Lawyer registration now exposes billing fields dynamically when a prospect selects a paid plan inside the form, preserving manual-invoice payment intent from generic registration entrypoints.",
+  "changed_files": [
+    "page-lawyer-registration.php",
+    "assets/js/lawyer-registration-wizard.js",
+    "inc/enqueue.php",
+    "project-control/lawyer-registration-dynamic-billing-fields-2026-05-25.md"
+  ],
+  "expected_live_checks": [
+    {
+      "url": "https://jus-tice.co.il/lawyer-registration/",
+      "expectation": "Free/default path contains billing fieldset markup but keeps it hidden until a paid plan is selected."
+    },
+    {
+      "url": "https://jus-tice.co.il/lawyer-registration/?plan_interest=featured",
+      "expectation": "Paid preselected path exposes manual invoice billing fields and payment_path=manual_invoice."
+    },
+    {
+      "url": "https://jus-tice.co.il/lawyer-registration/",
+      "expectation": "Browser interaction: selecting a paid plan reveals billing fields and marks billing legal name plus billing invoice email as required."
+    }
+  ],
+  "local_verification": [
+    "php -l page-lawyer-registration.php",
+    "php -l inc/enqueue.php",
+    "node --check assets/js/lawyer-registration-wizard.js",
+    "json parse reports/lawyer-registration-dynamic-billing-fields-2026-05-25.json",
+    "git diff --check"
+  ],
+  "revenue_status": "Realized revenue remains NIS 0. This closes a paid-intent handoff gap but does not prove payment.",
+  "safety": [
+    "No CMS/database records changed.",
+    "No competitor content copied.",
+    "No public content migration or SEO route/canonical/noindex/sitemap/taxonomy changes.",
+    "No payment gateway settings, charge, invoice or refund executed."
+  ]
+}

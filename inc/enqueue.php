@@ -118,7 +118,7 @@ function justice_theme_enqueue_assets() {
 			'justice-lawyer-registration-wizard',
 			JUSTICE_THEME_URI . '/assets/js/lawyer-registration-wizard.js',
 			array(),
-			'1.2.1',
+			'1.2.2',
 			true
 		);
 	}

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Dynamic paid billing fields
+
+- UPDATED: `page-lawyer-registration.php`, `assets/js/lawyer-registration-wizard.js`, and `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-registration-dynamic-billing-fields-2026-05-25.md`.
+- GENERATED: `reports/lawyer-registration-dynamic-billing-fields-2026-05-25.json`.
+- PURPOSE: remove a paid-signup handoff gap when a lawyer starts from the generic registration page and chooses a paid plan inside the wizard.
+- IMPLEMENTATION: billing fields now exist in the form markup, stay hidden for free/basic registration, move into step 2 of the wizard, reveal on paid plan selection, set `payment_path=manual_invoice`, and require the minimum billing fields for paid manual-invoice intent.
+- SAFETY: no CMS/database record, competitor content, payment gateway setting, charge, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-25 - Lawyer claim admin queue
 
 - UPDATED: `inc/lawyer-onboarding.php`.

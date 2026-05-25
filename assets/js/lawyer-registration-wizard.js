@@ -62,7 +62,7 @@
 		};
 
 		if (!planField) {
-			return;
+			return false;
 		}
 
 		if (!paymentField) {
@@ -72,7 +72,23 @@
 			form.appendChild(paymentField);
 		}
 
-		paymentField.value = paidPlans[planField.value] ? 'manual_invoice' : '';
+		var isManualInvoice = !!paidPlans[planField.value];
+		paymentField.value = isManualInvoice ? 'manual_invoice' : '';
+		return isManualInvoice;
+	}
+
+	function syncBillingFields(form) {
+		var billingFields = form.querySelector('[data-manual-billing-fields]');
+		var isManualInvoice = syncPaymentPath(form);
+
+		if (!billingFields) {
+			return;
+		}
+
+		billingFields.hidden = !isManualInvoice;
+		billingFields.querySelectorAll('[data-manual-billing-required]').forEach(function (field) {
+			field.required = isManualInvoice;
+		});
 	}
 
 	function readUrlAttribution() {
@@ -144,12 +160,12 @@
 
 		form.dataset.wizardReady = '1';
 		syncAttributionFields(form);
-		syncPaymentPath(form);
+		syncBillingFields(form);
 
 		var planField = form.querySelector('[name="plan_interest"]');
 		if (planField) {
 			planField.addEventListener('change', function () {
-				syncPaymentPath(form);
+				syncBillingFields(form);
 			});
 		}
 
@@ -164,7 +180,7 @@
 				title: 'התאמת תחום',
 				kicker: 'שלב 2',
 				description: 'תחום עיסוק, אזורי שירות, שפות, אתר קיים, מסלול רצוי וזמינות למענה לפניות.',
-				fields: ['practice_area', 'cities_served', 'languages', 'website', 'plan_interest', 'lead_response_commitment']
+				fields: ['practice_area', 'cities_served', 'languages', 'website', 'plan_interest', 'billing_fields', 'lead_response_commitment']
 			},
 			{
 				title: 'חומר למיני-סייט',
@@ -216,6 +232,14 @@
 			var fields = document.createElement('div');
 			fields.className = 'lawyer-registration-wizard__fields';
 			config.fields.forEach(function (fieldName) {
+				if (fieldName === 'billing_fields') {
+					var billingFields = form.querySelector('[data-manual-billing-fields]');
+					if (billingFields) {
+						fields.appendChild(billingFields);
+					}
+					return;
+				}
+
 				var label = closestLabelByName(form, fieldName);
 				if (label) {
 					fields.appendChild(label);
@@ -275,6 +299,7 @@
 
 		form.insertBefore(wizard, grid);
 		grid.remove();
+		syncBillingFields(form);
 		setStep(0, stepElements, navItems);
 	});
 }());

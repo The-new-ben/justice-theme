@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 13:42 Asia/Jerusalem
+- DYNAMIC PAID BILLING FIELDS ADDED: `/lawyer-registration/` now keeps manual-invoice billing fields in the form markup and reveals them when a lawyer selects a paid plan inside the wizard.
+- UPDATED: `page-lawyer-registration.php`, `assets/js/lawyer-registration-wizard.js`, and `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-registration-dynamic-billing-fields-2026-05-25.md`.
+- GENERATED: `reports/lawyer-registration-dynamic-billing-fields-2026-05-25.json`.
+- MATERIAL ADVANCE: a lawyer no longer has to arrive through a special paid-plan URL to provide billing details; generic registration can now convert into a paid manual-invoice handoff from inside the same customer journey.
+- VERIFIED LOCAL: `php -l page-lawyer-registration.php`, `php -l inc/enqueue.php`, `node --check assets/js/lawyer-registration-wizard.js`, JSON parse, and `git diff --check` passed.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves the paid signup handoff but does not prove a Grow/Woo payment or invoice.
+- SAFETY: theme/form behavior only; no CMS/database record, competitor content, payment gateway setting, charge, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 13:28 Asia/Jerusalem
 - CLAIM ADMIN QUEUE ADDED: `Lawyer Onboarding` now has a `claim_queue=1` path for public-card claim registrations, and admin rows/side boxes resolve the claimed public card with public/edit links.
 - UPDATED: `inc/lawyer-onboarding.php`.

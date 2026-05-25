@@ -46,6 +46,8 @@ function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool 
 		return;
 	}
 
+	justice_theme_apply_lead_revenue_hint( $post_id, $area );
+
 	// Was this lead already assigned to a specific lawyer (e.g., from a lawyer's mini-site form)?
 	$assigned_lawyer_id = (int) get_post_meta( $post_id, 'assigned_lawyer_id', true );
 
@@ -97,6 +99,39 @@ function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool 
 // Priority 30 = runs after the lead classifier (priority 20).
 add_action( 'save_post_justice_lead', 'justice_theme_route_lead_to_lawyers', 30, 3 );
 
+/**
+ * Add owner-facing revenue hints for lead products that have a clear price model.
+ *
+ * @param int    $post_id Lead post ID.
+ * @param string $area    Normalized legal area.
+ */
+function justice_theme_apply_lead_revenue_hint( int $post_id, string $area ): void {
+	$normalized_area = function_exists( 'justice_theme_normalize_lead_area' )
+		? justice_theme_normalize_lead_area( $area )
+		: sanitize_key( $area );
+
+	if ( 'national-insurance' !== $normalized_area ) {
+		return;
+	}
+
+	update_post_meta( $post_id, 'lead_revenue_model', 'qualified_appeal_lead' );
+	update_post_meta( $post_id, 'suggested_lead_price_ils', '249' );
+	update_post_meta(
+		$post_id,
+		'lead_revenue_notes',
+		'Bituach Leumi appeal lead: verify decision date, committee protocol, medical documents, and consent before lawyer handoff.'
+	);
+}
+
+/**
+ * Subscription statuses that are allowed to receive automatically routed leads.
+ *
+ * @return string[]
+ */
+function justice_theme_paid_routing_subscription_statuses(): array {
+	return array( 'active', 'paid', 'trialing' );
+}
+
 function justice_theme_route_lead_after_meta_write( $meta_id, int $post_id, string $meta_key, $meta_value ): void {
 	if ( ! in_array( $meta_key, array( 'message', 'legal_area', 'ai_detected_area', 'assigned_lawyer_id' ), true ) ) {
 		return;
@@ -145,9 +180,15 @@ function justice_theme_find_routing_lawyers( string $area ): array {
 			),
 		),
 		'meta_query'     => array(
+			'relation' => 'AND',
 			array(
 				'key'   => 'lead_routing_enabled',
 				'value' => '1',
+			),
+			array(
+				'key'     => 'subscription_status',
+				'value'   => justice_theme_paid_routing_subscription_statuses(),
+				'compare' => 'IN',
 			),
 		),
 	) );

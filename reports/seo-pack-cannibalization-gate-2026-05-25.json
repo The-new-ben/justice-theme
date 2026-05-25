@@ -1,0 +1,150 @@
+{
+  "generated_at": "2026-05-25 Asia/Jerusalem",
+  "status": "PUBLICATION_BLOCKED_FOR_REVIEW",
+  "proposed_pages": 7,
+  "do_not_publish_as_new": 7,
+  "hold_draft": 0,
+  "high_risk": 7,
+  "medium_risk": 0,
+  "rows": [
+    {
+      "proposed_slug": "/divorce-family-lawyer/",
+      "primary_keyword": "עורך דין גירושין ודיני משפחה",
+      "canonical_candidate": "/divorce-lawyer/",
+      "recommendation": "MERGE_INTO_EXISTING_HUB_NO_NEW_URL",
+      "allowed_action": "DO_NOT_PUBLISH_AS_NEW_PAGE",
+      "risk": "HIGH_CLUSTER_OVERLAP",
+      "exact_match_count": 0,
+      "related_match_count": 27,
+      "sample_existing_urls": [
+        "http://jus-tice.co.il/family-dispute-resolution/",
+        "http://jus-tice.co.il/divorce-property-division/",
+        "http://jus-tice.co.il/child-custody/",
+        "http://jus-tice.co.il/child-support/",
+        "http://jus-tice.co.il/divorce-mediation/"
+      ],
+      "owner_approval_required": "YES",
+      "gsc_required": "YES",
+      "reason": "Owner clarified divorce lawyer and family-law lawyer should reinforce one Hebrew commercial signal. Existing /divorce-lawyer/ and family support pages already exist."
+    },
+    {
+      "proposed_slug": "/real-estate-lawyer/",
+      "primary_keyword": "עורך דין מקרקעין",
+      "canonical_candidate": "/real-estate-attorney/",
+      "recommendation": "MAP_TO_EXISTING_REAL_ESTATE_HUB_NO_NEW_URL",
+      "allowed_action": "DO_NOT_PUBLISH_AS_NEW_PAGE",
+      "risk": "HIGH_CLUSTER_OVERLAP",
+      "exact_match_count": 0,
+      "related_match_count": 5,
+      "sample_existing_urls": [
+        "http://jus-tice.co.il/real-estate-lawyer-cost-2025/",
+        "http://jus-tice.co.il/land-appreciation-tax/",
+        "http://jus-tice.co.il/registration-of-real-estate-israel/",
+        "http://jus-tice.co.il/real-estate-attorney/",
+        "http://jus-tice.co.il/lawyer-for-buying-or-selling-a-house/"
+      ],
+      "owner_approval_required": "YES",
+      "gsc_required": "YES",
+      "reason": "Existing /real-estate-attorney/ is the current real-estate money hub; publishing /real-estate-lawyer/ as a new page would split intent unless a slug migration is approved."
+    },
+    {
+      "proposed_slug": "/medical-malpractice-lawyer/",
+      "primary_keyword": "עורך דין רשלנות רפואית",
+      "canonical_candidate": "/medical-malpractice-lawyer/",
+      "recommendation": "UPDATE_EXISTING_EXACT_URL_ONLY",
+      "allowed_action": "DO_NOT_PUBLISH_AS_NEW_PAGE",
+      "risk": "HIGH_EXACT_OR_DUPLICATE_URL",
+      "exact_match_count": 2,
+      "related_match_count": 53,
+      "sample_existing_urls": [
+        "http://jus-tice.co.il/%D7%A2%D7%95%D7%A8%D7%9B%D7%99-%D7%93%D7%99%D7%9F-%D7%9E%D7%95%D7%91%D7%99%D7%9C%D7%99%D7%9D-%D7%91%D7%AA%D7%97%D7%95%D7%9D-%D7%A8%D7%A9%D7%9C%D7%A0%D7%95%D7%AA-%D7%A8%D7%A4%D7%95%D7%90%D7%99%D7%AA-%D7%91%D7%A2%D7%95%D7%9C%D7%9D/",
+        "http://jus-tice.co.il/%D7%9E%D7%A7%D7%A8%D7%99-%D7%A8%D7%A9%D7%9C%D7%A0%D7%95%D7%AA-%D7%A8%D7%A4%D7%95%D7%90%D7%99%D7%AA-%D7%91%D7%9C%D7%99%D7%93%D7%94-%D7%95%D7%98%D7%99%D7%A4%D7%95%D7%9C-%D7%9E%D7%A9%D7%A4%D7%98%D7%99/",
+        "http://jus-tice.co.il/%D7%A2%D7%95%D7%A8%D7%9A-%D7%93%D7%99%D7%9F-%D7%A8%D7%A9%D7%9C%D7%A0%D7%95%D7%AA-%D7%A8%D7%A4%D7%95%D7%90%D7%99%D7%AA-%D7%91%D7%9C%D7%99%D7%93%D7%94-%D7%9E%D7%95%D7%9E%D7%9C%D7%A5/",
+        "http://jus-tice.co.il/medical-malpractice-vs-negligence-differences-israel/",
+        "http://jus-tice.co.il/medical-malpractice-lawyer/"
+      ],
+      "owner_approval_required": "YES",
+      "gsc_required": "YES",
+      "reason": "Exact public URL already exists in the export, including duplicate export rows. Use the draft as a repair/merge source, not as a new page."
+    },
+    {
+      "proposed_slug": "/inheritance-wills-lawyer/",
+      "primary_keyword": "עורך דין ירושה וצוואות",
+      "canonical_candidate": "/inheritance/",
+      "recommendation": "DRAFT_ONLY_SELECT_PRIMARY_WITH_GSC",
+      "allowed_action": "DO_NOT_PUBLISH_AS_NEW_PAGE",
+      "risk": "HIGH_CLUSTER_OVERLAP",
+      "exact_match_count": 0,
+      "related_match_count": 7,
+      "sample_existing_urls": [
+        "http://jus-tice.co.il/international-inheritance-wills-lawyer/",
+        "http://jus-tice.co.il/inheritance/",
+        "http://jus-tice.co.il/will-probate-objection/",
+        "http://jus-tice.co.il/what-is-a-probate-order/",
+        "http://jus-tice.co.il/maximize-an-inheritance/"
+      ],
+      "owner_approval_required": "YES",
+      "gsc_required": "YES",
+      "reason": "Inheritance/wills pages already exist but the commercial lawyer hub is not cleanly resolved. Needs GSC/SERP primary selection before publishing a new commercial URL."
+    },
+    {
+      "proposed_slug": "/criminal-lawyer/",
+      "primary_keyword": "עורך דין פלילי",
+      "canonical_candidate": "/criminal-lawyer/",
+      "recommendation": "DRAFT_ONLY_MERGE_REVIEW_REQUIRED",
+      "allowed_action": "DO_NOT_PUBLISH_AS_NEW_PAGE",
+      "risk": "HIGH_CLUSTER_OVERLAP",
+      "exact_match_count": 0,
+      "related_match_count": 5,
+      "sample_existing_urls": [
+        "http://jus-tice.co.il/criminal-prosecutions/",
+        "http://jus-tice.co.il/drug-offenses-criminal-lawyer/",
+        "http://jus-tice.co.il/tax-offenses-criminal-lawyer/",
+        "http://jus-tice.co.il/top-criminal-lawyer-tel-aviv/",
+        "http://jus-tice.co.il/what-to-consider-when-hiring-a-criminal-lawyer/"
+      ],
+      "owner_approval_required": "YES",
+      "gsc_required": "YES",
+      "reason": "No clean exact /criminal-lawyer/ primary was found, but multiple criminal pages overlap. Select a primary and plan redirects later with approval."
+    },
+    {
+      "proposed_slug": "/employment-lawyer/",
+      "primary_keyword": "עורך דין דיני עבודה",
+      "canonical_candidate": "/labor-lawyer/",
+      "recommendation": "MAP_TO_EXISTING_LABOR_PAGE_REVIEW",
+      "allowed_action": "DO_NOT_PUBLISH_AS_NEW_PAGE",
+      "risk": "HIGH_CLUSTER_OVERLAP",
+      "exact_match_count": 0,
+      "related_match_count": 3,
+      "sample_existing_urls": [
+        "http://jus-tice.co.il/coronavirus-employers-guide/",
+        "http://jus-tice.co.il/employment-contract/",
+        "http://jus-tice.co.il/labor-lawyer/"
+      ],
+      "owner_approval_required": "YES",
+      "gsc_required": "YES",
+      "reason": "Existing /labor-lawyer/ and employment pages already target the topic. Do not create /employment-lawyer/ before slug strategy review."
+    },
+    {
+      "proposed_slug": "/tax-business-lawyer/",
+      "primary_keyword": "עורך דין מיסים ועסקים",
+      "canonical_candidate": "/tax-lawyer/",
+      "recommendation": "MAP_TO_EXISTING_TAX_PAGE_REVIEW",
+      "allowed_action": "DO_NOT_PUBLISH_AS_NEW_PAGE",
+      "risk": "HIGH_CLUSTER_OVERLAP",
+      "exact_match_count": 0,
+      "related_match_count": 5,
+      "sample_existing_urls": [
+        "http://jus-tice.co.il/business-license/",
+        "http://jus-tice.co.il/tax-offenses-criminal-lawyer/",
+        "http://jus-tice.co.il/tax-lawyer/",
+        "http://jus-tice.co.il/list-of-taxes-portugal/",
+        "http://jus-tice.co.il/cyprus-corporate-tax/"
+      ],
+      "owner_approval_required": "YES",
+      "gsc_required": "YES",
+      "reason": "Existing /tax-lawyer/ page targets tax-lawyer intent. Business/legal startup topics may be separate support pages, not a new broad duplicate."
+    }
+  ],
+  "safety_statement": "Review artifact only. No CMS/database, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4, payment, invoice or provider setting changed."
+}

@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-25 19:34 Asia/Jerusalem
+- SEO PACK CANNIBALIZATION GATE ADDED: checked the 7 proposed SEO-pack page drafts against the current public URL export before any WordPress publishing.
+- ADDED: `tools/check-seo-pack-cannibalization-gate.mjs`, `project-control/seo-pack-cannibalization-gate-2026-05-25.md`, `reports/seo-pack-cannibalization-gate-2026-05-25.json`, and `reports/seo-pack-cannibalization-gate-2026-05-25.csv`.
+- RESULT: `PUBLICATION_BLOCKED_FOR_REVIEW`.
+- DECISION: all 7 proposed new page slugs must not be published as new public URLs yet; use them as repair/merge drafts for existing hubs or hold for GSC/SERP primary selection.
+- KEY MAPPINGS: `/divorce-family-lawyer/` -> review/merge into `/divorce-lawyer/`; `/real-estate-lawyer/` -> map to `/real-estate-attorney/`; `/medical-malpractice-lawyer/` -> update existing exact URL only; inheritance/criminal/employment/tax all require primary selection or existing-page review.
+- REVENUE STATUS: realized lawyer revenue remains NIS 0. Review artifact only; no CMS record, supplier record, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 19:22 Asia/Jerusalem
 - SEO PACK VALIDATION GATE ADDED: added a rerunnable checker for the generated SEO/content pack.
 - ADDED: `tools/check-justice-seo-pack.mjs`, `project-control/justice-seo-pack-validation-2026-05-25.md`, and `reports/justice-seo-pack-validation-2026-05-25.json`.

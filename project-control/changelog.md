@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - SEO pack cannibalization gate
+
+- ADDED: `tools/check-seo-pack-cannibalization-gate.mjs`.
+- ADDED: `project-control/seo-pack-cannibalization-gate-2026-05-25.md`.
+- ADDED: `reports/seo-pack-cannibalization-gate-2026-05-25.json`.
+- ADDED: `reports/seo-pack-cannibalization-gate-2026-05-25.csv`.
+- PURPOSE: stop the generated SEO pack from being pasted into WordPress as duplicate/cannibalizing public pages.
+- RESULT: `PUBLICATION_BLOCKED_FOR_REVIEW`; all 7 proposed new page slugs are blocked from new-public-URL publishing until GSC/SERP/owner approval.
+- DECISIONS: use `/divorce-family-lawyer/` as a merge draft for `/divorce-lawyer/`; map `/real-estate-lawyer/` to existing `/real-estate-attorney/`; update existing `/medical-malpractice-lawyer/` only; inheritance, criminal, employment and tax drafts require primary selection or existing-page repair review.
+- SAFETY: review artifact only; no public CMS database record, public page publish, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4, payment, invoice, refund, email or provider setting changed.
+
 # 2026-05-25 - SEO pack validation gate
 
 - ADDED: `tools/check-justice-seo-pack.mjs`.

@@ -1,6 +1,12 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor launchpad payment link-in
+
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` with a payment lifecycle badge, ordered drill step and supporting-file link.
+- PURPOSE: keep the investor demo controlled from one screen when payment, invoice, refund, cancellation, upgrade/downgrade or complaint questions come up.
+- SAFETY: local project-control HTML artifact only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Investor payment lifecycle playbook
 
 - ADDED: `project-control/investor-payment-lifecycle-playbook-2026-05-25.md` with the real-money demo path for payment links, invoices, upgrades, downgrades, cancellations, refunds, complaints, lead reporting and support.

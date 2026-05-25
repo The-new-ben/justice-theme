@@ -130,10 +130,18 @@ Already shipped:
 - Each source-pack candidate row now includes a copy-ready verification brief
   covering source, focus, evidence, five checks before routing and the
   no-promise/no-public-profile boundary.
+- Source-pack progress tracking added to the private Bituach Leumi CRM panel:
+  the panel now counts total source-pack candidates, private prospects already
+  created from matching source URLs, and remaining candidates still needing
+  manual private prospect creation. Candidate rows now show "Already in
+  pipeline" with a direct private prospect link instead of inviting duplicate
+  CRM creation.
 
 Remaining:
 
 - Recruit 3 specialist lawyers.
+- Convert source-pack candidates into verified private prospects, starting
+  with the high-priority rows.
 - Run a real test lead.
 - Mark first billable qualified lead in CRM.
 - Use manual invoice/payment path until Grow/Meshulam is ready.

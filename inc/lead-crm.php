@@ -221,6 +221,8 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 	$needs_verification_url = add_query_arg( 'justice_prospect_verification_filter', 'needs', $pipeline_url );
 	$ready_verification_url = add_query_arg( 'justice_prospect_verification_filter', 'ready', $pipeline_url );
 	$source_pack_path       = 'project-control/btl-specialist-prospect-shortlist-2026-05-26.md';
+	$source_pack_rows       = justice_theme_crm_read_btl_source_pack( 100 );
+	$source_pack_progress   = justice_theme_crm_btl_source_pack_progress( $source_pack_rows );
 	?>
 	<h2 style="margin-top:28px;">Bituach Leumi specialist supply</h2>
 	<p>Owner-only coverage check for the active appeal funnel. The first goal is three specialist lawyers who can receive and pay for qualified appeal leads.</p>
@@ -246,6 +248,18 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 			<strong style="display:block;font-size:24px;">₪1,490</strong>
 			<span>Suggested Lead Partner target/mo</span>
 		</div>
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $source_pack_progress['total'] ); ?></strong>
+			<span>Source-pack candidates</span>
+		</div>
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $source_pack_progress['created'] ); ?></strong>
+			<span>Already in pipeline</span>
+		</div>
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $source_pack_progress['remaining'] ); ?></strong>
+			<span>Still to create privately</span>
+		</div>
 	</div>
 	<p>
 		<a class="button button-primary" href="<?php echo esc_url( $add_url ); ?>">Add Bituach Leumi prospect</a>
@@ -264,7 +278,7 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 		</div>
 	<?php endif; ?>
 	<?php justice_theme_crm_render_btl_candidate_tracker( $btl_needles ); ?>
-	<?php justice_theme_crm_render_btl_source_pack_candidates(); ?>
+	<?php justice_theme_crm_render_btl_source_pack_candidates( $source_pack_rows ); ?>
 	<?php justice_theme_crm_render_btl_outreach_pack(); ?>
 	<?php
 }
@@ -346,12 +360,14 @@ function justice_theme_crm_render_btl_candidate_tracker( array $needles ): void 
 	<?php
 }
 
-function justice_theme_crm_render_btl_source_pack_candidates(): void {
-	$rows = justice_theme_crm_read_btl_source_pack( 10 );
+function justice_theme_crm_render_btl_source_pack_candidates( ?array $rows = null ): void {
+	$rows             = null === $rows ? justice_theme_crm_read_btl_source_pack( 100 ) : $rows;
+	$display_rows     = array_slice( $rows, 0, 10 );
+	$existing_sources = justice_theme_crm_btl_existing_prospect_sources();
 	?>
 	<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;margin:12px 0 20px;">
 		<h3 style="margin-top:0;">Source-pack candidates</h3>
-		<p style="margin-top:0;color:#646970;">Private candidate list from the repo source pack. Buttons prefill a private prospect draft; they do not create a record until the owner saves it.</p>
+		<p style="margin-top:0;color:#646970;">Private candidate list from the repo source pack. Buttons prefill a private prospect draft; they do not create a record until the owner saves it. Rows marked as already in pipeline have a matching private prospect source URL.</p>
 		<?php if ( empty( $rows ) ) : ?>
 			<div class="notice notice-info inline"><p>No source-pack candidates loaded from the repo CSV.</p></div>
 		<?php else : ?>
@@ -366,8 +382,13 @@ function justice_theme_crm_render_btl_source_pack_candidates(): void {
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach ( $rows as $row ) : ?>
-						<?php $brief_id = 'justice-btl-source-brief-' . substr( md5( (string) ( $row['source_url'] ?? '' ) ), 0, 10 ); ?>
+					<?php foreach ( $display_rows as $row ) : ?>
+						<?php
+						$source_key   = justice_theme_crm_normalize_source_url( (string) ( $row['source_url'] ?? '' ) );
+						$existing_ids = $source_key && ! empty( $existing_sources[ $source_key ] ) ? $existing_sources[ $source_key ] : array();
+						$existing_id  = $existing_ids ? (int) $existing_ids[0] : 0;
+						$brief_id     = 'justice-btl-source-brief-' . substr( md5( (string) ( $row['source_url'] ?? '' ) ), 0, 10 );
+						?>
 						<tr>
 							<td>
 								<strong><?php echo esc_html( $row['candidate'] ?? '' ); ?></strong>
@@ -382,7 +403,12 @@ function justice_theme_crm_render_btl_source_pack_candidates(): void {
 							<td><?php echo esc_html( $row['priority'] ?? '' ); ?></td>
 							<td><?php echo esc_html( $row['source_evidence_summary'] ?? '' ); ?></td>
 							<td>
-								<a class="button button-small" href="<?php echo esc_url( justice_theme_crm_btl_source_candidate_prefill_url( $row ) ); ?>">Add private prospect</a>
+								<?php if ( $existing_id ) : ?>
+									<strong style="color:#008a20;">Already in pipeline</strong>
+									<br><a class="button button-small" style="margin-top:6px;" href="<?php echo esc_url( get_edit_post_link( $existing_id, '' ) ); ?>">Open private prospect</a>
+								<?php else : ?>
+									<a class="button button-small" href="<?php echo esc_url( justice_theme_crm_btl_source_candidate_prefill_url( $row ) ); ?>">Add private prospect</a>
+								<?php endif; ?>
 								<br><small><?php echo esc_html( $row['verification_status'] ?? 'not_verified' ); ?></small>
 								<details style="margin-top:8px;">
 									<summary style="cursor:pointer;">Verification brief</summary>
@@ -396,9 +422,64 @@ function justice_theme_crm_render_btl_source_pack_candidates(): void {
 					<?php endforeach; ?>
 				</tbody>
 			</table>
+			<?php if ( count( $rows ) > count( $display_rows ) ) : ?>
+				<p style="color:#646970;margin-bottom:0;">Showing the first <?php echo esc_html( (string) count( $display_rows ) ); ?> of <?php echo esc_html( (string) count( $rows ) ); ?> source-pack candidates, sorted by priority.</p>
+			<?php endif; ?>
 		<?php endif; ?>
 	</div>
 	<?php
+}
+
+function justice_theme_crm_normalize_source_url( string $url ): string {
+	$url = esc_url_raw( trim( $url ) );
+	if ( '' === $url ) {
+		return '';
+	}
+
+	return strtolower( untrailingslashit( $url ) );
+}
+
+function justice_theme_crm_btl_existing_prospect_sources(): array {
+	$query = justice_theme_crm_query_lawyer_prospects( 500 );
+	if ( ! $query || empty( $query->posts ) ) {
+		return array();
+	}
+
+	$sources = array();
+	foreach ( $query->posts as $post ) {
+		$post_id    = (int) $post->ID;
+		$source_key = justice_theme_crm_normalize_source_url( (string) get_post_meta( $post_id, 'prospect_source_url', true ) );
+		if ( '' === $source_key ) {
+			continue;
+		}
+
+		if ( ! isset( $sources[ $source_key ] ) ) {
+			$sources[ $source_key ] = array();
+		}
+
+		$sources[ $source_key ][] = $post_id;
+	}
+
+	return $sources;
+}
+
+function justice_theme_crm_btl_source_pack_progress( array $rows ): array {
+	$existing_sources = justice_theme_crm_btl_existing_prospect_sources();
+	$created          = 0;
+
+	foreach ( $rows as $row ) {
+		$source_key = justice_theme_crm_normalize_source_url( (string) ( $row['source_url'] ?? '' ) );
+		if ( $source_key && ! empty( $existing_sources[ $source_key ] ) ) {
+			$created++;
+		}
+	}
+
+	$total = count( $rows );
+	return array(
+		'total'     => $total,
+		'created'   => $created,
+		'remaining' => max( 0, $total - $created ),
+	);
 }
 
 function justice_theme_crm_read_btl_source_pack( int $limit = 10 ): array {

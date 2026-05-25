@@ -249,7 +249,73 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 			<p><strong>Coverage ready:</strong> enough specialist coverage exists for the first routing test. Run one real lead and confirm billing status.</p>
 		</div>
 	<?php endif; ?>
+	<?php justice_theme_crm_render_btl_outreach_pack(); ?>
 	<?php
+}
+
+function justice_theme_crm_render_btl_outreach_pack(): void {
+	$templates = justice_theme_crm_btl_outreach_templates();
+	?>
+	<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;margin:12px 0 20px;">
+		<h3 style="margin-top:0;">Bituach Leumi recruitment packet</h3>
+		<p style="margin-top:0;color:#646970;">Copy-ready owner scripts for recruiting the first three specialist lawyers. Manual use only; nothing is sent from this screen.</p>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;">
+			<?php foreach ( $templates as $key => $template ) : ?>
+				<div>
+					<label for="justice-btl-template-<?php echo esc_attr( $key ); ?>"><strong><?php echo esc_html( $template['label'] ); ?></strong></label>
+					<textarea id="justice-btl-template-<?php echo esc_attr( $key ); ?>" rows="8" readonly style="width:100%;margin-top:6px;"><?php echo esc_textarea( $template['body'] ); ?></textarea>
+					<p style="margin:6px 0 0;">
+						<button type="button" class="button" data-justice-copy-target="justice-btl-template-<?php echo esc_attr( $key ); ?>">Copy</button>
+					</p>
+				</div>
+			<?php endforeach; ?>
+		</div>
+		<h4>Qualification checklist before routing leads</h4>
+		<ul style="list-style:disc;margin-inline-start:20px;">
+			<li>Verify Israeli Bar license and current professional status.</li>
+			<li>Confirm real experience with Bituach Leumi appeals, medical committees or labor-court appeals.</li>
+			<li>Confirm response speed for urgent appeal-window cases.</li>
+			<li>Confirm willingness to use manual invoice/payment path until Grow/Meshulam is fully active.</li>
+			<li>Do not promise rankings, lead volume, case outcomes or compensation amounts.</li>
+		</ul>
+	</div>
+	<script>
+		(function () {
+			document.addEventListener('click', function (event) {
+				var button = event.target.closest('[data-justice-copy-target]');
+				if (!button || !navigator.clipboard) {
+					return;
+				}
+
+				var target = document.getElementById(button.getAttribute('data-justice-copy-target'));
+				if (!target) {
+					return;
+				}
+
+				navigator.clipboard.writeText(target.value).then(function () {
+					var previous = button.textContent;
+					button.textContent = 'Copied';
+					setTimeout(function () {
+						button.textContent = previous;
+					}, 1200);
+				});
+			});
+		}());
+	</script>
+	<?php
+}
+
+function justice_theme_crm_btl_outreach_templates(): array {
+	return array(
+		'initial' => array(
+			'label' => 'Initial specialist outreach',
+			'body'  => "שלום [שם עורך/ת הדין],\n\nאני פונה מ-Jus-Tice. אנחנו מפעילים מסלול ממוקד לפניות של אנשים שקיבלו החלטה מביטוח לאומי ורוצים להבין אם נכון לבדוק ערעור, מסמכים חסרים או מועד פעולה.\n\nאנחנו מחפשים כעת מספר מצומצם של עורכי דין שמתמחים בביטוח לאומי, ועדות רפואיות או ערעורים לבית הדין לעבודה, ושיכולים להגיב בזמן סביר לפניות דחופות.\n\nחשוב לי לדייק: אין התחייבות לכמות לידים, אין הבטחה לתוצאה משפטית, ואין שימוש בטענות של \"מומלץ\" או \"הכי טוב\". בשלב הראשון מדובר בבדיקת התאמה ובמסלול ידני ושקוף.\n\nאם זה רלוונטי, אשמח לשוחח 10 דקות ולבדוק התאמה ראשונית.\n\nבברכה,\nJus-Tice",
+		),
+		'qualification' => array(
+			'label' => 'Qualification questions',
+			'body'  => "שאלות בדיקה לפני הפעלת מסלול ביטוח לאומי:\n\n1. באילו סוגי תיקים בביטוח לאומי אתם מטפלים בפועל?\n2. האם אתם מטפלים בעררים על ועדות רפואיות, נכות מעבודה, נכות כללית או ערעורים לבית הדין לעבודה?\n3. מה זמן התגובה שלכם לפנייה שבה המועד לערעור קרוב?\n4. האם אתם מוכנים לקבל פניות בשלב ראשון במסלול ידני, עם חשבונית/קישור תשלום ידני עד שהאוטומציה מלאה?\n5. האם יש אזורים בארץ או סוגי תיקים שאינכם מקבלים?\n6. האם ניתן לאמת רישיון, פרופיל מקצועי ותחומי התמחות לפני הפעלת הפניות?",
+		),
+	);
 }
 
 function justice_theme_crm_count_active_routing_lawyers_for_area( string $area_slug ): int {

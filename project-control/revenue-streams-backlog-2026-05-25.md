@@ -102,6 +102,9 @@ Already shipped:
   active routable paid specialists, counts open prospects, shows the gap to the
   first three specialists, and opens a prefilled prospect form without creating
   public profiles.
+- Owner-only Bituach Leumi recruitment packet in Justice CRM with copy-ready
+  initial outreach text, qualification questions and a credential/response
+  checklist. It does not send messages automatically.
 
 Remaining:
 

@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer index/profile visual trust polish
+
+- UPDATED: `template-parts/cards/lawyer-card.php`, `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, and `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-index-profile-visual-trust-polish-2026-05-25.md`.
+- PURPOSE: address investor-visible lawyer card/profile polish issues without publishing fake-looking photos or unverified profile facts.
+- IMPLEMENTATION: added card state classes, dedicated thumbnail image markup, stronger portrait-slot CSS, clamped card summaries, fact-gated initials presentation, safe hero-title fallback for fact-gated mini-sites, and hidden proof-number strip for fact-gated profiles.
+- RESEARCH BASIS: checked current LawReviews, Psakdin and Din directory/profile patterns; implementation is original and does not copy competitor lawyer data, photos, ratings, reviews or text.
+- VERIFIED LOCAL: `php -l template-parts/cards/lawyer-card.php`, `php -l single-justice_lawyer.php`, and `php -l inc/enqueue.php` passed.
+- SAFETY: no CMS database write, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-25 - Lawyer onboarding service request owner actions
 
 - UPDATED: `inc/lawyer-onboarding.php`.

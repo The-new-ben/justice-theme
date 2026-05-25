@@ -901,6 +901,102 @@
   }
 }
 
+/* Investor polish: professional index cards without fake-looking media or text collisions. */
+.lawyers-grid .lawyer-card,
+.featured-lawyers__grid .lawyer-card {
+  position: relative;
+  box-sizing: border-box;
+  min-height: 100%;
+  padding: 1rem;
+  text-align: start;
+  overflow: hidden;
+}
+
+.lawyers-grid .lawyer-card__media,
+.featured-lawyers__grid .lawyer-card__media {
+  align-self: start;
+  box-shadow: inset 0 0 0 1px rgba(7, 21, 47, 0.08);
+}
+
+.lawyer-card__photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 18%;
+}
+
+.lawyer-card--initials .lawyer-card__media {
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.14),
+    0 14px 32px rgba(7, 21, 47, 0.1);
+}
+
+.lawyer-card--fact-gated .lawyer-card__media {
+  background:
+    linear-gradient(135deg, rgba(7, 21, 47, 0.96), rgba(18, 44, 83, 0.92)),
+    radial-gradient(circle at 24% 20%, rgba(197, 164, 92, 0.24), transparent 34%);
+}
+
+.lawyer-card--fact-gated .lawyer-card__summary {
+  color: #475569;
+}
+
+.lawyers-grid .lawyer-card__body,
+.featured-lawyers__grid .lawyer-card__body {
+  display: grid;
+  align-content: start;
+  gap: 0.35rem;
+  overflow: hidden;
+}
+
+.lawyers-grid .lawyer-card__summary,
+.featured-lawyers__grid .lawyer-card__summary {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.lawyers-grid .lawyer-card__proof,
+.featured-lawyers__grid .lawyer-card__proof {
+  margin-block: 0.2rem 0.75rem;
+}
+
+.lawyers-grid .lawyer-card__actions,
+.featured-lawyers__grid .lawyer-card__actions {
+  align-self: end;
+  margin-top: 0.1rem;
+}
+
+.lawyer-mini-site--fact-gated .lawyer-mini-proof {
+  display: none;
+}
+
+.lawyer-mini-site--fact-gated .lawyer-mini-hero__photo {
+  background:
+    linear-gradient(145deg, #f8f4e9, #d8c48f),
+    radial-gradient(circle at 26% 24%, rgba(7, 21, 47, 0.18), transparent 36%);
+}
+
+.lawyer-mini-site--fact-gated .lawyer-mini-hero h1 {
+  max-width: 760px;
+  font-size: clamp(2rem, 5vw, 3.8rem);
+}
+
+@media (max-width: 480px) {
+  .lawyers-grid .lawyer-card,
+  .featured-lawyers__grid .lawyer-card {
+    grid-template-columns: 1fr;
+  }
+
+  .lawyers-grid .lawyer-card__media,
+  .featured-lawyers__grid .lawyer-card__media {
+    max-width: none;
+    aspect-ratio: 16 / 9;
+  }
+}
+
 /* Customer intake strip */
 .customer-intake-strip {
   background: #fff;

@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 16:25 Asia/Jerusalem
+- LAWYER INDEX/PROFILE VISUAL TRUST POLISH ADDED: lawyer cards now have explicit visual/trust states and fact-gated lawyer mini-sites no longer use unverified marketing headlines or proof-number strips.
+- UPDATED: `template-parts/cards/lawyer-card.php`, `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, and `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-index-profile-visual-trust-polish-2026-05-25.md`.
+- MATERIAL ADVANCE: this addresses the investor-visible complaint that lawyer cards/profile imagery looked generic or unsafe. Directory/homepage cards now use stable portrait slots, clamped summaries and initials fallback for fact-gated profiles; fact-gated mini-sites use the safe post title and suppress placeholder proof metrics.
+- RESEARCH BASIS: checked current competitor direction from LawReviews, Psakdin and Din. The pattern is broad directory coverage plus profile/review/contact trust signals, but profile depth and photos must be governed. Implementation is original and does not copy competitor lawyer data, photos, ratings, reviews or text.
+- VERIFIED LOCAL / DEPLOY BLOCKED: `php -l template-parts/cards/lawyer-card.php`, `php -l single-justice_lawyer.php`, and `php -l inc/enqueue.php` passed; production still needs uPress Pull Git because Codex still has no active browser pane for uPress.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves investor/demo trust and lawyer upgrade conversion readiness, but it does not prove payment, invoice, refund, subscription, lead delivery or CRM monetization.
+- SAFETY: repo display/CSS/docs only; no live CMS database edit, competitor lawyer/profile import, competitor asset/content copy, payment, invoice, refund, email to customer, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 16:08 Asia/Jerusalem
 - OWNER SERVICE-REQUEST ACTIONS ADDED: Lawyer Onboarding now has one-click owner actions for lawyer service/billing/refund/cancellation/complaint requests.
 - UPDATED: `inc/lawyer-onboarding.php`.

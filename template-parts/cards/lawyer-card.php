@@ -107,6 +107,25 @@ $show_thumbnail  = $has_thumbnail
 		|| 'verified' === strtolower( (string) $verified )
 		|| in_array( strtolower( (string) $source_type ), array( 'lawyer_submitted', 'owner_verified', 'verified_public' ), true )
 	);
+$card_classes    = array( 'lawyer-card', 'premium-card' );
+
+if ( $show_thumbnail ) {
+	$card_classes[] = 'lawyer-card--has-photo';
+} else {
+	$card_classes[] = 'lawyer-card--initials';
+}
+
+if ( $is_basic_public ) {
+	$card_classes[] = 'lawyer-card--basic-index';
+}
+
+if ( $is_paid ) {
+	$card_classes[] = 'lawyer-card--paid';
+}
+
+if ( $requires_fact_gate && ! $profile_is_fact_checked ) {
+	$card_classes[] = 'lawyer-card--fact-gated';
+}
 $is_legal_provider = in_array( $professional, array( 'rabbinical_advocate', 'mediator', 'legal_service_provider', 'expert_witness' ), true )
 	|| false !== mb_stripos( get_the_title(), 'טוען רבני' )
 	|| false !== mb_stripos( get_the_title(), 'מגשר' );
@@ -122,10 +141,22 @@ $claim_url       = add_query_arg(
 );
 ?>
 
-<article class="lawyer-card premium-card">
+<article class="<?php echo esc_attr( implode( ' ', array_unique( $card_classes ) ) ); ?>">
 	<a class="lawyer-card__media<?php echo $show_thumbnail ? '' : ' lawyer-card__media--initials'; ?>" href="<?php echo esc_url( $lawyer_url ); ?>" aria-label="<?php echo esc_attr( sprintf( '%s %s', $profile_label, get_the_title() ) ); ?>">
 		<?php if ( $show_thumbnail ) : ?>
-			<?php the_post_thumbnail( 'justice-card', array( 'loading' => 'lazy' ) ); ?>
+			<?php
+			echo wp_get_attachment_image(
+				get_post_thumbnail_id( $lawyer_id ),
+				'justice-card',
+				false,
+				array(
+					'class'    => 'lawyer-card__photo',
+					'loading'  => 'lazy',
+					'decoding' => 'async',
+					'sizes'    => '(max-width: 640px) 86px, 112px',
+				)
+			);
+			?>
 		<?php else :
 			$lawyer_title = get_the_title();
 			$name_parts   = preg_split( '/\s+/', trim( $lawyer_title ) );

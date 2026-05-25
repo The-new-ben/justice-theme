@@ -157,6 +157,7 @@ $can_show_profile_articles = $show_freeform_profile_facts && ( $is_paid || $is_v
 $connected_article_slugs = array_filter( array( $lawyer_profile_slug, $authority_person_slug ) );
 
 if ( ! $show_freeform_profile_facts ) {
+	$profile_headline = get_the_title( $lawyer_id );
 	$safe_profile_context = array_filter(
 		array(
 			$primary_area ? $primary_area->name : '',
@@ -239,9 +240,22 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 		|| $is_verified
 		|| in_array( $source_type, array( 'lawyer_submitted', 'owner_verified', 'verified_public' ), true )
 	);
+$profile_shell_classes = array( 'lawyer-mini-site' );
+
+if ( ! $show_freeform_profile_facts ) {
+	$profile_shell_classes[] = 'lawyer-mini-site--fact-gated';
+}
+
+if ( $is_paid ) {
+	$profile_shell_classes[] = 'lawyer-mini-site--paid';
+}
+
+if ( $show_profile_photo ) {
+	$profile_shell_classes[] = 'lawyer-mini-site--has-photo';
+}
 ?>
 
-<article class="lawyer-mini-site" itemscope itemtype="https://schema.org/Attorney">
+<article class="<?php echo esc_attr( implode( ' ', array_unique( $profile_shell_classes ) ) ); ?>" itemscope itemtype="https://schema.org/Attorney">
 	<section class="lawyer-mini-hero">
 		<div class="container lawyer-mini-hero__grid">
 			<div class="lawyer-mini-hero__content">

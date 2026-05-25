@@ -72,6 +72,8 @@ $internal_notes  = get_post_meta( $lawyer_id, 'internal_notes', true );
 $review_count    = (int) get_post_meta( $lawyer_id, 'review_count', true );
 $average_rating  = (float) get_post_meta( $lawyer_id, 'average_rating', true );
 $reviews_enabled = in_array( strtolower( (string) get_post_meta( $lawyer_id, 'review_display_enabled', true ) ), array( '1', 'yes', 'true', 'enabled', 'approved' ), true );
+$card_context    = isset( $GLOBALS['justice_lawyer_card_context'] ) ? sanitize_key( (string) $GLOBALS['justice_lawyer_card_context'] ) : '';
+$is_homepage_showcase = 'homepage_showcase' === $card_context;
 $is_seed_data    = 'seed' === $source_type || false !== stripos( (string) $internal_notes, 'SEED_DATA' );
 $is_paid         = ! $is_seed_data && ( function_exists( 'justice_theme_lawyer_paid_plan_is_active' )
 	? justice_theme_lawyer_paid_plan_is_active( $lawyer_id )
@@ -162,6 +164,7 @@ $claim_url       = add_query_arg(
 	),
 	home_url( '/lawyer-registration/' )
 );
+$inquiry_url     = add_query_arg( 'lawyer_id', $lawyer_id, home_url( '/contact/' ) );
 ?>
 
 <article class="<?php echo esc_attr( implode( ' ', array_unique( $card_classes ) ) ); ?>">
@@ -216,7 +219,7 @@ $claim_url       = add_query_arg(
 			<?php elseif ( 'verified' === $verified && $show_profile_claims ) : ?>
 				<span class="lawyer-card__status">מאומת</span>
 			<?php elseif ( $is_basic_public ) : ?>
-				<span class="lawyer-card__status lawyer-card__status--basic"><?php esc_html_e( 'כרטיס בסיסי', 'justice-theme' ); ?></span>
+				<span class="lawyer-card__status lawyer-card__status--basic"><?php esc_html_e( 'כרטיס ציבורי', 'justice-theme' ); ?></span>
 			<?php elseif ( $is_paid && ! $has_public_sponsor && ! $has_reserved_sponsor ) : ?>
 				<span class="lawyer-card__status lawyer-card__status--sponsored">ממומן</span>
 			<?php endif; ?>
@@ -235,7 +238,7 @@ $claim_url       = add_query_arg(
 		<?php if ( $show_profile_claims && $bio_short ) : ?>
 			<p class="lawyer-card__summary"><?php echo esc_html( wp_trim_words( $bio_short, 24, '...' ) ); ?></p>
 		<?php elseif ( $requires_fact_gate && ! $profile_is_fact_checked ) : ?>
-			<p class="lawyer-card__summary"><?php esc_html_e( 'פרטי הרקע, הניסיון והביקורות בכרטיס הזה ממתינים לבדיקת מקורות או לאישור בעל הפרופיל.', 'justice-theme' ); ?></p>
+			<p class="lawyer-card__summary"><?php esc_html_e( 'הכרטיס מציג תחום, אזור ודרך פנייה בלבד עד השלמת אימות הפרטים.', 'justice-theme' ); ?></p>
 		<?php endif; ?>
 
 		<div class="lawyer-card__proof">
@@ -249,17 +252,17 @@ $claim_url       = add_query_arg(
 				<span><?php echo esc_html( number_format_i18n( $average_rating, 1 ) ); ?> / 5</span>
 			<?php endif; ?>
 			<?php if ( $requires_fact_gate && ! $profile_is_fact_checked ) : ?>
-				<span><?php esc_html_e( 'פרטי רקע בבדיקת מקורות', 'justice-theme' ); ?></span>
+				<span><?php esc_html_e( 'תחום ואזור מוצגים', 'justice-theme' ); ?></span>
 			<?php endif; ?>
 			<?php if ( $is_basic_public ) : ?>
-				<span><?php esc_html_e( 'כרטיס ציבורי לא מאומת', 'justice-theme' ); ?></span>
+				<span><?php esc_html_e( 'פרטים בתהליך אימות', 'justice-theme' ); ?></span>
 			<?php endif; ?>
 		</div>
 
-		<?php if ( $is_basic_public ) : ?>
+		<?php if ( $is_basic_public && ! $is_homepage_showcase ) : ?>
 			<div class="lawyer-card__claim">
 				<strong><?php esc_html_e( 'זה הכרטיס שלך?', 'justice-theme' ); ?></strong>
-				<span><?php esc_html_e( 'אפשר לתבוע בעלות, לעדכן פרטים ולהתקדם לחשיפה ממומנת.', 'justice-theme' ); ?></span>
+				<span><?php esc_html_e( 'אפשר לאמת בעלות, לעדכן פרטים ולהרחיב חשיפה לאחר בדיקה.', 'justice-theme' ); ?></span>
 				<a href="<?php echo esc_url( $claim_url ); ?>"><?php esc_html_e( 'התחלת שדרוג', 'justice-theme' ); ?></a>
 			</div>
 		<?php endif; ?>
@@ -270,10 +273,12 @@ $claim_url       = add_query_arg(
 				<a class="button button--ghost" href="<?php echo esc_url( $whatsapp_link ); ?>" target="_blank" rel="noopener">וואטסאפ</a>
 			<?php elseif ( $phone_link ) : ?>
 				<a class="button button--ghost" href="<?php echo esc_url( $phone_link ); ?>">שיחה</a>
+			<?php elseif ( $is_homepage_showcase ) : ?>
+				<a class="button button--ghost" href="<?php echo esc_url( $inquiry_url ); ?>"><?php esc_html_e( 'שליחת פנייה', 'justice-theme' ); ?></a>
 			<?php elseif ( $is_basic_public ) : ?>
 				<a class="button button--ghost" href="<?php echo esc_url( $claim_url ); ?>"><?php esc_html_e( 'תביעת כרטיס', 'justice-theme' ); ?></a>
 			<?php else : ?>
-				<a class="button button--ghost" href="<?php echo esc_url( add_query_arg( 'lawyer_id', $lawyer_id, home_url( '/contact/' ) ) ); ?>">שליחת פנייה</a>
+				<a class="button button--ghost" href="<?php echo esc_url( $inquiry_url ); ?>">שליחת פנייה</a>
 			<?php endif; ?>
 		</div>
 	</div>

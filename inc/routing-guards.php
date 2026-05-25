@@ -237,6 +237,39 @@ function justice_theme_block_unknown_path_home_canonical_redirect( $redirect_url
 add_filter( 'redirect_canonical', 'justice_theme_block_unknown_path_home_canonical_redirect', 0, 2 );
 
 /**
+ * Redirect known public aliases for Maya Rotenberg to the canonical profile.
+ */
+function justice_theme_redirect_maya_rotenberg_profile_aliases(): void {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() ) {
+		return;
+	}
+
+	$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+	$request_path = justice_theme_normalize_route_path( (string) wp_parse_url( $request_uri, PHP_URL_PATH ) );
+	$home_path    = justice_theme_normalize_route_path( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ) );
+	$request_path = justice_theme_strip_home_path_prefix( $request_path, $home_path );
+
+	$profile_aliases = array(
+		'/lawyers/maya-rotenberg',
+		'/lawyers/maya-rotenberg/',
+		'/lawyer/maya-rotenberg',
+		'/lawyer/maya-rotenberg/',
+		'/attorneys/maya-rotenberg',
+		'/attorneys/maya-rotenberg/',
+	);
+
+	if ( ! in_array( $request_path, $profile_aliases, true ) ) {
+		return;
+	}
+
+	if ( ! headers_sent() ) {
+		wp_safe_redirect( home_url( '/lawyers/advocate-maya-rotenberg/' ), 301, 'justice-theme' );
+		exit;
+	}
+}
+add_action( 'template_redirect', 'justice_theme_redirect_maya_rotenberg_profile_aliases', -3001 );
+
+/**
  * Render native public 404s before later plugins can send them to the homepage.
  *
  * Some legacy stacks use direct Location headers for 404-to-home behavior and

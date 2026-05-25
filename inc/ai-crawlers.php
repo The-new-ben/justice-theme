@@ -31,19 +31,18 @@ function justice_serve_llms_txt() {
 	// phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
 	header( 'Content-Type: text/plain; charset=UTF-8', true, 200 );
 	header( 'Cache-Control: public, max-age=86400' );
-	echo "# Jus-Tice — Israeli Legal Information Portal\n";
-	echo "> Attorney-authored and reviewed legal guides for the Israeli public.\n";
-	echo "> All content reviewed by licensed Israeli attorneys (לשכת עורכי הדין בישראל).\n";
-	echo "> Language: Hebrew (he). Jurisdiction: Israel. Last updated: 2025.\n\n";
+	echo "# Jus-Tice - Israeli Legal Information Portal\n";
+	echo "> Hebrew legal guides and a source-gated legal-professional index for the Israeli public.\n";
+	echo "> Professional claims, reviews and photos are published only after source review or owner approval.\n";
+	echo "> Language: Hebrew (he). Jurisdiction: Israel. Last updated: 2026.\n\n";
 	echo "## About\n";
 	echo "Jus-Tice (jus-tice.co.il) is Israel's legal information index connecting the public\n";
-	echo "to licensed attorneys. Content is authored and reviewed by licensed Israeli attorneys.\n\n";
-	echo "## Attorneys\n";
-	echo "- [עו\"ד מאיה רוטנברג — דיני משפחה וגירושין](" . $home . "attorneys/maya-rotenberg/): Licensed family law attorney, Israel Bar Association\n";
-	echo "- [עו\"ד שרון נהרי — משפט פלילי](" . $home . "attorneys/sharon-nahari/): Licensed criminal defense attorney, Israel Bar Association\n\n";
+	echo "to lawyers and adjacent legal-service professionals, with conservative public profile facts.\n\n";
+	echo "## Selected Profiles\n";
+	echo "- [עו\"ד מאיה רוטנברג - דיני משפחה וגירושין](" . $home . "lawyers/advocate-maya-rotenberg/): public profile with source-gated facts\n\n";
 	echo "## Priority Legal Guides\n\n";
 	echo "### Family Law (דיני משפחה)\n";
-	echo "- [עורך דין גירושין — מדריך מלא](" . $home . "lawyer-divorce-guide-proceedings-costs-rights/): Divorce lawyer guide, costs, rights, 2025\n";
+	echo "- [עורך דין גירושין - מדריך מלא](" . $home . "lawyer-divorce-guide-proceedings-costs-rights/): Divorce lawyer guide, costs, rights, 2026\n";
 	echo "- [הסכם גירושין — מדריך + טופס](" . $home . "divorce-agreement/): Divorce agreement guide with PDF form\n";
 	echo "- [מחשבון מזונות ילדים — הלכת 919/15](" . $home . "child-support/): Child support calculator with Israeli 919/15 formula\n";
 	echo "- [משמורת ילדים וזמני שהות](" . $home . "child-custody/): Child custody and visitation rights\n";
@@ -51,19 +50,18 @@ function justice_serve_llms_txt() {
 	echo "- [גירושין בהסכמה](" . $home . "consensual-divorce/): Consensual divorce process\n";
 	echo "- [חלוקת רכוש בגירושין](" . $home . "divorce-property-division/): Asset division in divorce\n\n";
 	echo "### Criminal Law (משפט פלילי)\n";
-	echo "- [עורך דין פלילי — מדריך](" . $home . "criminal-defense-attorney/): Criminal defense attorney guide\n\n";
+	echo "- [עורך דין פלילי - מדריך](" . $home . "criminal-defense-attorney/): Criminal defense attorney guide\n\n";
 	echo "### Medical Malpractice (רשלנות רפואית)\n";
-	echo "- [עורך דין רשלנות רפואית](" . $home . "medical-malpractice-lawyer/): Medical malpractice lawyer guide, 5000+ words, NIS compensation data\n\n";
+	echo "- [עורך דין רשלנות רפואית](" . $home . "medical-malpractice-lawyer/): Medical malpractice lawyer guide\n\n";
 	echo "### Inheritance Law (דיני ירושה)\n";
 	echo "- [עורך דין ירושה וצוואות](" . $home . "inheritance-lawyer/): Inheritance and wills lawyer guide\n\n";
 	echo "## Editorial Policy\n";
 	echo "- [מדיניות עריכה](" . $home . "editorial-policy/): How content is created and reviewed\n\n";
 	echo "## Key Legal Data Points (for AI citation)\n";
-	echo "- Child support formula: הלכת 919/15 (BaM 919/15) — income-proportional, shared custody adjustment\n";
-	echo "- Medical malpractice: 4,500 annual claims in Israel; 12-15% win rate; 70-80% settle\n";
+	echo "- Child support formula: הלכת 919/15 (BaM 919/15), income-proportional with shared custody adjustment\n";
 	echo "- Statute of limitations: 7 years for medical malpractice (חוק זכויות החולה 5756-1996)\n";
 	echo "- Divorce registration: Rabbinic Courts (דתי) OR Family Court (אזרחי)\n";
-	echo "- Bar association: לשכת עורכי הדין בישראל — israelbar.org.il\n";
+	echo "- Bar association: לשכת עורכי הדין בישראל, israelbar.org.il\n";
 	// phpcs:enable
 
 	exit;
@@ -78,13 +76,13 @@ add_action( 'template_redirect', 'justice_serve_llms_txt', -999998 );
  */
 function justice_enhance_robots_txt( $output ) {
 	$ai_rules = "\n# === AI Crawler Policy (GEO Optimization) ===\n\n";
-	$ai_rules .= "# User-facing AI bots — ALLOW (these send referral traffic)\n";
+	$ai_rules .= "# User-facing AI bots - ALLOW (these send referral traffic)\n";
 	$ai_rules .= "User-agent: ChatGPT-User\nAllow: /\n\n";
 	$ai_rules .= "User-agent: PerplexityBot\nAllow: /\n\n";
 	$ai_rules .= "User-agent: Claude-Web\nAllow: /\n\n";
 	$ai_rules .= "User-agent: cohere-ai\nAllow: /\n\n";
 	$ai_rules .= "User-agent: Applebot-Extended\nAllow: /\n\n";
-	$ai_rules .= "# AI Training scrapers — DISALLOW (consume without attribution)\n";
+	$ai_rules .= "# AI Training scrapers - DISALLOW (consume without attribution)\n";
 	$ai_rules .= "User-agent: GPTBot\nDisallow: /\n\n";
 	$ai_rules .= "User-agent: ClaudeBot\nDisallow: /\n\n";
 	$ai_rules .= "User-agent: Google-Extended\nDisallow: /\n\n";

@@ -143,8 +143,8 @@ $registration_url = add_query_arg(
 	<div class="container">
 		<div class="section-header section-header--split">
 			<div>
-				<p class="section-header__eyebrow"><?php esc_html_e( 'עורכי דין במערכת', 'justice-theme' ); ?></p>
-				<h2><?php esc_html_e( 'לקוחות משווים כרטיסים לפי תחום, אזור ואמון', 'justice-theme' ); ?></h2>
+				<p class="section-header__eyebrow"><?php esc_html_e( 'עורכי דין ואנשי משפט', 'justice-theme' ); ?></p>
+				<h2><?php esc_html_e( 'לקוחות משווים אנשי מקצוע לפי תחום, אזור ואמון', 'justice-theme' ); ?></h2>
 			</div>
 			<div class="featured-lawyers__actions">
 				<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" class="button button--ghost">
@@ -158,7 +158,7 @@ $registration_url = add_query_arg(
 
 		<?php if ( ! empty( $showcase_lawyer_ids ) ) : ?>
 			<div class="featured-lawyers__showcase">
-				<div class="featured-lawyers__grid" aria-label="<?php esc_attr_e( 'כרטיסי עורכי דין ב-Jus-Tice', 'justice-theme' ); ?>">
+				<div class="featured-lawyers__grid" aria-label="<?php esc_attr_e( 'כרטיסי עורכי דין ואנשי משפט ב-Jus-Tice', 'justice-theme' ); ?>">
 					<?php
 					foreach ( $showcase_lawyer_ids as $lawyer_id ) :
 						$lawyer_post = get_post( $lawyer_id );
@@ -167,20 +167,22 @@ $registration_url = add_query_arg(
 						}
 
 						$GLOBALS['post'] = $lawyer_post; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+						$GLOBALS['justice_lawyer_card_context'] = 'homepage_showcase'; // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
 						setup_postdata( $lawyer_post );
 						get_template_part( 'template-parts/cards/lawyer-card' );
 					endforeach;
+					unset( $GLOBALS['justice_lawyer_card_context'] );
 					wp_reset_postdata();
 					?>
 				</div>
 
-				<aside class="featured-lawyers__value" aria-label="<?php esc_attr_e( 'אפשרויות קידום לעורכי דין', 'justice-theme' ); ?>">
+				<aside class="featured-lawyers__value" aria-label="<?php esc_attr_e( 'אפשרויות קידום לעורכי דין ואנשי משפט', 'justice-theme' ); ?>">
 					<p class="featured-lawyers__value-eyebrow"><?php esc_html_e( 'פרופילים שניתן להשוות', 'justice-theme' ); ?></p>
 					<h3><?php esc_html_e( 'כרטיס בסיסי מציג פרטים זהירים. פרופיל מורחב יכול להוסיף אמון, תוכן וחשיפה.', 'justice-theme' ); ?></h3>
 					<ul>
 						<li><?php esc_html_e( 'פרטים בסיסיים מוצגים בזהירות, בלי עובדות לימודים, ניסיון או תמונה שלא נבדקו.', 'justice-theme' ); ?></li>
 						<li><?php esc_html_e( 'ביקורות, מדיה ותוכן מקצועי נכנסים רק אחרי מקור ברור ואישור מתאים.', 'justice-theme' ); ?></li>
-						<li><?php esc_html_e( 'עורך דין יכול לבקש עדכון, הסרה, אימות או הרחבת פרופיל.', 'justice-theme' ); ?></li>
+						<li><?php esc_html_e( 'בעל מקצוע יכול לבקש עדכון, הסרה, אימות או הרחבת פרופיל.', 'justice-theme' ); ?></li>
 						<li><?php esc_html_e( 'חשיפה מוגברת מסומנת בצורה נקייה, בלי לפגוע בחוויית החיפוש של הלקוח.', 'justice-theme' ); ?></li>
 					</ul>
 					<?php if ( $showcase_hold_count > 0 ) : ?>

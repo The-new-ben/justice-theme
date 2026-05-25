@@ -14,6 +14,7 @@ file,first-cohort-lawyer-offer-sheet,PASS,project-control/first-cohort-lawyer-of
 file,first-cohort-lawyer-offer-sheet-he-html,PASS,project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html,Browser-ready Hebrew sales one-pager for showing/sending the first-cohort offer to lawyers.
 file,first-paid-lawyer-sales-pack-check,PASS,project-control/first-paid-lawyer-sales-pack-2026-05-25.md,Repeatable QA gate for first-cohort lawyer sales collateral.
 file,payment-proof-drill,PASS,project-control/payment-proof-drill-2026-05-25.md,Reconciles real one-time Grow link proof with recurring-debit provider blocker.
+file,investor-value-moment-cue-card,PASS,project-control/investor-value-moment-cue-card-2026-05-25.html,Browser-ready owner cue card for the investor demo value moment and payment truth line.
 file,lawyer-signup-competitor-patterns,PASS,project-control/lawyer-signup-competitor-patterns-2026-05-25.md,Competitor-informed signup and revenue-flow standard for lawyer acquisition.
 file,lawyer-signup-conversion-standard,PASS,project-control/lawyer-signup-conversion-standard-2026-05-25.md,Repeatable live audit of the competitor-informed lawyer signup conversion standard.
 file,ascii-demo-data,PASS,project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md,Copy-safe demo lawyer and lead fields if Hebrew rendering is risky.
@@ -43,6 +44,8 @@ launchpad_token,./first-cohort-lawyer-offer-sheet-2026-05-25.md,PASS,project-con
 launchpad_token,./first-cohort-lawyer-offer-sheet-he-2026-05-25.html,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,./first-paid-lawyer-sales-pack-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,./payment-proof-drill-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
+launchpad_token,./investor-value-moment-cue-card-2026-05-25.html,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
+launchpad_token,Investor value moment cue card,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,check-payment-proof-drill.mjs,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,./lawyer-signup-competitor-patterns-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present
 launchpad_token,./lawyer-signup-conversion-standard-2026-05-25.md,PASS,project-control/investor-demo-launchpad-2026-05-25.html,present

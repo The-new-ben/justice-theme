@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "startedAt": "2026-05-25T05:38:01.483Z",
+  "startedAt": "2026-05-25T05:47:15.375Z",
   "runDate": "2026-05-25",
   "sourceBasis": [
     {
@@ -103,6 +103,12 @@
       "id": "payment-proof-drill",
       "path": "project-control/payment-proof-drill-2026-05-25.md",
       "reason": "Reconciles real one-time Grow link proof with recurring-debit provider blocker.",
+      "status": "PASS"
+    },
+    {
+      "id": "investor-value-moment-cue-card",
+      "path": "project-control/investor-value-moment-cue-card-2026-05-25.html",
+      "reason": "Browser-ready owner cue card for the investor demo value moment and payment truth line.",
       "status": "PASS"
     },
     {
@@ -233,6 +239,14 @@
     },
     {
       "token": "./payment-proof-drill-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "./investor-value-moment-cue-card-2026-05-25.html",
+      "status": "PASS"
+    },
+    {
+      "token": "Investor value moment cue card",
       "status": "PASS"
     },
     {

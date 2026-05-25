@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Jus-Tice - כרטיס רגע ערך למשקיע</title>
+	<style>
+		:root {
+			color-scheme: light;
+			--ink: #101828;
+			--muted: #5d6678;
+			--line: #d9e0ec;
+			--brand: #14325c;
+			--accent: #b23a48;
+			--gold: #c99a2e;
+			--ok: #0f766e;
+			--warn: #a16207;
+			--bg: #f5f7fb;
+			--panel: #fff;
+		}
+		* { box-sizing: border-box; }
+		body {
+			margin: 0;
+			background: var(--bg);
+			color: var(--ink);
+			font-family: Arial, Helvetica, sans-serif;
+			line-height: 1.65;
+		}
+		main {
+			width: min(1080px, calc(100% - 28px));
+			margin: 0 auto;
+			padding: 28px 0 42px;
+		}
+		header {
+			padding: 24px;
+			border-radius: 10px;
+			background: linear-gradient(135deg, var(--brand), #07152f);
+			color: #fff;
+			box-shadow: 0 18px 42px rgba(16, 24, 40, .16);
+		}
+		h1, h2, h3, p { margin-top: 0; }
+		h1 { margin-bottom: 8px; font-size: clamp(1.9rem, 4vw, 3.15rem); line-height: 1.15; }
+		header p { max-width: 850px; margin: 0; color: #dbeafe; }
+		.grid {
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 14px;
+			margin: 18px 0;
+		}
+		.card {
+			min-height: 100%;
+			padding: 18px;
+			border: 1px solid var(--line);
+			border-radius: 10px;
+			background: var(--panel);
+			box-shadow: 0 12px 30px rgba(16, 24, 40, .06);
+		}
+		.card h2 {
+			margin-bottom: 8px;
+			font-size: 1.15rem;
+			color: var(--brand);
+		}
+		.kicker {
+			display: inline-block;
+			margin-bottom: 8px;
+			padding: 4px 8px;
+			border-radius: 999px;
+			background: #eef4ff;
+			color: var(--brand);
+			font-weight: 800;
+			font-size: .78rem;
+		}
+		.line {
+			border-right: 4px solid var(--gold);
+			background: #fff8e6;
+			padding: 12px;
+			border-radius: 8px;
+			font-weight: 800;
+		}
+		.proof {
+			border-right-color: var(--ok);
+			background: #ecfdf5;
+		}
+		.warn {
+			border-right-color: var(--warn);
+			background: #fffbeb;
+		}
+		.steps {
+			margin: 0;
+			padding: 0 20px 0 0;
+		}
+		.steps li { margin-bottom: 8px; }
+		a.button {
+			display: inline-flex;
+			align-items: center;
+			justify-content: center;
+			min-height: 40px;
+			margin: 4px 0 0 8px;
+			padding: 8px 12px;
+			border-radius: 8px;
+			background: var(--brand);
+			color: #fff;
+			font-weight: 800;
+			text-decoration: none;
+		}
+		a.button--gold { background: var(--gold); color: #111827; }
+		a.button--outline {
+			background: #fff;
+			color: var(--brand);
+			border: 1px solid var(--line);
+		}
+		.sources {
+			color: var(--muted);
+			font-size: .92rem;
+		}
+		@media (max-width: 860px) {
+			.grid { grid-template-columns: 1fr; }
+		}
+	</style>
+</head>
+<body>
+	<main>
+		<header>
+			<h1>כרטיס רגע ערך למשקיע</h1>
+			<p>המטרה: לא להראות "הרבה פיצ'רים", אלא להראות מסלול אחד שעובד מקצה לקצה: עורך דין רואה ערך, נרשם, מקבל גשר תשלום ידני, נכנס לאזור אישי ומנהל לידים ושירות.</p>
+		</header>
+
+		<section class="grid" aria-label="שלושת רגעי הערך">
+			<article class="card">
+				<span class="kicker">רגע 1 - ערך לפני פרטים</span>
+				<h2>המסלול העסקי</h2>
+				<p class="line">"עורך דין לא קונה כרטיס ביקור. הוא קונה נראות, אמון, לידים ומעקב מסודר."</p>
+				<ol class="steps">
+					<li>פותחים את דף הבית ומצביעים על כניסת עורכי הדין.</li>
+					<li>פותחים מסלולי עורכי דין ומראים נראות, פרופיל אמון ולידים.</li>
+					<li>פותחים הרשמה בתשלום ומראים שמירת מסלול ופרטי חיוב.</li>
+				</ol>
+				<a class="button" href="https://jus-tice.co.il/" target="_blank" rel="noopener">דף הבית</a>
+				<a class="button" href="https://jus-tice.co.il/lawyer-plans/" target="_blank" rel="noopener">מסלולים</a>
+			</article>
+
+			<article class="card">
+				<span class="kicker">רגע 2 - הוכחה מיד אחרי הערך</span>
+				<h2>הוכחת כסף נקייה</h2>
+				<p class="line proof">"קישור תשלום Grow חד-פעמי אמיתי כבר נוצר ונשלח לבעלים. מה שחסר הוא לשלם אותו ולאמת עסקה וקבלה."</p>
+				<ol class="steps">
+					<li>פותחים את אימייל הבעלים עם קישור ה-Grow המלא.</li>
+					<li>אם מחליטים לבצע בדיקת כסף אמיתית: משלמים 1 ש"ח.</li>
+					<li>בודקים ב-Grow/Morning עסקה, סטטוס לינק וקבלה/חשבונית.</li>
+				</ol>
+				<a class="button button--gold" href="./payment-proof-drill-2026-05-25.md">בדיקת תשלום</a>
+			</article>
+
+			<article class="card">
+				<span class="kicker">רגע 3 - אמת שמונעת נפילה</span>
+				<h2>מה לא להגיד</h2>
+				<p class="line warn">"לא אומרים שחיוב חוזר, חשבונית אוטומטית או החזר כספי אוטומטי כבר חיים. אומרים שזה חסום באישור Grow/Meshulam ובבדיקה מבוקרת."</p>
+				<ol class="steps">
+					<li>מראים שהמערכת יודעת לקלוט בקשות ביטול, שדרוג, החזר ותלונה.</li>
+					<li>מסבירים שהפעולה הכספית עצמה נשארת ידנית עד אישור ספק.</li>
+					<li>מסיימים בשלב הבא: תשלום קישור 1 ש"ח ואימות קבלה.</li>
+				</ol>
+				<a class="button button--outline" href="./investor-payment-lifecycle-playbook-2026-05-25.md">מחזור תשלום</a>
+				<a class="button button--outline" href="./investor-morning-go-no-go-2026-05-25.md">Go/No-Go</a>
+			</article>
+		</section>
+
+		<section class="card">
+			<h2>משפט פתיחה קצר</h2>
+			<p class="line">"אני אראה לכם מסלול אחד: איך עורך דין הופך מתנועה באתר ללקוח בתשלום, איך הוא מקבל אזור אישי ולידים, ואיפה בדיוק עובר הגבול בין מה שכבר חי לבין מה שמחכה לאישור ספק תשלומים."</p>
+		</section>
+
+		<section class="card sources">
+			<h2>בסיס מחקר עדכני</h2>
+			<p>Best-practice הדמו: להראות זרימת עבודה אחת, להגיע לערך מהר, להציג הוכחה מיד אחרי הערך, ולהחזיק צעד המשך ברור. מקורות: Arcade customer onboarding best practices 2026, Puppydog SaaS demo best practices 2026, Afterbuild Labs pre-demo MVP checklist.</p>
+		</section>
+	</main>
+</body>
+</html>

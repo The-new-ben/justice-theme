@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 08:45 Asia/Jerusalem
+- INVESTOR VALUE MOMENT CUE CARD: added a browser-ready Hebrew cue card that compresses the investor demo into one workflow: lawyer value, payment proof, and honest recurring-payment blocker.
+- RESEARCH BASIS: current SaaS demo/onboarding guidance emphasizes one workflow, fast time-to-value, proof immediately after value and a clear next step.
+- ADDED: `project-control/investor-value-moment-cue-card-2026-05-25.html`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html`.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs`.
+- MATERIAL ADVANCE: the owner can open one clean card and speak the investor story without reading terminal reports or overclaiming payment automation.
+- STILL BLOCKED: paying the existing Grow link, verifying receipt/invoice, real refund execution, recurring authorization and gateway/product mapping require owner/provider-approved live actions.
+- COMPLETION: investor demo operator readiness is about 98%; real recurring revenue automation remains provider-blocked.
+- SAFETY: local HTML/checker/report artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 08:34 Asia/Jerusalem
 - PAYMENT PROOF DRILL CHECKER: added a repeatable evidence reconciliation for the live Grow one-time payment-link smoke test and the failed Grow recurring-debit attempt.
 - RESEARCH BASIS: Grow's current fixed-amount payment-link guide supports one-time links that can be branded and shared; Morning/Green Invoice payment documentation supports payment-form flows that can generate a document after payment when eligible clearing is connected.

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor value moment cue card
+
+- ADDED: `project-control/investor-value-moment-cue-card-2026-05-25.html`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the browser-ready cue card.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` to require the cue card in the launchpad pack.
+- RESEARCH BASIS: current SaaS demo/onboarding guidance emphasizes one workflow, fast time-to-value, proof immediately after value and a clear next action.
+- PURPOSE: give the owner a non-technical Hebrew control card for the investor demo money/revenue story.
+- SAFETY: local HTML/checker/report artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Payment proof drill checker
 
 - ADDED: `tools/check-payment-proof-drill.mjs`.

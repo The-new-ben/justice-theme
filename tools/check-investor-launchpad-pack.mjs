@@ -85,6 +85,11 @@ const requiredFiles = [
 		reason: 'Reconciles real one-time Grow link proof with recurring-debit provider blocker.',
 	},
 	{
+		id: 'investor-value-moment-cue-card',
+		path: 'project-control/investor-value-moment-cue-card-2026-05-25.html',
+		reason: 'Browser-ready owner cue card for the investor demo value moment and payment truth line.',
+	},
+	{
 		id: 'lawyer-signup-competitor-patterns',
 		path: 'project-control/lawyer-signup-competitor-patterns-2026-05-25.md',
 		reason: 'Competitor-informed signup and revenue-flow standard for lawyer acquisition.',
@@ -140,6 +145,8 @@ const launchpadTokens = [
 	'./first-cohort-lawyer-offer-sheet-he-2026-05-25.html',
 	'./first-paid-lawyer-sales-pack-2026-05-25.md',
 	'./payment-proof-drill-2026-05-25.md',
+	'./investor-value-moment-cue-card-2026-05-25.html',
+	'Investor value moment cue card',
 	'check-payment-proof-drill.mjs',
 	'./lawyer-signup-competitor-patterns-2026-05-25.md',
 	'./lawyer-signup-conversion-standard-2026-05-25.md',

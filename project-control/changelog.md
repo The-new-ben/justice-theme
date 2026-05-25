@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Homepage lawyer revenue strip honesty pass
+
+- UPDATED: `template-parts/sections/homepage-lawyer-revenue-strip.php`.
+- ADDED: `project-control/homepage-lawyer-revenue-strip-honesty-pass-2026-05-25.md`.
+- PURPOSE: keep homepage lawyer acquisition strong without implying fake live lead/payment activity.
+- IMPLEMENTATION: replaced hard-coded live-like mini-dashboard wording with a capability path around CMS visibility, Grow/Morning/manual invoice payment, and lawyer dashboard usage.
+- SAFETY: no CMS database write, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-25 - Lawyer profile unverified contact gate
 
 - UPDATED: `template-parts/cards/lawyer-card.php`, `single-justice_lawyer.php`.

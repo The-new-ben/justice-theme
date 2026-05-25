@@ -46,16 +46,16 @@ $dashboard_url = add_query_arg(
 
 $signals = array(
 	array(
-		'label' => __( 'מיני-סייט מקצועי', 'justice-theme' ),
-		'value' => __( 'פרופיל, תחומי התמחות ותוכן מחובר', 'justice-theme' ),
+		'label' => __( 'כרטיס בסיסי נשלט', 'justice-theme' ),
+		'value' => __( 'נראה, מוסתר או מקודם מתוך ה-CMS בלי טקסט קשיח', 'justice-theme' ),
 	),
 	array(
-		'label' => __( 'פניות ומעקב', 'justice-theme' ),
-		'value' => __( 'סטטוס טיפול, תיעוד ושירות לקוחות', 'justice-theme' ),
+		'label' => __( 'פרופיל מאומת', 'justice-theme' ),
+		'value' => __( 'עובדות, תמונה, ביקורות ותוכן נפתחים רק אחרי בדיקה', 'justice-theme' ),
 	),
 	array(
-		'label' => __( 'תשלום מסודר', 'justice-theme' ),
-		'value' => __( 'קישור תשלום אמיתי והפעלה לאחר אישור', 'justice-theme' ),
+		'label' => __( 'מסלול הכנסה', 'justice-theme' ),
+		'value' => __( 'שדרוג, קישור תשלום אמיתי ודאשבורד לידים לאחר אישור', 'justice-theme' ),
 	),
 );
 
@@ -92,16 +92,16 @@ $account_steps = array(
 
 			<div class="homepage-lawyer-revenue__mini-dashboard" aria-label="<?php esc_attr_e( 'תצוגת אזור אישי לעורך דין', 'justice-theme' ); ?>">
 				<div>
-					<span><?php esc_html_e( 'פניות חדשות', 'justice-theme' ); ?></span>
-					<strong><?php esc_html_e( '3 בטיפול', 'justice-theme' ); ?></strong>
+					<span><?php esc_html_e( 'כרטיס ציבורי', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'מוצג רק לפי בקרת CMS', 'justice-theme' ); ?></strong>
 				</div>
 				<div>
 					<span><?php esc_html_e( 'תשלום', 'justice-theme' ); ?></span>
-					<strong><?php esc_html_e( 'קישור נשלח', 'justice-theme' ); ?></strong>
+					<strong><?php esc_html_e( 'Grow/Morning או חשבונית ידנית', 'justice-theme' ); ?></strong>
 				</div>
 				<div>
-					<span><?php esc_html_e( 'שירות', 'justice-theme' ); ?></span>
-					<strong><?php esc_html_e( 'מעקב פעיל', 'justice-theme' ); ?></strong>
+					<span><?php esc_html_e( 'אזור אישי', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'לידים, שירות ושדרוגים', 'justice-theme' ); ?></strong>
 				</div>
 			</div>
 		</div>

@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-25 17:04 Asia/Jerusalem
+- HOMEPAGE LAWYER REVENUE STRIP HONESTY PASS: removed hard-coded live-like mini-dashboard claims from the homepage lawyer revenue strip and replaced them with a truthful capability path.
+- UPDATED: `template-parts/sections/homepage-lawyer-revenue-strip.php`.
+- ADDED: `project-control/homepage-lawyer-revenue-strip-honesty-pass-2026-05-25.md`.
+- MATERIAL ADVANCE: the homepage can still sell the lawyer upgrade path, but it no longer implies fake lead counts or sent payment status before real payment/revenue proof exists.
+- VERIFIED LOCAL / DEPLOY PENDING: `php -l template-parts/sections/homepage-lawyer-revenue-strip.php` and `git diff --check` passed; text check confirmed the old hard-coded `3 בטיפול` and `קישור נשלח` states are gone.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves investor trust and lawyer conversion messaging, but it does not prove payment, invoice, refund, subscription, lead delivery or CRM monetization.
+- SAFETY: repo template/docs only; no live CMS database edit, competitor data import/copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 16:55 Asia/Jerusalem
 - POST-PULL LIVE CHECK: after the owner pulled git, read-only public checks found the live `/lawyers/?justice_readonly=1` page emitting the new lawyer-card trust markers (`lawyer-card--initials`, `lawyer-card--fact-gated`) and the live `premium-pass-4.css?ver=4.3.8` containing the investor polish.
 - UNVERIFIED CONTACT/FACT GATE TIGHTENED: fact-gated lawyer cards and mini-sites no longer show firm/contact/license/social/profile detail signals before fact review, paid/verified status, or a trusted source.

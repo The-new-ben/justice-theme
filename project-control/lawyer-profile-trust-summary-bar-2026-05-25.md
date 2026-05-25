@@ -34,5 +34,7 @@ Before investor demo, homepage promotion, sponsored placement, or lawyer outreac
 
 ## Verification
 
-- Pending live verification after commit, push, and uPress Pull Git.
-
+- VERIFIED LOCAL: `php -l inc/lawyer-visibility.php` and `git diff --check` passed.
+- DEPLOYED: uPress Pull Git completed and the uPress activity log showed live HEAD `8c93ee4`.
+- VERIFIED LIVE: wp-admin `justice_lawyer` list exposed the `Jus-Tice profile trust queue` summary bar with hold/source/media/Maya/ready links.
+- PUBLIC REGRESSION CHECK: homepage first 6 lawyer cards still rendered with `overlapping=0`.

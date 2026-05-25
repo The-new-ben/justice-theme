@@ -3,7 +3,7 @@
 - UPDATED: `inc/lawyer-visibility.php`.
 - ADDED: `project-control/lawyer-profile-trust-summary-bar-2026-05-25.md`.
 - MATERIAL ADVANCE: the owner no longer needs to hunt through filters one-by-one; the CMS now surfaces the size of the profile cleanup queue before sponsored/homepage/outreach promotion.
-- VERIFIED LOCAL: `php -l inc/lawyer-visibility.php` and `git diff --check` passed. Live deployment and wp-admin verification still need to complete in this cycle.
+- VERIFIED LOCAL / DEPLOYED / VERIFIED LIVE: `php -l inc/lawyer-visibility.php` and `git diff --check` passed; pushed commit `8c93ee4`; uPress Pull Git succeeded and uPress log showed live HEAD `8c93ee4`; wp-admin exposed the `Jus-Tice profile trust queue`; homepage first 6 lawyer cards stayed at `overlapping=0`.
 - REVENUE STATUS: realized revenue remains NIS 0. This improves operator safety and demo credibility but does not prove payment, invoice, refund, subscription, or lead monetization.
 - SAFETY: admin/theme logic and docs only; no CMS database record, competitor asset/content, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
 

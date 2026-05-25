@@ -4,7 +4,7 @@
 - ADDED: `project-control/lawyer-profile-fact-review-admin-control-2026-05-25.md`.
 - MATERIAL ADVANCE: this closes the operator gap behind the public fact gate. After deploy, the owner can open a lawyer profile, set `profile_fact_review_status`, filter the lawyer list by fact-review state, and bulk mark profiles as source-checked or held before homepage/sponsored/outreach promotion.
 - RESEARCH BASIS: spot-checked current public directory patterns from LawReviews, PsakDin, Justia and Justia Connect. The standard is profile depth plus review/contact/claim governance; implementation is original and does not copy competitor profile text, photos, ratings, reviews, badges, or lawyer data.
-- VERIFIED LOCAL / PUSH PENDING / DEPLOY BLOCKED: `php -l inc/lawyer-visibility.php` and `git diff --check` passed. Production still appears behind GitHub until uPress Pull Git succeeds.
+- VERIFIED LOCAL / PUSHED / DEPLOY BLOCKED: `php -l inc/lawyer-visibility.php` and `git diff --check` passed; pushed commit `4d99a93`. The Codex browser still reports no active uPress pane, and a read-only live check still finds the old unverified Maya text, so production is not yet pulled to this commit.
 - REVENUE STATUS: realized revenue remains NIS 0. This improves trust and conversion readiness, but it does not prove payment, invoice, refund, subscription, lead delivery, or CRM monetization.
 - SAFETY: repo CMS/admin logic and docs only; no live CMS database edit, competitor lawyer/profile import, competitor asset/content copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
 

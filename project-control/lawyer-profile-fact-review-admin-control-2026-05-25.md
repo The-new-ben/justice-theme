@@ -38,6 +38,8 @@ The direction follows the profile-quality pattern seen in leading directories: p
 
 - `php -l inc/lawyer-visibility.php` passed.
 - `git diff --check` passed.
+- Commit `4d99a93` was pushed to `origin/main`.
+- uPress Pull Git is still blocked from Codex because the in-app browser reports no active uPress pane, and the live Maya profile still serves the old unverified text until the server pulls.
 
 ## Completion Impact
 

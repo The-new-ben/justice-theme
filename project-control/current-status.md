@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-25 07:43 Asia/Jerusalem
+- HEBREW LAWYER OFFER HTML: added a browser-ready RTL Hebrew one-pager for first-cohort lawyer sales, with value proposition, plan ladder, WhatsApp close, phone close and boundaries.
+- RESEARCH BASIS: current one-pager guidance from HubSpot, Dock and Qwilr emphasizes concise value, proof points and a clear next step.
+- ADDED: `project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the Hebrew lawyer offer.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` so the pack verifies the Hebrew lawyer offer is present and linked.
+- MATERIAL ADVANCE: the owner now has a lawyer-facing Hebrew sales one-pager that can be opened in a browser after a call or investor demo.
+- STILL BLOCKED: actual outreach, payment link sending, invoices and account activation require owner approval/live execution.
+- COMPLETION: first-cohort sales collateral is about 97%; actual revenue remains blocked until owner executes outreach and manual payment links.
+- SAFETY: local HTML/documentation/checker/launchpad artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 07:33 Asia/Jerusalem
 - FIRST COHORT LAWYER OFFER SHEET: added a concrete first-cohort commercial offer sheet that turns the public plan ladder into a lawyer-facing sales close.
 - RESEARCH BASIS: HubSpot pipeline, sales sequence and sales automation guidance emphasizes clear stages, structured cadence and activity logging.

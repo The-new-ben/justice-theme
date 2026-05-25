@@ -1,6 +1,6 @@
 {
   "status": "PASS",
-  "startedAt": "2026-05-25T04:34:23.723Z",
+  "startedAt": "2026-05-25T04:45:25.621Z",
   "runDate": "2026-05-25",
   "sourceBasis": [
     {
@@ -85,6 +85,12 @@
       "id": "first-cohort-lawyer-offer-sheet",
       "path": "project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md",
       "reason": "Concrete plan/pricing offer sheet for converting interested lawyers into first-cohort payments.",
+      "status": "PASS"
+    },
+    {
+      "id": "first-cohort-lawyer-offer-sheet-he-html",
+      "path": "project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html",
+      "reason": "Browser-ready Hebrew sales one-pager for showing/sending the first-cohort offer to lawyers.",
       "status": "PASS"
     },
     {
@@ -191,6 +197,10 @@
     },
     {
       "token": "./first-cohort-lawyer-offer-sheet-2026-05-25.md",
+      "status": "PASS"
+    },
+    {
+      "token": "./first-cohort-lawyer-offer-sheet-he-2026-05-25.html",
       "status": "PASS"
     },
     {

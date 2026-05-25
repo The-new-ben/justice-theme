@@ -70,6 +70,11 @@ const requiredFiles = [
 		reason: 'Concrete plan/pricing offer sheet for converting interested lawyers into first-cohort payments.',
 	},
 	{
+		id: 'first-cohort-lawyer-offer-sheet-he-html',
+		path: 'project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html',
+		reason: 'Browser-ready Hebrew sales one-pager for showing/sending the first-cohort offer to lawyers.',
+	},
+	{
 		id: 'ascii-demo-data',
 		path: 'project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md',
 		reason: 'Copy-safe demo lawyer and lead fields if Hebrew rendering is risky.',
@@ -112,6 +117,7 @@ const launchpadTokens = [
 	'./investor-post-demo-follow-up-2026-05-25.md',
 	'./first-paid-lawyer-outreach-sprint-2026-05-25.md',
 	'./first-cohort-lawyer-offer-sheet-2026-05-25.md',
+	'./first-cohort-lawyer-offer-sheet-he-2026-05-25.html',
 	'tools\\run-investor-morning-pack.ps1',
 	'Do not claim recurring billing',
 ];

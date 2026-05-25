@@ -1,9 +1,9 @@
 # Investor Launchpad Pack Check - 2026-05-25
 
 - Status: PASS
-- Started: 2026-05-25T04:34:23.723Z
-- Files present: 16/16
-- Launchpad tokens present: 22/22
+- Started: 2026-05-25T04:45:25.621Z
+- Files present: 17/17
+- Launchpad tokens present: 23/23
 - Scope: local investor-demo control artifacts only.
 - Safety: no public CMS/database content, payment, invoice, refund, lawyer record, lead, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting was changed.
 
@@ -28,6 +28,7 @@
 | project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md | PASS | Concrete post-demo sales sprint for the first 20-30 paid lawyer prospects. |
 | project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv | PASS | CRM-style tracker for first paid lawyer outreach. |
 | project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md | PASS | Concrete plan/pricing offer sheet for converting interested lawyers into first-cohort payments. |
+| project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html | PASS | Browser-ready Hebrew sales one-pager for showing/sending the first-cohort offer to lawyers. |
 | project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md | PASS | Copy-safe demo lawyer and lead fields if Hebrew rendering is risky. |
 | project-control/investor-demo-readiness-2026-05-25.md | PASS | Readiness status and remaining blockers. |
 | project-control/lawyer-revenue-funnel-live-2026-05-25.md | PASS | Live public lawyer funnel verification. |
@@ -57,6 +58,7 @@
 | `./investor-post-demo-follow-up-2026-05-25.md` | PASS |
 | `./first-paid-lawyer-outreach-sprint-2026-05-25.md` | PASS |
 | `./first-cohort-lawyer-offer-sheet-2026-05-25.md` | PASS |
+| `./first-cohort-lawyer-offer-sheet-he-2026-05-25.html` | PASS |
 | `tools\run-investor-morning-pack.ps1` | PASS |
 | `Do not claim recurring billing` | PASS |
 

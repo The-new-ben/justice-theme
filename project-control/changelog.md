@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Hebrew lawyer offer HTML
+
+- ADDED: `project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the Hebrew lawyer offer.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` to include the Hebrew lawyer offer in the verified pack.
+- PURPOSE: give the owner a browser-ready Hebrew one-pager for first paid lawyer conversations.
+- SAFETY: local HTML/documentation/checker/launchpad artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - First cohort lawyer offer sheet
 
 - ADDED: `project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md`.

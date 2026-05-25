@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-25 05:52 Asia/Jerusalem
+- INVESTOR PAYMENT OVERCLAIM CHECKER: added and ran a local guard that scans the investor demo pack for unsafe payment, recurring-billing, invoice, refund and fake-data claims.
+- RESEARCH BASIS: Stripe Customer Portal and Chargebee Self-Serve Portal docs confirm that mature billing portals expose billing details, payment methods, invoices, subscription state and cancellation/change paths; Jus-Tice must not overclaim those provider-managed actions before Grow/Meshulam proof.
+- ADDED: `tools/check-investor-payment-overclaim.mjs`.
+- GENERATED: `project-control/investor-payment-overclaim-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/investor-payment-overclaim-2026-05-25.json` and `.csv`.
+- VERIFIED LOCAL: payment overclaim gate is PASS with 3/3 honesty markers and 8/8 overclaim scans passing.
+- MATERIAL ADVANCE: the morning payment conversation now has a repeatable honesty gate that protects the owner from accidentally saying recurring billing, invoices or refunds are already automatic.
+- STILL BLOCKED: claimed demo lawyer, assigned medical-malpractice lead, real provider payment, branded invoice and refund execution require explicit owner/provider-approved live actions.
+- COMPLETION: investor operator/payment-message readiness moves to about 91%; full real-money lifecycle proof remains provider/data gated.
+- SAFETY: local checker/report artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 05:42 Asia/Jerusalem
 - INVESTOR LAUNCHPAD PACK CHECKER: added and ran a local readiness checker for the morning investor control pack.
 - ADDED: `tools/check-investor-launchpad-pack.mjs`.

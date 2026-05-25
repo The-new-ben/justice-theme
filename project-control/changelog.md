@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Investor payment overclaim checker
+
+- ADDED: `tools/check-investor-payment-overclaim.mjs`.
+- GENERATED: `project-control/investor-payment-overclaim-2026-05-25.md` and `.csv`.
+- GENERATED: `reports/investor-payment-overclaim-2026-05-25.json` and `.csv`.
+- VERIFIED: payment overclaim gate passes with 3/3 honesty markers and 8/8 overclaim scans.
+- PURPOSE: prevent the investor demo from overstating recurring billing, invoices, refunds or demo-data truth before provider-approved proof exists.
+- SAFETY: local checker/report artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Investor launchpad pack checker
 
 - ADDED: `tools/check-investor-launchpad-pack.mjs`.

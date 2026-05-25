@@ -1,0 +1,135 @@
+{
+  "status": "PASS",
+  "startedAt": "2026-05-25T02:53:57.135Z",
+  "runDate": "2026-05-25",
+  "sourceBasis": [
+    {
+      "name": "Stripe Customer Portal",
+      "url": "https://docs.stripe.com/billing/subscriptions/customer-portal",
+      "meaning": "Mature customer portals expose billing details, payment methods, invoices, subscription status and cancellation where configured."
+    },
+    {
+      "name": "Chargebee Self-Serve Portal",
+      "url": "https://www.chargebee.com/docs/1.0/self-serve-portal.html",
+      "meaning": "Self-serve billing portals commonly cover subscription changes, cancellation/reactivation, invoices, payment methods and billing addresses."
+    }
+  ],
+  "filesToCheck": [
+    "project-control/investor-demo-launchpad-2026-05-25.html",
+    "project-control/investor-demo-morning-control-sheet-2026-05-25.md",
+    "project-control/investor-demo-scenario-script-2026-05-25.md",
+    "project-control/investor-payment-lifecycle-playbook-2026-05-25.md",
+    "project-control/investor-demo-readiness-2026-05-25.md",
+    "project-control/investor-launchpad-pack-2026-05-25.md"
+  ],
+  "honestyResults": [
+    {
+      "id": "provider-gated",
+      "token": "provider-gated",
+      "reason": "The demo must disclose that recurring billing, branded invoices and refunds depend on provider approval/setup.",
+      "files": [
+        "project-control/investor-demo-launchpad-2026-05-25.html",
+        "project-control/investor-demo-scenario-script-2026-05-25.md",
+        "project-control/investor-payment-lifecycle-playbook-2026-05-25.md"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "manual-payment-link",
+      "token": "manual",
+      "reason": "The current revenue bridge is manual payment-link/invoice handling, not full automation.",
+      "files": [
+        "project-control/investor-demo-launchpad-2026-05-25.html",
+        "project-control/investor-demo-morning-control-sheet-2026-05-25.md",
+        "project-control/investor-demo-scenario-script-2026-05-25.md",
+        "project-control/investor-payment-lifecycle-playbook-2026-05-25.md",
+        "project-control/investor-demo-readiness-2026-05-25.md"
+      ],
+      "status": "PASS"
+    },
+    {
+      "id": "do-not-claim-recurring",
+      "token": "Do not claim recurring billing",
+      "reason": "The operator needs a visible guardrail against overclaiming recurring billing.",
+      "files": [
+        "project-control/investor-demo-launchpad-2026-05-25.html",
+        "project-control/investor-launchpad-pack-2026-05-25.md"
+      ],
+      "status": "PASS"
+    }
+  ],
+  "overclaimResults": [
+    {
+      "id": "fully-automated-payments",
+      "pattern": {},
+      "allowedIfNearby": {},
+      "reason": "Do not claim fully automated money movement before provider proof.",
+      "status": "PASS",
+      "file": "-",
+      "excerpt": ""
+    },
+    {
+      "id": "automatic-recurring-live",
+      "pattern": {},
+      "allowedIfNearby": {},
+      "reason": "Recurring billing remains approval/provider gated.",
+      "status": "PASS",
+      "file": "project-control/investor-demo-readiness-2026-05-25.md",
+      "excerpt": "Honesty rule: show manual payment-link readiness and service-ticket capture; do not claim automatic recurring billing, automatic invoices or refunds are live until Grow/Meshulam approval and a controlled transaction pass. ## Summary Live/code ch"
+    },
+    {
+      "id": "automatic-invoice-live",
+      "pattern": {},
+      "allowedIfNearby": {},
+      "reason": "Branded invoice proof must come from the provider.",
+      "status": "PASS",
+      "file": "project-control/investor-payment-lifecycle-playbook-2026-05-25.md",
+      "excerpt": "pt aligned with mature billing portal patterns. - Still blocked: real low-amount payment, branded invoice and refund require owner-approved provider actions; claimed demo lawyer and assigned demo lead require approved live data s"
+    },
+    {
+      "id": "automatic-invoice-live",
+      "pattern": {},
+      "allowedIfNearby": {},
+      "reason": "Branded invoice proof must come from the provider.",
+      "status": "PASS",
+      "file": "project-control/investor-demo-readiness-2026-05-25.md",
+      "excerpt": "Present manual payment-link fallback as live and recurring billing as approval-gated. | | Automatic branded invoice/receipt with logo | EXTERNAL_BLOCKER | Needs approved Grow/Morning invoice/payment setup and one controlled transaction. | Show policy/complian"
+    },
+    {
+      "id": "automatic-invoice-live",
+      "pattern": {},
+      "allowedIfNearby": {},
+      "reason": "Branded invoice proof must come from the provider.",
+      "status": "PASS",
+      "file": "project-control/investor-launchpad-pack-2026-05-25.md",
+      "excerpt": "unchanged: claimed demo lawyer, assigned medical-malpractice lead, real provider payment, branded invoice and refund execution require explicit owner/provider-approved live actions. ## Rerun ```powershell node tools\\check-investor-launchpad-pack.mjs ```"
+    },
+    {
+      "id": "refund-executed",
+      "pattern": {},
+      "allowedIfNearby": {},
+      "reason": "Refund execution must not be claimed without a real provider refund.",
+      "status": "PASS",
+      "file": "project-control/investor-launchpad-pack-2026-05-25.md",
+      "excerpt": "emo lawyer, assigned medical-malpractice lead, real provider payment, branded invoice and refund execution require explicit owner/provider-approved live actions. ## Rerun ```powershell node tools\\check-investor-launchpad-pack.mjs ```"
+    },
+    {
+      "id": "fake-data-real",
+      "pattern": {},
+      "allowedIfNearby": {},
+      "reason": "Demo data must not be described as a real customer unless it truly is.",
+      "status": "PASS",
+      "file": "project-control/investor-demo-scenario-script-2026-05-25.md",
+      "excerpt": "s fake data?\": The routes and workflows are live. The demo lawyer/lead can be controlled demo data for presentation, and must be disclosed as demo data unless using an actual approved customer."
+    },
+    {
+      "id": "fake-data-real",
+      "pattern": {},
+      "allowedIfNearby": {},
+      "reason": "Demo data must not be described as a real customer unless it truly is.",
+      "status": "PASS",
+      "file": "project-control/investor-launchpad-pack-2026-05-25.md",
+      "excerpt": "and readiness reports are present and linked. Remaining blockers are unchanged: claimed demo lawyer, assigned medical-malpractice lead, real provider payment, branded invoice and refund execution require explicit owner/provider-ap"
+    }
+  ]
+}

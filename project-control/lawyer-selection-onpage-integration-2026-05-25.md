@@ -11,6 +11,7 @@ What was integrated:
 - Profile language was reduced from "mini-site" marketing copy to a cleaner professional-profile presentation, because the profile itself must sell the lawyer, not advertise other lawyers inside it.
 - The directory now explains what to check before choosing a professional, while keeping the cards CMS-controlled and editable.
 - Lawyer registration, lawyer plans, dashboard and onboarding copy were aligned to the same "professional profile" language so the account-opening path does not feel generic or inconsistent.
+- The homepage lawyer revenue strip now exposes the basic, professional and boosted-exposure plan ladder so an investor can understand the money path without opening internal docs.
 
 What was not done:
 

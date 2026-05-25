@@ -13,6 +13,14 @@
 - REVENUE STATUS: realized recurring revenue remains NIS 0; this improves claim/upgrade/sponsored conversion readiness only.
 - SAFETY: no CMS database write, public page publish, competitor photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
 
+# 2026-05-25 - Homepage lawyer pricing proof strip
+
+- UPDATED: `template-parts/sections/homepage-lawyer-revenue-strip.php` and `assets/css/premium-pass-4.css`.
+- PURPOSE: make the homepage investor path show how lawyer traffic can convert into basic, professional and sponsored profile revenue.
+- IMPLEMENTATION: added CMS-safe pricing proof cards for basic visibility, professional profile and boosted exposure, using existing lawyer-plan override values when available.
+- REVENUE STATUS: still no realized recurring revenue in this cycle; the change clarifies the monetization path and does not process payment.
+- SAFETY: no CMS database write, public page publish, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # 2026-05-25 - SEO pack cannibalization gate
 
 - ADDED: `tools/check-seo-pack-cannibalization-gate.mjs`.

@@ -59,6 +59,34 @@ $signals = array(
 	),
 );
 
+$plan_prices = array(
+	array(
+		'label' => __( 'פרופיל בסיסי', 'justice-theme' ),
+		'value' => __( 'ללא תשלום לאחר בדיקה ואישור', 'justice-theme' ),
+	),
+	array(
+		'label' => __( 'פרופיל מקצועי', 'justice-theme' ),
+		'value' => __( '349 ש"ח לחודש כולל מע"מ', 'justice-theme' ),
+	),
+	array(
+		'label' => __( 'חשיפה מוגברת', 'justice-theme' ),
+		'value' => __( '749 ש"ח לחודש כולל מע"מ', 'justice-theme' ),
+	),
+);
+
+if ( function_exists( 'justice_theme_lawyer_plan_public_overrides' ) ) {
+	$pro_override      = justice_theme_lawyer_plan_public_overrides( 'pro' );
+	$featured_override = justice_theme_lawyer_plan_public_overrides( 'featured' );
+
+	if ( ! empty( $pro_override['price'] ) ) {
+		$plan_prices[1]['value'] = $pro_override['price'];
+	}
+
+	if ( ! empty( $featured_override['price'] ) ) {
+		$plan_prices[2]['value'] = $featured_override['price'];
+	}
+}
+
 $account_steps = array(
 	__( 'פותחים חשבון', 'justice-theme' ),
 	__( 'משלימים פרופיל', 'justice-theme' ),
@@ -103,6 +131,16 @@ $account_steps = array(
 					<span><?php esc_html_e( 'אזור אישי', 'justice-theme' ); ?></span>
 					<strong><?php esc_html_e( 'לידים, שירות ושדרוגים', 'justice-theme' ); ?></strong>
 				</div>
+			</div>
+
+			<div class="homepage-lawyer-revenue__pricing" aria-label="<?php esc_attr_e( 'מסלולי הכנסה לעורכי דין', 'justice-theme' ); ?>">
+				<?php foreach ( $plan_prices as $plan_price ) : ?>
+					<div>
+						<span><?php echo esc_html( $plan_price['label'] ); ?></span>
+						<strong><?php echo esc_html( $plan_price['value'] ); ?></strong>
+					</div>
+				<?php endforeach; ?>
+				<p><?php esc_html_e( 'הצטרפות בתשלום מתבצעת רק לאחר אישור התאמה, קישור תשלום או חשבונית ידנית, וללא הבטחת תוצאה משפטית או עסקית.', 'justice-theme' ); ?></p>
 			</div>
 		</div>
 

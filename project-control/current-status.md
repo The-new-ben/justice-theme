@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-25 07:22 Asia/Jerusalem
+- FIRST PAID LAWYER OUTREACH SPRINT: added a revenue-focused first-cohort outreach plan with target cohorts, pipeline stages, 7-day cadence, phone/WhatsApp/email copy, qualification questions and a 30-row CRM tracker.
+- RESEARCH BASIS: HubSpot pipeline, sales sequence and sales automation guidance emphasizes clear pipeline stages, planned multi-touch cadence and activity logging.
+- ADDED: `project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md`.
+- ADDED: `project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the outreach sprint.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` so the pack verifies the outreach sprint and tracker are present and linked.
+- MATERIAL ADVANCE: the post-demo path now has a practical first paid-lawyer sales sprint instead of only investor materials.
+- STILL BLOCKED: actual outreach, payment links and customer records require owner approval/live execution.
+- COMPLETION: revenue-sprint planning is about 90%; actual first-cohort revenue remains blocked until outreach and manual payment links are executed.
+- SAFETY: local documentation/tracker/checker/launchpad artifacts only; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice execution, refund execution, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 07:12 Asia/Jerusalem
 - INVESTOR POST-DEMO FOLLOW-UP: added an owner-ready follow-up plan with meeting notes to capture, English/Hebrew recap email templates, follow-up cadence and payment-proof wording.
 - RESEARCH BASIS: HubSpot recap/sales-email guidance and recent investor-follow-up guidance emphasize concise recaps, clear next steps, promised materials within 24 hours and specific asks.

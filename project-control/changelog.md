@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - First paid lawyer outreach sprint
+
+- ADDED: `project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md`.
+- ADDED: `project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv`.
+- UPDATED: `project-control/investor-demo-launchpad-2026-05-25.html` to link the outreach sprint.
+- UPDATED: `tools/check-investor-launchpad-pack.mjs` to include the outreach sprint and tracker in the verified pack.
+- RESEARCH BASIS: HubSpot pipeline, sales sequence and sales automation guidance.
+- PURPOSE: turn investor-demo momentum into first paid lawyer outreach and manual-payment revenue.
+- SAFETY: local documentation/tracker/checker/launchpad artifacts only; no public CMS/database or provider setting changed.
+
 # 2026-05-25 - Investor post-demo follow-up
 
 - ADDED: `project-control/investor-post-demo-follow-up-2026-05-25.md`.

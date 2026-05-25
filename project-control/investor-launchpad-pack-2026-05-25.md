@@ -1,9 +1,9 @@
 # Investor Launchpad Pack Check - 2026-05-25
 
 - Status: PASS
-- Started: 2026-05-25T04:14:18.573Z
-- Files present: 13/13
-- Launchpad tokens present: 20/20
+- Started: 2026-05-25T04:24:35.159Z
+- Files present: 15/15
+- Launchpad tokens present: 21/21
 - Scope: local investor-demo control artifacts only.
 - Safety: no public CMS/database content, payment, invoice, refund, lawyer record, lead, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting was changed.
 
@@ -25,6 +25,8 @@
 | project-control/investor-demo-fallback-answers-2026-05-25.md | PASS | Controlled answers if a page is slow, a login is missing, or the investor challenges payment proof. |
 | project-control/investor-live-data-provider-action-checklist-2026-05-25.md | PASS | Owner-side steps for the five remaining live-data/provider blockers. |
 | project-control/investor-post-demo-follow-up-2026-05-25.md | PASS | Investor recap and next-step templates so demo interest can convert into a concrete follow-up. |
+| project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md | PASS | Concrete post-demo sales sprint for the first 20-30 paid lawyer prospects. |
+| project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv | PASS | CRM-style tracker for first paid lawyer outreach. |
 | project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md | PASS | Copy-safe demo lawyer and lead fields if Hebrew rendering is risky. |
 | project-control/investor-demo-readiness-2026-05-25.md | PASS | Readiness status and remaining blockers. |
 | project-control/lawyer-revenue-funnel-live-2026-05-25.md | PASS | Live public lawyer funnel verification. |
@@ -52,6 +54,7 @@
 | `./investor-demo-fallback-answers-2026-05-25.md` | PASS |
 | `./investor-live-data-provider-action-checklist-2026-05-25.md` | PASS |
 | `./investor-post-demo-follow-up-2026-05-25.md` | PASS |
+| `./first-paid-lawyer-outreach-sprint-2026-05-25.md` | PASS |
 | `tools\run-investor-morning-pack.ps1` | PASS |
 | `Do not claim recurring billing` | PASS |
 

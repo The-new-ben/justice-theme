@@ -55,6 +55,16 @@ const requiredFiles = [
 		reason: 'Investor recap and next-step templates so demo interest can convert into a concrete follow-up.',
 	},
 	{
+		id: 'first-paid-lawyer-outreach-sprint',
+		path: 'project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md',
+		reason: 'Concrete post-demo sales sprint for the first 20-30 paid lawyer prospects.',
+	},
+	{
+		id: 'first-paid-lawyer-outreach-tracker',
+		path: 'project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv',
+		reason: 'CRM-style tracker for first paid lawyer outreach.',
+	},
+	{
 		id: 'ascii-demo-data',
 		path: 'project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md',
 		reason: 'Copy-safe demo lawyer and lead fields if Hebrew rendering is risky.',
@@ -95,6 +105,7 @@ const launchpadTokens = [
 	'./investor-demo-fallback-answers-2026-05-25.md',
 	'./investor-live-data-provider-action-checklist-2026-05-25.md',
 	'./investor-post-demo-follow-up-2026-05-25.md',
+	'./first-paid-lawyer-outreach-sprint-2026-05-25.md',
 	'tools\\run-investor-morning-pack.ps1',
 	'Do not claim recurring billing',
 ];

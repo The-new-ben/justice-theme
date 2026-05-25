@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-25 18:42 Asia/Jerusalem
+- POST-PULL INVESTOR STATUS REFRESHED: after the owner pulled Git on uPress, live read-only checks were refreshed for the investor/demo path.
+- ADDED: `project-control/investor-post-pull-status-2026-05-25.md`.
+- REFRESHED: investor readiness, lawyer revenue funnel, CMS indexed customers, signup conversion, payment proof drill, payment overclaim, Grow compliance and morning go/no-go reports.
+- LIVE RESULTS: lawyer revenue funnel passed `10/10`; investor readiness is `PASS_WITH_DISCLOSED_BLOCKERS`; CMS indexed customers reports `20` REST records and `20` visible public cards; signup conversion passed `7/7`; Grow/payment compliance passed `8/8`; payment overclaim passed; morning go/no-go is `GO_WITH_DISCLOSED_BLOCKERS`.
+- HONEST REVENUE STATUS: realized lawyer revenue remains NIS 0. No confirmed recurring charge, automatic branded invoice, refund execution or paid lawyer subscription proof was created in this cycle.
+- UPress PULL ANSWER: Codex can push Git locally, but the uPress Pull Git action lives behind the authenticated uPress browser UI; in this session the Codex browser bridge has repeatedly reported no active browser pane or timed out, so the owner-performed pull plus read-only live verification is the reliable path.
+- SAFETY: read-only live checks and local report artifacts only; no CMS database record, legal-service supplier record, competitor profile/photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 18:28 Asia/Jerusalem
 - LAWYER PROFILE CLAIM BANNER ADDED: basic/unverified/fact-gated lawyer profiles now have a professional "is this your profile?" claim/update path in the hero.
 - UPDATED: `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`.

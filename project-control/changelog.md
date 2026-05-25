@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Post-pull investor status refresh
+
+- ADDED: `project-control/investor-post-pull-status-2026-05-25.md`.
+- REFRESHED: investor readiness, lawyer revenue funnel, CMS indexed customers, signup conversion, payment proof drill, payment overclaim, Grow payment compliance and morning go/no-go reports.
+- PURPOSE: give the owner a plain post-pull status answer before the investor demo, including why Codex cannot reliably operate the uPress Pull Git UI from this session.
+- VERIFIED LIVE READ-ONLY: lawyer revenue funnel passed `10/10`; investor readiness is `PASS_WITH_DISCLOSED_BLOCKERS`; CMS indexed customers reports `20` REST records and `20` visible cards; signup conversion passed `7/7`; Grow/payment compliance passed `8/8`; payment overclaim passed; morning go/no-go is `GO_WITH_DISCLOSED_BLOCKERS`.
+- REVENUE STATUS: realized lawyer revenue remains NIS 0. Payment proof files/checkers are present, but this cycle did not create a new charge, invoice, recurring billing proof, refund proof, or paid subscription proof.
+- SAFETY: read-only live checks and report/docs refresh only; no CMS database record, supplier record, competitor profile/photo/review/rating/contact copy, payment, invoice, refund, email, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4 or provider setting changed.
+
 # 2026-05-25 - Lawyer profile claim banner
 
 - UPDATED: `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, `inc/enqueue.php`.

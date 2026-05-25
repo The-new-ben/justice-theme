@@ -91,6 +91,8 @@ Already shipped:
 - Paid-lawyer routing gate
 - Lead caps
 - Qualified lead billing queue in CRM
+- Public-facing path chooser that explains the next visitor step without
+  exposing internal revenue, CMS, Grow or billing language.
 
 Remaining:
 
@@ -98,6 +100,10 @@ Remaining:
 - Run a real test lead.
 - Mark first billable qualified lead in CRM.
 - Use manual invoice/payment path until Grow/Meshulam is ready.
+- Confirm final intent split between `/bituach-leumi-appeal-guide/`,
+  `/national-insurance-attorney/`, old Bituach Leumi calculator URLs and the
+  broad national-insurance directory/filter before creating any additional
+  public Bituach Leumi pages.
 
 ### Public trust and homepage fixes
 
@@ -123,6 +129,17 @@ Do not create these public pages/tools before audit:
 - `property-tax-calculator` or `property-check` - `/property-investment-calculator/` already exists and has GSC risk.
 - `מחשבון מזונות` - old Hebrew child-support calculator URL and `/child-support/` have known conflict.
 - `national-insurance-calculator` - an older Bituach Leumi calculator exists separately from the new appeal funnel.
+
+Current Bituach Leumi relationship to report on publication:
+
+- `/bituach-leumi-appeal-guide/` is the canonical guide/tool route for appeal
+  intent in current theme code.
+- `/national-insurance-attorney/` is a matching service-intent entry point that
+  currently renders the same focused appeal funnel.
+- `/lawyers/?area=national-insurance` is the lawyer-directory destination.
+- Old Bituach Leumi calculator URLs are related but should not be merged,
+  redirected or expanded until source/GSC evidence confirms which URL owns the
+  calculator intent.
 
 Execution rule:
 

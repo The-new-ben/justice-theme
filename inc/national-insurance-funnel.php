@@ -355,6 +355,29 @@ function justice_theme_render_btl_appeal_route(): void {
 						<a class="button button--primary" href="#btl-appeal-lead"><?php esc_html_e( 'בדיקת הפער עם עורך דין', 'justice-theme' ); ?></a>
 					</div>
 
+					<section class="btl-appeal-pathways" aria-labelledby="btl-appeal-pathways-title">
+						<p class="section-header__eyebrow"><?php esc_html_e( 'בחירת מסלול', 'justice-theme' ); ?></p>
+						<h2 id="btl-appeal-pathways-title"><?php esc_html_e( 'איזה צעד מתאים עכשיו?', 'justice-theme' ); ?></h2>
+						<p><?php esc_html_e( 'לא כל החלטה של ביטוח לאומי דורשת אותו טיפול. מי שעדיין מנסה להבין את המסמך צריך קודם לסדר את הנתונים. מי שהמועד קרוב או שיש פער משמעותי בין ההחלטה לבין המסמכים הרפואיים, צריך בדיקה ממוקדת יותר.', 'justice-theme' ); ?></p>
+						<div class="btl-appeal-pathways__grid">
+							<article>
+								<strong><?php esc_html_e( 'רוצים להבין אם יש פער כספי', 'justice-theme' ); ?></strong>
+								<p><?php esc_html_e( 'התחילו במחשבון, רשמו את הסכום שנקבע, את הסכום שלדעתכם משקף את המצב ואת מספר החודשים הרלוונטי. זה לא קובע זכאות, אבל עוזר להבין אם כדאי להמשיך לבדיקה.', 'justice-theme' ); ?></p>
+								<a href="#btl-appeal-calculator"><?php esc_html_e( 'חזרה למחשבון', 'justice-theme' ); ?></a>
+							</article>
+							<article>
+								<strong><?php esc_html_e( 'המועד קרוב או המסמכים מורכבים', 'justice-theme' ); ?></strong>
+								<p><?php esc_html_e( 'אם עברו שבועות מאז ההחלטה, אם מדובר בפרוטוקול ועדה רפואית או אם חסרות חוות דעת, כדאי להשאיר פרטים עם תאריך ההחלטה וסוג הקצבה כדי שניתן יהיה להבין את הדחיפות.', 'justice-theme' ); ?></p>
+								<a href="#btl-appeal-lead"><?php esc_html_e( 'שליחת פרטים לבדיקה', 'justice-theme' ); ?></a>
+							</article>
+							<article>
+								<strong><?php esc_html_e( 'מחפשים עורך דין בתחום ביטוח לאומי', 'justice-theme' ); ?></strong>
+								<p><?php esc_html_e( 'אפשר לעבור ישירות לאינדקס עורכי הדין ולסנן לפי תחום ביטוח לאומי. מומלץ להכין מראש החלטה, פרוטוקול ועדה, מסמכים רפואיים ותאריך קבלת ההחלטה.', 'justice-theme' ); ?></p>
+								<a href="<?php echo esc_url( home_url( '/lawyers/?area=national-insurance' ) ); ?>"><?php esc_html_e( 'מעבר לעורכי דין ביטוח לאומי', 'justice-theme' ); ?></a>
+							</article>
+						</div>
+					</section>
+
 					<h2><?php esc_html_e( 'שאלות נפוצות על ערעור ביטוח לאומי', 'justice-theme' ); ?></h2>
 					<div class="btl-appeal-faq">
 						<?php foreach ( justice_theme_btl_appeal_faqs() as $faq ) : ?>
@@ -365,7 +388,7 @@ function justice_theme_render_btl_appeal_route(): void {
 						<?php endforeach; ?>
 					</div>
 
-					<h2><?php esc_html_e( 'מקורות בדיקה רשמיים', 'justice-theme' ); ?></h2>
+					<h2 id="btl-official-sources"><?php esc_html_e( 'מקורות בדיקה רשמיים', 'justice-theme' ); ?></h2>
 					<ul>
 						<li><a href="https://www.btl.gov.il/benefits/vaadotRefuiyot/erurVadot/Pages/erurNechutMeavoda.aspx" target="_blank" rel="noopener">ביטוח לאומי: ערר על ועדה רפואית בנכות מעבודה</a></li>
 						<li><a href="https://www.btl.gov.il/benefits/Disability/Pages/%D7%A2%D7%A8%D7%A2%D7%95%D7%A8%20%D7%A2%D7%9C%20%D7%90%D7%97%D7%95%D7%96%20%D7%94%D7%A0%D7%9B%D7%95%D7%AA%20%D7%94%D7%A8%D7%A4%D7%95%D7%90%D7%99%D7%AA%20%D7%93%D7%A8%D7%92%D7%AA%20%D7%90%D7%99%20%D7%94%D7%9B%D7%95%D7%A9%D7%A8%20%D7%90%D7%97%D7%A8.aspx" target="_blank" rel="noopener">ביטוח לאומי: ערעור בנכות כללית ואי-כושר</a></li>

@@ -3301,6 +3301,18 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	$invoice_requested_export_url = justice_theme_lawyer_payment_queue_export_url( 'invoice_requested' );
 	$invoice_sent_export_url      = justice_theme_lawyer_payment_queue_export_url( 'invoice_sent' );
 	$manual_invoice_export_url    = justice_theme_lawyer_payment_queue_export_url( 'manual_invoice' );
+	$payment_proof_title          = $payment_confirmed_count
+		? 'Owner-confirmed paid lawyers exist'
+		: 'No confirmed paid lawyer yet';
+	$payment_proof_body           = $payment_confirmed_count
+		? 'Investor-safe claim: payment has been marked confirmed by the owner. Open the paid rows before quoting revenue.'
+		: 'Investor-safe claim: registration, billing capture, manual invoice handoff and follow-up are live; realized paid revenue is not proven yet.';
+	$payment_proof_background     = $payment_confirmed_count ? '#f0fdf4' : '#fff5f5';
+	$payment_proof_border         = $payment_confirmed_count ? '#bbf7d0' : '#fecaca';
+	$payment_proof_color          = $payment_confirmed_count ? '#166534' : '#991b1b';
+	$payment_bridge_body          = $payment_link_ready_count
+		? 'Payment links exist on manual-invoice registrations; the next step is sending/chasing them and confirming real payment.'
+		: 'No saved payment link is ready in the manual-invoice queue. Create the Grow/Morning link before asking the owner to pay.';
 	$next_money_title        = 'No invoice-ready paid registration is waiting';
 	$next_money_body         = 'The payment queue is clear. The next revenue move is focused lawyer outreach or improving the plan-to-registration path.';
 	$next_money_url          = $all_url;
@@ -3362,6 +3374,23 @@ function justice_theme_render_lawyer_onboarding_payment_command_center(): void {
 	<div style="max-width:1200px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:18px 20px;margin:18px 0;">
 		<h2 style="margin-top:0;">Paid registration command center</h2>
 		<p style="margin-top:0;">Use this panel as the daily payment handoff while automatic recurring checkout is still pending. Every paid registration that cannot go through checkout should become a license review, invoice follow-up and activation decision.</p>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;margin:16px 0;">
+			<div style="border:1px solid <?php echo esc_attr( $payment_proof_border ); ?>;background:<?php echo esc_attr( $payment_proof_background ); ?>;border-radius:8px;padding:14px;">
+				<strong style="display:block;color:<?php echo esc_attr( $payment_proof_color ); ?>;font-size:15px;"><?php echo esc_html( $payment_proof_title ); ?></strong>
+				<p style="margin:8px 0 0;color:<?php echo esc_attr( $payment_proof_color ); ?>;"><?php echo esc_html( $payment_proof_body ); ?></p>
+				<p style="margin:10px 0 0;"><strong><?php echo esc_html( number_format_i18n( $payment_confirmed_count ) ); ?></strong> paid profiles / <strong><?php echo esc_html( justice_theme_lawyer_onboarding_money_label( $payment_confirmed_value ) ); ?></strong> confirmed monthly plan value</p>
+			</div>
+			<div style="border:1px solid #d6e4ff;background:#f7faff;border-radius:8px;padding:14px;">
+				<strong style="display:block;color:#16427a;font-size:15px;">Manual payment bridge</strong>
+				<p style="margin:8px 0 0;color:#16427a;"><?php echo esc_html( $payment_bridge_body ); ?></p>
+				<p style="margin:10px 0 0;"><strong><?php echo esc_html( number_format_i18n( $manual_invoice_count ) ); ?></strong> manual-invoice profiles / <strong><?php echo esc_html( number_format_i18n( $payment_link_ready_count ) ); ?></strong> saved payment links</p>
+			</div>
+			<div style="border:1px solid #f5d58c;background:#fffaf0;border-radius:8px;padding:14px;">
+				<strong style="display:block;color:#92400e;font-size:15px;">Provider claim boundary</strong>
+				<p style="margin:8px 0 0;color:#7c2d12;">Use this page for real manual payment-link follow-up. Do not claim automatic recurring billing, refunds or invoice automation until Grow/Morning/Woo integration passes a controlled paid smoke test.</p>
+				<p style="margin:10px 0 0;"><a href="<?php echo esc_url( $payment_link_needed_url ); ?>">Open link-needed queue</a></p>
+			</div>
+		</div>
 		<div style="border:1px solid #f5d58c;background:#fffaf0;border-radius:8px;padding:16px;margin:16px 0;">
 			<p style="margin:0 0 6px;color:#92400e;font-weight:700;text-transform:uppercase;letter-spacing:.02em;">Next money action</p>
 			<h3 style="margin:0 0 6px;font-size:20px;"><?php echo esc_html( $next_money_title ); ?></h3>

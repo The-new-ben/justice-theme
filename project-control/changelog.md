@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer onboarding revenue proof strip
+
+- UPDATED: `inc/lawyer-onboarding.php`.
+- ADDED: `project-control/lawyer-onboarding-revenue-proof-strip-2026-05-25.md`.
+- PURPOSE: give the owner an investor-safe payment/revenue truth line inside the paid onboarding command center.
+- IMPLEMENTATION: added a proof strip showing owner-confirmed paid profile count, confirmed monthly plan value, manual-invoice count, saved payment-link count, and a provider claim boundary for Grow/Morning/Woo recurring/refund/invoice automation.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed.
+- SAFETY: admin/theme logic only; no CMS database record, email/WhatsApp send, payment link, provider setting, WooCommerce product/subscription, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed.
+
 # 2026-05-25 - Lawyer trust summary bar
 
 - UPDATED: `inc/lawyer-visibility.php`.

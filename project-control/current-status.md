@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-25 14:40 Asia/Jerusalem
+- REVENUE PROOF STRIP ADDED: `Lawyer Onboarding -> Paid registration command center` now shows whether paid lawyer revenue is actually owner-confirmed or only in the manual-invoice pipeline.
+- UPDATED: `inc/lawyer-onboarding.php`.
+- ADDED: `project-control/lawyer-onboarding-revenue-proof-strip-2026-05-25.md`.
+- MATERIAL ADVANCE: the investor/payment demo now has an admin-visible honesty boundary: confirmed paid profiles, confirmed monthly plan value, manual-invoice count, saved payment-link count, and a warning not to claim automatic recurring billing/refunds/invoice automation until Grow/Morning/Woo passes a controlled paid smoke test.
+- VERIFIED LOCAL: `php -l inc/lawyer-onboarding.php` and `git diff --check` passed. Live deployment and wp-admin verification still need to complete in this cycle.
+- REVENUE STATUS: realized revenue remains NIS 0 unless the live admin count shows owner-confirmed paid profiles backed by real provider/accounting proof. This change makes that truth visible; it does not create payment proof.
+- SAFETY: admin/theme logic and docs only; no CMS database record, email/WhatsApp send, payment link, provider setting, WooCommerce product/subscription, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 14:29 Asia/Jerusalem
 - LAWYER TRUST SUMMARY BAR ADDED: wp-admin lawyer list now gets a visible `Jus-Tice profile trust queue` bar with counts and quick links for hold/review/source/media/Maya/ready profiles.
 - UPDATED: `inc/lawyer-visibility.php`.

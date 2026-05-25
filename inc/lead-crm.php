@@ -220,6 +220,7 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 	$pipeline_url      = admin_url( 'edit.php?post_type=justice_prospect' );
 	$needs_verification_url = add_query_arg( 'justice_prospect_verification_filter', 'needs', $pipeline_url );
 	$ready_verification_url = add_query_arg( 'justice_prospect_verification_filter', 'ready', $pipeline_url );
+	$source_pack_path       = 'project-control/btl-specialist-prospect-shortlist-2026-05-26.md';
 	?>
 	<h2 style="margin-top:28px;">Bituach Leumi specialist supply</h2>
 	<p>Owner-only coverage check for the active appeal funnel. The first goal is three specialist lawyers who can receive and pay for qualified appeal leads.</p>
@@ -252,6 +253,7 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 		<a class="button" href="<?php echo esc_url( $needs_verification_url ); ?>">Needs verification</a>
 		<a class="button" href="<?php echo esc_url( $ready_verification_url ); ?>">Ready for routing</a>
 	</p>
+	<p style="color:#646970;margin-top:-4px;">Private source shortlist for manual prospect creation: <code><?php echo esc_html( $source_pack_path ); ?></code></p>
 	<?php if ( $coverage_gap > 0 ) : ?>
 		<div class="notice notice-warning inline">
 			<p><strong>Coverage gap:</strong> recruit <?php echo esc_html( (string) $coverage_gap ); ?> more specialist lawyer(s), then run one real test lead before treating the funnel as revenue-ready.</p>

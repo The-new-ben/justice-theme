@@ -120,6 +120,10 @@ Already shipped:
 - First-three-specialists tracker added to the private Bituach Leumi CRM panel.
   It lists matching prospects, contact status, verification gaps, next action
   dates and direct edit links, with ready prospects sorted first.
+- Private Bituach Leumi specialist source pack added:
+  `project-control/btl-specialist-prospect-shortlist-2026-05-26.md` and `.csv`
+  collect source-linked candidates for manual verification. No public profile,
+  database record or outreach was created from this pack.
 
 Remaining:
 

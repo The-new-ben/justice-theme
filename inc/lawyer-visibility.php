@@ -71,6 +71,50 @@ function justice_theme_set_lawyer_visibility( int $post_id, string $visibility )
 	return (bool) update_post_meta( $post_id, 'admin_profile_visibility', $visibility );
 }
 
+/**
+ * Return owner-facing fact review statuses for lawyer profile facts.
+ *
+ * @return array<string,string>
+ */
+function justice_lawyer_fact_review_status_options(): array {
+	return array(
+		'pending'         => __( 'Pending fact review', 'justice-theme' ),
+		'source_checked'  => __( 'Source checked', 'justice-theme' ),
+		'owner_approved'  => __( 'Owner approved', 'justice-theme' ),
+		'lawyer_approved' => __( 'Lawyer approved', 'justice-theme' ),
+		'approved'        => __( 'Approved', 'justice-theme' ),
+		'hold'            => __( 'Hold / do not promote', 'justice-theme' ),
+		'rejected'        => __( 'Rejected / remove claims', 'justice-theme' ),
+	);
+}
+
+/**
+ * Normalize the lawyer fact review status.
+ *
+ * @param string $status Raw status value.
+ * @return string
+ */
+function justice_lawyer_normalize_fact_review_status( string $status ): string {
+	$status  = sanitize_key( $status );
+	$options = justice_lawyer_fact_review_status_options();
+
+	return isset( $options[ $status ] ) ? $status : 'pending';
+}
+
+/**
+ * Check if a lawyer profile's free-form facts are approved for public display.
+ *
+ * @param string $status Fact review status.
+ * @return bool
+ */
+function justice_lawyer_fact_review_status_is_approved( string $status ): bool {
+	return in_array(
+		justice_lawyer_normalize_fact_review_status( $status ),
+		array( 'approved', 'source_checked', 'owner_approved', 'lawyer_approved' ),
+		true
+	);
+}
+
 // ============================================================================
 // ADMIN META BOX — Visibility Toggle
 // ============================================================================
@@ -100,6 +144,7 @@ function justice_lawyer_visibility_meta_box_render( WP_Post $post ): void {
 	$profile_status = get_post_meta( $post->ID, 'profile_status', true );
 	$subscription   = get_post_meta( $post->ID, 'subscription_status', true );
 	$plan           = get_post_meta( $post->ID, 'plan_type', true );
+	$fact_status    = justice_lawyer_normalize_fact_review_status( (string) get_post_meta( $post->ID, 'profile_fact_review_status', true ) );
 	$is_approved    = function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
 		? justice_theme_lawyer_profile_is_public_approved( $post->ID )
 		: false;
@@ -147,6 +192,21 @@ function justice_lawyer_visibility_meta_box_render( WP_Post $post ): void {
 			• <em>הצג</em> = לעורכי דין שסוכם איתם בעל-פה, טרם שולמה מנוי
 		</p>
 
+		<hr style="margin:12px 0;">
+
+		<label for="profile_fact_review_status" style="font-weight:700;display:block;margin-bottom:6px;">Fact review for premium profile facts:</label>
+		<select id="profile_fact_review_status" name="profile_fact_review_status" style="width:100%;max-width:100%;">
+			<?php foreach ( justice_lawyer_fact_review_status_options() as $status_value => $status_label ) : ?>
+				<option value="<?php echo esc_attr( $status_value ); ?>" <?php selected( $fact_status, $status_value ); ?>>
+					<?php echo esc_html( $status_label ); ?>
+				</option>
+			<?php endforeach; ?>
+		</select>
+
+		<p style="margin:8px 0 0;color:#646970;font-size:11px;line-height:1.4;">
+			Only source checked, owner approved, lawyer approved, or approved unlock free-form biography facts, credentials, review panels and premium mini-site marketing on fact-gated profiles. Leave pending/hold until sources or lawyer approval are real.
+		</p>
+
 	</div>
 	<?php
 }
@@ -174,6 +234,12 @@ function justice_lawyer_visibility_meta_box_save( int $post_id ): void {
 	if ( in_array( $raw, array( 'auto', 'show', 'hide' ), true ) ) {
 		update_post_meta( $post_id, 'admin_profile_visibility', $raw );
 	}
+
+	$fact_status = isset( $_POST['profile_fact_review_status'] )
+		? justice_lawyer_normalize_fact_review_status( (string) wp_unslash( $_POST['profile_fact_review_status'] ) )
+		: 'pending';
+
+	update_post_meta( $post_id, 'profile_fact_review_status', $fact_status );
 }
 add_action( 'save_post', 'justice_lawyer_visibility_meta_box_save' );
 
@@ -193,6 +259,8 @@ function justice_lawyer_bulk_visibility_actions( array $actions ): array {
 	$actions['justice_lawyer_visibility_auto']      = __( 'Jus-Tice: automatic visibility', 'justice-theme' );
 	$actions['justice_lawyer_mark_sponsored']       = __( 'Jus-Tice: mark sponsored/top', 'justice-theme' );
 	$actions['justice_lawyer_mark_basic_unclaimed'] = __( 'Jus-Tice: mark basic/unclaimed', 'justice-theme' );
+	$actions['justice_lawyer_facts_source_checked'] = __( 'Jus-Tice: facts source checked', 'justice-theme' );
+	$actions['justice_lawyer_facts_hold']           = __( 'Jus-Tice: hold facts/promotion', 'justice-theme' );
 
 	return $actions;
 }
@@ -213,6 +281,8 @@ function justice_lawyer_handle_bulk_visibility_action( string $redirect_to, stri
 		'justice_lawyer_visibility_auto',
 		'justice_lawyer_mark_sponsored',
 		'justice_lawyer_mark_basic_unclaimed',
+		'justice_lawyer_facts_source_checked',
+		'justice_lawyer_facts_hold',
 	);
 
 	if ( ! in_array( $doaction, $handled_actions, true ) ) {
@@ -257,6 +327,15 @@ function justice_lawyer_handle_bulk_visibility_action( string $redirect_to, stri
 				update_post_meta( $post_id, 'subscription_status', 'inactive' );
 				update_post_meta( $post_id, 'priority_score', 0 );
 				delete_post_meta( $post_id, 'claimed_by_user_id' );
+				break;
+
+			case 'justice_lawyer_facts_source_checked':
+				update_post_meta( $post_id, 'profile_fact_review_status', 'source_checked' );
+				break;
+
+			case 'justice_lawyer_facts_hold':
+				update_post_meta( $post_id, 'profile_fact_review_status', 'hold' );
+				update_post_meta( $post_id, 'admin_profile_visibility', 'hide' );
 				break;
 		}
 
@@ -363,6 +442,7 @@ function justice_lawyer_owner_profile_trust_findings( int $post_id ): array {
 	$review_count      = (int) get_post_meta( $post_id, 'review_count', true );
 	$average_rating    = (float) get_post_meta( $post_id, 'average_rating', true );
 	$reviews_enabled   = in_array( strtolower( (string) get_post_meta( $post_id, 'review_display_enabled', true ) ), array( '1', 'yes', 'true', 'enabled', 'approved' ), true );
+	$fact_status       = justice_lawyer_normalize_fact_review_status( (string) get_post_meta( $post_id, 'profile_fact_review_status', true ) );
 	$is_maya_profile   = justice_lawyer_owner_is_maya_profile( $post_id );
 	$is_verified       = 'verified' === $verification;
 	$is_paid           = 'active' === $subscription && in_array( $plan, array( 'pro', 'featured', 'lead_partner', 'full_service' ), true );
@@ -388,6 +468,17 @@ function justice_lawyer_owner_profile_trust_findings( int $post_id ): array {
 
 	if ( $is_maya_profile ) {
 		$issues['maya_review'] = __( 'Maya profile: source-check facts/media before promotion', 'justice-theme' );
+	}
+
+	if (
+		! justice_lawyer_fact_review_status_is_approved( $fact_status )
+		&& (
+			$is_maya_profile
+			|| in_array( $source_type, array( 'seed', 'public_index', 'import' ), true )
+			|| $notes_seed_like
+		)
+	) {
+		$issues['fact_review'] = __( 'Profile facts are not approved', 'justice-theme' );
 	}
 
 	if ( 'seed' === $source_type || $notes_seed_like ) {
@@ -422,6 +513,10 @@ function justice_lawyer_owner_profile_trust_findings( int $post_id ): array {
 		$signals['paid'] = __( 'Paid/active plan', 'justice-theme' );
 	}
 
+	if ( justice_lawyer_fact_review_status_is_approved( $fact_status ) ) {
+		$signals['facts_approved'] = __( 'Facts approved', 'justice-theme' );
+	}
+
 	if ( $media_is_safe ) {
 		$signals['media_safe'] = __( 'Photo allowed', 'justice-theme' );
 	} elseif ( ! has_post_thumbnail( $post_id ) ) {
@@ -429,7 +524,7 @@ function justice_lawyer_owner_profile_trust_findings( int $post_id ): array {
 	}
 
 	$level = empty( $issues ) ? 'ready' : 'review';
-	if ( isset( $issues['maya_review'] ) || isset( $issues['seed_demo'] ) || isset( $issues['blocked_media'] ) || isset( $issues['unsourced_credentials'] ) ) {
+	if ( isset( $issues['maya_review'] ) || isset( $issues['fact_review'] ) || isset( $issues['seed_demo'] ) || isset( $issues['blocked_media'] ) || isset( $issues['unsourced_credentials'] ) ) {
 		$level = 'hold';
 	}
 
@@ -642,6 +737,8 @@ function justice_lawyer_owner_admin_column_content( string $column, int $post_id
 		$plan       = strtolower( (string) get_post_meta( $post_id, 'plan_type', true ) );
 		$status     = strtolower( (string) get_post_meta( $post_id, 'subscription_status', true ) );
 		$priority   = (int) get_post_meta( $post_id, 'priority_score', true );
+		$fact_status = justice_lawyer_normalize_fact_review_status( (string) get_post_meta( $post_id, 'profile_fact_review_status', true ) );
+		$fact_labels = justice_lawyer_fact_review_status_options();
 		$is_public  = function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
 			? justice_theme_lawyer_profile_is_public_approved( $post_id )
 			: ( 'publish' === get_post_status( $post_id ) );
@@ -655,6 +752,11 @@ function justice_lawyer_owner_admin_column_content( string $column, int $post_id
 		}
 
 		justice_lawyer_admin_badge( $is_public ? 'Public card' : 'Not public', $is_public ? '#cff4fc' : '#fff3cd', $is_public ? '#055160' : '#664d03' );
+		justice_lawyer_admin_badge(
+			'Facts: ' . ( $fact_labels[ $fact_status ] ?? $fact_status ),
+			justice_lawyer_fact_review_status_is_approved( $fact_status ) ? '#d1e7dd' : ( in_array( $fact_status, array( 'hold', 'rejected' ), true ) ? '#f8d7da' : '#fff3cd' ),
+			justice_lawyer_fact_review_status_is_approved( $fact_status ) ? '#0f5132' : ( in_array( $fact_status, array( 'hold', 'rejected' ), true ) ? '#842029' : '#664d03' )
+		);
 
 		if ( 'featured' === $plan || 'lead_partner' === $plan || $priority >= 90 ) {
 			justice_lawyer_admin_badge( 'Sponsored slot', '#f8e7b9', '#5f4300' );
@@ -786,6 +888,10 @@ function justice_lawyer_owner_admin_filters( string $post_type ): void {
 				'ready'         => __( 'Trust ready', 'justice-theme' ),
 			),
 		),
+		'justice_owner_fact_review'       => array(
+			'label'   => __( 'All fact review states', 'justice-theme' ),
+			'options' => justice_lawyer_fact_review_status_options(),
+		),
 		'justice_owner_professional_type' => array(
 			'label'   => __( 'All professional types', 'justice-theme' ),
 			'options' => array(
@@ -885,6 +991,34 @@ function justice_lawyer_owner_admin_filter_query( WP_Query $query ): void {
 				'value' => 'active',
 			);
 			break;
+	}
+
+	$fact_review = isset( $_GET['justice_owner_fact_review'] ) ? sanitize_key( wp_unslash( $_GET['justice_owner_fact_review'] ) ) : '';
+	if ( '' !== $fact_review ) {
+		$fact_review = justice_lawyer_normalize_fact_review_status( $fact_review );
+
+		if ( 'pending' === $fact_review ) {
+			$meta_query[] = array(
+				'relation' => 'OR',
+				array(
+					'key'     => 'profile_fact_review_status',
+					'compare' => 'NOT EXISTS',
+				),
+				array(
+					'key'   => 'profile_fact_review_status',
+					'value' => '',
+				),
+				array(
+					'key'   => 'profile_fact_review_status',
+					'value' => 'pending',
+				),
+			);
+		} else {
+			$meta_query[] = array(
+				'key'   => 'profile_fact_review_status',
+				'value' => $fact_review,
+			);
+		}
 	}
 
 	$exact_meta_filters = array(

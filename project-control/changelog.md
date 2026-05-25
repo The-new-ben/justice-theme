@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer profile fact review admin control
+
+- UPDATED: `inc/lawyer-visibility.php`.
+- ADDED: `project-control/lawyer-profile-fact-review-admin-control-2026-05-25.md`.
+- PURPOSE: give the owner a concrete CMS switch for approving or holding premium lawyer profile facts after source/lawyer review.
+- IMPLEMENTATION: added fact-review status helpers, an edit-screen selector, lawyer-list fact badges, an owner filter for fact review states, bulk actions for source-checked/hold, and trust-gate logic that keeps Maya/public-index/import/seed-like profiles on hold until facts are approved.
+- VERIFIED LOCAL: `php -l inc/lawyer-visibility.php` and `git diff --check` passed.
+- SAFETY: no CMS database write, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-25 - Lawyer profile fact gate
 
 - UPDATED: `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, and `inc/enqueue.php`.

@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 15:12 Asia/Jerusalem
+- LAWYER FACT-REVIEW ADMIN CONTROL ADDED: the CMS now has an explicit owner control for whether premium lawyer profile facts are pending, source-checked, owner-approved, lawyer-approved, approved, held, or rejected.
+- UPDATED: `inc/lawyer-visibility.php`.
+- ADDED: `project-control/lawyer-profile-fact-review-admin-control-2026-05-25.md`.
+- MATERIAL ADVANCE: this closes the operator gap behind the public fact gate. After deploy, the owner can open a lawyer profile, set `profile_fact_review_status`, filter the lawyer list by fact-review state, and bulk mark profiles as source-checked or held before homepage/sponsored/outreach promotion.
+- RESEARCH BASIS: spot-checked current public directory patterns from LawReviews, PsakDin, Justia and Justia Connect. The standard is profile depth plus review/contact/claim governance; implementation is original and does not copy competitor profile text, photos, ratings, reviews, badges, or lawyer data.
+- VERIFIED LOCAL / PUSH PENDING / DEPLOY BLOCKED: `php -l inc/lawyer-visibility.php` and `git diff --check` passed. Production still appears behind GitHub until uPress Pull Git succeeds.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves trust and conversion readiness, but it does not prove payment, invoice, refund, subscription, lead delivery, or CRM monetization.
+- SAFETY: repo CMS/admin logic and docs only; no live CMS database edit, competitor lawyer/profile import, competitor asset/content copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 14:58 Asia/Jerusalem
 - LAWYER PROFILE FACT GATE ADDED: high-risk public profiles now stop showing free-form biography facts, credentials, placeholder review/article panels, and mini-site marketing modules unless the CMS marks the facts as source-checked.
 - UPDATED: `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, and `inc/enqueue.php`.

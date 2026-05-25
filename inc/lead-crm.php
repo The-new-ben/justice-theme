@@ -364,6 +364,7 @@ function justice_theme_crm_render_btl_candidate_tracker( array $needles ): void 
 function justice_theme_crm_render_btl_next_source_actions( array $rows ): void {
 	$existing_sources = justice_theme_crm_btl_existing_prospect_sources();
 	$next_candidates  = justice_theme_crm_btl_next_source_candidates( $rows, $existing_sources, 3 );
+	$call_sheet_id    = 'justice-btl-next-call-sheet';
 	?>
 	<div style="background:#fff;border:2px solid #2271b1;border-radius:8px;padding:14px;margin:12px 0 20px;">
 		<h3 style="margin-top:0;">Next 3 source-pack conversions</h3>
@@ -400,6 +401,14 @@ function justice_theme_crm_render_btl_next_source_actions( array $rows ): void {
 						</details>
 					</div>
 				<?php endforeach; ?>
+			</div>
+			<div style="margin-top:14px;border-top:1px solid #dcdcde;padding-top:12px;">
+				<label for="<?php echo esc_attr( $call_sheet_id ); ?>"><strong>Manual verification call sheet</strong></label>
+				<p style="margin:4px 0 6px;color:#646970;">Copy this into a spreadsheet or working note before contacting anyone. It is private owner material and does not create records or send outreach.</p>
+				<textarea id="<?php echo esc_attr( $call_sheet_id ); ?>" rows="8" readonly style="width:100%;"><?php echo esc_textarea( justice_theme_crm_btl_source_candidate_call_sheet( $next_candidates ) ); ?></textarea>
+				<p style="margin:6px 0 0;">
+					<button type="button" class="button" data-justice-copy-target="<?php echo esc_attr( $call_sheet_id ); ?>">Copy call sheet</button>
+				</p>
 			</div>
 		<?php endif; ?>
 	</div>
@@ -507,6 +516,45 @@ function justice_theme_crm_btl_existing_prospect_sources(): array {
 	}
 
 	return $sources;
+}
+
+function justice_theme_crm_btl_source_candidate_call_sheet( array $rows ): string {
+	$headers = array(
+		'candidate',
+		'priority',
+		'source_url',
+		'focus',
+		'evidence',
+		'crm_action',
+		'missing_before_routing',
+		'next_action_date',
+		'boundary',
+	);
+	$lines   = array( implode( "\t", $headers ) );
+	$next    = wp_date( 'Y-m-d', current_time( 'timestamp' ) + DAY_IN_SECONDS );
+
+	foreach ( $rows as $row ) {
+		$lines[] = implode(
+			"\t",
+			array(
+				justice_theme_crm_tsv_cell( (string) ( $row['candidate'] ?? '' ) ),
+				justice_theme_crm_tsv_cell( (string) ( $row['priority'] ?? '' ) ),
+				justice_theme_crm_tsv_cell( (string) ( $row['source_url'] ?? '' ) ),
+				justice_theme_crm_tsv_cell( (string) ( $row['apparent_focus'] ?? '' ) ),
+				justice_theme_crm_tsv_cell( (string) ( $row['source_evidence_summary'] ?? '' ) ),
+				justice_theme_crm_tsv_cell( (string) ( $row['crm_action'] ?? '' ) ),
+				justice_theme_crm_tsv_cell( (string) ( $row['missing_before_routing'] ?? 'license; active status; response SLA; payment path' ) ),
+				justice_theme_crm_tsv_cell( $next ),
+				justice_theme_crm_tsv_cell( 'Manual verification only. Do not publish a profile, send outreach from the site, promise outcomes, or route leads until verified.' ),
+			)
+		);
+	}
+
+	return implode( "\n", $lines );
+}
+
+function justice_theme_crm_tsv_cell( string $value ): string {
+	return trim( preg_replace( '/[\r\n\t]+/', ' ', $value ) ?? '' );
 }
 
 function justice_theme_crm_btl_next_source_candidates( array $rows, array $existing_sources, int $limit = 3 ): array {

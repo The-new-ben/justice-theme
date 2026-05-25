@@ -143,6 +143,10 @@ Already shipped:
 - Private prospect draft prefill tightened for source-pack conversions:
   source-pack draft links now prefill next action date, response-fit status and
   the verification-note field, not only the source URL and owner note.
+- Manual verification call sheet added to the private next-source action board:
+  the next three candidates can now be copied as a TSV working sheet with
+  candidate, source, focus, evidence, missing checks, next action date and the
+  no-publish/no-routing boundary.
 
 Remaining:
 

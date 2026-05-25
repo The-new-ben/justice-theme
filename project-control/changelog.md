@@ -1,6 +1,28 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Dynamic lawyer showcase and bulk index controls
+
+- UPDATED: `template-parts/sections/featured-lawyers.php`, `inc/lawyer-visibility.php`, `inc/template-tags.php`, `justice-core/includes/cpt-lawyers.php`, `template-parts/cards/lawyer-card.php`, and `assets/css/premium-pass-4.css`.
+- PURPOSE: make indexed competitor-inspired lawyer/professional cards CMS-controlled instead of hard-coded, with homepage sponsored/basic ordering and wp-admin batch show/hide/upgrade controls.
+- IMPLEMENTATION: homepage now queries public-approved `justice_lawyer` profiles, ranks active paid/sponsored and verified profiles above public-basic cards, and renders actual card components.
+- ADMIN CONTROL: bulk actions can show, hide, reset automatic visibility, mark sponsored/top, or mark basic/unclaimed on many lawyer cards at once.
+- PROFESSIONAL SAFETY: `professional_type` meta allows legal-service professionals such as rabbinical advocates/mediators to be identified without calling them lawyers in card accessibility labels.
+- RESEARCH BASIS: public LawReviews, Din and PsakDin surfaces reviewed for search/profile/review/contact/category patterns; implementation is original and avoids copied photos/reviews/ratings.
+- VERIFIED: PHP lint passed for all changed PHP files.
+- SAFETY: no payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4, provider setting or public supplier page changed.
+
+# 2026-05-25 - Live CMS lawyer index emergency update
+
+- CREATED LIVE CMS RECORDS: 8 real `justice_lawyer` records via WordPress REST/API application password: IDs 20533-20540.
+- ADDED: `project-control/live-cms-lawyer-index-emergency-update-2026-05-25.md`.
+- GENERATED: `reports/live-cms-lawyer-index-emergency-update-2026-05-25.json`.
+- UPDATED: `inc/lawyer-rest-guards.php`.
+- PURPOSE: turn competitor-inspired lawyer indexing into real CMS inventory and recover `/lawyers/{slug}/` profile rendering where live host routing misses CPT single URLs.
+- VERIFIED: admin REST/public REST show the new records; `php -l inc/lawyer-rest-guards.php` and `git diff --check` passed.
+- HONEST LIMITATION: full visible directory batch and single profile URLs require deployment pull/cache refresh before final visual proof.
+- SAFETY: public-index/basic/unverified cards only; no copied competitor photos/reviews, no fake ratings/recommendations/verification, no contact claims, no payment/invoice/refund, no redirect/canonical/noindex/sitemap/taxonomy creation/provider setting changed.
+
 # 2026-05-25 - Homepage competitor signal row
 
 - UPDATED: `template-parts/sections/hero.php` and `assets/css/premium-pass-4.css`.

@@ -116,6 +116,98 @@ function justice_theme_mark_unapproved_lawyer_profile_404(): void {
 add_action( 'wp', 'justice_theme_mark_unapproved_lawyer_profile_404', 1 );
 
 /**
+ * Resolve a lawyer profile slug from the public /lawyers/{slug}/ route.
+ *
+ * This is intentionally narrow. It exists for live hosts where the CPT archive
+ * is available but single lawyer permalinks are still handed to the generic
+ * unknown-route guard.
+ *
+ * @return string
+ */
+function justice_theme_lawyer_profile_route_slug(): string {
+	$request_uri  = isset( $_SERVER['REQUEST_URI'] ) ? (string) wp_unslash( $_SERVER['REQUEST_URI'] ) : '';
+	$request_path = (string) wp_parse_url( $request_uri, PHP_URL_PATH );
+	$home_path    = (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH );
+
+	$request_path = '/' . trim( rawurldecode( $request_path ), '/' ) . '/';
+	$home_path    = '/' . trim( rawurldecode( $home_path ), '/' ) . '/';
+
+	if ( '/' !== $home_path && 0 === strpos( $request_path, $home_path ) ) {
+		$request_path = '/' . ltrim( substr( $request_path, strlen( $home_path ) ), '/' );
+	}
+
+	if ( ! preg_match( '#^/lawyers/([^/]+)/$#', $request_path, $matches ) ) {
+		return '';
+	}
+
+	return sanitize_title( $matches[1] );
+}
+
+/**
+ * Render a CMS-backed lawyer profile when the host misses the CPT single route.
+ *
+ * @return void
+ */
+function justice_theme_render_lawyer_profile_route_fallback(): void {
+	if ( is_admin() || wp_doing_ajax() || wp_doing_cron() || is_singular( 'justice_lawyer' ) ) {
+		return;
+	}
+
+	$slug = justice_theme_lawyer_profile_route_slug();
+	if ( '' === $slug || ! post_type_exists( 'justice_lawyer' ) ) {
+		return;
+	}
+
+	$profile = get_page_by_path( $slug, OBJECT, 'justice_lawyer' );
+	if ( ! $profile instanceof WP_Post || 'publish' !== get_post_status( $profile ) ) {
+		return;
+	}
+
+	$can_view = current_user_can( 'edit_post', $profile->ID )
+		|| ! function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+		|| justice_theme_lawyer_profile_is_public_approved( $profile->ID );
+
+	if ( ! $can_view ) {
+		return;
+	}
+
+	global $wp_query, $post;
+
+	if ( $wp_query instanceof WP_Query ) {
+		$wp_query->is_404              = false;
+		$wp_query->is_home             = false;
+		$wp_query->is_page             = false;
+		$wp_query->is_single           = true;
+		$wp_query->is_singular         = true;
+		$wp_query->is_archive          = false;
+		$wp_query->is_post_type_archive = false;
+		$wp_query->post                = $profile;
+		$wp_query->posts               = array( $profile );
+		$wp_query->post_count          = 1;
+		$wp_query->found_posts         = 1;
+		$wp_query->queried_object      = $profile;
+		$wp_query->queried_object_id   = $profile->ID;
+		$wp_query->query_vars['name']  = $profile->post_name;
+		$wp_query->query_vars['post_type'] = 'justice_lawyer';
+	}
+
+	$post = $profile;
+	setup_postdata( $post );
+	status_header( 200 );
+
+	if ( ! headers_sent() ) {
+		header( 'X-Justice-Route: lawyer-profile-cms-fallback', true );
+	}
+
+	$template = locate_template( 'single-justice_lawyer.php' );
+	if ( $template ) {
+		include $template;
+		exit;
+	}
+}
+add_action( 'template_redirect', 'justice_theme_render_lawyer_profile_route_fallback', -5000 );
+
+/**
  * Check whether this request was blocked by the lawyer profile 404 guard.
  *
  * @return bool

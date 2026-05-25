@@ -301,6 +301,14 @@ function justice_theme_lawyer_profile_is_public_approved( int $post_id = 0 ): bo
 		return false;
 	}
 
+	$admin_visibility = strtolower( (string) get_post_meta( $post_id, 'admin_profile_visibility', true ) );
+	if ( in_array( $admin_visibility, array( 'hide', 'hidden' ), true ) ) {
+		return false;
+	}
+	if ( in_array( $admin_visibility, array( 'show', 'visible' ), true ) ) {
+		return true;
+	}
+
 	$slug  = (string) get_post_field( 'post_name', $post_id );
 	$title = get_the_title( $post_id );
 	$is_maya_identity = 'advocate-maya-rotenberg' === $slug

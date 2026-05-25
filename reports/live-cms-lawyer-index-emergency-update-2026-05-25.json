@@ -1,0 +1,101 @@
+{
+  "generated_at": "2026-05-25T12:13:52+03:00",
+  "live_cms_records_created": 8,
+  "post_type": "justice_lawyer",
+  "method": "wordpress_rest_api_application_password",
+  "records": [
+    {
+      "id": 20533,
+      "title": "שלמה פרידמן",
+      "slug": "public-basic-shlomo-friedman",
+      "link": "https://jus-tice.co.il/lawyers/public-basic-shlomo-friedman/",
+      "source": "PsakDin",
+      "practice_area_ids": [68, 392],
+      "city_ids": [705]
+    },
+    {
+      "id": 20534,
+      "title": "מארי שני עשהאל",
+      "slug": "public-basic-mari-shani-asael",
+      "link": "https://jus-tice.co.il/lawyers/public-basic-mari-shani-asael/",
+      "source": "PsakDin",
+      "practice_area_ids": [68, 392],
+      "city_ids": [705]
+    },
+    {
+      "id": 20535,
+      "title": "שמואל גרוס",
+      "slug": "public-basic-shmuel-gross",
+      "link": "https://jus-tice.co.il/lawyers/public-basic-shmuel-gross/",
+      "source": "PsakDin",
+      "practice_area_ids": [68, 392],
+      "city_ids": [725]
+    },
+    {
+      "id": 20536,
+      "title": "טלי בן יקיר",
+      "slug": "public-basic-tali-ben-yakir",
+      "link": "https://jus-tice.co.il/lawyers/public-basic-tali-ben-yakir/",
+      "source": "PsakDin",
+      "practice_area_ids": [68, 392],
+      "city_ids": [725]
+    },
+    {
+      "id": 20537,
+      "title": "איל בר-לב",
+      "slug": "public-basic-eyal-barlev",
+      "link": "https://jus-tice.co.il/lawyers/public-basic-eyal-barlev/",
+      "source": "LawReviews",
+      "practice_area_ids": [68, 392],
+      "city_ids": [707]
+    },
+    {
+      "id": 20538,
+      "title": "ד\"ר איריס טרומן",
+      "slug": "public-basic-iris-truman",
+      "link": "https://jus-tice.co.il/lawyers/public-basic-iris-truman/",
+      "source": "LawReviews",
+      "practice_area_ids": [68, 392],
+      "city_ids": []
+    },
+    {
+      "id": 20539,
+      "title": "מורן גוהר",
+      "slug": "public-basic-moran-gohar",
+      "link": "https://jus-tice.co.il/lawyers/public-basic-moran-gohar/",
+      "source": "LawReviews",
+      "practice_area_ids": [68, 392],
+      "city_ids": []
+    },
+    {
+      "id": 20540,
+      "title": "אביטל רבינוביץ",
+      "slug": "public-basic-avital-rabinovich",
+      "link": "https://jus-tice.co.il/lawyers/public-basic-avital-rabinovich/",
+      "source": "LawReviews",
+      "practice_area_ids": [68, 392],
+      "city_ids": []
+    }
+  ],
+  "safety": {
+    "copied_competitor_photos": false,
+    "copied_competitor_reviews": false,
+    "rating_claims_added": false,
+    "verified_claims_added": false,
+    "contact_details_added": false,
+    "cards_marked_unverified_public_index": true
+  },
+  "verification": {
+    "admin_rest_records_present": true,
+    "public_rest_records_present": true,
+    "directory_html_full_batch_visible": false,
+    "directory_html_currently_visible_newest_card": "אביטל רבינוביץ",
+    "single_profile_urls_live_status_before_route_fix": 404,
+    "local_route_fallback_added": true
+  },
+  "revenue": {
+    "current_mrr_nis": 0,
+    "near_term_target": "1 paid lawyer at ₪349-₪749/month after claim/outreach and payment setup",
+    "commercial_status": "conversion inventory created; revenue not yet realized"
+  }
+}

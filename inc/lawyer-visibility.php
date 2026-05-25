@@ -178,6 +178,134 @@ function justice_lawyer_visibility_meta_box_save( int $post_id ): void {
 add_action( 'save_post', 'justice_lawyer_visibility_meta_box_save' );
 
 // ============================================================================
+// ADMIN BULK ACTIONS - Directory Visibility + Sponsored Placement
+// ============================================================================
+
+/**
+ * Add bulk actions for managing lawyer directory visibility at investor-demo speed.
+ *
+ * @param array<string,string> $actions Existing actions.
+ * @return array<string,string>
+ */
+function justice_lawyer_bulk_visibility_actions( array $actions ): array {
+	$actions['justice_lawyer_visibility_show']      = __( 'Jus-Tice: show in public index', 'justice-theme' );
+	$actions['justice_lawyer_visibility_hide']      = __( 'Jus-Tice: hide from public index', 'justice-theme' );
+	$actions['justice_lawyer_visibility_auto']      = __( 'Jus-Tice: automatic visibility', 'justice-theme' );
+	$actions['justice_lawyer_mark_sponsored']       = __( 'Jus-Tice: mark sponsored/top', 'justice-theme' );
+	$actions['justice_lawyer_mark_basic_unclaimed'] = __( 'Jus-Tice: mark basic/unclaimed', 'justice-theme' );
+
+	return $actions;
+}
+add_filter( 'bulk_actions-edit-justice_lawyer', 'justice_lawyer_bulk_visibility_actions' );
+
+/**
+ * Handle the lawyer bulk actions.
+ *
+ * @param string $redirect_to Redirect URL.
+ * @param string $doaction    Bulk action.
+ * @param array  $post_ids    Selected post IDs.
+ * @return string
+ */
+function justice_lawyer_handle_bulk_visibility_action( string $redirect_to, string $doaction, array $post_ids ): string {
+	$handled_actions = array(
+		'justice_lawyer_visibility_show',
+		'justice_lawyer_visibility_hide',
+		'justice_lawyer_visibility_auto',
+		'justice_lawyer_mark_sponsored',
+		'justice_lawyer_mark_basic_unclaimed',
+	);
+
+	if ( ! in_array( $doaction, $handled_actions, true ) ) {
+		return $redirect_to;
+	}
+
+	$updated = 0;
+
+	foreach ( $post_ids as $post_id ) {
+		$post_id = (int) $post_id;
+
+		if ( ! $post_id || 'justice_lawyer' !== get_post_type( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
+			continue;
+		}
+
+		switch ( $doaction ) {
+			case 'justice_lawyer_visibility_show':
+				update_post_meta( $post_id, 'admin_profile_visibility', 'show' );
+				update_post_meta( $post_id, 'profile_status', 'public' );
+				break;
+
+			case 'justice_lawyer_visibility_hide':
+				update_post_meta( $post_id, 'admin_profile_visibility', 'hide' );
+				break;
+
+			case 'justice_lawyer_visibility_auto':
+				delete_post_meta( $post_id, 'admin_profile_visibility' );
+				break;
+
+			case 'justice_lawyer_mark_sponsored':
+				update_post_meta( $post_id, 'admin_profile_visibility', 'show' );
+				update_post_meta( $post_id, 'profile_status', 'public' );
+				update_post_meta( $post_id, 'plan_type', 'featured' );
+				update_post_meta( $post_id, 'subscription_status', 'active' );
+				update_post_meta( $post_id, 'priority_score', max( 90, (int) get_post_meta( $post_id, 'priority_score', true ) ) );
+				break;
+
+			case 'justice_lawyer_mark_basic_unclaimed':
+				update_post_meta( $post_id, 'admin_profile_visibility', 'show' );
+				update_post_meta( $post_id, 'profile_status', 'public' );
+				update_post_meta( $post_id, 'plan_type', 'free' );
+				update_post_meta( $post_id, 'subscription_status', 'inactive' );
+				update_post_meta( $post_id, 'priority_score', 0 );
+				delete_post_meta( $post_id, 'claimed_by_user_id' );
+				break;
+		}
+
+		++$updated;
+	}
+
+	return add_query_arg(
+		array(
+			'justice_lawyer_bulk_action'  => sanitize_key( $doaction ),
+			'justice_lawyer_bulk_updated' => $updated,
+		),
+		remove_query_arg(
+			array(
+				'justice_lawyer_bulk_action',
+				'justice_lawyer_bulk_updated',
+			),
+			$redirect_to
+		)
+	);
+}
+add_filter( 'handle_bulk_actions-edit-justice_lawyer', 'justice_lawyer_handle_bulk_visibility_action', 10, 3 );
+
+/**
+ * Confirm bulk action results inside wp-admin.
+ */
+function justice_lawyer_bulk_visibility_admin_notice(): void {
+	if ( ! is_admin() || ! isset( $_GET['justice_lawyer_bulk_updated'] ) ) {
+		return;
+	}
+
+	$updated = (int) $_GET['justice_lawyer_bulk_updated'];
+	if ( $updated <= 0 ) {
+		return;
+	}
+
+	printf(
+		'<div class="notice notice-success is-dismissible"><p>%s</p></div>',
+		esc_html(
+			sprintf(
+				/* translators: %d: number of updated lawyer profiles. */
+				_n( 'Jus-Tice updated %d lawyer profile.', 'Jus-Tice updated %d lawyer profiles.', $updated, 'justice-theme' ),
+				$updated
+			)
+		)
+	);
+}
+add_action( 'admin_notices', 'justice_lawyer_bulk_visibility_admin_notice' );
+
+// ============================================================================
 // ARCHIVE FILTER — Exclude hidden profiles from public listing
 // ============================================================================
 

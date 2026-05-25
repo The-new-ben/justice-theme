@@ -1,0 +1,52 @@
+{
+  "generated_at": "2026-05-25T12:28:00+03:00",
+  "purpose": "Make competitor-inspired lawyer/professional indexing CMS-controlled, batch-manageable and homepage-visible without hard-coded cards.",
+  "competitor_research_sources": [
+    {
+      "name": "LawReviews homepage",
+      "url": "https://www.lawreviews.co.il/",
+      "patterns_observed": ["search by practice/area/name", "review-led trust", "leading/recent profile blocks", "lawyer profile creation CTA"]
+    },
+    {
+      "name": "LawReviews divorce agreement search",
+      "url": "https://www.lawreviews.co.il/search/service/divorce-agreement-formation",
+      "patterns_observed": ["service-specific lawyer cards", "ratings/review counts", "languages", "contact actions", "related service links"]
+    },
+    {
+      "name": "din.co.il lawyer directory/profile examples",
+      "url": "https://www.din.co.il/",
+      "patterns_observed": ["city/practice discovery", "direct contact CTAs", "recommendation signals", "professional service providers such as rabbinical advocates and mediators"]
+    },
+    {
+      "name": "PsakDin lawyer profile and homepage surfaces",
+      "url": "https://www.psakdin.co.il/default.aspx",
+      "patterns_observed": ["field/city lawyer search", "legal news/content authority", "long practice taxonomy lists", "profile pages with contact forms"]
+    }
+  ],
+  "code_changes": [
+    "Homepage lawyer showcase now queries real justice_lawyer CMS records and ranks sponsored/verified/priority profiles first.",
+    "wp-admin bulk actions added for show, hide, automatic visibility, sponsored/top and basic/unclaimed states.",
+    "Public approval gate now respects admin_profile_visibility hide/show consistently.",
+    "professional_type meta added so legal-service professionals can be represented without mislabeling.",
+    "Lawyer cards now use a professional-profile label for rabbinical advocate/mediator/legal-service-provider records."
+  ],
+  "live_cms_records_existing_before_this_step": 8,
+  "revenue_status": {
+    "realized_mrr_nis": 0,
+    "near_term_model": "public basic index card -> claim profile -> sponsored/top placement -> Grow/WooCommerce/manual invoice payment",
+    "first_paid_target_range_nis_monthly": "349-749"
+  },
+  "verification": {
+    "php_lint_changed_files": "passed",
+    "needs_server_pull": true,
+    "needs_visual_live_retest_after_pull": true
+  },
+  "safety": {
+    "copied_competitor_photos": false,
+    "copied_competitor_reviews": false,
+    "copied_competitor_ratings": false,
+    "fake_verification_added": false,
+    "redirects_canonicals_noindex_sitemaps_taxonomies_changed": false,
+    "payments_or_invoices_changed": false
+  }
+}

@@ -1,3 +1,28 @@
+# LATEST WORK STATUS - 2026-05-25 12:28 Asia/Jerusalem
+- CMS-BACKED LAWYER SHOWCASE CONTROL: replaced the homepage single-lawyer showcase with a dynamic CMS query that ranks public-approved lawyers by paid/sponsored status, verification and `priority_score`, then renders real `justice_lawyer` cards.
+- ADDED ADMIN BULK CONTROL: wp-admin lawyer list now has bulk actions to show, hide, return to automatic visibility, mark sponsored/top, or mark basic/unclaimed. This is the control layer the owner asked for before scaling competitor-inspired indexing.
+- UPDATED SAFETY GATE: `justice_theme_lawyer_profile_is_public_approved()` now respects `admin_profile_visibility=hide/show`, so hidden cards are removed consistently from public output while explicit admin-approved cards can be shown.
+- ADDED PROFESSIONAL TYPE SUPPORT: `justice_lawyer` meta now includes `professional_type`, and cards can distinguish legal-service professionals such as rabbinical advocates/mediators from regular lawyer profiles.
+- UPDATED: `template-parts/sections/featured-lawyers.php`, `inc/lawyer-visibility.php`, `inc/template-tags.php`, `justice-core/includes/cpt-lawyers.php`, `template-parts/cards/lawyer-card.php`, and `assets/css/premium-pass-4.css`.
+- RESEARCH BASIS: current public surfaces checked on LawReviews, Din and PsakDin: they emphasize search by field/area/name, leading profiles/reviews, direct contact CTAs, long profile pages, author/content authority and service/related-topic clustering.
+- VERIFIED LOCAL: PHP lint passed for `inc/template-tags.php`, `inc/lawyer-visibility.php`, `template-parts/sections/featured-lawyers.php`, `template-parts/cards/lawyer-card.php`, `justice-core/includes/cpt-lawyers.php`, and `inc/lawyer-rest-guards.php`.
+- LIVE STATUS: existing 8 CMS lawyer cards remain live in the database; route/showcase/bulk-control code still needs commit, push and uPress pull before it appears on the public site.
+- HONEST LIMITATION: I have not bulk-copied "all premium" lawyers from competitors. That would be unsafe and operationally noisy. The implemented path is legal-safe: public basic cards without copied photos/reviews/ratings, then claim/upgrade outreach.
+- REVENUE STATUS: realized MRR remains ₪0. The immediate revenue path is now clearer: indexed public-basic card -> claim profile -> sponsored/top placement -> Grow/WooCommerce/manual invoice payment.
+- SAFETY: no competitor photos/reviews copied; no fake ratings, recommendations, verification, contact details, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy creation, GSC/GA4 or provider setting changed.
+
+# LATEST WORK STATUS - 2026-05-25 12:13 Asia/Jerusalem
+- LIVE CMS LAWYER INDEXING: used the owner-provided WordPress application password to create 8 real `justice_lawyer` CMS records, not hard-coded cards.
+- CREATED LIVE CMS IDS: 20533 שלמה פרידמן, 20534 מארי שני עשהאל, 20535 שמואל גרוס, 20536 טלי בן יקיר, 20537 איל בר-לב, 20538 ד"ר איריס טרומן, 20539 מורן גוהר, 20540 אביטל רבינוביץ.
+- CATEGORY DECISION APPLIED: every new card uses both `דיני משפחה` and `גירושין` taxonomy terms together, matching the owner's point that עורך דין גירושין and עורך דין לענייני משפחה should consolidate signal instead of being split.
+- ADDED: `project-control/live-cms-lawyer-index-emergency-update-2026-05-25.md`.
+- GENERATED: `reports/live-cms-lawyer-index-emergency-update-2026-05-25.json`.
+- UPDATED: `inc/lawyer-rest-guards.php` with a narrow `/lawyers/{slug}/` CMS profile fallback because live single lawyer URLs currently return 404 even for valid CMS records.
+- VERIFIED: admin REST and public REST both show the 8 new CMS records; public REST currently exposes 9 lawyer records total. `php -l inc/lawyer-rest-guards.php` and `git diff --check` passed.
+- HONEST DISPLAY STATUS: the visible `/lawyers/` HTML currently shows the newest new card only, apparently due to front-end/cache behavior; direct mini-site URLs still need the route fix deployed and re-tested after server pull/cache refresh.
+- REVENUE STATUS: current realized MRR remains ₪0. Material advance is conversion inventory: 8 public-index cards can now be used for claim/outreach, with first paid target still one lawyer at ₪349-₪749/month after claim + payment setup.
+- SAFETY: no competitor photos/reviews copied; no fake ratings, recommendations, verification, contact details, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy creation, GSC/GA4 or provider setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 11:35 Asia/Jerusalem
 - HOMEPAGE COMPETITOR-INSPIRED POLISH: checked current public competitor surfaces from Din, LawReviews and PsakDin, then added an original three-signal homepage row under the main search box: search by field/city, review the profile before contact, and use legal content before sending an inquiry.
 - UPDATED: `template-parts/sections/hero.php` and `assets/css/premium-pass-4.css`.

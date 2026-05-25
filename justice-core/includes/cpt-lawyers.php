@@ -75,6 +75,7 @@ function uje_register_lawyer_meta() {
 		'profile_cta_text'       => 'string',
 
 		// Professional
+		'professional_type'       => 'string',
 		'languages'              => 'string',
 		'years_experience'       => 'integer',
 		'courts'                 => 'string',

@@ -61,6 +61,7 @@ $whatsapp        = get_post_meta( $lawyer_id, 'whatsapp', true );
 $experience      = get_post_meta( $lawyer_id, 'years_experience', true );
 $languages       = get_post_meta( $lawyer_id, 'languages', true );
 $bio_short       = get_post_meta( $lawyer_id, 'bio_short', true );
+$professional    = strtolower( (string) get_post_meta( $lawyer_id, 'professional_type', true ) );
 $plan            = get_post_meta( $lawyer_id, 'plan_type', true );
 $subscription    = get_post_meta( $lawyer_id, 'subscription_status', true );
 $verified        = get_post_meta( $lawyer_id, 'verification_status', true );
@@ -86,6 +87,10 @@ $area_names      = ( $areas && ! is_wp_error( $areas ) ) ? wp_list_pluck( array_
 $phone_link      = function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) $phone ) : '';
 $whatsapp_link   = function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) $whatsapp ) : '';
 $has_thumbnail   = has_post_thumbnail( $lawyer_id );
+$is_legal_provider = in_array( $professional, array( 'rabbinical_advocate', 'mediator', 'legal_service_provider', 'expert_witness' ), true )
+	|| false !== mb_stripos( get_the_title(), 'טוען רבני' )
+	|| false !== mb_stripos( get_the_title(), 'מגשר' );
+$profile_label = $is_legal_provider ? __( 'כרטיס מקצועי', 'justice-theme' ) : __( 'פרופיל עורך דין', 'justice-theme' );
 $claim_url       = add_query_arg(
 	array(
 		'claim_profile_id' => $lawyer_id,
@@ -97,7 +102,7 @@ $claim_url       = add_query_arg(
 ?>
 
 <article class="lawyer-card premium-card">
-	<a class="lawyer-card__media<?php echo $has_thumbnail ? '' : ' lawyer-card__media--initials'; ?>" href="<?php echo esc_url( $lawyer_url ); ?>" aria-label="<?php echo esc_attr( sprintf( 'פרופיל עורך הדין %s', get_the_title() ) ); ?>">
+	<a class="lawyer-card__media<?php echo $has_thumbnail ? '' : ' lawyer-card__media--initials'; ?>" href="<?php echo esc_url( $lawyer_url ); ?>" aria-label="<?php echo esc_attr( sprintf( '%s %s', $profile_label, get_the_title() ) ); ?>">
 		<?php if ( $has_thumbnail ) : ?>
 			<?php the_post_thumbnail( 'justice-card', array( 'loading' => 'lazy' ) ); ?>
 		<?php else :

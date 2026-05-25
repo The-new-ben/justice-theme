@@ -101,6 +101,7 @@ function uje_register_lawyer_meta() {
 		'priority_score'         => 'integer',
 		'lead_routing_enabled'   => 'boolean',
 		'monthly_lead_limit'     => 'integer',
+		'national_insurance_lead_cap' => 'integer',
 		'featured_on_front'      => 'boolean',
 
 		// Analytics
@@ -279,6 +280,8 @@ function uje_lawyer_commercial_box( $post ) {
 		array( 'key' => 'plan_type',           'label' => '׳—׳‘׳™׳׳”',            'type' => 'select', 'options' => array( 'free' => '׳—׳™׳ ׳', 'pro' => '׳₪׳¨׳•', 'featured' => '׳׳•׳¦׳’', 'lead_partner' => '׳©׳•׳×׳£ ׳׳™׳“׳™׳', 'full_service' => '׳©׳™׳¨׳•׳× ׳׳׳' ) ),
 		array( 'key' => 'subscription_status', 'label' => '׳¡׳˜׳˜׳•׳¡ ׳׳ ׳•׳™',       'type' => 'select', 'options' => array( 'inactive' => '׳׳ ׳₪׳¢׳™׳', 'active' => '׳₪׳¢׳™׳', 'expired' => '׳₪׳’ ׳×׳•׳§׳£', 'cancelled' => '׳‘׳•׳˜׳' ) ),
 		array( 'key' => 'lead_routing_enabled','label' => '׳ ׳™׳×׳•׳‘ ׳׳™׳“׳™׳',      'type' => 'checkbox' ),
+		array( 'key' => 'monthly_lead_limit',  'label' => 'Monthly lead cap',       'type' => 'number', 'min' => '0' ),
+		array( 'key' => 'national_insurance_lead_cap', 'label' => 'Bituach Leumi lead cap', 'type' => 'number', 'min' => '0' ),
 		array( 'key' => 'featured_on_front',   'label' => 'הצגה בעמוד הבית',       'type' => 'checkbox' ),
 		array( 'key' => 'review_count',        'label' => 'מספר ביקורות מאושרות',  'type' => 'number' ),
 		array( 'key' => 'average_rating',      'label' => 'דירוג ממוצע מאושר',     'type' => 'number', 'step' => '0.1', 'min' => '0', 'max' => '5' ),
@@ -366,7 +369,7 @@ function uje_save_lawyer_meta( $post_id ) {
 		}
 	}
 
-	$int_fields = array( 'years_experience', 'priority_score', 'monthly_lead_limit', 'review_count' );
+	$int_fields = array( 'years_experience', 'priority_score', 'monthly_lead_limit', 'national_insurance_lead_cap', 'review_count' );
 	foreach ( $int_fields as $field ) {
 		if ( isset( $_POST[ $field ] ) ) {
 			update_post_meta( $post_id, $field, absint( $_POST[ $field ] ) );

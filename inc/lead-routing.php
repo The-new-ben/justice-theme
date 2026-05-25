@@ -65,7 +65,7 @@ function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool 
 
 	if ( empty( $matching_lawyers ) ) {
 		update_post_meta( $post_id, 'routing_notes', sprintf(
-			'No lawyers with routing enabled found for area: %s. Lead kept in admin CRM.',
+			'No paid routable lawyers with available monthly lead cap found for area: %s. Lead kept in admin CRM.',
 			$area
 		) );
 		return;
@@ -77,6 +77,7 @@ function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool 
 		$sent = justice_theme_notify_lawyer_of_lead( $lawyer_id, $post_id );
 		if ( $sent ) {
 			$notified_ids[] = $lawyer_id;
+			update_post_meta( $lawyer_id, 'leads_received', absint( get_post_meta( $lawyer_id, 'leads_received', true ) ) + 1 );
 		}
 	}
 
@@ -132,6 +133,130 @@ function justice_theme_paid_routing_subscription_statuses(): array {
 	return array( 'active', 'paid', 'trialing' );
 }
 
+/**
+ * Default monthly lead caps by commercial plan.
+ *
+ * @return array<string,int>
+ */
+function justice_theme_default_monthly_lead_caps_by_plan(): array {
+	return array(
+		'free'         => 0,
+		'pro'          => 0,
+		'featured'     => 3,
+		'lead_partner' => 10,
+		'full_service' => 25,
+	);
+}
+
+/**
+ * Resolve the effective monthly lead cap for a lawyer and area.
+ *
+ * @param int    $lawyer_id Lawyer post ID.
+ * @param string $area      Legal area slug.
+ * @return int Monthly cap. Zero means no automatic lead routing.
+ */
+function justice_theme_lawyer_monthly_lead_cap( int $lawyer_id, string $area ): int {
+	$normalized_area = function_exists( 'justice_theme_normalize_lead_area' )
+		? justice_theme_normalize_lead_area( $area )
+		: sanitize_key( $area );
+
+	if ( 'national-insurance' === $normalized_area ) {
+		$area_cap = get_post_meta( $lawyer_id, 'national_insurance_lead_cap', true );
+		if ( '' !== (string) $area_cap ) {
+			return max( 0, absint( $area_cap ) );
+		}
+	}
+
+	$manual_cap = get_post_meta( $lawyer_id, 'monthly_lead_limit', true );
+	if ( '' !== (string) $manual_cap ) {
+		return max( 0, absint( $manual_cap ) );
+	}
+
+	$plan = strtolower( (string) get_post_meta( $lawyer_id, 'plan_type', true ) );
+	$caps = justice_theme_default_monthly_lead_caps_by_plan();
+
+	return $caps[ $plan ] ?? 0;
+}
+
+/**
+ * Count routed leads for a lawyer in the current calendar month.
+ *
+ * @param int    $lawyer_id Lawyer post ID.
+ * @param string $area      Legal area slug.
+ * @return int Routed lead count.
+ */
+function justice_theme_lawyer_monthly_routed_lead_count( int $lawyer_id, string $area ): int {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return 0;
+	}
+
+	$normalized_area = function_exists( 'justice_theme_normalize_lead_area' )
+		? justice_theme_normalize_lead_area( $area )
+		: sanitize_key( $area );
+
+	$month_start = wp_date( 'Y-m-01 00:00:00', current_time( 'timestamp' ) );
+
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_lead',
+		'post_status'    => 'publish',
+		'posts_per_page' => 200,
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+		'date_query'     => array(
+			array(
+				'after'     => $month_start,
+				'inclusive' => true,
+			),
+		),
+		'meta_query'     => array(
+			'relation' => 'AND',
+			array(
+				'key'     => 'routed_to_lawyer_ids',
+				'value'   => (string) $lawyer_id,
+				'compare' => 'LIKE',
+			),
+			array(
+				'relation' => 'OR',
+				array(
+					'key'   => 'legal_area',
+					'value' => $normalized_area,
+				),
+				array(
+					'key'   => 'ai_detected_area',
+					'value' => $normalized_area,
+				),
+			),
+		),
+	) );
+
+	$count = 0;
+	foreach ( $query->posts ?: array() as $lead_id ) {
+		$routed_ids = array_filter( array_map( 'absint', explode( ',', (string) get_post_meta( (int) $lead_id, 'routed_to_lawyer_ids', true ) ) ) );
+		if ( in_array( $lawyer_id, $routed_ids, true ) ) {
+			$count++;
+		}
+	}
+
+	return $count;
+}
+
+/**
+ * Determine whether a lawyer can receive an automatic routed lead now.
+ *
+ * @param int    $lawyer_id Lawyer post ID.
+ * @param string $area      Legal area slug.
+ * @return bool
+ */
+function justice_theme_lawyer_can_receive_routed_lead( int $lawyer_id, string $area ): bool {
+	$cap = justice_theme_lawyer_monthly_lead_cap( $lawyer_id, $area );
+
+	if ( $cap <= 0 ) {
+		return false;
+	}
+
+	return justice_theme_lawyer_monthly_routed_lead_count( $lawyer_id, $area ) < $cap;
+}
+
 function justice_theme_route_lead_after_meta_write( $meta_id, int $post_id, string $meta_key, $meta_value ): void {
 	if ( ! in_array( $meta_key, array( 'message', 'legal_area', 'ai_detected_area', 'assigned_lawyer_id' ), true ) ) {
 		return;
@@ -169,7 +294,7 @@ function justice_theme_find_routing_lawyers( string $area ): array {
 	$query = new WP_Query( array(
 		'post_type'      => 'justice_lawyer',
 		'post_status'    => 'publish',
-		'posts_per_page' => 10,
+		'posts_per_page' => 25,
 		'fields'         => 'ids',
 		'no_found_rows'  => true,
 		'tax_query'      => array(
@@ -193,7 +318,15 @@ function justice_theme_find_routing_lawyers( string $area ): array {
 		),
 	) );
 
-	return $query->posts ?: array();
+	$lawyer_ids = array();
+	foreach ( $query->posts ?: array() as $lawyer_id ) {
+		$lawyer_id = (int) $lawyer_id;
+		if ( justice_theme_lawyer_can_receive_routed_lead( $lawyer_id, $area ) ) {
+			$lawyer_ids[] = $lawyer_id;
+		}
+	}
+
+	return array_slice( $lawyer_ids, 0, 10 );
 }
 
 /**

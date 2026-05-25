@@ -90,6 +90,7 @@ function justice_theme_render_crm_admin_page(): void {
 			</div>
 		</div>
 
+		<?php justice_theme_crm_render_btl_supply_panel(); ?>
 		<?php justice_theme_crm_render_qualified_lead_billing_queue(); ?>
 
 		<h2>Recent legal leads</h2>
@@ -201,6 +202,140 @@ function justice_theme_crm_render_lawyer_sales_pipeline(): void {
 	</p>
 	<?php justice_theme_crm_render_lawyer_prospect_table( $prospects ); ?>
 	<?php
+}
+
+function justice_theme_crm_render_btl_supply_panel(): void {
+	if ( ! post_type_exists( 'justice_lawyer' ) || ! post_type_exists( 'justice_prospect' ) ) {
+		return;
+	}
+
+	$active_specialists = justice_theme_crm_count_active_routing_lawyers_for_area( 'national-insurance' );
+	$open_prospects    = justice_theme_crm_count_open_prospects_for_area( array( 'national-insurance', 'ביטוח לאומי', 'ערר ביטוח לאומי', 'ועדה רפואית' ) );
+	$target            = 3;
+	$coverage_gap      = max( 0, $target - $active_specialists );
+	$add_url           = justice_theme_crm_btl_prospect_prefill_url();
+	$pipeline_url      = admin_url( 'edit.php?post_type=justice_prospect' );
+	?>
+	<h2 style="margin-top:28px;">Bituach Leumi specialist supply</h2>
+	<p>Owner-only coverage check for the active appeal funnel. The first goal is three specialist lawyers who can receive and pay for qualified appeal leads.</p>
+	<div class="justice-crm-cards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin:18px 0;">
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $active_specialists ); ?></strong>
+			<span>Active routable specialists</span>
+		</div>
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $open_prospects ); ?></strong>
+			<span>Open Bituach Leumi prospects</span>
+		</div>
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) $coverage_gap ); ?></strong>
+			<span>Specialists still needed</span>
+		</div>
+		<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+			<strong style="display:block;font-size:24px;">₪1,490</strong>
+			<span>Suggested Lead Partner target/mo</span>
+		</div>
+	</div>
+	<p>
+		<a class="button button-primary" href="<?php echo esc_url( $add_url ); ?>">Add Bituach Leumi prospect</a>
+		<a class="button" href="<?php echo esc_url( $pipeline_url ); ?>">Open prospect pipeline</a>
+	</p>
+	<?php if ( $coverage_gap > 0 ) : ?>
+		<div class="notice notice-warning inline">
+			<p><strong>Coverage gap:</strong> recruit <?php echo esc_html( (string) $coverage_gap ); ?> more specialist lawyer(s), then run one real test lead before treating the funnel as revenue-ready.</p>
+		</div>
+	<?php else : ?>
+		<div class="notice notice-success inline">
+			<p><strong>Coverage ready:</strong> enough specialist coverage exists for the first routing test. Run one real lead and confirm billing status.</p>
+		</div>
+	<?php endif; ?>
+	<?php
+}
+
+function justice_theme_crm_count_active_routing_lawyers_for_area( string $area_slug ): int {
+	if ( ! taxonomy_exists( 'practice-areas' ) ) {
+		return 0;
+	}
+
+	$query = new WP_Query( array(
+		'post_type'      => 'justice_lawyer',
+		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+		'posts_per_page' => 100,
+		'fields'         => 'ids',
+		'no_found_rows'  => true,
+		'tax_query'      => array(
+			array(
+				'taxonomy' => 'practice-areas',
+				'field'    => 'slug',
+				'terms'    => $area_slug,
+			),
+		),
+		'meta_query'     => array(
+			'relation' => 'AND',
+			array(
+				'key'   => 'lead_routing_enabled',
+				'value' => '1',
+			),
+			array(
+				'key'     => 'subscription_status',
+				'value'   => array( 'active', 'paid', 'trialing' ),
+				'compare' => 'IN',
+			),
+		),
+	) );
+
+	return (int) count( $query->posts ?: array() );
+}
+
+function justice_theme_crm_count_open_prospects_for_area( array $needles ): int {
+	$query = justice_theme_crm_query_lawyer_prospects( 250 );
+	if ( ! $query || empty( $query->posts ) ) {
+		return 0;
+	}
+
+	$count           = 0;
+	$closed_statuses = array( 'won', 'lost' );
+
+	foreach ( $query->posts as $post ) {
+		$post_id = (int) $post->ID;
+		$status  = (string) get_post_meta( $post_id, 'prospect_outreach_status', true );
+		if ( in_array( $status, $closed_statuses, true ) ) {
+			continue;
+		}
+
+		$haystack = strtolower(
+			get_the_title( $post_id ) . ' ' .
+			(string) get_post_meta( $post_id, 'prospect_practice_area', true ) . ' ' .
+			(string) get_post_meta( $post_id, 'prospect_demand_signal', true ) . ' ' .
+			(string) get_post_meta( $post_id, 'prospect_owner_note', true )
+		);
+
+		foreach ( $needles as $needle ) {
+			if ( false !== strpos( $haystack, strtolower( (string) $needle ) ) ) {
+				$count++;
+				break;
+			}
+		}
+	}
+
+	return $count;
+}
+
+function justice_theme_crm_btl_prospect_prefill_url(): string {
+	return add_query_arg(
+		array(
+			'post_type'                     => 'justice_prospect',
+			'prospect_practice_area'        => 'ביטוח לאומי',
+			'prospect_city'                 => 'ישראל',
+			'prospect_target_plan'          => 'lead_partner',
+			'prospect_priority'             => 'hot',
+			'prospect_outreach_status'      => 'research',
+			'prospect_expected_monthly_nis' => '1490',
+			'prospect_demand_signal'        => 'Bituach Leumi appeal funnel: need three specialist lawyers for qualified appeal leads before first revenue test.',
+			'prospect_owner_note'           => 'Validate Israeli Bar license, Bituach Leumi appeal experience, response time and willingness to accept manual invoice/payment path before routing qualified leads.',
+		),
+		admin_url( 'post-new.php' )
+	);
 }
 
 function justice_theme_crm_lawyer_prospect_summary( int $limit ): array {

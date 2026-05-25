@@ -98,6 +98,10 @@ Already shipped:
 - One-click owner-only email/WhatsApp prompts from the qualified billing queue
   to billable lawyers. These create manual messages only; they do not send
   automatically and do not expose this flow publicly.
+- Owner-only Bituach Leumi specialist supply panel in Justice CRM. It counts
+  active routable paid specialists, counts open prospects, shows the gap to the
+  first three specialists, and opens a prefilled prospect form without creating
+  public profiles.
 
 Remaining:
 

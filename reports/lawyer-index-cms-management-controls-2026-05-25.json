@@ -1,0 +1,27 @@
+{
+  "report": "lawyer-index-cms-management-controls",
+  "date": "2026-05-25",
+  "material_advance": [
+    "Added owner-facing wp-admin columns for justice_lawyer visibility, public card state, sponsored/basic status, plan, subscription, priority score, source host, source type and professional type.",
+    "Added wp-admin filters so the owner can quickly isolate forced-show, hidden, sponsored, basic-unclaimed, active-paid, source and professional-type cohorts before using bulk actions."
+  ],
+  "public_content_changed": false,
+  "cms_database_changed": false,
+  "competitor_sources_checked": [
+    "https://www.lawreviews.co.il/",
+    "https://www.din.co.il/",
+    "https://www.psakdin.co.il/default.aspx"
+  ],
+  "safety": {
+    "copied_competitor_reviews": false,
+    "copied_competitor_photos": false,
+    "copied_competitor_contact_details": false,
+    "changed_redirects_or_indexing_controls": false,
+    "changed_payment_provider_settings": false
+  },
+  "completion": {
+    "cms_control_layer_percent": 85,
+    "competitor_inventory_coverage_percent": 15,
+    "realized_revenue_nis": 0
+  }
+}

@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-25 12:58 Asia/Jerusalem
+- CMS OPERATING CONTROL IMPROVED: added owner-facing wp-admin columns and filters to the `justice_lawyer` list so indexed lawyers/professionals can be found, batched, hidden/revealed, and promoted faster from the CMS.
+- UPDATED: `inc/lawyer-visibility.php`.
+- ADDED: `project-control/lawyer-index-cms-management-controls-2026-05-25.md`.
+- GENERATED: `reports/lawyer-index-cms-management-controls-2026-05-25.json`.
+- MATERIAL ADVANCE: the owner can now filter basic-unclaimed, sponsored/priority, active-paid, hidden, forced-show, source-type, plan and professional-type cohorts, then use existing bulk actions to show/hide/mark sponsored/mark basic.
+- RESEARCH BASIS: checked current LawReviews, Din and PsakDin surfaces again; this cycle implements the operational layer needed to scale their directory pattern without hard-coding.
+- VERIFIED LOCAL: `php -l inc/lawyer-visibility.php` and `git diff --check` passed.
+- HONEST LIMITATION: no new competitor records were added in this cycle; this cycle made the existing and next batches easier to control safely.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves the route to paid upgrades but does not create payment proof by itself.
+- SAFETY: admin/theme-only change; no public CMS/database record, redirect, canonical/noindex, sitemap, taxonomy, payment, invoice, refund, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 12:28 Asia/Jerusalem
 - LIVE CMS BATCH 2 COMPLETED: added 11 additional live CMS public-basic records, bringing public REST inventory to 20 records and visible `/lawyers/` cards to 20 unique cards.
 - LEGAL PROFESSIONALS INDEXED: added 5 Din-sourced rabbinical advocate/mediator professional cards with `professional_type=rabbinical_advocate`, plus 6 LawReviews-sourced lawyer/law-firm cards.

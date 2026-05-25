@@ -1,6 +1,18 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer index CMS management controls
+
+- UPDATED: `inc/lawyer-visibility.php`.
+- ADDED: `project-control/lawyer-index-cms-management-controls-2026-05-25.md`.
+- GENERATED: `reports/lawyer-index-cms-management-controls-2026-05-25.json`.
+- PURPOSE: make the indexed lawyer/professional inventory operable from wp-admin at batch scale, without hard-coded homepage/index cards.
+- IMPLEMENTATION: added owner-facing columns for public state, manual visibility, sponsored/basic markers, plan/subscription/priority, source host, source type and professional type.
+- FILTERS: added filters for forced show, hidden, sponsored/priority, basic unclaimed, active subscription, plan, source type and professional type.
+- RESEARCH BASIS: current LawReviews, Din and PsakDin public surfaces reviewed again for directory/search/profile/review/source-depth patterns.
+- VERIFIED: `php -l inc/lawyer-visibility.php` and `git diff --check` passed.
+- SAFETY: admin/theme-only change; no competitor photos/reviews/ratings/contact details copied, and no CMS/database record, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed.
+
 # 2026-05-25 - Live CMS lawyer/professional index batch 2
 
 - CREATED LIVE CMS RECORDS: 11 additional `justice_lawyer` records via WordPress REST/API application password: IDs 20541-20551.

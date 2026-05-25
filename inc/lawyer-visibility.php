@@ -306,6 +306,290 @@ function justice_lawyer_bulk_visibility_admin_notice(): void {
 add_action( 'admin_notices', 'justice_lawyer_bulk_visibility_admin_notice' );
 
 // ============================================================================
+// OWNER ADMIN LIST CONTROLS - Fast filtering for indexed/public/sponsored cards
+// ============================================================================
+
+/**
+ * Render a compact admin badge.
+ *
+ * @param string $label Badge label.
+ * @param string $background Background color.
+ * @param string $color Text color.
+ */
+function justice_lawyer_admin_badge( string $label, string $background = '#f0f0f1', string $color = '#1d2327' ): void {
+	printf(
+		'<span style="display:inline-block;margin:0 4px 4px 0;padding:2px 7px;border-radius:999px;background:%1$s;color:%2$s;font-size:11px;font-weight:700;line-height:1.7;white-space:nowrap;">%3$s</span>',
+		esc_attr( $background ),
+		esc_attr( $color ),
+		esc_html( $label )
+	);
+}
+
+/**
+ * Add owner-facing management columns to the lawyer CMS list.
+ *
+ * @param array<string,string> $columns Existing columns.
+ * @return array<string,string>
+ */
+function justice_lawyer_owner_admin_columns( array $columns ): array {
+	$updated = array();
+
+	foreach ( $columns as $key => $label ) {
+		$updated[ $key ] = $label;
+
+		if ( 'title' === $key ) {
+			$updated['justice_owner_control'] = __( 'Jus-Tice control', 'justice-theme' );
+			$updated['justice_owner_source']  = __( 'Source / type', 'justice-theme' );
+		}
+	}
+
+	return $updated;
+}
+add_filter( 'manage_justice_lawyer_posts_columns', 'justice_lawyer_owner_admin_columns', 30 );
+
+/**
+ * Populate the owner-facing management columns.
+ *
+ * @param string $column  Column key.
+ * @param int    $post_id Lawyer profile post ID.
+ */
+function justice_lawyer_owner_admin_column_content( string $column, int $post_id ): void {
+	if ( 'justice_owner_control' === $column ) {
+		$visibility = strtolower( (string) get_post_meta( $post_id, 'admin_profile_visibility', true ) );
+		$plan       = strtolower( (string) get_post_meta( $post_id, 'plan_type', true ) );
+		$status     = strtolower( (string) get_post_meta( $post_id, 'subscription_status', true ) );
+		$priority   = (int) get_post_meta( $post_id, 'priority_score', true );
+		$is_public  = function_exists( 'justice_theme_lawyer_profile_is_public_approved' )
+			? justice_theme_lawyer_profile_is_public_approved( $post_id )
+			: ( 'publish' === get_post_status( $post_id ) );
+
+		if ( 'hide' === $visibility ) {
+			justice_lawyer_admin_badge( 'Hidden', '#f8d7da', '#842029' );
+		} elseif ( 'show' === $visibility ) {
+			justice_lawyer_admin_badge( 'Forced show', '#d1e7dd', '#0f5132' );
+		} else {
+			justice_lawyer_admin_badge( 'Auto', '#e2e3e5', '#41464b' );
+		}
+
+		justice_lawyer_admin_badge( $is_public ? 'Public card' : 'Not public', $is_public ? '#cff4fc' : '#fff3cd', $is_public ? '#055160' : '#664d03' );
+
+		if ( 'featured' === $plan || 'lead_partner' === $plan || $priority >= 90 ) {
+			justice_lawyer_admin_badge( 'Sponsored slot', '#f8e7b9', '#5f4300' );
+		}
+
+		if ( 'free' === $plan && 'inactive' === $status ) {
+			justice_lawyer_admin_badge( 'Basic unclaimed', '#edf2ff', '#19346d' );
+		}
+
+		printf(
+			'<div style="margin-top:4px;color:#646970;font-size:11px;">plan: %1$s | sub: %2$s | score: %3$d</div>',
+			esc_html( $plan ?: '-' ),
+			esc_html( $status ?: '-' ),
+			$priority
+		);
+
+		$public_url = get_permalink( $post_id );
+		if ( $public_url ) {
+			printf(
+				'<div style="margin-top:3px;"><a href="%s" target="_blank" rel="noopener">%s</a></div>',
+				esc_url( $public_url ),
+				esc_html__( 'Open public card', 'justice-theme' )
+			);
+		}
+
+		return;
+	}
+
+	if ( 'justice_owner_source' === $column ) {
+		$source_type       = (string) get_post_meta( $post_id, 'source_type', true );
+		$source_url        = (string) get_post_meta( $post_id, 'source_url', true );
+		$professional_type = (string) get_post_meta( $post_id, 'professional_type', true );
+		$host              = $source_url ? (string) wp_parse_url( $source_url, PHP_URL_HOST ) : '';
+		$host              = $host ? preg_replace( '/^www\./', '', $host ) : '';
+
+		justice_lawyer_admin_badge( $professional_type ?: 'lawyer', '#eef2f7', '#243b53' );
+		justice_lawyer_admin_badge( $source_type ?: 'manual', '#f6f7f7', '#3c434a' );
+
+		if ( $host ) {
+			printf(
+				'<div style="margin-top:4px;font-size:12px;"><a href="%1$s" target="_blank" rel="noopener">%2$s</a></div>',
+				esc_url( $source_url ),
+				esc_html( $host )
+			);
+		} else {
+			echo '<div style="margin-top:4px;color:#646970;font-size:12px;">No source URL</div>';
+		}
+	}
+}
+add_action( 'manage_justice_lawyer_posts_custom_column', 'justice_lawyer_owner_admin_column_content', 20, 2 );
+
+/**
+ * Add owner filters above the lawyer list to support batch selection.
+ *
+ * @param string $post_type Current list post type.
+ */
+function justice_lawyer_owner_admin_filters( string $post_type ): void {
+	if ( 'justice_lawyer' !== $post_type ) {
+		return;
+	}
+
+	$filters = array(
+		'justice_owner_visibility'        => array(
+			'label'   => __( 'All visibility states', 'justice-theme' ),
+			'options' => array(
+				'manual_show'     => __( 'Forced show', 'justice-theme' ),
+				'manual_hide'     => __( 'Hidden', 'justice-theme' ),
+				'sponsored'       => __( 'Sponsored / priority', 'justice-theme' ),
+				'basic_unclaimed' => __( 'Basic unclaimed', 'justice-theme' ),
+				'active_paid'     => __( 'Active subscription', 'justice-theme' ),
+			),
+		),
+		'justice_owner_plan'              => array(
+			'label'   => __( 'All plans', 'justice-theme' ),
+			'options' => array(
+				'free'         => 'free',
+				'pro'          => 'pro',
+				'featured'     => 'featured',
+				'lead_partner' => 'lead_partner',
+				'full_service' => 'full_service',
+			),
+		),
+		'justice_owner_source_type'       => array(
+			'label'   => __( 'All sources', 'justice-theme' ),
+			'options' => array(
+				'public_index' => 'public_index',
+				'import'       => 'import',
+				'manual'       => 'manual',
+				'registration' => 'registration',
+				'seed'         => 'seed',
+			),
+		),
+		'justice_owner_professional_type' => array(
+			'label'   => __( 'All professional types', 'justice-theme' ),
+			'options' => array(
+				'lawyer'              => 'lawyer',
+				'law_firm'            => 'law_firm',
+				'rabbinical_advocate' => 'rabbinical_advocate',
+				'mediator'            => 'mediator',
+				'notary'              => 'notary',
+				'legal_supplier'      => 'legal_supplier',
+			),
+		),
+	);
+
+	foreach ( $filters as $name => $config ) {
+		$current = isset( $_GET[ $name ] ) ? sanitize_key( wp_unslash( $_GET[ $name ] ) ) : '';
+
+		printf( '<select name="%1$s" id="%1$s">', esc_attr( $name ) );
+		printf( '<option value="">%s</option>', esc_html( $config['label'] ) );
+
+		foreach ( $config['options'] as $value => $label ) {
+			printf(
+				'<option value="%1$s" %2$s>%3$s</option>',
+				esc_attr( $value ),
+				selected( $current, $value, false ),
+				esc_html( $label )
+			);
+		}
+
+		echo '</select>';
+	}
+}
+add_action( 'restrict_manage_posts', 'justice_lawyer_owner_admin_filters' );
+
+/**
+ * Apply the owner filters to the wp-admin lawyer list.
+ *
+ * @param WP_Query $query Current query.
+ */
+function justice_lawyer_owner_admin_filter_query( WP_Query $query ): void {
+	if (
+		! is_admin()
+		|| ! $query->is_main_query()
+		|| 'justice_lawyer' !== $query->get( 'post_type' )
+	) {
+		return;
+	}
+
+	$meta_query = (array) $query->get( 'meta_query' );
+
+	$visibility = isset( $_GET['justice_owner_visibility'] ) ? sanitize_key( wp_unslash( $_GET['justice_owner_visibility'] ) ) : '';
+	switch ( $visibility ) {
+		case 'manual_show':
+			$meta_query[] = array(
+				'key'   => 'admin_profile_visibility',
+				'value' => 'show',
+			);
+			break;
+
+		case 'manual_hide':
+			$meta_query[] = array(
+				'key'   => 'admin_profile_visibility',
+				'value' => 'hide',
+			);
+			break;
+
+		case 'sponsored':
+			$meta_query[] = array(
+				'relation' => 'OR',
+				array(
+					'key'     => 'plan_type',
+					'value'   => array( 'featured', 'lead_partner', 'full_service' ),
+					'compare' => 'IN',
+				),
+				array(
+					'key'     => 'priority_score',
+					'value'   => 90,
+					'type'    => 'NUMERIC',
+					'compare' => '>=',
+				),
+			);
+			break;
+
+		case 'basic_unclaimed':
+			$meta_query[] = array(
+				'key'   => 'plan_type',
+				'value' => 'free',
+			);
+			$meta_query[] = array(
+				'key'   => 'subscription_status',
+				'value' => 'inactive',
+			);
+			break;
+
+		case 'active_paid':
+			$meta_query[] = array(
+				'key'   => 'subscription_status',
+				'value' => 'active',
+			);
+			break;
+	}
+
+	$exact_meta_filters = array(
+		'justice_owner_plan'              => 'plan_type',
+		'justice_owner_source_type'       => 'source_type',
+		'justice_owner_professional_type' => 'professional_type',
+	);
+
+	foreach ( $exact_meta_filters as $request_key => $meta_key ) {
+		$value = isset( $_GET[ $request_key ] ) ? sanitize_key( wp_unslash( $_GET[ $request_key ] ) ) : '';
+		if ( '' === $value ) {
+			continue;
+		}
+
+		$meta_query[] = array(
+			'key'   => $meta_key,
+			'value' => $value,
+		);
+	}
+
+	if ( ! empty( $meta_query ) ) {
+		$query->set( 'meta_query', $meta_query );
+	}
+}
+add_action( 'pre_get_posts', 'justice_lawyer_owner_admin_filter_query' );
+
+// ============================================================================
 // ARCHIVE FILTER — Exclude hidden profiles from public listing
 // ============================================================================
 

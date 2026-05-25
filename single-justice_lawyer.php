@@ -136,6 +136,14 @@ $is_maya_profile          = 'advocate-maya-rotenberg' === $lawyer_profile_slug
 		false !== mb_strpos( get_the_title( $lawyer_id ), rawurldecode( '%D7%9E%D7%90%D7%99%D7%94' ) )
 		&& false !== mb_strpos( get_the_title( $lawyer_id ), rawurldecode( '%D7%A8%D7%95%D7%98%D7%A0%D7%91%D7%A8%D7%92' ) )
 	);
+$profile_fact_review_status = sanitize_key( (string) $meta( 'profile_fact_review_status' ) );
+$profile_is_fact_checked    = in_array( $profile_fact_review_status, array( 'approved', 'source_checked', 'owner_approved', 'lawyer_approved' ), true );
+$requires_fact_gate         = $is_maya_profile
+	|| $is_seed_data
+	|| in_array( $source_type, array( 'public_index', 'import' ), true );
+$show_freeform_profile_facts = ! $requires_fact_gate || $profile_is_fact_checked;
+$show_profile_marketing_modules = ! $requires_fact_gate || $profile_is_fact_checked || $is_paid;
+$show_verified_profile_badge = $is_verified && $show_freeform_profile_facts;
 $can_show_profile_articles = ( $is_paid || $is_verified ) && ! $is_maya_profile;
 $connected_article_slugs = array_filter( array( $lawyer_profile_slug, $authority_person_slug ) );
 
@@ -193,6 +201,8 @@ if ( ! $related_articles->have_posts() && $primary_area && $can_show_profile_art
 
 $has_related_articles = $related_articles instanceof WP_Query && $related_articles->have_posts();
 $has_media_module     = $video_url || ! empty( $media_items );
+$show_articles_panel  = $has_related_articles || ! $requires_fact_gate;
+$show_reviews_panel   = $show_rating || $show_approved_recommendations || $show_testimonials || ! $requires_fact_gate;
 $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 	&& ! $is_seed_data
 	&& ! $is_maya_profile
@@ -209,7 +219,7 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 			<div class="lawyer-mini-hero__content">
 				<div class="lawyer-mini-hero__kicker">
 					<span>מיני-סייט משפטי</span>
-					<?php if ( $is_verified ) : ?>
+					<?php if ( $show_verified_profile_badge ) : ?>
 						<strong>פרופיל מאומת</strong>
 					<?php endif; ?>
 					<?php if ( $is_paid ) : ?>
@@ -273,16 +283,17 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 				<span>מספר רישיון</span>
 			</div>
 			<div class="lawyer-mini-proof__item">
-				<strong><?php echo $is_verified ? 'מאומת' : 'לא מאומת'; ?></strong>
+				<strong><?php echo esc_html( $show_verified_profile_badge ? __( 'מאומת', 'justice-theme' ) : __( 'בבדיקה', 'justice-theme' ) ); ?></strong>
 				<span>סטטוס פרופיל</span>
 			</div>
 			<div class="lawyer-mini-proof__item">
-				<strong><?php echo $show_rating ? esc_html( number_format_i18n( $average_rating, 1 ) ) : 'בקרוב'; ?></strong>
+				<strong><?php echo esc_html( $show_rating ? number_format_i18n( $average_rating, 1 ) : ( $requires_fact_gate ? __( 'לא מוצג', 'justice-theme' ) : __( 'בקרוב', 'justice-theme' ) ) ); ?></strong>
 				<span>ביקורות מאושרות</span>
 			</div>
 		</div>
 	</section>
 
+	<?php if ( $show_profile_marketing_modules ) : ?>
 	<section class="section lawyer-mini-engagement" aria-label="<?php esc_attr_e( 'אפשרויות במיני-סייט', 'justice-theme' ); ?>">
 		<div class="container">
 			<div class="section-header section-header--split">
@@ -316,6 +327,7 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 			</div>
 		</div>
 	</section>
+	<?php endif; ?>
 
 	<section class="section lawyer-mini-body">
 		<div class="container lawyer-mini-body__grid">
@@ -323,7 +335,14 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 				<section class="lawyer-mini-panel">
 					<h2>על עורכת הדין</h2>
 					<div class="entry-content" itemprop="description">
-						<?php the_content(); ?>
+						<?php if ( $show_freeform_profile_facts ) : ?>
+							<?php the_content(); ?>
+						<?php else : ?>
+							<div class="lawyer-mini-profile-gate">
+								<strong><?php esc_html_e( 'פרטי הרקע המלאים בבדיקת מקורות', 'justice-theme' ); ?></strong>
+								<p><?php esc_html_e( 'אנחנו לא מציגים השכלה, הסמכות, דירוגים או סיפורי הצלחה לפני בדיקה ואישור. בשלב זה מוצגים רק תחומי פעילות, עיר, מקורות ציבוריים ודרכי פנייה שניתן לערוך מתוך ה-CMS.', 'justice-theme' ); ?></p>
+							</div>
+						<?php endif; ?>
 					</div>
 				</section>
 
@@ -385,6 +404,7 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 					</section>
 				<?php endif; ?>
 
+				<?php if ( $show_articles_panel ) : ?>
 				<section class="lawyer-mini-panel">
 					<h2>מאמרים חתומים ותוכן מקצועי</h2>
 					<?php if ( $related_articles->have_posts() ) : ?>
@@ -402,6 +422,7 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 						<p class="lawyer-mini-muted">כאן יוצגו מאמרים, מדריכים ועדכונים מקצועיים שחוברו לפרופיל דרך שדה CMS ייעודי. התוכן יעלה רק לאחר בדיקה משפטית ועריכת מקורות.</p>
 					<?php endif; ?>
 				</section>
+				<?php endif; ?>
 
 				<?php if ( ! empty( $media_items ) ) : ?>
 					<section class="lawyer-mini-panel">
@@ -419,6 +440,7 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 					</section>
 				<?php endif; ?>
 
+				<?php if ( $show_reviews_panel ) : ?>
 				<section class="lawyer-mini-panel">
 					<h2>ביקורות והמלצות</h2>
 					<?php if ( $show_rating ) : ?>
@@ -457,6 +479,7 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 						</div>
 					<?php endif; ?>
 				</section>
+				<?php endif; ?>
 
 				<?php if ( ! empty( $faqs ) ) : ?>
 					<section class="lawyer-mini-panel">
@@ -539,7 +562,7 @@ $show_profile_photo   = has_post_thumbnail( $lawyer_id )
 					</dl>
 				</section>
 
-				<?php if ( ! empty( $credentials ) ) : ?>
+				<?php if ( ! empty( $credentials ) && $show_freeform_profile_facts ) : ?>
 					<section class="lawyer-mini-sidebox">
 						<h2>הסמכות וניסיון</h2>
 						<ul class="lawyer-mini-credential-list">

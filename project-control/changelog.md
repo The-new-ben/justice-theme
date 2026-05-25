@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Lawyer profile fact gate
+
+- UPDATED: `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, and `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-profile-fact-gate-2026-05-25.md`.
+- PURPOSE: stop public lawyer mini-sites from presenting unverified education, credentials, reviews, ratings, or premium-profile marketing as if they were source-checked facts.
+- IMPLEMENTATION: Maya/public-index/seed-like profiles now hide free-form biography text, credentials, placeholder article panels, placeholder review panels, and mini-site marketing modules unless `profile_fact_review_status` is `approved`, `source_checked`, `owner_approved`, or `lawyer_approved`.
+- VERIFIED LOCAL: `php -l single-justice_lawyer.php`, `php -l inc/enqueue.php`, and `git diff --check` passed.
+- SAFETY: no CMS/database write, competitor content/photo/review/rating/contact copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-25 - Lawyer onboarding revenue proof strip
 
 - UPDATED: `inc/lawyer-onboarding.php`.

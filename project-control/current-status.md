@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 14:58 Asia/Jerusalem
+- LAWYER PROFILE FACT GATE ADDED: high-risk public profiles now stop showing free-form biography facts, credentials, placeholder review/article panels, and mini-site marketing modules unless the CMS marks the facts as source-checked.
+- UPDATED: `single-justice_lawyer.php`, `assets/css/premium-pass-4.css`, and `inc/enqueue.php`.
+- ADDED: `project-control/lawyer-profile-fact-gate-2026-05-25.md`.
+- MATERIAL ADVANCE: this directly addresses the live Maya profile issue. A read-only check found the public page still contained an education claim with `אוניברסיטת`; after this code path is deployed, Maya/public-index/seed-like profiles will show a fact-review notice instead of unverified education, credentials, ratings, reviews, or success claims.
+- RESEARCH BASIS: current benchmark direction remains Avvo/Justia/LawReviews/Din/PsakDin-inspired profile depth, but only after facts are verified; this implementation is original and intentionally does not copy competitor photos, reviews, ratings, or profile text.
+- VERIFIED LOCAL: `php -l single-justice_lawyer.php`, `php -l inc/enqueue.php`, and `git diff --check` passed. Commit/push/uPress pull and post-deploy live verification still need to complete for this cycle.
+- REVENUE STATUS: realized revenue remains NIS 0. This protects trust and investor credibility, but it does not prove payment, invoice, refund, subscription, or lead monetization.
+- SAFETY: repo theme/display logic and docs only; no CMS database edit, competitor asset/content copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 14:40 Asia/Jerusalem
 - REVENUE PROOF STRIP ADDED: `Lawyer Onboarding -> Paid registration command center` now shows whether paid lawyer revenue is actually owner-confirmed or only in the manual-invoice pipeline.
 - UPDATED: `inc/lawyer-onboarding.php`.

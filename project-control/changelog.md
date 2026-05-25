@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Homepage competitor signal row
+
+- UPDATED: `template-parts/sections/hero.php` and `assets/css/premium-pass-4.css`.
+- ADDED: `project-control/homepage-competitor-polish-notes-2026-05-25.md`.
+- PURPOSE: make the homepage first viewport behave more like a legal directory/search product by surfacing three user decision signals under the search box.
+- RESEARCH BASIS: public Din, LawReviews and PsakDin surfaces emphasize index search, location/practice filtering, detailed profiles, reviews/trust signals, legal content and service paths.
+- SAFETY: original copy only; no fake reviews, rankings or verified-rating claims; no CMS/database record, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC/GA4 or provider setting changed.
+
 # 2026-05-25 - Article page relevance polish
 
 - UPDATED: `single-articles.php`.

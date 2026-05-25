@@ -49,6 +49,21 @@ $israel_cities = array(
 
 // Hero background image
 $hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
+
+$hero_market_signals = array(
+	array(
+		'label' => __( 'חיפוש לפי תחום ועיר', 'justice-theme' ),
+		'text'  => __( 'מתחילים מהבעיה המשפטית ומהמיקום, ואז עוברים לפרופילים רלוונטיים.', 'justice-theme' ),
+	),
+	array(
+		'label' => __( 'פרופיל לפני פנייה', 'justice-theme' ),
+		'text'  => __( 'בודקים תחומי עיסוק, אזורי שירות, תוכן מקצועי ופרטי קשר שאושרו להצגה.', 'justice-theme' ),
+	),
+	array(
+		'label' => __( 'תוכן שמסביר החלטה', 'justice-theme' ),
+		'text'  => __( 'קוראים מדריכים, שאלות נפוצות ומסלולי פעולה לפני שליחת פנייה מסודרת.', 'justice-theme' ),
+	),
+);
 ?>
 
 <section class="hero hero--has-bg" id="hero" style="--hero-bg-image: url('<?php echo esc_url( $hero_bg ); ?>');">
@@ -112,6 +127,15 @@ $hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
 					</button>
 				</div>
 			</form>
+
+			<ul class="hero__market-signals" aria-label="<?php esc_attr_e( 'איך Jus-Tice עוזר לבחור עורך דין', 'justice-theme' ); ?>">
+				<?php foreach ( $hero_market_signals as $signal ) : ?>
+					<li>
+						<strong><?php echo esc_html( $signal['label'] ); ?></strong>
+						<span><?php echo esc_html( $signal['text'] ); ?></span>
+					</li>
+				<?php endforeach; ?>
+			</ul>
 
 			<div class="hero__ctas" style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center;">
 				<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" class="button button--primary">

@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-25 11:35 Asia/Jerusalem
+- HOMEPAGE COMPETITOR-INSPIRED POLISH: checked current public competitor surfaces from Din, LawReviews and PsakDin, then added an original three-signal homepage row under the main search box: search by field/city, review the profile before contact, and use legal content before sending an inquiry.
+- UPDATED: `template-parts/sections/hero.php` and `assets/css/premium-pass-4.css`.
+- ADDED: `project-control/homepage-competitor-polish-notes-2026-05-25.md`.
+- MATERIAL ADVANCE: the homepage first viewport now reads more like a legal directory/search product and less like a generic article portal, without falsely claiming reviews, rankings or verified ratings that are not yet backed by CMS data.
+- VERIFIED BASIS: public web result pass on Din, LawReviews and PsakDin; implementation is original/inspired, not copied verbatim.
+- STILL BLOCKED: live CMS creation of additional lawyer/professional records still depends on working WordPress admin access or a working REST application password; public reviews/ratings should not be shown until there is verified review infrastructure and approval.
+- COMPLETION: homepage/commercial polish moved from about 62% to 66%; article-page polish remains about 66%; CMS-backed customer/professional indexing remains constrained by live CMS access.
+- SAFETY: theme-only homepage rendering/CSS and local notes; no public CMS/database content, redirect, canonical/noindex, sitemap, taxonomy, product, gateway setting, charge, invoice, refund, lawyer record, lead, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 11:26 Asia/Jerusalem
 - ARTICLE PAGE RELEVANCE POLISH: disabled the repeated pre-content article intent/marketing panel by default via `justice_theme_show_article_intent_panel`, so article pages now move from title/meta directly into the article body unless an owner/developer explicitly re-enables the panel.
 - UPDATED: `single-articles.php`.

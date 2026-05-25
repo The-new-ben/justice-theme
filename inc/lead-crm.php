@@ -278,6 +278,7 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 		</div>
 	<?php endif; ?>
 	<?php justice_theme_crm_render_btl_candidate_tracker( $btl_needles ); ?>
+	<?php justice_theme_crm_render_btl_next_source_actions( $source_pack_rows ); ?>
 	<?php justice_theme_crm_render_btl_source_pack_candidates( $source_pack_rows ); ?>
 	<?php justice_theme_crm_render_btl_outreach_pack(); ?>
 	<?php
@@ -355,6 +356,51 @@ function justice_theme_crm_render_btl_candidate_tracker( array $needles ): void 
 					<?php endforeach; ?>
 				</tbody>
 			</table>
+		<?php endif; ?>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_render_btl_next_source_actions( array $rows ): void {
+	$existing_sources = justice_theme_crm_btl_existing_prospect_sources();
+	$next_candidates  = justice_theme_crm_btl_next_source_candidates( $rows, $existing_sources, 3 );
+	?>
+	<div style="background:#fff;border:2px solid #2271b1;border-radius:8px;padding:14px;margin:12px 0 20px;">
+		<h3 style="margin-top:0;">Next 3 source-pack conversions</h3>
+		<p style="margin-top:0;color:#646970;">Private action queue for turning sourced Bituach Leumi specialists into verified CRM prospects. These cards do not create records, send outreach or publish profiles.</p>
+		<?php if ( empty( $next_candidates ) ) : ?>
+			<div class="notice notice-success inline"><p>All loaded source-pack candidates already have matching private prospect source URLs. Continue verification in the prospect pipeline.</p></div>
+		<?php else : ?>
+			<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;">
+				<?php foreach ( $next_candidates as $row ) : ?>
+					<?php $brief_id = 'justice-btl-next-brief-' . substr( md5( (string) ( $row['source_url'] ?? '' ) ), 0, 10 ); ?>
+					<div style="border:1px solid #dcdcde;border-radius:8px;padding:12px;background:#f6f7f7;">
+						<strong style="display:block;font-size:16px;"><?php echo esc_html( $row['candidate'] ?? '' ); ?></strong>
+						<small style="display:block;color:#646970;margin-top:2px;"><?php echo esc_html( trim( (string) ( $row['priority'] ?? '' ) . ' / ' . (string) ( $row['geo_hint'] ?? '' ), ' /' ) ); ?></small>
+						<p style="margin:8px 0;"><strong>Focus:</strong> <?php echo esc_html( $row['apparent_focus'] ?? '' ); ?></p>
+						<p style="margin:8px 0;"><strong>Evidence:</strong> <?php echo esc_html( $row['source_evidence_summary'] ?? '' ); ?></p>
+						<ol style="margin:8px 0 12px 20px;">
+							<li>Create the private prospect draft.</li>
+							<li>Open and verify the public source.</li>
+							<li>Check license/status, niche fit, response time and manual-payment acceptance.</li>
+							<li>Set next action date before any routing.</li>
+						</ol>
+						<p style="display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px;">
+							<a class="button button-primary" href="<?php echo esc_url( justice_theme_crm_btl_source_candidate_prefill_url( $row ) ); ?>">Create private prospect</a>
+							<?php if ( ! empty( $row['source_url'] ) ) : ?>
+								<a class="button" href="<?php echo esc_url( $row['source_url'] ); ?>" target="_blank" rel="noopener">Open source</a>
+							<?php endif; ?>
+						</p>
+						<details>
+							<summary style="cursor:pointer;">Copy verification brief</summary>
+							<textarea id="<?php echo esc_attr( $brief_id ); ?>" rows="7" readonly style="width:100%;margin-top:6px;"><?php echo esc_textarea( justice_theme_crm_btl_source_candidate_verification_brief( $row ) ); ?></textarea>
+							<p style="margin:6px 0 0;">
+								<button type="button" class="button button-small" data-justice-copy-target="<?php echo esc_attr( $brief_id ); ?>">Copy brief</button>
+							</p>
+						</details>
+					</div>
+				<?php endforeach; ?>
+			</div>
 		<?php endif; ?>
 	</div>
 	<?php
@@ -461,6 +507,24 @@ function justice_theme_crm_btl_existing_prospect_sources(): array {
 	}
 
 	return $sources;
+}
+
+function justice_theme_crm_btl_next_source_candidates( array $rows, array $existing_sources, int $limit = 3 ): array {
+	$next = array();
+
+	foreach ( $rows as $row ) {
+		$source_key = justice_theme_crm_normalize_source_url( (string) ( $row['source_url'] ?? '' ) );
+		if ( '' === $source_key || ! empty( $existing_sources[ $source_key ] ) ) {
+			continue;
+		}
+
+		$next[] = $row;
+		if ( count( $next ) >= $limit ) {
+			break;
+		}
+	}
+
+	return $next;
 }
 
 function justice_theme_crm_btl_source_pack_progress( array $rows ): array {

@@ -136,12 +136,17 @@ Already shipped:
   manual private prospect creation. Candidate rows now show "Already in
   pipeline" with a direct private prospect link instead of inviting duplicate
   CRM creation.
+- Next-source action board added to the private Bituach Leumi CRM panel:
+  it surfaces the next three non-duplicated source-pack candidates, with
+  Create private prospect, Open source, copy-ready verification brief and
+  exact manual checks before routing.
 
 Remaining:
 
 - Recruit 3 specialist lawyers.
-- Convert source-pack candidates into verified private prospects, starting
-  with the high-priority rows.
+- Convert the three candidates shown in the next-source action board into
+  verified private prospects, then continue through the remaining high-priority
+  rows.
 - Run a real test lead.
 - Mark first billable qualified lead in CRM.
 - Use manual invoice/payment path until Grow/Meshulam is ready.

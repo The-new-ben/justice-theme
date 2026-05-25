@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-25 15:47 Asia/Jerusalem
+- ASSIGNED HOMEPAGE TEMPLATE REVENUE STRIP ADDED: `page-home.php` now loads the lawyer revenue strip immediately after the customer intake strip, matching the existing `front-page.php` path.
+- UPDATED: `page-home.php`.
+- ADDED: `project-control/homepage-assigned-template-lawyer-revenue-strip-2026-05-25.md`.
+- MATERIAL ADVANCE: the paid lawyer journey is now visible from both homepage template paths, reducing the risk that WordPress template assignment or preview uses a homepage without lawyer signup, plan comparison and personal-area links.
+- VERIFIED LOCAL / PUSHED / DEPLOY BLOCKED: `php -l page-home.php` and `git diff --check` passed; production still needs uPress Pull Git because recent read-only live checks show the server is behind the pushed theme commits.
+- REVENUE STATUS: realized revenue remains NIS 0. This improves investor-visible lawyer conversion readiness, but it does not prove payment, invoice, refund, subscription, lead delivery, or CRM monetization.
+- SAFETY: repo template/docs only; no live CMS database edit, competitor lawyer/profile import, competitor asset/content copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 15:39 Asia/Jerusalem
 - HOMEPAGE LAWYER SHOWCASE QUALITY GATE ADDED: the homepage no longer promotes Maya, seed/demo/test-like, imported, or public-index lawyer profiles unless their profile facts are approved/source-checked/owner-approved/lawyer-approved.
 - UPDATED: `template-parts/sections/featured-lawyers.php`, `assets/css/premium-pass-4.css`, and `inc/enqueue.php`.

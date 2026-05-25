@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-25 - Assigned homepage template lawyer revenue strip
+
+- UPDATED: `page-home.php`.
+- ADDED: `project-control/homepage-assigned-template-lawyer-revenue-strip-2026-05-25.md`.
+- PURPOSE: keep the paid lawyer account-opening path visible even when the explicit `Home` page template is used instead of the `front-page.php` path.
+- IMPLEMENTATION: inserted `template-parts/sections/homepage-lawyer-revenue-strip.php` after the customer intake strip and before the money-intent pyramid.
+- VERIFIED LOCAL: `php -l page-home.php` and `git diff --check` passed.
+- SAFETY: no CMS database write, competitor lawyer/profile import, competitor photo/review/rating/contact copy, payment, invoice, refund, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-25 - Homepage lawyer showcase quality gate
 
 - UPDATED: `template-parts/sections/featured-lawyers.php`, `assets/css/premium-pass-4.css`, and `inc/enqueue.php`.

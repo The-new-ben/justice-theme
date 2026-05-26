@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-26 23:23 Asia/Jerusalem
+- BITUACH LEUMI FIRST PAID-LEAD READINESS CHECK ADDED: created a repo-local checker that verifies the specialist-to-first-paid-lead infrastructure without creating leads, prospects, lawyer records, outreach, invoices or public edits.
+- CODE ADDED: `tools/check-btl-first-paid-lead-readiness.mjs`.
+- ADMIN PATH CLEANUP: owner-only Bituach Leumi source-pack references now point future agents to `.project-control/btl-specialist-prospect-shortlist-2026-05-26.*`, not the old non-dot `project-control` path.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/btl-first-paid-lead-readiness-2026-05-26.md`, `.project-control/btl-first-paid-lead-readiness-2026-05-26.csv`, `.reports/btl-first-paid-lead-readiness-2026-05-26.json`, `.reports/btl-first-paid-lead-readiness-2026-05-26.csv`.
+- CHECK RESULT: `PASS_WITH_RUNTIME_BLOCKERS`; `9/9` static gates pass, source pack has `19` candidates and `12` high-priority candidates, and the remaining runtime blocker is real-world proof: 3 verified prospects, 3 routable paid lawyers, one consented controlled lead and invoice/payment evidence must exist in the live CRM before revenue is claimed.
+- LINEAR: recorded as `HAD-104` and marked Done under the Bituach Leumi first-paid-lead loop.
+- PUBLIC IMPACT: none. No public CMS page, title/H1/meta/body, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, GSC, GA4 or public content changed.
+- COMPLETION ASSESSMENT: repo/static Bituach Leumi first-paid-lead readiness 100%; real first paid lead still 0% until owner/admin completes live CRM runtime gates.
+
 # LATEST WORK STATUS - 2026-05-26 23:03 Asia/Jerusalem
 - LINEAR COMPLETION RECONCILIATION GENERATED: closed the "do not abandon unfinished things" loop for two stale Linear items whose repo evidence was already complete.
 - CODE ADDED: `tools/build-linear-completion-reconciliation.mjs`.

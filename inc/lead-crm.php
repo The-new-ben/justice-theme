@@ -2281,7 +2281,7 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 	$pipeline_url      = admin_url( 'edit.php?post_type=justice_prospect' );
 	$needs_verification_url = add_query_arg( 'justice_prospect_verification_filter', 'needs', $pipeline_url );
 	$ready_verification_url = add_query_arg( 'justice_prospect_verification_filter', 'ready', $pipeline_url );
-	$source_pack_path       = 'project-control/btl-specialist-prospect-shortlist-2026-05-26.md';
+	$source_pack_path       = '.project-control/btl-specialist-prospect-shortlist-2026-05-26.md';
 	$source_pack_rows       = justice_theme_crm_read_btl_source_pack( 100 );
 	$source_pack_progress   = justice_theme_crm_btl_source_pack_progress( $source_pack_rows );
 	$billable_btl_leads     = justice_theme_crm_count_btl_billable_leads( $btl_needles, array( 'ready_to_bill', 'invoice_sent', 'paid' ) );

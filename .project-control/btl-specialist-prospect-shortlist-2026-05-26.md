@@ -31,7 +31,7 @@ All candidates start as `not_verified`.
 
 The machine-readable shortlist is in:
 
-`project-control/btl-specialist-prospect-shortlist-2026-05-26.csv`
+`.project-control/btl-specialist-prospect-shortlist-2026-05-26.csv`
 
 It contains 19 source-linked candidates with suggested priority, evidence summary, CRM action and verification gaps.
 

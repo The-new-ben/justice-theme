@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Bituach Leumi first paid-lead readiness check
+
+- ADDED: `tools/check-btl-first-paid-lead-readiness.mjs`.
+- UPDATED: `inc/lead-crm.php` and `.project-control/btl-specialist-prospect-shortlist-2026-05-26.md` now refer to the dot-private `.project-control` source-pack path.
+- GENERATED: `.project-control/btl-first-paid-lead-readiness-2026-05-26.md`, `.project-control/btl-first-paid-lead-readiness-2026-05-26.csv`, `.reports/btl-first-paid-lead-readiness-2026-05-26.json`, `.reports/btl-first-paid-lead-readiness-2026-05-26.csv`.
+- RESULT: static infrastructure gate returned `PASS_WITH_RUNTIME_BLOCKERS`: 9/9 static gates pass, with 19 source-pack candidates and 12 high-priority candidates.
+- LINEAR: recorded as `HAD-104` and marked Done.
+- BLOCKER PRESERVED: real revenue still requires live CRM proof: 3 verified prospects, 3 routable paid lawyers, one consented controlled lead and invoice/payment evidence.
+- SAFETY: owner-only admin path label plus repo-local checker/report only; no public CMS page, content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, GSC or GA4 setting changed.
+
 # 2026-05-26 - Linear completion reconciliation
 
 - ADDED: `tools/build-linear-completion-reconciliation.mjs`.

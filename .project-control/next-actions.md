@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-BTL-FIRST-PAID-LEAD-READINESS-001: Verify the first paid-lead loop without touching real leads
+**Status:** FIXED LOCAL / RUNTIME CRM PROOF STILL BLOCKED
+**Why:** the owner wants the unfinished Bituach Leumi specialist-to-first-paid-lead loop completed, but the repo must separate infrastructure readiness from real revenue proof.
+**Actions:**
+1. DONE: add `tools/check-btl-first-paid-lead-readiness.mjs`.
+2. DONE: update owner-only source-pack references to the dot-private `.project-control` path.
+3. DONE: generate `.project-control/btl-first-paid-lead-readiness-2026-05-26.md` and `.csv`.
+4. DONE: generate `.reports/btl-first-paid-lead-readiness-2026-05-26.json` and `.csv`.
+5. DONE: verify 9/9 static gates: source pack, CRM supply panel, prospect verification fields, manual outreach/activation packet, consent/routing hold guard, revenue hint/billing queue, controlled test drill, anti-cannibalization boundary and private-path references.
+6. DONE: record this as Linear `HAD-104`, marked Done.
+7. NEXT: in live wp-admin, create or verify 3 private prospects, 3 routable paid lawyers, one consented controlled lead and invoice/payment evidence.
+8. BLOCKED: do not claim first paid Bituach Leumi revenue until the live CRM has actual payment proof.
+
 ### ACTION-LINEAR-COMPLETION-RECONCILIATION-001: Close stale Linear items with repo evidence
 **Status:** FIXED LOCAL / LINEAR DONE
 **Why:** owner asked not to abandon started work; `HAD-95` and `HAD-96` had completed repo evidence but stale Linear states.

@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Lawyer subscription E2E preflight packet
+
+- ADDED: `tools/check-lawyer-subscription-e2e-preflight.mjs`.
+- GENERATED: `.project-control/lawyer-subscription-e2e-preflight-2026-05-26.md`, `.project-control/lawyer-subscription-e2e-preflight-2026-05-26.csv`, `.reports/lawyer-subscription-e2e-preflight-2026-05-26.json`, `.reports/lawyer-subscription-e2e-preflight-2026-05-26.csv`.
+- PURPOSE: prepare the later full lawyer subscription/payment walkthrough without creating live lawyer records, test leads, invoices, payment links or public changes.
+- RESULT: `PASS_WITH_RUNTIME_BLOCKERS`; 8 current subscription gates pass, and one warning records that the older live lawyer funnel checker is stale because it expects the removed homepage lawyer-pricing strip and old public artifact paths.
+- GATES COVERED: paid plan catalog and checkout mapping, manual-invoice checkout fallback, lawyer registration billing capture, onboarding admin payment queue, lawyer dashboard payment/service requests, dashboard handlers, qualified-lead billing proof fields and Grow compliance checker availability.
+- LINEAR: recorded as `HAD-117` and marked Done under `HAD-71`.
+- BLOCKER PRESERVED: live proof still requires an owner-approved controlled lawyer user/profile, registration drill, provider/product/payment-link proof, transaction/reference, invoice/receipt evidence, upgrade/downgrade/cancel/refund drills, consented controlled lead, accepted partner terms and owner release.
+- SAFETY: repo-local tool/report only; no public CMS page, content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, webhook, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # 2026-05-26 - WhatsApp / TalkTo import preflight packet
 
 - ADDED: `tools/build-whatsapp-talkto-import-preflight-packet.mjs`.

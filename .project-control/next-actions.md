@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-LAWYER-SUBSCRIPTION-E2E-PREFLIGHT-001: Prepare the full paid lawyer walkthrough without touching live records
+**Status:** FIXED LOCAL / LIVE PAYMENT PROOF STILL BLOCKED
+**Why:** the owner wants a later end-to-end walkthrough for registering a lawyer, CRM state, payments, money-back/refund, upgrade, downgrade and lead assignment. The repo needs one current checklist that future agents can run without relying on stale homepage/payment assumptions.
+**Actions:**
+1. DONE: add `tools/check-lawyer-subscription-e2e-preflight.mjs`.
+2. DONE: generate `.project-control/lawyer-subscription-e2e-preflight-2026-05-26.md` and `.csv`.
+3. DONE: generate `.reports/lawyer-subscription-e2e-preflight-2026-05-26.json` and `.csv`.
+4. DONE: verify 8 current subscription gates: paid plans and checkout mapping, manual invoice checkout fallback, registration billing capture, onboarding payment queue, dashboard payment/service requests, dashboard handlers, qualified-lead billing proof and Grow compliance checker availability.
+5. DONE: warn future agents not to use stale `tools/check-live-lawyer-revenue-funnel.mjs` for current proof until it is migrated from the removed homepage lawyer-pricing strip and old public artifact paths.
+6. DONE: record this as Linear `HAD-117`, marked Done under `HAD-71`.
+7. NEXT: run the live walkthrough only with an owner-approved controlled lawyer user/profile, controlled registration, controlled lead, and documented payment/invoice evidence.
+8. BLOCKED: do not claim paid subscription revenue, send payment/refund emails, create real lawyer records, create real leads, route leads, invoice or change public pages until controlled live proof exists.
+
 ### ACTION-WHATSAPP-TALKTO-IMPORT-PREFLIGHT-001: Prepare future WhatsApp/TalkTo exports without leaking PII
 **Status:** FIXED LOCAL / NO SOURCE EXPORT SUPPLIED
 **Why:** the owner has WhatsApp, TalkTo and legacy lead databases, but future imports must be checked safely before any CRM paste/import, client contact, supplier contact or payment claim.

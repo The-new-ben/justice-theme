@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-26 23:32 Asia/Jerusalem
+- LAWYER SUBSCRIPTION E2E PREFLIGHT PACKET ADDED: created a repo-local checker for the later full walkthrough from lawyer plan selection -> manual invoice/checkout fallback -> registration -> onboarding queue -> dashboard payment/service requests -> lead-stage update -> CRM billing proof.
+- CODE ADDED: `tools/check-lawyer-subscription-e2e-preflight.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/lawyer-subscription-e2e-preflight-2026-05-26.md`, `.project-control/lawyer-subscription-e2e-preflight-2026-05-26.csv`, `.reports/lawyer-subscription-e2e-preflight-2026-05-26.json`, `.reports/lawyer-subscription-e2e-preflight-2026-05-26.csv`.
+- CHECK RESULT: `PASS_WITH_RUNTIME_BLOCKERS`; 8/8 current subscription gates pass and 1 stale-tool warning was recorded for `tools/check-live-lawyer-revenue-funnel.mjs`, which still expects the removed homepage lawyer-pricing strip and old public artifact paths.
+- GATES COVERED: paid plan catalog and checkout mapping, manual-invoice checkout fallback, lawyer registration billing capture, onboarding admin payment queue, lawyer dashboard payment/service requests, dashboard handlers, qualified-lead billing proof fields and Grow compliance checker availability.
+- RUNTIME BLOCKERS PRESERVED: live proof still needs an owner-approved controlled lawyer user, claimed lawyer profile, controlled registration, provider/product/payment-link proof, transaction/reference proof, invoice/receipt evidence, upgrade/downgrade/cancel/refund drills, consented controlled lead, accepted partner terms and owner release.
+- LINEAR: recorded as `HAD-117` and marked Done under `HAD-71`.
+- PUBLIC IMPACT: none. No public CMS page, title/H1/meta/body, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, webhook, GSC, GA4, wp-admin setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: repo/static lawyer subscription walkthrough readiness 100%; real live payment/subscription proof remains 0% until the controlled walkthrough is approved and payment evidence is recorded.
+
 # LATEST WORK STATUS - 2026-05-26 23:24 Asia/Jerusalem
 - WHATSAPP / TALKTO IMPORT PREFLIGHT PACKET ADDED: created a repo-local no-PII checker/template generator for future WhatsApp, TalkTo and legacy lead exports.
 - CODE ADDED: `tools/build-whatsapp-talkto-import-preflight-packet.mjs`.

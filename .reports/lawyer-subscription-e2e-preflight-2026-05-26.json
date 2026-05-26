@@ -3,8 +3,8 @@
     "reportDate": "2026-05-26",
     "status": "PASS_WITH_RUNTIME_BLOCKERS",
     "totalGates": 9,
-    "passCount": 8,
-    "warnCount": 1,
+    "passCount": 9,
+    "warnCount": 0,
     "blockedCount": 0,
     "runtimeBlockers": [
       "A controlled live lawyer user and claimed lawyer profile are required for dashboard login and plan-status proof.",
@@ -107,11 +107,11 @@
     {
       "id": "LSE-09",
       "gate": "stale_live_funnel_checker_quarantined",
-      "status": "WARN",
+      "status": "PASS",
       "file": "tools/check-live-lawyer-revenue-funnel.mjs",
-      "evidence": "Old checker still has stale markers: homepage-lawyer-revenue__account-steps",
+      "evidence": "No stale marker detected in old live funnel checker.",
       "missing_markers": "",
-      "next_action": "Do not run tools/check-live-lawyer-revenue-funnel.mjs for current proof until it is migrated to the customer-first homepage and dot-private artifact paths.",
+      "next_action": "Old checker appears safe for review, but prefer this current preflight for the subscription walkthrough.",
       "owner_notice": "This warning prevents a false failure caused by the intentionally removed homepage lawyer-pricing strip."
     }
   ],

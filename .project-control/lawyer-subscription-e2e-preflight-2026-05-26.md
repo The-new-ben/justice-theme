@@ -6,8 +6,8 @@ Scope: repo-local, no-PII static preflight for the later lawyer registration, su
 
 ## What This Proves
 
-- Static gates passing: 8/9
-- Warnings: 1
+- Static gates passing: 9/9
+- Warnings: 0
 - Blocked static gates: 0
 - Public CMS/database state was not changed.
 - No lawyer, lead, supplier, invoice, payment, email, WhatsApp or TalkTo record was created.
@@ -43,7 +43,7 @@ Scope: repo-local, no-PII static preflight for the later lawyer registration, su
 | LSE-06 | lawyer_dashboard_request_handlers | PASS | 7/7 markers found | Submit one controlled dashboard service request and one lead-stage update only after the live test lawyer exists. |
 | LSE-07 | qualified_lead_billing_proof_fields | PASS | 7/7 markers found | After a controlled lead is assigned, record invoice/payment proof before counting revenue. |
 | LSE-08 | grow_compliance_checker_available | PASS | 6/6 markers found | Run the Grow checker before provider/payment walkthrough and keep the generated artifacts private. |
-| LSE-09 | stale_live_funnel_checker_quarantined | WARN | Old checker still has stale markers: homepage-lawyer-revenue__account-steps | Do not run tools/check-live-lawyer-revenue-funnel.mjs for current proof until it is migrated to the customer-first homepage and dot-private artifact paths. |
+| LSE-09 | stale_live_funnel_checker_quarantined | PASS | No stale marker detected in old live funnel checker. | Old checker appears safe for review, but prefer this current preflight for the subscription walkthrough. |
 
 ## Safety Statement
 

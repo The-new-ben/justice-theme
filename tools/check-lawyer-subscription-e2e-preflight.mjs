@@ -233,9 +233,11 @@ function inspectGate(gate) {
 function oldCheckerWarning() {
   const text = readText(files.oldLiveFunnelChecker);
   const staleMarkers = [
-    'homepage-lawyer-revenue__account-steps',
-    "path.join(ROOT, 'project-control'",
-    "path.join(ROOT, 'reports'",
+    'Homepage exposes lawyer revenue entrypoints',
+    "fs.mkdir( 'project-control'",
+    "fs.mkdir( 'reports'",
+    '`project-control/lawyer-revenue-funnel-live-',
+    '`reports/lawyer-revenue-funnel-live-',
   ].filter((marker) => text.includes(marker));
 
   return {

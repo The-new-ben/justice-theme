@@ -9,7 +9,7 @@ Scope: repo-local guard for internal report/control artifacts after live public 
 - Public artifact root directories present: None
 - Tracked files under public artifact roots: 0
 - Public roots covered by .gitignore: 6/6
-- Legacy tool references to public artifact roots: 434
+- Legacy tool references to public artifact roots: 432
 
 ## Interpretation
 
@@ -259,6 +259,10 @@ Legacy tool references are reported so future operators do not rerun old scripts
 | tools/check-lawyer-signup-conversion-standard.mjs | 315 | REVIEW_BEFORE_RUNNING | await fs.writeFile( `reports/lawyer-signup-conversion-standard-${ RUN_DATE }.csv`, toCsv( results ) ); |
 | tools/check-lawyer-signup-conversion-standard.mjs | 316 | REFERENCE_ONLY | await fs.writeFile( `project-control/lawyer-signup-conversion-standard-${ RUN_DATE }.md`, toMarkdown( results ) ); |
 | tools/check-lawyer-signup-conversion-standard.mjs | 317 | REVIEW_BEFORE_RUNNING | await fs.writeFile( `project-control/lawyer-signup-conversion-standard-${ RUN_DATE }.csv`, toCsv( results ) ); |
+| tools/check-lawyer-subscription-e2e-preflight.mjs | 237 | REFERENCE_ONLY | "fs.mkdir( 'project-control'", |
+| tools/check-lawyer-subscription-e2e-preflight.mjs | 238 | REVIEW_BEFORE_RUNNING | "fs.mkdir( 'reports'", |
+| tools/check-lawyer-subscription-e2e-preflight.mjs | 239 | REFERENCE_ONLY | '`project-control/lawyer-revenue-funnel-live-', |
+| tools/check-lawyer-subscription-e2e-preflight.mjs | 240 | REVIEW_BEFORE_RUNNING | '`reports/lawyer-revenue-funnel-live-', |
 | tools/check-lead-area-vocabulary-safety.mjs | 46 | REVIEW_BEFORE_RUNNING | reportCsv: path.join(ROOT, 'reports', `${base}.csv`), |
 | tools/check-lead-area-vocabulary-safety.mjs | 47 | REVIEW_BEFORE_RUNNING | reportJson: path.join(ROOT, 'reports', `${base}.json`), |
 | tools/check-lead-area-vocabulary-safety.mjs | 48 | REVIEW_BEFORE_RUNNING | projectCsv: path.join(ROOT, 'project-control', `${base}.csv`), |
@@ -287,12 +291,6 @@ Legacy tool references are reported so future operators do not rerun old scripts
 | tools/check-live-draft-push-public-exposure.mjs | 93 | REVIEW_BEFORE_RUNNING | const alertPath = path.join(ROOT, 'project-control', 'live-draft-push-risk-alert-2026-05-25.md'); |
 | tools/check-live-draft-push-public-exposure.mjs | 113 | REVIEW_BEFORE_RUNNING | `Detailed JSON: reports/live-draft-push-public-exposure-2026-05-25.json`, |
 | tools/check-live-lawyer-rest-public-guard.ps1 | 3 | REVIEW_BEFORE_RUNNING | [string]$OutputPath = "project-control/live-lawyer-rest-public-guard-2026-05-11.csv" |
-| tools/check-live-lawyer-revenue-funnel.mjs | 393 | REVIEW_BEFORE_RUNNING | await fs.mkdir( 'reports', { recursive: true } ); |
-| tools/check-live-lawyer-revenue-funnel.mjs | 394 | REFERENCE_ONLY | await fs.mkdir( 'project-control', { recursive: true } ); |
-| tools/check-live-lawyer-revenue-funnel.mjs | 395 | REVIEW_BEFORE_RUNNING | await fs.writeFile( `reports/lawyer-revenue-funnel-live-${ RUN_DATE }.json`, JSON.stringify( report, null, 2 ) + '\n' ); |
-| tools/check-live-lawyer-revenue-funnel.mjs | 396 | REVIEW_BEFORE_RUNNING | await fs.writeFile( `reports/lawyer-revenue-funnel-live-${ RUN_DATE }.csv`, csv ); |
-| tools/check-live-lawyer-revenue-funnel.mjs | 397 | REFERENCE_ONLY | await fs.writeFile( `project-control/lawyer-revenue-funnel-live-${ RUN_DATE }.md`, markdown ); |
-| tools/check-live-lawyer-revenue-funnel.mjs | 398 | REVIEW_BEFORE_RUNNING | await fs.writeFile( `project-control/lawyer-revenue-funnel-live-${ RUN_DATE }.csv`, csv ); |
 | tools/check-live-public-template-qa.ps1 | 3 | REVIEW_BEFORE_RUNNING | [string]$OutputPath = "project-control/live-public-template-qa-2026-05-11.csv" |
 | tools/check-live-related-content-qa.ps1 | 3 | REVIEW_BEFORE_RUNNING | [string]$OutputPath = "project-control/live-related-content-qa-2026-05-11.csv" |
 | tools/check-live-traffic-priority.mjs | 5 | REVIEW_BEFORE_RUNNING | const REPORT_PATH = process.env.JUSTICE_TRAFFIC_REPORT // 'reports/traffic-priority-audit-2026-05-18.csv'; |

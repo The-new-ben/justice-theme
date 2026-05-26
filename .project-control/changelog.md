@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Live lawyer funnel checker migration
+
+- UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` and `tools/check-lawyer-subscription-e2e-preflight.mjs`.
+- GENERATED: `.project-control/lawyer-revenue-funnel-live-2026-05-26.md`, `.project-control/lawyer-revenue-funnel-live-2026-05-26.csv`, `.reports/lawyer-revenue-funnel-live-2026-05-26.json`, `.reports/lawyer-revenue-funnel-live-2026-05-26.csv`, plus refreshed lawyer subscription E2E preflight artifacts.
+- PURPOSE: remove stale live-check assumptions after the homepage was made customer-first and the old lawyer-pricing strip was intentionally removed.
+- RESULT: live read-only checker returned `PASS` with 10/10 checks; refreshed subscription E2E preflight returned `PASS_WITH_RUNTIME_BLOCKERS` with 9/9 gates and 0 warnings.
+- HOMEPAGE RULE: the checker now requires legal-help/user-first homepage signals and only a quiet secondary lawyer path, while rejecting the old revenue-strip/acquisition markers.
+- LINEAR: recorded as `HAD-118` and marked Done under `HAD-71`.
+- BLOCKER PRESERVED: real subscription revenue still requires controlled live lawyer/user/profile proof, provider/payment link proof, transaction/reference, invoice/receipt evidence and controlled upgrade/downgrade/cancel/refund drills.
+- SAFETY: read-only live checks plus repo-local tool/report updates only; no public CMS page, content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, webhook, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # 2026-05-26 - Lawyer subscription E2E preflight packet
 
 - ADDED: `tools/check-lawyer-subscription-e2e-preflight.mjs`.

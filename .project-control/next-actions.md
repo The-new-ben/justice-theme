@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-LIVE-LAWYER-FUNNEL-CHECKER-MIGRATION-001: Keep live lawyer funnel QA aligned with customer-first homepage
+**Status:** FIXED LOCAL / LIVE READ-ONLY PASS
+**Why:** the previous live lawyer revenue checker still expected the removed homepage lawyer-pricing strip and could mislead future agents into thinking the customer-first homepage was broken.
+**Actions:**
+1. DONE: replace `tools/check-live-lawyer-revenue-funnel.mjs` with a current live read-only checker.
+2. DONE: write reports only to `.project-control` and `.reports`.
+3. DONE: update the homepage gate to require legal-help/user-first signals plus a quiet secondary lawyer path.
+4. DONE: reject old homepage revenue-strip/acquisition markers so internal business-plan language does not return to the public homepage.
+5. DONE: run the live checker; result `PASS` with 10/10 checks.
+6. DONE: rerun `tools/check-lawyer-subscription-e2e-preflight.mjs`; result `PASS_WITH_RUNTIME_BLOCKERS` with 9/9 gates and 0 warnings.
+7. DONE: record this as Linear `HAD-118`, marked Done under `HAD-71`.
+8. NEXT: use `.project-control/lawyer-revenue-funnel-live-2026-05-26.md` before lawyer outreach or the controlled payment walkthrough.
+9. BLOCKED: do not claim subscription revenue until controlled live lawyer/payment/invoice/refund/upgrade/downgrade/cancel proof exists.
+
 ### ACTION-LAWYER-SUBSCRIPTION-E2E-PREFLIGHT-001: Prepare the full paid lawyer walkthrough without touching live records
 **Status:** FIXED LOCAL / LIVE PAYMENT PROOF STILL BLOCKED
 **Why:** the owner wants a later end-to-end walkthrough for registering a lawyer, CRM state, payments, money-back/refund, upgrade, downgrade and lead assignment. The repo needs one current checklist that future agents can run without relying on stale homepage/payment assumptions.

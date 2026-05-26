@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-26 23:42 Asia/Jerusalem
+- LIVE LAWYER FUNNEL CHECKER MIGRATED: replaced the stale live lawyer revenue checker so it no longer expects the removed homepage lawyer-pricing strip or writes to old public artifact paths.
+- CODE UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs`; `tools/check-lawyer-subscription-e2e-preflight.mjs` stale-tool detection now treats the migrated checker as current.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/lawyer-revenue-funnel-live-2026-05-26.md`, `.project-control/lawyer-revenue-funnel-live-2026-05-26.csv`, `.reports/lawyer-revenue-funnel-live-2026-05-26.json`, `.reports/lawyer-revenue-funnel-live-2026-05-26.csv`, plus refreshed lawyer subscription E2E preflight artifacts.
+- LIVE READ-ONLY RESULT: `PASS`; 10/10 checks passed. The homepage gate now verifies user-first legal-help signals and a quiet secondary lawyer path, while rejecting old homepage revenue-strip/acquisition markers.
+- PREFLIGHT REFRESH RESULT: `PASS_WITH_RUNTIME_BLOCKERS`; 9/9 static subscription gates pass and the previous stale-tool warning is cleared.
+- LINEAR: recorded as `HAD-118` and marked Done under `HAD-71`.
+- RUNTIME BLOCKERS PRESERVED: real subscription proof still needs controlled lawyer user/profile, controlled registration, provider/payment link proof, transaction/reference, invoice/receipt evidence, upgrade/downgrade/cancel/refund drills, controlled consented lead, accepted partner terms and owner release.
+- PUBLIC IMPACT: none. This was live read-only QA and repo-local tooling/report updates; no public CMS page, title/H1/meta/body, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, webhook, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-26 23:32 Asia/Jerusalem
 - LAWYER SUBSCRIPTION E2E PREFLIGHT PACKET ADDED: created a repo-local checker for the later full walkthrough from lawyer plan selection -> manual invoice/checkout fallback -> registration -> onboarding queue -> dashboard payment/service requests -> lead-stage update -> CRM billing proof.
 - CODE ADDED: `tools/check-lawyer-subscription-e2e-preflight.mjs`.

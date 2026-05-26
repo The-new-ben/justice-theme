@@ -1,0 +1,65 @@
+{
+  "report_date": "2026-05-27",
+  "status": "PASS",
+  "rows": [
+    {
+      "check": "unique_sidebar_guard",
+      "status": "PASS",
+      "evidence": "Template defines a unique-content sidebar guard.",
+      "next_step": "Keep sidebar rendering behind unique connected lawyer, cluster nav or admin status content."
+    },
+    {
+      "check": "sidebar_render_guard",
+      "status": "PASS",
+      "evidence": "Aside is rendered only when sidebar has unique content.",
+      "next_step": "Do not render duplicate-only article CTA sidebars."
+    },
+    {
+      "check": "duplicate_sidebar_text_removed",
+      "status": "PASS",
+      "evidence": "Contextual CTA text render count in single-articles.php: 1.",
+      "next_step": "Expected count is 1: the main after-article CTA only."
+    },
+    {
+      "check": "duplicate_sidebar_button_removed",
+      "status": "PASS",
+      "evidence": "Contextual CTA button render count in single-articles.php: 1.",
+      "next_step": "Expected count is 1: connected-lawyer sidebars should link to the lawyer profile, not repeat the article request CTA."
+    },
+    {
+      "check": "connected_lawyer_sidebar_not_generic_lead_cta",
+      "status": "PASS",
+      "evidence": "Connected-lawyer sidebar should not reuse the after-article contextual CTA URL.",
+      "next_step": "Keep one reader help CTA after the article body and keep sidebar actions unique."
+    },
+    {
+      "check": "no_sidebar_duplicate_class_in_template",
+      "status": "PASS",
+      "evidence": "Duplicate sidebar CTA class should not be emitted by the template.",
+      "next_step": "Keep no-lawyer sidebars focused on unique cluster/admin content only."
+    },
+    {
+      "check": "no_sidebar_layout_class",
+      "status": "PASS",
+      "evidence": "No-sidebar article layout is centered when duplicate-only sidebar is suppressed.",
+      "next_step": "Keep the single-column layout override in the last-loaded public CSS file."
+    },
+    {
+      "check": "deployment_marker",
+      "status": "PASS",
+      "evidence": "justice-theme-deployment-marker=2026-05-27-connected-lawyer-article-cta-dedupe-v1 | expected-github-main-commit=connected-lawyer-article-cta-dedupe-v1 | purpose=single-article-connected-lawyer-sidebar-cta-dedupe",
+      "next_step": "After uPress pull, verify live marker matches connected-lawyer-article-cta-dedupe-v1."
+    }
+  ],
+  "safety": {
+    "public_cms_changed": false,
+    "urls_changed": false,
+    "redirects_changed": false,
+    "canonicals_changed": false,
+    "noindex_changed": false,
+    "sitemaps_changed": false,
+    "taxonomies_changed": false,
+    "leads_changed": false,
+    "payments_changed": false
+  }
+}

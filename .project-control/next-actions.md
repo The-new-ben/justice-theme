@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-CONNECTED-LAWYER-ARTICLE-CTA-DEDUPE-001: Remove repeated article CTA from connected-lawyer sidebar
+**Status:** FIXED LOCAL / LIVE DEPLOYMENT VERIFICATION PENDING
+**Why:** the first article duplicate-CTA guard fixed duplicate-only sidebars, but connected-lawyer sidebars could still repeat the same article help/request CTA button that appears after the article.
+**Actions:**
+1. DONE: remove the sidebar article contextual CTA button from `single-articles.php` when a connected lawyer is present.
+2. DONE: keep the unique sidebar action that links to the connected lawyer profile.
+3. DONE: update `tools/check-article-duplicate-cta-guard.mjs` to verify contextual CTA text count and button count are each 1.
+4. DONE: update `tools/check-live-article-cta-dedupe.mjs` to verify the live contextual CTA URL appears at most once.
+5. DONE: generate `.project-control/article-duplicate-cta-guard-2026-05-27.md` and `.reports/article-duplicate-cta-guard-2026-05-27.json`.
+6. DONE: record this as Linear `HAD-127`, marked Done under `HAD-96`.
+7. NEXT: commit/push, run uPress Pull Git, then live-verify marker `2026-05-27-connected-lawyer-article-cta-dedupe-v1` and at least one normal article plus one connected-lawyer article if available.
+8. BLOCKED: do not claim the fix is live until uPress pull and live verification pass; do not change CMS content, SEO controls, links, leads or payment flows for this UX fix.
+
 ### ACTION-PUBLIC-UPDATE-OWNER-APPROVAL-QUEUE-001: Consolidate owner-review public update candidates
 **Status:** FIXED LOCAL / OWNER REVIEW BLOCKED BEFORE ANY PUBLIC UPDATE
 **Why:** rental-agreement and demand-letter managed-service public-update ideas now have separate packets, but the owner and remote team need one ranked queue to avoid forgetting the next safe decision.

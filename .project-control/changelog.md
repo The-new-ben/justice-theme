@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Connected-lawyer article CTA dedupe
+
+- UPDATED: `single-articles.php`, `tools/check-article-duplicate-cta-guard.mjs`, `tools/check-live-article-cta-dedupe.mjs`, `functions.php`, `deployment-marker.txt`.
+- GENERATED: `.project-control/article-duplicate-cta-guard-2026-05-27.md`, `.project-control/article-duplicate-cta-guard-2026-05-27.csv`, `.reports/article-duplicate-cta-guard-2026-05-27.json`, `.reports/article-duplicate-cta-guard-2026-05-27.csv`.
+- PURPOSE: finish the owner-reported mobile article CTA cleanup by removing the repeated generic help/request CTA button from connected-lawyer article sidebars.
+- RESULT: local guard `PASS`; contextual CTA text render count: 1; contextual CTA button render count: 1; connected-lawyer sidebar keeps the unique profile action and does not reuse the after-article lead CTA URL.
+- LINEAR: recorded as `HAD-127` and marked Done under `HAD-96`, related to `HAD-84`, `HAD-126` and `HAD-78`.
+- SAFETY: public-facing theme rendering fix only; no CMS content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer record, supplier, invoice, payment, email, WhatsApp, TalkTo or database row changed.
+
 # 2026-05-27 - Public update owner approval queue
 
 - ADDED: `tools/build-public-update-owner-approval-queue.mjs`.

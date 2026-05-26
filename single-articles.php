@@ -236,9 +236,6 @@ while ( have_posts() ) :
 						<a class="button button--primary" href="<?php echo esc_url( justice_theme_public_permalink( $connected_lawyer->ID ) ); ?>" style="width: 100%; text-align: center; margin-bottom: 0.75rem;">
 							<?php esc_html_e( 'מעבר לפרופיל', 'justice-theme' ); ?>
 						</a>
-						<a class="button button--ghost" href="<?php echo esc_url( $article_contextual_cta['url'] ); ?>" style="width: 100%; text-align: center;">
-							<?php echo esc_html( $article_contextual_cta['button'] ); ?>
-						</a>
 					</div>
 					<?php endif; ?>
 

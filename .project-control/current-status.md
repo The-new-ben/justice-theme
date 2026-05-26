@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 01:16 Asia/Jerusalem
+- CONNECTED-LAWYER ARTICLE CTA DEDUPE FIX ADDED: tightened the owner-reported mobile article CTA fix so a connected-lawyer sidebar no longer repeats the same generic article help/request CTA that appears after the article body.
+- CODE UPDATED: `single-articles.php`, `tools/check-article-duplicate-cta-guard.mjs`, `tools/check-live-article-cta-dedupe.mjs`, `functions.php`, `deployment-marker.txt`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/article-duplicate-cta-guard-2026-05-27.md`, `.project-control/article-duplicate-cta-guard-2026-05-27.csv`, `.reports/article-duplicate-cta-guard-2026-05-27.json`, `.reports/article-duplicate-cta-guard-2026-05-27.csv`.
+- CHECK RESULT: local guard `PASS`; contextual CTA text render count: 1; contextual CTA button render count: 1; connected-lawyer sidebar generic lead CTA reuse: blocked; deployment marker set to `2026-05-27-connected-lawyer-article-cta-dedupe-v1`.
+- UX RESULT: article pages keep one after-content legal-help CTA; connected-lawyer sidebars keep only the unique profile action instead of repeating the same request CTA.
+- LINEAR: recorded as `HAD-127` and marked Done under `HAD-96`, related to `HAD-84`, `HAD-126` and `HAD-78`.
+- PUBLIC IMPACT: theme rendering change prepared for deployment only. No CMS content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer record, supplier, invoice, payment, email, WhatsApp, TalkTo or database row changed.
+- COMPLETION ASSESSMENT: local connected-lawyer article CTA dedupe 100%; live completion remains 0% until commit/push, uPress pull and live marker/article verification are complete.
+
 # LATEST WORK STATUS - 2026-05-27 01:05 Asia/Jerusalem
 - PUBLIC UPDATE OWNER APPROVAL QUEUE ADDED: consolidated the rental-agreement and demand-letter owner-review packets into one ranked approval queue so public-update decisions are not scattered or abandoned.
 - CODE ADDED: `tools/build-public-update-owner-approval-queue.mjs`.

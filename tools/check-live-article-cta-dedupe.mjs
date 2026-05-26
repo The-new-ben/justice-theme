@@ -97,7 +97,7 @@ async function main() {
 
   const markerUrl = 'https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt';
   const marker = await fetchText(markerUrl);
-  const markerOk = marker.html.includes('supplier-smart-match-admin-v1') || marker.html.includes('article-duplicate-cta-guard-v1');
+  const markerOk = marker.html.includes('connected-lawyer-article-cta-dedupe-v1');
 
   const rows = [];
   rows.push({
@@ -115,6 +115,7 @@ async function main() {
   for (const url of args.urls) {
     const { statusCode, html } = await fetchText(url);
     const leadCtaCount = countMatches(html, 'single-article__lead-cta');
+    const contextualCtaUrlCount = countMatches(html, 'utm_source=article_contextual_cta');
     const duplicateSidebarCount = countMatches(html, 'single-article__sidebar-lead-card--duplicate');
     const sidebarLeadCount = countMatches(html, 'single-article__sidebar-lead-card');
     const hasNoSidebarLayout = html.includes('single-article__layout--no-sidebar');
@@ -122,6 +123,7 @@ async function main() {
     const status = statusCode === 200
       && hasArticleLayout
       && leadCtaCount <= 1
+      && contextualCtaUrlCount <= 1
       && duplicateSidebarCount === 0
       ? 'PASS'
       : 'FAIL';
@@ -132,9 +134,10 @@ async function main() {
       http_status: statusCode,
       title: extractTitle(html),
       lead_cta_count: leadCtaCount,
+      contextual_cta_url_count: contextualCtaUrlCount,
       duplicate_sidebar_count: duplicateSidebarCount,
       no_sidebar_layout: hasNoSidebarLayout ? 'yes' : 'no',
-      evidence: `article_layout=${hasArticleLayout}; sidebar_lead_cards=${sidebarLeadCount}; no_sidebar_layout=${hasNoSidebarLayout}`,
+      evidence: `article_layout=${hasArticleLayout}; sidebar_lead_cards=${sidebarLeadCount}; contextual_cta_urls=${contextualCtaUrlCount}; no_sidebar_layout=${hasNoSidebarLayout}`,
       next_step: status === 'PASS'
         ? 'Use this as the post-deploy proof for the owner-reported mobile duplicate CTA issue.'
         : 'Inspect the live article template before sending users to this page.',
@@ -142,10 +145,10 @@ async function main() {
   }
 
   const status = rows.every((row) => row.status === 'PASS') ? 'PASS' : 'FAIL';
-  const columns = ['url', 'status', 'http_status', 'title', 'lead_cta_count', 'duplicate_sidebar_count', 'no_sidebar_layout', 'evidence', 'next_step'];
+  const columns = ['url', 'status', 'http_status', 'title', 'lead_cta_count', 'contextual_cta_url_count', 'duplicate_sidebar_count', 'no_sidebar_layout', 'evidence', 'next_step'];
   const files = outputFiles(args.reportDate);
   const markdownRows = rows
-    .map((row) => `| ${row.url} | ${row.status} | ${row.http_status} | ${row.lead_cta_count} | ${row.duplicate_sidebar_count} | ${row.no_sidebar_layout} | ${row.evidence} |`)
+    .map((row) => `| ${row.url} | ${row.status} | ${row.http_status} | ${row.lead_cta_count} | ${row.contextual_cta_url_count || ''} | ${row.duplicate_sidebar_count} | ${row.no_sidebar_layout} | ${row.evidence} |`)
     .join('\n');
   const markdown = `# Live Article CTA Dedupe Verification - ${args.reportDate}
 
@@ -155,13 +158,14 @@ Scope: read-only live verification for the owner-reported mobile article problem
 
 ## Results
 
-| URL | Status | HTTP | Lead CTA Count | Duplicate Sidebar Count | No-Sidebar Layout | Evidence |
-| --- | --- | --- | --- | --- | --- | --- |
+| URL | Status | HTTP | Lead CTA Count | Contextual CTA URL Count | Duplicate Sidebar Count | No-Sidebar Layout | Evidence |
+| --- | --- | --- | --- | --- | --- | --- | --- |
 ${markdownRows}
 
 ## Review Note
 
 - The sampled live article renders one after-content CTA at most.
+- The sampled live article exposes the contextual article lead URL once at most, so connected-lawyer sidebars do not repeat it.
 - The duplicate sidebar CTA class is not present on the sampled live article.
 - The sampled article uses the no-sidebar layout when there is no unique sidebar content, which matches the intended fix.
 - This is a template-level UX fix, not a new content page, so it creates no SEO cannibalization by itself.

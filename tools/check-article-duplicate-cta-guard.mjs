@@ -102,6 +102,18 @@ function main() {
       next_step: 'Expected count is 1: the main after-article CTA only.',
     },
     {
+      check: 'duplicate_sidebar_button_removed',
+      status: countMatches(template, "$article_contextual_cta['button']") === 1 ? 'PASS' : 'FAIL',
+      evidence: `Contextual CTA button render count in single-articles.php: ${countMatches(template, "$article_contextual_cta['button']")}.`,
+      next_step: 'Expected count is 1: connected-lawyer sidebars should link to the lawyer profile, not repeat the article request CTA.',
+    },
+    {
+      check: 'connected_lawyer_sidebar_not_generic_lead_cta',
+      status: !template.includes('button--ghost" href="<?php echo esc_url( $article_contextual_cta') ? 'PASS' : 'FAIL',
+      evidence: 'Connected-lawyer sidebar should not reuse the after-article contextual CTA URL.',
+      next_step: 'Keep one reader help CTA after the article body and keep sidebar actions unique.',
+    },
+    {
       check: 'no_sidebar_duplicate_class_in_template',
       status: template.includes('single-article__sidebar-lead-card--duplicate') ? 'FAIL' : 'PASS',
       evidence: 'Duplicate sidebar CTA class should not be emitted by the template.',
@@ -115,9 +127,9 @@ function main() {
     },
     {
       check: 'deployment_marker',
-      status: marker.includes('article-duplicate-cta-guard-v1') ? 'PASS' : 'FAIL',
+      status: marker.includes('connected-lawyer-article-cta-dedupe-v1') ? 'PASS' : 'FAIL',
       evidence: marker.trim().replace(/\n/g, ' | '),
-      next_step: 'After uPress pull, verify live marker matches article-duplicate-cta-guard-v1.',
+      next_step: 'After uPress pull, verify live marker matches connected-lawyer-article-cta-dedupe-v1.',
     },
   ];
 
@@ -143,7 +155,8 @@ ${markdownRows}
 
 - The article keeps one contextual after-content CTA.
 - The sidebar now renders only when it has unique content such as a connected lawyer, family-law cluster navigation, or editor-only status.
-- If the sidebar would only repeat the same request/help text, it is suppressed at PHP render time instead of relying on mobile CSS.
+- If the sidebar would repeat the same request/help text or button, it is suppressed at PHP render time instead of relying on mobile CSS.
+- Connected-lawyer sidebars keep the unique lawyer-profile action and do not repeat the generic article lead CTA.
 `;
 
   const payload = {

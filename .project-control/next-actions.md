@@ -3551,3 +3551,13 @@ Next safe batch before any URL/content migration:
 3. Review any already-published Bituach Leumi page separately because this gate prevents future saves but does not rewrite existing CMS content.
 4. If a bad page is already public, replace internal-revenue H1/title copy with user-help intent such as `ערעור על החלטת ביטוח לאומי: בדיקה ראשונית לפני פנייה לעורך דין`.
 5. Keep internal business-plan language only in `.project-control`, Linear, private admin screens and owner-only reports.
+
+## 2026-05-26 LIVE PUBLIC BUSINESS-LANGUAGE AUDIT NEXT ACTIONS
+
+**Status:** SAMPLED PAGES CLEAN / BITUACH LEUMI DUPLICATE ROUTE REVIEW NEEDED
+
+1. Keep running `node tools/check-live-public-business-language.mjs --reportDate=YYYY-MM-DD` after public page updates or suspicious screenshots.
+2. Review `/national-insurance-attorney/` and `/bituach-leumi-appeal-guide/` together because they currently share identical live title/H1.
+3. Do not change redirects, canonicals, slugs, noindex, sitemap or taxonomy from this audit alone.
+4. Decide whether the two Bituach Leumi URLs should have distinct user intents, internal links, and CTAs, or whether one should become the canonical/supporting page later after owner approval and GSC evidence.
+5. Keep the uPress deployment blocker for `b8f65e6c` open until the live marker changes to `2026-05-26-public-business-language-title-gate-v1`.

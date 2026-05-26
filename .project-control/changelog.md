@@ -5250,3 +5250,10 @@
 - ADDED: `tools/check-public-business-language-safety.mjs` with a regression sample for the Bituach Leumi revenue-title problem caught by the owner.
 - VERIFIED: PHP syntax checks passed for `inc/publication-safety.php` and `inc/live-content-publication.php`; the new checker returned 5/5 verified.
 - SAFETY: no CMS row, public title/H1, public page body, URL, redirect, canonical, noindex, sitemap, taxonomy, lead, lawyer, supplier, payment, email or WhatsApp action changed.
+
+## 2026-05-26 - Live Public Business-Language Audit
+- ADDED: `tools/check-live-public-business-language.mjs` for read-only scans of already-published public pages.
+- VERIFIED: sampled homepage, Bituach Leumi, find-lawyer, directory, articles, criminal, medical-malpractice and real-estate routes returned 200 and showed no internal revenue/business-plan marker hits.
+- FOUND REVIEW ITEM: `/national-insurance-attorney/` and `/bituach-leumi-appeal-guide/` share the same title and H1, so they need an anti-cannibalization/association decision before more Bituach Leumi expansion.
+- GENERATED: `.project-control/live-public-business-language-2026-05-26.md` and `.reports/live-public-business-language-2026-05-26.csv`.
+- SAFETY: read-only live fetches only; no public CMS/page/URL/SEO/routing/payment/contact/deployment action changed.

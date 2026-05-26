@@ -6717,6 +6717,15 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - SAFETY: no public page body, title, H1, meta, URL, redirect, canonical, noindex, sitemap, taxonomy, lead, lawyer, supplier, payment, email, WhatsApp or CMS database row was changed.
 - COMPLETION ASSESSMENT: public business-plan leakage prevention 82%; title/excerpt leak coverage 100% for future publish/future saves; live old CMS content still needs separate review if a bad page is already published.
 - OWNER CAN NOTICE AFTER DEPLOY: future wp-admin attempts to publish a page/article with internal revenue/business-plan language in the title, excerpt or body should be blocked.
+
+## 2026-05-26 LIVE PUBLIC BUSINESS-LANGUAGE AUDIT
+- TOOLING ADDED: `tools/check-live-public-business-language.mjs` performs a read-only live scan for internal revenue/business-plan language on sampled public pages.
+- VERIFIED LIVE READ-ONLY: `/`, `/national-insurance-attorney/`, `/bituach-leumi-appeal-guide/`, `/find-lawyer-how-to-find-good-attorney/`, `/lawyers/`, `/articles/`, `/criminal-defense-attorney/`, `/medical-malpractice-lawyer/` and `/real-estate-lawyer-guide/` returned 200 and showed no blocked internal business-language markers in the scanner.
+- CANNIBALIZATION REVIEW FOUND: `/national-insurance-attorney/` and `/bituach-leumi-appeal-guide/` currently share the same live title and H1. Do not change URL/canonical/redirect yet; add this to the Bituach Leumi anti-cannibalization queue.
+- GENERATED: `.project-control/live-public-business-language-2026-05-26.md`, `.project-control/live-public-business-language-2026-05-26.csv`, `.reports/live-public-business-language-2026-05-26.json` and `.reports/live-public-business-language-2026-05-26.csv`.
+- BLOCKED DEPLOYMENT NOTE: production still has not pulled `b8f65e6c`; live `deployment-marker.txt` remains `2026-05-26-btl-held-lead-triage-v1`.
+- SAFETY: this was read-only. No public CMS row, title/H1/body, URL, redirect, canonical, noindex, sitemap, taxonomy, lead, lawyer, supplier, payment, email, WhatsApp or uPress action changed.
+- COMPLETION ASSESSMENT: already-live internal-language audit coverage 55%; sampled high-risk pages clean; Bituach Leumi route duplication review now documented.
 ## LATEST WORK STATUS - 2026-05-22 14:38 Asia/Jerusalem
 - CRIMINAL OWNER REVIEW PACKET: converted the five current-URL Criminal first-upload targets into a controlled owner/legal/source review gate.
 - TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.

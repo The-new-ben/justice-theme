@@ -1,0 +1,140 @@
+{
+  "rows": [
+    {
+      "path": "/",
+      "url": "https://jus-tice.co.il/",
+      "status": "VERIFIED",
+      "http_status": 200,
+      "final_url": "https://jus-tice.co.il/?business_language_audit=1779819127956",
+      "title": "עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ",
+      "h1": "עורכי דין בישראל — מאגר עורכי דין, מאמרים משפטיים ומדריכים מקצועיים",
+      "h1_count": 1,
+      "h2_sample": "תחומי חיפוש מרכזיים | שלושה צעדים פשוטים כדי להתקדם נכון | התחילו מהבעיה המשפטית, ואז עברו למדריך או לעורך דין | חיפוש לפי תחום משפטי | איך מוצאים עורך דין מתאים? 6 שלבים לבחירה נכונה | לקוחות משווים אנשי מקצוע לפי תחום, אזור ואמון",
+      "marker_hits": "-",
+      "issues": "-",
+      "next_step": "Keep in normal public QA rotation."
+    },
+    {
+      "path": "/national-insurance-attorney/",
+      "url": "https://jus-tice.co.il/national-insurance-attorney/",
+      "status": "VERIFIED",
+      "http_status": 200,
+      "final_url": "https://jus-tice.co.il/national-insurance-attorney/?business_language_audit=1779819129900",
+      "title": "ערעור ביטוח לאומי: בדיקת כדאיות לפני החלטה | Jus-Tice",
+      "h1": "ערעור על החלטת ביטוח לאומי: בדיקת כדאיות לפני שהמועד נסגר",
+      "h1_count": 1,
+      "h2_sample": "למה חשוב לבדוק את הערעור לפני שפועלים | מה חשוב לדעת לפני ערעור | מחשבון שווי פער בערעור ביטוח לאומי | איזה צעד מתאים עכשיו? | שאלות נפוצות על ערעור ביטוח לאומי | מקורות בדיקה רשמיים",
+      "marker_hits": "-",
+      "issues": "-",
+      "next_step": "Keep in normal public QA rotation."
+    },
+    {
+      "path": "/bituach-leumi-appeal-guide/",
+      "url": "https://jus-tice.co.il/bituach-leumi-appeal-guide/",
+      "status": "VERIFIED",
+      "http_status": 200,
+      "final_url": "https://jus-tice.co.il/bituach-leumi-appeal-guide/?business_language_audit=1779819131632",
+      "title": "ערעור ביטוח לאומי: בדיקת כדאיות לפני החלטה | Jus-Tice",
+      "h1": "ערעור על החלטת ביטוח לאומי: בדיקת כדאיות לפני שהמועד נסגר",
+      "h1_count": 1,
+      "h2_sample": "למה חשוב לבדוק את הערעור לפני שפועלים | מה חשוב לדעת לפני ערעור | מחשבון שווי פער בערעור ביטוח לאומי | איזה צעד מתאים עכשיו? | שאלות נפוצות על ערעור ביטוח לאומי | מקורות בדיקה רשמיים",
+      "marker_hits": "-",
+      "issues": "-",
+      "next_step": "Keep in normal public QA rotation."
+    },
+    {
+      "path": "/find-lawyer-how-to-find-good-attorney/",
+      "url": "https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/",
+      "status": "VERIFIED",
+      "http_status": 200,
+      "final_url": "https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/?business_language_audit=1779819133270",
+      "title": "איך למצוא עורך דין מומלץ? כיצד לבחור עו\"ד טוב | Jus-Tice.co.il",
+      "h1": "איך למצוא עורך דין מומלץ? כיצד לבחור עו\"ד טוב",
+      "h1_count": 1,
+      "h2_sample": "כך בודקים עורך דין לפני שמשאירים פנייה | עורך דין טוב | עורך דין מומלץ | מיהו עורך דין טוב? | הערת מערכת | צריכים בדיקה אישית בתחום עורך דין?",
+      "marker_hits": "-",
+      "issues": "-",
+      "next_step": "Keep in normal public QA rotation."
+    },
+    {
+      "path": "/lawyers/",
+      "url": "https://jus-tice.co.il/lawyers/",
+      "status": "VERIFIED",
+      "http_status": 200,
+      "final_url": "https://jus-tice.co.il/lawyers/?business_language_audit=1779819135032",
+      "title": "מדריך עורכי דין בישראל | Jus-Tice",
+      "h1": "מדריך עורכי דין בישראל",
+      "h1_count": 1,
+      "h2_sample": "מה כדאי לבדוק לפני שבוחרים פרופיל?",
+      "marker_hits": "-",
+      "issues": "-",
+      "next_step": "Keep in normal public QA rotation."
+    },
+    {
+      "path": "/articles/",
+      "url": "https://jus-tice.co.il/articles/",
+      "status": "VERIFIED",
+      "http_status": 200,
+      "final_url": "https://jus-tice.co.il/articles/?business_language_audit=1779819136836",
+      "title": "מאמרים משפטיים לפי הבעיה שלכם | Jus-Tice",
+      "h1": "מדריכים משפטיים לפי הבעיה שלכם",
+      "h1_count": 1,
+      "h2_sample": "תחומי משפט | Posts pagination",
+      "marker_hits": "-",
+      "issues": "-",
+      "next_step": "Keep in normal public QA rotation."
+    },
+    {
+      "path": "/criminal-defense-attorney/",
+      "url": "https://jus-tice.co.il/criminal-defense-attorney/",
+      "status": "VERIFIED",
+      "http_status": 200,
+      "final_url": "https://jus-tice.co.il/criminal-defense-attorney/?business_language_audit=1779819138728",
+      "title": "עורך דין פלילי מומלץ | השוואת עו\"ד לפי ביקורות | Jus-Tice",
+      "h1": "עורך דין פלילי מומלץ | השוואת עו\"ד לפי ביקורות | Jus-Tice | עורך דין פלילי: חקירה, מעצר, כתב אישום וייצוג | עורך דין פלילי בישראל: המדריך המלא",
+      "h1_count": 3,
+      "h2_sample": "מאמרים קשורים | מתי צריך עורך דין פלילי? | חקירה במשטרה: מה באמת קורה בחדר החקירות? | זכויות הנחקר: מה החוק אומר? | מעצר בישראל: סוגים, זכויות ואפשרויות שחרור | כתב אישום: מה זה ומה קורה אחריו?",
+      "marker_hits": "-",
+      "issues": "-",
+      "next_step": "Keep in normal public QA rotation."
+    },
+    {
+      "path": "/medical-malpractice-lawyer/",
+      "url": "https://jus-tice.co.il/medical-malpractice-lawyer/",
+      "status": "VERIFIED",
+      "http_status": 200,
+      "final_url": "https://jus-tice.co.il/medical-malpractice-lawyer/?business_language_audit=1779819140441",
+      "title": "רשלנות רפואית | עורך דין רשלנות רפואית | Jus-Tice",
+      "h1": "עורך דין רשלנות רפואית",
+      "h1_count": 1,
+      "h2_sample": "מדריכים קשורים לפי כוונת חיפוש | מאמרים קשורים | צריכים הכוונה? | לא בטוחים מאיפה להתחיל?",
+      "marker_hits": "-",
+      "issues": "-",
+      "next_step": "Keep in normal public QA rotation."
+    },
+    {
+      "path": "/real-estate-lawyer-guide/",
+      "url": "https://jus-tice.co.il/real-estate-lawyer-guide/",
+      "status": "VERIFIED",
+      "http_status": 200,
+      "final_url": "https://jus-tice.co.il/real-estate-lawyer-guide/?business_language_audit=1779819142071",
+      "title": "מדריך עורך דין מקרקעין | קנייה, מכירה ורישום דירה | Jus-Tice",
+      "h1": "דיני מקרקעין",
+      "h1_count": 1,
+      "h2_sample": "מדריכים קשורים לפי כוונת חיפוש | צריכים הכוונה? | לא בטוחים מאיפה להתחיל?",
+      "marker_hits": "-",
+      "issues": "-",
+      "next_step": "Keep in normal public QA rotation."
+    }
+  ],
+  "duplicates": [
+    {
+      "duplicate_id": "DUP-001",
+      "status": "REVIEW",
+      "paths": "/national-insurance-attorney/ | /bituach-leumi-appeal-guide/",
+      "title": "ערעור ביטוח לאומי: בדיקת כדאיות לפני החלטה | Jus-Tice",
+      "h1": "ערעור על החלטת ביטוח לאומי: בדיקת כדאיות לפני שהמועד נסגר",
+      "next_step": "Review association/cannibalization. If both pages must stay, clarify intent and internal links before any URL/canonical decision."
+    }
+  ]
+}

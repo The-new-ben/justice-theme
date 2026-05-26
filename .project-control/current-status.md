@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-27 02:05 Asia/Jerusalem
+- BITUACH LEUMI RUNTIME REVENUE PROOF LEDGER ADDED: converted the remaining first-paid-lead blocker into a private owner/admin no-PII proof ledger and blank evidence template.
+- CODE ADDED: `tools/build-btl-runtime-revenue-proof-ledger.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/btl-runtime-revenue-proof-ledger-2026-05-27.md`, `.project-control/btl-runtime-revenue-proof-ledger-2026-05-27.csv`, `.project-control/btl-runtime-revenue-proof-template-2026-05-27.csv`, `.reports/btl-runtime-revenue-proof-ledger-2026-05-27.json`, `.reports/btl-runtime-revenue-proof-ledger-2026-05-27.csv`.
+- CHECK RESULT: `RUNTIME_LEDGER_READY_NO_REVENUE_CLAIM`; readiness source status `PASS_WITH_RUNTIME_BLOCKERS`; activation source status `READY_FOR_OWNER_PRIVATE_PROSPECT_ENTRY`; source candidates 19; primary private-entry prospects 3; ledger rows 8; template rows 8; revenue claims approved 0; public changes approved 0.
+- LEDGER ROWS: 3 private specialist prospect proof rows, 1 routable lawyer coverage row, 1 consented controlled lead row, 1 qualified billing row, 1 payment proof row and 1 go/no-go scale decision row.
+- OWNER/ADMIN RUN ORDER PRESERVED: create private prospects only after approval, verify license/specialty/SLA/payment/lead-fee/billing contact, convert only verified prospects to routable profiles, run one consented controlled lead, then record invoice/payment proof before counting revenue.
+- LINEAR: recorded as `HAD-134`, marked Done under `HAD-76`, related to `HAD-104`, `HAD-120` and `HAD-87`.
+- PUBLIC IMPACT: none. This was a repo-local owner/admin proof ledger only. No prospect, lawyer, lead, invoice, payment, public CMS content, title/H1/meta/body, homepage label/link, URL, redirect, canonical/noindex, sitemap, taxonomy, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: runtime proof ledger/tooling 100%; actual first paid Bituach Leumi revenue remains 0% until live wp-admin evidence exists for prospects, routable lawyers, consented lead, billing and payment proof.
+
 # LATEST WORK STATUS - 2026-05-27 01:55 Asia/Jerusalem
 - EXPANDED LIVE LEGAL-HELP CONVERSION/LINKAGE AUDIT: refreshed and broadened the read-only public legal-help surface audit so the managed-service public-update candidate pages are now inside the same safety net.
 - CODE UPDATED: `tools/check-live-legal-help-conversion-surface.mjs`, `tools/build-live-associated-linkage-review.mjs`.

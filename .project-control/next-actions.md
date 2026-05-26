@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-BTL-RUNTIME-REVENUE-PROOF-LEDGER-001: Convert first-paid-lead blocker into evidence rows
+**Status:** FIXED LOCAL / LIVE REVENUE STILL BLOCKED UNTIL OWNER ADMIN EVIDENCE
+**Why:** Bituach Leumi infrastructure is ready, but the first-paid-lead loop cannot honestly be counted until live wp-admin evidence proves specialist coverage, consented routing, billing and payment proof.
+**Actions:**
+1. DONE: add `tools/build-btl-runtime-revenue-proof-ledger.mjs`.
+2. DONE: read `.reports/btl-first-paid-lead-readiness-2026-05-26.json` and `.reports/btl-first-prospect-activation-packet-2026-05-26.json`.
+3. DONE: generate `.project-control/btl-runtime-revenue-proof-ledger-2026-05-27.md` and `.csv`.
+4. DONE: generate `.project-control/btl-runtime-revenue-proof-template-2026-05-27.csv`.
+5. DONE: generate `.reports/btl-runtime-revenue-proof-ledger-2026-05-27.json` and `.csv`.
+6. DONE: create 8 runtime proof rows: 3 private prospects, routable lawyer coverage, consented controlled lead, qualified billing, payment proof and go/no-go scale decision.
+7. DONE: preserve no-PII/privacy rules and 0 revenue/public-change approvals.
+8. NEXT: owner/admin may fill the evidence template from live wp-admin only after approving private prospect entry and controlled lead use.
+9. BLOCKED: do not create live prospects, route leads, contact lawyers/clients, invoice, mark paid, claim revenue, email, WhatsApp, TalkTo, publish pages, change SEO or uPress from this ledger alone.
+
 ### ACTION-LIVE-LEGAL-HELP-CONVERSION-LINKAGE-001: Keep public conversion/linkage guard aligned with approved candidate pages
 **Status:** FIXED LOCAL / LIVE READ-ONLY VERIFIED / PUBLIC LINKING STILL BLOCKED
 **Why:** rental, labor, consumer and eviction pages are now public-update candidates, so the live legal-help surface and associated-link review should cover them before any internal links or CTAs are approved.

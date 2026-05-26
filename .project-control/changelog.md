@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Bituach Leumi runtime revenue proof ledger
+
+- ADDED: `tools/build-btl-runtime-revenue-proof-ledger.mjs`.
+- GENERATED: `.project-control/btl-runtime-revenue-proof-ledger-2026-05-27.md`, `.project-control/btl-runtime-revenue-proof-ledger-2026-05-27.csv`, `.project-control/btl-runtime-revenue-proof-template-2026-05-27.csv`, `.reports/btl-runtime-revenue-proof-ledger-2026-05-27.json`, `.reports/btl-runtime-revenue-proof-ledger-2026-05-27.csv`.
+- PURPOSE: reduce the remaining Bituach Leumi first-paid-lead runtime blocker to a concrete no-PII owner/admin evidence ledger.
+- RESULT: `RUNTIME_LEDGER_READY_NO_REVENUE_CLAIM`; readiness source `PASS_WITH_RUNTIME_BLOCKERS`, activation source `READY_FOR_OWNER_PRIVATE_PROSPECT_ENTRY`, 8 ledger rows, 8 blank template rows, 0 revenue claims approved and 0 public changes approved.
+- LEDGER: 3 private specialist prospect rows, routable lawyer coverage, one consented controlled lead, qualified lead billing, payment proof and go/no-go scale decision.
+- SAFETY: private owner/admin proof ledger only; no prospect, lawyer, lead, invoice, payment, public page, CMS content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Expand live legal-help conversion and linkage audit
 
 - UPDATED: `tools/check-live-legal-help-conversion-surface.mjs`, `tools/build-live-associated-linkage-review.mjs`.

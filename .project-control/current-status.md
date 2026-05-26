@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-27 00:54 Asia/Jerusalem
+- DEMAND-LETTER OWNER-REVIEW PACKET ADDED: prepared a dispute-specific approval packet for demand-letter CTAs while explicitly blocking a generic demand-letter page.
+- CODE ADDED: `tools/build-demand-letter-public-update-approval-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/demand-letter-public-update-approval-packet-2026-05-27.md`, `.project-control/demand-letter-public-update-approval-packet-2026-05-27.csv`, `.reports/demand-letter-public-update-approval-packet-2026-05-27.json`, `.reports/demand-letter-public-update-approval-packet-2026-05-27.csv`.
+- CHECK RESULT: `OWNER_REVIEW_PACKET_READY_NOT_APPROVED`; demand-letter source decisions found: 4; packet rows: 12; owner-review public-copy rows: 9; generic demand-letter page blocked: yes; internal/business-plan marker hits: 0; public changes approved: 0.
+- PREPARED ROUTES: `/labor-lawyer/` for employment, `/consumer-rights-israel/` for consumer disputes, and `/eviction-notice-israel/` for rental-dispute demand-letter context.
+- ASSOCIATED PAGES: `/wrongful-termination-israel/`, `/employment-contract-termination/`, `/severance-pay-calculator/`, `/small-claims-court-israel/`, `/tenant-eviction-defense/`, `/landlord-rights-israel/`, `/rental-agreement-guide/`.
+- LINEAR: recorded as `HAD-125` and marked Done under `HAD-84`, related to `HAD-121`, `HAD-122`, `HAD-123` and `HAD-78`.
+- PUBLIC IMPACT: none. No public page, CMS content, internal link, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer handoff, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: demand-letter owner-review packet 100%; live demand-letter CTA/page rollout remains 0% until owner chooses one dispute type and approves exact copy, SEO, legal review and publication QA.
+
 # LATEST WORK STATUS - 2026-05-27 00:43 Asia/Jerusalem
 - RENTAL AGREEMENT OWNER-REVIEW PACKET ADDED: prepared the first exact public-facing approval packet for upgrading the existing `/rental-agreement/` page without publishing anything.
 - CODE ADDED: `tools/build-rental-agreement-public-update-approval-packet.mjs`.

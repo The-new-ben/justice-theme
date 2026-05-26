@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-DEMAND-LETTER-PUBLIC-UPDATE-APPROVAL-001: Prepare dispute-specific owner-review copy
+**Status:** FIXED LOCAL / PUBLIC UPDATE BLOCKED UNTIL OWNER CHOOSES ONE DISPUTE TYPE
+**Why:** demand-letter revenue could collide with several existing legal-help pages unless it stays dispute-specific and the generic page is blocked.
+**Actions:**
+1. DONE: add `tools/build-demand-letter-public-update-approval-packet.mjs`.
+2. DONE: generate `.project-control/demand-letter-public-update-approval-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.reports/demand-letter-public-update-approval-packet-2026-05-27.json` and `.csv`.
+4. DONE: explicitly block a generic public demand-letter page.
+5. DONE: prepare owner-review copy for employment, consumer and rental-dispute contexts on existing routes.
+6. DONE: list associated/cannibalizing pages to inspect before publication.
+7. DONE: verify 0 internal/business-plan marker hits in the suggested public copy.
+8. DONE: record this as Linear `HAD-125`, marked Done under `HAD-84`.
+9. NEXT: owner/SEO/legal reviewer should choose at most one first route: `/labor-lawyer/`, `/consumer-rights-israel/` or `/eviction-notice-israel/`.
+10. BLOCKED: do not publish a generic demand-letter page, update any route, add internal links, change title/H1/meta, publish checkout wording, contact lawyers, invoice, charge payment or send publication email from this packet alone.
+
 ### ACTION-RENTAL-AGREEMENT-PUBLIC-UPDATE-APPROVAL-001: Prepare owner-review copy for the existing rental route
 **Status:** FIXED LOCAL / PUBLIC UPDATE BLOCKED UNTIL OWNER APPROVAL
 **Why:** the managed-service route brief selected `/rental-agreement/` as the first safe candidate, but the owner needs exact reader-facing copy and associated-page notes before any public CMS edit.

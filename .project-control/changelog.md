@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Demand-letter public update approval packet
+
+- ADDED: `tools/build-demand-letter-public-update-approval-packet.mjs`.
+- GENERATED: `.project-control/demand-letter-public-update-approval-packet-2026-05-27.md`, `.project-control/demand-letter-public-update-approval-packet-2026-05-27.csv`, `.reports/demand-letter-public-update-approval-packet-2026-05-27.json`, `.reports/demand-letter-public-update-approval-packet-2026-05-27.csv`.
+- PURPOSE: prepare owner/SEO review copy for demand-letter CTAs on existing dispute-specific routes, while blocking a generic demand-letter public page.
+- RESULT: `OWNER_REVIEW_PACKET_READY_NOT_APPROVED`; 12 packet rows, 9 owner-review public-copy rows, 4 source decisions found, generic demand-letter page blocked and 0 internal/business-plan marker hits.
+- INCLUDED: employment route `/labor-lawyer/`, consumer route `/consumer-rights-israel/`, rental-dispute route `/eviction-notice-israel/`, and associated/cannibalizing page list.
+- LINEAR: recorded as `HAD-125` and marked Done under `HAD-84`, related to `HAD-121`, `HAD-122`, `HAD-123` and `HAD-78`.
+- SAFETY: private approval packet only; no public page, CMS content, internal link, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer handoff, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Rental agreement public update approval packet
 
 - ADDED: `tools/build-rental-agreement-public-update-approval-packet.mjs`.

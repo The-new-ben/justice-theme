@@ -5,7 +5,7 @@
 ---
 
 ### ACTION-PUBLIC-ARTICLE-MOBILE-CTA-DEDUP-001: Remove repeated legal-help CTA on mobile article pages
-**Status:** DEPLOYED LIVE / EMAIL UPDATE PENDING
+**Status:** FIXED LIVE / OWNER EMAIL SENT
 **Why:** owner saw on mobile that an article shows the same "need help / press this button" style message twice while scrolling. Repetition feels spammy and hurts trust.
 **Actions:**
 1. DONE: inspect live article HTML and confirm the article body CTA and sidebar CTA use the same contextual message.
@@ -13,7 +13,7 @@
 3. DONE: mark duplicate sidebar CTA-only blocks in `single-articles.php`.
 4. DONE: hide duplicate sidebar CTA blocks on mobile while preserving main CTA, connected lawyer profile cards and family-law cluster navigation.
 5. DONE: lint, commit, deploy via uPress Pull Git and verify live article/mobile behavior.
-6. NEXT: send Hebrew owner email because this is a public-facing change; include review URL, associated/cannibalizing pages and concise review.
+6. DONE: send Hebrew owner email because this is a public-facing change; included review URL, associated/cannibalizing pages and concise review.
 
 ### ACTION-INTERNAL-ARTIFACT-WEB-BLOCK-001: Block project-control and report artifacts from public static access
 **Status:** FIXED LIVE / MONITOR FOR RECREATED PUBLIC ARTIFACT DIRS

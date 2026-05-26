@@ -12,6 +12,7 @@
 - DEPLOYED: commit `0ee7048` pushed to `main`; uPress Pull Git completed; marker `2026-05-26-article-mobile-cta-dedupe-v1` verified live.
 - VERIFIED: `/find-lawyer-how-to-find-good-attorney/` returns 200, carries the duplicate-sidebar marker and keeps one main article CTA; live `main.css?ver=1.1.37` contains the mobile hide rules.
 - PUBLIC SAFETY CHECK: `/national-insurance-attorney/` returns 200 and does not expose the screenshot/internal business phrases checked in this cycle.
+- OWNER EMAIL: Hebrew public-change email sent to `info@jus-tice.co.il` after checking Gmail for instruction-subject emails.
 
 # 2026-05-26 - Owner handoff release gate
 

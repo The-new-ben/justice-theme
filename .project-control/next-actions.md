@@ -5,14 +5,16 @@
 ---
 
 ### ACTION-BTL-HELD-LEAD-REVENUE-HINT-001: Prime Bituach Leumi revenue metadata before routing
-**Status:** CODE PREPARED / DEPLOY PENDING
+**Status:** FIXED LIVE / LINEAR DONE / CRM DATA TEST DEFERRED
 **Why:** manual WhatsApp/TalkTo/legacy Bituach Leumi leads should stay held until consent and partner terms are clear, but the CRM still needs the specific revenue product, suggested fee and billing-not-ready status visible immediately.
 **Actions:**
 1. DONE: add a pre-routing save hook after classifier, before router.
 2. DONE: for `national-insurance` leads, set `lead_revenue_model=qualified_appeal_lead`, default `suggested_lead_price_ils=249`, and default `qualified_lead_billing_status=not_ready` when missing.
 3. DONE: preserve routing safety; do not remove `routing_hold`, do not mark ready-to-bill, do not notify anyone and do not invoice.
-4. NEXT: lint, commit, push, uPress Pull Git, verify marker `2026-05-26-btl-held-lead-revenue-hint-v1`, and inspect Justice CRM behavior on a held Bituach Leumi lead when safe.
-5. BLOCKED: still no first paid lead until client permission, three routable specialists, accepted partner terms, invoice/payment proof and owner release are recorded.
+4. DONE: linted, committed, pushed, ran uPress Pull Git, and verified live marker `2026-05-26-btl-held-lead-revenue-hint-v1`.
+5. VERIFIED: homepage and `/national-insurance-attorney/` return 200; uPress Git log shows `67e0ff7c Prime BTL revenue hints before routing` as `HEAD -> main, origin/main`.
+6. DEFERRED: do not create/edit a real production lead just to test metadata. Inspect Justice CRM behavior later with an owner-approved safe test lead or an existing safe held record.
+7. BLOCKED: still no first paid lead until client permission, three routable specialists, accepted partner terms, invoice/payment proof and owner release are recorded.
 
 ### ACTION-MANAGED-LEGAL-SERVICE-FULFILLMENT-001: Add private fulfillment gate for packaged legal services
 **Status:** FIXED LIVE / LINEAR DONE / OWNER EMAIL SENT

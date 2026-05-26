@@ -1,9 +1,11 @@
-# LATEST WORK STATUS - 2026-05-26 20:10 Asia/Jerusalem
-- BTL HELD-LEAD REVENUE HINT PREPARED: `inc/lead-routing.php` now primes Bituach Leumi revenue metadata before routing, so a held WhatsApp/TalkTo/manual lead can still show the correct first-paid-lead product in CRM without being released.
+# LATEST WORK STATUS - 2026-05-26 20:23 Asia/Jerusalem
+- BTL HELD-LEAD REVENUE HINT VERIFIED LIVE: `inc/lead-routing.php` now primes Bituach Leumi revenue metadata before routing, so a held WhatsApp/TalkTo/manual lead can still show the correct first-paid-lead product in CRM without being released.
 - CODE UPDATED: added `justice_theme_prime_lead_revenue_hint_on_save()` on `save_post_justice_lead` priority 25, after classifier and before router.
 - BUSINESS RULE: if the lead is `national-insurance`, the system sets `lead_revenue_model=qualified_appeal_lead`, default `suggested_lead_price_ils=249`, and default `qualified_lead_billing_status=not_ready` when missing. If an owner already set a custom model/price, the code does not overwrite it except for converting generic `manual_paid_handoff` Bituach Leumi leads into the specific appeal-lead model.
 - SAFETY RULE: this does not remove `routing_hold`, does not route, does not notify a lawyer/supplier, does not invoice, does not mark ready-to-bill/paid, and does not contact the client.
-- DEPLOYMENT STATUS: marker prepared as `2026-05-26-btl-held-lead-revenue-hint-v1`; deploy and live marker verification still required.
+- DEPLOYMENT STATUS: VERIFIED LIVE. Commit `67e0ff7c` pushed to `main`; uPress Pull Git completed; live marker `2026-05-26-btl-held-lead-revenue-hint-v1` verified.
+- LIVE CHECKS: homepage and `/national-insurance-attorney/` returned 200 after deployment. Git log in uPress showed `(HEAD -> main, origin/main, origin/HEAD) Prime BTL revenue hints before routing`.
+- CRM DATA CHECK: no real/synthetic lead was created or edited in production during this cycle; behavior was verified by code/lint/deploy marker only. A live held-lead metadata smoke test should be done later with an owner-approved safe test lead or existing safe held record.
 - PUBLIC IMPACT: none expected; admin lead metadata only. No CMS public page, redirect, canonical/noindex, sitemap, taxonomy, email, WhatsApp, client contact, lawyer/supplier contact, invoice, payment, GSC or GA4 setting changed.
 
 # LATEST WORK STATUS - 2026-05-26 14:05 Asia/Jerusalem

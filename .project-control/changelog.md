@@ -8,7 +8,9 @@
 - IMPLEMENTATION: added `justice_theme_prime_lead_revenue_hint_on_save()` on `save_post_justice_lead` priority 25. It runs after classifier and before router, applies Bituach Leumi revenue hints, and defaults missing billing status to `not_ready`.
 - BUSINESS RULE: `national-insurance` leads are treated as `qualified_appeal_lead` with default suggested fee `249` ILS unless the owner has already set a custom model/price. Generic `manual_paid_handoff` Bituach Leumi leads are converted to the specific appeal-lead model.
 - SAFETY: does not remove `routing_hold`, route leads, notify lawyers/suppliers, create invoices, mark ready-to-bill/paid, send email/WhatsApp, contact clients, publish pages or change SEO settings.
-- DEPLOYMENT: marker prepared as `2026-05-26-btl-held-lead-revenue-hint-v1`; live deployment and verification pending.
+- DEPLOYED: commit `67e0ff7c` pushed to `main`; uPress Pull Git completed; marker `2026-05-26-btl-held-lead-revenue-hint-v1` verified live.
+- VERIFIED: homepage and `/national-insurance-attorney/` returned 200 after deployment; uPress Git log showed `67e0ff7c Prime BTL revenue hints before routing` as `HEAD -> main, origin/main`.
+- DEFERRED: no production lead was created or edited for the CRM data smoke test; do that later only with an owner-approved safe held lead/test record.
 
 # 2026-05-26 - Private artifact boundary guard
 

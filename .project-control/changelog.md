@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Bituach Leumi held-lead triage
+
+- UPDATED: `inc/lead-crm.php`, `functions.php`, `deployment-marker.txt`.
+- PURPOSE: connect the WhatsApp/TalkTo/manual lead safety workflow to the Bituach Leumi first-paid-lead loop without exposing PII or creating test leads.
+- IMPLEMENTATION: added an owner-only `Held Bituach Leumi lead triage` panel under Justice CRM's Bituach Leumi specialist supply area. It queries held `national-insurance` / `qualified_appeal_lead` leads and displays safe readiness fields only.
+- NO-PII RULE: the panel shows `Lead #ID`, source channel, revenue model, suggested price, consent status, partner terms, owner release/billing gate and next action. It deliberately avoids client name, phone, email, exact address, raw chat, screenshots and documents.
+- SAFETY: does not create or edit production leads, remove routing holds, route leads, notify lawyers/suppliers, create invoices, mark paid, send email/WhatsApp, publish pages or change SEO settings.
+- DEPLOYMENT: marker prepared as `2026-05-26-btl-held-lead-triage-v1`; live deployment and verification pending.
+
 # 2026-05-26 - Bituach Leumi held-lead revenue hint
 
 - UPDATED: `inc/lead-routing.php`, `functions.php`, `deployment-marker.txt`.

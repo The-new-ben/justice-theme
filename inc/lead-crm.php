@@ -2341,6 +2341,7 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 		</div>
 	<?php endif; ?>
 	<?php justice_theme_crm_render_btl_readiness_gate( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_btl_leads, $paid_btl_leads ); ?>
+	<?php justice_theme_crm_render_btl_held_lead_triage(); ?>
 	<?php justice_theme_crm_render_btl_activation_gap_board( $btl_needles, 'national-insurance', $target ); ?>
 	<?php justice_theme_crm_render_btl_first_test_preflight( 'national-insurance', $target ); ?>
 	<?php justice_theme_crm_render_btl_controlled_test_drill( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_btl_leads, $paid_btl_leads ); ?>
@@ -2350,6 +2351,226 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 	<?php justice_theme_crm_render_btl_source_pack_candidates( $source_pack_rows ); ?>
 	<?php justice_theme_crm_render_btl_outreach_pack(); ?>
 	<?php
+}
+
+function justice_theme_crm_render_btl_held_lead_triage(): void {
+	$rows = justice_theme_crm_btl_held_lead_rows( 50 );
+	$copy_id = 'justice-btl-held-lead-triage-copy';
+	?>
+	<div style="background:#fff;border:2px solid #1d4ed8;border-radius:8px;padding:14px;margin:12px 0 20px;">
+		<h3 style="margin-top:0;">Held Bituach Leumi lead triage</h3>
+		<p style="margin-top:0;color:#646970;">Owner-only no-PII queue for WhatsApp, TalkTo and manual Bituach Leumi leads that should stay held until permission, partner terms, owner release and billing proof are ready.</p>
+		<?php if ( empty( $rows ) ) : ?>
+			<div class="notice notice-info inline">
+				<p>No held Bituach Leumi leads with appeal-lead revenue hints are currently waiting in CRM.</p>
+			</div>
+			<p style="margin-bottom:0;color:#646970;">When a held lead exists, this panel will show the safe next step without exposing the client's phone, email, name, raw chat or documents.</p>
+			<?php return; ?>
+		<?php endif; ?>
+		<?php $summary = justice_theme_crm_btl_held_lead_summary( $rows ); ?>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:12px 0;">
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;background:#f8fafc;">
+				<strong style="font-size:22px;"><?php echo esc_html( (string) $summary['held'] ); ?></strong><br>
+				<span>Held BTL leads</span>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( $summary['permission_ready'] > 0 ? 'background:#f0fff4;border-color:#008a20;' : 'background:#fff7f7;border-color:#d63638;' ); ?>">
+				<strong style="font-size:22px;"><?php echo esc_html( (string) $summary['permission_ready'] ); ?></strong><br>
+				<span>Permission ready</span>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( $summary['terms_ready'] > 0 ? 'background:#f0fff4;border-color:#008a20;' : 'background:#fffaf0;border-color:#dba617;' ); ?>">
+				<strong style="font-size:22px;"><?php echo esc_html( (string) $summary['terms_ready'] ); ?></strong><br>
+				<span>Partner terms ready</span>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( $summary['released'] > 0 ? 'background:#f0fff4;border-color:#008a20;' : 'background:#fffaf0;border-color:#dba617;' ); ?>">
+				<strong style="font-size:22px;"><?php echo esc_html( (string) $summary['released'] ); ?></strong><br>
+				<span>Owner released</span>
+			</div>
+		</div>
+		<table class="widefat striped">
+			<thead>
+				<tr>
+					<th>Lead</th>
+					<th>Revenue product</th>
+					<th>Permission</th>
+					<th>Partner terms</th>
+					<th>Owner / billing gate</th>
+					<th>Safe next action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ( array_slice( $rows, 0, 12 ) as $row ) : ?>
+					<tr>
+						<td>
+							<strong><a href="<?php echo esc_url( $row['edit_url'] ); ?>">Lead #<?php echo esc_html( (string) $row['id'] ); ?></a></strong>
+							<br><small><?php echo esc_html( trim( $row['created_at'] . ' / ' . ( $row['source_channel'] ?: 'source not set' ) ) ); ?></small>
+						</td>
+						<td>
+							<code><?php echo esc_html( $row['revenue_model'] ?: 'missing' ); ?></code>
+							<br><small><?php echo esc_html( $row['price'] > 0 ? number_format_i18n( $row['price'] ) . ' NIS suggested' : 'price missing' ); ?></small>
+						</td>
+						<td>
+							<strong style="color:<?php echo esc_attr( $row['permission_ready'] ? '#008a20' : '#d63638' ); ?>;"><?php echo esc_html( $row['permission_ready'] ? 'Ready' : 'Blocked' ); ?></strong>
+							<br><small><?php echo esc_html( $row['consent_status'] ?: 'consent status missing' ); ?></small>
+						</td>
+						<td>
+							<strong style="color:<?php echo esc_attr( $row['terms_ready'] ? '#008a20' : '#b32d2e' ); ?>;"><?php echo esc_html( $row['terms_ready'] ? 'Ready' : 'Not ready' ); ?></strong>
+							<br><small><?php echo esc_html( trim( ( $row['partner_terms_status'] ?: 'terms missing' ) . ' / ' . ( $row['terms_fee'] > 0 ? number_format_i18n( $row['terms_fee'] ) . ' NIS' : 'fee missing' ) ) ); ?></small>
+						</td>
+						<td>
+							<strong><?php echo esc_html( $row['gate_status'] ); ?></strong>
+							<br><small><?php echo esc_html( $row['billing_status'] ?: 'billing not ready' ); ?></small>
+						</td>
+						<td><?php echo esc_html( $row['next_action'] ); ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+		<label for="<?php echo esc_attr( $copy_id ); ?>" style="display:block;margin-top:12px;"><strong>Copyable no-PII held-lead action list</strong></label>
+		<textarea id="<?php echo esc_attr( $copy_id ); ?>" rows="9" readonly style="width:100%;margin-top:6px;"><?php echo esc_textarea( justice_theme_crm_btl_held_lead_triage_copy( $rows ) ); ?></textarea>
+		<p style="margin:6px 0 0;">
+			<button type="button" class="button" data-justice-copy-target="<?php echo esc_attr( $copy_id ); ?>">Copy held-lead triage</button>
+		</p>
+		<p style="margin:10px 0 0;color:#646970;">Boundary: this panel deliberately avoids client name, phone, email, exact address, raw chat, screenshots and documents. Use the edit link only after owner-approved handling.</p>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_btl_held_lead_rows( int $limit = 50 ): array {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return array();
+	}
+
+	$query = new WP_Query(
+		array(
+			'post_type'      => 'justice_lead',
+			'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+			'posts_per_page' => $limit,
+			'orderby'        => 'modified',
+			'order'          => 'DESC',
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+			'meta_query'     => array(
+				'relation' => 'AND',
+				array(
+					'key'   => 'routing_hold',
+					'value' => '1',
+				),
+				array(
+					'relation' => 'OR',
+					array(
+						'key'   => 'legal_area',
+						'value' => 'national-insurance',
+					),
+					array(
+						'key'   => 'lead_area',
+						'value' => 'national-insurance',
+					),
+					array(
+						'key'   => 'ai_detected_area',
+						'value' => 'national-insurance',
+					),
+					array(
+						'key'   => 'lead_revenue_model',
+						'value' => 'qualified_appeal_lead',
+					),
+				),
+			),
+		)
+	);
+
+	$rows = array();
+	foreach ( $query->posts ?: array() as $post_id ) {
+		$post_id        = (int) $post_id;
+		$consent_status = (string) get_post_meta( $post_id, 'consent_status', true );
+		$has_permission = '1' === (string) get_post_meta( $post_id, 'consent', true )
+			&& in_array( $consent_status, justice_theme_crm_manual_lead_routeable_consent_statuses(), true );
+		$terms_status   = (string) get_post_meta( $post_id, 'partner_terms_status', true );
+		$terms_fee      = absint( get_post_meta( $post_id, 'partner_terms_min_fee_ils', true ) );
+		$release_status = (string) get_post_meta( $post_id, 'owner_handoff_release_status', true );
+		$gate           = justice_theme_crm_lead_audit_gate( $post_id );
+		$post           = get_post( $post_id );
+
+		if ( ! $post instanceof WP_Post ) {
+			continue;
+		}
+
+		$rows[] = array(
+			'id'                   => $post_id,
+			'created_at'           => get_the_date( 'd/m/Y H:i', $post_id ),
+			'edit_url'             => get_edit_post_link( $post_id, '' ) ?: '',
+			'source_channel'       => (string) get_post_meta( $post_id, 'source_channel', true ),
+			'revenue_model'        => (string) get_post_meta( $post_id, 'lead_revenue_model', true ),
+			'price'                => absint( get_post_meta( $post_id, 'suggested_lead_price_ils', true ) ),
+			'consent_status'       => $consent_status,
+			'permission_ready'     => $has_permission,
+			'partner_terms_status' => $terms_status,
+			'terms_fee'            => $terms_fee,
+			'terms_ready'          => 'terms_accepted' === $terms_status && $terms_fee > 0,
+			'release_status'       => $release_status,
+			'released'             => 'approved_manual_handoff' === $release_status,
+			'billing_status'       => (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true ),
+			'gate_status'          => (string) $gate['status'],
+			'next_action'          => (string) $gate['next_action'],
+		);
+	}
+
+	return $rows;
+}
+
+function justice_theme_crm_btl_held_lead_summary( array $rows ): array {
+	$summary = array(
+		'held'             => count( $rows ),
+		'permission_ready' => 0,
+		'terms_ready'      => 0,
+		'released'         => 0,
+	);
+
+	foreach ( $rows as $row ) {
+		if ( ! empty( $row['permission_ready'] ) ) {
+			$summary['permission_ready']++;
+		}
+		if ( ! empty( $row['terms_ready'] ) ) {
+			$summary['terms_ready']++;
+		}
+		if ( ! empty( $row['released'] ) ) {
+			$summary['released']++;
+		}
+	}
+
+	return $summary;
+}
+
+function justice_theme_crm_btl_held_lead_triage_copy( array $rows ): string {
+	$lines = array(
+		'Bituach Leumi held-lead triage (no PII)',
+		sprintf( 'Rows reviewed: %d', count( $rows ) ),
+		'',
+		'Rule: do not release client details, contact suppliers/lawyers, invoice or route until permission, partner terms, owner release and billing proof are recorded.',
+		'',
+	);
+
+	foreach ( array_slice( $rows, 0, 12 ) as $row ) {
+		$lines[] = sprintf(
+			'Lead #%d | source=%s | model=%s | price=%s | consent=%s | terms=%s/%s | owner=%s | billing=%s | gate=%s | next=%s',
+			(int) $row['id'],
+			(string) ( $row['source_channel'] ?: '-' ),
+			(string) ( $row['revenue_model'] ?: '-' ),
+			$row['price'] > 0 ? (string) $row['price'] . ' ILS' : '-',
+			(string) ( $row['consent_status'] ?: '-' ),
+			(string) ( $row['partner_terms_status'] ?: '-' ),
+			$row['terms_fee'] > 0 ? (string) $row['terms_fee'] . ' ILS' : '-',
+			(string) ( $row['release_status'] ?: '-' ),
+			(string) ( $row['billing_status'] ?: '-' ),
+			(string) $row['gate_status'],
+			(string) $row['next_action']
+		);
+	}
+
+	if ( count( $rows ) > 12 ) {
+		$lines[] = sprintf( '...%d more held BTL lead(s) in CRM.', count( $rows ) - 12 );
+	}
+
+	return implode( "\n", $lines );
 }
 
 function justice_theme_crm_render_btl_activation_gap_board( array $needles, string $area_slug, int $target ): void {

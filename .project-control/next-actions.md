@@ -4,6 +4,17 @@
 
 ---
 
+### ACTION-BTL-HELD-LEAD-TRIAGE-001: Show held Bituach Leumi paid-handoff blockers without PII
+**Status:** CODE PREPARED / DEPLOY PENDING
+**Why:** after priming Bituach Leumi revenue hints, the owner still needs a single safe place to see which held WhatsApp/TalkTo/manual leads are blocked by consent, partner terms, owner release or billing proof before first paid handoff.
+**Actions:**
+1. DONE: add owner-only `Held Bituach Leumi lead triage` panel under the Bituach Leumi specialist supply area in Justice CRM.
+2. DONE: query held `national-insurance` / `qualified_appeal_lead` leads without creating or editing production lead records.
+3. DONE: show no-PII readiness fields: lead ID, source channel, revenue model, suggested price, consent status, partner terms, owner release/billing gate and next safe action.
+4. DONE: include a copyable no-PII held-lead action list for owner/team handoff.
+5. NEXT: lint, commit, push, uPress Pull Git, verify marker `2026-05-26-btl-held-lead-triage-v1`, and verify Justice CRM renders the panel.
+6. BLOCKED: do not release any real held lead until client permission, accepted partner terms, owner release and payment/invoice proof are recorded.
+
 ### ACTION-BTL-HELD-LEAD-REVENUE-HINT-001: Prime Bituach Leumi revenue metadata before routing
 **Status:** FIXED LIVE / LINEAR DONE / CRM DATA TEST DEFERRED
 **Why:** manual WhatsApp/TalkTo/legacy Bituach Leumi leads should stay held until consent and partner terms are clear, but the CRM still needs the specific revenue product, suggested fee and billing-not-ready status visible immediately.

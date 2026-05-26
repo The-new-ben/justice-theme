@@ -1,0 +1,40 @@
+{
+  "report_date": "2026-05-26",
+  "status": "PASS",
+  "rows": [
+    {
+      "url": "https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt",
+      "status": "PASS",
+      "http_status": 200,
+      "title": "deployment marker",
+      "lead_cta_count": "",
+      "duplicate_sidebar_count": "",
+      "no_sidebar_layout": "",
+      "evidence": "justice-theme-deployment-marker=2026-05-26-supplier-smart-match-admin-v1 | expected-github-main-commit=supplier-smart-match-admin-v1 | purpose=admin-supplier-smart-match-bid-readiness",
+      "next_step": "Live marker must include the article duplicate CTA guard commit or a later marker."
+    },
+    {
+      "url": "https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/",
+      "status": "PASS",
+      "http_status": 200,
+      "title": "איך למצוא עורך דין מומלץ? כיצד לבחור עו&quot;ד טוב | Jus-Tice.co.il",
+      "lead_cta_count": 1,
+      "duplicate_sidebar_count": 0,
+      "no_sidebar_layout": "yes",
+      "evidence": "article_layout=true; sidebar_lead_cards=0; no_sidebar_layout=true",
+      "next_step": "Use this as the post-deploy proof for the owner-reported mobile duplicate CTA issue."
+    }
+  ],
+  "safety": {
+    "read_only_live_fetch": true,
+    "public_cms_changed": false,
+    "urls_changed": false,
+    "redirects_changed": false,
+    "canonicals_changed": false,
+    "noindex_changed": false,
+    "sitemaps_changed": false,
+    "taxonomies_changed": false,
+    "leads_changed": false,
+    "payments_changed": false
+  }
+}

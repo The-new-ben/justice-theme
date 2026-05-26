@@ -3595,3 +3595,13 @@ Next safe batch before any URL/content migration:
 5. Add or complete supplier records with category, provider type, credential status, bid model, revenue model, minimum price, source proof, contact route and SLA before any handoff.
 6. Record accepted commercial terms and payment/invoice proof before marking supplier revenue as real.
 7. Do not expose scoring, bids, commissions, supplier margins or investor/revenue language on public pages.
+
+## 2026-05-26 LIVE ARTICLE CTA DEDUPE NEXT ACTIONS
+
+**Status:** SAMPLE LIVE VERIFIED / BROADER ARTICLE QA STILL USEFUL
+
+1. Open `https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/` on mobile and confirm the article help/request CTA appears once after the article.
+2. Run `node tools/check-live-article-cta-dedupe.mjs --reportDate=YYYY-MM-DD --url=https://jus-tice.co.il/another-article/` after future article-template changes.
+3. Add one connected-lawyer article and one family-law cluster article to the next visual QA pass, because those are the sidebar cases that can differ from the sampled no-sidebar article.
+4. Do not change article title, H1, URL, canonical, noindex, sitemap or taxonomy for this template-level CTA fix.
+5. Treat this as UX/commercial trust QA, not a content or SEO-cannibalization change.

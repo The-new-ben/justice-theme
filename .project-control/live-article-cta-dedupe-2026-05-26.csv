@@ -1,0 +1,3 @@
+url,status,http_status,title,lead_cta_count,duplicate_sidebar_count,no_sidebar_layout,evidence,next_step
+https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt,PASS,200,deployment marker,,,,justice-theme-deployment-marker=2026-05-26-supplier-smart-match-admin-v1 | expected-github-main-commit=supplier-smart-match-admin-v1 | purpose=admin-supplier-smart-match-bid-readiness,Live marker must include the article duplicate CTA guard commit or a later marker.
+https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/,PASS,200,איך למצוא עורך דין מומלץ? כיצד לבחור עו&quot;ד טוב | Jus-Tice.co.il,1,0,yes,article_layout=true; sidebar_lead_cards=0; no_sidebar_layout=true,Use this as the post-deploy proof for the owner-reported mobile duplicate CTA issue.

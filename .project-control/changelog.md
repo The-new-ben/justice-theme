@@ -5280,3 +5280,10 @@
 - ADDED: `tools/check-supplier-smart-match-readiness.mjs`.
 - GENERATED: `.project-control/supplier-smart-match-readiness-2026-05-26.md` and `.reports/supplier-smart-match-readiness-2026-05-26.json`.
 - SAFETY: admin-only infrastructure; no supplier/client/lawyer record created, no outbound message, no public page, no public business-plan/bid language, no payment, no redirect, no canonical, no noindex, no sitemap and no taxonomy change.
+
+## 2026-05-26 - Live Article CTA Dedupe Verification
+- ADDED: `tools/check-live-article-cta-dedupe.mjs`.
+- VERIFIED LIVE READ-ONLY: `https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/` returned 200, rendered the article layout, had no duplicate sidebar CTA class, and had at most one after-content lead CTA.
+- GENERATED: `.project-control/live-article-cta-dedupe-2026-05-26.md` and `.reports/live-article-cta-dedupe-2026-05-26.json`.
+- RECORDED: associated pages for later review are `/articles/`, connected-lawyer article pages and family-law cluster articles.
+- SAFETY: read-only live verification and repo-local report/tool only; no public CMS body/title/H1, URL, redirect, canonical, noindex, sitemap, taxonomy, lead, lawyer, supplier, payment, email or WhatsApp action changed.

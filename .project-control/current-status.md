@@ -6760,6 +6760,17 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: still needs real owner-approved supplier records, client consent on each handoff, accepted commercial terms, invoice/payment proof and live uPress pull before owner can use this in production.
 - COMPLETION ASSESSMENT: supplier/bid infrastructure 72%; immigration/citizenship supplier path 58%; realized supplier revenue 0% until a real paid handoff or partner payment is recorded.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Suppliers and wp-admin -> Justice CRM -> Supplier marketplace pipeline.
+
+## 2026-05-26 LIVE ARTICLE CTA DEDUPE VERIFICATION
+- LIVE VERIFIED: after the later uPress pull, the public article duplicate-CTA guard is live under marker `2026-05-26-supplier-smart-match-admin-v1`, which includes the earlier article fix.
+- TOOLING ADDED: `tools/check-live-article-cta-dedupe.mjs` performs a read-only live check against sampled article pages and the deployment marker.
+- VERIFIED LIVE READ-ONLY: `https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/` returned 200, rendered the article layout, had no duplicate sidebar CTA class, and had at most one after-content lead CTA.
+- GENERATED: `.project-control/live-article-cta-dedupe-2026-05-26.md`, `.project-control/live-article-cta-dedupe-2026-05-26.csv`, `.reports/live-article-cta-dedupe-2026-05-26.json` and `.reports/live-article-cta-dedupe-2026-05-26.csv`.
+- PUBLIC REVIEW URL: `https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/`.
+- ASSOCIATED PAGES TO REVIEW LATER: `/articles/`, article pages with connected lawyers, and family-law cluster articles, because this is a shared article template behavior.
+- CANNIBALIZATION ASSESSMENT: none created by this fix; no title, H1, body, URL, canonical, noindex, sitemap or taxonomy was changed.
+- SAFETY: read-only live verification and repo-local report/tool only; no CMS content, lead, lawyer, supplier, payment, email or WhatsApp action changed.
+- COMPLETION ASSESSMENT: article duplicate CTA fix 100% live-verified for the sampled article; broader article-template visual QA 35% because only one public article sample was checked in this cycle.
 ## LATEST WORK STATUS - 2026-05-22 14:38 Asia/Jerusalem
 - CRIMINAL OWNER REVIEW PACKET: converted the five current-URL Criminal first-upload targets into a controlled owner/legal/source review gate.
 - TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.

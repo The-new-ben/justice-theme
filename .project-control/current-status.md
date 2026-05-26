@@ -1,9 +1,13 @@
-# LATEST WORK STATUS - 2026-05-26 13:35 Asia/Jerusalem
-- HOMEPAGE CUSTOMER-FIRST CLEANUP PREPARED: removed the early lawyer pricing/lead-partner strip from both homepage templates so the public homepage no longer switches into lawyer-acquisition mode immediately after user intake.
+# LATEST WORK STATUS - 2026-05-26 13:40 Asia/Jerusalem
+- HOMEPAGE CUSTOMER-FIRST CLEANUP VERIFIED LIVE: removed the early lawyer pricing/lead-partner strip from both homepage templates so the public homepage no longer switches into lawyer-acquisition mode immediately after user intake.
 - CODE UPDATED: `front-page.php` and `page-home.php` no longer include `homepage-lawyer-revenue-strip`; `template-parts/sections/lawyer-cta.php` was rewritten as a quieter secondary profile-review invitation for lawyers.
 - USER-FACING RULE: the homepage remains a legal-help site first: search, guides, practice areas, lawyer comparison and contact. Lawyer participation is still present, but lower on the page and without pricing cards, lead-partner language or internal business framing.
 - COMPETITOR NOTE: Din and PsakDin keep public homepage focus on legal content, lawyer search and user contact paths; advertising/join paths exist separately or less prominently. This change follows that hierarchy.
-- DEPLOYMENT STATUS: marker prepared as `2026-05-26-homepage-customer-first-v1`; lint, commit, uPress pull, live verification, Linear update and Hebrew email still required.
+- DEPLOYMENT STATUS: VERIFIED LIVE. Commit `176d156c` pushed to `main`, uPress Pull Git completed on retry, and live marker `2026-05-26-homepage-customer-first-v1` verified.
+- LIVE CHECKS: homepage returns 200, no longer exposes `הצטרפות למסלול לידים`, `לקוחות מחפשים עורך דין עכשיו`, `המסלול העסקי`, `שותף לידים`, `₪349` or `₪749`, and shows the quieter `רוצים לעדכן או להשלים פרופיל מקצועי`, `בקשת בדיקת פרופיל` and `מידע לעורכי דין` path.
+- SAFETY CHECKS: `/find-lawyer-how-to-find-good-attorney/`, `/national-insurance-attorney/` and `/lawyers/` return 200; old public artifact URL returns 404 and dot-private artifact URL returns 403. No CMS database, redirect, canonical/noindex, sitemap, taxonomy, payment, invoice, client contact, lawyer/supplier contact, GSC or GA4 setting changed.
+- LINEAR: recorded as `HAD-89` and marked Done.
+- OWNER EMAIL: sent Hebrew public-change email to `info@jus-tice.co.il` after checking Gmail for instruction-subject emails; no new instruction-subject emails were found.
 
 # LATEST WORK STATUS - 2026-05-26 13:18 Asia/Jerusalem
 - PUBLIC ARTICLE MOBILE CTA DEDUPE PREPARED: single article pages no longer repeat the same contextual legal-help CTA twice in a row on mobile.

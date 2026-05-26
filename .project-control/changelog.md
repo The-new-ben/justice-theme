@@ -8,7 +8,10 @@
 - IMPLEMENTATION: removed the early `homepage-lawyer-revenue-strip` include from both homepage templates; rewrote the remaining lawyer CTA as a secondary profile-review invitation.
 - USER-FACING SAFETY: visible homepage no longer needs to show early lawyer pricing cards, lead-partner CTA, revenue framing or a business-plan style pitch before the legal-help content.
 - COMPETITOR NOTE: Din and PsakDin keep public homepage hierarchy centered on legal information, lawyer search and user contact paths, with lawyer advertising/join paths secondary.
-- DEPLOYMENT STATUS: marker prepared as `2026-05-26-homepage-customer-first-v1`; lint, commit, uPress Pull Git and live verification still required.
+- DEPLOYED: commit `176d156c` pushed to `main`; uPress Pull Git completed on retry; marker `2026-05-26-homepage-customer-first-v1` verified live.
+- VERIFIED: homepage returns 200, the early lawyer lead/pricing phrases are absent, and the quieter profile-review CTA is present. `/find-lawyer-how-to-find-good-attorney/`, `/national-insurance-attorney/` and `/lawyers/` return 200; old public artifact URL returns 404 and dot-private artifact URL returns 403.
+- LINEAR: recorded as `HAD-89` and marked Done.
+- OWNER EMAIL: Hebrew public-change email sent to `info@jus-tice.co.il` after checking Gmail for instruction-subject emails; no new instruction-subject emails were found.
 
 # 2026-05-26 - Public article mobile CTA dedupe
 

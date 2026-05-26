@@ -5,15 +5,17 @@
 ---
 
 ### ACTION-HOMEPAGE-CUSTOMER-FIRST-001: Demote lawyer acquisition on the public homepage
-**Status:** CODED / DEPLOYMENT VERIFICATION PENDING
+**Status:** FIXED LIVE / OWNER EMAIL SENT / LINEAR DONE
 **Why:** the public homepage should read as a legal-help site for users. The prior early lawyer pricing/lead-partner strip exposed too much business-side intent immediately after the user intake path.
 **Actions:**
 1. DONE: inspect live homepage copy and confirm early public phrases including `הצטרפות למסלול לידים`, `לקוחות מחפשים עורך דין עכשיו`, `פניות מדידות`, `המסלול העסקי`, `שותף לידים` and visible price marks.
 2. DONE: compare competitor hierarchy; Din and PsakDin keep the public homepage focused on legal content, lawyer search and contact paths, with advertising/join paths secondary.
 3. DONE: remove `homepage-lawyer-revenue-strip` from `front-page.php` and `page-home.php`.
 4. DONE: rewrite `lawyer-cta.php` as a quieter lawyer profile-review section, without lead-partner/pricing-first language.
-5. NEXT: lint, commit, deploy via uPress Pull Git and verify live homepage no longer exposes the early lawyer pricing strip.
-6. NEXT: send Hebrew owner email because this is a public-facing homepage change; include review URL, associated/cannibalizing pages and concise review.
+5. DONE: lint, commit, deploy via uPress Pull Git and verify live homepage no longer exposes the early lawyer pricing strip.
+6. DONE: send Hebrew owner email because this is a public-facing homepage change; included review URL, associated/cannibalizing pages and concise review.
+7. VERIFIED: live marker `2026-05-26-homepage-customer-first-v1`; homepage no longer exposes early lawyer lead/pricing language and now shows only a quieter profile-review path for lawyers lower in the page.
+8. DONE: created Linear issue `HAD-89`, marked Done, and linked the live homepage.
 
 ### ACTION-PUBLIC-ARTICLE-MOBILE-CTA-DEDUP-001: Remove repeated legal-help CTA on mobile article pages
 **Status:** FIXED LIVE / OWNER EMAIL SENT

@@ -1,4 +1,4 @@
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -38,6 +38,172 @@ function outputFiles(reportDate) {
   };
 }
 
+const sourceFiles = {
+  crm: path.join(ROOT, 'inc', 'lead-crm.php'),
+  router: path.join(ROOT, 'inc', 'lead-routing.php'),
+  prospects: path.join(ROOT, 'inc', 'lawyer-prospects.php'),
+  suppliers: path.join(ROOT, 'inc', 'lawyer-suppliers.php'),
+  dashboard: path.join(ROOT, 'inc', 'lawyer-dashboard.php'),
+};
+
+function readSource(filePath) {
+  return existsSync(filePath) ? readFileSync(filePath, 'utf8') : '';
+}
+
+function relativeSource(filePath) {
+  return path.relative(ROOT, filePath).replace(/\\/g, '/');
+}
+
+function inspectMarkers({ id, gate, file, markers, evidence, nextAction }) {
+  const filePath = sourceFiles[file];
+  const text = readSource(filePath);
+  const missing = markers.filter((marker) => !text.includes(marker));
+
+  return {
+    id,
+    gate,
+    status: existsSync(filePath) && missing.length === 0 ? 'PASS' : 'BLOCKED',
+    file: filePath ? relativeSource(filePath) : file,
+    evidence: existsSync(filePath) ? evidence : 'Source file missing',
+    markers_found: String(markers.length - missing.length),
+    markers_total: String(markers.length),
+    missing_markers: missing.join('|'),
+    next_action: missing.length ? `Restore or verify missing source markers: ${missing.join(', ')}` : nextAction,
+  };
+}
+
+function buildStaticChecks() {
+  return [
+    inspectMarkers({
+      id: 'WT-SRC-01',
+      gate: 'manual_whatsapp_talkto_capture_bridge',
+      file: 'crm',
+      markers: [
+        'function justice_theme_crm_render_whatsapp_lead_bridge',
+        'justice_theme_create_whatsapp_lead',
+        'source_channel',
+        'handoff_path',
+        'routing_hold',
+      ],
+      evidence: 'Manual admin bridge captures source, handoff path and keeps routing held by default.',
+      nextAction: 'Use wp-admin -> Justice CRM manual bridge only after owner approval for real lead creation.',
+    }),
+    inspectMarkers({
+      id: 'WT-SRC-02',
+      gate: 'legacy_import_defaults_to_repermission',
+      file: 'crm',
+      markers: [
+        'function justice_theme_crm_handle_external_lead_import',
+        'legacy_needs_repermission',
+        'import_fingerprint',
+        'repermission_status',
+        "'routing_hold'                 => '1'",
+      ],
+      evidence: 'Bulk/legacy imports dedupe rows and default old leads to re-permission with routing hold.',
+      nextAction: 'Start with a small owner-approved export batch and keep routeable consent downgraded until evidence is reviewed.',
+    }),
+    inspectMarkers({
+      id: 'WT-SRC-03',
+      gate: 'permission_queue_and_routeable_consent',
+      file: 'crm',
+      markers: [
+        'function justice_theme_crm_manual_lead_consent_options',
+        'function justice_theme_crm_manual_lead_routeable_consent_statuses',
+        'explicit_match_consent',
+        'owner_verified_consent',
+        'do_not_contact',
+      ],
+      evidence: 'CRM has explicit/owner-verified consent states plus do-not-contact handling.',
+      nextAction: 'Use only explicit_match_consent or owner_verified_consent before partner preview or routing.',
+    }),
+    inspectMarkers({
+      id: 'WT-SRC-04',
+      gate: 'router_blocks_unsafe_external_leads',
+      file: 'router',
+      markers: [
+        'get_post_meta( $post_id, \'routing_hold\', true )',
+        'whatsapp_manual',
+        'talkto_chatbot',
+        'explicit_match_consent',
+        'owner_verified_consent',
+        'Routing blocked: external WhatsApp/TalkTo/manual lead lacks explicit match consent',
+      ],
+      evidence: 'Router refuses held/manual external leads unless consent status and consent flag are both routeable.',
+      nextAction: 'Do not remove routing_hold until permission, partner terms and owner release are recorded.',
+    }),
+    inspectMarkers({
+      id: 'WT-SRC-05',
+      gate: 'no_pii_partner_preview_and_terms',
+      file: 'crm',
+      markers: [
+        'function justice_theme_crm_render_partner_preview_queue',
+        'anonymized_preview_status',
+        'partner_terms_status',
+        'partner_terms_min_fee_ils',
+        'partner_terms_owner_verified',
+      ],
+      evidence: 'Partner preview and terms queue exists before PII release or paid handoff.',
+      nextAction: 'Send only anonymized facts until partner accepted terms, fee and billing contact.',
+    }),
+    inspectMarkers({
+      id: 'WT-SRC-06',
+      gate: 'final_owner_release_required',
+      file: 'crm',
+      markers: [
+        'function justice_theme_crm_render_owner_handoff_release_queue',
+        'owner_confirmed_client_permission',
+        'owner_confirmed_partner_terms',
+        'owner_confirmed_manual_only',
+        'approved_manual_handoff',
+      ],
+      evidence: 'Owner release queue requires client permission, partner terms and manual-only confirmation.',
+      nextAction: 'Record owner release deliberately; the system still sends nothing automatically.',
+    }),
+    inspectMarkers({
+      id: 'WT-SRC-07',
+      gate: 'qualified_lead_invoice_payment_proof',
+      file: 'crm',
+      markers: [
+        'function justice_theme_crm_render_qualified_lead_billing_queue',
+        'qualified_lead_invoice_reference',
+        'qualified_lead_payment_evidence_url',
+        "'paid' === $billing_status && '' === $invoice_reference && '' === $payment_evidence_url",
+        'qualified_lead_paid_at',
+      ],
+      evidence: 'Billing queue stores invoice/payment proof and prevents bare paid status from standing without proof.',
+      nextAction: 'Count revenue only after invoice/reference or private payment evidence is present.',
+    }),
+    inspectMarkers({
+      id: 'WT-SRC-08',
+      gate: 'no_pii_audit_export',
+      file: 'crm',
+      markers: [
+        'function justice_theme_crm_render_lead_audit_export_panel',
+        'function justice_theme_crm_lead_audit_gate',
+        'invoice_reference_present',
+        'payment_evidence_url_present',
+        'Excludes by design: client name, phone, email',
+      ],
+      evidence: 'Owner can export no-PII readiness rows without leaking client contact data or payment URLs.',
+      nextAction: 'Use audit export before bulk lead handoff, supplier/lawyer routing or invoice chase.',
+    }),
+    inspectMarkers({
+      id: 'WT-SRC-09',
+      gate: 'webhook_not_live_until_provider_gates',
+      file: 'crm',
+      markers: [
+        'function justice_theme_crm_render_webhook_readiness_panel',
+        'Connection status',
+        'Not live',
+        'signature secret',
+        'Do not build unattended scraping/login bots',
+      ],
+      evidence: 'Connector panel keeps webhook ingestion explicitly not-live until official provider controls are approved.',
+      nextAction: 'Use official WhatsApp/TalkTo provider routes only; no scraping, login automation or bypassing platform protections.',
+    }),
+  ];
+}
+
 function csvEscape(value) {
   const text = value === undefined || value === null ? '' : String(value);
   if (/[",\n\r]/.test(text)) {
@@ -54,6 +220,10 @@ function toCsv(rows, columns) {
 function writeText(filePath, text) {
   mkdirSync(path.dirname(filePath), { recursive: true });
   writeFileSync(filePath, text, 'utf8');
+}
+
+function mdCell(value) {
+  return String(value ?? '').replace(/\|/g, '\\|').replace(/\r?\n/g, '<br>');
 }
 
 const rows = [
@@ -203,12 +373,14 @@ const rows = [
   },
 ];
 
-function markdownReport(reportDate) {
+function markdownReport(reportDate, checks, status) {
   const summary = {
     adminSurfaces: rows.filter((row) => row.type === 'existing_admin_surface').length,
     safetyGates: rows.filter((row) => row.type === 'safety_gate').length,
     integrationGates: rows.filter((row) => row.type === 'integration_gate').length,
     currentLeadRows: rows.filter((row) => row.type === 'current_real_lead_packet').length,
+    staticChecks: checks.length,
+    staticChecksPassing: checks.filter((check) => check.status === 'PASS').length,
     liveAutomationApproved: 0,
     publicChangesApproved: 0,
   };
@@ -216,7 +388,7 @@ function markdownReport(reportDate) {
   const lines = [
     `# WhatsApp / TalkTo Paid Handoff Runbook - ${reportDate}`,
     '',
-    'Status: PRIVATE_RUNBOOK_ONLY_NOT_APPROVED_FOR_AUTOMATION',
+    `Status: ${status}`,
     '',
     'Purpose: convert inbound WhatsApp, TalkTo, email and legacy leads into a safe CRM-to-partner-to-payment workflow without contacting clients or suppliers automatically and without exposing private business strategy on public pages.',
     '',
@@ -228,6 +400,7 @@ function markdownReport(reportDate) {
     `- Safety gates mapped: ${summary.safetyGates}`,
     `- Integration gates mapped: ${summary.integrationGates}`,
     `- Current real-lead packet rows: ${summary.currentLeadRows}`,
+    `- Static source checks passing: ${summary.staticChecksPassing}/${summary.staticChecks}`,
     `- Live automation approved: ${summary.liveAutomationApproved}`,
     `- Public changes approved: ${summary.publicChangesApproved}`,
     '',
@@ -235,12 +408,21 @@ function markdownReport(reportDate) {
     '',
     'The safe path is: private CRM lead -> consent evidence -> routing hold -> no-PII partner preview -> accepted terms and billing contact -> owner release -> manual handoff -> invoice/payment proof. Skip none of these steps.',
     '',
+    '## Static Source Checks',
+    '',
+    '| ID | Gate | Status | File | Evidence | Markers | Missing | Next Action |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- |',
+    ...checks.map(
+      (check) =>
+        `| ${check.id} | ${check.gate} | ${check.status} | ${check.file} | ${mdCell(check.evidence)} | ${check.markers_found}/${check.markers_total} | ${mdCell(check.missing_markers || '-')} | ${mdCell(check.next_action)} |`
+    ),
+    '',
     '## Runbook Rows',
     '',
     '| ID | Type | Stage | Status | Required Evidence | Allowed Action | Blocked Action | Repo Anchor | Linear | Next Owner Action |',
     '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |',
     ...rows.map(
-      (row) => `| ${row.id} | ${row.type} | ${row.stage} | ${row.status} | ${row.required_evidence} | ${row.allowed_action} | ${row.blocked_action} | ${row.repo_anchor} | ${row.linear_anchor} | ${row.next_owner_action} |`
+      (row) => `| ${row.id} | ${row.type} | ${row.stage} | ${row.status} | ${mdCell(row.required_evidence)} | ${mdCell(row.allowed_action)} | ${mdCell(row.blocked_action)} | ${mdCell(row.repo_anchor)} | ${mdCell(row.linear_anchor)} | ${mdCell(row.next_owner_action)} |`
     ),
     '',
     '## Current UK WhatsApp Lead',
@@ -276,6 +458,10 @@ if (args.help) {
 }
 
 const outputs = outputFiles(args.reportDate);
+const checks = buildStaticChecks();
+const status = checks.every((check) => check.status === 'PASS')
+  ? 'PRIVATE_RUNBOOK_VERIFIED_NOT_APPROVED_FOR_AUTOMATION'
+  : 'BLOCKED_STATIC_HANDOFF_GATES';
 const columns = [
   'id',
   'type',
@@ -291,8 +477,21 @@ const columns = [
 
 writeText(outputs.projectCsv, toCsv(rows, columns));
 writeText(outputs.reportCsv, toCsv(rows, columns));
-writeText(outputs.reportJson, JSON.stringify({ status: 'PRIVATE_RUNBOOK_ONLY_NOT_APPROVED_FOR_AUTOMATION', rows }, null, 2) + '\n');
-writeText(outputs.projectMd, markdownReport(args.reportDate));
+writeText(outputs.reportJson, JSON.stringify({
+  reportDate: args.reportDate,
+  status,
+  summary: {
+    runbookRows: rows.length,
+    staticChecks: checks.length,
+    staticChecksPassing: checks.filter((check) => check.status === 'PASS').length,
+    liveAutomationApproved: 0,
+    publicChangesApproved: 0,
+  },
+  sourceFiles: Object.fromEntries(Object.entries(sourceFiles).map(([key, filePath]) => [key, relativeSource(filePath)])),
+  checks,
+  rows,
+}, null, 2) + '\n');
+writeText(outputs.projectMd, markdownReport(args.reportDate, checks, status));
 
 console.table(rows.map(({ id, stage, status, linear_anchor }) => ({
   id,
@@ -300,4 +499,5 @@ console.table(rows.map(({ id, stage, status, linear_anchor }) => ({
   status,
   linear_anchor,
 })));
+console.log(`${checks.filter((check) => check.status === 'PASS').length}/${checks.length} static source checks passed.`);
 console.log(`Wrote ${path.relative(ROOT, outputs.projectMd)} and ${path.relative(ROOT, outputs.reportCsv)}`);

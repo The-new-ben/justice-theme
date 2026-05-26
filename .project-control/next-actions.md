@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-WHATSAPP-TALKTO-PAID-HANDOFF-RUNBOOK-001: Verify chat-to-partner-to-payment gates
+**Status:** FIXED LOCAL / LIVE HANDOFF STILL BLOCKED UNTIL OWNER ADMIN EVIDENCE
+**Why:** The owner needs WhatsApp, TalkTo, email and legacy leads to connect through the system to a lawyer or supplier and then to money, but only under consent, terms and payment-proof rules.
+**Actions:**
+1. DONE: update `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs` with static source checks.
+2. DONE: verify manual bridge, legacy import, consent queue, router hold, no-PII preview, owner release, qualified lead billing, audit export and webhook-not-live gates.
+3. DONE: generate `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-27.md` and `.csv`.
+4. DONE: generate `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-27.json` and `.csv`.
+5. DONE: confirm `PRIVATE_RUNBOOK_VERIFIED_NOT_APPROVED_FOR_AUTOMATION`, 9/9 static checks passing, 12 runbook rows, 0 live automation approved and 0 public changes approved.
+6. DONE: record as Linear `HAD-135`, marked Done under `HAD-87`.
+7. NEXT: owner/admin may approve one real private CRM lead creation, then fill consent, no-PII preview, accepted partner terms, owner release and invoice/payment proof inside wp-admin.
+8. BLOCKED: do not import old chats, create live leads, contact clients/lawyers/suppliers, send WhatsApp/TalkTo/email, invoice, mark paid, claim revenue, enable webhook automation, publish public pages, change SEO or uPress from this runbook alone.
+
 ### ACTION-BTL-RUNTIME-REVENUE-PROOF-LEDGER-001: Convert first-paid-lead blocker into evidence rows
 **Status:** FIXED LOCAL / LIVE REVENUE STILL BLOCKED UNTIL OWNER ADMIN EVIDENCE
 **Why:** Bituach Leumi infrastructure is ready, but the first-paid-lead loop cannot honestly be counted until live wp-admin evidence proves specialist coverage, consented routing, billing and payment proof.

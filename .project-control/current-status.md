@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 02:17 Asia/Jerusalem
+- WHATSAPP/TALKTO PAID HANDOFF RUNBOOK VERIFIED: upgraded the private runbook so it now checks the actual CRM/router source gates behind the owner-requested chat-to-lawyer/supplier-to-payment path.
+- CODE UPDATED: `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-27.md`, `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-27.csv`, `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-27.json`, `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-27.csv`.
+- CHECK RESULT: `PRIVATE_RUNBOOK_VERIFIED_NOT_APPROVED_FOR_AUTOMATION`; 9/9 static source checks passed; 12 runbook rows mapped manual capture, bulk import, consent, routing hold, no-PII partner preview, partner terms, owner release, billing proof, webhook-not-live gate, current UK WhatsApp lead handling and the manual find/register/take-money path.
+- SAFETY RULE PRESERVED: inbound WhatsApp/TalkTo/email/legacy leads stay private and held until consent evidence, accepted partner terms, billing contact, owner release and invoice/payment proof exist.
+- LINEAR: recorded as `HAD-135`, marked Done under `HAD-87`, related to `HAD-76`, `HAD-79`, `HAD-97` and `HAD-81`.
+- PUBLIC IMPACT: none. This was a repo-local owner/admin runbook and source-gate verification only. No lead, lawyer, supplier, invoice, payment, public CMS content, title/H1/meta/body, homepage label/link, URL, redirect, canonical/noindex, sitemap, taxonomy, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: private verified handoff runbook 100%; live client handoff/revenue remains 0% until the owner approves real CRM entry and evidence is filled in wp-admin.
+
 # LATEST WORK STATUS - 2026-05-27 02:05 Asia/Jerusalem
 - BITUACH LEUMI RUNTIME REVENUE PROOF LEDGER ADDED: converted the remaining first-paid-lead blocker into a private owner/admin no-PII proof ledger and blank evidence template.
 - CODE ADDED: `tools/build-btl-runtime-revenue-proof-ledger.mjs`.

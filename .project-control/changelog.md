@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Verify WhatsApp/TalkTo paid handoff runbook
+
+- UPDATED: `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`.
+- GENERATED: `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-27.md`, `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-27.csv`, `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-27.json`, `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-27.csv`.
+- PURPOSE: turn the owner-requested WhatsApp/TalkTo-to-lawyer/supplier-to-payment path into a verified source-anchored private runbook.
+- RESULT: `PRIVATE_RUNBOOK_VERIFIED_NOT_APPROVED_FOR_AUTOMATION`; 9/9 source checks passed and 12 runbook rows now map chat capture, import, permission, routing hold, no-PII preview, terms, owner release, billing proof and blocked webhook automation.
+- LINEAR: recorded as `HAD-135`, marked Done under `HAD-87`.
+- SAFETY: private owner/admin runbook only; no client lead, lawyer, supplier, invoice, payment, public page, CMS content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Bituach Leumi runtime revenue proof ledger
 
 - ADDED: `tools/build-btl-runtime-revenue-proof-ledger.mjs`.

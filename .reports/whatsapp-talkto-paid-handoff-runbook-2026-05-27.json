@@ -1,0 +1,265 @@
+{
+  "reportDate": "2026-05-27",
+  "status": "PRIVATE_RUNBOOK_VERIFIED_NOT_APPROVED_FOR_AUTOMATION",
+  "summary": {
+    "runbookRows": 12,
+    "staticChecks": 9,
+    "staticChecksPassing": 9,
+    "liveAutomationApproved": 0,
+    "publicChangesApproved": 0
+  },
+  "sourceFiles": {
+    "crm": "inc/lead-crm.php",
+    "router": "inc/lead-routing.php",
+    "prospects": "inc/lawyer-prospects.php",
+    "suppliers": "inc/lawyer-suppliers.php",
+    "dashboard": "inc/lawyer-dashboard.php"
+  },
+  "checks": [
+    {
+      "id": "WT-SRC-01",
+      "gate": "manual_whatsapp_talkto_capture_bridge",
+      "status": "PASS",
+      "file": "inc/lead-crm.php",
+      "evidence": "Manual admin bridge captures source, handoff path and keeps routing held by default.",
+      "markers_found": "5",
+      "markers_total": "5",
+      "missing_markers": "",
+      "next_action": "Use wp-admin -> Justice CRM manual bridge only after owner approval for real lead creation."
+    },
+    {
+      "id": "WT-SRC-02",
+      "gate": "legacy_import_defaults_to_repermission",
+      "status": "PASS",
+      "file": "inc/lead-crm.php",
+      "evidence": "Bulk/legacy imports dedupe rows and default old leads to re-permission with routing hold.",
+      "markers_found": "5",
+      "markers_total": "5",
+      "missing_markers": "",
+      "next_action": "Start with a small owner-approved export batch and keep routeable consent downgraded until evidence is reviewed."
+    },
+    {
+      "id": "WT-SRC-03",
+      "gate": "permission_queue_and_routeable_consent",
+      "status": "PASS",
+      "file": "inc/lead-crm.php",
+      "evidence": "CRM has explicit/owner-verified consent states plus do-not-contact handling.",
+      "markers_found": "5",
+      "markers_total": "5",
+      "missing_markers": "",
+      "next_action": "Use only explicit_match_consent or owner_verified_consent before partner preview or routing."
+    },
+    {
+      "id": "WT-SRC-04",
+      "gate": "router_blocks_unsafe_external_leads",
+      "status": "PASS",
+      "file": "inc/lead-routing.php",
+      "evidence": "Router refuses held/manual external leads unless consent status and consent flag are both routeable.",
+      "markers_found": "6",
+      "markers_total": "6",
+      "missing_markers": "",
+      "next_action": "Do not remove routing_hold until permission, partner terms and owner release are recorded."
+    },
+    {
+      "id": "WT-SRC-05",
+      "gate": "no_pii_partner_preview_and_terms",
+      "status": "PASS",
+      "file": "inc/lead-crm.php",
+      "evidence": "Partner preview and terms queue exists before PII release or paid handoff.",
+      "markers_found": "5",
+      "markers_total": "5",
+      "missing_markers": "",
+      "next_action": "Send only anonymized facts until partner accepted terms, fee and billing contact."
+    },
+    {
+      "id": "WT-SRC-06",
+      "gate": "final_owner_release_required",
+      "status": "PASS",
+      "file": "inc/lead-crm.php",
+      "evidence": "Owner release queue requires client permission, partner terms and manual-only confirmation.",
+      "markers_found": "5",
+      "markers_total": "5",
+      "missing_markers": "",
+      "next_action": "Record owner release deliberately; the system still sends nothing automatically."
+    },
+    {
+      "id": "WT-SRC-07",
+      "gate": "qualified_lead_invoice_payment_proof",
+      "status": "PASS",
+      "file": "inc/lead-crm.php",
+      "evidence": "Billing queue stores invoice/payment proof and prevents bare paid status from standing without proof.",
+      "markers_found": "5",
+      "markers_total": "5",
+      "missing_markers": "",
+      "next_action": "Count revenue only after invoice/reference or private payment evidence is present."
+    },
+    {
+      "id": "WT-SRC-08",
+      "gate": "no_pii_audit_export",
+      "status": "PASS",
+      "file": "inc/lead-crm.php",
+      "evidence": "Owner can export no-PII readiness rows without leaking client contact data or payment URLs.",
+      "markers_found": "5",
+      "markers_total": "5",
+      "missing_markers": "",
+      "next_action": "Use audit export before bulk lead handoff, supplier/lawyer routing or invoice chase."
+    },
+    {
+      "id": "WT-SRC-09",
+      "gate": "webhook_not_live_until_provider_gates",
+      "status": "PASS",
+      "file": "inc/lead-crm.php",
+      "evidence": "Connector panel keeps webhook ingestion explicitly not-live until official provider controls are approved.",
+      "markers_found": "5",
+      "markers_total": "5",
+      "missing_markers": "",
+      "next_action": "Use official WhatsApp/TalkTo provider routes only; no scraping, login automation or bypassing platform protections."
+    }
+  ],
+  "rows": [
+    {
+      "id": "SURFACE-01",
+      "type": "existing_admin_surface",
+      "stage": "manual_capture",
+      "status": "READY_ADMIN_ONLY",
+      "required_evidence": "Owner/admin pastes inbound WhatsApp, email, phone or TalkTo lead into Justice CRM with source reference.",
+      "allowed_action": "Create a private justice_lead only when the owner approves real lead creation for that source.",
+      "blocked_action": "Do not create real CRM records from old chats in bulk without owner approval and import batch labeling.",
+      "repo_anchor": "inc/lead-crm.php manual bridge",
+      "linear_anchor": "HAD-87",
+      "next_owner_action": "For the UK WhatsApp lead, approve or hold real private CRM lead creation."
+    },
+    {
+      "id": "SURFACE-02",
+      "type": "existing_admin_surface",
+      "stage": "bulk_import",
+      "status": "READY_ADMIN_ONLY",
+      "required_evidence": "CSV export has source system, batch label, source page or thread/import ID where available.",
+      "allowed_action": "Stage up to 200 rows per paste with routing_hold=1 and dedupe fingerprint.",
+      "blocked_action": "Do not route legacy rows; default old leads to legacy_needs_repermission.",
+      "repo_anchor": "inc/lead-crm.php import staging",
+      "linear_anchor": "HAD-87",
+      "next_owner_action": "Provide TalkTo or WhatsApp export format when ready; start with a small batch."
+    },
+    {
+      "id": "GATE-01",
+      "type": "safety_gate",
+      "stage": "consent",
+      "status": "REQUIRED_BEFORE_ROUTING",
+      "required_evidence": "consent_status is explicit_match_consent or owner_verified_consent, and the owner/admin checked the permission evidence.",
+      "allowed_action": "Proceed to no-PII partner preview and paid terms review.",
+      "blocked_action": "Do not route, expose client contact details, or introduce a lawyer/supplier.",
+      "repo_anchor": "inc/lead-crm.php consent options; inc/lead-routing.php consent gate",
+      "linear_anchor": "HAD-87",
+      "next_owner_action": "Use the permission queue for fresh or legacy inbound chats."
+    },
+    {
+      "id": "GATE-02",
+      "type": "safety_gate",
+      "stage": "routing_hold",
+      "status": "DEFAULT_ON",
+      "required_evidence": "routing_hold=1 remains until consent, commercial terms and owner release are all recorded.",
+      "allowed_action": "Keep internal classification, notes and no-PII readiness visible to the owner.",
+      "blocked_action": "Do not remove routing_hold just because the lead has a phone number or legal area.",
+      "repo_anchor": "inc/lead-routing.php routing_hold guard",
+      "linear_anchor": "HAD-87",
+      "next_owner_action": "Release only after the owner release queue confirms the lead is safe."
+    },
+    {
+      "id": "GATE-03",
+      "type": "safety_gate",
+      "stage": "no_pii_preview",
+      "status": "REQUIRED_BEFORE_PARTNER_CONTACT",
+      "required_evidence": "An anonymized preview describes area, urgency, city/region if safe, and required supplier/lawyer type without name, phone, email, documents or raw chat.",
+      "allowed_action": "Ask selected lawyer/supplier whether they accept the category, SLA and price/fee terms.",
+      "blocked_action": "Do not send screenshots, raw WhatsApp content, full phone number, exact address, or documents at preview stage.",
+      "repo_anchor": "inc/lead-crm.php partner preview / terms queue",
+      "linear_anchor": "HAD-87; HAD-97",
+      "next_owner_action": "Use no-PII preview before any UK-law, immigration or supplier quote contact."
+    },
+    {
+      "id": "GATE-04",
+      "type": "safety_gate",
+      "stage": "partner_terms",
+      "status": "REQUIRED_BEFORE_PII_RELEASE",
+      "required_evidence": "Partner accepted lead/case type, price or per-lead fee, response commitment, billing contact and any capacity limits.",
+      "allowed_action": "Record partner terms and move the lead toward owner release.",
+      "blocked_action": "Do not release client PII to a partner who has not accepted terms and billing contact requirements.",
+      "repo_anchor": "inc/lead-crm.php owner handoff release queue; inc/lawyer-prospects.php supplier/lawyer activation packet",
+      "linear_anchor": "HAD-79; HAD-87; HAD-97",
+      "next_owner_action": "For each supplier/lawyer category, record minimum fee and billing route before first handoff."
+    },
+    {
+      "id": "GATE-05",
+      "type": "safety_gate",
+      "stage": "billing_proof",
+      "status": "REQUIRED_BEFORE_REVENUE_CLAIM",
+      "required_evidence": "qualified_lead_billing_status, invoice reference or payment evidence URL, and owner note are stored.",
+      "allowed_action": "Claim invoice sent or paid only according to recorded evidence.",
+      "blocked_action": "Do not mark paid, claim revenue, or activate paid status without invoice/payment proof.",
+      "repo_anchor": "inc/lead-crm.php qualified lead billing queue",
+      "linear_anchor": "HAD-76; HAD-87",
+      "next_owner_action": "Use manual invoice/payment flow until Grow/Morning provider setup is fully verified."
+    },
+    {
+      "id": "GATE-06",
+      "type": "safety_gate",
+      "stage": "owner_release",
+      "status": "FINAL_MANUAL_GATE",
+      "required_evidence": "Client permission, partner terms and minimum paid fee are present; owner release is recorded.",
+      "allowed_action": "Prepare the controlled manual handoff. The system still sends nothing automatically.",
+      "blocked_action": "Do not automate the handoff or live webhook release from this report.",
+      "repo_anchor": "inc/lead-crm.php owner handoff release queue",
+      "linear_anchor": "HAD-87",
+      "next_owner_action": "Owner manually approves each first-category handoff before scale."
+    },
+    {
+      "id": "GATE-07",
+      "type": "integration_gate",
+      "stage": "whatsapp_talkto_webhook",
+      "status": "BLOCKED_PENDING_PROVIDER_APPROVAL",
+      "required_evidence": "Official provider route, signature/shared-secret method, pause switch, replay protection and approved permission text.",
+      "allowed_action": "Keep using manual/import bridge and connector-readiness panel.",
+      "blocked_action": "Do not build unattended scraping/login bots or bypass WhatsApp/TalkTo protections.",
+      "repo_anchor": "inc/lead-crm.php connector readiness panel",
+      "linear_anchor": "HAD-81; HAD-87",
+      "next_owner_action": "Provide official API/webhook docs or account settings when ready."
+    },
+    {
+      "id": "CASE-UK-01",
+      "type": "current_real_lead_packet",
+      "stage": "uk_law_whatsapp",
+      "status": "BLOCKED_OWNER_APPROVAL_FOR_REAL_CRM_RECORD",
+      "required_evidence": "Owner approves creating a private CRM lead from the Outlook/WhatsApp email and stores the source reference.",
+      "allowed_action": "If approved, create private lead with legal_area=uk-law, source_page_url=/uk-lawyer/, consent_status=fresh_inbound_needs_details, routing_hold=1.",
+      "blocked_action": "Do not send the client to a UK lawyer/supplier or charge until case details and match permission are clear.",
+      "repo_anchor": "inc/lead-classifier.php uk-law classification; inc/lead-crm.php manual bridge",
+      "linear_anchor": "HAD-87",
+      "next_owner_action": "Approve real CRM entry or keep the email as evidence only until more client details arrive."
+    },
+    {
+      "id": "CASE-UK-02",
+      "type": "current_real_lead_packet",
+      "stage": "uk_law_whatsapp",
+      "status": "NEXT_AFTER_OWNER_APPROVAL",
+      "required_evidence": "Client states what they need in UK law and agrees to be matched/contacted.",
+      "allowed_action": "Move consent to explicit_match_consent or owner_verified_consent, then run no-PII partner preview.",
+      "blocked_action": "Do not infer consent from pressing the WhatsApp button alone.",
+      "repo_anchor": "inc/lead-crm.php permission queue",
+      "linear_anchor": "HAD-87",
+      "next_owner_action": "Use an owner-approved short permission/details message."
+    },
+    {
+      "id": "MONEY-01",
+      "type": "commercial_path",
+      "stage": "find_register_take_money",
+      "status": "MANUAL_SAFE_PATH_AVAILABLE",
+      "required_evidence": "Routable lawyer/supplier profile, accepted terms, billing contact, lead fee or package price, owner release.",
+      "allowed_action": "Attach the client to a partner through the CRM, record billing queue state, then collect manual invoice/payment proof.",
+      "blocked_action": "Do not make automatic recurring billing, automated refunds or guaranteed supplier bids claims until provider tests pass.",
+      "repo_anchor": "inc/lead-crm.php billing queue; inc/lawyer-onboarding.php manual invoice path; inc/lawyer-suppliers.php supplier readiness",
+      "linear_anchor": "HAD-76; HAD-79; HAD-87",
+      "next_owner_action": "For each category, register at least one accepted partner with billing terms before routing."
+    }
+  ]
+}

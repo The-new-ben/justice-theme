@@ -5,16 +5,18 @@
 ---
 
 ### ACTION-MANAGED-LEGAL-SERVICE-FULFILLMENT-001: Add private fulfillment gate for packaged legal services
-**Status:** CODED / DEPLOYMENT VERIFICATION PENDING
+**Status:** FIXED LIVE / LINEAR DONE / OWNER EMAIL SENT
 **Why:** the owner wants to start infrastructuring the Lawhive-style managed legal-service path, but public launch must stay blocked until ethics, engagement, lawyer-of-record and payment gates are clear.
 **Actions:**
 1. DONE: add owner-only fulfillment meta for `justice_legal_request`: package, mode, status, managing lawyer, engagement letter, ethics review, price, payment status, case reference and owner note.
 2. DONE: add a `Managed service fulfillment gate` metabox on LegalTech requests.
 3. DONE: add a Justice CRM `Managed legal-service fulfillment preflight` panel.
 4. DONE: keep the revenue-stream map honest: AI-native managed legal services are started privately, but public product copy remains blocked.
-5. NEXT: commit, push, uPress Pull Git and verify live marker `2026-05-26-managed-service-fulfillment-v1`.
-6. NEXT: verify the CRM admin panel renders; if admin visual verification is blocked, record it as a blocker and keep the code-level checks.
+5. DONE: commit, push, uPress Pull Git and verify live marker `2026-05-26-managed-service-fulfillment-v1`.
+6. DONE: verify the CRM admin panel renders; `wp-admin -> Justice CRM` shows `Managed legal-service fulfillment preflight` and the ethics/Bar blocker text.
 7. BLOCKED: no public legal-service package, checkout, AI drafting, client portal, lawyer handoff, payment or email can go live before ethics/Bar engagement review and owner approval.
+8. DONE: created Linear issue `HAD-90`, marked Done.
+9. DONE: send Hebrew significant-progress email after checking instruction-subject mail.
 
 ### ACTION-HOMEPAGE-CUSTOMER-FIRST-001: Demote lawyer acquisition on the public homepage
 **Status:** FIXED LIVE / OWNER EMAIL SENT / LINEAR DONE

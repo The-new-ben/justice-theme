@@ -9,7 +9,10 @@
 - IMPLEMENTATION: registered owner-only fulfillment meta on `justice_legal_request`; added a LegalTech request metabox; added a Justice CRM preflight panel for package, managing lawyer, engagement letter, ethics review, price, client payment status and readiness.
 - SAFETY: no AI call, no payment, no client message, no lawyer notification, no routing, no public page, no checkout and no CMS database publication is triggered by the new gate.
 - BLOCKER PRESERVED: public launch remains blocked until ethics/Bar engagement structure, lawyer of record, signed client engagement and payment proof are recorded.
-- DEPLOYMENT STATUS: marker prepared as `2026-05-26-managed-service-fulfillment-v1`; live pull and verification still required.
+- DEPLOYED: commit `564d965c` pushed to `main`; uPress Pull Git completed; marker `2026-05-26-managed-service-fulfillment-v1` verified live.
+- VERIFIED: `wp-admin -> Justice CRM` shows `Managed legal-service fulfillment preflight` and the ethics/Bar blocker text. Public homepage and key pages return 200, homepage does not expose managed-service/internal fulfillment language, old public artifact URL returns 404 and dot-private artifact URL returns 403.
+- LINEAR: recorded as `HAD-90` and marked Done.
+- OWNER EMAIL: Hebrew significant-progress email sent to `info@jus-tice.co.il` after checking Gmail for instruction-subject emails; no new instruction-subject emails were found.
 
 # 2026-05-26 - Homepage customer-first cleanup
 

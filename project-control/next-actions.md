@@ -3368,6 +3368,19 @@ Next safe batch before any URL/content migration:
 5. When the preflight turns green, run one consented controlled Bituach Leumi lead only, then verify the lead appears in the qualified lead billing queue.
 6. Send the manual invoice/payment request and record invoice/payment proof before marking the lead Paid.
 
+## 2026-05-26 WHATSAPP CLIENT LEAD BRIDGE NEXT ACTIONS
+
+**Status:** PRIVATE INTAKE BRIDGE ADDED / REAL CLIENT ENTRY STILL NEEDS OWNER APPROVAL
+
+1. Open `wp-admin -> Justice CRM -> Manual WhatsApp / client lead bridge`.
+2. Paste the client details from WhatsApp, email or phone into the bridge instead of leaving them in Gmail/WhatsApp.
+3. Choose the handoff path: paid lawyer router, supplier marketplace review, or both.
+4. Confirm client consent before checking `Release to paid lawyer routing now`.
+5. Keep `Prepare a paid handoff billing record` checked when a lawyer/supplier has accepted a paid lead-fee model.
+6. If the lead routes, use `Qualified lead billing queue` to send/record the manual invoice/payment request.
+7. If no paid routable lawyer exists, use the `Prospect` action from the lead table or the supplier pipeline buttons to recruit/register a paid coverage partner.
+8. Do not mark the lead Paid until invoice/payment reference or payment evidence is recorded.
+
 ## 2026-05-11 CONTENT DECISION BATCH NEXT ACTIONS
 
 **Status:** VERIFIED REVIEW FILES CREATED / EXECUTION BLOCKED UNTIL EVIDENCE

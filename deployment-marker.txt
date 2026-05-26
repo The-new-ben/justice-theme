@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-26-btl-first-test-preflight-v1
-expected-github-main-commit=btl-first-test-preflight-v1
+justice-theme-deployment-marker=2026-05-26-whatsapp-client-lead-bridge-v1
+expected-github-main-commit=whatsapp-client-lead-bridge-v1
 purpose=public-static-file-check-for-upress-theme-sync

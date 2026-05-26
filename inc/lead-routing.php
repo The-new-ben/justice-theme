@@ -27,6 +27,11 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @param bool    $update  Whether this is an update.
  */
 function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool $update ): void {
+	if ( get_post_meta( $post_id, 'routing_hold', true ) ) {
+		update_post_meta( $post_id, 'routing_notes', 'Routing is on owner hold. Confirm consent, commercial terms and handoff path before releasing this lead.' );
+		return;
+	}
+
 	// Only route NEW leads, not updates to existing ones.
 	if ( $update && get_post_meta( $post_id, 'routing_completed', true ) ) {
 		return;

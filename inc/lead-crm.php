@@ -37,6 +37,14 @@ function justice_theme_crm_register_lead_meta(): void {
 		'qualified_lead_billable_lawyer_ids' => 'string',
 		'qualified_lead_payment_evidence_url' => 'string',
 		'qualified_lead_owner_note' => 'string',
+		'source_channel'            => 'string',
+		'source_reference'          => 'string',
+		'whatsapp_source_note'      => 'string',
+		'handoff_path'              => 'string',
+		'supplier_match_required'   => 'string',
+		'owner_revenue_next_step'   => 'string',
+		'routing_hold'              => 'string',
+		'manual_lead_created_by_user_id' => 'string',
 	);
 
 	foreach ( $fields as $key => $type ) {
@@ -91,6 +99,7 @@ function justice_theme_render_crm_admin_page(): void {
 			</div>
 		</div>
 
+		<?php justice_theme_crm_render_whatsapp_lead_bridge(); ?>
 		<?php justice_theme_crm_render_btl_supply_panel(); ?>
 		<?php justice_theme_crm_render_qualified_lead_billing_queue(); ?>
 
@@ -123,6 +132,297 @@ function justice_theme_render_crm_admin_page(): void {
 	</div>
 	<?php
 }
+
+function justice_theme_crm_render_whatsapp_lead_bridge(): void {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return;
+	}
+
+	$area_options = function_exists( 'justice_theme_lead_area_options' )
+		? justice_theme_lead_area_options()
+		: array( 'general' => 'General / review' );
+	?>
+	<div class="postbox" style="padding:0;margin:18px 0;border:1px solid #dcdcde;">
+		<div style="padding:16px 18px;border-bottom:1px solid #dcdcde;background:#fff;">
+			<h2 style="margin:0;">Manual WhatsApp / client lead bridge</h2>
+			<p style="margin:8px 0 0;color:#50575e;">Paste a client lead from WhatsApp, email or phone. The bridge creates a private CRM lead, can release it to paid lawyer routing when consent is confirmed, and can move routed paid handoffs into the manual billing queue.</p>
+		</div>
+		<div style="padding:18px;background:#f6f7f7;">
+			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<input type="hidden" name="action" value="justice_theme_create_whatsapp_lead">
+				<?php wp_nonce_field( 'justice_theme_create_whatsapp_lead', 'justice_theme_create_whatsapp_lead_nonce' ); ?>
+
+				<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
+					<label>
+						<strong>Source channel</strong>
+						<select name="source_channel" class="widefat">
+							<option value="whatsapp_manual">WhatsApp / manual paste</option>
+							<option value="email_forward">Email forward</option>
+							<option value="phone_call">Phone call</option>
+							<option value="owner_note">Owner note</option>
+						</select>
+					</label>
+					<label>
+						<strong>Handoff path</strong>
+						<select name="handoff_path" class="widefat">
+							<option value="lawyer_router">Find lawyer / paid lawyer router</option>
+							<option value="supplier_marketplace">Supplier marketplace review</option>
+							<option value="lawyer_and_supplier">Both lawyer and supplier review</option>
+						</select>
+					</label>
+					<label>
+						<strong>Legal area</strong>
+						<select name="legal_area" class="widefat">
+							<option value="">Needs review</option>
+							<?php foreach ( $area_options as $value => $label ) : ?>
+								<option value="<?php echo esc_attr( (string) $value ); ?>"><?php echo esc_html( (string) $label ); ?></option>
+							<?php endforeach; ?>
+						</select>
+					</label>
+					<label>
+						<strong>Suggested lead price (NIS)</strong>
+						<input type="number" min="0" step="1" name="suggested_lead_price_ils" value="249" class="widefat">
+					</label>
+				</div>
+
+				<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:14px;">
+					<label>
+						<strong>Client name</strong>
+						<input type="text" name="lead_name" class="widefat" autocomplete="off">
+					</label>
+					<label>
+						<strong>Client phone</strong>
+						<input type="tel" name="lead_phone" class="widefat" required autocomplete="off">
+					</label>
+					<label>
+						<strong>Client email</strong>
+						<input type="email" name="lead_email" class="widefat" autocomplete="off">
+					</label>
+					<label>
+						<strong>City / service area</strong>
+						<input type="text" name="lead_city" class="widefat" autocomplete="off">
+					</label>
+				</div>
+
+				<label style="display:block;margin-top:14px;">
+					<strong>Client message / WhatsApp text</strong>
+					<textarea name="lead_message" rows="4" class="widefat" required></textarea>
+				</label>
+
+				<label style="display:block;margin-top:14px;">
+					<strong>Source reference or owner note</strong>
+					<textarea name="source_reference" rows="2" class="widefat" placeholder="Gmail URL, WhatsApp screenshot note, sender, or consent context"></textarea>
+				</label>
+
+				<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:14px;">
+					<label style="background:#fff;border:1px solid #dcdcde;border-radius:6px;padding:10px;">
+						<input type="checkbox" name="lead_consent" value="1">
+						Client consent to be contacted / matched is confirmed.
+					</label>
+					<label style="background:#fff;border:1px solid #dcdcde;border-radius:6px;padding:10px;">
+						<input type="checkbox" name="release_to_router" value="1">
+						Release to paid lawyer routing now if coverage exists.
+					</label>
+					<label style="background:#fff;border:1px solid #dcdcde;border-radius:6px;padding:10px;">
+						<input type="checkbox" name="enable_billing_queue" value="1" checked>
+						Prepare a paid handoff billing record if this lead routes.
+					</label>
+				</div>
+
+				<p style="margin-top:14px;">
+					<button type="submit" class="button button-primary">Create CRM lead</button>
+					<a class="button" href="<?php echo esc_url( admin_url( 'edit.php?post_type=justice_supplier' ) ); ?>">Open supplier pipeline</a>
+					<a class="button" href="<?php echo esc_url( admin_url( 'edit.php?post_type=justice_lawyer' ) ); ?>">Open lawyer profiles</a>
+				</p>
+				<p class="description">If routing is not released, the lead stays on owner hold. If no paid routable lawyer exists, it becomes demand evidence for supplier/lawyer recruitment instead of being given away for free.</p>
+			</form>
+		</div>
+	</div>
+	<?php
+}
+
+add_action( 'admin_post_justice_theme_create_whatsapp_lead', 'justice_theme_crm_handle_whatsapp_lead_create' );
+
+function justice_theme_crm_handle_whatsapp_lead_create(): void {
+	if ( ! current_user_can( 'edit_pages' ) ) {
+		wp_die( esc_html__( 'You do not have permission to create CRM leads.', 'justice-theme' ), 403 );
+	}
+
+	$nonce = isset( $_POST['justice_theme_create_whatsapp_lead_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_theme_create_whatsapp_lead_nonce'] ) ) : '';
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'justice_theme_create_whatsapp_lead' ) ) {
+		wp_die( esc_html__( 'Security check failed.', 'justice-theme' ), 400 );
+	}
+
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		wp_safe_redirect( add_query_arg( 'justice_whatsapp_lead_created', 'blocked', admin_url( 'admin.php?page=justice-crm' ) ) );
+		exit;
+	}
+
+	$name    = isset( $_POST['lead_name'] ) ? sanitize_text_field( wp_unslash( $_POST['lead_name'] ) ) : '';
+	$phone   = isset( $_POST['lead_phone'] ) ? sanitize_text_field( wp_unslash( $_POST['lead_phone'] ) ) : '';
+	$email   = isset( $_POST['lead_email'] ) ? sanitize_email( wp_unslash( $_POST['lead_email'] ) ) : '';
+	$city    = isset( $_POST['lead_city'] ) ? sanitize_text_field( wp_unslash( $_POST['lead_city'] ) ) : '';
+	$message = isset( $_POST['lead_message'] ) ? sanitize_textarea_field( wp_unslash( $_POST['lead_message'] ) ) : '';
+	$area    = isset( $_POST['legal_area'] ) ? sanitize_key( wp_unslash( $_POST['legal_area'] ) ) : '';
+	$source_channel = isset( $_POST['source_channel'] ) ? sanitize_key( wp_unslash( $_POST['source_channel'] ) ) : 'whatsapp_manual';
+	$handoff_path   = isset( $_POST['handoff_path'] ) ? sanitize_key( wp_unslash( $_POST['handoff_path'] ) ) : 'lawyer_router';
+	$source_reference = isset( $_POST['source_reference'] ) ? sanitize_textarea_field( wp_unslash( $_POST['source_reference'] ) ) : '';
+	$source_url       = $source_reference && preg_match( '#^https?://#i', $source_reference ) ? esc_url_raw( $source_reference ) : admin_url( 'admin.php?page=justice-crm' );
+	$suggested_price  = isset( $_POST['suggested_lead_price_ils'] ) ? absint( wp_unslash( $_POST['suggested_lead_price_ils'] ) ) : 0;
+	$has_consent      = ! empty( $_POST['lead_consent'] );
+	$release_requested = ! empty( $_POST['release_to_router'] );
+	$enable_billing_queue = ! empty( $_POST['enable_billing_queue'] ) && $suggested_price > 0;
+
+	$valid_channels = array( 'whatsapp_manual', 'email_forward', 'phone_call', 'owner_note' );
+	if ( ! in_array( $source_channel, $valid_channels, true ) ) {
+		$source_channel = 'whatsapp_manual';
+	}
+
+	$valid_handoff_paths = array( 'lawyer_router', 'supplier_marketplace', 'lawyer_and_supplier' );
+	if ( ! in_array( $handoff_path, $valid_handoff_paths, true ) ) {
+		$handoff_path = 'lawyer_router';
+	}
+
+	$release_to_router = $release_requested && $has_consent && in_array( $handoff_path, array( 'lawyer_router', 'lawyer_and_supplier' ), true );
+
+	if ( function_exists( 'justice_theme_lead_area_values' ) && $area && ! in_array( $area, justice_theme_lead_area_values(), true ) ) {
+		$area = '';
+	}
+
+	if ( '' === $phone || '' === $message ) {
+		wp_safe_redirect( add_query_arg( 'justice_whatsapp_lead_created', 'missing', admin_url( 'admin.php?page=justice-crm' ) ) );
+		exit;
+	}
+
+	$title = sprintf(
+		'Manual client lead - %s - %s',
+		$name ?: $phone,
+		$area ?: 'review'
+	);
+
+	$lead_id = wp_insert_post( array(
+		'post_type'   => 'justice_lead',
+		'post_title'  => $title,
+		'post_status' => 'publish',
+	) );
+
+	if ( ! $lead_id || is_wp_error( $lead_id ) ) {
+		wp_safe_redirect( add_query_arg( 'justice_whatsapp_lead_created', 'failed', admin_url( 'admin.php?page=justice-crm' ) ) );
+		exit;
+	}
+
+	update_post_meta( $lead_id, 'routing_hold', '1' );
+
+	$meta = array(
+		'visitor_name'        => $name,
+		'visitor_phone'       => $phone,
+		'visitor_email'       => $email,
+		'lead_name'           => $name,
+		'lead_phone'          => $phone,
+		'lead_email'          => $email,
+		'city'                => $city,
+		'visitor_city'        => $city,
+		'lead_city'           => $city,
+		'legal_area'          => $area,
+		'message'             => $message,
+		'lead_message'        => $message,
+		'urgency'             => 'normal',
+		'lead_status'         => 'new',
+		'consent'             => $has_consent ? '1' : '0',
+		'source_channel'      => $source_channel,
+		'source_reference'    => $source_reference,
+		'whatsapp_source_note' => $source_reference,
+		'source_url'          => $source_url,
+		'handoff_path'        => $handoff_path,
+		'supplier_match_required' => in_array( $handoff_path, array( 'supplier_marketplace', 'lawyer_and_supplier' ), true ) ? '1' : '0',
+		'manual_lead_created_by_user_id' => get_current_user_id(),
+		'owner_revenue_next_step' => justice_theme_crm_manual_lead_next_step( $handoff_path, $release_to_router, $enable_billing_queue ),
+	);
+
+	foreach ( $meta as $key => $value ) {
+		update_post_meta( $lead_id, $key, $value );
+	}
+
+	if ( $enable_billing_queue ) {
+		update_post_meta( $lead_id, 'lead_revenue_model', 'manual_paid_handoff' );
+		update_post_meta( $lead_id, 'suggested_lead_price_ils', (string) $suggested_price );
+		update_post_meta(
+			$lead_id,
+			'lead_revenue_notes',
+			'Manual WhatsApp/email client handoff: confirm lawyer or supplier accepted paid terms before marking invoice sent or paid.'
+		);
+	}
+
+	$post = get_post( $lead_id );
+	if ( $post && function_exists( 'justice_theme_classify_lead_on_save' ) ) {
+		justice_theme_classify_lead_on_save( $lead_id, $post, true );
+	}
+
+	$routing_area = (string) ( get_post_meta( $lead_id, 'ai_detected_area', true ) ?: get_post_meta( $lead_id, 'legal_area', true ) );
+	if ( $release_to_router && $post && $routing_area && 'general' !== $routing_area && function_exists( 'justice_theme_route_lead_to_lawyers' ) ) {
+		delete_post_meta( $lead_id, 'routing_hold' );
+		justice_theme_route_lead_to_lawyers( $lead_id, $post, true );
+	} elseif ( ! $has_consent ) {
+		update_post_meta( $lead_id, 'routing_notes', 'Routing held: client consent was not confirmed in the manual bridge.' );
+	} elseif ( $release_requested && ! in_array( $handoff_path, array( 'lawyer_router', 'lawyer_and_supplier' ), true ) ) {
+		update_post_meta( $lead_id, 'routing_notes', 'Routing held: this manual lead was marked for supplier marketplace review, not lawyer router release.' );
+	} elseif ( ! $release_to_router ) {
+		update_post_meta( $lead_id, 'routing_notes', 'Routing held: owner did not release this manual lead to the router yet.' );
+	}
+
+	if ( $post && function_exists( 'justice_theme_update_lead_coverage_status_on_save' ) ) {
+		justice_theme_update_lead_coverage_status_on_save( $lead_id, $post, true, true );
+	}
+
+	wp_safe_redirect( add_query_arg( 'justice_whatsapp_lead_created', '1', get_edit_post_link( $lead_id, 'raw' ) ?: admin_url( 'admin.php?page=justice-crm' ) ) );
+	exit;
+}
+
+function justice_theme_crm_manual_lead_next_step( string $handoff_path, bool $released, bool $billing_enabled ): string {
+	$steps = array();
+
+	if ( in_array( $handoff_path, array( 'lawyer_router', 'lawyer_and_supplier' ), true ) ) {
+		$steps[] = $released
+			? 'Check routing notes and routed lawyer IDs; if routed, use the billing queue before marking paid.'
+			: 'Confirm client consent and paid lawyer terms, then release from routing hold.';
+	}
+
+	if ( in_array( $handoff_path, array( 'supplier_marketplace', 'lawyer_and_supplier' ), true ) ) {
+		$steps[] = 'Match against the supplier pipeline or add a supplier prospect with bid/pricing terms.';
+	}
+
+	if ( $billing_enabled ) {
+		$steps[] = 'Invoice/payment proof must be recorded before this is counted as revenue.';
+	}
+
+	return implode( ' ', $steps );
+}
+
+function justice_theme_crm_manual_lead_notice(): void {
+	if ( empty( $_GET['justice_whatsapp_lead_created'] ) ) {
+		return;
+	}
+
+	$status = sanitize_key( wp_unslash( $_GET['justice_whatsapp_lead_created'] ) );
+	$messages = array(
+		'1'       => array( 'success', 'Manual client lead created. Review routing notes, supplier need and billing status before handoff.' ),
+		'missing' => array( 'error', 'Manual client lead was not created: phone and message are required.' ),
+		'failed'  => array( 'error', 'Manual client lead was not created because WordPress could not save it.' ),
+		'blocked' => array( 'error', 'Manual client lead was not created because the justice_lead post type is unavailable.' ),
+	);
+
+	$notice = $messages[ $status ] ?? null;
+	if ( ! $notice ) {
+		return;
+	}
+
+	printf(
+		'<div class="notice notice-%1$s is-dismissible"><p>%2$s</p></div>',
+		esc_attr( $notice[0] ),
+		esc_html( $notice[1] )
+	);
+}
+add_action( 'admin_notices', 'justice_theme_crm_manual_lead_notice' );
 
 function justice_theme_crm_render_uncovered_demand_summary(): void {
 	$signals = justice_theme_crm_uncovered_demand_summary( 200 );

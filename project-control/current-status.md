@@ -6524,6 +6524,20 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: still needs three real eligible specialists with recorded billing contacts, one consented controlled lead and invoice/payment proof; no lead, lawyer, CMS record, payment, email or public page was changed.
 - COMPLETION ASSESSMENT: Bituach Leumi routing-readiness visibility 90%; first-paid-lead operational readiness 68%; realized revenue proof remains 0% until a real payment is recorded.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Justice CRM -> Bituach Leumi specialist supply -> First paid-lead routing preflight.
+
+## 2026-05-26 WHATSAPP CLIENT LEAD BRIDGE
+- EMAIL CHECK: Gmail was searched for recent WhatsApp/client/instruction-like messages. A real client-style contact-form email from Maya's office was found, but no message clearly labeled as WhatsApp was found in the recent search window.
+- CODE UPDATED: Justice CRM now includes an owner-only `Manual WhatsApp / client lead bridge`.
+- CODE UPDATED: the bridge lets the owner paste a WhatsApp/email/phone client lead, choose source channel, handoff path, legal area, price, consent status and whether to release to paid lawyer routing now.
+- CODE UPDATED: manual leads are created with `routing_hold=1` first, so meta/classification can be saved before any lawyer receives the lead.
+- CODE UPDATED: if consent and release are checked, the bridge removes the hold and calls the existing paid lawyer router; if no routable lawyer exists, the lead remains demand evidence for recruitment.
+- CODE UPDATED: if paid handoff is enabled, the lead receives `lead_revenue_model=manual_paid_handoff` and a suggested lead price so the existing qualified lead billing queue can request/manual-record payment after routing.
+- CODE UPDATED: supplier handoff paths mark `supplier_match_required=1` and point the owner to the existing supplier pipeline instead of exposing supplier workflow publicly.
+- SAFETY: no real CRM lead was created from the email, no client was contacted, no lawyer/supplier received a lead, no payment was charged and no public page was published or changed.
+- MONEY IMPACT: this connects off-site demand (WhatsApp/email/client messages) into the same find-lawyer, supplier review and manual billing system instead of losing it in inbox/chat.
+- BLOCKED: owner/admin still needs to paste the actual client details, confirm consent, choose a handoff path and record invoice/payment proof after any paid handoff.
+- COMPLETION ASSESSMENT: WhatsApp-to-CRM intake 85%; supplier/lawyer handoff 70%; realized revenue proof 0% until a real routed paid lead is billed and paid.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Justice CRM -> Manual WhatsApp / client lead bridge.
 ## LATEST WORK STATUS - 2026-05-22 14:38 Asia/Jerusalem
 - CRIMINAL OWNER REVIEW PACKET: converted the five current-URL Criminal first-upload targets into a controlled owner/legal/source review gate.
 - TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.

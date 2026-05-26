@@ -5077,3 +5077,9 @@
 - 2026-05-26: Added the private Bituach Leumi verified-to-routable activation gap board and aligned the active-routable specialist count with the real public lead router. `Won / onboarding` prospects remain visible for activation review until a published routable profile exists. No CMS record, routing flag, payment, public card, email or public page was changed.
 - 2026-05-26: Added the private Bituach Leumi first paid-lead routing preflight and made the CRM routable-specialist count respect live router monthly-cap availability. The panel lists eligible lawyers, capacity and billing/contact readiness before a controlled paid-lead test. No lead, lawyer, CMS record, payment, email, public page, redirect, canonical, sitemap or taxonomy was changed.
 - 2026-05-26: Added the private WhatsApp/client lead bridge inside Justice CRM. Owner can paste off-site WhatsApp/email/phone lead details, keep routing on hold until consent, release to the paid lawyer router when ready, flag supplier matching, and prepare a manual paid-handoff billing record. No real lead was created, no contact was sent, no payment was charged, and no public page, redirect, canonical, sitemap or taxonomy was changed.
+# 2026-05-26 - UK WhatsApp lead lane
+- UPDATED: `inc/lead-spam-guard.php`, `inc/lead-classifier.php`, `functions.php`, `deployment-marker.txt`, `project-control/current-status.md`, and `project-control/next-actions.md`.
+- ADDED: `uk-law` as a recognized lead area for the real WhatsApp lead that came from `/uk-lawyer/`.
+- CONFIRMED: the relevant Outlook mailbox is `info@jus-tice.co.il`, and the exact email/attachment exists.
+- READ: the attachment contains only an initial UK-law consultation request and no case details yet.
+- SAFETY: no live CRM lead, supplier, lawyer, invoice, payment, public page, redirect, canonical/noindex, sitemap, taxonomy, email reply or WhatsApp message was created in this code step.

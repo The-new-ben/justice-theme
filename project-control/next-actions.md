@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-UK-WHATSAPP-LEAD-SUPPLIER-HANDOFF-001: Process first UK-law WhatsApp lead through the private CRM bridge
+**Status:** FIXED CLASSIFICATION / VERIFIED MAILBOX / BLOCKED LIVE CRM ENTRY UNTIL OWNER APPROVES REAL LEAD CREATION
+**Why:** the owner sent a real WhatsApp lead from the `uk-lawyer` page and wants it handled through the system, including supplier/lawyer matching and paid handoff discipline.
+**Actions:**
+1. DONE: logged into `info@jus-tice.co.il` Outlook in the browser and confirmed the exact email subject.
+2. DONE: extracted the WhatsApp attachment through the Microsoft mail API after the browser download path was blocked.
+3. FOUND: the client asked for consultation on `עורך דין אנגליה` from `https://jus-tice.co.il/uk-lawyer/`, but did not provide case details after the automated prompt.
+4. DONE: add `uk-law` to the lead-area vocabulary and classifier so this demand does not fall into generic or Thailand/international handling.
+5. NEXT: after deployment, create one private CRM lead in `wp-admin -> Justice CRM -> Manual WhatsApp / client lead bridge` with `handoff_path=supplier_marketplace` or `lawyer_and_supplier`, `legal_area=uk-law`, routing hold on, and source reference to the Outlook email.
+6. BLOCKED: do not release to paid lawyer routing, contact suppliers, send client messages, create invoices or charge money until owner confirms consent and the first UK-law supplier/lawyer partner terms.
+7. VERIFY: after CRM entry, confirm it appears in the uncovered/supplier review queue and does not trigger public output.
+
 ### ACTION-MAYA-LAWYER-CMS-ACTIVATION-PACKET-001: Refresh Maya live status and prepare owner/operator CMS activation packet
 **Status:** FIXED PLANNING / VERIFIED LOCAL / VERIFIED LIVE READ-ONLY PARTIAL / BLOCKED PUBLIC CMS ACTIVATION / NO PUBLIC CMS CHANGE
 **Why:** the Maya Rotenberg mini-site remains high-value, but current public evidence shows the approved English profile route is not live and anonymous REST returns no Maya slug record. The next safe step is a precise activation packet, not a blind profile creation or redirect.

@@ -109,6 +109,7 @@ function justice_theme_rule_based_lead_classification( string $text, string $are
 	$lower_text      = function_exists( 'mb_strtolower' ) ? mb_strtolower( $text, 'UTF-8' ) : strtolower( $text );
 
 	$area_rules = array(
+		'uk-law' => array( 'אנגליה', 'בריטניה', 'לונדון', 'הממלכה המאוחדת', 'עורך דין אנגליה', 'עורך דין בריטניה', 'uk-lawyer', 'uk lawyer', 'england lawyer', 'united kingdom', 'britain', 'london', 'cross-border uk' ),
 		'family-law' => array( 'גירוש', 'משמורת', 'מזונות', 'הסכם ממון', 'כתובה', 'משפחה', 'divorce', 'custody' ),
 		'criminal-law' => array( 'חקירה', 'מעצר', 'כתב אישום', 'פלילי', 'משטרה', 'סמים', 'criminal', 'indictment' ),
 		'traffic-law' => array( 'תעבורה', 'דוח', 'שלילה', 'רישיון', 'שכרות', 'נהיגה', 'traffic', 'dui' ),
@@ -169,6 +170,14 @@ function justice_theme_normalize_lead_area( string $area ): string {
 	}
 
 	$map = array(
+		'uk'                      => 'uk-law',
+		'uk-law'                  => 'uk-law',
+		'uk_law'                  => 'uk-law',
+		'england'                 => 'uk-law',
+		'england-law'             => 'uk-law',
+		'britain'                 => 'uk-law',
+		'united-kingdom'          => 'uk-law',
+		'cross-border-uk'         => 'uk-law',
 		'family'                  => 'family-law',
 		'family-law'              => 'family-law',
 		'criminal'                => 'criminal-law',
@@ -208,6 +217,7 @@ function justice_theme_normalize_lead_area( string $area ): string {
 
 function justice_theme_lead_area_label( string $area ): string {
 	$labels = array(
+		'uk-law'                  => 'UK / cross-border law',
 		'family-law'              => 'דיני משפחה',
 		'criminal-law'            => 'משפט פלילי',
 		'traffic-law'             => 'דיני תעבורה',

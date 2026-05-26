@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-26 11:39 Asia/Jerusalem
+- UK WHATSAPP LEAD LANE ADDED: confirmed the `info@jus-tice.co.il` Outlook mailbox contains the exact owner-sent WhatsApp email: `WhatsApp Chat with +972 50-883-6331 הוראות נא לטפל דרך המערכת`.
+- LEAD CONTENT READ: attachment says the client asked from `/uk-lawyer/` for `עורך דין אנגליה | עו"ד ישראלי ליווי וייצוג משפטי באנגליה`; no detailed case facts were provided yet.
+- CODE UPDATED: added `uk-law` as a recognized lead area in the public/admin lead vocabulary and rule-based classifier, including `uk-lawyer`, England, Britain, London and Hebrew UK keywords.
+- ROUTING DECISION: this lead should enter the private CRM as an owner-held `uk-law` supplier/lawyer review lead until consent and a paid/approved UK-law supplier path exist. It must not be auto-routed as a paid lead yet.
+- DEPLOYMENT STATUS: repo marker prepared as `2026-05-26-uk-whatsapp-lead-lane-v1`; live pull and marker verification still required after commit.
+- SAFETY: mailbox read and repo classification/marker changes only; no real CRM lead, supplier record, lawyer record, invoice, payment, email reply, WhatsApp message, public page, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-25 19:34 Asia/Jerusalem
 - SEO PACK CANNIBALIZATION GATE ADDED: checked the 7 proposed SEO-pack page drafts against the current public URL export before any WordPress publishing.
 - ADDED: `tools/check-seo-pack-cannibalization-gate.mjs`, `project-control/seo-pack-cannibalization-gate-2026-05-25.md`, `reports/seo-pack-cannibalization-gate-2026-05-25.json`, and `reports/seo-pack-cannibalization-gate-2026-05-25.csv`.

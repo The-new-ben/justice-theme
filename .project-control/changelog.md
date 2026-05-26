@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Private artifact script migration pass 3
+
+- UPDATED: `tools/build-medical-malpractice-readiness-dashboard.mjs`, `tools/build-medical-malpractice-gsc-decision-map.mjs`, `tools/build-medical-malpractice-owner-decision-packet.mjs`, `tools/build-medical-malpractice-duplicate-identity-review.mjs`.
+- GENERATED: `.project-control/private-artifact-script-migration-medical-malpractice-2026-05-26.md`, `.project-control/private-artifact-script-migration-medical-malpractice-2026-05-26.csv`, private Medical Malpractice readiness, GSC, protected URL, cannibalization, owner decision and duplicate-identity artifacts under `.project-control` and `.reports`.
+- PURPOSE: continue migrating old repo tools away from public-root `project-control` and `reports` paths.
+- VERIFIED LOCAL: syntax checks passed for all four migrated tools; the full Medical Malpractice planning chain generated private outputs; boundary checker returned `PASS`.
+- RESULT: legacy public-root references fell from `512` to `440`; strict `--fail-on-legacy-writers` remains deferred until remaining old tools are migrated.
+- CONTENT SAFETY: generated Medical Malpractice GSC artifacts used baseline dashboard mode, not a fresh focused owner-approved export; the generated owner decision packet has `0` approved-for-upload rows.
+- SAFETY: repo-local tool/docs/report change only; no public CMS page, lead, lawyer, supplier, payment, invoice, email, WhatsApp, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-26 - Private artifact script migration pass 2
 
 - UPDATED: `tools/build-family-divorce-gsc-decision-map.mjs`, `tools/build-family-divorce-protected-url-review-packet.mjs`, `tools/build-family-law-live-repair-readiness-gate.mjs`, `tools/apply-family-divorce-child-custody-draft-merges.mjs`, `tools/apply-family-divorce-child-support-draft-merges.mjs`, `tools/apply-family-divorce-property-division-draft-merges.mjs`.

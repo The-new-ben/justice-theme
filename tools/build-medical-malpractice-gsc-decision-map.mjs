@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), '..');
-const DEFAULT_GSC_DIR = path.join(ROOT, 'reports', 'gsc');
+const DEFAULT_GSC_DIR = path.join(ROOT, '.reports', 'gsc');
 const DEFAULT_BLOCKED_ACTIONS = 'cms_upload; slug_change; redirect; canonical_change; noindex; sitemap_change; taxonomy_change; public_internal_link_write';
 
 const DECISION_COLUMNS = [
@@ -29,7 +29,7 @@ function dateDaysAgo(daysAgo) {
 }
 
 function findLatestProjectControlFile(pattern) {
-  const dir = path.join(ROOT, 'project-control');
+  const dir = path.join(ROOT, '.project-control');
   return readdirSync(dir)
     .filter((fileName) => pattern.test(fileName))
     .sort()
@@ -66,30 +66,30 @@ function printHelp() {
 
 Usage:
   node tools/build-medical-malpractice-gsc-decision-map.mjs
-  node tools/build-medical-malpractice-gsc-decision-map.mjs --gscDir=reports/gsc/medical-malpractice-YYYY-MM-DD --reportDate=YYYY-MM-DD
+  node tools/build-medical-malpractice-gsc-decision-map.mjs --gscDir=.reports/gsc/medical-malpractice-YYYY-MM-DD --reportDate=YYYY-MM-DD
 
 Inputs:
   Focused export: medical-malpractice-pages.csv, medical-malpractice-query-page.csv, medical-malpractice-cannibalization.csv
-  Baseline: project-control/medical-malpractice-readiness-dashboard-YYYY-MM-DD.csv
+  Baseline: .project-control/medical-malpractice-readiness-dashboard-YYYY-MM-DD.csv
 
 Outputs:
-  reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv
-  reports/medical-malpractice-protected-url-decision-map-YYYY-MM-DD.csv
-  reports/medical-malpractice-cannibalization-decision-map-YYYY-MM-DD.csv
-  reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.json
-  project-control/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv
-  project-control/medical-malpractice-gsc-decision-map-YYYY-MM-DD.md
+  .reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv
+  .reports/medical-malpractice-protected-url-decision-map-YYYY-MM-DD.csv
+  .reports/medical-malpractice-cannibalization-decision-map-YYYY-MM-DD.csv
+  .reports/medical-malpractice-gsc-decision-map-YYYY-MM-DD.json
+  .project-control/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv
+  .project-control/medical-malpractice-gsc-decision-map-YYYY-MM-DD.md
 `);
 }
 
 function buildFiles(reportDate) {
   return {
-    outputCsv: path.join(ROOT, 'reports', `medical-malpractice-gsc-decision-map-${reportDate}.csv`),
-    protectedCsv: path.join(ROOT, 'reports', `medical-malpractice-protected-url-decision-map-${reportDate}.csv`),
-    cannibalizationCsv: path.join(ROOT, 'reports', `medical-malpractice-cannibalization-decision-map-${reportDate}.csv`),
-    outputJson: path.join(ROOT, 'reports', `medical-malpractice-gsc-decision-map-${reportDate}.json`),
-    projectCsv: path.join(ROOT, 'project-control', `medical-malpractice-gsc-decision-map-${reportDate}.csv`),
-    projectMd: path.join(ROOT, 'project-control', `medical-malpractice-gsc-decision-map-${reportDate}.md`),
+    outputCsv: path.join(ROOT, '.reports', `medical-malpractice-gsc-decision-map-${reportDate}.csv`),
+    protectedCsv: path.join(ROOT, '.reports', `medical-malpractice-protected-url-decision-map-${reportDate}.csv`),
+    cannibalizationCsv: path.join(ROOT, '.reports', `medical-malpractice-cannibalization-decision-map-${reportDate}.csv`),
+    outputJson: path.join(ROOT, '.reports', `medical-malpractice-gsc-decision-map-${reportDate}.json`),
+    projectCsv: path.join(ROOT, '.project-control', `medical-malpractice-gsc-decision-map-${reportDate}.csv`),
+    projectMd: path.join(ROOT, '.project-control', `medical-malpractice-gsc-decision-map-${reportDate}.md`),
   };
 }
 

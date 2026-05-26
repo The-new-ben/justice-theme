@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-26 20:50 Asia/Jerusalem
+- PRIVATE ARTIFACT SCRIPT MIGRATION PASS 3 VERIFIED LOCAL: migrated the Medical Malpractice planning tools away from public-root artifact paths.
+- CODE UPDATED: `tools/build-medical-malpractice-readiness-dashboard.mjs`, `tools/build-medical-malpractice-gsc-decision-map.mjs`, `tools/build-medical-malpractice-owner-decision-packet.mjs` and `tools/build-medical-malpractice-duplicate-identity-review.mjs` now use `.project-control` and `.reports`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/private-artifact-script-migration-medical-malpractice-2026-05-26.md`, `.project-control/private-artifact-script-migration-medical-malpractice-2026-05-26.csv`, plus private Medical Malpractice readiness, GSC, protected URL, cannibalization, owner decision and duplicate-identity artifacts.
+- VERIFIED LOCAL: syntax checks passed for all four migrated tools; readiness generated `249` private rows; GSC map generated `187` decision rows; owner packet generated `69` rows with `0` approved for upload; duplicate identity review covered IDs `11607` and `1130`; boundary guard returned `PASS`.
+- CONTENT SAFETY: generated Medical Malpractice artifacts use baseline dashboard mode, not a fresh owner-approved focused export. They are for anti-cannibalization and owner-decision review only and do not approve CMS upload or SEO changes.
+- RISK REDUCTION: legacy public-root references dropped from `512` to `440`. Strict `--fail-on-legacy-writers` remains deferred until supplier/content packet writers are migrated.
+- PUBLIC IMPACT: none. No public CMS page, lead, lawyer, supplier, payment, invoice, email, WhatsApp, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-26 20:40 Asia/Jerusalem
 - PRIVATE ARTIFACT SCRIPT MIGRATION PASS 2 VERIFIED LOCAL: migrated the Family/Divorce planning tools away from public-root artifact paths.
 - CODE UPDATED: `tools/build-family-divorce-gsc-decision-map.mjs`, `tools/build-family-divorce-protected-url-review-packet.mjs`, `tools/build-family-law-live-repair-readiness-gate.mjs` and the three Family/Divorce draft-merge scripts now use `.project-control`, `.reports` and `.content-drafts`.

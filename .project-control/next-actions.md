@@ -88,6 +88,10 @@
 16. VERIFIED LOCAL: syntax checks passed; Family/Divorce GSC map and protected-URL packet generated only private outputs; the boundary guard returned `PASS` and public-root references dropped from `563` to `512`.
 17. GENERATED: `.project-control/private-artifact-script-migration-family-divorce-2026-05-26.md` and `.csv`.
 18. NEXT: continue with Medical Malpractice and supplier/content packet tools before enabling strict `--fail-on-legacy-writers`.
+19. DONE: migrated the Medical Malpractice readiness, GSC decision, owner-decision and duplicate-identity tools to dot-private paths.
+20. VERIFIED LOCAL: syntax checks passed; the full Medical Malpractice planning chain generated only private outputs; the boundary guard returned `PASS` and public-root references dropped from `512` to `440`.
+21. GENERATED: `.project-control/private-artifact-script-migration-medical-malpractice-2026-05-26.md` and `.csv`.
+22. NEXT: continue with supplier/content packet tools before enabling strict `--fail-on-legacy-writers`.
 
 ### ACTION-WHATSAPP-TALKTO-CONSENT-CRM-001: Build consent-safe intake for WhatsApp, TalkTo and legacy leads
 **Status:** OWNER RELEASE GATE DEPLOYED LIVE / PROVIDER ROUTE BLOCKED

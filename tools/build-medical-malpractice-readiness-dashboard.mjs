@@ -6,15 +6,15 @@ const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), '..');
 
 const INPUTS = {
-  ownerReview: path.join(ROOT, 'project-control', 'medical-malpractice-owner-upload-review-package-2026-05-11.csv'),
-  currentReadiness: path.join(ROOT, 'project-control', 'medical-malpractice-current-url-upload-readiness-2026-05-11.csv'),
-  supportHub: path.join(ROOT, 'project-control', 'medical-malpractice-support-to-hub-map-2026-05-18.csv'),
-  routeReview: path.join(ROOT, 'project-control', 'medical-malpractice-clean-slug-route-review-2026-05-18.csv'),
-  internalLinks: path.join(ROOT, 'project-control', 'medical-malpractice-no-url-internal-link-map-2026-05-11.csv'),
-  sourceLegal: path.join(ROOT, 'project-control', 'medical-malpractice-source-legal-checklist-2026-05-11.csv'),
-  contentAudit: path.join(ROOT, 'project-control', 'content-quality-audit.csv'),
-  urlMigration: path.join(ROOT, 'project-control', 'url-migration-map.csv'),
-  cannibalization: path.join(ROOT, 'project-control', 'cannibalization-map.csv'),
+  ownerReview: path.join(ROOT, '.project-control', 'medical-malpractice-owner-upload-review-package-2026-05-11.csv'),
+  currentReadiness: path.join(ROOT, '.project-control', 'medical-malpractice-current-url-upload-readiness-2026-05-11.csv'),
+  supportHub: path.join(ROOT, '.project-control', 'medical-malpractice-support-to-hub-map-2026-05-18.csv'),
+  routeReview: path.join(ROOT, '.project-control', 'medical-malpractice-clean-slug-route-review-2026-05-18.csv'),
+  internalLinks: path.join(ROOT, '.project-control', 'medical-malpractice-no-url-internal-link-map-2026-05-11.csv'),
+  sourceLegal: path.join(ROOT, '.project-control', 'medical-malpractice-source-legal-checklist-2026-05-11.csv'),
+  contentAudit: path.join(ROOT, '.project-control', 'content-quality-audit.csv'),
+  urlMigration: path.join(ROOT, '.project-control', 'url-migration-map.csv'),
+  cannibalization: path.join(ROOT, '.project-control', 'cannibalization-map.csv'),
 };
 
 const REQUIRED_SOURCES = Object.keys(INPUTS);
@@ -97,10 +97,10 @@ function parseArgs() {
 function outputFiles(reportDate) {
   const base = `medical-malpractice-readiness-dashboard-${reportDate}`;
   return {
-    reportCsv: path.join(ROOT, 'reports', `${base}.csv`),
-    reportJson: path.join(ROOT, 'reports', `${base}.json`),
-    projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),
-    projectMd: path.join(ROOT, 'project-control', `${base}.md`),
+    reportCsv: path.join(ROOT, '.reports', `${base}.csv`),
+    reportJson: path.join(ROOT, '.reports', `${base}.json`),
+    projectCsv: path.join(ROOT, '.project-control', `${base}.csv`),
+    projectMd: path.join(ROOT, '.project-control', `${base}.md`),
   };
 }
 
@@ -112,21 +112,21 @@ Usage:
   node tools/build-medical-malpractice-readiness-dashboard.mjs --reportDate=YYYY-MM-DD
 
 Inputs:
-  project-control/medical-malpractice-owner-upload-review-package-2026-05-11.csv
-  project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.csv
-  project-control/medical-malpractice-support-to-hub-map-2026-05-18.csv
-  project-control/medical-malpractice-clean-slug-route-review-2026-05-18.csv
-  project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.csv
-  project-control/medical-malpractice-source-legal-checklist-2026-05-11.csv
-  project-control/content-quality-audit.csv
-  project-control/url-migration-map.csv
-  project-control/cannibalization-map.csv
+  .project-control/medical-malpractice-owner-upload-review-package-2026-05-11.csv
+  .project-control/medical-malpractice-current-url-upload-readiness-2026-05-11.csv
+  .project-control/medical-malpractice-support-to-hub-map-2026-05-18.csv
+  .project-control/medical-malpractice-clean-slug-route-review-2026-05-18.csv
+  .project-control/medical-malpractice-no-url-internal-link-map-2026-05-11.csv
+  .project-control/medical-malpractice-source-legal-checklist-2026-05-11.csv
+  .project-control/content-quality-audit.csv
+  .project-control/url-migration-map.csv
+  .project-control/cannibalization-map.csv
 
 Outputs:
-  reports/medical-malpractice-readiness-dashboard-YYYY-MM-DD.csv
-  reports/medical-malpractice-readiness-dashboard-YYYY-MM-DD.json
-  project-control/medical-malpractice-readiness-dashboard-YYYY-MM-DD.csv
-  project-control/medical-malpractice-readiness-dashboard-YYYY-MM-DD.md
+  .reports/medical-malpractice-readiness-dashboard-YYYY-MM-DD.csv
+  .reports/medical-malpractice-readiness-dashboard-YYYY-MM-DD.json
+  .project-control/medical-malpractice-readiness-dashboard-YYYY-MM-DD.csv
+  .project-control/medical-malpractice-readiness-dashboard-YYYY-MM-DD.md
 `);
 }
 

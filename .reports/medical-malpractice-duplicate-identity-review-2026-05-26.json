@@ -1,0 +1,139 @@
+{
+  "summary": {
+    "reportDate": "2026-05-26",
+    "reviewedIds": [
+      "11607",
+      "1130"
+    ],
+    "outputRows": 8,
+    "samePublicUrl": true,
+    "distinctContentHashes": 2,
+    "slugConflictCount": "27",
+    "exactCurrentSlugCount": "2",
+    "proposedPrimaryPostId": "11607",
+    "qualityScores": {
+      "1130": "8",
+      "11607": "6"
+    },
+    "wordCounts": {
+      "1130": "3287",
+      "11607": "5135"
+    },
+    "uploadApproved": false,
+    "publicChanges": false
+  },
+  "rows": [
+    {
+      "review_id": "MEDMAL-DUP-ID-001",
+      "row_type": "DUPLICATE_SUMMARY",
+      "post_id": "",
+      "field": "same_public_url",
+      "value": "http://jus-tice.co.il/medical-malpractice-lawyer/",
+      "comparison_value": "ID 11607: %d7%a2%d7%95%d7%a8%d7%9a-%d7%93%d7%99%d7%9f-%d7%a8%d7%a9%d7%9c%d7%a0%d7%95%d7%aa-%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa-2 | ID 1130: %d7%a2%d7%95%d7%a8%d7%9a-%d7%93%d7%99%d7%9f-%d7%a8%d7%a9%d7%9c%d7%a0%d7%95%d7%aa-%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa",
+      "risk": "P0_DUPLICATE_PUBLIC_URL",
+      "recommended_owner_action": "RESOLVE_AUTHORITATIVE_CMS_RECORD_BEFORE_UPLOAD",
+      "required_before_action": "owner CMS identity decision; WordPress editor/database backup for both IDs; focused GSC export before URL decisions; source/legal review before body upload",
+      "blocked_public_actions": "NO_CMS_EDIT; NO_PUBLIC_UPLOAD; NO_URL_CHANGE; NO_REDIRECT; NO_CANONICAL_NOINDEX; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE",
+      "source_file": ".project-control/slug-conflict-review.csv",
+      "notes": "Slug conflict rows report 27 conflicts and 2 exact current slug records."
+    },
+    {
+      "review_id": "MEDMAL-DUP-ID-002",
+      "row_type": "CMS_RECORD",
+      "post_id": "11607",
+      "field": "record_profile",
+      "value": "title=עורך דין רשלנות רפואית | עו”ד רשלנות רפואית; slug=%d7%a2%d7%95%d7%a8%d7%9a-%d7%93%d7%99%d7%9f-%d7%a8%d7%a9%d7%9c%d7%a0%d7%95%d7%aa-%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa-2; words=5135; quality=6; published=2024-10-09T12:09:49; modified=2024-10-09T12:10:45; practice_area=308; media=0; featured_image=0; internal_links_out=NO",
+      "comparison_value": "Compare ID 1130: מומחים לענייני רשלנות רפואית; words=3287; quality=8",
+      "risk": "SAME_PUBLIC_URL",
+      "recommended_owner_action": "CANDIDATE_AUTHORITATIVE_RECORD_AFTER_OWNER_REVIEW",
+      "required_before_action": "owner CMS identity decision; WordPress editor/database backup for both IDs; focused GSC export before URL decisions; source/legal review before body upload",
+      "blocked_public_actions": "NO_CMS_EDIT; NO_PUBLIC_UPLOAD; NO_URL_CHANGE; NO_REDIRECT; NO_CANONICAL_NOINDEX; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE",
+      "source_file": ".project-control/content-master-inventory.csv + .project-control/content-quality-audit.csv",
+      "notes": "קיבלתם טיפול רפואי אשר גרם לכם לנזק? יתכן שמדובר במקרה של רשלנות רפואית. זוהי חריגה מסטנדרט הטיפול הסביר בגינה נגרמו למטופל נזקים אשר לא היו מתרחשים לולא רשלנות הרופא. במצב זה קמה לנפגע הזכות להגיש תביעה כספית לפיצויים. על מנת שיוכל לקבל את הפיצוי המירבי לו..."
+    },
+    {
+      "review_id": "MEDMAL-DUP-ID-003",
+      "row_type": "CMS_RECORD",
+      "post_id": "1130",
+      "field": "record_profile",
+      "value": "title=מומחים לענייני רשלנות רפואית; slug=%d7%a2%d7%95%d7%a8%d7%9a-%d7%93%d7%99%d7%9f-%d7%a8%d7%a9%d7%9c%d7%a0%d7%95%d7%aa-%d7%a8%d7%a4%d7%95%d7%90%d7%99%d7%aa; words=3287; quality=8; published=2020-01-09T08:19:21; modified=2022-09-21T19:51:10; practice_area=76; media=1; featured_image=1131; internal_links_out=YES",
+      "comparison_value": "Compare ID 11607: עורך דין רשלנות רפואית | עו”ד רשלנות רפואית; words=5135; quality=6",
+      "risk": "SAME_PUBLIC_URL",
+      "recommended_owner_action": "COMPARE_FOR_MERGE_ASSET_OR_HOLD_DECISION",
+      "required_before_action": "owner CMS identity decision; WordPress editor/database backup for both IDs; focused GSC export before URL decisions; source/legal review before body upload",
+      "blocked_public_actions": "NO_CMS_EDIT; NO_PUBLIC_UPLOAD; NO_URL_CHANGE; NO_REDIRECT; NO_CANONICAL_NOINDEX; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE",
+      "source_file": ".project-control/content-master-inventory.csv + .project-control/content-quality-audit.csv",
+      "notes": "כל אדם אשר נפגע מטיפול רפואי רשלני, זכאי לפיצוי כספי בגין הנזק הפיזי והנפשי שנגרם לו בשל הטיפול. לשם כך, יש לפנות לעורך דין רשלנות רפואית מומלץ המתמחה כתחום עיסוק עיקרי ברשלנות רפואית ולהגיש באמצעותו תביעה נזיקית נגד הגורם המתרשל. מתי טיפול רפואי הוא רשלני?..."
+    },
+    {
+      "review_id": "MEDMAL-DUP-ID-004",
+      "row_type": "FIELD_DELTA",
+      "post_id": "",
+      "field": "word_count_delta",
+      "value": "11607: 5135",
+      "comparison_value": "1130: 3287",
+      "risk": "CONTENT_MERGE_REVIEW",
+      "recommended_owner_action": "COMPARE_BODY_SECTIONS_BEFORE_OVERWRITE",
+      "required_before_action": "owner CMS identity decision; WordPress editor/database backup for both IDs; focused GSC export before URL decisions; source/legal review before body upload",
+      "blocked_public_actions": "NO_CMS_EDIT; NO_PUBLIC_UPLOAD; NO_URL_CHANGE; NO_REDIRECT; NO_CANONICAL_NOINDEX; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE",
+      "source_file": ".project-control/content-master-inventory.csv",
+      "notes": "Different word counts indicate different body states behind the same public URL."
+    },
+    {
+      "review_id": "MEDMAL-DUP-ID-005",
+      "row_type": "FIELD_DELTA",
+      "post_id": "",
+      "field": "quality_media_links_delta",
+      "value": "11607: quality=6; media=0; links=NO",
+      "comparison_value": "1130: quality=8; media=1; links=YES",
+      "risk": "DO_NOT_DROP_USEFUL_ASSETS",
+      "recommended_owner_action": "IF_FIRST_ID_IS_AUTHORITATIVE_REVIEW_WHETHER_SECOND_ID_MEDIA_LINKS_OR_SECTIONS_SHOULD_BE_MERGED",
+      "required_before_action": "owner CMS identity decision; WordPress editor/database backup for both IDs; focused GSC export before URL decisions; source/legal review before body upload",
+      "blocked_public_actions": "NO_CMS_EDIT; NO_PUBLIC_UPLOAD; NO_URL_CHANGE; NO_REDIRECT; NO_CANONICAL_NOINDEX; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE",
+      "source_file": ".project-control/content-master-inventory.csv + .project-control/content-quality-audit.csv",
+      "notes": "The newer record has more words; the older record has higher heuristic quality, a featured image and an outgoing internal link."
+    },
+    {
+      "review_id": "MEDMAL-DUP-ID-006",
+      "row_type": "FIELD_DELTA",
+      "post_id": "",
+      "field": "taxonomy_delta",
+      "value": "11607: practice_area=308",
+      "comparison_value": "1130: practice_area=76",
+      "risk": "TAXONOMY_ID_MISMATCH",
+      "recommended_owner_action": "CONFIRM_CANONICAL_MEDICAL_MALPRACTICE_TAXONOMY_BEFORE_CMS_SAVE",
+      "required_before_action": "taxonomy owner decision; source/legal review; current URL backup",
+      "blocked_public_actions": "NO_CMS_EDIT; NO_PUBLIC_UPLOAD; NO_URL_CHANGE; NO_REDIRECT; NO_CANONICAL_NOINDEX; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE",
+      "source_file": ".project-control/content-master-inventory.csv",
+      "notes": "Different practice_area IDs suggest taxonomy drift; do not normalize taxonomy during body upload unless explicitly approved."
+    },
+    {
+      "review_id": "MEDMAL-DUP-ID-007",
+      "row_type": "OWNER_PACKET_LINK",
+      "post_id": "",
+      "field": "duplicate_decision_rows",
+      "value": "0 duplicate identity decision rows in current owner packet",
+      "comparison_value": "",
+      "risk": "OWNER_DECISION_REQUIRED",
+      "recommended_owner_action": "OWNER_MARKS_AUTHORITATIVE_RECORD_OR_HOLD",
+      "required_before_action": "owner CMS identity decision; WordPress editor/database backup for both IDs; focused GSC export before URL decisions; source/legal review before body upload",
+      "blocked_public_actions": "NO_CMS_EDIT; NO_PUBLIC_UPLOAD; NO_URL_CHANGE; NO_REDIRECT; NO_CANONICAL_NOINDEX; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE",
+      "source_file": "NOT_AVAILABLE",
+      "notes": "Valid decisions: KEEP_11607_AS_AUTHORITATIVE, KEEP_1130_AS_AUTHORITATIVE, MERGE_1130_ASSETS_INTO_11607, HOLD_PENDING_WP_ADMIN_DB_CHECK."
+    },
+    {
+      "review_id": "MEDMAL-DUP-ID-008",
+      "row_type": "RECOMMENDED_SAFE_PATH",
+      "post_id": "",
+      "field": "pre_upload_sequence",
+      "value": "1 backup both IDs; 2 verify wp-admin/database canonical served record; 3 compare body/media/links; 4 choose authoritative record; 5 merge only approved assets; 6 keep current URL until GSC migration approval",
+      "comparison_value": "",
+      "risk": "UPLOAD_BLOCKED_UNTIL_RESOLVED",
+      "recommended_owner_action": "HOLD_MEDICAL_MALPRACTICE_UPLOAD_UNTIL_DUPLICATE_IDENTITY_IS_RESOLVED",
+      "required_before_action": "owner CMS identity decision; WordPress editor/database backup for both IDs; focused GSC export before URL decisions; source/legal review before body upload",
+      "blocked_public_actions": "NO_CMS_EDIT; NO_PUBLIC_UPLOAD; NO_URL_CHANGE; NO_REDIRECT; NO_CANONICAL_NOINDEX; NO_SITEMAP_CHANGE; NO_TAXONOMY_CHANGE",
+      "source_file": "DERIVED_FROM_LOCAL_EXPORTS",
+      "notes": "This packet is a decision aid only and does not select a final CMS record."
+    }
+  ]
+}

@@ -31,9 +31,9 @@ function parseArgs() {
   const args = {
     reportDate: process.env.REPORT_DATE || todayIso(),
     ids: DEFAULT_IDS,
-    inventory: path.join(ROOT, 'project-control', 'content-master-inventory.csv'),
-    quality: path.join(ROOT, 'project-control', 'content-quality-audit.csv'),
-    slugConflict: path.join(ROOT, 'project-control', 'slug-conflict-review.csv'),
+    inventory: path.join(ROOT, '.project-control', 'content-master-inventory.csv'),
+    quality: path.join(ROOT, '.project-control', 'content-quality-audit.csv'),
+    slugConflict: path.join(ROOT, '.project-control', 'slug-conflict-review.csv'),
     ownerPacket: '',
   };
 
@@ -59,7 +59,7 @@ function parseArgs() {
   if (!args.ownerPacket) {
     const sameDateOwnerPacket = path.join(
       ROOT,
-      'project-control',
+      '.project-control',
       `medical-malpractice-owner-decision-packet-${args.reportDate}.csv`,
     );
     args.ownerPacket = existsSync(sameDateOwnerPacket) ? sameDateOwnerPacket : '';
@@ -76,10 +76,10 @@ Usage:
   node tools/build-medical-malpractice-duplicate-identity-review.mjs --ids=11607,1130
 
 Outputs:
-  reports/medical-malpractice-duplicate-identity-review-YYYY-MM-DD.csv
-  reports/medical-malpractice-duplicate-identity-review-YYYY-MM-DD.json
-  project-control/medical-malpractice-duplicate-identity-review-YYYY-MM-DD.csv
-  project-control/medical-malpractice-duplicate-identity-review-YYYY-MM-DD.md
+  .reports/medical-malpractice-duplicate-identity-review-YYYY-MM-DD.csv
+  .reports/medical-malpractice-duplicate-identity-review-YYYY-MM-DD.json
+  .project-control/medical-malpractice-duplicate-identity-review-YYYY-MM-DD.csv
+  .project-control/medical-malpractice-duplicate-identity-review-YYYY-MM-DD.md
 `);
 }
 
@@ -161,10 +161,10 @@ function normalizeUrl(url) {
 function buildFiles(reportDate) {
   const base = `medical-malpractice-duplicate-identity-review-${reportDate}`;
   return {
-    reportCsv: path.join(ROOT, 'reports', `${base}.csv`),
-    reportJson: path.join(ROOT, 'reports', `${base}.json`),
-    projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),
-    projectMd: path.join(ROOT, 'project-control', `${base}.md`),
+    reportCsv: path.join(ROOT, '.reports', `${base}.csv`),
+    reportJson: path.join(ROOT, '.reports', `${base}.json`),
+    projectCsv: path.join(ROOT, '.project-control', `${base}.csv`),
+    projectMd: path.join(ROOT, '.project-control', `${base}.md`),
   };
 }
 
@@ -431,9 +431,9 @@ ${markdownTable(decisionRows)}
 
 ## Outputs
 
-- \`reports/medical-malpractice-duplicate-identity-review-${summary.reportDate}.csv\`
-- \`reports/medical-malpractice-duplicate-identity-review-${summary.reportDate}.json\`
-- \`project-control/medical-malpractice-duplicate-identity-review-${summary.reportDate}.csv\`
+- \`.reports/medical-malpractice-duplicate-identity-review-${summary.reportDate}.csv\`
+- \`.reports/medical-malpractice-duplicate-identity-review-${summary.reportDate}.json\`
+- \`.project-control/medical-malpractice-duplicate-identity-review-${summary.reportDate}.csv\`
 
 ## Safety
 

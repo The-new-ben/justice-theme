@@ -62,11 +62,11 @@ function parseArgs() {
 
   args.dashboard = args.dashboard
     ? path.resolve(args.dashboard)
-    : path.join(ROOT, 'project-control', `${DASHBOARD_PREFIX}-${args.reportDate}.csv`);
+    : path.join(ROOT, '.project-control', `${DASHBOARD_PREFIX}-${args.reportDate}.csv`);
 
   args.gsc = args.gsc
     ? path.resolve(args.gsc)
-    : path.join(ROOT, 'project-control', `${GSC_PREFIX}-${args.reportDate}.csv`);
+    : path.join(ROOT, '.project-control', `${GSC_PREFIX}-${args.reportDate}.csv`);
 
   if (!existsSync(args.dashboard)) {
     throw new Error(`Missing dashboard input: ${path.relative(ROOT, args.dashboard)}`);
@@ -85,14 +85,14 @@ Usage:
   node tools/build-medical-malpractice-owner-decision-packet.mjs --reportDate=YYYY-MM-DD
 
 Inputs:
-  project-control/medical-malpractice-readiness-dashboard-YYYY-MM-DD.csv
-  project-control/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv
+  .project-control/medical-malpractice-readiness-dashboard-YYYY-MM-DD.csv
+  .project-control/medical-malpractice-gsc-decision-map-YYYY-MM-DD.csv
 
 Outputs:
-  reports/medical-malpractice-owner-decision-packet-YYYY-MM-DD.csv
-  reports/medical-malpractice-owner-decision-packet-YYYY-MM-DD.json
-  project-control/medical-malpractice-owner-decision-packet-YYYY-MM-DD.csv
-  project-control/medical-malpractice-owner-decision-packet-YYYY-MM-DD.md
+  .reports/medical-malpractice-owner-decision-packet-YYYY-MM-DD.csv
+  .reports/medical-malpractice-owner-decision-packet-YYYY-MM-DD.json
+  .project-control/medical-malpractice-owner-decision-packet-YYYY-MM-DD.csv
+  .project-control/medical-malpractice-owner-decision-packet-YYYY-MM-DD.md
 `);
 }
 
@@ -426,9 +426,9 @@ MUST PASS:
 
 ## Outputs
 
-- \`reports/medical-malpractice-owner-decision-packet-${summary.reportDate}.csv\`
-- \`reports/medical-malpractice-owner-decision-packet-${summary.reportDate}.json\`
-- \`project-control/medical-malpractice-owner-decision-packet-${summary.reportDate}.csv\`
+- \`.reports/medical-malpractice-owner-decision-packet-${summary.reportDate}.csv\`
+- \`.reports/medical-malpractice-owner-decision-packet-${summary.reportDate}.json\`
+- \`.project-control/medical-malpractice-owner-decision-packet-${summary.reportDate}.csv\`
 
 ## Safety
 
@@ -439,10 +439,10 @@ No public CMS page body, database row, title/H1/meta, URL slug, redirect rule, c
 function buildFiles(reportDate) {
   const base = `medical-malpractice-owner-decision-packet-${reportDate}`;
   return {
-    reportCsv: path.join(ROOT, 'reports', `${base}.csv`),
-    reportJson: path.join(ROOT, 'reports', `${base}.json`),
-    projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),
-    projectMd: path.join(ROOT, 'project-control', `${base}.md`),
+    reportCsv: path.join(ROOT, '.reports', `${base}.csv`),
+    reportJson: path.join(ROOT, '.reports', `${base}.json`),
+    projectCsv: path.join(ROOT, '.project-control', `${base}.csv`),
+    projectMd: path.join(ROOT, '.project-control', `${base}.md`),
   };
 }
 

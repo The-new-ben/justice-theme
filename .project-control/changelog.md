@@ -7,6 +7,7 @@
 - PURPOSE: prepare the official provider integration without enabling a live webhook, scraping WhatsApp, logging into provider accounts or importing real client data.
 - IMPLEMENTATION: added an owner-only Justice CRM `WhatsApp / TalkTo connector readiness` panel with copyable field map, provider questions and go-live acceptance gates.
 - SAFETY GATES: requires owner-approved provider route, signature/shared-secret verification, approved permission text, duplicate detection, routing hold, no-PII audit proof and pause control before production connection.
+- DEPLOYED: commit `e708ab52` pushed to `main`; uPress Pull Git completed; marker `2026-05-26-webhook-readiness-v1` verified live; admin connector-readiness panel verified.
 - PRIVACY SAFETY: no live endpoint, provider credential, client contact, lead import, PII release, lawyer/supplier notification, invoice, payment, public CMS page, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
 
 # 2026-05-26 - Consent / terms / billing no-PII audit export

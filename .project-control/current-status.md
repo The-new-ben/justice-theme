@@ -3,7 +3,9 @@
 - CODE UPDATED: added copyable field map, provider questions and go-live acceptance gates; connector status remains `not_live` and no webhook endpoint is enabled.
 - SAFETY: panel explicitly requires provider route, signed payload/shared-secret verification, approved permission text, duplicate detection, routing hold and no-PII audit proof before any production connection.
 - PRIVACY SAFETY: no scraping, WhatsApp Web automation, provider login, webhook URL, credential, client contact, lead import, PII release, lawyer/supplier notification, invoice, payment, public CMS page, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 change.
-- DEPLOYMENT STATUS: marker prepared as `2026-05-26-webhook-readiness-v1`; local lint, push, uPress pull and live marker verification are still required.
+- DEPLOYMENT STATUS: VERIFIED LIVE. Commit `e708ab52` pushed to `main`, uPress Pull Git completed, live marker `2026-05-26-webhook-readiness-v1` verified, CRM admin page shows `WhatsApp / TalkTo connector readiness`.
+- LIVE SAFETY CHECKS: homepage, `/uk-lawyer/` and `/national-insurance-attorney/` returned 200; old public artifact path returned 404 and dot-private artifact path returned 403.
+- ADMIN CHECK: connector panel includes field map, provider questions, acceptance gates, `not_live` payload state and the no-WhatsApp-Web-automation warning.
 
 # LATEST WORK STATUS - 2026-05-26 12:58 Asia/Jerusalem
 - LEAD AUDIT EXPORT ADDED: Justice CRM now has an owner-only `Consent / terms / billing audit export` panel that downloads a no-PII CSV for lead handoff readiness.

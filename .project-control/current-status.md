@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-26 12:44 Asia/Jerusalem
+- ANONYMIZED PARTNER PREVIEW / TERMS QUEUE ADDED: Justice CRM now has an owner-only queue for pricing leads with lawyers/suppliers before client PII is released.
+- CODE UPDATED: added no-PII preview packets, share-state gate, partner target type, minimum/agreed fee, partner terms status and owner notes on `justice_lead`.
+- PRIVACY SAFETY: packets explicitly exclude client name, phone, email, exact address, documents, screenshots and raw chat exports. If client permission is not explicit/verified, the packet is marked internal-only and should not be sent externally.
+- ROUTING SAFETY: every partner-preview/terms action keeps `routing_hold=1`; even accepted partner terms do not release PII or route the lead without permission and owner release.
+- DEPLOYMENT STATUS: marker prepared as `2026-05-26-partner-preview-terms-v1`; local lint, push, uPress pull and live marker verification are still required.
+- SAFETY: admin CRM workflow only; no live lead import, client contact, lawyer/supplier notification, invoice, payment, public CMS page, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-26 12:27 Asia/Jerusalem
 - RE-PERMISSION QUEUE ADDED: Justice CRM now has an owner-only Permission / re-permission queue for WhatsApp, TalkTo and legacy leads that still lack explicit handoff permission.
 - CODE UPDATED: each queued lead gets a copyable Hebrew/English opt-in message, an owner action form, evidence-required permission upgrade, do-not-contact state, and timestamps for requested/completed permission.

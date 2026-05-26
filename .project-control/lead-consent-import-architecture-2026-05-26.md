@@ -44,6 +44,8 @@ The UK-law WhatsApp lead from the `uk-lawyer` page is not enough for automatic r
 - Added the owner-only WhatsApp/TalkTo import staging panel. Pasted CSV exports can create private `justice_lead` records with routing hold, import batch ID, dedupe fingerprint and re-permission status.
 - Added the owner-only Permission / re-permission queue. The queue prepares copyable opt-in messages, records requested/received/do-not-contact actions, and requires an owner evidence checkbox before upgrading a lead to `owner_verified_consent`.
 - Tightened CRM contact actions. Held `justice_lead` records no longer expose direct Call/Email contact links in the main CRM table; they expose only permission/opt-in actions until consent is approved. `do_not_contact` records expose no contact action.
+- Added the owner-only anonymized partner preview / terms queue. This lets the owner price a lead with a lawyer or supplier using a no-PII packet before any client details are released.
+- Preview packets are marked `internal only` unless client permission is explicit/owner-verified. Even when a preview is shareable, PII release still requires partner terms and owner release.
 
 ## Import staging headers
 
@@ -64,6 +66,6 @@ Each import is limited to 200 pasted rows to keep owner review manageable. Dupli
 ## Next build tasks
 
 1. Verify the re-permission queue in `wp-admin -> Justice CRM` after uPress pull.
-2. Add supplier/lawyer bidding so anonymized lead previews can be priced before PII is released.
+2. Verify the anonymized partner preview / terms queue in `wp-admin -> Justice CRM` after uPress pull.
 3. Add audit export for consent evidence and handoff billing proof.
 4. Connect official WhatsApp Business/TalkTo webhooks only after the provider route and permission text are approved.

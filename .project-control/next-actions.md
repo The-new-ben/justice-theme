@@ -16,7 +16,7 @@
 6. NEXT: monitor future tools/scripts so they do not recreate public artifact directories; `.gitignore` now blocks committing those public paths.
 
 ### ACTION-WHATSAPP-TALKTO-CONSENT-CRM-001: Build consent-safe intake for WhatsApp, TalkTo and legacy leads
-**Status:** RE-PERMISSION QUEUE DEPLOYED LIVE / SUPPLIER TERMS NEXT
+**Status:** PARTNER PREVIEW TERMS CODED / DEPLOY VERIFY REQUIRED / AUDIT EXPORT NEXT
 **Why:** inbound WhatsApp/TalkTo leads can become paid lawyer/supplier handoffs, but only after permission, case details and commercial terms are recorded.
 **Actions:**
 1. DONE: add source channels for WhatsApp Business, WhatsApp export, TalkTo chatbot and legacy CSV imports.
@@ -29,8 +29,10 @@
 8. DONE: deploy/pull and verify the staging panel appears in Justice CRM.
 9. DONE: build the re-permission queue and owner-approved Hebrew/English opt-in message templates before importing old untreated leads in bulk.
 10. DONE: deploy/pull and verify the new marker is live; code-level safety confirms held lead contact buttons are permission-gated.
-11. NEXT: build supplier/lawyer terms and anonymized bidding/preview rules before PII release.
-12. BLOCKED: do not contact old leads, release PII to suppliers/lawyers, or charge money until opt-in and partner terms are recorded.
+11. DONE: build supplier/lawyer terms and anonymized bidding/preview rules before PII release.
+12. NEXT: deploy/pull and verify the Anonymized partner preview / terms queue appears in Justice CRM.
+13. NEXT: add audit export for consent evidence, no-PII preview status, partner terms and billing proof.
+14. BLOCKED: do not contact old leads, release PII to suppliers/lawyers, or charge money until opt-in and partner terms are recorded.
 
 ### ACTION-UK-WHATSAPP-LEAD-SUPPLIER-HANDOFF-001: Process first UK-law WhatsApp lead through the private CRM bridge
 **Status:** FIXED CLASSIFICATION / VERIFIED MAILBOX / BLOCKED LIVE CRM ENTRY UNTIL OWNER APPROVES REAL LEAD CREATION

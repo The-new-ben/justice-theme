@@ -57,6 +57,14 @@ function justice_theme_crm_register_lead_meta(): void {
 		'repermission_requested_at'  => 'string',
 		'repermission_completed_at'  => 'string',
 		'repermission_owner_note'    => 'string',
+		'anonymized_preview_status'  => 'string',
+		'anonymized_preview_last_prepared_at' => 'string',
+		'anonymized_preview_owner_note' => 'string',
+		'partner_terms_status'       => 'string',
+		'partner_terms_target_type'  => 'string',
+		'partner_terms_min_fee_ils'  => 'integer',
+		'partner_terms_last_updated_at' => 'string',
+		'partner_terms_owner_note'   => 'string',
 		'handoff_path'              => 'string',
 		'supplier_match_required'   => 'string',
 		'owner_revenue_next_step'   => 'string',
@@ -119,6 +127,7 @@ function justice_theme_render_crm_admin_page(): void {
 		<?php justice_theme_crm_render_whatsapp_lead_bridge(); ?>
 		<?php justice_theme_crm_render_external_lead_importer(); ?>
 		<?php justice_theme_crm_render_repermission_queue(); ?>
+		<?php justice_theme_crm_render_partner_preview_queue(); ?>
 		<?php justice_theme_crm_render_btl_supply_panel(); ?>
 		<?php justice_theme_crm_render_qualified_lead_billing_queue(); ?>
 
@@ -377,6 +386,7 @@ function justice_theme_crm_find_lead_by_import_fingerprint( string $fingerprint 
 add_action( 'admin_post_justice_theme_create_whatsapp_lead', 'justice_theme_crm_handle_whatsapp_lead_create' );
 add_action( 'admin_post_justice_theme_stage_external_leads', 'justice_theme_crm_handle_external_lead_import' );
 add_action( 'admin_post_justice_theme_update_lead_permission', 'justice_theme_crm_handle_lead_permission_update' );
+add_action( 'admin_post_justice_theme_update_partner_preview', 'justice_theme_crm_handle_partner_preview_update' );
 
 function justice_theme_crm_render_external_lead_importer(): void {
 	if ( ! post_type_exists( 'justice_lead' ) ) {
@@ -766,6 +776,357 @@ function justice_theme_crm_handle_lead_permission_update(): void {
 	exit;
 }
 
+function justice_theme_crm_partner_terms_status_labels(): array {
+	return array(
+		'not_started'    => 'Not started',
+		'preview_ready'  => 'Anonymized preview ready',
+		'terms_proposed' => 'Terms proposed',
+		'terms_accepted' => 'Terms accepted',
+		'not_fit'        => 'Not fit / hold',
+	);
+}
+
+function justice_theme_crm_partner_target_type_labels(): array {
+	return array(
+		'lawyer'        => 'Lawyer',
+		'supplier'      => 'Supplier',
+		'both'          => 'Lawyer + supplier',
+		'immigration'   => 'Immigration / citizenship supplier',
+		'tax_cpa'       => 'Tax / CPA supplier',
+		'cross_border'  => 'Cross-border professional',
+	);
+}
+
+function justice_theme_crm_lead_preview_share_state( int $post_id ): array {
+	$consent_status = (string) get_post_meta( $post_id, 'consent_status', true );
+	$consent        = (string) get_post_meta( $post_id, 'consent', true );
+
+	if ( 'do_not_contact' === $consent_status ) {
+		return array(
+			'label' => 'Blocked',
+			'detail' => 'Do not send even anonymized previews externally.',
+			'allowed' => false,
+		);
+	}
+
+	if ( '1' === $consent && in_array( $consent_status, justice_theme_crm_manual_lead_routeable_consent_statuses(), true ) ) {
+		return array(
+			'label' => 'Anonymized external preview allowed',
+			'detail' => 'PII still stays hidden until partner terms and owner release are recorded.',
+			'allowed' => true,
+		);
+	}
+
+	return array(
+		'label' => 'Internal pricing worksheet only',
+		'detail' => 'Do not send externally until explicit/owner-verified client permission is recorded.',
+		'allowed' => false,
+	);
+}
+
+function justice_theme_crm_query_partner_preview_queue( int $limit ): ?WP_Query {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return null;
+	}
+
+	return new WP_Query(
+		array(
+			'post_type'      => 'justice_lead',
+			'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+			'posts_per_page' => $limit,
+			'orderby'        => 'modified',
+			'order'          => 'DESC',
+			'no_found_rows'  => true,
+			'meta_query'     => array(
+				'relation' => 'AND',
+				array(
+					'relation' => 'OR',
+					array(
+						'key'   => 'supplier_match_required',
+						'value' => '1',
+					),
+					array(
+						'key'     => 'handoff_path',
+						'value'   => array( 'supplier_marketplace', 'lawyer_and_supplier' ),
+						'compare' => 'IN',
+					),
+					array(
+						'key'     => 'coverage_status',
+						'value'   => array( 'uncovered_recruit', 'urgent_manual' ),
+						'compare' => 'IN',
+					),
+					array(
+						'key'     => 'partner_terms_status',
+						'value'   => array( 'preview_ready', 'terms_proposed' ),
+						'compare' => 'IN',
+					),
+				),
+				array(
+					'relation' => 'OR',
+					array(
+						'key'     => 'consent_status',
+						'value'   => 'do_not_contact',
+						'compare' => '!=',
+					),
+					array(
+						'key'     => 'consent_status',
+						'compare' => 'NOT EXISTS',
+					),
+				),
+			),
+		)
+	);
+}
+
+function justice_theme_crm_redact_preview_text( string $text ): string {
+	$text = wp_strip_all_tags( $text );
+	$text = preg_replace( '/[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}/i', '[email hidden]', $text ) ?: $text;
+	$text = preg_replace( '/\+?\d[\d\s().-]{7,}\d/', '[phone hidden]', $text ) ?: $text;
+	$text = preg_replace( '#https?://\S+#i', '[url hidden]', $text ) ?: $text;
+	$text = preg_replace( '/\b\d{7,10}\b/', '[id hidden]', $text ) ?: $text;
+	$text = trim( preg_replace( '/\s+/', ' ', $text ) ?: $text );
+
+	return wp_html_excerpt( $text, 260, '...' );
+}
+
+function justice_theme_crm_anonymized_partner_preview_packet( int $post_id ): string {
+	$area = (string) ( get_post_meta( $post_id, 'ai_detected_area', true ) ?: get_post_meta( $post_id, 'legal_area', true ) ?: get_post_meta( $post_id, 'lead_area', true ) );
+	$area_label = function_exists( 'justice_theme_lead_area_label' ) && $area ? justice_theme_lead_area_label( $area ) : $area;
+	$city = (string) ( get_post_meta( $post_id, 'visitor_city', true ) ?: get_post_meta( $post_id, 'lead_city', true ) ?: get_post_meta( $post_id, 'city', true ) );
+	$urgency = (string) get_post_meta( $post_id, 'urgency', true );
+	$source_channel = (string) get_post_meta( $post_id, 'source_channel', true );
+	$handoff_path = (string) get_post_meta( $post_id, 'handoff_path', true );
+	$terms_status = (string) get_post_meta( $post_id, 'partner_terms_status', true );
+	$target_type = (string) get_post_meta( $post_id, 'partner_terms_target_type', true );
+	$fee = absint( get_post_meta( $post_id, 'partner_terms_min_fee_ils', true ) ?: get_post_meta( $post_id, 'suggested_lead_price_ils', true ) );
+	$message = (string) ( get_post_meta( $post_id, 'lead_message', true ) ?: get_post_meta( $post_id, 'message', true ) );
+	$share_state = justice_theme_crm_lead_preview_share_state( $post_id );
+	$status_labels = justice_theme_crm_partner_terms_status_labels();
+	$target_labels = justice_theme_crm_partner_target_type_labels();
+	$issue_summary = $share_state['allowed'] && $message
+		? justice_theme_crm_redact_preview_text( $message )
+		: '[internal only until permission is upgraded; owner should write a fresh non-identifying summary before external sharing]';
+
+	$lines = array(
+		'Jus-Tice anonymized lead preview',
+		'NO PII: do not include client name, phone, email, exact address, documents, screenshots or raw chat export.',
+		'',
+		sprintf( 'Lead reference: #%d', $post_id ),
+		'Preview share state: ' . $share_state['label'],
+		'Permission note: ' . $share_state['detail'],
+		'Area: ' . ( $area_label ?: 'Needs review' ),
+		'City / region: ' . ( $city ? wp_strip_all_tags( $city ) : 'Not recorded' ),
+		'Urgency: ' . ( $urgency ?: 'normal' ),
+		'Source channel: ' . ( $source_channel ?: 'manual / unknown' ),
+		'Handoff path: ' . ( $handoff_path ?: 'review' ),
+		'Target partner type: ' . ( $target_labels[ $target_type ] ?? ( $target_type ?: 'not selected' ) ),
+		'Partner terms status: ' . ( $status_labels[ $terms_status ] ?? ( $terms_status ?: 'Not started' ) ),
+		'Suggested / minimum lead fee: ' . ( $fee ? number_format_i18n( $fee ) . ' NIS' : 'not set' ),
+		'',
+		'Sanitized issue summary:',
+		$issue_summary,
+		'',
+		'Partner ask:',
+		'1. Confirm you can handle this category, jurisdiction and response window.',
+		'2. Confirm commercial terms before any client PII is released.',
+		'3. Do not promise outcome, ranking, exclusivity or lead volume.',
+		'4. Client details are released only after permission, partner terms and owner approval are recorded in Jus-Tice CRM.',
+	);
+
+	if ( ! $share_state['allowed'] ) {
+		array_splice(
+			$lines,
+			2,
+			0,
+			array(
+				'INTERNAL ONLY RIGHT NOW: use this as pricing/coverage worksheet. Do not send to an external partner until permission is upgraded.',
+				'',
+			)
+		);
+	}
+
+	return implode( "\n", array_map( 'wp_strip_all_tags', $lines ) );
+}
+
+function justice_theme_crm_render_partner_preview_queue(): void {
+	$queue = justice_theme_crm_query_partner_preview_queue( 12 );
+	?>
+	<h2 style="margin-top:28px;">Anonymized partner preview / terms queue</h2>
+	<p>Owner-only queue for pricing a lead with lawyers or suppliers before PII is released. Use this to negotiate terms without exposing the client.</p>
+	<?php if ( ! $queue || ! $queue->have_posts() ) : ?>
+		<div class="notice notice-info inline"><p>No leads currently need an anonymized partner preview.</p></div>
+		<?php return; ?>
+	<?php endif; ?>
+	<table class="widefat striped" style="margin:12px 0 20px;">
+		<thead>
+			<tr>
+				<th>Lead</th>
+				<th>Area / share gate</th>
+				<th>Terms status</th>
+				<th>Anonymized preview</th>
+				<th>Record partner terms</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php while ( $queue->have_posts() ) : $queue->the_post(); ?>
+				<?php
+				$post_id = get_the_ID();
+				$area = (string) ( get_post_meta( $post_id, 'ai_detected_area', true ) ?: get_post_meta( $post_id, 'legal_area', true ) ?: get_post_meta( $post_id, 'lead_area', true ) );
+				$area_label = function_exists( 'justice_theme_lead_area_label' ) && $area ? justice_theme_lead_area_label( $area ) : $area;
+				$share_state = justice_theme_crm_lead_preview_share_state( $post_id );
+				$terms_status = (string) get_post_meta( $post_id, 'partner_terms_status', true );
+				$terms_status = $terms_status ?: 'not_started';
+				$target_type = (string) get_post_meta( $post_id, 'partner_terms_target_type', true );
+				$fee = absint( get_post_meta( $post_id, 'partner_terms_min_fee_ils', true ) ?: get_post_meta( $post_id, 'suggested_lead_price_ils', true ) );
+				$note = (string) get_post_meta( $post_id, 'partner_terms_owner_note', true );
+				$preview_id = 'justice-partner-preview-' . $post_id;
+				$preview = justice_theme_crm_anonymized_partner_preview_packet( $post_id );
+				$styles = $share_state['allowed'] ? 'background:#ecfdf5;color:#047857;' : 'background:#fff7ed;color:#9a3412;';
+				?>
+				<tr>
+					<td>
+						<strong><a href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>"><?php echo esc_html( justice_theme_crm_lead_display_name( $post_id ) ); ?></a></strong>
+						<br><small>#<?php echo esc_html( (string) $post_id ); ?> / <?php echo esc_html( get_the_date( 'd/m/Y H:i', $post_id ) ); ?></small>
+					</td>
+					<td>
+						<?php echo esc_html( $area_label ?: 'Needs review' ); ?>
+						<br><span style="display:inline-block;margin-top:4px;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $styles ); ?>"><?php echo esc_html( $share_state['label'] ); ?></span>
+						<br><small><?php echo esc_html( $share_state['detail'] ); ?></small>
+					</td>
+					<td>
+						<strong><?php echo esc_html( justice_theme_crm_partner_terms_status_labels()[ $terms_status ] ?? $terms_status ); ?></strong>
+						<br><small><?php echo esc_html( justice_theme_crm_partner_target_type_labels()[ $target_type ] ?? ( $target_type ?: 'target not selected' ) ); ?></small>
+						<?php if ( $fee ) : ?><br><small><?php echo esc_html( number_format_i18n( $fee ) ); ?> NIS floor/suggested</small><?php endif; ?>
+					</td>
+					<td>
+						<textarea id="<?php echo esc_attr( $preview_id ); ?>" rows="9" readonly style="width:100%;"><?php echo esc_textarea( $preview ); ?></textarea>
+						<p style="margin:6px 0 0;">
+							<button type="button" class="button" data-justice-copy-target="<?php echo esc_attr( $preview_id ); ?>">Copy anonymized preview</button>
+						</p>
+					</td>
+					<td>
+						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+							<input type="hidden" name="action" value="justice_theme_update_partner_preview">
+							<input type="hidden" name="lead_id" value="<?php echo esc_attr( (string) $post_id ); ?>">
+							<?php wp_nonce_field( 'justice_theme_update_partner_preview_' . $post_id, 'justice_theme_update_partner_preview_nonce' ); ?>
+							<p style="margin-top:0;">
+								<label>
+									<strong>Action</strong>
+									<select name="partner_preview_action" class="widefat">
+										<option value="preview_ready">Preview prepared</option>
+										<option value="terms_proposed">Terms proposed</option>
+										<option value="terms_accepted">Terms accepted</option>
+										<option value="not_fit">Not fit / hold</option>
+									</select>
+								</label>
+							</p>
+							<p>
+								<label>
+									<strong>Target partner</strong>
+									<select name="partner_terms_target_type" class="widefat">
+										<?php foreach ( justice_theme_crm_partner_target_type_labels() as $value => $label ) : ?>
+											<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $target_type ?: 'both', $value ); ?>><?php echo esc_html( $label ); ?></option>
+										<?php endforeach; ?>
+									</select>
+								</label>
+							</p>
+							<p>
+								<label>
+									<strong>Minimum / agreed fee (NIS)</strong>
+									<input type="number" min="0" step="1" name="partner_terms_min_fee_ils" value="<?php echo esc_attr( (string) $fee ); ?>" class="widefat">
+								</label>
+							</p>
+							<p>
+								<label>
+									<input type="checkbox" name="partner_terms_owner_verified" value="1">
+									I confirmed no PII will be sent before permission and terms.
+								</label>
+							</p>
+							<p>
+								<label>
+									<strong>Terms / owner note</strong>
+									<textarea name="partner_terms_owner_note" rows="3" class="widefat"><?php echo esc_textarea( $note ); ?></textarea>
+								</label>
+							</p>
+							<p style="margin-bottom:0;">
+								<button type="submit" class="button button-primary">Record terms step</button>
+							</p>
+						</form>
+					</td>
+				</tr>
+			<?php endwhile; ?>
+		</tbody>
+	</table>
+	<?php
+	wp_reset_postdata();
+}
+
+function justice_theme_crm_handle_partner_preview_update(): void {
+	$lead_id = isset( $_POST['lead_id'] ) ? absint( wp_unslash( $_POST['lead_id'] ) ) : 0;
+	if ( ! $lead_id || 'justice_lead' !== get_post_type( $lead_id ) || ! current_user_can( 'edit_post', $lead_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to update this lead.', 'justice-theme' ), 403 );
+	}
+
+	$nonce = isset( $_POST['justice_theme_update_partner_preview_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_theme_update_partner_preview_nonce'] ) ) : '';
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'justice_theme_update_partner_preview_' . $lead_id ) ) {
+		wp_die( esc_html__( 'Security check failed.', 'justice-theme' ), 400 );
+	}
+
+	$action = isset( $_POST['partner_preview_action'] ) ? sanitize_key( wp_unslash( $_POST['partner_preview_action'] ) ) : 'preview_ready';
+	$valid_actions = array_keys( justice_theme_crm_partner_terms_status_labels() );
+	if ( ! in_array( $action, $valid_actions, true ) || 'not_started' === $action ) {
+		$action = 'preview_ready';
+	}
+
+	$target_type = isset( $_POST['partner_terms_target_type'] ) ? sanitize_key( wp_unslash( $_POST['partner_terms_target_type'] ) ) : 'both';
+	if ( ! array_key_exists( $target_type, justice_theme_crm_partner_target_type_labels() ) ) {
+		$target_type = 'both';
+	}
+
+	$fee = isset( $_POST['partner_terms_min_fee_ils'] ) ? absint( wp_unslash( $_POST['partner_terms_min_fee_ils'] ) ) : 0;
+	$note = isset( $_POST['partner_terms_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['partner_terms_owner_note'] ) ) : '';
+	$verified = ! empty( $_POST['partner_terms_owner_verified'] );
+	$now = current_time( 'mysql' );
+
+	if ( in_array( $action, array( 'terms_proposed', 'terms_accepted' ), true ) && ! $verified ) {
+		wp_safe_redirect( add_query_arg( 'justice_partner_preview_updated', 'verification-required', admin_url( 'admin.php?page=justice-crm' ) ) );
+		exit;
+	}
+
+	update_post_meta( $lead_id, 'routing_hold', '1' );
+	update_post_meta( $lead_id, 'anonymized_preview_status', 'preview_ready' === $action ? 'prepared' : 'used_for_terms' );
+	update_post_meta( $lead_id, 'anonymized_preview_last_prepared_at', $now );
+	update_post_meta( $lead_id, 'partner_terms_status', $action );
+	update_post_meta( $lead_id, 'partner_terms_target_type', $target_type );
+	update_post_meta( $lead_id, 'partner_terms_min_fee_ils', (string) $fee );
+	update_post_meta( $lead_id, 'partner_terms_last_updated_at', $now );
+	update_post_meta( $lead_id, 'partner_terms_owner_note', $note );
+	update_post_meta( $lead_id, 'supplier_match_required', in_array( $target_type, array( 'supplier', 'both', 'immigration', 'tax_cpa', 'cross_border' ), true ) ? '1' : '0' );
+	update_post_meta( $lead_id, 'owner_revenue_next_step', justice_theme_crm_partner_terms_next_step( $action, $fee ) );
+	update_post_meta( $lead_id, 'routing_notes', 'Routing held: anonymized preview/partner terms step recorded. Do not release PII until permission, terms and owner release are all recorded.' );
+
+	wp_safe_redirect( add_query_arg( 'justice_partner_preview_updated', $action, admin_url( 'admin.php?page=justice-crm' ) ) );
+	exit;
+}
+
+function justice_theme_crm_partner_terms_next_step( string $status, int $fee ): string {
+	if ( 'terms_accepted' === $status ) {
+		return $fee > 0
+			? 'Partner terms accepted. Confirm client permission and owner release before sharing PII, then move qualified billing to ready_to_bill if a handoff happens.'
+			: 'Partner terms accepted but fee is missing. Record fee before any paid handoff is counted.';
+	}
+
+	if ( 'terms_proposed' === $status ) {
+		return 'Wait for partner acceptance. Keep anonymized only; do not release PII.';
+	}
+
+	if ( 'not_fit' === $status ) {
+		return 'Hold this lead for another partner category or mark uncovered. Do not release PII.';
+	}
+
+	return 'Use anonymized preview for internal pricing/coverage review. Do not release PII.';
+}
+
 function justice_theme_crm_handle_external_lead_import(): void {
 	if ( ! current_user_can( 'edit_pages' ) ) {
 		wp_die( esc_html__( 'You do not have permission to import CRM leads.', 'justice-theme' ), 403 );
@@ -1103,7 +1464,27 @@ function justice_theme_crm_manual_lead_next_step( string $handoff_path, bool $re
 }
 
 function justice_theme_crm_manual_lead_notice(): void {
-	if ( empty( $_GET['justice_whatsapp_lead_created'] ) && empty( $_GET['justice_external_imported'] ) && empty( $_GET['justice_repermission_updated'] ) ) {
+	if ( empty( $_GET['justice_whatsapp_lead_created'] ) && empty( $_GET['justice_external_imported'] ) && empty( $_GET['justice_repermission_updated'] ) && empty( $_GET['justice_partner_preview_updated'] ) ) {
+		return;
+	}
+
+	if ( ! empty( $_GET['justice_partner_preview_updated'] ) ) {
+		$status = sanitize_key( wp_unslash( $_GET['justice_partner_preview_updated'] ) );
+		$messages = array(
+			'preview_ready'          => array( 'success', 'Anonymized preview step recorded. The lead remains on routing hold and PII is not released.' ),
+			'terms_proposed'         => array( 'success', 'Partner terms proposal recorded. Keep anonymized only until partner acceptance and owner release.' ),
+			'terms_accepted'         => array( 'success', 'Partner terms acceptance recorded. Client PII still requires permission, terms and owner release before handoff.' ),
+			'not_fit'                => array( 'warning', 'Lead marked not fit for this partner path. Keep it held or review another category.' ),
+			'verification-required'  => array( 'error', 'Partner terms were not upgraded: confirm the no-PII/permission gate checkbox first.' ),
+		);
+		$notice = $messages[ $status ] ?? null;
+		if ( $notice ) {
+			printf(
+				'<div class="notice notice-%1$s is-dismissible"><p>%2$s</p></div>',
+				esc_attr( $notice[0] ),
+				esc_html( $notice[1] )
+			);
+		}
 		return;
 	}
 

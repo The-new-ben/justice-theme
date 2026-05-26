@@ -4,6 +4,8 @@
 - ROUTING HARDENED: external/manual leads cannot route to lawyers merely because a checkbox was ticked; the status must be `explicit_match_consent` or `owner_verified_consent`, and the router itself now blocks bypass attempts.
 - DOCUMENTED: `.project-control/lead-consent-import-architecture-2026-05-26.md` records the consent state machine and why the current UK WhatsApp lead must stay held until details/permission are complete.
 - INTERNAL ARTIFACT BLOCKER ESCALATED: live verification showed the theme-root `.htaccess` rewrite was also ignored; internal docs moved to dot-prefixed private repo directories so old public URLs should stop serving.
+- DEPLOYED: uPress Git log shows `253e557 Add consent-safe lead intake` at `HEAD -> main, origin/main`.
+- VERIFIED LIVE: homepage, `/uk-lawyer/` and `/national-insurance-attorney/` return HTTP 200 and contain the new deploy marker; old public `project-control` and `reports` URLs now return HTTP 404; dot-prefixed private paths return HTTP 403.
 - SAFETY: no client was contacted, no real CRM lead was created, no supplier/lawyer was contacted, no invoice/payment was created, and no public CMS/page/redirect/canonical/sitemap/taxonomy change was made.
 
 # LATEST WORK STATUS - 2026-05-26 11:39 Asia/Jerusalem

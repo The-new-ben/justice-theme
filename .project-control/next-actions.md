@@ -5,15 +5,15 @@
 ---
 
 ### ACTION-INTERNAL-ARTIFACT-WEB-BLOCK-001: Block project-control and report artifacts from public static access
-**Status:** ROOT RULE FAILED LIVE / MOVING INTERNAL ARTIFACTS TO DOT-PREFIXED PRIVATE PATHS
+**Status:** FIXED LIVE / MONITOR FOR RECREATED PUBLIC ARTIFACT DIRS
 **Why:** verification found internal repo control docs reachable under `/wp-content/themes/justice-theme/project-control/*.md`; even without client phone, these files are not public website content.
 **Actions:**
 1. DONE: add Apache/LiteSpeed deny `.htaccess` files to `project-control/`, `reports/`, `content-master/`, `content-drafts/`, and `mnt/`.
 2. DONE: live verification showed nested `.htaccess` was ignored for `project-control/*.md` and `reports/*.json`, so add a theme-root rewrite deny rule.
 3. DONE: live verification showed the theme-root `.htaccess` rule was also ignored.
-4. NEXT: move `project-control`, `reports`, `content-master`, `content-drafts`, `mnt`, and emergency master artifacts to dot-prefixed private paths and update live PHP readers.
-5. NEXT: pull Git in uPress and verify the old public URLs return 404/blocked and dot-prefixed URLs are not readable.
-6. BLOCKED: if dot-prefixed paths are still readable, add a server-level deny rule through uPress support or the site's active webroot/server config.
+4. DONE: moved `project-control`, `reports`, `content-master`, `content-drafts`, `mnt`, and emergency master artifacts to dot-prefixed private paths and updated live PHP readers.
+5. DONE: pulled Git in uPress and verified the old public URLs return 404 while dot-prefixed URLs return 403.
+6. NEXT: monitor future tools/scripts so they do not recreate public artifact directories; `.gitignore` now blocks committing those public paths.
 
 ### ACTION-WHATSAPP-TALKTO-CONSENT-CRM-001: Build consent-safe intake for WhatsApp, TalkTo and legacy leads
 **Status:** CODED / DEPLOY VERIFY REQUIRED / IMPORT AUTOMATION NOT STARTED

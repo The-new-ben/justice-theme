@@ -1,0 +1,43 @@
+{
+  "summary": {
+    "reportDate": "2026-05-26",
+    "linearReconciliationIssue": "HAD-103",
+    "reconciledIssues": 2,
+    "targetDone": 2,
+    "publicChangesThisCycle": 0,
+    "emailsRequiredThisCycle": 0,
+    "uPressRequiredThisCycle": 0
+  },
+  "rows": [
+    {
+      "issue": "HAD-95",
+      "title": "Review duplicate Bituach Leumi live route title/H1",
+      "prior_linear_state": "Backlog",
+      "target_linear_state": "Done",
+      "repo_task": "T546",
+      "evidence": ".project-control/bituach-leumi-route-intent-review-2026-05-26.md; .reports/bituach-leumi-route-intent-review-2026-05-26.json",
+      "completion": "Route-intent split documented for /national-insurance-attorney/ and /bituach-leumi-appeal-guide/. No public metadata was changed.",
+      "remaining_blocker": "Owner/SEO/GSC approval is still required before any public title, H1, internal-link, canonical, redirect, noindex, sitemap, taxonomy or slug change.",
+      "public_change": "NO",
+      "email_needed": "NO"
+    },
+    {
+      "issue": "HAD-96",
+      "title": "Guard mobile article pages from duplicate help CTA",
+      "prior_linear_state": "In Review",
+      "target_linear_state": "Done",
+      "repo_task": "T547; T549",
+      "evidence": ".project-control/article-duplicate-cta-guard-2026-05-26.md; .project-control/live-article-cta-dedupe-2026-05-26.md; .reports/live-article-cta-dedupe-2026-05-26.json",
+      "completion": "Template guard was implemented, deployed earlier, live verified on the sampled article, and the owner email was already recorded in the project log.",
+      "remaining_blocker": "Broader visual QA should still sample a connected-lawyer article and a family-law cluster article, but the duplicate CTA issue itself is closed.",
+      "public_change": "ALREADY_DEPLOYED_BEFORE_THIS_RECONCILIATION",
+      "email_needed": "NO_ALREADY_SENT"
+    }
+  ],
+  "files": {
+    "projectMd": "C:\\Users\\janana\\jutice-theme\\.project-control\\linear-completion-reconciliation-2026-05-26.md",
+    "projectCsv": "C:\\Users\\janana\\jutice-theme\\.project-control\\linear-completion-reconciliation-2026-05-26.csv",
+    "reportJson": "C:\\Users\\janana\\jutice-theme\\.reports\\linear-completion-reconciliation-2026-05-26.json",
+    "reportCsv": "C:\\Users\\janana\\jutice-theme\\.reports\\linear-completion-reconciliation-2026-05-26.csv"
+  }
+}

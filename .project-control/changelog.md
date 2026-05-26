@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Linear completion reconciliation
+
+- ADDED: `tools/build-linear-completion-reconciliation.mjs`.
+- GENERATED: `.project-control/linear-completion-reconciliation-2026-05-26.md`, `.project-control/linear-completion-reconciliation-2026-05-26.csv`, `.reports/linear-completion-reconciliation-2026-05-26.json`, `.reports/linear-completion-reconciliation-2026-05-26.csv`.
+- PURPOSE: make the Linear trail match repo evidence so already-completed Bituach Leumi and article CTA work does not stay orphaned in Backlog/In Review.
+- LINEAR: `HAD-95` and `HAD-96` were marked Done with evidence comments; `HAD-103` was created and marked Done as the reconciliation issue.
+- DECISION SAFETY: the Bituach Leumi public metadata/body edit is still blocked by owner/SEO/GSC approval; this reconciliation does not approve publishing.
+- SAFETY: private Linear/repo hygiene only; no public CMS page, content, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # 2026-05-26 - WhatsApp / TalkTo paid handoff runbook
 
 - ADDED: `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`.

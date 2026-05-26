@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-LINEAR-COMPLETION-RECONCILIATION-001: Close stale Linear items with repo evidence
+**Status:** FIXED LOCAL / LINEAR DONE
+**Why:** owner asked not to abandon started work; `HAD-95` and `HAD-96` had completed repo evidence but stale Linear states.
+**Actions:**
+1. DONE: add `tools/build-linear-completion-reconciliation.mjs`.
+2. DONE: generate `.project-control/linear-completion-reconciliation-2026-05-26.md` and `.csv`.
+3. DONE: generate `.reports/linear-completion-reconciliation-2026-05-26.json` and `.csv`.
+4. DONE: document `HAD-95` as completed by the Bituach Leumi route-intent review packet.
+5. DONE: document `HAD-96` as completed by the deployed/live-verified article duplicate CTA fix.
+6. DONE: update `HAD-95` and `HAD-96` to Done and add comments with the evidence paths.
+7. DONE: create `HAD-103` as the reconciliation issue and mark it Done.
+8. BLOCKED: do not treat the Bituach Leumi metadata split as approved for public CMS/SEO changes; owner/SEO/GSC approval is still required.
+
 ### ACTION-WHATSAPP-TALKTO-PAID-HANDOFF-RUNBOOK-001: Lock the safe CRM-to-partner-to-payment path
 **Status:** FIXED LOCAL / LINEAR DONE
 **Why:** inbound WhatsApp, TalkTo and legacy leads can become paid handoffs, but only if future operators respect consent, no-PII preview, partner terms, owner release and billing proof gates.

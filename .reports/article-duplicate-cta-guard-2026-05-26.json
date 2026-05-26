@@ -1,0 +1,53 @@
+{
+  "report_date": "2026-05-26",
+  "status": "PASS",
+  "rows": [
+    {
+      "check": "unique_sidebar_guard",
+      "status": "PASS",
+      "evidence": "Template defines a unique-content sidebar guard.",
+      "next_step": "Keep sidebar rendering behind unique connected lawyer, cluster nav or admin status content."
+    },
+    {
+      "check": "sidebar_render_guard",
+      "status": "PASS",
+      "evidence": "Aside is rendered only when sidebar has unique content.",
+      "next_step": "Do not render duplicate-only article CTA sidebars."
+    },
+    {
+      "check": "duplicate_sidebar_text_removed",
+      "status": "PASS",
+      "evidence": "Contextual CTA text render count in single-articles.php: 1.",
+      "next_step": "Expected count is 1: the main after-article CTA only."
+    },
+    {
+      "check": "no_sidebar_duplicate_class_in_template",
+      "status": "PASS",
+      "evidence": "Duplicate sidebar CTA class should not be emitted by the template.",
+      "next_step": "Keep no-lawyer sidebars focused on unique cluster/admin content only."
+    },
+    {
+      "check": "no_sidebar_layout_class",
+      "status": "PASS",
+      "evidence": "No-sidebar article layout is centered when duplicate-only sidebar is suppressed.",
+      "next_step": "Keep the single-column layout override in the last-loaded public CSS file."
+    },
+    {
+      "check": "deployment_marker",
+      "status": "PASS",
+      "evidence": "justice-theme-deployment-marker=2026-05-26-article-duplicate-cta-guard-v1 | expected-github-main-commit=article-duplicate-cta-guard-v1 | purpose=single-article-mobile-duplicate-help-cta-guard",
+      "next_step": "After uPress pull, verify live marker matches article-duplicate-cta-guard-v1."
+    }
+  ],
+  "safety": {
+    "public_cms_changed": false,
+    "urls_changed": false,
+    "redirects_changed": false,
+    "canonicals_changed": false,
+    "noindex_changed": false,
+    "sitemaps_changed": false,
+    "taxonomies_changed": false,
+    "leads_changed": false,
+    "payments_changed": false
+  }
+}

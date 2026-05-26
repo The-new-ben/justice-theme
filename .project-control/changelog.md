@@ -5263,3 +5263,11 @@
 - GENERATED: `.project-control/bituach-leumi-route-intent-review-2026-05-26.md`, `.project-control/bituach-leumi-route-intent-review-2026-05-26.csv`, `.reports/bituach-leumi-route-intent-review-2026-05-26.json` and `.reports/bituach-leumi-route-intent-review-2026-05-26.csv`.
 - DOCUMENTED: `/national-insurance-attorney/` should be the lawyer-match/practice route and `/bituach-leumi-appeal-guide/` should be the guide/calculator route, pending owner/GSC approval before any public edit.
 - SAFETY: repo-local reporting only; no CMS title/H1/body, URL, redirect, canonical, noindex, sitemap, taxonomy, lead, lawyer, supplier, payment, email, WhatsApp or uPress action changed.
+
+## 2026-05-26 - Article Duplicate CTA Guard
+- UPDATED: `single-articles.php` so duplicate-only article sidebars are not rendered; sidebars appear only with unique connected-lawyer, cluster-navigation or editor-only status content.
+- UPDATED: `assets/css/premium-pass-4.css` with a centered no-sidebar article layout.
+- UPDATED: `functions.php` and `deployment-marker.txt` to marker `2026-05-26-article-duplicate-cta-guard-v1`.
+- ADDED: `tools/check-article-duplicate-cta-guard.mjs`.
+- GENERATED: `.project-control/article-duplicate-cta-guard-2026-05-26.md` and `.reports/article-duplicate-cta-guard-2026-05-26.json`.
+- SAFETY: public-facing theme rendering only; no CMS content, title/H1, URL, redirect, canonical, noindex, sitemap, taxonomy, lead, lawyer, supplier, payment, email or WhatsApp action changed.

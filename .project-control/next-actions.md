@@ -3572,3 +3572,14 @@ Next safe batch before any URL/content migration:
 4. Check GSC/SERP evidence before deciding whether both URLs should remain distinct long term.
 5. If approved, prepare a minimal public edit: metadata/H1 split plus contextual internal links only; avoid a full rewrite unless legal/source review is ready.
 6. Do not change redirect, canonical, noindex, sitemap, taxonomy, slug, lawyer routing, lead routing, payment or public CMS body from this packet alone.
+
+## 2026-05-26 ARTICLE DUPLICATE CTA GUARD NEXT ACTIONS
+
+**Status:** CODE READY / LIVE PULL AND REVIEW NEEDED
+
+1. After uPress pulls the commit, verify `deployment-marker.txt` returns `2026-05-26-article-duplicate-cta-guard-v1`.
+2. Open a normal article on mobile and confirm the contextual help/request CTA appears once after the article.
+3. Open a family-law article and confirm the sidebar can still show cluster navigation without repeating the same CTA title/text.
+4. Open an article connected to a lawyer and confirm the connected-lawyer sidebar still appears as unique content.
+5. Keep running `node tools/check-article-duplicate-cta-guard.mjs --reportDate=YYYY-MM-DD` after future article-template changes.
+6. No CMS body/title/H1/URL/canonical/redirect/noindex/sitemap/taxonomy change is needed for this fix.

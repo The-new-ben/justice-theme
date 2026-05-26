@@ -2641,3 +2641,8 @@
 .justice-btl-appeal-funnel .legal-pillar-sidebar {
   top: 92px;
 }
+
+.single-article__layout--no-sidebar {
+  grid-template-columns: minmax(0, 820px) !important;
+  justify-content: center;
+}

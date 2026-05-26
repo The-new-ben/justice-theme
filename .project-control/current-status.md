@@ -6734,6 +6734,18 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - PUBLIC COPY RULE CONFIRMED: visitor-facing titles/H1s must explain legal help for the reader, never why the page creates revenue for Jus-Tice.
 - BLOCKED: no CMS title/H1/body upload, redirect, canonical, noindex, sitemap, taxonomy, slug, lawyer-routing, lead, payment, email or WhatsApp action was performed from this packet.
 - COMPLETION ASSESSMENT: duplicate-intent documentation 100%; public metadata replacement readiness 70%; live correction remains 0% until owner/GSC approval.
+
+## 2026-05-26 ARTICLE DUPLICATE CTA GUARD
+- OWNER ISSUE ADDRESSED: mobile article pages could show the same contextual help/request CTA once after the article and again in the sidebar when the sidebar had no unique content.
+- CODE FIXED: `single-articles.php` now renders the sidebar only when it has unique content: a connected lawyer, family-law cluster navigation or editor-only status.
+- CODE FIXED: no-lawyer sidebars no longer print the same CTA title/text again; the article keeps one after-content CTA.
+- CSS FIXED: `assets/css/premium-pass-4.css` centers the article layout when the duplicate-only sidebar is suppressed.
+- MARKER UPDATED: `deployment-marker.txt` and `JUSTICE_DEPLOY_MARKER` now use `2026-05-26-article-duplicate-cta-guard-v1`.
+- TOOLING ADDED: `tools/check-article-duplicate-cta-guard.mjs`.
+- VERIFIED LOCAL: PHP lint passed for `single-articles.php` and `functions.php`; the duplicate CTA guard checker returned PASS.
+- GENERATED: `.project-control/article-duplicate-cta-guard-2026-05-26.md`, `.project-control/article-duplicate-cta-guard-2026-05-26.csv`, `.reports/article-duplicate-cta-guard-2026-05-26.json` and `.reports/article-duplicate-cta-guard-2026-05-26.csv`.
+- SAFETY: no CMS content, public page body, title/H1/meta, URL, redirect, canonical, noindex, sitemap, taxonomy, lead, lawyer, supplier, payment, email or WhatsApp action changed.
+- COMPLETION ASSESSMENT: article duplicate CTA code guard 100%; live verification remains pending until uPress pulls the commit.
 ## LATEST WORK STATUS - 2026-05-22 14:38 Asia/Jerusalem
 - CRIMINAL OWNER REVIEW PACKET: converted the five current-URL Criminal first-upload targets into a controlled owner/legal/source review gate.
 - TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.

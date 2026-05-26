@@ -47,9 +47,12 @@ while ( have_posts() ) :
 	$has_connected_lawyer        = $connected_lawyer instanceof WP_Post;
 	$has_cluster_nav             = 'family-law' === $content_cluster;
 	$has_internal_sidebar_status = $show_internal_review_status && ( $draft_word_count || $repo_draft_status );
+	$has_unique_sidebar_content  = $has_connected_lawyer || $has_cluster_nav || $has_internal_sidebar_status;
+	$layout_classes              = array( 'container', 'single-article__layout' );
 	$sidebar_classes             = array( 'single-article__sidebar' );
 
-	if ( ! $has_connected_lawyer && ! $has_cluster_nav && ! $has_internal_sidebar_status ) {
+	if ( ! $has_unique_sidebar_content ) {
+		$layout_classes[]  = 'single-article__layout--no-sidebar';
 		$sidebar_classes[] = 'single-article__sidebar--duplicate-cta-only';
 	}
 	?>
@@ -154,7 +157,7 @@ while ( have_posts() ) :
 				</div>
 			</section>
 		<?php endif; ?>
-		<div class="container single-article__layout">
+		<div class="<?php echo esc_attr( implode( ' ', $layout_classes ) ); ?>">
 			
 			<div class="single-article__main">
 				<?php if ( has_post_thumbnail() ) : ?>
@@ -200,10 +203,11 @@ while ( have_posts() ) :
 				</section>
 			</div>
 			
+			<?php if ( $has_unique_sidebar_content ) : ?>
 			<aside class="<?php echo esc_attr( implode( ' ', $sidebar_classes ) ); ?>" role="complementary">
 				<div class="sticky-box" style="position: sticky; top: 2rem; padding: 2rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-soft);">
-					<div class="single-article__sidebar-lead-card<?php echo $has_connected_lawyer ? '' : ' single-article__sidebar-lead-card--duplicate'; ?>">
 					<?php if ( $has_connected_lawyer ) : ?>
+					<div class="single-article__sidebar-lead-card">
 						<?php
 						$firm     = get_post_meta( $connected_lawyer->ID, 'firm_name', true );
 						$headline = get_post_meta( $connected_lawyer->ID, 'profile_headline', true );
@@ -235,14 +239,8 @@ while ( have_posts() ) :
 						<a class="button button--ghost" href="<?php echo esc_url( $article_contextual_cta['url'] ); ?>" style="width: 100%; text-align: center;">
 							<?php echo esc_html( $article_contextual_cta['button'] ); ?>
 						</a>
-					<?php else : ?>
-						<h2 style="font-size: 1.3rem; color: var(--color-primary-deep); margin-bottom: 1rem;"><?php echo esc_html( $article_contextual_cta['title'] ); ?></h2>
-						<p style="color: var(--color-muted); margin-bottom: 1.5rem;"><?php echo esc_html( $article_contextual_cta['text'] ); ?></p>
-						<a class="button button--primary" href="<?php echo esc_url( $article_contextual_cta['url'] ); ?>" style="width: 100%; text-align: center;">
-							<?php echo esc_html( $article_contextual_cta['button'] ); ?>
-						</a>
-					<?php endif; ?>
 					</div>
+					<?php endif; ?>
 
 					<?php if ( $has_cluster_nav ) : ?>
 						<section class="article-cluster-nav">
@@ -284,6 +282,7 @@ while ( have_posts() ) :
 					<?php endif; ?>
 				</div>
 			</aside>
+			<?php endif; ?>
 		</div>
 	</article>
 

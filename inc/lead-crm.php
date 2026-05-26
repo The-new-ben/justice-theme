@@ -130,6 +130,7 @@ function justice_theme_render_crm_admin_page(): void {
 		<?php justice_theme_crm_render_partner_preview_queue(); ?>
 		<?php justice_theme_crm_render_btl_supply_panel(); ?>
 		<?php justice_theme_crm_render_qualified_lead_billing_queue(); ?>
+		<?php justice_theme_crm_render_lead_audit_export_panel(); ?>
 
 		<h2>Recent legal leads</h2>
 		<?php justice_theme_crm_render_table( $leads, 'justice_lead' ); ?>
@@ -387,6 +388,7 @@ add_action( 'admin_post_justice_theme_create_whatsapp_lead', 'justice_theme_crm_
 add_action( 'admin_post_justice_theme_stage_external_leads', 'justice_theme_crm_handle_external_lead_import' );
 add_action( 'admin_post_justice_theme_update_lead_permission', 'justice_theme_crm_handle_lead_permission_update' );
 add_action( 'admin_post_justice_theme_update_partner_preview', 'justice_theme_crm_handle_partner_preview_update' );
+add_action( 'admin_post_justice_theme_export_lead_audit', 'justice_theme_crm_handle_lead_audit_export' );
 
 function justice_theme_crm_render_external_lead_importer(): void {
 	if ( ! post_type_exists( 'justice_lead' ) ) {
@@ -1125,6 +1127,255 @@ function justice_theme_crm_partner_terms_next_step( string $status, int $fee ): 
 	}
 
 	return 'Use anonymized preview for internal pricing/coverage review. Do not release PII.';
+}
+
+function justice_theme_crm_render_lead_audit_export_panel(): void {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return;
+	}
+
+	$export_url = wp_nonce_url(
+		admin_url( 'admin-post.php?action=justice_theme_export_lead_audit' ),
+		'justice_theme_export_lead_audit',
+		'justice_theme_export_lead_audit_nonce'
+	);
+	?>
+	<div class="postbox" style="padding:16px 18px;margin:18px 0;border:1px solid #dcdcde;background:#fff;">
+		<h2 style="margin:0 0 8px;">Consent / terms / billing audit export</h2>
+		<p style="margin:0 0 10px;color:#50575e;">Owner-only no-PII CSV for checking whether a lead can move from WhatsApp/TalkTo intake to partner terms, PII release and manual billing.</p>
+		<p style="margin:0 0 12px;">
+			<a class="button button-primary" href="<?php echo esc_url( $export_url ); ?>">Download no-PII lead audit CSV</a>
+		</p>
+		<ul style="list-style:disc;margin:0 0 0 20px;color:#50575e;">
+			<li>Includes: lead ID, source, area, consent state, routing hold, re-permission state, anonymized preview state, partner terms, fee, billing state and owner next step.</li>
+			<li>Excludes by design: client name, phone, email, exact address, raw chat, documents, screenshots, invoice reference value and private payment-proof URL.</li>
+			<li>Use this before any bulk import, supplier/lawyer handoff or invoice chase.</li>
+		</ul>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_handle_lead_audit_export(): void {
+	if ( ! current_user_can( 'edit_pages' ) ) {
+		wp_die( esc_html__( 'You do not have permission to export CRM audit data.', 'justice-theme' ), 403 );
+	}
+
+	$nonce = isset( $_GET['justice_theme_export_lead_audit_nonce'] ) ? sanitize_text_field( wp_unslash( $_GET['justice_theme_export_lead_audit_nonce'] ) ) : '';
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'justice_theme_export_lead_audit' ) ) {
+		wp_die( esc_html__( 'Security check failed.', 'justice-theme' ), 400 );
+	}
+
+	$rows = justice_theme_crm_lead_audit_rows( 1000 );
+
+	nocache_headers();
+	header( 'Content-Type: text/csv; charset=utf-8' );
+	header( 'Content-Disposition: attachment; filename=justice-lead-audit-' . gmdate( 'Y-m-d-His' ) . '.csv' );
+	echo "\xEF\xBB\xBF";
+
+	$output = fopen( 'php://output', 'w' );
+	if ( false === $output ) {
+		exit;
+	}
+
+	fputcsv(
+		$output,
+		array(
+			'lead_id',
+			'created_at',
+			'modified_at',
+			'lead_status',
+			'source_channel',
+			'legal_area',
+			'ai_detected_area',
+			'city_region',
+			'urgency',
+			'consent_status',
+			'consent_flag',
+			'routing_hold',
+			'repermission_status',
+			'repermission_requested_at',
+			'repermission_completed_at',
+			'anonymized_preview_status',
+			'preview_share_state',
+			'partner_terms_status',
+			'partner_terms_target_type',
+			'partner_terms_min_fee_ils',
+			'partner_terms_last_updated_at',
+			'billing_status',
+			'suggested_lead_price_ils',
+			'billable_lawyer_ids',
+			'invoice_reference_present',
+			'payment_evidence_url_present',
+			'ready_to_bill_at',
+			'billed_at',
+			'paid_at',
+			'audit_gate',
+			'next_owner_action',
+			'admin_edit_url',
+		)
+	);
+
+	foreach ( $rows as $row ) {
+		fputcsv( $output, $row );
+	}
+
+	fclose( $output );
+	exit;
+}
+
+function justice_theme_crm_lead_audit_rows( int $limit ): array {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return array();
+	}
+
+	$query = new WP_Query(
+		array(
+			'post_type'      => 'justice_lead',
+			'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+			'posts_per_page' => $limit,
+			'orderby'        => 'modified',
+			'order'          => 'DESC',
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+		)
+	);
+
+	$rows = array();
+
+	foreach ( $query->posts ?: array() as $post_id ) {
+		$post_id = (int) $post_id;
+		$gate    = justice_theme_crm_lead_audit_gate( $post_id );
+		$share   = justice_theme_crm_lead_preview_share_state( $post_id );
+		$post    = get_post( $post_id );
+
+		if ( ! $post instanceof WP_Post ) {
+			continue;
+		}
+
+		$rows[] = array(
+			$post_id,
+			$post->post_date,
+			$post->post_modified,
+			(string) get_post_meta( $post_id, 'lead_status', true ),
+			(string) get_post_meta( $post_id, 'source_channel', true ),
+			(string) ( get_post_meta( $post_id, 'legal_area', true ) ?: get_post_meta( $post_id, 'lead_area', true ) ),
+			(string) get_post_meta( $post_id, 'ai_detected_area', true ),
+			(string) ( get_post_meta( $post_id, 'visitor_city', true ) ?: get_post_meta( $post_id, 'lead_city', true ) ?: get_post_meta( $post_id, 'city', true ) ),
+			(string) get_post_meta( $post_id, 'urgency', true ),
+			(string) get_post_meta( $post_id, 'consent_status', true ),
+			(string) get_post_meta( $post_id, 'consent', true ),
+			(string) get_post_meta( $post_id, 'routing_hold', true ),
+			(string) get_post_meta( $post_id, 'repermission_status', true ),
+			(string) get_post_meta( $post_id, 'repermission_requested_at', true ),
+			(string) get_post_meta( $post_id, 'repermission_completed_at', true ),
+			(string) get_post_meta( $post_id, 'anonymized_preview_status', true ),
+			$share['label'],
+			(string) get_post_meta( $post_id, 'partner_terms_status', true ),
+			(string) get_post_meta( $post_id, 'partner_terms_target_type', true ),
+			(string) absint( get_post_meta( $post_id, 'partner_terms_min_fee_ils', true ) ),
+			(string) get_post_meta( $post_id, 'partner_terms_last_updated_at', true ),
+			(string) get_post_meta( $post_id, 'qualified_lead_billing_status', true ),
+			(string) absint( get_post_meta( $post_id, 'suggested_lead_price_ils', true ) ),
+			(string) get_post_meta( $post_id, 'qualified_lead_billable_lawyer_ids', true ),
+			get_post_meta( $post_id, 'qualified_lead_invoice_reference', true ) ? 'yes' : 'no',
+			get_post_meta( $post_id, 'qualified_lead_payment_evidence_url', true ) ? 'yes' : 'no',
+			(string) get_post_meta( $post_id, 'qualified_lead_ready_at', true ),
+			(string) get_post_meta( $post_id, 'qualified_lead_billed_at', true ),
+			(string) get_post_meta( $post_id, 'qualified_lead_paid_at', true ),
+			$gate['status'],
+			$gate['next_action'],
+			(string) get_edit_post_link( $post_id, '' ),
+		);
+	}
+
+	return $rows;
+}
+
+function justice_theme_crm_lead_audit_gate( int $post_id ): array {
+	$consent_status = (string) get_post_meta( $post_id, 'consent_status', true );
+	$has_consent    = '1' === (string) get_post_meta( $post_id, 'consent', true )
+		&& in_array( $consent_status, justice_theme_crm_manual_lead_routeable_consent_statuses(), true );
+	$routing_hold   = '1' === (string) get_post_meta( $post_id, 'routing_hold', true );
+	$terms_status   = (string) get_post_meta( $post_id, 'partner_terms_status', true );
+	$terms_fee      = absint( get_post_meta( $post_id, 'partner_terms_min_fee_ils', true ) );
+	$billing_status = (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true );
+	$has_invoice    = (bool) get_post_meta( $post_id, 'qualified_lead_invoice_reference', true );
+	$has_evidence   = (bool) get_post_meta( $post_id, 'qualified_lead_payment_evidence_url', true );
+
+	if ( 'paid' === $billing_status && ( $has_invoice || $has_evidence ) ) {
+		return array(
+			'status'      => 'paid_with_proof',
+			'next_action' => 'Reconcile payment and keep proof attached; no further routing action needed.',
+		);
+	}
+
+	if ( 'paid' === $billing_status ) {
+		return array(
+			'status'      => 'payment_proof_missing',
+			'next_action' => 'Add invoice/reference or payment evidence; paid status should not stand without proof.',
+		);
+	}
+
+	if ( 'do_not_contact' === $consent_status ) {
+		return array(
+			'status'      => 'blocked_do_not_contact',
+			'next_action' => 'Do not contact, route, invoice or send externally; keep only for audit/deduplication unless deletion is requested.',
+		);
+	}
+
+	if ( ! $has_consent ) {
+		return array(
+			'status'      => 'blocked_permission_missing',
+			'next_action' => 'Use only approved re-permission messaging; do not release PII or contact partners with client details.',
+		);
+	}
+
+	if ( 'terms_accepted' === $terms_status && $terms_fee > 0 && $routing_hold ) {
+		return array(
+			'status'      => 'owner_release_required',
+			'next_action' => 'Permission and terms exist; owner must deliberately release or route before PII leaves the CRM.',
+		);
+	}
+
+	if ( 'terms_accepted' === $terms_status && 0 === $terms_fee ) {
+		return array(
+			'status'      => 'terms_fee_missing',
+			'next_action' => 'Record the agreed lead fee before any paid handoff is counted.',
+		);
+	}
+
+	if ( in_array( $terms_status, array( 'preview_ready', 'terms_proposed' ), true ) ) {
+		return array(
+			'status'      => 'partner_terms_pending',
+			'next_action' => 'Keep anonymized; wait for accepted partner terms before PII release.',
+		);
+	}
+
+	if ( 'invoice_sent' === $billing_status && ( $has_invoice || $has_evidence ) ) {
+		return array(
+			'status'      => 'invoice_sent_with_reference',
+			'next_action' => 'Chase payment or reconcile proof before marking paid.',
+		);
+	}
+
+	if ( 'ready_to_bill' === $billing_status ) {
+		return array(
+			'status'      => 'ready_to_bill',
+			'next_action' => 'Send manual invoice/payment request and save reference before moving to invoice sent.',
+		);
+	}
+
+	if ( $routing_hold ) {
+		return array(
+			'status'      => 'blocked_routing_hold',
+			'next_action' => 'Review consent, partner terms and owner release before routing.',
+		);
+	}
+
+	return array(
+		'status'      => 'review',
+		'next_action' => 'Review manually before routing, billing or supplier/lawyer contact.',
+	);
 }
 
 function justice_theme_crm_handle_external_lead_import(): void {

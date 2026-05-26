@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Consent / terms / billing no-PII audit export
+
+- UPDATED: `inc/lead-crm.php`, `functions.php`, `deployment-marker.txt`.
+- PURPOSE: give the owner and remote agents a single safe CSV showing which leads are blocked, ready for terms, ready for owner release, invoice-ready or paid with proof.
+- IMPLEMENTATION: added an owner-only Justice CRM `Consent / terms / billing audit export` panel and admin-post CSV download.
+- PRIVACY SAFETY: CSV excludes client name, phone, email, exact address, raw chat, documents, screenshots, invoice reference value and private payment-proof URL.
+- AUDIT FIELDS: lead ID, source, area, consent state, routing hold, re-permission state, preview state, partner terms, fee, billing state, proof presence, audit gate, next owner action and admin edit URL.
+- SAFETY: read-only export and docs only; no live lead import, public CMS page, public content, client contact, lawyer/supplier notification, invoice, payment, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-26 - Anonymized partner preview and terms queue
 
 - UPDATED: `inc/lead-crm.php`, `functions.php`, `deployment-marker.txt`.

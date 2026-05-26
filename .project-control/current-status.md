@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-26 22:49 Asia/Jerusalem
+- WHATSAPP / TALKTO PAID HANDOFF RUNBOOK GENERATED: created a private operator packet for moving inbound WhatsApp, TalkTo, email and legacy leads through CRM, consent, no-PII partner preview, paid terms, owner release and billing proof.
+- CODE ADDED: `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-26.md`, `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-26.csv`, `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-26.json`, `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-26.csv`.
+- LINEAR: recorded as `HAD-102` and marked Done under `HAD-87` WhatsApp/TalkTo consent-safe CRM.
+- CORE RULE: private CRM lead -> consent evidence -> routing hold -> no-PII partner preview -> accepted terms and billing contact -> owner release -> manual handoff -> invoice/payment proof. No step should be skipped.
+- CURRENT UK WHATSAPP LEAD: still blocked from real CRM creation until owner explicitly approves creating that private lead record. Pressing the WhatsApp button alone is not consent for lawyer/supplier introduction.
+- INTEGRATION BLOCKER: live WhatsApp/TalkTo webhook ingestion remains blocked until official provider route, signature/shared-secret method, pause control and approved permission text are available.
+- COMPLETION ASSESSMENT: runbook/report 100%; safe manual CRM path documented 100%; real UK lead entry 0% until owner approval; live webhook automation 0% until provider details.
+- PUBLIC IMPACT: none. No public CMS page, content, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-26 22:39 Asia/Jerusalem
 - REAL-ESTATE TAX / TOOL INVENTORY GENERATED: resolved the high-risk real-estate tax/tool placeholder from the associated-linkage packet into a concrete live route inventory.
 - CODE ADDED: `tools/build-real-estate-tax-tool-inventory.mjs`.

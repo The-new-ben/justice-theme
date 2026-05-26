@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-WHATSAPP-TALKTO-PAID-HANDOFF-RUNBOOK-001: Lock the safe CRM-to-partner-to-payment path
+**Status:** FIXED LOCAL / LINEAR DONE
+**Why:** inbound WhatsApp, TalkTo and legacy leads can become paid handoffs, but only if future operators respect consent, no-PII preview, partner terms, owner release and billing proof gates.
+**Actions:**
+1. DONE: add `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`.
+2. DONE: generate `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-26.md` and `.csv`.
+3. DONE: generate `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-26.json` and `.csv`.
+4. DONE: document the safe path: private CRM lead -> consent evidence -> routing hold -> no-PII partner preview -> accepted terms and billing contact -> owner release -> manual handoff -> invoice/payment proof.
+5. DONE: mark the current UK-law WhatsApp lead as blocked from real CRM entry until owner approval.
+6. DONE: record this as Linear `HAD-102`, marked Done.
+7. BLOCKED: do not create the real UK lead, contact a supplier/lawyer, release PII, send WhatsApp/TalkTo messages, charge money or enable webhooks from this packet alone.
+
 ### ACTION-REAL-ESTATE-TAX-TOOL-INVENTORY-001: Inventory purchase-tax and seller-tax routes before tool/link work
 **Status:** FIXED LOCAL / LINEAR DONE
 **Why:** the associated-linkage packet marked real-estate tax/tool linking as high-risk because purchase-tax or seller-tax content may already exist.

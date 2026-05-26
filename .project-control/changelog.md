@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - WhatsApp / TalkTo paid handoff runbook
+
+- ADDED: `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`.
+- GENERATED: `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-26.md`, `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-26.csv`, `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-26.json`, `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-26.csv`.
+- PURPOSE: give the owner and future agents a concrete, consent-safe route from WhatsApp/TalkTo/email/legacy leads to CRM, no-PII partner preview, accepted terms, owner release and manual invoice/payment proof.
+- LINEAR: recorded as `HAD-102` and marked Done under `HAD-87`.
+- DECISION SAFETY: the current UK-law WhatsApp lead remains blocked from real CRM creation until the owner explicitly approves that private record; WhatsApp button click is not treated as match/handoff consent.
+- INTEGRATION SAFETY: live WhatsApp/TalkTo webhook ingestion remains blocked until official provider route, signature/shared-secret method, pause control and permission text are approved.
+- SAFETY: repo-local tool/report/status only; no public CMS page, content, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # 2026-05-26 - Real-estate tax tool inventory
 
 - ADDED: `tools/build-real-estate-tax-tool-inventory.mjs`.

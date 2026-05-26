@@ -3,7 +3,8 @@
 - CODE UPDATED: added no-PII preview packets, share-state gate, partner target type, minimum/agreed fee, partner terms status and owner notes on `justice_lead`.
 - PRIVACY SAFETY: packets explicitly exclude client name, phone, email, exact address, documents, screenshots and raw chat exports. If client permission is not explicit/verified, the packet is marked internal-only and should not be sent externally.
 - ROUTING SAFETY: every partner-preview/terms action keeps `routing_hold=1`; even accepted partner terms do not release PII or route the lead without permission and owner release.
-- DEPLOYMENT STATUS: marker prepared as `2026-05-26-partner-preview-terms-v1`; local lint, push, uPress pull and live marker verification are still required.
+- DEPLOYMENT STATUS: VERIFIED LIVE. Commit `bf1be522` pushed to `main`, uPress Pull Git completed, live marker `2026-05-26-partner-preview-terms-v1` verified, CRM admin page shows `Anonymized partner preview / terms queue`.
+- LIVE SAFETY CHECKS: homepage, `/uk-lawyer/` and `/national-insurance-attorney/` returned 200; old public artifact paths returned 404 and dot-private artifact paths returned 403.
 - SAFETY: admin CRM workflow only; no live lead import, client contact, lawyer/supplier notification, invoice, payment, public CMS page, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
 
 # LATEST WORK STATUS - 2026-05-26 12:27 Asia/Jerusalem

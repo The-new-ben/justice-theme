@@ -9,6 +9,7 @@
 - PRIVACY SAFETY: preview packets explicitly exclude client name, phone, email, exact address, documents, screenshots and raw chat exports. If client permission is not explicit/verified, the packet is marked internal-only.
 - ROUTING SAFETY: preview/terms actions keep `routing_hold=1`; even accepted partner terms do not release PII or route without permission and owner release.
 - REVENUE STATUS: this creates the missing bridge between held WhatsApp/TalkTo demand and paid lawyer/supplier terms, but no revenue is counted yet.
+- DEPLOYED: commit `bf1be522` pushed to `main`; uPress Pull Git completed; marker `2026-05-26-partner-preview-terms-v1` verified live.
 - SAFETY: admin CRM workflow and docs only; no live lead import, public CMS page, public content, client contact, lawyer/supplier notification, invoice, payment, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
 
 # 2026-05-26 - WhatsApp/TalkTo re-permission queue

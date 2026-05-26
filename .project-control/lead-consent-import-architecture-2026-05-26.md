@@ -65,7 +65,7 @@ Each import is limited to 200 pasted rows to keep owner review manageable. Dupli
 
 ## Next build tasks
 
-1. Verify the re-permission queue in `wp-admin -> Justice CRM` after uPress pull.
-2. Verify the anonymized partner preview / terms queue in `wp-admin -> Justice CRM` after uPress pull.
-3. Add audit export for consent evidence and handoff billing proof.
-4. Connect official WhatsApp Business/TalkTo webhooks only after the provider route and permission text are approved.
+1. DONE: verify the re-permission queue in `wp-admin -> Justice CRM` after uPress pull.
+2. DONE: verify the anonymized partner preview / terms queue in `wp-admin -> Justice CRM` after uPress pull.
+3. NEXT: add audit export for consent evidence, preview state, partner terms and handoff billing proof.
+4. LATER: connect official WhatsApp Business/TalkTo webhooks only after the provider route and permission text are approved.

@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Connected-lawyer article CTA dedupe live verification
+
+- DEPLOYED: commit `f4ce4e16` was pulled through uPress Git management for `/wp-content/themes/justice-theme/`.
+- VERIFIED LIVE: static marker returns `2026-05-27-connected-lawyer-article-cta-dedupe-v1`.
+- GENERATED: `.project-control/live-article-cta-dedupe-2026-05-27.md`, `.project-control/live-article-cta-dedupe-2026-05-27.csv`, `.reports/live-article-cta-dedupe-2026-05-27.json`, `.reports/live-article-cta-dedupe-2026-05-27.csv`.
+- RESULT: live checker `PASS`; 5 sampled article URLs each returned HTTP 200, one after-content CTA, one contextual article CTA URL and zero duplicate sidebar CTA classes.
+- LINEAR: live verification comment added to `HAD-127`.
+- EMAIL: after checking Gmail for owner instruction subjects and finding none, sent Hebrew public-facing update email to `benbettesh@gmail.com` with sampled URLs and associated-page/cannibalization note.
+- SAFETY: read-only live verification after a theme rendering fix; no CMS content, SEO setting, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer record, payment, email, WhatsApp/TalkTo or database row changed.
+
 # 2026-05-27 - Connected-lawyer article CTA dedupe
 
 - UPDATED: `single-articles.php`, `tools/check-article-duplicate-cta-guard.mjs`, `tools/check-live-article-cta-dedupe.mjs`, `functions.php`, `deployment-marker.txt`.

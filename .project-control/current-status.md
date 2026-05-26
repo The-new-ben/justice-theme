@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-27 01:22 Asia/Jerusalem
+- CONNECTED-LAWYER ARTICLE CTA DEDUPE LIVE VERIFIED: the public-facing article CTA render fix was pushed, pulled through uPress and verified live.
+- DEPLOYED COMMIT: `f4ce4e16` (`Remove repeated connected-lawyer article CTA`).
+- UPRESS RESULT: Git management for `/wp-content/themes/justice-theme/` returned `משיכת נתונים (Pull) הושלמה בהצלחה`.
+- LIVE MARKER: `https://jus-tice.co.il/wp-content/themes/justice-theme/deployment-marker.txt` returns `2026-05-27-connected-lawyer-article-cta-dedupe-v1`.
+- GENERATED LIVE ARTIFACTS: `.project-control/live-article-cta-dedupe-2026-05-27.md`, `.project-control/live-article-cta-dedupe-2026-05-27.csv`, `.reports/live-article-cta-dedupe-2026-05-27.json`, `.reports/live-article-cta-dedupe-2026-05-27.csv`.
+- LIVE CHECK RESULT: `PASS`; sampled `/find-lawyer-how-to-find-good-attorney/`, `/most-recommended-family-lawyer/`, `/experienced-family-law-attorney/`, `/domestic-violence/` and `/rabbinical-agreement-approval/`; each article returned HTTP 200, `single-article__lead-cta` count 1, contextual article CTA URL count 1 and duplicate sidebar CTA class count 0.
+- LINEAR: added live verification comment to `HAD-127`.
+- EMAIL: checked Gmail for new owner instruction subjects (`instructions`, `instruction`, `הוראות`, `הנחיות`, `הנחיה`) and found none; sent Hebrew public-facing update email to `benbettesh@gmail.com`, Gmail message `19e665fef3c97576`.
+- PUBLIC IMPACT: public theme rendering fix is live. No CMS content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer record, supplier, invoice, payment, email, WhatsApp, TalkTo or database row changed.
+- COMPLETION ASSESSMENT: connected-lawyer article CTA dedupe is 100% complete and live verified; broader mobile visual review can continue as a separate sampling task.
+
 # LATEST WORK STATUS - 2026-05-27 01:16 Asia/Jerusalem
 - CONNECTED-LAWYER ARTICLE CTA DEDUPE FIX ADDED: tightened the owner-reported mobile article CTA fix so a connected-lawyer sidebar no longer repeats the same generic article help/request CTA that appears after the article body.
 - CODE UPDATED: `single-articles.php`, `tools/check-article-duplicate-cta-guard.mjs`, `tools/check-live-article-cta-dedupe.mjs`, `functions.php`, `deployment-marker.txt`.

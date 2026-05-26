@@ -178,6 +178,9 @@ Already shipped:
   specialist call, the owner can copy a terms note that includes agreed per-lead
   fee, billing contact, response commitment, no-promise language and missing
   routing checks before any lead is routed.
+- Prospect billing-contact gate added: a prospect is not ready for routing
+  unless a valid billing contact email is recorded, so the manual invoice path
+  is actionable before the first qualified lead is sent.
 
 Remaining:
 

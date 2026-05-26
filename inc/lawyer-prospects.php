@@ -177,6 +177,11 @@ function justice_theme_lawyer_prospect_verification_missing( int $post_id ): arr
 		$missing[] = __( 'lead fee terms', 'justice-theme' );
 	}
 
+	$billing_contact_email = (string) get_post_meta( $post_id, 'prospect_billing_contact_email', true );
+	if ( ! is_email( $billing_contact_email ) ) {
+		$missing[] = __( 'billing contact', 'justice-theme' );
+	}
+
 	return $missing;
 }
 
@@ -229,6 +234,11 @@ function justice_theme_lawyer_prospect_verification_meta_clause( string $filter 
 				'value'   => 0,
 				'compare' => '>',
 				'type'    => 'NUMERIC',
+			),
+			array(
+				'key'     => 'prospect_billing_contact_email',
+				'value'   => '',
+				'compare' => '!=',
 			),
 		);
 	}
@@ -292,6 +302,15 @@ function justice_theme_lawyer_prospect_verification_meta_clause( string $filter 
 				'value'   => 0,
 				'compare' => '<=',
 				'type'    => 'NUMERIC',
+			),
+			array(
+				'key'     => 'prospect_billing_contact_email',
+				'compare' => 'NOT EXISTS',
+			),
+			array(
+				'key'     => 'prospect_billing_contact_email',
+				'value'   => '',
+				'compare' => '=',
 			),
 		),
 	);

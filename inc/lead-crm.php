@@ -403,7 +403,7 @@ function justice_theme_crm_btl_controlled_test_drill_copy( array $snapshot, int 
 		'',
 		'Before test:',
 		'1. Confirm 3 verified specialists and 3 active routable specialists for national-insurance.',
-		'2. Confirm each routed specialist accepted manual invoice/payment handling and an agreed per-lead fee.',
+		'2. Confirm each routed specialist accepted manual invoice/payment handling, an agreed per-lead fee and a billing contact email.',
 		'3. Confirm no public page promises outcome, ranking, lead volume or compensation.',
 		'',
 		'Controlled intake:',

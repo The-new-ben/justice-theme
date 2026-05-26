@@ -9,7 +9,7 @@ Scope: repo-local guard for internal report/control artifacts after live public 
 - Public artifact root directories present: None
 - Tracked files under public artifact roots: 0
 - Public roots covered by .gitignore: 6/6
-- Legacy tool references to public artifact roots: 440
+- Legacy tool references to public artifact roots: 434
 
 ## Interpretation
 
@@ -185,12 +185,6 @@ Legacy tool references are reported so future operators do not rerun old scripts
 | tools/check-first-paid-lawyer-sales-pack.mjs | 230 | REVIEW_BEFORE_RUNNING | await writeFile( `reports/${ reportBase }.csv`, toCsv( fileResults, tokenResults, trackerRows ) ); |
 | tools/check-first-paid-lawyer-sales-pack.mjs | 231 | REVIEW_BEFORE_RUNNING | await writeFile( `project-control/${ reportBase }.md`, toMarkdown( fileResults, tokenResults, trackerRows ) ); |
 | tools/check-first-paid-lawyer-sales-pack.mjs | 232 | REVIEW_BEFORE_RUNNING | await writeFile( `project-control/${ reportBase }.csv`, toCsv( fileResults, tokenResults, trackerRows ) ); |
-| tools/check-grow-payment-compliance.mjs | 260 | REVIEW_BEFORE_RUNNING | await fs.mkdir( 'reports', { recursive: true } ); |
-| tools/check-grow-payment-compliance.mjs | 261 | REFERENCE_ONLY | await fs.mkdir( 'project-control', { recursive: true } ); |
-| tools/check-grow-payment-compliance.mjs | 262 | REVIEW_BEFORE_RUNNING | await fs.writeFile( `reports/grow-payment-compliance-live-${ RUN_DATE }.json`, JSON.stringify( report, null, 2 ) + '\n' ); |
-| tools/check-grow-payment-compliance.mjs | 263 | REVIEW_BEFORE_RUNNING | await fs.writeFile( `reports/grow-payment-compliance-live-${ RUN_DATE }.csv`, csv ); |
-| tools/check-grow-payment-compliance.mjs | 264 | REFERENCE_ONLY | await fs.writeFile( `project-control/grow-payment-compliance-live-${ RUN_DATE }.md`, markdown ); |
-| tools/check-grow-payment-compliance.mjs | 265 | REVIEW_BEFORE_RUNNING | await fs.writeFile( `project-control/grow-payment-compliance-live-${ RUN_DATE }.csv`, csv ); |
 | tools/check-homepage-investor-polish-live.mjs | 208 | REVIEW_BEFORE_RUNNING | await fs.mkdir( 'reports', { recursive: true } ); |
 | tools/check-homepage-investor-polish-live.mjs | 209 | REFERENCE_ONLY | await fs.mkdir( 'project-control', { recursive: true } ); |
 | tools/check-homepage-investor-polish-live.mjs | 210 | REVIEW_BEFORE_RUNNING | await fs.writeFile( `reports/homepage-investor-polish-live-${ RUN_DATE }.json`, JSON.stringify( report, null, 2 ) + '\n' ); |

@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-26 22:06 Asia/Jerusalem
+- GROW PAYMENT COMPLIANCE PRIVATE REPORT REFRESH VERIFIED LIVE READ-ONLY: refreshed the Grow/Meshulam public compliance evidence after moving the checker outputs into private artifact paths.
+- CODE UPDATED: `tools/check-grow-payment-compliance.mjs` now writes reports to `.project-control/` and `.reports/`, not public-root `project-control/` or `reports/`, and its markdown report explains the artifact-privacy rule.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/grow-payment-compliance-live-2026-05-26.md`, `.project-control/grow-payment-compliance-live-2026-05-26.csv`, `.reports/grow-payment-compliance-live-2026-05-26.json`, `.reports/grow-payment-compliance-live-2026-05-26.csv`.
+- VERIFIED LIVE READ-ONLY: `node tools/check-grow-payment-compliance.mjs` returned `PASS` with `8/8` checks: checkout page reachable, required customer fields, terms checkbox/link, lawyer-plan checkout entrypoint, terms page, cancellation/supply policy, privacy policy and business contact signals.
+- PRIVATE ARTIFACT GUARD: `node tools/check-private-artifact-boundaries.mjs --reportDate=2026-05-26` returned `PASS`; no public artifact root exists, no tracked files live under public artifact roots, `.gitignore` covers `6/6` public roots, and legacy tool references are now `434`.
+- LINEAR: recorded as `HAD-98` and marked Done under first lawyer acquisition / payment readiness.
+- HONEST BLOCKER: this proves public compliance markers only. Real payment revenue is still blocked until Grow/Meshulam/Morning provider setup, product/gateway mapping, a controlled payment link or checkout path, transaction/reference proof and invoice/receipt proof are recorded.
+- COMPLETION ASSESSMENT: website compliance evidence 100%; private artifact migration for this payment checker 100%; recurring/payment automation still provider-blocked; realized payment proof remains 0% until a real controlled payment is recorded.
+- PUBLIC IMPACT: none. No public CMS page, content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-26 20:50 Asia/Jerusalem
 - PRIVATE ARTIFACT SCRIPT MIGRATION PASS 3 VERIFIED LOCAL: migrated the Medical Malpractice planning tools away from public-root artifact paths.
 - CODE UPDATED: `tools/build-medical-malpractice-readiness-dashboard.mjs`, `tools/build-medical-malpractice-gsc-decision-map.mjs`, `tools/build-medical-malpractice-owner-decision-packet.mjs` and `tools/build-medical-malpractice-duplicate-identity-review.mjs` now use `.project-control` and `.reports`.

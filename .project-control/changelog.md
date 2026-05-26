@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Grow payment compliance private report refresh
+
+- UPDATED: `tools/check-grow-payment-compliance.mjs`.
+- GENERATED: `.project-control/grow-payment-compliance-live-2026-05-26.md`, `.project-control/grow-payment-compliance-live-2026-05-26.csv`, `.reports/grow-payment-compliance-live-2026-05-26.json`, `.reports/grow-payment-compliance-live-2026-05-26.csv`.
+- PURPOSE: keep Grow/Meshulam website-compliance evidence current while preventing payment/provider readiness reports from being written to public-root artifact paths.
+- VERIFIED LIVE READ-ONLY: Grow compliance checker returned `PASS` with `8/8` checks for checkout reachability, required fields, terms checkbox/link, lawyer-plan checkout entrypoint, terms, cancellation/supply policy, privacy and business contact signals.
+- VERIFIED LOCAL: private artifact boundary guard returned `PASS`; no public artifact roots or tracked public-root artifacts exist, `.gitignore` covers `6/6` roots, and legacy tool references are now `434`.
+- LINEAR: recorded as `HAD-98` and marked Done.
+- BLOCKER PRESERVED: public compliance evidence is not the same as payment proof. Real revenue still needs provider setup, product/gateway mapping, a controlled payment transaction/reference and invoice/receipt proof.
+- SAFETY: repo-local checker/report/status only plus read-only live route checks; no public CMS page, content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # 2026-05-26 - Private artifact script migration pass 3
 
 - UPDATED: `tools/build-medical-malpractice-readiness-dashboard.mjs`, `tools/build-medical-malpractice-gsc-decision-map.mjs`, `tools/build-medical-malpractice-owner-decision-packet.mjs`, `tools/build-medical-malpractice-duplicate-identity-review.mjs`.

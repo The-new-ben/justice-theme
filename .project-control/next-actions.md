@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-GROW-PAYMENT-COMPLIANCE-PRIVATE-001: Keep Grow/Meshulam compliance proof private and payment claims honest
+**Status:** FIXED LOCAL / LINEAR DONE
+**Why:** the live site passes the visible Grow/Meshulam website-compliance checks, but the proof artifacts must stay private and the team must not confuse compliance proof with real payment proof.
+**Actions:**
+1. DONE: migrate `tools/check-grow-payment-compliance.mjs` output paths from public-root `project-control` / `reports` to `.project-control` / `.reports`.
+2. DONE: add an artifact-privacy note to the generated markdown report.
+3. DONE: rerun live read-only Grow compliance checks; result `PASS`, `8/8`.
+4. DONE: rerun the private artifact boundary guard; result `PASS`, `0` public roots, `0` tracked public-root artifacts, `.gitignore` coverage `6/6`, legacy references `434`.
+5. DONE: record this as Linear `HAD-98`, marked Done.
+6. DO BEFORE PAYMENT CLAIMS: rerun `node tools/check-grow-payment-compliance.mjs` before any Grow reply, payment provider discussion or investor payment demo.
+7. BLOCKED: do not create or change Woo/Grow/Morning product or gateway mapping until owner/provider approval and a controlled smoke-test plan exist.
+8. BLOCKED: do not claim realized payment revenue until a real transaction/reference and invoice/receipt proof are recorded.
+
 ### ACTION-BTL-HELD-LEAD-TRIAGE-001: Show held Bituach Leumi paid-handoff blockers without PII
 **Status:** FIXED LIVE / LINEAR DONE
 **Why:** after priming Bituach Leumi revenue hints, the owner still needs a single safe place to see which held WhatsApp/TalkTo/manual leads are blocked by consent, partner terms, owner release or billing proof before first paid handoff.

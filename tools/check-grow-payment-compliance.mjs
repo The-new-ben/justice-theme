@@ -218,6 +218,10 @@ function toMarkdown( results ) {
 		'node tools/check-grow-payment-compliance.mjs',
 		'```',
 		'',
+		'## Artifact Privacy',
+		'',
+		'Outputs are written to `.project-control/` and `.reports/` so payment/provider readiness evidence stays in the private repo artifact area instead of public theme paths.',
+		'',
 	];
 
 	return lines.join( '\n' );
@@ -257,12 +261,12 @@ const csv = toCsv( results );
 const markdown = toMarkdown( results );
 const fs = await import( 'node:fs/promises' );
 
-await fs.mkdir( 'reports', { recursive: true } );
-await fs.mkdir( 'project-control', { recursive: true } );
-await fs.writeFile( `reports/grow-payment-compliance-live-${ RUN_DATE }.json`, JSON.stringify( report, null, 2 ) + '\n' );
-await fs.writeFile( `reports/grow-payment-compliance-live-${ RUN_DATE }.csv`, csv );
-await fs.writeFile( `project-control/grow-payment-compliance-live-${ RUN_DATE }.md`, markdown );
-await fs.writeFile( `project-control/grow-payment-compliance-live-${ RUN_DATE }.csv`, csv );
+await fs.mkdir( '.reports', { recursive: true } );
+await fs.mkdir( '.project-control', { recursive: true } );
+await fs.writeFile( `.reports/grow-payment-compliance-live-${ RUN_DATE }.json`, JSON.stringify( report, null, 2 ) + '\n' );
+await fs.writeFile( `.reports/grow-payment-compliance-live-${ RUN_DATE }.csv`, csv );
+await fs.writeFile( `.project-control/grow-payment-compliance-live-${ RUN_DATE }.md`, markdown );
+await fs.writeFile( `.project-control/grow-payment-compliance-live-${ RUN_DATE }.csv`, csv );
 
 console.table( results.map( ( result ) => ( {
 	id: result.id,

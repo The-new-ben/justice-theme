@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-27 00:43 Asia/Jerusalem
+- RENTAL AGREEMENT OWNER-REVIEW PACKET ADDED: prepared the first exact public-facing approval packet for upgrading the existing `/rental-agreement/` page without publishing anything.
+- CODE ADDED: `tools/build-rental-agreement-public-update-approval-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/rental-agreement-public-update-approval-packet-2026-05-27.md`, `.project-control/rental-agreement-public-update-approval-packet-2026-05-27.csv`, `.reports/rental-agreement-public-update-approval-packet-2026-05-27.json`, `.reports/rental-agreement-public-update-approval-packet-2026-05-27.csv`.
+- CHECK RESULT: `OWNER_REVIEW_PACKET_READY_NOT_APPROVED`; target route: `https://jus-tice.co.il/rental-agreement/`; packet rows: 10; owner-review public-copy rows: 8; internal/business-plan marker hits: 0; public changes approved: 0.
+- PREPARED COPY: SEO title direction, H1 direction, meta description direction, intro paragraph, checklist heading/items, one contextual legal-help CTA, and associated/cannibalizing page list.
+- ASSOCIATED PAGES: `/rental-agreement-guide/`, `/landlord-obligations-israel/`, `/tenant-rights-israel/`, `/landlord-rights-israel/`, `/tenant-eviction-defense/`, `/eviction-notice-israel/`, `/commercial-lease-israel/`, `/contract-law-israel/`.
+- LINEAR: recorded as `HAD-124` and marked Done under `HAD-84`, related to `HAD-121`, `HAD-122`, `HAD-123` and `HAD-78`.
+- PUBLIC IMPACT: none. No public page, CMS content, internal link, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer handoff, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: rental-agreement owner-review packet 100%; live page update remains 0% until owner/SEO/legal review, exact-copy approval, and publication QA are complete.
+
 # LATEST WORK STATUS - 2026-05-27 00:33 Asia/Jerusalem
 - MANAGED-SERVICE ROUTE UPGRADE BRIEF ADDED: converted the managed-service cannibalization inventory into owner/SEO page-decision guidance for the first two Lawhive-style public-facing candidates.
 - CODE ADDED: `tools/build-managed-service-route-upgrade-brief.mjs`.

@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-RENTAL-AGREEMENT-PUBLIC-UPDATE-APPROVAL-001: Prepare owner-review copy for the existing rental route
+**Status:** FIXED LOCAL / PUBLIC UPDATE BLOCKED UNTIL OWNER APPROVAL
+**Why:** the managed-service route brief selected `/rental-agreement/` as the first safe candidate, but the owner needs exact reader-facing copy and associated-page notes before any public CMS edit.
+**Actions:**
+1. DONE: add `tools/build-rental-agreement-public-update-approval-packet.mjs`.
+2. DONE: generate `.project-control/rental-agreement-public-update-approval-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.reports/rental-agreement-public-update-approval-packet-2026-05-27.json` and `.csv`.
+4. DONE: prepare owner-review copy for SEO title, H1, meta description, intro paragraph, checklist heading/items and one contextual legal-help CTA.
+5. DONE: list associated/cannibalizing pages to inspect before publication.
+6. DONE: verify 0 internal/business-plan marker hits in the suggested public copy.
+7. DONE: record this as Linear `HAD-124`, marked Done under `HAD-84`.
+8. NEXT: owner/SEO/legal reviewer can approve, reject or edit the exact copy; only after that should a controlled public CMS update be considered.
+9. BLOCKED: do not update `/rental-agreement/`, add internal links, change title/H1/meta, publish checkout wording, contact lawyers, invoice, charge payment or send publication email from this packet alone.
+
 ### ACTION-MANAGED-SERVICE-ROUTE-UPGRADE-BRIEF-001: Prepare public-safe route decisions before any package CTA
 **Status:** FIXED LOCAL / PUBLIC LAUNCH BLOCKED
 **Why:** the managed-service inventory identified overlap, but future operators need a clear decision brief that says which existing pages could be upgraded later and which generic pages should not be created.

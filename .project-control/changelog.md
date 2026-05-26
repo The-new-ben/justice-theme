@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Rental agreement public update approval packet
+
+- ADDED: `tools/build-rental-agreement-public-update-approval-packet.mjs`.
+- GENERATED: `.project-control/rental-agreement-public-update-approval-packet-2026-05-27.md`, `.project-control/rental-agreement-public-update-approval-packet-2026-05-27.csv`, `.reports/rental-agreement-public-update-approval-packet-2026-05-27.json`, `.reports/rental-agreement-public-update-approval-packet-2026-05-27.csv`.
+- PURPOSE: prepare owner/SEO review copy for the existing `/rental-agreement/` route, with no publication or CMS action.
+- RESULT: `OWNER_REVIEW_PACKET_READY_NOT_APPROVED`; 10 packet rows, 8 owner-review public-copy rows, 0 internal/business-plan marker hits and 0 public changes approved.
+- INCLUDED: SEO title direction, H1 direction, meta description direction, intro paragraph, checklist heading/items, one contextual legal-help CTA and associated/cannibalizing pages.
+- LINEAR: recorded as `HAD-124` and marked Done under `HAD-84`, related to `HAD-121`, `HAD-122`, `HAD-123` and `HAD-78`.
+- SAFETY: private approval packet only; no public page, CMS content, internal link, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer handoff, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Managed-service route upgrade brief
 
 - ADDED: `tools/build-managed-service-route-upgrade-brief.mjs`.

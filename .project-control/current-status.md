@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-26 22:39 Asia/Jerusalem
+- REAL-ESTATE TAX / TOOL INVENTORY GENERATED: resolved the high-risk real-estate tax/tool placeholder from the associated-linkage packet into a concrete live route inventory.
+- CODE ADDED: `tools/build-real-estate-tax-tool-inventory.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/real-estate-tax-tool-inventory-2026-05-26.md`, `.project-control/real-estate-tax-tool-inventory-2026-05-26.csv`, `.reports/real-estate-tax-tool-inventory-2026-05-26.json`, `.reports/real-estate-tax-tool-inventory-2026-05-26.csv`.
+- VERIFIED LIVE READ-ONLY: inspected 19 exact route/config/redirect candidates. Found 3 existing high-risk tax-intent pages: `/land-appreciation-tax/`, `/purchase-tax-cancellation-real-estate-5561-01-20/`, and `/purchase-tax-verdict-claim-63044-06-20/`.
+- LINEAR: recorded as `HAD-101` and marked Done under the anti-cannibalization / calculator-money-tools backlog.
+- ABSENT CANDIDATES: `/purchase-tax/`, `/purchase-tax-calculator/`, `/real-estate-purchase-tax/`, `/real-estate-tax/`, `/arnona-appeal-checker/`, `/property-tax-arnona/`, and `/selling-apartment/` returned 404/not-public in this read-only check.
+- KEY SAFETY RULE: the absence of a clean purchase-tax calculator URL is not permission to create one. Existing tax-intent pages and buyer/seller apartment pages must be reviewed with owner/SEO/GSC before any calculator, internal link, title/H1/meta, URL, redirect, canonical/noindex, sitemap or taxonomy action.
+- MONEY IMPACT: the property-tax/purchase-tax revenue idea is now grounded in the current site inventory instead of a blind new-page build, reducing cannibalization risk before revenue tooling work.
+- COMPLETION ASSESSMENT: real-estate tax/tool inventory 100%; purchase-tax calculator decision 35%; public implementation 0% until owner/SEO/GSC approval.
+- PUBLIC IMPACT: none. No public CMS page, content, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-26 22:24 Asia/Jerusalem
 - LIVE ASSOCIATED LINKAGE REVIEW PACKET GENERATED: turned the public legal-help route QA into a private owner/SEO decision queue for future internal links and cannibalization review.
 - CODE ADDED: `tools/build-live-associated-linkage-review.mjs`.

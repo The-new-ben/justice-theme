@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-REAL-ESTATE-TAX-TOOL-INVENTORY-001: Inventory purchase-tax and seller-tax routes before tool/link work
+**Status:** FIXED LOCAL / LINEAR DONE
+**Why:** the associated-linkage packet marked real-estate tax/tool linking as high-risk because purchase-tax or seller-tax content may already exist.
+**Actions:**
+1. DONE: add `tools/build-real-estate-tax-tool-inventory.mjs`.
+2. DONE: inspect 19 exact route/config/redirect candidates live read-only.
+3. DONE: confirm existing high-risk tax-intent pages: `/land-appreciation-tax/`, `/purchase-tax-cancellation-real-estate-5561-01-20/`, `/purchase-tax-verdict-claim-63044-06-20/`.
+4. DONE: confirm clean calculator/page candidates `/purchase-tax/`, `/purchase-tax-calculator/`, `/real-estate-purchase-tax/`, `/real-estate-tax/`, `/arnona-appeal-checker/`, `/property-tax-arnona/`, and `/selling-apartment/` are absent/not-public in this check.
+5. DONE: record this as Linear `HAD-101`, marked Done.
+6. NEXT: owner/SEO/GSC must decide whether a purchase-tax calculator should upgrade an existing page, become a new page, or stay blocked.
+7. BLOCKED: do not publish, link, create calculator pages, change titles/H1/meta, URLs, redirects, canonicals/noindex, sitemap or taxonomy from this inventory alone.
+
 ### ACTION-LIVE-ASSOCIATED-LINKAGE-REVIEW-001: Prepare internal-link decisions without publishing them
 **Status:** FIXED LOCAL / LINEAR DONE
 **Why:** the legal-help route QA identified associated/synonymous pages, but the team needs a concrete owner/SEO queue before adding links or creating adjacent pages.

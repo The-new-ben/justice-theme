@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Real-estate tax tool inventory
+
+- ADDED: `tools/build-real-estate-tax-tool-inventory.mjs`.
+- GENERATED: `.project-control/real-estate-tax-tool-inventory-2026-05-26.md`, `.project-control/real-estate-tax-tool-inventory-2026-05-26.csv`, `.reports/real-estate-tax-tool-inventory-2026-05-26.json`, `.reports/real-estate-tax-tool-inventory-2026-05-26.csv`.
+- PURPOSE: inspect existing purchase-tax, seller-tax, arnona and adjacent real-estate routes before linking or creating a tax/calculator page.
+- VERIFIED LIVE READ-ONLY: 19 exact route/config/redirect candidates inspected; 3 existing high-risk tax-intent pages found; 7 candidates returned 404/not-public.
+- LINEAR: recorded as `HAD-101` and marked Done.
+- DECISION SAFETY: no row is approved for publish or linking. The absence of `/purchase-tax/` and `/purchase-tax-calculator/` is only evidence for owner/SEO/GSC review, not approval to create a page.
+- SAFETY: read-only live route checks plus repo-local tool/report/status only; no public CMS page, content, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # 2026-05-26 - Live associated page linkage review
 
 - ADDED: `tools/build-live-associated-linkage-review.mjs`.

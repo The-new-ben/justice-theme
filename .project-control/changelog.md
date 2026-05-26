@@ -8,7 +8,8 @@
 - IMPLEMENTATION: added owner handoff release status, scope, note and timestamp fields; added an owner-only `Owner handoff release queue`; added admin notices, no-PII audit export columns and audit-gate labels.
 - SAFETY GATES: approval requires routeable client permission, accepted partner terms, a recorded minimum paid fee and three manual-only confirmation checkboxes.
 - ROUTING SAFETY: approval records readiness only; it keeps `routing_hold=1`, sends no client PII, notifies nobody, creates no invoice and charges no money.
-- DEPLOYMENT STATUS: marker prepared as `2026-05-26-owner-handoff-release-v1`; commit, uPress Pull Git and live verification still required.
+- DEPLOYED: commit `3cb273a` pushed to `main`; uPress Pull Git completed; marker `2026-05-26-owner-handoff-release-v1` verified live; admin owner-release panel verified in Justice CRM.
+- LIVE SAFETY CHECKS: homepage, `/uk-lawyer/` and `/national-insurance-attorney/` returned 200; old public artifact path returned 404 and dot-private artifact path returned 403.
 
 # 2026-05-26 - WhatsApp / TalkTo connector readiness panel
 

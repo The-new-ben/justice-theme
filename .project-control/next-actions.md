@@ -16,7 +16,7 @@
 6. NEXT: monitor future tools/scripts so they do not recreate public artifact directories; `.gitignore` now blocks committing those public paths.
 
 ### ACTION-WHATSAPP-TALKTO-CONSENT-CRM-001: Build consent-safe intake for WhatsApp, TalkTo and legacy leads
-**Status:** OWNER RELEASE GATE CODED / DEPLOYMENT VERIFICATION PENDING
+**Status:** OWNER RELEASE GATE DEPLOYED LIVE / PROVIDER ROUTE BLOCKED
 **Why:** inbound WhatsApp/TalkTo leads can become paid lawyer/supplier handoffs, but only after permission, case details and commercial terms are recorded.
 **Actions:**
 1. DONE: add source channels for WhatsApp Business, WhatsApp export, TalkTo chatbot and legacy CSV imports.
@@ -36,7 +36,7 @@
 15. DONE: design official WhatsApp Business/TalkTo webhook mapping after provider route and permission text are approved.
 16. DONE: deploy/pull and verify the owner-only WhatsApp / TalkTo connector readiness panel appears in Justice CRM.
 17. DONE: add owner handoff release gate for leads that already have explicit/verified client permission, accepted partner terms and a recorded minimum paid fee.
-18. NEXT: commit, deploy/pull and verify the owner-only Owner handoff release queue appears in Justice CRM.
+18. DONE: commit, deploy/pull and verify the owner-only Owner handoff release queue appears in Justice CRM.
 19. BLOCKED: do not enable live webhook ingestion until provider route, signature/shared-secret method, pause control and permission text are approved.
 20. BLOCKED: do not contact old leads, release PII to suppliers/lawyers, or charge money until opt-in, partner terms, billing proof and owner release are recorded.
 

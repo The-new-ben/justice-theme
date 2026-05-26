@@ -73,5 +73,5 @@ Each import is limited to 200 pasted rows to keep owner review manageable. Dupli
 3. DONE: add audit export for consent evidence, preview state, partner terms and handoff billing proof.
 4. DONE: verify the no-PII lead audit export panel/link in `wp-admin -> Justice CRM` after uPress pull.
 5. DONE: document and verify official WhatsApp Business/TalkTo webhook field map, provider questions and acceptance gates inside Justice CRM.
-6. NEXT: verify the owner handoff release queue in `wp-admin -> Justice CRM` after uPress pull.
+6. DONE: verify the owner handoff release queue in `wp-admin -> Justice CRM` after uPress pull.
 7. LATER: connect official WhatsApp Business/TalkTo webhooks only after the provider route, signature/shared-secret method, pause control and permission text are approved.

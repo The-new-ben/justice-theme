@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-26 12:18 Asia/Jerusalem
+- CONSENT-FIRST WHATSAPP/TALKTO CRM UPGRADE: manual WhatsApp/client lead bridge now treats WhatsApp, TalkTo, email, phone and legacy imports as private held CRM records until explicit/verified permission is recorded.
+- CODE UPDATED: added consent status, permission basis, source system, source thread/import ID, source page URL, legacy re-permission flag and client permission next step metadata.
+- ROUTING HARDENED: external/manual leads cannot route to lawyers merely because a checkbox was ticked; the status must be `explicit_match_consent` or `owner_verified_consent`, and the router itself now blocks bypass attempts.
+- DOCUMENTED: `.project-control/lead-consent-import-architecture-2026-05-26.md` records the consent state machine and why the current UK WhatsApp lead must stay held until details/permission are complete.
+- INTERNAL ARTIFACT BLOCKER ESCALATED: live verification showed the theme-root `.htaccess` rewrite was also ignored; internal docs moved to dot-prefixed private repo directories so old public URLs should stop serving.
+- SAFETY: no client was contacted, no real CRM lead was created, no supplier/lawyer was contacted, no invoice/payment was created, and no public CMS/page/redirect/canonical/sitemap/taxonomy change was made.
+
 # LATEST WORK STATUS - 2026-05-26 11:39 Asia/Jerusalem
 - THEME ROOT ARTIFACT BLOCK ADDED: nested `.htaccess` deny files did not block live static access to `project-control/*.md` or `reports/*.json`. Added a theme-root `.htaccess` rewrite deny for internal artifact directories.
 - BLOCKER IF FAILS: if this root rule is ignored live too, uPress/LiteSpeed/Nginx is serving static theme files outside nested `.htaccess` control and the owner needs a server/root `.htaccess` or uPress support-level deny rule.

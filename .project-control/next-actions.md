@@ -5,15 +5,28 @@
 ---
 
 ### ACTION-INTERNAL-ARTIFACT-WEB-BLOCK-001: Block project-control and report artifacts from public static access
-**Status:** FIXED ROOT RULE / DEPLOY VERIFY REQUIRED / SERVER BLOCKER IF STILL 200
+**Status:** ROOT RULE FAILED LIVE / MOVING INTERNAL ARTIFACTS TO DOT-PREFIXED PRIVATE PATHS
 **Why:** verification found internal repo control docs reachable under `/wp-content/themes/justice-theme/project-control/*.md`; even without client phone, these files are not public website content.
 **Actions:**
 1. DONE: add Apache/LiteSpeed deny `.htaccess` files to `project-control/`, `reports/`, `content-master/`, `content-drafts/`, and `mnt/`.
 2. DONE: live verification showed nested `.htaccess` was ignored for `project-control/*.md` and `reports/*.json`, so add a theme-root rewrite deny rule.
-3. NEXT: pull Git in uPress and verify marker `2026-05-26-theme-root-artifact-block-v1`.
-4. NEXT: verify homepage, `/uk-lawyer/`, and `/national-insurance-attorney/` still return 200.
-5. NEXT: verify direct requests to internal `.md`, `.csv`, `.json`, `.html`, and visual-evidence paths return 403 or otherwise blocked.
-6. BLOCKED: if the root theme `.htaccess` is ignored too, add a server-level deny rule through uPress support or the site's active webroot `.htaccess`.
+3. DONE: live verification showed the theme-root `.htaccess` rule was also ignored.
+4. NEXT: move `project-control`, `reports`, `content-master`, `content-drafts`, `mnt`, and emergency master artifacts to dot-prefixed private paths and update live PHP readers.
+5. NEXT: pull Git in uPress and verify the old public URLs return 404/blocked and dot-prefixed URLs are not readable.
+6. BLOCKED: if dot-prefixed paths are still readable, add a server-level deny rule through uPress support or the site's active webroot/server config.
+
+### ACTION-WHATSAPP-TALKTO-CONSENT-CRM-001: Build consent-safe intake for WhatsApp, TalkTo and legacy leads
+**Status:** CODED / DEPLOY VERIFY REQUIRED / IMPORT AUTOMATION NOT STARTED
+**Why:** inbound WhatsApp/TalkTo leads can become paid lawyer/supplier handoffs, but only after permission, case details and commercial terms are recorded.
+**Actions:**
+1. DONE: add source channels for WhatsApp Business, WhatsApp export, TalkTo chatbot and legacy CSV imports.
+2. DONE: add consent statuses: fresh inbound needs details, explicit match consent, owner verified consent, legacy needs re-permission and do not contact.
+3. DONE: store source thread/import ID, source page URL, consent basis, consent checked timestamp and permission next step on each private lead.
+4. DONE: block router release unless consent status is explicit/verified and owner/admin verified the evidence.
+5. DONE: document the architecture in `.project-control/lead-consent-import-architecture-2026-05-26.md`.
+6. NEXT: deploy and verify the admin bridge appears under `wp-admin -> Justice CRM -> Manual WhatsApp / client lead bridge`.
+7. NEXT: build CSV/import upload with dedupe and a re-permission queue before importing old untreated leads in bulk.
+8. BLOCKED: do not contact old leads, release PII to suppliers/lawyers, or charge money until opt-in and partner terms are recorded.
 
 ### ACTION-UK-WHATSAPP-LEAD-SUPPLIER-HANDOFF-001: Process first UK-law WhatsApp lead through the private CRM bridge
 **Status:** FIXED CLASSIFICATION / VERIFIED MAILBOX / BLOCKED LIVE CRM ENTRY UNTIL OWNER APPROVES REAL LEAD CREATION

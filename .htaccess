@@ -2,7 +2,8 @@
 # deployed as the WordPress theme directory.
 <IfModule mod_rewrite.c>
 	RewriteEngine On
-	RewriteRule ^(project-control|reports|content-master|content-drafts|mnt)(/|$) - [F,L]
+	RewriteRule ^(\.?project-control|\.?reports|\.?content-master|\.?content-drafts|\.?mnt|\.?justice_theme_emergency_master_2026_05_13)(/|$) - [F,L]
+	RewriteRule ^\.justice_theme_emergency_master_2026_05_13\.zip$ - [F,L]
 </IfModule>
 
 <IfModule mod_authz_core.c>

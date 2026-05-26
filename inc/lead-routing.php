@@ -32,6 +32,21 @@ function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool 
 		return;
 	}
 
+	$source_channel = (string) get_post_meta( $post_id, 'source_channel', true );
+	$external_sources = array( 'whatsapp_manual', 'whatsapp_business', 'whatsapp_export', 'talkto_chatbot', 'legacy_import_csv', 'email_forward', 'phone_call', 'owner_note' );
+	if ( in_array( $source_channel, $external_sources, true ) ) {
+		$consent_status = (string) get_post_meta( $post_id, 'consent_status', true );
+		$allowed_statuses = function_exists( 'justice_theme_crm_manual_lead_routeable_consent_statuses' )
+			? justice_theme_crm_manual_lead_routeable_consent_statuses()
+			: array( 'explicit_match_consent', 'owner_verified_consent' );
+
+		if ( '1' !== (string) get_post_meta( $post_id, 'consent', true ) || ! in_array( $consent_status, $allowed_statuses, true ) ) {
+			update_post_meta( $post_id, 'routing_hold', '1' );
+			update_post_meta( $post_id, 'routing_notes', 'Routing blocked: external WhatsApp/TalkTo/manual lead lacks explicit match consent or owner-verified permission evidence.' );
+			return;
+		}
+	}
+
 	// Only route NEW leads, not updates to existing ones.
 	if ( $update && get_post_meta( $post_id, 'routing_completed', true ) ) {
 		return;

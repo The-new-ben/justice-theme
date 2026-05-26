@@ -359,7 +359,9 @@ function justice_theme_guard_family_cluster_public_content( ?string $content ): 
 
 	$item = $items[ $slug ];
 	$file = sanitize_file_name( $item['file'] ?? '' );
-	$path = JUSTICE_THEME_DIR . '/content-drafts/' . $file;
+	$path = function_exists( 'justice_theme_private_path' )
+		? justice_theme_private_path( 'content-drafts/' . $file )
+		: JUSTICE_THEME_DIR . '/content-drafts/' . $file;
 	if ( '' === $file || ! is_readable( $path ) ) {
 		return $content;
 	}
@@ -620,7 +622,9 @@ function justice_theme_get_owner_approved_family_cluster(): array {
  */
 function justice_theme_publish_family_cluster_page( string $slug, array $item, array $all_items, bool $create_missing = true ) {
 	$file = sanitize_file_name( $item['file'] ?? '' );
-	$path = JUSTICE_THEME_DIR . '/content-drafts/' . $file;
+	$path = function_exists( 'justice_theme_private_path' )
+		? justice_theme_private_path( 'content-drafts/' . $file )
+		: JUSTICE_THEME_DIR . '/content-drafts/' . $file;
 
 	if ( '' === $file || ! is_readable( $path ) ) {
 		return new WP_Error( 'missing_draft', 'Draft file is missing: ' . $file );
@@ -735,7 +739,9 @@ function justice_theme_family_cluster_publication_preflight( array $items ): arr
 		}
 
 		$file = sanitize_file_name( $item['file'] ?? '' );
-		$path = JUSTICE_THEME_DIR . '/content-drafts/' . $file;
+		$path = function_exists( 'justice_theme_private_path' )
+			? justice_theme_private_path( 'content-drafts/' . $file )
+			: JUSTICE_THEME_DIR . '/content-drafts/' . $file;
 		if ( ! is_readable( $path ) ) {
 			$blocked[] = $slug . ': draft file is missing.';
 			continue;
@@ -763,7 +769,9 @@ function justice_theme_family_cluster_publication_preflight( array $items ): arr
  * @return array<string,array<string,string>>
  */
 function justice_theme_read_publication_cannibalization_statuses(): array {
-	$path = JUSTICE_THEME_DIR . '/project-control/publication-cannibalization-check.csv';
+	$path = function_exists( 'justice_theme_private_path' )
+		? justice_theme_private_path( 'project-control/publication-cannibalization-check.csv' )
+		: JUSTICE_THEME_DIR . '/project-control/publication-cannibalization-check.csv';
 	if ( ! is_readable( $path ) ) {
 		return array();
 	}
@@ -1168,7 +1176,9 @@ function justice_theme_build_family_cluster_internal_notes_html( array $items ):
 
 	foreach ( $items as $slug => $item ) {
 		$file = sanitize_file_name( $item['file'] ?? '' );
-		$path = JUSTICE_THEME_DIR . '/content-drafts/' . $file;
+		$path = function_exists( 'justice_theme_private_path' )
+			? justice_theme_private_path( 'content-drafts/' . $file )
+			: JUSTICE_THEME_DIR . '/content-drafts/' . $file;
 
 		if ( '' === $file || ! is_readable( $path ) ) {
 			continue;

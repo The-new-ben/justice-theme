@@ -309,7 +309,9 @@ function justice_theme_import_all_repo_content_drafts(): array {
 }
 
 function justice_theme_get_repo_content_drafts(): array {
-	$dir = JUSTICE_THEME_DIR . '/content-drafts';
+	$dir = function_exists( 'justice_theme_private_path' )
+		? justice_theme_private_path( 'content-drafts' )
+		: JUSTICE_THEME_DIR . '/content-drafts';
 
 	if ( ! is_dir( $dir ) ) {
 		return array();
@@ -347,7 +349,9 @@ function justice_theme_import_repo_content_draft( string $file ): array {
 		return array( 'status' => 'blocked', 'message' => 'articles post type is not active.' );
 	}
 
-	$path = JUSTICE_THEME_DIR . '/content-drafts/' . sanitize_file_name( $file );
+	$path = function_exists( 'justice_theme_private_path' )
+		? justice_theme_private_path( 'content-drafts/' . sanitize_file_name( $file ) )
+		: JUSTICE_THEME_DIR . '/content-drafts/' . sanitize_file_name( $file );
 	if ( ! is_readable( $path ) ) {
 		return array( 'status' => 'failed', 'message' => 'Draft file was not found.' );
 	}

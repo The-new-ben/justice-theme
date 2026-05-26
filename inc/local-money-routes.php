@@ -95,7 +95,9 @@ function justice_theme_read_local_money_markdown( array $config ): string {
 		return '';
 	}
 
-	$path = JUSTICE_THEME_DIR . '/content-drafts/' . $file;
+	$path = function_exists( 'justice_theme_private_path' )
+		? justice_theme_private_path( 'content-drafts/' . $file )
+		: JUSTICE_THEME_DIR . '/content-drafts/' . $file;
 	if ( ! is_readable( $path ) ) {
 		return '';
 	}

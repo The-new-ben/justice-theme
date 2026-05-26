@@ -9,10 +9,36 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_VERSION', '1.1.29' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-05-26-theme-root-artifact-block-v1' );
+define( 'JUSTICE_THEME_VERSION', '1.1.30' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-05-26-consent-crm-private-artifacts-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
+
+/**
+ * Resolve repo-maintained internal artifacts from dot-prefixed directories.
+ *
+ * These files are useful to the owner and build agents, but must not sit under
+ * normal public paths in the deployed theme directory.
+ */
+function justice_theme_private_path( string $relative_path ): string {
+	$normalized = ltrim( str_replace( '\\', '/', $relative_path ), '/' );
+	$map        = array(
+		'project-control/'                       => '.project-control/',
+		'reports/'                               => '.reports/',
+		'content-master/'                        => '.content-master/',
+		'content-drafts/'                        => '.content-drafts/',
+		'mnt/'                                   => '.mnt/',
+		'justice_theme_emergency_master_2026_05_13/' => '.justice_theme_emergency_master_2026_05_13/',
+	);
+
+	foreach ( $map as $public_prefix => $private_prefix ) {
+		if ( 0 === strpos( $normalized, $public_prefix ) ) {
+			return JUSTICE_THEME_DIR . '/' . $private_prefix . substr( $normalized, strlen( $public_prefix ) );
+		}
+	}
+
+	return JUSTICE_THEME_DIR . '/' . $normalized;
+}
 
 $justice_theme_files = array(
 	'inc/setup.php',

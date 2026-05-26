@@ -39,7 +39,15 @@ function justice_theme_crm_register_lead_meta(): void {
 		'qualified_lead_owner_note' => 'string',
 		'source_channel'            => 'string',
 		'source_reference'          => 'string',
+		'source_system'             => 'string',
+		'source_thread_id'          => 'string',
+		'source_page_url'           => 'string',
 		'whatsapp_source_note'      => 'string',
+		'consent_status'            => 'string',
+		'consent_basis'             => 'string',
+		'consent_checked_at'        => 'string',
+		'legacy_repermission_required' => 'string',
+		'client_permission_next_step' => 'string',
 		'handoff_path'              => 'string',
 		'supplier_match_required'   => 'string',
 		'owner_revenue_next_step'   => 'string',
@@ -141,6 +149,7 @@ function justice_theme_crm_render_whatsapp_lead_bridge(): void {
 	$area_options = function_exists( 'justice_theme_lead_area_options' )
 		? justice_theme_lead_area_options()
 		: array( 'general' => 'General / review' );
+	$consent_options = justice_theme_crm_manual_lead_consent_options();
 	?>
 	<div class="postbox" style="padding:0;margin:18px 0;border:1px solid #dcdcde;">
 		<div style="padding:16px 18px;border-bottom:1px solid #dcdcde;background:#fff;">
@@ -157,6 +166,10 @@ function justice_theme_crm_render_whatsapp_lead_bridge(): void {
 						<strong>Source channel</strong>
 						<select name="source_channel" class="widefat">
 							<option value="whatsapp_manual">WhatsApp / manual paste</option>
+							<option value="whatsapp_business">WhatsApp Business / API</option>
+							<option value="whatsapp_export">WhatsApp export upload</option>
+							<option value="talkto_chatbot">TalkTo chatbot</option>
+							<option value="legacy_import_csv">Legacy lead import</option>
 							<option value="email_forward">Email forward</option>
 							<option value="phone_call">Phone call</option>
 							<option value="owner_note">Owner note</option>
@@ -182,6 +195,25 @@ function justice_theme_crm_render_whatsapp_lead_bridge(): void {
 					<label>
 						<strong>Suggested lead price (NIS)</strong>
 						<input type="number" min="0" step="1" name="suggested_lead_price_ils" value="249" class="widefat">
+					</label>
+				</div>
+
+				<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:14px;">
+					<label>
+						<strong>Consent / permission status</strong>
+						<select name="consent_status" class="widefat">
+							<?php foreach ( $consent_options as $value => $label ) : ?>
+								<option value="<?php echo esc_attr( $value ); ?>"><?php echo esc_html( $label ); ?></option>
+							<?php endforeach; ?>
+						</select>
+					</label>
+					<label>
+						<strong>External thread / import ID</strong>
+						<input type="text" name="source_thread_id" class="widefat" autocomplete="off" placeholder="TalkTo chat ID, WhatsApp export filename, CRM ID">
+					</label>
+					<label>
+						<strong>Source page URL</strong>
+						<input type="url" name="source_page_url" class="widefat" autocomplete="off" placeholder="https://jus-tice.co.il/...">
 					</label>
 				</div>
 
@@ -217,11 +249,11 @@ function justice_theme_crm_render_whatsapp_lead_bridge(): void {
 				<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin-top:14px;">
 					<label style="background:#fff;border:1px solid #dcdcde;border-radius:6px;padding:10px;">
 						<input type="checkbox" name="lead_consent" value="1">
-						Client consent to be contacted / matched is confirmed.
+						I verified the selected consent status and permission evidence.
 					</label>
 					<label style="background:#fff;border:1px solid #dcdcde;border-radius:6px;padding:10px;">
 						<input type="checkbox" name="release_to_router" value="1">
-						Release to paid lawyer routing now if coverage exists.
+						Release to paid lawyer routing now only if consent status allows it.
 					</label>
 					<label style="background:#fff;border:1px solid #dcdcde;border-radius:6px;padding:10px;">
 						<input type="checkbox" name="enable_billing_queue" value="1" checked>
@@ -234,11 +266,41 @@ function justice_theme_crm_render_whatsapp_lead_bridge(): void {
 					<a class="button" href="<?php echo esc_url( admin_url( 'edit.php?post_type=justice_supplier' ) ); ?>">Open supplier pipeline</a>
 					<a class="button" href="<?php echo esc_url( admin_url( 'edit.php?post_type=justice_lawyer' ) ); ?>">Open lawyer profiles</a>
 				</p>
-				<p class="description">If routing is not released, the lead stays on owner hold. If no paid routable lawyer exists, it becomes demand evidence for supplier/lawyer recruitment instead of being given away for free.</p>
+				<p class="description">Legacy WhatsApp/TalkTo leads stay on hold until the client opts in again. A lead can be released only with explicit match consent or owner-verified consent, plus paid lawyer/supplier terms.</p>
 			</form>
 		</div>
 	</div>
 	<?php
+}
+
+function justice_theme_crm_manual_lead_consent_options(): array {
+	return array(
+		'fresh_inbound_needs_details' => 'Fresh inbound - needs details before matching',
+		'explicit_match_consent'      => 'Explicit consent to be matched/contacted',
+		'owner_verified_consent'      => 'Owner verified permission evidence',
+		'legacy_needs_repermission'   => 'Legacy lead - re-permission required',
+		'do_not_contact'              => 'Do not contact / opted out',
+	);
+}
+
+function justice_theme_crm_manual_lead_routeable_consent_statuses(): array {
+	return array( 'explicit_match_consent', 'owner_verified_consent' );
+}
+
+function justice_theme_crm_manual_lead_permission_next_step( string $consent_status ): string {
+	if ( in_array( $consent_status, justice_theme_crm_manual_lead_routeable_consent_statuses(), true ) ) {
+		return 'Permission is sufficient for an owner-controlled paid handoff, subject to lawyer/supplier terms and routing coverage.';
+	}
+
+	if ( 'legacy_needs_repermission' === $consent_status ) {
+		return 'Send only an owner-approved re-permission message before any lawyer/supplier introduction.';
+	}
+
+	if ( 'do_not_contact' === $consent_status ) {
+		return 'Do not contact or route. Keep only for audit/deduplication unless deletion is requested.';
+	}
+
+	return 'Ask for case details and permission to match before routing or billing.';
 }
 
 add_action( 'admin_post_justice_theme_create_whatsapp_lead', 'justice_theme_crm_handle_whatsapp_lead_create' );
@@ -267,15 +329,22 @@ function justice_theme_crm_handle_whatsapp_lead_create(): void {
 	$source_channel = isset( $_POST['source_channel'] ) ? sanitize_key( wp_unslash( $_POST['source_channel'] ) ) : 'whatsapp_manual';
 	$handoff_path   = isset( $_POST['handoff_path'] ) ? sanitize_key( wp_unslash( $_POST['handoff_path'] ) ) : 'lawyer_router';
 	$source_reference = isset( $_POST['source_reference'] ) ? sanitize_textarea_field( wp_unslash( $_POST['source_reference'] ) ) : '';
+	$source_thread_id = isset( $_POST['source_thread_id'] ) ? sanitize_text_field( wp_unslash( $_POST['source_thread_id'] ) ) : '';
+	$source_page_url  = isset( $_POST['source_page_url'] ) ? esc_url_raw( wp_unslash( $_POST['source_page_url'] ) ) : '';
+	$consent_status   = isset( $_POST['consent_status'] ) ? sanitize_key( wp_unslash( $_POST['consent_status'] ) ) : 'fresh_inbound_needs_details';
 	$source_url       = $source_reference && preg_match( '#^https?://#i', $source_reference ) ? esc_url_raw( $source_reference ) : admin_url( 'admin.php?page=justice-crm' );
 	$suggested_price  = isset( $_POST['suggested_lead_price_ils'] ) ? absint( wp_unslash( $_POST['suggested_lead_price_ils'] ) ) : 0;
-	$has_consent      = ! empty( $_POST['lead_consent'] );
+	$verified_permission = ! empty( $_POST['lead_consent'] );
 	$release_requested = ! empty( $_POST['release_to_router'] );
 	$enable_billing_queue = ! empty( $_POST['enable_billing_queue'] ) && $suggested_price > 0;
 
-	$valid_channels = array( 'whatsapp_manual', 'email_forward', 'phone_call', 'owner_note' );
+	$valid_channels = array( 'whatsapp_manual', 'whatsapp_business', 'whatsapp_export', 'talkto_chatbot', 'legacy_import_csv', 'email_forward', 'phone_call', 'owner_note' );
 	if ( ! in_array( $source_channel, $valid_channels, true ) ) {
 		$source_channel = 'whatsapp_manual';
+	}
+
+	if ( ! array_key_exists( $consent_status, justice_theme_crm_manual_lead_consent_options() ) ) {
+		$consent_status = 'fresh_inbound_needs_details';
 	}
 
 	$valid_handoff_paths = array( 'lawyer_router', 'supplier_marketplace', 'lawyer_and_supplier' );
@@ -283,7 +352,8 @@ function justice_theme_crm_handle_whatsapp_lead_create(): void {
 		$handoff_path = 'lawyer_router';
 	}
 
-	$release_to_router = $release_requested && $has_consent && in_array( $handoff_path, array( 'lawyer_router', 'lawyer_and_supplier' ), true );
+	$has_routeable_consent = $verified_permission && in_array( $consent_status, justice_theme_crm_manual_lead_routeable_consent_statuses(), true );
+	$release_to_router = $release_requested && $has_routeable_consent && in_array( $handoff_path, array( 'lawyer_router', 'lawyer_and_supplier' ), true );
 
 	if ( function_exists( 'justice_theme_lead_area_values' ) && $area && ! in_array( $area, justice_theme_lead_area_values(), true ) ) {
 		$area = '';
@@ -328,11 +398,19 @@ function justice_theme_crm_handle_whatsapp_lead_create(): void {
 		'lead_message'        => $message,
 		'urgency'             => 'normal',
 		'lead_status'         => 'new',
-		'consent'             => $has_consent ? '1' : '0',
+		'consent'             => $has_routeable_consent ? '1' : '0',
+		'consent_status'      => $consent_status,
+		'consent_basis'       => $source_reference,
+		'consent_checked_at'  => $has_routeable_consent ? current_time( 'mysql' ) : '',
 		'source_channel'      => $source_channel,
+		'source_system'       => $source_channel,
+		'source_thread_id'    => $source_thread_id,
 		'source_reference'    => $source_reference,
 		'whatsapp_source_note' => $source_reference,
-		'source_url'          => $source_url,
+		'source_url'          => $source_page_url ?: $source_url,
+		'source_page_url'     => $source_page_url,
+		'legacy_repermission_required' => 'legacy_needs_repermission' === $consent_status ? '1' : '0',
+		'client_permission_next_step' => justice_theme_crm_manual_lead_permission_next_step( $consent_status ),
 		'handoff_path'        => $handoff_path,
 		'supplier_match_required' => in_array( $handoff_path, array( 'supplier_marketplace', 'lawyer_and_supplier' ), true ) ? '1' : '0',
 		'manual_lead_created_by_user_id' => get_current_user_id(),
@@ -362,8 +440,8 @@ function justice_theme_crm_handle_whatsapp_lead_create(): void {
 	if ( $release_to_router && $post && $routing_area && 'general' !== $routing_area && function_exists( 'justice_theme_route_lead_to_lawyers' ) ) {
 		delete_post_meta( $lead_id, 'routing_hold' );
 		justice_theme_route_lead_to_lawyers( $lead_id, $post, true );
-	} elseif ( ! $has_consent ) {
-		update_post_meta( $lead_id, 'routing_notes', 'Routing held: client consent was not confirmed in the manual bridge.' );
+	} elseif ( ! $has_routeable_consent ) {
+		update_post_meta( $lead_id, 'routing_notes', 'Routing held: explicit match/contact consent was not confirmed for this manual WhatsApp/TalkTo lead.' );
 	} elseif ( $release_requested && ! in_array( $handoff_path, array( 'lawyer_router', 'lawyer_and_supplier' ), true ) ) {
 		update_post_meta( $lead_id, 'routing_notes', 'Routing held: this manual lead was marked for supplier marketplace review, not lawyer router release.' );
 	} elseif ( ! $release_to_router ) {
@@ -1426,7 +1504,9 @@ function justice_theme_crm_btl_source_pack_progress( array $rows ): array {
 }
 
 function justice_theme_crm_read_btl_source_pack( int $limit = 10 ): array {
-	$path = JUSTICE_THEME_DIR . '/project-control/btl-specialist-prospect-shortlist-2026-05-26.csv';
+	$path = function_exists( 'justice_theme_private_path' )
+		? justice_theme_private_path( 'project-control/btl-specialist-prospect-shortlist-2026-05-26.csv' )
+		: JUSTICE_THEME_DIR . '/project-control/btl-specialist-prospect-shortlist-2026-05-26.csv';
 	if ( ! is_readable( $path ) ) {
 		return array();
 	}

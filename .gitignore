@@ -17,5 +17,14 @@ Thumbs.db
 
 # Local emergency/export workspaces
 justice_theme_emergency_master_2026_05_13/
+justice_theme_emergency_master_2026_05_13.zip
+
+# Public artifact paths must stay empty in the deployed theme.
+# Use the dot-prefixed private paths tracked in this repo instead.
+/project-control/
+/reports/
+/content-master/
+/content-drafts/
+/mnt/
 
 tools/autonomous-heartbeat/node_modules/

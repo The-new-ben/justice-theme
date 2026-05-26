@@ -29,7 +29,9 @@ add_action( 'admin_menu', 'justice_theme_register_content_tree_dashboard' );
  * Render the Content Tree Dashboard.
  */
 function justice_theme_render_content_tree_dashboard() {
-	$csv_file = get_template_directory() . '/project-control/content-master/content-master-inventory.csv';
+	$csv_file = function_exists( 'justice_theme_private_path' )
+		? justice_theme_private_path( 'project-control/content-master/content-master-inventory.csv' )
+		: get_template_directory() . '/project-control/content-master/content-master-inventory.csv';
 
 	if ( ! file_exists( $csv_file ) ) {
 		$csv_file = dirname( get_template_directory() ) . '/project-control/content-master/content-master-inventory.csv';

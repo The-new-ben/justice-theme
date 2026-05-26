@@ -34,7 +34,16 @@ function justice_theme_block_internal_notes_publication( array $data, array $pos
 		return $data;
 	}
 
-	$markers = justice_theme_detect_publication_safety_markers( (string) ( $data['post_content'] ?? '' ) );
+	$public_text = implode(
+		"\n\n",
+		array(
+			(string) ( $data['post_title'] ?? '' ),
+			(string) ( $data['post_excerpt'] ?? '' ),
+			(string) ( $data['post_content'] ?? '' ),
+		)
+	);
+
+	$markers = justice_theme_detect_publication_safety_markers( $public_text );
 	if ( empty( $markers ) ) {
 		return $data;
 	}
@@ -75,6 +84,8 @@ function justice_theme_detect_publication_safety_markers( string $content ): arr
 		'Revenue Streams',
 		'internal revenue',
 		'why this is revenue',
+		'why this page is revenue',
+		'why this is a good revenue',
 		'qualified lead fee',
 		'lawyers pay',
 		'lawyer pays',
@@ -85,6 +96,27 @@ function justice_theme_detect_publication_safety_markers( string $content ): arr
 		'Morning plugin',
 		'uPress',
 		'Linear',
+		'מסלול הכנסה',
+		'הכנסה חשוב',
+		'למה זה מסלול הכנסה',
+		'למה ערעור ביטוח לאומי הוא מסלול הכנסה',
+		'למה ביטוח לאומי הוא מסלול הכנסה',
+		'הכנסה ל-Jus-Tice',
+		'מודל הכנסה',
+		'מודל הכנסות',
+		'לידים בתשלום',
+		'עורכי דין משלמים',
+		'מבחינה עסקית',
+		'בעל האתר',
+		'מדדי הצלחה',
+		'סטטוס לפני פרסום',
+		'פעולות המשך לפני פרסום',
+		'חסמי פרסום',
+		'בדיקת מקורות',
+		'בדיקה משפטית',
+		'קניבליזציה',
+		'המשתמש ביקש',
+		'Jus-Tice צריך',
 		'מסלול הכנסה',
 		'הכנסה חשוב',
 		'למה זה מסלול הכנסה',

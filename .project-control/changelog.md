@@ -5244,3 +5244,9 @@
 - CONFIRMED: the relevant Outlook mailbox is `info@jus-tice.co.il`, and the exact email/attachment exists.
 - READ: the attachment contains only an initial UK-law consultation request and no case details yet.
 - SAFETY: no live CRM lead, supplier, lawyer, invoice, payment, public page, redirect, canonical/noindex, sitemap, taxonomy, email reply or WhatsApp message was created in this code step.
+## 2026-05-26 - Public Business-Language Title Gate
+- FIXED: publication safety now scans public `post_title`, `post_excerpt` and `post_content` before allowing public `publish` or `future` saves.
+- FIXED: added correct Hebrew internal-business markers for revenue-path, paid-lead, owner/business-plan and cannibalization wording that must not appear in visitor-facing legal pages.
+- ADDED: `tools/check-public-business-language-safety.mjs` with a regression sample for the Bituach Leumi revenue-title problem caught by the owner.
+- VERIFIED: PHP syntax checks passed for `inc/publication-safety.php` and `inc/live-content-publication.php`; the new checker returned 5/5 verified.
+- SAFETY: no CMS row, public title/H1, public page body, URL, redirect, canonical, noindex, sitemap, taxonomy, lead, lawyer, supplier, payment, email or WhatsApp action changed.

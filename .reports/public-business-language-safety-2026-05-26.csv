@@ -1,0 +1,6 @@
+check_id,scope,status,risk,evidence,next_step
+PUBLIC-FIELDS-SCANNED,wp_insert_post_data_publish_gate,VERIFIED,covered,"Publish gate fields: post_title, post_excerpt, post_content",Keep this gate in the publish preflight.
+PUBLICATION-SAFETY-MARKERS,wp_insert_post_data_publish_gate,VERIFIED,covered,12/12 required markers in inc/publication-safety.php,Keep this gate in the publish preflight.
+LIVE-CONTENT-MARKERS,render_and_publication_helpers,VERIFIED,covered,12/12 required markers in justice_theme_detect_public_content_internal_markers(),Keep this gate in the publish preflight.
+HEADING-LINE-GATES,internal_section_cleanup,VERIFIED,covered,Heading and line cleanup gates include business-plan/revenue Hebrew markers.,Keep this gate in the publish preflight.
+BITUACH-LEUMI-SAMPLE-CATCH,regression_sample,VERIFIED,covered,Sample heading caught by: מסלול הכנסה / למה ביטוח לאומי הוא מסלול הכנסה,Keep this gate in the publish preflight.

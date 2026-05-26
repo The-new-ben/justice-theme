@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-26-btl-held-lead-triage-v1
-expected-github-main-commit=btl-held-lead-triage-v1
-purpose=admin-bituach-leumi-held-lead-triage
+justice-theme-deployment-marker=2026-05-26-public-business-language-title-gate-v1
+expected-github-main-commit=public-business-language-title-gate-v1
+purpose=publication-safety-title-excerpt-body-business-language-gate

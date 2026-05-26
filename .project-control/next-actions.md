@@ -3542,3 +3542,12 @@ Next safe batch before any URL/content migration:
 5. VERIFIED: `עורך דין נהיגה בשכרות` maps to a will-revocation page, confirming a wrong-page traffic-law match.
 6. NEXT: build review-only criminal and traffic support decision packets from the GSC evidence, inventory and existing URL map.
 7. BLOCKED: no URL changes, redirects, noindex, canonical changes, sitemap changes, content rewrites, content deletion, menu changes or CMS writes from this evidence alone.
+## 2026-05-26 PUBLIC BUSINESS-LANGUAGE TITLE GATE NEXT ACTIONS
+
+**Status:** CODE FIXED / DEPLOYMENT AND OLD-CONTENT REVIEW STILL NEEDED
+
+1. After uPress pulls the commit, verify `deployment-marker.txt` shows `2026-05-26-public-business-language-title-gate-v1`.
+2. In wp-admin staging or a controlled draft, try saving a future/published page with the title `למה ביטוח לאומי הוא מסלול הכנסה חשוב ל-Jus-Tice`; publication should be blocked.
+3. Review any already-published Bituach Leumi page separately because this gate prevents future saves but does not rewrite existing CMS content.
+4. If a bad page is already public, replace internal-revenue H1/title copy with user-help intent such as `ערעור על החלטת ביטוח לאומי: בדיקה ראשונית לפני פנייה לעורך דין`.
+5. Keep internal business-plan language only in `.project-control`, Linear, private admin screens and owner-only reports.

@@ -6706,6 +6706,17 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: owner/admin still needs to paste the actual client details, confirm consent, choose a handoff path and record invoice/payment proof after any paid handoff.
 - COMPLETION ASSESSMENT: WhatsApp-to-CRM intake 85%; supplier/lawyer handoff 70%; realized revenue proof 0% until a real routed paid lead is billed and paid.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Justice CRM -> Manual WhatsApp / client lead bridge.
+
+## 2026-05-26 PUBLIC BUSINESS-LANGUAGE TITLE GATE
+- OWNER ISSUE ADDRESSED: the Bituach Leumi public page problem was real. A visitor-facing title like "why this page is revenue for Jus-Tice" is not acceptable legal-help copy and should never pass publication safety.
+- CODE FIXED: `inc/publication-safety.php` now scans `post_title`, `post_excerpt` and `post_content` before allowing `publish` or `future` status for public posts, pages and articles.
+- CODE FIXED: `inc/live-content-publication.php` now recognizes correct Hebrew internal-business markers such as `מסלול הכנסה`, `למה ביטוח לאומי הוא מסלול הכנסה`, `מודל הכנסה`, `לידים בתשלום`, `מבחינה עסקית`, `בעל האתר`, `מדדי הצלחה` and `קניבליזציה`, not only the older broken-encoding markers.
+- TOOLING ADDED: `tools/check-public-business-language-safety.mjs` verifies the title/excerpt/body gate and simulates the bad Bituach Leumi revenue-style heading.
+- VERIFIED LOCAL: `node --check tools/check-public-business-language-safety.mjs`, `php -l inc/publication-safety.php`, `php -l inc/live-content-publication.php` and `node tools/check-public-business-language-safety.mjs --reportDate=2026-05-26` all passed.
+- GENERATED: `.project-control/public-business-language-safety-2026-05-26.md`, `.project-control/public-business-language-safety-2026-05-26.csv`, `.reports/public-business-language-safety-2026-05-26.json` and `.reports/public-business-language-safety-2026-05-26.csv`.
+- SAFETY: no public page body, title, H1, meta, URL, redirect, canonical, noindex, sitemap, taxonomy, lead, lawyer, supplier, payment, email, WhatsApp or CMS database row was changed.
+- COMPLETION ASSESSMENT: public business-plan leakage prevention 82%; title/excerpt leak coverage 100% for future publish/future saves; live old CMS content still needs separate review if a bad page is already published.
+- OWNER CAN NOTICE AFTER DEPLOY: future wp-admin attempts to publish a page/article with internal revenue/business-plan language in the title, excerpt or body should be blocked.
 ## LATEST WORK STATUS - 2026-05-22 14:38 Asia/Jerusalem
 - CRIMINAL OWNER REVIEW PACKET: converted the five current-URL Criminal first-upload targets into a controlled owner/legal/source review gate.
 - TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.

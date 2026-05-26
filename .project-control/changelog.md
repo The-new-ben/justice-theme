@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Low Hype/RV opportunity brief
+
+- ADDED: `tools/build-low-hype-rv-opportunity-brief.mjs`.
+- GENERATED: `.project-control/low-hype-rv-opportunity-brief-2026-05-27.md`, `.project-control/low-hype-rv-opportunity-brief-2026-05-27.csv`, `.reports/low-hype-rv-opportunity-brief-2026-05-27.json`, `.reports/low-hype-rv-opportunity-brief-2026-05-27.csv`.
+- PURPOSE: start infrastructuring the owner's Low Hype and RV/caravan opportunity ideas as a private decision packet before any public page, route, copy, CRM, supplier or payment action.
+- RESULT: `PRIVATE_OPPORTUNITY_BRIEF_READY_NOT_APPROVED_FOR_PUBLICATION`; 8 private rows, 4 RV pilot candidates, 3 high-risk review gates, 0 public changes approved and 0 CRM/lead/lawyer/supplier/payment/email/WhatsApp/TalkTo actions.
+- LINEAR: recorded as `HAD-136`, marked Done under `HAD-75`, related to `HAD-84`, `HAD-121`, `HAD-122` and `HAD-126`.
+- SAFETY: private opportunity infrastructure only; no public page, CMS content, public label, route, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Verify WhatsApp/TalkTo paid handoff runbook
 
 - UPDATED: `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`.

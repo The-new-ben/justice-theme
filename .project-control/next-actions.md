@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-LOW-HYPE-RV-OPPORTUNITY-BRIEF-001: Start Low Hype/RV idea infrastructure safely
+**Status:** FIXED LOCAL / PUBLIC AND REVENUE EXECUTION STILL BLOCKED UNTIL OWNER REVIEW
+**Why:** The owner asked to start infrastructuring Low Hype and the RV idea, but public pages must stay legal-help-first and cannot expose internal monetization logic or skip anti-cannibalization/legal review.
+**Actions:**
+1. DONE: add `tools/build-low-hype-rv-opportunity-brief.mjs`.
+2. DONE: generate `.project-control/low-hype-rv-opportunity-brief-2026-05-27.md` and `.csv`.
+3. DONE: generate `.reports/low-hype-rv-opportunity-brief-2026-05-27.json` and `.csv`.
+4. DONE: prepare 8 private rows: internal Low Hype operating rule, anti-cannibalization gate, 4 RV pilot candidates, first-pilot decision row and execution boundary row.
+5. DONE: confirm `PRIVATE_OPPORTUNITY_BRIEF_READY_NOT_APPROVED_FOR_PUBLICATION`, 4 RV pilot candidates, 3 high-risk review gates, 0 public changes approved and 0 CRM/lead/lawyer/supplier/payment/email/WhatsApp/TalkTo actions.
+6. DONE: record as Linear `HAD-136`, marked Done under `HAD-75`.
+7. NEXT: owner chooses whether Low Hype remains an internal strategy label and whether RV purchase/rental disputes should become the first pilot after GSC, internal route inventory, competitor SERP review and legal review.
+8. BLOCKED: do not publish a Low Hype/RV page, public label, title/H1/meta, route, link, CRM lead, lawyer/supplier contact, invoice, payment, email, WhatsApp, TalkTo or uPress deployment from this brief alone.
+
 ### ACTION-WHATSAPP-TALKTO-PAID-HANDOFF-RUNBOOK-001: Verify chat-to-partner-to-payment gates
 **Status:** FIXED LOCAL / LIVE HANDOFF STILL BLOCKED UNTIL OWNER ADMIN EVIDENCE
 **Why:** The owner needs WhatsApp, TalkTo, email and legacy leads to connect through the system to a lawyer or supplier and then to money, but only under consent, terms and payment-proof rules.

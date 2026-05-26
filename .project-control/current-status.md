@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-26 20:40 Asia/Jerusalem
+- PRIVATE ARTIFACT SCRIPT MIGRATION PASS 2 VERIFIED LOCAL: migrated the Family/Divorce planning tools away from public-root artifact paths.
+- CODE UPDATED: `tools/build-family-divorce-gsc-decision-map.mjs`, `tools/build-family-divorce-protected-url-review-packet.mjs`, `tools/build-family-law-live-repair-readiness-gate.mjs` and the three Family/Divorce draft-merge scripts now use `.project-control`, `.reports` and `.content-drafts`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/private-artifact-script-migration-family-divorce-2026-05-26.md`, `.project-control/private-artifact-script-migration-family-divorce-2026-05-26.csv`, the private Family/Divorce GSC/protected/cannibalization maps and the protected-URL owner review packet.
+- VERIFIED LOCAL: syntax checks passed for all six migrated tools; Family/Divorce GSC map generated private outputs; protected-URL packet generated `18` private rows with `5` conflicts and all rows high-risk; boundary guard returned `PASS`.
+- CONTENT SAFETY: generated Family/Divorce artifacts use fallback cached GSC data, not a fresh owner-approved focused export. They are for anti-cannibalization review only and do not approve CMS upload or SEO changes.
+- RISK REDUCTION: legacy public-root references dropped from `563` to `512`. Strict `--fail-on-legacy-writers` remains deferred until Medical Malpractice and supplier/content packet writers are migrated.
+- PUBLIC IMPACT: none. No public CMS page, lead, lawyer, supplier, payment, invoice, email, WhatsApp, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-26 20:32 Asia/Jerusalem
 - PRIVATE ARTIFACT SCRIPT MIGRATION PASS 1 VERIFIED LOCAL: migrated the first high-risk criminal/traffic tooling pair away from public-root artifact paths.
 - CODE UPDATED: `tools/build-criminal-traffic-readiness-dashboard.mjs` and `tools/build-criminal-gsc-decision-map.mjs` now default to `.project-control`, `.reports` and `.content-drafts` paths instead of `project-control`, `reports` and `content-drafts`.

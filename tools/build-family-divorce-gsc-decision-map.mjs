@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), '..');
-const DEFAULT_GSC_DIR = path.join(ROOT, 'reports', 'gsc');
+const DEFAULT_GSC_DIR = path.join(ROOT, '.reports', 'gsc');
 
 const TARGET_PATHS = [
   '/divorce-lawyer/',
@@ -70,7 +70,7 @@ function dateDaysAgo(daysAgo) {
 }
 
 function findLatestReportFile(pattern) {
-  const reportsDir = path.join(ROOT, 'reports');
+  const reportsDir = path.join(ROOT, '.reports');
   try {
     return readdirSync(reportsDir)
       .filter((fileName) => pattern.test(fileName))
@@ -86,10 +86,10 @@ function buildFiles(reportDate, livePreupload) {
   const outPrefix = `family-divorce-gsc-decision-map-${reportDate}`;
   return {
     livePreupload,
-    outputCsv: path.join(ROOT, 'reports', `${outPrefix}.csv`),
-    protectedCsv: path.join(ROOT, 'reports', `family-divorce-protected-url-decision-map-${reportDate}.csv`),
-    cannibalizationCsv: path.join(ROOT, 'reports', `family-divorce-cannibalization-decision-map-${reportDate}.csv`),
-    outputJson: path.join(ROOT, 'reports', `${outPrefix}.json`),
+    outputCsv: path.join(ROOT, '.reports', `${outPrefix}.csv`),
+    protectedCsv: path.join(ROOT, '.reports', `family-divorce-protected-url-decision-map-${reportDate}.csv`),
+    cannibalizationCsv: path.join(ROOT, '.reports', `family-divorce-cannibalization-decision-map-${reportDate}.csv`),
+    outputJson: path.join(ROOT, '.reports', `${outPrefix}.json`),
   };
 }
 
@@ -98,18 +98,18 @@ function printHelp() {
 
 Usage:
   node tools/build-family-divorce-gsc-decision-map.mjs
-  node tools/build-family-divorce-gsc-decision-map.mjs --gscDir=reports/gsc/family-divorce-YYYY-MM-DD
-  node tools/build-family-divorce-gsc-decision-map.mjs --reportDate=YYYY-MM-DD --livePreupload=reports/family-divorce-live-preupload-YYYY-MM-DD.csv
+  node tools/build-family-divorce-gsc-decision-map.mjs --gscDir=.reports/gsc/family-divorce-YYYY-MM-DD
+  node tools/build-family-divorce-gsc-decision-map.mjs --reportDate=YYYY-MM-DD --livePreupload=.reports/family-divorce-live-preupload-YYYY-MM-DD.csv
 
 Inputs:
   Focused export: family-divorce-pages.csv, family-divorce-query-page.csv, family-divorce-cannibalization.csv
   Fallback cache: performance-pages.csv, query-page-combined.csv, cannibalization-report.csv
 
 Outputs:
-  reports/family-divorce-gsc-decision-map-YYYY-MM-DD.csv
-  reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv
-  reports/family-divorce-cannibalization-decision-map-YYYY-MM-DD.csv
-  reports/family-divorce-gsc-decision-map-YYYY-MM-DD.json
+  .reports/family-divorce-gsc-decision-map-YYYY-MM-DD.csv
+  .reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv
+  .reports/family-divorce-cannibalization-decision-map-YYYY-MM-DD.csv
+  .reports/family-divorce-gsc-decision-map-YYYY-MM-DD.json
 `);
 }
 

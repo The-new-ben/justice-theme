@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Private artifact script migration pass 2
+
+- UPDATED: `tools/build-family-divorce-gsc-decision-map.mjs`, `tools/build-family-divorce-protected-url-review-packet.mjs`, `tools/build-family-law-live-repair-readiness-gate.mjs`, `tools/apply-family-divorce-child-custody-draft-merges.mjs`, `tools/apply-family-divorce-child-support-draft-merges.mjs`, `tools/apply-family-divorce-property-division-draft-merges.mjs`.
+- GENERATED: `.project-control/private-artifact-script-migration-family-divorce-2026-05-26.md`, `.project-control/private-artifact-script-migration-family-divorce-2026-05-26.csv`, `.reports/family-divorce-gsc-decision-map-2026-05-26.csv`, `.reports/family-divorce-gsc-decision-map-2026-05-26.json`, `.reports/family-divorce-protected-url-decision-map-2026-05-26.csv`, `.reports/family-divorce-cannibalization-decision-map-2026-05-26.csv`, `.reports/family-divorce-protected-url-owner-review-packet-2026-05-26.csv`, `.reports/family-divorce-protected-url-owner-review-packet-2026-05-26.json`, `.project-control/family-divorce-protected-url-owner-review-packet-2026-05-26.csv`.
+- PURPOSE: continue migrating old repo tools away from public-root `project-control`, `reports` and `content-drafts` paths.
+- VERIFIED LOCAL: syntax checks passed for all six migrated tools; Family/Divorce GSC map and protected-URL packet generated private outputs; boundary checker returned `PASS`.
+- RESULT: legacy public-root references fell from `563` to `512`; strict `--fail-on-legacy-writers` remains deferred until remaining old tools are migrated.
+- CONTENT SAFETY: generated Family/Divorce GSC artifacts used fallback cached data, not a fresh focused owner-approved export, so they are review-only and do not approve public CMS or SEO actions.
+- SAFETY: repo-local tool/docs/report change only; no public CMS page, lead, lawyer, supplier, payment, invoice, email, WhatsApp, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-26 - Private artifact script migration pass 1
 
 - UPDATED: `tools/build-criminal-traffic-readiness-dashboard.mjs`, `tools/build-criminal-gsc-decision-map.mjs`.

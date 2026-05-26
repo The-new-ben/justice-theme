@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
-const FILE = 'content-drafts/divorce-property-division-public-body-he.md';
+const FILE = '.content-drafts/divorce-property-division-public-body-he.md';
 
 const insertions = [
   {

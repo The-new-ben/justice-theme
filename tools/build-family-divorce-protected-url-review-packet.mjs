@@ -10,7 +10,7 @@ function dateDaysAgo(daysAgo) {
 }
 
 function findLatestReportFile(pattern) {
-  const reportsDir = path.join(ROOT, 'reports');
+  const reportsDir = path.join(ROOT, '.reports');
   try {
     return readdirSync(reportsDir)
       .filter((fileName) => pattern.test(fileName))
@@ -38,7 +38,7 @@ function parseArgs() {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(args.reportDate)) {
     throw new Error('--reportDate must be YYYY-MM-DD');
   }
-  const sameDateInput = path.join(ROOT, 'reports', `family-divorce-protected-url-decision-map-${args.reportDate}.csv`);
+  const sameDateInput = path.join(ROOT, '.reports', `family-divorce-protected-url-decision-map-${args.reportDate}.csv`);
   args.input = args.input
     ? path.resolve(args.input)
     : existsSync(sameDateInput)
@@ -52,9 +52,9 @@ function parseArgs() {
 
 function buildFiles(reportDate) {
   return {
-    reportCsv: path.join(ROOT, 'reports', `family-divorce-protected-url-owner-review-packet-${reportDate}.csv`),
-    reportJson: path.join(ROOT, 'reports', `family-divorce-protected-url-owner-review-packet-${reportDate}.json`),
-    projectCsv: path.join(ROOT, 'project-control', `family-divorce-protected-url-owner-review-packet-${reportDate}.csv`),
+    reportCsv: path.join(ROOT, '.reports', `family-divorce-protected-url-owner-review-packet-${reportDate}.csv`),
+    reportJson: path.join(ROOT, '.reports', `family-divorce-protected-url-owner-review-packet-${reportDate}.json`),
+    projectCsv: path.join(ROOT, '.project-control', `family-divorce-protected-url-owner-review-packet-${reportDate}.csv`),
   };
 }
 
@@ -63,15 +63,15 @@ function printHelp() {
 
 Usage:
   node tools/build-family-divorce-protected-url-review-packet.mjs
-  node tools/build-family-divorce-protected-url-review-packet.mjs --reportDate=YYYY-MM-DD --input=reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv
+  node tools/build-family-divorce-protected-url-review-packet.mjs --reportDate=YYYY-MM-DD --input=.reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv
 
 Inputs:
-  reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv
+  .reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv
 
 Outputs:
-  reports/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.csv
-  reports/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.json
-  project-control/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.csv
+  .reports/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.csv
+  .reports/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.json
+  .project-control/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.csv
 `);
 }
 

@@ -65,40 +65,40 @@ Usage:
   node tools/build-family-law-live-repair-readiness-gate.mjs --reportDate=YYYY-MM-DD
 
 Inputs:
-  project-control/family-law-live-safety-check-YYYY-MM-DD.csv
-  project-control/family-law-live-repair-diagnostics-YYYY-MM-DD.csv
-  project-control/family-law-visible-repair-field-map-YYYY-MM-DD.csv
-  project-control/family-law-live-repair-cms-backup-template-YYYY-MM-DD.csv
-  project-control/family-law-live-repair-owner-approval-YYYY-MM-DD.csv
-  project-control/family-law-live-repair-operator-packet-YYYY-MM-DD.csv
-  project-control/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.csv
+  .project-control/family-law-live-safety-check-YYYY-MM-DD.csv
+  .project-control/family-law-live-repair-diagnostics-YYYY-MM-DD.csv
+  .project-control/family-law-visible-repair-field-map-YYYY-MM-DD.csv
+  .project-control/family-law-live-repair-cms-backup-template-YYYY-MM-DD.csv
+  .project-control/family-law-live-repair-owner-approval-YYYY-MM-DD.csv
+  .project-control/family-law-live-repair-operator-packet-YYYY-MM-DD.csv
+  .project-control/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.csv
 
 Outputs:
-  reports/family-law-live-repair-readiness-gate-YYYY-MM-DD.csv
-  reports/family-law-live-repair-readiness-gate-YYYY-MM-DD.json
-  project-control/family-law-live-repair-readiness-gate-YYYY-MM-DD.csv
-  project-control/family-law-live-repair-readiness-gate-YYYY-MM-DD.md
+  .reports/family-law-live-repair-readiness-gate-YYYY-MM-DD.csv
+  .reports/family-law-live-repair-readiness-gate-YYYY-MM-DD.json
+  .project-control/family-law-live-repair-readiness-gate-YYYY-MM-DD.csv
+  .project-control/family-law-live-repair-readiness-gate-YYYY-MM-DD.md
 `);
 }
 
 function files(reportDate) {
   const inputs = {
-    safety: path.join(ROOT, 'project-control', `family-law-live-safety-check-${reportDate}.csv`),
-    diagnostics: path.join(ROOT, 'project-control', `family-law-live-repair-diagnostics-${reportDate}.csv`),
-    fieldMap: path.join(ROOT, 'project-control', `family-law-visible-repair-field-map-${reportDate}.csv`),
-    backup: path.join(ROOT, 'project-control', `family-law-live-repair-cms-backup-template-${reportDate}.csv`),
-    approval: path.join(ROOT, 'project-control', `family-law-live-repair-owner-approval-${reportDate}.csv`),
-    operatorPacket: path.join(ROOT, 'project-control', `family-law-live-repair-operator-packet-${reportDate}.csv`),
-    protectedUrls: path.join(ROOT, 'project-control', `family-divorce-protected-url-owner-review-packet-${reportDate}.csv`),
+    safety: path.join(ROOT, '.project-control', `family-law-live-safety-check-${reportDate}.csv`),
+    diagnostics: path.join(ROOT, '.project-control', `family-law-live-repair-diagnostics-${reportDate}.csv`),
+    fieldMap: path.join(ROOT, '.project-control', `family-law-visible-repair-field-map-${reportDate}.csv`),
+    backup: path.join(ROOT, '.project-control', `family-law-live-repair-cms-backup-template-${reportDate}.csv`),
+    approval: path.join(ROOT, '.project-control', `family-law-live-repair-owner-approval-${reportDate}.csv`),
+    operatorPacket: path.join(ROOT, '.project-control', `family-law-live-repair-operator-packet-${reportDate}.csv`),
+    protectedUrls: path.join(ROOT, '.project-control', `family-divorce-protected-url-owner-review-packet-${reportDate}.csv`),
   };
 
   const base = `family-law-live-repair-readiness-gate-${reportDate}`;
   return {
     inputs,
-    reportCsv: path.join(ROOT, 'reports', `${base}.csv`),
-    reportJson: path.join(ROOT, 'reports', `${base}.json`),
-    projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),
-    projectMd: path.join(ROOT, 'project-control', `${base}.md`),
+    reportCsv: path.join(ROOT, '.reports', `${base}.csv`),
+    reportJson: path.join(ROOT, '.reports', `${base}.json`),
+    projectCsv: path.join(ROOT, '.project-control', `${base}.csv`),
+    projectMd: path.join(ROOT, '.project-control', `${base}.md`),
   };
 }
 
@@ -391,10 +391,10 @@ ${table}
 
 ## Output Files
 
-- \`reports/family-law-live-repair-readiness-gate-${summary.reportDate}.csv\`
-- \`reports/family-law-live-repair-readiness-gate-${summary.reportDate}.json\`
-- \`project-control/family-law-live-repair-readiness-gate-${summary.reportDate}.csv\`
-- \`project-control/family-law-live-repair-readiness-gate-${summary.reportDate}.md\`
+- \`.reports/family-law-live-repair-readiness-gate-${summary.reportDate}.csv\`
+- \`.reports/family-law-live-repair-readiness-gate-${summary.reportDate}.json\`
+- \`.project-control/family-law-live-repair-readiness-gate-${summary.reportDate}.csv\`
+- \`.project-control/family-law-live-repair-readiness-gate-${summary.reportDate}.md\`
 
 ## Safety
 

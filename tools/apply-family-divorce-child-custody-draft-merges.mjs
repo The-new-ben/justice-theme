@@ -1,6 +1,6 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
-const FILE = 'content-drafts/child-custody-public-body-he.md';
+const FILE = '.content-drafts/child-custody-public-body-he.md';
 
 const insertions = [
   {

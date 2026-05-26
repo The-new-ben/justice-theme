@@ -9,7 +9,7 @@ Scope: repo-local guard for internal report/control artifacts after live public 
 - Public artifact root directories present: None
 - Tracked files under public artifact roots: 0
 - Public roots covered by .gitignore: 6/6
-- Legacy tool references to public artifact roots: 563
+- Legacy tool references to public artifact roots: 512
 
 ## Interpretation
 
@@ -21,9 +21,6 @@ Legacy tool references are reported so future operators do not rerun old scripts
 
 | File | Line | Severity | Text |
 | --- | ---: | --- | --- |
-| tools/apply-family-divorce-child-custody-draft-merges.mjs | 3 | REFERENCE_ONLY | const FILE = 'content-drafts/child-custody-public-body-he.md'; |
-| tools/apply-family-divorce-child-support-draft-merges.mjs | 3 | REFERENCE_ONLY | const FILE = 'content-drafts/child-support-public-body-he.md'; |
-| tools/apply-family-divorce-property-division-draft-merges.mjs | 3 | REFERENCE_ONLY | const FILE = 'content-drafts/divorce-property-division-public-body-he.md'; |
 | tools/batch-tag-family-law.js | 21 | REVIEW_BEFORE_RUNNING | const DECISION_CSV = path.resolve(__dirname, '../../project-control/content-master/family-law-decision-map.csv'); |
 | tools/build-criminal-owner-review-packet.mjs | 123 | REVIEW_BEFORE_RUNNING | const sameDateInput = path.join(ROOT, 'reports', `${DASHBOARD_PREFIX}-${args.reportDate}.csv`); |
 | tools/build-criminal-owner-review-packet.mjs | 135 | REVIEW_BEFORE_RUNNING | reportCsv: path.join(ROOT, 'reports', `${base}.csv`), |
@@ -44,54 +41,6 @@ Legacy tool references are reported so future operators do not rerun old scripts
 | tools/build-decision-map.js | 14 | REVIEW_BEFORE_RUNNING | const INPUT = path.resolve(__dirname, '../../project-control/content-master/family-law-cluster.csv'); |
 | tools/build-decision-map.js | 15 | REVIEW_BEFORE_RUNNING | const OUTPUT = path.resolve(__dirname, '../../project-control/content-master/family-law-decision-map.csv'); |
 | tools/build-decision-map.js | 16 | REVIEW_BEFORE_RUNNING | const REPORT = path.resolve(__dirname, '../../project-control/content-master/family-law-decision-report.md'); |
-| tools/build-family-divorce-gsc-decision-map.mjs | 7 | REVIEW_BEFORE_RUNNING | const DEFAULT_GSC_DIR = path.join(ROOT, 'reports', 'gsc'); |
-| tools/build-family-divorce-gsc-decision-map.mjs | 73 | REVIEW_BEFORE_RUNNING | const reportsDir = path.join(ROOT, 'reports'); |
-| tools/build-family-divorce-gsc-decision-map.mjs | 89 | REVIEW_BEFORE_RUNNING | outputCsv: path.join(ROOT, 'reports', `${outPrefix}.csv`), |
-| tools/build-family-divorce-gsc-decision-map.mjs | 90 | REVIEW_BEFORE_RUNNING | protectedCsv: path.join(ROOT, 'reports', `family-divorce-protected-url-decision-map-${reportDate}.csv`), |
-| tools/build-family-divorce-gsc-decision-map.mjs | 91 | REVIEW_BEFORE_RUNNING | cannibalizationCsv: path.join(ROOT, 'reports', `family-divorce-cannibalization-decision-map-${reportDate}.csv`), |
-| tools/build-family-divorce-gsc-decision-map.mjs | 92 | REVIEW_BEFORE_RUNNING | outputJson: path.join(ROOT, 'reports', `${outPrefix}.json`), |
-| tools/build-family-divorce-gsc-decision-map.mjs | 101 | REVIEW_BEFORE_RUNNING | node tools/build-family-divorce-gsc-decision-map.mjs --gscDir=reports/gsc/family-divorce-YYYY-MM-DD |
-| tools/build-family-divorce-gsc-decision-map.mjs | 102 | REVIEW_BEFORE_RUNNING | node tools/build-family-divorce-gsc-decision-map.mjs --reportDate=YYYY-MM-DD --livePreupload=reports/family-divorce-live-preupload-YYYY-MM-DD.csv |
-| tools/build-family-divorce-gsc-decision-map.mjs | 109 | REVIEW_BEFORE_RUNNING | reports/family-divorce-gsc-decision-map-YYYY-MM-DD.csv |
-| tools/build-family-divorce-gsc-decision-map.mjs | 110 | REVIEW_BEFORE_RUNNING | reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv |
-| tools/build-family-divorce-gsc-decision-map.mjs | 111 | REVIEW_BEFORE_RUNNING | reports/family-divorce-cannibalization-decision-map-YYYY-MM-DD.csv |
-| tools/build-family-divorce-gsc-decision-map.mjs | 112 | REVIEW_BEFORE_RUNNING | reports/family-divorce-gsc-decision-map-YYYY-MM-DD.json |
-| tools/build-family-divorce-protected-url-review-packet.mjs | 13 | REVIEW_BEFORE_RUNNING | const reportsDir = path.join(ROOT, 'reports'); |
-| tools/build-family-divorce-protected-url-review-packet.mjs | 41 | REVIEW_BEFORE_RUNNING | const sameDateInput = path.join(ROOT, 'reports', `family-divorce-protected-url-decision-map-${args.reportDate}.csv`); |
-| tools/build-family-divorce-protected-url-review-packet.mjs | 55 | REVIEW_BEFORE_RUNNING | reportCsv: path.join(ROOT, 'reports', `family-divorce-protected-url-owner-review-packet-${reportDate}.csv`), |
-| tools/build-family-divorce-protected-url-review-packet.mjs | 56 | REVIEW_BEFORE_RUNNING | reportJson: path.join(ROOT, 'reports', `family-divorce-protected-url-owner-review-packet-${reportDate}.json`), |
-| tools/build-family-divorce-protected-url-review-packet.mjs | 57 | REVIEW_BEFORE_RUNNING | projectCsv: path.join(ROOT, 'project-control', `family-divorce-protected-url-owner-review-packet-${reportDate}.csv`), |
-| tools/build-family-divorce-protected-url-review-packet.mjs | 66 | REVIEW_BEFORE_RUNNING | node tools/build-family-divorce-protected-url-review-packet.mjs --reportDate=YYYY-MM-DD --input=reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv |
-| tools/build-family-divorce-protected-url-review-packet.mjs | 69 | REVIEW_BEFORE_RUNNING | reports/family-divorce-protected-url-decision-map-YYYY-MM-DD.csv |
-| tools/build-family-divorce-protected-url-review-packet.mjs | 72 | REVIEW_BEFORE_RUNNING | reports/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.csv |
-| tools/build-family-divorce-protected-url-review-packet.mjs | 73 | REVIEW_BEFORE_RUNNING | reports/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.json |
-| tools/build-family-divorce-protected-url-review-packet.mjs | 74 | REVIEW_BEFORE_RUNNING | project-control/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.csv |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 68 | REVIEW_BEFORE_RUNNING | project-control/family-law-live-safety-check-YYYY-MM-DD.csv |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 69 | REVIEW_BEFORE_RUNNING | project-control/family-law-live-repair-diagnostics-YYYY-MM-DD.csv |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 70 | REVIEW_BEFORE_RUNNING | project-control/family-law-visible-repair-field-map-YYYY-MM-DD.csv |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 71 | REVIEW_BEFORE_RUNNING | project-control/family-law-live-repair-cms-backup-template-YYYY-MM-DD.csv |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 72 | REVIEW_BEFORE_RUNNING | project-control/family-law-live-repair-owner-approval-YYYY-MM-DD.csv |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 73 | REVIEW_BEFORE_RUNNING | project-control/family-law-live-repair-operator-packet-YYYY-MM-DD.csv |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 74 | REVIEW_BEFORE_RUNNING | project-control/family-divorce-protected-url-owner-review-packet-YYYY-MM-DD.csv |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 77 | REVIEW_BEFORE_RUNNING | reports/family-law-live-repair-readiness-gate-YYYY-MM-DD.csv |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 78 | REVIEW_BEFORE_RUNNING | reports/family-law-live-repair-readiness-gate-YYYY-MM-DD.json |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 79 | REVIEW_BEFORE_RUNNING | project-control/family-law-live-repair-readiness-gate-YYYY-MM-DD.csv |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 80 | REFERENCE_ONLY | project-control/family-law-live-repair-readiness-gate-YYYY-MM-DD.md |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 86 | REVIEW_BEFORE_RUNNING | safety: path.join(ROOT, 'project-control', `family-law-live-safety-check-${reportDate}.csv`), |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 87 | REVIEW_BEFORE_RUNNING | diagnostics: path.join(ROOT, 'project-control', `family-law-live-repair-diagnostics-${reportDate}.csv`), |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 88 | REVIEW_BEFORE_RUNNING | fieldMap: path.join(ROOT, 'project-control', `family-law-visible-repair-field-map-${reportDate}.csv`), |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 89 | REVIEW_BEFORE_RUNNING | backup: path.join(ROOT, 'project-control', `family-law-live-repair-cms-backup-template-${reportDate}.csv`), |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 90 | REVIEW_BEFORE_RUNNING | approval: path.join(ROOT, 'project-control', `family-law-live-repair-owner-approval-${reportDate}.csv`), |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 91 | REVIEW_BEFORE_RUNNING | operatorPacket: path.join(ROOT, 'project-control', `family-law-live-repair-operator-packet-${reportDate}.csv`), |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 92 | REVIEW_BEFORE_RUNNING | protectedUrls: path.join(ROOT, 'project-control', `family-divorce-protected-url-owner-review-packet-${reportDate}.csv`), |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 98 | REVIEW_BEFORE_RUNNING | reportCsv: path.join(ROOT, 'reports', `${base}.csv`), |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 99 | REVIEW_BEFORE_RUNNING | reportJson: path.join(ROOT, 'reports', `${base}.json`), |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 100 | REVIEW_BEFORE_RUNNING | projectCsv: path.join(ROOT, 'project-control', `${base}.csv`), |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 101 | REVIEW_BEFORE_RUNNING | projectMd: path.join(ROOT, 'project-control', `${base}.md`), |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 394 | REVIEW_BEFORE_RUNNING | - \`reports/family-law-live-repair-readiness-gate-${summary.reportDate}.csv\` |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 395 | REVIEW_BEFORE_RUNNING | - \`reports/family-law-live-repair-readiness-gate-${summary.reportDate}.json\` |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 396 | REVIEW_BEFORE_RUNNING | - \`project-control/family-law-live-repair-readiness-gate-${summary.reportDate}.csv\` |
-| tools/build-family-law-live-repair-readiness-gate.mjs | 397 | REVIEW_BEFORE_RUNNING | - \`project-control/family-law-live-repair-readiness-gate-${summary.reportDate}.md\` |
 | tools/build-justice-seo-pack.mjs | 5 | REVIEW_BEFORE_RUNNING | const outDir = path.join(root, 'mnt', 'documents', 'justice'); |
 | tools/build-justice-seo-pack.mjs | 69 | REVIEW_BEFORE_RUNNING | ['State Comptroller land rights report', 'https://library.mevaker.gov.il/sites/DigitalLibrary/Pages/Reports/297-13.aspx', 'land rights registration complexity'], |
 | tools/build-justice-seo-pack.mjs | 70 | REVIEW_BEFORE_RUNNING | ['Jus-Tice targeted GSC query queue', 'project-control/targeted-gsc-query-queue.csv', 'existing internal GSC-derived decision queue'], |

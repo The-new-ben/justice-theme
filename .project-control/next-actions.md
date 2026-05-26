@@ -84,6 +84,10 @@
 12. VERIFIED LOCAL: syntax checks passed; the criminal/traffic readiness dashboard generated only under `.project-control` and `.reports`; the boundary guard returned `PASS` and public-root references dropped from `600` to `563`.
 13. GENERATED: `.project-control/private-artifact-script-migration-2026-05-26.md` and `.csv`.
 14. NEXT: continue with Family/Divorce, Medical Malpractice and supplier/content packet tools, then rerun with `--fail-on-legacy-writers` only after the remaining legacy writers are migrated.
+15. DONE: migrated the Family/Divorce GSC, protected-URL review, live-repair readiness and draft-merge tools to dot-private paths.
+16. VERIFIED LOCAL: syntax checks passed; Family/Divorce GSC map and protected-URL packet generated only private outputs; the boundary guard returned `PASS` and public-root references dropped from `563` to `512`.
+17. GENERATED: `.project-control/private-artifact-script-migration-family-divorce-2026-05-26.md` and `.csv`.
+18. NEXT: continue with Medical Malpractice and supplier/content packet tools before enabling strict `--fail-on-legacy-writers`.
 
 ### ACTION-WHATSAPP-TALKTO-CONSENT-CRM-001: Build consent-safe intake for WhatsApp, TalkTo and legacy leads
 **Status:** OWNER RELEASE GATE DEPLOYED LIVE / PROVIDER ROUTE BLOCKED

@@ -3,7 +3,7 @@
 - CODE UPDATED: each queued lead gets a copyable Hebrew/English opt-in message, an owner action form, evidence-required permission upgrade, do-not-contact state, and timestamps for requested/completed permission.
 - CONTACT SAFETY: the main CRM table no longer exposes direct Call/Email contact links for held `justice_lead` records unless consent is approved. Legacy/held leads show permission-gated opt-in actions only; do-not-contact leads show no contact action.
 - ROUTING SAFETY: even after owner-verified permission, `routing_hold=1` remains until paid lawyer/supplier terms and a separate owner release are ready.
-- DEPLOYMENT STATUS: marker prepared as `2026-05-26-repermission-queue-v1`; local lint, push, uPress pull and live marker verification are still required.
+- DEPLOYED / VERIFIED LIVE: `php -l` passed for `functions.php` and `inc/lead-crm.php`; `git diff --check` had only line-ending warnings; commit `74ccdeb1` was pushed; uPress Pull Git completed successfully; live marker is `2026-05-26-repermission-queue-v1`; homepage, `/uk-lawyer/` and `/national-insurance-attorney/` return HTTP 200; old public artifact paths return 404 and dot-private paths return 403.
 - SAFETY: admin CRM workflow only; no public CMS page, live lead import, client contact, lawyer/supplier notification, invoice, payment, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
 
 # LATEST WORK STATUS - 2026-05-26 12:18 Asia/Jerusalem

@@ -16,7 +16,7 @@
 6. NEXT: monitor future tools/scripts so they do not recreate public artifact directories; `.gitignore` now blocks committing those public paths.
 
 ### ACTION-WHATSAPP-TALKTO-CONSENT-CRM-001: Build consent-safe intake for WhatsApp, TalkTo and legacy leads
-**Status:** RE-PERMISSION QUEUE CODED / DEPLOY VERIFY REQUIRED / SUPPLIER TERMS NEXT
+**Status:** RE-PERMISSION QUEUE DEPLOYED LIVE / SUPPLIER TERMS NEXT
 **Why:** inbound WhatsApp/TalkTo leads can become paid lawyer/supplier handoffs, but only after permission, case details and commercial terms are recorded.
 **Actions:**
 1. DONE: add source channels for WhatsApp Business, WhatsApp export, TalkTo chatbot and legacy CSV imports.
@@ -28,7 +28,7 @@
 7. DONE: build pasted CSV/import staging with dedupe fingerprint and re-permission status.
 8. DONE: deploy/pull and verify the staging panel appears in Justice CRM.
 9. DONE: build the re-permission queue and owner-approved Hebrew/English opt-in message templates before importing old untreated leads in bulk.
-10. NEXT: deploy/pull and verify the Permission / re-permission queue appears in Justice CRM and direct client contact buttons stay permission-gated for held leads.
+10. DONE: deploy/pull and verify the new marker is live; code-level safety confirms held lead contact buttons are permission-gated.
 11. NEXT: build supplier/lawyer terms and anonymized bidding/preview rules before PII release.
 12. BLOCKED: do not contact old leads, release PII to suppliers/lawyers, or charge money until opt-in and partner terms are recorded.
 

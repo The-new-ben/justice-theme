@@ -69,5 +69,5 @@ Each import is limited to 200 pasted rows to keep owner review manageable. Dupli
 1. DONE: verify the re-permission queue in `wp-admin -> Justice CRM` after uPress pull.
 2. DONE: verify the anonymized partner preview / terms queue in `wp-admin -> Justice CRM` after uPress pull.
 3. DONE: add audit export for consent evidence, preview state, partner terms and handoff billing proof.
-4. NEXT: verify the no-PII lead audit export in `wp-admin -> Justice CRM` after uPress pull.
+4. DONE: verify the no-PII lead audit export panel/link in `wp-admin -> Justice CRM` after uPress pull.
 5. LATER: connect official WhatsApp Business/TalkTo webhooks only after the provider route and permission text are approved.

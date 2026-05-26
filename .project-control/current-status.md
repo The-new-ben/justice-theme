@@ -3,7 +3,9 @@
 - CODE UPDATED: export includes lead ID, source, area, consent state, routing hold, re-permission status, anonymized preview status, partner terms, fee, billing state, proof presence, audit gate and next owner action.
 - PRIVACY SAFETY: the export deliberately excludes client name, phone, email, exact address, raw chat, documents, screenshots, invoice reference value and private payment-proof URL.
 - ROUTING SAFETY: export is read-only and does not release PII, contact clients/lawyers/suppliers, invoice, route, publish pages or change any CMS data.
-- DEPLOYMENT STATUS: marker prepared as `2026-05-26-lead-audit-export-v1`; local lint, push, uPress pull and live marker verification are still required.
+- DEPLOYMENT STATUS: VERIFIED LIVE. Commit `49f7a129` pushed to `main`, uPress Pull Git completed, live marker `2026-05-26-lead-audit-export-v1` verified, CRM admin page shows `Consent / terms / billing audit export`.
+- LIVE SAFETY CHECKS: homepage, `/uk-lawyer/` and `/national-insurance-attorney/` returned 200; old public artifact path returned 404 and dot-private artifact path returned 403.
+- EXPORT CHECK: admin page contains the no-PII CSV export link with the correct `justice_theme_export_lead_audit` action and nonce. The Codex in-app browser blocks file downloads, so CSV body download was not browser-downloaded in this cycle.
 
 # LATEST WORK STATUS - 2026-05-26 12:44 Asia/Jerusalem
 - ANONYMIZED PARTNER PREVIEW / TERMS QUEUE ADDED: Justice CRM now has an owner-only queue for pricing leads with lawyers/suppliers before client PII is released.

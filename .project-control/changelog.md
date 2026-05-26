@@ -8,6 +8,7 @@
 - IMPLEMENTATION: added an owner-only Justice CRM `Consent / terms / billing audit export` panel and admin-post CSV download.
 - PRIVACY SAFETY: CSV excludes client name, phone, email, exact address, raw chat, documents, screenshots, invoice reference value and private payment-proof URL.
 - AUDIT FIELDS: lead ID, source, area, consent state, routing hold, re-permission state, preview state, partner terms, fee, billing state, proof presence, audit gate, next owner action and admin edit URL.
+- DEPLOYED: commit `49f7a129` pushed to `main`; uPress Pull Git completed; marker `2026-05-26-lead-audit-export-v1` verified live; admin export panel/link verified.
 - SAFETY: read-only export and docs only; no live lead import, public CMS page, public content, client contact, lawyer/supplier notification, invoice, payment, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
 
 # 2026-05-26 - Anonymized partner preview and terms queue

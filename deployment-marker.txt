@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-26-btl-activation-gap-board-v1
-expected-github-main-commit=btl-activation-gap-board-v1
+justice-theme-deployment-marker=2026-05-26-btl-first-test-preflight-v1
+expected-github-main-commit=btl-first-test-preflight-v1
 purpose=public-static-file-check-for-upress-theme-sync

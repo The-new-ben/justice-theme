@@ -6514,6 +6514,16 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: still needs real verified specialists and owner-approved activation of published routable lawyer profiles; no CMS record, public card or routing state was changed.
 - COMPLETION ASSESSMENT: Bituach Leumi supply visibility 85%; activation-to-routing readiness 62%; actual first paid lead proof remains blocked by real supply/payment evidence.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Justice CRM -> Bituach Leumi specialist supply -> Verified-to-routable activation gap.
+
+## 2026-05-26 BTL FIRST TEST PREFLIGHT
+- CODE UPDATED: Justice CRM now includes an owner-only `First paid-lead routing preflight` panel inside the Bituach Leumi specialist supply flow.
+- CODE UPDATED: the preflight uses the same routing constraints as the live lead router, including published profile, matching `national-insurance` practice area, `lead_routing_enabled=1`, paid/trialing/active subscription status and remaining monthly lead capacity.
+- CODE FIXED: the active-routable specialist count now filters out lawyers whose monthly cap is exhausted or whose plan/cap would block the real router.
+- CODE UPDATED: the panel shows each eligible lawyer's plan/status, monthly cap, used count, remaining capacity and billing/contact email readiness, plus a copyable preflight note for the first controlled paid-lead test.
+- MONEY IMPACT: this reduces the risk of sending the first paid Bituach Leumi lead into a profile that looks active but cannot receive a routed lead or cannot be invoiced manually.
+- BLOCKED: still needs three real eligible specialists with recorded billing contacts, one consented controlled lead and invoice/payment proof; no lead, lawyer, CMS record, payment, email or public page was changed.
+- COMPLETION ASSESSMENT: Bituach Leumi routing-readiness visibility 90%; first-paid-lead operational readiness 68%; realized revenue proof remains 0% until a real payment is recorded.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Justice CRM -> Bituach Leumi specialist supply -> First paid-lead routing preflight.
 ## LATEST WORK STATUS - 2026-05-22 14:38 Asia/Jerusalem
 - CRIMINAL OWNER REVIEW PACKET: converted the five current-URL Criminal first-upload targets into a controlled owner/legal/source review gate.
 - TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.

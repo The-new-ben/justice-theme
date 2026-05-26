@@ -3357,6 +3357,17 @@ Next safe batch before any URL/content migration:
 5. Keep `Won / onboarding` prospects visible until the matching routable profile exists.
 6. Only after three active routable specialists exist, run the first controlled Bituach Leumi lead and document invoice/payment proof.
 
+## 2026-05-26 BTL FIRST TEST PREFLIGHT NEXT ACTIONS
+
+**Status:** PRIVATE PREFLIGHT ADDED / REAL FIRST PAID LEAD STILL NEEDED
+
+1. Open `wp-admin -> Justice CRM -> Bituach Leumi specialist supply -> First paid-lead routing preflight`.
+2. Confirm at least three router-eligible lawyers appear; this now means the live router can actually use them and their monthly cap is not exhausted.
+3. For every listed lawyer, confirm remaining capacity, billing/contact email, accepted lead terms and no-promise compliance notes before submitting a controlled lead.
+4. If the panel says `Do not run yet`, fix coverage, cap or billing/contact details before using the public intake route.
+5. When the preflight turns green, run one consented controlled Bituach Leumi lead only, then verify the lead appears in the qualified lead billing queue.
+6. Send the manual invoice/payment request and record invoice/payment proof before marking the lead Paid.
+
 ## 2026-05-11 CONTENT DECISION BATCH NEXT ACTIONS
 
 **Status:** VERIFIED REVIEW FILES CREATED / EXECUTION BLOCKED UNTIL EVIDENCE

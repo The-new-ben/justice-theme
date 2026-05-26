@@ -282,6 +282,7 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 	<?php endif; ?>
 	<?php justice_theme_crm_render_btl_readiness_gate( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_btl_leads, $paid_btl_leads ); ?>
 	<?php justice_theme_crm_render_btl_activation_gap_board( $btl_needles, 'national-insurance', $target ); ?>
+	<?php justice_theme_crm_render_btl_first_test_preflight( 'national-insurance', $target ); ?>
 	<?php justice_theme_crm_render_btl_controlled_test_drill( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_btl_leads, $paid_btl_leads ); ?>
 	<?php justice_theme_crm_render_btl_intent_ownership_map(); ?>
 	<?php justice_theme_crm_render_btl_candidate_tracker( $btl_needles ); ?>
@@ -362,6 +363,140 @@ function justice_theme_crm_render_btl_activation_gap_board( array $needles, stri
 				<p><strong>Activation gate met:</strong> published routable coverage exists. Use one controlled lead and confirm invoice/payment proof before scaling.</p>
 			</div>
 		<?php endif; ?>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_render_btl_first_test_preflight( string $area_slug, int $target ): void {
+	$eligible_lawyers   = justice_theme_crm_query_active_routing_lawyers_for_area( $area_slug, 25 );
+	$available_count    = count( $eligible_lawyers );
+	$billing_blockers   = array();
+	$preflight_rows     = array();
+	$preflight_lines    = array(
+		'Bituach Leumi first paid-lead routing preflight',
+		sprintf( 'Eligible router coverage: %d/%d', $available_count, $target ),
+		'',
+		'Eligible lawyers:',
+	);
+
+	foreach ( $eligible_lawyers as $lawyer ) {
+		$lawyer_id     = (int) $lawyer->ID;
+		$cap           = function_exists( 'justice_theme_lawyer_monthly_lead_cap' ) ? justice_theme_lawyer_monthly_lead_cap( $lawyer_id, $area_slug ) : 0;
+		$used          = function_exists( 'justice_theme_lawyer_monthly_routed_lead_count' ) ? justice_theme_lawyer_monthly_routed_lead_count( $lawyer_id, $area_slug ) : 0;
+		$remaining     = max( 0, $cap - $used );
+		$billing_email = (string) get_post_meta( $lawyer_id, 'billing_invoice_email', true );
+		$contact_email = (string) get_post_meta( $lawyer_id, 'email', true );
+		$billing_ready = $billing_email && is_email( $billing_email );
+		$contact_ready = $billing_ready || ( $contact_email && is_email( $contact_email ) );
+		$status        = (string) get_post_meta( $lawyer_id, 'subscription_status', true );
+		$plan          = (string) get_post_meta( $lawyer_id, 'plan_type', true );
+		$edit_url      = get_edit_post_link( $lawyer_id, '' );
+
+		if ( ! $contact_ready ) {
+			$billing_blockers[] = get_the_title( $lawyer_id ) ?: sprintf( 'Lawyer #%d', $lawyer_id );
+		}
+
+		$preflight_rows[] = array(
+			'id'            => $lawyer_id,
+			'title'         => get_the_title( $lawyer_id ) ?: sprintf( 'Lawyer #%d', $lawyer_id ),
+			'edit_url'      => $edit_url,
+			'status'        => $status ?: '-',
+			'plan'          => $plan ?: '-',
+			'cap'           => $cap,
+			'used'          => $used,
+			'remaining'     => $remaining,
+			'billing_email' => $billing_email,
+			'contact_email' => $contact_email,
+			'billing_ready' => $contact_ready,
+		);
+		$preflight_lines[] = sprintf(
+			'- #%d %s | plan=%s | subscription=%s | cap=%d used=%d remaining=%d | billing=%s',
+			$lawyer_id,
+			wp_strip_all_tags( get_the_title( $lawyer_id ) ?: sprintf( 'Lawyer #%d', $lawyer_id ) ),
+			$plan ?: '-',
+			$status ?: '-',
+			$cap,
+			$used,
+			$remaining,
+			$billing_email ?: ( $contact_email ?: 'missing' )
+		);
+	}
+
+	if ( empty( $preflight_rows ) ) {
+		$preflight_lines[] = '- No eligible lawyer currently matches the live router.';
+	}
+
+	$preflight_lines[] = '';
+	$preflight_lines[] = 'Green-light rules before first paid lead:';
+	$preflight_lines[] = '1. At least three eligible national-insurance lawyers are available through the live router.';
+	$preflight_lines[] = '2. Each lawyer has remaining monthly lead capacity.';
+	$preflight_lines[] = '3. Each lawyer has a billing/contact email before manual invoice follow-up.';
+	$preflight_lines[] = '4. The first lead is consented, controlled and recorded in the qualified lead billing queue.';
+	$preflight_lines[] = '5. Do not mark Paid without invoice/reference or payment evidence.';
+
+	$copy_id    = 'justice-btl-first-test-preflight-copy';
+	$gate_ready = $available_count >= $target && empty( $billing_blockers );
+	?>
+	<div style="background:#fff;border:2px solid #0f766e;border-radius:8px;padding:14px;margin:12px 0 20px;">
+		<h3 style="margin-top:0;">First paid-lead routing preflight</h3>
+		<p style="margin-top:0;color:#646970;">Owner-only check against the same live routing constraints used by the lead router: published profile, routing enabled, paid/trialing/active status and available lead capacity.</p>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:12px 0;">
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( $available_count >= $target ? 'background:#f0fff4;border-color:#008a20;' : 'background:#fff7f7;border-color:#d63638;' ); ?>">
+				<strong><?php echo esc_html( sprintf( '%d / %d', $available_count, $target ) ); ?></strong>
+				<br><span>Router-eligible lawyers with capacity</span>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( empty( $billing_blockers ) ? 'background:#f0fff4;border-color:#008a20;' : 'background:#fffaf0;border-color:#dba617;' ); ?>">
+				<strong><?php echo esc_html( empty( $billing_blockers ) ? 'Ready' : 'Needs contact' ); ?></strong>
+				<br><span>Billing/contact email coverage</span>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:10px;<?php echo esc_attr( $gate_ready ? 'background:#f0fff4;border-color:#008a20;' : 'background:#fff7f7;border-color:#d63638;' ); ?>">
+				<strong><?php echo esc_html( $gate_ready ? 'Green light' : 'Do not run yet' ); ?></strong>
+				<br><span>First paid-lead test gate</span>
+			</div>
+		</div>
+		<?php if ( $preflight_rows ) : ?>
+			<table class="widefat striped" style="margin:10px 0;">
+				<thead>
+					<tr>
+						<th>Lawyer</th>
+						<th>Plan / status</th>
+						<th>Monthly capacity</th>
+						<th>Billing/contact</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ( $preflight_rows as $row ) : ?>
+						<tr>
+							<td><a href="<?php echo esc_url( (string) $row['edit_url'] ); ?>"><?php echo esc_html( (string) $row['title'] ); ?></a></td>
+							<td><?php echo esc_html( trim( (string) $row['plan'] . ' / ' . (string) $row['status'] ) ); ?></td>
+							<td><?php echo esc_html( sprintf( 'cap %d / used %d / remaining %d', (int) $row['cap'], (int) $row['used'], (int) $row['remaining'] ) ); ?></td>
+							<td>
+								<?php if ( $row['billing_ready'] ) : ?>
+									<strong style="color:#008a20;">Available</strong><br>
+									<small><?php echo esc_html( (string) ( $row['billing_email'] ?: $row['contact_email'] ) ); ?></small>
+								<?php else : ?>
+									<strong style="color:#d63638;">Missing</strong>
+								<?php endif; ?>
+							</td>
+						</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+		<?php endif; ?>
+		<?php if ( ! $gate_ready ) : ?>
+			<div class="notice notice-warning inline">
+				<p><strong>Hold the first paid lead test.</strong> Fix coverage, capacity or billing/contact details before submitting a controlled lead.</p>
+			</div>
+		<?php else : ?>
+			<div class="notice notice-success inline">
+				<p><strong>Preflight is green.</strong> Run one controlled lead only, then use the qualified lead billing queue and payment-proof gate before scaling.</p>
+			</div>
+		<?php endif; ?>
+		<label for="<?php echo esc_attr( $copy_id ); ?>"><strong>Copyable preflight note</strong></label>
+		<textarea id="<?php echo esc_attr( $copy_id ); ?>" rows="9" readonly style="width:100%;margin-top:6px;"><?php echo esc_textarea( implode( "\n", $preflight_lines ) ); ?></textarea>
+		<p style="margin:6px 0 0;">
+			<button type="button" class="button" data-justice-copy-target="<?php echo esc_attr( $copy_id ); ?>">Copy preflight</button>
+		</p>
 	</div>
 	<?php
 }
@@ -1180,7 +1315,19 @@ function justice_theme_crm_query_active_routing_lawyers_for_area( string $area_s
 		),
 	) );
 
-	return $query->posts ?: array();
+	$posts = $query->posts ?: array();
+	if ( function_exists( 'justice_theme_lawyer_can_receive_routed_lead' ) ) {
+		$posts = array_values(
+			array_filter(
+				$posts,
+				static function ( WP_Post $post ) use ( $area_slug ): bool {
+					return justice_theme_lawyer_can_receive_routed_lead( (int) $post->ID, $area_slug );
+				}
+			)
+		);
+	}
+
+	return array_slice( $posts, 0, $limit );
 }
 
 function justice_theme_crm_count_open_prospects_for_area( array $needles ): int {

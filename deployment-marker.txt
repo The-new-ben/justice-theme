@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-26-prospect-lead-terms-gate-v1
-expected-github-main-commit=prospect-lead-terms-gate-v1
+justice-theme-deployment-marker=2026-05-26-prospect-won-gate-v1
+expected-github-main-commit=prospect-won-gate-v1
 purpose=public-static-file-check-for-upress-theme-sync

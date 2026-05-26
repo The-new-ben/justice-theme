@@ -170,6 +170,10 @@ Already shipped:
   a prospect is not "Ready for routing" until an agreed per-lead fee and
   accepted lead terms are recorded, alongside the existing license, specialty,
   response-speed and manual-payment checks.
+- Prospect win-status gate added to prevent false progress: if the owner tries
+  to mark a prospect "Won / onboarding" before routing checks and fee terms are
+  complete, the private pipeline holds the record at Proposal sent, schedules a
+  next action, and logs the missing items in the owner note.
 
 Remaining:
 

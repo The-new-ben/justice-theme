@@ -839,6 +839,18 @@ function justice_theme_lawyer_prospect_handle_quick_action(): void {
 
 	$action = $actions[ $action_key ];
 	$today  = current_time( 'Y-m-d' );
+	$blocked_won = false;
+	$missing     = array();
+
+	if ( 'won' === $action['status'] ) {
+		$missing = justice_theme_lawyer_prospect_verification_missing( $post_id );
+		if ( ! empty( $missing ) ) {
+			$blocked_won = true;
+			$action['status'] = 'proposal_sent';
+			$action['next_days'] = 1;
+			unset( $action['clear_next'] );
+		}
+	}
 
 	update_post_meta( $post_id, 'prospect_outreach_status', $action['status'] );
 
@@ -858,12 +870,14 @@ function justice_theme_lawyer_prospect_handle_quick_action(): void {
 	}
 
 	$note     = (string) get_post_meta( $post_id, 'prospect_owner_note', true );
-	$log_line = sprintf( '[%s] Quick action: %s.', $today, $action['label'] );
+	$log_line = $blocked_won
+		? sprintf( '[%s] Won / onboarding held at Proposal sent. Missing before routing: %s.', $today, implode( ', ', $missing ) )
+		: sprintf( '[%s] Quick action: %s.', $today, $action['label'] );
 	update_post_meta( $post_id, 'prospect_owner_note', trim( $note . "\n" . $log_line ) );
 
 	$redirect = add_query_arg(
 		'justice_prospect_quick_action',
-		$action_key,
+		$blocked_won ? 'won_blocked' : $action_key,
 		get_edit_post_link( $post_id, '' )
 	);
 	wp_safe_redirect( $redirect );
@@ -878,6 +892,11 @@ function justice_theme_lawyer_prospect_quick_action_notice(): void {
 
 	$action_key = sanitize_key( wp_unslash( $_GET['justice_prospect_quick_action'] ) );
 	$actions    = justice_theme_lawyer_prospect_quick_actions();
+	if ( 'won_blocked' === $action_key ) {
+		echo '<div class="notice notice-warning is-dismissible"><p>' . esc_html__( 'Prospect was not marked Won / onboarding because routing checks are still missing. It was held at Proposal sent.', 'justice-theme' ) . '</p></div>';
+		return;
+	}
+
 	if ( ! array_key_exists( $action_key, $actions ) ) {
 		return;
 	}
@@ -939,6 +958,21 @@ function justice_theme_save_lawyer_prospect_details( int $post_id ): void {
 
 	foreach ( array( 'prospect_license_verified', 'prospect_specialty_verified', 'prospect_payment_path_ready', 'prospect_lead_fee_terms_ready' ) as $checkbox_key ) {
 		update_post_meta( $post_id, $checkbox_key, isset( $_POST[ $checkbox_key ] ) ? '1' : '' );
+	}
+
+	if ( 'won' === (string) get_post_meta( $post_id, 'prospect_outreach_status', true ) ) {
+		$missing = justice_theme_lawyer_prospect_verification_missing( $post_id );
+		if ( ! empty( $missing ) ) {
+			update_post_meta( $post_id, 'prospect_outreach_status', 'proposal_sent' );
+			if ( ! get_post_meta( $post_id, 'prospect_next_action_at', true ) ) {
+				$next_timestamp = strtotime( '+1 day', current_time( 'timestamp' ) );
+				update_post_meta( $post_id, 'prospect_next_action_at', $next_timestamp ? wp_date( 'Y-m-d', $next_timestamp ) : current_time( 'Y-m-d' ) );
+			}
+
+			$owner_note = (string) get_post_meta( $post_id, 'prospect_owner_note', true );
+			$log_line   = sprintf( '[%s] Won / onboarding held at Proposal sent. Missing before routing: %s.', current_time( 'Y-m-d' ), implode( ', ', $missing ) );
+			update_post_meta( $post_id, 'prospect_owner_note', trim( $owner_note . "\n" . $log_line ) );
+		}
 	}
 }
 add_action( 'save_post_justice_prospect', 'justice_theme_save_lawyer_prospect_details' );

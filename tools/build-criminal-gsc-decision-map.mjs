@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), '..');
-const DEFAULT_GSC_DIR = path.join(ROOT, 'reports', 'gsc');
+const DEFAULT_GSC_DIR = path.join(ROOT, '.reports', 'gsc');
 
 const TARGET_PATHS = [
   '/criminal-defense-attorney/',
@@ -16,8 +16,8 @@ const TARGET_PATHS = [
 
 const TARGET_SET = new Set(TARGET_PATHS.flatMap(pathVariants));
 
-const DEFAULT_ROUTE_REVIEW_FILE = path.join(ROOT, 'project-control', 'criminal-law-primary-redirect-check-2026-05-11.csv');
-const DEFAULT_WRONG_PAGE_FILE = path.join(ROOT, 'project-control', 'traffic-criminal-wrong-page-decision-packet-2026-05-11.csv');
+const DEFAULT_ROUTE_REVIEW_FILE = path.join(ROOT, '.project-control', 'criminal-law-primary-redirect-check-2026-05-11.csv');
+const DEFAULT_WRONG_PAGE_FILE = path.join(ROOT, '.project-control', 'traffic-criminal-wrong-page-decision-packet-2026-05-11.csv');
 
 function parseArgs() {
   const args = {
@@ -54,7 +54,7 @@ function dateDaysAgo(daysAgo) {
 }
 
 function findLatestProjectControlFile(pattern) {
-  const dir = path.join(ROOT, 'project-control');
+  const dir = path.join(ROOT, '.project-control');
   return readdirSync(dir)
     .filter((fileName) => pattern.test(fileName))
     .sort()
@@ -67,26 +67,26 @@ function printHelp() {
 
 Usage:
   node tools/build-criminal-gsc-decision-map.mjs
-  node tools/build-criminal-gsc-decision-map.mjs --gscDir=reports/gsc/criminal-law-YYYY-MM-DD --reportDate=YYYY-MM-DD
+  node tools/build-criminal-gsc-decision-map.mjs --gscDir=.reports/gsc/criminal-law-YYYY-MM-DD --reportDate=YYYY-MM-DD
 
 Inputs:
   Focused export: criminal-law-pages.csv, criminal-law-query-page.csv, criminal-law-cannibalization.csv
-  Baseline: project-control/criminal-traffic-readiness-dashboard-YYYY-MM-DD.csv
+  Baseline: .project-control/criminal-traffic-readiness-dashboard-YYYY-MM-DD.csv
 
 Outputs:
-  reports/criminal-gsc-decision-map-YYYY-MM-DD.csv
-  reports/criminal-protected-url-decision-map-YYYY-MM-DD.csv
-  reports/criminal-cannibalization-decision-map-YYYY-MM-DD.csv
-  reports/criminal-gsc-decision-map-YYYY-MM-DD.json
+  .reports/criminal-gsc-decision-map-YYYY-MM-DD.csv
+  .reports/criminal-protected-url-decision-map-YYYY-MM-DD.csv
+  .reports/criminal-cannibalization-decision-map-YYYY-MM-DD.csv
+  .reports/criminal-gsc-decision-map-YYYY-MM-DD.json
 `);
 }
 
 function buildFiles(reportDate) {
   return {
-    outputCsv: path.join(ROOT, 'reports', `criminal-gsc-decision-map-${reportDate}.csv`),
-    protectedCsv: path.join(ROOT, 'reports', `criminal-protected-url-decision-map-${reportDate}.csv`),
-    cannibalizationCsv: path.join(ROOT, 'reports', `criminal-cannibalization-decision-map-${reportDate}.csv`),
-    outputJson: path.join(ROOT, 'reports', `criminal-gsc-decision-map-${reportDate}.json`),
+    outputCsv: path.join(ROOT, '.reports', `criminal-gsc-decision-map-${reportDate}.csv`),
+    protectedCsv: path.join(ROOT, '.reports', `criminal-protected-url-decision-map-${reportDate}.csv`),
+    cannibalizationCsv: path.join(ROOT, '.reports', `criminal-cannibalization-decision-map-${reportDate}.csv`),
+    outputJson: path.join(ROOT, '.reports', `criminal-gsc-decision-map-${reportDate}.json`),
   };
 }
 

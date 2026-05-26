@@ -6,38 +6,38 @@ const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), '..');
 
 const INPUTS = {
-  criminalUpload: path.join(ROOT, 'project-control', 'criminal-law-owner-upload-review-package-2026-05-11.csv'),
-  criminalHubMap: path.join(ROOT, 'project-control', 'criminal-law-support-to-hub-map-2026-05-18.csv'),
-  trafficHubMap: path.join(ROOT, 'project-control', 'traffic-law-support-to-hub-map-2026-05-18.csv'),
-  targetedGsc: path.join(ROOT, 'project-control', 'gsc-targeted-query-pass-3-2026-05-11.csv'),
-  wrongPagePacket: path.join(ROOT, 'project-control', 'traffic-criminal-wrong-page-decision-packet-2026-05-11.csv'),
+  criminalUpload: path.join(ROOT, '.project-control', 'criminal-law-owner-upload-review-package-2026-05-11.csv'),
+  criminalHubMap: path.join(ROOT, '.project-control', 'criminal-law-support-to-hub-map-2026-05-18.csv'),
+  trafficHubMap: path.join(ROOT, '.project-control', 'traffic-law-support-to-hub-map-2026-05-18.csv'),
+  targetedGsc: path.join(ROOT, '.project-control', 'gsc-targeted-query-pass-3-2026-05-11.csv'),
+  wrongPagePacket: path.join(ROOT, '.project-control', 'traffic-criminal-wrong-page-decision-packet-2026-05-11.csv'),
 };
 
 const DRAFTS = [
   {
     key: 'criminal_pillar',
     targetId: 'CRIM-UPLOAD-PKG-001',
-    file: path.join(ROOT, 'content-drafts', 'criminal-lawyer-pillar-he.md'),
+    file: path.join(ROOT, '.content-drafts', 'criminal-lawyer-pillar-he.md'),
   },
   {
     key: 'police_investigation',
     targetId: 'CRIM-UPLOAD-PKG-002',
-    file: path.join(ROOT, 'content-drafts', 'police-investigation-supporting-he.md'),
+    file: path.join(ROOT, '.content-drafts', 'police-investigation-supporting-he.md'),
   },
   {
     key: 'pretrial_detention',
     targetId: 'CRIM-UPLOAD-PKG-003',
-    file: path.join(ROOT, 'content-drafts', 'pretrial-detention-supporting-he.md'),
+    file: path.join(ROOT, '.content-drafts', 'pretrial-detention-supporting-he.md'),
   },
   {
     key: 'indictment',
     targetId: 'CRIM-UPLOAD-PKG-004',
-    file: path.join(ROOT, 'content-drafts', 'indictment-supporting-he.md'),
+    file: path.join(ROOT, '.content-drafts', 'indictment-supporting-he.md'),
   },
   {
     key: 'drug_offenses',
     targetId: 'CRIM-UPLOAD-PKG-005',
-    file: path.join(ROOT, 'content-drafts', 'drug-offenses-supporting-he.md'),
+    file: path.join(ROOT, '.content-drafts', 'drug-offenses-supporting-he.md'),
   },
 ];
 
@@ -99,10 +99,10 @@ function parseArgs() {
 function outputFiles(reportDate) {
   const base = `criminal-traffic-readiness-dashboard-${reportDate}`;
   return {
-    reportCsv: path.join(ROOT, 'reports', `${base}.csv`),
-    reportJson: path.join(ROOT, 'reports', `${base}.json`),
-    projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),
-    projectMd: path.join(ROOT, 'project-control', `${base}.md`),
+    reportCsv: path.join(ROOT, '.reports', `${base}.csv`),
+    reportJson: path.join(ROOT, '.reports', `${base}.json`),
+    projectCsv: path.join(ROOT, '.project-control', `${base}.csv`),
+    projectMd: path.join(ROOT, '.project-control', `${base}.md`),
   };
 }
 
@@ -114,17 +114,17 @@ Usage:
   node tools/build-criminal-traffic-readiness-dashboard.mjs --reportDate=YYYY-MM-DD
 
 Inputs:
-  project-control/criminal-law-owner-upload-review-package-2026-05-11.csv
-  project-control/criminal-law-support-to-hub-map-2026-05-18.csv
-  project-control/traffic-law-support-to-hub-map-2026-05-18.csv
-  project-control/gsc-targeted-query-pass-3-2026-05-11.csv
-  project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.csv
+  .project-control/criminal-law-owner-upload-review-package-2026-05-11.csv
+  .project-control/criminal-law-support-to-hub-map-2026-05-18.csv
+  .project-control/traffic-law-support-to-hub-map-2026-05-18.csv
+  .project-control/gsc-targeted-query-pass-3-2026-05-11.csv
+  .project-control/traffic-criminal-wrong-page-decision-packet-2026-05-11.csv
 
 Outputs:
-  reports/criminal-traffic-readiness-dashboard-YYYY-MM-DD.csv
-  reports/criminal-traffic-readiness-dashboard-YYYY-MM-DD.json
-  project-control/criminal-traffic-readiness-dashboard-YYYY-MM-DD.csv
-  project-control/criminal-traffic-readiness-dashboard-YYYY-MM-DD.md
+  .reports/criminal-traffic-readiness-dashboard-YYYY-MM-DD.csv
+  .reports/criminal-traffic-readiness-dashboard-YYYY-MM-DD.json
+  .project-control/criminal-traffic-readiness-dashboard-YYYY-MM-DD.csv
+  .project-control/criminal-traffic-readiness-dashboard-YYYY-MM-DD.md
 `);
 }
 
@@ -472,7 +472,7 @@ function markdownSummary(reportDate, files, summary, rows) {
   return `# Criminal + Traffic Readiness Dashboard - ${reportDate}
 
 ## Status
-- VERIFIED LOCAL: generated from existing project-control CSV evidence and current content-draft files.
+- VERIFIED LOCAL: generated from existing dot-private control CSV evidence and current dot-private content-draft files.
 - REVIEW ONLY: no public CMS content, URL slug, redirect, canonical, noindex, taxonomy, sitemap, lawyer, lead, CRM or payment change is approved by this packet.
 - BLOCKED: public upload still requires owner/legal/source approval and WordPress backup.
 

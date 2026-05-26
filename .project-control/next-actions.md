@@ -80,7 +80,10 @@
 8. VERIFIED LOCAL: `node --check tools/check-private-artifact-boundaries.mjs` passed; `node tools/check-private-artifact-boundaries.mjs --reportDate=2026-05-26` returned `PASS`.
 9. DOCUMENTED: `.project-control/private-artifact-boundary-guard-2026-05-26.md` and `.csv` list the current boundary state and `600` legacy tool references that require review/migration before old scripts are rerun.
 10. DONE: created Linear issue `HAD-91`, marked Done, and included the repo artifact paths and verification.
-11. NEXT: when time allows, migrate the highest-risk old scripts from `project-control` / `reports` / `content-drafts` paths to dot-private paths, then rerun with `--fail-on-legacy-writers`.
+11. DONE: migrated the first high-risk criminal/traffic tooling pair to dot-private paths: `tools/build-criminal-traffic-readiness-dashboard.mjs` and `tools/build-criminal-gsc-decision-map.mjs`.
+12. VERIFIED LOCAL: syntax checks passed; the criminal/traffic readiness dashboard generated only under `.project-control` and `.reports`; the boundary guard returned `PASS` and public-root references dropped from `600` to `563`.
+13. GENERATED: `.project-control/private-artifact-script-migration-2026-05-26.md` and `.csv`.
+14. NEXT: continue with Family/Divorce, Medical Malpractice and supplier/content packet tools, then rerun with `--fail-on-legacy-writers` only after the remaining legacy writers are migrated.
 
 ### ACTION-WHATSAPP-TALKTO-CONSENT-CRM-001: Build consent-safe intake for WhatsApp, TalkTo and legacy leads
 **Status:** OWNER RELEASE GATE DEPLOYED LIVE / PROVIDER ROUTE BLOCKED

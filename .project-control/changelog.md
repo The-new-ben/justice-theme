@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Private artifact script migration pass 1
+
+- UPDATED: `tools/build-criminal-traffic-readiness-dashboard.mjs`, `tools/build-criminal-gsc-decision-map.mjs`.
+- GENERATED: `.project-control/private-artifact-script-migration-2026-05-26.md`, `.project-control/private-artifact-script-migration-2026-05-26.csv`, `.project-control/criminal-traffic-readiness-dashboard-2026-05-26.md`, `.project-control/criminal-traffic-readiness-dashboard-2026-05-26.csv`, `.reports/criminal-traffic-readiness-dashboard-2026-05-26.csv`, `.reports/criminal-traffic-readiness-dashboard-2026-05-26.json`.
+- PURPOSE: start migrating old repo tools away from public-root `project-control`, `reports` and `content-drafts` paths so they cannot accidentally recreate public artifact folders inside the deployed theme.
+- IMPLEMENTATION: the criminal/traffic readiness dashboard and criminal GSC decision-map tools now default to dot-private `.project-control`, `.reports` and `.content-drafts` paths.
+- VERIFIED LOCAL: syntax checks passed for both migrated tools and the boundary checker; `node tools/build-criminal-traffic-readiness-dashboard.mjs --reportDate=2026-05-26` produced a 57-row private dashboard; `node tools/check-private-artifact-boundaries.mjs --reportDate=2026-05-26` returned `PASS`.
+- RESULT: legacy public-root references fell from `600` to `563`; strict `--fail-on-legacy-writers` remains deferred until the remaining old tools are migrated.
+- SAFETY: repo-local tool/docs/report change only; no public CMS page, lead, lawyer, supplier, payment, invoice, email, WhatsApp, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-26 - Bituach Leumi held-lead triage
 
 - UPDATED: `inc/lead-crm.php`, `functions.php`, `deployment-marker.txt`.

@@ -1,0 +1,4 @@
+task,status,files,verification,safety,next_step
+Migrate criminal traffic readiness dashboard,DONE,"tools/build-criminal-traffic-readiness-dashboard.mjs","syntax passed; generated 57-row private dashboard for 2026-05-26","repo-only; no public output","Continue with family/divorce tools"
+Migrate criminal GSC decision map,DONE,"tools/build-criminal-gsc-decision-map.mjs","syntax passed; defaults now use dot-private input/output paths","repo-only; GSC export still blocked until owner credentials","Run only after focused GSC export is available"
+Refresh boundary guard,DONE,"tools/check-private-artifact-boundaries.mjs + .project-control/private-artifact-boundary-guard-2026-05-26.md + .csv","guard returned PASS; legacy references reduced from 600 to 563","no public roots present; no tracked files under public roots","Migrate remaining legacy writers before strict mode"

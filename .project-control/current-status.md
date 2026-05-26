@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-26 20:32 Asia/Jerusalem
+- PRIVATE ARTIFACT SCRIPT MIGRATION PASS 1 VERIFIED LOCAL: migrated the first high-risk criminal/traffic tooling pair away from public-root artifact paths.
+- CODE UPDATED: `tools/build-criminal-traffic-readiness-dashboard.mjs` and `tools/build-criminal-gsc-decision-map.mjs` now default to `.project-control`, `.reports` and `.content-drafts` paths instead of `project-control`, `reports` and `content-drafts`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/private-artifact-script-migration-2026-05-26.md`, `.project-control/private-artifact-script-migration-2026-05-26.csv`, `.project-control/criminal-traffic-readiness-dashboard-2026-05-26.md`, `.project-control/criminal-traffic-readiness-dashboard-2026-05-26.csv`, `.reports/criminal-traffic-readiness-dashboard-2026-05-26.csv` and `.reports/criminal-traffic-readiness-dashboard-2026-05-26.json`.
+- VERIFIED LOCAL: syntax checks passed for both migrated tools and the boundary checker; the criminal/traffic dashboard generated `57` private rows; boundary guard returned `PASS`.
+- RISK REDUCTION: legacy public-root references dropped from `600` to `563`. Strict `--fail-on-legacy-writers` is still intentionally deferred until the remaining Family/Divorce, Medical Malpractice and supplier/content packet tools are migrated.
+- PUBLIC IMPACT: none. No public CMS page, lead, lawyer, supplier, payment, invoice, email, WhatsApp, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-26 20:55 Asia/Jerusalem
 - BTL HELD-LEAD TRIAGE VERIFIED LIVE: Justice CRM now has an owner-only no-PII `Held Bituach Leumi lead triage` panel inside the Bituach Leumi specialist supply area.
 - CODE UPDATED: `inc/lead-crm.php` now queries held `national-insurance` / `qualified_appeal_lead` leads and shows safe readiness columns for revenue product, suggested price, permission status, partner terms, owner handoff release, billing gate and next safe action.

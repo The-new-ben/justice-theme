@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-LOW-HYPE-RV-SERP-CANNIBALIZATION-001: Validate RV idea against SERP and page overlap
+**Status:** FIXED LOCAL / PUBLIC ROUTE STILL BLOCKED UNTIL GSC AND LEGAL REVIEW
+**Why:** The first Low Hype/RV brief needed a sourced competitor/SERP layer before deciding whether RV is a real public page, an existing-route upgrade, or a private-only pilot.
+**Actions:**
+1. DONE: add `tools/build-low-hype-rv-serp-cannibalization-packet.mjs`.
+2. DONE: generate `.project-control/low-hype-rv-serp-cannibalization-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.reports/low-hype-rv-serp-cannibalization-packet-2026-05-27.json` and `.csv`.
+4. DONE: capture 8 sourced research rows across RV rental disputes, deposits/charges, supplier terms, insurance coverage, rental-excess coverage and broad insurance/accident competitor pages.
+5. DONE: confirm `SERP_REVIEW_PACKET_READY_NOT_APPROVED_FOR_PUBLICATION`, with 0 standalone RV route approved and recommended first pilot limited to rental/deposit/charge disputes attached to existing consumer/rental surfaces.
+6. DONE: record as Linear `HAD-137`, marked Done under `HAD-75`.
+7. NEXT: obtain GSC query export and internal route inventory for consumer, rental, contract, small-claims, insurance and traffic/accident pages before owner/legal approval.
+8. BLOCKED: do not publish a standalone RV route, Low Hype label, title/H1/meta, link, canonical, sitemap entry, CRM lead, lawyer/supplier contact, invoice, payment, email, WhatsApp, TalkTo or uPress deployment from this packet.
+
 ### ACTION-LOW-HYPE-RV-OPPORTUNITY-BRIEF-001: Start Low Hype/RV idea infrastructure safely
 **Status:** FIXED LOCAL / PUBLIC AND REVENUE EXECUTION STILL BLOCKED UNTIL OWNER REVIEW
 **Why:** The owner asked to start infrastructuring Low Hype and the RV idea, but public pages must stay legal-help-first and cannot expose internal monetization logic or skip anti-cannibalization/legal review.

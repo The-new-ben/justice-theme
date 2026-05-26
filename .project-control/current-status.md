@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-26 14:05 Asia/Jerusalem
+- PRIVATE ARTIFACT BOUNDARY GUARD ADDED: created `tools/check-private-artifact-boundaries.mjs` so future operators can verify old public artifact roots do not reappear in the deployed theme.
+- VERIFIED LOCAL: checker status is `PASS`; no root `project-control`, `reports`, `content-master`, `content-drafts`, `mnt` or emergency-master directory exists; no tracked file lives under those public roots; `.gitignore` covers all 6 public roots.
+- MIGRATION BACKLOG EXPOSED: checker reports `600` legacy tool references to public artifact paths. This is now visible in `.project-control/private-artifact-boundary-guard-2026-05-26.md` and `.csv`; old scripts must be reviewed before running or migrated to dot-private paths.
+- SAFETY RULE: default checker mode fails only on actual public-root recreation/tracked files/missing ignore coverage; stricter `--fail-on-legacy-writers` is available after the old-tool migration is scheduled.
+- LINEAR: recorded as `HAD-91` and marked Done.
+- PUBLIC IMPACT: none. This is repo-local safety tooling and documentation only; no public CMS/database, page, redirect, canonical/noindex, sitemap, taxonomy, payment, invoice, email, WhatsApp, client, lawyer, supplier, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-26 13:50 Asia/Jerusalem
 - MANAGED LEGAL-SERVICE FULFILLMENT GATE VERIFIED LIVE: started the Lawhive-style infrastructure safely as a private/admin gate on `justice_legal_request`, not as a public service launch.
 - CODE UPDATED: added `inc/legal-request-fulfillment.php`, loaded it from `functions.php`, and surfaced a `Managed legal-service fulfillment preflight` panel inside Justice CRM.

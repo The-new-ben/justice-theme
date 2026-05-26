@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Private artifact boundary guard
+
+- ADDED: `tools/check-private-artifact-boundaries.mjs`.
+- GENERATED: `.project-control/private-artifact-boundary-guard-2026-05-26.md` and `.project-control/private-artifact-boundary-guard-2026-05-26.csv`.
+- PURPOSE: prevent old repo tools from silently recreating public `project-control`, `reports`, `content-master`, `content-drafts`, `mnt` or emergency-master directories inside the deployed theme after the live artifact exposure fix.
+- VERIFIED LOCAL: `node --check tools/check-private-artifact-boundaries.mjs` passed; `node tools/check-private-artifact-boundaries.mjs --reportDate=2026-05-26` returned `PASS`.
+- FINDINGS: no public artifact root directory exists, no tracked file lives under those public roots, and `.gitignore` covers all 6 roots. The checker also documents `600` legacy tool references that must be reviewed before old scripts are rerun.
+- LINEAR: recorded as `HAD-91` and marked Done.
+- SAFETY: repo-local checker/report/documentation only; no CMS database row, public page, redirect, canonical/noindex, sitemap, taxonomy, email, WhatsApp, client contact, lawyer/supplier contact, invoice, payment, GSC, GA4 or provider setting changed.
+
 # 2026-05-26 - Managed legal-service fulfillment gate
 
 - ADDED: `inc/legal-request-fulfillment.php`.

@@ -43,7 +43,7 @@
 6. DONE: send Hebrew owner email because this is a public-facing change; included review URL, associated/cannibalizing pages and concise review.
 
 ### ACTION-INTERNAL-ARTIFACT-WEB-BLOCK-001: Block project-control and report artifacts from public static access
-**Status:** FIXED LIVE / MONITOR FOR RECREATED PUBLIC ARTIFACT DIRS
+**Status:** FIXED LIVE / GUARD ADDED / LEGACY TOOL MIGRATION BACKLOG
 **Why:** verification found internal repo control docs reachable under `/wp-content/themes/justice-theme/project-control/*.md`; even without client phone, these files are not public website content.
 **Actions:**
 1. DONE: add Apache/LiteSpeed deny `.htaccess` files to `project-control/`, `reports/`, `content-master/`, `content-drafts/`, and `mnt/`.
@@ -51,7 +51,12 @@
 3. DONE: live verification showed the theme-root `.htaccess` rule was also ignored.
 4. DONE: moved `project-control`, `reports`, `content-master`, `content-drafts`, `mnt`, and emergency master artifacts to dot-prefixed private paths and updated live PHP readers.
 5. DONE: pulled Git in uPress and verified the old public URLs return 404 while dot-prefixed URLs return 403.
-6. NEXT: monitor future tools/scripts so they do not recreate public artifact directories; `.gitignore` now blocks committing those public paths.
+6. DONE: monitor future tools/scripts so they do not recreate public artifact directories; `.gitignore` now blocks committing those public paths.
+7. DONE: added `tools/check-private-artifact-boundaries.mjs`, which fails if public artifact roots reappear, tracked files are added under those roots, or ignore coverage is missing.
+8. VERIFIED LOCAL: `node --check tools/check-private-artifact-boundaries.mjs` passed; `node tools/check-private-artifact-boundaries.mjs --reportDate=2026-05-26` returned `PASS`.
+9. DOCUMENTED: `.project-control/private-artifact-boundary-guard-2026-05-26.md` and `.csv` list the current boundary state and `600` legacy tool references that require review/migration before old scripts are rerun.
+10. DONE: created Linear issue `HAD-91`, marked Done, and included the repo artifact paths and verification.
+11. NEXT: when time allows, migrate the highest-risk old scripts from `project-control` / `reports` / `content-drafts` paths to dot-private paths, then rerun with `--fail-on-legacy-writers`.
 
 ### ACTION-WHATSAPP-TALKTO-CONSENT-CRM-001: Build consent-safe intake for WhatsApp, TalkTo and legacy leads
 **Status:** OWNER RELEASE GATE DEPLOYED LIVE / PROVIDER ROUTE BLOCKED

@@ -9,7 +9,9 @@
 - PRESERVED: connected lawyer profile sidebars, family-law cluster navigation and admin-only review/sidebar status remain available when present.
 - USER-FACING SAFETY: no internal revenue, lead-sale, partner-pricing, investor or business-plan language was added; copy remains legal-help focused.
 - COMPETITOR NOTE: LawReviews article pages connect readers to relevant lawyer/review lists once rather than stacking identical mobile CTA copy.
-- DEPLOYMENT STATUS: marker prepared as `2026-05-26-article-mobile-cta-dedupe-v1`; lint, commit, uPress Pull Git and live verification still required.
+- DEPLOYED: commit `0ee7048` pushed to `main`; uPress Pull Git completed; marker `2026-05-26-article-mobile-cta-dedupe-v1` verified live.
+- VERIFIED: `/find-lawyer-how-to-find-good-attorney/` returns 200, carries the duplicate-sidebar marker and keeps one main article CTA; live `main.css?ver=1.1.37` contains the mobile hide rules.
+- PUBLIC SAFETY CHECK: `/national-insurance-attorney/` returns 200 and does not expose the screenshot/internal business phrases checked in this cycle.
 
 # 2026-05-26 - Owner handoff release gate
 

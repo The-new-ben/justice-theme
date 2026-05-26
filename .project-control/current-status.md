@@ -3,7 +3,10 @@
 - CODE UPDATED: article templates now mark duplicate sidebar CTA-only blocks, and mobile CSS hides the duplicate while keeping the main post-body CTA, connected lawyer profile/sidebar content and family-law cluster navigation when present.
 - USER-FACING RULE: the visible message stays legal-help oriented only: read the guide, understand the issue, and leave a careful inquiry if personal review is needed. No revenue-plan language, partner pricing, internal business logic or lead-sale terms were added.
 - COMPETITOR NOTE: LawReviews article pages commonly connect article readers to relevant lawyer lists/reviews once; they do not stack identical CTA copy twice on mobile. This change follows that pattern without copying competitor content.
-- DEPLOYMENT STATUS: marker prepared as `2026-05-26-article-mobile-cta-dedupe-v1`; lint, commit, uPress pull, live mobile verification, Linear update and Hebrew email still required.
+- DEPLOYMENT STATUS: VERIFIED LIVE. Commit `0ee7048` pushed to `main`, uPress Pull Git completed, live marker `2026-05-26-article-mobile-cta-dedupe-v1` verified.
+- LIVE CHECKS: `/find-lawyer-how-to-find-good-attorney/` returns 200, has the duplicate-sidebar marker and one main post-body article CTA; live `main.css?ver=1.1.37` contains the mobile hide rules.
+- PUBLIC SAFETY CHECK: `/national-insurance-attorney/` returns 200 and no longer exposes the screenshot phrases `מסלול הכנסה`, `הכנסה חשוב`, `revenue`, `MRR`, `לידים בתשלום` or `מבחינה עסקית`.
+- REMAINING: send the required Hebrew public-change email after checking Gmail for instruction emails.
 
 # LATEST WORK STATUS - 2026-05-26 13:09 Asia/Jerusalem
 - OWNER HANDOFF RELEASE GATE ADDED: Justice CRM now has an owner-only final release queue for leads that already have client permission, accepted partner terms and a minimum paid handoff fee.

@@ -5072,3 +5072,4 @@
 - PARTIAL VERIFIED: `FAM-UPLOAD-027` is now partially verified; the package exists and a later cycle created the CMS-clean public body file.
 - RECOMMENDED: review the clean `/divorce-lawyer/` public body and controlled upload QA package before any CMS import.
 - SAFETY: no public content body, draft import, title/H1/meta, URL slug, redirect, sitemap inclusion, canonical setting, taxonomy term, internal link, related-card, document/media file, lawyer record, CRM record, review data, plugin state, wp-admin setting or database row was changed.
+- 2026-05-26: Added an owner-only copyable invoice/request packet to the Justice CRM qualified lead billing queue, with lead fee, billable lawyer, invoice reference, payment proof and no-promise handoff steps. No public page, CMS content, redirect, canonical, sitemap, taxonomy, email, payment or provider setting was changed.

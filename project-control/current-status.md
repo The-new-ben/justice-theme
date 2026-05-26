@@ -6486,6 +6486,15 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: owner/admin still needs to actually contact prospects and click the relevant action after real activity; no automated outreach was added.
 - COMPLETION ASSESSMENT: lawyer outreach operating system 66%; paid coverage pipeline 52%; first-lawyer sales readiness 72%; automated payment readiness 80%.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Prospects -> Manual Outreach Kit quick actions, and wp-admin -> Justice CRM -> Lawyer sales pipeline action buttons.
+
+## 2026-05-26 QUALIFIED LEAD INVOICE PACKET
+- CODE UPDATED: the owner-only Justice CRM qualified lead billing queue now includes a copyable invoice/request packet for each ready-to-bill or invoice-sent lead.
+- CODE UPDATED: each packet pulls the lead ID, legal area, billing status, revenue model, suggested/accepted lead fee, billable lawyer IDs, available billing/email/phone contact, existing invoice reference and payment proof URL.
+- SAFETY: the packet explicitly says to send it only after the routed lawyer accepted the fee, terms and billing contact requirements; it also repeats that no outcome, ranking, exclusivity or lead volume is promised.
+- MONEY IMPACT: this reduces the manual gap between a billable lead and a sent invoice/payment request, so the Bituach Leumi controlled-test path can prove payment without improvised owner notes.
+- BLOCKED: still needs real verified specialists, a real controlled billable lead, and real payment evidence before claiming revenue proof.
+- COMPLETION ASSESSMENT: qualified-lead billing handoff 80%; Bituach Leumi revenue loop 55%; realized payment proof still 0% until a real invoice/payment is recorded.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Justice CRM -> Qualified lead billing queue -> Copy invoice/request packet.
 ## LATEST WORK STATUS - 2026-05-22 14:38 Asia/Jerusalem
 - CRIMINAL OWNER REVIEW PACKET: converted the five current-URL Criminal first-upload targets into a controlled owner/legal/source review gate.
 - TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.

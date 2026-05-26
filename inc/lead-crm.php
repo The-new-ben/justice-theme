@@ -2020,6 +2020,8 @@ function justice_theme_crm_render_qualified_lead_billing_queue(): void {
 				$lawyer_ids    = justice_theme_crm_parse_id_list( (string) get_post_meta( $post_id, 'qualified_lead_billable_lawyer_ids', true ) );
 				$lawyer_labels = justice_theme_crm_lawyer_link_labels( $lawyer_ids );
 				$lawyer_actions = justice_theme_crm_billable_lawyer_contact_actions( $lawyer_ids, $post_id );
+				$invoice_packet_id = 'justice-qualified-lead-invoice-packet-' . $post_id;
+				$invoice_packet    = justice_theme_crm_qualified_lead_invoice_packet( $post_id, $lawyer_ids );
 				$edit_url      = get_edit_post_link( $post_id, '' );
 				$phone_link    = $phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', (string) $phone ) : '';
 				?>
@@ -2074,6 +2076,15 @@ function justice_theme_crm_render_qualified_lead_billing_queue(): void {
 							</div>
 						<?php endif; ?>
 						<p style="margin:6px 0 0;color:#646970;">Set status to Invoice sent / Paid after the manual payment link or invoice is handled.</p>
+						<?php if ( $invoice_packet ) : ?>
+							<details style="margin-top:8px;">
+								<summary style="cursor:pointer;font-weight:600;">Copy invoice/request packet</summary>
+								<textarea id="<?php echo esc_attr( $invoice_packet_id ); ?>" rows="8" readonly style="width:100%;margin-top:6px;"><?php echo esc_textarea( $invoice_packet ); ?></textarea>
+								<p style="margin:6px 0 0;">
+									<button type="button" class="button" data-justice-copy-target="<?php echo esc_attr( $invoice_packet_id ); ?>">Copy packet</button>
+								</p>
+							</details>
+						<?php endif; ?>
 					</td>
 				</tr>
 			<?php endwhile; ?>
@@ -2197,6 +2208,91 @@ function justice_theme_crm_billable_lawyer_contact_actions( array $lawyer_ids, i
 	}
 
 	return $actions;
+}
+
+function justice_theme_crm_qualified_lead_invoice_packet( int $lead_id, array $lawyer_ids ): string {
+	$lead = get_post( $lead_id );
+
+	if ( ! $lead instanceof WP_Post ) {
+		return '';
+	}
+
+	$lead_name     = get_post_meta( $lead_id, 'visitor_name', true ) ?: get_post_meta( $lead_id, 'lead_name', true ) ?: get_the_title( $lead_id );
+	$area          = get_post_meta( $lead_id, 'legal_area', true ) ?: get_post_meta( $lead_id, 'lead_area', true );
+	$area_name     = function_exists( 'justice_theme_lead_area_label' ) ? justice_theme_lead_area_label( (string) $area ) : (string) $area;
+	$revenue_model = (string) get_post_meta( $lead_id, 'lead_revenue_model', true );
+	$status        = (string) get_post_meta( $lead_id, 'qualified_lead_billing_status', true );
+	$status        = $status ?: 'not_ready';
+	$status_labels = justice_theme_crm_qualified_lead_billing_labels();
+	$price         = absint( get_post_meta( $lead_id, 'suggested_lead_price_ils', true ) );
+	$invoice_ref   = (string) get_post_meta( $lead_id, 'qualified_lead_invoice_reference', true );
+	$evidence_url  = (string) get_post_meta( $lead_id, 'qualified_lead_payment_evidence_url', true );
+	$lawyer_rows   = array();
+
+	foreach ( $lawyer_ids as $lawyer_id ) {
+		if ( 'justice_lawyer' !== get_post_type( $lawyer_id ) ) {
+			continue;
+		}
+
+		$lawyer_name   = get_the_title( $lawyer_id ) ?: sprintf( 'Lawyer #%d', $lawyer_id );
+		$billing_email = (string) get_post_meta( $lawyer_id, 'billing_invoice_email', true );
+		$email         = (string) get_post_meta( $lawyer_id, 'email', true );
+		$phone         = (string) ( get_post_meta( $lawyer_id, 'whatsapp', true ) ?: get_post_meta( $lawyer_id, 'phone', true ) );
+		$contact_bits  = array();
+
+		if ( $billing_email && is_email( $billing_email ) ) {
+			$contact_bits[] = 'billing ' . $billing_email;
+		} elseif ( $email && is_email( $email ) ) {
+			$contact_bits[] = 'email ' . $email;
+		}
+
+		if ( $phone ) {
+			$contact_bits[] = 'phone ' . $phone;
+		}
+
+		$lawyer_rows[] = sprintf(
+			'- #%d %s%s',
+			$lawyer_id,
+			wp_strip_all_tags( $lawyer_name ),
+			$contact_bits ? ' (' . implode( ', ', $contact_bits ) . ')' : ' (billing contact not recorded)'
+		);
+	}
+
+	if ( ! $lawyer_rows ) {
+		$lawyer_rows[] = '- No billable lawyer ID is linked yet; do not invoice until this is fixed.';
+	}
+
+	$lines = array(
+		'Jus-Tice qualified lead invoice/request packet',
+		'Internal owner packet. Send only after the routed lawyer accepted the fee, terms and billing contact requirements.',
+		'',
+		sprintf( 'Lead: #%d - %s', $lead_id, wp_strip_all_tags( (string) $lead_name ) ),
+		'Area: ' . ( $area_name ? wp_strip_all_tags( (string) $area_name ) : '-' ),
+		'Billing status: ' . ( $status_labels[ $status ] ?? $status_labels['not_ready'] ),
+		'Revenue model: ' . ( $revenue_model ?: '-' ),
+		'Agreed/suggested lead fee: ' . ( $price ? number_format_i18n( $price ) . ' NIS' : 'not recorded - do not invoice yet' ),
+		'',
+		'Billable lawyer(s):',
+		implode( "\n", $lawyer_rows ),
+		'',
+		'Owner handoff steps:',
+		'1. Confirm the routed lawyer accepted qualified-lead terms before this lead was sent.',
+		'2. Send a manual invoice/payment request for the fee above to the recorded billing contact.',
+		'3. Save the invoice/payment reference on this lead before moving it to Invoice sent.',
+		'4. Mark Paid only after an invoice/reference or payment evidence URL exists.',
+		'5. Keep all client and lawyer notes in the CRM; do not promise outcome, ranking, exclusivity or lead volume.',
+	);
+
+	if ( $invoice_ref ) {
+		$lines[] = '';
+		$lines[] = 'Existing invoice/reference: ' . $invoice_ref;
+	}
+
+	if ( $evidence_url ) {
+		$lines[] = 'Existing payment proof URL: ' . esc_url_raw( $evidence_url );
+	}
+
+	return implode( "\n", $lines );
 }
 
 function justice_theme_crm_status_labels(): array {

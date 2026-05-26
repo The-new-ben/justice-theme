@@ -3324,6 +3324,17 @@ Next safe batch before any URL/content migration:
 9. NEXT: keep homepage, menus, breadcrumbs, related content, sitemap and mobile template decisions tied to the approved cluster map.
 10. DO NOT EXECUTE YET: URL changes, redirects, noindex, deletions, public rewrites, canonical changes or sitemap inclusion changes.
 
+## 2026-05-26 QUALIFIED LEAD BILLING NEXT ACTIONS
+
+**Status:** OWNER-ONLY HANDOFF ADDED / LIVE PAYMENT PROOF STILL NEEDED
+
+1. Use `wp-admin -> Justice CRM -> Qualified lead billing queue -> Copy invoice/request packet` for each ready-to-bill lead.
+2. Before sending a payment request, confirm the routed lawyer accepted qualified-lead terms, the agreed per-lead fee and a billing contact.
+3. After sending the manual invoice/payment request, save the invoice/payment reference on the lead and set billing status to `Invoice sent`.
+4. Mark a lead `Paid` only after an invoice/reference or payment evidence URL exists in the CRM.
+5. For the first Bituach Leumi controlled lead, keep the packet, invoice reference and payment proof together before scaling the funnel.
+6. Do not claim realized lead revenue until a real paid lead is recorded.
+
 ## 2026-05-11 CONTENT DECISION BATCH NEXT ACTIONS
 
 **Status:** VERIFIED REVIEW FILES CREATED / EXECUTION BLOCKED UNTIL EVIDENCE

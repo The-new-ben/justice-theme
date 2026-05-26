@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-PUBLIC-UPDATE-OWNER-APPROVAL-QUEUE-001: Consolidate owner-review public update candidates
+**Status:** FIXED LOCAL / OWNER REVIEW BLOCKED BEFORE ANY PUBLIC UPDATE
+**Why:** rental-agreement and demand-letter managed-service public-update ideas now have separate packets, but the owner and remote team need one ranked queue to avoid forgetting the next safe decision.
+**Actions:**
+1. DONE: add `tools/build-public-update-owner-approval-queue.mjs`.
+2. DONE: generate `.project-control/public-update-owner-approval-queue-2026-05-27.md` and `.csv`.
+3. DONE: generate `.reports/public-update-owner-approval-queue-2026-05-27.json` and `.csv`.
+4. DONE: rank `/rental-agreement/` first because it upgrades an existing route and has a full owner-review packet.
+5. DONE: keep `/labor-lawyer/` as the first demand-letter context decision, with `/consumer-rights-israel/` and `/eviction-notice-israel/` as later candidates.
+6. DONE: explicitly block a generic demand-letter public route.
+7. DONE: verify 0 source packet marker hits and 0 public changes approved.
+8. DONE: record this as Linear `HAD-126`, marked Done under `HAD-84`.
+9. NEXT: owner/SEO/legal reviewer should approve, edit or reject one exact public update path before any CMS or publication work begins.
+10. BLOCKED: do not update public pages, title/H1/meta, internal links, redirects, canonicals/noindex, sitemaps, taxonomies, checkout wording, leads, lawyer handoffs, invoices, payments, emails, WhatsApp, TalkTo or uPress from this queue alone.
+
 ### ACTION-DEMAND-LETTER-PUBLIC-UPDATE-APPROVAL-001: Prepare dispute-specific owner-review copy
 **Status:** FIXED LOCAL / PUBLIC UPDATE BLOCKED UNTIL OWNER CHOOSES ONE DISPUTE TYPE
 **Why:** demand-letter revenue could collide with several existing legal-help pages unless it stays dispute-specific and the generic page is blocked.

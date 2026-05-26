@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Public update owner approval queue
+
+- ADDED: `tools/build-public-update-owner-approval-queue.mjs`.
+- GENERATED: `.project-control/public-update-owner-approval-queue-2026-05-27.md`, `.project-control/public-update-owner-approval-queue-2026-05-27.csv`, `.reports/public-update-owner-approval-queue-2026-05-27.json`, `.reports/public-update-owner-approval-queue-2026-05-27.csv`.
+- PURPOSE: consolidate the rental-agreement and demand-letter public-update packets into one owner/SEO approval queue.
+- RESULT: `OWNER_APPROVAL_QUEUE_READY_NOT_APPROVED`; 5 queue rows, 2 ready for owner review, 2 later candidates, 1 explicitly blocked generic route, 0 source packet marker hits and 0 public changes approved.
+- QUEUE: `/rental-agreement/` first, `/labor-lawyer/` as the first demand-letter decision, `/consumer-rights-israel/` and `/eviction-notice-israel/` as later candidates, and a generic demand-letter route blocked.
+- LINEAR: recorded as `HAD-126` and marked Done under `HAD-84`, related to `HAD-123`, `HAD-124`, `HAD-125` and `HAD-78`.
+- SAFETY: private approval queue only; no public page, CMS content, internal link, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer handoff, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Demand-letter public update approval packet
 
 - ADDED: `tools/build-demand-letter-public-update-approval-packet.mjs`.

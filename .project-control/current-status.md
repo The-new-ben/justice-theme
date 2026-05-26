@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-27 01:05 Asia/Jerusalem
+- PUBLIC UPDATE OWNER APPROVAL QUEUE ADDED: consolidated the rental-agreement and demand-letter owner-review packets into one ranked approval queue so public-update decisions are not scattered or abandoned.
+- CODE ADDED: `tools/build-public-update-owner-approval-queue.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/public-update-owner-approval-queue-2026-05-27.md`, `.project-control/public-update-owner-approval-queue-2026-05-27.csv`, `.reports/public-update-owner-approval-queue-2026-05-27.json`, `.reports/public-update-owner-approval-queue-2026-05-27.csv`.
+- CHECK RESULT: `OWNER_APPROVAL_QUEUE_READY_NOT_APPROVED`; queue rows: 5; ready for owner review: 2; candidate after owner context choice: 2; explicitly blocked routes: 1; source packet marker hits: 0; public changes approved: 0.
+- QUEUE ORDER: review `/rental-agreement/` first, then decide whether `/labor-lawyer/` should be the first demand-letter context; keep `/consumer-rights-israel/` and `/eviction-notice-israel/` as later candidates.
+- HARD BLOCK: keep a generic demand-letter public route blocked because it can cannibalize employment, consumer, rental and small-claims pages.
+- LINEAR: recorded as `HAD-126` and marked Done under `HAD-84`, related to `HAD-123`, `HAD-124`, `HAD-125` and `HAD-78`.
+- PUBLIC IMPACT: none. No public page, CMS content, internal link, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer handoff, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: approval queue 100%; public page update remains 0% until owner chooses one exact route/copy path and approves source/legal review, SEO review, mobile CTA duplicate QA and publication email workflow.
+
 # LATEST WORK STATUS - 2026-05-27 00:54 Asia/Jerusalem
 - DEMAND-LETTER OWNER-REVIEW PACKET ADDED: prepared a dispute-specific approval packet for demand-letter CTAs while explicitly blocking a generic demand-letter page.
 - CODE ADDED: `tools/build-demand-letter-public-update-approval-packet.mjs`.

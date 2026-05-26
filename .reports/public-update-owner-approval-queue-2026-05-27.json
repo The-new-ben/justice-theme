@@ -1,0 +1,106 @@
+{
+  "reportDate": "2026-05-27",
+  "packetDate": "2026-05-27",
+  "status": "OWNER_APPROVAL_QUEUE_READY_NOT_APPROVED",
+  "sourcePackets": {
+    "rental": "C:\\Users\\janana\\jutice-theme\\.reports\\rental-agreement-public-update-approval-packet-2026-05-27.json",
+    "demand": "C:\\Users\\janana\\jutice-theme\\.reports\\demand-letter-public-update-approval-packet-2026-05-27.json"
+  },
+  "summary": {
+    "rows": 5,
+    "readyForOwnerReview": 2,
+    "candidatesAfterOwnerChoice": 2,
+    "explicitlyBlockedRoutes": 1,
+    "sourcePacketMarkerHits": 0,
+    "publicChangesApproved": 0
+  },
+  "rows": [
+    {
+      "id": "QUEUE-01",
+      "rank": 1,
+      "workstream": "rental_agreement",
+      "target_route": "https://jus-tice.co.il/rental-agreement/",
+      "owner_decision_needed": "Approve, edit or reject the existing-route rental-agreement update packet.",
+      "status": "READY_FOR_OWNER_REVIEW_NOT_APPROVED",
+      "why_first": "It upgrades an existing route and avoids creating a duplicate lease/rental page.",
+      "source_packet": ".project-control/rental-agreement-public-update-approval-packet-2026-05-27.md",
+      "associated_pages": "/rental-agreement-guide/; /landlord-obligations-israel/; /tenant-rights-israel/; /landlord-rights-israel/; /tenant-eviction-defense/; /eviction-notice-israel/; /commercial-lease-israel/; /contract-law-israel/",
+      "prepared_public_copy_rows": 8,
+      "safe_cta_excerpt": "רוצים שעורך דין יבדוק את חוזה השכירות לפני החתימה? השאירו פרטים ונחבר אתכם לעורך דין מתאים.",
+      "next_after_approval": "Run source/legal review, SEO length review, CMS draft/update, mobile duplicate-CTA QA, then send Hebrew publication email with associated pages.",
+      "hard_blocker": "No CMS edit, link, title/H1/meta change or CTA publication before owner/SEO/legal approval."
+    },
+    {
+      "id": "QUEUE-02",
+      "rank": 2,
+      "workstream": "demand_letter_employment",
+      "target_route": "https://jus-tice.co.il/labor-lawyer/",
+      "owner_decision_needed": "Choose whether employment is the first demand-letter context.",
+      "status": "READY_FOR_OWNER_REVIEW_NOT_APPROVED",
+      "why_first": "It is the highest-risk existing route in the demand-letter packet and should be handled before any generic demand-letter copy.",
+      "source_packet": ".project-control/demand-letter-public-update-approval-packet-2026-05-27.md",
+      "associated_pages": "/wrongful-termination-israel/; /employment-contract-termination/; /severance-pay-calculator/",
+      "prepared_public_copy_rows": 3,
+      "safe_cta_excerpt": "קיבלתם מכתב ממעסיק או שוקלים לשלוח מכתב התראה בעניין עבודה? השאירו פרטים ונפנה לעורך דין מתאים.",
+      "next_after_approval": "Keep broad labor-law intent intact; add only a contextual subsection/CTA and run mobile duplicate-CTA QA.",
+      "hard_blocker": "No generic demand-letter title, page or above-the-fold rewrite."
+    },
+    {
+      "id": "QUEUE-03",
+      "rank": 3,
+      "workstream": "demand_letter_consumer",
+      "target_route": "https://jus-tice.co.il/consumer-rights-israel/",
+      "owner_decision_needed": "Decide if consumer refund/cancellation is a better first demand-letter context than employment.",
+      "status": "CANDIDATE_AFTER_OWNER_CHOOSES_CONTEXT",
+      "why_first": "Lower route risk than employment, but still needs consumer-law source review.",
+      "source_packet": ".project-control/demand-letter-public-update-approval-packet-2026-05-27.md",
+      "associated_pages": "/small-claims-court-israel/; /consumer-lawyer/",
+      "prepared_public_copy_rows": 3,
+      "safe_cta_excerpt": "הספק מסרב להחזר, לביטול או לתיקון? עורך דין יכול לבדוק אם נכון לשלוח מכתב פנייה או להתכונן לתביעה.",
+      "next_after_approval": "Add only consumer-remedy wording after rights/evidence explanation; avoid generic legal-letter framing.",
+      "hard_blocker": "No public checkout or fixed price until legal/payment gates are approved."
+    },
+    {
+      "id": "QUEUE-04",
+      "rank": 4,
+      "workstream": "demand_letter_rental_dispute",
+      "target_route": "https://jus-tice.co.il/eviction-notice-israel/",
+      "owner_decision_needed": "Decide if rental-dispute demand letters should wait until rental-agreement copy is settled.",
+      "status": "CANDIDATE_AFTER_RENTAL_AND_OWNER_REVIEW",
+      "why_first": "Useful route, but it can blur with rental-agreement review unless sequencing is deliberate.",
+      "source_packet": ".project-control/demand-letter-public-update-approval-packet-2026-05-27.md",
+      "associated_pages": "/tenant-eviction-defense/; /landlord-rights-israel/; /rental-agreement-guide/",
+      "prepared_public_copy_rows": 3,
+      "safe_cta_excerpt": "מדובר בסכסוך שכירות או במכתב פינוי? השאירו פרטים לבדיקת התאמה לעורך דין.",
+      "next_after_approval": "Keep eviction/dispute intent separate from lease drafting or review.",
+      "hard_blocker": "Do not mix rental-dispute demand-letter copy with the rental agreement managed-service CTA."
+    },
+    {
+      "id": "QUEUE-05",
+      "rank": 99,
+      "workstream": "generic_demand_letter",
+      "target_route": "NEW_GENERIC_DEMAND_LETTER_ROUTE",
+      "owner_decision_needed": "No approval recommended.",
+      "status": "BLOCKED_DO_NOT_CREATE",
+      "why_first": "Generic intent collides with employment, consumer, rental and small-claims pages.",
+      "source_packet": ".project-control/demand-letter-public-update-approval-packet-2026-05-27.md",
+      "associated_pages": "/labor-lawyer/; /consumer-rights-israel/; /small-claims-court-israel/; /eviction-notice-israel/; /wrongful-termination-israel/",
+      "prepared_public_copy_rows": 0,
+      "safe_cta_excerpt": "",
+      "next_after_approval": "Keep blocked unless owner/SEO later provides a separate strategy.",
+      "hard_blocker": "No /demand-letter/ page, generic H1/meta or one-size-fits-all letter promise."
+    }
+  ],
+  "blockedActions": [
+    "public_page_publish",
+    "cms_content_change",
+    "title_h1_meta_change",
+    "internal_link_change",
+    "redirect_canonical_noindex_sitemap_taxonomy_change",
+    "checkout_or_fixed_price_public_offer",
+    "lead_or_lawyer_handoff",
+    "invoice_or_payment",
+    "email_whatsapp_talkto",
+    "upress_deployment"
+  ]
+}

@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-BTL-FIRST-PROSPECT-ACTIVATION-001: Prepare the first private supplier entries without contacting anyone
+**Status:** FIXED LOCAL / LIVE PROSPECT CREATION BLOCKED UNTIL OWNER OR ADMIN ACTION
+**Why:** the Bituach Leumi first-paid-lead loop now has source candidates and readiness gates, but future operators need an exact first-entry queue and stop conditions before creating private supplier records or contacting lawyers.
+**Actions:**
+1. DONE: add `tools/build-btl-first-prospect-activation-packet.mjs`.
+2. DONE: generate `.project-control/btl-first-prospect-activation-packet-2026-05-26.md` and `.csv`.
+3. DONE: generate `.reports/btl-first-prospect-activation-packet-2026-05-26.json` and `.csv`.
+4. DONE: select 3 primary private-entry prospects and 3 backup prospects from the existing private Bituach Leumi shortlist.
+5. DONE: document manual verification gates, no-PII outreach skeleton, owner/team run order and stop conditions.
+6. DONE: record this as Linear `HAD-120`, marked Done under `HAD-76`.
+7. NEXT: owner/admin may create private prospect records only, keep them `not_verified`, and work the verification fields before any outreach or routing.
+8. BLOCKED: do not publish profiles, contact lawyers automatically, send client PII, route leads, invoice, charge, mark paid or claim first paid-lead revenue from this packet alone.
+
 ### ACTION-CONTROLLED-LAWYER-SUBSCRIPTION-WALKTHROUGH-001: Prepare the owner meeting script for the live payment walkthrough
 **Status:** FIXED LOCAL / LIVE EXECUTION BLOCKED UNTIL OWNER INPUTS
 **Why:** the owner asked to later walk through lawyer creation, CRM, payments, money back/refund, upgrades and downgrades end to end; future operators need a precise script with stop conditions before touching live records.

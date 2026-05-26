@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 00:02 Asia/Jerusalem
+- BITUACH LEUMI FIRST-PROSPECT ACTIVATION PACKET ADDED: created the private owner/team packet for entering the first Bituach Leumi supplier prospects without contacting anyone or touching live clients.
+- CODE ADDED: `tools/build-btl-first-prospect-activation-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/btl-first-prospect-activation-packet-2026-05-26.md`, `.project-control/btl-first-prospect-activation-packet-2026-05-26.csv`, `.reports/btl-first-prospect-activation-packet-2026-05-26.json`, `.reports/btl-first-prospect-activation-packet-2026-05-26.csv`.
+- CHECK RESULT: `READY_FOR_OWNER_PRIVATE_PROSPECT_ENTRY`; source pack loaded 19 candidates and 12 high-priority candidates, with 3 primary private-entry prospects and 3 backups selected from the existing private shortlist.
+- OPERATOR VALUE: the packet includes per-prospect verification gates, no-PII manual outreach skeleton, owner/team run order and hard stop conditions before public profiles, routing, supplier contact, invoicing or revenue claims.
+- LINEAR: recorded as `HAD-120` and marked Done under `HAD-76`.
+- PUBLIC IMPACT: none. No public CMS page, title/H1/meta/body, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, webhook, GSC, GA4, wp-admin setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: private first-prospect activation packet 100%; live prospect creation/contact/routing/revenue remains 0% until owner/admin performs the controlled CRM gates.
+
 # LATEST WORK STATUS - 2026-05-26 23:50 Asia/Jerusalem
 - CONTROLLED LAWYER SUBSCRIPTION WALKTHROUGH SCRIPT ADDED: created the exact private runbook for the later owner meeting covering lawyer registration, subscription/payment, manual invoice, dashboard, CRM, upgrade/downgrade/cancel/refund and lead-billing proof.
 - CODE ADDED: `tools/build-lawyer-subscription-controlled-walkthrough.mjs`.

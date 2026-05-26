@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Bituach Leumi first-prospect activation packet
+
+- ADDED: `tools/build-btl-first-prospect-activation-packet.mjs`.
+- GENERATED: `.project-control/btl-first-prospect-activation-packet-2026-05-26.md`, `.project-control/btl-first-prospect-activation-packet-2026-05-26.csv`, `.reports/btl-first-prospect-activation-packet-2026-05-26.json`, `.reports/btl-first-prospect-activation-packet-2026-05-26.csv`.
+- PURPOSE: give the owner and remote team a concrete first-entry queue for Bituach Leumi supplier prospects without turning the research shortlist into a public recommendation or uncontrolled outreach list.
+- RESULT: `READY_FOR_OWNER_PRIVATE_PROSPECT_ENTRY`; 19 source rows and 12 high-priority rows loaded, with 3 primary private-entry prospects and 3 backups selected from the existing private shortlist.
+- LINEAR: recorded as `HAD-120` and marked Done under `HAD-76`.
+- SAFETY: packet includes manual license/specialty/SLA/terms/billing/permission gates, no-PII outreach skeleton and stop conditions before any public profile, lead routing, client PII transfer, invoice/payment or revenue claim.
+- SAFETY: repo-local tool/report only; no public CMS page, content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, webhook, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # 2026-05-26 - Controlled lawyer subscription walkthrough script
 
 - ADDED: `tools/build-lawyer-subscription-controlled-walkthrough.mjs`.

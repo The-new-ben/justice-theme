@@ -43,6 +43,15 @@ while ( have_posts() ) :
 	if ( $connected_slug && function_exists( 'justice_theme_get_connected_lawyer_by_slug' ) ) {
 		$connected_lawyer = justice_theme_get_connected_lawyer_by_slug( $connected_slug );
 	}
+
+	$has_connected_lawyer        = $connected_lawyer instanceof WP_Post;
+	$has_cluster_nav             = 'family-law' === $content_cluster;
+	$has_internal_sidebar_status = $show_internal_review_status && ( $draft_word_count || $repo_draft_status );
+	$sidebar_classes             = array( 'single-article__sidebar' );
+
+	if ( ! $has_connected_lawyer && ! $has_cluster_nav && ! $has_internal_sidebar_status ) {
+		$sidebar_classes[] = 'single-article__sidebar--duplicate-cta-only';
+	}
 	?>
 
 	<article <?php post_class( 'single-article premium-card' ); ?> style="background: var(--jt-surface); border: none; box-shadow: none;">
@@ -191,9 +200,10 @@ while ( have_posts() ) :
 				</section>
 			</div>
 			
-			<aside class="single-article__sidebar" role="complementary">
+			<aside class="<?php echo esc_attr( implode( ' ', $sidebar_classes ) ); ?>" role="complementary">
 				<div class="sticky-box" style="position: sticky; top: 2rem; padding: 2rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-soft);">
-					<?php if ( $connected_lawyer instanceof WP_Post ) : ?>
+					<div class="single-article__sidebar-lead-card<?php echo $has_connected_lawyer ? '' : ' single-article__sidebar-lead-card--duplicate'; ?>">
+					<?php if ( $has_connected_lawyer ) : ?>
 						<?php
 						$firm     = get_post_meta( $connected_lawyer->ID, 'firm_name', true );
 						$headline = get_post_meta( $connected_lawyer->ID, 'profile_headline', true );
@@ -232,8 +242,9 @@ while ( have_posts() ) :
 							<?php echo esc_html( $article_contextual_cta['button'] ); ?>
 						</a>
 					<?php endif; ?>
+					</div>
 
-					<?php if ( 'family-law' === $content_cluster ) : ?>
+					<?php if ( $has_cluster_nav ) : ?>
 						<section class="article-cluster-nav">
 							<h2><?php esc_html_e( 'אשכול דיני משפחה', 'justice-theme' ); ?></h2>
 							<?php if ( $primary_keyword ) : ?>

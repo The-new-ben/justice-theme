@@ -4,6 +4,17 @@
 
 ---
 
+### ACTION-PUBLIC-ARTICLE-MOBILE-CTA-DEDUP-001: Remove repeated legal-help CTA on mobile article pages
+**Status:** CODED / DEPLOYMENT VERIFICATION PENDING
+**Why:** owner saw on mobile that an article shows the same "need help / press this button" style message twice while scrolling. Repetition feels spammy and hurts trust.
+**Actions:**
+1. DONE: inspect live article HTML and confirm the article body CTA and sidebar CTA use the same contextual message.
+2. DONE: compare competitor pattern; LawReviews connects article readers to relevant lawyer lists without stacking identical CTA copy twice.
+3. DONE: mark duplicate sidebar CTA-only blocks in `single-articles.php`.
+4. DONE: hide duplicate sidebar CTA blocks on mobile while preserving main CTA, connected lawyer profile cards and family-law cluster navigation.
+5. NEXT: lint, commit, deploy via uPress Pull Git and verify live article/mobile behavior.
+6. NEXT: send Hebrew owner email because this is a public-facing change; include review URL, associated/cannibalizing pages and concise review.
+
 ### ACTION-INTERNAL-ARTIFACT-WEB-BLOCK-001: Block project-control and report artifacts from public static access
 **Status:** FIXED LIVE / MONITOR FOR RECREATED PUBLIC ARTIFACT DIRS
 **Why:** verification found internal repo control docs reachable under `/wp-content/themes/justice-theme/project-control/*.md`; even without client phone, these files are not public website content.

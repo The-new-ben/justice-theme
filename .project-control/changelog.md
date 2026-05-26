@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Public article mobile CTA dedupe
+
+- UPDATED: `single-articles.php`, `assets/css/main.css`, `functions.php`, `deployment-marker.txt`.
+- PURPOSE: remove the mobile experience where article readers saw the same legal-help CTA twice in sequence.
+- IMPLEMENTATION: added article sidebar classes that identify duplicate CTA-only sidebars and duplicate sidebar lead cards; mobile CSS hides those duplicates while keeping the main in-article CTA.
+- PRESERVED: connected lawyer profile sidebars, family-law cluster navigation and admin-only review/sidebar status remain available when present.
+- USER-FACING SAFETY: no internal revenue, lead-sale, partner-pricing, investor or business-plan language was added; copy remains legal-help focused.
+- COMPETITOR NOTE: LawReviews article pages connect readers to relevant lawyer/review lists once rather than stacking identical mobile CTA copy.
+- DEPLOYMENT STATUS: marker prepared as `2026-05-26-article-mobile-cta-dedupe-v1`; lint, commit, uPress Pull Git and live verification still required.
+
 # 2026-05-26 - Owner handoff release gate
 
 - UPDATED: `inc/lead-crm.php`, `functions.php`, `deployment-marker.txt`.

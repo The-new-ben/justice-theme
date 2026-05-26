@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Low Hype/RV internal route overlap packet
+
+- ADDED: `tools/build-low-hype-rv-internal-route-overlap.mjs`.
+- GENERATED: `.project-control/low-hype-rv-internal-route-overlap-2026-05-27.md`, `.project-control/low-hype-rv-internal-route-overlap-2026-05-27.csv`, `.reports/low-hype-rv-internal-route-overlap-2026-05-27.json`, `.reports/low-hype-rv-internal-route-overlap-2026-05-27.csv`.
+- PURPOSE: verify which existing live routes could safely absorb a narrow RV pilot before any public page, copy, route or link decision.
+- RESULT: `INTERNAL_ROUTE_OVERLAP_READY_NO_PUBLIC_ACTION`; 10 candidate routes sampled, 8 live verified, 2 primary consumer/rental surfaces verified, 0 existing RV/caravan/camper marker routes detected, 5 high cannibalization rows, 0 standalone RV route approved and 0 public/CRM/payment/email/WhatsApp/TalkTo actions.
+- LINEAR: recorded as `HAD-138`, marked Done under `HAD-75`, related to `HAD-137`, `HAD-136`, `HAD-84`, `HAD-121`, `HAD-122` and `HAD-126`.
+- SAFETY: private live route-overlap packet only; no public page, Low Hype label, CMS content, route, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Low Hype/RV SERP cannibalization packet
 
 - ADDED: `tools/build-low-hype-rv-serp-cannibalization-packet.mjs`.

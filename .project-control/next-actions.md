@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-LOW-HYPE-RV-INTERNAL-ROUTE-OVERLAP-001: Map RV pilot to existing live routes
+**Status:** FIXED LOCAL / PUBLIC PILOT STILL BLOCKED UNTIL OWNER-GSC-LEGAL APPROVAL
+**Why:** The SERP packet recommended attaching any RV pilot to existing consumer/rental surfaces, so the next safe step was live route overlap evidence before drafting public copy.
+**Actions:**
+1. DONE: add `tools/build-low-hype-rv-internal-route-overlap.mjs`.
+2. DONE: generate `.project-control/low-hype-rv-internal-route-overlap-2026-05-27.md` and `.csv`.
+3. DONE: generate `.reports/low-hype-rv-internal-route-overlap-2026-05-27.json` and `.csv`.
+4. DONE: sample 10 candidate routes across consumer rights, rental agreement, small claims, contract law, eviction, real estate, insurance, car accident, traffic and lawyer directory.
+5. DONE: confirm `INTERNAL_ROUTE_OVERLAP_READY_NO_PUBLIC_ACTION`, with 8 live routes, 2 primary consumer/rental surfaces verified, 0 existing RV marker routes and 0 standalone RV route approved.
+6. DONE: record as Linear `HAD-138`, marked Done under `HAD-75`.
+7. NEXT: obtain GSC query export and owner/legal approval before drafting even one narrow consumer/rental RV pilot row.
+8. BLOCKED: do not publish RV copy, a standalone RV route, Low Hype label, title/H1/meta, internal link, canonical, sitemap entry, CRM lead, lawyer/supplier contact, invoice, payment, email, WhatsApp, TalkTo or uPress deployment from this packet.
+
 ### ACTION-LOW-HYPE-RV-SERP-CANNIBALIZATION-001: Validate RV idea against SERP and page overlap
 **Status:** FIXED LOCAL / PUBLIC ROUTE STILL BLOCKED UNTIL GSC AND LEGAL REVIEW
 **Why:** The first Low Hype/RV brief needed a sourced competitor/SERP layer before deciding whether RV is a real public page, an existing-route upgrade, or a private-only pilot.

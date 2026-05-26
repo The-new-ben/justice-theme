@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-27 00:33 Asia/Jerusalem
+- MANAGED-SERVICE ROUTE UPGRADE BRIEF ADDED: converted the managed-service cannibalization inventory into owner/SEO page-decision guidance for the first two Lawhive-style public-facing candidates.
+- CODE ADDED: `tools/build-managed-service-route-upgrade-brief.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/managed-service-route-upgrade-brief-2026-05-27.md`, `.project-control/managed-service-route-upgrade-brief-2026-05-27.csv`, `.reports/managed-service-route-upgrade-brief-2026-05-27.json`, `.reports/managed-service-route-upgrade-brief-2026-05-27.csv`.
+- CHECK RESULT: `PUBLIC_UPGRADE_BRIEF_READY_NOT_APPROVED`; source inventory rows: 146; route decisions: 7; primary/existing-route upgrade candidates: 2; generic new demand-letter route explicitly blocked: 1; public-copy internal/business-plan marker hits: 0.
+- KEY DECISION: rental-agreement monetization should first review/upgrade `/rental-agreement/`; do not create a duplicate lease/rental public route from this packet.
+- KEY DECISION: demand-letter review should not launch as a generic public page; if approved later, split by employment, consumer or rental-dispute intent on existing routes.
+- LINEAR: recorded as `HAD-123` and marked Done under `HAD-84`, related to `HAD-121`, `HAD-122` and `HAD-78`.
+- PUBLIC IMPACT: none. No public page, CMS content, internal link, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer handoff, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: route-upgrade brief 100%; public managed-service rollout remains 0% until owner/SEO, ethics/Bar, managing-lawyer, engagement, payment/refund and exact copy approvals exist.
+
 # LATEST WORK STATUS - 2026-05-27 00:25 Asia/Jerusalem
 - MANAGED-SERVICE PUBLIC CANNIBALIZATION INVENTORY ADDED: created a live read-only anti-cannibalization packet for the first two Lawhive-style package pilots before any public service page or CTA.
 - CODE ADDED: `tools/build-managed-service-public-cannibalization-inventory.mjs`.

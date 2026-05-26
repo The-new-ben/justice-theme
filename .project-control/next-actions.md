@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-MANAGED-SERVICE-ROUTE-UPGRADE-BRIEF-001: Prepare public-safe route decisions before any package CTA
+**Status:** FIXED LOCAL / PUBLIC LAUNCH BLOCKED
+**Why:** the managed-service inventory identified overlap, but future operators need a clear decision brief that says which existing pages could be upgraded later and which generic pages should not be created.
+**Actions:**
+1. DONE: add `tools/build-managed-service-route-upgrade-brief.mjs`.
+2. DONE: generate `.project-control/managed-service-route-upgrade-brief-2026-05-27.md` and `.csv`.
+3. DONE: generate `.reports/managed-service-route-upgrade-brief-2026-05-27.json` and `.csv`.
+4. DONE: convert the 146-row inventory into 7 route decisions and 6 owner-review CTA snippets.
+5. DONE: block a generic public demand-letter page and recommend demand-letter split by employment, consumer or rental-dispute intent.
+6. DONE: recommend reviewing/upgrading `/rental-agreement/` before any new rental/lease route.
+7. DONE: verify 0 internal/business-plan marker hits inside the public-copy snippets.
+8. DONE: record this as Linear `HAD-123`, marked Done under `HAD-84`.
+9. NEXT: owner/SEO can approve one exact route/title/H1/meta/CTA/internal-link change for a controlled public update, or keep the package private-only.
+10. BLOCKED: do not publish public managed-service CTAs/pages, change SEO controls, create checkout offers, route leads, contact lawyers, invoice or charge payment from this packet alone.
+
 ### ACTION-MANAGED-SERVICE-PUBLIC-CANNIBALIZATION-001: Inventory public conflicts before managed-service package launch
 **Status:** FIXED LOCAL / PUBLIC LAUNCH BLOCKED
 **Why:** the Lawhive-style package queue is private-ready, but public package titles, CTAs or pages could cannibalize existing legal-help content unless exact live routes and associated pages are reviewed first.

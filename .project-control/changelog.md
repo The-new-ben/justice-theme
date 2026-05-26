@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Managed-service route upgrade brief
+
+- ADDED: `tools/build-managed-service-route-upgrade-brief.mjs`.
+- GENERATED: `.project-control/managed-service-route-upgrade-brief-2026-05-27.md`, `.project-control/managed-service-route-upgrade-brief-2026-05-27.csv`, `.reports/managed-service-route-upgrade-brief-2026-05-27.json`, `.reports/managed-service-route-upgrade-brief-2026-05-27.csv`.
+- PURPOSE: turn the managed-service anti-cannibalization inventory into owner/SEO decisions for where rental-agreement and demand-letter CTAs could safely live later.
+- RESULT: `PUBLIC_UPGRADE_BRIEF_READY_NOT_APPROVED`; 7 route decisions, 2 primary/existing-route upgrade candidates, 1 explicitly blocked generic demand-letter route, and 0 internal/business-plan marker hits inside the public-copy snippets.
+- KEY DECISION: rental-agreement work should review or upgrade `/rental-agreement/` first instead of creating a duplicate lease/rental route.
+- KEY DECISION: demand-letter work should not launch as a generic public page; split by employment, consumer or rental-dispute intent only after owner/SEO approval.
+- LINEAR: recorded as `HAD-123` and marked Done under `HAD-84`, related to `HAD-121`, `HAD-122` and `HAD-78`.
+- SAFETY: private route-upgrade brief only; no public page, CMS content, internal link, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer handoff, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Managed-service public cannibalization inventory
 
 - ADDED: `tools/build-managed-service-public-cannibalization-inventory.mjs`.

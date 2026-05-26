@@ -746,12 +746,29 @@ function justice_theme_lawyer_prospect_outreach_message( WP_Post $post ): array 
 		empty( $missing ) ? 'none' : implode( ', ', $missing ),
 		$terms_note ?: 'none'
 	);
+	$activation = sprintf(
+		"Jus-Tice routable specialist activation packet\n\nProspect: #%d - %s\nPractice/city: %s / %s\nTarget plan: %s\nExpected monthly value: %s NIS\nAgreed qualified-lead fee: %s\nBilling contact: %s\nResponse commitment: %s\nSource: %s\n\nReadiness: %s\nMissing checks: %s\n\nActivate only after:\n1. License/status and niche experience are verified and recorded.\n2. Manual invoice/payment path, billing contact and lead-fee terms are accepted.\n3. A justice_lawyer profile exists or is created for this specialist.\n4. The profile has the matching practice area, lead_routing_enabled=1, and subscription_status=trialing/active/paid only after owner approval.\n5. Any public card remains fact-gated until profile facts, photos, contact details and claims are source-reviewed.\n6. No ranking, exclusivity, case volume, compensation amount or outcome is promised.\n\nNext owner action: %s",
+		$post_id,
+		$recipient,
+		$area,
+		$city,
+		$plan_label,
+		number_format_i18n( $expected_value ),
+		$lead_fee > 0 ? number_format_i18n( $lead_fee ) . ' NIS per qualified lead' : 'not recorded - do not activate routing',
+		$billing_email ?: 'not recorded - do not activate routing',
+		$response_label,
+		$source_url ?: '-',
+		empty( $missing ) ? 'Ready for controlled routing setup' : 'Blocked',
+		empty( $missing ) ? 'none' : implode( ', ', $missing ),
+		empty( $missing ) ? 'Create/connect the lawyer profile, keep public trust gates on, then enable routing for one controlled lead.' : 'Complete the missing checks before moving this prospect to Won / onboarding.'
+	);
 
 	return array(
 		'subject'        => $subject,
 		'body'           => $body,
 		'call'           => $call,
 		'acceptance'     => $acceptance,
+		'activation'     => $activation,
 		'registration'   => $registration,
 		'expected_value' => $expected_value,
 		'lead_fee'       => $lead_fee,
@@ -796,16 +813,46 @@ function justice_theme_render_lawyer_prospect_outreach_box( WP_Post $post ): voi
 	<p><strong>Agreed lead fee:</strong> <?php echo $message['lead_fee'] ? esc_html( number_format_i18n( (int) $message['lead_fee'] ) . ' NIS' ) : esc_html__( 'Not recorded yet', 'justice-theme' ); ?></p>
 	<label for="justice-prospect-email-draft"><strong>Email / WhatsApp draft</strong></label>
 	<textarea id="justice-prospect-email-draft" readonly rows="11" class="large-text"><?php echo esc_textarea( $message['body'] ); ?></textarea>
+	<p style="margin:6px 0 0;"><button type="button" class="button" data-justice-prospect-copy-target="justice-prospect-email-draft">Copy email draft</button></p>
 	<label for="justice-prospect-call-script" style="display:block;margin-top:12px;"><strong>Call script</strong></label>
 	<textarea id="justice-prospect-call-script" readonly rows="9" class="large-text"><?php echo esc_textarea( $message['call'] ); ?></textarea>
+	<p style="margin:6px 0 0;"><button type="button" class="button" data-justice-prospect-copy-target="justice-prospect-call-script">Copy call script</button></p>
 	<label for="justice-prospect-acceptance-note" style="display:block;margin-top:12px;"><strong>Terms acceptance note</strong></label>
 	<textarea id="justice-prospect-acceptance-note" readonly rows="12" class="large-text"><?php echo esc_textarea( $message['acceptance'] ); ?></textarea>
+	<p style="margin:6px 0 0;"><button type="button" class="button" data-justice-prospect-copy-target="justice-prospect-acceptance-note">Copy terms note</button></p>
+	<label for="justice-prospect-activation-packet" style="display:block;margin-top:12px;"><strong>Routable specialist activation packet</strong></label>
+	<textarea id="justice-prospect-activation-packet" readonly rows="14" class="large-text"><?php echo esc_textarea( $message['activation'] ); ?></textarea>
+	<p style="margin:6px 0 0;color:#646970;">Owner-only bridge from verified prospect to routable lawyer profile. This does not create a profile, send outreach or publish a public card.</p>
+	<p style="margin:6px 0 0;"><button type="button" class="button" data-justice-prospect-copy-target="justice-prospect-activation-packet">Copy activation packet</button></p>
 	<p style="margin-top:14px;"><strong>Pipeline quick actions</strong></p>
 	<p>
 		<?php foreach ( justice_theme_lawyer_prospect_quick_actions() as $action_key => $action ) : ?>
 			<a class="button" href="<?php echo esc_url( justice_theme_lawyer_prospect_quick_action_url( $post->ID, $action_key ) ); ?>"><?php echo esc_html( $action['label'] ); ?></a>
 		<?php endforeach; ?>
 	</p>
+	<script>
+		(function () {
+			document.addEventListener('click', function (event) {
+				var button = event.target.closest('[data-justice-prospect-copy-target]');
+				if (!button || !navigator.clipboard) {
+					return;
+				}
+
+				var target = document.getElementById(button.getAttribute('data-justice-prospect-copy-target'));
+				if (!target) {
+					return;
+				}
+
+				navigator.clipboard.writeText(target.value).then(function () {
+					var previous = button.textContent;
+					button.textContent = 'Copied';
+					setTimeout(function () {
+						button.textContent = previous;
+					}, 1200);
+				});
+			});
+		}());
+	</script>
 	<?php
 }
 

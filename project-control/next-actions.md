@@ -3335,6 +3335,17 @@ Next safe batch before any URL/content migration:
 5. For the first Bituach Leumi controlled lead, keep the packet, invoice reference and payment proof together before scaling the funnel.
 6. Do not claim realized lead revenue until a real paid lead is recorded.
 
+## 2026-05-26 PROSPECT ACTIVATION NEXT ACTIONS
+
+**Status:** OWNER-ONLY ACTIVATION HANDOFF ADDED / REAL SPECIALISTS STILL NEEDED
+
+1. Open each ready Bituach Leumi prospect under `wp-admin -> Lawyer Onboarding -> Lawyer Prospects`.
+2. Copy the `Routable specialist activation packet` from the Manual Outreach Kit.
+3. Use it to create or connect a `justice_lawyer` profile only after all readiness checks are complete.
+4. Keep public cards fact-gated until license, profile facts, photos, contact details and claims are source-reviewed.
+5. Enable `lead_routing_enabled=1` and `subscription_status=trialing/active/paid` only after owner approval, accepted lead terms and billing contact are recorded.
+6. After three active routable specialists exist, run one controlled Bituach Leumi lead through the public route and use the qualified-lead invoice packet.
+
 ## 2026-05-11 CONTENT DECISION BATCH NEXT ACTIONS
 
 **Status:** VERIFIED REVIEW FILES CREATED / EXECUTION BLOCKED UNTIL EVIDENCE

@@ -6495,6 +6495,15 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: still needs real verified specialists, a real controlled billable lead, and real payment evidence before claiming revenue proof.
 - COMPLETION ASSESSMENT: qualified-lead billing handoff 80%; Bituach Leumi revenue loop 55%; realized payment proof still 0% until a real invoice/payment is recorded.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Justice CRM -> Qualified lead billing queue -> Copy invoice/request packet.
+
+## 2026-05-26 PROSPECT ACTIVATION PACKET
+- CODE UPDATED: private Lawyer Prospect outreach screens now include copy buttons for the email draft, call script and terms acceptance note.
+- CODE UPDATED: the same screen now includes a copyable `Routable specialist activation packet` that bridges a verified prospect into a safe `justice_lawyer` routing setup.
+- SAFETY: the activation packet tells the owner not to enable routing until license/status, niche experience, manual-payment acceptance, billing contact and lead-fee terms are recorded; it also keeps public cards fact-gated until profile facts/photos/contact/claims are reviewed.
+- MONEY IMPACT: this closes the operational gap between "verified prospect" and "active routable specialist", which is the next blocker before the first Bituach Leumi billable lead test.
+- BLOCKED: no prospect was contacted, no lawyer profile was created, and no routing was enabled; owner/admin still needs real specialist verification and activation.
+- COMPLETION ASSESSMENT: prospect-to-routing handoff 78%; Bituach Leumi supply infrastructure 75%; real specialist supply still 0% until actual verified lawyers are entered.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Lawyer Prospects -> open a prospect -> Manual Outreach Kit -> Routable specialist activation packet.
 ## LATEST WORK STATUS - 2026-05-22 14:38 Asia/Jerusalem
 - CRIMINAL OWNER REVIEW PACKET: converted the five current-URL Criminal first-upload targets into a controlled owner/legal/source review gate.
 - TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.

@@ -54,6 +54,9 @@ function justice_theme_crm_register_lead_meta(): void {
 		'repermission_status'        => 'string',
 		'repermission_template_key'  => 'string',
 		'repermission_last_sent_at'  => 'string',
+		'repermission_requested_at'  => 'string',
+		'repermission_completed_at'  => 'string',
+		'repermission_owner_note'    => 'string',
 		'handoff_path'              => 'string',
 		'supplier_match_required'   => 'string',
 		'owner_revenue_next_step'   => 'string',
@@ -115,6 +118,7 @@ function justice_theme_render_crm_admin_page(): void {
 
 		<?php justice_theme_crm_render_whatsapp_lead_bridge(); ?>
 		<?php justice_theme_crm_render_external_lead_importer(); ?>
+		<?php justice_theme_crm_render_repermission_queue(); ?>
 		<?php justice_theme_crm_render_btl_supply_panel(); ?>
 		<?php justice_theme_crm_render_qualified_lead_billing_queue(); ?>
 
@@ -372,6 +376,7 @@ function justice_theme_crm_find_lead_by_import_fingerprint( string $fingerprint 
 
 add_action( 'admin_post_justice_theme_create_whatsapp_lead', 'justice_theme_crm_handle_whatsapp_lead_create' );
 add_action( 'admin_post_justice_theme_stage_external_leads', 'justice_theme_crm_handle_external_lead_import' );
+add_action( 'admin_post_justice_theme_update_lead_permission', 'justice_theme_crm_handle_lead_permission_update' );
 
 function justice_theme_crm_render_external_lead_importer(): void {
 	if ( ! post_type_exists( 'justice_lead' ) ) {
@@ -440,6 +445,325 @@ function justice_theme_crm_render_external_lead_importer(): void {
 		</div>
 	</div>
 	<?php
+}
+
+function justice_theme_crm_repermission_status_labels(): array {
+	return array(
+		'needed'              => 'Needs opt-in / details',
+		'requested'           => 'Opt-in message prepared/sent',
+		'permission_received' => 'Permission evidence received',
+		'do_not_contact'      => 'Do not contact',
+		'not_needed'          => 'Not needed',
+	);
+}
+
+function justice_theme_crm_query_repermission_queue( int $limit ): ?WP_Query {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return null;
+	}
+
+	return new WP_Query(
+		array(
+			'post_type'      => 'justice_lead',
+			'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+			'posts_per_page' => $limit,
+			'orderby'        => 'modified',
+			'order'          => 'DESC',
+			'no_found_rows'  => true,
+			'meta_query'     => array(
+				'relation' => 'AND',
+				array(
+					'relation' => 'OR',
+					array(
+						'key'     => 'consent_status',
+						'value'   => array( 'legacy_needs_repermission', 'fresh_inbound_needs_details' ),
+						'compare' => 'IN',
+					),
+					array(
+						'key'     => 'repermission_status',
+						'value'   => array( 'needed', 'requested' ),
+						'compare' => 'IN',
+					),
+				),
+				array(
+					'relation' => 'OR',
+					array(
+						'key'     => 'consent_status',
+						'value'   => 'do_not_contact',
+						'compare' => '!=',
+					),
+					array(
+						'key'     => 'consent_status',
+						'compare' => 'NOT EXISTS',
+					),
+				),
+			),
+		)
+	);
+}
+
+function justice_theme_crm_lead_display_name( int $post_id ): string {
+	$name = (string) ( get_post_meta( $post_id, 'visitor_name', true ) ?: get_post_meta( $post_id, 'lead_name', true ) );
+
+	return $name ?: get_the_title( $post_id );
+}
+
+function justice_theme_crm_client_permission_template( int $post_id, string $language = 'he' ): string {
+	$name = justice_theme_crm_lead_display_name( $post_id );
+	$area = (string) ( get_post_meta( $post_id, 'ai_detected_area', true ) ?: get_post_meta( $post_id, 'legal_area', true ) ?: get_post_meta( $post_id, 'lead_area', true ) );
+	$area_label = function_exists( 'justice_theme_lead_area_label' ) && $area ? justice_theme_lead_area_label( $area ) : $area;
+	$source_page = (string) get_post_meta( $post_id, 'source_page_url', true );
+	$topic_line = $area_label ? sprintf( ' (%s)', $area_label ) : '';
+	$source_line = $source_page ? sprintf( "\nSource page: %s", $source_page ) : '';
+
+	if ( 'en' === $language ) {
+		return sprintf(
+			"Hi %s,\n\nThis is the Jus-Tice team. You contacted us about a legal/professional matter%s.\n\nBefore we do anything with your details, please confirm explicitly: may Jus-Tice contact you about this request and, if relevant, share your request details with a suitable lawyer or professional supplier for a fit check?\n\nThis does not promise a result, does not create legal advice, and does not create a lawyer-client relationship until you choose to engage a professional directly. If you do not want us to continue, reply \"no\" and we will keep the request on hold.%s\n\nJus-Tice",
+			$name ?: 'there',
+			$topic_line,
+			$source_line
+		);
+	}
+
+	return sprintf(
+		"שלום %s,\n\nכאן צוות Jus-Tice. פנית אלינו בנושא משפטי/מקצועי%s.\n\nלפני שאנחנו עושים שימוש בפרטים שלך, נבקש אישור מפורש: האם את/ה מאשר/ת ל-Jus-Tice לחזור אליך לגבי הפנייה, ואם רלוונטי להעביר את פרטי הפנייה לעורך דין או לספק מקצועי מתאים לצורך בדיקת התאמה?\n\nאין כאן הבטחה לתוצאה, אין כאן ייעוץ משפטי, ולא נוצרים יחסי עורך דין-לקוח עד התקשרות ישירה עם איש מקצוע. אם אינך מעוניין/ת שנמשיך, אפשר להשיב \"לא\" והפנייה תישאר בהמתנה.%s\n\nJus-Tice",
+		$name ?: '',
+		$topic_line,
+		$source_line
+	);
+}
+
+function justice_theme_crm_lead_contact_mode( int $post_id ): string {
+	$consent_status = (string) get_post_meta( $post_id, 'consent_status', true );
+
+	if ( 'do_not_contact' === $consent_status ) {
+		return 'blocked';
+	}
+
+	if ( 'legacy_needs_repermission' === $consent_status || 'needed' === (string) get_post_meta( $post_id, 'repermission_status', true ) ) {
+		return 'repermission';
+	}
+
+	if ( in_array( $consent_status, justice_theme_crm_manual_lead_routeable_consent_statuses(), true ) ) {
+		return 'approved';
+	}
+
+	return 'permission';
+}
+
+function justice_theme_crm_client_contact_actions( int $post_id ): array {
+	$mode  = justice_theme_crm_lead_contact_mode( $post_id );
+	$phone = (string) ( get_post_meta( $post_id, 'visitor_phone', true ) ?: get_post_meta( $post_id, 'lead_phone', true ) );
+	$email = (string) ( get_post_meta( $post_id, 'visitor_email', true ) ?: get_post_meta( $post_id, 'lead_email', true ) );
+
+	if ( 'blocked' === $mode ) {
+		return array();
+	}
+
+	$actions = array();
+	$template_he = justice_theme_crm_client_permission_template( $post_id, 'he' );
+	$template_en = justice_theme_crm_client_permission_template( $post_id, 'en' );
+
+	if ( $phone && 'repermission' !== $mode ) {
+		$phone_link = function_exists( 'justice_theme_lawyer_public_phone_link' )
+			? justice_theme_lawyer_public_phone_link( $phone )
+			: '';
+		$phone_link = $phone_link ?: 'tel:' . preg_replace( '/[^0-9+]/', '', $phone );
+		$actions[] = array(
+			'label'    => 'Call',
+			'url'      => $phone_link,
+			'external' => false,
+		);
+	}
+
+	if ( $phone ) {
+		$whatsapp_link = function_exists( 'justice_theme_lawyer_public_whatsapp_link' )
+			? justice_theme_lawyer_public_whatsapp_link( $phone )
+			: '';
+		if ( $whatsapp_link ) {
+			$actions[] = array(
+				'label'    => 'repermission' === $mode ? 'Opt-in WhatsApp' : 'Permission WhatsApp',
+				'url'      => add_query_arg( 'text', $template_he, $whatsapp_link ),
+				'external' => true,
+			);
+		}
+	}
+
+	if ( $email ) {
+		$actions[] = array(
+			'label'    => 'repermission' === $mode ? 'Opt-in Email' : 'Permission Email',
+			'url'      => add_query_arg(
+				array(
+					'subject' => 'Jus-Tice - permission to continue with your request',
+					'body'    => $template_en,
+				),
+				'mailto:' . $email
+			),
+			'external' => false,
+		);
+	}
+
+	return $actions;
+}
+
+function justice_theme_crm_render_repermission_queue(): void {
+	$queue = justice_theme_crm_query_repermission_queue( 15 );
+	?>
+	<h2 style="margin-top:28px;">Permission / re-permission queue</h2>
+	<p>Owner-only queue for WhatsApp, TalkTo and legacy leads that still need explicit permission before any lawyer/supplier handoff. This panel prepares copyable messages and records evidence; it does not send anything.</p>
+	<?php if ( ! $queue || ! $queue->have_posts() ) : ?>
+		<div class="notice notice-info inline"><p>No leads are currently waiting for permission review.</p></div>
+		<?php return; ?>
+	<?php endif; ?>
+	<table class="widefat striped" style="margin:12px 0 20px;">
+		<thead>
+			<tr>
+				<th>Lead</th>
+				<th>Source / area</th>
+				<th>Consent state</th>
+				<th>Copyable opt-in message</th>
+				<th>Record owner action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php while ( $queue->have_posts() ) : $queue->the_post(); ?>
+				<?php
+				$post_id     = get_the_ID();
+				$name        = justice_theme_crm_lead_display_name( $post_id );
+				$phone       = (string) ( get_post_meta( $post_id, 'visitor_phone', true ) ?: get_post_meta( $post_id, 'lead_phone', true ) );
+				$email       = (string) ( get_post_meta( $post_id, 'visitor_email', true ) ?: get_post_meta( $post_id, 'lead_email', true ) );
+				$source      = (string) get_post_meta( $post_id, 'source_channel', true );
+				$source_page = (string) get_post_meta( $post_id, 'source_page_url', true );
+				$area        = (string) ( get_post_meta( $post_id, 'ai_detected_area', true ) ?: get_post_meta( $post_id, 'legal_area', true ) ?: get_post_meta( $post_id, 'lead_area', true ) );
+				$area_label  = function_exists( 'justice_theme_lead_area_label' ) && $area ? justice_theme_lead_area_label( $area ) : $area;
+				$consent     = (string) get_post_meta( $post_id, 'consent_status', true );
+				$status      = (string) get_post_meta( $post_id, 'repermission_status', true );
+				$status      = $status ?: ( 'legacy_needs_repermission' === $consent ? 'needed' : 'not_needed' );
+				$last_sent   = (string) get_post_meta( $post_id, 'repermission_last_sent_at', true );
+				$note        = (string) get_post_meta( $post_id, 'repermission_owner_note', true );
+				$template_id = 'justice-repermission-template-' . $post_id;
+				$template    = justice_theme_crm_client_permission_template( $post_id, 'he' ) . "\n\n--- English backup ---\n" . justice_theme_crm_client_permission_template( $post_id, 'en' );
+				?>
+				<tr>
+					<td>
+						<strong><a href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>"><?php echo esc_html( $name ); ?></a></strong>
+						<?php if ( $phone ) : ?><br><small><?php echo esc_html( $phone ); ?></small><?php endif; ?>
+						<?php if ( $email ) : ?><br><small><?php echo esc_html( $email ); ?></small><?php endif; ?>
+					</td>
+					<td>
+						<?php echo esc_html( $source ?: '-' ); ?>
+						<br><small><?php echo esc_html( $area_label ?: 'Needs review' ); ?></small>
+						<?php if ( $source_page ) : ?>
+							<br><a href="<?php echo esc_url( $source_page ); ?>" target="_blank" rel="noopener">source page</a>
+						<?php endif; ?>
+					</td>
+					<td>
+						<strong><?php echo esc_html( $consent ?: '-' ); ?></strong>
+						<br><small><?php echo esc_html( justice_theme_crm_repermission_status_labels()[ $status ] ?? $status ); ?></small>
+						<?php if ( $last_sent ) : ?><br><small>Last prepared/sent: <?php echo esc_html( $last_sent ); ?></small><?php endif; ?>
+					</td>
+					<td>
+						<textarea id="<?php echo esc_attr( $template_id ); ?>" rows="8" readonly style="width:100%;direction:rtl;"><?php echo esc_textarea( $template ); ?></textarea>
+						<p style="margin:6px 0 0;">
+							<button type="button" class="button" data-justice-copy-target="<?php echo esc_attr( $template_id ); ?>">Copy opt-in text</button>
+						</p>
+					</td>
+					<td>
+						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+							<input type="hidden" name="action" value="justice_theme_update_lead_permission">
+							<input type="hidden" name="lead_id" value="<?php echo esc_attr( (string) $post_id ); ?>">
+							<?php wp_nonce_field( 'justice_theme_update_lead_permission_' . $post_id, 'justice_theme_update_lead_permission_nonce' ); ?>
+							<p style="margin-top:0;">
+								<label>
+									<strong>Owner action</strong>
+									<select name="permission_action" class="widefat">
+										<option value="requested">Opt-in message prepared/sent</option>
+										<option value="permission_received">Client replied yes - evidence reviewed</option>
+										<option value="do_not_contact">Client opted out / do not contact</option>
+									</select>
+								</label>
+							</p>
+							<p>
+								<label>
+									<input type="checkbox" name="owner_verified_permission_evidence" value="1">
+									I reviewed the permission evidence.
+								</label>
+							</p>
+							<p>
+								<label>
+									<strong>Evidence / owner note</strong>
+									<textarea name="repermission_owner_note" rows="3" class="widefat"><?php echo esc_textarea( $note ); ?></textarea>
+								</label>
+							</p>
+							<p style="margin-bottom:0;">
+								<button type="submit" class="button button-primary">Record action</button>
+							</p>
+						</form>
+					</td>
+				</tr>
+			<?php endwhile; ?>
+		</tbody>
+	</table>
+	<?php
+	wp_reset_postdata();
+}
+
+function justice_theme_crm_handle_lead_permission_update(): void {
+	$lead_id = isset( $_POST['lead_id'] ) ? absint( wp_unslash( $_POST['lead_id'] ) ) : 0;
+	if ( ! $lead_id || 'justice_lead' !== get_post_type( $lead_id ) || ! current_user_can( 'edit_post', $lead_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to update this lead.', 'justice-theme' ), 403 );
+	}
+
+	$nonce = isset( $_POST['justice_theme_update_lead_permission_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_theme_update_lead_permission_nonce'] ) ) : '';
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'justice_theme_update_lead_permission_' . $lead_id ) ) {
+		wp_die( esc_html__( 'Security check failed.', 'justice-theme' ), 400 );
+	}
+
+	$action = isset( $_POST['permission_action'] ) ? sanitize_key( wp_unslash( $_POST['permission_action'] ) ) : 'requested';
+	$note   = isset( $_POST['repermission_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['repermission_owner_note'] ) ) : '';
+	$verified = ! empty( $_POST['owner_verified_permission_evidence'] );
+	$now = current_time( 'mysql' );
+
+	if ( ! in_array( $action, array( 'requested', 'permission_received', 'do_not_contact' ), true ) ) {
+		$action = 'requested';
+	}
+
+	if ( 'permission_received' === $action && ! $verified ) {
+		wp_safe_redirect( add_query_arg( 'justice_repermission_updated', 'evidence-required', admin_url( 'admin.php?page=justice-crm' ) ) );
+		exit;
+	}
+
+	update_post_meta( $lead_id, 'routing_hold', '1' );
+	update_post_meta( $lead_id, 'repermission_owner_note', $note );
+
+	if ( 'requested' === $action ) {
+		update_post_meta( $lead_id, 'consent', '0' );
+		update_post_meta( $lead_id, 'repermission_status', 'requested' );
+		update_post_meta( $lead_id, 'repermission_requested_at', $now );
+		update_post_meta( $lead_id, 'repermission_last_sent_at', $now );
+		update_post_meta( $lead_id, 'client_permission_next_step', 'Wait for explicit client opt-in before any lawyer/supplier handoff.' );
+		update_post_meta( $lead_id, 'routing_notes', 'Routing held: opt-in message was prepared/sent, waiting for explicit permission.' );
+	} elseif ( 'permission_received' === $action ) {
+		update_post_meta( $lead_id, 'consent', '1' );
+		update_post_meta( $lead_id, 'consent_status', 'owner_verified_consent' );
+		update_post_meta( $lead_id, 'consent_basis', $note ?: 'Owner verified client opt-in evidence from re-permission queue.' );
+		update_post_meta( $lead_id, 'consent_checked_at', $now );
+		update_post_meta( $lead_id, 'legacy_repermission_required', '0' );
+		update_post_meta( $lead_id, 'repermission_status', 'permission_received' );
+		update_post_meta( $lead_id, 'repermission_completed_at', $now );
+		update_post_meta( $lead_id, 'client_permission_next_step', 'Permission evidence recorded. Keep routing hold until paid lawyer/supplier terms and owner release are ready.' );
+		update_post_meta( $lead_id, 'routing_notes', 'Routing still held after owner-verified permission; release only after paid coverage terms are confirmed.' );
+	} else {
+		update_post_meta( $lead_id, 'consent', '0' );
+		update_post_meta( $lead_id, 'consent_status', 'do_not_contact' );
+		update_post_meta( $lead_id, 'legacy_repermission_required', '0' );
+		update_post_meta( $lead_id, 'repermission_status', 'do_not_contact' );
+		update_post_meta( $lead_id, 'client_permission_next_step', 'Do not contact or route. Keep only for audit/deduplication unless deletion is requested.' );
+		update_post_meta( $lead_id, 'routing_notes', 'Routing blocked: client opted out or lead is marked do not contact.' );
+	}
+
+	wp_safe_redirect( add_query_arg( 'justice_repermission_updated', $action, admin_url( 'admin.php?page=justice-crm' ) ) );
+	exit;
 }
 
 function justice_theme_crm_handle_external_lead_import(): void {
@@ -779,7 +1103,26 @@ function justice_theme_crm_manual_lead_next_step( string $handoff_path, bool $re
 }
 
 function justice_theme_crm_manual_lead_notice(): void {
-	if ( empty( $_GET['justice_whatsapp_lead_created'] ) && empty( $_GET['justice_external_imported'] ) ) {
+	if ( empty( $_GET['justice_whatsapp_lead_created'] ) && empty( $_GET['justice_external_imported'] ) && empty( $_GET['justice_repermission_updated'] ) ) {
+		return;
+	}
+
+	if ( ! empty( $_GET['justice_repermission_updated'] ) ) {
+		$status = sanitize_key( wp_unslash( $_GET['justice_repermission_updated'] ) );
+		$messages = array(
+			'requested'          => array( 'success', 'Permission step recorded. The lead remains on routing hold until explicit consent and paid partner terms are ready.' ),
+			'permission_received' => array( 'success', 'Owner-verified permission evidence recorded. The lead still stays on routing hold until paid lawyer/supplier terms and manual release.' ),
+			'do_not_contact'     => array( 'warning', 'Lead marked do not contact. Routing and contact actions are blocked.' ),
+			'evidence-required'  => array( 'error', 'Permission was not upgraded: owner must confirm that permission evidence was reviewed.' ),
+		);
+		$notice = $messages[ $status ] ?? null;
+		if ( $notice ) {
+			printf(
+				'<div class="notice notice-%1$s is-dismissible"><p>%2$s</p></div>',
+				esc_attr( $notice[0] ),
+				esc_html( $notice[1] )
+			);
+		}
 		return;
 	}
 
@@ -3755,8 +4098,11 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 				$name    = get_post_meta( $post_id, 'visitor_name', true ) ?: get_post_meta( $post_id, 'lead_name', true ) ?: get_the_title();
 				$phone   = get_post_meta( $post_id, 'visitor_phone', true ) ?: get_post_meta( $post_id, 'lead_phone', true );
 				$email   = get_post_meta( $post_id, 'visitor_email', true ) ?: get_post_meta( $post_id, 'lead_email', true );
-				$phone_link = $phone && function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) $phone ) : '';
-				$phone_link = $phone_link ?: ( $phone ? 'tel:' . preg_replace( '/[^0-9+]/', '', (string) $phone ) : '' );
+				$contact_mode = 'justice_lead' === $post_type ? justice_theme_crm_lead_contact_mode( $post_id ) : 'approved';
+				$can_direct_contact = 'justice_lead' !== $post_type || 'approved' === $contact_mode;
+				$phone_link = $phone && $can_direct_contact && function_exists( 'justice_theme_lawyer_public_phone_link' ) ? justice_theme_lawyer_public_phone_link( (string) $phone ) : '';
+				$phone_link = $phone_link ?: ( $phone && $can_direct_contact ? 'tel:' . preg_replace( '/[^0-9+]/', '', (string) $phone ) : '' );
+				$client_actions = 'justice_lead' === $post_type ? justice_theme_crm_client_contact_actions( $post_id ) : array();
 				$whatsapp_link = $phone && function_exists( 'justice_theme_lawyer_public_whatsapp_link' ) ? justice_theme_lawyer_public_whatsapp_link( (string) $phone ) : '';
 				if ( $whatsapp_link ) {
 					$whatsapp_link = add_query_arg(
@@ -3792,8 +4138,30 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 				?>
 				<tr>
 					<td><strong><?php echo esc_html( $name ); ?></strong></td>
-					<td><?php echo $phone_link ? '<a href="' . esc_url( $phone_link ) . '">' . esc_html( $phone ) . '</a>' : '-'; ?></td>
-					<td><?php echo $email ? '<a href="mailto:' . esc_attr( $email ) . '">' . esc_html( $email ) . '</a>' : '-'; ?></td>
+					<td>
+						<?php if ( $phone_link ) : ?>
+							<a href="<?php echo esc_url( $phone_link ); ?>"><?php echo esc_html( $phone ); ?></a>
+						<?php elseif ( $phone ) : ?>
+							<?php echo esc_html( $phone ); ?>
+							<?php if ( 'justice_lead' === $post_type && 'approved' !== $contact_mode ) : ?>
+								<br><small style="color:#646970;">permission gate</small>
+							<?php endif; ?>
+						<?php else : ?>
+							-
+						<?php endif; ?>
+					</td>
+					<td>
+						<?php if ( $email && $can_direct_contact ) : ?>
+							<a href="mailto:<?php echo esc_attr( $email ); ?>"><?php echo esc_html( $email ); ?></a>
+						<?php elseif ( $email ) : ?>
+							<?php echo esc_html( $email ); ?>
+							<?php if ( 'justice_lead' === $post_type ) : ?>
+								<br><small style="color:#646970;">permission gate</small>
+							<?php endif; ?>
+						<?php else : ?>
+							-
+						<?php endif; ?>
+					</td>
 					<td><?php echo esc_html( $tool_id ? get_the_title( $tool_id ) : ( $area_display ?: '-' ) ); ?></td>
 					<td><?php echo esc_html( $status ); ?></td>
 					<td><span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $coverage['style'] ); ?>"><?php echo esc_html( $coverage['label'] ); ?></span></td>
@@ -3824,14 +4192,14 @@ function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): 
 							<?php if ( $prospect_url ) : ?>
 								<a class="button" href="<?php echo esc_url( $prospect_url ); ?>">Prospect</a>
 							<?php endif; ?>
-							<?php if ( $phone_link ) : ?>
+							<?php if ( 'justice_lead' === $post_type && $client_actions ) : ?>
+								<?php foreach ( $client_actions as $action ) : ?>
+									<a class="button" href="<?php echo esc_url( $action['url'] ); ?>"<?php echo ! empty( $action['external'] ) ? ' target="_blank" rel="noopener"' : ''; ?>><?php echo esc_html( $action['label'] ); ?></a>
+								<?php endforeach; ?>
+							<?php elseif ( 'justice_lead' === $post_type && 'blocked' === $contact_mode ) : ?>
+								<span style="color:#646970;">Do not contact</span>
+							<?php elseif ( 'justice_lead' !== $post_type && $phone_link ) : ?>
 								<a class="button" href="<?php echo esc_url( $phone_link ); ?>">Call</a>
-							<?php endif; ?>
-							<?php if ( $whatsapp_link ) : ?>
-								<a class="button" href="<?php echo esc_url( $whatsapp_link ); ?>" target="_blank" rel="noopener">WhatsApp</a>
-							<?php endif; ?>
-							<?php if ( $email_link ) : ?>
-								<a class="button" href="<?php echo esc_url( $email_link ); ?>">Email</a>
 							<?php endif; ?>
 						</div>
 					</td>

@@ -16,7 +16,7 @@
 6. NEXT: monitor future tools/scripts so they do not recreate public artifact directories; `.gitignore` now blocks committing those public paths.
 
 ### ACTION-WHATSAPP-TALKTO-CONSENT-CRM-001: Build consent-safe intake for WhatsApp, TalkTo and legacy leads
-**Status:** IMPORT STAGING CODED / DEPLOY VERIFY REQUIRED / RE-PERMISSION QUEUE NEXT
+**Status:** RE-PERMISSION QUEUE CODED / DEPLOY VERIFY REQUIRED / SUPPLIER TERMS NEXT
 **Why:** inbound WhatsApp/TalkTo leads can become paid lawyer/supplier handoffs, but only after permission, case details and commercial terms are recorded.
 **Actions:**
 1. DONE: add source channels for WhatsApp Business, WhatsApp export, TalkTo chatbot and legacy CSV imports.
@@ -24,11 +24,13 @@
 3. DONE: store source thread/import ID, source page URL, consent basis, consent checked timestamp and permission next step on each private lead.
 4. DONE: block router release unless consent status is explicit/verified and owner/admin verified the evidence.
 5. DONE: document the architecture in `.project-control/lead-consent-import-architecture-2026-05-26.md`.
-6. NEXT: deploy and verify the admin bridge appears under `wp-admin -> Justice CRM -> Manual WhatsApp / client lead bridge`.
+6. DONE: deploy and verify the admin bridge appears under `wp-admin -> Justice CRM -> Manual WhatsApp / client lead bridge`.
 7. DONE: build pasted CSV/import staging with dedupe fingerprint and re-permission status.
-8. NEXT: deploy/pull and verify the staging panel appears in Justice CRM.
-9. NEXT: build the re-permission queue and owner-approved message templates before importing old untreated leads in bulk.
-10. BLOCKED: do not contact old leads, release PII to suppliers/lawyers, or charge money until opt-in and partner terms are recorded.
+8. DONE: deploy/pull and verify the staging panel appears in Justice CRM.
+9. DONE: build the re-permission queue and owner-approved Hebrew/English opt-in message templates before importing old untreated leads in bulk.
+10. NEXT: deploy/pull and verify the Permission / re-permission queue appears in Justice CRM and direct client contact buttons stay permission-gated for held leads.
+11. NEXT: build supplier/lawyer terms and anonymized bidding/preview rules before PII release.
+12. BLOCKED: do not contact old leads, release PII to suppliers/lawyers, or charge money until opt-in and partner terms are recorded.
 
 ### ACTION-UK-WHATSAPP-LEAD-SUPPLIER-HANDOFF-001: Process first UK-law WhatsApp lead through the private CRM bridge
 **Status:** FIXED CLASSIFICATION / VERIFIED MAILBOX / BLOCKED LIVE CRM ENTRY UNTIL OWNER APPROVES REAL LEAD CREATION

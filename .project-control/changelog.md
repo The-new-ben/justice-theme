@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - WhatsApp/TalkTo re-permission queue
+
+- UPDATED: `inc/lead-crm.php`, `functions.php`, `deployment-marker.txt`.
+- PURPOSE: let the owner safely re-activate old WhatsApp, TalkTo and legacy leads without contacting people or sharing PII before permission is recorded.
+- IMPLEMENTATION: added a Justice CRM Permission / re-permission queue with copyable Hebrew/English opt-in text, owner action recording, evidence-required upgrade to `owner_verified_consent`, do-not-contact state, and requested/completed timestamps.
+- CONTACT SAFETY: held `justice_lead` records no longer expose direct Call/Email links in the main CRM table unless consent is approved; legacy/held records expose permission-gated opt-in actions only.
+- ROUTING SAFETY: owner-verified permission still leaves `routing_hold=1`; paid lawyer/supplier terms and a separate owner release are required before handoff.
+- REVENUE STATUS: this moves WhatsApp/TalkTo lead monetization from inbox chaos into a controlled CRM queue, but no revenue is counted and no client/lawyer/supplier was contacted.
+- SAFETY: admin CRM workflow and docs only; no live lead import, public CMS page, public content, client contact, lawyer/supplier notification, invoice, payment, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
 # 2026-05-25 - Lawyer selection on-page integration
 
 - UPDATED: `/lawyers/` archive, existing lawyer-selection article template, lawyer profile template, family practice lawyer block, lawyer CTA, lawyer plans, registration, dashboard, onboarding and payment-compliance copy.

@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-MANAGED-SERVICE-PACKAGE-PILOT-001: Prepare Lawhive-style package pilots without public launch
+**Status:** FIXED LOCAL / PUBLIC LAUNCH BLOCKED
+**Why:** the private managed-service fulfillment gate exists, but future operators need a concrete package queue, price/risk assumptions and stop conditions before creating controlled requests or public pages.
+**Actions:**
+1. DONE: add `tools/build-managed-service-package-pilot-packet.mjs`.
+2. DONE: generate `.project-control/managed-service-package-pilot-2026-05-27.md` and `.csv`.
+3. DONE: generate `.reports/managed-service-package-pilot-2026-05-27.json` and `.csv`.
+4. DONE: verify 6/6 private/admin gates and 7/7 private package candidates in the existing catalog.
+5. DONE: document pilot order, suggested private prices, risk levels, package blockers, anti-cannibalization review needs and controlled run order.
+6. DONE: record this as Linear `HAD-121`, marked Done under `HAD-84`.
+7. NEXT: if the owner approves a controlled pilot, start with rental agreement or demand letter inside one private `justice_legal_request`; do not start with high-risk family/will/immigration packages.
+8. BLOCKED: no public service page, checkout, AI drafting, client request, lawyer handoff, invoice/payment claim or public offer until ethics/Bar engagement structure, managing lawyer, signed engagement, payment proof, refund/cancel path, anti-cannibalization review and owner approval exist.
+
 ### ACTION-BTL-FIRST-PROSPECT-ACTIVATION-001: Prepare the first private supplier entries without contacting anyone
 **Status:** FIXED LOCAL / LIVE PROSPECT CREATION BLOCKED UNTIL OWNER OR ADMIN ACTION
 **Why:** the Bituach Leumi first-paid-lead loop now has source candidates and readiness gates, but future operators need an exact first-entry queue and stop conditions before creating private supplier records or contacting lawyers.

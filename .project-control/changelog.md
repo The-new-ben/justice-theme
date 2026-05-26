@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Managed legal-service package pilot packet
+
+- ADDED: `tools/build-managed-service-package-pilot-packet.mjs`.
+- GENERATED: `.project-control/managed-service-package-pilot-2026-05-27.md`, `.project-control/managed-service-package-pilot-2026-05-27.csv`, `.reports/managed-service-package-pilot-2026-05-27.json`, `.reports/managed-service-package-pilot-2026-05-27.csv`, plus refreshed `.project-control/private-artifact-boundary-guard-2026-05-27.md` and `.csv`.
+- PURPOSE: continue the Lawhive-style infrastructure by turning the existing private fulfillment gate into a concrete package-pilot decision packet.
+- RESULT: `PRIVATE_PACKAGE_PILOT_READY_WITH_PUBLIC_BLOCKERS`; 6/6 private/admin gates pass and 7/7 package candidates are present in the private catalog.
+- PACKAGE QUEUE: rental agreement, demand letter, Bituach Leumi appeal package, simple will, prenuptial/financial agreement, company formation and cross-border/immigration consult bundle.
+- LINEAR: recorded as `HAD-121` and marked Done under `HAD-84`.
+- BLOCKER PRESERVED: public launch remains blocked until ethics/Bar engagement structure, managing lawyer of record, signed engagement, payment proof, refund/cancel path, anti-cannibalization review and owner approval exist.
+- SAFETY: repo-local tool/report only; no public service page, checkout, lead/client request, lawyer assignment, supplier contact, AI drafting, invoice, payment, email, WhatsApp, TalkTo, SEO setting, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Bituach Leumi first-prospect activation packet
 
 - ADDED: `tools/build-btl-first-prospect-activation-packet.mjs`.

@@ -1,0 +1,168 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "status": "PRIVATE_PACKAGE_PILOT_READY_WITH_PUBLIC_BLOCKERS",
+    "gateCount": 6,
+    "passCount": 6,
+    "packageCount": 7,
+    "catalogPassCount": 7,
+    "publicLaunchApprovals": 0
+  },
+  "gateRows": [
+    {
+      "id": "GATE-01",
+      "area": "private_meta",
+      "status": "PASS",
+      "evidence": "Owner-only fulfillment meta fields are registered on justice_legal_request.",
+      "next_action": "Keep as private/admin-only gate."
+    },
+    {
+      "id": "GATE-02",
+      "area": "package_catalog",
+      "status": "PASS",
+      "evidence": "Private package selector exists in the LegalTech request fulfillment metabox.",
+      "next_action": "Keep as private/admin-only gate."
+    },
+    {
+      "id": "GATE-03",
+      "area": "readiness_logic",
+      "status": "PASS",
+      "evidence": "Readiness logic blocks managed fulfillment unless lawyer, engagement, ethics and payment gates are recorded.",
+      "next_action": "Keep as private/admin-only gate."
+    },
+    {
+      "id": "GATE-04",
+      "area": "crm_panel",
+      "status": "PASS",
+      "evidence": "Justice CRM has a private managed-service fulfillment preflight panel.",
+      "next_action": "Keep as private/admin-only gate."
+    },
+    {
+      "id": "GATE-05",
+      "area": "public_blocker",
+      "status": "PASS",
+      "evidence": "Admin copy explicitly blocks public launch until ethics/engagement/payment gates are clear.",
+      "next_action": "Keep as private/admin-only gate."
+    },
+    {
+      "id": "GATE-06",
+      "area": "revenue_stream",
+      "status": "PASS",
+      "evidence": "Revenue-stream map records the managed-services idea as started privately, not public.",
+      "next_action": "Keep as private/admin-only gate."
+    }
+  ],
+  "pilotRows": [
+    {
+      "key": "rental_agreement",
+      "private_label": "Rental agreement review / draft",
+      "pilot_order": 1,
+      "suggested_price_ils": 299,
+      "risk_level": "medium",
+      "first_scope": "Residential lease review or custom draft from owner-approved checklist.",
+      "blockers": "lawyer of record; signed engagement; ethics review; payment proof; no public checkout",
+      "cannibalization_review": "Check existing rental, real-estate and apartment contract articles before any page or CTA.",
+      "catalog_status": "PASS",
+      "public_launch_status": "BLOCKED_PRIVATE_PILOT_ONLY",
+      "private_pilot_status": "READY_FOR_OWNER_CONTROLLED_REQUEST",
+      "required_admin_gates": "fulfillment_mode=lawyer_managed_package; managing_lawyer_id set; engagement_letter_status=signed; ethics_review_status=approved_for_pilot; client_payment_status=paid",
+      "owner_next_action": "Use only inside a controlled justice_legal_request after owner approval and lawyer/engagement/payment evidence."
+    },
+    {
+      "key": "demand_letter_review",
+      "private_label": "Demand letter with lawyer review",
+      "pilot_order": 2,
+      "suggested_price_ils": 599,
+      "risk_level": "medium-high",
+      "first_scope": "Manual lawyer-reviewed warning letter for consumer, employment or rental dispute.",
+      "blockers": "claim-specific lawyer review; evidence checklist; engagement letter; payment proof; no AI draft promise",
+      "cannibalization_review": "Check employment, consumer and rental dispute pages before any public demand-letter tool.",
+      "catalog_status": "PASS",
+      "public_launch_status": "BLOCKED_PRIVATE_PILOT_ONLY",
+      "private_pilot_status": "READY_FOR_OWNER_CONTROLLED_REQUEST",
+      "required_admin_gates": "fulfillment_mode=lawyer_managed_package; managing_lawyer_id set; engagement_letter_status=signed; ethics_review_status=approved_for_pilot; client_payment_status=paid",
+      "owner_next_action": "Use only inside a controlled justice_legal_request after owner approval and lawyer/engagement/payment evidence."
+    },
+    {
+      "key": "nii_appeal_package",
+      "private_label": "Bituach Leumi appeal package",
+      "pilot_order": 3,
+      "suggested_price_ils": 1499,
+      "risk_level": "high",
+      "first_scope": "Controlled manual appeal-file preparation with specialist lawyer supervision.",
+      "blockers": "three verified BTL specialists; client consent; medical-document handling; engagement; payment proof",
+      "cannibalization_review": "Use the existing Bituach Leumi route-intent split before any public copy or linking.",
+      "catalog_status": "PASS",
+      "public_launch_status": "BLOCKED_PRIVATE_PILOT_ONLY",
+      "private_pilot_status": "READY_FOR_OWNER_CONTROLLED_REQUEST",
+      "required_admin_gates": "fulfillment_mode=lawyer_managed_package; managing_lawyer_id set; engagement_letter_status=signed; ethics_review_status=approved_for_pilot; client_payment_status=paid",
+      "owner_next_action": "Use only inside a controlled justice_legal_request after owner approval and lawyer/engagement/payment evidence."
+    },
+    {
+      "key": "simple_will",
+      "private_label": "Simple will package",
+      "pilot_order": 4,
+      "suggested_price_ils": 599,
+      "risk_level": "high",
+      "first_scope": "Single-person simple will only after lawyer confirms scope and ceremony requirements.",
+      "blockers": "lawyer of record; capacity/conflict checks; witness/notary process; engagement; payment proof",
+      "cannibalization_review": "Check inheritance, wills and estate-planning pages before creating or upgrading a package page.",
+      "catalog_status": "PASS",
+      "public_launch_status": "BLOCKED_PRIVATE_PILOT_ONLY",
+      "private_pilot_status": "READY_FOR_OWNER_CONTROLLED_REQUEST",
+      "required_admin_gates": "fulfillment_mode=lawyer_managed_package; managing_lawyer_id set; engagement_letter_status=signed; ethics_review_status=approved_for_pilot; client_payment_status=paid",
+      "owner_next_action": "Use only inside a controlled justice_legal_request after owner approval and lawyer/engagement/payment evidence."
+    },
+    {
+      "key": "prenuptial_agreement",
+      "private_label": "Prenuptial / financial agreement",
+      "pilot_order": 5,
+      "suggested_price_ils": 999,
+      "risk_level": "high",
+      "first_scope": "Financial agreement intake and lawyer-supervised draft, no court filing promise.",
+      "blockers": "family-law lawyer; conflict checks; court/notary approval process; engagement; payment proof",
+      "cannibalization_review": "Check family-law, divorce and financial-agreement pages before any public route.",
+      "catalog_status": "PASS",
+      "public_launch_status": "BLOCKED_PRIVATE_PILOT_ONLY",
+      "private_pilot_status": "READY_FOR_OWNER_CONTROLLED_REQUEST",
+      "required_admin_gates": "fulfillment_mode=lawyer_managed_package; managing_lawyer_id set; engagement_letter_status=signed; ethics_review_status=approved_for_pilot; client_payment_status=paid",
+      "owner_next_action": "Use only inside a controlled justice_legal_request after owner approval and lawyer/engagement/payment evidence."
+    },
+    {
+      "key": "company_formation",
+      "private_label": "Company formation documents",
+      "pilot_order": 6,
+      "suggested_price_ils": 1890,
+      "risk_level": "medium-high",
+      "first_scope": "Company formation document pack with corporate lawyer and manual filing proof.",
+      "blockers": "corporate lawyer; filing path; beneficial-owner/KYC details; engagement; payment proof",
+      "cannibalization_review": "Check business, companies and corporate-law pages before public packaging.",
+      "catalog_status": "PASS",
+      "public_launch_status": "BLOCKED_PRIVATE_PILOT_ONLY",
+      "private_pilot_status": "READY_FOR_OWNER_CONTROLLED_REQUEST",
+      "required_admin_gates": "fulfillment_mode=lawyer_managed_package; managing_lawyer_id set; engagement_letter_status=signed; ethics_review_status=approved_for_pilot; client_payment_status=paid",
+      "owner_next_action": "Use only inside a controlled justice_legal_request after owner approval and lawyer/engagement/payment evidence."
+    },
+    {
+      "key": "cross_border_consult",
+      "private_label": "Cross-border / immigration consult bundle",
+      "pilot_order": 7,
+      "suggested_price_ils": 2990,
+      "risk_level": "high",
+      "first_scope": "Consult bundle only, with Israeli lawyer plus external supplier where needed.",
+      "blockers": "supplier registration; lawyer/supplier role separation; consent; accepted terms; payment proof",
+      "cannibalization_review": "Check Aliyah, immigration, citizenship, tax and diaspora pages before any offer page.",
+      "catalog_status": "PASS",
+      "public_launch_status": "BLOCKED_PRIVATE_PILOT_ONLY",
+      "private_pilot_status": "READY_FOR_OWNER_CONTROLLED_REQUEST",
+      "required_admin_gates": "fulfillment_mode=lawyer_managed_package; managing_lawyer_id set; engagement_letter_status=signed; ethics_review_status=approved_for_pilot; client_payment_status=paid",
+      "owner_next_action": "Use only inside a controlled justice_legal_request after owner approval and lawyer/engagement/payment evidence."
+    }
+  ],
+  "files": {
+    "projectMd": "C:\\Users\\janana\\jutice-theme\\.project-control\\managed-service-package-pilot-2026-05-27.md",
+    "projectCsv": "C:\\Users\\janana\\jutice-theme\\.project-control\\managed-service-package-pilot-2026-05-27.csv",
+    "reportJson": "C:\\Users\\janana\\jutice-theme\\.reports\\managed-service-package-pilot-2026-05-27.json",
+    "reportCsv": "C:\\Users\\janana\\jutice-theme\\.reports\\managed-service-package-pilot-2026-05-27.csv"
+  }
+}

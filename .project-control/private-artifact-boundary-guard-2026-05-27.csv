@@ -1,0 +1,433 @@
+file,line,severity,text
+tools/batch-tag-family-law.js,21,REVIEW_BEFORE_RUNNING,"const DECISION_CSV = path.resolve(__dirname, '../../project-control/content-master/family-law-decision-map.csv');"
+tools/build-criminal-owner-review-packet.mjs,123,REVIEW_BEFORE_RUNNING,"const sameDateInput = path.join(ROOT, 'reports', `${DASHBOARD_PREFIX}-${args.reportDate}.csv`);"
+tools/build-criminal-owner-review-packet.mjs,135,REVIEW_BEFORE_RUNNING,"reportCsv: path.join(ROOT, 'reports', `${base}.csv`),"
+tools/build-criminal-owner-review-packet.mjs,136,REVIEW_BEFORE_RUNNING,"reportJson: path.join(ROOT, 'reports', `${base}.json`),"
+tools/build-criminal-owner-review-packet.mjs,137,REVIEW_BEFORE_RUNNING,"projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),"
+tools/build-criminal-owner-review-packet.mjs,138,REVIEW_BEFORE_RUNNING,"projectMd: path.join(ROOT, 'project-control', `${base}.md`),"
+tools/build-criminal-owner-review-packet.mjs,148,REVIEW_BEFORE_RUNNING,node tools/build-criminal-owner-review-packet.mjs --reportDate=YYYY-MM-DD --input=reports/criminal-traffic-readiness-dashboard-YYYY-MM-DD.csv
+tools/build-criminal-owner-review-packet.mjs,151,REVIEW_BEFORE_RUNNING,reports/criminal-traffic-readiness-dashboard-YYYY-MM-DD.csv
+tools/build-criminal-owner-review-packet.mjs,154,REVIEW_BEFORE_RUNNING,reports/criminal-owner-review-packet-YYYY-MM-DD.csv
+tools/build-criminal-owner-review-packet.mjs,155,REVIEW_BEFORE_RUNNING,reports/criminal-owner-review-packet-YYYY-MM-DD.json
+tools/build-criminal-owner-review-packet.mjs,156,REVIEW_BEFORE_RUNNING,project-control/criminal-owner-review-packet-YYYY-MM-DD.csv
+tools/build-criminal-owner-review-packet.mjs,157,REFERENCE_ONLY,project-control/criminal-owner-review-packet-YYYY-MM-DD.md
+tools/build-criminal-owner-review-packet.mjs,266,REFERENCE_ONLY,"'CRIM-UPLOAD-PKG-001': 'content-drafts/criminal-lawyer-pillar-he.md',"
+tools/build-criminal-owner-review-packet.mjs,267,REFERENCE_ONLY,"'CRIM-UPLOAD-PKG-002': 'content-drafts/police-investigation-supporting-he.md',"
+tools/build-criminal-owner-review-packet.mjs,268,REFERENCE_ONLY,"'CRIM-UPLOAD-PKG-003': 'content-drafts/pretrial-detention-supporting-he.md',"
+tools/build-criminal-owner-review-packet.mjs,269,REFERENCE_ONLY,"'CRIM-UPLOAD-PKG-004': 'content-drafts/indictment-supporting-he.md',"
+tools/build-criminal-owner-review-packet.mjs,270,REFERENCE_ONLY,"'CRIM-UPLOAD-PKG-005': 'content-drafts/drug-offenses-supporting-he.md',"
+tools/build-decision-map.js,14,REVIEW_BEFORE_RUNNING,"const INPUT = path.resolve(__dirname, '../../project-control/content-master/family-law-cluster.csv');"
+tools/build-decision-map.js,15,REVIEW_BEFORE_RUNNING,"const OUTPUT = path.resolve(__dirname, '../../project-control/content-master/family-law-decision-map.csv');"
+tools/build-decision-map.js,16,REVIEW_BEFORE_RUNNING,"const REPORT = path.resolve(__dirname, '../../project-control/content-master/family-law-decision-report.md');"
+tools/build-justice-seo-pack.mjs,5,REVIEW_BEFORE_RUNNING,"const outDir = path.join(root, 'mnt', 'documents', 'justice');"
+tools/build-justice-seo-pack.mjs,69,REVIEW_BEFORE_RUNNING,"['State Comptroller land rights report', 'https://library.mevaker.gov.il/sites/DigitalLibrary/Pages/Reports/297-13.aspx', 'land rights registration complexity'],"
+tools/build-justice-seo-pack.mjs,70,REVIEW_BEFORE_RUNNING,"['Jus-Tice targeted GSC query queue', 'project-control/targeted-gsc-query-queue.csv', 'existing internal GSC-derived decision queue'],"
+tools/build-justice-seo-pack.mjs,71,REVIEW_BEFORE_RUNNING,"['Jus-Tice topic clusters', 'project-control/topic-clusters.csv', 'existing site cluster inventory'],"
+tools/build-justice-seo-pack.mjs,72,REVIEW_BEFORE_RUNNING,"['Jus-Tice SERP research log', 'project-control/serp-research-log.csv', 'prior partial SERP observations'],"
+tools/build-justice-seo-pack.mjs,73,REFERENCE_ONLY,"['Jus-Tice competitor success plan', 'project-control/competitor-success-replication-plan-2026-05-25.md', 'competitor implementation plan already prepared'],"
+tools/build-justice-seo-pack.mjs,74,REFERENCE_ONLY,"['Jus-Tice live CMS indexed customers', 'project-control/live-cms-indexed-customers-2026-05-25.md', '20 public lawyer cards and supplier blocker'],"
+tools/build-justice-seo-pack.mjs,935,REFERENCE_ONLY,- Built a WordPress-ready draft pack under \`mnt/documents/justice\`.
+tools/build-lawyer-cms-entry-packet.mjs,5,REVIEW_BEFORE_RUNNING,"const sourcePath = path.join( root, 'project-control', 'public-basic-lawyer-cms-import-candidates-2026-05-25.csv' );"
+tools/build-lawyer-cms-entry-packet.mjs,6,REVIEW_BEFORE_RUNNING,"const outMd = path.join( root, 'project-control', 'lawyer-cms-draft-entry-packet-2026-05-25.md' );"
+tools/build-lawyer-cms-entry-packet.mjs,7,REVIEW_BEFORE_RUNNING,"const outCsv = path.join( root, 'project-control', 'lawyer-cms-draft-entry-packet-2026-05-25.csv' );"
+tools/build-lawyer-cms-entry-packet.mjs,8,REVIEW_BEFORE_RUNNING,"const outJson = path.join( root, 'reports', 'lawyer-cms-draft-entry-packet-2026-05-25.json' );"
+tools/build-lawyer-cms-entry-packet.mjs,229,REVIEW_BEFORE_RUNNING,- CSV entry sheet: \`project-control/lawyer-cms-draft-entry-packet-2026-05-25.csv\`
+tools/build-lawyer-cms-entry-packet.mjs,230,REVIEW_BEFORE_RUNNING,- JSON report: \`reports/lawyer-cms-draft-entry-packet-2026-05-25.json\`
+tools/build-master-csv.js,23,REVIEW_BEFORE_RUNNING,"const wpFile = fs.readFileSync('c:/Users/pro/justice/project-control/full-inventory.csv', 'utf8');"
+tools/build-master-csv.js,29,REVIEW_BEFORE_RUNNING,"const gscFile = fs.readFileSync('c:/Users/pro/justice/justice-theme/reports/gsc/performance-pages.csv', 'utf8');"
+tools/build-master-csv.js,97,REVIEW_BEFORE_RUNNING,"fs.writeFileSync('c:/Users/pro/justice/project-control/content-master/content-master-inventory.csv', csvContent);"
+tools/build-master-csv.js,102,REVIEW_BEFORE_RUNNING,"fs.writeFileSync('c:/Users/pro/justice/project-control/content-master/redirect-map.csv', redirectCols.join(',') + '\n');"
+tools/build-maya-lawyer-cms-activation-packet.mjs,73,REVIEW_BEFORE_RUNNING,reports/maya-lawyer-live-readonly-REPORT_DATE.json
+tools/build-maya-lawyer-cms-activation-packet.mjs,74,REVIEW_BEFORE_RUNNING,project-control/maya-lawyer-mini-site-readiness-SOURCE_DATE.csv
+tools/build-maya-lawyer-cms-activation-packet.mjs,75,REVIEW_BEFORE_RUNNING,project-control/url-migration-map.csv
+tools/build-maya-lawyer-cms-activation-packet.mjs,80,REVIEW_BEFORE_RUNNING,reports/maya-lawyer-cms-activation-packet-REPORT_DATE.csv
+tools/build-maya-lawyer-cms-activation-packet.mjs,81,REVIEW_BEFORE_RUNNING,reports/maya-lawyer-cms-activation-packet-REPORT_DATE.json
+tools/build-maya-lawyer-cms-activation-packet.mjs,82,REVIEW_BEFORE_RUNNING,project-control/maya-lawyer-cms-activation-packet-REPORT_DATE.csv
+tools/build-maya-lawyer-cms-activation-packet.mjs,83,REVIEW_BEFORE_RUNNING,project-control/maya-lawyer-cms-activation-packet-REPORT_DATE.md
+tools/build-maya-lawyer-cms-activation-packet.mjs,164,REVIEW_BEFORE_RUNNING,"liveJson: path.join(ROOT, 'reports', `maya-lawyer-live-readonly-${reportDate}.json`),"
+tools/build-maya-lawyer-cms-activation-packet.mjs,165,REVIEW_BEFORE_RUNNING,"liveCsv: path.join(ROOT, 'project-control', `maya-lawyer-live-readonly-${reportDate}.csv`),"
+tools/build-maya-lawyer-cms-activation-packet.mjs,166,REVIEW_BEFORE_RUNNING,"readinessCsv: path.join(ROOT, 'project-control', `maya-lawyer-mini-site-readiness-${sourceDate}.csv`),"
+tools/build-maya-lawyer-cms-activation-packet.mjs,167,REVIEW_BEFORE_RUNNING,"urlMigrationMap: path.join(ROOT, 'project-control', 'url-migration-map.csv'),"
+tools/build-maya-lawyer-cms-activation-packet.mjs,170,REVIEW_BEFORE_RUNNING,"reportCsv: path.join(ROOT, 'reports', `${base}.csv`),"
+tools/build-maya-lawyer-cms-activation-packet.mjs,171,REVIEW_BEFORE_RUNNING,"reportJson: path.join(ROOT, 'reports', `${base}.json`),"
+tools/build-maya-lawyer-cms-activation-packet.mjs,172,REVIEW_BEFORE_RUNNING,"projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),"
+tools/build-maya-lawyer-cms-activation-packet.mjs,173,REVIEW_BEFORE_RUNNING,"projectMd: path.join(ROOT, 'project-control', `${base}.md`),"
+tools/build-priority-owner-action-queue.mjs,64,REVIEW_BEFORE_RUNNING,reports/priority-owner-action-queue-YYYY-MM-DD.csv
+tools/build-priority-owner-action-queue.mjs,65,REVIEW_BEFORE_RUNNING,reports/priority-owner-action-queue-YYYY-MM-DD.json
+tools/build-priority-owner-action-queue.mjs,66,REVIEW_BEFORE_RUNNING,project-control/priority-owner-action-queue-YYYY-MM-DD.csv
+tools/build-priority-owner-action-queue.mjs,67,REFERENCE_ONLY,project-control/priority-owner-action-queue-YYYY-MM-DD.md
+tools/build-priority-owner-action-queue.mjs,72,REVIEW_BEFORE_RUNNING,"const pc = path.join(ROOT, 'project-control');"
+tools/build-priority-owner-action-queue.mjs,73,REVIEW_BEFORE_RUNNING,"const reports = path.join(ROOT, 'reports');"
+tools/build-priority-owner-action-queue.mjs,404,REVIEW_BEFORE_RUNNING,- \`reports/priority-owner-action-queue-${summary.reportDate}.csv\`
+tools/build-priority-owner-action-queue.mjs,405,REVIEW_BEFORE_RUNNING,- \`reports/priority-owner-action-queue-${summary.reportDate}.json\`
+tools/build-priority-owner-action-queue.mjs,406,REVIEW_BEFORE_RUNNING,- \`project-control/priority-owner-action-queue-${summary.reportDate}.csv\`
+tools/build-priority-owner-action-queue.mjs,407,REVIEW_BEFORE_RUNNING,- \`project-control/priority-owner-action-queue-${summary.reportDate}.md\`
+tools/build-priority-page-cms-repair-readiness-gate.mjs,65,REVIEW_BEFORE_RUNNING,project-control/priority-pages-live-readonly-YYYY-MM-DD.csv
+tools/build-priority-page-cms-repair-readiness-gate.mjs,66,REVIEW_BEFORE_RUNNING,project-control/priority-pages-cms-repair-packet-YYYY-MM-DD.csv
+tools/build-priority-page-cms-repair-readiness-gate.mjs,67,REVIEW_BEFORE_RUNNING,project-control/priority-pages-cms-rollback-capture-template-YYYY-MM-DD.csv
+tools/build-priority-page-cms-repair-readiness-gate.mjs,68,REVIEW_BEFORE_RUNNING,project-control/priority-pages-cms-owner-approval-YYYY-MM-DD.csv
+tools/build-priority-page-cms-repair-readiness-gate.mjs,69,REVIEW_BEFORE_RUNNING,project-control/wp-rest-publisher-safety-YYYY-MM-DD.csv
+tools/build-priority-page-cms-repair-readiness-gate.mjs,72,REVIEW_BEFORE_RUNNING,reports/priority-pages-cms-repair-readiness-gate-YYYY-MM-DD.csv
+tools/build-priority-page-cms-repair-readiness-gate.mjs,73,REVIEW_BEFORE_RUNNING,reports/priority-pages-cms-repair-readiness-gate-YYYY-MM-DD.json
+tools/build-priority-page-cms-repair-readiness-gate.mjs,74,REVIEW_BEFORE_RUNNING,project-control/priority-pages-cms-repair-readiness-gate-YYYY-MM-DD.csv
+tools/build-priority-page-cms-repair-readiness-gate.mjs,75,REFERENCE_ONLY,project-control/priority-pages-cms-repair-readiness-gate-YYYY-MM-DD.md
+tools/build-priority-page-cms-repair-readiness-gate.mjs,81,REVIEW_BEFORE_RUNNING,"liveQa: path.join(ROOT, 'project-control', `priority-pages-live-readonly-${reportDate}.csv`),"
+tools/build-priority-page-cms-repair-readiness-gate.mjs,82,REVIEW_BEFORE_RUNNING,"repairPacket: path.join(ROOT, 'project-control', `priority-pages-cms-repair-packet-${reportDate}.csv`),"
+tools/build-priority-page-cms-repair-readiness-gate.mjs,83,REVIEW_BEFORE_RUNNING,"rollback: path.join(ROOT, 'project-control', `priority-pages-cms-rollback-capture-template-${reportDate}.csv`),"
+tools/build-priority-page-cms-repair-readiness-gate.mjs,84,REVIEW_BEFORE_RUNNING,"approval: path.join(ROOT, 'project-control', `priority-pages-cms-owner-approval-${reportDate}.csv`),"
+tools/build-priority-page-cms-repair-readiness-gate.mjs,85,REVIEW_BEFORE_RUNNING,"publisherSafety: path.join(ROOT, 'project-control', `wp-rest-publisher-safety-${reportDate}.csv`),"
+tools/build-priority-page-cms-repair-readiness-gate.mjs,91,REVIEW_BEFORE_RUNNING,"reportCsv: path.join(ROOT, 'reports', `${base}.csv`),"
+tools/build-priority-page-cms-repair-readiness-gate.mjs,92,REVIEW_BEFORE_RUNNING,"reportJson: path.join(ROOT, 'reports', `${base}.json`),"
+tools/build-priority-page-cms-repair-readiness-gate.mjs,93,REVIEW_BEFORE_RUNNING,"projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),"
+tools/build-priority-page-cms-repair-readiness-gate.mjs,94,REVIEW_BEFORE_RUNNING,"projectMd: path.join(ROOT, 'project-control', `${base}.md`),"
+tools/build-priority-page-cms-repair-readiness-gate.mjs,367,REVIEW_BEFORE_RUNNING,- \`reports/priority-pages-cms-repair-readiness-gate-${summary.reportDate}.csv\`
+tools/build-priority-page-cms-repair-readiness-gate.mjs,368,REVIEW_BEFORE_RUNNING,- \`reports/priority-pages-cms-repair-readiness-gate-${summary.reportDate}.json\`
+tools/build-priority-page-cms-repair-readiness-gate.mjs,369,REVIEW_BEFORE_RUNNING,- \`project-control/priority-pages-cms-repair-readiness-gate-${summary.reportDate}.csv\`
+tools/build-priority-page-cms-repair-readiness-gate.mjs,370,REVIEW_BEFORE_RUNNING,- \`project-control/priority-pages-cms-repair-readiness-gate-${summary.reportDate}.md\`
+tools/build-route-deploy-verification-gate.mjs,31,REVIEW_BEFORE_RUNNING,const liveTrafficReport = args.get( 'liveTrafficReport' ) || `reports/route-deploy-live-traffic-priority-${ reportDate }.csv`;
+tools/build-route-deploy-verification-gate.mjs,32,REVIEW_BEFORE_RUNNING,const liveTrustReport = args.get( 'liveTrustReport' ) || `reports/route-deploy-live-trust-routes-${ reportDate }.csv`;
+tools/build-route-deploy-verification-gate.mjs,33,REVIEW_BEFORE_RUNNING,const liveControlledBreadcrumbReport = args.get( 'liveControlledBreadcrumbReport' ) || `reports/route-deploy-live-controlled-breadcrumbs-${ reportDate }.csv`;
+tools/build-route-deploy-verification-gate.mjs,34,REVIEW_BEFORE_RUNNING,const screenshotDir = args.get( 'screenshotDir' ) || `project-control/visual-evidence/route-deploy-${ reportDate }`;
+tools/build-route-deploy-verification-gate.mjs,61,REVIEW_BEFORE_RUNNING,"taskBoard: 'project-control/task-board.csv',"
+tools/build-route-deploy-verification-gate.mjs,545,REVIEW_BEFORE_RUNNING,$env:JUSTICE_TRAFFIC_REPORT='reports/route-deploy-live-traffic-priority-${ reportDate }.csv'
+tools/build-route-deploy-verification-gate.mjs,547,REVIEW_BEFORE_RUNNING,$env:JUSTICE_TRUST_REPORT='reports/route-deploy-live-trust-routes-${ reportDate }.csv'
+tools/build-route-deploy-verification-gate.mjs,549,REVIEW_BEFORE_RUNNING,$env:JUSTICE_BREADCRUMB_REPORT='reports/route-deploy-breadcrumb-schema-${ reportDate }.csv'
+tools/build-route-deploy-verification-gate.mjs,552,REVIEW_BEFORE_RUNNING,$env:JUSTICE_CONTROLLED_BREADCRUMB_REPORT='reports/route-deploy-live-controlled-breadcrumbs-${ reportDate }.csv'
+tools/build-route-deploy-verification-gate.mjs,567,REVIEW_BEFORE_RUNNING,"const reportDir = path.join( root, 'reports' );"
+tools/build-route-deploy-verification-gate.mjs,568,REVIEW_BEFORE_RUNNING,"const controlDir = path.join( root, 'project-control' );"
+tools/check-controlled-route-breadcrumb-safety.mjs,33,REVIEW_BEFORE_RUNNING,"reportCsv: path.join(ROOT, 'reports', `${base}.csv`),"
+tools/check-controlled-route-breadcrumb-safety.mjs,34,REVIEW_BEFORE_RUNNING,"reportJson: path.join(ROOT, 'reports', `${base}.json`),"
+tools/check-controlled-route-breadcrumb-safety.mjs,35,REVIEW_BEFORE_RUNNING,"projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),"
+tools/check-controlled-route-breadcrumb-safety.mjs,36,REVIEW_BEFORE_RUNNING,"projectMd: path.join(ROOT, 'project-control', `${base}.md`),"
+tools/check-eeat-authority-safety.mjs,8,REVIEW_BEFORE_RUNNING,"const reportDir = path.join(root, 'reports');"
+tools/check-family-divorce-live-preupload.mjs,6,REVIEW_BEFORE_RUNNING,|| 'reports/family-divorce-live-preupload-2026-05-21.csv';
+tools/check-family-divorce-public-bodies.mjs,5,REVIEW_BEFORE_RUNNING,|| 'reports/family-divorce-public-body-static-qa-2026-05-21.csv';
+tools/check-family-divorce-public-bodies.mjs,11,REFERENCE_ONLY,"file: 'content-drafts/divorce-lawyer-public-body-he.md',"
+tools/check-family-divorce-public-bodies.mjs,24,REFERENCE_ONLY,"file: 'content-drafts/consensual-divorce-public-body-he.md',"
+tools/check-family-divorce-public-bodies.mjs,30,REFERENCE_ONLY,"file: 'content-drafts/divorce-mediation-public-body-he.md',"
+tools/check-family-divorce-public-bodies.mjs,36,REFERENCE_ONLY,"file: 'content-drafts/divorce-property-division-public-body-he.md',"
+tools/check-family-divorce-public-bodies.mjs,42,REFERENCE_ONLY,"file: 'content-drafts/family-dispute-resolution-public-body-he.md',"
+tools/check-family-divorce-public-bodies.mjs,48,REFERENCE_ONLY,"file: 'content-drafts/child-support-public-body-he.md',"
+tools/check-family-divorce-public-bodies.mjs,54,REFERENCE_ONLY,"file: 'content-drafts/child-custody-public-body-he.md',"
+tools/check-family-divorce-public-bodies.mjs,71,REFERENCE_ONLY,"'project-control',"
+tools/check-family-divorce-public-bodies.mjs,72,REFERENCE_ONLY,"'content-drafts/',"
+tools/check-family-divorce-upload-readiness.mjs,9,REVIEW_BEFORE_RUNNING,"const OUT_CSV = path.join(ROOT, 'reports', `family-divorce-upload-readiness-${TODAY}.csv`);"
+tools/check-family-divorce-upload-readiness.mjs,10,REVIEW_BEFORE_RUNNING,"const OUT_JSON = path.join(ROOT, 'reports', `family-divorce-upload-readiness-${TODAY}.json`);"
+tools/check-family-divorce-upload-readiness.mjs,13,REVIEW_BEFORE_RUNNING,"staticQa: 'reports/family-divorce-public-body-static-qa-2026-05-21.csv',"
+tools/check-family-divorce-upload-readiness.mjs,14,REVIEW_BEFORE_RUNNING,"liveManifest: 'reports/family-divorce-live-target-backup-2026-05-21/manifest.csv',"
+tools/check-family-divorce-upload-readiness.mjs,15,REVIEW_BEFORE_RUNNING,"livePreupload: 'reports/family-divorce-live-preupload-2026-05-21.csv',"
+tools/check-family-divorce-upload-readiness.mjs,16,REVIEW_BEFORE_RUNNING,"ownerPacket: 'project-control/family-divorce-owner-review-packet-2026-05-21.csv',"
+tools/check-family-divorce-upload-readiness.mjs,17,REVIEW_BEFORE_RUNNING,"runbook: 'project-control/family-divorce-cms-operator-runbook-2026-05-21.csv',"
+tools/check-family-divorce-upload-readiness.mjs,18,REVIEW_BEFORE_RUNNING,"pillarMetadata: 'project-control/family-divorce-divorce-lawyer-metadata-package-2026-05-12.csv',"
+tools/check-family-divorce-upload-readiness.mjs,19,REVIEW_BEFORE_RUNNING,"supportMetadata: 'project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv',"
+tools/check-family-law-draft-enhancement-readiness.mjs,9,REFERENCE_ONLY,"'content-drafts/divorce-lawyer-public-body-he.md',"
+tools/check-family-law-draft-enhancement-readiness.mjs,10,REFERENCE_ONLY,"'content-drafts/consensual-divorce-public-body-he.md',"
+tools/check-family-law-draft-enhancement-readiness.mjs,11,REFERENCE_ONLY,"'content-drafts/divorce-mediation-public-body-he.md',"
+tools/check-family-law-draft-enhancement-readiness.mjs,12,REFERENCE_ONLY,"'content-drafts/divorce-property-division-public-body-he.md',"
+tools/check-family-law-draft-enhancement-readiness.mjs,13,REFERENCE_ONLY,"'content-drafts/family-dispute-resolution-public-body-he.md',"
+tools/check-family-law-draft-enhancement-readiness.mjs,14,REFERENCE_ONLY,"'content-drafts/child-support-public-body-he.md',"
+tools/check-family-law-draft-enhancement-readiness.mjs,15,REFERENCE_ONLY,"'content-drafts/child-custody-public-body-he.md',"
+tools/check-family-law-draft-enhancement-readiness.mjs,73,REVIEW_BEFORE_RUNNING,project-control/family-law-draft-enhancement-queue-YYYY-MM-DD.csv
+tools/check-family-law-draft-enhancement-readiness.mjs,76,REVIEW_BEFORE_RUNNING,reports/family-law-draft-enhancement-readiness-YYYY-MM-DD.csv
+tools/check-family-law-draft-enhancement-readiness.mjs,77,REVIEW_BEFORE_RUNNING,reports/family-law-draft-enhancement-readiness-YYYY-MM-DD.json
+tools/check-family-law-draft-enhancement-readiness.mjs,78,REVIEW_BEFORE_RUNNING,project-control/family-law-draft-enhancement-readiness-YYYY-MM-DD.csv
+tools/check-family-law-draft-enhancement-readiness.mjs,79,REFERENCE_ONLY,project-control/family-law-draft-enhancement-readiness-YYYY-MM-DD.md
+tools/check-family-law-draft-enhancement-readiness.mjs,86,REVIEW_BEFORE_RUNNING,"queueCsv: path.join(ROOT, 'project-control', `family-law-draft-enhancement-queue-${reportDate}.csv`),"
+tools/check-family-law-draft-enhancement-readiness.mjs,87,REVIEW_BEFORE_RUNNING,"reportCsv: path.join(ROOT, 'reports', `${base}.csv`),"
+tools/check-family-law-draft-enhancement-readiness.mjs,88,REVIEW_BEFORE_RUNNING,"reportJson: path.join(ROOT, 'reports', `${base}.json`),"
+tools/check-family-law-draft-enhancement-readiness.mjs,89,REVIEW_BEFORE_RUNNING,"projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),"
+tools/check-family-law-draft-enhancement-readiness.mjs,90,REVIEW_BEFORE_RUNNING,"projectMd: path.join(ROOT, 'project-control', `${base}.md`),"
+tools/check-family-law-draft-enhancement-readiness.mjs,173,REFERENCE_ONLY,.filter((entry) => entry.startsWith('content-drafts/'));
+tools/check-family-law-draft-enhancement-readiness.mjs,182,REVIEW_BEFORE_RUNNING,"for (const directory of ['project-control', 'reports']) {"
+tools/check-family-law-live-safety.mjs,86,REVIEW_BEFORE_RUNNING,"reportCsv: path.join(ROOT, 'reports', `${base}.csv`),"
+tools/check-family-law-live-safety.mjs,87,REVIEW_BEFORE_RUNNING,"reportJson: path.join(ROOT, 'reports', `${base}.json`),"
+tools/check-family-law-live-safety.mjs,88,REVIEW_BEFORE_RUNNING,"projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),"
+tools/check-family-law-live-safety.mjs,89,REVIEW_BEFORE_RUNNING,"projectMd: path.join(ROOT, 'project-control', `${base}.md`),"
+tools/check-first-paid-lawyer-sales-pack.mjs,12,REFERENCE_ONLY,"path: 'project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md',"
+tools/check-first-paid-lawyer-sales-pack.mjs,17,REVIEW_BEFORE_RUNNING,"path: 'project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv',"
+tools/check-first-paid-lawyer-sales-pack.mjs,22,REFERENCE_ONLY,"path: 'project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md',"
+tools/check-first-paid-lawyer-sales-pack.mjs,27,REFERENCE_ONLY,"path: 'project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html',"
+tools/check-first-paid-lawyer-sales-pack.mjs,35,REFERENCE_ONLY,"files: [ 'project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md', 'project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html' ],"
+tools/check-first-paid-lawyer-sales-pack.mjs,41,REFERENCE_ONLY,"files: [ 'project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md', 'project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html' ],"
+tools/check-first-paid-lawyer-sales-pack.mjs,47,REFERENCE_ONLY,"files: [ 'project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md', 'project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html' ],"
+tools/check-first-paid-lawyer-sales-pack.mjs,53,REFERENCE_ONLY,"files: [ 'project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md', 'project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html' ],"
+tools/check-first-paid-lawyer-sales-pack.mjs,59,REFERENCE_ONLY,"files: [ 'project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md', 'project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md', 'project-control/first-cohort-lawyer-of"
+tools/check-first-paid-lawyer-sales-pack.mjs,65,REFERENCE_ONLY,"files: [ 'project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md' ],"
+tools/check-first-paid-lawyer-sales-pack.mjs,71,REFERENCE_ONLY,"files: [ 'project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html' ],"
+tools/check-first-paid-lawyer-sales-pack.mjs,77,REFERENCE_ONLY,"files: [ 'project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md' ],"
+tools/check-first-paid-lawyer-sales-pack.mjs,83,REVIEW_BEFORE_RUNNING,"files: [ 'project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv' ],"
+tools/check-first-paid-lawyer-sales-pack.mjs,182,REVIEW_BEFORE_RUNNING,"await mkdir( 'reports', { recursive: true } );"
+tools/check-first-paid-lawyer-sales-pack.mjs,183,REFERENCE_ONLY,"await mkdir( 'project-control', { recursive: true } );"
+tools/check-first-paid-lawyer-sales-pack.mjs,218,REVIEW_BEFORE_RUNNING,const trackerText = await readCached( 'project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv' );
+tools/check-first-paid-lawyer-sales-pack.mjs,229,REVIEW_BEFORE_RUNNING,"await writeFile( `reports/${ reportBase }.json`, JSON.stringify( payload, null, 2 ) + '\n' );"
+tools/check-first-paid-lawyer-sales-pack.mjs,230,REVIEW_BEFORE_RUNNING,"await writeFile( `reports/${ reportBase }.csv`, toCsv( fileResults, tokenResults, trackerRows ) );"
+tools/check-first-paid-lawyer-sales-pack.mjs,231,REVIEW_BEFORE_RUNNING,"await writeFile( `project-control/${ reportBase }.md`, toMarkdown( fileResults, tokenResults, trackerRows ) );"
+tools/check-first-paid-lawyer-sales-pack.mjs,232,REVIEW_BEFORE_RUNNING,"await writeFile( `project-control/${ reportBase }.csv`, toCsv( fileResults, tokenResults, trackerRows ) );"
+tools/check-homepage-investor-polish-live.mjs,208,REVIEW_BEFORE_RUNNING,"await fs.mkdir( 'reports', { recursive: true } );"
+tools/check-homepage-investor-polish-live.mjs,209,REFERENCE_ONLY,"await fs.mkdir( 'project-control', { recursive: true } );"
+tools/check-homepage-investor-polish-live.mjs,210,REVIEW_BEFORE_RUNNING,"await fs.writeFile( `reports/homepage-investor-polish-live-${ RUN_DATE }.json`, JSON.stringify( report, null, 2 ) + '\n' );"
+tools/check-homepage-investor-polish-live.mjs,211,REVIEW_BEFORE_RUNNING,"await fs.writeFile( `reports/homepage-investor-polish-live-${ RUN_DATE }.csv`, csv );"
+tools/check-homepage-investor-polish-live.mjs,212,REFERENCE_ONLY,"await fs.writeFile( `project-control/homepage-investor-polish-live-${ RUN_DATE }.md`, markdown );"
+tools/check-homepage-investor-polish-live.mjs,213,REVIEW_BEFORE_RUNNING,"await fs.writeFile( `project-control/homepage-investor-polish-live-${ RUN_DATE }.csv`, csv );"
+tools/check-investor-demo-readiness.mjs,159,REVIEW_BEFORE_RUNNING,"name: 'Owner CRM shows lawyer follow-up reports',"
+tools/check-investor-demo-readiness.mjs,216,REFERENCE_ONLY,"file: 'project-control/investor-demo-emergency-test-matrix-2026-05-24.md',"
+tools/check-investor-demo-readiness.mjs,450,REVIEW_BEFORE_RUNNING,"await mkdir( 'reports', { recursive: true } );"
+tools/check-investor-demo-readiness.mjs,451,REFERENCE_ONLY,"await mkdir( 'project-control', { recursive: true } );"
+tools/check-investor-demo-readiness.mjs,452,REVIEW_BEFORE_RUNNING,"await writeFile( `reports/investor-demo-readiness-${ RUN_DATE }.json`, `${ JSON.stringify( payload, null, 2 ) }\n` );"
+tools/check-investor-demo-readiness.mjs,453,REVIEW_BEFORE_RUNNING,"await writeFile( `reports/investor-demo-readiness-${ RUN_DATE }.csv`, toCsv( rows ) );"
+tools/check-investor-demo-readiness.mjs,454,REFERENCE_ONLY,"await writeFile( `project-control/investor-demo-readiness-${ RUN_DATE }.md`, toMarkdown( rows ) );"
+tools/check-investor-demo-readiness.mjs,455,REVIEW_BEFORE_RUNNING,"await writeFile( `project-control/investor-demo-readiness-${ RUN_DATE }.csv`, toCsv( rows ) );"
+tools/check-investor-launchpad-pack.mjs,8,REFERENCE_ONLY,const launchpadPath = 'project-control/investor-demo-launchpad-2026-05-25.html';
+tools/check-investor-launchpad-pack.mjs,19,REFERENCE_ONLY,"path: 'project-control/investor-demo-scenario-script-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,24,REFERENCE_ONLY,"path: 'project-control/investor-demo-morning-control-sheet-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,29,REFERENCE_ONLY,"path: 'project-control/investor-morning-brief-he-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,34,REFERENCE_ONLY,"path: 'project-control/investor-morning-brief-he-2026-05-25.html',"
+tools/check-investor-launchpad-pack.mjs,39,REFERENCE_ONLY,"path: 'project-control/investor-payment-lifecycle-playbook-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,44,REFERENCE_ONLY,"path: 'project-control/investor-demo-fallback-answers-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,49,REFERENCE_ONLY,"path: 'project-control/investor-live-data-provider-action-checklist-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,54,REFERENCE_ONLY,"path: 'project-control/investor-post-demo-follow-up-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,59,REFERENCE_ONLY,"path: 'project-control/first-paid-lawyer-outreach-sprint-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,64,REVIEW_BEFORE_RUNNING,"path: 'project-control/first-paid-lawyer-outreach-sprint-2026-05-25.csv',"
+tools/check-investor-launchpad-pack.mjs,69,REFERENCE_ONLY,"path: 'project-control/first-cohort-lawyer-offer-sheet-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,74,REFERENCE_ONLY,"path: 'project-control/first-cohort-lawyer-offer-sheet-he-2026-05-25.html',"
+tools/check-investor-launchpad-pack.mjs,79,REFERENCE_ONLY,"path: 'project-control/first-paid-lawyer-sales-pack-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,84,REFERENCE_ONLY,"path: 'project-control/payment-proof-drill-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,89,REFERENCE_ONLY,"path: 'project-control/investor-value-moment-cue-card-2026-05-25.html',"
+tools/check-investor-launchpad-pack.mjs,94,REFERENCE_ONLY,"path: 'project-control/investor-live-room-runbook-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,99,REFERENCE_ONLY,"path: 'project-control/lawyer-signup-competitor-patterns-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,104,REFERENCE_ONLY,"path: 'project-control/lawyer-signup-conversion-standard-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,109,REFERENCE_ONLY,"path: 'project-control/investor-demo-data-seed-packet-ascii-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,114,REFERENCE_ONLY,"path: 'project-control/investor-demo-readiness-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,119,REFERENCE_ONLY,"path: 'project-control/lawyer-revenue-funnel-live-2026-05-25.md',"
+tools/check-investor-launchpad-pack.mjs,283,REVIEW_BEFORE_RUNNING,"await mkdir( 'reports', { recursive: true } );"
+tools/check-investor-launchpad-pack.mjs,284,REFERENCE_ONLY,"await mkdir( 'project-control', { recursive: true } );"
+tools/check-investor-launchpad-pack.mjs,306,REVIEW_BEFORE_RUNNING,"await writeFile( `reports/${ reportBase }.json`, JSON.stringify( payload, null, 2 ) + '\n' );"
+tools/check-investor-launchpad-pack.mjs,307,REVIEW_BEFORE_RUNNING,"await writeFile( `reports/${ reportBase }.csv`, toCsv( fileResults, tokenResults ) );"
+tools/check-investor-launchpad-pack.mjs,308,REVIEW_BEFORE_RUNNING,"await writeFile( `project-control/${ reportBase }.md`, toMarkdown( fileResults, tokenResults ) );"
+tools/check-investor-launchpad-pack.mjs,309,REVIEW_BEFORE_RUNNING,"await writeFile( `project-control/${ reportBase }.csv`, toCsv( fileResults, tokenResults ) );"
+tools/check-investor-morning-go-no-go.mjs,9,REVIEW_BEFORE_RUNNING,"revenueFunnel: `reports/lawyer-revenue-funnel-live-${ RUN_DATE }.json`,"
+tools/check-investor-morning-go-no-go.mjs,10,REVIEW_BEFORE_RUNNING,"investorReadiness: `reports/investor-demo-readiness-${ RUN_DATE }.json`,"
+tools/check-investor-morning-go-no-go.mjs,11,REVIEW_BEFORE_RUNNING,"launchpadPack: `reports/investor-launchpad-pack-${ RUN_DATE }.json`,"
+tools/check-investor-morning-go-no-go.mjs,12,REVIEW_BEFORE_RUNNING,"paymentOverclaim: `reports/investor-payment-overclaim-${ RUN_DATE }.json`,"
+tools/check-investor-morning-go-no-go.mjs,108,REVIEW_BEFORE_RUNNING,"await mkdir( 'reports', { recursive: true } );"
+tools/check-investor-morning-go-no-go.mjs,109,REFERENCE_ONLY,"await mkdir( 'project-control', { recursive: true } );"
+tools/check-investor-morning-go-no-go.mjs,192,REVIEW_BEFORE_RUNNING,"await writeFile( `reports/${ reportBase }.json`, JSON.stringify( payload, null, 2 ) + '\n' );"
+tools/check-investor-morning-go-no-go.mjs,193,REVIEW_BEFORE_RUNNING,"await writeFile( `reports/${ reportBase }.csv`, toCsv( rows ) );"
+tools/check-investor-morning-go-no-go.mjs,194,REVIEW_BEFORE_RUNNING,"await writeFile( `project-control/${ reportBase }.md`, toMarkdown( rows, totals ) );"
+tools/check-investor-morning-go-no-go.mjs,195,REVIEW_BEFORE_RUNNING,"await writeFile( `project-control/${ reportBase }.csv`, toCsv( rows ) );"
+tools/check-investor-payment-overclaim.mjs,9,REFERENCE_ONLY,"'project-control/investor-demo-launchpad-2026-05-25.html',"
+tools/check-investor-payment-overclaim.mjs,10,REFERENCE_ONLY,"'project-control/investor-demo-morning-control-sheet-2026-05-25.md',"
+tools/check-investor-payment-overclaim.mjs,11,REFERENCE_ONLY,"'project-control/investor-demo-scenario-script-2026-05-25.md',"
+tools/check-investor-payment-overclaim.mjs,12,REFERENCE_ONLY,"'project-control/investor-payment-lifecycle-playbook-2026-05-25.md',"
+tools/check-investor-payment-overclaim.mjs,13,REFERENCE_ONLY,"'project-control/investor-demo-readiness-2026-05-25.md',"
+tools/check-investor-payment-overclaim.mjs,14,REFERENCE_ONLY,"'project-control/investor-launchpad-pack-2026-05-25.md',"
+tools/check-investor-payment-overclaim.mjs,190,REVIEW_BEFORE_RUNNING,"await mkdir( 'reports', { recursive: true } );"
+tools/check-investor-payment-overclaim.mjs,191,REFERENCE_ONLY,"await mkdir( 'project-control', { recursive: true } );"
+tools/check-investor-payment-overclaim.mjs,244,REVIEW_BEFORE_RUNNING,"await writeFile( `reports/${ reportBase }.json`, JSON.stringify( payload, null, 2 ) + '\n' );"
+tools/check-investor-payment-overclaim.mjs,245,REVIEW_BEFORE_RUNNING,"await writeFile( `reports/${ reportBase }.csv`, toCsv( honestyResults, overclaimResults ) );"
+tools/check-investor-payment-overclaim.mjs,246,REVIEW_BEFORE_RUNNING,"await writeFile( `project-control/${ reportBase }.md`, toMarkdown( honestyResults, overclaimResults ) );"
+tools/check-investor-payment-overclaim.mjs,247,REVIEW_BEFORE_RUNNING,"await writeFile( `project-control/${ reportBase }.csv`, toCsv( honestyResults, overclaimResults ) );"
+tools/check-justice-seo-pack.mjs,5,REVIEW_BEFORE_RUNNING,"const packDir = path.join(root, 'mnt', 'documents', 'justice');"
+tools/check-justice-seo-pack.mjs,6,REVIEW_BEFORE_RUNNING,"const reportDir = path.join(root, 'reports');"
+tools/check-justice-seo-pack.mjs,7,REVIEW_BEFORE_RUNNING,"const controlDir = path.join(root, 'project-control');"
+tools/check-lawyer-signup-conversion-standard.mjs,24,REFERENCE_ONLY,"url: 'project-control/lawyer-signup-competitor-patterns-2026-05-25.md',"
+tools/check-lawyer-signup-conversion-standard.mjs,312,REVIEW_BEFORE_RUNNING,"await fs.mkdir( 'reports', { recursive: true } );"
+tools/check-lawyer-signup-conversion-standard.mjs,313,REFERENCE_ONLY,"await fs.mkdir( 'project-control', { recursive: true } );"
+tools/check-lawyer-signup-conversion-standard.mjs,314,REVIEW_BEFORE_RUNNING,"await fs.writeFile( `reports/lawyer-signup-conversion-standard-${ RUN_DATE }.json`, JSON.stringify( payload, null, 2 ) + '\n' );"
+tools/check-lawyer-signup-conversion-standard.mjs,315,REVIEW_BEFORE_RUNNING,"await fs.writeFile( `reports/lawyer-signup-conversion-standard-${ RUN_DATE }.csv`, toCsv( results ) );"
+tools/check-lawyer-signup-conversion-standard.mjs,316,REFERENCE_ONLY,"await fs.writeFile( `project-control/lawyer-signup-conversion-standard-${ RUN_DATE }.md`, toMarkdown( results ) );"
+tools/check-lawyer-signup-conversion-standard.mjs,317,REVIEW_BEFORE_RUNNING,"await fs.writeFile( `project-control/lawyer-signup-conversion-standard-${ RUN_DATE }.csv`, toCsv( results ) );"
+tools/check-lawyer-subscription-e2e-preflight.mjs,237,REFERENCE_ONLY,"""fs.mkdir( 'project-control'"","
+tools/check-lawyer-subscription-e2e-preflight.mjs,238,REVIEW_BEFORE_RUNNING,"""fs.mkdir( 'reports'"","
+tools/check-lawyer-subscription-e2e-preflight.mjs,239,REFERENCE_ONLY,"'`project-control/lawyer-revenue-funnel-live-',"
+tools/check-lawyer-subscription-e2e-preflight.mjs,240,REVIEW_BEFORE_RUNNING,"'`reports/lawyer-revenue-funnel-live-',"
+tools/check-lead-area-vocabulary-safety.mjs,46,REVIEW_BEFORE_RUNNING,"reportCsv: path.join(ROOT, 'reports', `${base}.csv`),"
+tools/check-lead-area-vocabulary-safety.mjs,47,REVIEW_BEFORE_RUNNING,"reportJson: path.join(ROOT, 'reports', `${base}.json`),"
+tools/check-lead-area-vocabulary-safety.mjs,48,REVIEW_BEFORE_RUNNING,"projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),"
+tools/check-lead-area-vocabulary-safety.mjs,49,REVIEW_BEFORE_RUNNING,"projectMd: path.join(ROOT, 'project-control', `${base}.md`),"
+tools/check-legal-service-supplier-index-candidates.mjs,4,REVIEW_BEFORE_RUNNING,const csvPath = `project-control/legal-service-supplier-cms-index-candidates-${RUN_DATE}.csv`;
+tools/check-legal-service-supplier-index-candidates.mjs,5,REFERENCE_ONLY,const mdPath = `project-control/legal-service-supplier-cms-index-candidates-${RUN_DATE}.md`;
+tools/check-legal-service-supplier-index-candidates.mjs,96,REVIEW_BEFORE_RUNNING,"await fs.mkdir('reports', { recursive: true });"
+tools/check-legal-service-supplier-index-candidates.mjs,97,REVIEW_BEFORE_RUNNING,"await fs.writeFile(`reports/legal-service-supplier-index-candidates-${RUN_DATE}.json`, `${JSON.stringify(report, null, 2)}\n`);"
+tools/check-legal-service-supplier-index-candidates.mjs,98,REVIEW_BEFORE_RUNNING,"await fs.writeFile(`reports/legal-service-supplier-index-candidates-${RUN_DATE}.csv`, reportCsv);"
+tools/check-legal-service-supplier-index-candidates.mjs,99,REVIEW_BEFORE_RUNNING,"await fs.writeFile(`project-control/legal-service-supplier-index-candidates-check-${RUN_DATE}.md`, reportMd);"
+tools/check-legal-service-supplier-index-candidates.mjs,100,REVIEW_BEFORE_RUNNING,"await fs.writeFile(`project-control/legal-service-supplier-index-candidates-check-${RUN_DATE}.csv`, reportCsv);"
+tools/check-live-author-attribution.mjs,5,REVIEW_BEFORE_RUNNING,const GSC_CSV = process.env.JUSTICE_GSC_CSV || 'content-master/gsc/gsc-url-summary.csv';
+tools/check-live-author-attribution.mjs,7,REVIEW_BEFORE_RUNNING,"const OUTPUT = process.argv[3] || `reports/live-author-attribution-audit-${new Date().toISOString().slice(0, 10)}.csv`;"
+tools/check-live-breadcrumb-schema.mjs,5,REVIEW_BEFORE_RUNNING,const REPORT_PATH = process.env.JUSTICE_BREADCRUMB_REPORT || 'reports/breadcrumb-schema-audit-2026-05-18.csv';
+tools/check-live-cms-indexed-customers.mjs,133,REVIEW_BEFORE_RUNNING,"await fs.mkdir('reports', { recursive: true });"
+tools/check-live-cms-indexed-customers.mjs,134,REFERENCE_ONLY,"await fs.mkdir('project-control', { recursive: true });"
+tools/check-live-cms-indexed-customers.mjs,135,REVIEW_BEFORE_RUNNING,"await fs.writeFile(`reports/live-cms-indexed-customers-${RUN_DATE}.json`, `${JSON.stringify(report, null, 2)}\n`);"
+tools/check-live-cms-indexed-customers.mjs,136,REVIEW_BEFORE_RUNNING,"await fs.writeFile(`reports/live-cms-indexed-customers-${RUN_DATE}.csv`, csv);"
+tools/check-live-cms-indexed-customers.mjs,137,REFERENCE_ONLY,"await fs.writeFile(`project-control/live-cms-indexed-customers-${RUN_DATE}.md`, markdown);"
+tools/check-live-cms-indexed-customers.mjs,138,REVIEW_BEFORE_RUNNING,"await fs.writeFile(`project-control/live-cms-indexed-customers-${RUN_DATE}.csv`, csv);"
+tools/check-live-controlled-route-breadcrumbs.mjs,6,REVIEW_BEFORE_RUNNING,const REPORT_PATH = process.env.JUSTICE_CONTROLLED_BREADCRUMB_REPORT || 'reports/controlled-route-live-breadcrumbs.csv';
+tools/check-live-deployment.ps1,46,REFERENCE_ONLY,"$badMarkers = @(""NOT VERIFIED"", ""PARTIAL:"", ""READY NEXT"", ""project-control"", ""Source audit"", ""GSC"", ""CRM"", ""CMS"", ""Tools > Jus-Tice"", ""FAQ schema"", ""source audit"")"
+tools/check-live-draft-push-public-exposure.mjs,59,REVIEW_BEFORE_RUNNING,"fs.mkdirSync(path.join(ROOT, 'reports'), { recursive: true });"
+tools/check-live-draft-push-public-exposure.mjs,60,REVIEW_BEFORE_RUNNING,"fs.mkdirSync(path.join(ROOT, 'project-control'), { recursive: true });"
+tools/check-live-draft-push-public-exposure.mjs,90,REVIEW_BEFORE_RUNNING,"const reportPath = path.join(ROOT, 'reports', 'live-draft-push-public-exposure-2026-05-25.json');"
+tools/check-live-draft-push-public-exposure.mjs,93,REVIEW_BEFORE_RUNNING,"const alertPath = path.join(ROOT, 'project-control', 'live-draft-push-risk-alert-2026-05-25.md');"
+tools/check-live-draft-push-public-exposure.mjs,113,REVIEW_BEFORE_RUNNING,"`Detailed JSON: reports/live-draft-push-public-exposure-2026-05-25.json`,"
+tools/check-live-lawyer-rest-public-guard.ps1,3,REVIEW_BEFORE_RUNNING,"[string]$OutputPath = ""project-control/live-lawyer-rest-public-guard-2026-05-11.csv"""
+tools/check-live-public-template-qa.ps1,3,REVIEW_BEFORE_RUNNING,"[string]$OutputPath = ""project-control/live-public-template-qa-2026-05-11.csv"""
+tools/check-live-related-content-qa.ps1,3,REVIEW_BEFORE_RUNNING,"[string]$OutputPath = ""project-control/live-related-content-qa-2026-05-11.csv"""
+tools/check-live-traffic-priority.mjs,5,REVIEW_BEFORE_RUNNING,const REPORT_PATH = process.env.JUSTICE_TRAFFIC_REPORT || 'reports/traffic-priority-audit-2026-05-18.csv';
+tools/check-live-trust-routes.mjs,5,REVIEW_BEFORE_RUNNING,const REPORT_PATH = process.env.JUSTICE_TRUST_REPORT || 'reports/trust-route-audit.csv';
+tools/check-maya-lawyer-live-readonly.mjs,443,REVIEW_BEFORE_RUNNING,"const reportCsv = path.join( root, 'reports', `${ baseName }.csv` );"
+tools/check-maya-lawyer-live-readonly.mjs,444,REVIEW_BEFORE_RUNNING,"const reportJson = path.join( root, 'reports', `${ baseName }.json` );"
+tools/check-maya-lawyer-live-readonly.mjs,445,REVIEW_BEFORE_RUNNING,"const projectCsv = path.join( root, 'project-control', `${ baseName }.csv` );"
+tools/check-maya-lawyer-live-readonly.mjs,446,REVIEW_BEFORE_RUNNING,"const projectMd = path.join( root, 'project-control', `${ baseName }.md` );"
+tools/check-maya-lawyer-mini-site-readiness.mjs,37,REFERENCE_ONLY,"authorityGate: 'project-control/authority-person-profile-schema-gate-2026-05-22.md',"
+tools/check-maya-lawyer-mini-site-readiness.mjs,38,REVIEW_BEFORE_RUNNING,"visualQa: 'project-control/visual-qa-report.md',"
+tools/check-maya-lawyer-mini-site-readiness.mjs,309,REVIEW_BEFORE_RUNNING,"const reportDir = path.join( root, 'reports' );"
+tools/check-maya-lawyer-mini-site-readiness.mjs,310,REVIEW_BEFORE_RUNNING,"const controlDir = path.join( root, 'project-control' );"
+tools/check-payment-handoff-live-deployment.mjs,180,REVIEW_BEFORE_RUNNING,"await fs.mkdir( 'reports', { recursive: true } );"
+tools/check-payment-handoff-live-deployment.mjs,181,REFERENCE_ONLY,"await fs.mkdir( 'project-control', { recursive: true } );"
+tools/check-payment-handoff-live-deployment.mjs,182,REVIEW_BEFORE_RUNNING,"await fs.writeFile( `reports/payment-handoff-live-deployment-${ RUN_DATE }.json`, JSON.stringify( report, null, 2 ) + '\n' );"
+tools/check-payment-handoff-live-deployment.mjs,183,REVIEW_BEFORE_RUNNING,"await fs.writeFile( `reports/payment-handoff-live-deployment-${ RUN_DATE }.csv`, csv );"
+tools/check-payment-handoff-live-deployment.mjs,184,REFERENCE_ONLY,"await fs.writeFile( `project-control/payment-handoff-live-deployment-${ RUN_DATE }.md`, markdown );"
+tools/check-payment-handoff-live-deployment.mjs,185,REVIEW_BEFORE_RUNNING,"await fs.writeFile( `project-control/payment-handoff-live-deployment-${ RUN_DATE }.csv`, csv );"
+tools/check-payment-proof-drill.mjs,11,REFERENCE_ONLY,"path: 'project-control/grow-real-payment-link-smoke-test-2026-05-24.md',"
+tools/check-payment-proof-drill.mjs,25,REFERENCE_ONLY,"path: 'project-control/grow-recurring-debit-live-attempt-2026-05-24.md',"
+tools/check-payment-proof-drill.mjs,37,REFERENCE_ONLY,"path: 'project-control/investor-payment-lifecycle-playbook-2026-05-25.md',"
+tools/check-payment-proof-drill.mjs,206,REVIEW_BEFORE_RUNNING,"await mkdir( 'reports', { recursive: true } );"
+tools/check-payment-proof-drill.mjs,207,REFERENCE_ONLY,"await mkdir( 'project-control', { recursive: true } );"
+tools/check-payment-proof-drill.mjs,208,REVIEW_BEFORE_RUNNING,"await writeFile( `reports/payment-proof-drill-${ RUN_DATE }.json`, JSON.stringify( payload, null, 2 ) + '\n' );"
+tools/check-payment-proof-drill.mjs,209,REVIEW_BEFORE_RUNNING,"await writeFile( `reports/payment-proof-drill-${ RUN_DATE }.csv`, toCsv( results ) );"
+tools/check-payment-proof-drill.mjs,210,REFERENCE_ONLY,"await writeFile( `project-control/payment-proof-drill-${ RUN_DATE }.md`, toMarkdown( results ) );"
+tools/check-payment-proof-drill.mjs,211,REVIEW_BEFORE_RUNNING,"await writeFile( `project-control/payment-proof-drill-${ RUN_DATE }.csv`, toCsv( results ) );"
+tools/check-priority-pages-live-readonly.mjs,101,REVIEW_BEFORE_RUNNING,"reportCsv: path.join(ROOT, 'reports', `${base}.csv`),"
+tools/check-priority-pages-live-readonly.mjs,102,REVIEW_BEFORE_RUNNING,"reportJson: path.join(ROOT, 'reports', `${base}.json`),"
+tools/check-priority-pages-live-readonly.mjs,103,REVIEW_BEFORE_RUNNING,"projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),"
+tools/check-priority-pages-live-readonly.mjs,104,REVIEW_BEFORE_RUNNING,"projectMd: path.join(ROOT, 'project-control', `${base}.md`),"
+tools/check-public-http-internal-links.ps1,3,REVIEW_BEFORE_RUNNING,"[string]$OutputPath = ""project-control/public-http-internal-link-scan-2026-05-11.csv"","
+tools/check-seo-pack-cannibalization-gate.mjs,6,REVIEW_BEFORE_RUNNING,"const packPath = path.join(root, 'mnt', 'documents', 'justice', 'STEP_5_new_pages.json');"
+tools/check-seo-pack-cannibalization-gate.mjs,7,REVIEW_BEFORE_RUNNING,"const exportPath = path.join(root, 'project-control', 'exports', 'all-url-export.csv');"
+tools/check-seo-pack-cannibalization-gate.mjs,8,REVIEW_BEFORE_RUNNING,"const reportJsonPath = path.join(root, 'reports', 'seo-pack-cannibalization-gate-2026-05-25.json');"
+tools/check-seo-pack-cannibalization-gate.mjs,9,REVIEW_BEFORE_RUNNING,"const reportCsvPath = path.join(root, 'reports', 'seo-pack-cannibalization-gate-2026-05-25.csv');"
+tools/check-seo-pack-cannibalization-gate.mjs,10,REVIEW_BEFORE_RUNNING,"const reportMdPath = path.join(root, 'project-control', 'seo-pack-cannibalization-gate-2026-05-25.md');"
+tools/check-wp-rest-publisher-safety.mjs,33,REVIEW_BEFORE_RUNNING,"reportCsv: path.join(ROOT, 'reports', `${base}.csv`),"
+tools/check-wp-rest-publisher-safety.mjs,34,REVIEW_BEFORE_RUNNING,"reportJson: path.join(ROOT, 'reports', `${base}.json`),"
+tools/check-wp-rest-publisher-safety.mjs,35,REVIEW_BEFORE_RUNNING,"projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),"
+tools/check-wp-rest-publisher-safety.mjs,36,REVIEW_BEFORE_RUNNING,"projectMd: path.join(ROOT, 'project-control', `${base}.md`),"
+tools/check-wp-rest-publisher-safety.mjs,94,REVIEW_BEFORE_RUNNING,"'- FIXED: `reports/semrush/build-priority-pages.js` is dry-run by default.',"
+tools/check-wp-rest-publisher-safety.mjs,112,REVIEW_BEFORE_RUNNING,"const publisherPath = path.join(ROOT, 'reports', 'semrush', 'build-priority-pages.js');"
+tools/compare-family-divorce-live-vs-drafts.mjs,5,REVIEW_BEFORE_RUNNING,|| 'reports/family-divorce-live-vs-draft-comparison-2026-05-21.csv';
+tools/compare-family-divorce-live-vs-drafts.mjs,11,REVIEW_BEFORE_RUNNING,"liveFile: 'reports/family-divorce-live-target-backup-2026-05-21/divorce-lawyer.txt',"
+tools/compare-family-divorce-live-vs-drafts.mjs,12,REFERENCE_ONLY,"draftFile: 'content-drafts/divorce-lawyer-public-body-he.md',"
+tools/compare-family-divorce-live-vs-drafts.mjs,16,REVIEW_BEFORE_RUNNING,"liveFile: 'reports/family-divorce-live-target-backup-2026-05-21/consensual-divorce.txt',"
+tools/compare-family-divorce-live-vs-drafts.mjs,17,REFERENCE_ONLY,"draftFile: 'content-drafts/consensual-divorce-public-body-he.md',"
+tools/compare-family-divorce-live-vs-drafts.mjs,21,REVIEW_BEFORE_RUNNING,"liveFile: 'reports/family-divorce-live-target-backup-2026-05-21/divorce-mediation.txt',"
+tools/compare-family-divorce-live-vs-drafts.mjs,22,REFERENCE_ONLY,"draftFile: 'content-drafts/divorce-mediation-public-body-he.md',"
+tools/compare-family-divorce-live-vs-drafts.mjs,26,REVIEW_BEFORE_RUNNING,"liveFile: 'reports/family-divorce-live-target-backup-2026-05-21/divorce-property-division.txt',"
+tools/compare-family-divorce-live-vs-drafts.mjs,27,REFERENCE_ONLY,"draftFile: 'content-drafts/divorce-property-division-public-body-he.md',"
+tools/compare-family-divorce-live-vs-drafts.mjs,31,REVIEW_BEFORE_RUNNING,"liveFile: 'reports/family-divorce-live-target-backup-2026-05-21/family-dispute-resolution.txt',"
+tools/compare-family-divorce-live-vs-drafts.mjs,32,REFERENCE_ONLY,"draftFile: 'content-drafts/family-dispute-resolution-public-body-he.md',"
+tools/compare-family-divorce-live-vs-drafts.mjs,36,REVIEW_BEFORE_RUNNING,"liveFile: 'reports/family-divorce-live-target-backup-2026-05-21/child-support.txt',"
+tools/compare-family-divorce-live-vs-drafts.mjs,37,REFERENCE_ONLY,"draftFile: 'content-drafts/child-support-public-body-he.md',"
+tools/compare-family-divorce-live-vs-drafts.mjs,41,REVIEW_BEFORE_RUNNING,"liveFile: 'reports/family-divorce-live-target-backup-2026-05-21/child-custody.txt',"
+tools/compare-family-divorce-live-vs-drafts.mjs,42,REFERENCE_ONLY,"draftFile: 'content-drafts/child-custody-public-body-he.md',"
+tools/compare-plugin-manifests.ps1,2,REVIEW_BEFORE_RUNNING,"[string] $RepoManifest = ""project-control/ultra-justice-engine-repo-manifest.csv"","
+tools/compare-plugin-manifests.ps1,3,REVIEW_BEFORE_RUNNING,"[string] $LiveManifest = ""project-control/live-active-plugin-manifest.csv"","
+tools/compare-plugin-manifests.ps1,4,REVIEW_BEFORE_RUNNING,"[string] $OutputCsv = ""project-control/live-plugin-manifest-comparison.csv"""
+tools/content-audit/build-audit-v1.ps1,2,REVIEW_BEFORE_RUNNING,"[string]$InventoryPath = ""project-control\content-master-inventory.csv"","
+tools/content-audit/build-audit-v1.ps1,3,REFERENCE_ONLY,"[string]$ExportDir = ""project-control\exports"","
+tools/content-audit/build-audit-v1.ps1,4,REFERENCE_ONLY,"[string]$ProjectControlDir = ""project-control"""
+tools/content-audit/build-content-triage.mjs,7,REVIEW_BEFORE_RUNNING,"migration: 'project-control/url-migration-map.csv',"
+tools/content-audit/build-content-triage.mjs,8,REVIEW_BEFORE_RUNNING,"siteHealth: 'reports/site-health-audit-2026-05-18.csv',"
+tools/content-audit/build-content-triage.mjs,9,REVIEW_BEFORE_RUNNING,"gsc: 'content-master/gsc/gsc-url-summary.csv',"
+tools/content-audit/build-content-triage.mjs,10,REVIEW_BEFORE_RUNNING,"gaps: 'content-master/content-gap-map.csv',"
+tools/content-audit/build-content-triage.mjs,12,REVIEW_BEFORE_RUNNING,const OUT_CSV = 'project-control/content-triage-2026-05-18.csv';
+tools/content-audit/build-content-triage.mjs,13,REFERENCE_ONLY,const OUT_MD = 'project-control/content-triage-2026-05-18.md';
+tools/content-audit/build-decision-review-batches.ps1,2,REFERENCE_ONLY,"[string] $ProjectControlDir = ""project-control"""
+tools/content-audit/wp-rest-export.ps1,3,REVIEW_BEFORE_RUNNING,"[string]$OutDir = ""project-control\exports"","
+tools/content-audit/wp-rest-export.ps1,245,REVIEW_BEFORE_RUNNING,"$allContent | Export-Csv -Path ""project-control\content-master-inventory.csv"" -NoTypeInformation -Encoding UTF8"
+tools/export-family-divorce-live-targets.mjs,6,REVIEW_BEFORE_RUNNING,|| 'reports/family-divorce-live-target-backup-2026-05-21';
+tools/export-plugin-manifest-diagnostic.ps1,4,REVIEW_BEFORE_RUNNING,"[string] $OutputJson = ""project-control/live-active-plugin-manifest.json"","
+tools/export-plugin-manifest-diagnostic.ps1,5,REVIEW_BEFORE_RUNNING,"[string] $OutputCsv = ""project-control/live-active-plugin-manifest.csv"","
+tools/export-posts.js,32,REVIEW_BEFORE_RUNNING,"fs.writeFileSync('c:/Users/pro/justice/project-control/full-inventory.csv', csv);"
+tools/export-posts.js,33,REVIEW_BEFORE_RUNNING,console.log('Saved ' + posts.length + ' posts to project-control/full-inventory.csv');
+tools/export-v2.js,4,REVIEW_BEFORE_RUNNING,const masterCsvPath = 'c:/Users/pro/justice/project-control/content-master/content-master-inventory.csv';
+tools/export-v2.js,5,REFERENCE_ONLY,const bodiesDir = 'c:/Users/pro/justice/project-control/content-master/content-bodies';
+tools/extract-family-law-live-repair-diagnostics.mjs,80,REVIEW_BEFORE_RUNNING,"reportCsv: path.join(ROOT, 'reports', `${base}.csv`),"
+tools/extract-family-law-live-repair-diagnostics.mjs,81,REVIEW_BEFORE_RUNNING,"reportJson: path.join(ROOT, 'reports', `${base}.json`),"
+tools/extract-family-law-live-repair-diagnostics.mjs,82,REVIEW_BEFORE_RUNNING,"projectCsv: path.join(ROOT, 'project-control', `${base}.csv`),"
+tools/extract-family-law-live-repair-diagnostics.mjs,83,REVIEW_BEFORE_RUNNING,"projectMd: path.join(ROOT, 'project-control', `${base}.md`),"
+tools/filter-family-law.js,15,REVIEW_BEFORE_RUNNING,"const MASTER_CSV = path.resolve(__dirname, '../../project-control/content-master/content-master-inventory.csv');"
+tools/filter-family-law.js,16,REVIEW_BEFORE_RUNNING,"const OUTPUT_CSV = path.resolve(__dirname, '../../project-control/content-master/family-law-cluster.csv');"
+tools/filter-family-law.js,17,REVIEW_BEFORE_RUNNING,"const SUMMARY_FILE = path.resolve(__dirname, '../../project-control/content-master/family-law-cluster-summary.md');"
+tools/generate-redirects.js,13,REVIEW_BEFORE_RUNNING,"const INPUT = path.resolve(__dirname, '../../project-control/content-master/family-law-decision-map.csv');"
+tools/generate-redirects.js,14,REVIEW_BEFORE_RUNNING,"const MASTER = path.resolve(__dirname, '../../project-control/content-master/content-master-inventory.csv');"
+tools/generate-redirects.js,15,REVIEW_BEFORE_RUNNING,"const OUTPUT = path.resolve(__dirname, '../../project-control/content-master/redirect-301-family-law.csv');"
+tools/generate-redirects.js,16,REVIEW_BEFORE_RUNNING,"const HTACCESS = path.resolve(__dirname, '../../project-control/content-master/redirect-301-htaccess.txt');"
+tools/gsc/analyze-clusters.js,3,REVIEW_BEFORE_RUNNING,"const REPORTS = path.join(__dirname, '..', '..', 'reports', 'gsc');"
+tools/gsc/analyze.js,4,REVIEW_BEFORE_RUNNING,"const REPORTS = path.join(__dirname, '..', '..', 'reports', 'gsc');"
+tools/gsc/check-priority-gsc-export-output.ps1,280,REVIEW_BEFORE_RUNNING,"$exportDir = Join-RepoPath ""reports\gsc\$ExportDirName"""
+tools/gsc/check-priority-gsc-export-output.ps1,288,REVIEW_BEFORE_RUNNING,"@{ type = ""decision-map""; path = (Join-RepoPath ""reports\$DecisionPrefix-$ReportDate.csv""); columns = $DecisionColumns; requireRows = $true; emptyStatus = ""BLOCKED_EMPTY_DECISION_M"
+tools/gsc/check-priority-gsc-export-output.ps1,289,REVIEW_BEFORE_RUNNING,"@{ type = ""protected-decision-map""; path = (Join-RepoPath ""reports\$ProtectedDecisionPrefix-$ReportDate.csv""); columns = $DecisionColumns; requireRows = $true; emptyStatus = ""BLOCK"
+tools/gsc/check-priority-gsc-export-output.ps1,290,REVIEW_BEFORE_RUNNING,"@{ type = ""cannibalization-decision-map""; path = (Join-RepoPath ""reports\$CannibalizationDecisionPrefix-$ReportDate.csv""); columns = $DecisionCannibalizationColumns; requireRows = "
+tools/gsc/check-priority-gsc-export-output.ps1,294,REVIEW_BEFORE_RUNNING,"path = (Join-RepoPath ""reports\$DecisionPrefix-$ReportDate.json"")"
+tools/gsc/check-priority-gsc-export-output.ps1,436,REVIEW_BEFORE_RUNNING,"$csvPath = Join-RepoPath ""project-control\gsc-priority-export-output-validator-$ReportDate.csv"""
+tools/gsc/check-priority-gsc-export-output.ps1,437,REVIEW_BEFORE_RUNNING,"$mdPath = Join-RepoPath ""project-control\gsc-priority-export-output-validator-$ReportDate.md"""
+tools/gsc/check-priority-gsc-export-output.ps1,451,REVIEW_BEFORE_RUNNING,"'- Focused export directories under `reports/gsc/` for Family/Divorce, Criminal Law and Medical Malpractice.',"
+tools/gsc/create-criminal-pillar-draft.js,314,REVIEW_BEFORE_RUNNING,"const contentFile = path.join(__dirname, '..', '..', 'justice_theme_emergency_master_2026_05_13',"
+tools/gsc/create-criminal-pillar-draft.js,315,REFERENCE_ONLY,"'content-master', 'clusters', 'criminal-law', 'criminal-law-pillar-page-content.html');"
+tools/gsc/create-criminal-pillar-draft.js,359,REVIEW_BEFORE_RUNNING,"const contentFile = path.join(__dirname, '..', '..', 'justice_theme_emergency_master_2026_05_13',"
+tools/gsc/create-criminal-pillar-draft.js,360,REFERENCE_ONLY,"'content-master', 'clusters', 'criminal-law', 'criminal-law-pillar-page-content.html');"
+tools/gsc/gsc-criminal-export.js,106,REVIEW_BEFORE_RUNNING,"args.outputDir = path.join(__dirname, '..', '..', 'reports', 'gsc', `criminal-law-${dateDaysAgo(0)}`);"
+tools/gsc/gsc-family-divorce-export.js,97,REVIEW_BEFORE_RUNNING,"args.outputDir = path.join(__dirname, '..', '..', 'reports', 'gsc', `family-divorce-${dateDaysAgo(0)}`);"
+tools/gsc/gsc-medical-malpractice-export.js,46,REVIEW_BEFORE_RUNNING,"const dir = path.join(ROOT, 'project-control');"
+tools/gsc/gsc-medical-malpractice-export.js,90,REVIEW_BEFORE_RUNNING,"args.outputDir = path.join(ROOT, 'reports', 'gsc', `medical-malpractice-${dateDaysAgo(0)}`);"
+tools/gsc/gsc-mirror-master.js,12,REVIEW_BEFORE_RUNNING,"const BASE_DIR = path.join(__dirname, '..', '..', 'justice_theme_emergency_master_2026_05_13', 'content-master');"
+tools/gsc/gsc-pull-extended.js,9,REVIEW_BEFORE_RUNNING,"const OUTPUT_DIR = path.join(__dirname, '..', '..', 'justice_theme_emergency_master_2026_05_13', 'content-master', 'gsc');"
+tools/gsc/gsc-pull.js,11,REVIEW_BEFORE_RUNNING,"const REPORTS_DIR = path.join(__dirname, '..', '..', 'reports', 'gsc');"
+tools/gsc/master-enrichment-v2.js,4,REVIEW_BEFORE_RUNNING,"const BASE = path.join(__dirname, '..', '..', 'justice_theme_emergency_master_2026_05_13', 'content-master');"
+tools/gsc/master-enrichment.js,9,REVIEW_BEFORE_RUNNING,"const BASE = path.join(__dirname, '..', '..', 'justice_theme_emergency_master_2026_05_13', 'content-master');"
+tools/gsc/run-criminal-gsc-export.ps1,13,REVIEW_BEFORE_RUNNING,"$OutputDir = Join-Path $repoRoot ""reports\gsc\criminal-law-$ReportDate"""
+tools/gsc/run-criminal-gsc-export.ps1,55,REVIEW_BEFORE_RUNNING,"Write-Host ""VERIFY NEXT: review reports\criminal-gsc-decision-map-$ReportDate.csv, reports\criminal-cannibalization-decision-map-$ReportDate.csv and reports\criminal-protected-url-"
+tools/gsc/run-family-divorce-gsc-workflow.ps1,14,REVIEW_BEFORE_RUNNING,"$OutputDir = Join-Path $repoRoot ""reports\gsc\family-divorce-$ReportDate"""
+tools/gsc/run-family-divorce-gsc-workflow.ps1,63,REVIEW_BEFORE_RUNNING,"""--input=reports/family-divorce-protected-url-decision-map-$ReportDate.csv"""
+tools/gsc/run-family-divorce-gsc-workflow.ps1,67,REVIEW_BEFORE_RUNNING,"Write-Host ""VERIFY NEXT: review reports/family-divorce-gsc-decision-map-$ReportDate.csv and project-control/family-divorce-protected-url-owner-review-packet-$ReportDate.csv before "
+tools/gsc/run-medical-malpractice-gsc-export.ps1,15,REVIEW_BEFORE_RUNNING,"$OutputDir = Join-Path $repoRoot ""reports\gsc\medical-malpractice-$ReportDate"""
+tools/gsc/run-medical-malpractice-gsc-export.ps1,19,REVIEW_BEFORE_RUNNING,"$latestDashboard = Get-ChildItem -Path (Join-Path $repoRoot ""project-control"") -Filter ""medical-malpractice-readiness-dashboard-*.csv"" |"
+tools/gsc/run-medical-malpractice-gsc-export.ps1,79,REVIEW_BEFORE_RUNNING,"Write-Host ""VERIFY NEXT: review reports\medical-malpractice-gsc-decision-map-$ReportDate.csv, reports\medical-malpractice-protected-url-decision-map-$ReportDate.csv and reports\med"
+tools/gsc/wp-rest-export.js,6,REVIEW_BEFORE_RUNNING,"const OUTPUT_DIR = path.join(__dirname, '..', '..', 'justice_theme_emergency_master_2026_05_13', 'content-master');"
+tools/gsc/wp-rest-practice-areas.js,11,REVIEW_BEFORE_RUNNING,"const OUTPUT_DIR = path.join(__dirname, '..', '..', 'justice_theme_emergency_master_2026_05_13', 'content-master', 'wp-rest-export');"
+tools/prepare-family-divorce-merge-review.mjs,5,REVIEW_BEFORE_RUNNING,|| 'reports/family-divorce-high-risk-merge-review-2026-05-21.csv';
+tools/prepare-family-divorce-merge-review.mjs,13,REVIEW_BEFORE_RUNNING,"liveFile: 'reports/family-divorce-live-target-backup-2026-05-21/child-support.txt',"
+tools/prepare-family-divorce-merge-review.mjs,14,REFERENCE_ONLY,"draftFile: 'content-drafts/child-support-public-body-he.md',"
+tools/prepare-family-divorce-merge-review.mjs,20,REVIEW_BEFORE_RUNNING,"liveFile: 'reports/family-divorce-live-target-backup-2026-05-21/child-custody.txt',"
+tools/prepare-family-divorce-merge-review.mjs,21,REFERENCE_ONLY,"draftFile: 'content-drafts/child-custody-public-body-he.md',"
+tools/prepare-family-divorce-merge-review.mjs,27,REVIEW_BEFORE_RUNNING,"liveFile: 'reports/family-divorce-live-target-backup-2026-05-21/divorce-property-division.txt',"
+tools/prepare-family-divorce-merge-review.mjs,28,REFERENCE_ONLY,"draftFile: 'content-drafts/divorce-property-division-public-body-he.md',"
+tools/publish-pillar-articles.js,21,REVIEW_BEFORE_RUNNING,"const ARTICLES_DIR = path.resolve(__dirname, '../../project-control/content-master/new-articles');"
+tools/publish-pillar-articles.js,274,REVIEW_BEFORE_RUNNING,"const resultsPath = path.resolve(__dirname, '../../project-control/content-master/pillar-publish-results.json');"
+tools/resolve-family-divorce-child-custody-merge.mjs,4,REVIEW_BEFORE_RUNNING,const SOURCE_REPORT = 'reports/family-divorce-high-risk-merge-review-2026-05-21.csv';
+tools/resolve-family-divorce-child-custody-merge.mjs,6,REVIEW_BEFORE_RUNNING,|| 'reports/family-divorce-child-custody-merge-decisions-2026-05-21.csv';
+tools/resolve-family-divorce-child-custody-merge.mjs,8,REVIEW_BEFORE_RUNNING,|| 'project-control/family-divorce-child-custody-merge-decisions-2026-05-21.csv';
+tools/resolve-family-divorce-child-support-merge.mjs,4,REVIEW_BEFORE_RUNNING,const SOURCE_REPORT = 'reports/family-divorce-high-risk-merge-review-2026-05-21.csv';
+tools/resolve-family-divorce-child-support-merge.mjs,6,REVIEW_BEFORE_RUNNING,|| 'reports/family-divorce-child-support-merge-decisions-2026-05-21.csv';
+tools/resolve-family-divorce-child-support-merge.mjs,8,REVIEW_BEFORE_RUNNING,|| 'project-control/family-divorce-child-support-merge-decisions-2026-05-21.csv';
+tools/resolve-family-divorce-property-division-merge.mjs,4,REVIEW_BEFORE_RUNNING,const SOURCE_REPORT = 'reports/family-divorce-high-risk-merge-review-2026-05-21.csv';
+tools/resolve-family-divorce-property-division-merge.mjs,6,REVIEW_BEFORE_RUNNING,|| 'reports/family-divorce-property-division-merge-decisions-2026-05-21.csv';
+tools/resolve-family-divorce-property-division-merge.mjs,8,REVIEW_BEFORE_RUNNING,|| 'project-control/family-divorce-property-division-merge-decisions-2026-05-21.csv';
+tools/run-investor-morning-pack.ps1,38,REFERENCE_ONLY,$launchpad = Join-Path $repoRoot 'project-control\investor-demo-launchpad-2026-05-25.html'
+tools/run-investor-morning-pack.ps1,39,REFERENCE_ONLY,"$goNoGo = Join-Path $repoRoot ""project-control\investor-morning-go-no-go-$today.md"""
+tools/snapshot-money-query-pages.mjs,6,REVIEW_BEFORE_RUNNING,const OUTPUT_CSV = `reports/money-query-preedit-snapshot-${REPORT_DATE}.csv`;
+tools/snapshot-money-query-pages.mjs,7,REVIEW_BEFORE_RUNNING,const OUTPUT_JSON = `reports/money-query-preedit-snapshot-${REPORT_DATE}.json`;
+tools/snapshot-money-query-pages.mjs,182,REVIEW_BEFORE_RUNNING,"await fs.mkdir('reports', { recursive: true });"
+tools/sync-family-divorce-wave1b-metadata-counts.mjs,9,REVIEW_BEFORE_RUNNING,"const STATIC_QA_PATH = path.join(ROOT, 'reports/family-divorce-public-body-static-qa-2026-05-21.csv');"
+tools/sync-family-divorce-wave1b-metadata-counts.mjs,10,REVIEW_BEFORE_RUNNING,"const METADATA_PATH = path.join(ROOT, 'project-control/family-divorce-wave-1b-support-metadata-package-2026-05-12.csv');"
+tools/sync-family-divorce-wave1b-metadata-counts.mjs,11,REVIEW_BEFORE_RUNNING,"const OUT_CSV = path.join(ROOT, 'reports', `family-divorce-wave1b-metadata-word-count-sync-${TODAY}.csv`);"
+tools/sync-family-divorce-wave1b-metadata-counts.mjs,12,REVIEW_BEFORE_RUNNING,"const PROJECT_CONTROL_CSV = path.join(ROOT, 'project-control', `family-divorce-wave1b-metadata-word-count-sync-${TODAY}.csv`);"
+tools/url-checker/check-all-urls.js,11,REVIEW_BEFORE_RUNNING,* Output: ../../reports/url-health-report.csv + url-health-report.json
+tools/url-checker/check-all-urls.js,22,REVIEW_BEFORE_RUNNING,"const INVENTORY_PATH = path.join(__dirname, '..', '..', '..', 'project-control', 'full-inventory.csv');"
+tools/url-checker/check-all-urls.js,23,REVIEW_BEFORE_RUNNING,"const REPORT_DIR = path.join(__dirname, '..', '..', '..', 'reports');"
+tools/url-checker/check-all-urls.js,273,REVIEW_BEFORE_RUNNING,// 3. Generate reports
+tools/url-checker/generate-redirect-php.js,4,REVIEW_BEFORE_RUNNING,"const REPORTS_DIR = path.resolve(__dirname, '../../../reports');"
+tools/url-checker/generate-slug-map.js,21,REVIEW_BEFORE_RUNNING,"const INVENTORY_PATH = path.join(__dirname, '..', '..', '..', 'project-control', 'full-inventory.csv');"
+tools/url-checker/generate-slug-map.js,22,REVIEW_BEFORE_RUNNING,"const OUTPUT_DIR = path.join(__dirname, '..', '..', '..', 'reports');"
+tools/url-checker/migrate-phase-a.js,22,REVIEW_BEFORE_RUNNING,"const REPORTS_DIR = path.resolve(__dirname, '../../../reports');"
+tools/url-checker/migrate-phase-b.js,27,REVIEW_BEFORE_RUNNING,"const REPORTS_DIR = path.resolve(__dirname, '../../../reports');"
+tools/url-checker/migrate-phase-c.js,15,REVIEW_BEFORE_RUNNING,"const REPORTS_DIR = path.resolve(__dirname, '../../../reports');"
+tools/url-checker/site-health-audit.js,42,REVIEW_BEFORE_RUNNING,"const REPORTS_DIR = path.join(__dirname, '..', '..', 'reports');"

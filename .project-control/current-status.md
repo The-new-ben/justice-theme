@@ -1,4 +1,11 @@
 # LATEST WORK STATUS - 2026-05-26 12:18 Asia/Jerusalem
+- EXTERNAL LEAD STAGING ADDED: Justice CRM now has an owner-only WhatsApp/TalkTo import staging panel for pasted CSV exports.
+- CODE UPDATED: imports store private held `justice_lead` records with source channel, source thread/import ID, page URL, import batch ID, dedupe fingerprint, consent status, re-permission status and routing hold.
+- SAFETY: bulk imports do not contact clients, notify lawyers, release PII, create invoices, charge money or publish public content. Legacy imports default to re-permission review.
+- DOCUMENTED: `.project-control/lead-consent-import-architecture-2026-05-26.md` now lists supported import headers and remaining tasks.
+- DEPLOYMENT STATUS: marker prepared as `2026-05-26-external-lead-staging-v1`; deploy/pull and live verification still required.
+
+# LATEST WORK STATUS - 2026-05-26 12:18 Asia/Jerusalem
 - CONSENT-FIRST WHATSAPP/TALKTO CRM UPGRADE: manual WhatsApp/client lead bridge now treats WhatsApp, TalkTo, email, phone and legacy imports as private held CRM records until explicit/verified permission is recorded.
 - CODE UPDATED: added consent status, permission basis, source system, source thread/import ID, source page URL, legacy re-permission flag and client permission next step metadata.
 - ROUTING HARDENED: external/manual leads cannot route to lawyers merely because a checkbox was ticked; the status must be `explicit_match_consent` or `owner_verified_consent`, and the router itself now blocks bypass attempts.

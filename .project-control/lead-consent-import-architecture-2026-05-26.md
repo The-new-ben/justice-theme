@@ -41,11 +41,27 @@ The UK-law WhatsApp lead from the `uk-lawyer` page is not enough for automatic r
 - Added source thread/import ID and source page URL fields.
 - Hardened manual router release so external leads cannot route without explicit/verified consent.
 - Hardened the router itself so later edits cannot bypass the manual consent gate.
+- Added the owner-only WhatsApp/TalkTo import staging panel. Pasted CSV exports can create private `justice_lead` records with routing hold, import batch ID, dedupe fingerprint and re-permission status.
+
+## Import staging headers
+
+Supported CSV headers include:
+
+- phone, client_phone, lead_phone, tel, telephone, טלפון, נייד
+- name, client_name, lead_name, שם
+- email, client_email, lead_email, מייל, אימייל
+- message, text, chat, body, lead_message, תוכן, הודעה
+- date, created_at, timestamp, time, תאריך
+- page_url, source_url, url, landing_page, link
+- thread_id, chat_id, conversation_id, source_thread_id, id
+- legal_area, area_key, practice_area
+- consent_status, permission_status
+
+Each import is limited to 200 pasted rows to keep owner review manageable. Duplicate fingerprints are skipped.
 
 ## Next build tasks
 
-1. Add a CSV/import upload tool for TalkTo exports with dedupe by normalized phone + source thread + date.
-2. Add a re-permission queue with approved Hebrew/English message templates.
-3. Add supplier/lawyer bidding so anonymized lead previews can be priced before PII is released.
-4. Add audit export for consent evidence and handoff billing proof.
-5. Connect official WhatsApp Business/TalkTo webhooks only after the provider route and permission text are approved.
+1. Add a re-permission queue with approved Hebrew/English message templates.
+2. Add supplier/lawyer bidding so anonymized lead previews can be priced before PII is released.
+3. Add audit export for consent evidence and handoff billing proof.
+4. Connect official WhatsApp Business/TalkTo webhooks only after the provider route and permission text are approved.

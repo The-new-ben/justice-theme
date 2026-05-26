@@ -48,6 +48,12 @@ function justice_theme_crm_register_lead_meta(): void {
 		'consent_checked_at'        => 'string',
 		'legacy_repermission_required' => 'string',
 		'client_permission_next_step' => 'string',
+		'import_batch_id'            => 'string',
+		'import_fingerprint'         => 'string',
+		'imported_at'                => 'string',
+		'repermission_status'        => 'string',
+		'repermission_template_key'  => 'string',
+		'repermission_last_sent_at'  => 'string',
 		'handoff_path'              => 'string',
 		'supplier_match_required'   => 'string',
 		'owner_revenue_next_step'   => 'string',
@@ -108,6 +114,7 @@ function justice_theme_render_crm_admin_page(): void {
 		</div>
 
 		<?php justice_theme_crm_render_whatsapp_lead_bridge(); ?>
+		<?php justice_theme_crm_render_external_lead_importer(); ?>
 		<?php justice_theme_crm_render_btl_supply_panel(); ?>
 		<?php justice_theme_crm_render_qualified_lead_billing_queue(); ?>
 
@@ -303,7 +310,308 @@ function justice_theme_crm_manual_lead_permission_next_step( string $consent_sta
 	return 'Ask for case details and permission to match before routing or billing.';
 }
 
+function justice_theme_crm_sanitize_manual_source_channel( string $source_channel ): string {
+	$valid_channels = array( 'whatsapp_manual', 'whatsapp_business', 'whatsapp_export', 'talkto_chatbot', 'legacy_import_csv', 'email_forward', 'phone_call', 'owner_note' );
+	return in_array( $source_channel, $valid_channels, true ) ? $source_channel : 'whatsapp_manual';
+}
+
+function justice_theme_crm_sanitize_consent_status( string $consent_status ): string {
+	return array_key_exists( $consent_status, justice_theme_crm_manual_lead_consent_options() )
+		? $consent_status
+		: 'fresh_inbound_needs_details';
+}
+
+function justice_theme_crm_normalize_phone( string $phone ): string {
+	return preg_replace( '/\D+/', '', $phone ) ?: '';
+}
+
+function justice_theme_crm_csv_value( array $row, array $keys, string $default = '' ): string {
+	foreach ( $keys as $key ) {
+		$normalized_key = strtolower( trim( $key ) );
+		if ( isset( $row[ $normalized_key ] ) && '' !== trim( (string) $row[ $normalized_key ] ) ) {
+			return trim( (string) $row[ $normalized_key ] );
+		}
+	}
+
+	return $default;
+}
+
+function justice_theme_crm_external_lead_fingerprint( string $source_channel, string $phone, string $thread_id, string $date, string $message ): string {
+	$seed = implode(
+		'|',
+		array(
+			$source_channel,
+			justice_theme_crm_normalize_phone( $phone ),
+			strtolower( trim( $thread_id ) ),
+			strtolower( trim( $date ) ),
+			substr( strtolower( trim( $message ) ), 0, 160 ),
+		)
+	);
+
+	return hash( 'sha256', $seed );
+}
+
+function justice_theme_crm_find_lead_by_import_fingerprint( string $fingerprint ): int {
+	$matches = get_posts(
+		array(
+			'post_type'      => 'justice_lead',
+			'post_status'    => 'any',
+			'posts_per_page' => 1,
+			'fields'         => 'ids',
+			'meta_query'     => array(
+				array(
+					'key'   => 'import_fingerprint',
+					'value' => $fingerprint,
+				),
+			),
+		)
+	);
+
+	return empty( $matches ) ? 0 : (int) $matches[0];
+}
+
 add_action( 'admin_post_justice_theme_create_whatsapp_lead', 'justice_theme_crm_handle_whatsapp_lead_create' );
+add_action( 'admin_post_justice_theme_stage_external_leads', 'justice_theme_crm_handle_external_lead_import' );
+
+function justice_theme_crm_render_external_lead_importer(): void {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return;
+	}
+
+	$area_options = function_exists( 'justice_theme_lead_area_options' )
+		? justice_theme_lead_area_options()
+		: array( 'general' => 'General / review' );
+	$consent_options = justice_theme_crm_manual_lead_consent_options();
+	?>
+	<div class="postbox" style="padding:0;margin:18px 0;border:1px solid #dcdcde;">
+		<div style="padding:16px 18px;border-bottom:1px solid #dcdcde;background:#fff;">
+			<h2 style="margin:0;">WhatsApp / TalkTo import staging</h2>
+			<p style="margin:8px 0 0;color:#50575e;">Paste a CSV export from TalkTo, WhatsApp export, or an old lead sheet. Imported rows stay private and on routing hold. Legacy rows default to re-permission before any lawyer/supplier handoff.</p>
+		</div>
+		<div style="padding:18px;background:#f6f7f7;">
+			<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<input type="hidden" name="action" value="justice_theme_stage_external_leads">
+				<?php wp_nonce_field( 'justice_theme_stage_external_leads', 'justice_theme_stage_external_leads_nonce' ); ?>
+
+				<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;">
+					<label>
+						<strong>Import source</strong>
+						<select name="source_channel" class="widefat">
+							<option value="talkto_chatbot">TalkTo chatbot export</option>
+							<option value="whatsapp_export">WhatsApp export</option>
+							<option value="whatsapp_business">WhatsApp Business export/API</option>
+							<option value="legacy_import_csv">Legacy lead CSV</option>
+						</select>
+					</label>
+					<label>
+						<strong>Default consent status</strong>
+						<select name="default_consent_status" class="widefat">
+							<?php foreach ( $consent_options as $value => $label ) : ?>
+								<option value="<?php echo esc_attr( $value ); ?>" <?php selected( 'legacy_needs_repermission', $value ); ?>><?php echo esc_html( $label ); ?></option>
+							<?php endforeach; ?>
+						</select>
+					</label>
+					<label>
+						<strong>Default legal area</strong>
+						<select name="default_legal_area" class="widefat">
+							<option value="">Detect / needs review</option>
+							<?php foreach ( $area_options as $value => $label ) : ?>
+								<option value="<?php echo esc_attr( (string) $value ); ?>"><?php echo esc_html( (string) $label ); ?></option>
+							<?php endforeach; ?>
+						</select>
+					</label>
+					<label>
+						<strong>Batch label</strong>
+						<input type="text" name="batch_label" class="widefat" placeholder="TalkTo May 2026, WhatsApp old leads, etc.">
+					</label>
+				</div>
+
+				<label style="display:block;margin-top:14px;">
+					<strong>CSV rows</strong>
+					<textarea name="external_leads_csv" rows="8" class="widefat" placeholder="phone,name,email,message,date,page_url,thread_id,legal_area,consent_status"></textarea>
+				</label>
+
+				<p class="description">Accepted headers include phone/client_phone/tel, name, email, message/text/chat, date/created_at, page_url/source_url, thread_id/chat_id, legal_area and consent_status. Up to 200 rows per paste. Duplicate fingerprints are skipped.</p>
+				<p style="margin-top:14px;">
+					<button type="submit" class="button button-primary">Stage private leads only</button>
+				</p>
+				<p class="description">This importer does not send messages, does not notify lawyers, does not create invoices and does not release PII. It only prepares a controlled CRM queue.</p>
+			</form>
+		</div>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_handle_external_lead_import(): void {
+	if ( ! current_user_can( 'edit_pages' ) ) {
+		wp_die( esc_html__( 'You do not have permission to import CRM leads.', 'justice-theme' ), 403 );
+	}
+
+	$nonce = isset( $_POST['justice_theme_stage_external_leads_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_theme_stage_external_leads_nonce'] ) ) : '';
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'justice_theme_stage_external_leads' ) ) {
+		wp_die( esc_html__( 'Security check failed.', 'justice-theme' ), 400 );
+	}
+
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		wp_safe_redirect( add_query_arg( 'justice_external_imported', 'blocked', admin_url( 'admin.php?page=justice-crm' ) ) );
+		exit;
+	}
+
+	$raw_csv = isset( $_POST['external_leads_csv'] ) ? trim( (string) wp_unslash( $_POST['external_leads_csv'] ) ) : '';
+	if ( '' === $raw_csv ) {
+		wp_safe_redirect( add_query_arg( 'justice_external_imported', 'missing', admin_url( 'admin.php?page=justice-crm' ) ) );
+		exit;
+	}
+
+	$source_channel = isset( $_POST['source_channel'] ) ? justice_theme_crm_sanitize_manual_source_channel( sanitize_key( wp_unslash( $_POST['source_channel'] ) ) ) : 'legacy_import_csv';
+	$default_consent_status = isset( $_POST['default_consent_status'] )
+		? justice_theme_crm_sanitize_consent_status( sanitize_key( wp_unslash( $_POST['default_consent_status'] ) ) )
+		: 'legacy_needs_repermission';
+	$default_area = isset( $_POST['default_legal_area'] ) ? sanitize_key( wp_unslash( $_POST['default_legal_area'] ) ) : '';
+	if ( function_exists( 'justice_theme_lead_area_values' ) && $default_area && ! in_array( $default_area, justice_theme_lead_area_values(), true ) ) {
+		$default_area = '';
+	}
+
+	$batch_label = isset( $_POST['batch_label'] ) ? sanitize_text_field( wp_unslash( $_POST['batch_label'] ) ) : '';
+	$batch_id    = sanitize_key( $source_channel . '-' . gmdate( 'Ymd-His' ) . '-' . wp_generate_password( 6, false, false ) );
+	$lines       = preg_split( '/\r\n|\r|\n/', $raw_csv );
+	$lines       = is_array( $lines )
+		? array_values(
+			array_filter(
+				$lines,
+				static function ( $line ) {
+					return '' !== trim( (string) $line );
+				}
+			)
+		)
+		: array();
+
+	if ( count( $lines ) < 2 ) {
+		wp_safe_redirect( add_query_arg( 'justice_external_imported', 'missing', admin_url( 'admin.php?page=justice-crm' ) ) );
+		exit;
+	}
+
+	$headers = array_map(
+		static function ( $header ) {
+			return strtolower( trim( (string) $header ) );
+		},
+		str_getcsv( array_shift( $lines ) )
+	);
+	$created = 0;
+	$skipped = 0;
+	$failed  = 0;
+
+	foreach ( array_slice( $lines, 0, 200 ) as $line ) {
+		$values = str_getcsv( $line );
+		if ( count( $values ) < 1 ) {
+			++$failed;
+			continue;
+		}
+
+		$row = array();
+		foreach ( $headers as $index => $header ) {
+			if ( '' === $header ) {
+				continue;
+			}
+			$row[ $header ] = isset( $values[ $index ] ) ? trim( (string) $values[ $index ] ) : '';
+		}
+
+		$phone = sanitize_text_field( justice_theme_crm_csv_value( $row, array( 'phone', 'client_phone', 'lead_phone', 'tel', 'telephone', 'טלפון', 'נייד' ) ) );
+		$message = sanitize_textarea_field( justice_theme_crm_csv_value( $row, array( 'message', 'text', 'chat', 'body', 'lead_message', 'תוכן', 'הודעה' ) ) );
+		if ( '' === $phone && '' === $message ) {
+			++$failed;
+			continue;
+		}
+
+		$name = sanitize_text_field( justice_theme_crm_csv_value( $row, array( 'name', 'client_name', 'lead_name', 'שם' ) ) );
+		$email = sanitize_email( justice_theme_crm_csv_value( $row, array( 'email', 'client_email', 'lead_email', 'מייל', 'אימייל' ) ) );
+		$city = sanitize_text_field( justice_theme_crm_csv_value( $row, array( 'city', 'area', 'location', 'עיר' ) ) );
+		$date = sanitize_text_field( justice_theme_crm_csv_value( $row, array( 'date', 'created_at', 'timestamp', 'time', 'תאריך' ) ) );
+		$thread_id = sanitize_text_field( justice_theme_crm_csv_value( $row, array( 'thread_id', 'chat_id', 'conversation_id', 'source_thread_id', 'id' ) ) );
+		$page_url = esc_url_raw( justice_theme_crm_csv_value( $row, array( 'page_url', 'source_url', 'url', 'landing_page', 'link' ) ) );
+		$row_area = sanitize_key( justice_theme_crm_csv_value( $row, array( 'legal_area', 'area_key', 'practice_area' ), $default_area ) );
+		if ( function_exists( 'justice_theme_lead_area_values' ) && $row_area && ! in_array( $row_area, justice_theme_lead_area_values(), true ) ) {
+			$row_area = $default_area;
+		}
+		$consent_status = justice_theme_crm_sanitize_consent_status( sanitize_key( justice_theme_crm_csv_value( $row, array( 'consent_status', 'permission_status' ), $default_consent_status ) ) );
+		$fingerprint = justice_theme_crm_external_lead_fingerprint( $source_channel, $phone, $thread_id, $date, $message );
+
+		if ( justice_theme_crm_find_lead_by_import_fingerprint( $fingerprint ) ) {
+			++$skipped;
+			continue;
+		}
+
+		$lead_id = wp_insert_post(
+			array(
+				'post_type'   => 'justice_lead',
+				'post_status' => 'publish',
+				'post_title'  => sprintf( 'Imported %s lead - %s', $source_channel, $name ?: $phone ?: 'no phone' ),
+			)
+		);
+
+		if ( ! $lead_id || is_wp_error( $lead_id ) ) {
+			++$failed;
+			continue;
+		}
+
+		$meta = array(
+			'visitor_name'                 => $name,
+			'visitor_phone'                => $phone,
+			'visitor_email'                => $email,
+			'lead_name'                    => $name,
+			'lead_phone'                   => $phone,
+			'lead_email'                   => $email,
+			'city'                         => $city,
+			'visitor_city'                 => $city,
+			'lead_city'                    => $city,
+			'message'                      => $message,
+			'lead_message'                 => $message,
+			'legal_area'                   => $row_area,
+			'lead_status'                  => 'new',
+			'urgency'                      => 'normal',
+			'routing_hold'                 => '1',
+			'consent'                      => '0',
+			'consent_status'               => $consent_status,
+			'consent_basis'                => 'Imported batch: ' . ( $batch_label ?: $batch_id ),
+			'source_channel'               => $source_channel,
+			'source_system'                => $source_channel,
+			'source_thread_id'             => $thread_id,
+			'source_reference'             => $batch_label ?: $batch_id,
+			'source_url'                   => $page_url ?: admin_url( 'admin.php?page=justice-crm' ),
+			'source_page_url'              => $page_url,
+			'import_batch_id'              => $batch_id,
+			'import_fingerprint'           => $fingerprint,
+			'imported_at'                  => current_time( 'mysql' ),
+			'legacy_repermission_required' => 'legacy_needs_repermission' === $consent_status ? '1' : '0',
+			'repermission_status'          => 'legacy_needs_repermission' === $consent_status ? 'needed' : 'not_needed',
+			'repermission_template_key'    => 'legacy-lead-opt-in-v1',
+			'client_permission_next_step'  => 'Imported lead staged. Owner must review evidence and set explicit/verified consent before routing.',
+			'handoff_path'                 => 'lawyer_and_supplier',
+			'supplier_match_required'      => '1',
+			'owner_revenue_next_step'      => 'Imported lead is staged only. Confirm permission and paid partner terms before any handoff.',
+			'routing_notes'                => 'Routing held: imported WhatsApp/TalkTo/legacy lead staged for owner permission review.',
+			'manual_lead_created_by_user_id' => get_current_user_id(),
+		);
+
+		foreach ( $meta as $key => $value ) {
+			update_post_meta( $lead_id, $key, $value );
+		}
+
+		$post = get_post( $lead_id );
+		if ( $post && function_exists( 'justice_theme_classify_lead_on_save' ) ) {
+			justice_theme_classify_lead_on_save( $lead_id, $post, true );
+		}
+		if ( $post && function_exists( 'justice_theme_update_lead_coverage_status_on_save' ) ) {
+			justice_theme_update_lead_coverage_status_on_save( $lead_id, $post, true, true );
+		}
+
+		++$created;
+	}
+
+	$result = sprintf( 'created-%d-skipped-%d-failed-%d', $created, $skipped, $failed );
+	wp_safe_redirect( add_query_arg( 'justice_external_imported', rawurlencode( $result ), admin_url( 'admin.php?page=justice-crm' ) ) );
+	exit;
+}
 
 function justice_theme_crm_handle_whatsapp_lead_create(): void {
 	if ( ! current_user_can( 'edit_pages' ) ) {
@@ -338,14 +646,8 @@ function justice_theme_crm_handle_whatsapp_lead_create(): void {
 	$release_requested = ! empty( $_POST['release_to_router'] );
 	$enable_billing_queue = ! empty( $_POST['enable_billing_queue'] ) && $suggested_price > 0;
 
-	$valid_channels = array( 'whatsapp_manual', 'whatsapp_business', 'whatsapp_export', 'talkto_chatbot', 'legacy_import_csv', 'email_forward', 'phone_call', 'owner_note' );
-	if ( ! in_array( $source_channel, $valid_channels, true ) ) {
-		$source_channel = 'whatsapp_manual';
-	}
-
-	if ( ! array_key_exists( $consent_status, justice_theme_crm_manual_lead_consent_options() ) ) {
-		$consent_status = 'fresh_inbound_needs_details';
-	}
+	$source_channel = justice_theme_crm_sanitize_manual_source_channel( $source_channel );
+	$consent_status = justice_theme_crm_sanitize_consent_status( $consent_status );
 
 	$valid_handoff_paths = array( 'lawyer_router', 'supplier_marketplace', 'lawyer_and_supplier' );
 	if ( ! in_array( $handoff_path, $valid_handoff_paths, true ) ) {
@@ -477,8 +779,29 @@ function justice_theme_crm_manual_lead_next_step( string $handoff_path, bool $re
 }
 
 function justice_theme_crm_manual_lead_notice(): void {
-	if ( empty( $_GET['justice_whatsapp_lead_created'] ) ) {
+	if ( empty( $_GET['justice_whatsapp_lead_created'] ) && empty( $_GET['justice_external_imported'] ) ) {
 		return;
+	}
+
+	if ( ! empty( $_GET['justice_external_imported'] ) ) {
+		$status = sanitize_text_field( wp_unslash( $_GET['justice_external_imported'] ) );
+		if ( 'blocked' === $status ) {
+			echo '<div class="notice notice-error is-dismissible"><p>External lead import was blocked because the justice_lead post type is unavailable.</p></div>';
+			return;
+		}
+		if ( 'missing' === $status ) {
+			echo '<div class="notice notice-error is-dismissible"><p>External lead import was not run: paste CSV headers and at least one row.</p></div>';
+			return;
+		}
+		if ( preg_match( '/^created-(\d+)-skipped-(\d+)-failed-(\d+)$/', $status, $matches ) ) {
+			printf(
+				'<div class="notice notice-success is-dismissible"><p>External leads staged privately. Created: %1$d. Duplicates skipped: %2$d. Failed rows: %3$d. All imported leads remain on routing hold.</p></div>',
+				absint( $matches[1] ),
+				absint( $matches[2] ),
+				absint( $matches[3] )
+			);
+			return;
+		}
 	}
 
 	$status = sanitize_key( wp_unslash( $_GET['justice_whatsapp_lead_created'] ) );

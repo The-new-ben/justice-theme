@@ -3346,6 +3346,17 @@ Next safe batch before any URL/content migration:
 5. Enable `lead_routing_enabled=1` and `subscription_status=trialing/active/paid` only after owner approval, accepted lead terms and billing contact are recorded.
 6. After three active routable specialists exist, run one controlled Bituach Leumi lead through the public route and use the qualified-lead invoice packet.
 
+## 2026-05-26 BTL ACTIVATION GAP NEXT ACTIONS
+
+**Status:** PRIVATE GAP BOARD ADDED / REAL ACTIVATION STILL NEEDED
+
+1. Open `wp-admin -> Justice CRM -> Bituach Leumi specialist supply -> Verified-to-routable activation gap`.
+2. If verified prospects exist but active routable lawyers are below 3, use each prospect's activation packet before creating or connecting a lawyer profile.
+3. Confirm the final profile is published, has practice area `national-insurance`, has `lead_routing_enabled=1`, and has `subscription_status=trialing`, `active` or `paid`.
+4. Do not count draft/private lawyer profiles as routable coverage; the public lead router will not use them.
+5. Keep `Won / onboarding` prospects visible until the matching routable profile exists.
+6. Only after three active routable specialists exist, run the first controlled Bituach Leumi lead and document invoice/payment proof.
+
 ## 2026-05-11 CONTENT DECISION BATCH NEXT ACTIONS
 
 **Status:** VERIFIED REVIEW FILES CREATED / EXECUTION BLOCKED UNTIL EVIDENCE

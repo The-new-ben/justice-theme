@@ -281,12 +281,88 @@ function justice_theme_crm_render_btl_supply_panel(): void {
 		</div>
 	<?php endif; ?>
 	<?php justice_theme_crm_render_btl_readiness_gate( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_btl_leads, $paid_btl_leads ); ?>
+	<?php justice_theme_crm_render_btl_activation_gap_board( $btl_needles, 'national-insurance', $target ); ?>
 	<?php justice_theme_crm_render_btl_controlled_test_drill( $source_pack_progress, $verified_prospects, $active_specialists, $target, $billable_btl_leads, $paid_btl_leads ); ?>
 	<?php justice_theme_crm_render_btl_intent_ownership_map(); ?>
 	<?php justice_theme_crm_render_btl_candidate_tracker( $btl_needles ); ?>
 	<?php justice_theme_crm_render_btl_next_source_actions( $source_pack_rows ); ?>
 	<?php justice_theme_crm_render_btl_source_pack_candidates( $source_pack_rows ); ?>
 	<?php justice_theme_crm_render_btl_outreach_pack(); ?>
+	<?php
+}
+
+function justice_theme_crm_render_btl_activation_gap_board( array $needles, string $area_slug, int $target ): void {
+	$active_lawyers = justice_theme_crm_query_active_routing_lawyers_for_area( $area_slug, 12 );
+	$ready_prospects = array_values(
+		array_filter(
+			justice_theme_crm_query_prospects_for_area( $needles, 50 ),
+			static function ( WP_Post $prospect ): bool {
+				return function_exists( 'justice_theme_lawyer_prospect_is_verified_for_routing' )
+					&& justice_theme_lawyer_prospect_is_verified_for_routing( (int) $prospect->ID );
+			}
+		)
+	);
+	$activation_gap = max( 0, $target - count( $active_lawyers ) );
+	?>
+	<div style="background:#fff;border:2px solid #7c3aed;border-radius:8px;padding:14px;margin:12px 0 20px;">
+		<h3 style="margin-top:0;">Verified-to-routable activation gap</h3>
+		<p style="margin-top:0;color:#646970;">Owner-only bridge from verified prospects to actually routable lawyer profiles. A prospect is not routable until a published lawyer profile has the right practice area, routing enabled and active/paid/trialing status.</p>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;">
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:12px;background:#f8fafc;">
+				<strong style="display:block;font-size:20px;"><?php echo esc_html( (string) count( $active_lawyers ) ); ?> / <?php echo esc_html( (string) $target ); ?></strong>
+				<span>Published active routable lawyers</span>
+				<?php if ( empty( $active_lawyers ) ) : ?>
+					<div class="notice notice-warning inline" style="margin-top:10px;"><p>No active routable Bituach Leumi lawyer profile is available for real routing yet.</p></div>
+				<?php else : ?>
+					<ul style="margin:10px 0 0 18px;list-style:disc;">
+						<?php foreach ( $active_lawyers as $lawyer ) : ?>
+							<?php
+							$lawyer_id = (int) $lawyer->ID;
+							$status    = (string) get_post_meta( $lawyer_id, 'subscription_status', true );
+							$cap       = (string) get_post_meta( $lawyer_id, 'monthly_lead_cap', true );
+							$edit_url  = get_edit_post_link( $lawyer_id, '' );
+							?>
+							<li>
+								<a href="<?php echo esc_url( $edit_url ); ?>"><?php echo esc_html( get_the_title( $lawyer_id ) ); ?></a>
+								<br><small><?php echo esc_html( trim( 'subscription=' . ( $status ?: '-' ) . ' / cap=' . ( $cap ?: 'default' ) ) ); ?></small>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:12px;background:#fffaf0;">
+				<strong style="display:block;font-size:20px;"><?php echo esc_html( (string) count( $ready_prospects ) ); ?></strong>
+				<span>Verified prospects awaiting profile/routing activation review</span>
+				<?php if ( empty( $ready_prospects ) ) : ?>
+					<p style="margin:10px 0 0;color:#646970;">No verified prospects are ready to activate yet. Keep working the source pack and verification calls.</p>
+				<?php else : ?>
+					<ul style="margin:10px 0 0 18px;list-style:disc;">
+						<?php foreach ( array_slice( $ready_prospects, 0, 6 ) as $prospect ) : ?>
+							<?php
+							$prospect_id = (int) $prospect->ID;
+							$edit_url    = get_edit_post_link( $prospect_id, '' );
+							$status      = (string) get_post_meta( $prospect_id, 'prospect_outreach_status', true );
+							$fee         = absint( get_post_meta( $prospect_id, 'prospect_agreed_lead_fee_ils', true ) );
+							?>
+							<li>
+								<a href="<?php echo esc_url( $edit_url ); ?>"><?php echo esc_html( get_the_title( $prospect_id ) ); ?></a>
+								<br><small><?php echo esc_html( trim( 'status=' . ( $status ?: '-' ) . ' / fee=' . ( $fee ? number_format_i18n( $fee ) . ' NIS' : '-' ) ) ); ?></small>
+							</li>
+						<?php endforeach; ?>
+					</ul>
+				<?php endif; ?>
+			</div>
+		</div>
+		<?php if ( $activation_gap > 0 ) : ?>
+			<div class="notice notice-warning inline" style="margin-top:12px;">
+				<p><strong>Activation gap:</strong> <?php echo esc_html( (string) $activation_gap ); ?> more published, paid/trialing, routing-enabled lawyer profile(s) are needed before the controlled lead test should run.</p>
+			</div>
+		<?php else : ?>
+			<div class="notice notice-success inline" style="margin-top:12px;">
+				<p><strong>Activation gate met:</strong> published routable coverage exists. Use one controlled lead and confirm invoice/payment proof before scaling.</p>
+			</div>
+		<?php endif; ?>
+	</div>
 	<?php
 }
 
@@ -1070,15 +1146,18 @@ function justice_theme_crm_btl_outreach_templates(): array {
 }
 
 function justice_theme_crm_count_active_routing_lawyers_for_area( string $area_slug ): int {
+	return count( justice_theme_crm_query_active_routing_lawyers_for_area( $area_slug, 100 ) );
+}
+
+function justice_theme_crm_query_active_routing_lawyers_for_area( string $area_slug, int $limit = 25 ): array {
 	if ( ! taxonomy_exists( 'practice-areas' ) ) {
-		return 0;
+		return array();
 	}
 
 	$query = new WP_Query( array(
 		'post_type'      => 'justice_lawyer',
-		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
-		'posts_per_page' => 100,
-		'fields'         => 'ids',
+		'post_status'    => 'publish',
+		'posts_per_page' => $limit,
 		'no_found_rows'  => true,
 		'tax_query'      => array(
 			array(
@@ -1095,13 +1174,13 @@ function justice_theme_crm_count_active_routing_lawyers_for_area( string $area_s
 			),
 			array(
 				'key'     => 'subscription_status',
-				'value'   => array( 'active', 'paid', 'trialing' ),
+				'value'   => function_exists( 'justice_theme_paid_routing_subscription_statuses' ) ? justice_theme_paid_routing_subscription_statuses() : array( 'active', 'paid', 'trialing' ),
 				'compare' => 'IN',
 			),
 		),
 	) );
 
-	return (int) count( $query->posts ?: array() );
+	return $query->posts ?: array();
 }
 
 function justice_theme_crm_count_open_prospects_for_area( array $needles ): int {
@@ -1145,7 +1224,7 @@ function justice_theme_crm_query_prospects_for_area( array $needles, int $limit 
 	}
 
 	$matches         = array();
-	$closed_statuses = array( 'won', 'lost' );
+	$closed_statuses = array( 'lost' );
 
 	foreach ( $query->posts as $post ) {
 		$post_id = (int) $post->ID;
@@ -1193,7 +1272,7 @@ function justice_theme_crm_count_verified_prospects_for_area( array $needles ): 
 	}
 
 	$count           = 0;
-	$closed_statuses = array( 'won', 'lost' );
+	$closed_statuses = array( 'lost' );
 
 	foreach ( $query->posts as $post ) {
 		$post_id = (int) $post->ID;

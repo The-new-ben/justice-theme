@@ -6504,6 +6504,16 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED: no prospect was contacted, no lawyer profile was created, and no routing was enabled; owner/admin still needs real specialist verification and activation.
 - COMPLETION ASSESSMENT: prospect-to-routing handoff 78%; Bituach Leumi supply infrastructure 75%; real specialist supply still 0% until actual verified lawyers are entered.
 - OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Lawyer Onboarding -> Lawyer Prospects -> open a prospect -> Manual Outreach Kit -> Routable specialist activation packet.
+
+## 2026-05-26 BTL ACTIVATION GAP BOARD
+- CODE UPDATED: Justice CRM now includes an owner-only `Verified-to-routable activation gap` board inside the Bituach Leumi specialist supply panel.
+- CODE UPDATED: the board separately lists published active routable Bituach Leumi lawyer profiles and verified prospects that still need profile/routing activation review.
+- CODE FIXED: the active-routable specialist count now mirrors the real lead router by counting only published `justice_lawyer` profiles with the national-insurance practice area, `lead_routing_enabled=1` and paid/trialing/active subscription status.
+- CODE FIXED: `Won / onboarding` Bituach Leumi prospects are no longer hidden from verified-prospect activation review before a routable lawyer profile exists.
+- MONEY IMPACT: this prevents a false sense of coverage and keeps verified specialists visible until they are actually routable for the first controlled paid-lead test.
+- BLOCKED: still needs real verified specialists and owner-approved activation of published routable lawyer profiles; no CMS record, public card or routing state was changed.
+- COMPLETION ASSESSMENT: Bituach Leumi supply visibility 85%; activation-to-routing readiness 62%; actual first paid lead proof remains blocked by real supply/payment evidence.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Justice CRM -> Bituach Leumi specialist supply -> Verified-to-routable activation gap.
 ## LATEST WORK STATUS - 2026-05-22 14:38 Asia/Jerusalem
 - CRIMINAL OWNER REVIEW PACKET: converted the five current-URL Criminal first-upload targets into a controlled owner/legal/source review gate.
 - TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.

@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Managed-service public cannibalization inventory
+
+- ADDED: `tools/build-managed-service-public-cannibalization-inventory.mjs`.
+- GENERATED: `.project-control/managed-service-public-cannibalization-inventory-2026-05-27.md`, `.project-control/managed-service-public-cannibalization-inventory-2026-05-27.csv`, `.reports/managed-service-public-cannibalization-inventory-2026-05-27.json`, `.reports/managed-service-public-cannibalization-inventory-2026-05-27.csv`.
+- PURPOSE: inspect existing live rental-agreement and demand-letter-adjacent pages before any public managed-service package page, CTA, title/H1/meta or checkout wording.
+- RESULT: `REVIEW_PACKET_NOT_APPROVED_FOR_PUBLISH`; 4 exact/live routes require review, 43 high-signal REST title/path matches require review, 86 low-signal context rows are kept in CSV, and fetch/search errors are 0.
+- KEY FINDING: `/rental-agreement/` already exists, with adjacent real-estate pages that should be reviewed before any public rental package route.
+- KEY FINDING: a generic demand-letter package would overlap labor and dispute pages, including `/labor-lawyer/`, so it should be split by dispute type if later approved.
+- LINEAR: recorded as `HAD-122` and marked Done under `HAD-84`, related to anti-cannibalization and the managed-service pilot packet.
+- SAFETY: live read-only QA plus repo-local report only; no public page, CMS content, internal link, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, GSC, GA4, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Managed legal-service package pilot packet
 
 - ADDED: `tools/build-managed-service-package-pilot-packet.mjs`.

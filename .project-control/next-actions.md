@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-MANAGED-SERVICE-PUBLIC-CANNIBALIZATION-001: Inventory public conflicts before managed-service package launch
+**Status:** FIXED LOCAL / PUBLIC LAUNCH BLOCKED
+**Why:** the Lawhive-style package queue is private-ready, but public package titles, CTAs or pages could cannibalize existing legal-help content unless exact live routes and associated pages are reviewed first.
+**Actions:**
+1. DONE: add `tools/build-managed-service-public-cannibalization-inventory.mjs`.
+2. DONE: generate `.project-control/managed-service-public-cannibalization-inventory-2026-05-27.md` and `.csv`.
+3. DONE: generate `.reports/managed-service-public-cannibalization-inventory-2026-05-27.json` and `.csv`.
+4. DONE: run a live read-only inventory for the first two package pilots: rental agreement review/draft and demand letter with lawyer review.
+5. DONE: record 4 existing exact/live route probes, 43 high-signal REST title/path matches, 86 low-signal CSV context rows and 0 fetch/search errors.
+6. DONE: record this as Linear `HAD-122`, marked Done under `HAD-84`.
+7. NEXT: owner/SEO should decide whether each pilot upgrades an existing page, gets a narrow CTA on an existing page, stays private-only, or waits for a separate approved public page.
+8. BLOCKED: do not create public managed-service pages, titles, H1s, meta, CTAs, internal links, checkout offers, redirects, canonicals, noindex/sitemap/taxonomy changes, leads, lawyer handoffs, invoices, payments or public claims from this packet alone.
+
 ### ACTION-MANAGED-SERVICE-PACKAGE-PILOT-001: Prepare Lawhive-style package pilots without public launch
 **Status:** FIXED LOCAL / PUBLIC LAUNCH BLOCKED
 **Why:** the private managed-service fulfillment gate exists, but future operators need a concrete package queue, price/risk assumptions and stop conditions before creating controlled requests or public pages.

@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-27 00:25 Asia/Jerusalem
+- MANAGED-SERVICE PUBLIC CANNIBALIZATION INVENTORY ADDED: created a live read-only anti-cannibalization packet for the first two Lawhive-style package pilots before any public service page or CTA.
+- CODE ADDED: `tools/build-managed-service-public-cannibalization-inventory.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/managed-service-public-cannibalization-inventory-2026-05-27.md`, `.project-control/managed-service-public-cannibalization-inventory-2026-05-27.csv`, `.reports/managed-service-public-cannibalization-inventory-2026-05-27.json`, `.reports/managed-service-public-cannibalization-inventory-2026-05-27.csv`.
+- CHECK RESULT: `REVIEW_PACKET_NOT_APPROVED_FOR_PUBLISH`; exact/live route probes requiring review: 4; high-signal REST title/path matches: 43; low-signal context rows kept in CSV: 86; fetch/search errors: 0.
+- KEY FINDING: rental agreement already has `/rental-agreement/` plus adjacent real-estate pages, so a public rental package should upgrade/link carefully rather than create a blind duplicate.
+- KEY FINDING: demand-letter work overlaps `/labor-lawyer/` and multiple dispute pages, so it should be split by dispute type and not launched as a generic demand-letter page.
+- LINEAR: recorded as `HAD-122` and marked Done under `HAD-84`, related to `HAD-78` and `HAD-121`.
+- PUBLIC IMPACT: none. No public page, CMS content, internal link, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, GSC, GA4, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: managed-service public cannibalization inventory 100%; public package launch remains 0% until owner/SEO approval and legal/payment gates are complete.
+
 # LATEST WORK STATUS - 2026-05-27 00:11 Asia/Jerusalem
 - MANAGED LEGAL-SERVICE PACKAGE PILOT PACKET ADDED: created the private Lawhive-style package pilot packet on top of the existing owner-only fulfillment gate.
 - CODE ADDED: `tools/build-managed-service-package-pilot-packet.mjs`.

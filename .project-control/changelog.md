@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Homepage CTA density review packet
+
+- ADDED: `tools/build-homepage-cta-density-review-packet.mjs`.
+- GENERATED: `.project-control/homepage-cta-density-review-packet-2026-05-27.md`, `.project-control/homepage-cta-density-review-packet-2026-05-27.csv`, `.reports/homepage-cta-density-review-packet-2026-05-27.json`, `.reports/homepage-cta-density-review-packet-2026-05-27.csv`.
+- PURPOSE: turn the live homepage repeated lawyer-card CTA label review item into a clear owner/design decision packet before any public homepage change.
+- RESULT: `OWNER_REVIEW_PACKET_READY_NOT_APPROVED`; homepage source audit status `REVIEW`, HTTP 200, 10 primary CTAs, 5 unique CTA texts, 4 review options, 0 forbidden public-copy/internal-business marker hits and 0 public changes approved.
+- OPTIONS: keep the current homepage unchanged, make repeated lawyer-card actions visually quieter after QA, vary labels only after copy/link-destination review, or reduce lawyer-card CTA exposure as a larger homepage design decision.
+- ASSOCIATED SURFACES: `/lawyers/`, `/find-lawyer-how-to-find-good-attorney/`, `/national-insurance-attorney/`, `/bituach-leumi-appeal-guide/`, `/rental-agreement/`, `/labor-lawyer/`, `/consumer-rights-israel/`, `/eviction-notice-israel/`.
+- LINEAR: recorded as `HAD-132`, marked Done under `HAD-96`; comment added to open follow-up `HAD-131`.
+- SAFETY: private review packet only; no public page, CMS content, homepage label/link, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Add live public CTA density audit
 
 - ADDED: `tools/check-live-public-cta-density.mjs`.

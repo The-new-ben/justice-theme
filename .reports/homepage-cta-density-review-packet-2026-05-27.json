@@ -1,0 +1,127 @@
+{
+  "reportDate": "2026-05-27",
+  "auditDate": "2026-05-27",
+  "status": "OWNER_REVIEW_PACKET_READY_NOT_APPROVED",
+  "targetRoute": "https://jus-tice.co.il/",
+  "sourceAuditPath": ".reports/live-public-cta-density-2026-05-27.json",
+  "summary": {
+    "sourceAuditRows": 10,
+    "homepageStatus": "REVIEW",
+    "homepageHttpStatus": 200,
+    "homepagePrimaryCtaCount": 10,
+    "homepageUniquePrimaryCtaTexts": 5,
+    "homepageRepeatedTextGroups": "שליחת פנייה (6)",
+    "reviewRows": 4,
+    "forbiddenPublicMarkerHits": 0,
+    "publicChangesApproved": 0
+  },
+  "homepageAuditRow": {
+    "path": "/",
+    "url": "https://jus-tice.co.il/",
+    "status": "REVIEW",
+    "http_status": 200,
+    "final_url": "https://jus-tice.co.il/?cta_density_audit=1779834937219",
+    "title": "עורכי דין בישראל | מדריך עורכי דין, מאמרים משפטיים וייעוץ",
+    "h1": "עורכי דין בישראל — מאגר עורכי דין, מאמרים משפטיים ומדריכים מקצועיים",
+    "primary_cta_count": 10,
+    "unique_primary_cta_texts": 5,
+    "article_lead_cta_count": 0,
+    "duplicate_sidebar_class_count": 0,
+    "repeated_text_groups": "שליחת פנייה (6)",
+    "repeated_href_groups": "-",
+    "sample_ctas": "מצאו עורך דין -> https://jus-tice.co.il/lawyers/ | שליחת פנייה -> https://jus-tice.co.il/contact/?lawyer_id=20551 | שליחת פנייה -> https://jus-tice.co.il/contact/?lawyer_id=20550 | שליחת פנייה -> https://jus-tice.co.il/contact/?lawyer_id=20549 | שליחת פנייה -> https://jus-tice.co.il/contact/?lawyer_id=20548 | שליחת פנייה -> https://jus-tice.co.il/contact/?lawyer_id=20547 | פנייה לשותפות -> https://jus-tice.co.il/contact/?source=legal-service-provider-marketplace&#038;role=supplier | Appeal calculator מחשבון ערעור ביטוח לאומי בדיקת פער כספי, דחיפות ומסמכים לפני פנייה לעורך דין בתחום ביטוח לאומי. בדיקה ראשונית -> https://jus-tice.co.il/bituach-leumi-appeal-guide/",
+    "issues": "repeated_primary_cta_text_review",
+    "next_step": "Manually review density/repetition before adding more CTAs or public managed-service copy."
+  },
+  "markerHits": [],
+  "rows": [
+    {
+      "id": "HCTA-01",
+      "section": "finding",
+      "status": "REVIEW_NEEDED",
+      "item": "Homepage repeated CTA density finding",
+      "evidence": "Homepage audit status: REVIEW; primary CTAs: 10; unique CTA texts: 5; repeated text groups: שליחת פנייה (6).",
+      "recommendation": "Treat this as a visual/content decision before adding more homepage CTAs or managed-service copy.",
+      "owner_decision_needed": "Confirm whether repeated lawyer-card action labels are acceptable, should be quieter, or should become contextual.",
+      "public_change_approved": "no",
+      "blocker": "No homepage CTA label, link, section or CMS change is approved by this packet."
+    },
+    {
+      "id": "HCTA-02",
+      "section": "option",
+      "status": "OPTION_LOW_RISK_KEEP_AS_IS",
+      "item": "Option A - keep repeated labels for now",
+      "evidence": "The repeated buttons point to different lawyer contact URLs and no repeated href group was found in the audit.",
+      "recommendation": "Keep current live homepage unchanged until a broader homepage design pass is approved.",
+      "owner_decision_needed": "Approve leaving the current repeated visible label as-is for now.",
+      "public_change_approved": "no",
+      "blocker": "Still block adding new homepage CTA blocks until density is reviewed again."
+    },
+    {
+      "id": "HCTA-03",
+      "section": "option",
+      "status": "OPTION_NEEDS_VISUAL_QA",
+      "item": "Option B - make repeated lawyer-card actions visually quieter",
+      "evidence": "The repeated text appears inside a card/list pattern, where each card can keep a local action without competing with main page CTAs.",
+      "recommendation": "Consider a subtler secondary-action style or compact icon/text treatment for lawyer cards while keeping main legal-help CTAs clearer.",
+      "owner_decision_needed": "Approve a design treatment after mobile and desktop screenshot review.",
+      "public_change_approved": "no",
+      "blocker": "Needs local theme diff, mobile screenshot, desktop screenshot and CTA density rerun before publication."
+    },
+    {
+      "id": "HCTA-04",
+      "section": "option",
+      "status": "OPTION_NEEDS_COPY_REVIEW",
+      "item": "Option C - vary lawyer-card labels by user intent",
+      "evidence": "The live homepage currently repeats one visible action label across several lawyer cards.",
+      "recommendation": "Test contextual labels such as \"פרטי עורך הדין\" or \"בדיקת התאמה\" only if the actual target and user expectation match.",
+      "owner_decision_needed": "Approve exact Hebrew labels and decide whether card clicks go to contact or profile.",
+      "public_change_approved": "no",
+      "blocker": "Do not create misleading labels; copy needs user-intent review and link-destination review."
+    },
+    {
+      "id": "HCTA-05",
+      "section": "option",
+      "status": "OPTION_HIGHER_DESIGN_IMPACT",
+      "item": "Option D - reduce lawyer-card CTA exposure",
+      "evidence": "Homepage has 10 primary CTAs in the current audit, with lawyer-card actions making up most of the repeated visible label.",
+      "recommendation": "Consider showing fewer cards or one section-level CTA if mobile feels too sales-heavy.",
+      "owner_decision_needed": "Approve a larger homepage layout decision before implementation.",
+      "public_change_approved": "no",
+      "blocker": "Higher public UX impact; requires competitor-inspired design review and stronger visual QA."
+    },
+    {
+      "id": "HCTA-06",
+      "section": "guardrail",
+      "status": "HARD_GUARDRAIL",
+      "item": "Keep public site as legal help first",
+      "evidence": "Owner explicitly objected to public copy that exposes revenue logic or business-plan language.",
+      "recommendation": "Any public homepage copy must stay reader-facing: legal problem, lawyer fit, guidance and trust.",
+      "owner_decision_needed": "None until a concrete homepage change is proposed.",
+      "public_change_approved": "no",
+      "blocker": "No business-plan, revenue, package-economics, supplier marketplace or internal routing language on the public homepage."
+    },
+    {
+      "id": "HCTA-07",
+      "section": "associated_pages",
+      "status": "REVIEW_BEFORE_PUBLIC_CHANGE",
+      "item": "Associated pages and surfaces to inspect",
+      "evidence": "/lawyers/; /find-lawyer-how-to-find-good-attorney/; /national-insurance-attorney/; /bituach-leumi-appeal-guide/; /rental-agreement/; /labor-lawyer/; /consumer-rights-israel/; /eviction-notice-israel/",
+      "recommendation": "If homepage card actions change, inspect these pages for internal-link flow, repeated CTA language and cannibalization context.",
+      "owner_decision_needed": "Choose whether homepage lawyer-card traffic should primarily feed lawyer profiles, contact forms or practice pages.",
+      "public_change_approved": "no",
+      "blocker": "No internal link or public route decision from this packet alone."
+    },
+    {
+      "id": "HCTA-08",
+      "section": "qa_before_publication",
+      "status": "REQUIRED_BEFORE_PUBLIC_CHANGE",
+      "item": "Required QA before any homepage CTA change goes live",
+      "evidence": "The current audit is read-only and does not include screenshots.",
+      "recommendation": "Before publishing: mobile screenshot, desktop screenshot, live/public business-language audit, CTA density rerun, private artifact boundary guard and Hebrew owner email with associated-page notes.",
+      "owner_decision_needed": "Approve exact implementation option first.",
+      "public_change_approved": "no",
+      "blocker": "No uPress pull or owner email until a real public change is implemented and live-verified."
+    }
+  ]
+}

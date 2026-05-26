@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-27 01:45 Asia/Jerusalem
+- HOMEPAGE CTA DENSITY REVIEW PACKET ADDED: converted the live homepage repeated lawyer-card CTA label finding into a private owner/design decision packet.
+- CODE ADDED: `tools/build-homepage-cta-density-review-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/homepage-cta-density-review-packet-2026-05-27.md`, `.project-control/homepage-cta-density-review-packet-2026-05-27.csv`, `.reports/homepage-cta-density-review-packet-2026-05-27.json`, `.reports/homepage-cta-density-review-packet-2026-05-27.csv`.
+- CHECK RESULT: `OWNER_REVIEW_PACKET_READY_NOT_APPROVED`; source live CTA audit rows: 10; homepage HTTP 200; homepage audit status `REVIEW`; homepage primary CTA count 10; unique primary CTA texts 5; review option rows 4; forbidden public-copy/internal-business marker hits 0; public changes approved 0.
+- OPTIONS PREPARED: keep as-is for now, make repeated lawyer-card actions visually quieter after mobile/desktop QA, vary labels only after copy/link-destination review, or reduce homepage lawyer-card CTA exposure as a larger design change.
+- ASSOCIATED SURFACES TO INSPECT BEFORE PUBLIC CHANGE: `/lawyers/`, `/find-lawyer-how-to-find-good-attorney/`, `/national-insurance-attorney/`, `/bituach-leumi-appeal-guide/`, `/rental-agreement/`, `/labor-lawyer/`, `/consumer-rights-israel/`, `/eviction-notice-israel/`.
+- LINEAR: packet recorded as `HAD-132`, marked Done under `HAD-96`; comment added to open follow-up `HAD-131`.
+- PUBLIC IMPACT: none. This was a repo-local owner-review packet only. No CMS content, public title/H1/meta/body, homepage label/link, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: homepage CTA decision packet 100%; public homepage implementation remains 0% until owner/design approval, visual QA, CTA density rerun, public business-language audit and Hebrew publication email workflow.
+
 # LATEST WORK STATUS - 2026-05-27 01:35 Asia/Jerusalem
 - LIVE PUBLIC CTA DENSITY AUDIT ADDED: created a broader read-only live QA guard for repeated public CTAs after the owner-reported mobile article duplicate CTA issue.
 - CODE ADDED: `tools/check-live-public-cta-density.mjs`.

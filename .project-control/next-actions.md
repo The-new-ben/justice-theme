@@ -5,7 +5,7 @@
 ---
 
 ### ACTION-LIVE-PUBLIC-CTA-DENSITY-001: Audit repeated public CTAs before adding more conversion copy
-**Status:** FIXED LOCAL / LIVE READ-ONLY VERIFIED / HOMEPAGE REVIEW OPEN
+**Status:** FIXED LOCAL / LIVE READ-ONLY VERIFIED / HOMEPAGE OWNER-REVIEW PACKET READY
 **Why:** article CTA duplication is fixed, but future public pages and managed-service CTAs need a broader guard so the site keeps feeling like legal help, not repeated sales buttons.
 **Actions:**
 1. DONE: add `tools/check-live-public-cta-density.mjs`.
@@ -16,8 +16,13 @@
 6. DONE: verify no hard duplicate article CTA issue across the sampled article/practice pages.
 7. DONE: record the audit as Linear `HAD-129`, marked Done under `HAD-96`.
 8. DONE: record homepage repeated lawyer-card CTA label density as open Linear `HAD-131`.
-9. NEXT: visually review homepage mobile/desktop around lawyer-card/provider sections before adding more homepage CTAs or public managed-service copy.
-10. BLOCKED: do not change homepage CTA labels, CMS content, links, title/H1/meta, redirects, canonicals/noindex, sitemap, taxonomy, lead routing, lawyer handoff, invoice, payment, email, WhatsApp, TalkTo or uPress from this audit alone.
+9. DONE: add `tools/build-homepage-cta-density-review-packet.mjs`.
+10. DONE: generate `.project-control/homepage-cta-density-review-packet-2026-05-27.md` and `.csv`.
+11. DONE: generate `.reports/homepage-cta-density-review-packet-2026-05-27.json` and `.csv`.
+12. DONE: prepare owner/design options: keep as-is, make lawyer-card actions visually quieter, vary labels only after copy/link-destination review, or reduce lawyer-card CTA exposure as a larger design change.
+13. DONE: record packet as Linear `HAD-132`, marked Done under `HAD-96`, and comment on open follow-up `HAD-131`.
+14. NEXT: owner/design should choose one homepage CTA approach, then mobile/desktop visual QA must happen before any public implementation.
+15. BLOCKED: do not change homepage CTA labels, CMS content, links, title/H1/meta, redirects, canonicals/noindex, sitemap, taxonomy, lead routing, lawyer handoff, invoice, payment, email, WhatsApp, TalkTo or uPress from this packet alone.
 
 ### ACTION-LIVE-PUBLIC-BUSINESS-LANGUAGE-SHARPEN-001: Keep public titles reader-facing
 **Status:** FIXED LOCAL / LIVE READ-ONLY VERIFIED / PUBLIC SEO CHANGES STILL BLOCKED

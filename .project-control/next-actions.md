@@ -4,6 +4,16 @@
 
 ---
 
+### ACTION-BTL-HELD-LEAD-REVENUE-HINT-001: Prime Bituach Leumi revenue metadata before routing
+**Status:** CODE PREPARED / DEPLOY PENDING
+**Why:** manual WhatsApp/TalkTo/legacy Bituach Leumi leads should stay held until consent and partner terms are clear, but the CRM still needs the specific revenue product, suggested fee and billing-not-ready status visible immediately.
+**Actions:**
+1. DONE: add a pre-routing save hook after classifier, before router.
+2. DONE: for `national-insurance` leads, set `lead_revenue_model=qualified_appeal_lead`, default `suggested_lead_price_ils=249`, and default `qualified_lead_billing_status=not_ready` when missing.
+3. DONE: preserve routing safety; do not remove `routing_hold`, do not mark ready-to-bill, do not notify anyone and do not invoice.
+4. NEXT: lint, commit, push, uPress Pull Git, verify marker `2026-05-26-btl-held-lead-revenue-hint-v1`, and inspect Justice CRM behavior on a held Bituach Leumi lead when safe.
+5. BLOCKED: still no first paid lead until client permission, three routable specialists, accepted partner terms, invoice/payment proof and owner release are recorded.
+
 ### ACTION-MANAGED-LEGAL-SERVICE-FULFILLMENT-001: Add private fulfillment gate for packaged legal services
 **Status:** FIXED LIVE / LINEAR DONE / OWNER EMAIL SENT
 **Why:** the owner wants to start infrastructuring the Lawhive-style managed legal-service path, but public launch must stay blocked until ethics, engagement, lawyer-of-record and payment gates are clear.

@@ -123,6 +123,38 @@ function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool 
 add_action( 'save_post_justice_lead', 'justice_theme_route_lead_to_lawyers', 30, 3 );
 
 /**
+ * Prime revenue hints before routing so held leads still reach the right billing queue.
+ *
+ * Manual/WhatsApp/TalkTo leads often stay on routing hold until consent and partner
+ * terms are clear. This must not release the lead, but it should still mark Bituach
+ * Leumi demand as a qualified appeal-lead product for owner review.
+ *
+ * @param int     $post_id Lead post ID.
+ * @param WP_Post $post    Lead post object.
+ * @param bool    $update  Whether this is an update.
+ */
+function justice_theme_prime_lead_revenue_hint_on_save( int $post_id, WP_Post $post, bool $update ): void {
+	if ( wp_is_post_revision( $post_id ) || 'justice_lead' !== $post->post_type ) {
+		return;
+	}
+
+	$area = get_post_meta( $post_id, 'ai_detected_area', true )
+		?: get_post_meta( $post_id, 'legal_area', true );
+
+	if ( ! $area || 'general' === $area ) {
+		return;
+	}
+
+	justice_theme_apply_lead_revenue_hint( $post_id, (string) $area );
+
+	if ( get_post_meta( $post_id, 'lead_revenue_model', true ) && ! get_post_meta( $post_id, 'qualified_lead_billing_status', true ) ) {
+		update_post_meta( $post_id, 'qualified_lead_billing_status', 'not_ready' );
+	}
+}
+// Priority 25 = after classifier, before router. It never removes routing holds.
+add_action( 'save_post_justice_lead', 'justice_theme_prime_lead_revenue_hint_on_save', 25, 3 );
+
+/**
  * Add owner-facing revenue hints for lead products that have a clear price model.
  *
  * @param int    $post_id Lead post ID.
@@ -137,8 +169,15 @@ function justice_theme_apply_lead_revenue_hint( int $post_id, string $area ): vo
 		return;
 	}
 
-	update_post_meta( $post_id, 'lead_revenue_model', 'qualified_appeal_lead' );
-	update_post_meta( $post_id, 'suggested_lead_price_ils', '249' );
+	$current_model = (string) get_post_meta( $post_id, 'lead_revenue_model', true );
+	if ( '' === $current_model || 'manual_paid_handoff' === $current_model ) {
+		update_post_meta( $post_id, 'lead_revenue_model', 'qualified_appeal_lead' );
+	}
+
+	if ( '' === (string) get_post_meta( $post_id, 'suggested_lead_price_ils', true ) ) {
+		update_post_meta( $post_id, 'suggested_lead_price_ils', '249' );
+	}
+
 	update_post_meta(
 		$post_id,
 		'lead_revenue_notes',

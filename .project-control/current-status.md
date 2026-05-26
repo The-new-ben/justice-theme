@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-26 20:10 Asia/Jerusalem
+- BTL HELD-LEAD REVENUE HINT PREPARED: `inc/lead-routing.php` now primes Bituach Leumi revenue metadata before routing, so a held WhatsApp/TalkTo/manual lead can still show the correct first-paid-lead product in CRM without being released.
+- CODE UPDATED: added `justice_theme_prime_lead_revenue_hint_on_save()` on `save_post_justice_lead` priority 25, after classifier and before router.
+- BUSINESS RULE: if the lead is `national-insurance`, the system sets `lead_revenue_model=qualified_appeal_lead`, default `suggested_lead_price_ils=249`, and default `qualified_lead_billing_status=not_ready` when missing. If an owner already set a custom model/price, the code does not overwrite it except for converting generic `manual_paid_handoff` Bituach Leumi leads into the specific appeal-lead model.
+- SAFETY RULE: this does not remove `routing_hold`, does not route, does not notify a lawyer/supplier, does not invoice, does not mark ready-to-bill/paid, and does not contact the client.
+- DEPLOYMENT STATUS: marker prepared as `2026-05-26-btl-held-lead-revenue-hint-v1`; deploy and live marker verification still required.
+- PUBLIC IMPACT: none expected; admin lead metadata only. No CMS public page, redirect, canonical/noindex, sitemap, taxonomy, email, WhatsApp, client contact, lawyer/supplier contact, invoice, payment, GSC or GA4 setting changed.
+
 # LATEST WORK STATUS - 2026-05-26 14:05 Asia/Jerusalem
 - PRIVATE ARTIFACT BOUNDARY GUARD ADDED: created `tools/check-private-artifact-boundaries.mjs` so future operators can verify old public artifact roots do not reappear in the deployed theme.
 - VERIFIED LOCAL: checker status is `PASS`; no root `project-control`, `reports`, `content-master`, `content-drafts`, `mnt` or emergency-master directory exists; no tracked file lives under those public roots; `.gitignore` covers all 6 public roots.

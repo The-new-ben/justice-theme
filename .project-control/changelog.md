@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Bituach Leumi held-lead revenue hint
+
+- UPDATED: `inc/lead-routing.php`, `functions.php`, `deployment-marker.txt`.
+- PURPOSE: keep the Bituach Leumi first-paid-lead loop visible in CRM even when WhatsApp/TalkTo/manual leads must remain on owner routing hold.
+- IMPLEMENTATION: added `justice_theme_prime_lead_revenue_hint_on_save()` on `save_post_justice_lead` priority 25. It runs after classifier and before router, applies Bituach Leumi revenue hints, and defaults missing billing status to `not_ready`.
+- BUSINESS RULE: `national-insurance` leads are treated as `qualified_appeal_lead` with default suggested fee `249` ILS unless the owner has already set a custom model/price. Generic `manual_paid_handoff` Bituach Leumi leads are converted to the specific appeal-lead model.
+- SAFETY: does not remove `routing_hold`, route leads, notify lawyers/suppliers, create invoices, mark ready-to-bill/paid, send email/WhatsApp, contact clients, publish pages or change SEO settings.
+- DEPLOYMENT: marker prepared as `2026-05-26-btl-held-lead-revenue-hint-v1`; live deployment and verification pending.
+
 # 2026-05-26 - Private artifact boundary guard
 
 - ADDED: `tools/check-private-artifact-boundaries.mjs`.

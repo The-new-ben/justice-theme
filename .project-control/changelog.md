@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Homepage customer-first cleanup
+
+- UPDATED: `front-page.php`, `page-home.php`, `template-parts/sections/lawyer-cta.php`, `functions.php`, `deployment-marker.txt`.
+- PURPOSE: keep the public homepage focused on people looking for legal help, not on the platform business model.
+- IMPLEMENTATION: removed the early `homepage-lawyer-revenue-strip` include from both homepage templates; rewrote the remaining lawyer CTA as a secondary profile-review invitation.
+- USER-FACING SAFETY: visible homepage no longer needs to show early lawyer pricing cards, lead-partner CTA, revenue framing or a business-plan style pitch before the legal-help content.
+- COMPETITOR NOTE: Din and PsakDin keep public homepage hierarchy centered on legal information, lawyer search and user contact paths, with lawyer advertising/join paths secondary.
+- DEPLOYMENT STATUS: marker prepared as `2026-05-26-homepage-customer-first-v1`; lint, commit, uPress Pull Git and live verification still required.
+
 # 2026-05-26 - Public article mobile CTA dedupe
 
 - UPDATED: `single-articles.php`, `assets/css/main.css`, `functions.php`, `deployment-marker.txt`.

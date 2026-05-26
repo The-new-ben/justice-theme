@@ -1,6 +1,10 @@
 <?php
 /**
- * Lawyer CTA section — targets lawyers as customers.
+ * Quiet lawyer participation CTA.
+ *
+ * This block is intentionally secondary on public pages: the site is for
+ * people seeking legal help first, while lawyers get a clear but modest path
+ * to claim or improve a professional profile.
  *
  * @package JusticeTheme
  */
@@ -9,75 +13,76 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$lead_partner_url = add_query_arg(
+$profile_review_url = add_query_arg(
 	array(
-		'plan_interest' => 'lead_partner',
-		'pre_checkout'  => '1',
+		'plan_interest'    => 'pro',
+		'utm_source'       => 'homepage',
+		'utm_medium'       => 'quiet_lawyer_cta',
+		'utm_campaign'     => 'lawyer_profile_review',
+		'outreach_segment' => 'homepage_quiet_lawyer_cta',
 	),
 	home_url( '/lawyer-registration/' )
 );
-$lead_partner_url = add_query_arg(
-	array(
-		'utm_source'       => 'homepage',
-		'utm_medium'       => 'site_cta',
-		'utm_campaign'     => 'lawyer_acquisition',
-		'outreach_segment' => 'homepage_lawyer_cta',
-	),
-	$lead_partner_url
-);
 
-$plans_url = home_url( '/lawyer-plans/' );
+$plans_url = add_query_arg(
+	array(
+		'utm_source'   => 'homepage',
+		'utm_medium'   => 'quiet_lawyer_cta',
+		'utm_campaign' => 'lawyer_profile_review',
+	),
+	home_url( '/lawyer-plans/' )
+);
 ?>
 
-<section class="lawyer-cta section" aria-labelledby="lawyer-cta-title">
+<section class="lawyer-cta section lawyer-cta--quiet" aria-labelledby="lawyer-cta-title">
 	<div class="container lawyer-cta__inner">
 		<div class="lawyer-cta__content">
-			<p class="section-header__eyebrow"><?php esc_html_e( 'לעורכי דין ומשרדים', 'justice-theme' ); ?></p>
-			<h2 id="lawyer-cta-title"><?php esc_html_e( 'המסלול העסקי לעורכי דין שרוצים פניות מדידות', 'justice-theme' ); ?></h2>
-			<p><?php esc_html_e( 'Jus-Tice מחברת בין תוכן משפטי, פרופיל מקצועי וניהול פניות. ההצטרפות עוברת בדיקת התאמה, רישיון וזמינות למענה; אין חיוב אוטומטי מהטופס ואין הבטחה לתוצאה משפטית או עסקית.', 'justice-theme' ); ?></p>
+			<p class="section-header__eyebrow"><?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?></p>
+			<h2 id="lawyer-cta-title"><?php esc_html_e( 'רוצים לעדכן או להשלים פרופיל מקצועי?', 'justice-theme' ); ?></h2>
+			<p><?php esc_html_e( 'אם אתם עורכי דין ומופיע באתר פרופיל שקשור אליכם, או שאתם רוצים להיבדק להוספה למדריך, אפשר להשאיר בקשה מסודרת. כל פרופיל עובר בדיקת התאמה, רישיון ותוכן לפני פרסום או הרחבה.', 'justice-theme' ); ?></p>
 		</div>
 
 		<div class="lawyer-cta__features">
 			<div class="lawyer-cta__feature">
 				<span class="lawyer-cta__icon" aria-hidden="true">01</span>
-				<h3><?php esc_html_e( 'פרופיל מקצועי שמוכר אמון', 'justice-theme' ); ?></h3>
-				<p><?php esc_html_e( 'פרופיל עשיר עם תחומי התמחות, אזורי שירות, ניסיון, תוכן מקצועי וקריאה ברורה לפנייה.', 'justice-theme' ); ?></p>
+				<h3><?php esc_html_e( 'פרטי פרופיל מדויקים', 'justice-theme' ); ?></h3>
+				<p><?php esc_html_e( 'תחומי עיסוק, אזורי שירות, פרטי קשר ותיאור מקצועי מוצגים בזהירות ורק אחרי בדיקה.', 'justice-theme' ); ?></p>
 			</div>
 			<div class="lawyer-cta__feature">
 				<span class="lawyer-cta__icon" aria-hidden="true">02</span>
-				<h3><?php esc_html_e( 'פניות עם סטטוס ברור', 'justice-theme' ); ?></h3>
-				<p><?php esc_html_e( 'כל פנייה נשמרת, מקבלת תחום וסטטוס, ומכינה את הדרך לאזור אישי עם מעקב אחרי טיפול והמרות.', 'justice-theme' ); ?></p>
+				<h3><?php esc_html_e( 'תוכן שמסייע לקוראים', 'justice-theme' ); ?></h3>
+				<p><?php esc_html_e( 'מאמרים ומדריכים צריכים לעזור לציבור להבין את הנושא לפני פנייה, בלי הבטחות תוצאה או דירוגים לא מבוססים.', 'justice-theme' ); ?></p>
 			</div>
 			<div class="lawyer-cta__feature">
 				<span class="lawyer-cta__icon" aria-hidden="true">03</span>
-				<h3><?php esc_html_e( 'דוח ערך חודשי', 'justice-theme' ); ?></h3>
-				<p><?php esc_html_e( 'המסלול נבנה סביב מדידה: חשיפה, פניות, תחומי פעילות ותיעוד ערך כדי שעורך הדין יבין מה עובד.', 'justice-theme' ); ?></p>
+				<h3><?php esc_html_e( 'פנייה מסודרת בלבד', 'justice-theme' ); ?></h3>
+				<p><?php esc_html_e( 'פניות נבדקות לפי תחום, עיר ודחיפות. אין התחייבות לכמות פניות, לתוצאה משפטית או להצלחה עסקית.', 'justice-theme' ); ?></p>
 			</div>
 		</div>
 
-		<ol class="lawyer-cta__pipeline" aria-label="<?php esc_attr_e( 'שלבי הצטרפות לעורכי דין', 'justice-theme' ); ?>">
+		<ol class="lawyer-cta__pipeline" aria-label="<?php esc_attr_e( 'שלבי בדיקת פרופיל לעורך דין', 'justice-theme' ); ?>">
 			<li>
 				<strong><?php esc_html_e( 'בדיקה', 'justice-theme' ); ?></strong>
 				<span><?php esc_html_e( 'רישיון, תחום, עיר וזמינות', 'justice-theme' ); ?></span>
 			</li>
 			<li>
-				<strong><?php esc_html_e( 'הקמה', 'justice-theme' ); ?></strong>
-				<span><?php esc_html_e( 'פרופיל, תוכן ומסלול פניות', 'justice-theme' ); ?></span>
+				<strong><?php esc_html_e( 'פרופיל', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'פרטים, תוכן ואזור שירות', 'justice-theme' ); ?></span>
 			</li>
 			<li>
-				<strong><?php esc_html_e( 'מדידה', 'justice-theme' ); ?></strong>
-				<span><?php esc_html_e( 'פניות, סטטוסים ודוח ערך', 'justice-theme' ); ?></span>
+				<strong><?php esc_html_e( 'פרסום זהיר', 'justice-theme' ); ?></strong>
+				<span><?php esc_html_e( 'בלי דירוגים או הבטחות לא מאומתות', 'justice-theme' ); ?></span>
 			</li>
 		</ol>
 
 		<div class="lawyer-cta__actions">
-			<a href="<?php echo esc_url( $lead_partner_url ); ?>" class="button button--gold">
-				<?php esc_html_e( 'בקשת בדיקת שותף לידים', 'justice-theme' ); ?>
+			<a href="<?php echo esc_url( $profile_review_url ); ?>" class="button button--gold">
+				<?php esc_html_e( 'בקשת בדיקת פרופיל', 'justice-theme' ); ?>
 			</a>
 			<a href="<?php echo esc_url( $plans_url ); ?>" class="button button--outline">
-				<?php esc_html_e( 'השוואת מסלולים', 'justice-theme' ); ?>
+				<?php esc_html_e( 'מידע לעורכי דין', 'justice-theme' ); ?>
 			</a>
-			<small class="lawyer-cta__note"><?php esc_html_e( 'מסלול בתשלום מופעל רק אחרי בדיקה, אישור ידני ותשלום מאושר.', 'justice-theme' ); ?></small>
+			<small class="lawyer-cta__note"><?php esc_html_e( 'אין חיוב מהטופס. מסלולים בתשלום מופעלים רק אחרי בדיקה, אישור ידני ותשלום מאושר.', 'justice-theme' ); ?></small>
 		</div>
 	</div>
 </section>

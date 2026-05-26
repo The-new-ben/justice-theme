@@ -1,3 +1,10 @@
+# LATEST WORK STATUS - 2026-05-26 13:35 Asia/Jerusalem
+- HOMEPAGE CUSTOMER-FIRST CLEANUP PREPARED: removed the early lawyer pricing/lead-partner strip from both homepage templates so the public homepage no longer switches into lawyer-acquisition mode immediately after user intake.
+- CODE UPDATED: `front-page.php` and `page-home.php` no longer include `homepage-lawyer-revenue-strip`; `template-parts/sections/lawyer-cta.php` was rewritten as a quieter secondary profile-review invitation for lawyers.
+- USER-FACING RULE: the homepage remains a legal-help site first: search, guides, practice areas, lawyer comparison and contact. Lawyer participation is still present, but lower on the page and without pricing cards, lead-partner language or internal business framing.
+- COMPETITOR NOTE: Din and PsakDin keep public homepage focus on legal content, lawyer search and user contact paths; advertising/join paths exist separately or less prominently. This change follows that hierarchy.
+- DEPLOYMENT STATUS: marker prepared as `2026-05-26-homepage-customer-first-v1`; lint, commit, uPress pull, live verification, Linear update and Hebrew email still required.
+
 # LATEST WORK STATUS - 2026-05-26 13:18 Asia/Jerusalem
 - PUBLIC ARTICLE MOBILE CTA DEDUPE PREPARED: single article pages no longer repeat the same contextual legal-help CTA twice in a row on mobile.
 - CODE UPDATED: article templates now mark duplicate sidebar CTA-only blocks, and mobile CSS hides the duplicate while keeping the main post-body CTA, connected lawyer profile/sidebar content and family-law cluster navigation when present.

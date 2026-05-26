@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Managed legal-service fulfillment gate
+
+- ADDED: `inc/legal-request-fulfillment.php`.
+- UPDATED: `functions.php`, `inc/lead-crm.php`, `inc/revenue-streams.php`, `deployment-marker.txt`.
+- PURPOSE: start the Lawhive-style managed legal-service infrastructure privately without launching a public law-firm product.
+- IMPLEMENTATION: registered owner-only fulfillment meta on `justice_legal_request`; added a LegalTech request metabox; added a Justice CRM preflight panel for package, managing lawyer, engagement letter, ethics review, price, client payment status and readiness.
+- SAFETY: no AI call, no payment, no client message, no lawyer notification, no routing, no public page, no checkout and no CMS database publication is triggered by the new gate.
+- BLOCKER PRESERVED: public launch remains blocked until ethics/Bar engagement structure, lawyer of record, signed client engagement and payment proof are recorded.
+- DEPLOYMENT STATUS: marker prepared as `2026-05-26-managed-service-fulfillment-v1`; live pull and verification still required.
+
 # 2026-05-26 - Homepage customer-first cleanup
 
 - UPDATED: `front-page.php`, `page-home.php`, `template-parts/sections/lawyer-cta.php`, `functions.php`, `deployment-marker.txt`.

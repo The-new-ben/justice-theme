@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_VERSION', '1.1.38' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-05-26-homepage-customer-first-v1' );
+define( 'JUSTICE_THEME_VERSION', '1.1.39' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-05-26-managed-service-fulfillment-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 
@@ -64,6 +64,7 @@ $justice_theme_files = array(
 	'inc/lead-spam-guard.php',
 	'inc/lead-ui.php',
 	'inc/lead-crm.php',
+	'inc/legal-request-fulfillment.php',
 	'inc/lead-classifier.php',
 	'inc/lead-routing.php',
 	'inc/pillar-pages.php',

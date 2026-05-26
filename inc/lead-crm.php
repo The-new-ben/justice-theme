@@ -135,6 +135,9 @@ function justice_theme_render_crm_admin_page(): void {
 		<?php justice_theme_crm_render_owner_handoff_release_queue(); ?>
 		<?php justice_theme_crm_render_btl_supply_panel(); ?>
 		<?php justice_theme_crm_render_qualified_lead_billing_queue(); ?>
+		<?php if ( function_exists( 'justice_theme_render_managed_service_fulfillment_panel' ) ) : ?>
+			<?php justice_theme_render_managed_service_fulfillment_panel(); ?>
+		<?php endif; ?>
 		<?php justice_theme_crm_render_lead_audit_export_panel(); ?>
 		<?php justice_theme_crm_render_webhook_readiness_panel(); ?>
 

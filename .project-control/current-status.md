@@ -1,3 +1,11 @@
+# LATEST WORK STATUS - 2026-05-26 13:44 Asia/Jerusalem
+- MANAGED LEGAL-SERVICE FULFILLMENT GATE CODED: started the Lawhive-style infrastructure safely as a private/admin gate on `justice_legal_request`, not as a public service launch.
+- CODE UPDATED: added `inc/legal-request-fulfillment.php`, loaded it from `functions.php`, and surfaced a `Managed legal-service fulfillment preflight` panel inside Justice CRM.
+- OWNER-ONLY FIELDS: request package, fulfillment mode/status, managing lawyer, engagement-letter status, ethics-review status, package price, client payment status, customer case reference and owner fulfillment note.
+- SAFETY RULE: the gate records readiness only. It does not run AI, charge money, send client messages, notify lawyers, route leads, publish pages or claim that Jus-Tice is a law firm.
+- BLOCKERS KEPT EXPLICIT: public launch remains blocked until ethics/Bar engagement structure, managing lawyer of record, signed engagement letter and payment proof are recorded.
+- DEPLOYMENT STATUS: marker prepared as `2026-05-26-managed-service-fulfillment-v1`; lint passed for new and touched PHP files; commit, uPress pull, live marker verification, Linear update and optional Hebrew significant-progress email still required.
+
 # LATEST WORK STATUS - 2026-05-26 13:40 Asia/Jerusalem
 - HOMEPAGE CUSTOMER-FIRST CLEANUP VERIFIED LIVE: removed the early lawyer pricing/lead-partner strip from both homepage templates so the public homepage no longer switches into lawyer-acquisition mode immediately after user intake.
 - CODE UPDATED: `front-page.php` and `page-home.php` no longer include `homepage-lawyer-revenue-strip`; `template-parts/sections/lawyer-cta.php` was rewritten as a quieter secondary profile-review invitation for lawyers.

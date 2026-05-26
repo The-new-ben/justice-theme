@@ -1,0 +1,88 @@
+{
+  "report_date": "2026-05-26",
+  "live_audit_date": "2026-05-26",
+  "status": "READY_FOR_OWNER_SEO_REVIEW_NOT_UPLOAD",
+  "source": {
+    "status": "FOUND",
+    "file": ".reports/live-public-business-language-2026-05-26.json"
+  },
+  "route_rows": [
+    {
+      "route": "/national-insurance-attorney/",
+      "page_role": "practice_landing_lawyer_match",
+      "user_intent": "User is already looking for a Bituach Leumi lawyer, legal representation, appeal handling, medical committee help, or rights review.",
+      "primary_query_family": "עורך דין ביטוח לאומי; עורך דין לערעור ביטוח לאומי; עורך דין ועדה רפואית",
+      "current_live_title": "ערעור ביטוח לאומי: בדיקת כדאיות לפני החלטה | Jus-Tice",
+      "current_live_h1": "ערעור על החלטת ביטוח לאומי: בדיקת כדאיות לפני שהמועד נסגר",
+      "proposed_title": "עורך דין ביטוח לאומי: מציאת עורך דין לערעור או ועדה רפואית | Jus-Tice",
+      "proposed_h1": "עורך דין ביטוח לאומי לערעור, ועדה רפואית או בדיקת זכויות",
+      "public_copy_posture": "Lead with legal-help matching, urgency, documents to prepare, and how to choose counsel. Keep business/revenue rationale out of all visitor-facing copy.",
+      "primary_cta": "Submit case details to find a relevant Bituach Leumi lawyer.",
+      "internal_link_posture": "Link to the appeal guide/calculator as a preliminary self-check before contacting a lawyer.",
+      "allowed_without_owner_gsc": "Prepare draft metadata and link copy locally only.",
+      "blocked_until_owner_gsc": "No CMS title/H1 upload, no canonical, no redirect, no noindex, no slug, no sitemap, no taxonomy, no router or lawyer-profile changes.",
+      "status": "READY_FOR_OWNER_SEO_REVIEW_NOT_UPLOAD"
+    },
+    {
+      "route": "/bituach-leumi-appeal-guide/",
+      "page_role": "pillar_guide_and_tool_entry",
+      "user_intent": "User wants to understand whether and how to appeal a Bituach Leumi decision before choosing the next step.",
+      "primary_query_family": "ערעור ביטוח לאומי; ערעור ועדה רפואית; איך מערערים על החלטת ביטוח לאומי",
+      "current_live_title": "ערעור ביטוח לאומי: בדיקת כדאיות לפני החלטה | Jus-Tice",
+      "current_live_h1": "ערעור על החלטת ביטוח לאומי: בדיקת כדאיות לפני שהמועד נסגר",
+      "proposed_title": "ערעור ביטוח לאומי: מדריך בדיקה לפני ועדה רפואית או החלטה | Jus-Tice",
+      "proposed_h1": "ערעור ביטוח לאומי: מה לבדוק לפני שמגישים ערעור",
+      "public_copy_posture": "Lead with user education, 60-day timing awareness where legally correct, evidence checklist, appeal-worth calculator, and a clean handoff to help.",
+      "primary_cta": "Start with the appeal worth-it calculator, then request lawyer review if the case looks time-sensitive or document-heavy.",
+      "internal_link_posture": "Link to the attorney landing after explaining appeal steps and evidence needs.",
+      "allowed_without_owner_gsc": "Prepare draft metadata, section outline, and calculator entry text locally only.",
+      "blocked_until_owner_gsc": "No CMS title/H1 upload, no canonical, no redirect, no noindex, no slug, no sitemap, no taxonomy, no live calculator or request-flow changes.",
+      "status": "READY_FOR_OWNER_SEO_REVIEW_NOT_UPLOAD"
+    }
+  ],
+  "decision_rows": [
+    {
+      "item": "duplicate_live_title_h1",
+      "finding": "The two Bituach Leumi routes currently share the same live title and H1 in the sampled audit.",
+      "recommendation": "Keep both routes only if the practice landing owns lawyer-match intent and the guide owns appeal-education/tool intent.",
+      "owner_decision_needed": "Approve metadata split and internal-link posture before any CMS edit.",
+      "risk_if_ignored": "Search engines and users may see two pages competing for the same appeal query instead of a clear guide-to-lawyer path.",
+      "status": "OPEN_REVIEW"
+    },
+    {
+      "item": "public_language_boundary",
+      "finding": "The owner correctly rejected internal revenue-style titles on public pages.",
+      "recommendation": "Use only user-facing legal-help language in titles, H1s, intros, CTAs and snippets. Keep commercial strategy inside private repo reports, Linear and owner-only admin.",
+      "owner_decision_needed": "None for the rule; approval only needed for the actual public replacement copy.",
+      "risk_if_ignored": "Visitors may feel exploited or confused, hurting trust and conversion.",
+      "status": "RULE_CONFIRMED"
+    },
+    {
+      "item": "seo_control_boundary",
+      "finding": "This packet is a review artifact only and does not justify SEO control changes by itself.",
+      "recommendation": "Do not alter canonical, redirect, noindex, sitemap, taxonomy or slug without owner approval and GSC/SERP evidence.",
+      "owner_decision_needed": "Yes, if any technical SEO action is later proposed.",
+      "risk_if_ignored": "An otherwise small copy duplication issue could become a traffic-loss incident.",
+      "status": "BLOCKED_FOR_TECHNICAL_SEO"
+    },
+    {
+      "item": "next_public_edit_scope",
+      "finding": "The safest first edit is metadata/H1 disambiguation plus contextual internal links, not a full rewrite.",
+      "recommendation": "Draft the final public copy from these roles: /national-insurance-attorney/=practice_landing_lawyer_match; /bituach-leumi-appeal-guide/=pillar_guide_and_tool_entry.",
+      "owner_decision_needed": "Approve exact title/H1/link text and confirm whether GSC supports both URLs.",
+      "risk_if_ignored": "A broad rewrite could reopen legal-fact review and delay the Bituach Leumi first paid-lead loop.",
+      "status": "NEXT_STEP_DEFINED"
+    }
+  ],
+  "safety": {
+    "public_cms_changed": false,
+    "redirects_changed": false,
+    "canonicals_changed": false,
+    "noindex_changed": false,
+    "sitemaps_changed": false,
+    "taxonomies_changed": false,
+    "lawyer_routing_changed": false,
+    "leads_changed": false,
+    "payments_changed": false
+  }
+}

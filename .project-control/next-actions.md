@@ -3561,3 +3561,14 @@ Next safe batch before any URL/content migration:
 3. Do not change redirects, canonicals, slugs, noindex, sitemap or taxonomy from this audit alone.
 4. Decide whether the two Bituach Leumi URLs should have distinct user intents, internal links, and CTAs, or whether one should become the canonical/supporting page later after owner approval and GSC evidence.
 5. Keep the uPress deployment blocker for `b8f65e6c` open until the live marker changes to `2026-05-26-public-business-language-title-gate-v1`.
+
+## 2026-05-26 BITUACH LEUMI ROUTE INTENT REVIEW NEXT ACTIONS
+
+**Status:** REVIEW PACKET READY / NO PUBLIC EDIT APPROVED
+
+1. Open `.project-control/bituach-leumi-route-intent-review-2026-05-26.md`.
+2. Treat `/national-insurance-attorney/` as the proposed lawyer/practice-match page and `/bituach-leumi-appeal-guide/` as the proposed appeal guide/calculator page.
+3. Owner/SEO should approve or revise the proposed Hebrew title/H1 split before any CMS metadata edit.
+4. Check GSC/SERP evidence before deciding whether both URLs should remain distinct long term.
+5. If approved, prepare a minimal public edit: metadata/H1 split plus contextual internal links only; avoid a full rewrite unless legal/source review is ready.
+6. Do not change redirect, canonical, noindex, sitemap, taxonomy, slug, lawyer routing, lead routing, payment or public CMS body from this packet alone.

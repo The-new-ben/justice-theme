@@ -5257,3 +5257,9 @@
 - FOUND REVIEW ITEM: `/national-insurance-attorney/` and `/bituach-leumi-appeal-guide/` share the same title and H1, so they need an anti-cannibalization/association decision before more Bituach Leumi expansion.
 - GENERATED: `.project-control/live-public-business-language-2026-05-26.md` and `.reports/live-public-business-language-2026-05-26.csv`.
 - SAFETY: read-only live fetches only; no public CMS/page/URL/SEO/routing/payment/contact/deployment action changed.
+
+## 2026-05-26 - Bituach Leumi Route Intent Review
+- ADDED: `tools/build-bituach-leumi-route-intent-review.mjs` for review-only Bituach Leumi route-intent packets.
+- GENERATED: `.project-control/bituach-leumi-route-intent-review-2026-05-26.md`, `.project-control/bituach-leumi-route-intent-review-2026-05-26.csv`, `.reports/bituach-leumi-route-intent-review-2026-05-26.json` and `.reports/bituach-leumi-route-intent-review-2026-05-26.csv`.
+- DOCUMENTED: `/national-insurance-attorney/` should be the lawyer-match/practice route and `/bituach-leumi-appeal-guide/` should be the guide/calculator route, pending owner/GSC approval before any public edit.
+- SAFETY: repo-local reporting only; no CMS title/H1/body, URL, redirect, canonical, noindex, sitemap, taxonomy, lead, lawyer, supplier, payment, email, WhatsApp or uPress action changed.

@@ -6726,6 +6726,14 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - BLOCKED DEPLOYMENT NOTE: production still has not pulled `b8f65e6c`; live `deployment-marker.txt` remains `2026-05-26-btl-held-lead-triage-v1`.
 - SAFETY: this was read-only. No public CMS row, title/H1/body, URL, redirect, canonical, noindex, sitemap, taxonomy, lead, lawyer, supplier, payment, email, WhatsApp or uPress action changed.
 - COMPLETION ASSESSMENT: already-live internal-language audit coverage 55%; sampled high-risk pages clean; Bituach Leumi route duplication review now documented.
+
+## 2026-05-26 BITUACH LEUMI ROUTE INTENT REVIEW
+- TOOLING ADDED: `tools/build-bituach-leumi-route-intent-review.mjs` converts the live duplicate finding into a repo-local anti-cannibalization review packet.
+- GENERATED: `.project-control/bituach-leumi-route-intent-review-2026-05-26.md`, `.project-control/bituach-leumi-route-intent-review-2026-05-26.csv`, `.reports/bituach-leumi-route-intent-review-2026-05-26.json` and `.reports/bituach-leumi-route-intent-review-2026-05-26.csv`.
+- DECISION PACKET: `/national-insurance-attorney/` should own lawyer/practice-match intent, while `/bituach-leumi-appeal-guide/` should own appeal education, checklist and calculator/tool intent.
+- PUBLIC COPY RULE CONFIRMED: visitor-facing titles/H1s must explain legal help for the reader, never why the page creates revenue for Jus-Tice.
+- BLOCKED: no CMS title/H1/body upload, redirect, canonical, noindex, sitemap, taxonomy, slug, lawyer-routing, lead, payment, email or WhatsApp action was performed from this packet.
+- COMPLETION ASSESSMENT: duplicate-intent documentation 100%; public metadata replacement readiness 70%; live correction remains 0% until owner/GSC approval.
 ## LATEST WORK STATUS - 2026-05-22 14:38 Asia/Jerusalem
 - CRIMINAL OWNER REVIEW PACKET: converted the five current-URL Criminal first-upload targets into a controlled owner/legal/source review gate.
 - TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.

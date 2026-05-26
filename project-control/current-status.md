@@ -1,5 +1,5 @@
 # LATEST WORK STATUS - 2026-05-26 11:39 Asia/Jerusalem
-- UK WHATSAPP LEAD LANE ADDED: confirmed the `info@jus-tice.co.il` Outlook mailbox contains the exact owner-sent WhatsApp email: `WhatsApp Chat with +972 50-883-6331 הוראות נא לטפל דרך המערכת`.
+- UK WHATSAPP LEAD LANE ADDED: confirmed the `info@jus-tice.co.il` Outlook mailbox contains the owner-sent WhatsApp email for a UK-law lead. The client phone is intentionally not stored in repo docs.
 - LEAD CONTENT READ: attachment says the client asked from `/uk-lawyer/` for `עורך דין אנגליה | עו"ד ישראלי ליווי וייצוג משפטי באנגליה`; no detailed case facts were provided yet.
 - CODE UPDATED: added `uk-law` as a recognized lead area in the public/admin lead vocabulary and rule-based classifier, including `uk-lawyer`, England, Britain, London and Hebrew UK keywords.
 - ROUTING DECISION: this lead should enter the private CRM as an owner-held `uk-law` supplier/lawyer review lead until consent and a paid/approved UK-law supplier path exist. It must not be auto-routed as a paid lead yet.

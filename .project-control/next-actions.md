@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-LIVE-LEGAL-HELP-SURFACE-QA-001: Keep public routes customer-first before more content/link work
+**Status:** FIXED LOCAL / LINEAR DONE
+**Why:** after public-facing fixes, the owner needs proof that main visitor routes are legal-help pages and not exposing the internal revenue plan before more content or internal-link work begins.
+**Actions:**
+1. DONE: add `tools/check-live-legal-help-conversion-surface.mjs`.
+2. DONE: run it against the live homepage, lawyer directory, lawyer-selection guide, Bituach Leumi attorney page, Bituach Leumi guide/calculator, criminal defense page, medical malpractice page and real-estate guide.
+3. DONE: verify `8/8` sampled routes return 200, contain title/H1, legal-help markers and detectable user CTAs.
+4. DONE: verify no internal revenue/business-plan marker hits in the sampled routes.
+5. DONE: record associated/synonymous pages for future linkage/cannibalization review.
+6. DONE: record this as Linear `HAD-99`, marked Done.
+7. NEXT: use `.project-control/live-legal-help-conversion-surface-2026-05-26.md` before adding new public pages or internal links.
+8. BLOCKED: do not change public titles/H1/meta, URLs, redirects, canonicals/noindex, sitemap, taxonomy or internal links from this report alone; owner/SEO/GSC approval is still required.
+
 ### ACTION-GROW-PAYMENT-COMPLIANCE-PRIVATE-001: Keep Grow/Meshulam compliance proof private and payment claims honest
 **Status:** FIXED LOCAL / LINEAR DONE
 **Why:** the live site passes the visible Grow/Meshulam website-compliance checks, but the proof artifacts must stay private and the team must not confuse compliance proof with real payment proof.

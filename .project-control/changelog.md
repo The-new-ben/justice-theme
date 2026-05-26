@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Live legal-help conversion surface audit
+
+- ADDED: `tools/check-live-legal-help-conversion-surface.mjs`.
+- GENERATED: `.project-control/live-legal-help-conversion-surface-2026-05-26.md`, `.project-control/live-legal-help-conversion-surface-2026-05-26.csv`, `.reports/live-legal-help-conversion-surface-2026-05-26.json`, `.reports/live-legal-help-conversion-surface-2026-05-26.csv`.
+- PURPOSE: give future operators a read-only route QA gate that checks public visitor-facing pages for customer-first legal-help signals, internal business-language leakage, detectable user CTAs and associated/synonymous pages for future linkage review.
+- VERIFIED LIVE READ-ONLY: `8/8` sampled routes returned expected 200 paths, had title/H1 signals, contained legal-help markers, exposed user CTA links and had no internal revenue/business-plan marker hits.
+- ASSOCIATED PAGE MAP: captured homepage, directory, selection guide, Bituach Leumi attorney/guide, criminal, medical malpractice and real-estate guide relationships for later internal-link/cannibalization decisions.
+- LINEAR: recorded as `HAD-99` and marked Done.
+- SAFETY: read-only live route checks plus repo-local tool/report/status only; no public CMS page, content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # 2026-05-26 - Grow payment compliance private report refresh
 
 - UPDATED: `tools/check-grow-payment-compliance.mjs`.

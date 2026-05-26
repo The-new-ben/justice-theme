@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-26 22:16 Asia/Jerusalem
+- LIVE LEGAL-HELP CONVERSION SURFACE AUDIT VERIFIED READ-ONLY: added and ran a public route QA checker to confirm the main visitor-facing pages still read as legal-help surfaces, not internal revenue-plan pages.
+- CODE ADDED: `tools/check-live-legal-help-conversion-surface.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/live-legal-help-conversion-surface-2026-05-26.md`, `.project-control/live-legal-help-conversion-surface-2026-05-26.csv`, `.reports/live-legal-help-conversion-surface-2026-05-26.json`, `.reports/live-legal-help-conversion-surface-2026-05-26.csv`.
+- VERIFIED LIVE READ-ONLY: `8/8` sampled public routes returned expected 200 paths, had title/H1 signals, contained legal-help language, exposed detectable user CTAs and showed no internal revenue/business-plan marker hits.
+- ROUTES COVERED: `/`, `/lawyers/`, `/find-lawyer-how-to-find-good-attorney/`, `/national-insurance-attorney/`, `/bituach-leumi-appeal-guide/`, `/criminal-defense-attorney/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/`.
+- ASSOCIATED PAGE MAP: report records linkage/cannibalization review pairs including homepage -> lawyers/selection/Bituach Leumi, `/lawyers/` -> selection/practice pages, Bituach Leumi attorney -> Bituach Leumi guide/calculator, and real-estate guide -> lawyer/purchase-tax style tools if later approved.
+- LINEAR: recorded as `HAD-99` and marked Done under the revenue-stream/public-route QA backlog.
+- CONTENT SAFETY: no public copy was changed. This is evidence only; internal linking, title/H1, canonical/noindex, redirect, sitemap, taxonomy and CMS edits still require owner/SEO approval.
+- COMPLETION ASSESSMENT: sampled public route QA 100%; associated-page linkage map 60%; future internal-link/cannibalization work remains pending until owner/GSC approval.
+- PUBLIC IMPACT: none. No public CMS page, content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-26 22:06 Asia/Jerusalem
 - GROW PAYMENT COMPLIANCE PRIVATE REPORT REFRESH VERIFIED LIVE READ-ONLY: refreshed the Grow/Meshulam public compliance evidence after moving the checker outputs into private artifact paths.
 - CODE UPDATED: `tools/check-grow-payment-compliance.mjs` now writes reports to `.project-control/` and `.reports/`, not public-root `project-control/` or `reports/`, and its markdown report explains the artifact-privacy rule.

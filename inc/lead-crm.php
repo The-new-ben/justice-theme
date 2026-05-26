@@ -65,6 +65,10 @@ function justice_theme_crm_register_lead_meta(): void {
 		'partner_terms_min_fee_ils'  => 'integer',
 		'partner_terms_last_updated_at' => 'string',
 		'partner_terms_owner_note'   => 'string',
+		'owner_handoff_release_status' => 'string',
+		'owner_handoff_release_scope' => 'string',
+		'owner_handoff_released_at'  => 'string',
+		'owner_handoff_release_note' => 'string',
 		'handoff_path'              => 'string',
 		'supplier_match_required'   => 'string',
 		'owner_revenue_next_step'   => 'string',
@@ -128,6 +132,7 @@ function justice_theme_render_crm_admin_page(): void {
 		<?php justice_theme_crm_render_external_lead_importer(); ?>
 		<?php justice_theme_crm_render_repermission_queue(); ?>
 		<?php justice_theme_crm_render_partner_preview_queue(); ?>
+		<?php justice_theme_crm_render_owner_handoff_release_queue(); ?>
 		<?php justice_theme_crm_render_btl_supply_panel(); ?>
 		<?php justice_theme_crm_render_qualified_lead_billing_queue(); ?>
 		<?php justice_theme_crm_render_lead_audit_export_panel(); ?>
@@ -389,6 +394,7 @@ add_action( 'admin_post_justice_theme_create_whatsapp_lead', 'justice_theme_crm_
 add_action( 'admin_post_justice_theme_stage_external_leads', 'justice_theme_crm_handle_external_lead_import' );
 add_action( 'admin_post_justice_theme_update_lead_permission', 'justice_theme_crm_handle_lead_permission_update' );
 add_action( 'admin_post_justice_theme_update_partner_preview', 'justice_theme_crm_handle_partner_preview_update' );
+add_action( 'admin_post_justice_theme_record_owner_handoff_release', 'justice_theme_crm_handle_owner_handoff_release' );
 add_action( 'admin_post_justice_theme_export_lead_audit', 'justice_theme_crm_handle_lead_audit_export' );
 
 function justice_theme_crm_render_external_lead_importer(): void {
@@ -1130,6 +1136,227 @@ function justice_theme_crm_partner_terms_next_step( string $status, int $fee ): 
 	return 'Use anonymized preview for internal pricing/coverage review. Do not release PII.';
 }
 
+function justice_theme_crm_owner_handoff_release_status_labels(): array {
+	return array(
+		'not_recorded'             => 'Not recorded',
+		'approved_manual_handoff'  => 'Approved for manual handoff',
+		'do_not_release'           => 'Do not release',
+		'needs_more_review'        => 'Needs more review',
+	);
+}
+
+function justice_theme_crm_owner_handoff_release_scope_labels(): array {
+	return array(
+		'manual_partner_handoff' => 'Manual handoff to named lawyer/supplier',
+		'manual_router_release'  => 'Manual release to lawyer router later',
+		'billing_only'           => 'Billing/audit only - no PII handoff',
+	);
+}
+
+function justice_theme_crm_query_owner_handoff_release_queue( int $limit ): ?WP_Query {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return null;
+	}
+
+	return new WP_Query(
+		array(
+			'post_type'      => 'justice_lead',
+			'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+			'posts_per_page' => $limit,
+			'orderby'        => 'modified',
+			'order'          => 'DESC',
+			'no_found_rows'  => true,
+			'meta_query'     => array(
+				'relation' => 'AND',
+				array(
+					'key'   => 'consent',
+					'value' => '1',
+				),
+				array(
+					'key'     => 'consent_status',
+					'value'   => justice_theme_crm_manual_lead_routeable_consent_statuses(),
+					'compare' => 'IN',
+				),
+				array(
+					'key'   => 'partner_terms_status',
+					'value' => 'terms_accepted',
+				),
+				array(
+					'key'     => 'partner_terms_min_fee_ils',
+					'value'   => 0,
+					'compare' => '>',
+					'type'    => 'NUMERIC',
+				),
+				array(
+					'key'   => 'routing_hold',
+					'value' => '1',
+				),
+				array(
+					'relation' => 'OR',
+					array(
+						'key'     => 'owner_handoff_release_status',
+						'compare' => 'NOT EXISTS',
+					),
+					array(
+						'key'     => 'owner_handoff_release_status',
+						'value'   => array( '', 'not_recorded', 'needs_more_review' ),
+						'compare' => 'IN',
+					),
+				),
+			),
+		)
+	);
+}
+
+function justice_theme_crm_render_owner_handoff_release_queue(): void {
+	$queue = justice_theme_crm_query_owner_handoff_release_queue( 12 );
+	?>
+	<h2 style="margin-top:28px;">Owner handoff release queue</h2>
+	<p>Owner-only final manual gate after client permission and partner terms are recorded. This records approval; it does not send anything, expose PII automatically or remove routing hold.</p>
+	<?php if ( ! $queue || ! $queue->have_posts() ) : ?>
+		<div class="notice notice-info inline"><p>No leads are waiting for owner handoff release.</p></div>
+		<?php return; ?>
+	<?php endif; ?>
+	<table class="widefat striped" style="margin:12px 0 20px;">
+		<thead>
+			<tr>
+				<th>Lead</th>
+				<th>Consent / terms</th>
+				<th>Current gate</th>
+				<th>Record owner release</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php while ( $queue->have_posts() ) : $queue->the_post(); ?>
+				<?php
+				$post_id = get_the_ID();
+				$gate = justice_theme_crm_lead_audit_gate( $post_id );
+				$terms_fee = absint( get_post_meta( $post_id, 'partner_terms_min_fee_ils', true ) );
+				$target_type = (string) get_post_meta( $post_id, 'partner_terms_target_type', true );
+				$note = (string) get_post_meta( $post_id, 'owner_handoff_release_note', true );
+				?>
+				<tr>
+					<td>
+						<strong><a href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>"><?php echo esc_html( justice_theme_crm_lead_display_name( $post_id ) ); ?></a></strong>
+						<br><small>#<?php echo esc_html( (string) $post_id ); ?> / <?php echo esc_html( get_the_date( 'd/m/Y H:i', $post_id ) ); ?></small>
+					</td>
+					<td>
+						<strong>Permission:</strong> <?php echo esc_html( (string) get_post_meta( $post_id, 'consent_status', true ) ); ?><br>
+						<strong>Terms:</strong> accepted<?php echo $terms_fee ? ' / ' . esc_html( number_format_i18n( $terms_fee ) ) . ' NIS' : ''; ?><br>
+						<small><?php echo esc_html( justice_theme_crm_partner_target_type_labels()[ $target_type ] ?? ( $target_type ?: 'target not selected' ) ); ?></small>
+					</td>
+					<td>
+						<strong><?php echo esc_html( $gate['status'] ); ?></strong>
+						<br><small><?php echo esc_html( $gate['next_action'] ); ?></small>
+					</td>
+					<td>
+						<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+							<input type="hidden" name="action" value="justice_theme_record_owner_handoff_release">
+							<input type="hidden" name="lead_id" value="<?php echo esc_attr( (string) $post_id ); ?>">
+							<?php wp_nonce_field( 'justice_theme_record_owner_handoff_release_' . $post_id, 'justice_theme_owner_handoff_release_nonce' ); ?>
+							<p style="margin-top:0;">
+								<label>
+									<strong>Status</strong>
+									<select name="owner_handoff_release_status" class="widefat">
+										<option value="approved_manual_handoff">Approve manual handoff</option>
+										<option value="needs_more_review">Needs more review</option>
+										<option value="do_not_release">Do not release</option>
+									</select>
+								</label>
+							</p>
+							<p>
+								<label>
+									<strong>Scope</strong>
+									<select name="owner_handoff_release_scope" class="widefat">
+										<?php foreach ( justice_theme_crm_owner_handoff_release_scope_labels() as $value => $label ) : ?>
+											<option value="<?php echo esc_attr( $value ); ?>"><?php echo esc_html( $label ); ?></option>
+										<?php endforeach; ?>
+									</select>
+								</label>
+							</p>
+							<p>
+								<label><input type="checkbox" name="owner_confirmed_client_permission" value="1"> I confirmed client permission evidence.</label><br>
+								<label><input type="checkbox" name="owner_confirmed_partner_terms" value="1"> I confirmed accepted partner terms and fee.</label><br>
+								<label><input type="checkbox" name="owner_confirmed_manual_only" value="1"> I understand this records approval only and sends nothing automatically.</label>
+							</p>
+							<p>
+								<label>
+									<strong>Owner release note</strong>
+									<textarea name="owner_handoff_release_note" rows="3" class="widefat"><?php echo esc_textarea( $note ); ?></textarea>
+								</label>
+							</p>
+							<p style="margin-bottom:0;">
+								<button type="submit" class="button button-primary">Record owner release gate</button>
+							</p>
+						</form>
+					</td>
+				</tr>
+			<?php endwhile; ?>
+		</tbody>
+	</table>
+	<?php
+	wp_reset_postdata();
+}
+
+function justice_theme_crm_handle_owner_handoff_release(): void {
+	$lead_id = isset( $_POST['lead_id'] ) ? absint( wp_unslash( $_POST['lead_id'] ) ) : 0;
+	if ( ! $lead_id || 'justice_lead' !== get_post_type( $lead_id ) || ! current_user_can( 'edit_post', $lead_id ) ) {
+		wp_die( esc_html__( 'You do not have permission to update this lead.', 'justice-theme' ), 403 );
+	}
+
+	$nonce = isset( $_POST['justice_theme_owner_handoff_release_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_theme_owner_handoff_release_nonce'] ) ) : '';
+	if ( ! $nonce || ! wp_verify_nonce( $nonce, 'justice_theme_record_owner_handoff_release_' . $lead_id ) ) {
+		wp_die( esc_html__( 'Security check failed.', 'justice-theme' ), 400 );
+	}
+
+	$status = isset( $_POST['owner_handoff_release_status'] ) ? sanitize_key( wp_unslash( $_POST['owner_handoff_release_status'] ) ) : 'needs_more_review';
+	$valid_statuses = justice_theme_crm_owner_handoff_release_status_labels();
+	if ( ! array_key_exists( $status, $valid_statuses ) || 'not_recorded' === $status ) {
+		$status = 'needs_more_review';
+	}
+
+	$scope = isset( $_POST['owner_handoff_release_scope'] ) ? sanitize_key( wp_unslash( $_POST['owner_handoff_release_scope'] ) ) : 'manual_partner_handoff';
+	if ( ! array_key_exists( $scope, justice_theme_crm_owner_handoff_release_scope_labels() ) ) {
+		$scope = 'manual_partner_handoff';
+	}
+
+	$note = isset( $_POST['owner_handoff_release_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['owner_handoff_release_note'] ) ) : '';
+	$has_permission = '1' === (string) get_post_meta( $lead_id, 'consent', true )
+		&& in_array( (string) get_post_meta( $lead_id, 'consent_status', true ), justice_theme_crm_manual_lead_routeable_consent_statuses(), true );
+	$terms_accepted = 'terms_accepted' === (string) get_post_meta( $lead_id, 'partner_terms_status', true )
+		&& absint( get_post_meta( $lead_id, 'partner_terms_min_fee_ils', true ) ) > 0;
+	$verified = ! empty( $_POST['owner_confirmed_client_permission'] )
+		&& ! empty( $_POST['owner_confirmed_partner_terms'] )
+		&& ! empty( $_POST['owner_confirmed_manual_only'] );
+
+	if ( 'approved_manual_handoff' === $status && ( ! $has_permission || ! $terms_accepted || ! $verified ) ) {
+		wp_safe_redirect( add_query_arg( 'justice_owner_handoff_release', 'verification-required', admin_url( 'admin.php?page=justice-crm' ) ) );
+		exit;
+	}
+
+	update_post_meta( $lead_id, 'routing_hold', '1' );
+	update_post_meta( $lead_id, 'owner_handoff_release_status', $status );
+	update_post_meta( $lead_id, 'owner_handoff_release_scope', $scope );
+	update_post_meta( $lead_id, 'owner_handoff_release_note', $note );
+
+	if ( 'approved_manual_handoff' === $status ) {
+		update_post_meta( $lead_id, 'owner_handoff_released_at', current_time( 'mysql' ) );
+		update_post_meta( $lead_id, 'owner_revenue_next_step', 'Owner release recorded for manual handoff. Use the lead edit screen deliberately; routing hold remains on and nothing was sent automatically.' );
+		update_post_meta( $lead_id, 'routing_notes', 'Owner handoff release recorded for manual handling. Routing hold remains on; do not auto-route or send without deliberate owner action.' );
+	} elseif ( 'do_not_release' === $status ) {
+		delete_post_meta( $lead_id, 'owner_handoff_released_at' );
+		update_post_meta( $lead_id, 'owner_revenue_next_step', 'Owner marked this lead as do not release. Keep held unless the owner reopens it later.' );
+		update_post_meta( $lead_id, 'routing_notes', 'Owner marked this lead as do not release. Routing remains held.' );
+	} else {
+		delete_post_meta( $lead_id, 'owner_handoff_released_at' );
+		update_post_meta( $lead_id, 'owner_revenue_next_step', 'Owner release needs more review. Keep held and do not release PII.' );
+		update_post_meta( $lead_id, 'routing_notes', 'Owner handoff release needs more review. Routing remains held.' );
+	}
+
+	wp_safe_redirect( add_query_arg( 'justice_owner_handoff_release', $status, admin_url( 'admin.php?page=justice-crm' ) ) );
+	exit;
+}
+
 function justice_theme_crm_render_lead_audit_export_panel(): void {
 	if ( ! post_type_exists( 'justice_lead' ) ) {
 		return;
@@ -1202,6 +1429,9 @@ function justice_theme_crm_handle_lead_audit_export(): void {
 			'partner_terms_target_type',
 			'partner_terms_min_fee_ils',
 			'partner_terms_last_updated_at',
+			'owner_handoff_release_status',
+			'owner_handoff_release_scope',
+			'owner_handoff_released_at',
 			'billing_status',
 			'suggested_lead_price_ils',
 			'billable_lawyer_ids',
@@ -1275,6 +1505,9 @@ function justice_theme_crm_lead_audit_rows( int $limit ): array {
 			(string) get_post_meta( $post_id, 'partner_terms_target_type', true ),
 			(string) absint( get_post_meta( $post_id, 'partner_terms_min_fee_ils', true ) ),
 			(string) get_post_meta( $post_id, 'partner_terms_last_updated_at', true ),
+			(string) get_post_meta( $post_id, 'owner_handoff_release_status', true ),
+			(string) get_post_meta( $post_id, 'owner_handoff_release_scope', true ),
+			(string) get_post_meta( $post_id, 'owner_handoff_released_at', true ),
 			(string) get_post_meta( $post_id, 'qualified_lead_billing_status', true ),
 			(string) absint( get_post_meta( $post_id, 'suggested_lead_price_ils', true ) ),
 			(string) get_post_meta( $post_id, 'qualified_lead_billable_lawyer_ids', true ),
@@ -1299,6 +1532,7 @@ function justice_theme_crm_lead_audit_gate( int $post_id ): array {
 	$routing_hold   = '1' === (string) get_post_meta( $post_id, 'routing_hold', true );
 	$terms_status   = (string) get_post_meta( $post_id, 'partner_terms_status', true );
 	$terms_fee      = absint( get_post_meta( $post_id, 'partner_terms_min_fee_ils', true ) );
+	$release_status = (string) get_post_meta( $post_id, 'owner_handoff_release_status', true );
 	$billing_status = (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true );
 	$has_invoice    = (bool) get_post_meta( $post_id, 'qualified_lead_invoice_reference', true );
 	$has_evidence   = (bool) get_post_meta( $post_id, 'qualified_lead_payment_evidence_url', true );
@@ -1328,6 +1562,20 @@ function justice_theme_crm_lead_audit_gate( int $post_id ): array {
 		return array(
 			'status'      => 'blocked_permission_missing',
 			'next_action' => 'Use only approved re-permission messaging; do not release PII or contact partners with client details.',
+		);
+	}
+
+	if ( 'do_not_release' === $release_status ) {
+		return array(
+			'status'      => 'blocked_owner_do_not_release',
+			'next_action' => 'Owner marked this lead do not release. Keep held unless owner reopens it.',
+		);
+	}
+
+	if ( 'approved_manual_handoff' === $release_status ) {
+		return array(
+			'status'      => 'owner_release_recorded',
+			'next_action' => 'Owner release is recorded for manual handoff. Use the lead edit screen deliberately; nothing is sent automatically.',
 		);
 	}
 
@@ -1829,7 +2077,26 @@ function justice_theme_crm_manual_lead_next_step( string $handoff_path, bool $re
 }
 
 function justice_theme_crm_manual_lead_notice(): void {
-	if ( empty( $_GET['justice_whatsapp_lead_created'] ) && empty( $_GET['justice_external_imported'] ) && empty( $_GET['justice_repermission_updated'] ) && empty( $_GET['justice_partner_preview_updated'] ) ) {
+	if ( empty( $_GET['justice_whatsapp_lead_created'] ) && empty( $_GET['justice_external_imported'] ) && empty( $_GET['justice_repermission_updated'] ) && empty( $_GET['justice_partner_preview_updated'] ) && empty( $_GET['justice_owner_handoff_release'] ) ) {
+		return;
+	}
+
+	if ( ! empty( $_GET['justice_owner_handoff_release'] ) ) {
+		$status = sanitize_key( wp_unslash( $_GET['justice_owner_handoff_release'] ) );
+		$messages = array(
+			'approved_manual_handoff' => array( 'success', 'Owner release recorded for manual handoff. Routing hold remains active and nothing was sent automatically.' ),
+			'needs_more_review'       => array( 'warning', 'Owner release marked needs more review. The lead remains held and PII is not released.' ),
+			'do_not_release'          => array( 'warning', 'Owner marked this lead do not release. Routing hold remains active.' ),
+			'verification-required'   => array( 'error', 'Owner release was not recorded: confirm client permission, accepted partner terms and the manual-only gate.' ),
+		);
+		$notice = $messages[ $status ] ?? null;
+		if ( $notice ) {
+			printf(
+				'<div class="notice notice-%1$s is-dismissible"><p>%2$s</p></div>',
+				esc_attr( $notice[0] ),
+				esc_html( $notice[1] )
+			);
+		}
 		return;
 	}
 

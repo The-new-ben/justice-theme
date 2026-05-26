@@ -48,6 +48,7 @@ The UK-law WhatsApp lead from the `uk-lawyer` page is not enough for automatic r
 - Preview packets are marked `internal only` unless client permission is explicit/owner-verified. Even when a preview is shareable, PII release still requires partner terms and owner release.
 - Added the owner-only no-PII lead audit export. The CSV lets the owner or another agent review consent, routing hold, preview, partner terms and billing proof status without exporting client PII.
 - Added the owner-only WhatsApp/TalkTo connector-readiness panel. It documents the future official webhook field map, provider questions and acceptance gates, while keeping the connection explicitly not live.
+- Added the owner-only handoff release queue. A lead can be marked ready for manual handoff only after consent is routeable, partner terms are accepted and a minimum paid fee exists. Recording owner release keeps `routing_hold=1` and sends nothing automatically.
 
 ## Import staging headers
 
@@ -72,4 +73,5 @@ Each import is limited to 200 pasted rows to keep owner review manageable. Dupli
 3. DONE: add audit export for consent evidence, preview state, partner terms and handoff billing proof.
 4. DONE: verify the no-PII lead audit export panel/link in `wp-admin -> Justice CRM` after uPress pull.
 5. DONE: document and verify official WhatsApp Business/TalkTo webhook field map, provider questions and acceptance gates inside Justice CRM.
-6. LATER: connect official WhatsApp Business/TalkTo webhooks only after the provider route, signature/shared-secret method, pause control and permission text are approved.
+6. NEXT: verify the owner handoff release queue in `wp-admin -> Justice CRM` after uPress pull.
+7. LATER: connect official WhatsApp Business/TalkTo webhooks only after the provider route, signature/shared-secret method, pause control and permission text are approved.

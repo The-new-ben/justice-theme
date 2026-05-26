@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Owner handoff release gate
+
+- UPDATED: `inc/lead-crm.php`, `functions.php`, `deployment-marker.txt`.
+- PURPOSE: add the missing final owner approval step before any consented, priced WhatsApp/TalkTo/legacy lead can be handled manually with a lawyer or supplier.
+- IMPLEMENTATION: added owner handoff release status, scope, note and timestamp fields; added an owner-only `Owner handoff release queue`; added admin notices, no-PII audit export columns and audit-gate labels.
+- SAFETY GATES: approval requires routeable client permission, accepted partner terms, a recorded minimum paid fee and three manual-only confirmation checkboxes.
+- ROUTING SAFETY: approval records readiness only; it keeps `routing_hold=1`, sends no client PII, notifies nobody, creates no invoice and charges no money.
+- DEPLOYMENT STATUS: marker prepared as `2026-05-26-owner-handoff-release-v1`; commit, uPress Pull Git and live verification still required.
+
 # 2026-05-26 - WhatsApp / TalkTo connector readiness panel
 
 - UPDATED: `inc/lead-crm.php`, `functions.php`, `deployment-marker.txt`.

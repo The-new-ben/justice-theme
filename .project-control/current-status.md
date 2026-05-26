@@ -1,3 +1,10 @@
+# LATEST WORK STATUS - 2026-05-26 13:09 Asia/Jerusalem
+- OWNER HANDOFF RELEASE GATE ADDED: Justice CRM now has an owner-only final release queue for leads that already have client permission, accepted partner terms and a minimum paid handoff fee.
+- CODE UPDATED: added owner release status/scope/note/timestamp fields, a manual-only approval form, audit export columns and audit-gate labels for `owner_release_recorded`, `blocked_owner_do_not_release` and held review states.
+- SAFETY: approving a release does not send client PII, notify lawyers/suppliers, create invoices, charge money or remove `routing_hold`; it records that the owner has approved a manual next step only.
+- BUSINESS RULE: this is the final CRM guard between old WhatsApp/TalkTo/client leads and any paid supplier/lawyer handoff. The system now requires permission, accepted partner terms, fee recording and owner release before manual handoff is considered ready.
+- DEPLOYMENT STATUS: marker prepared as `2026-05-26-owner-handoff-release-v1`; commit, uPress pull and live verification still required.
+
 # LATEST WORK STATUS - 2026-05-26 13:10 Asia/Jerusalem
 - WHATSAPP/TALKTO WEBHOOK READINESS PANEL ADDED: Justice CRM now has an owner-only connector-readiness panel for official WhatsApp Business / TalkTo integration.
 - CODE UPDATED: added copyable field map, provider questions and go-live acceptance gates; connector status remains `not_live` and no webhook endpoint is enabled.

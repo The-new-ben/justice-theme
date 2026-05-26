@@ -1,0 +1,228 @@
+{
+  "status": "TEMPLATE_READY_NO_SOURCE_FILE",
+  "validation": {
+    "mode": "template_only",
+    "inputProvided": false,
+    "status": "TEMPLATE_READY_NO_SOURCE_FILE",
+    "blockers": [
+      "No source export supplied yet. Use the generated template or run again with --input=path/to/export.csv."
+    ],
+    "rowCount": 0,
+    "headers": [],
+    "mappedHeaders": {},
+    "rowsMissingPhoneAndMessage": 0,
+    "rowsWithRouteableConsent": 0,
+    "rowsWithLegacyConsent": 0,
+    "rowsWithDoNotContact": 0,
+    "rowsWithUnknownConsent": 0
+  },
+  "codeGates": [
+    {
+      "id": "CODE-01",
+      "gate": "Owner-only CSV import staging panel exists",
+      "status": "PASS",
+      "evidence": "justice_theme_crm_render_external_lead_importer",
+      "action": "No action needed."
+    },
+    {
+      "id": "CODE-02",
+      "gate": "Imported leads default to routing hold",
+      "status": "PASS",
+      "evidence": "'routing_hold'                 => '1'",
+      "action": "No action needed."
+    },
+    {
+      "id": "CODE-03",
+      "gate": "Legacy re-permission consent state exists",
+      "status": "PASS",
+      "evidence": "legacy_needs_repermission",
+      "action": "No action needed."
+    },
+    {
+      "id": "CODE-04",
+      "gate": "Import dedupe fingerprint exists",
+      "status": "PASS",
+      "evidence": "justice_theme_crm_external_lead_fingerprint",
+      "action": "No action needed."
+    },
+    {
+      "id": "CODE-05",
+      "gate": "Import batch cap exists",
+      "status": "PASS",
+      "evidence": "array_slice( $lines, 0, 200 )",
+      "action": "No action needed."
+    },
+    {
+      "id": "CODE-06",
+      "gate": "Permission / re-permission queue exists",
+      "status": "PASS",
+      "evidence": "justice_theme_crm_render_repermission_queue",
+      "action": "No action needed."
+    },
+    {
+      "id": "CODE-07",
+      "gate": "No-PII partner preview / terms queue exists",
+      "status": "PASS",
+      "evidence": "justice_theme_crm_render_partner_preview_queue",
+      "action": "No action needed."
+    },
+    {
+      "id": "CODE-08",
+      "gate": "Owner release queue exists",
+      "status": "PASS",
+      "evidence": "justice_theme_crm_render_owner_handoff_release_queue",
+      "action": "No action needed."
+    },
+    {
+      "id": "CODE-09",
+      "gate": "No-PII audit export exists",
+      "status": "PASS",
+      "evidence": "justice_theme_crm_render_lead_audit_export_panel",
+      "action": "No action needed."
+    },
+    {
+      "id": "CODE-10",
+      "gate": "Webhook readiness panel exists but is not live",
+      "status": "PASS",
+      "evidence": "justice_theme_crm_render_webhook_readiness_panel",
+      "action": "No action needed."
+    }
+  ],
+  "rows": [
+    {
+      "id": "IMPORT-01",
+      "type": "operator_gate",
+      "status": "TEMPLATE_READY_NO_SOURCE_FILE",
+      "evidence": "No input file supplied; generated blank import template.",
+      "allowed_action": "Use this packet to prepare the export; do not create CRM rows from this report alone.",
+      "blocked_action": "Do not contact clients, notify lawyers/suppliers, release PII, invoice, mark paid, or enable webhooks from this packet.",
+      "next_owner_action": "Ask TalkTo/WhatsApp provider for a CSV export using the generated template headers."
+    },
+    {
+      "id": "IMPORT-02",
+      "type": "template",
+      "status": "READY_PRIVATE_TEMPLATE",
+      "evidence": ".project-control/whatsapp-talkto-import-template-<date>.csv",
+      "allowed_action": "Use as a column guide for provider exports or owner-maintained lead sheets.",
+      "blocked_action": "Do not fill this template with real PII inside the repo.",
+      "next_owner_action": "Store real exports outside the repo or paste directly into wp-admin Justice CRM."
+    },
+    {
+      "id": "IMPORT-03",
+      "type": "legacy_rule",
+      "status": "DEFAULT_REPERMISSION_REQUIRED",
+      "evidence": "Legacy exports must default to legacy_needs_repermission.",
+      "allowed_action": "Send only owner-approved opt-in/details copy from the CRM permission queue.",
+      "blocked_action": "Do not treat old WhatsApp/TalkTo rows as permission for lawyer or supplier introduction.",
+      "next_owner_action": "For old untreated leads, use small batches and keep routing_hold=1."
+    },
+    {
+      "id": "IMPORT-04",
+      "type": "fresh_inbound_rule",
+      "status": "DETAILS_AND_MATCH_PERMISSION_REQUIRED",
+      "evidence": "Fresh inbound rows may start as fresh_inbound_needs_details.",
+      "allowed_action": "Ask for case details and explicit permission to match before partner preview or PII release.",
+      "blocked_action": "Do not infer match consent from clicking the WhatsApp button alone.",
+      "next_owner_action": "For the current UK lead, ask permission/details before supplier handoff."
+    },
+    {
+      "id": "IMPORT-05",
+      "type": "billing_rule",
+      "status": "PAYMENT_PROOF_REQUIRED",
+      "evidence": "Billing queue and owner release exist in CRM, but no payment is created by import.",
+      "allowed_action": "Record partner terms, owner release and invoice/payment evidence manually after consent.",
+      "blocked_action": "Do not claim revenue from staged imports before invoice/payment proof.",
+      "next_owner_action": "Use manual invoice path until provider payment flow is proven."
+    },
+    {
+      "id": "CODE-01",
+      "type": "code_gate",
+      "status": "PASS",
+      "evidence": "Owner-only CSV import staging panel exists",
+      "allowed_action": "This static gate is present.",
+      "blocked_action": "Do not bypass the gate manually.",
+      "next_owner_action": "No action needed."
+    },
+    {
+      "id": "CODE-02",
+      "type": "code_gate",
+      "status": "PASS",
+      "evidence": "Imported leads default to routing hold",
+      "allowed_action": "This static gate is present.",
+      "blocked_action": "Do not bypass the gate manually.",
+      "next_owner_action": "No action needed."
+    },
+    {
+      "id": "CODE-03",
+      "type": "code_gate",
+      "status": "PASS",
+      "evidence": "Legacy re-permission consent state exists",
+      "allowed_action": "This static gate is present.",
+      "blocked_action": "Do not bypass the gate manually.",
+      "next_owner_action": "No action needed."
+    },
+    {
+      "id": "CODE-04",
+      "type": "code_gate",
+      "status": "PASS",
+      "evidence": "Import dedupe fingerprint exists",
+      "allowed_action": "This static gate is present.",
+      "blocked_action": "Do not bypass the gate manually.",
+      "next_owner_action": "No action needed."
+    },
+    {
+      "id": "CODE-05",
+      "type": "code_gate",
+      "status": "PASS",
+      "evidence": "Import batch cap exists",
+      "allowed_action": "This static gate is present.",
+      "blocked_action": "Do not bypass the gate manually.",
+      "next_owner_action": "No action needed."
+    },
+    {
+      "id": "CODE-06",
+      "type": "code_gate",
+      "status": "PASS",
+      "evidence": "Permission / re-permission queue exists",
+      "allowed_action": "This static gate is present.",
+      "blocked_action": "Do not bypass the gate manually.",
+      "next_owner_action": "No action needed."
+    },
+    {
+      "id": "CODE-07",
+      "type": "code_gate",
+      "status": "PASS",
+      "evidence": "No-PII partner preview / terms queue exists",
+      "allowed_action": "This static gate is present.",
+      "blocked_action": "Do not bypass the gate manually.",
+      "next_owner_action": "No action needed."
+    },
+    {
+      "id": "CODE-08",
+      "type": "code_gate",
+      "status": "PASS",
+      "evidence": "Owner release queue exists",
+      "allowed_action": "This static gate is present.",
+      "blocked_action": "Do not bypass the gate manually.",
+      "next_owner_action": "No action needed."
+    },
+    {
+      "id": "CODE-09",
+      "type": "code_gate",
+      "status": "PASS",
+      "evidence": "No-PII audit export exists",
+      "allowed_action": "This static gate is present.",
+      "blocked_action": "Do not bypass the gate manually.",
+      "next_owner_action": "No action needed."
+    },
+    {
+      "id": "CODE-10",
+      "type": "code_gate",
+      "status": "PASS",
+      "evidence": "Webhook readiness panel exists but is not live",
+      "allowed_action": "This static gate is present.",
+      "blocked_action": "Do not bypass the gate manually.",
+      "next_owner_action": "No action needed."
+    }
+  ]
+}

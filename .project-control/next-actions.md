@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-WHATSAPP-TALKTO-IMPORT-PREFLIGHT-001: Prepare future WhatsApp/TalkTo exports without leaking PII
+**Status:** FIXED LOCAL / NO SOURCE EXPORT SUPPLIED
+**Why:** the owner has WhatsApp, TalkTo and legacy lead databases, but future imports must be checked safely before any CRM paste/import, client contact, supplier contact or payment claim.
+**Actions:**
+1. DONE: add `tools/build-whatsapp-talkto-import-preflight-packet.mjs`.
+2. DONE: generate `.project-control/whatsapp-talkto-import-preflight-2026-05-26.md` and `.csv`.
+3. DONE: generate `.reports/whatsapp-talkto-import-preflight-2026-05-26.json` and `.csv`.
+4. DONE: generate `.project-control/whatsapp-talkto-import-template-2026-05-26.csv`.
+5. DONE: verify 10/10 static CRM gates: import staging panel, routing hold, legacy re-permission, dedupe fingerprint, 200-row batch cap, permission queue, no-PII partner preview, owner release, no-PII audit export and webhook-readiness panel.
+6. DONE: no source export was supplied, so the current result is `TEMPLATE_READY_NO_SOURCE_FILE`.
+7. DONE: record this as Linear `HAD-105`, marked Done under `HAD-87`.
+8. NEXT: when the owner provides a TalkTo/WhatsApp export, run the checker with `--input=<local-export.csv>` outside public paths and review the no-PII blockers before any paste import.
+9. BLOCKED: do not place real export PII in the repo, import legacy rows, contact clients/lawyers/suppliers, release PII, enable webhooks, invoice or claim revenue without owner approval, consent evidence, partner terms, owner release and payment proof.
+
 ### ACTION-BTL-FIRST-PAID-LEAD-READINESS-001: Verify the first paid-lead loop without touching real leads
 **Status:** FIXED LOCAL / RUNTIME CRM PROOF STILL BLOCKED
 **Why:** the owner wants the unfinished Bituach Leumi specialist-to-first-paid-lead loop completed, but the repo must separate infrastructure readiness from real revenue proof.

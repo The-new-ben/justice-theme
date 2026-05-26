@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-26 23:24 Asia/Jerusalem
+- WHATSAPP / TALKTO IMPORT PREFLIGHT PACKET ADDED: created a repo-local no-PII checker/template generator for future WhatsApp, TalkTo and legacy lead exports.
+- CODE ADDED: `tools/build-whatsapp-talkto-import-preflight-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/whatsapp-talkto-import-preflight-2026-05-26.md`, `.project-control/whatsapp-talkto-import-preflight-2026-05-26.csv`, `.project-control/whatsapp-talkto-import-template-2026-05-26.csv`, `.reports/whatsapp-talkto-import-preflight-2026-05-26.json`, `.reports/whatsapp-talkto-import-preflight-2026-05-26.csv`.
+- CHECK RESULT: `TEMPLATE_READY_NO_SOURCE_FILE`; 10/10 static CRM gates pass, but no real provider export was supplied. The generated import template is ready for TalkTo/WhatsApp/provider export alignment.
+- SAFETY RULE: real exports must stay out of the repo. If a source file is checked with `--input`, the report records only headers, counts and blockers, not names, phone numbers, emails, raw chat, documents or screenshots.
+- LINEAR: recorded as `HAD-105` and marked Done under `HAD-87`.
+- PUBLIC IMPACT: none. No public CMS page, title/H1/meta/body, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, webhook, GSC, GA4 or public content changed.
+- COMPLETION ASSESSMENT: preflight/template infrastructure 100%; real import remains 0% until owner-approved export, consent review, partner terms, owner release and invoice/payment proof.
+
 # LATEST WORK STATUS - 2026-05-26 23:23 Asia/Jerusalem
 - BITUACH LEUMI FIRST PAID-LEAD READINESS CHECK ADDED: created a repo-local checker that verifies the specialist-to-first-paid-lead infrastructure without creating leads, prospects, lawyer records, outreach, invoices or public edits.
 - CODE ADDED: `tools/check-btl-first-paid-lead-readiness.mjs`.

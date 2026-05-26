@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - WhatsApp / TalkTo import preflight packet
+
+- ADDED: `tools/build-whatsapp-talkto-import-preflight-packet.mjs`.
+- GENERATED: `.project-control/whatsapp-talkto-import-preflight-2026-05-26.md`, `.project-control/whatsapp-talkto-import-preflight-2026-05-26.csv`, `.project-control/whatsapp-talkto-import-template-2026-05-26.csv`, `.reports/whatsapp-talkto-import-preflight-2026-05-26.json`, `.reports/whatsapp-talkto-import-preflight-2026-05-26.csv`.
+- PURPOSE: give the owner and future agents a no-PII preflight path before pasting WhatsApp, TalkTo or legacy exports into Justice CRM import staging.
+- RESULT: template-only run returned `TEMPLATE_READY_NO_SOURCE_FILE`; 10/10 static CRM gates pass, including routing hold, legacy re-permission, dedupe fingerprint, 200-row batch cap, permission queue, no-PII partner preview, owner release, audit export and webhook readiness.
+- LINEAR: recorded as `HAD-105` and marked Done under `HAD-87`.
+- SAFETY: real exports should stay outside the repo. The optional `--input` mode records only headers, counts and blockers, never client names, phones, emails, raw chat, documents or screenshots.
+- BLOCKER PRESERVED: no real CRM import, handoff or revenue claim is allowed until owner approval, consent evidence, partner terms, owner release and invoice/payment proof exist.
+- SAFETY: repo-local tool/report/template only; no public CMS page, content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, webhook, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # 2026-05-26 - Bituach Leumi first paid-lead readiness check
 
 - ADDED: `tools/check-btl-first-paid-lead-readiness.mjs`.

@@ -4,6 +4,16 @@
 
 ---
 
+### ACTION-INTERNAL-ARTIFACT-WEB-BLOCK-001: Block project-control and report artifacts from public static access
+**Status:** FIXED / DEPLOY VERIFY REQUIRED
+**Why:** verification found internal repo control docs reachable under `/wp-content/themes/justice-theme/project-control/*.md`; even without client phone, these files are not public website content.
+**Actions:**
+1. DONE: add Apache/LiteSpeed deny `.htaccess` files to `project-control/`, `reports/`, `content-master/`, `content-drafts/`, and `mnt/`.
+2. NEXT: pull Git in uPress and verify marker `2026-05-26-internal-artifact-web-block-v1`.
+3. NEXT: verify homepage, `/uk-lawyer/`, and `/national-insurance-attorney/` still return 200.
+4. NEXT: verify direct requests to internal `.md`, `.csv`, `.json`, `.html`, and visual-evidence paths return 403 or otherwise blocked.
+5. BLOCKED: if uPress/LiteSpeed ignores nested `.htaccess`, add a root/server-level deny rule through uPress support or the site's active root `.htaccess`.
+
 ### ACTION-UK-WHATSAPP-LEAD-SUPPLIER-HANDOFF-001: Process first UK-law WhatsApp lead through the private CRM bridge
 **Status:** FIXED CLASSIFICATION / VERIFIED MAILBOX / BLOCKED LIVE CRM ENTRY UNTIL OWNER APPROVES REAL LEAD CREATION
 **Why:** the owner sent a real WhatsApp lead from the `uk-lawyer` page and wants it handled through the system, including supplier/lawyer matching and paid handoff discipline.

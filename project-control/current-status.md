@@ -1,4 +1,10 @@
 # LATEST WORK STATUS - 2026-05-26 11:39 Asia/Jerusalem
+- INTERNAL ARTIFACT WEB BLOCK ADDED: live verification found `project-control/current-status.md` and `project-control/next-actions.md` reachable as static theme files. Added `.htaccess` deny files for `project-control/`, `reports/`, `content-master/`, `content-drafts/`, and `mnt/`.
+- PRIVACY IMPACT: the specific WhatsApp phone was already redacted from current repo docs before this block, but direct web access to internal control artifacts is unacceptable and must be blocked live.
+- DEPLOYMENT STATUS: marker prepared as `2026-05-26-internal-artifact-web-block-v1`; after uPress pull, verify public pages still return 200 and internal artifact URLs return 403/blocked.
+- SAFETY: web-server deny files and marker/docs only; no CMS database record, client contact, supplier/lawyer handoff, invoice, payment, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 setting changed.
+
+# LATEST WORK STATUS - 2026-05-26 11:39 Asia/Jerusalem
 - UK WHATSAPP LEAD LANE ADDED: confirmed the `info@jus-tice.co.il` Outlook mailbox contains the owner-sent WhatsApp email for a UK-law lead. The client phone is intentionally not stored in repo docs.
 - LEAD CONTENT READ: attachment says the client asked from `/uk-lawyer/` for `עורך דין אנגליה | עו"ד ישראלי ליווי וייצוג משפטי באנגליה`; no detailed case facts were provided yet.
 - CODE UPDATED: added `uk-law` as a recognized lead area in the public/admin lead vocabulary and rule-based classifier, including `uk-lawyer`, England, Britain, London and Hebrew UK keywords.

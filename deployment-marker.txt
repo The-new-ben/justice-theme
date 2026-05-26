@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-26-uk-whatsapp-lead-lane-v1
-expected-github-main-commit=uk-whatsapp-lead-lane-v1
+justice-theme-deployment-marker=2026-05-26-internal-artifact-web-block-v1
+expected-github-main-commit=internal-artifact-web-block-v1
 purpose=public-static-file-check-for-upress-theme-sync

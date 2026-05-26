@@ -1,3 +1,10 @@
+# LATEST WORK STATUS - 2026-05-26 13:10 Asia/Jerusalem
+- WHATSAPP/TALKTO WEBHOOK READINESS PANEL ADDED: Justice CRM now has an owner-only connector-readiness panel for official WhatsApp Business / TalkTo integration.
+- CODE UPDATED: added copyable field map, provider questions and go-live acceptance gates; connector status remains `not_live` and no webhook endpoint is enabled.
+- SAFETY: panel explicitly requires provider route, signed payload/shared-secret verification, approved permission text, duplicate detection, routing hold and no-PII audit proof before any production connection.
+- PRIVACY SAFETY: no scraping, WhatsApp Web automation, provider login, webhook URL, credential, client contact, lead import, PII release, lawyer/supplier notification, invoice, payment, public CMS page, redirect, canonical/noindex, sitemap, taxonomy, GSC or GA4 change.
+- DEPLOYMENT STATUS: marker prepared as `2026-05-26-webhook-readiness-v1`; local lint, push, uPress pull and live marker verification are still required.
+
 # LATEST WORK STATUS - 2026-05-26 12:58 Asia/Jerusalem
 - LEAD AUDIT EXPORT ADDED: Justice CRM now has an owner-only `Consent / terms / billing audit export` panel that downloads a no-PII CSV for lead handoff readiness.
 - CODE UPDATED: export includes lead ID, source, area, consent state, routing hold, re-permission status, anonymized preview status, partner terms, fee, billing state, proof presence, audit gate and next owner action.

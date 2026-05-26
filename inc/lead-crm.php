@@ -131,6 +131,7 @@ function justice_theme_render_crm_admin_page(): void {
 		<?php justice_theme_crm_render_btl_supply_panel(); ?>
 		<?php justice_theme_crm_render_qualified_lead_billing_queue(); ?>
 		<?php justice_theme_crm_render_lead_audit_export_panel(); ?>
+		<?php justice_theme_crm_render_webhook_readiness_panel(); ?>
 
 		<h2>Recent legal leads</h2>
 		<?php justice_theme_crm_render_table( $leads, 'justice_lead' ); ?>
@@ -1376,6 +1377,119 @@ function justice_theme_crm_lead_audit_gate( int $post_id ): array {
 		'status'      => 'review',
 		'next_action' => 'Review manually before routing, billing or supplier/lawyer contact.',
 	);
+}
+
+function justice_theme_crm_render_webhook_readiness_panel(): void {
+	$field_map_id = 'justice-webhook-field-map';
+	$questions_id = 'justice-webhook-provider-questions';
+	$acceptance_id = 'justice-webhook-acceptance-gates';
+	?>
+	<div class="postbox" style="padding:16px 18px;margin:18px 0;border:1px solid #dcdcde;background:#fff;">
+		<h2 style="margin:0 0 8px;">WhatsApp / TalkTo connector readiness</h2>
+		<p style="margin:0 0 10px;color:#50575e;">Owner-only build sheet for official provider integration. This does not expose a live webhook, does not import data and does not contact clients.</p>
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;margin:12px 0;">
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:12px;background:#fff7ed;">
+				<strong>Connection status</strong>
+				<p style="margin:6px 0 0;">Not live. Use manual bridge and CSV staging until provider route, signature secret and permission wording are approved.</p>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:12px;background:#f8fafc;">
+				<strong>Default consent status</strong>
+				<p style="margin:6px 0 0;"><code>fresh_inbound_needs_details</code> for new chats; <code>legacy_needs_repermission</code> for old imported conversations.</p>
+			</div>
+			<div style="border:1px solid #dcdcde;border-radius:8px;padding:12px;background:#f8fafc;">
+				<strong>PII release rule</strong>
+				<p style="margin:6px 0 0;">No client details leave CRM until consent, partner terms and owner release are recorded.</p>
+			</div>
+		</div>
+
+		<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;">
+			<div>
+				<label for="<?php echo esc_attr( $field_map_id ); ?>"><strong>Copyable field map</strong></label>
+				<textarea id="<?php echo esc_attr( $field_map_id ); ?>" rows="13" readonly style="width:100%;margin-top:6px;"><?php echo esc_textarea( justice_theme_crm_webhook_field_map_packet() ); ?></textarea>
+				<p style="margin:6px 0 0;"><button type="button" class="button" data-justice-copy-target="<?php echo esc_attr( $field_map_id ); ?>">Copy field map</button></p>
+			</div>
+			<div>
+				<label for="<?php echo esc_attr( $questions_id ); ?>"><strong>Provider questions</strong></label>
+				<textarea id="<?php echo esc_attr( $questions_id ); ?>" rows="13" readonly style="width:100%;margin-top:6px;"><?php echo esc_textarea( justice_theme_crm_webhook_provider_questions_packet() ); ?></textarea>
+				<p style="margin:6px 0 0;"><button type="button" class="button" data-justice-copy-target="<?php echo esc_attr( $questions_id ); ?>">Copy questions</button></p>
+			</div>
+			<div>
+				<label for="<?php echo esc_attr( $acceptance_id ); ?>"><strong>Acceptance gates before live connection</strong></label>
+				<textarea id="<?php echo esc_attr( $acceptance_id ); ?>" rows="13" readonly style="width:100%;margin-top:6px;"><?php echo esc_textarea( justice_theme_crm_webhook_acceptance_packet() ); ?></textarea>
+				<p style="margin:6px 0 0;"><button type="button" class="button" data-justice-copy-target="<?php echo esc_attr( $acceptance_id ); ?>">Copy gates</button></p>
+			</div>
+		</div>
+	</div>
+	<?php
+}
+
+function justice_theme_crm_webhook_field_map_packet(): string {
+	$payload = array(
+		'connection_status' => 'not_live',
+		'webhook_endpoint' => 'not_enabled_until_owner_approval',
+		'source_channel' => 'whatsapp_business | talkto_chatbot',
+		'provider_thread_id' => 'provider conversation or chat id',
+		'provider_message_id' => 'provider message id',
+		'received_at' => 'ISO timestamp from provider',
+		'client_name' => 'optional; store only inside private justice_lead',
+		'client_phone' => 'optional; normalize, dedupe, private only',
+		'client_email' => 'optional; private only',
+		'city_region' => 'optional city or region',
+		'message_summary' => 'short case summary, no public output',
+		'raw_message' => 'private internal evidence only, never exported to no-PII audit',
+		'attachments_count' => 'count only unless owner approves secure document handling',
+		'consent_status' => 'fresh_inbound_needs_details by default',
+		'permission_text_version' => 'approved opt-in text version shown to client',
+		'routing_hold' => '1 by default',
+		'partner_terms_status' => 'not_started by default',
+		'qualified_lead_billing_status' => 'not_ready by default',
+	);
+
+	return "Jus-Tice WhatsApp/TalkTo webhook field map\n"
+		. "Status: planning only - no live endpoint is enabled.\n\n"
+		. wp_json_encode( $payload, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES );
+}
+
+function justice_theme_crm_webhook_provider_questions_packet(): string {
+	$lines = array(
+		'Jus-Tice provider integration questions',
+		'',
+		'1. Can the provider send signed webhook events for new messages and chatbot-completed intakes?',
+		'2. What fields are available for thread ID, message ID, timestamp, client phone, client email, client name, city, summary and consent checkbox/text?',
+		'3. Can the provider include the exact permission text version the client saw?',
+		'4. Can old conversations be exported as CSV without triggering messages to clients?',
+		'5. Can attachments be represented as count/secure private links instead of public URLs?',
+		'6. What retry behavior is used when our endpoint returns non-200?',
+		'7. Can we use a shared secret or signature header to reject forged payloads?',
+		'8. Can test events be sent to staging/manual review before production?',
+		'9. Can the provider avoid sending marketing opt-ins that are unrelated to lawyer/supplier matching?',
+		'10. Does the provider support data deletion/export requests if a client asks to be removed?',
+		'',
+		'Boundary: do not connect production until owner approves provider route, signature secret, permission wording and test payloads.',
+	);
+
+	return implode( "\n", $lines );
+}
+
+function justice_theme_crm_webhook_acceptance_packet(): string {
+	$lines = array(
+		'Jus-Tice WhatsApp/TalkTo live-connection gates',
+		'',
+		'Gate 1 - Provider route approved by owner.',
+		'Gate 2 - Signature/shared-secret verification exists; unsigned payloads are rejected.',
+		'Gate 3 - Payload creates private justice_lead only; no public page, route or notification is created.',
+		'Gate 4 - New leads default to routing_hold=1 and consent_status=fresh_inbound_needs_details.',
+		'Gate 5 - Legacy imports default to consent_status=legacy_needs_repermission.',
+		'Gate 6 - No lawyer/supplier receives client PII until consent, partner terms and owner release are recorded.',
+		'Gate 7 - Duplicate detection uses source channel + phone/thread/date/message fingerprint.',
+		'Gate 8 - No-PII audit export can prove status before handoff.',
+		'Gate 9 - Test payloads are run in staging/manual review before production.',
+		'Gate 10 - Owner can pause the connector without code deployment.',
+		'',
+		'Do not build unattended scraping/login bots or WhatsApp Web automation. Use official export/API/provider routes only.',
+	);
+
+	return implode( "\n", $lines );
 }
 
 function justice_theme_crm_handle_external_lead_import(): void {

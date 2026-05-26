@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-26 22:24 Asia/Jerusalem
+- LIVE ASSOCIATED LINKAGE REVIEW PACKET GENERATED: turned the public legal-help route QA into a private owner/SEO decision queue for future internal links and cannibalization review.
+- CODE ADDED: `tools/build-live-associated-linkage-review.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/live-associated-linkage-review-2026-05-26.md`, `.project-control/live-associated-linkage-review-2026-05-26.csv`, `.reports/live-associated-linkage-review-2026-05-26.json`, `.reports/live-associated-linkage-review-2026-05-26.csv`.
+- DECISION OUTPUT: 10 candidate link decisions, 10 ready for owner review, 0 approved for publish, 2 medium-risk Bituach Leumi cross-links, and 1 high-risk real-estate tax/tool placeholder that must not be linked before exact page inventory and owner/SEO/GSC approval.
+- LINEAR: recorded as `HAD-100` and marked Done under the revenue-stream/content safety backlog.
+- KEY SAFETY RULE: this packet suggests anchors and placements only for review. It does not approve CMS edits, internal links, titles/H1/meta, URLs, redirects, canonicals/noindex, sitemap or taxonomy changes.
+- MONEY IMPACT: this advances the organic/public conversion path by giving the team a concrete linkage queue while preserving anti-cannibalization gates.
+- COMPLETION ASSESSMENT: associated-link review packet 100%; public internal-link implementation 0% until approval; real-estate tool linkage remains high-risk and blocked by existing-page inventory.
+- PUBLIC IMPACT: none. No public CMS page, content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # LATEST WORK STATUS - 2026-05-26 22:16 Asia/Jerusalem
 - LIVE LEGAL-HELP CONVERSION SURFACE AUDIT VERIFIED READ-ONLY: added and ran a public route QA checker to confirm the main visitor-facing pages still read as legal-help surfaces, not internal revenue-plan pages.
 - CODE ADDED: `tools/check-live-legal-help-conversion-surface.mjs`.

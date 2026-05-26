@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-LIVE-ASSOCIATED-LINKAGE-REVIEW-001: Prepare internal-link decisions without publishing them
+**Status:** FIXED LOCAL / LINEAR DONE
+**Why:** the legal-help route QA identified associated/synonymous pages, but the team needs a concrete owner/SEO queue before adding links or creating adjacent pages.
+**Actions:**
+1. DONE: add `tools/build-live-associated-linkage-review.mjs`.
+2. DONE: consume `.reports/live-legal-help-conversion-surface-2026-05-26.json`.
+3. DONE: generate 10 candidate link decisions with source, target, role, intent, Hebrew anchor, placement, risk, approval requirement and owner action.
+4. DONE: mark `0` rows approved for publish.
+5. DONE: flag the Bituach Leumi attorney/guide cross-links as medium-risk because their intent split must stay clear.
+6. DONE: flag the real-estate tax/tool placeholder as high-risk until existing purchase-tax/seller-tax pages are inventoried and owner/SEO/GSC approves the target.
+7. DONE: record this as Linear `HAD-100`, marked Done.
+8. BLOCKED: do not add these links, change titles/H1/meta, create pages, change URLs, redirects, canonicals/noindex, sitemap or taxonomy from this packet alone.
+
 ### ACTION-LIVE-LEGAL-HELP-SURFACE-QA-001: Keep public routes customer-first before more content/link work
 **Status:** FIXED LOCAL / LINEAR DONE
 **Why:** after public-facing fixes, the owner needs proof that main visitor routes are legal-help pages and not exposing the internal revenue plan before more content or internal-link work begins.

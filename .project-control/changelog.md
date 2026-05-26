@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Live associated page linkage review
+
+- ADDED: `tools/build-live-associated-linkage-review.mjs`.
+- GENERATED: `.project-control/live-associated-linkage-review-2026-05-26.md`, `.project-control/live-associated-linkage-review-2026-05-26.csv`, `.reports/live-associated-linkage-review-2026-05-26.json`, `.reports/live-associated-linkage-review-2026-05-26.csv`.
+- PURPOSE: convert the live legal-help route QA into a private owner/SEO decision packet for internal links and associated/synonymous page review.
+- OUTPUT: 10 candidate decisions; 0 approved for publish; 2 medium-risk Bituach Leumi cross-links; 1 high-risk real-estate tax/tool placeholder requiring exact existing-page inventory first.
+- LINEAR: recorded as `HAD-100` and marked Done.
+- SAFETY: private review packet only; no CMS page, content, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # 2026-05-26 - Live legal-help conversion surface audit
 
 - ADDED: `tools/check-live-legal-help-conversion-surface.mjs`.

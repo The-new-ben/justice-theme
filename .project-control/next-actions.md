@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-LOW-HYPE-RV-GSC-EVIDENCE-REQUEST-001: Prepare focused GSC export template
+**Status:** FIXED LOCAL / EXPORT STILL NEEDS OWNER OR OPERATOR DATA
+**Why:** The RV SERP and live route-overlap packets both block public copy until Search Console proves whether there is query demand and which existing route owns it.
+**Actions:**
+1. DONE: add `tools/build-low-hype-rv-gsc-evidence-request.mjs`.
+2. DONE: generate `.project-control/low-hype-rv-gsc-evidence-request-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/low-hype-rv-gsc-query-template-2026-05-27.csv`.
+4. DONE: generate `.reports/low-hype-rv-gsc-evidence-request-2026-05-27.json` and `.csv`.
+5. DONE: define 5 query clusters: exact RV/caravan/campervan terms, rental/deposit/charge, consumer/small-claims, insurance and accident/traffic.
+6. DONE: map those clusters across 8 existing candidate pages and create 40 blank export rows plus 5 go/no-go rules.
+7. DONE: confirm `GSC_EVIDENCE_REQUEST_READY_EXPORT_NOT_FILLED`, 0 GSC API calls, 0 public changes approved and 0 standalone RV route approved.
+8. DONE: record as Linear `HAD-139`, marked Done under `HAD-75`.
+9. NEXT: owner/operator exports GSC query-page data and fills the template; then legal/owner review decides whether to park, keep private-only or draft one tiny owner-review section.
+10. BLOCKED: do not publish RV copy, a standalone RV route, Low Hype label, title/H1/meta, internal link, canonical, sitemap entry, CRM lead, lawyer/supplier contact, invoice, payment, email, WhatsApp, TalkTo or uPress deployment from this packet.
+
 ### ACTION-LOW-HYPE-RV-INTERNAL-ROUTE-OVERLAP-001: Map RV pilot to existing live routes
 **Status:** FIXED LOCAL / PUBLIC PILOT STILL BLOCKED UNTIL OWNER-GSC-LEGAL APPROVAL
 **Why:** The SERP packet recommended attaching any RV pilot to existing consumer/rental surfaces, so the next safe step was live route overlap evidence before drafting public copy.

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Low Hype/RV GSC evidence request
+
+- ADDED: `tools/build-low-hype-rv-gsc-evidence-request.mjs`.
+- GENERATED: `.project-control/low-hype-rv-gsc-evidence-request-2026-05-27.md`, `.project-control/low-hype-rv-gsc-evidence-request-2026-05-27.csv`, `.project-control/low-hype-rv-gsc-query-template-2026-05-27.csv`, `.reports/low-hype-rv-gsc-evidence-request-2026-05-27.json`, `.reports/low-hype-rv-gsc-evidence-request-2026-05-27.csv`.
+- PURPOSE: turn the next Low Hype/RV blocker into an exact Search Console query/page export request and decision template before any public pilot copy.
+- RESULT: `GSC_EVIDENCE_REQUEST_READY_EXPORT_NOT_FILLED`; 5 query filters, 8 candidate pages, 40 blank template rows, 5 go/no-go decision rules, 0 GSC API calls, 0 standalone RV route approved and 0 public/CRM/payment/email/WhatsApp/TalkTo actions.
+- LINEAR: recorded as `HAD-139`, marked Done under `HAD-75`, related to `HAD-138`, `HAD-137`, `HAD-136`, `HAD-84`, `HAD-121`, `HAD-122` and `HAD-126`.
+- SAFETY: private GSC evidence request/template only; no public page, Low Hype label, CMS content, route, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, GSC API call, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Low Hype/RV internal route overlap packet
 
 - ADDED: `tools/build-low-hype-rv-internal-route-overlap.mjs`.

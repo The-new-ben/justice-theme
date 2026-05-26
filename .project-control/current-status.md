@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 02:57 Asia/Jerusalem
+- LOW HYPE/RV GSC EVIDENCE REQUEST ADDED: converted the remaining RV public-pilot blocker into an exact Search Console export request and blank decision template.
+- CODE ADDED: `tools/build-low-hype-rv-gsc-evidence-request.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/low-hype-rv-gsc-evidence-request-2026-05-27.md`, `.project-control/low-hype-rv-gsc-evidence-request-2026-05-27.csv`, `.project-control/low-hype-rv-gsc-query-template-2026-05-27.csv`, `.reports/low-hype-rv-gsc-evidence-request-2026-05-27.json`, `.reports/low-hype-rv-gsc-evidence-request-2026-05-27.csv`.
+- CHECK RESULT: `GSC_EVIDENCE_REQUEST_READY_EXPORT_NOT_FILLED`; 5 query filters; 8 candidate pages; 40 blank template rows; 5 go/no-go rules; 0 GSC API calls; 0 public changes approved; 0 CRM/lead/lawyer/supplier/payment/email/WhatsApp/TalkTo actions.
+- EXPORT SCOPE: caravan/RV/campervan exact terms, rental/deposit/charge terms, consumer/small-claims terms, insurance terms and accident/traffic terms across the existing candidate pages.
+- LINEAR: recorded as `HAD-139`, marked Done under `HAD-75`, related to `HAD-138`, `HAD-137`, `HAD-136`, `HAD-84`, `HAD-121`, `HAD-122` and `HAD-126`.
+- PUBLIC IMPACT: none. This was a private GSC request/template only. No public page, Low Hype label, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, GSC API call, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: GSC evidence request/template 100%; public/content/revenue execution remains 0% until the export is filled and owner/legal review approves one exact path.
+
 # LATEST WORK STATUS - 2026-05-27 02:47 Asia/Jerusalem
 - LOW HYPE/RV INTERNAL ROUTE OVERLAP PACKET ADDED: converted the next evidence gate into a live private route inventory for the RV pilot decision.
 - CODE ADDED: `tools/build-low-hype-rv-internal-route-overlap.mjs`.

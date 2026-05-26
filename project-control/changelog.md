@@ -5077,6 +5077,12 @@
 - 2026-05-26: Added the private Bituach Leumi verified-to-routable activation gap board and aligned the active-routable specialist count with the real public lead router. `Won / onboarding` prospects remain visible for activation review until a published routable profile exists. No CMS record, routing flag, payment, public card, email or public page was changed.
 - 2026-05-26: Added the private Bituach Leumi first paid-lead routing preflight and made the CRM routable-specialist count respect live router monthly-cap availability. The panel lists eligible lawyers, capacity and billing/contact readiness before a controlled paid-lead test. No lead, lawyer, CMS record, payment, email, public page, redirect, canonical, sitemap or taxonomy was changed.
 - 2026-05-26: Added the private WhatsApp/client lead bridge inside Justice CRM. Owner can paste off-site WhatsApp/email/phone lead details, keep routing on hold until consent, release to the paid lawyer router when ready, flag supplier matching, and prepare a manual paid-handoff billing record. No real lead was created, no contact was sent, no payment was charged, and no public page, redirect, canonical, sitemap or taxonomy was changed.
+# 2026-05-26 - Theme root artifact block
+- ADDED: theme-root `.htaccess` rewrite deny for `project-control/`, `reports/`, `content-master/`, `content-drafts/`, and `mnt/`.
+- UPDATED: `functions.php`, `deployment-marker.txt`, `project-control/current-status.md`, and `project-control/next-actions.md`.
+- REASON: nested `.htaccess` files did not block live static access to internal markdown/json artifacts.
+- RISK: if live verification still returns HTTP 200, the remaining fix must be server/root-level uPress configuration rather than theme-local files.
+
 # 2026-05-26 - Internal artifact web block
 - ADDED: `.htaccess` deny files under `project-control/`, `reports/`, `content-master/`, `content-drafts/`, and `mnt/`.
 - UPDATED: `functions.php`, `deployment-marker.txt`, `project-control/current-status.md`, and `project-control/next-actions.md`.

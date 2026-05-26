@@ -1,4 +1,9 @@
 # LATEST WORK STATUS - 2026-05-26 11:39 Asia/Jerusalem
+- THEME ROOT ARTIFACT BLOCK ADDED: nested `.htaccess` deny files did not block live static access to `project-control/*.md` or `reports/*.json`. Added a theme-root `.htaccess` rewrite deny for internal artifact directories.
+- BLOCKER IF FAILS: if this root rule is ignored live too, uPress/LiteSpeed/Nginx is serving static theme files outside nested `.htaccess` control and the owner needs a server/root `.htaccess` or uPress support-level deny rule.
+- DEPLOYMENT STATUS: marker prepared as `2026-05-26-theme-root-artifact-block-v1`; after uPress pull, verify internal artifact URLs return 403/blocked.
+
+# LATEST WORK STATUS - 2026-05-26 11:39 Asia/Jerusalem
 - INTERNAL ARTIFACT WEB BLOCK ADDED: live verification found `project-control/current-status.md` and `project-control/next-actions.md` reachable as static theme files. Added `.htaccess` deny files for `project-control/`, `reports/`, `content-master/`, `content-drafts/`, and `mnt/`.
 - PRIVACY IMPACT: the specific WhatsApp phone was already redacted from current repo docs before this block, but direct web access to internal control artifacts is unacceptable and must be blocked live.
 - DEPLOYMENT STATUS: marker prepared as `2026-05-26-internal-artifact-web-block-v1`; after uPress pull, verify public pages still return 200 and internal artifact URLs return 403/blocked.

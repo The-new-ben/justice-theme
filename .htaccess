@@ -1,0 +1,12 @@
+# Block internal repo artifacts from direct public access when this repository is
+# deployed as the WordPress theme directory.
+<IfModule mod_rewrite.c>
+	RewriteEngine On
+	RewriteRule ^(project-control|reports|content-master|content-drafts|mnt)(/|$) - [F,L]
+</IfModule>
+
+<IfModule mod_authz_core.c>
+	<FilesMatch "^(current-status|next-actions|changelog|task-board)\.(md|csv|json|html|png)$">
+		Require all denied
+	</FilesMatch>
+</IfModule>

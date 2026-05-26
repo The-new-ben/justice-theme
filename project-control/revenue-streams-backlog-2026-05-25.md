@@ -174,6 +174,10 @@ Already shipped:
   to mark a prospect "Won / onboarding" before routing checks and fee terms are
   complete, the private pipeline holds the record at Proposal sent, schedules a
   next action, and logs the missing items in the owner note.
+- Private prospect acceptance note added to the manual outreach kit: after a
+  specialist call, the owner can copy a terms note that includes agreed per-lead
+  fee, billing contact, response commitment, no-promise language and missing
+  routing checks before any lead is routed.
 
 Remaining:
 

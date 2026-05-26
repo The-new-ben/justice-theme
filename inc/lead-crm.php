@@ -403,7 +403,7 @@ function justice_theme_crm_btl_controlled_test_drill_copy( array $snapshot, int 
 		'',
 		'Before test:',
 		'1. Confirm 3 verified specialists and 3 active routable specialists for national-insurance.',
-		'2. Confirm each routed specialist accepted manual invoice/payment handling.',
+		'2. Confirm each routed specialist accepted manual invoice/payment handling and an agreed per-lead fee.',
 		'3. Confirm no public page promises outcome, ranking, lead volume or compensation.',
 		'',
 		'Controlled intake:',
@@ -966,7 +966,7 @@ function justice_theme_crm_read_btl_source_pack( int $limit = 10 ): array {
 
 function justice_theme_crm_btl_source_candidate_verification_brief( array $row ): string {
 	return sprintf(
-		"Candidate: %s\nSource: %s\nFocus: %s\nEvidence: %s\n\nVerify before routing:\n1. Israeli Bar/license status and current active status.\n2. Real Bituach Leumi, medical committee, appeal committee or labor-court appeal experience.\n3. Same-day response commitment for urgent appeal-window cases.\n4. Acceptance of the manual invoice/payment path before automation is complete.\n5. Any city, case-type or capacity limits.\n\nSuggested CRM action: %s\n\nBoundary: do not promise ranking, lead volume, compensation amount or legal outcome. Do not publish a public profile or route leads until verification is complete.",
+		"Candidate: %s\nSource: %s\nFocus: %s\nEvidence: %s\n\nVerify before routing:\n1. Israeli Bar/license status and current active status.\n2. Real Bituach Leumi, medical committee, appeal committee or labor-court appeal experience.\n3. Same-day response commitment for urgent appeal-window cases.\n4. Acceptance of the manual invoice/payment path before automation is complete.\n5. Agreed per-lead fee, billing contact and any city, case-type or capacity limits.\n\nSuggested CRM action: %s\n\nBoundary: do not promise ranking, lead volume, compensation amount or legal outcome. Do not publish a public profile or route leads until verification is complete.",
 		(string) ( $row['candidate'] ?? '' ),
 		(string) ( $row['source_url'] ?? '' ),
 		(string) ( $row['apparent_focus'] ?? '' ),

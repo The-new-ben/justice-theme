@@ -671,7 +671,13 @@ function justice_theme_lawyer_prospect_outreach_message( WP_Post $post ): array 
 	$demand_signal  = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_demand_signal' );
 	$source_url     = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_source_url' );
 	$expected_value = (int) get_post_meta( $post_id, 'prospect_expected_monthly_nis', true );
+	$lead_fee       = absint( get_post_meta( $post_id, 'prospect_agreed_lead_fee_ils', true ) );
+	$billing_email  = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_billing_contact_email' );
+	$response_fit   = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_response_fit' );
+	$terms_note     = justice_theme_lawyer_prospect_display_value( $post_id, 'prospect_terms_note' );
+	$missing        = justice_theme_lawyer_prospect_verification_missing( $post_id );
 	$plan_label     = justice_theme_lawyer_prospect_plan_options()[ $target_plan ] ?? 'Lead Partner';
+	$response_label = justice_theme_lawyer_prospect_response_fit_options()[ $response_fit ] ?? 'Not provided';
 	$recipient      = $contact_name ?: ( $firm_name ?: 'there' );
 	$area_slug      = sanitize_title( $area );
 	$city_slug      = sanitize_title( $city );
@@ -709,13 +715,27 @@ function justice_theme_lawyer_prospect_outreach_message( WP_Post $post ): array 
 		$area,
 		$city
 	);
+	$acceptance = sprintf(
+		"Jus-Tice specialist acceptance note\n\nProspect: %s\nPractice/city: %s / %s\nTarget plan: %s\nAgreed qualified-lead fee: %s\nBilling contact: %s\nResponse commitment: %s\n\nTerms to confirm before routing:\n1. Qualified leads are routed only after Jus-Tice records user contact details, practice fit and owner/CRM quality review.\n2. No ranking, exclusivity, case volume, compensation amount or outcome is promised.\n3. The specialist confirms the relevant license/status, niche experience and capacity limits before receiving leads.\n4. Manual invoice/payment is accepted until automated payment setup is fully active.\n5. A lead may be marked Paid only after invoice/reference or payment evidence exists in the CRM.\n\nCurrent missing routing checks: %s\nOwner terms note: %s",
+		$recipient,
+		$area,
+		$city,
+		$plan_label,
+		$lead_fee > 0 ? number_format_i18n( $lead_fee ) . ' ILS per qualified lead' : 'not recorded yet',
+		$billing_email ?: 'not recorded yet',
+		$response_label,
+		empty( $missing ) ? 'none' : implode( ', ', $missing ),
+		$terms_note ?: 'none'
+	);
 
 	return array(
 		'subject'        => $subject,
 		'body'           => $body,
 		'call'           => $call,
+		'acceptance'     => $acceptance,
 		'registration'   => $registration,
 		'expected_value' => $expected_value,
+		'lead_fee'       => $lead_fee,
 	);
 }
 
@@ -754,10 +774,13 @@ function justice_theme_render_lawyer_prospect_outreach_box( WP_Post $post ): voi
 		<div class="notice notice-warning inline"><p>Add a contact email or phone number to enable outreach draft buttons.</p></div>
 	<?php endif; ?>
 	<p><strong>Expected monthly value:</strong> <?php echo esc_html( number_format_i18n( (int) $message['expected_value'] ) ); ?> NIS</p>
+	<p><strong>Agreed lead fee:</strong> <?php echo $message['lead_fee'] ? esc_html( number_format_i18n( (int) $message['lead_fee'] ) . ' NIS' ) : esc_html__( 'Not recorded yet', 'justice-theme' ); ?></p>
 	<label for="justice-prospect-email-draft"><strong>Email / WhatsApp draft</strong></label>
 	<textarea id="justice-prospect-email-draft" readonly rows="11" class="large-text"><?php echo esc_textarea( $message['body'] ); ?></textarea>
 	<label for="justice-prospect-call-script" style="display:block;margin-top:12px;"><strong>Call script</strong></label>
 	<textarea id="justice-prospect-call-script" readonly rows="9" class="large-text"><?php echo esc_textarea( $message['call'] ); ?></textarea>
+	<label for="justice-prospect-acceptance-note" style="display:block;margin-top:12px;"><strong>Terms acceptance note</strong></label>
+	<textarea id="justice-prospect-acceptance-note" readonly rows="12" class="large-text"><?php echo esc_textarea( $message['acceptance'] ); ?></textarea>
 	<p style="margin-top:14px;"><strong>Pipeline quick actions</strong></p>
 	<p>
 		<?php foreach ( justice_theme_lawyer_prospect_quick_actions() as $action_key => $action ) : ?>

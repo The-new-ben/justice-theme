@@ -1,10 +1,12 @@
-# LATEST WORK STATUS - 2026-05-26 20:45 Asia/Jerusalem
-- BTL HELD-LEAD TRIAGE PREPARED: Justice CRM now has an owner-only no-PII `Held Bituach Leumi lead triage` panel inside the Bituach Leumi specialist supply area.
+# LATEST WORK STATUS - 2026-05-26 20:55 Asia/Jerusalem
+- BTL HELD-LEAD TRIAGE VERIFIED LIVE: Justice CRM now has an owner-only no-PII `Held Bituach Leumi lead triage` panel inside the Bituach Leumi specialist supply area.
 - CODE UPDATED: `inc/lead-crm.php` now queries held `national-insurance` / `qualified_appeal_lead` leads and shows safe readiness columns for revenue product, suggested price, permission status, partner terms, owner handoff release, billing gate and next safe action.
 - PRIVACY RULE: the panel deliberately does not show client name, phone, email, exact address, raw chat, screenshots or documents; it links only to `Lead #ID` in the admin edit screen.
 - BUSINESS RULE: this is the missing bridge between WhatsApp/TalkTo/manual lead capture and first paid handoff. The owner can now see which held Bituach Leumi lead is blocked by consent, partner terms, owner release or billing proof without releasing PII.
 - SAFETY RULE: this does not create/edit production leads, remove `routing_hold`, route leads, notify lawyers/suppliers, invoice, mark paid, send email/WhatsApp, publish a page or change SEO settings.
-- DEPLOYMENT STATUS: marker prepared as `2026-05-26-btl-held-lead-triage-v1`; deploy and live marker verification still required.
+- DEPLOYMENT STATUS: VERIFIED LIVE. Commit `d26f6a00` pushed to `main`; uPress Pull Git completed; live marker `2026-05-26-btl-held-lead-triage-v1` verified.
+- ADMIN CHECK: `wp-admin -> Justice CRM` renders `Held Bituach Leumi lead triage`; current live state shows no held Bituach Leumi leads waiting, and the empty state confirms future rows will avoid client phone, email, name, raw chat or documents.
+- LIVE CHECKS: homepage and `/national-insurance-attorney/` returned 200 after deployment. uPress Git log showed `(HEAD -> main, origin/main, origin/HEAD) Add BTL held lead triage`.
 - PUBLIC IMPACT: none expected; admin CRM only. No CMS public page, redirect, canonical/noindex, sitemap, taxonomy, client contact, lawyer/supplier contact, invoice, payment, GSC or GA4 setting changed.
 
 # LATEST WORK STATUS - 2026-05-26 20:23 Asia/Jerusalem

@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Add live public CTA density audit
+
+- ADDED: `tools/check-live-public-cta-density.mjs`.
+- GENERATED: `.project-control/live-public-cta-density-2026-05-27.md`, `.project-control/live-public-cta-density-2026-05-27.csv`, `.reports/live-public-cta-density-2026-05-27.json`, `.reports/live-public-cta-density-2026-05-27.csv`.
+- PURPOSE: continue the owner-reported duplicate mobile CTA cleanup with a live read-only guard for broader CTA density and repetition before future public CTAs or managed-service copy are added.
+- RESULT: `PASS_WITH_DENSITY_REVIEWS`; 10 sampled live routes returned 200; no hard duplicate article CTA issue was found; article/practice samples kept one detected contextual CTA where expected.
+- REVIEW FINDING: homepage repeats the visible lawyer-card CTA text `שליחת פנייה` 6 times, so it should be visually reviewed before adding more homepage CTAs or public managed-service copy.
+- LINEAR: audit recorded as `HAD-129`, marked Done under `HAD-96`; open follow-up `HAD-131` created for homepage repeated lawyer-card CTA label density.
+- SAFETY: read-only live audit plus repo-local tooling/report updates only; no CMS content, public title/H1/meta/body, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Sharpen live public business-language audit
 
 - UPDATED: `tools/check-live-public-business-language.mjs`.

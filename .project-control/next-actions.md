@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-LIVE-PUBLIC-CTA-DENSITY-001: Audit repeated public CTAs before adding more conversion copy
+**Status:** FIXED LOCAL / LIVE READ-ONLY VERIFIED / HOMEPAGE REVIEW OPEN
+**Why:** article CTA duplication is fixed, but future public pages and managed-service CTAs need a broader guard so the site keeps feeling like legal help, not repeated sales buttons.
+**Actions:**
+1. DONE: add `tools/check-live-public-cta-density.mjs`.
+2. DONE: sample homepage, lawyer-selection guide, three article examples, Bituach Leumi pages, rental agreement, labor, consumer and eviction routes.
+3. DONE: detect primary CTA counts, unique CTA texts, article lead CTA count, duplicate sidebar markers, repeated CTA text and repeated CTA href patterns.
+4. DONE: generate `.project-control/live-public-cta-density-2026-05-27.md` and `.csv`.
+5. DONE: generate `.reports/live-public-cta-density-2026-05-27.json` and `.csv`.
+6. DONE: verify no hard duplicate article CTA issue across the sampled article/practice pages.
+7. DONE: record the audit as Linear `HAD-129`, marked Done under `HAD-96`.
+8. DONE: record homepage repeated lawyer-card CTA label density as open Linear `HAD-131`.
+9. NEXT: visually review homepage mobile/desktop around lawyer-card/provider sections before adding more homepage CTAs or public managed-service copy.
+10. BLOCKED: do not change homepage CTA labels, CMS content, links, title/H1/meta, redirects, canonicals/noindex, sitemap, taxonomy, lead routing, lawyer handoff, invoice, payment, email, WhatsApp, TalkTo or uPress from this audit alone.
+
 ### ACTION-LIVE-PUBLIC-BUSINESS-LANGUAGE-SHARPEN-001: Keep public titles reader-facing
 **Status:** FIXED LOCAL / LIVE READ-ONLY VERIFIED / PUBLIC SEO CHANGES STILL BLOCKED
 **Why:** the owner correctly flagged that a reader must never see a title explaining why Bituach Leumi or any legal-help page is a revenue path for Jus-Tice.

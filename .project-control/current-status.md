@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 01:35 Asia/Jerusalem
+- LIVE PUBLIC CTA DENSITY AUDIT ADDED: created a broader read-only live QA guard for repeated public CTAs after the owner-reported mobile article duplicate CTA issue.
+- CODE ADDED: `tools/check-live-public-cta-density.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/live-public-cta-density-2026-05-27.md`, `.project-control/live-public-cta-density-2026-05-27.csv`, `.reports/live-public-cta-density-2026-05-27.json`, `.reports/live-public-cta-density-2026-05-27.csv`.
+- CHECK RESULT: `PASS_WITH_DENSITY_REVIEWS`; 10 sampled live routes returned 200; no hard duplicate article CTA issue was found; article/practice samples each kept one detected contextual CTA where expected.
+- REVIEW FINDING: homepage returned `REVIEW` because the lawyer-card area repeats the visible CTA text `שליחת פנייה` 6 times. This is not a hard blocker, but it should be reviewed before adding more homepage CTAs or public managed-service copy.
+- LINEAR: audit recorded as `HAD-129`, marked Done under `HAD-96`; homepage CTA density follow-up recorded as open `HAD-131`.
+- PUBLIC IMPACT: none. This was a read-only live audit plus repo-local tooling/report updates. No CMS content, public title/H1/meta/body, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: CTA density audit/tooling 100%; homepage repeated lawyer-card CTA review remains 0% implementation and should not be changed without visual QA and owner/public update workflow.
+
 # LATEST WORK STATUS - 2026-05-27 01:32 Asia/Jerusalem
 - SHARPENED LIVE PUBLIC BUSINESS-LANGUAGE AUDIT: upgraded the read-only live audit after the owner flagged that a public legal-help title must never explain why a page creates revenue for Jus-Tice.
 - CODE UPDATED: `tools/check-live-public-business-language.mjs`.

@@ -4131,6 +4131,7 @@ function justice_theme_crm_render_supplier_table( ?WP_Query $suppliers ): void {
 	$status_labels   = function_exists( 'justice_theme_lawyer_supplier_statuses' ) ? justice_theme_lawyer_supplier_statuses() : array();
 	$revenue_labels  = function_exists( 'justice_theme_lawyer_supplier_revenue_models' ) ? justice_theme_lawyer_supplier_revenue_models() : array();
 	$bid_labels      = function_exists( 'justice_theme_lawyer_supplier_bid_models' ) ? justice_theme_lawyer_supplier_bid_models() : array();
+	$match_labels    = function_exists( 'justice_theme_lawyer_supplier_match_labels' ) ? justice_theme_lawyer_supplier_match_labels() : array();
 	?>
 	<table class="widefat striped">
 		<thead>
@@ -4140,6 +4141,7 @@ function justice_theme_crm_render_supplier_table( ?WP_Query $suppliers ): void {
 				<th>Category</th>
 				<th>Revenue model</th>
 				<th>Bid model / floor</th>
+				<th>Smart match</th>
 				<th>Priority</th>
 				<th>Status</th>
 				<th>Service area</th>
@@ -4165,6 +4167,12 @@ function justice_theme_crm_render_supplier_table( ?WP_Query $suppliers ): void {
 				$email        = (string) get_post_meta( $post_id, 'supplier_contact_email', true );
 				$website      = (string) get_post_meta( $post_id, 'supplier_website', true );
 				$source       = (string) get_post_meta( $post_id, 'supplier_source_url', true );
+				$readiness    = function_exists( 'justice_theme_lawyer_supplier_match_readiness' )
+					? justice_theme_lawyer_supplier_match_readiness( $post_id )
+					: array( 'score' => 0, 'label' => 'research', 'blockers' => array(), 'can_quote' => false );
+				$bid_packet   = function_exists( 'justice_theme_lawyer_supplier_safe_bid_packet' )
+					? justice_theme_lawyer_supplier_safe_bid_packet( $post_id )
+					: '';
 				?>
 				<tr>
 					<td><strong><?php echo esc_html( get_the_title( $post_id ) ?: '(untitled)' ); ?></strong></td>
@@ -4175,6 +4183,13 @@ function justice_theme_crm_render_supplier_table( ?WP_Query $suppliers ): void {
 						<?php echo esc_html( ( $bid_labels[ $bid_model ] ?? $bid_model ) ?: '-' ); ?>
 						<?php if ( $min_price ) : ?>
 							<br><small><?php echo esc_html( number_format_i18n( $min_price ) ); ?> NIS floor</small>
+						<?php endif; ?>
+					</td>
+					<td>
+						<strong><?php echo esc_html( (string) $readiness['score'] ); ?>/100</strong>
+						<br><span><?php echo esc_html( $match_labels[ $readiness['label'] ] ?? $readiness['label'] ); ?></span>
+						<?php if ( empty( $readiness['can_quote'] ) && ! empty( $readiness['blockers'] ) ) : ?>
+							<br><small><?php echo esc_html( (string) $readiness['blockers'][0] ); ?></small>
 						<?php endif; ?>
 					</td>
 					<td><?php echo esc_html( $priority ?: '-' ); ?></td>
@@ -4201,6 +4216,12 @@ function justice_theme_crm_render_supplier_table( ?WP_Query $suppliers ): void {
 							<a class="button" href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>">Open</a>
 							<?php if ( $website ) : ?>
 								<a class="button" href="<?php echo esc_url( $website ); ?>" target="_blank" rel="noopener">Website</a>
+							<?php endif; ?>
+							<?php if ( $bid_packet ) : ?>
+								<details style="width:100%;margin-top:6px;">
+									<summary>Safe bid packet</summary>
+									<textarea readonly rows="8" style="width:100%;min-width:260px;margin-top:6px;"><?php echo esc_textarea( $bid_packet ); ?></textarea>
+								</details>
 							<?php endif; ?>
 						</div>
 					</td>

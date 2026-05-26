@@ -1,3 +1,3 @@
-justice-theme-deployment-marker=2026-05-26-article-duplicate-cta-guard-v1
-expected-github-main-commit=article-duplicate-cta-guard-v1
-purpose=single-article-mobile-duplicate-help-cta-guard
+justice-theme-deployment-marker=2026-05-26-supplier-smart-match-admin-v1
+expected-github-main-commit=supplier-smart-match-admin-v1
+purpose=admin-supplier-smart-match-bid-readiness

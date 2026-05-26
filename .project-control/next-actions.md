@@ -3583,3 +3583,15 @@ Next safe batch before any URL/content migration:
 4. Open an article connected to a lawyer and confirm the connected-lawyer sidebar still appears as unique content.
 5. Keep running `node tools/check-article-duplicate-cta-guard.mjs --reportDate=YYYY-MM-DD` after future article-template changes.
 6. No CMS body/title/H1/URL/canonical/redirect/noindex/sitemap/taxonomy change is needed for this fix.
+
+## 2026-05-26 SUPPLIER SMART-MATCH BID READINESS NEXT ACTIONS
+
+**Status:** ADMIN INFRASTRUCTURE READY / REAL SUPPLIER TERMS STILL BLOCKED
+
+1. After uPress pulls the commit, verify `deployment-marker.txt` returns `2026-05-26-supplier-smart-match-admin-v1`.
+2. Open wp-admin `Suppliers` and review the new `Smart match` column on existing supplier records.
+3. Open wp-admin `Justice CRM -> Supplier marketplace pipeline` and inspect the smart-match score plus `Safe bid packet` drawer.
+4. For immigration/citizenship/relocation suppliers, do not send client PII in the first quote request; use the safe packet only after client consent and with anonymized facts.
+5. Add or complete supplier records with category, provider type, credential status, bid model, revenue model, minimum price, source proof, contact route and SLA before any handoff.
+6. Record accepted commercial terms and payment/invoice proof before marking supplier revenue as real.
+7. Do not expose scoring, bids, commissions, supplier margins or investor/revenue language on public pages.

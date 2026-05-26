@@ -6746,6 +6746,20 @@ Deployment model: GitHub repo sync to live WordPress. Do not build ZIP packages 
 - GENERATED: `.project-control/article-duplicate-cta-guard-2026-05-26.md`, `.project-control/article-duplicate-cta-guard-2026-05-26.csv`, `.reports/article-duplicate-cta-guard-2026-05-26.json` and `.reports/article-duplicate-cta-guard-2026-05-26.csv`.
 - SAFETY: no CMS content, public page body, title/H1/meta, URL, redirect, canonical, noindex, sitemap, taxonomy, lead, lawyer, supplier, payment, email or WhatsApp action changed.
 - COMPLETION ASSESSMENT: article duplicate CTA code guard 100%; live verification remains pending until uPress pulls the commit.
+
+## 2026-05-26 SUPPLIER SMART-MATCH BID READINESS
+- CODE UPDATED: `inc/lawyer-suppliers.php` now scores each `justice_supplier` record for owner-controlled quote/bid readiness using existing status, category, revenue model, bid model, price floor, credential status, contact route, SLA, source proof and strategic immigration/cross-border intent signals.
+- CODE UPDATED: wp-admin `Suppliers` list now has a `Smart match` column with a 0-100 score, readiness label and first blocker.
+- CODE UPDATED: Justice CRM supplier marketplace pipeline now shows `Smart match` and a copyable `Safe bid packet` for each supplier.
+- SAFETY RULE ADDED IN CODE: the safe bid packet explicitly says not to send client personal details at first supplier contact, and requires client consent, anonymized facts, CRM recording and owner review before handoff.
+- PUBLIC GUARD: internal scoring/bid packet language was not added to the public supplier cards; public users should still see legal-help/service clarity, not bid mechanics or Jus-Tice revenue logic.
+- MARKER UPDATED: `deployment-marker.txt` and `JUSTICE_DEPLOY_MARKER` now use `2026-05-26-supplier-smart-match-admin-v1`.
+- TOOLING ADDED: `tools/check-supplier-smart-match-readiness.mjs`.
+- VERIFIED LOCAL: PHP lint passed for `inc/lawyer-suppliers.php`, `inc/lead-crm.php` and `functions.php`; the supplier smart-match readiness checker returned PASS.
+- GENERATED: `.project-control/supplier-smart-match-readiness-2026-05-26.md`, `.project-control/supplier-smart-match-readiness-2026-05-26.csv`, `.reports/supplier-smart-match-readiness-2026-05-26.json` and `.reports/supplier-smart-match-readiness-2026-05-26.csv`.
+- BLOCKED: still needs real owner-approved supplier records, client consent on each handoff, accepted commercial terms, invoice/payment proof and live uPress pull before owner can use this in production.
+- COMPLETION ASSESSMENT: supplier/bid infrastructure 72%; immigration/citizenship supplier path 58%; realized supplier revenue 0% until a real paid handoff or partner payment is recorded.
+- OWNER CAN NOTICE AFTER DEPLOY: wp-admin -> Suppliers and wp-admin -> Justice CRM -> Supplier marketplace pipeline.
 ## LATEST WORK STATUS - 2026-05-22 14:38 Asia/Jerusalem
 - CRIMINAL OWNER REVIEW PACKET: converted the five current-URL Criminal first-upload targets into a controlled owner/legal/source review gate.
 - TOOLING FIXED: created `tools/build-criminal-owner-review-packet.mjs`.

@@ -1,0 +1,8 @@
+check,status,evidence,next_step
+category_intent_mapping,PASS,Supplier lead-context mapping includes immigration/citizenship/cross-border signals.,Use this for owner-reviewed matching; extend only after real supplier quote data appears.
+readiness_score,PASS,Supplier records are scored with labels before quotes are requested.,Resolve blockers before sending any supplier first-contact request.
+safe_bid_packet,PASS,An internal quote packet explicitly blocks first-contact PII sharing.,Only use after client consent and with anonymized facts until supplier terms are accepted.
+admin_supplier_column,PASS,wp-admin Suppliers list exposes the readiness score to the owner/admin.,"After deployment, open wp-admin Suppliers and review score/blocker text."
+crm_supplier_column,PASS,Justice CRM supplier table shows score and a copyable safe-bid packet.,Use the packet for immigration/citizenship suppliers only after consent and owner review.
+public_surface_guard,PASS,Public supplier cards do not expose internal scoring or bidding language.,"Keep scoring, bids, commissions and business-plan language out of public user pages."
+deployment_marker,PASS,justice-theme-deployment-marker=2026-05-26-supplier-smart-match-admin-v1 | expected-github-main-commit=supplier-smart-match-admin-v1 | purpose=admin-supplier-smart-match-bid-readiness,"After uPress pull, verify the live marker matches supplier-smart-match-admin-v1."

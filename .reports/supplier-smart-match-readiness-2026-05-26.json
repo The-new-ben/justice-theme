@@ -1,0 +1,61 @@
+{
+  "report_date": "2026-05-26",
+  "status": "PASS",
+  "rows": [
+    {
+      "check": "category_intent_mapping",
+      "status": "PASS",
+      "evidence": "Supplier lead-context mapping includes immigration/citizenship/cross-border signals.",
+      "next_step": "Use this for owner-reviewed matching; extend only after real supplier quote data appears."
+    },
+    {
+      "check": "readiness_score",
+      "status": "PASS",
+      "evidence": "Supplier records are scored with labels before quotes are requested.",
+      "next_step": "Resolve blockers before sending any supplier first-contact request."
+    },
+    {
+      "check": "safe_bid_packet",
+      "status": "PASS",
+      "evidence": "An internal quote packet explicitly blocks first-contact PII sharing.",
+      "next_step": "Only use after client consent and with anonymized facts until supplier terms are accepted."
+    },
+    {
+      "check": "admin_supplier_column",
+      "status": "PASS",
+      "evidence": "wp-admin Suppliers list exposes the readiness score to the owner/admin.",
+      "next_step": "After deployment, open wp-admin Suppliers and review score/blocker text."
+    },
+    {
+      "check": "crm_supplier_column",
+      "status": "PASS",
+      "evidence": "Justice CRM supplier table shows score and a copyable safe-bid packet.",
+      "next_step": "Use the packet for immigration/citizenship suppliers only after consent and owner review."
+    },
+    {
+      "check": "public_surface_guard",
+      "status": "PASS",
+      "evidence": "Public supplier cards do not expose internal scoring or bidding language.",
+      "next_step": "Keep scoring, bids, commissions and business-plan language out of public user pages."
+    },
+    {
+      "check": "deployment_marker",
+      "status": "PASS",
+      "evidence": "justice-theme-deployment-marker=2026-05-26-supplier-smart-match-admin-v1 | expected-github-main-commit=supplier-smart-match-admin-v1 | purpose=admin-supplier-smart-match-bid-readiness",
+      "next_step": "After uPress pull, verify the live marker matches supplier-smart-match-admin-v1."
+    }
+  ],
+  "safety": {
+    "public_cms_changed": false,
+    "public_supplier_records_created": false,
+    "outbound_messages_sent": false,
+    "client_pii_shared": false,
+    "urls_changed": false,
+    "redirects_changed": false,
+    "canonicals_changed": false,
+    "noindex_changed": false,
+    "sitemaps_changed": false,
+    "taxonomies_changed": false,
+    "payments_changed": false
+  }
+}

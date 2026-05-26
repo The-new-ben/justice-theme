@@ -207,6 +207,242 @@ function justice_theme_lawyer_supplier_is_public_ready( int $post_id ): bool {
 	return 'show' === $visibility && 'approved' === $status && '' !== $summary && ( '' !== $website || '' !== $source_url );
 }
 
+function justice_theme_lawyer_supplier_requested_categories( array $lead_context ): array {
+	$requested = array();
+
+	if ( ! empty( $lead_context['supplier_category'] ) ) {
+		$requested[] = sanitize_key( (string) $lead_context['supplier_category'] );
+	}
+
+	$haystack = strtolower(
+		implode(
+			' ',
+			array_filter(
+				array(
+					(string) ( $lead_context['legal_area'] ?? '' ),
+					(string) ( $lead_context['service_need'] ?? '' ),
+					(string) ( $lead_context['jurisdiction'] ?? '' ),
+					(string) ( $lead_context['message'] ?? '' ),
+				)
+			)
+		)
+	);
+
+	$category_keywords = array(
+		'immigration'       => array( 'immigration', 'citizenship', 'visa', 'relocation', 'portugal', 'portuguese', 'aliyah', 'olim', 'עליה', 'אזרחות', 'פורטוגל', 'ויזה', 'רילוקיישן' ),
+		'cross_border'      => array( 'cross-border', 'foreign', 'international', 'eor', 'remote employee', 'uk', 'usa', 'us-', 'europe', 'overseas', 'חו"ל', 'חול', 'בינלאומי', 'עובד בחו"ל' ),
+		'finance_tax'       => array( 'tax', 'cpa', 'irs', 'fbar', 'fatca', 'rsu', 'trust', 'מס', 'רואה חשבון', 'נאמנות' ),
+		'translation_notary' => array( 'translation', 'notary', 'apostille', 'תרגום', 'נוטריון', 'אפוסטיל' ),
+	);
+
+	foreach ( $category_keywords as $category => $keywords ) {
+		foreach ( $keywords as $keyword ) {
+			if ( '' !== $keyword && false !== strpos( $haystack, strtolower( $keyword ) ) ) {
+				$requested[] = $category;
+				break;
+			}
+		}
+	}
+
+	$requested = array_values( array_unique( array_filter( $requested ) ) );
+	return array_values( array_intersect( $requested, array_keys( justice_theme_lawyer_supplier_categories() ) ) );
+}
+
+function justice_theme_lawyer_supplier_match_readiness( int $post_id, array $lead_context = array() ): array {
+	if ( 'justice_supplier' !== get_post_type( $post_id ) ) {
+		return array(
+			'score'     => 0,
+			'label'     => 'not_applicable',
+			'reasons'   => array(),
+			'blockers'  => array( __( 'Not a supplier record.', 'justice-theme' ) ),
+			'can_quote' => false,
+		);
+	}
+
+	$score      = 0;
+	$reasons    = array();
+	$blockers   = array();
+	$status     = sanitize_key( (string) get_post_meta( $post_id, 'supplier_partnership_status', true ) );
+	$category   = sanitize_key( (string) get_post_meta( $post_id, 'supplier_category', true ) );
+	$revenue    = sanitize_key( (string) get_post_meta( $post_id, 'supplier_revenue_model', true ) );
+	$bid_model  = sanitize_key( (string) get_post_meta( $post_id, 'supplier_bid_model', true ) );
+	$license    = sanitize_key( (string) get_post_meta( $post_id, 'supplier_license_status', true ) );
+	$priority   = sanitize_key( (string) get_post_meta( $post_id, 'supplier_priority', true ) );
+	$min_price  = absint( get_post_meta( $post_id, 'supplier_min_price_ils', true ) );
+	$email      = trim( (string) get_post_meta( $post_id, 'supplier_contact_email', true ) );
+	$phone      = trim( (string) get_post_meta( $post_id, 'supplier_contact_phone', true ) );
+	$sla        = trim( (string) get_post_meta( $post_id, 'supplier_response_sla', true ) );
+	$website    = trim( (string) get_post_meta( $post_id, 'supplier_website', true ) );
+	$source_url = trim( (string) get_post_meta( $post_id, 'supplier_source_url', true ) );
+	$requested  = justice_theme_lawyer_supplier_requested_categories( $lead_context );
+
+	$status_scores = array(
+		'approved'    => 24,
+		'negotiating' => 18,
+		'outreach'    => 12,
+		'contacted'   => 8,
+		'research'    => 4,
+	);
+
+	if ( 'rejected' === $status ) {
+		$blockers[] = __( 'Supplier is rejected and must not receive leads.', 'justice-theme' );
+	} elseif ( isset( $status_scores[ $status ] ) ) {
+		$score    += $status_scores[ $status ];
+		$reasons[] = sprintf( __( 'Partnership status: %s.', 'justice-theme' ), $status );
+	} else {
+		$blockers[] = __( 'Partnership status is missing.', 'justice-theme' );
+	}
+
+	if ( ! in_array( $status, array( 'approved', 'negotiating', 'outreach' ), true ) ) {
+		$blockers[] = __( 'Partnership status is not ready for quote requests.', 'justice-theme' );
+	}
+
+	if ( $requested ) {
+		if ( in_array( $category, $requested, true ) ) {
+			$score    += 18;
+			$reasons[] = __( 'Category matches the requested service.', 'justice-theme' );
+		} else {
+			$blockers[] = __( 'Category does not match this lead/service need.', 'justice-theme' );
+		}
+	} elseif ( in_array( $category, array( 'immigration', 'cross_border', 'finance_tax' ), true ) ) {
+		$score    += 6;
+		$reasons[] = __( 'Supplier is in a strategic high-ticket category.', 'justice-theme' );
+	}
+
+	if ( in_array( $revenue, array( 'bid_marketplace', 'premium_package', 'lead_fee', 'affiliate' ), true ) ) {
+		$score    += 16;
+		$reasons[] = __( 'Commercial model supports per-lead, bid, package, or commission revenue.', 'justice-theme' );
+	} elseif ( in_array( $revenue, array( 'monthly_listing', 'sponsorship' ), true ) ) {
+		$score    += 10;
+		$reasons[] = __( 'Commercial model exists but is not quote-first.', 'justice-theme' );
+	} else {
+		$blockers[] = __( 'Commercial model is not set.', 'justice-theme' );
+	}
+
+	if ( in_array( $bid_model, array( 'owner_invite', 'open_approved', 'fixed_package', 'manual_exception' ), true ) ) {
+		$score    += 14;
+		$reasons[] = __( 'Bid/proposal model is defined.', 'justice-theme' );
+	} elseif ( 'sponsored_slot' === $bid_model ) {
+		$score    += 8;
+		$reasons[] = __( 'Sponsored model exists, but quote flow still needs owner control.', 'justice-theme' );
+	} else {
+		$blockers[] = __( 'Bid/proposal model is missing.', 'justice-theme' );
+	}
+
+	if ( $min_price > 0 ) {
+		$score    += 8;
+		$reasons[] = __( 'Internal pricing floor is set.', 'justice-theme' );
+	} else {
+		$blockers[] = __( 'Internal pricing floor is missing.', 'justice-theme' );
+	}
+
+	if ( in_array( $license, array( 'verified', 'source_checked', 'not_required' ), true ) ) {
+		$score    += 14;
+		$reasons[] = __( 'Credential/license status is acceptable for controlled matching.', 'justice-theme' );
+	} elseif ( 'self_reported' === $license ) {
+		$score    += 5;
+		$blockers[] = __( 'Credential/license is self-reported only.', 'justice-theme' );
+	} else {
+		$blockers[] = __( 'Credential/license status needs verification.', 'justice-theme' );
+	}
+
+	if ( '' !== $email || '' !== $phone ) {
+		$score    += 8;
+		$reasons[] = __( 'Supplier has a direct contact route.', 'justice-theme' );
+	} else {
+		$blockers[] = __( 'Supplier contact route is missing.', 'justice-theme' );
+	}
+
+	if ( '' !== $sla ) {
+		$score    += 4;
+		$reasons[] = __( 'Response SLA is recorded.', 'justice-theme' );
+	}
+
+	if ( '' !== $website || '' !== $source_url ) {
+		$score    += 4;
+		$reasons[] = __( 'Source or website is recorded.', 'justice-theme' );
+	} else {
+		$blockers[] = __( 'Source/website proof is missing.', 'justice-theme' );
+	}
+
+	if ( 'high' === $priority ) {
+		$score += 4;
+	} elseif ( 'medium' === $priority ) {
+		$score += 2;
+	}
+
+	$score = max( 0, min( 100, $score ) );
+	$hard_blockers = array_intersect(
+		$blockers,
+		array(
+			__( 'Supplier is rejected and must not receive leads.', 'justice-theme' ),
+			__( 'Category does not match this lead/service need.', 'justice-theme' ),
+			__( 'Partnership status is not ready for quote requests.', 'justice-theme' ),
+			__( 'Commercial model is not set.', 'justice-theme' ),
+			__( 'Bid/proposal model is missing.', 'justice-theme' ),
+			__( 'Credential/license status needs verification.', 'justice-theme' ),
+			__( 'Supplier contact route is missing.', 'justice-theme' ),
+		)
+	);
+	$can_quote = $score >= 72 && empty( $hard_blockers );
+	$label     = 'research';
+
+	if ( $can_quote ) {
+		$label = 'quote_ready';
+	} elseif ( $score >= 60 ) {
+		$label = 'near_ready';
+	} elseif ( ! empty( $hard_blockers ) ) {
+		$label = 'blocked';
+	}
+
+	return array(
+		'score'     => $score,
+		'label'     => $label,
+		'reasons'   => array_slice( array_values( array_unique( $reasons ) ), 0, 5 ),
+		'blockers'  => array_slice( array_values( array_unique( $blockers ) ), 0, 5 ),
+		'can_quote' => $can_quote,
+	);
+}
+
+function justice_theme_lawyer_supplier_safe_bid_packet( int $post_id, array $lead_context = array() ): string {
+	$readiness = justice_theme_lawyer_supplier_match_readiness( $post_id, $lead_context );
+	$category  = (string) get_post_meta( $post_id, 'supplier_category', true );
+	$area      = trim( (string) ( $lead_context['legal_area'] ?? '' ) );
+
+	$lines = array(
+		'Internal supplier bid packet - do not send client personal details at first contact.',
+		'Before sending: confirm client consent, keep the first request anonymized, and record the supplier response in Justice CRM.',
+		'',
+		'Service need: ' . ( $area ?: ( $category ?: 'supplier service' ) ),
+		'Supplier readiness: ' . $readiness['label'] . ' (' . (int) $readiness['score'] . '/100)',
+		'',
+		'Ask the supplier to answer:',
+		'1. Can you handle this category and jurisdiction?',
+		'2. What is the fixed price or estimated price range, including VAT?',
+		'3. What documents are required before a paid consult or filing?',
+		'4. What is the expected response time and delivery timeline?',
+		'5. What commercial term applies to Jus-Tice: lead fee, commission, fixed package margin, or no fee?',
+		'6. Which licensed professional will be responsible, if the service legally requires one?',
+	);
+
+	if ( ! $readiness['can_quote'] && ! empty( $readiness['blockers'] ) ) {
+		$lines[] = '';
+		$lines[] = 'Do not send yet. Resolve first: ' . implode( '; ', $readiness['blockers'] );
+	}
+
+	return implode( "\n", $lines );
+}
+
+function justice_theme_lawyer_supplier_match_labels(): array {
+	return array(
+		'quote_ready'    => __( 'Quote ready', 'justice-theme' ),
+		'near_ready'     => __( 'Near ready', 'justice-theme' ),
+		'blocked'        => __( 'Blocked', 'justice-theme' ),
+		'research'       => __( 'Research', 'justice-theme' ),
+		'not_applicable' => __( 'Not applicable', 'justice-theme' ),
+	);
+}
+
 function justice_theme_lawyer_supplier_meta_boxes(): void {
 	add_meta_box(
 		'justice_theme_lawyer_supplier_details',
@@ -442,6 +678,7 @@ function justice_theme_lawyer_supplier_admin_columns( array $columns ): array {
 	$columns['supplier_type']     = __( 'Provider type', 'justice-theme' );
 	$columns['supplier_status']   = __( 'Status', 'justice-theme' );
 	$columns['supplier_revenue']  = __( 'Revenue model', 'justice-theme' );
+	$columns['supplier_match']    = __( 'Smart match', 'justice-theme' );
 	$columns['supplier_priority'] = __( 'Priority', 'justice-theme' );
 	$columns['supplier_public']   = __( 'Public', 'justice-theme' );
 	return $columns;
@@ -467,6 +704,17 @@ function justice_theme_lawyer_supplier_admin_column( string $column, int $post_i
 	if ( 'supplier_revenue' === $column ) {
 		$revenue = (string) get_post_meta( $post_id, 'supplier_revenue_model', true );
 		echo esc_html( justice_theme_lawyer_supplier_revenue_models()[ $revenue ] ?? $revenue );
+	}
+
+	if ( 'supplier_match' === $column ) {
+		$readiness = justice_theme_lawyer_supplier_match_readiness( $post_id );
+		$labels    = justice_theme_lawyer_supplier_match_labels();
+		echo '<strong>' . esc_html( (string) $readiness['score'] ) . '/100</strong><br>';
+		echo esc_html( $labels[ $readiness['label'] ] ?? $readiness['label'] );
+
+		if ( ! empty( $readiness['blockers'] ) ) {
+			echo '<br><small>' . esc_html( $readiness['blockers'][0] ) . '</small>';
+		}
 	}
 
 	if ( 'supplier_priority' === $column ) {

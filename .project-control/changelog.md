@@ -5271,3 +5271,12 @@
 - ADDED: `tools/check-article-duplicate-cta-guard.mjs`.
 - GENERATED: `.project-control/article-duplicate-cta-guard-2026-05-26.md` and `.reports/article-duplicate-cta-guard-2026-05-26.json`.
 - SAFETY: public-facing theme rendering only; no CMS content, title/H1, URL, redirect, canonical, noindex, sitemap, taxonomy, lead, lawyer, supplier, payment, email or WhatsApp action changed.
+
+## 2026-05-26 - Supplier Smart-Match Bid Readiness
+- UPDATED: `inc/lawyer-suppliers.php` with owner-only supplier readiness scoring, immigration/citizenship/cross-border category intent mapping, readiness labels and safe bid packets.
+- UPDATED: `inc/lead-crm.php` so Justice CRM supplier pipeline shows smart-match score, blocker text and a copyable safe bid packet.
+- UPDATED: wp-admin supplier columns with `Smart match` readiness score.
+- UPDATED: `functions.php` and `deployment-marker.txt` to marker `2026-05-26-supplier-smart-match-admin-v1`.
+- ADDED: `tools/check-supplier-smart-match-readiness.mjs`.
+- GENERATED: `.project-control/supplier-smart-match-readiness-2026-05-26.md` and `.reports/supplier-smart-match-readiness-2026-05-26.json`.
+- SAFETY: admin-only infrastructure; no supplier/client/lawyer record created, no outbound message, no public page, no public business-plan/bid language, no payment, no redirect, no canonical, no noindex, no sitemap and no taxonomy change.

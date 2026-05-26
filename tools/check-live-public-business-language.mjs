@@ -15,6 +15,10 @@ const defaultPaths = [
   '/find-lawyer-how-to-find-good-attorney/',
   '/lawyers/',
   '/articles/',
+  '/rental-agreement/',
+  '/labor-lawyer/',
+  '/consumer-rights-israel/',
+  '/eviction-notice-israel/',
   '/criminal-defense-attorney/',
   '/medical-malpractice-lawyer/',
   '/real-estate-lawyer-guide/',
@@ -22,6 +26,13 @@ const defaultPaths = [
 
 const blockedMarkers = [
   'revenue for Jus-Tice',
+  'revenue for justice',
+  'good revenue for Jus-Tice',
+  'good revenue for justice',
+  'why is Bituach Leumi a good revenue',
+  'why Bituach Leumi is a good revenue',
+  'why national insurance is a good revenue',
+  'why is national insurance a good revenue',
   'revenue stream',
   'internal revenue',
   'why this is revenue',
@@ -59,6 +70,60 @@ const blockedMarkers = [
   'המשתמש ביקש',
   'Jus-Tice צריך',
 ];
+
+const blockedRegexMarkers = [
+  {
+    label: 'why_bituach_or_national_insurance_revenue',
+    regex: /why\s+(?:is\s+)?(?:this|bituach\s+leumi|national\s+insurance)[^\n.?!]{0,90}(?:good\s+)?revenue[^\n.?!]{0,90}(?:jus[-\s]?tice|justice)?/i,
+  },
+  {
+    label: 'why_page_revenue_for_justice',
+    regex: /why[^\n.?!]{0,90}(?:page|route|article|service)[^\n.?!]{0,90}revenue[^\n.?!]{0,90}(?:jus[-\s]?tice|justice)/i,
+  },
+  {
+    label: 'hebrew_bituach_revenue_heading',
+    regex: /למה[^\n.?!]{0,90}(?:ביטוח\s+לאומי|ערעור|זה)[^\n.?!]{0,90}(?:מסלול\s+הכנסה|הכנסה)[^\n.?!]{0,90}(?:Jus[-\s]?Tice|ג'אסטיס|ג׳אסטיס)?/i,
+  },
+  {
+    label: 'hebrew_internal_revenue_for_site',
+    regex: /(?:מסלול\s+הכנסה|מודל\s+הכנסה|לידים\s+בתשלום)[^\n.?!]{0,90}(?:Jus[-\s]?Tice|ג'אסטיס|ג׳אסטיס|האתר)/i,
+  },
+];
+
+const userIntentMarkers = [
+  'עורך דין',
+  'עורכי דין',
+  'עו"ד',
+  'ייעוץ',
+  'משפטיים',
+  'בעיה',
+  'זכויות',
+  'ערעור',
+  'תביעה',
+  'מסמכים',
+  'פנייה',
+  'בדיקה',
+  'חוזה',
+  'שכירות',
+  'פיטורים',
+  'צרכנות',
+  'פינוי',
+  'lawyer',
+  'attorney',
+  'legal',
+  'appeal',
+  'rights',
+  'claim',
+  'contract',
+  'rental',
+  'consumer',
+];
+
+const publicBusinessAudiencePaths = new Set([
+  '/lawyer-plans/',
+  '/lawyer-registration/',
+  '/lawyer-dashboard/',
+]);
 
 function parseArgs() {
   const args = {
@@ -136,9 +201,39 @@ function extractAllTags(html, tagName) {
 
 function detectMarkers(text) {
   const haystack = String(text || '').toLocaleLowerCase('he-IL');
-  return blockedMarkers
+  const literalHits = blockedMarkers
+    .filter((marker) => haystack.includes(marker.toLocaleLowerCase('he-IL')))
+    .map((marker) => marker);
+  const regexHits = blockedRegexMarkers
+    .filter((marker) => marker.regex.test(String(text || '')))
+    .map((marker) => marker.label);
+
+  return [...literalHits, ...regexHits]
+    .filter((marker, index, markers) => markers.indexOf(marker) === index);
+}
+
+function detectUserIntent(text) {
+  const haystack = String(text || '').toLocaleLowerCase('he-IL');
+  return userIntentMarkers
     .filter((marker) => haystack.includes(marker.toLocaleLowerCase('he-IL')))
     .filter((marker, index, markers) => markers.indexOf(marker) === index);
+}
+
+function titleIntentVerdict(pathName, title, h1s, markers) {
+  if (markers.length > 0) {
+    return 'FAIL_INTERNAL_BUSINESS_LANGUAGE';
+  }
+
+  if (publicBusinessAudiencePaths.has(pathName)) {
+    return 'PUBLIC_BUSINESS_AUDIENCE_REVIEW';
+  }
+
+  const headingUserIntent = detectUserIntent([title, ...h1s].join(' '));
+  if (headingUserIntent.length > 0) {
+    return 'USER_LEGAL_HELP_ORIENTED';
+  }
+
+  return 'REVIEW_TITLE_H1_INTENT';
 }
 
 function csvEscape(value) {
@@ -194,6 +289,8 @@ async function inspectPath(baseUrl, pathOrUrl) {
     const markers = detectMarkers(scannedText);
     const finalPath = new URL(response.url).pathname;
     const requestedPath = new URL(absoluteUrl(baseUrl, pathOrUrl)).pathname;
+    const surfaceVerdict = titleIntentVerdict(requestedPath, title, h1s, markers);
+    const titleIntentHits = detectUserIntent([title, ...h1s].join(' '));
     const issues = [];
 
     if (response.status !== 200) {
@@ -204,6 +301,9 @@ async function inspectPath(baseUrl, pathOrUrl) {
     }
     if (markers.length > 0) {
       issues.push('internal_business_language');
+    }
+    if (surfaceVerdict === 'REVIEW_TITLE_H1_INTENT') {
+      issues.push('title_h1_intent_review');
     }
 
     return {
@@ -216,10 +316,14 @@ async function inspectPath(baseUrl, pathOrUrl) {
       h1: h1s.join(' | '),
       h1_count: h1s.length,
       h2_sample: h2s.slice(0, 6).join(' | '),
+      surface_verdict: surfaceVerdict,
+      title_h1_user_intent_hits: titleIntentHits.join(' | ') || '-',
       marker_hits: markers.join(' | ') || '-',
       issues: issues.join(';') || '-',
       next_step: markers.length > 0
         ? 'Replace internal business-plan language with user legal-help intent before relying on this page publicly.'
+        : surfaceVerdict === 'REVIEW_TITLE_H1_INTENT'
+          ? 'Manually verify that title and H1 speak to the reader legal problem, not an internal plan.'
         : 'Keep in normal public QA rotation.',
     };
   } catch (error) {
@@ -233,6 +337,8 @@ async function inspectPath(baseUrl, pathOrUrl) {
       h1: '',
       h1_count: 0,
       h2_sample: '',
+      surface_verdict: 'FETCH_REVIEW',
+      title_h1_user_intent_hits: '-',
       marker_hits: '-',
       issues: error instanceof Error ? error.message : String(error),
       next_step: 'Retry live read-only fetch before publishing related content.',
@@ -283,10 +389,10 @@ function markdownReport(rows, duplicates, reportDate, baseUrl) {
     '',
     '## Page Results',
     '',
-    '| Path | Status | HTTP | Title | H1 | Marker Hits | Issues |',
-    '| --- | --- | --- | --- | --- | --- | --- |',
+    '| Path | Status | HTTP | Surface Verdict | Title | H1 | User-Intent Hits | Marker Hits | Issues |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- |',
     ...rows.map(
-      (row) => `| ${row.path} | ${row.status} | ${row.http_status} | ${row.title.replace(/\|/g, '/')} | ${row.h1.replace(/\|/g, '/')} | ${row.marker_hits.replace(/\|/g, '/')} | ${row.issues.replace(/\|/g, '/')} |`
+      (row) => `| ${row.path} | ${row.status} | ${row.http_status} | ${row.surface_verdict} | ${row.title.replace(/\|/g, '/')} | ${row.h1.replace(/\|/g, '/')} | ${row.title_h1_user_intent_hits.replace(/\|/g, '/')} | ${row.marker_hits.replace(/\|/g, '/')} | ${row.issues.replace(/\|/g, '/')} |`
     ),
     '',
     '## Duplicate Title/H1 Review',
@@ -310,6 +416,9 @@ function markdownReport(rows, duplicates, reportDate, baseUrl) {
     markerRows.length === 0
       ? '- The sampled live pages did not expose internal revenue/business-plan language.'
       : '- At least one sampled live page exposes internal business-plan language and should be manually reviewed before more traffic is sent to it.',
+    rows.every((row) => row.surface_verdict !== 'REVIEW_TITLE_H1_INTENT')
+      ? '- Every successful sampled title/H1 had legal-help user intent or an explicitly business-audience review classification.'
+      : '- At least one sampled title/H1 needs manual reader-intent review even without a hard internal-language marker.',
     reviewRows.length === 0
       ? '- All sampled URLs returned the expected 200 path.'
       : '- Some sampled URLs need review because of HTTP/path/internal-language issues.',
@@ -334,7 +443,7 @@ for (const pathOrUrl of args.paths) {
 
 const duplicates = duplicateRows(rows);
 const outputs = outputFiles(args.reportDate);
-const columns = ['path', 'url', 'status', 'http_status', 'final_url', 'title', 'h1', 'h1_count', 'h2_sample', 'marker_hits', 'issues', 'next_step'];
+const columns = ['path', 'url', 'status', 'http_status', 'final_url', 'title', 'h1', 'h1_count', 'h2_sample', 'surface_verdict', 'title_h1_user_intent_hits', 'marker_hits', 'issues', 'next_step'];
 const duplicateColumns = ['duplicate_id', 'status', 'paths', 'title', 'h1', 'next_step'];
 
 writeText(outputs.reportCsv, toCsv(rows, columns));
@@ -342,7 +451,7 @@ writeText(outputs.projectCsv, toCsv(rows, columns));
 writeText(outputs.reportJson, JSON.stringify({ rows, duplicates }, null, 2) + '\n');
 writeText(outputs.projectMd, markdownReport(rows, duplicates, args.reportDate, args.baseUrl));
 
-console.table(rows.map(({ path, status, http_status, marker_hits, issues }) => ({ path, status, http_status, marker_hits, issues })));
+console.table(rows.map(({ path, status, http_status, surface_verdict, marker_hits, issues }) => ({ path, status, http_status, surface_verdict, marker_hits, issues })));
 if (duplicates.length > 0) {
   console.log(toCsv(duplicates, duplicateColumns));
 }

@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-LIVE-PUBLIC-BUSINESS-LANGUAGE-SHARPEN-001: Keep public titles reader-facing
+**Status:** FIXED LOCAL / LIVE READ-ONLY VERIFIED / PUBLIC SEO CHANGES STILL BLOCKED
+**Why:** the owner correctly flagged that a reader must never see a title explaining why Bituach Leumi or any legal-help page is a revenue path for Jus-Tice.
+**Actions:**
+1. DONE: sharpen `tools/check-live-public-business-language.mjs` with exact English and regex catches for Bituach Leumi / national-insurance revenue-style headings.
+2. DONE: add title/H1 reader-intent classification so sampled public pages are checked as legal-help surfaces.
+3. DONE: expand the default live read-only sample to 13 routes including the managed-service candidates `/rental-agreement/`, `/labor-lawyer/`, `/consumer-rights-israel/` and `/eviction-notice-israel/`.
+4. DONE: generate `.project-control/live-public-business-language-2026-05-27.md` and `.csv`.
+5. DONE: generate `.reports/live-public-business-language-2026-05-27.json` and `.csv`.
+6. DONE: refresh `.project-control/public-business-language-safety-2026-05-27.md` and `.reports/public-business-language-safety-2026-05-27.json`.
+7. DONE: verify 13/13 sampled live pages returned 200, every title/H1 surface was user legal-help oriented, and 0 internal revenue/business-plan marker hits were found.
+8. DONE: record this as Linear `HAD-128`, marked Done under `HAD-84`.
+9. NEXT: keep the Bituach Leumi duplicate title/H1 pair as an owner/SEO/GSC anti-cannibalization item before any metadata, linking, canonical or URL decision.
+10. BLOCKED: do not change public CMS content, title/H1/meta, internal links, redirects, canonicals/noindex, sitemaps, taxonomies, leads, lawyer handoffs, invoices, payments, emails, WhatsApp, TalkTo or uPress from this audit alone.
+
 ### ACTION-CONNECTED-LAWYER-ARTICLE-CTA-DEDUPE-001: Remove repeated article CTA from connected-lawyer sidebar
 **Status:** FIXED LIVE / VERIFIED LIVE
 **Why:** the first article duplicate-CTA guard fixed duplicate-only sidebars, but connected-lawyer sidebars could still repeat the same article help/request CTA button that appears after the article.

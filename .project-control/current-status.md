@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-27 01:32 Asia/Jerusalem
+- SHARPENED LIVE PUBLIC BUSINESS-LANGUAGE AUDIT: upgraded the read-only live audit after the owner flagged that a public legal-help title must never explain why a page creates revenue for Jus-Tice.
+- CODE UPDATED: `tools/check-live-public-business-language.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/live-public-business-language-2026-05-27.md`, `.project-control/live-public-business-language-2026-05-27.csv`, `.reports/live-public-business-language-2026-05-27.json`, `.reports/live-public-business-language-2026-05-27.csv`, plus refreshed `.project-control/public-business-language-safety-2026-05-27.md`, `.project-control/public-business-language-safety-2026-05-27.csv`, `.reports/public-business-language-safety-2026-05-27.json`, `.reports/public-business-language-safety-2026-05-27.csv`.
+- CHECK RESULT: live audit `VERIFIED_NO_INTERNAL_BUSINESS_LANGUAGE_FOUND`; 13/13 sampled public routes returned 200, every title/H1 surface was classified as user legal-help oriented, and 0 internal revenue/business-plan markers were found.
+- ROUTES COVERED: `/`, `/national-insurance-attorney/`, `/bituach-leumi-appeal-guide/`, `/find-lawyer-how-to-find-good-attorney/`, `/lawyers/`, `/articles/`, `/rental-agreement/`, `/labor-lawyer/`, `/consumer-rights-israel/`, `/eviction-notice-israel/`, `/criminal-defense-attorney/`, `/medical-malpractice-lawyer/`, `/real-estate-lawyer-guide/`.
+- ANTI-CANNIBALIZATION FINDING PRESERVED: `/national-insurance-attorney/` and `/bituach-leumi-appeal-guide/` still share the same title/H1 pair and remain blocked for any metadata/link/canonical decision until owner/SEO/GSC review.
+- LINEAR: recorded as `HAD-128`, marked Done under `HAD-84`, related to `HAD-94`, `HAD-99` and `HAD-126`.
+- PUBLIC IMPACT: none. This was a read-only live audit plus repo-local tooling/report updates. No CMS content, public title/H1/meta/body, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: sharpened audit/tooling 100%; Bituach Leumi title split remains 0% public implementation until owner/SEO/GSC approval.
+
 # LATEST WORK STATUS - 2026-05-27 01:22 Asia/Jerusalem
 - CONNECTED-LAWYER ARTICLE CTA DEDUPE LIVE VERIFIED: the public-facing article CTA render fix was pushed, pulled through uPress and verified live.
 - DEPLOYED COMMIT: `f4ce4e16` (`Remove repeated connected-lawyer article CTA`).

@@ -1,6 +1,20 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Sharpen live public business-language audit
+
+- UPDATED: `tools/check-live-public-business-language.mjs`.
+- ADDED: exact and regex marker coverage for Bituach Leumi / national insurance revenue-style headings, including variants of "why this/page/service is revenue for Jus-Tice".
+- ADDED: title/H1 reader-intent classification so sampled public pages must read as legal-help surfaces, not internal monetization notes.
+- EXPANDED: default live sample from 9 to 13 routes by adding `/rental-agreement/`, `/labor-lawyer/`, `/consumer-rights-israel/` and `/eviction-notice-israel/`.
+- GENERATED: `.project-control/live-public-business-language-2026-05-27.md`, `.project-control/live-public-business-language-2026-05-27.csv`, `.reports/live-public-business-language-2026-05-27.json`, `.reports/live-public-business-language-2026-05-27.csv`.
+- REFRESHED: `.project-control/public-business-language-safety-2026-05-27.md`, `.project-control/public-business-language-safety-2026-05-27.csv`, `.reports/public-business-language-safety-2026-05-27.json`, `.reports/public-business-language-safety-2026-05-27.csv`.
+- VERIFIED: `node --check tools/check-live-public-business-language.mjs`, `node tools/check-public-business-language-safety.mjs --reportDate=2026-05-27`, and `node tools/check-live-public-business-language.mjs --reportDate=2026-05-27` all completed successfully.
+- RESULT: 13/13 sampled live pages returned 200, all sampled title/H1 surfaces were user legal-help oriented, and 0 internal revenue/business-plan markers were found.
+- PRESERVED REVIEW ITEM: `/national-insurance-attorney/` and `/bituach-leumi-appeal-guide/` still share a title/H1 pair and require owner/SEO/GSC review before metadata, linking, canonical or URL decisions.
+- LINEAR: recorded as `HAD-128`, marked Done under `HAD-84`.
+- SAFETY: read-only live audit plus repo-local tooling/report updates only; no CMS content, public title/H1/meta/body, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Connected-lawyer article CTA dedupe live verification
 
 - DEPLOYED: commit `f4ce4e16` was pulled through uPress Git management for `/wp-content/themes/justice-theme/`.

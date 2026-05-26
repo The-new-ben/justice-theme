@@ -1,0 +1,49 @@
+{
+  "rows": [
+    {
+      "check_id": "PUBLIC-FIELDS-SCANNED",
+      "scope": "wp_insert_post_data_publish_gate",
+      "status": "VERIFIED",
+      "risk": "covered",
+      "evidence": "Publish gate fields: post_title, post_excerpt, post_content",
+      "next_step": "Keep this gate in the publish preflight."
+    },
+    {
+      "check_id": "PUBLICATION-SAFETY-MARKERS",
+      "scope": "wp_insert_post_data_publish_gate",
+      "status": "VERIFIED",
+      "risk": "covered",
+      "evidence": "12/12 required markers in inc/publication-safety.php",
+      "next_step": "Keep this gate in the publish preflight."
+    },
+    {
+      "check_id": "LIVE-CONTENT-MARKERS",
+      "scope": "render_and_publication_helpers",
+      "status": "VERIFIED",
+      "risk": "covered",
+      "evidence": "12/12 required markers in justice_theme_detect_public_content_internal_markers()",
+      "next_step": "Keep this gate in the publish preflight."
+    },
+    {
+      "check_id": "HEADING-LINE-GATES",
+      "scope": "internal_section_cleanup",
+      "status": "VERIFIED",
+      "risk": "covered",
+      "evidence": "Heading and line cleanup gates include business-plan/revenue Hebrew markers.",
+      "next_step": "Keep this gate in the publish preflight."
+    },
+    {
+      "check_id": "BITUACH-LEUMI-SAMPLE-CATCH",
+      "scope": "regression_sample",
+      "status": "VERIFIED",
+      "risk": "covered",
+      "evidence": "Sample heading caught by: מסלול הכנסה / למה ביטוח לאומי הוא מסלול הכנסה",
+      "next_step": "Keep this gate in the publish preflight."
+    }
+  ],
+  "sampleHeading": "למה ביטוח לאומי הוא מסלול הכנסה חשוב ל-Jus-Tice",
+  "sampleHits": [
+    "מסלול הכנסה",
+    "למה ביטוח לאומי הוא מסלול הכנסה"
+  ]
+}

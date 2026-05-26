@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-26 23:50 Asia/Jerusalem
+- CONTROLLED LAWYER SUBSCRIPTION WALKTHROUGH SCRIPT ADDED: created the exact private runbook for the later owner meeting covering lawyer registration, subscription/payment, manual invoice, dashboard, CRM, upgrade/downgrade/cancel/refund and lead-billing proof.
+- CODE ADDED: `tools/build-lawyer-subscription-controlled-walkthrough.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/lawyer-subscription-controlled-walkthrough-2026-05-26.md`, `.project-control/lawyer-subscription-controlled-walkthrough-2026-05-26.csv`, `.reports/lawyer-subscription-controlled-walkthrough-2026-05-26.json`, `.reports/lawyer-subscription-controlled-walkthrough-2026-05-26.csv`.
+- CHECK RESULT: `READY_SCRIPT_WITH_RUNTIME_BLOCKERS`; 14 walkthrough steps documented, 4 read-only steps ready, 10 live steps blocked until controlled test identity, payment path, live lawyer profile/login, controlled lead and payment evidence exist.
+- EVIDENCE RULE: real revenue may not be counted until the live CRM has transaction/reference proof plus invoice/receipt evidence, and service request IDs exist for payment link, upgrade, downgrade, cancel, refund and invoice drills.
+- LINEAR: recorded as `HAD-119` and marked Done under `HAD-71`.
+- PUBLIC IMPACT: none. No public CMS page, title/H1/meta/body, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, webhook, GSC, GA4, wp-admin setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: controlled walkthrough script 100%; live walkthrough execution 0% until owner approves the controlled test identity/payment/lead inputs.
+
 # LATEST WORK STATUS - 2026-05-26 23:42 Asia/Jerusalem
 - LIVE LAWYER FUNNEL CHECKER MIGRATED: replaced the stale live lawyer revenue checker so it no longer expects the removed homepage lawyer-pricing strip or writes to old public artifact paths.
 - CODE UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs`; `tools/check-lawyer-subscription-e2e-preflight.mjs` stale-tool detection now treats the migrated checker as current.

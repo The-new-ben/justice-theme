@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-CONTROLLED-LAWYER-SUBSCRIPTION-WALKTHROUGH-001: Prepare the owner meeting script for the live payment walkthrough
+**Status:** FIXED LOCAL / LIVE EXECUTION BLOCKED UNTIL OWNER INPUTS
+**Why:** the owner asked to later walk through lawyer creation, CRM, payments, money back/refund, upgrades and downgrades end to end; future operators need a precise script with stop conditions before touching live records.
+**Actions:**
+1. DONE: add `tools/build-lawyer-subscription-controlled-walkthrough.mjs`.
+2. DONE: generate `.project-control/lawyer-subscription-controlled-walkthrough-2026-05-26.md` and `.csv`.
+3. DONE: generate `.reports/lawyer-subscription-controlled-walkthrough-2026-05-26.json` and `.csv`.
+4. DONE: document 14 walkthrough steps from owner approval and payment-path selection through registration, onboarding, payment email, lawyer dashboard, service requests, controlled lead routing, CRM billing proof and final revenue decision.
+5. DONE: record this as Linear `HAD-119`, marked Done under `HAD-71`.
+6. NEXT: before live execution, owner must provide controlled test lawyer identity/inbox/phone, selected payment path, controlled lead and evidence location.
+7. BLOCKED: do not submit live registration, send payment-link email, route leads, mark paid, refund/cancel/upgrade/downgrade or count revenue until the controlled evidence fields are present.
+
 ### ACTION-LIVE-LAWYER-FUNNEL-CHECKER-MIGRATION-001: Keep live lawyer funnel QA aligned with customer-first homepage
 **Status:** FIXED LOCAL / LIVE READ-ONLY PASS
 **Why:** the previous live lawyer revenue checker still expected the removed homepage lawyer-pricing strip and could mislead future agents into thinking the customer-first homepage was broken.

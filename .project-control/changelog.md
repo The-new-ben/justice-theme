@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-26 - Controlled lawyer subscription walkthrough script
+
+- ADDED: `tools/build-lawyer-subscription-controlled-walkthrough.mjs`.
+- GENERATED: `.project-control/lawyer-subscription-controlled-walkthrough-2026-05-26.md`, `.project-control/lawyer-subscription-controlled-walkthrough-2026-05-26.csv`, `.reports/lawyer-subscription-controlled-walkthrough-2026-05-26.json`, `.reports/lawyer-subscription-controlled-walkthrough-2026-05-26.csv`.
+- PURPOSE: provide the exact future meeting script for lawyer registration, subscription/payment, manual invoice, dashboard, CRM, upgrade/downgrade/cancel/refund and lead-billing proof.
+- RESULT: `READY_SCRIPT_WITH_RUNTIME_BLOCKERS`; 14 walkthrough steps documented, with 4 read-only steps ready and 10 live steps blocked until controlled test identity/payment/lead evidence exists.
+- LINEAR: recorded as `HAD-119` and marked Done under `HAD-71`.
+- BLOCKER PRESERVED: do not submit live registration, send payment-link email, route a lead, mark paid, count revenue or claim payment success until the owner-approved controlled evidence fields are present.
+- SAFETY: repo-local tool/report only; no public CMS page, content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, product, payment, invoice, email, WhatsApp, TalkTo, webhook, GSC, GA4, wp-admin setting or uPress deployment changed.
+
 # 2026-05-26 - Live lawyer funnel checker migration
 
 - UPDATED: `tools/check-live-lawyer-revenue-funnel.mjs` and `tools/check-lawyer-subscription-e2e-preflight.mjs`.

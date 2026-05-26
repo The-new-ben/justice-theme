@@ -4,6 +4,24 @@
 
 ---
 
+### ACTION-LIVE-LEGAL-HELP-CONVERSION-LINKAGE-001: Keep public conversion/linkage guard aligned with approved candidate pages
+**Status:** FIXED LOCAL / LIVE READ-ONLY VERIFIED / PUBLIC LINKING STILL BLOCKED
+**Why:** rental, labor, consumer and eviction pages are now public-update candidates, so the live legal-help surface and associated-link review should cover them before any internal links or CTAs are approved.
+**Actions:**
+1. DONE: expand `tools/check-live-legal-help-conversion-surface.mjs` default sample to 12 routes.
+2. DONE: add `/rental-agreement/`, `/labor-lawyer/`, `/consumer-rights-israel/` and `/eviction-notice-israel/` roles and associated-page mappings.
+3. DONE: expand `tools/build-live-associated-linkage-review.mjs` from 10 to 19 candidate link decisions.
+4. DONE: include rental agreement / eviction cross-links as medium-risk contract-vs-dispute decisions.
+5. DONE: include labor, consumer and eviction lawyer-directory links as low-risk owner-review candidates.
+6. DONE: include employment, consumer and rental demand-letter placeholders as high-risk blocked contexts, not approved public routes.
+7. DONE: generate `.project-control/live-legal-help-conversion-surface-2026-05-27.md` and `.csv`.
+8. DONE: generate `.reports/live-legal-help-conversion-surface-2026-05-27.json` and `.csv`.
+9. DONE: generate `.project-control/live-associated-linkage-review-2026-05-27.md` and `.csv`.
+10. DONE: generate `.reports/live-associated-linkage-review-2026-05-27.json` and `.csv`.
+11. DONE: record this as Linear `HAD-133`, marked Done under `HAD-84`.
+12. NEXT: owner/SEO/legal reviewer can use the linkage packet when choosing one exact public update path or internal-link edit.
+13. BLOCKED: do not publish links, update public pages, title/H1/meta, redirects, canonicals/noindex, sitemap, taxonomy, leads, lawyer handoffs, invoices, payments, emails, WhatsApp, TalkTo or uPress from this packet alone.
+
 ### ACTION-LIVE-PUBLIC-CTA-DENSITY-001: Audit repeated public CTAs before adding more conversion copy
 **Status:** FIXED LOCAL / LIVE READ-ONLY VERIFIED / HOMEPAGE OWNER-REVIEW PACKET READY
 **Why:** article CTA duplication is fixed, but future public pages and managed-service CTAs need a broader guard so the site keeps feeling like legal help, not repeated sales buttons.

@@ -17,6 +17,10 @@ const defaultPaths = [
   '/criminal-defense-attorney/',
   '/medical-malpractice-lawyer/',
   '/real-estate-lawyer-guide/',
+  '/rental-agreement/',
+  '/labor-lawyer/',
+  '/consumer-rights-israel/',
+  '/eviction-notice-israel/',
 ];
 
 const pageRoles = new Map([
@@ -28,6 +32,10 @@ const pageRoles = new Map([
   ['/criminal-defense-attorney/', 'practice-lawyer-match'],
   ['/medical-malpractice-lawyer/', 'practice-lawyer-match'],
   ['/real-estate-lawyer-guide/', 'guide-practice'],
+  ['/rental-agreement/', 'rental-contract-guide'],
+  ['/labor-lawyer/', 'employment-lawyer-match'],
+  ['/consumer-rights-israel/', 'consumer-rights-guide'],
+  ['/eviction-notice-israel/', 'rental-dispute-guide'],
 ]);
 
 const associatedPages = new Map([
@@ -39,6 +47,10 @@ const associatedPages = new Map([
   ['/criminal-defense-attorney/', '/lawyers/ | criminal articles'],
   ['/medical-malpractice-lawyer/', '/lawyers/ | medical malpractice articles'],
   ['/real-estate-lawyer-guide/', '/lawyers/ | real-estate attorney pages | purchase-tax/seller-tax tools if approved'],
+  ['/rental-agreement/', '/real-estate-lawyer-guide/ | /eviction-notice-israel/ | landlord/tenant pages | contract-law pages'],
+  ['/labor-lawyer/', '/lawyers/ | wrongful-termination/employment-contract/severance pages | demand-letter context if approved'],
+  ['/consumer-rights-israel/', '/lawyers/ | small-claims/consumer-lawyer pages | demand-letter context if approved'],
+  ['/eviction-notice-israel/', '/rental-agreement/ | tenant/landlord pages | rental-dispute demand-letter context if approved'],
 ]);
 
 const internalBusinessMarkers = [

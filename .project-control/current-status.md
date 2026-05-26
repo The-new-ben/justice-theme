@@ -1,3 +1,15 @@
+# LATEST WORK STATUS - 2026-05-27 01:55 Asia/Jerusalem
+- EXPANDED LIVE LEGAL-HELP CONVERSION/LINKAGE AUDIT: refreshed and broadened the read-only public legal-help surface audit so the managed-service public-update candidate pages are now inside the same safety net.
+- CODE UPDATED: `tools/check-live-legal-help-conversion-surface.mjs`, `tools/build-live-associated-linkage-review.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/live-legal-help-conversion-surface-2026-05-27.md`, `.project-control/live-legal-help-conversion-surface-2026-05-27.csv`, `.reports/live-legal-help-conversion-surface-2026-05-27.json`, `.reports/live-legal-help-conversion-surface-2026-05-27.csv`, `.project-control/live-associated-linkage-review-2026-05-27.md`, `.project-control/live-associated-linkage-review-2026-05-27.csv`, `.reports/live-associated-linkage-review-2026-05-27.json`, `.reports/live-associated-linkage-review-2026-05-27.csv`.
+- CHECK RESULT: live legal-help audit `VERIFIED_LEGAL_HELP_SURFACES`; 12/12 sampled routes returned HTTP 200, with legal-help markers, detected user CTAs and 0 internal business-language marker hits.
+- ROUTES ADDED TO DEFAULT SAMPLE: `/rental-agreement/`, `/labor-lawyer/`, `/consumer-rights-israel/`, `/eviction-notice-israel/`.
+- LINKAGE RESULT: `REVIEW_PACKET_ONLY_NOT_APPROVED_FOR_PUBLISH`; 19 candidate link decisions, 19 ready for owner review, 5 medium-risk cannibalization rows, 4 high-risk placeholder rows and 0 approved for publish.
+- KEY GUARDRAILS: Bituach Leumi links remain medium-risk until lawyer-match vs guide/calculator intent is resolved; rental agreement and eviction links remain medium-risk because contract-review vs dispute/eviction intent must stay distinct; generic demand-letter routes remain blocked.
+- LINEAR: recorded as `HAD-133`, marked Done under `HAD-84`, related to `HAD-122`, `HAD-123`, `HAD-126`, `HAD-128` and `HAD-129`.
+- PUBLIC IMPACT: none. This was read-only live QA plus repo-local tooling/report updates. No CMS content, public title/H1/meta/body, homepage label/link, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: expanded legal-help conversion/linkage guard 100%; actual internal-link/public-page edits remain 0% until owner/SEO/legal approval and publication QA.
+
 # LATEST WORK STATUS - 2026-05-27 01:45 Asia/Jerusalem
 - HOMEPAGE CTA DENSITY REVIEW PACKET ADDED: converted the live homepage repeated lawyer-card CTA label finding into a private owner/design decision packet.
 - CODE ADDED: `tools/build-homepage-cta-density-review-packet.mjs`.

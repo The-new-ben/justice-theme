@@ -1,6 +1,17 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Expand live legal-help conversion and linkage audit
+
+- UPDATED: `tools/check-live-legal-help-conversion-surface.mjs`, `tools/build-live-associated-linkage-review.mjs`.
+- GENERATED: `.project-control/live-legal-help-conversion-surface-2026-05-27.md`, `.project-control/live-legal-help-conversion-surface-2026-05-27.csv`, `.reports/live-legal-help-conversion-surface-2026-05-27.json`, `.reports/live-legal-help-conversion-surface-2026-05-27.csv`, `.project-control/live-associated-linkage-review-2026-05-27.md`, `.project-control/live-associated-linkage-review-2026-05-27.csv`, `.reports/live-associated-linkage-review-2026-05-27.json`, `.reports/live-associated-linkage-review-2026-05-27.csv`.
+- PURPOSE: keep public legal-help conversion and associated-page review aligned with the newer rental, labor, consumer and eviction public-update packets.
+- RESULT: live legal-help audit returned `VERIFIED_LEGAL_HELP_SURFACES`; 12/12 sampled routes returned HTTP 200, had legal-help markers and detected user CTAs, and had 0 internal business-language marker hits.
+- LINKAGE RESULT: `REVIEW_PACKET_ONLY_NOT_APPROVED_FOR_PUBLISH`; 19 candidate link decisions, 19 ready for owner review, 5 medium-risk cannibalization rows, 4 high-risk placeholder rows and 0 approved for publish.
+- GUARDRAILS: Bituach Leumi link decisions still require the lawyer-match vs guide/calculator split; rental agreement and eviction links must keep contract-review vs dispute intent distinct; generic demand-letter route/linking remains blocked.
+- LINEAR: recorded as `HAD-133`, marked Done under `HAD-84`.
+- SAFETY: read-only live QA plus repo-local tooling/report updates only; no public page, CMS content, internal link, homepage label/link, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Homepage CTA density review packet
 
 - ADDED: `tools/build-homepage-cta-density-review-packet.mjs`.

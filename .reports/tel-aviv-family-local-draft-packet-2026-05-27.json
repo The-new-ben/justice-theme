@@ -1,0 +1,281 @@
+{
+  "reportDate": "2026-05-27",
+  "sourceDate": "2026-05-27",
+  "status": "TEL_AVIV_FAMILY_LOCAL_DRAFT_PACKET_READY_FOR_PRIVATE_EDITOR_REVIEW_NO_PUBLIC_CHANGE",
+  "targetSlug": "divorce-lawyer-tel-aviv",
+  "targetTitle": "עורך דין גירושין בתל אביב",
+  "targetPublicStatus": 404,
+  "pillarStatus": 200,
+  "directoryStatus": 200,
+  "directoryLawyerCardCount": 3,
+  "officialSourceCount": 3,
+  "competitorSourceCount": 2,
+  "gateCount": 7,
+  "passGateCount": 7,
+  "reviewGateCount": 0,
+  "blockedGateCount": 0,
+  "publicChangesApproved": 0,
+  "cmsWritesApproved": 0,
+  "seoSettingsChanged": 0,
+  "redirectsOrCanonicalsChanged": 0,
+  "crmRecordsCreated": 0,
+  "leadOrLawyerContactActions": 0,
+  "invoicesOrPaymentsCreated": 0,
+  "emailsSent": 0,
+  "upressDeploymentRequired": false,
+  "gates": [
+    {
+      "id": "TAF-GATE-01",
+      "gate": "source_packets_available",
+      "status": "PASS",
+      "evidence": "Priority packet: CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_BLOCKED_NO_PUBLIC_CHANGE; thin packet: CITY_PRACTICE_THIN_PAGE_PACKET_READY_NO_PUBLIC_CHANGE. Global priority packet remains blocked by a different target, so this packet narrows only to divorce-lawyer-tel-aviv.",
+      "next_action": "Keep Jerusalem criminal blocked; advance only Tel Aviv family as a private editor packet."
+    },
+    {
+      "id": "TAF-GATE-02",
+      "gate": "target_not_public_200",
+      "status": "PASS",
+      "evidence": "https://jus-tice.co.il/divorce-lawyer-tel-aviv/ returned 404 with gate PASS_TARGET_NOT_PUBLIC_200.",
+      "next_action": "Do not create or publish the URL without owner/SEO/legal approval."
+    },
+    {
+      "id": "TAF-GATE-03",
+      "gate": "pillar_reachable_and_primary",
+      "status": "PASS",
+      "evidence": "https://jus-tice.co.il/divorce-lawyer/ returned 200; role says local draft supports /divorce-lawyer/.",
+      "next_action": "Keep the pillar as the main divorce guide and avoid duplicating it."
+    },
+    {
+      "id": "TAF-GATE-04",
+      "gate": "canonical_directory_has_coverage",
+      "status": "PASS",
+      "evidence": "https://jus-tice.co.il/lawyers/?city=tel-aviv&area=family-law returned 200, H1 \"עורך דין דיני משפחה בתל אביב\", and 3 lawyer cards.",
+      "next_action": "Use only the canonical area= filtered directory in private planning."
+    },
+    {
+      "id": "TAF-GATE-05",
+      "gate": "unsupported_alias_excluded",
+      "status": "PASS",
+      "evidence": "https://jus-tice.co.il/lawyers/?city=tel-aviv&practice=family-law remains marked PASS_UNSUPPORTED_ALIAS_NOT_FILTERED_DO_NOT_USE; H1 \"עורכי דין בתל אביב\".",
+      "next_action": "Do not put practice= alias in a draft/public internal link plan."
+    },
+    {
+      "id": "TAF-GATE-06",
+      "gate": "research_source_scaffold_present",
+      "status": "PASS",
+      "evidence": "3 official source prompt(s) and 2 competitor context prompt(s) are available.",
+      "next_action": "Use official sources for document/checklist language; use competitors only for SERP context, not copy."
+    },
+    {
+      "id": "TAF-GATE-07",
+      "gate": "no_public_or_live_action_authorized",
+      "status": "PASS",
+      "evidence": "Source priority packet has 0 public/CMS/SEO/CRM/contact/payment/email approvals and no uPress requirement.",
+      "next_action": "Keep all outputs private until the owner explicitly approves publication scope."
+    }
+  ],
+  "packetRows": [
+    {
+      "id": "TAF-ROW-01",
+      "section": "route_role",
+      "status": "PRIVATE_REVIEW_READY",
+      "value": "עמוד עזר מקומי ותמציתי שמפנה לעמוד הגירושין המרכזי ואינו מנסה להיות מדריך גירושין מלא.",
+      "source": "city-practice-priority-draft-briefs",
+      "guardrail": "Keep the local page subordinate to /divorce-lawyer/ and avoid duplicating the divorce pillar."
+    },
+    {
+      "id": "TAF-ROW-02",
+      "section": "safe_private_opening",
+      "status": "PRIVATE_DRAFT_ONLY",
+      "value": "טיוטת עבודה פרטית: אם אתם מחפשים עורך דין גירושין בתל אביב, העמוד הזה אמור לעזור להבין אילו שאלות ומסמכים כדאי להכין לפני פנייה מסודרת. הוא לא מחליף ייעוץ משפטי, ולא אמור להתחרות במדריך הגירושין המרכזי של Jus-Tice.",
+      "source": "city-practice-priority-draft-briefs",
+      "guardrail": "Do not publish this copy before GSC, internal overlap, legal/editor and owner approval."
+    },
+    {
+      "id": "TAF-ROW-03",
+      "section": "reader_evidence_checklist",
+      "status": "PRIVATE_REVIEW_READY",
+      "value": "פרטי הצדדים והילדים, מסמכי הליכים קיימים אם יש, הסכמות או מחלוקות מרכזיות, מסמכים כלכליים בסיסיים, מועדי דיון או פניות קודמות, ושאלות שהגולש רוצה לברר מול עורך דין.",
+      "source": "city-practice-priority-draft-briefs",
+      "guardrail": "Use as a preparation checklist, not legal advice or a claim that all items are required."
+    },
+    {
+      "id": "TAF-ROW-04",
+      "section": "lawyer_fit_trigger",
+      "status": "PRIVATE_REVIEW_READY",
+      "value": "כאשר יש הליך פתוח, מועד קרוב, מחלוקת משמעותית או צורך להבין התאמה לעורך דין בתחום המשפחה בעיר או בסביבה.",
+      "source": "city-practice-priority-draft-briefs",
+      "guardrail": "Do not promise response time, outcome, ranking, price or specific lawyer availability."
+    },
+    {
+      "id": "TAF-ROW-05",
+      "section": "internal_link_plan",
+      "status": "PRIVATE_REVIEW_READY",
+      "value": "/divorce-lawyer/ as primary pillar | /lawyers/?city=tel-aviv&area=family-law as canonical filtered lawyer path | /lawyers/?city=tel-aviv&practice=family-law as unsupported alias for QA only | no new internal links until owner/SEO review",
+      "source": "city-practice-priority-draft-briefs",
+      "guardrail": "Use /lawyers/?city=tel-aviv&area=family-law only; keep practice= alias QA-only."
+    },
+    {
+      "id": "TAF-ROW-06",
+      "section": "faq_candidates",
+      "status": "NEEDS_GSC_OR_OWNER_EVIDENCE",
+      "value": "איך יודעים אם צריך עורך דין גירושין מקומי? | אילו מסמכים כדאי להכין לפני פנייה? | מתי לקרוא קודם את מדריך הגירושין המרכזי?",
+      "source": "city-practice-priority-draft-briefs",
+      "guardrail": "FAQ rows stay placeholders until backed by GSC, lead, owner or legal/editor evidence."
+    },
+    {
+      "id": "TAF-ROW-07",
+      "section": "official_source_boundaries",
+      "status": "PRIVATE_RESEARCH_READY",
+      "value": "קבלת תעודת גירושין - בתי הדין הרבניים: source prompt for official-document language and evidence checklist only | בקשה לסיוע משפטי - סיוע משפטי: source prompt for eligibility-sensitive wording and urgent-family-matter caveats | יחידות הסיוע ליד בתי המשפט ובתי הדין: source prompt for non-adversarial family-dispute context",
+      "source": "sourceRows",
+      "guardrail": "Do not turn certificate-service details into legal advice or deadline claims. | Do not claim eligibility; invite users to verify with official service or lawyer. | Do not describe a mandatory process unless legal/editor review confirms the exact case type."
+    },
+    {
+      "id": "TAF-ROW-08",
+      "section": "competitor_source_boundaries",
+      "status": "SERP_CONTEXT_ONLY",
+      "value": "מורן גוהר - עורך דין גירושין בתל אביב: SERP positioning reference: competitor pages lead with credentials, family-court experience and local service framing | מאיה רוטנברג - עורך דין גירושין: SERP positioning reference: competitor pages often use experience, process reassurance and city coverage",
+      "source": "sourceRows",
+      "guardrail": "Do not copy claims, rankings, testimonials, case outcomes, pricing or personal positioning. | Do not copy claims, price ranges, badges, testimonials or outcome promises."
+    },
+    {
+      "id": "TAF-ROW-09",
+      "section": "thin_page_original_need",
+      "status": "PRIVATE_REVIEW_READY",
+      "value": "local-intent opening that explains who this city/practice page is for | document/evidence checklist specific to the practice area | when to move from reading to a lawyer fit check | filtered lawyer coverage proof before public visibility | FAQ rows only after real search, lead or owner evidence | links to the central pillar and filtered directory without competing with the pillar",
+      "source": "city-practice-thin-page-improvement-packet",
+      "guardrail": "Do not publish, change title/H1/meta/canonical/sitemap/internal links, claim ranking/best-lawyer status, or contact lawyers/leads from this packet."
+    },
+    {
+      "id": "TAF-ROW-10",
+      "section": "publication_blockers",
+      "status": "BLOCKS_PUBLICATION",
+      "value": "GSC query/page evidence, internal overlap check, filtered lawyer count, legal/editor review, owner approval, and no public-exposure accident.",
+      "source": "city-practice-priority-draft-briefs",
+      "guardrail": "No best/recommended/ranked lawyer claims, no guarantee, no copied competitor claims, no prices, no legal deadlines and no advice without verified legal review."
+    },
+    {
+      "id": "TAF-ROW-11",
+      "section": "live_source_snapshot",
+      "status": "PRIVATE_EVIDENCE_READY",
+      "value": "central_pillar_live_check: 200; gate=PASS_PILLAR_REACHABLE; cards=3; h1=איך לבחור עורך דין גירושין | ניסיון, מחיר ושאלות נכונות | Jus-Tice | draft_target_public_exposure_check: 404; gate=PASS_TARGET_NOT_PUBLIC_200; cards=0; h1=העמוד לא נמצא | canonical_directory_live_check: 200; gate=PASS_CANONICAL_DIRECTORY_FILTER_REACHABLE; cards=3; h1=עורך דין דיני משפחה בתל אביב | unsupported_directory_alias_live_check: 200; gate=PASS_UNSUPPORTED_ALIAS_NOT_FILTERED_DO_NOT_USE; cards=3; h1=עורכי דין בתל אביב",
+      "source": "liveRows",
+      "guardrail": "Snapshot is read-only evidence; do not publish or link from it without owner/SEO/legal approval."
+    }
+  ],
+  "sourceRows": [
+    {
+      "id": "SRC-001",
+      "targetSlug": "divorce-lawyer-tel-aviv",
+      "type": "official",
+      "title": "קבלת תעודת גירושין - בתי הדין הרבניים",
+      "url": "https://www.gov.il/he/service/obtaining-divorce-certificate",
+      "useFor": "source prompt for official-document language and evidence checklist only",
+      "boundary": "Do not turn certificate-service details into legal advice or deadline claims."
+    },
+    {
+      "id": "SRC-002",
+      "targetSlug": "divorce-lawyer-tel-aviv",
+      "type": "official",
+      "title": "בקשה לסיוע משפטי - סיוע משפטי",
+      "url": "https://www.gov.il/he/service/legal_aid_application",
+      "useFor": "source prompt for eligibility-sensitive wording and urgent-family-matter caveats",
+      "boundary": "Do not claim eligibility; invite users to verify with official service or lawyer."
+    },
+    {
+      "id": "SRC-003",
+      "targetSlug": "divorce-lawyer-tel-aviv",
+      "type": "official",
+      "title": "יחידות הסיוע ליד בתי המשפט ובתי הדין",
+      "url": "https://www.gov.il/he/departments/Units/molsa-court-assiatance-units",
+      "useFor": "source prompt for non-adversarial family-dispute context",
+      "boundary": "Do not describe a mandatory process unless legal/editor review confirms the exact case type."
+    },
+    {
+      "id": "SRC-004",
+      "targetSlug": "divorce-lawyer-tel-aviv",
+      "type": "competitor",
+      "title": "מורן גוהר - עורך דין גירושין בתל אביב",
+      "url": "https://www.goharlaw.com/",
+      "useFor": "SERP positioning reference: competitor pages lead with credentials, family-court experience and local service framing",
+      "boundary": "Do not copy claims, rankings, testimonials, case outcomes, pricing or personal positioning."
+    },
+    {
+      "id": "SRC-005",
+      "targetSlug": "divorce-lawyer-tel-aviv",
+      "type": "competitor",
+      "title": "מאיה רוטנברג - עורך דין גירושין",
+      "url": "https://rotenberglaw.co.il/",
+      "useFor": "SERP positioning reference: competitor pages often use experience, process reassurance and city coverage",
+      "boundary": "Do not copy claims, price ranges, badges, testimonials or outcome promises."
+    }
+  ],
+  "liveRows": [
+    {
+      "id": "CPD-01-PILLAR",
+      "slug": "divorce-lawyer-tel-aviv",
+      "url": "https://jus-tice.co.il/divorce-lawyer/",
+      "role": "central_pillar_live_check",
+      "status": 200,
+      "final_url": "https://jus-tice.co.il/divorce-lawyer/?jt_priority_draft=1779856475111",
+      "title": "איך לבחור עורך דין גירושין | ניסיון, מחיר ושאלות נכונות | Jus-Tice",
+      "h1": "איך לבחור עורך דין גירושין | ניסיון, מחיר ושאלות נכונות | Jus-Tice",
+      "word_estimate": 4064,
+      "lawyer_card_count": 3,
+      "gate": "PASS_PILLAR_REACHABLE",
+      "note": "Pillar must stay the primary canonical/help page for the practice topic."
+    },
+    {
+      "id": "CPD-01-TARGET",
+      "slug": "divorce-lawyer-tel-aviv",
+      "url": "https://jus-tice.co.il/divorce-lawyer-tel-aviv/",
+      "role": "draft_target_public_exposure_check",
+      "status": 404,
+      "final_url": "https://jus-tice.co.il/divorce-lawyer-tel-aviv/?jt_priority_draft=1779856475177",
+      "title": "Page not found | Jus-Tice.co.il",
+      "h1": "העמוד לא נמצא",
+      "word_estimate": 290,
+      "lawyer_card_count": 0,
+      "gate": "PASS_TARGET_NOT_PUBLIC_200",
+      "note": "Target should remain private/draft until evidence, lawyer coverage, legal review and owner approval exist."
+    },
+    {
+      "id": "CPD-01-DIRECTORY",
+      "slug": "divorce-lawyer-tel-aviv",
+      "url": "https://jus-tice.co.il/lawyers/?city=tel-aviv&area=family-law",
+      "role": "canonical_directory_live_check",
+      "status": 200,
+      "final_url": "https://jus-tice.co.il/lawyers/?city=tel-aviv&area=family-law&jt_priority_draft=1779856475179",
+      "title": "עורך דין דיני משפחה בתל אביב | Jus-Tice",
+      "h1": "עורך דין דיני משפחה בתל אביב",
+      "word_estimate": 764,
+      "lawyer_card_count": 3,
+      "expected_terms": "דיני משפחה | תל אביב",
+      "gate": "PASS_CANONICAL_DIRECTORY_FILTER_REACHABLE",
+      "note": "Canonical filtered lawyer path for this private draft brief; verify before using in owner/editor packets."
+    },
+    {
+      "id": "CPD-01-UNSUPPORTED-DIRECTORY",
+      "slug": "divorce-lawyer-tel-aviv",
+      "url": "https://jus-tice.co.il/lawyers/?city=tel-aviv&practice=family-law",
+      "role": "unsupported_directory_alias_live_check",
+      "status": 200,
+      "final_url": "https://jus-tice.co.il/lawyers/?city=tel-aviv&practice=family-law&jt_priority_draft=1779856475180",
+      "title": "עורכי דין בתל אביב | Jus-Tice",
+      "h1": "עורכי דין בתל אביב",
+      "word_estimate": 756,
+      "lawyer_card_count": 3,
+      "expected_terms": "דיני משפחה | תל אביב",
+      "gate": "PASS_UNSUPPORTED_ALIAS_NOT_FILTERED_DO_NOT_USE",
+      "note": "Review-only unsupported alias; do not publish or use as an internal link unless alias support is explicitly implemented."
+    }
+  ],
+  "files": {
+    "projectMd": ".project-control/tel-aviv-family-local-draft-packet-2026-05-27.md",
+    "projectCsv": ".project-control/tel-aviv-family-local-draft-packet-2026-05-27.csv",
+    "promptMd": ".project-control/tel-aviv-family-local-human-draft-prompt-2026-05-27.md",
+    "reportJson": ".reports/tel-aviv-family-local-draft-packet-2026-05-27.json",
+    "reportCsv": ".reports/tel-aviv-family-local-draft-packet-2026-05-27.csv"
+  }
+}

@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-TEL-AVIV-FAMILY-LOCAL-DRAFT-PACKET-001: Prepare the first unblocked city/practice private editor packet
+**Status:** FIXED LOCAL / PUBLICATION STILL BLOCKED
+**Why:** Tel Aviv family is the narrow city/practice target with a non-public route and verified canonical lawyer-directory coverage, while criminal Jerusalem remains blocked for coverage.
+**Actions:**
+1. DONE: add `tools/build-tel-aviv-family-local-draft-packet.mjs`.
+2. DONE: generate `.project-control/tel-aviv-family-local-draft-packet-2026-05-27.md`, `.csv` and `.project-control/tel-aviv-family-local-human-draft-prompt-2026-05-27.md`.
+3. DONE: generate `.reports/tel-aviv-family-local-draft-packet-2026-05-27.json` and `.csv`.
+4. DONE: confirm status `TEL_AVIV_FAMILY_LOCAL_DRAFT_PACKET_READY_FOR_PRIVATE_EDITOR_REVIEW_NO_PUBLIC_CHANGE`, target `/divorce-lawyer-tel-aviv/` remains 404/not public 200, canonical `/lawyers/?city=tel-aviv&area=family-law` has 3 lawyer cards and 7/7 gates pass.
+5. DONE: confirm the prompt uses canonical `area=`, warns against unsupported `practice=`, contains Hebrew content and has 0 replacement characters.
+6. DONE: verify private artifact boundary guard `PASS` and record as Linear `HAD-173`.
+7. NEXT: fill GSC query/page evidence and internal overlap review for `/divorce-lawyer-tel-aviv/`, then send to legal/editor and owner review before any CMS/page work.
+8. BLOCKED: no public route, CMS, title/H1/meta/body/internal link, redirect/canonical/noindex/sitemap/taxonomy, CRM, contact, invoice, payment, email/WhatsApp/TalkTo, wp-admin write or uPress from this private packet alone.
+
 ### ACTION-OWNER-UNBLOCKER-COMMAND-CENTER-001: Give owner one private decision command page
 **Status:** FIXED LOCAL / LIVE ACTION STILL BLOCKED
 **Why:** The owner now has a browser-ready Hebrew brief, but a single command page linking each row to its exact source packet and reply template further reduces decision friction.

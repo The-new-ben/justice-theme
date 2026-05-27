@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Tel Aviv family local private draft packet
+
+- ADDED: `tools/build-tel-aviv-family-local-draft-packet.mjs`.
+- GENERATED: `.project-control/tel-aviv-family-local-draft-packet-2026-05-27.md`, `.project-control/tel-aviv-family-local-draft-packet-2026-05-27.csv`, `.project-control/tel-aviv-family-local-human-draft-prompt-2026-05-27.md`, `.reports/tel-aviv-family-local-draft-packet-2026-05-27.json`, `.reports/tel-aviv-family-local-draft-packet-2026-05-27.csv`.
+- PURPOSE: advance the approved narrow city/practice content methodology by isolating the Tel Aviv family target that passes coverage, while leaving the criminal Jerusalem target blocked.
+- RESULT: `TEL_AVIV_FAMILY_LOCAL_DRAFT_PACKET_READY_FOR_PRIVATE_EDITOR_REVIEW_NO_PUBLIC_CHANGE`; target remains 404/not public 200, canonical `area=` directory has 3 lawyer cards, 7/7 gates pass and prompt checks confirm Hebrew content, the canonical directory path, unsupported alias warning and 0 replacement characters.
+- LINEAR: recorded as `HAD-173`, marked Done and related to `HAD-152`, `HAD-151`, `HAD-150`, `HAD-166`, `HAD-165`, `HAD-145` and `HAD-172`.
+- SAFETY: private content-prep tooling/reporting only; no public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Private owner unblocker command center
 
 - ADDED: `tools/build-owner-unblocker-command-center.mjs`.

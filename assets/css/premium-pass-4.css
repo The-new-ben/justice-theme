@@ -1926,6 +1926,27 @@
   color: var(--jt-accent-red, #b23a48);
   font-size: 0.72rem;
 }
+.homepage-lawyer-revenue__fast-fit {
+  margin-top: 0.85rem;
+  padding: 0.85rem 0.95rem;
+  border: 1px solid rgba(178,58,72,0.16);
+  border-radius: 8px;
+  background: rgba(178,58,72,0.055);
+}
+.homepage-lawyer-revenue__fast-fit-label {
+  margin: 0 0 0.5rem;
+  color: var(--jt-primary-deep, #07152f);
+  font-weight: 900;
+}
+.homepage-lawyer-revenue__fast-fit ol {
+  display: grid;
+  gap: 0.3rem;
+  margin: 0;
+  padding-inline-start: 1.2rem;
+  color: var(--jt-muted, #6b7280);
+  font-size: 0.84rem;
+  line-height: 1.55;
+}
 .homepage-lawyer-revenue__proof {
   display: grid;
   gap: 0.65rem;
@@ -2055,6 +2076,24 @@
 .homepage-lawyer-revenue__login:focus-visible {
   border-color: rgba(178,58,72,0.32);
   color: var(--jt-accent-red, #b23a48);
+}
+.homepage-lawyer-revenue__whatsapp {
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(22,163,74,0.34);
+  border-radius: 8px;
+  background: #f0fdf4;
+  color: #166534;
+  font-weight: 900;
+  text-align: center;
+  text-decoration: none;
+}
+.homepage-lawyer-revenue__whatsapp:hover,
+.homepage-lawyer-revenue__whatsapp:focus-visible {
+  background: #dcfce7;
+  color: #14532d;
 }
 @media (max-width: 1080px) {
   .homepage-lawyer-revenue__inner {

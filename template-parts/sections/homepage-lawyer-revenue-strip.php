@@ -34,6 +34,10 @@ $registration_url = add_query_arg(
 	home_url( '/lawyer-registration/' )
 );
 
+$lawyer_fast_fit_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_url' )
+	? justice_theme_public_whatsapp_url( __( 'שלום, אני עורך/ת דין ורוצה לבדוק התאמה למסלול לידים/חשיפה ב-Jus-Tice. תחום, עיר ומספר רישיון: ', 'justice-theme' ) )
+	: '';
+
 $signals = array(
 	array(
 		'label' => __( 'כרטיס בסיסי באינדקס', 'justice-theme' ),
@@ -83,6 +87,12 @@ $account_steps = array(
 	__( 'מקבלים פניות מדידות', 'justice-theme' ),
 	__( 'בוחרים מסלול חשיפה', 'justice-theme' ),
 );
+
+$fast_fit_steps = array(
+	__( 'משאירים תחום, עיר ופרטי קשר.', 'justice-theme' ),
+	__( 'בודקים התאמה, רישיון והאם יש מקום למסלול בתחום.', 'justice-theme' ),
+	__( 'אם יש התאמה מסחרית, עוברים לחשבונית או קישור תשלום ידני לפני הפעלה.', 'justice-theme' ),
+);
 ?>
 
 <section class="homepage-lawyer-revenue" aria-labelledby="homepage-lawyer-revenue-title">
@@ -96,6 +106,15 @@ $account_steps = array(
 					<li><?php echo esc_html( $step ); ?></li>
 				<?php endforeach; ?>
 			</ol>
+
+			<div class="homepage-lawyer-revenue__fast-fit" aria-label="<?php esc_attr_e( 'בדיקת התאמה מהירה לעורכי דין', 'justice-theme' ); ?>">
+				<p class="homepage-lawyer-revenue__fast-fit-label"><?php esc_html_e( 'רוצים לבדוק אם יש התאמה מסחרית לפני מילוי מלא?', 'justice-theme' ); ?></p>
+				<ol>
+					<?php foreach ( $fast_fit_steps as $fast_fit_step ) : ?>
+						<li><?php echo esc_html( $fast_fit_step ); ?></li>
+					<?php endforeach; ?>
+				</ol>
+			</div>
 		</div>
 
 		<div class="homepage-lawyer-revenue__proof">
@@ -141,6 +160,11 @@ $account_steps = array(
 			<a class="button button--outline" href="<?php echo esc_url( $plans_url ); ?>">
 				<?php esc_html_e( 'השוואת מסלולים', 'justice-theme' ); ?>
 			</a>
+			<?php if ( $lawyer_fast_fit_whatsapp_url ) : ?>
+				<a class="homepage-lawyer-revenue__whatsapp" href="<?php echo esc_url( $lawyer_fast_fit_whatsapp_url ); ?>" target="_blank" rel="noopener" data-whatsapp-surface="homepage_lawyer_fast_fit" data-lead-utm-source="homepage" data-lead-utm-medium="lawyer_whatsapp" data-lead-utm-campaign="lawyer_acquisition">
+					<?php esc_html_e( 'בדיקת התאמה בוואטסאפ', 'justice-theme' ); ?>
+				</a>
+			<?php endif; ?>
 		</div>
 	</div>
 </section>

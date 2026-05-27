@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 08:04 Asia/Jerusalem
+- OWNER UNBLOCKER QUEUE REFRESHED WITH CRIMINAL JERUSALEM COVERAGE: added the new criminal-law/Jerusalem private coverage activation decision as a top-three owner command row, so the owner can approve private prospect verification or explicitly park the exact directory route without reading the separate packet chain.
+- CODE UPDATED: `tools/build-owner-unblocker-command-queue.mjs`.
+- GENERATED/UPDATED PRIVATE ARTIFACTS: `.project-control/owner-unblocker-command-queue-2026-05-27.md`, `.project-control/owner-unblocker-command-queue-2026-05-27.csv`, `.project-control/owner-unblocker-reply-template-2026-05-27.csv`, `.reports/owner-unblocker-command-queue-2026-05-27.json`, `.reports/owner-unblocker-command-queue-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-owner-unblocker-command-queue.mjs` passed; regenerated queue status `OWNER_UNBLOCKER_COMMAND_QUEUE_READY_NO_LIVE_ACTION`, rows increased to 8, highest-priority rows 3, and source `criminalJerusalemCoverage` resolves to `CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION`. Private artifact boundary guard `PASS`.
+- REVIEW RESULT: the owner unblocker queue now points to three fastest private revenue/proof moves: BTL controlled proof, controlled lawyer subscription walkthrough, and criminal Jerusalem private coverage prospect activation. Public route/content work remains below those and still needs owner/GSC/legal approval.
+- LINEAR: recorded as `HAD-169`, marked Done under `HAD-168`, related to `HAD-167`, `HAD-166`, `HAD-163`, `HAD-164` and `HAD-157`.
+- PUBLIC IMPACT: none. This was private tooling/reporting only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: owner unblocker queue criminal Jerusalem integration 100%; live criminal Jerusalem coverage remains 0% until owner/admin approves and completes private prospect/profile verification.
+
 # LATEST WORK STATUS - 2026-05-27 07:56 Asia/Jerusalem
 - CRIMINAL JERUSALEM LAWYER COVERAGE ACTIVATION PACKET ADDED: converted the exact criminal-law/Jerusalem directory coverage blocker into a private owner/admin prospect activation worksheet with concrete `justice_prospect` fields and verification rules.
 - CODE ADDED: `tools/build-criminal-jerusalem-lawyer-coverage-activation-packet.mjs`.

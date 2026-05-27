@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Owner unblocker queue criminal Jerusalem coverage row
+
+- UPDATED: `tools/build-owner-unblocker-command-queue.mjs`.
+- REGENERATED: `.project-control/owner-unblocker-command-queue-2026-05-27.md`, `.project-control/owner-unblocker-command-queue-2026-05-27.csv`, `.project-control/owner-unblocker-reply-template-2026-05-27.csv`, `.reports/owner-unblocker-command-queue-2026-05-27.json`, `.reports/owner-unblocker-command-queue-2026-05-27.csv`.
+- PURPOSE: surface the new criminal-law/Jerusalem private coverage activation packet as a top-three owner unblocker command instead of leaving it buried in the content packet chain.
+- RESULT: `OWNER_UNBLOCKER_COMMAND_QUEUE_READY_NO_LIVE_ACTION`; queue rows increased to 8, highest-priority rows 3, and new `UNBLOCK-08` asks the owner to approve private wp-admin entry/verification for one criminal-law/Jerusalem lawyer prospect or park the exact directory coverage route.
+- LINEAR: recorded as `HAD-169`, marked Done under `HAD-168`, related to `HAD-167`, `HAD-166`, `HAD-163`, `HAD-164` and `HAD-157`.
+- SAFETY: private tooling/reporting only; no public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Criminal Jerusalem lawyer coverage activation packet
 
 - ADDED: `tools/build-criminal-jerusalem-lawyer-coverage-activation-packet.mjs`.

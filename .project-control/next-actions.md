@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-OWNER-UNBLOCKER-CRIMINAL-JERUSALEM-COVERAGE-001: Surface criminal Jerusalem coverage as a top owner unblocker
+**Status:** FIXED LOCAL / LIVE COVERAGE STILL BLOCKED
+**Why:** The criminal-law/Jerusalem coverage activation packet was complete, but the owner command queue still did not surface it alongside the fastest private revenue/proof paths.
+**Actions:**
+1. DONE: update `tools/build-owner-unblocker-command-queue.mjs` to load `.reports/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.json`.
+2. DONE: add `UNBLOCK-08` as rank 3, lane `criminal_jerusalem_lawyer_coverage`.
+3. DONE: regenerate `.project-control/owner-unblocker-command-queue-2026-05-27.md` and `.csv`.
+4. DONE: regenerate `.project-control/owner-unblocker-reply-template-2026-05-27.csv`.
+5. DONE: regenerate `.reports/owner-unblocker-command-queue-2026-05-27.json` and `.csv`.
+6. DONE: confirm status `OWNER_UNBLOCKER_COMMAND_QUEUE_READY_NO_LIVE_ACTION`, 8 rows, 3 highest-priority rows and source `criminalJerusalemCoverage=CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION`.
+7. DONE: verify private artifact boundary guard `PASS` and record as Linear `HAD-169`, marked Done under `HAD-168`.
+8. NEXT: owner can reply with `UNBLOCK-08 approve` to allow private admin-only prospect verification, or `UNBLOCK-08 park` to keep the exact criminal Jerusalem route blocked.
+9. BLOCKED: no public page edit, lawyer profile/card, internal link, lawyer contact, lead route, invoice, payment claim, email/WhatsApp/TalkTo, wp-admin write or uPress from this queue alone.
+
 ### ACTION-CRIMINAL-JERUSALEM-LAWYER-COVERAGE-ACTIVATION-001: Activate exact private lawyer coverage
 **Status:** FIXED LOCAL / LIVE COVERAGE STILL BLOCKED
 **Why:** The exact criminal-law/Jerusalem directory and area-only criminal directory both have 0 lawyer cards. The safest revenue-aligned unblocker is private owner/admin prospect activation, not a public draft, internal link, alternate CTA or profile change.

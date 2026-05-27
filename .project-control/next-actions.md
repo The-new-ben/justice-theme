@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-CRIMINAL-JERUSALEM-LAWYER-COVERAGE-ACTIVATION-001: Activate exact private lawyer coverage
+**Status:** FIXED LOCAL / LIVE COVERAGE STILL BLOCKED
+**Why:** The exact criminal-law/Jerusalem directory and area-only criminal directory both have 0 lawyer cards. The safest revenue-aligned unblocker is private owner/admin prospect activation, not a public draft, internal link, alternate CTA or profile change.
+**Actions:**
+1. DONE: add `tools/build-criminal-jerusalem-lawyer-coverage-activation-packet.mjs`.
+2. DONE: generate `.project-control/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/criminal-jerusalem-prospect-activation-template-2026-05-27.csv`.
+4. DONE: generate `.reports/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.json` and `.csv`.
+5. DONE: confirm status `CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION`, source `DIRECTORY_COVERAGE_UNBLOCKER_READY_NO_PUBLIC_CHANGE`, 7/7 gates pass, 8 activation rows and 1 no-PII owner template row.
+6. DONE: prove existing `justice_prospect` flow is private/admin-only and has fields for practice, city, target plan, priority, source URL, demand signal, response fit, license, specialty, manual payment path, terms, fee and billing contact.
+7. DONE: verify private artifact boundary guard `PASS` and record as Linear `HAD-168`, marked Done under `HAD-167`.
+8. NEXT: owner/admin should create or verify one private criminal-law/Jerusalem lawyer prospect, then fill license, specialty, response fit, manual payment path, agreed fee terms and billing contact in wp-admin.
+9. NEXT: after owner-approved private/profile work, rerun `node tools/build-city-practice-priority-draft-briefs.mjs --reportDate=2026-05-27` and confirm the exact directory has at least one matching lawyer card.
+10. BLOCKED: do not publish/update the criminal Jerusalem page, create a public lawyer profile/card, add internal links, imply exact lawyer availability, contact anyone, route leads, invoice, mark paid, send email/WhatsApp/TalkTo or uPress from this private packet alone.
+
 ### ACTION-CRIMINAL-JERUSALEM-DIRECTORY-COVERAGE-UNBLOCKER-001: Turn the coverage blocker into owner choices
 **Status:** FIXED LOCAL / LIVE COVERAGE STILL BLOCKED
 **Why:** The canonical criminal+Jerusalem directory has the right filtered title/H1 but 0 lawyer cards, so the next step needs to be explicit owner/admin coverage work or a deliberate park/alternate-CTA decision rather than accidental public draft reliance.

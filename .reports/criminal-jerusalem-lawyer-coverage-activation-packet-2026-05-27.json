@@ -1,0 +1,225 @@
+{
+  "reportDate": "2026-05-27",
+  "sourceDate": "2026-05-27",
+  "status": "CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION",
+  "sourceStatus": "DIRECTORY_COVERAGE_UNBLOCKER_READY_NO_PUBLIC_CHANGE",
+  "sourcePath": ".reports/city-practice-directory-coverage-unblocker-2026-05-27.json",
+  "sourceSummary": {
+    "slug": "criminal-lawyer-jerusalem",
+    "practiceArea": "criminal-law",
+    "city": "jerusalem",
+    "sourceDirectoryUrl": "https://jus-tice.co.il/lawyers/?city=jerusalem&area=criminal-law",
+    "sourceDirectoryPath": "/lawyers/?city=jerusalem&area=criminal-law",
+    "exactCardCount": 0,
+    "exactGate": "BLOCKED_CANONICAL_DIRECTORY_FILTER_GENERIC_OR_EMPTY",
+    "areaOnlyPath": "/lawyers/?area=criminal-law",
+    "areaOnlyCardCount": 0,
+    "cityOnlyPath": "/lawyers/?city=jerusalem",
+    "cityOnlyCardCount": 2,
+    "contactPath": "/contact/?area=criminal-law&city=jerusalem&source=criminal-lawyer-jerusalem",
+    "contactStatus": 200,
+    "unblockerStatus": "DIRECTORY_COVERAGE_UNBLOCKER_READY_NO_PUBLIC_CHANGE"
+  },
+  "gateCount": 7,
+  "activationRowCount": 8,
+  "ownerTemplateRowCount": 1,
+  "passGateCount": 7,
+  "reviewGateCount": 0,
+  "blockedGateCount": 0,
+  "publicChangesApproved": 0,
+  "cmsWritesApproved": 0,
+  "seoSettingsChanged": 0,
+  "crmRecordsCreated": 0,
+  "lawyerProfilesCreated": 0,
+  "leadOrLawyerContactActions": 0,
+  "invoicesOrPaymentsCreated": 0,
+  "emailsSent": 0,
+  "whatsAppOrTalkToActions": 0,
+  "upressDeploymentRequired": false,
+  "gates": [
+    {
+      "row_type": "gate",
+      "id": "CJLA-GATE-01",
+      "gate": "source_unblocker_available",
+      "status": "PASS",
+      "evidence": "Source unblocker status: DIRECTORY_COVERAGE_UNBLOCKER_READY_NO_PUBLIC_CHANGE.",
+      "next_action": "Use the source blocker as private evidence only; do not publish from it."
+    },
+    {
+      "row_type": "gate",
+      "id": "CJLA-GATE-02",
+      "gate": "criminal_jerusalem_exact_coverage_missing",
+      "status": "PASS",
+      "evidence": "Exact criminal+Jerusalem card count 0; area-only criminal 0; city-only Jerusalem 2.",
+      "next_action": "Treat private matching-lawyer coverage as the safest unblocker."
+    },
+    {
+      "row_type": "gate",
+      "id": "CJLA-GATE-03",
+      "gate": "prospect_cpt_private_admin_only",
+      "status": "PASS",
+      "evidence": "justice_prospect is non-public, hidden from REST and available in the owner onboarding menu.",
+      "next_action": "Use wp-admin prospect entry only; do not create public lawyer cards from this packet."
+    },
+    {
+      "row_type": "gate",
+      "id": "CJLA-GATE-04",
+      "gate": "prospect_fields_ready",
+      "status": "PASS",
+      "evidence": "23 prospect fields needed for coverage activation are registered.",
+      "next_action": "Fill only owner-known, no-PII fields in the private CSV/template before any live entry."
+    },
+    {
+      "row_type": "gate",
+      "id": "CJLA-GATE-05",
+      "gate": "verification_rules_ready",
+      "status": "PASS",
+      "evidence": "Verification helper checks license, specialty, response fit, payment path, terms, fee and billing contact.",
+      "next_action": "Do not mark a prospect routable until these fields are complete in wp-admin."
+    },
+    {
+      "row_type": "gate",
+      "id": "CJLA-GATE-06",
+      "gate": "owner_sales_queue_ready",
+      "status": "PASS",
+      "evidence": "Lead CRM exposes Lawyer Prospects as the owner sales queue, not a public listing.",
+      "next_action": "Use the owner queue for paid-coverage follow-up after owner approval."
+    },
+    {
+      "row_type": "gate",
+      "id": "CJLA-GATE-07",
+      "gate": "no_live_action_authorized",
+      "status": "PASS",
+      "evidence": "This packet approves 0 CMS writes, public changes, CRM records, contacts, routing, invoices, payments, emails, WhatsApp, TalkTo or uPress actions.",
+      "next_action": "Keep this as a preparation artifact until the owner explicitly approves private live entry."
+    }
+  ],
+  "activationRows": [
+    {
+      "row_type": "activation",
+      "id": "CJ-COVERAGE-01",
+      "stage": "private_prospect_entry",
+      "owner_action": "Create or verify one private Lawyer Prospect for criminal-law in jerusalem.",
+      "wp_admin_field": "prospect_practice_area, prospect_city, prospect_target_plan, prospect_priority, prospect_outreach_status, prospect_source_url, prospect_demand_signal",
+      "recommended_value": "criminal-law | jerusalem | lead_partner | hot | research | /lawyers/?city=jerusalem&area=criminal-law | exact directory has 0 lawyer cards",
+      "evidence": "Exact directory /lawyers/?city=jerusalem&area=criminal-law has 0 lawyer cards. Area-only criminal directory /lawyers/?area=criminal-law has 0 lawyer cards. City-only Jerusalem directory /lawyers/?city=jerusalem has 2 lawyer cards but is not criminal-specific. Contact fallback /contact/?area=criminal-law&city=jerusalem&source=criminal-lawyer-jerusalem is review-only.",
+      "completion_rule": "Private prospect row exists in wp-admin or owner template; no public profile/card is created from this packet.",
+      "forbidden_without_approval": "Do not create or publish a public lawyer card."
+    },
+    {
+      "row_type": "activation",
+      "id": "CJ-COVERAGE-02",
+      "stage": "license_check",
+      "owner_action": "Verify Israeli Bar/license status from an owner-approved source.",
+      "wp_admin_field": "prospect_license_verified, prospect_verification_note",
+      "recommended_value": "1 only after owner/admin verification; note private source/date.",
+      "evidence": "Required by justice_theme_lawyer_prospect_verification_missing().",
+      "completion_rule": "License checkbox is 1 and note identifies the private verification evidence.",
+      "forbidden_without_approval": "Do not infer license status from marketing copy alone."
+    },
+    {
+      "row_type": "activation",
+      "id": "CJ-COVERAGE-03",
+      "stage": "specialty_fit",
+      "owner_action": "Verify real criminal-law fit and Jerusalem service coverage.",
+      "wp_admin_field": "prospect_specialty_verified, prospect_owner_note",
+      "recommended_value": "1 only after human review; note criminal-law plus Jerusalem coverage.",
+      "evidence": "Exact directory coverage is blocked until a matching lawyer exists.",
+      "completion_rule": "Specialty checkbox is 1 and owner note explains why this prospect fits criminal-law/Jerusalem.",
+      "forbidden_without_approval": "Do not mark a general Jerusalem lawyer as criminal-law coverage without evidence."
+    },
+    {
+      "row_type": "activation",
+      "id": "CJ-COVERAGE-04",
+      "stage": "response_fit",
+      "owner_action": "Record response readiness for paid lead handling.",
+      "wp_admin_field": "prospect_response_fit",
+      "recommended_value": "within_15_min or same_day",
+      "evidence": "Verification helper accepts only within_15_min or same_day for readiness.",
+      "completion_rule": "Response fit is one of the accepted values.",
+      "forbidden_without_approval": "Do not route urgent criminal-law leads to a prospect with unknown response fit."
+    },
+    {
+      "row_type": "activation",
+      "id": "CJ-COVERAGE-05",
+      "stage": "payment_terms",
+      "owner_action": "Record manual payment path and agreed qualified-lead fee terms.",
+      "wp_admin_field": "prospect_payment_path_ready, prospect_lead_fee_terms_ready, prospect_agreed_lead_fee_ils, prospect_terms_note",
+      "recommended_value": "1 | 1 | owner-filled numeric fee | manual invoice/payment terms note",
+      "evidence": "Grow/Meshulam automated payment remains blocked; manual invoice fallback requires explicit terms and fee evidence.",
+      "completion_rule": "Payment path and terms are 1, agreed lead fee is greater than 0, and terms note is complete.",
+      "forbidden_without_approval": "Do not invoice, mark paid, or claim revenue from this packet."
+    },
+    {
+      "row_type": "activation",
+      "id": "CJ-COVERAGE-06",
+      "stage": "billing_contact",
+      "owner_action": "Record billing contact email only after owner/admin has permission to store it.",
+      "wp_admin_field": "prospect_billing_contact_email",
+      "recommended_value": "owner-filled valid email",
+      "evidence": "Verification helper blocks readiness without a valid billing email.",
+      "completion_rule": "Billing contact email is valid and owner-approved for private storage.",
+      "forbidden_without_approval": "Do not place personal email addresses in repo artifacts."
+    },
+    {
+      "row_type": "activation",
+      "id": "CJ-COVERAGE-07",
+      "stage": "routable_profile_review",
+      "owner_action": "Only after the private prospect is ready, prepare a separate fact-gated public lawyer-card/profile review.",
+      "wp_admin_field": "separate owner-approved profile/profile-card workflow",
+      "recommended_value": "not approved by this packet",
+      "evidence": "justice_prospect is private/admin-only; directory cards require separate public profile readiness.",
+      "completion_rule": "Separate owner approval exists and public-card facts are reviewed before any CMS/public record action.",
+      "forbidden_without_approval": "Do not convert a private prospect into a public routable lawyer profile."
+    },
+    {
+      "row_type": "activation",
+      "id": "CJ-COVERAGE-08",
+      "stage": "coverage_gate_rerun",
+      "owner_action": "After owner-approved private/profile work, rerun the city/practice coverage gate.",
+      "wp_admin_field": "repo-local verification only",
+      "recommended_value": "node tools/build-city-practice-priority-draft-briefs.mjs --reportDate=YYYY-MM-DD",
+      "evidence": "The source blocker was produced by the city/practice coverage gate.",
+      "completion_rule": "Exact criminal+Jerusalem directory has at least one matching lawyer card before public draft/link reliance.",
+      "forbidden_without_approval": "Do not use broader city or contact fallback publicly from this packet alone."
+    }
+  ],
+  "ownerTemplateRows": [
+    {
+      "row_type": "owner_template",
+      "template_id": "CJ-PROSPECT-TEMPLATE-01",
+      "prospect_title": "",
+      "prospect_firm_name": "",
+      "prospect_practice_area": "criminal-law",
+      "prospect_city": "jerusalem",
+      "prospect_target_plan": "lead_partner",
+      "prospect_priority": "hot",
+      "prospect_outreach_status": "research",
+      "prospect_response_fit": "",
+      "prospect_contact_name": "",
+      "prospect_contact_email": "",
+      "prospect_contact_phone": "",
+      "prospect_source_url": "/lawyers/?city=jerusalem&area=criminal-law",
+      "prospect_demand_signal": "Exact criminal-law/Jerusalem directory has 0 lawyer cards; city-only Jerusalem has coverage but is not criminal-specific.",
+      "prospect_expected_monthly_nis": "",
+      "prospect_agreed_lead_fee_ils": "",
+      "prospect_billing_contact_email": "",
+      "prospect_lead_fee_terms_ready": "",
+      "prospect_license_verified": "",
+      "prospect_specialty_verified": "",
+      "prospect_payment_path_ready": "",
+      "prospect_terms_note": "",
+      "prospect_owner_note": "",
+      "prospect_verification_note": "",
+      "private_entry_ready": "no",
+      "forbidden_without_fresh_approval": "No public profile/card, contact, routing, invoice, payment, email, WhatsApp, TalkTo or uPress action."
+    }
+  ],
+  "files": {
+    "projectMd": ".project-control/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.md",
+    "projectCsv": ".project-control/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.csv",
+    "ownerTemplateCsv": ".project-control/criminal-jerusalem-prospect-activation-template-2026-05-27.csv",
+    "reportJson": ".reports/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.json",
+    "reportCsv": ".reports/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.csv"
+  }
+}

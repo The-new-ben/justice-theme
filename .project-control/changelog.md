@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Criminal Jerusalem lawyer coverage activation packet
+
+- ADDED: `tools/build-criminal-jerusalem-lawyer-coverage-activation-packet.mjs`.
+- GENERATED: `.project-control/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.md`, `.project-control/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.csv`, `.project-control/criminal-jerusalem-prospect-activation-template-2026-05-27.csv`, `.reports/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.json`, `.reports/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.csv`.
+- PURPOSE: turn the exact criminal-law/Jerusalem directory coverage gap into a private owner/admin prospect activation worksheet using existing `justice_prospect` fields and readiness gates.
+- RESULT: `CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION`; 7/7 gates pass, 8 activation rows and 1 no-PII owner template row. Exact criminal+Jerusalem and area-only criminal directories remain at 0 lawyer cards; city-only Jerusalem has 2 cards but is not criminal-specific.
+- LINEAR: recorded as `HAD-168`, marked Done under `HAD-167`, related to `HAD-166`, `HAD-145`, `HAD-151`, `HAD-152`, `HAD-147` and `HAD-164`.
+- SAFETY: private tooling/reporting only; no public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Criminal Jerusalem directory coverage unblocker
 
 - ADDED: `tools/build-city-practice-directory-coverage-unblocker.mjs`.

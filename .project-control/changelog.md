@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Owner unblocker command queue
+
+- ADDED: `tools/build-owner-unblocker-command-queue.mjs`.
+- GENERATED: `.project-control/owner-unblocker-command-queue-2026-05-27.md`, `.project-control/owner-unblocker-command-queue-2026-05-27.csv`, `.project-control/owner-unblocker-reply-template-2026-05-27.csv`, `.reports/owner-unblocker-command-queue-2026-05-27.json`, `.reports/owner-unblocker-command-queue-2026-05-27.csv`.
+- PURPOSE: collapse the current revenue/content blockers into one owner reply queue so the next approval can unblock a controlled proof path instead of another passive status loop.
+- RESULT: `OWNER_UNBLOCKER_COMMAND_QUEUE_READY_NO_LIVE_ACTION`; 7 owner reply rows; top rows are Bituach Leumi controlled paid-lead proof, controlled lawyer subscription/payment walkthrough and existing-route rental-agreement copy approval; 0 public/CMS/SEO/CRM/contact/payment/email/WhatsApp/TalkTo/GSC API/uPress actions.
+- LINEAR: recorded as `HAD-154`, marked Done under `HAD-76`, related to `HAD-149`, `HAD-153`, `HAD-152`, `HAD-147`, `HAD-148`, `HAD-142` and `HAD-121`.
+- SAFETY: private owner/operator queue only; no public page, CMS content, route, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, GSC API call, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Low Hype/RV first pilot decision queue
 
 - ADDED: `tools/build-low-hype-rv-first-pilot-decision-queue.mjs`.

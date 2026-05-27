@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 05:31 Asia/Jerusalem
+- OWNER UNBLOCKER COMMAND QUEUE ADDED: consolidated current high-value blockers into one private owner reply queue across Bituach Leumi first paid lead, lawyer subscription revenue, public existing-route copy, Low Hype/RV, divorce Tel Aviv, criminal Jerusalem and WhatsApp/TalkTo consent.
+- CODE ADDED: `tools/build-owner-unblocker-command-queue.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/owner-unblocker-command-queue-2026-05-27.md`, `.project-control/owner-unblocker-command-queue-2026-05-27.csv`, `.project-control/owner-unblocker-reply-template-2026-05-27.csv`, `.reports/owner-unblocker-command-queue-2026-05-27.json`, `.reports/owner-unblocker-command-queue-2026-05-27.csv`.
+- CHECK RESULT: `OWNER_UNBLOCKER_COMMAND_QUEUE_READY_NO_LIVE_ACTION`; 7 owner-reply rows; top 3 rows are Bituach Leumi controlled paid-lead proof, controlled lawyer subscription/payment walkthrough and existing-route rental-agreement public-copy approval; 0 public/CMS/SEO/CRM/contact/payment/email/WhatsApp/TalkTo/GSC API/uPress actions.
+- REVIEW RESULT: fastest revenue path is still clearing one controlled proof path, not publishing a new page. Owner can reply with row IDs such as `UNBLOCK-01 approve` or `UNBLOCK-03 park`; all live actions remain blocked without exact owner approval and evidence location.
+- LINEAR: recorded as `HAD-154`, marked Done under `HAD-76`, related to `HAD-149`, `HAD-153`, `HAD-152`, `HAD-147`, `HAD-148`, `HAD-142` and `HAD-121`.
+- PUBLIC IMPACT: none. This was a private command queue only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, GSC API call, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: owner unblocker queue 100%; live execution remains 0% until the owner approves exact queue rows and provides/records the required private evidence.
+
 # LATEST WORK STATUS - 2026-05-27 05:22 Asia/Jerusalem
 - LOW HYPE/RV FIRST PILOT DECISION QUEUE ADDED: consolidated the existing private Low Hype/RV opportunity, SERP, route-overlap, GSC and intake packets into one owner decision queue.
 - CODE ADDED: `tools/build-low-hype-rv-first-pilot-decision-queue.mjs`.

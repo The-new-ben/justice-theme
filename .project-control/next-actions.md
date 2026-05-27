@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-OWNER-UNBLOCKER-COMMAND-QUEUE-001: Build one owner reply queue for highest-value blockers
+**Status:** FIXED LOCAL / LIVE EXECUTION STILL BLOCKED
+**Why:** Bituach Leumi paid lead proof, lawyer subscription revenue, public route copy, Low Hype/RV, divorce Tel Aviv, criminal Jerusalem and WhatsApp/TalkTo consent each had separate blocker packets; the owner needs one row-based approval queue to clear the next concrete step.
+**Actions:**
+1. DONE: add `tools/build-owner-unblocker-command-queue.mjs`.
+2. DONE: generate `.project-control/owner-unblocker-command-queue-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/owner-unblocker-reply-template-2026-05-27.csv`.
+4. DONE: generate `.reports/owner-unblocker-command-queue-2026-05-27.json` and `.csv`.
+5. DONE: confirm `OWNER_UNBLOCKER_COMMAND_QUEUE_READY_NO_LIVE_ACTION`, 7 owner-reply rows, top 3 highest-value rows and 0 public/CRM/contact/payment/email/WhatsApp/TalkTo/GSC API/uPress actions.
+6. DONE: record as Linear `HAD-154`, marked Done under `HAD-76`.
+7. NEXT: owner replies with row IDs and decisions, for example `UNBLOCK-01 approve`, `UNBLOCK-03 park`, or `UNBLOCK-04 needs_more_evidence`.
+8. BLOCKED: do not create live CRM records, contact clients/lawyers/suppliers, send email/WhatsApp/TalkTo, invoice, mark paid, publish/edit CMS, change SEO settings or uPress from this queue alone.
+
 ### ACTION-LOW-HYPE-RV-FIRST-PILOT-DECISION-QUEUE-001: Convert Low Hype/RV packets into one owner decision queue
 **Status:** FIXED LOCAL / PUBLIC AND LIVE EXECUTION STILL BLOCKED
 **Why:** The Low Hype/RV track had separate opportunity, SERP, route-overlap, GSC and intake packets, but needed one owner-facing decision queue before any public content or live lead action.

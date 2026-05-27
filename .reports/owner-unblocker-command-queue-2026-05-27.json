@@ -12,6 +12,7 @@
     "upressDeploymentRequired": true,
     "sourceStatuses": {
       "homepageDeployment": "HOMEPAGE_DEPLOYMENT_BLOCKED_UPRESS_PULL_REQUIRED",
+      "btlFirstRevenueOperator": "BTL_FIRST_REVENUE_OPERATOR_COMMAND_READY_BLOCKED_ON_PRIVATE_EVIDENCE_NO_LIVE_ACTION",
       "btlSourceReadiness": "BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION",
       "lawyerSubscriptionEvidenceReview": "LAWYER_SUBSCRIPTION_CONTROLLED_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION",
       "lawyerWalkthrough": "READY_SCRIPT_WITH_RUNTIME_BLOCKERS",
@@ -49,8 +50,8 @@
       "exact_next_step": "Owner/admin fills the BTL source-readiness no-PII template from private wp-admin/CRM evidence only; Codex can then review the filled proof rows.",
       "allowed_after_yes": "Private review of filled evidence; one controlled manual handoff only after all proof rows pass and owner explicitly releases it.",
       "hard_no": "No old lead contact, no PII release, no lawyer/client outreach, no invoice, no paid status and no revenue claim from repo artifacts alone.",
-      "source_status": "BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION",
-      "source_artifact": ".project-control/btl-source-readiness-admin-fill-packet-2026-05-27.md",
+      "source_status": "BTL_FIRST_REVENUE_OPERATOR_COMMAND_READY_BLOCKED_ON_PRIVATE_EVIDENCE_NO_LIVE_ACTION | BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION",
+      "source_artifact": ".project-control/btl-first-revenue-operator-command-2026-05-27.md",
       "public_action": "no",
       "crm_or_outreach_action": "owner-controlled-only",
       "completion_if_owner_replies": "Can move from 0% live proof to first controlled Bituach Leumi proof review."

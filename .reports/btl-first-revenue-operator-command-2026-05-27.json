@@ -1,0 +1,122 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "sourceDate": "2026-05-27",
+    "status": "BTL_FIRST_REVENUE_OPERATOR_COMMAND_READY_BLOCKED_ON_PRIVATE_EVIDENCE_NO_LIVE_ACTION",
+    "sourceStatuses": {
+      "adminPacket": "BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION",
+      "filledReview": "BTL_SOURCE_READINESS_FILLED_REVIEW_BLOCKED_NO_LIVE_ACTION",
+      "runtimeLedger": "BLOCKED_SOURCE_READINESS_NOT_CURRENT"
+    },
+    "staticPreparationPercent": 75,
+    "livePaidLeadProofPercent": 0,
+    "actionCount": 6,
+    "blockedActionCount": 6,
+    "firstRequiredAction": "BTL-REV-01",
+    "revenueClaimsApproved": 0,
+    "publicChangesApproved": 0,
+    "liveCrmOrOutreachApproved": 0,
+    "invoicesOrPaymentsCreated": 0,
+    "emailsOrMessagesSent": 0,
+    "externalApisCalled": 0,
+    "upressDeploymentRequired": false,
+    "files": {
+      "projectMd": ".project-control\\btl-first-revenue-operator-command-2026-05-27.md",
+      "projectCsv": ".project-control\\btl-first-revenue-operator-command-2026-05-27.csv",
+      "reportJson": ".reports\\btl-first-revenue-operator-command-2026-05-27.json",
+      "reportCsv": ".reports\\btl-first-revenue-operator-command-2026-05-27.csv"
+    }
+  },
+  "gates": [
+    {
+      "id": "BTL-OP-GATE-01",
+      "gate": "source_packets_loaded",
+      "status": "PASS",
+      "evidence": "Admin packet: BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION; filled review: BTL_SOURCE_READINESS_FILLED_REVIEW_BLOCKED_NO_LIVE_ACTION.",
+      "next_action": "Use this operator card as the short owner/admin run order."
+    },
+    {
+      "id": "BTL-OP-GATE-02",
+      "gate": "no_private_values_echoed",
+      "status": "PASS",
+      "evidence": "0 raw admin pointers echoed; 0 raw private notes echoed.",
+      "next_action": "Keep all private record IDs, notes, payment URLs and PII inside private owner systems."
+    },
+    {
+      "id": "BTL-OP-GATE-03",
+      "gate": "revenue_not_claimed_without_payment",
+      "status": "PASS",
+      "evidence": "0 revenue claims approved; 0 invoices/payments created by the report.",
+      "next_action": "Revenue stays 0 until PAYMENT-01 passes with private payment evidence."
+    },
+    {
+      "id": "BTL-OP-GATE-04",
+      "gate": "operator_actions_still_blocked",
+      "status": "BLOCKED_PRIVATE_EVIDENCE_REQUIRED",
+      "evidence": "6/6 operator actions are still blocked.",
+      "next_action": "Start with BTL-REV-01 and fill private supply evidence."
+    }
+  ],
+  "actions": [
+    {
+      "id": "BTL-REV-01",
+      "sequence": 1,
+      "lane": "private_specialist_supply",
+      "current_status": "BLOCKED_PRIVATE_SUPPLY_EMPTY",
+      "owner_action": "Create or verify 3 private Bituach Leumi specialist prospects in the private admin system.",
+      "proof_needed": "Each prospect has license/status verified, Bituach Leumi appeal fit, response SLA, accepted lead-fee terms, payment path and billing contact.",
+      "unlocks": "Routable coverage check for the first controlled Bituach Leumi lead.",
+      "hard_no": "Do not publish profiles, contact lawyers from repo data, route client PII, invoice or claim revenue from prospect rows alone."
+    },
+    {
+      "id": "BTL-REV-02",
+      "sequence": 2,
+      "lane": "routable_coverage",
+      "current_status": "BLOCKED_UNTIL_THREE_PROSPECTS_ROUTABLE",
+      "owner_action": "Confirm the 3 verified specialists are routable lawyer profiles with routing enabled and billing/contact fields present.",
+      "proof_needed": "First paid-lead preflight shows Bituach Leumi coverage ready with no billing/contact blockers.",
+      "unlocks": "One consented controlled lead can be reviewed for routing.",
+      "hard_no": "Do not rely on a public page or directory card if the private routable coverage proof is missing."
+    },
+    {
+      "id": "BTL-REV-03",
+      "sequence": 3,
+      "lane": "controlled_lead_consent",
+      "current_status": "BLOCKED_UNTIL_CONSENTED_LEAD_EXISTS",
+      "owner_action": "Select one current Bituach Leumi lead with explicit match consent or owner-verified consent and owner release.",
+      "proof_needed": "Consent status, routing hold clearance by owner workflow, Bituach Leumi appeal intent and qualified lead model are recorded privately.",
+      "unlocks": "A controlled handoff can create billable lead state.",
+      "hard_no": "Do not infer consent from a WhatsApp button click alone and do not copy client names, phones, raw chats or documents into repo files."
+    },
+    {
+      "id": "BTL-REV-04",
+      "sequence": 4,
+      "lane": "billing_reference",
+      "current_status": "BLOCKED_UNTIL_BILLABLE_LEAD",
+      "owner_action": "After actual controlled routing, record qualified lead billing as ready_to_bill or invoice_sent.",
+      "proof_needed": "Billable lawyer linked, suggested lead price above 0 and invoice/payment reference exists privately.",
+      "unlocks": "Payment proof can be requested and checked.",
+      "hard_no": "Do not mark paid or claim revenue from invoice/reference alone."
+    },
+    {
+      "id": "BTL-REV-05",
+      "sequence": 5,
+      "lane": "payment_proof",
+      "current_status": "BLOCKED_UNTIL_PRIVATE_PAYMENT_PROOF",
+      "owner_action": "Record paid status only after private payment proof exists.",
+      "proof_needed": "Private payment evidence URL exists in the private admin/payment system and qualified lead billing status is paid.",
+      "unlocks": "One paid Bituach Leumi lead can be counted once.",
+      "hard_no": "Do not paste receipts or private payment URLs into repo artifacts."
+    },
+    {
+      "id": "BTL-REV-06",
+      "sequence": 6,
+      "lane": "scale_decision",
+      "current_status": "BLOCKED_UNTIL_FIRST_PAYMENT_REVIEW",
+      "owner_action": "After the first paid proof passes, decide scale, fix or stop.",
+      "proof_needed": "No unresolved complaint, refund, consent or ethics issue, and owner explicitly approves the next batch.",
+      "unlocks": "Repeatable controlled Bituach Leumi revenue loop.",
+      "hard_no": "Do not expand WhatsApp/TalkTo routing, public claims or supplier outreach before the scale decision."
+    }
+  ]
+}

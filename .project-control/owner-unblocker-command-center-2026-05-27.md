@@ -10,7 +10,7 @@
 | מזהה | עדיפות | נושא | תשובה מוצעת | מקור פרטי | הצעד הבא | אסור ללא אישור |
 | --- | ---: | --- | --- | --- | --- | --- |
 | UNBLOCK-00 | 1 | פריסת עמוד הבית החי | UNBLOCK-00 approve | .project-control/homepage-deployment-blocker-2026-05-27.md | להיכנס ל-uPress של jus-tice.co.il, לפתוח Git management לתיקיית wp-content/themes/justice-theme, להריץ Pull Git ולבדוק שהעמוד מציג כותרת עזרה משפטית ואת אזור המצבים החדש. | במהלך המשיכה לא עורכים CMS, לא משנים redirect, canonical/noindex, sitemap, taxonomy, CRM, תשלום או הגדרות ספק. |
-| UNBLOCK-01 | 2 | הוכחת ליד בתשלום בביטוח לאומי | UNBLOCK-01 approve | .project-control/btl-source-readiness-admin-fill-packet-2026-05-27.md | הבעלים או מנהל האתר ממלאים את תבנית מוכנות המקורות של BTL מתוך wp-admin/CRM פרטי, בלי להכניס פרטים אישיים לקבצים. | לא פונים ללידים ישנים, לא מעבירים פרטים אישיים, לא מחייבים, לא מסמנים שולם ולא טוענים להכנסה מתוך הקבצים בלבד. |
+| UNBLOCK-01 | 2 | הוכחת ליד בתשלום בביטוח לאומי | UNBLOCK-01 approve | .project-control/btl-first-revenue-operator-command-2026-05-27.md | הבעלים או מנהל האתר ממלאים את תבנית מוכנות המקורות של BTL מתוך wp-admin/CRM פרטי, בלי להכניס פרטים אישיים לקבצים. | לא פונים ללידים ישנים, לא מעבירים פרטים אישיים, לא מחייבים, לא מסמנים שולם ולא טוענים להכנסה מתוך הקבצים בלבד. |
 | UNBLOCK-02 | 3 | בדיקת מסלול מנוי עורך דין | UNBLOCK-02 approve | .project-control/lawyer-subscription-controlled-evidence-review-gate-2026-05-27.md | מריצים walkthrough נשלט רק עם זהות הבדיקה ונתיב התשלום שאושרו. | לא מחייבים עורך דין אמיתי, לא שולחים לינק תשלום, לא מגישים הרשמה חיה ולא משנים ספק תשלום בלי היקף בדיקה מאושר. |
 
 ## כל השורות
@@ -18,7 +18,7 @@
 | מזהה | עדיפות | נושא | מקור קיים | סטטוס מקור | פעולה חיה מאושרת |
 | --- | ---: | --- | --- | --- | --- |
 | UNBLOCK-00 | 1 | פריסת עמוד הבית החי | yes | HOMEPAGE_DEPLOYMENT_BLOCKED_UPRESS_PULL_REQUIRED | no |
-| UNBLOCK-01 | 2 | הוכחת ליד בתשלום בביטוח לאומי | yes | BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION | no |
+| UNBLOCK-01 | 2 | הוכחת ליד בתשלום בביטוח לאומי | yes | BTL_FIRST_REVENUE_OPERATOR_COMMAND_READY_BLOCKED_ON_PRIVATE_EVIDENCE_NO_LIVE_ACTION \| BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION | no |
 | UNBLOCK-02 | 3 | בדיקת מסלול מנוי עורך דין | yes | LAWYER_SUBSCRIPTION_CONTROLLED_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION \| MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION | no |
 | UNBLOCK-08 | 4 | כיסוי עורך דין פלילי בירושלים | yes | CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION | no |
 | UNBLOCK-03 | 5 | עדכון ציבורי אפשרי בעמוד הסכם שכירות | yes | OWNER_APPROVAL_QUEUE_READY_NOT_APPROVED | no |

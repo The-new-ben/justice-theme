@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Tel Aviv family lawyer readiness owner packet
+
+- ADDED: `tools/build-tel-aviv-family-lawyer-readiness-owner-packet.mjs`.
+- GENERATED: `.project-control/tel-aviv-family-lawyer-readiness-owner-packet-2026-05-27.md`, `.project-control/tel-aviv-family-lawyer-readiness-owner-packet-2026-05-27.csv`, `.project-control/tel-aviv-family-lawyer-readiness-fill-template-2026-05-27.csv`, `.reports/tel-aviv-family-lawyer-readiness-owner-packet-2026-05-27.json` and `.reports/tel-aviv-family-lawyer-readiness-owner-packet-2026-05-27.csv`.
+- PURPOSE: turn the canonical Tel Aviv family-law directory card count into exact owner/admin readiness checks before any local page can use the coverage publicly.
+- RESULT: `TEL_AVIV_FAMILY_LAWYER_READINESS_OWNER_PACKET_BLOCKED_OWNER_ADMIN_FILL_REQUIRED_NO_PUBLIC_CHANGE`; 3 visible card rows were extracted from a read-only public directory fetch, 2 public-basic/claim-flow rows remain blocked for owner/admin verification, and a 3-row fill template captures identity, fit, permission, availability and no-claim checks.
+- SAFETY: private readiness tooling/reporting only; no lawyer profile edit, contact detail export, lawyer/client contact, CRM record, invoice, payment, email, WhatsApp, TalkTo, public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Tel Aviv family focused GSC export operator packet
 
 - ADDED: `tools/build-tel-aviv-family-focused-gsc-export-operator-packet.mjs`.

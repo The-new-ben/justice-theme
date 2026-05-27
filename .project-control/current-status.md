@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-27 10:22 Asia/Jerusalem
+- TEL AVIV FAMILY LAWYER READINESS OWNER PACKET ADDED: converted the remaining visible-card coverage blocker for `/divorce-lawyer-tel-aviv/` into a private owner/admin verification packet with one fillable row per visible canonical Tel Aviv family-law card.
+- CODE ADDED: `tools/build-tel-aviv-family-lawyer-readiness-owner-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/tel-aviv-family-lawyer-readiness-owner-packet-2026-05-27.md`, `.project-control/tel-aviv-family-lawyer-readiness-owner-packet-2026-05-27.csv`, `.project-control/tel-aviv-family-lawyer-readiness-fill-template-2026-05-27.csv`, `.reports/tel-aviv-family-lawyer-readiness-owner-packet-2026-05-27.json` and `.reports/tel-aviv-family-lawyer-readiness-owner-packet-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-tel-aviv-family-lawyer-readiness-owner-packet.mjs` passed; generator returned `TEL_AVIV_FAMILY_LAWYER_READINESS_OWNER_PACKET_BLOCKED_OWNER_ADMIN_FILL_REQUIRED_NO_PUBLIC_CHANGE`, 3 extracted card rows, 2 public-basic/claim-flow rows requiring owner/admin verification, 5 readiness gates, 1 blocked gate, 3 fill-template rows, 1 read-only public directory fetch, 0 contact details exported, 0 profile edits and 0 public/CMS/SEO/CRM/contact/payment/email/uPress approvals.
+- REVIEW RESULT: the canonical directory has visible coverage, but the local page still cannot use that coverage publicly until owner/admin verifies identity, family/divorce fit, Tel Aviv fit, display permission, current availability, contact path without exporting contact details and no ranking/paid/sponsored claim.
+- PUBLIC/LIVE IMPACT: no lawyer profile edit, contact detail export, lawyer/client contact, CRM record, invoice, payment, email, WhatsApp, TalkTo, CMS/database content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, wp-admin write, provider setting or uPress pull changed.
+- COMPLETION ASSESSMENT: private lawyer readiness owner packet 100%; owner/admin coverage verification remains 0% until the fill template is completed, and public Tel Aviv family route execution remains 0%.
+
 # LATEST WORK STATUS - 2026-05-27 10:13 Asia/Jerusalem
 - TEL AVIV FAMILY FOCUSED GSC EXPORT OPERATOR PACKET ADDED: converted the remaining `/divorce-lawyer-tel-aviv/` Search Console blocker into a private owner/operator workflow with exact paste rows for last-16-month and last-90-day evidence collection.
 - CODE ADDED: `tools/build-tel-aviv-family-focused-gsc-export-operator-packet.mjs`.

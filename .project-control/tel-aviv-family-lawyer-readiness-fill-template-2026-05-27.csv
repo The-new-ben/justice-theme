@@ -1,0 +1,4 @@
+card_id,display_name,profile_path,public_card_type,owner_admin_verified_identity,owner_admin_verified_family_divorce_fit,owner_admin_verified_tel_aviv_fit,owner_admin_verified_profile_permission,owner_admin_verified_current_availability,owner_admin_verified_contact_path_without_exporting_contact_details,owner_admin_verified_no_ranking_paid_sponsored_claim,owner_admin_decision,notes_no_pii,public_go_if_blank
+TA-LAWYER-01,"עו""ד מאיה רוטנברג",/lawyers/advocate-maya-rotenberg/,profile_card,,,,,,,,,,no
+TA-LAWYER-02,עורכת דין הילה וינטרוב,/lawyers/public-basic-hila-weintraub/,public_basic_index,,,,,,,,,,no
+TA-LAWYER-03,משרד עורכי דין יצחקי פריד,/lawyers/public-basic-yitzhaki-frid/,public_basic_index,,,,,,,,,,no

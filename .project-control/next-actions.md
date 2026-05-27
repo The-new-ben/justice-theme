@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-TEL-AVIV-FAMILY-LAWYER-READINESS-001: Verify visible directory cards before local publication
+**Status:** FIXED LOCAL / OWNER ADMIN FILL STILL BLOCKED
+**Why:** The canonical Tel Aviv family-law directory has 3 visible cards, but public card count is not enough to support a local divorce page. Owner/admin must verify profile identity, field fit, local fit, permission, availability and no unsupported commercial claim.
+**Actions:**
+1. DONE: add `tools/build-tel-aviv-family-lawyer-readiness-owner-packet.mjs`.
+2. DONE: generate `.project-control/tel-aviv-family-lawyer-readiness-owner-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/tel-aviv-family-lawyer-readiness-fill-template-2026-05-27.csv`.
+4. DONE: generate `.reports/tel-aviv-family-lawyer-readiness-owner-packet-2026-05-27.json` and `.csv`.
+5. DONE: confirm status `TEL_AVIV_FAMILY_LAWYER_READINESS_OWNER_PACKET_BLOCKED_OWNER_ADMIN_FILL_REQUIRED_NO_PUBLIC_CHANGE`, 3 extracted card rows, 2 public-basic/claim-flow rows requiring verification, 5 gates, 1 blocked gate, 3 fill-template rows, 1 read-only public directory fetch, 0 contact details exported and 0 public/CMS/SEO/CRM/contact/payment/email/uPress approvals.
+6. NEXT: owner/admin fills the readiness template from private admin evidence; then use the filled rows with focused GSC, legal/editor and owner approval in a later private go/no-go packet.
+7. BLOCKED: no public route, CMS, title/H1/meta/body/internal link, redirect/canonical/noindex/sitemap/taxonomy, CRM, lawyer profile edit, contact-detail export, contact, invoice, payment, email/WhatsApp/TalkTo, wp-admin write or uPress from this private owner packet.
+
 ### ACTION-TEL-AVIV-FAMILY-GSC-EXPORT-OPERATOR-001: Prepare exact focused GSC export workflow
 **Status:** FIXED LOCAL / EXPORT FILL STILL BLOCKED
 **Why:** The Tel Aviv family publication review is blocked on focused Search Console evidence. The owner/operator needs exact rows to export and paste without API/OAuth, login automation or public CMS work.

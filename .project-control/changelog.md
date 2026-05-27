@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Paid revenue summary proof guard
+
+- UPDATED: `inc/lead-crm.php`, `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`, `tools/build-btl-controlled-lead-dry-run-packet.mjs`.
+- GENERATED: regenerated `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-27.md`, `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-27.json`, `.project-control/btl-controlled-lead-dry-run-packet-2026-05-27.md`, `.reports/btl-controlled-lead-dry-run-packet-2026-05-27.json`.
+- PURPOSE: prevent owner revenue summaries and BTL readiness counters from counting historical `Paid` rows unless private payment evidence exists.
+- RESULT: added a shared payment-evidence helper, filtered BTL paid-lead counts, kept proofless paid rows in open revenue value, surfaced them in the billing queue and changed their CRM badge to `Paid proof missing`. Runbooks still pass 9/9 and 5/5 static checks; private artifact boundary guard returned `PASS`.
+- SAFETY: repo-local code and private artifacts only; no live CRM record, lawyer profile, lead, invoice, payment, email, WhatsApp, TalkTo, CMS/public page, SEO setting, wp-admin write, provider setting or uPress pull changed.
+
 # 2026-05-27 - Qualified lead paid-proof guard
 
 - UPDATED: `inc/lead-crm.php`, `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`, `tools/build-btl-controlled-lead-dry-run-packet.mjs`.

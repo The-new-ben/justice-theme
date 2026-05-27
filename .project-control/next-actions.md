@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-PAID-REVENUE-SUMMARY-PROOF-GUARD-001: Count paid revenue only with payment evidence
+**Status:** FIXED LOCAL / LIVE PAYMENT PROOF STILL BLOCKED
+**Why:** The save handler now blocks new paid status without payment evidence, but revenue summaries and BTL readiness counters also need to ignore historical proofless paid rows.
+**Actions:**
+1. DONE: add `justice_theme_crm_lead_has_payment_evidence()` as the shared proof check.
+2. DONE: update BTL paid-lead counting so `paid` contributes only when `qualified_lead_payment_evidence_url` exists.
+3. DONE: update qualified-lead revenue snapshot so proofless `paid` rows count as open follow-up value, not paid value.
+4. DONE: update qualified-lead billing queue and badge so proofless `paid` rows are visible as `Paid proof missing`.
+5. DONE: update `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs` and `tools/build-btl-controlled-lead-dry-run-packet.mjs`, then regenerate their private reports.
+6. DONE: verify `php -l inc/lead-crm.php`, `node --check` on both tools, 9/9 WhatsApp/TalkTo source checks, 5/5 BTL dry-run static checks and private artifact boundary guard `PASS`.
+7. NEXT: in an owner-approved controlled live drill, confirm dashboard revenue counts remain open until payment evidence is attached.
+8. BLOCKED: no live CRM lead edit, invoice, payment, paid status, email/WhatsApp/TalkTo, wp-admin write, provider setting or uPress pull without explicit owner approval and payment-proof evidence.
+
 ### ACTION-QUALIFIED-LEAD-PAID-PROOF-GUARD-001: Require payment evidence URL before paid revenue
 **Status:** FIXED LOCAL / LIVE PAYMENT PROOF STILL BLOCKED
 **Why:** Qualified lead billing could prevent a completely bare Paid status, but invoice/payment-link reference alone was still enough to let Paid stand. For the Bituach Leumi first-paid-lead loop, paid revenue must require actual private payment evidence.

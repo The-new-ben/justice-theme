@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-27 09:37 Asia/Jerusalem
+- PAID REVENUE SUMMARY PROOF GUARD ADDED: qualified-lead revenue summaries, Bituach Leumi paid-lead readiness counts and admin billing badges now require a private payment evidence URL before counting or displaying a lead as proven paid revenue.
+- CODE UPDATED: `inc/lead-crm.php`, `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`, `tools/build-btl-controlled-lead-dry-run-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: regenerated `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-27.md`, `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-27.json`, `.project-control/btl-controlled-lead-dry-run-packet-2026-05-27.md` and `.reports/btl-controlled-lead-dry-run-packet-2026-05-27.json`.
+- CHECK RESULT: `php -l inc/lead-crm.php` passed; `node --check tools/build-whatsapp-talkto-paid-handoff-runbook.mjs` passed; `node --check tools/build-btl-controlled-lead-dry-run-packet.mjs` passed; WhatsApp/TalkTo runbook regenerated with 9/9 static source checks passing; BTL dry-run packet regenerated as `BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION` with 10 dry-run rows and 5/5 static checks passing. Private artifact boundary guard returned `PASS`.
+- REVIEW RESULT: historical or imported `Paid` rows without `qualified_lead_payment_evidence_url` no longer inflate the paid revenue snapshot or BTL paid-lead count, and the CRM badge shows `Paid proof missing` instead of a green paid badge. Those rows remain visible in the qualified lead billing queue for owner follow-up.
+- PUBLIC/LIVE IMPACT: no CMS/database content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress pull changed.
+- COMPLETION ASSESSMENT: repo-side paid revenue summary guard 100%; first paid Bituach Leumi/qualified-lead revenue remains blocked until owner-approved live CRM evidence includes consent, partner terms, owner release, invoice/reference and private payment evidence URL.
+
 # LATEST WORK STATUS - 2026-05-27 09:26 Asia/Jerusalem
 - QUALIFIED LEAD PAID-PROOF GUARD TIGHTENED: the CRM now treats invoice/payment-link references as invoice-stage evidence only; `qualified_lead_billing_status=paid` requires a private `qualified_lead_payment_evidence_url`.
 - CODE UPDATED: `inc/lead-crm.php`, `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`, `tools/build-btl-controlled-lead-dry-run-packet.mjs`.

@@ -120,8 +120,8 @@ function staticChecks(paths, ledger, consentPack, invoiceFallback) {
     {
       id: 'CHECK-05',
       gate: 'qualified lead billing proof fields present',
-      status: crm.includes('qualified_lead_invoice_reference') && crm.includes('qualified_lead_payment_evidence_url') && crm.includes("'paid' === $billing_status && '' === $payment_evidence_url") && crm.includes('qualified_lead_paid_at') ? 'PASS' : 'BLOCKED',
-      evidence: 'inc/lead-crm.php separates invoice reference from paid payment-evidence proof',
+      status: crm.includes('function justice_theme_crm_lead_has_payment_evidence') && crm.includes('justice_theme_crm_qualified_lead_revenue_snapshot') && crm.includes('qualified_lead_invoice_reference') && crm.includes('qualified_lead_payment_evidence_url') && crm.includes("'paid' === $billing_status && '' === $payment_evidence_url") && crm.includes('payment_proof_missing') && crm.includes('qualified_lead_paid_at') ? 'PASS' : 'BLOCKED',
+      evidence: 'inc/lead-crm.php separates invoice reference from paid payment-evidence proof in saves, badges and revenue counters',
     },
   ];
 }

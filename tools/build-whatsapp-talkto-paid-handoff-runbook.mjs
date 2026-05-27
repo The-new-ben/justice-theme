@@ -165,13 +165,16 @@ function buildStaticChecks() {
       file: 'crm',
       markers: [
         'function justice_theme_crm_render_qualified_lead_billing_queue',
+        'function justice_theme_crm_lead_has_payment_evidence',
+        'justice_theme_crm_qualified_lead_revenue_snapshot',
         'qualified_lead_invoice_reference',
         'qualified_lead_payment_evidence_url',
+        'payment_proof_missing',
         "'paid' === $billing_status && '' === $payment_evidence_url",
         'Invoice/reference alone can support Invoice sent, not paid revenue.',
         'qualified_lead_paid_at',
       ],
-      evidence: 'Billing queue stores invoice references separately from payment evidence and prevents paid status without an evidence URL.',
+      evidence: 'Billing queue, badges and revenue summaries separate invoice references from payment evidence and prevent paid counts without an evidence URL.',
       nextAction: 'Count revenue only after private payment evidence is present; invoice/reference alone can support invoice sent.',
     }),
     inspectMarkers({

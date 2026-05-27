@@ -87,9 +87,9 @@
       "gate": "qualified_lead_invoice_payment_proof",
       "status": "PASS",
       "file": "inc/lead-crm.php",
-      "evidence": "Billing queue stores invoice references separately from payment evidence and prevents paid status without an evidence URL.",
-      "markers_found": "6",
-      "markers_total": "6",
+      "evidence": "Billing queue, badges and revenue summaries separate invoice references from payment evidence and prevent paid counts without an evidence URL.",
+      "markers_found": "9",
+      "markers_total": "9",
       "missing_markers": "",
       "next_action": "Count revenue only after private payment evidence is present; invoice/reference alone can support invoice sent."
     },

@@ -51,7 +51,7 @@
       "id": "CHECK-05",
       "gate": "qualified lead billing proof fields present",
       "status": "PASS",
-      "evidence": "inc/lead-crm.php separates invoice reference from paid payment-evidence proof"
+      "evidence": "inc/lead-crm.php separates invoice reference from paid payment-evidence proof in saves, badges and revenue counters"
     }
   ],
   "rows": [

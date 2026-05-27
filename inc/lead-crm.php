@@ -1538,7 +1538,7 @@ function justice_theme_crm_lead_audit_gate( int $post_id ): array {
 	$release_status = (string) get_post_meta( $post_id, 'owner_handoff_release_status', true );
 	$billing_status = (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true );
 	$has_invoice    = (bool) get_post_meta( $post_id, 'qualified_lead_invoice_reference', true );
-	$has_evidence   = (bool) get_post_meta( $post_id, 'qualified_lead_payment_evidence_url', true );
+	$has_evidence   = justice_theme_crm_lead_has_payment_evidence( $post_id );
 
 	if ( 'paid' === $billing_status && $has_evidence ) {
 		return array(
@@ -1628,6 +1628,10 @@ function justice_theme_crm_lead_audit_gate( int $post_id ): array {
 		'status'      => 'review',
 		'next_action' => 'Review manually before routing, billing or supplier/lawyer contact.',
 	);
+}
+
+function justice_theme_crm_lead_has_payment_evidence( int $post_id ): bool {
+	return '' !== trim( (string) get_post_meta( $post_id, 'qualified_lead_payment_evidence_url', true ) );
 }
 
 function justice_theme_crm_render_webhook_readiness_panel(): void {
@@ -3767,6 +3771,10 @@ function justice_theme_crm_count_btl_billable_leads( array $needles, array $bill
 			continue;
 		}
 
+		if ( 'paid' === $status && ! justice_theme_crm_lead_has_payment_evidence( $post_id ) ) {
+			continue;
+		}
+
 		$haystack = strtolower(
 			get_the_title( $post_id ) . ' ' .
 			(string) get_post_meta( $post_id, 'legal_area', true ) . ' ' .
@@ -4495,17 +4503,22 @@ function justice_theme_crm_qualified_lead_revenue_snapshot(): array {
 	);
 
 	foreach ( $query->posts ?: array() as $post_id ) {
-		$status = (string) get_post_meta( (int) $post_id, 'qualified_lead_billing_status', true );
-		$price  = absint( get_post_meta( (int) $post_id, 'suggested_lead_price_ils', true ) );
+		$post_id      = (int) $post_id;
+		$status       = (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true );
+		$price        = absint( get_post_meta( $post_id, 'suggested_lead_price_ils', true ) );
+		$has_evidence = justice_theme_crm_lead_has_payment_evidence( $post_id );
 
 		if ( in_array( $status, array( 'ready_to_bill', 'invoice_sent' ), true ) ) {
 			$snapshot['open_count']++;
 			$snapshot['open_value'] += $price;
 		}
 
-		if ( 'paid' === $status ) {
+		if ( 'paid' === $status && $has_evidence ) {
 			$snapshot['paid_count']++;
 			$snapshot['paid_value'] += $price;
+		} elseif ( 'paid' === $status ) {
+			$snapshot['open_count']++;
+			$snapshot['open_value'] += $price;
 		}
 	}
 
@@ -4643,9 +4656,30 @@ function justice_theme_crm_query_qualified_lead_billing_queue( int $limit ): ?WP
 				'compare' => 'EXISTS',
 			),
 			array(
-				'key'     => 'qualified_lead_billing_status',
-				'value'   => array( 'ready_to_bill', 'invoice_sent' ),
-				'compare' => 'IN',
+				'relation' => 'OR',
+				array(
+					'key'     => 'qualified_lead_billing_status',
+					'value'   => array( 'ready_to_bill', 'invoice_sent' ),
+					'compare' => 'IN',
+				),
+				array(
+					'relation' => 'AND',
+					array(
+						'key'   => 'qualified_lead_billing_status',
+						'value' => 'paid',
+					),
+					array(
+						'relation' => 'OR',
+						array(
+							'key'     => 'qualified_lead_payment_evidence_url',
+							'compare' => 'NOT EXISTS',
+						),
+						array(
+							'key'   => 'qualified_lead_payment_evidence_url',
+							'value' => '',
+						),
+					),
+				),
 			),
 		),
 	) );
@@ -5306,13 +5340,19 @@ function justice_theme_crm_qualified_lead_billing_badge( int $post_id ): array {
 	$label  = $labels[ $status ] ?? $labels['not_ready'];
 	$price  = absint( get_post_meta( $post_id, 'suggested_lead_price_ils', true ) );
 
+	if ( 'paid' === $status && ! justice_theme_crm_lead_has_payment_evidence( $post_id ) ) {
+		$label  = 'Paid proof missing';
+		$status = 'payment_proof_missing';
+	}
+
 	$styles = array(
-		'not_ready'     => 'background:#fef3c7;color:#92400e;',
-		'ready_to_bill' => 'background:#dcfce7;color:#166534;',
-		'invoice_sent'  => 'background:#dbeafe;color:#1e40af;',
-		'paid'          => 'background:#ecfdf5;color:#047857;',
-		'disputed'      => 'background:#fee2e2;color:#991b1b;',
-		'waived'        => 'background:#f1f5f9;color:#475569;',
+		'not_ready'             => 'background:#fef3c7;color:#92400e;',
+		'ready_to_bill'         => 'background:#dcfce7;color:#166534;',
+		'invoice_sent'          => 'background:#dbeafe;color:#1e40af;',
+		'paid'                  => 'background:#ecfdf5;color:#047857;',
+		'payment_proof_missing' => 'background:#fee2e2;color:#991b1b;',
+		'disputed'              => 'background:#fee2e2;color:#991b1b;',
+		'waived'                => 'background:#f1f5f9;color:#475569;',
 	);
 
 	return array(

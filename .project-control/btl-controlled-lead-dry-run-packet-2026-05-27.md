@@ -36,7 +36,7 @@ Safety: no wp-admin action, CRM record, prospect record, lead, lawyer contact, c
 | CHECK-02 | consent message pack available without send approval | PASS | CONSENT_MESSAGE_PACK_READY_FOR_OWNER_LEGAL_REVIEW_NO_SEND |
 | CHECK-03 | manual invoice fallback available without live payment action | PASS | MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION |
 | CHECK-04 | routing hold and external consent guard present | PASS | inc/lead-routing.php routing_hold plus routeable consent markers |
-| CHECK-05 | qualified lead billing proof fields present | PASS | inc/lead-crm.php separates invoice reference from paid payment-evidence proof |
+| CHECK-05 | qualified lead billing proof fields present | PASS | inc/lead-crm.php separates invoice reference from paid payment-evidence proof in saves, badges and revenue counters |
 
 ## Dry-Run Rows
 

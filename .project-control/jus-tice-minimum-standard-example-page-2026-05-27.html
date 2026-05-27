@@ -1,0 +1,570 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>דוגמת סטנדרט מינימום לעמוד Jus-Tice</title>
+  <style>
+    :root {
+      --ink: #14213d;
+      --text: #253047;
+      --muted: #667085;
+      --line: #d7dde8;
+      --soft: #f5f8fc;
+      --accent: #0f766e;
+      --accent-dark: #115e59;
+      --gold: #b7791f;
+      --danger: #b42318;
+      --white: #ffffff;
+      --radius: 8px;
+      font-family: Arial, "Noto Sans Hebrew", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--text);
+      background: var(--white);
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--accent-dark);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    a:focus,
+    button:focus,
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: 3px solid #facc15;
+      outline-offset: 2px;
+    }
+
+    .skip-link {
+      position: absolute;
+      inset-inline-start: 16px;
+      top: -60px;
+      background: var(--ink);
+      color: var(--white);
+      padding: 10px 14px;
+      z-index: 20;
+    }
+
+    .skip-link:focus {
+      top: 12px;
+    }
+
+    header {
+      border-bottom: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    .topbar,
+    .nav,
+    .wrap,
+    .footer-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding-inline: 20px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding-block: 8px;
+      font-size: 14px;
+      color: var(--muted);
+      border-bottom: 1px solid #edf1f7;
+    }
+
+    .nav {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      align-items: center;
+      gap: 22px;
+      padding-block: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 24px;
+    }
+
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--white);
+      display: inline-grid;
+      place-items: center;
+      font-size: 18px;
+    }
+
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      border: 1px solid var(--accent);
+      background: var(--accent);
+      color: var(--white);
+      text-decoration: none;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .button.secondary {
+      background: var(--white);
+      color: var(--accent-dark);
+    }
+
+    .breadcrumbs {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 12px 20px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+
+    .breadcrumbs ol {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .hero {
+      background: linear-gradient(180deg, #f7fbff 0%, #ffffff 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero-grid {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 42px 20px 34px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(320px, .75fr);
+      gap: 34px;
+      align-items: start;
+    }
+
+    .eyebrow {
+      color: var(--gold);
+      font-weight: 800;
+      margin: 0 0 8px;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 42px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      font-size: 20px;
+      margin: 18px 0 0;
+      color: #344054;
+    }
+
+    .trust-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .trust {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      padding: 12px;
+      font-weight: 700;
+      min-height: 82px;
+    }
+
+    .intake {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--white);
+      padding: 18px;
+      box-shadow: 0 12px 30px rgba(20, 33, 61, .08);
+    }
+
+    .intake h2 {
+      margin-top: 0;
+      color: var(--ink);
+      font-size: 24px;
+    }
+
+    label {
+      display: block;
+      margin: 12px 0 5px;
+      font-weight: 700;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      min-height: 42px;
+      border: 1px solid #cbd5e1;
+      border-radius: 6px;
+      padding: 9px 10px;
+      font: inherit;
+    }
+
+    textarea {
+      min-height: 104px;
+      resize: vertical;
+    }
+
+    .form-note {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 10px;
+    }
+
+    .wrap {
+      padding-block: 34px;
+    }
+
+    .content-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 32px;
+      align-items: start;
+    }
+
+    article h2 {
+      color: var(--ink);
+      font-size: 30px;
+      margin: 34px 0 10px;
+    }
+
+    article h3 {
+      color: var(--ink);
+      font-size: 22px;
+      margin: 24px 0 8px;
+    }
+
+    .toc,
+    .sidebox {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--soft);
+      padding: 16px;
+      margin-bottom: 16px;
+    }
+
+    .toc h2,
+    .sidebox h2 {
+      margin-top: 0;
+      font-size: 20px;
+    }
+
+    .toc ul,
+    .sidebox ul {
+      padding-inline-start: 20px;
+      margin-block: 8px 0;
+    }
+
+    .notice {
+      border-inline-start: 4px solid var(--accent);
+      background: #ecfdf5;
+      padding: 14px;
+      border-radius: 6px;
+      margin: 22px 0;
+    }
+
+    .risk {
+      border-inline-start-color: var(--danger);
+      background: #fff1f2;
+    }
+
+    footer {
+      background: var(--ink);
+      color: var(--white);
+      margin-top: 34px;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.2fr repeat(3, 1fr);
+      gap: 24px;
+      padding-block: 34px;
+    }
+
+    footer h2 {
+      font-size: 18px;
+      margin: 0 0 10px;
+    }
+
+    footer ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    footer a {
+      color: #dff7f4;
+    }
+
+    @media (max-width: 840px) {
+      .topbar,
+      .nav,
+      .actions,
+      nav ul,
+      .trust-row,
+      .hero-grid,
+      .content-grid,
+      .footer-inner {
+        display: block;
+      }
+
+      nav ul,
+      .actions,
+      .trust,
+      .button {
+        margin-top: 10px;
+      }
+
+      h1 {
+        font-size: 32px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">דלג לתוכן המרכזי</a>
+  <header>
+    <div class="topbar">
+      <span>עזרה משפטית ראשונית לאנשים שמחפשים דרך ברורה להתחיל</span>
+      <span>בדיקת התאמה, פנייה מהירה, חיבור לעורך דין מתאים רק אחרי אישור ותנאי תשלום</span>
+    </div>
+    <div class="nav">
+      <a class="brand" href="#">
+        <span class="brand-mark">J</span>
+        <span>Jus-Tice</span>
+      </a>
+      <nav aria-label="ניווט ראשי">
+        <ul>
+          <li><a href="#">מצא עורך דין</a></li>
+          <li><a href="#">תחומי משפט</a></li>
+          <li><a href="#">מדריכים משפטיים</a></li>
+          <li><a href="#">שאל עורך דין</a></li>
+          <li><a href="#">לעורכי דין</a></li>
+        </ul>
+      </nav>
+      <div class="actions">
+        <a class="button secondary" href="#">חיפוש לפי תחום</a>
+        <a class="button" href="#">פנייה בוואטסאפ</a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="breadcrumbs" aria-label="פירורי לחם">
+    <ol>
+      <li><a href="#">בית</a></li>
+      <li>›</li>
+      <li><a href="#">תחומי משפט</a></li>
+      <li>›</li>
+      <li aria-current="page">עורך דין לדוגמה</li>
+    </ol>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow">דוגמת עמוד לפי סטנדרט מינימום</p>
+        <h1>איך לבחור עורך דין מתאים כשיש בעיה משפטית דחופה</h1>
+        <p class="lead">העמוד מתחיל מהבעיה של האדם, לא מהמכירה לעורכי דין. הוא מסביר מה לבדוק, איזה מידע להכין, איך להימנע מבחירה לא מתאימה, ואיך לפנות לקבלת הכוונה ראשונית.</p>
+        <div class="trust-row" aria-label="נקודות אמון">
+          <div class="trust">בדיקת תחום, עיר ודחיפות לפני העברה לעורך דין.</div>
+          <div class="trust">לא מסמנים הכנסה בלי חשבונית או הוכחת תשלום.</div>
+          <div class="trust">תוכן ארוך, אנושי ומובנה, עם בדיקת קניבליזציה לפני פרסום.</div>
+        </div>
+      </div>
+      <aside class="intake" aria-label="טופס פנייה מהירה">
+        <h2>קבל הכוונה ראשונית</h2>
+        <label for="area">תחום משפטי</label>
+        <select id="area">
+          <option>בחר תחום</option>
+          <option>משפחה</option>
+          <option>ביטוח לאומי</option>
+          <option>נדלן</option>
+          <option>פלילי</option>
+        </select>
+        <label for="city">עיר או אזור</label>
+        <input id="city" type="text" placeholder="לדוגמה: תל אביב">
+        <label for="phone">טלפון לחזרה</label>
+        <input id="phone" type="tel" placeholder="050-0000000">
+        <label for="story">מה קרה בקצרה?</label>
+        <textarea id="story" placeholder="כתוב כמה משפטים. אין צורך במסמכים בשלב הראשון."></textarea>
+        <button class="button" type="button">שלח לבדיקה</button>
+        <p class="form-note">הדוגמה אינה שולחת מידע. בעמוד חי צריך לשמור מקור ליד, הסכמה, תחום, עיר וסטטוס מעקב.</p>
+      </aside>
+    </div>
+  </section>
+
+  <main id="main" class="wrap">
+    <div class="content-grid">
+      <article>
+        <div class="toc">
+          <h2>מה העמוד חייב לכלול</h2>
+          <ul>
+            <li><a href="#fit">התאמה בין בעיה לעורך דין</a></li>
+            <li><a href="#questions">שאלות לפני פנייה</a></li>
+            <li><a href="#money">חיבור להכנסה ולא רק לתנועה</a></li>
+            <li><a href="#seo">SEO, breadcrumbs וקניבליזציה</a></li>
+          </ul>
+        </div>
+
+        <section id="fit">
+          <h2>התאמה בין הבעיה לבין עורך הדין</h2>
+          <p>עמוד משפטי טוב לא מתחיל ברשימת עורכי דין בלבד. הוא מתחיל במצב שבו נמצא האדם: קיבל מכתב, צריך להגיש ערעור, עומד לפני שימוע, רוצה להבין אם יש לו עילה, או מחפש מי יכול לטפל במקרה שלו. לכן הטקסט צריך להסביר בשפה פשוטה מה נחשב סימן דחוף, איזה מסמכים כדאי להכין, ומתי כדאי לדבר עם עורך דין במקום להמשיך לקרוא עוד ועוד עמודים.</p>
+          <p>הסטנדרט החדש אומר שכל עמוד חייב ליצור גשר ברור בין מידע לבין פעולה. אם האדם לא מבין מה לעשות אחרי הקריאה, העמוד לא מוכן. אם אין לנו עורך דין מתאים או מסלול ספק מתאים, העמוד יכול להיות טוב ל־SEO אבל הוא עדיין לא מוכן לרווח.</p>
+        </section>
+
+        <section id="questions">
+          <h2>שאלות שחייבות להופיע לפני פנייה</h2>
+          <h3>מה בדיוק קרה?</h3>
+          <p>העמוד צריך לעזור לאדם לנסח את הבעיה. לא כל סכסוך משפחתי הוא אותו דבר, לא כל תאונה היא אותו דבר, ולא כל בעיה מול ביטוח לאומי מתאימה לאותו עורך דין. לכן צריך להציג שאלות שמחלקות את הבעיה למצב עובדתי, מסמכים קיימים, דחיפות, מקום גאוגרפי וציפייה מהשירות.</p>
+          <h3>מה נחשב מידע רגיש?</h3>
+          <p>צריך להגיד לאדם שלא לשלוח פרטים רגישים מדי לפני שנוצר קשר מסודר. בעמוד חי צריך להיות טקסט הסכמה ברור, שמסביר למה משתמשים בפרטים, למי הם עשויים לעבור, ומה לא יעבור לפני אישור ותנאי התקשרות.</p>
+        </section>
+
+        <div class="notice">
+          <strong>כלל הכנסה:</strong> ליד לא נחשב כסף עד שיש התאמה, הסכמה, ספק או עורך דין מוכן, ותיעוד תשלום או חשבונית. זה מונע אשליה של התקדמות.
+        </div>
+
+        <section id="money">
+          <h2>איך מחברים את העמוד להכנסה</h2>
+          <p>כל עמוד צריך לקבל שדה מקור ליד, תחום, עיר, סטטוס מעקב, פעולה ראשונה, סטטוס חיוב, ונתיב ספק. ברגע שאדם פונה, בעל האתר צריך לראות ברשימת הלידים מה מקור הליד, האם הוא לא מוכן, מוכן לבדיקה, מוכן לחיוב או שולם. הפעולה הראשונה צריכה להיות קצרה, למשל חיוג, וואטסאפ, בקשת אישור או סימון ניסיון קשר ראשון.</p>
+          <p>בדוגמה הזו ההכנסה לא מגיעה מהטקסט עצמו. היא מגיעה מהתהליך: תוכן מועיל מביא פנייה, הפנייה מסווגת, בעל האתר יוצר קשר, ורק אחרי שיש התאמה ותנאים אפשר להעביר לעורך דין או ספק בתשלום.</p>
+        </section>
+
+        <section id="seo">
+          <h2>SEO, breadcrumbs וקניבליזציה</h2>
+          <p>לכל URL צריך להיות תפקיד אחד. אם יש כבר עמוד דומה, צריך להחליט אם העמוד החדש תומך בו, מחליף אותו, או צריך להתמזג איתו. Breadcrumbs צריכים להראות לאדם איפה הוא נמצא, וגם לעזור למנוע החיפוש להבין את ההיררכיה. קישורים פנימיים צריכים להיות טבעיים: לעמוד אב, לעמודי משנה, לעמודי עיר ולמסלול פנייה.</p>
+          <p>דף פשוט באתר הזה לא אמור להיות 600 מילים. סטנדרט העבודה הפנימי הוא 3,000 עד 4,000 מילים לדף פשוט, ודפי pillar צריכים להיות עמוקים יותר. זה לא אומר למלא מילים ריקות. זה אומר לענות על שאלות אמיתיות, להוסיף דוגמאות, טעויות נפוצות, מסמכים, תהליך, סיכונים וקישורים.</p>
+        </section>
+
+        <div class="notice risk">
+          <strong>מה חסר לפני פרסום:</strong> דוגמה זו אינה מאמר מלא, אינה מחליפה בדיקה משפטית, ואינה כוללת 3,000 מילים. היא מדגימה את המבנה, הממשק והסטנדרט. לפני פרסום חי צריך להשלים תוכן, בדיקת קניבליזציה, מקור משפטי ובדיקת מובייל.
+        </div>
+      </article>
+
+      <aside>
+        <div class="sidebox">
+          <h2>פעולת בעלים ראשונה</h2>
+          <ul>
+            <li>בדוק ליד חדש ב־CRM.</li>
+            <li>סמן ניסיון קשר ראשון.</li>
+            <li>קבע אם יש התאמה לעורך דין משלם.</li>
+            <li>אל תסמן שולם בלי הוכחת תשלום.</li>
+          </ul>
+        </div>
+        <div class="sidebox">
+          <h2>קישורים פנימיים לדוגמה</h2>
+          <ul>
+            <li><a href="#">מדריך בחירת עורך דין</a></li>
+            <li><a href="#">עורכי דין לפי תחום</a></li>
+            <li><a href="#">עורכי דין לפי עיר</a></li>
+            <li><a href="#">הצטרפות עורכי דין</a></li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <section>
+        <h2>Jus-Tice</h2>
+        <p>מערכת לחיבור אנשים לעזרה משפטית, עם בדיקת התאמה, ניהול לידים ושמירה על מסלול הכנסה מדיד.</p>
+      </section>
+      <section>
+        <h2>לציבור</h2>
+        <ul>
+          <li><a href="#">מצא עורך דין</a></li>
+          <li><a href="#">שאל שאלה</a></li>
+          <li><a href="#">מדריכים משפטיים</a></li>
+        </ul>
+      </section>
+      <section>
+        <h2>לעורכי דין</h2>
+        <ul>
+          <li><a href="#">הצטרפות</a></li>
+          <li><a href="#">מסלולי חשיפה</a></li>
+          <li><a href="#">ניהול פניות</a></li>
+        </ul>
+      </section>
+      <section>
+        <h2>אמון ותפעול</h2>
+        <ul>
+          <li><a href="#">פרטיות</a></li>
+          <li><a href="#">תנאי שימוש</a></li>
+          <li><a href="#">צור קשר</a></li>
+        </ul>
+      </section>
+    </div>
+  </footer>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "בית", "item": "https://jus-tice.co.il/"},
+      {"@type": "ListItem", "position": 2, "name": "תחומי משפט", "item": "https://jus-tice.co.il/practice-areas/"},
+      {"@type": "ListItem", "position": 3, "name": "עורך דין לדוגמה"}
+    ]
+  }
+  </script>
+</body>
+</html>

@@ -253,6 +253,35 @@ function justice_theme_repair_seeded_menu_area_urls(): void {
 add_action( 'admin_init', 'justice_theme_repair_seeded_menu_area_urls' );
 
 /**
+ * Normalize legacy menu URLs at render time without writing to the CMS menu.
+ *
+ * @param array $atts Link attributes.
+ * @return array
+ */
+function justice_theme_normalize_legacy_menu_link_attributes( array $atts ): array {
+	if ( empty( $atts['href'] ) ) {
+		return $atts;
+	}
+
+	$href  = html_entity_decode( (string) $atts['href'], ENT_QUOTES, get_bloginfo( 'charset' ) ?: 'UTF-8' );
+	$query = (string) wp_parse_url( $href, PHP_URL_QUERY );
+
+	if ( '' === $query ) {
+		return $atts;
+	}
+
+	$params = array();
+	wp_parse_str( $query, $params );
+
+	if ( 315 === (int) ( $params['page_id'] ?? 0 ) ) {
+		$atts['href'] = home_url( '/about/' );
+	}
+
+	return $atts;
+}
+add_filter( 'nav_menu_link_attributes', 'justice_theme_normalize_legacy_menu_link_attributes', 30 );
+
+/**
  * Keep the public primary navigation commercially useful even when wp-admin has
  * an incomplete assigned menu. This does not replace the CMS menu; it only adds
  * missing portal-critical links until the menu is fixed in wp-admin.

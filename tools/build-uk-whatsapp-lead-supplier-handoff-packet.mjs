@@ -152,8 +152,8 @@ function buildStaticChecks() {
         'payment_proof_missing',
         'paid_with_proof',
       ],
-      evidence: 'Billing state cannot honestly become paid without invoice/reference or private payment proof.',
-      nextStep: 'Use manual invoice/payment evidence until Grow/Morning provider status is fully verified.',
+      evidence: 'Billing state separates invoice/reference for invoice_sent from private payment evidence for paid.',
+      nextStep: 'Use manual invoice/reference plus private payment evidence until Grow/Morning provider status is fully verified.',
     }),
     checkMarkers({
       id: 'UK-SRC-07',
@@ -245,11 +245,11 @@ const handoffRows = [
     id: 'UK-08',
     phase: 'money',
     admin_location: 'Justice CRM -> Qualified lead billing queue',
-    recommended_value: 'Move to ready_to_bill/invoice_sent/paid only with invoice reference or private payment evidence.',
+      recommended_value: 'Move to ready_to_bill/invoice_sent with an invoice reference; move to paid only with private payment evidence.',
     status: 'MANUAL_INVOICE_PATH',
-    owner_action: 'Collect and store invoice/payment proof before claiming revenue.',
+    owner_action: 'Collect invoice/reference for invoice_sent and private payment evidence before paid revenue is claimed.',
     blocked_until: 'Partner accepted fee and owner release happened for this lead.',
-    safety: 'Do not mark paid or claim revenue without proof.',
+    safety: 'Do not mark paid or claim paid revenue without private payment evidence.',
   },
   {
     id: 'UK-09',
@@ -404,14 +404,14 @@ function markdownReport(reportDate, checks, status) {
     '2. Admin creates a held private lead in `Manual WhatsApp / client lead bridge` with `legal_area=uk-law`, `handoff_path=lawyer_and_supplier`, `consent_status=fresh_inbound_needs_details` and routing held.',
     '3. Owner/legal approves and sends a current-inbound permission/details message manually, if appropriate.',
     '4. Only after explicit/owner-verified permission, use no-PII partner preview to find a UK-law lawyer/supplier willing to accept scope, SLA, fee and billing terms.',
-    '5. Record accepted terms and billing contact, then owner release, then invoice/payment proof.',
+    '5. Record accepted terms and billing contact, then owner release, then invoice/reference and private payment evidence.',
     '',
     '## Blockers',
     '',
     '- Do not create the real CRM lead from this packet alone; owner approval and wp-admin source reference are required.',
     '- Do not contact the client, supplier or lawyer until permission and owner/legal wording are clear.',
     '- Do not release PII until client permission, accepted partner terms, fee, billing contact and owner release exist.',
-    '- Do not claim revenue until invoice/reference or private payment evidence is recorded.',
+    '- Do not claim paid revenue until private payment evidence is recorded; invoice/reference alone supports invoice_sent only.',
     ''
   ];
 

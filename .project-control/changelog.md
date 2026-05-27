@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Paid proof language alignment
+
+- UPDATED: `inc/lead-crm.php`, `inc/lawyer-prospects.php`, BTL revenue proof tools, lawyer subscription preflight/walkthrough tools, manual invoice fallback tooling, UK-law/UK-WhatsApp handoff tooling, WhatsApp/TalkTo import/consent/paid-handoff tooling and low-hype RV private intake tooling.
+- GENERATED: regenerated the affected 2026-05-27 `.project-control` and `.reports` private packets, including BTL readiness/runtime/dry-run, lawyer subscription preflight/walkthrough, manual invoice fallback, UK-law/UK-WhatsApp, WhatsApp/TalkTo and low-hype RV intake artifacts.
+- PURPOSE: eliminate remaining operator wording that could imply invoice/reference alone is enough for paid revenue.
+- RESULT: admin copy and regenerated private runbooks now consistently say invoice/reference supports invoice-stage follow-up, while paid status/revenue requires private payment evidence. The BTL dry-run remains blocked by source readiness until private wp-admin evidence exists instead of overclaiming readiness. Private artifact boundary guard returned `PASS`.
+- SAFETY: repo-local code and private artifacts only; no live CRM record, lawyer profile, lead, invoice, payment, email, WhatsApp, TalkTo, CMS/public page, SEO setting, wp-admin write, provider setting or uPress pull changed.
+
 # 2026-05-27 - Paid revenue summary proof guard
 
 - UPDATED: `inc/lead-crm.php`, `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`, `tools/build-btl-controlled-lead-dry-run-packet.mjs`.

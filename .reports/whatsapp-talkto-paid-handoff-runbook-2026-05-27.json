@@ -196,7 +196,7 @@
       "status": "REQUIRED_BEFORE_REVENUE_CLAIM",
       "required_evidence": "qualified_lead_billing_status, invoice reference for invoice_sent, payment evidence URL for paid, and owner note are stored.",
       "allowed_action": "Claim invoice sent from reference; claim paid only from payment evidence.",
-      "blocked_action": "Do not mark paid, claim revenue, or activate paid status without invoice/payment proof.",
+      "blocked_action": "Do not mark paid, claim paid revenue, or activate paid status without private payment evidence.",
       "repo_anchor": "inc/lead-crm.php qualified lead billing queue",
       "linear_anchor": "HAD-76; HAD-87",
       "next_owner_action": "Use manual invoice/payment flow until Grow/Morning provider setup is fully verified."
@@ -255,7 +255,7 @@
       "stage": "find_register_take_money",
       "status": "MANUAL_SAFE_PATH_AVAILABLE",
       "required_evidence": "Routable lawyer/supplier profile, accepted terms, billing contact, lead fee or package price, owner release.",
-      "allowed_action": "Attach the client to a partner through the CRM, record billing queue state, then collect manual invoice/payment proof.",
+      "allowed_action": "Attach the client to a partner through the CRM, record billing queue state, then collect invoice/reference for invoice_sent and private payment evidence for paid.",
       "blocked_action": "Do not make automatic recurring billing, automated refunds or guaranteed supplier bids claims until provider tests pass.",
       "repo_anchor": "inc/lead-crm.php billing queue; inc/lawyer-onboarding.php manual invoice path; inc/lawyer-suppliers.php supplier readiness",
       "linear_anchor": "HAD-76; HAD-79; HAD-87",

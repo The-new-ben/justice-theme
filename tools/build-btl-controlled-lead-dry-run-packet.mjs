@@ -194,7 +194,7 @@ function buildRows(ledger) {
       pass_condition: 'The lead reaches one accepted specialist and creates a qualified billing queue item.',
       fail_stop: 'Any missing owner release, partner terms or consent keeps routing_hold on.',
       crm_anchor: 'wp-admin -> Justice CRM -> Owner handoff release queue',
-      allowed_next_action: 'Move to billing queue and request invoice/payment proof.',
+      allowed_next_action: 'Move to billing queue, request invoice/reference, and require private payment evidence before paid revenue.',
       forbidden_action: 'Do not automate webhooks, bulk route, or contact additional partners from this drill.',
       repo_privacy_rule: 'No live handoff details in repo; keep exact IDs in wp-admin.',
     },

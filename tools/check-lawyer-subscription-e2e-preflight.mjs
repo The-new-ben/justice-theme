@@ -175,8 +175,8 @@ const gates = [
       'justice-qualified-lead-invoice-reference',
       'justice-qualified-lead-payment-evidence-url',
     ],
-    nextAction: 'After a controlled lead is assigned, record invoice/payment proof before counting revenue.',
-    ownerNotice: 'Revenue is not proven until invoice/reference and payment evidence are recorded.',
+    nextAction: 'After a controlled lead is assigned, record invoice/reference for invoice-stage follow-up and private payment evidence before paid revenue is counted.',
+    ownerNotice: 'Revenue is not proven until private payment evidence is recorded; invoice/reference supports invoice-stage follow-up.',
   },
   {
     id: 'LSE-09',
@@ -199,7 +199,7 @@ const runtimeBlockers = [
   'A controlled live lawyer user and claimed lawyer profile are required for dashboard login and plan-status proof.',
   'A controlled live registration must be owner-approved before creating/editing production lawyer records.',
   'Grow/Meshulam/Morning provider setup, product mapping and real payment-link behavior remain outside static repo proof.',
-  'A real transaction/reference plus invoice or receipt proof must be recorded before subscription revenue is counted.',
+  'Private payment evidence must be recorded before subscription revenue is counted; invoice/reference alone supports invoice-stage follow-up.',
   'Dashboard preset buttons are form-fill helpers only; owner/admin must review each payment, upgrade, downgrade, cancellation, refund or invoice request before changing plan/payment state.',
   'Upgrade, downgrade, cancellation and refund flows need one controlled live service-request drill each.',
   'Lead revenue needs a consented controlled lead, accepted lawyer/supplier terms, owner release and billing evidence.',
@@ -310,7 +310,7 @@ function markdownReport(summary, rows) {
     '4. Admin onboarding queue records invoice/payment link status.',
     '5. Lawyer dashboard exposes payment link and form-fill-only service request presets for payment, invoice, upgrade, downgrade, cancellation, refund, lead-quality and complaint scenarios.',
     '6. A controlled lead is assigned and stage-updated from the lawyer dashboard.',
-    '7. CRM records invoice/reference and payment evidence before revenue is counted.',
+    '7. CRM records invoice/reference for invoice-stage follow-up and private payment evidence before paid revenue is counted.',
   ];
 
   return [

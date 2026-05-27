@@ -1,6 +1,6 @@
 # Bituach Leumi Runtime Revenue Proof Ledger - 2026-05-27
 
-Status: RUNTIME_LEDGER_READY_NO_REVENUE_CLAIM
+Status: BLOCKED_SOURCE_READINESS_NOT_CURRENT
 
 Source packet date: 2026-05-27
 
@@ -8,7 +8,7 @@ Scope: private owner/admin no-PII proof ledger for the Bituach Leumi specialist-
 
 ## Summary
 
-- Readiness source status: PASS_WITH_RUNTIME_BLOCKERS
+- Readiness source status: BLOCKED_STATIC_GATES
 - Activation source status: READY_FOR_OWNER_PRIVATE_PROSPECT_ENTRY
 - Source candidates: 19
 - Primary private-entry prospects in source packet: 3
@@ -27,8 +27,8 @@ Scope: private owner/admin no-PII proof ledger for the Bituach Leumi specialist-
 | LAWYER-COVERAGE-01 | routable_lawyer_coverage | NEEDS_OWNER_ADMIN_EVIDENCE | At least 3 routable lawyer profiles exist for Bituach Leumi appeal work with routing enabled, accepted terms and billing/contact email. | lead_routing_enabled=1; subscription_status=trialing/active/paid only after owner approval; billing_invoice_email or contact email present | Justice CRM first paid-lead preflight shows coverage ready and no billing/contact blockers. | 3 verified prospects are converted into routable lawyer profiles and billing/contact is present. |
 | CONTROLLED-LEAD-01 | controlled_lead | NEEDS_OWNER_ADMIN_EVIDENCE | One lead has explicit_match_consent or owner_verified_consent, routing_hold cleared only by owner workflow, and Bituach Leumi appeal intent. | consent_status=explicit_match_consent/owner_verified_consent; routing_hold cleared only after owner release; lead_revenue_model=qualified_appeal_lead | The lead routes to an accepted specialist and creates qualified lead billing state. | Client permission and owner release are recorded in the live CRM. |
 | BILLING-01 | qualified_lead_billing | NEEDS_OWNER_ADMIN_EVIDENCE | Qualified lead billing status becomes ready_to_bill or invoice_sent with suggested lead price and linked billable lawyer. | qualified_lead_billing_status=ready_to_bill/invoice_sent; suggested_lead_price_ils>0; billable lawyer IDs linked | Manual invoice/payment request is sent to recorded billing contact and invoice/payment reference is saved before invoice_sent. | The controlled lead is routed and the billing queue shows a billable lead. |
-| PAYMENT-01 | payment_proof | NEEDS_OWNER_ADMIN_EVIDENCE | Payment proof exists through invoice/reference or private payment evidence URL and status is paid. | qualified_lead_billing_status=paid; qualified_lead_invoice_reference present or qualified_lead_payment_evidence_url present | Paid status has proof. The revenue loop can be counted once, with notes retained. | Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/payment proof. |
-| GO-NOGO-01 | scale_decision | BLOCKED_UNTIL_PAYMENT_PROOF | 3 verified/routable specialists, 1 consented routed lead, invoice/reference, payment evidence and no unresolved complaint/refund/ethics issue. | all prior ledger rows PASS in live admin evidence | Owner approves scale, or holds for fixes. | PAYMENT-01 passes. |
+| PAYMENT-01 | payment_proof | NEEDS_OWNER_ADMIN_EVIDENCE | Payment proof exists through a private payment evidence URL and status is paid; invoice/reference alone is invoice-stage evidence. | qualified_lead_billing_status=paid; qualified_lead_payment_evidence_url present | Paid status has proof. The revenue loop can be counted once, with notes retained. | Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/reference and private payment evidence. |
+| GO-NOGO-01 | scale_decision | BLOCKED_UNTIL_PAYMENT_PROOF | 3 verified/routable specialists, 1 consented routed lead, invoice/reference, private payment evidence and no unresolved complaint/refund/ethics issue. | all prior ledger rows PASS in live admin evidence | Owner approves scale, or holds for fixes. | PAYMENT-01 passes. |
 
 ## Owner/Admin Run Order
 

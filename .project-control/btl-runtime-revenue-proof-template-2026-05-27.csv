@@ -5,5 +5,5 @@ PROSPECT-03,,not_started,,,no,Private prospect is created and all manual verific
 LAWYER-COVERAGE-01,,not_started,,,no,3 verified prospects are converted into routable lawyer profiles and billing/contact is present.,
 CONTROLLED-LEAD-01,,not_started,,,no,Client permission and owner release are recorded in the live CRM.,
 BILLING-01,,not_started,,,no,The controlled lead is routed and the billing queue shows a billable lead.,
-PAYMENT-01,,not_started,,,no,"Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/payment proof.",
+PAYMENT-01,,not_started,,,no,"Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/reference and private payment evidence.",
 GO-NOGO-01,,not_started,,,no,PAYMENT-01 passes.,

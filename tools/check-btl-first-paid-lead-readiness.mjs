@@ -276,8 +276,8 @@ function buildRows(sourceDate) {
         ? 'PASS'
         : 'BLOCKED',
       'National-insurance leads can be tagged as qualified appeal leads and moved to manual billing after routing.',
-      'After one controlled routed lead, save invoice/reference before marking invoice sent or paid.',
-      'Revenue remains unproven until a real invoice/payment evidence record exists.'
+      'After one controlled routed lead, save invoice/reference before invoice_sent and private payment evidence before paid.',
+      'Revenue remains unproven until a real private payment evidence record exists.'
     )
   );
 
@@ -331,7 +331,7 @@ function buildRows(sourceDate) {
       'runtime_revenue_proof',
       'RUNTIME_BLOCKED',
       'Repo can verify infrastructure, but cannot prove live WP DB has 3 verified prospects, 3 routable paid lawyers, one consented lead, or payment proof.',
-      'Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/payment proof.',
+      'Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/reference and private payment evidence.',
       'Do not claim first paid Bituach Leumi revenue until the CRM has actual payment evidence.'
     )
   );
@@ -370,7 +370,7 @@ function markdownReport(reportDate, sourceDate, summary, rows) {
     '3. For each prospect, verify license/status, Bituach Leumi appeal experience, same-day response, manual payment path, per-lead fee and billing contact.',
     '4. Convert only verified prospects into routable lawyer profiles with owner approval.',
     '5. Run one controlled consented Bituach Leumi lead only after the preflight is green.',
-    '6. Record invoice/payment evidence before marking revenue as paid.',
+    '6. Record private payment evidence before marking revenue as paid.',
     '',
     '## Safety Statement',
     '',

@@ -361,8 +361,8 @@ function buildRows(validation, codeGates) {
       type: 'billing_rule',
       status: 'PAYMENT_PROOF_REQUIRED',
       evidence: 'Billing queue and owner release exist in CRM, but no payment is created by import.',
-      allowed_action: 'Record partner terms, owner release and invoice/payment evidence manually after consent.',
-      blocked_action: 'Do not claim revenue from staged imports before invoice/payment proof.',
+      allowed_action: 'Record partner terms, owner release, invoice/reference and private payment evidence manually after consent.',
+      blocked_action: 'Do not claim paid revenue from staged imports before private payment evidence exists.',
       next_owner_action: 'Use manual invoice path until provider payment flow is proven.',
     },
     ...codeGates.map((gate) => ({

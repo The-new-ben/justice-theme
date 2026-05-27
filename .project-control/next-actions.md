@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-PAID-PROOF-LANGUAGE-ALIGNMENT-001: Align runbook wording with payment evidence rule
+**Status:** FIXED LOCAL / LIVE PAYMENT PROOF STILL BLOCKED
+**Why:** After the paid proof guard, several operator packets still used older shorthand such as invoice/payment proof. That could let a future operator treat invoice/reference as paid proof.
+**Actions:**
+1. DONE: update CRM/admin copy and specialist acceptance notes so invoice/reference supports `Invoice sent`, while `Paid` requires private payment evidence.
+2. DONE: update BTL readiness/runtime/dry-run wording and regenerate the 2026-05-27 private packets.
+3. DONE: update lawyer subscription preflight/walkthrough and manual invoice fallback wording, then regenerate current-day artifacts.
+4. DONE: update UK-law, UK-WhatsApp, WhatsApp/TalkTo import/consent/paid-handoff and low-hype RV private intake wording, then regenerate current-day artifacts.
+5. DONE: verify PHP syntax, Node syntax and private artifact boundary guard `PASS`.
+6. NEXT: in owner-approved live proof drills, record invoice/reference for invoice-stage follow-up and private payment evidence before any paid revenue claim.
+7. BLOCKED: no live CRM lead edit, paid status, invoice, payment, email/WhatsApp/TalkTo, wp-admin write, provider setting, CMS/SEO change or uPress pull without explicit owner approval.
+
 ### ACTION-PAID-REVENUE-SUMMARY-PROOF-GUARD-001: Count paid revenue only with payment evidence
 **Status:** FIXED LOCAL / LIVE PAYMENT PROOF STILL BLOCKED
 **Why:** The save handler now blocks new paid status without payment evidence, but revenue summaries and BTL readiness counters also need to ignore historical proofless paid rows.
@@ -211,7 +223,7 @@
 7. DONE: confirm manual invoice fallback `MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION`, 9/9 static gates, same-day source chain `yes`, source preflight `PASS_WITH_RUNTIME_BLOCKERS`, source Grow pass count 8.
 8. DONE: verify private artifact boundary guard `PASS` and refresh its line references.
 9. DONE: record as Linear `HAD-164`, marked Done under `HAD-71`.
-10. NEXT: owner/admin may use the fallback only for one approved controlled lawyer/lead after accepted terms, agreed fee, billing contact and invoice/payment proof path exist.
+10. NEXT: owner/admin may use the fallback only for one approved controlled lawyer/lead after accepted terms, agreed fee, billing contact, invoice/reference path and private payment evidence path exist.
 11. BLOCKED: do not create live payment links, send invoice/email/WhatsApp/TalkTo, mark paid, claim revenue, mutate provider settings, create CRM records, change public pages or deploy from this refreshed fallback alone.
 
 ### ACTION-BTL-FIRST-PAID-LEAD-EVIDENCE-CHAIN-REFRESH-001: Refresh current BTL evidence chain before live proof
@@ -228,7 +240,7 @@
 8. DONE: rerun the controlled lead dry-run packet; status `BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION`, 5/5 static checks.
 9. DONE: verify private artifact boundary guard `PASS`.
 10. DONE: record as Linear `HAD-163`, marked Done under `HAD-76`.
-11. NEXT: owner/admin may use the current packets only inside private wp-admin to create/verify 3 prospects, activate routable specialists, run one consented controlled lead and record invoice/payment proof.
+11. NEXT: owner/admin may use the current packets only inside private wp-admin to create/verify 3 prospects, activate routable specialists, run one consented controlled lead, record invoice/reference for invoice-stage follow-up, and record private payment evidence before paid revenue.
 12. BLOCKED: do not create live prospects, contact lawyers, route leads, send PII, invoice, mark paid, claim revenue, edit public pages, change SEO settings or uPress from this private packet refresh alone.
 
 ### ACTION-ARTICLE-CTA-DEDUPE-GUARD-BROADEN-001: Broaden article repeated-help-message QA coverage
@@ -316,7 +328,7 @@
 
 ### ACTION-UK-LAW-PARTNER-TERMS-PACKET-001: Prepare first UK-law lawyer/supplier partner terms path
 **Status:** FIXED LOCAL / LIVE PARTNER REGISTRATION STILL BLOCKED
-**Why:** The UK-law lead cannot move to a lawyer/supplier or money until at least one real partner path has private terms, credential/source proof, SLA, billing contact, owner release and invoice/payment proof gates.
+**Why:** The UK-law lead cannot move to a lawyer/supplier or money until at least one real partner path has private terms, credential/source proof, SLA, billing contact, owner release, invoice/reference and private payment evidence gates.
 **Actions:**
 1. DONE: add `tools/build-uk-law-partner-terms-packet.mjs`.
 2. DONE: generate `.project-control/uk-law-partner-terms-packet-2026-05-27.md` and `.csv`.
@@ -504,7 +516,7 @@
 
 ### ACTION-MANUAL-INVOICE-REVENUE-FALLBACK-001: Prepare manual invoice fallback proof packet
 **Status:** FIXED LOCAL / LIVE PAYMENT AND REVENUE EXECUTION STILL BLOCKED
-**Why:** Grow/Meshulam/Morning live provider setup is still a runtime blocker, but the owner needs a safe path to connect approved lawyers/leads to manual invoice/payment proof without overclaiming revenue or touching live records.
+**Why:** Grow/Meshulam/Morning live provider setup is still a runtime blocker, but the owner needs a safe path to connect approved lawyers/leads to invoice/reference and private payment proof without overclaiming revenue or touching live records.
 **Actions:**
 1. DONE: add `tools/build-manual-invoice-revenue-fallback-packet.mjs`.
 2. DONE: generate `.project-control/manual-invoice-revenue-fallback-packet-2026-05-27.md` and `.csv`.
@@ -513,7 +525,7 @@
 5. DONE: source-check 8 static gates: manual invoice checkout, onboarding payment queue, lawyer dashboard billing requests, service request handlers, qualified lead billing queue, paid-status proof guard, Grow private checker and subscription E2E runtime blockers.
 6. DONE: confirm `MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION`, 8/8 gates passed, 6 operator run rows, 5 blank no-PII template rows and 0 live records, invoices, payments, paid statuses, emails, WhatsApp/TalkTo actions or provider changes.
 7. DONE: record as Linear `HAD-142`, marked Done under `HAD-76`.
-8. NEXT: owner/admin may use the blank template only for an owner-approved controlled lawyer/lead after accepted terms, agreed fee, billing contact and invoice/payment proof are available.
+8. NEXT: owner/admin may use the blank template only for an owner-approved controlled lawyer/lead after accepted terms, agreed fee, billing contact, invoice/reference and private payment proof are available.
 9. BLOCKED: do not mark paid, claim first revenue, send invoice/email/WhatsApp/TalkTo, contact old leads, mutate provider settings, create CRM records, change public pages or deploy from this packet alone.
 
 ### ACTION-HOMEPAGE-CTA-VISUAL-QA-001: Capture before-state visual evidence for homepage CTA density
@@ -608,7 +620,7 @@
 4. DONE: generate `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-27.json` and `.csv`.
 5. DONE: confirm `PRIVATE_RUNBOOK_VERIFIED_NOT_APPROVED_FOR_AUTOMATION`, 9/9 static checks passing, 12 runbook rows, 0 live automation approved and 0 public changes approved.
 6. DONE: record as Linear `HAD-135`, marked Done under `HAD-87`.
-7. NEXT: owner/admin may approve one real private CRM lead creation, then fill consent, no-PII preview, accepted partner terms, owner release and invoice/payment proof inside wp-admin.
+7. NEXT: owner/admin may approve one real private CRM lead creation, then fill consent, no-PII preview, accepted partner terms, owner release, invoice/reference and private payment proof inside wp-admin.
 8. BLOCKED: do not import old chats, create live leads, contact clients/lawyers/suppliers, send WhatsApp/TalkTo/email, invoice, mark paid, claim revenue, enable webhook automation, publish public pages, change SEO or uPress from this runbook alone.
 
 ### ACTION-BTL-RUNTIME-REVENUE-PROOF-LEDGER-001: Convert first-paid-lead blocker into evidence rows
@@ -877,7 +889,7 @@
 1. DONE: add `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`.
 2. DONE: generate `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-26.md` and `.csv`.
 3. DONE: generate `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-26.json` and `.csv`.
-4. DONE: document the safe path: private CRM lead -> consent evidence -> routing hold -> no-PII partner preview -> accepted terms and billing contact -> owner release -> manual handoff -> invoice/payment proof.
+4. DONE: document the safe path: private CRM lead -> consent evidence -> routing hold -> no-PII partner preview -> accepted terms and billing contact -> owner release -> manual handoff -> invoice/reference for invoice_sent and private payment evidence for paid.
 5. DONE: mark the current UK-law WhatsApp lead as blocked from real CRM entry until owner approval.
 6. DONE: record this as Linear `HAD-102`, marked Done.
 7. BLOCKED: do not create the real UK lead, contact a supplier/lawyer, release PII, send WhatsApp/TalkTo messages, charge money or enable webhooks from this packet alone.
@@ -955,7 +967,7 @@
 4. DONE: linted, committed, pushed, ran uPress Pull Git, and verified live marker `2026-05-26-btl-held-lead-revenue-hint-v1`.
 5. VERIFIED: homepage and `/national-insurance-attorney/` return 200; uPress Git log shows `67e0ff7c Prime BTL revenue hints before routing` as `HEAD -> main, origin/main`.
 6. DEFERRED: do not create/edit a real production lead just to test metadata. Inspect Justice CRM behavior later with an owner-approved safe test lead or an existing safe held record.
-7. BLOCKED: still no first paid lead until client permission, three routable specialists, accepted partner terms, invoice/payment proof and owner release are recorded.
+7. BLOCKED: still no first paid lead until client permission, three routable specialists, accepted partner terms, invoice/reference, private payment evidence and owner release are recorded.
 
 ### ACTION-MANAGED-LEGAL-SERVICE-FULFILLMENT-001: Add private fulfillment gate for packaged legal services
 **Status:** FIXED LIVE / LINEAR DONE / OWNER EMAIL SENT
@@ -4386,7 +4398,7 @@ Next safe batch before any URL/content migration:
 1. Use `wp-admin -> Justice CRM -> Qualified lead billing queue -> Copy invoice/request packet` for each ready-to-bill lead.
 2. Before sending a payment request, confirm the routed lawyer accepted qualified-lead terms, the agreed per-lead fee and a billing contact.
 3. After sending the manual invoice/payment request, save the invoice/payment reference on the lead and set billing status to `Invoice sent`.
-4. Mark a lead `Paid` only after an invoice/reference or payment evidence URL exists in the CRM.
+4. Mark a lead `Invoice sent` after invoice/reference exists; mark `Paid` only after a private payment evidence URL exists in the CRM.
 5. For the first Bituach Leumi controlled lead, keep the packet, invoice reference and payment proof together before scaling the funnel.
 6. Do not claim realized lead revenue until a real paid lead is recorded.
 
@@ -4410,7 +4422,7 @@ Next safe batch before any URL/content migration:
 3. Confirm the final profile is published, has practice area `national-insurance`, has `lead_routing_enabled=1`, and has `subscription_status=trialing`, `active` or `paid`.
 4. Do not count draft/private lawyer profiles as routable coverage; the public lead router will not use them.
 5. Keep `Won / onboarding` prospects visible until the matching routable profile exists.
-6. Only after three active routable specialists exist, run the first controlled Bituach Leumi lead and document invoice/payment proof.
+6. Only after three active routable specialists exist, run the first controlled Bituach Leumi lead and document invoice/reference plus private payment evidence.
 
 ## 2026-05-26 BTL FIRST TEST PREFLIGHT NEXT ACTIONS
 
@@ -4421,7 +4433,7 @@ Next safe batch before any URL/content migration:
 3. For every listed lawyer, confirm remaining capacity, billing/contact email, accepted lead terms and no-promise compliance notes before submitting a controlled lead.
 4. If the panel says `Do not run yet`, fix coverage, cap or billing/contact details before using the public intake route.
 5. When the preflight turns green, run one consented controlled Bituach Leumi lead only, then verify the lead appears in the qualified lead billing queue.
-6. Send the manual invoice/payment request and record invoice/payment proof before marking the lead Paid.
+6. Send the manual invoice/payment request, record invoice/reference for invoice_sent, and record private payment evidence before marking the lead Paid.
 
 ## 2026-05-26 WHATSAPP CLIENT LEAD BRIDGE NEXT ACTIONS
 

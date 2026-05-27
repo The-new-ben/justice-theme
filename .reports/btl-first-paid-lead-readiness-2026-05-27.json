@@ -1,23 +1,23 @@
 {
   "summary": {
     "reportDate": "2026-05-27",
-    "sourceDate": "2026-05-26",
-    "status": "PASS_WITH_RUNTIME_BLOCKERS",
-    "passCount": 9,
+    "sourceDate": "2026-05-27",
+    "status": "BLOCKED_STATIC_GATES",
+    "passCount": 6,
     "staticGateCount": 9,
-    "reviewCount": 0,
-    "blockedCount": 0,
+    "reviewCount": 1,
+    "blockedCount": 2,
     "runtimeBlockers": 1,
-    "sourcePackCandidates": 19,
-    "highPriorityCandidates": 12
+    "sourcePackCandidates": 0,
+    "highPriorityCandidates": 0
   },
   "rows": [
     {
       "id": "BTL-01",
       "gate": "private_source_pack_loaded",
-      "status": "PASS",
-      "evidence": "19 candidate rows; 12 high-priority rows; columns=candidate|source_url|source_type|apparent_focus|source_evidence_summary|priority|geo_hint|crm_action|verification_status|missing_before_routing|notes",
-      "next_action": "Create the first 3-6 private prospects from `.project-control/btl-specialist-prospect-shortlist-2026-05-26.csv`.",
+      "status": "BLOCKED",
+      "evidence": "0 candidate rows; 0 high-priority rows; columns=",
+      "next_action": "Create the first 3-6 private prospects from `.project-control/btl-specialist-prospect-shortlist-2026-05-27.csv`.",
       "owner_notice": "No candidate is a recommendation or public listing until manually verified."
     },
     {
@@ -57,8 +57,8 @@
       "gate": "btl_revenue_hint_and_billing_queue_available",
       "status": "PASS",
       "evidence": "National-insurance leads can be tagged as qualified appeal leads and moved to manual billing after routing.",
-      "next_action": "After one controlled routed lead, save invoice/reference before marking invoice sent or paid.",
-      "owner_notice": "Revenue remains unproven until a real invoice/payment evidence record exists."
+      "next_action": "After one controlled routed lead, save invoice/reference before invoice_sent and private payment evidence before paid.",
+      "owner_notice": "Revenue remains unproven until a real private payment evidence record exists."
     },
     {
       "id": "BTL-07",
@@ -71,7 +71,7 @@
     {
       "id": "BTL-08",
       "gate": "anti_cannibalization_boundary_documented",
-      "status": "PASS",
+      "status": "BLOCKED",
       "evidence": "Bituach Leumi attorney route and appeal-guide route have a private intent split packet.",
       "next_action": "Do not edit public title/H1/body/canonical/redirect/noindex/sitemap/taxonomy until owner/SEO/GSC approval.",
       "owner_notice": "Public pages must explain legal help to the reader, never Jus-Tice revenue logic."
@@ -79,7 +79,7 @@
     {
       "id": "BTL-09",
       "gate": "private_path_references_clean",
-      "status": "PASS",
+      "status": "REVIEW",
       "evidence": "Source-pack references should point future agents to dot-private `.project-control` artifacts.",
       "next_action": "Fix any remaining non-dot private report references before telling a remote operator where to work.",
       "owner_notice": "Private docs should not suggest public theme-root artifact paths."
@@ -89,7 +89,7 @@
       "gate": "runtime_revenue_proof",
       "status": "RUNTIME_BLOCKED",
       "evidence": "Repo can verify infrastructure, but cannot prove live WP DB has 3 verified prospects, 3 routable paid lawyers, one consented lead, or payment proof.",
-      "next_action": "Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/payment proof.",
+      "next_action": "Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/reference and private payment evidence.",
       "owner_notice": "Do not claim first paid Bituach Leumi revenue until the CRM has actual payment evidence."
     }
   ],

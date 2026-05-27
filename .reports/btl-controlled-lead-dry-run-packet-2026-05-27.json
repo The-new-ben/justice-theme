@@ -1,10 +1,10 @@
 {
   "reportDate": "2026-05-27",
   "ledgerDate": "2026-05-27",
-  "status": "BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION",
+  "status": "BLOCKED_STATIC_GATE_MISSING",
   "summary": {
     "staticChecks": 5,
-    "staticChecksPassing": 5,
+    "staticChecksPassing": 4,
     "dryRunRows": 10,
     "supplyRows": 4,
     "consentRows": 1,
@@ -26,8 +26,8 @@
     {
       "id": "CHECK-01",
       "gate": "runtime ledger available",
-      "status": "PASS",
-      "evidence": "RUNTIME_LEDGER_READY_NO_REVENUE_CLAIM"
+      "status": "BLOCKED",
+      "evidence": "BLOCKED_SOURCE_READINESS_NOT_CURRENT"
     },
     {
       "id": "CHECK-02",
@@ -142,7 +142,7 @@
       "pass_condition": "The lead reaches one accepted specialist and creates a qualified billing queue item.",
       "fail_stop": "Any missing owner release, partner terms or consent keeps routing_hold on.",
       "crm_anchor": "wp-admin -> Justice CRM -> Owner handoff release queue",
-      "allowed_next_action": "Move to billing queue and request invoice/payment proof.",
+      "allowed_next_action": "Move to billing queue, request invoice/reference, and require private payment evidence before paid revenue.",
       "forbidden_action": "Do not automate webhooks, bulk route, or contact additional partners from this drill.",
       "repo_privacy_rule": "No live handoff details in repo; keep exact IDs in wp-admin."
     },

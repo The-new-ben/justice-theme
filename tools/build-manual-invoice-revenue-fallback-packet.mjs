@@ -162,7 +162,7 @@ function sourceFreshnessGate(reportDate, preflight, grow) {
     source_evidence: 'Manual invoice/payment fallback packets must not quietly rely on stale payment-provider or subscription preflight reports.',
     next_action: missing.length
       ? 'Rerun the missing same-day source report before using this packet in an owner payment walkthrough.'
-      : 'Use this packet as the current same-day private source chain for manual invoice/payment proof.',
+      : 'Use this packet as the current same-day private source chain for invoice-stage follow-up and private payment proof.',
     owner_notice: 'A same-day source chain is still not payment proof; it only keeps the owner runbook current.',
     live_action_taken: 'no',
   };
@@ -259,11 +259,13 @@ function buildGateRows() {
       gate: 'paid_status_proof_guard',
       file: 'inc/lead-crm.php',
       markers: [
-        "'paid' === $billing_status && '' === $invoice_reference && '' === $payment_evidence_url",
+        "'paid' === $billing_status && '' === $payment_evidence_url",
+        'Invoice/reference alone can support Invoice sent, not paid revenue.',
+        'justice_theme_crm_lead_has_payment_evidence',
         'qualified_lead_paid_at',
       ],
-      evidence: 'CRM save handler downgrades an attempted paid status to invoice_sent when proof is missing.',
-      nextAction: 'Mark paid only when invoice/reference or payment evidence exists.',
+      evidence: 'CRM save handler and revenue summaries require payment evidence before paid revenue can stand.',
+      nextAction: 'Mark paid only when a private payment evidence URL exists; invoice/reference alone supports invoice_sent.',
       ownerNotice: 'This is the key anti-overclaim guard for first paid lead reporting.',
     }),
     markerGate({
@@ -290,12 +292,12 @@ function buildGateRows() {
         'PASS_WITH_RUNTIME_BLOCKERS',
         'runtimeBlockers',
         'Grow/Meshulam/Morning',
-        'real transaction/reference',
-        'invoice or receipt proof',
+        'Private payment evidence',
+        'invoice/reference alone supports invoice-stage follow-up',
       ],
       evidence: 'Subscription preflight explicitly separates static pass from runtime payment/provider blockers.',
       nextAction: 'Keep manual proof ledger until controlled live provider/payment drills are approved.',
-      ownerNotice: 'Subscription revenue cannot be counted from static proof alone.',
+      ownerNotice: 'Subscription revenue cannot be counted until private payment evidence is recorded.',
     }),
   ];
 }
@@ -344,11 +346,11 @@ function buildOperatorRows(preflight, grow) {
     {
       id: 'RUN-05',
       stage: 'paid_status',
-      allowed_action: 'Set paid only after invoice/reference or payment evidence URL exists.',
-      required_evidence: 'Invoice/reference, receipt/payment proof URL or owner evidence link.',
-      blocked_without: 'Invoice/reference or payment proof.',
+      allowed_action: 'Set paid only after a private payment evidence URL exists.',
+      required_evidence: 'Receipt/payment proof URL or owner evidence link.',
+      blocked_without: 'Private payment proof URL.',
       forbidden_action: 'Do not count revenue, announce first paid lead or update paid_at without evidence.',
-      source_context: 'CRM paid-status guard prevents paid with empty invoice/reference and empty payment evidence URL.',
+      source_context: 'CRM paid-status guard prevents paid with an empty payment evidence URL; invoice/reference alone supports invoice_sent.',
     },
     {
       id: 'RUN-06',
@@ -455,7 +457,7 @@ function buildSourceRows(preflight, grow) {
       exists: preflight.exists ? 'yes' : 'no',
       status: preflight.summary?.status || '',
       interpretation: preflight.exists
-        ? 'Subscription preflight passed static gates but still has runtime blockers for controlled live user, provider setup and real invoice/payment proof.'
+        ? 'Subscription preflight passed static gates but still has runtime blockers for controlled live user, provider setup and real private payment proof.'
         : 'Subscription preflight source report was not found; rerun the preflight before a live walkthrough.',
     },
     {
@@ -551,11 +553,11 @@ function markdownReport(summary, gateRows, operatorRows, sourceRows) {
     '',
     '## Review',
     '',
-    'The repo has enough source support for a manual invoice fallback workflow, but only as a controlled private operating packet. The strongest guard is the CRM paid-status proof rule: paid lead revenue should not be counted unless an invoice/reference or payment evidence URL exists. Grow/Meshulam/Morning live KYC/product/payment behavior remains outside static proof, so this packet keeps revenue handling manual, documented and proof-first.',
+    'The repo has enough source support for a manual invoice fallback workflow, but only as a controlled private operating packet. The strongest guard is the CRM paid-status proof rule: paid lead revenue should not be counted unless a private payment evidence URL exists. Grow/Meshulam/Morning live KYC/product/payment behavior remains outside static proof, so this packet keeps revenue handling manual, documented and proof-first.',
     '',
     '## Completion Assessment',
     '',
-    'Manual invoice fallback packet: 100% complete as a private source-checked artifact. Live paid-lead/subscription execution remains blocked until the owner approves a controlled live record, accepted terms and billing contact are present, and real invoice/payment proof is recorded.',
+    'Manual invoice fallback packet: 100% complete as a private source-checked artifact. Live paid-lead/subscription execution remains blocked until the owner approves a controlled live record, accepted terms and billing contact are present, and private payment evidence is recorded.',
     '',
   ].join('\n');
 }

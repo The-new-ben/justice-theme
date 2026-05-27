@@ -135,10 +135,10 @@
     {
       "id": "WALK-13",
       "phase": "billing_proof",
-      "action": "Record qualified lead billing status, invoice reference and payment evidence URL before counting revenue.",
+      "action": "Record qualified lead billing status, invoice reference for invoice-stage follow-up and private payment evidence URL before paid revenue is counted.",
       "owner_approval": "required",
       "evidence_to_capture": "qualified_lead_billing_status, qualified_lead_invoice_reference, qualified_lead_payment_evidence_url.",
-      "stop_condition": "Stop before marking paid if invoice/payment evidence is missing.",
+      "stop_condition": "Stop before marking paid if private payment evidence URL is missing.",
       "status": "blocked_until_payment_evidence"
     },
     {

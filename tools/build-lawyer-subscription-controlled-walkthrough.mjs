@@ -129,10 +129,10 @@ function buildRows(reportDate) {
   {
     id: 'WALK-13',
     phase: 'billing_proof',
-    action: 'Record qualified lead billing status, invoice reference and payment evidence URL before counting revenue.',
+    action: 'Record qualified lead billing status, invoice reference for invoice-stage follow-up and private payment evidence URL before paid revenue is counted.',
     owner_approval: 'required',
     evidence_to_capture: 'qualified_lead_billing_status, qualified_lead_invoice_reference, qualified_lead_payment_evidence_url.',
-    stop_condition: 'Stop before marking paid if invoice/payment evidence is missing.',
+    stop_condition: 'Stop before marking paid if private payment evidence URL is missing.',
     status: 'blocked_until_payment_evidence',
   },
   {
@@ -341,7 +341,7 @@ function buildMarkdown(reportDate, rows, evidenceRows) {
     '- Invoice/receipt proof or private evidence URL.',
     '- Service request IDs for payment link, upgrade, downgrade, cancel, refund and invoice.',
     '- Controlled consented lead ID and assigned lawyer ID.',
-    '- Qualified lead billing status, invoice reference and payment evidence URL.',
+    '- Qualified lead billing status, invoice reference for invoice-stage follow-up and private payment evidence URL for paid revenue.',
     '',
     '## Evidence Capture Template',
     '',

@@ -2,7 +2,7 @@
 
 Status: UK_LAW_PARTNER_TERMS_PACKET_READY_NO_LIVE_ACTION
 
-Purpose: prepare the partner side of the current UK-law lead path: find/register a lawyer or supplier, record paid terms, preserve no-PII rules, and keep revenue claims blocked until invoice/payment proof exists.
+Purpose: prepare the partner side of the current UK-law lead path: find/register a lawyer or supplier, record paid terms, preserve no-PII rules, and keep paid revenue claims blocked until private payment evidence exists.
 
 Safety: no mailbox action, CMS publish, database edit, supplier creation, lawyer prospect creation, lawyer registration, partner contact, client contact, WhatsApp message, TalkTo message, webhook, payment, invoice, public page, SEO setting, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4, wp-admin write or uPress action was performed.
 
@@ -26,7 +26,7 @@ Safety: no mailbox action, CMS publish, database edit, supplier creation, lawyer
 | UKP-SRC-04 | supplier_public_exposure_guard | PASS | inc/lawyer-suppliers.php | Supplier records do not become public merely because they exist; public display has explicit gates. | 5/5 | - | Keep UK-law supplier partners private until public display is separately approved. |
 | UKP-SRC-05 | lawyer_prospect_terms_fields | PASS | inc/lawyer-prospects.php | Lawyer coverage prospects can capture license, specialty, fee, billing contact and payment-path readiness. | 7/7 | - | Use this when the UK-law partner is a lawyer or a lawyer-led firm. |
 | UKP-SRC-06 | manual_invoice_lawyer_path | PASS | inc/lawyer-onboarding.php | Lawyer onboarding supports manual invoice/payment follow-up before paid activation. | 6/6 | - | Use manual invoice status only after accepted partner terms and owner release. |
-| UKP-SRC-07 | crm_partner_terms_owner_release_billing | PASS | inc/lead-crm.php | CRM lead handoff has partner terms, owner release and invoice/payment proof fields. | 6/6 | - | Connect the UK partner to the specific lead only after client permission exists. |
+| UKP-SRC-07 | crm_partner_terms_owner_release_billing | PASS | inc/lead-crm.php | CRM lead handoff has partner terms, owner release, invoice/reference and private payment evidence fields. | 6/6 | - | Connect the UK partner to the specific lead only after client permission exists. |
 
 ## Partner Workflow
 
@@ -38,7 +38,7 @@ Safety: no mailbox action, CMS publish, database edit, supplier creation, lawyer
 | PARTNER-04 | terms_acceptance | CRM partner terms queue or partner record notes | accepted service category, jurisdiction limits, response SLA, fixed price or lead fee, billing contact, VAT/invoice path, capacity limit, conflict/refusal rule. | terms are accepted in writing and stored in wp-admin notes. | Do not release client PII or mark ready_to_bill. | Record partner terms before any handoff. |
 | PARTNER-05 | no_pii_preview | Justice CRM -> Anonymized partner preview / terms queue | area=UK/cross-border law, source=/uk-lawyer/, general urgency, sanitized facts, no name/phone/email/documents/raw chat. | client permission is recorded and preview text is safe. | Do not send screenshots, raw WhatsApp content or identifying details. | Use only after the client gives match permission. |
 | PARTNER-06 | owner_release | Justice CRM -> Owner handoff release queue | client permission, accepted partner terms, fee, billing contact, owner release note. | owner_handoff_release_status=approved_manual_handoff. | Do not hand off or remove routing hold without owner release. | Record manual-only release for the specific lead/partner pair. |
-| PARTNER-07 | billing_proof | Justice CRM -> Qualified lead billing queue / Lawyer Onboarding payment follow-up | invoice/reference or private payment evidence URL, billing status, owner note. | invoice_sent has reference or paid has proof. | Do not claim revenue or mark paid without proof. | Use manual invoice path until payment provider proof exists. |
+| PARTNER-07 | billing_proof | Justice CRM -> Qualified lead billing queue / Lawyer Onboarding payment follow-up | invoice/reference for invoice-stage follow-up, private payment evidence URL for paid status, billing status, owner note. | invoice_sent has reference or paid has private payment evidence. | Do not claim paid revenue or mark paid without private payment evidence. | Use manual invoice path until payment provider proof exists. |
 | PARTNER-08 | public_exposure_guard | Supplier public visibility / lawyer profile publication controls | explicit public approval, source proof, approved status, offer summary, no business-plan language. | Owner separately approves public display after legal/source review. | Do not publish supplier cards, public claims, pricing or paid placement language from this packet. | Keep UK-law partner private for now. |
 
 ## First Practical Sequence
@@ -47,11 +47,11 @@ Safety: no mailbox action, CMS publish, database edit, supplier creation, lawyer
 2. Complete one private partner record with scope, credential/source proof, SLA, fee/price and billing contact.
 3. Only after client match permission, send a no-PII partner preview.
 4. Record accepted terms and owner release before client PII leaves the CRM.
-5. Use manual invoice/payment proof before claiming revenue.
+5. Use invoice/reference for invoice-stage follow-up and private payment evidence before paid revenue claims.
 
 ## Blockers
 
 - Do not create a real supplier/lawyer/prospect record from this packet alone.
 - Do not contact a partner or client until owner approval and consent conditions are met.
 - Do not expose the partner publicly or publish UK-law service claims from this packet.
-- Do not mark paid or claim revenue until invoice/payment proof exists.
+- Do not mark paid or claim paid revenue until private payment evidence exists.

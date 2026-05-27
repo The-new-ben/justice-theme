@@ -1,9 +1,9 @@
 {
   "reportDate": "2026-05-27",
   "sourceDate": "2026-05-27",
-  "status": "RUNTIME_LEDGER_READY_NO_REVENUE_CLAIM",
+  "status": "BLOCKED_SOURCE_READINESS_NOT_CURRENT",
   "summary": {
-    "readinessStatus": "PASS_WITH_RUNTIME_BLOCKERS",
+    "readinessStatus": "BLOCKED_STATIC_GATES",
     "activationStatus": "READY_FOR_OWNER_PRIVATE_PROSPECT_ENTRY",
     "sourceCandidates": 19,
     "primaryProspects": 3,
@@ -98,7 +98,7 @@
       "pass_condition": "Manual invoice/payment request is sent to recorded billing contact and invoice/payment reference is saved before invoice_sent.",
       "blocked_until": "The controlled lead is routed and the billing queue shows a billable lead.",
       "allowed_next_action": "Send manual invoice/payment request and save reference.",
-      "forbidden_action": "Do not mark paid, claim revenue or automate payment collection without proof.",
+      "forbidden_action": "Do not mark paid, claim revenue or automate payment collection without private payment evidence.",
       "privacy_rule": "Repo report may record reference-present yes/no only, not invoice contents or private payment URLs."
     },
     {
@@ -107,12 +107,12 @@
       "current_status": "NEEDS_OWNER_ADMIN_EVIDENCE",
       "source_candidate": "First paid Bituach Leumi lead",
       "admin_location": "wp-admin -> Justice CRM -> Qualified lead billing queue",
-      "required_evidence": "Payment proof exists through invoice/reference or private payment evidence URL and status is paid.",
-      "crm_fields_or_anchors": "qualified_lead_billing_status=paid; qualified_lead_invoice_reference present or qualified_lead_payment_evidence_url present",
+      "required_evidence": "Payment proof exists through a private payment evidence URL and status is paid; invoice/reference alone is invoice-stage evidence.",
+      "crm_fields_or_anchors": "qualified_lead_billing_status=paid; qualified_lead_payment_evidence_url present",
       "pass_condition": "Paid status has proof. The revenue loop can be counted once, with notes retained.",
-      "blocked_until": "Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/payment proof.",
+      "blocked_until": "Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/reference and private payment evidence.",
       "allowed_next_action": "Record first paid-lead achievement and decide whether to scale the Bituach Leumi loop.",
-      "forbidden_action": "Do not count revenue if paid status lacks invoice/reference or evidence URL.",
+      "forbidden_action": "Do not count revenue if paid status lacks a private payment evidence URL.",
       "privacy_rule": "Keep payment proof URL private; do not copy receipts into repo."
     },
     {
@@ -121,7 +121,7 @@
       "current_status": "BLOCKED_UNTIL_PAYMENT_PROOF",
       "source_candidate": "Owner scale decision",
       "admin_location": "Owner review after live CRM evidence exists",
-      "required_evidence": "3 verified/routable specialists, 1 consented routed lead, invoice/reference, payment evidence and no unresolved complaint/refund/ethics issue.",
+      "required_evidence": "3 verified/routable specialists, 1 consented routed lead, invoice/reference, private payment evidence and no unresolved complaint/refund/ethics issue.",
       "crm_fields_or_anchors": "all prior ledger rows PASS in live admin evidence",
       "pass_condition": "Owner approves scale, or holds for fixes.",
       "blocked_until": "PAYMENT-01 passes.",
@@ -198,7 +198,7 @@
       "evidence_recorded_by": "",
       "evidence_recorded_at": "",
       "proof_present_yes_no": "no",
-      "blocker_if_no": "Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/payment proof.",
+      "blocker_if_no": "Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/reference and private payment evidence.",
       "private_note_no_pii": ""
     },
     {

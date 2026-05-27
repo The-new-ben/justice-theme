@@ -88,11 +88,11 @@
       "id": "INTAKE-07",
       "stage": "billing_and_payment_proof",
       "question_or_check": "Are accepted terms, billing contact, invoice reference and payment proof available?",
-      "allowed_response": "Only count money after invoice/reference or private payment proof exists.",
+      "allowed_response": "Count invoice-stage follow-up from invoice/reference; count paid money only after private payment proof exists.",
       "private_note_no_pii": "Store proof reference, not sensitive payment details, in the shared checklist.",
       "route_or_owner_decision": "Revenue is not counted until proof exists in the approved admin flow.",
       "blocker": "No invoice reference, no payment evidence or no accepted partner terms.",
-      "forbidden_action": "Do not mark paid, claim revenue or route as paid lead without proof.",
+      "forbidden_action": "Do not mark paid, claim revenue or route as paid lead without private payment proof.",
       "source_context": "CRM runbook billing proof gate remains required."
     },
     {

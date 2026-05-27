@@ -84,7 +84,7 @@
       "gate": "crm_partner_terms_owner_release_billing",
       "status": "PASS",
       "file": "inc/lead-crm.php",
-      "evidence": "CRM lead handoff has partner terms, owner release and invoice/payment proof fields.",
+      "evidence": "CRM lead handoff has partner terms, owner release, invoice/reference and private payment evidence fields.",
       "markers_found": 6,
       "markers_total": 6,
       "missing_markers": "-",
@@ -150,9 +150,9 @@
       "id": "PARTNER-07",
       "lane": "billing_proof",
       "admin_surface": "Justice CRM -> Qualified lead billing queue / Lawyer Onboarding payment follow-up",
-      "required_fields": "invoice/reference or private payment evidence URL, billing status, owner note.",
-      "ready_when": "invoice_sent has reference or paid has proof.",
-      "blocked_action": "Do not claim revenue or mark paid without proof.",
+      "required_fields": "invoice/reference for invoice-stage follow-up, private payment evidence URL for paid status, billing status, owner note.",
+      "ready_when": "invoice_sent has reference or paid has private payment evidence.",
+      "blocked_action": "Do not claim paid revenue or mark paid without private payment evidence.",
       "next_owner_action": "Use manual invoice path until payment provider proof exists."
     },
     {

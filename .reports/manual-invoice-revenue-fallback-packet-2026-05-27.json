@@ -33,7 +33,7 @@
       "source": ".reports/lawyer-subscription-e2e-preflight-2026-05-27.json",
       "exists": "yes",
       "status": "PASS_WITH_RUNTIME_BLOCKERS",
-      "interpretation": "Subscription preflight passed static gates but still has runtime blockers for controlled live user, provider setup and real invoice/payment proof."
+      "interpretation": "Subscription preflight passed static gates but still has runtime blockers for controlled live user, provider setup and real private payment proof."
     },
     {
       "id": "SRC-02",
@@ -109,10 +109,10 @@
       "gate": "paid_status_proof_guard",
       "status": "PASS",
       "file": "inc/lead-crm.php",
-      "evidence": "2/2 markers found",
+      "evidence": "4/4 markers found",
       "missing_markers": "",
-      "source_evidence": "CRM save handler downgrades an attempted paid status to invoice_sent when proof is missing.",
-      "next_action": "Mark paid only when invoice/reference or payment evidence exists.",
+      "source_evidence": "CRM save handler and revenue summaries require payment evidence before paid revenue can stand.",
+      "next_action": "Mark paid only when a private payment evidence URL exists; invoice/reference alone supports invoice_sent.",
       "owner_notice": "This is the key anti-overclaim guard for first paid lead reporting.",
       "live_action_taken": "no"
     },
@@ -137,7 +137,7 @@
       "missing_markers": "",
       "source_evidence": "Subscription preflight explicitly separates static pass from runtime payment/provider blockers.",
       "next_action": "Keep manual proof ledger until controlled live provider/payment drills are approved.",
-      "owner_notice": "Subscription revenue cannot be counted from static proof alone.",
+      "owner_notice": "Subscription revenue cannot be counted until private payment evidence is recorded.",
       "live_action_taken": "no"
     },
     {
@@ -148,7 +148,7 @@
       "evidence": "subscription preflight and Grow compliance sources both match 2026-05-27",
       "missing_markers": "",
       "source_evidence": "Manual invoice/payment fallback packets must not quietly rely on stale payment-provider or subscription preflight reports.",
-      "next_action": "Use this packet as the current same-day private source chain for manual invoice/payment proof.",
+      "next_action": "Use this packet as the current same-day private source chain for invoice-stage follow-up and private payment proof.",
       "owner_notice": "A same-day source chain is still not payment proof; it only keeps the owner runbook current.",
       "live_action_taken": "no"
     }
@@ -193,11 +193,11 @@
     {
       "id": "RUN-05",
       "stage": "paid_status",
-      "allowed_action": "Set paid only after invoice/reference or payment evidence URL exists.",
-      "required_evidence": "Invoice/reference, receipt/payment proof URL or owner evidence link.",
-      "blocked_without": "Invoice/reference or payment proof.",
+      "allowed_action": "Set paid only after a private payment evidence URL exists.",
+      "required_evidence": "Receipt/payment proof URL or owner evidence link.",
+      "blocked_without": "Private payment proof URL.",
       "forbidden_action": "Do not count revenue, announce first paid lead or update paid_at without evidence.",
-      "source_context": "CRM paid-status guard prevents paid with empty invoice/reference and empty payment evidence URL."
+      "source_context": "CRM paid-status guard prevents paid with an empty payment evidence URL; invoice/reference alone supports invoice_sent."
     },
     {
       "id": "RUN-06",

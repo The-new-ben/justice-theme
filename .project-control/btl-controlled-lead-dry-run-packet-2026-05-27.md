@@ -1,6 +1,6 @@
 # Bituach Leumi Controlled Lead Dry-Run Packet - 2026-05-27
 
-Status: BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION
+Status: BLOCKED_STATIC_GATE_MISSING
 
 Source ledger date: 2026-05-27
 
@@ -18,7 +18,7 @@ Safety: no wp-admin action, CRM record, prospect record, lead, lawyer contact, c
 
 ## Summary
 
-- Static gates passing: 5/5
+- Static gates passing: 4/5
 - Dry-run rows: 10
 - Supply rows: 4
 - Consent/client rows: 1
@@ -32,7 +32,7 @@ Safety: no wp-admin action, CRM record, prospect record, lead, lawyer contact, c
 
 | ID | Gate | Status | Evidence |
 | --- | --- | --- | --- |
-| CHECK-01 | runtime ledger available | PASS | RUNTIME_LEDGER_READY_NO_REVENUE_CLAIM |
+| CHECK-01 | runtime ledger available | BLOCKED | BLOCKED_SOURCE_READINESS_NOT_CURRENT |
 | CHECK-02 | consent message pack available without send approval | PASS | CONSENT_MESSAGE_PACK_READY_FOR_OWNER_LEGAL_REVIEW_NO_SEND |
 | CHECK-03 | manual invoice fallback available without live payment action | PASS | MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION |
 | CHECK-04 | routing hold and external consent guard present | PASS | inc/lead-routing.php routing_hold plus routeable consent markers |

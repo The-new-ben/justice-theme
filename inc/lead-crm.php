@@ -2645,7 +2645,7 @@ function justice_theme_crm_render_btl_activation_gap_board( array $needles, stri
 			</div>
 		<?php else : ?>
 			<div class="notice notice-success inline" style="margin-top:12px;">
-				<p><strong>Activation gate met:</strong> published routable coverage exists. Use one controlled lead and confirm invoice/payment proof before scaling.</p>
+				<p><strong>Activation gate met:</strong> published routable coverage exists. Use one controlled lead and confirm invoice/reference plus private payment evidence before scaling.</p>
 			</div>
 		<?php endif; ?>
 	</div>
@@ -2717,7 +2717,7 @@ function justice_theme_crm_render_btl_first_test_preflight( string $area_slug, i
 	$preflight_lines[] = '2. Each lawyer has remaining monthly lead capacity.';
 	$preflight_lines[] = '3. Each lawyer has a billing/contact email before manual invoice follow-up.';
 	$preflight_lines[] = '4. The first lead is consented, controlled and recorded in the qualified lead billing queue.';
-	$preflight_lines[] = '5. Do not mark Paid without invoice/reference or payment evidence.';
+	$preflight_lines[] = '5. Do not mark Paid without a private payment evidence URL; invoice/reference alone supports Invoice sent only.';
 
 	$copy_id    = 'justice-btl-first-test-preflight-copy';
 	$gate_ready = $available_count >= $target && empty( $billing_blockers );
@@ -4843,7 +4843,7 @@ function justice_theme_crm_qualified_lead_invoice_packet( int $lead_id, array $l
 		'1. Confirm the routed lawyer accepted qualified-lead terms before this lead was sent.',
 		'2. Send a manual invoice/payment request for the fee above to the recorded billing contact.',
 		'3. Save the invoice/payment reference on this lead before moving it to Invoice sent.',
-		'4. Mark Paid only after an invoice/reference or payment evidence URL exists.',
+		'4. Mark Paid only after a private payment evidence URL exists; invoice/reference alone supports Invoice sent only.',
 		'5. Keep all client and lawyer notes in the CRM; do not promise outcome, ranking, exclusivity or lead volume.',
 	);
 

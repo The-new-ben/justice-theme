@@ -170,7 +170,7 @@ function buildStaticChecks() {
         'qualified_lead_invoice_reference',
         'qualified_lead_payment_evidence_url',
       ],
-      evidence: 'CRM lead handoff has partner terms, owner release and invoice/payment proof fields.',
+      evidence: 'CRM lead handoff has partner terms, owner release, invoice/reference and private payment evidence fields.',
       nextStep: 'Connect the UK partner to the specific lead only after client permission exists.',
     }),
   ];
@@ -235,9 +235,9 @@ const partnerRows = [
     id: 'PARTNER-07',
     lane: 'billing_proof',
     admin_surface: 'Justice CRM -> Qualified lead billing queue / Lawyer Onboarding payment follow-up',
-    required_fields: 'invoice/reference or private payment evidence URL, billing status, owner note.',
-    ready_when: 'invoice_sent has reference or paid has proof.',
-    blocked_action: 'Do not claim revenue or mark paid without proof.',
+    required_fields: 'invoice/reference for invoice-stage follow-up, private payment evidence URL for paid status, billing status, owner note.',
+    ready_when: 'invoice_sent has reference or paid has private payment evidence.',
+    blocked_action: 'Do not claim paid revenue or mark paid without private payment evidence.',
     next_owner_action: 'Use manual invoice path until payment provider proof exists.',
   },
   {
@@ -360,7 +360,7 @@ function markdownReport(reportDate, checks, status) {
     '',
     `Status: ${status}`,
     '',
-    'Purpose: prepare the partner side of the current UK-law lead path: find/register a lawyer or supplier, record paid terms, preserve no-PII rules, and keep revenue claims blocked until invoice/payment proof exists.',
+    'Purpose: prepare the partner side of the current UK-law lead path: find/register a lawyer or supplier, record paid terms, preserve no-PII rules, and keep paid revenue claims blocked until private payment evidence exists.',
     '',
     'Safety: no mailbox action, CMS publish, database edit, supplier creation, lawyer prospect creation, lawyer registration, partner contact, client contact, WhatsApp message, TalkTo message, webhook, payment, invoice, public page, SEO setting, redirect, canonical/noindex, sitemap, taxonomy, GSC, GA4, wp-admin write or uPress action was performed.',
     '',
@@ -392,14 +392,14 @@ function markdownReport(reportDate, checks, status) {
     '2. Complete one private partner record with scope, credential/source proof, SLA, fee/price and billing contact.',
     '3. Only after client match permission, send a no-PII partner preview.',
     '4. Record accepted terms and owner release before client PII leaves the CRM.',
-    '5. Use manual invoice/payment proof before claiming revenue.',
+    '5. Use invoice/reference for invoice-stage follow-up and private payment evidence before paid revenue claims.',
     '',
     '## Blockers',
     '',
     '- Do not create a real supplier/lawyer/prospect record from this packet alone.',
     '- Do not contact a partner or client until owner approval and consent conditions are met.',
     '- Do not expose the partner publicly or publish UK-law service claims from this packet.',
-    '- Do not mark paid or claim revenue until invoice/payment proof exists.',
+    '- Do not mark paid or claim paid revenue until private payment evidence exists.',
     ''
   ];
 

@@ -735,7 +735,7 @@ function justice_theme_lawyer_prospect_outreach_message( WP_Post $post ): array 
 		$city
 	);
 	$acceptance = sprintf(
-		"Jus-Tice specialist acceptance note\n\nProspect: %s\nPractice/city: %s / %s\nTarget plan: %s\nAgreed qualified-lead fee: %s\nBilling contact: %s\nResponse commitment: %s\n\nTerms to confirm before routing:\n1. Qualified leads are routed only after Jus-Tice records user contact details, practice fit and owner/CRM quality review.\n2. No ranking, exclusivity, case volume, compensation amount or outcome is promised.\n3. The specialist confirms the relevant license/status, niche experience and capacity limits before receiving leads.\n4. Manual invoice/payment is accepted until automated payment setup is fully active.\n5. A lead may be marked Paid only after invoice/reference or payment evidence exists in the CRM.\n\nCurrent missing routing checks: %s\nOwner terms note: %s",
+		"Jus-Tice specialist acceptance note\n\nProspect: %s\nPractice/city: %s / %s\nTarget plan: %s\nAgreed qualified-lead fee: %s\nBilling contact: %s\nResponse commitment: %s\n\nTerms to confirm before routing:\n1. Qualified leads are routed only after Jus-Tice records user contact details, practice fit and owner/CRM quality review.\n2. No ranking, exclusivity, case volume, compensation amount or outcome is promised.\n3. The specialist confirms the relevant license/status, niche experience and capacity limits before receiving leads.\n4. Manual invoice/payment is accepted until automated payment setup is fully active.\n5. A lead may be marked Invoice sent after invoice/reference is saved; Paid requires a private payment evidence URL in the CRM.\n\nCurrent missing routing checks: %s\nOwner terms note: %s",
 		$recipient,
 		$area,
 		$city,

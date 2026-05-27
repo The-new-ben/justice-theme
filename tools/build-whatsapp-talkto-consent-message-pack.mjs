@@ -121,14 +121,14 @@ const rows = [
   {
     id: 'BILLING-01',
     audience: 'lawyer_or_supplier',
-    scenario: 'manual invoice/payment proof after approved handoff',
+    scenario: 'manual invoice/reference and private payment proof after approved handoff',
     consent_state: 'approved_manual_handoff',
     status: 'READY_FOR_OWNER_LEGAL_REVIEW',
     hebrew_template: 'בהתאם לתנאים שאושרו מראש עבור הפנייה, נבקש להסדיר תשלום לפי הפרטים שנרשמו. נא לשלוח אישור תשלום/אסמכתא או פרטי חיוב לחשבונית. התשלום יירשם רק לאחר קבלת אסמכתא.',
     crm_update_if_sent: 'Record qualified_lead_invoice_reference or qualified_lead_payment_evidence_url before marking paid.',
     allowed_use: 'After owner release and partner terms are documented.',
     blocked_use: 'Do not send before the partner accepted the fee and the handoff was approved.',
-    stop_rule: 'No payment evidence means no paid revenue claim.',
+    stop_rule: 'No private payment evidence means no paid revenue claim.',
   },
 ];
 
@@ -287,7 +287,7 @@ function markdownReport(reportDate, outputs, checks) {
     '',
     '## Operator Rule',
     '',
-    'The safest path is: current inbound help request -> details request -> explicit match permission -> routing hold remains -> no-PII partner preview -> accepted partner terms and billing contact -> owner release -> manual handoff -> invoice/payment proof. Old leads do not skip into this path; they stay parked until re-permission is approved and recorded.',
+    'The safest path is: current inbound help request -> details request -> explicit match permission -> routing hold remains -> no-PII partner preview -> accepted partner terms and billing contact -> owner release -> manual handoff -> invoice/reference for invoice_sent and private payment evidence for paid. Old leads do not skip into this path; they stay parked until re-permission is approved and recorded.',
     '',
     '## Linear Anchors',
     '',

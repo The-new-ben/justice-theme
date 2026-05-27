@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - BTL first paid-lead evidence chain refreshed
+
+- UPDATED: `tools/check-btl-first-paid-lead-readiness.mjs`, `tools/build-btl-first-prospect-activation-packet.mjs`.
+- GENERATED/UPDATED: `.project-control/btl-first-paid-lead-readiness-2026-05-27.md`, `.project-control/btl-first-paid-lead-readiness-2026-05-27.csv`, `.reports/btl-first-paid-lead-readiness-2026-05-27.json`, `.reports/btl-first-paid-lead-readiness-2026-05-27.csv`, `.project-control/btl-first-prospect-activation-packet-2026-05-27.md`, `.project-control/btl-first-prospect-activation-packet-2026-05-27.csv`, `.reports/btl-first-prospect-activation-packet-2026-05-27.json`, `.reports/btl-first-prospect-activation-packet-2026-05-27.csv`, `.project-control/btl-runtime-revenue-proof-ledger-2026-05-27.md`, `.reports/btl-runtime-revenue-proof-ledger-2026-05-27.json`.
+- PURPOSE: keep the Bituach Leumi specialist-to-first-paid-lead packet current by separating report date from source-packet date and regenerating the readiness, activation, ledger and dry-run chain for 2026-05-27.
+- RESULT: readiness `PASS_WITH_RUNTIME_BLOCKERS` with 9/9 static gates and 1 runtime blocker; activation `READY_FOR_OWNER_PRIVATE_PROSPECT_ENTRY` with 3 primary and 3 backup candidates; ledger `RUNTIME_LEDGER_READY_NO_REVENUE_CLAIM`; dry-run `BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION` with 5/5 static checks; private artifact boundary guard `PASS`.
+- LINEAR: recorded as `HAD-163`, marked Done under `HAD-76`, related to `HAD-149`, `HAD-154`, `HAD-148` and `HAD-142`.
+- SAFETY: private tooling/reporting only; no public CMS edit, route, title/H1/meta/body, SEO setting, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Article CTA dedupe guards broadened
 
 - UPDATED: `tools/check-live-article-cta-dedupe.mjs`, `tools/build-live-article-cta-mobile-repetition-qa.mjs`, `tools/check-article-duplicate-cta-guard.mjs`.

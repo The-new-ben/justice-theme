@@ -2,7 +2,7 @@
 
 Status: RUNTIME_LEDGER_READY_NO_REVENUE_CLAIM
 
-Source packet date: 2026-05-26
+Source packet date: 2026-05-27
 
 Scope: private owner/admin no-PII proof ledger for the Bituach Leumi specialist-to-first-paid-lead loop. This does not create prospects, create leads, contact lawyers, contact clients, route PII, invoice, charge payment, publish public pages, change SEO controls, send email/WhatsApp, use TalkTo, edit wp-admin or deploy uPress.
 
@@ -47,5 +47,5 @@ Scope: private owner/admin no-PII proof ledger for the Bituach Leumi specialist-
 
 ## Source Files
 
-- `.reports/btl-first-paid-lead-readiness-2026-05-26.json`
-- `.reports/btl-first-prospect-activation-packet-2026-05-26.json`
+- `.reports/btl-first-paid-lead-readiness-2026-05-27.json`
+- `.reports/btl-first-prospect-activation-packet-2026-05-27.json`

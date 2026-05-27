@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), '..');
 const DEFAULT_REPORT_DATE = new Date().toISOString().slice(0, 10);
-const SOURCE_CSV = path.join(ROOT, '.project-control', 'btl-specialist-prospect-shortlist-2026-05-26.csv');
+const DEFAULT_SOURCE_DATE = '2026-05-26';
 
 const preferredSourceOrder = [
   'work-accidents.co.il',
@@ -38,11 +38,14 @@ const stopConditions = [
 function parseArgs() {
   const args = {
     reportDate: process.env.REPORT_DATE || DEFAULT_REPORT_DATE,
+    sourceDate: process.env.SOURCE_DATE || DEFAULT_SOURCE_DATE,
   };
 
   for (const arg of process.argv.slice(2)) {
     if (arg.startsWith('--reportDate=')) {
       args.reportDate = arg.slice('--reportDate='.length);
+    } else if (arg.startsWith('--sourceDate=')) {
+      args.sourceDate = arg.slice('--sourceDate='.length);
     } else if (arg === '--help' || arg === '-h') {
       args.help = true;
     } else {
@@ -50,8 +53,10 @@ function parseArgs() {
     }
   }
 
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(args.reportDate)) {
-    throw new Error('--reportDate must be YYYY-MM-DD');
+  for (const [name, value] of Object.entries(args)) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+      throw new Error(`--${name} must be YYYY-MM-DD`);
+    }
   }
 
   return args;
@@ -65,6 +70,10 @@ function outputFiles(reportDate) {
     reportJson: path.join(ROOT, '.reports', `${base}.json`),
     reportCsv: path.join(ROOT, '.reports', `${base}.csv`),
   };
+}
+
+function sourceCsv(sourceDate) {
+  return path.join(ROOT, '.project-control', `btl-specialist-prospect-shortlist-${sourceDate}.csv`);
 }
 
 function csvEscape(value) {
@@ -217,17 +226,18 @@ function mdTable(rows, mode = 'primary') {
   ].join('\n');
 }
 
-function markdownReport(reportDate, summary, primary, backup) {
+function markdownReport(reportDate, sourceDate, summary, primary, backup) {
   return [
     `# Bituach Leumi First-Prospect Activation Packet - ${reportDate}`,
     '',
     `Status: ${summary.status}`,
+    `Source packet date: ${sourceDate}`,
     '',
     'Scope: private owner/team activation packet for the first Bituach Leumi supplier entries. This does not create leads, create prospects, create lawyer records, publish public pages, send outreach, route clients, invoice, charge payment, change SEO controls or deploy uPress.',
     '',
     '## Source Boundary',
     '',
-    '- Source CSV: `.project-control/btl-specialist-prospect-shortlist-2026-05-26.csv`.',
+    `- Source CSV: \`.project-control/btl-specialist-prospect-shortlist-${sourceDate}.csv\`.`,
     '- This is not a public recommendation list and not public lawyer-directory content.',
     '- Selection order is for private CRM entry only. It does not endorse any candidate.',
     '- Every candidate starts as `not_verified` until the private CRM verification fields prove otherwise.',
@@ -279,8 +289,8 @@ function markdownReport(reportDate, summary, primary, backup) {
     '## Related Trail',
     '',
     '- Parent Linear task: `HAD-76` - Bituach Leumi first billable lead.',
-    '- Prior evidence: `HAD-104` / `.project-control/btl-first-paid-lead-readiness-2026-05-26.md`.',
-    '- Source pack: `.project-control/btl-specialist-prospect-shortlist-2026-05-26.md`.',
+    `- Prior evidence: \`.project-control/btl-first-paid-lead-readiness-${sourceDate}.md\`.`,
+    `- Source pack: \`.project-control/btl-specialist-prospect-shortlist-${sourceDate}.md\`.`,
     '',
     '## Safety Statement',
     '',
@@ -292,19 +302,22 @@ function markdownReport(reportDate, summary, primary, backup) {
 const args = parseArgs();
 
 if (args.help) {
-  console.log('Usage: node tools/build-btl-first-prospect-activation-packet.mjs [--reportDate=YYYY-MM-DD]');
+  console.log('Usage: node tools/build-btl-first-prospect-activation-packet.mjs [--reportDate=YYYY-MM-DD] [--sourceDate=YYYY-MM-DD]');
   process.exit(0);
 }
 
-if (!existsSync(SOURCE_CSV)) {
-  throw new Error(`Source CSV missing: ${SOURCE_CSV}`);
+const sourceCsvPath = sourceCsv(args.sourceDate);
+
+if (!existsSync(sourceCsvPath)) {
+  throw new Error(`Source CSV missing: ${sourceCsvPath}`);
 }
 
-const sourceRows = parseCsv(readText(SOURCE_CSV));
+const sourceRows = parseCsv(readText(sourceCsvPath));
 const { highPriority, primary, backup } = selectRows(sourceRows);
 const activationRows = buildActivationRows(primary, backup);
 const summary = {
   reportDate: args.reportDate,
+  sourceDate: args.sourceDate,
   status: primary.length === 3 && backup.length >= 3 ? 'READY_FOR_OWNER_PRIVATE_PROSPECT_ENTRY' : 'BLOCKED_SOURCE_SELECTION',
   sourceRows: sourceRows.length,
   highPriorityRows: highPriority.length,
@@ -332,7 +345,7 @@ const columns = [
 ];
 const csv = toCsv(activationRows, columns);
 
-writeText(files.projectMd, markdownReport(args.reportDate, summary, primary, backup));
+writeText(files.projectMd, markdownReport(args.reportDate, args.sourceDate, summary, primary, backup));
 writeText(files.projectCsv, csv);
 writeText(files.reportJson, `${JSON.stringify({ summary, activationRows, files }, null, 2)}\n`);
 writeText(files.reportCsv, csv);

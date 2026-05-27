@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), '..');
 const DEFAULT_REPORT_DATE = new Date().toISOString().slice(0, 10);
+const DEFAULT_SOURCE_DATE = '2026-05-26';
 
 const requiredSourceColumns = [
   'candidate',
@@ -27,11 +28,14 @@ const codeFiles = {
 function parseArgs() {
   const args = {
     reportDate: process.env.REPORT_DATE || DEFAULT_REPORT_DATE,
+    sourceDate: process.env.SOURCE_DATE || DEFAULT_SOURCE_DATE,
   };
 
   for (const arg of process.argv.slice(2)) {
     if (arg.startsWith('--reportDate=')) {
       args.reportDate = arg.slice('--reportDate='.length);
+    } else if (arg.startsWith('--sourceDate=')) {
+      args.sourceDate = arg.slice('--sourceDate='.length);
     } else if (arg === '--help' || arg === '-h') {
       args.help = true;
     } else {
@@ -39,8 +43,10 @@ function parseArgs() {
     }
   }
 
-  if (!/^\d{4}-\d{2}-\d{2}$/.test(args.reportDate)) {
-    throw new Error('--reportDate must be YYYY-MM-DD');
+  for (const [name, value] of Object.entries(args)) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(value)) {
+      throw new Error(`--${name} must be YYYY-MM-DD`);
+    }
   }
 
   return args;
@@ -150,13 +156,19 @@ function makeGate(id, gate, status, evidence, nextAction, ownerNotice = '') {
   };
 }
 
-function buildRows() {
+function sourceFiles(sourceDate) {
+  return {
+    sourcePackCsv: path.join(ROOT, '.project-control', `btl-specialist-prospect-shortlist-${sourceDate}.csv`),
+    sourcePackMd: path.join(ROOT, '.project-control', `btl-specialist-prospect-shortlist-${sourceDate}.md`),
+    routeIntent: path.join(ROOT, '.project-control', `bituach-leumi-route-intent-review-${sourceDate}.md`),
+  };
+}
+
+function buildRows(sourceDate) {
   const crm = readText(codeFiles.crm);
   const prospects = readText(codeFiles.prospects);
   const routing = readText(codeFiles.routing);
-  const sourcePackCsv = path.join(ROOT, '.project-control', 'btl-specialist-prospect-shortlist-2026-05-26.csv');
-  const sourcePackMd = path.join(ROOT, '.project-control', 'btl-specialist-prospect-shortlist-2026-05-26.md');
-  const routeIntent = path.join(ROOT, '.project-control', 'bituach-leumi-route-intent-review-2026-05-26.md');
+  const { sourcePackCsv, sourcePackMd, routeIntent } = sourceFiles(sourceDate);
   const sourceRows = parseCsv(readText(sourcePackCsv));
   const columns = sourceRows.length ? Object.keys(sourceRows[0]) : [];
   const highPriorityRows = sourceRows.filter((row) => String(row.priority || '').toLowerCase() === 'high');
@@ -168,7 +180,7 @@ function buildRows() {
       'private_source_pack_loaded',
       existsSync(sourcePackCsv) && sourceRows.length >= 3 && requiredSourceColumns.every((column) => columns.includes(column)) ? 'PASS' : 'BLOCKED',
       `${sourceRows.length} candidate rows; ${highPriorityRows.length} high-priority rows; columns=${columns.join('|')}`,
-      'Create the first 3-6 private prospects from `.project-control/btl-specialist-prospect-shortlist-2026-05-26.csv`.',
+      `Create the first 3-6 private prospects from \`.project-control/btl-specialist-prospect-shortlist-${sourceDate}.csv\`.`,
       'No candidate is a recommendation or public listing until manually verified.'
     )
   );
@@ -304,7 +316,7 @@ function buildRows() {
     makeGate(
       'BTL-09',
       'private_path_references_clean',
-      existsSync(sourcePackMd) && readText(sourcePackMd).includes('`.project-control/btl-specialist-prospect-shortlist-2026-05-26.csv`') && crm.includes(".project-control/btl-specialist-prospect-shortlist-2026-05-26.md")
+      existsSync(sourcePackMd) && readText(sourcePackMd).includes(`.project-control/btl-specialist-prospect-shortlist-${sourceDate}.csv`) && crm.includes(`.project-control/btl-specialist-prospect-shortlist-${sourceDate}.md`)
         ? 'PASS'
         : 'REVIEW',
       'Source-pack references should point future agents to dot-private `.project-control` artifacts.',
@@ -327,11 +339,12 @@ function buildRows() {
   return { rows, sourceRows };
 }
 
-function markdownReport(reportDate, summary, rows) {
+function markdownReport(reportDate, sourceDate, summary, rows) {
   return [
     `# Bituach Leumi First Paid-Lead Readiness - ${reportDate}`,
     '',
     `Status: ${summary.status}`,
+    `Source packet date: ${sourceDate}`,
     '',
     'Scope: repo-local readiness check for the Bituach Leumi specialist-to-first-paid-lead loop. This does not publish CMS content, create leads, create lawyer/prospect records, contact anyone, change routing, send email/WhatsApp, invoice, charge payment, change SEO controls or deploy uPress.',
     '',
@@ -341,6 +354,7 @@ function markdownReport(reportDate, summary, rows) {
     `- Runtime blockers preserved: ${summary.runtimeBlockers}`,
     `- Source-pack candidates: ${summary.sourcePackCandidates}`,
     `- High-priority candidates: ${summary.highPriorityCandidates}`,
+    `- Source packet date: ${sourceDate}`,
     `- Public changes approved by this report: 0`,
     '',
     '## Gate Results',
@@ -352,7 +366,7 @@ function markdownReport(reportDate, summary, rows) {
     '## Owner Run Order',
     '',
     '1. Open `wp-admin -> Justice CRM -> Bituach Leumi specialist supply`.',
-    '2. Create the first 3-6 private prospects from `.project-control/btl-specialist-prospect-shortlist-2026-05-26.csv`.',
+    `2. Create the first 3-6 private prospects from \`.project-control/btl-specialist-prospect-shortlist-${sourceDate}.csv\`.`,
     '3. For each prospect, verify license/status, Bituach Leumi appeal experience, same-day response, manual payment path, per-lead fee and billing contact.',
     '4. Convert only verified prospects into routable lawyer profiles with owner approval.',
     '5. Run one controlled consented Bituach Leumi lead only after the preflight is green.',
@@ -368,11 +382,11 @@ function markdownReport(reportDate, summary, rows) {
 const args = parseArgs();
 
 if (args.help) {
-  console.log('Usage: node tools/check-btl-first-paid-lead-readiness.mjs [--reportDate=YYYY-MM-DD]');
+  console.log('Usage: node tools/check-btl-first-paid-lead-readiness.mjs [--reportDate=YYYY-MM-DD] [--sourceDate=YYYY-MM-DD]');
   process.exit(0);
 }
 
-const { rows, sourceRows } = buildRows();
+const { rows, sourceRows } = buildRows(args.sourceDate);
 const passCount = rows.filter((row) => row.status === 'PASS').length;
 const runtimeBlockers = rows.filter((row) => row.status === 'RUNTIME_BLOCKED').length;
 const staticGateCount = rows.filter((row) => row.status !== 'RUNTIME_BLOCKED').length;
@@ -380,6 +394,7 @@ const reviewCount = rows.filter((row) => row.status === 'REVIEW').length;
 const blockedCount = rows.filter((row) => row.status === 'BLOCKED').length;
 const summary = {
   reportDate: args.reportDate,
+  sourceDate: args.sourceDate,
   status: blockedCount > 0 ? 'BLOCKED_STATIC_GATES' : reviewCount > 0 ? 'PASS_WITH_REVIEW_ITEMS' : 'PASS_WITH_RUNTIME_BLOCKERS',
   passCount,
   staticGateCount,
@@ -393,7 +408,7 @@ const files = outputFiles(args.reportDate);
 const columns = ['id', 'gate', 'status', 'evidence', 'next_action', 'owner_notice'];
 const csv = toCsv(rows, columns);
 
-writeText(files.projectMd, markdownReport(args.reportDate, summary, rows));
+writeText(files.projectMd, markdownReport(args.reportDate, args.sourceDate, summary, rows));
 writeText(files.projectCsv, csv);
 writeText(files.reportJson, `${JSON.stringify({ summary, rows, files }, null, 2)}\n`);
 writeText(files.reportCsv, csv);

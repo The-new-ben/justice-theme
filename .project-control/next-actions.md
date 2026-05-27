@@ -4,6 +4,23 @@
 
 ---
 
+### ACTION-BTL-FIRST-PAID-LEAD-EVIDENCE-CHAIN-REFRESH-001: Refresh current BTL evidence chain before live proof
+**Status:** FIXED LOCAL / LIVE FIRST PAID LEAD STILL BLOCKED
+**Why:** The fastest revenue path remains one controlled Bituach Leumi proof, but the readiness and activation packets needed current 2026-05-27 report artifacts with explicit source-date handling before owner/admin can use them in a live private walkthrough.
+**Actions:**
+1. DONE: update `tools/check-btl-first-paid-lead-readiness.mjs` to support `--sourceDate=YYYY-MM-DD` and stamp the source packet date in summary/markdown.
+2. DONE: update `tools/build-btl-first-prospect-activation-packet.mjs` to support `--sourceDate=YYYY-MM-DD` and generate same-day activation artifacts from the approved source shortlist.
+3. DONE: generate `.project-control/btl-first-paid-lead-readiness-2026-05-27.md` and `.csv`.
+4. DONE: generate `.reports/btl-first-paid-lead-readiness-2026-05-27.json` and `.csv`.
+5. DONE: generate `.project-control/btl-first-prospect-activation-packet-2026-05-27.md` and `.csv`.
+6. DONE: generate `.reports/btl-first-prospect-activation-packet-2026-05-27.json` and `.csv`.
+7. DONE: regenerate the runtime revenue proof ledger from 2026-05-27 readiness and activation sources.
+8. DONE: rerun the controlled lead dry-run packet; status `BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION`, 5/5 static checks.
+9. DONE: verify private artifact boundary guard `PASS`.
+10. DONE: record as Linear `HAD-163`, marked Done under `HAD-76`.
+11. NEXT: owner/admin may use the current packets only inside private wp-admin to create/verify 3 prospects, activate routable specialists, run one consented controlled lead and record invoice/payment proof.
+12. BLOCKED: do not create live prospects, contact lawyers, route leads, send PII, invoice, mark paid, claim revenue, edit public pages, change SEO settings or uPress from this private packet refresh alone.
+
 ### ACTION-ARTICLE-CTA-DEDUPE-GUARD-BROADEN-001: Broaden article repeated-help-message QA coverage
 **Status:** FIXED LOCAL / NO PUBLIC TEMPLATE CHANGE RECOMMENDED
 **Why:** The owner saw a mobile article page where the same help/request message appeared again while scrolling. The existing fix and QA were good, but one live checker still defaulted to a single URL and the static guard did not inspect the fallback `single.php` template.

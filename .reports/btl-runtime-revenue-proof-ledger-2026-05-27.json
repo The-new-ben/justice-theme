@@ -1,6 +1,6 @@
 {
   "reportDate": "2026-05-27",
-  "sourceDate": "2026-05-26",
+  "sourceDate": "2026-05-27",
   "status": "RUNTIME_LEDGER_READY_NO_REVENUE_CLAIM",
   "summary": {
     "readinessStatus": "PASS_WITH_RUNTIME_BLOCKERS",
@@ -13,8 +13,8 @@
     "publicChangesApproved": 0
   },
   "sourceFiles": {
-    "readiness": ".reports/btl-first-paid-lead-readiness-2026-05-26.json",
-    "activation": ".reports/btl-first-prospect-activation-packet-2026-05-26.json"
+    "readiness": ".reports/btl-first-paid-lead-readiness-2026-05-27.json",
+    "activation": ".reports/btl-first-prospect-activation-packet-2026-05-27.json"
   },
   "ledgerRows": [
     {

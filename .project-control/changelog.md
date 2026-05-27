@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Homepage CTA visual QA packet
+
+- ADDED: `tools/build-homepage-cta-visual-qa-packet.mjs`.
+- GENERATED: `.project-control/homepage-cta-visual-qa-packet-2026-05-27.md`, `.project-control/homepage-cta-visual-qa-packet-2026-05-27.csv`, `.reports/homepage-cta-visual-qa-packet-2026-05-27.json`, `.reports/homepage-cta-visual-qa-packet-2026-05-27.csv`.
+- SCREENSHOTS: `.project-control/visual-evidence/homepage-cta-density-desktop-2026-05-27.png` and `.project-control/visual-evidence/homepage-cta-density-mobile-iphone-2026-05-27.png`.
+- PURPOSE: add private desktop/mobile visual evidence for the open homepage repeated lawyer-card CTA density follow-up before any public homepage change.
+- RESULT: `HOMEPAGE_CTA_VISUAL_QA_READY_NO_PUBLIC_CHANGE`; source live CTA audit still shows homepage `REVIEW`, 10 primary CTAs, 5 unique primary CTA texts and repeated lawyer-card action text 6 times; top homepage flow remains legal-help-first in captured views; lower lawyer-card CTA area still needs specific QA before implementation.
+- LINEAR: recorded as `HAD-141`, marked Done under `HAD-131`, related to `HAD-132`, `HAD-129` and `HAD-84`.
+- SAFETY: private visual QA only; no public homepage label, link, layout, CMS content, title/H1/meta, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Low Hype/RV private intake checklist
 
 - ADDED: `tools/build-low-hype-rv-private-intake-checklist.mjs`.

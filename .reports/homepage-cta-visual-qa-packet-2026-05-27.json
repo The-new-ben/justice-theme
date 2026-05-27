@@ -1,0 +1,78 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "auditDate": "2026-05-27",
+    "status": "HOMEPAGE_CTA_VISUAL_QA_READY_NO_PUBLIC_CHANGE",
+    "targetRoute": "https://jus-tice.co.il/",
+    "homepageAuditStatus": "REVIEW",
+    "homepagePrimaryCtaCount": 10,
+    "homepageUniquePrimaryCtaTexts": 5,
+    "homepageRepeatedTextGroups": "שליחת פנייה (6)",
+    "screenshotsCaptured": 2,
+    "desktopScreenshot": ".project-control/visual-evidence/homepage-cta-density-desktop-2026-05-27.png",
+    "desktopViewport": "1440x2200",
+    "mobileScreenshot": ".project-control/visual-evidence/homepage-cta-density-mobile-iphone-2026-05-27.png",
+    "mobileViewport": "390x2600",
+    "visualQaRows": 5,
+    "lowerLawyerCardSectionStillNeedsQa": true,
+    "publicChangesApproved": 0,
+    "cmsChangesApproved": 0,
+    "crmRecordsCreated": 0,
+    "leadOrLawyerContactActions": 0,
+    "invoicesOrPaymentsCreated": 0,
+    "emailSent": 0,
+    "upressDeploymentRequired": false
+  },
+  "rows": [
+    {
+      "id": "HVQA-01",
+      "section": "source_audit",
+      "status": "REVIEW_CONFIRMED",
+      "evidence": "Live CTA density audit found homepage status REVIEW, primary CTA count 10, unique CTA texts 5 and repeated text groups שליחת פנייה (6).",
+      "review": "The repeated lawyer-card action label remains a real decision item before adding more homepage CTAs or managed-service copy.",
+      "recommended_next_step": "Do not add new homepage CTA blocks; choose a quieter card-action treatment only after owner/design approval.",
+      "blocker": "No public homepage change is approved by this packet.",
+      "public_change_approved": "no"
+    },
+    {
+      "id": "HVQA-02",
+      "section": "desktop_screenshot",
+      "status": "SCREENSHOT_CAPTURED",
+      "evidence": ".project-control/visual-evidence/homepage-cta-density-desktop-2026-05-27.png (1440x2200, 1139038 bytes).",
+      "review": "Desktop top-to-mid homepage view shows the hero, search form, trust chips, three-step user path and the start of the lawyer section. The page still reads as legal help first.",
+      "recommended_next_step": "If a public implementation is approved, use this as the before-state for desktop comparison.",
+      "blocker": "Screenshot does not approve changing labels, links or layout.",
+      "public_change_approved": "no"
+    },
+    {
+      "id": "HVQA-03",
+      "section": "mobile_screenshot",
+      "status": "SCREENSHOT_CAPTURED",
+      "evidence": ".project-control/visual-evidence/homepage-cta-density-mobile-iphone-2026-05-27.png (390x2600, 329411 bytes).",
+      "review": "Mobile iPhone-width view shows the header/menu, hero, search form, trust chips, stats and three-step path. The repeated lawyer-card buttons sit lower than the captured top flow, so lower-section QA is still required before publication.",
+      "recommended_next_step": "Before any live change, capture the actual lawyer-card area after a local or staging implementation and rerun CTA density.",
+      "blocker": "Do not treat this screenshot as proof that the repeated card buttons are solved.",
+      "public_change_approved": "no"
+    },
+    {
+      "id": "HVQA-04",
+      "section": "implementation_direction",
+      "status": "OWNER_REVIEW_ONLY",
+      "evidence": "Prior packet option B is still the lowest-risk path: make repeated lawyer-card actions visually quieter instead of changing the user promise.",
+      "review": "A style-only card-action treatment is safer than new Hebrew labels, because the current links go to contact URLs and copy changes could create a mismatch.",
+      "recommended_next_step": "If approved, implement a secondary-card action style, then run mobile/desktop screenshots, CTA density audit, business-language audit and Hebrew public-change email.",
+      "blocker": "Owner/design approval and post-change QA are missing.",
+      "public_change_approved": "no"
+    },
+    {
+      "id": "HVQA-05",
+      "section": "public_safety",
+      "status": "HARD_GUARDRAIL",
+      "evidence": "No business-plan, supplier marketplace, package economics, revenue or internal routing language is needed for the user-facing homepage decision.",
+      "review": "The homepage should stay focused on legal help, user problem selection, lawyer fit, trust and guidance.",
+      "recommended_next_step": "Keep lawyer join/revenue surfacing on the sidelines and do not expose internal strategy.",
+      "blocker": "Any public text change needs exact owner/legal/content review.",
+      "public_change_approved": "no"
+    }
+  ]
+}

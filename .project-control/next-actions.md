@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-HOMEPAGE-CTA-VISUAL-QA-001: Capture before-state visual evidence for homepage CTA density
+**Status:** FIXED LOCAL / PUBLIC HOMEPAGE IMPLEMENTATION STILL BLOCKED
+**Why:** The live CTA audit found repeated lawyer-card action text on the homepage, and the owner asked for public-facing work to stay legal-help-first and commercially polished without exposing internal business logic.
+**Actions:**
+1. DONE: capture desktop before-state screenshot `.project-control/visual-evidence/homepage-cta-density-desktop-2026-05-27.png`.
+2. DONE: capture iPhone-width before-state screenshot `.project-control/visual-evidence/homepage-cta-density-mobile-iphone-2026-05-27.png`.
+3. DONE: add `tools/build-homepage-cta-visual-qa-packet.mjs`.
+4. DONE: generate `.project-control/homepage-cta-visual-qa-packet-2026-05-27.md` and `.csv`.
+5. DONE: generate `.reports/homepage-cta-visual-qa-packet-2026-05-27.json` and `.csv`.
+6. DONE: confirm `HOMEPAGE_CTA_VISUAL_QA_READY_NO_PUBLIC_CHANGE`, with homepage source audit `REVIEW`, 10 primary CTAs, 5 unique primary CTA texts, repeated lawyer-card action text 6 times, 2 screenshots, 5 review rows and 0 public changes.
+7. DONE: record as Linear `HAD-141`, marked Done under `HAD-131`.
+8. NEXT: owner/design may approve keeping as-is or a style-only quieter secondary-card action treatment; if approved, implement locally and rerun desktop/mobile screenshots, CTA density, business-language audit and Hebrew public-change email after live verification.
+9. BLOCKED: do not change homepage labels, links, layout, CMS content, title/H1/meta, redirects, canonicals/noindex, sitemap, taxonomy, leads, lawyer contacts, invoices, payments, emails, WhatsApp, TalkTo or uPress from this packet alone.
+
 ### ACTION-LOW-HYPE-RV-PRIVATE-INTAKE-001: Prepare consent-safe private RV intake checklist
 **Status:** FIXED LOCAL / LIVE CRM AND PUBLIC EXECUTION STILL BLOCKED
 **Why:** GSC/public RV copy is still blocked, but the owner also needs a safe way to triage inbound or legacy WhatsApp/TalkTo RV-style disputes without contacting people or leaking PII before permission.

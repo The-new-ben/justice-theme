@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-27 03:20 Asia/Jerusalem
+- HOMEPAGE CTA VISUAL QA PACKET ADDED: converted the open repeated lawyer-card CTA density item into fresh before-state screenshot evidence and an owner/design decision packet.
+- CODE ADDED: `tools/build-homepage-cta-visual-qa-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/homepage-cta-visual-qa-packet-2026-05-27.md`, `.project-control/homepage-cta-visual-qa-packet-2026-05-27.csv`, `.reports/homepage-cta-visual-qa-packet-2026-05-27.json`, `.reports/homepage-cta-visual-qa-packet-2026-05-27.csv`.
+- SCREENSHOT EVIDENCE: `.project-control/visual-evidence/homepage-cta-density-desktop-2026-05-27.png` and `.project-control/visual-evidence/homepage-cta-density-mobile-iphone-2026-05-27.png`.
+- CHECK RESULT: `HOMEPAGE_CTA_VISUAL_QA_READY_NO_PUBLIC_CHANGE`; source live CTA audit still shows homepage `REVIEW`, 10 primary CTAs, 5 unique primary CTA texts and repeated lawyer-card action text 6 times; 2 screenshots captured; 5 visual QA rows; 0 public/CMS/SEO/CRM/payment/email/WhatsApp/TalkTo actions.
+- REVIEW RESULT: top homepage flow still reads legal-help-first on captured desktop and mobile views; lower lawyer-card CTA area still needs specific post-implementation QA before any public change. Lowest-risk future option remains a style-only quieter secondary-card action treatment if owner/design approves.
+- LINEAR: recorded as `HAD-141`, marked Done under `HAD-131`, related to `HAD-132`, `HAD-129` and `HAD-84`.
+- PUBLIC IMPACT: none. This was private visual QA only. No homepage label, link, layout, CMS content, title/H1/meta/body, URL, redirect, canonical/noindex, sitemap, taxonomy, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+- COMPLETION ASSESSMENT: homepage CTA visual QA packet 100%; public homepage implementation remains 0% until owner/design approval, exact implementation, live visual QA, CTA density rerun, business-language audit and Hebrew public-change email workflow.
+
 # LATEST WORK STATUS - 2026-05-27 03:08 Asia/Jerusalem
 - LOW HYPE/RV PRIVATE INTAKE CHECKLIST ADDED: converted the safe private RV rental/deposit/charge path into an owner/admin intake checklist and blank no-PII template.
 - CODE ADDED: `tools/build-low-hype-rv-private-intake-checklist.mjs`.

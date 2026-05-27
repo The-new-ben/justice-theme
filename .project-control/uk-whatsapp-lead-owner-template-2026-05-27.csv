@@ -1,0 +1,12 @@
+field,owner_value,allowed_values,why,blocked_if_blank
+owner_private_crm_entry_decision,,approve_private_crm_entry | hold_email_only | needs_more_evidence,Confirms whether a real held CRM record may be created from the Outlook/WhatsApp source.,Do not create the real CRM lead.
+source_reference_stored_in_wp_admin,,Outlook message link/id or owner note; do not paste client PII into this CSV,Connects the private CRM record to the evidence without storing PII in repo artifacts.,Keep source evidence in mailbox only.
+source_channel,,whatsapp_manual | email_forward,Use whatsapp_manual when pasting WhatsApp text; use email_forward if only the forwarded email is recorded.,Use whatsapp_manual only after confirming the source context.
+handoff_path,,lawyer_and_supplier | supplier_marketplace,This UK lead may need both a lawyer and a legal-service supplier path.,Default to lawyer_and_supplier but keep routing held.
+legal_area,,uk-law,Prevents the lead from falling into generic or unrelated international categories.,Do not route.
+consent_status,,fresh_inbound_needs_details | explicit_match_consent | owner_verified_consent | do_not_contact,Controls whether any partner preview or routing can happen.,Keep routing_hold=1 and do not contact partners.
+client_permission_evidence_note,,Short private note in wp-admin; no client PII in this template,Needed before no-PII partner preview can become an actual handoff path.,Do not release PII or route.
+partner_target_type,,lawyer | supplier | both,"Defines whether the first paid path is lawyer, supplier or combined.",Keep partner terms not_started.
+partner_terms_min_fee_ils,,number,Paid handoff cannot be counted without a fee and billing contact.,Do not mark ready_to_bill.
+owner_release_decision,,approved_manual_handoff | needs_more_review | do_not_release,Final manual gate before any client PII leaves the CRM.,No handoff.
+invoice_or_payment_evidence,,invoice reference or private evidence URL stored in wp-admin only,Revenue may be claimed only after proof exists.,Do not mark paid.

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - UK WhatsApp lead supplier handoff packet
+
+- ADDED: `tools/build-uk-whatsapp-lead-supplier-handoff-packet.mjs`.
+- GENERATED: `.project-control/uk-whatsapp-lead-supplier-handoff-2026-05-27.md`, `.project-control/uk-whatsapp-lead-supplier-handoff-2026-05-27.csv`, `.project-control/uk-whatsapp-lead-owner-template-2026-05-27.csv`, `.reports/uk-whatsapp-lead-supplier-handoff-2026-05-27.json`, `.reports/uk-whatsapp-lead-supplier-handoff-2026-05-27.csv`.
+- PURPOSE: convert the current UK-law WhatsApp/email lead into an exact no-PII CRM-to-lawyer/supplier-to-money operator packet before any real CRM entry, partner contact, client message or payment claim.
+- RESULT: `UK_WHATSAPP_SUPPLIER_HANDOFF_PACKET_READY_NO_LIVE_ACTION`; 7/7 static source gates passed; 9 operator rows and 11 owner-template rows generated; 0 CRM records, contacts, invoices, payments, public changes, emails, WhatsApp/TalkTo actions or uPress actions.
+- LINEAR: recorded as `HAD-155`, marked Done under `HAD-87`, related to `HAD-79`, `HAD-97`, `HAD-102`, `HAD-148` and `HAD-154`.
+- SAFETY: private operator packet only; no client PII stored in repo artifacts; no public page, CMS content, route, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, webhook, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Owner unblocker command queue
 
 - ADDED: `tools/build-owner-unblocker-command-queue.mjs`.

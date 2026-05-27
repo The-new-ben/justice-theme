@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-UK-WHATSAPP-LEAD-SUPPLIER-HANDOFF-PACKET-001: Add no-PII operator packet for the current UK WhatsApp lead
+**Status:** FIXED LOCAL / LIVE CRM EXECUTION STILL BLOCKED
+**Why:** The owner sent a real WhatsApp/email lead from the UK-law page and wants it connected through the system to a lawyer/supplier and money, but the live action must preserve permission, no-PII preview, partner terms, owner release and billing-proof rules.
+**Actions:**
+1. DONE: add `tools/build-uk-whatsapp-lead-supplier-handoff-packet.mjs`.
+2. DONE: generate `.project-control/uk-whatsapp-lead-supplier-handoff-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/uk-whatsapp-lead-owner-template-2026-05-27.csv`.
+4. DONE: generate `.reports/uk-whatsapp-lead-supplier-handoff-2026-05-27.json` and `.csv`.
+5. DONE: confirm `UK_WHATSAPP_SUPPLIER_HANDOFF_PACKET_READY_NO_LIVE_ACTION`, 7/7 static source gates, 9 operator rows, 11 owner-template rows and 0 public/CRM/contact/payment/email/WhatsApp/TalkTo/webhook/uPress actions.
+6. DONE: record as Linear `HAD-155`, marked Done under `HAD-87`.
+7. NEXT: owner/admin approves or holds real private CRM entry; if approved, create one held lead in `wp-admin -> Justice CRM -> Manual WhatsApp / client lead bridge` with `legal_area=uk-law`, `handoff_path=lawyer_and_supplier`, `consent_status=fresh_inbound_needs_details`, routing hold on and source reference stored in wp-admin only.
+8. BLOCKED: do not create the real CRM lead, contact the client, contact supplier/lawyer, release PII, invoice, mark paid, send WhatsApp/TalkTo/email, enable webhook automation, publish pages, change SEO settings or uPress from this packet alone.
+
 ### ACTION-OWNER-UNBLOCKER-COMMAND-QUEUE-001: Build one owner reply queue for highest-value blockers
 **Status:** FIXED LOCAL / LIVE EXECUTION STILL BLOCKED
 **Why:** Bituach Leumi paid lead proof, lawyer subscription revenue, public route copy, Low Hype/RV, divorce Tel Aviv, criminal Jerusalem and WhatsApp/TalkTo consent each had separate blocker packets; the owner needs one row-based approval queue to clear the next concrete step.

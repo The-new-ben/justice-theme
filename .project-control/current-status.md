@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 04:21 Asia/Jerusalem
+- CRIMINAL-LAW PILLAR SPLIT DECISION PACKET ADDED: converted the live Jerusalem criminal page QA blocker into exact owner/GSC/legal/editor decision rows before any public action.
+- CODE ADDED: `tools/build-criminal-law-pillar-split-decision-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/criminal-law-pillar-split-decision-packet-2026-05-27.md`, `.project-control/criminal-law-pillar-split-decision-packet-2026-05-27.csv`, `.project-control/criminal-law-pillar-split-gsc-template-2026-05-27.csv`, `.project-control/criminal-law-pillar-split-owner-decision-template-2026-05-27.csv`, `.reports/criminal-law-pillar-split-decision-packet-2026-05-27.json`, `.reports/criminal-law-pillar-split-decision-packet-2026-05-27.csv`.
+- CHECK RESULT: `CRIMINAL_LAW_PILLAR_SPLIT_DECISION_PACKET_READY_NO_PUBLIC_CHANGE`; source QA status `LIVE_CRIMINAL_JERUSALEM_QA_REVIEW_NO_PUBLIC_CHANGE`; 8 route-role rows; 5 decision rows; 40 GSC template rows; 4 owner decision rows; 0 public/CMS/SEO/CRM/contact/payment/email actions.
+- REVIEW RESULT: the criminal-law cluster has a structural role issue, not only a copy issue. `/criminal-lawyer/` lands on `/practice-areas/criminal-law/`, the central surface is thin, `/criminal-lawyer-jerusalem/` is already public and thin, and specialist pages such as `/sex-crime-lawyer/` and `/traffic-lawyer/` must be protected from local-page expansion.
+- LINEAR: recorded as `HAD-147`, marked Done under `HAD-146`, related to `HAD-145`, `HAD-144`, `HAD-84` and `HAD-133`.
+- PUBLIC IMPACT: none. This was private decision tooling only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: criminal-law pillar split decision packet 100%; public update execution remains 0%. Next step is filling the GSC template and owner decision template before any criminal-law local/practice update is drafted.
+
 # LATEST WORK STATUS - 2026-05-27 04:14 Asia/Jerusalem
 - LIVE CRIMINAL JERUSALEM PAGE QA ADDED: converted the existing public `/criminal-lawyer-jerusalem/` discovery into a read-only live QA packet before any public update.
 - CODE ADDED: `tools/build-live-criminal-jerusalem-page-qa.mjs`.

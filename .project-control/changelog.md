@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Criminal-law pillar split decision packet
+
+- ADDED: `tools/build-criminal-law-pillar-split-decision-packet.mjs`.
+- GENERATED: `.project-control/criminal-law-pillar-split-decision-packet-2026-05-27.md`, `.project-control/criminal-law-pillar-split-decision-packet-2026-05-27.csv`, `.project-control/criminal-law-pillar-split-gsc-template-2026-05-27.csv`, `.project-control/criminal-law-pillar-split-owner-decision-template-2026-05-27.csv`, `.reports/criminal-law-pillar-split-decision-packet-2026-05-27.json`, `.reports/criminal-law-pillar-split-decision-packet-2026-05-27.csv`.
+- PURPOSE: turn the live criminal Jerusalem QA into exact owner/GSC/legal/editor decision rows before any public update or SEO action.
+- RESULT: `CRIMINAL_LAW_PILLAR_SPLIT_DECISION_PACKET_READY_NO_PUBLIC_CHANGE`; 8 route-role rows, 5 decision rows, 40 GSC template rows and 4 owner decision rows.
+- REVIEW: `/criminal-lawyer/` lands on `/practice-areas/criminal-law/`, the central criminal-law surface is thin, the Jerusalem local page is already public and thin, and specialist pages must stay protected.
+- LINEAR: recorded as `HAD-147`, marked Done under `HAD-146`, related to `HAD-145`, `HAD-144`, `HAD-84` and `HAD-133`.
+- SAFETY: private decision tooling only; no public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead/lawyer/supplier contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Live criminal Jerusalem page QA packet
 
 - ADDED: `tools/build-live-criminal-jerusalem-page-qa.mjs`.

@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-CRIMINAL-LAW-PILLAR-SPLIT-DECISION-001: Resolve criminal-law pillar/local-page roles before any public update
+**Status:** FIXED LOCAL / PUBLIC UPDATE STILL BLOCKED
+**Why:** The live Jerusalem criminal page QA showed a structural split: `/criminal-lawyer/` lands on `/practice-areas/criminal-law/`, the central surface is thin, and `/criminal-lawyer-jerusalem/` is already public.
+**Actions:**
+1. DONE: add `tools/build-criminal-law-pillar-split-decision-packet.mjs`.
+2. DONE: generate `.project-control/criminal-law-pillar-split-decision-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/criminal-law-pillar-split-gsc-template-2026-05-27.csv`.
+4. DONE: generate `.project-control/criminal-law-pillar-split-owner-decision-template-2026-05-27.csv`.
+5. DONE: generate `.reports/criminal-law-pillar-split-decision-packet-2026-05-27.json` and `.csv`.
+6. DONE: confirm `CRIMINAL_LAW_PILLAR_SPLIT_DECISION_PACKET_READY_NO_PUBLIC_CHANGE`, 8 route-role rows, 5 decision rows, 40 GSC template rows, 4 owner decision rows and 0 public/CMS/SEO/CRM/contact/payment/email actions.
+7. DONE: record as Linear `HAD-147`, marked Done under `HAD-146`.
+8. NEXT: fill the GSC template and owner decision template to choose the central criminal-law route and decide whether to preserve, revise, consolidate or park `/criminal-lawyer-jerusalem/`.
+9. BLOCKED: do not publish, update, unpublish, redirect, canonical/noindex, sitemap, taxonomy, CMS content, internal links, CRM records, leads, lawyer contacts, invoices, payments, emails, WhatsApp, TalkTo or uPress from this packet alone.
+
 ### ACTION-LIVE-CRIMINAL-JERUSALEM-PAGE-QA-001: QA existing public local criminal page before any update
 **Status:** FIXED LOCAL / PUBLIC UPDATE STILL BLOCKED
 **Why:** `/criminal-lawyer-jerusalem/` already returns live 200 and must be treated as an existing public asset, not a draft seed.

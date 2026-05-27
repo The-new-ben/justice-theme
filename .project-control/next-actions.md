@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-TEL-AVIV-FAMILY-GSC-CACHE-REVIEW-001: Use local GSC cache before requesting focused export
+**Status:** FIXED LOCAL / FOCUSED EXPORT AND PUBLICATION STILL BLOCKED
+**Why:** The Tel Aviv family local draft and overlap review still needed GSC evidence. A local cache exists, so the safest next step was to mine it as preliminary evidence and produce the exact focused export template instead of guessing or publishing.
+**Actions:**
+1. DONE: add `tools/build-tel-aviv-family-gsc-cache-review.mjs`.
+2. DONE: generate `.project-control/tel-aviv-family-gsc-cache-review-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/tel-aviv-family-focused-gsc-export-template-2026-05-27.csv`.
+4. DONE: generate `.reports/tel-aviv-family-gsc-cache-review-2026-05-27.json` and `.csv`.
+5. DONE: confirm `TEL_AVIV_FAMILY_GSC_CACHE_REVIEW_READY_FOCUSED_EXPORT_REQUIRED_NO_PUBLIC_CHANGE`, 3,376 local query-page cache rows, 203 family/divorce cache matches, 0 exact local Tel Aviv divorce-lawyer rows, 84 broad divorce-lawyer rows, 60 focused-export template rows, 4 pass gates, 3 review gates and 0 blocked gates.
+6. DONE: confirm no GSC API/OAuth call and no public/CMS/SEO/CRM/contact/payment/email/uPress approvals.
+7. NEXT: fill the focused export template from GSC for last 16 months and last 90 days, then compare current `/divorce-lawyer/`, private `/divorce-lawyer-tel-aviv/`, protected associated pages and legacy/profile URLs.
+8. BLOCKED: no public route, CMS, title/H1/meta/body/internal link, redirect/canonical/noindex/sitemap/taxonomy, CRM, contact, invoice, payment, email/WhatsApp/TalkTo, wp-admin write or uPress from this cache review alone.
+
 ### ACTION-TEL-AVIV-FAMILY-INTERNAL-OVERLAP-001: Protect existing family/divorce pages before local draft approval
 **Status:** FIXED LOCAL / GSC AND PUBLICATION STILL BLOCKED
 **Why:** The Tel Aviv family local draft packet was ready for private editor review, but publication still needs an explicit anti-cannibalization map of existing family/divorce pages.

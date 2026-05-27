@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Tel Aviv family GSC cache review
+
+- ADDED: `tools/build-tel-aviv-family-gsc-cache-review.mjs`.
+- GENERATED: `.project-control/tel-aviv-family-gsc-cache-review-2026-05-27.md`, `.project-control/tel-aviv-family-gsc-cache-review-2026-05-27.csv`, `.project-control/tel-aviv-family-focused-gsc-export-template-2026-05-27.csv`, `.reports/tel-aviv-family-gsc-cache-review-2026-05-27.json`, `.reports/tel-aviv-family-gsc-cache-review-2026-05-27.csv`.
+- PURPOSE: fill the next Tel Aviv family GSC blocker with preliminary local-cache evidence while keeping focused export, legal/editor and owner approval as hard public blockers.
+- RESULT: `TEL_AVIV_FAMILY_GSC_CACHE_REVIEW_READY_FOCUSED_EXPORT_REQUIRED_NO_PUBLIC_CHANGE`; 3,376 query-page cache rows read, 203 family/divorce matches found, 0 exact Tel Aviv divorce-lawyer rows, 84 broad divorce-lawyer rows, 60 focused-export template rows, 4 pass gates, 3 review gates and 0 blocked gates.
+- SAFETY: private Search Console cache review/reporting only; no GSC API/OAuth call, public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Tel Aviv family internal overlap review
 
 - ADDED: `tools/build-tel-aviv-family-internal-overlap-review.mjs`.

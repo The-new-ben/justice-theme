@@ -22,6 +22,24 @@ function justice_theme_trust_route_request_path(): string {
 }
 
 /**
+ * Return a controlled trust route path for legacy page-id requests.
+ *
+ * This keeps an owner-reported old About URL from becoming a public 404 while
+ * preserving the canonical `/about/` signal emitted by the trust route.
+ *
+ * @return string
+ */
+function justice_theme_trust_route_legacy_query_alias_path(): string {
+	$page_id = isset( $_GET['page_id'] ) ? absint( wp_unslash( $_GET['page_id'] ) ) : 0;
+
+	if ( 315 === $page_id ) {
+		return '/about/';
+	}
+
+	return '';
+}
+
+/**
  * Get route copy and metadata for lightweight trust pages.
  *
  * @param string $path Normalized route path.
@@ -347,13 +365,20 @@ function justice_theme_render_trust_route_page( array $config ): void {
  * cannot beat server/CDN redirects that fire before PHP handles the request.
  */
 function justice_theme_maybe_render_trust_route(): void {
-	$config = justice_theme_get_trust_route_config( justice_theme_trust_route_request_path() );
+	$legacy_alias_path = justice_theme_trust_route_legacy_query_alias_path();
+	$request_path      = $legacy_alias_path ?: justice_theme_trust_route_request_path();
+	$config            = justice_theme_get_trust_route_config( $request_path );
 
 	if ( empty( $config ) ) {
 		return;
 	}
 
 	justice_theme_prepare_trust_route( $config );
+
+	if ( $legacy_alias_path && ! headers_sent() ) {
+		header( 'X-Justice-Route-Alias: page_id-315-about', true );
+	}
+
 	justice_theme_render_trust_route_page( $config );
 	exit;
 }

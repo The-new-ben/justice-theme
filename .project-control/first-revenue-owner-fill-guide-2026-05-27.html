@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>מדריך מילוי ראיות להכנסה ראשונה</title>
+  <style>
+    body { margin: 0; font-family: Arial, "Noto Sans Hebrew", sans-serif; background: #f7f6f2; color: #18201c; }
+    main { max-width: 1120px; margin: 0 auto; padding: 32px 20px 56px; }
+    h1 { font-size: 30px; margin: 0 0 8px; }
+    h2 { font-size: 20px; margin-top: 28px; }
+    p, li { line-height: 1.65; }
+    .status { display: inline-block; padding: 6px 10px; background: #fff1d6; border: 1px solid #e0b45a; border-radius: 6px; font-weight: 700; }
+    table { width: 100%; border-collapse: collapse; margin-top: 12px; background: #fff; }
+    th, td { border: 1px solid #ddd6c7; padding: 10px; text-align: right; vertical-align: top; }
+    th { background: #eee7d8; }
+    code { direction: ltr; unicode-bidi: plaintext; background: #f1f3f2; padding: 2px 5px; border-radius: 4px; }
+    .note { background: #fff; border-right: 4px solid #2d6a4f; padding: 12px 14px; margin: 16px 0; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>מדריך מילוי ראיות להכנסה ראשונה</h1>
+  <p class="status">FIRST_REVENUE_OWNER_FILL_GUIDE_READY_NO_LIVE_ACTION</p>
+  <div class="note">פנימי בלבד: המדריך לא מפרסם עמוד, לא יוצר ליד, לא שולח הודעה, לא יוצר חשבונית או תשלום, ולא מאשר פעולה חיה.</div>
+  <h2>מה לעשות עכשיו</h2>
+  <ol>
+    <li>לפתוח את קובץ המילוי: <code>.project-control/first-revenue-owner-evidence-kit-owner-fill-2026-05-27.csv</code>.</li>
+    <li>להתחיל בשלוש השורות הראשונות בלבד: שורה אחת לכל מסלול הכנסה.</li>
+    <li>למלא <code>pass</code> ו-<code>yes</code> רק אחרי בדיקה פרטית אמיתית, ולהשאיר פעולה חיה על <code>no</code>.</li>
+    <li>לא להכניס שמות, טלפונים, מיילים, כתובות URL, פרטי לקוחות, מספרי תיקים או סודות.</li>
+  </ol>
+  <h2>שלוש שורות להתחלה</h2>
+  <table><thead><tr><th>מסלול</th><th>שורה</th><th>פעולה</th><th>מה צריך להוכיח</th><th>pointer בטוח</th><th>סטטוס נוכחי</th></tr></thead><tbody>
+        <tr>
+          <td>ביטוח לאומי: ליד ראשון בתשלום</td>
+          <td>1</td>
+          <td>לאמת שלושה מומחי ביטוח לאומי פרטיים</td>
+          <td>להתחיל רק בשורת המומחה הראשונה: לאמת שיש גורם פרטי מתאים, בלי שם, טלפון, מייל או קישור בקובץ.</td>
+          <td><code>btl-private-admin-row-01-01</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+        </tr>
+        <tr>
+          <td>מנוי עורך דין: בדיקה בתשלום או חשבונית ידנית</td>
+          <td>1</td>
+          <td>לאשר זהות בדיקה נשלטת</td>
+          <td>להתחיל רק בזהות הבדיקה: לאשר שהבעלים יודע מי עורך הדין/משתמש הבדיקה, בלי להכניס פרטי קשר לקובץ.</td>
+          <td><code>lawyer-test-private-row-01-01</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+        </tr>
+        <tr>
+          <td>כיסוי פלילי בירושלים: ספק/עורך דין לפני פרסום</td>
+          <td>1</td>
+          <td>לבחור מועמד פרטי אחד לעורך דין פלילי בירושלים</td>
+          <td>להתחיל רק במועמד אחד: לסמן שיש מועמד פרטי לבדיקה, בלי שם, טלפון, מייל או כתובת אתר בקובץ.</td>
+          <td><code>criminal-jlm-private-row-01-01</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+        </tr></tbody></table>
+  <h2>איך למלא עמודות</h2>
+  <table><thead><tr><th>עמודה</th><th>למלא כך</th><th>לא למלא כך</th></tr></thead><tbody>
+        <tr>
+          <td><code>private_admin_pointer_no_pii</code></td>
+          <td>מזהה פנימי בלבד, למשל admin-row-1 או btl-private-admin-row-01.</td>
+          <td>לא שם אדם, לא טלפון, לא מייל, לא URL, לא מספר תיק, לא סוד API.</td>
+        </tr>
+        <tr>
+          <td><code>status</code></td>
+          <td>pass רק אם הבעלים/מנהל באמת בדק את הראיה הפרטית. אחרת להשאיר not_started או blocked.</td>
+          <td>לא לסמן pass כדי להתקדם מהר. pass בלי ראיה ייחסם בהמשך.</td>
+        </tr>
+        <tr>
+          <td><code>owner_verified_yes_no</code></td>
+          <td>yes רק אם הבעלים/מנהל אישר שהראיה נבדקה.</td>
+          <td>לא yes אם רק יש הנחה או זיכרון כללי.</td>
+        </tr>
+        <tr>
+          <td><code>proof_present_yes_no</code></td>
+          <td>yes רק אם קיימת ראיה פרטית במקום אחר: wp-admin, CRM, חשבונית, צילום מסך פרטי או מסמך פנימי.</td>
+          <td>לא להדביק את הראיה עצמה לקובץ הזה.</td>
+        </tr>
+        <tr>
+          <td><code>no_pii_confirmed_yes_no</code></td>
+          <td>yes רק אחרי בדיקה שאין בקובץ הזה פרטים מזהים.</td>
+          <td>לא להשאיר yes אם הוכנסו פרטי קשר, URL או פרטי לקוח.</td>
+        </tr>
+        <tr>
+          <td><code>live_or_public_action_approved</code></td>
+          <td>להשאיר no. פעולה חיה דורשת אישור בעלים נפרד אחרי שהבדיקה עוברת.</td>
+          <td>לא להשתמש בעמודה הזו כדי לאשר פנייה, תשלום, פרסום או שינוי ציבורי.</td>
+        </tr>
+        <tr>
+          <td><code>owner_note_no_pii</code></td>
+          <td>הערה קצרה ללא פרטים מזהים, למשל &quot;נבדק מול wp-admin&quot; או &quot;חסר אישור תשלום&quot;.</td>
+          <td>לא להכניס שמות, מספרים, מיילים, טלפונים, קישורים או פרטי תיק.</td>
+        </tr></tbody></table>
+  <h2>כל שורות הבדיקה</h2>
+  <table><thead><tr><th>מסלול</th><th>שורה</th><th>action_id</th><th>סטטוס נוכחי</th><th>pointer מוצע</th></tr></thead><tbody>
+        <tr>
+          <td>ביטוח לאומי: ליד ראשון בתשלום</td>
+          <td>1</td>
+          <td><code>BTL-ACTION-01</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>btl-private-admin-row-01-01</code></td>
+        </tr>
+        <tr>
+          <td>ביטוח לאומי: ליד ראשון בתשלום</td>
+          <td>2</td>
+          <td><code>BTL-ACTION-02</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>btl-private-admin-row-01-02</code></td>
+        </tr>
+        <tr>
+          <td>ביטוח לאומי: ליד ראשון בתשלום</td>
+          <td>3</td>
+          <td><code>BTL-ACTION-03</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>btl-private-admin-row-01-03</code></td>
+        </tr>
+        <tr>
+          <td>ביטוח לאומי: ליד ראשון בתשלום</td>
+          <td>4</td>
+          <td><code>BTL-ACTION-04</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>btl-private-admin-row-01-04</code></td>
+        </tr>
+        <tr>
+          <td>ביטוח לאומי: ליד ראשון בתשלום</td>
+          <td>5</td>
+          <td><code>BTL-ACTION-05</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>btl-private-admin-row-01-05</code></td>
+        </tr>
+        <tr>
+          <td>ביטוח לאומי: ליד ראשון בתשלום</td>
+          <td>6</td>
+          <td><code>BTL-ACTION-06</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>btl-private-admin-row-01-06</code></td>
+        </tr>
+        <tr>
+          <td>מנוי עורך דין: בדיקה בתשלום או חשבונית ידנית</td>
+          <td>1</td>
+          <td><code>LAW-SUB-ACTION-01</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>lawyer-test-private-row-01-01</code></td>
+        </tr>
+        <tr>
+          <td>מנוי עורך דין: בדיקה בתשלום או חשבונית ידנית</td>
+          <td>2</td>
+          <td><code>LAW-SUB-ACTION-02</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>lawyer-test-private-row-01-02</code></td>
+        </tr>
+        <tr>
+          <td>מנוי עורך דין: בדיקה בתשלום או חשבונית ידנית</td>
+          <td>3</td>
+          <td><code>LAW-SUB-ACTION-03</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>lawyer-test-private-row-01-03</code></td>
+        </tr>
+        <tr>
+          <td>מנוי עורך דין: בדיקה בתשלום או חשבונית ידנית</td>
+          <td>4</td>
+          <td><code>LAW-SUB-ACTION-04</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>lawyer-test-private-row-01-04</code></td>
+        </tr>
+        <tr>
+          <td>מנוי עורך דין: בדיקה בתשלום או חשבונית ידנית</td>
+          <td>5</td>
+          <td><code>LAW-SUB-ACTION-05</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>lawyer-test-private-row-01-05</code></td>
+        </tr>
+        <tr>
+          <td>מנוי עורך דין: בדיקה בתשלום או חשבונית ידנית</td>
+          <td>6</td>
+          <td><code>LAW-SUB-ACTION-06</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>lawyer-test-private-row-01-06</code></td>
+        </tr>
+        <tr>
+          <td>כיסוי פלילי בירושלים: ספק/עורך דין לפני פרסום</td>
+          <td>1</td>
+          <td><code>CJ-OWNER-ACTION-01</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>criminal-jlm-private-row-01-01</code></td>
+        </tr>
+        <tr>
+          <td>כיסוי פלילי בירושלים: ספק/עורך דין לפני פרסום</td>
+          <td>2</td>
+          <td><code>CJ-OWNER-ACTION-02</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>criminal-jlm-private-row-01-02</code></td>
+        </tr>
+        <tr>
+          <td>כיסוי פלילי בירושלים: ספק/עורך דין לפני פרסום</td>
+          <td>3</td>
+          <td><code>CJ-OWNER-ACTION-03</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>criminal-jlm-private-row-01-03</code></td>
+        </tr>
+        <tr>
+          <td>כיסוי פלילי בירושלים: ספק/עורך דין לפני פרסום</td>
+          <td>4</td>
+          <td><code>CJ-OWNER-ACTION-04</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>criminal-jlm-private-row-01-04</code></td>
+        </tr>
+        <tr>
+          <td>כיסוי פלילי בירושלים: ספק/עורך דין לפני פרסום</td>
+          <td>5</td>
+          <td><code>CJ-OWNER-ACTION-05</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>criminal-jlm-private-row-01-05</code></td>
+        </tr>
+        <tr>
+          <td>כיסוי פלילי בירושלים: ספק/עורך דין לפני פרסום</td>
+          <td>6</td>
+          <td><code>CJ-OWNER-ACTION-06</code></td>
+          <td>BLOCKED_STATUS_NOT_PASS</td>
+          <td><code>criminal-jlm-private-row-01-06</code></td>
+        </tr></tbody></table>
+  <h2>שערי בטיחות</h2>
+  <table><thead><tr><th>ID</th><th>Gate</th><th>Status</th><th>Evidence</th></tr></thead><tbody>
+        <tr>
+          <td><code>FR-FILL-GUIDE-GATE-01</code></td>
+          <td>source_review_loaded</td>
+          <td>PASS</td>
+          <td>Source review status: FIRST_REVENUE_OWNER_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION.</td>
+        </tr>
+        <tr>
+          <td><code>FR-FILL-GUIDE-GATE-02</code></td>
+          <td>owner_fill_csv_available</td>
+          <td>PASS</td>
+          <td>18/18 owner-fill rows available.</td>
+        </tr>
+        <tr>
+          <td><code>FR-FILL-GUIDE-GATE-03</code></td>
+          <td>guide_rows_created</td>
+          <td>PASS</td>
+          <td>18/18 guide rows created.</td>
+        </tr>
+        <tr>
+          <td><code>FR-FILL-GUIDE-GATE-04</code></td>
+          <td>no_live_action_from_guide</td>
+          <td>PASS</td>
+          <td>The guide only explains private fill values; it approves 0 live/public/payment/email/uPress actions.</td>
+        </tr></tbody></table>
+</main>
+</body>
+</html>

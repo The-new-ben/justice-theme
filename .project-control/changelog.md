@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - First revenue owner fill guide
+
+- ADDED: `tools/build-first-revenue-owner-fill-guide.mjs`.
+- GENERATED: `.project-control/first-revenue-owner-fill-guide-2026-05-27.md`, `.project-control/first-revenue-owner-fill-guide-2026-05-27.html`, `.project-control/first-revenue-owner-fill-guide-2026-05-27.csv`, `.reports/first-revenue-owner-fill-guide-2026-05-27.json` and `.reports/first-revenue-owner-fill-guide-2026-05-27.csv`.
+- PURPOSE: give the owner/admin a Hebrew no-PII fill guide for the combined first-revenue evidence CSV, with exactly three first rows to fill before trying to clear all 18 blockers.
+- RESULT: `FIRST_REVENUE_OWNER_FILL_GUIDE_READY_NO_LIVE_ACTION`; 18 guide rows, 3 first rows to fill, 42% readiness to profit and 0 live/public/payment/email/uPress approvals.
+- SAFETY: private guide only; no owner evidence fill, paid LLM API, external API, public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - First revenue owner evidence review gate
 
 - ADDED: `tools/review-first-revenue-owner-evidence-kit.mjs`.

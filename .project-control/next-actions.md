@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-FIRST-REVENUE-OWNER-FILL-GUIDE-001: Fill the first three private revenue evidence rows
+**Status:** FIXED LOCAL / WAITING FOR OWNER ADMIN FILL
+**Why:** The first-revenue reviewer showed 18 blocked rows. The owner/admin needs a simple Hebrew guide that says exactly which three rows to fill first, without exposing private names, phone numbers, emails, URLs or client details.
+**Actions:**
+1. DONE: add `tools/build-first-revenue-owner-fill-guide.mjs`.
+2. DONE: generate `.project-control/first-revenue-owner-fill-guide-2026-05-27.md`, `.html` and `.csv`.
+3. DONE: generate `.reports/first-revenue-owner-fill-guide-2026-05-27.json` and `.csv`.
+4. DONE: confirm status `FIRST_REVENUE_OWNER_FILL_GUIDE_READY_NO_LIVE_ACTION`, 18 guide rows, 3 first rows to fill, 42% readiness to profit and 0 public/live/payment/email/uPress approvals.
+5. DONE: scan generated guide/report for URL, email, phone and common secret-token patterns; no matches found.
+6. NEXT: owner/admin opens `.project-control/first-revenue-owner-fill-guide-2026-05-27.html` and fills the first three rows in `.project-control/first-revenue-owner-evidence-kit-owner-fill-2026-05-27.csv` using safe private pointers only.
+7. NEXT AFTER FILL: rerun `tools/review-first-revenue-owner-evidence-kit.mjs` with the filled no-PII CSV.
+8. BLOCKED: no live handoff, CRM creation/edit, lawyer/client/supplier contact, invoice, payment, paid status, revenue claim, email/WhatsApp/TalkTo, public page/CMS/SEO change, paid LLM API, external API, wp-admin write or uPress from this private guide.
+
 ### ACTION-FIRST-REVENUE-EVIDENCE-REVIEW-001: Review combined owner-filled first-revenue evidence
 **Status:** FIXED LOCAL / WAITING FOR OWNER ADMIN FILL
 **Why:** The owner asked why there is no revenue, customers or suppliers yet. The combined first-revenue kit now needs a deterministic reviewer that scores the top three revenue lanes together without echoing private values or claiming revenue.

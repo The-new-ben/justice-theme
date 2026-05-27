@@ -1,0 +1,2 @@
+reportDate,sourceDate,status,ownerFillRows,guideRows,firstRowsToFill,liveActionApproved,publicActionApproved,invoicesOrPaymentsCreated,emailsOrMessagesSent,upressDeploymentRequired,readinessToProfitPercent,revenueCanBeClaimed
+2026-05-27,2026-05-27,FIRST_REVENUE_OWNER_FILL_GUIDE_READY_NO_LIVE_ACTION,18,18,3,0,0,0,0,false,42,false

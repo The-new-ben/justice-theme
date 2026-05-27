@@ -21,6 +21,8 @@ get_header();
 
 <?php get_template_part( 'template-parts/sections/homepage-legal-help-router' ); ?>
 
+<?php get_template_part( 'template-parts/sections/homepage-lawyer-revenue-strip' ); ?>
+
 <?php get_template_part( 'template-parts/sections/homepage-intent-pyramid' ); ?>
 
 <?php get_template_part( 'template-parts/sections/practice-areas-grid' ); ?>

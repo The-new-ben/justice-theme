@@ -1445,6 +1445,137 @@
   }
 }
 
+/* Public-first legal help router */
+.homepage-legal-help-router {
+  background: #fff;
+}
+
+.homepage-legal-help-router .section-header__desc {
+  max-width: 760px;
+}
+
+.homepage-legal-help-router__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.legal-help-route-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  min-height: 100%;
+  padding: 1.25rem;
+  border: 1px solid var(--jt-border, #e5e7eb);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 8px 28px rgba(7,21,47,0.05);
+}
+
+.legal-help-route-card__kicker {
+  align-self: flex-start;
+  margin: 0;
+  padding: 0.16rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(178,58,72,0.08);
+  color: var(--jt-accent-red, #b23a48);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.legal-help-route-card h3 {
+  margin: 0;
+  font-size: 1.08rem;
+  line-height: 1.35;
+}
+
+.legal-help-route-card p:not(.legal-help-route-card__kicker) {
+  margin: 0;
+  color: var(--jt-muted, #667085);
+  font-size: 0.94rem;
+  line-height: 1.75;
+}
+
+.legal-help-route-card ul {
+  display: grid;
+  gap: 0.45rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.legal-help-route-card li {
+  position: relative;
+  padding-inline-start: 1rem;
+  color: var(--jt-primary-deep, #07152f);
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.legal-help-route-card li::before {
+  content: "";
+  position: absolute;
+  inset-inline-start: 0;
+  top: 0.72em;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--jt-accent-red, #b23a48);
+}
+
+.legal-help-route-card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: auto;
+}
+
+.legal-help-route-card__actions .button {
+  min-height: 2.7rem;
+  padding: 0.62rem 0.9rem;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.homepage-legal-help-router__note {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.65rem;
+  margin-top: 1rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid rgba(7,21,47,0.1);
+  border-radius: 8px;
+  background: var(--jt-bg, #f7f8fb);
+  color: var(--jt-primary-deep, #07152f);
+}
+
+.homepage-legal-help-router__note span {
+  flex: 1 1 420px;
+  color: var(--jt-muted, #667085);
+  line-height: 1.6;
+}
+
+.homepage-legal-help-router__note a {
+  font-weight: 850;
+}
+
+@media (max-width: 980px) {
+  .homepage-legal-help-router__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .homepage-legal-help-router__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .legal-help-route-card__actions .button {
+    width: 100%;
+  }
+}
+
 /* Bituach Leumi appeal funnel. */
 .btl-appeal-hero {
   background: linear-gradient(135deg, #07152f 0%, #10264a 58%, #203b6a 100%);

@@ -52,16 +52,16 @@ $hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
 
 $hero_market_signals = array(
 	array(
-		'label' => __( 'חיפוש לפי תחום ועיר', 'justice-theme' ),
-		'text'  => __( 'מתחילים מהבעיה המשפטית ומהמיקום, ואז עוברים לפרופילים רלוונטיים.', 'justice-theme' ),
+		'label' => __( 'מתחילים מהמצב שלכם', 'justice-theme' ),
+		'text'  => __( 'בחרו תחום, עיר או מילת חיפוש וקבלו כיוון ראשוני למדריך, לפרופילים או לפנייה מסודרת.', 'justice-theme' ),
 	),
 	array(
-		'label' => __( 'פרופיל לפני פנייה', 'justice-theme' ),
-		'text'  => __( 'בודקים תחומי עיסוק, אזורי שירות, תוכן מקצועי ופרטי קשר שאושרו להצגה.', 'justice-theme' ),
+		'label' => __( 'מבינים לפני שמתקשרים', 'justice-theme' ),
+		'text'  => __( 'קוראים הסברים, מסמכים שכדאי להכין ושאלות שחשוב לשאול לפני בחירת איש מקצוע.', 'justice-theme' ),
 	),
 	array(
-		'label' => __( 'תוכן שמסביר החלטה', 'justice-theme' ),
-		'text'  => __( 'קוראים מדריכים, שאלות נפוצות ומסלולי פעולה לפני שליחת פנייה מסודרת.', 'justice-theme' ),
+		'label' => __( 'פונים בצורה מסודרת', 'justice-theme' ),
+		'text'  => __( 'כשצריך עורך דין, עוברים לפרופילים לפי תחום ועיר או משאירים פנייה עם תיאור קצר וברור.', 'justice-theme' ),
 	),
 );
 ?>
@@ -70,11 +70,11 @@ $hero_market_signals = array(
 	<div class="container hero__grid">
 		<div class="hero__content">
 			<h1 class="hero__title">
-				<?php esc_html_e( 'עורכי דין בישראל — מאגר עורכי דין, מאמרים משפטיים ומדריכים מקצועיים', 'justice-theme' ); ?>
+				<?php esc_html_e( 'צריכים עזרה משפטית? התחילו מהבעיה, העיר והצעד הבא', 'justice-theme' ); ?>
 			</h1>
 
 			<p class="hero__description">
-				<?php esc_html_e( 'מחפשים עורך דין? התחילו מחיפוש לפי תחום משפטי, עיר או שם עורך דין. Jus-Tice מרכז מידע משפטי, מדריכים ופרופילים של עורכי דין כדי לעזור לכם להבין את האפשרויות ולפנות בצורה מסודרת. אין באתר הבטחה לתוצאה, דירוג מקצועי או ייעוץ משפטי אישי.', 'justice-theme' ); ?>
+				<?php esc_html_e( 'Jus-Tice עוזר לכם לעשות סדר כשיש שאלה משפטית, מכתב מלחיץ, סכסוך, פגיעה, חקירה או החלטה כלכלית חשובה. אפשר להתחיל בחיפוש לפי תחום ועיר, לקרוא מדריכים בשפה ברורה, להבין אילו מסמכים להכין, ואז לפנות לעורך דין מתאים בצורה שקולה יותר. המידע באתר כללי ואינו ייעוץ משפטי אישי או הבטחה לתוצאה.', 'justice-theme' ); ?>
 			</p>
 
 			<form class="hero-search" role="search" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ); ?>" id="hero-search-form">
@@ -119,7 +119,7 @@ $hero_market_signals = array(
 						id="hero-search-input"
 						type="search"
 						name="keyword"
-						placeholder="<?php echo esc_attr__( 'חפשו עורך דין או תחום משפטי...', 'justice-theme' ); ?>"
+						placeholder="<?php echo esc_attr__( 'לדוגמה: חקירה במשטרה, גירושין, תאונת עבודה...', 'justice-theme' ); ?>"
 						value=""
 					>
 					<button type="submit" class="button button--primary">

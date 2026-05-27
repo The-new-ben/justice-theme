@@ -14,20 +14,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $intake_cards = array(
 	array(
-		'label'       => __( 'אני צריך עורך דין עכשיו', 'justice-theme' ),
-		'description' => __( 'השאירו פרטים ותיאור קצר. הפנייה תיבדק לפי תחום, עיר ודחיפות כדי שנוכל לכוון אותה בצורה מסודרת.', 'justice-theme' ),
+		'label'       => __( 'יש לי בעיה דחופה ואני לא יודע מאיפה להתחיל', 'justice-theme' ),
+		'description' => __( 'כתבו בקצרה מה קרה, באיזו עיר מדובר והאם יש מועד קרוב כמו דיון, שימוע, חקירה, תשלום או מכתב אזהרה. כך קל יותר להבין אם צריך מדריך, עורך דין או בדיקה נוספת לפני פעולה.', 'justice-theme' ),
 		'url'         => '#ask-lawyer',
 		'action'      => __( 'שליחת פנייה', 'justice-theme' ),
 	),
 	array(
-		'label'       => __( 'אני רוצה להבין את התחום', 'justice-theme' ),
-		'description' => __( 'עברו למדריכים לפי נושא משפטי לפני פנייה לעורך דין: משפחה, פלילי, מקרקעין, עבודה, נזיקין ועוד.', 'justice-theme' ),
+		'label'       => __( 'אני רוצה להבין את הזכויות והאפשרויות שלי', 'justice-theme' ),
+		'description' => __( 'עברו למדריכים לפי נושא משפטי וקראו מה בדרך כלל בודקים, אילו מסמכים מכינים, מה עלול להיות דחוף ואילו שאלות כדאי לשאול לפני שמשלמים על ייעוץ או ייצוג.', 'justice-theme' ),
 		'url'         => home_url( '/articles/' ),
 		'action'      => __( 'קריאת מדריכים', 'justice-theme' ),
 	),
 	array(
-		'label'       => __( 'אני רוצה להשוות עורכי דין', 'justice-theme' ),
-		'description' => __( 'חפשו לפי תחום ועיר, בדקו פרופיל, פרטי קשר ותוכן מקצועי, ואז פנו רק למי שנראה מתאים למקרה שלכם.', 'justice-theme' ),
+		'label'       => __( 'אני מוכן להשוות עורכי דין בצורה מסודרת', 'justice-theme' ),
+		'description' => __( 'חפשו לפי תחום ועיר, קראו פרופילים ותוכן מקצועי, בדקו התאמה לשאלה שלכם, ואז פנו רק למי שנראה רלוונטי. אין צורך להתחייב לפני שמבינים את המסלול והעלות.', 'justice-theme' ),
 		'url'         => home_url( '/lawyers/' ),
 		'action'      => __( 'חיפוש עורכי דין', 'justice-theme' ),
 	),
@@ -38,8 +38,8 @@ $intake_cards = array(
 	<div class="container">
 		<div class="customer-intake-strip__header">
 			<p class="section-header__eyebrow"><?php esc_html_e( 'מסלול מהיר ללקוח', 'justice-theme' ); ?></p>
-			<h2 id="customer-intake-title"><?php esc_html_e( 'שלושה צעדים פשוטים כדי להתקדם נכון', 'justice-theme' ); ?></h2>
-			<p><?php esc_html_e( 'האתר לא מחליף ייעוץ משפטי, אבל הוא כן עוזר לכם להגיע מהר יותר למידע, לפרופילים ולפנייה מסודרת.', 'justice-theme' ); ?></p>
+			<h2 id="customer-intake-title"><?php esc_html_e( 'שלושה מסלולים ברורים לפי רמת הדחיפות שלכם', 'justice-theme' ); ?></h2>
+			<p><?php esc_html_e( 'לא כל שאלה משפטית מתחילה באותו מקום. לפעמים צריך לקרוא ולהבין, לפעמים להשוות עורכי דין, ולפעמים להשאיר פנייה קצרה כדי שמישהו יבחן לאיזה תחום הבעיה שייכת.', 'justice-theme' ); ?></p>
 		</div>
 
 		<div class="customer-intake-strip__grid">

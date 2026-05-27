@@ -1,0 +1,4 @@
+unblock_id,lane,owner_decision,accepted_values,first_private_evidence_location_no_pii,live_action_approved,public_action_approved,payment_or_invoice_approved,owner_note_no_pii
+UNBLOCK-01,btl_first_paid_lead,,approve_fill / park / reject / needs_more_evidence,,no,no,no,
+UNBLOCK-02,lawyer_subscription_paid_test,,approve_fill / park / reject / needs_more_evidence,,no,no,no,
+UNBLOCK-08,criminal_jerusalem_supplier_coverage,,approve_fill / park / reject / needs_more_evidence,,no,no,no,

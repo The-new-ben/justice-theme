@@ -1,0 +1,2 @@
+reportDate,sourceDate,status,laneCount,combinedOwnerFillRows,staticPreparationAveragePercent,liveProfitProofPercent,readinessToProfitPercent,revenueCanBeClaimed,wpAdminWritesApproved,crmRecordsCreated,leadLawyerSupplierContactActions,invoicesOrPaymentsCreated,emailsOrMessagesSent,publicChangesApproved,seoSettingsChanged,upressDeploymentRequired
+2026-05-27,2026-05-27,FIRST_REVENUE_OWNER_EVIDENCE_KIT_READY_NO_LIVE_ACTION,3,18,70,0,40,false,0,0,0,0,0,0,0,false

@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-HOMEPAGE-HUMAN-HELP-LOCAL-IMPLEMENTATION-001: QA local homepage improvement before deployment approval
+**Status:** FIXED LOCAL / WAITING FOR VISUAL QA AND OWNER DEPLOYMENT APPROVAL
+**Why:** The owner asked for a better homepage that speaks to the public first, uses competitor learning, adds more human words and keeps lawyers as a side path. The packet is now translated into local theme code.
+**Actions:**
+1. DONE: add a four-step first-ten-minutes strip below the hero search form.
+2. DONE: add a situation router for visitors who do not know the legal category name.
+3. DONE: add longer human guidance to each main homepage intent card: what to prepare and when to seek fast lawyer help.
+4. DONE: add a plain trust/legal-safety note at the end of the intent section.
+5. DONE: update CSS for desktop and mobile responsive layouts.
+6. DONE: run PHP lint on changed templates and confirm selectors/content exist.
+7. NEXT: run browser/visual QA against an available local or staging WordPress page, then request owner deployment approval before any uPress pull.
+8. BLOCKED: no live deployment, public CMS write, route/SEO setting change, guide-content change, CRM action, payment action, external message or uPress pull is allowed until owner approves.
+
 ### ACTION-HOMEPAGE-COMPETITOR-HUMAN-PACKET-001: Owner chooses homepage improvement rows to implement
 **Status:** FIXED LOCAL / WAITING FOR OWNER APPROVAL TO IMPLEMENT
 **Why:** The owner asked why the site does not yet look good enough and asked for competitor-informed homepage improvement plus a Lovable-style design prompt. The safe step is a private packet first, not a public CMS edit.

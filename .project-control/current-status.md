@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-27 14:35 Asia/Jerusalem
+- HOMEPAGE HUMAN HELP IMPLEMENTATION PREPARED LOCALLY: implemented the safe homepage rows from the competitor packet in local theme code, without publishing to public CMS or running uPress.
+- CODE UPDATED: `template-parts/sections/hero.php`, `template-parts/sections/homepage-intent-pyramid.php` and `assets/css/premium-pass-4.css`.
+- LOCAL CHANGE: the hero now includes a public-first "what to do in the first ten minutes" strip under the search form; the homepage intent section now includes a situation-based router for visitors who do not know the legal category name; every main intent card now includes longer human guidance for what to prepare and when to seek faster lawyer help; a plain legal-safety trust note was added below the section.
+- CHECK RESULT: `php -l template-parts/sections/hero.php` passed; `php -l template-parts/sections/homepage-intent-pyramid.php` passed; `rg` confirmed the new selectors and Hebrew content exist. No `find-lawyer-guide` edits were made.
+- REVIEW RESULT: this materially advances the owner's homepage request from an internal packet to local code, while keeping the public audience first and lawyer revenue paths secondary. The choosing-lawyer guide content remains unchanged.
+- PUBLIC/LIVE IMPACT: no public CMS/database content, live site, route, choosing-lawyer guide content, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting, paid LLM API or uPress pull changed.
+- COMPLETION ASSESSMENT: local homepage implementation prep 70%; visual/browser QA and owner approval for deployment remain blocked; live profit impact remains 0% until deployment and conversion are verified.
+
 # LATEST WORK STATUS - 2026-05-27 14:25 Asia/Jerusalem
 - HOMEPAGE COMPETITOR HUMAN IMPROVEMENT PACKET ADDED: prepared a private homepage improvement packet based on competitor review and legaltech transfer rules, focused on public legal help first and lawyer monetization as a secondary side path.
 - CODE ADDED: `tools/build-homepage-competitor-human-improvement-packet.mjs`.

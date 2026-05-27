@@ -175,6 +175,66 @@ $home_intent_links = array(
 		),
 	),
 );
+
+$home_situation_routes = array(
+	array(
+		'title' => __( 'קיבלתם מכתב או דרישת תשלום', 'justice-theme' ),
+		'text'  => __( 'התחילו מהתאריך האחרון לתגובה, מי שלח את המסמך ומה מבקשים מכם לעשות.', 'justice-theme' ),
+		'url'   => home_url( '/lawyers/' ),
+	),
+	array(
+		'title' => __( 'זומנתם לחקירה או להליך פלילי', 'justice-theme' ),
+		'text'  => __( 'רשמו מי הזמין, מתי, באיזה נושא, והימנעו מניחושים לפני שמבינים את הזכויות.', 'justice-theme' ),
+		'url'   => justice_theme_safe_public_link( '/criminal-defense-attorney/', '/lawyers/?area=criminal-law' ),
+	),
+	array(
+		'title' => __( 'יש בעיה בעבודה', 'justice-theme' ),
+		'text'  => __( 'אספו תלושי שכר, חוזה, זימון לשימוע, הודעות ומועדים לפני פנייה מסודרת.', 'justice-theme' ),
+		'url'   => home_url( '/lawyers/?area=labor-law' ),
+	),
+	array(
+		'title' => __( 'המשפחה או הזוגיות הסתבכו', 'justice-theme' ),
+		'text'  => __( 'כתבו מה דחוף עכשיו: ילדים, מזונות, רכוש, צוואה, אלימות או הסכם שצריך לבדוק.', 'justice-theme' ),
+		'url'   => justice_theme_safe_public_link( '/divorce-lawyer/', '/family-law/' ),
+	),
+	array(
+		'title' => __( 'חוב, עיקול או הוצאה לפועל', 'justice-theme' ),
+		'text'  => __( 'בדקו מספר תיק, סכום, מועד אחרון ומי פתח את ההליך לפני בחירת מסלול טיפול.', 'justice-theme' ),
+		'url'   => home_url( '/lawyers/?area=debt-collection' ),
+	),
+	array(
+		'title' => __( 'פציעה, ביטוח או ביטוח לאומי', 'justice-theme' ),
+		'text'  => __( 'שמרו אישורים רפואיים, תאריכים, תלושי שכר והודעות מהמוסד או מחברת הביטוח.', 'justice-theme' ),
+		'url'   => home_url( '/lawyers/?area=personal-injury-law' ),
+	),
+);
+
+$home_intent_prepare_notes = array(
+	'criminal-law'            => array(
+		'prepare'      => __( 'לפני שיחה, רשמו מי פנה אליכם, באיזה נושא, האם נמסר זימון, והאם כבר נאמרו דברים לחוקר או לצד אחר.', 'justice-theme' ),
+		'when_to_call' => __( 'אם יש חקירה, מעצר, צו, כתב אישום או חשש לפגיעה בזכויות, כדאי לפנות מהר ולא להסתפק בקריאה כללית.', 'justice-theme' ),
+	),
+	'family-law'              => array(
+		'prepare'      => __( 'כדאי להכין תאריכים מרכזיים, פרטי ילדים, הסכמים קיימים, מסמכי רכוש והחלטות קודמות אם יש.', 'justice-theme' ),
+		'when_to_call' => __( 'אם יש אלימות, חשש להברחת רכוש, שינוי חד במשמורת או הליך שכבר נפתח, רצוי לבדוק ייעוץ אישי בהקדם.', 'justice-theme' ),
+	),
+	'real-estate-law'         => array(
+		'prepare'      => __( 'אספו טיוטת חוזה, נסח טאבו, פרטי נכס, לוחות זמנים, תשלומים שכבר נקבעו ושאלות על מס או רישום.', 'justice-theme' ),
+		'when_to_call' => __( 'לפני חתימה, העברת כסף, התחייבות לקבלן או טיפול בליקוי משמעותי, עדיף לעצור ולבדוק את המסמכים.', 'justice-theme' ),
+	),
+	'medical-malpractice-law' => array(
+		'prepare'      => __( 'שמרו סיכומי ביקור, תוצאות בדיקות, מכתבי שחרור, צילומים, תאריכים ושמות מוסדות טיפוליים.', 'justice-theme' ),
+		'when_to_call' => __( 'אם נגרם נזק מתמשך או יש חשד לאבחון שגוי, איחור בטיפול או הסבר חסר, כדאי לבדוק מסלול מקצועי.', 'justice-theme' ),
+	),
+	'labor-law'               => array(
+		'prepare'      => __( 'הכינו תלושי שכר, חוזה, הודעות מהמעסיק, זימון לשימוע, רישום שעות וכל מסמך על פיטורים או זכויות.', 'justice-theme' ),
+		'when_to_call' => __( 'אם יש שימוע קרוב, פיטורים, אי תשלום, הרעה בתנאים או לחץ לחתום, אל תחכו לסוף התהליך.', 'justice-theme' ),
+	),
+	'personal-injury-law'     => array(
+		'prepare'      => __( 'שמרו אישורים רפואיים, תמונות, פרטי עדים, דיווח למשטרה או למעסיק, ומכתבים מביטוח לאומי או חברת ביטוח.', 'justice-theme' ),
+		'when_to_call' => __( 'אם יש נכות, אובדן הכנסה, סירוב ביטוח או מועד להגשת תביעה, כדאי לקבל הכוונה לפני מילוי טפסים.', 'justice-theme' ),
+	),
+);
 ?>
 
 <section class="homepage-intent-pyramid section" id="homepage-intent-pyramid" aria-labelledby="homepage-intent-pyramid-title">
@@ -189,6 +249,22 @@ $home_intent_links = array(
 			<a class="section-header__link button button--primary" href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>"><?php esc_html_e( 'חיפוש עורכי דין', 'justice-theme' ); ?></a>
 		</div>
 
+		<div class="homepage-situation-router" aria-label="<?php esc_attr_e( 'בחירה לפי מצב משפטי', 'justice-theme' ); ?>">
+			<div class="homepage-situation-router__intro">
+				<p class="section-header__eyebrow"><?php esc_html_e( 'לא חייבים לדעת את שם התחום', 'justice-theme' ); ?></p>
+				<h3><?php esc_html_e( 'בחרו לפי מה שקרה לכם עכשיו', 'justice-theme' ); ?></h3>
+				<p><?php esc_html_e( 'אנשים רבים מגיעים עם מכתב, זימון, חוב, פציעה או סכסוך ולא עם הגדרה משפטית. התחילו מהמצב, קראו מה להכין, ואז החליטו אם צריך מדריך או עורך דין.', 'justice-theme' ); ?></p>
+			</div>
+			<div class="homepage-situation-router__grid">
+				<?php foreach ( $home_situation_routes as $route ) : ?>
+					<a class="homepage-situation-card" href="<?php echo esc_url( $route['url'] ); ?>">
+						<strong><?php echo esc_html( $route['title'] ); ?></strong>
+						<span><?php echo esc_html( $route['text'] ); ?></span>
+					</a>
+				<?php endforeach; ?>
+			</div>
+		</div>
+
 		<div class="homepage-intent-pyramid__grid">
 			<?php foreach ( $home_intent_links as $intent ) : ?>
 				<?php
@@ -197,6 +273,7 @@ $home_intent_links = array(
 				$directory_url  = $intent['lawyers_url'];
 				$primary_url    = $intent['guide_url'];
 				$fallback_links = $home_intent_fallback_links( $intent['fallbacks'], $primary_url );
+				$prepare_note   = $home_intent_prepare_notes[ $intent['slug'] ] ?? null;
 				?>
 				<article class="homepage-intent-card">
 					<div class="homepage-intent-card__top">
@@ -205,6 +282,13 @@ $home_intent_links = array(
 					</div>
 
 					<p class="homepage-intent-card__intent"><?php echo esc_html( $intent['intent'] ); ?></p>
+
+					<?php if ( ! empty( $prepare_note ) ) : ?>
+						<div class="homepage-intent-card__prep">
+							<p><strong><?php esc_html_e( 'מה להכין:', 'justice-theme' ); ?></strong> <?php echo esc_html( $prepare_note['prepare'] ); ?></p>
+							<p><strong><?php esc_html_e( 'מתי לפנות מהר:', 'justice-theme' ); ?></strong> <?php echo esc_html( $prepare_note['when_to_call'] ); ?></p>
+						</div>
+					<?php endif; ?>
 
 					<div class="homepage-intent-card__actions">
 						<a class="button button--gold" href="<?php echo esc_url( $primary_url ); ?>"><?php esc_html_e( 'קריאת מדריך', 'justice-theme' ); ?></a>
@@ -243,6 +327,10 @@ $home_intent_links = array(
 				<a class="button button--ghost" href="<?php echo esc_url( home_url( '/lawyer-dashboard/' ) ); ?>"><?php esc_html_e( 'כניסה לאזור אישי', 'justice-theme' ); ?></a>
 			</div>
 		</div>
+
+		<p class="homepage-intent-pyramid__trust-note">
+			<?php esc_html_e( 'המידע באתר נועד לעזור להבין את הצעד הבא ולהגיע לשיחה מסודרת יותר. הוא כללי ואינו מחליף ייעוץ משפטי אישי מעורך דין שמכיר את פרטי המקרה.', 'justice-theme' ); ?>
+		</p>
 	</div>
 </section>
 

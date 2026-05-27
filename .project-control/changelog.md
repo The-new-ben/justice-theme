@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Homepage human help implementation prepared locally
+
+- UPDATED: `template-parts/sections/hero.php`, `template-parts/sections/homepage-intent-pyramid.php` and `assets/css/premium-pass-4.css`.
+- PURPOSE: convert the approved internal homepage improvement packet into local, public-first code that adds stronger immediate-help copy, situation routing and richer practice-card explanations without changing the choosing-lawyer guide.
+- RESULT: hero search is followed by a four-step "first ten minutes" strip; homepage intent now has six situation routes; each main practice card has practical preparation and urgency guidance; the section ends with a plain legal-safety trust note.
+- VERIFICATION: `php -l` passed for both changed PHP templates; selector/content search confirmed the new blocks exist and no `find-lawyer-guide` file was touched.
+- SAFETY: local code only; no public CMS edit, uPress pull, route, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, profile, lead, contact, invoice, payment, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting or paid LLM API changed.
+
 # 2026-05-27 - Homepage competitor human improvement packet
 
 - ADDED: `tools/build-homepage-competitor-human-improvement-packet.mjs`.

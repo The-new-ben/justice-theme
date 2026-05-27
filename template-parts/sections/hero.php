@@ -64,6 +64,25 @@ $hero_market_signals = array(
 		'text'  => __( 'אם צריך ייעוץ אישי, אפשר להשוות פרופילים או להשאיר פנייה מסודרת בלי הבטחה לתוצאה.', 'justice-theme' ),
 	),
 );
+
+$hero_first_steps = array(
+	array(
+		'label' => __( 'כתבו מה קרה', 'justice-theme' ),
+		'text'  => __( 'שורה אחת עם האירוע, הצד השני, העיר והתאריך החשוב ביותר.', 'justice-theme' ),
+	),
+	array(
+		'label' => __( 'שמרו מסמכים', 'justice-theme' ),
+		'text'  => __( 'מכתב, זימון, חוזה, החלטה, צילום או הודעה יכולים לשנות את הצעד הבא.', 'justice-theme' ),
+	),
+	array(
+		'label' => __( 'בדקו דחיפות', 'justice-theme' ),
+		'text'  => __( 'אם יש חקירה, מועד דיון, עיקול, פיטורים או דרישת תשלום, אל תחכו.', 'justice-theme' ),
+	),
+	array(
+		'label' => __( 'בחרו מסלול', 'justice-theme' ),
+		'text'  => __( 'אפשר להתחיל ממדריך, מחיפוש לפי תחום ועיר, או מפנייה לעורך דין מתאים.', 'justice-theme' ),
+	),
+);
 ?>
 
 <section class="hero hero--has-bg" id="hero" style="--hero-bg-image: url('<?php echo esc_url( $hero_bg ); ?>');">
@@ -127,6 +146,21 @@ $hero_market_signals = array(
 					</button>
 				</div>
 			</form>
+
+			<div class="hero__first-steps" aria-label="<?php esc_attr_e( 'מה עושים בעשר הדקות הראשונות', 'justice-theme' ); ?>">
+				<div class="hero__first-steps-intro">
+					<strong><?php esc_html_e( 'מה עושים בעשר הדקות הראשונות?', 'justice-theme' ); ?></strong>
+					<span><?php esc_html_e( 'לפני שמחפשים עורך דין, סדרו את המקרה כך שהשיחה או החיפוש יהיו מדויקים יותר.', 'justice-theme' ); ?></span>
+				</div>
+				<ol>
+					<?php foreach ( $hero_first_steps as $step ) : ?>
+						<li>
+							<strong><?php echo esc_html( $step['label'] ); ?></strong>
+							<span><?php echo esc_html( $step['text'] ); ?></span>
+						</li>
+					<?php endforeach; ?>
+				</ol>
+			</div>
 
 			<ul class="hero__market-signals" aria-label="<?php esc_attr_e( 'איך Jus-Tice עוזר לבחור עורך דין', 'justice-theme' ); ?>">
 				<?php foreach ( $hero_market_signals as $signal ) : ?>

@@ -5378,6 +5378,75 @@ function justice_theme_crm_qualified_lead_billing_badge( int $post_id ): array {
 	);
 }
 
+function justice_theme_crm_lead_admin_revenue_columns( array $columns ): array {
+	$enhanced = array();
+	$inserted = false;
+
+	foreach ( $columns as $key => $label ) {
+		$enhanced[ $key ] = $label;
+
+		if ( 'lead_status' === $key ) {
+			$enhanced['revenue_triage']    = 'Revenue';
+			$enhanced['owner_next_action'] = 'Next action';
+			$inserted = true;
+		}
+	}
+
+	if ( ! $inserted ) {
+		$enhanced['revenue_triage']    = 'Revenue';
+		$enhanced['owner_next_action'] = 'Next action';
+	}
+
+	return $enhanced;
+}
+add_filter( 'manage_justice_lead_posts_columns', 'justice_theme_crm_lead_admin_revenue_columns', 100 );
+
+function justice_theme_crm_render_lead_admin_revenue_column( string $column, int $post_id ): void {
+	if ( 'revenue_triage' === $column ) {
+		$billing = justice_theme_crm_qualified_lead_billing_badge( $post_id );
+		$source  = (string) get_post_meta( $post_id, 'source_channel', true );
+		$surface = (string) get_post_meta( $post_id, 'lead_source_surface', true );
+		?>
+		<span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $billing['style'] ); ?>"><?php echo esc_html( $billing['label'] ); ?></span>
+		<?php if ( ! empty( $billing['detail'] ) ) : ?>
+			<small style="display:block;color:#646970;margin-top:3px;"><?php echo esc_html( $billing['detail'] ); ?></small>
+		<?php endif; ?>
+		<?php if ( $source || $surface ) : ?>
+			<small style="display:block;color:#646970;margin-top:3px;"><?php echo esc_html( trim( $source . ' / ' . $surface, ' /' ) ); ?></small>
+		<?php endif; ?>
+		<?php
+		return;
+	}
+
+	if ( 'owner_next_action' === $column ) {
+		$next_step    = (string) get_post_meta( $post_id, 'owner_revenue_next_step', true );
+		$follow_up    = (string) get_post_meta( $post_id, 'follow_up_status', true );
+		$next_step    = $next_step ?: 'Open the lead, qualify consent and coverage, then decide whether it can move to a paid lawyer handoff.';
+		$next_excerpt = wp_trim_words( $next_step, 22, '...' );
+		?>
+		<span style="display:block;max-width:280px;"><?php echo esc_html( $next_excerpt ); ?></span>
+		<?php if ( $follow_up ) : ?>
+			<small style="display:block;color:#646970;margin-top:3px;">Follow-up: <?php echo esc_html( $follow_up ); ?></small>
+		<?php endif; ?>
+		<?php
+	}
+}
+add_action( 'manage_justice_lead_posts_custom_column', 'justice_theme_crm_render_lead_admin_revenue_column', 100, 2 );
+
+function justice_theme_crm_lead_admin_revenue_column_styles(): void {
+	$screen = function_exists( 'get_current_screen' ) ? get_current_screen() : null;
+	if ( ! $screen || 'edit-justice_lead' !== $screen->id ) {
+		return;
+	}
+	?>
+	<style>
+		.wp-list-table .column-revenue_triage { width: 150px; }
+		.wp-list-table .column-owner_next_action { width: 280px; }
+	</style>
+	<?php
+}
+add_action( 'admin_head-edit.php', 'justice_theme_crm_lead_admin_revenue_column_styles' );
+
 function justice_theme_crm_render_table( ?WP_Query $items, string $post_type ): void {
 	if ( ! $items || ! $items->have_posts() ) {
 		echo '<div class="notice notice-info inline"><p>No records found.</p></div>';

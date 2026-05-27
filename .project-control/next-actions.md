@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-BTL-CONTROLLED-LEAD-DRY-RUN-001: Prepare exact no-PII first-paid-lead drill
+**Status:** FIXED LOCAL / LIVE REVENUE STILL BLOCKED
+**Why:** The Bituach Leumi first-paid-lead loop needs a single owner/admin checklist that proves private specialist supply, consent, handoff, billing and payment before any revenue is counted.
+**Actions:**
+1. DONE: add `tools/build-btl-controlled-lead-dry-run-packet.mjs`.
+2. DONE: generate `.project-control/btl-controlled-lead-dry-run-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/btl-controlled-lead-dry-run-template-2026-05-27.csv`.
+4. DONE: generate `.reports/btl-controlled-lead-dry-run-packet-2026-05-27.json` and `.csv`.
+5. DONE: source-check the runtime proof ledger, WhatsApp/TalkTo consent pack, manual invoice fallback, routing hold/consent guard and billing proof fields.
+6. DONE: confirm `BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION`, 10 dry-run rows, 5/5 static gates passing, 0 live records, messages, invoices, payments, revenue claims, public/CMS/SEO changes or uPress actions.
+7. DONE: record as Linear `HAD-149`, marked Done under `HAD-76`.
+8. NEXT: owner/admin may fill the dry-run template from live wp-admin evidence only: 3 private prospect proofs, 3 routable specialists, 1 consented lead, owner release, invoice/reference and payment proof.
+9. BLOCKED: do not create prospects, create live leads, contact lawyers/clients, send WhatsApp/TalkTo/email, route PII, invoice, mark paid, claim revenue, publish pages, change SEO or uPress from this packet alone.
+
 ### ACTION-WHATSAPP-TALKTO-CONSENT-MESSAGE-PACK-001: Prepare exact consent and re-permission templates
 **Status:** FIXED LOCAL / LIVE OUTREACH STILL BLOCKED
 **Why:** The owner wants WhatsApp, TalkTo and old untreated client leads to connect through the system to lawyers/suppliers and payment, but people cannot be contacted or routed without the right permission and stop rules.

@@ -1,0 +1,11 @@
+id,live_admin_pointer,evidence_status,proof_present_yes_no,owner_verified_yes_no,blocker_if_no,private_note_no_pii
+DRILL-PROSPECT-01,,not_started,no,no,"Any missing license, fit, terms, billing contact or owner approval blocks routing.",
+DRILL-PROSPECT-02,,not_started,no,no,"Any missing license, fit, terms, billing contact or owner approval blocks routing.",
+DRILL-PROSPECT-03,,not_started,no,no,"Any missing license, fit, terms, billing contact or owner approval blocks routing.",
+DRILL-COVERAGE-01,,not_started,no,no,Fewer than 3 routable specialists blocks the controlled lead drill.,
+DRILL-CLIENT-01,,not_started,no,no,"No explicit permission, unclear permission, old legacy row, or do-not-contact blocks the drill.",
+DRILL-PREVIEW-01,,not_started,no,no,"Partner has not accepted terms or billing contact, or preview contains PII.",
+DRILL-ROUTE-01,,not_started,no,no,"Any missing owner release, partner terms or consent keeps routing_hold on.",
+DRILL-BILLING-01,,not_started,no,no,No invoice/reference means no invoice_sent; no payment evidence means no paid revenue claim.,
+DRILL-PAYMENT-01,,not_started,no,no,"Any missing proof, dispute, refund, complaint or ethics concern blocks revenue count.",
+DRILL-SCALE-01,,not_started,no,no,Any unresolved blocker keeps the loop in controlled/manual mode only.,

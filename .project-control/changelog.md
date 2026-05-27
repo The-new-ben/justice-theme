@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Bituach Leumi controlled lead dry-run packet
+
+- ADDED: `tools/build-btl-controlled-lead-dry-run-packet.mjs`.
+- GENERATED: `.project-control/btl-controlled-lead-dry-run-packet-2026-05-27.md`, `.project-control/btl-controlled-lead-dry-run-packet-2026-05-27.csv`, `.project-control/btl-controlled-lead-dry-run-template-2026-05-27.csv`, `.reports/btl-controlled-lead-dry-run-packet-2026-05-27.json`, `.reports/btl-controlled-lead-dry-run-packet-2026-05-27.csv`.
+- PURPOSE: create a no-PII owner/admin dry-run worksheet for the first Bituach Leumi paid-lead loop before any live prospect, lead, handoff, invoice or payment action.
+- RESULT: `BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION`; 10 dry-run rows, 5/5 static gates passing, 0 live records, 0 messages sent, 0 revenue claims and 0 public changes.
+- REVIEW: first paid Bituach Leumi revenue remains blocked until `DRILL-PAYMENT-01` has live CRM payment proof; the packet is complete as a dry-run artifact only.
+- LINEAR: recorded as `HAD-149`, marked Done under `HAD-76`, related to `HAD-134`, `HAD-148`, `HAD-142` and `HAD-87`.
+- SAFETY: private dry-run tooling only; no public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, prospect, lead, lawyer/supplier/client contact, WhatsApp/TalkTo message, webhook, invoice, payment, email, wp-admin record, provider setting or uPress deployment changed.
+
 # 2026-05-27 - WhatsApp/TalkTo consent message pack
 
 - ADDED: `tools/build-whatsapp-talkto-consent-message-pack.mjs`.

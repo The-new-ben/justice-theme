@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 04:40 Asia/Jerusalem
+- BITUACH LEUMI CONTROLLED LEAD DRY-RUN PACKET ADDED: converted the first-paid-lead runtime blocker into a no-PII owner/admin dry-run worksheet with exact pass/fail rows before any live prospect, lead, handoff, invoice or payment action.
+- CODE ADDED: `tools/build-btl-controlled-lead-dry-run-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/btl-controlled-lead-dry-run-packet-2026-05-27.md`, `.project-control/btl-controlled-lead-dry-run-packet-2026-05-27.csv`, `.project-control/btl-controlled-lead-dry-run-template-2026-05-27.csv`, `.reports/btl-controlled-lead-dry-run-packet-2026-05-27.json`, `.reports/btl-controlled-lead-dry-run-packet-2026-05-27.csv`.
+- CHECK RESULT: `BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION`; 10 dry-run rows; 5/5 static gates passed using the runtime proof ledger, WhatsApp/TalkTo consent pack, manual invoice fallback, routing hold/consent guard and billing proof fields; 0 live records, messages, revenue claims, public changes, CMS writes, SEO changes or uPress actions.
+- REVIEW RESULT: the exact first-paid-lead sequence is now 3 private prospect proof rows, routable specialist coverage, one controlled consented lead, no-PII preview, owner release, billing reference, payment proof and scale/no-go decision. `DRILL-PAYMENT-01` remains the hard revenue gate; no first paid Bituach Leumi revenue can be counted without proof in the live CRM.
+- LINEAR: recorded as `HAD-149`, marked Done under `HAD-76`, related to `HAD-134`, `HAD-148`, `HAD-142` and `HAD-87`.
+- PUBLIC IMPACT: none. This was private dry-run tooling only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, prospect, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, webhook, wp-admin record, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: Bituach Leumi controlled dry-run packet 100%; actual first-paid-lead proof remains 0% until owner/admin fills live wp-admin evidence for supply, consent, handoff, billing and payment proof.
+
 # LATEST WORK STATUS - 2026-05-27 04:31 Asia/Jerusalem
 - WHATSAPP/TALKTO CONSENT MESSAGE PACK ADDED: converted the owner concern about WhatsApp/TalkTo and old untreated leads into exact private message templates, stop rules and CRM update rules before any outreach.
 - CODE ADDED: `tools/build-whatsapp-talkto-consent-message-pack.mjs`.

@@ -1,0 +1,281 @@
+{
+  "reportDate": "2026-05-27",
+  "ledgerDate": "2026-05-27",
+  "status": "BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION",
+  "summary": {
+    "staticChecks": 5,
+    "staticChecksPassing": 5,
+    "dryRunRows": 10,
+    "supplyRows": 4,
+    "consentRows": 1,
+    "billingPaymentRows": 2,
+    "liveRecordsCreated": 0,
+    "messagesSent": 0,
+    "revenueClaimsApproved": 0,
+    "publicChangesApproved": 0,
+    "cmsWritesApproved": 0,
+    "seoSettingsChanged": 0,
+    "upressDeploymentRequired": false
+  },
+  "sourceFiles": {
+    "ledger": ".reports\\btl-runtime-revenue-proof-ledger-2026-05-27.json",
+    "consentPack": ".reports\\whatsapp-talkto-consent-message-pack-2026-05-27.json",
+    "invoiceFallback": ".reports\\manual-invoice-revenue-fallback-packet-2026-05-27.json"
+  },
+  "checks": [
+    {
+      "id": "CHECK-01",
+      "gate": "runtime ledger available",
+      "status": "PASS",
+      "evidence": "RUNTIME_LEDGER_READY_NO_REVENUE_CLAIM"
+    },
+    {
+      "id": "CHECK-02",
+      "gate": "consent message pack available without send approval",
+      "status": "PASS",
+      "evidence": "CONSENT_MESSAGE_PACK_READY_FOR_OWNER_LEGAL_REVIEW_NO_SEND"
+    },
+    {
+      "id": "CHECK-03",
+      "gate": "manual invoice fallback available without live payment action",
+      "status": "PASS",
+      "evidence": "MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION"
+    },
+    {
+      "id": "CHECK-04",
+      "gate": "routing hold and external consent guard present",
+      "status": "PASS",
+      "evidence": "inc/lead-routing.php routing_hold plus routeable consent markers"
+    },
+    {
+      "id": "CHECK-05",
+      "gate": "qualified lead billing proof fields present",
+      "status": "PASS",
+      "evidence": "inc/lead-crm.php invoice/payment proof markers"
+    }
+  ],
+  "rows": [
+    {
+      "id": "DRILL-PROSPECT-01",
+      "sequence": "1",
+      "phase": "supply",
+      "owner_admin_action": "Create or verify private Bituach Leumi prospect 1 in wp-admin only.",
+      "required_proof": "License/status verified; direct Bituach Leumi appeal fit verified; response SLA recorded; accepted lead-fee or subscription terms recorded; billing contact recorded.",
+      "pass_condition": "All private prospect verification fields pass and owner approves routable activation.",
+      "fail_stop": "Any missing license, fit, terms, billing contact or owner approval blocks routing.",
+      "crm_anchor": "prospect_license_verified=1; prospect_specialty_verified=1; prospect_payment_path_ready=1; prospect_lead_fee_terms_ready=1; prospect_agreed_lead_fee_ils>0; prospect_billing_contact_email valid",
+      "allowed_next_action": "Convert to routable lawyer profile after owner release.",
+      "forbidden_action": "Do not publish profile, send client PII, contact client, invoice or count revenue from prospect setup alone.",
+      "repo_privacy_rule": "Use generic prospect numbers in repo; real names, phones, emails and notes stay in wp-admin only."
+    },
+    {
+      "id": "DRILL-PROSPECT-02",
+      "sequence": "2",
+      "phase": "supply",
+      "owner_admin_action": "Create or verify private Bituach Leumi prospect 2 in wp-admin only.",
+      "required_proof": "License/status verified; direct Bituach Leumi appeal fit verified; response SLA recorded; accepted lead-fee or subscription terms recorded; billing contact recorded.",
+      "pass_condition": "All private prospect verification fields pass and owner approves routable activation.",
+      "fail_stop": "Any missing license, fit, terms, billing contact or owner approval blocks routing.",
+      "crm_anchor": "prospect_license_verified=1; prospect_specialty_verified=1; prospect_payment_path_ready=1; prospect_lead_fee_terms_ready=1; prospect_agreed_lead_fee_ils>0; prospect_billing_contact_email valid",
+      "allowed_next_action": "Convert to routable lawyer profile after owner release.",
+      "forbidden_action": "Do not publish profile, send client PII, contact client, invoice or count revenue from prospect setup alone.",
+      "repo_privacy_rule": "Use generic prospect numbers in repo; real names, phones, emails and notes stay in wp-admin only."
+    },
+    {
+      "id": "DRILL-PROSPECT-03",
+      "sequence": "3",
+      "phase": "supply",
+      "owner_admin_action": "Create or verify private Bituach Leumi prospect 3 in wp-admin only.",
+      "required_proof": "License/status verified; direct Bituach Leumi appeal fit verified; response SLA recorded; accepted lead-fee or subscription terms recorded; billing contact recorded.",
+      "pass_condition": "All private prospect verification fields pass and owner approves routable activation.",
+      "fail_stop": "Any missing license, fit, terms, billing contact or owner approval blocks routing.",
+      "crm_anchor": "prospect_license_verified=1; prospect_specialty_verified=1; prospect_payment_path_ready=1; prospect_lead_fee_terms_ready=1; prospect_agreed_lead_fee_ils>0; prospect_billing_contact_email valid",
+      "allowed_next_action": "Convert to routable lawyer profile after owner release.",
+      "forbidden_action": "Do not publish profile, send client PII, contact client, invoice or count revenue from prospect setup alone.",
+      "repo_privacy_rule": "Use generic prospect numbers in repo; real names, phones, emails and notes stay in wp-admin only."
+    },
+    {
+      "id": "DRILL-COVERAGE-01",
+      "sequence": "4",
+      "phase": "supply",
+      "owner_admin_action": "Confirm the first paid-lead preflight shows 3 routable Bituach Leumi specialists.",
+      "required_proof": "Published/private lawyer profiles are routable, have Bituach Leumi area, routing enabled, accepted commercial terms, billing contact and remaining lead capacity.",
+      "pass_condition": "Preflight has no supply, billing or routing-capacity blockers.",
+      "fail_stop": "Fewer than 3 routable specialists blocks the controlled lead drill.",
+      "crm_anchor": "wp-admin -> Justice CRM -> Bituach Leumi specialist supply -> First paid-lead routing preflight",
+      "allowed_next_action": "Select one controlled consented lead.",
+      "forbidden_action": "Do not route leads to non-routable or unpaid/unverified profiles.",
+      "repo_privacy_rule": "Do not put live lawyer IDs, emails or private billing fields in repo artifacts."
+    },
+    {
+      "id": "DRILL-CLIENT-01",
+      "sequence": "5",
+      "phase": "consent",
+      "owner_admin_action": "Select one current Bituach Leumi lead with explicit match permission.",
+      "required_proof": "Lead has explicit_match_consent or owner_verified_consent, owner release note, Bituach Leumi appeal intent and no do-not-contact signal.",
+      "pass_condition": "Consent evidence and owner release are recorded before routing_hold is cleared.",
+      "fail_stop": "No explicit permission, unclear permission, old legacy row, or do-not-contact blocks the drill.",
+      "crm_anchor": "wp-admin -> Justice CRM -> Held Bituach Leumi lead triage / permission queue",
+      "allowed_next_action": "Prepare no-PII partner preview or controlled route.",
+      "forbidden_action": "Do not infer consent from a WhatsApp click, old chat, silence, emoji or missed call.",
+      "repo_privacy_rule": "No client name, phone, email, documents, raw chat or exact address in repo artifacts."
+    },
+    {
+      "id": "DRILL-PREVIEW-01",
+      "sequence": "6",
+      "phase": "partner_preview",
+      "owner_admin_action": "Prepare a no-PII preview of the controlled Bituach Leumi lead.",
+      "required_proof": "Preview includes general issue, urgency and region only if safe; excludes name, phone, email, exact address, documents and raw WhatsApp/TalkTo content.",
+      "pass_condition": "Partner terms and billing contact are already accepted before any PII release.",
+      "fail_stop": "Partner has not accepted terms or billing contact, or preview contains PII.",
+      "crm_anchor": "wp-admin -> Justice CRM -> Partner preview / terms queue",
+      "allowed_next_action": "Manual handoff only after owner release confirms consent and terms.",
+      "forbidden_action": "Do not send screenshots, raw chats, medical documents or full contact details at preview stage.",
+      "repo_privacy_rule": "Repo can record preview-ready yes/no only."
+    },
+    {
+      "id": "DRILL-ROUTE-01",
+      "sequence": "7",
+      "phase": "manual_handoff",
+      "owner_admin_action": "Perform one controlled manual/routed handoff after all prior proof rows pass.",
+      "required_proof": "Owner release confirms client permission, accepted partner terms, billing contact, manual-only scope and lead price/fee.",
+      "pass_condition": "The lead reaches one accepted specialist and creates a qualified billing queue item.",
+      "fail_stop": "Any missing owner release, partner terms or consent keeps routing_hold on.",
+      "crm_anchor": "wp-admin -> Justice CRM -> Owner handoff release queue",
+      "allowed_next_action": "Move to billing queue and request invoice/payment proof.",
+      "forbidden_action": "Do not automate webhooks, bulk route, or contact additional partners from this drill.",
+      "repo_privacy_rule": "No live handoff details in repo; keep exact IDs in wp-admin."
+    },
+    {
+      "id": "DRILL-BILLING-01",
+      "sequence": "8",
+      "phase": "billing",
+      "owner_admin_action": "Record manual invoice/payment request for the accepted partner.",
+      "required_proof": "Qualified lead billing status, invoice reference or payment request reference, suggested price and billable partner are recorded.",
+      "pass_condition": "Invoice_sent can be recorded only with reference; paid can be recorded only with proof.",
+      "fail_stop": "No invoice/reference means no invoice_sent; no payment evidence means no paid revenue claim.",
+      "crm_anchor": "wp-admin -> Justice CRM -> Qualified lead billing queue",
+      "allowed_next_action": "Wait for payment evidence and record it privately.",
+      "forbidden_action": "Do not mark paid or claim first paid lead from a promise to pay.",
+      "repo_privacy_rule": "Repo may say reference present yes/no; no private invoice or payment URLs."
+    },
+    {
+      "id": "DRILL-PAYMENT-01",
+      "sequence": "9",
+      "phase": "payment_proof",
+      "owner_admin_action": "Verify actual payment proof exists before counting revenue.",
+      "required_proof": "qualified_lead_billing_status=paid and invoice reference or private payment evidence URL is present.",
+      "pass_condition": "Paid status has proof, no refund/dispute/complaint is open, and owner confirms one-time revenue count.",
+      "fail_stop": "Any missing proof, dispute, refund, complaint or ethics concern blocks revenue count.",
+      "crm_anchor": "wp-admin -> Justice CRM -> Qualified lead billing queue",
+      "allowed_next_action": "Record first paid-lead achievement and prepare scale/no-go review.",
+      "forbidden_action": "Do not count paid revenue from screenshots outside CRM or undocumented owner notes.",
+      "repo_privacy_rule": "Payment evidence stays private; repo only records proof-present status."
+    },
+    {
+      "id": "DRILL-SCALE-01",
+      "sequence": "10",
+      "phase": "scale_decision",
+      "owner_admin_action": "Decide whether to repeat, repair or stop the Bituach Leumi paid-lead loop.",
+      "required_proof": "All prior drill rows pass; owner confirms supply quality, consent process, billing proof, refund path and no unresolved complaints.",
+      "pass_condition": "Owner approves controlled repeat batches, or holds for repair.",
+      "fail_stop": "Any unresolved blocker keeps the loop in controlled/manual mode only.",
+      "crm_anchor": "Owner review after live CRM proof exists",
+      "allowed_next_action": "Repeat small controlled batches after approval.",
+      "forbidden_action": "Do not publish public claims, scale WhatsApp/TalkTo imports or automate lead routing from one incomplete drill.",
+      "repo_privacy_rule": "Scale decision can be summarized without live client/lawyer/payment details."
+    }
+  ],
+  "templateRows": [
+    {
+      "id": "DRILL-PROSPECT-01",
+      "live_admin_pointer": "",
+      "evidence_status": "not_started",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "blocker_if_no": "Any missing license, fit, terms, billing contact or owner approval blocks routing.",
+      "private_note_no_pii": ""
+    },
+    {
+      "id": "DRILL-PROSPECT-02",
+      "live_admin_pointer": "",
+      "evidence_status": "not_started",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "blocker_if_no": "Any missing license, fit, terms, billing contact or owner approval blocks routing.",
+      "private_note_no_pii": ""
+    },
+    {
+      "id": "DRILL-PROSPECT-03",
+      "live_admin_pointer": "",
+      "evidence_status": "not_started",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "blocker_if_no": "Any missing license, fit, terms, billing contact or owner approval blocks routing.",
+      "private_note_no_pii": ""
+    },
+    {
+      "id": "DRILL-COVERAGE-01",
+      "live_admin_pointer": "",
+      "evidence_status": "not_started",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "blocker_if_no": "Fewer than 3 routable specialists blocks the controlled lead drill.",
+      "private_note_no_pii": ""
+    },
+    {
+      "id": "DRILL-CLIENT-01",
+      "live_admin_pointer": "",
+      "evidence_status": "not_started",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "blocker_if_no": "No explicit permission, unclear permission, old legacy row, or do-not-contact blocks the drill.",
+      "private_note_no_pii": ""
+    },
+    {
+      "id": "DRILL-PREVIEW-01",
+      "live_admin_pointer": "",
+      "evidence_status": "not_started",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "blocker_if_no": "Partner has not accepted terms or billing contact, or preview contains PII.",
+      "private_note_no_pii": ""
+    },
+    {
+      "id": "DRILL-ROUTE-01",
+      "live_admin_pointer": "",
+      "evidence_status": "not_started",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "blocker_if_no": "Any missing owner release, partner terms or consent keeps routing_hold on.",
+      "private_note_no_pii": ""
+    },
+    {
+      "id": "DRILL-BILLING-01",
+      "live_admin_pointer": "",
+      "evidence_status": "not_started",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "blocker_if_no": "No invoice/reference means no invoice_sent; no payment evidence means no paid revenue claim.",
+      "private_note_no_pii": ""
+    },
+    {
+      "id": "DRILL-PAYMENT-01",
+      "live_admin_pointer": "",
+      "evidence_status": "not_started",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "blocker_if_no": "Any missing proof, dispute, refund, complaint or ethics concern blocks revenue count.",
+      "private_note_no_pii": ""
+    },
+    {
+      "id": "DRILL-SCALE-01",
+      "live_admin_pointer": "",
+      "evidence_status": "not_started",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "blocker_if_no": "Any unresolved blocker keeps the loop in controlled/manual mode only.",
+      "private_note_no_pii": ""
+    }
+  ]
+}

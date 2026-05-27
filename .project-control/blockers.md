@@ -8,3 +8,4 @@ Date: 2026-05-09
 | B003 | BLOCKED | Active plugin path unknown | Cannot safely migrate `ultra-justice-engine` to `justice-core` | Run `wp plugin list` or inspect Plugins screen |
 | B004 | BLOCKED | No GSC access | Cannot build real query/page cannibalization map | Connect Google Search Console or export data |
 | B005 | BLOCKED | No browser visual QA completed in this pass | Cannot claim premium visual quality | Run desktop/mobile visual QA after source changes deploy locally or live |
+| B006 | BLOCKED | uPress Pull Git blocked because Chrome is not running | Commit `9c51a843` with footer trust path is pushed to GitHub but not live; live site still serves marker `2026-05-27-mobile-menu-lead-actions-v1` instead of `2026-05-27-footer-trust-path-v1` | Open Chrome with the connected profile, then pull Git in uPress for `wp-content/themes/justice-theme` and re-check live marker |

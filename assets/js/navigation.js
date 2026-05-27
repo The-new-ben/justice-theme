@@ -1,104 +1,104 @@
 /**
- * Jus-Tice Navigation — Premium mobile menu + dropdown support.
+ * Jus-Tice Navigation - mobile menu and dropdown support.
  * No dependencies. Vanilla JS. RTL-safe.
  */
 ( () => {
-  // ── Mobile hamburger ──────────────────────────────────────
-  const toggle = document.querySelector( '.menu-toggle' );
-  const nav    = document.querySelector( '.primary-navigation' );
+	const toggle = document.querySelector( '.menu-toggle' );
+	const nav = document.querySelector( '.primary-navigation' );
+	const mobileQuery = window.matchMedia( '(max-width: 1220px)' );
 
-  if ( toggle && nav ) {
-    const rememberTogglePosition = () => {
-      const rect = toggle.getBoundingClientRect();
-      document.documentElement.style.setProperty( '--jt-menu-toggle-top', `${ Math.round( rect.top ) }px` );
-      document.documentElement.style.setProperty( '--jt-menu-toggle-left', `${ Math.round( rect.left ) }px` );
-      document.documentElement.style.setProperty( '--jt-menu-toggle-width', `${ Math.round( rect.width ) }px` );
-      document.documentElement.style.setProperty( '--jt-menu-toggle-height', `${ Math.round( rect.height ) }px` );
-    };
+	if ( toggle && nav ) {
+		const setMenuOpen = isOpen => {
+			toggle.setAttribute( 'aria-expanded', isOpen ? 'true' : 'false' );
 
-    const clearTogglePosition = () => {
-      document.documentElement.style.removeProperty( '--jt-menu-toggle-top' );
-      document.documentElement.style.removeProperty( '--jt-menu-toggle-left' );
-      document.documentElement.style.removeProperty( '--jt-menu-toggle-width' );
-      document.documentElement.style.removeProperty( '--jt-menu-toggle-height' );
-    };
+			if ( mobileQuery.matches ) {
+				nav.setAttribute( 'aria-hidden', isOpen ? 'false' : 'true' );
+			} else {
+				nav.removeAttribute( 'aria-hidden' );
+			}
 
-    const closeMenu = () => {
-      toggle.setAttribute( 'aria-expanded', 'false' );
-      document.body.classList.remove( 'nav-is-open' );
-      clearTogglePosition();
-    };
+			document.body.classList.toggle( 'nav-is-open', isOpen );
+		};
 
-    toggle.addEventListener( 'click', () => {
-      const isOpen = toggle.getAttribute( 'aria-expanded' ) === 'true';
+		setMenuOpen( false );
 
-      if ( isOpen ) {
-        closeMenu();
-        return;
-      }
+		mobileQuery.addEventListener( 'change', () => {
+			setMenuOpen( false );
+		} );
 
-      rememberTogglePosition();
-      toggle.setAttribute( 'aria-expanded', 'true' );
-      document.body.classList.add( 'nav-is-open' );
-    } );
+		toggle.addEventListener( 'click', e => {
+			e.preventDefault();
+			setMenuOpen( toggle.getAttribute( 'aria-expanded' ) !== 'true' );
+		} );
 
-    document.addEventListener( 'keydown', e => {
-      if ( e.key === 'Escape' ) {
-        closeMenu();
-      }
-    } );
+		document.addEventListener( 'keydown', e => {
+			if ( e.key === 'Escape' ) {
+				setMenuOpen( false );
+			}
+		} );
 
-    window.addEventListener( 'resize', () => {
-      if ( document.body.classList.contains( 'nav-is-open' ) ) {
-        closeMenu();
-      }
-    } );
-  }
+		window.addEventListener( 'resize', () => {
+			if ( document.body.classList.contains( 'nav-is-open' ) ) {
+				setMenuOpen( false );
+			}
+		} );
 
-  // ── Mobile sub-menu accordion ─────────────────────────────
-  // On small screens, tapping a parent item toggles children open
-  if ( window.innerWidth <= 1220 ) {
-    const parents = document.querySelectorAll(
-      '.primary-navigation .menu-item-has-children > a'
-    );
+		nav.addEventListener( 'click', e => {
+			const target = e.target instanceof Element ? e.target : null;
+			const link = target ? target.closest( 'a[href]' ) : null;
 
-    parents.forEach( link => {
-      link.addEventListener( 'click', e => {
-        // Only intercept if it links to "#" (placeholder)
-        if ( link.getAttribute( 'href' ) === '#' ) {
-          e.preventDefault();
-        }
-        const li = link.parentElement;
-        li.classList.toggle( 'is-open' );
-      } );
-    } );
-  }
+			if ( link && link.getAttribute( 'href' ) !== '#' ) {
+				setMenuOpen( false );
+			}
+		} );
 
-  // ── Close menu when clicking outside ─────────────────────
-  document.addEventListener( 'click', e => {
-    if (
-      document.body.classList.contains( 'nav-is-open' ) &&
-      ! nav.contains( e.target ) &&
-      ! toggle.contains( e.target )
-    ) {
-      toggle.setAttribute( 'aria-expanded', 'false' );
-      document.body.classList.remove( 'nav-is-open' );
-      document.documentElement.style.removeProperty( '--jt-menu-toggle-top' );
-      document.documentElement.style.removeProperty( '--jt-menu-toggle-left' );
-      document.documentElement.style.removeProperty( '--jt-menu-toggle-width' );
-      document.documentElement.style.removeProperty( '--jt-menu-toggle-height' );
-    }
-  } );
+		document.addEventListener( 'click', e => {
+			const target = e.target instanceof Element ? e.target : null;
 
-  // ── Desktop: close dropdowns on outside click ─────────────
-  document.addEventListener( 'click', e => {
-    const openParents = document.querySelectorAll(
-      '.primary-navigation .menu-item-has-children.is-open'
-    );
-    openParents.forEach( li => {
-      if ( ! li.contains( e.target ) ) {
-        li.classList.remove( 'is-open' );
-      }
-    } );
-  } );
+			if (
+				target &&
+				document.body.classList.contains( 'nav-is-open' ) &&
+				! nav.contains( target ) &&
+				! toggle.contains( target )
+			) {
+				setMenuOpen( false );
+			}
+		} );
+	}
+
+	document
+		.querySelectorAll( '.primary-navigation .menu-item-has-children > a' )
+		.forEach( link => {
+			link.addEventListener( 'click', e => {
+				if ( ! mobileQuery.matches ) {
+					return;
+				}
+
+				if ( link.getAttribute( 'href' ) === '#' ) {
+					e.preventDefault();
+				}
+
+				const item = link.parentElement;
+
+				if ( item ) {
+					item.classList.toggle( 'is-open' );
+				}
+			} );
+		} );
+
+	document.addEventListener( 'click', e => {
+		const target = e.target instanceof Element ? e.target : null;
+
+		if ( ! target ) {
+			return;
+		}
+
+		document
+			.querySelectorAll( '.primary-navigation .menu-item-has-children.is-open' )
+			.forEach( item => {
+				if ( ! item.contains( target ) ) {
+					item.classList.remove( 'is-open' );
+				}
+			} );
+	} );
 } )();

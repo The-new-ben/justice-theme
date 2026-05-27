@@ -12,7 +12,7 @@ The live About issue was traced to rendered WordPress menu output:
 <a href="https://jus-tice.co.il/?page_id=315">אודות</a>
 ```
 
-The theme-side runtime fix is already pushed in commit `0f20ad62`, but live HTML still shows the old link because the deployment marker `2026-05-28-menu-pageid-normalizer-v1` / version `1.1.68` is not live.
+The theme-side runtime fix is already pushed, but live HTML still shows the old link because the latest deployment marker `2026-05-28-mobile-menu-stability-v1` / version `1.1.69` is not live.
 
 ## Commands
 
@@ -42,7 +42,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\che
 
 1. uPress Pull Git or equivalent deployment must make the latest theme code live.
 2. After deployment, `node scripts/check-link-hygiene.mjs` must pass in live mode.
-3. The live deployment marker must show `2026-05-28-menu-pageid-normalizer-v1` and version `1.1.68`.
+3. The live deployment marker must show `2026-05-28-mobile-menu-stability-v1` and version `1.1.69`.
 4. This still does not prove customer conversion, lawyer payment, invoice issuance, or Grow/Meshulam payment settlement.
 
 ## Honesty Statement

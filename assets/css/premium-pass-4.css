@@ -3104,20 +3104,25 @@
     display: flex !important;
     align-items: center;
     justify-content: center;
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
     min-width: 44px;
     min-height: 44px;
+    margin: 0;
+    padding: 0;
+    border: 1px solid transparent;
+    border-radius: 999px;
     position: relative;
     z-index: 230;
   }
 
   body.nav-is-open .menu-toggle {
     position: fixed;
-    top: var(--jt-menu-toggle-top, 0.9rem);
-    left: var(--jt-menu-toggle-left, 1rem);
-    right: auto;
-    width: var(--jt-menu-toggle-width, 44px);
-    height: var(--jt-menu-toggle-height, 44px);
-    inset-inline: auto;
+    top: max(0.75rem, env(safe-area-inset-top));
+    inset-inline-end: max(1rem, env(safe-area-inset-right));
+    width: 44px;
+    height: 44px;
     color: #fff;
     border-color: rgba(255,255,255,0.24);
     background: rgba(255,255,255,0.08);

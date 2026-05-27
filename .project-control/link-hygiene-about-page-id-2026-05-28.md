@@ -38,7 +38,7 @@ The reported About URL is not being pushed by theme templates, but it is being p
 
 - No redirect was added from `?page_id=315` to `/about/`; redirects/canonicals require explicit approval under the current operating rules.
 - The render-time menu normalization is pushed but not confirmed live.
-- The latest deployment marker `2026-05-28-menu-pageid-normalizer-v1` is not confirmed live.
+- The latest deployment marker is now `2026-05-28-mobile-menu-stability-v1` / `1.1.69`, and it is not confirmed live.
 - This does not produce customers, lawyers, invoices, payments, or CRM records.
 
 ## Honesty Statement

@@ -1,7 +1,7 @@
 param(
 	[string] $BaseUrl = "https://jus-tice.co.il",
-	[string] $ExpectedDeployMarker = "2026-05-28-menu-pageid-normalizer-v1",
-	[string] $ExpectedThemeVersion = "1.1.68",
+	[string] $ExpectedDeployMarker = "2026-05-28-mobile-menu-stability-v1",
+	[string] $ExpectedThemeVersion = "1.1.69",
 	[string] $ExpectedComponent = "primary-navigation__mobile-actions",
 	[string] $ExpectedWhatsAppSurface = "mobile_menu",
 	[string] $OldMarker = "2026-05-27-footer-trust-path-v1",

@@ -71,7 +71,7 @@
       "gate": "lawyer_dashboard_payment_and_service_requests",
       "status": "PASS",
       "file": "page-lawyer-dashboard.php",
-      "evidence": "11/11 markers found",
+      "evidence": "13/13 markers found",
       "missing_markers": "",
       "next_action": "Walk through the lawyer dashboard after a claimed profile exists: payment link, upgrade, downgrade, cancel, refund, invoice, lead-quality, complaint and lead-stage update.",
       "owner_notice": "Requires a real logged-in lawyer user linked to a claimed lawyer profile; dashboard copy keeps payment/account actions under owner review."
@@ -81,7 +81,7 @@
       "gate": "lawyer_dashboard_request_handlers",
       "status": "PASS",
       "file": "inc/lawyer-dashboard.php",
-      "evidence": "22/22 markers found",
+      "evidence": "26/26 markers found",
       "missing_markers": "",
       "next_action": "Submit one controlled dashboard service request and one lead-stage update only after the live test lawyer exists.",
       "owner_notice": "This proves all current lifecycle request types are routed into saved owner-review requests; it does not prove a live lawyer session or lead assignment exists."

@@ -218,6 +218,7 @@ if ( ! empty( $latest_service_request['id'] ) ) {
 
 $dashboard_plan_definitions = function_exists( 'justice_theme_lawyer_plans' ) ? justice_theme_lawyer_plans() : array();
 $primary_plan_label         = $dashboard_plan_definitions[ $primary_plan_key ]['label'] ?? $primary_plan_key;
+$primary_paid_plan_key      = ( $primary_plan_key && 'free' !== $primary_plan_key && isset( $dashboard_plan_definitions[ $primary_plan_key ] ) ) ? $primary_plan_key : '';
 $primary_payment_options    = function_exists( 'justice_theme_lawyer_payment_followup_options' ) ? justice_theme_lawyer_payment_followup_options() : array(
 	'invoice_requested' => __( 'Invoice requested', 'justice-theme' ),
 	'invoice_sent'      => __( 'Invoice sent', 'justice-theme' ),
@@ -605,7 +606,12 @@ $dashboard_empty_plans_url = justice_theme_public_url( add_query_arg(
 						<?php if ( $primary_manual_payment_link ) : ?>
 							<a class="button button--gold lawyer-dashboard-command-card__pay" href="<?php echo esc_url( $primary_manual_payment_link ); ?>" target="_blank" rel="noopener noreferrer"><?php esc_html_e( 'Pay now', 'justice-theme' ); ?></a>
 						<?php elseif ( isset( $dashboard_service_presets['payment_link'] ) ) : ?>
-							<?php $payment_preset = $dashboard_service_presets['payment_link']; ?>
+							<?php
+							$payment_preset = $dashboard_service_presets['payment_link'];
+							if ( empty( $payment_preset['desired_plan'] ) && $primary_paid_plan_key ) {
+								$payment_preset['desired_plan'] = $primary_paid_plan_key;
+							}
+							?>
 							<button type="button" class="button button--gold" data-service-request-preset="payment_link" data-request-type="<?php echo esc_attr( $payment_preset['type'] ); ?>" data-request-urgency="<?php echo esc_attr( $payment_preset['urgency'] ); ?>" data-request-plan="<?php echo esc_attr( $payment_preset['desired_plan'] ); ?>" data-request-subject="<?php echo esc_attr( $payment_preset['subject'] ); ?>" data-request-message="<?php echo esc_attr( $payment_preset['message'] ); ?>"><?php echo esc_html( $payment_preset['label'] ); ?></button>
 						<?php endif; ?>
 					</article>

@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-LAWYER-DASHBOARD-PAYMENT-REQUEST-PLAN-HANDOFF-001: Preserve selected paid plan in payment-link service requests
+**Status:** FIXED LOCAL / LIVE DRILL STILL BLOCKED
+**Why:** Dashboard payment-link requests were saved for owner review, but the payment-link preset could submit without the currently selected paid plan, forcing extra owner lookup before creating a manual Grow/Morning/Meshulam payment link.
+**Actions:**
+1. DONE: update `inc/lawyer-dashboard.php` so empty `payment_link_request` desired-plan values default to the linked profile's selected paid `plan_type` when it is a known non-free plan.
+2. DONE: update `page-lawyer-dashboard.php` so the payment-link preset button carries `$primary_paid_plan_key` into the form-fill flow when available.
+3. DONE: update `tools/check-lawyer-subscription-e2e-preflight.mjs` to gate the dashboard preset and server-side fallback markers.
+4. DONE: regenerate `.project-control/lawyer-subscription-e2e-preflight-2026-05-27.md` and `.csv`.
+5. DONE: regenerate `.reports/lawyer-subscription-e2e-preflight-2026-05-27.json` and `.csv`.
+6. DONE: regenerate `.project-control/private-artifact-boundary-guard-2026-05-27.md` and `.csv`.
+7. DONE: verify `php -l` on the dashboard PHP files, `node --check` on the preflight script, preflight status `PASS_WITH_RUNTIME_BLOCKERS` with 10/10 static gates, 0 warnings and 0 blocked static gates, and private artifact boundary guard `PASS`.
+8. NEXT: perform one owner-approved controlled dashboard service-request drill with a claimed lawyer profile and selected paid plan, then verify the saved owner-review request includes the desired plan before any payment link is created.
+9. BLOCKED: no live registration, lawyer/profile edit, payment link, invoice, charge, refund, upgrade, downgrade, cancellation, email/WhatsApp/TalkTo, wp-admin write, provider setting or uPress pull without explicit owner approval and payment-proof procedure.
+
 ### ACTION-TEL-AVIV-FAMILY-GSC-CACHE-REVIEW-001: Use local GSC cache before requesting focused export
 **Status:** FIXED LOCAL / FOCUSED EXPORT AND PUBLICATION STILL BLOCKED
 **Why:** The Tel Aviv family local draft and overlap review still needed GSC evidence. A local cache exists, so the safest next step was to mine it as preliminary evidence and produce the exact focused export template instead of guessing or publishing.

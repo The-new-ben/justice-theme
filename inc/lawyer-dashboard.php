@@ -420,6 +420,14 @@ function justice_theme_handle_lawyer_service_request(): void {
 		$desired_plan = '';
 	}
 
+	if ( 'payment_link_request' === $request_type && '' === $desired_plan ) {
+		$current_plan = sanitize_key( (string) get_post_meta( $lawyer_id, 'plan_type', true ) );
+
+		if ( $current_plan && 'free' !== $current_plan && array_key_exists( $current_plan, $plans ) ) {
+			$desired_plan = $current_plan;
+		}
+	}
+
 	if ( '' === $subject && '' === $message ) {
 		wp_safe_redirect( add_query_arg( 'service_request', 'missing', home_url( '/lawyer-dashboard/' ) ) );
 		exit;

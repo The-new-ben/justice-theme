@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Lawyer dashboard payment request plan handoff
+
+- UPDATED: `inc/lawyer-dashboard.php`, `page-lawyer-dashboard.php`, `tools/check-lawyer-subscription-e2e-preflight.mjs`.
+- GENERATED: regenerated `.project-control/lawyer-subscription-e2e-preflight-2026-05-27.md`, `.project-control/lawyer-subscription-e2e-preflight-2026-05-27.csv`, `.reports/lawyer-subscription-e2e-preflight-2026-05-27.json`, `.reports/lawyer-subscription-e2e-preflight-2026-05-27.csv`, `.project-control/private-artifact-boundary-guard-2026-05-27.md` and `.project-control/private-artifact-boundary-guard-2026-05-27.csv`.
+- PURPOSE: reduce manual payment-link handoff friction by attaching the selected paid lawyer plan to dashboard payment-link service requests when the preset/form does not provide one.
+- RESULT: dashboard payment-link presets now fill the selected paid plan when available, and the service-request handler defaults empty `payment_link_request` submissions to the profile's selected paid plan before saving owner-review metadata. The regenerated subscription preflight now checks this guard and passes 10/10 static gates with 0 warnings and 0 blocked static gates; private artifact boundary guard returned `PASS`.
+- SAFETY: repo-local code and private preflight artifacts only; no charge, refund, cancellation, upgrade, downgrade, public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress pull changed.
+
 # 2026-05-27 - Tel Aviv family GSC cache review
 
 - ADDED: `tools/build-tel-aviv-family-gsc-cache-review.mjs`.

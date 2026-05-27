@@ -1,0 +1,203 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "sourceDate": "2026-05-27",
+    "status": "LAWYER_SUBSCRIPTION_OWNER_PAID_TEST_ACTION_SHEET_READY_NO_LIVE_ACTION",
+    "actionRows": 6,
+    "ownerFillRows": 6,
+    "passGateCount": 4,
+    "reviewGateCount": 0,
+    "liveProfitProofPercent": 0,
+    "staticPreparationPercent": 70,
+    "revenueCanBeClaimed": false,
+    "manualInvoiceFallbackReady": true,
+    "wpAdminWritesApproved": 0,
+    "crmRecordsCreated": 0,
+    "liveRegistrationsSubmitted": 0,
+    "providerActionsApproved": 0,
+    "invoicesOrPaymentsCreated": 0,
+    "emailsOrMessagesSent": 0,
+    "publicChangesApproved": 0,
+    "upressDeploymentRequired": false,
+    "sourceStatuses": {
+      "reviewGate": "LAWYER_SUBSCRIPTION_CONTROLLED_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION",
+      "walkthrough": "READY_SCRIPT_WITH_RUNTIME_BLOCKERS",
+      "manualInvoice": "MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION",
+      "commandCenter": "OWNER_UNBLOCKER_COMMAND_CENTER_READY_NO_LIVE_ACTION"
+    },
+    "files": {
+      "projectMd": ".project-control\\lawyer-subscription-owner-paid-test-action-sheet-2026-05-27.md",
+      "projectHtml": ".project-control\\lawyer-subscription-owner-paid-test-action-sheet-2026-05-27.html",
+      "projectCsv": ".project-control\\lawyer-subscription-owner-paid-test-action-sheet-2026-05-27.csv",
+      "ownerFillCsv": ".project-control\\lawyer-subscription-owner-paid-test-owner-fill-2026-05-27.csv",
+      "reportJson": ".reports\\lawyer-subscription-owner-paid-test-action-sheet-2026-05-27.json",
+      "reportCsv": ".reports\\lawyer-subscription-owner-paid-test-action-sheet-2026-05-27.csv"
+    }
+  },
+  "gates": [
+    {
+      "id": "LAW-SHEET-GATE-01",
+      "gate": "source_chain_ready",
+      "status": "PASS",
+      "evidence": "Review: LAWYER_SUBSCRIPTION_CONTROLLED_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION; walkthrough: READY_SCRIPT_WITH_RUNTIME_BLOCKERS; manual invoice: MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION.",
+      "next_action": "Use this sheet as the owner-facing layer before any controlled registration or payment drill."
+    },
+    {
+      "id": "LAW-SHEET-GATE-02",
+      "gate": "subscription_is_top_revenue_goal",
+      "status": "PASS",
+      "evidence": "Top command-center rows: UNBLOCK-01, UNBLOCK-02, UNBLOCK-08.",
+      "next_action": "Keep the controlled lawyer subscription proof visible immediately after BTL."
+    },
+    {
+      "id": "LAW-SHEET-GATE-03",
+      "gate": "manual_invoice_boundary_preserved",
+      "status": "PASS",
+      "evidence": "Manual invoice packet records 0 invoices sent and 0 payments created.",
+      "next_action": "Manual invoice is a fallback packet only until owner sends or approves the actual request."
+    },
+    {
+      "id": "LAW-SHEET-GATE-04",
+      "gate": "no_live_action_authorized",
+      "status": "PASS_NO_LIVE_ACTION",
+      "evidence": "This sheet approves 0 registrations, CRM writes, provider changes, invoices, payments, outreach, public edits, GSC calls or uPress actions.",
+      "next_action": "Owner/admin fills sanitized status rows first; Codex reviews only the filled proof statuses afterward."
+    }
+  ],
+  "actions": [
+    {
+      "id": "LAW-SUB-ACTION-01",
+      "order": 1,
+      "title_he": "לאשר זהות בדיקה נשלטת",
+      "owner_action_he": "הבעלים בוחר alias, תיבת מייל וטלפון בדיקה שנשלטים על ידו, ומחליט אם זה dry-run או בדיקה חיה מאושרת.",
+      "allowed_proof_he": "מותר לרשום alias קצר, yes/no, ומיקום ראיה פרטי. לא לשמור מייל, טלפון, סיסמה או שם אמיתי בקבצים.",
+      "unlocks_he": "פותח הרשמה/דשבורד מבוקרים.",
+      "blocked_if_he": "אין זהות בדיקה, אין אישור בעלים, או יש פרטים אישיים בקובץ."
+    },
+    {
+      "id": "LAW-SUB-ACTION-02",
+      "order": 2,
+      "title_he": "לבחור נתיב תשלום מאושר",
+      "owner_action_he": "לבחור נתיב אחד: manual_invoice, approved_payment_link, provider_link או no_charge_dry_run. Grow/Meshulam נשאר חסם אם אין KYC/מוצר/תשלום מאושרים.",
+      "allowed_proof_he": "רק שם הנתיב וסטטוס מאושר/לא מאושר. לא להדביק URL תשלום, מפתחות ספק או קבלות.",
+      "unlocks_he": "פותח בדיקת הרשמה ותוכנית בלי להבטיח הכנסה.",
+      "blocked_if_he": "אין נתיב תשלום מאושר או אין חלופה ידנית ברורה."
+    },
+    {
+      "id": "LAW-SUB-ACTION-03",
+      "order": 3,
+      "title_he": "לאשר הרשמה ופרופיל עורך דין מבוקר",
+      "owner_action_he": "רק אחרי אישור: ליצור/לאמת פרופיל בדיקה פרטי, login ודשבורד עורך דין. אם זה לא חי מאושר, להשאיר כ-dry-run.",
+      "allowed_proof_he": "מותר לרשום wp-admin ID או מיקום ראיה פרטי. לא לשמור סיסמאות, מיילים או טלפונים.",
+      "unlocks_he": "פותח בדיקת בקשות שירות ותוכנית מנוי.",
+      "blocked_if_he": "אין פרופיל, אין login, או אין אישור הרשמה חיה."
+    },
+    {
+      "id": "LAW-SUB-ACTION-04",
+      "order": 4,
+      "title_he": "לבדוק בקשות שירות בדשבורד",
+      "owner_action_he": "להפעיל רק במסגרת הבדיקה בקשות כמו invoice, payment_link, upgrade, downgrade, cancel או refund, ולוודא שהן נוחתות לבדיקת בעלים.",
+      "allowed_proof_he": "מותר לשמור IDs של בקשות בלבד, בלי גוף הודעה רגיש.",
+      "unlocks_he": "פותח הוכחת תפעול מנוי/חיוב.",
+      "blocked_if_he": "בקשות לא נשמרות, או שהן יוצרות פעולה ספק/תשלום בלי אישור."
+    },
+    {
+      "id": "LAW-SUB-ACTION-05",
+      "order": 5,
+      "title_he": "לקשר ליד/שירות מבוקר אם בודקים הכנסה",
+      "owner_action_he": "אם בודקים ליד בתשלום או מנוי עם ליד: לבחור ליד עם הסכמה ושחרור בעלים, ולקשר אותו לעורך הדין הבדוק.",
+      "allowed_proof_he": "רק lead ID וסטטוס הסכמה/hold, בלי שם לקוח, טלפון, צאט או מסמכים.",
+      "unlocks_he": "פותח מצב חשבונית/תשלום שמבוסס על ערך אמיתי.",
+      "blocked_if_he": "אין ליד עם הסכמה, אין שחרור בעלים, או אין עורך דין מחויב."
+    },
+    {
+      "id": "LAW-SUB-ACTION-06",
+      "order": 6,
+      "title_he": "להפיק ראיית חשבונית או תשלום פרטית",
+      "owner_action_he": "בנתיב manual_invoice: לרשום invoice/reference אחרי שהבעלים שולח ידנית. בנתיב paid: לספור הכנסה רק כשיש הוכחת תשלום פרטית.",
+      "allowed_proof_he": "מותר לרשום reference או payment-proof-present=yes בלבד. לא להדביק חשבונית, קבלה או URL פרטי.",
+      "unlocks_he": "פותח החלטת count_revenue / do_not_count / blocked.",
+      "blocked_if_he": "יש רק הבטחה או invoice בלי הוכחת תשלום אם רוצים לספור הכנסה."
+    }
+  ],
+  "ownerRows": [
+    {
+      "action_id": "LAW-SUB-ACTION-01",
+      "title_he": "לאשר זהות בדיקה נשלטת",
+      "private_admin_pointer_no_pii": "",
+      "status": "not_started",
+      "accepted_status_values": "pass / partial / fail / not_available / needs_owner / park",
+      "owner_verified_yes_no": "no",
+      "proof_present_yes_no": "no",
+      "no_pii_confirmed_yes_no": "yes",
+      "public_or_live_action_approved": "no",
+      "provider_or_payment_action_approved": "no",
+      "owner_note_no_pii": ""
+    },
+    {
+      "action_id": "LAW-SUB-ACTION-02",
+      "title_he": "לבחור נתיב תשלום מאושר",
+      "private_admin_pointer_no_pii": "",
+      "status": "not_started",
+      "accepted_status_values": "pass / partial / fail / not_available / needs_owner / park",
+      "owner_verified_yes_no": "no",
+      "proof_present_yes_no": "no",
+      "no_pii_confirmed_yes_no": "yes",
+      "public_or_live_action_approved": "no",
+      "provider_or_payment_action_approved": "no",
+      "owner_note_no_pii": ""
+    },
+    {
+      "action_id": "LAW-SUB-ACTION-03",
+      "title_he": "לאשר הרשמה ופרופיל עורך דין מבוקר",
+      "private_admin_pointer_no_pii": "",
+      "status": "not_started",
+      "accepted_status_values": "pass / partial / fail / not_available / needs_owner / park",
+      "owner_verified_yes_no": "no",
+      "proof_present_yes_no": "no",
+      "no_pii_confirmed_yes_no": "yes",
+      "public_or_live_action_approved": "no",
+      "provider_or_payment_action_approved": "no",
+      "owner_note_no_pii": ""
+    },
+    {
+      "action_id": "LAW-SUB-ACTION-04",
+      "title_he": "לבדוק בקשות שירות בדשבורד",
+      "private_admin_pointer_no_pii": "",
+      "status": "not_started",
+      "accepted_status_values": "pass / partial / fail / not_available / needs_owner / park",
+      "owner_verified_yes_no": "no",
+      "proof_present_yes_no": "no",
+      "no_pii_confirmed_yes_no": "yes",
+      "public_or_live_action_approved": "no",
+      "provider_or_payment_action_approved": "no",
+      "owner_note_no_pii": ""
+    },
+    {
+      "action_id": "LAW-SUB-ACTION-05",
+      "title_he": "לקשר ליד/שירות מבוקר אם בודקים הכנסה",
+      "private_admin_pointer_no_pii": "",
+      "status": "not_started",
+      "accepted_status_values": "pass / partial / fail / not_available / needs_owner / park",
+      "owner_verified_yes_no": "no",
+      "proof_present_yes_no": "no",
+      "no_pii_confirmed_yes_no": "yes",
+      "public_or_live_action_approved": "no",
+      "provider_or_payment_action_approved": "no",
+      "owner_note_no_pii": ""
+    },
+    {
+      "action_id": "LAW-SUB-ACTION-06",
+      "title_he": "להפיק ראיית חשבונית או תשלום פרטית",
+      "private_admin_pointer_no_pii": "",
+      "status": "not_started",
+      "accepted_status_values": "pass / partial / fail / not_available / needs_owner / park",
+      "owner_verified_yes_no": "no",
+      "proof_present_yes_no": "no",
+      "no_pii_confirmed_yes_no": "yes",
+      "public_or_live_action_approved": "no",
+      "provider_or_payment_action_approved": "no",
+      "owner_note_no_pii": ""
+    }
+  ]
+}

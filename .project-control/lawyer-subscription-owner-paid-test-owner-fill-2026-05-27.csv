@@ -1,0 +1,7 @@
+action_id,title_he,private_admin_pointer_no_pii,status,accepted_status_values,owner_verified_yes_no,proof_present_yes_no,no_pii_confirmed_yes_no,public_or_live_action_approved,provider_or_payment_action_approved,owner_note_no_pii
+LAW-SUB-ACTION-01,לאשר זהות בדיקה נשלטת,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,no,
+LAW-SUB-ACTION-02,לבחור נתיב תשלום מאושר,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,no,
+LAW-SUB-ACTION-03,לאשר הרשמה ופרופיל עורך דין מבוקר,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,no,
+LAW-SUB-ACTION-04,לבדוק בקשות שירות בדשבורד,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,no,
+LAW-SUB-ACTION-05,לקשר ליד/שירות מבוקר אם בודקים הכנסה,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,no,
+LAW-SUB-ACTION-06,להפיק ראיית חשבונית או תשלום פרטית,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,no,

@@ -12,6 +12,7 @@ const SOURCES = [
   ['btlOwnerActionSheet', '.reports', 'btl-owner-first-paid-lead-action-sheet', '2026-05-27'],
   ['btlFirstRevenueOperator', '.reports', 'btl-first-revenue-operator-command', '2026-05-27'],
   ['btlSourceReadiness', '.reports', 'btl-source-readiness-admin-fill-packet', '2026-05-27'],
+  ['lawyerSubscriptionOwnerActionSheet', '.reports', 'lawyer-subscription-owner-paid-test-action-sheet', '2026-05-27'],
   ['lawyerSubscriptionEvidenceReview', '.reports', 'lawyer-subscription-controlled-evidence-review-gate', '2026-05-27'],
   ['lawyerWalkthrough', '.reports', 'lawyer-subscription-controlled-walkthrough', '2026-05-27'],
   ['manualInvoice', '.reports', 'manual-invoice-revenue-fallback-packet', '2026-05-27'],
@@ -123,8 +124,10 @@ function buildRows(sources) {
       exact_next_step: 'Owner/admin fills the controlled lawyer subscription no-PII evidence template; Codex then runs the evidence review gate before any live execution.',
       allowed_after_yes: 'Private review of filled identity, payment path, registration, dashboard, service-request, lead, invoice/payment and revenue-decision evidence.',
       hard_no: 'No real lawyer charge, no payment-link email, no live registration submit and no provider mutation without owner-approved test scope.',
-      source_status: `${statuses.lawyerSubscriptionEvidenceReview} | ${statuses.manualInvoice}`,
-      source_artifact: '.project-control/lawyer-subscription-controlled-evidence-review-gate-2026-05-27.md',
+      source_status: `${statuses.lawyerSubscriptionOwnerActionSheet} | ${statuses.lawyerSubscriptionEvidenceReview} | ${statuses.manualInvoice}`,
+      source_artifact: statuses.lawyerSubscriptionOwnerActionSheet === 'LAWYER_SUBSCRIPTION_OWNER_PAID_TEST_ACTION_SHEET_READY_NO_LIVE_ACTION'
+        ? '.project-control/lawyer-subscription-owner-paid-test-action-sheet-2026-05-27.html'
+        : '.project-control/lawyer-subscription-controlled-evidence-review-gate-2026-05-27.md',
       public_action: 'no',
       crm_or_outreach_action: 'owner-controlled-only',
       completion_if_owner_replies: 'Can move from blank evidence to a controlled lawyer subscription proof review.',

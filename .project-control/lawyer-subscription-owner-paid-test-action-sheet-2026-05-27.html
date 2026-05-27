@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>בדיקת מנוי עורך דין להכנסה - 2026-05-27</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #5f6b7f;
+      --line: #d9deea;
+      --panel: #ffffff;
+      --soft: #f5f7fb;
+      --accent: #1967d2;
+      --accent-soft: #e8f0fe;
+      --warn: #8a4b00;
+      --warn-soft: #fff4df;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--soft);
+      color: var(--ink);
+      font-family: Arial, "Noto Sans Hebrew", "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    main { width: min(1180px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 44px; }
+    header, section { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; margin-bottom: 18px; }
+    header { display: grid; gap: 14px; padding: 24px; }
+    section { overflow: hidden; }
+    .section-head { padding: 18px 20px; border-bottom: 1px solid var(--line); }
+    h1, h2, p { margin: 0; letter-spacing: 0; }
+    h1 { font-size: clamp(1.8rem, 2.5vw, 2.55rem); line-height: 1.2; }
+    h2 { font-size: 1.15rem; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill, code, .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      line-height: 1.35;
+      white-space: normal;
+    }
+    .pill { color: var(--accent); background: var(--accent-soft); border: 1px solid #c7d7f8; }
+    .pill.warning, .status { color: var(--warn); background: var(--warn-soft); border: 1px solid #f5d08b; }
+    code {
+      direction: ltr;
+      color: #12315c;
+      background: #eef3fb;
+      border: 1px solid #ced9ef;
+      font-family: Consolas, "Courier New", monospace;
+    }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; min-width: 860px; border-collapse: collapse; }
+    th, td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: right; vertical-align: top; }
+    th { color: var(--muted); background: #fafbfe; white-space: nowrap; }
+    tr:last-child td { border-bottom: 0; }
+    .notice { padding: 18px 20px; color: var(--muted); }
+    @media (max-width: 760px) {
+      main { width: min(100% - 20px, 1180px); padding-top: 16px; }
+      header { padding: 18px; }
+      table { min-width: 760px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>בדיקת מנוי עורך דין להכנסה</h1>
+      <div class="meta">
+        <span class="pill">LAWYER_SUBSCRIPTION_OWNER_PAID_TEST_ACTION_SHEET_READY_NO_LIVE_ACTION</span>
+        <span class="pill warning">רווח חי: 0% עד תשלום/החלטה</span>
+      </div>
+      <p>דף פעולה לבעלים/מנהל: מה למלא כדי להפוך את מסלול המנוי מבדיקה פנימית להוכחת הכנסה או חסם ברור, בלי לחשוף מידע פרטי.</p>
+    </header>
+    <section>
+      <div class="section-head"><h2>סדר פעולות</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>סדר</th><th>פעולה</th><th>מה עושים פרטי</th><th>מה מותר לרשום</th><th>פותח</th><th>חסום אם</th></tr></thead>
+          <tbody><tr>
+        <td>1</td>
+        <td><strong>לאשר זהות בדיקה נשלטת</strong></td>
+        <td>הבעלים בוחר alias, תיבת מייל וטלפון בדיקה שנשלטים על ידו, ומחליט אם זה dry-run או בדיקה חיה מאושרת.</td>
+        <td>מותר לרשום alias קצר, yes/no, ומיקום ראיה פרטי. לא לשמור מייל, טלפון, סיסמה או שם אמיתי בקבצים.</td>
+        <td>פותח הרשמה/דשבורד מבוקרים.</td>
+        <td>אין זהות בדיקה, אין אישור בעלים, או יש פרטים אישיים בקובץ.</td>
+      </tr>
+<tr>
+        <td>2</td>
+        <td><strong>לבחור נתיב תשלום מאושר</strong></td>
+        <td>לבחור נתיב אחד: manual_invoice, approved_payment_link, provider_link או no_charge_dry_run. Grow/Meshulam נשאר חסם אם אין KYC/מוצר/תשלום מאושרים.</td>
+        <td>רק שם הנתיב וסטטוס מאושר/לא מאושר. לא להדביק URL תשלום, מפתחות ספק או קבלות.</td>
+        <td>פותח בדיקת הרשמה ותוכנית בלי להבטיח הכנסה.</td>
+        <td>אין נתיב תשלום מאושר או אין חלופה ידנית ברורה.</td>
+      </tr>
+<tr>
+        <td>3</td>
+        <td><strong>לאשר הרשמה ופרופיל עורך דין מבוקר</strong></td>
+        <td>רק אחרי אישור: ליצור/לאמת פרופיל בדיקה פרטי, login ודשבורד עורך דין. אם זה לא חי מאושר, להשאיר כ-dry-run.</td>
+        <td>מותר לרשום wp-admin ID או מיקום ראיה פרטי. לא לשמור סיסמאות, מיילים או טלפונים.</td>
+        <td>פותח בדיקת בקשות שירות ותוכנית מנוי.</td>
+        <td>אין פרופיל, אין login, או אין אישור הרשמה חיה.</td>
+      </tr>
+<tr>
+        <td>4</td>
+        <td><strong>לבדוק בקשות שירות בדשבורד</strong></td>
+        <td>להפעיל רק במסגרת הבדיקה בקשות כמו invoice, payment_link, upgrade, downgrade, cancel או refund, ולוודא שהן נוחתות לבדיקת בעלים.</td>
+        <td>מותר לשמור IDs של בקשות בלבד, בלי גוף הודעה רגיש.</td>
+        <td>פותח הוכחת תפעול מנוי/חיוב.</td>
+        <td>בקשות לא נשמרות, או שהן יוצרות פעולה ספק/תשלום בלי אישור.</td>
+      </tr>
+<tr>
+        <td>5</td>
+        <td><strong>לקשר ליד/שירות מבוקר אם בודקים הכנסה</strong></td>
+        <td>אם בודקים ליד בתשלום או מנוי עם ליד: לבחור ליד עם הסכמה ושחרור בעלים, ולקשר אותו לעורך הדין הבדוק.</td>
+        <td>רק lead ID וסטטוס הסכמה/hold, בלי שם לקוח, טלפון, צאט או מסמכים.</td>
+        <td>פותח מצב חשבונית/תשלום שמבוסס על ערך אמיתי.</td>
+        <td>אין ליד עם הסכמה, אין שחרור בעלים, או אין עורך דין מחויב.</td>
+      </tr>
+<tr>
+        <td>6</td>
+        <td><strong>להפיק ראיית חשבונית או תשלום פרטית</strong></td>
+        <td>בנתיב manual_invoice: לרשום invoice/reference אחרי שהבעלים שולח ידנית. בנתיב paid: לספור הכנסה רק כשיש הוכחת תשלום פרטית.</td>
+        <td>מותר לרשום reference או payment-proof-present=yes בלבד. לא להדביק חשבונית, קבלה או URL פרטי.</td>
+        <td>פותח החלטת count_revenue / do_not_count / blocked.</td>
+        <td>יש רק הבטחה או invoice בלי הוכחת תשלום אם רוצים לספור הכנסה.</td>
+      </tr></tbody>
+        </table>
+      </div>
+    </section>
+    <section>
+      <div class="section-head"><h2>מסירה לקודקס</h2></div>
+      <div class="notice">
+        <p>ממלאים את <code>.project-control\lawyer-subscription-owner-paid-test-owner-fill-2026-05-27.csv</code> עם סטטוסים בלבד. לא מכניסים פרטי קשר, סיסמאות, קישורי תשלום, קבלות או תוכן לקוח.</p>
+      </div>
+    </section>
+    <section>
+      <div class="section-head"><h2>בדיקות בטיחות</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>מזהה</th><th>בדיקה</th><th>סטטוס</th><th>ראיה</th></tr></thead>
+          <tbody><tr>
+        <td><strong>LAW-SHEET-GATE-01</strong></td>
+        <td>source_chain_ready</td>
+        <td><span class="status">PASS</span></td>
+        <td>Review: LAWYER_SUBSCRIPTION_CONTROLLED_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION; walkthrough: READY_SCRIPT_WITH_RUNTIME_BLOCKERS; manual invoice: MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION.</td>
+      </tr>
+<tr>
+        <td><strong>LAW-SHEET-GATE-02</strong></td>
+        <td>subscription_is_top_revenue_goal</td>
+        <td><span class="status">PASS</span></td>
+        <td>Top command-center rows: UNBLOCK-01, UNBLOCK-02, UNBLOCK-08.</td>
+      </tr>
+<tr>
+        <td><strong>LAW-SHEET-GATE-03</strong></td>
+        <td>manual_invoice_boundary_preserved</td>
+        <td><span class="status">PASS</span></td>
+        <td>Manual invoice packet records 0 invoices sent and 0 payments created.</td>
+      </tr>
+<tr>
+        <td><strong>LAW-SHEET-GATE-04</strong></td>
+        <td>no_live_action_authorized</td>
+        <td><span class="status">PASS_NO_LIVE_ACTION</span></td>
+        <td>This sheet approves 0 registrations, CRM writes, provider changes, invoices, payments, outreach, public edits, GSC calls or uPress actions.</td>
+      </tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

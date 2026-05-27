@@ -1,0 +1,2 @@
+reportDate,sourceDate,status,actionRows,ownerFillRows,liveProfitProofPercent,staticPreparationPercent,revenueCanBeClaimed,manualInvoiceFallbackReady,wpAdminWritesApproved,crmRecordsCreated,liveRegistrationsSubmitted,providerActionsApproved,invoicesOrPaymentsCreated,emailsOrMessagesSent,publicChangesApproved,upressDeploymentRequired
+2026-05-27,2026-05-27,LAWYER_SUBSCRIPTION_OWNER_PAID_TEST_ACTION_SHEET_READY_NO_LIVE_ACTION,6,6,0,70,false,true,0,0,0,0,0,0,0,false

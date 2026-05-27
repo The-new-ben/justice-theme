@@ -18,6 +18,7 @@
       "btlOwnerActionSheet": "BTL_OWNER_FIRST_PAID_LEAD_ACTION_SHEET_READY_NO_LIVE_ACTION",
       "btlFirstRevenueOperator": "BTL_FIRST_REVENUE_OPERATOR_COMMAND_READY_BLOCKED_ON_PRIVATE_EVIDENCE_NO_LIVE_ACTION",
       "btlSourceReadiness": "BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION",
+      "lawyerSubscriptionOwnerActionSheet": "LAWYER_SUBSCRIPTION_OWNER_PAID_TEST_ACTION_SHEET_READY_NO_LIVE_ACTION",
       "lawyerSubscriptionEvidenceReview": "LAWYER_SUBSCRIPTION_CONTROLLED_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION",
       "lawyerWalkthrough": "READY_SCRIPT_WITH_RUNTIME_BLOCKERS",
       "manualInvoice": "MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION",
@@ -54,8 +55,8 @@
       "exact_next_step": "Owner/admin fills the controlled lawyer subscription no-PII evidence template; Codex then runs the evidence review gate before any live execution.",
       "allowed_after_yes": "Private review of filled identity, payment path, registration, dashboard, service-request, lead, invoice/payment and revenue-decision evidence.",
       "hard_no": "No real lawyer charge, no payment-link email, no live registration submit and no provider mutation without owner-approved test scope.",
-      "source_status": "LAWYER_SUBSCRIPTION_CONTROLLED_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION | MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION",
-      "source_artifact": ".project-control/lawyer-subscription-controlled-evidence-review-gate-2026-05-27.md",
+      "source_status": "LAWYER_SUBSCRIPTION_OWNER_PAID_TEST_ACTION_SHEET_READY_NO_LIVE_ACTION | LAWYER_SUBSCRIPTION_CONTROLLED_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION | MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION",
+      "source_artifact": ".project-control/lawyer-subscription-owner-paid-test-action-sheet-2026-05-27.html",
       "public_action": "no",
       "crm_or_outreach_action": "owner-controlled-only",
       "completion_if_owner_replies": "Can move from blank evidence to a controlled lawyer subscription proof review."

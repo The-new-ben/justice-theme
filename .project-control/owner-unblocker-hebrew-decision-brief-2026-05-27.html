@@ -271,6 +271,24 @@
         <article class="decision-card">
           <div class="card-head">
             <span class="rank">#1</span>
+            <span class="id">UNBLOCK-00</span>
+          </div>
+          <h2>פריסת עמוד הבית החי</h2>
+          <dl>
+            <dt>החלטת בעלים נדרשת</dt>
+            <dd>להריץ Pull Git ב-uPress עבור wp-content/themes/justice-theme ואז לוודא שעמוד הבית החדש עלה לאתר החי.</dd>
+            <dt>הצעד הבא</dt>
+            <dd>להיכנס ל-uPress של jus-tice.co.il, לפתוח Git management לתיקיית wp-content/themes/justice-theme, להריץ Pull Git ולבדוק שהעמוד מציג כותרת עזרה משפטית ואת אזור המצבים החדש.</dd>
+            <dt>אסור ללא אישור</dt>
+            <dd>במהלך המשיכה לא עורכים CMS, לא משנים redirect, canonical/noindex, sitemap, taxonomy, CRM, תשלום או הגדרות ספק.</dd>
+            <dt>תשובה קצרה מוצעת</dt>
+            <dd><code>UNBLOCK-00 approve</code></dd>
+          </dl>
+        </article>
+
+        <article class="decision-card">
+          <div class="card-head">
+            <span class="rank">#2</span>
             <span class="id">UNBLOCK-01</span>
           </div>
           <h2>הוכחת ליד בתשלום בביטוח לאומי</h2>
@@ -288,7 +306,7 @@
 
         <article class="decision-card">
           <div class="card-head">
-            <span class="rank">#2</span>
+            <span class="rank">#3</span>
             <span class="id">UNBLOCK-02</span>
           </div>
           <h2>בדיקת מסלול מנוי עורך דין</h2>
@@ -301,24 +319,6 @@
             <dd>לא מחייבים עורך דין אמיתי, לא שולחים לינק תשלום, לא מגישים הרשמה חיה ולא משנים ספק תשלום בלי היקף בדיקה מאושר.</dd>
             <dt>תשובה קצרה מוצעת</dt>
             <dd><code>UNBLOCK-02 approve</code></dd>
-          </dl>
-        </article>
-
-        <article class="decision-card">
-          <div class="card-head">
-            <span class="rank">#3</span>
-            <span class="id">UNBLOCK-08</span>
-          </div>
-          <h2>כיסוי עורך דין פלילי בירושלים</h2>
-          <dl>
-            <dt>החלטת בעלים נדרשת</dt>
-            <dd>לאשר הכנסת/אימות prospect פרטי אחד ב-wp-admin לעורך דין פלילי בירושלים, או להחליט במפורש להקפיא את מסלול הכיסוי המדויק.</dd>
-            <dt>הצעד הבא</dt>
-            <dd>למלא את תבנית criminal Jerusalem עם רישיון, התאמת תחום, זמינות תגובה, נתיב תשלום ידני, תנאי fee וכתובת חיוב.</dd>
-            <dt>אסור ללא אישור</dt>
-            <dd>לא עורכים דף ציבורי, לא יוצרים כרטיס עורך דין ציבורי, לא פונים לעורך דין, לא מנתבים ליד, לא מפיקים חשבונית ולא עושים uPress.</dd>
-            <dt>תשובה קצרה מוצעת</dt>
-            <dd><code>UNBLOCK-08 approve</code></dd>
           </dl>
         </article>
       </div>
@@ -343,8 +343,17 @@
           <tbody>
 
           <tr>
-            <td><strong>UNBLOCK-01</strong></td>
+            <td><strong>UNBLOCK-00</strong></td>
             <td>1</td>
+            <td>פריסת עמוד הבית החי</td>
+            <td>שיפור ההמרה של עמוד הבית כבר נמצא בגיטהאב, אבל הוא לא יכול להשפיע על מבקרים, לידים או אמון עד שהשרת החי מושך את התבנית.</td>
+            <td>אחרי המשיכה מותר לבצע בדיקה חיה לקריאה בלבד: נוסח עמוד הבית, מובייל, קישורי חיפוש/פנייה והיעדר שפת הכנסה פנימית.</td>
+            <td>HOMEPAGE_DEPLOYMENT_BLOCKED_UPRESS_PULL_REQUIRED</td>
+          </tr>
+
+          <tr>
+            <td><strong>UNBLOCK-01</strong></td>
+            <td>2</td>
             <td>הוכחת ליד בתשלום בביטוח לאומי</td>
             <td>זה המסלול הקרוב ביותר לליד ראשון בתשלום, אבל כרגע יש רק הכנת תשתית ולא ראיות חיות.</td>
             <td>קודקס יכול לבדוק את שורות הראיה ללא פרטים מזהים ולהמשיך רק אם כל השורות עוברות.</td>
@@ -353,16 +362,16 @@
 
           <tr>
             <td><strong>UNBLOCK-02</strong></td>
-            <td>2</td>
+            <td>3</td>
             <td>בדיקת מסלול מנוי עורך דין</td>
             <td>מסלול המנוי מוכן סטטית, אבל הוכחת הכנסה חיה דורשת זהות בדיקה וראיית תשלום שאושרו מראש.</td>
             <td>אפשר לאסוף הוכחות על הרשמה, תוכנית, תשלום, דשבורד ובקשות שירות בתוך היקף בדיקה מוגדר.</td>
-            <td>READY_SCRIPT_WITH_RUNTIME_BLOCKERS | MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION</td>
+            <td>LAWYER_SUBSCRIPTION_CONTROLLED_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION | MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION</td>
           </tr>
 
           <tr>
             <td><strong>UNBLOCK-08</strong></td>
-            <td>3</td>
+            <td>4</td>
             <td>כיסוי עורך דין פלילי בירושלים</td>
             <td>הספריה המדויקת פלילי+ירושלים וגם ספריית פלילי בלבד מציגות 0 כרטיסי עורכי דין, לכן אסור להסתמך על הדף לפני שיש כיסוי אמיתי.</td>
             <td>אפשר לבדוק את הראיות הפרטיות ואז לבצע צעד prospect/profile פרטי מאושר לפני הרצה מחדש של בדיקת הכיסוי.</td>
@@ -371,7 +380,7 @@
 
           <tr>
             <td><strong>UNBLOCK-03</strong></td>
-            <td>4</td>
+            <td>5</td>
             <td>עדכון ציבורי אפשרי בעמוד הסכם שכירות</td>
             <td>זה יכול לשפר המרה בעמוד קיים בלי ליצור מסלול כפול, אבל דורש אישור בעלים/SEO/משפטי לפני עריכת CMS.</td>
             <td>אפשר להכין טיוטת שינוי מדויקת בלבד, עדיין בלי פרסום.</td>
@@ -380,7 +389,7 @@
 
           <tr>
             <td><strong>UNBLOCK-04</strong></td>
-            <td>5</td>
+            <td>6</td>
             <td>החלטת Low Hype / RV</td>
             <td>המחקר תומך בפיילוט צר בלבד; מסלול RV עצמאי עדיין מסוכן מדי.</td>
             <td>אפשר להמשיך בדיקת GSC/משפטי פרטית או intake ללא פרטים מזהים רק עם הסכמה מפורשת.</td>
@@ -389,7 +398,7 @@
 
           <tr>
             <td><strong>UNBLOCK-05</strong></td>
-            <td>6</td>
+            <td>7</td>
             <td>עמוד גירושין תל אביב</td>
             <td>יש כיסוי ספריה שנראה חי, אבל פרסום דורש מוכנות פרופילים, GSC ובדיקת משפטית/עריכה.</td>
             <td>אפשר להכין טיוטת fit-check צרה שמגינה על pillar הגירושין ועל עמודים קשורים.</td>
@@ -398,7 +407,7 @@
 
           <tr>
             <td><strong>UNBLOCK-06</strong></td>
-            <td>7</td>
+            <td>8</td>
             <td>תפקיד העמוד פלילי ירושלים</td>
             <td>העמוד כבר ציבורי ודק, אבל אסור לערוך לפני שמחליטים איך הוא משתלב עם pillar פלילי ועמודים מומחים.</td>
             <td>אפשר להכין טיוטת עדכון רק אחרי שבעלות המסלול ברורה.</td>
@@ -407,7 +416,7 @@
 
           <tr>
             <td><strong>UNBLOCK-07</strong></td>
-            <td>8</td>
+            <td>9</td>
             <td>הסכמה ללידים מ-WhatsApp/TalkTo</td>
             <td>צאטים נכנסים וישנים יכולים להפוך ל-CRM רק אם הסכמה, כללי עצירה וגבולות no-PII ברורים.</td>
             <td>אפשר לטפל בפניות עדכניות רק עם הרשאה; לידים ישנים רק אחרי re-permission מאושר.</td>
@@ -445,7 +454,7 @@
             <td><strong>OHB-GATE-02</strong></td>
             <td>top_three_owner_decisions_present</td>
             <td><span class="status pass">PASS</span></td>
-            <td>Top rows: UNBLOCK-01, UNBLOCK-02, UNBLOCK-08.</td>
+            <td>Top rows: UNBLOCK-00, UNBLOCK-01, UNBLOCK-02.</td>
           </tr>
 
           <tr>

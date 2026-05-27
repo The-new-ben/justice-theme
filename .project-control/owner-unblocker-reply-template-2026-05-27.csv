@@ -1,4 +1,5 @@
 unblock_id,owner_decision,accepted_values,owner_note_no_pii,public_action_approved,live_crm_or_outreach_approved,payment_or_invoice_approved,next_evidence_location
+UNBLOCK-00,,approve / edit / reject / park / needs_more_evidence,,no,no,no,
 UNBLOCK-01,,approve / edit / reject / park / needs_more_evidence,,no,no,no,
 UNBLOCK-02,,approve / edit / reject / park / needs_more_evidence,,no,no,no,
 UNBLOCK-08,,approve / edit / reject / park / needs_more_evidence,,no,no,no,

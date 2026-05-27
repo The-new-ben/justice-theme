@@ -1,0 +1,293 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "sourceDate": "2026-05-27",
+    "status": "LAWYER_SUBSCRIPTION_CONTROLLED_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION",
+    "walkthroughSource": ".reports\\lawyer-subscription-controlled-walkthrough-2026-05-27.json",
+    "manualInvoiceSource": ".reports\\manual-invoice-revenue-fallback-packet-2026-05-27.json",
+    "filledCsv": ".project-control\\lawyer-subscription-controlled-evidence-template-2026-05-27.csv",
+    "requiredFieldCount": 11,
+    "reviewedFieldCount": 11,
+    "passFields": 0,
+    "blockedOrReviewFields": 11,
+    "gateRows": 6,
+    "blockedOrReviewGateRows": 3,
+    "duplicateFieldIds": 0,
+    "unknownFieldIds": 0,
+    "rawOwnerValuesEchoed": 0,
+    "privateContactOrSecretMarkers": 0,
+    "publicChangesApproved": 0,
+    "liveRecordOrRegistrationApproved": 0,
+    "providerActionsApproved": 0,
+    "invoicesOrPaymentsCreated": 0,
+    "revenueClaimsApproved": 0,
+    "paidLlmApiUsed": 0,
+    "externalApisCalled": 0,
+    "emailsOrMessagesSent": 0,
+    "upressDeploymentRequired": false,
+    "files": {
+      "projectMd": ".project-control\\lawyer-subscription-controlled-evidence-review-gate-2026-05-27.md",
+      "projectCsv": ".project-control\\lawyer-subscription-controlled-evidence-review-gate-2026-05-27.csv",
+      "escalationCsv": ".project-control\\lawyer-subscription-controlled-evidence-escalation-2026-05-27.csv",
+      "reportJson": ".reports\\lawyer-subscription-controlled-evidence-review-gate-2026-05-27.json",
+      "reportCsv": ".reports\\lawyer-subscription-controlled-evidence-review-gate-2026-05-27.csv"
+    }
+  },
+  "gateRows": [
+    {
+      "id": "LSE-GATE-01",
+      "gate": "schema_and_required_fields",
+      "status": "PASS",
+      "evidence": "11/11 required fields reviewed; 0 duplicate IDs; 0 unknown IDs.",
+      "next_action": "Use the controlled evidence template only; do not add private contact details."
+    },
+    {
+      "id": "LSE-GATE-02",
+      "gate": "no_private_contact_or_secret_echo",
+      "status": "PASS",
+      "evidence": "0 rows appear to contain contact details, phone-like values or secrets.",
+      "next_action": "Replace raw contact/payment/password values with yes/no and private evidence-location summaries."
+    },
+    {
+      "id": "LSE-GATE-03",
+      "gate": "controlled_identity_and_payment_path",
+      "status": "BLOCKED_OWNER_TEST_SCOPE",
+      "evidence": "Owner/test/payment scope pass fields: 0/4.",
+      "next_action": "Do not submit registration until owner-controlled identity and payment path are filled."
+    },
+    {
+      "id": "LSE-GATE-04",
+      "gate": "manual_invoice_fallback_source_current",
+      "status": "PASS",
+      "evidence": "Manual invoice fallback source: MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION.",
+      "next_action": "Keep manual invoice as fallback until provider/KYC/payment proof is explicitly approved."
+    },
+    {
+      "id": "LSE-GATE-05",
+      "gate": "live_walkthrough_evidence_chain",
+      "status": "BLOCKED_LIVE_WALKTHROUGH_EVIDENCE",
+      "evidence": "Registration/profile/login/service-request/lead pass fields: 0/5.",
+      "next_action": "Do not claim dashboard or CRM readiness until controlled profile, login, requests and lead evidence pass."
+    },
+    {
+      "id": "LSE-GATE-06",
+      "gate": "invoice_payment_and_revenue_decision",
+      "status": "BLOCKED_PAYMENT_OR_REVENUE_DECISION",
+      "evidence": "Payment/reference pass: no; revenue decision pass: no; review rows: 0; selected payment path row present: no.",
+      "next_action": "Count revenue only after private payment evidence supports the owner revenue decision."
+    }
+  ],
+  "reviewRows": [
+    {
+      "field_id": "EVID-01",
+      "field": "owner_controlled_test_approval",
+      "required_before_step": "WALK-01",
+      "value_present": "no",
+      "potential_private_contact_or_secret": "no",
+      "review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "expected_value_type": "approve / reject / park / needs_more_evidence",
+      "repo_storage_rule": "no_pii_summary_only",
+      "raw_values_echoed": "no"
+    },
+    {
+      "field_id": "EVID-02",
+      "field": "controlled_identity_alias",
+      "required_before_step": "WALK-01",
+      "value_present": "no",
+      "potential_private_contact_or_secret": "no",
+      "review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "expected_value_type": "short alias, not real name unless owner explicitly approves live record evidence storage",
+      "repo_storage_rule": "no_pii_summary_only",
+      "raw_values_echoed": "no"
+    },
+    {
+      "field_id": "EVID-03",
+      "field": "controlled_inbox_and_phone_owner_confirmed",
+      "required_before_step": "WALK-01",
+      "value_present": "no",
+      "potential_private_contact_or_secret": "no",
+      "review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "expected_value_type": "yes / no plus private evidence location",
+      "repo_storage_rule": "do_not_store_email_or_phone",
+      "raw_values_echoed": "no"
+    },
+    {
+      "field_id": "EVID-04",
+      "field": "selected_payment_path",
+      "required_before_step": "WALK-02",
+      "value_present": "no",
+      "potential_private_contact_or_secret": "no",
+      "review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "expected_value_type": "manual_invoice / approved_payment_link / provider_link / no_charge_dry_run",
+      "repo_storage_rule": "provider/path label only, no full payment URL",
+      "raw_values_echoed": "no"
+    },
+    {
+      "field_id": "EVID-05",
+      "field": "live_registration_allowed",
+      "required_before_step": "WALK-07",
+      "value_present": "no",
+      "potential_private_contact_or_secret": "no",
+      "review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "expected_value_type": "yes / no",
+      "repo_storage_rule": "approval note only",
+      "raw_values_echoed": "no"
+    },
+    {
+      "field_id": "EVID-06",
+      "field": "controlled_lawyer_profile_or_post_id",
+      "required_before_step": "WALK-08",
+      "value_present": "no",
+      "potential_private_contact_or_secret": "no",
+      "review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "expected_value_type": "wp-admin ID or private evidence location",
+      "repo_storage_rule": "ID ok only if owner confirms test record",
+      "raw_values_echoed": "no"
+    },
+    {
+      "field_id": "EVID-07",
+      "field": "controlled_lawyer_user_login_confirmed",
+      "required_before_step": "WALK-10",
+      "value_present": "no",
+      "potential_private_contact_or_secret": "no",
+      "review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "expected_value_type": "yes / no plus private evidence location",
+      "repo_storage_rule": "no password, no email address",
+      "raw_values_echoed": "no"
+    },
+    {
+      "field_id": "EVID-08",
+      "field": "service_request_ids",
+      "required_before_step": "WALK-11",
+      "value_present": "no",
+      "potential_private_contact_or_secret": "no",
+      "review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "expected_value_type": "payment_link / upgrade / downgrade / cancel / refund / invoice request IDs",
+      "repo_storage_rule": "IDs only, no sensitive message body",
+      "raw_values_echoed": "no"
+    },
+    {
+      "field_id": "EVID-09",
+      "field": "controlled_consented_lead_id",
+      "required_before_step": "WALK-12",
+      "value_present": "no",
+      "potential_private_contact_or_secret": "no",
+      "review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "expected_value_type": "lead ID plus consent/routing hold status",
+      "repo_storage_rule": "ID and status only, no client PII",
+      "raw_values_echoed": "no"
+    },
+    {
+      "field_id": "EVID-10",
+      "field": "invoice_or_payment_reference",
+      "required_before_step": "WALK-13",
+      "value_present": "no",
+      "potential_private_contact_or_secret": "no",
+      "review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "expected_value_type": "invoice reference, payment evidence location or no-charge dry-run note",
+      "repo_storage_rule": "reference/location only, no full payment link",
+      "raw_values_echoed": "no"
+    },
+    {
+      "field_id": "EVID-11",
+      "field": "revenue_counting_decision",
+      "required_before_step": "WALK-14",
+      "value_present": "no",
+      "potential_private_contact_or_secret": "no",
+      "review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "expected_value_type": "count_revenue / do_not_count / blocked",
+      "repo_storage_rule": "owner decision and proof summary only",
+      "raw_values_echoed": "no"
+    }
+  ],
+  "escalationRows": [
+    {
+      "field_id": "EVID-01",
+      "field": "owner_controlled_test_approval",
+      "required_before_step": "WALK-01",
+      "current_review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "resolution_needed": "approve / reject / park / needs_more_evidence",
+      "live_or_public_action_allowed_from_this_review": "no"
+    },
+    {
+      "field_id": "EVID-02",
+      "field": "controlled_identity_alias",
+      "required_before_step": "WALK-01",
+      "current_review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "resolution_needed": "short alias, not real name unless owner explicitly approves live record evidence storage",
+      "live_or_public_action_allowed_from_this_review": "no"
+    },
+    {
+      "field_id": "EVID-03",
+      "field": "controlled_inbox_and_phone_owner_confirmed",
+      "required_before_step": "WALK-01",
+      "current_review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "resolution_needed": "yes / no plus private evidence location",
+      "live_or_public_action_allowed_from_this_review": "no"
+    },
+    {
+      "field_id": "EVID-04",
+      "field": "selected_payment_path",
+      "required_before_step": "WALK-02",
+      "current_review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "resolution_needed": "manual_invoice / approved_payment_link / provider_link / no_charge_dry_run",
+      "live_or_public_action_allowed_from_this_review": "no"
+    },
+    {
+      "field_id": "EVID-05",
+      "field": "live_registration_allowed",
+      "required_before_step": "WALK-07",
+      "current_review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "resolution_needed": "yes / no",
+      "live_or_public_action_allowed_from_this_review": "no"
+    },
+    {
+      "field_id": "EVID-06",
+      "field": "controlled_lawyer_profile_or_post_id",
+      "required_before_step": "WALK-08",
+      "current_review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "resolution_needed": "wp-admin ID or private evidence location",
+      "live_or_public_action_allowed_from_this_review": "no"
+    },
+    {
+      "field_id": "EVID-07",
+      "field": "controlled_lawyer_user_login_confirmed",
+      "required_before_step": "WALK-10",
+      "current_review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "resolution_needed": "yes / no plus private evidence location",
+      "live_or_public_action_allowed_from_this_review": "no"
+    },
+    {
+      "field_id": "EVID-08",
+      "field": "service_request_ids",
+      "required_before_step": "WALK-11",
+      "current_review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "resolution_needed": "payment_link / upgrade / downgrade / cancel / refund / invoice request IDs",
+      "live_or_public_action_allowed_from_this_review": "no"
+    },
+    {
+      "field_id": "EVID-09",
+      "field": "controlled_consented_lead_id",
+      "required_before_step": "WALK-12",
+      "current_review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "resolution_needed": "lead ID plus consent/routing hold status",
+      "live_or_public_action_allowed_from_this_review": "no"
+    },
+    {
+      "field_id": "EVID-10",
+      "field": "invoice_or_payment_reference",
+      "required_before_step": "WALK-13",
+      "current_review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "resolution_needed": "invoice reference, payment evidence location or no-charge dry-run note",
+      "live_or_public_action_allowed_from_this_review": "no"
+    },
+    {
+      "field_id": "EVID-11",
+      "field": "revenue_counting_decision",
+      "required_before_step": "WALK-14",
+      "current_review_status": "BLOCKED_BLANK_OWNER_VALUE",
+      "resolution_needed": "count_revenue / do_not_count / blocked",
+      "live_or_public_action_allowed_from_this_review": "no"
+    }
+  ]
+}

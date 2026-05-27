@@ -1,0 +1,12 @@
+field_id,field,required_before_step,current_review_status,resolution_needed,live_or_public_action_allowed_from_this_review
+EVID-01,owner_controlled_test_approval,WALK-01,BLOCKED_BLANK_OWNER_VALUE,approve / reject / park / needs_more_evidence,no
+EVID-02,controlled_identity_alias,WALK-01,BLOCKED_BLANK_OWNER_VALUE,"short alias, not real name unless owner explicitly approves live record evidence storage",no
+EVID-03,controlled_inbox_and_phone_owner_confirmed,WALK-01,BLOCKED_BLANK_OWNER_VALUE,yes / no plus private evidence location,no
+EVID-04,selected_payment_path,WALK-02,BLOCKED_BLANK_OWNER_VALUE,manual_invoice / approved_payment_link / provider_link / no_charge_dry_run,no
+EVID-05,live_registration_allowed,WALK-07,BLOCKED_BLANK_OWNER_VALUE,yes / no,no
+EVID-06,controlled_lawyer_profile_or_post_id,WALK-08,BLOCKED_BLANK_OWNER_VALUE,wp-admin ID or private evidence location,no
+EVID-07,controlled_lawyer_user_login_confirmed,WALK-10,BLOCKED_BLANK_OWNER_VALUE,yes / no plus private evidence location,no
+EVID-08,service_request_ids,WALK-11,BLOCKED_BLANK_OWNER_VALUE,payment_link / upgrade / downgrade / cancel / refund / invoice request IDs,no
+EVID-09,controlled_consented_lead_id,WALK-12,BLOCKED_BLANK_OWNER_VALUE,lead ID plus consent/routing hold status,no
+EVID-10,invoice_or_payment_reference,WALK-13,BLOCKED_BLANK_OWNER_VALUE,"invoice reference, payment evidence location or no-charge dry-run note",no
+EVID-11,revenue_counting_decision,WALK-14,BLOCKED_BLANK_OWNER_VALUE,count_revenue / do_not_count / blocked,no

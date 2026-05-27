@@ -1,0 +1,9 @@
+field,value
+status,HOMEPAGE_DEPLOYMENT_BLOCKED_UPRESS_PULL_REQUIRED
+github_commit,432c6175 Improve public-first homepage routing
+github_ready,100%
+live_deployment,0% until uPress Pull Git succeeds
+required_action,"Open uPress for jus-tice.co.il, go to Git management for wp-content/themes/justice-theme, run Pull Git, verify homepage copy"
+verify_text_1,צריכים עזרה משפטית? התחילו מהבעיה העיר והצעד הבא
+verify_text_2,עזרה משפטית לפי מצב
+hard_no,"No CMS content, redirects, canonicals/noindex, sitemap, taxonomies, CRM, payment or provider setting changes during theme pull"

@@ -1,0 +1,36 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "status": "HOMEPAGE_DEPLOYMENT_BLOCKED_UPRESS_PULL_REQUIRED",
+    "githubCommit": "432c6175 Improve public-first homepage routing",
+    "githubReadyPercent": 100,
+    "liveDeploymentPercent": 0,
+    "businessImpactPercent": 0,
+    "upressDeploymentRequired": true,
+    "publicActionApproved": 0,
+    "liveCrmOrOutreachApproved": 0,
+    "paymentOrInvoiceApproved": 0,
+    "emailsSent": 0,
+    "gscApiCalled": 0
+  },
+  "verification": {
+    "requiredLiveText": [
+      "צריכים עזרה משפטית? התחילו מהבעיה, העיר והצעד הבא",
+      "עזרה משפטית לפי מצב"
+    ],
+    "requiredSection": "homepage legal help by situation",
+    "changedGuideContent": false
+  },
+  "requiredAction": "Open uPress for jus-tice.co.il, go to Git management for wp-content/themes/justice-theme, run Pull Git, then verify the live homepage contains the new public-first legal help copy.",
+  "hardNo": [
+    "Do not change CMS content during the pull.",
+    "Do not change redirects, canonicals/noindex, sitemap or taxonomies.",
+    "Do not change CRM, payment or provider settings.",
+    "Do not count homepage conversion impact until the live page shows the new copy."
+  ],
+  "outputs": {
+    "projectMd": ".project-control/homepage-deployment-blocker-2026-05-27.md",
+    "projectCsv": ".project-control/homepage-deployment-blocker-2026-05-27.csv",
+    "reportJson": ".reports/homepage-deployment-blocker-2026-05-27.json"
+  }
+}

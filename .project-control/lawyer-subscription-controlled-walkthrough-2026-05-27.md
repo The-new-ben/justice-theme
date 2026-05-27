@@ -11,7 +11,7 @@ Purpose: give the owner, Codex and remote team one controlled end-to-end script 
 - Runtime-blocked live steps: 10
 - Evidence template rows: 11
 - No live lawyer, client, lead, payment, invoice, email, WhatsApp, TalkTo or CMS/public page action is authorized by this packet alone.
-- Real revenue may be counted only after payment/reference and invoice/receipt evidence are recorded.
+- Real revenue may be counted only after private payment evidence is recorded; invoice/reference alone supports invoice-stage follow-up.
 
 ## Routes And Screens
 
@@ -57,6 +57,10 @@ Purpose: give the owner, Codex and remote team one controlled end-to-end script 
 ## Evidence Capture Template
 
 Use `.project-control/lawyer-subscription-controlled-evidence-template-2026-05-27.csv` during the owner walkthrough. Keep real emails, phone numbers, payment URLs, passwords and client PII out of repo artifacts; store only IDs, yes/no status and private evidence locations.
+
+## After Fill Review
+
+Run `tools/review-lawyer-subscription-controlled-evidence.mjs` against the filled no-PII CSV. Use `.project-control/lawyer-subscription-controlled-evidence-review-gate-2026-05-27.md` to see what remains blocked before any live registration, provider action, invoice, payment, dashboard proof, CRM lead proof or revenue claim.
 
 ## Safety Statement
 

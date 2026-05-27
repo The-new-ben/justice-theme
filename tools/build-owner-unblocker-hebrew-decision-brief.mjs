@@ -8,6 +8,15 @@ const DEFAULT_REPORT_DATE = new Date().toISOString().slice(0, 10);
 const DEFAULT_SOURCE_DATE = DEFAULT_REPORT_DATE;
 
 const HEBREW_ROWS = {
+  'UNBLOCK-00': {
+    title_he: 'פריסת עמוד הבית החי',
+    owner_decision_needed_he: 'להריץ Pull Git ב-uPress עבור wp-content/themes/justice-theme ואז לוודא שעמוד הבית החדש עלה לאתר החי.',
+    why_he: 'שיפור ההמרה של עמוד הבית כבר נמצא בגיטהאב, אבל הוא לא יכול להשפיע על מבקרים, לידים או אמון עד שהשרת החי מושך את התבנית.',
+    exact_next_step_he: 'להיכנס ל-uPress של jus-tice.co.il, לפתוח Git management לתיקיית wp-content/themes/justice-theme, להריץ Pull Git ולבדוק שהעמוד מציג כותרת עזרה משפטית ואת אזור המצבים החדש.',
+    if_approved_he: 'אחרי המשיכה מותר לבצע בדיקה חיה לקריאה בלבד: נוסח עמוד הבית, מובייל, קישורי חיפוש/פנייה והיעדר שפת הכנסה פנימית.',
+    hard_no_he: 'במהלך המשיכה לא עורכים CMS, לא משנים redirect, canonical/noindex, sitemap, taxonomy, CRM, תשלום או הגדרות ספק.',
+    suggested_reply_he: 'UNBLOCK-00 approve',
+  },
   'UNBLOCK-01': {
     title_he: 'הוכחת ליד בתשלום בביטוח לאומי',
     owner_decision_needed_he: 'לאשר איסוף ראיות חי מתוך wp-admin בלבד: שלושה מומחים פרטיים, ליד עדכני עם הסכמה, אישור בעלים, אסמכתת חיוב והוכחת תשלום.',
@@ -203,9 +212,13 @@ function buildGates(sourceReport, rows) {
     {
       id: 'OHB-GATE-02',
       gate: 'top_three_owner_decisions_present',
-      status: topRows.length === 3 && topRows.some((row) => row.id === 'UNBLOCK-08') ? 'PASS' : 'REVIEW',
+      status:
+        topRows.length === 3 &&
+        ['UNBLOCK-00', 'UNBLOCK-01', 'UNBLOCK-02'].every((id) => topRows.some((row) => row.id === id))
+          ? 'PASS'
+          : 'REVIEW',
       evidence: `Top rows: ${topRows.map((row) => row.id).join(', ')}.`,
-      next_action: 'Keep BTL, subscription and criminal Jerusalem coverage visible first.',
+      next_action: 'Keep homepage deployment, BTL proof and subscription proof visible first.',
     },
     {
       id: 'OHB-GATE-03',
@@ -722,7 +735,7 @@ function main() {
     paymentOrInvoiceApproved: 0,
     emailsSent: 0,
     gscApiCalled: 0,
-    upressDeploymentRequired: false,
+    upressDeploymentRequired: Boolean(sourceReport.summary?.upressDeploymentRequired),
     gates,
     rows,
     replyRows,

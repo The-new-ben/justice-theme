@@ -1,0 +1,2 @@
+reportDate,sourceDate,status,requiredFieldCount,reviewedFieldCount,passFields,blockedOrReviewFields,gateRows,blockedOrReviewGateRows,rawOwnerValuesEchoed,privateContactOrSecretMarkers,publicChangesApproved,liveRecordOrRegistrationApproved,providerActionsApproved,invoicesOrPaymentsCreated,revenueClaimsApproved,paidLlmApiUsed,externalApisCalled,emailsOrMessagesSent,upressDeploymentRequired
+2026-05-27,2026-05-27,LAWYER_SUBSCRIPTION_CONTROLLED_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION,11,11,0,11,6,3,0,0,0,0,0,0,0,0,0,0,false

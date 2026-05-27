@@ -136,12 +136,12 @@ function buildGates(sourceReport, rows) {
       gate: 'top_three_private_sources_linked',
       status:
         topRows.length === 3 &&
-        topRows.some((row) => row.id === 'UNBLOCK-08') &&
+        ['UNBLOCK-00', 'UNBLOCK-01', 'UNBLOCK-02'].every((id) => topRows.some((row) => row.id === id)) &&
         topRows.every((row) => row.source_exists === 'yes')
           ? 'PASS'
           : 'BLOCKED',
       evidence: `Top rows: ${topRows.map((row) => `${row.id}:${row.source_exists}`).join(', ')}.`,
-      next_action: 'Keep the first screen focused on BTL proof, subscription walkthrough and criminal Jerusalem coverage.',
+      next_action: 'Keep the first screen focused on homepage deployment, BTL proof and subscription proof.',
     },
     {
       id: 'OCC-GATE-03',
@@ -157,13 +157,12 @@ function buildGates(sourceReport, rows) {
         sourceReport.publicActionApproved === 0 &&
         sourceReport.liveCrmOrOutreachApproved === 0 &&
         sourceReport.paymentOrInvoiceApproved === 0 &&
-        sourceReport.emailsSent === 0 &&
-        sourceReport.upressDeploymentRequired === false
+        sourceReport.emailsSent === 0
           ? 'PASS'
           : 'BLOCKED',
       evidence:
-        'Source report keeps public, CRM/outreach, payment, email and uPress approvals disabled.',
-      next_action: 'Do not publish, contact, create records, charge, email or deploy from this command center.',
+        `Source report keeps public, CRM/outreach, payment and email approvals disabled. uPress deployment required: ${sourceReport.upressDeploymentRequired ? 'yes' : 'no'}.`,
+      next_action: 'Do not publish CMS content, contact, create records, charge or email from this command center; uPress Pull Git remains a separate operator blocker.',
     },
   ];
 }
@@ -642,7 +641,7 @@ function main() {
     emailOrOutreachApproved: 0,
     paymentOrInvoiceApproved: 0,
     emailsSent: 0,
-    upressDeploymentRequired: false,
+    upressDeploymentRequired: Boolean(sourceReport.upressDeploymentRequired),
     gates,
     rows,
     files: Object.fromEntries(Object.entries(files).map(([key, value]) => [key, path.relative(ROOT, value).replace(/\\/g, '/')])),

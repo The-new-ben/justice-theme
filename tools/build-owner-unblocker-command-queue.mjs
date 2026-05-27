@@ -16,6 +16,7 @@ const SOURCES = [
   ['lawyerSubscriptionEvidenceReview', '.reports', 'lawyer-subscription-controlled-evidence-review-gate', '2026-05-27'],
   ['lawyerWalkthrough', '.reports', 'lawyer-subscription-controlled-walkthrough', '2026-05-27'],
   ['manualInvoice', '.reports', 'manual-invoice-revenue-fallback-packet', '2026-05-27'],
+  ['criminalJerusalemOwnerActionSheet', '.reports', 'criminal-jerusalem-owner-coverage-action-sheet', '2026-05-27'],
   ['criminalJerusalemCoverage', '.reports', 'criminal-jerusalem-lawyer-coverage-activation-packet', '2026-05-27'],
   ['publicApproval', '.reports', 'public-update-owner-approval-queue', '2026-05-27'],
   ['lowHypeRv', '.reports', 'low-hype-rv-first-pilot-decision-queue', '2026-05-27'],
@@ -141,8 +142,10 @@ function buildRows(sources) {
       exact_next_step: 'Owner/admin fills the criminal Jerusalem prospect activation template with license, specialty, response fit, manual payment path, agreed fee terms and billing contact evidence.',
       allowed_after_yes: 'Private review of filled no-PII evidence, then one owner-approved private prospect/profile readiness step before rerunning the directory coverage gate.',
       hard_no: 'No public page edit, no public lawyer card/profile, no lawyer contact, no lead routing, no invoice, no payment claim and no uPress from this packet alone.',
-      source_status: statuses.criminalJerusalemCoverage,
-      source_artifact: '.project-control/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.md',
+      source_status: `${statuses.criminalJerusalemOwnerActionSheet} | ${statuses.criminalJerusalemCoverage}`,
+      source_artifact: statuses.criminalJerusalemOwnerActionSheet === 'CRIMINAL_JERUSALEM_OWNER_COVERAGE_ACTION_SHEET_READY_NO_LIVE_ACTION'
+        ? '.project-control/criminal-jerusalem-owner-coverage-action-sheet-2026-05-27.html'
+        : '.project-control/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.md',
       public_action: 'no',
       crm_or_outreach_action: 'owner-controlled-private-entry-only',
       completion_if_owner_replies: 'Can move the criminal Jerusalem content route from coverage blocked to private prospect verification review.',

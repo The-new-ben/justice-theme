@@ -22,6 +22,7 @@
       "lawyerSubscriptionEvidenceReview": "LAWYER_SUBSCRIPTION_CONTROLLED_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION",
       "lawyerWalkthrough": "READY_SCRIPT_WITH_RUNTIME_BLOCKERS",
       "manualInvoice": "MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION",
+      "criminalJerusalemOwnerActionSheet": "CRIMINAL_JERUSALEM_OWNER_COVERAGE_ACTION_SHEET_READY_NO_LIVE_ACTION",
       "criminalJerusalemCoverage": "CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION",
       "publicApproval": "OWNER_APPROVAL_QUEUE_READY_NOT_APPROVED",
       "lowHypeRv": "LOW_HYPE_RV_FIRST_PILOT_DECISION_QUEUE_READY_NO_PUBLIC_CHANGE",
@@ -70,8 +71,8 @@
       "exact_next_step": "Owner/admin fills the criminal Jerusalem prospect activation template with license, specialty, response fit, manual payment path, agreed fee terms and billing contact evidence.",
       "allowed_after_yes": "Private review of filled no-PII evidence, then one owner-approved private prospect/profile readiness step before rerunning the directory coverage gate.",
       "hard_no": "No public page edit, no public lawyer card/profile, no lawyer contact, no lead routing, no invoice, no payment claim and no uPress from this packet alone.",
-      "source_status": "CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION",
-      "source_artifact": ".project-control/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.md",
+      "source_status": "CRIMINAL_JERUSALEM_OWNER_COVERAGE_ACTION_SHEET_READY_NO_LIVE_ACTION | CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION",
+      "source_artifact": ".project-control/criminal-jerusalem-owner-coverage-action-sheet-2026-05-27.html",
       "public_action": "no",
       "crm_or_outreach_action": "owner-controlled-private-entry-only",
       "completion_if_owner_replies": "Can move the criminal Jerusalem content route from coverage blocked to private prospect verification review."

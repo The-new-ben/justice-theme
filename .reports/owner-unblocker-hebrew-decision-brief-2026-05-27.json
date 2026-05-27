@@ -87,8 +87,8 @@
       "if_approved_he": "אפשר לבדוק את הראיות הפרטיות ואז לבצע צעד prospect/profile פרטי מאושר לפני הרצה מחדש של בדיקת הכיסוי.",
       "hard_no_he": "לא עורכים דף ציבורי, לא יוצרים כרטיס עורך דין ציבורי, לא פונים לעורך דין, לא מנתבים ליד, לא מפיקים חשבונית ולא עושים uPress.",
       "suggested_reply_he": "UNBLOCK-08 approve",
-      "source_status": "CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION",
-      "source_artifact": ".project-control/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.md",
+      "source_status": "CRIMINAL_JERUSALEM_OWNER_COVERAGE_ACTION_SHEET_READY_NO_LIVE_ACTION | CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION",
+      "source_artifact": ".project-control/criminal-jerusalem-owner-coverage-action-sheet-2026-05-27.html",
       "public_action_approved": "no",
       "live_crm_or_outreach_approved": "no",
       "payment_or_invoice_approved": "no"

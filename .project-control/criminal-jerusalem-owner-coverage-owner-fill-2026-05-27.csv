@@ -1,0 +1,7 @@
+action_id,title_he,private_admin_pointer_no_pii,status,accepted_status_values,owner_verified_yes_no,proof_present_yes_no,no_pii_confirmed_yes_no,public_profile_action_approved,outreach_or_contact_approved,invoice_or_payment_approved,owner_note_no_pii
+CJ-OWNER-ACTION-01,לבחור מועמד פרטי אחד לעורך דין פלילי בירושלים,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,no,no,
+CJ-OWNER-ACTION-02,לאמת רישיון וסטטוס מקצועי,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,no,no,
+CJ-OWNER-ACTION-03,לאמת התאמה פלילית ושירות בירושלים,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,no,no,
+CJ-OWNER-ACTION-04,לאשר זמינות תגובה ללידים רגישים,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,no,no,
+CJ-OWNER-ACTION-05,לאשר תנאי lead-fee ונתיב חשבונית ידני,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,no,no,
+CJ-OWNER-ACTION-06,להחליט אם מכינים כרטיס ציבורי בנפרד,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,no,no,

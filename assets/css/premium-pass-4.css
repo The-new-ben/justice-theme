@@ -1628,6 +1628,20 @@
   font-size: 0.9rem;
 }
 
+.legal-help-route-card__intake {
+  flex: 1 1 100%;
+  justify-content: center;
+  border-color: rgba(178,58,72,0.26);
+  color: var(--jt-accent-red, #b23a48);
+  background: rgba(178,58,72,0.06);
+}
+
+.legal-help-route-card__intake:hover,
+.legal-help-route-card__intake:focus-visible {
+  border-color: var(--jt-accent-red, #b23a48);
+  background: rgba(178,58,72,0.1);
+}
+
 .homepage-legal-help-router__note {
   display: flex;
   flex-wrap: wrap;

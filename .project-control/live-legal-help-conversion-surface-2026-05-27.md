@@ -12,7 +12,7 @@ Safety: no login, CMS publish, database edit, URL change, redirect, canonical/no
 
 | Path | Status | HTTP | Role | User Help Markers | CTA Links | Internal Markers | Issues |
 | --- | --- | ---: | --- | ---: | ---: | --- | --- |
-| / | VERIFIED | 200 | homepage | 14 | 104 | - | - |
+| / | VERIFIED | 200 | homepage | 14 | 125 | - | - |
 | /lawyers/ | VERIFIED | 200 | lawyer-directory | 7 | 135 | - | - |
 | /find-lawyer-how-to-find-good-attorney/ | VERIFIED | 200 | selection-guide | 7 | 39 | - | - |
 | /national-insurance-attorney/ | VERIFIED | 200 | practice-lawyer-match | 9 | 36 | - | - |

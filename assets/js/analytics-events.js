@@ -241,7 +241,7 @@
 			return false;
 		}
 
-		if (!link.dataset.leadArea && !link.dataset.leadMessage && !link.dataset.leadSourceKeyword) {
+		if (!link.dataset.leadArea && !link.dataset.leadMessage && !link.dataset.leadSourceKeyword && !link.dataset.leadSourceSurface) {
 			return false;
 		}
 
@@ -265,6 +265,7 @@
 		}
 
 		setOrCreateHidden(form, 'source_keyword', link.dataset.leadSourceKeyword || '');
+		setOrCreateHidden(form, 'lead_source_surface', link.dataset.leadSourceSurface || '');
 		setOrCreateHidden(form, 'utm_source', link.dataset.leadUtmSource || '');
 		setOrCreateHidden(form, 'utm_medium', link.dataset.leadUtmMedium || '');
 		setOrCreateHidden(form, 'utm_campaign', link.dataset.leadUtmCampaign || '');

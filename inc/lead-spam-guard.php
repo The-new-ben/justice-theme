@@ -117,15 +117,28 @@ function justice_theme_current_lead_prefill_message(): string {
 }
 
 /**
+ * Read a safe lead-source surface from the current request.
+ *
+ * @param string $fallback Surface to use when no query value is present.
+ */
+function justice_theme_current_lead_source_surface( string $fallback = 'homepage_ask_lawyer' ): string {
+	$surface  = isset( $_GET['lead_source_surface'] ) ? sanitize_key( wp_unslash( $_GET['lead_source_surface'] ) ) : '';
+	$fallback = sanitize_key( $fallback );
+
+	return '' !== $surface ? $surface : $fallback;
+}
+
+/**
  * Build a contextual fallback URL for homepage lead capture.
  *
  * @param array<string, string> $args Query arguments.
  */
 function justice_theme_ask_lawyer_fallback_url( array $args = array() ): string {
-	$query        = array();
-	$query_keys   = array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'source_keyword' );
-	$lead_area    = isset( $args['lead_area'] ) ? sanitize_key( $args['lead_area'] ) : '';
-	$lead_message = isset( $args['lead_message'] ) ? sanitize_textarea_field( $args['lead_message'] ) : '';
+	$query               = array();
+	$query_keys          = array( 'utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'source_keyword' );
+	$lead_area           = isset( $args['lead_area'] ) ? sanitize_key( $args['lead_area'] ) : '';
+	$lead_message        = isset( $args['lead_message'] ) ? sanitize_textarea_field( $args['lead_message'] ) : '';
+	$lead_source_surface = isset( $args['lead_source_surface'] ) ? sanitize_key( $args['lead_source_surface'] ) : '';
 
 	if ( in_array( $lead_area, justice_theme_lead_area_values(), true ) ) {
 		$query['lead_area'] = $lead_area;
@@ -133,6 +146,10 @@ function justice_theme_ask_lawyer_fallback_url( array $args = array() ): string 
 
 	if ( '' !== trim( $lead_message ) ) {
 		$query['lead_message'] = trim( preg_replace( '/\s+/', ' ', $lead_message ) );
+	}
+
+	if ( '' !== $lead_source_surface ) {
+		$query['lead_source_surface'] = $lead_source_surface;
 	}
 
 	foreach ( $query_keys as $key ) {

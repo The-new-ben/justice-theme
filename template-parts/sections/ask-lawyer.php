@@ -13,6 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $lead_prefill_area    = function_exists( 'justice_theme_current_lead_prefill_area' ) ? justice_theme_current_lead_prefill_area() : '';
 $lead_prefill_message = function_exists( 'justice_theme_current_lead_prefill_message' ) ? justice_theme_current_lead_prefill_message() : '';
+$lead_source_surface  = function_exists( 'justice_theme_current_lead_source_surface' ) ? justice_theme_current_lead_source_surface( 'homepage_ask_lawyer' ) : 'homepage_ask_lawyer';
 $whatsapp_url         = function_exists( 'justice_theme_public_whatsapp_url' )
 	? justice_theme_public_whatsapp_url( __( 'שלום, אני רוצה לבדוק פנייה משפטית דרך Jus-Tice. הנושא בקצרה: ', 'justice-theme' ) )
 	: '';
@@ -54,7 +55,7 @@ $lead_notice_message  = isset( $lead_notice_messages[ $lead_notice ] ) ? $lead_n
 				</div>
 			<?php endif; ?>
 			<input type="hidden" name="action" value="justice_submit_lead">
-			<input type="hidden" name="lead_source_surface" value="homepage_ask_lawyer">
+			<input type="hidden" name="lead_source_surface" value="<?php echo esc_attr( $lead_source_surface ); ?>">
 			<?php wp_nonce_field( 'justice_submit_lead', 'justice_lead_nonce' ); ?>
 			<?php justice_theme_render_lead_spam_fields(); ?>
 			<?php justice_theme_render_lead_attribution_fields(); ?>

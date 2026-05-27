@@ -22,6 +22,7 @@ $legal_help_routes = array(
 			__( 'קראו מדריך בסיסי לפני שיחה או פגישה.', 'justice-theme' ),
 			__( 'חפשו עורך דין פלילי לפי עיר וזמינות.', 'justice-theme' ),
 		),
+		'lead_area'   => 'criminal-law',
 		'guide_url'   => justice_theme_safe_public_link( '/criminal-defense-attorney/', '/lawyers/?area=criminal-law' ),
 		'lawyers_url' => home_url( '/lawyers/?area=criminal-law' ),
 	),
@@ -34,6 +35,7 @@ $legal_help_routes = array(
 			__( 'בדקו אם יש דחיפות סביב ילדים, רכוש או צווי ביניים.', 'justice-theme' ),
 			__( 'השוו פרופילים בתחום משפחה באזור הרלוונטי.', 'justice-theme' ),
 		),
+		'lead_area'   => 'family-law',
 		'guide_url'   => justice_theme_safe_public_link( '/divorce-lawyer/', '/family-law/' ),
 		'lawyers_url' => home_url( '/lawyers/?area=family-law' ),
 	),
@@ -46,6 +48,7 @@ $legal_help_routes = array(
 			__( 'בדקו אם מדובר בעסקה, סכסוך או ליקוי לאחר מסירה.', 'justice-theme' ),
 			__( 'חפשו עורך דין מקרקעין לפי עיר וסוג עסקה.', 'justice-theme' ),
 		),
+		'lead_area'   => 'real-estate-law',
 		'guide_url'   => home_url( '/practice-areas/real-estate-law/' ),
 		'lawyers_url' => home_url( '/lawyers/?area=real-estate-law' ),
 	),
@@ -58,6 +61,7 @@ $legal_help_routes = array(
 			__( 'בדקו אם יש מועד קרוב שדורש תגובה מהירה.', 'justice-theme' ),
 			__( 'עברו למדריכי דיני עבודה או לפרופילים בתחום.', 'justice-theme' ),
 		),
+		'lead_area'   => 'labor-law',
 		'guide_url'   => home_url( '/practice-areas/labor-law/' ),
 		'lawyers_url' => home_url( '/lawyers/?area=labor-law' ),
 	),
@@ -70,6 +74,7 @@ $legal_help_routes = array(
 			__( 'בדקו אם מדובר בתאונת עבודה, תאונת דרכים או רשלנות.', 'justice-theme' ),
 			__( 'חפשו מידע או עורך דין לפי סוג הפגיעה.', 'justice-theme' ),
 		),
+		'lead_area'   => 'personal-injury-law',
 		'guide_url'   => justice_theme_safe_public_link( '/national-insurance/', '/lawyers/?area=personal-injury-law' ),
 		'lawyers_url' => home_url( '/lawyers/?area=personal-injury-law' ),
 	),
@@ -82,6 +87,7 @@ $legal_help_routes = array(
 			__( 'בדקו אם יש הגבלת זמן לתגובה או בקשה דחופה.', 'justice-theme' ),
 			__( 'עברו למידע או לפרופילים בתחום חובות והוצאה לפועל.', 'justice-theme' ),
 		),
+		'lead_area'   => 'general',
 		'guide_url'   => home_url( '/articles/' ),
 		'lawyers_url' => home_url( '/lawyers/?area=debt-collection' ),
 	),
@@ -101,6 +107,22 @@ $legal_help_routes = array(
 
 		<div class="homepage-legal-help-router__grid">
 			<?php foreach ( $legal_help_routes as $route ) : ?>
+				<?php
+				$route_topic_title = wp_strip_all_tags( $route['title'] );
+				$route_intake_url  = function_exists( 'justice_theme_ask_lawyer_fallback_url' )
+					? justice_theme_ask_lawyer_fallback_url(
+						array(
+							'lead_area'           => $route['lead_area'],
+							'lead_message'        => $route_topic_title,
+							'lead_source_surface' => 'homepage_legal_help_router',
+							'source_keyword'      => $route_topic_title,
+							'utm_source'          => 'homepage_legal_help_router',
+							'utm_medium'          => 'situation_card',
+							'utm_campaign'        => 'public_legal_help',
+						)
+					)
+					: home_url( '/#ask-lawyer' );
+				?>
 				<article class="legal-help-route-card">
 					<p class="legal-help-route-card__kicker"><?php echo esc_html( $route['kicker'] ); ?></p>
 					<h3><?php echo esc_html( $route['title'] ); ?></h3>
@@ -113,6 +135,14 @@ $legal_help_routes = array(
 					<div class="legal-help-route-card__actions">
 						<a class="button button--gold" href="<?php echo esc_url( $route['guide_url'] ); ?>"><?php esc_html_e( 'להבין את הנושא', 'justice-theme' ); ?></a>
 						<a class="button button--ghost" href="<?php echo esc_url( $route['lawyers_url'] ); ?>"><?php esc_html_e( 'לחפש עורך דין', 'justice-theme' ); ?></a>
+						<a class="button button--outline legal-help-route-card__intake" href="<?php echo esc_url( $route_intake_url ); ?>"
+							data-lead-area="<?php echo esc_attr( $route['lead_area'] ); ?>"
+							data-lead-message="<?php echo esc_attr( $route_topic_title ); ?>"
+							data-lead-source-keyword="<?php echo esc_attr( $route_topic_title ); ?>"
+							data-lead-source-surface="homepage_legal_help_router"
+							data-lead-utm-source="homepage_legal_help_router"
+							data-lead-utm-medium="situation_card"
+							data-lead-utm-campaign="public_legal_help"><?php esc_html_e( 'שליחת פנייה בנושא', 'justice-theme' ); ?></a>
 					</div>
 				</article>
 			<?php endforeach; ?>

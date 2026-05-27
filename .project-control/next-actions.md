@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-CITY-PRACTICE-THIN-PAGE-IMPROVEMENT-001: Prepare local/practice draft pages for anti-cannibalization review
+**Status:** FIXED LOCAL / PUBLIC CONTENT EXECUTION STILL BLOCKED
+**Why:** The guarded city/practice seed pages are intentionally thin drafts. They need evidence-first improvement packets before any public local/practice page can be published or updated safely.
+**Actions:**
+1. DONE: add `tools/build-city-practice-thin-page-improvement-packet.mjs`.
+2. DONE: generate `.project-control/city-practice-thin-page-improvement-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/city-practice-thin-page-evidence-template-2026-05-27.csv`.
+4. DONE: generate `.project-control/city-practice-thin-page-human-draft-prompt-2026-05-27.md`.
+5. DONE: generate `.reports/city-practice-thin-page-improvement-packet-2026-05-27.json` and `.csv`.
+6. DONE: confirm `CITY_PRACTICE_THIN_PAGE_PACKET_READY_NO_PUBLIC_CHANGE`, 5 seed pages found, 3/3 static gates passed, 5 target rows, 2 high-priority private-review rows and 0 public/CMS/SEO/CRM/contact/payment/email actions.
+7. DONE: record as Linear `HAD-144`, marked Done under `HAD-84`.
+8. NEXT: fill the evidence template for `divorce-lawyer-tel-aviv` and `criminal-lawyer-jerusalem` first, then prepare one owner/legal/editor-reviewed Hebrew draft at a time.
+9. BLOCKED: do not publish or update public city/practice pages, CMS content, links, redirects, canonicals/noindex, sitemaps, taxonomies, CRM records, leads, lawyer contacts, invoices, payments, emails, WhatsApp, TalkTo or uPress from this packet alone.
+
 ### ACTION-LIVE-ARTICLE-CTA-MOBILE-REPETITION-QA-001: Verify article repeated-help-message issue before template change
 **Status:** FIXED LOCAL / NO PUBLIC TEMPLATE CHANGE CURRENTLY RECOMMENDED
 **Why:** The owner saw an article page on mobile where the same help/request message appeared again while scrolling. A public-facing template change should only happen after exact live evidence, because the deployed dedupe marker already exists.

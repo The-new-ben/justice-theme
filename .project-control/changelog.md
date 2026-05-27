@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - City/practice thin page improvement packet
+
+- ADDED: `tools/build-city-practice-thin-page-improvement-packet.mjs`.
+- GENERATED: `.project-control/city-practice-thin-page-improvement-packet-2026-05-27.md`, `.project-control/city-practice-thin-page-improvement-packet-2026-05-27.csv`, `.project-control/city-practice-thin-page-evidence-template-2026-05-27.csv`, `.project-control/city-practice-thin-page-human-draft-prompt-2026-05-27.md`, `.reports/city-practice-thin-page-improvement-packet-2026-05-27.json`, `.reports/city-practice-thin-page-improvement-packet-2026-05-27.csv`.
+- PURPOSE: prepare guarded draft city/practice pages for research-first improvement without public CMS, SEO, contact, CRM, payment or deployment action.
+- RESULT: `CITY_PRACTICE_THIN_PAGE_PACKET_READY_NO_PUBLIC_CHANGE`; 5 seed pages found, 3/3 static gates passed, 5 target rows and 2 high-priority private-review rows.
+- LINEAR: recorded as `HAD-144`, marked Done under `HAD-84`, related to `HAD-143`, `HAD-133`, `HAD-136` and `HAD-139`.
+- SAFETY: private content-preparation packet only; no public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead/lawyer/supplier contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Live article CTA mobile repetition QA
 
 - ADDED: `tools/build-live-article-cta-mobile-repetition-qa.mjs`.

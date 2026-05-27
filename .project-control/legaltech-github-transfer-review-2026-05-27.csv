@@ -1,0 +1,11 @@
+rank,source,pattern,usable_for_jus_tice,next_step,status
+1,Vaquill-AI/awesome-legaltech,market map and legaltech categories,roadmap and anti-drift checks,convert categories into Jus-Tice proof gates,internal_only
+2,chen-friedman/awesome-legaltech,Israel/Hebrew-aware legaltech resources,local Hebrew research direction,review Israeli data/model entries before any integration,research_only
+3,Open-Source-Legal/OpenContracts,ground-truth and versioned legal knowledge,source-backed content and evidence packets,attach public updates to source/cannibalization gates,internal_only
+4,lawglance/lawglance,public-access legal assistant framing,public-first guided legal help,prioritize guided intake over lawyer-first messaging,internal_only
+5,blopa/Contract-Builder,sheet-driven document automation,manual document/service products,prepare one owner-approved rental/document packet,not_published
+6,documenso/documenso,document signing workflow,lawyer/supplier acceptance later,park until supplier/payment loop is proven,parked
+7,SuffolkLITLab/docassemble-AssemblyLine,guided interview automation,Bituach Leumi and rental intake,design issue-specific intake questions,not_published
+8,dealfluence/adeu,DOCX tracked-change workflow,human legal document review later,park until document product is approved,parked
+9,Legal-HeBERT,Hebrew legal NLP direction,Hebrew classification/research later,research only no model spend,research_only
+10,data-gov-il-mcp,Israeli government open data access,possible local source discovery,research only no connector install,research_only

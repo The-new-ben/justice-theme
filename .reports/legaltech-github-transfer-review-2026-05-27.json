@@ -1,0 +1,15 @@
+{
+  "reportDate": "2026-05-27",
+  "status": "LEGALTECH_GITHUB_REVIEW_READY_INTERNAL_ONLY_NO_PUBLIC_CHANGE",
+  "sourcesReviewed": 10,
+  "directCodeCopied": 0,
+  "thirdPartySoftwareInstalled": 0,
+  "paidLlmApisUsed": 0,
+  "browserLoginAutomationUsed": 0,
+  "publicChangesApproved": 0,
+  "liveCrmOrOutreachApproved": 0,
+  "invoicesOrPaymentsCreated": 0,
+  "revenueClaimsApproved": 0,
+  "recommendedRevenueRankOne": "Guided Bituach Leumi intake and operator proof",
+  "recommendedInternalArtifact": ".project-control/legaltech-github-transfer-review-2026-05-27.md"
+}

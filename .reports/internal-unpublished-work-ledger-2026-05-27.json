@@ -1,0 +1,19 @@
+{
+  "reportDate": "2026-05-27",
+  "status": "INTERNAL_UNPUBLISHED_WORK_LEDGER_READY_NO_LIVE_ACTION",
+  "rows": 12,
+  "provenRevenuePercent": 0,
+  "publicPagesPublished": 0,
+  "cmsChanges": 0,
+  "seoControlChanges": 0,
+  "crmOrOutreachActions": 0,
+  "suppliersCreated": 0,
+  "invoicesOrPaymentsCreated": 0,
+  "paidLlmApisUsed": 0,
+  "mainBlocker": "live proof rows are empty; uPress Pull Git is still required for homepage live impact",
+  "recommendedOwnerShortlist": [
+    "UNBLOCK-00 approve",
+    "UNBLOCK-01 approve",
+    "UNBLOCK-02 approve"
+  ]
+}

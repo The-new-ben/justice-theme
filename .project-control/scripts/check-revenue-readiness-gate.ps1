@@ -72,6 +72,11 @@ $checks = @(
 		-Arguments @("-BaseUrl", $BaseUrl) `
 		-BlocksProfit $true),
 	(Invoke-JsonChecker `
+		-Name "whatsapp_intake_router" `
+		-ScriptPath (Join-Path $scriptRoot "check-whatsapp-intake-router.ps1") `
+		-Arguments @("-BaseUrl", $BaseUrl) `
+		-BlocksProfit $true),
+	(Invoke-JsonChecker `
 		-Name "lawyer_money_path" `
 		-ScriptPath (Join-Path $scriptRoot "check-lawyer-money-path.ps1") `
 		-Arguments @("-BaseUrl", $BaseUrl) `

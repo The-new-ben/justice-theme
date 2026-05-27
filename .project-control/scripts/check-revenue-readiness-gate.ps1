@@ -101,12 +101,20 @@ $checks = @(
 			"-ExpectedWhatsAppSurface", $ExpectedWhatsAppSurface,
 			"-OldMarker", $OldMarker
 		) `
+		-BlocksProfit $false),
+	(Invoke-JsonChecker `
+		-Name "live_link_hygiene_deploy_check" `
+		-ScriptPath (Join-Path $scriptRoot "check-live-link-hygiene.ps1") `
+		-Arguments @(
+			"-BaseUrl", $BaseUrl,
+			"-Root", (Resolve-Path -LiteralPath (Join-Path $scriptRoot "..\..")).Path
+		) `
 		-BlocksProfit $false)
 )
 
 $failedChecks = @($checks | Where-Object { -not $_.pass })
 $profitBlockingFailures = @($failedChecks | Where-Object { $_.blocksProfit })
-$deploymentBlockers = @($failedChecks | Where-Object { $_.name -like "*deploy*" -or $_.name -like "*marker*" })
+$deploymentBlockers = @($failedChecks | Where-Object { $_.name -like "*deploy*" -or $_.name -like "*marker*" -or $_.name -like "*hygiene*" })
 
 $readiness = if ($profitBlockingFailures.Count -eq 0 -and $deploymentBlockers.Count -eq 0) {
 	"ready_for_owner_payment_admin_test"
@@ -127,6 +135,7 @@ $summary = [ordered]@{
 	knownBusinessBlockers   = @(
 		"Grow/Meshulam KYC/payment and real invoice proof are not verified by this read-only gate.",
 		"Authenticated uPress Pull Git and browser-account tool use remain blocked unless Chrome control is available.",
+		"Live menu/link hygiene remains a deployment blocker while the public menu still renders legacy page_id URLs.",
 		"This gate does not submit leads, create CRM records, create users, create WooCommerce orders, send invoices, verify payment evidence, or charge money."
 	)
 	checks                  = $checks

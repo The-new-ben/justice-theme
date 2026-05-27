@@ -398,7 +398,67 @@ add_action( 'admin_post_justice_theme_stage_external_leads', 'justice_theme_crm_
 add_action( 'admin_post_justice_theme_update_lead_permission', 'justice_theme_crm_handle_lead_permission_update' );
 add_action( 'admin_post_justice_theme_update_partner_preview', 'justice_theme_crm_handle_partner_preview_update' );
 add_action( 'admin_post_justice_theme_record_owner_handoff_release', 'justice_theme_crm_handle_owner_handoff_release' );
+add_action( 'admin_post_justice_theme_mark_lead_first_attempt', 'justice_theme_crm_handle_mark_lead_first_attempt' );
 add_action( 'admin_post_justice_theme_export_lead_audit', 'justice_theme_crm_handle_lead_audit_export' );
+
+function justice_theme_crm_handle_mark_lead_first_attempt(): void {
+	$lead_id  = isset( $_POST['lead_id'] ) ? absint( wp_unslash( $_POST['lead_id'] ) ) : 0;
+	$redirect = wp_get_referer() ?: admin_url( 'edit.php?post_type=justice_lead' );
+
+	if ( ! $lead_id || 'justice_lead' !== get_post_type( $lead_id ) ) {
+		wp_safe_redirect(
+			add_query_arg(
+				array(
+					'justice_first_attempt_logged' => 'missing',
+				),
+				$redirect
+			)
+		);
+		exit;
+	}
+
+	$nonce = isset( $_POST['justice_theme_mark_lead_first_attempt_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_theme_mark_lead_first_attempt_nonce'] ) ) : '';
+	if ( ! current_user_can( 'edit_post', $lead_id ) || ! $nonce || ! wp_verify_nonce( $nonce, 'justice_theme_mark_lead_first_attempt_' . $lead_id ) ) {
+		wp_safe_redirect(
+			add_query_arg(
+				array(
+					'justice_first_attempt_logged' => 'blocked',
+					'lead_id'                      => $lead_id,
+				),
+				$redirect
+			)
+		);
+		exit;
+	}
+
+	$now_mysql = current_time( 'mysql' );
+	update_post_meta( $lead_id, 'follow_up_status', 'first_attempt' );
+	update_post_meta( $lead_id, 'lead_status', 'contacted' );
+	update_post_meta( $lead_id, 'last_owner_contact_action_at', $now_mysql );
+
+	if ( '' === (string) get_post_meta( $lead_id, 'first_contact_at', true ) ) {
+		update_post_meta( $lead_id, 'first_contact_at', current_time( 'Y-m-d\TH:i' ) );
+	}
+
+	if ( '' === (string) get_post_meta( $lead_id, 'owner_revenue_next_step', true ) ) {
+		update_post_meta( $lead_id, 'owner_revenue_next_step', 'First contact attempt logged. Record the outcome, consent, coverage and lawyer fit before any paid handoff.' );
+	}
+
+	$note     = 'First contact attempt logged from the lead list at ' . $now_mysql . '.';
+	$existing = (string) get_post_meta( $lead_id, 'customer_success_note', true );
+	update_post_meta( $lead_id, 'customer_success_note', trim( $existing ? $existing . "\n" . $note : $note ) );
+
+	wp_safe_redirect(
+		add_query_arg(
+			array(
+				'justice_first_attempt_logged' => '1',
+				'lead_id'                      => $lead_id,
+			),
+			$redirect
+		)
+	);
+	exit;
+}
 
 function justice_theme_crm_render_external_lead_importer(): void {
 	if ( ! post_type_exists( 'justice_lead' ) ) {
@@ -2084,7 +2144,25 @@ function justice_theme_crm_manual_lead_next_step( string $handoff_path, bool $re
 }
 
 function justice_theme_crm_manual_lead_notice(): void {
-	if ( empty( $_GET['justice_whatsapp_lead_created'] ) && empty( $_GET['justice_external_imported'] ) && empty( $_GET['justice_repermission_updated'] ) && empty( $_GET['justice_partner_preview_updated'] ) && empty( $_GET['justice_owner_handoff_release'] ) ) {
+	if ( empty( $_GET['justice_whatsapp_lead_created'] ) && empty( $_GET['justice_external_imported'] ) && empty( $_GET['justice_repermission_updated'] ) && empty( $_GET['justice_partner_preview_updated'] ) && empty( $_GET['justice_owner_handoff_release'] ) && empty( $_GET['justice_first_attempt_logged'] ) ) {
+		return;
+	}
+
+	if ( ! empty( $_GET['justice_first_attempt_logged'] ) ) {
+		$status   = sanitize_key( wp_unslash( $_GET['justice_first_attempt_logged'] ) );
+		$messages = array(
+			'1'       => array( 'success', 'First contact attempt logged. The lead is now marked contacted for owner follow-up.' ),
+			'missing' => array( 'error', 'First contact attempt was not logged because the lead was missing.' ),
+			'blocked' => array( 'error', 'First contact attempt was not logged because permission or verification failed.' ),
+		);
+		$notice   = $messages[ $status ] ?? null;
+		if ( $notice ) {
+			printf(
+				'<div class="notice notice-%1$s is-dismissible"><p>%2$s</p></div>',
+				esc_attr( $notice[0] ),
+				esc_html( $notice[1] )
+			);
+		}
 		return;
 	}
 
@@ -5419,11 +5497,12 @@ function justice_theme_crm_render_lead_admin_revenue_column( string $column, int
 	}
 
 	if ( 'owner_next_action' === $column ) {
-		$next_step    = (string) get_post_meta( $post_id, 'owner_revenue_next_step', true );
-		$follow_up    = (string) get_post_meta( $post_id, 'follow_up_status', true );
-		$actions      = justice_theme_crm_client_contact_actions( $post_id );
-		$next_step    = $next_step ?: 'Open the lead, qualify consent and coverage, then decide whether it can move to a paid lawyer handoff.';
-		$next_excerpt = wp_trim_words( $next_step, 22, '...' );
+		$next_step       = (string) get_post_meta( $post_id, 'owner_revenue_next_step', true );
+		$follow_up       = (string) get_post_meta( $post_id, 'follow_up_status', true );
+		$actions         = justice_theme_crm_client_contact_actions( $post_id );
+		$contact_started = in_array( $follow_up, array( 'first_attempt', 'contacted', 'consult_scheduled', 'not_qualified', 'won', 'lost' ), true );
+		$next_step       = $next_step ?: 'Open the lead, qualify consent and coverage, then decide whether it can move to a paid lawyer handoff.';
+		$next_excerpt    = wp_trim_words( $next_step, 22, '...' );
 		?>
 		<span style="display:block;max-width:280px;"><?php echo esc_html( $next_excerpt ); ?></span>
 		<?php if ( $actions ) : ?>
@@ -5434,6 +5513,14 @@ function justice_theme_crm_render_lead_admin_revenue_column( string $column, int
 					</a>
 				<?php endforeach; ?>
 			</span>
+		<?php endif; ?>
+		<?php if ( ! $contact_started ) : ?>
+			<form class="justice-lead-admin-actions justice-lead-first-attempt-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+				<input type="hidden" name="action" value="justice_theme_mark_lead_first_attempt">
+				<input type="hidden" name="lead_id" value="<?php echo esc_attr( (string) $post_id ); ?>">
+				<?php wp_nonce_field( 'justice_theme_mark_lead_first_attempt_' . $post_id, 'justice_theme_mark_lead_first_attempt_nonce' ); ?>
+				<button type="submit" class="button button-small">Log attempt</button>
+			</form>
 		<?php endif; ?>
 		<?php if ( $follow_up ) : ?>
 			<small style="display:block;color:#646970;margin-top:3px;">Follow-up: <?php echo esc_html( $follow_up ); ?></small>
@@ -5461,6 +5548,9 @@ function justice_theme_crm_lead_admin_revenue_column_styles(): void {
 		.wp-list-table .justice-lead-admin-actions .button {
 			min-height: 24px;
 			line-height: 22px;
+		}
+		.wp-list-table .justice-lead-first-attempt-form {
+			margin: 6px 0 0;
 		}
 	</style>
 	<?php

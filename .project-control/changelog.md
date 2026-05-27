@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Lawyer manual invoice first-target checklist
+
+- ADDED: `tools/build-lawyer-manual-invoice-first-target-checklist.mjs`.
+- GENERATED: `.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27.md`, `.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27.html`, `.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27.csv`, `.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27-owner-reply.csv`, `.reports/lawyer-manual-invoice-first-target-checklist-2026-05-27.json` and `.reports/lawyer-manual-invoice-first-target-checklist-2026-05-27.csv`.
+- PURPOSE: turn the selected first-revenue lane into a one-target manual-invoice execution checklist with a recommended Pro 349 ILS/month first offer.
+- RESULT: `LAWYER_MANUAL_INVOICE_FIRST_TARGET_CHECKLIST_READY_OWNER_TARGET_REQUIRED`; 4 plan rows, 10 checklist rows, 2 Hebrew draft messages, 4 owner decision rows, 88 percent checklist readiness to profit and 0 live revenue impact.
+- SAFETY: private checklist and draft only; no lawyer named or contacted, no CRM/admin edit, no invoice, no payment request, no paid status, no profile publication, no public CMS edit, no email-to-users, no WhatsApp, no TalkTo, no GSC API, no wp-admin write, no merge to main and no uPress deployment changed.
+
 # 2026-05-27 - First revenue lane scorecard
 
 - ADDED: `tools/build-first-revenue-lane-scorecard.mjs`.

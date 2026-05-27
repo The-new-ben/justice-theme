@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-27 15:50 Asia/Jerusalem
+- LAWYER MANUAL INVOICE FIRST-TARGET CHECKLIST ADDED: converted the recommended first-revenue lane into a one-target approval checklist so the next live step is not vague outreach, but an owner-approved Pro 349 ILS manual-invoice close.
+- CODE ADDED: `tools/build-lawyer-manual-invoice-first-target-checklist.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27.md`, `.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27.html`, `.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27.csv`, `.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27-owner-reply.csv`, `.reports/lawyer-manual-invoice-first-target-checklist-2026-05-27.json` and `.reports/lawyer-manual-invoice-first-target-checklist-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-lawyer-manual-invoice-first-target-checklist.mjs` passed. Running the builder returned `LAWYER_MANUAL_INVOICE_FIRST_TARGET_CHECKLIST_READY_OWNER_TARGET_REQUIRED`, recommended plan `pro`, 349 ILS per month including VAT, 4 plan rows, 10 checklist rows, 2 Hebrew draft messages, 4 owner decision rows, 88% checklist readiness to profit, 0 public CMS approvals, 0 live CRM/outreach approvals, 0 invoices/payments created, 0 revenue claims, 0 paid LLM API use and 0% live revenue impact.
+- REVIEW RESULT: the safest first close is Pro 349 ILS/month because it avoids lead-volume promises, client PII routing and Grow/Meshulam dependency. Higher plans remain available but should not be the first offer unless the owner explicitly overrides.
+- PUBLIC/LIVE IMPACT: no public CMS/database content, live site, route, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting, paid LLM API, merge to main or uPress pull changed.
+- COMPLETION ASSESSMENT: one-target manual-invoice execution checklist 100%; actual revenue remains blocked until the owner approves the lane, target mode, plan and message; live profit impact remains 0%.
+
 # LATEST WORK STATUS - 2026-05-27 15:40 Asia/Jerusalem
 - FIRST REVENUE LANE SCORECARD ADDED: converted the owner/drift concern into a ranked one-lane decision surface so the next approved live action can focus on one path instead of several parallel revenue ideas.
 - CODE ADDED: `tools/build-first-revenue-lane-scorecard.mjs`.

@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lawyer manual invoice first-target checklist</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f7f8fa; color: #172033; line-height: 1.55; }
+    main { max-width: 1160px; margin: 0 auto; padding: 32px 18px 56px; }
+    h1, h2 { color: #07152f; }
+    h1 { margin: 0 0 8px; font-size: 30px; }
+    .status { background: #fff; border: 1px solid #d8dee4; border-radius: 8px; padding: 16px; margin: 18px 0; }
+    table { width: 100%; border-collapse: collapse; background: #fff; margin: 12px 0 26px; }
+    th, td { border: 1px solid #d8dee4; padding: 10px; vertical-align: top; font-size: 13px; }
+    th { background: #e9eef2; text-align: right; }
+    code { direction: ltr; unicode-bidi: plaintext; background: #edf2f7; padding: 2px 5px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Checklist למסלול עורך דין ראשון בחשבונית ידנית</h1>
+  <p>2026-05-27</p>
+  <section class="status">
+    <p><strong>Status:</strong> <code>LAWYER_MANUAL_INVOICE_FIRST_TARGET_CHECKLIST_READY_OWNER_TARGET_REQUIRED</code></p>
+    <p><strong>המלצה:</strong> <code>pro</code>, 349 ש״ח לחודש כולל מע״מ.</p>
+    <p><strong>כנות:</strong> This packet prepares a one-target approval checklist and draft only. It does not contact anyone, create CRM records, invoice, request payment, mark paid, publish or deploy.</p>
+  </section>
+  <h2>Checklist</h2>
+  <table>
+    <thead><tr><th>ID</th><th>Phase</th><th>Action</th><th>Pass</th><th>Blocked if</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><code>LMI-01</code></td>
+      <td>owner_choice</td>
+      <td>Owner confirms the selected lane is lawyer subscription by manual invoice.</td>
+      <td>Owner approves lawyer_subscription_manual_invoice as the next live-approved lane.</td>
+      <td>Owner says no or chooses wait.</td>
+    </tr>
+    <tr>
+      <td><code>LMI-02</code></td>
+      <td>target</td>
+      <td>Owner names one lawyer/prospect, or approves a generic one-target draft only.</td>
+      <td>Exactly one target path is selected.</td>
+      <td>No target and no generic draft approval.</td>
+    </tr>
+    <tr>
+      <td><code>LMI-03</code></td>
+      <td>offer</td>
+      <td>Use Pro plan as the first paid offer unless owner overrides.</td>
+      <td>Plan and monthly price are recorded: recommended Pro at 349 ILS per month including VAT.</td>
+      <td>No price or plan is selected.</td>
+    </tr>
+    <tr>
+      <td><code>LMI-04</code></td>
+      <td>fit</td>
+      <td>Check license, practice fit, public claims and no-guarantee language before any public profile activation.</td>
+      <td>Owner/admin confirms fit review can proceed for the selected target.</td>
+      <td>Unverified identity, license or claims.</td>
+    </tr>
+    <tr>
+      <td><code>LMI-05</code></td>
+      <td>billing</td>
+      <td>Collect or confirm billing legal name and invoice email.</td>
+      <td>Billing contact exists before invoice_requested/invoice_sent.</td>
+      <td>Missing billing contact.</td>
+    </tr>
+    <tr>
+      <td><code>LMI-06</code></td>
+      <td>message</td>
+      <td>Owner approves the outreach/message text before any send.</td>
+      <td>Owner approves or edits the Hebrew draft.</td>
+      <td>No wording approval.</td>
+    </tr>
+    <tr>
+      <td><code>LMI-07</code></td>
+      <td>registration_path</td>
+      <td>Use the existing manual registration path for Pro plan if owner approves live action.</td>
+      <td>The target can be sent to the manual invoice registration path or admin-created only after approval.</td>
+      <td>No owner approval to contact or create admin entry.</td>
+    </tr>
+    <tr>
+      <td><code>LMI-08</code></td>
+      <td>invoice_reference</td>
+      <td>After accepted terms, save manual invoice/payment reference.</td>
+      <td>Reference exists before invoice_sent.</td>
+      <td>No invoice/payment reference.</td>
+    </tr>
+    <tr>
+      <td><code>LMI-09</code></td>
+      <td>payment_proof</td>
+      <td>Mark payment confirmed only after private payment evidence.</td>
+      <td>Payment proof exists and no dispute/refund/complaint is open.</td>
+      <td>Promise to pay, invoice only, or missing proof.</td>
+    </tr>
+    <tr>
+      <td><code>LMI-10</code></td>
+      <td>activation</td>
+      <td>Activate or publish profile only after payment proof and content/license review.</td>
+      <td>Payment confirmed and profile content approved.</td>
+      <td>Unpaid, disputed, or unreviewed profile.</td>
+    </tr></tbody>
+  </table>
+  <h2>טיוטות הודעה</h2>
+  <table>
+    <thead><tr><th>ID</th><th>נושא</th><th>גוף</th><th>סטטוס</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><code>LMI-MSG-01</code></td>
+      <td>בדיקת הצטרפות למסלול Pro ב-Jus-Tice</td>
+      <td>שלום, אנחנו בודקים הצטרפות של עורך דין אחד למסלול Pro ב-Jus-Tice במסלול חשבונית ידנית. המסלול מיועד לפרופיל מקצועי מורחב, בדיקת התאמה, אפשרות לדוח חשיפה ותהליך הפעלה מסודר. בשלב זה אין חיוב אוטומטי, אין הבטחת כמות פניות, אין התחייבות לתוצאה משפטית ואין בלעדיות. המחיר המוצע למסלול הראשון הוא 349 ש״ח לחודש כולל מע״מ, בכפוף לאישור התאמה, פרטי חשבונית ואישור תשלום. אם זה רלוונטי, נשלח קישור הרשמה קצר ונמשיך רק אחרי אישור תנאים.</td>
+      <td>DRAFT_ONLY_NOT_SENT</td>
+    </tr>
+    <tr>
+      <td><code>LMI-MSG-02</code></td>
+      <td>איך עובד התשלום הידני</td>
+      <td>ההרשמה יוצרת בקשת בדיקת התאמה. לאחר אישור התאמה נשלח חשבונית או קישור תשלום ידני. הפרופיל יופעל רק לאחר אישור תשלום ובדיקת תוכן ורישיון. חשבונית או קישור תשלום אינם נחשבים תשלום עד שיש אסמכתא.</td>
+      <td>DRAFT_ONLY_NOT_SENT</td>
+    </tr></tbody>
+  </table>
+</main>
+</body>
+</html>

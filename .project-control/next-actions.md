@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-LAWYER-MANUAL-INVOICE-FIRST-TARGET-001: Owner approves first paid lawyer target
+**Status:** FIXED LOCAL / WAITING FOR OWNER TARGET AND MESSAGE APPROVAL
+**Why:** The ranked first-revenue lane is lawyer subscription by manual invoice. The fastest profit path now needs one approved target and one approved offer, not another broad research batch.
+**Actions:**
+1. DONE: add `tools/build-lawyer-manual-invoice-first-target-checklist.mjs`.
+2. DONE: generate `.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27.md`, `.html`, `.csv` and owner reply CSV.
+3. DONE: generate `.reports/lawyer-manual-invoice-first-target-checklist-2026-05-27.json` and `.csv`.
+4. DONE: confirm `LAWYER_MANUAL_INVOICE_FIRST_TARGET_CHECKLIST_READY_OWNER_TARGET_REQUIRED`, recommended plan `pro`, 349 ILS per month including VAT, 10 checklist rows, 2 Hebrew draft messages, 4 owner decisions, 88% checklist readiness to profit and 0 live impact.
+5. NEXT: owner approves target mode: `target_named`, `generic_draft_only` or `wait`.
+6. NEXT: owner approves or edits the Hebrew message before any contact.
+7. NEXT AFTER OWNER APPROVAL: use the existing manual invoice registration path only for the approved target and only after billing/legal fit checks.
+8. BLOCKED: no lawyer contact, CRM/admin write, invoice, payment request, invoice_sent, paid status, public profile activation, public CMS edit, uPress pull or revenue claim without explicit owner approval and private payment proof.
+
 ### ACTION-FIRST-REVENUE-LANE-SCORECARD-001: Owner selects exactly one next revenue lane
 **Status:** FIXED LOCAL / WAITING FOR OWNER DECISION
 **Why:** The owner asked why there is no revenue and why Codex is drifting. The highest leverage next step is to force one ranked lane instead of continuing parallel work across all ideas.

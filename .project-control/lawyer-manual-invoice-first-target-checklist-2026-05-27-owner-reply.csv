@@ -1,0 +1,5 @@
+row_id,decision_needed,recommended_answer,allowed_answers,owner_answer,owner_note
+OWNER-LMI-01,Approve lawyer subscription manual invoice as the next lane.,yes,yes | no | wait,,
+OWNER-LMI-02,Choose target mode.,generic_draft_only_until_target_named,target_named | generic_draft_only | wait,,
+OWNER-LMI-03,Approve first-offer plan and price.,pro_349_ils_month_vat_included,pro_349 | featured_749 | lead_partner_1490 | other | wait,,
+OWNER-LMI-04,Approve or edit Hebrew message draft.,edit_or_approve_before_any_send,approve | edit_first | no | wait,,

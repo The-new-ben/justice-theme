@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-DIVORCE-TEL-AVIV-EVIDENCE-COVERAGE-URL-001: Correct private evidence URL after directory QA
+**Status:** FIXED LOCAL / PUBLIC PAGE EXECUTION STILL BLOCKED
+**Why:** Directory QA showed that `/lawyers/?city=tel-aviv&practice=family-law` behaves like city-only, so the evidence-fill packet must use `/lawyers/?city=tel-aviv&area=family-law`.
+**Actions:**
+1. DONE: update `tools/build-divorce-tel-aviv-evidence-fill-packet.mjs`.
+2. DONE: regenerate `.project-control/divorce-tel-aviv-evidence-fill-packet-2026-05-27.md` and `.csv`.
+3. DONE: regenerate `.project-control/divorce-tel-aviv-public-draft-gate-template-2026-05-27.csv`.
+4. DONE: regenerate `.reports/divorce-tel-aviv-evidence-fill-packet-2026-05-27.json` and `.csv`.
+5. DONE: confirm canonical coverage URL `/lawyers/?city=tel-aviv&area=family-law`, old `practice=family-law` URL retained only as unsupported alias review, target still 404, 11 associated/cannibalization routes checked and 0 public actions.
+6. DONE: record as Linear `HAD-152`, marked Done under `HAD-151`.
+7. NEXT: owner/admin must verify real wp-admin readiness for the 3 visible Tel Aviv family-law cards before the local page can be drafted for publication review.
+8. BLOCKED: do not publish, create/update CMS content, change public directory code, title/H1/meta/body, internal links, redirects, canonicals/noindex, sitemaps, taxonomies, CRM records, leads, lawyer/supplier/client contact, invoices, payments, emails, WhatsApp, TalkTo or uPress from this private correction alone.
+
 ### ACTION-DIVORCE-TEL-AVIV-DIRECTORY-COVERAGE-QA-001: Verify lawyer-directory coverage URL before local page approval
 **Status:** FIXED LOCAL / PUBLIC DIRECTORY ALIAS FIX STILL BLOCKED
 **Why:** The divorce Tel Aviv evidence packet used `/lawyers/?city=tel-aviv&practice=family-law`, but the live lawyer archive filters practice areas with `area`, not `practice`.

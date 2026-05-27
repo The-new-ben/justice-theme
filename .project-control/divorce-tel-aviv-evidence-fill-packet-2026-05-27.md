@@ -8,9 +8,10 @@ Scope: private evidence-fill packet for `/divorce-lawyer-tel-aviv/`. It does not
 
 - Target: /divorce-lawyer-tel-aviv/
 - Target live status: 404
-- Associated/cannibalization routes checked: 10
+- Associated/cannibalization routes checked: 11
 - Query clusters prepared for GSC fill: 6
 - Source prompts: 3 official and 2 competitor.
+- Canonical directory coverage route: /lawyers/?city=tel-aviv&area=family-law
 - Local gates: 3/3 pass.
 - Public actions: 0 approved; 0 CMS writes; 0 SEO changes; 0 emails; 0 uPress actions.
 
@@ -35,7 +36,8 @@ Scope: private evidence-fill packet for `/divorce-lawyer-tel-aviv/`. It does not
 | ROUTE-07 | /what-is-a-divorce-settlement-agreement/ | settlement_agreement_article | 200 | LIVE_ASSOCIATED_PAGE_REVIEW | הסכם גירושין | can support document checklist only after legal/editor review |
 | ROUTE-08 | /free-divorce-agreement-template/ | template_article | 200 | LIVE_ASSOCIATED_PAGE_REVIEW | הסכם גירושין דוגמא \| תבנית הסכם גירושין \| טופס הסכם גירושין בחינם | avoid promising that a template is enough for a local case |
 | ROUTE-09 | /how-much-does-a-divorce-agreement-cost/ | cost_article | 200 | LIVE_ASSOCIATED_PAGE_REVIEW | כמה עולה הסכם גירושין? \| עלות הסכם גירושין | do not copy price claims into a local lawyer page without review |
-| ROUTE-10 | /lawyers/?city=tel-aviv&practice=family-law | filtered_lawyer_directory | 200 | LIVE_ASSOCIATED_PAGE_REVIEW | עורכי דין בתל אביב | public draft stays blocked until real filtered lawyer count is verified |
+| ROUTE-10 | /lawyers/?city=tel-aviv&area=family-law | filtered_lawyer_directory | 200 | LIVE_ASSOCIATED_PAGE_REVIEW | עורך דין דיני משפחה בתל אביב | canonical directory evidence route; public draft stays blocked until real filtered lawyer readiness is verified |
+| ROUTE-11 | /lawyers/?city=tel-aviv&practice=family-law | unsupported_directory_alias | 200 | LIVE_ASSOCIATED_PAGE_REVIEW | עורכי דין בתל אביב | keep this out of publication gates unless a public alias fix is approved |
 
 ## Query Clusters To Fill
 
@@ -64,10 +66,11 @@ Scope: private evidence-fill packet for `/divorce-lawyer-tel-aviv/`. It does not
 | --- | --- | --- | --- | --- | --- |
 | EVIDENCE-01 | target_status | /divorce-lawyer-tel-aviv/ live status is 404. | Safe to continue private draft preparation. | PASS_TARGET_NOT_PUBLIC_200 | Do not create or publish the page until all draft gates are filled. |
 | EVIDENCE-02 | pillar_protection | /divorce-lawyer/ live status is 200. | Broad divorce-lawyer intent must stay with the central pillar. | PASS_PILLAR_REACHABLE | Confirm the local page will be a subordinate fit-check page, not a duplicate guide. |
-| EVIDENCE-03 | lawyer_coverage | /lawyers/?city=tel-aviv&practice=family-law live status is 200, but real filtered lawyer count is not verified. | Commercial path is visible, but public page remains blocked without verified Tel Aviv family-law coverage. | BLOCKED_PENDING_WP_ADMIN_REVIEW | Owner/admin must confirm filtered lawyer profile count and readiness. |
-| EVIDENCE-04 | gsc_gap | The prior evidence template contains no clicks, impressions or average position for this target. | Publication and internal-link decisions would be guesswork. | BLOCKED_PENDING_GSC_EXPORT | Fill exact local, broad divorce, documents/procedure, mediation/agreement and price query rows. |
-| EVIDENCE-05 | unique_angle | Best safe angle is local triage and request preparation for Tel Aviv divorce users. | The page can help commercially without replacing the divorce pillar or issue-specific articles. | REVIEW_REQUIRED | Approve one narrow angle before any Hebrew copy is prepared. |
-| EVIDENCE-06 | forbidden_claims | No evidence supports best/recommended/ranked lawyer claims, price promises, emergency response, local court facts or legal instructions. | Draft must stay careful, user-first and source-aware. | PASS_WITH_RESTRICTIONS | Legal/editor review must remove any unsupported claims. |
+| EVIDENCE-03 | lawyer_coverage | /lawyers/?city=tel-aviv&area=family-law live status is 200, but real filtered lawyer readiness is not verified. | Commercial path is visible, but public page remains blocked without verified Tel Aviv family-law coverage. | BLOCKED_PENDING_WP_ADMIN_REVIEW | Owner/admin must confirm filtered lawyer profile count and readiness. |
+| EVIDENCE-04 | directory_parameter | Use /lawyers/?city=tel-aviv&area=family-law for coverage evidence; do not use /lawyers/?city=tel-aviv&practice=family-law unless a public alias fix is approved. | The page should not be approved from a city-only or incorrectly filtered directory signal. | PASS_CANONICAL_DIRECTORY_PARAM_CORRECTED | Keep future evidence and templates on the canonical area parameter. |
+| EVIDENCE-05 | gsc_gap | The prior evidence template contains no clicks, impressions or average position for this target. | Publication and internal-link decisions would be guesswork. | BLOCKED_PENDING_GSC_EXPORT | Fill exact local, broad divorce, documents/procedure, mediation/agreement and price query rows. |
+| EVIDENCE-06 | unique_angle | Best safe angle is local triage and request preparation for Tel Aviv divorce users. | The page can help commercially without replacing the divorce pillar or issue-specific articles. | REVIEW_REQUIRED | Approve one narrow angle before any Hebrew copy is prepared. |
+| EVIDENCE-07 | forbidden_claims | No evidence supports best/recommended/ranked lawyer claims, price promises, emergency response, local court facts or legal instructions. | Draft must stay careful, user-first and source-aware. | PASS_WITH_RESTRICTIONS | Legal/editor review must remove any unsupported claims. |
 
 ## Private Draft Positioning
 
@@ -75,6 +78,7 @@ Scope: private evidence-fill packet for `/divorce-lawyer-tel-aviv/`. It does not
 - It should not become a full divorce guide; broad how-to content belongs on `/divorce-lawyer/`.
 - It should not absorb custody, child support, mediation, agreement-template or cost intent; those routes stay separate unless GSC/legal/editor review says otherwise.
 - Commercial CTA direction may be a quiet request/fit-check path, but only after verified filtered lawyer coverage exists.
+- Directory coverage evidence must use `/lawyers/?city=tel-aviv&area=family-law`; `/lawyers/?city=tel-aviv&practice=family-law` is not proof of family-law filtering unless a public alias fix is separately approved.
 - No best/recommended/ranked claims, price promises, response-time claims, local court facts, deadlines, eligibility claims or legal advice without source and legal/editor approval.
 
 ## Own Review

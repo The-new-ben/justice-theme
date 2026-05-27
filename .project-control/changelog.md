@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Divorce Tel Aviv evidence coverage URL correction
+
+- UPDATED: `tools/build-divorce-tel-aviv-evidence-fill-packet.mjs`.
+- REGENERATED: `.project-control/divorce-tel-aviv-evidence-fill-packet-2026-05-27.md`, `.project-control/divorce-tel-aviv-evidence-fill-packet-2026-05-27.csv`, `.project-control/divorce-tel-aviv-public-draft-gate-template-2026-05-27.csv`, `.reports/divorce-tel-aviv-evidence-fill-packet-2026-05-27.json`, `.reports/divorce-tel-aviv-evidence-fill-packet-2026-05-27.csv`.
+- PURPOSE: correct the private evidence packet after directory coverage QA showed that the archive uses `area`, not `practice`, for practice-area filtering.
+- RESULT: `DIVORCE_TEL_AVIV_EVIDENCE_FILL_READY_NO_PUBLIC_CHANGE`; coverage route corrected to `/lawyers/?city=tel-aviv&area=family-law`; the old `practice=family-law` URL is retained only as an unsupported alias review row.
+- REVIEW: future publication review must use the canonical `area=family-law` directory evidence route and still requires wp-admin profile readiness, GSC, legal/editor review and owner approval.
+- LINEAR: recorded as `HAD-152`, marked Done under `HAD-151`, related to `HAD-150`, `HAD-145`, `HAD-144`, `HAD-84` and `HAD-133`.
+- SAFETY: private tooling/artifact correction only; no public page, CMS content, public directory code, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead/lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Divorce Tel Aviv directory coverage QA
 
 - ADDED: `tools/build-divorce-tel-aviv-directory-coverage-qa.mjs`.

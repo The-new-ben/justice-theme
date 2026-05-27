@@ -12,7 +12,8 @@ const TARGET = {
   targetPath: '/divorce-lawyer-tel-aviv/',
   pillarPath: '/divorce-lawyer/',
   familyHubPath: '/family-law/',
-  directoryPath: '/lawyers/?city=tel-aviv&practice=family-law',
+  directoryPath: '/lawyers/?city=tel-aviv&area=family-law',
+  unsupportedDirectoryAliasPath: '/lawyers/?city=tel-aviv&practice=family-law',
   city: 'Tel Aviv',
   practice: 'Divorce and family law',
 };
@@ -86,7 +87,14 @@ const ASSOCIATED_ROUTES = [
     path: TARGET.directoryPath,
     role: 'filtered_lawyer_directory',
     expectedGate: 'coverage proof required',
-    inspectionNeed: 'public draft stays blocked until real filtered lawyer count is verified',
+    inspectionNeed: 'canonical directory evidence route; public draft stays blocked until real filtered lawyer readiness is verified',
+  },
+  {
+    id: 'ROUTE-11',
+    path: TARGET.unsupportedDirectoryAliasPath,
+    role: 'unsupported_directory_alias',
+    expectedGate: 'not coverage proof',
+    inspectionNeed: 'keep this out of publication gates unless a public alias fix is approved',
   },
 ];
 
@@ -221,7 +229,7 @@ const DECISION_TEMPLATE_ROWS = [
   {
     gateId: 'GATE-04',
     requiredInput: 'Filtered Tel Aviv family-law lawyer coverage',
-    acceptableValue: 'Real filtered count and profile readiness verified in wp-admin',
+    acceptableValue: 'Real filtered count and profile readiness verified in wp-admin using /lawyers/?city=tel-aviv&area=family-law',
     currentValue: '',
     currentStatus: 'BLOCKED_PENDING_WP_ADMIN_REVIEW',
     owner: 'Owner/admin',
@@ -472,13 +480,21 @@ function buildEvidenceRows(routeRows) {
     {
       id: 'EVIDENCE-03',
       category: 'lawyer_coverage',
-      finding: `${TARGET.directoryPath} live status is ${directoryRow?.status ?? 'unknown'}, but real filtered lawyer count is not verified.`,
+      finding: `${TARGET.directoryPath} live status is ${directoryRow?.status ?? 'unknown'}, but real filtered lawyer readiness is not verified.`,
       implication: 'Commercial path is visible, but public page remains blocked without verified Tel Aviv family-law coverage.',
       gate: 'BLOCKED_PENDING_WP_ADMIN_REVIEW',
       ownerAction: 'Owner/admin must confirm filtered lawyer profile count and readiness.',
     },
     {
       id: 'EVIDENCE-04',
+      category: 'directory_parameter',
+      finding: `Use ${TARGET.directoryPath} for coverage evidence; do not use ${TARGET.unsupportedDirectoryAliasPath} unless a public alias fix is approved.`,
+      implication: 'The page should not be approved from a city-only or incorrectly filtered directory signal.',
+      gate: 'PASS_CANONICAL_DIRECTORY_PARAM_CORRECTED',
+      ownerAction: 'Keep future evidence and templates on the canonical area parameter.',
+    },
+    {
+      id: 'EVIDENCE-05',
       category: 'gsc_gap',
       finding: 'The prior evidence template contains no clicks, impressions or average position for this target.',
       implication: 'Publication and internal-link decisions would be guesswork.',
@@ -486,7 +502,7 @@ function buildEvidenceRows(routeRows) {
       ownerAction: 'Fill exact local, broad divorce, documents/procedure, mediation/agreement and price query rows.',
     },
     {
-      id: 'EVIDENCE-05',
+      id: 'EVIDENCE-06',
       category: 'unique_angle',
       finding: 'Best safe angle is local triage and request preparation for Tel Aviv divorce users.',
       implication: 'The page can help commercially without replacing the divorce pillar or issue-specific articles.',
@@ -494,7 +510,7 @@ function buildEvidenceRows(routeRows) {
       ownerAction: 'Approve one narrow angle before any Hebrew copy is prepared.',
     },
     {
-      id: 'EVIDENCE-06',
+      id: 'EVIDENCE-07',
       category: 'forbidden_claims',
       finding: 'No evidence supports best/recommended/ranked lawyer claims, price promises, emergency response, local court facts or legal instructions.',
       implication: 'Draft must stay careful, user-first and source-aware.',
@@ -597,6 +613,7 @@ function markdownReport(summary, { localGateRows, routeRows, evidenceRows }) {
     `- Associated/cannibalization routes checked: ${summary.associatedRouteCount}`,
     `- Query clusters prepared for GSC fill: ${summary.queryClusterCount}`,
     `- Source prompts: ${summary.officialSourcePrompts} official and ${summary.competitorSourcePrompts} competitor.`,
+    `- Canonical directory coverage route: ${TARGET.directoryPath}`,
     `- Local gates: ${summary.localGatePassCount}/${summary.localGateCount} pass.`,
     `- Public actions: ${summary.publicChangesApproved} approved; ${summary.cmsWrites} CMS writes; ${summary.seoChanges} SEO changes; ${summary.emailsSent} emails; ${summary.upressActions} uPress actions.`,
     '',
@@ -636,6 +653,7 @@ function markdownReport(summary, { localGateRows, routeRows, evidenceRows }) {
     '- It should not become a full divorce guide; broad how-to content belongs on `/divorce-lawyer/`.',
     '- It should not absorb custody, child support, mediation, agreement-template or cost intent; those routes stay separate unless GSC/legal/editor review says otherwise.',
     '- Commercial CTA direction may be a quiet request/fit-check path, but only after verified filtered lawyer coverage exists.',
+    `- Directory coverage evidence must use \`${TARGET.directoryPath}\`; \`${TARGET.unsupportedDirectoryAliasPath}\` is not proof of family-law filtering unless a public alias fix is separately approved.`,
     '- No best/recommended/ranked claims, price promises, response-time claims, local court facts, deadlines, eligibility claims or legal advice without source and legal/editor approval.',
     '',
     '## Own Review',

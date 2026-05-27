@@ -13,6 +13,9 @@ $justice_phone    = justice_theme_option( 'justice_phone', '0525101555' );
 $justice_email    = justice_theme_option( 'justice_email', 'info@jus-tice.co.il' );
 $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
 $justice_address  = function_exists( 'justice_theme_business_address' ) ? justice_theme_business_address() : justice_theme_option( 'justice_business_address', 'רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו' );
+$justice_footer_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_url' )
+	? justice_theme_public_whatsapp_url( __( 'שלום, אני צריך/ה עזרה משפטית דרך Jus-Tice. הגעתי מהאתר ואשמח לחזרה.', 'justice-theme' ) )
+	: '';
 ?>
 
 <footer class="site-footer" role="contentinfo" style="background: var(--jt-primary-deep); color: #fff; padding-top: 5rem; padding-bottom: 2rem; border-top: 4px solid var(--jt-accent);">
@@ -96,6 +99,29 @@ $justice_address  = function_exists( 'justice_theme_business_address' ) ? justic
 				<li><a href="<?php echo esc_url( home_url( '/site-map/' ) ); ?>" style="color: rgba(255,255,255,0.7); text-decoration: none;">מפת אתר</a></li>
 			</ul>
 		</section>
+
+		<section class="site-footer__section site-footer__quick-action">
+			<h3 style="color: #fff; font-size: 1.1rem; margin-bottom: 1.5rem; font-weight: 700; position: relative; padding-bottom: 0.8rem;">
+				<?php esc_html_e( 'פנייה מהירה', 'justice-theme' ); ?>
+				<span style="position: absolute; bottom: 0; right: 0; width: 40px; height: 3px; background: var(--jt-accent); border-radius: 2px;"></span>
+			</h3>
+			<p style="color: rgba(255,255,255,0.72); line-height: 1.7; margin: 0 0 1rem;">
+				<?php esc_html_e( 'התחילו מתיאור קצר של הבעיה. נבדוק תחום, אזור ודחיפות ונעזור להגיע למסלול מתאים, בלי להציג זאת כייעוץ משפטי או כהבטחה לתוצאה.', 'justice-theme' ); ?>
+			</p>
+			<div class="site-footer__quick-actions">
+				<?php if ( $justice_footer_whatsapp_url ) : ?>
+					<a class="button button--whatsapp-inline" href="<?php echo esc_url( $justice_footer_whatsapp_url ); ?>" target="_blank" rel="noopener" data-lead-utm-source="site_footer" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help">
+						<?php esc_html_e( 'שליחת וואטסאפ', 'justice-theme' ); ?>
+					</a>
+				<?php endif; ?>
+				<a class="button button--gold" href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>">
+					<?php esc_html_e( 'טופס פנייה', 'justice-theme' ); ?>
+				</a>
+				<a class="button button--ghost" href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>">
+					<?php esc_html_e( 'מסלולים לעורכי דין', 'justice-theme' ); ?>
+				</a>
+			</div>
+		</section>
 	</div>
 
 	<div class="container" style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem;">
@@ -116,10 +142,12 @@ $justice_address  = function_exists( 'justice_theme_business_address' ) ? justic
 </footer>
 
 <?php
-$justice_wa = justice_theme_option( 'justice_whatsapp', '0525101555' );
-if ( $justice_wa ) :
+$justice_wa_url = function_exists( 'justice_theme_public_whatsapp_url' )
+	? justice_theme_public_whatsapp_url( __( 'שלום, אני צריך/ה עזרה משפטית דרך Jus-Tice ואשמח לחזרה.', 'justice-theme' ) )
+	: '';
+if ( $justice_wa_url ) :
 ?>
-<a class="whatsapp-float" href="<?php echo esc_url( 'https://wa.me/972' . ltrim( $justice_wa, '0' ) ); ?>" target="_blank" rel="noopener" aria-label="<?php esc_attr_e( 'שלחו הודעה בוואטסאפ', 'justice-theme' ); ?>" style="position: fixed; bottom: 20px; left: 20px; background: #25D366; color: white; border-radius: 50px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); z-index: 1000;">
+<a class="whatsapp-float" href="<?php echo esc_url( $justice_wa_url ); ?>" target="_blank" rel="noopener" aria-label="<?php esc_attr_e( 'שלחו הודעה בוואטסאפ', 'justice-theme' ); ?>" data-lead-utm-source="floating_whatsapp" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help" style="position: fixed; bottom: 20px; left: 20px; background: #25D366; color: white; border-radius: 50px; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); z-index: 1000;">
 	<svg width="35" height="35" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.11.546 4.093 1.504 5.818L0 24l6.335-1.452A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.82c-1.907 0-3.722-.514-5.317-1.49l-.381-.226-3.96.908.984-3.813-.253-.4A9.783 9.783 0 012.18 12c0-5.422 4.398-9.82 9.82-9.82 5.422 0 9.82 4.398 9.82 9.82 0 5.422-4.398 9.82-9.82 9.82z"/></svg>
 </a>
 <?php endif; ?>

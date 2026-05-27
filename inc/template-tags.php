@@ -734,6 +734,33 @@ function justice_theme_lawyer_public_whatsapp_link( string $whatsapp ): string {
 }
 
 /**
+ * Return the site WhatsApp intake URL with an optional public prefilled message.
+ *
+ * @param string $message Optional Hebrew intake message.
+ * @return string
+ */
+function justice_theme_public_whatsapp_url( string $message = '' ): string {
+	$whatsapp = function_exists( 'justice_theme_option' ) ? justice_theme_option( 'justice_whatsapp', '0525101555' ) : '0525101555';
+	$digits   = preg_replace( '/\D+/', '', (string) $whatsapp );
+
+	if ( '' === $digits ) {
+		return '';
+	}
+
+	if ( 0 === strpos( $digits, '0' ) ) {
+		$digits = '972' . substr( $digits, 1 );
+	}
+
+	$url = 'https://wa.me/' . $digits;
+
+	if ( '' !== trim( $message ) ) {
+		$url = add_query_arg( 'text', $message, $url );
+	}
+
+	return $url;
+}
+
+/**
  * Return a Hebrew public label for post types shown on visitor-facing cards.
  *
  * This avoids leaking raw plugin labels such as "Article" into Hebrew search

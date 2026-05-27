@@ -9,7 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$justice_phone = justice_theme_option( 'justice_phone', '0525101555' );
+$justice_phone        = justice_theme_option( 'justice_phone', '0525101555' );
+$justice_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_url' )
+	? justice_theme_public_whatsapp_url( __( 'שלום, אני צריך/ה עזרה משפטית דרך Jus-Tice ואשמח לחזרה קצרה.', 'justice-theme' ) )
+	: '';
 $justice_topic_links = array(
 	array(
 		'label' => __( 'עורך דין גירושין', 'justice-theme' ),
@@ -107,11 +110,30 @@ $justice_topic_links = array(
 				?>
 			</nav>
 
-			<?php if ( $justice_phone ) : ?>
-				<a class="site-header__cta button button--gold" href="<?php echo esc_url( 'tel:' . preg_replace( '/[^0-9+]/', '', $justice_phone ) ); ?>">
-					<?php echo esc_html( $justice_phone ); ?>
+			<div class="site-header__lead-actions" aria-label="<?php esc_attr_e( 'פעולות מהירות לקבלת עזרה משפטית', 'justice-theme' ); ?>">
+				<?php if ( $justice_whatsapp_url ) : ?>
+					<a class="site-header__whatsapp button button--whatsapp-inline" href="<?php echo esc_url( $justice_whatsapp_url ); ?>" target="_blank" rel="noopener" data-lead-utm-source="site_header" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help">
+						<?php esc_html_e( 'וואטסאפ', 'justice-theme' ); ?>
+					</a>
+				<?php endif; ?>
+
+				<?php if ( $justice_phone ) : ?>
+					<a class="site-header__cta button button--gold" href="<?php echo esc_url( 'tel:' . preg_replace( '/[^0-9+]/', '', $justice_phone ) ); ?>">
+						<?php echo esc_html( $justice_phone ); ?>
+					</a>
+				<?php endif; ?>
+			</div>
+
+			<div class="site-header__lawyer-actions" aria-label="<?php esc_attr_e( 'פעולות לעורכי דין', 'justice-theme' ); ?>">
+				<a class="site-header__lawyer-link" href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>">
+					<span class="site-header__lawyer-label-full"><?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?></span>
+					<span class="site-header__lawyer-label-short"><?php esc_html_e( 'עו"ד', 'justice-theme' ); ?></span>
 				</a>
-			<?php endif; ?>
+				<a class="site-header__lawyer-link site-header__lawyer-link--plans" href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>">
+					<span class="site-header__lawyer-label-full"><?php esc_html_e( 'מסלולים', 'justice-theme' ); ?></span>
+					<span class="site-header__lawyer-label-short"><?php esc_html_e( 'תשלום', 'justice-theme' ); ?></span>
+				</a>
+			</div>
 		</div>
 	</div>
 

@@ -3072,6 +3072,22 @@
   color: #fff;
 }
 
+.site-footer__quick-actions {
+  display: grid;
+  gap: 0.7rem;
+}
+
+.site-footer__quick-actions .button {
+  justify-content: center;
+  width: 100%;
+  min-height: 2.7rem;
+}
+
+.site-footer__quick-actions .button--ghost {
+  border-color: rgba(255,255,255,0.28);
+  color: #fff;
+}
+
 @media (max-width: 900px) {
   .homepage-service-flow__steps {
     grid-template-columns: repeat(2, minmax(0, 1fr));

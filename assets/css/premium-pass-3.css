@@ -3973,6 +3973,21 @@
   box-shadow: 0 12px 28px rgba(217,40,47,0.18);
 }
 
+.site-header__lead-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  flex: 0 0 auto;
+}
+
+.site-header__whatsapp.button {
+  min-height: 2.45rem;
+  border-radius: 999px;
+  padding-inline: 0.95rem;
+  font-weight: 900;
+  box-shadow: 0 12px 28px rgba(18,140,126,0.16);
+}
+
 .site-header__lawyer-actions {
   display: inline-flex;
   align-items: center;
@@ -4089,6 +4104,10 @@
     gap: 0.28rem;
   }
 
+  .site-header__lead-actions {
+    gap: 0.28rem;
+  }
+
   .site-header__lawyer-link {
     padding-inline: 0.68rem;
     font-size: 0.84rem;
@@ -4096,7 +4115,19 @@
 }
 
 @media (max-width: 768px) {
+  .site-header__lead-actions {
+    order: 4;
+    width: 100%;
+    justify-content: stretch;
+  }
+
+  .site-header__lead-actions .button {
+    flex: 1 1 0;
+    min-width: 0;
+  }
+
   .site-header__lawyer-actions {
+    order: 3;
     margin-inline-start: auto;
     gap: 0.24rem;
   }

@@ -1530,9 +1530,60 @@
 .customer-intake-card a:hover {
   text-decoration: underline;
 }
+.customer-intake-strip__handoff {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 1rem;
+  align-items: center;
+  margin-top: 1.15rem;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid rgba(178,58,72,0.18);
+  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(178,58,72,0.06), rgba(15,23,42,0.035));
+}
+.customer-intake-strip__handoff-label {
+  margin: 0 0 0.55rem;
+  color: var(--jt-heading, #0f172a);
+  font-weight: 900;
+}
+.customer-intake-strip__handoff ol {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding-inline-start: 1.25rem;
+  color: var(--jt-muted, #6b7280);
+  line-height: 1.55;
+  font-size: 0.92rem;
+}
+.customer-intake-strip__handoff-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+.customer-intake-strip__whatsapp {
+  border-color: rgba(22,163,74,0.42);
+  color: #166534;
+  background: #f0fdf4;
+}
+.customer-intake-strip__whatsapp:hover,
+.customer-intake-strip__whatsapp:focus-visible {
+  background: #dcfce7;
+  color: #14532d;
+}
 @media (max-width: 900px) {
   .customer-intake-strip__grid {
     grid-template-columns: 1fr;
+  }
+  .customer-intake-strip__handoff {
+    grid-template-columns: 1fr;
+  }
+  .customer-intake-strip__handoff-actions {
+    justify-content: stretch;
+  }
+  .customer-intake-strip__handoff-actions .button {
+    width: 100%;
+    justify-content: center;
   }
 }
 

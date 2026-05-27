@@ -32,6 +32,16 @@ $intake_cards = array(
 		'action'      => __( 'חיפוש עורכי דין', 'justice-theme' ),
 	),
 );
+
+$customer_handoff_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_url' )
+	? justice_theme_public_whatsapp_url( __( 'שלום, אני צריך/ה עזרה משפטית. הגעתי ממסלול הלקוח בדף הבית של Jus-Tice. הנושא בקצרה: ', 'justice-theme' ) )
+	: '';
+
+$customer_handoff_steps = array(
+	__( 'מזהים תחום, עיר ודחיפות לפי מה שכתבתם.', 'justice-theme' ),
+	__( 'בודקים אם נכון להתחיל ממדריך, מחיפוש עורך דין או משיחה קצרה.', 'justice-theme' ),
+	__( 'אם צריך עורך דין, מכינים פנייה מסודרת כדי שהשיחה הראשונה תהיה ממוקדת יותר.', 'justice-theme' ),
+);
 ?>
 
 <section class="customer-intake-strip" aria-labelledby="customer-intake-title">
@@ -51,6 +61,27 @@ $intake_cards = array(
 					<a href="<?php echo esc_url( $card['url'] ); ?>"><?php echo esc_html( $card['action'] ); ?></a>
 				</article>
 			<?php endforeach; ?>
+		</div>
+
+		<div class="customer-intake-strip__handoff" aria-label="<?php esc_attr_e( 'מה קורה אחרי השארת פנייה', 'justice-theme' ); ?>">
+			<div>
+				<p class="customer-intake-strip__handoff-label"><?php esc_html_e( 'מה קורה אחרי הפנייה?', 'justice-theme' ); ?></p>
+				<ol>
+					<?php foreach ( $customer_handoff_steps as $handoff_step ) : ?>
+						<li><?php echo esc_html( $handoff_step ); ?></li>
+					<?php endforeach; ?>
+				</ol>
+			</div>
+			<div class="customer-intake-strip__handoff-actions">
+				<a class="button button--primary" href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>" data-lead-source-surface="homepage_customer_handoff" data-lead-utm-source="homepage_customer_handoff" data-lead-utm-medium="handoff_cta" data-lead-utm-campaign="public_legal_help">
+					<?php esc_html_e( 'להשאיר פנייה מסודרת', 'justice-theme' ); ?>
+				</a>
+				<?php if ( $customer_handoff_whatsapp_url ) : ?>
+					<a class="button button--outline customer-intake-strip__whatsapp" href="<?php echo esc_url( $customer_handoff_whatsapp_url ); ?>" target="_blank" rel="noopener" data-whatsapp-surface="homepage_customer_handoff" data-lead-utm-source="homepage_customer_handoff" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help">
+						<?php esc_html_e( 'וואטסאפ מהיר', 'justice-theme' ); ?>
+					</a>
+				<?php endif; ?>
+			</div>
 		</div>
 	</div>
 </section>

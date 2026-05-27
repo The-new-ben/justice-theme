@@ -3525,8 +3525,100 @@
   color: #fff;
 }
 
+.site-footer .footer-contact {
+  flex-wrap: wrap;
+}
+
+.site-footer .footer-contact a {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.site-footer__trust-path {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+  margin-bottom: 3rem;
+  padding: 1rem;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.055);
+  box-shadow: 0 18px 44px rgba(0,0,0,0.16);
+}
+
+.site-footer__trust-card {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1rem;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  background: rgba(255,255,255,0.045);
+}
+
+.site-footer__trust-card span {
+  color: var(--jt-accent, #f0c36a);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.site-footer__trust-card strong {
+  color: #fff;
+  font-size: 0.98rem;
+  line-height: 1.55;
+}
+
+.site-footer__trust-card p {
+  margin: 0;
+  color: rgba(255,255,255,0.72);
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+
+.site-footer__city-links,
+.site-footer__lawyer-links,
+.site-footer__trust-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.site-footer__city-links a,
+.site-footer__lawyer-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid rgba(255,255,255,0.14);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.05);
+  color: rgba(255,255,255,0.84);
+  font-size: 0.84rem;
+  font-weight: 750;
+  text-decoration: none;
+}
+
+.site-footer__city-links a:hover,
+.site-footer__city-links a:focus-visible,
+.site-footer__lawyer-links a:hover,
+.site-footer__lawyer-links a:focus-visible {
+  border-color: rgba(240,195,106,0.7);
+  color: #fff;
+}
+
+.site-footer__trust-actions .button {
+  flex: 1 1 8rem;
+  justify-content: center;
+  min-height: 2.65rem;
+}
+
 @media (max-width: 900px) {
   .homepage-service-flow__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .site-footer__trust-path {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
@@ -3535,5 +3627,17 @@
   .homepage-service-flow__steps,
   .ask-lawyer__actions {
     grid-template-columns: 1fr;
+  }
+
+  .site-footer__trust-path {
+    grid-template-columns: 1fr;
+    padding: 0.8rem;
+  }
+
+  .site-footer__city-links a,
+  .site-footer__lawyer-links a,
+  .site-footer__trust-actions .button {
+    width: 100%;
+    justify-content: center;
   }
 }

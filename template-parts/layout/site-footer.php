@@ -13,6 +13,29 @@ $justice_phone    = justice_theme_option( 'justice_phone', '0525101555' );
 $justice_email    = justice_theme_option( 'justice_email', 'info@jus-tice.co.il' );
 $justice_whatsapp = justice_theme_option( 'justice_whatsapp', '0525101555' );
 $justice_address  = function_exists( 'justice_theme_business_address' ) ? justice_theme_business_address() : justice_theme_option( 'justice_business_address', 'רחוב ראול ולנברג 18, מתחם CU, מגדל C, קומה 2, תל אביב-יפו' );
+$justice_lawyers_archive = get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' );
+$justice_footer_cities   = array(
+	array(
+		'label' => __( 'תל אביב', 'justice-theme' ),
+		'url'   => add_query_arg( 'city', 'תל אביב', $justice_lawyers_archive ),
+	),
+	array(
+		'label' => __( 'ירושלים', 'justice-theme' ),
+		'url'   => add_query_arg( 'city', 'ירושלים', $justice_lawyers_archive ),
+	),
+	array(
+		'label' => __( 'חיפה', 'justice-theme' ),
+		'url'   => add_query_arg( 'city', 'חיפה', $justice_lawyers_archive ),
+	),
+	array(
+		'label' => __( 'באר שבע', 'justice-theme' ),
+		'url'   => add_query_arg( 'city', 'באר שבע', $justice_lawyers_archive ),
+	),
+	array(
+		'label' => __( 'ראשון לציון', 'justice-theme' ),
+		'url'   => add_query_arg( 'city', 'ראשון לציון', $justice_lawyers_archive ),
+	),
+);
 $justice_footer_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_url' )
 	? justice_theme_public_whatsapp_url( __( 'שלום, אני צריך/ה עזרה משפטית דרך Jus-Tice. הגעתי מהאתר ואשמח לחזרה.', 'justice-theme' ) )
 	: '';
@@ -123,6 +146,49 @@ $justice_footer_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_u
 			</div>
 		</section>
 	</div>
+
+	<section class="container site-footer__trust-path" aria-label="<?php esc_attr_e( 'איך Jus-Tice מטפל בפנייה משפטית', 'justice-theme' ); ?>">
+		<div class="site-footer__trust-card site-footer__trust-card--lead">
+			<span><?php esc_html_e( 'אחרי שהשארתם פנייה', 'justice-theme' ); ?></span>
+			<strong><?php esc_html_e( 'בודקים תחום, עיר ודחיפות לפני שממשיכים לשיחה או לחיפוש עורך דין מתאים.', 'justice-theme' ); ?></strong>
+			<p><?php esc_html_e( 'המטרה היא לעזור להבין את הצעד הבא בלי להציג מידע כללי כייעוץ משפטי אישי או כהבטחה לתוצאה.', 'justice-theme' ); ?></p>
+		</div>
+
+		<div class="site-footer__trust-card">
+			<span><?php esc_html_e( 'חיפוש לפי עיר', 'justice-theme' ); ?></span>
+			<strong><?php esc_html_e( 'מתחילים קרוב למקום שבו צריך את השירות.', 'justice-theme' ); ?></strong>
+			<nav class="site-footer__city-links" aria-label="<?php esc_attr_e( 'חיפוש עורכי דין לפי עיר', 'justice-theme' ); ?>">
+				<?php foreach ( $justice_footer_cities as $justice_footer_city ) : ?>
+					<a href="<?php echo esc_url( $justice_footer_city['url'] ); ?>"><?php echo esc_html( $justice_footer_city['label'] ); ?></a>
+				<?php endforeach; ?>
+			</nav>
+		</div>
+
+		<div class="site-footer__trust-card">
+			<span><?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?></span>
+			<strong><?php esc_html_e( 'פרופיל, מסלולים ואזור אישי צריכים לעבוד יחד עם הפניות מהאתר.', 'justice-theme' ); ?></strong>
+			<div class="site-footer__lawyer-links">
+				<a href="<?php echo esc_url( home_url( '/lawyer-registration/' ) ); ?>"><?php esc_html_e( 'פתיחת פרופיל', 'justice-theme' ); ?></a>
+				<a href="<?php echo esc_url( home_url( '/lawyer-plans/' ) ); ?>"><?php esc_html_e( 'מסלולי הצטרפות', 'justice-theme' ); ?></a>
+				<a href="<?php echo esc_url( home_url( '/lawyer-dashboard/' ) ); ?>"><?php esc_html_e( 'אזור אישי', 'justice-theme' ); ?></a>
+			</div>
+		</div>
+
+		<div class="site-footer__trust-card site-footer__trust-card--action">
+			<span><?php esc_html_e( 'פנייה מהירה', 'justice-theme' ); ?></span>
+			<strong><?php esc_html_e( 'אם יש מועד קרוב, מכתב רשמי או שיחה דחופה, עדיף להתחיל עכשיו.', 'justice-theme' ); ?></strong>
+			<div class="site-footer__trust-actions">
+				<?php if ( $justice_footer_whatsapp_url ) : ?>
+					<a class="button button--whatsapp-inline" href="<?php echo esc_url( $justice_footer_whatsapp_url ); ?>" target="_blank" rel="noopener" data-whatsapp-surface="footer_trust_path" data-lead-utm-source="footer_trust_path" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help">
+						<?php esc_html_e( 'וואטסאפ', 'justice-theme' ); ?>
+					</a>
+				<?php endif; ?>
+				<a class="button button--gold" href="<?php echo esc_url( home_url( '/#ask-lawyer' ) ); ?>">
+					<?php esc_html_e( 'טופס פנייה', 'justice-theme' ); ?>
+				</a>
+			</div>
+		</div>
+	</section>
 
 	<div class="container" style="border-top: 1px solid rgba(255,255,255,0.08); padding-top: 2rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 1rem;">
 		<div style="display: flex; gap: 1.5rem; margin-bottom: 1rem;">

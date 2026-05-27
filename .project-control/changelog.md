@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Browser-ready Hebrew owner unblocker brief
+
+- UPDATED: `tools/build-owner-unblocker-hebrew-decision-brief.mjs`.
+- GENERATED: `.project-control/owner-unblocker-hebrew-decision-brief-2026-05-27.html`; regenerated `.reports/owner-unblocker-hebrew-decision-brief-2026-05-27.json` to include the HTML file map entry.
+- PURPOSE: give the Hebrew-speaking owner a clean private browser view of the same unblocker decisions, avoiding Markdown/terminal rendering friction.
+- RESULT: `OWNER_UNBLOCKER_HEBREW_DECISION_BRIEF_READY_NO_LIVE_ACTION`; HTML static check confirmed RTL Hebrew, `UNBLOCK-08`, private-only language, 0 replacement characters and no external URL references. Private artifact boundary guard `PASS`.
+- LINEAR: recorded as `HAD-171`, marked Done under `HAD-170`, related to `HAD-169`, `HAD-168`, `HAD-163`, `HAD-157` and `HAD-164`.
+- SAFETY: private tooling/reporting only; no public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Hebrew owner unblocker decision brief
 
 - ADDED: `tools/build-owner-unblocker-hebrew-decision-brief.mjs`.

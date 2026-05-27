@@ -113,6 +113,7 @@ function outputFiles(reportDate) {
   const base = `owner-unblocker-hebrew-decision-brief-${reportDate}`;
   return {
     projectMd: path.join(ROOT, '.project-control', `${base}.md`),
+    projectHtml: path.join(ROOT, '.project-control', `${base}.html`),
     projectCsv: path.join(ROOT, '.project-control', `${base}.csv`),
     replyTemplateCsv: path.join(ROOT, '.project-control', `owner-unblocker-hebrew-reply-template-${reportDate}.csv`),
     reportJson: path.join(ROOT, '.reports', `${base}.json`),
@@ -134,6 +135,15 @@ function csvEscape(value) {
     return `"${text.replace(/"/g, '""')}"`;
   }
   return text;
+}
+
+function htmlEscape(value) {
+  return String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
 function toCsv(rows, columns) {
@@ -270,6 +280,384 @@ function buildMarkdown({ reportDate, sourceDate, status, gates, rows }) {
   ].join('\n');
 }
 
+function buildHtml({ reportDate, sourceDate, status, gates, rows }) {
+  const topRows = rows.filter((row) => row.priority_group === 'top_3');
+  const gateClass = (gate) => gate.status.toLowerCase();
+  const topCards = topRows
+    .map(
+      (row) => `
+        <article class="decision-card">
+          <div class="card-head">
+            <span class="rank">#${htmlEscape(row.rank)}</span>
+            <span class="id">${htmlEscape(row.id)}</span>
+          </div>
+          <h2>${htmlEscape(row.title_he)}</h2>
+          <dl>
+            <dt>החלטת בעלים נדרשת</dt>
+            <dd>${htmlEscape(row.owner_decision_needed_he)}</dd>
+            <dt>הצעד הבא</dt>
+            <dd>${htmlEscape(row.exact_next_step_he)}</dd>
+            <dt>אסור ללא אישור</dt>
+            <dd>${htmlEscape(row.hard_no_he)}</dd>
+            <dt>תשובה קצרה מוצעת</dt>
+            <dd><code>${htmlEscape(row.suggested_reply_he)}</code></dd>
+          </dl>
+        </article>`,
+    )
+    .join('\n');
+
+  const queueRows = rows
+    .map(
+      (row) => `
+          <tr>
+            <td><strong>${htmlEscape(row.id)}</strong></td>
+            <td>${htmlEscape(row.rank)}</td>
+            <td>${htmlEscape(row.title_he)}</td>
+            <td>${htmlEscape(row.why_he)}</td>
+            <td>${htmlEscape(row.if_approved_he)}</td>
+            <td>${htmlEscape(row.source_status)}</td>
+          </tr>`,
+    )
+    .join('\n');
+
+  const gateRows = gates
+    .map(
+      (gate) => `
+          <tr>
+            <td><strong>${htmlEscape(gate.id)}</strong></td>
+            <td>${htmlEscape(gate.gate)}</td>
+            <td><span class="status ${htmlEscape(gateClass(gate))}">${htmlEscape(gate.status)}</span></td>
+            <td>${htmlEscape(gate.evidence)}</td>
+          </tr>`,
+    )
+    .join('\n');
+
+  return `<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>תקציר החלטות בעלים - ${htmlEscape(reportDate)}</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #5c667a;
+      --line: #d8dde8;
+      --panel: #ffffff;
+      --soft: #f5f7fb;
+      --accent: #1967d2;
+      --accent-soft: #e8f0fe;
+      --warn: #8a4b00;
+      --warn-soft: #fff4df;
+      --ok: #137333;
+      --ok-soft: #e6f4ea;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--soft);
+      color: var(--ink);
+      font-family: Arial, "Noto Sans Hebrew", "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 32px 0 48px;
+    }
+
+    header {
+      display: grid;
+      gap: 16px;
+      margin-bottom: 24px;
+      padding: 24px;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 2.4vw, 2.6rem);
+      line-height: 1.25;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      line-height: 1.35;
+    }
+
+    h3 {
+      font-size: 1.05rem;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .pill,
+    .status,
+    code {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      line-height: 1.35;
+      white-space: normal;
+    }
+
+    .pill {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid #c7d7f8;
+    }
+
+    .pill.warning {
+      color: var(--warn);
+      background: var(--warn-soft);
+      border-color: #f5d08b;
+    }
+
+    .summary {
+      color: var(--muted);
+      max-width: 940px;
+    }
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 18px 0 28px;
+    }
+
+    .decision-card,
+    .section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    .decision-card {
+      display: grid;
+      gap: 14px;
+      padding: 18px;
+    }
+
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .rank {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    dl {
+      display: grid;
+      gap: 8px;
+      margin: 0;
+    }
+
+    dt {
+      color: var(--muted);
+      font-weight: 700;
+      margin-top: 4px;
+    }
+
+    dd {
+      margin: 0;
+    }
+
+    .section {
+      margin-top: 18px;
+      overflow: hidden;
+    }
+
+    .section-head {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 860px;
+      border-collapse: collapse;
+      background: var(--panel);
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: right;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      background: #fafbfe;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .status.pass {
+      color: var(--ok);
+      background: var(--ok-soft);
+      border: 1px solid #b7dfc0;
+    }
+
+    .status.review {
+      color: var(--warn);
+      background: var(--warn-soft);
+      border: 1px solid #f5d08b;
+    }
+
+    .status.blocked {
+      color: #a50e0e;
+      background: #fce8e6;
+      border: 1px solid #f3b3ad;
+    }
+
+    code {
+      direction: ltr;
+      font-family: Consolas, "Courier New", monospace;
+      color: #12315c;
+      background: #eef3fb;
+      border: 1px solid #ced9ef;
+    }
+
+    footer {
+      margin-top: 18px;
+      padding: 16px 20px;
+      color: var(--muted);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    @media (max-width: 860px) {
+      main {
+        width: min(100% - 20px, 760px);
+        padding-top: 16px;
+      }
+
+      header,
+      .decision-card {
+        padding: 16px;
+      }
+
+      .decision-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>תקציר החלטות בעלים</h1>
+      <div class="meta">
+        <span class="pill">${htmlEscape(reportDate)}</span>
+        <span class="pill">${htmlEscape(status)}</span>
+        <span class="pill">מקור: owner-unblocker-command-queue-${htmlEscape(sourceDate)}</span>
+        <span class="pill warning">פרטי בלבד - ללא פעולה ציבורית</span>
+      </div>
+      <p class="summary">מטרת הקובץ היא לתת לבעלים מסך החלטה קצר בעברית. הוא אינו מאשר עריכת CMS, שינוי SEO, יצירת רשומת CRM, פנייה ללקוח או לעורך דין, חשבונית, תשלום, אימייל, WhatsApp/TalkTo, קריאת GSC או uPress.</p>
+    </header>
+
+    <section>
+      <h2>שלוש החלטות ראשונות</h2>
+      <div class="decision-grid">
+${topCards}
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>כל התור</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>מזהה</th>
+              <th>עדיפות</th>
+              <th>נושא</th>
+              <th>למה זה חשוב</th>
+              <th>אם מאושר</th>
+              <th>מקור</th>
+            </tr>
+          </thead>
+          <tbody>
+${queueRows}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>בדיקות בטיחות</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>מזהה</th>
+              <th>בדיקה</th>
+              <th>סטטוס</th>
+              <th>ראיה</th>
+            </tr>
+          </thead>
+          <tbody>
+${gateRows}
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      אפשר להשיב רק עם מזהים, למשל <code>UNBLOCK-01 approve, UNBLOCK-08 approve</code>. כל שינוי ציבורי נשאר חסום עד אישור בעלים מפורש, בדיקת GSC ובדיקה משפטית לפי המסלול.
+    </footer>
+  </main>
+</body>
+</html>
+`;
+}
+
 function printHelp() {
   console.log('Usage: node tools/build-owner-unblocker-hebrew-decision-brief.mjs [--reportDate=YYYY-MM-DD] [--sourceDate=YYYY-MM-DD]');
 }
@@ -337,6 +725,7 @@ function main() {
   };
 
   writeText(files.projectMd, buildMarkdown({ reportDate: args.reportDate, sourceDate: args.sourceDate, status, gates, rows }));
+  writeText(files.projectHtml, buildHtml({ reportDate: args.reportDate, sourceDate: args.sourceDate, status, gates, rows }));
   writeText(files.projectCsv, toCsv(rows, rowColumns));
   writeText(files.replyTemplateCsv, toCsv(replyRows, Object.keys(replyRows[0] || {})));
   writeText(files.reportJson, `${JSON.stringify(report, null, 2)}\n`);

@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-OWNER-UNBLOCKER-HEBREW-BROWSER-BRIEF-001: Give owner a browser-ready Hebrew decision view
+**Status:** FIXED LOCAL / LIVE ACTION STILL BLOCKED
+**Why:** The Hebrew decision brief existed, but browser-ready RTL HTML removes Markdown and terminal encoding friction for the owner.
+**Actions:**
+1. DONE: update `tools/build-owner-unblocker-hebrew-decision-brief.mjs` to emit `.project-control/owner-unblocker-hebrew-decision-brief-2026-05-27.html`.
+2. DONE: regenerate `.reports/owner-unblocker-hebrew-decision-brief-2026-05-27.json` with `projectHtml` in the file map.
+3. DONE: confirm `OWNER_UNBLOCKER_HEBREW_DECISION_BRIEF_READY_NO_LIVE_ACTION`, 8 rows, 3 top rows, 3/3 gates pass, 0 public/CRM/outreach/payment approvals, 0 emails and no uPress requirement.
+4. DONE: confirm HTML has RTL Hebrew, `UNBLOCK-08`, private-only language, 0 replacement characters and no external URL references.
+5. DONE: verify private artifact boundary guard `PASS` and record as Linear `HAD-171`, marked Done under `HAD-170`.
+6. NEXT: owner can open the HTML brief locally and reply with row IDs such as `UNBLOCK-01 approve`, `UNBLOCK-02 approve` or `UNBLOCK-08 approve`.
+7. BLOCKED: no public page edit, CRM/lawyer/lead record, outreach, invoice, payment, email/WhatsApp/TalkTo, wp-admin write or uPress from this HTML brief alone.
+
 ### ACTION-OWNER-UNBLOCKER-HEBREW-DECISION-BRIEF-001: Give owner a Hebrew unblocker reply surface
 **Status:** FIXED LOCAL / LIVE ACTION STILL BLOCKED
 **Why:** The owner unblocker queue now contains the right top-three revenue/proof decisions, but the owner needs a short Hebrew decision surface with exact row replies and no-live-action guardrails.

@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 08:26 Asia/Jerusalem
+- BROWSER-READY HEBREW OWNER BRIEF ADDED: extended the private Hebrew owner unblocker decision brief generator with a self-contained RTL HTML output so the owner can read the top decisions cleanly in a browser instead of relying on Markdown/terminal rendering.
+- CODE UPDATED: `tools/build-owner-unblocker-hebrew-decision-brief.mjs`.
+- GENERATED PRIVATE ARTIFACT: `.project-control/owner-unblocker-hebrew-decision-brief-2026-05-27.html`; regenerated `.reports/owner-unblocker-hebrew-decision-brief-2026-05-27.json` so the file map includes the HTML output.
+- CHECK RESULT: `node --check tools/build-owner-unblocker-hebrew-decision-brief.mjs` passed; generator returned `OWNER_UNBLOCKER_HEBREW_DECISION_BRIEF_READY_NO_LIVE_ACTION`, 8 rows, 3 top rows, 3/3 gates pass, 0 public/CRM/outreach/payment approvals, 0 emails sent and `upressDeploymentRequired=false`. Static HTML check confirmed RTL Hebrew HTML, `UNBLOCK-08`, private-only language, 0 replacement characters and no external URL references. Private artifact boundary guard `PASS`.
+- REVIEW RESULT: the owner now has a private browser-ready view of the same unblocker choices, including BTL proof, lawyer subscription walkthrough and criminal Jerusalem coverage activation, without authorizing any public action.
+- LINEAR: recorded as `HAD-171`, marked Done under `HAD-170`, related to `HAD-169`, `HAD-168`, `HAD-163`, `HAD-157` and `HAD-164`.
+- PUBLIC IMPACT: none. This was private tooling/reporting only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: browser-ready Hebrew owner brief 100%; live revenue/content execution remains blocked until the owner explicitly approves a row and scope.
+
 # LATEST WORK STATUS - 2026-05-27 08:13 Asia/Jerusalem
 - HEBREW OWNER UNBLOCKER DECISION BRIEF ADDED: generated a private Hebrew owner-facing digest of the unblocker queue so the owner can choose `UNBLOCK-01`, `UNBLOCK-02` or `UNBLOCK-08` without reading the English operational packets.
 - CODE ADDED: `tools/build-owner-unblocker-hebrew-decision-brief.mjs`.

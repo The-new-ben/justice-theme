@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-27 16:20 Asia/Jerusalem
+- LAWYER MANUAL INVOICE FIRST-TARGET SHORTLIST ADDED: converted the existing Bituach Leumi prospect packet into a six-candidate owner shortlist for the first Pro 349 ILS/month manual-invoice lawyer subscription test.
+- CODE ADDED: `tools/build-lawyer-manual-invoice-first-target-shortlist.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/lawyer-manual-invoice-first-target-shortlist-2026-05-27.md`, `.project-control/lawyer-manual-invoice-first-target-shortlist-2026-05-27.html`, `.project-control/lawyer-manual-invoice-first-target-shortlist-2026-05-27.csv`, `.project-control/lawyer-manual-invoice-first-target-shortlist-2026-05-27-owner-reply.csv`, `.reports/lawyer-manual-invoice-first-target-shortlist-2026-05-27.json` and `.reports/lawyer-manual-invoice-first-target-shortlist-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-lawyer-manual-invoice-first-target-shortlist.mjs` passed. Running the builder returned `LAWYER_MANUAL_INVOICE_FIRST_TARGET_SHORTLIST_READY_OWNER_SELECTION_REQUIRED`, 6 shortlist rows, 3 owner decision rows, recommended target `BTL-LMI-03-PRIMARY`, recommended plan `pro`, 349 ILS per month including VAT, 92% target-selection readiness to profit, 0 public CMS approvals, 0 live CRM/outreach approvals, 0 invoices/payments created, 0 revenue claims, 0 paid LLM API use and 0% live revenue impact.
+- REVIEW RESULT: the blocker is now narrower: owner selection of one target and private verification mode. The shortlist reuses existing public-source prospect work and was not live-browser reverified in this cycle.
+- PUBLIC/LIVE IMPACT: no public CMS/database content, live site, route, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting, paid LLM API, merge to main or uPress pull changed.
+- COMPLETION ASSESSMENT: first-target shortlist 100%; owner target selection and private verification remain blocked; live profit impact remains 0%.
+
 # LATEST WORK STATUS - 2026-05-27 16:10 Asia/Jerusalem
 - LAWYER MANUAL INVOICE SALES PACKET ADDED: prepared the internal first-sales conversation packet for the recommended Pro 349 ILS/month manual-invoice lane, including what to say, what not to promise, objection handling and the close sequence.
 - CODE ADDED: `tools/build-lawyer-manual-invoice-sales-packet.mjs`.

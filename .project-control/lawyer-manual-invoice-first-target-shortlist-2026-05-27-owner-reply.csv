@@ -1,0 +1,4 @@
+row_id,decision_needed,recommended_answer,allowed_answers,owner_answer,owner_note
+OWNER-TARGET-01,"Choose exactly one first target id, or wait.",BTL-LMI-03-PRIMARY,BTL-LMI-03-PRIMARY | BTL-LMI-02-PRIMARY | BTL-LMI-01-PRIMARY | BTL-LMI-02-BACKUP | BTL-LMI-03-BACKUP | BTL-LMI-01-BACKUP | wait,,
+OWNER-TARGET-02,Approve target use mode.,private_fit_review_only,private_fit_review_only | generic_draft_only | wait,,
+OWNER-TARGET-03,Approve no-contact boundary until private fit review passes.,yes,yes | no | wait,,

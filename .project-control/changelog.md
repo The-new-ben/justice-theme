@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Lawyer manual invoice first-target shortlist
+
+- ADDED: `tools/build-lawyer-manual-invoice-first-target-shortlist.mjs`.
+- GENERATED: `.project-control/lawyer-manual-invoice-first-target-shortlist-2026-05-27.md`, `.project-control/lawyer-manual-invoice-first-target-shortlist-2026-05-27.html`, `.project-control/lawyer-manual-invoice-first-target-shortlist-2026-05-27.csv`, `.project-control/lawyer-manual-invoice-first-target-shortlist-2026-05-27-owner-reply.csv`, `.reports/lawyer-manual-invoice-first-target-shortlist-2026-05-27.json` and `.reports/lawyer-manual-invoice-first-target-shortlist-2026-05-27.csv`.
+- PURPOSE: reduce the first-lawyer revenue blocker from "choose a customer/supplier" to one owner-selected target from the existing Bituach Leumi prospect packet.
+- RESULT: `LAWYER_MANUAL_INVOICE_FIRST_TARGET_SHORTLIST_READY_OWNER_SELECTION_REQUIRED`; 6 shortlist rows, 3 owner decision rows, recommended target `BTL-LMI-03-PRIMARY`, 92 percent target-selection readiness to profit and 0 live revenue impact.
+- SAFETY: private owner-selection packet only; no live browser reverification in this cycle, no lawyer contacted, no CRM/admin edit, no invoice, no payment request, no paid status, no profile publication, no public CMS edit, no email-to-users, no WhatsApp, no TalkTo, no GSC API, no wp-admin write, no merge to main and no uPress deployment changed.
+
 # 2026-05-27 - Lawyer manual invoice sales packet
 
 - ADDED: `tools/build-lawyer-manual-invoice-sales-packet.mjs`.

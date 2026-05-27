@@ -17,6 +17,18 @@
 7. NEXT AFTER OWNER APPROVAL: use the existing manual invoice registration path only for the approved target and only after billing/legal fit checks.
 8. BLOCKED: no lawyer contact, CRM/admin write, invoice, payment request, invoice_sent, paid status, public profile activation, public CMS edit, uPress pull or revenue claim without explicit owner approval and private payment proof.
 
+### ACTION-LAWYER-MANUAL-INVOICE-FIRST-TARGET-SHORTLIST-001: Owner chooses one candidate from shortlist
+**Status:** FIXED LOCAL / WAITING FOR OWNER TARGET SELECTION
+**Why:** The first-revenue lane now needs a concrete target. This shortlist turns the existing Bituach Leumi prospect packet into six owner-review options for the Pro 349 ILS manual-invoice test.
+**Actions:**
+1. DONE: add `tools/build-lawyer-manual-invoice-first-target-shortlist.mjs`.
+2. DONE: generate `.project-control/lawyer-manual-invoice-first-target-shortlist-2026-05-27.md`, `.html`, `.csv` and owner reply CSV.
+3. DONE: generate `.reports/lawyer-manual-invoice-first-target-shortlist-2026-05-27.json` and `.csv`.
+4. DONE: confirm `LAWYER_MANUAL_INVOICE_FIRST_TARGET_SHORTLIST_READY_OWNER_SELECTION_REQUIRED`, 6 shortlist rows, 3 owner decision rows, recommended target `BTL-LMI-03-PRIMARY`, 92% target-selection readiness to profit and 0 live impact.
+5. NEXT: owner chooses one target id or `wait`, then approves private fit review mode.
+6. NEXT AFTER OWNER SELECTION: perform only owner-approved private verification; do not contact or create CRM until the live-action gate is explicitly approved.
+7. BLOCKED: no live browser claim, contact, CRM/admin write, invoice, payment request, profile publication, uPress pull or revenue claim from this shortlist alone.
+
 ### ACTION-LAWYER-MANUAL-INVOICE-SALES-PACKET-001: Use approved sales language for first paid lawyer close
 **Status:** FIXED LOCAL / READY FOR OWNER-APPROVED TARGET ONLY
 **Why:** The fastest revenue path needs a sales conversation that is human and safe, not a generic pitch and not a promise of leads. This packet gives the exact offer, objection handling and close sequence for Pro 349 ILS.

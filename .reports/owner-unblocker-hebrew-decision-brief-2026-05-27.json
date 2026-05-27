@@ -14,7 +14,7 @@
   "paymentOrInvoiceApproved": 0,
   "emailsSent": 0,
   "gscApiCalled": 0,
-  "upressDeploymentRequired": true,
+  "upressDeploymentRequired": false,
   "gates": [
     {
       "id": "OHB-GATE-01",
@@ -27,8 +27,8 @@
       "id": "OHB-GATE-02",
       "gate": "top_three_owner_decisions_present",
       "status": "PASS",
-      "evidence": "Top rows: UNBLOCK-00, UNBLOCK-01, UNBLOCK-02.",
-      "next_action": "Keep homepage deployment, BTL proof and subscription proof visible first."
+      "evidence": "Top rows: UNBLOCK-01, UNBLOCK-02, UNBLOCK-08.",
+      "next_action": "Keep BTL paid-lead proof, lawyer subscription proof and the closest supplier-coverage blocker visible first."
     },
     {
       "id": "OHB-GATE-03",
@@ -40,26 +40,8 @@
   ],
   "rows": [
     {
-      "id": "UNBLOCK-00",
-      "rank": 1,
-      "lane": "homepage_live_deployment",
-      "priority_group": "top_3",
-      "title_he": "פריסת עמוד הבית החי",
-      "owner_decision_needed_he": "להריץ Pull Git ב-uPress עבור wp-content/themes/justice-theme ואז לוודא שעמוד הבית החדש עלה לאתר החי.",
-      "why_he": "שיפור ההמרה של עמוד הבית כבר נמצא בגיטהאב, אבל הוא לא יכול להשפיע על מבקרים, לידים או אמון עד שהשרת החי מושך את התבנית.",
-      "exact_next_step_he": "להיכנס ל-uPress של jus-tice.co.il, לפתוח Git management לתיקיית wp-content/themes/justice-theme, להריץ Pull Git ולבדוק שהעמוד מציג כותרת עזרה משפטית ואת אזור המצבים החדש.",
-      "if_approved_he": "אחרי המשיכה מותר לבצע בדיקה חיה לקריאה בלבד: נוסח עמוד הבית, מובייל, קישורי חיפוש/פנייה והיעדר שפת הכנסה פנימית.",
-      "hard_no_he": "במהלך המשיכה לא עורכים CMS, לא משנים redirect, canonical/noindex, sitemap, taxonomy, CRM, תשלום או הגדרות ספק.",
-      "suggested_reply_he": "UNBLOCK-00 approve",
-      "source_status": "HOMEPAGE_DEPLOYMENT_BLOCKED_UPRESS_PULL_REQUIRED",
-      "source_artifact": ".project-control/homepage-deployment-blocker-2026-05-27.md",
-      "public_action_approved": "no",
-      "live_crm_or_outreach_approved": "no",
-      "payment_or_invoice_approved": "no"
-    },
-    {
       "id": "UNBLOCK-01",
-      "rank": 2,
+      "rank": 1,
       "lane": "btl_first_paid_lead",
       "priority_group": "top_3",
       "title_he": "הוכחת ליד בתשלום בביטוח לאומי",
@@ -77,7 +59,7 @@
     },
     {
       "id": "UNBLOCK-02",
-      "rank": 3,
+      "rank": 2,
       "lane": "lawyer_subscription_revenue",
       "priority_group": "top_3",
       "title_he": "בדיקת מסלול מנוי עורך דין",
@@ -95,9 +77,9 @@
     },
     {
       "id": "UNBLOCK-08",
-      "rank": 4,
+      "rank": 3,
       "lane": "criminal_jerusalem_lawyer_coverage",
-      "priority_group": "secondary",
+      "priority_group": "top_3",
       "title_he": "כיסוי עורך דין פלילי בירושלים",
       "owner_decision_needed_he": "לאשר הכנסת/אימות prospect פרטי אחד ב-wp-admin לעורך דין פלילי בירושלים, או להחליט במפורש להקפיא את מסלול הכיסוי המדויק.",
       "why_he": "הספריה המדויקת פלילי+ירושלים וגם ספריית פלילי בלבד מציגות 0 כרטיסי עורכי דין, לכן אסור להסתמך על הדף לפני שיש כיסוי אמיתי.",
@@ -113,7 +95,7 @@
     },
     {
       "id": "UNBLOCK-03",
-      "rank": 5,
+      "rank": 4,
       "lane": "public_existing_route_revenue_copy",
       "priority_group": "secondary",
       "title_he": "עדכון ציבורי אפשרי בעמוד הסכם שכירות",
@@ -131,7 +113,7 @@
     },
     {
       "id": "UNBLOCK-04",
-      "rank": 6,
+      "rank": 5,
       "lane": "low_hype_rv",
       "priority_group": "secondary",
       "title_he": "החלטת Low Hype / RV",
@@ -149,7 +131,7 @@
     },
     {
       "id": "UNBLOCK-05",
-      "rank": 7,
+      "rank": 6,
       "lane": "tel_aviv_family_evidence_completion",
       "priority_group": "secondary",
       "title_he": "עמוד גירושין תל אביב",
@@ -167,7 +149,7 @@
     },
     {
       "id": "UNBLOCK-06",
-      "rank": 8,
+      "rank": 7,
       "lane": "criminal_jerusalem_role",
       "priority_group": "secondary",
       "title_he": "תפקיד העמוד פלילי ירושלים",
@@ -185,7 +167,7 @@
     },
     {
       "id": "UNBLOCK-07",
-      "rank": 9,
+      "rank": 8,
       "lane": "whatsapp_talkto_consent",
       "priority_group": "secondary",
       "title_he": "הסכמה ללידים מ-WhatsApp/TalkTo",
@@ -200,20 +182,27 @@
       "public_action_approved": "no",
       "live_crm_or_outreach_approved": "no",
       "payment_or_invoice_approved": "no"
+    },
+    {
+      "id": "UNBLOCK-00",
+      "rank": 99,
+      "lane": "homepage_live_deployment_closed",
+      "priority_group": "secondary",
+      "title_he": "פריסת עמוד הבית החי - הושלמה",
+      "owner_decision_needed_he": "אין פעולה נדרשת עכשיו: Pull Git ב-uPress בוצע, ונוסח עמוד הבית החדש אומת באתר החי.",
+      "why_he": "חסם שכבר נסגר לא צריך להישאר מעל משימות ההכנסה. השורה נשמרת רק לתיעוד ובקרה.",
+      "exact_next_step_he": "להשאיר את הוכחת האימות מחוברת. אם תעלה בעיית מטמון או תצוגה, לבצע בדיקת קריאה בלבד מחדש.",
+      "if_approved_he": "אין צורך באישור נוסף לשורה הזו; המיקוד עובר להוכחת ליד בתשלום בביטוח לאומי, מנוי עורך דין, וכיסוי ספקים.",
+      "hard_no_he": "אין עריכת CMS, redirect, canonical/noindex, sitemap, taxonomy, CRM, תשלום, ספק או uPress מתוך שורת תיעוד סגורה.",
+      "suggested_reply_he": "UNBLOCK-00 closed",
+      "source_status": "HOMEPAGE_DEPLOYMENT_BLOCKED_UPRESS_PULL_REQUIRED | HOMEPAGE_PUBLIC_HELP_LIVE_VERIFIED_UPRESS_PULL_DONE",
+      "source_artifact": ".project-control/homepage-public-help-live-verification-2026-05-27.md",
+      "public_action_approved": "no",
+      "live_crm_or_outreach_approved": "no",
+      "payment_or_invoice_approved": "no"
     }
   ],
   "replyRows": [
-    {
-      "unblock_id": "UNBLOCK-00",
-      "החלטה": "",
-      "ערכים_מותרים": "approve / edit / reject / park / needs_more_evidence",
-      "הערת_בעלים_בלי_פרטים_מזהים": "",
-      "פעולה_ציבורית_מאושרת": "no",
-      "crm_או_פניה_חיה_מאושרת": "no",
-      "חיוב_או_תשלום_מאושר": "no",
-      "מיקום_ראיות_פרטי": "",
-      "הצעת_תשובה": "UNBLOCK-00 approve"
-    },
     {
       "unblock_id": "UNBLOCK-01",
       "החלטה": "",
@@ -301,6 +290,17 @@
       "חיוב_או_תשלום_מאושר": "no",
       "מיקום_ראיות_פרטי": "",
       "הצעת_תשובה": "UNBLOCK-07 edit"
+    },
+    {
+      "unblock_id": "UNBLOCK-00",
+      "החלטה": "",
+      "ערכים_מותרים": "approve / edit / reject / park / needs_more_evidence",
+      "הערת_בעלים_בלי_פרטים_מזהים": "",
+      "פעולה_ציבורית_מאושרת": "no",
+      "crm_או_פניה_חיה_מאושרת": "no",
+      "חיוב_או_תשלום_מאושר": "no",
+      "מיקום_ראיות_פרטי": "",
+      "הצעת_תשובה": "UNBLOCK-00 closed"
     }
   ],
   "files": {

@@ -136,12 +136,12 @@ function buildGates(sourceReport, rows) {
       gate: 'top_three_private_sources_linked',
       status:
         topRows.length === 3 &&
-        ['UNBLOCK-00', 'UNBLOCK-01', 'UNBLOCK-02'].every((id) => topRows.some((row) => row.id === id)) &&
+        ['UNBLOCK-01', 'UNBLOCK-02', 'UNBLOCK-08'].every((id) => topRows.some((row) => row.id === id)) &&
         topRows.every((row) => row.source_exists === 'yes')
           ? 'PASS'
           : 'BLOCKED',
       evidence: `Top rows: ${topRows.map((row) => `${row.id}:${row.source_exists}`).join(', ')}.`,
-      next_action: 'Keep the first screen focused on homepage deployment, BTL proof and subscription proof.',
+      next_action: 'Keep the first screen focused on BTL paid-lead proof, lawyer subscription proof and the closest supplier-coverage blocker.',
     },
     {
       id: 'OCC-GATE-03',
@@ -162,7 +162,7 @@ function buildGates(sourceReport, rows) {
           : 'BLOCKED',
       evidence:
         `Source report keeps public, CRM/outreach, payment and email approvals disabled. uPress deployment required: ${sourceReport.upressDeploymentRequired ? 'yes' : 'no'}.`,
-      next_action: 'Do not publish CMS content, contact, create records, charge or email from this command center; uPress Pull Git remains a separate operator blocker.',
+      next_action: 'Do not publish CMS content, contact, create records, charge or email from this command center; homepage uPress Pull Git is recorded only as completed evidence.',
     },
   ];
 }

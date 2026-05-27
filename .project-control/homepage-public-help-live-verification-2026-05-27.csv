@@ -1,0 +1,6 @@
+check,result,evidence
+live_root_http_200,PASS,https://jus-tice.co.il/ returned 200
+cache_busted_root_http_200,PASS,https://jus-tice.co.il/?owner_pm_check=2026-05-27 returned 200
+new_public_h1_present,PASS,"צריכים עזרה משפטית? התחילו ממה שקרה לכם עכשיו"
+old_google_phrase_absent,PASS,"שפה משפטית של גוגל was not found"
+new_public_cta_present,PASS,"בדקו מה הצעד הבא"

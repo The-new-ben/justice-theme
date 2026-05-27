@@ -96,6 +96,16 @@ Object.assign(HEBREW_ROWS['UNBLOCK-01'], {
   exact_next_step_he: 'הבעלים או מנהל האתר ממלאים את תבנית מוכנות המקורות של BTL מתוך wp-admin/CRM פרטי, בלי להכניס פרטים אישיים לקבצים.',
 });
 
+Object.assign(HEBREW_ROWS['UNBLOCK-00'], {
+  title_he: 'פריסת עמוד הבית החי - הושלמה',
+  owner_decision_needed_he: 'אין פעולה נדרשת עכשיו: Pull Git ב-uPress בוצע, ונוסח עמוד הבית החדש אומת באתר החי.',
+  why_he: 'חסם שכבר נסגר לא צריך להישאר מעל משימות ההכנסה. השורה נשמרת רק לתיעוד ובקרה.',
+  exact_next_step_he: 'להשאיר את הוכחת האימות מחוברת. אם תעלה בעיית מטמון או תצוגה, לבצע בדיקת קריאה בלבד מחדש.',
+  if_approved_he: 'אין צורך באישור נוסף לשורה הזו; המיקוד עובר להוכחת ליד בתשלום בביטוח לאומי, מנוי עורך דין, וכיסוי ספקים.',
+  hard_no_he: 'אין עריכת CMS, redirect, canonical/noindex, sitemap, taxonomy, CRM, תשלום, ספק או uPress מתוך שורת תיעוד סגורה.',
+  suggested_reply_he: 'UNBLOCK-00 closed',
+});
+
 function parseArgs() {
   const args = {
     reportDate: process.env.REPORT_DATE || DEFAULT_REPORT_DATE,
@@ -214,11 +224,11 @@ function buildGates(sourceReport, rows) {
       gate: 'top_three_owner_decisions_present',
       status:
         topRows.length === 3 &&
-        ['UNBLOCK-00', 'UNBLOCK-01', 'UNBLOCK-02'].every((id) => topRows.some((row) => row.id === id))
+        ['UNBLOCK-01', 'UNBLOCK-02', 'UNBLOCK-08'].every((id) => topRows.some((row) => row.id === id))
           ? 'PASS'
           : 'REVIEW',
       evidence: `Top rows: ${topRows.map((row) => row.id).join(', ')}.`,
-      next_action: 'Keep homepage deployment, BTL proof and subscription proof visible first.',
+      next_action: 'Keep BTL paid-lead proof, lawyer subscription proof and the closest supplier-coverage blocker visible first.',
     },
     {
       id: 'OHB-GATE-03',

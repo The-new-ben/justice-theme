@@ -8,6 +8,7 @@ const DEFAULT_REPORT_DATE = new Date().toISOString().slice(0, 10);
 
 const SOURCES = [
   ['homepageDeployment', '.reports', 'homepage-deployment-blocker', '2026-05-27'],
+  ['homepageLiveVerification', '.reports', 'homepage-public-help-live-verification', '2026-05-27'],
   ['btlFirstRevenueOperator', '.reports', 'btl-first-revenue-operator-command', '2026-05-27'],
   ['btlSourceReadiness', '.reports', 'btl-source-readiness-admin-fill-packet', '2026-05-27'],
   ['lawyerSubscriptionEvidenceReview', '.reports', 'lawyer-subscription-controlled-evidence-review-gate', '2026-05-27'],
@@ -92,25 +93,12 @@ function sourceStatuses(sources) {
 
 function buildRows(sources) {
   const statuses = sourceStatuses(sources);
-  return [
-    {
-      id: 'UNBLOCK-00',
-      rank: 1,
-      lane: 'homepage_live_deployment',
-      owner_reply_needed: 'Run Pull Git in uPress for wp-content/themes/justice-theme, then verify the new public-first homepage copy is live.',
-      why_it_matters: 'The homepage conversion improvement is already in GitHub, but it cannot affect visitors, leads or trust until the live theme is pulled.',
-      exact_next_step: 'Open uPress for jus-tice.co.il, go to Git management for wp-content/themes/justice-theme, run Pull Git and verify the live homepage contains the new legal-help-first hero and situation router.',
-      allowed_after_yes: 'Read-only live verification of the homepage copy, mobile layout, lead/search links and no business-language leakage.',
-      hard_no: 'No CMS content edit, redirect, canonical/noindex, sitemap, taxonomy, CRM, payment or provider-setting change during the theme pull.',
-      source_status: statuses.homepageDeployment,
-      source_artifact: '.project-control/homepage-deployment-blocker-2026-05-27.md',
-      public_action: 'theme_pull_required',
-      crm_or_outreach_action: 'no',
-      completion_if_owner_replies: 'Can move homepage conversion from GitHub-ready to live-verified.',
-    },
+  const homepageLiveVerified =
+    statuses.homepageLiveVerification === 'HOMEPAGE_PUBLIC_HELP_LIVE_VERIFIED_UPRESS_PULL_DONE';
+  const rows = [
     {
       id: 'UNBLOCK-01',
-      rank: 2,
+      rank: 1,
       lane: 'btl_first_paid_lead',
       owner_reply_needed: 'Fill the Bituach Leumi source-readiness admin packet: 3 private specialist rows, coverage, 1 consented lead row, billing, payment proof and go/no-go.',
       why_it_matters: 'This is the closest route to a first paid lead, but repo checks cannot prove live supply, consent, handoff, billing or payment evidence.',
@@ -125,7 +113,7 @@ function buildRows(sources) {
     },
     {
       id: 'UNBLOCK-02',
-      rank: 3,
+      rank: 2,
       lane: 'lawyer_subscription_revenue',
       owner_reply_needed: 'Choose a controlled test lawyer identity/inbox/phone and payment path: manual invoice, approved payment link, provider link, or no-charge dry run.',
       why_it_matters: 'The lawyer subscription flow is statically ready, but live revenue proof needs a controlled identity and approved payment evidence.',
@@ -140,7 +128,7 @@ function buildRows(sources) {
     },
     {
       id: 'UNBLOCK-08',
-      rank: 4,
+      rank: 3,
       lane: 'criminal_jerusalem_lawyer_coverage',
       owner_reply_needed: 'Approve private wp-admin entry/verification for one criminal-law/Jerusalem lawyer prospect, or explicitly park the exact directory coverage route.',
       why_it_matters: 'The exact criminal-law/Jerusalem directory and area-only criminal directory both have 0 lawyer cards; public draft/link reliance stays blocked until exact coverage exists.',
@@ -155,7 +143,7 @@ function buildRows(sources) {
     },
     {
       id: 'UNBLOCK-03',
-      rank: 5,
+      rank: 4,
       lane: 'public_existing_route_revenue_copy',
       owner_reply_needed: 'Approve, edit or reject the existing-route rental-agreement update packet as the first public managed-service copy candidate.',
       why_it_matters: 'This can improve public user conversion without creating a duplicate route, but it needs explicit owner/SEO/legal approval before CMS edits.',
@@ -170,7 +158,7 @@ function buildRows(sources) {
     },
     {
       id: 'UNBLOCK-04',
-      rank: 6,
+      rank: 5,
       lane: 'low_hype_rv',
       owner_reply_needed: 'Decide whether Low Hype stays internal-only and whether RV rental/deposit/charge should be approved, rejected or parked as the first pilot.',
       why_it_matters: 'The research suggests a narrow private pilot only; a standalone RV route is still too risky.',
@@ -185,7 +173,7 @@ function buildRows(sources) {
     },
     {
       id: 'UNBLOCK-05',
-      rank: 7,
+      rank: 6,
       lane: 'tel_aviv_family_evidence_completion',
       owner_reply_needed: 'Fill the Tel Aviv family evidence-completion workqueue: 144 GSC paste rows, 3 lawyer-readiness rows, 12 legal/editor rows, 8 owner-scope rows and 5 final publication-gate rows.',
       why_it_matters: 'The route has enough private structure to continue safely, but publication is now blocked on one clear human-fill chain rather than more repo-only preparation.',
@@ -200,7 +188,7 @@ function buildRows(sources) {
     },
     {
       id: 'UNBLOCK-06',
-      rank: 8,
+      rank: 7,
       lane: 'criminal_jerusalem_role',
       owner_reply_needed: 'Fill the criminal-law GSC/owner decision template: preserve, revise, consolidate or park /criminal-lawyer-jerusalem/ and choose central route ownership.',
       why_it_matters: 'The page is public and thin, but the criminal-law pillar split must be resolved before edits.',
@@ -215,7 +203,7 @@ function buildRows(sources) {
     },
     {
       id: 'UNBLOCK-07',
-      rank: 9,
+      rank: 8,
       lane: 'whatsapp_talkto_consent',
       owner_reply_needed: 'Approve or edit exact consent/re-permission wording and suppression rules before any real WhatsApp/TalkTo lead handling.',
       why_it_matters: 'Inbound and legacy chats can become CRM supply only if permission, stop rules and no-PII preview boundaries are explicit.',
@@ -228,7 +216,32 @@ function buildRows(sources) {
       crm_or_outreach_action: 'blocked_pending_owner_legal',
       completion_if_owner_replies: 'Can safely prepare real lead-import preflight without contacting anyone.',
     },
+    {
+      id: 'UNBLOCK-00',
+      rank: 99,
+      lane: 'homepage_live_deployment_closed',
+      owner_reply_needed: homepageLiveVerified
+        ? 'No owner action needed now: uPress Pull Git was completed and the public-first homepage copy was verified live.'
+        : 'Recheck homepage deployment evidence because the live-verification proof file is missing or not passing.',
+      why_it_matters: 'Closed blockers must not stay above the first-revenue queue; this row remains only as an audit trail.',
+      exact_next_step: homepageLiveVerified
+        ? 'Keep the live verification proof attached; if cache or layout concerns reappear, run read-only live verification again.'
+        : 'Create or repair the live homepage verification proof before treating the homepage deployment blocker as closed.',
+      allowed_after_yes: 'Read-only homepage verification only; no new deployment or CMS work is authorized by this closed row.',
+      hard_no: 'No CMS content edit, redirect, canonical/noindex, sitemap, taxonomy, CRM, payment, provider-setting or uPress action from this closed audit row.',
+      source_status: `${statuses.homepageDeployment} | ${statuses.homepageLiveVerification}`,
+      source_artifact: homepageLiveVerified
+        ? '.project-control/homepage-public-help-live-verification-2026-05-27.md'
+        : '.project-control/homepage-deployment-blocker-2026-05-27.md',
+      public_action: homepageLiveVerified ? 'completed_no_new_action' : 'verification_missing',
+      crm_or_outreach_action: 'no',
+      completion_if_owner_replies: homepageLiveVerified
+        ? 'Already completed: homepage copy is live; revenue focus moves to BTL/supply/payment proof.'
+        : 'Can close the stale homepage blocker once live evidence is restored.',
+    },
   ];
+
+  return rows.sort((a, b) => a.rank - b.rank || a.id.localeCompare(b.id));
 }
 
 function buildReplyRows(rows) {
@@ -245,17 +258,21 @@ function buildReplyRows(rows) {
 }
 
 function buildSummary(reportDate, rows, sources) {
+  const homepageLiveVerified =
+    statusOf(sources.homepageLiveVerification) === 'HOMEPAGE_PUBLIC_HELP_LIVE_VERIFIED_UPRESS_PULL_DONE';
   return {
     reportDate,
     status: 'OWNER_UNBLOCKER_COMMAND_QUEUE_READY_NO_LIVE_ACTION',
     rowCount: rows.length,
     p0Rows: rows.filter((row) => row.rank <= 3).length,
+    completedRows: rows.filter((row) => row.public_action === 'completed_no_new_action').length,
+    homepageLiveVerified,
     publicActionApproved: 0,
     liveCrmOrOutreachApproved: 0,
     paymentOrInvoiceApproved: 0,
     emailsSent: 0,
     gscApiCalled: 0,
-    upressDeploymentRequired: Boolean(sources.homepageDeployment?.summary?.upressDeploymentRequired),
+    upressDeploymentRequired: !homepageLiveVerified && Boolean(sources.homepageDeployment?.summary?.upressDeploymentRequired),
     sourceStatuses: sourceStatuses(sources),
   };
 }
@@ -272,6 +289,8 @@ function markdownReport(summary, rows) {
     '',
     `- Rows prepared: ${summary.rowCount}`,
     `- Highest-priority rows: ${summary.p0Rows}`,
+    `- Completed audit rows: ${summary.completedRows}`,
+    `- Homepage live verified: ${summary.homepageLiveVerified ? 'yes' : 'no'}`,
     '- Public actions approved: 0',
     '- Live CRM/outreach/payment actions approved: 0',
     '- Emails sent: 0',
@@ -293,7 +312,7 @@ function markdownReport(summary, rows) {
     '',
     '## Safety Statement',
     '',
-    'This packet writes private repo artifacts only. It does not publish CMS content, change redirects/canonicals/noindex/sitemaps/taxonomies, contact clients/lawyers/suppliers, import WhatsApp/TalkTo leads, send email, create invoices/payments, claim revenue or call the GSC API. UNBLOCK-00 records uPress Pull Git as a separate owner/operator blocker; this packet does not perform it.',
+    'This packet writes private repo artifacts only. It does not publish CMS content, change redirects/canonicals/noindex/sitemaps/taxonomies, contact clients/lawyers/suppliers, import WhatsApp/TalkTo leads, send email, create invoices/payments, claim revenue or call the GSC API. UNBLOCK-00 is now a closed audit row for the completed homepage Pull Git and live verification; it does not authorize another uPress action.',
     '',
   ].join('\n');
 }

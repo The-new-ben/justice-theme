@@ -1,45 +1,63 @@
-# uPress Deploy Handoff: Mobile Menu Stable Toggle
+# uPress Deploy Handoff: Mobile Menu Stability + Link Hygiene
 
-Date: 2026-05-27
-Owner loop status: blocked at live deploy.
+Date: 2026-05-28
+Owner loop status: BLOCKED at live deploy.
 
-## What is ready
+## What Is Ready
 
 - Branch: `codex/live-homepage-conversion-release`
 - Main: `main`
-- Code commit: `594a1914 Fix mobile menu toggle stability`
-- Expected theme version after deploy: `1.1.67`
-- Expected deployment marker after deploy: `2026-05-27-mobile-menu-stable-toggle-v1`
+- Latest pushed commit: `e7a879fe Add live mobile menu browser QA`
+- Runtime fix commit: `bb831696 Stabilize mobile menu toggle`
+- Source stability gate commit: `99bcb3a9 Add mobile menu stability gate`
+- Expected theme version after deploy: `1.1.69`
+- Expected deployment marker after deploy: `2026-05-28-mobile-menu-stability-v1`
 
-## What changed
+## What Changed
 
-- The mobile menu button now records its on-screen position before opening.
-- While the overlay is open, CSS uses the recorded `top`, `left`, `width`, and `height`.
-- This prevents the RTL `inset-inline-end` rule from moving the close button to the opposite side of the screen.
-- The competitor/homepage skill reference was updated with this anti-jump rule as a minimum design standard.
+- The mobile menu no longer measures the hamburger position with JavaScript.
+- The open-state close button now uses a stable CSS-only 44px touch target with safe-area-aware placement.
+- Desktop navigation accessibility is preserved; `aria-hidden` is only used for mobile panel state.
+- The menu closes after a visitor taps a real navigation link.
+- The mobile menu source gate now blocks readiness if dynamic hamburger positioning or missing mobile revenue actions return.
+- Live browser QA was added to open the public homepage at 390x844, tap the menu, verify WhatsApp/lawyer-plan actions, verify link hygiene, and save screenshot evidence.
 
-## Current live verification
+## Current Live Verification
 
-Live URL checked:
+Checked at: 2026-05-27T23:52Z
 
-`https://jus-tice.co.il/?cachebust=deploy-check-1779916081`
+Live URL checked through `.project-control/scripts/check-live-deploy.ps1`.
 
 Result:
 
 - HTTP status: `200`
-- New marker present: `false`
-- Version `1.1.67` present: `false`
+- Expected marker `2026-05-28-mobile-menu-stability-v1` present: `false`
+- Expected version `1.1.69` present: `false`
 - Mobile menu action component present: `true`
 - `mobile_menu` WhatsApp surface present: `true`
-- Old marker `2026-05-27-footer-trust-path-v1` present: `true`
+- Old marker `2026-05-27-footer-trust-path-v1` still present: `true`
+- Live ready: `false`
 
-Conclusion: the code is pushed to Git but not live.
+Conclusion: latest code is pushed to Git but not live.
 
-## Blocker
+## Live Browser QA Evidence
 
-Codex still cannot communicate with the Codex Chrome Extension. Checks show Chrome is installed and running, the Codex Chrome Extension is installed/enabled in Profile 2, and the native host manifest is correct, but the browser client still returns `Browser is not available: extension`.
+Latest browser QA commit: `e7a879fe`
 
-## Required live step
+Evidence screenshot:
+
+- `output/playwright/live-mobile-menu-open-1779925434.png`
+
+Current live browser QA result before deployment:
+
+- Menu opens: PASS.
+- Mobile WhatsApp action visible: PASS.
+- Lawyer-plan action visible: PASS.
+- Close button inside viewport: PASS.
+- Expected marker/version: FAIL until uPress Pull Git.
+- No legacy `page_id` in menu: FAIL until uPress Pull Git.
+
+## Required Live Step
 
 1. Open uPress for `jus-tice.co.il`.
 2. Go to Git management for `wp-content/themes/justice-theme`.
@@ -47,11 +65,23 @@ Codex still cannot communicate with the Codex Chrome Extension. Checks show Chro
 4. Re-run:
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\check-live-deploy.ps1 -ExpectedMarker "2026-05-27-mobile-menu-stable-toggle-v1" -ExpectedVersion "1.1.67" -ExpectedComponent "primary-navigation__mobile-actions" -ExpectedWhatsAppSurface "mobile_menu" -OldMarker "2026-05-27-footer-trust-path-v1"
+powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\check-live-deploy.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\check-live-link-hygiene.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\check-live-mobile-menu-browser-qa.ps1
+powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\check-revenue-readiness-gate.ps1
 ```
 
-5. Run mobile browser QA at 390px width and confirm the menu button does not change horizontal position when opened.
+Expected after successful deploy:
 
-## Honesty statement
+- `check-live-deploy.ps1`: `liveReady=true`.
+- `check-live-link-hygiene.ps1`: `pass=true`.
+- `check-live-mobile-menu-browser-qa.ps1`: `pass=true`.
+- Consolidated readiness moves beyond `partial_live_funnel_deploy_blocked` unless another live blocker appears.
 
-This is code-complete and pushed, but not live. No public CMS/database settings, redirects, canonicals, noindex, sitemaps, taxonomies, customers, payments, invoices, or CRM records were changed in this pass.
+## Blocker
+
+Codex still cannot perform the authenticated uPress Pull Git action from this session. Chrome is installed and running, the Codex Chrome Extension is installed/enabled in Profile 2, and the native host manifest is correct, but there is no callable Chrome/uPress browser-control API exposed here.
+
+## Honesty Statement
+
+This handoff is code-complete and pushed, but not live. No public CMS/database settings, redirects, canonicals, noindex, sitemaps, taxonomies, customers, payments, invoices, WhatsApp messages, or CRM records were changed.

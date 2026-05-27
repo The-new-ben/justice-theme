@@ -52,16 +52,16 @@ $hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
 
 $hero_market_signals = array(
 	array(
-		'label' => __( 'מתחילים מהמצב שלכם', 'justice-theme' ),
-		'text'  => __( 'בחרו תחום, עיר או מילת חיפוש וקבלו כיוון ראשוני למדריך, לפרופילים או לפנייה מסודרת.', 'justice-theme' ),
+		'label' => __( 'מסבירים את המצב במילים פשוטות', 'justice-theme' ),
+		'text'  => __( 'גם אם אינכם יודעים איך קוראים לתחום המשפטי, אפשר להתחיל מתיאור קצר של הבעיה, העיר והדחיפות.', 'justice-theme' ),
 	),
 	array(
-		'label' => __( 'מבינים לפני שמתקשרים', 'justice-theme' ),
-		'text'  => __( 'קוראים הסברים, מסמכים שכדאי להכין ושאלות שחשוב לשאול לפני בחירת איש מקצוע.', 'justice-theme' ),
+		'label' => __( 'מבינים מה לבדוק לפני פנייה', 'justice-theme' ),
+		'text'  => __( 'המדריכים עוזרים להכין מסמכים, להבין מועדים ולנסח שאלות חשובות לפני שיחה עם עורך דין.', 'justice-theme' ),
 	),
 	array(
-		'label' => __( 'פונים בצורה מסודרת', 'justice-theme' ),
-		'text'  => __( 'כשצריך עורך דין, עוברים לפרופילים לפי תחום ועיר או משאירים פנייה עם תיאור קצר וברור.', 'justice-theme' ),
+		'label' => __( 'עוברים לעורך דין רק כשזה מתאים', 'justice-theme' ),
+		'text'  => __( 'אם צריך ייעוץ אישי, אפשר להשוות פרופילים או להשאיר פנייה מסודרת בלי הבטחה לתוצאה.', 'justice-theme' ),
 	),
 );
 ?>
@@ -70,11 +70,11 @@ $hero_market_signals = array(
 	<div class="container hero__grid">
 		<div class="hero__content">
 			<h1 class="hero__title">
-				<?php esc_html_e( 'צריכים עזרה משפטית? התחילו מהבעיה, העיר והצעד הבא', 'justice-theme' ); ?>
+				<?php esc_html_e( 'צריכים עזרה משפטית? התחילו ממה שקרה לכם עכשיו', 'justice-theme' ); ?>
 			</h1>
 
 			<p class="hero__description">
-				<?php esc_html_e( 'Jus-Tice עוזר לכם לעשות סדר כשיש שאלה משפטית, מכתב מלחיץ, סכסוך, פגיעה, חקירה או החלטה כלכלית חשובה. אפשר להתחיל בחיפוש לפי תחום ועיר, לקרוא מדריכים בשפה ברורה, להבין אילו מסמכים להכין, ואז לפנות לעורך דין מתאים בצורה שקולה יותר. המידע באתר כללי ואינו ייעוץ משפטי אישי או הבטחה לתוצאה.', 'justice-theme' ); ?>
+				<?php esc_html_e( 'מכתב מהביטוח הלאומי, זימון לחקירה, סכסוך משפחתי, תאונה, פיטורים או חוזה שלא ברור לכם יכולים להרגיש כמו רגע שבו חייבים להחליט מהר. Jus-Tice נועד לעזור לכם לעצור רגע, להבין מה סוג הבעיה, אילו מסמכים כדאי להכין, מה דחוף ומה אפשר לבדוק בשקט. אפשר להתחיל בחיפוש לפי תחום ועיר, לקרוא מדריך בשפה ברורה, ורק אם צריך לעבור לפרופילים או לפנייה מסודרת לעורך דין. המידע באתר כללי ואינו ייעוץ משפטי אישי או הבטחה לתוצאה.', 'justice-theme' ); ?>
 			</p>
 
 			<form class="hero-search" role="search" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ); ?>" id="hero-search-form">
@@ -139,7 +139,7 @@ $hero_market_signals = array(
 
 			<div class="hero__ctas" style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center;">
 				<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" class="button button--primary">
-					<?php esc_html_e( 'מצאו עורך דין', 'justice-theme' ); ?>
+					<?php esc_html_e( 'בדקו מה הצעד הבא', 'justice-theme' ); ?>
 				</a>
 				<a href="<?php echo esc_url( home_url( '/articles/' ) ); ?>" class="button button--outline" style="border-color: rgba(255,255,255,0.4); color: #fff;">
 					<?php esc_html_e( 'עיינו במדריכים', 'justice-theme' ); ?>
@@ -205,7 +205,7 @@ $hero_market_signals = array(
 			</ul>
 
 			<a href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>" class="hero__panel-cta">
-				<?php esc_html_e( 'כל התחומים ←', 'justice-theme' ); ?>
+				<?php esc_html_e( 'כל התחומים', 'justice-theme' ); ?>
 			</a>
 		</div>
 		<?php endif; ?>

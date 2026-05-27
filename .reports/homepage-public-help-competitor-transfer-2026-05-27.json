@@ -1,0 +1,31 @@
+{
+  "date": "2026-05-27",
+  "status": "internal_theme_change_not_deployed",
+  "publicCmsChanged": false,
+  "publicDatabaseChanged": false,
+  "seoControlsChanged": false,
+  "paidLlmApiUsed": false,
+  "lovableUsed": false,
+  "reasonLovableNotUsed": "No active Lovable tool was available in this Codex session.",
+  "sourcesReviewed": [
+    "https://www.myattorney.co.il/",
+    "https://advocato.co.il/",
+    "https://www.ilaw.co.il/",
+    "https://www.mishpati.co.il/find-lawyer",
+    "https://www.isralawyer.co.il/",
+    "https://jus-tice.co.il/"
+  ],
+  "filesChanged": [
+    "template-parts/sections/hero.php",
+    "template-parts/sections/homepage-intent-pyramid.php",
+    ".project-control/homepage-public-help-competitor-transfer-2026-05-27.md",
+    ".project-control/homepage-public-help-competitor-transfer-2026-05-27.csv",
+    ".reports/homepage-public-help-competitor-transfer-2026-05-27.json"
+  ],
+  "readinessToProfit": {
+    "copyAndThemeReadinessPercent": 85,
+    "liveDeploymentPercent": 0,
+    "paidRevenueProofPercent": 0
+  },
+  "nextBlocker": "uPress Pull Git and live visual QA are still required before the homepage changes can be seen publicly."
+}

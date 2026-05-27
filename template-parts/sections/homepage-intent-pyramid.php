@@ -183,7 +183,7 @@ $home_intent_links = array(
 			<div>
 				<p class="section-header__eyebrow"><?php esc_html_e( 'חיפוש משפטי לפי כוונה', 'justice-theme' ); ?></p>
 				<h2 id="homepage-intent-pyramid-title"><?php esc_html_e( 'התחילו מהבעיה המשפטית, ואז עברו למדריך או לעורך דין', 'justice-theme' ); ?></h2>
-				<p class="section-header__desc"><?php esc_html_e( 'העמוד הראשי מחבר בין מילות החיפוש הגדולות לבין מסלולי פעולה ברורים: מדריך מקצועי, פרופילים בתחום ופנייה מסודרת. כך גם משתמשים וגם Google מבינים מה העמודים החשובים באתר.', 'justice-theme' ); ?></p>
+				<p class="section-header__desc"><?php esc_html_e( 'העמוד הראשי מחבר בין מצבים נפוצים לבין מסלולי פעולה ברורים: מדריך מקצועי, בדיקת מסמכים ראשונית, פרופילים בתחום ופנייה מסודרת. המטרה היא לעזור לכם להבין את האפשרויות לפני שמקבלים החלטה או מוסרים פרטים אישיים.', 'justice-theme' ); ?></p>
 			</div>
 
 			<a class="section-header__link button button--primary" href="<?php echo esc_url( home_url( '/lawyers/' ) ); ?>"><?php esc_html_e( 'חיפוש עורכי דין', 'justice-theme' ); ?></a>

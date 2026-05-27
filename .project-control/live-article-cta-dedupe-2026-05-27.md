@@ -20,5 +20,5 @@ Scope: read-only live verification for the owner-reported mobile article problem
 - The sampled live article renders one after-content CTA at most.
 - The sampled live article exposes the contextual article lead URL once at most, so connected-lawyer sidebars do not repeat it.
 - The duplicate sidebar CTA class is not present on the sampled live article.
-- The sampled article uses the no-sidebar layout when there is no unique sidebar content, which matches the intended fix.
+- The sampled article set includes the lawyer-selection guide and family-law article pages, and uses the no-sidebar layout when there is no unique sidebar content.
 - This is a template-level UX fix, not a new content page, so it creates no SEO cannibalization by itself.

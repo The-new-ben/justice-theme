@@ -5,7 +5,13 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), '..');
 const DEFAULT_REPORT_DATE = new Date().toISOString().slice(0, 10);
-const DEFAULT_URLS = ['https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/'];
+const DEFAULT_URLS = [
+  'https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/',
+  'https://jus-tice.co.il/most-recommended-family-lawyer/',
+  'https://jus-tice.co.il/experienced-family-law-attorney/',
+  'https://jus-tice.co.il/domestic-violence/',
+  'https://jus-tice.co.il/rabbinical-agreement-approval/',
+];
 
 function parseArgs() {
   const args = {

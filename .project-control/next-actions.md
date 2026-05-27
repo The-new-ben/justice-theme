@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-ARTICLE-CTA-DEDUPE-GUARD-BROADEN-001: Broaden article repeated-help-message QA coverage
+**Status:** FIXED LOCAL / NO PUBLIC TEMPLATE CHANGE RECOMMENDED
+**Why:** The owner saw a mobile article page where the same help/request message appeared again while scrolling. The existing fix and QA were good, but one live checker still defaulted to a single URL and the static guard did not inspect the fallback `single.php` template.
+**Actions:**
+1. DONE: update `tools/check-live-article-cta-dedupe.mjs` so its default sample set includes the lawyer-selection guide plus four family-law article pages.
+2. DONE: update `tools/build-live-article-cta-mobile-repetition-qa.mjs` with the same five-URL fallback sample set.
+3. DONE: update `tools/check-article-duplicate-cta-guard.mjs` to check fallback `single.php` for one after-content CTA and no duplicate sidebar card.
+4. DONE: regenerate `.project-control/article-duplicate-cta-guard-2026-05-27.md` and `.csv`.
+5. DONE: regenerate `.reports/article-duplicate-cta-guard-2026-05-27.json` and `.csv`.
+6. DONE: rerun live dedupe and mobile repetition QA; live dedupe `PASS`, mobile repetition QA `ARTICLE_CTA_MOBILE_REPETITION_QA_PASS_NO_PUBLIC_CHANGE`, 5/5 sampled URLs passed.
+7. DONE: record as Linear `HAD-162`, marked Done under `HAD-96`.
+8. NEXT: if the owner still sees repetition, capture the exact failing URL and add it to the checker before approving any public template/CSS change.
+9. BLOCKED: do not change article templates, CSS, CMS content, titles, H1s, meta, URLs, redirects, canonicals/noindex, sitemaps, taxonomies, CRM records, leads, payments, emails, WhatsApp, TalkTo or uPress from this QA alone.
+
 ### ACTION-LAWYER-DASHBOARD-LIFECYCLE-PREFLIGHT-001: Strengthen manual-review proof before the live lawyer walkthrough
 **Status:** FIXED LOCAL / LIVE WALKTHROUGH STILL BLOCKED
 **Why:** The owner wants a later end-to-end lawyer flow covering registration, CRM, payment, money-back/refund, upgrade and downgrade. Before touching live records or money, the private preflight must prove the dashboard routes those lifecycle actions into owner-reviewed service requests rather than automatic charge/refund/cancel/plan changes.

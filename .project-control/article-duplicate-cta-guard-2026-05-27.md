@@ -15,6 +15,8 @@ Scope: local template/CSS safety check for the owner-reported mobile article iss
 | connected_lawyer_sidebar_not_generic_lead_cta | PASS | Connected-lawyer sidebar should not reuse the after-article contextual CTA URL. | Keep one reader help CTA after the article body and keep sidebar actions unique. |
 | no_sidebar_duplicate_class_in_template | PASS | Duplicate sidebar CTA class should not be emitted by the template. | Keep no-lawyer sidebars focused on unique cluster/admin content only. |
 | no_sidebar_layout_class | PASS | No-sidebar article layout is centered when duplicate-only sidebar is suppressed. | Keep the single-column layout override in the last-loaded public CSS file. |
+| fallback_single_after_content_cta_once | PASS | single.php counts: lead_cta=1; text=1; button=1. | Keep the fallback single-post template to one after-content help CTA. |
+| fallback_single_has_no_duplicate_sidebar | PASS | single.php should not introduce a sidebar/card that repeats the after-content article CTA. | If a sidebar is ever added to single.php, copy the unique-content guard pattern before rendering it. |
 | deployment_marker | PASS | justice-theme-deployment-marker=2026-05-27-connected-lawyer-article-cta-dedupe-v1 | expected-github-main-commit=connected-lawyer-article-cta-dedupe-v1 | purpose=single-article-connected-lawyer-sidebar-cta-dedupe | After uPress pull, verify live marker matches connected-lawyer-article-cta-dedupe-v1. |
 
 ## Interpretation
@@ -23,3 +25,4 @@ Scope: local template/CSS safety check for the owner-reported mobile article iss
 - The sidebar now renders only when it has unique content such as a connected lawyer, family-law cluster navigation, or editor-only status.
 - If the sidebar would repeat the same request/help text or button, it is suppressed at PHP render time instead of relying on mobile CSS.
 - Connected-lawyer sidebars keep the unique lawyer-profile action and do not repeat the generic article lead CTA.
+- The fallback single-post template is also checked so future non-CPT articles cannot quietly reintroduce a duplicate help/sidebar CTA.

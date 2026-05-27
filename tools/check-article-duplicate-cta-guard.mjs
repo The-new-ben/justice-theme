@@ -76,9 +76,11 @@ function main() {
   }
 
   const templatePath = path.join(ROOT, 'single-articles.php');
+  const fallbackTemplatePath = path.join(ROOT, 'single.php');
   const cssPath = path.join(ROOT, 'assets', 'css', 'premium-pass-4.css');
   const markerPath = path.join(ROOT, 'deployment-marker.txt');
   const template = readFileSync(templatePath, 'utf8');
+  const fallbackTemplate = readFileSync(fallbackTemplatePath, 'utf8');
   const css = readFileSync(cssPath, 'utf8');
   const marker = readFileSync(markerPath, 'utf8');
 
@@ -126,6 +128,27 @@ function main() {
       next_step: 'Keep the single-column layout override in the last-loaded public CSS file.',
     },
     {
+      check: 'fallback_single_after_content_cta_once',
+      status:
+        countMatches(fallbackTemplate, 'single-article__lead-cta') === 1
+        && countMatches(fallbackTemplate, "$article_contextual_cta['text']") === 1
+        && countMatches(fallbackTemplate, "$article_contextual_cta['button']") === 1
+          ? 'PASS'
+          : 'FAIL',
+      evidence: `single.php counts: lead_cta=${countMatches(fallbackTemplate, 'single-article__lead-cta')}; text=${countMatches(fallbackTemplate, "$article_contextual_cta['text']")}; button=${countMatches(fallbackTemplate, "$article_contextual_cta['button']")}.`,
+      next_step: 'Keep the fallback single-post template to one after-content help CTA.',
+    },
+    {
+      check: 'fallback_single_has_no_duplicate_sidebar',
+      status:
+        !fallbackTemplate.includes('single-article__sidebar-lead-card')
+        && !fallbackTemplate.includes('single-article__sidebar--duplicate-cta-only')
+          ? 'PASS'
+          : 'FAIL',
+      evidence: 'single.php should not introduce a sidebar/card that repeats the after-content article CTA.',
+      next_step: 'If a sidebar is ever added to single.php, copy the unique-content guard pattern before rendering it.',
+    },
+    {
       check: 'deployment_marker',
       status: marker.includes('connected-lawyer-article-cta-dedupe-v1') ? 'PASS' : 'FAIL',
       evidence: marker.trim().replace(/\n/g, ' | '),
@@ -157,6 +180,7 @@ ${markdownRows}
 - The sidebar now renders only when it has unique content such as a connected lawyer, family-law cluster navigation, or editor-only status.
 - If the sidebar would repeat the same request/help text or button, it is suppressed at PHP render time instead of relying on mobile CSS.
 - Connected-lawyer sidebars keep the unique lawyer-profile action and do not repeat the generic article lead CTA.
+- The fallback single-post template is also checked so future non-CPT articles cannot quietly reintroduce a duplicate help/sidebar CTA.
 `;
 
   const payload = {

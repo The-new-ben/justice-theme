@@ -5,11 +5,18 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), '..');
 const DEFAULT_REPORT_DATE = new Date().toISOString().slice(0, 10);
+const DEFAULT_ARTICLE_URLS = [
+  'https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/',
+  'https://jus-tice.co.il/most-recommended-family-lawyer/',
+  'https://jus-tice.co.il/experienced-family-law-attorney/',
+  'https://jus-tice.co.il/domestic-violence/',
+  'https://jus-tice.co.il/rabbinical-agreement-approval/',
+];
 
 function parseArgs() {
   const args = {
     reportDate: process.env.REPORT_DATE || DEFAULT_REPORT_DATE,
-    urls: ['https://jus-tice.co.il/find-lawyer-how-to-find-good-attorney/'],
+    urls: [...DEFAULT_ARTICLE_URLS],
   };
 
   for (const arg of process.argv.slice(2)) {
@@ -167,7 +174,7 @@ ${markdownRows}
 - The sampled live article renders one after-content CTA at most.
 - The sampled live article exposes the contextual article lead URL once at most, so connected-lawyer sidebars do not repeat it.
 - The duplicate sidebar CTA class is not present on the sampled live article.
-- The sampled article uses the no-sidebar layout when there is no unique sidebar content, which matches the intended fix.
+- The sampled article set includes the lawyer-selection guide and family-law article pages, and uses the no-sidebar layout when there is no unique sidebar content.
 - This is a template-level UX fix, not a new content page, so it creates no SEO cannibalization by itself.
 `;
 

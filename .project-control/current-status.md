@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 06:53 Asia/Jerusalem
+- ARTICLE CTA DEDUPE GUARDS BROADENED: strengthened the owner-reported mobile article repeated-help-message QA so the default live checker now samples five article URLs instead of one, and the static guard now checks both `single-articles.php` and the fallback `single.php` template.
+- CODE UPDATED: `tools/check-live-article-cta-dedupe.mjs`, `tools/build-live-article-cta-mobile-repetition-qa.mjs`, `tools/check-article-duplicate-cta-guard.mjs`.
+- GENERATED/UPDATED PRIVATE ARTIFACTS: `.project-control/article-duplicate-cta-guard-2026-05-27.md`, `.project-control/article-duplicate-cta-guard-2026-05-27.csv`, `.reports/article-duplicate-cta-guard-2026-05-27.json`, `.reports/article-duplicate-cta-guard-2026-05-27.csv`, `.project-control/live-article-cta-dedupe-2026-05-27.md`.
+- CHECK RESULT: local article duplicate CTA guard `PASS` with 10/10 checks, including new fallback `single.php` checks; live article CTA dedupe `PASS` across deployment marker plus 5 sampled live article URLs; mobile repetition packet remains `ARTICLE_CTA_MOBILE_REPETITION_QA_PASS_NO_PUBLIC_CHANGE`, 5 sampled URLs, 5 pass rows, max after-content CTA count 1, max contextual CTA URL count 1, duplicate sidebar marker count 0, sidebar repeats after-content CTA rows 0.
+- REVIEW RESULT: no public article template change is recommended from this cycle. Future article QA now catches regressions across the lawyer-selection guide, family-law samples and fallback single-post template before anyone changes public rendering.
+- LINEAR: recorded as `HAD-162`, marked Done under `HAD-96`, related to `HAD-143`, `HAD-127`, `HAD-129` and `HAD-131`.
+- PUBLIC IMPACT: none. This was private QA/tooling and read-only live verification only. No public page, CMS content, route, title/H1/meta/body, template rendering, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: broader article CTA dedupe QA 100%; public template action remains 0% and not recommended unless the owner supplies or we find an exact failing URL.
+
 # LATEST WORK STATUS - 2026-05-27 06:44 Asia/Jerusalem
 - LAWYER DASHBOARD LIFECYCLE PREFLIGHT STRENGTHENED: tightened the private lawyer subscription E2E preflight so the later owner walkthrough now proves the dashboard has explicit manual-review coverage for payment links, invoices, upgrades, downgrades, cancellations, refunds, lead-quality issues, complaints and lead-stage updates.
 - CODE UPDATED: `tools/check-lawyer-subscription-e2e-preflight.mjs`.

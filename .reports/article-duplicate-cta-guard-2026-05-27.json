@@ -45,6 +45,18 @@
       "next_step": "Keep the single-column layout override in the last-loaded public CSS file."
     },
     {
+      "check": "fallback_single_after_content_cta_once",
+      "status": "PASS",
+      "evidence": "single.php counts: lead_cta=1; text=1; button=1.",
+      "next_step": "Keep the fallback single-post template to one after-content help CTA."
+    },
+    {
+      "check": "fallback_single_has_no_duplicate_sidebar",
+      "status": "PASS",
+      "evidence": "single.php should not introduce a sidebar/card that repeats the after-content article CTA.",
+      "next_step": "If a sidebar is ever added to single.php, copy the unique-content guard pattern before rendering it."
+    },
+    {
       "check": "deployment_marker",
       "status": "PASS",
       "evidence": "justice-theme-deployment-marker=2026-05-27-connected-lawyer-article-cta-dedupe-v1 | expected-github-main-commit=connected-lawyer-article-cta-dedupe-v1 | purpose=single-article-connected-lawyer-sidebar-cta-dedupe",

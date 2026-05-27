@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Article CTA dedupe guards broadened
+
+- UPDATED: `tools/check-live-article-cta-dedupe.mjs`, `tools/build-live-article-cta-mobile-repetition-qa.mjs`, `tools/check-article-duplicate-cta-guard.mjs`.
+- REGENERATED: `.project-control/article-duplicate-cta-guard-2026-05-27.md`, `.project-control/article-duplicate-cta-guard-2026-05-27.csv`, `.reports/article-duplicate-cta-guard-2026-05-27.json`, `.reports/article-duplicate-cta-guard-2026-05-27.csv`, `.project-control/live-article-cta-dedupe-2026-05-27.md`.
+- PURPOSE: make the owner-reported mobile article repeated-help-message QA less fragile by defaulting live checks to five article samples and guarding the fallback single-post template too.
+- RESULT: local duplicate CTA guard `PASS` with 10/10 checks; live dedupe checker `PASS` across marker plus 5 article URLs; mobile repetition packet remains `ARTICLE_CTA_MOBILE_REPETITION_QA_PASS_NO_PUBLIC_CHANGE` with 5/5 sampled URLs passing.
+- LINEAR: recorded as `HAD-162`, marked Done under `HAD-96`, related to `HAD-143`, `HAD-127`, `HAD-129` and `HAD-131`.
+- SAFETY: private QA/tooling and read-only live verification only; no public CMS edit, template rendering change, route, title/H1/meta/body, SEO setting, CRM record, lead, invoice, payment, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Lawyer dashboard lifecycle preflight strengthened
 
 - UPDATED: `tools/check-lawyer-subscription-e2e-preflight.mjs`.

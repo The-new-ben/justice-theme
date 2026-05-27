@@ -15,6 +15,7 @@ $lead_prefill_message = function_exists( 'justice_theme_current_lead_prefill_mes
 
 <form class="lead-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
 	<input type="hidden" name="action" value="justice_submit_lead">
+	<input type="hidden" name="lead_source_surface" value="public_lead_form">
 	<?php wp_nonce_field( 'justice_submit_lead', 'justice_lead_nonce' ); ?>
 	<?php justice_theme_render_lead_spam_fields(); ?>
 	<?php justice_theme_render_lead_attribution_fields(); ?>

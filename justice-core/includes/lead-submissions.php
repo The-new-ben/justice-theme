@@ -52,11 +52,20 @@ function uje_register_lead_meta() {
 		'message'              => 'string',
 		'source_url'           => 'string',
 		'source_keyword'       => 'string',
+		'source_channel'       => 'string',
+		'source_system'        => 'string',
+		'source_page_url'      => 'string',
+		'lead_source_surface'  => 'string',
 		'lead_revenue_model'      => 'string',
 		'suggested_lead_price_ils' => 'string',
 		'lead_revenue_notes'      => 'string',
+		'qualified_lead_billing_status' => 'string',
+		'owner_revenue_next_step' => 'string',
 		'assigned_lawyer_id'   => 'integer',
 		'lead_status'          => 'string',
+		'follow_up_status'     => 'string',
+		'coverage_status'      => 'string',
+		'consent_status'       => 'string',
 		'consent'              => 'boolean',
 		'utm_source'           => 'string',
 		'utm_campaign'         => 'string',
@@ -90,6 +99,10 @@ function uje_handle_lead() {
 	$consent = isset( $_POST['lead_consent'] ) ? true : false;
 	$assigned_lawyer_id = isset( $_POST['assigned_lawyer_id'] ) ? absint( $_POST['assigned_lawyer_id'] ) : 0;
 	$source_keyword     = isset( $_POST['source_keyword'] ) ? sanitize_text_field( wp_unslash( $_POST['source_keyword'] ) ) : '';
+	$lead_source_surface = isset( $_POST['lead_source_surface'] ) ? sanitize_key( wp_unslash( $_POST['lead_source_surface'] ) ) : '';
+	$lead_source_surface = $lead_source_surface ?: 'public_lead_form';
+	$source_url          = wp_get_referer();
+	$source_channel      = 'homepage_ask_lawyer' === $lead_source_surface ? 'public_homepage_form' : 'public_site_form';
 
 	if ( empty( $name ) || empty( $phone ) ) {
 		wp_safe_redirect( add_query_arg( 'lead', 'missing', wp_get_referer() ?: home_url( '/' ) ) );
@@ -112,9 +125,20 @@ function uje_handle_lead() {
 			'message'             => $message,
 			'urgency'             => $urgency,
 			'lead_status'         => 'new',
+			'follow_up_status'    => 'not_started',
+			'coverage_status'     => 'coverage_review',
 			'consent'             => $consent ? '1' : '0',
-			'source_url'          => wp_get_referer(),
+			'consent_status'      => $consent ? 'explicit_site_form_consent' : 'missing_site_form_consent',
+			'source_url'          => $source_url,
+			'source_page_url'     => $source_url,
 			'source_keyword'      => $source_keyword,
+			'source_channel'      => $source_channel,
+			'source_system'       => 'justice_public_site',
+			'lead_source_surface' => $lead_source_surface,
+			'lead_revenue_model'  => 'public_intake_review',
+			'qualified_lead_billing_status' => 'not_ready',
+			'lead_revenue_notes'  => 'Public site lead. Qualify need, consent, coverage and lawyer commercial terms before billing.',
+			'owner_revenue_next_step' => 'Review this public lead quickly, call or WhatsApp the visitor, confirm legal area and consent, then assign only to a paid/approved lawyer path. Do not mark paid without payment evidence.',
 			'assigned_lawyer_id' => $assigned_lawyer_id,
 		);
 

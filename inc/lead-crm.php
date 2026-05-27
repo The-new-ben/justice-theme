@@ -5110,6 +5110,9 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 	$billed_at       = get_post_meta( $post->ID, 'qualified_lead_billed_at', true );
 	$paid_at         = get_post_meta( $post->ID, 'qualified_lead_paid_at', true );
 	$billing_note    = get_post_meta( $post->ID, 'qualified_lead_owner_note', true );
+	$source_channel  = get_post_meta( $post->ID, 'source_channel', true );
+	$source_surface  = get_post_meta( $post->ID, 'lead_source_surface', true );
+	$owner_next_step = get_post_meta( $post->ID, 'owner_revenue_next_step', true );
 	$quality_options = array(
 		'auto'   => 'Auto score',
 		'high'   => 'High',
@@ -5163,6 +5166,19 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 		<label for="justice-customer-success-note"><strong>Customer-success note</strong></label>
 		<textarea id="justice-customer-success-note" name="customer_success_note" rows="5" style="width:100%;"><?php echo esc_textarea( $customer_note ); ?></textarea>
 	</p>
+	<?php if ( $source_channel || $source_surface || $owner_next_step ) : ?>
+		<div style="border:1px solid #dcdcde;border-radius:4px;background:#f8fafc;padding:8px;margin:10px 0;">
+			<strong style="display:block;margin-bottom:6px;">Revenue triage</strong>
+			<?php if ( $source_channel || $source_surface ) : ?>
+				<p style="margin:0 0 6px;color:#646970;">
+					Source: <?php echo esc_html( trim( (string) $source_channel . ' / ' . (string) $source_surface, ' /' ) ); ?>
+				</p>
+			<?php endif; ?>
+			<?php if ( $owner_next_step ) : ?>
+				<p style="margin:0;"><?php echo esc_html( $owner_next_step ); ?></p>
+			<?php endif; ?>
+		</div>
+	<?php endif; ?>
 	<?php if ( $revenue_model || $suggested_price ) : ?>
 		<div style="border:1px solid #dcdcde;border-radius:4px;background:#fff;padding:8px;margin:10px 0;">
 			<strong style="display:block;margin-bottom:6px;">Qualified lead billing</strong>

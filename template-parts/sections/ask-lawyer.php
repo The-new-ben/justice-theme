@@ -57,6 +57,7 @@ $lead_notice_message  = isset( $lead_notice_messages[ $lead_notice ] ) ? $lead_n
 				</div>
 			<?php endif; ?>
 			<input type="hidden" name="action" value="justice_submit_lead">
+			<input type="hidden" name="lead_source_surface" value="homepage_ask_lawyer">
 			<?php wp_nonce_field( 'justice_submit_lead', 'justice_lead_nonce' ); ?>
 			<?php justice_theme_render_lead_spam_fields(); ?>
 			<?php justice_theme_render_lead_attribution_fields(); ?>

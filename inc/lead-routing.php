@@ -170,7 +170,7 @@ function justice_theme_apply_lead_revenue_hint( int $post_id, string $area ): vo
 	}
 
 	$current_model = (string) get_post_meta( $post_id, 'lead_revenue_model', true );
-	if ( '' === $current_model || 'manual_paid_handoff' === $current_model ) {
+	if ( in_array( $current_model, array( '', 'manual_paid_handoff', 'public_intake_review' ), true ) ) {
 		update_post_meta( $post_id, 'lead_revenue_model', 'qualified_appeal_lead' );
 	}
 

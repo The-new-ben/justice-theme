@@ -82,6 +82,11 @@ $checks = @(
 		-Arguments @("-Root", (Resolve-Path -LiteralPath (Join-Path $scriptRoot "..\..")).Path) `
 		-BlocksProfit $true),
 	(Invoke-JsonChecker `
+		-Name "payment_proof_operator_readiness" `
+		-ScriptPath (Join-Path $scriptRoot "check-payment-proof-operator-readiness.ps1") `
+		-Arguments @("-Root", (Resolve-Path -LiteralPath (Join-Path $scriptRoot "..\..")).Path) `
+		-BlocksProfit $true),
+	(Invoke-JsonChecker `
 		-Name "lawyer_money_path" `
 		-ScriptPath (Join-Path $scriptRoot "check-lawyer-money-path.ps1") `
 		-Arguments @("-BaseUrl", $BaseUrl) `
@@ -122,7 +127,7 @@ $summary = [ordered]@{
 	knownBusinessBlockers   = @(
 		"Grow/Meshulam KYC/payment and real invoice proof are not verified by this read-only gate.",
 		"Authenticated uPress Pull Git and browser-account tool use remain blocked unless Chrome control is available.",
-		"This gate does not submit leads, create CRM records, create users, create WooCommerce orders, send invoices, or charge money."
+		"This gate does not submit leads, create CRM records, create users, create WooCommerce orders, send invoices, verify payment evidence, or charge money."
 	)
 	checks                  = $checks
 	honestyStatement        = "This is a read-only production gate. Passing it proves public route and funnel surfaces exist; it does not prove real revenue, payment settlement, invoice issuance, CRM routing, or lawyer handoff."

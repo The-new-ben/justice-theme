@@ -1,0 +1,48 @@
+{
+  "status": "HOMEPAGE_HUMAN_HELP_VISUAL_QA_PREVIEW_READY_NO_PUBLIC_CHANGE",
+  "reportDate": "2026-05-27",
+  "previewHtml": ".project-control/homepage-human-help-visual-qa-preview-2026-05-27.html",
+  "qaRows": 5,
+  "publicCmsChangesApproved": 0,
+  "paidLlmApiUsed": 0,
+  "upressDeploymentRequired": false,
+  "liveRevenueImpactPercent": 0,
+  "readinessToProfitPercent": 72,
+  "rows": [
+    {
+      "id": "HOME-QA-01",
+      "selector": ".hero__first-steps",
+      "viewport": "desktop and mobile",
+      "expectation": "first-ten-minutes strip is visible below the hero search and does not push lawyer CTAs above public help",
+      "status": "READY_FOR_BROWSER_CHECK"
+    },
+    {
+      "id": "HOME-QA-02",
+      "selector": ".homepage-situation-router",
+      "viewport": "desktop and mobile",
+      "expectation": "six situation routes fit without horizontal overflow and speak to the public before legal category cards",
+      "status": "READY_FOR_BROWSER_CHECK"
+    },
+    {
+      "id": "HOME-QA-03",
+      "selector": ".homepage-intent-card__prep",
+      "viewport": "desktop and mobile",
+      "expectation": "each card has longer human guidance with what to prepare and when to seek help fast",
+      "status": "READY_FOR_BROWSER_CHECK"
+    },
+    {
+      "id": "HOME-QA-04",
+      "selector": ".homepage-intent-pyramid__lawyer-path",
+      "viewport": "desktop and mobile",
+      "expectation": "lawyer path remains visible but secondary below public legal help blocks",
+      "status": "READY_FOR_BROWSER_CHECK"
+    },
+    {
+      "id": "HOME-QA-05",
+      "selector": ".homepage-intent-pyramid__trust-note",
+      "viewport": "desktop and mobile",
+      "expectation": "legal-safety note is visible and does not sound like a sales promise",
+      "status": "READY_FOR_BROWSER_CHECK"
+    }
+  ]
+}

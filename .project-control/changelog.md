@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Homepage human help visual QA pass
+
+- ADDED: `tools/build-homepage-human-help-visual-qa-preview.mjs` and `tools/check-homepage-human-help-visual-preview-cdp.mjs`.
+- UPDATED: `assets/css/premium-pass-4.css` after the first mobile screenshot exposed a narrow-screen clipping risk.
+- GENERATED: `.project-control/homepage-human-help-visual-qa-preview-2026-05-27.html`, `.project-control/homepage-human-help-visual-qa-preview-2026-05-27.md`, `.project-control/homepage-human-help-visual-qa-preview-2026-05-27.csv`, `.project-control/homepage-human-help-visual-qa-2026-05-27.md`, `.reports/homepage-human-help-visual-qa-preview-2026-05-27.json`, `.reports/homepage-human-help-visual-qa-preview-2026-05-27.csv`, `.reports/homepage-human-help-visual-qa-2026-05-27.json`, `.reports/homepage-human-help-visual-qa-2026-05-27.csv`, `.project-control/visual-evidence/homepage-human-help-visual-qa-2026-05-27-desktop.png` and `.project-control/visual-evidence/homepage-human-help-visual-qa-2026-05-27-mobile.png`.
+- RESULT: `HOMEPAGE_HUMAN_HELP_VISUAL_QA_PASS_NO_PUBLIC_CHANGE`; desktop and mobile selectors present, desktop overflowX=false, mobile overflowX=false, 0 paid LLM API use, 0 public CMS approvals and 0 uPress deployment requirement.
+- SAFETY: static local preview/browser QA only; no public CMS edit, live route change, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM, profile, lead, contact, invoice, payment, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Homepage human help implementation prepared locally
 
 - UPDATED: `template-parts/sections/hero.php`, `template-parts/sections/homepage-intent-pyramid.php` and `assets/css/premium-pass-4.css`.

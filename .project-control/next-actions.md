@@ -4,8 +4,21 @@
 
 ---
 
+### ACTION-HOMEPAGE-HUMAN-HELP-VISUAL-QA-001: Approve or stage homepage implementation after static QA pass
+**Status:** FIXED LOCAL / STATIC QA PASSED / WAITING FOR LIVE OR STAGING ROUTE QA
+**Why:** The homepage implementation needed visual proof before any deployment request. The first mobile screenshot found clipping, the CSS was corrected and the repeatable Chrome/CDP checker now passes desktop and mobile overflow checks.
+**Actions:**
+1. DONE: add `tools/build-homepage-human-help-visual-qa-preview.mjs`.
+2. DONE: generate static QA preview HTML, Markdown, CSV and report artifacts.
+3. DONE: add `tools/check-homepage-human-help-visual-preview-cdp.mjs`.
+4. DONE: run Chrome/CDP visual QA and save desktop/mobile screenshots.
+5. DONE: fix mobile overflow risk in `assets/css/premium-pass-4.css`.
+6. DONE: confirm `HOMEPAGE_HUMAN_HELP_VISUAL_QA_PASS_NO_PUBLIC_CHANGE`, desktop overflowX=false, mobile overflowX=false and selectors visible in both viewports.
+7. NEXT: run the same review on a real WordPress route or staging URL, then ask owner whether to merge/deploy.
+8. BLOCKED: no merge to main, live CMS write, uPress pull, route/SEO setting change or public deployment without explicit owner approval.
+
 ### ACTION-HOMEPAGE-HUMAN-HELP-LOCAL-IMPLEMENTATION-001: QA local homepage improvement before deployment approval
-**Status:** FIXED LOCAL / WAITING FOR VISUAL QA AND OWNER DEPLOYMENT APPROVAL
+**Status:** FIXED LOCAL / STATIC VISUAL QA PASSED / WAITING FOR LIVE OR STAGING ROUTE QA AND OWNER DEPLOYMENT APPROVAL
 **Why:** The owner asked for a better homepage that speaks to the public first, uses competitor learning, adds more human words and keeps lawyers as a side path. The packet is now translated into local theme code.
 **Actions:**
 1. DONE: add a four-step first-ten-minutes strip below the hero search form.

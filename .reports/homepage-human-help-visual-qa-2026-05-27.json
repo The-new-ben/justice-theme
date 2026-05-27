@@ -1,0 +1,108 @@
+{
+  "status": "HOMEPAGE_HUMAN_HELP_VISUAL_QA_PASS_NO_PUBLIC_CHANGE",
+  "reportDate": "2026-05-27",
+  "previewHtml": ".project-control/homepage-human-help-visual-qa-preview-2026-05-27.html",
+  "desktopOverflowX": false,
+  "mobileOverflowX": false,
+  "selectorsPresentDesktop": true,
+  "selectorsPresentMobile": true,
+  "desktopScreenshot": ".project-control/visual-evidence/homepage-human-help-visual-qa-2026-05-27-desktop.png",
+  "mobileScreenshot": ".project-control/visual-evidence/homepage-human-help-visual-qa-2026-05-27-mobile.png",
+  "publicCmsChangesApproved": 0,
+  "paidLlmApiUsed": 0,
+  "upressDeploymentRequired": false,
+  "readinessToProfitPercent": 74,
+  "liveRevenueImpactPercent": 0,
+  "desktop": {
+    "label": "desktop",
+    "innerWidth": 1366,
+    "scrollWidth": 1351,
+    "overflowX": false,
+    "selectorsPresent": true,
+    "boxes": [
+      {
+        "selector": ".hero__first-steps",
+        "count": 1,
+        "visible": 1,
+        "minLeft": 0,
+        "maxRight": 1076
+      },
+      {
+        "selector": ".homepage-situation-router",
+        "count": 1,
+        "visible": 1,
+        "minLeft": 0,
+        "maxRight": 1236
+      },
+      {
+        "selector": ".homepage-intent-card__prep",
+        "count": 3,
+        "visible": 3,
+        "minLeft": 0,
+        "maxRight": 1215
+      },
+      {
+        "selector": ".homepage-intent-pyramid__lawyer-path",
+        "count": 1,
+        "visible": 1,
+        "minLeft": 0,
+        "maxRight": 1236
+      },
+      {
+        "selector": ".homepage-intent-pyramid__trust-note",
+        "count": 1,
+        "visible": 1,
+        "minLeft": 0,
+        "maxRight": 1106
+      }
+    ],
+    "offenders": [],
+    "screenshot": ".project-control/visual-evidence/homepage-human-help-visual-qa-2026-05-27-desktop.png"
+  },
+  "mobile": {
+    "label": "mobile",
+    "innerWidth": 390,
+    "scrollWidth": 390,
+    "overflowX": false,
+    "selectorsPresent": true,
+    "boxes": [
+      {
+        "selector": ".hero__first-steps",
+        "count": 1,
+        "visible": 1,
+        "minLeft": 0,
+        "maxRight": 374
+      },
+      {
+        "selector": ".homepage-situation-router",
+        "count": 1,
+        "visible": 1,
+        "minLeft": 0,
+        "maxRight": 374
+      },
+      {
+        "selector": ".homepage-intent-card__prep",
+        "count": 3,
+        "visible": 3,
+        "minLeft": 0,
+        "maxRight": 354
+      },
+      {
+        "selector": ".homepage-intent-pyramid__lawyer-path",
+        "count": 1,
+        "visible": 1,
+        "minLeft": 0,
+        "maxRight": 374
+      },
+      {
+        "selector": ".homepage-intent-pyramid__trust-note",
+        "count": 1,
+        "visible": 1,
+        "minLeft": 0,
+        "maxRight": 374
+      }
+    ],
+    "offenders": [],
+    "screenshot": ".project-control/visual-evidence/homepage-human-help-visual-qa-2026-05-27-mobile.png"
+  }
+}

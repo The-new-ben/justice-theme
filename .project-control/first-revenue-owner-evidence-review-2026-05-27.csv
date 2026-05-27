@@ -1,0 +1,19 @@
+lane,unblock_id,sequence,action_id,title_he,status_value,owner_verified_yes_no,proof_present_yes_no,no_pii_confirmed_yes_no,private_pointer_present,live_or_public_action_approved,review_status,raw_values_echoed
+btl_first_paid_lead,UNBLOCK-01,1,BTL-ACTION-01,לאמת שלושה מומחי ביטוח לאומי פרטיים,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+btl_first_paid_lead,UNBLOCK-01,2,BTL-ACTION-02,להפוך את השלושה לכיסוי ניתן לניתוב,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+btl_first_paid_lead,UNBLOCK-01,3,BTL-ACTION-03,לבחור ליד ביטוח לאומי אחד עם הסכמה,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+btl_first_paid_lead,UNBLOCK-01,4,BTL-ACTION-04,ליצור מצב חיוב לליד מוסמך,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+btl_first_paid_lead,UNBLOCK-01,5,BTL-ACTION-05,לאשר תשלום רק עם הוכחה פרטית,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+btl_first_paid_lead,UNBLOCK-01,6,BTL-ACTION-06,לקבל החלטת scale/fix/stop,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+lawyer_subscription_paid_test,UNBLOCK-02,1,LAW-SUB-ACTION-01,לאשר זהות בדיקה נשלטת,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+lawyer_subscription_paid_test,UNBLOCK-02,2,LAW-SUB-ACTION-02,לבחור נתיב תשלום מאושר,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+lawyer_subscription_paid_test,UNBLOCK-02,3,LAW-SUB-ACTION-03,לאשר הרשמה ופרופיל עורך דין מבוקר,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+lawyer_subscription_paid_test,UNBLOCK-02,4,LAW-SUB-ACTION-04,לבדוק בקשות שירות בדשבורד,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+lawyer_subscription_paid_test,UNBLOCK-02,5,LAW-SUB-ACTION-05,לקשר ליד/שירות מבוקר אם בודקים הכנסה,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+lawyer_subscription_paid_test,UNBLOCK-02,6,LAW-SUB-ACTION-06,להפיק ראיית חשבונית או תשלום פרטית,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+criminal_jerusalem_supplier_coverage,UNBLOCK-08,1,CJ-OWNER-ACTION-01,לבחור מועמד פרטי אחד לעורך דין פלילי בירושלים,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+criminal_jerusalem_supplier_coverage,UNBLOCK-08,2,CJ-OWNER-ACTION-02,לאמת רישיון וסטטוס מקצועי,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+criminal_jerusalem_supplier_coverage,UNBLOCK-08,3,CJ-OWNER-ACTION-03,לאמת התאמה פלילית ושירות בירושלים,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+criminal_jerusalem_supplier_coverage,UNBLOCK-08,4,CJ-OWNER-ACTION-04,לאשר זמינות תגובה ללידים רגישים,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+criminal_jerusalem_supplier_coverage,UNBLOCK-08,5,CJ-OWNER-ACTION-05,לאשר תנאי lead-fee ונתיב חשבונית ידני,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no
+criminal_jerusalem_supplier_coverage,UNBLOCK-08,6,CJ-OWNER-ACTION-06,להחליט אם מכינים כרטיס ציבורי בנפרד,not_started,no,no,yes,no,no,BLOCKED_STATUS_NOT_PASS,no

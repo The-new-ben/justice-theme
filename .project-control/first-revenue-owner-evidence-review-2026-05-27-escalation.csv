@@ -1,0 +1,4 @@
+lane,total_rows,passed_rows,blocked_rows,lane_status,first_blocker,revenue_can_be_claimed,live_action_approved
+btl_first_paid_lead,6,0,6,BLOCKED_PRIVATE_EVIDENCE_INCOMPLETE,BLOCKED_STATUS_NOT_PASS,no,no
+lawyer_subscription_paid_test,6,0,6,BLOCKED_PRIVATE_EVIDENCE_INCOMPLETE,BLOCKED_STATUS_NOT_PASS,no,no
+criminal_jerusalem_supplier_coverage,6,0,6,BLOCKED_PRIVATE_EVIDENCE_INCOMPLETE,BLOCKED_STATUS_NOT_PASS,no,no

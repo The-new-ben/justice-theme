@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - First revenue owner evidence review gate
+
+- ADDED: `tools/review-first-revenue-owner-evidence-kit.mjs`.
+- UPDATED: `tools/build-first-revenue-owner-evidence-kit.mjs`.
+- GENERATED: `.project-control/first-revenue-owner-evidence-kit-owner-fill-2026-05-27.csv`, `.project-control/first-revenue-owner-evidence-review-2026-05-27.md`, `.project-control/first-revenue-owner-evidence-review-2026-05-27.csv`, `.project-control/first-revenue-owner-evidence-review-2026-05-27-escalation.csv`, `.reports/first-revenue-owner-evidence-review-2026-05-27.json` and `.reports/first-revenue-owner-evidence-review-2026-05-27.csv`.
+- PURPOSE: provide one deterministic private pass/blocked reviewer across the top three revenue lanes before any live handoff, lawyer subscription test, supplier coverage claim, invoice, payment or revenue claim.
+- RESULT: current blank owner-fill CSV returns `FIRST_REVENUE_OWNER_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION`; 18 required rows reviewed, 0 pass rows, 18 blocked rows, 0 duplicate/unknown keys, 0 PII/secret pattern rows and 0 live/public/payment/email/uPress approvals.
+- SAFETY: private evidence review only; no owner evidence fill, paid LLM API, external API, public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - BTL source readiness filled-row review gate
 
 - ADDED: `tools/review-btl-source-readiness-filled-rows.mjs`.

@@ -64,6 +64,7 @@ function outputFiles(reportDate) {
     projectMd: path.join(ROOT, '.project-control', `${base}.md`),
     projectHtml: path.join(ROOT, '.project-control', `${base}.html`),
     projectCsv: path.join(ROOT, '.project-control', `${base}.csv`),
+    ownerFillCsv: path.join(ROOT, '.project-control', `first-revenue-owner-evidence-kit-owner-fill-${reportDate}.csv`),
     ownerReplyCsv: path.join(ROOT, '.project-control', `first-revenue-owner-evidence-kit-owner-reply-${reportDate}.csv`),
     reportJson: path.join(ROOT, '.reports', `${base}.json`),
     reportCsv: path.join(ROOT, '.reports', `${base}.csv`),
@@ -522,6 +523,7 @@ function main() {
   writeText(outputs.projectMd, buildMarkdown({ reportDate: args.reportDate, status, laneRows, combinedRows, ownerReplyRows, gates }));
   writeText(outputs.projectHtml, buildHtml({ reportDate: args.reportDate, status, laneRows, combinedRows, gates }));
   writeText(outputs.projectCsv, toCsv([...laneRows, ...combinedRows], [...new Set([...laneColumns, ...combinedColumns])]));
+  writeText(outputs.ownerFillCsv, toCsv(combinedRows, combinedColumns));
   writeText(outputs.ownerReplyCsv, toCsv(ownerReplyRows, ownerReplyColumns));
   writeText(outputs.reportJson, `${JSON.stringify({ summary, gates, laneRows, combinedRows, ownerReplyRows }, null, 2)}\n`);
   writeText(outputs.reportCsv, toCsv([summary], summaryColumns));

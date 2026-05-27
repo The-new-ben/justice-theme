@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-FIRST-REVENUE-EVIDENCE-REVIEW-001: Review combined owner-filled first-revenue evidence
+**Status:** FIXED LOCAL / WAITING FOR OWNER ADMIN FILL
+**Why:** The owner asked why there is no revenue, customers or suppliers yet. The combined first-revenue kit now needs a deterministic reviewer that scores the top three revenue lanes together without echoing private values or claiming revenue.
+**Actions:**
+1. DONE: add `tools/review-first-revenue-owner-evidence-kit.mjs`.
+2. DONE: update `tools/build-first-revenue-owner-evidence-kit.mjs` to generate `.project-control/first-revenue-owner-evidence-kit-owner-fill-2026-05-27.csv`.
+3. DONE: regenerate the first-revenue owner evidence kit for 2026-05-27.
+4. DONE: generate `.project-control/first-revenue-owner-evidence-review-2026-05-27.md`, `.csv` and escalation CSV.
+5. DONE: generate `.reports/first-revenue-owner-evidence-review-2026-05-27.json` and `.csv`.
+6. DONE: confirm reviewer status `FIRST_REVENUE_OWNER_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION` against the current blank owner-fill CSV, 18 required rows, 0 pass rows, 18 blocked rows, 0 duplicate/unknown keys, 0 PII/secret pattern rows and 0 public/live/payment/email/uPress approvals.
+7. NEXT: owner/admin fills `.project-control/first-revenue-owner-evidence-kit-owner-fill-2026-05-27.csv` with sanitized private evidence pointers only, then rerun the reviewer with `--filledCsv=`.
+8. BLOCKED: no live handoff, CRM creation/edit, lawyer/client/supplier contact, invoice, payment, paid status, revenue claim, email/WhatsApp/TalkTo, public page/CMS/SEO change, paid LLM API, external API, wp-admin write or uPress from this private reviewer.
+
 ### ACTION-BTL-SOURCE-READINESS-FILLED-REVIEW-001: Review owner-filled BTL evidence rows
 **Status:** FIXED LOCAL / WAITING FOR OWNER ADMIN FILL
 **Why:** The Bituach Leumi source-readiness template now exists, but the next loop needs a deterministic no-PII reviewer that can evaluate filled rows without copying admin pointers or notes into reports.

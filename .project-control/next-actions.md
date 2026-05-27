@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-UK-LAW-PARTNER-TERMS-PACKET-001: Prepare first UK-law lawyer/supplier partner terms path
+**Status:** FIXED LOCAL / LIVE PARTNER REGISTRATION STILL BLOCKED
+**Why:** The UK-law lead cannot move to a lawyer/supplier or money until at least one real partner path has private terms, credential/source proof, SLA, billing contact, owner release and invoice/payment proof gates.
+**Actions:**
+1. DONE: add `tools/build-uk-law-partner-terms-packet.mjs`.
+2. DONE: generate `.project-control/uk-law-partner-terms-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/uk-law-partner-terms-template-2026-05-27.csv`.
+4. DONE: generate `.reports/uk-law-partner-terms-packet-2026-05-27.json` and `.csv`.
+5. DONE: confirm `UK_LAW_PARTNER_TERMS_PACKET_READY_NO_LIVE_ACTION`, 7/7 static source gates, 8 partner workflow rows, 11 owner-template rows and 0 public/CRM/contact/payment/email/WhatsApp/TalkTo/webhook/uPress actions.
+6. DONE: record as Linear `HAD-156`, marked Done under `HAD-79`.
+7. NEXT: owner/admin chooses first UK-law partner type (`lawyer`, `supplier` or `both`) and only then creates/completes one private partner record with scope, credential/source proof, response SLA, fee/price and billing contact.
+8. BLOCKED: do not create real supplier/lawyer/prospect records, contact partners/clients, release PII, invoice, mark paid, send WhatsApp/TalkTo/email, publish supplier/lawyer claims, enable webhook automation, change SEO settings or uPress from this packet alone.
+
 ### ACTION-UK-WHATSAPP-LEAD-SUPPLIER-HANDOFF-PACKET-001: Add no-PII operator packet for the current UK WhatsApp lead
 **Status:** FIXED LOCAL / LIVE CRM EXECUTION STILL BLOCKED
 **Why:** The owner sent a real WhatsApp/email lead from the UK-law page and wants it connected through the system to a lawyer/supplier and money, but the live action must preserve permission, no-PII preview, partner terms, owner release and billing-proof rules.

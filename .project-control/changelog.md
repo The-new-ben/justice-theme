@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - UK-law partner terms packet
+
+- ADDED: `tools/build-uk-law-partner-terms-packet.mjs`.
+- GENERATED: `.project-control/uk-law-partner-terms-packet-2026-05-27.md`, `.project-control/uk-law-partner-terms-packet-2026-05-27.csv`, `.project-control/uk-law-partner-terms-template-2026-05-27.csv`, `.reports/uk-law-partner-terms-packet-2026-05-27.json`, `.reports/uk-law-partner-terms-packet-2026-05-27.csv`.
+- PURPOSE: prepare the partner side of the current UK-law lead path before any real partner registration, client PII release, invoice or revenue claim.
+- RESULT: `UK_LAW_PARTNER_TERMS_PACKET_READY_NO_LIVE_ACTION`; 7/7 static source gates passed; 8 partner workflow rows and 11 owner-template rows generated; 0 supplier/lawyer records, contacts, invoices, payments, public changes, emails, WhatsApp/TalkTo actions or uPress actions.
+- LINEAR: recorded as `HAD-156`, marked Done under `HAD-79`, related to `HAD-87`, `HAD-97`, `HAD-102`, `HAD-148`, `HAD-155` and `HAD-154`.
+- SAFETY: private operator packet only; no public page, CMS content, route, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, webhook, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - UK WhatsApp lead supplier handoff packet
 
 - ADDED: `tools/build-uk-whatsapp-lead-supplier-handoff-packet.mjs`.

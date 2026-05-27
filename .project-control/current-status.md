@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 05:51 Asia/Jerusalem
+- UK-LAW PARTNER TERMS PACKET ADDED: prepared the partner side of the current UK-law lead path so the owner can register/qualify a lawyer or supplier before any PII handoff or money claim.
+- CODE ADDED: `tools/build-uk-law-partner-terms-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/uk-law-partner-terms-packet-2026-05-27.md`, `.project-control/uk-law-partner-terms-packet-2026-05-27.csv`, `.project-control/uk-law-partner-terms-template-2026-05-27.csv`, `.reports/uk-law-partner-terms-packet-2026-05-27.json`, `.reports/uk-law-partner-terms-packet-2026-05-27.csv`.
+- CHECK RESULT: `UK_LAW_PARTNER_TERMS_PACKET_READY_NO_LIVE_ACTION`; 7/7 static source gates passed; 8 partner workflow rows and 11 owner-template rows were generated; 0 supplier/lawyer records, contacts, invoices, payments, public changes, emails, WhatsApp/TalkTo actions or uPress actions.
+- REVIEW RESULT: the first safe partner sequence is choose lawyer/supplier/both, complete one private partner record with credential/source proof, SLA, fee/price and billing contact, then use no-PII preview only after client permission; owner release and invoice/payment proof remain required before handoff/revenue.
+- LINEAR: recorded as `HAD-156`, marked Done under `HAD-79`, related to `HAD-87`, `HAD-97`, `HAD-102`, `HAD-148`, `HAD-155` and `HAD-154`.
+- PUBLIC IMPACT: none. This was a private operator packet only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, webhook, wp-admin write, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: UK-law partner terms packet 100%; real partner registration remains 0% until owner/admin chooses a real UK-law partner and approves private wp-admin record creation; PII handoff and revenue remain 0% until client permission, accepted terms, owner release and payment proof exist.
+
 # LATEST WORK STATUS - 2026-05-27 05:44 Asia/Jerusalem
 - UK WHATSAPP LEAD SUPPLIER HANDOFF PACKET ADDED: converted the current owner-forwarded UK-law WhatsApp/email lead into a no-PII private operator packet for CRM entry, supplier/lawyer terms and manual money proof.
 - CODE ADDED: `tools/build-uk-whatsapp-lead-supplier-handoff-packet.mjs`.

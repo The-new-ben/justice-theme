@@ -1,0 +1,12 @@
+field,owner_value,allowed_values,why,blocked_if_blank
+partner_type,,lawyer | supplier | both,"Determines whether to use Lawyer Prospects, Suppliers, or both.",No partner record creation.
+partner_private_name_or_id,,wp-admin record title/id only; no public publication from this template,Connects the chosen partner to the internal workflow.,No handoff.
+coverage_scope,,uk-law | cross-border-uk | england | london | owner-defined,Prevents misrouting to unrelated international-law partners.,Keep prospect/supplier as research only.
+license_or_credential_status,,verified | source_checked | not_required | self_reported | unknown,Controls whether the partner can be trusted for the specific service.,Do not release PII.
+accepted_service_categories,,short private list,The partner must accept the category before a lead is offered.,Do not preview the lead.
+response_sla,,same_day | 24h | 48h | owner-defined,Needed before telling the owner/client a handoff is workable.,Do not release PII.
+lead_fee_or_min_price_ils,,number,Money path requires a fee/price before billing.,Do not mark ready_to_bill.
+billing_contact,,billing email or wp-admin private note,Invoices/payment requests need a real billing owner.,No invoice.
+client_permission_recorded,,yes | no,No partner PII handoff before client permission.,No no-PII preview outside CRM.
+owner_release_decision,,approved_manual_handoff | needs_more_review | do_not_release,Final manual gate for this partner/lead pair.,No handoff.
+invoice_or_payment_proof,,invoice reference or private evidence URL stored in wp-admin only,Revenue cannot be counted without proof.,Do not mark paid.

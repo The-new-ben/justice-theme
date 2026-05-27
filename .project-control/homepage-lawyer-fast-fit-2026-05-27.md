@@ -8,12 +8,13 @@ Make the homepage lawyer revenue strip easier to act on for a lawyer who may pay
 
 - Added a public fast-fit explanation inside the lawyer revenue strip.
 - Added a lawyer WhatsApp CTA with a Hebrew prefilled message asking for practice area, city, and license number.
+- Loaded the lawyer revenue strip in the live `page-home.php` homepage template so the improvement is visible on the actual public homepage, not only in `front-page.php`.
 - Kept the public-first homepage structure: this remains secondary to public legal help.
 - Did not change public prices, plan rules, checkout, gateways, subscriptions, WooCommerce settings, or live payment configuration.
 
 ## Where To Check
 
-- Public homepage, lawyer revenue strip.
+- Public homepage, lawyer revenue strip below the public trust section.
 - CTA: `בדיקת התאמה בוואטסאפ`.
 - Existing CTAs remain: join lead plan and compare plans.
 

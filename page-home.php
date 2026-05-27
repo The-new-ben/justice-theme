@@ -38,6 +38,8 @@ get_header();
 
 <?php get_template_part( 'template-parts/sections/trust-section' ); ?>
 
+<?php get_template_part( 'template-parts/sections/homepage-lawyer-revenue-strip' ); ?>
+
 <?php get_template_part( 'template-parts/sections/lawyer-cta' ); ?>
 
 <?php get_template_part( 'template-parts/sections/newsletter' ); ?>

@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Manual terms revenue packet</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f7f8fa; color: #172033; line-height: 1.55; }
+    main { max-width: 1180px; margin: 0 auto; padding: 32px 18px 56px; }
+    h1, h2 { color: #07152f; }
+    h1 { margin: 0 0 8px; font-size: 30px; }
+    .status { background: #fff; border: 1px solid #d8dee4; border-radius: 8px; padding: 16px; margin: 18px 0; }
+    table { width: 100%; border-collapse: collapse; background: #fff; margin: 12px 0 26px; }
+    th, td { border: 1px solid #d8dee4; padding: 10px; vertical-align: top; font-size: 13px; }
+    th { background: #e9eef2; text-align: right; }
+    code { direction: ltr; unicode-bidi: plaintext; background: #edf2f7; padding: 2px 5px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>חבילת תנאים ידנית לרווח ראשון</h1>
+  <p>2026-05-27</p>
+  <section class="status">
+    <p><strong>Status:</strong> <code>MANUAL_TERMS_REVENUE_PACKET_READY_OWNER_REVIEW_REQUIRED</code></p>
+    <p><strong>מוכנות לרווח:</strong> 72% תפעולי, 0% חי.</p>
+    <p><strong>כנות:</strong> This packet creates owner-review terms and draft messages only. It sends nothing, invoices nothing, marks nothing paid and imports no external code.</p>
+  </section>
+  <h2>שערי תנאים</h2>
+  <table>
+    <thead><tr><th>ID</th><th>Gate</th><th>החלטת בעלים</th><th>ברירת מחדל</th><th>תנאי מעבר</th><th>עצירה</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><code>MTR-01</code></td>
+      <td>commercial_lane</td>
+      <td>Select the first lane: Bituach Leumi qualified lead, lawyer subscription, supplier handoff, or UK/cross-border supplier.</td>
+      <td>Start with Bituach Leumi qualified appeal lead or lawyer/supplier manual invoice terms.</td>
+      <td>One lane is selected and the owner agrees it is the current first-revenue target.</td>
+      <td>No selected lane means no outreach, handoff, invoice or revenue claim.</td>
+    </tr>
+    <tr>
+      <td><code>MTR-02</code></td>
+      <td>accepted_scope</td>
+      <td>Define exactly what the partner receives: no-PII preview, consented lead handoff, subscription profile/dashboard, or supplier task.</td>
+      <td>No client PII before client permission, accepted terms and owner release.</td>
+      <td>The accepted scope is recorded and does not promise legal outcome, ranking, exclusivity or lead volume.</td>
+      <td>Any promise of outcome, ranking, exclusivity or guaranteed lead volume blocks the deal.</td>
+    </tr>
+    <tr>
+      <td><code>MTR-03</code></td>
+      <td>price_and_fee</td>
+      <td>Record the commercial price: per-lead fee, monthly subscription, supplier fee or trial terms.</td>
+      <td>For Bituach Leumi controlled lead use 249 ILS suggested lead price unless owner changes it; otherwise owner fills exact amount.</td>
+      <td>A numeric fee or owner-approved trial term is recorded before handoff.</td>
+      <td>No price, no billing contact, or vague trial terms means no invoice and no paid claim.</td>
+    </tr>
+    <tr>
+      <td><code>MTR-04</code></td>
+      <td>billing_contact</td>
+      <td>Record where the manual invoice/payment request goes.</td>
+      <td>Use billing contact email and legal billing name from lawyer onboarding/prospect/CRM.</td>
+      <td>Billing email and legal billing identity are present or owner records a manual alternative.</td>
+      <td>No billing contact means no invoice_sent status.</td>
+    </tr>
+    <tr>
+      <td><code>MTR-05</code></td>
+      <td>partner_acceptance</td>
+      <td>Record partner acceptance of fee, scope, response expectation and no-guarantee boundary.</td>
+      <td>Partner must accept fee and same-day or defined response SLA before client details are released.</td>
+      <td>Accepted terms, fee, billing contact and response SLA are visible in owner/admin context.</td>
+      <td>Partner has not accepted terms or wants outcome/volume promises.</td>
+    </tr>
+    <tr>
+      <td><code>MTR-06</code></td>
+      <td>client_permission_and_owner_release</td>
+      <td>Confirm client permission and owner manual release before handoff.</td>
+      <td>Owner release is a record only; it sends nothing automatically.</td>
+      <td>Client permission, accepted partner terms and owner manual-only confirmation are all recorded.</td>
+      <td>Missing consent, missing terms or missing owner release keeps routing hold active.</td>
+    </tr>
+    <tr>
+      <td><code>MTR-07</code></td>
+      <td>invoice_reference</td>
+      <td>After an approved handoff, send/request manual invoice/payment and save the reference.</td>
+      <td>Invoice/reference can prove invoice_sent only, not paid revenue.</td>
+      <td>invoice_sent has an invoice/payment reference attached.</td>
+      <td>No reference means do not mark invoice_sent.</td>
+    </tr>
+    <tr>
+      <td><code>MTR-08</code></td>
+      <td>payment_evidence</td>
+      <td>Count revenue only after private payment proof exists.</td>
+      <td>Paid requires private payment evidence URL or owner-recorded proof, not a promise to pay.</td>
+      <td>Payment proof exists, no refund/dispute/complaint is open, and owner confirms count once.</td>
+      <td>No private proof means 0 paid revenue claim.</td>
+    </tr>
+    <tr>
+      <td><code>MTR-09</code></td>
+      <td>dispute_refund_hold</td>
+      <td>Define what freezes scale-up: refund, complaint, dispute, ethics concern or wrong-match feedback.</td>
+      <td>Any dispute stops revenue celebration and scale until reviewed.</td>
+      <td>No dispute/refund/complaint is open for the counted payment.</td>
+      <td>Open dispute blocks paid success reporting and follow-up scale.</td>
+    </tr>
+    <tr>
+      <td><code>MTR-10</code></td>
+      <td>next_scale_decision</td>
+      <td>After one paid proof, decide whether to repeat with the same lane or expand to a second lane.</td>
+      <td>Repeat the lane with actual paid evidence before adding broad automation.</td>
+      <td>One paid proof creates a scale/no-go review, not automatic mass routing.</td>
+      <td>Do not scale from unpaid invoices or verbal interest.</td>
+    </tr></tbody>
+  </table>
+  <h2>טיוטות הודעה</h2>
+  <table>
+    <thead><tr><th>ID</th><th>מתי להשתמש</th><th>נושא</th><th>גוף</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><code>MSG-01</code></td>
+      <td>Before any client PII is released, after owner selected a lane and wants partner acceptance.</td>
+      <td>בדיקת שיתוף פעולה ידני עם Jus-Tice</td>
+      <td>שלום, אנחנו בודקים שיתוף פעולה ידני ומבוקר עם Jus-Tice. בשלב זה לא מועברים פרטי לקוח. המטרה היא לוודא התאמה מקצועית, זמינות, תנאי קבלת פנייה, פרטי חיוב והסכמה לקבל תקציר פנייה רק לפי התנאים שסוכמו. אין התחייבות לתוצאה משפטית, לדירוג, לבלעדיות או לכמות פניות. אם זה רלוונטי, נשמח לאשר יחד תחום טיפול, מחיר/תנאי תשלום, איש קשר לחשבונית וזמן תגובה.</td>
+    </tr>
+    <tr>
+      <td><code>MSG-02</code></td>
+      <td>After owner-approved handoff and accepted terms, before invoice_sent is recorded.</td>
+      <td>פנייה שאושרה לחיוב ידני</td>
+      <td>שלום, פנייה שאושרה במסלול ידני סומנה כמוכנה לחיוב לפי התנאים שסוכמו מראש. נא לאשר קבלה ולעדכן אם לשלוח חשבונית או קישור תשלום ידני. התשלום יירשם רק לאחר קבלת אסמכתא. אין התחייבות לתוצאה משפטית או להיקף פניות עתידי.</td>
+    </tr></tbody>
+  </table>
+</main>
+</body>
+</html>

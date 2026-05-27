@@ -1,0 +1,48 @@
+# Manual terms revenue packet - 2026-05-27
+
+Status: MANUAL_TERMS_REVENUE_PACKET_READY_OWNER_REVIEW_REQUIRED
+
+## Project Manager Check
+
+Active goal: create a shortest safe path from accepted lawyer/supplier terms to manual invoice revenue while payment-provider setup is blocked.
+Readiness to profit: 72% operational readiness, 0% live revenue impact.
+Honesty: This packet creates owner-review terms and draft messages only. It sends nothing, invoices nothing, marks nothing paid and imports no external code.
+
+## What This Packet Does
+
+- Converts the LegalTech OpenAgreements/Accord pattern into a Jus-Tice owner approval checklist.
+- Uses existing CRM concepts: consent, partner terms, owner handoff release, invoice reference and private payment proof.
+- Provides Hebrew draft messages, but sends nothing.
+- Keeps invoice reference separate from paid revenue proof.
+
+## Terms Gates
+
+| ID | Gate | Owner decision | Default position | CRM fields | Pass condition | Fail stop | Live action allowed |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| MTR-01 | commercial_lane | Select the first lane: Bituach Leumi qualified lead, lawyer subscription, supplier handoff, or UK/cross-border supplier. | Start with Bituach Leumi qualified appeal lead or lawyer/supplier manual invoice terms. | lead_revenue_model, partner_terms_target_type, prospect_target_plan, payment_path=manual_invoice | One lane is selected and the owner agrees it is the current first-revenue target. | No selected lane means no outreach, handoff, invoice or revenue claim. | NO |
+| MTR-02 | accepted_scope | Define exactly what the partner receives: no-PII preview, consented lead handoff, subscription profile/dashboard, or supplier task. | No client PII before client permission, accepted terms and owner release. | consent_status, routing_hold, partner_terms_target_type, owner_handoff_release_scope | The accepted scope is recorded and does not promise legal outcome, ranking, exclusivity or lead volume. | Any promise of outcome, ranking, exclusivity or guaranteed lead volume blocks the deal. | NO |
+| MTR-03 | price_and_fee | Record the commercial price: per-lead fee, monthly subscription, supplier fee or trial terms. | For Bituach Leumi controlled lead use 249 ILS suggested lead price unless owner changes it; otherwise owner fills exact amount. | partner_terms_min_fee_ils, prospect_agreed_lead_fee_ils, suggested_lead_price_ils, plan_type | A numeric fee or owner-approved trial term is recorded before handoff. | No price, no billing contact, or vague trial terms means no invoice and no paid claim. | NO |
+| MTR-04 | billing_contact | Record where the manual invoice/payment request goes. | Use billing contact email and legal billing name from lawyer onboarding/prospect/CRM. | billing_invoice_email, billing_legal_name, prospect_billing_contact_email, qualified_lead_invoice_reference | Billing email and legal billing identity are present or owner records a manual alternative. | No billing contact means no invoice_sent status. | NO |
+| MTR-05 | partner_acceptance | Record partner acceptance of fee, scope, response expectation and no-guarantee boundary. | Partner must accept fee and same-day or defined response SLA before client details are released. | partner_terms_status, partner_terms_min_fee_ils, prospect_response_fit, prospect_terms_note | Accepted terms, fee, billing contact and response SLA are visible in owner/admin context. | Partner has not accepted terms or wants outcome/volume promises. | NO |
+| MTR-06 | client_permission_and_owner_release | Confirm client permission and owner manual release before handoff. | Owner release is a record only; it sends nothing automatically. | consent_status, owner_handoff_release_status, owner_confirmed_client_permission, owner_confirmed_partner_terms | Client permission, accepted partner terms and owner manual-only confirmation are all recorded. | Missing consent, missing terms or missing owner release keeps routing hold active. | NO |
+| MTR-07 | invoice_reference | After an approved handoff, send/request manual invoice/payment and save the reference. | Invoice/reference can prove invoice_sent only, not paid revenue. | qualified_lead_billing_status, qualified_lead_invoice_reference, manual_invoice_reference | invoice_sent has an invoice/payment reference attached. | No reference means do not mark invoice_sent. | NO |
+| MTR-08 | payment_evidence | Count revenue only after private payment proof exists. | Paid requires private payment evidence URL or owner-recorded proof, not a promise to pay. | qualified_lead_payment_evidence_url, qualified_lead_billing_status=paid, owner_note | Payment proof exists, no refund/dispute/complaint is open, and owner confirms count once. | No private proof means 0 paid revenue claim. | NO |
+| MTR-09 | dispute_refund_hold | Define what freezes scale-up: refund, complaint, dispute, ethics concern or wrong-match feedback. | Any dispute stops revenue celebration and scale until reviewed. | owner_note, qualified_lead_billing_status, partner_terms_note | No dispute/refund/complaint is open for the counted payment. | Open dispute blocks paid success reporting and follow-up scale. | NO |
+| MTR-10 | next_scale_decision | After one paid proof, decide whether to repeat with the same lane or expand to a second lane. | Repeat the lane with actual paid evidence before adding broad automation. | revenue_stream, owner_next_step, payment_path | One paid proof creates a scale/no-go review, not automatic mass routing. | Do not scale from unpaid invoices or verbal interest. | NO |
+
+## Hebrew Draft Messages
+
+| ID | Recipient | Use when | Subject | Body | Status |
+| --- | --- | --- | --- | --- | --- |
+| MSG-01 | lawyer_or_supplier | Before any client PII is released, after owner selected a lane and wants partner acceptance. | בדיקת שיתוף פעולה ידני עם Jus-Tice | שלום, אנחנו בודקים שיתוף פעולה ידני ומבוקר עם Jus-Tice. בשלב זה לא מועברים פרטי לקוח. המטרה היא לוודא התאמה מקצועית, זמינות, תנאי קבלת פנייה, פרטי חיוב והסכמה לקבל תקציר פנייה רק לפי התנאים שסוכמו. אין התחייבות לתוצאה משפטית, לדירוג, לבלעדיות או לכמות פניות. אם זה רלוונטי, נשמח לאשר יחד תחום טיפול, מחיר/תנאי תשלום, איש קשר לחשבונית וזמן תגובה. | DRAFT_ONLY_NOT_SENT |
+| MSG-02 | lawyer_or_supplier | After owner-approved handoff and accepted terms, before invoice_sent is recorded. | פנייה שאושרה לחיוב ידני | שלום, פנייה שאושרה במסלול ידני סומנה כמוכנה לחיוב לפי התנאים שסוכמו מראש. נא לאשר קבלה ולעדכן אם לשלוח חשבונית או קישור תשלום ידני. התשלום יירשם רק לאחר קבלת אסמכתא. אין התחייבות לתוצאה משפטית או להיקף פניות עתידי. | DRAFT_ONLY_NOT_SENT |
+
+## Owner Next Decision
+
+Choose exactly one first revenue lane:
+
+1. Bituach Leumi qualified appeal lead fee.
+2. Paid lawyer subscription via manual invoice.
+3. Supplier/UK/cross-border handoff fee.
+
+Then fill fee, billing contact and accepted scope. Do not route, invoice, mark paid or count revenue until the matching CRM proof exists.

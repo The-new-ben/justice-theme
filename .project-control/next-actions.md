@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-MANUAL-TERMS-REVENUE-PACKET-001: Owner picks the first manual invoice revenue lane
+**Status:** FIXED LOCAL / WAITING FOR OWNER REVIEW
+**Why:** Grow/Meshulam is still blocked, so the fastest revenue route is a controlled manual terms and invoice path that can be used with one lawyer or supplier after owner approval.
+**Actions:**
+1. DONE: add `tools/build-manual-terms-revenue-packet.mjs`.
+2. DONE: generate `.project-control/manual-terms-revenue-packet-2026-05-27.md`, `.html`, `.csv` and owner reply CSV.
+3. DONE: generate `.reports/manual-terms-revenue-packet-2026-05-27.json` and `.csv`.
+4. DONE: confirm `MANUAL_TERMS_REVENUE_PACKET_READY_OWNER_REVIEW_REQUIRED`, 10 terms gates, 2 Hebrew draft messages, 3 owner decisions, 0 live approvals/actions and 72% readiness to profit.
+5. NEXT: owner chooses exactly one lane: Bituach Leumi qualified appeal lead fee, paid lawyer subscription via manual invoice, or supplier/UK/cross-border handoff fee.
+6. NEXT AFTER OWNER DECISION: fill exact fee, accepted scope and billing contact in the live admin workflow, then use invoice reference and payment proof rules before any revenue claim.
+7. BLOCKED: no outreach, handoff, invoice, payment status, public page, CRM write, or revenue claim without owner lane/fee/scope approval and live CRM proof.
+
 ### ACTION-LEGALTECH-GITHUB-REUSE-MAP-001: Convert LegalTech GitHub research into Jus-Tice revenue actions
 **Status:** FIXED LOCAL / READY FOR OWNER PRIORITY DECISION
 **Why:** The owner asked to inspect Vaquill-AI/awesome-legaltech and additional LegalTech GitHubs, then say honestly what was used or translated into our site without drifting into unprofitable research.

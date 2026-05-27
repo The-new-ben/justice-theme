@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-27 15:30 Asia/Jerusalem
+- MANUAL TERMS REVENUE PACKET ADDED: converted the LegalTech OpenAgreements/Accord revenue-pattern row into a concrete owner-review packet for lawyer/supplier manual terms, invoice reference and payment proof.
+- CODE ADDED: `tools/build-manual-terms-revenue-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/manual-terms-revenue-packet-2026-05-27.md`, `.project-control/manual-terms-revenue-packet-2026-05-27.html`, `.project-control/manual-terms-revenue-packet-2026-05-27.csv`, `.project-control/manual-terms-revenue-packet-2026-05-27-owner-reply.csv`, `.reports/manual-terms-revenue-packet-2026-05-27.json` and `.reports/manual-terms-revenue-packet-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-manual-terms-revenue-packet.mjs` passed. Running the builder returned `MANUAL_TERMS_REVENUE_PACKET_READY_OWNER_REVIEW_REQUIRED`, 10 terms gates, 2 Hebrew draft messages, 3 owner decision rows, 0 public CMS approvals, 0 live CRM/outreach approvals, 0 invoices/payments created, 0 revenue claims, 0 paid LLM API use, 0 external code copied, 72% readiness to profit and 0% live revenue impact.
+- REVIEW RESULT: this is the shortest revenue-facing artifact after the LegalTech map: it gives the owner exact gates for commercial lane, accepted scope, fee, billing contact, partner acceptance, client permission, owner release, invoice reference, payment evidence and dispute hold.
+- PUBLIC/LIVE IMPACT: no public CMS/database content, live site, route, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting, paid LLM API, external code import, merge to main or uPress pull changed.
+- COMPLETION ASSESSMENT: manual-terms revenue packet 100%; first revenue remains blocked until owner chooses a lane, approves fee/scope wording, records real billing contact and uses live CRM proof; live profit impact remains 0%.
+
 # LATEST WORK STATUS - 2026-05-27 15:20 Asia/Jerusalem
 - LEGALTECH GITHUB REUSE MAP ADDED: reviewed Vaquill-AI/awesome-legaltech plus additional public LegalTech GitHub/source signals and translated them into Jus-Tice-specific revenue actions without copying external executable code.
 - CODE ADDED: `tools/build-legaltech-github-reuse-map.mjs`.

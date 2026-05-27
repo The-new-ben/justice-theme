@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Manual terms revenue packet
+
+- ADDED: `tools/build-manual-terms-revenue-packet.mjs`.
+- GENERATED: `.project-control/manual-terms-revenue-packet-2026-05-27.md`, `.project-control/manual-terms-revenue-packet-2026-05-27.html`, `.project-control/manual-terms-revenue-packet-2026-05-27.csv`, `.project-control/manual-terms-revenue-packet-2026-05-27-owner-reply.csv`, `.reports/manual-terms-revenue-packet-2026-05-27.json` and `.reports/manual-terms-revenue-packet-2026-05-27.csv`.
+- PURPOSE: turn the LegalTech/manual agreement pattern into a concrete owner-review packet for the first manual invoice path while Grow/Meshulam remains blocked.
+- RESULT: `MANUAL_TERMS_REVENUE_PACKET_READY_OWNER_REVIEW_REQUIRED`; 10 terms gates, 2 Hebrew draft messages, 3 owner decision rows, 72 percent readiness to profit and 0 live revenue impact.
+- SAFETY: private owner-review packet only; no public CMS edit, live route change, CRM record, lead, lawyer/supplier/client contact, invoice, payment, external code import, paid LLM API use, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, merge to main or uPress deployment changed.
+
 # 2026-05-27 - LegalTech GitHub reuse map
 
 - ADDED: `tools/build-legaltech-github-reuse-map.mjs`.

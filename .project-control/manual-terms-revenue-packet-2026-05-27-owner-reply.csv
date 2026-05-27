@@ -1,0 +1,4 @@
+row_id,owner_decision_needed,allowed_answers,owner_answer,owner_note
+OWNER-MTR-01,Choose first revenue lane,btl_lead_fee | lawyer_subscription | supplier_handoff | wait,,
+OWNER-MTR-02,Approve using the Hebrew partner acceptance message as a draft,yes | edit_first | no,,
+OWNER-MTR-03,Approve exact fee or trial term for the selected lane,amount_ils | trial_terms | wait,,

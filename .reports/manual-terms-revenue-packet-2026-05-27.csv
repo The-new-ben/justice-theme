@@ -1,0 +1,2 @@
+status,reportDate,termGateRows,draftMessageRows,ownerDecisionRows,publicCmsChangesApproved,liveCrmOrOutreachApproved,invoicesOrPaymentsCreated,revenueClaimsApproved,paidLlmApiUsed,externalCodeCopied,upressDeploymentRequired,readinessToProfitPercent,liveRevenueImpactPercent,honestyStatement
+MANUAL_TERMS_REVENUE_PACKET_READY_OWNER_REVIEW_REQUIRED,2026-05-27,10,2,3,0,0,0,0,0,0,false,72,0,"This packet creates owner-review terms and draft messages only. It sends nothing, invoices nothing, marks nothing paid and imports no external code."

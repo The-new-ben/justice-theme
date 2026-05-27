@@ -3112,8 +3112,12 @@
 
   body.nav-is-open .menu-toggle {
     position: fixed;
-    top: 0.9rem;
-    inset-inline-end: 1rem;
+    top: var(--jt-menu-toggle-top, 0.9rem);
+    left: var(--jt-menu-toggle-left, 1rem);
+    right: auto;
+    width: var(--jt-menu-toggle-width, 44px);
+    height: var(--jt-menu-toggle-height, 44px);
+    inset-inline: auto;
     color: #fff;
     border-color: rgba(255,255,255,0.24);
     background: rgba(255,255,255,0.08);

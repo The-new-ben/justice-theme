@@ -8,16 +8,49 @@
   const nav    = document.querySelector( '.primary-navigation' );
 
   if ( toggle && nav ) {
+    const rememberTogglePosition = () => {
+      const rect = toggle.getBoundingClientRect();
+      document.documentElement.style.setProperty( '--jt-menu-toggle-top', `${ Math.round( rect.top ) }px` );
+      document.documentElement.style.setProperty( '--jt-menu-toggle-left', `${ Math.round( rect.left ) }px` );
+      document.documentElement.style.setProperty( '--jt-menu-toggle-width', `${ Math.round( rect.width ) }px` );
+      document.documentElement.style.setProperty( '--jt-menu-toggle-height', `${ Math.round( rect.height ) }px` );
+    };
+
+    const clearTogglePosition = () => {
+      document.documentElement.style.removeProperty( '--jt-menu-toggle-top' );
+      document.documentElement.style.removeProperty( '--jt-menu-toggle-left' );
+      document.documentElement.style.removeProperty( '--jt-menu-toggle-width' );
+      document.documentElement.style.removeProperty( '--jt-menu-toggle-height' );
+    };
+
+    const closeMenu = () => {
+      toggle.setAttribute( 'aria-expanded', 'false' );
+      document.body.classList.remove( 'nav-is-open' );
+      clearTogglePosition();
+    };
+
     toggle.addEventListener( 'click', () => {
       const isOpen = toggle.getAttribute( 'aria-expanded' ) === 'true';
-      toggle.setAttribute( 'aria-expanded', String( ! isOpen ) );
-      document.body.classList.toggle( 'nav-is-open', ! isOpen );
+
+      if ( isOpen ) {
+        closeMenu();
+        return;
+      }
+
+      rememberTogglePosition();
+      toggle.setAttribute( 'aria-expanded', 'true' );
+      document.body.classList.add( 'nav-is-open' );
     } );
 
     document.addEventListener( 'keydown', e => {
       if ( e.key === 'Escape' ) {
-        toggle.setAttribute( 'aria-expanded', 'false' );
-        document.body.classList.remove( 'nav-is-open' );
+        closeMenu();
+      }
+    } );
+
+    window.addEventListener( 'resize', () => {
+      if ( document.body.classList.contains( 'nav-is-open' ) ) {
+        closeMenu();
       }
     } );
   }
@@ -50,6 +83,10 @@
     ) {
       toggle.setAttribute( 'aria-expanded', 'false' );
       document.body.classList.remove( 'nav-is-open' );
+      document.documentElement.style.removeProperty( '--jt-menu-toggle-top' );
+      document.documentElement.style.removeProperty( '--jt-menu-toggle-left' );
+      document.documentElement.style.removeProperty( '--jt-menu-toggle-width' );
+      document.documentElement.style.removeProperty( '--jt-menu-toggle-height' );
     }
   } );
 

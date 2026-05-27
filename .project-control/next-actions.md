@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-LIVE-ARTICLE-CTA-MOBILE-REPETITION-QA-001: Verify article repeated-help-message issue before template change
+**Status:** FIXED LOCAL / NO PUBLIC TEMPLATE CHANGE CURRENTLY RECOMMENDED
+**Why:** The owner saw an article page on mobile where the same help/request message appeared again while scrolling. A public-facing template change should only happen after exact live evidence, because the deployed dedupe marker already exists.
+**Actions:**
+1. DONE: rerun `tools/check-live-article-cta-dedupe.mjs` against the lawyer-selection guide and four family-law article samples.
+2. DONE: add `tools/build-live-article-cta-mobile-repetition-qa.mjs`.
+3. DONE: generate `.project-control/live-article-cta-mobile-repetition-qa-2026-05-27.md` and `.csv`.
+4. DONE: generate `.reports/live-article-cta-mobile-repetition-qa-2026-05-27.json` and `.csv`.
+5. DONE: confirm `ARTICLE_CTA_MOBILE_REPETITION_QA_PASS_NO_PUBLIC_CHANGE`, 5/5 sampled live article URLs passed, max after-content CTA count 1, max contextual CTA URL count 1, duplicate sidebar marker count 0 and sidebar repeats after-content CTA rows 0.
+6. DONE: record as Linear `HAD-143`, marked Done under `HAD-131`.
+7. NEXT: if the owner still sees repetition, capture or provide the exact URL; add it to the checker before deciding on a public template change.
+8. BLOCKED: do not change article template, copy, CSS, CMS content, SEO settings, links, leads, lawyer contacts, invoices, payments, emails, WhatsApp, TalkTo or uPress from this proof packet alone.
+
 ### ACTION-MANUAL-INVOICE-REVENUE-FALLBACK-001: Prepare manual invoice fallback proof packet
 **Status:** FIXED LOCAL / LIVE PAYMENT AND REVENUE EXECUTION STILL BLOCKED
 **Why:** Grow/Meshulam/Morning live provider setup is still a runtime blocker, but the owner needs a safe path to connect approved lawyers/leads to manual invoice/payment proof without overclaiming revenue or touching live records.

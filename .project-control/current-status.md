@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 03:40 Asia/Jerusalem
+- LIVE ARTICLE CTA MOBILE REPETITION QA ADDED: converted the owner-reported mobile article duplicate-help-message concern into a broader read-only live QA packet.
+- CODE ADDED: `tools/build-live-article-cta-mobile-repetition-qa.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/live-article-cta-mobile-repetition-qa-2026-05-27.md`, `.project-control/live-article-cta-mobile-repetition-qa-2026-05-27.csv`, `.reports/live-article-cta-mobile-repetition-qa-2026-05-27.json`, `.reports/live-article-cta-mobile-repetition-qa-2026-05-27.csv`.
+- CHECK RESULT: `ARTICLE_CTA_MOBILE_REPETITION_QA_PASS_NO_PUBLIC_CHANGE`; source dedupe report `PASS`; 5 sampled live article URLs passed; max after-content CTA count 1; max contextual article CTA URL count 1; duplicate sidebar marker count 0; sidebar repeats after-content CTA rows 0; 0 public/CMS/template/SEO/CRM/payment/email/WhatsApp/TalkTo actions.
+- REVIEW RESULT: sampled live article pages do not reproduce the repeated-help-message issue. The current safest decision is no public template change unless a specific URL/screenshot still shows repetition.
+- LINEAR: recorded as `HAD-143`, marked Done under `HAD-131`, related to `HAD-141`, `HAD-84` and `HAD-132`.
+- PUBLIC IMPACT: none. This was read-only live QA and private reporting only. No public page, CMS content, template, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: article CTA mobile repetition QA packet 100%; public article template change remains 0% and currently not recommended unless an exact failing URL is supplied or found.
+
 # LATEST WORK STATUS - 2026-05-27 03:31 Asia/Jerusalem
 - MANUAL INVOICE REVENUE FALLBACK PACKET ADDED: converted the payment-provider runtime blocker into a private source-checked operator packet for manual invoice/payment-proof handling.
 - CODE ADDED: `tools/build-manual-invoice-revenue-fallback-packet.mjs`.

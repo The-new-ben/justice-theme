@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Live article CTA mobile repetition QA
+
+- ADDED: `tools/build-live-article-cta-mobile-repetition-qa.mjs`.
+- GENERATED: `.project-control/live-article-cta-mobile-repetition-qa-2026-05-27.md`, `.project-control/live-article-cta-mobile-repetition-qa-2026-05-27.csv`, `.reports/live-article-cta-mobile-repetition-qa-2026-05-27.json`, `.reports/live-article-cta-mobile-repetition-qa-2026-05-27.csv`.
+- PURPOSE: turn the owner-reported mobile article repeated-help-message concern into a broader live read-only QA packet before making any public template change.
+- RESULT: `ARTICLE_CTA_MOBILE_REPETITION_QA_PASS_NO_PUBLIC_CHANGE`; 5 sampled live article URLs passed, max after-content CTA count 1, max contextual CTA URL count 1, duplicate sidebar marker count 0 and sidebar repeats after-content CTA rows 0.
+- LINEAR: recorded as `HAD-143`, marked Done under `HAD-131`, related to `HAD-141`, `HAD-84` and `HAD-132`.
+- SAFETY: read-only live QA and private report only; no public page, CMS content, template, title/H1/meta/body, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead/lawyer/supplier contact, invoice, payment, email, WhatsApp, TalkTo, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Manual invoice revenue fallback packet
 
 - ADDED: `tools/build-manual-invoice-revenue-fallback-packet.mjs`.

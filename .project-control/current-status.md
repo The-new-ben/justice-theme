@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 04:14 Asia/Jerusalem
+- LIVE CRIMINAL JERUSALEM PAGE QA ADDED: converted the existing public `/criminal-lawyer-jerusalem/` discovery into a read-only live QA packet before any public update.
+- CODE ADDED: `tools/build-live-criminal-jerusalem-page-qa.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/live-criminal-jerusalem-page-qa-2026-05-27.md`, `.project-control/live-criminal-jerusalem-page-qa-2026-05-27.csv`, `.project-control/live-criminal-jerusalem-update-decision-template-2026-05-27.csv`, `.reports/live-criminal-jerusalem-page-qa-2026-05-27.json`, `.reports/live-criminal-jerusalem-page-qa-2026-05-27.csv`.
+- CHECK RESULT: `LIVE_CRIMINAL_JERUSALEM_QA_REVIEW_NO_PUBLIC_CHANGE`; target returned live 200; target word estimate 488; 8 QA rows; 1 pass row; 6 review rows; 1 blocked/no-public-action row; 8 own-site live rows; 6/6 competitor pages fetched live; 0 public/CMS/SEO/CRM/contact/payment/email actions.
+- REVIEW RESULT: the page is public and commercially relevant but thin for a competitive local criminal-law query. Title/H1/body include source-sensitive price/court/leading markers; no business/internal leakage was found after tightening false-positive markers. The declared criminal-law pillar redirects/lands on a weak 289-word topic/archive surface, so expansion of the local page is blocked pending GSC/internal-overlap/legal/editor/owner review.
+- LINEAR: recorded as `HAD-146`, marked Done under `HAD-145`, related to `HAD-144`, `HAD-84`, `HAD-133` and `HAD-143`.
+- PUBLIC IMPACT: none. This was read-only live QA and private reporting only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: live criminal Jerusalem QA packet 100%; public update execution remains 0%. Next step is owner/GSC/legal/editor decision on whether to preserve, revise, consolidate or park `/criminal-lawyer-jerusalem/` and how it relates to the criminal-law pillar.
+
 # LATEST WORK STATUS - 2026-05-27 04:03 Asia/Jerusalem
 - CITY/PRACTICE PRIORITY DRAFT BRIEFS ADDED: advanced the first two city/practice targets into a private owner/editor draft-brief packet with official-source prompts, competitor-positioning guardrails and live own-site exposure checks.
 - CODE ADDED: `tools/build-city-practice-priority-draft-briefs.mjs`.

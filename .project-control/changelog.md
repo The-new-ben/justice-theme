@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Live criminal Jerusalem page QA packet
+
+- ADDED: `tools/build-live-criminal-jerusalem-page-qa.mjs`.
+- GENERATED: `.project-control/live-criminal-jerusalem-page-qa-2026-05-27.md`, `.project-control/live-criminal-jerusalem-page-qa-2026-05-27.csv`, `.project-control/live-criminal-jerusalem-update-decision-template-2026-05-27.csv`, `.reports/live-criminal-jerusalem-page-qa-2026-05-27.json`, `.reports/live-criminal-jerusalem-page-qa-2026-05-27.csv`.
+- PURPOSE: inspect the existing public `/criminal-lawyer-jerusalem/` page before any update, because the priority draft brief found it already returns live 200.
+- RESULT: `LIVE_CRIMINAL_JERUSALEM_QA_REVIEW_NO_PUBLIC_CHANGE`; target status 200; target word estimate 488; 8 QA rows with 1 pass, 6 review rows and 1 blocked/no-public-action row; 8 own-site live rows; 6/6 competitor pages fetched live.
+- REVIEW: page is public, thin for a competitive local criminal query, has source-sensitive price/court/leading markers, no internal business leakage, and sits under a weak/redirected criminal-law pillar that needs cannibalization review.
+- LINEAR: recorded as `HAD-146`, marked Done under `HAD-145`, related to `HAD-144`, `HAD-84`, `HAD-133` and `HAD-143`.
+- SAFETY: read-only live QA and private reporting only; no public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead/lawyer/supplier contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+
 # 2026-05-27 - City/practice priority draft briefs
 
 - ADDED: `tools/build-city-practice-priority-draft-briefs.mjs`.

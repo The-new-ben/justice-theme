@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-LIVE-CRIMINAL-JERUSALEM-PAGE-QA-001: QA existing public local criminal page before any update
+**Status:** FIXED LOCAL / PUBLIC UPDATE STILL BLOCKED
+**Why:** `/criminal-lawyer-jerusalem/` already returns live 200 and must be treated as an existing public asset, not a draft seed.
+**Actions:**
+1. DONE: add `tools/build-live-criminal-jerusalem-page-qa.mjs`.
+2. DONE: generate `.project-control/live-criminal-jerusalem-page-qa-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/live-criminal-jerusalem-update-decision-template-2026-05-27.csv`.
+4. DONE: generate `.reports/live-criminal-jerusalem-page-qa-2026-05-27.json` and `.csv`.
+5. DONE: confirm `LIVE_CRIMINAL_JERUSALEM_QA_REVIEW_NO_PUBLIC_CHANGE`, target live 200, target word estimate 488, 8 QA rows, 1 pass row, 6 review rows, 1 blocked/no-public-action row, 8 own-site rows and 6/6 live competitor fetches.
+6. DONE: record as Linear `HAD-146`, marked Done under `HAD-145`.
+7. NEXT: owner/GSC/legal/editor review must decide whether to preserve, revise, consolidate or park `/criminal-lawyer-jerusalem/`.
+8. NEXT: resolve the criminal-law pillar split before expanding the local page, because `/criminal-lawyer/` lands on `/practice-areas/criminal-law/` with a weak topic/archive surface.
+9. BLOCKED: do not publish, update, unpublish, redirect, canonical/noindex, sitemap, taxonomy, CMS content, internal links, CRM records, leads, lawyer contacts, invoices, payments, emails, WhatsApp, TalkTo or uPress from this QA packet alone.
+
 ### ACTION-CITY-PRACTICE-PRIORITY-DRAFT-BRIEFS-001: Build first two private city/practice draft briefs
 **Status:** FIXED LOCAL / ONE EXISTING PUBLIC PAGE NEEDS READ-ONLY QA
 **Why:** The first two local/practice targets need owner/editor-ready private briefs before any publication decision, and one target appears to already be public.

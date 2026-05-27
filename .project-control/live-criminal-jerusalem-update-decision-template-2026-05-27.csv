@@ -1,0 +1,6 @@
+item,slug,required_evidence,current_value,approved_by,approval_date,notes_no_pii
+live_page_owner_decision,criminal-lawyer-jerusalem,"Owner confirms whether to preserve, revise, consolidate, or park page.",,,,
+gsc_query_page_evidence,criminal-lawyer-jerusalem,90-day query/page export for criminal lawyer Jerusalem and overlapping criminal-law pages.,,,,
+pillar_role_decision,criminal-lawyer-jerusalem,Decide whether /criminal-lawyer/ or /practice-areas/criminal-law/ is the central surface.,,,,
+lawyer_coverage_proof,criminal-lawyer-jerusalem,Filtered Jerusalem criminal-law lawyer profile count and quality check.,,,,
+legal_editor_review,criminal-lawyer-jerusalem,"Legal/editor review clears title/H1/body claims, sources and disclaimers.",,,,

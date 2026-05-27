@@ -1,0 +1,174 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "sourceDate": "2026-05-27",
+    "status": "TEL_AVIV_FAMILY_PUBLICATION_REVIEW_BLOCKED_FOCUSED_GSC_LEGAL_OWNER",
+    "targetPath": "/divorce-lawyer-tel-aviv/",
+    "sourceStatuses": {
+      "draft": "TEL_AVIV_FAMILY_LOCAL_DRAFT_PACKET_READY_FOR_PRIVATE_EDITOR_REVIEW_NO_PUBLIC_CHANGE",
+      "overlap": "TEL_AVIV_FAMILY_INTERNAL_OVERLAP_READY_WITH_GSC_REVIEW_NO_PUBLIC_CHANGE",
+      "gsc": "TEL_AVIV_FAMILY_GSC_CACHE_REVIEW_READY_FOCUSED_EXPORT_REQUIRED_NO_PUBLIC_CHANGE",
+      "evidence": "DIVORCE_TEL_AVIV_EVIDENCE_FILL_READY_NO_PUBLIC_CHANGE",
+      "directory": "DIRECTORY_COVERAGE_QA_FOUND_FILTER_ALIAS_GAP_NO_PUBLIC_CHANGE"
+    },
+    "sourceDates": {
+      "draft": "2026-05-27",
+      "overlap": "2026-05-27",
+      "gsc": "2026-05-27",
+      "evidence": "2026-05-27",
+      "directory": "2026-05-27"
+    },
+    "reviewRows": 9,
+    "blockedRows": 3,
+    "reviewRowsRequiringOwnerOrEditor": 4,
+    "gateTemplateRows": 5,
+    "publicChangesApproved": 0,
+    "cmsWritesApproved": 0,
+    "seoSettingsChanged": 0,
+    "redirectsOrCanonicalsChanged": 0,
+    "crmRecordsCreated": 0,
+    "leadOrLawyerContactActions": 0,
+    "invoicesOrPaymentsCreated": 0,
+    "emailsSent": 0,
+    "upressDeploymentRequired": false,
+    "files": {
+      "projectMd": ".project-control\\tel-aviv-family-publication-review-packet-2026-05-27.md",
+      "projectCsv": ".project-control\\tel-aviv-family-publication-review-packet-2026-05-27.csv",
+      "gateTemplateCsv": ".project-control\\tel-aviv-family-publication-gate-template-2026-05-27.csv",
+      "reportJson": ".reports\\tel-aviv-family-publication-review-packet-2026-05-27.json",
+      "reportCsv": ".reports\\tel-aviv-family-publication-review-packet-2026-05-27.csv"
+    }
+  },
+  "rows": [
+    {
+      "id": "TA-PUB-01",
+      "gate": "target_private_status",
+      "status": "PASS_PRIVATE_404",
+      "evidence": "/divorce-lawyer-tel-aviv/ is 404; evidence packet target status is 404.",
+      "required_before_publication": "Confirm target is not already public 200 immediately before any owner-approved CMS work.",
+      "owner_visible_decision": "Keep private until final approval.",
+      "forbidden_action": "Do not create or publish the URL from this packet."
+    },
+    {
+      "id": "TA-PUB-02",
+      "gate": "canonical_lawyer_directory_coverage",
+      "status": "REVIEW_COVERAGE_PRESENT_NOT_FINAL",
+      "evidence": "/lawyers/?city=tel-aviv&area=family-law has 3 visible cards; paid card count is not a public-quality claim.",
+      "required_before_publication": "Owner/admin verifies profile readiness, source-gated facts, availability and no unsupported paid/sponsored claims.",
+      "owner_visible_decision": "Coverage evidence exists for planning, not publication approval.",
+      "forbidden_action": "Do not claim best, ranked, sponsored, guaranteed or paid coverage from card count alone."
+    },
+    {
+      "id": "TA-PUB-03",
+      "gate": "focused_gsc_exact_local_evidence",
+      "status": "BLOCKED_FOCUSED_EXPORT_REQUIRED",
+      "evidence": "Local GSC cache has 0 exact local rows; focused export template has 60 rows.",
+      "required_before_publication": "Fill focused GSC export for last 16 months and last 90 days for target, pillar, protected associated pages and legacy/profile URLs.",
+      "owner_visible_decision": "Publication remains blocked on final GSC evidence.",
+      "forbidden_action": "Do not use preliminary cache as final publication, canonical, noindex, sitemap or internal-link evidence."
+    },
+    {
+      "id": "TA-PUB-04",
+      "gate": "pillar_protection",
+      "status": "PASS_PROTECT_PILLAR",
+      "evidence": "Broad divorce-lawyer cache rows: 84; primary pillar remains /divorce-lawyer/.",
+      "required_before_publication": "Keep broad how-to-choose, cost, process and general divorce-lawyer intent on the pillar.",
+      "owner_visible_decision": "Local page may only serve local fit-check and request-preparation intent.",
+      "forbidden_action": "Do not duplicate the divorce pillar in the Tel Aviv local page."
+    },
+    {
+      "id": "TA-PUB-05",
+      "gate": "associated_route_overlap",
+      "status": "PASS_WITH_PROTECTED_ROUTES",
+      "evidence": "11 associated routes mapped; 5 high-risk routes protected.",
+      "required_before_publication": "Exclude custody, child support, mediation, settlement, template and cost intent unless legal/editor review explicitly approves a reference.",
+      "owner_visible_decision": "Use overlap packet as the editor boundary map.",
+      "forbidden_action": "Do not add internal links or absorb protected route intent from this packet alone."
+    },
+    {
+      "id": "TA-PUB-06",
+      "gate": "legal_editor_review",
+      "status": "BLOCKED_REVIEWER_REQUIRED",
+      "evidence": "No legal/editor reviewer approval is recorded in the private source chain.",
+      "required_before_publication": "Legal/editor reviewer must approve title, H1, intro, checklist, CTA, FAQ candidates, disclaimers and source boundaries.",
+      "owner_visible_decision": "Legal/editor approval is a hard pre-publication gate.",
+      "forbidden_action": "Do not publish legal/process/deadline/court/local-office claims without reviewer sign-off."
+    },
+    {
+      "id": "TA-PUB-07",
+      "gate": "owner_publication_approval",
+      "status": "BLOCKED_OWNER_APPROVAL_REQUIRED",
+      "evidence": "All source packets record 0 public/CMS/SEO approvals.",
+      "required_before_publication": "Owner must approve exact scope, target URL, directory link, protected associated pages and post-publication review workflow.",
+      "owner_visible_decision": "Owner approval is not implied by this private packet.",
+      "forbidden_action": "Do not create CMS page, update title/H1/meta/body/internal links, or request uPress from this packet."
+    },
+    {
+      "id": "TA-PUB-08",
+      "gate": "future_owner_email_requirements",
+      "status": "REFERENCE_ONLY_NO_EMAIL",
+      "evidence": "No public page was published or updated in this cycle, so no owner email is triggered.",
+      "required_before_publication": "If a future public update is approved and deployed, first check instruction emails, then send Hebrew review URL, summary and cannibalization list.",
+      "owner_visible_decision": "Email workflow is documented for later only.",
+      "forbidden_action": "Do not send routine progress email for this private packet."
+    },
+    {
+      "id": "TA-PUB-09",
+      "gate": "no_live_action_boundary",
+      "status": "PASS_NO_LIVE_ACTION",
+      "evidence": "This packet writes private repo artifacts only and records 0 public/CMS/CRM/contact/payment/email/uPress approvals.",
+      "required_before_publication": "Re-run boundary guard after generation and before commit.",
+      "owner_visible_decision": "Safe private review artifact.",
+      "forbidden_action": "Do not change redirects, canonicals/noindex, sitemap, taxonomy, CMS content, CRM data or payment settings."
+    }
+  ],
+  "gateTemplateRows": [
+    {
+      "id": "TA-GATE-01",
+      "gate": "focused_gsc_last_16_months",
+      "owner_or_editor_fill": "",
+      "required_value": "Exact query/page rows for target, pillar, protected associated pages and legacy/profile URLs.",
+      "current_blocker": "Focused export not filled.",
+      "public_go_if_blank": "no"
+    },
+    {
+      "id": "TA-GATE-02",
+      "gate": "focused_gsc_last_90_days",
+      "owner_or_editor_fill": "",
+      "required_value": "Recent query/page rows to confirm no active cannibalization or stale legacy dominance.",
+      "current_blocker": "Focused export not filled.",
+      "public_go_if_blank": "no"
+    },
+    {
+      "id": "TA-GATE-03",
+      "gate": "lawyer_coverage_readiness",
+      "owner_or_editor_fill": "",
+      "required_value": "Owner/admin confirms visible Tel Aviv family-law profiles are source-gated, appropriate and available for the local page.",
+      "current_blocker": "Visible card count exists, but readiness is not final publication proof.",
+      "public_go_if_blank": "no"
+    },
+    {
+      "id": "TA-GATE-04",
+      "gate": "legal_editor_copy_review",
+      "owner_or_editor_fill": "",
+      "required_value": "Reviewer approves exact title, H1, intro, checklist, CTA, FAQ candidates and disclaimers.",
+      "current_blocker": "No reviewer sign-off recorded.",
+      "public_go_if_blank": "no"
+    },
+    {
+      "id": "TA-GATE-05",
+      "gate": "owner_publication_scope",
+      "owner_or_editor_fill": "",
+      "required_value": "Owner approves exact route, content scope, internal-link plan and post-publication review workflow.",
+      "current_blocker": "No owner publication approval recorded.",
+      "public_go_if_blank": "no"
+    }
+  ],
+  "sourceFiles": {
+    "draft": ".reports\\tel-aviv-family-local-draft-packet-2026-05-27.json",
+    "overlap": ".reports\\tel-aviv-family-internal-overlap-review-2026-05-27.json",
+    "gsc": ".reports\\tel-aviv-family-gsc-cache-review-2026-05-27.json",
+    "evidence": ".reports\\divorce-tel-aviv-evidence-fill-packet-2026-05-27.json",
+    "directory": ".reports\\divorce-tel-aviv-directory-coverage-qa-2026-05-27.json"
+  }
+}

@@ -1,0 +1,6 @@
+id,gate,owner_or_editor_fill,required_value,current_blocker,public_go_if_blank
+TA-GATE-01,focused_gsc_last_16_months,,"Exact query/page rows for target, pillar, protected associated pages and legacy/profile URLs.",Focused export not filled.,no
+TA-GATE-02,focused_gsc_last_90_days,,Recent query/page rows to confirm no active cannibalization or stale legacy dominance.,Focused export not filled.,no
+TA-GATE-03,lawyer_coverage_readiness,,"Owner/admin confirms visible Tel Aviv family-law profiles are source-gated, appropriate and available for the local page.","Visible card count exists, but readiness is not final publication proof.",no
+TA-GATE-04,legal_editor_copy_review,,"Reviewer approves exact title, H1, intro, checklist, CTA, FAQ candidates and disclaimers.",No reviewer sign-off recorded.,no
+TA-GATE-05,owner_publication_scope,,"Owner approves exact route, content scope, internal-link plan and post-publication review workflow.",No owner publication approval recorded.,no

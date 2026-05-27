@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Tel Aviv family publication review packet
+
+- ADDED: `tools/build-tel-aviv-family-publication-review-packet.mjs`.
+- GENERATED: `.project-control/tel-aviv-family-publication-review-packet-2026-05-27.md`, `.project-control/tel-aviv-family-publication-review-packet-2026-05-27.csv`, `.project-control/tel-aviv-family-publication-gate-template-2026-05-27.csv`, `.reports/tel-aviv-family-publication-review-packet-2026-05-27.json` and `.reports/tel-aviv-family-publication-review-packet-2026-05-27.csv`.
+- PURPOSE: turn the Tel Aviv family draft, overlap, GSC cache, evidence-fill and directory coverage chain into a single private go/no-go review surface.
+- RESULT: `TEL_AVIV_FAMILY_PUBLICATION_REVIEW_BLOCKED_FOCUSED_GSC_LEGAL_OWNER`; 9 review rows, 3 blocked rows and 5 fillable gate rows make the remaining GSC/legal/editor/owner blockers explicit.
+- SAFETY: private content-prep tooling/reporting only; no public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Paid proof language alignment
 
 - UPDATED: `inc/lead-crm.php`, `inc/lawyer-prospects.php`, BTL revenue proof tools, lawyer subscription preflight/walkthrough tools, manual invoice fallback tooling, UK-law/UK-WhatsApp handoff tooling, WhatsApp/TalkTo import/consent/paid-handoff tooling and low-hype RV private intake tooling.

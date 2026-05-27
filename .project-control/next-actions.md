@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-TEL-AVIV-FAMILY-PUBLICATION-REVIEW-001: Consolidate final private go/no-go gates
+**Status:** FIXED LOCAL / PUBLICATION STILL BLOCKED
+**Why:** The Tel Aviv family local route had separate draft, overlap, GSC-cache, evidence-fill and directory coverage packets. A single review packet is needed so owner/legal/editor can see exactly why the page remains private.
+**Actions:**
+1. DONE: add `tools/build-tel-aviv-family-publication-review-packet.mjs`.
+2. DONE: generate `.project-control/tel-aviv-family-publication-review-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/tel-aviv-family-publication-gate-template-2026-05-27.csv`.
+4. DONE: generate `.reports/tel-aviv-family-publication-review-packet-2026-05-27.json` and `.csv`.
+5. DONE: confirm status `TEL_AVIV_FAMILY_PUBLICATION_REVIEW_BLOCKED_FOCUSED_GSC_LEGAL_OWNER`, 9 review rows, 3 blocked rows, 5 fillable gate rows and 0 public/CMS/SEO/CRM/contact/payment/email/uPress approvals.
+6. NEXT: fill focused GSC exports for last 16 months and last 90 days, verify lawyer profile readiness, then legal/editor and owner approval before any CMS/page work.
+7. BLOCKED: no public route, CMS, title/H1/meta/body/internal link, redirect/canonical/noindex/sitemap/taxonomy, CRM, contact, invoice, payment, email/WhatsApp/TalkTo, wp-admin write or uPress from this private review packet.
+
 ### ACTION-PAID-PROOF-LANGUAGE-ALIGNMENT-001: Align runbook wording with payment evidence rule
 **Status:** FIXED LOCAL / LIVE PAYMENT PROOF STILL BLOCKED
 **Why:** After the paid proof guard, several operator packets still used older shorthand such as invoice/payment proof. That could let a future operator treat invoice/reference as paid proof.

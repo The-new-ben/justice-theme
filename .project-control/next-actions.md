@@ -41,6 +41,17 @@
 6. NEXT AFTER OWNER APPROVAL: recheck current public source and license/status before any live conversation or CRM write.
 7. BLOCKED: no current-claim assertion, contact, CRM/admin write, invoice, payment request, profile publication, uPress pull or revenue claim from this packet alone.
 
+### ACTION-LAWYER-MANUAL-INVOICE-TARGET-PUBLIC-SOURCE-RECHECK-001: Use current source support before private verification
+**Status:** FIXED LOCAL / PUBLIC SOURCE FIT SUPPORTED / STILL BLOCKED FOR LIVE ACTION
+**Why:** The recommended target needed an updated public-source check before any fit review. This confirms the Bituach Leumi/medical-committee fit signal while preserving the no-contact boundary.
+**Actions:**
+1. DONE: add `tools/build-lawyer-manual-invoice-target-public-source-recheck.mjs`.
+2. DONE: generate `.project-control/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.md`, `.html` and `.csv`.
+3. DONE: generate `.reports/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.json` and `.csv`.
+4. DONE: confirm `LAWYER_MANUAL_INVOICE_TARGET_PUBLIC_SOURCE_RECHECK_READY_NO_LIVE_ACTION`, 4 public source rows, 4 gate rows, public source fit supported, license/commercial acceptance still false, 94% public-source readiness to profit and 0 live impact.
+5. NEXT: owner approves target use, then verify license/active status and commercial fit privately before any live conversation.
+6. BLOCKED: no contact, CRM/admin write, invoice, payment request, profile publication, uPress pull or revenue claim from source support alone.
+
 ### ACTION-LAWYER-MANUAL-INVOICE-SALES-PACKET-001: Use approved sales language for first paid lawyer close
 **Status:** FIXED LOCAL / READY FOR OWNER-APPROVED TARGET ONLY
 **Why:** The fastest revenue path needs a sales conversation that is human and safe, not a generic pitch and not a promise of leads. This packet gives the exact offer, objection handling and close sequence for Pro 349 ILS.

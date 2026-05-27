@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Recommended target public source recheck
+
+- ADDED: `tools/build-lawyer-manual-invoice-target-public-source-recheck.mjs`.
+- GENERATED: `.project-control/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.md`, `.project-control/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.html`, `.project-control/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.csv`, `.reports/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.json` and `.reports/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.csv`.
+- PURPOSE: confirm whether current public pages still support Bituach Leumi/medical-committee fit for the recommended first lawyer target without copying contact details or taking live action.
+- RESULT: `LAWYER_MANUAL_INVOICE_TARGET_PUBLIC_SOURCE_RECHECK_READY_NO_LIVE_ACTION`; 4 public source rows, 4 gate rows, publicSourceFitSupported=true, licenseVerified=false, commercialAcceptanceVerified=false, contactDetailsStoredInRepo=false, 94 percent public-source readiness to profit and 0 live revenue impact.
+- SAFETY: private recheck packet only; no contact details stored in repo, no lawyer contacted, no CRM/admin edit, no invoice, no payment request, no paid status, no profile publication, no public CMS edit, no email-to-users, no WhatsApp, no TalkTo, no GSC API, no wp-admin write, no merge to main and no uPress deployment changed.
+
 # 2026-05-27 - Recommended target private fit packet
 
 - ADDED: `tools/build-lawyer-manual-invoice-recommended-target-fit-packet.mjs`.

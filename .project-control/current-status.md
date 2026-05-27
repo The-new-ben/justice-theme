@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-27 16:40 Asia/Jerusalem
+- RECOMMENDED TARGET PUBLIC SOURCE RECHECK ADDED: rechecked public source pages for `BTL-LMI-03-PRIMARY` and created a no-live-action source-support packet for the Pro 349 ILS/month manual-invoice lane.
+- CODE ADDED: `tools/build-lawyer-manual-invoice-target-public-source-recheck.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.md`, `.project-control/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.html`, `.project-control/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.csv`, `.reports/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.json` and `.reports/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-lawyer-manual-invoice-target-public-source-recheck.mjs` passed. Running the builder returned `LAWYER_MANUAL_INVOICE_TARGET_PUBLIC_SOURCE_RECHECK_READY_NO_LIVE_ACTION`, target `BTL-LMI-03-PRIMARY`, 4 public source rows, 4 gate rows, public source fit supported=true, licenseVerified=false, commercialAcceptanceVerified=false, contactDetailsStoredInRepo=false, 94% public-source readiness to profit, 0 public CMS approvals, 0 live CRM/outreach approvals, 0 invoices/payments created, 0 revenue claims, 0 paid LLM API use and 0% live revenue impact.
+- REVIEW RESULT: public pages currently support Bituach Leumi/medical-committee fit for the target. This still does not prove active license status, willingness to buy Pro 349, billing readiness or permission to contact.
+- PUBLIC/LIVE IMPACT: no public CMS/database content, live site, route, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting, paid LLM API, merge to main or uPress pull changed.
+- COMPLETION ASSESSMENT: public-source recheck 100%; owner target approval, license/active-status verification and commercial acceptance remain blocked; live profit impact remains 0%.
+
 # LATEST WORK STATUS - 2026-05-27 16:30 Asia/Jerusalem
 - RECOMMENDED TARGET PRIVATE FIT PACKET ADDED: converted the recommended shortlist target `BTL-LMI-03-PRIMARY` into a private fit-review packet for the Pro 349 ILS/month manual-invoice lane.
 - CODE ADDED: `tools/build-lawyer-manual-invoice-recommended-target-fit-packet.mjs`.

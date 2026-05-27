@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Tel Aviv family focused GSC export operator packet
+
+- ADDED: `tools/build-tel-aviv-family-focused-gsc-export-operator-packet.mjs`.
+- GENERATED: `.project-control/tel-aviv-family-focused-gsc-export-operator-packet-2026-05-27.md`, `.project-control/tel-aviv-family-focused-gsc-export-operator-packet-2026-05-27.csv`, `.project-control/tel-aviv-family-gsc-export-paste-template-2026-05-27.csv`, `.reports/tel-aviv-family-focused-gsc-export-operator-packet-2026-05-27.json` and `.reports/tel-aviv-family-focused-gsc-export-operator-packet-2026-05-27.csv`.
+- PURPOSE: turn the focused GSC blocker for `/divorce-lawyer-tel-aviv/` into exact manual Search Console export instructions and paste rows without using API/OAuth or public site changes.
+- RESULT: `TEL_AVIV_FAMILY_GSC_EXPORT_OPERATOR_PACKET_READY_NO_API_NO_PUBLIC_CHANGE`; 60 focused source rows became 144 paste-template rows across last-16-month and last-90-day windows, including 24 rows for top legacy/profile/attachment cache pages to inspect before any cannibalization decision.
+- SAFETY: private evidence-collection tooling/reporting only; no GSC API/OAuth, unattended login automation, paid LLM API, public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Tel Aviv family publication review packet
 
 - ADDED: `tools/build-tel-aviv-family-publication-review-packet.mjs`.

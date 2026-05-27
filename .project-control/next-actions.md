@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-TEL-AVIV-FAMILY-GSC-EXPORT-OPERATOR-001: Prepare exact focused GSC export workflow
+**Status:** FIXED LOCAL / EXPORT FILL STILL BLOCKED
+**Why:** The Tel Aviv family publication review is blocked on focused Search Console evidence. The owner/operator needs exact rows to export and paste without API/OAuth, login automation or public CMS work.
+**Actions:**
+1. DONE: add `tools/build-tel-aviv-family-focused-gsc-export-operator-packet.mjs`.
+2. DONE: generate `.project-control/tel-aviv-family-focused-gsc-export-operator-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/tel-aviv-family-gsc-export-paste-template-2026-05-27.csv`.
+4. DONE: generate `.reports/tel-aviv-family-focused-gsc-export-operator-packet-2026-05-27.json` and `.csv`.
+5. DONE: confirm status `TEL_AVIV_FAMILY_GSC_EXPORT_OPERATOR_PACKET_READY_NO_API_NO_PUBLIC_CHANGE`, 60 focused source rows, 144 paste-template rows, 24 legacy/profile paste rows, 7 operator rows, 0 GSC API/OAuth/login automation, 0 paid LLM API use and 0 public/CMS/SEO/CRM/contact/payment/email/uPress approvals.
+6. NEXT: owner/operator fills the paste template from Search Console Query + Page exports for last 16 months and last 90 days, then a private reviewer marks keep/private/support/preserve/needs-more-evidence decisions.
+7. BLOCKED: no public route, CMS, title/H1/meta/body/internal link, redirect/canonical/noindex/sitemap/taxonomy, CRM, contact, invoice, payment, email/WhatsApp/TalkTo, wp-admin write, GSC API/OAuth automation or uPress from this private operator packet.
+
 ### ACTION-TEL-AVIV-FAMILY-PUBLICATION-REVIEW-001: Consolidate final private go/no-go gates
 **Status:** FIXED LOCAL / PUBLICATION STILL BLOCKED
 **Why:** The Tel Aviv family local route had separate draft, overlap, GSC-cache, evidence-fill and directory coverage packets. A single review packet is needed so owner/legal/editor can see exactly why the page remains private.

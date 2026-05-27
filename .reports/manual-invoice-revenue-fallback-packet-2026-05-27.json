@@ -1,0 +1,279 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "status": "MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION",
+    "staticGateCount": 8,
+    "staticPassCount": 8,
+    "staticBlockedCount": 0,
+    "operatorRunRows": 6,
+    "templateRows": 5,
+    "sourcePreflight": ".reports/lawyer-subscription-e2e-preflight-2026-05-26.json",
+    "sourcePreflightStatus": "PASS_WITH_RUNTIME_BLOCKERS",
+    "sourcePreflightRuntimeBlockers": 6,
+    "sourceGrow": ".reports/grow-payment-compliance-live-2026-05-26.json",
+    "sourceGrowPassCount": 8,
+    "liveRecordsCreated": 0,
+    "invoicesSent": 0,
+    "paymentsCreated": 0,
+    "paidStatusesSet": 0,
+    "crmRecordsCreated": 0,
+    "leadOrLawyerContactActions": 0,
+    "emailsSent": 0,
+    "whatsAppOrTalkToActions": 0,
+    "publicChangesApproved": 0,
+    "providerSettingsChanged": 0,
+    "upressDeploymentRequired": false
+  },
+  "sourceRows": [
+    {
+      "id": "SRC-01",
+      "source": ".reports/lawyer-subscription-e2e-preflight-2026-05-26.json",
+      "exists": "yes",
+      "status": "PASS_WITH_RUNTIME_BLOCKERS",
+      "interpretation": "Subscription preflight passed static gates but still has runtime blockers for controlled live user, provider setup and real invoice/payment proof."
+    },
+    {
+      "id": "SRC-02",
+      "source": ".reports/grow-payment-compliance-live-2026-05-26.json",
+      "exists": "yes",
+      "status": "8 pass checks",
+      "interpretation": "Latest Grow compliance evidence shows public checkout/legal-policy checks, but provider KYC/product mapping and real payment proof remain separate blockers."
+    }
+  ],
+  "gateRows": [
+    {
+      "id": "MIF-01",
+      "gate": "manual_invoice_checkout_fallback",
+      "status": "PASS",
+      "file": "inc/payment-compliance-routes.php",
+      "evidence": "10/10 markers found",
+      "missing_markers": "",
+      "source_evidence": "Manual invoice checkout path exposes payer fields and legal approval links.",
+      "next_action": "Use as a no-charge fallback path while live provider checkout remains blocked.",
+      "owner_notice": "This confirms the fallback surface exists; it does not create a payment link or invoice.",
+      "live_action_taken": "no"
+    },
+    {
+      "id": "MIF-02",
+      "gate": "onboarding_payment_queue",
+      "status": "PASS",
+      "file": "inc/lawyer-onboarding.php",
+      "evidence": "5/5 markers found",
+      "missing_markers": "",
+      "source_evidence": "Lawyer onboarding stores payment follow-up status, manual link and invoice reference.",
+      "next_action": "Owner/admin can use the queue only for an approved controlled lawyer record.",
+      "owner_notice": "No email is sent and no lawyer record is edited by this packet.",
+      "live_action_taken": "no"
+    },
+    {
+      "id": "MIF-03",
+      "gate": "lawyer_dashboard_payment_requests",
+      "status": "PASS",
+      "file": "page-lawyer-dashboard.php",
+      "evidence": "7/7 markers found",
+      "missing_markers": "",
+      "source_evidence": "Lawyer dashboard exposes structured billing/service request presets.",
+      "next_action": "Use service requests for payment-link, invoice, refund, cancellation, upgrade and downgrade drills.",
+      "owner_notice": "Dashboard requests create review queues; they do not mutate provider subscriptions by themselves.",
+      "live_action_taken": "no"
+    },
+    {
+      "id": "MIF-04",
+      "gate": "service_request_handlers",
+      "status": "PASS",
+      "file": "inc/lawyer-dashboard.php",
+      "evidence": "8/8 markers found",
+      "missing_markers": "",
+      "source_evidence": "Dashboard handlers define the billing/service request types and save handler.",
+      "next_action": "Controlled live drills should verify each request type lands in owner review before any provider action.",
+      "owner_notice": "Refund/cancel/upgrade/downgrade must stay owner-reviewed and provider-confirmed.",
+      "live_action_taken": "no"
+    },
+    {
+      "id": "MIF-05",
+      "gate": "qualified_lead_billing_queue",
+      "status": "PASS",
+      "file": "inc/lead-crm.php",
+      "evidence": "4/4 markers found",
+      "missing_markers": "",
+      "source_evidence": "CRM qualified lead queue stores billing status, invoice reference and evidence URL.",
+      "next_action": "Use only after lead consent, accepted lawyer/supplier terms, owner release and billing contact exist.",
+      "owner_notice": "This packet does not create leads, assign lawyers or send invoices.",
+      "live_action_taken": "no"
+    },
+    {
+      "id": "MIF-06",
+      "gate": "paid_status_proof_guard",
+      "status": "PASS",
+      "file": "inc/lead-crm.php",
+      "evidence": "2/2 markers found",
+      "missing_markers": "",
+      "source_evidence": "CRM save handler downgrades an attempted paid status to invoice_sent when proof is missing.",
+      "next_action": "Mark paid only when invoice/reference or payment evidence exists.",
+      "owner_notice": "This is the key anti-overclaim guard for first paid lead reporting.",
+      "live_action_taken": "no"
+    },
+    {
+      "id": "MIF-07",
+      "gate": "grow_checker_private",
+      "status": "PASS",
+      "file": "tools/check-grow-payment-compliance.mjs",
+      "evidence": "6/6 markers found",
+      "missing_markers": "",
+      "source_evidence": "Grow compliance checker writes private reports and checks manual invoice/legal-policy markers.",
+      "next_action": "Rerun live compliance before a provider approval/payment walkthrough.",
+      "owner_notice": "Live provider KYC/product mapping remains outside this static private packet.",
+      "live_action_taken": "no"
+    },
+    {
+      "id": "MIF-08",
+      "gate": "e2e_preflight_runtime_blockers",
+      "status": "PASS",
+      "file": "tools/check-lawyer-subscription-e2e-preflight.mjs",
+      "evidence": "5/5 markers found",
+      "missing_markers": "",
+      "source_evidence": "Subscription preflight explicitly separates static pass from runtime payment/provider blockers.",
+      "next_action": "Keep manual proof ledger until controlled live provider/payment drills are approved.",
+      "owner_notice": "Subscription revenue cannot be counted from static proof alone.",
+      "live_action_taken": "no"
+    }
+  ],
+  "operatorRows": [
+    {
+      "id": "RUN-01",
+      "stage": "controlled_scope",
+      "allowed_action": "Use one owner-approved controlled lawyer, supplier or lead only.",
+      "required_evidence": "Owner approval, source record type and no-PII internal reference.",
+      "blocked_without": "Owner approval and controlled test scope.",
+      "forbidden_action": "Do not bulk import, message old leads, create public records or contact partners.",
+      "source_context": "Preflight: PASS_WITH_RUNTIME_BLOCKERS; Grow: 8 Grow compliance passes."
+    },
+    {
+      "id": "RUN-02",
+      "stage": "terms_and_fee",
+      "allowed_action": "Confirm accepted terms, per-lead or subscription fee, billing contact and invoice recipient.",
+      "required_evidence": "Accepted terms status, agreed fee, billing contact yes/no.",
+      "blocked_without": "Accepted lawyer/supplier terms or billing contact.",
+      "forbidden_action": "Do not route paid leads or send invoice requests without terms and fee clarity.",
+      "source_context": "Onboarding and CRM both store payment/status references but still require real owner/admin evidence."
+    },
+    {
+      "id": "RUN-03",
+      "stage": "manual_invoice_request",
+      "allowed_action": "Prepare a no-PII manual invoice/request packet for owner/operator use.",
+      "required_evidence": "Plan/lead type, amount, owner-approved source ID, no sensitive chat or payment data.",
+      "blocked_without": "Billing contact, accepted terms and owner release.",
+      "forbidden_action": "Do not send an invoice, email, WhatsApp or provider request from this generated packet.",
+      "source_context": "The generated template is blank on purpose and must be filled in the approved private system."
+    },
+    {
+      "id": "RUN-04",
+      "stage": "invoice_sent_status",
+      "allowed_action": "After the owner manually sends the invoice/payment request, record the invoice/reference and set invoice_sent.",
+      "required_evidence": "Invoice reference or private payment-request reference.",
+      "blocked_without": "A real sent invoice/payment request.",
+      "forbidden_action": "Do not mark paid at this stage.",
+      "source_context": "Lead CRM and lawyer onboarding both support invoice/manual payment references."
+    },
+    {
+      "id": "RUN-05",
+      "stage": "paid_status",
+      "allowed_action": "Set paid only after invoice/reference or payment evidence URL exists.",
+      "required_evidence": "Invoice/reference, receipt/payment proof URL or owner evidence link.",
+      "blocked_without": "Invoice/reference or payment proof.",
+      "forbidden_action": "Do not count revenue, announce first paid lead or update paid_at without evidence.",
+      "source_context": "CRM paid-status guard prevents paid with empty invoice/reference and empty payment evidence URL."
+    },
+    {
+      "id": "RUN-06",
+      "stage": "subscription_changes",
+      "allowed_action": "Use dashboard service requests for upgrade, downgrade, cancellation, invoice copy and refund review.",
+      "required_evidence": "Service request row, owner decision, provider action result and reference if money moved.",
+      "blocked_without": "Controlled live lawyer dashboard and provider/admin confirmation.",
+      "forbidden_action": "Do not mutate live provider subscription state directly from a chat request.",
+      "source_context": "Dashboard presets and handlers exist; live drills remain runtime blockers."
+    }
+  ],
+  "templateRows": [
+    {
+      "evidence_id": "MIF-TEMPLATE-001",
+      "revenue_path": "lawyer_subscription",
+      "source_record_type": "lawyer_profile",
+      "source_record_id_private": "",
+      "owner_approved_controlled_test": "",
+      "accepted_terms_status": "",
+      "agreed_fee_ils": "",
+      "billing_contact_present": "",
+      "invoice_reference": "",
+      "payment_evidence_present": "",
+      "billing_status": "",
+      "allowed_next_action": "Owner may send manual payment link/invoice only after terms and billing contact are complete.",
+      "forbidden_action": "Do not mark paid from registration alone.",
+      "operator_note_no_pii": ""
+    },
+    {
+      "evidence_id": "MIF-TEMPLATE-002",
+      "revenue_path": "qualified_lead",
+      "source_record_type": "crm_lead",
+      "source_record_id_private": "",
+      "owner_approved_controlled_test": "",
+      "accepted_terms_status": "",
+      "agreed_fee_ils": "",
+      "billing_contact_present": "",
+      "invoice_reference": "",
+      "payment_evidence_present": "",
+      "billing_status": "",
+      "allowed_next_action": "Set ready_to_bill or invoice_sent only after consent, terms, owner release and billing details exist.",
+      "forbidden_action": "Do not route or bill an old lead without fresh permission.",
+      "operator_note_no_pii": ""
+    },
+    {
+      "evidence_id": "MIF-TEMPLATE-003",
+      "revenue_path": "bituach_leumi_controlled_lead",
+      "source_record_type": "crm_lead",
+      "source_record_id_private": "",
+      "owner_approved_controlled_test": "",
+      "accepted_terms_status": "",
+      "agreed_fee_ils": "",
+      "billing_contact_present": "",
+      "invoice_reference": "",
+      "payment_evidence_present": "",
+      "billing_status": "",
+      "allowed_next_action": "Keep lead packet, invoice reference and payment proof together before first-paid-lead claim.",
+      "forbidden_action": "Do not announce first paid lead before proof exists.",
+      "operator_note_no_pii": ""
+    },
+    {
+      "evidence_id": "MIF-TEMPLATE-004",
+      "revenue_path": "refund_or_cancel",
+      "source_record_type": "lawyer_service_request",
+      "source_record_id_private": "",
+      "owner_approved_controlled_test": "",
+      "accepted_terms_status": "",
+      "agreed_fee_ils": "",
+      "billing_contact_present": "",
+      "invoice_reference": "",
+      "payment_evidence_present": "",
+      "billing_status": "",
+      "allowed_next_action": "Record service request, owner decision and provider confirmation before changing billing state.",
+      "forbidden_action": "Do not refund or cancel by memory/chat only.",
+      "operator_note_no_pii": ""
+    },
+    {
+      "evidence_id": "MIF-TEMPLATE-005",
+      "revenue_path": "upgrade_or_downgrade",
+      "source_record_type": "lawyer_service_request",
+      "source_record_id_private": "",
+      "owner_approved_controlled_test": "",
+      "accepted_terms_status": "",
+      "agreed_fee_ils": "",
+      "billing_contact_present": "",
+      "invoice_reference": "",
+      "payment_evidence_present": "",
+      "billing_status": "",
+      "allowed_next_action": "Record requested plan, timing, owner decision and payment/reference before plan-state change.",
+      "forbidden_action": "Do not switch live plan state without billing evidence.",
+      "operator_note_no_pii": ""
+    }
+  ]
+}

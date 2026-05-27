@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-MANUAL-INVOICE-REVENUE-FALLBACK-001: Prepare manual invoice fallback proof packet
+**Status:** FIXED LOCAL / LIVE PAYMENT AND REVENUE EXECUTION STILL BLOCKED
+**Why:** Grow/Meshulam/Morning live provider setup is still a runtime blocker, but the owner needs a safe path to connect approved lawyers/leads to manual invoice/payment proof without overclaiming revenue or touching live records.
+**Actions:**
+1. DONE: add `tools/build-manual-invoice-revenue-fallback-packet.mjs`.
+2. DONE: generate `.project-control/manual-invoice-revenue-fallback-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/manual-invoice-revenue-fallback-template-2026-05-27.csv`.
+4. DONE: generate `.reports/manual-invoice-revenue-fallback-packet-2026-05-27.json` and `.csv`.
+5. DONE: source-check 8 static gates: manual invoice checkout, onboarding payment queue, lawyer dashboard billing requests, service request handlers, qualified lead billing queue, paid-status proof guard, Grow private checker and subscription E2E runtime blockers.
+6. DONE: confirm `MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION`, 8/8 gates passed, 6 operator run rows, 5 blank no-PII template rows and 0 live records, invoices, payments, paid statuses, emails, WhatsApp/TalkTo actions or provider changes.
+7. DONE: record as Linear `HAD-142`, marked Done under `HAD-76`.
+8. NEXT: owner/admin may use the blank template only for an owner-approved controlled lawyer/lead after accepted terms, agreed fee, billing contact and invoice/payment proof are available.
+9. BLOCKED: do not mark paid, claim first revenue, send invoice/email/WhatsApp/TalkTo, contact old leads, mutate provider settings, create CRM records, change public pages or deploy from this packet alone.
+
 ### ACTION-HOMEPAGE-CTA-VISUAL-QA-001: Capture before-state visual evidence for homepage CTA density
 **Status:** FIXED LOCAL / PUBLIC HOMEPAGE IMPLEMENTATION STILL BLOCKED
 **Why:** The live CTA audit found repeated lawyer-card action text on the homepage, and the owner asked for public-facing work to stay legal-help-first and commercially polished without exposing internal business logic.

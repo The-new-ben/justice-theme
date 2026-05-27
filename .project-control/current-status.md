@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 03:31 Asia/Jerusalem
+- MANUAL INVOICE REVENUE FALLBACK PACKET ADDED: converted the payment-provider runtime blocker into a private source-checked operator packet for manual invoice/payment-proof handling.
+- CODE ADDED: `tools/build-manual-invoice-revenue-fallback-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/manual-invoice-revenue-fallback-packet-2026-05-27.md`, `.project-control/manual-invoice-revenue-fallback-packet-2026-05-27.csv`, `.project-control/manual-invoice-revenue-fallback-template-2026-05-27.csv`, `.reports/manual-invoice-revenue-fallback-packet-2026-05-27.json`, `.reports/manual-invoice-revenue-fallback-packet-2026-05-27.csv`.
+- CHECK RESULT: `MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION`; 8/8 static source gates passed, 6 operator run rows, 5 blank no-PII template rows, subscription preflight source `PASS_WITH_RUNTIME_BLOCKERS`, latest Grow compliance source 8 pass checks, 0 records created, 0 invoices sent, 0 payments created, 0 paid statuses set, 0 CRM records, 0 contact actions, 0 emails and 0 provider changes.
+- REVIEW RESULT: source support is strong enough for a controlled manual-invoice fallback, but only after owner-approved scope, accepted terms, agreed fee, billing contact and invoice/payment proof. The CRM paid-status proof guard remains the main anti-overclaim gate.
+- LINEAR: recorded as `HAD-142`, marked Done under `HAD-76`, related to `HAD-134`, `HAD-135`, `HAD-120`, `HAD-121` and `HAD-140`.
+- PUBLIC IMPACT: none. This was private revenue-ops documentation/tooling only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, paid status, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: manual invoice fallback packet 100%; live first-paid-lead/subscription execution remains 0% until owner approval, accepted terms, billing contact and real invoice/payment evidence exist. Grow/Meshulam/Morning live provider setup remains a blocker for automated payment proof.
+
 # LATEST WORK STATUS - 2026-05-27 03:20 Asia/Jerusalem
 - HOMEPAGE CTA VISUAL QA PACKET ADDED: converted the open repeated lawyer-card CTA density item into fresh before-state screenshot evidence and an owner/design decision packet.
 - CODE ADDED: `tools/build-homepage-cta-visual-qa-packet.mjs`.

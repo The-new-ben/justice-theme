@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Manual invoice revenue fallback packet
+
+- ADDED: `tools/build-manual-invoice-revenue-fallback-packet.mjs`.
+- GENERATED: `.project-control/manual-invoice-revenue-fallback-packet-2026-05-27.md`, `.project-control/manual-invoice-revenue-fallback-packet-2026-05-27.csv`, `.project-control/manual-invoice-revenue-fallback-template-2026-05-27.csv`, `.reports/manual-invoice-revenue-fallback-packet-2026-05-27.json`, `.reports/manual-invoice-revenue-fallback-packet-2026-05-27.csv`.
+- PURPOSE: create a private, source-checked manual invoice fallback while Grow/Meshulam/Morning provider setup and real payment proof remain runtime blockers.
+- RESULT: `MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION`; 8/8 static source gates passed across manual checkout, onboarding payment queue, dashboard billing requests, service request handlers, qualified lead billing queue, paid-status proof guard, Grow private checker and subscription E2E runtime-blocker separation.
+- LINEAR: recorded as `HAD-142`, marked Done under `HAD-76`, related to `HAD-134`, `HAD-135`, `HAD-120`, `HAD-121` and `HAD-140`.
+- SAFETY: private revenue-ops packet only; no public page/CMS/SEO change, CRM record, lead/lawyer/supplier contact, invoice sent, payment created, paid status set, email, WhatsApp, TalkTo, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Homepage CTA visual QA packet
 
 - ADDED: `tools/build-homepage-cta-visual-qa-packet.mjs`.

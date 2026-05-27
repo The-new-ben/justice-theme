@@ -1,0 +1,6 @@
+evidence_id,revenue_path,source_record_type,source_record_id_private,owner_approved_controlled_test,accepted_terms_status,agreed_fee_ils,billing_contact_present,invoice_reference,payment_evidence_present,billing_status,allowed_next_action,forbidden_action,operator_note_no_pii
+MIF-TEMPLATE-001,lawyer_subscription,lawyer_profile,,,,,,,,,Owner may send manual payment link/invoice only after terms and billing contact are complete.,Do not mark paid from registration alone.,
+MIF-TEMPLATE-002,qualified_lead,crm_lead,,,,,,,,,"Set ready_to_bill or invoice_sent only after consent, terms, owner release and billing details exist.",Do not route or bill an old lead without fresh permission.,
+MIF-TEMPLATE-003,bituach_leumi_controlled_lead,crm_lead,,,,,,,,,"Keep lead packet, invoice reference and payment proof together before first-paid-lead claim.",Do not announce first paid lead before proof exists.,
+MIF-TEMPLATE-004,refund_or_cancel,lawyer_service_request,,,,,,,,,"Record service request, owner decision and provider confirmation before changing billing state.",Do not refund or cancel by memory/chat only.,
+MIF-TEMPLATE-005,upgrade_or_downgrade,lawyer_service_request,,,,,,,,,"Record requested plan, timing, owner decision and payment/reference before plan-state change.",Do not switch live plan state without billing evidence.,

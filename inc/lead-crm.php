@@ -4585,6 +4585,7 @@ function justice_theme_crm_render_homepage_router_lead_queue( ?WP_Query $queue )
 				$next_step     = $next_step ?: 'Call or WhatsApp, confirm consent and coverage, then decide if this can become a paid lawyer handoff.';
 				$actions       = justice_theme_crm_client_contact_actions( $post_id );
 				$prospect_url  = justice_theme_crm_prospect_from_lead_url( $post_id );
+				$outreach_url  = justice_theme_crm_lawyer_outreach_from_lead_url( $post_id );
 				$attempt_url   = wp_nonce_url(
 					add_query_arg(
 						array(
@@ -4629,12 +4630,18 @@ function justice_theme_crm_render_homepage_router_lead_queue( ?WP_Query $queue )
 								<?php if ( $prospect_url ) : ?>
 									<a class="button button-small" href="<?php echo esc_url( $prospect_url ); ?>">Create lawyer prospect</a>
 								<?php endif; ?>
+								<?php if ( $outreach_url ) : ?>
+									<a class="button button-small" href="<?php echo esc_url( $outreach_url ); ?>">Build outreach for this lead</a>
+								<?php endif; ?>
 							</p>
 						<?php else : ?>
 							<p style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0;">
 								<a class="button button-small button-primary" href="<?php echo esc_url( $attempt_url ); ?>">Log first attempt</a>
 								<?php if ( $prospect_url ) : ?>
 									<a class="button button-small" href="<?php echo esc_url( $prospect_url ); ?>">Create lawyer prospect</a>
+								<?php endif; ?>
+								<?php if ( $outreach_url ) : ?>
+									<a class="button button-small" href="<?php echo esc_url( $outreach_url ); ?>">Build outreach for this lead</a>
 								<?php endif; ?>
 							</p>
 						<?php endif; ?>
@@ -4646,6 +4653,40 @@ function justice_theme_crm_render_homepage_router_lead_queue( ?WP_Query $queue )
 	</table>
 	<?php
 	wp_reset_postdata();
+}
+
+function justice_theme_crm_lawyer_outreach_from_lead_url( int $post_id ): string {
+	if ( 'justice_lead' !== get_post_type( $post_id ) || ! current_user_can( 'edit_post', $post_id ) ) {
+		return '';
+	}
+
+	$area       = (string) ( get_post_meta( $post_id, 'ai_detected_area', true ) ?: get_post_meta( $post_id, 'legal_area', true ) ?: get_post_meta( $post_id, 'lead_area', true ) );
+	$area_label = function_exists( 'justice_theme_lead_area_label' ) && $area ? justice_theme_lead_area_label( $area ) : $area;
+	$city       = (string) ( get_post_meta( $post_id, 'city', true ) ?: get_post_meta( $post_id, 'lead_city', true ) );
+	$practice   = sanitize_key( $area ) ?: sanitize_title( $area_label ?: 'manual-practice' );
+	$city_key   = sanitize_title( $city ?: 'manual-city' );
+	$segment    = trim( $practice . '_' . $city_key, '_' ) ?: 'homepage_lead_coverage';
+	$note       = sprintf(
+		'A Jus-Tice homepage lead is waiting for %s%s. Check whether this lawyer can cover the niche quickly under manual invoice/payment-link terms until online billing is approved.',
+		$area_label ?: 'a legal matter',
+		$city ? ' in ' . $city : ''
+	);
+
+	return add_query_arg(
+		array(
+			'page'                   => 'justice-lawyer-outreach-links',
+			'plan_interest'          => 'lead_partner',
+			'utm_source'             => 'whatsapp',
+			'utm_medium'             => 'direct_message',
+			'utm_campaign'           => 'homepage_lead_coverage',
+			'utm_content'            => 'lead_' . $post_id,
+			'outreach_segment'       => $segment,
+			'outreach_city'          => $city_key,
+			'outreach_practice'      => $practice ?: 'manual-practice',
+			'outreach_personal_note' => $note,
+		),
+		admin_url( 'admin.php' )
+	);
 }
 
 function justice_theme_crm_render_manual_invoice_bridge_panel(): void {

@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_VERSION', '1.1.52' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-05-27-manual-invoice-bridge-v1' );
+define( 'JUSTICE_THEME_VERSION', '1.1.53' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-05-27-homepage-lead-outreach-bridge-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 

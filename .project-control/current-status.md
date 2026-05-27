@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 08:13 Asia/Jerusalem
+- HEBREW OWNER UNBLOCKER DECISION BRIEF ADDED: generated a private Hebrew owner-facing digest of the unblocker queue so the owner can choose `UNBLOCK-01`, `UNBLOCK-02` or `UNBLOCK-08` without reading the English operational packets.
+- CODE ADDED: `tools/build-owner-unblocker-hebrew-decision-brief.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/owner-unblocker-hebrew-decision-brief-2026-05-27.md`, `.project-control/owner-unblocker-hebrew-decision-brief-2026-05-27.csv`, `.project-control/owner-unblocker-hebrew-reply-template-2026-05-27.csv`, `.reports/owner-unblocker-hebrew-decision-brief-2026-05-27.json`, `.reports/owner-unblocker-hebrew-decision-brief-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-owner-unblocker-hebrew-decision-brief.mjs` passed; generated status `OWNER_UNBLOCKER_HEBREW_DECISION_BRIEF_READY_NO_LIVE_ACTION`, 8 rows, 3 top rows (`UNBLOCK-01`, `UNBLOCK-02`, `UNBLOCK-08`), 3/3 gates pass, 0 public/CRM/outreach/payment approvals and 0 emails sent. Private artifact boundary guard `PASS`.
+- REVIEW RESULT: the owner now has a short Hebrew decision surface for the three fastest private revenue/proof moves: BTL controlled proof, lawyer subscription controlled walkthrough and criminal Jerusalem private prospect coverage. This reduces decision friction but still authorizes no live action.
+- LINEAR: recorded as `HAD-170`, marked Done under `HAD-169`, related to `HAD-168`, `HAD-167`, `HAD-163`, `HAD-157` and `HAD-164`.
+- PUBLIC IMPACT: none. This was private tooling/reporting only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: Hebrew owner decision brief 100%; live revenue/content execution remains blocked until the owner replies with an explicit approved row and evidence scope.
+
 # LATEST WORK STATUS - 2026-05-27 08:04 Asia/Jerusalem
 - OWNER UNBLOCKER QUEUE REFRESHED WITH CRIMINAL JERUSALEM COVERAGE: added the new criminal-law/Jerusalem private coverage activation decision as a top-three owner command row, so the owner can approve private prospect verification or explicitly park the exact directory route without reading the separate packet chain.
 - CODE UPDATED: `tools/build-owner-unblocker-command-queue.mjs`.

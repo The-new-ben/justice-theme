@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-OWNER-UNBLOCKER-HEBREW-DECISION-BRIEF-001: Give owner a Hebrew unblocker reply surface
+**Status:** FIXED LOCAL / LIVE ACTION STILL BLOCKED
+**Why:** The owner unblocker queue now contains the right top-three revenue/proof decisions, but the owner needs a short Hebrew decision surface with exact row replies and no-live-action guardrails.
+**Actions:**
+1. DONE: add `tools/build-owner-unblocker-hebrew-decision-brief.mjs`.
+2. DONE: generate `.project-control/owner-unblocker-hebrew-decision-brief-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/owner-unblocker-hebrew-reply-template-2026-05-27.csv`.
+4. DONE: generate `.reports/owner-unblocker-hebrew-decision-brief-2026-05-27.json` and `.csv`.
+5. DONE: confirm status `OWNER_UNBLOCKER_HEBREW_DECISION_BRIEF_READY_NO_LIVE_ACTION`, 8 rows, 3 top rows, 3/3 gates pass and 0 public/CRM/outreach/payment approvals.
+6. NEXT: owner can reply with row IDs such as `UNBLOCK-01 approve`, `UNBLOCK-02 approve` or `UNBLOCK-08 approve` plus a private evidence location if relevant.
+7. BLOCKED: no public page edit, CRM/lawyer/lead record, outreach, invoice, payment, email/WhatsApp/TalkTo, wp-admin write or uPress from this Hebrew brief alone.
+
 ### ACTION-OWNER-UNBLOCKER-CRIMINAL-JERUSALEM-COVERAGE-001: Surface criminal Jerusalem coverage as a top owner unblocker
 **Status:** FIXED LOCAL / LIVE COVERAGE STILL BLOCKED
 **Why:** The criminal-law/Jerusalem coverage activation packet was complete, but the owner command queue still did not surface it alongside the fastest private revenue/proof paths.

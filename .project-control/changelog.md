@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Hebrew owner unblocker decision brief
+
+- ADDED: `tools/build-owner-unblocker-hebrew-decision-brief.mjs`.
+- GENERATED: `.project-control/owner-unblocker-hebrew-decision-brief-2026-05-27.md`, `.project-control/owner-unblocker-hebrew-decision-brief-2026-05-27.csv`, `.project-control/owner-unblocker-hebrew-reply-template-2026-05-27.csv`, `.reports/owner-unblocker-hebrew-decision-brief-2026-05-27.json`, `.reports/owner-unblocker-hebrew-decision-brief-2026-05-27.csv`.
+- PURPOSE: give the Hebrew-speaking owner a short private decision surface for the top unblocker rows instead of forcing them through the English operational queue.
+- RESULT: `OWNER_UNBLOCKER_HEBREW_DECISION_BRIEF_READY_NO_LIVE_ACTION`; 8 decision rows, 3 top rows (`UNBLOCK-01`, `UNBLOCK-02`, `UNBLOCK-08`), 3/3 safety gates pass and 0 public/CRM/outreach/payment approvals.
+- LINEAR: recorded as `HAD-170`, marked Done under `HAD-169`, related to `HAD-168`, `HAD-167`, `HAD-163`, `HAD-157` and `HAD-164`.
+- SAFETY: private tooling/reporting only; no public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Owner unblocker queue criminal Jerusalem coverage row
 
 - UPDATED: `tools/build-owner-unblocker-command-queue.mjs`.

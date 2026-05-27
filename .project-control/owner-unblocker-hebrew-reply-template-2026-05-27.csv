@@ -1,0 +1,9 @@
+unblock_id,החלטה,ערכים_מותרים,הערת_בעלים_בלי_פרטים_מזהים,פעולה_ציבורית_מאושרת,crm_או_פניה_חיה_מאושרת,חיוב_או_תשלום_מאושר,מיקום_ראיות_פרטי,הצעת_תשובה
+UNBLOCK-01,,approve / edit / reject / park / needs_more_evidence,,no,no,no,,UNBLOCK-01 approve
+UNBLOCK-02,,approve / edit / reject / park / needs_more_evidence,,no,no,no,,UNBLOCK-02 approve
+UNBLOCK-08,,approve / edit / reject / park / needs_more_evidence,,no,no,no,,UNBLOCK-08 approve
+UNBLOCK-03,,approve / edit / reject / park / needs_more_evidence,,no,no,no,,UNBLOCK-03 approve
+UNBLOCK-04,,approve / edit / reject / park / needs_more_evidence,,no,no,no,,UNBLOCK-04 park
+UNBLOCK-05,,approve / edit / reject / park / needs_more_evidence,,no,no,no,,UNBLOCK-05 needs_more_evidence
+UNBLOCK-06,,approve / edit / reject / park / needs_more_evidence,,no,no,no,,UNBLOCK-06 needs_more_evidence
+UNBLOCK-07,,approve / edit / reject / park / needs_more_evidence,,no,no,no,,UNBLOCK-07 edit

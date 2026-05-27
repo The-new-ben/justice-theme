@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LegalTech GitHub reuse map</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f7f8fa; color: #172033; line-height: 1.55; }
+    main { max-width: 1180px; margin: 0 auto; padding: 32px 18px 56px; }
+    h1, h2 { color: #07152f; }
+    h1 { margin: 0 0 8px; font-size: 30px; }
+    .status { background: #fff; border: 1px solid #d8dee4; border-radius: 8px; padding: 16px; margin: 18px 0; }
+    table { width: 100%; border-collapse: collapse; background: #fff; margin: 12px 0 26px; }
+    th, td { border: 1px solid #d8dee4; padding: 10px; vertical-align: top; font-size: 13px; }
+    th { background: #e9eef2; text-align: left; }
+    code { background: #edf2f7; padding: 2px 5px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>LegalTech GitHub reuse map</h1>
+  <p>2026-05-27</p>
+  <section class="status">
+    <p><strong>Status:</strong> LEGALTECH_GITHUB_REUSE_MAP_READY_NO_CODE_COPIED</p>
+    <p><strong>Readiness:</strong> 62% planning readiness, 0% live revenue impact.</p>
+    <p><strong>Honesty:</strong> Concepts and product patterns were used; no executable external repo code was copied into Jus-Tice. License-gated projects are marked concept-only.</p>
+  </section>
+  <h2>Sources</h2>
+  <table>
+    <thead><tr><th>ID</th><th>Source</th><th>Signal</th><th>Jus-Tice translation</th><th>Fastest revenue use</th><th>Copy status</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><code>LT-01</code></td>
+      <td><a href="https://github.com/Vaquill-AI/awesome-legaltech">Vaquill-AI/awesome-legaltech</a></td>
+      <td>Curated LegalTech index covering open-source platforms, AI models, MCP servers, companies, datasets and legal tools; GitHub API check saw 90 stars, 24 forks and update on 2026-05-27.</td>
+      <td>Use it as a quarterly source radar for datasets, legal NLP, contract review, citation verification and legal-data infrastructure, not as code to paste.</td>
+      <td>Turn the list into a filtered backlog of features that improve lead quality and lawyer conversion: intake, document checklist, source verification and human-review gates.</td>
+      <td>NO_CODE_COPIED</td>
+    </tr>
+    <tr>
+      <td><code>LT-02</code></td>
+      <td><a href="https://github.com/topics/legal-tech">GitHub legal-tech topic</a></td>
+      <td>GitHub topic page reports 888 public repositories; examples include legal data, contract review, legal RAG, MCP legal databases, document redaction and guided tools.</td>
+      <td>Create a short reusable gate: problem type, source jurisdiction, license, privacy risk, user value, revenue path and whether it fits Hebrew public-help pages.</td>
+      <td>Use the gate to prevent drift and select only tools that advance paid leads, lawyer onboarding or safer content QA.</td>
+      <td>NO_CODE_COPIED</td>
+    </tr>
+    <tr>
+      <td><code>LT-03</code></td>
+      <td><a href="https://github.com/jhpyle/docassemble">jhpyle/docassemble</a></td>
+      <td>Open-source expert system for guided interviews and document assembly; GitHub API check saw MIT license, 951 stars, 304 forks and update on 2026-05-24.</td>
+      <td>Translate the guided-interview idea into Hebrew legal intake flows with plain questions, document checklist, urgency flags and explicit consent before matching.</td>
+      <td>Bituach Leumi or criminal Jerusalem guided intake can raise lead quality and give lawyers a cleaner case summary before paid handoff.</td>
+      <td>CONCEPT_USED_NO_CODE_COPIED</td>
+    </tr>
+    <tr>
+      <td><code>LT-04</code></td>
+      <td><a href="https://github.com/SuffolkLITLab/docassemble-AssemblyLine">SuffolkLITLab/docassemble-AssemblyLine</a></td>
+      <td>Paper form to runnable guided web application workflow; GitHub API check saw MIT license, 62 stars, 9 forks and update on 2026-05-21.</td>
+      <td>Use the form-to-interview pattern for local practice pages: one page should collect facts, deadlines, documents and desired outcome before asking for a lawyer.</td>
+      <td>Creates better structured leads and a natural reason for lawyers to pay because each lead arrives with context.</td>
+      <td>CONCEPT_USED_NO_CODE_COPIED</td>
+    </tr>
+    <tr>
+      <td><code>LT-05</code></td>
+      <td><a href="https://github.com/docusealco/docuseal">docusealco/docuseal</a></td>
+      <td>Open-source document filling and signing; GitHub API check saw AGPL-3.0, 16990 stars, 1588 forks and update on 2026-05-27.</td>
+      <td>Use the product pattern now: signed consent/terms evidence, audit trail thinking, mobile-friendly signing steps and clear separation between test and live.</td>
+      <td>Improve manual invoice and lawyer/supplier terms proof before automated payment is ready.</td>
+      <td>CONCEPT_USED_NO_CODE_COPIED</td>
+    </tr>
+    <tr>
+      <td><code>LT-06</code></td>
+      <td><a href="https://github.com/open-agreements/open-agreements">open-agreements/open-agreements</a></td>
+      <td>Fills standard legal agreement templates and produces signable DOCX files; GitHub API check saw MIT license, 34 stars, 6 forks and update on 2026-05-27.</td>
+      <td>Translate into Jus-Tice partner-term packets: lead-fee terms, subscription terms, manual invoice fallback and owner-approved consent wording.</td>
+      <td>Creates a faster manual path to paid lawyer or supplier agreements while Grow/Meshulam is blocked.</td>
+      <td>CONCEPT_USED_NO_CODE_COPIED</td>
+    </tr>
+    <tr>
+      <td><code>LT-07</code></td>
+      <td><a href="https://github.com/LexPredict/lexpredict-lexnlp">LexPredict/lexpredict-lexnlp</a></td>
+      <td>Legal NLP extraction library; GitHub API check saw AGPL-3.0, 780 stars, 201 forks and update on 2026-05-26.</td>
+      <td>Use the extraction idea to define fields for dates, amounts, parties, deadlines, documents and legal issue tags in CRM, without copying code.</td>
+      <td>Better triage means less lawyer friction and a stronger paid-lead value proposition.</td>
+      <td>CONCEPT_USED_NO_CODE_COPIED</td>
+    </tr>
+    <tr>
+      <td><code>LT-08</code></td>
+      <td><a href="https://github.com/openlegaldata/awesome-legal-data">openlegaldata/awesome-legal-data</a></td>
+      <td>Collection of datasets and resources for legal text processing; GitHub API check saw 246 stars, 40 forks and update on 2026-05-23.</td>
+      <td>Use as source discovery for content QA and anti-cannibalization evidence, not for automatic publication.</td>
+      <td>Improves trustworthy Hebrew legal-help pages that attract better organic traffic.</td>
+      <td>NO_CODE_COPIED</td>
+    </tr>
+    <tr>
+      <td><code>LT-09</code></td>
+      <td><a href="https://github.com/maastrichtlawtech/awesome-legal-nlp">maastrichtlawtech/awesome-legal-nlp</a></td>
+      <td>Curated legal NLP resources; GitHub API check saw MIT license, 324 stars, 40 forks and update on 2026-05-21.</td>
+      <td>Create a local legal-NLP candidate list for no-API document tagging, deadline detection and practice-area classification.</td>
+      <td>Can improve lead routing and lawyer matching once tested on private, consented examples.</td>
+      <td>NO_CODE_COPIED</td>
+    </tr>
+    <tr>
+      <td><code>LT-10</code></td>
+      <td><a href="https://devgateway.github.io/automatic-contract-summarizer-portal/">Development Gateway Automatic Contract Summarizer</a></td>
+      <td>Describes parsing PDF/Word documents, LLM extraction, portable JSON/Markdown/CSV outputs and hallucination control.</td>
+      <td>Reuse the output discipline: every AI-assisted document or lead summary should have source fields, confidence, human check and CSV/JSON export.</td>
+      <td>Makes lawyer-paid leads easier to review because case facts are portable and auditable.</td>
+      <td>CONCEPT_USED_NO_CODE_COPIED</td>
+    </tr>
+    <tr>
+      <td><code>LT-11</code></td>
+      <td><a href="https://accordproject.org/">Accord Project</a></td>
+      <td>Open-source smart legal contract ecosystem with machine-readable agreement templates and technology-neutral format.</td>
+      <td>Use the machine-readable agreement idea for partner terms: price, SLA, jurisdiction, accepted lead type, billing proof and status history.</td>
+      <td>Structured terms reduce disputes when converting lawyers or suppliers to paid paths.</td>
+      <td>CONCEPT_USED_NO_CODE_COPIED</td>
+    </tr>
+    <tr>
+      <td><code>LT-12</code></td>
+      <td><a href="https://suzielaw.com/">Suzie Law</a></td>
+      <td>Open-source legal AI workspace positioning around document Q&amp;A, drafting, structured review and DOCX output.</td>
+      <td>Translate workspace thinking into the lawyer dashboard: each lead should have facts, documents, status, billing state and next action in one place.</td>
+      <td>Improves perceived lawyer value of a subscription or paid lead because the dashboard looks like a matter workspace, not a contact dump.</td>
+      <td>CONCEPT_USED_NO_CODE_COPIED</td>
+    </tr></tbody>
+  </table>
+  <h2>Action queue</h2>
+  <table>
+    <thead><tr><th>ID</th><th>Priority</th><th>Action</th><th>Revenue path</th><th>Approval needed</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><code>LEGALTECH-NEXT-01</code></td>
+      <td>P0</td>
+      <td>Build a Bituach Leumi guided-intake spec using docassemble and AssemblyLine patterns.</td>
+      <td>Higher quality paid leads for Bituach Leumi specialists.</td>
+      <td>Owner approves route QA/spec only; no public publish yet.</td>
+    </tr>
+    <tr>
+      <td><code>LEGALTECH-NEXT-02</code></td>
+      <td>P0</td>
+      <td>Build lawyer/supplier terms packet inspired by OpenAgreements and Accord Project.</td>
+      <td>Manual invoice path while Grow/Meshulam remains blocked.</td>
+      <td>Owner/legal approval of exact Hebrew commercial terms.</td>
+    </tr>
+    <tr>
+      <td><code>LEGALTECH-NEXT-03</code></td>
+      <td>P1</td>
+      <td>Add a no-code document/lead summary schema inspired by LexNLP and contract summarizer outputs.</td>
+      <td>Cleaner CRM handoff and stronger lawyer conversion story.</td>
+      <td>Private consented sample or owner-approved dummy examples only.</td>
+    </tr>
+    <tr>
+      <td><code>LEGALTECH-NEXT-04</code></td>
+      <td>P1</td>
+      <td>Use Vaquill/awesome-list sources as anti-drift research radar for legal-help pages.</td>
+      <td>Safer organic traffic through evidence-backed content QA.</td>
+      <td>No public content publish without anti-cannibalization review.</td>
+    </tr></tbody>
+  </table>
+</main>
+</body>
+</html>

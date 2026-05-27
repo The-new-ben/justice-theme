@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-LEGALTECH-GITHUB-REUSE-MAP-001: Convert LegalTech GitHub research into Jus-Tice revenue actions
+**Status:** FIXED LOCAL / READY FOR OWNER PRIORITY DECISION
+**Why:** The owner asked to inspect Vaquill-AI/awesome-legaltech and additional LegalTech GitHubs, then say honestly what was used or translated into our site without drifting into unprofitable research.
+**Actions:**
+1. DONE: inspect Vaquill-AI/awesome-legaltech, GitHub legal-tech topic, docassemble, AssemblyLine, DocuSeal, OpenAgreements, LexNLP, open legal-data/NLP lists, Automatic Contract Summarizer, Accord Project and Suzie Law signals.
+2. DONE: add `tools/build-legaltech-github-reuse-map.mjs`.
+3. DONE: generate `.project-control/legaltech-github-reuse-map-2026-05-27.md`, `.html` and `.csv`.
+4. DONE: generate `.reports/legaltech-github-reuse-map-2026-05-27.json` and `.csv`.
+5. DONE: confirm `LEGALTECH_GITHUB_REUSE_MAP_READY_NO_CODE_COPIED`, 12 sources, 4 action rows, 0 code copied, 0 paid LLM API use, 62% planning readiness to profit and 0 live revenue impact.
+6. NEXT P0: build a Bituach Leumi guided-intake spec from docassemble/AssemblyLine patterns or a lawyer/supplier terms packet from OpenAgreements/Accord patterns.
+7. BLOCKED: no external code import, AGPL reuse, private document processing, public CMS change, live route, CRM action, payment action, broad plugin install or uPress pull without explicit owner approval.
+
 ### ACTION-HOMEPAGE-OWNER-DEPLOYMENT-APPROVAL-001: Owner decides whether to move homepage work toward deployment
 **Status:** FIXED LOCAL / WAITING FOR OWNER DECISION
 **Why:** The homepage improvement branch now has static visual QA, but public deployment requires a clear owner go/no-go sequence instead of implicit action.

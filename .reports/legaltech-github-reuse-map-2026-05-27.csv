@@ -1,0 +1,2 @@
+status,reportDate,externalPublicSourcesReviewed,actionRows,codeCopiedFromExternalRepos,publicCmsChangesApproved,paidLlmApiUsed,liveRevenueImpactPercent,readinessToProfitPercent,honestyStatement
+LEGALTECH_GITHUB_REUSE_MAP_READY_NO_CODE_COPIED,2026-05-27,12,4,0,0,0,0,62,Concepts and product patterns were used; no executable external repo code was copied into Jus-Tice. License-gated projects are marked concept-only.

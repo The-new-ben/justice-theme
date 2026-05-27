@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - LegalTech GitHub reuse map
+
+- ADDED: `tools/build-legaltech-github-reuse-map.mjs`.
+- GENERATED: `.project-control/legaltech-github-reuse-map-2026-05-27.md`, `.project-control/legaltech-github-reuse-map-2026-05-27.html`, `.project-control/legaltech-github-reuse-map-2026-05-27.csv`, `.reports/legaltech-github-reuse-map-2026-05-27.json` and `.reports/legaltech-github-reuse-map-2026-05-27.csv`.
+- PURPOSE: answer the owner request to inspect Vaquill-AI/awesome-legaltech and other LegalTech GitHub/source signals, then translate useful patterns into Jus-Tice revenue actions with a clear honesty statement.
+- RESULT: `LEGALTECH_GITHUB_REUSE_MAP_READY_NO_CODE_COPIED`; 12 public sources reviewed, 4 action rows, 62 percent planning readiness to profit and 0 live revenue impact.
+- SAFETY: research-to-backlog packet only; no external repo executable code copied, no public CMS edit, live route change, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM, profile, lead, contact, invoice, payment, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting, paid LLM API, merge to main or uPress deployment changed.
+
 # 2026-05-27 - Homepage owner deployment approval packet
 
 - ADDED: `tools/build-homepage-human-help-owner-deployment-approval-packet.mjs`.

@@ -9,6 +9,7 @@ const DEFAULT_REPORT_DATE = new Date().toISOString().slice(0, 10);
 const SOURCES = [
   ['homepageDeployment', '.reports', 'homepage-deployment-blocker', '2026-05-27'],
   ['homepageLiveVerification', '.reports', 'homepage-public-help-live-verification', '2026-05-27'],
+  ['btlOwnerActionSheet', '.reports', 'btl-owner-first-paid-lead-action-sheet', '2026-05-27'],
   ['btlFirstRevenueOperator', '.reports', 'btl-first-revenue-operator-command', '2026-05-27'],
   ['btlSourceReadiness', '.reports', 'btl-source-readiness-admin-fill-packet', '2026-05-27'],
   ['lawyerSubscriptionEvidenceReview', '.reports', 'lawyer-subscription-controlled-evidence-review-gate', '2026-05-27'],
@@ -105,8 +106,10 @@ function buildRows(sources) {
       exact_next_step: 'Owner/admin fills the BTL source-readiness no-PII template from private wp-admin/CRM evidence only; Codex can then review the filled proof rows.',
       allowed_after_yes: 'Private review of filled evidence; one controlled manual handoff only after all proof rows pass and owner explicitly releases it.',
       hard_no: 'No old lead contact, no PII release, no lawyer/client outreach, no invoice, no paid status and no revenue claim from repo artifacts alone.',
-      source_status: `${statuses.btlFirstRevenueOperator} | ${statuses.btlSourceReadiness}`,
-      source_artifact: '.project-control/btl-first-revenue-operator-command-2026-05-27.md',
+      source_status: `${statuses.btlOwnerActionSheet} | ${statuses.btlFirstRevenueOperator} | ${statuses.btlSourceReadiness}`,
+      source_artifact: statuses.btlOwnerActionSheet === 'BTL_OWNER_FIRST_PAID_LEAD_ACTION_SHEET_READY_NO_LIVE_ACTION'
+        ? '.project-control/btl-owner-first-paid-lead-action-sheet-2026-05-27.html'
+        : '.project-control/btl-first-revenue-operator-command-2026-05-27.md',
       public_action: 'no',
       crm_or_outreach_action: 'owner-controlled-only',
       completion_if_owner_replies: 'Can move from 0% live proof to first controlled Bituach Leumi proof review.',

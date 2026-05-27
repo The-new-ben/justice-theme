@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ביטוח לאומי ליד ראשון בתשלום - 2026-05-27</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #5f6b7f;
+      --line: #d9deea;
+      --panel: #ffffff;
+      --soft: #f5f7fb;
+      --accent: #1967d2;
+      --accent-soft: #e8f0fe;
+      --warn: #8a4b00;
+      --warn-soft: #fff4df;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--soft);
+      color: var(--ink);
+      font-family: Arial, "Noto Sans Hebrew", "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 44px;
+    }
+    header, section {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      margin-bottom: 18px;
+    }
+    header { display: grid; gap: 14px; padding: 24px; }
+    section { overflow: hidden; }
+    .section-head { padding: 18px 20px; border-bottom: 1px solid var(--line); }
+    h1, h2, p { margin: 0; letter-spacing: 0; }
+    h1 { font-size: clamp(1.8rem, 2.5vw, 2.55rem); line-height: 1.2; }
+    h2 { font-size: 1.15rem; }
+    .meta { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill, code, .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      line-height: 1.35;
+      white-space: normal;
+    }
+    .pill { color: var(--accent); background: var(--accent-soft); border: 1px solid #c7d7f8; }
+    .pill.warning, .status { color: var(--warn); background: var(--warn-soft); border: 1px solid #f5d08b; }
+    code {
+      direction: ltr;
+      color: #12315c;
+      background: #eef3fb;
+      border: 1px solid #ced9ef;
+      font-family: Consolas, "Courier New", monospace;
+    }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; min-width: 860px; border-collapse: collapse; }
+    th, td { padding: 12px 14px; border-bottom: 1px solid var(--line); text-align: right; vertical-align: top; }
+    th { color: var(--muted); background: #fafbfe; white-space: nowrap; }
+    tr:last-child td { border-bottom: 0; }
+    .notice { padding: 18px 20px; color: var(--muted); }
+    ul { margin: 0; padding-inline-start: 22px; }
+    li + li { margin-top: 6px; }
+    @media (max-width: 760px) {
+      main { width: min(100% - 20px, 1180px); padding-top: 16px; }
+      header { padding: 18px; }
+      table { min-width: 760px; }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>ביטוח לאומי: ליד ראשון בתשלום</h1>
+      <div class="meta">
+        <span class="pill">BTL_OWNER_FIRST_PAID_LEAD_ACTION_SHEET_READY_NO_LIVE_ACTION</span>
+        <span class="pill warning">רווח חי: 0% עד PAYMENT-01</span>
+      </div>
+      <p>דף פעולה לבעלים/מנהל: מה למלא במערכת הפרטית כדי שקודקס יוכל לבדוק ראיות בלי לראות פרטים אישיים ובלי לבצע פעולה חיה.</p>
+    </header>
+    <section>
+      <div class="section-head"><h2>סדר פעולות</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>סדר</th><th>פעולה</th><th>מה עושים פרטי</th><th>מה מותר לרשום</th><th>פותח</th><th>חסום אם</th></tr></thead>
+          <tbody><tr>
+        <td>1</td>
+        <td><strong>לאמת שלושה מומחי ביטוח לאומי פרטיים</strong></td>
+        <td>בתוך wp-admin/CRM פרטי: לסמן שלושה ספקים שמטפלים בערעורי ביטוח לאומי, עם רישיון/סטטוס, התאמת תחום, זמינות תגובה, נתיב תשלום, תנאי lead-fee ואיש קשר לחיוב.</td>
+        <td>מותר לרשום בקובץ רק מצביע לא מזהה כמו admin-row-1, סטטוס pass/partial/fail, והאם הבעלים אימת. לא שמות, טלפונים, מיילים או קישורי תשלום.</td>
+        <td>פותח בדיקת כיסוי לספקים routable.</td>
+        <td>פחות משלושה ספקים פרטיים מאומתים.</td>
+      </tr>
+<tr>
+        <td>2</td>
+        <td><strong>להפוך את השלושה לכיסוי ניתן לניתוב</strong></td>
+        <td>לוודא שלשלושת הספקים יש routing enabled, סטטוס שמותר להשתמש בו, ואימייל/איש קשר לחיוב במערכת הפרטית.</td>
+        <td>רק כן/לא/חלקי ומצביע לא מזהה לכרטיס/רשומה פנימית.</td>
+        <td>פותח בחירת ליד מבוקר אחד.</td>
+        <td>אין שלושה ספקים routable עם פרטי חיוב/קשר.</td>
+      </tr>
+<tr>
+        <td>3</td>
+        <td><strong>לבחור ליד ביטוח לאומי אחד עם הסכמה</strong></td>
+        <td>לבחור ליד עדכני בנושא ביטוח לאומי שיש לו explicit match consent או owner verified consent, ולשחרר routing hold רק אם הבעלים מאשר.</td>
+        <td>בקובץ מותר לרשום רק controlled-lead-1 ללא שם/טלפון/צאט/מסמכים.</td>
+        <td>פותח העברה מבוקרת לספק ויצירת מצב billable.</td>
+        <td>אין הסכמה, אין התאמת ביטוח לאומי, או אין שחרור בעלים.</td>
+      </tr>
+<tr>
+        <td>4</td>
+        <td><strong>ליצור מצב חיוב לליד מוסמך</strong></td>
+        <td>אחרי העברה מבוקרת בלבד: לסמן ready_to_bill או invoice_sent, לקשר עורך דין מחויב, ולהשאיר מחיר מומלץ מעל 0.</td>
+        <td>מותר לציין invoice/reference פנימי לא מזהה. חשבונית או reference אינם הוכחת תשלום.</td>
+        <td>פותח בדיקת הוכחת תשלום.</td>
+        <td>אין ליד billable, אין עורך דין מחויב, או המחיר/חשבונית חסרים.</td>
+      </tr>
+<tr>
+        <td>5</td>
+        <td><strong>לאשר תשלום רק עם הוכחה פרטית</strong></td>
+        <td>לסמן paid רק אם קיימת הוכחת תשלום פרטית במערכת התשלום/ניהול, ולא בקובץ הריפו.</td>
+        <td>בקובץ מותר לכתוב payment-proof-present=yes בלבד. לא להדביק קבלה, קישור תשלום או URL פרטי.</td>
+        <td>מאפשר לספור ליד ביטוח לאומי ראשון בתשלום.</td>
+        <td>יש רק חשבונית, reference או הבטחת תשלום, בלי הוכחת תשלום פרטית.</td>
+      </tr>
+<tr>
+        <td>6</td>
+        <td><strong>לקבל החלטת scale/fix/stop</strong></td>
+        <td>אחרי התשלום: לבדוק תלונה, החזר, הסכמה ואתיקה. רק אז להחליט אם משכפלים, מתקנים או עוצרים.</td>
+        <td>מותר לציין החלטה בלבד: scale / fix / stop / hold.</td>
+        <td>פותח מסלול הכנסה חוזר ומבוקר.</td>
+        <td>חסר תשלום, יש בעיית הסכמה/תלונה/החזר, או אין אישור בעלים להמשך.</td>
+      </tr></tbody>
+        </table>
+      </div>
+    </section>
+    <section>
+      <div class="section-head"><h2>מסירה לקודקס</h2></div>
+      <div class="notice">
+        <p>ממלאים את <code>.project-control\btl-owner-first-paid-lead-owner-fill-2026-05-27.csv</code> עם סטטוסים בלבד. לא מכניסים שמות, טלפונים, מיילים, קבלות, קישורי תשלום, צאטים או מסמכים.</p>
+      </div>
+    </section>
+    <section>
+      <div class="section-head"><h2>בדיקות בטיחות</h2></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>מזהה</th><th>בדיקה</th><th>סטטוס</th><th>ראיה</th></tr></thead>
+          <tbody><tr>
+        <td><strong>BTL-SHEET-GATE-01</strong></td>
+        <td>source_packets_ready</td>
+        <td><span class="status">PASS</span></td>
+        <td>Source packet: BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION; operator: BTL_FIRST_REVENUE_OPERATOR_COMMAND_READY_BLOCKED_ON_PRIVATE_EVIDENCE_NO_LIVE_ACTION.</td>
+      </tr>
+<tr>
+        <td><strong>BTL-SHEET-GATE-02</strong></td>
+        <td>btl_is_top_revenue_goal</td>
+        <td><span class="status">PASS</span></td>
+        <td>Top command-center rows: UNBLOCK-01, UNBLOCK-02, UNBLOCK-08.</td>
+      </tr>
+<tr>
+        <td><strong>BTL-SHEET-GATE-03</strong></td>
+        <td>no_live_action_authorized</td>
+        <td><span class="status">PASS_NO_LIVE_ACTION</span></td>
+        <td>This sheet approves 0 CMS, CRM write, outreach, invoice, payment, email, WhatsApp/TalkTo, GSC or uPress actions.</td>
+      </tr></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

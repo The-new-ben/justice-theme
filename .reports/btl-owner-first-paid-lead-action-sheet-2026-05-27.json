@@ -1,0 +1,187 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "sourceDate": "2026-05-27",
+    "status": "BTL_OWNER_FIRST_PAID_LEAD_ACTION_SHEET_READY_NO_LIVE_ACTION",
+    "actionRows": 6,
+    "ownerFillRows": 6,
+    "passGateCount": 3,
+    "reviewGateCount": 0,
+    "liveProfitProofPercent": 0,
+    "staticPreparationPercent": 75,
+    "revenueCanBeClaimed": false,
+    "wpAdminWritesApproved": 0,
+    "crmRecordsCreated": 0,
+    "leadOrLawyerContactActions": 0,
+    "invoicesOrPaymentsCreated": 0,
+    "messagesOrEmailsSent": 0,
+    "publicChangesApproved": 0,
+    "upressDeploymentRequired": false,
+    "sourceStatuses": {
+      "sourcePacket": "BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION",
+      "operatorCommand": "BTL_FIRST_REVENUE_OPERATOR_COMMAND_READY_BLOCKED_ON_PRIVATE_EVIDENCE_NO_LIVE_ACTION",
+      "commandCenter": "OWNER_UNBLOCKER_COMMAND_CENTER_READY_NO_LIVE_ACTION"
+    },
+    "files": {
+      "projectMd": ".project-control\\btl-owner-first-paid-lead-action-sheet-2026-05-27.md",
+      "projectHtml": ".project-control\\btl-owner-first-paid-lead-action-sheet-2026-05-27.html",
+      "projectCsv": ".project-control\\btl-owner-first-paid-lead-action-sheet-2026-05-27.csv",
+      "ownerFillCsv": ".project-control\\btl-owner-first-paid-lead-owner-fill-2026-05-27.csv",
+      "reportJson": ".reports\\btl-owner-first-paid-lead-action-sheet-2026-05-27.json",
+      "reportCsv": ".reports\\btl-owner-first-paid-lead-action-sheet-2026-05-27.csv"
+    }
+  },
+  "gates": [
+    {
+      "id": "BTL-SHEET-GATE-01",
+      "gate": "source_packets_ready",
+      "status": "PASS",
+      "evidence": "Source packet: BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION; operator: BTL_FIRST_REVENUE_OPERATOR_COMMAND_READY_BLOCKED_ON_PRIVATE_EVIDENCE_NO_LIVE_ACTION.",
+      "next_action": "Use this sheet as the owner-facing action layer over the technical CSV."
+    },
+    {
+      "id": "BTL-SHEET-GATE-02",
+      "gate": "btl_is_top_revenue_goal",
+      "status": "PASS",
+      "evidence": "Top command-center rows: UNBLOCK-01, UNBLOCK-02, UNBLOCK-08.",
+      "next_action": "Keep BTL first paid-lead proof as the first owner-admin action."
+    },
+    {
+      "id": "BTL-SHEET-GATE-03",
+      "gate": "no_live_action_authorized",
+      "status": "PASS_NO_LIVE_ACTION",
+      "evidence": "This sheet approves 0 CMS, CRM write, outreach, invoice, payment, email, WhatsApp/TalkTo, GSC or uPress actions.",
+      "next_action": "Owner/admin fills private evidence first; Codex only reviews sanitized status rows afterward."
+    }
+  ],
+  "actions": [
+    {
+      "id": "BTL-ACTION-01",
+      "order": 1,
+      "title_he": "לאמת שלושה מומחי ביטוח לאומי פרטיים",
+      "owner_action_he": "בתוך wp-admin/CRM פרטי: לסמן שלושה ספקים שמטפלים בערעורי ביטוח לאומי, עם רישיון/סטטוס, התאמת תחום, זמינות תגובה, נתיב תשלום, תנאי lead-fee ואיש קשר לחיוב.",
+      "allowed_proof_he": "מותר לרשום בקובץ רק מצביע לא מזהה כמו admin-row-1, סטטוס pass/partial/fail, והאם הבעלים אימת. לא שמות, טלפונים, מיילים או קישורי תשלום.",
+      "unlocks_he": "פותח בדיקת כיסוי לספקים routable.",
+      "blocked_if_he": "פחות משלושה ספקים פרטיים מאומתים."
+    },
+    {
+      "id": "BTL-ACTION-02",
+      "order": 2,
+      "title_he": "להפוך את השלושה לכיסוי ניתן לניתוב",
+      "owner_action_he": "לוודא שלשלושת הספקים יש routing enabled, סטטוס שמותר להשתמש בו, ואימייל/איש קשר לחיוב במערכת הפרטית.",
+      "allowed_proof_he": "רק כן/לא/חלקי ומצביע לא מזהה לכרטיס/רשומה פנימית.",
+      "unlocks_he": "פותח בחירת ליד מבוקר אחד.",
+      "blocked_if_he": "אין שלושה ספקים routable עם פרטי חיוב/קשר."
+    },
+    {
+      "id": "BTL-ACTION-03",
+      "order": 3,
+      "title_he": "לבחור ליד ביטוח לאומי אחד עם הסכמה",
+      "owner_action_he": "לבחור ליד עדכני בנושא ביטוח לאומי שיש לו explicit match consent או owner verified consent, ולשחרר routing hold רק אם הבעלים מאשר.",
+      "allowed_proof_he": "בקובץ מותר לרשום רק controlled-lead-1 ללא שם/טלפון/צאט/מסמכים.",
+      "unlocks_he": "פותח העברה מבוקרת לספק ויצירת מצב billable.",
+      "blocked_if_he": "אין הסכמה, אין התאמת ביטוח לאומי, או אין שחרור בעלים."
+    },
+    {
+      "id": "BTL-ACTION-04",
+      "order": 4,
+      "title_he": "ליצור מצב חיוב לליד מוסמך",
+      "owner_action_he": "אחרי העברה מבוקרת בלבד: לסמן ready_to_bill או invoice_sent, לקשר עורך דין מחויב, ולהשאיר מחיר מומלץ מעל 0.",
+      "allowed_proof_he": "מותר לציין invoice/reference פנימי לא מזהה. חשבונית או reference אינם הוכחת תשלום.",
+      "unlocks_he": "פותח בדיקת הוכחת תשלום.",
+      "blocked_if_he": "אין ליד billable, אין עורך דין מחויב, או המחיר/חשבונית חסרים."
+    },
+    {
+      "id": "BTL-ACTION-05",
+      "order": 5,
+      "title_he": "לאשר תשלום רק עם הוכחה פרטית",
+      "owner_action_he": "לסמן paid רק אם קיימת הוכחת תשלום פרטית במערכת התשלום/ניהול, ולא בקובץ הריפו.",
+      "allowed_proof_he": "בקובץ מותר לכתוב payment-proof-present=yes בלבד. לא להדביק קבלה, קישור תשלום או URL פרטי.",
+      "unlocks_he": "מאפשר לספור ליד ביטוח לאומי ראשון בתשלום.",
+      "blocked_if_he": "יש רק חשבונית, reference או הבטחת תשלום, בלי הוכחת תשלום פרטית."
+    },
+    {
+      "id": "BTL-ACTION-06",
+      "order": 6,
+      "title_he": "לקבל החלטת scale/fix/stop",
+      "owner_action_he": "אחרי התשלום: לבדוק תלונה, החזר, הסכמה ואתיקה. רק אז להחליט אם משכפלים, מתקנים או עוצרים.",
+      "allowed_proof_he": "מותר לציין החלטה בלבד: scale / fix / stop / hold.",
+      "unlocks_he": "פותח מסלול הכנסה חוזר ומבוקר.",
+      "blocked_if_he": "חסר תשלום, יש בעיית הסכמה/תלונה/החזר, או אין אישור בעלים להמשך."
+    }
+  ],
+  "ownerRows": [
+    {
+      "action_id": "BTL-ACTION-01",
+      "title_he": "לאמת שלושה מומחי ביטוח לאומי פרטיים",
+      "private_admin_pointer_no_pii": "",
+      "status": "not_started",
+      "accepted_status_values": "pass / partial / fail / not_available / needs_owner / park",
+      "owner_verified_yes_no": "no",
+      "proof_present_yes_no": "no",
+      "no_pii_confirmed_yes_no": "yes",
+      "public_or_live_action_approved": "no",
+      "owner_note_no_pii": ""
+    },
+    {
+      "action_id": "BTL-ACTION-02",
+      "title_he": "להפוך את השלושה לכיסוי ניתן לניתוב",
+      "private_admin_pointer_no_pii": "",
+      "status": "not_started",
+      "accepted_status_values": "pass / partial / fail / not_available / needs_owner / park",
+      "owner_verified_yes_no": "no",
+      "proof_present_yes_no": "no",
+      "no_pii_confirmed_yes_no": "yes",
+      "public_or_live_action_approved": "no",
+      "owner_note_no_pii": ""
+    },
+    {
+      "action_id": "BTL-ACTION-03",
+      "title_he": "לבחור ליד ביטוח לאומי אחד עם הסכמה",
+      "private_admin_pointer_no_pii": "",
+      "status": "not_started",
+      "accepted_status_values": "pass / partial / fail / not_available / needs_owner / park",
+      "owner_verified_yes_no": "no",
+      "proof_present_yes_no": "no",
+      "no_pii_confirmed_yes_no": "yes",
+      "public_or_live_action_approved": "no",
+      "owner_note_no_pii": ""
+    },
+    {
+      "action_id": "BTL-ACTION-04",
+      "title_he": "ליצור מצב חיוב לליד מוסמך",
+      "private_admin_pointer_no_pii": "",
+      "status": "not_started",
+      "accepted_status_values": "pass / partial / fail / not_available / needs_owner / park",
+      "owner_verified_yes_no": "no",
+      "proof_present_yes_no": "no",
+      "no_pii_confirmed_yes_no": "yes",
+      "public_or_live_action_approved": "no",
+      "owner_note_no_pii": ""
+    },
+    {
+      "action_id": "BTL-ACTION-05",
+      "title_he": "לאשר תשלום רק עם הוכחה פרטית",
+      "private_admin_pointer_no_pii": "",
+      "status": "not_started",
+      "accepted_status_values": "pass / partial / fail / not_available / needs_owner / park",
+      "owner_verified_yes_no": "no",
+      "proof_present_yes_no": "no",
+      "no_pii_confirmed_yes_no": "yes",
+      "public_or_live_action_approved": "no",
+      "owner_note_no_pii": ""
+    },
+    {
+      "action_id": "BTL-ACTION-06",
+      "title_he": "לקבל החלטת scale/fix/stop",
+      "private_admin_pointer_no_pii": "",
+      "status": "not_started",
+      "accepted_status_values": "pass / partial / fail / not_available / needs_owner / park",
+      "owner_verified_yes_no": "no",
+      "proof_present_yes_no": "no",
+      "no_pii_confirmed_yes_no": "yes",
+      "public_or_live_action_approved": "no",
+      "owner_note_no_pii": ""
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+reportDate,sourceDate,status,actionRows,ownerFillRows,liveProfitProofPercent,staticPreparationPercent,revenueCanBeClaimed,wpAdminWritesApproved,crmRecordsCreated,leadOrLawyerContactActions,invoicesOrPaymentsCreated,messagesOrEmailsSent,publicChangesApproved,upressDeploymentRequired
+2026-05-27,2026-05-27,BTL_OWNER_FIRST_PAID_LEAD_ACTION_SHEET_READY_NO_LIVE_ACTION,6,6,0,75,false,0,0,0,0,0,0,false

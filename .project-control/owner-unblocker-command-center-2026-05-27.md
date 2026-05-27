@@ -9,7 +9,7 @@
 
 | מזהה | עדיפות | נושא | תשובה מוצעת | מקור פרטי | הצעד הבא | אסור ללא אישור |
 | --- | ---: | --- | --- | --- | --- | --- |
-| UNBLOCK-01 | 1 | הוכחת ליד בתשלום בביטוח לאומי | UNBLOCK-01 approve | .project-control/btl-first-revenue-operator-command-2026-05-27.md | הבעלים או מנהל האתר ממלאים את תבנית מוכנות המקורות של BTL מתוך wp-admin/CRM פרטי, בלי להכניס פרטים אישיים לקבצים. | לא פונים ללידים ישנים, לא מעבירים פרטים אישיים, לא מחייבים, לא מסמנים שולם ולא טוענים להכנסה מתוך הקבצים בלבד. |
+| UNBLOCK-01 | 1 | הוכחת ליד בתשלום בביטוח לאומי | UNBLOCK-01 approve | .project-control/btl-owner-first-paid-lead-action-sheet-2026-05-27.html | הבעלים או מנהל האתר ממלאים את תבנית מוכנות המקורות של BTL מתוך wp-admin/CRM פרטי, בלי להכניס פרטים אישיים לקבצים. | לא פונים ללידים ישנים, לא מעבירים פרטים אישיים, לא מחייבים, לא מסמנים שולם ולא טוענים להכנסה מתוך הקבצים בלבד. |
 | UNBLOCK-02 | 2 | בדיקת מסלול מנוי עורך דין | UNBLOCK-02 approve | .project-control/lawyer-subscription-controlled-evidence-review-gate-2026-05-27.md | מריצים walkthrough נשלט רק עם זהות הבדיקה ונתיב התשלום שאושרו. | לא מחייבים עורך דין אמיתי, לא שולחים לינק תשלום, לא מגישים הרשמה חיה ולא משנים ספק תשלום בלי היקף בדיקה מאושר. |
 | UNBLOCK-08 | 3 | כיסוי עורך דין פלילי בירושלים | UNBLOCK-08 approve | .project-control/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.md | למלא את תבנית criminal Jerusalem עם רישיון, התאמת תחום, זמינות תגובה, נתיב תשלום ידני, תנאי fee וכתובת חיוב. | לא עורכים דף ציבורי, לא יוצרים כרטיס עורך דין ציבורי, לא פונים לעורך דין, לא מנתבים ליד, לא מפיקים חשבונית ולא עושים uPress. |
 
@@ -17,7 +17,7 @@
 
 | מזהה | עדיפות | נושא | מקור קיים | סטטוס מקור | פעולה חיה מאושרת |
 | --- | ---: | --- | --- | --- | --- |
-| UNBLOCK-01 | 1 | הוכחת ליד בתשלום בביטוח לאומי | yes | BTL_FIRST_REVENUE_OPERATOR_COMMAND_READY_BLOCKED_ON_PRIVATE_EVIDENCE_NO_LIVE_ACTION \| BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION | no |
+| UNBLOCK-01 | 1 | הוכחת ליד בתשלום בביטוח לאומי | yes | BTL_OWNER_FIRST_PAID_LEAD_ACTION_SHEET_READY_NO_LIVE_ACTION \| BTL_FIRST_REVENUE_OPERATOR_COMMAND_READY_BLOCKED_ON_PRIVATE_EVIDENCE_NO_LIVE_ACTION \| BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION | no |
 | UNBLOCK-02 | 2 | בדיקת מסלול מנוי עורך דין | yes | LAWYER_SUBSCRIPTION_CONTROLLED_EVIDENCE_REVIEW_BLOCKED_NO_LIVE_ACTION \| MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION | no |
 | UNBLOCK-08 | 3 | כיסוי עורך דין פלילי בירושלים | yes | CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION | no |
 | UNBLOCK-03 | 4 | עדכון ציבורי אפשרי בעמוד הסכם שכירות | yes | OWNER_APPROVAL_QUEUE_READY_NOT_APPROVED | no |

@@ -1,0 +1,7 @@
+action_id,title_he,private_admin_pointer_no_pii,status,accepted_status_values,owner_verified_yes_no,proof_present_yes_no,no_pii_confirmed_yes_no,public_or_live_action_approved,owner_note_no_pii
+BTL-ACTION-01,לאמת שלושה מומחי ביטוח לאומי פרטיים,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,
+BTL-ACTION-02,להפוך את השלושה לכיסוי ניתן לניתוב,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,
+BTL-ACTION-03,לבחור ליד ביטוח לאומי אחד עם הסכמה,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,
+BTL-ACTION-04,ליצור מצב חיוב לליד מוסמך,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,
+BTL-ACTION-05,לאשר תשלום רק עם הוכחה פרטית,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,
+BTL-ACTION-06,לקבל החלטת scale/fix/stop,,not_started,pass / partial / fail / not_available / needs_owner / park,no,no,yes,no,

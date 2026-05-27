@@ -1,0 +1,5 @@
+row_id,decision_needed,recommended_answer,allowed_answers,owner_answer,owner_note
+OWNER-FIT-01,Approve BTL-LMI-03-PRIMARY as the first private fit-review target.,yes,yes | no | wait | choose_other,,
+OWNER-FIT-02,Approve current public-source recheck before any live use.,yes,yes | no | wait,,
+OWNER-FIT-03,Approve no-contact private verification only.,yes,yes | no | wait,,
+OWNER-FIT-04,Keep first offer at Pro 349 ILS/month including VAT if fit passes.,pro_349,pro_349 | other | wait,,

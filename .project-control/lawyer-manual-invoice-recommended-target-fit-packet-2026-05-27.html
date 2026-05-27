@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>בדיקת התאמה פרטית ליעד מומלץ</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f6f7f8; color: #182033; line-height: 1.58; }
+    main { max-width: 1120px; margin: 0 auto; padding: 32px 18px 56px; }
+    h1 { margin: 0 0 10px; font-size: 30px; color: #07152f; }
+    .status { background: #fff; border: 1px solid #d7dde5; border-radius: 8px; padding: 16px; margin: 18px 0; }
+    table { width: 100%; border-collapse: collapse; background: #fff; margin: 12px 0 24px; }
+    th, td { border: 1px solid #d7dde5; padding: 10px; vertical-align: top; font-size: 13px; }
+    th { background: #e9eef2; text-align: right; }
+    code { direction: ltr; unicode-bidi: plaintext; background: #edf2f7; padding: 2px 5px; border-radius: 5px; }
+    a { overflow-wrap: anywhere; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>בדיקת התאמה פרטית ליעד מומלץ</h1>
+  <section class="status">
+    <p><strong>Status:</strong> <code>LAWYER_MANUAL_INVOICE_RECOMMENDED_TARGET_FIT_PACKET_READY_OWNER_SELECTION_REQUIRED</code></p>
+    <p><strong>Target:</strong> <code>BTL-LMI-03-PRIMARY</code> - סמרה ושות&#39; משרד עורכי דין ונוטריון</p>
+    <p><strong>Source:</strong> <a href="https://samaratviot.co.il/bituach-leumi/">https://samaratviot.co.il/bituach-leumi/</a></p>
+    <p><strong>כנות:</strong> This packet prepares private fit review for the recommended shortlist target only. It does not verify current public claims in-browser, contact anyone, create CRM records, invoice, request payment, mark paid, publish or deploy.</p>
+  </section>
+  <table>
+    <thead><tr><th>Gate</th><th>Phase</th><th>Required check</th><th>Pass</th><th>Blocked if</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><code>FIT-01</code></td>
+      <td>owner_selection</td>
+      <td>Owner selects BTL-LMI-03-PRIMARY or explicitly overrides it.</td>
+      <td>Owner selection exists in the shortlist owner reply file.</td>
+      <td>No owner target selection.</td>
+    </tr>
+    <tr>
+      <td><code>FIT-02</code></td>
+      <td>source_recheck</td>
+      <td>Recheck the public source and current claim language before using the target in a live conversation.</td>
+      <td>Current public source still supports Bituach Leumi/medical committee relevance.</td>
+      <td>Source unavailable, materially changed, or no longer supports the fit.</td>
+    </tr>
+    <tr>
+      <td><code>FIT-03</code></td>
+      <td>license</td>
+      <td>Verify Israeli lawyer license and active status from an independent source.</td>
+      <td>Active license is confirmed privately.</td>
+      <td>License cannot be verified.</td>
+    </tr>
+    <tr>
+      <td><code>FIT-04</code></td>
+      <td>practice_fit</td>
+      <td>Confirm the office is willing to handle Bituach Leumi claims, medical committees or appeal-related inquiries.</td>
+      <td>Fit is confirmed without overstating specialization.</td>
+      <td>No confirmed fit or claims are too broad.</td>
+    </tr>
+    <tr>
+      <td><code>FIT-05</code></td>
+      <td>commercial_offer</td>
+      <td>Confirm Pro 349 ILS/month including VAT is acceptable as a measured profile test, not a lead guarantee.</td>
+      <td>Pro 349 terms are accepted before invoice creation.</td>
+      <td>Target demands guaranteed leads, ranking or exclusivity.</td>
+    </tr>
+    <tr>
+      <td><code>FIT-06</code></td>
+      <td>billing</td>
+      <td>Collect billing legal name and invoice email only in private admin space.</td>
+      <td>Billing contact exists privately before invoice_requested/invoice_sent.</td>
+      <td>No billing contact or no permission to store it.</td>
+    </tr>
+    <tr>
+      <td><code>FIT-07</code></td>
+      <td>message</td>
+      <td>Use the approved sales packet language and avoid promises of lead quantity, result, fixed ranking or exclusivity.</td>
+      <td>Owner approves exact message after target selection.</td>
+      <td>Message not approved.</td>
+    </tr>
+    <tr>
+      <td><code>FIT-08</code></td>
+      <td>activation_boundary</td>
+      <td>Profile activation only after payment proof plus content/license review.</td>
+      <td>Payment proof and profile review are both complete.</td>
+      <td>Invoice only, promise to pay, unreviewed content, or unresolved dispute.</td>
+    </tr></tbody>
+  </table>
+</main>
+</body>
+</html>

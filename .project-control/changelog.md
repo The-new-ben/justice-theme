@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Recommended target private fit packet
+
+- ADDED: `tools/build-lawyer-manual-invoice-recommended-target-fit-packet.mjs`.
+- GENERATED: `.project-control/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27.md`, `.project-control/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27.html`, `.project-control/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27.csv`, `.project-control/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27-owner-reply.csv`, `.reports/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27.json` and `.reports/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27.csv`.
+- PURPOSE: prepare private fit review gates for the recommended first target before any contact, CRM write, invoice or payment action.
+- RESULT: `LAWYER_MANUAL_INVOICE_RECOMMENDED_TARGET_FIT_PACKET_READY_OWNER_SELECTION_REQUIRED`; target `BTL-LMI-03-PRIMARY`, 8 fit gates, 4 owner decision rows, 93 percent private-fit readiness to profit and 0 live revenue impact.
+- SAFETY: private fit packet only; no current in-browser claim verification, no lawyer contacted, no CRM/admin edit, no invoice, no payment request, no paid status, no profile publication, no public CMS edit, no email-to-users, no WhatsApp, no TalkTo, no GSC API, no wp-admin write, no merge to main and no uPress deployment changed.
+
 # 2026-05-27 - Lawyer manual invoice first-target shortlist
 
 - ADDED: `tools/build-lawyer-manual-invoice-first-target-shortlist.mjs`.

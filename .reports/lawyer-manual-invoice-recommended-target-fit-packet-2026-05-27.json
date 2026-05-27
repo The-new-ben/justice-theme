@@ -1,0 +1,153 @@
+{
+  "status": "LAWYER_MANUAL_INVOICE_RECOMMENDED_TARGET_FIT_PACKET_READY_OWNER_SELECTION_REQUIRED",
+  "reportDate": "2026-05-27",
+  "sourceReport": ".reports/lawyer-manual-invoice-first-target-shortlist-2026-05-27.json",
+  "recommendedTargetId": "BTL-LMI-03-PRIMARY",
+  "candidate": "סמרה ושות' משרד עורכי דין ונוטריון",
+  "recommendedPlan": "pro",
+  "recommendedMonthlyIls": 349,
+  "fitRows": 8,
+  "ownerDecisionRows": 4,
+  "publicCmsChangesApproved": 0,
+  "liveCrmOrOutreachApproved": 0,
+  "invoicesOrPaymentsCreated": 0,
+  "revenueClaimsApproved": 0,
+  "paidLlmApiUsed": 0,
+  "upressDeploymentRequired": false,
+  "readinessToProfitPercent": 93,
+  "liveRevenueImpactPercent": 0,
+  "honestyStatement": "This packet prepares private fit review for the recommended shortlist target only. It does not verify current public claims in-browser, contact anyone, create CRM records, invoice, request payment, mark paid, publish or deploy.",
+  "generated": {
+    "projectMd": ".project-control/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27.md",
+    "projectHtml": ".project-control/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27.html",
+    "projectCsv": ".project-control/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27.csv",
+    "ownerReplyCsv": ".project-control/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27-owner-reply.csv",
+    "reportJson": ".reports/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27.json",
+    "reportCsv": ".reports/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27.csv"
+  },
+  "target": {
+    "target_id": "BTL-LMI-03-PRIMARY",
+    "queue": "primary",
+    "source_rank": 3,
+    "candidate": "סמרה ושות' משרד עורכי דין ונוטריון",
+    "source_type": "firm site",
+    "source_url": "https://samaratviot.co.il/bituach-leumi/",
+    "apparent_focus": "תביעות ביטוח לאומי, ועדות רפואיות, דיני המוסד לביטוח לאומי",
+    "evidence_summary": "Source says the office has 25+ years in BTL law and handles the medical-committee environment.",
+    "verification_status": "not_verified",
+    "recommended_offer": "Pro 349 ILS/month incl. VAT by manual invoice",
+    "shortlist_score": 92,
+    "buyer_angle": "Established BTL signal; Pro can be framed as a measured profile test before higher exposure plans.",
+    "first_private_check": "Verify license, active status, BTL fit, billing email and permission for a no-PII commercial conversation.",
+    "blocked_until_owner_approval": "YES",
+    "live_action_allowed": "NO"
+  },
+  "fit": [
+    {
+      "gate_id": "FIT-01",
+      "phase": "owner_selection",
+      "required_check": "Owner selects BTL-LMI-03-PRIMARY or explicitly overrides it.",
+      "pass_condition": "Owner selection exists in the shortlist owner reply file.",
+      "evidence_allowed_in_repo": "target_id only",
+      "blocked_if": "No owner target selection.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "gate_id": "FIT-02",
+      "phase": "source_recheck",
+      "required_check": "Recheck the public source and current claim language before using the target in a live conversation.",
+      "pass_condition": "Current public source still supports Bituach Leumi/medical committee relevance.",
+      "evidence_allowed_in_repo": "public URL and yes/no summary only",
+      "blocked_if": "Source unavailable, materially changed, or no longer supports the fit.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "gate_id": "FIT-03",
+      "phase": "license",
+      "required_check": "Verify Israeli lawyer license and active status from an independent source.",
+      "pass_condition": "Active license is confirmed privately.",
+      "evidence_allowed_in_repo": "verified=yes/no only, no private identifiers",
+      "blocked_if": "License cannot be verified.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "gate_id": "FIT-04",
+      "phase": "practice_fit",
+      "required_check": "Confirm the office is willing to handle Bituach Leumi claims, medical committees or appeal-related inquiries.",
+      "pass_condition": "Fit is confirmed without overstating specialization.",
+      "evidence_allowed_in_repo": "fit category only",
+      "blocked_if": "No confirmed fit or claims are too broad.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "gate_id": "FIT-05",
+      "phase": "commercial_offer",
+      "required_check": "Confirm Pro 349 ILS/month including VAT is acceptable as a measured profile test, not a lead guarantee.",
+      "pass_condition": "Pro 349 terms are accepted before invoice creation.",
+      "evidence_allowed_in_repo": "accepted_plan=pro_349 yes/no",
+      "blocked_if": "Target demands guaranteed leads, ranking or exclusivity.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "gate_id": "FIT-06",
+      "phase": "billing",
+      "required_check": "Collect billing legal name and invoice email only in private admin space.",
+      "pass_condition": "Billing contact exists privately before invoice_requested/invoice_sent.",
+      "evidence_allowed_in_repo": "billing_ready=yes/no only",
+      "blocked_if": "No billing contact or no permission to store it.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "gate_id": "FIT-07",
+      "phase": "message",
+      "required_check": "Use the approved sales packet language and avoid promises of lead quantity, result, fixed ranking or exclusivity.",
+      "pass_condition": "Owner approves exact message after target selection.",
+      "evidence_allowed_in_repo": "message_approved=yes/no only",
+      "blocked_if": "Message not approved.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "gate_id": "FIT-08",
+      "phase": "activation_boundary",
+      "required_check": "Profile activation only after payment proof plus content/license review.",
+      "pass_condition": "Payment proof and profile review are both complete.",
+      "evidence_allowed_in_repo": "paid_confirmed=yes/no only",
+      "blocked_if": "Invoice only, promise to pay, unreviewed content, or unresolved dispute.",
+      "live_action_allowed": "NO"
+    }
+  ],
+  "ownerRows": [
+    {
+      "row_id": "OWNER-FIT-01",
+      "decision_needed": "Approve BTL-LMI-03-PRIMARY as the first private fit-review target.",
+      "recommended_answer": "yes",
+      "allowed_answers": "yes | no | wait | choose_other",
+      "owner_answer": "",
+      "owner_note": ""
+    },
+    {
+      "row_id": "OWNER-FIT-02",
+      "decision_needed": "Approve current public-source recheck before any live use.",
+      "recommended_answer": "yes",
+      "allowed_answers": "yes | no | wait",
+      "owner_answer": "",
+      "owner_note": ""
+    },
+    {
+      "row_id": "OWNER-FIT-03",
+      "decision_needed": "Approve no-contact private verification only.",
+      "recommended_answer": "yes",
+      "allowed_answers": "yes | no | wait",
+      "owner_answer": "",
+      "owner_note": ""
+    },
+    {
+      "row_id": "OWNER-FIT-04",
+      "decision_needed": "Keep first offer at Pro 349 ILS/month including VAT if fit passes.",
+      "recommended_answer": "pro_349",
+      "allowed_answers": "pro_349 | other | wait",
+      "owner_answer": "",
+      "owner_note": ""
+    }
+  ]
+}

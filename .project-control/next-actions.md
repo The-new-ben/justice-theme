@@ -29,6 +29,18 @@
 6. NEXT AFTER OWNER SELECTION: perform only owner-approved private verification; do not contact or create CRM until the live-action gate is explicitly approved.
 7. BLOCKED: no live browser claim, contact, CRM/admin write, invoice, payment request, profile publication, uPress pull or revenue claim from this shortlist alone.
 
+### ACTION-LAWYER-MANUAL-INVOICE-RECOMMENDED-TARGET-FIT-001: Owner approves private fit review for recommended target
+**Status:** FIXED LOCAL / WAITING FOR OWNER TARGET APPROVAL
+**Why:** The shortlist now has a recommended target. This packet defines the exact private gates before any contact or CRM action, so the next approved step can be a narrow fit review instead of another broad search.
+**Actions:**
+1. DONE: add `tools/build-lawyer-manual-invoice-recommended-target-fit-packet.mjs`.
+2. DONE: generate `.project-control/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27.md`, `.html`, `.csv` and owner reply CSV.
+3. DONE: generate `.reports/lawyer-manual-invoice-recommended-target-fit-packet-2026-05-27.json` and `.csv`.
+4. DONE: confirm `LAWYER_MANUAL_INVOICE_RECOMMENDED_TARGET_FIT_PACKET_READY_OWNER_SELECTION_REQUIRED`, target `BTL-LMI-03-PRIMARY`, 8 fit gates, 4 owner decisions, 93% private-fit readiness to profit and 0 live impact.
+5. NEXT: owner approves or rejects `BTL-LMI-03-PRIMARY` for private fit review.
+6. NEXT AFTER OWNER APPROVAL: recheck current public source and license/status before any live conversation or CRM write.
+7. BLOCKED: no current-claim assertion, contact, CRM/admin write, invoice, payment request, profile publication, uPress pull or revenue claim from this packet alone.
+
 ### ACTION-LAWYER-MANUAL-INVOICE-SALES-PACKET-001: Use approved sales language for first paid lawyer close
 **Status:** FIXED LOCAL / READY FOR OWNER-APPROVED TARGET ONLY
 **Why:** The fastest revenue path needs a sales conversation that is human and safe, not a generic pitch and not a promise of leads. This packet gives the exact offer, objection handling and close sequence for Pro 349 ILS.

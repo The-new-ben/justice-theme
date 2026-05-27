@@ -38,15 +38,15 @@ $plans_url = add_query_arg(
 	<div class="container lawyer-cta__inner">
 		<div class="lawyer-cta__content">
 			<p class="section-header__eyebrow"><?php esc_html_e( 'לעורכי דין', 'justice-theme' ); ?></p>
-			<h2 id="lawyer-cta-title"><?php esc_html_e( 'רוצים לעדכן או להשלים פרופיל מקצועי?', 'justice-theme' ); ?></h2>
-			<p><?php esc_html_e( 'אם אתם עורכי דין ומופיע באתר פרופיל שקשור אליכם, או שאתם רוצים להיבדק להוספה למדריך, אפשר להשאיר בקשה מסודרת. כל פרופיל עובר בדיקת התאמה, רישיון ותוכן לפני פרסום או הרחבה.', 'justice-theme' ); ?></p>
+			<h2 id="lawyer-cta-title"><?php esc_html_e( 'רוצים להצטרף כמשרד משלם בלי הבטחות לא מבוססות?', 'justice-theme' ); ?></h2>
+			<p><?php esc_html_e( 'אפשר לבקש בדיקת התאמה למסלול Pro בעלות 349 ש"ח כולל מע"מ לחודש: פרופיל מקצועי, נראות במדריך, מדידה בסיסית ופנייה מסודרת אחרי אישור ידני. אין התחייבות לכמות פניות, לדירוג או לתוצאה משפטית.', 'justice-theme' ); ?></p>
 		</div>
 
 		<div class="lawyer-cta__features">
 			<div class="lawyer-cta__feature">
 				<span class="lawyer-cta__icon" aria-hidden="true">01</span>
-				<h3><?php esc_html_e( 'פרטי פרופיל מדויקים', 'justice-theme' ); ?></h3>
-				<p><?php esc_html_e( 'תחומי עיסוק, אזורי שירות, פרטי קשר ותיאור מקצועי מוצגים בזהירות ורק אחרי בדיקה.', 'justice-theme' ); ?></p>
+				<h3><?php esc_html_e( 'מסלול Pro ידני', 'justice-theme' ); ?></h3>
+				<p><?php esc_html_e( 'בדיקת התאמה, פרופיל מקצועי ותשלום ידני לפני הפעלה. מתאים למשרד שרוצה לבדוק ערוץ חדש בלי התחייבות ארוכה.', 'justice-theme' ); ?></p>
 			</div>
 			<div class="lawyer-cta__feature">
 				<span class="lawyer-cta__icon" aria-hidden="true">02</span>
@@ -77,12 +77,12 @@ $plans_url = add_query_arg(
 
 		<div class="lawyer-cta__actions">
 			<a href="<?php echo esc_url( $profile_review_url ); ?>" class="button button--gold">
-				<?php esc_html_e( 'בקשת בדיקת פרופיל', 'justice-theme' ); ?>
+				<?php esc_html_e( 'בדיקת התאמה למסלול Pro', 'justice-theme' ); ?>
 			</a>
 			<a href="<?php echo esc_url( $plans_url ); ?>" class="button button--outline">
-				<?php esc_html_e( 'מידע לעורכי דין', 'justice-theme' ); ?>
+				<?php esc_html_e( 'פרטי מסלולים ותשלום', 'justice-theme' ); ?>
 			</a>
-			<small class="lawyer-cta__note"><?php esc_html_e( 'אין חיוב מהטופס. מסלולים בתשלום מופעלים רק אחרי בדיקה, אישור ידני ותשלום מאושר.', 'justice-theme' ); ?></small>
+			<small class="lawyer-cta__note"><?php esc_html_e( 'אין חיוב מהטופס. חיוב או פרסום בתשלום מתבצעים רק אחרי בדיקה, אישור ידני ותשלום מאושר.', 'justice-theme' ); ?></small>
 		</div>
 	</div>
 </section>

@@ -1,6 +1,13 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Homepage lead and paid-lawyer conversion pivot
+
+- CHANGED: `front-page.php`, `template-parts/sections/ask-lawyer.php` and `template-parts/sections/lawyer-cta.php`.
+- PURPOSE: answer the owner concern that internal Bituach Leumi work was not producing revenue by moving the homepage toward immediate lead capture and paid lawyer subscription intent.
+- RESULT: client lead form now appears immediately after the homepage customer-intake strip instead of near the bottom; the form copy asks for a clear case description and uses a stronger submit label; the lawyer CTA now names the Pro 349 ILS/month manual path while preserving compliance boundaries and no lead-volume promises.
+- SAFETY: local branch only; no public CMS edit, live route change, CRM record, lead, lawyer/supplier/client contact, invoice, payment, paid status, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, paid LLM API, merge to main or uPress deployment changed.
+
 # 2026-05-27 - Recommended target public source recheck
 
 - ADDED: `tools/build-lawyer-manual-invoice-target-public-source-recheck.mjs`.

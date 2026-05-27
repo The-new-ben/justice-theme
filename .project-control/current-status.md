@@ -1,4 +1,12 @@
 # LATEST WORK STATUS - 2026-05-27 16:40 Asia/Jerusalem
+- HOMEPAGE REVENUE-CONVERSION PIVOT: stopped the new Bituach Leumi/license-signal work before commit and shifted to the public conversion path the owner asked for: more client leads and clearer paid lawyer joining.
+- CODE CHANGED: `front-page.php`, `template-parts/sections/ask-lawyer.php` and `template-parts/sections/lawyer-cta.php`.
+- RESULT: moved the client lead form from near the bottom of the homepage to immediately after the customer-intake strip, tightened the lead CTA to "שליחת פנייה לבדיקה", and made the lawyer-side CTA explicitly mention the manual Pro path at 349 ILS/month including VAT without promising lead volume, ranking or legal results.
+- CHECK RESULT: `php -l front-page.php`, `php -l template-parts/sections/ask-lawyer.php` and `php -l template-parts/sections/lawyer-cta.php` all passed. `front-page.php` now renders the `ask-lawyer` section once, directly after `customer-intake-strip`.
+- PUBLIC/LIVE IMPACT: local branch only; no public CMS/database content, live site, route, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting, paid LLM API, merge to main or uPress pull changed.
+- COMPLETION ASSESSMENT: homepage conversion code improvement 100% local; live profit impact remains 0% until owner approves deployment and real traffic/outreach/measurement is used.
+
+# LATEST WORK STATUS - 2026-05-27 16:40 Asia/Jerusalem
 - RECOMMENDED TARGET PUBLIC SOURCE RECHECK ADDED: rechecked public source pages for `BTL-LMI-03-PRIMARY` and created a no-live-action source-support packet for the Pro 349 ILS/month manual-invoice lane.
 - CODE ADDED: `tools/build-lawyer-manual-invoice-target-public-source-recheck.mjs`.
 - GENERATED PRIVATE ARTIFACTS: `.project-control/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.md`, `.project-control/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.html`, `.project-control/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.csv`, `.reports/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.json` and `.reports/lawyer-manual-invoice-target-public-source-recheck-2026-05-27.csv`.

@@ -4,6 +4,17 @@
 
 ---
 
+### ACTION-HOMEPAGE-LEAD-CONVERSION-001: Deploy homepage lead form higher after owner approval
+**Status:** FIXED LOCAL / WAITING FOR OWNER DEPLOYMENT APPROVAL
+**Why:** The owner rejected more internal Bituach Leumi work and asked for customers, lawyers and paying intent. The homepage needs to turn visitors into client leads and lawyer subscription requests faster.
+**Actions:**
+1. DONE: move `template-parts/sections/ask-lawyer` in `front-page.php` to immediately after `customer-intake-strip`.
+2. DONE: rewrite `template-parts/sections/ask-lawyer.php` copy toward a clear case intake and stronger "שליחת פנייה לבדיקה" CTA.
+3. DONE: rewrite `template-parts/sections/lawyer-cta.php` to mention the Pro 349 ILS/month manual path without promising lead volume, ranking or legal results.
+4. DONE: confirm PHP syntax passes for the three changed files and the homepage renders the ask-lawyer section once.
+5. NEXT: owner approves deployment and then compare live lead events, lawyer registration clicks and plan page clicks before/after.
+6. BLOCKED: no live deployment, CRM write, outreach, invoice, payment request or revenue claim until owner approves the specific live step.
+
 ### ACTION-LAWYER-MANUAL-INVOICE-FIRST-TARGET-001: Owner approves first paid lawyer target
 **Status:** FIXED LOCAL / WAITING FOR OWNER TARGET AND MESSAGE APPROVAL
 **Why:** The ranked first-revenue lane is lawyer subscription by manual invoice. The fastest profit path now needs one approved target and one approved offer, not another broad research batch.

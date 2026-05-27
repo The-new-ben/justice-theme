@@ -466,7 +466,7 @@
   .hero__grid {
     display: grid !important;
     grid-template-columns: minmax(0, 1.12fr) minmax(330px, 0.78fr);
-    align-items: center;
+    align-items: start;
     gap: clamp(1.4rem, 3vw, 3rem);
     text-align: start;
   }
@@ -519,7 +519,7 @@
   position: relative;
   width: min(100%, 460px);
   min-height: 0;
-  margin: 0 auto;
+  margin: clamp(0.25rem, 1vw, 0.75rem) auto 0;
   overflow: hidden;
   border: 1px solid rgba(255,255,255,0.18);
   border-radius: 14px;

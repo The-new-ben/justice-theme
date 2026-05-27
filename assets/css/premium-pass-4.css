@@ -528,6 +528,10 @@
   isolation: isolate;
 }
 
+.hero__visual--mobile {
+  display: none;
+}
+
 .hero__visual::before,
 .hero__visual::after {
   content: none !important;
@@ -597,9 +601,19 @@
 }
 
 @media (max-width: 1080px) {
+  .hero__grid > .hero__visual:not(.hero__visual--mobile) {
+    display: none;
+  }
+
   .hero__visual {
     width: min(100%, 720px);
     order: 2;
+  }
+
+  .hero__visual--mobile {
+    display: block;
+    width: min(100%, 680px);
+    margin: 1.1rem auto 1.35rem;
   }
 
   .hero__panel {

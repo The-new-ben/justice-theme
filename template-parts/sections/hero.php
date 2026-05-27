@@ -105,6 +105,27 @@ $hero_first_steps = array(
 				<?php esc_html_e( 'מכתב מהביטוח הלאומי, זימון לחקירה, סכסוך משפחתי, תאונה, פיטורים או חוזה שלא ברור לכם יכולים להרגיש כמו רגע שבו חייבים להחליט מהר. Jus-Tice נועד לעזור לכם לעצור רגע, להבין מה סוג הבעיה, אילו מסמכים כדאי להכין, מה דחוף ומה אפשר לבדוק בשקט. אפשר להתחיל בחיפוש לפי תחום ועיר, לקרוא מדריך בשפה ברורה, ורק אם צריך לעבור לפרופילים או לפנייה מסודרת לעורך דין. המידע באתר כללי ואינו ייעוץ משפטי אישי או הבטחה לתוצאה.', 'justice-theme' ); ?>
 			</p>
 
+			<figure class="hero__visual hero__visual--mobile" aria-label="<?php esc_attr_e( 'תמונת המחשה לפנייה משפטית מסודרת', 'justice-theme' ); ?>">
+				<img
+					src="<?php echo esc_url( $hero_visual ); ?>"
+					width="1280"
+					height="720"
+					alt="<?php esc_attr_e( 'אדם מסדר מסמכים לפני פנייה לעורך דין דרך Jus-Tice', 'justice-theme' ); ?>"
+					loading="eager"
+					fetchpriority="high"
+					decoding="async"
+				>
+				<figcaption class="hero__visual-card">
+					<span><?php esc_html_e( 'מסלול מסודר לפני פנייה', 'justice-theme' ); ?></span>
+					<strong><?php esc_html_e( 'תארו מה קרה, בחרו תחום ועיר, והתקדמו רק כשברור מה הצעד הבא.', 'justice-theme' ); ?></strong>
+				</figcaption>
+				<div class="hero__visual-proof" aria-label="<?php esc_attr_e( 'רכיבי אמון לפני השארת פנייה', 'justice-theme' ); ?>">
+					<span><?php esc_html_e( 'מידע כללי', 'justice-theme' ); ?></span>
+					<span><?php esc_html_e( 'בדיקת דחיפות', 'justice-theme' ); ?></span>
+					<span><?php esc_html_e( 'פנייה בוואטסאפ', 'justice-theme' ); ?></span>
+				</div>
+			</figure>
+
 			<form class="hero-search" role="search" method="get" action="<?php echo esc_url( get_post_type_archive_link( 'justice_lawyer' ) ?: home_url( '/lawyers/' ) ); ?>" id="hero-search-form">
 				<div class="hero-search__filters">
 					<div class="hero-search__field">

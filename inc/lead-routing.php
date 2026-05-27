@@ -180,7 +180,8 @@ function justice_theme_prime_public_lead_revenue_triage_on_save( int $post_id, W
 		update_post_meta( $post_id, 'coverage_status', 'coverage_review' );
 	}
 
-	if ( '' === (string) get_post_meta( $post_id, 'consent_status', true ) ) {
+	$current_consent_status = (string) get_post_meta( $post_id, 'consent_status', true );
+	if ( '' === $current_consent_status || ( '1' === (string) get_post_meta( $post_id, 'consent', true ) && 'missing_site_form_consent' === $current_consent_status ) ) {
 		$consent_status = '1' === (string) get_post_meta( $post_id, 'consent', true ) ? 'explicit_site_form_consent' : 'missing_site_form_consent';
 		update_post_meta( $post_id, 'consent_status', $consent_status );
 	}
@@ -200,9 +201,51 @@ function justice_theme_prime_public_lead_revenue_triage_on_save( int $post_id, W
 	if ( '' === (string) get_post_meta( $post_id, 'owner_revenue_next_step', true ) ) {
 		update_post_meta( $post_id, 'owner_revenue_next_step', 'Review this public lead quickly, call or WhatsApp the visitor, confirm legal area and consent, then assign only to a paid/approved lawyer path. Do not mark paid without payment evidence.' );
 	}
+
+	$area = get_post_meta( $post_id, 'ai_detected_area', true )
+		?: get_post_meta( $post_id, 'legal_area', true );
+
+	if ( $area && 'general' !== $area && function_exists( 'justice_theme_apply_lead_revenue_hint' ) ) {
+		justice_theme_apply_lead_revenue_hint( $post_id, (string) $area );
+	}
 }
 // Priority 23 = before revenue product hints and before automatic routing.
 add_action( 'save_post_justice_lead', 'justice_theme_prime_public_lead_revenue_triage_on_save', 23, 3 );
+
+/**
+ * Catch active form handlers that add contact meta after wp_insert_post().
+ *
+ * @param int    $meta_id    Meta row ID.
+ * @param int    $post_id    Lead post ID.
+ * @param string $meta_key   Meta key that changed.
+ * @param mixed  $meta_value New meta value.
+ */
+function justice_theme_prime_public_lead_revenue_triage_on_meta_update( int $meta_id, int $post_id, string $meta_key, $meta_value ): void {
+	$trigger_keys = array(
+		'visitor_phone',
+		'visitor_email',
+		'lead_phone',
+		'lead_email',
+		'consent',
+		'legal_area',
+		'ai_detected_area',
+		'lead_source_surface',
+		'source_url',
+	);
+
+	if ( ! in_array( $meta_key, $trigger_keys, true ) || 'justice_lead' !== get_post_type( $post_id ) ) {
+		return;
+	}
+
+	$post = get_post( $post_id );
+	if ( ! $post instanceof WP_Post ) {
+		return;
+	}
+
+	justice_theme_prime_public_lead_revenue_triage_on_save( $post_id, $post, true );
+}
+add_action( 'added_post_meta', 'justice_theme_prime_public_lead_revenue_triage_on_meta_update', 10, 4 );
+add_action( 'updated_post_meta', 'justice_theme_prime_public_lead_revenue_triage_on_meta_update', 10, 4 );
 
 /**
  * Prime revenue hints before routing so held leads still reach the right billing queue.

@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - City/practice priority draft briefs
+
+- ADDED: `tools/build-city-practice-priority-draft-briefs.mjs`.
+- GENERATED: `.project-control/city-practice-priority-draft-briefs-2026-05-27.md`, `.project-control/city-practice-priority-draft-briefs-2026-05-27.csv`, `.project-control/city-practice-priority-draft-outline-he-2026-05-27.md`, `.reports/city-practice-priority-draft-briefs-2026-05-27.json`, `.reports/city-practice-priority-draft-briefs-2026-05-27.csv`.
+- PURPOSE: create private owner/editor briefs for the first two city/practice targets using official-source prompts, competitor-positioning guardrails and read-only live exposure checks.
+- RESULT: `CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_READY_WITH_PUBLIC_REVIEW_GATE_NO_PUBLIC_CHANGE`; 2 priority targets, 4 own-site live checks, 3/4 gates pass, 1 review gate, 0 blocked gates, 5 official source prompts and 4 competitor source prompts.
+- REVIEW GATE: `criminal-lawyer-jerusalem` is already live 200 and must be inspected before any public update; `divorce-lawyer-tel-aviv` is not live 200.
+- LINEAR: recorded as `HAD-145`, marked Done under `HAD-144`, related to `HAD-84`, `HAD-143` and `HAD-133`.
+- SAFETY: private draft-preparation and read-only live checking only; no public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead/lawyer/supplier contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+
 # 2026-05-27 - City/practice thin page improvement packet
 
 - ADDED: `tools/build-city-practice-thin-page-improvement-packet.mjs`.

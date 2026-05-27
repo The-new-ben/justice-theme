@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-CITY-PRACTICE-PRIORITY-DRAFT-BRIEFS-001: Build first two private city/practice draft briefs
+**Status:** FIXED LOCAL / ONE EXISTING PUBLIC PAGE NEEDS READ-ONLY QA
+**Why:** The first two local/practice targets need owner/editor-ready private briefs before any publication decision, and one target appears to already be public.
+**Actions:**
+1. DONE: add `tools/build-city-practice-priority-draft-briefs.mjs`.
+2. DONE: generate `.project-control/city-practice-priority-draft-briefs-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/city-practice-priority-draft-outline-he-2026-05-27.md`.
+4. DONE: generate `.reports/city-practice-priority-draft-briefs-2026-05-27.json` and `.csv`.
+5. DONE: confirm `CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_READY_WITH_PUBLIC_REVIEW_GATE_NO_PUBLIC_CHANGE`, 2 priority targets, 4 own-site live checks, 3/4 gates pass, 1 review gate, 0 blocked gates, 5 official source prompts and 4 competitor source prompts.
+6. DONE: record as Linear `HAD-145`, marked Done under `HAD-144`.
+7. NEXT: run read-only content/cannibalization QA for live `/criminal-lawyer-jerusalem/` before any public update, because it already returns 200.
+8. NEXT: fill the evidence template for `/divorce-lawyer-tel-aviv/`, which currently returns 404 and remains safe to prepare privately.
+9. BLOCKED: do not publish, update, unpublish, redirect, canonical/noindex, sitemap, taxonomy, CMS content, internal links, CRM records, leads, lawyer contacts, invoices, payments, emails, WhatsApp, TalkTo or uPress from this packet alone.
+
 ### ACTION-CITY-PRACTICE-THIN-PAGE-IMPROVEMENT-001: Prepare local/practice draft pages for anti-cannibalization review
 **Status:** FIXED LOCAL / PUBLIC CONTENT EXECUTION STILL BLOCKED
 **Why:** The guarded city/practice seed pages are intentionally thin drafts. They need evidence-first improvement packets before any public local/practice page can be published or updated safely.

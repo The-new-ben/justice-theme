@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 04:03 Asia/Jerusalem
+- CITY/PRACTICE PRIORITY DRAFT BRIEFS ADDED: advanced the first two city/practice targets into a private owner/editor draft-brief packet with official-source prompts, competitor-positioning guardrails and live own-site exposure checks.
+- CODE ADDED: `tools/build-city-practice-priority-draft-briefs.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/city-practice-priority-draft-briefs-2026-05-27.md`, `.project-control/city-practice-priority-draft-briefs-2026-05-27.csv`, `.project-control/city-practice-priority-draft-outline-he-2026-05-27.md`, `.reports/city-practice-priority-draft-briefs-2026-05-27.json`, `.reports/city-practice-priority-draft-briefs-2026-05-27.csv`.
+- CHECK RESULT: `CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_READY_WITH_PUBLIC_REVIEW_GATE_NO_PUBLIC_CHANGE`; 2 priority targets; 4 live own-site checks; 3/4 gates pass; 1 review gate; 0 blocked gates; 5 official source prompts; 4 competitor source prompts; 0 public/CMS/SEO/CRM/contact/payment/email actions.
+- REVIEW GATE: `divorce-lawyer-tel-aviv` returned 404 and is not public 200; `criminal-lawyer-jerusalem` returned live 200 and must be inspected as an existing public page before treating it as draft-only or preparing public copy.
+- LINEAR: recorded as `HAD-145`, marked Done under `HAD-144`, related to `HAD-84`, `HAD-143` and `HAD-133`.
+- PUBLIC IMPACT: none from this cycle. This was private draft preparation and read-only live checking only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: priority draft-brief packet 100%; public local/practice content execution remains 0%. The next unblocked content step is read-only QA of the existing live `criminal-lawyer-jerusalem` page and evidence filling for `divorce-lawyer-tel-aviv`.
+
 # LATEST WORK STATUS - 2026-05-27 03:52 Asia/Jerusalem
 - CITY/PRACTICE THIN PAGE IMPROVEMENT PACKET ADDED: converted the guarded draft local/practice-page seeds into a private anti-cannibalization improvement packet.
 - CODE ADDED: `tools/build-city-practice-thin-page-improvement-packet.mjs`.

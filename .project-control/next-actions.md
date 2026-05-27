@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-TEL-AVIV-FAMILY-OWNER-SCOPE-001: Fill owner publication-scope decision gate
+**Status:** FIXED LOCAL / OWNER AND EVIDENCE FILL STILL BLOCKED
+**Why:** The Tel Aviv family route now has publication, focused GSC, lawyer readiness and legal/editor packets, but the owner still needs one exact scope surface to approve, revise, reject or park the future target before any public work.
+**Actions:**
+1. DONE: add `tools/build-tel-aviv-family-owner-publication-scope-packet.mjs`.
+2. DONE: generate `.project-control/tel-aviv-family-owner-publication-scope-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/tel-aviv-family-owner-publication-scope-fill-template-2026-05-27.csv`.
+4. DONE: generate `.project-control/tel-aviv-family-post-publication-review-checklist-2026-05-27.csv`.
+5. DONE: generate `.reports/tel-aviv-family-owner-publication-scope-packet-2026-05-27.json` and `.csv`.
+6. DONE: confirm status `TEL_AVIV_FAMILY_OWNER_PUBLICATION_SCOPE_PACKET_BLOCKED_OWNER_AND_EVIDENCE_FILL_REQUIRED_NO_PUBLIC_CHANGE`, 8 owner decision rows, 8 owner fill-template rows, 4 post-publication checklist rows, 1 blocked gate, 144 focused GSC paste rows, 1 lawyer-readiness blocked row, 3 legal/editor blocked gates, 0 paid LLM API use and 0 public/CMS/SEO/CRM/contact/payment/email/uPress approvals.
+7. NEXT: owner fills the scope template and owner/operator fills focused GSC, lawyer readiness and legal/editor templates; then combine all filled rows in a later private go/no-go packet.
+8. BLOCKED: no public route, CMS, title/H1/meta/body/internal link, redirect/canonical/noindex/sitemap/taxonomy, CRM, lawyer profile edit, contact, invoice, payment, email/WhatsApp/TalkTo, paid LLM API, wp-admin write or uPress from this private scope packet.
+
 ### ACTION-TEL-AVIV-FAMILY-LEGAL-EDITOR-REVIEW-001: Prepare row-level legal/editor review surface
 **Status:** FIXED LOCAL / HUMAN REVIEW STILL BLOCKED
 **Why:** The Tel Aviv family publication review still had a broad legal/editor blocker. Reviewer work needed to be narrowed into exact rows for title/H1, intro, checklist, CTA/link boundaries, FAQ candidates, source boundaries, protected-route overlap, coverage language and disclaimers.

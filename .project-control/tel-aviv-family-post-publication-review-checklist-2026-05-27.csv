@@ -1,0 +1,5 @@
+id,future_check,required_if_deployed,similar_or_cannibalizing_pages_to_inspect,current_status
+TA-POST-01,review_url,Record final review URL for /divorce-lawyer-tel-aviv/.,/divorce-lawyer/ | /family-law/ | /child-custody/ | /child-support-calculator-2023/ | /divorce-mediation/ | /what-is-a-divorce-settlement-agreement/ | /free-divorce-agreement-template/ | /how-much-does-a-divorce-agreement-cost/,not_deployed_not_applicable
+TA-POST-02,title_h1_meta_body,Confirm final public title/H1/meta/body match owner/legal/editor approved packet only.,/divorce-lawyer/ and all protected family/divorce associated routes.,not_deployed_not_applicable
+TA-POST-03,internal_links_and_directory_handoff,Confirm only approved links are present and directory path is /lawyers/?city=tel-aviv&area=family-law.,/divorce-lawyer/ | /lawyers/?city=tel-aviv&area=family-law,not_deployed_not_applicable
+TA-POST-04,owner_email_if_public_update,"Before any email, check Gmail for owner instruction emails; then send Hebrew review URL, content summary, concise review and cannibalization list if warranted.",All protected associated routes in this checklist.,not_deployed_not_applicable_no_email_now

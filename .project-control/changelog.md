@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Tel Aviv family owner publication scope packet
+
+- ADDED: `tools/build-tel-aviv-family-owner-publication-scope-packet.mjs`.
+- GENERATED: `.project-control/tel-aviv-family-owner-publication-scope-packet-2026-05-27.md`, `.project-control/tel-aviv-family-owner-publication-scope-packet-2026-05-27.csv`, `.project-control/tel-aviv-family-owner-publication-scope-fill-template-2026-05-27.csv`, `.project-control/tel-aviv-family-post-publication-review-checklist-2026-05-27.csv`, `.reports/tel-aviv-family-owner-publication-scope-packet-2026-05-27.json` and `.reports/tel-aviv-family-owner-publication-scope-packet-2026-05-27.csv`.
+- PURPOSE: turn the remaining owner publication-scope blocker for `/divorce-lawyer-tel-aviv/` into exact private decisions before any CMS/page/SEO work can be considered.
+- RESULT: `TEL_AVIV_FAMILY_OWNER_PUBLICATION_SCOPE_PACKET_BLOCKED_OWNER_AND_EVIDENCE_FILL_REQUIRED_NO_PUBLIC_CHANGE`; 8 owner decision rows, 8 owner fill-template rows, 4 future post-publication checklist rows and 1 blocked evidence gate were generated.
+- SAFETY: private owner-scope tooling/reporting only; no paid LLM API, public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Tel Aviv family legal/editor review packet
 
 - ADDED: `tools/build-tel-aviv-family-legal-editor-review-packet.mjs`.

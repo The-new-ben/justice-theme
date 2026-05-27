@@ -1,0 +1,9 @@
+decision_id,decision_area,owner_decision,accepted_values,owner_scope_notes_no_pii,required_followup_owner,can_prepare_private_cms_packet,public_go_if_blank
+TA-OWNER-01,target_url_and_route_creation,,approve / revise / reject / park / needs_gsc / needs_lawyer_readiness / needs_legal_editor,,,no,no
+TA-OWNER-02,content_scope,,approve / revise / reject / park / needs_gsc / needs_lawyer_readiness / needs_legal_editor,,,no,no
+TA-OWNER-03,gsc_evidence_gate,,approve / revise / reject / park / needs_gsc / needs_lawyer_readiness / needs_legal_editor,,,no,no
+TA-OWNER-04,lawyer_coverage_readiness,,approve / revise / reject / park / needs_gsc / needs_lawyer_readiness / needs_legal_editor,,,no,no
+TA-OWNER-05,legal_editor_approval,,approve / revise / reject / park / needs_gsc / needs_lawyer_readiness / needs_legal_editor,,,no,no
+TA-OWNER-06,internal_link_and_cta_scope,,approve / revise / reject / park / needs_gsc / needs_lawyer_readiness / needs_legal_editor,,,no,no
+TA-OWNER-07,post_publication_review_workflow,,approve / revise / reject / park / needs_gsc / needs_lawyer_readiness / needs_legal_editor,,,no,no
+TA-OWNER-08,final_go_no_go,,approve / revise / reject / park / needs_gsc / needs_lawyer_readiness / needs_legal_editor,,,no,no

@@ -1,0 +1,4 @@
+id,gate,status,evidence,next_action
+TA-OWNER-GATE-01,scope_rows_ready,PASS_SCOPE_TEMPLATE_READY,8 owner decision rows generated.,Owner fills approve/revise/reject/park decisions.
+TA-OWNER-GATE-02,evidence_blockers_still_open,BLOCKED_EVIDENCE_ROWS_REQUIRED,focused_gsc_not_filled | lawyer_readiness_not_filled | legal_editor_not_filled | owner_scope_not_filled,"Fill GSC, lawyer readiness, legal/editor and owner scope templates before any go decision."
+TA-OWNER-GATE-03,no_live_action_authorized,PASS_NO_LIVE_ACTION,This packet writes private repo artifacts only and records 0 public/CMS/SEO/CRM/contact/payment/email/uPress approvals.,Keep the target private until a later explicit owner-approved deploy packet exists.

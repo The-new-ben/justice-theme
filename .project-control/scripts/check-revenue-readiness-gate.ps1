@@ -77,6 +77,11 @@ $checks = @(
 		-Arguments @("-BaseUrl", $BaseUrl) `
 		-BlocksProfit $true),
 	(Invoke-JsonChecker `
+		-Name "lead_crm_operator_readiness" `
+		-ScriptPath (Join-Path $scriptRoot "check-lead-crm-operator-readiness.ps1") `
+		-Arguments @("-Root", (Resolve-Path -LiteralPath (Join-Path $scriptRoot "..\..")).Path) `
+		-BlocksProfit $true),
+	(Invoke-JsonChecker `
 		-Name "lawyer_money_path" `
 		-ScriptPath (Join-Path $scriptRoot "check-lawyer-money-path.ps1") `
 		-Arguments @("-BaseUrl", $BaseUrl) `

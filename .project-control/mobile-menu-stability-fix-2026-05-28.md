@@ -33,6 +33,7 @@ Run:
 php -l functions.php
 php -l inc\enqueue.php
 node --check assets\js\navigation.js
+powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\check-mobile-menu-stability.ps1
 rg --hidden -n "jt-menu-toggle|2026-05-28-menu-pageid-normalizer-v1|1\.1\.68" functions.php inc assets .project-control\scripts .project-control\*.md
 powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\check-revenue-readiness-gate.ps1
 ```
@@ -40,6 +41,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\che
 Expected:
 
 - PHP and JS syntax pass.
+- Mobile menu source stability gate passes.
 - No remaining dynamic `jt-menu-toggle` variables in runtime source.
 - Consolidated gate remains `partial_live_funnel_deploy_blocked` until uPress pulls the latest theme.
 
@@ -52,6 +54,12 @@ Actual verification on 2026-05-27T23:25Z:
 - Source-only link hygiene: PASS across 112 files.
 - Live deploy marker: FAIL as expected; `1.1.69` / `2026-05-28-mobile-menu-stability-v1` is not live yet.
 - Consolidated gate: `pass: true`, readiness `partial_live_funnel_deploy_blocked`.
+
+Added on the next cycle:
+
+- `.project-control/scripts/check-mobile-menu-stability.ps1` now enforces this as a reusable source gate.
+- Consolidated readiness now includes `mobile_menu_source_stability` as a profit-blocking source check, because broken mobile navigation hides WhatsApp, phone, and lawyer-plan actions.
+- Verified on 2026-05-27T23:31Z: `check-mobile-menu-stability.ps1` passed; consolidated gate remained `pass: true` with no profit-blocking failures and only deployment/link-hygiene blockers.
 
 ## What Remains Blocked
 

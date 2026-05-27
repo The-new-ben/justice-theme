@@ -92,6 +92,11 @@ $checks = @(
 		-Arguments @("-BaseUrl", $BaseUrl) `
 		-BlocksProfit $true),
 	(Invoke-JsonChecker `
+		-Name "mobile_menu_source_stability" `
+		-ScriptPath (Join-Path $scriptRoot "check-mobile-menu-stability.ps1") `
+		-Arguments @("-Root", (Resolve-Path -LiteralPath (Join-Path $scriptRoot "..\..")).Path) `
+		-BlocksProfit $true),
+	(Invoke-JsonChecker `
 		-Name "mobile_menu_live_deploy_marker" `
 		-ScriptPath (Join-Path $scriptRoot "check-live-deploy.ps1") `
 		-Arguments @(

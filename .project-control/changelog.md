@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Criminal Jerusalem directory coverage unblocker
+
+- ADDED: `tools/build-city-practice-directory-coverage-unblocker.mjs`.
+- GENERATED: `.project-control/city-practice-directory-coverage-unblocker-2026-05-27.md`, `.project-control/city-practice-directory-coverage-unblocker-2026-05-27.csv`, `.project-control/city-practice-directory-coverage-owner-template-2026-05-27.csv`, `.reports/city-practice-directory-coverage-unblocker-2026-05-27.json`, `.reports/city-practice-directory-coverage-unblocker-2026-05-27.csv`.
+- PURPOSE: turn the blocked criminal Jerusalem city/practice directory coverage finding into private owner/admin options before any public draft, internal-link or CTA change.
+- RESULT: `DIRECTORY_COVERAGE_UNBLOCKER_READY_NO_PUBLIC_CHANGE`; 1 blocked exact directory row, 3 live alternative checks, 5 option rows, 3 owner-template rows and 5/5 gates pass. Exact criminal+Jerusalem and area-only criminal have 0 lawyer cards; city-only Jerusalem has 2 cards but is not criminal-specific; contact fallback is reachable but review-only.
+- LINEAR: recorded as `HAD-167`, marked Done under `HAD-166`, related to `HAD-145`, `HAD-151`, `HAD-152`, `HAD-147` and `HAD-160`.
+- SAFETY: private tooling/reporting and read-only live checks only; no public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - City/practice live directory coverage gate
 
 - UPDATED: `tools/build-city-practice-priority-draft-briefs.mjs`.

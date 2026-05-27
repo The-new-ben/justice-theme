@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-CRIMINAL-JERUSALEM-DIRECTORY-COVERAGE-UNBLOCKER-001: Turn the coverage blocker into owner choices
+**Status:** FIXED LOCAL / LIVE COVERAGE STILL BLOCKED
+**Why:** The canonical criminal+Jerusalem directory has the right filtered title/H1 but 0 lawyer cards, so the next step needs to be explicit owner/admin coverage work or a deliberate park/alternate-CTA decision rather than accidental public draft reliance.
+**Actions:**
+1. DONE: add `tools/build-city-practice-directory-coverage-unblocker.mjs`.
+2. DONE: generate `.project-control/city-practice-directory-coverage-unblocker-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/city-practice-directory-coverage-owner-template-2026-05-27.csv`.
+4. DONE: generate `.reports/city-practice-directory-coverage-unblocker-2026-05-27.json` and `.csv`.
+5. DONE: confirm `DIRECTORY_COVERAGE_UNBLOCKER_READY_NO_PUBLIC_CHANGE`, 1 blocked directory row, 3 live alternative checks, 5 option rows, 3 owner-template rows and 5/5 gates pass.
+6. DONE: verify exact criminal+Jerusalem and area-only criminal directories both have 0 lawyer cards.
+7. DONE: verify city-only Jerusalem has 2 cards but is not criminal-specific, and contact fallback is reachable but review-only.
+8. DONE: verify private artifact boundary guard `PASS` and record as Linear `HAD-167`, marked Done under `HAD-166`.
+9. NEXT: owner/admin should either approve private matching-lawyer coverage work, park the city/practice public update, or request a separate alternate-CTA review packet.
+10. BLOCKED: do not publish/update the criminal Jerusalem page, add internal links, imply exact lawyer availability, create CRM/lawyer/prospect records, contact anyone, route leads, invoice, mark paid, send email/WhatsApp/TalkTo or uPress from this private unblocker alone.
+
 ### ACTION-CITY-PRACTICE-LIVE-DIRECTORY-COVERAGE-GATE-001: Verify city/practice directory coverage before draft reliance
 **Status:** FIXED LOCAL / JERUSALEM CRIMINAL DIRECTORY COVERAGE BLOCKED
 **Why:** Correcting `practice=` to `area=` fixed the URL policy, but private draft briefs still needed a live coverage gate to prove the filtered directory actually has matching lawyer cards before any owner/editor packet or future internal-link plan relies on it.

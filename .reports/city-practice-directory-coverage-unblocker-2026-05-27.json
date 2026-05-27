@@ -1,0 +1,222 @@
+{
+  "reportDate": "2026-05-27",
+  "status": "DIRECTORY_COVERAGE_UNBLOCKER_READY_NO_PUBLIC_CHANGE",
+  "sourceStatus": "CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_BLOCKED_NO_PUBLIC_CHANGE",
+  "blockedDirectoryCount": 1,
+  "liveAlternativeCount": 3,
+  "optionCount": 5,
+  "ownerTemplateRowCount": 3,
+  "passGateCount": 5,
+  "reviewGateCount": 0,
+  "blockedGateCount": 0,
+  "publicChangesApproved": 0,
+  "cmsWritesApproved": 0,
+  "seoSettingsChanged": 0,
+  "crmRecordsCreated": 0,
+  "leadOrLawyerContactActions": 0,
+  "invoicesOrPaymentsCreated": 0,
+  "emailsSent": 0,
+  "upressDeploymentRequired": false,
+  "gates": [
+    {
+      "row_type": "gate",
+      "id": "DGU-GATE-01",
+      "gate": "source_priority_packet_available",
+      "status": "PASS",
+      "evidence": "Source city/practice packet status: CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_BLOCKED_NO_PUBLIC_CHANGE.",
+      "next_action": "Use source packet only as private evidence; do not publish from it."
+    },
+    {
+      "row_type": "gate",
+      "id": "DGU-GATE-02",
+      "gate": "blocked_directory_rows_found",
+      "status": "PASS",
+      "evidence": "1 blocked canonical directory row(s) found.",
+      "next_action": "Build owner choices around the exact blocked rows."
+    },
+    {
+      "row_type": "gate",
+      "id": "DGU-GATE-03",
+      "gate": "alternate_paths_checked_read_only",
+      "status": "PASS",
+      "evidence": "3 live alternate path check(s) recorded.",
+      "next_action": "Treat alternatives as review candidates only, not approved public links."
+    },
+    {
+      "row_type": "gate",
+      "id": "DGU-GATE-04",
+      "gate": "owner_options_ready",
+      "status": "PASS",
+      "evidence": "5 private option row(s) generated.",
+      "next_action": "Owner/admin can choose private coverage, park, or ask for a separate alternate-CTA packet."
+    },
+    {
+      "row_type": "gate",
+      "id": "DGU-GATE-05",
+      "gate": "no_public_change_authorized",
+      "status": "PASS",
+      "evidence": "All option rows keep public change forbidden without fresh owner approval.",
+      "next_action": "Do not publish, link, route, contact, invoice or deploy from this packet."
+    }
+  ],
+  "blockedRows": [
+    {
+      "row_type": "blocked_directory",
+      "id": "CPD-02-DIRECTORY",
+      "slug": "criminal-lawyer-jerusalem",
+      "url": "https://jus-tice.co.il/lawyers/?city=jerusalem&area=criminal-law",
+      "status": 200,
+      "title": "עורך דין משפט פלילי בירושלים | Jus-Tice",
+      "h1": "עורך דין משפט פלילי בירושלים",
+      "expected_terms": "משפט פלילי | ירושלים",
+      "lawyer_card_count": 0,
+      "gate": "BLOCKED_CANONICAL_DIRECTORY_FILTER_GENERIC_OR_EMPTY",
+      "blocker": "Canonical filtered directory cannot be used for draft/internal-link reliance because coverage is missing or generic.",
+      "next_action": "Fix lawyer coverage privately, choose an approved alternate CTA/path, or park the city/practice draft."
+    }
+  ],
+  "alternativeRows": [
+    {
+      "row_type": "live_alternative",
+      "id": "CPD-02-DIRECTORY-ALT-AREA",
+      "option": "area_only_directory",
+      "path": "/lawyers/?area=criminal-law",
+      "use_case": "Fallback directory candidate if owner/editor accepts a broader, non-local directory link.",
+      "safety": "Do not present as Jerusalem-specific coverage.",
+      "slug": "criminal-lawyer-jerusalem",
+      "source_directory_url": "https://jus-tice.co.il/lawyers/?city=jerusalem&area=criminal-law",
+      "url": "https://jus-tice.co.il/lawyers/?area=criminal-law",
+      "status": 200,
+      "final_url": "https://jus-tice.co.il/lawyers/?area=criminal-law&jt_directory_unblocker=1779857038433",
+      "title": "עורך דין משפט פלילי | מצאו עורך דין מתאים",
+      "h1": "עורך דין משפט פלילי",
+      "word_estimate": 669,
+      "lawyer_card_count": 0,
+      "gate": "BLOCKED_ALTERNATE_DIRECTORY_EMPTY"
+    },
+    {
+      "row_type": "live_alternative",
+      "id": "CPD-02-DIRECTORY-ALT-CITY",
+      "option": "city_only_directory",
+      "path": "/lawyers/?city=jerusalem",
+      "use_case": "Fallback city directory candidate if owner/editor accepts a broader, non-practice-specific directory link.",
+      "safety": "Do not present as criminal-law-specific coverage.",
+      "slug": "criminal-lawyer-jerusalem",
+      "source_directory_url": "https://jus-tice.co.il/lawyers/?city=jerusalem&area=criminal-law",
+      "url": "https://jus-tice.co.il/lawyers/?city=jerusalem",
+      "status": 200,
+      "final_url": "https://jus-tice.co.il/lawyers/?city=jerusalem&jt_directory_unblocker=1779857040545",
+      "title": "עורכי דין בירושלים | Jus-Tice",
+      "h1": "עורכי דין בירושלים",
+      "word_estimate": 730,
+      "lawyer_card_count": 2,
+      "gate": "REVIEW_ALTERNATE_DIRECTORY_HAS_COVERAGE"
+    },
+    {
+      "row_type": "live_alternative",
+      "id": "CPD-02-DIRECTORY-ALT-CONTACT",
+      "option": "contact_form_fallback",
+      "path": "/contact/?area=criminal-law&city=jerusalem&source=criminal-lawyer-jerusalem",
+      "use_case": "Potential future user-help CTA when no matching lawyer-card coverage exists.",
+      "safety": "Requires owner/SEO/legal approval before any public content or internal-link use.",
+      "slug": "criminal-lawyer-jerusalem",
+      "source_directory_url": "https://jus-tice.co.il/lawyers/?city=jerusalem&area=criminal-law",
+      "url": "https://jus-tice.co.il/contact/?area=criminal-law&city=jerusalem&source=criminal-lawyer-jerusalem",
+      "status": 200,
+      "final_url": "https://jus-tice.co.il/contact/?area=criminal-law&city=jerusalem&source=criminal-lawyer-jerusalem&jt_directory_unblocker=1779857042507",
+      "title": "יצירת קשר | Jus-Tice",
+      "h1": "יצירת קשר",
+      "word_estimate": 431,
+      "lawyer_card_count": 0,
+      "gate": "REVIEW_CONTACT_FORM_REACHABLE"
+    }
+  ],
+  "optionRows": [
+    {
+      "row_type": "option",
+      "id": "CPD-02-DIRECTORY-OPTION-01",
+      "slug": "criminal-lawyer-jerusalem",
+      "option": "activate_matching_lawyer_coverage",
+      "status": "RECOMMENDED_PRIVATE_REVENUE_PATH",
+      "evidence": "https://jus-tice.co.il/lawyers/?city=jerusalem&area=criminal-law has 0 lawyer cards for the exact city/practice filter.",
+      "next_action": "Owner/admin should activate or verify at least one matching routable lawyer profile/prospect before relying on the exact directory path.",
+      "public_change_allowed": "no"
+    },
+    {
+      "row_type": "option",
+      "id": "CPD-02-DIRECTORY-OPTION-02",
+      "slug": "criminal-lawyer-jerusalem",
+      "option": "broader_area_directory_fallback",
+      "status": "BLOCKED_EMPTY_OR_UNVERIFIED",
+      "evidence": "/lawyers/?area=criminal-law returned 0 lawyer cards and H1 \"עורך דין משפט פלילי\".",
+      "next_action": "Use only if owner/SEO/legal approves a broader non-local directory CTA in a future public draft packet.",
+      "public_change_allowed": "no"
+    },
+    {
+      "row_type": "option",
+      "id": "CPD-02-DIRECTORY-OPTION-03",
+      "slug": "criminal-lawyer-jerusalem",
+      "option": "broader_city_directory_fallback",
+      "status": "REVIEW_ONLY_HAS_COVERAGE",
+      "evidence": "/lawyers/?city=jerusalem returned 2 lawyer cards and H1 \"עורכי דין בירושלים\".",
+      "next_action": "Use only if owner/SEO/legal approves a broader non-practice-specific directory CTA in a future public draft packet.",
+      "public_change_allowed": "no"
+    },
+    {
+      "row_type": "option",
+      "id": "CPD-02-DIRECTORY-OPTION-04",
+      "slug": "criminal-lawyer-jerusalem",
+      "option": "contact_form_fallback",
+      "status": "REVIEW_ONLY_REACHABLE",
+      "evidence": "/contact/?area=criminal-law&city=jerusalem&source=criminal-lawyer-jerusalem returned status 200 and H1 \"יצירת קשר\".",
+      "next_action": "Use only after explicit approval of public copy, lead-routing expectations and non-directory wording.",
+      "public_change_allowed": "no"
+    },
+    {
+      "row_type": "option",
+      "id": "CPD-02-DIRECTORY-OPTION-05",
+      "slug": "criminal-lawyer-jerusalem",
+      "option": "park_city_practice_public_work",
+      "status": "SAFE_DEFAULT",
+      "evidence": "Exact directory coverage is missing and public content approval is absent.",
+      "next_action": "Keep the local/practice update private until coverage or approved fallback is ready.",
+      "public_change_allowed": "no"
+    }
+  ],
+  "ownerTemplateRows": [
+    {
+      "row_type": "owner_template",
+      "decision_id": "CPD-02-DIRECTORY-DECISION-01",
+      "slug": "criminal-lawyer-jerusalem",
+      "owner_decision": "",
+      "recommended_value": "approve private matching-lawyer coverage work",
+      "allowed_next_step": "Create/verify one matching private lawyer/prospect record and only later rerun the coverage gate.",
+      "forbidden_without_fresh_approval": "Do not publish content, add internal links, contact anyone, route leads, invoice, mark paid or change SEO settings."
+    },
+    {
+      "row_type": "owner_template",
+      "decision_id": "CPD-02-DIRECTORY-DECISION-02",
+      "slug": "criminal-lawyer-jerusalem",
+      "owner_decision": "",
+      "recommended_value": "park public city/practice update",
+      "allowed_next_step": "Keep content private and continue revenue/content prep on targets with proven directory coverage.",
+      "forbidden_without_fresh_approval": "Do not use a broader area/city/contact fallback on the public site without owner/SEO/legal approval."
+    },
+    {
+      "row_type": "owner_template",
+      "decision_id": "CPD-02-DIRECTORY-DECISION-03",
+      "slug": "criminal-lawyer-jerusalem",
+      "owner_decision": "",
+      "recommended_value": "request alternate CTA plan",
+      "allowed_next_step": "Prepare a separate public-copy review packet for a non-directory CTA, still with no CMS change.",
+      "forbidden_without_fresh_approval": "Do not imply exact lawyer availability in the blocked city/practice combination."
+    }
+  ],
+  "files": {
+    "projectMd": ".project-control/city-practice-directory-coverage-unblocker-2026-05-27.md",
+    "projectCsv": ".project-control/city-practice-directory-coverage-unblocker-2026-05-27.csv",
+    "ownerTemplateCsv": ".project-control/city-practice-directory-coverage-owner-template-2026-05-27.csv",
+    "reportJson": ".reports/city-practice-directory-coverage-unblocker-2026-05-27.json",
+    "reportCsv": ".reports/city-practice-directory-coverage-unblocker-2026-05-27.csv"
+  }
+}

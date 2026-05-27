@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 07:44 Asia/Jerusalem
+- CRIMINAL JERUSALEM DIRECTORY COVERAGE UNBLOCKER ADDED: converted the new city/practice directory blocker into a private owner/operator packet with exact read-only alternatives and decision rows.
+- CODE ADDED: `tools/build-city-practice-directory-coverage-unblocker.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/city-practice-directory-coverage-unblocker-2026-05-27.md`, `.project-control/city-practice-directory-coverage-unblocker-2026-05-27.csv`, `.project-control/city-practice-directory-coverage-owner-template-2026-05-27.csv`, `.reports/city-practice-directory-coverage-unblocker-2026-05-27.json`, `.reports/city-practice-directory-coverage-unblocker-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-city-practice-directory-coverage-unblocker.mjs` passed; unblocker status `DIRECTORY_COVERAGE_UNBLOCKER_READY_NO_PUBLIC_CHANGE`, source packet `CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_BLOCKED_NO_PUBLIC_CHANGE`, 1 blocked directory row, 3 live alternative checks, 5 option rows, 3 owner-template rows and 5/5 gates pass. Exact criminal+Jerusalem and area-only criminal directories both have 0 lawyer cards; city-only Jerusalem has 2 cards but is not criminal-specific; contact fallback is reachable but requires owner/SEO/legal approval before any public use. Private artifact boundary guard `PASS`.
+- REVIEW RESULT: the safest next step is private matching-lawyer coverage for criminal law in Jerusalem, then rerun the coverage gate. Broader city directory or contact-form fallback are review-only options and must not be used publicly without a separate approved public-copy packet.
+- LINEAR: recorded as `HAD-167`, marked Done under `HAD-166`, related to `HAD-145`, `HAD-151`, `HAD-152`, `HAD-147` and `HAD-160`.
+- PUBLIC IMPACT: none. This was private tooling/reporting and read-only live verification only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: criminal Jerusalem directory unblocker 100%; live/public execution remains blocked until owner/admin either creates or verifies matching lawyer coverage, parks the route, or approves a separate alternate-CTA review packet.
+
 # LATEST WORK STATUS - 2026-05-27 07:35 Asia/Jerusalem
 - CITY/PRACTICE LIVE DIRECTORY COVERAGE GATE ADDED: extended the private city/practice draft-brief packet so corrected `area=` lawyer-directory URLs are verified live before future owner/editor draft work relies on them.
 - CODE UPDATED: `tools/build-city-practice-priority-draft-briefs.mjs`.

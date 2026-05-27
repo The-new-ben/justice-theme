@@ -123,6 +123,48 @@ function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool 
 add_action( 'save_post_justice_lead', 'justice_theme_route_lead_to_lawyers', 30, 3 );
 
 /**
+ * Resolve the public source channel from a lead source surface.
+ *
+ * @param string $lead_source_surface Public form surface slug.
+ */
+function justice_theme_public_lead_source_channel( string $lead_source_surface ): string {
+	$lead_source_surface = sanitize_key( $lead_source_surface );
+
+	if ( 'homepage_ask_lawyer' === $lead_source_surface || 0 === strpos( $lead_source_surface, 'homepage_' ) ) {
+		return 'public_homepage_form';
+	}
+
+	if ( 'lawyer_profile_lead' === $lead_source_surface ) {
+		return 'public_lawyer_profile_form';
+	}
+
+	return 'public_site_form';
+}
+
+/**
+ * Return the owner-facing next action for a public lead source surface.
+ *
+ * @param string $lead_source_surface Public form surface slug.
+ */
+function justice_theme_public_lead_revenue_next_step( string $lead_source_surface ): string {
+	$lead_source_surface = sanitize_key( $lead_source_surface );
+
+	if ( 'homepage_legal_help_router' === $lead_source_surface ) {
+		return 'Homepage situation-card lead: call or WhatsApp the visitor quickly, confirm the selected legal issue, city, urgency and consent, then assign only to a paid/approved lawyer path. Record first attempt and do not mark paid without payment evidence.';
+	}
+
+	if ( 'homepage_ask_lawyer' === $lead_source_surface ) {
+		return 'Homepage Ask a Lawyer lead: call or WhatsApp quickly, confirm legal area, city, urgency and consent, then decide whether the lead can move to a paid/approved lawyer handoff. Do not mark paid without payment evidence.';
+	}
+
+	if ( 'lawyer_profile_lead' === $lead_source_surface ) {
+		return 'Lawyer profile lead: verify the visitor intended this lawyer, confirm consent, then route only if the lawyer is paid/approved for the handoff. Do not mark paid without payment evidence.';
+	}
+
+	return 'Review this public lead quickly, call or WhatsApp the visitor, confirm legal area and consent, then assign only to a paid/approved lawyer path. Do not mark paid without payment evidence.';
+}
+
+/**
  * Ensure public site leads become owner-visible revenue work even if another
  * active plugin handled the form submission before the theme could tag it.
  *
@@ -168,8 +210,16 @@ function justice_theme_prime_public_lead_revenue_triage_on_save( int $post_id, W
 		update_post_meta( $post_id, 'source_page_url', $source_url );
 	}
 
-	if ( '' === (string) get_post_meta( $post_id, 'lead_source_surface', true ) ) {
+	$lead_source_surface = (string) get_post_meta( $post_id, 'lead_source_surface', true );
+	if ( '' === $lead_source_surface ) {
+		$lead_source_surface = 'public_site_form';
 		update_post_meta( $post_id, 'lead_source_surface', 'public_site_form' );
+	}
+
+	$resolved_source_channel = justice_theme_public_lead_source_channel( $lead_source_surface );
+	$current_source_channel  = (string) get_post_meta( $post_id, 'source_channel', true );
+	if ( '' === $current_source_channel || ( 'public_site_form' === $current_source_channel && 'public_site_form' !== $resolved_source_channel ) ) {
+		update_post_meta( $post_id, 'source_channel', $resolved_source_channel );
 	}
 
 	if ( '' === (string) get_post_meta( $post_id, 'follow_up_status', true ) ) {
@@ -198,8 +248,10 @@ function justice_theme_prime_public_lead_revenue_triage_on_save( int $post_id, W
 		update_post_meta( $post_id, 'lead_revenue_notes', 'Public site lead. Qualify need, consent, coverage and lawyer commercial terms before billing.' );
 	}
 
-	if ( '' === (string) get_post_meta( $post_id, 'owner_revenue_next_step', true ) ) {
-		update_post_meta( $post_id, 'owner_revenue_next_step', 'Review this public lead quickly, call or WhatsApp the visitor, confirm legal area and consent, then assign only to a paid/approved lawyer path. Do not mark paid without payment evidence.' );
+	$current_next_step = (string) get_post_meta( $post_id, 'owner_revenue_next_step', true );
+	$generic_next_step = justice_theme_public_lead_revenue_next_step( 'public_site_form' );
+	if ( '' === $current_next_step || ( $generic_next_step === $current_next_step && 'homepage_legal_help_router' === $lead_source_surface ) ) {
+		update_post_meta( $post_id, 'owner_revenue_next_step', justice_theme_public_lead_revenue_next_step( $lead_source_surface ) );
 	}
 
 	$area = get_post_meta( $post_id, 'ai_detected_area', true )

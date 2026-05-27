@@ -9,8 +9,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'JUSTICE_THEME_VERSION', '1.1.48' );
-define( 'JUSTICE_DEPLOY_MARKER', '2026-05-27-situation-card-lead-prefill-v1' );
+define( 'JUSTICE_THEME_VERSION', '1.1.49' );
+define( 'JUSTICE_DEPLOY_MARKER', '2026-05-27-homepage-router-crm-triage-v1' );
 define( 'JUSTICE_THEME_DIR', get_template_directory() );
 define( 'JUSTICE_THEME_URI', get_template_directory_uri() );
 

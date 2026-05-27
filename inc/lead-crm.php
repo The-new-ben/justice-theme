@@ -5485,18 +5485,33 @@ function justice_theme_crm_lead_admin_revenue_columns( array $columns ): array {
 }
 add_filter( 'manage_justice_lead_posts_columns', 'justice_theme_crm_lead_admin_revenue_columns', 100 );
 
+function justice_theme_crm_lead_source_surface_label( string $surface ): string {
+	$surface = sanitize_key( $surface );
+	$labels  = array(
+		'homepage_legal_help_router' => 'Homepage situation card',
+		'homepage_ask_lawyer'        => 'Homepage Ask a Lawyer',
+		'ask_lawyer_form'            => 'Ask a Lawyer form',
+		'public_lead_form'           => 'Public lead form',
+		'public_site_form'           => 'Public site form',
+		'lawyer_profile_lead'        => 'Lawyer profile lead',
+	);
+
+	return $labels[ $surface ] ?? str_replace( '_', ' ', $surface );
+}
+
 function justice_theme_crm_render_lead_admin_revenue_column( string $column, int $post_id ): void {
 	if ( 'revenue_triage' === $column ) {
 		$billing = justice_theme_crm_qualified_lead_billing_badge( $post_id );
 		$source  = (string) get_post_meta( $post_id, 'source_channel', true );
 		$surface = (string) get_post_meta( $post_id, 'lead_source_surface', true );
+		$source_display = trim( $source . ' / ' . ( $surface ? justice_theme_crm_lead_source_surface_label( $surface ) : '' ), ' /' );
 		?>
 		<span style="display:inline-block;padding:2px 8px;border-radius:999px;font-size:12px;<?php echo esc_attr( $billing['style'] ); ?>"><?php echo esc_html( $billing['label'] ); ?></span>
 		<?php if ( ! empty( $billing['detail'] ) ) : ?>
 			<small style="display:block;color:#646970;margin-top:3px;"><?php echo esc_html( $billing['detail'] ); ?></small>
 		<?php endif; ?>
-		<?php if ( $source || $surface ) : ?>
-			<small style="display:block;color:#646970;margin-top:3px;"><?php echo esc_html( trim( $source . ' / ' . $surface, ' /' ) ); ?></small>
+		<?php if ( $source_display ) : ?>
+			<small style="display:block;color:#646970;margin-top:3px;"><?php echo esc_html( $source_display ); ?></small>
 		<?php endif; ?>
 		<?php
 		return;

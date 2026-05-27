@@ -102,7 +102,12 @@ function uj_handle_lead() {
 	$lead_source_surface = isset( $_POST['lead_source_surface'] ) ? sanitize_key( wp_unslash( $_POST['lead_source_surface'] ) ) : '';
 	$lead_source_surface = $lead_source_surface ?: 'public_lead_form';
 	$source_url          = wp_get_referer();
-	$source_channel      = 'homepage_ask_lawyer' === $lead_source_surface ? 'public_homepage_form' : 'public_site_form';
+	$source_channel      = function_exists( 'justice_theme_public_lead_source_channel' )
+		? justice_theme_public_lead_source_channel( $lead_source_surface )
+		: ( 0 === strpos( $lead_source_surface, 'homepage_' ) ? 'public_homepage_form' : 'public_site_form' );
+	$owner_next_step     = function_exists( 'justice_theme_public_lead_revenue_next_step' )
+		? justice_theme_public_lead_revenue_next_step( $lead_source_surface )
+		: 'Review this public lead quickly, call or WhatsApp the visitor, confirm legal area and consent, then assign only to a paid/approved lawyer path. Do not mark paid without payment evidence.';
 
 	if ( empty( $name ) || empty( $phone ) ) {
 		wp_safe_redirect( add_query_arg( 'lead', 'missing', wp_get_referer() ?: home_url( '/' ) ) );
@@ -138,7 +143,7 @@ function uj_handle_lead() {
 			'lead_revenue_model'  => 'public_intake_review',
 			'qualified_lead_billing_status' => 'not_ready',
 			'lead_revenue_notes'  => 'Public site lead. Qualify need, consent, coverage and lawyer commercial terms before billing.',
-			'owner_revenue_next_step' => 'Review this public lead quickly, call or WhatsApp the visitor, confirm legal area and consent, then assign only to a paid/approved lawyer path. Do not mark paid without payment evidence.',
+			'owner_revenue_next_step' => $owner_next_step,
 			'assigned_lawyer_id' => $assigned_lawyer_id,
 		);
 

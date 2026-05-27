@@ -19,6 +19,22 @@ $whatsapp_digits      = preg_replace( '/^0/', '972', (string) $whatsapp_digits )
 $whatsapp_url         = $whatsapp_digits
 	? 'https://wa.me/' . $whatsapp_digits . '?text=' . rawurlencode( 'שלום, אני רוצה לבדוק פנייה משפטית דרך Jus-Tice. הנושא בקצרה: ' )
 	: '';
+$lead_notice          = isset( $_GET['lead'] ) ? sanitize_key( wp_unslash( $_GET['lead'] ) ) : '';
+$lead_notice_messages = array(
+	'success' => array(
+		'type' => 'success',
+		'text' => __( 'הפנייה התקבלה. נבדוק את הפרטים ונחזור רק אם יש התאמה ברורה להמשך טיפול.', 'justice-theme' ),
+	),
+	'missing' => array(
+		'type' => 'error',
+		'text' => __( 'חסרים שם או טלפון. מלאו את הפרטים החסרים ושלחו שוב.', 'justice-theme' ),
+	),
+	'blocked' => array(
+		'type' => 'error',
+		'text' => __( 'הפנייה לא נשלחה בגלל בדיקת אבטחה. נסו שוב בעוד כמה שניות.', 'justice-theme' ),
+	),
+);
+$lead_notice_message  = isset( $lead_notice_messages[ $lead_notice ] ) ? $lead_notice_messages[ $lead_notice ] : null;
 ?>
 
 <section class="ask-lawyer section" id="ask-lawyer">
@@ -35,6 +51,11 @@ $whatsapp_url         = $whatsapp_digits
 		</div>
 
 		<form class="ask-lawyer__form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
+			<?php if ( $lead_notice_message ) : ?>
+				<div class="ask-lawyer__notice ask-lawyer__notice--<?php echo esc_attr( $lead_notice_message['type'] ); ?>" role="status">
+					<?php echo esc_html( $lead_notice_message['text'] ); ?>
+				</div>
+			<?php endif; ?>
 			<input type="hidden" name="action" value="justice_submit_lead">
 			<?php wp_nonce_field( 'justice_submit_lead', 'justice_lead_nonce' ); ?>
 			<?php justice_theme_render_lead_spam_fields(); ?>

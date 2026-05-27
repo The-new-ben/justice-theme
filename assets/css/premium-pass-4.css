@@ -3028,6 +3028,27 @@
   justify-content: center;
 }
 
+.ask-lawyer__notice {
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  padding: 0.85rem 1rem;
+}
+
+.ask-lawyer__notice--success {
+  background: #ecfdf5;
+  border: 1px solid #86efac;
+  color: #166534;
+}
+
+.ask-lawyer__notice--error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #991b1b;
+}
+
 .ask-lawyer__actions {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);

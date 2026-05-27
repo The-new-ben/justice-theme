@@ -120,8 +120,8 @@ function staticChecks(paths, ledger, consentPack, invoiceFallback) {
     {
       id: 'CHECK-05',
       gate: 'qualified lead billing proof fields present',
-      status: crm.includes('qualified_lead_invoice_reference') && crm.includes('qualified_lead_payment_evidence_url') && crm.includes('qualified_lead_paid_at') ? 'PASS' : 'BLOCKED',
-      evidence: 'inc/lead-crm.php invoice/payment proof markers',
+      status: crm.includes('qualified_lead_invoice_reference') && crm.includes('qualified_lead_payment_evidence_url') && crm.includes("'paid' === $billing_status && '' === $payment_evidence_url") && crm.includes('qualified_lead_paid_at') ? 'PASS' : 'BLOCKED',
+      evidence: 'inc/lead-crm.php separates invoice reference from paid payment-evidence proof',
     },
   ];
 }
@@ -216,7 +216,7 @@ function buildRows(ledger) {
       sequence: '9',
       phase: 'payment_proof',
       owner_admin_action: 'Verify actual payment proof exists before counting revenue.',
-      required_proof: 'qualified_lead_billing_status=paid and invoice reference or private payment evidence URL is present.',
+      required_proof: 'qualified_lead_billing_status=paid and private payment evidence URL is present; invoice reference alone is not paid proof.',
       pass_condition: 'Paid status has proof, no refund/dispute/complaint is open, and owner confirms one-time revenue count.',
       fail_stop: 'Any missing proof, dispute, refund, complaint or ethics concern blocks revenue count.',
       crm_anchor: 'wp-admin -> Justice CRM -> Qualified lead billing queue',

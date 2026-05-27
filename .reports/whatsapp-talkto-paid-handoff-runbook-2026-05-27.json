@@ -87,11 +87,11 @@
       "gate": "qualified_lead_invoice_payment_proof",
       "status": "PASS",
       "file": "inc/lead-crm.php",
-      "evidence": "Billing queue stores invoice/payment proof and prevents bare paid status from standing without proof.",
-      "markers_found": "5",
-      "markers_total": "5",
+      "evidence": "Billing queue stores invoice references separately from payment evidence and prevents paid status without an evidence URL.",
+      "markers_found": "6",
+      "markers_total": "6",
       "missing_markers": "",
-      "next_action": "Count revenue only after invoice/reference or private payment evidence is present."
+      "next_action": "Count revenue only after private payment evidence is present; invoice/reference alone can support invoice sent."
     },
     {
       "id": "WT-SRC-08",
@@ -194,8 +194,8 @@
       "type": "safety_gate",
       "stage": "billing_proof",
       "status": "REQUIRED_BEFORE_REVENUE_CLAIM",
-      "required_evidence": "qualified_lead_billing_status, invoice reference or payment evidence URL, and owner note are stored.",
-      "allowed_action": "Claim invoice sent or paid only according to recorded evidence.",
+      "required_evidence": "qualified_lead_billing_status, invoice reference for invoice_sent, payment evidence URL for paid, and owner note are stored.",
+      "allowed_action": "Claim invoice sent from reference; claim paid only from payment evidence.",
       "blocked_action": "Do not mark paid, claim revenue, or activate paid status without invoice/payment proof.",
       "repo_anchor": "inc/lead-crm.php qualified lead billing queue",
       "linear_anchor": "HAD-76; HAD-87",

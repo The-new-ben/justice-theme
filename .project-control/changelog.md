@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Qualified lead paid-proof guard
+
+- UPDATED: `inc/lead-crm.php`, `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs`, `tools/build-btl-controlled-lead-dry-run-packet.mjs`.
+- GENERATED: regenerated `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-27.md`, `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-27.csv`, `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-27.json`, `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-27.csv`, `.project-control/btl-controlled-lead-dry-run-packet-2026-05-27.md`, `.project-control/btl-controlled-lead-dry-run-packet-2026-05-27.csv`, `.reports/btl-controlled-lead-dry-run-packet-2026-05-27.json`, `.reports/btl-controlled-lead-dry-run-packet-2026-05-27.csv`.
+- PURPOSE: prevent first-paid-lead or qualified-lead revenue from being counted from an invoice/payment-link reference alone.
+- RESULT: `qualified_lead_billing_status=paid` now requires `qualified_lead_payment_evidence_url`; invoice/reference alone holds the lead at `invoice_sent`, while no reference holds it at `ready_to_bill`. The WhatsApp/TalkTo runbook passes 9/9 static checks, the BTL controlled dry-run packet remains `BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION` with 5/5 static checks passing and private artifact boundary guard returned `PASS`.
+- SAFETY: repo-local code and private artifacts only; no live CRM record, lawyer profile, lead, invoice, payment, email, WhatsApp, TalkTo, CMS/public page, SEO setting, wp-admin write, provider setting or uPress pull changed.
+
 # 2026-05-27 - Lawyer dashboard payment request plan handoff
 
 - UPDATED: `inc/lawyer-dashboard.php`, `page-lawyer-dashboard.php`, `tools/check-lawyer-subscription-e2e-preflight.mjs`.

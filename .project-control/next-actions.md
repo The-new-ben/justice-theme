@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-QUALIFIED-LEAD-PAID-PROOF-GUARD-001: Require payment evidence URL before paid revenue
+**Status:** FIXED LOCAL / LIVE PAYMENT PROOF STILL BLOCKED
+**Why:** Qualified lead billing could prevent a completely bare Paid status, but invoice/payment-link reference alone was still enough to let Paid stand. For the Bituach Leumi first-paid-lead loop, paid revenue must require actual private payment evidence.
+**Actions:**
+1. DONE: update `inc/lead-crm.php` so `paid` requires `qualified_lead_payment_evidence_url`.
+2. DONE: downgrade attempted `paid` saves without evidence to `invoice_sent` when an invoice/reference exists, or `ready_to_bill` when no reference exists.
+3. DONE: update CRM admin copy and audit gate so invoice/reference alone is not treated as paid proof.
+4. DONE: update `tools/build-whatsapp-talkto-paid-handoff-runbook.mjs` and regenerate `.project-control/whatsapp-talkto-paid-handoff-runbook-2026-05-27.md` and `.csv`.
+5. DONE: update `tools/build-btl-controlled-lead-dry-run-packet.mjs` and regenerate `.project-control/btl-controlled-lead-dry-run-packet-2026-05-27.md` and `.csv`.
+6. DONE: regenerate `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-27.json`, `.reports/whatsapp-talkto-paid-handoff-runbook-2026-05-27.csv`, `.reports/btl-controlled-lead-dry-run-packet-2026-05-27.json` and `.reports/btl-controlled-lead-dry-run-packet-2026-05-27.csv`.
+7. DONE: verify `php -l inc/lead-crm.php`, `node --check` on both updated tools, 9/9 WhatsApp/TalkTo source checks, 5/5 BTL dry-run static checks and private artifact boundary guard `PASS`.
+8. NEXT: in an owner-approved controlled live drill, confirm a BTL/qualified lead cannot remain Paid until a private payment evidence URL is stored.
+9. BLOCKED: no live CRM lead edit, invoice, payment, paid status, email/WhatsApp/TalkTo, wp-admin write, provider setting or uPress pull without explicit owner approval and payment-proof evidence.
+
 ### ACTION-LAWYER-DASHBOARD-PAYMENT-REQUEST-PLAN-HANDOFF-001: Preserve selected paid plan in payment-link service requests
 **Status:** FIXED LOCAL / LIVE DRILL STILL BLOCKED
 **Why:** Dashboard payment-link requests were saved for owner review, but the payment-link preset could submit without the currently selected paid plan, forcing extra owner lookup before creating a manual Grow/Morning/Meshulam payment link.

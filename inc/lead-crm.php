@@ -1540,7 +1540,7 @@ function justice_theme_crm_lead_audit_gate( int $post_id ): array {
 	$has_invoice    = (bool) get_post_meta( $post_id, 'qualified_lead_invoice_reference', true );
 	$has_evidence   = (bool) get_post_meta( $post_id, 'qualified_lead_payment_evidence_url', true );
 
-	if ( 'paid' === $billing_status && ( $has_invoice || $has_evidence ) ) {
+	if ( 'paid' === $billing_status && $has_evidence ) {
 		return array(
 			'status'      => 'paid_with_proof',
 			'next_action' => 'Reconcile payment and keep proof attached; no further routing action needed.',
@@ -1550,7 +1550,7 @@ function justice_theme_crm_lead_audit_gate( int $post_id ): array {
 	if ( 'paid' === $billing_status ) {
 		return array(
 			'status'      => 'payment_proof_missing',
-			'next_action' => 'Add invoice/reference or payment evidence; paid status should not stand without proof.',
+			'next_action' => 'Add private payment evidence URL; invoice/reference alone can support invoice sent, not paid revenue.',
 		);
 	}
 
@@ -5160,7 +5160,7 @@ function justice_theme_crm_render_lead_disposition_box( WP_Post $post ): void {
 			</p>
 			<div style="border:1px solid #dcdcde;border-radius:4px;background:#f6f7f7;padding:8px;margin:8px 0;">
 				<strong style="display:block;margin-bottom:4px;">Payment proof gate</strong>
-				<small style="display:block;color:#646970;">A lead should be marked Paid only after an invoice/reference or evidence URL exists. If Paid is saved without proof, the status is held at Invoice sent.</small>
+				<small style="display:block;color:#646970;">A lead should be marked Paid only after a payment evidence URL exists. Invoice/reference alone can support Invoice sent, not paid revenue. If Paid is saved without evidence, the status is held at Invoice sent or Ready to bill.</small>
 			</div>
 			<?php if ( $billed_at || $paid_at ) : ?>
 				<p style="margin:0 0 8px;color:#646970;">
@@ -5255,9 +5255,9 @@ function justice_theme_crm_save_lead_disposition( int $post_id ): void {
 	$invoice_reference       = isset( $_POST['qualified_lead_invoice_reference'] ) ? sanitize_text_field( wp_unslash( $_POST['qualified_lead_invoice_reference'] ) ) : '';
 	$payment_evidence_url    = isset( $_POST['qualified_lead_payment_evidence_url'] ) ? esc_url_raw( wp_unslash( $_POST['qualified_lead_payment_evidence_url'] ) ) : '';
 	$owner_note              = isset( $_POST['qualified_lead_owner_note'] ) ? sanitize_textarea_field( wp_unslash( $_POST['qualified_lead_owner_note'] ) ) : '';
-	if ( 'paid' === $billing_status && '' === $invoice_reference && '' === $payment_evidence_url ) {
-		$billing_status = 'invoice_sent';
-		$owner_note     = trim( $owner_note . "\nPayment status was held at Invoice sent because Paid requires an invoice/payment reference or payment evidence URL." );
+	if ( 'paid' === $billing_status && '' === $payment_evidence_url ) {
+		$billing_status = '' === $invoice_reference ? 'ready_to_bill' : 'invoice_sent';
+		$owner_note     = trim( $owner_note . "\nPayment status was not marked Paid because Paid requires a payment evidence URL. Invoice/reference alone can support Invoice sent, not paid revenue." );
 	}
 
 	update_post_meta( $post_id, 'qualified_lead_billing_status', $billing_status );

@@ -42,6 +42,8 @@ function justice_theme_crm_register_lead_meta(): void {
 		'source_system'             => 'string',
 		'source_thread_id'          => 'string',
 		'source_page_url'           => 'string',
+		'source_keyword'            => 'string',
+		'lead_source_surface'       => 'string',
 		'whatsapp_source_note'      => 'string',
 		'consent_status'            => 'string',
 		'consent_basis'             => 'string',
@@ -97,6 +99,7 @@ function justice_theme_render_crm_admin_page(): void {
 	$tool_counts = post_type_exists( 'justice_legal_request' ) ? justice_theme_crm_count_by_status( 'justice_legal_request', 'status' ) : array();
 	$qualified_revenue = justice_theme_crm_qualified_lead_revenue_snapshot();
 	$leads       = justice_theme_crm_query_items( 'justice_lead', 15 );
+	$homepage_router_leads = justice_theme_crm_query_homepage_router_leads( 8 );
 	$uncovered_demand = justice_theme_crm_query_uncovered_demand( 15 );
 	$requests    = post_type_exists( 'justice_legal_request' ) ? justice_theme_crm_query_items( 'justice_legal_request', 10 ) : null;
 	?>
@@ -135,6 +138,7 @@ function justice_theme_render_crm_admin_page(): void {
 		<?php justice_theme_crm_render_owner_handoff_release_queue(); ?>
 		<?php justice_theme_crm_render_btl_supply_panel(); ?>
 		<?php justice_theme_crm_render_qualified_lead_billing_queue(); ?>
+		<?php justice_theme_crm_render_homepage_router_lead_queue( $homepage_router_leads ); ?>
 		<?php if ( function_exists( 'justice_theme_render_managed_service_fulfillment_panel' ) ) : ?>
 			<?php justice_theme_render_managed_service_fulfillment_panel(); ?>
 		<?php endif; ?>
@@ -4493,6 +4497,134 @@ function justice_theme_crm_query_items( string $post_type, int $limit ): ?WP_Que
 		'orderby'        => 'date',
 		'order'          => 'DESC',
 	) );
+}
+
+function justice_theme_crm_query_homepage_router_leads( int $limit ): ?WP_Query {
+	if ( ! post_type_exists( 'justice_lead' ) ) {
+		return null;
+	}
+
+	return new WP_Query( array(
+		'post_type'      => 'justice_lead',
+		'post_status'    => array( 'publish', 'private', 'draft', 'pending' ),
+		'posts_per_page' => $limit,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+		'no_found_rows'  => true,
+		'meta_query'     => array(
+			'relation' => 'AND',
+			array(
+				'key'   => 'lead_source_surface',
+				'value' => 'homepage_legal_help_router',
+			),
+			array(
+				'relation' => 'OR',
+				array(
+					'key'     => 'follow_up_status',
+					'compare' => 'NOT EXISTS',
+				),
+				array(
+					'key'   => 'follow_up_status',
+					'value' => '',
+				),
+				array(
+					'key'     => 'follow_up_status',
+					'value'   => array( 'not_started', 'new', 'needs_review' ),
+					'compare' => 'IN',
+				),
+			),
+		),
+	) );
+}
+
+function justice_theme_crm_render_homepage_router_lead_queue( ?WP_Query $queue ): void {
+	?>
+	<h2 style="margin-top:28px;">Homepage situation-card lead queue</h2>
+	<p>Owner-only revenue queue for people who clicked a legal situation card on the homepage and submitted the public form. First move: call or WhatsApp, confirm legal issue, city, urgency and consent, then route only to a paid or owner-approved lawyer path.</p>
+	<?php if ( ! $queue || ! $queue->have_posts() ) : ?>
+		<div class="notice notice-info inline"><p>No unworked homepage situation-card leads are waiting now.</p></div>
+		<?php return; ?>
+	<?php endif; ?>
+	<table class="widefat striped" style="margin:12px 0 20px;">
+		<thead>
+			<tr>
+				<th>Lead</th>
+				<th>Issue / location</th>
+				<th>Message signal</th>
+				<th>Source</th>
+				<th>First revenue action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<?php while ( $queue->have_posts() ) : $queue->the_post(); ?>
+				<?php
+				$post_id       = get_the_ID();
+				$name          = justice_theme_crm_lead_display_name( $post_id );
+				$phone         = (string) ( get_post_meta( $post_id, 'visitor_phone', true ) ?: get_post_meta( $post_id, 'lead_phone', true ) );
+				$email         = (string) ( get_post_meta( $post_id, 'visitor_email', true ) ?: get_post_meta( $post_id, 'lead_email', true ) );
+				$area          = (string) ( get_post_meta( $post_id, 'ai_detected_area', true ) ?: get_post_meta( $post_id, 'legal_area', true ) ?: get_post_meta( $post_id, 'lead_area', true ) );
+				$area_display  = function_exists( 'justice_theme_lead_area_label' ) && $area ? justice_theme_lead_area_label( $area ) : $area;
+				$city          = (string) get_post_meta( $post_id, 'city', true );
+				$urgency       = (string) get_post_meta( $post_id, 'urgency', true );
+				$message       = (string) ( get_post_meta( $post_id, 'message', true ) ?: get_post_meta( $post_id, 'lead_message', true ) ?: get_post_meta( $post_id, 'visitor_message', true ) );
+				$source_page   = (string) ( get_post_meta( $post_id, 'source_page_url', true ) ?: get_post_meta( $post_id, 'source_url', true ) );
+				$source_keyword = (string) get_post_meta( $post_id, 'source_keyword', true );
+				$next_step     = (string) get_post_meta( $post_id, 'owner_revenue_next_step', true );
+				$next_step     = $next_step ?: 'Call or WhatsApp, confirm consent and coverage, then decide if this can become a paid lawyer handoff.';
+				$actions       = justice_theme_crm_client_contact_actions( $post_id );
+				$attempt_url   = wp_nonce_url(
+					add_query_arg(
+						array(
+							'action'  => 'justice_theme_mark_lead_first_attempt',
+							'lead_id' => $post_id,
+						),
+						admin_url( 'admin-post.php' )
+					),
+					'justice_theme_mark_lead_first_attempt_' . $post_id
+				);
+				?>
+				<tr>
+					<td>
+						<strong><a href="<?php echo esc_url( get_edit_post_link( $post_id, '' ) ); ?>"><?php echo esc_html( $name ); ?></a></strong>
+						<?php if ( $phone ) : ?><br><small><?php echo esc_html( $phone ); ?></small><?php endif; ?>
+						<?php if ( $email ) : ?><br><small><?php echo esc_html( $email ); ?></small><?php endif; ?>
+						<br><small>Created: <?php echo esc_html( get_the_date( 'Y-m-d H:i', $post_id ) ); ?></small>
+					</td>
+					<td>
+						<strong><?php echo esc_html( $area_display ?: 'Needs review' ); ?></strong>
+						<?php if ( $city ) : ?><br><small>City: <?php echo esc_html( $city ); ?></small><?php endif; ?>
+						<?php if ( $urgency ) : ?><br><small>Urgency: <?php echo esc_html( $urgency ); ?></small><?php endif; ?>
+					</td>
+					<td><?php echo esc_html( $message ? wp_trim_words( $message, 26, '...' ) : 'No message captured.' ); ?></td>
+					<td>
+						<strong><?php echo esc_html( $source_keyword ?: 'homepage card' ); ?></strong>
+						<br><small><?php echo esc_html( justice_theme_crm_lead_source_surface_label( 'homepage_legal_help_router' ) ); ?></small>
+						<?php if ( $source_page ) : ?>
+							<br><a href="<?php echo esc_url( $source_page ); ?>" target="_blank" rel="noopener">source page</a>
+						<?php endif; ?>
+					</td>
+					<td>
+						<span style="display:block;max-width:320px;"><?php echo esc_html( wp_trim_words( $next_step, 26, '...' ) ); ?></span>
+						<?php if ( $actions ) : ?>
+							<p style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0;">
+								<?php foreach ( array_slice( $actions, 0, 3 ) as $action ) : ?>
+									<a class="button button-small" href="<?php echo esc_url( $action['url'] ); ?>" <?php echo ! empty( $action['external'] ) ? 'target="_blank" rel="noopener"' : ''; ?>>
+										<?php echo esc_html( $action['label'] ); ?>
+									</a>
+								<?php endforeach; ?>
+								<a class="button button-small button-primary" href="<?php echo esc_url( $attempt_url ); ?>">Log first attempt</a>
+							</p>
+						<?php else : ?>
+							<p style="margin:8px 0 0;"><a class="button button-small button-primary" href="<?php echo esc_url( $attempt_url ); ?>">Log first attempt</a></p>
+						<?php endif; ?>
+						<small style="display:block;color:#646970;margin-top:6px;">Do not mark paid without invoice/payment evidence.</small>
+					</td>
+				</tr>
+			<?php endwhile; ?>
+		</tbody>
+	</table>
+	<?php
+	wp_reset_postdata();
 }
 
 function justice_theme_crm_query_uncovered_demand( int $limit ): ?WP_Query {

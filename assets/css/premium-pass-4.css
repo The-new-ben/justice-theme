@@ -3123,10 +3123,17 @@
     content: "\00d7";
   }
 
+  body.nav-is-open {
+    overflow: hidden;
+  }
+
   .primary-navigation {
     display: none;
     position: fixed;
     inset: 0;
+    height: 100vh;
+    height: 100dvh;
+    max-height: 100dvh;
     z-index: 220;
     overflow-y: auto;
     padding: 5rem clamp(1.25rem, 5vw, 3rem) 2rem;

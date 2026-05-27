@@ -129,6 +129,11 @@ function justice_theme_render_crm_admin_page(): void {
 				<span>Qualified lead billing queue</span>
 				<small style="display:block;color:#646970;margin-top:4px;"><?php echo esc_html( sprintf( '%d open / %d paid', $qualified_revenue['open_count'], $qualified_revenue['paid_count'] ) ); ?></small>
 			</div>
+			<a href="#justice-homepage-router-leads" style="display:block;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;text-decoration:none;color:#1d2327;">
+				<strong style="display:block;font-size:24px;"><?php echo esc_html( (string) ( $homepage_router_leads ? $homepage_router_leads->post_count : 0 ) ); ?></strong>
+				<span>Homepage lead actions</span>
+				<small style="display:block;color:#646970;margin-top:4px;">Unworked situation-card leads shown now</small>
+			</a>
 		</div>
 
 		<?php justice_theme_crm_render_whatsapp_lead_bridge(); ?>
@@ -4539,10 +4544,16 @@ function justice_theme_crm_query_homepage_router_leads( int $limit ): ?WP_Query 
 
 function justice_theme_crm_render_homepage_router_lead_queue( ?WP_Query $queue ): void {
 	?>
-	<h2 style="margin-top:28px;">Homepage situation-card lead queue</h2>
-	<p>Owner-only revenue queue for people who clicked a legal situation card on the homepage and submitted the public form. First move: call or WhatsApp, confirm legal issue, city, urgency and consent, then route only to a paid or owner-approved lawyer path.</p>
+	<h2 id="justice-homepage-router-leads" style="margin-top:28px;">Homepage situation-card lead queue</h2>
+	<p>Owner-only revenue queue for people who clicked a legal situation card on the homepage and submitted the public form. First move: call or WhatsApp, confirm legal issue, city, urgency and consent. Second move: create a lawyer prospect when paid coverage is missing, then route only to a paid or owner-approved lawyer path.</p>
 	<?php if ( ! $queue || ! $queue->have_posts() ) : ?>
-		<div class="notice notice-info inline"><p>No unworked homepage situation-card leads are waiting now.</p></div>
+		<div class="notice notice-info inline">
+			<p>No unworked homepage situation-card leads are waiting now. Next revenue move: keep the public intake live, review recent leads, and build a small tracked lawyer outreach batch for the practice/city combinations that already show demand.</p>
+			<p>
+				<a class="button" href="<?php echo esc_url( admin_url( 'edit.php?post_type=justice_lead' ) ); ?>">Open all leads</a>
+				<a class="button" href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-outreach-links' ) ); ?>">Build tracked lawyer outreach link</a>
+			</p>
+		</div>
 		<?php return; ?>
 	<?php endif; ?>
 	<table class="widefat striped" style="margin:12px 0 20px;">
@@ -4572,6 +4583,7 @@ function justice_theme_crm_render_homepage_router_lead_queue( ?WP_Query $queue )
 				$next_step     = (string) get_post_meta( $post_id, 'owner_revenue_next_step', true );
 				$next_step     = $next_step ?: 'Call or WhatsApp, confirm consent and coverage, then decide if this can become a paid lawyer handoff.';
 				$actions       = justice_theme_crm_client_contact_actions( $post_id );
+				$prospect_url  = justice_theme_crm_prospect_from_lead_url( $post_id );
 				$attempt_url   = wp_nonce_url(
 					add_query_arg(
 						array(
@@ -4613,9 +4625,17 @@ function justice_theme_crm_render_homepage_router_lead_queue( ?WP_Query $queue )
 									</a>
 								<?php endforeach; ?>
 								<a class="button button-small button-primary" href="<?php echo esc_url( $attempt_url ); ?>">Log first attempt</a>
+								<?php if ( $prospect_url ) : ?>
+									<a class="button button-small" href="<?php echo esc_url( $prospect_url ); ?>">Create lawyer prospect</a>
+								<?php endif; ?>
 							</p>
 						<?php else : ?>
-							<p style="margin:8px 0 0;"><a class="button button-small button-primary" href="<?php echo esc_url( $attempt_url ); ?>">Log first attempt</a></p>
+							<p style="display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 0;">
+								<a class="button button-small button-primary" href="<?php echo esc_url( $attempt_url ); ?>">Log first attempt</a>
+								<?php if ( $prospect_url ) : ?>
+									<a class="button button-small" href="<?php echo esc_url( $prospect_url ); ?>">Create lawyer prospect</a>
+								<?php endif; ?>
+							</p>
 						<?php endif; ?>
 						<small style="display:block;color:#646970;margin-top:6px;">Do not mark paid without invoice/payment evidence.</small>
 					</td>

@@ -1,0 +1,2 @@
+status,reportDate,recommendedPlan,recommendedMonthlyIls,offerRows,objectionRows,closeRows,publicCmsChangesApproved,liveCrmOrOutreachApproved,invoicesOrPaymentsCreated,revenueClaimsApproved,paidLlmApiUsed,upressDeploymentRequired,readinessToProfitPercent,liveRevenueImpactPercent,honestyStatement
+LAWYER_MANUAL_INVOICE_SALES_PACKET_READY_NO_LIVE_ACTION,2026-05-27,pro,349,3,6,6,0,0,0,0,0,false,90,0,"This packet prepares the first sales conversation only. It does not name or contact a lawyer, create CRM records, invoice, request payment, mark paid, publish or deploy."

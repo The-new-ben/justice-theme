@@ -17,6 +17,17 @@
 7. NEXT AFTER OWNER APPROVAL: use the existing manual invoice registration path only for the approved target and only after billing/legal fit checks.
 8. BLOCKED: no lawyer contact, CRM/admin write, invoice, payment request, invoice_sent, paid status, public profile activation, public CMS edit, uPress pull or revenue claim without explicit owner approval and private payment proof.
 
+### ACTION-LAWYER-MANUAL-INVOICE-SALES-PACKET-001: Use approved sales language for first paid lawyer close
+**Status:** FIXED LOCAL / READY FOR OWNER-APPROVED TARGET ONLY
+**Why:** The fastest revenue path needs a sales conversation that is human and safe, not a generic pitch and not a promise of leads. This packet gives the exact offer, objection handling and close sequence for Pro 349 ILS.
+**Actions:**
+1. DONE: add `tools/build-lawyer-manual-invoice-sales-packet.mjs`.
+2. DONE: generate `.project-control/lawyer-manual-invoice-sales-packet-2026-05-27.md`, `.html` and `.csv`.
+3. DONE: generate `.reports/lawyer-manual-invoice-sales-packet-2026-05-27.json` and `.csv`.
+4. DONE: confirm `LAWYER_MANUAL_INVOICE_SALES_PACKET_READY_NO_LIVE_ACTION`, 3 offer rows, 6 objection rows, 6 close rows, 90% sales-prep readiness to profit and 0 live impact.
+5. NEXT: after owner target/message approval, use this packet as the approved conversation guide.
+6. BLOCKED: no send, call, CRM write, invoice, payment request, public profile activation, uPress pull or revenue claim from this packet alone.
+
 ### ACTION-LAWYER-MANUAL-INVOICE-OWNER-REPLY-REVIEW-001: Review owner reply before first paid lawyer action
 **Status:** FIXED LOCAL / BLOCKED UNTIL OWNER FILLS REPLY CSV
 **Why:** The owner asked for profit progress and honesty. This gate prevents Codex from treating a blank or partial answer as permission to contact a lawyer, write CRM, invoice or claim revenue.

@@ -1,0 +1,145 @@
+{
+  "status": "LAWYER_MANUAL_INVOICE_SALES_PACKET_READY_NO_LIVE_ACTION",
+  "reportDate": "2026-05-27",
+  "recommendedPlan": "pro",
+  "recommendedMonthlyIls": 349,
+  "offerRows": 3,
+  "objectionRows": 6,
+  "closeRows": 6,
+  "publicCmsChangesApproved": 0,
+  "liveCrmOrOutreachApproved": 0,
+  "invoicesOrPaymentsCreated": 0,
+  "revenueClaimsApproved": 0,
+  "paidLlmApiUsed": 0,
+  "upressDeploymentRequired": false,
+  "readinessToProfitPercent": 90,
+  "liveRevenueImpactPercent": 0,
+  "honestyStatement": "This packet prepares the first sales conversation only. It does not name or contact a lawyer, create CRM records, invoice, request payment, mark paid, publish or deploy.",
+  "generated": {
+    "projectMd": ".project-control/lawyer-manual-invoice-sales-packet-2026-05-27.md",
+    "projectHtml": ".project-control/lawyer-manual-invoice-sales-packet-2026-05-27.html",
+    "projectCsv": ".project-control/lawyer-manual-invoice-sales-packet-2026-05-27.csv",
+    "reportJson": ".reports/lawyer-manual-invoice-sales-packet-2026-05-27.json",
+    "reportCsv": ".reports/lawyer-manual-invoice-sales-packet-2026-05-27.csv"
+  },
+  "offers": [
+    {
+      "row_id": "SALE-OFFER-01",
+      "type": "positioning",
+      "text_he": "אנחנו בודקים צירוף עורך דין אחד למסלול Pro ב-Jus-Tice. המטרה היא פרופיל מקצועי מסודר, בדיקת התאמה, חשיפה מדודה והפעלה בלי התחייבות לכמות פניות.",
+      "say_this": "Yes",
+      "do_not_say": "אל תגידו שיש בלעדיות, הבטחת תיקים או תוצאה משפטית.",
+      "revenue_role": "Creates a clear low-friction first paid offer."
+    },
+    {
+      "row_id": "SALE-OFFER-02",
+      "type": "price",
+      "text_he": "המסלול הראשון המומלץ הוא Pro במחיר 349 ש\"ח לחודש כולל מע\"מ, בכפוף לבדיקת התאמה ואישור תשלום.",
+      "say_this": "Yes",
+      "do_not_say": "אל תציגו את המחיר כהנחה זמנית אם אין אישור בעלים לכך.",
+      "revenue_role": "Sets a small first close instead of waiting for a larger plan."
+    },
+    {
+      "row_id": "SALE-OFFER-03",
+      "type": "scope",
+      "text_he": "הפרופיל יופעל רק אחרי בדיקת רישיון, תוכן, פרטי חשבונית ואישור תשלום. חשבונית או קישור תשלום אינם נחשבים תשלום עד שיש אסמכתא.",
+      "say_this": "Yes",
+      "do_not_say": "אל תבטיחו פרסום לפני בדיקות או לפני תשלום.",
+      "revenue_role": "Protects payment proof and profile activation boundaries."
+    }
+  ],
+  "objections": [
+    {
+      "row_id": "OBJ-01",
+      "objection_he": "כמה לידים אני מקבל?",
+      "answer_he": "במסלול הזה לא מוכרים כמות לידים. אנחנו מתחילים מחשיפה ופרופיל מקצועי, עם בדיקת התאמה ודיווח בסיסי. אם נראה שיש ביקוש יציב, אפשר לדבר על מסלול מתקדם יותר.",
+      "close_question_he": "רוצה להתחיל ב-Pro לחודש ראשון ולבדוק התאמה בלי התחייבות לכמות לידים?",
+      "safety_note": "No lead-volume promise."
+    },
+    {
+      "row_id": "OBJ-02",
+      "objection_he": "למה לשלם לפני שיש תוצאות?",
+      "answer_he": "התשלום הוא על הקמה, נוכחות מקצועית ותהליך בדיקה מסודר, לא על תוצאה. לכן בחרנו מסלול כניסה נמוך יחסית של 349 ש\"ח לחודש.",
+      "close_question_he": "אם נגדיר את זה כחודש בדיקה מסודר, זה מתאים להתחלה?",
+      "safety_note": "No legal-result promise."
+    },
+    {
+      "row_id": "OBJ-03",
+      "objection_he": "מי רואה את הפרופיל?",
+      "answer_he": "האתר מיועד לציבור שמחפש עזרה משפטית. ההופעה תלויה בהתאמה, תוכן, קטגוריה ואיכות הפרופיל. לא נתחייב למיקום קבוע בלי בדיקה נפרדת.",
+      "close_question_he": "נוכל להתחיל מהפרופיל הבסיסי ולשפר לפי נתונים?",
+      "safety_note": "No fixed ranking promise."
+    },
+    {
+      "row_id": "OBJ-04",
+      "objection_he": "אפשר לבטל?",
+      "answer_he": "אפשר להגדיר את ההתחלה כחודש ראשון לבדיקה. תנאי הביטול המדויקים צריכים להיות מאושרים על ידי בעל האתר לפני שליחה.",
+      "close_question_he": "רוצה שאשלח תנאי התחלה קצרים לאישור?",
+      "safety_note": "Terms need owner approval before send."
+    },
+    {
+      "row_id": "OBJ-05",
+      "objection_he": "אני רוצה בלעדיות בתחום.",
+      "answer_he": "בשלב הראשון אין בלעדיות. אנחנו בודקים התאמה של פרופיל מקצועי אחד, בלי לחסום עורכי דין אחרים ובלי לפגוע בבחירת הציבור.",
+      "close_question_he": "נתחיל בלי בלעדיות ונבחן בהמשך אם יש הצדקה למסלול מתקדם?",
+      "safety_note": "No exclusivity."
+    },
+    {
+      "row_id": "OBJ-06",
+      "objection_he": "איך משלמים?",
+      "answer_he": "אחרי אישור התאמה ופרטי חשבונית נשלחת חשבונית או קישור תשלום ידני. הפרופיל מופעל רק אחרי אסמכתת תשלום ובדיקת תוכן.",
+      "close_question_he": "אפשר לקבל שם חשבונית ומייל חשבוניות כדי להכין את זה אחרי אישור?",
+      "safety_note": "No payment claim without proof."
+    }
+  ],
+  "closes": [
+    {
+      "step_id": "CLOSE-01",
+      "phase": "precheck",
+      "owner_admin_action": "Select one target lawyer or approve generic draft only.",
+      "pass_condition": "Owner reply gate passes for target mode, plan and message.",
+      "blocked_if": "Owner reply CSV is blank or partial.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "step_id": "CLOSE-02",
+      "phase": "first_contact",
+      "owner_admin_action": "Use approved Hebrew message only after owner approval.",
+      "pass_condition": "Exact message approved and target details stored privately, not in repo.",
+      "blocked_if": "Message still needs edits or target details are not verified.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "step_id": "CLOSE-03",
+      "phase": "fit",
+      "owner_admin_action": "Verify license, practice fit, claims, billing legal name and invoice email.",
+      "pass_condition": "Fit and billing facts are confirmed in private admin notes.",
+      "blocked_if": "Missing license, fit, billing name or invoice email.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "step_id": "CLOSE-04",
+      "phase": "registration",
+      "owner_admin_action": "Use manual invoice registration path for Pro only if owner approved live action.",
+      "pass_condition": "Registration creates manual invoice follow-up without automatic charge.",
+      "blocked_if": "No owner live-action approval.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "step_id": "CLOSE-05",
+      "phase": "invoice",
+      "owner_admin_action": "Save invoice reference or manual payment link reference only after accepted terms.",
+      "pass_condition": "Reference exists before invoice_sent.",
+      "blocked_if": "No invoice/payment reference.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "step_id": "CLOSE-06",
+      "phase": "payment",
+      "owner_admin_action": "Mark payment confirmed only after private payment proof.",
+      "pass_condition": "Payment proof exists and owner confirms no dispute.",
+      "blocked_if": "Promise to pay or invoice only.",
+      "live_action_allowed": "NO"
+    }
+  ]
+}

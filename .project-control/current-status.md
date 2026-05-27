@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-27 16:10 Asia/Jerusalem
+- LAWYER MANUAL INVOICE SALES PACKET ADDED: prepared the internal first-sales conversation packet for the recommended Pro 349 ILS/month manual-invoice lane, including what to say, what not to promise, objection handling and the close sequence.
+- CODE ADDED: `tools/build-lawyer-manual-invoice-sales-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/lawyer-manual-invoice-sales-packet-2026-05-27.md`, `.project-control/lawyer-manual-invoice-sales-packet-2026-05-27.html`, `.project-control/lawyer-manual-invoice-sales-packet-2026-05-27.csv`, `.reports/lawyer-manual-invoice-sales-packet-2026-05-27.json` and `.reports/lawyer-manual-invoice-sales-packet-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-lawyer-manual-invoice-sales-packet.mjs` passed. Running the builder returned `LAWYER_MANUAL_INVOICE_SALES_PACKET_READY_NO_LIVE_ACTION`, recommended plan `pro`, 349 ILS per month including VAT, 3 offer rows, 6 objection rows, 6 close rows, 90% sales-prep readiness to profit, 0 public CMS approvals, 0 live CRM/outreach approvals, 0 invoices/payments created, 0 revenue claims, 0 paid LLM API use and 0% live revenue impact.
+- REVIEW RESULT: the first sales conversation now has clear language: sell profile setup, professional presence and measured exposure, not guaranteed leads, legal results, rankings or exclusivity. This is ready for owner-approved use with one target only.
+- PUBLIC/LIVE IMPACT: no public CMS/database content, live site, route, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting, paid LLM API, merge to main or uPress pull changed.
+- COMPLETION ASSESSMENT: internal first-sales packet 100%; owner-approved target and message still blocked; live profit impact remains 0%.
+
 # LATEST WORK STATUS - 2026-05-27 16:00 Asia/Jerusalem
 - LAWYER MANUAL INVOICE OWNER-REPLY REVIEW GATE ADDED: added a deterministic reviewer for the owner reply CSV so partial approval cannot be mistaken for permission to contact a lawyer, create CRM records, invoice or mark payment.
 - CODE ADDED: `tools/review-lawyer-manual-invoice-first-target-owner-reply.mjs`.

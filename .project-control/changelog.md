@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Lawyer manual invoice sales packet
+
+- ADDED: `tools/build-lawyer-manual-invoice-sales-packet.mjs`.
+- GENERATED: `.project-control/lawyer-manual-invoice-sales-packet-2026-05-27.md`, `.project-control/lawyer-manual-invoice-sales-packet-2026-05-27.html`, `.project-control/lawyer-manual-invoice-sales-packet-2026-05-27.csv`, `.reports/lawyer-manual-invoice-sales-packet-2026-05-27.json` and `.reports/lawyer-manual-invoice-sales-packet-2026-05-27.csv`.
+- PURPOSE: prepare the first sales conversation for the recommended Pro 349 ILS/month manual-invoice lane without drifting into unsupported promises.
+- RESULT: `LAWYER_MANUAL_INVOICE_SALES_PACKET_READY_NO_LIVE_ACTION`; 3 offer rows, 6 objection rows, 6 close rows, 90 percent sales-prep readiness to profit and 0 live revenue impact.
+- SAFETY: private sales packet only; no lawyer named or contacted, no CRM/admin edit, no invoice, no payment request, no paid status, no profile publication, no public CMS edit, no email-to-users, no WhatsApp, no TalkTo, no GSC API, no wp-admin write, no merge to main and no uPress deployment changed.
+
 # 2026-05-27 - Lawyer manual invoice owner-reply review gate
 
 - ADDED: `tools/review-lawyer-manual-invoice-first-target-owner-reply.mjs`.

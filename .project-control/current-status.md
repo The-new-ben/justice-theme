@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 04:55 Asia/Jerusalem
+- DIVORCE TEL AVIV EVIDENCE-FILL PACKET ADDED: advanced the 404 `/divorce-lawyer-tel-aviv/` city/practice candidate into a private research-first evidence and anti-cannibalization packet before any public page or CMS action.
+- CODE ADDED: `tools/build-divorce-tel-aviv-evidence-fill-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/divorce-tel-aviv-evidence-fill-packet-2026-05-27.md`, `.project-control/divorce-tel-aviv-evidence-fill-packet-2026-05-27.csv`, `.project-control/divorce-tel-aviv-public-draft-gate-template-2026-05-27.csv`, `.reports/divorce-tel-aviv-evidence-fill-packet-2026-05-27.json`, `.reports/divorce-tel-aviv-evidence-fill-packet-2026-05-27.csv`.
+- CHECK RESULT: `DIVORCE_TEL_AVIV_EVIDENCE_FILL_READY_NO_PUBLIC_CHANGE`; target status 404; 10 associated/cannibalization routes checked; 9 live associated routes identified for protection/review; 6 GSC query clusters prepared; 3 official source prompts and 2 competitor positioning prompts recorded; 0 public/CMS/SEO/CRM/contact/payment/email/uPress actions.
+- REVIEW RESULT: `/divorce-lawyer-tel-aviv/` is safe for private preparation only. The draft role should be a short local fit-check and request-preparation page that protects `/divorce-lawyer/` as the central pillar and does not absorb custody, child support, mediation, agreement-template or cost article intent.
+- LINEAR: recorded as `HAD-150`, marked Done under `HAD-145`, related to `HAD-144`, `HAD-84` and `HAD-133`.
+- PUBLIC IMPACT: none. This was private tooling/reporting only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: divorce Tel Aviv evidence-fill packet 100%; public page execution remains 0% until GSC export rows, filtered lawyer coverage, internal overlap review, legal/editor review and owner approval are filled.
+
 # LATEST WORK STATUS - 2026-05-27 04:40 Asia/Jerusalem
 - BITUACH LEUMI CONTROLLED LEAD DRY-RUN PACKET ADDED: converted the first-paid-lead runtime blocker into a no-PII owner/admin dry-run worksheet with exact pass/fail rows before any live prospect, lead, handoff, invoice or payment action.
 - CODE ADDED: `tools/build-btl-controlled-lead-dry-run-packet.mjs`.

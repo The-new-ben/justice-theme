@@ -1,0 +1,429 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "status": "DIVORCE_TEL_AVIV_EVIDENCE_FILL_READY_NO_PUBLIC_CHANGE",
+    "targetSlug": "divorce-lawyer-tel-aviv",
+    "targetPath": "/divorce-lawyer-tel-aviv/",
+    "targetLiveStatus": 404,
+    "associatedRouteCount": 10,
+    "liveAssociatedRouteCount": 9,
+    "queryClusterCount": 6,
+    "officialSourcePrompts": 3,
+    "competitorSourcePrompts": 2,
+    "localGatePassCount": 3,
+    "localGateCount": 3,
+    "ownerBlockedDecisionInputs": 6,
+    "publicChangesApproved": 0,
+    "cmsWrites": 0,
+    "seoChanges": 0,
+    "crmRecordsCreated": 0,
+    "contactsSent": 0,
+    "invoicesOrPayments": 0,
+    "emailsSent": 0,
+    "upressActions": 0
+  },
+  "localGateRows": [
+    {
+      "id": "LOCAL-01",
+      "gate": "priority_brief_exists",
+      "status": "PASS",
+      "evidence": "Prior priority draft-brief report is present and includes the Tel Aviv divorce target.",
+      "nextAction": "Use this packet as the next private evidence-fill layer."
+    },
+    {
+      "id": "LOCAL-02",
+      "gate": "blank_evidence_row_exists",
+      "status": "PASS",
+      "evidence": "The prior evidence template still has a row for the target.",
+      "nextAction": "Fill GSC/lawyer/reviewer fields before any public action."
+    },
+    {
+      "id": "LOCAL-03",
+      "gate": "public_boundary",
+      "status": "PASS",
+      "evidence": "This tool writes only dot-private .project-control and .reports artifacts.",
+      "nextAction": "Do not publish, update CMS, change SEO settings, contact people, invoice, email or deploy from this packet."
+    }
+  ],
+  "routeRows": [
+    {
+      "id": "ROUTE-01",
+      "path": "/divorce-lawyer-tel-aviv/",
+      "role": "target_private_candidate",
+      "expectedGate": "should remain non-public until approved",
+      "inspectionNeed": "confirm target is not already public before private drafting continues",
+      "url": "https://jus-tice.co.il/divorce-lawyer-tel-aviv/",
+      "status": 404,
+      "finalUrl": "https://jus-tice.co.il/divorce-lawyer-tel-aviv/",
+      "title": "Page not found | Jus-Tice.co.il",
+      "h1": "העמוד לא נמצא",
+      "wordEstimate": 290,
+      "error": "",
+      "gate": "PASS_TARGET_NOT_PUBLIC_200"
+    },
+    {
+      "id": "ROUTE-02",
+      "path": "/divorce-lawyer/",
+      "role": "central_divorce_pillar",
+      "expectedGate": "must remain the main divorce-lawyer page",
+      "inspectionNeed": "protect from local-page duplication and send broad intent here",
+      "url": "https://jus-tice.co.il/divorce-lawyer/",
+      "status": 200,
+      "finalUrl": "https://jus-tice.co.il/divorce-lawyer/",
+      "title": "איך לבחור עורך דין גירושין | ניסיון, מחיר ושאלות נכונות | Jus-Tice",
+      "h1": "איך לבחור עורך דין גירושין | ניסיון, מחיר ושאלות נכונות | Jus-Tice",
+      "wordEstimate": 4060,
+      "error": "",
+      "gate": "PASS_PILLAR_REACHABLE"
+    },
+    {
+      "id": "ROUTE-03",
+      "path": "/family-law/",
+      "role": "family_law_hub",
+      "expectedGate": "associated hub, not a duplicate local divorce page",
+      "inspectionNeed": "check whether family-law hub should link to the eventual local page only after approval",
+      "url": "https://jus-tice.co.il/family-law/",
+      "status": 200,
+      "finalUrl": "https://jus-tice.co.il/family-law/",
+      "title": "דיני משפחה וגירושין | עורך דין לענייני משפחה | Jus-Tice",
+      "h1": "דיני משפחה",
+      "wordEstimate": 5824,
+      "error": "",
+      "gate": "LIVE_ASSOCIATED_PAGE_REVIEW"
+    },
+    {
+      "id": "ROUTE-04",
+      "path": "/child-custody/",
+      "role": "specific_family_issue",
+      "expectedGate": "protect issue-specific intent",
+      "inspectionNeed": "do not absorb custody advice into the Tel Aviv divorce page",
+      "url": "https://jus-tice.co.il/child-custody/",
+      "status": 200,
+      "finalUrl": "https://jus-tice.co.il/child-custody/",
+      "title": "משמורת ילדים וזמני שהות: איך מתכננים הסדר שמתאים לילדים | Jus-Tice",
+      "h1": "משמורת ילדים וזמני שהות: איך מתכננים הסדר שמתאים לילדים",
+      "wordEstimate": 3248,
+      "error": "",
+      "gate": "LIVE_ASSOCIATED_PAGE_REVIEW"
+    },
+    {
+      "id": "ROUTE-05",
+      "path": "/child-support-calculator-2023/",
+      "role": "calculator_specific_intent",
+      "expectedGate": "protect calculator intent",
+      "inspectionNeed": "link only if user task genuinely needs child-support calculation context",
+      "url": "https://jus-tice.co.il/child-support-calculator-2023/",
+      "status": 200,
+      "finalUrl": "https://jus-tice.co.il/child-support-calculator-2023/",
+      "title": "מחשבון מזונות ילדים 2023 | Jus-Tice.co.il",
+      "h1": "מחשבון מזונות ילדים 2023",
+      "wordEstimate": 863,
+      "error": "",
+      "gate": "LIVE_ASSOCIATED_PAGE_REVIEW"
+    },
+    {
+      "id": "ROUTE-06",
+      "path": "/divorce-mediation/",
+      "role": "mediation_specific_intent",
+      "expectedGate": "protect mediation intent",
+      "inspectionNeed": "avoid making the Tel Aviv page a mediation guide",
+      "url": "https://jus-tice.co.il/divorce-mediation/",
+      "status": 200,
+      "finalUrl": "https://jus-tice.co.il/divorce-mediation/",
+      "title": "גישור גירושין: מתי זה נכון, איך מתכוננים ומה חשוב לבדוק | Jus-Tice",
+      "h1": "גישור גירושין: מתי זה נכון, איך מתכוננים ומה חשוב לבדוק",
+      "wordEstimate": 4277,
+      "error": "",
+      "gate": "LIVE_ASSOCIATED_PAGE_REVIEW"
+    },
+    {
+      "id": "ROUTE-07",
+      "path": "/what-is-a-divorce-settlement-agreement/",
+      "role": "settlement_agreement_article",
+      "expectedGate": "protect settlement explanation intent",
+      "inspectionNeed": "can support document checklist only after legal/editor review",
+      "url": "https://jus-tice.co.il/what-is-a-divorce-settlement-agreement/",
+      "status": 200,
+      "finalUrl": "https://jus-tice.co.il/what-is-a-divorce-settlement-agreement/",
+      "title": "מהו הסכם גירושין | מה צריך לכלול הסכם הסדר גירושין?| Jus-Tice.co.il",
+      "h1": "הסכם גירושין",
+      "wordEstimate": 1193,
+      "error": "",
+      "gate": "LIVE_ASSOCIATED_PAGE_REVIEW"
+    },
+    {
+      "id": "ROUTE-08",
+      "path": "/free-divorce-agreement-template/",
+      "role": "template_article",
+      "expectedGate": "protect template intent",
+      "inspectionNeed": "avoid promising that a template is enough for a local case",
+      "url": "https://jus-tice.co.il/free-divorce-agreement-template/",
+      "status": 200,
+      "finalUrl": "https://jus-tice.co.il/free-divorce-agreement-template/",
+      "title": "הסכם גירושין דוגמא | תבנית הסכם גירושין | טופס הסכם גירושין בחינם | Jus-Tice.co.il",
+      "h1": "הסכם גירושין דוגמא | תבנית הסכם גירושין | טופס הסכם גירושין בחינם",
+      "wordEstimate": 1791,
+      "error": "",
+      "gate": "LIVE_ASSOCIATED_PAGE_REVIEW"
+    },
+    {
+      "id": "ROUTE-09",
+      "path": "/how-much-does-a-divorce-agreement-cost/",
+      "role": "cost_article",
+      "expectedGate": "protect price/cost intent",
+      "inspectionNeed": "do not copy price claims into a local lawyer page without review",
+      "url": "https://jus-tice.co.il/how-much-does-a-divorce-agreement-cost/",
+      "status": 200,
+      "finalUrl": "https://jus-tice.co.il/how-much-does-a-divorce-agreement-cost/",
+      "title": "כמה עולה הסכם גירושין? | עלות הסכם גירושין | Jus-Tice.co.il",
+      "h1": "כמה עולה הסכם גירושין? | עלות הסכם גירושין",
+      "wordEstimate": 1050,
+      "error": "",
+      "gate": "LIVE_ASSOCIATED_PAGE_REVIEW"
+    },
+    {
+      "id": "ROUTE-10",
+      "path": "/lawyers/?city=tel-aviv&practice=family-law",
+      "role": "filtered_lawyer_directory",
+      "expectedGate": "coverage proof required",
+      "inspectionNeed": "public draft stays blocked until real filtered lawyer count is verified",
+      "url": "https://jus-tice.co.il/lawyers/?city=tel-aviv&practice=family-law",
+      "status": 200,
+      "finalUrl": "https://jus-tice.co.il/lawyers/?city=tel-aviv&practice=family-law",
+      "title": "עורכי דין בתל אביב | Jus-Tice",
+      "h1": "עורכי דין בתל אביב",
+      "wordEstimate": 756,
+      "error": "",
+      "gate": "LIVE_ASSOCIATED_PAGE_REVIEW"
+    }
+  ],
+  "queryClusterRows": [
+    {
+      "id": "QUERY-01",
+      "cluster": "exact_local_divorce_lawyer",
+      "likelyIntent": "User wants a divorce lawyer in Tel Aviv or nearby and may be ready to leave a request.",
+      "draftTreatment": "Short local triage, then route broad divorce questions to the central pillar and lawyer-fit questions to the filtered directory.",
+      "gscNeeded": "query, page, clicks, impressions, average position for exact local variations",
+      "currentEvidence": "Blank in the current evidence template.",
+      "gate": "BLOCKED_PENDING_GSC"
+    },
+    {
+      "id": "QUERY-02",
+      "cluster": "broad_divorce_lawyer",
+      "likelyIntent": "User is still comparing how to choose a divorce lawyer.",
+      "draftTreatment": "Keep this owned by the central pillar; local page may add only local fit and intake preparation.",
+      "gscNeeded": "central pillar query/page performance and cannibalizing URLs",
+      "currentEvidence": "Central pillar exists, but GSC performance is not filled in this packet.",
+      "gate": "BLOCKED_PENDING_GSC"
+    },
+    {
+      "id": "QUERY-03",
+      "cluster": "documents_and_procedure",
+      "likelyIntent": "User needs to prepare documents or understand next procedural steps.",
+      "draftTreatment": "Checklist language only, source-aware, no deadlines or legal instructions.",
+      "gscNeeded": "document/procedure query rows and associated page mapping",
+      "currentEvidence": "Official source prompts recorded; no GSC evidence filled.",
+      "gate": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "QUERY-04",
+      "cluster": "settlement_mediation_agreement",
+      "likelyIntent": "User is checking whether an agreement or mediation path is relevant.",
+      "draftTreatment": "Point to existing settlement/mediation articles instead of duplicating them.",
+      "gscNeeded": "agreement/mediation query-page rows",
+      "currentEvidence": "Associated pages mapped for cannibalization review.",
+      "gate": "REVIEW_REQUIRED"
+    },
+    {
+      "id": "QUERY-05",
+      "cluster": "cost_consultation_price",
+      "likelyIntent": "User is comparing consultation or agreement costs.",
+      "draftTreatment": "Avoid price promises; link to cost article only if owner/legal review approves exact wording.",
+      "gscNeeded": "cost/price query-page rows and owner-approved price policy",
+      "currentEvidence": "Cost-related associated route mapped; no price data approved.",
+      "gate": "BLOCKED_NO_PRICE_CLAIMS"
+    },
+    {
+      "id": "QUERY-06",
+      "cluster": "urgent_local_help",
+      "likelyIntent": "User may have a hearing, conflict escalation or urgent family-law need.",
+      "draftTreatment": "Use calm fit-check wording; do not promise emergency handling or response time.",
+      "gscNeeded": "urgent/local/help query rows and legal review",
+      "currentEvidence": "No live lawyer coverage or SLA proof available.",
+      "gate": "BLOCKED_NO_SLA_CLAIMS"
+    }
+  ],
+  "sourceRows": [
+    {
+      "id": "SRC-001",
+      "type": "official",
+      "title": "Israeli government divorce certificate service",
+      "url": "https://www.gov.il/he/service/obtaining-divorce-certificate",
+      "useFor": "official-document vocabulary and evidence checklist direction",
+      "boundary": "Do not convert certificate-service details into legal advice, local court facts, timelines or eligibility claims."
+    },
+    {
+      "id": "SRC-002",
+      "type": "official",
+      "title": "Israeli government legal aid application service",
+      "url": "https://www.gov.il/he/service/legal_aid_application",
+      "useFor": "eligibility-sensitive wording and alternatives for users who may need official help",
+      "boundary": "Do not claim eligibility or promise representation; direct users to verify with official service or a lawyer."
+    },
+    {
+      "id": "SRC-003",
+      "type": "official",
+      "title": "Assistance units near courts and religious courts",
+      "url": "https://www.gov.il/he/departments/Units/molsa-court-assiatance-units",
+      "useFor": "non-adversarial family-dispute context and source-aware wording",
+      "boundary": "Do not describe a mandatory process, deadline or local office assignment unless legal/editor review confirms it."
+    },
+    {
+      "id": "SRC-004",
+      "type": "competitor",
+      "title": "Gohar Law divorce-lawyer positioning reference",
+      "url": "https://www.goharlaw.com/",
+      "useFor": "commercial SERP framing: experience, local service, family-law reassurance",
+      "boundary": "Do not copy claims, rankings, testimonials, outcomes, price ranges, badges or personal positioning."
+    },
+    {
+      "id": "SRC-005",
+      "type": "competitor",
+      "title": "Rotenberg Law divorce-lawyer positioning reference",
+      "url": "https://rotenberglaw.co.il/",
+      "useFor": "commercial SERP framing: process reassurance, family-law coverage, trust cues",
+      "boundary": "Do not copy claims, slogans, reviews, price ranges, badges or outcome promises."
+    }
+  ],
+  "evidenceRows": [
+    {
+      "id": "EVIDENCE-01",
+      "category": "target_status",
+      "finding": "/divorce-lawyer-tel-aviv/ live status is 404.",
+      "implication": "Safe to continue private draft preparation.",
+      "gate": "PASS_TARGET_NOT_PUBLIC_200",
+      "ownerAction": "Do not create or publish the page until all draft gates are filled."
+    },
+    {
+      "id": "EVIDENCE-02",
+      "category": "pillar_protection",
+      "finding": "/divorce-lawyer/ live status is 200.",
+      "implication": "Broad divorce-lawyer intent must stay with the central pillar.",
+      "gate": "PASS_PILLAR_REACHABLE",
+      "ownerAction": "Confirm the local page will be a subordinate fit-check page, not a duplicate guide."
+    },
+    {
+      "id": "EVIDENCE-03",
+      "category": "lawyer_coverage",
+      "finding": "/lawyers/?city=tel-aviv&practice=family-law live status is 200, but real filtered lawyer count is not verified.",
+      "implication": "Commercial path is visible, but public page remains blocked without verified Tel Aviv family-law coverage.",
+      "gate": "BLOCKED_PENDING_WP_ADMIN_REVIEW",
+      "ownerAction": "Owner/admin must confirm filtered lawyer profile count and readiness."
+    },
+    {
+      "id": "EVIDENCE-04",
+      "category": "gsc_gap",
+      "finding": "The prior evidence template contains no clicks, impressions or average position for this target.",
+      "implication": "Publication and internal-link decisions would be guesswork.",
+      "gate": "BLOCKED_PENDING_GSC_EXPORT",
+      "ownerAction": "Fill exact local, broad divorce, documents/procedure, mediation/agreement and price query rows."
+    },
+    {
+      "id": "EVIDENCE-05",
+      "category": "unique_angle",
+      "finding": "Best safe angle is local triage and request preparation for Tel Aviv divorce users.",
+      "implication": "The page can help commercially without replacing the divorce pillar or issue-specific articles.",
+      "gate": "REVIEW_REQUIRED",
+      "ownerAction": "Approve one narrow angle before any Hebrew copy is prepared."
+    },
+    {
+      "id": "EVIDENCE-06",
+      "category": "forbidden_claims",
+      "finding": "No evidence supports best/recommended/ranked lawyer claims, price promises, emergency response, local court facts or legal instructions.",
+      "implication": "Draft must stay careful, user-first and source-aware.",
+      "gate": "PASS_WITH_RESTRICTIONS",
+      "ownerAction": "Legal/editor review must remove any unsupported claims."
+    }
+  ],
+  "decisionTemplateRows": [
+    {
+      "gateId": "GATE-01",
+      "requiredInput": "Target public status check",
+      "acceptableValue": "Target is not public 200, or owner approves treating it as existing public asset",
+      "currentValue": "",
+      "currentStatus": "auto_filled_by_tool",
+      "owner": "Codex/operator",
+      "notesNoPii": "Read-only fetch only."
+    },
+    {
+      "gateId": "GATE-02",
+      "requiredInput": "GSC exact local query/page rows",
+      "acceptableValue": "90-day clicks, impressions and average position filled for exact local and broad divorce clusters",
+      "currentValue": "",
+      "currentStatus": "BLOCKED_PENDING_EXPORT",
+      "owner": "Owner/operator",
+      "notesNoPii": "No GSC API call is made by this packet."
+    },
+    {
+      "gateId": "GATE-03",
+      "requiredInput": "Central pillar role confirmation",
+      "acceptableValue": "/divorce-lawyer/ remains primary for broad divorce-lawyer intent",
+      "currentValue": "proposed",
+      "currentStatus": "REVIEW_REQUIRED",
+      "owner": "SEO/editor",
+      "notesNoPii": "No canonical, redirect or internal link changes."
+    },
+    {
+      "gateId": "GATE-04",
+      "requiredInput": "Filtered Tel Aviv family-law lawyer coverage",
+      "acceptableValue": "Real filtered count and profile readiness verified in wp-admin",
+      "currentValue": "",
+      "currentStatus": "BLOCKED_PENDING_WP_ADMIN_REVIEW",
+      "owner": "Owner/admin",
+      "notesNoPii": "Do not publish if directory has insufficient verified coverage."
+    },
+    {
+      "gateId": "GATE-05",
+      "requiredInput": "Internal overlap review",
+      "acceptableValue": "Associated pages mapped and preserved, with one approved unique angle",
+      "currentValue": "associated route map prepared",
+      "currentStatus": "REVIEW_REQUIRED",
+      "owner": "SEO/editor",
+      "notesNoPii": "Protect custody, mediation, agreement, template and cost articles."
+    },
+    {
+      "gateId": "GATE-06",
+      "requiredInput": "Legal/editor review",
+      "acceptableValue": "Reviewer signs off official-source wording, disclaimers and no legal-advice boundaries",
+      "currentValue": "",
+      "currentStatus": "BLOCKED_PENDING_REVIEWER",
+      "owner": "Legal/editor",
+      "notesNoPii": "No deadlines, eligibility claims, court facts or legal instructions without review."
+    },
+    {
+      "gateId": "GATE-07",
+      "requiredInput": "Owner publication approval",
+      "acceptableValue": "Owner approves exact title/H1/body/internal links and publication path",
+      "currentValue": "",
+      "currentStatus": "BLOCKED_PENDING_OWNER",
+      "owner": "Owner",
+      "notesNoPii": "No CMS/database/public SEO action from this artifact."
+    },
+    {
+      "gateId": "GATE-08",
+      "requiredInput": "Public-change notification workflow",
+      "acceptableValue": "If a future public update is approved and deployed, check instruction email first, then send Hebrew summary with review URL and cannibalization list",
+      "currentValue": "not applicable",
+      "currentStatus": "NOT_TRIGGERED_PRIVATE_ONLY",
+      "owner": "Codex/operator",
+      "notesNoPii": "No email is sent for this private packet."
+    }
+  ],
+  "files": {
+    "projectMd": "C:\\Users\\janana\\jutice-theme\\.project-control\\divorce-tel-aviv-evidence-fill-packet-2026-05-27.md",
+    "projectCsv": "C:\\Users\\janana\\jutice-theme\\.project-control\\divorce-tel-aviv-evidence-fill-packet-2026-05-27.csv",
+    "gateTemplateCsv": "C:\\Users\\janana\\jutice-theme\\.project-control\\divorce-tel-aviv-public-draft-gate-template-2026-05-27.csv",
+    "reportJson": "C:\\Users\\janana\\jutice-theme\\.reports\\divorce-tel-aviv-evidence-fill-packet-2026-05-27.json",
+    "reportCsv": "C:\\Users\\janana\\jutice-theme\\.reports\\divorce-tel-aviv-evidence-fill-packet-2026-05-27.csv"
+  }
+}

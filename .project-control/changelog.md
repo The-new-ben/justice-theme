@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Divorce Tel Aviv evidence-fill packet
+
+- ADDED: `tools/build-divorce-tel-aviv-evidence-fill-packet.mjs`.
+- GENERATED: `.project-control/divorce-tel-aviv-evidence-fill-packet-2026-05-27.md`, `.project-control/divorce-tel-aviv-evidence-fill-packet-2026-05-27.csv`, `.project-control/divorce-tel-aviv-public-draft-gate-template-2026-05-27.csv`, `.reports/divorce-tel-aviv-evidence-fill-packet-2026-05-27.json`, `.reports/divorce-tel-aviv-evidence-fill-packet-2026-05-27.csv`.
+- PURPOSE: fill the next private evidence layer for `/divorce-lawyer-tel-aviv/` under the research-first anti-cannibalization methodology before any public city/practice page action.
+- RESULT: `DIVORCE_TEL_AVIV_EVIDENCE_FILL_READY_NO_PUBLIC_CHANGE`; target `/divorce-lawyer-tel-aviv/` returned 404, 10 associated/cannibalization routes were checked, 9 live associated routes were mapped, 6 GSC query clusters were prepared, and 5 source prompts were recorded.
+- REVIEW: the page can move only as a short local fit-check/request-preparation candidate. Public execution remains blocked by GSC export rows, filtered lawyer coverage, internal overlap review, legal/editor review and owner approval.
+- LINEAR: recorded as `HAD-150`, marked Done under `HAD-145`, related to `HAD-144`, `HAD-84` and `HAD-133`.
+- SAFETY: private research/reporting tooling only; no public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead/lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin record, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Bituach Leumi controlled lead dry-run packet
 
 - ADDED: `tools/build-btl-controlled-lead-dry-run-packet.mjs`.

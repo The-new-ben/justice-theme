@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-DIVORCE-TEL-AVIV-EVIDENCE-FILL-001: Fill private evidence for first safe local/practice target
+**Status:** FIXED LOCAL / PUBLIC PAGE EXECUTION STILL BLOCKED
+**Why:** `/divorce-lawyer-tel-aviv/` is the first priority city/practice target that is not already public 200, but it still needs GSC, overlap, lawyer coverage and review gates before any publication.
+**Actions:**
+1. DONE: add `tools/build-divorce-tel-aviv-evidence-fill-packet.mjs`.
+2. DONE: generate `.project-control/divorce-tel-aviv-evidence-fill-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/divorce-tel-aviv-public-draft-gate-template-2026-05-27.csv`.
+4. DONE: generate `.reports/divorce-tel-aviv-evidence-fill-packet-2026-05-27.json` and `.csv`.
+5. DONE: confirm `DIVORCE_TEL_AVIV_EVIDENCE_FILL_READY_NO_PUBLIC_CHANGE`, target status 404, 10 associated/cannibalization routes checked, 9 live associated routes mapped, 6 GSC query clusters and 5 source prompts prepared.
+6. DONE: record as Linear `HAD-150`, marked Done under `HAD-145`.
+7. NEXT: owner/operator fills the public-draft gate template with GSC query/page data, filtered Tel Aviv family-law lawyer count, legal/editor reviewer, internal-link plan and owner approval.
+8. BLOCKED: do not publish, create/update CMS content, change title/H1/meta/body, internal links, redirects, canonicals/noindex, sitemaps, taxonomies, CRM records, leads, lawyer/supplier/client contact, invoices, payments, emails, WhatsApp, TalkTo or uPress from this packet alone.
+
 ### ACTION-BTL-CONTROLLED-LEAD-DRY-RUN-001: Prepare exact no-PII first-paid-lead drill
 **Status:** FIXED LOCAL / LIVE REVENUE STILL BLOCKED
 **Why:** The Bituach Leumi first-paid-lead loop needs a single owner/admin checklist that proves private specialist supply, consent, handoff, billing and payment before any revenue is counted.

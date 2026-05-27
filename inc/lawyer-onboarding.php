@@ -1095,19 +1095,73 @@ function justice_theme_lawyer_outreach_message_template( string $variant, string
 	return $message;
 }
 
+function justice_theme_lawyer_outreach_source_lead_id( array $args = array() ): int {
+	$lead_id = absint( justice_theme_lawyer_outreach_builder_value( 'source_lead_id', '0' ) );
+	$content = (string) ( $args['utm_content'] ?? '' );
+
+	if ( ! $lead_id && preg_match( '/^lead_(\d+)$/', $content, $matches ) ) {
+		$lead_id = absint( $matches[1] );
+	}
+
+	if ( ! $lead_id || 'justice_lead' !== get_post_type( $lead_id ) || ! current_user_can( 'edit_post', $lead_id ) ) {
+		return 0;
+	}
+
+	return $lead_id;
+}
+
+function justice_theme_lawyer_outreach_lead_context( int $lead_id ): array {
+	$area       = (string) ( get_post_meta( $lead_id, 'ai_detected_area', true ) ?: get_post_meta( $lead_id, 'legal_area', true ) ?: get_post_meta( $lead_id, 'lead_area', true ) );
+	$area_label = function_exists( 'justice_theme_lead_area_label' ) && $area ? justice_theme_lead_area_label( $area ) : $area;
+	$city       = (string) ( get_post_meta( $lead_id, 'city', true ) ?: get_post_meta( $lead_id, 'lead_city', true ) );
+	$urgency    = (string) get_post_meta( $lead_id, 'urgency', true );
+	$message    = (string) ( get_post_meta( $lead_id, 'message', true ) ?: get_post_meta( $lead_id, 'lead_message', true ) ?: get_post_meta( $lead_id, 'visitor_message', true ) );
+	$name       = function_exists( 'justice_theme_crm_lead_display_name' ) ? justice_theme_crm_lead_display_name( $lead_id ) : get_the_title( $lead_id );
+	$edit_url   = get_edit_post_link( $lead_id, 'raw' );
+
+	return array(
+		'id'         => $lead_id,
+		'name'       => $name ?: 'Lead #' . $lead_id,
+		'area'       => $area_label ?: 'needs review',
+		'city'       => $city ?: 'city not captured',
+		'urgency'    => $urgency ?: 'urgency not captured',
+		'message'    => $message,
+		'edit_url'   => $edit_url ?: '',
+		'created_at' => get_the_date( 'Y-m-d H:i', $lead_id ),
+	);
+}
+
+function justice_theme_lawyer_outreach_lead_revenue_script( array $lead_context, array $args, string $registration_url ): string {
+	$expected_monthly = justice_theme_lawyer_outreach_expected_monthly_nis( (string) ( $args['plan_interest'] ?? 'lead_partner' ) );
+
+	return sprintf(
+		"Lead-backed lawyer outreach checklist\nLead: %s\nDemand: %s / %s / %s\nSegment: %s\nExpected monthly value if converted: %s NIS\n\n1. Verify the public lead first: consent, city, practice and urgency.\n2. Contact only lawyers who plausibly cover this practice and city.\n3. Say there is current demand in the segment, not a guaranteed case or guaranteed volume.\n4. Send the tracked registration link: %s\n5. Create or update one Lawyer Prospect before the first follow-up.\n6. If the lawyer accepts the commercial fit, request manual invoice or payment-link handling.\n7. Mark paid only after invoice or payment evidence exists.",
+		$lead_context['name'] ?? '-',
+		$lead_context['area'] ?? '-',
+		$lead_context['city'] ?? '-',
+		$lead_context['urgency'] ?? '-',
+		$args['outreach_segment'] ?? '-',
+		number_format_i18n( $expected_monthly ),
+		$registration_url
+	);
+}
+
 function justice_theme_render_lawyer_outreach_links_page(): void {
 	if ( ! current_user_can( 'edit_pages' ) ) {
 		wp_die( esc_html__( 'You do not have permission to access outreach links.', 'justice-theme' ) );
 	}
 
-	$options          = justice_theme_lawyer_outreach_select_options();
-	$args             = justice_theme_lawyer_outreach_link_args();
-	$registration_url = add_query_arg( $args, home_url( '/lawyer-registration/' ) );
-	$practice_label   = str_replace( '-', ' ', $args['outreach_practice'] ?? 'your practice area' );
-	$city_label       = str_replace( '-', ' ', $args['outreach_city'] ?? 'your city' );
-	$personal_note    = justice_theme_lawyer_outreach_builder_value( 'outreach_personal_note', '' );
-	$message_template = justice_theme_lawyer_outreach_message_template( $args['utm_content'] ?? 'message_a', $practice_label, $city_label, $registration_url, $personal_note );
-	$prospect_plan    = justice_theme_lawyer_outreach_prospect_plan( $args['plan_interest'] ?? 'lead_partner' );
+	$options             = justice_theme_lawyer_outreach_select_options();
+	$args                = justice_theme_lawyer_outreach_link_args();
+	$registration_url    = add_query_arg( $args, home_url( '/lawyer-registration/' ) );
+	$practice_label      = str_replace( '-', ' ', $args['outreach_practice'] ?? 'your practice area' );
+	$city_label          = str_replace( '-', ' ', $args['outreach_city'] ?? 'your city' );
+	$personal_note       = justice_theme_lawyer_outreach_builder_value( 'outreach_personal_note', '' );
+	$message_template    = justice_theme_lawyer_outreach_message_template( $args['utm_content'] ?? 'message_a', $practice_label, $city_label, $registration_url, $personal_note );
+	$prospect_plan       = justice_theme_lawyer_outreach_prospect_plan( $args['plan_interest'] ?? 'lead_partner' );
+	$source_lead_id      = justice_theme_lawyer_outreach_source_lead_id( $args );
+	$lead_context        = $source_lead_id ? justice_theme_lawyer_outreach_lead_context( $source_lead_id ) : array();
+	$lead_revenue_script = $lead_context ? justice_theme_lawyer_outreach_lead_revenue_script( $lead_context, $args, $registration_url ) : '';
 	$demand_signal    = sprintf(
 		'Manual outreach batch: %s / %s via %s %s. Registration link keeps UTM tracking. Track first contact, next follow-up, and outcome in Lawyer Prospects.',
 		$args['outreach_practice'] ?? '-',
@@ -1115,21 +1169,36 @@ function justice_theme_render_lawyer_outreach_links_page(): void {
 		$args['utm_source'] ?? '-',
 		$args['utm_campaign'] ?? '-'
 	);
-	$prospect_url     = add_query_arg(
-		array(
-			'post_type'                     => 'justice_prospect',
-			'prospect_practice_area'        => $practice_label,
-			'prospect_city'                 => $city_label,
-			'prospect_target_plan'          => $prospect_plan,
-			'prospect_priority'             => 'warm',
-			'prospect_outreach_status'      => 'ready',
-			'prospect_source_url'           => $registration_url,
-			'prospect_expected_monthly_nis' => justice_theme_lawyer_outreach_expected_monthly_nis( $args['plan_interest'] ?? 'lead_partner' ),
-			'prospect_demand_signal'        => $demand_signal,
-			'prospect_owner_note'           => 'Created from Outreach Links. Add one specific lawyer, contact manually, then use quick actions for follow-up.',
-		),
-		admin_url( 'post-new.php' )
+	if ( $lead_context ) {
+		$demand_signal .= sprintf(
+			' Source homepage lead #%d: %s / %s / %s.',
+			(int) ( $lead_context['id'] ?? 0 ),
+			$lead_context['area'] ?? '-',
+			$lead_context['city'] ?? '-',
+			$lead_context['urgency'] ?? '-'
+		);
+	}
+	$prospect_owner_note = $lead_context
+		? 'Created from a homepage lead-backed Outreach Link. Contact one relevant lawyer manually, record the first attempt, then move to invoice/payment handling only after commercial fit is accepted.'
+		: 'Created from Outreach Links. Add one specific lawyer, contact manually, then use quick actions for follow-up.';
+	$prospect_args       = array(
+		'post_type'                     => 'justice_prospect',
+		'prospect_practice_area'        => $practice_label,
+		'prospect_city'                 => $city_label,
+		'prospect_target_plan'          => $prospect_plan,
+		'prospect_priority'             => 'warm',
+		'prospect_outreach_status'      => 'ready',
+		'prospect_source_url'           => $registration_url,
+		'prospect_expected_monthly_nis' => justice_theme_lawyer_outreach_expected_monthly_nis( $args['plan_interest'] ?? 'lead_partner' ),
+		'prospect_demand_signal'        => $demand_signal,
+		'prospect_owner_note'           => $prospect_owner_note,
 	);
+
+	if ( $source_lead_id ) {
+		$prospect_args['prospect_source_lead_id'] = $source_lead_id;
+	}
+
+	$prospect_url = add_query_arg( $prospect_args, admin_url( 'post-new.php' ) );
 	$prospect_pipeline_url = admin_url( 'edit.php?post_type=justice_prospect' );
 	?>
 	<div class="wrap">
@@ -1138,8 +1207,33 @@ function justice_theme_render_lawyer_outreach_links_page(): void {
 		<div class="notice notice-warning inline">
 			<p><strong>Manual outreach only:</strong> this screen creates copyable drafts. It does not send bulk email or SMS. Contact only relevant lawyers, personalize the opening line, and respect every removal request.</p>
 		</div>
+		<?php if ( $lead_context ) : ?>
+			<div class="notice notice-success inline">
+				<p><strong>Lead-backed revenue context:</strong> this outreach batch started from a real homepage lead, so the next move is supplier coverage, prospect follow-up and manual invoice/payment handling.</p>
+				<p>
+					<strong>Demand:</strong> <?php echo esc_html( $lead_context['area'] ); ?> / <?php echo esc_html( $lead_context['city'] ); ?> / <?php echo esc_html( $lead_context['urgency'] ); ?>
+					<?php if ( ! empty( $lead_context['created_at'] ) ) : ?>
+						<br><strong>Lead created:</strong> <?php echo esc_html( $lead_context['created_at'] ); ?>
+					<?php endif; ?>
+				</p>
+				<?php if ( ! empty( $lead_context['message'] ) ) : ?>
+					<p><strong>Lead message signal:</strong> <?php echo esc_html( wp_trim_words( $lead_context['message'], 32, '...' ) ); ?></p>
+				<?php endif; ?>
+				<p>
+					<?php if ( ! empty( $lead_context['edit_url'] ) ) : ?>
+						<a class="button" href="<?php echo esc_url( $lead_context['edit_url'] ); ?>">Open source lead</a>
+					<?php endif; ?>
+					<a class="button" href="<?php echo esc_url( admin_url( 'admin.php?page=justice-lawyer-onboarding&payment_queue=invoice_requested' ) ); ?>">Open invoice-requested queue</a>
+				</p>
+				<textarea id="justice-outreach-lead-revenue-script" readonly rows="9" style="width:100%;max-width:960px;"><?php echo esc_textarea( $lead_revenue_script ); ?></textarea>
+				<p><button type="button" class="button" data-copy-target="justice-outreach-lead-revenue-script" data-copy-label="Copy lead action script">Copy lead action script</button></p>
+			</div>
+		<?php endif; ?>
 		<form method="get" action="<?php echo esc_url( admin_url( 'admin.php' ) ); ?>" style="max-width:960px;background:#fff;border:1px solid #dcdcde;padding:18px 20px;margin:18px 0;">
 			<input type="hidden" name="page" value="justice-lawyer-outreach-links">
+			<?php if ( $source_lead_id ) : ?>
+				<input type="hidden" name="source_lead_id" value="<?php echo esc_attr( (string) $source_lead_id ); ?>">
+			<?php endif; ?>
 			<table class="form-table" role="presentation">
 				<tr>
 					<th scope="row"><label for="justice-outreach-plan">Plan</label></th>
@@ -1183,8 +1277,9 @@ function justice_theme_render_lawyer_outreach_links_page(): void {
 							<option value="message_a">
 							<option value="message_b">
 							<option value="message_c">
+							<option value="lead_demand_a">
 						</datalist>
-						<p class="description">Use message_a, message_b or message_c to switch the copied draft while keeping the same tracking structure.</p>
+						<p class="description">Use message_a, message_b, message_c or lead_demand_a to switch the copied draft while keeping the same tracking structure.</p>
 					</td>
 				</tr>
 				<tr>
@@ -1212,11 +1307,11 @@ function justice_theme_render_lawyer_outreach_links_page(): void {
 
 		<h2>Tracked registration URL</h2>
 		<p><input id="justice-outreach-generated-url" type="url" readonly value="<?php echo esc_attr( $registration_url ); ?>" style="width:100%;max-width:960px;font-family:monospace;"></p>
-		<p><button type="button" class="button" data-copy-target="justice-outreach-generated-url">Copy URL</button></p>
+		<p><button type="button" class="button" data-copy-target="justice-outreach-generated-url" data-copy-label="Copy URL">Copy URL</button></p>
 
 		<h2>Message draft</h2>
 		<textarea id="justice-outreach-message" readonly rows="7" style="width:100%;max-width:960px;"><?php echo esc_textarea( $message_template ); ?></textarea>
-		<p><button type="button" class="button" data-copy-target="justice-outreach-message">Copy message</button></p>
+		<p><button type="button" class="button" data-copy-target="justice-outreach-message" data-copy-label="Copy message">Copy message</button></p>
 
 		<h2>Prospect pipeline handoff</h2>
 		<p>Create one prospect record for each lawyer before or immediately after the first manual message. This keeps follow-up, value and outcome visible instead of living in memory.</p>
@@ -1248,9 +1343,10 @@ function justice_theme_render_lawyer_outreach_links_page(): void {
 			return;
 		}
 		navigator.clipboard.writeText(target.value).then(function () {
+			var label = button.getAttribute('data-copy-label') || button.textContent || 'Copy';
 			button.textContent = 'Copied';
 			setTimeout(function () {
-				button.textContent = button.getAttribute('data-copy-target') === 'justice-outreach-message' ? 'Copy message' : 'Copy URL';
+				button.textContent = label;
 			}, 1400);
 		});
 	});

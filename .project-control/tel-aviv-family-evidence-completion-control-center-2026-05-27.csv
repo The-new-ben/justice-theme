@@ -1,0 +1,4 @@
+id,gate,status,evidence,next_action
+TA-CENTER-GATE-01,all_templates_present,PASS,172 required fill rows indexed across 5 private templates.,Fill rows in sequence and keep blanks blocking.
+TA-CENTER-GATE-02,human_fill_required,BLOCKED_HUMAN_FILL_REQUIRED,No owner/operator/legal/editor/admin fill has been recorded by this control center.,Use the workqueue CSV as the single handoff index.
+TA-CENTER-GATE-03,no_live_action_authorized,PASS_NO_LIVE_ACTION,This control center records 0 public/CMS/SEO/CRM/contact/payment/email/uPress approvals.,Prepare a later private go/no-go packet only after every blocking fill row is complete.

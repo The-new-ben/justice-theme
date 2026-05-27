@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-TEL-AVIV-FAMILY-EVIDENCE-COMPLETION-001: Fill sequenced publication evidence workqueue
+**Status:** FIXED LOCAL / HUMAN FILL STILL BLOCKED
+**Why:** The Tel Aviv family publication chain had several separate fill templates. The owner/operator needed one control center that shows row counts, responsible role, sequence and what each blank blocks.
+**Actions:**
+1. DONE: add `tools/build-tel-aviv-family-evidence-completion-control-center.mjs`.
+2. DONE: generate `.project-control/tel-aviv-family-evidence-completion-control-center-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/tel-aviv-family-evidence-completion-workqueue-2026-05-27.csv`.
+4. DONE: generate `.reports/tel-aviv-family-evidence-completion-control-center-2026-05-27.json` and `.csv`.
+5. DONE: confirm status `TEL_AVIV_FAMILY_EVIDENCE_COMPLETION_CONTROL_CENTER_READY_BLOCKED_ON_HUMAN_FILL_NO_PUBLIC_CHANGE`, 5 workqueue rows, 3 gate rows, 1 blocked gate, 172 required fill rows, 144 focused GSC paste rows, 3 lawyer-readiness rows, 12 legal/editor rows, 8 owner-scope rows, 5 final publication-gate rows, 4 future post-publication rows, 0 paid LLM API use and 0 public/CMS/SEO/CRM/contact/payment/email/uPress approvals.
+6. NEXT: owner/operator fills the GSC paste template first, then lawyer readiness, legal/editor and owner-scope rows, then the final publication-gate template for a later private go/no-go packet.
+7. BLOCKED: no public route, CMS, title/H1/meta/body/internal link, redirect/canonical/noindex/sitemap/taxonomy, CRM, lawyer profile edit, contact, invoice, payment, email/WhatsApp/TalkTo, paid LLM API, wp-admin write or uPress from this private control center.
+
 ### ACTION-TEL-AVIV-FAMILY-OWNER-SCOPE-001: Fill owner publication-scope decision gate
 **Status:** FIXED LOCAL / OWNER AND EVIDENCE FILL STILL BLOCKED
 **Why:** The Tel Aviv family route now has publication, focused GSC, lawyer readiness and legal/editor packets, but the owner still needs one exact scope surface to approve, revise, reject or park the future target before any public work.

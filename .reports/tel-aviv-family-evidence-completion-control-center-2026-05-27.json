@@ -1,0 +1,127 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "sourceDate": "2026-05-27",
+    "status": "TEL_AVIV_FAMILY_EVIDENCE_COMPLETION_CONTROL_CENTER_READY_BLOCKED_ON_HUMAN_FILL_NO_PUBLIC_CHANGE",
+    "targetPath": "/divorce-lawyer-tel-aviv/",
+    "sourceStatuses": {
+      "publicationReview": "TEL_AVIV_FAMILY_PUBLICATION_REVIEW_BLOCKED_FOCUSED_GSC_LEGAL_OWNER",
+      "gscOperator": "TEL_AVIV_FAMILY_GSC_EXPORT_OPERATOR_PACKET_READY_NO_API_NO_PUBLIC_CHANGE",
+      "lawyerReadiness": "TEL_AVIV_FAMILY_LAWYER_READINESS_OWNER_PACKET_BLOCKED_OWNER_ADMIN_FILL_REQUIRED_NO_PUBLIC_CHANGE",
+      "legalEditor": "TEL_AVIV_FAMILY_LEGAL_EDITOR_REVIEW_PACKET_BLOCKED_HUMAN_REVIEW_REQUIRED_NO_PUBLIC_CHANGE",
+      "ownerScope": "TEL_AVIV_FAMILY_OWNER_PUBLICATION_SCOPE_PACKET_BLOCKED_OWNER_AND_EVIDENCE_FILL_REQUIRED_NO_PUBLIC_CHANGE"
+    },
+    "workqueueRows": 5,
+    "gateRows": 3,
+    "blockedGateRows": 1,
+    "totalRequiredFillRows": 172,
+    "focusedGscPasteRows": 144,
+    "lawyerReadinessRows": 3,
+    "legalEditorRows": 12,
+    "ownerScopeRows": 8,
+    "publicationGateRows": 5,
+    "futurePostPublicationRows": 4,
+    "paidLlmApiUsed": 0,
+    "publicChangesApproved": 0,
+    "cmsWritesApproved": 0,
+    "seoSettingsChanged": 0,
+    "redirectsOrCanonicalsChanged": 0,
+    "crmRecordsCreated": 0,
+    "leadOrLawyerContactActions": 0,
+    "invoicesOrPaymentsCreated": 0,
+    "emailsSent": 0,
+    "upressDeploymentRequired": false,
+    "files": {
+      "projectMd": ".project-control\\tel-aviv-family-evidence-completion-control-center-2026-05-27.md",
+      "projectCsv": ".project-control\\tel-aviv-family-evidence-completion-control-center-2026-05-27.csv",
+      "workqueueCsv": ".project-control\\tel-aviv-family-evidence-completion-workqueue-2026-05-27.csv",
+      "reportJson": ".reports\\tel-aviv-family-evidence-completion-control-center-2026-05-27.json",
+      "reportCsv": ".reports\\tel-aviv-family-evidence-completion-control-center-2026-05-27.csv"
+    }
+  },
+  "gateRows": [
+    {
+      "id": "TA-CENTER-GATE-01",
+      "gate": "all_templates_present",
+      "status": "PASS",
+      "evidence": "172 required fill rows indexed across 5 private templates.",
+      "next_action": "Fill rows in sequence and keep blanks blocking."
+    },
+    {
+      "id": "TA-CENTER-GATE-02",
+      "gate": "human_fill_required",
+      "status": "BLOCKED_HUMAN_FILL_REQUIRED",
+      "evidence": "No owner/operator/legal/editor/admin fill has been recorded by this control center.",
+      "next_action": "Use the workqueue CSV as the single handoff index."
+    },
+    {
+      "id": "TA-CENTER-GATE-03",
+      "gate": "no_live_action_authorized",
+      "status": "PASS_NO_LIVE_ACTION",
+      "evidence": "This control center records 0 public/CMS/SEO/CRM/contact/payment/email/uPress approvals.",
+      "next_action": "Prepare a later private go/no-go packet only after every blocking fill row is complete."
+    }
+  ],
+  "workqueueRows": [
+    {
+      "id": "TA-COMPLETE-01",
+      "phase": 1,
+      "workstream": "focused_gsc_export",
+      "artifact": ".project-control\\tel-aviv-family-gsc-export-paste-template-2026-05-27.csv",
+      "row_count": 144,
+      "responsible_role": "owner_or_gsc_operator",
+      "required_fill": "Fill clicks, impressions, ctr, position, query/page notes and reviewer_decision for both last-16-month and last-90-day windows.",
+      "completion_rule": "All rows must be filled or explicitly marked not_available with no-pii notes before any local-page go/no-go review.",
+      "blocks": "publication evidence, internal-link decision, consolidation/noindex/canonical/sitemap decisions",
+      "public_go_if_blank": "no"
+    },
+    {
+      "id": "TA-COMPLETE-02",
+      "phase": 2,
+      "workstream": "lawyer_readiness",
+      "artifact": ".project-control\\tel-aviv-family-lawyer-readiness-fill-template-2026-05-27.csv",
+      "row_count": 3,
+      "responsible_role": "owner_or_private_admin",
+      "required_fill": "Verify identity, family/divorce fit, Tel Aviv fit, display permission, availability, contact path without exporting contact details and no ranking/paid/sponsored claim.",
+      "completion_rule": "Each visible card row needs an owner/admin decision from private evidence.",
+      "blocks": "coverage language, directory handoff confidence, local CTA wording",
+      "public_go_if_blank": "no"
+    },
+    {
+      "id": "TA-COMPLETE-03",
+      "phase": 3,
+      "workstream": "legal_editor_review",
+      "artifact": ".project-control\\tel-aviv-family-legal-editor-fill-template-2026-05-27.csv",
+      "row_count": 12,
+      "responsible_role": "legal_editor_or_owner_approved_reviewer",
+      "required_fill": "Approve, revise, reject or mark needs_gsc / needs_owner_admin / needs_owner_scope for title, H1, intro, checklist, CTA, FAQ, source boundaries and disclaimer rows.",
+      "completion_rule": "No final public title/H1/meta/body/FAQ/schema can be prepared until all rows have a decision.",
+      "blocks": "final content, public claims, FAQ schema and legal-service wording",
+      "public_go_if_blank": "no"
+    },
+    {
+      "id": "TA-COMPLETE-04",
+      "phase": 4,
+      "workstream": "owner_publication_scope",
+      "artifact": ".project-control\\tel-aviv-family-owner-publication-scope-fill-template-2026-05-27.csv",
+      "row_count": 8,
+      "responsible_role": "owner",
+      "required_fill": "Approve, revise, reject, park or request more evidence for target URL, content scope, GSC gate, lawyer readiness, legal/editor approval, links, post-publication workflow and final go/no-go.",
+      "completion_rule": "Owner scope must be explicit before any private CMS draft packet can be prepared.",
+      "blocks": "route creation, internal links, CTA scope and deployment planning",
+      "public_go_if_blank": "no"
+    },
+    {
+      "id": "TA-COMPLETE-05",
+      "phase": 5,
+      "workstream": "final_private_publication_gate",
+      "artifact": ".project-control\\tel-aviv-family-publication-gate-template-2026-05-27.csv",
+      "row_count": 5,
+      "responsible_role": "private_reviewer",
+      "required_fill": "Summarize focused GSC, lawyer readiness, legal/editor and owner-scope decisions into one private go/no-go gate.",
+      "completion_rule": "Only after this gate is complete can a separate exact CMS draft packet be prepared for owner review.",
+      "blocks": "public route execution and any live QA/email/uPress workflow",
+      "public_go_if_blank": "no"
+    }
+  ]
+}

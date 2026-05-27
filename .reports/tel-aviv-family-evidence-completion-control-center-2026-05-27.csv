@@ -1,0 +1,2 @@
+reportDate,sourceDate,status,targetPath,workqueueRows,blockedGateRows,totalRequiredFillRows,focusedGscPasteRows,lawyerReadinessRows,legalEditorRows,ownerScopeRows,publicationGateRows,futurePostPublicationRows,publicChangesApproved,cmsWritesApproved,seoSettingsChanged,crmRecordsCreated,leadOrLawyerContactActions,invoicesOrPaymentsCreated,emailsSent,upressDeploymentRequired
+2026-05-27,2026-05-27,TEL_AVIV_FAMILY_EVIDENCE_COMPLETION_CONTROL_CENTER_READY_BLOCKED_ON_HUMAN_FILL_NO_PUBLIC_CHANGE,/divorce-lawyer-tel-aviv/,5,1,172,144,3,12,8,5,4,0,0,0,0,0,0,0,false

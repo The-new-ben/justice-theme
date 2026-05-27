@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Tel Aviv family evidence completion control center
+
+- ADDED: `tools/build-tel-aviv-family-evidence-completion-control-center.mjs`.
+- GENERATED: `.project-control/tel-aviv-family-evidence-completion-control-center-2026-05-27.md`, `.project-control/tel-aviv-family-evidence-completion-control-center-2026-05-27.csv`, `.project-control/tel-aviv-family-evidence-completion-workqueue-2026-05-27.csv`, `.reports/tel-aviv-family-evidence-completion-control-center-2026-05-27.json` and `.reports/tel-aviv-family-evidence-completion-control-center-2026-05-27.csv`.
+- PURPOSE: put every remaining private human-fill artifact for `/divorce-lawyer-tel-aviv/` into one sequenced workqueue before any final private go/no-go review.
+- RESULT: `TEL_AVIV_FAMILY_EVIDENCE_COMPLETION_CONTROL_CENTER_READY_BLOCKED_ON_HUMAN_FILL_NO_PUBLIC_CHANGE`; 172 required fill rows were indexed across focused GSC, lawyer readiness, legal/editor, owner scope and final publication-gate templates.
+- SAFETY: private evidence-completion indexing only; no evidence fill, paid LLM API, public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Tel Aviv family owner publication scope packet
 
 - ADDED: `tools/build-tel-aviv-family-owner-publication-scope-packet.mjs`.

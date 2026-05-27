@@ -1,0 +1,227 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "status": "LOW_HYPE_RV_FIRST_PILOT_DECISION_QUEUE_READY_NO_PUBLIC_CHANGE",
+    "decisionRows": 8,
+    "ownerDecisionRows": 8,
+    "ownerDecisionRequiredRows": 2,
+    "blockedRows": 8,
+    "recommendedFirstPilot": "RV rental/deposit/charge dispute attached to existing consumer/rental surfaces",
+    "routeRecommendation": "No standalone RV route. If owner approves the pilot, start as a narrow owner-review path on consumer/rental surfaces only after GSC, internal route and legal review.",
+    "publicChangesApproved": 0,
+    "cmsWrites": 0,
+    "seoChanges": 0,
+    "crmRecordsCreated": 0,
+    "leadsContacted": 0,
+    "lawyersOrSuppliersContacted": 0,
+    "invoicesOrPaymentsCreated": 0,
+    "emailSent": 0,
+    "whatsappTalktoActions": 0,
+    "gscApiCalled": 0,
+    "upressDeploymentRequired": false,
+    "sourceStatuses": {
+      "opportunityStatus": "PRIVATE_OPPORTUNITY_BRIEF_READY_NOT_APPROVED_FOR_PUBLICATION",
+      "serpStatus": "SERP_REVIEW_PACKET_READY_NOT_APPROVED_FOR_PUBLICATION",
+      "routeOverlapStatus": "INTERNAL_ROUTE_OVERLAP_READY_NO_PUBLIC_ACTION",
+      "gscStatus": "GSC_EVIDENCE_REQUEST_READY_EXPORT_NOT_FILLED",
+      "intakeStatus": "PRIVATE_INTAKE_CHECKLIST_READY_NO_PUBLIC_OR_CRM_ACTION",
+      "recommendedFirstPilot": "RV rental/deposit/charge dispute attached to existing consumer/rental surfaces",
+      "routeRecommendation": "No standalone RV route. If owner approves the pilot, start as a narrow owner-review path on consumer/rental surfaces only after GSC, internal route and legal review."
+    }
+  },
+  "decisionRows": [
+    {
+      "id": "QUEUE-01",
+      "decision_area": "low_hype_visibility",
+      "current_evidence": "Low Hype is useful as a private operating label, but public users should only see legal-help language.",
+      "owner_decision_needed": "Confirm Low Hype remains internal-only for now.",
+      "default_safe_decision": "Keep internal-only.",
+      "allowed_next_action": "Use Low Hype as a private prioritization tag in Linear and repo packets.",
+      "blocked_action": "Do not publish Low Hype navigation, public brand copy, public route, metadata or CTA wording.",
+      "status": "OWNER_DECISION_REQUIRED",
+      "source_anchor": "PRIVATE_OPPORTUNITY_BRIEF_READY_NOT_APPROVED_FOR_PUBLICATION"
+    },
+    {
+      "id": "QUEUE-02",
+      "decision_area": "first_pilot_topic",
+      "current_evidence": "RV rental/deposit/charge dispute attached to existing consumer/rental surfaces",
+      "owner_decision_needed": "Approve, reject or park RV rental/deposit/charge as the only first pilot.",
+      "default_safe_decision": "Park until GSC/export evidence is filled.",
+      "allowed_next_action": "If owner approves, continue only as private evidence and owner-review intake.",
+      "blocked_action": "Do not open accident, insurance, traffic, import or municipal-fine tracks as part of the first pilot.",
+      "status": "OWNER_DECISION_REQUIRED",
+      "source_anchor": "SERP_REVIEW_PACKET_READY_NOT_APPROVED_FOR_PUBLICATION"
+    },
+    {
+      "id": "QUEUE-03",
+      "decision_area": "gsc_export_gate",
+      "current_evidence": "The GSC template exists, but query/page rows are not filled.",
+      "owner_decision_needed": "Export/paste Search Console rows for caravan/RV/rental/deposit/charge plus candidate pages.",
+      "default_safe_decision": "No public copy while export is empty.",
+      "allowed_next_action": "Fill the private GSC template and classify every row by route family.",
+      "blocked_action": "Do not write title, H1, meta, public section, internal link, canonical, sitemap or CMS copy before GSC review.",
+      "status": "BLOCKED_PENDING_GSC_EXPORT",
+      "source_anchor": "GSC_EVIDENCE_REQUEST_READY_EXPORT_NOT_FILLED"
+    },
+    {
+      "id": "QUEUE-04",
+      "decision_area": "route_owner",
+      "current_evidence": "Route overlap found consumer-rights as the primary surface and rental-agreement as an adjacent surface; no existing RV marker route was found.",
+      "owner_decision_needed": "Choose whether an approved pilot would attach to consumer-rights, rental-agreement or stay private-only.",
+      "default_safe_decision": "No standalone RV route.",
+      "allowed_next_action": "Prepare only a route-decision map after GSC/legal review if evidence supports public work.",
+      "blocked_action": "Do not create a standalone RV/caravan/campervan URL from the current evidence.",
+      "status": "ROUTE_DECISION_BLOCKED",
+      "source_anchor": "INTERNAL_ROUTE_OVERLAP_READY_NO_PUBLIC_ACTION"
+    },
+    {
+      "id": "QUEUE-05",
+      "decision_area": "legal_category",
+      "current_evidence": "SERP and route packets show mixed consumer, rental, insurance, accident and traffic intent.",
+      "owner_decision_needed": "Legal/editor reviewer must confirm whether the first pilot is consumer/rental only.",
+      "default_safe_decision": "Consumer/rental candidate only; specialist paths parked.",
+      "allowed_next_action": "Escalate insurance, accident, injury, traffic or urgent limitation facts out of this pilot.",
+      "blocked_action": "Do not publish legal advice, demand-letter wording, insurance coverage guidance or outcome claims.",
+      "status": "LEGAL_REVIEW_REQUIRED",
+      "source_anchor": "SERP_REVIEW_PACKET_READY_NOT_APPROVED_FOR_PUBLICATION | INTERNAL_ROUTE_OVERLAP_READY_NO_PUBLIC_ACTION"
+    },
+    {
+      "id": "QUEUE-06",
+      "decision_area": "private_intake_and_consent",
+      "current_evidence": "Private intake checklist is ready for current inbound only; legacy WhatsApp/TalkTo rows need fresh permission.",
+      "owner_decision_needed": "Approve the exact no-PII intake fields and re-permission policy before any real lead handling.",
+      "default_safe_decision": "Current inbound only after explicit permission; old leads parked.",
+      "allowed_next_action": "Use the private intake template with source channel, permission status and no-PII evidence flags.",
+      "blocked_action": "Do not import old chats, bulk message, call, email, match, or share PII with partners from this queue.",
+      "status": "PRIVATE_INTAKE_READY_LIVE_ACTION_BLOCKED",
+      "source_anchor": "PRIVATE_INTAKE_CHECKLIST_READY_NO_PUBLIC_OR_CRM_ACTION"
+    },
+    {
+      "id": "QUEUE-07",
+      "decision_area": "partner_and_payment_path",
+      "current_evidence": "No partner terms, billing contact, invoice reference or payment proof exists for this RV pilot.",
+      "owner_decision_needed": "Confirm partner terms and billing proof rules before any lawyer/supplier preview.",
+      "default_safe_decision": "No PII release and no revenue claim.",
+      "allowed_next_action": "Prepare only anonymized partner preview fields after permission and owner release are present.",
+      "blocked_action": "Do not contact lawyers/suppliers, send raw chats/files, invoice, mark paid or claim revenue.",
+      "status": "PAYMENT_AND_PARTNER_PROOF_BLOCKED",
+      "source_anchor": "WhatsApp/TalkTo runbook + private intake checklist"
+    },
+    {
+      "id": "QUEUE-08",
+      "decision_area": "public_copy_gate",
+      "current_evidence": "All source packets keep public changes at zero and block standalone RV publication.",
+      "owner_decision_needed": "Owner, SEO and legal/editor must approve exact text, placement and post-publication QA before any public edit.",
+      "default_safe_decision": "No public change.",
+      "allowed_next_action": "After all prior gates pass, draft a tiny public-review packet for one existing route only.",
+      "blocked_action": "Do not change CMS content, titles, H1, meta, links, redirects, canonicals/noindex, sitemaps, taxonomies or uPress.",
+      "status": "PUBLIC_COPY_BLOCKED",
+      "source_anchor": "PRIVATE_OPPORTUNITY_BRIEF_READY_NOT_APPROVED_FOR_PUBLICATION | GSC_EVIDENCE_REQUEST_READY_EXPORT_NOT_FILLED"
+    }
+  ],
+  "ownerDecisionRows": [
+    {
+      "decision_id": "QUEUE-01",
+      "decision_area": "low_hype_visibility",
+      "required_owner_input": "Confirm Low Hype remains internal-only for now.",
+      "acceptable_values": "approve / reject / park / needs_more_evidence",
+      "current_status": "OWNER_DECISION_REQUIRED",
+      "owner_decision": "",
+      "owner_note_no_pii": "",
+      "public_action_approved": "no",
+      "crm_or_outreach_approved": "no",
+      "blocker_if_empty": "Do not publish Low Hype navigation, public brand copy, public route, metadata or CTA wording."
+    },
+    {
+      "decision_id": "QUEUE-02",
+      "decision_area": "first_pilot_topic",
+      "required_owner_input": "Approve, reject or park RV rental/deposit/charge as the only first pilot.",
+      "acceptable_values": "approve / reject / park / needs_more_evidence",
+      "current_status": "OWNER_DECISION_REQUIRED",
+      "owner_decision": "",
+      "owner_note_no_pii": "",
+      "public_action_approved": "no",
+      "crm_or_outreach_approved": "no",
+      "blocker_if_empty": "Do not open accident, insurance, traffic, import or municipal-fine tracks as part of the first pilot."
+    },
+    {
+      "decision_id": "QUEUE-03",
+      "decision_area": "gsc_export_gate",
+      "required_owner_input": "Export/paste Search Console rows for caravan/RV/rental/deposit/charge plus candidate pages.",
+      "acceptable_values": "approve / reject / park / needs_more_evidence",
+      "current_status": "BLOCKED_PENDING_GSC_EXPORT",
+      "owner_decision": "",
+      "owner_note_no_pii": "",
+      "public_action_approved": "no",
+      "crm_or_outreach_approved": "no",
+      "blocker_if_empty": "Do not write title, H1, meta, public section, internal link, canonical, sitemap or CMS copy before GSC review."
+    },
+    {
+      "decision_id": "QUEUE-04",
+      "decision_area": "route_owner",
+      "required_owner_input": "Choose whether an approved pilot would attach to consumer-rights, rental-agreement or stay private-only.",
+      "acceptable_values": "approve / reject / park / needs_more_evidence",
+      "current_status": "ROUTE_DECISION_BLOCKED",
+      "owner_decision": "",
+      "owner_note_no_pii": "",
+      "public_action_approved": "no",
+      "crm_or_outreach_approved": "no",
+      "blocker_if_empty": "Do not create a standalone RV/caravan/campervan URL from the current evidence."
+    },
+    {
+      "decision_id": "QUEUE-05",
+      "decision_area": "legal_category",
+      "required_owner_input": "Legal/editor reviewer must confirm whether the first pilot is consumer/rental only.",
+      "acceptable_values": "approve / reject / park / needs_more_evidence",
+      "current_status": "LEGAL_REVIEW_REQUIRED",
+      "owner_decision": "",
+      "owner_note_no_pii": "",
+      "public_action_approved": "no",
+      "crm_or_outreach_approved": "no",
+      "blocker_if_empty": "Do not publish legal advice, demand-letter wording, insurance coverage guidance or outcome claims."
+    },
+    {
+      "decision_id": "QUEUE-06",
+      "decision_area": "private_intake_and_consent",
+      "required_owner_input": "Approve the exact no-PII intake fields and re-permission policy before any real lead handling.",
+      "acceptable_values": "approve / reject / park / needs_more_evidence",
+      "current_status": "PRIVATE_INTAKE_READY_LIVE_ACTION_BLOCKED",
+      "owner_decision": "",
+      "owner_note_no_pii": "",
+      "public_action_approved": "no",
+      "crm_or_outreach_approved": "no",
+      "blocker_if_empty": "Do not import old chats, bulk message, call, email, match, or share PII with partners from this queue."
+    },
+    {
+      "decision_id": "QUEUE-07",
+      "decision_area": "partner_and_payment_path",
+      "required_owner_input": "Confirm partner terms and billing proof rules before any lawyer/supplier preview.",
+      "acceptable_values": "approve / reject / park / needs_more_evidence",
+      "current_status": "PAYMENT_AND_PARTNER_PROOF_BLOCKED",
+      "owner_decision": "",
+      "owner_note_no_pii": "",
+      "public_action_approved": "no",
+      "crm_or_outreach_approved": "no",
+      "blocker_if_empty": "Do not contact lawyers/suppliers, send raw chats/files, invoice, mark paid or claim revenue."
+    },
+    {
+      "decision_id": "QUEUE-08",
+      "decision_area": "public_copy_gate",
+      "required_owner_input": "Owner, SEO and legal/editor must approve exact text, placement and post-publication QA before any public edit.",
+      "acceptable_values": "approve / reject / park / needs_more_evidence",
+      "current_status": "PUBLIC_COPY_BLOCKED",
+      "owner_decision": "",
+      "owner_note_no_pii": "",
+      "public_action_approved": "no",
+      "crm_or_outreach_approved": "no",
+      "blocker_if_empty": "Do not change CMS content, titles, H1, meta, links, redirects, canonicals/noindex, sitemaps, taxonomies or uPress."
+    }
+  ],
+  "files": {
+    "projectMd": "C:\\Users\\janana\\jutice-theme\\.project-control\\low-hype-rv-first-pilot-decision-queue-2026-05-27.md",
+    "projectCsv": "C:\\Users\\janana\\jutice-theme\\.project-control\\low-hype-rv-first-pilot-decision-queue-2026-05-27.csv",
+    "ownerDecisionCsv": "C:\\Users\\janana\\jutice-theme\\.project-control\\low-hype-rv-owner-decision-template-2026-05-27.csv",
+    "reportJson": "C:\\Users\\janana\\jutice-theme\\.reports\\low-hype-rv-first-pilot-decision-queue-2026-05-27.json",
+    "reportCsv": "C:\\Users\\janana\\jutice-theme\\.reports\\low-hype-rv-first-pilot-decision-queue-2026-05-27.csv"
+  }
+}

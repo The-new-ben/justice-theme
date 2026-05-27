@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Low Hype/RV first pilot decision queue
+
+- ADDED: `tools/build-low-hype-rv-first-pilot-decision-queue.mjs`.
+- GENERATED: `.project-control/low-hype-rv-first-pilot-decision-queue-2026-05-27.md`, `.project-control/low-hype-rv-first-pilot-decision-queue-2026-05-27.csv`, `.project-control/low-hype-rv-owner-decision-template-2026-05-27.csv`, `.reports/low-hype-rv-first-pilot-decision-queue-2026-05-27.json`, `.reports/low-hype-rv-first-pilot-decision-queue-2026-05-27.csv`.
+- PURPOSE: collapse the existing Low Hype/RV private research, route-overlap, GSC and intake packets into one owner decision surface before any public page, route, CRM, supplier or payment action.
+- RESULT: `LOW_HYPE_RV_FIRST_PILOT_DECISION_QUEUE_READY_NO_PUBLIC_CHANGE`; 8 decision rows; 8 owner-decision template rows; no standalone RV route approved; no public Low Hype label approved; 0 public/CMS/SEO/CRM/contact/payment/email/WhatsApp/TalkTo/GSC API/uPress actions.
+- LINEAR: recorded as `HAD-153`, marked Done under `HAD-75`, related to `HAD-140`, `HAD-139`, `HAD-138`, `HAD-137`, `HAD-136`, `HAD-84` and `HAD-121`.
+- SAFETY: private owner/operator decision queue only; no public page, Low Hype label, CMS content, route, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, GSC API call, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Divorce Tel Aviv evidence coverage URL correction
 
 - UPDATED: `tools/build-divorce-tel-aviv-evidence-fill-packet.mjs`.

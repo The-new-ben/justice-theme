@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-LOW-HYPE-RV-FIRST-PILOT-DECISION-QUEUE-001: Convert Low Hype/RV packets into one owner decision queue
+**Status:** FIXED LOCAL / PUBLIC AND LIVE EXECUTION STILL BLOCKED
+**Why:** The Low Hype/RV track had separate opportunity, SERP, route-overlap, GSC and intake packets, but needed one owner-facing decision queue before any public content or live lead action.
+**Actions:**
+1. DONE: add `tools/build-low-hype-rv-first-pilot-decision-queue.mjs`.
+2. DONE: generate `.project-control/low-hype-rv-first-pilot-decision-queue-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/low-hype-rv-owner-decision-template-2026-05-27.csv`.
+4. DONE: generate `.reports/low-hype-rv-first-pilot-decision-queue-2026-05-27.json` and `.csv`.
+5. DONE: confirm `LOW_HYPE_RV_FIRST_PILOT_DECISION_QUEUE_READY_NO_PUBLIC_CHANGE`, 8 decision rows, 8 owner-decision rows, no standalone RV route, no public Low Hype label and 0 public/CRM/contact/payment/email/WhatsApp/TalkTo/GSC API/uPress actions.
+6. DONE: record as Linear `HAD-153`, marked Done under `HAD-75`.
+7. NEXT: owner fills the owner-decision template with approve/reject/park/needs_more_evidence, then fills the GSC query/page template before any public copy.
+8. BLOCKED: do not publish a Low Hype/RV route or section, change title/H1/meta/body/internal links/SEO settings, import old WhatsApp/TalkTo leads, contact clients/lawyers/suppliers, invoice, mark paid, email or uPress from this queue alone.
+
 ### ACTION-DIVORCE-TEL-AVIV-EVIDENCE-COVERAGE-URL-001: Correct private evidence URL after directory QA
 **Status:** FIXED LOCAL / PUBLIC PAGE EXECUTION STILL BLOCKED
 **Why:** Directory QA showed that `/lawyers/?city=tel-aviv&practice=family-law` behaves like city-only, so the evidence-fill packet must use `/lawyers/?city=tel-aviv&area=family-law`.

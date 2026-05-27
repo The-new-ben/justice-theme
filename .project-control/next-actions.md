@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-FIRST-REVENUE-THREE-ROW-STARTER-001: Owner fills three starter rows only
+**Status:** FIXED LOCAL / WAITING FOR OWNER ADMIN FILL
+**Why:** The owner wants revenue, not more broad planning. The shortest unblocked step is to fill one no-PII starter row for each first-revenue lane before trying to clear all 18 evidence rows.
+**Actions:**
+1. DONE: add `tools/build-first-revenue-three-row-owner-starter.mjs`.
+2. DONE: generate `.project-control/first-revenue-three-row-owner-starter-2026-05-27.md`, `.html` and `.csv`.
+3. DONE: generate `.reports/first-revenue-three-row-owner-starter-2026-05-27.json` and `.csv`.
+4. DONE: confirm status `FIRST_REVENUE_THREE_ROW_OWNER_STARTER_READY_NO_LIVE_ACTION`, 3 starter rows, 43% readiness to profit, 4/4 pass gates and 0 public/live/payment/email/uPress approvals.
+5. DONE: scan generated starter/report for URL, email, phone and common secret-token patterns; no matches found.
+6. NEXT: owner/admin fills the three starter rows with sanitized private pointers only, then transfers the values into `.project-control/first-revenue-owner-evidence-kit-owner-fill-2026-05-27.csv`.
+7. NEXT AFTER TRANSFER: rerun `tools/review-first-revenue-owner-evidence-kit.mjs` with the full 18-row filled CSV.
+8. BLOCKED: no live handoff, CRM creation/edit, lawyer/client/supplier contact, invoice, payment, paid status, revenue claim, email/WhatsApp/TalkTo, public page/CMS/SEO change, paid LLM API, external API, wp-admin write or uPress from this starter sheet.
+
 ### ACTION-FIRST-REVENUE-OWNER-FILL-GUIDE-001: Fill the first three private revenue evidence rows
 **Status:** FIXED LOCAL / WAITING FOR OWNER ADMIN FILL
 **Why:** The first-revenue reviewer showed 18 blocked rows. The owner/admin needs a simple Hebrew guide that says exactly which three rows to fill first, without exposing private names, phone numbers, emails, URLs or client details.

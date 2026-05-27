@@ -1,0 +1,112 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "sourceDate": "2026-05-27",
+    "status": "FIRST_REVENUE_THREE_ROW_OWNER_STARTER_READY_NO_LIVE_ACTION",
+    "sourceGuide": ".reports/first-revenue-owner-fill-guide-2026-05-27.json",
+    "destinationFullOwnerFillCsv": ".project-control/first-revenue-owner-evidence-kit-owner-fill-2026-05-27.csv",
+    "starterRows": 3,
+    "liveActionApproved": 0,
+    "publicActionApproved": 0,
+    "invoicesOrPaymentsCreated": 0,
+    "emailsOrMessagesSent": 0,
+    "upressDeploymentRequired": false,
+    "readinessToProfitPercent": 43,
+    "revenueCanBeClaimed": false,
+    "files": {
+      "projectMd": ".project-control/first-revenue-three-row-owner-starter-2026-05-27.md",
+      "projectHtml": ".project-control/first-revenue-three-row-owner-starter-2026-05-27.html",
+      "projectCsv": ".project-control/first-revenue-three-row-owner-starter-2026-05-27.csv",
+      "reportJson": ".reports/first-revenue-three-row-owner-starter-2026-05-27.json",
+      "reportCsv": ".reports/first-revenue-three-row-owner-starter-2026-05-27.csv"
+    }
+  },
+  "gates": [
+    {
+      "id": "FR-3ROW-GATE-01",
+      "gate": "fill_guide_ready",
+      "status": "PASS",
+      "evidence": "Fill guide status: FIRST_REVENUE_OWNER_FILL_GUIDE_READY_NO_LIVE_ACTION."
+    },
+    {
+      "id": "FR-3ROW-GATE-02",
+      "gate": "three_start_rows_only",
+      "status": "PASS",
+      "evidence": "3/3 starter rows generated."
+    },
+    {
+      "id": "FR-3ROW-GATE-03",
+      "gate": "live_action_still_blocked",
+      "status": "PASS",
+      "evidence": "Every starter row keeps live_or_public_action_approved=no."
+    },
+    {
+      "id": "FR-3ROW-GATE-04",
+      "gate": "revenue_not_claimed",
+      "status": "PASS",
+      "evidence": "The starter sheet cannot claim revenue; it only prepares private evidence pointers."
+    }
+  ],
+  "rows": [
+    {
+      "lane": "btl_first_paid_lead",
+      "lane_title_he": "ביטוח לאומי: ליד ראשון בתשלום",
+      "unblock_id": "UNBLOCK-01",
+      "action_id": "BTL-ACTION-01",
+      "full_csv_sequence": 1,
+      "action_title_he": "לאמת שלושה מומחי ביטוח לאומי פרטיים",
+      "private_proof_to_check_he": "להתחיל רק בשורת המומחה הראשונה: לאמת שיש גורם פרטי מתאים, בלי שם, טלפון, מייל או קישור בקובץ.",
+      "write_private_admin_pointer_no_pii": "",
+      "safe_pointer_example": "btl-private-admin-row-01-01",
+      "write_status_after_private_check": "pass",
+      "write_owner_verified_yes_no": "yes",
+      "write_proof_present_yes_no": "yes",
+      "keep_no_pii_confirmed_yes_no": "yes",
+      "keep_live_or_public_action_approved": "no",
+      "owner_note_no_pii_optional": "",
+      "forbidden_values_he": "לא להכניס שם, טלפון, מייל, URL, מספר תיק, פרטי לקוח, פרטי כרטיס, סוד API או צילום/טקסט פרטי.",
+      "destination_full_owner_fill_csv": ".project-control/first-revenue-owner-evidence-kit-owner-fill-2026-05-27.csv",
+      "reviewer_after_transfer": "tools/review-first-revenue-owner-evidence-kit.mjs"
+    },
+    {
+      "lane": "lawyer_subscription_paid_test",
+      "lane_title_he": "מנוי עורך דין: בדיקה בתשלום או חשבונית ידנית",
+      "unblock_id": "UNBLOCK-02",
+      "action_id": "LAW-SUB-ACTION-01",
+      "full_csv_sequence": 1,
+      "action_title_he": "לאשר זהות בדיקה נשלטת",
+      "private_proof_to_check_he": "להתחיל רק בזהות הבדיקה: לאשר שהבעלים יודע מי עורך הדין/משתמש הבדיקה, בלי להכניס פרטי קשר לקובץ.",
+      "write_private_admin_pointer_no_pii": "",
+      "safe_pointer_example": "lawyer-test-private-row-01-01",
+      "write_status_after_private_check": "pass",
+      "write_owner_verified_yes_no": "yes",
+      "write_proof_present_yes_no": "yes",
+      "keep_no_pii_confirmed_yes_no": "yes",
+      "keep_live_or_public_action_approved": "no",
+      "owner_note_no_pii_optional": "",
+      "forbidden_values_he": "לא להכניס שם, טלפון, מייל, URL, מספר תיק, פרטי לקוח, פרטי כרטיס, סוד API או צילום/טקסט פרטי.",
+      "destination_full_owner_fill_csv": ".project-control/first-revenue-owner-evidence-kit-owner-fill-2026-05-27.csv",
+      "reviewer_after_transfer": "tools/review-first-revenue-owner-evidence-kit.mjs"
+    },
+    {
+      "lane": "criminal_jerusalem_supplier_coverage",
+      "lane_title_he": "כיסוי פלילי בירושלים: ספק/עורך דין לפני פרסום",
+      "unblock_id": "UNBLOCK-08",
+      "action_id": "CJ-OWNER-ACTION-01",
+      "full_csv_sequence": 1,
+      "action_title_he": "לבחור מועמד פרטי אחד לעורך דין פלילי בירושלים",
+      "private_proof_to_check_he": "להתחיל רק במועמד אחד: לסמן שיש מועמד פרטי לבדיקה, בלי שם, טלפון, מייל או כתובת אתר בקובץ.",
+      "write_private_admin_pointer_no_pii": "",
+      "safe_pointer_example": "criminal-jlm-private-row-01-01",
+      "write_status_after_private_check": "pass",
+      "write_owner_verified_yes_no": "yes",
+      "write_proof_present_yes_no": "yes",
+      "keep_no_pii_confirmed_yes_no": "yes",
+      "keep_live_or_public_action_approved": "no",
+      "owner_note_no_pii_optional": "",
+      "forbidden_values_he": "לא להכניס שם, טלפון, מייל, URL, מספר תיק, פרטי לקוח, פרטי כרטיס, סוד API או צילום/טקסט פרטי.",
+      "destination_full_owner_fill_csv": ".project-control/first-revenue-owner-evidence-kit-owner-fill-2026-05-27.csv",
+      "reviewer_after_transfer": "tools/review-first-revenue-owner-evidence-kit.mjs"
+    }
+  ]
+}

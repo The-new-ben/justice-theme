@@ -1,0 +1,2 @@
+reportDate,sourceDate,status,starterRows,liveActionApproved,publicActionApproved,invoicesOrPaymentsCreated,emailsOrMessagesSent,upressDeploymentRequired,readinessToProfitPercent,revenueCanBeClaimed
+2026-05-27,2026-05-27,FIRST_REVENUE_THREE_ROW_OWNER_STARTER_READY_NO_LIVE_ACTION,3,0,0,0,0,false,43,false

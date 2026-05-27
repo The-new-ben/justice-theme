@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - First revenue three-row owner starter
+
+- ADDED: `tools/build-first-revenue-three-row-owner-starter.mjs`.
+- GENERATED: `.project-control/first-revenue-three-row-owner-starter-2026-05-27.md`, `.project-control/first-revenue-three-row-owner-starter-2026-05-27.html`, `.project-control/first-revenue-three-row-owner-starter-2026-05-27.csv`, `.reports/first-revenue-three-row-owner-starter-2026-05-27.json` and `.reports/first-revenue-three-row-owner-starter-2026-05-27.csv`.
+- PURPOSE: reduce the first-revenue owner action to exactly three no-PII starter rows: BTL supply, controlled lawyer-test identity and criminal Jerusalem supplier candidate.
+- RESULT: `FIRST_REVENUE_THREE_ROW_OWNER_STARTER_READY_NO_LIVE_ACTION`; 3 starter rows, 43% readiness to profit, 4/4 pass gates and 0 live/public/payment/email/uPress approvals.
+- SAFETY: private starter sheet only; no owner evidence fill, paid LLM API, external API, public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - First revenue owner fill guide
 
 - ADDED: `tools/build-first-revenue-owner-fill-guide.mjs`.

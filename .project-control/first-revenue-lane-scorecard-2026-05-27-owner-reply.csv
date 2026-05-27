@@ -1,0 +1,4 @@
+row_id,decision_needed,recommended_answer,allowed_answers,owner_answer,owner_note
+OWNER-FR-01,Select exactly one first-revenue lane for the next live-approved action.,lawyer_subscription_manual_invoice,lawyer_subscription_manual_invoice | btl_qualified_appeal_lead_fee | supplier_or_uk_cross_border_handoff_fee | wait,,
+OWNER-FR-02,"Approve whether Codex may prepare a live/admin action checklist for the selected lane, still without sending/contacting/publishing.",yes_prepare_checklist_only,yes_prepare_checklist_only | no | wait,,
+OWNER-FR-03,"If the lane is lawyer subscription, name the target or allow a generic one-target outreach draft only.",generic_draft_only_until_target_named,target_named | generic_draft_only | wait,,

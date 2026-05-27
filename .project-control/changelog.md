@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - First revenue lane scorecard
+
+- ADDED: `tools/build-first-revenue-lane-scorecard.mjs`.
+- GENERATED: `.project-control/first-revenue-lane-scorecard-2026-05-27.md`, `.project-control/first-revenue-lane-scorecard-2026-05-27.html`, `.project-control/first-revenue-lane-scorecard-2026-05-27.csv`, `.project-control/first-revenue-lane-scorecard-2026-05-27-owner-reply.csv`, `.reports/first-revenue-lane-scorecard-2026-05-27.json` and `.reports/first-revenue-lane-scorecard-2026-05-27.csv`.
+- PURPOSE: stop revenue drift by ranking one next lane instead of keeping lawyer subscription, Bituach Leumi lead fees, supplier handoff and homepage deployment at equal priority.
+- RESULT: `FIRST_REVENUE_LANE_SCORECARD_READY_OWNER_DECISION_REQUIRED`; recommended lane `lawyer_subscription_manual_invoice`, 4 lane rows, 3 owner decision rows, 86 percent recommended-lane readiness to profit and 0 live revenue impact.
+- SAFETY: private scorecard only; no outreach, CRM edit, invoice, payment request, paid status, public CMS edit, route change, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, merge to main or uPress deployment changed.
+
 # 2026-05-27 - Manual terms revenue packet
 
 - ADDED: `tools/build-manual-terms-revenue-packet.mjs`.

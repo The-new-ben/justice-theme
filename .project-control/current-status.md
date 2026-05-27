@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-27 15:40 Asia/Jerusalem
+- FIRST REVENUE LANE SCORECARD ADDED: converted the owner/drift concern into a ranked one-lane decision surface so the next approved live action can focus on one path instead of several parallel revenue ideas.
+- CODE ADDED: `tools/build-first-revenue-lane-scorecard.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/first-revenue-lane-scorecard-2026-05-27.md`, `.project-control/first-revenue-lane-scorecard-2026-05-27.html`, `.project-control/first-revenue-lane-scorecard-2026-05-27.csv`, `.project-control/first-revenue-lane-scorecard-2026-05-27-owner-reply.csv`, `.reports/first-revenue-lane-scorecard-2026-05-27.json` and `.reports/first-revenue-lane-scorecard-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-first-revenue-lane-scorecard.mjs` passed. Running the builder returned `FIRST_REVENUE_LANE_SCORECARD_READY_OWNER_DECISION_REQUIRED`, 4 lane rows, 3 owner decision rows, recommended lane `lawyer_subscription_manual_invoice`, 86% recommended-lane readiness to profit, 0 public CMS approvals, 0 live CRM/outreach approvals, 0 invoices/payments created, 0 revenue claims, 0 paid LLM API use and 0% live revenue impact.
+- REVIEW RESULT: the recommended shortest revenue lane is paid lawyer subscription by manual invoice because it avoids client PII release, live matched-lead routing and Grow/Meshulam dependency. Bituach Leumi lead fee remains second because it needs consented lead handling and specialist verification before billing.
+- PUBLIC/LIVE IMPACT: no public CMS/database content, live site, route, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting, paid LLM API, merge to main or uPress pull changed.
+- COMPLETION ASSESSMENT: first revenue lane prioritization 100%; live revenue remains blocked until the owner picks one lane and approves a target/checklist/action.
+
 # LATEST WORK STATUS - 2026-05-27 15:30 Asia/Jerusalem
 - MANUAL TERMS REVENUE PACKET ADDED: converted the LegalTech OpenAgreements/Accord revenue-pattern row into a concrete owner-review packet for lawyer/supplier manual terms, invoice reference and payment proof.
 - CODE ADDED: `tools/build-manual-terms-revenue-packet.mjs`.

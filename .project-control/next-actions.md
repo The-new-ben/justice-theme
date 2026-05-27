@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-FIRST-REVENUE-LANE-SCORECARD-001: Owner selects exactly one next revenue lane
+**Status:** FIXED LOCAL / WAITING FOR OWNER DECISION
+**Why:** The owner asked why there is no revenue and why Codex is drifting. The highest leverage next step is to force one ranked lane instead of continuing parallel work across all ideas.
+**Actions:**
+1. DONE: add `tools/build-first-revenue-lane-scorecard.mjs`.
+2. DONE: generate `.project-control/first-revenue-lane-scorecard-2026-05-27.md`, `.html`, `.csv` and owner reply CSV.
+3. DONE: generate `.reports/first-revenue-lane-scorecard-2026-05-27.json` and `.csv`.
+4. DONE: confirm status `FIRST_REVENUE_LANE_SCORECARD_READY_OWNER_DECISION_REQUIRED`, 4 lane rows, 3 owner decision rows, recommended lane `lawyer_subscription_manual_invoice`, 86% readiness to profit and 0 live impact.
+5. NEXT: owner accepts or overrides the recommended lane. Recommended answer: `lawyer_subscription_manual_invoice`.
+6. NEXT AFTER OWNER DECISION: prepare a one-target live/admin checklist for the selected lane, still without sending outreach or editing CRM until explicitly approved.
+7. BLOCKED: no outreach, CRM write, invoice, payment request, public deployment, uPress pull or revenue claim without owner lane and target approval.
+
 ### ACTION-MANUAL-TERMS-REVENUE-PACKET-001: Owner picks the first manual invoice revenue lane
 **Status:** FIXED LOCAL / WAITING FOR OWNER REVIEW
 **Why:** Grow/Meshulam is still blocked, so the fastest revenue route is a controlled manual terms and invoice path that can be used with one lawyer or supplier after owner approval.

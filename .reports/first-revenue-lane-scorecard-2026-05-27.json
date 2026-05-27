@@ -1,0 +1,112 @@
+{
+  "status": "FIRST_REVENUE_LANE_SCORECARD_READY_OWNER_DECISION_REQUIRED",
+  "reportDate": "2026-05-27",
+  "laneRows": 4,
+  "ownerDecisionRows": 3,
+  "recommendedLane": "lawyer_subscription_manual_invoice",
+  "recommendedLaneReadinessPercent": 86,
+  "publicCmsChangesApproved": 0,
+  "liveCrmOrOutreachApproved": 0,
+  "invoicesOrPaymentsCreated": 0,
+  "revenueClaimsApproved": 0,
+  "paidLlmApiUsed": 0,
+  "upressDeploymentRequired": false,
+  "liveRevenueImpactPercent": 0,
+  "honestyStatement": "This scorecard chooses a recommended first-revenue lane, but it does not authorize outreach, CRM edits, invoices, payments, publication or deployment.",
+  "generated": {
+    "projectMd": ".project-control/first-revenue-lane-scorecard-2026-05-27.md",
+    "projectHtml": ".project-control/first-revenue-lane-scorecard-2026-05-27.html",
+    "projectCsv": ".project-control/first-revenue-lane-scorecard-2026-05-27.csv",
+    "ownerReplyCsv": ".project-control/first-revenue-lane-scorecard-2026-05-27-owner-reply.csv",
+    "reportJson": ".reports/first-revenue-lane-scorecard-2026-05-27.json",
+    "reportCsv": ".reports/first-revenue-lane-scorecard-2026-05-27.csv"
+  },
+  "lanes": [
+    {
+      "lane_id": "LANE-01",
+      "lane": "lawyer_subscription_manual_invoice",
+      "recommendation_rank": 1,
+      "score_100": 86,
+      "why_this_rank": "Closest to money because it does not require client PII, a live matched lead, or payment-provider approval. The lawyer registration and manual invoice follow-up path already exist.",
+      "existing_assets": "lawyer registration billing fields; lawyer onboarding payment follow-up; manual invoice path; prospect outreach links; plan-payment admin path",
+      "next_owner_action": "Approve one controlled lawyer outreach or choose one existing lawyer/prospect to offer a paid manual-invoice plan.",
+      "required_owner_inputs": "lawyer/prospect target; plan or monthly price; billing contact; approved message wording",
+      "proof_needed_before_revenue_claim": "manual invoice reference can mark invoice_sent; private payment evidence is required before paid revenue",
+      "main_blocker": "No owner-selected lawyer/prospect and no approved outreach/action.",
+      "live_action_allowed_now": "NO",
+      "readiness_to_profit_percent": 86,
+      "live_revenue_impact_percent": 0
+    },
+    {
+      "lane_id": "LANE-02",
+      "lane": "btl_qualified_appeal_lead_fee",
+      "recommendation_rank": 2,
+      "score_100": 78,
+      "why_this_rank": "Strong revenue fit and already has Bituach Leumi prospect/readiness packets, but it needs verified specialists plus a consented lead and owner release before billing.",
+      "existing_assets": "BTL revenue hints; held lead triage; first paid lead preflight; controlled test drill; prospect activation packet; manual terms packet",
+      "next_owner_action": "Approve verifying one Bituach Leumi specialist and exact lead-fee terms, or provide a consented controlled lead for a no-PII drill.",
+      "required_owner_inputs": "selected specialist; fee; billing contact; client permission if a real lead is used",
+      "proof_needed_before_revenue_claim": "accepted partner terms, owner release, invoice reference and private payment evidence",
+      "main_blocker": "Requires live CRM/admin evidence and consented lead handling; higher privacy and routing risk than subscription.",
+      "live_action_allowed_now": "NO",
+      "readiness_to_profit_percent": 78,
+      "live_revenue_impact_percent": 0
+    },
+    {
+      "lane_id": "LANE-03",
+      "lane": "supplier_or_uk_cross_border_handoff_fee",
+      "recommendation_rank": 3,
+      "score_100": 63,
+      "why_this_rank": "Commercially interesting but less ready because partner type, accepted terms, jurisdiction fit and first demand source are not as narrow as the subscription or BTL lanes.",
+      "existing_assets": "UK WhatsApp supplier handoff packet; supplier/partner terms patterns; manual invoice proof rules",
+      "next_owner_action": "Choose one supplier category and one real supplier candidate, then approve terms-only verification.",
+      "required_owner_inputs": "supplier category; partner target; fee; jurisdiction scope; billing contact",
+      "proof_needed_before_revenue_claim": "accepted supplier terms, owner release, invoice reference and private payment evidence",
+      "main_blocker": "Too broad without a selected supplier category and partner.",
+      "live_action_allowed_now": "NO",
+      "readiness_to_profit_percent": 63,
+      "live_revenue_impact_percent": 0
+    },
+    {
+      "lane_id": "LANE-04",
+      "lane": "homepage_conversion_deployment",
+      "recommendation_rank": 4,
+      "score_100": 54,
+      "why_this_rank": "Useful for future inbound conversion, but it does not create money until owner approves route QA, merge, uPress deployment and a measured conversion path.",
+      "existing_assets": "homepage human-help implementation; static visual QA; owner deployment approval packet",
+      "next_owner_action": "Approve real WordPress route QA only; do not merge or uPress until route QA passes.",
+      "required_owner_inputs": "route QA approval; later merge/uPress approval",
+      "proof_needed_before_revenue_claim": "live deployment plus conversion evidence",
+      "main_blocker": "Owner has not approved live/staging route QA or deployment.",
+      "live_action_allowed_now": "NO",
+      "readiness_to_profit_percent": 54,
+      "live_revenue_impact_percent": 0
+    }
+  ],
+  "ownerRows": [
+    {
+      "row_id": "OWNER-FR-01",
+      "decision_needed": "Select exactly one first-revenue lane for the next live-approved action.",
+      "recommended_answer": "lawyer_subscription_manual_invoice",
+      "allowed_answers": "lawyer_subscription_manual_invoice | btl_qualified_appeal_lead_fee | supplier_or_uk_cross_border_handoff_fee | wait",
+      "owner_answer": "",
+      "owner_note": ""
+    },
+    {
+      "row_id": "OWNER-FR-02",
+      "decision_needed": "Approve whether Codex may prepare a live/admin action checklist for the selected lane, still without sending/contacting/publishing.",
+      "recommended_answer": "yes_prepare_checklist_only",
+      "allowed_answers": "yes_prepare_checklist_only | no | wait",
+      "owner_answer": "",
+      "owner_note": ""
+    },
+    {
+      "row_id": "OWNER-FR-03",
+      "decision_needed": "If the lane is lawyer subscription, name the target or allow a generic one-target outreach draft only.",
+      "recommended_answer": "generic_draft_only_until_target_named",
+      "allowed_answers": "target_named | generic_draft_only | wait",
+      "owner_answer": "",
+      "owner_note": ""
+    }
+  ]
+}

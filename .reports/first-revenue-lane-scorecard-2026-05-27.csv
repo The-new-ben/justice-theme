@@ -1,0 +1,2 @@
+status,reportDate,laneRows,ownerDecisionRows,recommendedLane,recommendedLaneReadinessPercent,publicCmsChangesApproved,liveCrmOrOutreachApproved,invoicesOrPaymentsCreated,revenueClaimsApproved,paidLlmApiUsed,upressDeploymentRequired,liveRevenueImpactPercent,honestyStatement
+FIRST_REVENUE_LANE_SCORECARD_READY_OWNER_DECISION_REQUIRED,2026-05-27,4,3,lawyer_subscription_manual_invoice,86,0,0,0,0,0,false,0,"This scorecard chooses a recommended first-revenue lane, but it does not authorize outreach, CRM edits, invoices, payments, publication or deployment."

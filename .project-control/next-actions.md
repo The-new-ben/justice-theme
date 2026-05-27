@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-OWNER-UNBLOCKER-COMMAND-CENTER-001: Give owner one private decision command page
+**Status:** FIXED LOCAL / LIVE ACTION STILL BLOCKED
+**Why:** The owner now has a browser-ready Hebrew brief, but a single command page linking each row to its exact source packet and reply template further reduces decision friction.
+**Actions:**
+1. DONE: add `tools/build-owner-unblocker-command-center.mjs`.
+2. DONE: generate `.project-control/owner-unblocker-command-center-2026-05-27.html`, `.md` and `.csv`.
+3. DONE: generate `.reports/owner-unblocker-command-center-2026-05-27.json` and `.csv`.
+4. DONE: confirm `OWNER_UNBLOCKER_COMMAND_CENTER_READY_NO_LIVE_ACTION`, 8 rows, 3 top rows, 8/8 linked source packets, 4/4 gates pass, 0 live action/email/outreach/payment approvals and no uPress requirement.
+5. DONE: confirm HTML has RTL Hebrew, `UNBLOCK-08`, criminal Jerusalem source link, private no-live-action language, 0 replacement characters and no external URL references.
+6. DONE: verify private artifact boundary guard `PASS` and record as Linear `HAD-172`.
+7. NEXT: owner can open the command center and reply with row IDs; the fastest rows remain `UNBLOCK-01`, `UNBLOCK-02` and `UNBLOCK-08`.
+8. BLOCKED: no public page edit, CRM/lawyer/lead record, outreach, invoice, payment, email/WhatsApp/TalkTo, wp-admin write or uPress from this command center alone.
+
 ### ACTION-OWNER-UNBLOCKER-HEBREW-BROWSER-BRIEF-001: Give owner a browser-ready Hebrew decision view
 **Status:** FIXED LOCAL / LIVE ACTION STILL BLOCKED
 **Why:** The Hebrew decision brief existed, but browser-ready RTL HTML removes Markdown and terminal encoding friction for the owner.

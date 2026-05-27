@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 08:36 Asia/Jerusalem
+- PRIVATE OWNER UNBLOCKER COMMAND CENTER ADDED: built a browser-ready RTL command center that links the Hebrew brief, reply template and all eight source packets from the owner unblocker queue so the owner can choose a row and inspect the relevant evidence without searching through reports.
+- CODE ADDED: `tools/build-owner-unblocker-command-center.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/owner-unblocker-command-center-2026-05-27.html`, `.project-control/owner-unblocker-command-center-2026-05-27.md`, `.project-control/owner-unblocker-command-center-2026-05-27.csv`, `.reports/owner-unblocker-command-center-2026-05-27.json`, `.reports/owner-unblocker-command-center-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-owner-unblocker-command-center.mjs` passed; generator returned `OWNER_UNBLOCKER_COMMAND_CENTER_READY_NO_LIVE_ACTION`, 8 rows, 3 top rows, 8/8 linked source packets, 4/4 gates pass, 0 live action/email/outreach/payment approvals, 0 emails sent and `upressDeploymentRequired=false`. Static HTML check confirmed RTL Hebrew HTML, `UNBLOCK-08`, the criminal Jerusalem source link, private no-live-action language, 0 replacement characters and no external URL references. Private artifact boundary guard `PASS`.
+- REVIEW RESULT: the owner now has one private command page that ties each unblocker decision to its exact source packet and reply phrase. This advances decision friction, but still authorizes no live work.
+- LINEAR: recorded as `HAD-172`, marked Done and related to `HAD-171`, `HAD-170`, `HAD-169`, `HAD-168`, `HAD-163`, `HAD-157` and `HAD-164`. Linear parent nesting was not used because the existing sub-issue chain reached the nesting limit.
+- PUBLIC IMPACT: none. This was private tooling/reporting only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: private owner command center 100%; live revenue/content execution remains blocked until the owner explicitly approves a row and scope.
+
 # LATEST WORK STATUS - 2026-05-27 08:26 Asia/Jerusalem
 - BROWSER-READY HEBREW OWNER BRIEF ADDED: extended the private Hebrew owner unblocker decision brief generator with a self-contained RTL HTML output so the owner can read the top decisions cleanly in a browser instead of relying on Markdown/terminal rendering.
 - CODE UPDATED: `tools/build-owner-unblocker-hebrew-decision-brief.mjs`.

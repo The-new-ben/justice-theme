@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Private owner unblocker command center
+
+- ADDED: `tools/build-owner-unblocker-command-center.mjs`.
+- GENERATED: `.project-control/owner-unblocker-command-center-2026-05-27.html`, `.project-control/owner-unblocker-command-center-2026-05-27.md`, `.project-control/owner-unblocker-command-center-2026-05-27.csv`, `.reports/owner-unblocker-command-center-2026-05-27.json`, `.reports/owner-unblocker-command-center-2026-05-27.csv`.
+- PURPOSE: give the owner one private browser page that links the Hebrew decision brief, reply template and every source packet behind the eight unblocker rows.
+- RESULT: `OWNER_UNBLOCKER_COMMAND_CENTER_READY_NO_LIVE_ACTION`; 8 rows, 3 top rows, 8/8 linked source packets, 4/4 gates pass, and HTML static check confirmed RTL Hebrew, `UNBLOCK-08`, no-live-action language, 0 replacement characters and no external URL references.
+- LINEAR: recorded as `HAD-172`, marked Done and related to `HAD-171`, `HAD-170`, `HAD-169`, `HAD-168`, `HAD-163`, `HAD-157` and `HAD-164`.
+- SAFETY: private tooling/reporting only; no public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Browser-ready Hebrew owner unblocker brief
 
 - UPDATED: `tools/build-owner-unblocker-hebrew-decision-brief.mjs`.

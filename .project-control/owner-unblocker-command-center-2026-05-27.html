@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>מרכז החלטות בעלים פרטי - 2026-05-27</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #172033;
+      --muted: #5f6b7f;
+      --line: #d9deea;
+      --panel: #ffffff;
+      --soft: #f4f6fa;
+      --accent: #1967d2;
+      --accent-soft: #e8f0fe;
+      --ok: #137333;
+      --ok-soft: #e6f4ea;
+      --warn: #8a4b00;
+      --warn-soft: #fff4df;
+      --danger: #a50e0e;
+      --danger-soft: #fce8e6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--soft);
+      color: var(--ink);
+      font-family: Arial, "Noto Sans Hebrew", "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    main {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 28px 0 44px;
+    }
+
+    header,
+    .decision-card,
+    .section,
+    footer {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+    }
+
+    header {
+      display: grid;
+      gap: 14px;
+      margin-bottom: 22px;
+      padding: 24px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 2.5vw, 2.55rem);
+      line-height: 1.2;
+    }
+
+    h2 {
+      font-size: 1.2rem;
+      line-height: 1.35;
+    }
+
+    p,
+    dd,
+    td {
+      color: var(--ink);
+    }
+
+    .summary {
+      max-width: 980px;
+      color: var(--muted);
+    }
+
+    .meta,
+    .links,
+    .action-line {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .pill,
+    .status,
+    code,
+    a {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      line-height: 1.35;
+      text-decoration: none;
+      white-space: normal;
+    }
+
+    .pill,
+    a {
+      color: var(--accent);
+      background: var(--accent-soft);
+      border: 1px solid #c7d7f8;
+    }
+
+    .pill.warning {
+      color: var(--warn);
+      background: var(--warn-soft);
+      border-color: #f5d08b;
+    }
+
+    code {
+      direction: ltr;
+      color: #12315c;
+      background: #eef3fb;
+      border: 1px solid #ced9ef;
+      font-family: Consolas, "Courier New", monospace;
+    }
+
+    .decision-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin: 16px 0 22px;
+    }
+
+    .decision-card {
+      display: grid;
+      gap: 12px;
+      padding: 18px;
+    }
+
+    .card-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .rank {
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    dl {
+      display: grid;
+      gap: 6px;
+      margin: 0;
+    }
+
+    dt {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    dd {
+      margin: 0 0 6px;
+    }
+
+    .section {
+      margin-top: 18px;
+      overflow: hidden;
+    }
+
+    .section-head {
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      min-width: 820px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--line);
+      text-align: right;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--muted);
+      background: #fafbfe;
+      font-size: 0.9rem;
+      white-space: nowrap;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .status.pass {
+      color: var(--ok);
+      background: var(--ok-soft);
+      border: 1px solid #b7dfc0;
+    }
+
+    .status.review {
+      color: var(--warn);
+      background: var(--warn-soft);
+      border: 1px solid #f5d08b;
+    }
+
+    .status.blocked {
+      color: var(--danger);
+      background: var(--danger-soft);
+      border: 1px solid #f3b3ad;
+    }
+
+    footer {
+      margin-top: 18px;
+      padding: 16px 20px;
+      color: var(--muted);
+    }
+
+    @media (max-width: 900px) {
+      main {
+        width: min(100% - 20px, 760px);
+        padding-top: 16px;
+      }
+
+      header,
+      .decision-card {
+        padding: 16px;
+      }
+
+      .decision-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <h1>מרכז החלטות בעלים פרטי</h1>
+      <div class="meta">
+        <span class="pill">2026-05-27</span>
+        <span class="pill">OWNER_UNBLOCKER_COMMAND_CENTER_READY_NO_LIVE_ACTION</span>
+        <span class="pill">מקור: owner-unblocker-hebrew-decision-brief-2026-05-27</span>
+        <span class="pill warning">ניווט פרטי בלבד - ללא פעולה חיה</span>
+      </div>
+      <p class="summary">קובץ זה מחבר בין ההחלטות, תקציר הבעלים, תבנית התשובה וחבילות המקור. הוא נועד לצמצם חיכוך החלטה בלבד ואינו מאשר פרסום, CRM, פניה, חשבונית, תשלום, אימייל, WhatsApp/TalkTo, wp-admin או uPress.</p>
+      <div class="links">
+        <a href="owner-unblocker-hebrew-decision-brief-2026-05-27.html">תקציר עברי</a>
+        <a href="owner-unblocker-hebrew-reply-template-2026-05-27.csv">תבנית תשובה</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>שלוש החלטות ראשונות לבעלים</h2>
+      <div class="decision-grid">
+
+        <article class="decision-card">
+          <div class="card-meta">
+            <span class="rank">#1</span>
+            <span>UNBLOCK-01</span>
+          </div>
+          <h2>הוכחת ליד בתשלום בביטוח לאומי</h2>
+          <p>לאשר איסוף ראיות חי מתוך wp-admin בלבד: שלושה מומחים פרטיים, ליד עדכני עם הסכמה, אישור בעלים, אסמכתת חיוב והוכחת תשלום.</p>
+          <div class="action-line">
+            <code>UNBLOCK-01 approve</code>
+            <a href="btl-controlled-lead-dry-run-packet-2026-05-27.md">חבילת מקור</a>
+          </div>
+          <dl>
+            <dt>הצעד הבא אחרי אישור</dt>
+            <dd>קודקס יכול לבדוק את שורות הראיה ללא פרטים מזהים ולהמשיך רק אם כל השורות עוברות.</dd>
+            <dt>אסור ללא אישור</dt>
+            <dd>לא פונים ללידים ישנים, לא מעבירים פרטים אישיים, לא מחייבים, לא מסמנים שולם ולא טוענים להכנסה מתוך הקבצים בלבד.</dd>
+          </dl>
+        </article>
+
+        <article class="decision-card">
+          <div class="card-meta">
+            <span class="rank">#2</span>
+            <span>UNBLOCK-02</span>
+          </div>
+          <h2>בדיקת מסלול מנוי עורך דין</h2>
+          <p>לבחור זהות בדיקה נשלטת לעורך דין: שם/מייל/טלפון בדיקה ומסלול תשלום מאושר כמו חשבונית ידנית, לינק תשלום מאושר, קישור ספק או dry-run ללא חיוב.</p>
+          <div class="action-line">
+            <code>UNBLOCK-02 approve</code>
+            <a href="lawyer-subscription-controlled-walkthrough-2026-05-27.md">חבילת מקור</a>
+          </div>
+          <dl>
+            <dt>הצעד הבא אחרי אישור</dt>
+            <dd>אפשר לאסוף הוכחות על הרשמה, תוכנית, תשלום, דשבורד ובקשות שירות בתוך היקף בדיקה מוגדר.</dd>
+            <dt>אסור ללא אישור</dt>
+            <dd>לא מחייבים עורך דין אמיתי, לא שולחים לינק תשלום, לא מגישים הרשמה חיה ולא משנים ספק תשלום בלי היקף בדיקה מאושר.</dd>
+          </dl>
+        </article>
+
+        <article class="decision-card">
+          <div class="card-meta">
+            <span class="rank">#3</span>
+            <span>UNBLOCK-08</span>
+          </div>
+          <h2>כיסוי עורך דין פלילי בירושלים</h2>
+          <p>לאשר הכנסת/אימות prospect פרטי אחד ב-wp-admin לעורך דין פלילי בירושלים, או להחליט במפורש להקפיא את מסלול הכיסוי המדויק.</p>
+          <div class="action-line">
+            <code>UNBLOCK-08 approve</code>
+            <a href="criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.md">חבילת מקור</a>
+          </div>
+          <dl>
+            <dt>הצעד הבא אחרי אישור</dt>
+            <dd>אפשר לבדוק את הראיות הפרטיות ואז לבצע צעד prospect/profile פרטי מאושר לפני הרצה מחדש של בדיקת הכיסוי.</dd>
+            <dt>אסור ללא אישור</dt>
+            <dd>לא עורכים דף ציבורי, לא יוצרים כרטיס עורך דין ציבורי, לא פונים לעורך דין, לא מנתבים ליד, לא מפיקים חשבונית ולא עושים uPress.</dd>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>שורות נוספות בתור</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>מזהה</th>
+              <th>עדיפות</th>
+              <th>נושא</th>
+              <th>מקור</th>
+              <th>סטטוס</th>
+              <th>תשובה מוצעת</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          <tr>
+            <td><strong>UNBLOCK-03</strong></td>
+            <td>4</td>
+            <td>עדכון ציבורי אפשרי בעמוד הסכם שכירות</td>
+            <td><a href="public-update-owner-approval-queue-2026-05-27.md">מקור</a></td>
+            <td>OWNER_APPROVAL_QUEUE_READY_NOT_APPROVED</td>
+            <td><code>UNBLOCK-03 approve</code></td>
+          </tr>
+
+          <tr>
+            <td><strong>UNBLOCK-04</strong></td>
+            <td>5</td>
+            <td>החלטת Low Hype / RV</td>
+            <td><a href="low-hype-rv-first-pilot-decision-queue-2026-05-27.md">מקור</a></td>
+            <td>LOW_HYPE_RV_FIRST_PILOT_DECISION_QUEUE_READY_NO_PUBLIC_CHANGE</td>
+            <td><code>UNBLOCK-04 park</code></td>
+          </tr>
+
+          <tr>
+            <td><strong>UNBLOCK-05</strong></td>
+            <td>6</td>
+            <td>עמוד גירושין תל אביב</td>
+            <td><a href="divorce-tel-aviv-evidence-fill-packet-2026-05-27.md">מקור</a></td>
+            <td>DIVORCE_TEL_AVIV_EVIDENCE_FILL_READY_NO_PUBLIC_CHANGE</td>
+            <td><code>UNBLOCK-05 needs_more_evidence</code></td>
+          </tr>
+
+          <tr>
+            <td><strong>UNBLOCK-06</strong></td>
+            <td>7</td>
+            <td>תפקיד העמוד פלילי ירושלים</td>
+            <td><a href="criminal-law-pillar-split-decision-packet-2026-05-27.md">מקור</a></td>
+            <td>CRIMINAL_LAW_PILLAR_SPLIT_DECISION_PACKET_READY_NO_PUBLIC_CHANGE</td>
+            <td><code>UNBLOCK-06 needs_more_evidence</code></td>
+          </tr>
+
+          <tr>
+            <td><strong>UNBLOCK-07</strong></td>
+            <td>8</td>
+            <td>הסכמה ללידים מ-WhatsApp/TalkTo</td>
+            <td><a href="whatsapp-talkto-consent-message-pack-2026-05-27.md">מקור</a></td>
+            <td>CONSENT_MESSAGE_PACK_READY_FOR_OWNER_LEGAL_REVIEW_NO_SEND</td>
+            <td><code>UNBLOCK-07 edit</code></td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>בדיקות בטיחות</h2>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>מזהה</th>
+              <th>בדיקה</th>
+              <th>סטטוס</th>
+              <th>ראיה</th>
+            </tr>
+          </thead>
+          <tbody>
+
+          <tr>
+            <td><strong>OCC-GATE-01</strong></td>
+            <td>source_hebrew_brief_ready</td>
+            <td><span class="status pass">PASS</span></td>
+            <td>Source Hebrew brief status: OWNER_UNBLOCKER_HEBREW_DECISION_BRIEF_READY_NO_LIVE_ACTION.</td>
+          </tr>
+
+          <tr>
+            <td><strong>OCC-GATE-02</strong></td>
+            <td>top_three_private_sources_linked</td>
+            <td><span class="status pass">PASS</span></td>
+            <td>Top rows: UNBLOCK-01:yes, UNBLOCK-02:yes, UNBLOCK-08:yes.</td>
+          </tr>
+
+          <tr>
+            <td><strong>OCC-GATE-03</strong></td>
+            <td>all_source_artifacts_exist</td>
+            <td><span class="status pass">PASS</span></td>
+            <td>All row source artifacts exist locally.</td>
+          </tr>
+
+          <tr>
+            <td><strong>OCC-GATE-04</strong></td>
+            <td>no_live_action_authorized</td>
+            <td><span class="status pass">PASS</span></td>
+            <td>Source report keeps public, CRM/outreach, payment, email and uPress approvals disabled.</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer>
+      הצעד הבא היחיד לבעלים הוא תשובה קצרה עם מזהי שורות. כל ביצוע חי יישאר חסום עד אישור מפורש והיקף ראיות מאושר.
+    </footer>
+  </main>
+</body>
+</html>

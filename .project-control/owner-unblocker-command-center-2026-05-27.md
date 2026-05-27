@@ -1,0 +1,36 @@
+# מרכז החלטות בעלים פרטי - 2026-05-27
+
+סטטוס: OWNER_UNBLOCKER_COMMAND_CENTER_READY_NO_LIVE_ACTION
+מקור: owner-unblocker-hebrew-decision-brief-2026-05-27
+
+מטרה: קובץ ניווט פרטי שמחבר בין החלטות הבעלים, תקציר עברי, תבנית תשובה וחבילות המקור. הוא לא מאשר פעולה ציבורית, CRM, פניה, חשבונית, תשלום, אימייל או uPress.
+
+## שלוש ההחלטות הראשונות
+
+| מזהה | עדיפות | נושא | תשובה מוצעת | מקור פרטי | הצעד הבא | אסור ללא אישור |
+| --- | ---: | --- | --- | --- | --- | --- |
+| UNBLOCK-01 | 1 | הוכחת ליד בתשלום בביטוח לאומי | UNBLOCK-01 approve | .project-control/btl-controlled-lead-dry-run-packet-2026-05-27.md | הבעלים או מנהל האתר ממלאים את תבנית dry-run מתוך wp-admin בלי להכניס פרטים אישיים לקבצים. | לא פונים ללידים ישנים, לא מעבירים פרטים אישיים, לא מחייבים, לא מסמנים שולם ולא טוענים להכנסה מתוך הקבצים בלבד. |
+| UNBLOCK-02 | 2 | בדיקת מסלול מנוי עורך דין | UNBLOCK-02 approve | .project-control/lawyer-subscription-controlled-walkthrough-2026-05-27.md | מריצים walkthrough נשלט רק עם זהות הבדיקה ונתיב התשלום שאושרו. | לא מחייבים עורך דין אמיתי, לא שולחים לינק תשלום, לא מגישים הרשמה חיה ולא משנים ספק תשלום בלי היקף בדיקה מאושר. |
+| UNBLOCK-08 | 3 | כיסוי עורך דין פלילי בירושלים | UNBLOCK-08 approve | .project-control/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.md | למלא את תבנית criminal Jerusalem עם רישיון, התאמת תחום, זמינות תגובה, נתיב תשלום ידני, תנאי fee וכתובת חיוב. | לא עורכים דף ציבורי, לא יוצרים כרטיס עורך דין ציבורי, לא פונים לעורך דין, לא מנתבים ליד, לא מפיקים חשבונית ולא עושים uPress. |
+
+## כל השורות
+
+| מזהה | עדיפות | נושא | מקור קיים | סטטוס מקור | פעולה חיה מאושרת |
+| --- | ---: | --- | --- | --- | --- |
+| UNBLOCK-01 | 1 | הוכחת ליד בתשלום בביטוח לאומי | yes | BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION | no |
+| UNBLOCK-02 | 2 | בדיקת מסלול מנוי עורך דין | yes | READY_SCRIPT_WITH_RUNTIME_BLOCKERS \| MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION | no |
+| UNBLOCK-08 | 3 | כיסוי עורך דין פלילי בירושלים | yes | CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION | no |
+| UNBLOCK-03 | 4 | עדכון ציבורי אפשרי בעמוד הסכם שכירות | yes | OWNER_APPROVAL_QUEUE_READY_NOT_APPROVED | no |
+| UNBLOCK-04 | 5 | החלטת Low Hype / RV | yes | LOW_HYPE_RV_FIRST_PILOT_DECISION_QUEUE_READY_NO_PUBLIC_CHANGE | no |
+| UNBLOCK-05 | 6 | עמוד גירושין תל אביב | yes | DIVORCE_TEL_AVIV_EVIDENCE_FILL_READY_NO_PUBLIC_CHANGE | no |
+| UNBLOCK-06 | 7 | תפקיד העמוד פלילי ירושלים | yes | CRIMINAL_LAW_PILLAR_SPLIT_DECISION_PACKET_READY_NO_PUBLIC_CHANGE | no |
+| UNBLOCK-07 | 8 | הסכמה ללידים מ-WhatsApp/TalkTo | yes | CONSENT_MESSAGE_PACK_READY_FOR_OWNER_LEGAL_REVIEW_NO_SEND | no |
+
+## בדיקות
+
+| מזהה | בדיקה | סטטוס | ראיה |
+| --- | --- | --- | --- |
+| OCC-GATE-01 | source_hebrew_brief_ready | PASS | Source Hebrew brief status: OWNER_UNBLOCKER_HEBREW_DECISION_BRIEF_READY_NO_LIVE_ACTION. |
+| OCC-GATE-02 | top_three_private_sources_linked | PASS | Top rows: UNBLOCK-01:yes, UNBLOCK-02:yes, UNBLOCK-08:yes. |
+| OCC-GATE-03 | all_source_artifacts_exist | PASS | All row source artifacts exist locally. |
+| OCC-GATE-04 | no_live_action_authorized | PASS | Source report keeps public, CRM/outreach, payment, email and uPress approvals disabled. |

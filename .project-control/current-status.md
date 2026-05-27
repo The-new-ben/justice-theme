@@ -1,3 +1,14 @@
+# LATEST WORK STATUS - 2026-05-27 04:31 Asia/Jerusalem
+- WHATSAPP/TALKTO CONSENT MESSAGE PACK ADDED: converted the owner concern about WhatsApp/TalkTo and old untreated leads into exact private message templates, stop rules and CRM update rules before any outreach.
+- CODE ADDED: `tools/build-whatsapp-talkto-consent-message-pack.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/whatsapp-talkto-consent-message-pack-2026-05-27.md`, `.project-control/whatsapp-talkto-consent-message-pack-2026-05-27.csv`, `.project-control/whatsapp-talkto-consent-message-template-2026-05-27.csv`, `.reports/whatsapp-talkto-consent-message-pack-2026-05-27.json`, `.reports/whatsapp-talkto-consent-message-pack-2026-05-27.csv`.
+- CHECK RESULT: `CONSENT_MESSAGE_PACK_READY_FOR_OWNER_LEGAL_REVIEW_NO_SEND`; 8 message rows; 4 client-facing rows; 3 partner-facing rows; 1 internal owner row; 1 legacy re-permission row blocked pending owner/legal approval; 5/5 CRM/routing/payment static gates passed; 0 messages, CRM records, contacts, invoices, payments, public changes, CMS writes, SEO changes or uPress actions.
+- REVIEW RESULT: current inbound leads may receive only details/permission clarification wording after owner/legal review; old WhatsApp/TalkTo leads stay parked unless a separate re-permission workflow is owner/legal approved and suppression/do-not-contact checks pass; partner outreach starts with no-PII preview only and PII remains blocked until terms, billing contact and owner release are recorded.
+- SOURCE BASIS: Knesset section 30A source and Israeli Privacy Protection Authority database/data-minimization sources were recorded in the private pack to keep operators aware of explicit consent, opt-out, purpose limitation and clear-notice constraints.
+- LINEAR: recorded as `HAD-148`, marked Done under `HAD-87`, related to `HAD-102`, `HAD-79`, `HAD-97` and `HAD-76`.
+- PUBLIC IMPACT: none. This was private operator tooling only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, webhook, wp-admin record, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: consent message pack 100%; live WhatsApp/TalkTo CRM execution remains 0% until owner/legal approval, a real source lead decision, consent evidence, partner terms, owner release and invoice/payment proof exist.
+
 # LATEST WORK STATUS - 2026-05-27 04:21 Asia/Jerusalem
 - CRIMINAL-LAW PILLAR SPLIT DECISION PACKET ADDED: converted the live Jerusalem criminal page QA blocker into exact owner/GSC/legal/editor decision rows before any public action.
 - CODE ADDED: `tools/build-criminal-law-pillar-split-decision-packet.mjs`.

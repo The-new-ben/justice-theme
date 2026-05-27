@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-WHATSAPP-TALKTO-CONSENT-MESSAGE-PACK-001: Prepare exact consent and re-permission templates
+**Status:** FIXED LOCAL / LIVE OUTREACH STILL BLOCKED
+**Why:** The owner wants WhatsApp, TalkTo and old untreated client leads to connect through the system to lawyers/suppliers and payment, but people cannot be contacted or routed without the right permission and stop rules.
+**Actions:**
+1. DONE: add `tools/build-whatsapp-talkto-consent-message-pack.mjs`.
+2. DONE: generate `.project-control/whatsapp-talkto-consent-message-pack-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/whatsapp-talkto-consent-message-template-2026-05-27.csv`.
+4. DONE: generate `.reports/whatsapp-talkto-consent-message-pack-2026-05-27.json` and `.csv`.
+5. DONE: source-anchor the pack to Knesset section 30A and Israeli Privacy Protection Authority database/data-minimization sources.
+6. DONE: confirm `CONSENT_MESSAGE_PACK_READY_FOR_OWNER_LEGAL_REVIEW_NO_SEND`, 8 message rows, 4 client-facing rows, 3 partner-facing rows, 1 internal owner row, 1 legacy re-permission row blocked pending owner/legal approval, 5/5 static gates passing and 0 messages/CRM records/contacts/invoices/payments/public changes.
+7. DONE: record as Linear `HAD-148`, marked Done under `HAD-87`.
+8. NEXT: owner/legal review must approve exact wording and suppression/do-not-contact rules before any real client message, legacy re-permission batch, partner preview or billing request is sent.
+9. BLOCKED: do not send WhatsApp/TalkTo/email, contact old leads, create real CRM records, release PII, contact lawyers/suppliers, invoice, mark paid, claim revenue, enable webhooks, publish pages, change SEO or uPress from this pack alone.
+
 ### ACTION-CRIMINAL-LAW-PILLAR-SPLIT-DECISION-001: Resolve criminal-law pillar/local-page roles before any public update
 **Status:** FIXED LOCAL / PUBLIC UPDATE STILL BLOCKED
 **Why:** The live Jerusalem criminal page QA showed a structural split: `/criminal-lawyer/` lands on `/practice-areas/criminal-law/`, the central surface is thin, and `/criminal-lawyer-jerusalem/` is already public.

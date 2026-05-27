@@ -1,6 +1,16 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - WhatsApp/TalkTo consent message pack
+
+- ADDED: `tools/build-whatsapp-talkto-consent-message-pack.mjs`.
+- GENERATED: `.project-control/whatsapp-talkto-consent-message-pack-2026-05-27.md`, `.project-control/whatsapp-talkto-consent-message-pack-2026-05-27.csv`, `.project-control/whatsapp-talkto-consent-message-template-2026-05-27.csv`, `.reports/whatsapp-talkto-consent-message-pack-2026-05-27.json`, `.reports/whatsapp-talkto-consent-message-pack-2026-05-27.csv`.
+- PURPOSE: create exact owner/operator drafts and stop rules for current inbound WhatsApp/TalkTo leads, old untreated leads, no-PII partner preview, partner terms, owner release and billing proof.
+- RESULT: `CONSENT_MESSAGE_PACK_READY_FOR_OWNER_LEGAL_REVIEW_NO_SEND`; 8 message rows, 5/5 static CRM/routing/payment gates passing, 0 messages sent, 0 CRM records created and 0 public changes.
+- REVIEW: fresh inbound messages can ask for details and explicit match permission after owner/legal review; legacy re-permission remains blocked until owner/legal approval and suppression/do-not-contact checks; partner contact starts with no-PII preview only.
+- LINEAR: recorded as `HAD-148`, marked Done under `HAD-87`, related to `HAD-102`, `HAD-79`, `HAD-97` and `HAD-76`.
+- SAFETY: private operator tooling only; no public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, client/lawyer/supplier contact, WhatsApp/TalkTo message, webhook, invoice, payment, email, wp-admin record, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Criminal-law pillar split decision packet
 
 - ADDED: `tools/build-criminal-law-pillar-split-decision-packet.mjs`.

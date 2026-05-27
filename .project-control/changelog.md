@@ -837,6 +837,21 @@
 - LINEAR: recorded as `HAD-91` and marked Done.
 - SAFETY: repo-local checker/report/documentation only; no CMS database row, public page, redirect, canonical/noindex, sitemap, taxonomy, email, WhatsApp, client contact, lawyer/supplier contact, invoice, payment, GSC, GA4 or provider setting changed.
 
+# 2026-05-27 - Mobile menu stability fix pushed; deploy blocked
+
+- UPDATED: `assets/js/navigation.js`, `assets/css/premium-pass-4.css`, `functions.php`, `inc/enqueue.php`.
+- PURPOSE: stop the mobile menu close button from jumping away after opening on RTL mobile layouts.
+- IMPLEMENTATION: measured the menu toggle position before opening and reused that `top`, `left`, `width`, and `height` while the full-screen menu overlay is open; replaced the old RTL `inset-inline-end` open-state positioning.
+- VERSION: bumped theme to `1.1.67`, premium pass 4 CSS to `4.5.4`, and marker to `2026-05-27-mobile-menu-stable-toggle-v1`.
+- VERIFIED LOCAL: `node --check assets/js/navigation.js`, `php -l functions.php`, `php -l inc/enqueue.php`, `git diff --check`.
+- PUSHED: commits `594a1914`, `b419db54`, and `9f594948` pushed to `codex/live-homepage-conversion-release` and `main`.
+- LIVE STATUS: blocked. Live site still returns marker `2026-05-27-footer-trust-path-v1` and version `1.1.66`; uPress Pull Git is still required before the fix is visible.
+- KNOWLEDGE: updated `C:\Users\janana\.codex\skills\justice-competitor-homepage-copy-design\references\competitor-patterns.md`; validation passed.
+- SOURCE LOG: added `.project-control/competitor-skill-source-log-2026-05-27.md`.
+- DEPLOY HANDOFF: added `.project-control/upress-mobile-menu-deploy-handoff-2026-05-27.md`; added blocker B007.
+- CHROME TOOL STATUS: Chrome is installed/running; Codex Chrome Extension is installed/enabled in Profile 2; native host manifest is correct; actual extension browser control still returns unavailable.
+- OWNER EMAIL: after checking Gmail for instruction-subject emails and finding none, sent Hebrew blocker/progress email to `info@jus-tice.co.il`, id `19e6b49bb09696f3`.
+
 # 2026-05-26 - Managed legal-service fulfillment gate
 
 - ADDED: `inc/legal-request-fulfillment.php`.

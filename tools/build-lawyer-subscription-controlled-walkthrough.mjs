@@ -16,7 +16,8 @@ const routes = [
   'wp-admin -> Justice CRM -> Qualified lead billing queue',
 ];
 
-const rows = [
+function buildRows(reportDate) {
+  return [
   {
     id: 'WALK-01',
     phase: 'preflight',
@@ -40,7 +41,7 @@ const rows = [
     phase: 'preflight',
     action: 'Run current static and live read-only gates before touching live records.',
     owner_approval: 'not_required',
-    evidence_to_capture: '.project-control/lawyer-subscription-e2e-preflight-2026-05-26.md and .project-control/lawyer-revenue-funnel-live-2026-05-26.md.',
+    evidence_to_capture: `.project-control/lawyer-subscription-e2e-preflight-${reportDate}.md and .project-control/lawyer-revenue-funnel-live-${reportDate}.md when refreshed for the same day.`,
     stop_condition: 'Stop if either gate returns REVIEW, BLOCKED_STATIC_GATES or stale checker warnings.',
     status: 'ready',
   },
@@ -143,7 +144,101 @@ const rows = [
     stop_condition: 'Do not send public success update or revenue claim if any proof field is missing.',
     status: 'blocked_until_all_prior_steps_pass',
   },
-];
+  ];
+}
+
+function buildEvidenceTemplateRows() {
+  return [
+    {
+      field_id: 'EVID-01',
+      field: 'owner_controlled_test_approval',
+      required_before_step: 'WALK-01',
+      expected_value_type: 'approve / reject / park / needs_more_evidence',
+      repo_storage_rule: 'no_pii_summary_only',
+      blank_owner_value: '',
+    },
+    {
+      field_id: 'EVID-02',
+      field: 'controlled_identity_alias',
+      required_before_step: 'WALK-01',
+      expected_value_type: 'short alias, not real name unless owner explicitly approves live record evidence storage',
+      repo_storage_rule: 'no_pii_summary_only',
+      blank_owner_value: '',
+    },
+    {
+      field_id: 'EVID-03',
+      field: 'controlled_inbox_and_phone_owner_confirmed',
+      required_before_step: 'WALK-01',
+      expected_value_type: 'yes / no plus private evidence location',
+      repo_storage_rule: 'do_not_store_email_or_phone',
+      blank_owner_value: '',
+    },
+    {
+      field_id: 'EVID-04',
+      field: 'selected_payment_path',
+      required_before_step: 'WALK-02',
+      expected_value_type: 'manual_invoice / approved_payment_link / provider_link / no_charge_dry_run',
+      repo_storage_rule: 'provider/path label only, no full payment URL',
+      blank_owner_value: '',
+    },
+    {
+      field_id: 'EVID-05',
+      field: 'live_registration_allowed',
+      required_before_step: 'WALK-07',
+      expected_value_type: 'yes / no',
+      repo_storage_rule: 'approval note only',
+      blank_owner_value: '',
+    },
+    {
+      field_id: 'EVID-06',
+      field: 'controlled_lawyer_profile_or_post_id',
+      required_before_step: 'WALK-08',
+      expected_value_type: 'wp-admin ID or private evidence location',
+      repo_storage_rule: 'ID ok only if owner confirms test record',
+      blank_owner_value: '',
+    },
+    {
+      field_id: 'EVID-07',
+      field: 'controlled_lawyer_user_login_confirmed',
+      required_before_step: 'WALK-10',
+      expected_value_type: 'yes / no plus private evidence location',
+      repo_storage_rule: 'no password, no email address',
+      blank_owner_value: '',
+    },
+    {
+      field_id: 'EVID-08',
+      field: 'service_request_ids',
+      required_before_step: 'WALK-11',
+      expected_value_type: 'payment_link / upgrade / downgrade / cancel / refund / invoice request IDs',
+      repo_storage_rule: 'IDs only, no sensitive message body',
+      blank_owner_value: '',
+    },
+    {
+      field_id: 'EVID-09',
+      field: 'controlled_consented_lead_id',
+      required_before_step: 'WALK-12',
+      expected_value_type: 'lead ID plus consent/routing hold status',
+      repo_storage_rule: 'ID and status only, no client PII',
+      blank_owner_value: '',
+    },
+    {
+      field_id: 'EVID-10',
+      field: 'invoice_or_payment_reference',
+      required_before_step: 'WALK-13',
+      expected_value_type: 'invoice reference, payment evidence location or no-charge dry-run note',
+      repo_storage_rule: 'reference/location only, no full payment link',
+      blank_owner_value: '',
+    },
+    {
+      field_id: 'EVID-11',
+      field: 'revenue_counting_decision',
+      required_before_step: 'WALK-14',
+      expected_value_type: 'count_revenue / do_not_count / blocked',
+      repo_storage_rule: 'owner decision and proof summary only',
+      blank_owner_value: '',
+    },
+  ];
+}
 
 function parseArgs() {
   const args = {
@@ -172,6 +267,7 @@ function outputFiles(reportDate) {
   return {
     projectMd: path.join(ROOT, '.project-control', `${base}.md`),
     projectCsv: path.join(ROOT, '.project-control', `${base}.csv`),
+    evidenceTemplateCsv: path.join(ROOT, '.project-control', `lawyer-subscription-controlled-evidence-template-${reportDate}.csv`),
     reportJson: path.join(ROOT, '.reports', `${base}.json`),
     reportCsv: path.join(ROOT, '.reports', `${base}.csv`),
   };
@@ -187,12 +283,11 @@ function csvEscape(value) {
   return /[",\n\r]/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
 }
 
-function toCsv(items) {
-  const columns = ['id', 'phase', 'action', 'owner_approval', 'evidence_to_capture', 'stop_condition', 'status'];
+function toCsv(items, columns = ['id', 'phase', 'action', 'owner_approval', 'evidence_to_capture', 'stop_condition', 'status']) {
   return `${columns.join(',')}\n${items.map((row) => columns.map((column) => csvEscape(row[column])).join(',')).join('\n')}\n`;
 }
 
-function buildMarkdown(reportDate) {
+function buildMarkdown(reportDate, rows, evidenceRows) {
   const blocked = rows.filter((row) => row.status.startsWith('blocked')).length;
   const ready = rows.filter((row) => row.status === 'ready').length;
 
@@ -208,6 +303,7 @@ function buildMarkdown(reportDate) {
     `- Steps: ${rows.length}`,
     `- Ready read-only steps: ${ready}`,
     `- Runtime-blocked live steps: ${blocked}`,
+    `- Evidence template rows: ${evidenceRows.length}`,
     '- No live lawyer, client, lead, payment, invoice, email, WhatsApp, TalkTo or CMS/public page action is authorized by this packet alone.',
     '- Real revenue may be counted only after payment/reference and invoice/receipt evidence are recorded.',
     '',
@@ -247,6 +343,10 @@ function buildMarkdown(reportDate) {
     '- Controlled consented lead ID and assigned lawyer ID.',
     '- Qualified lead billing status, invoice reference and payment evidence URL.',
     '',
+    '## Evidence Capture Template',
+    '',
+    `Use \`.project-control/lawyer-subscription-controlled-evidence-template-${reportDate}.csv\` during the owner walkthrough. Keep real emails, phone numbers, payment URLs, passwords and client PII out of repo artifacts; store only IDs, yes/no status and private evidence locations.`,
+    '',
     '## Safety Statement',
     '',
     'This packet writes only dot-private `.project-control` and `.reports` artifacts. It does not publish or update public pages, titles, H1s, meta, redirects, canonicals, noindex, sitemaps, taxonomies, leads, lawyer records, suppliers, products, invoices, payment links, emails, WhatsApp/TalkTo messages, GSC, GA4 or provider settings.',
@@ -262,19 +362,23 @@ if (args.help) {
 }
 
 const outputs = outputFiles(args.reportDate);
+const rows = buildRows(args.reportDate);
+const evidenceTemplateRows = buildEvidenceTemplateRows();
 const summary = {
   reportDate: args.reportDate,
   status: 'READY_SCRIPT_WITH_RUNTIME_BLOCKERS',
   stepCount: rows.length,
   readyReadOnlySteps: rows.filter((row) => row.status === 'ready').length,
   blockedRuntimeSteps: rows.filter((row) => row.status.startsWith('blocked')).length,
+  evidenceTemplateRows: evidenceTemplateRows.length,
   routes,
   outputs,
 };
 
-writeText(outputs.projectMd, buildMarkdown(args.reportDate));
+writeText(outputs.projectMd, buildMarkdown(args.reportDate, rows, evidenceTemplateRows));
 writeText(outputs.projectCsv, toCsv(rows));
+writeText(outputs.evidenceTemplateCsv, toCsv(evidenceTemplateRows, ['field_id', 'field', 'required_before_step', 'expected_value_type', 'repo_storage_rule', 'blank_owner_value']));
 writeText(outputs.reportCsv, toCsv(rows));
-writeText(outputs.reportJson, `${JSON.stringify({ summary, rows }, null, 2)}\n`);
+writeText(outputs.reportJson, `${JSON.stringify({ summary, rows, evidenceTemplateRows }, null, 2)}\n`);
 
 console.log(JSON.stringify(summary, null, 2));

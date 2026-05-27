@@ -8,7 +8,7 @@ const DEFAULT_REPORT_DATE = new Date().toISOString().slice(0, 10);
 
 const SOURCES = [
   ['btlControlledLead', '.reports', 'btl-controlled-lead-dry-run-packet', '2026-05-27'],
-  ['lawyerWalkthrough', '.reports', 'lawyer-subscription-controlled-walkthrough', '2026-05-26'],
+  ['lawyerWalkthrough', '.reports', 'lawyer-subscription-controlled-walkthrough', '2026-05-27'],
   ['manualInvoice', '.reports', 'manual-invoice-revenue-fallback-packet', '2026-05-27'],
   ['publicApproval', '.reports', 'public-update-owner-approval-queue', '2026-05-27'],
   ['lowHypeRv', '.reports', 'low-hype-rv-first-pilot-decision-queue', '2026-05-27'],
@@ -114,7 +114,7 @@ function buildRows(sources) {
       allowed_after_yes: 'Create or inspect controlled test records, capture plan/payment/dashboard/service-request proof, then review upgrade/downgrade/cancel/refund drill rows.',
       hard_no: 'No real lawyer charge, no payment-link email, no live registration submit and no provider mutation without owner-approved test scope.',
       source_status: `${statuses.lawyerWalkthrough} | ${statuses.manualInvoice}`,
-      source_artifact: '.project-control/lawyer-subscription-controlled-walkthrough-2026-05-26.md',
+      source_artifact: '.project-control/lawyer-subscription-controlled-walkthrough-2026-05-27.md',
       public_action: 'no',
       crm_or_outreach_action: 'owner-controlled-only',
       completion_if_owner_replies: 'Can start an end-to-end controlled revenue walkthrough.',

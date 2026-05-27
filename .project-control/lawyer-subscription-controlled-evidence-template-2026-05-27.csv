@@ -1,0 +1,12 @@
+field_id,field,required_before_step,expected_value_type,repo_storage_rule,blank_owner_value
+EVID-01,owner_controlled_test_approval,WALK-01,approve / reject / park / needs_more_evidence,no_pii_summary_only,
+EVID-02,controlled_identity_alias,WALK-01,"short alias, not real name unless owner explicitly approves live record evidence storage",no_pii_summary_only,
+EVID-03,controlled_inbox_and_phone_owner_confirmed,WALK-01,yes / no plus private evidence location,do_not_store_email_or_phone,
+EVID-04,selected_payment_path,WALK-02,manual_invoice / approved_payment_link / provider_link / no_charge_dry_run,"provider/path label only, no full payment URL",
+EVID-05,live_registration_allowed,WALK-07,yes / no,approval note only,
+EVID-06,controlled_lawyer_profile_or_post_id,WALK-08,wp-admin ID or private evidence location,ID ok only if owner confirms test record,
+EVID-07,controlled_lawyer_user_login_confirmed,WALK-10,yes / no plus private evidence location,"no password, no email address",
+EVID-08,service_request_ids,WALK-11,payment_link / upgrade / downgrade / cancel / refund / invoice request IDs,"IDs only, no sensitive message body",
+EVID-09,controlled_consented_lead_id,WALK-12,lead ID plus consent/routing hold status,"ID and status only, no client PII",
+EVID-10,invoice_or_payment_reference,WALK-13,"invoice reference, payment evidence location or no-charge dry-run note","reference/location only, no full payment link",
+EVID-11,revenue_counting_decision,WALK-14,count_revenue / do_not_count / blocked,owner decision and proof summary only,

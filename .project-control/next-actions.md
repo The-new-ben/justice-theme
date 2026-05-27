@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-CONTROLLED-LAWYER-SUBSCRIPTION-WALKTHROUGH-REFRESH-001: Refresh the owner-ready lawyer payment walkthrough
+**Status:** FIXED LOCAL / LIVE WALKTHROUGH STILL BLOCKED
+**Why:** The owner wants a later end-to-end walkthrough for establishing a new lawyer, CRM state, payments, money back/refund, upgrades and downgrades; the old packet referenced 2026-05-26 evidence and did not include a fillable no-PII evidence worksheet.
+**Actions:**
+1. DONE: update `tools/build-lawyer-subscription-controlled-walkthrough.mjs` so same-day report dates are used in evidence references.
+2. DONE: add `.project-control/lawyer-subscription-controlled-evidence-template-2026-05-27.csv` with 11 proof rows for owner approval, controlled identity, payment path, live registration approval, lawyer profile/user IDs, service requests, controlled lead, invoice/payment reference and revenue decision.
+3. DONE: run live read-only revenue funnel QA; result `PASS` with 10/10 checks and 0 public or live-record changes.
+4. DONE: run subscription E2E preflight; result `PASS_WITH_RUNTIME_BLOCKERS`, 9/9 gates, 0 warnings, 0 blocked static gates.
+5. DONE: regenerate `.project-control/lawyer-subscription-controlled-walkthrough-2026-05-27.md` and `.csv`, with 14 steps, 4 read-only ready and 10 live/owner blocked.
+6. DONE: refresh owner-unblocker CSV/JSON references so `UNBLOCK-02` points to the 2026-05-27 walkthrough.
+7. DONE: record as Linear `HAD-157`, marked Done under `HAD-71`.
+8. NEXT: owner chooses controlled test identity/inbox/phone, payment path and evidence location before any live registration, payment-link email, dashboard login, service request, lead assignment, invoice, refund, upgrade or downgrade action.
+9. BLOCKED: do not submit live registration, create/update lawyer records, contact anyone, send payment links, charge/refund/cancel/upgrade/downgrade, route leads, mark paid, count revenue, edit public pages, change SEO settings or uPress from this refreshed packet alone.
+
 ### ACTION-UK-LAW-PARTNER-TERMS-PACKET-001: Prepare first UK-law lawyer/supplier partner terms path
 **Status:** FIXED LOCAL / LIVE PARTNER REGISTRATION STILL BLOCKED
 **Why:** The UK-law lead cannot move to a lawyer/supplier or money until at least one real partner path has private terms, credential/source proof, SLA, billing contact, owner release and invoice/payment proof gates.

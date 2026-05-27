@@ -47,7 +47,7 @@
       "allowed_after_yes": "Create or inspect controlled test records, capture plan/payment/dashboard/service-request proof, then review upgrade/downgrade/cancel/refund drill rows.",
       "hard_no": "No real lawyer charge, no payment-link email, no live registration submit and no provider mutation without owner-approved test scope.",
       "source_status": "READY_SCRIPT_WITH_RUNTIME_BLOCKERS | MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION",
-      "source_artifact": ".project-control/lawyer-subscription-controlled-walkthrough-2026-05-26.md",
+      "source_artifact": ".project-control/lawyer-subscription-controlled-walkthrough-2026-05-27.md",
       "public_action": "no",
       "crm_or_outreach_action": "owner-controlled-only",
       "completion_if_owner_replies": "Can start an end-to-end controlled revenue walkthrough."

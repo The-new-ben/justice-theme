@@ -1,0 +1,124 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "status": "PASS_WITH_RUNTIME_BLOCKERS",
+    "totalGates": 9,
+    "passCount": 9,
+    "warnCount": 0,
+    "blockedCount": 0,
+    "runtimeBlockers": [
+      "A controlled live lawyer user and claimed lawyer profile are required for dashboard login and plan-status proof.",
+      "A controlled live registration must be owner-approved before creating/editing production lawyer records.",
+      "Grow/Meshulam/Morning provider setup, product mapping and real payment-link behavior remain outside static repo proof.",
+      "A real transaction/reference plus invoice or receipt proof must be recorded before subscription revenue is counted.",
+      "Upgrade, downgrade, cancellation and refund flows need one controlled live service-request drill each.",
+      "Lead revenue needs a consented controlled lead, accepted lawyer/supplier terms, owner release and billing evidence."
+    ],
+    "blockers": [
+      "A controlled live lawyer user and claimed lawyer profile are required for dashboard login and plan-status proof.",
+      "A controlled live registration must be owner-approved before creating/editing production lawyer records.",
+      "Grow/Meshulam/Morning provider setup, product mapping and real payment-link behavior remain outside static repo proof.",
+      "A real transaction/reference plus invoice or receipt proof must be recorded before subscription revenue is counted.",
+      "Upgrade, downgrade, cancellation and refund flows need one controlled live service-request drill each.",
+      "Lead revenue needs a consented controlled lead, accepted lawyer/supplier terms, owner release and billing evidence."
+    ]
+  },
+  "rows": [
+    {
+      "id": "LSE-01",
+      "gate": "paid_plan_catalog_and_checkout_mapping",
+      "status": "PASS",
+      "file": "inc/lawyer-plans.php",
+      "evidence": "6/6 markers found",
+      "missing_markers": "",
+      "next_action": "Use the plan payment requirements table before any paid-plan walkthrough.",
+      "owner_notice": "This proves plan/catalog hooks exist; it does not prove provider products are live."
+    },
+    {
+      "id": "LSE-02",
+      "gate": "manual_invoice_checkout_fallback",
+      "status": "PASS",
+      "file": "inc/payment-compliance-routes.php",
+      "evidence": "10/10 markers found",
+      "missing_markers": "",
+      "next_action": "During walkthrough, open the fallback checkout path and verify customer fields, terms, cancellation and privacy links.",
+      "owner_notice": "This is the safe no-charge path while Grow/Morning are not fully proven."
+    },
+    {
+      "id": "LSE-03",
+      "gate": "lawyer_registration_captures_plan_and_billing",
+      "status": "PASS",
+      "file": "page-lawyer-registration.php",
+      "evidence": "8/8 markers found",
+      "missing_markers": "",
+      "next_action": "Create only an owner-approved test lawyer/profile in the live walkthrough, then confirm billing metadata lands on the draft profile.",
+      "owner_notice": "No test lawyer should be created without owner approval because it touches live CRM/profile data."
+    },
+    {
+      "id": "LSE-04",
+      "gate": "onboarding_admin_payment_queue",
+      "status": "PASS",
+      "file": "inc/lawyer-onboarding.php",
+      "evidence": "8/8 markers found",
+      "missing_markers": "",
+      "next_action": "In wp-admin, verify the lawyer appears in the correct billing queue and only send payment email from an owner-approved test record.",
+      "owner_notice": "The queue exists, but real email/payment proof still requires an approved live record."
+    },
+    {
+      "id": "LSE-05",
+      "gate": "lawyer_dashboard_payment_and_service_requests",
+      "status": "PASS",
+      "file": "page-lawyer-dashboard.php",
+      "evidence": "5/5 markers found",
+      "missing_markers": "",
+      "next_action": "Walk through the lawyer dashboard after a claimed profile exists: payment link, upgrade, downgrade, cancel, refund, invoice and lead-stage update.",
+      "owner_notice": "Requires a real logged-in lawyer user linked to a claimed lawyer profile."
+    },
+    {
+      "id": "LSE-06",
+      "gate": "lawyer_dashboard_request_handlers",
+      "status": "PASS",
+      "file": "inc/lawyer-dashboard.php",
+      "evidence": "7/7 markers found",
+      "missing_markers": "",
+      "next_action": "Submit one controlled dashboard service request and one lead-stage update only after the live test lawyer exists.",
+      "owner_notice": "This proves handlers exist; it does not prove a live lawyer session or lead assignment exists."
+    },
+    {
+      "id": "LSE-07",
+      "gate": "qualified_lead_billing_proof_fields",
+      "status": "PASS",
+      "file": "inc/lead-crm.php",
+      "evidence": "7/7 markers found",
+      "missing_markers": "",
+      "next_action": "After a controlled lead is assigned, record invoice/payment proof before counting revenue.",
+      "owner_notice": "Revenue is not proven until invoice/reference and payment evidence are recorded."
+    },
+    {
+      "id": "LSE-08",
+      "gate": "grow_compliance_checker_available",
+      "status": "PASS",
+      "file": "tools/check-grow-payment-compliance.mjs",
+      "evidence": "6/6 markers found",
+      "missing_markers": "",
+      "next_action": "Run the Grow checker before provider/payment walkthrough and keep the generated artifacts private.",
+      "owner_notice": "This checks public compliance markers, not live recurring billing."
+    },
+    {
+      "id": "LSE-09",
+      "gate": "stale_live_funnel_checker_quarantined",
+      "status": "PASS",
+      "file": "tools/check-live-lawyer-revenue-funnel.mjs",
+      "evidence": "No stale marker detected in old live funnel checker.",
+      "missing_markers": "",
+      "next_action": "Old checker appears safe for review, but prefer this current preflight for the subscription walkthrough.",
+      "owner_notice": "This warning prevents a false failure caused by the intentionally removed homepage lawyer-pricing strip."
+    }
+  ],
+  "outputs": {
+    "projectMd": "C:\\Users\\janana\\jutice-theme\\.project-control\\lawyer-subscription-e2e-preflight-2026-05-27.md",
+    "projectCsv": "C:\\Users\\janana\\jutice-theme\\.project-control\\lawyer-subscription-e2e-preflight-2026-05-27.csv",
+    "reportJson": "C:\\Users\\janana\\jutice-theme\\.reports\\lawyer-subscription-e2e-preflight-2026-05-27.json",
+    "reportCsv": "C:\\Users\\janana\\jutice-theme\\.reports\\lawyer-subscription-e2e-preflight-2026-05-27.csv"
+  }
+}

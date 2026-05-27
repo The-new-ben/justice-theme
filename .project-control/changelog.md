@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Controlled lawyer subscription walkthrough refresh
+
+- UPDATED: `tools/build-lawyer-subscription-controlled-walkthrough.mjs`, `tools/build-owner-unblocker-command-queue.mjs`.
+- GENERATED: `.project-control/lawyer-revenue-funnel-live-2026-05-27.md`, `.project-control/lawyer-revenue-funnel-live-2026-05-27.csv`, `.project-control/lawyer-subscription-e2e-preflight-2026-05-27.md`, `.project-control/lawyer-subscription-e2e-preflight-2026-05-27.csv`, `.project-control/lawyer-subscription-controlled-walkthrough-2026-05-27.md`, `.project-control/lawyer-subscription-controlled-walkthrough-2026-05-27.csv`, `.project-control/lawyer-subscription-controlled-evidence-template-2026-05-27.csv`, plus matching `.reports/*2026-05-27*` JSON/CSV artifacts and refreshed owner-unblocker CSV/JSON references.
+- PURPOSE: make the later owner lawyer-registration/payment/CRM/refund/upgrade/downgrade walkthrough current for 2026-05-27 and add a no-PII evidence template for live proof capture.
+- RESULT: live lawyer revenue funnel `PASS` 10/10; subscription E2E preflight `PASS_WITH_RUNTIME_BLOCKERS` 9/9 gates, 0 warnings, 0 blocked gates; controlled walkthrough `READY_SCRIPT_WITH_RUNTIME_BLOCKERS` with 14 steps and 11 evidence-template rows.
+- LINEAR: recorded as `HAD-157`, marked Done under `HAD-71`, related to `HAD-119`, `HAD-118`, `HAD-117`, `HAD-154` and `HAD-156`.
+- SAFETY: private tooling and read-only public checks only; no public CMS edit, SEO setting, CRM record, lawyer profile, lead, supplier, invoice, payment, email, WhatsApp, TalkTo, webhook, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - UK-law partner terms packet
 
 - ADDED: `tools/build-uk-law-partner-terms-packet.mjs`.

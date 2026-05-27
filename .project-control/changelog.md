@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Demand-letter first-context decision draft
+
+- ADDED: `tools/build-demand-letter-first-context-owner-decision-draft.mjs`.
+- GENERATED: `.project-control/demand-letter-first-context-owner-decision-draft-2026-05-27.md`, `.project-control/demand-letter-first-context-owner-decision-draft-2026-05-27.csv`, `.project-control/demand-letter-owner-decision-template-2026-05-27.csv`, `.reports/demand-letter-first-context-owner-decision-draft-2026-05-27.json`, `.reports/demand-letter-first-context-owner-decision-draft-2026-05-27.csv`.
+- PURPOSE: turn the demand-letter approval packet into an owner decision surface that chooses one dispute-specific context and blocks a generic demand-letter route.
+- RESULT: `DEMAND_LETTER_FIRST_CONTEXT_DECISION_DRAFT_READY_NOT_APPROVED`; 3 context rows, 5 decision rows, 19 demand-letter GSC rows, 836 impressions, 0 exact candidate-route GSC rows, 8 source/competitor notes, 5 owner-template rows and 0 forbidden public marker hits.
+- LINEAR: recorded as `HAD-159`, marked Done under `HAD-125`, related to `HAD-126`, `HAD-158`, `HAD-133` and `HAD-129`.
+- SAFETY: private owner/SEO/legal decision prep only; no public CMS edit, route, title/H1/meta/body, internal link, redirect, canonical/noindex, sitemap, taxonomy, CRM record, contact, invoice, payment, email, WhatsApp, TalkTo, webhook, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Rental agreement owner-review draft brief
 
 - ADDED: `tools/build-rental-agreement-owner-review-draft.mjs`.

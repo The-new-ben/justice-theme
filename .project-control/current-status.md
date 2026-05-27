@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 06:25 Asia/Jerusalem
+- DEMAND-LETTER FIRST-CONTEXT DECISION DRAFT ADDED: converted the demand-letter public update packet into a private owner/SEO/legal decision draft that forces a choice between employment, consumer and rental-dispute contexts while keeping the generic demand-letter route blocked.
+- CODE ADDED: `tools/build-demand-letter-first-context-owner-decision-draft.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/demand-letter-first-context-owner-decision-draft-2026-05-27.md`, `.project-control/demand-letter-first-context-owner-decision-draft-2026-05-27.csv`, `.project-control/demand-letter-owner-decision-template-2026-05-27.csv`, `.reports/demand-letter-first-context-owner-decision-draft-2026-05-27.json`, `.reports/demand-letter-first-context-owner-decision-draft-2026-05-27.csv`.
+- CHECK RESULT: `DEMAND_LETTER_FIRST_CONTEXT_DECISION_DRAFT_READY_NOT_APPROVED`; 3 context rows, 5 decision rows, 19 global demand-letter GSC rows, 836 impressions, 0 exact candidate-route GSC rows, 8 source/competitor notes, 5 owner-template rows, 0 forbidden public marker hits and 0 public changes approved/performed.
+- REVIEW RESULT: the generic `/demand-letter/` route stays blocked. Employment is recorded as the first review candidate, consumer as a cleaner second candidate, and rental-dispute as parked until rental-agreement review is settled. The next step is owner/SEO/legal choice of one context only before any CMS draft packet.
+- LINEAR: recorded as `HAD-159`, marked Done under `HAD-125`, related to `HAD-126`, `HAD-158`, `HAD-133` and `HAD-129`.
+- PUBLIC IMPACT: none. This was private decision prep only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, webhook, wp-admin write, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: demand-letter first-context decision draft 100%; public demand-letter execution remains 0% until owner/SEO/legal approval, single-route CMS draft review, mobile duplicate-CTA QA and post-publication checks are explicitly approved.
+
 # LATEST WORK STATUS - 2026-05-27 06:15 Asia/Jerusalem
 - RENTAL AGREEMENT OWNER-REVIEW DRAFT BRIEF ADDED: converted the existing rental-agreement public update packet into a private owner/editor review draft with exact copy candidates, GSC evidence, competitor/source notes and internal-link planning before any public route update.
 - CODE ADDED: `tools/build-rental-agreement-owner-review-draft.mjs`.

@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-DEMAND-LETTER-FIRST-CONTEXT-DECISION-DRAFT-001: Choose one demand-letter context before any public draft
+**Status:** FIXED LOCAL / PUBLIC UPDATE STILL BLOCKED
+**Why:** The demand-letter idea has visible query demand but high cannibalization risk; a generic route would collide with employment, consumer, rental, small-claims and defamation pages, so the owner needs one dispute-specific first-context decision.
+**Actions:**
+1. DONE: add `tools/build-demand-letter-first-context-owner-decision-draft.mjs`.
+2. DONE: generate `.project-control/demand-letter-first-context-owner-decision-draft-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/demand-letter-owner-decision-template-2026-05-27.csv`.
+4. DONE: generate `.reports/demand-letter-first-context-owner-decision-draft-2026-05-27.json` and `.csv`.
+5. DONE: confirm `DEMAND_LETTER_FIRST_CONTEXT_DECISION_DRAFT_READY_NOT_APPROVED`, 3 context rows, 5 decision rows, 19 global demand-letter GSC rows, 836 impressions, 0 exact candidate-route GSC rows, 8 source/competitor notes, 5 owner-template rows, 0 forbidden public marker hits and 0 public/CMS/SEO/CRM/contact/payment/email/WhatsApp/TalkTo/uPress actions.
+6. DONE: record as Linear `HAD-159`, marked Done under `HAD-125`.
+7. NEXT: owner/SEO/legal reviewer chooses one first context only: employment, consumer, rental-dispute, park all, or request more evidence.
+8. BLOCKED: do not create `/demand-letter/`, update CMS content, title/H1/meta/body, internal links, redirects, canonicals/noindex, sitemaps, taxonomies, CRM records, leads, lawyer/supplier/client contact, invoices, payments, emails, WhatsApp, TalkTo or uPress from this private draft alone.
+
 ### ACTION-RENTAL-AGREEMENT-OWNER-REVIEW-DRAFT-001: Prepare owner-review draft for the rental-agreement route
 **Status:** FIXED LOCAL / PUBLIC UPDATE STILL BLOCKED
 **Why:** The owner approved narrow public-facing content improvements when revenue execution is blocked, and the existing rental-agreement route has GSC impressions but no clicks; it needs exact copy, source, competitor and internal-link review before any public edit.

@@ -1,0 +1,6 @@
+decision_id,owner_decision,route_to_approve,exact_copy_change,legal_reviewer,seo_reviewer,publication_allowed
+DECISION-01,approve/edit/reject/park/needs_more_evidence,NEW_GENERIC_DEMAND_LETTER_ROUTE,,,,NO
+DECISION-02,approve/edit/reject/park/needs_more_evidence,https://jus-tice.co.il/labor-lawyer/,,,,NO
+DECISION-03,approve/edit/reject/park/needs_more_evidence,https://jus-tice.co.il/consumer-rights-israel/,,,,NO
+DECISION-04,approve/edit/reject/park/needs_more_evidence,https://jus-tice.co.il/eviction-notice-israel/,,,,NO
+DECISION-05,approve/edit/reject/park/needs_more_evidence,MULTI_ROUTE_REVIEW,,,,NO

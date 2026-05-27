@@ -1,0 +1,435 @@
+{
+  "reportDate": "2026-05-27",
+  "status": "DEMAND_LETTER_FIRST_CONTEXT_DECISION_DRAFT_READY_NOT_APPROVED",
+  "sourcePacketDate": "2026-05-27",
+  "sourcePacketStatus": "OWNER_REVIEW_PACKET_READY_NOT_APPROVED",
+  "targetContexts": [
+    "employment",
+    "consumer",
+    "rental_dispute"
+  ],
+  "summary": {
+    "contextRows": 3,
+    "decisionRows": 5,
+    "demandLetterQueryRows": 19,
+    "demandLetterQueryImpressions": 836,
+    "exactRouteGscRows": 0,
+    "exactRouteGscImpressions": 0,
+    "sourceNotes": 8,
+    "ownerTemplateRows": 5,
+    "forbiddenPublicMarkerHits": 0,
+    "publicChangesApproved": 0,
+    "cmsWrites": 0,
+    "emailsSent": 0,
+    "upressDeploymentRequired": false
+  },
+  "contextRows": [
+    {
+      "id": "CTX-01",
+      "context": "employment",
+      "target_route": "https://jus-tice.co.il/labor-lawyer/",
+      "route_role": "employment-lawyer-match",
+      "recommendation": "REVIEW_FIRST_CONTEXT_CANDIDATE",
+      "owner_decision_needed": "Choose employment as first demand-letter context, or keep parked.",
+      "public_fit": "Worker or employer needs lawyer review before a workplace warning, response, hearing, termination or wage dispute.",
+      "risk": "HIGH: broad labor-law page must stay broad and not become a demand-letter product page.",
+      "source_packet_rows": 3,
+      "live_surface_status": "VERIFIED",
+      "live_title": "עורך דין דיני עבודה | ייעוץ משפטי בדיני עבודה | Jus-Tice.co.il",
+      "live_h1": "עורך דין דיני עבודה | ייעוץ משפטי בדיני עבודה",
+      "live_cta_count": 37,
+      "exact_route_gsc_rows": 0,
+      "exact_route_gsc_impressions": 0,
+      "demand_query_rows": 2,
+      "demand_query_impressions": 18,
+      "top_demand_query": "מכתב פנייה למעסיק דוגמא",
+      "associated_pages": "/wrongful-termination-israel/; /employment-contract-termination/; /severance-pay-calculator/",
+      "copy_basis": "title: עורך דין דיני עבודה | ייעוץ לפני מכתב התראה / h2: מכתב התראה בדיני עבודה: מתי כדאי לבדוק עם עורך דין / cta: קיבלתם מכתב ממעסיק או שוקלים לשלוח מכתב התראה בעניין עבודה? השאירו פרטים ונפנה לעורך דין מתאים.",
+      "stop_condition": "Owner/SEO/legal approval required before CMS, title/H1/meta/body, CTA, link or publication action."
+    },
+    {
+      "id": "CTX-02",
+      "context": "consumer",
+      "target_route": "https://jus-tice.co.il/consumer-rights-israel/",
+      "route_role": "consumer-rights-guide",
+      "recommendation": "SECOND_CONTEXT_CANDIDATE_AFTER_OWNER_CHOICE",
+      "owner_decision_needed": "Choose consumer refund/cancellation as first demand-letter context, or keep parked.",
+      "public_fit": "Consumer has evidence of refund, cancellation, repair, overcharge or supplier refusal before complaint or small claim.",
+      "risk": "MEDIUM: consumer page already has guide intent; demand-letter wording must remain a small remedy subsection.",
+      "source_packet_rows": 3,
+      "live_surface_status": "VERIFIED",
+      "live_title": "זכויות צרכן בישראל | ביטול, החזר, תביעה | Jus-Tice",
+      "live_h1": "זכויות צרכן בישראל | ביטול, החזר, תביעה | Jus-Tice",
+      "live_cta_count": 34,
+      "exact_route_gsc_rows": 0,
+      "exact_route_gsc_impressions": 0,
+      "demand_query_rows": 1,
+      "demand_query_impressions": 154,
+      "top_demand_query": "מכתב התראה לקבלן איחור במסירה",
+      "associated_pages": "/small-claims-court-israel/; /consumer-lawyer/",
+      "copy_basis": "title: זכויות צרכן בישראל | ביטול, החזר ומכתב פנייה / h2: מכתב לעסק לפני תביעה צרכנית / cta: הספק מסרב להחזר, לביטול או לתיקון? עורך דין יכול לבדוק אם נכון לשלוח מכתב פנייה או להתכונן לתביעה.",
+      "stop_condition": "Owner/SEO/legal approval required before CMS, title/H1/meta/body, CTA, link or publication action."
+    },
+    {
+      "id": "CTX-03",
+      "context": "rental_dispute",
+      "target_route": "https://jus-tice.co.il/eviction-notice-israel/",
+      "route_role": "rental-dispute-guide",
+      "recommendation": "PARK_UNTIL_RENTAL_AGREEMENT_REVIEW_SETTLED",
+      "owner_decision_needed": "Choose rental-dispute demand letters only after rental-agreement copy is settled.",
+      "public_fit": "Tenant or landlord needs help around a rental dispute, warning letter, eviction letter or response.",
+      "risk": "MEDIUM-HIGH: must not blur eviction/dispute intent with rental-agreement review/drafting intent.",
+      "source_packet_rows": 3,
+      "live_surface_status": "VERIFIED",
+      "live_title": "פינוי שוכר | הליך, מכתב, זכויות שוכר | Jus-Tice",
+      "live_h1": "פינוי שוכר | הליך, מכתב, זכויות שוכר | Jus-Tice",
+      "live_cta_count": 35,
+      "exact_route_gsc_rows": 0,
+      "exact_route_gsc_impressions": 0,
+      "demand_query_rows": 3,
+      "demand_query_impressions": 81,
+      "top_demand_query": "מכתב התראה לשוכר דירה דוגמא",
+      "associated_pages": "/tenant-eviction-defense/; /landlord-rights-israel/; /rental-agreement-guide/",
+      "copy_basis": "title: פינוי שוכר | הליך, מכתב וזכויות / h2: מכתב התראה או מכתב פינוי בסכסוך שכירות / cta: מדובר בסכסוך שכירות או במכתב פינוי? השאירו פרטים לבדיקת התאמה לעורך דין.",
+      "stop_condition": "Owner/SEO/legal approval required before CMS, title/H1/meta/body, CTA, link or publication action."
+    }
+  ],
+  "decisionRows": [
+    {
+      "id": "DECISION-01",
+      "decision": "BLOCK_GENERIC_ROUTE",
+      "status": "BLOCKED",
+      "target": "NEW_GENERIC_DEMAND_LETTER_ROUTE",
+      "owner_choice": "Keep blocked unless owner/SEO later creates a separate strategy.",
+      "evidence": "7 generic/other demand-letter GSC rows; broad competitors cover many disputes, which increases cannibalization risk.",
+      "next_step_if_approved": "No approval recommended in this packet.",
+      "blocked_action": "Do not create /demand-letter/, generic H1/meta or one-size-fits-all letter copy."
+    },
+    {
+      "id": "DECISION-02",
+      "decision": "CHOOSE_EMPLOYMENT_FIRST",
+      "status": "REVIEW_FIRST_CONTEXT_CANDIDATE",
+      "target": "https://jus-tice.co.il/labor-lawyer/",
+      "owner_choice": "Choose employment as first demand-letter context, or keep parked.",
+      "evidence": "3 source packet rows; 2 matching demand-query rows; 18 demand-query impressions; live surface VERIFIED.",
+      "next_step_if_approved": "Build one CMS draft/review packet for this route only, then run legal/source review, SEO length review and mobile duplicate-CTA QA.",
+      "blocked_action": "Owner/SEO/legal approval required before CMS, title/H1/meta/body, CTA, link or publication action."
+    },
+    {
+      "id": "DECISION-03",
+      "decision": "CHOOSE_CONSUMER_FIRST",
+      "status": "SECOND_CONTEXT_CANDIDATE_AFTER_OWNER_CHOICE",
+      "target": "https://jus-tice.co.il/consumer-rights-israel/",
+      "owner_choice": "Choose consumer refund/cancellation as first demand-letter context, or keep parked.",
+      "evidence": "3 source packet rows; 1 matching demand-query rows; 154 demand-query impressions; live surface VERIFIED.",
+      "next_step_if_approved": "Build one CMS draft/review packet for this route only, then run legal/source review, SEO length review and mobile duplicate-CTA QA.",
+      "blocked_action": "Owner/SEO/legal approval required before CMS, title/H1/meta/body, CTA, link or publication action."
+    },
+    {
+      "id": "DECISION-04",
+      "decision": "CHOOSE_RENTAL_DISPUTE_FIRST",
+      "status": "PARK_UNTIL_RENTAL_AGREEMENT_REVIEW_SETTLED",
+      "target": "https://jus-tice.co.il/eviction-notice-israel/",
+      "owner_choice": "Choose rental-dispute demand letters only after rental-agreement copy is settled.",
+      "evidence": "3 source packet rows; 3 matching demand-query rows; 81 demand-query impressions; live surface VERIFIED.",
+      "next_step_if_approved": "Build one CMS draft/review packet for this route only, then run legal/source review, SEO length review and mobile duplicate-CTA QA.",
+      "blocked_action": "Owner/SEO/legal approval required before CMS, title/H1/meta/body, CTA, link or publication action."
+    },
+    {
+      "id": "DECISION-05",
+      "decision": "PARK_OTHER_DEMAND_LETTER_CONTEXTS",
+      "status": "PARKED",
+      "target": "MULTI_ROUTE_REVIEW",
+      "owner_choice": "Park defamation, contractor, debt and other contexts until their own route packets exist.",
+      "evidence": "6 defamation-style rows and mixed non-target query rows exist in GSC; they should not be absorbed into employment/consumer/rental pages.",
+      "next_step_if_approved": "Create a separate private packet only if owner requests a specific context.",
+      "blocked_action": "Do not broaden the first-context route to chase unrelated demand-letter queries."
+    }
+  ],
+  "topDemandLetterQueries": [
+    {
+      "query": "מכתב התראה הוצאת דיבה",
+      "clicks": 0,
+      "impressions": 244,
+      "ctr": "0.00%",
+      "position": 74.3,
+      "context": "other_defamation"
+    },
+    {
+      "query": "מכתב התראה לקבלן איחור במסירה",
+      "clicks": 0,
+      "impressions": 154,
+      "ctr": "0.00%",
+      "position": 71.8,
+      "context": "consumer"
+    },
+    {
+      "query": "מכתב התראה בגין לשון הרע",
+      "clicks": 0,
+      "impressions": 131,
+      "ctr": "0.00%",
+      "position": 57.1,
+      "context": "other_defamation"
+    },
+    {
+      "query": "מכתב התראה לשון הרע לדוגמא",
+      "clicks": 0,
+      "impressions": 79,
+      "ctr": "0.00%",
+      "position": 55.4,
+      "context": "other_defamation"
+    },
+    {
+      "query": "מכתב התראה לשוכר דירה דוגמא",
+      "clicks": 0,
+      "impressions": 53,
+      "ctr": "0.00%",
+      "position": 70,
+      "context": "rental_dispute"
+    },
+    {
+      "query": "דוגמא למכתב התראה לשוכר",
+      "clicks": 0,
+      "impressions": 24,
+      "ctr": "0.00%",
+      "position": 69.2,
+      "context": "rental_dispute"
+    },
+    {
+      "query": "מכתב התראה על אי תשלום",
+      "clicks": 0,
+      "impressions": 22,
+      "ctr": "0.00%",
+      "position": 88.1,
+      "context": "generic_or_other"
+    },
+    {
+      "query": "לשון הרע במכתב התראה",
+      "clicks": 0,
+      "impressions": 21,
+      "ctr": "0.00%",
+      "position": 88.3,
+      "context": "other_defamation"
+    },
+    {
+      "query": "מכתב התראה לפני תביעה לשון הרע",
+      "clicks": 0,
+      "impressions": 19,
+      "ctr": "0.00%",
+      "position": 89.5,
+      "context": "other_defamation"
+    },
+    {
+      "query": "דוגמא מכתב התראה לפני נקיטת הליכים",
+      "clicks": 0,
+      "impressions": 18,
+      "ctr": "0.00%",
+      "position": 86.5,
+      "context": "generic_or_other"
+    },
+    {
+      "query": "מכתב פנייה למעסיק דוגמא",
+      "clicks": 0,
+      "impressions": 14,
+      "ctr": "0.00%",
+      "position": 40.4,
+      "context": "employment"
+    },
+    {
+      "query": "דוגמא למכתב התראה לשון הרע",
+      "clicks": 0,
+      "impressions": 13,
+      "ctr": "0.00%",
+      "position": 63.1,
+      "context": "other_defamation"
+    },
+    {
+      "query": "מכתב התראה מעורך דין דוגמא",
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": "0.00%",
+      "position": 63.2,
+      "context": "generic_or_other"
+    },
+    {
+      "query": "דוגמא לנוסח מכתב התראה",
+      "clicks": 0,
+      "impressions": 12,
+      "ctr": "0.00%",
+      "position": 68,
+      "context": "generic_or_other"
+    },
+    {
+      "query": "כמה עולה מכתב התראה מעורך דין",
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": "0.00%",
+      "position": 74.2,
+      "context": "generic_or_other"
+    }
+  ],
+  "queryContextTotals": [
+    {
+      "context": "other_defamation",
+      "rows": 6,
+      "impressions": 507,
+      "clicks": 0
+    },
+    {
+      "context": "consumer",
+      "rows": 1,
+      "impressions": 154,
+      "clicks": 0
+    },
+    {
+      "context": "rental_dispute",
+      "rows": 3,
+      "impressions": 81,
+      "clicks": 0
+    },
+    {
+      "context": "generic_or_other",
+      "rows": 7,
+      "impressions": 76,
+      "clicks": 0
+    },
+    {
+      "context": "employment",
+      "rows": 2,
+      "impressions": 18,
+      "clicks": 0
+    }
+  ],
+  "sourceNotes": [
+    {
+      "id": "SRC-01",
+      "type": "official_reference",
+      "context": "employment",
+      "name": "Labor Court ODR service",
+      "url": "https://odr-laborcourt.court.gov.il/odr.laborcourt.app/labor-court-client/Home",
+      "usable_takeaway": "Employment disputes can involve a structured pre-court path, including rights checks and a warning letter before labor-court action.",
+      "draft_instruction": "Keep employment copy as a dispute-specific subsection and avoid turning the labor page into a generic legal-letter page."
+    },
+    {
+      "id": "SRC-02",
+      "type": "official_reference",
+      "context": "employment",
+      "name": "Ministry of Labor work-rights complaint service",
+      "url": "https://www.gov.il/he/service/work-rights-violation-complaints",
+      "usable_takeaway": "A regulatory complaint is different from private civil relief; the page should not imply one letter replaces legal route selection.",
+      "draft_instruction": "Mention lawyer review only as fit-check help before escalation, not as a guaranteed remedy."
+    },
+    {
+      "id": "SRC-03",
+      "type": "official_reference",
+      "context": "consumer",
+      "name": "Consumer Protection Authority complaint service",
+      "url": "https://www.gov.il/he/service/filing_a_complaint_to_fair_trade_authority",
+      "usable_takeaway": "Consumer complaints need transaction details, business details and supporting documents.",
+      "draft_instruction": "Consumer copy should ask for facts/evidence first and place any letter wording after refund/cancellation context."
+    },
+    {
+      "id": "SRC-04",
+      "type": "official_reference",
+      "context": "consumer",
+      "name": "Small Claims Court filing service",
+      "url": "https://www.gov.il/he/service/filing_a_small_claim",
+      "usable_takeaway": "Small claims can cover goods, services, cancellation, tenancy and other disputes, and evidence preparation matters.",
+      "draft_instruction": "Use this as a boundary: demand-letter help may precede small claims, but the public page should not promise litigation results."
+    },
+    {
+      "id": "SRC-05",
+      "type": "official_reference",
+      "context": "rental_dispute",
+      "name": "Enforcement Authority eviction-cancellation service",
+      "url": "https://www.gov.il/he/service/cancellation_remove_from_an_asset",
+      "usable_takeaway": "Eviction wording can sit in later enforcement stages, so public copy must distinguish warning/response from post-judgment eviction steps.",
+      "draft_instruction": "Keep rental-dispute demand-letter copy narrow and separated from lease-review copy and post-judgment enforcement content."
+    },
+    {
+      "id": "COMP-01",
+      "type": "competitor_pattern",
+      "context": "generic_boundary",
+      "name": "Asaf Pelleg warning-letter guide",
+      "url": "https://pelleg-law.co.il/warning-letter/",
+      "usable_takeaway": "Competitor pattern explains purpose, timing, risks and why lawyer review can prevent damaging wording.",
+      "draft_instruction": "Jus-Tice should match practical usefulness but keep the generic page blocked and split by dispute type."
+    },
+    {
+      "id": "COMP-02",
+      "type": "competitor_pattern",
+      "context": "generic_boundary",
+      "name": "Yitzhak Goldstein warning-letter article",
+      "url": "https://ygoldlaw.co.il/litigation-lawyer/articles/warning-letter/",
+      "usable_takeaway": "Competitor pattern emphasizes scope and complexity differences across disputes.",
+      "draft_instruction": "Avoid fixed pricing or broad promises; ask owner to choose one narrow context first."
+    },
+    {
+      "id": "COMP-03",
+      "type": "competitor_pattern",
+      "context": "generic_boundary",
+      "name": "Hatraa warning-letter guide",
+      "url": "https://hatraa.co.il/warning-letter-the-complete-guide/",
+      "usable_takeaway": "Competitor pattern presents a broad guide, but broadness is exactly the cannibalization risk for Jus-Tice.",
+      "draft_instruction": "Use broad competitor coverage only as inspiration for checklist completeness, not route structure."
+    }
+  ],
+  "ownerDecisionTemplate": [
+    {
+      "decision_id": "DECISION-01",
+      "owner_decision": "approve/edit/reject/park/needs_more_evidence",
+      "route_to_approve": "NEW_GENERIC_DEMAND_LETTER_ROUTE",
+      "exact_copy_change": "",
+      "legal_reviewer": "",
+      "seo_reviewer": "",
+      "publication_allowed": "NO"
+    },
+    {
+      "decision_id": "DECISION-02",
+      "owner_decision": "approve/edit/reject/park/needs_more_evidence",
+      "route_to_approve": "https://jus-tice.co.il/labor-lawyer/",
+      "exact_copy_change": "",
+      "legal_reviewer": "",
+      "seo_reviewer": "",
+      "publication_allowed": "NO"
+    },
+    {
+      "decision_id": "DECISION-03",
+      "owner_decision": "approve/edit/reject/park/needs_more_evidence",
+      "route_to_approve": "https://jus-tice.co.il/consumer-rights-israel/",
+      "exact_copy_change": "",
+      "legal_reviewer": "",
+      "seo_reviewer": "",
+      "publication_allowed": "NO"
+    },
+    {
+      "decision_id": "DECISION-04",
+      "owner_decision": "approve/edit/reject/park/needs_more_evidence",
+      "route_to_approve": "https://jus-tice.co.il/eviction-notice-israel/",
+      "exact_copy_change": "",
+      "legal_reviewer": "",
+      "seo_reviewer": "",
+      "publication_allowed": "NO"
+    },
+    {
+      "decision_id": "DECISION-05",
+      "owner_decision": "approve/edit/reject/park/needs_more_evidence",
+      "route_to_approve": "MULTI_ROUTE_REVIEW",
+      "exact_copy_change": "",
+      "legal_reviewer": "",
+      "seo_reviewer": "",
+      "publication_allowed": "NO"
+    }
+  ],
+  "forbiddenPublicMarkerHits": [],
+  "blockedActions": [
+    "public CMS update",
+    "generic demand-letter route",
+    "title/H1/meta/body/internal-link change",
+    "redirect/canonical/noindex/sitemap/taxonomy change",
+    "lead/contact/lawyer/client outreach",
+    "invoice/payment",
+    "email/WhatsApp/TalkTo",
+    "uPress deployment"
+  ]
+}

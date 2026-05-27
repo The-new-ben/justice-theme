@@ -2,16 +2,19 @@
   "summary": {
     "reportDate": "2026-05-27",
     "status": "MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION",
-    "staticGateCount": 8,
-    "staticPassCount": 8,
+    "staticGateCount": 9,
+    "staticPassCount": 9,
     "staticBlockedCount": 0,
     "operatorRunRows": 6,
     "templateRows": 5,
-    "sourcePreflight": ".reports/lawyer-subscription-e2e-preflight-2026-05-26.json",
+    "sourcePreflight": ".reports/lawyer-subscription-e2e-preflight-2026-05-27.json",
     "sourcePreflightStatus": "PASS_WITH_RUNTIME_BLOCKERS",
-    "sourcePreflightRuntimeBlockers": 6,
-    "sourceGrow": ".reports/grow-payment-compliance-live-2026-05-26.json",
+    "sourcePreflightRuntimeBlockers": 7,
+    "sourceGrow": ".reports/grow-payment-compliance-live-2026-05-27.json",
     "sourceGrowPassCount": 8,
+    "sourcePreflightDate": "2026-05-27",
+    "sourceGrowDate": "2026-05-27",
+    "sourceReportsCurrent": "yes",
     "liveRecordsCreated": 0,
     "invoicesSent": 0,
     "paymentsCreated": 0,
@@ -27,14 +30,14 @@
   "sourceRows": [
     {
       "id": "SRC-01",
-      "source": ".reports/lawyer-subscription-e2e-preflight-2026-05-26.json",
+      "source": ".reports/lawyer-subscription-e2e-preflight-2026-05-27.json",
       "exists": "yes",
       "status": "PASS_WITH_RUNTIME_BLOCKERS",
       "interpretation": "Subscription preflight passed static gates but still has runtime blockers for controlled live user, provider setup and real invoice/payment proof."
     },
     {
       "id": "SRC-02",
-      "source": ".reports/grow-payment-compliance-live-2026-05-26.json",
+      "source": ".reports/grow-payment-compliance-live-2026-05-27.json",
       "exists": "yes",
       "status": "8 pass checks",
       "interpretation": "Latest Grow compliance evidence shows public checkout/legal-policy checks, but provider KYC/product mapping and real payment proof remain separate blockers."
@@ -135,6 +138,18 @@
       "source_evidence": "Subscription preflight explicitly separates static pass from runtime payment/provider blockers.",
       "next_action": "Keep manual proof ledger until controlled live provider/payment drills are approved.",
       "owner_notice": "Subscription revenue cannot be counted from static proof alone.",
+      "live_action_taken": "no"
+    },
+    {
+      "id": "MIF-09",
+      "gate": "same_day_source_reports",
+      "status": "PASS",
+      "file": ".reports",
+      "evidence": "subscription preflight and Grow compliance sources both match 2026-05-27",
+      "missing_markers": "",
+      "source_evidence": "Manual invoice/payment fallback packets must not quietly rely on stale payment-provider or subscription preflight reports.",
+      "next_action": "Use this packet as the current same-day private source chain for manual invoice/payment proof.",
+      "owner_notice": "A same-day source chain is still not payment proof; it only keeps the owner runbook current.",
       "live_action_taken": "no"
     }
   ],

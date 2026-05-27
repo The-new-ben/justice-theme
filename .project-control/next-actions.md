@@ -4,6 +4,22 @@
 
 ---
 
+### ACTION-MANUAL-INVOICE-FALLBACK-SAME-DAY-SOURCES-001: Refresh payment fallback against same-day sources
+**Status:** FIXED LOCAL / LIVE PAYMENT STILL BLOCKED
+**Why:** The manual invoice fallback is the safest payment path while Grow/Meshulam provider setup is blocked, but it must not rely on stale subscription or Grow compliance reports before the owner walkthrough.
+**Actions:**
+1. DONE: rerun `tools/check-grow-payment-compliance.mjs`; live read-only result `PASS`, 8/8 checks.
+2. DONE: update `tools/build-manual-invoice-revenue-fallback-packet.mjs` with `MIF-09 same_day_source_reports`.
+3. DONE: regenerate `.project-control/grow-payment-compliance-live-2026-05-27.md` and `.csv`.
+4. DONE: regenerate `.reports/grow-payment-compliance-live-2026-05-27.json` and `.csv`.
+5. DONE: regenerate `.project-control/manual-invoice-revenue-fallback-packet-2026-05-27.md` and `.csv`.
+6. DONE: regenerate `.reports/manual-invoice-revenue-fallback-packet-2026-05-27.json` and `.csv`.
+7. DONE: confirm manual invoice fallback `MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION`, 9/9 static gates, same-day source chain `yes`, source preflight `PASS_WITH_RUNTIME_BLOCKERS`, source Grow pass count 8.
+8. DONE: verify private artifact boundary guard `PASS` and refresh its line references.
+9. DONE: record as Linear `HAD-164`, marked Done under `HAD-71`.
+10. NEXT: owner/admin may use the fallback only for one approved controlled lawyer/lead after accepted terms, agreed fee, billing contact and invoice/payment proof path exist.
+11. BLOCKED: do not create live payment links, send invoice/email/WhatsApp/TalkTo, mark paid, claim revenue, mutate provider settings, create CRM records, change public pages or deploy from this refreshed fallback alone.
+
 ### ACTION-BTL-FIRST-PAID-LEAD-EVIDENCE-CHAIN-REFRESH-001: Refresh current BTL evidence chain before live proof
 **Status:** FIXED LOCAL / LIVE FIRST PAID LEAD STILL BLOCKED
 **Why:** The fastest revenue path remains one controlled Bituach Leumi proof, but the readiness and activation packets needed current 2026-05-27 report artifacts with explicit source-date handling before owner/admin can use them in a live private walkthrough.

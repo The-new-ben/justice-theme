@@ -136,6 +136,38 @@ function markerGate({ id, gate, file, markers, evidence, nextAction, ownerNotice
   };
 }
 
+function sourceReportDate(source) {
+  return source.summary?.reportDate || source.summary?.runDate || '';
+}
+
+function sourceFreshnessGate(reportDate, preflight, grow) {
+  const preflightDate = sourceReportDate(preflight);
+  const growDate = sourceReportDate(grow);
+  const missing = [];
+
+  if (!preflight.exists || preflightDate !== reportDate) {
+    missing.push(`subscription preflight source date is ${preflightDate || 'missing'}`);
+  }
+  if (!grow.exists || growDate !== reportDate) {
+    missing.push(`Grow compliance source date is ${growDate || 'missing'}`);
+  }
+
+  return {
+    id: 'MIF-09',
+    gate: 'same_day_source_reports',
+    status: missing.length ? 'REVIEW' : 'PASS',
+    file: '.reports',
+    evidence: missing.length ? missing.join(' | ') : `subscription preflight and Grow compliance sources both match ${reportDate}`,
+    missing_markers: missing.join(' | '),
+    source_evidence: 'Manual invoice/payment fallback packets must not quietly rely on stale payment-provider or subscription preflight reports.',
+    next_action: missing.length
+      ? 'Rerun the missing same-day source report before using this packet in an owner payment walkthrough.'
+      : 'Use this packet as the current same-day private source chain for manual invoice/payment proof.',
+    owner_notice: 'A same-day source chain is still not payment proof; it only keeps the owner runbook current.',
+    live_action_taken: 'no',
+  };
+}
+
 function buildGateRows() {
   return [
     markerGate({
@@ -440,6 +472,7 @@ function buildSourceRows(preflight, grow) {
 
 function buildSummary(reportDate, gateRows, operatorRows, templateRows, preflight, grow) {
   const blockedRows = gateRows.filter((row) => row.status !== 'PASS');
+  const sourceFreshnessRow = gateRows.find((row) => row.id === 'MIF-09');
   const preflightRuntimeBlockers = Array.isArray(preflight.summary?.runtimeBlockers)
     ? preflight.summary.runtimeBlockers.length
     : 0;
@@ -459,6 +492,9 @@ function buildSummary(reportDate, gateRows, operatorRows, templateRows, prefligh
     sourcePreflightRuntimeBlockers: preflightRuntimeBlockers,
     sourceGrow: grow.path,
     sourceGrowPassCount: grow.summary?.passCount || 0,
+    sourcePreflightDate: sourceReportDate(preflight),
+    sourceGrowDate: sourceReportDate(grow),
+    sourceReportsCurrent: sourceFreshnessRow?.status === 'PASS' ? 'yes' : 'review',
     liveRecordsCreated: 0,
     invoicesSent: 0,
     paymentsCreated: 0,
@@ -488,6 +524,7 @@ function markdownReport(summary, gateRows, operatorRows, sourceRows) {
     `- Blank no-PII evidence template rows: ${summary.templateRows}.`,
     `- Source subscription preflight: ${summary.sourcePreflightStatus || 'missing'} (${summary.sourcePreflightRuntimeBlockers} runtime blockers).`,
     `- Source Grow compliance: ${summary.sourceGrowPassCount} pass checks.`,
+    `- Same-day source chain: ${summary.sourceReportsCurrent} (preflight ${summary.sourcePreflightDate || 'missing'}; Grow ${summary.sourceGrowDate || 'missing'}).`,
     `- Live actions taken: ${summary.liveRecordsCreated} records, ${summary.invoicesSent} invoices, ${summary.paymentsCreated} payments, ${summary.paidStatusesSet} paid statuses, ${summary.emailsSent} emails.`,
     '',
     '## Source Reports',
@@ -532,7 +569,7 @@ if (args.help) {
 
 const preflight = readOptionalJson(args.sourcePreflight);
 const grow = readOptionalJson(args.sourceGrow);
-const gateRows = buildGateRows();
+const gateRows = [...buildGateRows(), sourceFreshnessGate(args.reportDate, preflight, grow)];
 const operatorRows = buildOperatorRows(preflight, grow);
 const templateRows = buildTemplateRows();
 const sourceRows = buildSourceRows(preflight, grow);

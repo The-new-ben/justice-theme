@@ -1,0 +1,97 @@
+{
+  "startedAt": "2026-05-27T04:12:42.479Z",
+  "runDate": "2026-05-27",
+  "baseUrl": "https://jus-tice.co.il",
+  "passCount": 8,
+  "reviewCount": 0,
+  "results": [
+    {
+      "id": "checkout-page-exists",
+      "name": "Checkout page exists and is reachable",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 79796,
+      "durationMs": 2139,
+      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779855162484",
+      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779855162484",
+      "missing": []
+    },
+    {
+      "id": "checkout-required-fields",
+      "name": "Checkout exposes Grow-required customer fields",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 79796,
+      "durationMs": 1763,
+      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779855162484",
+      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779855162484",
+      "missing": []
+    },
+    {
+      "id": "checkout-terms-approval",
+      "name": "Checkout exposes terms checkbox and terms link",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 79796,
+      "durationMs": 1743,
+      "url": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779855162484",
+      "finalUrl": "https://jus-tice.co.il/checkout/?plan_interest=lead_partner&pre_checkout=1&payment_path=manual_invoice&grow_compliance_check=1779855162484",
+      "missing": []
+    },
+    {
+      "id": "lawyer-plans-entrypoint",
+      "name": "Paid lawyer plan path links to checkout",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 68971,
+      "durationMs": 1808,
+      "url": "https://jus-tice.co.il/lawyer-plans/?grow_compliance_check=1779855162484",
+      "finalUrl": "https://jus-tice.co.il/lawyer-plans/?grow_compliance_check=1779855162484",
+      "missing": []
+    },
+    {
+      "id": "terms-page",
+      "name": "Terms page remains available",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 79522,
+      "durationMs": 1722,
+      "url": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779855162484",
+      "finalUrl": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779855162484",
+      "missing": []
+    },
+    {
+      "id": "cancellation-page",
+      "name": "Cancellation and supply policy remains available",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 79871,
+      "durationMs": 1747,
+      "url": "https://jus-tice.co.il/cancellation/?grow_compliance_check=1779855162484",
+      "finalUrl": "https://jus-tice.co.il/cancellation/?grow_compliance_check=1779855162484",
+      "missing": []
+    },
+    {
+      "id": "privacy-page",
+      "name": "Privacy policy remains available",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 75858,
+      "durationMs": 1747,
+      "url": "https://jus-tice.co.il/privacy/?grow_compliance_check=1779855162484",
+      "finalUrl": "https://jus-tice.co.il/privacy/?grow_compliance_check=1779855162484",
+      "missing": []
+    },
+    {
+      "id": "business-contact-signals",
+      "name": "Business contact signals remain visible",
+      "status": "PASS",
+      "http": 200,
+      "bytes": 79522,
+      "durationMs": 1789,
+      "url": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779855162484",
+      "finalUrl": "https://jus-tice.co.il/sample-terms-and-conditions-template/?grow_compliance_check=1779855162484",
+      "missing": []
+    }
+  ]
+}

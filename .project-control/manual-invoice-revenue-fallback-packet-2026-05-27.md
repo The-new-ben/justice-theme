@@ -6,19 +6,20 @@ Scope: private owner/admin revenue fallback packet only. It source-checks manual
 
 ## Summary
 
-- Static gates: 8/8 passed.
+- Static gates: 9/9 passed.
 - Operator run rows: 6.
 - Blank no-PII evidence template rows: 5.
-- Source subscription preflight: PASS_WITH_RUNTIME_BLOCKERS (6 runtime blockers).
+- Source subscription preflight: PASS_WITH_RUNTIME_BLOCKERS (7 runtime blockers).
 - Source Grow compliance: 8 pass checks.
+- Same-day source chain: yes (preflight 2026-05-27; Grow 2026-05-27).
 - Live actions taken: 0 records, 0 invoices, 0 payments, 0 paid statuses, 0 emails.
 
 ## Source Reports
 
 | ID | Source | Exists | Status | Interpretation |
 | --- | --- | --- | --- | --- |
-| SRC-01 | .reports/lawyer-subscription-e2e-preflight-2026-05-26.json | yes | PASS_WITH_RUNTIME_BLOCKERS | Subscription preflight passed static gates but still has runtime blockers for controlled live user, provider setup and real invoice/payment proof. |
-| SRC-02 | .reports/grow-payment-compliance-live-2026-05-26.json | yes | 8 pass checks | Latest Grow compliance evidence shows public checkout/legal-policy checks, but provider KYC/product mapping and real payment proof remain separate blockers. |
+| SRC-01 | .reports/lawyer-subscription-e2e-preflight-2026-05-27.json | yes | PASS_WITH_RUNTIME_BLOCKERS | Subscription preflight passed static gates but still has runtime blockers for controlled live user, provider setup and real invoice/payment proof. |
+| SRC-02 | .reports/grow-payment-compliance-live-2026-05-27.json | yes | 8 pass checks | Latest Grow compliance evidence shows public checkout/legal-policy checks, but provider KYC/product mapping and real payment proof remain separate blockers. |
 
 ## Static Gates
 
@@ -32,6 +33,7 @@ Scope: private owner/admin revenue fallback packet only. It source-checks manual
 | MIF-06 | paid_status_proof_guard | PASS | inc/lead-crm.php | 2/2 markers found; CRM save handler downgrades an attempted paid status to invoice_sent when proof is missing. | - | Mark paid only when invoice/reference or payment evidence exists. |
 | MIF-07 | grow_checker_private | PASS | tools/check-grow-payment-compliance.mjs | 6/6 markers found; Grow compliance checker writes private reports and checks manual invoice/legal-policy markers. | - | Rerun live compliance before a provider approval/payment walkthrough. |
 | MIF-08 | e2e_preflight_runtime_blockers | PASS | tools/check-lawyer-subscription-e2e-preflight.mjs | 5/5 markers found; Subscription preflight explicitly separates static pass from runtime payment/provider blockers. | - | Keep manual proof ledger until controlled live provider/payment drills are approved. |
+| MIF-09 | same_day_source_reports | PASS | .reports | subscription preflight and Grow compliance sources both match 2026-05-27; Manual invoice/payment fallback packets must not quietly rely on stale payment-provider or subscription preflight reports. | - | Use this packet as the current same-day private source chain for manual invoice/payment proof. |
 
 ## Operator Run Order
 

@@ -55,7 +55,7 @@ Legacy tool references are reported so future operators do not rerun old scripts
 | tools/build-lawyer-cms-entry-packet.mjs | 8 | REVIEW_BEFORE_RUNNING | const outJson = path.join( root, 'reports', 'lawyer-cms-draft-entry-packet-2026-05-25.json' ); |
 | tools/build-lawyer-cms-entry-packet.mjs | 229 | REVIEW_BEFORE_RUNNING | - CSV entry sheet: \`project-control/lawyer-cms-draft-entry-packet-2026-05-25.csv\` |
 | tools/build-lawyer-cms-entry-packet.mjs | 230 | REVIEW_BEFORE_RUNNING | - JSON report: \`reports/lawyer-cms-draft-entry-packet-2026-05-25.json\` |
-| tools/build-manual-invoice-revenue-fallback-packet.mjs | 493 | REVIEW_BEFORE_RUNNING | '## Source Reports', |
+| tools/build-manual-invoice-revenue-fallback-packet.mjs | 530 | REVIEW_BEFORE_RUNNING | '## Source Reports', |
 | tools/build-master-csv.js | 23 | REVIEW_BEFORE_RUNNING | const wpFile = fs.readFileSync('c:/Users/pro/justice/project-control/full-inventory.csv', 'utf8'); |
 | tools/build-master-csv.js | 29 | REVIEW_BEFORE_RUNNING | const gscFile = fs.readFileSync('c:/Users/pro/justice/justice-theme/reports/gsc/performance-pages.csv', 'utf8'); |
 | tools/build-master-csv.js | 97 | REVIEW_BEFORE_RUNNING | fs.writeFileSync('c:/Users/pro/justice/project-control/content-master/content-master-inventory.csv', csvContent); |

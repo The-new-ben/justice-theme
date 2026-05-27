@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Manual invoice fallback same-day source chain
+
+- UPDATED: `tools/build-manual-invoice-revenue-fallback-packet.mjs`.
+- GENERATED/UPDATED: `.project-control/grow-payment-compliance-live-2026-05-27.md`, `.project-control/grow-payment-compliance-live-2026-05-27.csv`, `.reports/grow-payment-compliance-live-2026-05-27.json`, `.reports/grow-payment-compliance-live-2026-05-27.csv`, `.project-control/manual-invoice-revenue-fallback-packet-2026-05-27.md`, `.project-control/manual-invoice-revenue-fallback-packet-2026-05-27.csv`, `.project-control/manual-invoice-revenue-fallback-template-2026-05-27.csv`, `.reports/manual-invoice-revenue-fallback-packet-2026-05-27.json`, `.reports/manual-invoice-revenue-fallback-packet-2026-05-27.csv`, plus refreshed `.project-control/private-artifact-boundary-guard-2026-05-27.md` and `.csv`.
+- PURPOSE: keep manual invoice/payment fallback proof tied to same-day Grow/Meshulam and subscription preflight evidence before any owner payment walkthrough.
+- RESULT: Grow compliance live read-only check `PASS`, 8/8; manual invoice fallback `MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION`, 9/9 static gates, same-day source chain `yes`, 0 live records, invoices, payments, emails or provider changes.
+- LINEAR: recorded as `HAD-164`, marked Done under `HAD-71`, related to `HAD-161`, `HAD-157`, `HAD-154` and `HAD-163`.
+- SAFETY: private tooling/reporting and read-only live checks only; no public CMS edit, route, title/H1/meta/body, SEO setting, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, provider setting, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - BTL first paid-lead evidence chain refreshed
 
 - UPDATED: `tools/check-btl-first-paid-lead-readiness.mjs`, `tools/build-btl-first-prospect-activation-packet.mjs`.

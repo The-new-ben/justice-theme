@@ -1,14 +1,14 @@
 # City/Practice Priority Draft Briefs - 2026-05-27
 
-Status: CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_READY_WITH_PUBLIC_REVIEW_GATE_NO_PUBLIC_CHANGE
+Status: CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_BLOCKED_NO_PUBLIC_CHANGE
 
 Scope: private owner/editor draft brief packet for the first two approved city/practice targets. It does not publish content, edit WordPress, change SEO settings, contact leads/lawyers, create CRM records, send email, or deploy.
 
 ## Summary
 
 - Priority targets: 2.
-- Static/live gates: 4/5 pass.
-- Own-site live checks: 4.
+- Static/live gates: 4/6 pass.
+- Own-site live checks: 8.
 - Source prompts: 9 total; 5 official; 4 competitor.
 - Public actions: 0 CMS writes, 0 public page changes, 0 SEO setting changes, 0 CRM/contact/payment/email actions.
 
@@ -21,22 +21,27 @@ Scope: private owner/editor draft brief packet for the first two approved city/p
 | CPD-GATE-03 | central_pillars_reachable | PASS | 2/2 central pillar URLs reachable. | Keep local draft subordinate to the reachable pillar. |
 | CPD-GATE-04 | source_scaffold_ready | PASS | 5 official source prompts and 4 competitor source prompts recorded. | Use sources for direction and guardrails only; no copying or legal advice. |
 | CPD-GATE-05 | directory_filter_param_policy | PASS | 2/2 priority directory paths use area=; 2 practice= alias path(s) retained as review-only references. | Do not use practice= in draft or public links unless alias support is explicitly implemented and deployed. |
+| CPD-GATE-06 | canonical_directory_live_coverage | BLOCKED | 1 canonical directory URL(s) failed filtered-title/H1 or lawyer-card coverage. | Do not rely on the filtered directory path for draft/internal-link planning until coverage is fixed or replaced. |
 
 ## Live Own-Site Checks
 
-| ID | Slug | Role | Status | Gate | URL | H1 |
-| --- | --- | --- | --- | --- | --- | --- |
-| CPD-01-PILLAR | divorce-lawyer-tel-aviv | central_pillar_live_check | 200 | PASS_PILLAR_REACHABLE | https://jus-tice.co.il/divorce-lawyer/ | איך לבחור עורך דין גירושין \| ניסיון, מחיר ושאלות נכונות \| Jus-Tice |
-| CPD-01-TARGET | divorce-lawyer-tel-aviv | draft_target_public_exposure_check | 404 | PASS_TARGET_NOT_PUBLIC_200 | https://jus-tice.co.il/divorce-lawyer-tel-aviv/ | העמוד לא נמצא |
-| CPD-02-PILLAR | criminal-lawyer-jerusalem | central_pillar_live_check | 200 | PASS_PILLAR_REACHABLE | https://jus-tice.co.il/criminal-lawyer/ | קטגוריה: משפט פלילי |
-| CPD-02-TARGET | criminal-lawyer-jerusalem | draft_target_public_exposure_check | 200 | REVIEW_TARGET_ALREADY_PUBLIC | https://jus-tice.co.il/criminal-lawyer-jerusalem/ | עורך דין פלילי ירושלים \| ייצוג, מחירים ובתי משפט \| Jus-Tice |
+| ID | Slug | Role | Status | Gate | URL | H1 | Lawyer Cards |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| CPD-01-PILLAR | divorce-lawyer-tel-aviv | central_pillar_live_check | 200 | PASS_PILLAR_REACHABLE | https://jus-tice.co.il/divorce-lawyer/ | איך לבחור עורך דין גירושין \| ניסיון, מחיר ושאלות נכונות \| Jus-Tice | 3 |
+| CPD-01-TARGET | divorce-lawyer-tel-aviv | draft_target_public_exposure_check | 404 | PASS_TARGET_NOT_PUBLIC_200 | https://jus-tice.co.il/divorce-lawyer-tel-aviv/ | העמוד לא נמצא | 0 |
+| CPD-01-DIRECTORY | divorce-lawyer-tel-aviv | canonical_directory_live_check | 200 | PASS_CANONICAL_DIRECTORY_FILTER_REACHABLE | https://jus-tice.co.il/lawyers/?city=tel-aviv&area=family-law | עורך דין דיני משפחה בתל אביב | 3 |
+| CPD-01-UNSUPPORTED-DIRECTORY | divorce-lawyer-tel-aviv | unsupported_directory_alias_live_check | 200 | PASS_UNSUPPORTED_ALIAS_NOT_FILTERED_DO_NOT_USE | https://jus-tice.co.il/lawyers/?city=tel-aviv&practice=family-law | עורכי דין בתל אביב | 3 |
+| CPD-02-PILLAR | criminal-lawyer-jerusalem | central_pillar_live_check | 200 | PASS_PILLAR_REACHABLE | https://jus-tice.co.il/criminal-lawyer/ | קטגוריה: משפט פלילי | 0 |
+| CPD-02-TARGET | criminal-lawyer-jerusalem | draft_target_public_exposure_check | 200 | REVIEW_TARGET_ALREADY_PUBLIC | https://jus-tice.co.il/criminal-lawyer-jerusalem/ | עורך דין פלילי ירושלים \| ייצוג, מחירים ובתי משפט \| Jus-Tice | 0 |
+| CPD-02-DIRECTORY | criminal-lawyer-jerusalem | canonical_directory_live_check | 200 | BLOCKED_CANONICAL_DIRECTORY_FILTER_GENERIC_OR_EMPTY | https://jus-tice.co.il/lawyers/?city=jerusalem&area=criminal-law | עורך דין משפט פלילי בירושלים | 0 |
+| CPD-02-UNSUPPORTED-DIRECTORY | criminal-lawyer-jerusalem | unsupported_directory_alias_live_check | 200 | PASS_UNSUPPORTED_ALIAS_NOT_FILTERED_DO_NOT_USE | https://jus-tice.co.il/lawyers/?city=jerusalem&practice=criminal-law | עורכי דין בירושלים | 2 |
 
 ## Draft Brief Rows
 
-| ID | Slug | Title | Target Gate | Pillar | Canonical Directory | Unsupported Alias | Draft Role | Publication Blockers |
-| --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| CPD-01 | divorce-lawyer-tel-aviv | עורך דין גירושין בתל אביב | PASS_TARGET_NOT_PUBLIC_200 | /divorce-lawyer/ | /lawyers/?city=tel-aviv&area=family-law | /lawyers/?city=tel-aviv&practice=family-law | עמוד עזר מקומי ותמציתי שמפנה לעמוד הגירושין המרכזי ואינו מנסה להיות מדריך גירושין מלא. | GSC query/page evidence, internal overlap check, filtered lawyer count, legal/editor review, owner approval, and no public-exposure accident. |
-| CPD-02 | criminal-lawyer-jerusalem | עורך דין פלילי בירושלים | REVIEW_TARGET_ALREADY_PUBLIC | /criminal-lawyer/ | /lawyers/?city=jerusalem&area=criminal-law | /lawyers/?city=jerusalem&practice=criminal-law | עמוד עזר מקומי למצבי חקירה, מעצר או כתב אישום, עם הפניה לעמוד הפלילי המרכזי ולבדיקת התאמה. | GSC query/page evidence, internal overlap check, filtered lawyer count, legal/editor review, owner approval, and no public-exposure accident. |
+| ID | Slug | Title | Target Gate | Pillar | Canonical Directory | Directory Gate | Cards | Unsupported Alias | Draft Role | Publication Blockers |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CPD-01 | divorce-lawyer-tel-aviv | עורך דין גירושין בתל אביב | PASS_TARGET_NOT_PUBLIC_200 | /divorce-lawyer/ | /lawyers/?city=tel-aviv&area=family-law | PASS_CANONICAL_DIRECTORY_FILTER_REACHABLE | 3 | /lawyers/?city=tel-aviv&practice=family-law | עמוד עזר מקומי ותמציתי שמפנה לעמוד הגירושין המרכזי ואינו מנסה להיות מדריך גירושין מלא. | GSC query/page evidence, internal overlap check, filtered lawyer count, legal/editor review, owner approval, and no public-exposure accident. |
+| CPD-02 | criminal-lawyer-jerusalem | עורך דין פלילי בירושלים | REVIEW_TARGET_ALREADY_PUBLIC | /criminal-lawyer/ | /lawyers/?city=jerusalem&area=criminal-law | BLOCKED_CANONICAL_DIRECTORY_FILTER_GENERIC_OR_EMPTY | 0 | /lawyers/?city=jerusalem&practice=criminal-law | עמוד עזר מקומי למצבי חקירה, מעצר או כתב אישום, עם הפניה לעמוד הפלילי המרכזי ולבדיקת התאמה. | GSC query/page evidence, internal overlap check, filtered lawyer count, legal/editor review, owner approval, and no public-exposure accident. |
 
 ## Source Prompts
 

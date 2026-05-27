@@ -4,6 +4,23 @@
 
 ---
 
+### ACTION-CITY-PRACTICE-LIVE-DIRECTORY-COVERAGE-GATE-001: Verify city/practice directory coverage before draft reliance
+**Status:** FIXED LOCAL / JERUSALEM CRIMINAL DIRECTORY COVERAGE BLOCKED
+**Why:** Correcting `practice=` to `area=` fixed the URL policy, but private draft briefs still needed a live coverage gate to prove the filtered directory actually has matching lawyer cards before any owner/editor packet or future internal-link plan relies on it.
+**Actions:**
+1. DONE: update `tools/build-city-practice-priority-draft-briefs.mjs` to fetch canonical `area=` directory URLs for each priority target.
+2. DONE: fetch the unsupported `practice=` aliases as review-only live checks and keep them out of publishable/internal-link plans.
+3. DONE: add expected title/H1 term checks and live lawyer-card counts for canonical directory rows.
+4. DONE: add `CPD-GATE-06 canonical_directory_live_coverage`.
+5. DONE: regenerate `.project-control/city-practice-priority-draft-briefs-2026-05-27.md` and `.csv`.
+6. DONE: regenerate `.reports/city-practice-priority-draft-briefs-2026-05-27.json` and `.csv`.
+7. DONE: confirm status `CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_BLOCKED_NO_PUBLIC_CHANGE`, 8 live checks, 6 gates, 4 pass, 1 review and 1 blocked.
+8. DONE: record Tel Aviv family directory as pass: filtered H1 and 3 lawyer cards.
+9. DONE: record Jerusalem criminal directory as blocked: filtered H1 but 0 lawyer cards.
+10. DONE: verify private artifact boundary guard `PASS` and record as Linear `HAD-166`, marked Done under `HAD-165`.
+11. NEXT: do not rely on the Jerusalem criminal filtered directory for draft/internal-link planning until real lawyer coverage exists or owner approves an alternate CTA/directory path.
+12. BLOCKED: do not publish city/practice content, add internal links, change CMS fields, URLs, redirects, canonicals/noindex, sitemaps, taxonomies, CRM records, leads, contacts, payments, emails, WhatsApp, TalkTo or uPress from this private coverage check alone.
+
 ### ACTION-CITY-PRACTICE-DIRECTORY-FILTER-POLICY-001: Correct city/practice directory filter URLs
 **Status:** FIXED LOCAL / PUBLIC CONTENT STILL BLOCKED
 **Why:** The city/practice draft brief packet was still using `practice=` for filtered lawyer directory URLs even though later directory QA established the live filter expects `area=`.

@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - City/practice live directory coverage gate
+
+- UPDATED: `tools/build-city-practice-priority-draft-briefs.mjs`.
+- REGENERATED: `.project-control/city-practice-priority-draft-briefs-2026-05-27.md`, `.project-control/city-practice-priority-draft-briefs-2026-05-27.csv`, `.reports/city-practice-priority-draft-briefs-2026-05-27.json`, `.reports/city-practice-priority-draft-briefs-2026-05-27.csv`.
+- PURPOSE: verify corrected `area=` city/practice lawyer-directory URLs live before using them in private owner/editor draft briefs or future internal-link planning.
+- RESULT: packet is now `CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_BLOCKED_NO_PUBLIC_CHANGE`; 8 live checks, 6 gates, 4 pass, 1 review and 1 blocked. Tel Aviv family `area=` passes with filtered H1 and 3 lawyer cards; Jerusalem criminal `area=` has filtered H1 but 0 lawyer cards, so it is blocked for coverage. `practice=` aliases remain city-only/generic and review-only.
+- LINEAR: recorded as `HAD-166`, marked Done under `HAD-165`, related to `HAD-145`, `HAD-151`, `HAD-152`, `HAD-147` and `HAD-160`.
+- SAFETY: private tooling/reporting and read-only live checks only; no public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - City/practice directory filter policy corrected
 
 - UPDATED: `tools/build-city-practice-priority-draft-briefs.mjs`.

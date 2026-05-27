@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 07:35 Asia/Jerusalem
+- CITY/PRACTICE LIVE DIRECTORY COVERAGE GATE ADDED: extended the private city/practice draft-brief packet so corrected `area=` lawyer-directory URLs are verified live before future owner/editor draft work relies on them.
+- CODE UPDATED: `tools/build-city-practice-priority-draft-briefs.mjs`.
+- GENERATED/UPDATED PRIVATE ARTIFACTS: `.project-control/city-practice-priority-draft-briefs-2026-05-27.md`, `.project-control/city-practice-priority-draft-briefs-2026-05-27.csv`, `.reports/city-practice-priority-draft-briefs-2026-05-27.json`, `.reports/city-practice-priority-draft-briefs-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-city-practice-priority-draft-briefs.mjs` passed; regenerated packet status `CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_BLOCKED_NO_PUBLIC_CHANGE`, 2 targets, 8 live checks, 6 gates, 4 pass, 1 review, 1 blocked. New `CPD-GATE-06 canonical_directory_live_coverage` found Tel Aviv family `area=` passes with filtered H1 and 3 lawyer cards, while Jerusalem criminal `area=` has the filtered H1 but 0 lawyer cards, so that target is blocked for coverage. Private artifact boundary guard `PASS`.
+- REVIEW RESULT: the corrected `area=` parameter is valid, but the packet now prevents relying on the Jerusalem criminal filtered directory until a real lawyer-card coverage path exists or the draft plan is changed. The older `practice=` aliases remain city-only/generic and review-only.
+- LINEAR: recorded as `HAD-166`, marked Done under `HAD-165`, related to `HAD-145`, `HAD-151`, `HAD-152`, `HAD-147` and `HAD-160`.
+- PUBLIC IMPACT: none. This was private tooling/reporting and read-only live verification only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: live directory coverage gate 100%; Jerusalem criminal city/practice content/link execution remains blocked until lawyer coverage is fixed or an owner-approved alternate directory/CTA plan exists. Tel Aviv family directory coverage is now verified for private draft planning only.
+
 # LATEST WORK STATUS - 2026-05-27 07:24 Asia/Jerusalem
 - CITY/PRACTICE DIRECTORY FILTER POLICY CORRECTED: updated the private city/practice draft-brief source so canonical lawyer-directory links use `area=` and the older `practice=` URLs are retained only as unsupported-alias review references.
 - CODE UPDATED: `tools/build-city-practice-priority-draft-briefs.mjs`.

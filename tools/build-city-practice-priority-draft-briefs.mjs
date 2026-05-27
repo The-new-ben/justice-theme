@@ -20,6 +20,7 @@ const TARGETS = [
     pillarPath: '/divorce-lawyer/',
     directoryPath: '/lawyers/?city=tel-aviv&area=family-law',
     unsupportedDirectoryPath: '/lawyers/?city=tel-aviv&practice=family-law',
+    directoryExpectedTerms: ['דיני משפחה', 'תל אביב'],
     draftRole:
       'עמוד עזר מקומי ותמציתי שמפנה לעמוד הגירושין המרכזי ואינו מנסה להיות מדריך גירושין מלא.',
     introDraft:
@@ -43,6 +44,7 @@ const TARGETS = [
     pillarPath: '/criminal-lawyer/',
     directoryPath: '/lawyers/?city=jerusalem&area=criminal-law',
     unsupportedDirectoryPath: '/lawyers/?city=jerusalem&practice=criminal-law',
+    directoryExpectedTerms: ['משפט פלילי', 'ירושלים'],
     draftRole:
       'עמוד עזר מקומי למצבי חקירה, מעצר או כתב אישום, עם הפניה לעמוד הפלילי המרכזי ולבדיקת התאמה.',
     introDraft:
@@ -226,6 +228,15 @@ function countWords(text) {
   return String(text || '').split(/\s+/).filter(Boolean).length;
 }
 
+function countLawyerCards(html) {
+  return (String(html || '').match(/<article\b[^>]*class=["'][^"']*\blawyer-card\b/gi) || []).length;
+}
+
+function includesAllTerms(text, terms) {
+  const haystack = String(text || '').toLowerCase();
+  return terms.every((term) => haystack.includes(String(term).toLowerCase()));
+}
+
 async function fetchLive(url) {
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 12000);
@@ -239,13 +250,15 @@ async function fetchLive(url) {
       },
     });
     const html = await response.text();
+    const text = stripHtml(html);
     return {
       ok: response.ok,
       status: response.status,
       finalUrl: response.url,
       title: extractTitle(html),
       h1: extractFirstH1(html),
-      wordEstimate: countWords(stripHtml(html)),
+      wordEstimate: countWords(text),
+      lawyerCardCount: countLawyerCards(html),
     };
   } catch (error) {
     return {
@@ -255,6 +268,7 @@ async function fetchLive(url) {
       title: '',
       h1: '',
       wordEstimate: 0,
+      lawyerCardCount: 0,
       error: error.name === 'AbortError' ? 'timeout' : error.message,
     };
   } finally {
@@ -267,7 +281,23 @@ async function buildLiveRows(baseUrl) {
   for (const target of TARGETS) {
     const pillarUrl = new URL(target.pillarPath, baseUrl).toString();
     const targetUrl = new URL(target.targetPath, baseUrl).toString();
-    const [pillar, targetPage] = await Promise.all([fetchLive(pillarUrl), fetchLive(targetUrl)]);
+    const directoryUrl = new URL(target.directoryPath, baseUrl).toString();
+    const unsupportedDirectoryUrl = target.unsupportedDirectoryPath
+      ? new URL(target.unsupportedDirectoryPath, baseUrl).toString()
+      : '';
+    const [pillar, targetPage, directoryPage, unsupportedDirectoryPage] = await Promise.all([
+      fetchLive(pillarUrl),
+      fetchLive(targetUrl),
+      fetchLive(directoryUrl),
+      unsupportedDirectoryUrl ? fetchLive(unsupportedDirectoryUrl) : Promise.resolve(null),
+    ]);
+    const directoryMatchesExpected = includesAllTerms(
+      `${directoryPage.title} ${directoryPage.h1}`,
+      target.directoryExpectedTerms || [],
+    );
+    const unsupportedDirectoryMatchesExpected = unsupportedDirectoryPage
+      ? includesAllTerms(`${unsupportedDirectoryPage.title} ${unsupportedDirectoryPage.h1}`, target.directoryExpectedTerms || [])
+      : false;
 
     rows.push({
       id: `${target.id}-PILLAR`,
@@ -279,6 +309,7 @@ async function buildLiveRows(baseUrl) {
       title: pillar.title,
       h1: pillar.h1,
       word_estimate: pillar.wordEstimate,
+      lawyer_card_count: pillar.lawyerCardCount,
       gate: pillar.ok ? 'PASS_PILLAR_REACHABLE' : 'BLOCKED_PILLAR_NOT_REACHABLE',
       note: 'Pillar must stay the primary canonical/help page for the practice topic.',
     });
@@ -293,9 +324,54 @@ async function buildLiveRows(baseUrl) {
       title: targetPage.title,
       h1: targetPage.h1,
       word_estimate: targetPage.wordEstimate,
+      lawyer_card_count: targetPage.lawyerCardCount,
       gate: targetPage.ok ? 'REVIEW_TARGET_ALREADY_PUBLIC' : 'PASS_TARGET_NOT_PUBLIC_200',
       note: 'Target should remain private/draft until evidence, lawyer coverage, legal review and owner approval exist.',
     });
+
+    rows.push({
+      id: `${target.id}-DIRECTORY`,
+      slug: target.slug,
+      url: directoryUrl,
+      role: 'canonical_directory_live_check',
+      status: directoryPage.status,
+      final_url: directoryPage.finalUrl,
+      title: directoryPage.title,
+      h1: directoryPage.h1,
+      word_estimate: directoryPage.wordEstimate,
+      lawyer_card_count: directoryPage.lawyerCardCount,
+      expected_terms: (target.directoryExpectedTerms || []).join(' | '),
+      gate:
+        directoryPage.ok && directoryMatchesExpected && directoryPage.lawyerCardCount > 0
+          ? 'PASS_CANONICAL_DIRECTORY_FILTER_REACHABLE'
+          : directoryPage.ok
+            ? 'BLOCKED_CANONICAL_DIRECTORY_FILTER_GENERIC_OR_EMPTY'
+            : 'BLOCKED_CANONICAL_DIRECTORY_FILTER_UNREACHABLE',
+      note: 'Canonical filtered lawyer path for this private draft brief; verify before using in owner/editor packets.',
+    });
+
+    if (unsupportedDirectoryPage) {
+      rows.push({
+        id: `${target.id}-UNSUPPORTED-DIRECTORY`,
+        slug: target.slug,
+        url: unsupportedDirectoryUrl,
+        role: 'unsupported_directory_alias_live_check',
+        status: unsupportedDirectoryPage.status,
+        final_url: unsupportedDirectoryPage.finalUrl,
+        title: unsupportedDirectoryPage.title,
+        h1: unsupportedDirectoryPage.h1,
+        word_estimate: unsupportedDirectoryPage.wordEstimate,
+        lawyer_card_count: unsupportedDirectoryPage.lawyerCardCount,
+        expected_terms: (target.directoryExpectedTerms || []).join(' | '),
+        gate:
+          unsupportedDirectoryPage.ok && unsupportedDirectoryMatchesExpected
+            ? 'REVIEW_UNSUPPORTED_ALIAS_FILTERS_LIKE_CANONICAL'
+            : unsupportedDirectoryPage.ok
+              ? 'PASS_UNSUPPORTED_ALIAS_NOT_FILTERED_DO_NOT_USE'
+              : 'PASS_UNSUPPORTED_ALIAS_NOT_REACHABLE_DO_NOT_USE',
+        note: 'Review-only unsupported alias; do not publish or use as an internal link unless alias support is explicitly implemented.',
+      });
+    }
   }
   return rows;
 }
@@ -304,6 +380,10 @@ function buildBriefRows(liveRows) {
   return TARGETS.map((target) => {
     const targetLive = liveRows.find((row) => row.slug === target.slug && row.role === 'draft_target_public_exposure_check');
     const pillarLive = liveRows.find((row) => row.slug === target.slug && row.role === 'central_pillar_live_check');
+    const directoryLive = liveRows.find((row) => row.slug === target.slug && row.role === 'canonical_directory_live_check');
+    const unsupportedDirectoryLive = liveRows.find(
+      (row) => row.slug === target.slug && row.role === 'unsupported_directory_alias_live_check',
+    );
     const officialCount = SOURCE_ROWS.filter((row) => row.targetSlug === target.slug && row.type === 'official').length;
     const competitorCount = SOURCE_ROWS.filter((row) => row.targetSlug === target.slug && row.type === 'competitor').length;
 
@@ -316,6 +396,10 @@ function buildBriefRows(liveRows) {
       pillar_path: target.pillarPath,
       directory_path: target.directoryPath,
       unsupported_directory_path: target.unsupportedDirectoryPath || '',
+      directory_live_status: directoryLive?.status ?? '',
+      directory_live_gate: directoryLive?.gate ?? '',
+      directory_lawyer_card_count: directoryLive?.lawyer_card_count ?? 0,
+      unsupported_directory_gate: unsupportedDirectoryLive?.gate ?? '',
       target_public_status: targetLive?.status ?? '',
       target_public_gate: targetLive?.gate ?? '',
       pillar_status: pillarLive?.status ?? '',
@@ -343,6 +427,14 @@ function buildGateRows(liveRows, reportDate) {
   const targetPublicRows = liveRows.filter((row) => row.role === 'draft_target_public_exposure_check');
   const publicTargetRows = targetPublicRows.filter((row) => row.gate === 'REVIEW_TARGET_ALREADY_PUBLIC');
   const blockedPillars = liveRows.filter((row) => row.role === 'central_pillar_live_check' && row.gate !== 'PASS_PILLAR_REACHABLE');
+  const canonicalDirectoryRows = liveRows.filter((row) => row.role === 'canonical_directory_live_check');
+  const blockedCanonicalDirectories = canonicalDirectoryRows.filter(
+    (row) => row.gate !== 'PASS_CANONICAL_DIRECTORY_FILTER_REACHABLE',
+  );
+  const canonicalDirectoryCardCount = canonicalDirectoryRows.reduce(
+    (sum, row) => sum + Number(row.lawyer_card_count || 0),
+    0,
+  );
   const officialSources = SOURCE_ROWS.filter((row) => row.type === 'official').length;
   const competitorSources = SOURCE_ROWS.filter((row) => row.type === 'competitor').length;
   const directoryPolicyFailures = TARGETS.filter(
@@ -400,6 +492,17 @@ function buildGateRows(liveRows, reportDate) {
         ? 'Correct draft packet links to use area= before any owner/editor packet is promoted.'
         : 'Do not use practice= in draft or public links unless alias support is explicitly implemented and deployed.',
     },
+    {
+      id: 'CPD-GATE-06',
+      gate: 'canonical_directory_live_coverage',
+      status: blockedCanonicalDirectories.length ? 'BLOCKED' : 'PASS',
+      evidence: blockedCanonicalDirectories.length
+        ? `${blockedCanonicalDirectories.length} canonical directory URL(s) failed filtered-title/H1 or lawyer-card coverage.`
+        : `${canonicalDirectoryRows.length}/${TARGETS.length} canonical directory URLs returned filtered title/H1 evidence and ${canonicalDirectoryCardCount} lawyer card(s) total.`,
+      next_action: blockedCanonicalDirectories.length
+        ? 'Do not rely on the filtered directory path for draft/internal-link planning until coverage is fixed or replaced.'
+        : 'Use only the verified canonical area= directory path in private draft packets; keep unsupported aliases review-only.',
+    },
   ];
 }
 
@@ -430,20 +533,20 @@ function buildProjectMarkdown({ reportDate, status, gateRows, liveRows, briefRow
     '',
     '## Live Own-Site Checks',
     '',
-    '| ID | Slug | Role | Status | Gate | URL | H1 |',
-    '| --- | --- | --- | --- | --- | --- | --- |',
+    '| ID | Slug | Role | Status | Gate | URL | H1 | Lawyer Cards |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- |',
     ...liveRows.map(
       (row) =>
-        `| ${mdCell(row.id)} | ${mdCell(row.slug)} | ${mdCell(row.role)} | ${mdCell(row.status)} | ${mdCell(row.gate)} | ${mdCell(row.url)} | ${mdCell(row.h1)} |`,
+        `| ${mdCell(row.id)} | ${mdCell(row.slug)} | ${mdCell(row.role)} | ${mdCell(row.status)} | ${mdCell(row.gate)} | ${mdCell(row.url)} | ${mdCell(row.h1)} | ${mdCell(row.lawyer_card_count ?? '')} |`,
     ),
     '',
     '## Draft Brief Rows',
     '',
-    '| ID | Slug | Title | Target Gate | Pillar | Canonical Directory | Unsupported Alias | Draft Role | Publication Blockers |',
-    '| --- | --- | --- | --- | --- | --- | --- | --- | --- |',
+    '| ID | Slug | Title | Target Gate | Pillar | Canonical Directory | Directory Gate | Cards | Unsupported Alias | Draft Role | Publication Blockers |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |',
     ...briefRows.map(
       (row) =>
-        `| ${mdCell(row.id)} | ${mdCell(row.slug)} | ${mdCell(row.title_he)} | ${mdCell(row.target_public_gate)} | ${mdCell(row.pillar_path)} | ${mdCell(row.directory_path)} | ${mdCell(row.unsupported_directory_path)} | ${mdCell(row.draft_role)} | ${mdCell(row.publication_blockers)} |`,
+        `| ${mdCell(row.id)} | ${mdCell(row.slug)} | ${mdCell(row.title_he)} | ${mdCell(row.target_public_gate)} | ${mdCell(row.pillar_path)} | ${mdCell(row.directory_path)} | ${mdCell(row.directory_live_gate)} | ${mdCell(row.directory_lawyer_card_count)} | ${mdCell(row.unsupported_directory_path)} | ${mdCell(row.draft_role)} | ${mdCell(row.publication_blockers)} |`,
     ),
     '',
     '## Source Prompts',
@@ -562,6 +665,10 @@ async function main() {
       'pillar_path',
       'directory_path',
       'unsupported_directory_path',
+      'directory_live_status',
+      'directory_live_gate',
+      'directory_lawyer_card_count',
+      'unsupported_directory_gate',
       'target_public_status',
       'target_public_gate',
       'pillar_status',
@@ -600,9 +707,14 @@ async function main() {
         'title',
         'title_he',
         'url',
+        'final_url',
+        'h1',
         'pillar_path',
         'directory_path',
         'unsupported_directory_path',
+        'word_estimate',
+        'lawyer_card_count',
+        'expected_terms',
         'target_public_gate',
         'evidence',
         'next_action',

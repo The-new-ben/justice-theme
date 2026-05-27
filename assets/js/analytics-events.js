@@ -17,6 +17,19 @@
 		return field ? String(field.value || '').trim().slice(0, 120) : '';
 	}
 
+	function getSelectLabel(form, name) {
+		var field = form.querySelector('select[name="' + name + '"]');
+		var option;
+
+		if (!field || !field.value) {
+			return '';
+		}
+
+		option = field.options[field.selectedIndex];
+
+		return option ? String(option.textContent || '').trim().slice(0, 120) : field.value;
+	}
+
 	function getFormType(form) {
 		var action = getFormAction(form);
 
@@ -181,6 +194,74 @@
 		return true;
 	}
 
+	function applyAskLawyerWhatsAppPrefill(link) {
+		var href = link.getAttribute('href') || '';
+		var lowerHref = href.toLowerCase();
+		var form;
+		var messageParts;
+		var url;
+		var name;
+		var phone;
+		var area;
+		var city;
+		var urgency;
+		var message;
+
+		if (!link.closest('#ask-lawyer')) {
+			return;
+		}
+
+		if (lowerHref.indexOf('wa.me/') === -1 && lowerHref.indexOf('api.whatsapp.com') === -1) {
+			return;
+		}
+
+		form = document.querySelector('#ask-lawyer form');
+
+		if (!form) {
+			return;
+		}
+
+		name = getFieldValue(form, 'lead_name');
+		phone = getFieldValue(form, 'lead_phone');
+		area = getSelectLabel(form, 'lead_area');
+		city = getFieldValue(form, 'lead_city');
+		urgency = getSelectLabel(form, 'lead_urgency');
+		message = getFieldValue(form, 'lead_message');
+		messageParts = ['שלום, אני רוצה לבדוק פנייה משפטית דרך Jus-Tice.'];
+
+		if (area) {
+			messageParts.push('תחום: ' + area);
+		}
+
+		if (city) {
+			messageParts.push('עיר / אזור: ' + city);
+		}
+
+		if (urgency) {
+			messageParts.push('דחיפות: ' + urgency);
+		}
+
+		if (message) {
+			messageParts.push('תיאור קצר: ' + message);
+		}
+
+		if (name) {
+			messageParts.push('שם: ' + name);
+		}
+
+		if (phone) {
+			messageParts.push('טלפון: ' + phone);
+		}
+
+		try {
+			url = new URL(href, window.location.href);
+			url.searchParams.set('text', messageParts.join('\n'));
+			link.setAttribute('href', url.toString());
+		} catch (error) {
+			return;
+		}
+	}
+
 	function trackSuccessFromQuery() {
 		var query = new URLSearchParams(window.location.search);
 		var hashQuery = new URLSearchParams((window.location.hash || '').replace(/^#/, ''));
@@ -283,6 +364,8 @@
 		}
 
 		var appliedLeadPrefill = applyLeadPrefillFromLink(link);
+
+		applyAskLawyerWhatsAppPrefill(link);
 
 		var href = link.getAttribute('href') || '';
 		var lowerHref = href.toLowerCase();

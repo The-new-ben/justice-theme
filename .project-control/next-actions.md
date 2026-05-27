@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-LOW-HYPE-RV-PRIVATE-INTAKE-001: Prepare consent-safe private RV intake checklist
+**Status:** FIXED LOCAL / LIVE CRM AND PUBLIC EXECUTION STILL BLOCKED
+**Why:** GSC/public RV copy is still blocked, but the owner also needs a safe way to triage inbound or legacy WhatsApp/TalkTo RV-style disputes without contacting people or leaking PII before permission.
+**Actions:**
+1. DONE: add `tools/build-low-hype-rv-private-intake-checklist.mjs`.
+2. DONE: generate `.project-control/low-hype-rv-private-intake-checklist-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/low-hype-rv-private-intake-template-2026-05-27.csv`.
+4. DONE: generate `.reports/low-hype-rv-private-intake-checklist-2026-05-27.json` and `.csv`.
+5. DONE: define 10 private intake gates: permission/source, problem classification, evidence summary, value/suitability, legal review, no-PII partner preview, billing proof, legacy re-permission, public-site boundary and specialist-path escalation.
+6. DONE: confirm `PRIVATE_INTAKE_CHECKLIST_READY_NO_PUBLIC_OR_CRM_ACTION`, 10 checklist rows, 10 blank no-PII template rows, 0 public changes, 0 CRM records, 0 contact actions, 0 invoices/payments, 0 revenue claims, 0 GSC API calls and 0 emails.
+7. DONE: record as Linear `HAD-140`, marked Done under `HAD-75`.
+8. NEXT: owner/admin may use the template only after explicit permission for a current inbound person, or after a separately approved re-permission flow for old WhatsApp/TalkTo leads.
+9. BLOCKED: do not import old chats, create real CRM records, contact clients/lawyers/suppliers, send WhatsApp/TalkTo/email, invoice, mark paid, publish RV copy, create a standalone route, change SEO settings or uPress from this checklist alone.
+
 ### ACTION-LOW-HYPE-RV-GSC-EVIDENCE-REQUEST-001: Prepare focused GSC export template
 **Status:** FIXED LOCAL / EXPORT STILL NEEDS OWNER OR OPERATOR DATA
 **Why:** The RV SERP and live route-overlap packets both block public copy until Search Console proves whether there is query demand and which existing route owns it.

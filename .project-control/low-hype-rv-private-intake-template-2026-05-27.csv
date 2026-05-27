@@ -1,0 +1,11 @@
+intake_check_id,source_channel,inbound_or_legacy,permission_status,problem_category,evidence_flags_no_pii,amount_band,urgency_band,owner_decision,partner_preview_status,billing_proof_status,public_action_approved,operator_note_no_pii
+INTAKE-01,,,,,,,,not_filled,not_started,not_started,no,
+INTAKE-02,,,,,,,,not_filled,not_started,not_started,no,
+INTAKE-03,,,,,,,,not_filled,not_started,not_started,no,
+INTAKE-04,,,,,,,,not_filled,not_started,not_started,no,
+INTAKE-05,,,,,,,,not_filled,not_started,not_started,no,
+INTAKE-06,,,,,,,,not_filled,not_started,not_started,no,
+INTAKE-07,,,,,,,,not_filled,not_started,not_started,no,
+INTAKE-08,,,,,,,,not_filled,not_started,not_started,no,
+INTAKE-09,,,,,,,,not_filled,not_started,not_started,no,
+INTAKE-10,,,,,,,,not_filled,not_started,not_started,no,

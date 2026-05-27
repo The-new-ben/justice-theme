@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Low Hype/RV private intake checklist
+
+- ADDED: `tools/build-low-hype-rv-private-intake-checklist.mjs`.
+- GENERATED: `.project-control/low-hype-rv-private-intake-checklist-2026-05-27.md`, `.project-control/low-hype-rv-private-intake-checklist-2026-05-27.csv`, `.project-control/low-hype-rv-private-intake-template-2026-05-27.csv`, `.reports/low-hype-rv-private-intake-checklist-2026-05-27.json`, `.reports/low-hype-rv-private-intake-checklist-2026-05-27.csv`.
+- PURPOSE: turn the private Low Hype/RV rental/deposit/charge path into a consent-safe intake checklist that can later support WhatsApp/TalkTo/manual CRM work without contacting old leads or publishing public copy.
+- RESULT: `PRIVATE_INTAKE_CHECKLIST_READY_NO_PUBLIC_OR_CRM_ACTION`; 10 intake rows, 10 blank no-PII template rows, source gates from GSC evidence request, internal route overlap and SERP cannibalization packets, 0 public changes, 0 CRM records, 0 lead/lawyer/supplier contact actions, 0 invoices/payments, 0 revenue claims, 0 GSC API calls and 0 emails.
+- LINEAR: recorded as `HAD-140`, marked Done under `HAD-75`, related to `HAD-139`, `HAD-138`, `HAD-137`, `HAD-136`, `HAD-87` and `HAD-121`.
+- SAFETY: private owner/admin intake packet only; no public page, Low Hype label, CMS content, route, title/H1/meta, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer, supplier, invoice, payment, email, WhatsApp, TalkTo, wp-admin record or uPress deployment changed.
+
 # 2026-05-27 - Low Hype/RV GSC evidence request
 
 - ADDED: `tools/build-low-hype-rv-gsc-evidence-request.mjs`.

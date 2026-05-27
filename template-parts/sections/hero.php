@@ -15,13 +15,18 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-// Get practice area terms for dropdown
-$practice_terms = get_terms( array(
-	'taxonomy'   => 'practice-areas',
-	'hide_empty' => false,
-	'orderby'    => 'count',
-	'order'      => 'DESC',
-) );
+$hero_core_practices = array(
+	'family-law'          => __( 'דיני משפחה וגירושין', 'justice-theme' ),
+	'criminal-law'        => __( 'משפט פלילי', 'justice-theme' ),
+	'traffic-law'         => __( 'דיני תעבורה', 'justice-theme' ),
+	'real-estate-law'     => __( 'מקרקעין ונדל"ן', 'justice-theme' ),
+	'labor-law'           => __( 'דיני עבודה', 'justice-theme' ),
+	'inheritance-law'     => __( 'ירושה וצוואות', 'justice-theme' ),
+	'torts'               => __( 'נזיקין ותאונות', 'justice-theme' ),
+	'medical-malpractice' => __( 'רשלנות רפואית', 'justice-theme' ),
+	'tax-law'             => __( 'דיני מיסים', 'justice-theme' ),
+	'debt-collection'     => __( 'חובות והוצאה לפועל', 'justice-theme' ),
+);
 
 // Major Israeli cities for dropdown
 $israel_cities = array(
@@ -64,6 +69,25 @@ $hero_market_signals = array(
 		'text'  => __( 'אם צריך ייעוץ אישי, אפשר להשוות פרופילים או להשאיר פנייה מסודרת בלי הבטחה לתוצאה.', 'justice-theme' ),
 	),
 );
+
+$hero_first_steps = array(
+	array(
+		'label' => __( 'כתבו מה קרה', 'justice-theme' ),
+		'text'  => __( 'שורה אחת עם האירוע, הצד השני, העיר והתאריך החשוב ביותר.', 'justice-theme' ),
+	),
+	array(
+		'label' => __( 'שמרו מסמכים', 'justice-theme' ),
+		'text'  => __( 'מכתב, זימון, חוזה, החלטה, צילום או הודעה יכולים לשנות את הצעד הבא.', 'justice-theme' ),
+	),
+	array(
+		'label' => __( 'בדקו דחיפות', 'justice-theme' ),
+		'text'  => __( 'אם יש חקירה, מועד דיון, עיקול, פיטורים או דרישת תשלום, אל תחכו.', 'justice-theme' ),
+	),
+	array(
+		'label' => __( 'בחרו מסלול', 'justice-theme' ),
+		'text'  => __( 'אפשר להתחיל ממדריך, מחיפוש לפי תחום ועיר, או מפנייה לעורך דין מתאים.', 'justice-theme' ),
+	),
+);
 ?>
 
 <section class="hero hero--has-bg" id="hero" style="--hero-bg-image: url('<?php echo esc_url( $hero_bg ); ?>');">
@@ -85,17 +109,11 @@ $hero_market_signals = array(
 						</label>
 						<select id="hero-practice-area" name="area">
 							<option value=""><?php esc_html_e( 'בחרו תחום משפטי', 'justice-theme' ); ?></option>
-							<?php
-							if ( ! empty( $practice_terms ) && ! is_wp_error( $practice_terms ) ) :
-								foreach ( $practice_terms as $pterm ) :
-							?>
-								<option value="<?php echo esc_attr( $pterm->slug ); ?>">
-									<?php echo esc_html( $pterm->name ); ?>
+							<?php foreach ( $hero_core_practices as $practice_slug => $practice_label ) : ?>
+								<option value="<?php echo esc_attr( $practice_slug ); ?>">
+									<?php echo esc_html( $practice_label ); ?>
 								</option>
-							<?php
-								endforeach;
-							endif;
-							?>
+							<?php endforeach; ?>
 						</select>
 					</div>
 
@@ -127,6 +145,21 @@ $hero_market_signals = array(
 					</button>
 				</div>
 			</form>
+
+			<div class="hero__first-steps" aria-label="<?php esc_attr_e( 'מה עושים בעשר הדקות הראשונות', 'justice-theme' ); ?>">
+				<div class="hero__first-steps-intro">
+					<strong><?php esc_html_e( 'מה עושים בעשר הדקות הראשונות?', 'justice-theme' ); ?></strong>
+					<span><?php esc_html_e( 'לפני שמחפשים עורך דין, סדרו את המקרה כך שהשיחה או החיפוש יהיו מדויקים יותר.', 'justice-theme' ); ?></span>
+				</div>
+				<ol>
+					<?php foreach ( $hero_first_steps as $step ) : ?>
+						<li>
+							<strong><?php echo esc_html( $step['label'] ); ?></strong>
+							<span><?php echo esc_html( $step['text'] ); ?></span>
+						</li>
+					<?php endforeach; ?>
+				</ol>
+			</div>
 
 			<ul class="hero__market-signals" aria-label="<?php esc_attr_e( 'איך Jus-Tice עוזר לבחור עורך דין', 'justice-theme' ); ?>">
 				<?php foreach ( $hero_market_signals as $signal ) : ?>
@@ -177,28 +210,17 @@ $hero_market_signals = array(
 
 		<?php
 		// Quick-links bar — popular practice areas as chip buttons
-		$popular_terms = get_terms( array(
-			'taxonomy'   => 'practice-areas',
-			'hide_empty' => true,
-			'number'     => 10,
-			'orderby'    => 'count',
-			'order'      => 'DESC',
-		) );
-
-		if ( ! empty( $popular_terms ) && ! is_wp_error( $popular_terms ) ) :
+		// Core high-intent practice areas keep the homepage search clean.
 		?>
 		<div class="hero__panel" aria-label="<?php esc_attr_e( 'תחומי משפט נפוצים', 'justice-theme' ); ?>">
 			<h2><?php esc_html_e( 'תחומי חיפוש מרכזיים', 'justice-theme' ); ?></h2>
 
 			<ul class="hero__quick-links">
-				<?php 
-					foreach ( $popular_terms as $pterm ) : 
-						$pterm_url = justice_theme_public_term_link( $pterm );
-				?>
+				<?php foreach ( $hero_core_practices as $practice_slug => $practice_label ) : ?>
 					<li>
-						<a href="<?php echo esc_url( $pterm_url ); ?>">
-							<?php echo esc_html( $pterm->name ); ?>
-							<span><?php echo esc_html( $pterm->count ); ?></span>
+						<a href="<?php echo esc_url( home_url( '/lawyers/?area=' . rawurlencode( $practice_slug ) ) ); ?>">
+							<?php echo esc_html( $practice_label ); ?>
+							<span><?php esc_html_e( 'בדיקה', 'justice-theme' ); ?></span>
 						</a>
 					</li>
 				<?php endforeach; ?>
@@ -208,6 +230,5 @@ $hero_market_signals = array(
 				<?php esc_html_e( 'כל התחומים', 'justice-theme' ); ?>
 			</a>
 		</div>
-		<?php endif; ?>
 	</div>
 </section>

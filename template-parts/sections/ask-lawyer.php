@@ -13,14 +13,20 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $lead_prefill_area    = function_exists( 'justice_theme_current_lead_prefill_area' ) ? justice_theme_current_lead_prefill_area() : '';
 $lead_prefill_message = function_exists( 'justice_theme_current_lead_prefill_message' ) ? justice_theme_current_lead_prefill_message() : '';
+$justice_whatsapp     = function_exists( 'justice_theme_option' ) ? justice_theme_option( 'justice_whatsapp', '0525101555' ) : '0525101555';
+$whatsapp_digits      = preg_replace( '/\D+/', '', $justice_whatsapp );
+$whatsapp_digits      = preg_replace( '/^0/', '972', (string) $whatsapp_digits );
+$whatsapp_url         = $whatsapp_digits
+	? 'https://wa.me/' . $whatsapp_digits . '?text=' . rawurlencode( 'שלום, אני רוצה לבדוק פנייה משפטית דרך Jus-Tice. הנושא בקצרה: ' )
+	: '';
 ?>
 
 <section class="ask-lawyer section" id="ask-lawyer">
 	<div class="container ask-lawyer__inner">
 		<div class="ask-lawyer__content">
-			<p class="section-header__eyebrow"><?php esc_html_e( 'ייעוץ משפטי ראשוני', 'justice-theme' ); ?></p>
-			<h2><?php esc_html_e( 'שאלה משפטית? קבלו הכוונה ראשונית', 'justice-theme' ); ?></h2>
-			<p><?php esc_html_e( 'תארו את הבעיה המשפטית שלכם בקצרה ונפנה אתכם לעורך הדין המתאים בתחום ובאזור שלכם.', 'justice-theme' ); ?></p>
+			<p class="section-header__eyebrow"><?php esc_html_e( 'פנייה משפטית מסודרת', 'justice-theme' ); ?></p>
+			<h2><?php esc_html_e( 'השאירו פנייה עכשיו ונבין לאיזה מסלול משפטי היא שייכת', 'justice-theme' ); ?></h2>
+			<p><?php esc_html_e( 'כתבו מה קרה, באיזו עיר מדובר, מה הדחיפות ומה כבר קיבלתם בכתב. המטרה היא להפוך לחץ לפנייה ברורה שאפשר לבדוק, לסווג ולהעביר לעורך דין מתאים רק אם יש התאמה והסכמה.', 'justice-theme' ); ?></p>
 			<div class="ask-lawyer__visual">
 				<img src="<?php echo esc_url( JUSTICE_THEME_URI . '/assets/images/ask-lawyer-visual.png' ); ?>"
 					alt="<?php esc_attr_e( 'ייעוץ משפטי מקוון — שיחת וידאו עם עורך דין', 'justice-theme' ); ?>"
@@ -75,10 +81,17 @@ $lead_prefill_message = function_exists( 'justice_theme_current_lead_prefill_mes
 					<?php esc_html_e( 'אני מסכים/ה לתנאי השימוש ומדיניות הפרטיות', 'justice-theme' ); ?>
 				</label>
 			</div>
-			<button type="submit" class="button button--gold">
-				<?php esc_html_e( 'שליחת פנייה', 'justice-theme' ); ?>
-			</button>
-			<p class="ask-lawyer__disclaimer"><?php esc_html_e( 'הפנייה אינה מהווה ייעוץ משפטי. המידע יועבר לעורך דין מתאים בכפוף להסכמתכם.', 'justice-theme' ); ?></p>
+			<div class="ask-lawyer__actions">
+				<button type="submit" class="button button--gold">
+					<?php esc_html_e( 'שליחת פנייה לבדיקה', 'justice-theme' ); ?>
+				</button>
+				<?php if ( $whatsapp_url ) : ?>
+					<a class="button button--whatsapp-inline" href="<?php echo esc_url( $whatsapp_url ); ?>" target="_blank" rel="noopener">
+						<?php esc_html_e( 'פתיחת וואטסאפ', 'justice-theme' ); ?>
+					</a>
+				<?php endif; ?>
+			</div>
+			<p class="ask-lawyer__disclaimer"><?php esc_html_e( 'הפנייה אינה ייעוץ משפטי ואינה התחייבות להעברה לעורך דין. ניצור קשר רק לפי הפרטים שמסרתם ובהתאם להסכמה שנתתם.', 'justice-theme' ); ?></p>
 		</form>
 	</div>
 </section>

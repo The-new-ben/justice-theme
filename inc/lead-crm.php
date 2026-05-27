@@ -144,6 +144,7 @@ function justice_theme_render_crm_admin_page(): void {
 		<?php justice_theme_crm_render_btl_supply_panel(); ?>
 		<?php justice_theme_crm_render_qualified_lead_billing_queue(); ?>
 		<?php justice_theme_crm_render_homepage_router_lead_queue( $homepage_router_leads ); ?>
+		<?php justice_theme_crm_render_manual_invoice_bridge_panel(); ?>
 		<?php if ( function_exists( 'justice_theme_render_managed_service_fulfillment_panel' ) ) : ?>
 			<?php justice_theme_render_managed_service_fulfillment_panel(); ?>
 		<?php endif; ?>
@@ -4645,6 +4646,85 @@ function justice_theme_crm_render_homepage_router_lead_queue( ?WP_Query $queue )
 	</table>
 	<?php
 	wp_reset_postdata();
+}
+
+function justice_theme_crm_render_manual_invoice_bridge_panel(): void {
+	$invoice_queue_url = add_query_arg(
+		array(
+			'page'          => 'justice-lawyer-onboarding',
+			'payment_queue' => 'invoice_requested',
+		),
+		admin_url( 'admin.php' )
+	);
+	$payment_link_needed_url = add_query_arg(
+		array(
+			'page'                => 'justice-lawyer-onboarding',
+			'payment_link_status' => 'needed',
+		),
+		admin_url( 'admin.php' )
+	);
+	$payment_link_ready_url = add_query_arg(
+		array(
+			'page'                => 'justice-lawyer-onboarding',
+			'payment_link_status' => 'ready',
+		),
+		admin_url( 'admin.php' )
+	);
+	$plan_payments_url = admin_url( 'admin.php?page=justice-lawyer-plan-payments' );
+	$checklist_id      = 'justice-manual-invoice-bridge-checklist';
+	$checklist         = implode(
+		"\n",
+		array(
+			'Jus-Tice manual invoice bridge checklist',
+			'1. Confirm the lawyer or supplier is relevant for the lead practice/city and has accepted commercial terms.',
+			'2. Confirm billing identity, invoice email and selected plan or agreed qualified-lead fee.',
+			'3. Create a Morning/Grow/manual payment link or invoice outside the public site.',
+			'4. Save the invoice/payment reference on the lawyer or lead record.',
+			'5. Mark Invoice sent only after the reference is saved.',
+			'6. Mark Paid only after private payment evidence exists.',
+			'7. Activate profile, routing or handoff only after owner approval and payment proof.',
+			'Boundary: Grow/Meshulam online checkout is still provider-gated; do not claim automatic recurring billing until a controlled paid smoke test passes.',
+		)
+	);
+	?>
+	<div class="postbox" style="padding:0;margin:18px 0;border:1px solid #dcdcde;">
+		<div style="padding:16px 18px;border-bottom:1px solid #dcdcde;background:#fff;">
+			<h2 style="margin:0;">Manual invoice bridge while Grow/Meshulam is blocked</h2>
+			<p style="margin:8px 0 0;color:#50575e;">Owner-only bridge from lead or lawyer demand to money. Use this when a lead needs paid lawyer coverage or a lawyer is ready to pay, but online checkout is not fully approved.</p>
+		</div>
+		<div style="padding:18px;background:#f6f7f7;">
+			<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;">
+				<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+					<strong style="display:block;">1. Invoice requested</strong>
+					<p style="margin:8px 0;color:#50575e;">Open lawyers or lead handoffs that need a manual invoice or payment request.</p>
+					<a class="button button-primary" href="<?php echo esc_url( $invoice_queue_url ); ?>">Open invoice queue</a>
+				</div>
+				<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+					<strong style="display:block;">2. Payment link needed</strong>
+					<p style="margin:8px 0;color:#50575e;">Create the Morning/Grow/manual payment link, paste it on the record, then mark invoice sent.</p>
+					<a class="button" href="<?php echo esc_url( $payment_link_needed_url ); ?>">Open link-needed queue</a>
+				</div>
+				<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+					<strong style="display:block;">3. Payment link ready</strong>
+					<p style="margin:8px 0;color:#50575e;">Send or chase saved links, then mark paid only when evidence exists.</p>
+					<a class="button" href="<?php echo esc_url( $payment_link_ready_url ); ?>">Open ready links</a>
+				</div>
+				<div style="background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+					<strong style="display:block;">Plan/payment setup</strong>
+					<p style="margin:8px 0;color:#50575e;">Review plan mapping and provider readiness without enabling live recurring billing.</p>
+					<a class="button" href="<?php echo esc_url( $plan_payments_url ); ?>">Open plan payments</a>
+				</div>
+			</div>
+			<details style="margin-top:14px;background:#fff;border:1px solid #dcdcde;border-radius:8px;padding:14px;">
+				<summary style="cursor:pointer;font-weight:700;">Copy manual invoice checklist</summary>
+				<textarea id="<?php echo esc_attr( $checklist_id ); ?>" rows="9" readonly style="width:100%;margin-top:8px;"><?php echo esc_textarea( $checklist ); ?></textarea>
+				<p style="margin:8px 0 0;">
+					<button type="button" class="button" data-justice-copy-target="<?php echo esc_attr( $checklist_id ); ?>">Copy checklist</button>
+				</p>
+			</details>
+		</div>
+	</div>
+	<?php
 }
 
 function justice_theme_crm_query_uncovered_demand( int $limit ): ?WP_Query {

@@ -1,0 +1,5 @@
+issue_id,severity,source,issue,next_step,live_action_allowed
+OWNER-LMI-01-BLOCKED,BLOCKER,.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27-owner-reply.csv,Owner answer is blank.,"Owner answers yes, no or wait.",NO
+OWNER-LMI-02-BLOCKED,BLOCKER,.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27-owner-reply.csv,Owner answer is blank.,Owner selects exactly one target mode. Keep raw contact details out of repo files.,NO
+OWNER-LMI-03-BLOCKED,BLOCKER,.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27-owner-reply.csv,Owner answer is blank.,"Owner approves pro_349, or overrides with a written reason before any live action.",NO
+OWNER-LMI-04-BLOCKED,BLOCKER,.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27-owner-reply.csv,Owner answer is blank.,Owner approves the draft or asks for edits. No send is allowed from this review.,NO

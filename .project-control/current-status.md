@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-27 16:00 Asia/Jerusalem
+- LAWYER MANUAL INVOICE OWNER-REPLY REVIEW GATE ADDED: added a deterministic reviewer for the owner reply CSV so partial approval cannot be mistaken for permission to contact a lawyer, create CRM records, invoice or mark payment.
+- CODE ADDED: `tools/review-lawyer-manual-invoice-first-target-owner-reply.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.md`, `.project-control/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.csv`, `.project-control/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27-escalation.csv`, `.reports/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.json` and `.reports/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/review-lawyer-manual-invoice-first-target-owner-reply.mjs` passed. Running the reviewer against the current owner reply CSV returned `LAWYER_MANUAL_INVOICE_OWNER_REPLY_REVIEW_BLOCKED_NO_LIVE_ACTION`, 4 required rows, 0 pass rows, 4 blocked rows, 4 escalation rows, 0 duplicate rows, 0 unknown rows, 0 privacy flags, 0 live CRM/outreach approvals, 0 invoices/payments created, 0 revenue claims, 0 paid LLM API use and 0% live revenue impact.
+- REVIEW RESULT: the manual invoice lane remains the recommended first-revenue path, but live action is correctly blocked until the owner answers the four rows: lane approval, target mode, plan/price and Hebrew message.
+- PUBLIC/LIVE IMPACT: no public CMS/database content, live site, route, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting, paid LLM API, merge to main or uPress pull changed.
+- COMPLETION ASSESSMENT: owner-reply review gate 100%; owner decision fill 0%; live profit impact remains 0%.
+
 # LATEST WORK STATUS - 2026-05-27 15:50 Asia/Jerusalem
 - LAWYER MANUAL INVOICE FIRST-TARGET CHECKLIST ADDED: converted the recommended first-revenue lane into a one-target approval checklist so the next live step is not vague outreach, but an owner-approved Pro 349 ILS manual-invoice close.
 - CODE ADDED: `tools/build-lawyer-manual-invoice-first-target-checklist.mjs`.

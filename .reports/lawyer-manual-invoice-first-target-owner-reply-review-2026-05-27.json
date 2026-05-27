@@ -1,0 +1,111 @@
+{
+  "status": "LAWYER_MANUAL_INVOICE_OWNER_REPLY_REVIEW_BLOCKED_NO_LIVE_ACTION",
+  "reportDate": "2026-05-27",
+  "filledCsv": ".project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27-owner-reply.csv",
+  "requiredRows": 4,
+  "passRows": 0,
+  "blockedRows": 4,
+  "duplicateRows": 0,
+  "unknownRows": 0,
+  "escalationRows": 4,
+  "privacyFlagRows": 0,
+  "readyForGenericDraftOnly": false,
+  "readyForPrivateTargetPrep": false,
+  "liveContactAllowed": false,
+  "liveCrmOrOutreachApproved": 0,
+  "invoicesOrPaymentsCreated": 0,
+  "revenueClaimsApproved": 0,
+  "publicCmsChangesApproved": 0,
+  "paidLlmApiUsed": 0,
+  "upressDeploymentRequired": false,
+  "readinessToProfitPercent": 88,
+  "liveRevenueImpactPercent": 0,
+  "honestyStatement": "This reviewer can clear an internal owner-decision gate, but it never sends outreach, creates CRM records, invoices, requests payment, marks paid, publishes or deploys.",
+  "generated": {
+    "projectMd": ".project-control/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.md",
+    "projectCsv": ".project-control/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.csv",
+    "escalationCsv": ".project-control/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27-escalation.csv",
+    "reportJson": ".reports/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.json",
+    "reportCsv": ".reports/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.csv"
+  },
+  "reviews": [
+    {
+      "row_id": "OWNER-LMI-01",
+      "decision_needed": "Approve lawyer subscription manual invoice as the next lane.",
+      "owner_answer": "",
+      "owner_note_present": "no",
+      "status": "BLOCKED",
+      "reason": "Owner answer is blank.",
+      "private_pattern_found": "no",
+      "next_step": "Owner answers yes, no or wait.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "row_id": "OWNER-LMI-02",
+      "decision_needed": "Choose target mode.",
+      "owner_answer": "",
+      "owner_note_present": "no",
+      "status": "BLOCKED",
+      "reason": "Owner answer is blank.",
+      "private_pattern_found": "no",
+      "next_step": "Owner selects exactly one target mode. Keep raw contact details out of repo files.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "row_id": "OWNER-LMI-03",
+      "decision_needed": "Approve first-offer plan and price.",
+      "owner_answer": "",
+      "owner_note_present": "no",
+      "status": "BLOCKED",
+      "reason": "Owner answer is blank.",
+      "private_pattern_found": "no",
+      "next_step": "Owner approves pro_349, or overrides with a written reason before any live action.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "row_id": "OWNER-LMI-04",
+      "decision_needed": "Approve or edit Hebrew message draft.",
+      "owner_answer": "",
+      "owner_note_present": "no",
+      "status": "BLOCKED",
+      "reason": "Owner answer is blank.",
+      "private_pattern_found": "no",
+      "next_step": "Owner approves the draft or asks for edits. No send is allowed from this review.",
+      "live_action_allowed": "NO"
+    }
+  ],
+  "escalations": [
+    {
+      "issue_id": "OWNER-LMI-01-BLOCKED",
+      "severity": "BLOCKER",
+      "source": ".project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27-owner-reply.csv",
+      "issue": "Owner answer is blank.",
+      "next_step": "Owner answers yes, no or wait.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "issue_id": "OWNER-LMI-02-BLOCKED",
+      "severity": "BLOCKER",
+      "source": ".project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27-owner-reply.csv",
+      "issue": "Owner answer is blank.",
+      "next_step": "Owner selects exactly one target mode. Keep raw contact details out of repo files.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "issue_id": "OWNER-LMI-03-BLOCKED",
+      "severity": "BLOCKER",
+      "source": ".project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27-owner-reply.csv",
+      "issue": "Owner answer is blank.",
+      "next_step": "Owner approves pro_349, or overrides with a written reason before any live action.",
+      "live_action_allowed": "NO"
+    },
+    {
+      "issue_id": "OWNER-LMI-04-BLOCKED",
+      "severity": "BLOCKER",
+      "source": ".project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27-owner-reply.csv",
+      "issue": "Owner answer is blank.",
+      "next_step": "Owner approves the draft or asks for edits. No send is allowed from this review.",
+      "live_action_allowed": "NO"
+    }
+  ]
+}

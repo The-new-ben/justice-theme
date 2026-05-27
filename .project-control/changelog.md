@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Lawyer manual invoice owner-reply review gate
+
+- ADDED: `tools/review-lawyer-manual-invoice-first-target-owner-reply.mjs`.
+- GENERATED: `.project-control/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.md`, `.project-control/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.csv`, `.project-control/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27-escalation.csv`, `.reports/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.json` and `.reports/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.csv`.
+- PURPOSE: review the owner reply CSV before any first-lawyer subscription action and block partial, blank, non-recommended or privacy-leaking answers.
+- RESULT: `LAWYER_MANUAL_INVOICE_OWNER_REPLY_REVIEW_BLOCKED_NO_LIVE_ACTION`; 4 required rows, 0 pass rows, 4 blocked rows, 4 escalation rows, 0 duplicate rows, 0 unknown rows, 0 privacy flags and 0 live revenue impact.
+- SAFETY: private reviewer only; no lawyer contact, CRM/admin edit, invoice, payment request, paid status, profile publication, public CMS edit, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, merge to main or uPress deployment changed.
+
 # 2026-05-27 - Lawyer manual invoice first-target checklist
 
 - ADDED: `tools/build-lawyer-manual-invoice-first-target-checklist.mjs`.

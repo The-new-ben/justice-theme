@@ -1,0 +1,5 @@
+row_id,decision_needed,owner_answer,owner_note_present,status,reason,private_pattern_found,next_step,live_action_allowed
+OWNER-LMI-01,Approve lawyer subscription manual invoice as the next lane.,,no,BLOCKED,Owner answer is blank.,no,"Owner answers yes, no or wait.",NO
+OWNER-LMI-02,Choose target mode.,,no,BLOCKED,Owner answer is blank.,no,Owner selects exactly one target mode. Keep raw contact details out of repo files.,NO
+OWNER-LMI-03,Approve first-offer plan and price.,,no,BLOCKED,Owner answer is blank.,no,"Owner approves pro_349, or overrides with a written reason before any live action.",NO
+OWNER-LMI-04,Approve or edit Hebrew message draft.,,no,BLOCKED,Owner answer is blank.,no,Owner approves the draft or asks for edits. No send is allowed from this review.,NO

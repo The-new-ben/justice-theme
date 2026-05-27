@@ -17,6 +17,18 @@
 7. NEXT AFTER OWNER APPROVAL: use the existing manual invoice registration path only for the approved target and only after billing/legal fit checks.
 8. BLOCKED: no lawyer contact, CRM/admin write, invoice, payment request, invoice_sent, paid status, public profile activation, public CMS edit, uPress pull or revenue claim without explicit owner approval and private payment proof.
 
+### ACTION-LAWYER-MANUAL-INVOICE-OWNER-REPLY-REVIEW-001: Review owner reply before first paid lawyer action
+**Status:** FIXED LOCAL / BLOCKED UNTIL OWNER FILLS REPLY CSV
+**Why:** The owner asked for profit progress and honesty. This gate prevents Codex from treating a blank or partial answer as permission to contact a lawyer, write CRM, invoice or claim revenue.
+**Actions:**
+1. DONE: add `tools/review-lawyer-manual-invoice-first-target-owner-reply.mjs`.
+2. DONE: generate `.project-control/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.md`, `.csv` and escalation CSV.
+3. DONE: generate `.reports/lawyer-manual-invoice-first-target-owner-reply-review-2026-05-27.json` and `.csv`.
+4. DONE: confirm `LAWYER_MANUAL_INVOICE_OWNER_REPLY_REVIEW_BLOCKED_NO_LIVE_ACTION`, 4 required rows, 0 pass rows, 4 blocked rows, 4 escalation rows, 0 privacy flags and 0 live impact.
+5. NEXT: owner fills `.project-control/lawyer-manual-invoice-first-target-checklist-2026-05-27-owner-reply.csv`.
+6. NEXT AFTER OWNER FILL: rerun the reviewer; only if all gates pass, prepare the single approved target action without sending or invoicing automatically.
+7. BLOCKED: no live contact, admin write, invoice, payment request, paid status, public profile activation, uPress pull or revenue claim from this reviewer.
+
 ### ACTION-FIRST-REVENUE-LANE-SCORECARD-001: Owner selects exactly one next revenue lane
 **Status:** FIXED LOCAL / WAITING FOR OWNER DECISION
 **Why:** The owner asked why there is no revenue and why Codex is drifting. The highest leverage next step is to force one ranked lane instead of continuing parallel work across all ideas.

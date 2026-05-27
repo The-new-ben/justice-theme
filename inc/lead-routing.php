@@ -123,6 +123,88 @@ function justice_theme_route_lead_to_lawyers( int $post_id, WP_Post $post, bool 
 add_action( 'save_post_justice_lead', 'justice_theme_route_lead_to_lawyers', 30, 3 );
 
 /**
+ * Ensure public site leads become owner-visible revenue work even if another
+ * active plugin handled the form submission before the theme could tag it.
+ *
+ * @param int     $post_id Lead post ID.
+ * @param WP_Post $post    Lead post object.
+ * @param bool    $update  Whether this is an update.
+ */
+function justice_theme_prime_public_lead_revenue_triage_on_save( int $post_id, WP_Post $post, bool $update ): void {
+	if ( wp_is_post_revision( $post_id ) || 'justice_lead' !== $post->post_type ) {
+		return;
+	}
+
+	$source_channel = (string) get_post_meta( $post_id, 'source_channel', true );
+	$manual_sources = array( 'whatsapp_manual', 'whatsapp_business', 'whatsapp_export', 'talkto_chatbot', 'legacy_import_csv', 'email_forward', 'phone_call', 'owner_note' );
+	if ( in_array( $source_channel, $manual_sources, true ) ) {
+		return;
+	}
+
+	$has_public_contact = (string) get_post_meta( $post_id, 'visitor_phone', true )
+		|| (string) get_post_meta( $post_id, 'visitor_email', true )
+		|| (string) get_post_meta( $post_id, 'lead_phone', true )
+		|| (string) get_post_meta( $post_id, 'lead_email', true );
+
+	if ( ! $has_public_contact ) {
+		return;
+	}
+
+	$source_url = (string) get_post_meta( $post_id, 'source_url', true );
+	if ( '' === $source_url ) {
+		$source_url = home_url( '/' );
+		update_post_meta( $post_id, 'source_url', $source_url );
+	}
+
+	if ( '' === $source_channel ) {
+		update_post_meta( $post_id, 'source_channel', 'public_site_form' );
+	}
+
+	if ( '' === (string) get_post_meta( $post_id, 'source_system', true ) ) {
+		update_post_meta( $post_id, 'source_system', 'justice_public_site' );
+	}
+
+	if ( '' === (string) get_post_meta( $post_id, 'source_page_url', true ) ) {
+		update_post_meta( $post_id, 'source_page_url', $source_url );
+	}
+
+	if ( '' === (string) get_post_meta( $post_id, 'lead_source_surface', true ) ) {
+		update_post_meta( $post_id, 'lead_source_surface', 'public_site_form' );
+	}
+
+	if ( '' === (string) get_post_meta( $post_id, 'follow_up_status', true ) ) {
+		update_post_meta( $post_id, 'follow_up_status', 'not_started' );
+	}
+
+	if ( '' === (string) get_post_meta( $post_id, 'coverage_status', true ) ) {
+		update_post_meta( $post_id, 'coverage_status', 'coverage_review' );
+	}
+
+	if ( '' === (string) get_post_meta( $post_id, 'consent_status', true ) ) {
+		$consent_status = '1' === (string) get_post_meta( $post_id, 'consent', true ) ? 'explicit_site_form_consent' : 'missing_site_form_consent';
+		update_post_meta( $post_id, 'consent_status', $consent_status );
+	}
+
+	if ( '' === (string) get_post_meta( $post_id, 'lead_revenue_model', true ) ) {
+		update_post_meta( $post_id, 'lead_revenue_model', 'public_intake_review' );
+	}
+
+	if ( '' === (string) get_post_meta( $post_id, 'qualified_lead_billing_status', true ) ) {
+		update_post_meta( $post_id, 'qualified_lead_billing_status', 'not_ready' );
+	}
+
+	if ( '' === (string) get_post_meta( $post_id, 'lead_revenue_notes', true ) ) {
+		update_post_meta( $post_id, 'lead_revenue_notes', 'Public site lead. Qualify need, consent, coverage and lawyer commercial terms before billing.' );
+	}
+
+	if ( '' === (string) get_post_meta( $post_id, 'owner_revenue_next_step', true ) ) {
+		update_post_meta( $post_id, 'owner_revenue_next_step', 'Review this public lead quickly, call or WhatsApp the visitor, confirm legal area and consent, then assign only to a paid/approved lawyer path. Do not mark paid without payment evidence.' );
+	}
+}
+// Priority 23 = before revenue product hints and before automatic routing.
+add_action( 'save_post_justice_lead', 'justice_theme_prime_public_lead_revenue_triage_on_save', 23, 3 );
+
+/**
  * Prime revenue hints before routing so held leads still reach the right billing queue.
  *
  * Manual/WhatsApp/TalkTo leads often stay on routing hold until consent and partner

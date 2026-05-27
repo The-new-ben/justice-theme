@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-LAWYER-DASHBOARD-LIFECYCLE-PREFLIGHT-001: Strengthen manual-review proof before the live lawyer walkthrough
+**Status:** FIXED LOCAL / LIVE WALKTHROUGH STILL BLOCKED
+**Why:** The owner wants a later end-to-end lawyer flow covering registration, CRM, payment, money-back/refund, upgrade and downgrade. Before touching live records or money, the private preflight must prove the dashboard routes those lifecycle actions into owner-reviewed service requests rather than automatic charge/refund/cancel/plan changes.
+**Actions:**
+1. DONE: update `tools/check-lawyer-subscription-e2e-preflight.mjs` to inspect the dashboard JavaScript preset behavior.
+2. DONE: expand the dashboard page gate to require payment link, manual invoice review, shortcut groups for payment/invoice, upgrade/downgrade/cancel, lead-quality/complaint/refund, and owner-review copy.
+3. DONE: expand the server handler gate to require all current service request types and presets: billing, payment link, invoice copy, upgrade, downgrade, cancellation, refund, complaint and lead quality.
+4. DONE: add `LSE-07` proving dashboard presets are form-fill-only helpers and not automatic payment or plan mutations.
+5. DONE: regenerate `.project-control/lawyer-subscription-e2e-preflight-2026-05-27.md` and `.csv`.
+6. DONE: regenerate `.reports/lawyer-subscription-e2e-preflight-2026-05-27.json` and `.csv`.
+7. DONE: verify `PASS_WITH_RUNTIME_BLOCKERS`, 10/10 static gates, 0 warnings, 0 blocked static gates, and private boundary guard `PASS`.
+8. DONE: record as Linear `HAD-161`, marked Done under `HAD-71`.
+9. NEXT: use this strengthened packet during the owner-controlled walkthrough after the owner chooses the controlled test identity, inbox/phone, payment path and evidence location.
+10. BLOCKED: do not submit live registration, create/update lawyer records, send payment links, charge/refund/cancel/upgrade/downgrade, route leads, mark paid, count revenue, edit public pages, change SEO settings or uPress from this private preflight alone.
+
 ### ACTION-HOMEPAGE-CTA-LOWER-SECTION-GUARD-001: Guard the homepage lawyer-card CTA cleanup before public implementation
 **Status:** FIXED LOCAL / PUBLIC HOMEPAGE CHANGE STILL BLOCKED
 **Why:** The owner wants public-facing pages to feel commercially good for legal-help seekers, while the live homepage CTA audit still shows repeated lawyer-card action text and the earlier visual QA did not capture the lower card section.

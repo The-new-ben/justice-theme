@@ -6,7 +6,7 @@ Scope: repo-local, no-PII static preflight for the later lawyer registration, su
 
 ## What This Proves
 
-- Static gates passing: 9/9
+- Static gates passing: 10/10
 - Warnings: 0
 - Blocked static gates: 0
 - Public CMS/database state was not changed.
@@ -18,6 +18,7 @@ Scope: repo-local, no-PII static preflight for the later lawyer registration, su
 - A controlled live registration must be owner-approved before creating/editing production lawyer records.
 - Grow/Meshulam/Morning provider setup, product mapping and real payment-link behavior remain outside static repo proof.
 - A real transaction/reference plus invoice or receipt proof must be recorded before subscription revenue is counted.
+- Dashboard preset buttons are form-fill helpers only; owner/admin must review each payment, upgrade, downgrade, cancellation, refund or invoice request before changing plan/payment state.
 - Upgrade, downgrade, cancellation and refund flows need one controlled live service-request drill each.
 - Lead revenue needs a consented controlled lead, accepted lawyer/supplier terms, owner release and billing evidence.
 
@@ -27,7 +28,7 @@ Scope: repo-local, no-PII static preflight for the later lawyer registration, su
 - 2. Lawyer selects a paid plan or fallback manual-invoice path.
 - 3. Registration captures plan interest, account path and billing fields.
 - 4. Admin onboarding queue records invoice/payment link status.
-- 5. Lawyer dashboard exposes payment link and service requests.
+- 5. Lawyer dashboard exposes payment link and form-fill-only service request presets for payment, invoice, upgrade, downgrade, cancellation, refund, lead-quality and complaint scenarios.
 - 6. A controlled lead is assigned and stage-updated from the lawyer dashboard.
 - 7. CRM records invoice/reference and payment evidence before revenue is counted.
 
@@ -39,11 +40,12 @@ Scope: repo-local, no-PII static preflight for the later lawyer registration, su
 | LSE-02 | manual_invoice_checkout_fallback | PASS | 10/10 markers found | During walkthrough, open the fallback checkout path and verify customer fields, terms, cancellation and privacy links. |
 | LSE-03 | lawyer_registration_captures_plan_and_billing | PASS | 8/8 markers found | Create only an owner-approved test lawyer/profile in the live walkthrough, then confirm billing metadata lands on the draft profile. |
 | LSE-04 | onboarding_admin_payment_queue | PASS | 8/8 markers found | In wp-admin, verify the lawyer appears in the correct billing queue and only send payment email from an owner-approved test record. |
-| LSE-05 | lawyer_dashboard_payment_and_service_requests | PASS | 5/5 markers found | Walk through the lawyer dashboard after a claimed profile exists: payment link, upgrade, downgrade, cancel, refund, invoice and lead-stage update. |
-| LSE-06 | lawyer_dashboard_request_handlers | PASS | 7/7 markers found | Submit one controlled dashboard service request and one lead-stage update only after the live test lawyer exists. |
-| LSE-07 | qualified_lead_billing_proof_fields | PASS | 7/7 markers found | After a controlled lead is assigned, record invoice/payment proof before counting revenue. |
-| LSE-08 | grow_compliance_checker_available | PASS | 6/6 markers found | Run the Grow checker before provider/payment walkthrough and keep the generated artifacts private. |
-| LSE-09 | stale_live_funnel_checker_quarantined | PASS | No stale marker detected in old live funnel checker. | Old checker appears safe for review, but prefer this current preflight for the subscription walkthrough. |
+| LSE-05 | lawyer_dashboard_payment_and_service_requests | PASS | 11/11 markers found | Walk through the lawyer dashboard after a claimed profile exists: payment link, upgrade, downgrade, cancel, refund, invoice, lead-quality, complaint and lead-stage update. |
+| LSE-06 | lawyer_dashboard_request_handlers | PASS | 22/22 markers found | Submit one controlled dashboard service request and one lead-stage update only after the live test lawyer exists. |
+| LSE-07 | dashboard_presets_are_form_fill_only | PASS | 8/8 markers found | Use dashboard preset buttons only as form-fill helpers during the live walkthrough; owner/admin review remains required before payment, plan or refund changes. |
+| LSE-08 | qualified_lead_billing_proof_fields | PASS | 7/7 markers found | After a controlled lead is assigned, record invoice/payment proof before counting revenue. |
+| LSE-09 | grow_compliance_checker_available | PASS | 6/6 markers found | Run the Grow checker before provider/payment walkthrough and keep the generated artifacts private. |
+| LSE-10 | stale_live_funnel_checker_quarantined | PASS | No stale marker detected in old live funnel checker. | Old checker appears safe for review, but prefer this current preflight for the subscription walkthrough. |
 
 ## Safety Statement
 

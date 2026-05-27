@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Lawyer dashboard lifecycle preflight strengthened
+
+- UPDATED: `tools/check-lawyer-subscription-e2e-preflight.mjs`.
+- REGENERATED: `.project-control/lawyer-subscription-e2e-preflight-2026-05-27.md`, `.project-control/lawyer-subscription-e2e-preflight-2026-05-27.csv`, `.reports/lawyer-subscription-e2e-preflight-2026-05-27.json`, `.reports/lawyer-subscription-e2e-preflight-2026-05-27.csv`, plus refreshed `.project-control/private-artifact-boundary-guard-2026-05-27.md` and `.csv`.
+- PURPOSE: make the later owner lawyer-registration/payment/CRM/refund/upgrade/downgrade walkthrough safer by proving dashboard shortcuts are manual-review service requests, not automatic money or plan mutations.
+- RESULT: subscription E2E preflight now returns `PASS_WITH_RUNTIME_BLOCKERS` with 10/10 gates, 0 warnings and 0 blocked static gates; dashboard page markers increased to 11/11, handler markers to 22/22 and a new JavaScript form-fill-only gate passes 8/8.
+- LINEAR: recorded as `HAD-161`, marked Done under `HAD-71`, related to `HAD-117`, `HAD-157`, `HAD-118` and `HAD-154`.
+- SAFETY: private preflight/reporting only; no public CMS edit, route, title/H1/meta/body, SEO setting, CRM record, lawyer profile, lead, supplier, invoice, payment, email, WhatsApp, TalkTo, webhook, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Homepage CTA lower-section implementation guard
 
 - ADDED: `tools/build-homepage-cta-lower-section-implementation-guard.mjs`.

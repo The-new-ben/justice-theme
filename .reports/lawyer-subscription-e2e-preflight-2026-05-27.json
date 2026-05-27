@@ -2,8 +2,8 @@
   "summary": {
     "reportDate": "2026-05-27",
     "status": "PASS_WITH_RUNTIME_BLOCKERS",
-    "totalGates": 9,
-    "passCount": 9,
+    "totalGates": 10,
+    "passCount": 10,
     "warnCount": 0,
     "blockedCount": 0,
     "runtimeBlockers": [
@@ -11,6 +11,7 @@
       "A controlled live registration must be owner-approved before creating/editing production lawyer records.",
       "Grow/Meshulam/Morning provider setup, product mapping and real payment-link behavior remain outside static repo proof.",
       "A real transaction/reference plus invoice or receipt proof must be recorded before subscription revenue is counted.",
+      "Dashboard preset buttons are form-fill helpers only; owner/admin must review each payment, upgrade, downgrade, cancellation, refund or invoice request before changing plan/payment state.",
       "Upgrade, downgrade, cancellation and refund flows need one controlled live service-request drill each.",
       "Lead revenue needs a consented controlled lead, accepted lawyer/supplier terms, owner release and billing evidence."
     ],
@@ -19,6 +20,7 @@
       "A controlled live registration must be owner-approved before creating/editing production lawyer records.",
       "Grow/Meshulam/Morning provider setup, product mapping and real payment-link behavior remain outside static repo proof.",
       "A real transaction/reference plus invoice or receipt proof must be recorded before subscription revenue is counted.",
+      "Dashboard preset buttons are form-fill helpers only; owner/admin must review each payment, upgrade, downgrade, cancellation, refund or invoice request before changing plan/payment state.",
       "Upgrade, downgrade, cancellation and refund flows need one controlled live service-request drill each.",
       "Lead revenue needs a consented controlled lead, accepted lawyer/supplier terms, owner release and billing evidence."
     ]
@@ -69,23 +71,33 @@
       "gate": "lawyer_dashboard_payment_and_service_requests",
       "status": "PASS",
       "file": "page-lawyer-dashboard.php",
-      "evidence": "5/5 markers found",
+      "evidence": "11/11 markers found",
       "missing_markers": "",
-      "next_action": "Walk through the lawyer dashboard after a claimed profile exists: payment link, upgrade, downgrade, cancel, refund, invoice and lead-stage update.",
-      "owner_notice": "Requires a real logged-in lawyer user linked to a claimed lawyer profile."
+      "next_action": "Walk through the lawyer dashboard after a claimed profile exists: payment link, upgrade, downgrade, cancel, refund, invoice, lead-quality, complaint and lead-stage update.",
+      "owner_notice": "Requires a real logged-in lawyer user linked to a claimed lawyer profile; dashboard copy keeps payment/account actions under owner review."
     },
     {
       "id": "LSE-06",
       "gate": "lawyer_dashboard_request_handlers",
       "status": "PASS",
       "file": "inc/lawyer-dashboard.php",
-      "evidence": "7/7 markers found",
+      "evidence": "22/22 markers found",
       "missing_markers": "",
       "next_action": "Submit one controlled dashboard service request and one lead-stage update only after the live test lawyer exists.",
-      "owner_notice": "This proves handlers exist; it does not prove a live lawyer session or lead assignment exists."
+      "owner_notice": "This proves all current lifecycle request types are routed into saved owner-review requests; it does not prove a live lawyer session or lead assignment exists."
     },
     {
       "id": "LSE-07",
+      "gate": "dashboard_presets_are_form_fill_only",
+      "status": "PASS",
+      "file": "assets/js/lawyer-dashboard.js",
+      "evidence": "8/8 markers found",
+      "missing_markers": "",
+      "next_action": "Use dashboard preset buttons only as form-fill helpers during the live walkthrough; owner/admin review remains required before payment, plan or refund changes.",
+      "owner_notice": "Dashboard presets do not charge, refund, cancel, upgrade or downgrade automatically."
+    },
+    {
+      "id": "LSE-08",
       "gate": "qualified_lead_billing_proof_fields",
       "status": "PASS",
       "file": "inc/lead-crm.php",
@@ -95,7 +107,7 @@
       "owner_notice": "Revenue is not proven until invoice/reference and payment evidence are recorded."
     },
     {
-      "id": "LSE-08",
+      "id": "LSE-09",
       "gate": "grow_compliance_checker_available",
       "status": "PASS",
       "file": "tools/check-grow-payment-compliance.mjs",
@@ -105,7 +117,7 @@
       "owner_notice": "This checks public compliance markers, not live recurring billing."
     },
     {
-      "id": "LSE-09",
+      "id": "LSE-10",
       "gate": "stale_live_funnel_checker_quarantined",
       "status": "PASS",
       "file": "tools/check-live-lawyer-revenue-funnel.mjs",

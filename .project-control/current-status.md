@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 06:44 Asia/Jerusalem
+- LAWYER DASHBOARD LIFECYCLE PREFLIGHT STRENGTHENED: tightened the private lawyer subscription E2E preflight so the later owner walkthrough now proves the dashboard has explicit manual-review coverage for payment links, invoices, upgrades, downgrades, cancellations, refunds, lead-quality issues, complaints and lead-stage updates.
+- CODE UPDATED: `tools/check-lawyer-subscription-e2e-preflight.mjs`.
+- GENERATED/UPDATED PRIVATE ARTIFACTS: `.project-control/lawyer-subscription-e2e-preflight-2026-05-27.md`, `.project-control/lawyer-subscription-e2e-preflight-2026-05-27.csv`, `.reports/lawyer-subscription-e2e-preflight-2026-05-27.json`, `.reports/lawyer-subscription-e2e-preflight-2026-05-27.csv`, plus refreshed `.project-control/private-artifact-boundary-guard-2026-05-27.md` and `.csv` line references.
+- CHECK RESULT: `PASS_WITH_RUNTIME_BLOCKERS`; static gates improved from 9/9 to 10/10, warnings 0, blocked static gates 0. New proof includes 11/11 dashboard page markers, 22/22 server handler markers, and a new 8/8 JavaScript gate proving preset buttons only prefill the service request form.
+- REVIEW RESULT: the dashboard path is safer for the later full walkthrough because the repo now catches accidental automatic charge/refund/cancel/upgrade/downgrade behavior. Live proof still requires owner-approved test identity, controlled lawyer registration, real provider/payment evidence, and controlled service-request drills.
+- LINEAR: recorded as `HAD-161`, marked Done under `HAD-71`, related to `HAD-117`, `HAD-157`, `HAD-118` and `HAD-154`.
+- PUBLIC IMPACT: none. This was private preflight/reporting only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: lawyer dashboard lifecycle static preflight 100%; full live lawyer registration/payment/refund/upgrade/downgrade walkthrough remains 0% until owner-approved live test identity, payment path, evidence location and provider proof are supplied.
+
 # LATEST WORK STATUS - 2026-05-27 06:35 Asia/Jerusalem
 - HOMEPAGE CTA LOWER-SECTION IMPLEMENTATION GUARD ADDED: converted the open homepage repeated lawyer-card CTA density review into a concrete, competitor-informed implementation guard before any public homepage edit.
 - CODE ADDED: `tools/build-homepage-cta-lower-section-implementation-guard.mjs`.

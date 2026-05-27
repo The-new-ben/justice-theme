@@ -175,7 +175,7 @@ $hero_first_steps = array(
 
 			<div class="hero__ctas">
 				<?php if ( $hero_whatsapp_url ) : ?>
-					<a href="<?php echo esc_url( $hero_whatsapp_url ); ?>" class="button button--hero-whatsapp" target="_blank" rel="noopener">
+					<a href="<?php echo esc_url( $hero_whatsapp_url ); ?>" class="button button--hero-whatsapp" target="_blank" rel="noopener" data-whatsapp-surface="homepage_hero" data-lead-utm-source="homepage_hero" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help">
 						<?php esc_html_e( 'פנייה מהירה בוואטסאפ', 'justice-theme' ); ?>
 					</a>
 				<?php endif; ?>

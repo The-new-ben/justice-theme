@@ -13,11 +13,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 $lead_prefill_area    = function_exists( 'justice_theme_current_lead_prefill_area' ) ? justice_theme_current_lead_prefill_area() : '';
 $lead_prefill_message = function_exists( 'justice_theme_current_lead_prefill_message' ) ? justice_theme_current_lead_prefill_message() : '';
-$justice_whatsapp     = function_exists( 'justice_theme_option' ) ? justice_theme_option( 'justice_whatsapp', '0525101555' ) : '0525101555';
-$whatsapp_digits      = preg_replace( '/\D+/', '', $justice_whatsapp );
-$whatsapp_digits      = preg_replace( '/^0/', '972', (string) $whatsapp_digits );
-$whatsapp_url         = $whatsapp_digits
-	? 'https://wa.me/' . $whatsapp_digits . '?text=' . rawurlencode( 'שלום, אני רוצה לבדוק פנייה משפטית דרך Jus-Tice. הנושא בקצרה: ' )
+$whatsapp_url         = function_exists( 'justice_theme_public_whatsapp_url' )
+	? justice_theme_public_whatsapp_url( __( 'שלום, אני רוצה לבדוק פנייה משפטית דרך Jus-Tice. הנושא בקצרה: ', 'justice-theme' ) )
 	: '';
 $lead_notice          = isset( $_GET['lead'] ) ? sanitize_key( wp_unslash( $_GET['lead'] ) ) : '';
 $lead_notice_messages = array(
@@ -108,7 +105,7 @@ $lead_notice_message  = isset( $lead_notice_messages[ $lead_notice ] ) ? $lead_n
 					<?php esc_html_e( 'שליחת פנייה לבדיקה', 'justice-theme' ); ?>
 				</button>
 				<?php if ( $whatsapp_url ) : ?>
-					<a class="button button--whatsapp-inline" href="<?php echo esc_url( $whatsapp_url ); ?>" target="_blank" rel="noopener">
+					<a class="button button--whatsapp-inline" href="<?php echo esc_url( $whatsapp_url ); ?>" target="_blank" rel="noopener" data-whatsapp-surface="ask_lawyer_form" data-lead-utm-source="ask_lawyer_form" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help">
 						<?php esc_html_e( 'פתיחת וואטסאפ', 'justice-theme' ); ?>
 					</a>
 				<?php endif; ?>

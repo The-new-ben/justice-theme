@@ -112,7 +112,7 @@ $justice_topic_links = array(
 
 			<div class="site-header__lead-actions" aria-label="<?php esc_attr_e( 'פעולות מהירות לקבלת עזרה משפטית', 'justice-theme' ); ?>">
 				<?php if ( $justice_whatsapp_url ) : ?>
-					<a class="site-header__whatsapp button button--whatsapp-inline" href="<?php echo esc_url( $justice_whatsapp_url ); ?>" target="_blank" rel="noopener" data-lead-utm-source="site_header" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help">
+					<a class="site-header__whatsapp button button--whatsapp-inline" href="<?php echo esc_url( $justice_whatsapp_url ); ?>" target="_blank" rel="noopener" data-whatsapp-surface="site_header" data-lead-utm-source="site_header" data-lead-utm-medium="whatsapp" data-lead-utm-campaign="public_legal_help">
 						<?php esc_html_e( 'וואטסאפ', 'justice-theme' ); ?>
 					</a>
 				<?php endif; ?>

@@ -198,6 +198,38 @@
 		return 'general';
 	}
 
+	function getWhatsAppSurface(link) {
+		if (link.dataset && link.dataset.whatsappSurface) {
+			return link.dataset.whatsappSurface;
+		}
+
+		if (link.closest('.hero')) {
+			return 'homepage_hero';
+		}
+
+		if (link.closest('.site-header')) {
+			return 'site_header';
+		}
+
+		if (link.closest('#ask-lawyer')) {
+			return 'ask_lawyer_form';
+		}
+
+		if (link.closest('.site-footer')) {
+			return 'site_footer';
+		}
+
+		if (link.closest('.whatsapp-float')) {
+			return 'floating_whatsapp';
+		}
+
+		if (link.closest('.lawyer-card')) {
+			return 'lawyer_card';
+		}
+
+		return 'general';
+	}
+
 	function applyLeadPrefillFromLink(link) {
 		var form;
 		var area;
@@ -465,6 +497,8 @@
 		}
 
 		if (lowerHref.indexOf('wa.me/') !== -1 || lowerHref.indexOf('api.whatsapp.com') !== -1 || getText(link).toLowerCase().indexOf('whatsapp') !== -1) {
+			params.whatsapp_surface = getWhatsAppSurface(link);
+
 			if (link.closest('#ask-lawyer')) {
 				track('lead_whatsapp_intent', Object.assign({}, params, getAskLawyerWhatsAppAnalyticsParams(link)));
 			}

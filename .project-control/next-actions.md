@@ -4,6 +4,21 @@
 
 ---
 
+### ACTION-BTL-SOURCE-READINESS-ADMIN-FILL-001: Fill first-paid-lead source readiness rows
+**Status:** FIXED LOCAL / OWNER ADMIN FILL STILL BLOCKED
+**Why:** The Bituach Leumi first-paid-lead path was visible as a dry-run/static source blocker, but owner/admin needed one exact no-PII packet for the private evidence required before any controlled handoff, invoice or revenue claim.
+**Actions:**
+1. DONE: add `tools/build-btl-source-readiness-admin-fill-packet.mjs`.
+2. DONE: generate `.project-control/btl-source-readiness-admin-fill-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/btl-source-readiness-admin-fill-template-2026-05-27.csv`.
+4. DONE: generate `.reports/btl-source-readiness-admin-fill-packet-2026-05-27.json` and `.csv`.
+5. DONE: update `tools/build-owner-unblocker-command-queue.mjs` so `UNBLOCK-01` links to the new BTL source-readiness packet.
+6. DONE: update `tools/build-owner-unblocker-hebrew-decision-brief.mjs` so the Hebrew owner brief uses the source-readiness packet language instead of the older dry-run template wording.
+7. DONE: regenerate owner-unblocker command queue, Hebrew decision brief, command center, reply templates and reports.
+8. DONE: confirm BTL packet status `BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION`, 8 admin fill rows, 4 gates, 1 blocked owner/admin evidence gate, 3 private prospect rows, 1 coverage row, 1 controlled lead row, 2 billing/payment rows, 0 paid LLM API use and 0 public/CRM/outreach/payment/email/uPress approvals.
+9. NEXT: owner/admin fills the no-PII template from private wp-admin/CRM evidence: PROSPECT-01 to PROSPECT-03, LAWYER-COVERAGE-01, CONTROLLED-LEAD-01, BILLING-01, PAYMENT-01 and GO-NOGO-01.
+10. BLOCKED: no live handoff, CRM creation/edit, lawyer/client contact, invoice, payment, paid status, revenue claim, email/WhatsApp/TalkTo, public page/CMS/SEO change, paid LLM API, wp-admin write or uPress from this private packet.
+
 ### ACTION-OWNER-UNBLOCKER-TEL-AVIV-EVIDENCE-REFRESH-001: Point owner queue to current Tel Aviv completion packet
 **Status:** FIXED LOCAL / OWNER FILL STILL BLOCKED
 **Why:** The owner-unblocker queue still linked Tel Aviv local-page work to an older evidence-fill packet even though the current blocker is the 172-row evidence-completion control center.

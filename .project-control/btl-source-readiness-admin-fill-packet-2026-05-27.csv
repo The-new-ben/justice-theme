@@ -1,0 +1,5 @@
+id,gate,status,evidence,next_action
+BTL-SOURCE-GATE-01,source_rows_indexed,PASS,8 ledger rows converted into owner/admin fill rows.,Owner/admin fills the no-PII template from private wp-admin evidence only.
+BTL-SOURCE-GATE-02,runtime_readiness_still_blocked,BLOCKED_OWNER_ADMIN_EVIDENCE_REQUIRED,Runtime ledger: BLOCKED_SOURCE_READINESS_NOT_CURRENT; dry-run: BLOCKED_STATIC_GATE_MISSING; readiness: BLOCKED_STATIC_GATES; activation: READY_FOR_OWNER_PRIVATE_PROSPECT_ENTRY.,"Treat this as a live-evidence request, not approval to create or edit records."
+BTL-SOURCE-GATE-03,payment_proof_rule_preserved,PASS,PAYMENT-01 requires private payment evidence URL; invoice/reference alone remains invoice-stage evidence.,Do not count paid revenue until payment proof is recorded privately.
+BTL-SOURCE-GATE-04,no_live_action_authorized,PASS_NO_LIVE_ACTION,This packet records 0 wp-admin/CRM/contact/invoice/payment/email/WhatsApp/TalkTo/public/uPress approvals.,Use filled rows for a later private proof review only.

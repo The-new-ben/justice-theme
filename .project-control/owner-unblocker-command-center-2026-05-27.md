@@ -9,7 +9,7 @@
 
 | מזהה | עדיפות | נושא | תשובה מוצעת | מקור פרטי | הצעד הבא | אסור ללא אישור |
 | --- | ---: | --- | --- | --- | --- | --- |
-| UNBLOCK-01 | 1 | הוכחת ליד בתשלום בביטוח לאומי | UNBLOCK-01 approve | .project-control/btl-controlled-lead-dry-run-packet-2026-05-27.md | הבעלים או מנהל האתר ממלאים את תבנית dry-run מתוך wp-admin בלי להכניס פרטים אישיים לקבצים. | לא פונים ללידים ישנים, לא מעבירים פרטים אישיים, לא מחייבים, לא מסמנים שולם ולא טוענים להכנסה מתוך הקבצים בלבד. |
+| UNBLOCK-01 | 1 | הוכחת ליד בתשלום בביטוח לאומי | UNBLOCK-01 approve | .project-control/btl-source-readiness-admin-fill-packet-2026-05-27.md | הבעלים או מנהל האתר ממלאים את תבנית מוכנות המקורות של BTL מתוך wp-admin/CRM פרטי, בלי להכניס פרטים אישיים לקבצים. | לא פונים ללידים ישנים, לא מעבירים פרטים אישיים, לא מחייבים, לא מסמנים שולם ולא טוענים להכנסה מתוך הקבצים בלבד. |
 | UNBLOCK-02 | 2 | בדיקת מסלול מנוי עורך דין | UNBLOCK-02 approve | .project-control/lawyer-subscription-controlled-walkthrough-2026-05-27.md | מריצים walkthrough נשלט רק עם זהות הבדיקה ונתיב התשלום שאושרו. | לא מחייבים עורך דין אמיתי, לא שולחים לינק תשלום, לא מגישים הרשמה חיה ולא משנים ספק תשלום בלי היקף בדיקה מאושר. |
 | UNBLOCK-08 | 3 | כיסוי עורך דין פלילי בירושלים | UNBLOCK-08 approve | .project-control/criminal-jerusalem-lawyer-coverage-activation-packet-2026-05-27.md | למלא את תבנית criminal Jerusalem עם רישיון, התאמת תחום, זמינות תגובה, נתיב תשלום ידני, תנאי fee וכתובת חיוב. | לא עורכים דף ציבורי, לא יוצרים כרטיס עורך דין ציבורי, לא פונים לעורך דין, לא מנתבים ליד, לא מפיקים חשבונית ולא עושים uPress. |
 
@@ -17,7 +17,7 @@
 
 | מזהה | עדיפות | נושא | מקור קיים | סטטוס מקור | פעולה חיה מאושרת |
 | --- | ---: | --- | --- | --- | --- |
-| UNBLOCK-01 | 1 | הוכחת ליד בתשלום בביטוח לאומי | yes | BLOCKED_STATIC_GATE_MISSING | no |
+| UNBLOCK-01 | 1 | הוכחת ליד בתשלום בביטוח לאומי | yes | BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION | no |
 | UNBLOCK-02 | 2 | בדיקת מסלול מנוי עורך דין | yes | READY_SCRIPT_WITH_RUNTIME_BLOCKERS \| MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION | no |
 | UNBLOCK-08 | 3 | כיסוי עורך דין פלילי בירושלים | yes | CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION | no |
 | UNBLOCK-03 | 4 | עדכון ציבורי אפשרי בעמוד הסכם שכירות | yes | OWNER_APPROVAL_QUEUE_READY_NOT_APPROVED | no |

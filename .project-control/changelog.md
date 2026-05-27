@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - BTL source readiness admin fill packet
+
+- ADDED: `tools/build-btl-source-readiness-admin-fill-packet.mjs`.
+- UPDATED: `tools/build-owner-unblocker-command-queue.mjs`, `tools/build-owner-unblocker-hebrew-decision-brief.mjs`.
+- GENERATED: `.project-control/btl-source-readiness-admin-fill-packet-2026-05-27.md`, `.project-control/btl-source-readiness-admin-fill-packet-2026-05-27.csv`, `.project-control/btl-source-readiness-admin-fill-template-2026-05-27.csv`, `.reports/btl-source-readiness-admin-fill-packet-2026-05-27.json`, `.reports/btl-source-readiness-admin-fill-packet-2026-05-27.csv`, plus regenerated owner-unblocker command queue, Hebrew decision brief, command center, reply templates and reports.
+- PURPOSE: turn the Bituach Leumi first-paid-lead source-readiness blocker into an exact no-PII owner/admin fill packet covering private specialist supply, routable coverage, one consented lead, billing, payment proof and go/no-go.
+- RESULT: `BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION`; 8 admin fill rows, 4 gates, 1 blocked owner/admin evidence gate and 0 live/public approvals. `UNBLOCK-01` now links to the new BTL source-readiness packet instead of the older dry-run blocker.
+- SAFETY: private source-readiness tooling/reporting only; no owner evidence fill, paid LLM API, public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Owner unblocker Tel Aviv evidence handoff refresh
 
 - UPDATED: `tools/build-owner-unblocker-command-queue.mjs`.

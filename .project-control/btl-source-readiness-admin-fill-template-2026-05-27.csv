@@ -1,0 +1,9 @@
+id,stage,live_admin_pointer_no_pii,evidence_status,owner_admin_decision,accepted_values,proof_present_yes_no,owner_verified_yes_no,blocker_if_no,private_note_no_pii,public_or_live_action_approved
+PROSPECT-01,private_specialist_supply,,not_started,,pass / fail / partial / not_available / needs_owner / park,no,no,Private prospect is created and all manual verification fields pass.,,no
+PROSPECT-02,private_specialist_supply,,not_started,,pass / fail / partial / not_available / needs_owner / park,no,no,Private prospect is created and all manual verification fields pass.,,no
+PROSPECT-03,private_specialist_supply,,not_started,,pass / fail / partial / not_available / needs_owner / park,no,no,Private prospect is created and all manual verification fields pass.,,no
+LAWYER-COVERAGE-01,routable_lawyer_coverage,,not_started,,pass / fail / partial / not_available / needs_owner / park,no,no,3 verified prospects are converted into routable lawyer profiles and billing/contact is present.,,no
+CONTROLLED-LEAD-01,controlled_lead,,not_started,,pass / fail / partial / not_available / needs_owner / park,no,no,Client permission and owner release are recorded in the live CRM.,,no
+BILLING-01,qualified_lead_billing,,not_started,,pass / fail / partial / not_available / needs_owner / park,no,no,The controlled lead is routed and the billing queue shows a billable lead.,,no
+PAYMENT-01,payment_proof,,not_started,,pass / fail / partial / not_available / needs_owner / park,no,no,"Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/reference and private payment evidence.",,no
+GO-NOGO-01,scale_decision,,not_started,,pass / fail / partial / not_available / needs_owner / park,no,no,PAYMENT-01 passes.,,no

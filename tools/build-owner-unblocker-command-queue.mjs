@@ -7,7 +7,7 @@ const ROOT = path.resolve(path.dirname(__filename), '..');
 const DEFAULT_REPORT_DATE = new Date().toISOString().slice(0, 10);
 
 const SOURCES = [
-  ['btlControlledLead', '.reports', 'btl-controlled-lead-dry-run-packet', '2026-05-27'],
+  ['btlSourceReadiness', '.reports', 'btl-source-readiness-admin-fill-packet', '2026-05-27'],
   ['lawyerWalkthrough', '.reports', 'lawyer-subscription-controlled-walkthrough', '2026-05-27'],
   ['manualInvoice', '.reports', 'manual-invoice-revenue-fallback-packet', '2026-05-27'],
   ['criminalJerusalemCoverage', '.reports', 'criminal-jerusalem-lawyer-coverage-activation-packet', '2026-05-27'],
@@ -94,16 +94,16 @@ function buildRows(sources) {
       id: 'UNBLOCK-01',
       rank: 1,
       lane: 'btl_first_paid_lead',
-      owner_reply_needed: 'Approve live admin-only Bituach Leumi dry-run evidence collection: 3 private specialist proofs, 1 current consented lead, owner release, billing reference and payment proof.',
-      why_it_matters: 'This is the closest route to a first paid lead, but repo checks cannot prove live supply, consent, handoff or payment.',
-      exact_next_step: 'Owner/admin fills the BTL controlled lead dry-run template from wp-admin evidence only; Codex can then review the filled no-PII proof rows.',
-      allowed_after_yes: 'Private review of filled evidence; one controlled manual handoff only after all proof rows pass.',
+      owner_reply_needed: 'Fill the Bituach Leumi source-readiness admin packet: 3 private specialist rows, coverage, 1 consented lead row, billing, payment proof and go/no-go.',
+      why_it_matters: 'This is the closest route to a first paid lead, but repo checks cannot prove live supply, consent, handoff, billing or payment evidence.',
+      exact_next_step: 'Owner/admin fills the BTL source-readiness no-PII template from private wp-admin/CRM evidence only; Codex can then review the filled proof rows.',
+      allowed_after_yes: 'Private review of filled evidence; one controlled manual handoff only after all proof rows pass and owner explicitly releases it.',
       hard_no: 'No old lead contact, no PII release, no lawyer/client outreach, no invoice, no paid status and no revenue claim from repo artifacts alone.',
-      source_status: statuses.btlControlledLead,
-      source_artifact: '.project-control/btl-controlled-lead-dry-run-packet-2026-05-27.md',
+      source_status: statuses.btlSourceReadiness,
+      source_artifact: '.project-control/btl-source-readiness-admin-fill-packet-2026-05-27.md',
       public_action: 'no',
       crm_or_outreach_action: 'owner-controlled-only',
-      completion_if_owner_replies: 'Can move from 0% live proof to first controlled proof review.',
+      completion_if_owner_replies: 'Can move from 0% live proof to first controlled Bituach Leumi proof review.',
     },
     {
       id: 'UNBLOCK-02',

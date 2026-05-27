@@ -1,0 +1,2 @@
+reportDate,sourceDate,status,adminFillRows,blockedOrReviewGateRows,privateProspectRows,coverageRows,controlledLeadRows,billingPaymentRows,wpAdminWritesApproved,crmRecordsCreated,leadOrLawyerContactActions,invoicesOrPaymentsCreated,messagesOrEmailsSent,revenueClaimsApproved,publicChangesApproved,upressDeploymentRequired
+2026-05-27,2026-05-27,BTL_SOURCE_READINESS_ADMIN_FILL_PACKET_READY_BLOCKED_ON_OWNER_ADMIN_EVIDENCE_NO_LIVE_ACTION,8,1,3,1,1,2,0,0,0,0,0,0,0,false

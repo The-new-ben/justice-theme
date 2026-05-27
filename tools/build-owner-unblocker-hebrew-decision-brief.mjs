@@ -82,6 +82,11 @@ const HEBREW_ROWS = {
   },
 };
 
+Object.assign(HEBREW_ROWS['UNBLOCK-01'], {
+  owner_decision_needed_he: 'למלא את חבילת מוכנות המקורות של ביטוח לאומי: 3 שורות מומחים פרטיים, כיסוי, ליד אחד עם הסכמה, חיוב, הוכחת תשלום והחלטת go/no-go.',
+  exact_next_step_he: 'הבעלים או מנהל האתר ממלאים את תבנית מוכנות המקורות של BTL מתוך wp-admin/CRM פרטי, בלי להכניס פרטים אישיים לקבצים.',
+});
+
 function parseArgs() {
   const args = {
     reportDate: process.env.REPORT_DATE || DEFAULT_REPORT_DATE,

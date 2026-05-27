@@ -402,7 +402,7 @@ add_action( 'admin_post_justice_theme_mark_lead_first_attempt', 'justice_theme_c
 add_action( 'admin_post_justice_theme_export_lead_audit', 'justice_theme_crm_handle_lead_audit_export' );
 
 function justice_theme_crm_handle_mark_lead_first_attempt(): void {
-	$lead_id  = isset( $_POST['lead_id'] ) ? absint( wp_unslash( $_POST['lead_id'] ) ) : 0;
+	$lead_id  = isset( $_REQUEST['lead_id'] ) ? absint( wp_unslash( $_REQUEST['lead_id'] ) ) : 0;
 	$redirect = wp_get_referer() ?: admin_url( 'edit.php?post_type=justice_lead' );
 
 	if ( ! $lead_id || 'justice_lead' !== get_post_type( $lead_id ) ) {
@@ -417,7 +417,13 @@ function justice_theme_crm_handle_mark_lead_first_attempt(): void {
 		exit;
 	}
 
-	$nonce = isset( $_POST['justice_theme_mark_lead_first_attempt_nonce'] ) ? sanitize_text_field( wp_unslash( $_POST['justice_theme_mark_lead_first_attempt_nonce'] ) ) : '';
+	$nonce = '';
+	if ( isset( $_REQUEST['justice_theme_mark_lead_first_attempt_nonce'] ) ) {
+		$nonce = sanitize_text_field( wp_unslash( $_REQUEST['justice_theme_mark_lead_first_attempt_nonce'] ) );
+	} elseif ( isset( $_REQUEST['_wpnonce'] ) ) {
+		$nonce = sanitize_text_field( wp_unslash( $_REQUEST['_wpnonce'] ) );
+	}
+
 	if ( ! current_user_can( 'edit_post', $lead_id ) || ! $nonce || ! wp_verify_nonce( $nonce, 'justice_theme_mark_lead_first_attempt_' . $lead_id ) ) {
 		wp_safe_redirect(
 			add_query_arg(
@@ -5501,6 +5507,16 @@ function justice_theme_crm_render_lead_admin_revenue_column( string $column, int
 		$follow_up       = (string) get_post_meta( $post_id, 'follow_up_status', true );
 		$actions         = justice_theme_crm_client_contact_actions( $post_id );
 		$contact_started = in_array( $follow_up, array( 'first_attempt', 'contacted', 'consult_scheduled', 'not_qualified', 'won', 'lost' ), true );
+		$attempt_url     = wp_nonce_url(
+			add_query_arg(
+				array(
+					'action'  => 'justice_theme_mark_lead_first_attempt',
+					'lead_id' => $post_id,
+				),
+				admin_url( 'admin-post.php' )
+			),
+			'justice_theme_mark_lead_first_attempt_' . $post_id
+		);
 		$next_step       = $next_step ?: 'Open the lead, qualify consent and coverage, then decide whether it can move to a paid lawyer handoff.';
 		$next_excerpt    = wp_trim_words( $next_step, 22, '...' );
 		?>
@@ -5515,12 +5531,9 @@ function justice_theme_crm_render_lead_admin_revenue_column( string $column, int
 			</span>
 		<?php endif; ?>
 		<?php if ( ! $contact_started ) : ?>
-			<form class="justice-lead-admin-actions justice-lead-first-attempt-form" method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>">
-				<input type="hidden" name="action" value="justice_theme_mark_lead_first_attempt">
-				<input type="hidden" name="lead_id" value="<?php echo esc_attr( (string) $post_id ); ?>">
-				<?php wp_nonce_field( 'justice_theme_mark_lead_first_attempt_' . $post_id, 'justice_theme_mark_lead_first_attempt_nonce' ); ?>
-				<button type="submit" class="button button-small">Log attempt</button>
-			</form>
+			<span class="justice-lead-admin-actions justice-lead-first-attempt-action">
+				<a class="button button-small" href="<?php echo esc_url( $attempt_url ); ?>">Log attempt</a>
+			</span>
 		<?php endif; ?>
 		<?php if ( $follow_up ) : ?>
 			<small style="display:block;color:#646970;margin-top:3px;">Follow-up: <?php echo esc_html( $follow_up ); ?></small>
@@ -5549,7 +5562,7 @@ function justice_theme_crm_lead_admin_revenue_column_styles(): void {
 			min-height: 24px;
 			line-height: 22px;
 		}
-		.wp-list-table .justice-lead-first-attempt-form {
+		.wp-list-table .justice-lead-first-attempt-action {
 			margin: 6px 0 0;
 		}
 	</style>

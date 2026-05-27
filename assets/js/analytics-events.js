@@ -72,6 +72,22 @@
 		return params;
 	}
 
+	function sanitizedLinkUrl(href) {
+		var url;
+
+		try {
+			url = new URL(href, window.location.href);
+
+			if (url.hostname.indexOf('wa.me') !== -1 || url.hostname.indexOf('whatsapp.com') !== -1) {
+				url.searchParams.delete('text');
+			}
+
+			return url.toString();
+		} catch (error) {
+			return String(href || '').replace(/([?&]text=)[^&]+/i, '$1[removed]');
+		}
+	}
+
 	function track(eventName, params) {
 		var payload = eventParams(params);
 
@@ -83,6 +99,36 @@
 		if (Array.isArray(window.dataLayer)) {
 			window.dataLayer.push(Object.assign({ event: eventName }, payload));
 		}
+	}
+
+	function getAskLawyerWhatsAppAnalyticsParams(link) {
+		var href = link.getAttribute('href') || '';
+		var lowerHref = href.toLowerCase();
+		var form;
+
+		if (!link.closest('#ask-lawyer')) {
+			return {};
+		}
+
+		if (lowerHref.indexOf('wa.me/') === -1 && lowerHref.indexOf('api.whatsapp.com') === -1) {
+			return {};
+		}
+
+		form = document.querySelector('#ask-lawyer form');
+
+		if (!form) {
+			return { form_type: 'ask_lawyer_whatsapp' };
+		}
+
+		return {
+			form_type: 'ask_lawyer_whatsapp',
+			legal_area: getFieldValue(form, 'lead_area'),
+			lead_city_present: getFieldValue(form, 'lead_city') ? 'yes' : 'no',
+			lead_urgency: getFieldValue(form, 'lead_urgency'),
+			lead_message_present: getFieldValue(form, 'lead_message') ? 'yes' : 'no',
+			lead_phone_present: getFieldValue(form, 'lead_phone') ? 'yes' : 'no',
+			lead_name_present: getFieldValue(form, 'lead_name') ? 'yes' : 'no'
+		};
 	}
 
 	function setOrCreateHidden(form, name, value) {
@@ -370,7 +416,7 @@
 		var href = link.getAttribute('href') || '';
 		var lowerHref = href.toLowerCase();
 		var params = {
-			link_url: href,
+			link_url: sanitizedLinkUrl(href),
 			link_text: getText(link)
 		};
 		var linkUrl;
@@ -419,7 +465,11 @@
 		}
 
 		if (lowerHref.indexOf('wa.me/') !== -1 || lowerHref.indexOf('api.whatsapp.com') !== -1 || getText(link).toLowerCase().indexOf('whatsapp') !== -1) {
-			track('whatsapp_click', params);
+			if (link.closest('#ask-lawyer')) {
+				track('lead_whatsapp_intent', Object.assign({}, params, getAskLawyerWhatsAppAnalyticsParams(link)));
+			}
+
+			track('whatsapp_click', Object.assign({}, params, getAskLawyerWhatsAppAnalyticsParams(link)));
 			return;
 		}
 

@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-TEL-AVIV-FAMILY-LEGAL-EDITOR-REVIEW-001: Prepare row-level legal/editor review surface
+**Status:** FIXED LOCAL / HUMAN REVIEW STILL BLOCKED
+**Why:** The Tel Aviv family publication review still had a broad legal/editor blocker. Reviewer work needed to be narrowed into exact rows for title/H1, intro, checklist, CTA/link boundaries, FAQ candidates, source boundaries, protected-route overlap, coverage language and disclaimers.
+**Actions:**
+1. DONE: add `tools/build-tel-aviv-family-legal-editor-review-packet.mjs`.
+2. DONE: generate `.project-control/tel-aviv-family-legal-editor-review-packet-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/tel-aviv-family-legal-editor-fill-template-2026-05-27.csv`.
+4. DONE: generate `.reports/tel-aviv-family-legal-editor-review-packet-2026-05-27.json` and `.csv`.
+5. DONE: confirm status `TEL_AVIV_FAMILY_LEGAL_EDITOR_REVIEW_PACKET_BLOCKED_HUMAN_REVIEW_REQUIRED_NO_PUBLIC_CHANGE`, 12 review rows, 12 fill-template rows, 3 blocked gates, 9 human-review rows, 2 GSC-blocked rows, 1 lawyer-readiness blocked row, 0 paid LLM API use and 0 public/CMS/SEO/CRM/contact/payment/email/uPress approvals.
+6. NEXT: legal/editor fills approve/revise/reject/needs-gsc/needs-owner-admin decisions, then combine those rows with focused GSC, lawyer readiness and owner publication scope in a later private go/no-go packet.
+7. BLOCKED: no public route, CMS, final article/content generation, title/H1/meta/body/internal link, redirect/canonical/noindex/sitemap/taxonomy, CRM, lawyer profile edit, contact, invoice, payment, email/WhatsApp/TalkTo, paid LLM API, wp-admin write or uPress from this private review packet.
+
 ### ACTION-TEL-AVIV-FAMILY-LAWYER-READINESS-001: Verify visible directory cards before local publication
 **Status:** FIXED LOCAL / OWNER ADMIN FILL STILL BLOCKED
 **Why:** The canonical Tel Aviv family-law directory has 3 visible cards, but public card count is not enough to support a local divorce page. Owner/admin must verify profile identity, field fit, local fit, permission, availability and no unsupported commercial claim.

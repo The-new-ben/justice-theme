@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Tel Aviv family legal/editor review packet
+
+- ADDED: `tools/build-tel-aviv-family-legal-editor-review-packet.mjs`.
+- GENERATED: `.project-control/tel-aviv-family-legal-editor-review-packet-2026-05-27.md`, `.project-control/tel-aviv-family-legal-editor-review-packet-2026-05-27.csv`, `.project-control/tel-aviv-family-legal-editor-fill-template-2026-05-27.csv`, `.reports/tel-aviv-family-legal-editor-review-packet-2026-05-27.json` and `.reports/tel-aviv-family-legal-editor-review-packet-2026-05-27.csv`.
+- PURPOSE: turn the legal/editor blocker for `/divorce-lawyer-tel-aviv/` into a row-level review surface covering title/H1, intro, checklist, CTA/link boundaries, FAQ candidates, source boundaries, protected-route overlap, coverage language and disclaimers.
+- RESULT: `TEL_AVIV_FAMILY_LEGAL_EDITOR_REVIEW_PACKET_BLOCKED_HUMAN_REVIEW_REQUIRED_NO_PUBLIC_CHANGE`; 12 review rows and 12 fill-template rows were generated, with 3 blocked gates for human review, focused GSC export fill and owner/admin lawyer readiness.
+- SAFETY: private review tooling/reporting only; no final article/content generation, paid LLM API, public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Tel Aviv family lawyer readiness owner packet
 
 - ADDED: `tools/build-tel-aviv-family-lawyer-readiness-owner-packet.mjs`.

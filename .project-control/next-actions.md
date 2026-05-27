@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-HOMEPAGE-COMPETITOR-HUMAN-PACKET-001: Owner chooses homepage improvement rows to implement
+**Status:** FIXED LOCAL / WAITING FOR OWNER APPROVAL TO IMPLEMENT
+**Why:** The owner asked why the site does not yet look good enough and asked for competitor-informed homepage improvement plus a Lovable-style design prompt. The safe step is a private packet first, not a public CMS edit.
+**Actions:**
+1. DONE: review the current homepage implementation files that control the live homepage layout and copy.
+2. DONE: record competitor and legaltech observations from Advocato, LawZone, iLaw, MyAttorney and Vaquill AI awesome-legaltech.
+3. DONE: add `tools/build-homepage-competitor-human-improvement-packet.mjs`.
+4. DONE: generate `.project-control/homepage-competitor-human-improvement-packet-2026-05-27.md`, `.html` and `.csv`.
+5. DONE: generate `.project-control/homepage-lovable-manual-prompt-2026-05-27.md`.
+6. DONE: generate `.reports/homepage-competitor-human-improvement-packet-2026-05-27.json` and `.csv`.
+7. DONE: confirm status `HOMEPAGE_COMPETITOR_HUMAN_IMPROVEMENT_PACKET_READY_NO_PUBLIC_CHANGE`, 5 sources, 4/4 local templates found, 6 improvement rows, 55% planning readiness to profit, 0 public/live impact and 0 paid LLM API use.
+8. NEXT: owner approves which homepage rows to implement, especially first-minute strip, situation router, longer practice copy, guide-context intro, lawyer side path and trust note.
+9. BLOCKED: no public CMS change, guide-content edit, SEO setting change, URL/redirect/canonical/noindex/sitemap/taxonomy change, CRM action, payment action, external message, paid LLM API, Lovable automation or uPress deployment is allowed from this packet alone.
+
 ### ACTION-FIRST-REVENUE-THREE-ROW-STARTER-001: Owner fills three starter rows only
 **Status:** FIXED LOCAL / WAITING FOR OWNER ADMIN FILL
 **Why:** The owner wants revenue, not more broad planning. The shortest unblocked step is to fill one no-PII starter row for each first-revenue lane before trying to clear all 18 evidence rows.

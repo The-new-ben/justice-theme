@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Homepage competitor human improvement packet
+
+- ADDED: `tools/build-homepage-competitor-human-improvement-packet.mjs`.
+- GENERATED: `.project-control/homepage-competitor-human-improvement-packet-2026-05-27.md`, `.project-control/homepage-competitor-human-improvement-packet-2026-05-27.html`, `.project-control/homepage-competitor-human-improvement-packet-2026-05-27.csv`, `.project-control/homepage-lovable-manual-prompt-2026-05-27.md`, `.reports/homepage-competitor-human-improvement-packet-2026-05-27.json` and `.reports/homepage-competitor-human-improvement-packet-2026-05-27.csv`.
+- PURPOSE: answer the owner request for competitor-informed homepage improvement and a Lovable-ready manual prompt while keeping public legal help first, lawyers as a side path and the choosing-lawyer guide content unchanged.
+- RESULT: `HOMEPAGE_COMPETITOR_HUMAN_IMPROVEMENT_PACKET_READY_NO_PUBLIC_CHANGE`; 5 competitor/legaltech sources, 4/4 local homepage templates reviewed, 6 proposed public-copy sections, 55 percent planning readiness to profit and 0 live revenue impact.
+- SAFETY: private planning packet only; no paid LLM API, Lovable automation, public CMS edit, route, title/H1/meta/body, guide-content edit, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - First revenue three-row owner starter
 
 - ADDED: `tools/build-first-revenue-three-row-owner-starter.mjs`.

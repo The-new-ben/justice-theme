@@ -1,7 +1,7 @@
 # uPress Deploy Handoff: Footer Trust Path
 
 Date: 2026-05-27
-Owner loop status: blocked on uPress access through Chrome.
+Owner loop status: blocked on uPress access through the Codex Chrome extension.
 
 ## What is ready
 
@@ -30,11 +30,15 @@ Conclusion: the code is pushed to GitHub, but the live site has not pulled it ye
 
 ## Blocker
 
-Chrome is not running. The connected uPress session depends on Chrome, so Pull Git cannot be executed from this loop until Chrome is open with the connected profile.
+Chrome is running and the configured `Profile 2` was opened. The Codex Chrome extension and native host checks pass, but Codex still cannot acquire the Chrome extension browser:
+
+`Browser is not available: extension`
+
+The connected uPress session depends on Chrome control, so Pull Git cannot be executed from this loop until the Codex Chrome plugin connection is repaired, or until the owner manually runs the uPress pull.
 
 ## Resume steps
 
-1. Open Chrome with the connected profile.
+1. Repair/reinstall the Codex Chrome plugin from the Codex plugin UI, or manually complete the uPress pull.
 2. Open uPress for `jus-tice.co.il`.
 3. Go to Git management for `wp-content/themes/justice-theme`.
 4. Run `Pull Git`.

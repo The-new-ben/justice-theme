@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Lawhive/DIN homepage conversion mechanism
+
+- CHANGED: `front-page.php`, `template-parts/sections/hero.php`, `template-parts/sections/ask-lawyer.php`, `template-parts/sections/homepage-legal-service-flow.php`, `template-parts/sections/lawyer-cta.php` and `assets/css/premium-pass-4.css`.
+- PURPOSE: stop internal-only drift and implement visible homepage mechanisms modeled on Lawhive and din.co.il: problem-first intake, clean field/city search, clear next steps, WhatsApp contact and lawyer paid-plan intent.
+- RESULT: added a new service-flow section, moved lead capture higher, added WhatsApp from the lead form, reduced noisy taxonomy-driven search options to core high-intent legal categories, and sharpened the lawyer Pro 349 ILS/month CTA.
+- HONESTY: no competitor text, proprietary code or pixel-perfect clone was copied; the reusable mechanisms were adapted into original Jus-Tice copy and code. No external Lovable/Gemini/Claude session was used because those callable tools were not available in this Codex session.
+- SAFETY: local branch/code change only at this entry; no CRM, lead, contact, invoice, payment, email-to-users, WhatsApp send, GSC API, wp-admin write, paid LLM API or uPress deployment changed by the code edit itself.
+
 # 2026-05-27 - Homepage lead and paid-lawyer conversion pivot
 
 - CHANGED: `front-page.php`, `template-parts/sections/ask-lawyer.php` and `template-parts/sections/lawyer-cta.php`.

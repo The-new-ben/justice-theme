@@ -17,6 +17,8 @@ get_header();
 
 <?php get_template_part( 'template-parts/sections/ask-lawyer' ); ?>
 
+<?php get_template_part( 'template-parts/sections/homepage-legal-service-flow' ); ?>
+
 <?php get_template_part( 'template-parts/sections/homepage-legal-help-router' ); ?>
 
 <?php get_template_part( 'template-parts/sections/homepage-intent-pyramid' ); ?>

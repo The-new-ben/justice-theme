@@ -2952,3 +2952,114 @@
   grid-template-columns: minmax(0, 820px) !important;
   justify-content: center;
 }
+
+.homepage-service-flow {
+  background: #f7f8fb;
+  border-block: 1px solid var(--jt-border, #e5e7eb);
+}
+
+.homepage-service-flow__inner {
+  display: grid;
+  gap: 1.5rem;
+}
+
+.homepage-service-flow__header {
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.homepage-service-flow__header h2 {
+  margin: 0 0 0.75rem;
+  font-size: clamp(1.55rem, 3vw, 2.25rem);
+  line-height: 1.18;
+}
+
+.homepage-service-flow__header p {
+  margin: 0;
+  color: var(--jt-muted, #667085);
+  font-size: 1.04rem;
+  line-height: 1.75;
+}
+
+.homepage-service-flow__steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.homepage-service-flow__step {
+  min-height: 100%;
+  padding: 1.25rem;
+  border: 1px solid var(--jt-border, #e5e7eb);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 12px 34px rgba(7, 21, 47, 0.06);
+}
+
+.homepage-service-flow__step span {
+  display: inline-grid;
+  place-items: center;
+  width: 2rem;
+  height: 2rem;
+  margin-bottom: 0.8rem;
+  border-radius: 999px;
+  background: var(--jt-accent-red-soft, rgba(178, 58, 72, 0.12));
+  color: var(--jt-accent-red, #b23a48);
+  font-weight: 900;
+}
+
+.homepage-service-flow__step h3 {
+  margin: 0 0 0.55rem;
+  font-size: 1.08rem;
+  line-height: 1.28;
+}
+
+.homepage-service-flow__step p {
+  margin: 0;
+  color: var(--jt-muted, #667085);
+  line-height: 1.65;
+}
+
+.homepage-service-flow__cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  justify-content: center;
+}
+
+.ask-lawyer__actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.8fr);
+  gap: 0.75rem;
+  margin-top: 1rem;
+}
+
+.ask-lawyer__actions .button {
+  margin-top: 0 !important;
+  width: 100%;
+}
+
+.button--whatsapp-inline {
+  background: #128c7e;
+  color: #fff;
+}
+
+.button--whatsapp-inline:hover,
+.button--whatsapp-inline:focus-visible {
+  background: #0f766b;
+  color: #fff;
+}
+
+@media (max-width: 900px) {
+  .homepage-service-flow__steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .homepage-service-flow__steps,
+  .ask-lawyer__actions {
+    grid-template-columns: 1fr;
+  }
+}

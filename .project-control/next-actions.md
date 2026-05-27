@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-LAWHIVE-DIN-HOMEPAGE-MECHANISM-001: Deploy competitor-modeled homepage conversion
+**Status:** FIXED LOCAL / READY FOR LIVE DEPLOYMENT CHECK
+**Why:** The owner wants visible progress, customer leads and paying lawyer intent, not internal Bituach Leumi research. Lawhive validates problem-first intake and clear next-step communication; din.co.il validates field/city lawyer search and legal category discovery.
+**Actions:**
+1. DONE: inspect Lawhive and din.co.il public homepage mechanisms.
+2. DONE: move homepage lead capture high, after customer-intake.
+3. DONE: add WhatsApp path to the lead form.
+4. DONE: add a Lawhive-style four-step legal service flow in original Jus-Tice language.
+5. DONE: replace noisy hero practice dropdown/panel with core high-intent legal categories.
+6. DONE: keep lawyer paid CTA visible and specific to Pro 349 ILS/month without promising lead volume, ranking or legal outcome.
+7. NEXT: deploy only after repo-safe release path is confirmed, then verify live homepage, mobile menu, WhatsApp link, lead form and lawyer CTA URLs.
+8. BLOCKED/RISK: no traffic, leads, lawyer payments or revenue can be claimed until the live site is deployed and real events are observed.
+
 ### ACTION-HOMEPAGE-LEAD-CONVERSION-001: Deploy homepage lead form higher after owner approval
 **Status:** FIXED LOCAL / WAITING FOR OWNER DEPLOYMENT APPROVAL
 **Why:** The owner rejected more internal Bituach Leumi work and asked for customers, lawyers and paying intent. The homepage needs to turn visitors into client leads and lawyer subscription requests faster.

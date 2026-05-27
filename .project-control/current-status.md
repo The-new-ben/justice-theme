@@ -1,4 +1,14 @@
 # LATEST WORK STATUS - 2026-05-27 16:40 Asia/Jerusalem
+- LAWHIVE/DIN HOMEPAGE MECHANISM IMPLEMENTED LOCALLY: translated competitor mechanisms into visible Jus-Tice homepage code, focused on public lead capture, WhatsApp contact, clean attorney search and paid lawyer subscription intent.
+- COMPETITOR BASIS: Lawhive uses a problem-first "what can we help with" intake, clear pricing expectations, step-by-step matter updates and attorney trust signals; din.co.il uses field/city search, core legal categories, social proof, recommendations/forums and direct lawyer discovery.
+- CODE CHANGED: `front-page.php`, `template-parts/sections/hero.php`, `template-parts/sections/ask-lawyer.php`, `template-parts/sections/homepage-legal-service-flow.php`, `template-parts/sections/lawyer-cta.php` and `assets/css/premium-pass-4.css`.
+- RESULT: the homepage now has the client lead form directly after the intake strip, a WhatsApp path in the lead form, a new "how legal help works" flow, a cleaner high-intent practice-area selector/panel instead of dumping every taxonomy term, and a clearer Pro 349 ILS/month lawyer CTA.
+- CHECK RESULT: PHP syntax passed for `front-page.php`, `hero.php`, `ask-lawyer.php`, `homepage-legal-service-flow.php` and `lawyer-cta.php`; `git diff --check` passed.
+- HONESTY: this is a mechanism copy/adaptation, not a pixel/text clone. It does not yet prove traffic, paying customers, lawyer demand or live revenue. No Lovable/Gemini/Claude external session was used in this cycle because no callable connector was available here; web research and local code tools were used.
+- PUBLIC/LIVE IMPACT: local branch change at this point; no CRM record, lead, lawyer/supplier/client contact, invoice, payment, email-to-users, WhatsApp send, GSC API, wp-admin write, merge to main or uPress pull changed yet.
+- COMPLETION ASSESSMENT: homepage conversion implementation 100% local; live readiness 85%; profit impact remains 0% until deployed and measured against real lead/registration events.
+
+# LATEST WORK STATUS - 2026-05-27 16:40 Asia/Jerusalem
 - HOMEPAGE REVENUE-CONVERSION PIVOT: stopped the new Bituach Leumi/license-signal work before commit and shifted to the public conversion path the owner asked for: more client leads and clearer paid lawyer joining.
 - CODE CHANGED: `front-page.php`, `template-parts/sections/ask-lawyer.php` and `template-parts/sections/lawyer-cta.php`.
 - RESULT: moved the client lead form from near the bottom of the homepage to immediately after the customer-intake strip, tightened the lead CTA to "שליחת פנייה לבדיקה", and made the lawyer-side CTA explicitly mention the manual Pro path at 349 ILS/month including VAT without promising lead volume, ranking or legal results.

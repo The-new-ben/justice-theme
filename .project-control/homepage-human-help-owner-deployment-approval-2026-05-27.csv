@@ -1,0 +1,5 @@
+id,decision,owner_question_he,recommended_answer,effect_if_yes,effect_if_no,current_status
+HOME-APPROVAL-01,approve_real_route_qa,לאשר בדיקת route אמיתי בסביבת WordPress או staging לפני פרסום?,yes,Codex יבדוק את עמוד הבית האמיתי בדפדפן ויוודא שאין שבירה לפני merge או uPress.,"העבודה נשארת פנימית בענף, בלי פרסום.",waiting_owner_decision
+HOME-APPROVAL-02,approve_merge_to_main_after_route_qa_pass,"אם route QA אמיתי עובר, לאשר merge ל-main?",no_until_route_qa_passes,רק אחרי route QA שעובר אפשר להכין merge ל-main.,הענף נשאר נפרד ולא נכנס למסלול פריסה.,blocked_until_route_qa
+HOME-APPROVAL-03,approve_upress_pull_after_main_push,"אם יהיה push מאושר ל-main, לאשר uPress Pull Git לאתר החי?",no_until_main_push_approved,Codex יפתח uPress ויריץ Pull Git רק אחרי push מאושר ל-main.,לא תהיה השפעה על האתר החי.,blocked_until_owner_deployment_approval
+HOME-APPROVAL-04,approve_post_publish_review,"אם יפורסם, לאשר בדיקת פוסט-פרסום עם URL, סקירה וקישורי קניבליזציה?",yes,"Codex יבדוק את העמוד החי, יתעד URL, סקירה, סיכום תוכן וקישורים דומים לבדיקה.",לא יהיה אישור איכות אחרי פרסום.,waiting_owner_decision

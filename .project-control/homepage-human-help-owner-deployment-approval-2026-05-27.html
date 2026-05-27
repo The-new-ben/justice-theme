@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Homepage deployment approval</title>
+  <style>
+    body { margin: 0; font-family: Arial, sans-serif; background: #f7f8fa; color: #172033; line-height: 1.55; }
+    main { max-width: 1120px; margin: 0 auto; padding: 32px 18px 56px; }
+    h1, h2 { color: #07152f; }
+    h1 { margin: 0 0 8px; font-size: 30px; }
+    .status { background: #fff; border: 1px solid #d8dee4; border-radius: 8px; padding: 16px; margin: 18px 0; }
+    table { width: 100%; border-collapse: collapse; background: #fff; margin: 12px 0 26px; }
+    th, td { border: 1px solid #d8dee4; padding: 10px; vertical-align: top; font-size: 14px; }
+    th { background: #e9eef2; text-align: right; }
+    code { direction: ltr; unicode-bidi: plaintext; background: #edf2f7; padding: 2px 5px; border-radius: 5px; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>אישור פריסה לבעלים: שיפור עמוד הבית</h1>
+  <p>2026-05-27</p>
+  <section class="status">
+    <p><strong>Status:</strong> HOMEPAGE_HUMAN_HELP_DEPLOYMENT_APPROVAL_PACKET_READY_OWNER_DECISION_REQUIRED</p>
+    <p><strong>Branch:</strong> <code>codex/homepage-human-help-local</code></p>
+    <p><strong>Readiness:</strong> 78% local readiness, 0% live impact.</p>
+    <p><strong>כנות:</strong> לא פורסם, לא מוזג ל-main, ולא בוצע uPress Pull.</p>
+  </section>
+  <h2>החלטות בעלים</h2>
+  <table>
+    <thead><tr><th>ID</th><th>שאלה</th><th>מומלץ</th><th>אם כן</th><th>אם לא</th><th>סטטוס</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><code>HOME-APPROVAL-01</code></td>
+      <td>לאשר בדיקת route אמיתי בסביבת WordPress או staging לפני פרסום?</td>
+      <td>yes</td>
+      <td>Codex יבדוק את עמוד הבית האמיתי בדפדפן ויוודא שאין שבירה לפני merge או uPress.</td>
+      <td>העבודה נשארת פנימית בענף, בלי פרסום.</td>
+      <td>waiting_owner_decision</td>
+    </tr>
+    <tr>
+      <td><code>HOME-APPROVAL-02</code></td>
+      <td>אם route QA אמיתי עובר, לאשר merge ל-main?</td>
+      <td>no_until_route_qa_passes</td>
+      <td>רק אחרי route QA שעובר אפשר להכין merge ל-main.</td>
+      <td>הענף נשאר נפרד ולא נכנס למסלול פריסה.</td>
+      <td>blocked_until_route_qa</td>
+    </tr>
+    <tr>
+      <td><code>HOME-APPROVAL-03</code></td>
+      <td>אם יהיה push מאושר ל-main, לאשר uPress Pull Git לאתר החי?</td>
+      <td>no_until_main_push_approved</td>
+      <td>Codex יפתח uPress ויריץ Pull Git רק אחרי push מאושר ל-main.</td>
+      <td>לא תהיה השפעה על האתר החי.</td>
+      <td>blocked_until_owner_deployment_approval</td>
+    </tr>
+    <tr>
+      <td><code>HOME-APPROVAL-04</code></td>
+      <td>אם יפורסם, לאשר בדיקת פוסט-פרסום עם URL, סקירה וקישורי קניבליזציה?</td>
+      <td>yes</td>
+      <td>Codex יבדוק את העמוד החי, יתעד URL, סקירה, סיכום תוכן וקישורים דומים לבדיקה.</td>
+      <td>לא יהיה אישור איכות אחרי פרסום.</td>
+      <td>waiting_owner_decision</td>
+    </tr></tbody>
+  </table>
+  <h2>Gates</h2>
+  <table>
+    <thead><tr><th>ID</th><th>Gate</th><th>Status</th><th>Evidence</th></tr></thead>
+    <tbody>
+    <tr>
+      <td><code>HOME-DEPLOY-GATE-01</code></td>
+      <td>static_visual_qa_passed</td>
+      <td>PASS</td>
+      <td>QA status: HOMEPAGE_HUMAN_HELP_VISUAL_QA_PASS_NO_PUBLIC_CHANGE.</td>
+    </tr>
+    <tr>
+      <td><code>HOME-DEPLOY-GATE-02</code></td>
+      <td>mobile_no_horizontal_overflow</td>
+      <td>PASS</td>
+      <td>mobileOverflowX=false.</td>
+    </tr>
+    <tr>
+      <td><code>HOME-DEPLOY-GATE-03</code></td>
+      <td>desktop_no_horizontal_overflow</td>
+      <td>PASS</td>
+      <td>desktopOverflowX=false.</td>
+    </tr>
+    <tr>
+      <td><code>HOME-DEPLOY-GATE-04</code></td>
+      <td>real_wordpress_route_qa</td>
+      <td>BLOCKED</td>
+      <td>Static preview passed, but the real WordPress route has not been checked yet.</td>
+    </tr>
+    <tr>
+      <td><code>HOME-DEPLOY-GATE-05</code></td>
+      <td>owner_deployment_approval</td>
+      <td>BLOCKED</td>
+      <td>Owner has not approved merge to main or uPress Pull Git.</td>
+    </tr>
+    <tr>
+      <td><code>HOME-DEPLOY-GATE-06</code></td>
+      <td>guide_content_preserved</td>
+      <td>PASS</td>
+      <td>The implementation and QA did not edit template-parts/sections/find-lawyer-guide.php.</td>
+    </tr></tbody>
+  </table>
+</main>
+</body>
+</html>

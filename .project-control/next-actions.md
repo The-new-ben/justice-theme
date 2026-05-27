@@ -4,6 +4,18 @@
 
 ---
 
+### ACTION-HOMEPAGE-OWNER-DEPLOYMENT-APPROVAL-001: Owner decides whether to move homepage work toward deployment
+**Status:** FIXED LOCAL / WAITING FOR OWNER DECISION
+**Why:** The homepage improvement branch now has static visual QA, but public deployment requires a clear owner go/no-go sequence instead of implicit action.
+**Actions:**
+1. DONE: add `tools/build-homepage-human-help-owner-deployment-approval-packet.mjs`.
+2. DONE: generate `.project-control/homepage-human-help-owner-deployment-approval-2026-05-27.md`, `.html`, `.csv` and owner reply CSV.
+3. DONE: generate `.reports/homepage-human-help-owner-deployment-approval-2026-05-27.json` and `.csv`.
+4. DONE: confirm status `HOMEPAGE_HUMAN_HELP_DEPLOYMENT_APPROVAL_PACKET_READY_OWNER_DECISION_REQUIRED`, 4 decision rows, 4 pass gates, 2 blocked gates, `readyForMainMerge=false`, `readyForUpressPull=false` and 0 public/live approvals.
+5. NEXT: owner answers whether to approve real WordPress route QA for `codex/homepage-human-help-local`.
+6. NEXT AFTER ROUTE QA PASS: owner decides whether to merge to main, then whether to run uPress Pull Git and post-publish review.
+7. BLOCKED: no merge to main, live CMS write, uPress pull, route/SEO setting change, email-to-users or public deployment without explicit owner approval.
+
 ### ACTION-HOMEPAGE-HUMAN-HELP-VISUAL-QA-001: Approve or stage homepage implementation after static QA pass
 **Status:** FIXED LOCAL / STATIC QA PASSED / WAITING FOR LIVE OR STAGING ROUTE QA
 **Why:** The homepage implementation needed visual proof before any deployment request. The first mobile screenshot found clipping, the CSS was corrected and the repeatable Chrome/CDP checker now passes desktop and mobile overflow checks.

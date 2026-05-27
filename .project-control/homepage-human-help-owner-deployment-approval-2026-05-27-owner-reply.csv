@@ -1,0 +1,5 @@
+id,decision,owner_answer_yes_no_or_wait,owner_note_optional
+HOME-APPROVAL-01,approve_real_route_qa,,
+HOME-APPROVAL-02,approve_merge_to_main_after_route_qa_pass,,
+HOME-APPROVAL-03,approve_upress_pull_after_main_push,,
+HOME-APPROVAL-04,approve_post_publish_review,,

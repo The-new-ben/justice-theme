@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Homepage owner deployment approval packet
+
+- ADDED: `tools/build-homepage-human-help-owner-deployment-approval-packet.mjs`.
+- GENERATED: `.project-control/homepage-human-help-owner-deployment-approval-2026-05-27.md`, `.project-control/homepage-human-help-owner-deployment-approval-2026-05-27.html`, `.project-control/homepage-human-help-owner-deployment-approval-2026-05-27.csv`, `.project-control/homepage-human-help-owner-deployment-approval-2026-05-27-owner-reply.csv`, `.reports/homepage-human-help-owner-deployment-approval-2026-05-27.json` and `.reports/homepage-human-help-owner-deployment-approval-2026-05-27.csv`.
+- PURPOSE: turn the homepage branch and static visual QA into exact owner decisions before any real WordPress route QA, merge to main, uPress Pull or post-publish review.
+- RESULT: `HOMEPAGE_HUMAN_HELP_DEPLOYMENT_APPROVAL_PACKET_READY_OWNER_DECISION_REQUIRED`; 4 owner decision rows, 4 pass gates, 2 blocked gates, `readyForMainMerge=false`, `readyForUpressPull=false`, 78 percent local readiness to profit and 0 live revenue impact.
+- SAFETY: private owner-decision packet only; no public CMS edit, live route change, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM, profile, lead, contact, invoice, payment, email-to-users, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting, merge to main or uPress deployment changed.
+
 # 2026-05-27 - Homepage human help visual QA pass
 
 - ADDED: `tools/build-homepage-human-help-visual-qa-preview.mjs` and `tools/check-homepage-human-help-visual-preview-cdp.mjs`.

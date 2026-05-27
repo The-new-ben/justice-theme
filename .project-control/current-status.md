@@ -1,3 +1,12 @@
+# LATEST WORK STATUS - 2026-05-27 15:10 Asia/Jerusalem
+- HOMEPAGE OWNER DEPLOYMENT APPROVAL PACKET ADDED: converted the static-QA homepage work into a concrete owner decision packet with exact yes/no gates before any merge, route QA or uPress pull.
+- CODE ADDED: `tools/build-homepage-human-help-owner-deployment-approval-packet.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/homepage-human-help-owner-deployment-approval-2026-05-27.md`, `.project-control/homepage-human-help-owner-deployment-approval-2026-05-27.html`, `.project-control/homepage-human-help-owner-deployment-approval-2026-05-27.csv`, `.project-control/homepage-human-help-owner-deployment-approval-2026-05-27-owner-reply.csv`, `.reports/homepage-human-help-owner-deployment-approval-2026-05-27.json` and `.reports/homepage-human-help-owner-deployment-approval-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-homepage-human-help-owner-deployment-approval-packet.mjs` passed. Running the builder returned `HOMEPAGE_HUMAN_HELP_DEPLOYMENT_APPROVAL_PACKET_READY_OWNER_DECISION_REQUIRED`, 4 owner decision rows, 4 pass gates, 2 blocked gates, `readyForMainMerge=false`, `readyForUpressPull=false`, 0 public CMS approvals, 0 paid LLM API use, 78% local readiness to profit and 0% live revenue impact.
+- REVIEW RESULT: the homepage improvement is no longer an open-ended internal task. The owner now has a small approval surface: approve real WordPress route QA, then only after a pass decide merge to main, uPress Pull and post-publish review.
+- PUBLIC/LIVE IMPACT: no public CMS/database content, live site, route, choosing-lawyer guide content, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting, paid LLM API, merge to main or uPress pull changed.
+- COMPLETION ASSESSMENT: homepage deployment decision packet 100%; route QA and owner approval remain blocked; live profit impact remains 0%.
+
 # LATEST WORK STATUS - 2026-05-27 14:45 Asia/Jerusalem
 - HOMEPAGE HUMAN HELP VISUAL QA ADDED AND PASSED: added a repeatable local QA preview/checker for the new homepage human-help blocks and captured desktop/mobile visual evidence.
 - CODE ADDED/UPDATED: added `tools/build-homepage-human-help-visual-qa-preview.mjs` and `tools/check-homepage-human-help-visual-preview-cdp.mjs`; updated `assets/css/premium-pass-4.css` to remove narrow-screen horizontal overflow risk found by the first mobile screenshot.

@@ -1,0 +1,209 @@
+{
+  "status": "HOMEPAGE_HUMAN_HELP_DEPLOYMENT_APPROVAL_PACKET_READY_OWNER_DECISION_REQUIRED",
+  "reportDate": "2026-05-27",
+  "qaDate": "2026-05-27",
+  "branch": "codex/homepage-human-help-local",
+  "qaReportPath": ".reports/homepage-human-help-visual-qa-2026-05-27.json",
+  "approvalRows": 4,
+  "passGates": 4,
+  "blockedGates": 2,
+  "readyForMainMerge": false,
+  "readyForUpressPull": false,
+  "publicCmsChangesApproved": 0,
+  "paidLlmApiUsed": 0,
+  "upressDeploymentRequired": false,
+  "readinessToProfitPercent": 78,
+  "liveRevenueImpactPercent": 0,
+  "generated": {
+    "projectMd": ".project-control/homepage-human-help-owner-deployment-approval-2026-05-27.md",
+    "projectHtml": ".project-control/homepage-human-help-owner-deployment-approval-2026-05-27.html",
+    "projectCsv": ".project-control/homepage-human-help-owner-deployment-approval-2026-05-27.csv",
+    "replyCsv": ".project-control/homepage-human-help-owner-deployment-approval-2026-05-27-owner-reply.csv",
+    "reportJson": ".reports/homepage-human-help-owner-deployment-approval-2026-05-27.json",
+    "reportCsv": ".reports/homepage-human-help-owner-deployment-approval-2026-05-27.csv"
+  },
+  "approvals": [
+    {
+      "id": "HOME-APPROVAL-01",
+      "decision": "approve_real_route_qa",
+      "owner_question_he": "לאשר בדיקת route אמיתי בסביבת WordPress או staging לפני פרסום?",
+      "recommended_answer": "yes",
+      "effect_if_yes": "Codex יבדוק את עמוד הבית האמיתי בדפדפן ויוודא שאין שבירה לפני merge או uPress.",
+      "effect_if_no": "העבודה נשארת פנימית בענף, בלי פרסום.",
+      "current_status": "waiting_owner_decision"
+    },
+    {
+      "id": "HOME-APPROVAL-02",
+      "decision": "approve_merge_to_main_after_route_qa_pass",
+      "owner_question_he": "אם route QA אמיתי עובר, לאשר merge ל-main?",
+      "recommended_answer": "no_until_route_qa_passes",
+      "effect_if_yes": "רק אחרי route QA שעובר אפשר להכין merge ל-main.",
+      "effect_if_no": "הענף נשאר נפרד ולא נכנס למסלול פריסה.",
+      "current_status": "blocked_until_route_qa"
+    },
+    {
+      "id": "HOME-APPROVAL-03",
+      "decision": "approve_upress_pull_after_main_push",
+      "owner_question_he": "אם יהיה push מאושר ל-main, לאשר uPress Pull Git לאתר החי?",
+      "recommended_answer": "no_until_main_push_approved",
+      "effect_if_yes": "Codex יפתח uPress ויריץ Pull Git רק אחרי push מאושר ל-main.",
+      "effect_if_no": "לא תהיה השפעה על האתר החי.",
+      "current_status": "blocked_until_owner_deployment_approval"
+    },
+    {
+      "id": "HOME-APPROVAL-04",
+      "decision": "approve_post_publish_review",
+      "owner_question_he": "אם יפורסם, לאשר בדיקת פוסט-פרסום עם URL, סקירה וקישורי קניבליזציה?",
+      "recommended_answer": "yes",
+      "effect_if_yes": "Codex יבדוק את העמוד החי, יתעד URL, סקירה, סיכום תוכן וקישורים דומים לבדיקה.",
+      "effect_if_no": "לא יהיה אישור איכות אחרי פרסום.",
+      "current_status": "waiting_owner_decision"
+    }
+  ],
+  "gates": [
+    {
+      "id": "HOME-DEPLOY-GATE-01",
+      "gate": "static_visual_qa_passed",
+      "status": "PASS",
+      "evidence": "QA status: HOMEPAGE_HUMAN_HELP_VISUAL_QA_PASS_NO_PUBLIC_CHANGE."
+    },
+    {
+      "id": "HOME-DEPLOY-GATE-02",
+      "gate": "mobile_no_horizontal_overflow",
+      "status": "PASS",
+      "evidence": "mobileOverflowX=false."
+    },
+    {
+      "id": "HOME-DEPLOY-GATE-03",
+      "gate": "desktop_no_horizontal_overflow",
+      "status": "PASS",
+      "evidence": "desktopOverflowX=false."
+    },
+    {
+      "id": "HOME-DEPLOY-GATE-04",
+      "gate": "real_wordpress_route_qa",
+      "status": "BLOCKED",
+      "evidence": "Static preview passed, but the real WordPress route has not been checked yet."
+    },
+    {
+      "id": "HOME-DEPLOY-GATE-05",
+      "gate": "owner_deployment_approval",
+      "status": "BLOCKED",
+      "evidence": "Owner has not approved merge to main or uPress Pull Git."
+    },
+    {
+      "id": "HOME-DEPLOY-GATE-06",
+      "gate": "guide_content_preserved",
+      "status": "PASS",
+      "evidence": "The implementation and QA did not edit template-parts/sections/find-lawyer-guide.php."
+    }
+  ],
+  "qaReport": {
+    "status": "HOMEPAGE_HUMAN_HELP_VISUAL_QA_PASS_NO_PUBLIC_CHANGE",
+    "reportDate": "2026-05-27",
+    "previewHtml": ".project-control/homepage-human-help-visual-qa-preview-2026-05-27.html",
+    "desktopOverflowX": false,
+    "mobileOverflowX": false,
+    "selectorsPresentDesktop": true,
+    "selectorsPresentMobile": true,
+    "desktopScreenshot": ".project-control/visual-evidence/homepage-human-help-visual-qa-2026-05-27-desktop.png",
+    "mobileScreenshot": ".project-control/visual-evidence/homepage-human-help-visual-qa-2026-05-27-mobile.png",
+    "publicCmsChangesApproved": 0,
+    "paidLlmApiUsed": 0,
+    "upressDeploymentRequired": false,
+    "readinessToProfitPercent": 74,
+    "liveRevenueImpactPercent": 0,
+    "desktop": {
+      "label": "desktop",
+      "innerWidth": 1366,
+      "scrollWidth": 1351,
+      "overflowX": false,
+      "selectorsPresent": true,
+      "boxes": [
+        {
+          "selector": ".hero__first-steps",
+          "count": 1,
+          "visible": 1,
+          "minLeft": 0,
+          "maxRight": 1076
+        },
+        {
+          "selector": ".homepage-situation-router",
+          "count": 1,
+          "visible": 1,
+          "minLeft": 0,
+          "maxRight": 1236
+        },
+        {
+          "selector": ".homepage-intent-card__prep",
+          "count": 3,
+          "visible": 3,
+          "minLeft": 0,
+          "maxRight": 1215
+        },
+        {
+          "selector": ".homepage-intent-pyramid__lawyer-path",
+          "count": 1,
+          "visible": 1,
+          "minLeft": 0,
+          "maxRight": 1236
+        },
+        {
+          "selector": ".homepage-intent-pyramid__trust-note",
+          "count": 1,
+          "visible": 1,
+          "minLeft": 0,
+          "maxRight": 1106
+        }
+      ],
+      "offenders": [],
+      "screenshot": ".project-control/visual-evidence/homepage-human-help-visual-qa-2026-05-27-desktop.png"
+    },
+    "mobile": {
+      "label": "mobile",
+      "innerWidth": 390,
+      "scrollWidth": 390,
+      "overflowX": false,
+      "selectorsPresent": true,
+      "boxes": [
+        {
+          "selector": ".hero__first-steps",
+          "count": 1,
+          "visible": 1,
+          "minLeft": 0,
+          "maxRight": 374
+        },
+        {
+          "selector": ".homepage-situation-router",
+          "count": 1,
+          "visible": 1,
+          "minLeft": 0,
+          "maxRight": 374
+        },
+        {
+          "selector": ".homepage-intent-card__prep",
+          "count": 3,
+          "visible": 3,
+          "minLeft": 0,
+          "maxRight": 354
+        },
+        {
+          "selector": ".homepage-intent-pyramid__lawyer-path",
+          "count": 1,
+          "visible": 1,
+          "minLeft": 0,
+          "maxRight": 374
+        },
+        {
+          "selector": ".homepage-intent-pyramid__trust-note",
+          "count": 1,
+          "visible": 1,
+          "minLeft": 0,
+          "maxRight": 374
+        }
+      ],
+      "offenders": [],
+      "screenshot": ".project-control/visual-evidence/homepage-human-help-visual-qa-2026-05-27-mobile.png"
+    }
+  }
+}

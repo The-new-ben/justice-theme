@@ -1,0 +1,2 @@
+status,reportDate,qaDate,branch,qaReportPath,approvalRows,passGates,blockedGates,readyForMainMerge,readyForUpressPull,publicCmsChangesApproved,paidLlmApiUsed,upressDeploymentRequired,readinessToProfitPercent,liveRevenueImpactPercent
+HOMEPAGE_HUMAN_HELP_DEPLOYMENT_APPROVAL_PACKET_READY_OWNER_DECISION_REQUIRED,2026-05-27,2026-05-27,codex/homepage-human-help-local,.reports/homepage-human-help-visual-qa-2026-05-27.json,4,4,2,false,false,0,0,false,78,0

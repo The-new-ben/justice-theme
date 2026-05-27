@@ -98,11 +98,38 @@ async function fetchWithTimeout(url, timeoutMs) {
 
 function patternHits(text) {
   return FORBIDDEN_PATTERNS
-    .filter((item) => item.pattern.test(text))
-    .map((item) => ({
-      name: item.name,
-      reason: item.reason,
-    }));
+    .map((item) => {
+      const flags = item.pattern.flags.includes('g') ? item.pattern.flags : `${item.pattern.flags}g`;
+      const matcher = new RegExp(item.pattern.source, flags);
+      const snippets = [];
+      let count = 0;
+
+      for (const match of text.matchAll(matcher)) {
+        count += 1;
+
+        if (snippets.length >= 3) {
+          continue;
+        }
+
+        const index = match.index || 0;
+        const before = Math.max(0, index - 120);
+        const after = Math.min(text.length, index + match[0].length + 120);
+        snippets.push(
+          text
+            .slice(before, after)
+            .replace(/\s+/g, ' ')
+            .trim()
+        );
+      }
+
+      return {
+        name: item.name,
+        reason: item.reason,
+        count,
+        snippets,
+      };
+    })
+    .filter((item) => item.count > 0);
 }
 
 async function checkLivePath(baseUrl, path, timeoutMs) {
@@ -112,6 +139,7 @@ async function checkLivePath(baseUrl, path, timeoutMs) {
     const response = await fetchWithTimeout(url, timeoutMs);
     const body = await response.text();
     const hits = patternHits(body);
+    const hitCount = hits.reduce((total, hit) => total + hit.count, 0);
 
     return {
       type: 'live',
@@ -120,6 +148,7 @@ async function checkLivePath(baseUrl, path, timeoutMs) {
       status: response.status,
       ok: response.status >= 200 && response.status < 400 && hits.length === 0,
       hits,
+      hitCount,
       bodyLength: body.length,
     };
   } catch (error) {
@@ -130,6 +159,7 @@ async function checkLivePath(baseUrl, path, timeoutMs) {
       status: 0,
       ok: false,
       hits: [],
+      hitCount: 0,
       bodyLength: 0,
       error: error instanceof Error ? error.message : String(error),
     };
@@ -169,12 +199,14 @@ async function collectFiles(targetPath) {
 async function checkSourceFile(root, filePath) {
   const text = await readFile(filePath, 'utf8');
   const hits = patternHits(text);
+  const hitCount = hits.reduce((total, hit) => total + hit.count, 0);
 
   return {
     type: 'source',
     file: relative(root, filePath).replace(/\\/g, '/'),
     ok: hits.length === 0,
     hits,
+    hitCount,
   };
 }
 
@@ -218,9 +250,15 @@ const summary = {
   pass: failed.length === 0,
   failed,
   liveResults,
+  liveSummary: {
+    pathsChecked: liveResults.length,
+    failedPaths: liveResults.filter((result) => !result.ok).map((result) => result.path),
+    hitCount: liveResults.reduce((total, result) => total + result.hitCount, 0),
+  },
   sourceSummary: {
     filesChecked: sourceResults.length,
     failedFiles: sourceResults.filter((result) => !result.ok),
+    hitCount: sourceResults.reduce((total, result) => total + result.hitCount, 0),
   },
   standard: {
     canonicalInternalLinks: 'Use canonical slugs such as /about/ for trust and revenue pages.',

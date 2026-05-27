@@ -27,6 +27,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File .project-control\scripts\che
 - Source-only hygiene: PASS.
 - Live hygiene: FAIL until deployment.
 - Live pages still exposing legacy `page_id` link: `/`, `/about/`, `/contact/`, `/lawyers/`, `/lawyer-plans/`, `/lawyer-registration/`.
+- The live checker now records match counts and exact HTML snippets for each forbidden `page_id` hit, so the failing menu item can be verified without manual HTML scraping.
+- Verified on 2026-05-27T23:13Z-23:14Z: source-only hygiene passed across 112 source files; live hygiene failed with one `page_id` hit per checked page; consolidated revenue gate stayed `pass: true` with readiness `partial_live_funnel_deploy_blocked`.
+- Example live snippet recorded by the checker: `<a href="https://jus-tice.co.il/?page_id=315">אודות</a>`.
 - Consolidated revenue gate remains `partial_live_funnel_deploy_blocked`.
 
 ## Gate Behavior

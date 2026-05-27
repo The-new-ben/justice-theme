@@ -51,7 +51,7 @@
       "if_approved_he": "קודקס יכול לבדוק את שורות הראיה ללא פרטים מזהים ולהמשיך רק אם כל השורות עוברות.",
       "hard_no_he": "לא פונים ללידים ישנים, לא מעבירים פרטים אישיים, לא מחייבים, לא מסמנים שולם ולא טוענים להכנסה מתוך הקבצים בלבד.",
       "suggested_reply_he": "UNBLOCK-01 approve",
-      "source_status": "BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION",
+      "source_status": "BLOCKED_STATIC_GATE_MISSING",
       "source_artifact": ".project-control/btl-controlled-lead-dry-run-packet-2026-05-27.md",
       "public_action_approved": "no",
       "live_crm_or_outreach_approved": "no",
@@ -132,7 +132,7 @@
     {
       "id": "UNBLOCK-05",
       "rank": 6,
-      "lane": "divorce_tel_aviv_local_page",
+      "lane": "tel_aviv_family_evidence_completion",
       "priority_group": "secondary",
       "title_he": "עמוד גירושין תל אביב",
       "owner_decision_needed_he": "לאמת מוכנות wp-admin לשלושת כרטיסי דיני משפחה בתל אביב ולספק שורות GSC לקבוצת גירושין תל אביב.",
@@ -141,8 +141,8 @@
       "if_approved_he": "אפשר להכין טיוטת fit-check צרה שמגינה על pillar הגירושין ועל עמודים קשורים.",
       "hard_no_he": "אין CMS, title/H1/meta/body, קישורים פנימיים, שינוי ספריה, redirects/canonicals/noindex/sitemap/uPress.",
       "suggested_reply_he": "UNBLOCK-05 needs_more_evidence",
-      "source_status": "DIVORCE_TEL_AVIV_EVIDENCE_FILL_READY_NO_PUBLIC_CHANGE",
-      "source_artifact": ".project-control/divorce-tel-aviv-evidence-fill-packet-2026-05-27.md",
+      "source_status": "TEL_AVIV_FAMILY_EVIDENCE_COMPLETION_CONTROL_CENTER_READY_BLOCKED_ON_HUMAN_FILL_NO_PUBLIC_CHANGE",
+      "source_artifact": ".project-control/tel-aviv-family-evidence-completion-control-center-2026-05-27.md",
       "public_action_approved": "no",
       "live_crm_or_outreach_approved": "no",
       "payment_or_invoice_approved": "no"

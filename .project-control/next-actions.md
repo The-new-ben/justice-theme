@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-OWNER-UNBLOCKER-TEL-AVIV-EVIDENCE-REFRESH-001: Point owner queue to current Tel Aviv completion packet
+**Status:** FIXED LOCAL / OWNER FILL STILL BLOCKED
+**Why:** The owner-unblocker queue still linked Tel Aviv local-page work to an older evidence-fill packet even though the current blocker is the 172-row evidence-completion control center.
+**Actions:**
+1. DONE: update `tools/build-owner-unblocker-command-queue.mjs` so `UNBLOCK-05` uses the Tel Aviv family evidence-completion control center source status and artifact.
+2. DONE: regenerate `.project-control/owner-unblocker-command-queue-2026-05-27.md`, `.csv` and `.project-control/owner-unblocker-reply-template-2026-05-27.csv`.
+3. DONE: regenerate `.project-control/owner-unblocker-hebrew-decision-brief-2026-05-27.md`, `.html`, `.csv` and `.project-control/owner-unblocker-hebrew-reply-template-2026-05-27.csv`.
+4. DONE: regenerate `.project-control/owner-unblocker-command-center-2026-05-27.html`, `.md` and `.csv`.
+5. DONE: regenerate the matching `.reports` JSON/CSV files for command queue, Hebrew brief and command center.
+6. DONE: confirm command queue `OWNER_UNBLOCKER_COMMAND_QUEUE_READY_NO_LIVE_ACTION`, Hebrew brief `OWNER_UNBLOCKER_HEBREW_DECISION_BRIEF_READY_NO_LIVE_ACTION`, command center `OWNER_UNBLOCKER_COMMAND_CENTER_READY_NO_LIVE_ACTION`, 8/8 linked command-center sources, 4/4 command-center gates pass, 0 public/CRM/outreach/payment/email/uPress approvals and `UNBLOCK-05` now links to the Tel Aviv evidence-completion packet.
+7. NEXT: owner/operator fills the Tel Aviv evidence-completion workqueue if they choose `UNBLOCK-05 needs_more_evidence` or provide the private GSC/lawyer/legal/owner evidence location.
+8. BLOCKED: no public route, CMS, title/H1/meta/body/internal link, redirect/canonical/noindex/sitemap/taxonomy, CRM, lawyer profile edit, contact, invoice, payment, email/WhatsApp/TalkTo, GSC API, paid LLM API, wp-admin write or uPress from this private owner navigation refresh.
+
 ### ACTION-TEL-AVIV-FAMILY-EVIDENCE-COMPLETION-001: Fill sequenced publication evidence workqueue
 **Status:** FIXED LOCAL / HUMAN FILL STILL BLOCKED
 **Why:** The Tel Aviv family publication chain had several separate fill templates. The owner/operator needed one control center that shows row counts, responsible role, sequence and what each blank blocks.

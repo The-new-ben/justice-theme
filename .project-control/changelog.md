@@ -1,6 +1,14 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Owner unblocker Tel Aviv evidence handoff refresh
+
+- UPDATED: `tools/build-owner-unblocker-command-queue.mjs`.
+- GENERATED: regenerated owner unblocker command queue, Hebrew decision brief, browser command center, reply templates and reports for 2026-05-27.
+- PURPOSE: point `UNBLOCK-05` at `.project-control/tel-aviv-family-evidence-completion-control-center-2026-05-27.md` and the current `TEL_AVIV_FAMILY_EVIDENCE_COMPLETION_CONTROL_CENTER_READY_BLOCKED_ON_HUMAN_FILL_NO_PUBLIC_CHANGE` status.
+- RESULT: command queue remains `OWNER_UNBLOCKER_COMMAND_QUEUE_READY_NO_LIVE_ACTION` with 8 rows and 3 top rows; Hebrew brief has 3/3 pass gates; command center has 8/8 linked source packets and 4/4 pass gates. The refreshed queue also exposes the current BTL source status as `BLOCKED_STATIC_GATE_MISSING`.
+- SAFETY: private owner-decision navigation only; no owner decision fill, paid LLM API, public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, GSC API, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - Tel Aviv family evidence completion control center
 
 - ADDED: `tools/build-tel-aviv-family-evidence-completion-control-center.mjs`.

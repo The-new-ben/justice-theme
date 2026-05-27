@@ -11,13 +11,13 @@
     "gscApiCalled": 0,
     "upressDeploymentRequired": false,
     "sourceStatuses": {
-      "btlControlledLead": "BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION",
+      "btlControlledLead": "BLOCKED_STATIC_GATE_MISSING",
       "lawyerWalkthrough": "READY_SCRIPT_WITH_RUNTIME_BLOCKERS",
       "manualInvoice": "MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION",
       "criminalJerusalemCoverage": "CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION",
       "publicApproval": "OWNER_APPROVAL_QUEUE_READY_NOT_APPROVED",
       "lowHypeRv": "LOW_HYPE_RV_FIRST_PILOT_DECISION_QUEUE_READY_NO_PUBLIC_CHANGE",
-      "divorceTelAviv": "DIVORCE_TEL_AVIV_EVIDENCE_FILL_READY_NO_PUBLIC_CHANGE",
+      "divorceTelAviv": "TEL_AVIV_FAMILY_EVIDENCE_COMPLETION_CONTROL_CENTER_READY_BLOCKED_ON_HUMAN_FILL_NO_PUBLIC_CHANGE",
       "criminalDecision": "CRIMINAL_LAW_PILLAR_SPLIT_DECISION_PACKET_READY_NO_PUBLIC_CHANGE",
       "consentPack": "CONSENT_MESSAGE_PACK_READY_FOR_OWNER_LEGAL_REVIEW_NO_SEND"
     }
@@ -32,7 +32,7 @@
       "exact_next_step": "Owner/admin fills the BTL controlled lead dry-run template from wp-admin evidence only; Codex can then review the filled no-PII proof rows.",
       "allowed_after_yes": "Private review of filled evidence; one controlled manual handoff only after all proof rows pass.",
       "hard_no": "No old lead contact, no PII release, no lawyer/client outreach, no invoice, no paid status and no revenue claim from repo artifacts alone.",
-      "source_status": "BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION",
+      "source_status": "BLOCKED_STATIC_GATE_MISSING",
       "source_artifact": ".project-control/btl-controlled-lead-dry-run-packet-2026-05-27.md",
       "public_action": "no",
       "crm_or_outreach_action": "owner-controlled-only",
@@ -101,17 +101,17 @@
     {
       "id": "UNBLOCK-05",
       "rank": 6,
-      "lane": "divorce_tel_aviv_local_page",
-      "owner_reply_needed": "Verify wp-admin readiness for the 3 visible Tel Aviv family-law cards and provide GSC rows for divorce Tel Aviv query/page clusters.",
-      "why_it_matters": "The private evidence route is corrected, but publication cannot proceed without real filtered lawyer coverage and GSC/legal/editor review.",
-      "exact_next_step": "Fill the public-draft gate template with profile count/readiness, GSC rows, legal/editor reviewer and owner approval decision.",
-      "allowed_after_yes": "Prepare a narrow local fit-check draft that protects the divorce pillar and associated issue pages.",
-      "hard_no": "No CMS page, title/H1/meta/body, internal links, directory code, redirects, canonicals/noindex, sitemap or uPress.",
-      "source_status": "DIVORCE_TEL_AVIV_EVIDENCE_FILL_READY_NO_PUBLIC_CHANGE",
-      "source_artifact": ".project-control/divorce-tel-aviv-evidence-fill-packet-2026-05-27.md",
+      "lane": "tel_aviv_family_evidence_completion",
+      "owner_reply_needed": "Fill the Tel Aviv family evidence-completion workqueue: 144 GSC paste rows, 3 lawyer-readiness rows, 12 legal/editor rows, 8 owner-scope rows and 5 final publication-gate rows.",
+      "why_it_matters": "The route has enough private structure to continue safely, but publication is now blocked on one clear human-fill chain rather than more repo-only preparation.",
+      "exact_next_step": "Use the evidence-completion control center as the index: fill GSC first, then lawyer readiness, legal/editor, owner scope and the final private publication gate.",
+      "allowed_after_yes": "Private review of filled no-PII rows; only after all gates pass can a separate exact CMS draft packet be prepared for owner review.",
+      "hard_no": "No CMS page, title/H1/meta/body, internal links, redirects, canonicals/noindex, sitemap, taxonomy, email or uPress from this queue row.",
+      "source_status": "TEL_AVIV_FAMILY_EVIDENCE_COMPLETION_CONTROL_CENTER_READY_BLOCKED_ON_HUMAN_FILL_NO_PUBLIC_CHANGE",
+      "source_artifact": ".project-control/tel-aviv-family-evidence-completion-control-center-2026-05-27.md",
       "public_action": "blocked_pending_owner_gsc_legal",
       "crm_or_outreach_action": "no",
-      "completion_if_owner_replies": "Can move from private evidence to owner-review draft preparation."
+      "completion_if_owner_replies": "Can move from 0% human fill to a private go/no-go review surface for the local page."
     },
     {
       "id": "UNBLOCK-06",

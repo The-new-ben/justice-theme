@@ -17,12 +17,12 @@
 
 | מזהה | עדיפות | נושא | מקור קיים | סטטוס מקור | פעולה חיה מאושרת |
 | --- | ---: | --- | --- | --- | --- |
-| UNBLOCK-01 | 1 | הוכחת ליד בתשלום בביטוח לאומי | yes | BTL_CONTROLLED_DRY_RUN_READY_NO_LIVE_ACTION | no |
+| UNBLOCK-01 | 1 | הוכחת ליד בתשלום בביטוח לאומי | yes | BLOCKED_STATIC_GATE_MISSING | no |
 | UNBLOCK-02 | 2 | בדיקת מסלול מנוי עורך דין | yes | READY_SCRIPT_WITH_RUNTIME_BLOCKERS \| MANUAL_INVOICE_FALLBACK_READY_NO_LIVE_PAYMENT_ACTION | no |
 | UNBLOCK-08 | 3 | כיסוי עורך דין פלילי בירושלים | yes | CRIMINAL_JERUSALEM_COVERAGE_ACTIVATION_PACKET_READY_NO_LIVE_ACTION | no |
 | UNBLOCK-03 | 4 | עדכון ציבורי אפשרי בעמוד הסכם שכירות | yes | OWNER_APPROVAL_QUEUE_READY_NOT_APPROVED | no |
 | UNBLOCK-04 | 5 | החלטת Low Hype / RV | yes | LOW_HYPE_RV_FIRST_PILOT_DECISION_QUEUE_READY_NO_PUBLIC_CHANGE | no |
-| UNBLOCK-05 | 6 | עמוד גירושין תל אביב | yes | DIVORCE_TEL_AVIV_EVIDENCE_FILL_READY_NO_PUBLIC_CHANGE | no |
+| UNBLOCK-05 | 6 | עמוד גירושין תל אביב | yes | TEL_AVIV_FAMILY_EVIDENCE_COMPLETION_CONTROL_CENTER_READY_BLOCKED_ON_HUMAN_FILL_NO_PUBLIC_CHANGE | no |
 | UNBLOCK-06 | 7 | תפקיד העמוד פלילי ירושלים | yes | CRIMINAL_LAW_PILLAR_SPLIT_DECISION_PACKET_READY_NO_PUBLIC_CHANGE | no |
 | UNBLOCK-07 | 8 | הסכמה ללידים מ-WhatsApp/TalkTo | yes | CONSENT_MESSAGE_PACK_READY_FOR_OWNER_LEGAL_REVIEW_NO_SEND | no |
 

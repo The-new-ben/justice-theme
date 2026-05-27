@@ -1,0 +1,258 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "sourceDate": "2026-05-27",
+    "status": "BTL_SOURCE_READINESS_FILLED_REVIEW_BLOCKED_NO_LIVE_ACTION",
+    "sourcePacket": ".reports\\btl-source-readiness-admin-fill-packet-2026-05-27.json",
+    "filledCsv": ".project-control\\btl-source-readiness-admin-fill-template-2026-05-27.csv",
+    "requiredRowCount": 8,
+    "reviewedRowCount": 8,
+    "passRows": 0,
+    "blockedRows": 8,
+    "gateRows": 6,
+    "blockedGateRows": 4,
+    "duplicateRowIds": 0,
+    "unknownRowIds": 0,
+    "rawAdminPointersEchoed": 0,
+    "rawPrivateNotesEchoed": 0,
+    "publicChangesApproved": 0,
+    "liveCrmOrOutreachApproved": 0,
+    "invoicesOrPaymentsCreated": 0,
+    "revenueClaimsApproved": 0,
+    "paidLlmApiUsed": 0,
+    "externalApisCalled": 0,
+    "emailsOrMessagesSent": 0,
+    "upressDeploymentRequired": false,
+    "files": {
+      "projectMd": ".project-control\\btl-source-readiness-filled-review-gate-2026-05-27.md",
+      "projectCsv": ".project-control\\btl-source-readiness-filled-review-gate-2026-05-27.csv",
+      "escalationCsv": ".project-control\\btl-source-readiness-filled-review-escalation-2026-05-27.csv",
+      "reportJson": ".reports\\btl-source-readiness-filled-review-gate-2026-05-27.json",
+      "reportCsv": ".reports\\btl-source-readiness-filled-review-gate-2026-05-27.csv"
+    }
+  },
+  "gateRows": [
+    {
+      "id": "BTL-FILLED-GATE-01",
+      "gate": "schema_and_required_rows",
+      "status": "PASS",
+      "evidence": "8/8 required rows reviewed; 0 duplicate IDs; 0 unknown IDs.",
+      "next_action": "Keep using the controlled no-PII template; do not add extra rows or private names."
+    },
+    {
+      "id": "BTL-FILLED-GATE-02",
+      "gate": "no_live_or_public_action_approval",
+      "status": "PASS",
+      "evidence": "0 rows attempted to mark public/live action approval.",
+      "next_action": "Reset public_or_live_action_approved to no; live action needs a separate explicit owner release outside this packet."
+    },
+    {
+      "id": "BTL-FILLED-GATE-03",
+      "gate": "three_private_prospects_pass",
+      "status": "BLOCKED",
+      "evidence": "0/3 private specialist rows pass.",
+      "next_action": "Fill or fix the private specialist supply rows before claiming routable coverage."
+    },
+    {
+      "id": "BTL-FILLED-GATE-04",
+      "gate": "coverage_and_controlled_lead_pass",
+      "status": "BLOCKED",
+      "evidence": "Coverage pass: no; controlled lead pass: no.",
+      "next_action": "Do not route a lead unless coverage and consented controlled lead evidence both pass."
+    },
+    {
+      "id": "BTL-FILLED-GATE-05",
+      "gate": "billing_and_private_payment_proof_pass",
+      "status": "BLOCKED",
+      "evidence": "Billing pass: no; payment proof pass: no.",
+      "next_action": "Invoice/reference alone remains invoice-stage evidence; paid revenue requires private payment proof."
+    },
+    {
+      "id": "BTL-FILLED-GATE-06",
+      "gate": "go_nogo_after_payment_only",
+      "status": "BLOCKED",
+      "evidence": "Payment proof pass: no; go/no-go pass: no.",
+      "next_action": "A pass here permits only a later owner-approved controlled action plan, not automatic live execution."
+    }
+  ],
+  "reviewRows": [
+    {
+      "id": "PROSPECT-01",
+      "sequence": "1",
+      "stage": "private_specialist_supply",
+      "evidence_status": "not_started",
+      "owner_admin_decision": "blank",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "admin_pointer_present": "no",
+      "private_note_present": "no",
+      "public_or_live_action_approved": "no",
+      "review_status": "BLOCKED_DECISION_NOT_PASS",
+      "blocker_if_no": "Private prospect is created and all manual verification fields pass.",
+      "raw_values_echoed": "no"
+    },
+    {
+      "id": "PROSPECT-02",
+      "sequence": "2",
+      "stage": "private_specialist_supply",
+      "evidence_status": "not_started",
+      "owner_admin_decision": "blank",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "admin_pointer_present": "no",
+      "private_note_present": "no",
+      "public_or_live_action_approved": "no",
+      "review_status": "BLOCKED_DECISION_NOT_PASS",
+      "blocker_if_no": "Private prospect is created and all manual verification fields pass.",
+      "raw_values_echoed": "no"
+    },
+    {
+      "id": "PROSPECT-03",
+      "sequence": "3",
+      "stage": "private_specialist_supply",
+      "evidence_status": "not_started",
+      "owner_admin_decision": "blank",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "admin_pointer_present": "no",
+      "private_note_present": "no",
+      "public_or_live_action_approved": "no",
+      "review_status": "BLOCKED_DECISION_NOT_PASS",
+      "blocker_if_no": "Private prospect is created and all manual verification fields pass.",
+      "raw_values_echoed": "no"
+    },
+    {
+      "id": "LAWYER-COVERAGE-01",
+      "sequence": "4",
+      "stage": "routable_lawyer_coverage",
+      "evidence_status": "not_started",
+      "owner_admin_decision": "blank",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "admin_pointer_present": "no",
+      "private_note_present": "no",
+      "public_or_live_action_approved": "no",
+      "review_status": "BLOCKED_DECISION_NOT_PASS",
+      "blocker_if_no": "3 verified prospects are converted into routable lawyer profiles and billing/contact is present.",
+      "raw_values_echoed": "no"
+    },
+    {
+      "id": "CONTROLLED-LEAD-01",
+      "sequence": "5",
+      "stage": "controlled_lead",
+      "evidence_status": "not_started",
+      "owner_admin_decision": "blank",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "admin_pointer_present": "no",
+      "private_note_present": "no",
+      "public_or_live_action_approved": "no",
+      "review_status": "BLOCKED_DECISION_NOT_PASS",
+      "blocker_if_no": "Client permission and owner release are recorded in the live CRM.",
+      "raw_values_echoed": "no"
+    },
+    {
+      "id": "BILLING-01",
+      "sequence": "6",
+      "stage": "qualified_lead_billing",
+      "evidence_status": "not_started",
+      "owner_admin_decision": "blank",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "admin_pointer_present": "no",
+      "private_note_present": "no",
+      "public_or_live_action_approved": "no",
+      "review_status": "BLOCKED_DECISION_NOT_PASS",
+      "blocker_if_no": "The controlled lead is routed and the billing queue shows a billable lead.",
+      "raw_values_echoed": "no"
+    },
+    {
+      "id": "PAYMENT-01",
+      "sequence": "7",
+      "stage": "payment_proof",
+      "evidence_status": "not_started",
+      "owner_admin_decision": "blank",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "admin_pointer_present": "no",
+      "private_note_present": "no",
+      "public_or_live_action_approved": "no",
+      "review_status": "BLOCKED_DECISION_NOT_PASS",
+      "blocker_if_no": "Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/reference and private payment evidence.",
+      "raw_values_echoed": "no"
+    },
+    {
+      "id": "GO-NOGO-01",
+      "sequence": "8",
+      "stage": "scale_decision",
+      "evidence_status": "not_started",
+      "owner_admin_decision": "blank",
+      "proof_present_yes_no": "no",
+      "owner_verified_yes_no": "no",
+      "admin_pointer_present": "no",
+      "private_note_present": "no",
+      "public_or_live_action_approved": "no",
+      "review_status": "BLOCKED_DECISION_NOT_PASS",
+      "blocker_if_no": "PAYMENT-01 passes.",
+      "raw_values_echoed": "no"
+    }
+  ],
+  "escalationRows": [
+    {
+      "id": "PROSPECT-01",
+      "stage": "private_specialist_supply",
+      "current_review_status": "BLOCKED_DECISION_NOT_PASS",
+      "owner_or_admin_resolution_needed": "Private prospect is created and all manual verification fields pass.",
+      "public_or_live_action_allowed_from_this_review": "no"
+    },
+    {
+      "id": "PROSPECT-02",
+      "stage": "private_specialist_supply",
+      "current_review_status": "BLOCKED_DECISION_NOT_PASS",
+      "owner_or_admin_resolution_needed": "Private prospect is created and all manual verification fields pass.",
+      "public_or_live_action_allowed_from_this_review": "no"
+    },
+    {
+      "id": "PROSPECT-03",
+      "stage": "private_specialist_supply",
+      "current_review_status": "BLOCKED_DECISION_NOT_PASS",
+      "owner_or_admin_resolution_needed": "Private prospect is created and all manual verification fields pass.",
+      "public_or_live_action_allowed_from_this_review": "no"
+    },
+    {
+      "id": "LAWYER-COVERAGE-01",
+      "stage": "routable_lawyer_coverage",
+      "current_review_status": "BLOCKED_DECISION_NOT_PASS",
+      "owner_or_admin_resolution_needed": "3 verified prospects are converted into routable lawyer profiles and billing/contact is present.",
+      "public_or_live_action_allowed_from_this_review": "no"
+    },
+    {
+      "id": "CONTROLLED-LEAD-01",
+      "stage": "controlled_lead",
+      "current_review_status": "BLOCKED_DECISION_NOT_PASS",
+      "owner_or_admin_resolution_needed": "Client permission and owner release are recorded in the live CRM.",
+      "public_or_live_action_allowed_from_this_review": "no"
+    },
+    {
+      "id": "BILLING-01",
+      "stage": "qualified_lead_billing",
+      "current_review_status": "BLOCKED_DECISION_NOT_PASS",
+      "owner_or_admin_resolution_needed": "The controlled lead is routed and the billing queue shows a billable lead.",
+      "public_or_live_action_allowed_from_this_review": "no"
+    },
+    {
+      "id": "PAYMENT-01",
+      "stage": "payment_proof",
+      "current_review_status": "BLOCKED_DECISION_NOT_PASS",
+      "owner_or_admin_resolution_needed": "Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/reference and private payment evidence.",
+      "public_or_live_action_allowed_from_this_review": "no"
+    },
+    {
+      "id": "GO-NOGO-01",
+      "stage": "scale_decision",
+      "current_review_status": "BLOCKED_DECISION_NOT_PASS",
+      "owner_or_admin_resolution_needed": "PAYMENT-01 passes.",
+      "public_or_live_action_allowed_from_this_review": "no"
+    }
+  ]
+}

@@ -1,0 +1,2 @@
+reportDate,sourceDate,status,requiredRowCount,reviewedRowCount,passRows,blockedRows,gateRows,blockedGateRows,rawAdminPointersEchoed,rawPrivateNotesEchoed,publicChangesApproved,liveCrmOrOutreachApproved,invoicesOrPaymentsCreated,revenueClaimsApproved,paidLlmApiUsed,externalApisCalled,emailsOrMessagesSent,upressDeploymentRequired
+2026-05-27,2026-05-27,BTL_SOURCE_READINESS_FILLED_REVIEW_BLOCKED_NO_LIVE_ACTION,8,8,0,8,6,4,0,0,0,0,0,0,0,0,0,false

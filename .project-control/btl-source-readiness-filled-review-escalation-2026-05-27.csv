@@ -1,0 +1,9 @@
+id,stage,current_review_status,owner_or_admin_resolution_needed,public_or_live_action_allowed_from_this_review
+PROSPECT-01,private_specialist_supply,BLOCKED_DECISION_NOT_PASS,Private prospect is created and all manual verification fields pass.,no
+PROSPECT-02,private_specialist_supply,BLOCKED_DECISION_NOT_PASS,Private prospect is created and all manual verification fields pass.,no
+PROSPECT-03,private_specialist_supply,BLOCKED_DECISION_NOT_PASS,Private prospect is created and all manual verification fields pass.,no
+LAWYER-COVERAGE-01,routable_lawyer_coverage,BLOCKED_DECISION_NOT_PASS,3 verified prospects are converted into routable lawyer profiles and billing/contact is present.,no
+CONTROLLED-LEAD-01,controlled_lead,BLOCKED_DECISION_NOT_PASS,Client permission and owner release are recorded in the live CRM.,no
+BILLING-01,qualified_lead_billing,BLOCKED_DECISION_NOT_PASS,The controlled lead is routed and the billing queue shows a billable lead.,no
+PAYMENT-01,payment_proof,BLOCKED_DECISION_NOT_PASS,"Owner/admin must create or verify private prospects, activate routable lawyer profiles, run one consented controlled lead, then record invoice/reference and private payment evidence.",no
+GO-NOGO-01,scale_decision,BLOCKED_DECISION_NOT_PASS,PAYMENT-01 passes.,no

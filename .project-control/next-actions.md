@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-BTL-SOURCE-READINESS-FILLED-REVIEW-001: Review owner-filled BTL evidence rows
+**Status:** FIXED LOCAL / WAITING FOR OWNER ADMIN FILL
+**Why:** The Bituach Leumi source-readiness template now exists, but the next loop needs a deterministic no-PII reviewer that can evaluate filled rows without copying admin pointers or notes into reports.
+**Actions:**
+1. DONE: add `tools/review-btl-source-readiness-filled-rows.mjs`.
+2. DONE: update `tools/build-btl-source-readiness-admin-fill-packet.mjs` to point operators to the filled-row reviewer after the CSV is completed.
+3. DONE: generate `.project-control/btl-source-readiness-filled-review-gate-2026-05-27.md` and `.csv`.
+4. DONE: generate `.project-control/btl-source-readiness-filled-review-escalation-2026-05-27.csv`.
+5. DONE: generate `.reports/btl-source-readiness-filled-review-gate-2026-05-27.json` and `.csv`.
+6. DONE: confirm reviewer status `BTL_SOURCE_READINESS_FILLED_REVIEW_BLOCKED_NO_LIVE_ACTION` against the current blank template, 8 required rows, 0 pass rows, 8 blocked rows, 6 gates, 4 blocked gates, 0 raw admin pointers echoed, 0 raw private notes echoed and 0 public/CRM/outreach/invoice/payment/revenue/email/API/uPress approvals.
+7. NEXT: after owner/admin fills `.project-control/btl-source-readiness-admin-fill-template-2026-05-27.csv`, rerun the reviewer with `--filledCsv=` pointing at the filled no-PII CSV.
+8. BLOCKED: no live handoff, CRM creation/edit, lawyer/client contact, invoice, payment, paid status, revenue claim, email/WhatsApp/TalkTo, public page/CMS/SEO change, paid LLM API, external API, wp-admin write or uPress from this private reviewer.
+
 ### ACTION-BTL-SOURCE-READINESS-ADMIN-FILL-001: Fill first-paid-lead source readiness rows
 **Status:** FIXED LOCAL / OWNER ADMIN FILL STILL BLOCKED
 **Why:** The Bituach Leumi first-paid-lead path was visible as a dry-run/static source blocker, but owner/admin needed one exact no-PII packet for the private evidence required before any controlled handoff, invoice or revenue claim.

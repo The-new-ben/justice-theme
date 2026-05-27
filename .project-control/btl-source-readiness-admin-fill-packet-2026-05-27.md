@@ -51,6 +51,11 @@ Scope: private owner/admin source-readiness packet only. It does not create pros
 4. Fill BILLING-01 after actual routing creates a qualified billable lead and invoice/reference evidence exists.
 5. Fill PAYMENT-01 only when private payment evidence URL exists; invoice/reference alone is not paid proof.
 6. Fill GO-NOGO-01 only after payment proof passes and owner reviews supply, consent, billing, refund and complaint risk.
+7. Run `tools/review-btl-source-readiness-filled-rows.mjs` against the filled CSV; no live action is authorized unless that private review passes and the owner separately approves the next controlled step.
+
+## After Fill Review
+
+Use `.project-control/btl-source-readiness-filled-review-gate-2026-05-27.md` after the owner/admin fill is available. The reviewer reports pass/blocked status without echoing raw admin pointers or private notes into repo artifacts.
 
 ## Decision
 

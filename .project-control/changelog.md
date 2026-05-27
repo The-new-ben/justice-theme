@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - BTL source readiness filled-row review gate
+
+- ADDED: `tools/review-btl-source-readiness-filled-rows.mjs`.
+- UPDATED: `tools/build-btl-source-readiness-admin-fill-packet.mjs`.
+- GENERATED: `.project-control/btl-source-readiness-filled-review-gate-2026-05-27.md`, `.project-control/btl-source-readiness-filled-review-gate-2026-05-27.csv`, `.project-control/btl-source-readiness-filled-review-escalation-2026-05-27.csv`, `.reports/btl-source-readiness-filled-review-gate-2026-05-27.json`, `.reports/btl-source-readiness-filled-review-gate-2026-05-27.csv`, plus refreshed BTL source-readiness packet artifacts.
+- PURPOSE: provide a deterministic private review gate after the owner/admin fills the Bituach Leumi source-readiness no-PII template.
+- RESULT: current blank template returns `BTL_SOURCE_READINESS_FILLED_REVIEW_BLOCKED_NO_LIVE_ACTION`; 8 required rows reviewed, 0 pass rows, 8 blocked rows, 6 gates, 4 blocked gates, 0 raw admin pointers echoed and 0 raw private notes echoed.
+- SAFETY: private filled-row review only; no owner evidence fill, paid LLM API, external API, public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+
 # 2026-05-27 - BTL source readiness admin fill packet
 
 - ADDED: `tools/build-btl-source-readiness-admin-fill-packet.mjs`.

@@ -1,7 +1,7 @@
 # uPress Deploy Handoff: Footer Trust Path
 
 Date: 2026-05-27
-Owner loop status: blocked on uPress access through the Codex Chrome extension.
+Owner loop status: resolved. The footer trust path is live and verified.
 
 ## What is ready
 
@@ -16,38 +16,30 @@ Owner loop status: blocked on uPress access through the Codex Chrome extension.
 
 Live URL checked:
 
-`https://jus-tice.co.il/?cachebust=footer-trust-20260527-2021`
+`https://jus-tice.co.il/?cachebust=deploy-check-1779914644`
 
 Result:
 
 - HTTP status: `200`
-- New marker present: `false`
-- Version `1.1.66` present: `false`
-- `site-footer__trust-path` present: `false`
-- Old marker `2026-05-27-mobile-menu-lead-actions-v1` present: `true`
+- New marker present: `true`
+- Version `1.1.66` present: `true`
+- `site-footer__trust-path` present: `true`
+- `footer_trust_path` WhatsApp surface present: `true`
+- Old marker `2026-05-27-mobile-menu-lead-actions-v1` present: `false`
 
-Conclusion: the code is pushed to GitHub, but the live site has not pulled it yet.
+Conclusion: the code is live.
 
 ## Blocker
 
-Chrome is running and the configured `Profile 2` was opened. The Codex Chrome extension and native host checks pass, but Codex still cannot acquire the Chrome extension browser:
-
-`Browser is not available: extension`
-
-The connected uPress session depends on Chrome control, so Pull Git cannot be executed from this loop until the Codex Chrome plugin connection is repaired, or until the owner manually runs the uPress pull.
+Resolved for this footer deployment. The live site now passes the deployment marker checker. Chrome extension control may still need follow-up for future authenticated browser work, but it is no longer blocking this specific footer deployment.
 
 ## Resume steps
 
-1. Repair/reinstall the Codex Chrome plugin from the Codex plugin UI, or manually complete the uPress pull.
-2. Open uPress for `jus-tice.co.il`.
-3. Go to Git management for `wp-content/themes/justice-theme`.
-4. Run `Pull Git`.
-5. Run status check in uPress and confirm the worktree is clean.
-6. Re-check the live homepage for:
-   - `2026-05-27-footer-trust-path-v1`
-   - `1.1.66`
-   - `site-footer__trust-path`
-7. Run mobile and desktop visual QA for the footer.
+For future pulls:
+
+1. Run `.project-control/scripts/check-live-deploy.ps1` with the expected marker/version/component.
+2. Run mobile and desktop visual QA for the changed surface.
+3. Record whether the change is live, blocked, or internal-only.
 
 ## Acceptance criteria
 
@@ -60,4 +52,4 @@ The connected uPress session depends on Chrome control, so Pull Git cannot be ex
 
 ## Honesty statement
 
-This is not published yet. It is a deployment handoff only. No customer, payment, or revenue was created by this artifact.
+This footer trust path is published live and verified. No customer, payment, or revenue was created by this artifact.

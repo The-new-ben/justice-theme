@@ -1,0 +1,12 @@
+id,question,field_type,crm_mapping,billable_signal,safety_rule
+BTL-Q01,Which Bituach Leumi decision did you receive?,select,btl_decision_type,decision category for matching,Do not promise eligibility
+BTL-Q02,When did you receive the decision?,date,btl_decision_received_date,deadline can be reviewed,If unknown mark deadline review needed
+BTL-Q03,Do you have the committee protocol or full decision letter?,select,btl_protocol_available,lawyer can review faster,No upload until storage/privacy approved
+BTL-Q04,What did Bituach Leumi decide?,short_text,btl_current_decision_summary,structured triage summary,No medical diagnosis advice
+BTL-Q05,What result do you believe should have been decided?,short_text,btl_expected_result_summary,gap between decision and user claim,Keep as client claim
+BTL-Q06,Current monthly amount or percentage,number_text,btl_current_amount_or_percent,value gap estimate,Allow unknown
+BTL-Q07,Expected monthly amount or percentage,number_text,btl_expected_amount_or_percent,value gap estimate,Make estimate optional
+BTL-Q08,Are there updated medical documents after the committee?,select,btl_updated_docs_available,review quality signal,No upload first version
+BTL-Q09,How urgent is the deadline?,select,lead_urgency,deadline risk,Owner review before handoff
+BTL-Q10,Do you approve Jus-Tice to contact you for an initial review?,checkbox,consent,contact permission,Does not approve lawyer handoff
+BTL-Q11,Do you approve sharing a short no-PII summary with a relevant lawyer only after owner review?,checkbox,consent_status,prepares match consent,Keep routing hold until explicit or owner-verified consent

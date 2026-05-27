@@ -1,0 +1,23 @@
+{
+  "reportDate": "2026-05-27",
+  "status": "BTL_GUIDED_INTAKE_BLUEPRINT_READY_INTERNAL_ONLY_NO_PUBLIC_CHANGE",
+  "questionCount": 11,
+  "currentCodeMapped": [
+    "inc/national-insurance-funnel.php",
+    "inc/lead-routing.php",
+    "inc/legal-request-fulfillment.php"
+  ],
+  "publicChangesApproved": 0,
+  "cmsChanges": 0,
+  "crmRecordsCreated": 0,
+  "leadOrLawyerContactActions": 0,
+  "invoicesOrPaymentsCreated": 0,
+  "revenueClaimsApproved": 0,
+  "paidLlmApisUsed": 0,
+  "upressDeploymentRequired": false,
+  "profitReadiness": {
+    "staticBlueprint": "ready",
+    "livePaidProofPercent": 0,
+    "firstRequiredOwnerAction": "approve exact public/private intake field change or fill private BTL evidence rows"
+  }
+}

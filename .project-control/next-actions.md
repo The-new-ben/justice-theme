@@ -4,6 +4,20 @@
 
 ---
 
+### ACTION-HOMEPAGE-CTA-LOWER-SECTION-GUARD-001: Guard the homepage lawyer-card CTA cleanup before public implementation
+**Status:** FIXED LOCAL / PUBLIC HOMEPAGE CHANGE STILL BLOCKED
+**Why:** The owner wants public-facing pages to feel commercially good for legal-help seekers, while the live homepage CTA audit still shows repeated lawyer-card action text and the earlier visual QA did not capture the lower card section.
+**Actions:**
+1. DONE: add `tools/build-homepage-cta-lower-section-implementation-guard.mjs`.
+2. DONE: generate `.project-control/homepage-cta-lower-section-implementation-guard-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/homepage-cta-lower-section-owner-decision-template-2026-05-27.csv`.
+4. DONE: generate `.project-control/homepage-cta-lower-section-screenshot-template-2026-05-27.csv`.
+5. DONE: generate `.reports/homepage-cta-lower-section-implementation-guard-2026-05-27.json` and `.csv`.
+6. DONE: confirm `HOMEPAGE_CTA_LOWER_SECTION_IMPLEMENTATION_GUARD_READY_NO_PUBLIC_CHANGE`, 4 competitor notes, 12 guard rows, 4 owner-decision rows, 5 screenshot-template rows, 0 forbidden public marker hits and 0 public/CMS/SEO/CRM/contact/payment/email/WhatsApp/TalkTo/uPress actions.
+7. DONE: record as Linear `HAD-160`, marked Done under `HAD-131`.
+8. NEXT: owner/design reviewer chooses whether to approve Option B: visual-only quieter secondary treatment for repeated homepage lawyer-card actions while keeping current hrefs and current label.
+9. BLOCKED: do not edit homepage CSS/templates, labels, links, layout, CMS content, SEO settings, redirects, canonicals/noindex, sitemaps, taxonomies, CRM records, leads, contacts, payments, emails, WhatsApp, TalkTo or uPress until owner/design approval and lower-section screenshots are complete.
+
 ### ACTION-DEMAND-LETTER-FIRST-CONTEXT-DECISION-DRAFT-001: Choose one demand-letter context before any public draft
 **Status:** FIXED LOCAL / PUBLIC UPDATE STILL BLOCKED
 **Why:** The demand-letter idea has visible query demand but high cannibalization risk; a generic route would collide with employment, consumer, rental, small-claims and defamation pages, so the owner needs one dispute-specific first-context decision.

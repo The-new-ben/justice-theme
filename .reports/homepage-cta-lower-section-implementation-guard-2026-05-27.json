@@ -1,0 +1,268 @@
+{
+  "summary": {
+    "reportDate": "2026-05-27",
+    "auditDate": "2026-05-27",
+    "visualQaDate": "2026-05-27",
+    "densityPacketDate": "2026-05-27",
+    "status": "HOMEPAGE_CTA_LOWER_SECTION_IMPLEMENTATION_GUARD_READY_NO_PUBLIC_CHANGE",
+    "targetRoute": "https://jus-tice.co.il/",
+    "sourceAuditJson": ".reports/live-public-cta-density-2026-05-27.json",
+    "sourceVisualQaJson": ".reports/homepage-cta-visual-qa-packet-2026-05-27.json",
+    "sourceDensityPacketJson": ".reports/homepage-cta-density-review-packet-2026-05-27.json",
+    "homepageAuditStatus": "REVIEW",
+    "homepagePrimaryCtaCount": 10,
+    "homepageUniquePrimaryCtaTexts": 5,
+    "homepageRepeatedTextGroups": "שליחת פנייה (6)",
+    "competitorNotes": 4,
+    "guardRows": 12,
+    "ownerDecisionRows": 4,
+    "screenshotTemplateRows": 5,
+    "forbiddenPublicMarkerHits": 0,
+    "publicChangesApproved": 0,
+    "cmsChangesApproved": 0,
+    "seoSettingsChanged": 0,
+    "crmRecordsCreated": 0,
+    "contactsSent": 0,
+    "invoicesOrPaymentsCreated": 0,
+    "emailSent": 0,
+    "upressDeploymentRequired": false
+  },
+  "competitorNotes": [
+    {
+      "id": "COMP-HCTA-01",
+      "source": "din.co.il",
+      "url": "https://www.din.co.il/",
+      "observed_pattern": "Search/category discovery is the dominant first action, while individual lawyer exposure appears as card-level contact context rather than a new homepage promise.",
+      "usable_takeaway": "Keep the homepage led by legal-help search and guidance; make repeated lawyer-card actions local to the cards and visually secondary."
+    },
+    {
+      "id": "COMP-HCTA-02",
+      "source": "lawzone.co.il",
+      "url": "https://lawzone.co.il/",
+      "observed_pattern": "The top flow emphasizes finding a lawyer by field/location, then uses a separate consultation form lower on the page.",
+      "usable_takeaway": "Do not add more competing top-level CTAs; if the card action stays, it should not overpower search, category and guidance flows."
+    },
+    {
+      "id": "COMP-HCTA-03",
+      "source": "myattorney.co.il",
+      "url": "https://www.myattorney.co.il/",
+      "observed_pattern": "The homepage opens with search and recommended lawyers, with lawyer cards functioning as discovery items.",
+      "usable_takeaway": "Lawyer cards can stay commercially useful without every repeated action reading like the main homepage CTA."
+    },
+    {
+      "id": "COMP-HCTA-04",
+      "source": "mishpati.co.il",
+      "url": "https://www.mishpati.co.il/",
+      "observed_pattern": "Provider cards use a transactional reveal-style action for phone visibility, while the page still carries editorial/legal-topic content.",
+      "usable_takeaway": "A clear but quieter repeated card action is acceptable when it is scoped to one provider card and does not blur the page-level legal-help intent."
+    }
+  ],
+  "markerHits": [],
+  "rows": [
+    {
+      "id": "HLCG-01",
+      "section": "source_finding",
+      "status": "REVIEW_CONFIRMED",
+      "evidence": "Live homepage audit: status REVIEW, 10 primary CTAs, 5 unique visible labels, repeated group שליחת פנייה (6).",
+      "implementation_rule": "Treat the repeated card action as a lower-section design problem, not as permission to add another homepage CTA.",
+      "owner_decision_needed": "Choose keep as-is, visual-only quieter treatment, copy/link review, or reduce card exposure.",
+      "public_change_approved": "no",
+      "blocker": "No homepage label, link, CSS, layout, CMS, SEO or deployment change is approved here."
+    },
+    {
+      "id": "HLCG-02",
+      "section": "visual_gap",
+      "status": "LOWER_SECTION_QA_MISSING",
+      "evidence": "The earlier mobile screenshot covered header/hero/search/trust/three-step flow; the repeated lawyer-card buttons were lower than the captured area.",
+      "implementation_rule": "Before any code change is treated as ready, capture the actual lawyer-card section on mobile and desktop.",
+      "owner_decision_needed": "Confirm whether the before/after card section feels useful and not pushy on mobile.",
+      "public_change_approved": "no",
+      "blocker": "Missing lower-section screenshots and owner/design approval."
+    },
+    {
+      "id": "HLCG-03",
+      "section": "competitor_pattern",
+      "status": "COMPETITOR_INFORMED",
+      "evidence": "din.co.il keeps search/category discovery as the main first action and treats lawyer exposure as card-level contact context.",
+      "implementation_rule": "Preserve Jus-Tice search and guidance as the main homepage path; keep lawyer-card actions visually local.",
+      "owner_decision_needed": "None if choosing visual-only treatment; required if changing labels or destinations.",
+      "public_change_approved": "no",
+      "blocker": "Competitor inspiration does not approve copying content, layout or public code."
+    },
+    {
+      "id": "HLCG-04",
+      "section": "competitor_pattern",
+      "status": "COMPETITOR_INFORMED",
+      "evidence": "LawZone and MyAttorney lead with find-a-lawyer search flows, then expose lawyer/category discovery below.",
+      "implementation_rule": "Avoid turning the lawyer-card strip into the homepage headline action; make card actions secondary to legal-help discovery.",
+      "owner_decision_needed": "None if only changing action weight after approval.",
+      "public_change_approved": "no",
+      "blocker": "Do not introduce public sales-language, supplier-language or package claims."
+    },
+    {
+      "id": "HLCG-05",
+      "section": "competitor_pattern",
+      "status": "COMPETITOR_INFORMED",
+      "evidence": "Mishpati uses repeated provider-card phone reveal actions, but each action is scoped to one provider card.",
+      "implementation_rule": "A repeated action can stay if it is clearly a card-local action, visually quieter than the hero/search CTA and still tappable.",
+      "owner_decision_needed": "Approve whether Jus-Tice should keep contact-form destination or move toward profile-first behavior later.",
+      "public_change_approved": "no",
+      "blocker": "Destination changes are a separate product decision and need route/cannibalization review."
+    },
+    {
+      "id": "HLCG-06",
+      "section": "preferred_candidate",
+      "status": "OPTION_B_READY_FOR_APPROVAL_ONLY",
+      "evidence": "The source density packet already named visual-only quieter treatment as the lowest-risk candidate; the visual QA packet did not disprove it.",
+      "implementation_rule": "Preferred candidate: keep existing card hrefs and Hebrew label, but restyle repeated lawyer-card actions as secondary/compact actions inside cards.",
+      "owner_decision_needed": "Owner/design must approve this exact direction before CSS or template work.",
+      "public_change_approved": "no",
+      "blocker": "Approval missing; lower-section before/after screenshots missing."
+    },
+    {
+      "id": "HLCG-07",
+      "section": "copy_guard",
+      "status": "COPY_CHANGE_BLOCKED",
+      "evidence": "The current repeated label maps to contact-form URLs; changing visible text could mislead if the target remains a contact form.",
+      "implementation_rule": "Do not rename the card action to profile/details/fit-check wording unless the destination and user promise are also reviewed.",
+      "owner_decision_needed": "Approve exact Hebrew copy and destination if Option C is selected.",
+      "public_change_approved": "no",
+      "blocker": "Copy/link-destination mismatch risk."
+    },
+    {
+      "id": "HLCG-08",
+      "section": "implementation_gate",
+      "status": "REQUIRED_BEFORE_LOCAL_DIFF",
+      "evidence": "A safe implementation needs a constrained selector for homepage lawyer-card actions only.",
+      "implementation_rule": "If approved, change only the homepage lawyer-card action treatment; do not touch article CTAs, legal-help CTAs, directory filters or provider routes.",
+      "owner_decision_needed": "Approve exact scope before file edits.",
+      "public_change_approved": "no",
+      "blocker": "No theme diff until the owner approves scope."
+    },
+    {
+      "id": "HLCG-09",
+      "section": "qa_gate",
+      "status": "REQUIRED_AFTER_LOCAL_DIFF",
+      "evidence": "Mobile density concern came from a real device view; the lower card area must be checked directly.",
+      "implementation_rule": "After any local/staging diff: capture mobile 390px lower-card section, desktop 1440px lower-card section, rerun CTA-density audit and scan for business-language leaks.",
+      "owner_decision_needed": "Approve or reject based on screenshots and audit output.",
+      "public_change_approved": "no",
+      "blocker": "QA artifacts missing."
+    },
+    {
+      "id": "HLCG-10",
+      "section": "publication_gate",
+      "status": "PUBLICATION_BLOCKED",
+      "evidence": "Prior density review status: OWNER_REVIEW_PACKET_READY_NOT_APPROVED; visual QA status: HOMEPAGE_CTA_VISUAL_QA_READY_NO_PUBLIC_CHANGE.",
+      "implementation_rule": "Only after owner approval, local QA and live/staging verification should the change be committed for deployment. After live publication, email the owner in Hebrew with review URL, summary and associated pages.",
+      "owner_decision_needed": "Explicit public-change approval.",
+      "public_change_approved": "no",
+      "blocker": "No uPress pull or public-change email because no public change exists in this packet."
+    },
+    {
+      "id": "HLCG-11",
+      "section": "associated_pages",
+      "status": "REVIEW_BEFORE_PUBLIC_CHANGE",
+      "evidence": "/lawyers/; /find-lawyer-how-to-find-good-attorney/; /national-insurance-attorney/; /bituach-leumi-appeal-guide/; /rental-agreement/; /labor-lawyer/; /consumer-rights-israel/; /eviction-notice-israel/",
+      "implementation_rule": "If the homepage card action becomes profile-first or contact-first, inspect these surfaces for CTA wording, internal-link flow and cannibalization.",
+      "owner_decision_needed": "Choose whether card traffic should primarily feed lawyer profiles, contact forms or practice pages.",
+      "public_change_approved": "no",
+      "blocker": "No internal-link or route decision from this guard."
+    },
+    {
+      "id": "HLCG-12",
+      "section": "hard_stop",
+      "status": "NO_PUBLIC_OR_LIVE_ACTION",
+      "evidence": "This guard is private implementation preparation only.",
+      "implementation_rule": "Do not publish, change CMS, SEO settings, CRM, leads, contacts, invoices, payments, email, WhatsApp, TalkTo, uPress or public homepage code from this artifact alone.",
+      "owner_decision_needed": "Owner approval required before any public-facing change.",
+      "public_change_approved": "no",
+      "blocker": "All live/public actions remain blocked."
+    }
+  ],
+  "ownerRows": [
+    {
+      "decision_id": "HLCG-DECISION-01",
+      "question": "Which homepage lawyer-card CTA direction is approved?",
+      "recommended_choice": "approve_option_b_visual_only_quieter",
+      "allowed_answers": "keep_as_is | approve_option_b_visual_only_quieter | request_copy_link_review | reduce_card_exposure | park",
+      "required_evidence_before_public": "owner decision; lower-section mobile before screenshot; lower-section desktop before screenshot",
+      "public_action_unblocked": "no until local diff and QA pass",
+      "notes": "Recommended path preserves legal-help-first homepage and avoids changing the user promise."
+    },
+    {
+      "decision_id": "HLCG-DECISION-02",
+      "question": "Should the repeated visible label change?",
+      "recommended_choice": "no_label_change_for_first_pass",
+      "allowed_answers": "no_label_change_for_first_pass | approve_exact_hebrew_label | decide_after_profile_destination_review",
+      "required_evidence_before_public": "copy/link destination review if any label changes",
+      "public_action_unblocked": "no until exact copy is approved",
+      "notes": "Label changes are riskier because current URLs are contact-form URLs."
+    },
+    {
+      "decision_id": "HLCG-DECISION-03",
+      "question": "Which destination should future card actions prioritize?",
+      "recommended_choice": "keep_current_contact_destination_for_visual_only_pass",
+      "allowed_answers": "keep_current_contact_destination_for_visual_only_pass | profile_first | practice_page_first | decide_later",
+      "required_evidence_before_public": "associated-page and route-flow review if destination changes",
+      "public_action_unblocked": "no for destination changes",
+      "notes": "Destination changes affect conversion flow and should not be bundled into the first visual cleanup."
+    },
+    {
+      "decision_id": "HLCG-DECISION-04",
+      "question": "What email/update rule applies?",
+      "recommended_choice": "email_only_after_verified_public_change",
+      "allowed_answers": "email_only_after_verified_public_change | request_private_summary_now",
+      "required_evidence_before_public": "review URL; public-change summary; associated pages; cannibalization notes; own concise review",
+      "public_action_unblocked": "no",
+      "notes": "No email is sent for this private guard because no public page changed."
+    }
+  ],
+  "screenshotRows": [
+    {
+      "capture_id": "HLCG-SHOT-01",
+      "stage": "before",
+      "viewport": "mobile_390",
+      "url": "https://jus-tice.co.il/",
+      "target_area": "homepage lawyer-card section showing repeated card actions",
+      "file_name": ".project-control/visual-evidence/homepage-cta-lower-section-before-mobile-2026-05-27.png",
+      "pass_criteria": "Buttons do not dominate the mobile section; no duplicated article CTA message; legal-help-first flow remains clear."
+    },
+    {
+      "capture_id": "HLCG-SHOT-02",
+      "stage": "before",
+      "viewport": "desktop_1440",
+      "url": "https://jus-tice.co.il/",
+      "target_area": "homepage lawyer-card section showing repeated card actions",
+      "file_name": ".project-control/visual-evidence/homepage-cta-lower-section-before-desktop-2026-05-27.png",
+      "pass_criteria": "Card actions are understood as card-local and do not compete with search/hero actions."
+    },
+    {
+      "capture_id": "HLCG-SHOT-03",
+      "stage": "after_local_or_staging",
+      "viewport": "mobile_390",
+      "url": "local_or_staging_homepage_url",
+      "target_area": "same lower lawyer-card section",
+      "file_name": ".project-control/visual-evidence/homepage-cta-lower-section-after-mobile-2026-05-27.png",
+      "pass_criteria": "Quieter treatment remains tappable, readable and commercially useful without feeling like repeated sales pressure."
+    },
+    {
+      "capture_id": "HLCG-SHOT-04",
+      "stage": "after_local_or_staging",
+      "viewport": "desktop_1440",
+      "url": "local_or_staging_homepage_url",
+      "target_area": "same lower lawyer-card section",
+      "file_name": ".project-control/visual-evidence/homepage-cta-lower-section-after-desktop-2026-05-27.png",
+      "pass_criteria": "Desktop cards remain scannable; primary homepage discovery flow stays visually dominant."
+    },
+    {
+      "capture_id": "HLCG-SHOT-05",
+      "stage": "after_live_if_deployed",
+      "viewport": "mobile_390_and_desktop_1440",
+      "url": "https://jus-tice.co.il/",
+      "target_area": "post-deployment verification",
+      "file_name": ".project-control/visual-evidence/homepage-cta-lower-section-live-after-2026-05-27.png",
+      "pass_criteria": "Live page matches approved treatment; CTA density audit and business-language scan pass before Hebrew owner email."
+    }
+  ]
+}

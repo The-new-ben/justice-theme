@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 06:35 Asia/Jerusalem
+- HOMEPAGE CTA LOWER-SECTION IMPLEMENTATION GUARD ADDED: converted the open homepage repeated lawyer-card CTA density review into a concrete, competitor-informed implementation guard before any public homepage edit.
+- CODE ADDED: `tools/build-homepage-cta-lower-section-implementation-guard.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/homepage-cta-lower-section-implementation-guard-2026-05-27.md`, `.project-control/homepage-cta-lower-section-implementation-guard-2026-05-27.csv`, `.project-control/homepage-cta-lower-section-owner-decision-template-2026-05-27.csv`, `.project-control/homepage-cta-lower-section-screenshot-template-2026-05-27.csv`, `.reports/homepage-cta-lower-section-implementation-guard-2026-05-27.json`, `.reports/homepage-cta-lower-section-implementation-guard-2026-05-27.csv`.
+- CHECK RESULT: `HOMEPAGE_CTA_LOWER_SECTION_IMPLEMENTATION_GUARD_READY_NO_PUBLIC_CHANGE`; homepage audit still `REVIEW` with 10 primary CTAs, 5 unique visible labels and repeated `שליחת פנייה (6)`; 4 competitor notes, 12 guard rows, 4 owner-decision rows, 5 screenshot-template rows, 0 forbidden public marker hits and 0 public changes approved/performed.
+- REVIEW RESULT: the recommended public-change candidate, if the owner approves it later, is Option B only: visual-only quieter/secondary treatment for repeated homepage lawyer-card actions while keeping current hrefs and current label. Copy, destination, internal-link, article-CTA and route changes remain blocked unless separately approved.
+- LINEAR: recorded as `HAD-160`, marked Done under `HAD-131`, related to `HAD-129`, `HAD-132` and `HAD-141`.
+- PUBLIC IMPACT: none. This was private implementation prep only. No public page, CMS content, route, title/H1/meta/body, label, link, CSS/layout, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: homepage lower-section guard 100%; public homepage CTA cleanup remains 0% until owner/design approval, lower-section mobile/desktop screenshots, CTA-density rerun, business-language scan, live verification and Hebrew owner email are completed.
+
 # LATEST WORK STATUS - 2026-05-27 06:25 Asia/Jerusalem
 - DEMAND-LETTER FIRST-CONTEXT DECISION DRAFT ADDED: converted the demand-letter public update packet into a private owner/SEO/legal decision draft that forces a choice between employment, consumer and rental-dispute contexts while keeping the generic demand-letter route blocked.
 - CODE ADDED: `tools/build-demand-letter-first-context-owner-decision-draft.mjs`.

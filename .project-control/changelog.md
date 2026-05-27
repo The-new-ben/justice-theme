@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Homepage CTA lower-section implementation guard
+
+- ADDED: `tools/build-homepage-cta-lower-section-implementation-guard.mjs`.
+- GENERATED: `.project-control/homepage-cta-lower-section-implementation-guard-2026-05-27.md`, `.project-control/homepage-cta-lower-section-implementation-guard-2026-05-27.csv`, `.project-control/homepage-cta-lower-section-owner-decision-template-2026-05-27.csv`, `.project-control/homepage-cta-lower-section-screenshot-template-2026-05-27.csv`, `.reports/homepage-cta-lower-section-implementation-guard-2026-05-27.json`, `.reports/homepage-cta-lower-section-implementation-guard-2026-05-27.csv`.
+- PURPOSE: turn the open homepage repeated lawyer-card CTA density finding into a concrete lower-section implementation/QA guard before any public homepage edit.
+- RESULT: `HOMEPAGE_CTA_LOWER_SECTION_IMPLEMENTATION_GUARD_READY_NO_PUBLIC_CHANGE`; 4 competitor notes, 12 guard rows, 4 owner-decision rows, 5 screenshot-template rows and 0 forbidden public marker hits.
+- LINEAR: recorded as `HAD-160`, marked Done under `HAD-131`, related to `HAD-129`, `HAD-132` and `HAD-141`.
+- SAFETY: private implementation prep only; no homepage/CMS/CSS/label/link/layout/SEO/CRM/contact/payment/email/WhatsApp/TalkTo/wp-admin/uPress action changed.
+
 # 2026-05-27 - Demand-letter first-context decision draft
 
 - ADDED: `tools/build-demand-letter-first-context-owner-decision-draft.mjs`.

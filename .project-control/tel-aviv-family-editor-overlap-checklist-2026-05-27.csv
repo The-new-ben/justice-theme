@@ -1,0 +1,12 @@
+path,role,editor_decision,keep_out_of_tel_aviv_page,allowed_use,owner_approved,legal_editor_approved,notes_no_pii
+/divorce-lawyer-tel-aviv/,target_private_candidate,KEEP_PRIVATE_DRAFT_ONLY,future local fit-check and preparation page only,No public route until owner/SEO/legal approval.,no,no,
+/divorce-lawyer/,central_divorce_pillar,PRESERVE_AS_PRIMARY_PILLAR,"broad divorce-lawyer guidance, experience, price and decision questions",Local page may link to this as the main divorce guide; broad how-to-choose content stays here.,no,no,
+/family-law/,family_law_hub,PRESERVE_AS_FAMILY_HUB,general family-law category and related family disputes,Potential supporting link only after approval; do not duplicate family-law overview.,no,no,
+/child-custody/,specific_family_issue,PROTECT_ISSUE_SPECIFIC_PAGE,custody or other specific family-law issue intent,Mention only as a possible related topic; link only if legal/editor review approves.,no,no,
+/child-support-calculator-2023/,calculator_specific_intent,PROTECT_CALCULATOR_INTENT,child-support calculation intent,Do not summarize calculation logic; link later only if the user task genuinely needs it.,no,no,
+/divorce-mediation/,mediation_specific_intent,PROTECT_MEDIATION_INTENT,divorce mediation guide intent,Do not explain mediation process beyond a review-only related-page pointer.,no,no,
+/what-is-a-divorce-settlement-agreement/,settlement_agreement_article,PROTECT_SETTLEMENT_EXPLANATION,settlement agreement explanation intent,May inform the document checklist after legal/editor review; avoid agreement drafting advice.,no,no,
+/free-divorce-agreement-template/,template_article,PROTECT_TEMPLATE_INTENT,free divorce agreement template intent,Do not imply template is enough; link only after owner/legal approval.,no,no,
+/how-much-does-a-divorce-agreement-cost/,cost_article,PROTECT_COST_INTENT,divorce agreement cost and price comparison intent,No price claims; link only if owner/legal approves exact cost wording.,no,no,
+/lawyers/?city=tel-aviv&area=family-law,filtered_lawyer_directory,USE_CANONICAL_AREA_DIRECTORY_ONLY,lawyer directory filtering for Tel Aviv family law,Use as canonical filtered lawyer path in private planning only.,no,no,
+/lawyers/?city=tel-aviv&practice=family-law,unsupported_directory_alias,EXCLUDE_FROM_DRAFT_LINK_PLAN,none; unsupported alias is city-only/generic in current checks,QA warning only; do not use in draft or public internal links.,no,no,

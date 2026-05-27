@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-TEL-AVIV-FAMILY-INTERNAL-OVERLAP-001: Protect existing family/divorce pages before local draft approval
+**Status:** FIXED LOCAL / GSC AND PUBLICATION STILL BLOCKED
+**Why:** The Tel Aviv family local draft packet was ready for private editor review, but publication still needs an explicit anti-cannibalization map of existing family/divorce pages.
+**Actions:**
+1. DONE: add `tools/build-tel-aviv-family-internal-overlap-review.mjs`.
+2. DONE: generate `.project-control/tel-aviv-family-internal-overlap-review-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/tel-aviv-family-editor-overlap-checklist-2026-05-27.csv`.
+4. DONE: generate `.reports/tel-aviv-family-internal-overlap-review-2026-05-27.json` and `.csv`.
+5. DONE: confirm `TEL_AVIV_FAMILY_INTERNAL_OVERLAP_READY_WITH_GSC_REVIEW_NO_PUBLIC_CHANGE`, 11 associated routes, 10 live 200 routes, 5 high-risk overlap routes protected, 7 pass gates, 1 GSC review gate and 0 blocked gates.
+6. DONE: verify private artifact boundary guard `PASS` and record as Linear `HAD-174`.
+7. NEXT: fill GSC query/page evidence for exact local and broad divorce clusters, then send to legal/editor and owner review before any CMS/public work.
+8. BLOCKED: no public route, CMS, title/H1/meta/body/internal link, redirect/canonical/noindex/sitemap/taxonomy, CRM, contact, invoice, payment, email/WhatsApp/TalkTo, wp-admin write or uPress from this private overlap review alone.
+
 ### ACTION-TEL-AVIV-FAMILY-LOCAL-DRAFT-PACKET-001: Prepare the first unblocked city/practice private editor packet
 **Status:** FIXED LOCAL / PUBLICATION STILL BLOCKED
 **Why:** Tel Aviv family is the narrow city/practice target with a non-public route and verified canonical lawyer-directory coverage, while criminal Jerusalem remains blocked for coverage.

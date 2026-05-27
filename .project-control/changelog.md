@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Tel Aviv family internal overlap review
+
+- ADDED: `tools/build-tel-aviv-family-internal-overlap-review.mjs`.
+- GENERATED: `.project-control/tel-aviv-family-internal-overlap-review-2026-05-27.md`, `.project-control/tel-aviv-family-internal-overlap-review-2026-05-27.csv`, `.project-control/tel-aviv-family-editor-overlap-checklist-2026-05-27.csv`, `.reports/tel-aviv-family-internal-overlap-review-2026-05-27.json`, `.reports/tel-aviv-family-internal-overlap-review-2026-05-27.csv`.
+- PURPOSE: fill the internal-overlap/anti-cannibalization blocker for the Tel Aviv family local draft packet while leaving GSC, legal/editor and owner approval as explicit public blockers.
+- RESULT: `TEL_AVIV_FAMILY_INTERNAL_OVERLAP_READY_WITH_GSC_REVIEW_NO_PUBLIC_CHANGE`; 11 associated routes mapped, 10 live routes preserved, 5 high-risk overlap areas protected, 7 gates pass, 1 GSC review gate and 0 blocked gates.
+- LINEAR: recorded as `HAD-174`, marked Done and related to `HAD-173`, `HAD-152`, `HAD-151`, `HAD-150`, `HAD-166`, `HAD-145` and `HAD-67`.
+- SAFETY: private anti-cannibalization tooling/reporting only; no public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lawyer profile, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Tel Aviv family local private draft packet
 
 - ADDED: `tools/build-tel-aviv-family-local-draft-packet.mjs`.

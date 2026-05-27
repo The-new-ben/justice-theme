@@ -52,8 +52,9 @@ $israel_cities = array(
 	'רמלה',
 );
 
-// Hero background image
-$hero_bg = JUSTICE_THEME_URI . '/assets/images/hero-bg.png';
+// Hero visual: realistic legal-help scene, reused as the soft background layer.
+$hero_visual = JUSTICE_THEME_URI . '/assets/images/homepage-legal-help-hero.jpg';
+$hero_bg     = $hero_visual;
 $hero_whatsapp_url = function_exists( 'justice_theme_public_whatsapp_url' )
 	? justice_theme_public_whatsapp_url( __( 'שלום, אני צריך/ה עזרה משפטית דרך Jus-Tice. הגעתי מדף הבית ואשמח לחזרה קצרה.', 'justice-theme' ) )
 	: '';
@@ -215,6 +216,27 @@ $hero_first_steps = array(
 				</span>
 			</div>
 		</div>
+
+		<figure class="hero__visual" aria-label="<?php esc_attr_e( 'תמונת המחשה לפנייה משפטית מסודרת', 'justice-theme' ); ?>">
+			<img
+				src="<?php echo esc_url( $hero_visual ); ?>"
+				width="1280"
+				height="720"
+				alt="<?php esc_attr_e( 'אדם מסדר מסמכים לפני פנייה לעורך דין דרך Jus-Tice', 'justice-theme' ); ?>"
+				loading="eager"
+				fetchpriority="high"
+				decoding="async"
+			>
+			<figcaption class="hero__visual-card">
+				<span><?php esc_html_e( 'מסלול מסודר לפני פנייה', 'justice-theme' ); ?></span>
+				<strong><?php esc_html_e( 'תארו מה קרה, בחרו תחום ועיר, והתקדמו רק כשברור מה הצעד הבא.', 'justice-theme' ); ?></strong>
+			</figcaption>
+			<div class="hero__visual-proof" aria-label="<?php esc_attr_e( 'רכיבי אמון לפני השארת פנייה', 'justice-theme' ); ?>">
+				<span><?php esc_html_e( 'מידע כללי', 'justice-theme' ); ?></span>
+				<span><?php esc_html_e( 'בדיקת דחיפות', 'justice-theme' ); ?></span>
+				<span><?php esc_html_e( 'פנייה בוואטסאפ', 'justice-theme' ); ?></span>
+			</div>
+		</figure>
 
 		<?php
 		// Quick-links bar — popular practice areas as chip buttons

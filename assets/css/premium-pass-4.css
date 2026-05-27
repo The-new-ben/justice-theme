@@ -457,6 +457,176 @@
 .find-guide__cta p { font-size: 1.15rem; font-weight: 700; margin: 0 0 1rem; }
 .find-guide__cta-buttons { display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap; }
 
+/* ── 5B. HOMEPAGE REAL HERO VISUAL + REVENUE ENTRY ───────── */
+@media (min-width: 1081px) {
+  .hero--has-bg {
+    padding-block: clamp(3rem, 6vw, 5.5rem);
+  }
+
+  .hero__grid {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.12fr) minmax(330px, 0.78fr);
+    align-items: center;
+    gap: clamp(1.4rem, 3vw, 3rem);
+    text-align: start;
+  }
+
+  .hero__content {
+    max-width: none;
+    margin: 0;
+  }
+
+  .hero__title,
+  .hero__description {
+    text-align: start;
+    margin-inline: 0;
+  }
+
+  .hero__description {
+    max-width: 720px;
+  }
+
+  .hero-search,
+  .hero__first-steps,
+  .hero__market-signals {
+    margin-inline: 0 !important;
+    max-width: none;
+  }
+
+  .hero__first-steps {
+    grid-template-columns: 0.9fr 1.35fr;
+  }
+
+  .hero__first-steps ol {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .hero__market-signals {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .hero__ctas,
+  .hero__stats {
+    justify-content: flex-start;
+  }
+
+  .hero__panel {
+    grid-column: 1 / -1;
+  }
+}
+
+.hero__visual {
+  position: relative;
+  width: min(100%, 460px);
+  min-height: 0;
+  margin: 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.08);
+  box-shadow: 0 28px 80px rgba(0,0,0,0.32);
+  isolation: isolate;
+}
+
+.hero__visual::before,
+.hero__visual::after {
+  content: none !important;
+}
+
+.hero__visual img {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  height: auto;
+  object-fit: cover;
+  filter: saturate(1.02) contrast(1.02);
+}
+
+.hero__visual-card {
+  position: static;
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  border: 0;
+  border-top: 1px solid rgba(255,255,255,0.18);
+  border-radius: 0;
+  background: rgba(7,21,47,0.92);
+  padding: 1rem 1.1rem;
+  color: #fff;
+  backdrop-filter: none;
+}
+
+.hero__visual-card span {
+  display: block;
+  height: auto;
+  width: auto;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(255,255,255,0.68);
+  font-size: 0.82rem;
+  font-weight: 850;
+  letter-spacing: 0;
+}
+
+.hero__visual-card strong {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.hero__visual-proof {
+  position: absolute;
+  inset-inline: 1rem;
+  top: 1rem;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.hero__visual-proof span {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.22rem 0.62rem;
+  border: 1px solid rgba(255,255,255,0.28);
+  border-radius: 999px;
+  background: rgba(7,21,47,0.62);
+  color: #fff;
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
+@media (max-width: 1080px) {
+  .hero__visual {
+    width: min(100%, 720px);
+    order: 2;
+  }
+
+  .hero__panel {
+    order: 3;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero__visual-card {
+    padding: 0.9rem;
+  }
+
+  .hero__visual-card strong {
+    font-size: 0.92rem;
+  }
+
+  .hero__visual-proof {
+    inset-inline: 0.7rem;
+    top: 0.7rem;
+  }
+
+  .hero__visual-proof span {
+    min-height: 26px;
+    font-size: 0.7rem;
+  }
+}
+
 /* ── 6. TRUST SECTION ────────────────────────────────────── */
 .featured-lawyers__actions {
   display: flex;

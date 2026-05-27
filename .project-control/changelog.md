@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - Rental agreement owner-review draft brief
+
+- ADDED: `tools/build-rental-agreement-owner-review-draft.mjs`.
+- GENERATED: `.project-control/rental-agreement-owner-review-draft-2026-05-27.md`, `.project-control/rental-agreement-owner-review-draft-2026-05-27.csv`, `.project-control/rental-agreement-internal-link-plan-2026-05-27.csv`, `.reports/rental-agreement-owner-review-draft-2026-05-27.json`, `.reports/rental-agreement-owner-review-draft-2026-05-27.csv`.
+- PURPOSE: prepare exact owner/editor review copy and linkage decisions for the existing `/rental-agreement/` route after the owner asked public-facing pages to feel useful, commercial and legally helpful without exposing internal business-plan language.
+- RESULT: `RENTAL_AGREEMENT_OWNER_REVIEW_DRAFT_READY_NOT_APPROVED`; 10 draft rows, 67 GSC rows, 505 impressions, 0 clicks, 4 query clusters, 5 source/competitor notes, 7 internal-link rows and 0 forbidden public marker hits.
+- LINEAR: recorded as `HAD-158`, marked Done under `HAD-124`, related to `HAD-126`, `HAD-133` and `HAD-129`.
+- SAFETY: private owner/editor prep only; no public CMS edit, route, title/H1/meta/body, internal link, redirect, canonical/noindex, sitemap, taxonomy, CRM record, contact, invoice, payment, email, WhatsApp, TalkTo, webhook, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Controlled lawyer subscription walkthrough refresh
 
 - UPDATED: `tools/build-lawyer-subscription-controlled-walkthrough.mjs`, `tools/build-owner-unblocker-command-queue.mjs`.

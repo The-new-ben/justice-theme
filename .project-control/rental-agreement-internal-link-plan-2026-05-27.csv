@@ -1,0 +1,8 @@
+id,target,role,proposed_anchor_note,approval_state
+LINK-01,/rental-agreement-guide/,supporting_clause_depth,Link only if the live guide provides clause-level detail that does not duplicate the new primary intro.,owner_seo_review_required
+LINK-02,/tenant-rights-israel/,tenant_rights_context,"Use near tenant-side cautions such as repairs, securities or early exit.",owner_seo_review_required
+LINK-03,/landlord-rights-israel/,landlord_context,"Use only where landlord-side balance is needed, not as a sales link.",owner_seo_review_required
+LINK-04,/landlord-obligations-israel/,maintenance_and_delivery_context,Use near maintenance/repair wording after legal review.,owner_seo_review_required
+LINK-05,/tenant-eviction-defense/,eviction_dispute_boundary,Use only as a boundary link if the page mentions breach or eviction; do not blur drafting with eviction defense.,owner_seo_review_required
+LINK-06,/commercial-lease-israel/,commercial_lease_boundary,Use to separate residential lease review from commercial lease intent.,owner_seo_review_required
+LINK-07,/contract-law-israel/,general_contract_context,Use low on page only if helpful; do not send primary rental intent away too early.,owner_seo_review_required

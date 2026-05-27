@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 06:15 Asia/Jerusalem
+- RENTAL AGREEMENT OWNER-REVIEW DRAFT BRIEF ADDED: converted the existing rental-agreement public update packet into a private owner/editor review draft with exact copy candidates, GSC evidence, competitor/source notes and internal-link planning before any public route update.
+- CODE ADDED: `tools/build-rental-agreement-owner-review-draft.mjs`.
+- GENERATED PRIVATE ARTIFACTS: `.project-control/rental-agreement-owner-review-draft-2026-05-27.md`, `.project-control/rental-agreement-owner-review-draft-2026-05-27.csv`, `.project-control/rental-agreement-internal-link-plan-2026-05-27.csv`, `.reports/rental-agreement-owner-review-draft-2026-05-27.json`, `.reports/rental-agreement-owner-review-draft-2026-05-27.csv`.
+- CHECK RESULT: `RENTAL_AGREEMENT_OWNER_REVIEW_DRAFT_READY_NOT_APPROVED`; 10 draft rows, 67 GSC target rows, 505 impressions, 0 clicks, 4 query clusters, 5 source/competitor notes, 7 internal-link plan rows, 0 forbidden public marker hits and 0 public changes approved/performed.
+- REVIEW RESULT: the public page can now be reviewed as a practical legal-help page for people checking a lease before signing, with one soft legal-help CTA and clear separation from commercial/sublease/vehicle-rental drift. The next step is owner/SEO/legal review of exact title, H1, meta, body copy, CTA and internal links before any CMS draft or publication.
+- LINEAR: recorded as `HAD-158`, marked Done under `HAD-124`, related to `HAD-126`, `HAD-133` and `HAD-129`.
+- PUBLIC IMPACT: none. This was private prep only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, webhook, wp-admin write, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: rental-agreement owner-review draft brief 100%; public rental-agreement route update remains 0% until owner/SEO/legal approval, CMS draft review, mobile duplicate-CTA QA and post-publication checks are explicitly approved.
+
 # LATEST WORK STATUS - 2026-05-27 06:02 Asia/Jerusalem
 - CONTROLLED LAWYER SUBSCRIPTION WALKTHROUGH REFRESHED: updated the private walkthrough tooling so today’s owner meeting packet no longer points to stale 2026-05-26 evidence and now includes a blank no-PII evidence-capture template for the eventual end-to-end lawyer/payment/CRM/refund/upgrade/downgrade test.
 - CODE UPDATED: `tools/build-lawyer-subscription-controlled-walkthrough.mjs`, `tools/build-owner-unblocker-command-queue.mjs`.

@@ -1,0 +1,459 @@
+{
+  "reportDate": "2026-05-27",
+  "status": "RENTAL_AGREEMENT_OWNER_REVIEW_DRAFT_READY_NOT_APPROVED",
+  "targetRoute": "https://jus-tice.co.il/rental-agreement/",
+  "sourceApprovalDate": "2026-05-27",
+  "sourceApprovalStatus": "OWNER_REVIEW_PACKET_READY_NOT_APPROVED",
+  "summary": {
+    "draftRows": 10,
+    "gscRows": 67,
+    "gscImpressions": 505,
+    "gscClicks": 0,
+    "gscClusterRows": 4,
+    "sourceNotes": 5,
+    "internalLinkRows": 7,
+    "forbiddenPublicMarkerHits": 0,
+    "publicChangesApproved": 0,
+    "cmsWrites": 0,
+    "emailsSent": 0,
+    "upressDeploymentRequired": false
+  },
+  "draftRows": [
+    {
+      "id": "DRAFT-01",
+      "section": "seo_title",
+      "owner_status": "OWNER_SEO_LEGAL_REVIEW_REQUIRED",
+      "draft_content": "בדיקת חוזה שכירות לפני חתימה | מה חשוב לבדוק",
+      "evidence_basis": "Existing route upgrade packet plus GSC primary rental-agreement query cluster.",
+      "stop_condition": "Do not update title until owner/SEO confirms length and route intent."
+    },
+    {
+      "id": "DRAFT-02",
+      "section": "h1",
+      "owner_status": "OWNER_SEO_LEGAL_REVIEW_REQUIRED",
+      "draft_content": "בדיקת חוזה שכירות: מה לבדוק לפני שחותמים",
+      "evidence_basis": "Keeps the route as pre-signature legal-help content.",
+      "stop_condition": "Do not replace H1 until owner approves exact page role."
+    },
+    {
+      "id": "DRAFT-03",
+      "section": "meta_description",
+      "owner_status": "OWNER_SEO_LEGAL_REVIEW_REQUIRED",
+      "draft_content": "מדריך לבדיקת חוזה שכירות: סעיפים שכדאי לשים לב אליהם, סיכונים נפוצים ומתי כדאי לפנות לעורך דין לפני החתימה.",
+      "evidence_basis": "Summarizes problem, checklist value and lawyer-fit handoff without service pricing.",
+      "stop_condition": "Check SEO plugin length before CMS update."
+    },
+    {
+      "id": "DRAFT-04",
+      "section": "opening_paragraph",
+      "owner_status": "OWNER_LEGAL_REVIEW_REQUIRED",
+      "draft_content": "חוזה שכירות נראה לפעמים כמו מסמך סטנדרטי, אבל סעיף אחד לא מדויק עלול ליצור מחלוקת על תיקונים, בטוחות, פינוי, אופציה להארכה או סיום מוקדם. לפני שחותמים, כדאי לבדוק מה באמת מתחייבים.",
+      "evidence_basis": "Competitor pattern favors practical risk framing before any CTA.",
+      "stop_condition": "Legal/source reviewer must approve before public body update."
+    },
+    {
+      "id": "DRAFT-05",
+      "section": "checklist_heading",
+      "owner_status": "OWNER_SEO_LEGAL_REVIEW_REQUIRED",
+      "draft_content": "מה חשוב לבדוק בחוזה שכירות",
+      "evidence_basis": "GSC rows show broad contract and apartment lease demand but low rankings; a checklist may better satisfy intent.",
+      "stop_condition": "Do not add if it duplicates the associated guide page."
+    },
+    {
+      "id": "DRAFT-06",
+      "section": "checklist_items",
+      "owner_status": "OWNER_LEGAL_REVIEW_REQUIRED",
+      "draft_content": "זהות הצדדים והנכס | תקופת השכירות ואופציית הארכה | דמי שכירות והצמדה | בטוחות וערבים | תחזוקה ותיקונים | ביטוח ואחריות | הפרה ופינוי | אפשרות יציאה מוקדמת.",
+      "evidence_basis": "8 checklist items from approved owner-review packet; competitor/source notes support clause-level review.",
+      "stop_condition": "Legal reviewer must validate completeness and avoid legal-advice wording."
+    },
+    {
+      "id": "DRAFT-07",
+      "section": "contextual_cta",
+      "owner_status": "OWNER_APPROVAL_REQUIRED",
+      "draft_content": "רוצים שעורך דין יבדוק את חוזה השכירות לפני החתימה? השאירו פרטים ונחבר אתכם לעורך דין מתאים.",
+      "evidence_basis": "Single legal-help CTA after useful content; avoids fixed price, AI drafting or package language.",
+      "stop_condition": "Run mobile duplicate-CTA QA before any publication."
+    },
+    {
+      "id": "DRAFT-08",
+      "section": "gsc_priority",
+      "owner_status": "EVIDENCE_ONLY",
+      "draft_content": "Top query rows: חוזה שכירות (111); הסכם שכירות (100); חוזה השכרת רכב (43); הסכמי שכירות (40); חוזה שכירות דירה (21); חוזה שכירות משנה (20); הסכם שכירות משנה (19); הסכם שכירות משרדים (16)",
+      "evidence_basis": "67 GSC rows for https://jus-tice.co.il/rental-agreement/; 505 total impressions, 0 clicks.",
+      "stop_condition": "Do not publish solely from impressions; owner/SEO/legal review still required."
+    },
+    {
+      "id": "DRAFT-09",
+      "section": "query_clusters",
+      "owner_status": "EVIDENCE_ONLY",
+      "draft_content": "primary_contract_terms: 345 impressions / 38 rows; apartment_residential_terms: 51 impressions / 17 rows; sublease_and_edge_cases: 46 impressions / 7 rows; commercial_or_vehicle_drift: 60 impressions / 3 rows",
+      "evidence_basis": "Separates primary residential lease intent from sublease, commercial lease and vehicle-rental drift.",
+      "stop_condition": "Do not chase drift terms on the primary page if associated routes should own them."
+    },
+    {
+      "id": "DRAFT-10",
+      "section": "publication_stop",
+      "owner_status": "BLOCKED",
+      "draft_content": "Private draft only. No CMS, SEO, internal-link, CTA, payment, CRM, email or uPress action is approved.",
+      "evidence_basis": "Owner approval queue remains OWNER_APPROVAL_QUEUE_READY_NOT_APPROVED.",
+      "stop_condition": "Stop until owner explicitly approves route, exact copy, links, legal review and publication workflow."
+    }
+  ],
+  "gscTopRows": [
+    {
+      "query": "חוזה שכירות",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 111,
+      "ctr": "0.00%",
+      "position": 65.8
+    },
+    {
+      "query": "הסכם שכירות",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 100,
+      "ctr": "0.00%",
+      "position": 56.2
+    },
+    {
+      "query": "חוזה השכרת רכב",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 43,
+      "ctr": "0.00%",
+      "position": 42.4
+    },
+    {
+      "query": "הסכמי שכירות",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 40,
+      "ctr": "0.00%",
+      "position": 44.2
+    },
+    {
+      "query": "חוזה שכירות דירה",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 21,
+      "ctr": "0.00%",
+      "position": 73.5
+    },
+    {
+      "query": "חוזה שכירות משנה",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 20,
+      "ctr": "0.00%",
+      "position": 26.8
+    },
+    {
+      "query": "הסכם שכירות משנה",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 19,
+      "ctr": "0.00%",
+      "position": 30.1
+    },
+    {
+      "query": "הסכם שכירות משרדים",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 16,
+      "ctr": "0.00%",
+      "position": 63.3
+    },
+    {
+      "query": "מה ההבדל בין שוכר למשכיר",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 15,
+      "ctr": "0.00%",
+      "position": 11.3
+    },
+    {
+      "query": "הסכם שכירות דירה",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 10,
+      "ctr": "0.00%",
+      "position": 54.3
+    },
+    {
+      "query": "מה זה שוכר",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 9,
+      "ctr": "0.00%",
+      "position": 10.6
+    },
+    {
+      "query": "חוזה ניהול נכסים",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 6,
+      "ctr": "0.00%",
+      "position": 43.7
+    },
+    {
+      "query": "מי זה השוכר ומי המשכיר",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": "0.00%",
+      "position": 10
+    },
+    {
+      "query": "חוזי שכירות",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": "0.00%",
+      "position": 34.4
+    },
+    {
+      "query": "זכיות שוכר",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 5,
+      "ctr": "0.00%",
+      "position": 38.6
+    },
+    {
+      "query": "מה זה שוכר ומה זה משכיר",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": "0.00%",
+      "position": 11.3
+    },
+    {
+      "query": "דוגמת הסכם שכירות קרקע חקלאית",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": "0.00%",
+      "position": 29.3
+    },
+    {
+      "query": "חוזה שכר דירה",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": "0.00%",
+      "position": 67
+    },
+    {
+      "query": "עריכת חוזה שכירות",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": "0.00%",
+      "position": 72
+    },
+    {
+      "query": "סיכול חוזה שכירות",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 4,
+      "ctr": "0.00%",
+      "position": 76
+    },
+    {
+      "query": "חוזה שכירות ללא תמורה",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": "0.00%",
+      "position": 43
+    },
+    {
+      "query": "אילו סעיפים הכי חשוב להכניס לחוזה שכירות כדי להגן על עצמי כמשכיר",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 3,
+      "ctr": "0.00%",
+      "position": 64.7
+    },
+    {
+      "query": "המשכיר והשוכר",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": "0.00%",
+      "position": 51.5
+    },
+    {
+      "query": "חתימה על חוזה שכירות",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": "0.00%",
+      "position": 61
+    },
+    {
+      "query": "איך עושים חוזה שכירות",
+      "page": "https://jus-tice.co.il/rental-agreement/",
+      "clicks": 0,
+      "impressions": 2,
+      "ctr": "0.00%",
+      "position": 67
+    }
+  ],
+  "gscClusters": [
+    {
+      "cluster": "primary_contract_terms",
+      "match": [
+        "הסכם שכירות",
+        "חוזה שכירות"
+      ],
+      "impressions": 345,
+      "rows": 38
+    },
+    {
+      "cluster": "apartment_residential_terms",
+      "match": [
+        "דירה",
+        "בית",
+        "יחידת דיור"
+      ],
+      "impressions": 51,
+      "rows": 17
+    },
+    {
+      "cluster": "sublease_and_edge_cases",
+      "match": [
+        "משנה",
+        "ללא תמורה",
+        "חדר"
+      ],
+      "impressions": 46,
+      "rows": 7
+    },
+    {
+      "cluster": "commercial_or_vehicle_drift",
+      "match": [
+        "משרד",
+        "רכב",
+        "מסחר"
+      ],
+      "impressions": 60,
+      "rows": 3
+    }
+  ],
+  "sourceNotes": [
+    {
+      "id": "SRC-01",
+      "type": "official_reference",
+      "name": "National legislation database service",
+      "url": "https://www.gov.il/he/service/the_laws_of_the_state_of_israel_in_the_national_legislation_database",
+      "usable_takeaway": "Use official legislation text or official records for final legal-source review before publication.",
+      "draft_instruction": "Do not claim exact statutory rules until owner/legal reviewer checks the current official wording."
+    },
+    {
+      "id": "SRC-02",
+      "type": "municipal_reference",
+      "name": "Tel Aviv municipal recommended lease page",
+      "url": "https://www.tel-aviv.gov.il/Residents/Assets/Pages/rent.aspx",
+      "usable_takeaway": "Readers benefit from clear language, balanced contract framing and a reminder that templates are not a substitute for legal advice.",
+      "draft_instruction": "Keep the page practical and plain-language, with a legal review CTA only after useful guidance."
+    },
+    {
+      "id": "COMP-01",
+      "type": "competitor_pattern",
+      "name": "Dina Erlich rental contract guide",
+      "url": "https://dinaerlich.co.il/rental-contract/",
+      "usable_takeaway": "Strong competitor pattern: clause-by-clause reader checklist with practical risks around parties, property, rent, securities, repairs and early exit.",
+      "draft_instruction": "Match the practical checklist usefulness, but keep Jus-Tice shorter, cleaner and conversion-safe."
+    },
+    {
+      "id": "COMP-02",
+      "type": "competitor_pattern",
+      "name": "Berman lease agreement article",
+      "url": "https://www.bermanlaw.co.il/lease-agreement",
+      "usable_takeaway": "Strong competitor pattern: concrete red flags such as insurance/subrogation, replacement tenant, option terms and one-sided termination.",
+      "draft_instruction": "Add a red-flags review row for legal/source review; do not copy sample clauses."
+    },
+    {
+      "id": "COMP-03",
+      "type": "competitor_pattern",
+      "name": "Asaf Pelleg pre-signature lease checklist",
+      "url": "https://pelleg-law.co.il/what-to-check-before-a-lease/",
+      "usable_takeaway": "Strong competitor pattern: explains why a generic downloaded contract may be risky and when a lawyer check helps.",
+      "draft_instruction": "Use a softer fit-check CTA: no pressure, no guarantee, and no fixed-price public promise."
+    }
+  ],
+  "internalLinkPlan": [
+    {
+      "id": "LINK-01",
+      "target": "/rental-agreement-guide/",
+      "role": "supporting_clause_depth",
+      "proposed_anchor_note": "Link only if the live guide provides clause-level detail that does not duplicate the new primary intro.",
+      "approval_state": "owner_seo_review_required"
+    },
+    {
+      "id": "LINK-02",
+      "target": "/tenant-rights-israel/",
+      "role": "tenant_rights_context",
+      "proposed_anchor_note": "Use near tenant-side cautions such as repairs, securities or early exit.",
+      "approval_state": "owner_seo_review_required"
+    },
+    {
+      "id": "LINK-03",
+      "target": "/landlord-rights-israel/",
+      "role": "landlord_context",
+      "proposed_anchor_note": "Use only where landlord-side balance is needed, not as a sales link.",
+      "approval_state": "owner_seo_review_required"
+    },
+    {
+      "id": "LINK-04",
+      "target": "/landlord-obligations-israel/",
+      "role": "maintenance_and_delivery_context",
+      "proposed_anchor_note": "Use near maintenance/repair wording after legal review.",
+      "approval_state": "owner_seo_review_required"
+    },
+    {
+      "id": "LINK-05",
+      "target": "/tenant-eviction-defense/",
+      "role": "eviction_dispute_boundary",
+      "proposed_anchor_note": "Use only as a boundary link if the page mentions breach or eviction; do not blur drafting with eviction defense.",
+      "approval_state": "owner_seo_review_required"
+    },
+    {
+      "id": "LINK-06",
+      "target": "/commercial-lease-israel/",
+      "role": "commercial_lease_boundary",
+      "proposed_anchor_note": "Use to separate residential lease review from commercial lease intent.",
+      "approval_state": "owner_seo_review_required"
+    },
+    {
+      "id": "LINK-07",
+      "target": "/contract-law-israel/",
+      "role": "general_contract_context",
+      "proposed_anchor_note": "Use low on page only if helpful; do not send primary rental intent away too early.",
+      "approval_state": "owner_seo_review_required"
+    }
+  ],
+  "forbiddenPublicMarkerHits": [],
+  "blockedActions": [
+    "public_page_publish",
+    "cms_content_change",
+    "title_h1_meta_change",
+    "internal_link_change",
+    "redirect_canonical_noindex_sitemap_taxonomy_change",
+    "checkout_or_fixed_price_public_offer",
+    "crm_record_or_lead_handoff",
+    "invoice_or_payment",
+    "email_whatsapp_talkto",
+    "upress_deployment"
+  ],
+  "outputs": {
+    "projectMd": "C:\\Users\\janana\\jutice-theme\\.project-control\\rental-agreement-owner-review-draft-2026-05-27.md",
+    "projectCsv": "C:\\Users\\janana\\jutice-theme\\.project-control\\rental-agreement-owner-review-draft-2026-05-27.csv",
+    "linkPlanCsv": "C:\\Users\\janana\\jutice-theme\\.project-control\\rental-agreement-internal-link-plan-2026-05-27.csv",
+    "reportJson": "C:\\Users\\janana\\jutice-theme\\.reports\\rental-agreement-owner-review-draft-2026-05-27.json",
+    "reportCsv": "C:\\Users\\janana\\jutice-theme\\.reports\\rental-agreement-owner-review-draft-2026-05-27.csv"
+  }
+}

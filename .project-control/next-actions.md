@@ -4,6 +4,19 @@
 
 ---
 
+### ACTION-RENTAL-AGREEMENT-OWNER-REVIEW-DRAFT-001: Prepare owner-review draft for the rental-agreement route
+**Status:** FIXED LOCAL / PUBLIC UPDATE STILL BLOCKED
+**Why:** The owner approved narrow public-facing content improvements when revenue execution is blocked, and the existing rental-agreement route has GSC impressions but no clicks; it needs exact copy, source, competitor and internal-link review before any public edit.
+**Actions:**
+1. DONE: add `tools/build-rental-agreement-owner-review-draft.mjs`.
+2. DONE: generate `.project-control/rental-agreement-owner-review-draft-2026-05-27.md` and `.csv`.
+3. DONE: generate `.project-control/rental-agreement-internal-link-plan-2026-05-27.csv`.
+4. DONE: generate `.reports/rental-agreement-owner-review-draft-2026-05-27.json` and `.csv`.
+5. DONE: confirm `RENTAL_AGREEMENT_OWNER_REVIEW_DRAFT_READY_NOT_APPROVED`, 10 draft rows, 67 GSC target rows, 505 impressions, 0 clicks, 4 query clusters, 5 source/competitor notes, 7 internal-link plan rows, 0 forbidden public marker hits and 0 public/CMS/SEO/CRM/contact/payment/email/WhatsApp/TalkTo/uPress actions.
+6. DONE: record as Linear `HAD-158`, marked Done under `HAD-124`.
+7. NEXT: owner/SEO/legal reviewer decides whether to approve, edit, reject or park the proposed title, H1, meta, intro, checklist, CTA and internal-link plan.
+8. BLOCKED: do not update CMS content, title/H1/meta/body, internal links, redirects, canonicals/noindex, sitemaps, taxonomies, CRM records, leads, lawyer/supplier/client contact, invoices, payments, emails, WhatsApp, TalkTo or uPress from this private draft alone.
+
 ### ACTION-CONTROLLED-LAWYER-SUBSCRIPTION-WALKTHROUGH-REFRESH-001: Refresh the owner-ready lawyer payment walkthrough
 **Status:** FIXED LOCAL / LIVE WALKTHROUGH STILL BLOCKED
 **Why:** The owner wants a later end-to-end walkthrough for establishing a new lawyer, CRM state, payments, money back/refund, upgrades and downgrades; the old packet referenced 2026-05-26 evidence and did not include a fillable no-PII evidence worksheet.

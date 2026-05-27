@@ -1,6 +1,15 @@
 ﻿# Changelog — Jus-Tice.co.il
 **Format:** [Date] | [Branch/Commit] | [Category] | [Description]
 
+# 2026-05-27 - City/practice directory filter policy corrected
+
+- UPDATED: `tools/build-city-practice-priority-draft-briefs.mjs`.
+- REGENERATED: `.project-control/city-practice-priority-draft-briefs-2026-05-27.md`, `.project-control/city-practice-priority-draft-briefs-2026-05-27.csv`, `.project-control/city-practice-priority-draft-outline-he-2026-05-27.md`, `.reports/city-practice-priority-draft-briefs-2026-05-27.json`, `.reports/city-practice-priority-draft-briefs-2026-05-27.csv`.
+- PURPOSE: prevent future city/practice draft briefs from using the unsupported `practice=` lawyer-directory alias as a publishable or internal-link URL.
+- RESULT: packet remains `CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_READY_WITH_PUBLIC_REVIEW_GATE_NO_PUBLIC_CHANGE`; gates improved to 4/5 pass with the remaining review caused by the already-public criminal Jerusalem page; new directory filter gate passes with 2/2 priority paths using `area=` and 2 `practice=` aliases retained only for review.
+- LINEAR: recorded as `HAD-165`, marked Done under `HAD-145`, related to `HAD-151`, `HAD-152`, `HAD-150`, `HAD-147` and `HAD-160`.
+- SAFETY: private tooling/reporting only; no public CMS edit, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write or uPress deployment changed.
+
 # 2026-05-27 - Manual invoice fallback same-day source chain
 
 - UPDATED: `tools/build-manual-invoice-revenue-fallback-packet.mjs`.

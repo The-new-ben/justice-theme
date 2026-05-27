@@ -1,3 +1,13 @@
+# LATEST WORK STATUS - 2026-05-27 07:24 Asia/Jerusalem
+- CITY/PRACTICE DIRECTORY FILTER POLICY CORRECTED: updated the private city/practice draft-brief source so canonical lawyer-directory links use `area=` and the older `practice=` URLs are retained only as unsupported-alias review references.
+- CODE UPDATED: `tools/build-city-practice-priority-draft-briefs.mjs`.
+- GENERATED/UPDATED PRIVATE ARTIFACTS: `.project-control/city-practice-priority-draft-briefs-2026-05-27.md`, `.project-control/city-practice-priority-draft-briefs-2026-05-27.csv`, `.project-control/city-practice-priority-draft-outline-he-2026-05-27.md`, `.reports/city-practice-priority-draft-briefs-2026-05-27.json`, `.reports/city-practice-priority-draft-briefs-2026-05-27.csv`.
+- CHECK RESULT: `node --check tools/build-city-practice-priority-draft-briefs.mjs` passed; regenerated packet status `CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_READY_WITH_PUBLIC_REVIEW_GATE_NO_PUBLIC_CHANGE`, 2 targets, 4 live checks, 5 gates, 4 pass, 1 review, 0 blocked. New `CPD-GATE-05 directory_filter_param_policy` passed with evidence that 2/2 priority directory paths use `area=` and 2 `practice=` alias paths are review-only. Private artifact boundary guard `PASS`.
+- REVIEW RESULT: future private city/practice draft briefs now point users/editors to the correct filtered lawyer directory path and explicitly warn against publishing the unsupported alias. The remaining review gate is unchanged: `/criminal-lawyer-jerusalem/` is already public and must be handled by the existing review/consolidation path before any content change.
+- LINEAR: recorded as `HAD-165`, marked Done under `HAD-145`, related to `HAD-151`, `HAD-152`, `HAD-150`, `HAD-147` and `HAD-160`.
+- PUBLIC IMPACT: none. This was private tooling/reporting only. No public page, CMS content, route, title/H1/meta/body, internal link, URL, redirect, canonical/noindex, sitemap, taxonomy, CRM record, lead, lawyer/supplier/client contact, invoice, payment, email, WhatsApp, TalkTo, wp-admin write, provider setting or uPress deployment changed.
+- COMPLETION ASSESSMENT: city/practice directory-filter prep correction 100%; public city/practice content execution remains 0% until owner/SEO/legal approval, evidence fill, lawyer coverage review and explicit deployment approval exist.
+
 # LATEST WORK STATUS - 2026-05-27 07:14 Asia/Jerusalem
 - MANUAL INVOICE FALLBACK SOURCE CHAIN REFRESHED: refreshed the private manual-invoice/payment fallback packet against same-day subscription and Grow/Meshulam evidence, and added a freshness gate so future packets flag stale payment sources.
 - CODE UPDATED: `tools/build-manual-invoice-revenue-fallback-packet.mjs`.

@@ -18,7 +18,8 @@ const TARGETS = [
     citySlug: 'tel-aviv',
     practiceSlug: 'family-law',
     pillarPath: '/divorce-lawyer/',
-    directoryPath: '/lawyers/?city=tel-aviv&practice=family-law',
+    directoryPath: '/lawyers/?city=tel-aviv&area=family-law',
+    unsupportedDirectoryPath: '/lawyers/?city=tel-aviv&practice=family-law',
     draftRole:
       'עמוד עזר מקומי ותמציתי שמפנה לעמוד הגירושין המרכזי ואינו מנסה להיות מדריך גירושין מלא.',
     introDraft:
@@ -40,7 +41,8 @@ const TARGETS = [
     citySlug: 'jerusalem',
     practiceSlug: 'criminal-law',
     pillarPath: '/criminal-lawyer/',
-    directoryPath: '/lawyers/?city=jerusalem&practice=criminal-law',
+    directoryPath: '/lawyers/?city=jerusalem&area=criminal-law',
+    unsupportedDirectoryPath: '/lawyers/?city=jerusalem&practice=criminal-law',
     draftRole:
       'עמוד עזר מקומי למצבי חקירה, מעצר או כתב אישום, עם הפניה לעמוד הפלילי המרכזי ולבדיקת התאמה.',
     introDraft:
@@ -313,6 +315,7 @@ function buildBriefRows(liveRows) {
       practice_he: target.practiceHe,
       pillar_path: target.pillarPath,
       directory_path: target.directoryPath,
+      unsupported_directory_path: target.unsupportedDirectoryPath || '',
       target_public_status: targetLive?.status ?? '',
       target_public_gate: targetLive?.gate ?? '',
       pillar_status: pillarLive?.status ?? '',
@@ -323,7 +326,7 @@ function buildBriefRows(liveRows) {
       evidence_checklist_private: target.evidenceChecklist,
       lawyer_fit_trigger_private: target.fitTrigger,
       internal_link_plan:
-        `${target.pillarPath} as primary pillar | ${target.directoryPath} as filtered lawyer path | no new internal links until owner/SEO review`,
+        `${target.pillarPath} as primary pillar | ${target.directoryPath} as canonical filtered lawyer path | ${target.unsupportedDirectoryPath || 'no unsupported alias recorded'} as unsupported alias for QA only | no new internal links until owner/SEO review`,
       faq_candidates_require_evidence: target.faqCandidates,
       publication_blockers:
         'GSC query/page evidence, internal overlap check, filtered lawyer count, legal/editor review, owner approval, and no public-exposure accident.',
@@ -342,6 +345,10 @@ function buildGateRows(liveRows, reportDate) {
   const blockedPillars = liveRows.filter((row) => row.role === 'central_pillar_live_check' && row.gate !== 'PASS_PILLAR_REACHABLE');
   const officialSources = SOURCE_ROWS.filter((row) => row.type === 'official').length;
   const competitorSources = SOURCE_ROWS.filter((row) => row.type === 'competitor').length;
+  const directoryPolicyFailures = TARGETS.filter(
+    (target) => target.directoryPath.includes('practice=') || !target.directoryPath.includes('area='),
+  );
+  const unsupportedAliasRows = TARGETS.filter((target) => target.unsupportedDirectoryPath?.includes('practice='));
 
   return [
     {
@@ -382,6 +389,17 @@ function buildGateRows(liveRows, reportDate) {
       evidence: `${officialSources} official source prompts and ${competitorSources} competitor source prompts recorded.`,
       next_action: 'Use sources for direction and guardrails only; no copying or legal advice.',
     },
+    {
+      id: 'CPD-GATE-05',
+      gate: 'directory_filter_param_policy',
+      status: directoryPolicyFailures.length ? 'BLOCKED' : unsupportedAliasRows.length === TARGETS.length ? 'PASS' : 'REVIEW',
+      evidence: directoryPolicyFailures.length
+        ? `${directoryPolicyFailures.length} priority directory path(s) still use practice= or omit area=.`
+        : `${TARGETS.length}/${TARGETS.length} priority directory paths use area=; ${unsupportedAliasRows.length} practice= alias path(s) retained as review-only references.`,
+      next_action: directoryPolicyFailures.length
+        ? 'Correct draft packet links to use area= before any owner/editor packet is promoted.'
+        : 'Do not use practice= in draft or public links unless alias support is explicitly implemented and deployed.',
+    },
   ];
 }
 
@@ -421,11 +439,11 @@ function buildProjectMarkdown({ reportDate, status, gateRows, liveRows, briefRow
     '',
     '## Draft Brief Rows',
     '',
-    '| ID | Slug | Title | Target Gate | Pillar | Draft Role | Publication Blockers |',
-    '| --- | --- | --- | --- | --- | --- | --- |',
+    '| ID | Slug | Title | Target Gate | Pillar | Canonical Directory | Unsupported Alias | Draft Role | Publication Blockers |',
+    '| --- | --- | --- | --- | --- | --- | --- | --- | --- |',
     ...briefRows.map(
       (row) =>
-        `| ${mdCell(row.id)} | ${mdCell(row.slug)} | ${mdCell(row.title_he)} | ${mdCell(row.target_public_gate)} | ${mdCell(row.pillar_path)} | ${mdCell(row.draft_role)} | ${mdCell(row.publication_blockers)} |`,
+        `| ${mdCell(row.id)} | ${mdCell(row.slug)} | ${mdCell(row.title_he)} | ${mdCell(row.target_public_gate)} | ${mdCell(row.pillar_path)} | ${mdCell(row.directory_path)} | ${mdCell(row.unsupported_directory_path)} | ${mdCell(row.draft_role)} | ${mdCell(row.publication_blockers)} |`,
     ),
     '',
     '## Source Prompts',
@@ -543,6 +561,7 @@ async function main() {
       'practice_he',
       'pillar_path',
       'directory_path',
+      'unsupported_directory_path',
       'target_public_status',
       'target_public_gate',
       'pillar_status',
@@ -582,6 +601,8 @@ async function main() {
         'title_he',
         'url',
         'pillar_path',
+        'directory_path',
+        'unsupported_directory_path',
         'target_public_gate',
         'evidence',
         'next_action',

@@ -12,7 +12,7 @@
 
 **מתי לבדוק התאמה לעורך דין:** כאשר יש הליך פתוח, מועד קרוב, מחלוקת משמעותית או צורך להבין התאמה לעורך דין בתחום המשפחה בעיר או בסביבה.
 
-**תכנית קישורים פנימית:** /divorce-lawyer/ as primary pillar | /lawyers/?city=tel-aviv&practice=family-law as filtered lawyer path | no new internal links until owner/SEO review
+**תכנית קישורים פנימית:** /divorce-lawyer/ as primary pillar | /lawyers/?city=tel-aviv&area=family-law as canonical filtered lawyer path | /lawyers/?city=tel-aviv&practice=family-law as unsupported alias for QA only | no new internal links until owner/SEO review
 
 **שאלות FAQ אפשריות, דורשות אימות:** איך יודעים אם צריך עורך דין גירושין מקומי? | אילו מסמכים כדאי להכין לפני פנייה? | מתי לקרוא קודם את מדריך הגירושין המרכזי?
 
@@ -30,7 +30,7 @@
 
 **מתי לבדוק התאמה לעורך דין:** כאשר יש חקירה, מעצר, כתב אישום, דיון קרוב או צורך להבין במהירות איזה סוג ליווי משפטי עשוי להתאים.
 
-**תכנית קישורים פנימית:** /criminal-lawyer/ as primary pillar | /lawyers/?city=jerusalem&practice=criminal-law as filtered lawyer path | no new internal links until owner/SEO review
+**תכנית קישורים פנימית:** /criminal-lawyer/ as primary pillar | /lawyers/?city=jerusalem&area=criminal-law as canonical filtered lawyer path | /lawyers/?city=jerusalem&practice=criminal-law as unsupported alias for QA only | no new internal links until owner/SEO review
 
 **שאלות FAQ אפשריות, דורשות אימות:** מה להכין לפני שיחה עם עורך דין פלילי? | מתי פונים לסניגוריה ציבורית ומתי לעורך דין פרטי? | למה חשוב לציין מועדים ומסמכים רשמיים?
 

@@ -4,6 +4,22 @@
 
 ---
 
+### ACTION-CITY-PRACTICE-DIRECTORY-FILTER-POLICY-001: Correct city/practice directory filter URLs
+**Status:** FIXED LOCAL / PUBLIC CONTENT STILL BLOCKED
+**Why:** The city/practice draft brief packet was still using `practice=` for filtered lawyer directory URLs even though later directory QA established the live filter expects `area=`.
+**Actions:**
+1. DONE: update `tools/build-city-practice-priority-draft-briefs.mjs` so CPD priority directory paths use `area=`.
+2. DONE: retain the older `practice=` URLs only as `unsupported_directory_path` review references.
+3. DONE: add `CPD-GATE-05 directory_filter_param_policy` to block future packet regressions.
+4. DONE: regenerate `.project-control/city-practice-priority-draft-briefs-2026-05-27.md` and `.csv`.
+5. DONE: regenerate `.project-control/city-practice-priority-draft-outline-he-2026-05-27.md`.
+6. DONE: regenerate `.reports/city-practice-priority-draft-briefs-2026-05-27.json` and `.csv`.
+7. DONE: verify packet status `CITY_PRACTICE_PRIORITY_DRAFT_BRIEFS_READY_WITH_PUBLIC_REVIEW_GATE_NO_PUBLIC_CHANGE`, 5 gates, 4 pass, 1 review and 0 blocked.
+8. DONE: verify private artifact boundary guard `PASS`.
+9. DONE: record as Linear `HAD-165`, marked Done under `HAD-145`.
+10. NEXT: use `area=` for any future private owner/editor city-practice draft brief links, and keep `practice=` as an unsupported-alias QA note only unless alias support is explicitly implemented and deployed.
+11. BLOCKED: do not publish city/practice content, change internal links, URLs, redirects, canonicals/noindex, sitemaps, taxonomies, CMS fields, CRM records, leads, contacts, payments, emails, WhatsApp, TalkTo or uPress from this private packet correction alone.
+
 ### ACTION-MANUAL-INVOICE-FALLBACK-SAME-DAY-SOURCES-001: Refresh payment fallback against same-day sources
 **Status:** FIXED LOCAL / LIVE PAYMENT STILL BLOCKED
 **Why:** The manual invoice fallback is the safest payment path while Grow/Meshulam provider setup is blocked, but it must not rely on stale subscription or Grow compliance reports before the owner walkthrough.

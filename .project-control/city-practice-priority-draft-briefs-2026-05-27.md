@@ -7,7 +7,7 @@ Scope: private owner/editor draft brief packet for the first two approved city/p
 ## Summary
 
 - Priority targets: 2.
-- Static/live gates: 3/4 pass.
+- Static/live gates: 4/5 pass.
 - Own-site live checks: 4.
 - Source prompts: 9 total; 5 official; 4 competitor.
 - Public actions: 0 CMS writes, 0 public page changes, 0 SEO setting changes, 0 CRM/contact/payment/email actions.
@@ -20,6 +20,7 @@ Scope: private owner/editor draft brief packet for the first two approved city/p
 | CPD-GATE-02 | priority_targets_not_public_200 | REVIEW | 1 target URL(s) returned live 200. | Inspect accidental public exposure before creating any draft. |
 | CPD-GATE-03 | central_pillars_reachable | PASS | 2/2 central pillar URLs reachable. | Keep local draft subordinate to the reachable pillar. |
 | CPD-GATE-04 | source_scaffold_ready | PASS | 5 official source prompts and 4 competitor source prompts recorded. | Use sources for direction and guardrails only; no copying or legal advice. |
+| CPD-GATE-05 | directory_filter_param_policy | PASS | 2/2 priority directory paths use area=; 2 practice= alias path(s) retained as review-only references. | Do not use practice= in draft or public links unless alias support is explicitly implemented and deployed. |
 
 ## Live Own-Site Checks
 
@@ -32,10 +33,10 @@ Scope: private owner/editor draft brief packet for the first two approved city/p
 
 ## Draft Brief Rows
 
-| ID | Slug | Title | Target Gate | Pillar | Draft Role | Publication Blockers |
-| --- | --- | --- | --- | --- | --- | --- |
-| CPD-01 | divorce-lawyer-tel-aviv | עורך דין גירושין בתל אביב | PASS_TARGET_NOT_PUBLIC_200 | /divorce-lawyer/ | עמוד עזר מקומי ותמציתי שמפנה לעמוד הגירושין המרכזי ואינו מנסה להיות מדריך גירושין מלא. | GSC query/page evidence, internal overlap check, filtered lawyer count, legal/editor review, owner approval, and no public-exposure accident. |
-| CPD-02 | criminal-lawyer-jerusalem | עורך דין פלילי בירושלים | REVIEW_TARGET_ALREADY_PUBLIC | /criminal-lawyer/ | עמוד עזר מקומי למצבי חקירה, מעצר או כתב אישום, עם הפניה לעמוד הפלילי המרכזי ולבדיקת התאמה. | GSC query/page evidence, internal overlap check, filtered lawyer count, legal/editor review, owner approval, and no public-exposure accident. |
+| ID | Slug | Title | Target Gate | Pillar | Canonical Directory | Unsupported Alias | Draft Role | Publication Blockers |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| CPD-01 | divorce-lawyer-tel-aviv | עורך דין גירושין בתל אביב | PASS_TARGET_NOT_PUBLIC_200 | /divorce-lawyer/ | /lawyers/?city=tel-aviv&area=family-law | /lawyers/?city=tel-aviv&practice=family-law | עמוד עזר מקומי ותמציתי שמפנה לעמוד הגירושין המרכזי ואינו מנסה להיות מדריך גירושין מלא. | GSC query/page evidence, internal overlap check, filtered lawyer count, legal/editor review, owner approval, and no public-exposure accident. |
+| CPD-02 | criminal-lawyer-jerusalem | עורך דין פלילי בירושלים | REVIEW_TARGET_ALREADY_PUBLIC | /criminal-lawyer/ | /lawyers/?city=jerusalem&area=criminal-law | /lawyers/?city=jerusalem&practice=criminal-law | עמוד עזר מקומי למצבי חקירה, מעצר או כתב אישום, עם הפניה לעמוד הפלילי המרכזי ולבדיקת התאמה. | GSC query/page evidence, internal overlap check, filtered lawyer count, legal/editor review, owner approval, and no public-exposure accident. |
 
 ## Source Prompts
 

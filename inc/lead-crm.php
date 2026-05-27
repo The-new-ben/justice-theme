@@ -5421,10 +5421,20 @@ function justice_theme_crm_render_lead_admin_revenue_column( string $column, int
 	if ( 'owner_next_action' === $column ) {
 		$next_step    = (string) get_post_meta( $post_id, 'owner_revenue_next_step', true );
 		$follow_up    = (string) get_post_meta( $post_id, 'follow_up_status', true );
+		$actions      = justice_theme_crm_client_contact_actions( $post_id );
 		$next_step    = $next_step ?: 'Open the lead, qualify consent and coverage, then decide whether it can move to a paid lawyer handoff.';
 		$next_excerpt = wp_trim_words( $next_step, 22, '...' );
 		?>
 		<span style="display:block;max-width:280px;"><?php echo esc_html( $next_excerpt ); ?></span>
+		<?php if ( $actions ) : ?>
+			<span class="justice-lead-admin-actions">
+				<?php foreach ( array_slice( $actions, 0, 3 ) as $action ) : ?>
+					<a class="button button-small" href="<?php echo esc_url( $action['url'] ); ?>" <?php echo ! empty( $action['external'] ) ? 'target="_blank" rel="noopener"' : ''; ?>>
+						<?php echo esc_html( $action['label'] ); ?>
+					</a>
+				<?php endforeach; ?>
+			</span>
+		<?php endif; ?>
 		<?php if ( $follow_up ) : ?>
 			<small style="display:block;color:#646970;margin-top:3px;">Follow-up: <?php echo esc_html( $follow_up ); ?></small>
 		<?php endif; ?>
@@ -5442,6 +5452,16 @@ function justice_theme_crm_lead_admin_revenue_column_styles(): void {
 	<style>
 		.wp-list-table .column-revenue_triage { width: 150px; }
 		.wp-list-table .column-owner_next_action { width: 280px; }
+		.wp-list-table .justice-lead-admin-actions {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 4px;
+			margin-top: 6px;
+		}
+		.wp-list-table .justice-lead-admin-actions .button {
+			min-height: 24px;
+			line-height: 22px;
+		}
 	</style>
 	<?php
 }
